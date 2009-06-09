@@ -273,6 +273,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @return an integer representation of a J2EE Spec version
 	 * 
 	 */
+	@Override
 	public int getJ2EEVersion() {
 		verifyOperationSupported();
 		return getApplicationXmiResource().getJ2EEVersionID();
@@ -313,6 +314,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * 
 	 */
 
+	@Override
 	public Resource getDeploymentDescriptorResource() {
 		verifyOperationSupported();
 		return getArtifactEditModel().getResource(J2EEConstants.APPLICATION_DD_URI_OBJ);
@@ -389,6 +391,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit#createModelRoot()
 	 */
+	@Override
 	public EObject createModelRoot() {
 		verifyOperationSupported();
 		return createModelRoot(getJ2EEVersion());
@@ -399,6 +402,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit#createModelRoot(java.lang.Integer)
 	 */
+	@Override
 	public EObject createModelRoot(int version) {
 		verifyOperationSupported();
 		ApplicationResource res = (ApplicationResource) getDeploymentDescriptorResource();
@@ -580,10 +584,12 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		return getEARArtifactEditForWrite(aComponent);
 	}
 
+	@Override
 	public Archive asArchive(boolean includeSource) throws OpenFailureException {
 		return asArchive(includeSource, true);
 	}
 	
+	@Override
 	public Archive asArchive(boolean includeSource, boolean includeClasspathComponents) throws OpenFailureException {
 		return asArchive(includeSource, includeClasspathComponents, false);
 	}
@@ -651,16 +657,19 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 				webModule.setContextRoot(aContextRoot);
 		}
 	}
+	@Override
 	public IModelProvider create(IProject project) {
 		return (IModelProvider)getEARArtifactEditForRead(project);
 	}
 
+	@Override
 	public IModelProvider create(IVirtualComponent component) {
 		return (IModelProvider)getEARArtifactEditForRead(component);
 	}
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit#modify(java.lang.Runnable, org.eclipse.core.runtime.IPath)
 	 */
+	@Override
 	public void modify(Runnable runnable, IPath modelPath) {
 		setWritableEdit(getEARArtifactEditForWrite(getProject()));
 		try {
@@ -677,9 +686,11 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	}
 
 	
+	@Override
 	protected String getContentTypeDescriber() {
 		return EAR_CONTENT_TYPE;
 	}
+	@Override
 	protected URI getRootURI() {
 		return J2EEConstants.APPLICATION_DD_URI_OBJ;
 	}

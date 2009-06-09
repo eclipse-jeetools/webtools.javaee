@@ -19,6 +19,7 @@ public class RemoveComponentFromEnterpriseApplicationDataModelProvider extends R
 		super();
 	}
 
+	@Override
 	public IDataModelOperation getDefaultOperation() {
 		return new RemoveComponentFromEnterpriseApplicationOperation(model);
 	}

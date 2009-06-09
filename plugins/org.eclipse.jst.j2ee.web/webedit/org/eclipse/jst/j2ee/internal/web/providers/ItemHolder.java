@@ -44,6 +44,7 @@ public class ItemHolder extends ItemProvider {
 		setWebArtifactEdit(webArtifactEdit);
 	}
 
+	@Override
 	public Collection getChildren(Object element) {
 		WebApp testElement;
 		Vector v = new Vector();

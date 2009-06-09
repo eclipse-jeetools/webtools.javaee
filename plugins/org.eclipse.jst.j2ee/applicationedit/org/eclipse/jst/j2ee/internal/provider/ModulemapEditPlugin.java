@@ -69,6 +69,7 @@ public class ModulemapEditPlugin extends Plugin {
 	/**
 	 * Do initialization stuff here.
 	 */
+	@Override
 	public void startup() throws CoreException {
 		super.startup();
 		modulemapPackage = org.eclipse.jst.j2ee.internal.earcreation.modulemap.ModulemapFactoryImpl.getPackage();

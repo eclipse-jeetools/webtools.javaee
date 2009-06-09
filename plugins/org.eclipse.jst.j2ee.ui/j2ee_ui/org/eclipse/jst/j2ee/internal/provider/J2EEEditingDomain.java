@@ -86,6 +86,7 @@ public class J2EEEditingDomain extends AdapterFactoryEditingDomain {
 		return null;
 	}
 
+	@Override
 	public Command createOverrideCommand(OverrideableCommand command) {
 		if (command instanceof AddCommand) {
 			AddCommand addCommand = (AddCommand) command;

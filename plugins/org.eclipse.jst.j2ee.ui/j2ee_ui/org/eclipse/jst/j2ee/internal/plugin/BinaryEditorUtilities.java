@@ -57,7 +57,7 @@ public class BinaryEditorUtilities {
 			try {
 				if (JavaModelManager.ZIP_ACCESS_VERBOSE) {
 					//$ANALYSIS-IGNORE
-					System.out.println("(" + Thread.currentThread() + ") [JarEntryFile.getContents()] Creating ZipFile on " + this.zipName);
+					System.out.println("(" + Thread.currentThread() + ") [JarEntryFile.getContents()] Creating ZipFile on " + this.zipName); //$NON-NLS-1$  //$NON-NLS-2$
 				}
 				ZipFile zipFile = ArchiveUtil.newZipFile(this.zipName);
 				ZipEntry zipEntry = zipFile.getEntry(this.entryName);
@@ -97,6 +97,7 @@ public class BinaryEditorUtilities {
 		/**
 		 * @see IStorage#isReadOnly()
 		 */
+		@Override
 		public String toString() {
 			return "JarEntryFile[" + this.zipName + "::" + this.entryName + "]"; //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-1$
 		}
@@ -110,8 +111,14 @@ public class BinaryEditorUtilities {
 			fJarEntryFile = jarEntryFile;
 		}
 
+		@Override
+		public int hashCode() {
+			return super.hashCode() + fJarEntryFile.hashCode();
+		}
+		
 		/*
 		 */
+		@Override
 		public boolean equals(Object obj) {
 			if (this == obj)
 				return true;
@@ -133,20 +140,6 @@ public class BinaryEditorUtilities {
 		 */
 		public String getName() {
 			return fJarEntryFile.getName();
-		}
-
-		/*
-		 * @see IEditorInput#getFullPath()
-		 */
-		public String getFullPath() {
-			return fJarEntryFile.getFullPath().toString();
-		}
-
-		/*
-		 * @see IEditorInput#getContentType()
-		 */
-		public String getContentType() {
-			return fJarEntryFile.getFullPath().getFileExtension();
 		}
 
 		/*

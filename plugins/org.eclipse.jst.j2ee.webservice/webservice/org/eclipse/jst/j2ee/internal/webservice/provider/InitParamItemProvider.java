@@ -50,6 +50,7 @@ public class InitParamItemProvider extends AbstractATKUIItemProvider implements 
 	 * end-user-doc -->
 	 *  
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -118,6 +119,7 @@ public class InitParamItemProvider extends AbstractATKUIItemProvider implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -132,6 +134,7 @@ public class InitParamItemProvider extends AbstractATKUIItemProvider implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return getResourceLocator().getImage("icons/full/obj16/initializ_parameter.gif"); //$NON-NLS-1$
 	}
@@ -150,6 +153,7 @@ public class InitParamItemProvider extends AbstractATKUIItemProvider implements 
 	 * /** This returns the label text for the adapted class. <!-- begin-user-doc --> <!--
 	 * end-user-doc --> @non-generated
 	 */
+	@Override
 	public String getText(Object object) {
 		InitParam initParam = (InitParam) object;
 		String name = initParam.getParamName();
@@ -169,6 +173,7 @@ public class InitParamItemProvider extends AbstractATKUIItemProvider implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(InitParam.class)) {
 			//pgm case WscommonPackage.INIT_PARAM__ID:
@@ -190,6 +195,7 @@ public class InitParamItemProvider extends AbstractATKUIItemProvider implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -205,6 +211,7 @@ public class InitParamItemProvider extends AbstractATKUIItemProvider implements 
 	/*
 	 * public ResourceLocator getResourceLocator() { return Webservicej2eeEditPlugin.INSTANCE; }
 	 */
+	@Override
 	public Collection getChildren(Object object) {
 		Collection children = super.getChildren(object);
 		InitParam param = (InitParam) object;

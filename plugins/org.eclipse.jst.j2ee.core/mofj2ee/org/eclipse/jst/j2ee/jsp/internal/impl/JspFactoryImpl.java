@@ -62,6 +62,7 @@ public class JspFactoryImpl extends EFactoryImpl implements JspFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case JspPackage.JSP_CONFIG: return createJSPConfig();

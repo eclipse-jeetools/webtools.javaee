@@ -80,6 +80,7 @@ public class MessageListenerImpl extends J2EEEObjectImpl implements MessageListe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return JcaPackage.Literals.MESSAGE_LISTENER;
 	}
@@ -153,6 +154,7 @@ public class MessageListenerImpl extends J2EEEObjectImpl implements MessageListe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case JcaPackage.MESSAGE_LISTENER__ACTIVATION_SPEC:
@@ -166,6 +168,7 @@ public class MessageListenerImpl extends J2EEEObjectImpl implements MessageListe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case JcaPackage.MESSAGE_LISTENER__MESSAGE_LISTENER_TYPE:
@@ -181,6 +184,7 @@ public class MessageListenerImpl extends J2EEEObjectImpl implements MessageListe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case JcaPackage.MESSAGE_LISTENER__MESSAGE_LISTENER_TYPE:
@@ -198,6 +202,7 @@ public class MessageListenerImpl extends J2EEEObjectImpl implements MessageListe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case JcaPackage.MESSAGE_LISTENER__MESSAGE_LISTENER_TYPE:
@@ -215,6 +220,7 @@ public class MessageListenerImpl extends J2EEEObjectImpl implements MessageListe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case JcaPackage.MESSAGE_LISTENER__MESSAGE_LISTENER_TYPE:
@@ -230,6 +236,7 @@ public class MessageListenerImpl extends J2EEEObjectImpl implements MessageListe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

@@ -62,6 +62,7 @@ public class JcaItemProviderAdapter extends ItemProviderAdapter {
 	 *            The current commandParameter.
 	 * @return Command
 	 */
+	@Override
 	public Command createCommand(Object object, EditingDomain editingDomain, Class commandClass, CommandParameter commandParameter) {
 		return super.createCommand(object, editingDomain, commandClass, commandParameter);
 	}// createCommand

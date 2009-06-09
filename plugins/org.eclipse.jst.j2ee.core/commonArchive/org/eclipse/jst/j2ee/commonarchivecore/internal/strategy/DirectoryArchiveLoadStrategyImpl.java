@@ -29,16 +29,19 @@ public class DirectoryArchiveLoadStrategyImpl extends DirectoryLoadStrategyImpl 
 		super(aDirectoryUri);
 	}
 
+	@Override
 	protected void addDirectory(java.io.File aFile, java.util.List aList) {
 		addFiles(aFile, aList);
 	}
 
+	@Override
 	protected java.io.File getDirectoryForList() {
 		return new java.io.File(getDirectoryUri());
 	}
 
 
 
+	@Override
 	public LooseArchive getLooseArchive() {
 		if (looseArchive == null && getContainer().isEARFile()) {
 			String osString = ArchiveUtil.getOSUri(getContainer().getURI());

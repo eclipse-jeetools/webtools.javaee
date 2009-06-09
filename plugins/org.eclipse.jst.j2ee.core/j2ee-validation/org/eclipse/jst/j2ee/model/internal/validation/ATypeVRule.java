@@ -452,6 +452,7 @@ public abstract class ATypeVRule extends AValidationRule implements IClassVRule,
 		}
 	}
 
+	@Override
 	public void reset() {
 		super.reset();
 		_methodList = NO_METHODS;

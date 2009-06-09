@@ -40,11 +40,13 @@ public class ApplicationclientResourceImpl extends JavaeeResourceImpl implements
 		super(uri);
 	}
 	
+	@Override
 	protected XMLLoad createXMLLoad() {
 		 return new JEEXMLLoadImpl(createXMLHelper());
 	}
 
 	
+	@Override
 	protected XMLHelper createXMLHelper() {
 		
 		return new AppClientXMLHelperImpl(this);

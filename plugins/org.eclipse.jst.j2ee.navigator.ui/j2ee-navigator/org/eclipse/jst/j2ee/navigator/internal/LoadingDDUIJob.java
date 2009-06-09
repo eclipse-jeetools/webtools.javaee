@@ -31,6 +31,7 @@ public class LoadingDDUIJob extends UIJob {
 		setRule(new NonConflictingRule());
 	}
 
+	@Override
 	public IStatus runInUIThread(IProgressMonitor monitor) {  
 
 		if(!placeHolder.isDisposed()) {

@@ -58,6 +58,7 @@ public class SecurityPermissionItemProvider extends JcaItemProviderAdapter imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -100,6 +101,7 @@ public class SecurityPermissionItemProvider extends JcaItemProviderAdapter imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -140,6 +142,7 @@ public class SecurityPermissionItemProvider extends JcaItemProviderAdapter imple
 	 *            object - The adapt class.
 	 * @return Object
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((EObject) object).eContainer();
 	}// getParent
@@ -151,6 +154,7 @@ public class SecurityPermissionItemProvider extends JcaItemProviderAdapter imple
 	 *            object - The adapt class.
 	 * @return object
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return J2EEPlugin.getPlugin().getImage("full/obj16/security_permission_obj"); //$NON-NLS-1$
 	}// getImage
@@ -163,6 +167,7 @@ public class SecurityPermissionItemProvider extends JcaItemProviderAdapter imple
 	 *            object - The object to get the name for.
 	 * @return String
 	 */
+	@Override
 	public String getText(Object object) {
 		SecurityPermission securityPermission = ((SecurityPermission) object);
 		if (securityPermission.getDescription() == null)
@@ -176,6 +181,7 @@ public class SecurityPermissionItemProvider extends JcaItemProviderAdapter imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(SecurityPermission.class)) {
 			case JcaPackage.SECURITY_PERMISSION__DESCRIPTION :
@@ -195,6 +201,7 @@ public class SecurityPermissionItemProvider extends JcaItemProviderAdapter imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -209,6 +216,7 @@ public class SecurityPermissionItemProvider extends JcaItemProviderAdapter imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}

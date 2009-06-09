@@ -22,19 +22,23 @@ public class ConnectorComponentExportDataModelProvider extends J2EEComponentExpo
         super();
     }
 
-    public IDataModelOperation getDefaultOperation() {
+    @Override
+	public IDataModelOperation getDefaultOperation() {
         return new ConnectorComponentExportOperation(model);
     }
     
-    protected String getProjectType() {
+    @Override
+	protected String getProjectType() {
         return J2EEProjectUtilities.JCA;
     }
 
-    protected String getWrongComponentTypeString(String projectName) {
+    @Override
+	protected String getWrongComponentTypeString(String projectName) {
         return EARCreationResourceHandler.getString(EARCreationResourceHandler.NOT_A_RAR, new Object[]{projectName});       
     }
 
-    protected String getModuleExtension() {
+    @Override
+	protected String getModuleExtension() {
         return ".rar"; //$NON-NLS-1$
     }
     /**

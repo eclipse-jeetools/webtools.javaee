@@ -32,6 +32,7 @@ public class AdapterLayer extends AdapterImpl {
 		adapt(parent_);
 	}
 
+	@Override
 	public void notifyChanged(Notification msg) {
 		int type = msg.getEventType();
 		if (type == Notification.SET || type == Notification.UNSET || type == Notification.ADD || type == Notification.REMOVE || type == Notification.ADD_MANY || type == Notification.REMOVE_MANY)

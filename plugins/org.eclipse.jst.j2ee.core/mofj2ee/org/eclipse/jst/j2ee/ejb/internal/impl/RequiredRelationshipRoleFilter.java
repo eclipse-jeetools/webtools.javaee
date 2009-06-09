@@ -22,7 +22,8 @@ public class RequiredRelationshipRoleFilter extends ContainerManagedEntityFilter
 
     private static RequiredRelationshipRoleFilter singleton;
 
-    protected List filterNotcached(ContainerManagedEntity cmp) {
+    @Override
+	protected List filterNotcached(ContainerManagedEntity cmp) {
         List roles = new ArrayList();
         Iterator it = getRelationshipRoles(cmp).iterator();
         CommonRelationshipRole role;

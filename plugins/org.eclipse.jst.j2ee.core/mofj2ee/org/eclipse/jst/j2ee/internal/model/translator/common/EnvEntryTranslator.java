@@ -37,6 +37,7 @@ public class EnvEntryTranslator extends Translator implements DeploymentDescript
 	/**
 	 * @see com.ibm.etools.emf2xml.impl.Translator#getChildren()
 	 */
+	@Override
 	public Translator[] getChildren(Object obj, int versionID) {
 		//Hava to you create a different one each time
 		children = createChildren();

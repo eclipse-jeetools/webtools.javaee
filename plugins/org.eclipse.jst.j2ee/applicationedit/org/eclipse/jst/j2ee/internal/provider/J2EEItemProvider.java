@@ -205,11 +205,13 @@ public class J2EEItemProvider extends ItemProvider implements IAdaptable {
 	}
 
 
+	@Override
 	public void fireNotifyChanged(Notification notification) {
 		if (notificationOn)
 			super.fireNotifyChanged(notification);
 	}
 
+	@Override
 	public Collection getChildren(Object object) {
 		if (children.isEmpty()) {
 			try {

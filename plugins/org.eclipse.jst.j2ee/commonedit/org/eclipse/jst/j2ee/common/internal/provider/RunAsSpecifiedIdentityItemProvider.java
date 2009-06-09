@@ -24,11 +24,6 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.RemoveCommand;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
-import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
-import org.eclipse.emf.edit.provider.IItemPropertySource;
-import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
-import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.CommonPackage;
@@ -40,7 +35,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
  * This is the item provider adpater for a {@link com.ibm.etools.common.RunAsSpecifiedIdentity}
  * object.
  */
-public class RunAsSpecifiedIdentityItemProvider extends SecurityIdentityItemProvider implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class RunAsSpecifiedIdentityItemProvider extends SecurityIdentityItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 */
@@ -51,6 +46,7 @@ public class RunAsSpecifiedIdentityItemProvider extends SecurityIdentityItemProv
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -71,6 +67,7 @@ public class RunAsSpecifiedIdentityItemProvider extends SecurityIdentityItemProv
 	 * This specifies how to implement {@link #getChildren}and {@link AddCommand}and
 	 * {@link RemoveCommand}support in {@link #createCommand}.
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 	    return new ArrayList<EReference>();
 //		if (childrenReferences == null) {
@@ -83,6 +80,7 @@ public class RunAsSpecifiedIdentityItemProvider extends SecurityIdentityItemProv
 	/**
 	 * This returns the parent of the RunAsSpecifiedIdentity.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((EObject) object).eContainer();
 	}
@@ -90,10 +88,12 @@ public class RunAsSpecifiedIdentityItemProvider extends SecurityIdentityItemProv
 	/**
 	 * This returns RunAsSpecifiedIdentity.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return J2EEPlugin.getPlugin().getImage("security_identity_obj");//$NON-NLS-1$
 	}
 
+	@Override
 	public String getText(Object object) {
 		RunAsSpecifiedIdentity runAsSpecifiedIdentity = ((RunAsSpecifiedIdentity) object);
 		return runAsSpecifiedIdentity.getIdentity().getRoleName();
@@ -105,6 +105,7 @@ public class RunAsSpecifiedIdentityItemProvider extends SecurityIdentityItemProv
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(RunAsSpecifiedIdentity.class)) {
 			case CommonPackage.RUN_AS_SPECIFIED_IDENTITY__IDENTITY : {
@@ -122,6 +123,7 @@ public class RunAsSpecifiedIdentityItemProvider extends SecurityIdentityItemProv
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -133,6 +135,7 @@ public class RunAsSpecifiedIdentityItemProvider extends SecurityIdentityItemProv
 	 * end-user-doc -->
 	 *  
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}

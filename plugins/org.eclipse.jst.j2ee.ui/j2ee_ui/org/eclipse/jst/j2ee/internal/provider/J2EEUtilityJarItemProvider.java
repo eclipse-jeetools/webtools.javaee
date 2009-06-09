@@ -63,11 +63,13 @@ public class J2EEUtilityJarItemProvider extends J2EEItemProvider {
 		UtilityJarResourceChangeListener.INSTANCE.addUtilityJarItemProvider(ProjectUtilities.getProject(application), this);
 	}
 
+	@Override
 	public boolean hasChildren(Object object) {
 		getChildren(object);
 		return !children.isEmpty();
 	}
 
+	@Override
 	public Collection getChildren(final Object object) {
 		if (!childrenLoaded) {
 			try {
@@ -89,6 +91,7 @@ public class J2EEUtilityJarItemProvider extends J2EEItemProvider {
 	 * 
 	 * @see org.eclipse.emf.edit.provider.ItemProvider#dispose()
 	 */
+	@Override
 	public void dispose() {
 		super.dispose();
 		UtilityJarResourceChangeListener.INSTANCE.removeUtilityJarItemProvider(ProjectUtilities.getProject(application), this);
@@ -175,6 +178,7 @@ public class J2EEUtilityJarItemProvider extends J2EEItemProvider {
 	/**
 	 * @see org.eclipse.emf.edit.provider.ItemProviderAdapter#getImage(Object)
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return J2EEPlugin.getPlugin().getImage("folder"); //$NON-NLS-1$
 	}
@@ -182,6 +186,7 @@ public class J2EEUtilityJarItemProvider extends J2EEItemProvider {
 	/**
 	 * @see org.eclipse.emf.edit.provider.ItemProviderAdapter#getText(Object)
 	 */
+	@Override
 	public String getText(Object object) {
 		return UTILITY_JARS;
 	}
@@ -289,6 +294,7 @@ public class J2EEUtilityJarItemProvider extends J2EEItemProvider {
 		}
 	}
 
+	@Override
 	public IFile getAssociatedFile() {
 
 		try {

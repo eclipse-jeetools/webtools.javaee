@@ -94,6 +94,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		super(aModule);
 	}
 
+	@Override
 	protected BinaryComponentHelper initBinaryComponentHelper(IVirtualComponent binaryModule) {
 		return new JavaEEBinaryComponentHelper(binaryModule);
 	}
@@ -310,6 +311,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @return an integer representation of a J2EE Spec version
 	 * 
 	 */
+	@Override
 	public int getJ2EEVersion() {
 		verifyOperationSupported();
 		return ((WebAppResource) getDeploymentDescriptorResource()).getJ2EEVersionID();
@@ -325,6 +327,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @return EObject
 	 * 
 	 */
+	@Override
 	public EObject getDeploymentDescriptorRoot() {
 		verifyOperationSupported();
 		List contents = getDeploymentDescriptorResource().getContents();
@@ -345,6 +348,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @return Resource
 	 * 
 	 */
+	@Override
 	public Resource getDeploymentDescriptorResource() {
 		verifyOperationSupported();
 		if (isBinary()) {
@@ -482,6 +486,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * 
 	 * @return the eObject instance of the model root
 	 */
+	@Override
 	public EObject createModelRoot() {
 		verifyOperationSupported();
 		if (isBinary()) {
@@ -500,6 +505,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * 
 	 * @return the eObject instance of the model root
 	 */
+	@Override
 	public EObject createModelRoot(int version) {
 		verifyOperationSupported();
 		if (isBinary()) {
@@ -629,6 +635,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		return getWebArtifactEditForWrite(aComponent);
 	}
 
+	@Override
 	public Archive asArchive(boolean includeSource, boolean includeClasspathComponents) throws OpenFailureException {
 		return asArchive(includeSource, includeClasspathComponents, false);
 	}
@@ -661,14 +668,17 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 			webEdit.dispose();
 		}
 	}
+	@Override
 	public IModelProvider create(IProject project) {
 		return (IModelProvider)getWebArtifactEditForRead(project);
 	}
 
+	@Override
 	public IModelProvider create(IVirtualComponent component) {
 		return (IModelProvider)getWebArtifactEditForRead(component);
 	}
 
+	@Override
 	public void modify(Runnable runnable, IPath modelPath) {
 		setWritableEdit(getWebArtifactEditForWrite(getProject()));
 		try{
@@ -685,9 +695,11 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	}
 
 	
+	@Override
 	protected String getContentTypeDescriber() {
 		return WEB_CONTENT_TYPE;
 	}
+	@Override
 	protected URI getRootURI() {
 		return J2EEConstants.WEBAPP_DD_URI_OBJ;
 	}

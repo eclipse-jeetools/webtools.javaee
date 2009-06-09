@@ -48,6 +48,7 @@ public class ApplicationClientHelper extends J2EEValidationHelper {
 	 * Given a resource, return its non-eclipse-specific location. If this resource, or type of
 	 * resource, isn't handled by this helper, return null.
 	 */
+	@Override
 	public String getPortableName(IResource resource) {
 		if (!(resource instanceof IFile)) {
 			return null;
@@ -78,6 +79,7 @@ public class ApplicationClientHelper extends J2EEValidationHelper {
 		return null;
 	}	
 	
+	@Override
 	public void cleanup(WorkbenchReporter reporter) {
 		closeApplicationClientFile();
 		super.cleanup(reporter);

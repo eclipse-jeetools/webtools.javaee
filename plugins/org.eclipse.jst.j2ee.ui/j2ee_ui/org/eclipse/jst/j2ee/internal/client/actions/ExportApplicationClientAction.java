@@ -38,6 +38,7 @@ public class ExportApplicationClientAction extends BaseAction {
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(ICON));
 	}
 
+	@Override
 	protected void primRun(Shell shell) {
 		AppClientComponentExportWizard wizard = new AppClientComponentExportWizard();
 		J2EEUIPlugin plugin = J2EEUIPlugin.getDefault();

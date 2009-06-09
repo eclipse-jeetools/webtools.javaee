@@ -108,6 +108,7 @@ public class OptionalRefactorHandler implements IOptionalRefactorHandler{
 		/**
 		 * @see org.eclipse.wst.common.frameworks.internal.RegistryReader#readElement(org.eclipse.core.runtime.IConfigurationElement)
 		 */
+		@Override
 		public boolean readElement(final IConfigurationElement element) {
 			if (TAG_OPTIONAL_REFACTOR.equals(element.getName())) {
 

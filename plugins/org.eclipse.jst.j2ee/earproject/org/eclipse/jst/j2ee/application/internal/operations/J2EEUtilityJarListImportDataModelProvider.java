@@ -48,6 +48,7 @@ public class J2EEUtilityJarListImportDataModelProvider extends AbstractDataModel
 		super();
 	}
 
+	@Override
 	public Set getPropertyNames(){
 		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(EAR_PROJECT_NAME);
@@ -66,6 +67,7 @@ public class J2EEUtilityJarListImportDataModelProvider extends AbstractDataModel
 		return propertyNames;
 	}
 
+	@Override
 	public boolean propertySet(String propertyName, Object propertyValue) {
 
 		boolean notify = super.propertySet(propertyName, propertyValue);
@@ -169,6 +171,7 @@ public class J2EEUtilityJarListImportDataModelProvider extends AbstractDataModel
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#basicIsEnabled(java.lang.String)
 	 */
+	@Override
 	public boolean isPropertyEnabled(String propertyName) {
 		if (J2EEUtilityJarListImportDataModelProvider.BINARY_IMPORT.equals(propertyName)) {
 			return getBooleanProperty(J2EEUtilityJarListImportDataModelProvider.CREATE_PROJECT) || getBooleanProperty(J2EEUtilityJarListImportDataModelProvider.CREATE_LINKED_PROJECT);
@@ -203,6 +206,7 @@ public class J2EEUtilityJarListImportDataModelProvider extends AbstractDataModel
 		return (createPath && (linkedPathVariable == null || linkedPathVariable.trim().length() == 0));
 	}
 	
+	@Override
 	public IDataModelOperation getDefaultOperation() { 
 		return new J2EEUtilityJarListImportOperation(model);
 	}
@@ -212,6 +216,7 @@ public class J2EEUtilityJarListImportDataModelProvider extends AbstractDataModel
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.application.operations.J2EEImportDataModel#getDefaultProperty(java.lang.String)
 	 */
+	@Override
 	public Object getDefaultProperty(String propertyName) {
 		if (CREATE_PROJECT.equals(propertyName))
 			return Boolean.TRUE;
@@ -241,6 +246,7 @@ public class J2EEUtilityJarListImportDataModelProvider extends AbstractDataModel
 			return super.getDefaultProperty(propertyName);
 	}
 
+	@Override
 	public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName) {
 		if (EAR_PROJECT_NAME.equals(propertyName)) {
 			return DataModelPropertyDescriptor.createDescriptors(getValidProjectNames());
@@ -275,6 +281,7 @@ public class J2EEUtilityJarListImportDataModelProvider extends AbstractDataModel
 		return ProjectUtilities.getProjectNamesWithoutForwardSlash((String[]) projectsWithNature.toArray(new String[projectsWithNature.size()]));
 	}
 
+	@Override
 	public IStatus validate(String propertyName) {
 		if (EAR_PROJECT_NAME.equals(propertyName) /* && isSet(EAR_PROJECT_NAME) */) {
 			String earProjectName = getStringProperty(EAR_PROJECT_NAME);

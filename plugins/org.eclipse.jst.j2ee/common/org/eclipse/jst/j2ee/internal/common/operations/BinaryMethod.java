@@ -140,6 +140,7 @@ public class BinaryMethod implements Method {
 	/**
 	 * @see Object#equals(Object)
 	 */
+	@Override
 	public boolean equals(Object o) {
 		Method obj = (Method) o;
 		return this.getName().equals(obj.getName()) && 
@@ -149,6 +150,7 @@ public class BinaryMethod implements Method {
 	/**
 	 * @see Object#hashCode()
 	 */
+	@Override
 	public int hashCode() {
 		return getName().hashCode() * getSignature().hashCode();
 	}

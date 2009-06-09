@@ -193,6 +193,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return EjbPackage.Literals.EJB_RELATIONSHIP_ROLE;
 	}
@@ -395,6 +396,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	public void setName(java.lang.String uniqueName) {
 		fName = uniqueName;
 	}
+	@Override
 	public String toString() {
 		if (toStringGuard) return super.toString();
 		try {
@@ -727,6 +729,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EjbPackage.EJB_RELATIONSHIP_ROLE__RELATIONSHIP:
@@ -750,6 +753,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EjbPackage.EJB_RELATIONSHIP_ROLE__RELATIONSHIP:
@@ -769,6 +773,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case EjbPackage.EJB_RELATIONSHIP_ROLE__RELATIONSHIP:
@@ -782,6 +787,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case EjbPackage.EJB_RELATIONSHIP_ROLE__DESCRIPTION:
@@ -809,6 +815,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EjbPackage.EJB_RELATIONSHIP_ROLE__DESCRIPTION:
@@ -845,6 +852,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case EjbPackage.EJB_RELATIONSHIP_ROLE__DESCRIPTION:
@@ -880,6 +888,7 @@ public class EJBRelationshipRoleImpl extends J2EEEObjectImpl implements EJBRelat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case EjbPackage.EJB_RELATIONSHIP_ROLE__DESCRIPTION:

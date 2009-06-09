@@ -37,6 +37,7 @@ public class SessionTranslator extends AbstractEJBTranslator {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.internal.model.translator.ejb.AbstractEJBTranslator#getSpecificMaps()
 	 */
+	@Override
 	protected Translator[] getSpecificMaps(int versionID) {
 		return new Translator[] {
 			new Translator(SESSION_TYPE, EJB_PKG.getSession_SessionType(), UNSET_IF_NULL), 		//Enumeration
@@ -50,6 +51,7 @@ public class SessionTranslator extends AbstractEJBTranslator {
 	 * 
 	 * Support 1.4 and 1.3
 	 */
+	@Override
 	protected Translator[] getEJBClassMap() {
 		return new Translator[] {			
 			//J2EE 1.4
@@ -64,6 +66,7 @@ public class SessionTranslator extends AbstractEJBTranslator {
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.Translator#createEMFObject(java.lang.String, java.lang.String)
 	 */
+	@Override
 	public EObject createEMFObject(String nodeName, String readAheadName) {
 		return EjbFactory.eINSTANCE.createSession();
 	}
@@ -72,6 +75,7 @@ public class SessionTranslator extends AbstractEJBTranslator {
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.Translator#getChildren(java.lang.Object, int)
 	 */
+	@Override
 	public Translator[] getChildren(Object o, int versionID) {
 		switch (versionID) {
 			case (J2EE_1_2_ID) :

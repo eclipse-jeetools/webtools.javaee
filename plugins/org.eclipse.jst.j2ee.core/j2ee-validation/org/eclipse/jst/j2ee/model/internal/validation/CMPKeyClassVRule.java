@@ -76,6 +76,7 @@ public final class CMPKeyClassVRule extends AKeyClassVRule implements IEJBType, 
 		return MESSAGE_IDS;
 	}
 	
+	@Override
 	public final int getMessageRemoteExceptionSeverity() {
 		// Key methods are not checked for RemoteException, but to be consistent with the other VRules...
 		return MESSAGE_REMOTE_EXCEPTION_SEVERITY;
@@ -131,6 +132,7 @@ public final class CMPKeyClassVRule extends AKeyClassVRule implements IEJBType, 
 		// Nothing to do.
 	}
 	
+	@Override
 	public final void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		super.validate(vc, bean, clazz);
 
@@ -201,6 +203,7 @@ public final class CMPKeyClassVRule extends AKeyClassVRule implements IEJBType, 
 	/*
 	 * @see IValidationRule#reset()
 	 */
+	@Override
 	public void reset() {
 		super.reset();
 		if(_keyFields != null) {

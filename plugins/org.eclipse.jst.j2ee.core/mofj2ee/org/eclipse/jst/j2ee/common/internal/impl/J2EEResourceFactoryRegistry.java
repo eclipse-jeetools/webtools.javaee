@@ -22,6 +22,7 @@ public class J2EEResourceFactoryRegistry extends FileNameResourceFactoryRegistry
 		super();
 	}
 	
+	@Override
 	public Resource.Factory delegatedGetFactory(URI uri) {
 		if (J2EEResourceFactoryRegistry.INSTANCE == this)
 			return super.delegatedGetFactory(uri);

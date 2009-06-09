@@ -36,6 +36,7 @@ public class LooseLibraryImpl extends LooseArchiveImpl implements LooseLibrary {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return LooseconfigPackage.Literals.LOOSE_LIBRARY;
 	}
@@ -82,6 +83,7 @@ public class LooseLibraryImpl extends LooseArchiveImpl implements LooseLibrary {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case LooseconfigPackage.LOOSE_LIBRARY__LOOSE_WAR:
@@ -97,6 +99,7 @@ public class LooseLibraryImpl extends LooseArchiveImpl implements LooseLibrary {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case LooseconfigPackage.LOOSE_LIBRARY__LOOSE_WAR:
@@ -110,6 +113,7 @@ public class LooseLibraryImpl extends LooseArchiveImpl implements LooseLibrary {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case LooseconfigPackage.LOOSE_LIBRARY__LOOSE_WAR:
@@ -123,6 +127,7 @@ public class LooseLibraryImpl extends LooseArchiveImpl implements LooseLibrary {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case LooseconfigPackage.LOOSE_LIBRARY__LOOSE_WAR:
@@ -136,6 +141,7 @@ public class LooseLibraryImpl extends LooseArchiveImpl implements LooseLibrary {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case LooseconfigPackage.LOOSE_LIBRARY__LOOSE_WAR:
@@ -150,6 +156,7 @@ public class LooseLibraryImpl extends LooseArchiveImpl implements LooseLibrary {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case LooseconfigPackage.LOOSE_LIBRARY__LOOSE_WAR:
@@ -164,6 +171,7 @@ public class LooseLibraryImpl extends LooseArchiveImpl implements LooseLibrary {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case LooseconfigPackage.LOOSE_LIBRARY__LOOSE_WAR:

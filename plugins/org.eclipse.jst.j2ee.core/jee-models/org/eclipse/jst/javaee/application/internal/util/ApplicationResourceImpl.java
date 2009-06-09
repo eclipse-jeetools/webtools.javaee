@@ -39,11 +39,13 @@ public class ApplicationResourceImpl extends JavaeeResourceImpl implements IRoot
 	public ApplicationResourceImpl(URI uri) {
 		super(uri);
 	}
+	@Override
 	protected XMLLoad createXMLLoad() {
 		 return new JEEXMLLoadImpl(createXMLHelper());
 	}
 
 	
+	@Override
 	protected XMLHelper createXMLHelper() {
 		
 		return new EarXMLHelperImpl(this);

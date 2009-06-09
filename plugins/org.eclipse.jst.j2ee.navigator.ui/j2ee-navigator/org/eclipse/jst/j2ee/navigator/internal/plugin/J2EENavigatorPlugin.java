@@ -60,6 +60,7 @@ public class J2EENavigatorPlugin extends AbstractUIPlugin {
 		return ResourcesPlugin.getWorkspace();
 	}
 
+	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		images = new ImageRegistry(Display.getDefault());
@@ -94,6 +95,7 @@ public class J2EENavigatorPlugin extends AbstractUIPlugin {
 		return image; 
 	}
 	
+	@Override
 	public void stop(BundleContext context) throws Exception {
 		super.stop(context);
 		images.dispose();

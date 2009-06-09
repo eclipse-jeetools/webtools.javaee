@@ -54,11 +54,13 @@ public class J2EEDeployAction extends BaseAction {
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.ui.actions.BaseAction#primRun(org.eclipse.swt.widgets.Shell)
 	 */
+	@Override
 	protected void primRun(Shell shell) {
 
 		if (checkEnabled(shell)) {
 			final IStructuredSelection deploySelection = selection;
 			Job deployJob = new Job("Deploy") {
+				@Override
 				protected IStatus run(IProgressMonitor monitor) {
 					IStatus result = null;
 					J2EEDeployOperation op = new J2EEDeployOperation(deploySelection.toArray());
@@ -100,6 +102,7 @@ public class J2EEDeployAction extends BaseAction {
 	 * @see org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.IAction,
 	 *      org.eclipse.jface.viewers.ISelection)
 	 */
+	@Override
 	public void selectionChanged(IAction action, ISelection aSelection) {
 		super.selectionChanged(action, aSelection);
 		action.setEnabled(true);
@@ -116,15 +119,15 @@ public class J2EEDeployAction extends BaseAction {
 				IVirtualComponent component = (IVirtualComponent) components.get(i);
 				IProject proj = component.getProject();
 				if (proj == null) {
-					displayMessageDialog(J2EEUIMessages.getResourceString("DEPLOY_PROJECT_NOT_FOUND") , shell);
+					displayMessageDialog(J2EEUIMessages.getResourceString("DEPLOY_PROJECT_NOT_FOUND") , shell); //$NON-NLS-1$
 					return false;
 				}
 				
 				IRuntime runtime = J2EEProjectUtilities.getServerRuntime(proj);
 				if (runtime == null) {
-					String message = MessageFormat.format(J2EEUIMessages.getResourceString("DEPLOY_RUNTIME_NOT_FOUND"), new String []{proj.getName()});
+					String message = MessageFormat.format(J2EEUIMessages.getResourceString("DEPLOY_RUNTIME_NOT_FOUND"), new Object []{proj.getName()}); //$NON-NLS-1$
 					RuntimeSelectionDialog selectionDialog = new RuntimeSelectionDialog(shell, 
-							J2EEUIMessages.getResourceString("DEPLOY_DIALOG_TITLE"), 
+							J2EEUIMessages.getResourceString("DEPLOY_DIALOG_TITLE"),  //$NON-NLS-1$
  								null /* default image */, 
  								message, 
  								MessageDialog.ERROR, 
@@ -136,7 +139,7 @@ public class J2EEDeployAction extends BaseAction {
 				}
 				List visitors = reg.getDeployModuleExtensions(proj, runtime);
 				if (visitors.isEmpty()) {
-					displayMessageDialog(MessageFormat.format(J2EEUIMessages.getResourceString("DEPLOY_PROJECT_NOT_SUPPORTED"), new String []{proj.getName()}), shell);
+					displayMessageDialog(MessageFormat.format(J2EEUIMessages.getResourceString("DEPLOY_PROJECT_NOT_SUPPORTED"), new Object []{proj.getName()}), shell); //$NON-NLS-1$
 					return false;
 				}
 				
@@ -151,7 +154,7 @@ public class J2EEDeployAction extends BaseAction {
 	}
 	
 	private void displayMessageDialog(String message, Shell shell) {
-		 String title = J2EEUIMessages.getResourceString("DEPLOY_DIALOG_TITLE");
+		 String title = J2EEUIMessages.getResourceString("DEPLOY_DIALOG_TITLE"); //$NON-NLS-1$
 		 MessageDialog dialog = new MessageDialog(shell, 
 				 								title, 
 				 								null /* default image */, 

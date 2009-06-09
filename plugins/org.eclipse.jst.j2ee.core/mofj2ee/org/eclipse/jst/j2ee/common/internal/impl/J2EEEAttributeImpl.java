@@ -41,6 +41,7 @@ public class J2EEEAttributeImpl extends EAttributeImpl implements J2EEEAttribute
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return CommonPackage.Literals.J2EEE_ATTRIBUTE;
 	}

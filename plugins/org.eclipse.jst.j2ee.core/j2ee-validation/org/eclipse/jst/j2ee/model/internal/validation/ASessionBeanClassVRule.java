@@ -21,6 +21,7 @@ import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 /**
  */
 public abstract class ASessionBeanClassVRule extends ABeanClassVRule {
+	@Override
 	public final void validateTransientField(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		if(field.isTransient()) {
 			// IWAD4025 = Transient fields are discouraged. Read section 7.4.1 of the EJB 2.0 specification.

@@ -122,6 +122,7 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 * @return an integer representation of a J2EE Spec version
 	 */
 
+	@Override
 	public int getJ2EEVersion() {
 		return getWsddXmiResource().getJ2EEVersionID();
 	}
@@ -135,6 +136,7 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 * @return Resource
 	 */
 
+	@Override
 	public Resource getDeploymentDescriptorResource() {
 		return getArtifactEditModel().getResource(getWebServicesXmlResourceURI());
 	}
@@ -183,6 +185,7 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 * 
 	 * @return EObject
 	 */
+	@Override
 	public EObject getDeploymentDescriptorRoot() {
 		List contents = getDeploymentDescriptorResource().getContents();
 		if (contents.size() > 0)
@@ -411,6 +414,7 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit#createModelRoot()
 	 */
+	@Override
 	public EObject createModelRoot() {
 		return createModelRoot(getJ2EEVersion());
 	}
@@ -420,6 +424,7 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit#createModelRoot(int)
 	 */
+	@Override
 	public EObject createModelRoot(int version) {
 		WsddResource res = (WsddResource) getDeploymentDescriptorResource();
 		res.setModuleVersionID(version);
@@ -427,6 +432,7 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 		return getWebServices();
 	}
 
+	@Override
 	public EObject getContentModelRoot() {
 		return getWebServices();
 	}
@@ -485,18 +491,22 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 			return res;
 		return null;
 	}
+	@Override
 	public IModelProvider create(IProject project) {
 		return (IModelProvider)getWSDDArtifactEditForRead(project);
 	}
 
+	@Override
 	public IModelProvider create(IVirtualComponent component) {
 		return (IModelProvider)getWSDDArtifactEditForRead(component);
 	}
 
 	// [182417] This ArtifactEdit works for all project versions, so just return true.
+	@Override
 	protected boolean validProjectVersion(IProject project) {
 		return true;
 	}
+	@Override
 	public void modify(Runnable runnable, IPath modelPath) {
 		setWritableEdit(getWSDDArtifactEditForWrite(getProject()));
 		try{

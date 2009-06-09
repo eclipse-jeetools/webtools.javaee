@@ -58,6 +58,7 @@ public class EjbAdapterFactory extends AdapterFactoryImpl {
 	 * @return whether this factory is applicable for the type of the object.
 	 * @generated
 	 */
+	@Override
 	public boolean isFactoryForType(Object object) {
 		if (object == modelPackage) {
 			return true;
@@ -76,102 +77,135 @@ public class EjbAdapterFactory extends AdapterFactoryImpl {
 	 */
 	protected EjbSwitch modelSwitch =
 		new EjbSwitch() {
+			@Override
 			public Object caseActivationConfig(ActivationConfig object) {
 				return createActivationConfigAdapter();
 			}
+			@Override
 			public Object caseActivationConfigProperty(ActivationConfigProperty object) {
 				return createActivationConfigPropertyAdapter();
 			}
+			@Override
 			public Object caseApplicationException(ApplicationException object) {
 				return createApplicationExceptionAdapter();
 			}
+			@Override
 			public Object caseAroundInvokeType(AroundInvokeType object) {
 				return createAroundInvokeTypeAdapter();
 			}
+			@Override
 			public Object caseAssemblyDescriptor(AssemblyDescriptor object) {
 				return createAssemblyDescriptorAdapter();
 			}
+			@Override
 			public Object caseCMPField(CMPField object) {
 				return createCMPFieldAdapter();
 			}
+			@Override
 			public Object caseCMRField(CMRField object) {
 				return createCMRFieldAdapter();
 			}
+			@Override
 			public Object caseContainerTransactionType(ContainerTransactionType object) {
 				return createContainerTransactionTypeAdapter();
 			}
+			@Override
 			public Object caseEJBJar(EJBJar object) {
 				return createEJBJarAdapter();
 			}
+			@Override
 			public Object caseEJBJarDeploymentDescriptor(EJBJarDeploymentDescriptor object) {
 				return createEJBJarDeploymentDescriptorAdapter();
 			}
+			@Override
 			public Object caseEJBRelation(EJBRelation object) {
 				return createEJBRelationAdapter();
 			}
+			@Override
 			public Object caseEJBRelationshipRole(EJBRelationshipRole object) {
 				return createEJBRelationshipRoleAdapter();
 			}
+			@Override
 			public Object caseEnterpriseBeans(EnterpriseBeans object) {
 				return createEnterpriseBeansAdapter();
 			}
+			@Override
 			public Object caseEntityBean(EntityBean object) {
 				return createEntityBeanAdapter();
 			}
+			@Override
 			public Object caseExcludeList(ExcludeList object) {
 				return createExcludeListAdapter();
 			}
+			@Override
 			public Object caseInitMethodType(InitMethodType object) {
 				return createInitMethodTypeAdapter();
 			}
+			@Override
 			public Object caseInterceptorBindingType(InterceptorBindingType object) {
 				return createInterceptorBindingTypeAdapter();
 			}
+			@Override
 			public Object caseInterceptorOrderType(InterceptorOrderType object) {
 				return createInterceptorOrderTypeAdapter();
 			}
+			@Override
 			public Object caseInterceptorsType(InterceptorsType object) {
 				return createInterceptorsTypeAdapter();
 			}
+			@Override
 			public Object caseInterceptorType(InterceptorType object) {
 				return createInterceptorTypeAdapter();
 			}
+			@Override
 			public Object caseMessageDrivenBean(MessageDrivenBean object) {
 				return createMessageDrivenBeanAdapter();
 			}
+			@Override
 			public Object caseMethodParams(MethodParams object) {
 				return createMethodParamsAdapter();
 			}
+			@Override
 			public Object caseMethodPermission(MethodPermission object) {
 				return createMethodPermissionAdapter();
 			}
+			@Override
 			public Object caseMethodType(MethodType object) {
 				return createMethodTypeAdapter();
 			}
+			@Override
 			public Object caseNamedMethodType(NamedMethodType object) {
 				return createNamedMethodTypeAdapter();
 			}
+			@Override
 			public Object caseQuery(Query object) {
 				return createQueryAdapter();
 			}
+			@Override
 			public Object caseQueryMethod(QueryMethod object) {
 				return createQueryMethodAdapter();
 			}
+			@Override
 			public Object caseRelationshipRoleSourceType(RelationshipRoleSourceType object) {
 				return createRelationshipRoleSourceTypeAdapter();
 			}
+			@Override
 			public Object caseRelationships(Relationships object) {
 				return createRelationshipsAdapter();
 			}
+			@Override
 			public Object caseRemoveMethodType(RemoveMethodType object) {
 				return createRemoveMethodTypeAdapter();
 			}
+			@Override
 			public Object caseSecurityIdentityType(SecurityIdentityType object) {
 				return createSecurityIdentityTypeAdapter();
 			}
+			@Override
 			public Object caseSessionBean(SessionBean object) {
 				return createSessionBeanAdapter();
 			}
+			@Override
 			public Object defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -185,6 +219,7 @@ public class EjbAdapterFactory extends AdapterFactoryImpl {
 	 * @return the adapter for the <code>target</code>.
 	 * @generated
 	 */
+	@Override
 	public Adapter createAdapter(Notifier target) {
 		return (Adapter)modelSwitch.doSwitch((EObject)target);
 	}

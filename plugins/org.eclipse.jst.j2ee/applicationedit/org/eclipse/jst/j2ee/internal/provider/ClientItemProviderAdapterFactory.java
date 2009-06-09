@@ -74,10 +74,12 @@ public class ClientItemProviderAdapterFactory extends ClientAdapterFactory imple
 		supportedTypes.add(ITableItemLabelProvider.class);
 	}
 
+	@Override
 	public Adapter adapt(Notifier target, Object adapterKey) {
 		return super.adapt(target, this);
 	}
 
+	@Override
 	public Object adapt(Object object, Object type) {
 		// This is a kludge to deal with enumerators, which crash the doSwitch.
 		//
@@ -95,6 +97,7 @@ public class ClientItemProviderAdapterFactory extends ClientAdapterFactory imple
 		return null;
 	}
 
+	@Override
 	public Adapter adaptNew(Notifier target, Object adapterType) {
 		Adapter adapter = super.adaptNew(target, adapterType);
 		disposable.add(adapter);
@@ -114,6 +117,7 @@ public class ClientItemProviderAdapterFactory extends ClientAdapterFactory imple
 	 * This creates an adapter for a
 	 * {@link org.eclipse.jst.j2ee.internal.internal.client.ApplicationClient}.
 	 */
+	@Override
 	public Adapter createApplicationClientAdapter() {
 		if (applicationClientItemProvider == null) {
 			applicationClientItemProvider = new ApplicationClientItemProvider(this);
@@ -144,6 +148,7 @@ public class ClientItemProviderAdapterFactory extends ClientAdapterFactory imple
 		return parentAdapterFactory == null ? this : parentAdapterFactory.getRootAdapterFactory();
 	}
 
+	@Override
 	public boolean isFactoryForType(Object type) {
 		return super.isFactoryForType(type) || supportedTypes.contains(type);
 	}

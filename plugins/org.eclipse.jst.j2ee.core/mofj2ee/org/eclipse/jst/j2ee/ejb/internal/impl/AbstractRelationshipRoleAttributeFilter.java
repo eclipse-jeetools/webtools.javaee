@@ -26,6 +26,7 @@ public abstract class AbstractRelationshipRoleAttributeFilter extends
 		super();
 	}
 
+	@Override
 	protected List filterNotcached(ContainerManagedEntity cmp) {
 		List attributes = new ArrayList();
 		Iterator it = getSourceRoles(cmp).iterator();

@@ -139,6 +139,7 @@ public class CMPKeySynchronizationAdapter extends AdapterImpl {
 		}
 	}
 	
+	@Override
 	public void notifyChanged(Notification notification) {
 		if (isUpdating || !isEnabled) return; //we don't want to react to our own changes
 		try {
@@ -399,6 +400,7 @@ public class CMPKeySynchronizationAdapter extends AdapterImpl {
 	/* (non-Javadoc)
 	 * @see org.eclipse.emf.common.notify.impl.AdapterImpl#setTarget(org.eclipse.emf.common.notify.Notifier)
 	 */
+	@Override
 	public void setTarget(Notifier newTarget) {
 		super.setTarget(newTarget); 
 	}
@@ -407,7 +409,8 @@ public class CMPKeySynchronizationAdapter extends AdapterImpl {
     /* (non-Javadoc)
      * @see org.eclipse.emf.common.notify.impl.AdapterImpl#isAdapterForType(java.lang.Object)
      */
-    public boolean isAdapterForType(Object type) {
+    @Override
+	public boolean isAdapterForType(Object type) {
         return ADAPTER_TYPE.equals(type);
     }
     //To turn sync on or off

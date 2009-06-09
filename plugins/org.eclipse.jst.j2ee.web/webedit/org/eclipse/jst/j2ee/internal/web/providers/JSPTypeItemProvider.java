@@ -44,6 +44,7 @@ public class JSPTypeItemProvider extends WebTypeItemProvider implements IEditing
 	/**
 	 * This returns jsp_type.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return WebPlugin.getDefault().getImage("jsp_type");//$NON-NLS-1$
 	}
@@ -51,6 +52,7 @@ public class JSPTypeItemProvider extends WebTypeItemProvider implements IEditing
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -80,6 +82,7 @@ public class JSPTypeItemProvider extends WebTypeItemProvider implements IEditing
 	}
 
 
+	@Override
 	public String getText(Object object) {
 		return WebAppEditResourceHandler.getString("40concat_UI_", (new Object[]{((JSPType) object).getJspFile()})); //$NON-NLS-1$ = "JSPType {0}"
 	}
@@ -90,6 +93,7 @@ public class JSPTypeItemProvider extends WebTypeItemProvider implements IEditing
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(JSPType.class)) {
 			case WebapplicationPackage.JSP_TYPE__JSP_FILE : {
@@ -107,6 +111,7 @@ public class JSPTypeItemProvider extends WebTypeItemProvider implements IEditing
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -117,6 +122,7 @@ public class JSPTypeItemProvider extends WebTypeItemProvider implements IEditing
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}

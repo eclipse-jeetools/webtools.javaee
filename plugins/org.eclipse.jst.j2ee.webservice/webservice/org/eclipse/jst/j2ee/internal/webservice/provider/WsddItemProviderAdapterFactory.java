@@ -92,6 +92,7 @@ public class WsddItemProviderAdapterFactory extends WsddAdapterFactory implement
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createWebServicesAdapter() {
 		if (webServicesItemProvider == null) {
 			webServicesItemProvider = new WebServicesItemProvider(this);
@@ -115,6 +116,7 @@ public class WsddItemProviderAdapterFactory extends WsddAdapterFactory implement
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createWebServiceDescriptionAdapter() {
 		if (webServiceDescriptionItemProvider == null) {
 			webServiceDescriptionItemProvider = new WebServiceDescriptionItemProvider(this);
@@ -138,6 +140,7 @@ public class WsddItemProviderAdapterFactory extends WsddAdapterFactory implement
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createPortComponentAdapter() {
 		if (portComponentItemProvider == null) {
 			portComponentItemProvider = new PortComponentItemProvider(this);
@@ -161,6 +164,7 @@ public class WsddItemProviderAdapterFactory extends WsddAdapterFactory implement
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createWSDLPortAdapter() {
 		if (wsdlPortItemProvider == null) {
 			wsdlPortItemProvider = new WSDLPortItemProvider(this);
@@ -184,6 +188,7 @@ public class WsddItemProviderAdapterFactory extends WsddAdapterFactory implement
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createServiceImplBeanAdapter() {
 		if (serviceImplBeanItemProvider == null) {
 			serviceImplBeanItemProvider = new ServiceImplBeanItemProvider(this);
@@ -207,6 +212,7 @@ public class WsddItemProviderAdapterFactory extends WsddAdapterFactory implement
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createServletLinkAdapter() {
 		if (servletLinkItemProvider == null) {
 			servletLinkItemProvider = new ServletLinkItemProvider(this);
@@ -230,6 +236,7 @@ public class WsddItemProviderAdapterFactory extends WsddAdapterFactory implement
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createEJBLinkAdapter() {
 		if (ejbLinkItemProvider == null) {
 			ejbLinkItemProvider = new EJBLinkItemProvider(this);
@@ -253,6 +260,7 @@ public class WsddItemProviderAdapterFactory extends WsddAdapterFactory implement
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createHandlerAdapter() {
 		if (handlerItemProvider == null) {
 			handlerItemProvider = new HandlerItemProvider(this);
@@ -276,6 +284,7 @@ public class WsddItemProviderAdapterFactory extends WsddAdapterFactory implement
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createBeanLinkAdapter() {
 		if (beanLinkItemProvider == null) {
 			beanLinkItemProvider = new BeanLinkItemProvider(this);
@@ -309,6 +318,7 @@ public class WsddItemProviderAdapterFactory extends WsddAdapterFactory implement
 	 * 
 	 * @generated
 	 */
+	@Override
 	public boolean isFactoryForType(Object type) {
 		return supportedTypes.contains(type) || super.isFactoryForType(type);
 	}
@@ -319,6 +329,7 @@ public class WsddItemProviderAdapterFactory extends WsddAdapterFactory implement
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter adapt(Notifier notifier, Object type) {
 		return super.adapt(notifier, this);
 	}
@@ -328,6 +339,7 @@ public class WsddItemProviderAdapterFactory extends WsddAdapterFactory implement
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object adapt(Object object, Object type) {
 		if (isFactoryForType(type)) {
 			Object adapter = super.adapt(object, type);

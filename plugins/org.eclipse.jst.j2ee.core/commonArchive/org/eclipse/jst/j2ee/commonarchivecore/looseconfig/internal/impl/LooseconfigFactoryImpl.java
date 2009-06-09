@@ -57,6 +57,7 @@ public class LooseconfigFactoryImpl extends EFactoryImpl implements LooseconfigF
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case LooseconfigPackage.LOOSE_APPLICATION: return createLooseApplication();

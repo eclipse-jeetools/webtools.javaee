@@ -41,6 +41,7 @@ public class ExceptionTypeErrorPageImpl extends ErrorPageImpl implements Excepti
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return WebapplicationPackage.Literals.EXCEPTION_TYPE_ERROR_PAGE;
 	}
@@ -56,6 +57,7 @@ public String getExceptionTypeName() {
  * Helper method to set the ExceptionType to a JavaClass having a fully qualified
  * name specified by the parameter
  */ 
+@Override
 public boolean isExceptionType() {
 	return true;
 }
@@ -108,6 +110,7 @@ public void setExceptionTypeName(String exceptionTypeName, ResourceSet context) 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case WebapplicationPackage.EXCEPTION_TYPE_ERROR_PAGE__EXCEPTION_TYPE:
@@ -122,6 +125,7 @@ public void setExceptionTypeName(String exceptionTypeName, ResourceSet context) 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case WebapplicationPackage.EXCEPTION_TYPE_ERROR_PAGE__EXCEPTION_TYPE:
@@ -136,6 +140,7 @@ public void setExceptionTypeName(String exceptionTypeName, ResourceSet context) 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case WebapplicationPackage.EXCEPTION_TYPE_ERROR_PAGE__EXCEPTION_TYPE:
@@ -150,6 +155,7 @@ public void setExceptionTypeName(String exceptionTypeName, ResourceSet context) 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case WebapplicationPackage.EXCEPTION_TYPE_ERROR_PAGE__EXCEPTION_TYPE:

@@ -46,6 +46,7 @@ public class J2EECopyToClipboardOverrideCommand extends CopyToClipboardCommand {
 		return cmd.unwrap();
 	}
 
+	@Override
 	protected boolean prepare() {
 		prepareSourceObjects();
 		if (!onlyRefObjects) {

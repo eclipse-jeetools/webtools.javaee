@@ -47,6 +47,7 @@ public abstract class BaseAction extends Action implements IActionDelegate {
 		this.selection = selection;
 	}
 
+	@Override
 	public void run() {
 		Shell shell = getWorkbenchWindow().getShell();
 		if (null == selection) {

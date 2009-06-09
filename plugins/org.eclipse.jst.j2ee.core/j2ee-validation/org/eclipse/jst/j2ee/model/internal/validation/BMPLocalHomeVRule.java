@@ -82,6 +82,7 @@ public final class BMPLocalHomeVRule extends ABMPHomeVRule implements ILocalType
 		MESSAGE_IDS.put(CHKJ2907, new String[]{CHKJ2907});
 	}
 
+	@Override
 	public final long[] getBaseTypes() {
 		return getSupertypes();
 	}
@@ -90,6 +91,7 @@ public final class BMPLocalHomeVRule extends ABMPHomeVRule implements ILocalType
 		return MESSAGE_IDS;
 	}
 	
+	@Override
 	public final int getMessageRemoteExceptionSeverity() {
 		return MESSAGE_REMOTE_EXCEPTION_SEVERITY;
 	}

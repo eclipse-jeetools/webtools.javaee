@@ -72,6 +72,7 @@ public class SecurityIdentityTranslator extends Translator implements EjbDeploym
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.Translator#getChildren(java.lang.Object, int)
 	 */
+	@Override
 	public Translator[] getChildren(Object o, int versionID) {
 		if (o == null)
 			return CommonTranslators.EMPTY_CHILDREN;
@@ -87,6 +88,7 @@ public class SecurityIdentityTranslator extends Translator implements EjbDeploym
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.Translator#createEMFObject(java.lang.String, java.lang.String)
 	 */
+	@Override
 	public EObject createEMFObject(String nodeName, String readAheadName) {
 		CommonFactory fact = CommonFactory.eINSTANCE; 
 		if (RUN_AS.equals(readAheadName)) {
@@ -99,6 +101,7 @@ public class SecurityIdentityTranslator extends Translator implements EjbDeploym
 			return null;
 	}
 
+	@Override
 	public boolean isManagedByParent() {
 		return false;
 	}

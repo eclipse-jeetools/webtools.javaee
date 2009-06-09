@@ -47,10 +47,12 @@ public XmlDocumentReader(InputSource source, EntityResolver resolver, ErrorHandl
  * Creation date: (03/19/01 10:13:26 AM)
  * @return org.xml.sax.EntityResolver
  */
+@Override
 public org.xml.sax.EntityResolver createDefaultEntityResolver() {
 	return J2EEXmlDtDEntityResolver.INSTANCE;
 }
 
+@Override
 protected void handleException(String aMessage, Throwable anException) {
 	if (anException instanceof SAXParseException) 
 		handleException(aMessage, (SAXParseException) anException);
@@ -61,6 +63,7 @@ protected void handleException(String aMessage, SAXParseException parseException
 	primHandleException(J2EEXMLResourceHandler.getString(XMLParseResourceHandler.parse_exception_occured_EXC_, (new Object[] {new Integer(parseException.getLineNumber()), new Integer(parseException.getColumnNumber()) })), parseException);  
 	//$NON-NLS-1$ = "An Exception occurred while parsing xml: {0} Line #: {1} :Column #: "
 }
+@Override
 protected void primHandleException(String aMessage, Throwable anException) {
 	if (anException instanceof Exception)
 		throw new WrappedRuntimeException(aMessage, (Exception)anException);

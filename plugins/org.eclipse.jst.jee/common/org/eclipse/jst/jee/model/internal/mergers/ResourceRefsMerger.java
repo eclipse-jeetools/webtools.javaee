@@ -39,7 +39,8 @@ public class ResourceRefsMerger extends BaseRefsMerger {
     /* (non-Javadoc)
      * @see org.eclipse.jst.javaee.ejb.model.mergers.common.ModelElementsMerger#process()
      */
-    public List process() throws ModelException {
+    @Override
+	public List process() throws ModelException {
         List warnings = new ArrayList();
         for (Object oToMerge : getToMergeElemets()) {
 			ResourceRef resRef = (ResourceRef) oToMerge;

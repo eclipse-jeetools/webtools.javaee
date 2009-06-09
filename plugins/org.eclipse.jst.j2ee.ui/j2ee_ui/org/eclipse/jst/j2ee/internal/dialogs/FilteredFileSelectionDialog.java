@@ -69,7 +69,7 @@ public class FilteredFileSelectionDialog extends ElementTreeSelectionDialog {
 	}
 
 	public void setHelp(String helpCode) {
-		PlatformUI.getWorkbench().getHelpSystem().setHelp(this.getParentShell(), helpCode); //$NON-NLS-1$
+		PlatformUI.getWorkbench().getHelpSystem().setHelp(this.getParentShell(), helpCode);
 	}
 
 }

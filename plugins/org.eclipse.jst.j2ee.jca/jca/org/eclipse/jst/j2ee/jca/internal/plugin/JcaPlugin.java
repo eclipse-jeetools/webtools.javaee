@@ -134,10 +134,12 @@ public class JcaPlugin extends WTPPlugin implements ResourceLocator {
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.WTPPlugin#getPluginID()
 	 */
+	@Override
 	public String getPluginID() {
 		return PLUGIN_ID;
 	}
 	
+	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		ConnectorResourceFactory.register(WTPResourceFactoryRegistry.INSTANCE);

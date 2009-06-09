@@ -87,6 +87,7 @@ public class MethodParamsImpl extends EObjectImpl implements MethodParams {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return EjbPackage.Literals.METHOD_PARAMS;
 	}
@@ -129,6 +130,7 @@ public class MethodParamsImpl extends EObjectImpl implements MethodParams {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case EjbPackage.METHOD_PARAMS__METHOD_PARAMS:
@@ -144,6 +146,7 @@ public class MethodParamsImpl extends EObjectImpl implements MethodParams {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EjbPackage.METHOD_PARAMS__METHOD_PARAMS:
@@ -162,6 +165,7 @@ public class MethodParamsImpl extends EObjectImpl implements MethodParams {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case EjbPackage.METHOD_PARAMS__METHOD_PARAMS:
@@ -179,6 +183,7 @@ public class MethodParamsImpl extends EObjectImpl implements MethodParams {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case EjbPackage.METHOD_PARAMS__METHOD_PARAMS:
@@ -194,6 +199,7 @@ public class MethodParamsImpl extends EObjectImpl implements MethodParams {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

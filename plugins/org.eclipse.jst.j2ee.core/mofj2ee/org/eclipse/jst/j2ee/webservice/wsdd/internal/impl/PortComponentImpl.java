@@ -317,7 +317,8 @@ public class PortComponentImpl extends J2EEEObjectImpl implements PortComponent
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  protected EClass eStaticClass() {
+  @Override
+protected EClass eStaticClass() {
 		return WsddPackage.Literals.PORT_COMPONENT;
 	}
 
@@ -807,6 +808,7 @@ public class PortComponentImpl extends J2EEEObjectImpl implements PortComponent
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case WsddPackage.PORT_COMPONENT__WSDL_PORT:
@@ -834,6 +836,7 @@ public class PortComponentImpl extends J2EEEObjectImpl implements PortComponent
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case WsddPackage.PORT_COMPONENT__PORT_COMPONENT_NAME:
@@ -877,6 +880,7 @@ public class PortComponentImpl extends J2EEEObjectImpl implements PortComponent
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case WsddPackage.PORT_COMPONENT__PORT_COMPONENT_NAME:
@@ -937,6 +941,7 @@ public class PortComponentImpl extends J2EEEObjectImpl implements PortComponent
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case WsddPackage.PORT_COMPONENT__PORT_COMPONENT_NAME:
@@ -996,6 +1001,7 @@ public class PortComponentImpl extends J2EEEObjectImpl implements PortComponent
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case WsddPackage.PORT_COMPONENT__PORT_COMPONENT_NAME:
@@ -1039,7 +1045,8 @@ public class PortComponentImpl extends J2EEEObjectImpl implements PortComponent
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String toString() {
+  @Override
+public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());

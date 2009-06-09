@@ -66,6 +66,7 @@ public class TagLibRefImpl extends J2EEEObjectImpl implements TagLibRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return WebapplicationPackage.Literals.TAG_LIB_REF;
 	}
@@ -155,6 +156,7 @@ public class TagLibRefImpl extends J2EEEObjectImpl implements TagLibRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case WebapplicationPackage.TAG_LIB_REF__WEB_APP:
@@ -170,6 +172,7 @@ public class TagLibRefImpl extends J2EEEObjectImpl implements TagLibRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case WebapplicationPackage.TAG_LIB_REF__WEB_APP:
@@ -183,6 +186,7 @@ public class TagLibRefImpl extends J2EEEObjectImpl implements TagLibRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case WebapplicationPackage.TAG_LIB_REF__WEB_APP:
@@ -196,6 +200,7 @@ public class TagLibRefImpl extends J2EEEObjectImpl implements TagLibRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case WebapplicationPackage.TAG_LIB_REF__TAGLIB_URI:
@@ -213,6 +218,7 @@ public class TagLibRefImpl extends J2EEEObjectImpl implements TagLibRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case WebapplicationPackage.TAG_LIB_REF__TAGLIB_URI:
@@ -233,6 +239,7 @@ public class TagLibRefImpl extends J2EEEObjectImpl implements TagLibRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case WebapplicationPackage.TAG_LIB_REF__TAGLIB_URI:
@@ -253,6 +260,7 @@ public class TagLibRefImpl extends J2EEEObjectImpl implements TagLibRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case WebapplicationPackage.TAG_LIB_REF__TAGLIB_URI:
@@ -268,6 +276,7 @@ public class TagLibRefImpl extends J2EEEObjectImpl implements TagLibRef {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

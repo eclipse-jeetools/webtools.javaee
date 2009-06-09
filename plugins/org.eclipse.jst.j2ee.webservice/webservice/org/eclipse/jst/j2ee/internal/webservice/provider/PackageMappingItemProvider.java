@@ -53,6 +53,7 @@ public class PackageMappingItemProvider extends ItemProviderAdapter implements I
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -106,6 +107,7 @@ public class PackageMappingItemProvider extends ItemProviderAdapter implements I
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return getResourceLocator().getImage("full/obj16/PackageMapping"); //$NON-NLS-1$
 	}
@@ -116,6 +118,7 @@ public class PackageMappingItemProvider extends ItemProviderAdapter implements I
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((PackageMapping) object).getId();
 		return label == null || label.length() == 0 ? getString("_UI_PackageMapping_type") : //$NON-NLS-1$
@@ -128,6 +131,7 @@ public class PackageMappingItemProvider extends ItemProviderAdapter implements I
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(PackageMapping.class)) {
 			case JaxrpcmapPackage.PACKAGE_MAPPING__ID :
@@ -147,6 +151,7 @@ public class PackageMappingItemProvider extends ItemProviderAdapter implements I
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -157,6 +162,7 @@ public class PackageMappingItemProvider extends ItemProviderAdapter implements I
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return Webservicej2eeEditPlugin.INSTANCE;
 	}

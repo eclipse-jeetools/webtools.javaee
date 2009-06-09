@@ -27,6 +27,7 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 public class EjbJar11ImportStrategyImpl extends XmlBasedImportStrategyImpl {
 
 	public static class Discriminator extends ArchiveTypeDiscriminatorImpl {
+		@Override
 		public boolean canImport(Archive anArchive) {
 			return anArchive.containsFile(J2EEConstants.EJBJAR_DD_URI);
 		}
@@ -34,6 +35,7 @@ public class EjbJar11ImportStrategyImpl extends XmlBasedImportStrategyImpl {
 		/**
 		 * @see com.ibm.etools.archive.ArchiveTypeDiscriminator
 		 */
+		@Override
 		public org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.ImportStrategy createImportStrategy(Archive old, Archive newArchive) {
 			return new EjbJar11ImportStrategyImpl();
 		}
@@ -42,6 +44,7 @@ public class EjbJar11ImportStrategyImpl extends XmlBasedImportStrategyImpl {
 			return getXmlDDMessage(CommonArchiveResourceHandler.EJB_Jar_File, J2EEConstants.EJBJAR_DD_URI); // = "EJB Jar File"
 		}
 
+		@Override
 		public Archive createConvertedArchive() {
 			return getArchiveFactory().createEJBJarFile();
 		}

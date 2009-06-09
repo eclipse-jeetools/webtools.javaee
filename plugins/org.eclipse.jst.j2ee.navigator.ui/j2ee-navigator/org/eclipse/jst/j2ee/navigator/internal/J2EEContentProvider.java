@@ -47,8 +47,6 @@ import org.eclipse.wst.common.internal.emfworkbench.integration.DynamicAdapterFa
  */
 public class J2EEContentProvider implements ITreeContentProvider, IRefreshHandlerListener {
 
-	private static final Class IPROJECT_CLASS = IProject.class;
-
 	private final EMFRootObjectProvider rootObjectProvider;
 
 	private AdapterFactoryContentProvider delegateContentProvider;
@@ -94,7 +92,7 @@ public class J2EEContentProvider implements ITreeContentProvider, IRefreshHandle
 		List children = new ArrayList();
 		if (aParentElement instanceof IAdaptable && !(aParentElement instanceof EObject) && !(aParentElement instanceof ItemProvider)
 				&& !(aParentElement instanceof J2EEJavaClassProviderHelper)) {
-			project = (IProject) ProjectUtilities.getProject(aParentElement);
+			project = ProjectUtilities.getProject(aParentElement);
 
 			if (project != null) {
 				// Verify if the model *is being*
@@ -227,6 +225,7 @@ public class J2EEContentProvider implements ITreeContentProvider, IRefreshHandle
 			} else {
 				/* Create and schedule a UI Job to update the Navigator Content Viewer */
 				Job job = new UIJob("Update the Navigator Content Viewer Job") { //$NON-NLS-1$
+					@Override
 					public IStatus runInUIThread(IProgressMonitor monitor) {
 						((AbstractTreeViewer) viewer).refresh(element, true);
 						return Status.OK_STATUS;

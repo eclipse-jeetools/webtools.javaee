@@ -44,6 +44,7 @@ public class ErrorPageItemProvider extends WebapplicationItemProviderAdapter imp
 	/**
 	 * This returns error_page.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return WebPlugin.getDefault().getImage("error_page"); //$NON-NLS-1$
 	}
@@ -51,6 +52,7 @@ public class ErrorPageItemProvider extends WebapplicationItemProviderAdapter imp
 	/**
 	 * This returns the webApp of the ErrorPage.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((ErrorPage) object).getWebApp();
 	}
@@ -58,6 +60,7 @@ public class ErrorPageItemProvider extends WebapplicationItemProviderAdapter imp
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -86,6 +89,7 @@ public class ErrorPageItemProvider extends WebapplicationItemProviderAdapter imp
 	}
 
 
+	@Override
 	public String getText(Object object) {
 		return WebAppEditResourceHandler.getString("13concat_UI_", (new Object[]{((ErrorPage) object).getLocation()})); //$NON-NLS-1$ = "ErrorPage {0}"
 	}
@@ -96,6 +100,7 @@ public class ErrorPageItemProvider extends WebapplicationItemProviderAdapter imp
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(ErrorPage.class)) {
 			case WebapplicationPackage.ERROR_PAGE__LOCATION : {
@@ -113,6 +118,7 @@ public class ErrorPageItemProvider extends WebapplicationItemProviderAdapter imp
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -123,6 +129,7 @@ public class ErrorPageItemProvider extends WebapplicationItemProviderAdapter imp
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}
@@ -133,6 +140,7 @@ public class ErrorPageItemProvider extends WebapplicationItemProviderAdapter imp
 	 * to return the empty enumeration, and this to check that enumeration, but we know there can't
 	 * be any children, so this is faster.
 	 */
+	@Override
 	public boolean hasChildren(Object object) {
 		return false;
 	}

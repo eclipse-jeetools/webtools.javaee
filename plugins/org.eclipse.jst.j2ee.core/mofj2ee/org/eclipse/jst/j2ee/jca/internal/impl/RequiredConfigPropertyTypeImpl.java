@@ -85,6 +85,7 @@ public class RequiredConfigPropertyTypeImpl extends J2EEEObjectImpl implements R
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return JcaPackage.Literals.REQUIRED_CONFIG_PROPERTY_TYPE;
 	}
@@ -127,6 +128,7 @@ public class RequiredConfigPropertyTypeImpl extends J2EEEObjectImpl implements R
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case JcaPackage.REQUIRED_CONFIG_PROPERTY_TYPE__DESCRIPTIONS:
@@ -140,6 +142,7 @@ public class RequiredConfigPropertyTypeImpl extends J2EEEObjectImpl implements R
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case JcaPackage.REQUIRED_CONFIG_PROPERTY_TYPE__NAME:
@@ -155,6 +158,7 @@ public class RequiredConfigPropertyTypeImpl extends J2EEEObjectImpl implements R
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case JcaPackage.REQUIRED_CONFIG_PROPERTY_TYPE__NAME:
@@ -173,6 +177,7 @@ public class RequiredConfigPropertyTypeImpl extends J2EEEObjectImpl implements R
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case JcaPackage.REQUIRED_CONFIG_PROPERTY_TYPE__NAME:
@@ -190,6 +195,7 @@ public class RequiredConfigPropertyTypeImpl extends J2EEEObjectImpl implements R
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case JcaPackage.REQUIRED_CONFIG_PROPERTY_TYPE__NAME:
@@ -205,6 +211,7 @@ public class RequiredConfigPropertyTypeImpl extends J2EEEObjectImpl implements R
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

@@ -52,7 +52,8 @@ public class ConnectorResourceFactory extends TranslatorResourceFactory {
     /* (non-Javadoc)
      * @see com.ibm.etools.emf2xml.impl.TranslatorResourceFactory#createResource(org.eclipse.emf.common.util.URI, com.ibm.etools.emf2xml.Renderer)
      */
-    protected TranslatorResource createResource(URI uri, Renderer aRenderer) {
+    @Override
+	protected TranslatorResource createResource(URI uri, Renderer aRenderer) {
 		return new ConnectorResourceImpl(uri, aRenderer);
     }
     

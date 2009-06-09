@@ -45,6 +45,7 @@ public class J2EEModelProviderRegistry extends RegistryReader {
 	}
 
 	
+	@Override
 	public boolean readElement(IConfigurationElement element) {
 		String priority = null;
 		if (!element.getName().equals(ELEMENT_providers))

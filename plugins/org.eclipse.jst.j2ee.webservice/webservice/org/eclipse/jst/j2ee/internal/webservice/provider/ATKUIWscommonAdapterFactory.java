@@ -15,24 +15,28 @@ public class ATKUIWscommonAdapterFactory extends WscommonItemProviderAdapterFact
 		super();
 	}
 
+	@Override
 	public Adapter createInitParamAdapter() {
 		if (initParamItemProvider == null)
 			initParamItemProvider = new ATKUIInitParamItemProvider(this);
 		return initParamItemProvider;
 	}
 
+	@Override
 	public Adapter createSOAPHeaderAdapter() {
 		if (soapHeaderItemProvider == null)
 			soapHeaderItemProvider = new ATKUISOAPHeaderItemProvider(this);
 		return soapHeaderItemProvider;
 	}
 
+	@Override
 	public Adapter createSOAPRoleAdapter() {
 		if (soapRoleItemProvider == null)
 			soapRoleItemProvider = new ATKUISOAPRoleItemProvider(this);
 		return soapRoleItemProvider;
 	}
 
+	@Override
 	public Adapter createPortNameAdapter() {
 		if (portNameItemProvider == null)
 			portNameItemProvider = new ATKUIPortNameItemProvider(this);

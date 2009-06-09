@@ -107,6 +107,7 @@ public class EarValidator extends J2EEValidator  {
 	 * 
 	 * @return String
 	 */
+	@Override
 	public String getBaseName() {
 		return EAR_CATEGORY;
 	}// getBaseName
@@ -128,10 +129,12 @@ public class EarValidator extends J2EEValidator  {
 	/**
 	 * Does the validation
 	 */
+	@Override
 	public void validate(IValidationContext inHelper, IReporter inReporter) throws ValidationException {
 		validateInJob( inHelper, inReporter );
 	}
 	
+	@Override
 	public IStatus  validateInJob( IValidationContext inHelper, IReporter inReporter ) throws ValidationException {
 				
 		inReporter.removeAllMessages(this);
@@ -960,6 +963,7 @@ public class EarValidator extends J2EEValidator  {
 		return null;
 	}
 	
+	@Override
 	public void cleanup(IReporter reporter) {
 		earFile = null;
 		appDD = null;

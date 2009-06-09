@@ -55,10 +55,12 @@ public class ApplicationClientResourceImpl extends XMLResourceImpl implements Ap
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.j2eexml.XMLResourceImpl#getJ2EE_1_2_SystemID()
 	 */
+	@Override
 	public String getJ2EE_1_2_SystemID() {
 		return J2EEConstants.APP_CLIENT_SYSTEMID_1_2;
 	}
 	
+	@Override
 	public String getJ2EE_Alt_1_2_SystemID() {
 		return J2EEConstants.APP_CLIENT_ALT_SYSTEMID_1_2;
 	}
@@ -66,10 +68,12 @@ public class ApplicationClientResourceImpl extends XMLResourceImpl implements Ap
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.j2eexml.XMLResourceImpl#getJ2EE_1_3_SystemID()
 	 */
+	@Override
 	public String getJ2EE_1_3_SystemID() {
 		return J2EEConstants.APP_CLIENT_SYSTEMID_1_3;
 	}
 	
+	@Override
 	public String getJ2EE_Alt_1_3_SystemID() {
 		return J2EEConstants.APP_CLIENT_ALT_SYSTEMID_1_3;
 	}
@@ -77,12 +81,14 @@ public class ApplicationClientResourceImpl extends XMLResourceImpl implements Ap
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.j2eexml.XMLResourceImpl#getJ2EE_1_2_PublicID()
 	 */
+	@Override
 	public String getJ2EE_1_2_PublicID() {
 		return J2EEConstants.APP_CLIENT_PUBLICID_1_2;
 	}
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.j2eexml.XMLResourceImpl#getJ2EE_1_3_PublicID()
 	 */
+	@Override
 	public String getJ2EE_1_3_PublicID() {
 		return J2EEConstants.APP_CLIENT_PUBLICID_1_3;
 	}
@@ -107,12 +113,14 @@ public class ApplicationClientResourceImpl extends XMLResourceImpl implements Ap
 
 	/* App client version is always the same as the J2EE version
 	 */
+	@Override
 	public int getJ2EEVersionID() {
 		return getModuleVersionID();
 	}
 	/* 
 	 * This directly sets the module version id
 	 */
+	@Override
 	public void setModuleVersionID(int id) {
 		super.setVersionID(id);
 		switch (id) {
@@ -130,6 +138,7 @@ public class ApplicationClientResourceImpl extends XMLResourceImpl implements Ap
 		/*
 		 * Based on the J2EE version, this will set the module version(Same as J2EE Version for App client)
 		 */
+		@Override
 		public void setJ2EEVersionID(int id) {
 		primSetVersionID(id);
 		switch (id) {
@@ -147,6 +156,7 @@ public class ApplicationClientResourceImpl extends XMLResourceImpl implements Ap
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.common.impl.XMLResourceImpl#syncVersionOfRootObject()
 	 */
+	@Override
 	protected void syncVersionOfRootObject() {
 		ApplicationClient clt = getApplicationClient();
 		if (clt == null)

@@ -71,6 +71,7 @@ public class GroupAppClientProvider extends AbstractGroupProvider implements IAd
 		return null;
 	}
 
+	@Override
 	public String getText() {
 		String result = null;
 		if (this.project == null) {
@@ -81,6 +82,7 @@ public class GroupAppClientProvider extends AbstractGroupProvider implements IAd
 		return result;
 	}
 
+	@Override
 	public List getChildren() {
 		List result = new ArrayList();
 		if (javaee != null){
@@ -97,6 +99,7 @@ public class GroupAppClientProvider extends AbstractGroupProvider implements IAd
 		return result;
 	}
 	
+	@Override
 	public Image getImage() {
 		if (APP_CLIENT50 == null) {
 			ImageDescriptor imageDescriptor = JEEUIPlugin.getDefault().getImageDescriptor(JEEUIPluginIcons.APP_CLIENT50);

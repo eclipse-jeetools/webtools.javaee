@@ -70,6 +70,7 @@ public class JEE5ModelProvider implements IModelProvider, ResourceStateInputProv
 
 	private List modelResources = new ArrayList();
 	protected class ResourceAdapter extends AdapterImpl {
+		@Override
 		public void notifyChanged(Notification notification) {
 			if (notification.getEventType() == Notification.SET
 					&& notification.getFeatureID(null) == Resource.RESOURCE__IS_LOADED) {

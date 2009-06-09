@@ -18,6 +18,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 public class UpdateDependentEARonDeleteProvider extends UpdateDependentProjectDataModelProvider 
 	implements ProjectRefactoringProperties {
 	
+	@Override
 	public IDataModelOperation getDefaultOperation() {
 		return new UpdateDependentEARonDeleteOp(model);
 	}

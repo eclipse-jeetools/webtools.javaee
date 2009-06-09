@@ -77,6 +77,7 @@ public class FilterImpl extends CompatibilityDescriptionGroupImpl implements Fil
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return WebapplicationPackage.Literals.FILTER;
 	}
@@ -165,6 +166,7 @@ public class FilterImpl extends CompatibilityDescriptionGroupImpl implements Fil
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case WebapplicationPackage.FILTER__INIT_PARAMS:
@@ -180,6 +182,7 @@ public class FilterImpl extends CompatibilityDescriptionGroupImpl implements Fil
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case WebapplicationPackage.FILTER__NAME:
@@ -200,6 +203,7 @@ public class FilterImpl extends CompatibilityDescriptionGroupImpl implements Fil
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case WebapplicationPackage.FILTER__NAME:
@@ -225,6 +229,7 @@ public class FilterImpl extends CompatibilityDescriptionGroupImpl implements Fil
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case WebapplicationPackage.FILTER__NAME:
@@ -248,6 +253,7 @@ public class FilterImpl extends CompatibilityDescriptionGroupImpl implements Fil
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case WebapplicationPackage.FILTER__NAME:
@@ -265,6 +271,7 @@ public class FilterImpl extends CompatibilityDescriptionGroupImpl implements Fil
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

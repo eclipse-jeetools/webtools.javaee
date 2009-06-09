@@ -52,6 +52,7 @@ public class FlexibleEMFModelManager extends EMFModelManager implements EditMode
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.navigator.internal.EMFModelManager#getModels()
 	 */
+	@Override
 	public Object[] getModels() {
 		try {
 		
@@ -132,6 +133,7 @@ public class FlexibleEMFModelManager extends EMFModelManager implements EditMode
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.navigator.internal.EMFModelManager#dispose()
 	 */
+	@Override
 	public void dispose() {
 		if (artifactEdits != null) {
 			for (int x=0; x< artifactEdits.size(); ++x) {

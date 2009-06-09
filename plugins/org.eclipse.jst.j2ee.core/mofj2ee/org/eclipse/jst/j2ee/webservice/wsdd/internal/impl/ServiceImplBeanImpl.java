@@ -84,7 +84,8 @@ public class ServiceImplBeanImpl extends J2EEEObjectImpl implements ServiceImplB
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  protected EClass eStaticClass() {
+  @Override
+protected EClass eStaticClass() {
 		return WsddPackage.Literals.SERVICE_IMPL_BEAN;
 	}
 
@@ -222,6 +223,7 @@ public class ServiceImplBeanImpl extends J2EEEObjectImpl implements ServiceImplB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case WsddPackage.SERVICE_IMPL_BEAN__EEJB_LINK:
@@ -239,6 +241,7 @@ public class ServiceImplBeanImpl extends J2EEEObjectImpl implements ServiceImplB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case WsddPackage.SERVICE_IMPL_BEAN__EEJB_LINK:
@@ -256,6 +259,7 @@ public class ServiceImplBeanImpl extends J2EEEObjectImpl implements ServiceImplB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case WsddPackage.SERVICE_IMPL_BEAN__EEJB_LINK:
@@ -276,6 +280,7 @@ public class ServiceImplBeanImpl extends J2EEEObjectImpl implements ServiceImplB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case WsddPackage.SERVICE_IMPL_BEAN__EEJB_LINK:
@@ -296,6 +301,7 @@ public class ServiceImplBeanImpl extends J2EEEObjectImpl implements ServiceImplB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case WsddPackage.SERVICE_IMPL_BEAN__EEJB_LINK:

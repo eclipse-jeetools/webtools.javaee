@@ -42,6 +42,7 @@ public class ExportEARAction extends BaseAction {
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(ICON));
 	}
 
+	@Override
 	public void primRun(Shell shell) {
 		EARComponentExportWizard wizard = new EARComponentExportWizard();
 		J2EEUIPlugin plugin = J2EEUIPlugin.getDefault();

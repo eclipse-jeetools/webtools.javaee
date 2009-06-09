@@ -93,20 +93,24 @@ public abstract class ComponentSaveStrategyImpl extends SaveStrategyImpl {
 		return (overwriteHandler.isOverwriteResources() || overwriteHandler.isOverwriteAll() || overwriteHandler.shouldOverwrite(uri));
 	}
 
+	@Override
 	protected SaveStrategy createNestedSaveStrategy(Archive anArchive) throws IOException {
 		return null;
 	}
 
+	@Override
 	protected OutputStream getOutputStreamForResource(Resource aResource) throws IOException {
 		// this method has no references in the hirarchy
 		return null;
 	}
 
+	@Override
 	protected void saveFiles() throws SaveFailureException {
 		super.saveFiles();
 		linkArchiveComponents();
 	}
 
+	@Override
 	public void save(File aFile, InputStream in) throws SaveFailureException {
 		try {
 			progressMonitor.subTask(aFile.getURI());

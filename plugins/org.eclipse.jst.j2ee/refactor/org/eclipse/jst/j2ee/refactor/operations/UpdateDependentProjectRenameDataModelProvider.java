@@ -19,6 +19,7 @@ public abstract class UpdateDependentProjectRenameDataModelProvider extends Proj
 	/* (non-Javadoc)
 	 * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider#getPropertyNames()
 	 */
+	@Override
 	public Set getPropertyNames() {
 		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(DEPENDENT_PROJECT_METADATA);

@@ -41,6 +41,7 @@ public class J2EEUtilityJavaProjectsItemProvider extends EARProjectMapItemProvid
 	/**
 	 * @see ItemProviderAdapter#getImage(Object)
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return J2EEPlugin.getPlugin().getImage("folder"); //$NON-NLS-1$
 	}
@@ -48,6 +49,7 @@ public class J2EEUtilityJavaProjectsItemProvider extends EARProjectMapItemProvid
 	/**
 	 * @see ItemProviderAdapter#getText(Object)
 	 */
+	@Override
 	public String getText(Object object) {
 		return UTILITY_JAVA_PROJECTS;
 	}

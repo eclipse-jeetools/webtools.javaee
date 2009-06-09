@@ -30,10 +30,12 @@ public class EarProjectFirstPage extends DataModelFacetCreationWizardPage {
 		setInfopopID(IJ2EEUIContextIds.NEW_EAR_WIZARD_P1);
 	}
 
+	@Override
 	protected IDialogSettings getDialogSettings() {
 		return J2EEUIPlugin.getDefault().getDialogSettings();
 	}
 	
+	@Override
 	protected String getModuleTypeID() {
 		return IModuleConstants.JST_EAR_MODULE;
 	}

@@ -45,6 +45,7 @@ public class J2EEActionProvider extends CommonActionProvider  {
 	 *      org.eclipse.jface.viewers.StructuredViewer,
 	 *      org.eclipse.wst.common.navigator.internal.views.extensions.NavigatorContentService)
 	 */
+	@Override
 	public void init(ICommonActionExtensionSite aConfig) { 
 		openAction = new OpenJ2EEResourceAction(); 
 		
@@ -58,6 +59,7 @@ public class J2EEActionProvider extends CommonActionProvider  {
 	 * 
 	 * @see org.eclipse.wst.common.navigator.internal.views.actions.ICommonActionProvider#setActionContext(org.eclipse.ui.actions.ActionContext)
 	 */
+	@Override
 	public void setContext(ActionContext aContext) {
 		
 		if (aContext != null && aContext.getSelection() instanceof IStructuredSelection) {
@@ -86,6 +88,7 @@ public class J2EEActionProvider extends CommonActionProvider  {
 	 * 
 	 * @see org.eclipse.wst.common.navigator.internal.views.actions.ICommonActionProvider#fillActionBars(org.eclipse.ui.IActionBars)
 	 */
+	@Override
 	public void fillActionBars(IActionBars theActionBars) {
 //		if (genericDelete.isEnabled())
 //			theActionBars.setGlobalActionHandler(ActionFactory.DELETE.getId(), genericDelete);
@@ -99,6 +102,7 @@ public class J2EEActionProvider extends CommonActionProvider  {
 	 * 
 	 * @see org.eclipse.wst.common.navigator.internal.views.actions.ICommonActionProvider#fillContextMenu(org.eclipse.jface.action.IMenuManager)
 	 */
+	@Override
 	public void fillContextMenu(IMenuManager aMenu) {
 		if (getContext()==null || getContext().getSelection().isEmpty())
 			return;

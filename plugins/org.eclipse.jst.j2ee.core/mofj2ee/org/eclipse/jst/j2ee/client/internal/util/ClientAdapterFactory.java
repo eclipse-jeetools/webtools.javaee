@@ -29,6 +29,7 @@ public class ClientAdapterFactory extends AdapterFactoryImpl {
 			modelPackage = (ClientPackage)EPackage.Registry.INSTANCE.getEPackage(ClientPackage.eNS_URI);
 		}
 	}
+	@Override
 	public boolean isFactoryForType(Object type) {
 		if (type == modelPackage) {
 			return true;
@@ -40,11 +41,13 @@ public class ClientAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	protected ClientSwitch sw = new ClientSwitch() {
+		@Override
 		public Object caseApplicationClient(ApplicationClient object) {
 			return createApplicationClientAdapter();
 		}
 	};
 
+	@Override
 	public Adapter createAdapter(Notifier target) {
 		return (Adapter)sw.doSwitch((EObject)target);
 	}
@@ -78,18 +81,23 @@ public class ClientAdapterFactory extends AdapterFactoryImpl {
 	 */
 	protected ClientSwitch modelSwitch =
 		new ClientSwitch() {
+			@Override
 			public Object caseApplicationClient(ApplicationClient object) {
 				return createApplicationClientAdapter();
 			}
+			@Override
 			public Object caseJ2EEEObject(J2EEEObject object) {
 				return createJ2EEEObjectAdapter();
 			}
+			@Override
 			public Object caseDescriptionGroup(DescriptionGroup object) {
 				return createDescriptionGroupAdapter();
 			}
+			@Override
 			public Object caseCompatibilityDescriptionGroup(CompatibilityDescriptionGroup object) {
 				return createCompatibilityDescriptionGroupAdapter();
 			}
+			@Override
 			public Object defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}

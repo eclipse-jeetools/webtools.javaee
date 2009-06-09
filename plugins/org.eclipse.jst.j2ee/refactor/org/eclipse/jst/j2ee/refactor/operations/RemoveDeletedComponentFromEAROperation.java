@@ -23,6 +23,7 @@ public class RemoveDeletedComponentFromEAROperation extends RemoveComponentFromE
 		super(model);
 	}
 		
+	@Override
 	protected String getModuleURI(final IEARModelProvider earModel, final IVirtualComponent targetComponent) {
 		String uri = earModel.getModuleURI(targetComponent);
 		if (uri == null) {

@@ -46,6 +46,7 @@ public class WsddTranslator extends RootTranslator implements WsddXmlMapperI, J2
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.Translator#getChildren(java.lang.Object, int)
 	 */
+	@Override
 	public Translator[] getChildren(Object o, int versionID) {
 	    
 		

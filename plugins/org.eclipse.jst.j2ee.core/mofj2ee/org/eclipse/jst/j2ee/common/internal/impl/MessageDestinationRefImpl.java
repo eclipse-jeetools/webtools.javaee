@@ -154,6 +154,7 @@ public class MessageDestinationRefImpl extends J2EEEObjectImpl implements Messag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return CommonPackage.Literals.MESSAGE_DESTINATION_REF;
 	}
@@ -278,6 +279,7 @@ public class MessageDestinationRefImpl extends J2EEEObjectImpl implements Messag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case CommonPackage.MESSAGE_DESTINATION_REF__DESCRIPTIONS:
@@ -291,6 +293,7 @@ public class MessageDestinationRefImpl extends J2EEEObjectImpl implements Messag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case CommonPackage.MESSAGE_DESTINATION_REF__NAME:
@@ -312,6 +315,7 @@ public class MessageDestinationRefImpl extends J2EEEObjectImpl implements Messag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case CommonPackage.MESSAGE_DESTINATION_REF__NAME:
@@ -339,6 +343,7 @@ public class MessageDestinationRefImpl extends J2EEEObjectImpl implements Messag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case CommonPackage.MESSAGE_DESTINATION_REF__NAME:
@@ -365,6 +370,7 @@ public class MessageDestinationRefImpl extends J2EEEObjectImpl implements Messag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case CommonPackage.MESSAGE_DESTINATION_REF__NAME:
@@ -386,6 +392,7 @@ public class MessageDestinationRefImpl extends J2EEEObjectImpl implements Messag
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

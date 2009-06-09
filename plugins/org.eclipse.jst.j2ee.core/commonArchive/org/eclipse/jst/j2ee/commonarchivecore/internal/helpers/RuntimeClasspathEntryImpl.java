@@ -91,16 +91,19 @@ public class RuntimeClasspathEntryImpl implements RuntimeClasspathEntry {
 		this.warFile = warFile;
 	}
 
+	@Override
 	public String toString() {
 		return getAbsolutePath();
 	}
 
+	@Override
 	public boolean equals(Object o) {
 		if (o instanceof RuntimeClasspathEntry)
 			return getAbsolutePath().equals(((RuntimeClasspathEntry) o).getAbsolutePath());
 		return false;
 	}
 
+	@Override
 	public int hashCode() {
 		return getAbsolutePath().hashCode();
 	}

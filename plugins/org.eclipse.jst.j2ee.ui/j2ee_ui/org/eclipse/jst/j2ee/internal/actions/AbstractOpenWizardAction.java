@@ -111,6 +111,7 @@ public abstract class AbstractOpenWizardAction extends org.eclipse.jface.action.
 	/**
 	 * The user has invoked this action.
 	 */
+	@Override
 	public void run() {
 		Wizard wizard = createWizard();
 		if (wizard instanceof IWorkbenchWizard) {

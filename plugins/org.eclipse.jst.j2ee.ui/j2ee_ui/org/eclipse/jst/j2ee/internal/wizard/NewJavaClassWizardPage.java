@@ -118,6 +118,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 	/**
 	 * 
 	 */
+	@Override
 	protected String[] getValidationPropertyNames() {
 		return new String[]{IArtifactEditOperationDataModelProperties.PROJECT_NAME, 
 				IArtifactEditOperationDataModelProperties.COMPONENT_NAME, 
@@ -130,6 +131,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 	/**
 	 * 
 	 */
+	@Override
 	protected Composite createTopLevelComposite(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NULL);
 		GridLayout layout = new GridLayout();
@@ -178,6 +180,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		data.horizontalSpan = 1;
 		projectNameCombo.setLayoutData(data);
 		projectNameCombo.addSelectionListener(new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				super.widgetSelected(e);
 				IProject project = ProjectUtilities.getProject(projectNameCombo.getText());
@@ -544,6 +547,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 	 */
 	protected ViewerFilter getContainerDialogViewerFilter() {
 		return new ViewerFilter() {
+			@Override
 			public boolean select(Viewer viewer, Object parent, Object element) {
 				if (element instanceof IProject) {
 					IProject project = (IProject) element;

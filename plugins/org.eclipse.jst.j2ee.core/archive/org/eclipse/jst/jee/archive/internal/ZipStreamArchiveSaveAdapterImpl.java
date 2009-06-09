@@ -45,6 +45,7 @@ public class ZipStreamArchiveSaveAdapterImpl extends AbstractArchiveSaveAdapter 
 		setZipOutputStream(new ZipOutputStream(out));
 	}
 
+	@Override
 	public void close() throws IOException {
 		getDestinationStream().close();
 	}
@@ -53,6 +54,7 @@ public class ZipStreamArchiveSaveAdapterImpl extends AbstractArchiveSaveAdapter 
 		return new ZipStreamArchiveSaveAdapterImpl(getZipOutputStream());
 	}
 
+	@Override
 	public void finish() throws IOException {
 		getZipOutputStream().finish();
 		//If this is not nested, close the stream to free up the resource
@@ -79,6 +81,7 @@ public class ZipStreamArchiveSaveAdapterImpl extends AbstractArchiveSaveAdapter 
 		return zipOutputStream;
 	}
 
+	@Override
 	protected void save(IArchiveResource resource) throws ArchiveSaveFailureException {
 		try {
 			IPath path = resource.getPath();

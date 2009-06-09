@@ -137,6 +137,7 @@ public class WebResourceCollectionImpl extends EObjectImpl implements WebResourc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return WebPackage.Literals.WEB_RESOURCE_COLLECTION;
 	}
@@ -224,6 +225,7 @@ public class WebResourceCollectionImpl extends EObjectImpl implements WebResourc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case WebPackage.WEB_RESOURCE_COLLECTION__DESCRIPTIONS:
@@ -239,6 +241,7 @@ public class WebResourceCollectionImpl extends EObjectImpl implements WebResourc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case WebPackage.WEB_RESOURCE_COLLECTION__WEB_RESOURCE_NAME:
@@ -260,6 +263,7 @@ public class WebResourceCollectionImpl extends EObjectImpl implements WebResourc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case WebPackage.WEB_RESOURCE_COLLECTION__WEB_RESOURCE_NAME:
@@ -289,6 +293,7 @@ public class WebResourceCollectionImpl extends EObjectImpl implements WebResourc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case WebPackage.WEB_RESOURCE_COLLECTION__WEB_RESOURCE_NAME:
@@ -315,6 +320,7 @@ public class WebResourceCollectionImpl extends EObjectImpl implements WebResourc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case WebPackage.WEB_RESOURCE_COLLECTION__WEB_RESOURCE_NAME:
@@ -336,6 +342,7 @@ public class WebResourceCollectionImpl extends EObjectImpl implements WebResourc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

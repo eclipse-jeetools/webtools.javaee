@@ -100,6 +100,7 @@ public class ValidateXmlCommand extends AbstractCommand {
 	/**
 	 * @return List of XmlValidationResult; 1 for the archive, and one for each nested module file
 	 */
+	@Override
 	public Collection getResult() {
 		return results;
 	}
@@ -113,6 +114,7 @@ public class ValidateXmlCommand extends AbstractCommand {
 		return validateNested;
 	}
 
+	@Override
 	protected boolean prepare() {
 		return true;
 	}

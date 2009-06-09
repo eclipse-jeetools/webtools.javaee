@@ -70,6 +70,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case EjbPackage.ACTIVATION_CONFIG: return (EObject)createActivationConfig();
@@ -114,6 +115,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
 			case EjbPackage.CMP_VERSION_TYPE:
@@ -168,6 +170,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
 			case EjbPackage.CMP_VERSION_TYPE:

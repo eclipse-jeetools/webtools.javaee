@@ -28,30 +28,37 @@ public class ConnectorComponentImportPage extends J2EEModuleImportPage {
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.JCA_IMPORT_WIZARD_BANNER));
 	}
 
+	@Override
 	protected String getFileImportLabel() {
 		return JCAUIMessages.JCA_FILE_LBL;
 	}
 
+	@Override
 	protected String[] getFilterExpression() {
 		return new String[]{"*.rar"}; //$NON-NLS-1$
 	}
 
+	@Override
 	protected String getFileNamesStoreID() {
 		return "RAR";//$NON-NLS-1$
 	}
 
+	@Override
 	protected String getProjectImportLabel() {
 		return JCAUIMessages.JCA_MODULE_LBL;
 	}
 
+	@Override
 	protected Composite createTopLevelComposite(Composite parent) {
 		return super.createTopLevelComposite(parent);
 	}
 
+	@Override
 	protected String getInfopopID() {
 		return IJ2EEUIContextIds.IMPORT_RAR_WIZARD_PAGE;
 	}
 	
+	@Override
 	protected String getModuleFacetID(){
 		return IJ2EEFacetConstants.JCA;
 	}	

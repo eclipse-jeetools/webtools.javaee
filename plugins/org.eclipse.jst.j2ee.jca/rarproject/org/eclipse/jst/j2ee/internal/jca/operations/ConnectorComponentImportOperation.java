@@ -42,6 +42,7 @@ public class ConnectorComponentImportOperation extends J2EEArtifactImportOperati
 		super(model);
 	}
 
+	@Override
 	protected void doExecute(IProgressMonitor monitor) throws ExecutionException {
 		super.doExecute(monitor);
 		addAssociateArchivesToClassPath();
@@ -107,11 +108,13 @@ public class ConnectorComponentImportOperation extends J2EEArtifactImportOperati
 	}
 	
 	
+	@Override
 	protected SaveStrategy createSaveStrategy(IVirtualComponent component) {
 		ConnectorComponentSaveStrategyImpl saveStrat = new ConnectorComponentSaveStrategyImpl(component);
 		return saveStrat;
 	}
 	
+	@Override
 	protected ComponentArchiveSaveAdapter getArchiveSaveAdapter(IVirtualComponent virtualComponent){
 		return new ConnectorComponentArchiveSaveAdapter(virtualComponent);
 	}

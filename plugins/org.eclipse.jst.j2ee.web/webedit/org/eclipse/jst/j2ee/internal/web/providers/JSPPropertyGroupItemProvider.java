@@ -18,11 +18,6 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
-import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
-import org.eclipse.emf.edit.provider.IItemPropertySource;
-import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
-import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.jst.j2ee.common.internal.provider.CompatibilityDescriptionGroupItemProvider;
 import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
@@ -35,7 +30,7 @@ import org.eclipse.jst.j2ee.jsp.JspPackage;
  * 
  * @generated
  */
-public class JSPPropertyGroupItemProvider extends CompatibilityDescriptionGroupItemProvider implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class JSPPropertyGroupItemProvider extends CompatibilityDescriptionGroupItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
@@ -52,6 +47,7 @@ public class JSPPropertyGroupItemProvider extends CompatibilityDescriptionGroupI
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -157,6 +153,7 @@ public class JSPPropertyGroupItemProvider extends CompatibilityDescriptionGroupI
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return WebPlugin.getDefault().getImage("full/obj16/JSPPropertyGroup"); //$NON-NLS-1$
 	}
@@ -167,6 +164,7 @@ public class JSPPropertyGroupItemProvider extends CompatibilityDescriptionGroupI
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((JSPPropertyGroup) object).getDisplayName();
 		return label == null || label.length() == 0 ? getString("_UI_JSPPropertyGroup_type") : //$NON-NLS-1$
@@ -179,6 +177,7 @@ public class JSPPropertyGroupItemProvider extends CompatibilityDescriptionGroupI
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(JSPPropertyGroup.class)) {
 			case JspPackage.JSP_PROPERTY_GROUP__URL_PATTERN :
@@ -202,6 +201,7 @@ public class JSPPropertyGroupItemProvider extends CompatibilityDescriptionGroupI
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -211,6 +211,7 @@ public class JSPPropertyGroupItemProvider extends CompatibilityDescriptionGroupI
 	 * end-user-doc -->
 	 *  
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		//		return J2EEPlugin.getDefault();
 		return WebAppEditResourceHandler.RESOURCE_LOCATOR;

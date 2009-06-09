@@ -151,6 +151,7 @@ public class JSPTagImpl extends DescriptionGroupImpl implements JSPTag {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return TaglibPackage.Literals.JSP_TAG;
 	}
@@ -387,6 +388,7 @@ public class JSPTagImpl extends DescriptionGroupImpl implements JSPTag {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case TaglibPackage.JSP_TAG__ATTRIBUTES:
@@ -402,6 +404,7 @@ public class JSPTagImpl extends DescriptionGroupImpl implements JSPTag {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case TaglibPackage.JSP_TAG__BODY_CONTENT:
@@ -431,6 +434,7 @@ public class JSPTagImpl extends DescriptionGroupImpl implements JSPTag {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case TaglibPackage.JSP_TAG__BODY_CONTENT:
@@ -468,6 +472,7 @@ public class JSPTagImpl extends DescriptionGroupImpl implements JSPTag {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case TaglibPackage.JSP_TAG__BODY_CONTENT:
@@ -503,6 +508,7 @@ public class JSPTagImpl extends DescriptionGroupImpl implements JSPTag {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case TaglibPackage.JSP_TAG__BODY_CONTENT:
@@ -528,6 +534,7 @@ public class JSPTagImpl extends DescriptionGroupImpl implements JSPTag {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

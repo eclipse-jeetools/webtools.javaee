@@ -33,6 +33,7 @@ public abstract class J2EEValidationHelper extends WorkbenchContext {
 	/*
 	 * @see IWorkbenchContext#getFile(Object)
 	 */
+	@Override
 	public IResource getResource(Object object) {
 		Resource resource = null;
 		if (object != null && object instanceof EObject)
@@ -98,6 +99,7 @@ public abstract class J2EEValidationHelper extends WorkbenchContext {
 	 * 
 	 * @see org.eclipse.wst.validation.internal.operations.IWorkbenchContext#getTargetObjectName(java.lang.Object)
 	 */
+	@Override
 	public String getTargetObjectName(Object object) {
 		if (object != null)
 			return object.toString();

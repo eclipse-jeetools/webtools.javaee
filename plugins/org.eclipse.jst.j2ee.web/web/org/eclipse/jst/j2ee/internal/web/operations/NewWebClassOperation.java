@@ -119,6 +119,7 @@ public abstract class NewWebClassOperation extends NewJavaEEArtifactClassOperati
 	 * @throws CoreException
 	 * @throws WFTWrappedException
 	 */
+	@Override
 	protected void generateUsingTemplates(IProgressMonitor monitor, IPackageFragment fragment) throws WFTWrappedException, CoreException {
 		// Create the web artifact template model
 		CreateWebClassTemplateModel tempModel = createTemplateModel();

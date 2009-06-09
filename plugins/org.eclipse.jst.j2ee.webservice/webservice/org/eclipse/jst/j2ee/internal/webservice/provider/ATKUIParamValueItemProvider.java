@@ -21,6 +21,7 @@ public class ATKUIParamValueItemProvider extends ParamValueItemProvider implemen
 	/**
 	 * This does the same thing as ITableLabelProvider.getColumnText.
 	 */
+	@Override
 	public String getColumnText(Object object, int columnIndex) {
 		ParamValue initParam = (ParamValue) object;
 		switch (columnIndex) {
@@ -46,6 +47,7 @@ public class ATKUIParamValueItemProvider extends ParamValueItemProvider implemen
 	/**
 	 * This does the same thing as ITableLabelProvider.getColumnImage.
 	 */
+	@Override
 	public Object getColumnImage(Object object, int columnIndex) {
 		return null;
 	}

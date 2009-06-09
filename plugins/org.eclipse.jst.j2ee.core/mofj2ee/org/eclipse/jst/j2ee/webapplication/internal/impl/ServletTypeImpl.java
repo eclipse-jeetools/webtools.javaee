@@ -47,10 +47,12 @@ public class ServletTypeImpl extends WebTypeImpl implements ServletType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return WebapplicationPackage.Literals.SERVLET_TYPE;
 	}
 
+@Override
 public boolean isServletType() {
 	return true;
 }
@@ -76,6 +78,7 @@ public boolean isServletType() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case WebapplicationPackage.SERVLET_TYPE__CLASS_NAME:
@@ -89,6 +92,7 @@ public boolean isServletType() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case WebapplicationPackage.SERVLET_TYPE__CLASS_NAME:
@@ -103,6 +107,7 @@ public boolean isServletType() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case WebapplicationPackage.SERVLET_TYPE__CLASS_NAME:
@@ -117,6 +122,7 @@ public boolean isServletType() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case WebapplicationPackage.SERVLET_TYPE__CLASS_NAME:
@@ -128,6 +134,7 @@ public boolean isServletType() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

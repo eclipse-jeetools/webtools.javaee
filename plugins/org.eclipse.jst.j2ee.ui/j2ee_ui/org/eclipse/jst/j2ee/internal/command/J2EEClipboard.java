@@ -33,6 +33,7 @@ public class J2EEClipboard extends ArrayList {
 		super(defaultClipboard);
 	}
 
+	@Override
 	public boolean addAll(Collection c) {
 		boolean result = super.addAll(c);
 		if (result && (c instanceof J2EEClipboard))

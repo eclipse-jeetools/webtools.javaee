@@ -46,6 +46,7 @@ public class ErrorPageTranslator extends Translator implements WarDeploymentDesc
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.Translator#createEMFObject(java.lang.String, java.lang.String)
 	 */
+	@Override
 	public EObject createEMFObject(String nodeName, String readAheadName) {
 		WebapplicationFactory fact = WebapplicationPackage.eINSTANCE.getWebapplicationFactory();
 		if (ERROR_CODE.equals(readAheadName))
@@ -59,6 +60,7 @@ public class ErrorPageTranslator extends Translator implements WarDeploymentDesc
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.Translator#getChildren(java.lang.Object, int)
 	 */
+	@Override
 	public Translator[] getChildren(Object o, int versionID) {
 		if (o == null)
 			return CommonTranslators.EMPTY_CHILDREN;
@@ -70,6 +72,7 @@ public class ErrorPageTranslator extends Translator implements WarDeploymentDesc
 			throw new IllegalStateException("Internal error: ErrorCode expected"); //$NON-NLS-1$
 	}
 		
+	@Override
 	public boolean isManagedByParent() {
 		return false;
 	}

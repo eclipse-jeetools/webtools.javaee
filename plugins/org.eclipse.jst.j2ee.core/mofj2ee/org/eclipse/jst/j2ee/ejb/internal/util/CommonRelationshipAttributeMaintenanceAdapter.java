@@ -34,6 +34,7 @@ public abstract class CommonRelationshipAttributeMaintenanceAdapter extends Adap
 	/**
 	 * @see org.eclipse.emf.common.notify.impl.AdapterImpl#notifyChanged(Notification)
 	 */
+	@Override
 	public void notifyChanged(Notification msg) {
 		switch (msg.getEventType()) {
 			case Notification.ADD :
@@ -163,6 +164,7 @@ public abstract class CommonRelationshipAttributeMaintenanceAdapter extends Adap
 	/* (non-Javadoc)
 	 * @see org.eclipse.emf.common.notify.impl.AdapterImpl#setTarget(org.eclipse.emf.common.notify.Notifier)
 	 */
+	@Override
 	public void setTarget(Notifier notifier) {
 		//Only set the target if it is a CommonRelationship
 		if (notifier == null || notifier instanceof CommonRelationship)

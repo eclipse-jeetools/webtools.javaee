@@ -30,6 +30,7 @@ public class J2EEEjbItemProviderAdapterFactory extends org.eclipse.jst.j2ee.inte
 	 * This creates an adapter for a
 	 * {@link org.eclipse.jst.j2ee.internal.internal.ejb.ContainerManagedEntity}.
 	 */
+	@Override
 	public Adapter createContainerManagedEntityAdapter() {
 		if (containerManagedEntityItemProvider == null) {
 			containerManagedEntityItemProvider = new J2EEContainerManagedEntityItemProvider(this);
@@ -41,6 +42,7 @@ public class J2EEEjbItemProviderAdapterFactory extends org.eclipse.jst.j2ee.inte
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.EJBJar}.
 	 */
+	@Override
 	public Adapter createEJBJarAdapter() {
 		if (eJBJarItemProvider == null) {
 			eJBJarItemProvider = new GroupedEJBJarItemProvider(this, true);
@@ -52,6 +54,7 @@ public class J2EEEjbItemProviderAdapterFactory extends org.eclipse.jst.j2ee.inte
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.Entity}.
 	 */
+	@Override
 	public Adapter createEntityAdapter() {
 		if (entityItemProvider == null) {
 			entityItemProvider = new J2EEEntityItemProvider(this);
@@ -63,6 +66,7 @@ public class J2EEEjbItemProviderAdapterFactory extends org.eclipse.jst.j2ee.inte
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.Session}.
 	 */
+	@Override
 	public Adapter createSessionAdapter() {
 		if (sessionItemProvider == null) {
 			sessionItemProvider = new J2EESessionItemProvider(this);
@@ -71,6 +75,7 @@ public class J2EEEjbItemProviderAdapterFactory extends org.eclipse.jst.j2ee.inte
 		return sessionItemProvider;
 	}
 
+	@Override
 	public Adapter createMessageDrivenAdapter() {
 		if (messageDrivenItemProvider == null) {
 			messageDrivenItemProvider = new J2EEMessageDrivenItemProvider(this);

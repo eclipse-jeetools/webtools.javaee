@@ -79,6 +79,7 @@ public abstract class AbstractMethodsContentProvider extends AdapterFactoryConte
 	/*
 	 * @see ITreeContentProvider#getChildren(Object)
 	 */
+	@Override
 	public Object[] getChildren(Object parentElement) {
 		if (parentElement instanceof AbstractMethodsContentProvider.EJBMethodItem)
 			return getMethodElements((AbstractMethodsContentProvider.EJBMethodItem) parentElement);
@@ -131,6 +132,7 @@ public abstract class AbstractMethodsContentProvider extends AdapterFactoryConte
 	/*
 	 * @see ITreeContentProvider#hasChildren(Object)
 	 */
+	@Override
 	public boolean hasChildren(Object element) {
 		if (element instanceof AbstractMethodsContentProvider.EJBMethodItem)
 			return true;
@@ -236,6 +238,7 @@ public abstract class AbstractMethodsContentProvider extends AdapterFactoryConte
 	 * @see INotifyChangedListener#notifyChanged(new ENotificationImpl((InternalEObject)Object,
 	 *      int,(EStructuralFeature) Object, Object, Object, int))
 	 */
+	@Override
 	public void notifyChanged(Notification notifier) {
 		if (notifier.getEventType() == Notification.RESOLVE)
 			return;

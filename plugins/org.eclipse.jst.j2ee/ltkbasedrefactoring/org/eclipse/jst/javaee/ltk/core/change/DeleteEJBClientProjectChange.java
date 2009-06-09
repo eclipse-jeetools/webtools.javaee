@@ -30,6 +30,7 @@ public class DeleteEJBClientProjectChange extends Change{
 		ejbClientProject = clientProj;
 	}
 	
+	@Override
 	public Change perform(IProgressMonitor pm) throws CoreException {
 		if(!ejbClientProject.isAccessible())
 			return null;

@@ -32,6 +32,7 @@ public class ElementNameTranslator extends Translator implements JaxrpcmapXmlMap
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.Translator#getChildren(java.lang.Object, int)
 	 */
+	@Override
 	public Translator[] getChildren(Object o, int versionID) {
 		if (o == null)
 			return CommonTranslators.EMPTY_CHILDREN;
@@ -40,6 +41,7 @@ public class ElementNameTranslator extends Translator implements JaxrpcmapXmlMap
 	}
 	
 	
+	@Override
 	public String getDOMName(Object value) {
 	  return ELEMENT_NAME;
 	}
@@ -49,12 +51,14 @@ public class ElementNameTranslator extends Translator implements JaxrpcmapXmlMap
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.Translator#createEMFObject(java.lang.String, java.lang.String)
 	 */
+	@Override
 	public EObject createEMFObject(String nodeName, String readAheadName) {
 		JaxrpcmapFactory fact = JaxrpcmapPackage.eINSTANCE.getJaxrpcmapFactory();
 		return fact.createElementName();
 
 	}
 	
+	@Override
 	public boolean isManagedByParent() {
 		return false;
 	}

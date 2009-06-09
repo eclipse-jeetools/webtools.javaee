@@ -50,10 +50,12 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class ImportJ2EEModuleDropAssistant extends AddProjectToEARDropAssistant {
 	
+	@Override
 	public boolean isSupportedType(TransferData aTransferType) { 
 		return FileTransfer.getInstance().isSupportedType(aTransferType);
 	}
 	
+	@Override
 	public IStatus handleDrop(CommonDropAdapter aDropAdapter, final DropTargetEvent aDropTargetEvent, final Object aTarget) {		
 		
 		if(FileTransfer.getInstance().isSupportedType(aDropAdapter.getCurrentTransfer())) {
@@ -62,6 +64,7 @@ public class ImportJ2EEModuleDropAssistant extends AddProjectToEARDropAssistant 
 		
 			IProgressService service = PlatformUI.getWorkbench().getProgressService();	 
 			Job importArtifactsJob = new Job(Messages.ImportJ2EEModuleDropAssistant_Importing_Java_Enterprise_Edition_artifacts) {
+				@Override
 				protected IStatus run(IProgressMonitor monitor) {					
 					
 					IProject targetEARProject = getProject(aTarget);
@@ -127,7 +130,7 @@ public class ImportJ2EEModuleDropAssistant extends AddProjectToEARDropAssistant 
 									importDataModel.setStringProperty(IJ2EEComponentImportDataModelProperties.PROJECT_NAME, filename);
 									importDataModel.getDefaultOperation().execute(submonitor, null);
 									
-									createdComponents.add((IVirtualComponent) importDataModel.getProperty(IJ2EEComponentImportDataModelProperties.COMPONENT));
+									createdComponents.add(importDataModel.getProperty(IJ2EEComponentImportDataModelProperties.COMPONENT));
 									
 								} else if(!performSimpleJarCopy){
 									status.add(J2EENavigatorPlugin.createErrorStatus(0, NLS.bind(Messages.ImportJ2EEModuleDropAssistant_Could_not_recognize_extension_0_, extension), null));
@@ -189,6 +192,7 @@ public class ImportJ2EEModuleDropAssistant extends AddProjectToEARDropAssistant 
 	}
 	
 
+	@Override
 	public IStatus validateDrop(Object target, int operation, TransferData transferType) {
 		IStatus status = Status.CANCEL_STATUS;
 		if(FileTransfer.getInstance().isSupportedType(transferType)) {

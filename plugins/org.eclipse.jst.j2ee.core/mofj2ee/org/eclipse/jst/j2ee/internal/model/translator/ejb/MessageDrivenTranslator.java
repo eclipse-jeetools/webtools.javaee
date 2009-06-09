@@ -39,6 +39,7 @@ public class MessageDrivenTranslator extends AbstractEJBTranslator {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.internal.model.translator.ejb.AbstractEJBTranslator#getSpecificMaps()
 	 */
+	@Override
 	protected Translator[] getSpecificMaps(int versionID) {
 		switch (versionID) {
 			case J2EE_1_4_ID:
@@ -118,6 +119,7 @@ public class MessageDrivenTranslator extends AbstractEJBTranslator {
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.Translator#getChildren(java.lang.Object, int)
 	 */
+	@Override
 	public Translator[] getChildren(Object o, int versionID) {
 		switch (versionID) {
 			case (J2EE_1_2_ID) :
@@ -137,6 +139,7 @@ public class MessageDrivenTranslator extends AbstractEJBTranslator {
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.Translator#createEMFObject(java.lang.String, java.lang.String)
 	 */
+	@Override
 	public EObject createEMFObject(String nodeName, String readAheadName) {
 		return EjbFactory.eINSTANCE.createMessageDriven();
 	}
@@ -145,6 +148,7 @@ public class MessageDrivenTranslator extends AbstractEJBTranslator {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.internal.model.translator.ejb.AbstractEJBTranslator#getEndMaps13()
 	 */
+	@Override
 	protected Translator[] getEndMaps13() {
 		return new Translator[] {
 			CommonTranslators.JNDI_REF_GROUP_ENV_ENTRY_1_3,
@@ -156,6 +160,7 @@ public class MessageDrivenTranslator extends AbstractEJBTranslator {
 		};
 	}
 	
+	@Override
 	protected Translator[] getEndMaps14() {
 		return new Translator[] {
 			CommonTranslators.JNDI_REF_GROUP_ENV_ENTRY_1_4,
@@ -172,6 +177,7 @@ public class MessageDrivenTranslator extends AbstractEJBTranslator {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.internal.model.translator.ejb.AbstractEJBTranslator#usesHomeRemoteAttributes()
 	 */
+	@Override
 	protected boolean usesHomeRemoteAttributes() {
 		return false;
 	}

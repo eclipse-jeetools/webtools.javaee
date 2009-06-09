@@ -47,6 +47,7 @@ public class FileURLExtensionReader extends RegistryReader {
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.RegistryReader#readElement(org.eclipse.core.runtime.IConfigurationElement)
 	 */
+	@Override
 	public boolean readElement(IConfigurationElement element) {
 		if (FileURLExtension.FILE_URL_EXTENSION.equals(element.getName())) {
 			addExtension(element);

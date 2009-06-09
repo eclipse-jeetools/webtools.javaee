@@ -89,6 +89,7 @@ public class ArchiveOptions implements Cloneable {
 	/**
 	 * Make a copy of the reciever, setting the loadStrategy to null
 	 */
+	@Override
 	public Object clone() {
 		return cloneWith(null);
 	}

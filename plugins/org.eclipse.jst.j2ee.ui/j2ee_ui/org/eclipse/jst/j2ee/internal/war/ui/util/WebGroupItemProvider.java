@@ -78,6 +78,7 @@ public abstract class WebGroupItemProvider extends J2EEItemProvider {
 		return theChildren;
     }
 
+	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
 		super.dispose();
@@ -85,6 +86,7 @@ public abstract class WebGroupItemProvider extends J2EEItemProvider {
 	}
 	
 
+	@Override
 	public IFile getAssociatedFile() {
 
 		try { 

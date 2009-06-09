@@ -24,16 +24,19 @@ public class WebComponentExportDataModelProvider extends J2EEComponentExportData
 		super();
 	}
 
+	@Override
 	public IDataModelOperation getDefaultOperation() {
 		return new WebComponentExportOperation(model);
 	}
 
+	@Override
 	public Set getPropertyNames() {
 		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(EXCLUDE_COMPILE_JSP);
 		return propertyNames;
 	}
 
+	@Override
 	public Object getDefaultProperty(String propertyName) {
 		if (EXCLUDE_COMPILE_JSP.equals(propertyName)) {
 			return Boolean.FALSE;
@@ -41,14 +44,17 @@ public class WebComponentExportDataModelProvider extends J2EEComponentExportData
 		return super.getDefaultProperty(propertyName);
 	}
 
+	@Override
 	protected String getProjectType() {
 		return J2EEProjectUtilities.DYNAMIC_WEB;
 	}
 
+	@Override
 	protected String getWrongComponentTypeString(String projectName) {
 		return EARCreationResourceHandler.getString(EARCreationResourceHandler.NOT_A_WAR, new Object[]{projectName});
 	}
 
+	@Override
 	protected String getModuleExtension() {
 		return ".war"; //$NON-NLS-1$
 	}

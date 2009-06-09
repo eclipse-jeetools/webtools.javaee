@@ -163,6 +163,7 @@ public class ServiceRefImpl extends CompatibilityDescriptionGroupImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Webservice_clientPackage.Literals.SERVICE_REF;
 	}
@@ -340,6 +341,7 @@ public class ServiceRefImpl extends CompatibilityDescriptionGroupImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case Webservice_clientPackage.SERVICE_REF__PORT_COMPONENT_REFS:
@@ -357,6 +359,7 @@ public class ServiceRefImpl extends CompatibilityDescriptionGroupImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case Webservice_clientPackage.SERVICE_REF__SERVICE_INTERFACE:
@@ -383,6 +386,7 @@ public class ServiceRefImpl extends CompatibilityDescriptionGroupImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case Webservice_clientPackage.SERVICE_REF__SERVICE_INTERFACE:
@@ -417,6 +421,7 @@ public class ServiceRefImpl extends CompatibilityDescriptionGroupImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case Webservice_clientPackage.SERVICE_REF__SERVICE_INTERFACE:
@@ -449,6 +454,7 @@ public class ServiceRefImpl extends CompatibilityDescriptionGroupImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case Webservice_clientPackage.SERVICE_REF__SERVICE_INTERFACE:
@@ -474,6 +480,7 @@ public class ServiceRefImpl extends CompatibilityDescriptionGroupImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

@@ -68,12 +68,14 @@ public class AddFilterWizardPage extends DataModelWizardPage {
 	 * 
 	 * @see org.eclipse.jem.util.ui.wizard.WTPWizardPage#getValidationPropertyNames()
 	 */
+	@Override
 	protected String[] getValidationPropertyNames() {
 		return new String[] { DISPLAY_NAME, 
 		        INIT_PARAM, 
 		        FILTER_MAPPINGS };
 	}
 
+	@Override
 	protected Composite createTopLevelComposite(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NULL);
 		composite.setLayout(new GridLayout());
@@ -155,6 +157,7 @@ public class AddFilterWizardPage extends DataModelWizardPage {
 		return displayNameText.getText();
 	}
 	
+	@Override
 	public boolean canFlipToNextPage() {
 		if (model.getBooleanProperty(USE_EXISTING_CLASS))
 			return false;

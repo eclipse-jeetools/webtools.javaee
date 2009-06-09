@@ -89,6 +89,7 @@ public class UIWarValidator extends WarValidator {
 	/**
 	 * Insert the method's description here. Creation date: (10/2/2001 6:49:26 PM)
 	 */
+	@Override
 	public void validate() throws ValidationException {
 		// First remove all previous msg. for this project
 		//	_reporter.removeAllMessages(this,null);
@@ -99,6 +100,7 @@ public class UIWarValidator extends WarValidator {
 	/**
 	 * Insert the method's description here. Creation date: (10/2/2001 6:49:26 PM)
 	 */
+	@Override
 	public IStatus validateInJob(IValidationContext inHelper, IReporter inReporter)
 			throws org.eclipse.wst.validation.internal.core.ValidationException {
 		
@@ -270,6 +272,7 @@ public class UIWarValidator extends WarValidator {
 		}
 	}*/	
 	
+	@Override
 	public ISchedulingRule getSchedulingRule(IValidationContext helper) {
 		
 		IProject project = ((IWorkbenchContext) helper).getProject();

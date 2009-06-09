@@ -57,6 +57,7 @@ public class LicenseItemProvider extends JcaItemProviderAdapter implements IEdit
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -99,6 +100,7 @@ public class LicenseItemProvider extends JcaItemProviderAdapter implements IEdit
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -140,6 +142,7 @@ public class LicenseItemProvider extends JcaItemProviderAdapter implements IEdit
 	 *            object - The adapt class.
 	 * @return Object
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((EObject) object).eContainer();
 	}// getParent
@@ -151,6 +154,7 @@ public class LicenseItemProvider extends JcaItemProviderAdapter implements IEdit
 	 *            object - The adapt class
 	 * @return Object
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return J2EEPlugin.getPlugin().getImage("full/obj16/license_obj"); //$NON-NLS-1$
 	}// getImage
@@ -162,6 +166,7 @@ public class LicenseItemProvider extends JcaItemProviderAdapter implements IEdit
 	 *            object - The object to get the name for.
 	 * @return String
 	 */
+	@Override
 	public String getText(Object object) {
 		License license = ((License) object);
 		if (license.getDescription() == null)
@@ -175,6 +180,7 @@ public class LicenseItemProvider extends JcaItemProviderAdapter implements IEdit
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(License.class)) {
 			case JcaPackage.LICENSE__DESCRIPTION :
@@ -194,6 +200,7 @@ public class LicenseItemProvider extends JcaItemProviderAdapter implements IEdit
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -208,6 +215,7 @@ public class LicenseItemProvider extends JcaItemProviderAdapter implements IEdit
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}

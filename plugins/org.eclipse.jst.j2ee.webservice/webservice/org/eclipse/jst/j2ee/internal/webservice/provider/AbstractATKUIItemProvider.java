@@ -35,6 +35,7 @@ public abstract class AbstractATKUIItemProvider extends ItemProviderAdapter {
 	/**
 	 * Get the resource locator for this adapter's resources.
 	 */
+	@Override
 	protected ResourceLocator getResourceLocator() {
 		return WebServicePlugin.getInstance();
 	}
@@ -44,6 +45,7 @@ public abstract class AbstractATKUIItemProvider extends ItemProviderAdapter {
 	 * {@link ITreeItemContentProvider#getChildren ITreeItemContentProvider.getChildren}by calling
 	 * {@link #getChildrenReferences getChildrenReferences}and using those to collect the children.
 	 */
+	@Override
 	public Collection getChildren(Object object) {
 		if (object instanceof EList)
 			return getChildrenFromEList((EList) object);

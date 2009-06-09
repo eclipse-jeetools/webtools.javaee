@@ -85,13 +85,16 @@ public class WebAppProvider extends AbstractGroupProvider implements IAdaptable 
 		children.add(welcome);
 		prjct = project;
 	}
+	@Override
 	public List getChildren(){
 		return children;
 	}
 
+	@Override
 	public String getText(){
 		return text;
 	}
+	@Override
 	public Image getImage() {
 		if (WEB_APP_IMAGE == null) {
 			ImageDescriptor imageWebDescriptor = JEEUIPlugin.getDefault()

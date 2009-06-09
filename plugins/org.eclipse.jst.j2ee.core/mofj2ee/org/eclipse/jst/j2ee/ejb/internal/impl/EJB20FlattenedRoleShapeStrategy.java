@@ -33,6 +33,7 @@ public class EJB20FlattenedRoleShapeStrategy extends RoleShapeStrategy {
 	public EJB20FlattenedRoleShapeStrategy(CommonRelationshipRole aRole) {
 		super(aRole);
 	}
+	@Override
 	protected boolean canContinue() {
 		return !busy && role.getName() != null && (role.isForward() ||
 			(role.isMany() && (role.getOppositeAsCommonRole() == null ||
@@ -51,6 +52,7 @@ public class EJB20FlattenedRoleShapeStrategy extends RoleShapeStrategy {
 	/**
 	 * @see RoleShapeStrategy#reconcileAttributes(CommonRelationshipRole, String, List, List)
 	 */
+	@Override
 	protected void reconcileAttributes(CommonRelationshipRole aRole, String attributeName, List aList, List computedNames) {
 		
 		Resource res = aRole.eResource();

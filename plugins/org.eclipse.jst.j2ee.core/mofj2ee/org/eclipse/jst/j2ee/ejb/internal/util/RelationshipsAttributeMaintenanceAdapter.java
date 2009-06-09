@@ -24,6 +24,7 @@ public class RelationshipsAttributeMaintenanceAdapter extends AdapterImpl {
 	/**
 	 * @see org.eclipse.emf.common.notify.impl.AdapterImpl#notifyChanged(Notification)
 	 */
+	@Override
 	public void notifyChanged(Notification msg) {
 		if ((EStructuralFeature)msg.getFeature() == EjbFactoryImpl.getPackage().getRelationships_EjbRelations()) {
 			switch (msg.getEventType()) {

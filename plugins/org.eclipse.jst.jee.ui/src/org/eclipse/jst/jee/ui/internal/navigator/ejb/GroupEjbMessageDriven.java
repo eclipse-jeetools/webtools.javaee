@@ -35,6 +35,7 @@ public class GroupEjbMessageDriven extends AbstractDDNode {
 		text = Messages.MESSAGE_DRIVEN_BEANS;
 	}
 
+	@Override
 	public List getChildren() {
 		List children = new ArrayList();
 		List msgBeans = null;

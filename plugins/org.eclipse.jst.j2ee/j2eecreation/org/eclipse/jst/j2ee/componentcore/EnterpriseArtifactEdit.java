@@ -195,6 +195,7 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit implements Wor
 			return null;
 		return getWorkingCopyManager().getWorkingCopy(cu, forNewCU);
 	}
+	@Override
 	protected boolean validProjectVersion(IProject project) {
 		
 		return EnterpriseArtifactEdit.SUPPORT_LEGACY_PROJECTS || primValidProjectVersion(project);

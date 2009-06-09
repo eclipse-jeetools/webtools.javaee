@@ -23,6 +23,7 @@ import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 
 public abstract class J2EEFacetInstallDataModelProvider extends FacetInstallDataModelProvider  implements IJ2EEFacetInstallDataModelProperties{
 
+	@Override
 	public Set getPropertyNames() {
 		Set names = super.getPropertyNames();
 		names.add(RUNTIME_TARGET_ID);

@@ -76,6 +76,7 @@ public class AddListenerOperation extends AddWebClassOperation {
 	 * @param aModel
 	 * @param qualifiedClassName
 	 */
+	@Override
 	protected void generateMetaData(IDataModel aModel, String qualifiedClassName) {
 		// Set up the listener modeled object
 		createListener(qualifiedClassName);

@@ -48,6 +48,7 @@ public class AppClientExportPage extends J2EEModuleExportPage {
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEImportPage#getProjectImportLabel()
 	 */
+	@Override
 	protected String getComponentLabel() {
 		return J2EEUIMessages.getResourceString(J2EEUIMessages.APP_CLIENT_IMPORT_PROJECT_LABEL);
 	}
@@ -57,6 +58,7 @@ public class AppClientExportPage extends J2EEModuleExportPage {
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEImportPage#getFilterExpression()
 	 */
+	@Override
 	protected String[] getFilterExpression() {
 		return new String[]{"*.jar"}; //$NON-NLS-1$
 	}
@@ -66,15 +68,18 @@ public class AppClientExportPage extends J2EEModuleExportPage {
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEExportPage#isMetaTypeSupported(java.lang.Object)
 	 */
+	@Override
 	protected boolean isMetaTypeSupported(Object o) {
 		return o instanceof ApplicationClient;
 	}
 
+	@Override
 	protected String getInfopopID() {
 		return IJ2EEUIContextIds.EXPORT_APPCLIENT_WIZARD_P1;
 	}
 	
-    protected String getCompnentID() {
+    @Override
+	protected String getCompnentID() {
         return "JST_APPCLIENT"; //$NON-NLS-1$
     }
 

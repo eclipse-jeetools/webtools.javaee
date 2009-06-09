@@ -114,6 +114,7 @@ public class JSPVariableImpl extends J2EEEObjectImpl implements JSPVariable {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return TaglibPackage.Literals.JSP_VARIABLE;
 	}
@@ -248,6 +249,7 @@ public class JSPVariableImpl extends J2EEEObjectImpl implements JSPVariable {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case TaglibPackage.JSP_VARIABLE__DESCRIPTIONS:
@@ -261,6 +263,7 @@ public class JSPVariableImpl extends J2EEEObjectImpl implements JSPVariable {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case TaglibPackage.JSP_VARIABLE__NAME_GIVEN:
@@ -285,6 +288,7 @@ public class JSPVariableImpl extends J2EEEObjectImpl implements JSPVariable {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case TaglibPackage.JSP_VARIABLE__NAME_GIVEN:
@@ -315,6 +319,7 @@ public class JSPVariableImpl extends J2EEEObjectImpl implements JSPVariable {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case TaglibPackage.JSP_VARIABLE__NAME_GIVEN:
@@ -344,6 +349,7 @@ public class JSPVariableImpl extends J2EEEObjectImpl implements JSPVariable {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case TaglibPackage.JSP_VARIABLE__NAME_GIVEN:
@@ -365,6 +371,7 @@ public class JSPVariableImpl extends J2EEEObjectImpl implements JSPVariable {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

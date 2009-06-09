@@ -52,6 +52,7 @@ public class InboundResourceAdapterItemProvider extends ItemProviderAdapter impl
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -68,6 +69,7 @@ public class InboundResourceAdapterItemProvider extends ItemProviderAdapter impl
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -82,6 +84,7 @@ public class InboundResourceAdapterItemProvider extends ItemProviderAdapter impl
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return getResourceLocator().getImage("full/obj16/InboundResourceAdapter"); //$NON-NLS-1$
 	}
@@ -92,6 +95,7 @@ public class InboundResourceAdapterItemProvider extends ItemProviderAdapter impl
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getText(Object object) {
 		return JCAResourceHandler._UI_InboundResourceAdapter_type; 
 		//return getString("_UI_InboundResourceAdapter_type"); //$NON-NLS-1$
@@ -103,6 +107,7 @@ public class InboundResourceAdapterItemProvider extends ItemProviderAdapter impl
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(InboundResourceAdapter.class)) {
 			case JcaPackage.INBOUND_RESOURCE_ADAPTER__MESSAGE_ADAPTER : {
@@ -120,6 +125,7 @@ public class InboundResourceAdapterItemProvider extends ItemProviderAdapter impl
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -132,6 +138,7 @@ public class InboundResourceAdapterItemProvider extends ItemProviderAdapter impl
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return JcaPlugin.getPlugin();
 		//return J2EEPlugin.getDefault();

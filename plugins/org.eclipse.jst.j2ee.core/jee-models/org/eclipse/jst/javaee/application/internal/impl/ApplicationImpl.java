@@ -187,6 +187,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return ApplicationPackage.Literals.APPLICATION;
 	}
@@ -344,6 +345,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case ApplicationPackage.APPLICATION__DESCRIPTIONS:
@@ -365,6 +367,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case ApplicationPackage.APPLICATION__DESCRIPTIONS:
@@ -392,6 +395,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ApplicationPackage.APPLICATION__DESCRIPTIONS:
@@ -432,6 +436,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case ApplicationPackage.APPLICATION__DESCRIPTIONS:
@@ -467,6 +472,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case ApplicationPackage.APPLICATION__DESCRIPTIONS:
@@ -494,6 +500,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

@@ -18,11 +18,6 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
-import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
-import org.eclipse.emf.edit.provider.IItemPropertySource;
-import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
-import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.common.EJBLocalRef;
@@ -37,7 +32,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
  * 
  * @generated
  */
-public class EJBLocalRefItemProvider extends EjbRefItemProvider implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class EJBLocalRefItemProvider extends EjbRefItemProvider {
 
 
 	/**
@@ -56,6 +51,7 @@ public class EJBLocalRefItemProvider extends EjbRefItemProvider implements IEdit
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -73,6 +69,7 @@ public class EJBLocalRefItemProvider extends EjbRefItemProvider implements IEdit
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -101,6 +98,7 @@ public class EJBLocalRefItemProvider extends EjbRefItemProvider implements IEdit
 	/**
 	 * This returns EJBLocalRef.gif. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return J2EEPlugin.getDefault().getImage("ejb_local_ref_obj"); //$NON-NLS-1$
 	}
@@ -109,6 +107,7 @@ public class EJBLocalRefItemProvider extends EjbRefItemProvider implements IEdit
 	 * This returns the label text for the adapted class. <!-- begin-user-doc --> <!-- end-user-doc
 	 * -->
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((EJBLocalRef) object).getName();
 		return label == null || label.length() == 0 ? CommonEditResourceHandler.getString("_UI_EJBLocalRef_type") : label; //$NON-NLS-1$
@@ -121,6 +120,7 @@ public class EJBLocalRefItemProvider extends EjbRefItemProvider implements IEdit
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(EJBLocalRef.class)) {
 			case CommonPackage.EJB_LOCAL_REF__LOCAL_HOME :
@@ -137,6 +137,7 @@ public class EJBLocalRefItemProvider extends EjbRefItemProvider implements IEdit
 	 * end-user-doc -->
 	 *  
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}

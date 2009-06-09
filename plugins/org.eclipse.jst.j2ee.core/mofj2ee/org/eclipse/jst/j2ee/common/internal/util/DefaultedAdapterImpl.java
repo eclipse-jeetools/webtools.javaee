@@ -28,6 +28,7 @@ public DefaultedAdapterImpl() {
 	super();
 }
 public abstract EObject defaultContainer();
+@Override
 public boolean isAdapterForType(Object type) {
 	return ADAPTER_KEY.equals(type);
 }

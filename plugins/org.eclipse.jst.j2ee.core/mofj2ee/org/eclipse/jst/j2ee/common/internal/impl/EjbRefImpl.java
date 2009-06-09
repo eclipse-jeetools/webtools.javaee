@@ -147,6 +147,7 @@ public class EjbRefImpl extends J2EEEObjectImpl implements EjbRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return CommonPackage.Literals.EJB_REF;
 	}
@@ -363,6 +364,7 @@ public boolean isLocal(){
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case CommonPackage.EJB_REF__DESCRIPTIONS:
@@ -376,6 +378,7 @@ public boolean isLocal(){
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case CommonPackage.EJB_REF__NAME:
@@ -401,6 +404,7 @@ public boolean isLocal(){
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case CommonPackage.EJB_REF__NAME:
@@ -434,6 +438,7 @@ public boolean isLocal(){
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case CommonPackage.EJB_REF__NAME:
@@ -466,6 +471,7 @@ public boolean isLocal(){
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case CommonPackage.EJB_REF__NAME:
@@ -489,6 +495,7 @@ public boolean isLocal(){
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

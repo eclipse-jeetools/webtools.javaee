@@ -33,6 +33,7 @@ public class RarFileDynamicClassLoader extends ArchiveFileDynamicClassLoader {
 		super(anArchive, parentCl, extraCl);
 	}
 
+	@Override
 	protected File getFile(String name) {
 		List children = getRarFile().getArchiveFiles();
 		for (int i = 0; i < children.size(); i++) {

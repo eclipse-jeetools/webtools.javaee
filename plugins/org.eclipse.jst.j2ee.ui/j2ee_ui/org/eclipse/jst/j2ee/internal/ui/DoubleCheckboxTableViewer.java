@@ -35,12 +35,14 @@ public class DoubleCheckboxTableViewer extends CheckboxTableViewer {
         mSecondCheckboxColumnIndex = secondCheckBoxColumnIndex;
     }
 
-    public void addCheckStateListener(ICheckStateListener listener) {
+    @Override
+	public void addCheckStateListener(ICheckStateListener listener) {
     	super.addCheckStateListener(listener);
     	lstnr = listener;
     }
 	
-    public void removeCheckStateListener(ICheckStateListener listener) {
+    @Override
+	public void removeCheckStateListener(ICheckStateListener listener) {
     	super.removeCheckStateListener(listener);
     	lstnr = null;
     	getTable().getItems();
@@ -50,6 +52,7 @@ public class DoubleCheckboxTableViewer extends CheckboxTableViewer {
     	}
     }
 	
+	@Override
 	protected ViewerRow internalCreateNewRowPart(int style, int rowIndex) {
 		DoubleCheckboxTableItem item;
 		if (rowIndex >= 0) {

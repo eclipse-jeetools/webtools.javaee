@@ -41,7 +41,8 @@ public class DisplayNameTypeImpl extends DisplayNameImpl implements DisplayNameT
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  protected EClass eStaticClass() {
+  @Override
+protected EClass eStaticClass() {
 		return WscommonPackage.Literals.DISPLAY_NAME_TYPE;
 	}
 

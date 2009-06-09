@@ -26,20 +26,24 @@ public class EJBAttributeMaintenanceFactoryImpl extends EjbAdapterFactory {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.ejb.util.EjbAdapterFactory#createAdapter(org.eclipse.emf.common.notify.Notifier)
 	 */
+	@Override
 	public Adapter createAdapter(Notifier target) {
 		Adapter targetAdapter = (Adapter) modelSwitch.doSwitch((EObject)target);
 		return ExtendedEcoreUtil.createAdapterForLoading(targetAdapter, (EObject) target);
 	}
 
 
+	@Override
 	public Adapter createEJBRelationAdapter() {
 		return new EJBRelationAttributeMaintenanceAdapter();
 	}
 	
+	@Override
 	public Adapter createRelationshipsAdapter() {
 		return new RelationshipsAttributeMaintenanceAdapter();
 	}
 
+	@Override
 	public boolean isFactoryForType(Object type) {
 		return ADAPTER_KEY == type;
 	}

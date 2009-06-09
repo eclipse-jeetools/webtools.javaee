@@ -78,6 +78,7 @@ public class ApplicationImpl extends CompatibilityDescriptionGroupImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return ApplicationPackage.Literals.APPLICATION;
 	}
@@ -163,6 +164,7 @@ public boolean isVersion1_3Descriptor() {
 	/**
 	 *
 	 */
+	@Override
 	public void setDisplayName(String newDisplayName) {
 		super.setDisplayName(newDisplayName);
 	}
@@ -187,6 +189,7 @@ public boolean isVersion1_3Descriptor() {
 	/**
 	 *This returns the j2ee version id. Compare with J2EEVersionConstants to determine j2ee level
 	 */
+	@Override
 	public int getJ2EEVersionID() throws IllegalStateException {
 		J2EEVersionResource res = (J2EEVersionResource) eResource();
 		if (res == null) throw new IllegalStateException();
@@ -232,6 +235,7 @@ public boolean isVersion1_3Descriptor() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case ApplicationPackage.APPLICATION__MODULES:
@@ -245,6 +249,7 @@ public boolean isVersion1_3Descriptor() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case ApplicationPackage.APPLICATION__SECURITY_ROLES:
@@ -260,6 +265,7 @@ public boolean isVersion1_3Descriptor() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case ApplicationPackage.APPLICATION__VERSION:
@@ -277,6 +283,7 @@ public boolean isVersion1_3Descriptor() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ApplicationPackage.APPLICATION__VERSION:
@@ -299,6 +306,7 @@ public boolean isVersion1_3Descriptor() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case ApplicationPackage.APPLICATION__VERSION:
@@ -319,6 +327,7 @@ public boolean isVersion1_3Descriptor() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case ApplicationPackage.APPLICATION__VERSION:
@@ -334,6 +343,7 @@ public boolean isVersion1_3Descriptor() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

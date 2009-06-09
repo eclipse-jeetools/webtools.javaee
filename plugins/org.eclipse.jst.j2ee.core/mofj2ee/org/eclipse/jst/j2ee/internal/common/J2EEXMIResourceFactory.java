@@ -44,6 +44,7 @@ public class J2EEXMIResourceFactory extends CompatibilityResourceFactory {
 	/**
 	 * @see org.eclipse.emf.ecore.resource.Resource.Factory#createResource(URI)
 	 */
+	@Override
 	public Resource createResource(URI uri) {
 		J2EEXMIResource resource = new J2EEXMIResource(uri);
 		return resource;

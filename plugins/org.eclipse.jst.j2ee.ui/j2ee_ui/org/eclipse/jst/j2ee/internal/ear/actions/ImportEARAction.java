@@ -42,6 +42,7 @@ public class ImportEARAction extends BaseAction {
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(ICON));
 	}
 
+	@Override
 	protected void primRun(Shell shell) {
 
 		EARComponentImportWizard wizard = new EARComponentImportWizard();

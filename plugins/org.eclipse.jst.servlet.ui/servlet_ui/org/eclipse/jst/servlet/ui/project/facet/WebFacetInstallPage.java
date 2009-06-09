@@ -43,6 +43,7 @@ public class WebFacetInstallPage extends J2EEModuleFacetInstallPage implements I
 		setDescription(Resources.pageDescription);
 	}
 
+	@Override
 	protected Composite createTopLevelComposite(final Composite parent) {
 		setInfopopID(IWebUIContextIds.NEW_DYNAMIC_WEB_PROJECT_PAGE3);
 		final Composite composite = new Composite(parent, SWT.NONE);
@@ -76,12 +77,14 @@ public class WebFacetInstallPage extends J2EEModuleFacetInstallPage implements I
 		return composite;
 	}
 	
+	@Override
 	protected void handleFacetVersionChangedEvent()
 	{
 	    final IProjectFacetVersion fv = (IProjectFacetVersion) this.model.getProperty( FACET_VERSION );
 	    this.addDD.setVisible( fv == WebFacetUtils.WEB_25 );
 	}
 	
+	@Override
 	protected String[] getValidationPropertyNames() {
 		return new String[]{EAR_PROJECT_NAME, CONTEXT_ROOT, CONFIG_FOLDER, SOURCE_FOLDER};
 	}

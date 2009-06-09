@@ -145,6 +145,7 @@ public class AuthenticationMechanismImpl extends J2EEEObjectImpl implements Auth
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return JcaPackage.Literals.AUTHENTICATION_MECHANISM;
 	}
@@ -269,6 +270,7 @@ public class AuthenticationMechanismImpl extends J2EEEObjectImpl implements Auth
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
@@ -329,6 +331,7 @@ public class AuthenticationMechanismImpl extends J2EEEObjectImpl implements Auth
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case JcaPackage.AUTHENTICATION_MECHANISM__DESCRIPTIONS:
@@ -342,6 +345,7 @@ public class AuthenticationMechanismImpl extends J2EEEObjectImpl implements Auth
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case JcaPackage.AUTHENTICATION_MECHANISM__DESCRIPTION:
@@ -365,6 +369,7 @@ public class AuthenticationMechanismImpl extends J2EEEObjectImpl implements Auth
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case JcaPackage.AUTHENTICATION_MECHANISM__DESCRIPTION:
@@ -395,6 +400,7 @@ public class AuthenticationMechanismImpl extends J2EEEObjectImpl implements Auth
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case JcaPackage.AUTHENTICATION_MECHANISM__DESCRIPTION:
@@ -424,6 +430,7 @@ public class AuthenticationMechanismImpl extends J2EEEObjectImpl implements Auth
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case JcaPackage.AUTHENTICATION_MECHANISM__DESCRIPTION:

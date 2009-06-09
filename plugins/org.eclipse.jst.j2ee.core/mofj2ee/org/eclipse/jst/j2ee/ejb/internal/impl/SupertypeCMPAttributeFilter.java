@@ -26,6 +26,7 @@ public SupertypeCMPAttributeFilter() {
 	super();
 }
 
+@Override
 protected List filterNotcached(ContainerManagedEntity cmp) {
 	ContainerManagedEntity supertype = null;
 	EjbModuleExtensionHelper extensionHelper = getEjbModuleExtHelper(cmp);

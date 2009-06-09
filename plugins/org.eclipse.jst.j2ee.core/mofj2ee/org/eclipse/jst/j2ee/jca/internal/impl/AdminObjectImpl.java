@@ -106,6 +106,7 @@ public class AdminObjectImpl extends J2EEEObjectImpl implements AdminObject {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return JcaPackage.Literals.ADMIN_OBJECT;
 	}
@@ -169,6 +170,7 @@ public class AdminObjectImpl extends J2EEEObjectImpl implements AdminObject {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case JcaPackage.ADMIN_OBJECT__CONFIG_PROPERTIES:
@@ -182,6 +184,7 @@ public class AdminObjectImpl extends J2EEEObjectImpl implements AdminObject {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case JcaPackage.ADMIN_OBJECT__ADMIN_OBJECT_INTERFACE:
@@ -199,6 +202,7 @@ public class AdminObjectImpl extends J2EEEObjectImpl implements AdminObject {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case JcaPackage.ADMIN_OBJECT__ADMIN_OBJECT_INTERFACE:
@@ -220,6 +224,7 @@ public class AdminObjectImpl extends J2EEEObjectImpl implements AdminObject {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case JcaPackage.ADMIN_OBJECT__ADMIN_OBJECT_INTERFACE:
@@ -240,6 +245,7 @@ public class AdminObjectImpl extends J2EEEObjectImpl implements AdminObject {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case JcaPackage.ADMIN_OBJECT__ADMIN_OBJECT_INTERFACE:
@@ -257,6 +263,7 @@ public class AdminObjectImpl extends J2EEEObjectImpl implements AdminObject {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

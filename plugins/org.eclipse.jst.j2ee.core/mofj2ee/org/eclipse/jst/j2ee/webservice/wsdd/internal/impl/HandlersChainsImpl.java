@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: HandlersChainsImpl.java,v 1.1 2007/12/12 22:57:13 cbridgha Exp $
+ * $Id: HandlersChainsImpl.java,v 1.2 2009/06/09 19:35:55 jsholl Exp $
  */
 package org.eclipse.jst.j2ee.webservice.wsdd.internal.impl;
 
@@ -62,6 +62,7 @@ public class HandlersChainsImpl extends J2EEEObjectImpl implements HandlersChain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return WsddPackage.Literals.HANDLERS_CHAINS;
 	}
@@ -83,6 +84,7 @@ public class HandlersChainsImpl extends J2EEEObjectImpl implements HandlersChain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case WsddPackage.HANDLERS_CHAINS__HANDLER_CHAIN:
@@ -96,6 +98,7 @@ public class HandlersChainsImpl extends J2EEEObjectImpl implements HandlersChain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case WsddPackage.HANDLERS_CHAINS__HANDLER_CHAIN:
@@ -109,6 +112,7 @@ public class HandlersChainsImpl extends J2EEEObjectImpl implements HandlersChain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case WsddPackage.HANDLERS_CHAINS__HANDLER_CHAIN:
@@ -124,6 +128,7 @@ public class HandlersChainsImpl extends J2EEEObjectImpl implements HandlersChain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case WsddPackage.HANDLERS_CHAINS__HANDLER_CHAIN:
@@ -138,6 +143,7 @@ public class HandlersChainsImpl extends J2EEEObjectImpl implements HandlersChain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case WsddPackage.HANDLERS_CHAINS__HANDLER_CHAIN:

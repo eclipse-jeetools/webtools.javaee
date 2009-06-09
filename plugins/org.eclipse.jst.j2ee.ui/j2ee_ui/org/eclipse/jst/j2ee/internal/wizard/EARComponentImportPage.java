@@ -57,6 +57,7 @@ public class EARComponentImportPage extends J2EEImportPage {
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#createTopLevelComposite(org.eclipse.swt.widgets.Composite)
 	 */
+	@Override
 	protected Composite createTopLevelComposite(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NULL);
 		setInfopopID(IJ2EEUIContextIds.IMPORT_EAR_WIZARD_P1);
@@ -70,6 +71,7 @@ public class EARComponentImportPage extends J2EEImportPage {
 		return composite;
 	}
 
+	@Override
 	protected String getProjectImportLabel() {
 		return J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_PROJECT_LABEL);
 	}
@@ -79,6 +81,7 @@ public class EARComponentImportPage extends J2EEImportPage {
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEImportPage#getFileImportLabel()
 	 */
+	@Override
 	protected String getFileImportLabel() {
 		return J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_FILE_LABEL);
 	}
@@ -88,6 +91,7 @@ public class EARComponentImportPage extends J2EEImportPage {
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEImportPage#getFilterExpression()
 	 */
+	@Override
 	protected String[] getFilterExpression() {
 		return new String[]{"*.ear"}; //$NON-NLS-1$
 	}
@@ -107,6 +111,7 @@ public class EARComponentImportPage extends J2EEImportPage {
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#getValidationPropertyNames()
 	 */
 	
+	@Override
 	protected String[] getValidationPropertyNames() {
 		return new String[]{IJ2EEComponentImportDataModelProperties.FILE_NAME,
 					IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME,
@@ -121,6 +126,7 @@ public class EARComponentImportPage extends J2EEImportPage {
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEImportPage#getFileNamesStoreID()
 	 */
+	@Override
 	protected String getFileNamesStoreID() {
 		return "EAR";//$NON-NLS-1$
 	}

@@ -57,6 +57,7 @@ public class J2EEComparator implements Comparator {
 	 * 
 	 * @see java.util.Comparator#equals(java.lang.Object)
 	 */
+	@Override
 	public boolean equals(Object obj) {
 		return obj instanceof J2EEComparator;
 	}

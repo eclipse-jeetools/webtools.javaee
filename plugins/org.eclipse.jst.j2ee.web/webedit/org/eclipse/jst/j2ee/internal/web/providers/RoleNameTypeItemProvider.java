@@ -46,6 +46,7 @@ public class RoleNameTypeItemProvider extends WebapplicationItemProviderAdapter 
 	/**
 	 * This returns security_role_nametype.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return WebPlugin.getDefault().getImage("security_role_nametype");//$NON-NLS-1$
 	}
@@ -53,6 +54,7 @@ public class RoleNameTypeItemProvider extends WebapplicationItemProviderAdapter 
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -82,6 +84,7 @@ public class RoleNameTypeItemProvider extends WebapplicationItemProviderAdapter 
 	}
 
 
+	@Override
 	public String getText(Object object) {
 		return WebAppEditResourceHandler.getString("23concat_UI_", (new Object[]{((RoleNameType) object).getRoleName()})); //$NON-NLS-1$ = "RoleNameType {0}"
 	}
@@ -92,6 +95,7 @@ public class RoleNameTypeItemProvider extends WebapplicationItemProviderAdapter 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(RoleNameType.class)) {
 			case WebapplicationPackage.ROLE_NAME_TYPE__ROLE_NAME : {
@@ -109,6 +113,7 @@ public class RoleNameTypeItemProvider extends WebapplicationItemProviderAdapter 
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -119,6 +124,7 @@ public class RoleNameTypeItemProvider extends WebapplicationItemProviderAdapter 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}
@@ -129,6 +135,7 @@ public class RoleNameTypeItemProvider extends WebapplicationItemProviderAdapter 
 	 * to return the empty enumeration, and this to check that enumeration, but we know there can't
 	 * be any children, so this is faster.
 	 */
+	@Override
 	public boolean hasChildren(Object object) {
 		return false;
 	}

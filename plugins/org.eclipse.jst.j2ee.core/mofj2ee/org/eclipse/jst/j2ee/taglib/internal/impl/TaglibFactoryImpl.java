@@ -61,6 +61,7 @@ public class TaglibFactoryImpl extends EFactoryImpl implements TaglibFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case TaglibPackage.TAG_LIB: return createTagLib();
@@ -81,6 +82,7 @@ public class TaglibFactoryImpl extends EFactoryImpl implements TaglibFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
 			case TaglibPackage.BODY_CONTENT_TYPE:
@@ -97,6 +99,7 @@ public class TaglibFactoryImpl extends EFactoryImpl implements TaglibFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
 			case TaglibPackage.BODY_CONTENT_TYPE:

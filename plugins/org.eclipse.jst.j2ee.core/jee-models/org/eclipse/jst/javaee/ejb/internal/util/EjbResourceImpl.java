@@ -40,11 +40,13 @@ public class EjbResourceImpl extends JavaeeResourceImpl implements IRootObjectRe
 		super(uri);
 	}
 	
+	@Override
 	protected XMLLoad createXMLLoad() {
 		 return new JEEXMLLoadImpl(createXMLHelper());
 	}
 
 	
+	@Override
 	protected XMLHelper createXMLHelper() {
 		
 		return new EjbXMLHelperImpl(this);

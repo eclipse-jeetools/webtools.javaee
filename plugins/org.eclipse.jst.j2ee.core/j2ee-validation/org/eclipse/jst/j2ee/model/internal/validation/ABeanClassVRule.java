@@ -31,6 +31,7 @@ public abstract class ABeanClassVRule extends ATypeVRule implements IEJBType {
 	protected final static long[] BASE_TYPES = new long[]{ITypeConstants.JAVA_LANG_OBJECT};
 	protected final static int MESSAGE_REMOTE_EXCEPTION_SEVERITY = IEJBValidationContext.WARNING; // Deprecated use of RemoteException.
 	
+	@Override
 	public long[] getBaseTypes() {
 		return BASE_TYPES;
 	}
@@ -414,6 +415,7 @@ public abstract class ABeanClassVRule extends ATypeVRule implements IEJBType {
 		// By default do nothing
 	}
 	
+	@Override
 	public long getFieldType(EnterpriseBean bean, JavaClass clazz, Field field) {
 		if(field == null) {
 			return EXCLUDED_FIELD;
@@ -499,6 +501,7 @@ public abstract class ABeanClassVRule extends ATypeVRule implements IEJBType {
 		}
 	}
 
+	@Override
 	public final boolean followRemoteExceptionRules(EnterpriseBean bean, Method method) throws InvalidInputException, ValidationCancelledException {
 		// must not throw RemoteException
 		return ValidationRuleUtility.doesNotThrowRemoteException(bean, method);

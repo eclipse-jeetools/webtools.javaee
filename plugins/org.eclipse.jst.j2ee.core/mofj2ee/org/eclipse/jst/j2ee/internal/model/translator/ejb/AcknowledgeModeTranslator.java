@@ -37,6 +37,7 @@ public class AcknowledgeModeTranslator extends Translator implements EjbDeployme
 	}
 	
 	
+	@Override
 	public Object convertStringToValue(String strValue, EObject owner) {
 		if (AUTO_ACKNOWLEDGE.equalsIgnoreCase(strValue))
 			return AcknowledgeMode.AUTO_ACKNOWLEDGE_LITERAL;
@@ -46,6 +47,7 @@ public class AcknowledgeModeTranslator extends Translator implements EjbDeployme
 			return super.convertStringToValue(strValue, owner);
 	}
 
+	@Override
 	public String convertValueToString(Object value, EObject owner) {
 		if (AcknowledgeMode.AUTO_ACKNOWLEDGE_LITERAL.equals(value)) 
 			return AUTO_ACKNOWLEDGE;

@@ -90,6 +90,7 @@ public class DoubleCheckboxTableItem extends TableItem {
 		return secondCheckBox; 
 	}
 	
+	@Override
 	public void dispose() {
 		disposeSecondCheckbox();
 		super.dispose();
@@ -108,6 +109,7 @@ public class DoubleCheckboxTableItem extends TableItem {
 		this.tblLstnr = tblLstnr;
 	}
 	
+	@Override
 	protected void checkSubclass () {}
 
 }

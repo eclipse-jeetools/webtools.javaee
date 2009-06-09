@@ -28,6 +28,7 @@ public class UpdateClasspathAttributesDataModelProvider extends AbstractDataMode
 	/* (non-Javadoc)
 	 * @see org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider#getPropertyNames()
 	 */
+	@Override
 	public Set getPropertyNames() {
 		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(PROJECT_NAME);
@@ -41,6 +42,7 @@ public class UpdateClasspathAttributesDataModelProvider extends AbstractDataMode
 	/* (non-Javadoc)
 	 * @see org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider#getDefaultProperty(java.lang.String)
 	 */
+	@Override
 	public Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(ENTRIES_WITH_ATTRIBUTE)) {
 			return new ArrayList();
@@ -53,6 +55,7 @@ public class UpdateClasspathAttributesDataModelProvider extends AbstractDataMode
 	/* (non-Javadoc)
 	 * @see org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider#getDefaultOperation()
 	 */
+	@Override
 	public IDataModelOperation getDefaultOperation() {
 		return new UpdateClasspathAttributesOperation(model);
 	}
@@ -64,6 +67,7 @@ public class UpdateClasspathAttributesDataModelProvider extends AbstractDataMode
 	/* (non-Javadoc)
 	 * @see org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider#validate(java.lang.String)
 	 */
+	@Override
 	public IStatus validate(String property) {
 		if (property.equals(PROJECT_NAME)) {
 			final String projectName = getStringProperty(PROJECT_NAME);

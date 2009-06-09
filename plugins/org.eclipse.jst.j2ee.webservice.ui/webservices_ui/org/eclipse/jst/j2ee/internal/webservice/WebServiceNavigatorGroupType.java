@@ -109,6 +109,7 @@ public class WebServiceNavigatorGroupType implements IActionFilter {
 	 * 
 	 * @see java.lang.Object#toString()
 	 */
+	@Override
 	public String toString() {
 		if (isServices())
 			return SERVICES_UI;

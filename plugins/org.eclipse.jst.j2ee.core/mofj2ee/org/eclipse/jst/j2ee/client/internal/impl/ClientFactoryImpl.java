@@ -53,6 +53,7 @@ public class ClientFactoryImpl extends EFactoryImpl implements ClientFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case ClientPackage.APPLICATION_CLIENT: return createApplicationClient();
@@ -66,6 +67,7 @@ public class ClientFactoryImpl extends EFactoryImpl implements ClientFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
 			case ClientPackage.RES_AUTH_APPLICATION_TYPE:
@@ -80,6 +82,7 @@ public class ClientFactoryImpl extends EFactoryImpl implements ClientFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
 			case ClientPackage.RES_AUTH_APPLICATION_TYPE:

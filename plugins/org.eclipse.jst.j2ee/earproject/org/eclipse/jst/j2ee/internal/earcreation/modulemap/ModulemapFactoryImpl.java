@@ -39,6 +39,7 @@ public class ModulemapFactoryImpl extends EFactoryImpl implements ModulemapFacto
 	 * 
 	 * @generated
 	 */
+	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case ModulemapPackage.MODULE_MAPPING :

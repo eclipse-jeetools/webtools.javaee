@@ -135,7 +135,8 @@ public class JEEFlexProjDeployable extends J2EEFlexProjDeployable {
     	return aURI;
 	} 
     
-    protected IModule gatherModuleReference(IVirtualComponent component, IVirtualComponent targetComponent ) {
+    @Override
+	protected IModule gatherModuleReference(IVirtualComponent component, IVirtualComponent targetComponent ) {
     	IModule module = super.gatherModuleReference(component, targetComponent);
     	// Handle binary module components
     	if (targetComponent instanceof J2EEModuleVirtualArchiveComponent) {

@@ -102,10 +102,12 @@ public class ApplicationItemProviderAdapterFactory extends ApplicationAdapterFac
 		supportedTypes.add(ITableItemLabelProvider.class);
 	}
 
+	@Override
 	public Adapter adapt(Notifier target, Object adapterKey) {
 		return super.adapt(target, this);
 	}
 
+	@Override
 	public Object adapt(Object object, Object type) {
 		if (isFactoryForType(type)) {
 			Object adapter = super.adapt(object, type);
@@ -117,6 +119,7 @@ public class ApplicationItemProviderAdapterFactory extends ApplicationAdapterFac
 		return null;
 	}
 
+	@Override
 	public Adapter adaptNew(Notifier target, Object adapterType) {
 		Adapter adapter = super.adaptNew(target, adapterType);
 		disposable.add(adapter);
@@ -136,6 +139,7 @@ public class ApplicationItemProviderAdapterFactory extends ApplicationAdapterFac
 	 * This creates an adapter for a
 	 * {@link org.eclipse.jst.j2ee.internal.internal.application.Application}.
 	 */
+	@Override
 	public Adapter createApplicationAdapter() {
 		if (applicationItemProvider == null) {
 			applicationItemProvider = new ApplicationItemProvider(this);
@@ -148,6 +152,7 @@ public class ApplicationItemProviderAdapterFactory extends ApplicationAdapterFac
 	 * This creates an adapter for a
 	 * {@link org.eclipse.jst.j2ee.internal.internal.application.EjbModule}.
 	 */
+	@Override
 	public Adapter createEjbModuleAdapter() {
 		if (ejbModuleItemProvider == null) {
 			ejbModuleItemProvider = new EjbModuleItemProvider(this);
@@ -160,6 +165,7 @@ public class ApplicationItemProviderAdapterFactory extends ApplicationAdapterFac
 	 * This creates an adapter for a
 	 * {@link org.eclipse.jst.j2ee.internal.internal.application.JavaClientModule}.
 	 */
+	@Override
 	public Adapter createJavaClientModuleAdapter() {
 		if (javaClientModuleItemProvider == null) {
 			javaClientModuleItemProvider = new JavaClientModuleItemProvider(this);
@@ -173,6 +179,7 @@ public class ApplicationItemProviderAdapterFactory extends ApplicationAdapterFac
 	 * 
 	 * @return Adapter
 	 */
+	@Override
 	public Adapter createConnectorModuleAdapter() {
 		if (connectorModuleItemProvider == null) {
 			connectorModuleItemProvider = new ConnectorModuleItemProvider(this);
@@ -185,6 +192,7 @@ public class ApplicationItemProviderAdapterFactory extends ApplicationAdapterFac
 	 * This creates an adapter for a
 	 * {@link org.eclipse.jst.j2ee.internal.internal.application.Module}.
 	 */
+	@Override
 	public Adapter createModuleAdapter() {
 		if (moduleItemProvider == null) {
 			moduleItemProvider = new ModuleItemProvider(this);
@@ -197,6 +205,7 @@ public class ApplicationItemProviderAdapterFactory extends ApplicationAdapterFac
 	 * This creates an adapter for a
 	 * {@link org.eclipse.jst.j2ee.internal.internal.application.WebModule}.
 	 */
+	@Override
 	public Adapter createWebModuleAdapter() {
 		if (webModuleItemProvider == null) {
 			webModuleItemProvider = new WebModuleItemProvider(this);
@@ -231,6 +240,7 @@ public class ApplicationItemProviderAdapterFactory extends ApplicationAdapterFac
 		return parentAdapterFactory == null ? this : parentAdapterFactory.getRootAdapterFactory();
 	}
 
+	@Override
 	public boolean isFactoryForType(Object type) {
 		return super.isFactoryForType(type) || supportedTypes.contains(type);
 	}

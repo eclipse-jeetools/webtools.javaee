@@ -22,6 +22,7 @@ public class ATKUIPortComponentRefItemProvider extends PortComponentRefItemProvi
 	/**
 	 * This does the same thing as ITableLabelProvider.getColumnText.
 	 */
+	@Override
 	public String getColumnText(Object object, int columnIndex) {
 		PortComponentRef portCompRef = (PortComponentRef) object;
 		switch (columnIndex) {
@@ -41,6 +42,7 @@ public class ATKUIPortComponentRefItemProvider extends PortComponentRefItemProvi
 	/**
 	 * This does the same thing as ITableLabelProvider.getColumnImage.
 	 */
+	@Override
 	public Object getColumnImage(Object object, int columnIndex) {
 		return null;
 	}

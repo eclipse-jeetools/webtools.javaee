@@ -30,6 +30,7 @@ public class ModelledPersistentAttributeFilter extends
 	
 	private static ModelledPersistentAttributeFilter singleton;
 
+	@Override
 	protected List filterNotcached(ContainerManagedEntity cmp) {
 		return getSourceAttributes(cmp);
 	}

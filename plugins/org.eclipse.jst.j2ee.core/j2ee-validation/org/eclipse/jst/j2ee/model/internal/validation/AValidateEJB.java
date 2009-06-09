@@ -34,6 +34,7 @@ import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 public abstract class AValidateEJB extends AValidationRule {
 	private List roleMethodNames;
 	
+	@Override
 	public void reset() {
 		super.reset();
 		if(roleMethodNames != null) {

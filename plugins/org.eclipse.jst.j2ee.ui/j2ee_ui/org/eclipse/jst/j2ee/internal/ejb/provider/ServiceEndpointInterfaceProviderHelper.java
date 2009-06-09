@@ -39,6 +39,7 @@ public class ServiceEndpointInterfaceProviderHelper extends J2EEJavaClassProvide
 		super(anEJB);
 	}
 
+	@Override
 	public Image getImage() {
 		if (image == null)
 			image = createImage();
@@ -50,15 +51,18 @@ public class ServiceEndpointInterfaceProviderHelper extends J2EEJavaClassProvide
 	 * 
 	 * @return org.eclipse.jem.internal.java.JavaClass
 	 */
+	@Override
 	public JavaClass getJavaClass() {
 		return ((Session) getEjb()).getServiceEndpoint();
 	}
 
+	@Override
 	protected String getOverlayKey() {
 		//TODO: DFH we need an icon
 		return "";//$NON-NLS-1$
 	}
 
+	@Override
 	public String getTypeString(String className) {
 		return J2EEUIMessages.getResourceString("Service_Endpoint_Interface_UI_", new Object[]{className}); //$NON-NLS-1$ = "Home Interface"
 	}

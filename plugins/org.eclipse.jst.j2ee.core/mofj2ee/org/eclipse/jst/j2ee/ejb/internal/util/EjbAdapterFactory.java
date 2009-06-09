@@ -56,6 +56,7 @@ public class EjbAdapterFactory extends AdapterFactoryImpl {
 			modelPackage = (EjbPackage) EPackage.Registry.INSTANCE.getEPackage(EjbPackage.eNS_URI);
 		}
 	}
+	@Override
 	public boolean isFactoryForType(Object type) {
 		if (type == modelPackage) {
 			return true;
@@ -66,88 +67,116 @@ public class EjbAdapterFactory extends AdapterFactoryImpl {
 		return false;
 	}
 	protected EjbSwitch sw = new EjbSwitch() {
+		@Override
 		public Object caseMethodPermission(MethodPermission object) {
 			return createMethodPermissionAdapter();
 		}
+		@Override
 		public Object caseAssemblyDescriptor(AssemblyDescriptor object) {
 			return createAssemblyDescriptorAdapter();
 		}
+		@Override
 		public Object caseMethodTransaction(MethodTransaction object) {
 			return createMethodTransactionAdapter();
 		}
+		@Override
 		public Object caseEnterpriseBean(EnterpriseBean object) {
 			return createEnterpriseBeanAdapter();
 		}
+		@Override
 		public Object caseEntity(Entity object) {
 			return createEntityAdapter();
 		}
+		@Override
 		public Object caseContainerManagedEntity(ContainerManagedEntity object) {
 			return createContainerManagedEntityAdapter();
 		}
+		@Override
 		public Object caseCMPAttribute(CMPAttribute object) {
 			return createCMPAttributeAdapter();
 		}
+		@Override
 		public Object caseCMRField(CMRField object) {
 			return createCMRFieldAdapter();
 		}
+		@Override
 		public Object caseEJBRelationshipRole(EJBRelationshipRole object) {
 			return createEJBRelationshipRoleAdapter();
 		}
+		@Override
 		public Object caseEJBRelation(EJBRelation object) {
 			return createEJBRelationAdapter();
 		}
+		@Override
 		public Object caseRelationships(Relationships object) {
 			return createRelationshipsAdapter();
 		}
+		@Override
 		public Object caseEJBJar(EJBJar object) {
 			return createEJBJarAdapter();
 		}
+		@Override
 		public Object caseRoleSource(RoleSource object) {
 			return createRoleSourceAdapter();
 		}
+		@Override
 		public Object caseQuery(Query object) {
 			return createQueryAdapter();
 		}
+		@Override
 		public Object caseQueryMethod(QueryMethod object) {
 			return createQueryMethodAdapter();
 		}
+		@Override
 		public Object caseMethodElement(MethodElement object) {
 			return createMethodElementAdapter();
 		}
+		@Override
 		public Object caseExcludeList(ExcludeList object) {
 			return createExcludeListAdapter();
 		}
+		@Override
 		public Object caseSession(Session object) {
 			return createSessionAdapter();
 		}
+		@Override
 		public Object caseMessageDriven(MessageDriven object) {
 			return createMessageDrivenAdapter();
 		}
+		@Override
 		public Object caseMessageDrivenDestination(MessageDrivenDestination object) {
 			return createMessageDrivenDestinationAdapter();
 		}
+		@Override
 		public Object caseActivationConfig(ActivationConfig object) {
 			return createActivationConfigAdapter();
 		}
+		@Override
 		public Object caseActivationConfigProperty(ActivationConfigProperty object) {
 			return createActivationConfigPropertyAdapter();
 		}
+		@Override
 		public Object caseEJBMethodCategory(EJBMethodCategory object) {
 			return createEJBMethodCategoryAdapter();
 		}
+		@Override
 		public Object caseEAttribute(EAttribute object) {
 			return createEAttributeAdapter();
 		}
+		@Override
 		public Object caseEStructuralFeature(EStructuralFeature object) {
 			return createEStructuralFeatureAdapter();
 		}
+		@Override
 		public Object caseEModelElement(EModelElement object) {
 			return createEModelElementAdapter();
 		}
+		@Override
 		public Object caseENamedElement(ENamedElement object) {
 			return createENamedElementAdapter();
 		}
 	};
+	@Override
 	public Adapter createAdapter(Notifier target) {
 		return (Adapter) sw.doSwitch((EObject) target);
 	}
@@ -265,105 +294,139 @@ public class EjbAdapterFactory extends AdapterFactoryImpl {
 	 */
 	protected EjbSwitch modelSwitch =
 		new EjbSwitch() {
+			@Override
 			public Object caseContainerManagedEntity(ContainerManagedEntity object) {
 				return createContainerManagedEntityAdapter();
 			}
+			@Override
 			public Object caseMethodPermission(MethodPermission object) {
 				return createMethodPermissionAdapter();
 			}
+			@Override
 			public Object caseAssemblyDescriptor(AssemblyDescriptor object) {
 				return createAssemblyDescriptorAdapter();
 			}
+			@Override
 			public Object caseMethodTransaction(MethodTransaction object) {
 				return createMethodTransactionAdapter();
 			}
+			@Override
 			public Object caseSession(Session object) {
 				return createSessionAdapter();
 			}
+			@Override
 			public Object caseEntity(Entity object) {
 				return createEntityAdapter();
 			}
+			@Override
 			public Object caseEnterpriseBean(EnterpriseBean object) {
 				return createEnterpriseBeanAdapter();
 			}
+			@Override
 			public Object caseEJBMethodCategory(EJBMethodCategory object) {
 				return createEJBMethodCategoryAdapter();
 			}
+			@Override
 			public Object caseEJBJar(EJBJar object) {
 				return createEJBJarAdapter();
 			}
+			@Override
 			public Object caseMethodElement(MethodElement object) {
 				return createMethodElementAdapter();
 			}
+			@Override
 			public Object caseCMPAttribute(CMPAttribute object) {
 				return createCMPAttributeAdapter();
 			}
+			@Override
 			public Object caseRelationships(Relationships object) {
 				return createRelationshipsAdapter();
 			}
+			@Override
 			public Object caseQuery(Query object) {
 				return createQueryAdapter();
 			}
+			@Override
 			public Object caseEJBRelation(EJBRelation object) {
 				return createEJBRelationAdapter();
 			}
+			@Override
 			public Object caseEJBRelationshipRole(EJBRelationshipRole object) {
 				return createEJBRelationshipRoleAdapter();
 			}
+			@Override
 			public Object caseRoleSource(RoleSource object) {
 				return createRoleSourceAdapter();
 			}
+			@Override
 			public Object caseCMRField(CMRField object) {
 				return createCMRFieldAdapter();
 			}
+			@Override
 			public Object caseMessageDriven(MessageDriven object) {
 				return createMessageDrivenAdapter();
 			}
+			@Override
 			public Object caseMessageDrivenDestination(MessageDrivenDestination object) {
 				return createMessageDrivenDestinationAdapter();
 			}
+			@Override
 			public Object caseExcludeList(ExcludeList object) {
 				return createExcludeListAdapter();
 			}
+			@Override
 			public Object caseQueryMethod(QueryMethod object) {
 				return createQueryMethodAdapter();
 			}
+			@Override
 			public Object caseActivationConfigProperty(ActivationConfigProperty object) {
 				return createActivationConfigPropertyAdapter();
 			}
+			@Override
 			public Object caseActivationConfig(ActivationConfig object) {
 				return createActivationConfigAdapter();
 			}
+			@Override
 			public Object caseJ2EEEObject(J2EEEObject object) {
 				return createJ2EEEObjectAdapter();
 			}
+			@Override
 			public Object caseDescriptionGroup(DescriptionGroup object) {
 				return createDescriptionGroupAdapter();
 			}
+			@Override
 			public Object caseCompatibilityDescriptionGroup(CompatibilityDescriptionGroup object) {
 				return createCompatibilityDescriptionGroupAdapter();
 			}
+			@Override
 			public Object caseJNDIEnvRefsGroup(JNDIEnvRefsGroup object) {
 				return createJNDIEnvRefsGroupAdapter();
 			}
+			@Override
 			public Object caseEModelElement(EModelElement object) {
 				return createEModelElementAdapter();
 			}
+			@Override
 			public Object caseENamedElement(ENamedElement object) {
 				return createENamedElementAdapter();
 			}
+			@Override
 			public Object caseETypedElement(ETypedElement object) {
 				return createETypedElementAdapter();
 			}
+			@Override
 			public Object caseEStructuralFeature(EStructuralFeature object) {
 				return createEStructuralFeatureAdapter();
 			}
+			@Override
 			public Object caseEAttribute(EAttribute object) {
 				return createEAttributeAdapter();
 			}
+			@Override
 			public Object caseJ2EEEAttribute(J2EEEAttribute object) {
 				return createJ2EEEAttributeAdapter();
 			}
+			@Override
 			public Object defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}

@@ -32,6 +32,7 @@ public class ConnectorModuleRefImpl extends ModuleRefImpl implements ConnectorMo
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return CommonarchivePackage.Literals.CONNECTOR_MODULE_REF;
 	}
@@ -43,6 +44,7 @@ public class ConnectorModuleRefImpl extends ModuleRefImpl implements ConnectorMo
 	/*
 	 * @see ModuleRef#isConnector()
 	 */
+	@Override
 	public boolean isConnector() {
 		return true;
 	}

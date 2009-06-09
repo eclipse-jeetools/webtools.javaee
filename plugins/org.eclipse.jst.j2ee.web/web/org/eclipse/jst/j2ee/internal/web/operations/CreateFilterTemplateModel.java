@@ -49,6 +49,7 @@ public class CreateFilterTemplateModel extends CreateWebClassTemplateModel {
 		super(dataModel);
     }
     
+	@Override
 	public Collection<String> getImports() {
 		Collection<String> collection = super.getImports();
 		

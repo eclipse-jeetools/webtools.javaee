@@ -248,10 +248,12 @@ public class WebPlugin extends WTPPlugin implements ResourceLocator {
 		return MessageFormat.format(getString(key), substitutions);
 	}
 
+	@Override
 	public void stop(BundleContext context) throws Exception {
 		super.stop(context);
 	}
 
+	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		//WebAppResourceFactory.register(WTPResourceFactoryRegistry.INSTANCE);
@@ -265,6 +267,7 @@ public class WebPlugin extends WTPPlugin implements ResourceLocator {
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.WTPPlugin#getPluginID()
 	 */
+	@Override
 	public String getPluginID() {
 		return PLUGIN_ID;
 	}

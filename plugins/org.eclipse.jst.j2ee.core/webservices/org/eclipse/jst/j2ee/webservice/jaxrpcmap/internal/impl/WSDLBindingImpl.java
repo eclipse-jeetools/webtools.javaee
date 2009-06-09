@@ -41,7 +41,8 @@ public class WSDLBindingImpl extends QNameImpl implements WSDLBinding
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  protected EClass eStaticClass() {
+  @Override
+protected EClass eStaticClass() {
 		return JaxrpcmapPackage.Literals.WSDL_BINDING;
 	}
 

@@ -44,6 +44,7 @@ public abstract class XMLResourceImpl extends TranslatorResourceImpl implements 
 		/* (non-Javadoc)
 		 * @see org.eclipse.emf.common.notify.impl.AdapterImpl#isAdapterForType(java.lang.Object)
 		 */
+		@Override
 		public boolean isAdapterForType(Object type) {
 			return super.isAdapterForType(type);
 		}
@@ -51,6 +52,7 @@ public abstract class XMLResourceImpl extends TranslatorResourceImpl implements 
 		/* (non-Javadoc)
 		 * @see org.eclipse.emf.common.notify.impl.AdapterImpl#notifyChanged(org.eclipse.emf.common.notify.Notification)
 		 */
+		@Override
 		public void notifyChanged(Notification msg) {
 			if (msg.getFeatureID(null) == RESOURCE__CONTENTS &&
 				msg.getEventType() == Notification.ADD) {
@@ -91,6 +93,7 @@ public abstract class XMLResourceImpl extends TranslatorResourceImpl implements 
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.TranslatorResourceImpl#initializeContents()
 	 */
+	@Override
 	protected void initializeContents() {
 		super.initializeContents();
 		eAdapters().add(new RootVersionAdapter());
@@ -118,6 +121,7 @@ public abstract class XMLResourceImpl extends TranslatorResourceImpl implements 
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.TranslatorResourceImpl#getDefaultVersionID()
 	 */
+	@Override
 	protected int getDefaultVersionID() {
 		return J2EE_1_4_ID;
 	}
@@ -126,6 +130,7 @@ public abstract class XMLResourceImpl extends TranslatorResourceImpl implements 
 	 * @see com.ibm.etools.emf2xml.TranslatorResource#setDoctypeValues(java.lang.String, java.lang.String)
 	 * This is setting the module version on the resource, where values are different that the J2EE version, this will be overridden
 	 */
+	@Override
 	public void setDoctypeValues(String publicId, String systemId) {
 		int version = J2EE_1_4_ID;
 		if (systemId == null) 
@@ -142,6 +147,7 @@ public abstract class XMLResourceImpl extends TranslatorResourceImpl implements 
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.TranslatorResource#usesDTD()
 	 */
+	@Override
 	public boolean usesDTD() {
 		return (getVersionID() == J2EE_1_2_ID) || (getVersionID() == J2EE_1_3_ID);
 	}
@@ -150,6 +156,7 @@ public abstract class XMLResourceImpl extends TranslatorResourceImpl implements 
 	 * @see com.ibm.etools.emf2xml.TranslatorResource#setVersionID(int)
 	 * @deprecated, Use setJ2EEVersionID() to set module version based on j2ee version
 	 **/
+	@Override
 	public void setVersionID(int id) {
 		setJ2EEVersionID(id);
 	}
@@ -195,6 +202,7 @@ public abstract class XMLResourceImpl extends TranslatorResourceImpl implements 
 	public void setSystemId(String id) {
 		setDoctypeValues(getPublicId(), id);
 	}
+	@Override
 	protected String getDefaultPublicId() {
 		switch (getVersionID()) {
 			case (J2EE_1_2_ID) :
@@ -206,6 +214,7 @@ public abstract class XMLResourceImpl extends TranslatorResourceImpl implements 
 		}	
 	}
 
+	@Override
 	protected String getDefaultSystemId() {
 		switch (getVersionID()) {
 			case (J2EE_1_2_ID) :
@@ -242,6 +251,7 @@ public abstract class XMLResourceImpl extends TranslatorResourceImpl implements 
 	}
 	
 	
+	@Override
 	public NotificationChain basicSetResourceSet(ResourceSet aResourceSet, NotificationChain notifications) {
 		if (aResourceSet == null && this.resourceSet != null)
 			preDelete();
@@ -255,10 +265,12 @@ public abstract class XMLResourceImpl extends TranslatorResourceImpl implements 
 	/**
 	 * @deprecated - use getJ2EEVersionID() and getModuleVersionID()
 	 */
+	@Override
 	public int getVersionID() {
 		return getJ2EEVersionID();
 	}
 	
+	@Override
 	public EntityResolver getEntityResolver() {
 		return J2EEXmlDtDEntityResolver.INSTANCE;
 	}	

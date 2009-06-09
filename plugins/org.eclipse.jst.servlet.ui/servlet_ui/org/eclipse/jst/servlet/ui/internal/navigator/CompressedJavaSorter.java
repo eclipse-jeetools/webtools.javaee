@@ -18,12 +18,14 @@ public class CompressedJavaSorter extends ViewerSorter {
 	
 	private JavaElementSorter sorter = new JavaElementSorter();
 	
+	@Override
 	public int category(Object element) { 
 		if(element instanceof CompressedJavaLibraries)
 			return 1;
 		else return 0;
 	}
 	
+	@Override
 	public int compare(Viewer viewer, Object e1, Object e2) {
 		if(e1 instanceof CompressedJavaLibraries)
 			return 1;

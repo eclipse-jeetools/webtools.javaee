@@ -61,6 +61,7 @@ public class SessionConfigImpl extends J2EEEObjectImpl implements SessionConfig 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return WebapplicationPackage.Literals.SESSION_CONFIG;
 	}
@@ -152,6 +153,7 @@ public class SessionConfigImpl extends J2EEEObjectImpl implements SessionConfig 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case WebapplicationPackage.SESSION_CONFIG__WEB_APP:
@@ -167,6 +169,7 @@ public class SessionConfigImpl extends J2EEEObjectImpl implements SessionConfig 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case WebapplicationPackage.SESSION_CONFIG__WEB_APP:
@@ -180,6 +183,7 @@ public class SessionConfigImpl extends J2EEEObjectImpl implements SessionConfig 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case WebapplicationPackage.SESSION_CONFIG__WEB_APP:
@@ -193,6 +197,7 @@ public class SessionConfigImpl extends J2EEEObjectImpl implements SessionConfig 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case WebapplicationPackage.SESSION_CONFIG__SESSION_TIMEOUT:
@@ -208,6 +213,7 @@ public class SessionConfigImpl extends J2EEEObjectImpl implements SessionConfig 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case WebapplicationPackage.SESSION_CONFIG__SESSION_TIMEOUT:
@@ -225,6 +231,7 @@ public class SessionConfigImpl extends J2EEEObjectImpl implements SessionConfig 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case WebapplicationPackage.SESSION_CONFIG__SESSION_TIMEOUT:
@@ -242,6 +249,7 @@ public class SessionConfigImpl extends J2EEEObjectImpl implements SessionConfig 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case WebapplicationPackage.SESSION_CONFIG__SESSION_TIMEOUT:
@@ -255,6 +263,7 @@ public class SessionConfigImpl extends J2EEEObjectImpl implements SessionConfig 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

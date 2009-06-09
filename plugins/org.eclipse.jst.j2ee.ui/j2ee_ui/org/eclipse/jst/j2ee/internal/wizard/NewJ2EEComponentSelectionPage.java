@@ -93,7 +93,8 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
      * 
      * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.J2EEWizardPage#getValidationPropertyNames()
      */
-    protected String[] getValidationPropertyNames() {
+    @Override
+	protected String[] getValidationPropertyNames() {
         return new String[] { CREATE_APPCLIENT, APPCLIENT_COMPONENT_NAME, CREATE_CONNECTOR, CONNECTOR_COMPONENT_NAME, CREATE_EJB, EJB_COMPONENT_NAME, CREATE_WEB, WEB_COMPONENT_NAME, MODULE_NAME_COLLISIONS_VALIDATION, ENABLED };
     }
 
@@ -102,7 +103,8 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
      * 
      * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.J2EEWizardPage#createTopLevelComposite(org.eclipse.swt.widgets.Composite)
      */
-    protected Composite createTopLevelComposite(Composite parent) {
+    @Override
+	protected Composite createTopLevelComposite(Composite parent) {
         Composite composite = new Composite(parent, SWT.NULL);
         GridLayout layout = new GridLayout();
         layout.numColumns = 1;
@@ -252,7 +254,8 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
      * 
      * @see org.eclipse.swt.widgets.Listener#handleEvent(org.eclipse.swt.widgets.Event)
      */
-    public void handleEvent(Event evt) {
+    @Override
+	public void handleEvent(Event evt) {
         if (evt.widget == defaultModulesButton)
             handleDefaultModulesButtonPressed();
         else if (!defaultModulesButton.getSelection()) {
@@ -354,7 +357,8 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
                  * 
                  * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.GenericWizardNode#createWizard()
                  */
-                protected IWizard createWizard() {
+                @Override
+				protected IWizard createWizard() {
                 	return createChildWizard("org.eclipse.jst.j2ee.ui.project.facet.appclient.AppClientProjectWizard", NESTED_MODEL_CLIENT); //$NON-NLS-1$
                 }
             };
@@ -373,7 +377,8 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
                  * 
                  * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.GenericWizardNode#createWizard()
                  */
-                protected IWizard createWizard() {
+                @Override
+				protected IWizard createWizard() {
                 	return createChildWizard("org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorProjectWizard", NESTED_MODEL_JCA); //$NON-NLS-1$
                 }
             };
@@ -392,7 +397,8 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
                  * 
                  * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.GenericWizardNode#createWizard()
                  */
-                protected IWizard createWizard() {
+                @Override
+				protected IWizard createWizard() {
                 	return createChildWizard("org.eclipse.jst.ejb.ui.project.facet.EjbProjectWizard", NESTED_MODEL_EJB); //$NON-NLS-1$
                 }
             };
@@ -411,7 +417,8 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
                  * 
                  * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.GenericWizardNode#createWizard()
                  */
-                protected IWizard createWizard() {
+                @Override
+				protected IWizard createWizard() {
                 	return createChildWizard("org.eclipse.jst.servlet.ui.project.facet.WebProjectWizard", NESTED_MODEL_WEB); //$NON-NLS-1$
                 }
             };
@@ -458,7 +465,8 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
      * 
      * @see org.eclipse.jface.wizard.WizardPage#canFlipToNextPage()
      */
-    public boolean canFlipToNextPage() {
+    @Override
+	public boolean canFlipToNextPage() {
         if (!defaultModulesButton.getSelection())
             return selectedNode != null;
         return false;
@@ -469,7 +477,8 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
      * <code>IWizardPage</code> method returns the first page of the currently
      * selected wizard if there is one.
      */
-    public IWizardPage getNextPage() {
+    @Override
+	public IWizardPage getNextPage() {
         if (selectedNode == null)
             return null;
         IPluginContribution pluginContribution = new IPluginContribution() {
@@ -513,7 +522,8 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
      * 
      * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.J2EEWizardPage#validatePage()
      */
-    protected void validatePage() {
+    @Override
+	protected void validatePage() {
         if (!defaultModulesButton.getSelection()) {
             setPageComplete(false);
             setErrorMessage(null);

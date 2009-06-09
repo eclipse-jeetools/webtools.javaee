@@ -63,6 +63,7 @@ public class WebServiceDescriptionItemProvider extends ItemProviderAdapter imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -185,6 +186,7 @@ public class WebServiceDescriptionItemProvider extends ItemProviderAdapter imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -201,6 +203,7 @@ public class WebServiceDescriptionItemProvider extends ItemProviderAdapter imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected EReference getChildReference(Object object, Object child) {
 		// Check the type of the specified child object and return the proper feature to use for
 		// adding (see {@link AddCommand}) it as a child.
@@ -236,6 +239,7 @@ public class WebServiceDescriptionItemProvider extends ItemProviderAdapter imple
 	 * This returns WebServiceDescription.gif. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 *  
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return getResourceLocator().getImage("icons/obj16/webservicedesc.gif"); //$NON-NLS-1$
 	}
@@ -246,6 +250,7 @@ public class WebServiceDescriptionItemProvider extends ItemProviderAdapter imple
 	 * 
 	 * @non-generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((WebServiceDescription) object).getWebServiceDescriptionName();
 		return label == null || label.length() == 0 ? getString("%_UI_WebServiceDescription_type") : label; //$NON-NLS-1$
@@ -257,6 +262,7 @@ public class WebServiceDescriptionItemProvider extends ItemProviderAdapter imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(WebServiceDescription.class)) {
 			case WsddPackage.WEB_SERVICE_DESCRIPTION__JAXRPC_MAPPING_FILE :
@@ -284,6 +290,7 @@ public class WebServiceDescriptionItemProvider extends ItemProviderAdapter imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -300,6 +307,7 @@ public class WebServiceDescriptionItemProvider extends ItemProviderAdapter imple
 	 * Return the resource locator for this item provider's resources. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return WebServicePlugin.getInstance();
 	}
@@ -309,6 +317,7 @@ public class WebServiceDescriptionItemProvider extends ItemProviderAdapter imple
 	 * {@link ITreeItemContentProvider#getChildren ITreeItemContentProvider.getChildren}by calling
 	 * {@link #getChildrenReferences getChildrenReferences}and using those to collect the children.
 	 */
+	@Override
 	public Collection getChildren(Object object) {
 		if (object instanceof EList)
 			return getChildrenFromEList((EList) object);

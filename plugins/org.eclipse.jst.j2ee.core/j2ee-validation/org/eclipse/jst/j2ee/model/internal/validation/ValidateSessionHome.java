@@ -79,6 +79,7 @@ public class ValidateSessionHome extends AValidateHome implements IMessagePrefix
 		MESSAGE_IDS.put(CHKJ2907, new String[]{CHKJ2907});
 	}
 	
+	@Override
 	public void reset() {
 		super.reset();
 		createMethods.clear();
@@ -132,6 +133,7 @@ public class ValidateSessionHome extends AValidateHome implements IMessagePrefix
 	 * URL: http://java.sun.com/products/ejb/docs.html
 	 * Section: 6.8 and 6.10.6
 	 */
+	@Override
 	public void primValidate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method hiMethod) throws InvalidInputException {
 		// Can't invoke an abstract method
 		// super.primValidate(hiMethod);
@@ -158,6 +160,7 @@ public class ValidateSessionHome extends AValidateHome implements IMessagePrefix
 	/**
 	 * Checks to see if @ejbMethod is one of the required methods.
 	 */
+	@Override
 	protected void primValidateExistence(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method ejbMethod) throws InvalidInputException {
 		// Can't invoke an abstract method
 		//super.validateExistence(ejbMethod);
@@ -176,6 +179,7 @@ public class ValidateSessionHome extends AValidateHome implements IMessagePrefix
 	 * URL: http://java.sun.com/products/ejb/docs.html
 	 * Section: 6.10.6
 	 */
+	@Override
 	public void validateClass(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		vc.terminateIfCancelled();
 		// Both of the above checks are performed by the ValidateHome class's validateClass method.
@@ -221,6 +225,7 @@ public class ValidateSessionHome extends AValidateHome implements IMessagePrefix
 	 * EJB 1.1 specification
 	 * Section: 6.8 and 6.10.6
 	 */
+	@Override
 	protected void validateMethodExists(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		final String[] modelObjectName = new String[] { clazz.getQualifiedName()};
 
@@ -244,6 +249,7 @@ public class ValidateSessionHome extends AValidateHome implements IMessagePrefix
 	/*
 	 * @see IValidationRule#preValidate(IEJBValidationContext, Object, Object)
 	 */
+	@Override
 	public void preValidate(IEJBValidationContext vc, Object targetParent, Object target) throws ValidationCancelledException, ValidationException {
 		super.preValidate(vc, targetParent, target);
 		hasDefaultCreateMethod = false;

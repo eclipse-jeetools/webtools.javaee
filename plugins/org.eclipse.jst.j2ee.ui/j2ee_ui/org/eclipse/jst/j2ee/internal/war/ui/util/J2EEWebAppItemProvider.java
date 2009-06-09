@@ -26,11 +26,9 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationWrapper;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.jst.j2ee.internal.web.providers.WebAppItemProvider;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
-import org.eclipse.jst.j2ee.webapplication.WelcomeFileList;
 import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesClient;
 import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
@@ -101,6 +99,7 @@ public class J2EEWebAppItemProvider extends WebAppItemProvider {
 		 * 
 		 * @see org.eclipse.emf.common.notify.Adapter#notifyChanged(org.eclipse.emf.common.notify.Notification)
 		 */
+		@Override
 		public void notifyChanged(Notification notification) {
 			if (notification.getEventType() == Notification.ADD || notification.getEventType() == Notification.ADD_MANY || notification.getEventType() == Notification.REMOVE || notification.getEventType() == Notification.REMOVE_MANY) {
 				if (notification.getFeatureID(WebServicesClient.class) == Webservice_clientPackage.WEB_SERVICES_CLIENT__SERVICE_REFS) {
@@ -217,6 +216,7 @@ public class J2EEWebAppItemProvider extends WebAppItemProvider {
 
 	protected WeakReference weakWebApp = null;
 
+	@Override
 	public Collection getChildren(Object object) {		
 		if (object instanceof WebApp) {
 			WebApp webApp = (WebApp) object;
@@ -235,37 +235,12 @@ public class J2EEWebAppItemProvider extends WebAppItemProvider {
 		return Collections.EMPTY_LIST;
 	}
 
-    private void updateContextParams(WebApp webApp) {
-        EList contextParams = webApp.getContextParams();
-        if (contextParams == null || contextParams.isEmpty()) {
-            if (webContextParamGroup != null) { 
-                children.remove(webContextParamGroup);
-                webContextParamGroup.dispose();
-                webContextParamGroup = null;
-            }
-        } else if (webContextParamGroup == null) { 
-            children.add(webContextParamGroup = new WebContextParamGroupItemProvider(adapterFactory, weakWebApp));
-        }
-    }
-
-    private void updateWelcomePages(WebApp webApp) {
-        WelcomeFileList fileList = webApp.getFileList();
-        if (fileList == null || fileList.getFile().isEmpty()) {
-            if (webWelcomeFileGroup != null) { 
-                children.remove(webWelcomeFileGroup);
-                webWelcomeFileGroup.dispose();
-                webWelcomeFileGroup = null;
-            }
-        } else if (webWelcomeFileGroup == null) { 
-            children.add(webWelcomeFileGroup = new WebWelcomeFileGroupItemProvider(adapterFactory, weakWebApp));
-        }
-    }
-
-	/*
+   /*
 	 * (non-Javadoc)
 	 * 
 	 * @see org.eclipse.emf.edit.provider.ItemProviderAdapter#hasChildren(java.lang.Object)
 	 */
+	@Override
 	public boolean hasChildren(Object object) {
 		return true;
 	}
@@ -275,6 +250,7 @@ public class J2EEWebAppItemProvider extends WebAppItemProvider {
 	 * 
 	 * @see org.eclipse.emf.common.notify.Adapter#notifyChanged(org.eclipse.emf.common.notify.Notification)
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		// We only care about adds and removes for the different item provider
 		// groups
@@ -332,6 +308,7 @@ public class J2EEWebAppItemProvider extends WebAppItemProvider {
 	 * 
 	 * @see org.eclipse.emf.edit.provider.IDisposable#dispose()
 	 */
+	@Override
 	public void dispose() {
 		if (clientMgr != null)
 			clientMgr.dispose();

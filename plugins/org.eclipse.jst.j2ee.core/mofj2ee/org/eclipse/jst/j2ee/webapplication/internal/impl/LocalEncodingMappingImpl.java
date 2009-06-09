@@ -87,6 +87,7 @@ public class LocalEncodingMappingImpl extends J2EEEObjectImpl implements LocalEn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return WebapplicationPackage.Literals.LOCAL_ENCODING_MAPPING;
 	}
@@ -138,6 +139,7 @@ public class LocalEncodingMappingImpl extends J2EEEObjectImpl implements LocalEn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case WebapplicationPackage.LOCAL_ENCODING_MAPPING__LOCALE:
@@ -153,6 +155,7 @@ public class LocalEncodingMappingImpl extends J2EEEObjectImpl implements LocalEn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case WebapplicationPackage.LOCAL_ENCODING_MAPPING__LOCALE:
@@ -170,6 +173,7 @@ public class LocalEncodingMappingImpl extends J2EEEObjectImpl implements LocalEn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case WebapplicationPackage.LOCAL_ENCODING_MAPPING__LOCALE:
@@ -187,6 +191,7 @@ public class LocalEncodingMappingImpl extends J2EEEObjectImpl implements LocalEn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case WebapplicationPackage.LOCAL_ENCODING_MAPPING__LOCALE:
@@ -202,6 +207,7 @@ public class LocalEncodingMappingImpl extends J2EEEObjectImpl implements LocalEn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

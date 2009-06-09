@@ -28,10 +28,12 @@ public class EjbModuleImpl extends ModuleImpl implements EjbModule {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return ApplicationPackage.Literals.EJB_MODULE;
 	}
 
+@Override
 public boolean isEjbModule() {
 	return true;
 }

@@ -295,6 +295,7 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 	 * An archive whose name ends with '.jar' is considered a Utility </li>
 	 * </ol>
 	 */
+	@Override
 	public IArchive openArchive(ArchiveOptions archiveOptions) throws ArchiveOpenFailureException {
 		IArchive simpleArchive = super.openArchive(archiveOptions);
 		Object discriminateJavaEE = archiveOptions.getOption(DISCRIMINATE_JAVA_EE);
@@ -643,6 +644,7 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 			return simpleLoadAdapter;
 		}
 
+		@Override
 		public String toString() {
 			return simpleLoadAdapter.toString();
 		}

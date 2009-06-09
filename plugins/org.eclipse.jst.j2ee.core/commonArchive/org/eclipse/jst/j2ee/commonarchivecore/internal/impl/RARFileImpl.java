@@ -56,6 +56,7 @@ public class RARFileImpl extends ModuleFileImpl implements RARFile {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return CommonarchivePackage.Literals.RAR_FILE;
 	}
@@ -134,6 +135,7 @@ public class RARFileImpl extends ModuleFileImpl implements RARFile {
 		return deploymentDescriptor;
 	}
 
+	@Override
 	public String getDeploymentDescriptorUri() {
 		return J2EEConstants.RAR_DD_URI;
 	}
@@ -153,6 +155,7 @@ public class RARFileImpl extends ModuleFileImpl implements RARFile {
 		return getDeploymentDescriptor();
 	}
 
+	@Override
 	public boolean isDeploymentDescriptorSet() {
 		return deploymentDescriptor != null;
 	}
@@ -160,6 +163,7 @@ public class RARFileImpl extends ModuleFileImpl implements RARFile {
 	/**
 	 * @see com.ibm.etools.commonarchive.File
 	 */
+	@Override
 	public boolean isRARFile() {
 		return true;
 	}
@@ -167,6 +171,7 @@ public class RARFileImpl extends ModuleFileImpl implements RARFile {
 	/**
 	 * @see com.ibm.etools.commonarchive.impl.ModuleFileImpl
 	 */
+	@Override
 	public org.eclipse.emf.ecore.EObject makeDeploymentDescriptor(XMLResource resource) {
 		JcaPackage p = (JcaPackage) EPackage.Registry.INSTANCE.getEPackage(JcaPackage.eNS_URI);
 		JcaFactory fct = p.getJcaFactory();
@@ -187,6 +192,7 @@ public class RARFileImpl extends ModuleFileImpl implements RARFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case CommonarchivePackage.RAR_FILE__DEPLOYMENT_DESCRIPTOR:
@@ -201,6 +207,7 @@ public class RARFileImpl extends ModuleFileImpl implements RARFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case CommonarchivePackage.RAR_FILE__DEPLOYMENT_DESCRIPTOR:
@@ -215,6 +222,7 @@ public class RARFileImpl extends ModuleFileImpl implements RARFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case CommonarchivePackage.RAR_FILE__DEPLOYMENT_DESCRIPTOR:
@@ -229,6 +237,7 @@ public class RARFileImpl extends ModuleFileImpl implements RARFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case CommonarchivePackage.RAR_FILE__DEPLOYMENT_DESCRIPTOR:
@@ -237,6 +246,7 @@ public class RARFileImpl extends ModuleFileImpl implements RARFile {
 		return super.eIsSet(featureID);
 	}
 
+	@Override
 	public ClassLoader createDynamicClassLoader(ClassLoader parentCl, ClassLoader extraCl) {
 		return new RarFileDynamicClassLoader(this, parentCl, extraCl);
 	}

@@ -41,7 +41,8 @@ public class WSDLPortTypeImpl extends QNameImpl implements WSDLPortType
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  protected EClass eStaticClass() {
+  @Override
+protected EClass eStaticClass() {
 		return JaxrpcmapPackage.Literals.WSDL_PORT_TYPE;
 	}
 

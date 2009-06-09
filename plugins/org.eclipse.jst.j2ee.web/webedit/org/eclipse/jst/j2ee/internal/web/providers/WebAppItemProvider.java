@@ -18,12 +18,9 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.edit.command.AddCommand;
+import org.eclipse.emf.edit.command.RemoveCommand;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
-import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
-import org.eclipse.emf.edit.provider.IItemPropertySource;
-import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
-import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.CommonPackage;
@@ -43,7 +40,7 @@ import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 /**
  * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.WebApp}object.
  */
-public class WebAppItemProvider extends JNDIEnvRefsGroupItemProvider implements IEditingDomainItemProvider, IItemLabelProvider, IItemPropertySource, IStructuredItemContentProvider, ITreeItemContentProvider {
+public class WebAppItemProvider extends JNDIEnvRefsGroupItemProvider {
 
 	/**
 	 * This constructs an instance from a factory and a notifier.
@@ -69,6 +66,7 @@ public class WebAppItemProvider extends JNDIEnvRefsGroupItemProvider implements 
 	 * 
 	 * @see org.eclipse.emf.edit.provider.ItemProviderAdapter#getChildren(java.lang.Object)
 	 */
+	@Override
 	public Collection getChildren(Object object) {
 		WebApp webApp = (WebApp) object;
 		Collection myChildren = super.getChildren(object);
@@ -85,6 +83,7 @@ public class WebAppItemProvider extends JNDIEnvRefsGroupItemProvider implements 
 	 */
 
 
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -115,6 +114,7 @@ public class WebAppItemProvider extends JNDIEnvRefsGroupItemProvider implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected EReference getChildReference(Object object, Object child) {
 		// Check the type of the specified child object and return the proper feature to use for
 		// adding (see {@link AddCommand}) it as a child.
@@ -147,6 +147,7 @@ public class WebAppItemProvider extends JNDIEnvRefsGroupItemProvider implements 
 		return WebAppEditResourceHandler.getString("35concat_UI_", (new Object[]{refObject.eClass().getName()})); //$NON-NLS-1$ = "Create a child of type ContextParam for the selected {0}."
 	}
 
+	@Override
 	public Object getImage(Object object) {
 		String key = null;
 		if (((WebApp) object).eResource() == null)
@@ -171,6 +172,7 @@ public class WebAppItemProvider extends JNDIEnvRefsGroupItemProvider implements 
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -231,6 +233,7 @@ public class WebAppItemProvider extends JNDIEnvRefsGroupItemProvider implements 
 					WebapplicationPackage.eINSTANCE.getWebApp_Version(), true, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE));
 	}
 
+	@Override
 	public String getText(Object object) {
 		WebApp webApp = (WebApp) object;
 		String name = webApp.getDisplayName();
@@ -245,6 +248,7 @@ public class WebAppItemProvider extends JNDIEnvRefsGroupItemProvider implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(WebApp.class)) {
 			case WebapplicationPackage.WEB_APP__DISTRIBUTABLE :
@@ -281,6 +285,7 @@ public class WebAppItemProvider extends JNDIEnvRefsGroupItemProvider implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -331,6 +336,7 @@ public class WebAppItemProvider extends JNDIEnvRefsGroupItemProvider implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getCreateChildText(Object owner, Object feature, Object child, Collection selection) {
 		boolean qualify = feature == CommonPackage.eINSTANCE.getJNDIEnvRefsGroup_EjbRefs() || feature == CommonPackage.eINSTANCE.getJNDIEnvRefsGroup_EjbLocalRefs();
 		return getString(qualify ? "_UI_CreateChild_text2" : "_UI_CreateChild_text", //$NON-NLS-1$ //$NON-NLS-2$
@@ -343,6 +349,7 @@ public class WebAppItemProvider extends JNDIEnvRefsGroupItemProvider implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}

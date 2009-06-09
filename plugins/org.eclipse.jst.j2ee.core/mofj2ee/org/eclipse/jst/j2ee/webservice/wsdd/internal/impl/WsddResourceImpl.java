@@ -103,6 +103,7 @@ public class WsddResourceImpl extends XMLResourceImpl implements WsddResource
 	/* 
 	 * This directly sets the module version id
 	 */
+	@Override
 	public void setModuleVersionID(int id) {
 	//super.setVersionID(id);
 	switch (id) {
@@ -122,6 +123,7 @@ public class WsddResourceImpl extends XMLResourceImpl implements WsddResource
 	/*
 	 * Based on the J2EE version, this will set the module version
 	 */
+	@Override
 	public void setJ2EEVersionID(int id) 
   {
     switch (id) {
@@ -147,6 +149,7 @@ public class WsddResourceImpl extends XMLResourceImpl implements WsddResource
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.j2eexml.XMLResourceImpl#getJ2EE_1_2_PublicID()
 	 */
+	@Override
 	public String getJ2EE_1_2_PublicID() {
 	  return  WebServiceConstants.WEBSERVICE_PUBLICID;
 	}
@@ -154,6 +157,7 @@ public class WsddResourceImpl extends XMLResourceImpl implements WsddResource
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.j2eexml.XMLResourceImpl#getJ2EE_1_2_SystemID()
 	 */
+	@Override
 	public String getJ2EE_1_2_SystemID() {
 	  return WebServiceConstants.WEBSERVICE_SYSTEMID;
 	}
@@ -161,6 +165,7 @@ public class WsddResourceImpl extends XMLResourceImpl implements WsddResource
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.j2eexml.XMLResourceImpl#getJ2EE_1_3_PublicID()
 	 */
+	@Override
 	public String getJ2EE_1_3_PublicID() {
 	  return WebServiceConstants.WEBSERVICE_PUBLICID;
 	}
@@ -168,12 +173,14 @@ public class WsddResourceImpl extends XMLResourceImpl implements WsddResource
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.j2eexml.XMLResourceImpl#getJ2EE_1_3_SystemID()
 	 */
+	@Override
 	public String getJ2EE_1_3_SystemID() {
     return WebServiceConstants.WEBSERVICE_SYSTEMID;
 	}
 
 	/* Return J2EE version based on module version
 	*/
+	@Override
 	public int getJ2EEVersionID() {
 		switch (getModuleVersionID()) {
 			case WebServiceConstants.WEBSERVICE_1_0_ID:
@@ -190,17 +197,20 @@ public class WsddResourceImpl extends XMLResourceImpl implements WsddResource
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.TranslatorResourceImpl#getDefaultVersionID()
 	 */
+	@Override
 	protected int getDefaultVersionID() {
 		return WebServiceConstants.WEBSERVICE_1_0_ID;
 	}
 
 
-  protected void syncVersionOfRootObject()
+  @Override
+protected void syncVersionOfRootObject()
   {
     //Do nothing for now since the root object does not have a version.
   }
 
 
+@Override
 public void setDoctypeValues(String publicId, String systemId) {
 	
 		int myVersion = J2EE_1_4_ID;

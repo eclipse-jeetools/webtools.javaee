@@ -85,6 +85,7 @@ public class TldExtensionImpl extends J2EEEObjectImpl implements TldExtension {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return TaglibPackage.Literals.TLD_EXTENSION;
 	}
@@ -127,6 +128,7 @@ public class TldExtensionImpl extends J2EEEObjectImpl implements TldExtension {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case TaglibPackage.TLD_EXTENSION__EXTENSION_ELEMENTS:
@@ -140,6 +142,7 @@ public class TldExtensionImpl extends J2EEEObjectImpl implements TldExtension {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case TaglibPackage.TLD_EXTENSION__NAMESPACE:
@@ -155,6 +158,7 @@ public class TldExtensionImpl extends J2EEEObjectImpl implements TldExtension {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case TaglibPackage.TLD_EXTENSION__NAMESPACE:
@@ -173,6 +177,7 @@ public class TldExtensionImpl extends J2EEEObjectImpl implements TldExtension {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case TaglibPackage.TLD_EXTENSION__NAMESPACE:
@@ -190,6 +195,7 @@ public class TldExtensionImpl extends J2EEEObjectImpl implements TldExtension {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case TaglibPackage.TLD_EXTENSION__NAMESPACE:
@@ -205,6 +211,7 @@ public class TldExtensionImpl extends J2EEEObjectImpl implements TldExtension {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

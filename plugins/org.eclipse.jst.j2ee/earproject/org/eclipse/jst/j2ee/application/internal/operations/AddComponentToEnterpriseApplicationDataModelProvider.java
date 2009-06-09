@@ -26,6 +26,7 @@ public class AddComponentToEnterpriseApplicationDataModelProvider extends Create
 		super();
 	}
 
+	@Override
 	public Object getDefaultProperty(String propertyName) {
 		if (TARGET_COMPONENTS_TO_URI_MAP.equals(propertyName)) {
 			Map map = new HashMap();
@@ -53,6 +54,7 @@ public class AddComponentToEnterpriseApplicationDataModelProvider extends Create
 	}
 
 
+	@Override
 	public IDataModelOperation getDefaultOperation() {
 		return new AddComponentToEnterpriseApplicationOp(model);
 	}

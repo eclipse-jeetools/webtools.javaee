@@ -124,10 +124,12 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return CommonarchivePackage.Literals.EAR_FILE;
 	}
 
+	@Override
 	public Archive addCopy(Archive anArchive) throws org.eclipse.jst.j2ee.commonarchivecore.internal.exception.DuplicateObjectException {
 		if (anArchive.isModuleFile())
 			return addCopy((ModuleFile) anArchive);
@@ -345,6 +347,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	/**
 	 * @see com.ibm.etools.commonarchive.ModuleFile
 	 */
+	@Override
 	public java.lang.String getDeploymentDescriptorUri() {
 		return J2EEConstants.APPLICATION_DD_URI;
 	}
@@ -588,10 +591,12 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 		return warFiles;
 	}
 
+	@Override
 	public void initializeAfterOpen() {
 		super.initializeAfterOpen();
 	}
 
+	@Override
 	public boolean isDeploymentDescriptorSet() {
 		return deploymentDescriptor != null;
 	}
@@ -599,6 +604,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	/**
 	 * @see com.ibm.etools.commonarchive.File
 	 */
+	@Override
 	public boolean isEARFile() {
 		return true;
 	}
@@ -607,6 +613,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	 * Return true if super returns true, or return whether the app dd contains a module having the
 	 * uri
 	 */
+	@Override
 	public boolean isNestedArchive(String aUri) {
 		if (super.isNestedArchive(aUri))
 			return true;
@@ -616,6 +623,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	/**
 	 * @see com.ibm.etools.commonarchive.impl.ModuleFileImpl
 	 */
+	@Override
 	public org.eclipse.emf.ecore.EObject makeDeploymentDescriptor(XMLResource resource) {
 		Application appl = ((ApplicationPackage) EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI)).getApplicationFactory().createApplication();
 		resource.setID(appl, J2EEConstants.APPL_ID);
@@ -627,6 +635,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	/**
 	 * @see com.ibm.etools.commonarchive.Archive
 	 */
+	@Override
 	public Archive openNestedArchive(LooseArchive loose) throws OpenFailureException {
 
 		Module m = getDeploymentDescriptor().getFirstModule(loose.getUri());
@@ -648,6 +657,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	/**
 	 * @see com.ibm.etools.commonarchive.Archive
 	 */
+	@Override
 	public Archive openNestedArchive(String aUri) throws OpenFailureException {
 
 		Module m = getDeploymentDescriptor().getFirstModule(aUri);
@@ -880,6 +890,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case CommonarchivePackage.EAR_FILE__MODULE_REFS:
@@ -893,6 +904,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case CommonarchivePackage.EAR_FILE__MODULE_REFS:
@@ -906,6 +918,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case CommonarchivePackage.EAR_FILE__MODULE_REFS:
@@ -922,6 +935,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case CommonarchivePackage.EAR_FILE__MODULE_REFS:
@@ -940,6 +954,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case CommonarchivePackage.EAR_FILE__MODULE_REFS:
@@ -957,6 +972,7 @@ public class EARFileImpl extends ModuleFileImpl implements EARFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case CommonarchivePackage.EAR_FILE__MODULE_REFS:

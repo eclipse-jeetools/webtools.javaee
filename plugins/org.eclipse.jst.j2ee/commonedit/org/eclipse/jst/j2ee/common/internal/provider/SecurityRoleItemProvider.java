@@ -48,6 +48,7 @@ public class SecurityRoleItemProvider extends CommonItemProviderAdapter implemen
 	/**
 	 * This returns security_role.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return J2EEPlugin.getPlugin().getImage("security_role");//$NON-NLS-1$
 	}
@@ -55,6 +56,7 @@ public class SecurityRoleItemProvider extends CommonItemProviderAdapter implemen
 	/**
 	 * This returns the parent of the SecurityRole.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return object == null ? null : ((SecurityRole) object).eContainer();
 	}
@@ -62,6 +64,7 @@ public class SecurityRoleItemProvider extends CommonItemProviderAdapter implemen
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -136,6 +139,7 @@ public class SecurityRoleItemProvider extends CommonItemProviderAdapter implemen
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -145,6 +149,7 @@ public class SecurityRoleItemProvider extends CommonItemProviderAdapter implemen
 	}
 
 
+	@Override
 	public String getText(Object object) {
 		return " " + ((SecurityRole) object).getRoleName();//$NON-NLS-1$
 	}
@@ -155,6 +160,7 @@ public class SecurityRoleItemProvider extends CommonItemProviderAdapter implemen
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(SecurityRole.class)) {
 			case CommonPackage.SECURITY_ROLE__DESCRIPTION :
@@ -174,6 +180,7 @@ public class SecurityRoleItemProvider extends CommonItemProviderAdapter implemen
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -187,6 +194,7 @@ public class SecurityRoleItemProvider extends CommonItemProviderAdapter implemen
 	 * end-user-doc -->
 	 *  
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}
@@ -197,6 +205,7 @@ public class SecurityRoleItemProvider extends CommonItemProviderAdapter implemen
 	 * enumeration, and this to check that enumeration, but we know there can't be any children, so
 	 * this is faster.
 	 */
+	@Override
 	public boolean hasChildren(Object object) {
 		return false;
 	}

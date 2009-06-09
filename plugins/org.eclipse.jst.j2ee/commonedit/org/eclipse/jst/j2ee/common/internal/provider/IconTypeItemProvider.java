@@ -54,6 +54,7 @@ public class IconTypeItemProvider extends ItemProviderAdapter implements IEditin
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -107,6 +108,7 @@ public class IconTypeItemProvider extends ItemProviderAdapter implements IEditin
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return getResourceLocator().getImage("full/obj16/IconType"); //$NON-NLS-1$
 	}
@@ -117,6 +119,7 @@ public class IconTypeItemProvider extends ItemProviderAdapter implements IEditin
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((IconType) object).getSmallIcon();
 		return label == null || label.length() == 0 ? getString("_UI_IconType_type") : //$NON-NLS-1$
@@ -129,6 +132,7 @@ public class IconTypeItemProvider extends ItemProviderAdapter implements IEditin
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(IconType.class)) {
 			case CommonPackage.ICON_TYPE__SMALL_ICON :
@@ -148,6 +152,7 @@ public class IconTypeItemProvider extends ItemProviderAdapter implements IEditin
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -157,6 +162,7 @@ public class IconTypeItemProvider extends ItemProviderAdapter implements IEditin
 	 * end-user-doc -->
 	 *  
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}

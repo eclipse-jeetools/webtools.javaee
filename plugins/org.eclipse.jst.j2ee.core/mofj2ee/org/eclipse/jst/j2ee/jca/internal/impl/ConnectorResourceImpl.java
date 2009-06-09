@@ -57,10 +57,12 @@ public class ConnectorResourceImpl extends XMLResourceImpl implements ConnectorR
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.j2eexml.XMLResourceImpl#getJ2EE_1_2_SystemID()
 	 */
+	@Override
 	public String getJ2EE_1_2_SystemID() {
 		return J2EEConstants.CONNECTOR_SYSTEMID_1_0;
 	}
 	
+	@Override
 	public String getJ2EE_Alt_1_2_SystemID() {
 		return J2EEConstants.CONNECTOR_ALT_SYSTEMID_1_0;
 	}
@@ -68,10 +70,12 @@ public class ConnectorResourceImpl extends XMLResourceImpl implements ConnectorR
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.j2eexml.XMLResourceImpl#getJ2EE_1_3_SystemID()
 	 */
+	@Override
 	public String getJ2EE_1_3_SystemID() {
 		return J2EEConstants.CONNECTOR_SYSTEMID_1_0;
 	}
 	
+	@Override
 	public String getJ2EE_Alt_1_3_SystemID() {
 		return J2EEConstants.CONNECTOR_ALT_SYSTEMID_1_0;
 	}
@@ -79,6 +83,7 @@ public class ConnectorResourceImpl extends XMLResourceImpl implements ConnectorR
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.j2eexml.XMLResourceImpl#getJ2EE_1_2_PublicID()
 	 */
+	@Override
 	public String getJ2EE_1_2_PublicID() {
 		return J2EEConstants.CONNECTOR_PUBLICID_1_0;
 	}
@@ -86,6 +91,7 @@ public class ConnectorResourceImpl extends XMLResourceImpl implements ConnectorR
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.j2eexml.XMLResourceImpl#getJ2EE_1_3_PublicID()
 	 */
+	@Override
 	public String getJ2EE_1_3_PublicID() {
 		return J2EEConstants.CONNECTOR_PUBLICID_1_0;
 	}
@@ -104,6 +110,7 @@ public class ConnectorResourceImpl extends XMLResourceImpl implements ConnectorR
 	 * @see com.ibm.etools.emf2xml.TranslatorResource#setDoctypeValues(java.lang.String, java.lang.String)
 	 * This is setting the module version on the resource.
 	 */
+	@Override
 	public void setDoctypeValues(String publicId, String systemId) {
 		int version = JCA_1_5_ID;
 		if (systemId == null) 
@@ -116,6 +123,7 @@ public class ConnectorResourceImpl extends XMLResourceImpl implements ConnectorR
 	/* 
 	 * This directly sets the module version id
 	 */
+	@Override
 	public void setModuleVersionID(int id) {
 		super.setVersionID(id);
 		switch (id) {
@@ -130,6 +138,7 @@ public class ConnectorResourceImpl extends XMLResourceImpl implements ConnectorR
 		/*
 		 * Based on the J2EE version, this will set the module version
 		 */
+		@Override
 		public void setJ2EEVersionID(int id) {
 		switch (id) {
 			case (J2EE_1_4_ID) :
@@ -154,6 +163,7 @@ public class ConnectorResourceImpl extends XMLResourceImpl implements ConnectorR
 	}
 	/* Return J2EE version based on module version
 	 */
+	@Override
 	public int getJ2EEVersionID() {
 		switch (getModuleVersionID()) {
 			case J2EEVersionConstants.JCA_1_0_ID :
@@ -167,6 +177,7 @@ public class ConnectorResourceImpl extends XMLResourceImpl implements ConnectorR
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.TranslatorResourceImpl#getDefaultVersionID()
 	 */
+	@Override
 	protected int getDefaultVersionID() {
 		return JCA_1_5_ID;
 	}
@@ -174,6 +185,7 @@ public class ConnectorResourceImpl extends XMLResourceImpl implements ConnectorR
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.common.impl.XMLResourceImpl#syncVersionOfRootObject()
 	 */
+	@Override
 	protected void syncVersionOfRootObject() {
 		Connector conn = getConnector();
 		if (conn == null)

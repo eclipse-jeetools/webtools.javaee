@@ -74,6 +74,7 @@ public class EntityImpl extends EnterpriseBeanImpl implements Entity, Enterprise
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return EjbPackage.Literals.ENTITY;
 	}
@@ -86,6 +87,7 @@ public String getPrimaryKeyName() {
  * Return true if @aJavaClass as equal to the
  * home, remote, bean class, or key class.
  */
+@Override
 public boolean hasJavaReference(JavaClass aJavaClass) {
 	boolean result = super.hasJavaReference(aJavaClass);
 	if (!result && aJavaClass != null)
@@ -93,9 +95,11 @@ public boolean hasJavaReference(JavaClass aJavaClass) {
 	return result;
 }
 //Return false by default
+@Override
 public boolean isContainerManagedEntity() {
 	return false;
 }
+@Override
 public boolean isEntity() {
 	return true;
 }
@@ -106,6 +110,7 @@ protected JavaClass primGetPrimaryKey() {
 	return getPrimaryKey();
 }
 
+@Override
 public java.lang.Object primRefValue(EObject feature) {
 	switch (eDerivedStructuralFeatureID(((EStructuralFeature)feature).getFeatureID(), ((EStructuralFeature)feature).getContainerClass())) {
 		case EjbPackage.ENTITY__REENTRANT: return new Boolean(isReentrant());
@@ -198,6 +203,7 @@ public void setPrimaryKeyName(String primaryKeyName) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case EjbPackage.ENTITY__REENTRANT:
@@ -214,6 +220,7 @@ public void setPrimaryKeyName(String primaryKeyName) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EjbPackage.ENTITY__REENTRANT:
@@ -231,6 +238,7 @@ public void setPrimaryKeyName(String primaryKeyName) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case EjbPackage.ENTITY__REENTRANT:
@@ -248,6 +256,7 @@ public void setPrimaryKeyName(String primaryKeyName) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case EjbPackage.ENTITY__REENTRANT:
@@ -261,6 +270,7 @@ public void setPrimaryKeyName(String primaryKeyName) {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

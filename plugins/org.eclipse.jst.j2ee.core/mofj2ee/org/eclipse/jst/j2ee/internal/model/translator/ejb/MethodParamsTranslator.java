@@ -47,21 +47,24 @@ public class MethodParamsTranslator extends Translator implements EjbDeploymentD
     /* (non-Javadoc)
      * @see com.ibm.etools.emf2xml.impl.Translator#isMultiValued()
      */
-    public boolean isMultiValued() {
+    @Override
+	public boolean isMultiValued() {
 		return true;
     }
     
     /* (non-Javadoc)
      * @see com.ibm.etools.emf2xml.impl.Translator#getMOFChildren(org.eclipse.emf.ecore.EObject)
      */
-    public List getMOFChildren(EObject mofObject) {
+    @Override
+	public List getMOFChildren(EObject mofObject) {
  		return ((MethodElement)mofObject).getMethodParams();
     }
     
     /* (non-Javadoc)
      * @see com.ibm.etools.emf2xml.impl.Translator#setMOFValue(org.eclipse.emf.ecore.EObject, java.lang.Object)
      */
-    public void setMOFValue(EObject mofObject, Object value) {
+    @Override
+	public void setMOFValue(EObject mofObject, Object value) {
 		List methodParams = ((MethodElement)mofObject).getMethodParams();
 		
     	if(value == null || value.toString().length() == 0) {  
@@ -75,6 +78,7 @@ public class MethodParamsTranslator extends Translator implements EjbDeploymentD
     /* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.Translator#setMOFValue(org.eclipse.emf.common.notify.Notifier, java.lang.Object, int)
 	 */
+	@Override
 	public void setMOFValue(Notifier owner, Object value, int newIndex) {
 		((MethodElement)owner).addMethodParams((String)value);
 	}
@@ -82,13 +86,15 @@ public class MethodParamsTranslator extends Translator implements EjbDeploymentD
     /* (non-Javadoc)
      * @see com.ibm.etools.emf2xml.impl.Translator#clearList(org.eclipse.emf.ecore.EObject)
      */
-    public void clearList(EObject mofObject) {
+    @Override
+	public void clearList(EObject mofObject) {
 		((MethodElement)mofObject).eUnset(feature);
     }
     
     /* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.Translator#shouldRenderEmptyDOMPath(org.eclipse.emf.ecore.EObject)
 	 */
+	@Override
 	public boolean shouldRenderEmptyDOMPath(EObject eObject) {
 		MethodElement me = ((MethodElement)eObject);
 		return me.hasMethodParams() && me.getMethodParams().isEmpty();
@@ -97,6 +103,7 @@ public class MethodParamsTranslator extends Translator implements EjbDeploymentD
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.Translator#setMOFValueFromEmptyDOMPath(org.eclipse.emf.ecore.EObject)
 	 */
+	@Override
 	public void setMOFValueFromEmptyDOMPath(EObject eObject) {
 		((MethodElement)eObject).applyZeroParams();
 	}

@@ -52,6 +52,7 @@ public class EJBLinkItemProvider extends BeanLinkItemProvider implements IEditin
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -91,6 +92,7 @@ public class EJBLinkItemProvider extends BeanLinkItemProvider implements IEditin
 	/**
 	 * This returns EJBLink.gif. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return getResourceLocator().getImage("icons/full/obj16/sessionBean_obj.gif"); //$NON-NLS-1$
 	}
@@ -113,6 +115,7 @@ public class EJBLinkItemProvider extends BeanLinkItemProvider implements IEditin
 	 * 
 	 * @non-generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((EJBLink) object).getEjbLink();
 		return label == null || label.length() == 0 ? getString("%_UI_EJBLink_type") : label; //$NON-NLS-1$
@@ -124,6 +127,7 @@ public class EJBLinkItemProvider extends BeanLinkItemProvider implements IEditin
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(EJBLink.class)) {
 			case WsddPackage.EJB_LINK__EJB_LINK : {
@@ -141,6 +145,7 @@ public class EJBLinkItemProvider extends BeanLinkItemProvider implements IEditin
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -150,6 +155,7 @@ public class EJBLinkItemProvider extends BeanLinkItemProvider implements IEditin
 	 * end-user-doc -->
 	 *  
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return WebServicePlugin.getInstance();
 	}

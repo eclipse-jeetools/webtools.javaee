@@ -18,11 +18,6 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
-import org.eclipse.emf.edit.provider.IItemPropertySource;
-import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
-import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.jst.j2ee.application.ConnectorModule;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
@@ -30,7 +25,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 /**
  * This is the item provider adapter for a Connector modules in ears.
  */
-public class ConnectorModuleItemProvider extends ModuleItemProvider implements IEditingDomainItemProvider, IItemLabelProvider, IItemPropertySource, IStructuredItemContentProvider, ITreeItemContentProvider {
+public class ConnectorModuleItemProvider extends ModuleItemProvider {
 
 	/**
 	 * This constructs an instance from a factory and a notifier.
@@ -49,6 +44,7 @@ public class ConnectorModuleItemProvider extends ModuleItemProvider implements I
 	 *            object - resource
 	 * @return Object
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return J2EEPlugin.getPlugin().getImage("full/obj16/connector_module"); //$NON-NLS-1$
 	}// getImage
@@ -59,6 +55,7 @@ public class ConnectorModuleItemProvider extends ModuleItemProvider implements I
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((ConnectorModule) object).getUri();
 		return label == null || label.length() == 0 ? getString("_UI_ConnectorModule_type") : //$NON-NLS-1$
@@ -71,6 +68,7 @@ public class ConnectorModuleItemProvider extends ModuleItemProvider implements I
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		super.notifyChanged(notification);
 	}
@@ -82,6 +80,7 @@ public class ConnectorModuleItemProvider extends ModuleItemProvider implements I
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -92,6 +91,7 @@ public class ConnectorModuleItemProvider extends ModuleItemProvider implements I
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return ApplicationProvidersResourceHandler.RESOURCE_LOCATOR;
 	}
@@ -103,6 +103,7 @@ public class ConnectorModuleItemProvider extends ModuleItemProvider implements I
 	 *            object - resource
 	 * @return Object
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((EObject) object).eContainer();
 	}// getParent
@@ -114,6 +115,7 @@ public class ConnectorModuleItemProvider extends ModuleItemProvider implements I
 	 *            object - resource
 	 * @return List
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 
 		if (itemPropertyDescriptors == null) {

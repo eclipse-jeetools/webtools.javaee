@@ -34,6 +34,7 @@ public class ApplicationAdapterFactory extends AdapterFactoryImpl {
 			modelPackage = (ApplicationPackage)EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI);
 		}
 	}
+	@Override
 	public boolean isFactoryForType(Object type) {
 		if (type == modelPackage) {
 			return true;
@@ -45,26 +46,33 @@ public class ApplicationAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	protected ApplicationSwitch sw = new ApplicationSwitch() {
+		@Override
 		public Object caseApplication(Application object) {
 			return createApplicationAdapter();
 		}
+		@Override
 		public Object caseModule(Module object) {
 			return createModuleAdapter();
 		}
+		@Override
 		public Object caseWebModule(WebModule object) {
 			return createWebModuleAdapter();
 		}
+		@Override
 		public Object caseJavaClientModule(JavaClientModule object) {
 			return createJavaClientModuleAdapter();
 		}
+		@Override
 		public Object caseEjbModule(EjbModule object) {
 			return createEjbModuleAdapter();
 		}
+		@Override
 		public Object caseConnectorModule(ConnectorModule object) {
 			return createConnectorModuleAdapter();
 		}
 	};
 
+	@Override
 	public Adapter createAdapter(Notifier target) {
 		return (Adapter)sw.doSwitch((EObject)target);
 	}
@@ -118,36 +126,47 @@ public class ApplicationAdapterFactory extends AdapterFactoryImpl {
 	 */
 	protected ApplicationSwitch modelSwitch =
 		new ApplicationSwitch() {
+			@Override
 			public Object caseApplication(Application object) {
 				return createApplicationAdapter();
 			}
+			@Override
 			public Object caseModule(Module object) {
 				return createModuleAdapter();
 			}
+			@Override
 			public Object caseWebModule(WebModule object) {
 				return createWebModuleAdapter();
 			}
+			@Override
 			public Object caseJavaClientModule(JavaClientModule object) {
 				return createJavaClientModuleAdapter();
 			}
+			@Override
 			public Object caseEjbModule(EjbModule object) {
 				return createEjbModuleAdapter();
 			}
+			@Override
 			public Object caseConnectorModule(ConnectorModule object) {
 				return createConnectorModuleAdapter();
 			}
+			@Override
 			public Object caseJ2EEEObject(J2EEEObject object) {
 				return createJ2EEEObjectAdapter();
 			}
+			@Override
 			public Object caseDescriptionGroup(DescriptionGroup object) {
 				return createDescriptionGroupAdapter();
 			}
+			@Override
 			public Object caseCompatibilityDescriptionGroup(CompatibilityDescriptionGroup object) {
 				return createCompatibilityDescriptionGroupAdapter();
 			}
+			@Override
 			public Object caseApplication_Module(Module object) {
 				return createApplication_ModuleAdapter();
 			}
+			@Override
 			public Object defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}

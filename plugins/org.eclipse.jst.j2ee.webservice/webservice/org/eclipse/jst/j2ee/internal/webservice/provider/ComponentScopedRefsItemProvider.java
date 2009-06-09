@@ -54,6 +54,7 @@ public class ComponentScopedRefsItemProvider extends ItemProviderAdapter impleme
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -83,6 +84,7 @@ public class ComponentScopedRefsItemProvider extends ItemProviderAdapter impleme
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -97,6 +99,7 @@ public class ComponentScopedRefsItemProvider extends ItemProviderAdapter impleme
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return getResourceLocator().getImage("icons/full/obj16/ComponentScopedRefs.gif"); //$NON-NLS-1$
 	}
@@ -119,6 +122,7 @@ public class ComponentScopedRefsItemProvider extends ItemProviderAdapter impleme
 	 * 
 	 * @non-generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((ComponentScopedRefs) object).getComponentName();
 		return label == null || label.length() == 0 ? getString("%_UI_ComponentScopedRefs_type") : label; //$NON-NLS-1$
@@ -131,6 +135,7 @@ public class ComponentScopedRefsItemProvider extends ItemProviderAdapter impleme
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(ComponentScopedRefs.class)) {
 			case Webservice_clientPackage.COMPONENT_SCOPED_REFS__COMPONENT_NAME :
@@ -149,6 +154,7 @@ public class ComponentScopedRefsItemProvider extends ItemProviderAdapter impleme
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -159,6 +165,7 @@ public class ComponentScopedRefsItemProvider extends ItemProviderAdapter impleme
 	 * Return the resource locator for this item provider's resources. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return WebServicePlugin.getInstance();
 	}

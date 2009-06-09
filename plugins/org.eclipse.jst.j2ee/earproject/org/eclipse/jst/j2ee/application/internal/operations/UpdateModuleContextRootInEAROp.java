@@ -40,6 +40,7 @@ public class UpdateModuleContextRootInEAROp extends AbstractDataModelOperation i
 	/* (non-Javadoc)
 	 * @see org.eclipse.core.commands.operations.IUndoableOperation#execute(org.eclipse.core.runtime.IProgressMonitor, org.eclipse.core.runtime.IAdaptable)
 	 */
+	@Override
 	public IStatus execute(final IProgressMonitor monitor, final IAdaptable info) throws ExecutionException {
         if(monitor != null) {
             monitor.beginTask("", 1);
@@ -100,6 +101,7 @@ public class UpdateModuleContextRootInEAROp extends AbstractDataModelOperation i
 	/* (non-Javadoc)
 	 * @see org.eclipse.core.commands.operations.IUndoableOperation#redo(org.eclipse.core.runtime.IProgressMonitor, org.eclipse.core.runtime.IAdaptable)
 	 */
+	@Override
 	public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		// no-op
 		return null;
@@ -108,6 +110,7 @@ public class UpdateModuleContextRootInEAROp extends AbstractDataModelOperation i
 	/* (non-Javadoc)
 	 * @see org.eclipse.core.commands.operations.IUndoableOperation#undo(org.eclipse.core.runtime.IProgressMonitor, org.eclipse.core.runtime.IAdaptable)
 	 */
+	@Override
 	public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		// no-op
 		return null;

@@ -88,6 +88,7 @@ public class NewJavaClassOptionsWizardPage extends DataModelWizardPage {
 	 * 
 	 * @see org.eclipse.jem.util.ui.wizard.WTPWizardPage#getValidationPropertyNames()
 	 */
+	@Override
 	protected String[] getValidationPropertyNames() {
 		return new String[]{INewJavaClassDataModelProperties.MODIFIER_ABSTRACT, INewJavaClassDataModelProperties.MODIFIER_FINAL};
 	}
@@ -97,6 +98,7 @@ public class NewJavaClassOptionsWizardPage extends DataModelWizardPage {
 	 * 
 	 * @see org.eclipse.jem.util.ui.wizard.WTPWizardPage#createTopLevelComposite(org.eclipse.swt.widgets.Composite)
 	 */
+	@Override
 	protected Composite createTopLevelComposite(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NULL);
 		GridLayout layout = new GridLayout();
@@ -237,6 +239,7 @@ public class NewJavaClassOptionsWizardPage extends DataModelWizardPage {
 		synchHelper.synchCheckbox(constructorButton, INewJavaClassDataModelProperties.CONSTRUCTOR, null);
 	}
 	
+	@Override
 	protected void enter() {
 		super.enter();
 		//set the intefaces on every page enter (not only on viewer creation)

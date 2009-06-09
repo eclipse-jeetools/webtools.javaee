@@ -34,8 +34,6 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.webservice.wscommon.WscommonFactory;
 
 
-;
-
 /**
  * This is the item provider adpater for a {@link com.ibm.etools.common.ResourceRef}object.
  */
@@ -51,6 +49,7 @@ public class ResourceRefItemProvider extends CommonItemProviderAdapter implement
 	/**
 	 * This returns resource_reference.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return J2EEPlugin.getPlugin().getImage("resource_reference"); //$NON-NLS-1$
 	}
@@ -58,6 +57,7 @@ public class ResourceRefItemProvider extends CommonItemProviderAdapter implement
 	/**
 	 * This returns the parent of the ResourceRef.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return object == null ? null : ((ResourceRef) object).eContainer();
 	}
@@ -65,13 +65,12 @@ public class ResourceRefItemProvider extends CommonItemProviderAdapter implement
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
 			CommonPackage pkg = CommonPackage.eINSTANCE;
-			;
-
 			// This is for the description feature.
 			//
 			itemPropertyDescriptors.add(new ItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), CommonEditResourceHandler.getString("Description_UI_"), //$NON-NLS-1$
@@ -210,6 +209,7 @@ public class ResourceRefItemProvider extends CommonItemProviderAdapter implement
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -219,6 +219,7 @@ public class ResourceRefItemProvider extends CommonItemProviderAdapter implement
 	}
 
 
+	@Override
 	public String getText(Object object) {
 		return "ResourceRef " + ((ResourceRef) object).getName(); //$NON-NLS-1$
 	}
@@ -229,6 +230,7 @@ public class ResourceRefItemProvider extends CommonItemProviderAdapter implement
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(ResourceRef.class)) {
 			case CommonPackage.RESOURCE_REF__DESCRIPTION :
@@ -252,6 +254,7 @@ public class ResourceRefItemProvider extends CommonItemProviderAdapter implement
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -265,6 +268,7 @@ public class ResourceRefItemProvider extends CommonItemProviderAdapter implement
 	 * end-user-doc -->
 	 *  
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}
@@ -275,6 +279,7 @@ public class ResourceRefItemProvider extends CommonItemProviderAdapter implement
 	 * enumeration, and this to check that enumeration, but we know there can't be any children, so
 	 * this is faster.
 	 */
+	@Override
 	public boolean hasChildren(Object object) {
 		return false;
 	}

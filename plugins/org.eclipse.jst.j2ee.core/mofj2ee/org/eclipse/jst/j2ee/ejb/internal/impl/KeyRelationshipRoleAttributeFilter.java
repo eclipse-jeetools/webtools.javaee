@@ -28,6 +28,7 @@ public class KeyRelationshipRoleAttributeFilter extends AbstractRelationshipRole
 /**
  * Return the proper list of attributes from cmpExt.
  */
+@Override
 protected java.util.List getSourceRoles(ContainerManagedEntity cmp) {
 	return cmp.getFilteredFeatures(KeyRelationshipRoleFilter.singleton());
 }

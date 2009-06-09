@@ -80,6 +80,7 @@ public abstract class AbstractArchiveLoadAdapter extends AbstractArchiveAdapter 
 		verifyRelative(manifestPath);
 		IArchiveResource manifest = null;
 		manifest = new ArchiveResourceImpl() {
+			@Override
 			public InputStream getInputStream() throws FileNotFoundException, IOException {
 				String manifestContents = "Manifest-Version: 1.0\r\n\r\n"; //$NON-NLS-1$
 				return new BufferedInputStream(new ByteArrayInputStream(manifestContents.getBytes()));

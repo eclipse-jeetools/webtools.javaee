@@ -48,7 +48,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IArtifactEditFactory {
 	
-	private static final String APPCLIENT_CONTENT_TYPE = "org.eclipse.jst.j2ee.appclientDD";
+	private static final String APPCLIENT_CONTENT_TYPE = "org.eclipse.jst.j2ee.appclientDD"; //$NON-NLS-1$
 	/**
 	 * <p>
 	 * Identifier used to link AppClientArtifactEdit to a AppClientEditAdapterFactory {@see
@@ -69,6 +69,7 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IAr
 		super(aModule);
 	}
 	
+	@Override
 	protected BinaryComponentHelper initBinaryComponentHelper(IVirtualComponent binaryModule) {
 		return new JavaEEBinaryComponentHelper(binaryModule);
 	}
@@ -110,6 +111,7 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	 *  
 	 */
 
+	@Override
 	public Resource getDeploymentDescriptorResource() {
 		verifyOperationSupported();
 		if(isBinary()){
@@ -128,6 +130,7 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	 * @return EObject
 	 *  
 	 */
+	@Override
 	public EObject getDeploymentDescriptorRoot() {
 		verifyOperationSupported();
 		List contents = getDeploymentDescriptorResource().getContents();
@@ -215,6 +218,7 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	 *  
 	 */
 
+	@Override
 	public int getJ2EEVersion() {
 		verifyOperationSupported();
 		return getApplicationClientXmiResource().getJ2EEVersionID();
@@ -354,6 +358,7 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IAr
 		return J2EEProjectUtilities.isApplicationClientProject(aModule.getProject());
 	}
 
+	@Override
 	public EObject createModelRoot() {
 		if(isBinary()){
 			throwAttemptedBinaryEditModelAccess();
@@ -363,7 +368,8 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IAr
     /* (non-Javadoc)
      * @see org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit#createModelRoot(java.lang.Integer)
      */
-    public EObject createModelRoot(int version) {
+    @Override
+	public EObject createModelRoot(int version) {
     	if(isBinary()){
 			throwAttemptedBinaryEditModelAccess();
 		}
@@ -383,6 +389,7 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IAr
 		return getAppClientArtifactEditForWrite(aComponent);
 	}
 
+	@Override
 	public Archive asArchive(boolean includeSource, boolean includeClasspathComponents) throws OpenFailureException{
 		if (isBinary()) {
 			JavaEEBinaryComponentHelper helper = (JavaEEBinaryComponentHelper)getBinaryComponentHelper();
@@ -407,13 +414,16 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IAr
 			appClientEdit.dispose();
 		} 
 	}
+	@Override
 	public IModelProvider create(IProject project) {
-		return (IModelProvider)getAppClientArtifactEditForRead(project);
+		return getAppClientArtifactEditForRead(project);
 	}
 
+	@Override
 	public IModelProvider create(IVirtualComponent component) {
-		return (IModelProvider)getAppClientArtifactEditForRead(component);
+		return getAppClientArtifactEditForRead(component);
 	}
+	@Override
 	public void modify(Runnable runnable, IPath modelPath) {
 		setWritableEdit(getAppClientArtifactEditForWrite(getProject()));
 		try{
@@ -430,10 +440,12 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	}
 
 	
+	@Override
 	protected String getContentTypeDescriber() {
 		
 		return APPCLIENT_CONTENT_TYPE;
 	}
+	@Override
 	protected URI getRootURI() {
 		return J2EEConstants.APP_CLIENT_DD_URI_OBJ;
 	}

@@ -32,20 +32,23 @@ import com.ibm.icu.util.StringTokenizer;
 
 public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallDataModelProvider implements IWebFacetInstallDataModelProperties {
 
-    protected void handleJavaFacetSourceFoldersChanged( final ChangeEvent event )
+    @Override
+	protected void handleJavaFacetSourceFoldersChanged( final ChangeEvent event )
     {
         final List<IPath> sourceFolders = event.getJavaFacetInstallConfig().getSourceFolders();
         final String sourceFolder = ( sourceFolders.isEmpty() ? null : sourceFolders.get( 0 ).toPortableString() );
         getDataModel().setProperty( SOURCE_FOLDER, sourceFolder );
     }
 
-    public Set getPropertyNames() {
+    @Override
+	public Set getPropertyNames() {
 		Set names = super.getPropertyNames();
 		names.add(CONTEXT_ROOT);
 		names.add(SOURCE_FOLDER);
 		return names;
 	}
 
+	@Override
 	public Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(CONFIG_FOLDER)) {
 			return J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.WEB_CONTENT_FOLDER);
@@ -76,6 +79,7 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 		return super.getDefaultProperty(propertyName);
 	}
 
+	@Override
 	public boolean propertySet(String propertyName, Object propertyValue) {
 		if (ADD_TO_EAR.equals(propertyName)) {
 			model.notifyPropertyChange(CONTEXT_ROOT, IDataModel.ENABLE_CHG);
@@ -109,14 +113,17 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 		return super.propertySet(propertyName, propertyValue);
 	}
 
+	@Override
 	public boolean isPropertyEnabled(String propertyName) {
 		return super.isPropertyEnabled(propertyName);
 	}
 
+	@Override
 	protected int convertFacetVersionToJ2EEVersion(IProjectFacetVersion version) {
 		return J2EEVersionUtil.convertWebVersionStringToJ2EEVersionID(version.getVersionString());
 	}
 
+	@Override
 	public IStatus validate(String name) {
 		if (name.equals(CONTEXT_ROOT)) {
 			return validateContextRoot(getStringProperty(CONTEXT_ROOT));

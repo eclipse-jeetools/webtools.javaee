@@ -80,6 +80,7 @@ public class FilterMappingImpl extends J2EEEObjectImpl implements FilterMapping 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return WebapplicationPackage.Literals.FILTER_MAPPING;
 	}
@@ -204,6 +205,7 @@ public void setServletName(String servletName){
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case WebapplicationPackage.FILTER_MAPPING__URL_PATTERN:
@@ -225,6 +227,7 @@ public void setServletName(String servletName){
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case WebapplicationPackage.FILTER_MAPPING__URL_PATTERN:
@@ -249,6 +252,7 @@ public void setServletName(String servletName){
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case WebapplicationPackage.FILTER_MAPPING__URL_PATTERN:
@@ -272,6 +276,7 @@ public void setServletName(String servletName){
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case WebapplicationPackage.FILTER_MAPPING__URL_PATTERN:
@@ -289,6 +294,7 @@ public void setServletName(String servletName){
 	/**
 	 * (Removed Generated flag to preserve override This field/method will NOT be replaced during code generation.
 	 */
+	@Override
 	public void eSet(EStructuralFeature eFeature, Object newValue) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case WebapplicationPackage.FILTER_MAPPING__URL_PATTERN:
@@ -314,6 +320,7 @@ public void setServletName(String servletName){
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

@@ -45,6 +45,7 @@ public class J2EECorePlugin extends Plugin {
 		if (inst==null) inst = this;
 	}
 	
+	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		IEJBModelExtenderManager.INSTANCE.setProvider(EclipseEJBModelExtenderProvider.getInstance());

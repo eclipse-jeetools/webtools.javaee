@@ -111,6 +111,7 @@ public class FormLoginConfigImpl extends EObjectImpl implements FormLoginConfig 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return WebPackage.Literals.FORM_LOGIN_CONFIG;
 	}
@@ -183,6 +184,7 @@ public class FormLoginConfigImpl extends EObjectImpl implements FormLoginConfig 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case WebPackage.FORM_LOGIN_CONFIG__FORM_LOGIN_PAGE:
@@ -200,6 +202,7 @@ public class FormLoginConfigImpl extends EObjectImpl implements FormLoginConfig 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case WebPackage.FORM_LOGIN_CONFIG__FORM_LOGIN_PAGE:
@@ -220,6 +223,7 @@ public class FormLoginConfigImpl extends EObjectImpl implements FormLoginConfig 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case WebPackage.FORM_LOGIN_CONFIG__FORM_LOGIN_PAGE:
@@ -240,6 +244,7 @@ public class FormLoginConfigImpl extends EObjectImpl implements FormLoginConfig 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case WebPackage.FORM_LOGIN_CONFIG__FORM_LOGIN_PAGE:
@@ -257,6 +262,7 @@ public class FormLoginConfigImpl extends EObjectImpl implements FormLoginConfig 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

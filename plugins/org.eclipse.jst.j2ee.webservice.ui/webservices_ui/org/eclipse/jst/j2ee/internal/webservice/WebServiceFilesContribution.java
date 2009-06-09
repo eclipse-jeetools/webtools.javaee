@@ -46,6 +46,7 @@ public class WebServiceFilesContribution {
 	 * 
 	 * @see java.lang.Object#toString()
 	 */
+	@Override
 	public String toString() {
 		return WebServiceUIResourceHandler.WebServiceFilesContribution_UI_0; 
 	}

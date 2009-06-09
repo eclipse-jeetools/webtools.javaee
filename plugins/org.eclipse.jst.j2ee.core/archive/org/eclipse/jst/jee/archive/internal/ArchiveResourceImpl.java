@@ -86,6 +86,7 @@ public class ArchiveResourceImpl implements IArchiveResource {
 		return null;
 	}
 
+	@Override
 	public String toString() {
 		StringBuffer buffer = new StringBuffer();
 		switch (getType()) {

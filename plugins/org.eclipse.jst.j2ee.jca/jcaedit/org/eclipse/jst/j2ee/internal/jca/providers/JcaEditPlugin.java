@@ -66,6 +66,7 @@ public class JcaEditPlugin extends Plugin {
 	/**
 	 * Do initialization stuff here.
 	 */
+	@Override
 	public void startup() throws CoreException {
 		super.startup();
 		jcaPackage = JcaFactoryImpl.getPackage();

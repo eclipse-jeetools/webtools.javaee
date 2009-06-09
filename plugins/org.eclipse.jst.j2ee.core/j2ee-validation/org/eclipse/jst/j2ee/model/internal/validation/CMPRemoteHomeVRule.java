@@ -85,6 +85,7 @@ public final class CMPRemoteHomeVRule extends ACMPHomeVRule implements IRemoteTy
 		MESSAGE_IDS.put(CHKJ2907, new String[]{CHKJ2907});
 	}
 	
+	@Override
 	public final long[] getBaseTypes() {
 		return getSupertypes();
 	}
@@ -93,6 +94,7 @@ public final class CMPRemoteHomeVRule extends ACMPHomeVRule implements IRemoteTy
 		return MESSAGE_IDS;
 	}
 	
+	@Override
 	public final int getMessageRemoteExceptionSeverity() {
 		return MESSAGE_REMOTE_EXCEPTION_SEVERITY;
 	}

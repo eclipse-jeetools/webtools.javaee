@@ -20,6 +20,7 @@ public class ProjectDeleteDataModelProvider extends	ProjectRefactoringDataModelP
 	/* (non-Javadoc)
 	 * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider#getDefaultOperation()
 	 */
+	@Override
 	public IDataModelOperation getDefaultOperation() {
 		return new ProjectDeleteOperation(model);
 	}

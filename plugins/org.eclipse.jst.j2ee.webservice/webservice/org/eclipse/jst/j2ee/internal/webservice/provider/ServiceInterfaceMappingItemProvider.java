@@ -54,6 +54,7 @@ public class ServiceInterfaceMappingItemProvider extends InterfaceMappingItemPro
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -96,6 +97,7 @@ public class ServiceInterfaceMappingItemProvider extends InterfaceMappingItemPro
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -110,6 +112,7 @@ public class ServiceInterfaceMappingItemProvider extends InterfaceMappingItemPro
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected EReference getChildReference(Object object, Object child) {
 		// Check the type of the specified child object and return the proper feature to use for
 		// adding (see {@link AddCommand}) it as a child.
@@ -123,6 +126,7 @@ public class ServiceInterfaceMappingItemProvider extends InterfaceMappingItemPro
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return getResourceLocator().getImage("full/obj16/ServiceInterfaceMapping"); //$NON-NLS-1$
 	}
@@ -133,6 +137,7 @@ public class ServiceInterfaceMappingItemProvider extends InterfaceMappingItemPro
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((ServiceInterfaceMapping) object).getId();
 		return label == null || label.length() == 0 ? getString("_UI_ServiceInterfaceMapping_type") : //$NON-NLS-1$
@@ -145,6 +150,7 @@ public class ServiceInterfaceMappingItemProvider extends InterfaceMappingItemPro
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(ServiceInterfaceMapping.class)) {
 			case JaxrpcmapPackage.SERVICE_INTERFACE_MAPPING__ID :
@@ -165,6 +171,7 @@ public class ServiceInterfaceMappingItemProvider extends InterfaceMappingItemPro
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -179,6 +186,7 @@ public class ServiceInterfaceMappingItemProvider extends InterfaceMappingItemPro
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return Webservicej2eeEditPlugin.INSTANCE;
 	}

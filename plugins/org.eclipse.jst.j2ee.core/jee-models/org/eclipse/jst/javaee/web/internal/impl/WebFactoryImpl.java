@@ -71,6 +71,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case WebPackage.AUTH_CONSTRAINT: return (EObject)createAuthConstraint();
@@ -101,6 +102,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
 			case WebPackage.DISPATCHER_TYPE:
@@ -151,6 +153,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
 			case WebPackage.DISPATCHER_TYPE:

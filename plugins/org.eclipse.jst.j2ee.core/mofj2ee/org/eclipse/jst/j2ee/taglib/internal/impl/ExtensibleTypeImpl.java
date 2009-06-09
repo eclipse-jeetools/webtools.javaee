@@ -66,6 +66,7 @@ public abstract class ExtensibleTypeImpl extends J2EEEObjectImpl implements Exte
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return TaglibPackage.Literals.EXTENSIBLE_TYPE;
 	}
@@ -96,6 +97,7 @@ public abstract class ExtensibleTypeImpl extends J2EEEObjectImpl implements Exte
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case TaglibPackage.EXTENSIBLE_TYPE__VALUE:
@@ -109,6 +111,7 @@ public abstract class ExtensibleTypeImpl extends J2EEEObjectImpl implements Exte
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case TaglibPackage.EXTENSIBLE_TYPE__VALUE:
@@ -123,6 +126,7 @@ public abstract class ExtensibleTypeImpl extends J2EEEObjectImpl implements Exte
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case TaglibPackage.EXTENSIBLE_TYPE__VALUE:
@@ -137,6 +141,7 @@ public abstract class ExtensibleTypeImpl extends J2EEEObjectImpl implements Exte
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case TaglibPackage.EXTENSIBLE_TYPE__VALUE:
@@ -150,6 +155,7 @@ public abstract class ExtensibleTypeImpl extends J2EEEObjectImpl implements Exte
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

@@ -39,6 +39,7 @@ public class EarProjectWizard extends NewProjectDataModelFacetWizard {
 		setWindowTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_COMPONENT_WIZ_TITLE));
 	}
 	
+	@Override
 	protected IDataModel createDataModel() {
 		return DataModelFactory.createDataModel(new EARFacetProjectCreationDataModelProvider());
 	}
@@ -47,21 +48,25 @@ public class EarProjectWizard extends NewProjectDataModelFacetWizard {
 		model.setProperty(FACET_RUNTIME, runtime);
 	}
 	
+	@Override
 	protected ImageDescriptor getDefaultPageImageDescriptor() {
-		final Bundle bundle = Platform.getBundle("org.eclipse.jst.j2ee.ui");
-		final URL url = bundle.getEntry("icons/ear-wiz-banner.gif");
+		final Bundle bundle = Platform.getBundle("org.eclipse.jst.j2ee.ui"); //$NON-NLS-1$
+		final URL url = bundle.getEntry("icons/ear-wiz-banner.gif"); //$NON-NLS-1$
 
 		return ImageDescriptor.createFromURL(url);
 	}
 
+	@Override
 	protected IFacetedProjectTemplate getTemplate() {
-		return ProjectFacetsManager.getTemplate("template.jst.ear");
+		return ProjectFacetsManager.getTemplate("template.jst.ear"); //$NON-NLS-1$
 	}
 
+	@Override
 	protected IWizardPage createFirstPage() {
 		return new EarProjectFirstPage(model, "first.page"); //$NON-NLS-1$ 
 	}
 	
+	@Override
 	protected String getFinalPerspectiveID() {
         return ProductManager.getProperty(IProductConstants.FINAL_PERSPECTIVE_EAR);
 	}

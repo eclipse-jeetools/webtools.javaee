@@ -82,6 +82,7 @@ public class EARComponentImportOptionsPage extends DataModelWizardPage {
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#createTopLevelComposite(org.eclipse.swt.widgets.Composite)
 	 */
+	@Override
 	protected Composite createTopLevelComposite(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NONE);
 		setInfopopID(IJ2EEUIContextIds.IMPORT_EAR_WIZARD_P2);
@@ -189,6 +190,7 @@ public class EARComponentImportOptionsPage extends DataModelWizardPage {
 		gd.widthHint = 140;
 		selectAllButton.setLayoutData(gd);
 		selectAllButton.addSelectionListener(new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				handleSelectAllButtonPressed();
 			}
@@ -200,6 +202,7 @@ public class EARComponentImportOptionsPage extends DataModelWizardPage {
 		gd.widthHint = 140;
 		deselectAllButton.setLayoutData(gd);
 		deselectAllButton.addSelectionListener(new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				handleDeselectAllButtonPressed();
 			}
@@ -253,6 +256,7 @@ public class EARComponentImportOptionsPage extends DataModelWizardPage {
 		gd = new GridData(GridData.HORIZONTAL_ALIGN_END);
 		browseButton.setLayoutData(gd);
 		browseButton.addSelectionListener(new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				handleBrowseButtonPressed();
 			}
@@ -282,6 +286,7 @@ public class EARComponentImportOptionsPage extends DataModelWizardPage {
 		return aWrapper != model.getProperty(IJ2EEComponentImportDataModelProperties.ARCHIVE_WRAPPER);
 	}
 
+	@Override
 	protected void enter() {
 		super.enter();
 		refreshEARFileIfNecessary();
@@ -303,6 +308,7 @@ public class EARComponentImportOptionsPage extends DataModelWizardPage {
 		return aString == null || aString.length() == 0;
 	}
 
+	@Override
 	protected String[] getValidationPropertyNames() {
 		return new String[]{};
 	}
@@ -311,6 +317,7 @@ public class EARComponentImportOptionsPage extends DataModelWizardPage {
 		// This page doesn't implement...
 	}
 
+	@Override
 	public void storeDefaultSettings() {
 		// This page doesn't implement...
 	}

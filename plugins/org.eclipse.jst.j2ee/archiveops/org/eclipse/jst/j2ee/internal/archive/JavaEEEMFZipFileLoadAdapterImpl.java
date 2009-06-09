@@ -31,6 +31,7 @@ public class JavaEEEMFZipFileLoadAdapterImpl extends ZipFileArchiveLoadAdapterIm
 		super(zipFile);
 	}
 
+	@Override
 	public void setArchive(IArchive archive) {
 		super.setArchive(archive);
 		emfHelper.setArchive(archive);
@@ -40,10 +41,12 @@ public class JavaEEEMFZipFileLoadAdapterImpl extends ZipFileArchiveLoadAdapterIm
 		return emfHelper.getResource(resourcePath);
 	}
 	
+	@Override
 	public boolean containsModelObject(IPath modelObjectPath) {
 		return emfHelper.containsModelObject(modelObjectPath);
 	}
 
+	@Override
 	public Object getModelObject(IPath modelObjectPath) throws ArchiveModelLoadException {
 		return emfHelper.getModelObject(modelObjectPath);
 	}

@@ -32,6 +32,7 @@ public class J2EEModuleVirtualArchiveComponent extends VirtualArchiveComponent {
 		super(aComponentProject, archiveLocation, aRuntimePath);
 	}
 
+	@Override
 	public IVirtualReference[] getReferences() {
 		List dynamicReferences = J2EEModuleVirtualComponent.getManifestReferences(this, null);
 		if (null == dynamicReferences) {

@@ -24,6 +24,7 @@ public class EJBRelationAttributeMaintenanceAdapter extends CommonRelationshipAt
 	/**
 	 * @see org.eclipse.jst.j2ee.ejb.internal.util.CommonRelationshipAttributeMaintenanceAdapter#isRelationshipRolesSF(EObject)
 	 */
+	@Override
 	protected boolean isRelationshipRolesSF(EObject sf) {
 		return sf == EJB_PACK.getEJBRelation_RelationshipRoles();
 	}
@@ -31,6 +32,7 @@ public class EJBRelationAttributeMaintenanceAdapter extends CommonRelationshipAt
 	/**
 	 * @see org.eclipse.jst.j2ee.ejb.internal.util.CommonRelationshipAttributeMaintenanceAdapter#isRelationshipsSF(EObject)
 	 */
+	@Override
 	protected boolean isRelationshipsSF(EObject sf) {
 		return sf == EJB_PACK.getRelationships_EjbRelations();
 	}
@@ -38,6 +40,7 @@ public class EJBRelationAttributeMaintenanceAdapter extends CommonRelationshipAt
 	/**
 	 * @see org.eclipse.emf.common.notify.Adapter#isAdapterForType(Object)
 	 */
+	@Override
 	public boolean isAdapterForType(Object type) {
 		return EJBAttributeMaintenanceFactoryImpl.ADAPTER_KEY == type;
 	}

@@ -101,6 +101,7 @@ public class ConnectorImpl extends CompatibilityDescriptionGroupImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return JcaPackage.Literals.CONNECTOR;
 	}
@@ -108,6 +109,7 @@ public class ConnectorImpl extends CompatibilityDescriptionGroupImpl implements 
 	/**
 	 *
 	 */
+	@Override
 	public void setDisplayName(String newDisplayName) {
 		super.setDisplayName(newDisplayName);
 	}
@@ -286,6 +288,7 @@ public class ConnectorImpl extends CompatibilityDescriptionGroupImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case JcaPackage.CONNECTOR__LICENSE:
@@ -301,6 +304,7 @@ public class ConnectorImpl extends CompatibilityDescriptionGroupImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case JcaPackage.CONNECTOR__VENDOR_NAME:
@@ -324,6 +328,7 @@ public class ConnectorImpl extends CompatibilityDescriptionGroupImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case JcaPackage.CONNECTOR__VENDOR_NAME:
@@ -353,6 +358,7 @@ public class ConnectorImpl extends CompatibilityDescriptionGroupImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case JcaPackage.CONNECTOR__VENDOR_NAME:
@@ -382,6 +388,7 @@ public class ConnectorImpl extends CompatibilityDescriptionGroupImpl implements 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case JcaPackage.CONNECTOR__VENDOR_NAME:
@@ -403,6 +410,7 @@ public class ConnectorImpl extends CompatibilityDescriptionGroupImpl implements 
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

@@ -131,6 +131,7 @@ public class QNameImpl extends J2EEEObjectImpl implements QName {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return CommonPackage.Literals.QNAME;
 	}
@@ -294,6 +295,7 @@ public class QNameImpl extends J2EEEObjectImpl implements QName {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case CommonPackage.QNAME__NAMESPACE_URI:
@@ -313,6 +315,7 @@ public class QNameImpl extends J2EEEObjectImpl implements QName {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case CommonPackage.QNAME__NAMESPACE_URI:
@@ -336,6 +339,7 @@ public class QNameImpl extends J2EEEObjectImpl implements QName {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case CommonPackage.QNAME__NAMESPACE_URI:
@@ -359,6 +363,7 @@ public class QNameImpl extends J2EEEObjectImpl implements QName {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case CommonPackage.QNAME__NAMESPACE_URI:
@@ -378,6 +383,7 @@ public class QNameImpl extends J2EEEObjectImpl implements QName {
 	 * <!-- end-user-doc -->
 	 * eIsSet for namespace uri must be derived if null so namespaceURI ! = null and internalPrefixOrNsURI != null must both be check.
 	 */
+	@Override
 	public boolean eIsSet(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case CommonPackage.QNAME__NAMESPACE_URI:
@@ -397,6 +403,7 @@ public class QNameImpl extends J2EEEObjectImpl implements QName {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

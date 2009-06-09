@@ -71,6 +71,7 @@ public class ConnectorComponentLoadStrategyImpl extends ComponentLoadStrategyImp
 		knownDD = vComponent.getRootFolder().getFile(J2EEConstants.RAR_DD_URI).getUnderlyingFile();
 	}
 
+	@Override
 	public List getFiles() {
 		addNestedJARsFromSourceRoots();
 		aggregateSourceFiles();
@@ -217,6 +218,7 @@ public class ConnectorComponentLoadStrategyImpl extends ComponentLoadStrategyImp
 		}
 		return true;
 	}
+	@Override
 	protected synchronized ArtifactEdit getArtifactEditForRead() {
 		if(artifactEdit == null){
 			artifactEdit = ConnectorArtifactEdit.getConnectorArtifactEditForRead(vComponent);
@@ -224,11 +226,13 @@ public class ConnectorComponentLoadStrategyImpl extends ComponentLoadStrategyImp
 		return artifactEdit;
 	}
 
+	@Override
 	protected boolean shouldInclude(IVirtualContainer vContainer) {
 		boolean isDDFolder = vComponent.getRootFolder().getFolder(J2EEConstants.META_INF).equals(vContainer);
 		return isDDFolder || !inJavaSrc(vContainer);
 	}
 	
+	@Override
 	protected boolean shouldInclude(String uri) {
 		return !hasExtension(uri, ArchiveUtil.DOT_CLASS) && !hasExtension(uri, ArchiveUtil.DOT_JAVA);
 	}

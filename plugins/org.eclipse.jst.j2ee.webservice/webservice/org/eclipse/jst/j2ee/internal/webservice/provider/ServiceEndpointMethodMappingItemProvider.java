@@ -55,6 +55,7 @@ public class ServiceEndpointMethodMappingItemProvider extends ItemProviderAdapte
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -123,6 +124,7 @@ public class ServiceEndpointMethodMappingItemProvider extends ItemProviderAdapte
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -137,6 +139,7 @@ public class ServiceEndpointMethodMappingItemProvider extends ItemProviderAdapte
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected EReference getChildReference(Object object, Object child) {
 		// Check the type of the specified child object and return the proper feature to use for
 		// adding (see {@link AddCommand}) it as a child.
@@ -150,6 +153,7 @@ public class ServiceEndpointMethodMappingItemProvider extends ItemProviderAdapte
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return getResourceLocator().getImage("full/obj16/ServiceEndpointMethodMapping"); //$NON-NLS-1$
 	}
@@ -160,6 +164,7 @@ public class ServiceEndpointMethodMappingItemProvider extends ItemProviderAdapte
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((ServiceEndpointMethodMapping) object).getJavaMethodName();
 		return label == null || label.length() == 0 ? getString("_UI_ServiceEndpointMethodMapping_type") : //$NON-NLS-1$
@@ -172,6 +177,7 @@ public class ServiceEndpointMethodMappingItemProvider extends ItemProviderAdapte
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(ServiceEndpointMethodMapping.class)) {
 			case JaxrpcmapPackage.SERVICE_ENDPOINT_METHOD_MAPPING__ID :
@@ -194,6 +200,7 @@ public class ServiceEndpointMethodMappingItemProvider extends ItemProviderAdapte
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -208,6 +215,7 @@ public class ServiceEndpointMethodMappingItemProvider extends ItemProviderAdapte
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return Webservicej2eeEditPlugin.INSTANCE;
 	}

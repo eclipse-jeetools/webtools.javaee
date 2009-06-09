@@ -56,11 +56,13 @@ public class WebServicesNavigatorGroupOpenListener extends CommonActionProvider 
 	public WebServicesNavigatorGroupOpenListener() {
 	}
 	
+	@Override
 	public void init(ICommonActionExtensionSite aConfig) { 
 		openExternalWSDLAction = new OpenExternalWSDLAction(WebServiceUIResourceHandler.WebServiceGroupContentExtension_UI_1);
 		openAction = new OpenJ2EEResourceAction();
 	}
 	
+	@Override
 	public void setContext(ActionContext aContext) {
 		if (aContext != null && aContext.getSelection() instanceof IStructuredSelection) {
 			IStructuredSelection selection = (IStructuredSelection) aContext.getSelection();
@@ -99,6 +101,7 @@ public class WebServicesNavigatorGroupOpenListener extends CommonActionProvider 
 		super.setContext(aContext);
 	}
 	
+	@Override
 	public void fillActionBars(IActionBars theActionBars) {
 		if (getContext()==null || getContext().getSelection().isEmpty())
 			return;
@@ -140,6 +143,7 @@ public class WebServicesNavigatorGroupOpenListener extends CommonActionProvider 
 		return;
 	}
 	
+	@Override
 	public void fillContextMenu(IMenuManager menu) {
 		if (getContext()==null || getContext().getSelection().isEmpty())
 			return;

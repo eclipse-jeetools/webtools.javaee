@@ -71,6 +71,7 @@ public class EJBLocalRefImpl extends EjbRefImpl implements EJBLocalRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return CommonPackage.Literals.EJB_LOCAL_REF;
 	}
@@ -122,6 +123,7 @@ public class EJBLocalRefImpl extends EjbRefImpl implements EJBLocalRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case CommonPackage.EJB_LOCAL_REF__LOCAL_HOME:
@@ -137,6 +139,7 @@ public class EJBLocalRefImpl extends EjbRefImpl implements EJBLocalRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case CommonPackage.EJB_LOCAL_REF__LOCAL_HOME:
@@ -154,6 +157,7 @@ public class EJBLocalRefImpl extends EjbRefImpl implements EJBLocalRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case CommonPackage.EJB_LOCAL_REF__LOCAL_HOME:
@@ -171,6 +175,7 @@ public class EJBLocalRefImpl extends EjbRefImpl implements EJBLocalRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case CommonPackage.EJB_LOCAL_REF__LOCAL_HOME:
@@ -186,6 +191,7 @@ public class EJBLocalRefImpl extends EjbRefImpl implements EJBLocalRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
@@ -201,12 +207,14 @@ public class EJBLocalRefImpl extends EjbRefImpl implements EJBLocalRef {
 /**
  * Return true if the ejbref is for a local ejb interface.
  */
+@Override
 public boolean isLocal(){
 	return true;
 }
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.common.EjbRef#getRemote()
 	 */
+	@Override
 	public String getRemote() {
 		return getLocal(); //forward to the local
 	}
@@ -214,6 +222,7 @@ public boolean isLocal(){
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.common.EjbRef#setRemote(java.lang.String)
 	 */
+	@Override
 	public void setRemote(String value) {
 		setLocal(value); //forward to the local
 	}
@@ -221,12 +230,14 @@ public boolean isLocal(){
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.common.EjbRef#getHome()
 	 */
+	@Override
 	public String getHome() {
 		return getLocalHome(); //forward to the local home
 	}
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.common.EjbRef#setHome(java.lang.String)
 	 */
+	@Override
 	public void setHome(String value) {
 		setLocalHome(value); //forward to the local home
 	}

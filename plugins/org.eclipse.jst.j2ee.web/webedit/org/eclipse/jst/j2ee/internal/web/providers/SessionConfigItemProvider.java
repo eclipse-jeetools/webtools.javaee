@@ -45,6 +45,7 @@ public class SessionConfigItemProvider extends WebapplicationItemProviderAdapter
 	/**
 	 * This returns session_config.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return WebPlugin.getDefault().getImage("session_config");//$NON-NLS-1$
 	}
@@ -52,6 +53,7 @@ public class SessionConfigItemProvider extends WebapplicationItemProviderAdapter
 	/**
 	 * This returns the webApp of the SessionConfig.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((SessionConfig) object).getWebApp();
 	}
@@ -59,6 +61,7 @@ public class SessionConfigItemProvider extends WebapplicationItemProviderAdapter
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -94,6 +97,7 @@ public class SessionConfigItemProvider extends WebapplicationItemProviderAdapter
 	}
 
 
+	@Override
 	public String getText(Object object) {
 		return WebAppEditResourceHandler.getString("31concat_UI_", (new Object[]{new Integer(((SessionConfig) object).getSessionTimeout())})); //$NON-NLS-1$ = "SessionConfig {0}"
 	}
@@ -104,6 +108,7 @@ public class SessionConfigItemProvider extends WebapplicationItemProviderAdapter
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(SessionConfig.class)) {
 			case WebapplicationPackage.SESSION_CONFIG__SESSION_TIMEOUT : {
@@ -121,6 +126,7 @@ public class SessionConfigItemProvider extends WebapplicationItemProviderAdapter
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -131,6 +137,7 @@ public class SessionConfigItemProvider extends WebapplicationItemProviderAdapter
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}
@@ -141,6 +148,7 @@ public class SessionConfigItemProvider extends WebapplicationItemProviderAdapter
 	 * to return the empty enumeration, and this to check that enumeration, but we know there can't
 	 * be any children, so this is faster.
 	 */
+	@Override
 	public boolean hasChildren(Object object) {
 		return false;
 	}

@@ -73,6 +73,7 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit implements IAr
 		super(aModule);
 	}
 
+	@Override
 	protected BinaryComponentHelper initBinaryComponentHelper(IVirtualComponent binaryModule) {
 		return new JavaEEBinaryComponentHelper(binaryModule);
 	}
@@ -137,6 +138,7 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	 * @return Resource
 	 */
 
+	@Override
 	public Resource getDeploymentDescriptorResource() {
 		if (isBinary()) {
 			return getBinaryComponentHelper().getResource(J2EEConstants.RAR_DD_URI_OBJ);
@@ -154,6 +156,7 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	 * 
 	 * @return EObject
 	 */
+	@Override
 	public EObject getDeploymentDescriptorRoot() {
 		List contents = getDeploymentDescriptorResource().getContents();
 		if (contents.size() > 0)
@@ -344,6 +347,7 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	 * @return an integer representation of a J2EE Spec version
 	 */
 
+	@Override
 	public int getJ2EEVersion() {
 		return getConnectorXmiResource().getJ2EEVersionID();
 	}
@@ -355,6 +359,7 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit implements IAr
 		return (Connector) getDeploymentDescriptorRoot();
 	}
 
+	@Override
 	public EObject createModelRoot() {
 		if (isBinary()) {
 			throwAttemptedBinaryEditModelAccess();
@@ -367,6 +372,7 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit#createModelRoot(java.lang.Integer)
 	 */
+	@Override
 	public EObject createModelRoot(int version) {
 		if (isBinary()) {
 			throwAttemptedBinaryEditModelAccess();
@@ -385,6 +391,7 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit implements IAr
 		return getConnectorArtifactEditForWrite(aComponent);
 	}
 
+	@Override
 	public Archive asArchive(boolean includeSource, boolean includeClasspathComponents) throws OpenFailureException {
 		if (isBinary()) {
 			JavaEEBinaryComponentHelper helper = (JavaEEBinaryComponentHelper)getBinaryComponentHelper();
@@ -406,13 +413,16 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit implements IAr
 			jcaEdit.dispose();
 		}
 	}
+	@Override
 	public IModelProvider create(IProject project) {
 		return (IModelProvider)getConnectorArtifactEditForRead(project);
 	}
 
+	@Override
 	public IModelProvider create(IVirtualComponent component) {
 		return (IModelProvider)getConnectorArtifactEditForRead(component);
 	}
+	@Override
 	public void modify(Runnable runnable, IPath modelPath) {
 		setWritableEdit(getConnectorArtifactEditForWrite(getProject()));
 		try{
@@ -428,6 +438,7 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit implements IAr
 		}
 	}
 	
+	@Override
 	protected String getContentTypeDescriber() {
 		return CONNECTOR_CONTENT_TYPE;
 	}

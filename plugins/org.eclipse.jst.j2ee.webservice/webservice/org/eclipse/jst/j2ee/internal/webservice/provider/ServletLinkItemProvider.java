@@ -52,6 +52,7 @@ public class ServletLinkItemProvider extends BeanLinkItemProvider implements IEd
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -92,6 +93,7 @@ public class ServletLinkItemProvider extends BeanLinkItemProvider implements IEd
 	/**
 	 * This returns ServletLink.gif. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return getResourceLocator().getImage("icons/full/obj16/servlet.gif"); //$NON-NLS-1$
 	}
@@ -114,6 +116,7 @@ public class ServletLinkItemProvider extends BeanLinkItemProvider implements IEd
 	 * 
 	 * @non-generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((ServletLink) object).getServletLink();
 		return label == null || label.length() == 0 ? getString("%_UI_ServletLink_type") : label; //$NON-NLS-1$
@@ -125,6 +128,7 @@ public class ServletLinkItemProvider extends BeanLinkItemProvider implements IEd
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(ServletLink.class)) {
 			case WsddPackage.SERVLET_LINK__SERVLET_LINK : {
@@ -142,6 +146,7 @@ public class ServletLinkItemProvider extends BeanLinkItemProvider implements IEd
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -150,6 +155,7 @@ public class ServletLinkItemProvider extends BeanLinkItemProvider implements IEd
 	 * Return the resource locator for this item provider's resources. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return WebServicePlugin.getInstance();
 	}

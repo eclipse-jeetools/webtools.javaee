@@ -59,6 +59,7 @@ public abstract class J2EEImportPage extends DataModelWizardPage {
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#getValidationPropertyNames()
 	 */
+	@Override
 	protected String[] getValidationPropertyNames() {
 		return null;
 	}
@@ -68,6 +69,7 @@ public abstract class J2EEImportPage extends DataModelWizardPage {
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#createTopLevelComposite(org.eclipse.swt.widgets.Composite)
 	 */
+	@Override
 	protected Composite createTopLevelComposite(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NULL);
 		GridLayout layout = new GridLayout(3, false);
@@ -124,6 +126,7 @@ public abstract class J2EEImportPage extends DataModelWizardPage {
 		newServerTargetButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.NEW_THREE_DOTS_E));
 		newServerTargetButton.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		newServerTargetButton.addSelectionListener(new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				//FlexibleProjectCreationWizardPage.launchNewRuntimeWizard(getShell(), model);
 				launchNewRuntimeWizard(getShell(), model);
@@ -133,6 +136,7 @@ public abstract class J2EEImportPage extends DataModelWizardPage {
 		synchHelper.synchCombo(serverTargetCombo, IFacetProjectCreationDataModelProperties.FACET_RUNTIME, deps);
 	}
 
+	@Override
 	protected IDialogSettings getDialogSettings() {
 		return J2EEUIPlugin.getDefault().getDialogSettings();
 	}
@@ -157,6 +161,7 @@ public abstract class J2EEImportPage extends DataModelWizardPage {
 		browseButton.setText(defBrowseButtonLabel);
 		browseButton.setLayoutData((new GridData(GridData.FILL_HORIZONTAL)));
 		browseButton.addSelectionListener(new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				handleFileBrowseButtonPressed();
 			}
@@ -200,6 +205,7 @@ public abstract class J2EEImportPage extends DataModelWizardPage {
 		}
 	}
 
+	@Override
 	public void storeDefaultSettings() {
 		IDialogSettings settings = getDialogSettings();
 		if (settings != null) {
@@ -229,6 +235,7 @@ public abstract class J2EEImportPage extends DataModelWizardPage {
 		}
 	}
 
+	@Override
 	public void restoreDefaultSettings() {
 		IDialogSettings settings = getDialogSettings();
 		DataModelFacetCreationWizardPage.restoreRuntimeSettings(settings, model);
@@ -253,6 +260,7 @@ public abstract class J2EEImportPage extends DataModelWizardPage {
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#enter()
 	 */
+	@Override
 	protected void enter() {
 		super.enter();
 	}
@@ -260,7 +268,7 @@ public abstract class J2EEImportPage extends DataModelWizardPage {
 	private boolean launchNewRuntimeWizard(Shell shell, IDataModel model) {
 		DataModelPropertyDescriptor[] preAdditionDescriptors = model.getValidPropertyDescriptors(IFacetProjectCreationDataModelProperties.FACET_RUNTIME);
 		boolean isOK = ServerUIUtil.showNewRuntimeWizard(shell, "", "");  //$NON-NLS-1$  //$NON-NLS-2$
-		if (isOK && model != null) {
+		if (isOK) {
 			DataModelPropertyDescriptor[] postAdditionDescriptors = model.getValidPropertyDescriptors(IFacetProjectCreationDataModelProperties.FACET_RUNTIME);
 			Object[] preAddition = new Object[preAdditionDescriptors.length];
 			for (int i = 0; i < preAddition.length; i++) {

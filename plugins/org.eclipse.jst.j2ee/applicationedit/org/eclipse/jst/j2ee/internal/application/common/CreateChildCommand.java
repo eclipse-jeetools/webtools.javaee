@@ -94,6 +94,7 @@ public class CreateChildCommand extends CommandWrapper implements CommandActionD
 	 * This creates the add command that will implement this action and specifies the collection by
 	 * delegating to {@link CreateChildCommand.Helper#getCreateChildImage}.
 	 */
+	@Override
 	protected Command createCommand() {
 		if (feature == null) {
 			return AddCommand.create(domain, owner, null, helper.createChild(owner));
@@ -104,6 +105,7 @@ public class CreateChildCommand extends CommandWrapper implements CommandActionD
 	/**
 	 * This delegates to {@link CreateChildCommand.Helper#getCreateChildToolTipText}.
 	 */
+	@Override
 	public String getDescription() {
 		return helper.getCreateChildToolTipText(owner);
 	}

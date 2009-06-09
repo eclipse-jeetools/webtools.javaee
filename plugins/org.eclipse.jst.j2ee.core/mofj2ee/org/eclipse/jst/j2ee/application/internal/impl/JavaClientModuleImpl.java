@@ -28,10 +28,12 @@ public class JavaClientModuleImpl extends ModuleImpl implements JavaClientModule
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return ApplicationPackage.Literals.JAVA_CLIENT_MODULE;
 	}
 
+@Override
 public boolean isJavaModule() {
 	return true;
 }

@@ -40,6 +40,7 @@ public class JaxrpcmapTranslator extends RootTranslator implements JaxrpcmapXmlM
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.Translator#getChildren(java.lang.Object, int)
 	 */
+	@Override
 	public Translator[] getChildren(Object o, int versionID) {
 	    jaxrpcmapPackage = JaxrpcmapPackage.eINSTANCE;
 		commonPackage = CommonPackage.eINSTANCE;

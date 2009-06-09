@@ -49,12 +49,12 @@ public class IdentityItemProvider extends CommonItemProviderAdapter implements I
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
 			CommonPackage pkg = CommonPackage.eINSTANCE;
-			;
 
 			// This is for the description feature.
 			//
@@ -104,6 +104,7 @@ public class IdentityItemProvider extends CommonItemProviderAdapter implements I
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -116,6 +117,7 @@ public class IdentityItemProvider extends CommonItemProviderAdapter implements I
 	/**
 	 * This returns the parent of the Identity.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((EObject) object).eContainer();
 	}
@@ -123,10 +125,12 @@ public class IdentityItemProvider extends CommonItemProviderAdapter implements I
 	/**
 	 * This returns Identity.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return J2EEPlugin.getPlugin().getImage("security_identity_obj");//$NON-NLS-1$
 	}
 
+	@Override
 	public String getText(Object object) {
 		Identity identity = ((Identity) object);
 		return "Identity " + identity.getRoleName(); //$NON-NLS-1$
@@ -138,6 +142,7 @@ public class IdentityItemProvider extends CommonItemProviderAdapter implements I
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(Identity.class)) {
 			case CommonPackage.IDENTITY__DESCRIPTION :
@@ -157,6 +162,7 @@ public class IdentityItemProvider extends CommonItemProviderAdapter implements I
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -170,6 +176,7 @@ public class IdentityItemProvider extends CommonItemProviderAdapter implements I
 	 * end-user-doc -->
 	 *  
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}

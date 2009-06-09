@@ -53,6 +53,7 @@ public class PortComponentRefItemProvider extends ItemProviderAdapter implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -89,6 +90,7 @@ public class PortComponentRefItemProvider extends ItemProviderAdapter implements
 	/**
 	 * This returns PortComponentRef.gif. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return getResourceLocator().getImage("icons/obj16/portcomponent.gif"); //$NON-NLS-1$
 	}
@@ -112,6 +114,7 @@ public class PortComponentRefItemProvider extends ItemProviderAdapter implements
 	 * 
 	 * @non-generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((PortComponentRef) object).getPortComponentLink();
 		return label == null || label.length() == 0 ? getString("%_UI_PortComponentRef_type") : label; //$NON-NLS-1$
@@ -123,6 +126,7 @@ public class PortComponentRefItemProvider extends ItemProviderAdapter implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(PortComponentRef.class)) {
 			case Webservice_clientPackage.PORT_COMPONENT_REF__PORT_COMPONENT_LINK : {
@@ -140,6 +144,7 @@ public class PortComponentRefItemProvider extends ItemProviderAdapter implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -148,6 +153,7 @@ public class PortComponentRefItemProvider extends ItemProviderAdapter implements
 	 * Return the resource locator for this item provider's resources. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return WebServicePlugin.getInstance();
 	}

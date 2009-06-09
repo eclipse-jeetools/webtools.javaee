@@ -139,6 +139,7 @@ public class WarValidator extends J2EEValidator implements WARMessageConstants {
 	 * Answer the id of the resource bundle which is used by the receiver.
 	 * </p>
 	 */
+	@Override
 	public String getBaseName() {
 		return WAR_CATEGORY;
 	}
@@ -151,6 +152,7 @@ public class WarValidator extends J2EEValidator implements WARMessageConstants {
 	 * @see J2EEValidator#getName
 	 */
 
+	@Override
 	public String getName() {
 		return WARValidationResourceHandler.Web_Archive_Validator_8;
 	}
@@ -163,6 +165,7 @@ public class WarValidator extends J2EEValidator implements WARMessageConstants {
 	 * @see J2EEValidator#getName
 	 */
 
+	@Override
 	public String getName(Locale locale) {
 		return getMessage(null, "webArchiveValidator.name", locale); //$NON-NLS-1$
 	}
@@ -306,11 +309,13 @@ public class WarValidator extends J2EEValidator implements WARMessageConstants {
 	 * build is performed. Otherwise, validation on just the files listed in the Vector is
 	 * performed.
 	 */
+	@Override
 	public void validate(IValidationContext inHelper, IReporter inReporter) throws ValidationException {
 		validateInJob(inHelper, inReporter);
 	}
 	
 	
+	@Override
 	public IStatus validateInJob(IValidationContext inHelper, IReporter inReporter) throws ValidationException {
 		status = super.validateInJob(inHelper, inReporter);
 		
@@ -1466,6 +1471,7 @@ public class WarValidator extends J2EEValidator implements WARMessageConstants {
 		return null;
 	}
 	
+	@Override
 	public void cleanup(IReporter reporter) {
 		warFile = null;
 		webDD = null;

@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: HandlerChainImpl.java,v 1.1 2007/12/12 22:57:13 cbridgha Exp $
+ * $Id: HandlerChainImpl.java,v 1.2 2009/06/09 19:35:55 jsholl Exp $
  */
 package org.eclipse.jst.j2ee.webservice.wsdd.internal.impl;
 
@@ -119,6 +119,7 @@ public class HandlerChainImpl extends J2EEEObjectImpl implements HandlerChain {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return WsddPackage.Literals.HANDLER_CHAIN;
 	}
@@ -194,6 +195,7 @@ public class HandlerChainImpl extends J2EEEObjectImpl implements HandlerChain {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case WsddPackage.HANDLER_CHAIN__HANDLERS:
@@ -207,6 +209,7 @@ public class HandlerChainImpl extends J2EEEObjectImpl implements HandlerChain {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case WsddPackage.HANDLER_CHAIN__SERVICE_NAME_PATTERN:
@@ -226,6 +229,7 @@ public class HandlerChainImpl extends J2EEEObjectImpl implements HandlerChain {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case WsddPackage.HANDLER_CHAIN__SERVICE_NAME_PATTERN:
@@ -251,6 +255,7 @@ public class HandlerChainImpl extends J2EEEObjectImpl implements HandlerChain {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case WsddPackage.HANDLER_CHAIN__SERVICE_NAME_PATTERN:
@@ -274,6 +279,7 @@ public class HandlerChainImpl extends J2EEEObjectImpl implements HandlerChain {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case WsddPackage.HANDLER_CHAIN__SERVICE_NAME_PATTERN:
@@ -293,6 +299,7 @@ public class HandlerChainImpl extends J2EEEObjectImpl implements HandlerChain {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

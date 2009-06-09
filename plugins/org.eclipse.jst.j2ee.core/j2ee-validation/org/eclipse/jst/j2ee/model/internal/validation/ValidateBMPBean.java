@@ -133,6 +133,7 @@ public class ValidateBMPBean extends AValidateEntityBean implements IMessagePref
 	/**
 	 * Checks to see if @ejbMethod is one of the required methods.
 	 */
+	@Override
 	protected void primValidateExistence(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method ejbMethod) throws InvalidInputException {
 		super.primValidateExistence(vc, bean, clazz, ejbMethod);
 
@@ -148,6 +149,7 @@ public class ValidateBMPBean extends AValidateEntityBean implements IMessagePref
 	 * EJB 1.1 specification
 	 * Section: 9.2.6
 	 */
+	@Override
 	public void validateBusinessMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		// Perform common BMP/CMP business method checks
 		super.validateBusinessMethod(vc, bean, clazz, method);
@@ -160,6 +162,7 @@ public class ValidateBMPBean extends AValidateEntityBean implements IMessagePref
 	 * EJB 1.1 specification
 	 * Section: 9.2.2
 	 */
+	@Override
 	public void validateClass(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		// All of the above checks are performed by the parent.
 		super.validateClass(vc, bean, clazz);
@@ -169,6 +172,7 @@ public class ValidateBMPBean extends AValidateEntityBean implements IMessagePref
 	 * EJB 1.1 specification
 	 * Section: 9.2.5
 	 */
+	@Override
 	public void validateEjbFindMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		// A finder method name must start with the prefix "ejbFind" 
 		// (e.g. ejbFindByPrimaryKey, ejbFindLargeAccounts, ejbFindLateShipments).
@@ -246,6 +250,7 @@ public class ValidateBMPBean extends AValidateEntityBean implements IMessagePref
 	 * Checks that the ejbPostCreate method follows the EJB 1.1. specification.
 	 * Section: 9.2.4
 	*/
+	@Override
 	public void validateEjbPostCreateMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		// Perform common BMP/CMP ejbPostCreate method checks
 		super.validateEjbPostCreateMethod(vc, bean, clazz, method);
@@ -258,6 +263,7 @@ public class ValidateBMPBean extends AValidateEntityBean implements IMessagePref
 	 * EJB 1.1 specification
 	 * Section: 9.2.5
 	 */
+	@Override
 	public void validateMethodExists(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		super.validateMethodExists(vc, bean, clazz);
 
@@ -267,6 +273,7 @@ public class ValidateBMPBean extends AValidateEntityBean implements IMessagePref
 		}
 	}
 	
+	@Override
 	public void verifyFieldExists(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		/*
 		// Plus, check that at least one field exists on the bean.
@@ -281,6 +288,7 @@ public class ValidateBMPBean extends AValidateEntityBean implements IMessagePref
 	/*
 	 * @see IValidationRule#preValidate(IEJBValidationContext, Object, Object)
 	 */
+	@Override
 	public void preValidate(IEJBValidationContext vc, Object targetParent, Object target) throws ValidationCancelledException, ValidationException {
 		super.preValidate(vc, targetParent, target);
 		hasPKMethod = false;

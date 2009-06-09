@@ -67,6 +67,7 @@ public class ObjectInputStreamCustomResolver extends java.io.ObjectInputStream {
 	 * This overrides the default resolveClass() method to use a custom class loader.
 	 */
 
+	@Override
 	protected Class resolveClass(ObjectStreamClass classDesc) throws IOException, ClassNotFoundException {
 
 		String className = classDesc.getName();

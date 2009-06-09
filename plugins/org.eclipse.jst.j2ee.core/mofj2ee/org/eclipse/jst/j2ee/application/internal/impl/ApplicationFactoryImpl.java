@@ -56,6 +56,7 @@ public class ApplicationFactoryImpl extends EFactoryImpl implements ApplicationF
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case ApplicationPackage.APPLICATION: return createApplication();

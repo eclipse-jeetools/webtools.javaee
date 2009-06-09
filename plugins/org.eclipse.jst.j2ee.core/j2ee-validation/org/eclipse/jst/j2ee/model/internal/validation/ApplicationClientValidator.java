@@ -44,6 +44,7 @@ public class ApplicationClientValidator extends J2EEValidator implements Applica
  	 * <p>Answer the id of the resource bundle which is
  	 * used by the receiver.</p>
  	 */
+	@Override
 	public String getBaseName() {
 		return APLICATIONCLIENT_CATEGORY;
 	}// getBaseName
@@ -76,6 +77,7 @@ public class ApplicationClientValidator extends J2EEValidator implements Applica
 	 * 
 	 * @throws ValidationException
 	 */
+	@Override
 	public void validate(IValidationContext inHelper, IReporter inReporter)
 	  throws ValidationException {
 		
@@ -131,6 +133,7 @@ public class ApplicationClientValidator extends J2EEValidator implements Applica
 		return null;
 	}
 	
+	@Override
 	public IStatus validateInJob(IValidationContext inHelper, IReporter inReporter) 
 	 		throws ValidationException {
 
@@ -155,6 +158,7 @@ public class ApplicationClientValidator extends J2EEValidator implements Applica
 		return status;
 	}
 	
+	@Override
 	public void cleanup(IReporter reporter) {
 		appClientDD = null;
 		appClientFile = null;

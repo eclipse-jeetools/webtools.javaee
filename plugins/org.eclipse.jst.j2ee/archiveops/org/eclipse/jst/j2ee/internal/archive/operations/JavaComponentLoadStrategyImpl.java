@@ -25,6 +25,7 @@ public class JavaComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 		super(vComponent, includeClasspathComponents);
 	}
 	
+	@Override
 	public List getFiles() {
 		super.getFiles();
 		if (includeClasspathComponents) {

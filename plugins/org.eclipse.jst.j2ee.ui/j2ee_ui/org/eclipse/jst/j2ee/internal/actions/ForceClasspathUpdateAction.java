@@ -26,6 +26,7 @@ public class ForceClasspathUpdateAction extends Action implements IActionDelegat
 
 	private List projectsList = new ArrayList();
 	
+	@Override
 	public void run() {
 		J2EEComponentClasspathUpdater.getInstance().forceUpdate(projectsList);
 	}

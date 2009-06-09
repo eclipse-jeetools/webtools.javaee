@@ -72,6 +72,7 @@ private static final Class IRESOURCE_CLASS = IResource.class;
 	 *      org.eclipse.jface.viewers.StructuredViewer,
 	 *      org.eclipse.wst.common.navigator.internal.views.extensions.NavigatorContentService)
 	 */
+	@Override
 	public void init(ICommonActionExtensionSite aConfig) {	  
 		openAction = new OpenJEEResourceAction(); 
 	}
@@ -81,6 +82,7 @@ private static final Class IRESOURCE_CLASS = IResource.class;
 	 * 
 	 * @see org.eclipse.wst.common.navigator.internal.views.actions.ICommonActionProvider#setActionContext(org.eclipse.ui.actions.ActionContext)
 	 */
+	@Override
 	public void setContext(ActionContext aContext) {
 		
 		if (aContext != null && aContext.getSelection() instanceof IStructuredSelection) {
@@ -107,6 +109,7 @@ private static final Class IRESOURCE_CLASS = IResource.class;
 	 * 
 	 * @see org.eclipse.wst.common.navigator.internal.views.actions.ICommonActionProvider#fillActionBars(org.eclipse.ui.IActionBars)
 	 */
+	@Override
 	public void fillActionBars(IActionBars theActionBars) {
 		if(openAction.isEnabled()) 
 			theActionBars.setGlobalActionHandler(ICommonActionConstants.OPEN, openAction);
@@ -118,6 +121,7 @@ private static final Class IRESOURCE_CLASS = IResource.class;
 	 * 
 	 * @see org.eclipse.wst.common.navigator.internal.views.actions.ICommonActionProvider#fillContextMenu(org.eclipse.jface.action.IMenuManager)
 	 */
+	@Override
 	public void fillContextMenu(IMenuManager aMenu) {		
 		if (getContext()==null || getContext().getSelection().isEmpty())
 			return;

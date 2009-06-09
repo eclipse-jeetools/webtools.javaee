@@ -34,6 +34,7 @@ public class UtilityProjectFirstPage extends J2EEComponentFacetCreationWizardPag
 		}
 	}
 
+	@Override
 	protected String getModuleFacetID() {
 		return J2EEProjectUtilities.UTILITY;
 	}

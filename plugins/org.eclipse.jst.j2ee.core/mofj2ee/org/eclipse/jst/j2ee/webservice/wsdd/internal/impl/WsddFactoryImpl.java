@@ -71,7 +71,8 @@ public class WsddFactoryImpl extends EFactoryImpl implements WsddFactory
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EObject create(EClass eClass) {
+  @Override
+public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case WsddPackage.WEB_SERVICES: return createWebServices();
 			case WsddPackage.WEB_SERVICE_DESCRIPTION: return createWebServiceDescription();

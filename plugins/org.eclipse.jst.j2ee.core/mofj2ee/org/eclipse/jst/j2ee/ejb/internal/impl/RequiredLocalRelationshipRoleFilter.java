@@ -23,6 +23,7 @@ import org.eclipse.jst.j2ee.internal.EjbModuleExtensionHelper;
  */
 public class RequiredLocalRelationshipRoleFilter extends AbstractRequiredRelationshipRoleFilter {
 	private static RequiredLocalRelationshipRoleFilter singleton;
+@Override
 protected java.util.List getRolesToFilter(ContainerManagedEntity cmp) {
     EjbModuleExtensionHelper modHelper = getEjbModuleExtHelper(cmp);
 	if(modHelper != null)

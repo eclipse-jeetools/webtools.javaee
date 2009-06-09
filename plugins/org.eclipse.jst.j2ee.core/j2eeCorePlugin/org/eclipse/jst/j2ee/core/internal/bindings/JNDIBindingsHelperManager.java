@@ -91,10 +91,12 @@ public class JNDIBindingsHelperManager {
 	private IJNDIBindingsHelper getDefaultHelper() {
 		if (null == defaultHelper) {
 			defaultHelper = new AbstractJNDIBindingsHelper() {
+				@Override
 				public boolean appliesFor(IProject project) {
 					return true;
 				}
 
+				@Override
 				public boolean appliesFor(Archive archive) {
 					return true;
 				}
@@ -126,6 +128,7 @@ public class JNDIBindingsHelperManager {
 			super(J2EECorePlugin.PLUGIN_ID, TAG_J2EE_BINDINGS_HELPER);
 		}
 
+		@Override
 		public boolean readElement(IConfigurationElement element) {
 			if (TAG_BINDINGS_HELPER.equals(element.getName())) {
 				try {

@@ -41,6 +41,7 @@ public class OpenExternalWSDLAction extends AbstractOpenAction {
 		this.setImageDescriptor(AbstractUIPlugin.imageDescriptorFromPlugin(J2EEUIPlugin.PLUGIN_ID, "icons/web_type.gif")); //$NON-NLS-1$
 	}
 
+	@Override
 	public void run() {
 		try {
 			IWorkbenchBrowserSupport browserSupport = WebServiceUIPlugin.getDefault().getWorkbench().getBrowserSupport(); 
@@ -51,6 +52,7 @@ public class OpenExternalWSDLAction extends AbstractOpenAction {
 		}
 	}
 
+	@Override
 	public boolean updateSelection(IStructuredSelection s) {
 		Object obj = s.getFirstElement();
 		WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();

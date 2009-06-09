@@ -34,6 +34,7 @@ public class WebModuleRefImpl extends ModuleRefImpl implements WebModuleRef {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return CommonarchivePackage.Literals.WEB_MODULE_REF;
 	}
@@ -48,6 +49,7 @@ public class WebModuleRefImpl extends ModuleRefImpl implements WebModuleRef {
 	/*
 	 * @see ModuleRef#isWeb()
 	 */
+	@Override
 	public boolean isWeb() {
 		return true;
 	}

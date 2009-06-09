@@ -65,6 +65,7 @@ public class Webservice_clientFactoryImpl extends EFactoryImpl implements Webser
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case Webservice_clientPackage.SERVICE_REF: return createServiceRef();

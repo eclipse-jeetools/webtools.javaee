@@ -22,11 +22,13 @@ public class AppClientComponentImportOperation extends J2EEArtifactImportOperati
 		super(model);
 	}
 
+	@Override
 	protected SaveStrategy createSaveStrategy(IVirtualComponent virtualComponent) {
 		AppClientComponentSaveStrategyImpl saveStrat = new AppClientComponentSaveStrategyImpl(virtualComponent);
 		return saveStrat;
 	}
 	
+	@Override
 	protected ComponentArchiveSaveAdapter getArchiveSaveAdapter(IVirtualComponent virtualComponent) {
 		return new AppClientComponentArchiveSaveAdapter(virtualComponent);
 	}

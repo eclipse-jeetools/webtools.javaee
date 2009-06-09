@@ -29,6 +29,7 @@ public class UtilityFacetInstallDataModelProvider extends J2EEModuleFacetInstall
 		super();
 	}
 
+	@Override
 	public Object getDefaultProperty(String propertyName) {
 		if (FACET_ID.equals(propertyName)) {
 			return UTILITY;
@@ -66,6 +67,7 @@ public class UtilityFacetInstallDataModelProvider extends J2EEModuleFacetInstall
 		return super.getDefaultProperty(propertyName);
 	}
 
+	@Override
 	protected int convertFacetVersionToJ2EEVersion(IProjectFacetVersion version) {
 		return 0;
 	}

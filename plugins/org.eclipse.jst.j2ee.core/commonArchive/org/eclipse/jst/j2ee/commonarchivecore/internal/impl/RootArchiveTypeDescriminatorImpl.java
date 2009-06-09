@@ -36,6 +36,7 @@ public class RootArchiveTypeDescriminatorImpl extends org.eclipse.jst.j2ee.commo
 	/**
 	 * @see com.ibm.etools.archive.ArchiveTypeDiscriminator
 	 */
+	@Override
 	public boolean canImport(Archive anArchive) {
 		return true;
 	}
@@ -43,6 +44,7 @@ public class RootArchiveTypeDescriminatorImpl extends org.eclipse.jst.j2ee.commo
 	/**
 	 * @see com.ibm.etools.archive.ArchiveTypeDiscriminator
 	 */
+	@Override
 	public Archive convert(Archive anArchive) {
 		return anArchive;
 	}
@@ -51,6 +53,7 @@ public class RootArchiveTypeDescriminatorImpl extends org.eclipse.jst.j2ee.commo
 	 * @see com.ibm.etools.archive.ArchiveTypeDiscriminator This never gets called for this
 	 *      implementer.
 	 */
+	@Override
 	public Archive createConvertedArchive() {
 		return null;
 	}
@@ -67,6 +70,7 @@ public class RootArchiveTypeDescriminatorImpl extends org.eclipse.jst.j2ee.commo
 	 * @see com.ibm.etools.archive.ArchiveTypeDiscriminator This never gets called for this
 	 *      implementer.
 	 */
+	@Override
 	public ImportStrategy createImportStrategy(Archive old, Archive newArchive) {
 		return null;
 	}

@@ -73,12 +73,14 @@ public class ConnectorHelper extends J2EEValidationHelper {
 	 * Given a resource, return its non-eclipse-specific location. If this resource, or type of
 	 * resource, isn't handled by this helper, return null.
 	 */
+	@Override
 	public String getPortableName(IResource resource) {
 		if (!(resource instanceof IFile)) {
 			return null;
 		}
 		return "rar.xml"; //$NON-NLS-1$
 	}
+	@Override
 	public void cleanup(WorkbenchReporter reporter) {
 		if(rarFile != null){
 			rarFile.close();

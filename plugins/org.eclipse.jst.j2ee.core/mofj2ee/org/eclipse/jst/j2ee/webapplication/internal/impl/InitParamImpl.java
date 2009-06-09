@@ -76,6 +76,7 @@ public class InitParamImpl extends J2EEEObjectImpl implements InitParam {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return WebapplicationPackage.Literals.INIT_PARAM;
 	}
@@ -139,6 +140,7 @@ public class InitParamImpl extends J2EEEObjectImpl implements InitParam {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case WebapplicationPackage.INIT_PARAM__PARAM_NAME:
@@ -156,6 +158,7 @@ public class InitParamImpl extends J2EEEObjectImpl implements InitParam {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case WebapplicationPackage.INIT_PARAM__PARAM_NAME:
@@ -176,6 +179,7 @@ public class InitParamImpl extends J2EEEObjectImpl implements InitParam {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case WebapplicationPackage.INIT_PARAM__PARAM_NAME:
@@ -196,6 +200,7 @@ public class InitParamImpl extends J2EEEObjectImpl implements InitParam {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case WebapplicationPackage.INIT_PARAM__PARAM_NAME:
@@ -211,6 +216,7 @@ public class InitParamImpl extends J2EEEObjectImpl implements InitParam {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

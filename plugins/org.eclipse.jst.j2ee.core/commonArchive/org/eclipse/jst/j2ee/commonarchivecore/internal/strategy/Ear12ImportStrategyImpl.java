@@ -27,10 +27,12 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 public class Ear12ImportStrategyImpl extends XmlBasedImportStrategyImpl {
 
 	public static class Discriminator extends ArchiveTypeDiscriminatorImpl {
+		@Override
 		public Archive createConvertedArchive() {
 			return getArchiveFactory().createEARFile();
 		}
 
+		@Override
 		public boolean canImport(Archive anArchive) {
 			return anArchive.containsFile(J2EEConstants.APPLICATION_DD_URI);
 		}
@@ -38,6 +40,7 @@ public class Ear12ImportStrategyImpl extends XmlBasedImportStrategyImpl {
 		/**
 		 * @see com.ibm.etools.archive.ArchiveTypeDiscriminator
 		 */
+		@Override
 		public org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.ImportStrategy createImportStrategy(Archive old, Archive newArchive) {
 			return new Ear12ImportStrategyImpl();
 		}

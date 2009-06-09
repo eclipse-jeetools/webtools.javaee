@@ -42,6 +42,7 @@ public class NestedArchiveIterator extends FileIteratorImpl {
 		 * 
 		 * @see java.io.FilterInputStream#close()
 		 */
+		@Override
 		public void close() throws IOException {
 			//do nothing because we want to prevent the clients from closing the zip
 		}
@@ -55,12 +56,14 @@ public class NestedArchiveIterator extends FileIteratorImpl {
 		zipInputStream = stream;
 	}
 
+	@Override
 	public InputStream getInputStream(File aFile) throws java.io.IOException, java.io.FileNotFoundException {
 		if (!aFile.getURI().equals(currentEntry.getName()))
 			throw new java.io.IOException(CommonArchiveResourceHandler.Internal_Error__Iterator_o_EXC_); // = "Internal Error: Iterator out of sync with zip entries"
 		return new WrapperInputStream(zipInputStream);
 	}
 
+	@Override
 	public File next() {
 		File next = super.next();
 		try {

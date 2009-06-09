@@ -31,6 +31,7 @@ public class GroupedEntityItemProvider extends GroupedEJBItemProvider {
 		super(adapterFactory, text, image, parent, children);
 	}
 
+	@Override
 	public String getText(Object object) {
 		return ENTITY;
 	}

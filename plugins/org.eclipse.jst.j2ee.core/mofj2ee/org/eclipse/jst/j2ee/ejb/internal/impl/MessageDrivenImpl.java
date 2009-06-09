@@ -157,10 +157,12 @@ public class MessageDrivenImpl extends EnterpriseBeanImpl implements MessageDriv
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return EjbPackage.Literals.MESSAGE_DRIVEN;
 	}
 
+@Override
 public boolean isMessageDriven() {
 	return true;
 }
@@ -470,6 +472,7 @@ public boolean isMessageDriven() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EjbPackage.MESSAGE_DRIVEN__DESTINATION:
@@ -485,6 +488,7 @@ public boolean isMessageDriven() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EjbPackage.MESSAGE_DRIVEN__DESTINATION:
@@ -500,6 +504,7 @@ public boolean isMessageDriven() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case EjbPackage.MESSAGE_DRIVEN__TRANSACTION_TYPE:
@@ -529,6 +534,7 @@ public boolean isMessageDriven() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EjbPackage.MESSAGE_DRIVEN__TRANSACTION_TYPE:
@@ -564,6 +570,7 @@ public boolean isMessageDriven() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case EjbPackage.MESSAGE_DRIVEN__TRANSACTION_TYPE:
@@ -599,6 +606,7 @@ public boolean isMessageDriven() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case EjbPackage.MESSAGE_DRIVEN__TRANSACTION_TYPE:
@@ -624,6 +632,7 @@ public boolean isMessageDriven() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
@@ -643,6 +652,7 @@ public boolean isMessageDriven() {
 	/*
 	 * @see EnterpriseBean#getAvailableLocalHomeMethodElements()
 	 */
+	@Override
 	public List getAvailableLocalHomeMethodElements() {
 		return Collections.EMPTY_LIST;
 	}
@@ -650,6 +660,7 @@ public boolean isMessageDriven() {
 	/*
 	 * @see EnterpriseBean#getAvailableLocalMethodElements()
 	 */
+	@Override
 	public List getAvailableLocalMethodElements() {
 		return Collections.EMPTY_LIST;
 	}
@@ -657,6 +668,7 @@ public boolean isMessageDriven() {
 	/*
 	 * @see EnterpriseBean#getAvailableRemoteMethodElements()
 	 */
+	@Override
 	public List getAvailableRemoteMethodElements() {
 		return Collections.EMPTY_LIST;
 	}
@@ -664,6 +676,7 @@ public boolean isMessageDriven() {
 	/*
 	 * @see EnterpriseBeanImpl#getAvailableUnspecifiedMethodElementSignatures()
 	 */
+	@Override
 	public List getAvailableUnspecifiedMethodElementSignatures() {
 		//There is only the onMessage method
 		List sigs = new ArrayList(1);

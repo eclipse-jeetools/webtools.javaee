@@ -98,10 +98,12 @@ public class AddProjectToEARDropAssistant extends CommonDropAdapterAssistant {
 		super();
 	}
 
+	@Override
 	public boolean isSupportedType(TransferData aTransferType) {
 		return LocalSelectionTransfer.getTransfer().isSupportedType(aTransferType);
 	}
 
+	@Override
 	public IStatus handleDrop(CommonDropAdapter aDropAdapter, DropTargetEvent aDropTargetEvent, final Object aTarget) {
 		if (LocalSelectionTransfer.getTransfer().isSupportedType(aDropAdapter.getCurrentTransfer())) {
 			final IStructuredSelection selection = (IStructuredSelection) LocalSelectionTransfer.getTransfer().getSelection();
@@ -141,6 +143,7 @@ public class AddProjectToEARDropAssistant extends CommonDropAdapterAssistant {
 				}
 			}
 			Job addProjectToEarJob = new Job(getJobTitle(earComponent)) {
+				@Override
 				protected IStatus run(IProgressMonitor monitor) {
 
 					IStatus status = null;
@@ -200,6 +203,7 @@ public class AddProjectToEARDropAssistant extends CommonDropAdapterAssistant {
 		return Status.OK_STATUS;
 	}
 
+	@Override
 	public IStatus validateDrop(Object target, int operation, TransferData transferType) {
 		libDir = ""; //$NON-NLS-1$
 		if (LocalSelectionTransfer.getTransfer().isSupportedType(transferType) || PluginTransfer.getInstance().isSupportedType(transferType)) {

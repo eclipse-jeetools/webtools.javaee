@@ -42,6 +42,7 @@ public class JavaeeXMLProcessor extends XMLProcessor {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected Map getRegistrations() {
 		if (registrations == null) {
 			super.getRegistrations();

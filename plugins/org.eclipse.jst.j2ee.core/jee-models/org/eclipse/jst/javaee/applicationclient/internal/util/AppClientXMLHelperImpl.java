@@ -23,12 +23,14 @@ public class AppClientXMLHelperImpl extends JEEXMLHelperImpl {
 	}
 
 	
+	@Override
 	public String getURI(String prefix) {
 		if (prefix != null && prefix.equals(""))
 			return ApplicationclientPackage.eNS_URI;
 		else
 			return super.getURI(prefix);
 	}
+	@Override
 	protected String getQName(EPackage ePackage, String name, boolean mustHavePrefix)
 	  {
 	   String nsPrefix = getPrefix(ePackage, mustHavePrefix);

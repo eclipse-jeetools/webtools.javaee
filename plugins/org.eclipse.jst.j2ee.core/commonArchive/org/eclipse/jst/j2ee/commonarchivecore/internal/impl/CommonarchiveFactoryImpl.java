@@ -120,39 +120,48 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 			delegateNeedsInit = false;
 			delegate = new CommonarchiveFactoryImpl() {
 
+				@Override
 				public ApplicationClientFile createApplicationClientFile() {
 					return createApplicationClientFileGen();
 				}
 
 
+				@Override
 				public ClientModuleRef createClientModuleRef() {
 					return createClientModuleRefGen();
 				}
 
+				@Override
 				public ConnectorModuleRef createConnectorModuleRef() {
 					return createConnectorModuleRefGen();
 				}
 
+				@Override
 				public EARFile createEARFile() {
 					return createEARFileGen();
 				}
 
+				@Override
 				public EJBJarFile createEJBJarFile() {
 					return createEJBJarFileGen();
 				}
 
+				@Override
 				public EJBModuleRef createEJBModuleRef() {
 					return createEJBModuleRefGen();
 				}
 
+				@Override
 				public RARFile createRARFile() {
 					return createRARFileGen();
 				}
 
+				@Override
 				public WARFile createWARFile() {
 					return createWARFileGen();
 				}
 
+				@Override
 				public WebModuleRef createWebModuleRef() {
 					return createWebModuleRefGen();
 				}
@@ -165,6 +174,7 @@ public class CommonarchiveFactoryImpl extends EFactoryImpl implements Commonarch
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case CommonarchivePackage.FILE: return createFile();

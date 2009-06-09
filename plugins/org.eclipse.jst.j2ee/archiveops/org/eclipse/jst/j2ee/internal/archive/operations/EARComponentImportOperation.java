@@ -53,10 +53,12 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 	}
 
 	
+	@Override
 	protected ComponentArchiveSaveAdapter getArchiveSaveAdapter(IVirtualComponent virtualComponent){
 		return new EARComponentArchiveSaveAdapter(virtualComponent);
 	}
 	
+	@Override
 	protected int computeTotalWork() {
 		int baseWork = super.computeTotalWork() + WEB_LIB_WORK + DISPOSE_WORK;
 		List modelsToImport = (List) model.getProperty(IEARComponentImportDataModelProperties.HANDLED_PROJECT_MODELS_LIST);
@@ -76,6 +78,7 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 	 * @param monitor
 	 *            the progress monitor to use to display progress
 	 */
+	@Override
 	protected void doExecute(IProgressMonitor monitor) throws ExecutionException {
 		super.doExecute(monitor);
 		ExecutionException firstNestedException = null;
@@ -206,6 +209,7 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 		return null;
 	}
 
+	@Override
 	protected SaveStrategy createSaveStrategy(IVirtualComponent virtualComponent) {
 		return new EARComponentSaveStrategyImpl(virtualComponent);
 	}

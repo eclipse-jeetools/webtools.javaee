@@ -36,6 +36,7 @@ public class PrimaryKeyClassProviderHelper extends J2EEJavaClassProviderHelper {
 		super(anEJB);
 	}
 
+	@Override
 	public Image getImage() {
 		if (image == null)
 			image = createImage();
@@ -47,14 +48,17 @@ public class PrimaryKeyClassProviderHelper extends J2EEJavaClassProviderHelper {
 	 * 
 	 * @return org.eclipse.jem.internal.java.JavaClass
 	 */
+	@Override
 	public JavaClass getJavaClass() {
 		return ((Entity) getEjb()).getPrimaryKey();
 	}
 
+	@Override
 	protected String getOverlayKey() {
 		return "key_interf_ov";//$NON-NLS-1$
 	}
 
+	@Override
 	public String getTypeString(String className) {
 		return J2EEUIMessages.getResourceString("Primary_Key_Class_UI_", new Object[]{className}); //$NON-NLS-1$ = "Primary Key Class"
 	}

@@ -40,6 +40,7 @@ public class WebTypeItemProvider extends WebapplicationItemProviderAdapter imple
 	/**
 	 * This returns web_type.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return WebPlugin.getDefault().getImage("web_type");//$NON-NLS-1$
 	}
@@ -47,6 +48,7 @@ public class WebTypeItemProvider extends WebapplicationItemProviderAdapter imple
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -57,6 +59,7 @@ public class WebTypeItemProvider extends WebapplicationItemProviderAdapter imple
 		return itemPropertyDescriptors;
 	}
 
+	@Override
 	public String getText(Object object) {
 		return WebAppEditResourceHandler.getString("WebType_UI_"); //$NON-NLS-1$ = "WebType"
 	}
@@ -67,6 +70,7 @@ public class WebTypeItemProvider extends WebapplicationItemProviderAdapter imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		super.notifyChanged(notification);
 	}
@@ -78,6 +82,7 @@ public class WebTypeItemProvider extends WebapplicationItemProviderAdapter imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -88,6 +93,7 @@ public class WebTypeItemProvider extends WebapplicationItemProviderAdapter imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}
@@ -98,6 +104,7 @@ public class WebTypeItemProvider extends WebapplicationItemProviderAdapter imple
 	 * to return the empty enumeration, and this to check that enumeration, but we know there can't
 	 * be any children, so this is faster.
 	 */
+	@Override
 	public boolean hasChildren(Object object) {
 		return false;
 	}

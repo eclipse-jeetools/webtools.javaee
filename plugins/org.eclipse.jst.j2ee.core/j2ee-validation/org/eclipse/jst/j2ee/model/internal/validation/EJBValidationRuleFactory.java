@@ -44,6 +44,7 @@ public class EJBValidationRuleFactory extends AbstractEJBValidationRuleFactory {
 		}
 		return _inst;
 	}
+	@Override
 	protected Logger getMsgLogger(){
 	    if(logger == null)
 	        logger = Logger.getLogger(IEJBValidatorConstants.J2EE_CORE_PLUGIN);
@@ -376,6 +377,7 @@ public class EJBValidationRuleFactory extends AbstractEJBValidationRuleFactory {
 		return null;
 	}
 	
+	@Override
 	public IValidationRule getRule(IEJBValidationContext vc, Object ruleId) {
 		Map ruleMap = (Map) contextMap.get(vc.getReporter());
 		if(ruleMap == null){

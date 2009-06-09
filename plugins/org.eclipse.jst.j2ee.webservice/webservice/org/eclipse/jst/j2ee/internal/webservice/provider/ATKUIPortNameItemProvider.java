@@ -21,6 +21,7 @@ public class ATKUIPortNameItemProvider extends PortNameItemProvider implements I
 	/**
 	 * This does the same thing as ITableLabelProvider.getColumnText.
 	 */
+	@Override
 	public String getColumnText(Object object, int columnIndex) {
 		PortName portName = (PortName) object;
 		return toDisplayString(portName.getPortName());
@@ -29,6 +30,7 @@ public class ATKUIPortNameItemProvider extends PortNameItemProvider implements I
 	/**
 	 * This does the same thing as ITableLabelProvider.getColumnImage.
 	 */
+	@Override
 	public Object getColumnImage(Object object, int columnIndex) {
 		return null;
 	}

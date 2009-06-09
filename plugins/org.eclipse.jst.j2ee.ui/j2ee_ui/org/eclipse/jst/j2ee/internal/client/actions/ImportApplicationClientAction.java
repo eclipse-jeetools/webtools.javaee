@@ -40,6 +40,7 @@ public class ImportApplicationClientAction extends BaseAction {
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(ICON));
 	}
 
+	@Override
 	protected void primRun(Shell shell) {
 
 		AppClientComponentImportWizard wizard = new AppClientComponentImportWizard();

@@ -41,7 +41,8 @@ public class BeanLinkImpl extends J2EEEObjectImpl implements BeanLink
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  protected EClass eStaticClass() {
+  @Override
+protected EClass eStaticClass() {
 		return WsddPackage.Literals.BEAN_LINK;
 	}
 

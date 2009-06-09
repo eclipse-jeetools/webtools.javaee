@@ -30,28 +30,34 @@ public final class J2EEUtilityJarImportDataModelProvider extends J2EEArtifactImp
 
 	public static String J2EE_UTILITY_JAR_IMPORT_DMP_ID = "j2eeUtilityJarImportDataModelProvider";
 
+	@Override
 	public Set getPropertyNames() {
 		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(EAR_PROJECT_NAME);
 		return propertyNames;
 	}
 
+	@Override
 	protected Archive openArchive(String uri) throws OpenFailureException {
 		return null;
 	}
 
+	@Override
 	protected int getType() {
 		return 0;
 	}
 
+	@Override
 	public IDataModelOperation getDefaultOperation() {
 		return new J2EEUtilityJarImportOperationNew(model);
 	}
 
+	@Override
 	protected IDataModel createJ2EEComponentCreationDataModel() {
 		return DataModelFactory.createDataModel(new UtilityProjectCreationDataModelProvider());
 	}
 
+	@Override
 	public String getID() {
 
 		return J2EE_UTILITY_JAR_IMPORT_DMP_ID;

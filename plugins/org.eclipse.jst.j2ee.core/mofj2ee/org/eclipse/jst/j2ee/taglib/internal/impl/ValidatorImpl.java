@@ -49,6 +49,7 @@ public class ValidatorImpl extends J2EEEObjectImpl implements Validator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return TaglibPackage.Literals.VALIDATOR;
 	}
@@ -120,6 +121,7 @@ public class ValidatorImpl extends J2EEEObjectImpl implements Validator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case TaglibPackage.VALIDATOR__INIT_PARAMS:
@@ -135,6 +137,7 @@ public class ValidatorImpl extends J2EEEObjectImpl implements Validator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case TaglibPackage.VALIDATOR__VALIDATOR_CLASS:
@@ -153,6 +156,7 @@ public class ValidatorImpl extends J2EEEObjectImpl implements Validator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case TaglibPackage.VALIDATOR__VALIDATOR_CLASS:
@@ -175,6 +179,7 @@ public class ValidatorImpl extends J2EEEObjectImpl implements Validator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case TaglibPackage.VALIDATOR__VALIDATOR_CLASS:
@@ -195,6 +200,7 @@ public class ValidatorImpl extends J2EEEObjectImpl implements Validator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case TaglibPackage.VALIDATOR__VALIDATOR_CLASS:

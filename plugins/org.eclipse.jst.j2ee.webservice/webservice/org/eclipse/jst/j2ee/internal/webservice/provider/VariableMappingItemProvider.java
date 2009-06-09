@@ -53,6 +53,7 @@ public class VariableMappingItemProvider extends ItemProviderAdapter implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -145,6 +146,7 @@ public class VariableMappingItemProvider extends ItemProviderAdapter implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return getResourceLocator().getImage("full/obj16/VariableMapping"); //$NON-NLS-1$
 	}
@@ -155,6 +157,7 @@ public class VariableMappingItemProvider extends ItemProviderAdapter implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((VariableMapping) object).getJavaVariableName();
 		return label == null || label.length() == 0 ? getString("_UI_VariableMapping_type") : //$NON-NLS-1$
@@ -167,6 +170,7 @@ public class VariableMappingItemProvider extends ItemProviderAdapter implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(VariableMapping.class)) {
 			case JaxrpcmapPackage.VARIABLE_MAPPING__ID :
@@ -189,6 +193,7 @@ public class VariableMappingItemProvider extends ItemProviderAdapter implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -199,6 +204,7 @@ public class VariableMappingItemProvider extends ItemProviderAdapter implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return Webservicej2eeEditPlugin.INSTANCE;
 	}

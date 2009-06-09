@@ -44,6 +44,7 @@ public abstract class AbstractActionWithDelegate extends org.eclipse.ui.actions.
 	/**
 	 * Implementation of method defined on <code>IAction</code>.
 	 */
+	@Override
 	public void run() {
 		delegate.run(this);
 	}
@@ -62,6 +63,7 @@ public abstract class AbstractActionWithDelegate extends org.eclipse.ui.actions.
 	 * @return <code>true</code> if the action should be enabled for this selection, and
 	 *         <code>false</code> otherwise
 	 */
+	@Override
 	protected boolean updateSelection(IStructuredSelection selection) {
 		delegate.selectionChanged(this, selection);
 		return this.isEnabled();

@@ -49,6 +49,7 @@ public abstract class ProjectRefactorOperation extends AbstractDataModelOperatio
 	/* (non-Javadoc)
 	 * @see org.eclipse.core.commands.operations.IUndoableOperation#execute(org.eclipse.core.runtime.IProgressMonitor, org.eclipse.core.runtime.IAdaptable)
 	 */
+	@Override
 	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		try {
 			final ProjectRefactorMetadata refactoredMetadata = getProjectMetadata();
@@ -184,6 +185,7 @@ public abstract class ProjectRefactorOperation extends AbstractDataModelOperatio
 	 * Override to disable redo support
 	 * @see org.eclipse.core.commands.operations.IUndoableOperation#canRedo()
 	 */
+	@Override
 	public boolean canRedo() {
 		return false;
 	}
@@ -192,6 +194,7 @@ public abstract class ProjectRefactorOperation extends AbstractDataModelOperatio
 	 * Override to disable undo support.
 	 * @see org.eclipse.core.commands.operations.IUndoableOperation#canUndo()
 	 */
+	@Override
 	public boolean canUndo() {
 		return false;
 	}

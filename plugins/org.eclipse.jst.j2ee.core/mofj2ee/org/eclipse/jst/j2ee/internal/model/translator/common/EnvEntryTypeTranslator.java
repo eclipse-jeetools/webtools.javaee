@@ -26,6 +26,7 @@ public class EnvEntryTypeTranslator extends Translator implements DeploymentDesc
 	/**
 	 * @see com.ibm.etools.emf2xml.impl.Translator#convertStringToValue(String)
 	 */
+	@Override
 	public Object convertStringToValue(String strValue, EObject owner) {		
 		if (strValue != null && strValue.startsWith(JAVA_LANG)) 
 			return super.convertStringToValue(strValue.substring(SUBSTRING_LENGTH), owner);
@@ -36,6 +37,7 @@ public class EnvEntryTypeTranslator extends Translator implements DeploymentDesc
 	/**
 	 * @see com.ibm.etools.emf2xml.impl.Translator#convertValueToString(Object)
 	 */
+	@Override
 	public String convertValueToString(Object value, EObject owner) {
 		if (value != null) 
 			return JAVA_LANG + ((Enumerator)value).getName(); 

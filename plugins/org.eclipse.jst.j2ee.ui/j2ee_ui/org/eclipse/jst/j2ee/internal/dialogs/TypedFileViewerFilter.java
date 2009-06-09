@@ -66,6 +66,7 @@ public class TypedFileViewerFilter extends org.eclipse.jface.viewers.ViewerFilte
 		}
 		return false;
 	}
+	@Override
 	public boolean select(Viewer viewer, Object parentElement, Object element) {
 		return isValid(element);
 	}

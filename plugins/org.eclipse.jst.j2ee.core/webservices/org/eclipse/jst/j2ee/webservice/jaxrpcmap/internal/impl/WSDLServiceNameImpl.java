@@ -41,7 +41,8 @@ public class WSDLServiceNameImpl extends QNameImpl implements WSDLServiceName
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  protected EClass eStaticClass() {
+  @Override
+protected EClass eStaticClass() {
 		return JaxrpcmapPackage.Literals.WSDL_SERVICE_NAME;
 	}
 

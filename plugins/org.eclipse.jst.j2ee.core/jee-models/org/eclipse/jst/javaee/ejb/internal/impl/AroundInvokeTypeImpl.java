@@ -90,6 +90,7 @@ public class AroundInvokeTypeImpl extends EObjectImpl implements AroundInvokeTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return EjbPackage.Literals.AROUND_INVOKE_TYPE;
 	}
@@ -141,6 +142,7 @@ public class AroundInvokeTypeImpl extends EObjectImpl implements AroundInvokeTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case EjbPackage.AROUND_INVOKE_TYPE__CLASS:
@@ -156,6 +158,7 @@ public class AroundInvokeTypeImpl extends EObjectImpl implements AroundInvokeTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EjbPackage.AROUND_INVOKE_TYPE__CLASS:
@@ -173,6 +176,7 @@ public class AroundInvokeTypeImpl extends EObjectImpl implements AroundInvokeTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case EjbPackage.AROUND_INVOKE_TYPE__CLASS:
@@ -190,6 +194,7 @@ public class AroundInvokeTypeImpl extends EObjectImpl implements AroundInvokeTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case EjbPackage.AROUND_INVOKE_TYPE__CLASS:
@@ -205,6 +210,7 @@ public class AroundInvokeTypeImpl extends EObjectImpl implements AroundInvokeTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

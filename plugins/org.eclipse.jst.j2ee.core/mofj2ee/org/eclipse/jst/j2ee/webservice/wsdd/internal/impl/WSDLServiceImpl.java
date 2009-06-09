@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: WSDLServiceImpl.java,v 1.1 2007/12/12 22:57:13 cbridgha Exp $
+ * $Id: WSDLServiceImpl.java,v 1.2 2009/06/09 19:35:55 jsholl Exp $
  */
 package org.eclipse.jst.j2ee.webservice.wsdd.internal.impl;
 
@@ -37,6 +37,7 @@ public class WSDLServiceImpl extends QNameImpl implements WSDLService {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return WsddPackage.Literals.WSDL_SERVICE;
 	}

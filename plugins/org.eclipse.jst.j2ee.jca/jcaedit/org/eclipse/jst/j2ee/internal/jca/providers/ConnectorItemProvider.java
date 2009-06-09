@@ -21,11 +21,6 @@ import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
-import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
-import org.eclipse.emf.edit.provider.IItemPropertySource;
-import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
-import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.jst.j2ee.common.internal.provider.CompatibilityDescriptionGroupItemProvider;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
@@ -37,7 +32,7 @@ import org.eclipse.jst.j2ee.jca.JcaPackage;
 /**
  * This is the item provider adpater for a Conenctor projects
  */
-public class ConnectorItemProvider extends CompatibilityDescriptionGroupItemProvider implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class ConnectorItemProvider extends CompatibilityDescriptionGroupItemProvider {
 
 	/**
 	 * This constructs an instance from a factory and a notifier.
@@ -55,6 +50,7 @@ public class ConnectorItemProvider extends CompatibilityDescriptionGroupItemProv
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -175,6 +171,7 @@ public class ConnectorItemProvider extends CompatibilityDescriptionGroupItemProv
 	 *            object - Object to get children references of.
 	 * @return Colelction
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -189,6 +186,7 @@ public class ConnectorItemProvider extends CompatibilityDescriptionGroupItemProv
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected EReference getChildReference(Object object, Object child) {
 		// Check the type of the specified child object and return the proper feature to use for
 		// adding (see {@link AddCommand}) it as a child.
@@ -204,6 +202,7 @@ public class ConnectorItemProvider extends CompatibilityDescriptionGroupItemProv
 	 *            object - Object to return the parent of.
 	 * @return Object
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((EObject) object).eContainer();
 	}// getParent
@@ -215,6 +214,7 @@ public class ConnectorItemProvider extends CompatibilityDescriptionGroupItemProv
 	 *            The object to get the image for.
 	 * @return Object
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return J2EEPlugin.getPlugin().getImage("full/obj16/connection_obj"); //$NON-NLS-1$
 	}// getImage
@@ -226,6 +226,7 @@ public class ConnectorItemProvider extends CompatibilityDescriptionGroupItemProv
 	 *            object - The object to get the name for.
 	 * @return String
 	 */
+	@Override
 	public String getText(Object object) {
 		Connector connector = ((Connector) object);
 		return "Connector " + connector.getDisplayName(); //$NON-NLS-1$
@@ -237,6 +238,7 @@ public class ConnectorItemProvider extends CompatibilityDescriptionGroupItemProv
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(Connector.class)) {
 			case JcaPackage.CONNECTOR__VENDOR_NAME :
@@ -259,6 +261,7 @@ public class ConnectorItemProvider extends CompatibilityDescriptionGroupItemProv
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -273,6 +276,7 @@ public class ConnectorItemProvider extends CompatibilityDescriptionGroupItemProv
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}

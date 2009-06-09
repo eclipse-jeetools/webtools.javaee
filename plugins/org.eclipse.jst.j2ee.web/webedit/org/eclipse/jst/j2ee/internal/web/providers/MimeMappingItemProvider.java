@@ -45,6 +45,7 @@ public class MimeMappingItemProvider extends WebapplicationItemProviderAdapter i
 	/**
 	 * This returns mime_mapping.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return WebPlugin.getDefault().getImage("mime_mapping");//$NON-NLS-1$
 	}
@@ -52,6 +53,7 @@ public class MimeMappingItemProvider extends WebapplicationItemProviderAdapter i
 	/**
 	 * This returns the webApp of the MimeMapping.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((MimeMapping) object).getWebApp();
 	}
@@ -59,6 +61,7 @@ public class MimeMappingItemProvider extends WebapplicationItemProviderAdapter i
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -116,6 +119,7 @@ public class MimeMappingItemProvider extends WebapplicationItemProviderAdapter i
 	}
 
 
+	@Override
 	public String getText(Object object) {
 		return WebAppEditResourceHandler.getString("22concat_UI_", (new Object[]{((MimeMapping) object).getExtension()})); //$NON-NLS-1$ = "MimeMapping {0}"
 	}
@@ -126,6 +130,7 @@ public class MimeMappingItemProvider extends WebapplicationItemProviderAdapter i
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(MimeMapping.class)) {
 			case WebapplicationPackage.MIME_MAPPING__EXTENSION :
@@ -144,6 +149,7 @@ public class MimeMappingItemProvider extends WebapplicationItemProviderAdapter i
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -154,6 +160,7 @@ public class MimeMappingItemProvider extends WebapplicationItemProviderAdapter i
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}
@@ -164,6 +171,7 @@ public class MimeMappingItemProvider extends WebapplicationItemProviderAdapter i
 	 * to return the empty enumeration, and this to check that enumeration, but we know there can't
 	 * be any children, so this is faster.
 	 */
+	@Override
 	public boolean hasChildren(Object object) {
 		return false;
 	}

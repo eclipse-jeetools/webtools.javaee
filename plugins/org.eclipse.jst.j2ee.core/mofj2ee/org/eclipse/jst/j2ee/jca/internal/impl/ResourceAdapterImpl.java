@@ -234,6 +234,7 @@ public class ResourceAdapterImpl extends J2EEEObjectImpl implements ResourceAdap
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return JcaPackage.Literals.RESOURCE_ADAPTER;
 	}
@@ -576,6 +577,7 @@ public class ResourceAdapterImpl extends J2EEEObjectImpl implements ResourceAdap
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case JcaPackage.RESOURCE_ADAPTER__SECURITY_PERMISSIONS:
@@ -599,6 +601,7 @@ public class ResourceAdapterImpl extends J2EEEObjectImpl implements ResourceAdap
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case JcaPackage.RESOURCE_ADAPTER__MANAGED_CONNECTION_FACTORY_CLASS:
@@ -638,6 +641,7 @@ public class ResourceAdapterImpl extends J2EEEObjectImpl implements ResourceAdap
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case JcaPackage.RESOURCE_ADAPTER__MANAGED_CONNECTION_FACTORY_CLASS:
@@ -695,6 +699,7 @@ public class ResourceAdapterImpl extends J2EEEObjectImpl implements ResourceAdap
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case JcaPackage.RESOURCE_ADAPTER__MANAGED_CONNECTION_FACTORY_CLASS:
@@ -748,6 +753,7 @@ public class ResourceAdapterImpl extends J2EEEObjectImpl implements ResourceAdap
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case JcaPackage.RESOURCE_ADAPTER__MANAGED_CONNECTION_FACTORY_CLASS:
@@ -785,6 +791,7 @@ public class ResourceAdapterImpl extends J2EEEObjectImpl implements ResourceAdap
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

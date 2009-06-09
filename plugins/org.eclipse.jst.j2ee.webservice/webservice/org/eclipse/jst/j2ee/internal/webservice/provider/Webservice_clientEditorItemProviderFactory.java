@@ -38,6 +38,7 @@ public class Webservice_clientEditorItemProviderFactory extends Webservice_clien
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.webservice.wsclient.util.Webservice_clientAdapterFactory#createServiceRefAdapter()
 	 */
+	@Override
 	public Adapter createServiceRefAdapter() {
 		if (serviceRefItemProvider == null) {
 			serviceRefItemProvider = new ServiceRefEditorItemProvider(this);

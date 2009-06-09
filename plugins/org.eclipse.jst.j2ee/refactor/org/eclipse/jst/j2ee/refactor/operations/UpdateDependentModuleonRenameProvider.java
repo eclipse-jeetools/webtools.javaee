@@ -16,6 +16,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 public class UpdateDependentModuleonRenameProvider extends UpdateDependentProjectRenameDataModelProvider 
 	implements ProjectRefactoringProperties {
 	
+	@Override
 	public IDataModelOperation getDefaultOperation() {
 		return new UpdateDependentModuleonRenameOp(model);
 	}

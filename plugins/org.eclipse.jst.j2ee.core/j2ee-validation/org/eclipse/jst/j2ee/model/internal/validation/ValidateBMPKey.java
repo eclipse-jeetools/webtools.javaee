@@ -61,6 +61,7 @@ public class ValidateBMPKey extends AValidateKeyClass implements IMessagePrefixE
 	/**
 	 * This method actually does the validation.
 	 */
+	@Override
 	public void primValidate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method ejbMethod) throws InvalidInputException {
 		// Can't invoke an abstract method
 		//super.primValidate(ejbMethod);
@@ -71,6 +72,7 @@ public class ValidateBMPKey extends AValidateKeyClass implements IMessagePrefixE
 	/**
 	 * Checks to see if @ejbMethod is one of the required methods.
 	 */
+	@Override
 	protected void primValidateExistence(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method ejbMethod) throws InvalidInputException {
 		// Can't invoke an abstract method
 		//super.validateExistence(ejbMethod);

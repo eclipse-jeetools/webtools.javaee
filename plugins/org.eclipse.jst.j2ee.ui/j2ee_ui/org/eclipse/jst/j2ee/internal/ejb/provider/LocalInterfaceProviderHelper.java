@@ -28,6 +28,7 @@ public class LocalInterfaceProviderHelper extends J2EEJavaClassProviderHelper {
 		super(anEJB);
 	}
 
+	@Override
 	public Image getImage() {
 		if (image == null)
 			image = createImage();
@@ -37,6 +38,7 @@ public class LocalInterfaceProviderHelper extends J2EEJavaClassProviderHelper {
 	/**
 	 * @see J2EEJavaClassProviderHelper#getJavaClass()
 	 */
+	@Override
 	public JavaClass getJavaClass() {
 		return getEjb().getLocalInterface();
 	}
@@ -44,6 +46,7 @@ public class LocalInterfaceProviderHelper extends J2EEJavaClassProviderHelper {
 	/**
 	 * @see J2EEJavaClassProviderHelper#getOverlayKey()
 	 */
+	@Override
 	protected String getOverlayKey() {
 		return "local_interface_overlay_obj";//$NON-NLS-1$
 	}
@@ -51,6 +54,7 @@ public class LocalInterfaceProviderHelper extends J2EEJavaClassProviderHelper {
 	/**
 	 * @see J2EEJavaClassProviderHelper#getTypeString(String)
 	 */
+	@Override
 	public String getTypeString(String className) {
 		return J2EEUIMessages.getResourceString("Local_Interface_UI_", new Object[]{className}); //$NON-NLS-1$ = "Local Interface"
 	}

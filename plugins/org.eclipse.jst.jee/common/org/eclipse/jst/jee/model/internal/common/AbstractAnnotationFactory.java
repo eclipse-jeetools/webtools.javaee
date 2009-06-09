@@ -93,7 +93,7 @@ public abstract class AbstractAnnotationFactory {
 		int memberType = member.getElementType();
 		IMemberValuePair[] pairs = annotation.getMemberValuePairs();
 
-		String beanInterfaceValue = (String) getAnnotatedValue("beanInterface", pairs);
+		String beanInterfaceValue = (String) getAnnotatedValue("beanInterface", pairs); //$NON-NLS-1$
 		beanInterfaceValue = internalProcessInjection(beanInterfaceValue, member, dependedTypes);
 		if (beanInterfaceValue == null)
 			return;
@@ -104,7 +104,7 @@ public abstract class AbstractAnnotationFactory {
 		 * reference is the qualified name of the member. Check this at
 		 * Enterprise Java Beans, 3.0, Section 14.1.5.3
 		 */
-		String refName = (String) getAnnotatedValue("name", pairs);
+		String refName = (String) getAnnotatedValue("name", pairs); //$NON-NLS-1$
 		if (refName == null) {
 			refName = getMemberQualifiedName(member);
 		}
@@ -113,8 +113,8 @@ public abstract class AbstractAnnotationFactory {
 		localRefs.add(ref);
 		ref.setLocal(beanInterfaceValue);
 		ref.setLocalHome(beanInterfaceValue);
-		ref.setEjbLink((String) getAnnotatedValue("beanName", pairs));
-		ref.setMappedName((String) getAnnotatedValue("mappedName", pairs));
+		ref.setEjbLink((String) getAnnotatedValue("beanName", pairs)); //$NON-NLS-1$
+		ref.setMappedName((String) getAnnotatedValue("mappedName", pairs)); //$NON-NLS-1$
 		if (memberType == IJavaElement.METHOD || memberType == IJavaElement.FIELD) {
 			createInjectionTarget(refName, ref.getInjectionTargets(), annotation);
 		}
@@ -168,18 +168,18 @@ public abstract class AbstractAnnotationFactory {
 			Collection<IType> dependedTypes) throws JavaModelException {
 
 		IMemberValuePair[] pairs = annotation.getMemberValuePairs();
-		String specifiedType = (String) getAnnotatedValue("type", pairs);
+		String specifiedType = (String) getAnnotatedValue("type", pairs); //$NON-NLS-1$
 		specifiedType = internalProcessInjection(specifiedType, member, dependedTypes);
 		if (specifiedType == null)
 			return;
-		String refName = (String) getAnnotatedValue("name", pairs);
+		String refName = (String) getAnnotatedValue("name", pairs); //$NON-NLS-1$
 		if (refName == null)
 			refName = getMemberQualifiedName(member);
 		ResourceRef ref = JavaeeFactory.eINSTANCE.createResourceRef();
 		ref.setResRefName(refName);
 		ref.setResType(specifiedType);
-		ref.setMappedName((String) getAnnotatedValue("mappedName", pairs));
-		String description = (String) getAnnotatedValue("description", pairs);
+		ref.setMappedName((String) getAnnotatedValue("mappedName", pairs)); //$NON-NLS-1$
+		String description = (String) getAnnotatedValue("description", pairs); //$NON-NLS-1$
 		if (description != null) {
 			Description desc = JavaeeFactory.eINSTANCE.createDescription();
 			desc.setValue(description);
@@ -189,18 +189,18 @@ public abstract class AbstractAnnotationFactory {
 		if (member.getElementType() == IJavaElement.METHOD || member.getElementType() == IJavaElement.FIELD) {
 			createInjectionTarget(refName, ref.getInjectionTargets(), annotation);
 		}
-		String value = (String) getAnnotatedValue("authenticationType", pairs);
+		String value = (String) getAnnotatedValue("authenticationType", pairs); //$NON-NLS-1$
 		/*
 		 * the default value is AuthenticationType.APPLICATION which is handled
 		 * by the EMF. no need to check for this value
 		 */
-		if ("AuthenticationType.CONTAINER".equals(value)) {
+		if ("AuthenticationType.CONTAINER".equals(value)) { //$NON-NLS-1$
 			ref.setResAuth(ResAuthType.CONTAINER_LITERAL);
-		} else if ("CONTAINER".equals(value)
-				&& containsImport(member.getCompilationUnit(), "AuthenticationType.CONTAINER")) {
+		} else if ("CONTAINER".equals(value) //$NON-NLS-1$
+				&& containsImport(member.getCompilationUnit(), "AuthenticationType.CONTAINER")) { //$NON-NLS-1$
 			ref.setResAuth(ResAuthType.CONTAINER_LITERAL);
 		}
-		Boolean shareable = (Boolean) getAnnotatedValue("shareable", pairs);
+		Boolean shareable = (Boolean) getAnnotatedValue("shareable", pairs); //$NON-NLS-1$
 		/*
 		 * The default value for sharable is true. Check and process only
 		 * unsharable
@@ -324,13 +324,13 @@ public abstract class AbstractAnnotationFactory {
 	private String getMemberQualifiedName(IMember member) {
 		String memberName = member.getElementName();
 		int elementType = member.getElementType();
-		if (elementType == IJavaElement.METHOD && memberName.startsWith("set")) {
+		if (elementType == IJavaElement.METHOD && memberName.startsWith("set")) { //$NON-NLS-1$
 			char ch = Character.toLowerCase(memberName.charAt(3));
 			memberName = ch + memberName.substring(4);
 		}
 		return elementType == IJavaElement.TYPE ? ((IType) member).getFullyQualifiedName() : member.getDeclaringType()
 				.getFullyQualifiedName()
-				+ "/" + memberName;
+				+ "/" + memberName; //$NON-NLS-1$
 	}
 
 	/**
@@ -385,7 +385,7 @@ public abstract class AbstractAnnotationFactory {
 	protected void processDeclareRoles(Result result, List<SecurityRoleRef> securityRoleRefs, IAnnotation annotation,
 			IType type) throws JavaModelException {
 		IMemberValuePair[] pairs = annotation.getMemberValuePairs();
-		Object values = getAnnotatedValue("value", pairs);
+		Object values = getAnnotatedValue("value", pairs); //$NON-NLS-1$
 		if (!isArrayOfObject(values))
 			return;
 		for (Object roleName : (Object[]) values) {
@@ -412,7 +412,7 @@ public abstract class AbstractAnnotationFactory {
 	protected void processRunAs(IAnnotation annotation,RunAs runAs) throws JavaModelException {
 		IMemberValuePair[] pairs = annotation.getMemberValuePairs();
 		if (pairs.length == 1) {
-			String value = (String) getAnnotatedValue("value", pairs);
+			String value = (String) getAnnotatedValue("value", pairs); //$NON-NLS-1$
 			runAs.setRoleName(value);
 		}
 	}

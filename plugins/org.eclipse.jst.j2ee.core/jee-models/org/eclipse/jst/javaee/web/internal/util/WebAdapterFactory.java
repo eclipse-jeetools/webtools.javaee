@@ -58,6 +58,7 @@ public class WebAdapterFactory extends AdapterFactoryImpl {
 	 * @return whether this factory is applicable for the type of the object.
 	 * @generated
 	 */
+	@Override
 	public boolean isFactoryForType(Object object) {
 		if (object == modelPackage) {
 			return true;
@@ -76,60 +77,79 @@ public class WebAdapterFactory extends AdapterFactoryImpl {
 	 */
 	protected WebSwitch modelSwitch =
 		new WebSwitch() {
+			@Override
 			public Object caseAuthConstraint(AuthConstraint object) {
 				return createAuthConstraintAdapter();
 			}
+			@Override
 			public Object caseErrorPage(ErrorPage object) {
 				return createErrorPageAdapter();
 			}
+			@Override
 			public Object caseFilter(Filter object) {
 				return createFilterAdapter();
 			}
+			@Override
 			public Object caseFilterMapping(FilterMapping object) {
 				return createFilterMappingAdapter();
 			}
+			@Override
 			public Object caseFormLoginConfig(FormLoginConfig object) {
 				return createFormLoginConfigAdapter();
 			}
+			@Override
 			public Object caseLocaleEncodingMapping(LocaleEncodingMapping object) {
 				return createLocaleEncodingMappingAdapter();
 			}
+			@Override
 			public Object caseLocaleEncodingMappingList(LocaleEncodingMappingList object) {
 				return createLocaleEncodingMappingListAdapter();
 			}
+			@Override
 			public Object caseLoginConfig(LoginConfig object) {
 				return createLoginConfigAdapter();
 			}
+			@Override
 			public Object caseMimeMapping(MimeMapping object) {
 				return createMimeMappingAdapter();
 			}
+			@Override
 			public Object caseSecurityConstraint(SecurityConstraint object) {
 				return createSecurityConstraintAdapter();
 			}
+			@Override
 			public Object caseServlet(Servlet object) {
 				return createServletAdapter();
 			}
+			@Override
 			public Object caseServletMapping(ServletMapping object) {
 				return createServletMappingAdapter();
 			}
+			@Override
 			public Object caseSessionConfig(SessionConfig object) {
 				return createSessionConfigAdapter();
 			}
+			@Override
 			public Object caseUserDataConstraint(UserDataConstraint object) {
 				return createUserDataConstraintAdapter();
 			}
+			@Override
 			public Object caseWebApp(WebApp object) {
 				return createWebAppAdapter();
 			}
+			@Override
 			public Object caseWebAppDeploymentDescriptor(WebAppDeploymentDescriptor object) {
 				return createWebAppDeploymentDescriptorAdapter();
 			}
+			@Override
 			public Object caseWebResourceCollection(WebResourceCollection object) {
 				return createWebResourceCollectionAdapter();
 			}
+			@Override
 			public Object caseWelcomeFileList(WelcomeFileList object) {
 				return createWelcomeFileListAdapter();
 			}
+			@Override
 			public Object defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -143,6 +163,7 @@ public class WebAdapterFactory extends AdapterFactoryImpl {
 	 * @return the adapter for the <code>target</code>.
 	 * @generated
 	 */
+	@Override
 	public Adapter createAdapter(Notifier target) {
 		return (Adapter)modelSwitch.doSwitch((EObject)target);
 	}

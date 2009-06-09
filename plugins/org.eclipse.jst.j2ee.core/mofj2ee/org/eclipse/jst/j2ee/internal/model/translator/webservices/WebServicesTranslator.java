@@ -36,6 +36,7 @@ public class WebServicesTranslator extends RootTranslator implements WebServices
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.Translator#getChildren(java.lang.Object, int)
 	 */
+	@Override
 	public Translator[] getChildren(Object o, int versionID) {
 		if (children13 == null)
 			children13 = create13Children();

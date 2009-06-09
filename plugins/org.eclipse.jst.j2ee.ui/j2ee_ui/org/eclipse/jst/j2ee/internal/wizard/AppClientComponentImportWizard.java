@@ -55,6 +55,7 @@ public final class AppClientComponentImportWizard extends J2EEComponentImportWiz
 	 * Adds an {@link AppClientImportPage}as the main wizard page ({@link #MAIN_PG}).
 	 * </p>
 	 */
+	@Override
 	public void doAddPages() {
 		addPage(new AppClientComponentImportPage(getDataModel(), MAIN_PG));
 	}
@@ -66,19 +67,23 @@ public final class AppClientComponentImportWizard extends J2EEComponentImportWiz
 	 * Sets up the dialog window title and default wizard page image.
 	 * </p>
 	 */
+	@Override
 	public final void doInit() {
 		setWindowTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.IMPORT_WIZ_TITLE));
 		setDefaultPageImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.APP_CLIENT_IMPORT_WIZARD_BANNER));
 	}
 
+	@Override
 	protected String[] getModuleValidatorStrings() {
 		return new String[]{"org.eclipse.jst.j2ee.internal.validation.UIApplicationClientValidator"}; //$NON-NLS-1$
 	}
 
+	@Override
 	protected IDataModelProvider getDefaultProvider() {
 		return new AppClientComponentImportDataModelProvider();
 	}
 
+	@Override
 	protected String getFinalPerspectiveID() {
 		return ProductManager.getProperty(IProductConstants.FINAL_PERSPECTIVE_APPCLIENT);
 	}

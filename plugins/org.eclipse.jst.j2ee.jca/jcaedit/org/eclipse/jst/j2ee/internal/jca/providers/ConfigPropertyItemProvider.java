@@ -56,6 +56,7 @@ public class ConfigPropertyItemProvider extends JcaItemProviderAdapter implement
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -124,6 +125,7 @@ public class ConfigPropertyItemProvider extends JcaItemProviderAdapter implement
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -171,6 +173,7 @@ public class ConfigPropertyItemProvider extends JcaItemProviderAdapter implement
 	 *            object - The adapt class.
 	 * @return object
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((EObject) object).eContainer();
 	}// getParent
@@ -182,6 +185,7 @@ public class ConfigPropertyItemProvider extends JcaItemProviderAdapter implement
 	 *            object - The adapt class.
 	 * @return object
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return J2EEPlugin.getPlugin().getImage("full/obj16/config_prop_obj"); //$NON-NLS-1$
 	}// getImage
@@ -193,6 +197,7 @@ public class ConfigPropertyItemProvider extends JcaItemProviderAdapter implement
 	 *            object - The adapt class.
 	 * @return object
 	 */
+	@Override
 	public String getText(Object object) {
 		ConfigProperty configProperty = ((ConfigProperty) object);
 		if (configProperty.getName() == null)
@@ -206,6 +211,7 @@ public class ConfigPropertyItemProvider extends JcaItemProviderAdapter implement
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(ConfigProperty.class)) {
 			case JcaPackage.CONFIG_PROPERTY__DESCRIPTION :
@@ -227,6 +233,7 @@ public class ConfigPropertyItemProvider extends JcaItemProviderAdapter implement
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -241,6 +248,7 @@ public class ConfigPropertyItemProvider extends JcaItemProviderAdapter implement
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}

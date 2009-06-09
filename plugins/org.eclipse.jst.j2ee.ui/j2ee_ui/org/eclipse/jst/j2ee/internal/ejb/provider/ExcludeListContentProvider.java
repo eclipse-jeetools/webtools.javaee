@@ -60,18 +60,18 @@ public class ExcludeListContentProvider extends AbstractMethodsContentProvider {
 	/*
 	 * @see AbstractMethodsContentProvider#getMethodElements(EObject, EnterpriseBean)
 	 */
+	@Override
 	protected List getMethodElements(EObject aRefObject, EnterpriseBean anEJB) {
-		if (!(aRefObject instanceof ExcludeList))
+		if (aRefObject == null || !(aRefObject instanceof ExcludeList))
 			return Collections.EMPTY_LIST;
 		ExcludeList parentList = (ExcludeList) aRefObject;
-		if (parentList == null)
-			return Collections.EMPTY_LIST;
 		return parentList.getMethodElements(anEJB);
 	}
 
 	/*
 	 * @see IStructuredContentProvider#getElements(Object)
 	 */
+	@Override
 	public Object[] getElements(Object inputElement) {
 		super.getElements(inputElement);
 		ExcludeList list = null;
@@ -93,6 +93,7 @@ public class ExcludeListContentProvider extends AbstractMethodsContentProvider {
 	/**
 	 * @see org.eclipse.jst.j2ee.internal.internal.ejb.ui.providers.AbstractMethodsContentProvider#getChildren(Object)
 	 */
+	@Override
 	public Object[] getChildren(Object parentElement) {
 		if (parentElement instanceof ExcludeList)
 			return getEnterpriseBeans((ExcludeList) parentElement);
@@ -102,12 +103,14 @@ public class ExcludeListContentProvider extends AbstractMethodsContentProvider {
 	/**
 	 * @see org.eclipse.jst.j2ee.internal.internal.ejb.ui.providers.AbstractMethodsContentProvider#hasChildren(Object)
 	 */
+	@Override
 	public boolean hasChildren(Object element) {
 		if (element instanceof ExcludeList)
 			return !((ExcludeList) element).getMethodElements().isEmpty();
 		return super.hasChildren(element);
 	}
 
+	@Override
 	public void notifyChanged(Notification notifier) {
 		if ((notifier.getFeature() == EXCLUDE_ME_SF && notifier.getNotifier() instanceof ExcludeList) || notifier.getFeature() == ECORE_BEAN_NAME) {
 			if (notifier.getEventType() == Notification.RESOLVE)
@@ -126,6 +129,7 @@ public class ExcludeListContentProvider extends AbstractMethodsContentProvider {
 	/*
 	 * @see AbstractMethodsContentProvider#getMethodElementsReference()
 	 */
+	@Override
 	protected EStructuralFeature getMethodElementsReference() {
 		return EXCLUDE_ME_SF;
 	}
@@ -133,6 +137,7 @@ public class ExcludeListContentProvider extends AbstractMethodsContentProvider {
 	/**
 	 * @see org.eclipse.jst.j2ee.internal.internal.ejb.ui.providers.AbstractMethodsContentProvider#getMethodElementsContainerReference()
 	 */
+	@Override
 	protected EStructuralFeature getMethodElementsContainerReference() {
 		return AD_EL_SF;
 	}

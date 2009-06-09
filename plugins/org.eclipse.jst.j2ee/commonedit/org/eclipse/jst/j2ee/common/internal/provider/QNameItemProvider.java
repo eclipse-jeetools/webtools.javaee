@@ -54,6 +54,7 @@ public class QNameItemProvider extends ItemProviderAdapter implements IEditingDo
 	 * end-user-doc -->
 	 *  
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -116,6 +117,7 @@ public class QNameItemProvider extends ItemProviderAdapter implements IEditingDo
 	/**
 	 * This returns QName.gif. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return getResourceLocator().getImage("qname"); //$NON-NLS-1$
 	}
@@ -124,6 +126,7 @@ public class QNameItemProvider extends ItemProviderAdapter implements IEditingDo
 	 * This returns the label text for the adapted class. <!-- begin-user-doc --> <!-- end-user-doc
 	 * -->
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = CommonEditResourceHandler.getString("_UI_QName_type"); //$NON-NLS-1$
 		if (((QName) object).getNamespaceURI() != null && (((QName) object).getLocalPart() != null)) {
@@ -141,6 +144,7 @@ public class QNameItemProvider extends ItemProviderAdapter implements IEditingDo
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(QName.class)) {
 			case CommonPackage.QNAME__NAMESPACE_URI :
@@ -161,6 +165,7 @@ public class QNameItemProvider extends ItemProviderAdapter implements IEditingDo
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -170,6 +175,7 @@ public class QNameItemProvider extends ItemProviderAdapter implements IEditingDo
 	 * end-user-doc -->
 	 *  
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}

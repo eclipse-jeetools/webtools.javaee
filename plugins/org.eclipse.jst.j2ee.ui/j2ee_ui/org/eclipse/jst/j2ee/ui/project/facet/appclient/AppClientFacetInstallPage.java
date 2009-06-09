@@ -33,10 +33,12 @@ public class AppClientFacetInstallPage extends J2EEModuleFacetInstallPage implem
 		setDescription(J2EEUIMessages.getResourceString(J2EEUIMessages.APP_CLIENT_SETTINGS));
 	}
 
+	@Override
 	protected String[] getValidationPropertyNames() {
 		return new String[]{EAR_PROJECT_NAME, CONFIG_FOLDER, CREATE_DEFAULT_MAIN_CLASS};
 	}
 
+	@Override
 	protected Composite createTopLevelComposite(Composite parent) {
 		setInfopopID(IJ2EEUIContextIds.NEW_APPCLIENT_WIZARD_P3);
 		final Composite composite = new Composite(parent, SWT.NONE);
@@ -53,7 +55,8 @@ public class AppClientFacetInstallPage extends J2EEModuleFacetInstallPage implem
 		return composite;
 	}
 	
-    protected void handleFacetVersionChangedEvent()
+    @Override
+	protected void handleFacetVersionChangedEvent()
     {
         final IProjectFacetVersion fv = (IProjectFacetVersion) this.model.getProperty( FACET_VERSION );
         this.addDD.setVisible( fv == APPLICATION_CLIENT_50 );

@@ -53,6 +53,7 @@ public class WSDLMessagePartNameItemProvider extends ItemProviderAdapter impleme
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -93,6 +94,7 @@ public class WSDLMessagePartNameItemProvider extends ItemProviderAdapter impleme
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return getResourceLocator().getImage("full/obj16/WSDLMessagePartName"); //$NON-NLS-1$
 	}
@@ -103,6 +105,7 @@ public class WSDLMessagePartNameItemProvider extends ItemProviderAdapter impleme
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((WSDLMessagePartName) object).getWsdlMessagePartName();
 		return label == null || label.length() == 0 ? getString("_UI_WSDLMessagePartName_type") : //$NON-NLS-1$
@@ -115,6 +118,7 @@ public class WSDLMessagePartNameItemProvider extends ItemProviderAdapter impleme
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(WSDLMessagePartName.class)) {
 			case JaxrpcmapPackage.WSDL_MESSAGE_PART_NAME__ID :
@@ -133,6 +137,7 @@ public class WSDLMessagePartNameItemProvider extends ItemProviderAdapter impleme
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -143,6 +148,7 @@ public class WSDLMessagePartNameItemProvider extends ItemProviderAdapter impleme
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return Webservicej2eeEditPlugin.INSTANCE;
 	}

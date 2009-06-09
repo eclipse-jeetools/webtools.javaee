@@ -87,6 +87,7 @@ public class WelcomeFileListImpl extends EObjectImpl implements WelcomeFileList 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return WebPackage.Literals.WELCOME_FILE_LIST;
 	}
@@ -129,6 +130,7 @@ public class WelcomeFileListImpl extends EObjectImpl implements WelcomeFileList 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case WebPackage.WELCOME_FILE_LIST__WELCOME_FILES:
@@ -144,6 +146,7 @@ public class WelcomeFileListImpl extends EObjectImpl implements WelcomeFileList 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case WebPackage.WELCOME_FILE_LIST__WELCOME_FILES:
@@ -162,6 +165,7 @@ public class WelcomeFileListImpl extends EObjectImpl implements WelcomeFileList 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case WebPackage.WELCOME_FILE_LIST__WELCOME_FILES:
@@ -179,6 +183,7 @@ public class WelcomeFileListImpl extends EObjectImpl implements WelcomeFileList 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case WebPackage.WELCOME_FILE_LIST__WELCOME_FILES:
@@ -194,6 +199,7 @@ public class WelcomeFileListImpl extends EObjectImpl implements WelcomeFileList 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

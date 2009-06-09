@@ -127,6 +127,7 @@ public class TagFileImpl extends DescriptionGroupImpl implements TagFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return TaglibPackage.Literals.TAG_FILE;
 	}
@@ -211,6 +212,7 @@ public class TagFileImpl extends DescriptionGroupImpl implements TagFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case TaglibPackage.TAG_FILE__TAG_EXTENSIONS:
@@ -224,6 +226,7 @@ public class TagFileImpl extends DescriptionGroupImpl implements TagFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case TaglibPackage.TAG_FILE__NAME:
@@ -243,6 +246,7 @@ public class TagFileImpl extends DescriptionGroupImpl implements TagFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case TaglibPackage.TAG_FILE__NAME:
@@ -267,6 +271,7 @@ public class TagFileImpl extends DescriptionGroupImpl implements TagFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case TaglibPackage.TAG_FILE__NAME:
@@ -290,6 +295,7 @@ public class TagFileImpl extends DescriptionGroupImpl implements TagFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case TaglibPackage.TAG_FILE__NAME:
@@ -309,6 +315,7 @@ public class TagFileImpl extends DescriptionGroupImpl implements TagFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

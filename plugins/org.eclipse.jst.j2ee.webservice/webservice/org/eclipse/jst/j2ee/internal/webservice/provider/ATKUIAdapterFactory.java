@@ -29,6 +29,7 @@ public class ATKUIAdapterFactory extends AdapterFactoryImpl {
 
 	}
 
+	@Override
 	public Object adapt(Object target, Object type) {
 
 		if (target instanceof Notifier) {
@@ -43,6 +44,7 @@ public class ATKUIAdapterFactory extends AdapterFactoryImpl {
 		return resolve(target, type);
 	}
 
+	@Override
 	public Adapter adapt(Notifier target, Object type) {
 		Object object = adapt((Object) target, type);
 		if (object instanceof Adapter) {
@@ -62,6 +64,7 @@ public class ATKUIAdapterFactory extends AdapterFactoryImpl {
 	 * @return the object itself.
 	 * @see #adapt(Object,Object)
 	 */
+	@Override
 	protected Object resolve(Object object, Object type) {
 		if (object instanceof EList)
 			return resolveEList((EList) object, type);

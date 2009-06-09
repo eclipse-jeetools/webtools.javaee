@@ -42,6 +42,7 @@ public class WebComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter 
 		super(vComponent, includeClasspathComponents);
 	}
 
+	@Override
 	public List <IArchiveResource> getArchiveResources() {
 		super.getArchiveResources();
 		addLooseLibJARsToFiles();

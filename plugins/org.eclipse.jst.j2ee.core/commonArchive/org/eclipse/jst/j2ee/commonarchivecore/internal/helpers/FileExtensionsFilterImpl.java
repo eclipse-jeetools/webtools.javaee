@@ -124,6 +124,7 @@ public class FileExtensionsFilterImpl extends SaveFilterImpl implements org.ecli
 	/**
 	 * @see com.ibm.etools.archive.SaveFilter
 	 */
+	@Override
 	public boolean shouldSave(String uri, Archive anArchive) {
 		String extension = org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil.getFileNameExtension(uri);
 		if (extension.equals(""))//$NON-NLS-1$

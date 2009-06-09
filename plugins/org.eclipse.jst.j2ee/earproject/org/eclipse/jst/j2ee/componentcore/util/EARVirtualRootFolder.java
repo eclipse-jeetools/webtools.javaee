@@ -53,6 +53,7 @@ public class EARVirtualRootFolder extends VirtualFolder {
 	 * For now, just rip out files with .jar, .rar, or .war file extensions, because these are
 	 * the only files automatically added dyamically
 	 */
+	@Override
 	public IVirtualResource[] members(int memberFlags) throws CoreException {
 		IVirtualResource[] members = superMembers(memberFlags);
 		List virtualResources = new ArrayList();

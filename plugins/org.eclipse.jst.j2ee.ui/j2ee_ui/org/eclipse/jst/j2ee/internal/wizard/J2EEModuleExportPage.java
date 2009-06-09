@@ -36,6 +36,7 @@ public abstract class J2EEModuleExportPage extends J2EEExportPage {
 		super(model, pageName, selection);
 	}
 
+	@Override
 	protected String[] getValidationPropertyNames() {
 		return new String[]{IJ2EEComponentExportDataModelProperties.PROJECT_NAME, IJ2EEComponentExportDataModelProperties.ARCHIVE_DESTINATION, IJ2EEComponentExportDataModelProperties.OVERWRITE_EXISTING};
 	}

@@ -39,6 +39,7 @@ public class J2EEEObjectImpl extends EObjectImpl implements J2EEEObject {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return CommonPackage.Literals.J2EEE_OBJECT;
 	}

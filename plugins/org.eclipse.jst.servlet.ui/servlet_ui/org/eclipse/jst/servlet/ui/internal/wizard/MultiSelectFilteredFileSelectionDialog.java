@@ -70,6 +70,7 @@ public class MultiSelectFilteredFileSelectionDialog extends
 	private static class PackageRenderer extends LabelProvider {
 		private final Image PACKAGE_ICON = JavaUI.getSharedImages().getImage(ISharedImages.IMG_OBJS_PACKAGE); 
 
+		@Override
 		public String getText(Object element) {
 			IType type = (IType) element;
 			String p = type.getPackageFragment().getElementName();
@@ -77,6 +78,7 @@ public class MultiSelectFilteredFileSelectionDialog extends
 				p = DEFAULT_PACKAGE;
 			return (p + " - " + type.getPackageFragment().getParent().getPath().toString()); //$NON-NLS-1$
 		}
+		@Override
 		public Image getImage(Object element) {
 			return PACKAGE_ICON;
 		}
@@ -85,11 +87,13 @@ public class MultiSelectFilteredFileSelectionDialog extends
 	private static class TypeRenderer extends LabelProvider {
 		private final Image CLASS_ICON = JavaUI.getSharedImages().getImage(ISharedImages.IMG_OBJS_CLASS); 
 
+		@Override
 		public String getText(Object element) {
 			IType e = ((IType) element);
 			return e.getElementName();
 		}
 
+		@Override
 		public Image getImage(Object element) {
 			return CLASS_ICON;
 		}
@@ -191,6 +195,7 @@ public class MultiSelectFilteredFileSelectionDialog extends
 	/**
 	 * @private
 	 */
+	@Override
 	protected void computeResult() {
 		if (fSelection == JSP) {
 			super.computeResult();
@@ -211,6 +216,7 @@ public class MultiSelectFilteredFileSelectionDialog extends
 		}
 	}
 	
+	@Override
 	public void create() {
 		super.create();
 		fText.setFocus();
@@ -230,6 +236,7 @@ public class MultiSelectFilteredFileSelectionDialog extends
 	 * @param parent the parent composite to contain the button bar
 	 * @return the button bar control
 	 */
+	@Override
 	protected Control createButtonBar(Composite parent) {
 
 		Composite composite = new Composite(parent, SWT.NULL);
@@ -269,6 +276,7 @@ public class MultiSelectFilteredFileSelectionDialog extends
 	/*
 	 * @private
 	 */
+	@Override
 	protected Control createDialogArea(Composite parent) {
 		GridData gd = new GridData();
 
@@ -499,6 +507,7 @@ public class MultiSelectFilteredFileSelectionDialog extends
 			updateLowerListWidget(0, 0);
 	}
 	
+	@Override
 	public int open() {
 
 		if (fIT == null || fIT.length == 0) {
@@ -656,6 +665,7 @@ public class MultiSelectFilteredFileSelectionDialog extends
 	/**
 	 * @see ElementTreeSelectionDialog#updateOKStatus()
 	 */
+	@Override
 	protected void updateOKStatus() {
 		super.updateOKStatus();
 		Button okButton = getOkButton();

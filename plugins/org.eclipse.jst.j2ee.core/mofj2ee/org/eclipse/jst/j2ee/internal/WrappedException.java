@@ -54,12 +54,14 @@ public java.lang.Exception getNestedException() {
  * Added to provide compatibility for the Java 1.4.2 addition of
  * <code>Throwable.getCause()</code>.
  */
+@Override
 public java.lang.Throwable getCause() {
 	return getNestedException();
 }
 /**
  * Print out a stack trace to the system err.
  */
+@Override
 public void printStackTrace() {
 	printStackTrace(System.err);
 }
@@ -67,6 +69,7 @@ public void printStackTrace() {
 * Prints the exception to System.err.
 * If we have a nested exception, print its stack.
 */
+@Override
 public void printStackTrace(java.io.PrintStream s) {
 	if (nestedException != null) {
 		s.println(this);
@@ -80,6 +83,7 @@ public void printStackTrace(java.io.PrintStream s) {
 * Prints the exception to System.err.
 * If we have a nested exception, print its stack.
 */
+@Override
 public void printStackTrace(java.io.PrintWriter s) {
 	if (nestedException != null) {
 		s.println(this);

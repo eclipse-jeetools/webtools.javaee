@@ -141,6 +141,7 @@ public class WTPJETEmitter extends JETEmitter {
 	 * 
 	 * @see org.eclipse.emf.codegen.jet.JETEmitter#initialize(org.eclipse.core.runtime.IProgressMonitor)
 	 */
+	@Override
 	public void initialize(IProgressMonitor progressMonitor) throws JETException {
 
 		progressMonitor.beginTask("", 10); //$NON-NLS-1$
@@ -558,6 +559,7 @@ public class WTPJETEmitter extends JETEmitter {
 	 * 
 	 * @see org.eclipse.emf.codegen.jet.JETEmitter#addVariable(java.lang.String, java.lang.String)
 	 */
+	@Override
 	public void addVariable(String variableName, String pluginID) throws JETException {
 		if (!isIntelligentLinkingEnabled())
 			super.addVariable(variableName, pluginID);

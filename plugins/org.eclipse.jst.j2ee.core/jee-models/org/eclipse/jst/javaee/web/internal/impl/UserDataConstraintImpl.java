@@ -123,6 +123,7 @@ public class UserDataConstraintImpl extends EObjectImpl implements UserDataConst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return WebPackage.Literals.USER_DATA_CONSTRAINT;
 	}
@@ -211,6 +212,7 @@ public class UserDataConstraintImpl extends EObjectImpl implements UserDataConst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case WebPackage.USER_DATA_CONSTRAINT__DESCRIPTIONS:
@@ -224,6 +226,7 @@ public class UserDataConstraintImpl extends EObjectImpl implements UserDataConst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case WebPackage.USER_DATA_CONSTRAINT__DESCRIPTIONS:
@@ -241,6 +244,7 @@ public class UserDataConstraintImpl extends EObjectImpl implements UserDataConst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case WebPackage.USER_DATA_CONSTRAINT__DESCRIPTIONS:
@@ -262,6 +266,7 @@ public class UserDataConstraintImpl extends EObjectImpl implements UserDataConst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case WebPackage.USER_DATA_CONSTRAINT__DESCRIPTIONS:
@@ -282,6 +287,7 @@ public class UserDataConstraintImpl extends EObjectImpl implements UserDataConst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case WebPackage.USER_DATA_CONSTRAINT__DESCRIPTIONS:
@@ -299,6 +305,7 @@ public class UserDataConstraintImpl extends EObjectImpl implements UserDataConst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

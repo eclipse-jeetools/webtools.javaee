@@ -55,6 +55,7 @@ public class EnterpriseBeansTranslator extends MultiObjectTranslator implements 
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.MultiObjectTranslator#getDelegateFor(org.eclipse.emf.ecore.EObject)
 	 */
+	@Override
 	public Translator getDelegateFor(EObject o) {
 		switch (o.eClass().getClassifierID()) {
 			case EjbPackage.SESSION :
@@ -69,6 +70,7 @@ public class EnterpriseBeansTranslator extends MultiObjectTranslator implements 
 		throw new IllegalStateException("Bean type delegate expected"); //$NON-NLS-1$
 	}
 
+	@Override
 	public Translator getDelegateFor(String domName, String readAheadName) {
 		Translator result = null;
 		if (readAheadName != null)

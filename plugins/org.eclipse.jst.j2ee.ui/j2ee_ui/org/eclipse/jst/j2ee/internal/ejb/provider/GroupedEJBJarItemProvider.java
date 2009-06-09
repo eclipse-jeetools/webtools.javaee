@@ -68,6 +68,7 @@ public class GroupedEJBJarItemProvider extends EJBJarItemProvider {
 		this.showAssemblyDescriptor = showAssemblyDescriptor;
 	}
 
+	@Override
 	public Collection getChildren(Object object) {
 		List result = initChildren(object);
 		if (showAssemblyDescriptor) {
@@ -175,6 +176,7 @@ public class GroupedEJBJarItemProvider extends EJBJarItemProvider {
 		return (GroupedMessageItemProvider) messageTable.get(object);
 	}
 
+	@Override
 	public Object getImage(String type) {
 		if (type.equals(SESSION))
 			return J2EEPlugin.getPlugin().getImage("sessionBean_obj"); //$NON-NLS-1$
@@ -198,6 +200,7 @@ public class GroupedEJBJarItemProvider extends EJBJarItemProvider {
 		}
 	}
 
+	@Override
 	public void notifyChanged(Notification notification) {
 		if (notification.getEventType() == Notification.REMOVING_ADAPTER && notification.getOldValue() == this && !isDisposing) {
 			removeTarget(notification);
@@ -346,6 +349,7 @@ public class GroupedEJBJarItemProvider extends EJBJarItemProvider {
 		messageTable.remove(ejbJar);
 	}
 
+	@Override
 	public boolean hasChildren(Object parent) {
 		return true;
 	}
@@ -365,6 +369,7 @@ public class GroupedEJBJarItemProvider extends EJBJarItemProvider {
 	 * 
 	 * @see org.eclipse.emf.edit.provider.ItemProviderAdapter#dispose()
 	 */
+	@Override
 	public void dispose() {
 		try {
 			isDisposing = true;

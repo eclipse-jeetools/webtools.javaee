@@ -41,7 +41,8 @@ public class WSDLMessageImpl extends QNameImpl implements WSDLMessage
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  protected EClass eStaticClass() {
+  @Override
+protected EClass eStaticClass() {
 		return JaxrpcmapPackage.Literals.WSDL_MESSAGE;
 	}
 

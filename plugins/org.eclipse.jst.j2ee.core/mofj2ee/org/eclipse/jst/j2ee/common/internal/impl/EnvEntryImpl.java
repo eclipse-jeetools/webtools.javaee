@@ -117,6 +117,7 @@ public class EnvEntryImpl extends J2EEEObjectImpl implements EnvEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return CommonPackage.Literals.ENV_ENTRY;
 	}
@@ -241,6 +242,7 @@ public class EnvEntryImpl extends J2EEEObjectImpl implements EnvEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case CommonPackage.ENV_ENTRY__DESCRIPTIONS:
@@ -254,6 +256,7 @@ public class EnvEntryImpl extends J2EEEObjectImpl implements EnvEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case CommonPackage.ENV_ENTRY__DESCRIPTION:
@@ -275,6 +278,7 @@ public class EnvEntryImpl extends J2EEEObjectImpl implements EnvEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case CommonPackage.ENV_ENTRY__DESCRIPTION:
@@ -302,6 +306,7 @@ public class EnvEntryImpl extends J2EEEObjectImpl implements EnvEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case CommonPackage.ENV_ENTRY__DESCRIPTION:
@@ -328,6 +333,7 @@ public class EnvEntryImpl extends J2EEEObjectImpl implements EnvEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case CommonPackage.ENV_ENTRY__DESCRIPTION:
@@ -347,6 +353,7 @@ public class EnvEntryImpl extends J2EEEObjectImpl implements EnvEntry {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

@@ -22,6 +22,7 @@ import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 
 public class ConnectorFacetInstallDataModelProvider extends J2EEModuleFacetInstallDataModelProvider implements IConnectorFacetInstallDataModelProperties {
 
+	@Override
 	public Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(FACET_ID)) {
 			return JCA;
@@ -36,11 +37,13 @@ public class ConnectorFacetInstallDataModelProvider extends J2EEModuleFacetInsta
 		return super.getDefaultProperty(propertyName);
 	}
 	
+	@Override
 	protected int convertFacetVersionToJ2EEVersion(IProjectFacetVersion version) {
 		return J2EEVersionUtil.convertConnectorVersionStringToJ2EEVersionID(version.getVersionString());
 	}
 	
-    public boolean propertySet(String propertyName, Object propertyValue) {
+    @Override
+	public boolean propertySet(String propertyName, Object propertyValue) {
         if (propertyName.equals(CONFIG_FOLDER)) 
         {
             if( this.javaFacetInstallConfig != null )

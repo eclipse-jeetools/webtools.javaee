@@ -140,7 +140,7 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 			if (editor instanceof ISetSelectionTarget)
 				((ISetSelectionTarget) editor).selectReveal(getStructuredSelection());
 		} catch (Exception e) {
-			MessageDialog.openError(page.getWorkbenchWindow().getShell(), J2EEUIMessages.getResourceString("Problems_Opening_Editor_ERROR_"), e.getMessage()); //$NON-NLS-1$ = "Problems Opening Editor"
+			MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), J2EEUIMessages.getResourceString("Problems_Opening_Editor_ERROR_"), e.getMessage()); //$NON-NLS-1$ = "Problems Opening Editor"
 		}
 	}
 	
@@ -159,13 +159,14 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 			if (editor instanceof ISetSelectionTarget)
 				((ISetSelectionTarget) editor).selectReveal(getStructuredSelection());
 		} catch (Exception e) {
-			MessageDialog.openError(page.getWorkbenchWindow().getShell(), J2EEUIMessages.getResourceString("Problems_Opening_Editor_ERROR_"), e.getMessage()); //$NON-NLS-1$ = "Problems Opening Editor"
+			MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), J2EEUIMessages.getResourceString("Problems_Opening_Editor_ERROR_"), e.getMessage()); //$NON-NLS-1$ = "Problems Opening Editor"
 		}
 	}
 	
 	/**
 	 * The user has invoked this action
 	 */
+	@Override
 	public void run() {
 		if (!isEnabled())
 			return;
@@ -263,6 +264,7 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 	 * 
 	 * @param sel the new structured selection
 	 */
+	@Override
 	public boolean updateSelection(IStructuredSelection s) {
 		if (!super.updateSelection(s))
 			return false;

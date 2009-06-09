@@ -101,6 +101,7 @@ public class EARImportListContentProvider extends LabelProvider implements IStru
 		// do nothing
 	}
 
+	@Override
 	public void dispose() {
 		// dispose
 	}

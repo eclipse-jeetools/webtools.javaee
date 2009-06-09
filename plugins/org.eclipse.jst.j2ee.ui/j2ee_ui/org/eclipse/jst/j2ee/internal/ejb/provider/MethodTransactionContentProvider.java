@@ -51,6 +51,7 @@ public class MethodTransactionContentProvider extends AbstractMethodsContentProv
 	/*
 	 * @see ITreeContentProvider#getChildren(Object)
 	 */
+	@Override
 	public Object[] getChildren(Object parentElement) {
 		if (parentElement instanceof MethodTransaction)
 			return getEnterpriseBeans((MethodTransaction) parentElement);
@@ -65,18 +66,18 @@ public class MethodTransactionContentProvider extends AbstractMethodsContentProv
 	/*
 	 * @see AbstractMethodsContentProvider#getMethodElements(EObject, EnterpriseBean)
 	 */
+	@Override
 	protected List getMethodElements(EObject aRefObject, EnterpriseBean anEJB) {
-		if (!(aRefObject instanceof MethodTransaction))
+		if (aRefObject == null || !(aRefObject instanceof MethodTransaction))
 			return Collections.EMPTY_LIST;
 		MethodTransaction parentMT = (MethodTransaction) aRefObject;
-		if (parentMT == null)
-			return Collections.EMPTY_LIST;
 		return parentMT.getMethodElements(anEJB);
 	}
 
 	/*
 	 * @see IStructuredContentProvider#getElements(Object)
 	 */
+	@Override
 	public Object[] getElements(Object inputElement) {
 		super.getElements(inputElement);
 		if (inputElement instanceof EJBJar) {
@@ -92,6 +93,7 @@ public class MethodTransactionContentProvider extends AbstractMethodsContentProv
 	/*
 	 * @see ITreeContentProvider#hasChildren(Object)
 	 */
+	@Override
 	public boolean hasChildren(Object element) {
 		if (element instanceof MethodTransaction)
 			return !((MethodTransaction) element).getMethodElements().isEmpty();
@@ -101,6 +103,7 @@ public class MethodTransactionContentProvider extends AbstractMethodsContentProv
 	/*
 	 * @see AbstractMethodsContentProvider#getMethodElementsReference()
 	 */
+	@Override
 	protected EStructuralFeature getMethodElementsReference() {
 		return TRANSACTION_MES_SF;
 	}
@@ -108,6 +111,7 @@ public class MethodTransactionContentProvider extends AbstractMethodsContentProv
 	/**
 	 * @see org.eclipse.jst.j2ee.internal.internal.ejb.ui.providers.AbstractMethodsContentProvider#getMethodElementsContainerReference()
 	 */
+	@Override
 	protected EStructuralFeature getMethodElementsContainerReference() {
 		return AD_MT_SF;
 	}

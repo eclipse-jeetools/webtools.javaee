@@ -88,6 +88,7 @@ public class J2EEUtilityJarImportPageNew extends J2EEImportPage {
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#createTopLevelComposite(org.eclipse.swt.widgets.Composite)
 	 */
+	@Override
 	protected Composite createTopLevelComposite(Composite parent) {
 
 		Composite composite = new Composite(parent, SWT.NONE);
@@ -130,6 +131,7 @@ public class J2EEUtilityJarImportPageNew extends J2EEImportPage {
 		browseButton.setLayoutData((new GridData(GridData.HORIZONTAL_ALIGN_END)));
 		browseButton.addSelectionListener(new SelectionAdapter() {
 
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				handleBrowseButtonPressed();
 			}
@@ -275,7 +277,7 @@ public class J2EEUtilityJarImportPageNew extends J2EEImportPage {
 		buttonGroup.setLayoutData(new GridData(GridData.FILL_BOTH));
 
 		selectAllButton = new Button(buttonGroup, SWT.PUSH);
-		selectAllButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_SELECT_ALL_UTIL_BUTTON)); //$NON-NLS-1$ = "Select All"
+		selectAllButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_SELECT_ALL_UTIL_BUTTON));
 		GridData gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
 		gd.horizontalSpan = 1;
 		gd.heightHint = 22;
@@ -283,13 +285,14 @@ public class J2EEUtilityJarImportPageNew extends J2EEImportPage {
 		selectAllButton.setLayoutData(gd);
 		selectAllButton.addSelectionListener(new SelectionAdapter() {
 
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				handleSelectAllButtonPressed();
 			}
 		});
 
 		deselectAllButton = new Button(buttonGroup, SWT.PUSH);
-		deselectAllButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_DESELECT_ALL_UTIL_BUTTON)); //$NON-NLS-1$ = "Deselect All"
+		deselectAllButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_DESELECT_ALL_UTIL_BUTTON));
 		gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
 		gd.horizontalSpan = 2;
 		gd.heightHint = 22;
@@ -297,6 +300,7 @@ public class J2EEUtilityJarImportPageNew extends J2EEImportPage {
 		deselectAllButton.setLayoutData(gd);
 		deselectAllButton.addSelectionListener(new SelectionAdapter() {
 
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				handleDeselectAllButtonPressed();
 			}
@@ -340,10 +344,12 @@ public class J2EEUtilityJarImportPageNew extends J2EEImportPage {
 		deselectAllButton.setEnabled(enabled);
 	}
 
+	@Override
 	protected String[] getValidationPropertyNames() {
 		return new String[]{IJ2EEUtilityJarListImportDataModelProperties.UTILITY_JAR_LIST, IJ2EEUtilityJarListImportDataModelProperties.OVERWRITE_IF_NECESSARY, IJ2EEUtilityJarListImportDataModelProperties.LINKED_PATH_VARIABLE};
 	}
 
+	@Override
 	protected void restoreWidgetValues() {
 
 		IDialogSettings settings = getDialogSettings();
@@ -359,6 +365,7 @@ public class J2EEUtilityJarImportPageNew extends J2EEImportPage {
 		}
 	}
 
+	@Override
 	public void storeDefaultSettings() {
 		IDialogSettings settings = getDialogSettings();
 		if (settings != null) {
@@ -390,6 +397,7 @@ public class J2EEUtilityJarImportPageNew extends J2EEImportPage {
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEImportPage#getFileNamesStoreID()
 	 */
+	@Override
 	protected String getFileNamesStoreID() {
 		return "UTIL";//$NON-NLS-1$
 	}
@@ -399,11 +407,13 @@ public class J2EEUtilityJarImportPageNew extends J2EEImportPage {
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEImportPage#getFileImportLabel()
 	 */
+	@Override
 	protected String getFileImportLabel() {
 		return J2EEUIMessages.getResourceString("J2EEUtilityJarImportPage_UI_7"); //$NON-NLS-1$
 	}
 	
 	
+	@Override
 	public void restoreDefaultSettings() {
 	}
  

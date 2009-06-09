@@ -102,6 +102,7 @@ public class LibCopyBuilder extends IncrementalProjectBuilder {
 	 * [Issue: the implementation should probably use a workspace runnable.]
 	 * </p>
 	 */
+	@Override
 	protected IProject[] build(int kind, Map args, IProgressMonitor monitor) throws CoreException {
 		// this builder is unnecessary in WTP 1.5
 		return null;

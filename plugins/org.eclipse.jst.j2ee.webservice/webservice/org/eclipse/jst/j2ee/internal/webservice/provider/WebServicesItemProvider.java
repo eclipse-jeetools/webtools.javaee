@@ -17,11 +17,6 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
-import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
-import org.eclipse.emf.edit.provider.IItemPropertySource;
-import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
-import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.jst.j2ee.common.internal.provider.CompatibilityDescriptionGroupItemProvider;
 import org.eclipse.jst.j2ee.internal.webservice.plugin.WebServicePlugin;
 import org.eclipse.jst.j2ee.webservice.wsdd.WebServices;
@@ -35,7 +30,7 @@ import org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage;
  * 
  * @generated
  */
-public class WebServicesItemProvider extends CompatibilityDescriptionGroupItemProvider implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class WebServicesItemProvider extends CompatibilityDescriptionGroupItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
@@ -52,6 +47,7 @@ public class WebServicesItemProvider extends CompatibilityDescriptionGroupItemPr
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -83,6 +79,7 @@ public class WebServicesItemProvider extends CompatibilityDescriptionGroupItemPr
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -97,6 +94,7 @@ public class WebServicesItemProvider extends CompatibilityDescriptionGroupItemPr
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return getResourceLocator().getImage("full/obj16/WebServices"); //$NON-NLS-1$
 	}
@@ -119,6 +117,7 @@ public class WebServicesItemProvider extends CompatibilityDescriptionGroupItemPr
 	 * 
 	 * @non-generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((WebServices) object).getDisplayName();
 		return label == null || label.length() == 0 ? getString("%_UI_WebServices_type") : label; //$NON-NLS-1$
@@ -130,6 +129,7 @@ public class WebServicesItemProvider extends CompatibilityDescriptionGroupItemPr
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(WebServices.class)) {
 			case WsddPackage.WEB_SERVICES__WEB_SERVICE_DESCRIPTIONS : {
@@ -147,6 +147,7 @@ public class WebServicesItemProvider extends CompatibilityDescriptionGroupItemPr
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -157,6 +158,7 @@ public class WebServicesItemProvider extends CompatibilityDescriptionGroupItemPr
 	 * Return the resource locator for this item provider's resources. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return WebServicePlugin.getInstance();
 	}

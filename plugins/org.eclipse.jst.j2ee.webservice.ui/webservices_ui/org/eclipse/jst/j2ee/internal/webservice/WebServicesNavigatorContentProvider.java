@@ -71,6 +71,7 @@ public class WebServicesNavigatorContentProvider extends AdapterFactoryContentPr
 
 	} 
 	
+	@Override
 	public void dispose() { 
 		super.dispose();
 		if (projectListener != null)
@@ -89,6 +90,7 @@ public class WebServicesNavigatorContentProvider extends AdapterFactoryContentPr
 	 * 
 	 * @see org.eclipse.wst.common.navigator.internal.views.navigator.INavigatorContentProvider#getChildren(java.lang.Object)
 	 */
+	@Override
 	public Object[] getChildren(Object parentElement) {
 
 		if (parentElement instanceof IWorkspaceRoot) {
@@ -171,6 +173,7 @@ public class WebServicesNavigatorContentProvider extends AdapterFactoryContentPr
 	 * 
 	 * @see org.eclipse.wst.common.navigator.internal.views.navigator.INavigatorContentProvider#getParent(java.lang.Object)
 	 */
+	@Override
 	public Object getParent(Object element) {
 		if (element instanceof IWorkspaceRoot)
 			return null;
@@ -185,6 +188,7 @@ public class WebServicesNavigatorContentProvider extends AdapterFactoryContentPr
 	 * 
 	 * @see org.eclipse.wst.common.navigator.internal.views.navigator.INavigatorContentProvider#hasChildren(java.lang.Object)
 	 */
+	@Override
 	public boolean hasChildren(Object element) {
 		return true;
 	}
@@ -195,6 +199,7 @@ public class WebServicesNavigatorContentProvider extends AdapterFactoryContentPr
 	 * @see org.eclipse.wst.common.navigator.internal.views.navigator.INavigatorContentProvider#inputChanged(org.eclipse.jface.viewers.Viewer,
 	 *      java.lang.Object, java.lang.Object)
 	 */
+	@Override
 	public void inputChanged(Viewer aViewer, Object oldInput, Object newInput) {
 		// TODO handle change events
 		if (aViewer != null && aViewer instanceof TreeViewer)
@@ -208,6 +213,7 @@ public class WebServicesNavigatorContentProvider extends AdapterFactoryContentPr
 	 * 
 	 * @see org.eclipse.jface.viewers.IStructuredContentProvider#getElements(java.lang.Object)
 	 */
+	@Override
 	public Object[] getElements(Object inputElement) {
 		return getChildren(inputElement);
 	}
@@ -264,6 +270,7 @@ public class WebServicesNavigatorContentProvider extends AdapterFactoryContentPr
 		return viewer;
 	}
 	
+	@Override
 	public void notifyChanged(Notification notification) {
 	
 		if(notification.getNotifier() instanceof ServiceRef) {

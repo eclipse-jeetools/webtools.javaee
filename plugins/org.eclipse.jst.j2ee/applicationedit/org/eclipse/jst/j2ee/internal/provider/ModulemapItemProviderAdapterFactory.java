@@ -81,6 +81,7 @@ public class ModulemapItemProviderAdapterFactory extends ModulemapAdapterFactory
 	 * This creates an adapter for a
 	 * {@link org.eclipse.jst.j2ee.internal.internal.internal.earcreation.modulemap.ModuleMapping}.
 	 */
+	@Override
 	public Adapter createModuleMappingAdapter() {
 		if (moduleMappingItemProvider == null) {
 			moduleMappingItemProvider = new ModuleMappingItemProvider(this);
@@ -100,6 +101,7 @@ public class ModulemapItemProviderAdapterFactory extends ModulemapAdapterFactory
 	 * This creates an adapter for a
 	 * {@link org.eclipse.jst.j2ee.internal.internal.internal.earcreation.modulemap.EARProjectMap}.
 	 */
+	@Override
 	public Adapter createEARProjectMapAdapter() {
 		if (earProjectMapItemProvider == null) {
 			earProjectMapItemProvider = new EARProjectMapItemProvider(this);
@@ -119,6 +121,7 @@ public class ModulemapItemProviderAdapterFactory extends ModulemapAdapterFactory
 	 * This creates an adapter for a
 	 * {@link org.eclipse.jst.j2ee.internal.internal.internal.earcreation.modulemap.UtilityJARMapping}.
 	 */
+	@Override
 	public Adapter createUtilityJARMappingAdapter() {
 		if (utilityJARMappingItemProvider == null) {
 			utilityJARMappingItemProvider = new UtilityJARMappingItemProvider(this);
@@ -141,6 +144,7 @@ public class ModulemapItemProviderAdapterFactory extends ModulemapAdapterFactory
 		this.parentAdapterFactory = parentAdapterFactory;
 	}
 
+	@Override
 	public boolean isFactoryForType(Object type) {
 		return super.isFactoryForType(type) || supportedTypes.contains(type);
 	}
@@ -148,10 +152,12 @@ public class ModulemapItemProviderAdapterFactory extends ModulemapAdapterFactory
 	/**
 	 * This implementation substitutes the factory itself as the key for the adapter.
 	 */
+	@Override
 	public Adapter adapt(Notifier notifier, Object type) {
 		return super.adapt(notifier, this);
 	}
 
+	@Override
 	public Object adapt(Object object, Object type) {
 		// This is a kludge to deal with enumerators, which crash the doSwitch.
 		//

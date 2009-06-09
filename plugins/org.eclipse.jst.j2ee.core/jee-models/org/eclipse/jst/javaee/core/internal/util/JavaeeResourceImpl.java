@@ -41,6 +41,7 @@ public class JavaeeResourceImpl extends XMLResourceImpl {
 		super(uri);
 	}
 	
+	@Override
 	public void save(Map options) throws IOException {
 		
 		IFile file = getPlatformFile();

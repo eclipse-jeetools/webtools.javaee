@@ -105,6 +105,7 @@ public class ComponentArchiveSaveAdapter extends AbstractArchiveSaveAdapter {
 		return null;
 	}
 
+	@Override
 	public void save(IProgressMonitor monitor) throws ArchiveSaveFailureException {
 		final int SUPER_TICKS = 1000;
 		final int LOCAL_TICKS = 10;
@@ -119,6 +120,7 @@ public class ComponentArchiveSaveAdapter extends AbstractArchiveSaveAdapter {
 		}
 	}
 
+	@Override
 	public void save(IArchiveResource aFile) throws ArchiveSaveFailureException {
 
 		try {

@@ -35,28 +35,34 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
  */
 public final class ConnectorComponentImportDataModelProvider extends J2EEComponentImportDataModelProvider {
 
+	@Override
 	public void init() {
 		super.init();
 		//setIntProperty(IConnectorComponentCreationDataModelProperties.COMPONENT_VERSION, J2EEVersionConstants.J2EE_1_3_ID);
 	}
 
+	@Override
 	protected int getType() {
 		return XMLResource.RAR_TYPE;
 	}
 
+	@Override
 	protected Archive openArchive(String uri) throws OpenFailureException {
 		Archive archive = CommonarchiveFactory.eINSTANCE.openRARFile(getArchiveOptions(), uri);
 		return archive;
 	}
 
+	@Override
 	protected IDataModel createJ2EEComponentCreationDataModel() {
 		return DataModelFactory.createDataModel(new ConnectorFacetProjectCreationDataModelProvider());		
 	}
 
+	@Override
 	public IDataModelOperation getDefaultOperation() {
 		return new ConnectorComponentImportOperation(model);
 	}
 
+	@Override
 	public boolean propertySet(String propertyName, Object propertyValue) {
 		boolean set = super.propertySet(propertyName, propertyValue);
 		if (propertyName.equals(ARCHIVE_WRAPPER)) {

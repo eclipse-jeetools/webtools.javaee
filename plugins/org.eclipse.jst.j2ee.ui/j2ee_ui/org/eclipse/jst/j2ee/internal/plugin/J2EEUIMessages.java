@@ -234,6 +234,7 @@ public class J2EEUIMessages extends Messages {
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.Messages#initializeBundle()
 	 */
+	@Override
 	protected void initializeBundle() {
 		try {
 			resourceBundle = ResourceBundle.getBundle("j2ee_ui"); //$NON-NLS-1$

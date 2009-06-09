@@ -52,6 +52,7 @@ public class J2EEAdapterFactoryLabelProvider extends AdapterFactoryLabelProvider
 		wbLabelProvider = new WorkbenchLabelProvider();
 	}
 
+	@Override
 	public Image getImage(Object object) {
 		if (object instanceof J2EEJavaClassProviderHelper)
 			return ((J2EEJavaClassProviderHelper) object).getImage();
@@ -66,6 +67,7 @@ public class J2EEAdapterFactoryLabelProvider extends AdapterFactoryLabelProvider
 		return wbLabelProvider.getImage(object);
 	}
 
+	@Override
 	public String getText(Object object) {
 
 		if (object instanceof J2EEJavaClassProviderHelper)
@@ -93,6 +95,7 @@ public class J2EEAdapterFactoryLabelProvider extends AdapterFactoryLabelProvider
 	 * @see INotifyChangedListener#notifyChanged(new ENotificationImpl((InternalEObject)Object,
 	 *      int,(EStructuralFeature) Object, Object, Object, int))
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		Object feature = notification.getFeature();
 		if (feature == ROLE_NAME_SF || feature == ROLES_SF)

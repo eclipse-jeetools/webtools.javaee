@@ -54,6 +54,7 @@ public class MethodParamPartsMappingItemProvider extends ItemProviderAdapter imp
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -109,6 +110,7 @@ public class MethodParamPartsMappingItemProvider extends ItemProviderAdapter imp
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -123,6 +125,7 @@ public class MethodParamPartsMappingItemProvider extends ItemProviderAdapter imp
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return getResourceLocator().getImage("full/obj16/MethodParamPartsMapping"); //$NON-NLS-1$
 	}
@@ -133,6 +136,7 @@ public class MethodParamPartsMappingItemProvider extends ItemProviderAdapter imp
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((MethodParamPartsMapping) object).getId();
 		return label == null || label.length() == 0 ? getString("_UI_MethodParamPartsMapping_type") : //$NON-NLS-1$
@@ -145,6 +149,7 @@ public class MethodParamPartsMappingItemProvider extends ItemProviderAdapter imp
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(MethodParamPartsMapping.class)) {
 			case JaxrpcmapPackage.METHOD_PARAM_PARTS_MAPPING__ID :
@@ -165,6 +170,7 @@ public class MethodParamPartsMappingItemProvider extends ItemProviderAdapter imp
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -177,6 +183,7 @@ public class MethodParamPartsMappingItemProvider extends ItemProviderAdapter imp
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return Webservicej2eeEditPlugin.INSTANCE;
 	}

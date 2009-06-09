@@ -120,6 +120,7 @@ public class ApplicationExceptionImpl extends EObjectImpl implements Application
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return EjbPackage.Literals.APPLICATION_EXCEPTION;
 	}
@@ -217,6 +218,7 @@ public class ApplicationExceptionImpl extends EObjectImpl implements Application
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case EjbPackage.APPLICATION_EXCEPTION__EXCEPTION_CLASS:
@@ -234,6 +236,7 @@ public class ApplicationExceptionImpl extends EObjectImpl implements Application
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EjbPackage.APPLICATION_EXCEPTION__EXCEPTION_CLASS:
@@ -254,6 +257,7 @@ public class ApplicationExceptionImpl extends EObjectImpl implements Application
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case EjbPackage.APPLICATION_EXCEPTION__EXCEPTION_CLASS:
@@ -274,6 +278,7 @@ public class ApplicationExceptionImpl extends EObjectImpl implements Application
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case EjbPackage.APPLICATION_EXCEPTION__EXCEPTION_CLASS:
@@ -291,6 +296,7 @@ public class ApplicationExceptionImpl extends EObjectImpl implements Application
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

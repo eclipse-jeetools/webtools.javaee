@@ -57,9 +57,10 @@ public class RuntimeSelectionDialog extends MessageDialog {
 		super(parentShell, dialogTitle, dialogTitleImage, dialogMessage,
 				dialogImageType, dialogButtonLabels, defaultIndex);
 		this.project = project;
-		this.configuredMessage = MessageFormat.format(J2EEUIMessages.getResourceString("DEPLOY_RUNTIME_CONFIGURED"), new String []{project.getName()});
+		this.configuredMessage = MessageFormat.format(J2EEUIMessages.getResourceString("DEPLOY_RUNTIME_CONFIGURED"), new Object []{project.getName()}); //$NON-NLS-1$
 	}
 	
+	@Override
 	protected Control createCustomArea(Composite parent) {
 
 		//Composite composite = new Composite(parent, 0);
@@ -98,7 +99,7 @@ public class RuntimeSelectionDialog extends MessageDialog {
 			}
 
 			private String getPreferencePageID() {
-				return "org.eclipse.wst.common.project.facet.ui.internal.RuntimesPropertyPage";
+				return "org.eclipse.wst.common.project.facet.ui.internal.RuntimesPropertyPage"; //$NON-NLS-1$
 			}
 		});
 		

@@ -90,6 +90,7 @@ public class LifecycleCallbackImpl extends EObjectImpl implements LifecycleCallb
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return JavaeePackage.Literals.LIFECYCLE_CALLBACK;
 	}
@@ -141,6 +142,7 @@ public class LifecycleCallbackImpl extends EObjectImpl implements LifecycleCallb
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case JavaeePackage.LIFECYCLE_CALLBACK__LIFECYCLE_CALLBACK_CLASS:
@@ -156,6 +158,7 @@ public class LifecycleCallbackImpl extends EObjectImpl implements LifecycleCallb
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case JavaeePackage.LIFECYCLE_CALLBACK__LIFECYCLE_CALLBACK_CLASS:
@@ -173,6 +176,7 @@ public class LifecycleCallbackImpl extends EObjectImpl implements LifecycleCallb
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case JavaeePackage.LIFECYCLE_CALLBACK__LIFECYCLE_CALLBACK_CLASS:
@@ -190,6 +194,7 @@ public class LifecycleCallbackImpl extends EObjectImpl implements LifecycleCallb
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case JavaeePackage.LIFECYCLE_CALLBACK__LIFECYCLE_CALLBACK_CLASS:
@@ -205,6 +210,7 @@ public class LifecycleCallbackImpl extends EObjectImpl implements LifecycleCallb
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

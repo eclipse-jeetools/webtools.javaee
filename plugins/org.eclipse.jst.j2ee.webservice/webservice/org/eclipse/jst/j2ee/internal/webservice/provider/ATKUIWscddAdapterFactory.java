@@ -16,18 +16,21 @@ public class ATKUIWscddAdapterFactory extends Webservice_clientItemProviderAdapt
 		super();
 	}
 
+	@Override
 	public Adapter createWebServicesClientAdapter() {
 		if (webServicesClientItemProvider == null)
 			webServicesClientItemProvider = new ATKUIWebServicesClientItemProvider(this);
 		return webServicesClientItemProvider;
 	}
 
+	@Override
 	public Adapter createComponentScopedRefsAdapter() {
 		if (componentScopedRefsItemProvider == null)
 			componentScopedRefsItemProvider = new ATKUIComponentScopedRefsItemProvider(this);
 		return componentScopedRefsItemProvider;
 	}
 
+	@Override
 	public Adapter createPortComponentRefAdapter() {
 		if (portComponentRefItemProvider == null)
 			portComponentRefItemProvider = new ATKUIPortComponentRefItemProvider(this);
@@ -39,6 +42,7 @@ public class ATKUIWscddAdapterFactory extends Webservice_clientItemProviderAdapt
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.webservice.wsclient.util.Webservice_clientAdapterFactory#createServiceRefAdapter()
 	 */
+	@Override
 	public Adapter createServiceRefAdapter() {
 		if (serviceRefItemProvider == null)
 			serviceRefItemProvider = new ATKUIServiceRefItemProvider(this);
@@ -50,6 +54,7 @@ public class ATKUIWscddAdapterFactory extends Webservice_clientItemProviderAdapt
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.webservice.wsclient.util.Webservice_clientAdapterFactory#createHandlerAdapter()
 	 */
+	@Override
 	public Adapter createHandlerAdapter() {
 		if (handlerItemProvider == null)
 			handlerItemProvider = new ATKUIHandlerItemProvider(this);

@@ -61,6 +61,7 @@ public class ClasspathDependencyVirtualComponent extends J2EEModuleVirtualArchiv
 		return allContainers[0];
 	}
 	
+	@Override
 	public IVirtualReference[] getReferences() {
 		if (isClassFolder) {
 			return NO_REFERENCES;
@@ -68,6 +69,7 @@ public class ClasspathDependencyVirtualComponent extends J2EEModuleVirtualArchiv
 		return super.getReferences();
 	}
 
+	@Override
 	public String[] getManifestClasspath() {
 		if (isClassFolder) {
 			return new String[0];

@@ -62,6 +62,7 @@ public final class BMPKeyClassVRule extends AKeyClassVRule implements IEJBType, 
 		return MESSAGE_IDS;
 	}
 	
+	@Override
 	public final int getMessageRemoteExceptionSeverity() {
 		// Key methods are not checked for RemoteException, but to be consistent with the other VRules...
 		return MESSAGE_REMOTE_EXCEPTION_SEVERITY;

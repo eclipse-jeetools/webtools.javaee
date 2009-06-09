@@ -52,6 +52,7 @@ public class WebServicesClientResourceFactory
         super(aRendererFactory);
     }
 
+	@Override
 	protected TranslatorResource createResource(URI uri, Renderer aRenderer) {
 		return new WebServicesResourceImpl(uri, aRenderer);
 	}

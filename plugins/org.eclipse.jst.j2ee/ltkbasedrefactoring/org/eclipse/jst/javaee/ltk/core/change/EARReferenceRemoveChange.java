@@ -91,6 +91,7 @@ public class EARReferenceRemoveChange extends Change {
 		return null;
 	}
 	
+	@Override
 	public ChangeDescriptor getDescriptor() {
 		return null;
 	}

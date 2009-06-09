@@ -83,6 +83,7 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
         getDataModel().setProperty( CONFIG_FOLDER, sourceFolder );
     }
 	
+	@Override
 	public Set getPropertyNames() {
 		Set names = super.getPropertyNames();
 		names.add(ADD_TO_EAR);
@@ -96,6 +97,7 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 		return names;
 	}
 
+	@Override
 	public Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(PROHIBIT_ADD_TO_EAR)) {
 			return Boolean.FALSE;
@@ -123,6 +125,7 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 		return super.getDefaultProperty(propertyName);
 	}
 
+	@Override
 	public boolean propertySet(String propertyName, Object propertyValue) {
 		if (propertyName.equals(PROHIBIT_ADD_TO_EAR)) {
 			setBooleanProperty(ADD_TO_EAR, false);
@@ -213,6 +216,7 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
         }
     }
 
+	@Override
 	public boolean isPropertyEnabled(String propertyName) {
 		if (ADD_TO_EAR.equals(propertyName)) {
 			return !getBooleanProperty(PROHIBIT_ADD_TO_EAR) && isEARSupportedByRuntime();
@@ -223,6 +227,7 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 		return super.isPropertyEnabled(propertyName);
 	}
 
+	@Override
 	public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName) {
 		if (EAR_PROJECT_NAME.equals(propertyName)) {
 			int j2eeVersion = getJ2EEVersion();
@@ -266,6 +271,7 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 		return descriptors;
 	}
 
+	@Override
 	public IStatus validate(String name) {
 		if (name.equals(EAR_PROJECT_NAME) && getBooleanProperty(ADD_TO_EAR)) {
 			IStatus status = validateEAR(getStringProperty(EAR_PROJECT_NAME));

@@ -303,14 +303,17 @@ public class ProjectRefactorMetadata {
 			return _comp.getAdapter(adapter);
 		}
 		
+		@Override
 		public boolean equals(Object o) {
 			return _comp.equals(o);
 		}
 		
+		@Override
 		public int hashCode() {
 			return _comp.hashCode();
 		}
 		
+		@Override
 		public String toString() {
 			return _comp.toString();
 		}
@@ -327,6 +330,7 @@ public class ProjectRefactorMetadata {
 			cachedRefs = ((VirtualComponent)comp).getAllReferences();
 		}
 
+		@Override
 		public IVirtualReference getReference(String aComponentName) {
 			IVirtualReference[] refs = getReferences();
 			for (int i = 0; i < refs.length; i++) {
@@ -339,6 +343,7 @@ public class ProjectRefactorMetadata {
 			}
 			return null;
 		}
+		@Override
 		public IVirtualReference[] getReferences() {
 			if (_caching) {
 				return cachedRefs;
@@ -354,6 +359,7 @@ public class ProjectRefactorMetadata {
 			cachedReferers = comp.getReferencingComponents();
 		}
 
+		@Override
 		public IVirtualComponent[] getReferencingComponents() {
 			if (_caching) {
 				return cachedReferers;

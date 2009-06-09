@@ -35,6 +35,7 @@ public class ReadOnlyDirectoryLoadStrategyImpl extends DirectoryLoadStrategyImpl
 	/**
 	 * addDirectory method comment.
 	 */
+	@Override
 	protected void addDirectory(java.io.File aFile, java.util.List aList) {
 		ReadOnlyDirectory dir = getArchiveFactory().createReadOnlyDirectory();
 		dir.setLastModified(aFile.lastModified());
@@ -45,6 +46,7 @@ public class ReadOnlyDirectoryLoadStrategyImpl extends DirectoryLoadStrategyImpl
 
 	}
 
+	@Override
 	public boolean contains(java.lang.String uri) {
 		return super.contains(uri) && (getSubdirectory() == null || subdirectoryContains(uri));
 	}
@@ -52,6 +54,7 @@ public class ReadOnlyDirectoryLoadStrategyImpl extends DirectoryLoadStrategyImpl
 	/**
 	 * @see com.ibm.etools.archive.LoadStrategy
 	 */
+	@Override
 	public java.lang.String getAbsolutePath() throws java.io.FileNotFoundException {
 		java.io.File subdir = getSubdirectory();
 		if (subdir == null) {
@@ -63,6 +66,7 @@ public class ReadOnlyDirectoryLoadStrategyImpl extends DirectoryLoadStrategyImpl
 	/**
 	 * getDirectoryForList method comment.
 	 */
+	@Override
 	protected java.io.File getDirectoryForList() {
 		if (getSubdirectory() != null)
 			return getSubdirectory();
@@ -82,6 +86,7 @@ public class ReadOnlyDirectoryLoadStrategyImpl extends DirectoryLoadStrategyImpl
 	 * Always return false, because we want to treat the entries in a file system directory as basic
 	 * files
 	 */
+	@Override
 	protected boolean isArchive(String uri) {
 		return false;
 	}

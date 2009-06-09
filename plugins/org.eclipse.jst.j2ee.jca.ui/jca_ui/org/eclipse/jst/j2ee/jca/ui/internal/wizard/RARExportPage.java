@@ -50,6 +50,7 @@ public class RARExportPage extends J2EEModuleExportPage {
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEImportPage#getProjectImportLabel()
 	 */
+	@Override
 	protected String getComponentLabel() {
 		return J2EEUIMessages.getResourceString(J2EEUIMessages.JCA_PROJ_LBL);
 	}
@@ -59,6 +60,7 @@ public class RARExportPage extends J2EEModuleExportPage {
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEImportPage#getFilterExpression()
 	 */
+	@Override
 	protected String[] getFilterExpression() {
 		return new String[]{"*.rar"}; //$NON-NLS-1$
 	}
@@ -68,6 +70,7 @@ public class RARExportPage extends J2EEModuleExportPage {
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEExportPage#isMetaTypeSupported(java.lang.Object)
 	 */
+	@Override
 	protected boolean isMetaTypeSupported(Object o) {
 		return o instanceof Connector;
 	}
@@ -77,11 +80,13 @@ public class RARExportPage extends J2EEModuleExportPage {
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#getInfopopID()
 	 */
+	@Override
 	protected String getInfopopID() {
 		return IJ2EEUIContextIds.EXPORT_RAR_WIZARD_PAGE;
 	}
 
-    protected String getCompnentID() {
+    @Override
+	protected String getCompnentID() {
         return "JST_CONNECTOR"; //$NON-NLS-1$
     }
 }

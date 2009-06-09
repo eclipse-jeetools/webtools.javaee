@@ -226,11 +226,13 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 		}
 	}
 
+	@Override
 	public IArchiveResource getArchiveResource(IPath resourcePath) throws FileNotFoundException {
 		initArchiveResources();
 		return filesHolder.getArchiveResource(resourcePath);
 	}
 
+	@Override
 	public boolean containsArchiveResource(IPath path) {
 		initArchiveResources();
 		return filesHolder.contains(path);
@@ -247,6 +249,7 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 		}
 	}
 
+	@Override
 	public List<IArchiveResource> getArchiveResources() {
 
 		initArchiveResources();
@@ -596,6 +599,7 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 		return super.getInputStream(archiveResource);
 	}
 
+	@Override
 	public InputStream getInputStream(IArchiveResource archiveResource) throws IOException, FileNotFoundException {
 		IPath path = archiveResource.getPath();
 		// If the MANIFEST.MF of a module component is being requested and that
@@ -636,6 +640,7 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 		if (emfHelper == null) {
 			emfHelper = new JavaEEEMFArchiveAdapterHelper(getArchive());
 			emfHelper.setArchiveURIConverter(new ArchiveURIConverter(emfHelper.getArchive()) {
+				@Override
 				protected URI convertPathToURI(IPath modelObjectPath) {
 					// TODO find a better way to getplatformURI
 					IPath path = getComponent().getRootFolder().getFile(modelObjectPath).getUnderlyingFile().getFullPath();
@@ -645,6 +650,7 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 		}
 	}
 
+	@Override
 	public boolean containsModelObject(IPath modelObjectPath) {
 		initEMFHelper();
 		if (IArchive.EMPTY_MODEL_PATH == modelObjectPath) {
@@ -653,6 +659,7 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 		return emfHelper.containsModelObject(modelObjectPath);
 	}
 
+	@Override
 	public Object getModelObject(IPath modelObjectPath) throws ArchiveModelLoadException {
 		initEMFHelper();
 		if (IArchive.EMPTY_MODEL_PATH == modelObjectPath) {
@@ -665,6 +672,7 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 		return new Path("/"); //$NON-NLS-1$
 	}
 
+	@Override
 	public String toString() {
 		int packageLength = this.getClass().getPackage().getName().length() + 1;
 		StringBuffer buffer = new StringBuffer(this.getClass().getName().substring(packageLength));

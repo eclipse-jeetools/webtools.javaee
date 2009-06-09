@@ -945,6 +945,7 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 			}
 		}
 
+		@Override
 		protected IStatus run(IProgressMonitor monitor) {
 			// Null out job for processing new projects
 			synchronized (processNewProjects) {

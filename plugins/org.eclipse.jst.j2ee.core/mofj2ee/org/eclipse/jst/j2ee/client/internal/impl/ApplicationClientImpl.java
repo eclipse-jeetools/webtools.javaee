@@ -122,6 +122,7 @@ public class ApplicationClientImpl extends CompatibilityDescriptionGroupImpl imp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return ClientPackage.Literals.APPLICATION_CLIENT;
 	}
@@ -176,6 +177,7 @@ public int getVersionID() throws IllegalStateException {
 /**
  *This returns the j2ee version id. Compare with J2EEVersionConstants to determine j2ee level
  */
+@Override
 public int getJ2EEVersionID() throws IllegalStateException {
 	J2EEVersionResource res = (J2EEVersionResource) eResource();
 	if (res == null) throw new IllegalStateException();
@@ -344,6 +346,7 @@ public int getJ2EEVersionID() throws IllegalStateException {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case ClientPackage.APPLICATION_CLIENT__RESOURCE_REFS:
@@ -369,6 +372,7 @@ public int getJ2EEVersionID() throws IllegalStateException {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case ClientPackage.APPLICATION_CLIENT__VERSION:
@@ -399,6 +403,7 @@ public int getJ2EEVersionID() throws IllegalStateException {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ClientPackage.APPLICATION_CLIENT__VERSION:
@@ -444,6 +449,7 @@ public int getJ2EEVersionID() throws IllegalStateException {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case ClientPackage.APPLICATION_CLIENT__VERSION:
@@ -482,6 +488,7 @@ public int getJ2EEVersionID() throws IllegalStateException {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case ClientPackage.APPLICATION_CLIENT__VERSION:
@@ -509,6 +516,7 @@ public int getJ2EEVersionID() throws IllegalStateException {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

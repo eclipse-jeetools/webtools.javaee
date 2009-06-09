@@ -239,6 +239,7 @@ public class EjbRefImpl extends EObjectImpl implements EjbRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return JavaeePackage.Literals.EJB_REF;
 	}
@@ -444,6 +445,7 @@ public class EjbRefImpl extends EObjectImpl implements EjbRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case JavaeePackage.EJB_REF__DESCRIPTIONS:
@@ -459,6 +461,7 @@ public class EjbRefImpl extends EObjectImpl implements EjbRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case JavaeePackage.EJB_REF__DESCRIPTIONS:
@@ -488,6 +491,7 @@ public class EjbRefImpl extends EObjectImpl implements EjbRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case JavaeePackage.EJB_REF__DESCRIPTIONS:
@@ -528,6 +532,7 @@ public class EjbRefImpl extends EObjectImpl implements EjbRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case JavaeePackage.EJB_REF__DESCRIPTIONS:
@@ -566,6 +571,7 @@ public class EjbRefImpl extends EObjectImpl implements EjbRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case JavaeePackage.EJB_REF__DESCRIPTIONS:
@@ -595,6 +601,7 @@ public class EjbRefImpl extends EObjectImpl implements EjbRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

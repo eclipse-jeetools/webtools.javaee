@@ -22,7 +22,6 @@ import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
 import org.eclipse.ltk.core.refactoring.Change;
 import org.eclipse.ltk.core.refactoring.RefactoringStatus;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
-import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 import com.ibm.icu.util.StringTokenizer;
 
@@ -31,7 +30,6 @@ public class RenameContextRootChange extends Change {
 	private final IProject project;
 	private final String newContextRoot;
 	private final String oldContextRoot;
-	private IDataModel model;
 
 	public RenameContextRootChange(IProject project, String newContextRoot, String oldContextRoot) {
 		this.project = project;
@@ -66,9 +64,7 @@ public class RenameContextRootChange extends Change {
 							ProjectSupportResourceHandler.Context_Root_cannot_be_empty_2,
 							new Object[0]));
 
-		}
-
-		if (!(name.indexOf(' ') > -1)) {
+		} else if (!(name.indexOf(' ') > -1)) {
 			StringTokenizer stok = new StringTokenizer(name, "."); //$NON-NLS-1$
 			while (stok.hasMoreTokens()) {
 				String token = stok.nextToken();
@@ -109,8 +105,7 @@ public class RenameContextRootChange extends Change {
 		IStatus phase1 = validateContextRoot(newContextRoot);
 		if (phase1.isOK())
 			return new RefactoringStatus();
-		else
-			return RefactoringStatus.create(phase1);
+		return RefactoringStatus.create(phase1);
 	}
 
 	@Override

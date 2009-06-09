@@ -27,6 +27,7 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 public class AppClient12ImportStrategyImpl extends XmlBasedImportStrategyImpl {
 
 	public static class Discriminator extends ArchiveTypeDiscriminatorImpl {
+		@Override
 		public boolean canImport(Archive anArchive) {
 			return anArchive.containsFile(J2EEConstants.APP_CLIENT_DD_URI);
 		}
@@ -34,6 +35,7 @@ public class AppClient12ImportStrategyImpl extends XmlBasedImportStrategyImpl {
 		/**
 		 * @see com.ibm.etools.archive.ArchiveTypeDiscriminator
 		 */
+		@Override
 		public org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.ImportStrategy createImportStrategy(Archive old, Archive newArchive) {
 			return new AppClient12ImportStrategyImpl();
 		}
@@ -42,6 +44,7 @@ public class AppClient12ImportStrategyImpl extends XmlBasedImportStrategyImpl {
 			return getXmlDDMessage(CommonArchiveResourceHandler.Application_Client_Jar_Fil, J2EEConstants.APP_CLIENT_DD_URI); // = "Application Client Jar File"
 		}
 
+		@Override
 		public Archive createConvertedArchive() {
 			return getArchiveFactory().createApplicationClientFile();
 		}

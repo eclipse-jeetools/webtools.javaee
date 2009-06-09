@@ -109,6 +109,7 @@ public final class StatefulSessionBeanClassVRule extends ASessionBeanClassVRule 
 		return MESSAGE_IDS;
 	}
 	
+	@Override
 	public final int getMessageRemoteExceptionSeverity() {
 		return MESSAGE_REMOTE_EXCEPTION_SEVERITY;
 	}
@@ -125,6 +126,7 @@ public final class StatefulSessionBeanClassVRule extends ASessionBeanClassVRule 
 		return SUPERTYPES;
 	}
 	
+	@Override
 	public final boolean shouldValidateTransientField() {
 		return SHOULD_VALIDATE_TRANSIENT_FIELD;
 	}
@@ -133,14 +135,17 @@ public final class StatefulSessionBeanClassVRule extends ASessionBeanClassVRule 
 		return SHOULD_NOT_BE_SUPERTYPES;
 	}
 
+	@Override
 	public final boolean shouldBeAbstract(JavaClass clazz) {
 		return SHOULD_BE_ABSTRACT;
 	}
 	
+	@Override
 	public final boolean shouldBeFinal(JavaClass clazz) {
 		return SHOULD_BE_FINAL;
 	}
 	
+	@Override
 	public final boolean shouldBePublic(JavaClass clazz) {
 		return SHOULD_BE_PUBLIC;
 	}
@@ -157,10 +162,12 @@ public final class StatefulSessionBeanClassVRule extends ASessionBeanClassVRule 
 		return METHODS_WHICH_MUST_NOT_EXIST;
 	}
 	
+	@Override
 	public final JavaHelpers getEjbCreateReturnType(EnterpriseBean bean, Method method) throws InvalidInputException {
 		return ValidationRuleUtility.getType(ITypeConstants.VOID, bean);
 	}
 
+	@Override
 	public final String getEjbCreateReturnTypeName(EnterpriseBean bean, Method method) throws InvalidInputException {
 		return ITypeConstants.VOID;
 	}
@@ -190,6 +197,7 @@ public final class StatefulSessionBeanClassVRule extends ASessionBeanClassVRule 
 		}
 	}
 
+	@Override
 	public String getMatchingHomeMethodName(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) {
 		long methodType = MethodUtility.getUtility().getMethodTypeId(bean, clazz, method, methodsExtendedLists, this);
 		
@@ -214,6 +222,7 @@ public final class StatefulSessionBeanClassVRule extends ASessionBeanClassVRule 
 	/* (non-Javadoc)
 	 * @see org.eclipse.wst.validation.internal.core.core.ejb.ejb20.rules.IClassVRule#validate(org.eclipse.wst.validation.internal.core.core.ejb.IValidationContext, org.eclipse.jst.j2ee.internal.ejb.EnterpriseBean, org.eclipse.jem.internal.java.JavaClass)
 	 */
+	@Override
 	public void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		super.validate(vc, bean, clazz);
 		Session session = (Session)bean;

@@ -26,6 +26,7 @@ public class JEESAXXMLHandler extends SAXXMIHandler {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
 	protected EPackage getPackageForURI(String uriString) {
 		EPackage defPackage;
 		// Grab the schema location because all JEE DD files share a common namespace

@@ -68,6 +68,7 @@ public final class StatelessSessionLocalHomeVRule extends AStatelessHomeVRule im
 		MESSAGE_IDS.put(CHKJ2907, new String[]{CHKJ2907});
 	}
 	
+	@Override
 	public final long[] getBaseTypes() {
 		return getSupertypes();
 	}
@@ -76,6 +77,7 @@ public final class StatelessSessionLocalHomeVRule extends AStatelessHomeVRule im
 		return MESSAGE_IDS;
 	}
 	
+	@Override
 	public final int getMessageRemoteExceptionSeverity() {
 		return MESSAGE_REMOTE_EXCEPTION_SEVERITY;
 	}

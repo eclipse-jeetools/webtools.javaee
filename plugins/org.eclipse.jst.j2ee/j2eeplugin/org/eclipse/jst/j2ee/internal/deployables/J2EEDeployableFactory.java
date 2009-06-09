@@ -47,6 +47,7 @@ public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate {
 		super();
 	}
 
+	@Override
 	protected IModule[] createModules(IProject project) {
 		IVirtualComponent component = ComponentCore.createComponent(project);
 		if(component != null){
@@ -68,6 +69,7 @@ public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate {
 		return null;
 	}
 
+	@Override
 	public ModuleDelegate getModuleDelegate(IModule module) {
 		if (module == null)
 			return null;
@@ -175,6 +177,7 @@ public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate {
 	 * 
 	 * @return a possibly empty array of paths
 	 */
+	@Override
 	protected IPath[] getListenerPaths() {
 		return new IPath[] { new Path(".project"), // nature
 				new Path(StructureEdit.MODULE_META_FILE_NAME), // component
@@ -182,6 +185,7 @@ public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate {
 		};
 	}
 
+	@Override
 	protected void clearCache(IProject project) {
 		super.clearCache(project);
 		List<IModule> modulesToRemove = null;

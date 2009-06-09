@@ -55,16 +55,20 @@ public class WebServicesResourceImpl extends XMLResourceImpl implements WebServi
         return WEB_SERVICES_CLIENT_TYPE;
     }
 
+	@Override
 	public String getJ2EE_1_2_SystemID() {
 		return J2EEConstants.WEB_SERVICES_CLIENT_SYSTEMID_1_0;
 	}
+	@Override
 	public String getJ2EE_1_3_SystemID() {
 		return J2EEConstants.WEB_SERVICES_CLIENT_SYSTEMID_1_0;
 	}
 
+	@Override
 	public String getJ2EE_1_2_PublicID() {
 		return J2EEConstants.WEB_SERVICES_CLIENT_PUBLICID_1_0;
 	}
+	@Override
 	public String getJ2EE_1_3_PublicID() {
 		return J2EEConstants.WEB_SERVICES_CLIENT_PUBLICID_1_0;
 	}
@@ -82,6 +86,7 @@ public class WebServicesResourceImpl extends XMLResourceImpl implements WebServi
 	 * @see com.ibm.etools.emf2xml.TranslatorResource#setDoctypeValues(java.lang.String, java.lang.String)
 	 * This is setting the module version on the resource.
 	 */
+	@Override
 	public void setDoctypeValues(String publicId, String systemId) {
 		int version = WEBSERVICES_1_0_ID;
 		super.setDoctypeValues(publicId, systemId);
@@ -90,6 +95,7 @@ public class WebServicesResourceImpl extends XMLResourceImpl implements WebServi
 		/* 
 	 * This directly sets the module version id
 	 */
+	@Override
 	public void setModuleVersionID(int id) {
 		super.setVersionID(id);
 		switch (id) {
@@ -101,6 +107,7 @@ public class WebServicesResourceImpl extends XMLResourceImpl implements WebServi
 	/*
 	 * Based on the J2EE version, this will set the module version
 	 */
+	@Override
 	public void setJ2EEVersionID(int id) {
 	switch (id) {
 		case (J2EE_1_3_ID) :
@@ -115,6 +122,7 @@ public class WebServicesResourceImpl extends XMLResourceImpl implements WebServi
 	}
 	/* Return J2EE version based on module version
 	 */
+	@Override
 	public int getJ2EEVersionID() {
 		switch (getModuleVersionID()) {
 			case J2EEVersionConstants.WEBSERVICES_1_0_ID :
@@ -132,12 +140,14 @@ public class WebServicesResourceImpl extends XMLResourceImpl implements WebServi
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.TranslatorResourceImpl#getDefaultVersionID()
 	 */
+	@Override
 	protected int getDefaultVersionID() {
 		return WEBSERVICES_1_0_ID;
 	}
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.common.impl.XMLResourceImpl#syncVersionOfRootObject()
 	 */
+	@Override
 	protected void syncVersionOfRootObject() {
 		//not model for J2EE 1.4 so no operation required.
 	}

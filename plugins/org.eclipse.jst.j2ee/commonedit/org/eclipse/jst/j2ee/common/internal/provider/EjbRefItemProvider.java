@@ -51,6 +51,7 @@ public class EjbRefItemProvider extends CommonItemProviderAdapter implements IEd
 	/**
 	 * This returns ejb_reference.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		String key = ((EjbRef) object).isLocal() ? "ejb_local_ref_obj" : "ejb_reference"; //$NON-NLS-1$ //$NON-NLS-2$
 		return J2EEPlugin.getPlugin().getImage(key); 
@@ -59,6 +60,7 @@ public class EjbRefItemProvider extends CommonItemProviderAdapter implements IEd
 	/**
 	 * This returns the parent of the EjbRef.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return object == null ? null : ((EjbRef) object).eContainer();
 	}
@@ -66,6 +68,7 @@ public class EjbRefItemProvider extends CommonItemProviderAdapter implements IEd
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -150,6 +153,7 @@ public class EjbRefItemProvider extends CommonItemProviderAdapter implements IEd
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -238,6 +242,7 @@ public class EjbRefItemProvider extends CommonItemProviderAdapter implements IEd
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -247,6 +252,7 @@ public class EjbRefItemProvider extends CommonItemProviderAdapter implements IEd
 	}
 
 
+	@Override
 	public String getText(Object object) {
 		if (object instanceof EJBLocalRef)
 			return "EjbLocalRef " + ((EJBLocalRef) object).getName(); //$NON-NLS-1$
@@ -259,6 +265,7 @@ public class EjbRefItemProvider extends CommonItemProviderAdapter implements IEd
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(EjbRef.class)) {
 			case CommonPackage.EJB_REF__NAME :
@@ -280,6 +287,7 @@ public class EjbRefItemProvider extends CommonItemProviderAdapter implements IEd
 	 * end-user-doc -->
 	 *  
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}
@@ -290,6 +298,7 @@ public class EjbRefItemProvider extends CommonItemProviderAdapter implements IEd
 	 * enumeration, and this to check that enumeration, but we know there can't be any children, so
 	 * this is faster.
 	 */
+	@Override
 	public boolean hasChildren(Object object) {
 		return false;
 	}

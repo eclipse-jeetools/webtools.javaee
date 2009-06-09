@@ -94,6 +94,7 @@ public class WscommonItemProviderAdapterFactory extends WscommonAdapterFactory i
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createInitParamAdapter() {
 		if (initParamItemProvider == null) {
 			initParamItemProvider = new InitParamItemProvider(this);
@@ -117,6 +118,7 @@ public class WscommonItemProviderAdapterFactory extends WscommonAdapterFactory i
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createSOAPHeaderAdapter() {
 		if (soapHeaderItemProvider == null) {
 			soapHeaderItemProvider = new SOAPHeaderItemProvider(this);
@@ -140,6 +142,7 @@ public class WscommonItemProviderAdapterFactory extends WscommonAdapterFactory i
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createSOAPRoleAdapter() {
 		if (soapRoleItemProvider == null) {
 			soapRoleItemProvider = new SOAPRoleItemProvider(this);
@@ -163,6 +166,7 @@ public class WscommonItemProviderAdapterFactory extends WscommonAdapterFactory i
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createPortNameAdapter() {
 		if (portNameItemProvider == null) {
 			portNameItemProvider = new PortNameItemProvider(this);
@@ -186,6 +190,7 @@ public class WscommonItemProviderAdapterFactory extends WscommonAdapterFactory i
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createDescriptionTypeAdapter() {
 		if (descriptionTypeItemProvider == null) {
 			descriptionTypeItemProvider = new DescriptionTypeItemProvider(this);
@@ -209,6 +214,7 @@ public class WscommonItemProviderAdapterFactory extends WscommonAdapterFactory i
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createDisplayNameTypeAdapter() {
 		if (displayNameTypeItemProvider == null) {
 			displayNameTypeItemProvider = new DisplayNameTypeItemProvider(this);
@@ -242,6 +248,7 @@ public class WscommonItemProviderAdapterFactory extends WscommonAdapterFactory i
 	 * 
 	 * @generated
 	 */
+	@Override
 	public boolean isFactoryForType(Object type) {
 		return supportedTypes.contains(type) || super.isFactoryForType(type);
 	}
@@ -252,6 +259,7 @@ public class WscommonItemProviderAdapterFactory extends WscommonAdapterFactory i
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter adapt(Notifier notifier, Object type) {
 		return super.adapt(notifier, this);
 	}
@@ -261,6 +269,7 @@ public class WscommonItemProviderAdapterFactory extends WscommonAdapterFactory i
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object adapt(Object object, Object type) {
 		if (isFactoryForType(type)) {
 			Object adapter = super.adapt(object, type);

@@ -44,6 +44,7 @@ public class WebFilterMappingGroupItemProvider extends WebGroupItemProvider {
 	/* (non-Javadoc)
 	 * @see org.eclipse.emf.edit.provider.ITreeItemContentProvider#getChildren(java.lang.Object)
 	 */
+	@Override
 	public Collection getChildren(Object object) {
 		Object webApp = weakWebApp.get();
 		if(null != webApp){
@@ -55,18 +56,21 @@ public class WebFilterMappingGroupItemProvider extends WebGroupItemProvider {
 	/* (non-Javadoc)
 	 * @see org.eclipse.emf.edit.provider.ItemProvider#getImage()
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return WebPlugin.getDefault().getImage("filter_mapping"); //$NON-NLS-1$
 	}
 	/* (non-Javadoc)
 	 * @see org.eclipse.emf.edit.provider.ItemProvider#getText()
 	 */
+	@Override
 	public String getText(Object object) {
 		return WebAppEditResourceHandler.getString("Filter_Mappings_1"); //$NON-NLS-1$ 
 	}
 	/* (non-Javadoc)
 	 * @see org.eclipse.emf.edit.provider.ITreeItemContentProvider#hasChildren(java.lang.Object)
 	 */
+	@Override
 	public boolean hasChildren(Object object) {
 		return !getChildren(object).isEmpty();
 	}
@@ -74,6 +78,7 @@ public class WebFilterMappingGroupItemProvider extends WebGroupItemProvider {
 	/* (non-Javadoc)
 	 * @see org.eclipse.emf.edit.provider.ITreeItemContentProvider#getParent(java.lang.Object)
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return weakWebApp.get();
 	}

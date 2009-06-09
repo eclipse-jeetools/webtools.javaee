@@ -90,6 +90,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case CommonPackage.EJB_REF: return createEjbRef();
@@ -125,6 +126,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
 			case CommonPackage.ENV_ENTRY_TYPE:
@@ -147,6 +149,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
 			case CommonPackage.ENV_ENTRY_TYPE:

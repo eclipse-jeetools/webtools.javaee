@@ -39,6 +39,7 @@ public class RootEJBJarDescriminatorImpl extends org.eclipse.jst.j2ee.commonarch
 	/**
 	 * @see com.ibm.etools.archive.ArchiveTypeDiscriminator
 	 */
+	@Override
 	public boolean canImport(Archive anArchive) {
 		java.util.List theChildren = getChildren();
 		for (int i = 0; i < theChildren.size(); i++) {
@@ -52,6 +53,7 @@ public class RootEJBJarDescriminatorImpl extends org.eclipse.jst.j2ee.commonarch
 	/**
 	 * @see com.ibm.etools.archive.ArchiveTypeDiscriminator
 	 */
+	@Override
 	public Archive convert(Archive anArchive) {
 		return anArchive;
 	}
@@ -60,6 +62,7 @@ public class RootEJBJarDescriminatorImpl extends org.eclipse.jst.j2ee.commonarch
 	 * @see com.ibm.etools.archive.ArchiveTypeDiscriminator This never gets called for this
 	 *      implementer.
 	 */
+	@Override
 	public Archive createConvertedArchive() {
 		return null;
 	}
@@ -76,6 +79,7 @@ public class RootEJBJarDescriminatorImpl extends org.eclipse.jst.j2ee.commonarch
 	 * @see com.ibm.etools.archive.ArchiveTypeDiscriminator This never gets called for this
 	 *      implementer.
 	 */
+	@Override
 	public ImportStrategy createImportStrategy(Archive old, Archive newArchive) {
 		return null;
 	}
@@ -103,6 +107,7 @@ public class RootEJBJarDescriminatorImpl extends org.eclipse.jst.j2ee.commonarch
 	/**
 	 * @see ArchiveTypeDiscriminator#openArchive(Archive)
 	 */
+	@Override
 	public Archive openArchive(Archive anArchive) throws OpenFailureException {
 		Archive result = super.openArchive(anArchive);
 		if (result == anArchive)

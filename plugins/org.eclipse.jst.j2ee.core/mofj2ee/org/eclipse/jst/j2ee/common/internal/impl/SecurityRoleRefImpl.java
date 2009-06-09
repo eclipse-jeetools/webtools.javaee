@@ -93,6 +93,7 @@ public class SecurityRoleRefImpl extends J2EEEObjectImpl implements SecurityRole
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return CommonPackage.Literals.SECURITY_ROLE_REF;
 	}
@@ -170,6 +171,7 @@ public class SecurityRoleRefImpl extends J2EEEObjectImpl implements SecurityRole
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case CommonPackage.SECURITY_ROLE_REF__DESCRIPTIONS:
@@ -183,6 +185,7 @@ public class SecurityRoleRefImpl extends J2EEEObjectImpl implements SecurityRole
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case CommonPackage.SECURITY_ROLE_REF__NAME:
@@ -202,6 +205,7 @@ public class SecurityRoleRefImpl extends J2EEEObjectImpl implements SecurityRole
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case CommonPackage.SECURITY_ROLE_REF__NAME:
@@ -226,6 +230,7 @@ public class SecurityRoleRefImpl extends J2EEEObjectImpl implements SecurityRole
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case CommonPackage.SECURITY_ROLE_REF__NAME:
@@ -249,6 +254,7 @@ public class SecurityRoleRefImpl extends J2EEEObjectImpl implements SecurityRole
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case CommonPackage.SECURITY_ROLE_REF__NAME:
@@ -266,6 +272,7 @@ public class SecurityRoleRefImpl extends J2EEEObjectImpl implements SecurityRole
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

@@ -45,6 +45,7 @@ public class ContextParamItemProvider extends WebapplicationItemProviderAdapter 
 	/**
 	 * This returns initializ_parameter_context.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return WebPlugin.getDefault().getImage("initializ_parameter_context");//$NON-NLS-1$
 	}
@@ -52,6 +53,7 @@ public class ContextParamItemProvider extends WebapplicationItemProviderAdapter 
 	/**
 	 * This returns the webApp of the ContextParam.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((ContextParam) object).getWebApp();
 	}
@@ -59,6 +61,7 @@ public class ContextParamItemProvider extends WebapplicationItemProviderAdapter 
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -134,6 +137,7 @@ public class ContextParamItemProvider extends WebapplicationItemProviderAdapter 
 	}
 
 
+	@Override
 	public String getText(Object object) {
 		return WebAppEditResourceHandler.getString("12concat_UI_", (new Object[]{((ContextParam) object).getParamName()})); //$NON-NLS-1$ = "ContextParam {0}"
 	}
@@ -144,6 +148,7 @@ public class ContextParamItemProvider extends WebapplicationItemProviderAdapter 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(ContextParam.class)) {
 			case WebapplicationPackage.CONTEXT_PARAM__PARAM_NAME :
@@ -163,6 +168,7 @@ public class ContextParamItemProvider extends WebapplicationItemProviderAdapter 
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -173,6 +179,7 @@ public class ContextParamItemProvider extends WebapplicationItemProviderAdapter 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}
@@ -183,6 +190,7 @@ public class ContextParamItemProvider extends WebapplicationItemProviderAdapter 
 	 * to return the empty enumeration, and this to check that enumeration, but we know there can't
 	 * be any children, so this is faster.
 	 */
+	@Override
 	public boolean hasChildren(Object object) {
 		return false;
 	}

@@ -84,6 +84,7 @@ public class ValidateBMPHome extends AValidateEntityHome implements IMessagePref
 	 * EJB 1.1 specification
 	 * Section: 9.2.8
 	 */
+	@Override
 	public void validateFindMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		super.validateFindMethod(vc, bean, clazz, method);
 

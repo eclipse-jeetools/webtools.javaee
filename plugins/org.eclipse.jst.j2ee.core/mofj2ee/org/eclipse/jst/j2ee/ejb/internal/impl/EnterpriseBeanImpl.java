@@ -123,6 +123,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return EjbPackage.Literals.ENTERPRISE_BEAN;
 	}
@@ -739,12 +740,14 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 		}
 		return result;
 	}
+	@Override
 	public String toString() {
 		return getClass().getName() + "(" + getName() + ")"; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 	/**
 	 *
 	 */
+	@Override
 	public void setDisplayName(String newDisplayName) {
 		super.setDisplayName(newDisplayName);
 	}
@@ -1033,6 +1036,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EjbPackage.ENTERPRISE_BEAN__EJB_JAR:
@@ -1048,6 +1052,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EjbPackage.ENTERPRISE_BEAN__SECURITY_ROLE_REFS:
@@ -1065,6 +1070,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case EjbPackage.ENTERPRISE_BEAN__EJB_JAR:
@@ -1078,6 +1084,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case EjbPackage.ENTERPRISE_BEAN__NAME:
@@ -1112,6 +1119,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EjbPackage.ENTERPRISE_BEAN__NAME:
@@ -1151,6 +1159,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case EjbPackage.ENTERPRISE_BEAN__NAME:
@@ -1189,6 +1198,7 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case EjbPackage.ENTERPRISE_BEAN__NAME:

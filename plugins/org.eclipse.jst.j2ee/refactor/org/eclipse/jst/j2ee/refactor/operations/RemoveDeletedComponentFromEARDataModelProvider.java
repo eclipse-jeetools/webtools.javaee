@@ -26,6 +26,7 @@ public class RemoveDeletedComponentFromEARDataModelProvider extends RemoveCompon
 		_metadata = metadata;
 	}
 
+	@Override
 	public Object getDefaultProperty(String propertyName) {
 		if (TARGET_COMPONENTS_TO_URI_MAP.equals(propertyName)) {
 			Map map = new HashMap();
@@ -50,6 +51,7 @@ public class RemoveDeletedComponentFromEARDataModelProvider extends RemoveCompon
 		return super.getDefaultProperty(propertyName);
 	}
 
+	@Override
 	public IDataModelOperation getDefaultOperation() {
 		return new RemoveDeletedComponentFromEAROperation(model);
 	}

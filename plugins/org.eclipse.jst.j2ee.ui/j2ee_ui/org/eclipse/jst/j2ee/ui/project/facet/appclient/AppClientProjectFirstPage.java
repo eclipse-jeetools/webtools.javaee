@@ -28,6 +28,7 @@ public class AppClientProjectFirstPage extends J2EEComponentFacetCreationWizardP
 		setInfopopID(IJ2EEUIContextIds.NEW_APPCLIENT_WIZARD_P1);
 	}
 
+	@Override
 	protected String getModuleFacetID() {
 		return J2EEProjectUtilities.APPLICATION_CLIENT;
 	}

@@ -35,6 +35,7 @@ import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 public abstract class J2EEComponentImportDataModelProvider extends J2EEArtifactImportDataModelProvider implements IJ2EEModuleImportDataModelProperties {
 
 
+	@Override
 	public Set getPropertyNames() {
 		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(EXTENDED_IMPORT_FACTORY);

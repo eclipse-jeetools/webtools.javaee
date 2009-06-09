@@ -49,6 +49,7 @@ public class WelcomeFileListImpl extends J2EEEObjectImpl implements WelcomeFileL
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return WebapplicationPackage.Literals.WELCOME_FILE_LIST;
 	}
@@ -113,6 +114,7 @@ public void addFileNamed(java.lang.String name) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case WebapplicationPackage.WELCOME_FILE_LIST__WEB_APP:
@@ -130,6 +132,7 @@ public void addFileNamed(java.lang.String name) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case WebapplicationPackage.WELCOME_FILE_LIST__WEB_APP:
@@ -145,6 +148,7 @@ public void addFileNamed(java.lang.String name) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case WebapplicationPackage.WELCOME_FILE_LIST__WEB_APP:
@@ -158,6 +162,7 @@ public void addFileNamed(java.lang.String name) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case WebapplicationPackage.WELCOME_FILE_LIST__WEB_APP:
@@ -173,6 +178,7 @@ public void addFileNamed(java.lang.String name) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case WebapplicationPackage.WELCOME_FILE_LIST__WEB_APP:
@@ -191,6 +197,7 @@ public void addFileNamed(java.lang.String name) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case WebapplicationPackage.WELCOME_FILE_LIST__WEB_APP:
@@ -208,6 +215,7 @@ public void addFileNamed(java.lang.String name) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case WebapplicationPackage.WELCOME_FILE_LIST__WEB_APP:

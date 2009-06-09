@@ -45,6 +45,7 @@ public class ServiceRefEditorItemProvider extends ServiceRefItemProvider {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -58,6 +59,7 @@ public class ServiceRefEditorItemProvider extends ServiceRefItemProvider {
 	 * 
 	 * @see org.eclipse.emf.edit.provider.ItemProviderAdapter#hasChildren(java.lang.Object)
 	 */
+	@Override
 	public boolean hasChildren(Object arg0) {
 		return false;
 	}

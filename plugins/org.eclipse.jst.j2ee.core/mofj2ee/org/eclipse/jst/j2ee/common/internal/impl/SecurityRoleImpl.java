@@ -82,10 +82,12 @@ public class SecurityRoleImpl extends J2EEEObjectImpl implements SecurityRole {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return CommonPackage.Literals.SECURITY_ROLE;
 	}
 
+@Override
 public boolean equals(Object o) {
 	if (inEclipse)
 		return super.equals(o);
@@ -102,11 +104,13 @@ public boolean equals(Object o) {
 	}
 	return false;
 }
+@Override
 public int hashCode() {
 	if (inEclipse || getRoleName() == null)
 		return super.hashCode();
 	return getRoleName().hashCode();
 }
+@Override
 public String toString() {
 	String name = getRoleName() == null ? "<unknown>" : getRoleName(); //$NON-NLS-1$
 	return getClass().getName() + "(" + name + ")"; //$NON-NLS-1$ //$NON-NLS-2$
@@ -188,6 +192,7 @@ public String toString() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case CommonPackage.SECURITY_ROLE__DESCRIPTIONS:
@@ -201,6 +206,7 @@ public String toString() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case CommonPackage.SECURITY_ROLE__DESCRIPTION:
@@ -218,6 +224,7 @@ public String toString() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case CommonPackage.SECURITY_ROLE__DESCRIPTION:
@@ -239,6 +246,7 @@ public String toString() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case CommonPackage.SECURITY_ROLE__DESCRIPTION:
@@ -259,6 +267,7 @@ public String toString() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case CommonPackage.SECURITY_ROLE__DESCRIPTION:

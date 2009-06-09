@@ -87,6 +87,7 @@ public class TagLibRefTypeImpl extends J2EEEObjectImpl implements TagLibRefType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return JspPackage.Literals.TAG_LIB_REF_TYPE;
 	}
@@ -138,6 +139,7 @@ public class TagLibRefTypeImpl extends J2EEEObjectImpl implements TagLibRefType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case JspPackage.TAG_LIB_REF_TYPE__TAGLIB_URI:
@@ -153,6 +155,7 @@ public class TagLibRefTypeImpl extends J2EEEObjectImpl implements TagLibRefType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case JspPackage.TAG_LIB_REF_TYPE__TAGLIB_URI:
@@ -170,6 +173,7 @@ public class TagLibRefTypeImpl extends J2EEEObjectImpl implements TagLibRefType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case JspPackage.TAG_LIB_REF_TYPE__TAGLIB_URI:
@@ -187,6 +191,7 @@ public class TagLibRefTypeImpl extends J2EEEObjectImpl implements TagLibRefType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case JspPackage.TAG_LIB_REF_TYPE__TAGLIB_URI:
@@ -202,6 +207,7 @@ public class TagLibRefTypeImpl extends J2EEEObjectImpl implements TagLibRefType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

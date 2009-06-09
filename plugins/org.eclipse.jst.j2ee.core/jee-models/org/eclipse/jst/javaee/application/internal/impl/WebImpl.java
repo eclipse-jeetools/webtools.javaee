@@ -111,6 +111,7 @@ public class WebImpl extends EObjectImpl implements Web {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return ApplicationPackage.Literals.WEB;
 	}
@@ -183,6 +184,7 @@ public class WebImpl extends EObjectImpl implements Web {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case ApplicationPackage.WEB__WEB_URI:
@@ -200,6 +202,7 @@ public class WebImpl extends EObjectImpl implements Web {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ApplicationPackage.WEB__WEB_URI:
@@ -220,6 +223,7 @@ public class WebImpl extends EObjectImpl implements Web {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case ApplicationPackage.WEB__WEB_URI:
@@ -240,6 +244,7 @@ public class WebImpl extends EObjectImpl implements Web {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case ApplicationPackage.WEB__WEB_URI:
@@ -257,6 +262,7 @@ public class WebImpl extends EObjectImpl implements Web {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

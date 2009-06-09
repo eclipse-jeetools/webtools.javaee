@@ -50,6 +50,7 @@ public class ZipFileLoadStrategyImpl extends LoadStrategyImpl {
 		setZipFile(org.eclipse.jst.jee.archive.internal.ArchiveUtil.newZipFile(file));
 	}
 
+	@Override
 	public void close() {
 		super.close();
 		try {
@@ -62,6 +63,7 @@ public class ZipFileLoadStrategyImpl extends LoadStrategyImpl {
 	/**
 	 * @see com.ibm.etools.archive.impl.LoadStrategyImpl
 	 */
+	@Override
 	protected boolean primContains(java.lang.String uri) {
 		return getZipFile().getEntry(uri) != null;
 	}
@@ -69,6 +71,7 @@ public class ZipFileLoadStrategyImpl extends LoadStrategyImpl {
 	/**
 	 * @see com.ibm.etools.archive.LoadStrategy
 	 */
+	@Override
 	public java.lang.String getAbsolutePath() throws java.io.FileNotFoundException {
 		return getFile().getAbsolutePath();
 	}
@@ -85,6 +88,7 @@ public class ZipFileLoadStrategyImpl extends LoadStrategyImpl {
 	/**
 	 * @see com.ibm.etools.archive.impl.LoadStrategyImpl
 	 */
+	@Override
 	public java.util.List getFiles() {
 		List list = new ArrayList();
 		Enumeration entries = getZipFile().entries();
@@ -111,6 +115,7 @@ public class ZipFileLoadStrategyImpl extends LoadStrategyImpl {
 	/**
 	 * @see com.ibm.etools.archive.impl.LoadStrategyImpl
 	 */
+	@Override
 	public java.io.InputStream getInputStream(java.lang.String uri) throws IOException, FileNotFoundException {
 		try {
 			ZipEntry entry = getZipFile().getEntry(uri);
@@ -135,6 +140,7 @@ public class ZipFileLoadStrategyImpl extends LoadStrategyImpl {
 	/**
 	 * @see com.ibm.etools.archive.LoadStrategy
 	 */
+	@Override
 	public boolean isUsing(java.io.File aSystemFile) {
 		return getFile() != null && getFile().equals(aSystemFile);
 	}

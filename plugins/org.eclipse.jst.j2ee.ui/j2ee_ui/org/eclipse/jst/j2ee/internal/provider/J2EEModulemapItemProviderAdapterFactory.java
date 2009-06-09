@@ -26,6 +26,7 @@ public class J2EEModulemapItemProviderAdapterFactory extends ModulemapItemProvid
 	/**
 	 * @see ModulemapAdapterFactory#createEARProjectMapAdapter()
 	 */
+	@Override
 	public Adapter createEARProjectMapAdapter() {
 		return new J2EEUtilityJavaProjectsItemProvider(this, false);
 	}

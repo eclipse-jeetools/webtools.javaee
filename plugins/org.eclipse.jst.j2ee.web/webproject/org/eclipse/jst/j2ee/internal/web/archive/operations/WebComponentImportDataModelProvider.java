@@ -53,6 +53,7 @@ import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
  */
 public final class WebComponentImportDataModelProvider extends J2EEComponentImportDataModelProvider implements IWebComponentImportDataModelProperties {
 
+	@Override
 	public Set getPropertyNames() {
 		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(WEB_LIB_MODELS);
@@ -61,6 +62,7 @@ public final class WebComponentImportDataModelProvider extends J2EEComponentImpo
 		return propertyNames;
 	}
 
+	@Override
 	public Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(WEB_LIB_MODELS) || propertyName.equals(WEB_LIB_ARCHIVES_SELECTED)) {
 			return Collections.EMPTY_LIST;
@@ -68,10 +70,12 @@ public final class WebComponentImportDataModelProvider extends J2EEComponentImpo
 		return super.getDefaultProperty(propertyName);
 	}
 
+	@Override
 	protected int getType() {
 		return XMLResource.WEB_APP_TYPE;
 	}
 	
+	@Override
 	protected void handleUnknownType(JavaEEQuickPeek jqp) {
 		jqp.setType(J2EEVersionConstants.WEB_TYPE);
 		jqp.setVersion(J2EEVersionConstants.WEB_2_5_ID);
@@ -87,6 +91,7 @@ public final class WebComponentImportDataModelProvider extends J2EEComponentImpo
 		return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString("Temp String for none WARFile")); //$NON-NLS-1$);
 	}
 
+	@Override
 	public boolean propertySet(String propertyName, Object propertyValue) {
 		super.propertySet(propertyName, propertyValue);
 		if (propertyName.equals(ARCHIVE_WRAPPER)) {
@@ -154,19 +159,23 @@ public final class WebComponentImportDataModelProvider extends J2EEComponentImpo
 		return status;
 	}
 	
+	@Override
 	protected Archive openArchive(String uri) throws OpenFailureException {
 		Archive archive = CommonarchiveFactory.eINSTANCE.openWARFile(getArchiveOptions(), uri);
 		return archive;
 	}
 
+	@Override
 	protected IDataModel createJ2EEComponentCreationDataModel() {
 		return DataModelFactory.createDataModel(new WebFacetProjectCreationDataModelProvider());
 	}
 
+	@Override
 	public IDataModelOperation getDefaultOperation() {
 		return new WebComponentImportOperation(model);
 	}
 
+	@Override
 	public void init() {
 		super.init();
 		IDataModel componentCreationDM = model.getNestedModel(NESTED_MODEL_J2EE_COMPONENT_CREATION);
@@ -175,6 +184,7 @@ public final class WebComponentImportDataModelProvider extends J2EEComponentImpo
 		webFacet.setBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD, false);
 	}
 	
+	@Override
 	public void propertyChanged(DataModelEvent event) {
 		super.propertyChanged(event);
 		if (event.getPropertyName().equals(IFacetProjectCreationDataModelProperties.FACET_RUNTIME) && event.getDataModel() == model.getNestedModel(NESTED_MODEL_J2EE_COMPONENT_CREATION)) {

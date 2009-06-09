@@ -35,6 +35,7 @@ import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPos
  */
 public class JARDependencyDataModelProvider extends AbstractDataModelProvider implements JARDependencyDataModelProperties {
 
+	@Override
 	public Set getPropertyNames() {
 		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(EAR_PROJECT_NAME);
@@ -44,12 +45,14 @@ public class JARDependencyDataModelProvider extends AbstractDataModelProvider im
 		return propertyNames;
 	}
 
+	@Override
 	public void init() {
 		super.init();
 		IDataModel updateManifestDataModel = DataModelFactory.createDataModel(UpdateManifestDataModelProvider.class);
 		model.addNestedModel(NESTED_MODEL_UPDATE_MAINFEST, updateManifestDataModel);
 	}
 
+	@Override
 	public Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(JAR_MANIPULATION_TYPE)) {
 			return new Integer(JAR_MANIPULATION_ADD);
@@ -76,6 +79,7 @@ public class JARDependencyDataModelProvider extends AbstractDataModelProvider im
 		return ProjectUtilities.getProject(getStringProperty(OPPOSITE_PROJECT_NAME));
 	}
 
+	@Override
 	public IDataModelOperation getDefaultOperation() {
 		return new JARDependencyOperation(model);
 	}

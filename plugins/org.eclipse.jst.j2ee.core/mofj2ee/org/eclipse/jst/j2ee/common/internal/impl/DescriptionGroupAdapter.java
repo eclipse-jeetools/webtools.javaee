@@ -38,6 +38,7 @@ import org.eclipse.jst.j2ee.common.IconType;
 			/* (non-Javadoc)
 		 * @see org.eclipse.emf.common.notify.Adapter#notifyChanged(org.eclipse.emf.common.notify.Notification)
 		 */
+		@Override
 		public void notifyChanged(Notification msg) {
 			if (msg.getFeature() == CommonPackage.eINSTANCE.getDescriptionGroup_Icons() ||
 					msg.getFeature() == CommonPackage.eINSTANCE.getIconType_LargeIcon() ||
@@ -112,6 +113,7 @@ import org.eclipse.jst.j2ee.common.IconType;
 	/* (non-Javadoc)
 	 * @see org.eclipse.emf.common.notify.Adapter#setTarget(org.eclipse.emf.common.notify.Notifier)
 	 */
+	@Override
 	public void setTarget(Notifier newTarget) {
 		if (newTarget instanceof CompatibilityDescriptionGroup)
 			super.setTarget(newTarget);

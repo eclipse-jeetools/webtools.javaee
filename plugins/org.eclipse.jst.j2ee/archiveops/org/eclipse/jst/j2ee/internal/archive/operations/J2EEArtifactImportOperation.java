@@ -53,6 +53,7 @@ public abstract class J2EEArtifactImportOperation extends AbstractDataModelOpera
 		super(model);
 	}
 
+	@Override
 	public IStatus execute(IProgressMonitor monitor, IAdaptable anInfo) throws ExecutionException {
 		try {
 			J2EEComponentClasspathUpdater.getInstance().pauseUpdates();

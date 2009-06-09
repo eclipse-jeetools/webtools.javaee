@@ -44,6 +44,7 @@ public class ServletTypeItemProvider extends WebTypeItemProvider implements IEdi
 	/**
 	 * This returns servlet_type.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return WebPlugin.getDefault().getImage("servlet_type"); //$NON-NLS-1$
 	}
@@ -51,6 +52,7 @@ public class ServletTypeItemProvider extends WebTypeItemProvider implements IEdi
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -80,6 +82,7 @@ public class ServletTypeItemProvider extends WebTypeItemProvider implements IEdi
 	}
 
 
+	@Override
 	public String getText(Object object) {
 		return WebAppEditResourceHandler.getString("41concat_UI_", (new Object[]{((ServletType) object).getClassName()})); //$NON-NLS-1$ = "ServletType {0}"
 	}
@@ -90,6 +93,7 @@ public class ServletTypeItemProvider extends WebTypeItemProvider implements IEdi
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(ServletType.class)) {
 			case WebapplicationPackage.SERVLET_TYPE__CLASS_NAME : {
@@ -107,6 +111,7 @@ public class ServletTypeItemProvider extends WebTypeItemProvider implements IEdi
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -117,6 +122,7 @@ public class ServletTypeItemProvider extends WebTypeItemProvider implements IEdi
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}

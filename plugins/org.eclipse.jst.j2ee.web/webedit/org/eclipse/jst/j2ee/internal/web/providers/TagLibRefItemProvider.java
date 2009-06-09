@@ -44,6 +44,7 @@ public class TagLibRefItemProvider extends WebapplicationItemProviderAdapter imp
 	/**
 	 * This returns jsp_library_reference.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return WebPlugin.getDefault().getImage("jsp_library_reference");//$NON-NLS-1$
 	}
@@ -51,6 +52,7 @@ public class TagLibRefItemProvider extends WebapplicationItemProviderAdapter imp
 	/**
 	 * This returns the webApp of the TagLibRef.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((TagLibRef) object).getWebApp();
 	}
@@ -58,6 +60,7 @@ public class TagLibRefItemProvider extends WebapplicationItemProviderAdapter imp
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -115,6 +118,7 @@ public class TagLibRefItemProvider extends WebapplicationItemProviderAdapter imp
 	}
 
 
+	@Override
 	public String getText(Object object) {
 		return WebAppEditResourceHandler.getString("32concat_UI_", (new Object[]{((TagLibRef) object).getTaglibURI()})); //$NON-NLS-1$ = "TagLibRef {0}"
 	}
@@ -125,6 +129,7 @@ public class TagLibRefItemProvider extends WebapplicationItemProviderAdapter imp
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(TagLibRef.class)) {
 			case WebapplicationPackage.TAG_LIB_REF__TAGLIB_URI :
@@ -143,6 +148,7 @@ public class TagLibRefItemProvider extends WebapplicationItemProviderAdapter imp
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -153,6 +159,7 @@ public class TagLibRefItemProvider extends WebapplicationItemProviderAdapter imp
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}
@@ -163,6 +170,7 @@ public class TagLibRefItemProvider extends WebapplicationItemProviderAdapter imp
 	 * to return the empty enumeration, and this to check that enumeration, but we know there can't
 	 * be any children, so this is faster.
 	 */
+	@Override
 	public boolean hasChildren(Object object) {
 		return false;
 	}

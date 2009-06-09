@@ -56,6 +56,7 @@ public class ConnectorComponentNestedJARArchiveLoadAdapter extends AbstractArchi
 		outputSegmentCount = javaOutputFolder.getProjectRelativePath().segmentCount();
 	}
 
+	@Override
 	public String toString() {
 		int packageLength = this.getClass().getPackage().getName().length() + 1;
 		StringBuffer buffer = new StringBuffer(this.getClass().getName().substring(packageLength));
@@ -68,6 +69,7 @@ public class ConnectorComponentNestedJARArchiveLoadAdapter extends AbstractArchi
 
 	private List<IArchiveResource> fullIndex = null;
 
+	@Override
 	public List<IArchiveResource> getArchiveResources() {
 		if (!indexed) {
 			indexed = true;
@@ -114,6 +116,7 @@ public class ConnectorComponentNestedJARArchiveLoadAdapter extends AbstractArchi
 		return file.getProjectRelativePath().removeFirstSegments(parentSegmentCount);
 	}
 
+	@Override
 	public boolean containsArchiveResource(IPath resourcePath) {
 		if (!indexed) {
 			getArchiveResources();
@@ -121,6 +124,7 @@ public class ConnectorComponentNestedJARArchiveLoadAdapter extends AbstractArchi
 		return pathsToIArchiveResources.containsKey(resourcePath);
 	}
 
+	@Override
 	public IArchiveResource getArchiveResource(IPath resourcePath) throws FileNotFoundException {
 		if (!indexed) {
 			getArchiveResources();
@@ -128,6 +132,7 @@ public class ConnectorComponentNestedJARArchiveLoadAdapter extends AbstractArchi
 		return pathsToIArchiveResources.get(resourcePath);
 	}
 
+	@Override
 	public InputStream getInputStream(IArchiveResource archiveResource) throws IOException, FileNotFoundException {
 		IFile file = pathsToIFiles.get(archiveResource.getPath());
 		if (file != null) {
@@ -140,10 +145,12 @@ public class ConnectorComponentNestedJARArchiveLoadAdapter extends AbstractArchi
 		throw new FileNotFoundException(archiveResource.getPath().toString());
 	}
 
+	@Override
 	public boolean containsModelObject(IPath modelObjectPath) {
 		return false;
 	}
 
+	@Override
 	public Object getModelObject(IPath modelObjectPath) throws ArchiveModelLoadException {
 		return null; // no model objects here
 	}

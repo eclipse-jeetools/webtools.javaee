@@ -2,6 +2,7 @@ package org.eclipse.jst.javaee.internal.adapter;
 
 public class WebArtifactAdapterFactory extends JavaEEArtifactAdapterFactory {
 
+	@Override
 	protected String getFullyQualifiedClassName(Object adaptableObject) {
 		if (adaptableObject instanceof org.eclipse.jst.javaee.web.Servlet) {
 			org.eclipse.jst.javaee.web.Servlet servlet = (org.eclipse.jst.javaee.web.Servlet) adaptableObject;

@@ -108,7 +108,8 @@ public class PortMappingImpl extends J2EEEObjectImpl implements PortMapping
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  protected EClass eStaticClass() {
+  @Override
+protected EClass eStaticClass() {
 		return JaxrpcmapPackage.Literals.PORT_MAPPING;
 	}
 
@@ -180,6 +181,7 @@ public class PortMappingImpl extends J2EEEObjectImpl implements PortMapping
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case JaxrpcmapPackage.PORT_MAPPING__ID:
@@ -197,6 +199,7 @@ public class PortMappingImpl extends J2EEEObjectImpl implements PortMapping
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case JaxrpcmapPackage.PORT_MAPPING__ID:
@@ -217,6 +220,7 @@ public class PortMappingImpl extends J2EEEObjectImpl implements PortMapping
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case JaxrpcmapPackage.PORT_MAPPING__ID:
@@ -237,6 +241,7 @@ public class PortMappingImpl extends J2EEEObjectImpl implements PortMapping
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case JaxrpcmapPackage.PORT_MAPPING__ID:
@@ -254,7 +259,8 @@ public class PortMappingImpl extends J2EEEObjectImpl implements PortMapping
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String toString() {
+  @Override
+public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());

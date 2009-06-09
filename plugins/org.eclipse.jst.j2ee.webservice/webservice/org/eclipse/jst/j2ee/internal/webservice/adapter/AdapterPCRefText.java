@@ -45,6 +45,7 @@ public class AdapterPCRefText extends AdapterText {
 		super(anArtifactEdit, eObject, feature, text, nillable);
 	}
 
+	@Override
 	public void notifyChanged(Notification msg) {
 		int type = msg.getEventType();
 		if ((type == Notification.SET || type == Notification.UNSET) && syncTextAndModel() && msg.getFeature() == feature_) {
@@ -60,6 +61,7 @@ public class AdapterPCRefText extends AdapterText {
 		}
 	}
 
+	@Override
 	public void modifyText(ModifyEvent e) {
 		if (syncTextAndModel()) {
 			//Handle PortComponentRef_ServiceEndpointInterface feature in a special way.
@@ -76,6 +78,7 @@ public class AdapterPCRefText extends AdapterText {
 		}
 	}
 
+	@Override
 	public void adapt(EObject eObject) {
 		if (eObject_ != null)
 			eObject_.eAdapters().remove(this);
@@ -95,6 +98,7 @@ public class AdapterPCRefText extends AdapterText {
 			setText(null);
 	}
 
+	@Override
 	protected boolean syncTextAndModel() {
 		if (eObject_ != null) {
 			String modelValue;

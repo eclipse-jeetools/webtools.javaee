@@ -59,6 +59,7 @@ public class EARProjectMapImpl extends EObjectImpl implements EARProjectMap {
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return ModulemapPackage.eINSTANCE.getEARProjectMap();
 	}
@@ -88,6 +89,7 @@ public class EARProjectMapImpl extends EObjectImpl implements EARProjectMap {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (baseClass == null ? featureID : eDerivedStructuralFeatureID(featureID, baseClass)) {
@@ -107,6 +109,7 @@ public class EARProjectMapImpl extends EObjectImpl implements EARProjectMap {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
 		switch (eDerivedStructuralFeatureID(eFeature.getFeatureID(), eFeature.getContainerClass())) {
 			case ModulemapPackage.EAR_PROJECT_MAP__MAPPINGS :
@@ -122,6 +125,7 @@ public class EARProjectMapImpl extends EObjectImpl implements EARProjectMap {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void eSet(EStructuralFeature eFeature, Object newValue) {
 		switch (eDerivedStructuralFeatureID(eFeature.getFeatureID(), eFeature.getContainerClass())) {
 			case ModulemapPackage.EAR_PROJECT_MAP__MAPPINGS :
@@ -141,6 +145,7 @@ public class EARProjectMapImpl extends EObjectImpl implements EARProjectMap {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void eUnset(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature.getFeatureID(), eFeature.getContainerClass())) {
 			case ModulemapPackage.EAR_PROJECT_MAP__MAPPINGS :
@@ -158,6 +163,7 @@ public class EARProjectMapImpl extends EObjectImpl implements EARProjectMap {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature.getFeatureID(), eFeature.getContainerClass())) {
 			case ModulemapPackage.EAR_PROJECT_MAP__MAPPINGS :

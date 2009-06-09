@@ -50,6 +50,7 @@ public class SOAPRoleItemProvider extends AbstractATKUIItemProvider implements I
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -92,6 +93,7 @@ public class SOAPRoleItemProvider extends AbstractATKUIItemProvider implements I
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return getResourceLocator().getImage("full/obj16/SOAPRole"); //$NON-NLS-1$
 	}
@@ -114,6 +116,7 @@ public class SOAPRoleItemProvider extends AbstractATKUIItemProvider implements I
 	 * 
 	 * @non-generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((SOAPRole) object).getSoapRole();
 		return label == null || label.length() == 0 ? getString("%_UI_SOAPRole_type") : label; //$NON-NLS-1$
@@ -126,6 +129,7 @@ public class SOAPRoleItemProvider extends AbstractATKUIItemProvider implements I
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(SOAPRole.class)) {
 			//pgm case WscommonPackage.SOAP_ROLE__ID:
@@ -144,6 +148,7 @@ public class SOAPRoleItemProvider extends AbstractATKUIItemProvider implements I
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}

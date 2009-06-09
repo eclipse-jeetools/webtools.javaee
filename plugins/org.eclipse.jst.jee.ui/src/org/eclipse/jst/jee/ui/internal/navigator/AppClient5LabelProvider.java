@@ -22,6 +22,7 @@ import org.eclipse.swt.graphics.Image;
  */
 public class AppClient5LabelProvider extends J2EELabelProvider {
 	
+	@Override
 	public Image getImage(Object element) {
 		Image ret = null;
 		if (element instanceof GroupAppClientProvider) {
@@ -30,6 +31,7 @@ public class AppClient5LabelProvider extends J2EELabelProvider {
 		return ret;
 	}
 
+	@Override
 	public String getText(Object element) {
 		String ret = null;
 		if (element instanceof GroupAppClientProvider) {

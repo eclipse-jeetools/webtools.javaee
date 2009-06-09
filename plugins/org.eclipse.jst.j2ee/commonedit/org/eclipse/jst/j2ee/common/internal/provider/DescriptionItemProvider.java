@@ -55,6 +55,7 @@ public class DescriptionItemProvider extends ItemProviderAdapter implements IEdi
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -93,6 +94,7 @@ public class DescriptionItemProvider extends ItemProviderAdapter implements IEdi
 	/**
 	 * This returns Description.gif. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return getResourceLocator().getImage("full/obj16/CompatibilityDescriptionGroup"); //$NON-NLS-1$
 	}
@@ -102,6 +104,7 @@ public class DescriptionItemProvider extends ItemProviderAdapter implements IEdi
 	 * -->
 	 *  
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((Description) object).getValue();
 		return label == null || label.length() == 0 ? CommonEditResourceHandler.getString("Description_UI_") : //$NON-NLS-1$
@@ -114,6 +117,7 @@ public class DescriptionItemProvider extends ItemProviderAdapter implements IEdi
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(Description.class)) {
 			case CommonPackage.DESCRIPTION__LANG :
@@ -132,6 +136,7 @@ public class DescriptionItemProvider extends ItemProviderAdapter implements IEdi
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -141,6 +146,7 @@ public class DescriptionItemProvider extends ItemProviderAdapter implements IEdi
 	 * end-user-doc -->
 	 *  
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}

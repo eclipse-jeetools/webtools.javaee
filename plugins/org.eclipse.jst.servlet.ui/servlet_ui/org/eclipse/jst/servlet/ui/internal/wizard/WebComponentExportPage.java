@@ -37,6 +37,7 @@ public class WebComponentExportPage extends J2EEModuleExportPage {
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEImportPage#getProjectImportLabel()
 	 */
+	@Override
 	protected String getComponentLabel() {
 		return J2EEUIMessages.getResourceString(J2EEUIMessages.WEB_PROJ_LBL);
 	}
@@ -46,6 +47,7 @@ public class WebComponentExportPage extends J2EEModuleExportPage {
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEImportPage#getFilterExpression()
 	 */
+	@Override
 	protected String[] getFilterExpression() {
 		return new String[]{"*.war"}; //$NON-NLS-1$
 	}
@@ -55,10 +57,12 @@ public class WebComponentExportPage extends J2EEModuleExportPage {
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEExportPage#isMetaTypeSupported(java.lang.Object)
 	 */
+	@Override
 	protected boolean isMetaTypeSupported(Object o) {
 		return o instanceof org.eclipse.jst.j2ee.webapplication.WebApp;
 	}
 
+	@Override
 	protected String getCompnentID() {
 		return "JST_WEB"; //$NON-NLS-1$
 	}

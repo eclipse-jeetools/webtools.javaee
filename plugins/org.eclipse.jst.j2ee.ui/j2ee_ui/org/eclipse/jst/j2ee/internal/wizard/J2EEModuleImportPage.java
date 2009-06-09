@@ -47,6 +47,7 @@ public abstract class J2EEModuleImportPage extends J2EEImportPage {
 		super(model, pageName);
 	}
 
+	@Override
 	protected Composite createTopLevelComposite(Composite parent) {
 		Composite composite = super.createTopLevelComposite(parent);
 		PlatformUI.getWorkbench().getHelpSystem().setHelp(composite, getInfopopID());
@@ -84,6 +85,7 @@ public abstract class J2EEModuleImportPage extends J2EEImportPage {
 	}
 
 
+	@Override
 	protected String[] getValidationPropertyNames() {
 		return new String[]{IJ2EEComponentImportDataModelProperties.FILE_NAME,
 					IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME,
@@ -93,6 +95,7 @@ public abstract class J2EEModuleImportPage extends J2EEImportPage {
 					J2EEArtifactImportDataModelProvider.FACET_RUNTIME};
 	}
 
+	@Override
 	public void dispose() {
 		super.dispose();
 		if (earPanel != null)

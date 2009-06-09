@@ -99,6 +99,7 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 		MESSAGE_IDS.put(CHKJ2907, new String[]{CHKJ2907});
 	}
 	
+	@Override
 	public void reset() {
 		super.reset();
 		createMethods.clear();
@@ -120,6 +121,7 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 		createMethods = new HashSet();
 	}
 	
+	@Override
 	protected final String getParentName() {
 		return ITypeConstants.CLASSNAME_JAVAX_EJB_SESSIONBEAN;
 	}
@@ -146,6 +148,7 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 		}
 	}
 
+	@Override
 	public boolean isFrameworkMethod(String name) {
 		if (super.isFrameworkMethod(name)) {
 			return true;
@@ -163,6 +166,7 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 	 * Check that the ejbCreate methods and business methods follow the EJB 1.1 spec.
 	 * Section: 6.8, 6.10.2, 6.10.3 and 6.10.4
 	 */
+	@Override
 	public void primValidate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method ejbMethod) throws InvalidInputException {
 		// Can't invoke an abstract method
 		// super.primValidate(ejbMethod);
@@ -193,6 +197,7 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 	/**
 	 * Checks to see if @ejbMethod is one of the required methods.
 	 */
+	@Override
 	protected void primValidateExistence(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method ejbMethod) throws InvalidInputException {
 		// Can't invoke an abstract method
 		//super.validateExistence(ejbMethod);
@@ -207,6 +212,7 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 	 * Test that the supplied business method follows the EJB 1.1 spec rules.
 	 * Section: 6.10.4
 	 */
+	@Override
 	public void validateBusinessMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		vc.terminateIfCancelled();
 
@@ -229,6 +235,7 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 	 * URL: http://java.sun.com/products/ejb/docs.html
 	 * Section: 6.10.2
 	 */
+	@Override
 	public void validateClass(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		vc.terminateIfCancelled();
 		super.validateClass(vc, bean, clazz);
@@ -387,6 +394,7 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 	 * EJB 1.1 specification
 	 * Section: 6.8, 6.10.2 and 6.10.3
 	 */
+	@Override
 	protected void validateMethodExists(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		final String[] modelObjectName = new String[] { clazz.getQualifiedName()};
 		if (!hasValidConstructor && hasAConstructor) {
@@ -485,6 +493,7 @@ public class ValidateSessionBean extends AValidateBean implements IMessagePrefix
 	/*
 	 * @see IValidationRule#preValidate(IEJBValidationContext, Object, Object)
 	 */
+	@Override
 	public void preValidate(IEJBValidationContext vc, Object targetParent, Object target) throws ValidationCancelledException, ValidationException {
 		super.preValidate(vc, targetParent, target);
 		hasValidConstructor = false;

@@ -30,10 +30,12 @@ public class J2EEUtilityJarImportOperationNew extends J2EEArtifactImportOperatio
 		super(dataModel);
 	}
 
+	@Override
 	protected ComponentArchiveSaveAdapter getArchiveSaveAdapter(IVirtualComponent virtualComponent){
 		return new J2EEJavaComponentArchiveSaveAdapter(virtualComponent);
 	}
 	
+	@Override
 	protected SaveStrategy createSaveStrategy(IVirtualComponent virtualComponent) {
 		J2EEJavaComponentSaveStrategyImpl saveStrat = new J2EEJavaComponentSaveStrategyImpl(virtualComponent);
 		return saveStrat;

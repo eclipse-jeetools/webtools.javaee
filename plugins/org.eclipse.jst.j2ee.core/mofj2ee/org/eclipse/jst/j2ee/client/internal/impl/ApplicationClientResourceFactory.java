@@ -54,6 +54,7 @@ public class ApplicationClientResourceFactory extends TranslatorResourceFactory 
 	/**
 	 * @see com.ibm.etools.emf2xml.impl.TranslatorResourceFactory#createResource(URI, Renderer)
 	 */
+	@Override
 	protected TranslatorResource createResource(URI uri, Renderer aRenderer) {
 		return new ApplicationClientResourceImpl(uri, aRenderer);
 	}

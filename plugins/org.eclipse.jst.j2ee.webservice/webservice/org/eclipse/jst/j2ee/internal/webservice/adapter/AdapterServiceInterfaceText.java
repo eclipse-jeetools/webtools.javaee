@@ -48,6 +48,7 @@ public class AdapterServiceInterfaceText extends AdapterImpl implements ModifyLi
 		adapt(eObject);
 	}
 
+	@Override
 	public void notifyChanged(Notification msg) {
 		int type = msg.getEventType();
 		if ((type == Notification.SET || type == Notification.UNSET) && syncTextAndModel() && msg.getFeature() == feature_) {

@@ -19,12 +19,10 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.edit.command.AddCommand;
+import org.eclipse.emf.edit.command.RemoveCommand;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
-import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
-import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
-import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.internal.provider.CompatibilityDescriptionGroupItemProvider;
@@ -38,7 +36,7 @@ import org.eclipse.jst.j2ee.webapplication.WebType;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 
-public class ServletItemProvider extends CompatibilityDescriptionGroupItemProvider implements IEditingDomainItemProvider, IItemLabelProvider, IItemPropertySource, IStructuredItemContentProvider, ITreeItemContentProvider {
+public class ServletItemProvider extends CompatibilityDescriptionGroupItemProvider {
 
 
 	/**
@@ -64,6 +62,7 @@ public class ServletItemProvider extends CompatibilityDescriptionGroupItemProvid
 	 * This specifies how to implement {@link #getChildren}and {@link AddCommand}and
 	 * {@link RemoveCommand}support in {@link #createCommand}.
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		WebapplicationPackage pkg = WebapplicationPackage.eINSTANCE;
 		Collection result = new ArrayList();
@@ -85,6 +84,7 @@ public class ServletItemProvider extends CompatibilityDescriptionGroupItemProvid
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected EReference getChildReference(Object object, Object child) {
 		// Check the type of the specified child object and return the proper feature to use for
 		// adding (see {@link AddCommand}) it as a child.
@@ -120,6 +120,7 @@ public class ServletItemProvider extends CompatibilityDescriptionGroupItemProvid
 	/**
 	 * This returns Servlet.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		WebType wt = ((Servlet) object).getWebType();
 		if (wt != null && wt.isJspType())
@@ -131,6 +132,7 @@ public class ServletItemProvider extends CompatibilityDescriptionGroupItemProvid
 	/**
 	 * This returns the webApp of the Servlet.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((Servlet) object).getWebApp();
 	}
@@ -138,6 +140,7 @@ public class ServletItemProvider extends CompatibilityDescriptionGroupItemProvid
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -193,6 +196,7 @@ public class ServletItemProvider extends CompatibilityDescriptionGroupItemProvid
 	 * delegating to the descriptor, which is assumed to support the IItemPropertyDescriptor
 	 * interface
 	 */
+	@Override
 	public Object getPropertyValue(Object object, String property) {
 		Object ret = null;
 		if (getPropertyDescriptor(object, property) instanceof WebToolingItemPropertyDescriptor) {
@@ -202,6 +206,7 @@ public class ServletItemProvider extends CompatibilityDescriptionGroupItemProvid
 		return ret;
 	}
 
+	@Override
 	public String getText(Object object) {
 		Servlet servlet = (Servlet) object;
 		String name = servlet.getServletName();
@@ -216,6 +221,7 @@ public class ServletItemProvider extends CompatibilityDescriptionGroupItemProvid
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(Servlet.class)) {
 			case WebapplicationPackage.SERVLET__SERVLET_NAME :
@@ -239,6 +245,7 @@ public class ServletItemProvider extends CompatibilityDescriptionGroupItemProvid
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -261,6 +268,7 @@ public class ServletItemProvider extends CompatibilityDescriptionGroupItemProvid
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}
@@ -270,6 +278,7 @@ public class ServletItemProvider extends CompatibilityDescriptionGroupItemProvid
 	 * by delegating to the descriptor, which is assumed to support the IItemPropertyDescriptor
 	 * interface
 	 */
+	@Override
 	public boolean isPropertySet(Object object, String property) {
 		boolean ret = false;
 		if (getPropertyDescriptor(object, property) instanceof WebToolingItemPropertyDescriptor) {
@@ -286,6 +295,7 @@ public class ServletItemProvider extends CompatibilityDescriptionGroupItemProvid
 	 * delegating to the descriptor, which is assumed to support the IItemPropertyDescriptor
 	 * interface
 	 */
+	@Override
 	public void setPropertyValue(Object object, String property, Object value) {
 
 		if (getPropertyDescriptor(object, property) instanceof WebToolingItemPropertyDescriptor) {

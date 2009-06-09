@@ -35,6 +35,7 @@ public class J2EEContainerManagedEntityItemProvider extends ContainerManagedEnti
 		super(adapterFactory);
 	}
 
+	@Override
 	public Collection getChildren(Object object) {
 		List result = new ArrayList();
 		result.addAll(super.getChildren(object));

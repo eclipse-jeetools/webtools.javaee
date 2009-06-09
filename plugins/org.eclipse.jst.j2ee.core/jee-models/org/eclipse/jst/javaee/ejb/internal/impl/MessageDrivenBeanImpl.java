@@ -452,6 +452,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return EjbPackage.Literals.MESSAGE_DRIVEN_BEAN;
 	}
@@ -963,6 +964,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__DESCRIPTIONS:
@@ -1010,6 +1012,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__DESCRIPTIONS:
@@ -1073,6 +1076,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__DESCRIPTIONS:
@@ -1177,6 +1181,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__DESCRIPTIONS:
@@ -1266,6 +1271,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__DESCRIPTIONS:
@@ -1329,6 +1335,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

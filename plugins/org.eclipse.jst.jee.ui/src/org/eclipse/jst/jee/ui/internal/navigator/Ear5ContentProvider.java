@@ -230,6 +230,7 @@ public class Ear5ContentProvider extends JEE5ContentProvider {
 
 	}
 
+	@Override
 	public void resourceChanged(IResourceChangeEvent event) {
 		super.resourceChanged(event);
 		if (event.getType() == IResourceChangeEvent.POST_CHANGE){

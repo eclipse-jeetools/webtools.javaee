@@ -62,6 +62,7 @@ public class AdapterExpiresCCombo extends AdapterImpl implements ModifyListener 
 		adapt(eObject);
 	}
 
+	@Override
 	public void notifyChanged(Notification msg) {
 		int type = msg.getEventType();
 		if ((type == Notification.SET || type == Notification.UNSET) && syncTextAndModel() && msg.getFeature() == feature_)

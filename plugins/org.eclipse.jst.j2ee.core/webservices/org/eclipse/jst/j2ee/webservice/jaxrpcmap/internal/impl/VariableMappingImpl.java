@@ -189,7 +189,8 @@ public class VariableMappingImpl extends J2EEEObjectImpl implements VariableMapp
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  protected EClass eStaticClass() {
+  @Override
+protected EClass eStaticClass() {
 		return JaxrpcmapPackage.Literals.VARIABLE_MAPPING;
 	}
 
@@ -374,6 +375,7 @@ public class VariableMappingImpl extends J2EEEObjectImpl implements VariableMapp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case JaxrpcmapPackage.VARIABLE_MAPPING__ID:
@@ -397,6 +399,7 @@ public class VariableMappingImpl extends J2EEEObjectImpl implements VariableMapp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case JaxrpcmapPackage.VARIABLE_MAPPING__ID:
@@ -426,6 +429,7 @@ public class VariableMappingImpl extends J2EEEObjectImpl implements VariableMapp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case JaxrpcmapPackage.VARIABLE_MAPPING__ID:
@@ -455,6 +459,7 @@ public class VariableMappingImpl extends J2EEEObjectImpl implements VariableMapp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case JaxrpcmapPackage.VARIABLE_MAPPING__ID:
@@ -478,7 +483,8 @@ public class VariableMappingImpl extends J2EEEObjectImpl implements VariableMapp
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String toString() {
+  @Override
+public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());

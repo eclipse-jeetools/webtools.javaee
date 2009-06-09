@@ -25,14 +25,17 @@ public class J2EEComponentClasspathInitializer extends ClasspathContainerInitial
 
 	private static final ClasspathDecorationsManager decorations = J2EEComponentClasspathContainer.getDecorationsManager();
 	
+	@Override
 	public void initialize(IPath containerPath, IJavaProject javaProject) throws CoreException {
 		J2EEComponentClasspathContainer.install(containerPath, javaProject);
 	}
 
+	@Override
 	public boolean canUpdateClasspathContainer(final IPath containerPath, final IJavaProject project) {
 		return true;
 	}
 
+	@Override
 	public void requestClasspathContainerUpdate(final IPath containerPath, final IJavaProject javaProject, final IClasspathContainer sg) throws CoreException {
 		final String key = containerPath.toString();
 		final IClasspathEntry[] entries = sg.getClasspathEntries();

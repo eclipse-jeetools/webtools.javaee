@@ -126,6 +126,7 @@ public class WebResourceCollectionImpl extends EObjectImpl implements WebResourc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return WebapplicationPackage.Literals.WEB_RESOURCE_COLLECTION;
 	}
@@ -288,6 +289,7 @@ public WebapplicationFactory getFactory() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case WebapplicationPackage.WEB_RESOURCE_COLLECTION__SEC_CONSTRAINT:
@@ -305,6 +307,7 @@ public WebapplicationFactory getFactory() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case WebapplicationPackage.WEB_RESOURCE_COLLECTION__SEC_CONSTRAINT:
@@ -324,6 +327,7 @@ public WebapplicationFactory getFactory() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case WebapplicationPackage.WEB_RESOURCE_COLLECTION__SEC_CONSTRAINT:
@@ -337,6 +341,7 @@ public WebapplicationFactory getFactory() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case WebapplicationPackage.WEB_RESOURCE_COLLECTION__WEB_RESOURCE_NAME:
@@ -364,6 +369,7 @@ public WebapplicationFactory getFactory() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case WebapplicationPackage.WEB_RESOURCE_COLLECTION__WEB_RESOURCE_NAME:
@@ -404,6 +410,7 @@ public WebapplicationFactory getFactory() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case WebapplicationPackage.WEB_RESOURCE_COLLECTION__WEB_RESOURCE_NAME:
@@ -439,6 +446,7 @@ public WebapplicationFactory getFactory() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case WebapplicationPackage.WEB_RESOURCE_COLLECTION__WEB_RESOURCE_NAME:
@@ -464,6 +472,7 @@ public WebapplicationFactory getFactory() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

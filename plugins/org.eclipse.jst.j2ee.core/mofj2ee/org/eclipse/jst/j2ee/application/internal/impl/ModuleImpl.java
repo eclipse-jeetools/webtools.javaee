@@ -69,6 +69,7 @@ public class ModuleImpl extends J2EEEObjectImpl implements Module, ICommonModule
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return ApplicationPackage.Literals.MODULE;
 	}
@@ -174,6 +175,7 @@ public boolean isWebModule() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case ApplicationPackage.MODULE__APPLICATION:
@@ -189,6 +191,7 @@ public boolean isWebModule() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case ApplicationPackage.MODULE__APPLICATION:
@@ -202,6 +205,7 @@ public boolean isWebModule() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case ApplicationPackage.MODULE__APPLICATION:
@@ -215,6 +219,7 @@ public boolean isWebModule() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case ApplicationPackage.MODULE__URI:
@@ -232,6 +237,7 @@ public boolean isWebModule() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case ApplicationPackage.MODULE__URI:
@@ -252,6 +258,7 @@ public boolean isWebModule() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case ApplicationPackage.MODULE__URI:
@@ -272,6 +279,7 @@ public boolean isWebModule() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case ApplicationPackage.MODULE__URI:
@@ -287,6 +295,7 @@ public boolean isWebModule() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

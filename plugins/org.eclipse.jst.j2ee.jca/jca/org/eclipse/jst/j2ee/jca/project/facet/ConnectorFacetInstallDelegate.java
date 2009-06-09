@@ -104,30 +104,31 @@ public class ConnectorFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 						? CONNECTOR_XML_TEMPLATE_10
 						: CONNECTOR_XML_TEMPLATE_15;
 				InputStream in = getClass().getResourceAsStream(template);
-				if (in != null & out != null) {
+				if (in != null) {
 					try {
 						ArchiveUtil.copy(in, out);
 					} catch (IOException ioe) {
 						Logger.getLogger().logError(ioe);
 					} finally{
 						try{
-							if(null != out){
-								out.close();
-							} if(null != in){
-								in.close();
-							}
+							out.close();
 						}catch (IOException ioe) {
 							Logger.getLogger().logError(ioe);
-						} 
+						} finally{
+							try{
+								in.close();
+							}catch (IOException ioe) {
+								Logger.getLogger().logError(ioe);
+							}
+						}
 					}
 					
-					ConnectorArtifactEdit edit = new ConnectorArtifactEdit(project, false, true);
+					ConnectorArtifactEdit edit = null;
 					try{
-						if( edit != null ){
-							Connector connector = edit.getConnector();
-							connector.setDisplayName(project.getName());
-							edit.saveIfNecessary(new NullProgressMonitor());
-						}
+						edit = new ConnectorArtifactEdit(project, false, true);
+						Connector connector = edit.getConnector();
+						connector.setDisplayName(project.getName());
+						edit.saveIfNecessary(new NullProgressMonitor());
 					}finally{
 						if( edit != null ){
 							edit.dispose();

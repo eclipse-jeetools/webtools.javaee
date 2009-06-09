@@ -72,6 +72,7 @@ public class NestedArchiveLoadStrategyImpl extends LoadStrategyImpl {
 	/**
 	 * @see com.ibm.etools.archive.impl.LoadStrategyImpl
 	 */
+	@Override
 	protected boolean primContains(String uri) {
 		if (usingIndex())
 			return containsUsingIndex(uri);
@@ -106,6 +107,7 @@ public class NestedArchiveLoadStrategyImpl extends LoadStrategyImpl {
 	/**
 	 * Used internally; clients should not need to call
 	 */
+	@Override
 	public FileIterator getFileIterator() throws IOException {
 		if (((Archive) getContainer()).getOptions().isReadOnly())
 			return new NestedArchiveIterator(getContainer().getFiles(), getZipInputStream());
@@ -115,6 +117,7 @@ public class NestedArchiveLoadStrategyImpl extends LoadStrategyImpl {
 	/**
 	 * @see com.ibm.etools.archive.impl.LoadStrategyImpl
 	 */
+	@Override
 	public java.util.List getFiles() {
 		List list = new ArrayList(500);
 		ZipInputStream zis = null;
@@ -147,6 +150,7 @@ public class NestedArchiveLoadStrategyImpl extends LoadStrategyImpl {
 	/**
 	 * @see com.ibm.etools.archive.impl.LoadStrategyImpl
 	 */
+	@Override
 	public java.io.InputStream getInputStream(String uri) throws IOException, FileNotFoundException {
 		if (usingIndex())
 			return getInputStreamUsingIndex(uri);

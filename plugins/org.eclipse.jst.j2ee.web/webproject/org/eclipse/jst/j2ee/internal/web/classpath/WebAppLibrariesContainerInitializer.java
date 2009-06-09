@@ -25,7 +25,8 @@ public final class WebAppLibrariesContainerInitializer
     extends FlexibleProjectContainerInitializer
 
 {
-    public void initialize( final IPath path, 
+    @Override
+	public void initialize( final IPath path, 
                             final IJavaProject jproj )
 
 	    throws CoreException

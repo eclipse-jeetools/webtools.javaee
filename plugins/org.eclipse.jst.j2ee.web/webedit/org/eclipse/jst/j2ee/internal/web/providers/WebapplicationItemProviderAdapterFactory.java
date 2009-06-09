@@ -217,10 +217,12 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 		supportedTypes.add(ITableItemLabelProvider.class);
 	}
 
+	@Override
 	public Adapter adapt(Notifier target, Object adapterKey) {
 		return super.adapt(target, this);
 	}
 
+	@Override
 	public Object adapt(Object object, Object type) {
 		if (isFactoryForType(type)) {
 			Object adapter = super.adapt(object, type);
@@ -232,6 +234,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 		return null;
 	}
 
+	@Override
 	public Adapter adaptNew(Notifier target, Object adapterType) {
 		Adapter adapter = super.adaptNew(target, adapterType);
 		disposable.add(adapter);
@@ -250,6 +253,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.AuthConstraint}.
 	 */
+	@Override
 	public Adapter createAuthConstraintAdapter() {
 		if (authConstraintItemProvider == null) {
 			authConstraintItemProvider = new AuthConstraintItemProvider(this);
@@ -261,6 +265,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.ContextParam}.
 	 */
+	@Override
 	public Adapter createContextParamAdapter() {
 		if (contextParamItemProvider == null) {
 			contextParamItemProvider = new ContextParamItemProvider(this);
@@ -272,6 +277,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.ErrorCodeErrorPage}.
 	 */
+	@Override
 	public Adapter createErrorCodeErrorPageAdapter() {
 		if (errorCodeErrorPageItemProvider == null) {
 			errorCodeErrorPageItemProvider = new ErrorCodeErrorPageItemProvider(this);
@@ -283,6 +289,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.ErrorPage}.
 	 */
+	@Override
 	public Adapter createErrorPageAdapter() {
 		if (errorPageItemProvider == null) {
 			errorPageItemProvider = new ErrorPageItemProvider(this);
@@ -294,6 +301,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.ExceptionTypeErrorPage}.
 	 */
+	@Override
 	public Adapter createExceptionTypeErrorPageAdapter() {
 		if (exceptionTypeErrorPageItemProvider == null) {
 			exceptionTypeErrorPageItemProvider = new ExceptionTypeErrorPageItemProvider(this);
@@ -305,6 +313,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.Filter}.
 	 */
+	@Override
 	public Adapter createFilterAdapter() {
 		if (filterItemProvider == null) {
 			filterItemProvider = new FilterItemProvider(this);
@@ -328,6 +337,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createLocalEncodingMappingListAdapter() {
 		if (localEncodingMappingListItemProvider == null) {
 			localEncodingMappingListItemProvider = new LocalEncodingMappingListItemProvider(this);
@@ -351,6 +361,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createLocalEncodingMappingAdapter() {
 		if (localEncodingMappingItemProvider == null) {
 			localEncodingMappingItemProvider = new LocalEncodingMappingItemProvider(this);
@@ -362,6 +373,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.FilterMapping}.
 	 */
+	@Override
 	public Adapter createFilterMappingAdapter() {
 		if (filterMappingItemProvider == null) {
 			filterMappingItemProvider = new FilterMappingItemProvider(this);
@@ -373,6 +385,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.FormLoginConfig}.
 	 */
+	@Override
 	public Adapter createFormLoginConfigAdapter() {
 		if (formLoginConfigItemProvider == null) {
 			formLoginConfigItemProvider = new FormLoginConfigItemProvider(this);
@@ -384,6 +397,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.HTTPMethodType}.
 	 */
+	@Override
 	public Adapter createHTTPMethodTypeAdapter() {
 		if (hTTPMethodTypeItemProvider == null) {
 			hTTPMethodTypeItemProvider = new HTTPMethodTypeItemProvider(this);
@@ -395,6 +409,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.InitParam}.
 	 */
+	@Override
 	public Adapter createInitParamAdapter() {
 		if (initParamItemProvider == null) {
 			initParamItemProvider = new InitParamItemProvider(this);
@@ -406,6 +421,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.Listener}.
 	 */
+	@Override
 	public Adapter createListenerAdapter() {
 		if (listenerItemProvider == null) {
 			listenerItemProvider = new ListenerItemProvider(this);
@@ -417,6 +433,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.JSPType}.
 	 */
+	@Override
 	public Adapter createJSPTypeAdapter() {
 		if (jSPTypeItemProvider == null) {
 			jSPTypeItemProvider = new JSPTypeItemProvider(this);
@@ -437,6 +454,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.LoginConfig}.
 	 */
+	@Override
 	public Adapter createLoginConfigAdapter() {
 		if (loginConfigItemProvider == null) {
 			loginConfigItemProvider = new LoginConfigItemProvider(this);
@@ -448,6 +466,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.MimeMapping}.
 	 */
+	@Override
 	public Adapter createMimeMappingAdapter() {
 		if (mimeMappingItemProvider == null) {
 			mimeMappingItemProvider = new MimeMappingItemProvider(this);
@@ -459,6 +478,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.RoleNameType}.
 	 */
+	@Override
 	public Adapter createRoleNameTypeAdapter() {
 		if (roleNameTypeItemProvider == null) {
 			roleNameTypeItemProvider = new RoleNameTypeItemProvider(this);
@@ -470,6 +490,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.SecurityConstraint}.
 	 */
+	@Override
 	public Adapter createSecurityConstraintAdapter() {
 		if (securityConstraintItemProvider == null) {
 			securityConstraintItemProvider = new SecurityConstraintItemProvider(this);
@@ -481,6 +502,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.Servlet}.
 	 */
+	@Override
 	public Adapter createServletAdapter() {
 		if (servletItemProvider == null) {
 			servletItemProvider = new ServletItemProvider(this);
@@ -492,6 +514,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.ServletMapping}.
 	 */
+	@Override
 	public Adapter createServletMappingAdapter() {
 		if (servletMappingItemProvider == null) {
 			servletMappingItemProvider = new ServletMappingItemProvider(this);
@@ -503,6 +526,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.ServletType}.
 	 */
+	@Override
 	public Adapter createServletTypeAdapter() {
 		if (servletTypeItemProvider == null) {
 			servletTypeItemProvider = new ServletTypeItemProvider(this);
@@ -523,6 +547,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.SessionConfig}.
 	 */
+	@Override
 	public Adapter createSessionConfigAdapter() {
 		if (sessionConfigItemProvider == null) {
 			sessionConfigItemProvider = new SessionConfigItemProvider(this);
@@ -534,6 +559,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.TagLibRef}.
 	 */
+	@Override
 	public Adapter createTagLibRefAdapter() {
 		if (tagLibRefItemProvider == null) {
 			tagLibRefItemProvider = new TagLibRefItemProvider(this);
@@ -545,6 +571,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.TagLibRef}.
 	 */
+	@Override
 	public Adapter createTagLibRefTypeAdapter() {
 		if (tagLibRefTypeItemProvider == null) {
 			tagLibRefTypeItemProvider = new TagLibRefTypeItemProvider(this);
@@ -556,6 +583,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.URLPatternType}.
 	 */
+	@Override
 	public Adapter createURLPatternTypeAdapter() {
 		if (uRLPatternTypeItemProvider == null) {
 			uRLPatternTypeItemProvider = new URLPatternTypeItemProvider(this);
@@ -576,6 +604,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.UserDataConstraint}.
 	 */
+	@Override
 	public Adapter createUserDataConstraintAdapter() {
 		if (userDataConstraintItemProvider == null) {
 			userDataConstraintItemProvider = new UserDataConstraintItemProvider(this);
@@ -587,6 +616,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.WebApp}.
 	 */
+	@Override
 	public Adapter createWebAppAdapter() {
 		if (webAppItemProvider == null) {
 			webAppItemProvider = new WebAppItemProvider(this);
@@ -598,6 +628,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.WebResourceCollection}.
 	 */
+	@Override
 	public Adapter createWebResourceCollectionAdapter() {
 		if (webResourceCollectionItemProvider == null) {
 			webResourceCollectionItemProvider = new WebResourceCollectionItemProvider(this);
@@ -609,6 +640,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.WebType}.
 	 */
+	@Override
 	public Adapter createWebTypeAdapter() {
 		if (webTypeItemProvider == null) {
 			webTypeItemProvider = new WebTypeItemProvider(this);
@@ -620,6 +652,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.WelcomeFile}.
 	 */
+	@Override
 	public Adapter createWelcomeFileAdapter() {
 		if (welcomeFileItemProvider == null) {
 			welcomeFileItemProvider = new WelcomeFileItemProvider(this);
@@ -631,6 +664,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 	/**
 	 * This creates an adapter for a {@link org.eclipse.jst.j2ee.internal.internal.webapplication.WelcomeFileList}.
 	 */
+	@Override
 	public Adapter createWelcomeFileListAdapter() {
 		if (welcomeFileListItemProvider == null) {
 			welcomeFileListItemProvider = new WelcomeFileListItemProvider(this);
@@ -650,6 +684,7 @@ public class WebapplicationItemProviderAdapterFactory extends WebapplicationAdap
 		return (parentAdapterFactory == null ? this : parentAdapterFactory.getRootAdapterFactory());
 	}
 
+	@Override
 	public boolean isFactoryForType(Object type) {
 		return super.isFactoryForType(type) || supportedTypes.contains(type);
 	}

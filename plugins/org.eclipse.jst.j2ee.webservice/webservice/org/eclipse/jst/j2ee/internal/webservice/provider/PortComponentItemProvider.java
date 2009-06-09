@@ -62,6 +62,7 @@ public class PortComponentItemProvider extends ItemProviderAdapter implements IE
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -171,6 +172,7 @@ public class PortComponentItemProvider extends ItemProviderAdapter implements IE
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -189,6 +191,7 @@ public class PortComponentItemProvider extends ItemProviderAdapter implements IE
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected EReference getChildReference(Object object, Object child) {
 		// Check the type of the specified child object and return the proper feature to use for
 		// adding (see {@link AddCommand}) it as a child.
@@ -223,6 +226,7 @@ public class PortComponentItemProvider extends ItemProviderAdapter implements IE
 	 * 
 	 * @non-generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return getResourceLocator().getImage("icons/obj16/portcomponent.gif"); //$NON-NLS-1$
 	}
@@ -233,6 +237,7 @@ public class PortComponentItemProvider extends ItemProviderAdapter implements IE
 	 * 
 	 * @non-generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((PortComponent) object).getPortComponentName();
 		return label == null || label.length() == 0 ? getString("%_UI_PortComponent_type") : label; //$NON-NLS-1$
@@ -244,6 +249,7 @@ public class PortComponentItemProvider extends ItemProviderAdapter implements IE
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(PortComponent.class)) {
 			case WsddPackage.PORT_COMPONENT__PORT_COMPONENT_NAME :
@@ -272,6 +278,7 @@ public class PortComponentItemProvider extends ItemProviderAdapter implements IE
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -292,6 +299,7 @@ public class PortComponentItemProvider extends ItemProviderAdapter implements IE
 	 * Return the resource locator for this item provider's resources. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return WebServicePlugin.getInstance();
 	}
@@ -301,6 +309,7 @@ public class PortComponentItemProvider extends ItemProviderAdapter implements IE
 	 * {@link ITreeItemContentProvider#getChildren ITreeItemContentProvider.getChildren}by calling
 	 * {@link #getChildrenReferences getChildrenReferences}and using those to collect the children.
 	 */
+	@Override
 	public Collection getChildren(Object object) {
 		if (object instanceof EList)
 			return getChildrenFromEList((EList) object);

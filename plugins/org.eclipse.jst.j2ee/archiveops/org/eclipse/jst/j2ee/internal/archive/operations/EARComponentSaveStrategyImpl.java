@@ -39,6 +39,7 @@ public class EARComponentSaveStrategyImpl extends ComponentSaveStrategyImpl {
 		super(component);
 	}
 
+	@Override
 	public void setDataModel(IDataModel dataModel) {
 		super.setDataModel(dataModel);
 
@@ -90,10 +91,12 @@ public class EARComponentSaveStrategyImpl extends ComponentSaveStrategyImpl {
 	}
 
 
+	@Override
 	protected java.io.OutputStream getOutputStreamForResource(org.eclipse.emf.ecore.resource.Resource aResource) throws java.io.IOException {
 		return null;
 	}
 
+	@Override
 	public void save() throws SaveFailureException {
 
 		saveFiles();
@@ -104,6 +107,7 @@ public class EARComponentSaveStrategyImpl extends ComponentSaveStrategyImpl {
 
 	}
 
+	@Override
 	public void save(Archive anArchive) throws SaveFailureException {
 		progressMonitor.subTask(anArchive.getURI());
 		saveArchiveAsJARInEAR(anArchive);
@@ -126,6 +130,7 @@ public class EARComponentSaveStrategyImpl extends ComponentSaveStrategyImpl {
 		progressMonitor = newMonitor;
 	}
 
+	@Override
 	protected boolean shouldSave(File aFile) {
 		if (aFile.isArchive()) {
 			return getFilter().shouldSave(aFile.getURI(), getArchive());
@@ -133,6 +138,7 @@ public class EARComponentSaveStrategyImpl extends ComponentSaveStrategyImpl {
 		return super.shouldSave(aFile);
 	}
 
+	@Override
 	protected boolean shouldLinkAsComponentRef(Archive archive) {
 		if (null != dataModel) {
 			List list = (List) dataModel.getProperty(IEARComponentImportDataModelProperties.HANDLED_PROJECT_MODELS_LIST);
@@ -145,6 +151,7 @@ public class EARComponentSaveStrategyImpl extends ComponentSaveStrategyImpl {
 		return true;
 	}
 
+	@Override
 	protected boolean shouldSave(String uri) {
 		if (overwriteHandler != null) {
 			if (overwriteHandler.isOverwriteNone())
@@ -154,6 +161,7 @@ public class EARComponentSaveStrategyImpl extends ComponentSaveStrategyImpl {
 		return true;
 	}
 
+	@Override
 	public void save(ArchiveManifest aManifest) throws SaveFailureException {
 		IVirtualFolder rootFolder = vComponent.getRootFolder();
 		IVirtualFile vFile = rootFolder.getFile(new Path(J2EEConstants.MANIFEST_URI));

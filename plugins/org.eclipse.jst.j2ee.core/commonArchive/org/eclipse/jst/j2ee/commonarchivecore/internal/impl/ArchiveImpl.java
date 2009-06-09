@@ -115,6 +115,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return CommonarchivePackage.Literals.ARCHIVE;
 	}
@@ -135,6 +136,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case CommonarchivePackage.ARCHIVE__TYPES:
@@ -148,6 +150,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case CommonarchivePackage.ARCHIVE__TYPES:
@@ -163,6 +166,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case CommonarchivePackage.ARCHIVE__TYPES:
@@ -177,6 +181,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case CommonarchivePackage.ARCHIVE__TYPES:
@@ -189,6 +194,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
@@ -642,6 +648,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	/**
 	 * @see com.ibm.etools.commonarchive.File
 	 */
+	@Override
 	public java.io.InputStream getInputStream() throws java.io.FileNotFoundException, java.io.IOException {
 		if (getLoadingContainer() != null || getLoadStrategy() == null || getLoadStrategy().isDirectory())
 			return super.getInputStream();
@@ -862,6 +869,7 @@ public class ArchiveImpl extends ContainerImpl implements Archive {
 	/**
 	 * @see com.ibm.etools.commonarchive.File
 	 */
+	@Override
 	public boolean isArchive() {
 		return true;
 	}

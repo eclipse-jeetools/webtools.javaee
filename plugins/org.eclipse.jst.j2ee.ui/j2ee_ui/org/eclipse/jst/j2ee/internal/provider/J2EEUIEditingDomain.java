@@ -35,6 +35,7 @@ public class J2EEUIEditingDomain extends J2EEEditingDomain {
 		turnTraceOnIfDebugging();
 	}
 
+	@Override
 	protected Command createCopyToClipboardOverrideCommand(CopyToClipboardCommand copyToClipboardCommand) {
 
 		if (copyToClipboardCommand instanceof J2EECopyToClipboardOverrideCommand)
@@ -42,6 +43,7 @@ public class J2EEUIEditingDomain extends J2EEEditingDomain {
 		return new J2EECopyToClipboardOverrideCommand(copyToClipboardCommand);
 	}
 
+	@Override
 	protected Command createPasteFromClipboardOverrideCommand(PasteFromClipboardCommand pasteFromClipboardCommand) {
 		if (pasteFromClipboardCommand instanceof J2EEPasteFromClipboardOverrideCommand)
 			return null;
@@ -50,6 +52,7 @@ public class J2EEUIEditingDomain extends J2EEEditingDomain {
 		return new J2EEPasteFromClipboardOverrideCommand(pasteFromClipboardCommand);
 	}
 
+	@Override
 	protected Command createRemoveOverrideCommand(RemoveCommand removeCommand) {
 		return new J2EERemoveOverrideCommand(removeCommand);
 	}
@@ -58,6 +61,7 @@ public class J2EEUIEditingDomain extends J2EEEditingDomain {
 		return (J2EEClipboard) getClipboard();
 	}
 
+	@Override
 	public Object getParent(Object object) {
 		Object parent = super.getParent(object);
 		if (parent != null)

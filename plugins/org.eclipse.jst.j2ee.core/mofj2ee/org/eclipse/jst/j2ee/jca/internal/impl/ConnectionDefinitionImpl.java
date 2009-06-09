@@ -169,6 +169,7 @@ public class ConnectionDefinitionImpl extends J2EEEObjectImpl implements Connect
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return JcaPackage.Literals.CONNECTION_DEFINITION;
 	}
@@ -295,6 +296,7 @@ public class ConnectionDefinitionImpl extends J2EEEObjectImpl implements Connect
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case JcaPackage.CONNECTION_DEFINITION__CONFIG_PROPERTIES:
@@ -308,6 +310,7 @@ public class ConnectionDefinitionImpl extends J2EEEObjectImpl implements Connect
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case JcaPackage.CONNECTION_DEFINITION__MANAGED_CONNECTION_FACTORY_CLASS:
@@ -331,6 +334,7 @@ public class ConnectionDefinitionImpl extends J2EEEObjectImpl implements Connect
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case JcaPackage.CONNECTION_DEFINITION__MANAGED_CONNECTION_FACTORY_CLASS:
@@ -361,6 +365,7 @@ public class ConnectionDefinitionImpl extends J2EEEObjectImpl implements Connect
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case JcaPackage.CONNECTION_DEFINITION__MANAGED_CONNECTION_FACTORY_CLASS:
@@ -390,6 +395,7 @@ public class ConnectionDefinitionImpl extends J2EEEObjectImpl implements Connect
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case JcaPackage.CONNECTION_DEFINITION__MANAGED_CONNECTION_FACTORY_CLASS:
@@ -413,6 +419,7 @@ public class ConnectionDefinitionImpl extends J2EEEObjectImpl implements Connect
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

@@ -38,6 +38,7 @@ public class CMPVersionTranslator extends Translator implements EjbDeploymentDes
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.Translator#getMOFValue(org.eclipse.emf.ecore.EObject)
 	 */
+	@Override
 	public Object getMOFValue(EObject mofObject) {
 		EJBJar parent = ((ContainerManagedEntity)mofObject).getEjbJar();
 		if (parent.getVersionID() >= J2EEVersionConstants.EJB_2_0_ID)

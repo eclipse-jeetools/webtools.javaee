@@ -82,7 +82,8 @@ public class JaxrpcmapFactoryImpl extends EFactoryImpl implements JaxrpcmapFacto
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EObject create(EClass eClass) {
+  @Override
+public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case JaxrpcmapPackage.JAVA_WSDL_MAPPING: return createJavaWSDLMapping();
 			case JaxrpcmapPackage.PACKAGE_MAPPING: return createPackageMapping();

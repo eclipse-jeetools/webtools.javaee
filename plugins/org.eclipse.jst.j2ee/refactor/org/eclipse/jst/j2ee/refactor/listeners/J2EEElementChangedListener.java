@@ -145,6 +145,7 @@ public class J2EEElementChangedListener implements IElementChangedListener {
 		// If there are corrections to the virtual path mappings, execute them in a Job
 		if (!pathsToAdd.isEmpty() || !pathsToRemove.isEmpty()) {
 			WorkspaceJob job = new WorkspaceJob("J2EEComponentMappingUpdateJob") {							
+				@Override
 				public IStatus runInWorkspace(IProgressMonitor monitor) throws CoreException {
 					for(int i=0;i<pathsToAdd.size(); i++){
 						Object[] toAdd = (Object[]) pathsToAdd.get(i);
@@ -160,6 +161,7 @@ public class J2EEElementChangedListener implements IElementChangedListener {
 					}
 					return Status.OK_STATUS;
 				}
+				@Override
 				public boolean belongsTo(final Object family) {
 					return PROJECT_COMPONENT_UPDATE_JOB_FAMILY.equals(family);
 				}

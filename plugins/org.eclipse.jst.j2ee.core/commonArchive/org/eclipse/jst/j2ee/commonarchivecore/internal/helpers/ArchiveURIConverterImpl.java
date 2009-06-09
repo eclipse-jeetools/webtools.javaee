@@ -65,6 +65,7 @@ public class ArchiveURIConverterImpl extends URIConverterImpl {
 		return archive;
 	}
 
+	@Override
 	public InputStream createInputStream(URI uri) throws IOException {
 		InputStream in = null;
 		if (resourcesPath != null)
@@ -99,6 +100,7 @@ public class ArchiveURIConverterImpl extends URIConverterImpl {
 		setOutputFilepath(resourcesPath);
 	}
 
+	@Override
 	public URI normalize(URI uri) {
 		return ((URIConverterImpl.URIMap)getURIMap()).getURI(uri);
 	}
@@ -268,6 +270,7 @@ public class ArchiveURIConverterImpl extends URIConverterImpl {
 	 * @param uri
 	 *            The uri
 	 */
+	@Override
 	public OutputStream createOutputStream(URI uri) throws IOException {
 		URI converted = uri;
 		if (platformProtocol.equals(converted.scheme())) {

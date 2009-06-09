@@ -167,6 +167,7 @@ public class J2EECompoundCommand extends CompoundCommand {
 		super(commandList);
 	}
 
+	@Override
 	protected Collection getMergedAffectedObjectsCollection() {
 		J2EEClipboard result = new J2EEClipboard(new ArrayList());
 
@@ -178,6 +179,7 @@ public class J2EECompoundCommand extends CompoundCommand {
 		return result;
 	}
 
+	@Override
 	protected Collection getMergedResultCollection() {
 		J2EEClipboard result = new J2EEClipboard(new ArrayList());
 

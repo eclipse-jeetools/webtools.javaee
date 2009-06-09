@@ -61,6 +61,7 @@ public class JspAdapterFactory extends AdapterFactoryImpl
 	 * @return whether this factory is applicable for the type of the object.
 	 * @generated
 	 */
+	@Override
 	public boolean isFactoryForType(Object object) {
 		if (object == modelPackage) {
 			return true;
@@ -79,24 +80,31 @@ public class JspAdapterFactory extends AdapterFactoryImpl
 	 */
 	protected JspSwitch modelSwitch =
 		new JspSwitch() {
+			@Override
 			public Object caseJSPConfig(JSPConfig object) {
 				return createJSPConfigAdapter();
 			}
+			@Override
 			public Object caseJSPPropertyGroup(JSPPropertyGroup object) {
 				return createJSPPropertyGroupAdapter();
 			}
+			@Override
 			public Object caseTagLibRefType(TagLibRefType object) {
 				return createTagLibRefTypeAdapter();
 			}
+			@Override
 			public Object caseJ2EEEObject(J2EEEObject object) {
 				return createJ2EEEObjectAdapter();
 			}
+			@Override
 			public Object caseDescriptionGroup(DescriptionGroup object) {
 				return createDescriptionGroupAdapter();
 			}
+			@Override
 			public Object caseCompatibilityDescriptionGroup(CompatibilityDescriptionGroup object) {
 				return createCompatibilityDescriptionGroupAdapter();
 			}
+			@Override
 			public Object defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -110,6 +118,7 @@ public class JspAdapterFactory extends AdapterFactoryImpl
 	 * @return the adapter for the <code>target</code>.
 	 * @generated
 	 */
+	@Override
 	public Adapter createAdapter(Notifier target) {
 		return (Adapter)modelSwitch.doSwitch((EObject)target);
 	}

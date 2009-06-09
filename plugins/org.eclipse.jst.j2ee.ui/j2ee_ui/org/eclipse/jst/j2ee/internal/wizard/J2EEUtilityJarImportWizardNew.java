@@ -12,7 +12,6 @@ package org.eclipse.jst.j2ee.internal.wizard;
 
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEUtilityJarListImportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
-import org.eclipse.ui.IImportWizard;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 import org.eclipse.wst.project.facet.IProductConstants;
@@ -26,7 +25,7 @@ import org.eclipse.wst.project.facet.ProductManager;
  * the EAR module.
  * </p>
  */
-public final class J2EEUtilityJarImportWizardNew extends J2EEArtifactImportWizard implements IImportWizard {
+public final class J2EEUtilityJarImportWizardNew extends J2EEArtifactImportWizard{
 
 	/**
 	 * <p>
@@ -79,15 +78,18 @@ public final class J2EEUtilityJarImportWizardNew extends J2EEArtifactImportWizar
 	 * </ul>
 	 * </p>
 	 */
+	@Override
 	public void doAddPages() {
 		this.addPage(new J2EEUtilityJarImportTypePageNew(getDataModel(), IMPORT_TYPE, getSelection()));
 		this.addPage(new J2EEUtilityJarImportPageNew(getDataModel(), SELECT_JARS));
 	}
 
+	@Override
 	protected IDataModelProvider getDefaultProvider() {
 		return new J2EEUtilityJarListImportDataModelProvider();
 	}
 	
+	@Override
 	protected String getFinalPerspectiveID() {
         return ProductManager.getProperty(IProductConstants.FINAL_PERSPECTIVE_UTILITY);
 	}

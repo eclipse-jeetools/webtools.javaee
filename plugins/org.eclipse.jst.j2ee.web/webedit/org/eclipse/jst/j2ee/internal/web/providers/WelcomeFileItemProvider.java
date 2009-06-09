@@ -44,6 +44,7 @@ public class WelcomeFileItemProvider extends WebapplicationItemProviderAdapter i
 	/**
 	 * This returns welcome_file.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return WebPlugin.getDefault().getImage("welcome_file");//$NON-NLS-1$
 	}
@@ -51,6 +52,7 @@ public class WelcomeFileItemProvider extends WebapplicationItemProviderAdapter i
 	/**
 	 * This returns the fileList of the WelcomeFile.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((WelcomeFile) object).getFileList();
 	}
@@ -58,6 +60,7 @@ public class WelcomeFileItemProvider extends WebapplicationItemProviderAdapter i
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -87,6 +90,7 @@ public class WelcomeFileItemProvider extends WebapplicationItemProviderAdapter i
 	}
 
 
+	@Override
 	public String getText(Object object) {
 		WelcomeFile welcomeFile = (WelcomeFile) object;
 		String name = welcomeFile.getWelcomeFile();
@@ -101,6 +105,7 @@ public class WelcomeFileItemProvider extends WebapplicationItemProviderAdapter i
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(WelcomeFile.class)) {
 			case WebapplicationPackage.WELCOME_FILE__WELCOME_FILE : {
@@ -118,6 +123,7 @@ public class WelcomeFileItemProvider extends WebapplicationItemProviderAdapter i
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -128,6 +134,7 @@ public class WelcomeFileItemProvider extends WebapplicationItemProviderAdapter i
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}
@@ -138,6 +145,7 @@ public class WelcomeFileItemProvider extends WebapplicationItemProviderAdapter i
 	 * to return the empty enumeration, and this to check that enumeration, but we know there can't
 	 * be any children, so this is faster.
 	 */
+	@Override
 	public boolean hasChildren(Object object) {
 		return false;
 	}

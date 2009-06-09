@@ -54,6 +54,7 @@ public class MethodPermissionsContentProvider extends AbstractMethodsContentProv
 	/*
 	 * @see ITreeContentProvider#getChildren(Object)
 	 */
+	@Override
 	public Object[] getChildren(Object parentElement) {
 		if (parentElement instanceof MethodPermission)
 			return getEnterpriseBeans((MethodPermission) parentElement);
@@ -68,18 +69,18 @@ public class MethodPermissionsContentProvider extends AbstractMethodsContentProv
 	/*
 	 * @see AbstractMethodsContentProvider#getMethodElements(EObject, EnterpriseBean)
 	 */
+	@Override
 	protected List getMethodElements(EObject aRefObject, EnterpriseBean anEJB) {
-		if (!(aRefObject instanceof MethodPermission))
+		if (aRefObject == null || !(aRefObject instanceof MethodPermission))
 			return Collections.EMPTY_LIST;
 		MethodPermission parentMP = (MethodPermission) aRefObject;
-		if (parentMP == null)
-			return Collections.EMPTY_LIST;
 		return parentMP.getMethodElements(anEJB);
 	}
 
 	/*
 	 * @see IStructuredContentProvider#getElements(Object)
 	 */
+	@Override
 	public Object[] getElements(Object inputElement) {
 		super.getElements(inputElement);
 		if (inputElement instanceof EJBJar) {
@@ -95,6 +96,7 @@ public class MethodPermissionsContentProvider extends AbstractMethodsContentProv
 	/*
 	 * @see ITreeContentProvider#hasChildren(Object)
 	 */
+	@Override
 	public boolean hasChildren(Object element) {
 		if (element instanceof MethodPermission)
 			return !((MethodPermission) element).getMethodElements().isEmpty();
@@ -104,6 +106,7 @@ public class MethodPermissionsContentProvider extends AbstractMethodsContentProv
 	/*
 	 * @see AbstractMethodsContentProvider#getMethodElementsReference()
 	 */
+	@Override
 	protected EStructuralFeature getMethodElementsReference() {
 		return PERMISSION_MES_SF;
 	}
@@ -111,6 +114,7 @@ public class MethodPermissionsContentProvider extends AbstractMethodsContentProv
 	/**
 	 * @see org.eclipse.jst.j2ee.internal.internal.ejb.ui.providers.AbstractMethodsContentProvider#getMethodElementsContainerReference()
 	 */
+	@Override
 	protected EStructuralFeature getMethodElementsContainerReference() {
 		return AD_MP_SF;
 	}
@@ -118,6 +122,7 @@ public class MethodPermissionsContentProvider extends AbstractMethodsContentProv
 	/**
 	 * @see org.eclipse.emf.edit.provider.INotifyChangedListener#notifyChanged(Notification)
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		if (notification.getFeature() == PERMISSION_MES_SF || notification.getFeature() == AD_MP_SF)
 			refreshTreeViewer();

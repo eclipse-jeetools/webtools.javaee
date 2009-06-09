@@ -57,6 +57,7 @@ public abstract class AbstractOpenAction extends SelectionListenerAction impleme
 	 * @param sel
 	 *            the new structured selection
 	 */
+	@Override
 	public boolean updateSelection(IStructuredSelection s) {
 		srcObject = null;
 		if (!super.updateSelection(s))

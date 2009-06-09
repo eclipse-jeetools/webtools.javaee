@@ -70,6 +70,7 @@ public final class BMPRemoteComponentVRule extends AComponentVRule implements IR
 		return MESSAGE_IDS;
 	}
 	
+	@Override
 	public final int getMessageRemoteExceptionSeverity() {
 		return MESSAGE_REMOTE_EXCEPTION_SEVERITY;
 	}
@@ -82,6 +83,7 @@ public final class BMPRemoteComponentVRule extends AComponentVRule implements IR
 		return ID;
 	}
 
+	@Override
 	public final long[] getBaseTypes() {
 		return getSupertypes();
 	}

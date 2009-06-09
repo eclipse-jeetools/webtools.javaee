@@ -71,6 +71,7 @@ public abstract class ModuleRefImpl extends J2EEEObjectImpl implements ModuleRef
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return CommonarchivePackage.Literals.MODULE_REF;
 	}
@@ -292,6 +293,7 @@ public abstract class ModuleRefImpl extends J2EEEObjectImpl implements ModuleRef
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case CommonarchivePackage.MODULE_REF__EAR_FILE:
@@ -307,6 +309,7 @@ public abstract class ModuleRefImpl extends J2EEEObjectImpl implements ModuleRef
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case CommonarchivePackage.MODULE_REF__EAR_FILE:
@@ -320,6 +323,7 @@ public abstract class ModuleRefImpl extends J2EEEObjectImpl implements ModuleRef
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case CommonarchivePackage.MODULE_REF__EAR_FILE:
@@ -333,6 +337,7 @@ public abstract class ModuleRefImpl extends J2EEEObjectImpl implements ModuleRef
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case CommonarchivePackage.MODULE_REF__MODULE_FILE:
@@ -352,6 +357,7 @@ public abstract class ModuleRefImpl extends J2EEEObjectImpl implements ModuleRef
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case CommonarchivePackage.MODULE_REF__MODULE_FILE:
@@ -372,6 +378,7 @@ public abstract class ModuleRefImpl extends J2EEEObjectImpl implements ModuleRef
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case CommonarchivePackage.MODULE_REF__MODULE_FILE:
@@ -392,6 +399,7 @@ public abstract class ModuleRefImpl extends J2EEEObjectImpl implements ModuleRef
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case CommonarchivePackage.MODULE_REF__MODULE_FILE:

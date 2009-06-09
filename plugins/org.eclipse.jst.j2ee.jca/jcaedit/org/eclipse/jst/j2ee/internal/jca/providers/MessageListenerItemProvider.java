@@ -54,6 +54,7 @@ public class MessageListenerItemProvider extends ItemProviderAdapter implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -83,6 +84,7 @@ public class MessageListenerItemProvider extends ItemProviderAdapter implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -97,6 +99,7 @@ public class MessageListenerItemProvider extends ItemProviderAdapter implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return getResourceLocator().getImage("full/obj16/MessageListener"); //$NON-NLS-1$
 	}
@@ -107,6 +110,7 @@ public class MessageListenerItemProvider extends ItemProviderAdapter implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((MessageListener) object).getMessageListenerType();
 		return label == null || label.length() == 0 ? JCAResourceHandler._UI_MessageListener_type : 
@@ -119,6 +123,7 @@ public class MessageListenerItemProvider extends ItemProviderAdapter implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(MessageListener.class)) {
 			case JcaPackage.MESSAGE_LISTENER__MESSAGE_LISTENER_TYPE :
@@ -137,6 +142,7 @@ public class MessageListenerItemProvider extends ItemProviderAdapter implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -149,6 +155,7 @@ public class MessageListenerItemProvider extends ItemProviderAdapter implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		//return J2EEPlugin.getDefault();
 		return JcaPlugin.getPlugin();

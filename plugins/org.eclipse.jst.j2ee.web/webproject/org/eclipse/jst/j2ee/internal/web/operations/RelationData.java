@@ -55,6 +55,7 @@ public class RelationData {
 		 * 
 		 * @return Created clone object
 		 */
+		@Override
 		public Object clone() {
 			return new Link(url, occurrences);
 		}
@@ -82,6 +83,7 @@ public class RelationData {
 			return occurrences;
 		}
 
+		@Override
 		public String toString() {
 			return url;
 		}

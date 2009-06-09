@@ -53,6 +53,7 @@ public class WebServicesClientItemProvider extends ItemProviderAdapter implement
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -69,6 +70,7 @@ public class WebServicesClientItemProvider extends ItemProviderAdapter implement
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -83,6 +85,7 @@ public class WebServicesClientItemProvider extends ItemProviderAdapter implement
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected EReference getChildReference(Object object, Object child) {
 		// Check the type of the specified child object and return the proper feature to use for
 		// adding (see {@link AddCommand}) it as a child.
@@ -96,6 +99,7 @@ public class WebServicesClientItemProvider extends ItemProviderAdapter implement
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return getResourceLocator().getImage("full/obj16/WebServicesClient"); //$NON-NLS-1$
 	}
@@ -107,6 +111,7 @@ public class WebServicesClientItemProvider extends ItemProviderAdapter implement
 	 * @non-generated
 	 */
 
+	@Override
 	public String getText(Object object) {
 		//return getString("_UI_WebServicesClient_type");
 		return getString("%_UI_WebServicesClient_type"); //$NON-NLS-1$
@@ -118,6 +123,7 @@ public class WebServicesClientItemProvider extends ItemProviderAdapter implement
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(WebServicesClient.class)) {
 			case Webservice_clientPackage.WEB_SERVICES_CLIENT__COMPONENT_SCOPED_REFS :
@@ -136,6 +142,7 @@ public class WebServicesClientItemProvider extends ItemProviderAdapter implement
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -148,6 +155,7 @@ public class WebServicesClientItemProvider extends ItemProviderAdapter implement
 	 * Return the resource locator for this item provider's resources. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return WebServicePlugin.getInstance();
 	}

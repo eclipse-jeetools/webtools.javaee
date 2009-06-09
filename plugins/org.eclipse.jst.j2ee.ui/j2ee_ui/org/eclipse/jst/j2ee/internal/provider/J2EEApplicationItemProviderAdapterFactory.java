@@ -27,6 +27,7 @@ public class J2EEApplicationItemProviderAdapterFactory extends ApplicationItemPr
 	/**
 	 * @see ApplicationAdapterFactory#createApplicationAdapter()
 	 */
+	@Override
 	public Adapter createApplicationAdapter() {
 		return new J2EEApplicationItemProvider(this);
 	}

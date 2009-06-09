@@ -39,6 +39,7 @@ public class EAR5ModelProvider extends JEE5ModelProvider implements IEARModelPro
 		this.proj = proj;
 		setDefaultResourcePath(new Path(J2EEConstants.APPLICATION_DD_URI));
 	}
+	@Override
 	protected String getContentTypeDescriber() {
 		return EAR5_CONTENT_TYPE;
 	}
@@ -46,6 +47,7 @@ public class EAR5ModelProvider extends JEE5ModelProvider implements IEARModelPro
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.model.IModelProvider#getModelObject(org.eclipse.core.runtime.IPath)
 	 */
+	@Override
 	public Object getModelObject(IPath modelPath) {
 		IApplicationResource earRes = (IApplicationResource)getModelResource(modelPath);
 		if (earRes != null && earRes.getRootObject() != null) 
@@ -75,12 +77,13 @@ public class EAR5ModelProvider extends JEE5ModelProvider implements IEARModelPro
 		IVirtualComponent webComp = ComponentCore.createComponent(webProject);
 		String webModuleURI = getModuleURI(webComp);
 		if (webModuleURI != null) {
-			Module webModule = (Module) ((Application)getModelObject()).getModule(webModuleURI, null);
+			Module webModule = ((Application)getModelObject()).getModule(webModuleURI, null);
 			if (webModule != null)
 				return webModule.getWeb().getContextRoot();
 		}
 		return null;
 	}
+	@Override
 	public void populateRoot(XMLResourceImpl res, String name) {
 		ApplicationDeploymentDescriptor dd = ApplicationFactory.eINSTANCE.createApplicationDeploymentDescriptor();
 		dd.getXMLNSPrefixMap().put("", J2EEConstants.JAVAEE_NS_URL);  //$NON-NLS-1$

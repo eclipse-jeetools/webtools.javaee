@@ -52,6 +52,7 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelListener;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
+import org.eclipse.jst.j2ee.internal.wizard.J2EEWizardNLS;
 
 /**
  * @author cbridgha
@@ -114,6 +115,7 @@ public abstract class J2EEExportPage extends DataModelWizardPage {
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#getValidationPropertyNames()
 	 */
+	@Override
 	protected String[] getValidationPropertyNames() {
 		return null;
 	}
@@ -123,6 +125,7 @@ public abstract class J2EEExportPage extends DataModelWizardPage {
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#createTopLevelComposite(org.eclipse.swt.widgets.Composite)
 	 */
+	@Override
 	protected Composite createTopLevelComposite(Composite parent) {
 
 		Composite composite = new Composite(parent, SWT.NULL);
@@ -194,10 +197,11 @@ public abstract class J2EEExportPage extends DataModelWizardPage {
 
         // destination browse button
         destinationBrowseButton = new Button(parent, SWT.PUSH);
-        destinationBrowseButton.setText(defBrowseButtonLabel); //$NON-NLS-1$
+        destinationBrowseButton.setText(defBrowseButtonLabel);
         destinationBrowseButton.setLayoutData((new GridData(GridData.FILL_HORIZONTAL)));
         destinationBrowseButton.addSelectionListener(new SelectionAdapter() {
-            public void widgetSelected(SelectionEvent e) {
+            @Override
+			public void widgetSelected(SelectionEvent e) {
                 handleDestinationBrowseButtonPressed();
             }
         });
@@ -213,7 +217,7 @@ public abstract class J2EEExportPage extends DataModelWizardPage {
     	group.setText( LABEL_RUNTIME );
 
     	this.optimizeForRuntimeCheckbox = new Button( group, SWT.CHECK );
-    	this.optimizeForRuntimeCheckbox.setText( "Optimize for a specific server runtime" );
+    	this.optimizeForRuntimeCheckbox.setText( J2EEWizardNLS.J2EEExportPage_Optimize_for_a_specific_server_runt_ );
     	this.synchHelper.synchCheckbox( this.optimizeForRuntimeCheckbox, IJ2EEComponentExportDataModelProperties.OPTIMIZE_FOR_SPECIFIC_RUNTIME, null );
     	
     	final GridData gd = new GridData();
@@ -344,14 +348,14 @@ public abstract class J2EEExportPage extends DataModelWizardPage {
 	protected void createOverwriteExistingFilesCheckbox(Composite optionsGroup) {
 		//Overwrite checkbox
 		overwriteExistingFilesCheckbox = new Button(optionsGroup, SWT.CHECK | SWT.LEFT);
-		overwriteExistingFilesCheckbox.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.J2EE_EXPORT_OVERWRITE_CHECKBOX)); //$NON-NLS-1$ = "Overwrite existing files without warning"
+		overwriteExistingFilesCheckbox.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.J2EE_EXPORT_OVERWRITE_CHECKBOX)); 
 		overwriteExistingFilesCheckbox.setEnabled(true);
 		synchHelper.synchCheckbox(overwriteExistingFilesCheckbox, IJ2EEComponentExportDataModelProperties.OVERWRITE_EXISTING, null);
 	}
 
 	protected void createSourceFilesCheckbox(Composite optionsGroup) {
 		sourceFilesCheckbox = new Button(optionsGroup, SWT.CHECK | SWT.LEFT);
-		sourceFilesCheckbox.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.J2EE_EXPORT_SOURCE_CHECKBOX)); //$NON-NLS-1$
+		sourceFilesCheckbox.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.J2EE_EXPORT_SOURCE_CHECKBOX));
 		synchHelper.synchCheckbox(sourceFilesCheckbox, IJ2EEComponentExportDataModelProperties.EXPORT_SOURCE_FILES, null);
 	}
 
@@ -443,6 +447,7 @@ public abstract class J2EEExportPage extends DataModelWizardPage {
 		}
 	}
 
+	@Override
 	public void storeDefaultSettings() {
 		IDialogSettings settings = getDialogSettings();
 		if (settings != null) {
@@ -491,6 +496,7 @@ public abstract class J2EEExportPage extends DataModelWizardPage {
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#enter()
 	 */
+	@Override
 	protected void enter() {
 		super.enter();
 		restoreWidgetValues();
@@ -528,6 +534,7 @@ public abstract class J2EEExportPage extends DataModelWizardPage {
 	 * 
 	 * @see org.eclipse.jface.wizard.WizardPage#getDialogSettings()
 	 */
+	@Override
 	protected IDialogSettings getDialogSettings() {
 		return J2EEUIPlugin.getDefault().getDialogSettings();
 	}

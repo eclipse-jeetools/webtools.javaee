@@ -47,6 +47,7 @@ public class GroupEJBProvider extends AbstractGroupProvider implements IAdaptabl
 		children.add(groupEjbEntity);
 	}
 
+	@Override
 	public List getChildren() {
 		return children;
 	}

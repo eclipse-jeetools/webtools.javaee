@@ -39,6 +39,7 @@ public class WebComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 		super(vComponent, includeClasspathComponents);
 	}
 
+	@Override
 	public List getFiles() {
 		super.getFiles();
 		addLooseLibJARsToFiles();
@@ -94,6 +95,7 @@ public class WebComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 			}
 		}
 	}
+	@Override
 	protected synchronized ArtifactEdit getArtifactEditForRead() {
 		if(artifactEdit == null){
 			artifactEdit = WebArtifactEdit.getWebArtifactEditForRead(vComponent);

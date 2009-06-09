@@ -58,6 +58,7 @@ public class ApplicationclientAdapterFactory extends AdapterFactoryImpl {
 	 * @return whether this factory is applicable for the type of the object.
 	 * @generated
 	 */
+	@Override
 	public boolean isFactoryForType(Object object) {
 		if (object == modelPackage) {
 			return true;
@@ -76,12 +77,15 @@ public class ApplicationclientAdapterFactory extends AdapterFactoryImpl {
 	 */
 	protected ApplicationclientSwitch modelSwitch =
 		new ApplicationclientSwitch() {
+			@Override
 			public Object caseApplicationClient(ApplicationClient object) {
 				return createApplicationClientAdapter();
 			}
+			@Override
 			public Object caseApplicationClientDeploymentDescriptor(ApplicationClientDeploymentDescriptor object) {
 				return createApplicationClientDeploymentDescriptorAdapter();
 			}
+			@Override
 			public Object defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -95,6 +99,7 @@ public class ApplicationclientAdapterFactory extends AdapterFactoryImpl {
 	 * @return the adapter for the <code>target</code>.
 	 * @generated
 	 */
+	@Override
 	public Adapter createAdapter(Notifier target) {
 		return (Adapter)modelSwitch.doSwitch((EObject)target);
 	}

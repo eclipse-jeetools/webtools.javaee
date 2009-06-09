@@ -41,7 +41,8 @@ public class SOAPHeaderImpl extends QNameImpl implements SOAPHeader
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  protected EClass eStaticClass() {
+  @Override
+protected EClass eStaticClass() {
 		return WscommonPackage.Literals.SOAP_HEADER;
 	}
 

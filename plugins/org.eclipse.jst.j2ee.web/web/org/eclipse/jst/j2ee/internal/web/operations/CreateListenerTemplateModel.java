@@ -32,6 +32,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class CreateListenerTemplateModel extends CreateWebClassTemplateModel {
 	
+	@Override
 	public Collection<String> getImports() {
 		Collection<String> collection = super.getImports();
 		

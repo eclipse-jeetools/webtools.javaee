@@ -28,6 +28,7 @@ public class ClasspathDependencyAttributeConfiguration extends ClasspathAttribut
 	/* (non-Javadoc)
 	 * @see org.eclipse.jdt.ui.wizards.ClasspathAttributeConfiguration#canEdit(org.eclipse.jdt.ui.wizards.ClasspathAttributeConfiguration.ClasspathAttributeAccess)
 	 */
+	@Override
 	public boolean canEdit(ClasspathAttributeAccess attribute) {
 		return false;
 	}
@@ -35,6 +36,7 @@ public class ClasspathDependencyAttributeConfiguration extends ClasspathAttribut
 	/* (non-Javadoc)
 	 * @see org.eclipse.jdt.ui.wizards.ClasspathAttributeConfiguration#canRemove(org.eclipse.jdt.ui.wizards.ClasspathAttributeConfiguration.ClasspathAttributeAccess)
 	 */
+	@Override
 	public boolean canRemove(ClasspathAttributeAccess attribute) {
 		return true;
 	}
@@ -42,6 +44,7 @@ public class ClasspathDependencyAttributeConfiguration extends ClasspathAttribut
 	/* (non-Javadoc)
 	 * @see org.eclipse.jdt.ui.wizards.ClasspathAttributeConfiguration#getImageDescriptor(org.eclipse.jdt.ui.wizards.ClasspathAttributeConfiguration.ClasspathAttributeAccess)
 	 */
+	@Override
 	public ImageDescriptor getImageDescriptor(ClasspathAttributeAccess attribute) {
 		if (descriptor == null) {
 			final URL gifImageURL = (URL) J2EEPlugin.getPlugin().getImage("CPDep"); //$NON-NLS-1$
@@ -55,6 +58,7 @@ public class ClasspathDependencyAttributeConfiguration extends ClasspathAttribut
 	/* (non-Javadoc)
 	 * @see org.eclipse.jdt.ui.wizards.ClasspathAttributeConfiguration#getNameLabel(org.eclipse.jdt.ui.wizards.ClasspathAttributeConfiguration.ClasspathAttributeAccess)
 	 */
+	@Override
 	public String getNameLabel(ClasspathAttributeAccess attribute) {
 		return Resources.nameLabel;
 	}
@@ -62,6 +66,7 @@ public class ClasspathDependencyAttributeConfiguration extends ClasspathAttribut
 	/* (non-Javadoc)
 	 * @see org.eclipse.jdt.ui.wizards.ClasspathAttributeConfiguration#getValueLabel(org.eclipse.jdt.ui.wizards.ClasspathAttributeConfiguration.ClasspathAttributeAccess)
 	 */
+	@Override
 	public String getValueLabel(ClasspathAttributeAccess attribute) {
 		final IClasspathAttribute attrib = attribute.getClasspathAttribute();
 		if (attrib != null) {
@@ -79,6 +84,7 @@ public class ClasspathDependencyAttributeConfiguration extends ClasspathAttribut
 	/* (non-Javadoc)
 	 * @see org.eclipse.jdt.ui.wizards.ClasspathAttributeConfiguration#performEdit(org.eclipse.swt.widgets.Shell, org.eclipse.jdt.ui.wizards.ClasspathAttributeConfiguration.ClasspathAttributeAccess)
 	 */
+	@Override
 	public IClasspathAttribute performEdit(Shell shell,
 			ClasspathAttributeAccess attribute) {
 		// TODO Auto-generated method stub
@@ -88,6 +94,7 @@ public class ClasspathDependencyAttributeConfiguration extends ClasspathAttribut
 	/* (non-Javadoc)
 	 * @see org.eclipse.jdt.ui.wizards.ClasspathAttributeConfiguration#performRemove(org.eclipse.jdt.ui.wizards.ClasspathAttributeConfiguration.ClasspathAttributeAccess)
 	 */
+	@Override
 	public IClasspathAttribute performRemove(ClasspathAttributeAccess attribute) {
 		return JavaCore.newClasspathAttribute(IClasspathDependencyConstants.CLASSPATH_COMPONENT_DEPENDENCY, null);
 	}

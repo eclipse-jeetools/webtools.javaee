@@ -33,6 +33,7 @@ public XMLResourceFactory() {
 /**
  * @see org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl#createResource(URI)
  */
+@Override
 public final Resource createResource(URI uri) {
 	XMLResource resource = primCreateResource(uri);
 	resource.getDefaultSaveOptions().put(org.eclipse.emf.ecore.xmi.XMLResource.OPTION_USE_ENCODED_ATTRIBUTE_STYLE, Boolean.TRUE);

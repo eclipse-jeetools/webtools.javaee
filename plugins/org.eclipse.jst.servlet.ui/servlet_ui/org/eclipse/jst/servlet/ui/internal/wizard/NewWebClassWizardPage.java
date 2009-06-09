@@ -134,6 +134,7 @@ public abstract class NewWebClassWizardPage extends NewJavaClassWizardPage {
 		existingButton.setLayoutData(data);
 		synchHelper.synchCheckbox(existingButton, getUseExistingProperty(), null);
 		existingButton.addSelectionListener(new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				handleExistingButtonSelected();
 			}
@@ -154,6 +155,7 @@ public abstract class NewWebClassWizardPage extends NewJavaClassWizardPage {
 		existingClassButton.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
 		existingClassButton.setEnabled(false);
 		existingClassButton.addSelectionListener(new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				handleClassButtonSelected();
 			}
@@ -188,6 +190,7 @@ public abstract class NewWebClassWizardPage extends NewJavaClassWizardPage {
 		return false;
 	}
 
+	@Override
 	protected void validateProjectRequirements(IProject project)
 	{
 		IVirtualComponent component = ComponentCore.createComponent(project);

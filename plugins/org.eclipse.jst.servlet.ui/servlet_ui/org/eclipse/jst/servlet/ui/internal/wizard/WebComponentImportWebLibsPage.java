@@ -68,6 +68,7 @@ public class WebComponentImportWebLibsPage extends J2EEImportPage {
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#createTopLevelComposite(org.eclipse.swt.widgets.Composite)
 	 */
+	@Override
 	protected Composite createTopLevelComposite(Composite parent) {
 		setInfopopID(IWebUIContextIds.WAR_IMPORT_PAGE2);
 		Composite composite = new Composite(parent, SWT.NONE);
@@ -149,6 +150,7 @@ public class WebComponentImportWebLibsPage extends J2EEImportPage {
 		gd.widthHint = SWT.DEFAULT;
 		selectAllButton.setLayoutData(gd);
 		selectAllButton.addSelectionListener(new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				handleSelectAllButtonPressed();
 			}
@@ -162,6 +164,7 @@ public class WebComponentImportWebLibsPage extends J2EEImportPage {
 		gd.widthHint = SWT.DEFAULT;
 		deselectAllButton.setLayoutData(gd);
 		deselectAllButton.addSelectionListener(new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				handleDeselectAllButtonPressed();
 			}
@@ -191,6 +194,7 @@ public class WebComponentImportWebLibsPage extends J2EEImportPage {
 		return archiveWrapper != model.getProperty(IJ2EEComponentImportDataModelProperties.ARCHIVE_WRAPPER);
 	}
 
+	@Override
 	protected void enter() {
 		super.enter();
 		refreshEARFileIfNecessary();
@@ -212,14 +216,17 @@ public class WebComponentImportWebLibsPage extends J2EEImportPage {
 		return aString == null || aString.length() == 0;
 	}
 
+	@Override
 	protected String[] getValidationPropertyNames() {
 		return new String[]{};
 	}
 
+	@Override
 	protected void restoreWidgetValues() {
 		// This page doesn't implement...
 	}
 
+	@Override
 	public void storeDefaultSettings() {
 		// This page doesn't implement...
 	}

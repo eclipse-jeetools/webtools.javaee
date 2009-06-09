@@ -45,6 +45,7 @@ public class WarFileDynamicClassLoader extends ArchiveFileDynamicClassLoader {
 		this(anArchive, parentCl, extraCl, null);
 	}
 
+	@Override
 	protected File getFile(String name) {
 		//search classes directory first, then war, then nested archives.
 		//search classes directory

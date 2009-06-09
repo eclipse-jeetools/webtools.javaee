@@ -55,6 +55,7 @@ public class BeanLinkItemProvider extends ItemProviderAdapter implements IEditin
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -69,6 +70,7 @@ public class BeanLinkItemProvider extends ItemProviderAdapter implements IEditin
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return getResourceLocator().getImage("full/obj16/BeanLink"); //$NON-NLS-1$
 	}
@@ -89,6 +91,7 @@ public class BeanLinkItemProvider extends ItemProviderAdapter implements IEditin
 	 * 
 	 * @non-generated
 	 */
+	@Override
 	public String getText(Object object) {
 		return getString("%_UI_BeanLink_type"); //$NON-NLS-1$
 	}
@@ -99,6 +102,7 @@ public class BeanLinkItemProvider extends ItemProviderAdapter implements IEditin
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		super.notifyChanged(notification);
 	}
@@ -110,6 +114,7 @@ public class BeanLinkItemProvider extends ItemProviderAdapter implements IEditin
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -119,6 +124,7 @@ public class BeanLinkItemProvider extends ItemProviderAdapter implements IEditin
 	 * end-user-doc -->
 	 *  
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return WebServicePlugin.getInstance();
 	}
@@ -128,6 +134,7 @@ public class BeanLinkItemProvider extends ItemProviderAdapter implements IEditin
 	 * {@link ITreeItemContentProvider#getChildren ITreeItemContentProvider.getChildren}by calling
 	 * {@link #getChildrenReferences getChildrenReferences}and using those to collect the children.
 	 */
+	@Override
 	public Collection getChildren(Object object) {
 		if (object instanceof EList)
 			return getChildrenFromEList((EList) object);

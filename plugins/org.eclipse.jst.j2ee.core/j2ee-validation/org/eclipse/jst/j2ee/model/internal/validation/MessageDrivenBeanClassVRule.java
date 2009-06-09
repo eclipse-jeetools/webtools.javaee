@@ -111,6 +111,7 @@ public final class MessageDrivenBeanClassVRule extends ABeanClassVRule implement
 		return MESSAGE_IDS;
 	}
 	
+	@Override
 	public final int getMessageRemoteExceptionSeverity() {
 		return MESSAGE_REMOTE_EXCEPTION_SEVERITY;
 	}
@@ -123,6 +124,7 @@ public final class MessageDrivenBeanClassVRule extends ABeanClassVRule implement
 		return ID;
 	}
 
+	@Override
 	public final boolean shouldValidateTransientField() {
 		return SHOULD_VALIDATE_TRANSIENT_FIELD;
 	}
@@ -139,14 +141,17 @@ public final class MessageDrivenBeanClassVRule extends ABeanClassVRule implement
 		return method.isVoid();
 	}
 
+	@Override
 	public final boolean shouldBeAbstract(JavaClass clazz) {
 		return SHOULD_BE_ABSTRACT;
 	}
 	
+	@Override
 	public final boolean shouldBeFinal(JavaClass clazz) {
 		return SHOULD_BE_FINAL;
 	}
 	
+	@Override
 	public final boolean shouldBePublic(JavaClass clazz) {
 		return SHOULD_BE_PUBLIC;
 	}
@@ -163,10 +168,12 @@ public final class MessageDrivenBeanClassVRule extends ABeanClassVRule implement
 		return METHODS_WHICH_MUST_NOT_EXIST;
 	}
 
+	@Override
 	public final JavaHelpers getEjbCreateReturnType(EnterpriseBean bean, Method method) throws InvalidInputException {
 		return ValidationRuleUtility.getType(ITypeConstants.VOID, bean);
 	}
 	
+	@Override
 	public final String getEjbCreateReturnTypeName(EnterpriseBean bean, Method method) throws InvalidInputException {
 		return ITypeConstants.VOID;
 	}
@@ -193,10 +200,12 @@ public final class MessageDrivenBeanClassVRule extends ABeanClassVRule implement
 		}
 	}
 	
+	@Override
 	public String getMatchingHomeMethodName(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) {
 		return getNoMatchingMethodName(vc, method);
 	}
 
+	@Override
 	public void validateEjbCreateMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		super.validateEjbCreateMethod(vc, bean, clazz, method, methodsExtendedLists);
 		
@@ -206,6 +215,7 @@ public final class MessageDrivenBeanClassVRule extends ABeanClassVRule implement
 		}
 	}
 	
+	@Override
 	public void validateEjbRemoveMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		super.validateEjbRemoveMethod(vc, bean, clazz, method);
 		
@@ -215,6 +225,7 @@ public final class MessageDrivenBeanClassVRule extends ABeanClassVRule implement
 		}
 	}
 
+	@Override
 	public boolean validateEjbCreateMethodExceptions() {
 		// Don't check for CreateException
 		return false;
@@ -226,6 +237,7 @@ public final class MessageDrivenBeanClassVRule extends ABeanClassVRule implement
 	 * @param clazz
 	 * @throws InvalidInputException
 	 */
+	@Override
 	protected void validateShouldBeSuperTypes(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		if((bean.getVersionID() == J2EEVersionConstants.EJB_2_0_ID) || (bean.getVersionID() == J2EEVersionConstants.EJB_2_1_ID)){		
 			JavaClass jclass = ((MessageDriven)bean).getMessagingType();
@@ -240,7 +252,8 @@ public final class MessageDrivenBeanClassVRule extends ABeanClassVRule implement
 	/* (non-Javadoc)
      * @see org.eclipse.jst.j2ee.internal.model.validation.ejb.ejb20rules.impl.ATypeVRule#validateMethodsWhichMustExist(org.eclipse.jst.j2ee.internal.model.validation.IValidationContext, org.eclipse.jst.j2ee.internal.ejb.EnterpriseBean, org.eclipse.jem.java.JavaClass)
      */
-    public void validateMethodsWhichMustExist(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException,
+    @Override
+	public void validateMethodsWhichMustExist(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException,
             ValidationCancelledException, ValidationException {
     	if((bean.getVersionID() == J2EEVersionConstants.EJB_2_0_ID) || (bean.getVersionID() == J2EEVersionConstants.EJB_2_1_ID)){		
 			JavaClass jclass = ((MessageDriven)bean).getMessagingType();

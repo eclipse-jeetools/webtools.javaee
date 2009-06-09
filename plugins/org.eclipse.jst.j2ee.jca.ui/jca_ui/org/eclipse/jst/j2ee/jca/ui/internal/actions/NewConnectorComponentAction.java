@@ -57,6 +57,7 @@ public class NewConnectorComponentAction extends AbstractOpenWizardWorkbenchActi
 	 * 
 	 * @return Wizard
 	 */
+	@Override
 	protected Wizard createWizard() {
 		return new ConnectorProjectWizard();
 	}// createWizard
@@ -67,10 +68,12 @@ public class NewConnectorComponentAction extends AbstractOpenWizardWorkbenchActi
 	 * @param Object
 	 *            obj
 	 */
+	@Override
 	protected boolean shouldAcceptElement(Object obj) {
 		return true; /* NewGroup.isOnBuildPath(obj) && !NewGroup.isInArchive(obj); */
 	}// shouldAcceptElement
 
+	@Override
 	protected String getDialogText() {
 		return null;
 	}

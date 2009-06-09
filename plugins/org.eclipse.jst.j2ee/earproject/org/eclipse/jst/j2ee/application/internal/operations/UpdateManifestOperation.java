@@ -41,6 +41,7 @@ public class UpdateManifestOperation extends AbstractDataModelOperation {
 		super(dataModel);
 	}
 
+	@Override
 	public IStatus execute(IProgressMonitor monitor, IAdaptable adaptable) throws ExecutionException {
 		IFile file = (IFile)model.getProperty(UpdateManifestDataModelProperties.MANIFEST_FILE);
 		
@@ -67,11 +68,13 @@ public class UpdateManifestOperation extends AbstractDataModelOperation {
 		return OK_STATUS;
 	}
 
+	@Override
 	public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
+	@Override
 	public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		// TODO Auto-generated method stub
 		return null;

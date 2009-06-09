@@ -25,6 +25,7 @@ import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 			/* (non-Javadoc)
 		 * @see org.eclipse.emf.common.notify.Adapter#notifyChanged(org.eclipse.emf.common.notify.Notification)
 		 */
+		@Override
 		public void notifyChanged(Notification msg) {
 			if (msg.getFeature() == WebapplicationPackage.eINSTANCE.getSecurityConstraint_DisplayNames()) {
 					synchDisplayName();
@@ -54,6 +55,7 @@ import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 	/* (non-Javadoc)
 	 * @see org.eclipse.emf.common.notify.Adapter#setTarget(org.eclipse.emf.common.notify.Notifier)
 	 */
+	@Override
 	public void setTarget(Notifier newTarget) {
 		if (newTarget instanceof SecurityConstraint)
 			super.setTarget(newTarget);

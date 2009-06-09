@@ -64,6 +64,7 @@ public class WebAppResourceFactory extends TranslatorResourceFactory {
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.TranslatorResourceFactory#createResource(org.eclipse.emf.common.util.URI, com.ibm.etools.emf2xml.Renderer)
 	 */
+	@Override
 	protected TranslatorResource createResource(URI uri, Renderer aRenderer) {
 		return new WebAppResourceImpl(uri, aRenderer);
 	}

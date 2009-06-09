@@ -32,10 +32,12 @@ public class NullLoadStrategyImpl extends LoadStrategyImpl {
 	/**
 	 * @see com.ibm.etools.archive.impl.LoadStrategyImpl
 	 */
+	@Override
 	public boolean contains(String uri) {
 		return false;
 	}
 
+	@Override
 	protected boolean primContains(String uri) {
 		return false;
 	}
@@ -43,6 +45,7 @@ public class NullLoadStrategyImpl extends LoadStrategyImpl {
 	/**
 	 * @see com.ibm.etools.archive.impl.LoadStrategyImpl
 	 */
+	@Override
 	public java.util.List getFiles() {
 		return emptyList;
 	}
@@ -50,6 +53,7 @@ public class NullLoadStrategyImpl extends LoadStrategyImpl {
 	/**
 	 * @see com.ibm.etools.archive.impl.LoadStrategyImpl
 	 */
+	@Override
 	public java.io.InputStream getInputStream(String uri) throws java.io.IOException, java.io.FileNotFoundException {
 		throw new java.io.FileNotFoundException(uri);
 	}

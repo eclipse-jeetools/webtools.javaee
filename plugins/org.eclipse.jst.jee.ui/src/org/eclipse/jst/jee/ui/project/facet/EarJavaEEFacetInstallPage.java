@@ -25,6 +25,7 @@ public class EarJavaEEFacetInstallPage extends
 		super();
 	}
 
+	@Override
 	protected Composite createTopLevelComposite(Composite parent) {
 		Composite composite = super.createTopLevelComposite(parent);
 		

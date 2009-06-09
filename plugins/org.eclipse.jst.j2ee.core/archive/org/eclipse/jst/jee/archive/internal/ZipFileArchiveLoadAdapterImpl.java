@@ -38,6 +38,7 @@ public class ZipFileArchiveLoadAdapterImpl extends AbstractArchiveLoadAdapter {
 		this.zipFile = zipFile;
 	}
 
+	@Override
 	public void close() {
 		super.close();
 		try {
@@ -47,11 +48,13 @@ public class ZipFileArchiveLoadAdapterImpl extends AbstractArchiveLoadAdapter {
 		}
 	}
 
+	@Override
 	public boolean containsArchiveResource(IPath resourcePath) {
 		ZipEntry entry = getZipFile().getEntry(resourcePath.toString());
 		return entry != null;
 	}
 	
+	@Override
 	public IArchiveResource getArchiveResource(IPath filePath) {
 		ZipEntry entry = getZipFile().getEntry(filePath.toString());
 		IArchiveResource aFile = null;
@@ -61,6 +64,7 @@ public class ZipFileArchiveLoadAdapterImpl extends AbstractArchiveLoadAdapter {
 		return aFile;
 	}
 
+	@Override
 	public java.util.List getArchiveResources() {
 		List list = new ArrayList();
 		Enumeration entries = getZipFile().entries();
@@ -87,6 +91,7 @@ public class ZipFileArchiveLoadAdapterImpl extends AbstractArchiveLoadAdapter {
 		return aFile;
 	}
 
+	@Override
 	public java.io.InputStream getInputStream(IArchiveResource aFile) throws IOException, FileNotFoundException {
 		try {
 			IPath path = aFile.getPath();
@@ -138,14 +143,17 @@ public class ZipFileArchiveLoadAdapterImpl extends AbstractArchiveLoadAdapter {
 		zipFile = newZipFile;
 	}
 	
+	@Override
 	public String toString() {
 		return zipFile.getName();
 	}
 
+	@Override
 	public boolean containsModelObject(IPath modelObjectPath) {
 		return false;
 	}
 
+	@Override
 	public Object getModelObject(IPath modelObjectPath) throws ArchiveModelLoadException {
 		throw new ArchiveModelLoadException("Simple Zip Archives have no model objects."); //$NON-NLS-1$
 	}

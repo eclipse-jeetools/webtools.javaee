@@ -55,6 +55,7 @@ public class DescriptionGroupItemProvider extends ItemProviderAdapter implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -69,6 +70,7 @@ public class DescriptionGroupItemProvider extends ItemProviderAdapter implements
 	 * {@link org.eclipse.emf.edit.command.RemoveCommand}support in {@link #createCommand}. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -84,6 +86,7 @@ public class DescriptionGroupItemProvider extends ItemProviderAdapter implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected EReference getChildReference(Object object, Object child) {
 		// Check the type of the specified child object and return the proper feature to use for
 		// adding (see {@link AddCommand}) it as a child.
@@ -95,6 +98,7 @@ public class DescriptionGroupItemProvider extends ItemProviderAdapter implements
 	/**
 	 * This returns DescriptionGroup.gif. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return getResourceLocator().getImage("full/obj16/DescriptionGroup"); //$NON-NLS-1$
 	}
@@ -106,6 +110,7 @@ public class DescriptionGroupItemProvider extends ItemProviderAdapter implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -126,6 +131,7 @@ public class DescriptionGroupItemProvider extends ItemProviderAdapter implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getText(Object object) {
 		return getString("_UI_DescriptionGroup_type"); //$NON-NLS-1$
 	}
@@ -136,6 +142,7 @@ public class DescriptionGroupItemProvider extends ItemProviderAdapter implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(DescriptionGroup.class)) {
 			case CommonPackage.DESCRIPTION_GROUP__ICONS :
@@ -153,6 +160,7 @@ public class DescriptionGroupItemProvider extends ItemProviderAdapter implements
 	 * end-user-doc -->
 	 *  
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}

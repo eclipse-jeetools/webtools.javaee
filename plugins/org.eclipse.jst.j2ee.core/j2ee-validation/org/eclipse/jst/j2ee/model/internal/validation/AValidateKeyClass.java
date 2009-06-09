@@ -41,12 +41,14 @@ public abstract class AValidateKeyClass extends AValidateEJB {
 		return ((Entity) parent).getPrimaryKey();
 	}
 
+	@Override
 	public final List[] getMethodsExtended(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) {
 		// Never check that a key class' method is defined on another class 
 		// of the bean.
 		return null;
 	}
 	
+	@Override
 	public final List[] getFieldsExtended(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) {
 		// Never check that a key class' field is defined on another class
 		// of the bean.
@@ -58,6 +60,7 @@ public abstract class AValidateKeyClass extends AValidateEJB {
 	 * Filter out faulty methods (i.e., null), and methods which
 	 * belong to the base type, whatever that is. (e.g. java.lang.Object)
 	 */
+	@Override
 	protected boolean isValid(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedList) throws InvalidInputException {
 		if (super.isValid(vc, bean, clazz, method, methodsExtendedList)) {
 			// exclude root object methods
@@ -72,6 +75,7 @@ public abstract class AValidateKeyClass extends AValidateEJB {
 	 * EJB 1.1 specification
 	 * Section: 9.2.9
 	 */
+	@Override
 	public void validateClass(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		vc.terminateIfCancelled();
 
@@ -108,6 +112,7 @@ public abstract class AValidateKeyClass extends AValidateEJB {
 	 * EJB 1.1 specification
 	 * Section: 9.2.9
 	 */
+	@Override
 	public void validateMethodExists(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		// The class must provide suitable implementation of the hashCode() and 
 		// equals(Object other) methods to simplify the management of the primary keys 

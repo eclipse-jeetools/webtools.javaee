@@ -163,6 +163,7 @@ public abstract class LoadStrategyImpl extends AdapterImpl implements LoadStrate
 		return aFile;
 	}
 
+	@Override
 	protected void finalize() throws Throwable {
 		if(isOpen){
 			close();
@@ -253,6 +254,7 @@ public abstract class LoadStrategyImpl extends AdapterImpl implements LoadStrate
 	/**
 	 * @see org.eclipse.emf.common.notify.impl.AdapterImpl#notifyChanged(Notification)
 	 */
+	@Override
 	public void notifyChanged(Notification msg) {
 		switch (msg.getEventType()) {
 			case Notification.ADD :

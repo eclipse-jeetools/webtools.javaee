@@ -82,6 +82,7 @@ public class CMPAttributeImpl extends EAttributeImpl implements CMPAttribute, EA
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return EjbPackage.Literals.CMP_ATTRIBUTE;
 	}
@@ -286,6 +287,7 @@ public void setOriginatingType(JavaHelpers newOriginatingType) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EjbPackage.CMP_ATTRIBUTE__DESCRIPTIONS:
@@ -299,6 +301,7 @@ public void setOriginatingType(JavaHelpers newOriginatingType) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case EjbPackage.CMP_ATTRIBUTE__DESCRIPTION:
@@ -314,6 +317,7 @@ public void setOriginatingType(JavaHelpers newOriginatingType) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EjbPackage.CMP_ATTRIBUTE__DESCRIPTION:
@@ -332,6 +336,7 @@ public void setOriginatingType(JavaHelpers newOriginatingType) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case EjbPackage.CMP_ATTRIBUTE__DESCRIPTION:
@@ -349,6 +354,7 @@ public void setOriginatingType(JavaHelpers newOriginatingType) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case EjbPackage.CMP_ATTRIBUTE__DESCRIPTION:
@@ -362,6 +368,7 @@ public void setOriginatingType(JavaHelpers newOriginatingType) {
 	/**
 	 * This field/method will be replaced during code generation.
 	 */
+	@Override
 	public String toString() {
 		return super.toString() + " :: " + getName(); //$NON-NLS-1$
 	}
@@ -369,9 +376,11 @@ public void setOriginatingType(JavaHelpers newOriginatingType) {
 	 * Returns true if a targetAttribute is being used.
 	 * @return Returns a boolean
 	 */
+	@Override
 	public boolean isDerived() {
 		return derived;
 	}
+	@Override
 	public void setDerived(boolean aBoolean) {
 		if (aBoolean && getEType() == null)
 			getType(); //This ensures that the type is set.

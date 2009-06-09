@@ -112,6 +112,7 @@ public class SecurityRoleImpl extends EObjectImpl implements SecurityRole {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return JavaeePackage.Literals.SECURITY_ROLE;
 	}
@@ -175,6 +176,7 @@ public class SecurityRoleImpl extends EObjectImpl implements SecurityRole {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case JavaeePackage.SECURITY_ROLE__DESCRIPTIONS:
@@ -188,6 +190,7 @@ public class SecurityRoleImpl extends EObjectImpl implements SecurityRole {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case JavaeePackage.SECURITY_ROLE__DESCRIPTIONS:
@@ -205,6 +208,7 @@ public class SecurityRoleImpl extends EObjectImpl implements SecurityRole {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case JavaeePackage.SECURITY_ROLE__DESCRIPTIONS:
@@ -226,6 +230,7 @@ public class SecurityRoleImpl extends EObjectImpl implements SecurityRole {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case JavaeePackage.SECURITY_ROLE__DESCRIPTIONS:
@@ -246,6 +251,7 @@ public class SecurityRoleImpl extends EObjectImpl implements SecurityRole {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case JavaeePackage.SECURITY_ROLE__DESCRIPTIONS:
@@ -263,6 +269,7 @@ public class SecurityRoleImpl extends EObjectImpl implements SecurityRole {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

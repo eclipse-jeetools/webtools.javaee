@@ -90,6 +90,7 @@ public class InjectionTargetImpl extends EObjectImpl implements InjectionTarget 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return JavaeePackage.Literals.INJECTION_TARGET;
 	}
@@ -141,6 +142,7 @@ public class InjectionTargetImpl extends EObjectImpl implements InjectionTarget 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case JavaeePackage.INJECTION_TARGET__INJECTION_TARGET_CLASS:
@@ -156,6 +158,7 @@ public class InjectionTargetImpl extends EObjectImpl implements InjectionTarget 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case JavaeePackage.INJECTION_TARGET__INJECTION_TARGET_CLASS:
@@ -173,6 +176,7 @@ public class InjectionTargetImpl extends EObjectImpl implements InjectionTarget 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case JavaeePackage.INJECTION_TARGET__INJECTION_TARGET_CLASS:
@@ -190,6 +194,7 @@ public class InjectionTargetImpl extends EObjectImpl implements InjectionTarget 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case JavaeePackage.INJECTION_TARGET__INJECTION_TARGET_CLASS:
@@ -205,6 +210,7 @@ public class InjectionTargetImpl extends EObjectImpl implements InjectionTarget 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

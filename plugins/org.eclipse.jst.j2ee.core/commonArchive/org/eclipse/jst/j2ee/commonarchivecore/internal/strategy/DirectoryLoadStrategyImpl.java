@@ -99,6 +99,7 @@ public abstract class DirectoryLoadStrategyImpl extends LoadStrategyImpl impleme
 	/**
 	 * @see com.ibm.etools.archive.impl.LoadStrategyImpl
 	 */
+	@Override
 	protected boolean primContains(java.lang.String uri) {
 		return new java.io.File(getFileNameFrom(uri)).exists();
 	}
@@ -106,6 +107,7 @@ public abstract class DirectoryLoadStrategyImpl extends LoadStrategyImpl impleme
 	/**
 	 * @see com.ibm.etools.archive.LoadStrategy
 	 */
+	@Override
 	public java.lang.String getAbsolutePath() throws java.io.FileNotFoundException {
 		return new java.io.File(getDirectoryUri()).getAbsolutePath();
 	}
@@ -159,6 +161,7 @@ public abstract class DirectoryLoadStrategyImpl extends LoadStrategyImpl impleme
 	/**
 	 * @see com.ibm.etools.archive.impl.LoadStrategyImpl
 	 */
+	@Override
 	public java.util.List getFiles() {
 		List list = new ArrayList();
 		java.io.File directory = getDirectoryForList();
@@ -166,6 +169,7 @@ public abstract class DirectoryLoadStrategyImpl extends LoadStrategyImpl impleme
 		return list;
 	}
 	
+	@Override
 	public java.util.List getFiles(String subfolderPath) {
 		List list = new ArrayList();
 		java.io.File containerDirectory = getDirectoryForList();
@@ -177,6 +181,7 @@ public abstract class DirectoryLoadStrategyImpl extends LoadStrategyImpl impleme
 	/**
 	 * @see com.ibm.etools.archive.impl.LoadStrategyImpl
 	 */
+	@Override
 	public java.io.InputStream getInputStream(java.lang.String uri) throws IOException, FileNotFoundException {
 		return new FileInputStream(getFileNameFrom(uri));
 	}
@@ -246,6 +251,7 @@ public abstract class DirectoryLoadStrategyImpl extends LoadStrategyImpl impleme
 	/**
 	 * @see com.ibm.etools.archive.LoadStrategy
 	 */
+	@Override
 	public boolean isDirectory() {
 		return true;
 	}
@@ -253,6 +259,7 @@ public abstract class DirectoryLoadStrategyImpl extends LoadStrategyImpl impleme
 	/**
 	 * @see com.ibm.etools.archive.LoadStrategy
 	 */
+	@Override
 	public boolean isUsing(java.io.File aSystemFile) {
 		java.io.File dir = new java.io.File(getDirectoryUri());
 		return dir.equals(aSystemFile);

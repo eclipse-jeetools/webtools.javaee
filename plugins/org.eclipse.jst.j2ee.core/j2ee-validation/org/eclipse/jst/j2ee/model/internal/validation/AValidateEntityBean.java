@@ -74,10 +74,12 @@ public abstract class AValidateEntityBean extends AValidateBean {
 	/**
 	 * getParentName method comment.
 	 */
+	@Override
 	protected String getParentName() {
 		return JAVAX_EJB_ENTITYBEAN;
 	}
 	
+	@Override
 	public boolean isFrameworkMethod(String name) {
 		if (name == null) {
 			return false;
@@ -108,6 +110,7 @@ public abstract class AValidateEntityBean extends AValidateBean {
 	 * and that there are no missing required methods.
 	 * Section: 9.2.2
 	 */
+	@Override
 	public void primValidate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method ejbMethod) throws InvalidInputException {
 		// Can't invoke an abstract method
 		//super.primValidate(ejbMethod);
@@ -134,6 +137,7 @@ public abstract class AValidateEntityBean extends AValidateBean {
 	/**
 	 * Checks to see if @ejbMethod is one of the required methods.
 	 */
+	@Override
 	protected void primValidateExistence(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method ejbMethod) throws InvalidInputException {
 		// Can't invoke an abstract method
 		//super.validateExistence(ejbMethod);
@@ -194,6 +198,7 @@ public abstract class AValidateEntityBean extends AValidateBean {
 	 * EJB 1.1 specification
 	 * Section: 9.2.6
 	 */
+	@Override
 	public void validateBusinessMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		vc.terminateIfCancelled();
 
@@ -237,6 +242,7 @@ public abstract class AValidateEntityBean extends AValidateBean {
 	 * EJB 1.1 specification
 	 * Section: 9.2.2
 	 */
+	@Override
 	public void validateClass(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		// All of the above checks are performed by ValidateBean.
 		super.validateClass(vc, bean, clazz);
@@ -511,6 +517,7 @@ public abstract class AValidateEntityBean extends AValidateBean {
 	 * EJB 1.1 specification
 	 * Section: 9.2.2
 	 */
+	@Override
 	protected void validateMethodExists(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		final String[] modelObjectName = new String[] { clazz.getQualifiedName()};
 		if (!hasValidConstructor && hasAConstructor) {
@@ -565,6 +572,7 @@ public abstract class AValidateEntityBean extends AValidateBean {
 	/*
 	 * @see IValidationRule#preValidate(IEJBValidationContext, Object, Object)
 	 */
+	@Override
 	public void preValidate(IEJBValidationContext vc, Object targetParent, Object target) throws ValidationCancelledException, ValidationException {
 		super.preValidate(vc, targetParent, target);
 		hasValidConstructor = false;

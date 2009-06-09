@@ -86,6 +86,7 @@ public class WebapplicationFactoryImpl extends EFactoryImpl implements Webapplic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case WebapplicationPackage.WEB_APP: return createWebApp();
@@ -126,6 +127,7 @@ public class WebapplicationFactoryImpl extends EFactoryImpl implements Webapplic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
 			case WebapplicationPackage.RES_AUTH_SERVLET_TYPE:
@@ -148,6 +150,7 @@ public class WebapplicationFactoryImpl extends EFactoryImpl implements Webapplic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
 			case WebapplicationPackage.RES_AUTH_SERVLET_TYPE:

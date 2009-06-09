@@ -55,6 +55,7 @@ public class LocalEncodingMappingItemProvider extends ItemProviderAdapter implem
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -93,6 +94,7 @@ public class LocalEncodingMappingItemProvider extends ItemProviderAdapter implem
 	/**
 	 * This returns LocalEncodingMapping.gif. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 */
+	@Override
 	public Object getImage(Object object) {
 		//		return getResourceLocator().getImage("full/obj16/LocalEncodingMapping");
 		return WebPlugin.getDefault().getImage("local_encoding_mapping");//$NON-NLS-1$
@@ -102,6 +104,7 @@ public class LocalEncodingMappingItemProvider extends ItemProviderAdapter implem
 	 * This returns the label text for the adapted class. <!-- begin-user-doc --> <!-- end-user-doc
 	 * -->
 	 */
+	@Override
 	public String getText(Object object) {
 		String lem = WebAppEditResourceHandler.getString("local_encoding_mapping_UI_"); //$NON-NLS-1$
 		String label = ((LocalEncodingMapping) object).getLocale();
@@ -114,6 +117,7 @@ public class LocalEncodingMappingItemProvider extends ItemProviderAdapter implem
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(LocalEncodingMapping.class)) {
 			case WebapplicationPackage.LOCAL_ENCODING_MAPPING__LOCALE :
@@ -132,6 +136,7 @@ public class LocalEncodingMappingItemProvider extends ItemProviderAdapter implem
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -142,6 +147,7 @@ public class LocalEncodingMappingItemProvider extends ItemProviderAdapter implem
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}

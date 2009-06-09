@@ -104,6 +104,7 @@ public abstract class J2EEArtifactExportOperation extends AbstractDataModelOpera
 		return totalWork;
 	}
 	
+	@Override
 	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		setComponent((IVirtualComponent) model.getProperty(COMPONENT));
 		setDestinationPath(new Path(model.getStringProperty(ARCHIVE_DESTINATION)));
@@ -264,6 +265,7 @@ public abstract class J2EEArtifactExportOperation extends AbstractDataModelOpera
 
 	}
 
+	@Override
 	public ISchedulingRule getSchedulingRule() {
 		Set projs = gatherDependentProjects(getComponent(), new HashSet());
 		ISchedulingRule combinedRule = null;

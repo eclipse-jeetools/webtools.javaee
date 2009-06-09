@@ -65,6 +65,7 @@ public class AddListenerWizardPage extends DataModelWizardPage  {
 		synchHelper = initializeSynchHelper(model);
 	}
 	
+	@Override
 	public ServletDataModelSyncHelper initializeSynchHelper(IDataModel dm) {
 		return new ServletDataModelSyncHelper(dm);
 	}
@@ -205,6 +206,7 @@ public class AddListenerWizardPage extends DataModelWizardPage  {
 		Button selectAll = new Button(composite, SWT.PUSH);
 		selectAll.setText(SELECT_ALL_BUTTON);
 		selectAll.addSelectionListener(new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				handleSelectAll();
 			}
@@ -213,6 +215,7 @@ public class AddListenerWizardPage extends DataModelWizardPage  {
 		Button clear = new Button(composite, SWT.PUSH);
 		clear.setText(CLEAR_BUTTON);
 		clear.addSelectionListener(new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				handleSelectNone();
 			}

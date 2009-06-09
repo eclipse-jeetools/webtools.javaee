@@ -32,7 +32,8 @@ public class LocalOppositeRelationshipRoleFilter extends ContainerManagedEntityF
     /**
      * Return a List with the opposite roles for the local relationship roles.
      */
-    protected List filterNotcached(ContainerManagedEntity cmp) {
+    @Override
+	protected List filterNotcached(ContainerManagedEntity cmp) {
         List oppositeRoles = new ArrayList();
         Iterator it = getLocalRelationshipRoles(cmp).iterator();
         CommonRelationshipRole role, opposite;

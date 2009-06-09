@@ -92,6 +92,7 @@ public class SessionConfigImpl extends EObjectImpl implements SessionConfig {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return WebPackage.Literals.SESSION_CONFIG;
 	}
@@ -143,6 +144,7 @@ public class SessionConfigImpl extends EObjectImpl implements SessionConfig {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case WebPackage.SESSION_CONFIG__SESSION_TIMEOUT:
@@ -158,6 +160,7 @@ public class SessionConfigImpl extends EObjectImpl implements SessionConfig {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case WebPackage.SESSION_CONFIG__SESSION_TIMEOUT:
@@ -182,6 +185,7 @@ public class SessionConfigImpl extends EObjectImpl implements SessionConfig {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case WebPackage.SESSION_CONFIG__SESSION_TIMEOUT:
@@ -199,6 +203,7 @@ public class SessionConfigImpl extends EObjectImpl implements SessionConfig {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case WebPackage.SESSION_CONFIG__SESSION_TIMEOUT:
@@ -214,6 +219,7 @@ public class SessionConfigImpl extends EObjectImpl implements SessionConfig {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

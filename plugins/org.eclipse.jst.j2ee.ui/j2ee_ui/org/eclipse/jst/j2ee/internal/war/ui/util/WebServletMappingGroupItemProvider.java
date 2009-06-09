@@ -46,6 +46,7 @@ public class WebServletMappingGroupItemProvider extends WebGroupItemProvider {
 	 * 
 	 * @see org.eclipse.emf.edit.provider.ITreeItemContentProvider#getChildren(java.lang.Object)
 	 */
+	@Override
 	public Collection getChildren(Object object) {
 		Object webApp = weakWebApp.get();
 		if (null != webApp) {
@@ -59,6 +60,7 @@ public class WebServletMappingGroupItemProvider extends WebGroupItemProvider {
 	 * 
 	 * @see org.eclipse.emf.edit.provider.ItemProvider#getImage()
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return WebPlugin.getDefault().getImage("servlet_mapping"); //$NON-NLS-1$
 	}
@@ -68,6 +70,7 @@ public class WebServletMappingGroupItemProvider extends WebGroupItemProvider {
 	 * 
 	 * @see org.eclipse.emf.edit.provider.ItemProvider#getText()
 	 */
+	@Override
 	public String getText(Object object) {
 		return WebAppEditResourceHandler.getString("Servlet_Mappings_2"); //$NON-NLS-1$ 
 	}
@@ -77,6 +80,7 @@ public class WebServletMappingGroupItemProvider extends WebGroupItemProvider {
 	 * 
 	 * @see org.eclipse.emf.edit.provider.ITreeItemContentProvider#hasChildren(java.lang.Object)
 	 */
+	@Override
 	public boolean hasChildren(Object object) {
 		return !getChildren(object).isEmpty();
 	}
@@ -86,6 +90,7 @@ public class WebServletMappingGroupItemProvider extends WebGroupItemProvider {
 	 * 
 	 * @see org.eclipse.emf.edit.provider.ITreeItemContentProvider#getParent(java.lang.Object)
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return weakWebApp.get();
 	}

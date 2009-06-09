@@ -69,6 +69,7 @@ public class ArchiveURIConverter extends URIConverterImpl {
 		}
 	}
 
+	@Override
 	public InputStream createInputStream(URI uri) throws IOException {
 		IPath path = getPath(uri);
 		IArchiveResource archiveResource = getArchive().getArchiveResource(path);

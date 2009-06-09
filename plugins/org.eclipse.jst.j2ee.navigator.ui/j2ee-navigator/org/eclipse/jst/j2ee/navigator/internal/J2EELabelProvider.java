@@ -104,6 +104,7 @@ public class J2EELabelProvider implements ICommonLabelProvider {
 	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
+	@Override
 	public boolean equals(Object obj) {
 		if (delegateLabelProvider != null)
 			return delegateLabelProvider.equals(obj);
@@ -190,6 +191,7 @@ public class J2EELabelProvider implements ICommonLabelProvider {
 	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
+	@Override
 	public int hashCode() {
 		if (delegateLabelProvider != null)
 			return delegateLabelProvider.hashCode();
@@ -236,6 +238,7 @@ public class J2EELabelProvider implements ICommonLabelProvider {
 	 * 
 	 * @see java.lang.Object#toString()
 	 */
+	@Override
 	public String toString() {
 		if (delegateLabelProvider != null)
 			return delegateLabelProvider.toString();

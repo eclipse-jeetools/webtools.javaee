@@ -36,7 +36,8 @@ public class EARComponentExportOperation extends J2EEArtifactExportOperation {
 	/**
 	 * @deprecated this will be removed post 3.1 with bug 268201
 	 */
-    protected void export() throws SaveFailureException, CoreException, InvocationTargetException, InterruptedException {
+    @Override
+	protected void export() throws SaveFailureException, CoreException, InvocationTargetException, InterruptedException {
 		IProgressMonitor subMonitor = new SubProgressMonitor(progressMonitor, EXPORT_WORK);
 		IArchive archiveFromComponent = null;
 		try {
@@ -75,6 +76,7 @@ public class EARComponentExportOperation extends J2EEArtifactExportOperation {
 		}
 	}
 
+	@Override
 	protected void runNecessaryBuilders(IVirtualComponent component, IProgressMonitor monitor) throws CoreException {
 		try {
 			IVirtualReference[] refs = component.getReferences();
@@ -92,6 +94,7 @@ public class EARComponentExportOperation extends J2EEArtifactExportOperation {
 	/**
 	 * @deprecated this will be removed post 3.1 with bug 268201
 	 */
+	@Override
 	protected String archiveString() {
 		return "EAR";
 	}

@@ -45,6 +45,7 @@ public class CMPFieldTranslator extends Translator implements EjbDeploymentDescr
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.Translator#getChildren()
 	 */
+	@Override
 	protected Translator[] getChildren() {
 		if (children == null)
 			children = createChildren();
@@ -62,6 +63,7 @@ public class CMPFieldTranslator extends Translator implements EjbDeploymentDescr
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.Translator#getMOFChildren(org.eclipse.emf.ecore.EObject)
 	 */
+	@Override
 	public List getMOFChildren(EObject mofObject) {
 		switch(((ContainerManagedEntity)mofObject).getVersionID()) {  
 			

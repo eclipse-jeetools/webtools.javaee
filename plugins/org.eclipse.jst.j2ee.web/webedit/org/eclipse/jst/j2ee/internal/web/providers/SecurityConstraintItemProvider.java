@@ -52,6 +52,7 @@ public class SecurityConstraintItemProvider extends WebapplicationItemProviderAd
 	/**
 	 * This creates a new child for {@link org.eclipse.jst.j2ee.internal.internal.webapplication.commandCreateChildCommand}.
 	 */
+	@Override
 	public Object createChild(Object object) {
 		// TODO: check that this is what you want.
 		WebResourceCollection child = WebapplicationFactory.eINSTANCE.createWebResourceCollection();
@@ -65,6 +66,7 @@ public class SecurityConstraintItemProvider extends WebapplicationItemProviderAd
 	 * This specifies how to implement {@link #getChildren}and {@link AddCommand}and
 	 * {@link RemoveCommand}support in {@link #createCommand}.
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		WebapplicationPackage pkg = WebapplicationPackage.eINSTANCE;
 		Collection result = new ArrayList();
@@ -79,6 +81,7 @@ public class SecurityConstraintItemProvider extends WebapplicationItemProviderAd
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected EReference getChildReference(Object object, Object child) {
 		// Check the type of the specified child object and return the proper feature to use for
 		// adding (see {@link AddCommand}) it as a child.
@@ -90,6 +93,7 @@ public class SecurityConstraintItemProvider extends WebapplicationItemProviderAd
 	/**
 	 * This returns the image for {@link org.eclipse.jst.j2ee.internal.internal.webapplication.commandCreateChildCommand}.
 	 */
+	@Override
 	public Object getCreateChildImage(Object object) {
 		EObject refObject = (EObject) object;
 		return WebPlugin.getDefault().getImage(refObject.eClass().getName() + "CreateWebResourceCollection"); //$NON-NLS-1$
@@ -98,6 +102,7 @@ public class SecurityConstraintItemProvider extends WebapplicationItemProviderAd
 	/**
 	 * This returns the label for {@link org.eclipse.jst.j2ee.internal.internal.webapplication.commandCreateChildCommand}.
 	 */
+	@Override
 	public String getCreateChildText(Object object) {
 		return WebAppEditResourceHandler.getString("Create_WebResourceCollecti_UI_"); //$NON-NLS-1$ = "Create WebResourceCollection"
 	}
@@ -106,6 +111,7 @@ public class SecurityConstraintItemProvider extends WebapplicationItemProviderAd
 	 * This returns the help text for
 	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.commandCreateChildCommand}.
 	 */
+	@Override
 	public String getCreateChildToolTipText(Object object) {
 		EObject refObject = (EObject) object;
 		return WebAppEditResourceHandler.getString("24concat", (new Object[]{refObject.eClass().getName()})); //$NON-NLS-1$ = "Create a child of type WebResourceCollection for the selected {0}."
@@ -114,6 +120,7 @@ public class SecurityConstraintItemProvider extends WebapplicationItemProviderAd
 	/**
 	 * This returns security_constraint.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return WebPlugin.getDefault().getImage("security_constraint"); //$NON-NLS-1$
 	}
@@ -121,6 +128,7 @@ public class SecurityConstraintItemProvider extends WebapplicationItemProviderAd
 	/**
 	 * This returns the webApp of the SecurityConstraint.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((SecurityConstraint) object).getWebApp();
 	}
@@ -128,6 +136,7 @@ public class SecurityConstraintItemProvider extends WebapplicationItemProviderAd
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -177,6 +186,7 @@ public class SecurityConstraintItemProvider extends WebapplicationItemProviderAd
 					WebapplicationPackage.eINSTANCE.getSecurityConstraint_DisplayName(), true, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE));
 	}
 
+	@Override
 	public String getText(Object object) {
 		String displayName = ((SecurityConstraint) object).getDisplayName();
 		if (displayName == null) {
@@ -195,6 +205,7 @@ public class SecurityConstraintItemProvider extends WebapplicationItemProviderAd
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(SecurityConstraint.class)) {
 			case WebapplicationPackage.SECURITY_CONSTRAINT__DISPLAY_NAME :
@@ -216,6 +227,7 @@ public class SecurityConstraintItemProvider extends WebapplicationItemProviderAd
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -236,6 +248,7 @@ public class SecurityConstraintItemProvider extends WebapplicationItemProviderAd
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}

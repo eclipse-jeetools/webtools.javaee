@@ -50,6 +50,7 @@ public class WelcomeFileListItemProvider extends WebapplicationItemProviderAdapt
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -61,6 +62,7 @@ public class WelcomeFileListItemProvider extends WebapplicationItemProviderAdapt
 	/**
 	 * This creates a new child for {@link org.eclipse.jst.j2ee.internal.internal.webapplication.commandCreateChildCommand}.
 	 */
+	@Override
 	public Object createChild(Object object) {
 		// TODO: check that this is what you want.
 		WelcomeFile child = WebapplicationFactory.eINSTANCE.createWelcomeFile();
@@ -74,6 +76,7 @@ public class WelcomeFileListItemProvider extends WebapplicationItemProviderAdapt
 	 * This specifies how to implement {@link #getChildren}and {@link AddCommand}and
 	 * {@link RemoveCommand}support in {@link #createCommand}.
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		return Collections.singleton(WebapplicationPackage.eINSTANCE.getWelcomeFileList_File());
 	}
@@ -81,6 +84,7 @@ public class WelcomeFileListItemProvider extends WebapplicationItemProviderAdapt
 	/**
 	 * This returns the image for {@link org.eclipse.jst.j2ee.internal.internal.webapplication.commandCreateChildCommand}.
 	 */
+	@Override
 	public Object getCreateChildImage(Object object) {
 		EObject refObject = (EObject) object;
 		return WebPlugin.getDefault().getImage(refObject.eClass().getName() + "CreateWelcomeFile");//$NON-NLS-1$
@@ -89,6 +93,7 @@ public class WelcomeFileListItemProvider extends WebapplicationItemProviderAdapt
 	/**
 	 * This returns the label for {@link org.eclipse.jst.j2ee.internal.internal.webapplication.commandCreateChildCommand}.
 	 */
+	@Override
 	public String getCreateChildText(Object object) {
 		return WebAppEditResourceHandler.getString("Create_WelcomeFile_UI_"); //$NON-NLS-1$ = "Create WelcomeFile"
 	}
@@ -97,6 +102,7 @@ public class WelcomeFileListItemProvider extends WebapplicationItemProviderAdapt
 	 * This returns the help text for
 	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.commandCreateChildCommand}.
 	 */
+	@Override
 	public String getCreateChildToolTipText(Object object) {
 		EObject refObject = (EObject) object;
 		return WebAppEditResourceHandler.getString("42concat_UI_", (new Object[]{refObject.eClass().getName()})); //$NON-NLS-1$ = "Create a child of type WelcomeFile for the selected {0}."
@@ -105,6 +111,7 @@ public class WelcomeFileListItemProvider extends WebapplicationItemProviderAdapt
 	/**
 	 * This returns welcome_list.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return WebPlugin.getDefault().getImage("welcome_list");//$NON-NLS-1$
 	}
@@ -112,10 +119,12 @@ public class WelcomeFileListItemProvider extends WebapplicationItemProviderAdapt
 	/**
 	 * This returns the webApp of the WelcomeFileList.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((WelcomeFileList) object).getWebApp();
 	}
 
+	@Override
 	public String getText(Object object) {
 		return WebAppEditResourceHandler.getString("Welcome_File_List_UI_"); //$NON-NLS-1$ = "Welcome File List"
 	}
@@ -126,6 +135,7 @@ public class WelcomeFileListItemProvider extends WebapplicationItemProviderAdapt
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(WelcomeFileList.class)) {
 			case WebapplicationPackage.WELCOME_FILE_LIST__FILE : {
@@ -143,6 +153,7 @@ public class WelcomeFileListItemProvider extends WebapplicationItemProviderAdapt
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -155,6 +166,7 @@ public class WelcomeFileListItemProvider extends WebapplicationItemProviderAdapt
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}

@@ -92,6 +92,7 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 		return getReferences(getJavaRefs, findFuzzyEARRefs);
 	}
 	
+	@Override
 	public IVirtualReference[] getReferences() {
 		return getReferences(true, false);
 	}

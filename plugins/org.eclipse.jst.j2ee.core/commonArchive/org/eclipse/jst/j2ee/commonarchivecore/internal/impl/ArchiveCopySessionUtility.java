@@ -37,6 +37,7 @@ import org.eclipse.wst.common.internal.emf.utilities.EtoolsCopyUtility;
  * @author: Jared Jurkiewicz
  */
 public class ArchiveCopySessionUtility extends EtoolsCopySession {
+	@Override
 	public EObject copy(EObject aRefObject, String idSuffix) {
 		EObject copied = super.copy(aRefObject, idSuffix);
 		if (copied instanceof ContainerManagedEntity)
@@ -44,6 +45,7 @@ public class ArchiveCopySessionUtility extends EtoolsCopySession {
 		return copied;
 	}
 
+	@Override
 	public EObject primCopy(EObject aRefObject, String idSuffix) {
 		EObject copied = super.primCopy(aRefObject, idSuffix);
 		if (copied instanceof ContainerManagedEntity)
@@ -58,6 +60,7 @@ public class ArchiveCopySessionUtility extends EtoolsCopySession {
 	/**
 	 * @see com.ibm.etools.emf.ecore.utilities.copy.EtoolsCopySession#newInstance(Resource, String)
 	 */
+	@Override
 	public Resource newInstance(Resource aResource, String newUri) {
 		Resource copyResource = super.newInstance(aResource, newUri);
 
@@ -66,6 +69,7 @@ public class ArchiveCopySessionUtility extends EtoolsCopySession {
 		return copyResource;
 	}
 
+	@Override
 	public EObject getCopyIfFound(EObject anObject) {
 		EObject copiedObject = super.getCopyIfFound(anObject);
 		if ((anObject instanceof JavaClass) && (anObject == copiedObject)) {
@@ -76,6 +80,7 @@ public class ArchiveCopySessionUtility extends EtoolsCopySession {
 		return copiedObject;
 	}
 
+	@Override
 	public EObject copyObject(EObject aRefObject, String idSuffix) {
 		EObject copied = super.copyObject(aRefObject, idSuffix);
 		if (copied instanceof ContainerManagedEntity)
@@ -93,6 +98,7 @@ public class ArchiveCopySessionUtility extends EtoolsCopySession {
 	 * Super class override to handle unresolvable proxies (JavaClass)
 	 */
 
+	@Override
 	protected void copyReference(EReference aReference, EObject aRefObject, String idSuffix, EObject copyRef) {
 		if (aReference.isMany()) {
 			if (shouldCopyReference(aReference, aRefObject)) { // Bugzilla 177397

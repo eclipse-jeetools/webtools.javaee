@@ -49,6 +49,7 @@ public class EARComponentExportPage extends J2EEExportPage {
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEImportPage#getProjectImportLabel()
 	 */
+	@Override
 	protected String getComponentLabel() {
 		return J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_PROJECT_FOR_MODULE_CREATION);
 	}
@@ -59,6 +60,7 @@ public class EARComponentExportPage extends J2EEExportPage {
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEImportPage#getFilterExpression()
 	 */
+	@Override
 	protected String[] getFilterExpression() {
 		return new String[]{"*.ear"}; //$NON-NLS-1$
 	}
@@ -66,6 +68,7 @@ public class EARComponentExportPage extends J2EEExportPage {
 	/**
 	 * @return
 	 */
+	@Override
 	protected boolean shouldShowProjectFilesCheckbox() {
 		return true;
 	}
@@ -75,19 +78,23 @@ public class EARComponentExportPage extends J2EEExportPage {
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEExportPage#isMetaTypeSupported(java.lang.Object)
 	 */
+	@Override
 	protected boolean isMetaTypeSupported(Object o) {
 		return o instanceof Application;
 	}
 
+	@Override
 	protected String[] getValidationPropertyNames() {
 		return new String[]{IJ2EEComponentExportDataModelProperties.PROJECT_NAME, IJ2EEComponentExportDataModelProperties.ARCHIVE_DESTINATION, IJ2EEComponentExportDataModelProperties.OVERWRITE_EXISTING};
 	}
 
+	@Override
 	protected String getInfopopID() {
 		return IJ2EEUIContextIds.EXPORT_EAR_WIZARD_P1;
 	}
 
-    protected String getCompnentID() {
+    @Override
+	protected String getCompnentID() {
         return "JST_EAR";  //$NON-NLS-1$
     }
 }

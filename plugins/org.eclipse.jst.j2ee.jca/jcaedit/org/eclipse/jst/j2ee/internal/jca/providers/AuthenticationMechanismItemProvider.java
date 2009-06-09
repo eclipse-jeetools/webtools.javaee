@@ -55,6 +55,7 @@ public class AuthenticationMechanismItemProvider extends JcaItemProviderAdapter 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -136,6 +137,7 @@ public class AuthenticationMechanismItemProvider extends JcaItemProviderAdapter 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -183,6 +185,7 @@ public class AuthenticationMechanismItemProvider extends JcaItemProviderAdapter 
 	 *            object - The adapted class.
 	 * @return Object
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((EObject) object).eContainer();
 	}// getParent
@@ -194,6 +197,7 @@ public class AuthenticationMechanismItemProvider extends JcaItemProviderAdapter 
 	 *            object - The adapted class.
 	 * @return Object
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return J2EEPlugin.getPlugin().getImage("full/obj16/auth_mechanism_obj"); //$NON-NLS-1$
 	}// getImage
@@ -205,6 +209,7 @@ public class AuthenticationMechanismItemProvider extends JcaItemProviderAdapter 
 	 *            object - The adapted class.
 	 * @return String
 	 */
+	@Override
 	public String getText(Object object) {
 		AuthenticationMechanism authenticationMechanism = ((AuthenticationMechanism) object);
 		return "AuthenticationMechanism " + authenticationMechanism.getDescription(); //$NON-NLS-1$
@@ -216,6 +221,7 @@ public class AuthenticationMechanismItemProvider extends JcaItemProviderAdapter 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(AuthenticationMechanism.class)) {
 			case JcaPackage.AUTHENTICATION_MECHANISM__DESCRIPTION :
@@ -238,6 +244,7 @@ public class AuthenticationMechanismItemProvider extends JcaItemProviderAdapter 
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -252,6 +259,7 @@ public class AuthenticationMechanismItemProvider extends JcaItemProviderAdapter 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}

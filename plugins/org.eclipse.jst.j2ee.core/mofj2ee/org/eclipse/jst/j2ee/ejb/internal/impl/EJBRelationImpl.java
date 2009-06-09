@@ -98,6 +98,7 @@ public class EJBRelationImpl extends J2EEEObjectImpl implements EJBRelation {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return EjbPackage.Literals.EJB_RELATION;
 	}
@@ -275,6 +276,7 @@ public void setFoward(EJBRelationshipRole aRole) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EjbPackage.EJB_RELATION__RELATIONSHIP_LIST:
@@ -292,6 +294,7 @@ public void setFoward(EJBRelationshipRole aRole) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EjbPackage.EJB_RELATION__RELATIONSHIP_LIST:
@@ -309,6 +312,7 @@ public void setFoward(EJBRelationshipRole aRole) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case EjbPackage.EJB_RELATION__RELATIONSHIP_LIST:
@@ -322,6 +326,7 @@ public void setFoward(EJBRelationshipRole aRole) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case EjbPackage.EJB_RELATION__DESCRIPTION:
@@ -343,6 +348,7 @@ public void setFoward(EJBRelationshipRole aRole) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EjbPackage.EJB_RELATION__DESCRIPTION:
@@ -371,6 +377,7 @@ public void setFoward(EJBRelationshipRole aRole) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case EjbPackage.EJB_RELATION__DESCRIPTION:
@@ -397,6 +404,7 @@ public void setFoward(EJBRelationshipRole aRole) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case EjbPackage.EJB_RELATION__DESCRIPTION:
@@ -416,6 +424,7 @@ public void setFoward(EJBRelationshipRole aRole) {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

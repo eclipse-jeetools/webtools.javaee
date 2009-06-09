@@ -78,6 +78,7 @@ public class WebToolingItemPropertyDescriptor extends ItemPropertyDescriptor {
 	 * This does the delegated job of setting the property to the given value. It is implemented in
 	 * a generic way using the structural feature.
 	 */
+	@Override
 	public void setPropertyValue(Object object, Object value) {
 		EObject refObject = (EObject) object;
 		EditingDomain editingDomain = getEditingDomain(object);

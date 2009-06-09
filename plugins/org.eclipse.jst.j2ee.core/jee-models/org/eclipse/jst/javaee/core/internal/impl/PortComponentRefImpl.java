@@ -141,6 +141,7 @@ public class PortComponentRefImpl extends EObjectImpl implements PortComponentRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return JavaeePackage.Literals.PORT_COMPONENT_REF;
 	}
@@ -259,6 +260,7 @@ public class PortComponentRefImpl extends EObjectImpl implements PortComponentRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case JavaeePackage.PORT_COMPONENT_REF__SERVICE_ENDPOINT_INTERFACE:
@@ -278,6 +280,7 @@ public class PortComponentRefImpl extends EObjectImpl implements PortComponentRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case JavaeePackage.PORT_COMPONENT_REF__SERVICE_ENDPOINT_INTERFACE:
@@ -301,6 +304,7 @@ public class PortComponentRefImpl extends EObjectImpl implements PortComponentRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case JavaeePackage.PORT_COMPONENT_REF__SERVICE_ENDPOINT_INTERFACE:
@@ -324,6 +328,7 @@ public class PortComponentRefImpl extends EObjectImpl implements PortComponentRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case JavaeePackage.PORT_COMPONENT_REF__SERVICE_ENDPOINT_INTERFACE:
@@ -343,6 +348,7 @@ public class PortComponentRefImpl extends EObjectImpl implements PortComponentRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

@@ -71,11 +71,13 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
         private final Image SERVLET_ICON = 
             ImageDescriptor.createFromURL((URL) WebPlugin.getDefault().getImage("servlet")).createImage();
 
-        public String getText(Object element) {
+        @Override
+		public String getText(Object element) {
             return ((String) element);
         }
 
-        public Image getImage(Object element) {
+        @Override
+		public Image getImage(Object element) {
             return SERVLET_ICON;
         }
 
@@ -175,7 +177,8 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
     /**
 	 * @private
 	 */
-    protected void computeResult() {
+    @Override
+	protected void computeResult() {
         if (fSelection == URL_PATTERN) {
             java.util.List result = new ArrayList(1);           
             dispatchers = getDispatchers();
@@ -219,6 +222,7 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
         return dispatchers;
     }
 	
+	@Override
 	public void create() {
 		super.create();
         if (selectedItem == null && (fServletNames != null && fServletNames.length > 0)) fSelection = SERVLET; 
@@ -237,6 +241,7 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
 	 * @param parent the parent composite to contain the button bar
 	 * @return the button bar control
 	 */
+	@Override
 	protected Control createButtonBar(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NULL);
 		GridLayout layout = new GridLayout();
@@ -275,6 +280,7 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
 	/*
 	 * @private
 	 */
+	@Override
 	protected Control createDialogArea(Composite parent) {
 		GridData gd = new GridData();
 
@@ -506,6 +512,7 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
 			buttonPressed(getDefaultButtonID());
 	}
 	
+	@Override
 	public int open() {
         if (fServletNames == null || fServletNames.length == 0) {
             fSelection = URL_PATTERN;

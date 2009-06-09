@@ -42,6 +42,7 @@ public static class ModelProviderKey {
 		public ModelProviderKey() {
 			super();
 		}
+		@Override
 		public boolean equals(Object aOther){
 			if( this == aOther )
 				return true;
@@ -52,6 +53,7 @@ public static class ModelProviderKey {
 			return false;
 		}
 		
+		@Override
 		public int hashCode() {
 			return version.hashCode();
 		}		
@@ -61,6 +63,7 @@ private static class ResourceSetListener extends AdapterImpl {
 	 * @see Adapter#notifyChanged(new ENotificationImpl((InternalEObject)Notifier,
 	 *      int,(EStructuralFeature) EObject, Object, Object, int))
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getEventType()) {
 			case Notification.ADD :

@@ -80,6 +80,7 @@ public class IdentityImpl extends J2EEEObjectImpl implements Identity {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return CommonPackage.Literals.IDENTITY;
 	}
@@ -141,6 +142,7 @@ public class IdentityImpl extends J2EEEObjectImpl implements Identity {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case CommonPackage.IDENTITY__DESCRIPTIONS:
@@ -154,6 +156,7 @@ public class IdentityImpl extends J2EEEObjectImpl implements Identity {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case CommonPackage.IDENTITY__DESCRIPTION:
@@ -171,6 +174,7 @@ public class IdentityImpl extends J2EEEObjectImpl implements Identity {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case CommonPackage.IDENTITY__DESCRIPTION:
@@ -192,6 +196,7 @@ public class IdentityImpl extends J2EEEObjectImpl implements Identity {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case CommonPackage.IDENTITY__DESCRIPTION:
@@ -212,6 +217,7 @@ public class IdentityImpl extends J2EEEObjectImpl implements Identity {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case CommonPackage.IDENTITY__DESCRIPTION:
@@ -227,6 +233,7 @@ public class IdentityImpl extends J2EEEObjectImpl implements Identity {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

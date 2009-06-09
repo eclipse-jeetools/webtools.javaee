@@ -31,6 +31,7 @@ public class J2EEMessageDrivenItemProvider extends MessageDrivenItemProvider {
 		super(adapterFactory);
 	}
 
+	@Override
 	public Collection getChildren(Object object) {
 		List result = new ArrayList();
 		result.addAll(super.getChildrenSuper(object));

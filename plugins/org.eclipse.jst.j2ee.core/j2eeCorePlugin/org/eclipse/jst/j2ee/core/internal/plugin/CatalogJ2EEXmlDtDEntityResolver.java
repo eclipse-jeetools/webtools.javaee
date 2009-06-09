@@ -24,6 +24,7 @@ public class CatalogJ2EEXmlDtDEntityResolver extends J2EEXmlDtDEntityResolver {
 	public CatalogJ2EEXmlDtDEntityResolver() {
 	}
 
+	@Override
 	public org.xml.sax.InputSource resolveEntity(String publicId, String systemId) throws IOException, org.xml.sax.SAXException {
 		if (uriResolver == null) {
 			uriResolver = URIResolverPlugin.createResolver();

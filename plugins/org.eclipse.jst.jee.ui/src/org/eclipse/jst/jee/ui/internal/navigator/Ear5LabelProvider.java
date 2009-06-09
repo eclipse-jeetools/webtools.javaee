@@ -62,6 +62,7 @@ public class Ear5LabelProvider extends J2EELabelProvider {
 		}
 	}
 
+	@Override
 	public Image getImage(Object element) {
 		Image ret = null;
 
@@ -90,6 +91,7 @@ public class Ear5LabelProvider extends J2EELabelProvider {
 		return ret;
 	}
 
+	@Override
 	public String getText(Object element) {
 		String ret = null;
 		if (element instanceof AbstractEarNode) {

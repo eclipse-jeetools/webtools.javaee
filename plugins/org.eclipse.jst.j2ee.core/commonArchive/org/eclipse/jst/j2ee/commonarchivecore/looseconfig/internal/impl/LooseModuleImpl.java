@@ -50,6 +50,7 @@ public class LooseModuleImpl extends LooseArchiveImpl implements LooseModule {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return LooseconfigPackage.Literals.LOOSE_MODULE;
 	}
@@ -76,6 +77,7 @@ public class LooseModuleImpl extends LooseArchiveImpl implements LooseModule {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case LooseconfigPackage.LOOSE_MODULE__ALT_DD:
@@ -89,6 +91,7 @@ public class LooseModuleImpl extends LooseArchiveImpl implements LooseModule {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case LooseconfigPackage.LOOSE_MODULE__ALT_DD:
@@ -103,6 +106,7 @@ public class LooseModuleImpl extends LooseArchiveImpl implements LooseModule {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case LooseconfigPackage.LOOSE_MODULE__ALT_DD:
@@ -117,6 +121,7 @@ public class LooseModuleImpl extends LooseArchiveImpl implements LooseModule {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case LooseconfigPackage.LOOSE_MODULE__ALT_DD:
@@ -128,6 +133,7 @@ public class LooseModuleImpl extends LooseArchiveImpl implements LooseModule {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

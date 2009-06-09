@@ -75,6 +75,7 @@ public class EARComponentProjectsPage extends DataModelWizardPage {
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.EAR_IMPORT_WIZARD_BANNER));
 	}
 
+	@Override
 	protected Composite createTopLevelComposite(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NONE);
 		setInfopopID(IJ2EEUIContextIds.IMPORT_EAR_WIZARD_P3);
@@ -110,6 +111,7 @@ public class EARComponentProjectsPage extends DataModelWizardPage {
 		gd.widthHint = 140;
 		selectNotInWorkspace.setLayoutData(gd);
 		selectNotInWorkspace.addSelectionListener(new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				List list = (List) model.getProperty(IEARComponentImportDataModelProperties.ALL_PROJECT_MODELS_LIST);
 				List selectedList = (List) model.getProperty(IEARComponentImportDataModelProperties.SELECTED_MODELS_LIST);
@@ -137,6 +139,7 @@ public class EARComponentProjectsPage extends DataModelWizardPage {
 		gd.widthHint = 140;
 		selectAllButton.setLayoutData(gd);
 		selectAllButton.addSelectionListener(new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				List list = (List) model.getProperty(IEARComponentImportDataModelProperties.ALL_PROJECT_MODELS_LIST);
 				List newList = new ArrayList();
@@ -153,6 +156,7 @@ public class EARComponentProjectsPage extends DataModelWizardPage {
 		gd.widthHint = 140;
 		deselectAllButton.setLayoutData(gd);
 		deselectAllButton.addSelectionListener(new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				List newList = new ArrayList();
 				model.setProperty(IEARComponentImportDataModelProperties.SELECTED_MODELS_LIST, newList);
@@ -160,6 +164,7 @@ public class EARComponentProjectsPage extends DataModelWizardPage {
 		});
 	}
 
+	@Override
 	public void propertyChanged(DataModelEvent event) {
 		if (event.getPropertyName().equals(IEARComponentImportDataModelProperties.SELECTED_MODELS_LIST)) {
 			if(earFileListViewer != null){
@@ -192,6 +197,7 @@ public class EARComponentProjectsPage extends DataModelWizardPage {
 	/**
 	 * @see org.eclipse.jst.j2ee.internal.internal.internal.wizard.J2EEWizardPage#enter()
 	 */
+	@Override
 	protected void enter() {
 		super.enter();
 		setFileListViewerInput();
@@ -221,10 +227,6 @@ public class EARComponentProjectsPage extends DataModelWizardPage {
 		earFileListViewer.setLabelProvider(provider);
 		earFileListViewer.addCheckStateListener(new ICheckStateListener() {
 			public void checkStateChanged(CheckStateChangedEvent event) {
-				IDataModel matchingModel = null;// getEARImportDataModel().getMatchingEJBJarOrClient(aModel);
-				if (null != matchingModel) {
-					earFileListViewer.setChecked(matchingModel, event.getChecked());
-				}
 				List result = new ArrayList();
 				result.addAll(Arrays.asList(earFileListViewer.getCheckedElements()));
 				model.setProperty(IEARComponentImportDataModelProperties.SELECTED_MODELS_LIST, result);
@@ -286,10 +288,12 @@ public class EARComponentProjectsPage extends DataModelWizardPage {
 		// This page doesn't implement...
 	}
 
+	@Override
 	public void storeDefaultSettings() {
 		// This page doesn't implement...
 	}
 
+	@Override
 	protected String[] getValidationPropertyNames() {
 		return new String[]{IEARComponentImportDataModelProperties.SELECTED_MODELS_LIST, EARComponentImportDataModelProvider.NESTED_PROJECTS_VALIDATION};
 	}

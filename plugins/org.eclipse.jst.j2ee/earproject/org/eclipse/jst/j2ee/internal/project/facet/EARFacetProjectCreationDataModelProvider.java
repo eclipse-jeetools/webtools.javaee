@@ -23,6 +23,7 @@ public class EARFacetProjectCreationDataModelProvider extends FacetProjectCreati
 		super();
 	}
 
+	@Override
 	public void init() {
 		super.init();
 

@@ -50,6 +50,7 @@ public class J2EEApplicationItemProvider extends ApplicationItemProvider impleme
 	/**
 	 * @see org.eclipse.emf.edit.provider.ItemProviderAdapter#getChildren(Object)
 	 */
+	@Override
 	public Collection getChildren(Object object) {
 		List localChildren = (List) children.get(object);
 		if (localChildren == null)
@@ -95,6 +96,7 @@ public class J2EEApplicationItemProvider extends ApplicationItemProvider impleme
 	 *      int,(EStructuralFeature) EObject, Object, Object, int))
 	 * @deprecated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(Application.class)) {
 			case ApplicationPackage.APPLICATION__MODULES :
@@ -136,6 +138,7 @@ public class J2EEApplicationItemProvider extends ApplicationItemProvider impleme
 	 * 
 	 * @see org.eclipse.emf.edit.provider.ItemProviderAdapter#dispose()
 	 */
+	@Override
 	public void dispose() {
 		super.dispose();
 		List adapters = getResourceAdapters();
@@ -154,6 +157,7 @@ public class J2EEApplicationItemProvider extends ApplicationItemProvider impleme
 			this.app = app;
 		}
 
+		@Override
 		public void notifyChanged(Notification notification) {
 
 			Resource res = (Resource) notification.getNotifier();

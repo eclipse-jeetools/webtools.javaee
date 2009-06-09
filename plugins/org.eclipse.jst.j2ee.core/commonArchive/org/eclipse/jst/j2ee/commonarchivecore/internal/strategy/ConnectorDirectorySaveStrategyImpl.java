@@ -63,6 +63,7 @@ public class ConnectorDirectorySaveStrategyImpl extends SaveStrategyImpl impleme
 	/**
 	 * @see com.ibm.etools.archive.impl.SaveStrategyImpl
 	 */
+	@Override
 	protected SaveStrategy createNestedSaveStrategy(Archive anArchive) throws IOException {
 		if (shouldExpand(anArchive))
 			return createNestedDirectoryStrategy(anArchive);
@@ -98,6 +99,7 @@ public class ConnectorDirectorySaveStrategyImpl extends SaveStrategyImpl impleme
 	/**
 	 * @see com.ibm.etools.archive.impl.SaveStrategyImpl
 	 */
+	@Override
 	protected java.io.OutputStream getOutputStreamForResource(Resource aResource) throws java.io.IOException {
 		return getUriConverter().createOutputStream(aResource.getURI());
 	}
@@ -120,6 +122,7 @@ public class ConnectorDirectorySaveStrategyImpl extends SaveStrategyImpl impleme
 	/**
 	 * @see com.ibm.etools.archive.SaveStrategy
 	 */
+	@Override
 	public boolean isDirectory() {
 		return true;
 	}
@@ -145,6 +148,7 @@ public class ConnectorDirectorySaveStrategyImpl extends SaveStrategyImpl impleme
 	/**
 	 * @see com.ibm.etools.archive.impl.SaveStrategyImpl
 	 */
+	@Override
 	public void save(org.eclipse.jst.j2ee.commonarchivecore.internal.File aFile, InputStream in) throws SaveFailureException {
 		String entryName = aFile.getURI();
 		if (aFile.isDirectoryEntry())
@@ -159,6 +163,7 @@ public class ConnectorDirectorySaveStrategyImpl extends SaveStrategyImpl impleme
 		}
 	}
 
+	@Override
 	protected void saveMofResource(org.eclipse.emf.ecore.resource.Resource aResource, OutputStream os) throws IOException {
 		super.saveMofResource(aResource, os);
 		os.close();

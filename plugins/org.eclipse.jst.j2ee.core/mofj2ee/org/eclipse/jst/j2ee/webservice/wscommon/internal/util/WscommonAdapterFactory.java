@@ -66,7 +66,8 @@ public class WscommonAdapterFactory extends AdapterFactoryImpl
 	 * @return whether this factory is applicable for the type of the object.
 	 * @generated
 	 */
-  public boolean isFactoryForType(Object object) {
+  @Override
+public boolean isFactoryForType(Object object) {
 		if (object == modelPackage) {
 			return true;
 		}
@@ -84,36 +85,47 @@ public class WscommonAdapterFactory extends AdapterFactoryImpl
 	 */
   protected WscommonSwitch modelSwitch =
 		new WscommonSwitch() {
+			@Override
 			public Object caseInitParam(InitParam object) {
 				return createInitParamAdapter();
 			}
+			@Override
 			public Object caseSOAPHeader(SOAPHeader object) {
 				return createSOAPHeaderAdapter();
 			}
+			@Override
 			public Object caseSOAPRole(SOAPRole object) {
 				return createSOAPRoleAdapter();
 			}
+			@Override
 			public Object casePortName(PortName object) {
 				return createPortNameAdapter();
 			}
+			@Override
 			public Object caseDescriptionType(DescriptionType object) {
 				return createDescriptionTypeAdapter();
 			}
+			@Override
 			public Object caseDisplayNameType(DisplayNameType object) {
 				return createDisplayNameTypeAdapter();
 			}
+			@Override
 			public Object caseJ2EEEObject(J2EEEObject object) {
 				return createJ2EEEObjectAdapter();
 			}
+			@Override
 			public Object caseQName(QName object) {
 				return createQNameAdapter();
 			}
+			@Override
 			public Object caseDescription(Description object) {
 				return createDescriptionAdapter();
 			}
+			@Override
 			public Object caseDisplayName(DisplayName object) {
 				return createDisplayNameAdapter();
 			}
+			@Override
 			public Object defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -127,7 +139,8 @@ public class WscommonAdapterFactory extends AdapterFactoryImpl
 	 * @return the adapter for the <code>target</code>.
 	 * @generated
 	 */
-  public Adapter createAdapter(Notifier target) {
+  @Override
+public Adapter createAdapter(Notifier target) {
 		return (Adapter)modelSwitch.doSwitch((EObject)target);
 	}
 

@@ -36,6 +36,7 @@ public class JEEPlugin extends WTPPlugin {
 	 * (non-Javadoc)
 	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
 	 */
+	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
@@ -45,6 +46,7 @@ public class JEEPlugin extends WTPPlugin {
 	 * (non-Javadoc)
 	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
 	 */
+	@Override
 	public void stop(BundleContext context) throws Exception {
 		plugin = null;
 		super.stop(context);
@@ -64,6 +66,7 @@ public class JEEPlugin extends WTPPlugin {
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.WTPPlugin#getPluginID()
 	 */
+	@Override
 	public String getPluginID() {
 		return PLUGIN_ID;
 	}
@@ -77,6 +80,7 @@ public class JEEPlugin extends WTPPlugin {
 		return this.preferences;
 	}
 	
+	@Override
 	protected void initializeDefaultPluginPreferences() {
 		getJEEPreferences().initializeDefaultPreferences();
 	}

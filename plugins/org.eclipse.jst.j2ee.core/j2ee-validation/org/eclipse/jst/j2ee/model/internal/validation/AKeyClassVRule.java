@@ -27,6 +27,7 @@ import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 public abstract class AKeyClassVRule extends ATypeVRule {
 	protected final static long[] BASE_TYPES = new long[]{ITypeConstants.JAVA_LANG_OBJECT};
 	
+	@Override
 	public long[] getBaseTypes() {
 		return BASE_TYPES;
 	}
@@ -56,6 +57,7 @@ public abstract class AKeyClassVRule extends ATypeVRule {
 		}
 	}
 	
+	@Override
 	public long getFieldType(EnterpriseBean bean, JavaClass clazz, Field field) {
 		if(field == null) {
 			return EXCLUDED_FIELD;
@@ -72,6 +74,7 @@ public abstract class AKeyClassVRule extends ATypeVRule {
 		return NO_METHODS;
 	}
 
+	@Override
 	public final boolean followRemoteExceptionRules(EnterpriseBean bean, Method method) throws InvalidInputException, ValidationCancelledException {
 		// Doesn't matter if the key class throws RemoteException or not
 		return true;

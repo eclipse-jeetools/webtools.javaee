@@ -29,7 +29,8 @@ public class KeyRelationshipRoleFilter extends ContainerManagedEntityFilter {
 
     private static KeyRelationshipRoleFilter singleton;
 
-    protected List filterNotcached(ContainerManagedEntity cmp) {
+    @Override
+	protected List filterNotcached(ContainerManagedEntity cmp) {
         List keyRoles = new ArrayList();
         Iterator it = getRelationshipRoles(cmp).iterator();
         CommonRelationshipRole role;

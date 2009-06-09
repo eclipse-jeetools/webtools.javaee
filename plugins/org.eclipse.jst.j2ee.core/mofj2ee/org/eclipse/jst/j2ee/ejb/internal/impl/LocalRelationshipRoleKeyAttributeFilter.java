@@ -38,6 +38,7 @@ public static LocalRelationshipRoleAttributeFilter singleton() {
 /**
  * filter method comment.
  */
+@Override
 public List filter(ContainerManagedEntity cmp) {
 	List attributes = new ArrayList();
 	Iterator it = getSourceRoles(cmp).iterator();

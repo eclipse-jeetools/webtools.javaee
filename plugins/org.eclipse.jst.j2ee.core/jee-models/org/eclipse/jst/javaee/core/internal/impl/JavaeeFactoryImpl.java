@@ -74,6 +74,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case JavaeePackage.DESCRIPTION: return (EObject)createDescription();
@@ -113,6 +114,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
 			case JavaeePackage.EJB_REF_TYPE:
@@ -191,6 +193,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
 			case JavaeePackage.EJB_REF_TYPE:

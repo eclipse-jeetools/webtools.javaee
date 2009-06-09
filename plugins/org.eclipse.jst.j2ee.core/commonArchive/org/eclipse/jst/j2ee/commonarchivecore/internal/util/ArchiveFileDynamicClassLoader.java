@@ -73,6 +73,7 @@ public class ArchiveFileDynamicClassLoader extends ClassLoader {
      * @see ClassLoader#defineClass(String, byte[], int)
      * @see ClassLoader#defineClass(String, byte[], int, ProtectionDomain)
 	 */
+	@Override
 	protected Class findClass(String name) throws ClassNotFoundException {
 
 		Class result;
@@ -152,6 +153,7 @@ public class ArchiveFileDynamicClassLoader extends ClassLoader {
 		}
 	}
 
+	@Override
 	protected synchronized Class loadClass(String name, boolean resolve) throws ClassNotFoundException {
 		try {
 			return super.loadClass(name, resolve);
@@ -257,6 +259,7 @@ public class ArchiveFileDynamicClassLoader extends ClassLoader {
 		extraClassLoader = newExtraClassLoader;
 	}
 
+	@Override
 	public InputStream getResourceAsStream(String name) {
 		try {
 			File file = getFile(name);
@@ -287,6 +290,7 @@ public class ArchiveFileDynamicClassLoader extends ClassLoader {
 		return file;
 	}
 
+	@Override
 	protected URL findResource(String name) {
 		if (getFile(name) != null) {
 			try {
@@ -303,6 +307,7 @@ public class ArchiveFileDynamicClassLoader extends ClassLoader {
 		public ArchiveURLStreamHandler() {
 		}
 
+		@Override
 		protected URLConnection openConnection(URL url) throws IOException {
 			return new ArchiveURLConnection(url);
 		}
@@ -316,9 +321,11 @@ public class ArchiveFileDynamicClassLoader extends ClassLoader {
 			resourceName = url.toString().substring(URL_PROTOCOL.length() + 3);
 		}
 
+		@Override
 		public void connect() throws IOException {
 		}
 
+		@Override
 		public InputStream getInputStream() throws IOException {
 			return getResourceAsStream(resourceName);
 		}

@@ -50,6 +50,7 @@ public class LooseconfigAdapterFactory extends AdapterFactoryImpl {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public boolean isFactoryForType(Object object) {
 		if (object == modelPackage) {
 			return true;
@@ -68,27 +69,35 @@ public class LooseconfigAdapterFactory extends AdapterFactoryImpl {
 	 */
 	protected LooseconfigSwitch modelSwitch =
 		new LooseconfigSwitch() {
+			@Override
 			public Object caseLooseApplication(LooseApplication object) {
 				return createLooseApplicationAdapter();
 			}
+			@Override
 			public Object caseLooseArchive(LooseArchive object) {
 				return createLooseArchiveAdapter();
 			}
+			@Override
 			public Object caseLooseLibrary(LooseLibrary object) {
 				return createLooseLibraryAdapter();
 			}
+			@Override
 			public Object caseLooseModule(LooseModule object) {
 				return createLooseModuleAdapter();
 			}
+			@Override
 			public Object caseLooseConfiguration(LooseConfiguration object) {
 				return createLooseConfigurationAdapter();
 			}
+			@Override
 			public Object caseLooseWARFile(LooseWARFile object) {
 				return createLooseWARFileAdapter();
 			}
+			@Override
 			public Object caseJ2EEEObject(J2EEEObject object) {
 				return createJ2EEEObjectAdapter();
 			}
+			@Override
 			public Object defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -97,6 +106,7 @@ public class LooseconfigAdapterFactory extends AdapterFactoryImpl {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public Adapter createAdapter(Notifier target) {
 		return (Adapter)modelSwitch.doSwitch((EObject)target);
 	}

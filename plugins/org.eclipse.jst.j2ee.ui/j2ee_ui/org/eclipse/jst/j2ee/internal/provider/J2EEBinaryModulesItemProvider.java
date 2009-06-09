@@ -23,10 +23,12 @@ public class J2EEBinaryModulesItemProvider extends J2EEItemProvider {
 		super(adapterFactory, children);
 	}
 
+	@Override
 	public String getText(Object obj) {
 		return J2EEUIMessages.BINARY;
 	}
 
+	@Override
 	public Object getImage(Object object) {
 		return J2EEPlugin.getPlugin().getImage("folder"); //$NON-NLS-1$
 	}

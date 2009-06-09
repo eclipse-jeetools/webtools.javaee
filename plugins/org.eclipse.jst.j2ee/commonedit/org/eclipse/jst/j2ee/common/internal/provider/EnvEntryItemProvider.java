@@ -50,6 +50,7 @@ public class EnvEntryItemProvider extends CommonItemProviderAdapter implements I
 	/**
 	 * This returns environment_entity.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return J2EEPlugin.getPlugin().getImage("environment_entity");//$NON-NLS-1$
 	}
@@ -57,6 +58,7 @@ public class EnvEntryItemProvider extends CommonItemProviderAdapter implements I
 	/**
 	 * This returns the parent of the EnvEntry.
 	 */
+	@Override
 	public Object getParent(Object object) {
 
 		return object == null ? null : ((EnvEntry) object).eContainer();
@@ -65,6 +67,7 @@ public class EnvEntryItemProvider extends CommonItemProviderAdapter implements I
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -175,6 +178,7 @@ public class EnvEntryItemProvider extends CommonItemProviderAdapter implements I
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -184,6 +188,7 @@ public class EnvEntryItemProvider extends CommonItemProviderAdapter implements I
 	}
 
 
+	@Override
 	public String getText(Object object) {
 		return "EnvEntry " + ((EnvEntry) object).getName();//$NON-NLS-1$
 	}
@@ -194,6 +199,7 @@ public class EnvEntryItemProvider extends CommonItemProviderAdapter implements I
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(EnvEntry.class)) {
 			case CommonPackage.ENV_ENTRY__DESCRIPTION :
@@ -215,6 +221,7 @@ public class EnvEntryItemProvider extends CommonItemProviderAdapter implements I
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -228,6 +235,7 @@ public class EnvEntryItemProvider extends CommonItemProviderAdapter implements I
 	 * end-user-doc -->
 	 *  
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}
@@ -238,6 +246,7 @@ public class EnvEntryItemProvider extends CommonItemProviderAdapter implements I
 	 * enumeration, and this to check that enumeration, but we know there can't be any children, so
 	 * this is faster.
 	 */
+	@Override
 	public boolean hasChildren(Object object) {
 		return false;
 	}

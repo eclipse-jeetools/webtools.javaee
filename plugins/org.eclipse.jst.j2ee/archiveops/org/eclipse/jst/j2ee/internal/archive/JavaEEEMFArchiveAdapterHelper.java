@@ -184,10 +184,12 @@ public class JavaEEEMFArchiveAdapterHelper {
 				}
 			}
 
+			@Override
 			public Resource createResource(URI uri) {
 				return createResource(uri, ContentHandler.UNSPECIFIED_CONTENT_TYPE);
 			}
 			
+			@Override
 			public Resource createResource(URI uri, String contentType) {
 				IContentDescription description = null;
 				if (!isJavaURI(uri))

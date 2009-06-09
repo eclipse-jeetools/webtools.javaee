@@ -67,6 +67,7 @@ public class JspFactoryImpl extends EFactoryImpl implements JspFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case JspPackage.JSP_CONFIG: return (EObject)createJspConfig();
@@ -82,6 +83,7 @@ public class JspFactoryImpl extends EFactoryImpl implements JspFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
 			case JspPackage.JSP_FILE_TYPE:
@@ -96,6 +98,7 @@ public class JspFactoryImpl extends EFactoryImpl implements JspFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
 			case JspPackage.JSP_FILE_TYPE:

@@ -34,9 +34,6 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.webservice.wscommon.WscommonFactory;
 
 
-;
-
-
 
 /**
  * This is the item provider adpater for a {@link com.ibm.etools.common.SecurityIdentity}object.
@@ -52,13 +49,12 @@ public class SecurityIdentityItemProvider extends CommonItemProviderAdapter impl
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
 			CommonPackage pkg = CommonPackage.eINSTANCE;
-			;
-
 			// This is for the description feature.
 			//
 			itemPropertyDescriptors.add(new ItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), "Description", //$NON-NLS-1$
@@ -89,6 +85,7 @@ public class SecurityIdentityItemProvider extends CommonItemProviderAdapter impl
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -101,6 +98,7 @@ public class SecurityIdentityItemProvider extends CommonItemProviderAdapter impl
 	/**
 	 * This returns the parent of the SecurityIdentity.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((EObject) object).eContainer();
 	}
@@ -108,10 +106,12 @@ public class SecurityIdentityItemProvider extends CommonItemProviderAdapter impl
 	/**
 	 * This returns SecurityIdentity.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return J2EEPlugin.getPlugin().getImage("environment_entity");//$NON-NLS-1$
 	}
 
+	@Override
 	public String getText(Object object) {
 		SecurityIdentity securityIdentity = ((SecurityIdentity) object);
 		return "SecurityIdentity " + securityIdentity.getDescription(); //$NON-NLS-1$
@@ -123,6 +123,7 @@ public class SecurityIdentityItemProvider extends CommonItemProviderAdapter impl
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(SecurityIdentity.class)) {
 			case CommonPackage.SECURITY_IDENTITY__DESCRIPTION :
@@ -141,6 +142,7 @@ public class SecurityIdentityItemProvider extends CommonItemProviderAdapter impl
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -154,6 +156,7 @@ public class SecurityIdentityItemProvider extends CommonItemProviderAdapter impl
 	 * end-user-doc -->
 	 *  
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}

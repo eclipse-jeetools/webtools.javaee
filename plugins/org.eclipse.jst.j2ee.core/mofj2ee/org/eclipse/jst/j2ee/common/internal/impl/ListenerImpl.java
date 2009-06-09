@@ -43,6 +43,7 @@ public class ListenerImpl extends CompatibilityDescriptionGroupImpl implements L
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return CommonPackage.Literals.LISTENER;
 	}
@@ -87,6 +88,7 @@ public class ListenerImpl extends CompatibilityDescriptionGroupImpl implements L
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case CommonPackage.LISTENER__LISTENER_CLASS:
@@ -101,6 +103,7 @@ public class ListenerImpl extends CompatibilityDescriptionGroupImpl implements L
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case CommonPackage.LISTENER__LISTENER_CLASS:
@@ -115,6 +118,7 @@ public class ListenerImpl extends CompatibilityDescriptionGroupImpl implements L
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case CommonPackage.LISTENER__LISTENER_CLASS:
@@ -129,6 +133,7 @@ public class ListenerImpl extends CompatibilityDescriptionGroupImpl implements L
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case CommonPackage.LISTENER__LISTENER_CLASS:

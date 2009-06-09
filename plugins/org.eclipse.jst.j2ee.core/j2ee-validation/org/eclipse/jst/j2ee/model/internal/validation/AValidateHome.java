@@ -39,6 +39,7 @@ public abstract class AValidateHome extends AValidateEJB {
 		return ((EnterpriseBean)parent).getHomeInterface();
 	}
 
+	@Override
 	public final List[] getMethodsExtended(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) {
 		// A home or component class needs the following classes' extended methods:
 		//    1. bean class
@@ -53,6 +54,7 @@ public abstract class AValidateHome extends AValidateEJB {
 		return result;
 	}
 	
+	@Override
 	public final List[] getFieldsExtended(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) {
 		// Never check that a home or component's field is defined on another class
 		// of the bean.
@@ -83,6 +85,7 @@ public abstract class AValidateHome extends AValidateEJB {
 	 * Filter out faulty methods (i.e., null), and methods which
 	 * belong to the base type, whatever that is. (e.g. java.lang.Object)
 	 */
+	@Override
 	protected boolean isValid(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedList) throws InvalidInputException {
 		if (super.isValid(vc, bean, clazz, method, methodsExtendedList)) {
 			// Exclude root remote interface methods
@@ -103,6 +106,7 @@ public abstract class AValidateHome extends AValidateEJB {
 	 * EJB 1.1 specification
 	 * Section: 6.10.6 and 9.2.8
 	 */
+	@Override
 	public void validateClass(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		vc.terminateIfCancelled();
 

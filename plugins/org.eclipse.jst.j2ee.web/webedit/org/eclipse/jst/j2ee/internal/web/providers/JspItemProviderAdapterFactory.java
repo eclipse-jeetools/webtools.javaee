@@ -90,6 +90,7 @@ public class JspItemProviderAdapterFactory extends JspAdapterFactory implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createJSPConfigAdapter() {
 		if (jspConfigItemProvider == null) {
 			jspConfigItemProvider = new JSPConfigItemProvider(this);
@@ -112,6 +113,7 @@ public class JspItemProviderAdapterFactory extends JspAdapterFactory implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createJSPPropertyGroupAdapter() {
 		if (jspPropertyGroupItemProvider == null) {
 			jspPropertyGroupItemProvider = new JSPPropertyGroupItemProvider(this);
@@ -134,6 +136,7 @@ public class JspItemProviderAdapterFactory extends JspAdapterFactory implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createTagLibRefTypeAdapter() {
 		if (tagLibRefTypeItemProvider == null) {
 			tagLibRefTypeItemProvider = new TagLibRefTypeItemProvider(this);
@@ -167,6 +170,7 @@ public class JspItemProviderAdapterFactory extends JspAdapterFactory implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public boolean isFactoryForType(Object type) {
 		return supportedTypes.contains(type) || super.isFactoryForType(type);
 	}
@@ -177,6 +181,7 @@ public class JspItemProviderAdapterFactory extends JspAdapterFactory implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter adapt(Notifier notifier, Object type) {
 		return super.adapt(notifier, this);
 	}
@@ -186,6 +191,7 @@ public class JspItemProviderAdapterFactory extends JspAdapterFactory implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object adapt(Object object, Object type) {
 		if (isFactoryForType(type)) {
 			Object adapter = super.adapt(object, type);

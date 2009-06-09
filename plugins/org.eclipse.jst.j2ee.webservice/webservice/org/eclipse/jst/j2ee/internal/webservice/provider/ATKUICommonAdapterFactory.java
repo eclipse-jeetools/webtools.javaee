@@ -17,6 +17,7 @@ public class ATKUICommonAdapterFactory extends CommonItemProviderAdapterFactory 
 		super();
 	}
 
+	@Override
 	public Adapter createParamValueAdapter() {
 		if (paramValueItemProvider == null)
 			paramValueItemProvider = new ATKUIParamValueItemProvider(this);
@@ -24,6 +25,7 @@ public class ATKUICommonAdapterFactory extends CommonItemProviderAdapterFactory 
 		return paramValueItemProvider;
 	}
 
+	@Override
 	public Adapter createQNameAdapter() {
 		if (qNameItemProvider == null) {
 			qNameItemProvider = new ATKUIQNameItemProvider(this);

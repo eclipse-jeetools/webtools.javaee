@@ -27,10 +27,12 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
  */
 public class JavaProjectMigrationDataModelProvider extends AbstractDataModelProvider implements IJavaProjectMigrationDataModelProperties {
 
+	@Override
 	public void init() {
 		super.init();
 	}
 
+	@Override
 	public Set getPropertyNames() {
 		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(PROJECT_NAME);
@@ -44,19 +46,23 @@ public class JavaProjectMigrationDataModelProvider extends AbstractDataModelProv
 		}
 	}
 
+	@Override
 	public boolean propertySet(String propertyName, Object propertyValue) {
 		return true;
 	}
 
+	@Override
 	public Object getDefaultProperty(String propertyName) {
 		return super.getDefaultProperty(propertyName);
 	}
 
+	@Override
 	public IStatus validate(String propertyName) {
 
 		return OK_STATUS;
 	}
 
+	@Override
 	public IDataModelOperation getDefaultOperation() {
 		return new JavaProjectMigrationOperation(model);
 	}

@@ -45,6 +45,7 @@ public class ModuleItemProvider extends ApplicationItemProviderAdapter implement
 	/**
 	 * This returns Module.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.getPlugin().getImage("Module"); //$NON-NLS-1$
 	}
@@ -52,6 +53,7 @@ public class ModuleItemProvider extends ApplicationItemProviderAdapter implement
 	/**
 	 * This returns the parent of the Module.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((EObject) object).eContainer();
 	}
@@ -59,6 +61,7 @@ public class ModuleItemProvider extends ApplicationItemProviderAdapter implement
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -112,6 +115,7 @@ public class ModuleItemProvider extends ApplicationItemProviderAdapter implement
 	}
 
 
+	@Override
 	public String getText(Object object) {
 		return getURIIfPossible((Module) object);
 	}
@@ -122,6 +126,7 @@ public class ModuleItemProvider extends ApplicationItemProviderAdapter implement
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(Module.class)) {
 			case ApplicationPackage.MODULE__URI :
@@ -140,6 +145,7 @@ public class ModuleItemProvider extends ApplicationItemProviderAdapter implement
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -150,6 +156,7 @@ public class ModuleItemProvider extends ApplicationItemProviderAdapter implement
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}

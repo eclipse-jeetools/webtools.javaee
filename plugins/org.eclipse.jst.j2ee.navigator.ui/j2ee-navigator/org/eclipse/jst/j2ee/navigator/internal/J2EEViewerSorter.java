@@ -33,6 +33,7 @@ public class J2EEViewerSorter extends ViewerSorter {
 	/**
 	 * @see ViewerSorter#compare(Viewer, Object, Object)
 	 */
+	@Override
 	public int compare(Viewer viewer, Object e1, Object e2) {
 		// Check to see if each object is a base WST or JST core contribution
 		boolean e1_isCore = isCore(e1);

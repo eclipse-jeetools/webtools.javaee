@@ -20,12 +20,10 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.edit.command.AddCommand;
+import org.eclipse.emf.edit.command.RemoveCommand;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
-import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
-import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
-import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.internal.provider.CompatibilityDescriptionGroupItemProvider;
@@ -38,7 +36,7 @@ import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 
-public class FilterItemProvider extends CompatibilityDescriptionGroupItemProvider implements IEditingDomainItemProvider, IItemLabelProvider, IItemPropertySource, IStructuredItemContentProvider, ITreeItemContentProvider {
+public class FilterItemProvider extends CompatibilityDescriptionGroupItemProvider {
 
 	/**
 	 * This constructs an instance from a factory and a notifier.
@@ -63,6 +61,7 @@ public class FilterItemProvider extends CompatibilityDescriptionGroupItemProvide
 	 * This specifies how to implement {@link #getChildren}and {@link AddCommand}and
 	 * {@link RemoveCommand}support in {@link #createCommand}.
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		WebapplicationPackage pkg = WebapplicationPackage.eINSTANCE;
 		Collection result = new ArrayList();
@@ -79,6 +78,7 @@ public class FilterItemProvider extends CompatibilityDescriptionGroupItemProvide
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected EReference getChildReference(Object object, Object child) {
 		// Check the type of the specified child object and return the proper feature to use for
 		// adding (see {@link AddCommand}) it as a child.
@@ -114,6 +114,7 @@ public class FilterItemProvider extends CompatibilityDescriptionGroupItemProvide
 	/**
 	 * This returns Filter.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return WebPlugin.getDefault().getImage("filter"); //$NON-NLS-1$
 	}
@@ -121,6 +122,7 @@ public class FilterItemProvider extends CompatibilityDescriptionGroupItemProvide
 	/**
 	 * This returns the webApp of the Filter.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return WebapplicationPackage.eINSTANCE.getWebApp();
 	}
@@ -128,6 +130,7 @@ public class FilterItemProvider extends CompatibilityDescriptionGroupItemProvide
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -136,7 +139,7 @@ public class FilterItemProvider extends CompatibilityDescriptionGroupItemProvide
 			// This is for the filterName feature.
 
 			itemPropertyDescriptors.add(new ItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), WebAppEditResourceHandler.getString("FilterItemProvider_UI_0"), //$NON-NLS-1$
-						WebAppEditResourceHandler.getString("The_filterName_property_3"), wap.getFilter_Name())); //$NON-NLS-1$ //$NON-NLS-2$
+						WebAppEditResourceHandler.getString("The_filterName_property_3"), wap.getFilter_Name())); //$NON-NLS-1$
 
 		}
 		return itemPropertyDescriptors;
@@ -172,6 +175,7 @@ public class FilterItemProvider extends CompatibilityDescriptionGroupItemProvide
 	 * delegating to the descriptor, which is assumed to support the IItemPropertyDescriptor
 	 * interface
 	 */
+	@Override
 	public Object getPropertyValue(Object object, String property) {
 		Object ret = null;
 		if (getPropertyDescriptor(object, property) instanceof WebToolingItemPropertyDescriptor) {
@@ -181,6 +185,7 @@ public class FilterItemProvider extends CompatibilityDescriptionGroupItemProvide
 		return ret;
 	}
 
+	@Override
 	public String getText(Object object) {
 		Filter filter = (Filter) object;
 		String name = filter.getName();
@@ -195,6 +200,7 @@ public class FilterItemProvider extends CompatibilityDescriptionGroupItemProvide
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(Filter.class)) {
 			case WebapplicationPackage.FILTER__NAME :
@@ -214,6 +220,7 @@ public class FilterItemProvider extends CompatibilityDescriptionGroupItemProvide
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -228,6 +235,7 @@ public class FilterItemProvider extends CompatibilityDescriptionGroupItemProvide
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}
@@ -237,6 +245,7 @@ public class FilterItemProvider extends CompatibilityDescriptionGroupItemProvide
 	 * by delegating to the descriptor, which is assumed to support the IItemPropertyDescriptor
 	 * interface
 	 */
+	@Override
 	public boolean isPropertySet(Object object, String property) {
 		boolean ret = false;
 		if (getPropertyDescriptor(object, property) instanceof WebToolingItemPropertyDescriptor) {
@@ -252,6 +261,7 @@ public class FilterItemProvider extends CompatibilityDescriptionGroupItemProvide
 	 * delegating to the descriptor, which is assumed to support the IItemPropertyDescriptor
 	 * interface
 	 */
+	@Override
 	public void setPropertyValue(Object object, String property, Object value) {
 
 		if (getPropertyDescriptor(object, property) instanceof WebToolingItemPropertyDescriptor) {

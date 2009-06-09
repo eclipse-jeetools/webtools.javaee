@@ -87,6 +87,7 @@ public class ListMessageDialog extends org.eclipse.jface.dialogs.MessageDialog {
 	 *            parent composite to contain the custom area
 	 * @return the custom area control, or <code>null</code>
 	 */
+	@Override
 	protected Control createCustomArea(Composite parent) {
 
 		Composite composite = new Composite(parent, 0);

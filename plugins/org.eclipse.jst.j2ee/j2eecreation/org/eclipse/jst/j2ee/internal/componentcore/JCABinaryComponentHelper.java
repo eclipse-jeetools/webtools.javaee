@@ -54,6 +54,7 @@ public class JCABinaryComponentHelper extends EnterpriseBinaryComponentHelper {
 			return instance;
 		}
 
+		@Override
 		public Archive createConvertedArchive() {
 			ReferenceCountedRARFileImpl archive = new ReferenceCountedRARFileImpl();
 			return archive;
@@ -70,6 +71,7 @@ public class JCABinaryComponentHelper extends EnterpriseBinaryComponentHelper {
 			}
 		}
 
+		@Override
 		public void close() {
 			helper.aboutToClose();
 			synchronized (this) {
@@ -97,6 +99,7 @@ public class JCABinaryComponentHelper extends EnterpriseBinaryComponentHelper {
 			this.helper = helper;
 		}
 		
+		@Override
 		protected LoadStrategy createLoadStrategyForReopen(Archive parent) throws IOException {
 			try {
 				return createBinaryLoadStrategy(getEnterpriseBinaryComponentHelper());
@@ -113,6 +116,7 @@ public class JCABinaryComponentHelper extends EnterpriseBinaryComponentHelper {
 		}
 	}
 
+	@Override
 	protected ArchiveTypeDiscriminator getDiscriminator() {
 		return Discriminator.getInstance();
 	}
@@ -121,6 +125,7 @@ public class JCABinaryComponentHelper extends EnterpriseBinaryComponentHelper {
 		super(component);
 	}
 
+	@Override
 	public EObject getPrimaryRootObject() {
 		return ((RARFile) getArchive()).getDeploymentDescriptor();
 	}

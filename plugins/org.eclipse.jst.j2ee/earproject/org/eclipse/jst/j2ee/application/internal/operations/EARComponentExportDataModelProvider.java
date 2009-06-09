@@ -21,19 +21,23 @@ public class EARComponentExportDataModelProvider extends J2EEArtifactExportDataM
         super();
     }
     
-    public IDataModelOperation getDefaultOperation() {
+    @Override
+	public IDataModelOperation getDefaultOperation() {
         return new EARComponentExportOperation(model);
     }
 
-    protected String getModuleExtension() {
+    @Override
+	protected String getModuleExtension() {
         return ".ear"; //$NON-NLS-1$
     }
 
-    protected String getWrongComponentTypeString(String projectName) {
+    @Override
+	protected String getWrongComponentTypeString(String projectName) {
         return EARCreationResourceHandler.getString(EARCreationResourceHandler.NOT_AN_EAR, new Object[]{projectName});
     }
 
-    protected String getProjectType() {
+    @Override
+	protected String getProjectType() {
         return J2EEProjectUtilities.ENTERPRISE_APPLICATION;
     }
     /**

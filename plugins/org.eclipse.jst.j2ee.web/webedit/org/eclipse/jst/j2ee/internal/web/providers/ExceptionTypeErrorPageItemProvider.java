@@ -45,6 +45,7 @@ public class ExceptionTypeErrorPageItemProvider extends ErrorPageItemProvider im
 	/**
 	 * This returns exception_type_errorpage.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return WebPlugin.getDefault().getImage("exception_type_errorpage"); //$NON-NLS-1$
 	}
@@ -52,6 +53,7 @@ public class ExceptionTypeErrorPageItemProvider extends ErrorPageItemProvider im
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -81,6 +83,7 @@ public class ExceptionTypeErrorPageItemProvider extends ErrorPageItemProvider im
 	}
 
 
+	@Override
 	public String getText(Object object) {
 		//return WebAppEditResourceHandler.getString("15concat_UI_", (new Object[]{((ExceptionTypeErrorPage) object).getExceptionTypeName()})); //$NON-NLS-1$ = "ExceptionTypeErrorPage {0}"
 	    String typeName = ((ExceptionTypeErrorPage) object).getExceptionTypeName();
@@ -96,6 +99,7 @@ public class ExceptionTypeErrorPageItemProvider extends ErrorPageItemProvider im
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		super.notifyChanged(notification);
 	}
@@ -107,6 +111,7 @@ public class ExceptionTypeErrorPageItemProvider extends ErrorPageItemProvider im
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -117,6 +122,7 @@ public class ExceptionTypeErrorPageItemProvider extends ErrorPageItemProvider im
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}

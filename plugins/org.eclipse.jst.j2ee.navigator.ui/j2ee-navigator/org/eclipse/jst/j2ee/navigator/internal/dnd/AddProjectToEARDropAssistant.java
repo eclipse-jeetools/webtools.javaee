@@ -36,14 +36,10 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.IAddComponentToEnterpriseApplicationDataModelProperties;
-import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
-import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.navigator.ui.Messages;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.provider.J2EEItemProvider;
-import org.eclipse.jst.j2ee.model.IModelProvider;
-import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.navigator.internal.plugin.J2EENavigatorPlugin;
 import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.jst.j2ee.project.facet.EARFacetUtils;
@@ -63,7 +59,6 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
-import org.eclipse.wst.common.project.facet.core.internal.FacetedProject;
 
 public class AddProjectToEARDropAssistant extends CommonDropAdapterAssistant {
 
@@ -73,10 +68,12 @@ public class AddProjectToEARDropAssistant extends CommonDropAdapterAssistant {
 		super();
 	}
 	
+	@Override
 	public boolean isSupportedType(TransferData aTransferType) {	
 		return LocalSelectionTransfer.getTransfer().isSupportedType(aTransferType);
 	}
 
+	@Override
 	public IStatus handleDrop(CommonDropAdapter aDropAdapter, DropTargetEvent aDropTargetEvent, final Object aTarget) {
 
 		if (LocalSelectionTransfer.getTransfer().isSupportedType(aDropAdapter.getCurrentTransfer())) {
@@ -88,6 +85,7 @@ public class AddProjectToEARDropAssistant extends CommonDropAdapterAssistant {
 			IVirtualComponent earComponent = ComponentCore.createComponent(earProject);
 
 			Job addProjectToEarJob = new Job(getJobTitle(earComponent)) {
+				@Override
 				protected IStatus run(IProgressMonitor monitor) {
 
 					IStatus status = null;
@@ -124,6 +122,7 @@ public class AddProjectToEARDropAssistant extends CommonDropAdapterAssistant {
 		return Status.OK_STATUS;
 	}
 
+	@Override
 	public IStatus validateDrop(Object target, int operation, TransferData transferType) {
 
 		if (LocalSelectionTransfer.getTransfer().isSupportedType(transferType) || PluginTransfer.getInstance().isSupportedType(transferType)) {

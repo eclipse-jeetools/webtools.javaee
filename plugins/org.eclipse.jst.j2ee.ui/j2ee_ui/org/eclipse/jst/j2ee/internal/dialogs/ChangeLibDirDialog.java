@@ -27,7 +27,8 @@ public class ChangeLibDirDialog extends InputDialog {
     	this.warnBlank = warnBlank;
     }
     
-    protected void buttonPressed(int buttonId) {
+    @Override
+	protected void buttonPressed(int buttonId) {
         if (buttonId == IDialogConstants.OK_ID) {
         	String res = getText().getText().trim(); 
         	if (res.length() == 0) {
@@ -36,7 +37,6 @@ public class ChangeLibDirDialog extends InputDialog {
     					J2EEUIMessages.getResourceString(J2EEUIMessages.BLANK_LIB_DIR), 
     					J2EEUIMessages.getResourceString(J2EEUIMessages.BLANK_LIB_DIR_CONFIRM))) return;
         	} else {
-    			if (res.startsWith("" + IPath.SEPARATOR)); //$NON-NLS-1$
     			res = res.substring(1);	
     			String[] segments = res.split("" + IPath.SEPARATOR); //$NON-NLS-1$
     			Path p = new Path(""); //$NON-NLS-1$

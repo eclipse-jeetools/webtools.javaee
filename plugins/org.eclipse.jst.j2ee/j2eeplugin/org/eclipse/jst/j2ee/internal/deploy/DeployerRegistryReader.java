@@ -54,6 +54,7 @@ public class DeployerRegistryReader extends RegistryReader {
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.RegistryReader#readElement(org.eclipse.core.runtime.IConfigurationElement)
 	 */
+	@Override
 	public boolean readElement(IConfigurationElement element) {
 		if (!element.getName().equals(DEPLOYER))
 			return false;

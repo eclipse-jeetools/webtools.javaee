@@ -59,12 +59,14 @@ public java.lang.Exception getNestedException() {
  * <code>Throwable.getCause()</code>.
  * @return The nested exception held by the receiver.
  */
+@Override
 public java.lang.Throwable getCause() {
 	return getNestedException();
 }
 /**
  * Print out a stack trace to the system err.
  */
+@Override
 public void printStackTrace() {
 	printStackTrace(System.err);
 }
@@ -72,6 +74,7 @@ public void printStackTrace() {
 * Prints the exception to System.err.
 * If we have a nested exception, print its stack.
 */
+@Override
 public void printStackTrace(java.io.PrintStream s) {
 	if (nestedException != null) {
 		s.println(this);
@@ -85,6 +88,7 @@ public void printStackTrace(java.io.PrintStream s) {
 * Prints the exception to System.err.
 * If we have a nested exception, print its stack.
 */
+@Override
 public void printStackTrace(java.io.PrintWriter s) {
 	if (nestedException != null) {
 		s.println(this);

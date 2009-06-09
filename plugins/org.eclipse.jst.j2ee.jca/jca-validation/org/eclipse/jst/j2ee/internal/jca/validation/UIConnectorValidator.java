@@ -50,6 +50,7 @@ public class UIConnectorValidator extends ConnectorValidator {
 	/**
 	 * Does the validation.
 	 */
+	@Override
 	public IStatus validateInJob(IValidationContext helper, IReporter reporter) throws ValidationException{
 		
 		IProject proj = ((IWorkbenchContext) helper).getProject();

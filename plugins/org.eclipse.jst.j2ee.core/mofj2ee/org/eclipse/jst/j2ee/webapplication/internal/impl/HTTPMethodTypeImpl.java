@@ -66,6 +66,7 @@ public class HTTPMethodTypeImpl extends J2EEEObjectImpl implements HTTPMethodTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return WebapplicationPackage.Literals.HTTP_METHOD_TYPE;
 	}
@@ -96,6 +97,7 @@ public class HTTPMethodTypeImpl extends J2EEEObjectImpl implements HTTPMethodTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case WebapplicationPackage.HTTP_METHOD_TYPE__HTTP_METHOD:
@@ -109,6 +111,7 @@ public class HTTPMethodTypeImpl extends J2EEEObjectImpl implements HTTPMethodTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case WebapplicationPackage.HTTP_METHOD_TYPE__HTTP_METHOD:
@@ -123,6 +126,7 @@ public class HTTPMethodTypeImpl extends J2EEEObjectImpl implements HTTPMethodTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case WebapplicationPackage.HTTP_METHOD_TYPE__HTTP_METHOD:
@@ -137,6 +141,7 @@ public class HTTPMethodTypeImpl extends J2EEEObjectImpl implements HTTPMethodTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case WebapplicationPackage.HTTP_METHOD_TYPE__HTTP_METHOD:
@@ -150,6 +155,7 @@ public class HTTPMethodTypeImpl extends J2EEEObjectImpl implements HTTPMethodTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

@@ -91,6 +91,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createJavaWSDLMappingAdapter() {
 		if (javaWSDLMappingItemProvider == null) {
 			javaWSDLMappingItemProvider = new JavaWSDLMappingItemProvider(this);
@@ -114,6 +115,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createPackageMappingAdapter() {
 		if (packageMappingItemProvider == null) {
 			packageMappingItemProvider = new PackageMappingItemProvider(this);
@@ -137,6 +139,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createJavaXMLTypeMappingAdapter() {
 		if (javaXMLTypeMappingItemProvider == null) {
 			javaXMLTypeMappingItemProvider = new JavaXMLTypeMappingItemProvider(this);
@@ -160,6 +163,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createExceptionMappingAdapter() {
 		if (exceptionMappingItemProvider == null) {
 			exceptionMappingItemProvider = new ExceptionMappingItemProvider(this);
@@ -184,6 +188,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createServiceInterfaceMappingAdapter() {
 		if (serviceInterfaceMappingItemProvider == null) {
 			serviceInterfaceMappingItemProvider = new ServiceInterfaceMappingItemProvider(this);
@@ -208,6 +213,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createServiceEndpointInterfaceMappingAdapter() {
 		if (serviceEndpointInterfaceMappingItemProvider == null) {
 			serviceEndpointInterfaceMappingItemProvider = new ServiceEndpointInterfaceMappingItemProvider(this);
@@ -231,6 +237,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createRootTypeQnameAdapter() {
 		if (rootTypeQnameItemProvider == null) {
 			rootTypeQnameItemProvider = new RootTypeQnameItemProvider(this);
@@ -254,6 +261,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createVariableMappingAdapter() {
 		if (variableMappingItemProvider == null) {
 			variableMappingItemProvider = new VariableMappingItemProvider(this);
@@ -277,6 +285,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createWSDLMessageAdapter() {
 		if (wsdlMessageItemProvider == null) {
 			wsdlMessageItemProvider = new WSDLMessageItemProvider(this);
@@ -301,6 +310,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createConstructorParameterOrderAdapter() {
 		if (constructorParameterOrderItemProvider == null) {
 			constructorParameterOrderItemProvider = new ConstructorParameterOrderItemProvider(this);
@@ -324,6 +334,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createElementNameAdapter() {
 		if (elementNameItemProvider == null) {
 			elementNameItemProvider = new ElementNameItemProvider(this);
@@ -347,6 +358,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createWSDLServiceNameAdapter() {
 		if (wsdlServiceNameItemProvider == null) {
 			wsdlServiceNameItemProvider = new WSDLServiceNameItemProvider(this);
@@ -370,6 +382,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createPortMappingAdapter() {
 		if (portMappingItemProvider == null) {
 			portMappingItemProvider = new PortMappingItemProvider(this);
@@ -393,6 +406,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createWSDLPortTypeAdapter() {
 		if (wsdlPortTypeItemProvider == null) {
 			wsdlPortTypeItemProvider = new WSDLPortTypeItemProvider(this);
@@ -416,6 +430,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createWSDLBindingAdapter() {
 		if (wsdlBindingItemProvider == null) {
 			wsdlBindingItemProvider = new WSDLBindingItemProvider(this);
@@ -440,6 +455,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createServiceEndpointMethodMappingAdapter() {
 		if (serviceEndpointMethodMappingItemProvider == null) {
 			serviceEndpointMethodMappingItemProvider = new ServiceEndpointMethodMappingItemProvider(this);
@@ -463,6 +479,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createWSDLOperationAdapter() {
 		if (wsdlOperationItemProvider == null) {
 			wsdlOperationItemProvider = new WSDLOperationItemProvider(this);
@@ -487,6 +504,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createMethodParamPartsMappingAdapter() {
 		if (methodParamPartsMappingItemProvider == null) {
 			methodParamPartsMappingItemProvider = new MethodParamPartsMappingItemProvider(this);
@@ -511,6 +529,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createWSDLReturnValueMappingAdapter() {
 		if (wsdlReturnValueMappingItemProvider == null) {
 			wsdlReturnValueMappingItemProvider = new WSDLReturnValueMappingItemProvider(this);
@@ -534,6 +553,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createWSDLMessageMappingAdapter() {
 		if (wsdlMessageMappingItemProvider == null) {
 			wsdlMessageMappingItemProvider = new WSDLMessageMappingItemProvider(this);
@@ -557,6 +577,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createWSDLMessagePartNameAdapter() {
 		if (wsdlMessagePartNameItemProvider == null) {
 			wsdlMessagePartNameItemProvider = new WSDLMessagePartNameItemProvider(this);
@@ -580,6 +601,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createInterfaceMappingAdapter() {
 		if (interfaceMappingItemProvider == null) {
 			interfaceMappingItemProvider = new InterfaceMappingItemProvider(this);
@@ -613,6 +635,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	 * 
 	 * @generated
 	 */
+	@Override
 	public boolean isFactoryForType(Object type) {
 		return supportedTypes.contains(type) || super.isFactoryForType(type);
 	}
@@ -623,6 +646,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter adapt(Notifier notifier, Object type) {
 		return super.adapt(notifier, this);
 	}
@@ -632,6 +656,7 @@ public class JaxrpcmapItemProviderAdapterFactory extends JaxrpcmapAdapterFactory
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object adapt(Object object, Object type) {
 		if (isFactoryForType(type)) {
 			Object adapter = super.adapt(object, type);

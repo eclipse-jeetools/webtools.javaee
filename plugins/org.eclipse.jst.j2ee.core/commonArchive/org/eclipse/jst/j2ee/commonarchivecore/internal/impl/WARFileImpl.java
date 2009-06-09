@@ -65,6 +65,7 @@ public class WARFileImpl extends ModuleFileImpl implements WARFile {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return CommonarchivePackage.Literals.WAR_FILE;
 	}
@@ -149,6 +150,7 @@ public class WARFileImpl extends ModuleFileImpl implements WARFile {
 		return this.getDeploymentDescriptorGen();
 	}
 
+	@Override
 	public String getDeploymentDescriptorUri() {
 		return J2EEConstants.WEBAPP_DD_URI;
 	}
@@ -183,6 +185,7 @@ public class WARFileImpl extends ModuleFileImpl implements WARFile {
 	 * 1) WAR directory + /WEB-INF/classes 2) all JAR files contained in [WAR directory +
 	 * /WEB-INF/lib] 3) WAR directory
 	 */
+	@Override
 	public RuntimeClasspathEntry[] getLocalRuntimeClassPath() {
 
 		String absolutePath;
@@ -204,6 +207,7 @@ public class WARFileImpl extends ModuleFileImpl implements WARFile {
 		return (RuntimeClasspathEntry[]) entries.toArray(new RuntimeClasspathEntry[entries.size()]);
 	}
 
+	@Override
 	protected RuntimeClasspathEntry[] getDependencyClassPathAtThisLevel() {
 
 		String absolutePath = internalGetBinariesPath();
@@ -313,6 +317,7 @@ public class WARFileImpl extends ModuleFileImpl implements WARFile {
 		return getDeploymentDescriptor();
 	}
 
+	@Override
 	public boolean isDeploymentDescriptorSet() {
 		return deploymentDescriptor != null;
 	}
@@ -320,6 +325,7 @@ public class WARFileImpl extends ModuleFileImpl implements WARFile {
 	/**
 	 * @see com.ibm.etools.commonarchive.File
 	 */
+	@Override
 	public boolean isWARFile() {
 		return true;
 	}
@@ -327,6 +333,7 @@ public class WARFileImpl extends ModuleFileImpl implements WARFile {
 	/**
 	 * @see com.ibm.etools.commonarchive.impl.ModuleFileImpl
 	 */
+	@Override
 	public org.eclipse.emf.ecore.EObject makeDeploymentDescriptor(XMLResource resource) {
 		WebApp webApp = ((WebapplicationPackage) EPackage.Registry.INSTANCE.getEPackage(WebapplicationPackage.eNS_URI)).getWebapplicationFactory().createWebApp();
 		resource.setID(webApp, J2EEConstants.WEBAPP_ID);
@@ -378,6 +385,7 @@ public class WARFileImpl extends ModuleFileImpl implements WARFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case CommonarchivePackage.WAR_FILE__DEPLOYMENT_DESCRIPTOR:
@@ -392,6 +400,7 @@ public class WARFileImpl extends ModuleFileImpl implements WARFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case CommonarchivePackage.WAR_FILE__DEPLOYMENT_DESCRIPTOR:
@@ -406,6 +415,7 @@ public class WARFileImpl extends ModuleFileImpl implements WARFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case CommonarchivePackage.WAR_FILE__DEPLOYMENT_DESCRIPTOR:
@@ -420,6 +430,7 @@ public class WARFileImpl extends ModuleFileImpl implements WARFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case CommonarchivePackage.WAR_FILE__DEPLOYMENT_DESCRIPTOR:
@@ -428,6 +439,7 @@ public class WARFileImpl extends ModuleFileImpl implements WARFile {
 		return super.eIsSet(featureID);
 	}
 
+	@Override
 	public ClassLoader createDynamicClassLoader(ClassLoader parentCl, ClassLoader extraCl) {
 		return new WarFileDynamicClassLoader(this, parentCl, extraCl);
 	}

@@ -37,6 +37,7 @@ public class J2EEUtilityJarListImportOperation extends AbstractDataModelOperatio
 		super(model);
 	}
 
+	@Override
 	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 
 		MultiStatus status = new MultiStatus(J2EEPlugin.PLUGIN_ID, 0, EARCreationResourceHandler.J2EEUtilityJarListImportOperation_UI_Import_Utility_Jars, null);  
@@ -132,10 +133,12 @@ public class J2EEUtilityJarListImportOperation extends AbstractDataModelOperatio
 		return (model.getBooleanProperty(IJ2EEUtilityJarListImportDataModelProperties.LINK_IMPORT) || model.getBooleanProperty(IJ2EEUtilityJarListImportDataModelProperties.CREATE_LINKED_PROJECT));
 	}
 
+	@Override
 	public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		return Status.CANCEL_STATUS;
 	}
 
+	@Override
 	public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		return Status.CANCEL_STATUS;
 	}

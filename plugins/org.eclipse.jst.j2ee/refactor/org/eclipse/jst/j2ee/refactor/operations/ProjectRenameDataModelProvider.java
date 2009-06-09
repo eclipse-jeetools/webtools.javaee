@@ -21,6 +21,7 @@ public class ProjectRenameDataModelProvider extends	ProjectRefactoringDataModelP
 	/* (non-Javadoc)
 	 * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider#getPropertyNames()
 	 */
+	@Override
 	public Set getPropertyNames() {
 		Set propertyNames = super.getPropertyNames();
         propertyNames.add(ORIGINAL_PROJECT_METADATA);
@@ -31,6 +32,7 @@ public class ProjectRenameDataModelProvider extends	ProjectRefactoringDataModelP
 	/* (non-Javadoc)
 	 * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider#getDefaultOperation()
 	 */
+	@Override
 	public IDataModelOperation getDefaultOperation() {
 		return new ProjectRenameOperation(model);
 	}

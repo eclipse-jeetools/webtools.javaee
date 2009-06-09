@@ -25,6 +25,7 @@ public class EJBComponentArchiveLoadAdapter extends J2EEComponentArchiveLoadAdap
 		super(vComponent, includeClasspathComponents);
 	}
 
+	@Override
 	protected IPath getDefaultModelObjectPath() {
 		return new Path(J2EEConstants.EJBJAR_DD_URI);
 	}

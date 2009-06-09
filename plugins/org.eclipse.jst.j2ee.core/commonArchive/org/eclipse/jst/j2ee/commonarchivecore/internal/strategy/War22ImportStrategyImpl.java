@@ -27,6 +27,7 @@ import org.eclipse.jst.j2ee.webapplication.WebApp;
 public class War22ImportStrategyImpl extends XmlBasedImportStrategyImpl {
 
 	public static class Discriminator extends ArchiveTypeDiscriminatorImpl {
+		@Override
 		public boolean canImport(Archive anArchive) {
 			return anArchive.containsFile(J2EEConstants.WEBAPP_DD_URI);
 		}
@@ -34,6 +35,7 @@ public class War22ImportStrategyImpl extends XmlBasedImportStrategyImpl {
 		/**
 		 * @see com.ibm.etools.archive.ArchiveTypeDiscriminator
 		 */
+		@Override
 		public org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.ImportStrategy createImportStrategy(Archive old, Archive newArchive) {
 			return new War22ImportStrategyImpl();
 		}
@@ -42,6 +44,7 @@ public class War22ImportStrategyImpl extends XmlBasedImportStrategyImpl {
 			return getXmlDDMessage(CommonArchiveResourceHandler.WAR_File, J2EEConstants.WEBAPP_DD_URI); // = "WAR File"
 		}
 
+		@Override
 		public Archive createConvertedArchive() {
 			return getArchiveFactory().createWARFile();
 		}

@@ -24,6 +24,7 @@ public class JEEXMLHelperImpl extends XMLHelperImpl {
 
 
 
+	@Override
 	public EStructuralFeature getFeature(EClass class1, String namespaceURI,
 			String name, boolean isElement) {
 		// If not found in current namespace package, go to common package

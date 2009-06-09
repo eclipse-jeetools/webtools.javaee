@@ -40,6 +40,7 @@ public class J2EEAdapterFactoryContentProvider extends AdapterFactoryContentProv
 		methodsProviderDelegate = new MethodsProviderDelegate(adapterFactory);
 	}
 
+	@Override
 	public Object getParent(Object object) {
 
 		if (MethodsProviderDelegate.providesContentFor(object))
@@ -72,6 +73,7 @@ public class J2EEAdapterFactoryContentProvider extends AdapterFactoryContentProv
 	/*
 	 * @see ITreeContentProvider#getChildren(Object)
 	 */
+	@Override
 	public Object[] getChildren(Object parentElement) {
 
 		if (MethodsProviderDelegate.providesContentFor(parentElement))
@@ -85,6 +87,7 @@ public class J2EEAdapterFactoryContentProvider extends AdapterFactoryContentProv
 	/*
 	 * @see IStructuredContentProvider#getElements(Object)
 	 */
+	@Override
 	public Object[] getElements(Object inputElement) {
 		return getRoots(inputElement);
 		//		else if (MethodsProviderDelegate.providesContentFor(inputElement))
@@ -103,6 +106,7 @@ public class J2EEAdapterFactoryContentProvider extends AdapterFactoryContentProv
 	/*
 	 * @see ITreeContentProvider#hasChildren(Object)
 	 */
+	@Override
 	public boolean hasChildren(Object element) {
 		if (MethodsProviderDelegate.providesContentFor(element))
 			return methodsProviderDelegate.hasChildren(element);
@@ -115,6 +119,7 @@ public class J2EEAdapterFactoryContentProvider extends AdapterFactoryContentProv
 	/**
 	 * @see IContentProvider#dispose()
 	 */
+	@Override
 	public void dispose() {
 		super.dispose();
 		if (methodsProviderDelegate != null)
@@ -124,6 +129,7 @@ public class J2EEAdapterFactoryContentProvider extends AdapterFactoryContentProv
 	/**
 	 * @see org.eclipse.jface.viewers.IContentProvider#inputChanged(Viewer, Object, Object)
 	 */
+	@Override
 	public void inputChanged(Viewer aViewer, Object oldInput, Object newInput) {
 		super.inputChanged(aViewer, oldInput, newInput);
 		methodsProviderDelegate.inputChanged(aViewer, oldInput, newInput);

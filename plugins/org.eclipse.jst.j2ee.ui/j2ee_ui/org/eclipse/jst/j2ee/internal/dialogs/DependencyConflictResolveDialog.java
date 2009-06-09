@@ -46,6 +46,7 @@ public class DependencyConflictResolveDialog extends MessageDialogWithToggle {
 				false);
 	}
 		
+	@Override
 	public int open() {
 		if (getPrefStore().getBoolean(DONT_SHOW_AGAIN))
 			return BTN_ID_OK;
@@ -53,11 +54,13 @@ public class DependencyConflictResolveDialog extends MessageDialogWithToggle {
 		return super.open();
 	}
 	
+	@Override
 	public boolean close() {
 		getPrefStore().setValue(DONT_SHOW_AGAIN, getToggleState());
 		return super.close();
 	}
 	
+	@Override
 	public IPreferenceStore getPrefStore() {
 		return J2EEUIPlugin.getDefault().getPreferenceStore();
 	}

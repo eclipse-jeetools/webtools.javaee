@@ -63,6 +63,7 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 	private IDataModel componentCreationDM;
 	private Throwable archiveOpenFailure = null;
 
+	@Override
 	public Set getPropertyNames() {
 		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(FILE_NAME);
@@ -78,6 +79,7 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 		return propertyNames;
 	}
 
+	@Override
 	public void init() {
 		super.init();
 		componentCreationDM = createJ2EEComponentCreationDataModel();
@@ -86,6 +88,7 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 		model.addNestedModel(NESTED_MODEL_J2EE_COMPONENT_CREATION, componentCreationDM);
 	}
 
+	@Override
 	public Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(CLOSE_ARCHIVE_ON_DISPOSE)) {
 			return Boolean.TRUE;
@@ -101,6 +104,7 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 
 	private boolean settingFileName = false;
 
+	@Override
 	public boolean propertySet(String propertyName, Object propertyValue) {
 		if (propertyName.equals(ARCHIVE_WRAPPER)) {
 			if(propertyValue != null){
@@ -226,6 +230,7 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 		return true;
 	}
 
+	@Override
 	public IStatus validate(String propertyName) {
 		if (FILE_NAME.equals(propertyName) && !isPropertySet(ARCHIVE_WRAPPER)) {
 			String fileName = getStringProperty(propertyName);
@@ -233,7 +238,7 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 				return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.ARCHIVE_FILE_NAME_EMPTY_ERROR, new Object[]{ArchiveUtil.getModuleFileTypeName(getType())}));
 			} else if (archiveOpenFailure != null) {
 				return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(archiveOpenFailure.getMessage()));
-			} else if (fileName != null && !archiveExistsOnFile()) {
+			} else if (!archiveExistsOnFile()) {
 				return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.FILE_DOES_NOT_EXIST_ERROR, new Object[]{ArchiveUtil.getModuleFileTypeName(getType())}));
 			}
 		} else if (NESTED_MODEL_J2EE_COMPONENT_CREATION.equals(propertyName) ) {
@@ -268,6 +273,7 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 		return false;
 	}
 
+	@Override
 	public void dispose() {
 		if (getBooleanProperty(CLOSE_ARCHIVE_ON_DISPOSE))
 			closeArchive();
@@ -300,6 +306,7 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 		return (SaveFilter) getProperty(SAVE_FILTER);
 	}
 
+	@Override
 	public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName) {
 		return super.getValidPropertyDescriptors(propertyName);
 	}
@@ -354,7 +361,7 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 					}
 				
 					if(!runtime.supports(facetVersion)){
-						return WTPCommonPlugin.createErrorStatus( J2EECreationResourceHandler.VERSION_NOT_SUPPORTED ); //$NON-NLS-1$
+						return WTPCommonPlugin.createErrorStatus( J2EECreationResourceHandler.VERSION_NOT_SUPPORTED );
 					}
 				}
 			}

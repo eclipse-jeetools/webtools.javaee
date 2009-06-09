@@ -49,6 +49,7 @@ public class ConnectorComponentNestedJARLoadStrategyImpl extends LoadStrategyImp
 	/**
 	 * @see com.ibm.etools.archive.impl.LoadStrategyImpl#primContains(String)
 	 */
+	@Override
 	protected boolean primContains(String uri) {
 		// Should only be used by discriminators, and we don't discriminate these archives
 		return true;
@@ -57,6 +58,7 @@ public class ConnectorComponentNestedJARLoadStrategyImpl extends LoadStrategyImp
 	/**
 	 * @see com.ibm.etools.archive.impl.LoadStrategyImpl#getFiles()
 	 */
+	@Override
 	public List getFiles() {
 		urisToIFiles = new HashMap();
 		List result = new ArrayList();
@@ -97,6 +99,7 @@ public class ConnectorComponentNestedJARLoadStrategyImpl extends LoadStrategyImp
 	/**
 	 * @see com.ibm.etools.archive.LoadStrategy#getInputStream(String)
 	 */
+	@Override
 	public InputStream getInputStream(String uri) throws IOException, FileNotFoundException {
 		if (null == urisToIFiles) {
 			getFiles();

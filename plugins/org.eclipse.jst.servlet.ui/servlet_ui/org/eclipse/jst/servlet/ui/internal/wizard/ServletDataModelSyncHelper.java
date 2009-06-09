@@ -35,6 +35,7 @@ public class ServletDataModelSyncHelper extends DataModelSynchHelper {
 	 * @param propertyName
 	 * @link IDataModelListener for the flag values.
 	 */
+	@Override
 	public void synchUIWithModel(final String propertyName, final int flag) {
 		if (null != propertyToWidgetHash && propertyToWidgetHash.containsKey(propertyName)) {
 			Display.getDefault().syncExec(new Runnable() {
@@ -90,6 +91,7 @@ public class ServletDataModelSyncHelper extends DataModelSynchHelper {
 		}
 	}
 	
+	@Override
 	protected void setWidgetValue(String propertyName, int flag, Button button) {
 		if ((button.getStyle() & SWT.CHECK) == SWT.CHECK) {
 			Object propertyValue = dataModel.getProperty(propertyName);
@@ -157,6 +159,7 @@ public class ServletDataModelSyncHelper extends DataModelSynchHelper {
 		widgetToValueHash.put(widget, value);
 	}
 	
+	@Override
 	protected void synchComposite(Widget widget, String propertyName, Control[] depControls) {
 		if (null == widgetToPropertyHash)
 			widgetToPropertyHash = new HashMap();

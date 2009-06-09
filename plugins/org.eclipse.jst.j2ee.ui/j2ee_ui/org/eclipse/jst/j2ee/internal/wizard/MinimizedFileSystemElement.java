@@ -48,6 +48,7 @@ class MinimizedFileSystemElement extends FileSystemElement {
 		packageBaseDirName = s;
 	}
 
+	@Override
 	public void addChild(FileSystemElement child) {
 		if (child.isDirectory()) {
 			super.addChild(child);

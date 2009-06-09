@@ -53,6 +53,7 @@ public class TagLibRefTypeItemProvider extends ItemProviderAdapter implements IE
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -93,6 +94,7 @@ public class TagLibRefTypeItemProvider extends ItemProviderAdapter implements IE
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return WebPlugin.getDefault().getImage("full/obj16/TagLibRefType"); //$NON-NLS-1$
 	}
@@ -103,6 +105,7 @@ public class TagLibRefTypeItemProvider extends ItemProviderAdapter implements IE
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((TagLibRefType) object).getTaglibURI();
 		String tlrt = WebAppEditResourceHandler.getString("_UI_TagLibRefType_type"); //$NON-NLS-1$
@@ -115,6 +118,7 @@ public class TagLibRefTypeItemProvider extends ItemProviderAdapter implements IE
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(TagLibRefType.class)) {
 			case JspPackage.TAG_LIB_REF_TYPE__TAGLIB_URI :
@@ -133,6 +137,7 @@ public class TagLibRefTypeItemProvider extends ItemProviderAdapter implements IE
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -142,6 +147,7 @@ public class TagLibRefTypeItemProvider extends ItemProviderAdapter implements IE
 	 * end-user-doc -->
 	 *  
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}

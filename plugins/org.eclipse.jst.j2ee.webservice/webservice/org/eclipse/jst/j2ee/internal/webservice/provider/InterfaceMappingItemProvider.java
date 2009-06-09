@@ -48,6 +48,7 @@ public class InterfaceMappingItemProvider extends ItemProviderAdapter implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -62,6 +63,7 @@ public class InterfaceMappingItemProvider extends ItemProviderAdapter implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return getResourceLocator().getImage("full/obj16/InterfaceMapping"); //$NON-NLS-1$
 	}
@@ -72,6 +74,7 @@ public class InterfaceMappingItemProvider extends ItemProviderAdapter implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getText(Object object) {
 		return getString("_UI_InterfaceMapping_type"); //$NON-NLS-1$
 	}
@@ -82,6 +85,7 @@ public class InterfaceMappingItemProvider extends ItemProviderAdapter implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		super.notifyChanged(notification);
 	}
@@ -93,6 +97,7 @@ public class InterfaceMappingItemProvider extends ItemProviderAdapter implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -103,6 +108,7 @@ public class InterfaceMappingItemProvider extends ItemProviderAdapter implements
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return Webservicej2eeEditPlugin.INSTANCE;
 	}

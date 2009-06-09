@@ -57,6 +57,7 @@ public class ParamValueItemProvider extends ItemProviderAdapter implements IEdit
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -112,6 +113,7 @@ public class ParamValueItemProvider extends ItemProviderAdapter implements IEdit
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 	    return new ArrayList<EReference>();
 //		if (childrenReferences == null) {
@@ -126,6 +128,7 @@ public class ParamValueItemProvider extends ItemProviderAdapter implements IEdit
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return getResourceLocator().getImage("initializ_parameter"); //$NON-NLS-1$
 	}
@@ -136,13 +139,12 @@ public class ParamValueItemProvider extends ItemProviderAdapter implements IEdit
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((ParamValue) object).getName();
 		String value = ((ParamValue) object).getValue();
-//		return label == null || label.length() == 0 ? CommonEditResourceHandler.getString("_UI_ParamValue_type") : //$NON-NLS-1$
-//					CommonEditResourceHandler.getString("_UI_ParamValue_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
         return label == null || label.length() == 0 ? CommonEditResourceHandler.getString("_UI_ParamValue_type") : //$NON-NLS-1$
-            label + " = " + (value != null ? value : CommonEditResourceHandler.getString("_UI_ParamValue_value")); //$NON-NLS-1$
+            label + " = " + (value != null ? value : CommonEditResourceHandler.getString("_UI_ParamValue_value")); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**
@@ -151,6 +153,7 @@ public class ParamValueItemProvider extends ItemProviderAdapter implements IEdit
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(ParamValue.class)) {
 			case CommonPackage.PARAM_VALUE__NAME :
@@ -171,6 +174,7 @@ public class ParamValueItemProvider extends ItemProviderAdapter implements IEdit
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -184,6 +188,7 @@ public class ParamValueItemProvider extends ItemProviderAdapter implements IEdit
 	 * end-user-doc -->
 	 *  
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}

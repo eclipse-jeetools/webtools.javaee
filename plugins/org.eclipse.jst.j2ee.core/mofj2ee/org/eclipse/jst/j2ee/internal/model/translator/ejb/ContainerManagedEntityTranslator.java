@@ -38,6 +38,7 @@ public class ContainerManagedEntityTranslator extends EntityTranslator {
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.Translator#createEMFObject(java.lang.String, java.lang.String)
 	 */
+	@Override
 	public EObject createEMFObject(String nodeName, String readAheadName) {
 		return EjbFactory.eINSTANCE.createContainerManagedEntity();
 	}
@@ -60,6 +61,7 @@ public class ContainerManagedEntityTranslator extends EntityTranslator {
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.Translator#getChildren(java.lang.Object, int)
 	 */
+	@Override
 	public Translator[] getChildren(Object o, int versionID) {
 		switch (versionID) {
 			case (J2EE_1_2_ID) :
@@ -74,6 +76,7 @@ public class ContainerManagedEntityTranslator extends EntityTranslator {
 		}
 	}
 
+	@Override
 	protected String getPersistenceType() {
 		return CONTAINER;
 	}
@@ -81,6 +84,7 @@ public class ContainerManagedEntityTranslator extends EntityTranslator {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.internal.model.translator.ejb.EntityTranslator#getSpecificMaps()
 	 */
+	@Override
 	protected Translator[] getSpecificMaps(int versionID) {
 		Translator[] cmpTranslators = new Translator[] {
 			//Begin EJB 2.0 added
@@ -95,6 +99,7 @@ public class ContainerManagedEntityTranslator extends EntityTranslator {
 	}
 	
 	
+	@Override
 	protected Translator[] getEndMaps13() {
 		//Added for EJB 2.0
 		Translator[] queryT = new Translator[] {
@@ -103,6 +108,7 @@ public class ContainerManagedEntityTranslator extends EntityTranslator {
 		return (Translator[]) concat(super.getEndMaps13(), queryT);
 	}
 	
+	@Override
 	protected Translator[] getEndMaps14() {
 			//Added for EJB 2.0
 			Translator[] queryT = new Translator[] {

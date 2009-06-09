@@ -25,11 +25,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.RemoveCommand;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
-import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
-import org.eclipse.emf.edit.provider.IItemPropertySource;
-import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
-import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
@@ -47,7 +42,7 @@ import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientFactory;
  * This is the item provider adpater for a
  * {@link org.eclipse.jst.j2ee.internal.internal.client.ApplicationClient}object.
  */
-public class ApplicationClientItemProvider extends CompatibilityDescriptionGroupItemProvider implements IEditingDomainItemProvider, IItemLabelProvider, IItemPropertySource, IStructuredItemContentProvider, ITreeItemContentProvider {
+public class ApplicationClientItemProvider extends CompatibilityDescriptionGroupItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 */
@@ -68,6 +63,7 @@ public class ApplicationClientItemProvider extends CompatibilityDescriptionGroup
 	 * This specifies how to implement {@link #getChildren}and {@link AddCommand}and
 	 * {@link RemoveCommand}support in {@link #createCommand}.
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		ClientPackage pkg = ClientPackage.eINSTANCE;
 		Collection result = new ArrayList();
@@ -85,6 +81,7 @@ public class ApplicationClientItemProvider extends CompatibilityDescriptionGroup
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected EReference getChildReference(Object object, Object child) {
 		// Check the type of the specified child object and return the proper feature to use for
 		// adding (see {@link AddCommand}) it as a child.
@@ -122,6 +119,7 @@ public class ApplicationClientItemProvider extends CompatibilityDescriptionGroup
 	/**
 	 * This returns ApplicationClient.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		String key = null;
 		if (((ApplicationClient) object).eResource() == null)
@@ -144,6 +142,7 @@ public class ApplicationClientItemProvider extends CompatibilityDescriptionGroup
 	/**
 	 * This returns the parent of the ApplicationClient.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((EObject) object).eContainer();
 	}
@@ -172,6 +171,7 @@ public class ApplicationClientItemProvider extends CompatibilityDescriptionGroup
 					ClientPackage.eINSTANCE.getApplicationClient_CallbackHandler(), true));
 	}
 
+	@Override
 	public String getText(Object object) {
 
 		/*
@@ -203,6 +203,7 @@ public class ApplicationClientItemProvider extends CompatibilityDescriptionGroup
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(ApplicationClient.class)) {
 			case ClientPackage.APPLICATION_CLIENT__VERSION :
@@ -227,6 +228,7 @@ public class ApplicationClientItemProvider extends CompatibilityDescriptionGroup
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -253,6 +255,7 @@ public class ApplicationClientItemProvider extends CompatibilityDescriptionGroup
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}
@@ -262,6 +265,7 @@ public class ApplicationClientItemProvider extends CompatibilityDescriptionGroup
 	 * 
 	 * @see org.eclipse.emf.edit.provider.ItemProviderAdapter#getChildren(java.lang.Object)
 	 */
+	@Override
 	public Collection getChildren(Object object) {
 		ApplicationClient client = (ApplicationClient) object;
 		Collection myChildren = super.getChildren(object);

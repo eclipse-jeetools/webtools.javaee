@@ -105,6 +105,7 @@ public class JavaEEBinaryComponentLoadAdapter extends JavaEEEMFZipFileLoadAdapte
 		} 
 	}
 
+	@Override
 	public boolean containsArchiveResource(IPath resourcePath) {
 		final boolean isPhysciallyOpen = isPhysicallyOpen();
 		Exception caughtException = null;
@@ -130,6 +131,7 @@ public class JavaEEBinaryComponentLoadAdapter extends JavaEEEMFZipFileLoadAdapte
 		return false;
 	}
 	
+	@Override
 	public IArchiveResource getArchiveResource(IPath filePath) {
 		final boolean isPhysciallyOpen = isPhysicallyOpen();
 		Exception caughtException = null;
@@ -182,6 +184,7 @@ public class JavaEEBinaryComponentLoadAdapter extends JavaEEEMFZipFileLoadAdapte
 	}
 	
 	
+	@Override
 	public java.io.InputStream getInputStream(IArchiveResource aFile) throws IOException, FileNotFoundException {
 		final boolean isPhysciallyOpen = isPhysicallyOpen();
 		Exception caughtException = null;
@@ -196,6 +199,7 @@ public class JavaEEBinaryComponentLoadAdapter extends JavaEEEMFZipFileLoadAdapte
 				throw new FileNotFoundException(uri);
 
 			return new java.io.BufferedInputStream(getZipFile().getInputStream(entry)) {
+				@Override
 				public void close() throws IOException {
 					super.close();
 					if (!isPhysciallyOpen ) {

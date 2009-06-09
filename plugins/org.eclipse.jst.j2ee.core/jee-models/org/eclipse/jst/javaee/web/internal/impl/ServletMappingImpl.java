@@ -113,6 +113,7 @@ public class ServletMappingImpl extends EObjectImpl implements ServletMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return WebPackage.Literals.SERVLET_MAPPING;
 	}
@@ -176,6 +177,7 @@ public class ServletMappingImpl extends EObjectImpl implements ServletMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case WebPackage.SERVLET_MAPPING__URL_PATTERNS:
@@ -189,6 +191,7 @@ public class ServletMappingImpl extends EObjectImpl implements ServletMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case WebPackage.SERVLET_MAPPING__SERVLET_NAME:
@@ -206,6 +209,7 @@ public class ServletMappingImpl extends EObjectImpl implements ServletMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case WebPackage.SERVLET_MAPPING__SERVLET_NAME:
@@ -227,6 +231,7 @@ public class ServletMappingImpl extends EObjectImpl implements ServletMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case WebPackage.SERVLET_MAPPING__SERVLET_NAME:
@@ -247,6 +252,7 @@ public class ServletMappingImpl extends EObjectImpl implements ServletMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case WebPackage.SERVLET_MAPPING__SERVLET_NAME:
@@ -264,6 +270,7 @@ public class ServletMappingImpl extends EObjectImpl implements ServletMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

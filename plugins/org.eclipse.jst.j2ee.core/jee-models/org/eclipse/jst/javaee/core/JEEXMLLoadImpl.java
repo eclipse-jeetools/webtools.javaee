@@ -16,6 +16,7 @@ import org.xml.sax.helpers.DefaultHandler;
 
 public class JEEXMLLoadImpl extends XMLLoadImpl {
 
+	@Override
 	protected DefaultHandler makeDefaultHandler() {
 		
 		 return new JEESAXXMLHandler(resource, helper, options);

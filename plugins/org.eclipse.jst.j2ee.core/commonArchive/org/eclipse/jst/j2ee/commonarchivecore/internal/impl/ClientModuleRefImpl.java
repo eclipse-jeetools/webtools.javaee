@@ -32,6 +32,7 @@ public class ClientModuleRefImpl extends ModuleRefImpl implements ClientModuleRe
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return CommonarchivePackage.Literals.CLIENT_MODULE_REF;
 	}
@@ -44,6 +45,7 @@ public class ClientModuleRefImpl extends ModuleRefImpl implements ClientModuleRe
 	/*
 	 * @see ModuleRef#isClient()
 	 */
+	@Override
 	public boolean isClient() {
 		return true;
 	}

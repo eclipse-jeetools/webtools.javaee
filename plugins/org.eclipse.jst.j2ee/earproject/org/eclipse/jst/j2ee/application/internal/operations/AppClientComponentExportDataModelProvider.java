@@ -22,19 +22,23 @@ public class AppClientComponentExportDataModelProvider extends J2EEComponentExpo
         super();
     }
 
-    public IDataModelOperation getDefaultOperation() {
+    @Override
+	public IDataModelOperation getDefaultOperation() {
         return new AppClientComponentExportOperation(model);
     }
 
-    protected String getModuleExtension() {
+    @Override
+	protected String getModuleExtension() {
         return ".jar"; //$NON-NLS-1$
     }
 
-    protected String getWrongComponentTypeString(String projectName) {
+    @Override
+	protected String getWrongComponentTypeString(String projectName) {
         return EARCreationResourceHandler.getString(EARCreationResourceHandler.NOT_AN_APP_CLIENT, new Object[]{projectName});
     }
 
-    protected String getProjectType() {
+    @Override
+	protected String getProjectType() {
         return J2EEProjectUtilities.APPLICATION_CLIENT;
     }
     /**

@@ -40,6 +40,7 @@ public class TempZipFileArchiveLoadAdapterImpl extends ZipFileArchiveLoadAdapter
 		return file;
 	}
 	
+	@Override
 	public void close() {
 		super.close();
 		File file = getFile();

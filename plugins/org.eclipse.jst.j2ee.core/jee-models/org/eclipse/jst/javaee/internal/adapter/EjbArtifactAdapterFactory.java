@@ -2,6 +2,7 @@ package org.eclipse.jst.javaee.internal.adapter;
 
 public class EjbArtifactAdapterFactory extends JavaEEArtifactAdapterFactory {
 
+	@Override
 	protected String getFullyQualifiedClassName(Object adaptableObject) {
 		if (adaptableObject instanceof org.eclipse.jst.javaee.ejb.SessionBean) {
 			org.eclipse.jst.javaee.ejb.SessionBean bean = (org.eclipse.jst.javaee.ejb.SessionBean) adaptableObject;

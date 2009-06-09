@@ -32,6 +32,7 @@ public class GroupedMessageItemProvider extends GroupedEJBItemProvider {
 		super(adapterFactory, text, image, parent, children);
 	}
 
+	@Override
 	public String getText(Object object) {
 		return MESSAGE_BEANS;
 	}

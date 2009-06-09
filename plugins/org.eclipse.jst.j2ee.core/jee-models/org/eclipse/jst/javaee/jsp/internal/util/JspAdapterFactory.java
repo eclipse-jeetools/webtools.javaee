@@ -58,6 +58,7 @@ public class JspAdapterFactory extends AdapterFactoryImpl {
 	 * @return whether this factory is applicable for the type of the object.
 	 * @generated
 	 */
+	@Override
 	public boolean isFactoryForType(Object object) {
 		if (object == modelPackage) {
 			return true;
@@ -76,15 +77,19 @@ public class JspAdapterFactory extends AdapterFactoryImpl {
 	 */
 	protected JspSwitch modelSwitch =
 		new JspSwitch() {
+			@Override
 			public Object caseJspConfig(JspConfig object) {
 				return createJspConfigAdapter();
 			}
+			@Override
 			public Object caseJspPropertyGroup(JspPropertyGroup object) {
 				return createJspPropertyGroupAdapter();
 			}
+			@Override
 			public Object caseTagLib(TagLib object) {
 				return createTagLibAdapter();
 			}
+			@Override
 			public Object defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -98,6 +103,7 @@ public class JspAdapterFactory extends AdapterFactoryImpl {
 	 * @return the adapter for the <code>target</code>.
 	 * @generated
 	 */
+	@Override
 	public Adapter createAdapter(Notifier target) {
 		return (Adapter)modelSwitch.doSwitch((EObject)target);
 	}

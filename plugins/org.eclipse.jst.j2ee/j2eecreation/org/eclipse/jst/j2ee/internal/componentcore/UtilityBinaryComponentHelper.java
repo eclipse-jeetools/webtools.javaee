@@ -46,15 +46,18 @@ public class UtilityBinaryComponentHelper extends EnterpriseBinaryComponentHelpe
 			return instance;
 		}
 
+		@Override
 		public Archive createConvertedArchive() {
 			ReferenceCountedArchiveImpl archive = new ReferenceCountedArchiveImpl();
 			return archive;
 		}
 
+		@Override
 		public boolean canImport(Archive anArchive) {
 			return true;
 		}
 
+		@Override
 		public ImportStrategy createImportStrategy(Archive old, Archive newArchive) {
 			return null;
 		}
@@ -74,6 +77,7 @@ public class UtilityBinaryComponentHelper extends EnterpriseBinaryComponentHelpe
 			}
 		}
 
+		@Override
 		public void close() {
 			helper.aboutToClose();
 			synchronized (this) {
@@ -101,6 +105,7 @@ public class UtilityBinaryComponentHelper extends EnterpriseBinaryComponentHelpe
 			this.helper = helper;
 		}
 		
+		@Override
 		protected LoadStrategy createLoadStrategyForReopen(Archive parent) throws IOException {
 			try {
 				return createBinaryLoadStrategy(getEnterpriseBinaryComponentHelper());
@@ -117,10 +122,12 @@ public class UtilityBinaryComponentHelper extends EnterpriseBinaryComponentHelpe
 		}
 	}
 
+	@Override
 	protected ArchiveTypeDiscriminator getDiscriminator() {
 		return Discriminator.getInstance();
 	}
 	
+	@Override
 	protected IReferenceCountedArchive getUniqueArchive() {
 		try {
 			return openArchive();
@@ -129,6 +136,7 @@ public class UtilityBinaryComponentHelper extends EnterpriseBinaryComponentHelpe
 		return null;
 	}
 	
+	@Override
 	public EObject getPrimaryRootObject() {
 		return null;
 	}

@@ -45,6 +45,7 @@ public class WebListenerGroupItemProvider extends WebGroupItemProvider {
 	/**
 	 * This returns Filter.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return J2EEPlugin.getDefault().getImage("listener"); //$NON-NLS-1$
 	}
@@ -52,6 +53,7 @@ public class WebListenerGroupItemProvider extends WebGroupItemProvider {
 	/* (non-Javadoc)
 	 * @see org.eclipse.emf.edit.provider.ITreeItemContentProvider#getChildren(java.lang.Object)
 	 */
+	@Override
 	public Collection getChildren(Object object) {
 	    List result = new ArrayList();
 	    Object webApp = weakWebApp.get();
@@ -64,6 +66,7 @@ public class WebListenerGroupItemProvider extends WebGroupItemProvider {
 	/* (non-Javadoc)
 	 * @see org.eclipse.emf.edit.provider.ITreeItemContentProvider#getParent(java.lang.Object)
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return weakWebApp.get();
 	}
@@ -71,6 +74,7 @@ public class WebListenerGroupItemProvider extends WebGroupItemProvider {
 	/* (non-Javadoc)
 	 * @see org.eclipse.emf.edit.provider.IItemLabelProvider#getText(java.lang.Object)
 	 */
+	@Override
 	public String getText(Object object) {
 		return WebAppEditResourceHandler.getString("LISTENER"); //$NON-NLS-1$
 	}
@@ -78,6 +82,7 @@ public class WebListenerGroupItemProvider extends WebGroupItemProvider {
 	/* (non-Javadoc)
 	 * @see org.eclipse.emf.edit.provider.ITreeItemContentProvider#hasChildren(java.lang.Object)
 	 */
+	@Override
 	public boolean hasChildren(Object object) {
 		return !getChildren(object).isEmpty();
 	}

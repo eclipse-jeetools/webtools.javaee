@@ -52,6 +52,7 @@ public class AdapterCCombo extends AdapterImpl implements SelectionListener {
 		adapt(eObject);
 	}
 
+	@Override
 	public void notifyChanged(Notification msg) {
 		Object notifier = msg.getNotifier();
 		if (notifier == eObject_) {

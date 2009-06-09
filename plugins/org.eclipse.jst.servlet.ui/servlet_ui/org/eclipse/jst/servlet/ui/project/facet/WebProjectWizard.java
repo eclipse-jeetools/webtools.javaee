@@ -38,6 +38,7 @@ public class WebProjectWizard extends NewProjectDataModelFacetWizard {
 		setWindowTitle(WEBUIMessages.WEB_MODULE_WIZ_TITLE);
 	}
 	
+	@Override
 	protected IDataModel createDataModel() {
 	    try
 	    {
@@ -50,20 +51,24 @@ public class WebProjectWizard extends NewProjectDataModelFacetWizard {
 	    }
 	}
 
+	@Override
 	protected IFacetedProjectTemplate getTemplate() {
 		return ProjectFacetsManager.getTemplate("template.jst.web"); //$NON-NLS-1$
 	}
 
+	@Override
 	protected IWizardPage createFirstPage() {
 		return new WebProjectFirstPage(model, "first.page"); //$NON-NLS-1$
 	}
 	
+	@Override
 	protected ImageDescriptor getDefaultPageImageDescriptor() {
 		final Bundle bundle = Platform.getBundle("org.eclipse.jst.servlet.ui"); //$NON-NLS-1$
 		final URL url = bundle.getEntry("icons/full/ctool16/web-wiz-banner.gif"); //$NON-NLS-1$
 		return ImageDescriptor.createFromURL(url);
 	}
 	
+	@Override
 	protected String getFinalPerspectiveID() {
         return ProductManager.getProperty(IProductConstants.FINAL_PERSPECTIVE_WEB);
 	}

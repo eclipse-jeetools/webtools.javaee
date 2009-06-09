@@ -124,6 +124,7 @@ public class WebServiceUIPlugin extends AbstractUIPlugin {
 		return createStatus(IStatus.ERROR, aCode, aMessage, exception);
 	}
 	
+	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 	}

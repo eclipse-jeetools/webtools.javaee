@@ -58,6 +58,7 @@ public class CommonAdapterFactory extends AdapterFactoryImpl {
 			modelPackage = (CommonPackage)EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
 		}
 	}
+	@Override
 	public boolean isFactoryForType(Object type) {
 		if (type == modelPackage) {
 			return true;
@@ -68,6 +69,7 @@ public class CommonAdapterFactory extends AdapterFactoryImpl {
 		return false;
 	}
 
+	@Override
 	public Adapter createAdapter(Notifier target) {
 		return (Adapter)modelSwitch.doSwitch((EObject)target);
 	}
@@ -141,93 +143,123 @@ public class CommonAdapterFactory extends AdapterFactoryImpl {
 	 */
 	protected CommonSwitch modelSwitch =
 		new CommonSwitch() {
+			@Override
 			public Object caseEjbRef(EjbRef object) {
 				return createEjbRefAdapter();
 			}
+			@Override
 			public Object caseEnvEntry(EnvEntry object) {
 				return createEnvEntryAdapter();
 			}
+			@Override
 			public Object caseResourceRef(ResourceRef object) {
 				return createResourceRefAdapter();
 			}
+			@Override
 			public Object caseSecurityRoleRef(SecurityRoleRef object) {
 				return createSecurityRoleRefAdapter();
 			}
+			@Override
 			public Object caseSecurityRole(SecurityRole object) {
 				return createSecurityRoleAdapter();
 			}
+			@Override
 			public Object caseResourceEnvRef(ResourceEnvRef object) {
 				return createResourceEnvRefAdapter();
 			}
+			@Override
 			public Object caseEJBLocalRef(EJBLocalRef object) {
 				return createEJBLocalRefAdapter();
 			}
+			@Override
 			public Object caseRunAsSpecifiedIdentity(RunAsSpecifiedIdentity object) {
 				return createRunAsSpecifiedIdentityAdapter();
 			}
+			@Override
 			public Object caseIdentity(Identity object) {
 				return createIdentityAdapter();
 			}
+			@Override
 			public Object caseIconType(IconType object) {
 				return createIconTypeAdapter();
 			}
+			@Override
 			public Object caseDisplayName(DisplayName object) {
 				return createDisplayNameAdapter();
 			}
+			@Override
 			public Object caseMessageDestinationRef(MessageDestinationRef object) {
 				return createMessageDestinationRefAdapter();
 			}
+			@Override
 			public Object caseMessageDestination(MessageDestination object) {
 				return createMessageDestinationAdapter();
 			}
+			@Override
 			public Object caseParamValue(ParamValue object) {
 				return createParamValueAdapter();
 			}
+			@Override
 			public Object caseDescriptionGroup(DescriptionGroup object) {
 				return createDescriptionGroupAdapter();
 			}
+			@Override
 			public Object caseJNDIEnvRefsGroup(JNDIEnvRefsGroup object) {
 				return createJNDIEnvRefsGroupAdapter();
 			}
+			@Override
 			public Object caseSecurityIdentity(SecurityIdentity object) {
 				return createSecurityIdentityAdapter();
 			}
+			@Override
 			public Object caseUseCallerIdentity(UseCallerIdentity object) {
 				return createUseCallerIdentityAdapter();
 			}
+			@Override
 			public Object caseDescription(Description object) {
 				return createDescriptionAdapter();
 			}
+			@Override
 			public Object caseQName(QName object) {
 				return createQNameAdapter();
 			}
+			@Override
 			public Object caseListener(Listener object) {
 				return createListenerAdapter();
 			}
+			@Override
 			public Object caseCompatibilityDescriptionGroup(CompatibilityDescriptionGroup object) {
 				return createCompatibilityDescriptionGroupAdapter();
 			}
+			@Override
 			public Object caseJ2EEEObject(J2EEEObject object) {
 				return createJ2EEEObjectAdapter();
 			}
+			@Override
 			public Object caseJ2EEEAttribute(J2EEEAttribute object) {
 				return createJ2EEEAttributeAdapter();
 			}
+			@Override
 			public Object caseEModelElement(EModelElement object) {
 				return createEModelElementAdapter();
 			}
+			@Override
 			public Object caseENamedElement(ENamedElement object) {
 				return createENamedElementAdapter();
 			}
+			@Override
 			public Object caseETypedElement(ETypedElement object) {
 				return createETypedElementAdapter();
 			}
+			@Override
 			public Object caseEStructuralFeature(EStructuralFeature object) {
 				return createEStructuralFeatureAdapter();
 			}
+			@Override
 			public Object caseEAttribute(EAttribute object) {
 				return createEAttributeAdapter();
 			}
+			@Override
 			public Object defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}

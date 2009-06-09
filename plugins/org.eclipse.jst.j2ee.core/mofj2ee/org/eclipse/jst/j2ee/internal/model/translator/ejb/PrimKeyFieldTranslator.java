@@ -51,6 +51,7 @@ public class PrimKeyFieldTranslator extends SourceLinkTranslator implements EjbD
 	/**
 	 * @see com.ibm.etools.emf2xml.impl.Translator#convertStringToValue(java.lang.String, org.eclipse.emf.ecore.EObject)
 	 */
+	@Override
 	public Object convertStringToValue(String strValue, EObject owner) {
 		// try and convert the string to a cmp attribute, otherwise create a proxy
 		Object result = super.convertStringToValue(strValue, owner);

@@ -29,6 +29,7 @@ public class UseCallerIdentityImpl extends SecurityIdentityImpl implements UseCa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return CommonPackage.Literals.USE_CALLER_IDENTITY;
 	}
@@ -36,6 +37,7 @@ public class UseCallerIdentityImpl extends SecurityIdentityImpl implements UseCa
 	/**
 	 * @see org.eclipse.jst.j2ee.internal.common.SecurityIdentity#isUseCallerIdentity()
 	 */
+	@Override
 	public boolean isUseCallerIdentity() {
 		return true;
 	}

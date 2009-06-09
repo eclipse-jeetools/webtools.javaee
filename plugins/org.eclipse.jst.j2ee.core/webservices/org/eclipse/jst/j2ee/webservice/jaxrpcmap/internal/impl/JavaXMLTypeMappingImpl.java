@@ -160,7 +160,8 @@ public class JavaXMLTypeMappingImpl extends J2EEEObjectImpl implements JavaXMLTy
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  protected EClass eStaticClass() {
+  @Override
+protected EClass eStaticClass() {
 		return JaxrpcmapPackage.Literals.JAVA_XML_TYPE_MAPPING;
 	}
 
@@ -308,6 +309,7 @@ public class JavaXMLTypeMappingImpl extends J2EEEObjectImpl implements JavaXMLTy
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case JaxrpcmapPackage.JAVA_XML_TYPE_MAPPING__ROOT_TYPE_QNAME:
@@ -323,6 +325,7 @@ public class JavaXMLTypeMappingImpl extends J2EEEObjectImpl implements JavaXMLTy
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case JaxrpcmapPackage.JAVA_XML_TYPE_MAPPING__ID:
@@ -346,6 +349,7 @@ public class JavaXMLTypeMappingImpl extends J2EEEObjectImpl implements JavaXMLTy
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case JaxrpcmapPackage.JAVA_XML_TYPE_MAPPING__ID:
@@ -376,6 +380,7 @@ public class JavaXMLTypeMappingImpl extends J2EEEObjectImpl implements JavaXMLTy
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case JaxrpcmapPackage.JAVA_XML_TYPE_MAPPING__ID:
@@ -405,6 +410,7 @@ public class JavaXMLTypeMappingImpl extends J2EEEObjectImpl implements JavaXMLTy
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case JaxrpcmapPackage.JAVA_XML_TYPE_MAPPING__ID:
@@ -428,7 +434,8 @@ public class JavaXMLTypeMappingImpl extends J2EEEObjectImpl implements JavaXMLTy
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String toString() {
+  @Override
+public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());

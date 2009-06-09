@@ -29,6 +29,7 @@ public class LocalModelledPersistentAttributeFilter extends SupertypeCMPAttribut
 	 * Return the proper list of attributes from cmpExt. Return local
 	 * attributes minus those added due to Relationship Roles.
 	 */
+	@Override
 	protected java.util.List getSourceAttributes(ContainerManagedEntity cmp) {
 		java.util.List local = null, localRoleAttributes; 
 		local = cmp.getFilteredFeatures(LocalPersistentAttributeFilter.singleton());
@@ -41,6 +42,7 @@ public class LocalModelledPersistentAttributeFilter extends SupertypeCMPAttribut
 	 * Return a boolean indicating whether anAttribute also exists in the
 	 * superEntity. For this filter, only the name has to be the same.
 	 */
+	@Override
 	protected boolean isSupertypeAttribute(ContainerManagedEntity superEntity, CMPAttribute anAttribute) {
 		CMPAttribute found = superEntity.getPersistentAttribute(anAttribute.getName());
 		return found != null;

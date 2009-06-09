@@ -51,10 +51,12 @@ public class J2EEFacetProjectCreationDataModelProvider extends FacetProjectCreat
 		super();
 	}
 
+	@Override
 	public void init() {
 		super.init();
 	}
 	
+	@Override
 	public Object getDefaultProperty(String propertyName) {
 		if (EAR_PROJECT_NAME.equals(propertyName)) {
 			IDataModel nestedJ2EEFacetDataModel = getJ2EEFacetModel();
@@ -64,6 +66,7 @@ public class J2EEFacetProjectCreationDataModelProvider extends FacetProjectCreat
 		return super.getDefaultProperty(propertyName);
 	}
 
+	@Override
 	public Set getPropertyNames() {
 		Set names = super.getPropertyNames();
 		names.add(EAR_PROJECT_NAME);
@@ -72,6 +75,7 @@ public class J2EEFacetProjectCreationDataModelProvider extends FacetProjectCreat
 		return names;
 	}
 
+	@Override
 	public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName) {
 		if (FACET_RUNTIME.equals(propertyName) && getBooleanProperty(ADD_TO_EAR)) {
 			DataModelPropertyDescriptor[] descriptors = super.getValidPropertyDescriptors(propertyName);
@@ -91,6 +95,7 @@ public class J2EEFacetProjectCreationDataModelProvider extends FacetProjectCreat
 		return super.getValidPropertyDescriptors(propertyName);
 	}
 
+	@Override
 	public boolean propertySet(String propertyName, Object propertyValue) {
 		if (EAR_PROJECT_NAME.equals(propertyName) || ADD_TO_EAR.equals(propertyName)) {
 			IDataModel nestedJ2EEFacetDataModel = getJ2EEFacetModel();
@@ -144,6 +149,7 @@ public class J2EEFacetProjectCreationDataModelProvider extends FacetProjectCreat
 		return null;
 	}
 
+	@Override
 	public boolean isPropertyEnabled(String propertyName) {
 		if (FACET_RUNTIME.equals(propertyName)) {
 			if (getBooleanProperty(ADD_TO_EAR)) {
@@ -168,6 +174,7 @@ public class J2EEFacetProjectCreationDataModelProvider extends FacetProjectCreat
 		return super.isPropertyEnabled(propertyName);
 	}
 
+	@Override
 	public IStatus validate(String propertyName) {
 		if (ADD_TO_EAR.equals(propertyName) || EAR_PROJECT_NAME.equals(propertyName) || FACET_PROJECT_NAME.equals(propertyName)) {
 			if (model.getBooleanProperty(ADD_TO_EAR)) {

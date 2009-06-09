@@ -102,6 +102,7 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 
 	private ArchiveWrapper cachedLoadError = null;
 
+	@Override
 	public Set getPropertyNames() {
 		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(NESTED_MODULE_ROOT);
@@ -119,6 +120,7 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 		return propertyNames;
 	}
 
+	@Override
 	public Object getDefaultProperty(String propertyName) {
 		if (NESTED_MODULE_ROOT.equals(propertyName)) {
 			return getLocation().toOSString();
@@ -136,6 +138,7 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 		return super.getDefaultProperty(propertyName);
 	}
 
+	@Override
 	public void propertyChanged(DataModelEvent event) {
 		super.propertyChanged(event);
 		if (event.getPropertyName().equals(PROJECT_NAME)) {
@@ -152,6 +155,7 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 		}
 	}
 
+	@Override
 	public boolean propertySet(String propertyName, Object propertyValue) {
 		if (ALL_PROJECT_MODELS_LIST.equals(propertyName) || UNHANDLED_PROJECT_MODELS_LIST.equals(propertyName) || HANDLED_PROJECT_MODELS_LIST.equals(propertyName) || EAR_NAME_VALIDATION.equals(propertyName)) {
 			throw new RuntimeException(propertyName + " is an unsettable property"); //$NON-NLS-1$
@@ -259,6 +263,7 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 		}
 	}
 
+	@Override
 	public IStatus validate(String propertyName) {
 		if (propertyName.equals(NESTED_PROJECTS_VALIDATION) || propertyName.equals(EAR_NAME_VALIDATION)) {
 			boolean checkAgainstEARNameOnly = propertyName.equals(EAR_NAME_VALIDATION);
@@ -583,10 +588,12 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 		return moduleModels;
 	}
 
+	@Override
 	protected int getType() {
 		return XMLResource.APPLICATION_TYPE;
 	}
 
+	@Override
 	protected Archive openArchive(String uri) throws OpenFailureException {
 		return CommonarchiveFactory.eINSTANCE.openEARFile(getArchiveOptions(), uri);
 	}
@@ -651,6 +658,7 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 	 * ArchiveUtil.getFastSpecVersion(ef); }
 	 */
 
+	@Override
 	public boolean isPropertyEnabled(String propertyName) {
 		if (!super.isPropertyEnabled(propertyName)) {
 			return false;
@@ -663,6 +671,7 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 		return true;
 	}
 
+	@Override
 	public void dispose() {
 		super.dispose();
 		List list = getProjectModels();
@@ -710,14 +719,17 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 	 * (J2EEArtifactImportDataModel) ejbJarToClientJarModels.get(model); } else { return null; } }
 	 */
 
+	@Override
 	protected IDataModel createJ2EEComponentCreationDataModel() {
 		return DataModelFactory.createDataModel(new EARFacetProjectCreationDataModelProvider());
 	}
 
+	@Override
 	public IDataModelOperation getDefaultOperation() {
 		return new EARComponentImportOperation(model);
 	}
 
+	@Override
 	public void init() {
 		super.init();
 		IDataModel componentCreationDM = model.getNestedModel(NESTED_MODEL_J2EE_COMPONENT_CREATION);
@@ -739,6 +751,7 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 		return wrapper;
 	}
 	
+	@Override
 	protected void handleUnknownType(JavaEEQuickPeek jqp) {
 		jqp.setType(J2EEVersionConstants.APPLICATION_TYPE);
 		jqp.setVersion(J2EEVersionConstants.JEE_5_0_ID);

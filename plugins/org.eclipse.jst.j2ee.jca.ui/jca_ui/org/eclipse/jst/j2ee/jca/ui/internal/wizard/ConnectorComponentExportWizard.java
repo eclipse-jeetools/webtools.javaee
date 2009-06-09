@@ -49,7 +49,8 @@ public final class ConnectorComponentExportWizard extends J2EEArtifactExportWiza
 		super(model);
 	}
 
-    protected IDataModelProvider getDefaultProvider() {
+    @Override
+	protected IDataModelProvider getDefaultProvider() {
         return new ConnectorComponentExportDataModelProvider();
     }
 	/**
@@ -60,6 +61,7 @@ public final class ConnectorComponentExportWizard extends J2EEArtifactExportWiza
 	 * </ul>
 	 * </p>
 	 */
+	@Override
 	public void doAddPages() {
 		addPage(new RARExportPage(getDataModel(), MAIN_PG, getSelection()));
 	}
@@ -71,6 +73,7 @@ public final class ConnectorComponentExportWizard extends J2EEArtifactExportWiza
 	 * Sets up the default wizard page image. 
 	 * </p>
 	 */
+	@Override
 	protected void doInit() {
 		setDefaultPageImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.JCA_EXPORT_WIZARD_BANNER));
 	} 

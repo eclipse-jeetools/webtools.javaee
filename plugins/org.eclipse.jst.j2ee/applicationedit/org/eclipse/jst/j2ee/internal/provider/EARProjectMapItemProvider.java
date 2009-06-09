@@ -58,6 +58,7 @@ public class EARProjectMapItemProvider extends ModulemapItemProviderAdapter impl
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -69,6 +70,7 @@ public class EARProjectMapItemProvider extends ModulemapItemProviderAdapter impl
 	 * This specifies how to implement {@link #getChildren}and {@link AddCommand}and
 	 * {@link RemoveCommand}support in {@link #createCommand}.
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -84,6 +86,7 @@ public class EARProjectMapItemProvider extends ModulemapItemProviderAdapter impl
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected EReference getChildReference(Object object, Object child) {
 		// TODO: Check the type of the specified child object and return the proper feature to use
 		// for
@@ -96,6 +99,7 @@ public class EARProjectMapItemProvider extends ModulemapItemProviderAdapter impl
 	/**
 	 * This returns the parent of the EARProjectMap.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((EObject) object).eContainer();
 	}
@@ -103,10 +107,12 @@ public class EARProjectMapItemProvider extends ModulemapItemProviderAdapter impl
 	/**
 	 * This returns EARProjectMap.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return J2EEPlugin.getPlugin().getImage("EARProjectMap"); //$NON-NLS-1$
 	}
 
+	@Override
 	public String getText(Object object) {
 		return ApplicationProvidersResourceHandler.getString("EARProjectMap_UI_"); //$NON-NLS-1$
 	}
@@ -117,6 +123,7 @@ public class EARProjectMapItemProvider extends ModulemapItemProviderAdapter impl
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(EARProjectMap.class)) {
 			case ModulemapPackage.EAR_PROJECT_MAP__MAPPINGS :
@@ -146,6 +153,7 @@ public class EARProjectMapItemProvider extends ModulemapItemProviderAdapter impl
 	 * This adds to the collection of {@linkcom.ibm.etools.emf.edit.command.CommandParameter}s
 	 * describing all of the children that can be created under this object.
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -160,6 +168,7 @@ public class EARProjectMapItemProvider extends ModulemapItemProviderAdapter impl
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return ApplicationProvidersResourceHandler.RESOURCE_LOCATOR;
 	}

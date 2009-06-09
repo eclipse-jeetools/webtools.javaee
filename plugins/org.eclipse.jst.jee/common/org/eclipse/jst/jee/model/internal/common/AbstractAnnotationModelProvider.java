@@ -95,7 +95,7 @@ public abstract class AbstractAnnotationModelProvider<T> implements IElementChan
 	 */
 	public AbstractAnnotationModelProvider(IFacetedProject project) {
 		if (project == null)
-			throw new IllegalArgumentException("The project argument can not be null");
+			throw new IllegalArgumentException("The project argument can not be null"); //$NON-NLS-1$
 		this.facetedProject = project;
 	}
 

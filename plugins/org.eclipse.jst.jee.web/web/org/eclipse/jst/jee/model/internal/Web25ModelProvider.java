@@ -38,15 +38,18 @@ public class Web25ModelProvider extends JEE5ModelProvider {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.model.IModelProvider#getModelObject(org.eclipse.core.runtime.IPath)
 	 */
+	@Override
 	public Object getModelObject(IPath modelPath) {
 		IWebResource webRes = (IWebResource)getModelResource(modelPath);
 		if (webRes != null && webRes.getRootObject() != null) 
 			return webRes.getWebApp();
 		return null;
 	}
+	@Override
 	protected String getContentTypeDescriber() {
 		return WAR25_CONTENT_TYPE;
 	}
+	@Override
 	public void populateRoot(XMLResourceImpl res, String name) {
 		WebAppDeploymentDescriptor dd = WebFactory.eINSTANCE.createWebAppDeploymentDescriptor();
 		dd.getXMLNSPrefixMap().put("", J2EEConstants.JAVAEE_NS_URL);  //$NON-NLS-1$

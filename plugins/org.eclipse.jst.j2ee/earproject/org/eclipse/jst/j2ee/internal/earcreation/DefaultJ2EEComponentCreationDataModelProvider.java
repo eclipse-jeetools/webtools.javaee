@@ -71,6 +71,7 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 		super();
 	}
 
+	@Override
 	public Set getPropertyNames() {
 		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(PROJECT_NAME);
@@ -95,10 +96,12 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 	}
 
 
+	@Override
 	public IDataModelOperation getDefaultOperation() {
 		return new DefaultJ2EEComponentCreationOperation(model);
 	}
 
+	@Override
 	public void init() {
 		initNestedCreationModels();
 		super.init();
@@ -147,6 +150,7 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 		}
 	}
 
+	@Override
 	public Object getDefaultProperty(String propertyName) {
 		if (propertyName.startsWith(CREATE_BASE))
 			return getDefaultCreateValue(propertyName);
@@ -191,6 +195,7 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 		return newName;
 	}
 
+	@Override
 	public boolean propertySet(String propertyName, Object propertyValue) {
 		boolean notify = super.propertySet(propertyName, propertyValue);
 		if (propertyName.equals(J2EE_VERSION)) {
@@ -310,6 +315,7 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperationDataModel#doValidateProperty(java.lang.String)
 	 */
+	@Override
 	public IStatus validate(String propertyName) {
 
 		if (getBooleanProperty(CREATE_APPCLIENT) && propertyName.equals(APPCLIENT_COMPONENT_NAME)) {
@@ -445,6 +451,7 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 		return null;
 	}
 
+	@Override
 	public boolean isPropertyEnabled(String propertyName) {
 		if (propertyName.equals(CREATE_CONNECTOR)) {
 			int version = getIntProperty(J2EE_VERSION);

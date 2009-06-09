@@ -165,6 +165,7 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 	 * 
 	 * @return WTPOperation
 	 */
+	@Override
 	public IDataModelOperation getDefaultOperation() {
 		return new NewJavaClassOperation(getDataModel());
 	}
@@ -175,6 +176,7 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider#getPropertyNames()
 	 */
+	@Override
 	public Set getPropertyNames() {
 		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(SOURCE_FOLDER);
@@ -207,6 +209,7 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 	 * @param propertyName
 	 * @return default object value of the property
 	 */
+	@Override
 	public Object getDefaultProperty(String propertyName) {
 		// Get the default source folder for the project
 		if (propertyName.equals(SOURCE_FOLDER)) {
@@ -274,6 +277,7 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 	 * @param propertyName
 	 * @return IStatus of the validity of the specifiec property
 	 */
+	@Override
 	public IStatus validate(String propertyName) {
 		IStatus result = super.validate(propertyName);
 		if (result != null && !result.isOK())
@@ -553,6 +557,7 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 	 * 
 	 * @return boolean if property set successfully
 	 */
+	@Override
 	public boolean propertySet(String propertyName, Object propertyValue) {
 		boolean result = super.propertySet(propertyName, propertyValue);
 		if (result) {

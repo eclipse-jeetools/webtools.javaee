@@ -39,6 +39,7 @@ public abstract class AEntityHomeVRule extends AHomeVRule {
 		}
 	}
 
+	@Override
 	public void validateFindMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		if(!ValidationRuleUtility.followsFinderExceptionRules(bean, method)) {
 			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2477, IEJBValidationContext.INFO, bean, clazz, method, this);
@@ -78,6 +79,7 @@ public abstract class AEntityHomeVRule extends AHomeVRule {
 		}
 	}
 	
+	@Override
 	public void validateHomeMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws ValidationCancelledException, ValidationException {
 		// IWAD4350 = The return type must match the return type of {0}. Read section 12.2.9 of the EJB 2.0 specification.
 		// The above check is done in the "validate(vc, bean, clazz, method) method.

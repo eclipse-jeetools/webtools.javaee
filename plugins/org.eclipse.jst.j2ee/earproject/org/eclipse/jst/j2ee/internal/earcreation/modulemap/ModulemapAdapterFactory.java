@@ -48,6 +48,7 @@ public class ModulemapAdapterFactory extends AdapterFactoryImpl {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public boolean isFactoryForType(Object object) {
 		if (object == modelPackage) {
 			return true;
@@ -65,18 +66,22 @@ public class ModulemapAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	protected ModulemapSwitch modelSwitch = new ModulemapSwitch() {
+		@Override
 		public Object caseModuleMapping(ModuleMapping object) {
 			return createModuleMappingAdapter();
 		}
 
+		@Override
 		public Object caseEARProjectMap(EARProjectMap object) {
 			return createEARProjectMapAdapter();
 		}
 
+		@Override
 		public Object caseUtilityJARMapping(UtilityJARMapping object) {
 			return createUtilityJARMappingAdapter();
 		}
 
+		@Override
 		public Object defaultCase(EObject object) {
 			return createEObjectAdapter();
 		}
@@ -85,6 +90,7 @@ public class ModulemapAdapterFactory extends AdapterFactoryImpl {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public Adapter createAdapter(Notifier target) {
 		return (Adapter) modelSwitch.doSwitch((EObject) target);
 	}

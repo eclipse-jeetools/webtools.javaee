@@ -35,6 +35,7 @@ public class SOAPRoleTranslator extends Translator implements WsddXmlMapperI {
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.Translator#getChildren(java.lang.Object, int)
 	 */
+	@Override
 	public Translator[] getChildren(Object o, int versionID) {
 		if (o == null)
 			return CommonTranslators.EMPTY_CHILDREN;
@@ -43,6 +44,7 @@ public class SOAPRoleTranslator extends Translator implements WsddXmlMapperI {
 	}
 	
 	
+	@Override
 	public String getDOMName(Object value) {
 	  return SOAP_ROLE;
 	}
@@ -52,12 +54,14 @@ public class SOAPRoleTranslator extends Translator implements WsddXmlMapperI {
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.Translator#createEMFObject(java.lang.String, java.lang.String)
 	 */
+	@Override
 	public EObject createEMFObject(String nodeName, String readAheadName) {
 		WscommonFactory fact = WscommonPackage.eINSTANCE.getWscommonFactory();
 		return fact.createSOAPRole();
 
 	}
 	
+	@Override
 	public boolean isManagedByParent() {
 		return false;
 	}

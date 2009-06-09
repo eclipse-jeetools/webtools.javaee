@@ -63,14 +63,16 @@ public class WebServicesImpl extends CompatibilityDescriptionGroupImpl implement
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  protected EClass eStaticClass() {
+  @Override
+protected EClass eStaticClass() {
 		return WsddPackage.Literals.WEB_SERVICES;
 	}
 
   /**
    *
    */
-  public void setDisplayName(String newDisplayName) {
+  @Override
+public void setDisplayName(String newDisplayName) {
   	super.setDisplayName(newDisplayName);
   }
   
@@ -91,6 +93,7 @@ public class WebServicesImpl extends CompatibilityDescriptionGroupImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case WsddPackage.WEB_SERVICES__WEB_SERVICE_DESCRIPTIONS:
@@ -104,6 +107,7 @@ public class WebServicesImpl extends CompatibilityDescriptionGroupImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case WsddPackage.WEB_SERVICES__WEB_SERVICE_DESCRIPTIONS:
@@ -117,6 +121,7 @@ public class WebServicesImpl extends CompatibilityDescriptionGroupImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case WsddPackage.WEB_SERVICES__WEB_SERVICE_DESCRIPTIONS:
@@ -132,6 +137,7 @@ public class WebServicesImpl extends CompatibilityDescriptionGroupImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case WsddPackage.WEB_SERVICES__WEB_SERVICE_DESCRIPTIONS:
@@ -146,6 +152,7 @@ public class WebServicesImpl extends CompatibilityDescriptionGroupImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case WsddPackage.WEB_SERVICES__WEB_SERVICE_DESCRIPTIONS:

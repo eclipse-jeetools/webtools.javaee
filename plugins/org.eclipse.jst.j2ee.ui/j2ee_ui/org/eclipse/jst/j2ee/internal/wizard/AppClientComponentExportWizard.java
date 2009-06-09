@@ -47,7 +47,8 @@ public final class AppClientComponentExportWizard extends J2EEArtifactExportWiza
 	public AppClientComponentExportWizard(IDataModel model) {
 		super(model);
 	}
-    protected IDataModelProvider getDefaultProvider() {
+    @Override
+	protected IDataModelProvider getDefaultProvider() {
         return new AppClientComponentExportDataModelProvider();
     }
 
@@ -59,6 +60,7 @@ public final class AppClientComponentExportWizard extends J2EEArtifactExportWiza
 	 * </ul>
 	 * </p>
 	 */
+	@Override
 	public void doAddPages() {
 		addPage(new AppClientExportPage(getDataModel(), MAIN_PG, getSelection()));
 	}
@@ -70,6 +72,7 @@ public final class AppClientComponentExportWizard extends J2EEArtifactExportWiza
 	 * Sets up the default wizard page image.
 	 * </p>
 	 */
+	@Override
 	protected void doInit() {
 		setDefaultPageImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.APP_CLIENT_EXPORT_WIZARD_BANNER));
 	}

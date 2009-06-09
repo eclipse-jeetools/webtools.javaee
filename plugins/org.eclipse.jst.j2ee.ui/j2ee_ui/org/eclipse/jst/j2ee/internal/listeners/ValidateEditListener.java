@@ -183,6 +183,7 @@ public class ValidateEditListener extends ShellAdapter implements IValidateEditL
 	/**
 	 * @see org.eclipse.swt.events.ShellListener#shellActivated(ShellEvent)
 	 */
+	@Override
 	public void shellActivated(ShellEvent event) {
 		handleActivation();
 	}

@@ -194,6 +194,7 @@ public class J2EEStatus implements J2EESpecificationConstants {
 		return targetObject;
 	}
 
+	@Override
 	public String toString() {
 		StringBuffer buf = new StringBuffer();
 		buf.append("MigrationStatus "); //$NON-NLS-1$

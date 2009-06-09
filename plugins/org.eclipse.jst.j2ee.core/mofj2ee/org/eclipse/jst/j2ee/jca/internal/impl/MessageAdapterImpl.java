@@ -62,6 +62,7 @@ public class MessageAdapterImpl extends J2EEEObjectImpl implements MessageAdapte
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return JcaPackage.Literals.MESSAGE_ADAPTER;
 	}
@@ -83,6 +84,7 @@ public class MessageAdapterImpl extends J2EEEObjectImpl implements MessageAdapte
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case JcaPackage.MESSAGE_ADAPTER__MESSAGE_LISTENERS:
@@ -96,6 +98,7 @@ public class MessageAdapterImpl extends J2EEEObjectImpl implements MessageAdapte
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case JcaPackage.MESSAGE_ADAPTER__MESSAGE_LISTENERS:
@@ -109,6 +112,7 @@ public class MessageAdapterImpl extends J2EEEObjectImpl implements MessageAdapte
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case JcaPackage.MESSAGE_ADAPTER__MESSAGE_LISTENERS:
@@ -124,6 +128,7 @@ public class MessageAdapterImpl extends J2EEEObjectImpl implements MessageAdapte
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case JcaPackage.MESSAGE_ADAPTER__MESSAGE_LISTENERS:
@@ -138,6 +143,7 @@ public class MessageAdapterImpl extends J2EEEObjectImpl implements MessageAdapte
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case JcaPackage.MESSAGE_ADAPTER__MESSAGE_LISTENERS:

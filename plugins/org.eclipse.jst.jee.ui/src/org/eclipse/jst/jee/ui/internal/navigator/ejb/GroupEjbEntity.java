@@ -36,6 +36,7 @@ public class GroupEjbEntity extends AbstractDDNode {
     text = Messages.ENTITY_BEANS;
 	}
 
+	@Override
 	public List getChildren() {
 		List children = new ArrayList();
 		List entities = null;

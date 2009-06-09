@@ -89,6 +89,7 @@ public class J2EEDeployStatusDialog extends ProgressMonitorDialog implements J2E
 	 * 
 	 * @plannedfor 3.0
 	 */
+	@Override
 	protected void finishedRun() {
 		decrementNestingDepth();
 		clearCursors();
@@ -122,6 +123,7 @@ public class J2EEDeployStatusDialog extends ProgressMonitorDialog implements J2E
 	}
 
 
+	@Override
 	protected void createCancelButton(Composite parent) {
 		super.createCancelButton(parent);
 		cancel.setText(IDialogConstants.OK_LABEL);
@@ -130,6 +132,7 @@ public class J2EEDeployStatusDialog extends ProgressMonitorDialog implements J2E
 	/*
 	 * (non-Javadoc) Method declared on Dialog.
 	 */
+	@Override
 	protected void createButtonsForButtonBar(Composite parent) {
 		// cancel button
 		createCancelButton(parent);
@@ -143,6 +146,7 @@ public class J2EEDeployStatusDialog extends ProgressMonitorDialog implements J2E
 	 * pressed then toggle the displaying of the error details area. Note that the Details button
 	 * will only be visible if the error being displayed specifies child details.
 	 */
+	@Override
 	protected void buttonPressed(int id) {
 		if (id == IDialogConstants.DETAILS_ID) { // was the details button pressed?
 			toggleDetailsArea();
@@ -158,6 +162,7 @@ public class J2EEDeployStatusDialog extends ProgressMonitorDialog implements J2E
 	 */
 
 
+	@Override
 	protected Image getImage() {
 		switch (getSeverity()) {
 			case IStatus.ERROR :
@@ -309,6 +314,7 @@ public class J2EEDeployStatusDialog extends ProgressMonitorDialog implements J2E
 	/*
 	 * (non-Javadoc) Method declared in Window.
 	 */
+	@Override
 	protected void configureShell(Shell shell) {
 		super.configureShell(shell);
 		shell.setText(DEPLOY_DIALOG_TITLE);
@@ -318,6 +324,7 @@ public class J2EEDeployStatusDialog extends ProgressMonitorDialog implements J2E
 	/*
 	 * (non-Javadoc) Method declared on Dialog.
 	 */
+	@Override
 	protected Control createDialogArea(Composite parent) {
 		Control control = super.createDialogArea(parent);
 		setMessage(DEPLOYMENT_IN_PROGRESS);

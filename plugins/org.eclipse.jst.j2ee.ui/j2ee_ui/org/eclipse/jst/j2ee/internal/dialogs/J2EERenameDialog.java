@@ -45,6 +45,7 @@ public abstract class J2EERenameDialog extends MessageDialog implements J2EERena
 
 	public abstract void createRenameOptions();
 
+	@Override
 	protected void buttonPressed(int buttonId) {
 		if (buttonId == 0)
 			createRenameOptions();

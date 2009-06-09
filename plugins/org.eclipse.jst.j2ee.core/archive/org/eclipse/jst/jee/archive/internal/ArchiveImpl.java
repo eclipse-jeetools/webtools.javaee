@@ -189,10 +189,12 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 		return archiveOptions;
 	}
 
+	@Override
 	public String toString() {
 		return loadAdapter.toString();
 	}
 
+	@Override
 	protected void finalize() throws Throwable {
 		super.finalize();
 		if (isOpen()) {

@@ -62,6 +62,7 @@ public abstract class AHomeVRule extends AInterfaceTypeVRule {
 		validateAppendixB(vc, bean, clazz);
 	}
 	
+	@Override
 	public final void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedLists) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		super.validate(vc, bean, clazz, method, methodsExtendedLists); // check application exceptions
 		

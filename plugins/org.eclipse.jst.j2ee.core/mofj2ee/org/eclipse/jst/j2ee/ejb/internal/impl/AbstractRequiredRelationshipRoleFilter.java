@@ -27,6 +27,7 @@ public abstract class AbstractRequiredRelationshipRoleFilter extends ContainerMa
 public AbstractRequiredRelationshipRoleFilter() {
 	super();
 }
+@Override
 protected List filterNotcached(ContainerManagedEntity cmp) {
 	List roles = new ArrayList();
 	List allRoles = getRolesToFilter(cmp);

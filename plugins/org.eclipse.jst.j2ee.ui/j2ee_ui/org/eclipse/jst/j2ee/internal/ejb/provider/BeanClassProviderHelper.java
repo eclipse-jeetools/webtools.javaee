@@ -32,6 +32,7 @@ public class BeanClassProviderHelper extends J2EEJavaClassProviderHelper {
 		super(anEJB);
 	}
 
+	@Override
 	public Image getImage() {
 		if (image == null)
 			image = createImage();
@@ -43,14 +44,17 @@ public class BeanClassProviderHelper extends J2EEJavaClassProviderHelper {
 	 * 
 	 * @return org.eclipse.jem.internal.java.JavaClass
 	 */
+	@Override
 	public JavaClass getJavaClass() {
 		return getEjb().getEjbClass();
 	}
 
+	@Override
 	protected String getOverlayKey() {
 		return "ejb_module_ovr";//$NON-NLS-1$
 	}
 
+	@Override
 	public String getTypeString(String className) {
 		return J2EEUIMessages.getResourceString("EJB_Class_UI_", new Object[]{className}); //$NON-NLS-1$ = "EJB Class"
 	}

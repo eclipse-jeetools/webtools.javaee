@@ -39,6 +39,7 @@ public class LoadingDDJob extends Job {
 		setRule(new NonConflictingRule());
 	}
 
+	@Override
 	protected IStatus run(IProgressMonitor monitor) { 
 
 		LoadingDDUIJob updateUIJob = new LoadingDDUIJob(viewer, placeHolder);

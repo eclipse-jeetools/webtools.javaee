@@ -154,6 +154,7 @@ public class ServiceRefHandlerChainImpl extends EObjectImpl implements ServiceRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return JavaeePackage.Literals.SERVICE_REF_HANDLER_CHAIN;
 	}
@@ -259,6 +260,7 @@ public class ServiceRefHandlerChainImpl extends EObjectImpl implements ServiceRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case JavaeePackage.SERVICE_REF_HANDLER_CHAIN__HANDLERS:
@@ -272,6 +274,7 @@ public class ServiceRefHandlerChainImpl extends EObjectImpl implements ServiceRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case JavaeePackage.SERVICE_REF_HANDLER_CHAIN__SERVICE_NAME_PATTERN:
@@ -293,6 +296,7 @@ public class ServiceRefHandlerChainImpl extends EObjectImpl implements ServiceRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case JavaeePackage.SERVICE_REF_HANDLER_CHAIN__SERVICE_NAME_PATTERN:
@@ -320,6 +324,7 @@ public class ServiceRefHandlerChainImpl extends EObjectImpl implements ServiceRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case JavaeePackage.SERVICE_REF_HANDLER_CHAIN__SERVICE_NAME_PATTERN:
@@ -346,6 +351,7 @@ public class ServiceRefHandlerChainImpl extends EObjectImpl implements ServiceRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case JavaeePackage.SERVICE_REF_HANDLER_CHAIN__SERVICE_NAME_PATTERN:
@@ -367,6 +373,7 @@ public class ServiceRefHandlerChainImpl extends EObjectImpl implements ServiceRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

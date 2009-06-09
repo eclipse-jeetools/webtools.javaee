@@ -94,10 +94,12 @@ public class SessionImpl extends EnterpriseBeanImpl implements Session, Enterpri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return EjbPackage.Literals.SESSION;
 	}
 
+	@Override
 	public boolean isSession() {
 		return true;
 	}
@@ -197,6 +199,7 @@ public class SessionImpl extends EnterpriseBeanImpl implements Session, Enterpri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public JavaClass getServiceEndpoint() {
 		if (serviceEndpoint != null && serviceEndpoint.eIsProxy()) {
 			InternalEObject oldServiceEndpoint = (InternalEObject)serviceEndpoint;
@@ -235,6 +238,7 @@ public class SessionImpl extends EnterpriseBeanImpl implements Session, Enterpri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case EjbPackage.SESSION__TRANSACTION_TYPE:
@@ -253,6 +257,7 @@ public class SessionImpl extends EnterpriseBeanImpl implements Session, Enterpri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EjbPackage.SESSION__TRANSACTION_TYPE:
@@ -273,6 +278,7 @@ public class SessionImpl extends EnterpriseBeanImpl implements Session, Enterpri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case EjbPackage.SESSION__TRANSACTION_TYPE:
@@ -293,6 +299,7 @@ public class SessionImpl extends EnterpriseBeanImpl implements Session, Enterpri
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case EjbPackage.SESSION__TRANSACTION_TYPE:
@@ -308,6 +315,7 @@ public class SessionImpl extends EnterpriseBeanImpl implements Session, Enterpri
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

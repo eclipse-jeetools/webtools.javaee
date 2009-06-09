@@ -132,6 +132,7 @@ public class HandlerImpl extends CompatibilityDescriptionGroupImpl implements Ha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Webservice_clientPackage.Literals.HANDLER;
 	}
@@ -174,6 +175,7 @@ public class HandlerImpl extends CompatibilityDescriptionGroupImpl implements Ha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case Webservice_clientPackage.HANDLER__INIT_PARAMS:
@@ -189,6 +191,7 @@ public class HandlerImpl extends CompatibilityDescriptionGroupImpl implements Ha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case Webservice_clientPackage.HANDLER__HANDLER_NAME:
@@ -213,6 +216,7 @@ public class HandlerImpl extends CompatibilityDescriptionGroupImpl implements Ha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case Webservice_clientPackage.HANDLER__HANDLER_NAME:
@@ -246,6 +250,7 @@ public class HandlerImpl extends CompatibilityDescriptionGroupImpl implements Ha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case Webservice_clientPackage.HANDLER__HANDLER_NAME:
@@ -275,6 +280,7 @@ public class HandlerImpl extends CompatibilityDescriptionGroupImpl implements Ha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case Webservice_clientPackage.HANDLER__HANDLER_NAME:
@@ -372,6 +378,7 @@ public class HandlerImpl extends CompatibilityDescriptionGroupImpl implements Ha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

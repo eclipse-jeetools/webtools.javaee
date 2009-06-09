@@ -56,11 +56,13 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 		super(vComponent, includeClasspathComponents);
 	}
 
+	@Override
 	public List getFiles() {
 		aggregateSourceFiles();
 		addModulesAndUtilities();
 		return filesHolder.getFiles();
 	}
+	@Override
 	protected synchronized ArtifactEdit getArtifactEditForRead() {
 		if(artifactEdit == null){
 			artifactEdit = EARArtifactEdit.getEARArtifactEditForRead(vComponent);
@@ -68,6 +70,7 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 		return artifactEdit;
 	}
 
+	@Override
 	public InputStream getInputStream(String uri) throws IOException, FileNotFoundException {
 		if (binaryComponentURIsToDiskFileMap.containsKey(uri)) {
 			java.io.File diskFile = (java.io.File) binaryComponentURIsToDiskFileMap.get(uri);
@@ -192,6 +195,7 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 		}
 	}
 	
+	@Override
 	public void close() {
 		super.close();
 		Iterator it = artifactEditsToDispose.iterator();

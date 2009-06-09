@@ -33,10 +33,12 @@ public class CreateOptionalReferenceOpDataModelProvider extends	CreateReferenceC
 	/* (non-Javadoc)
 	 * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider#getDefaultOperation()
 	 */
+	@Override
 	public IDataModelOperation getDefaultOperation() {
 		return new CreateOptionalReferenceOp(model);
 	}
 	
+	@Override
 	public Set getPropertyNames() {
 		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(CREATE_COMPONENT_REF);
@@ -44,6 +46,7 @@ public class CreateOptionalReferenceOpDataModelProvider extends	CreateReferenceC
 		return propertyNames;
 	}
 
+	@Override
 	public Object getDefaultProperty(String propertyName) {
 		if (CREATE_COMPONENT_REF.equals(propertyName) 
 				||CREATE_PROJECT_REF.equals(propertyName)) {

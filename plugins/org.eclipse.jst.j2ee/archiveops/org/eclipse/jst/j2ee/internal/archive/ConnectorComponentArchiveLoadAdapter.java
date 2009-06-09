@@ -71,6 +71,7 @@ public class ConnectorComponentArchiveLoadAdapter extends ComponentArchiveLoadAd
 		knownDD = vComponent.getRootFolder().getFile(J2EEConstants.RAR_DD_URI).getUnderlyingFile();
 	}
 
+	@Override
 	public List<IArchiveResource> getArchiveResources() {
 		addNestedJARsFromSourceRoots();
 		aggregateSourceFiles();
@@ -220,6 +221,7 @@ public class ConnectorComponentArchiveLoadAdapter extends ComponentArchiveLoadAd
 		return true;
 	}
 
+	@Override
 	protected boolean shouldInclude(IPath path) {
 		String lastSegment = path.lastSegment();
 		return null != lastSegment && !JavaEEArchiveUtilities.hasExtension(lastSegment, JavaEEArchiveUtilities.DOT_CLASS) && !JavaEEArchiveUtilities.hasExtension(lastSegment, JavaEEArchiveUtilities.DOT_JAVA);
@@ -291,6 +293,7 @@ public class ConnectorComponentArchiveLoadAdapter extends ComponentArchiveLoadAd
 		return new Path(J2EEConstants.RAR_DD_URI);
 	}
 	
+	@Override
 	protected boolean shouldInclude(IVirtualContainer vContainer) {
 		boolean isDDFolder = vComponent.getRootFolder().getFolder(J2EEConstants.META_INF).equals(vContainer);
 		return isDDFolder || !inJavaSrc(vContainer);

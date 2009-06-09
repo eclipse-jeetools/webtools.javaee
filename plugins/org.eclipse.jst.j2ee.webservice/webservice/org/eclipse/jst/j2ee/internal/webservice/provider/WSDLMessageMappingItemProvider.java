@@ -54,6 +54,7 @@ public class WSDLMessageMappingItemProvider extends ItemProviderAdapter implemen
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -122,6 +123,7 @@ public class WSDLMessageMappingItemProvider extends ItemProviderAdapter implemen
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -136,6 +138,7 @@ public class WSDLMessageMappingItemProvider extends ItemProviderAdapter implemen
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return getResourceLocator().getImage("full/obj16/WSDLMessageMapping"); //$NON-NLS-1$
 	}
@@ -146,6 +149,7 @@ public class WSDLMessageMappingItemProvider extends ItemProviderAdapter implemen
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((WSDLMessageMapping) object).getWsdlMessagePartName();
 		return label == null || label.length() == 0 ? getString("_UI_WSDLMessageMapping_type") : //$NON-NLS-1$
@@ -158,6 +162,7 @@ public class WSDLMessageMappingItemProvider extends ItemProviderAdapter implemen
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(WSDLMessageMapping.class)) {
 			case JaxrpcmapPackage.WSDL_MESSAGE_MAPPING__ID :
@@ -179,6 +184,7 @@ public class WSDLMessageMappingItemProvider extends ItemProviderAdapter implemen
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -191,6 +197,7 @@ public class WSDLMessageMappingItemProvider extends ItemProviderAdapter implemen
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return Webservicej2eeEditPlugin.INSTANCE;
 	}

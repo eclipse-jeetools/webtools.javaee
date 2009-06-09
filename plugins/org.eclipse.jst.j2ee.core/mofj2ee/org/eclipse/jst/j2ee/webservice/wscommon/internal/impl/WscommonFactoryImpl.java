@@ -67,7 +67,8 @@ public class WscommonFactoryImpl extends EFactoryImpl implements WscommonFactory
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EObject create(EClass eClass) {
+  @Override
+public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case WscommonPackage.INIT_PARAM: return createInitParam();
 			case WscommonPackage.SOAP_HEADER: return createSOAPHeader();

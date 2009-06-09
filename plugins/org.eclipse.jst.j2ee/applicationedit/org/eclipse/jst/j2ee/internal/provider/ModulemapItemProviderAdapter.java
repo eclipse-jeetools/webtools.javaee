@@ -57,6 +57,7 @@ public class ModulemapItemProviderAdapter extends ItemProviderAdapter {
 	/**
 	 * This creates the supported commands.
 	 */
+	@Override
 	public Command createCommand(Object object, EditingDomain editingDomain, Class commandClass, CommandParameter commandParameter) {
 		return super.createCommand(object, editingDomain, commandClass, commandParameter);
 	}
@@ -79,6 +80,7 @@ public class ModulemapItemProviderAdapter extends ItemProviderAdapter {
 	/**
 	 * This returns the default result collection for {@link CreateChildCommand}.
 	 */
+	@Override
 	public Collection getCreateChildResult(Object child) {
 		Collection result = new ArrayList(1);
 		result.add(child);
@@ -122,6 +124,7 @@ public class ModulemapItemProviderAdapter extends ItemProviderAdapter {
 	/**
 	 * This looks up the name of the type of the specified object.
 	 */
+	@Override
 	protected String getTypeText(Object object) {
 		String typeKey = object instanceof EObject ? ((EObject) object).eClass().getName() : "Unknown"; //$NON-NLS-1$
 		return J2EEPlugin.getPlugin().getString("_UI_" + typeKey + "_type"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -130,6 +133,7 @@ public class ModulemapItemProviderAdapter extends ItemProviderAdapter {
 	/**
 	 * This looks up the name of the specified feature.
 	 */
+	@Override
 	protected String getFeatureText(Object feature) {
 		String featureKey = feature instanceof EReference ? ((EReference) feature).getName() : "Unknown"; //$NON-NLS-1$
 		return J2EEPlugin.getPlugin().getString("_UI_" + featureKey + "_feature"); //$NON-NLS-1$ //$NON-NLS-2$

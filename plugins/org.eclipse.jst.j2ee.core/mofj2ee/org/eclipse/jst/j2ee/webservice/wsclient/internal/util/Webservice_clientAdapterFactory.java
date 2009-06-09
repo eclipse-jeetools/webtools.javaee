@@ -62,6 +62,7 @@ public class Webservice_clientAdapterFactory extends AdapterFactoryImpl {
 	 * @return whether this factory is applicable for the type of the object.
 	 * @generated
 	 */
+	@Override
 	public boolean isFactoryForType(Object object) {
 		if (object == modelPackage) {
 			return true;
@@ -80,30 +81,39 @@ public class Webservice_clientAdapterFactory extends AdapterFactoryImpl {
 	 */
 	protected Webservice_clientSwitch modelSwitch =
 		new Webservice_clientSwitch() {
+			@Override
 			public Object caseServiceRef(ServiceRef object) {
 				return createServiceRefAdapter();
 			}
+			@Override
 			public Object casePortComponentRef(PortComponentRef object) {
 				return createPortComponentRefAdapter();
 			}
+			@Override
 			public Object caseHandler(Handler object) {
 				return createHandlerAdapter();
 			}
+			@Override
 			public Object caseWebServicesClient(WebServicesClient object) {
 				return createWebServicesClientAdapter();
 			}
+			@Override
 			public Object caseComponentScopedRefs(ComponentScopedRefs object) {
 				return createComponentScopedRefsAdapter();
 			}
+			@Override
 			public Object caseJ2EEEObject(J2EEEObject object) {
 				return createJ2EEEObjectAdapter();
 			}
+			@Override
 			public Object caseDescriptionGroup(DescriptionGroup object) {
 				return createDescriptionGroupAdapter();
 			}
+			@Override
 			public Object caseCompatibilityDescriptionGroup(CompatibilityDescriptionGroup object) {
 				return createCompatibilityDescriptionGroupAdapter();
 			}
+			@Override
 			public Object defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -117,6 +127,7 @@ public class Webservice_clientAdapterFactory extends AdapterFactoryImpl {
 	 * @return the adapter for the <code>target</code>.
 	 * @generated
 	 */
+	@Override
 	public Adapter createAdapter(Notifier target) {
 		return (Adapter)modelSwitch.doSwitch((EObject)target);
 	}

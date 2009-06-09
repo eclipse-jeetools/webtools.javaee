@@ -77,6 +77,7 @@ public class SelectedFilesFilterImpl extends SaveFilterImpl {
 		selectedFileNames = newSelectedFileNames;
 	}
 
+	@Override
 	public boolean shouldSave(java.lang.String uri, Archive anArchive) {
 		return getSelectedFileNames().contains(uri);
 	}

@@ -151,6 +151,7 @@ public final class CMPBeanClassVRule extends AEntityBeanClassVRule implements IM
 		return MESSAGE_IDS;
 	}
 	
+	@Override
 	public final int getMessageRemoteExceptionSeverity() {
 		return MESSAGE_REMOTE_EXCEPTION_SEVERITY;
 	}
@@ -167,6 +168,7 @@ public final class CMPBeanClassVRule extends AEntityBeanClassVRule implements IM
 		return SUPERTYPES;
 	}
 	
+	@Override
 	public final boolean shouldValidateTransientField() {
 		return SHOULD_VALIDATE_TRANSIENT_FIELD;
 	}
@@ -175,14 +177,17 @@ public final class CMPBeanClassVRule extends AEntityBeanClassVRule implements IM
 		return SHOULD_NOT_BE_SUPERTYPES;
 	}
 
+	@Override
 	public final boolean shouldBeAbstract(JavaClass clazz) {
 		return SHOULD_BE_ABSTRACT;
 	}
 	
+	@Override
 	public final boolean shouldBeFinal(JavaClass clazz) {
 		return SHOULD_BE_FINAL;
 	}
 	
+	@Override
 	public final boolean shouldBePublic(JavaClass clazz) {
 		return SHOULD_BE_PUBLIC;
 	}
@@ -199,6 +204,7 @@ public final class CMPBeanClassVRule extends AEntityBeanClassVRule implements IM
 		return METHODS_WHICH_MUST_NOT_EXIST;
 	}
 	
+	@Override
 	public final JavaHelpers getEjbCreateReturnType(EnterpriseBean bean, Method method) {
 		ContainerManagedEntity cmp = (ContainerManagedEntity)bean;
 		if(ValidationRuleUtility.usesUnknownPrimaryKey(cmp)) {
@@ -213,6 +219,7 @@ public final class CMPBeanClassVRule extends AEntityBeanClassVRule implements IM
 		return ((Entity)bean).getPrimaryKey();
 	}
 	
+	@Override
 	public final String getEjbCreateReturnTypeName(EnterpriseBean bean, Method method) {
 		JavaHelpers retType = getEjbCreateReturnType(bean, method);
 		if(retType == null) {
@@ -221,6 +228,7 @@ public final class CMPBeanClassVRule extends AEntityBeanClassVRule implements IM
 		return retType.getJavaName();
 	}
 	
+	@Override
 	public final void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		super.validate(vc, bean, clazz);
 		
@@ -252,6 +260,7 @@ public final class CMPBeanClassVRule extends AEntityBeanClassVRule implements IM
 		filter.clearCache();
 	}
 	
+	@Override
 	public void validateEjbCreateMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedList) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		super.validateEjbCreateMethod(vc, bean, clazz, method, methodsExtendedList);
 		
@@ -456,6 +465,7 @@ public final class CMPBeanClassVRule extends AEntityBeanClassVRule implements IM
 		}
 	}
 
+	@Override
 	public String getMatchingHomeMethodName(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedList) {
 		long methodType = MethodUtility.getUtility().getMethodTypeId(bean, clazz, method, methodsExtendedList, this);
 		

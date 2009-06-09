@@ -44,6 +44,7 @@ public class CommonarchiveAdapterFactory extends AdapterFactoryImpl {
 		}
 	}
 
+	@Override
 	public boolean isFactoryForType(Object type) {
 		if (type == modelPackage) {
 			return true;
@@ -55,47 +56,58 @@ public class CommonarchiveAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	protected CommonarchiveSwitch sw = new CommonarchiveSwitch() {
+		@Override
 		public Object caseContainer(Container object) {
 			return createContainerAdapter();
 		}
 
+		@Override
 		public Object caseWARFile(WARFile object) {
 			return createWARFileAdapter();
 		}
 
+		@Override
 		public Object caseModuleFile(ModuleFile object) {
 			return createModuleFileAdapter();
 		}
 
+		@Override
 		public Object caseEARFile(EARFile object) {
 			return createEARFileAdapter();
 		}
 
+		@Override
 		public Object caseApplicationClientFile(ApplicationClientFile object) {
 			return createApplicationClientFileAdapter();
 		}
 
+		@Override
 		public Object caseEJBJarFile(EJBJarFile object) {
 			return createEJBJarFileAdapter();
 		}
 
+		@Override
 		public Object caseRARFile(RARFile object) {
 			return createRARFileAdapter();
 		}
 
+		@Override
 		public Object caseArchive(Archive object) {
 			return createArchiveAdapter();
 		}
 
+		@Override
 		public Object caseFile(File object) {
 			return createFileAdapter();
 		}
 
+		@Override
 		public Object caseReadOnlyDirectory(ReadOnlyDirectory object) {
 			return createReadOnlyDirectoryAdapter();
 		}
 	};
 
+	@Override
 	public Adapter createAdapter(Notifier target) {
 		return (Adapter) sw.doSwitch((EObject) target);
 	}
@@ -242,54 +254,71 @@ public class CommonarchiveAdapterFactory extends AdapterFactoryImpl {
 	 */
 	protected CommonarchiveSwitch modelSwitch =
 		new CommonarchiveSwitch() {
+			@Override
 			public Object caseFile(File object) {
 				return createFileAdapter();
 			}
+			@Override
 			public Object caseArchive(Archive object) {
 				return createArchiveAdapter();
 			}
+			@Override
 			public Object caseEJBJarFile(EJBJarFile object) {
 				return createEJBJarFileAdapter();
 			}
+			@Override
 			public Object caseWARFile(WARFile object) {
 				return createWARFileAdapter();
 			}
+			@Override
 			public Object caseEARFile(EARFile object) {
 				return createEARFileAdapter();
 			}
+			@Override
 			public Object caseApplicationClientFile(ApplicationClientFile object) {
 				return createApplicationClientFileAdapter();
 			}
+			@Override
 			public Object caseModuleFile(ModuleFile object) {
 				return createModuleFileAdapter();
 			}
+			@Override
 			public Object caseContainer(Container object) {
 				return createContainerAdapter();
 			}
+			@Override
 			public Object caseReadOnlyDirectory(ReadOnlyDirectory object) {
 				return createReadOnlyDirectoryAdapter();
 			}
+			@Override
 			public Object caseRARFile(RARFile object) {
 				return createRARFileAdapter();
 			}
+			@Override
 			public Object caseModuleRef(ModuleRef object) {
 				return createModuleRefAdapter();
 			}
+			@Override
 			public Object caseEJBModuleRef(EJBModuleRef object) {
 				return createEJBModuleRefAdapter();
 			}
+			@Override
 			public Object caseWebModuleRef(WebModuleRef object) {
 				return createWebModuleRefAdapter();
 			}
+			@Override
 			public Object caseClientModuleRef(ClientModuleRef object) {
 				return createClientModuleRefAdapter();
 			}
+			@Override
 			public Object caseConnectorModuleRef(ConnectorModuleRef object) {
 				return createConnectorModuleRefAdapter();
 			}
+			@Override
 			public Object caseJ2EEEObject(J2EEEObject object) {
 				return createJ2EEEObjectAdapter();
 			}
+			@Override
 			public Object defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}

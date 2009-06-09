@@ -54,6 +54,7 @@ public class LocalEncodingMappingListItemProvider extends ItemProviderAdapter im
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -70,6 +71,7 @@ public class LocalEncodingMappingListItemProvider extends ItemProviderAdapter im
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -82,6 +84,7 @@ public class LocalEncodingMappingListItemProvider extends ItemProviderAdapter im
 	/**
 	 * This returns LocalEncodingMappingList.gif. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 */
+	@Override
 	public Object getImage(Object object) {
 		//		return getResourceLocator().getImage("full/obj16/LocalEncodingMappingList");
 		return WebPlugin.getDefault().getImage("local_encoding_mapping_list");//$NON-NLS-1$
@@ -91,6 +94,7 @@ public class LocalEncodingMappingListItemProvider extends ItemProviderAdapter im
 	 * This returns the label text for the adapted class. <!-- begin-user-doc --> <!-- end-user-doc
 	 * -->
 	 */
+	@Override
 	public String getText(Object object) {
 		return WebAppEditResourceHandler.getString("Local_encoding_mapping_list_UI_"); //$NON-NLS-1$ = "Welcome File List"
 	}
@@ -101,6 +105,7 @@ public class LocalEncodingMappingListItemProvider extends ItemProviderAdapter im
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(LocalEncodingMappingList.class)) {
 			case WebapplicationPackage.LOCAL_ENCODING_MAPPING_LIST__LOCAL_ENCODING_MAPPINGS : {
@@ -118,6 +123,7 @@ public class LocalEncodingMappingListItemProvider extends ItemProviderAdapter im
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -130,6 +136,7 @@ public class LocalEncodingMappingListItemProvider extends ItemProviderAdapter im
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}

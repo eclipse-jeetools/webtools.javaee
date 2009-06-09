@@ -322,6 +322,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return JspPackage.Literals.JSP_PROPERTY_GROUP;
 	}
@@ -675,6 +676,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case JspPackage.JSP_PROPERTY_GROUP__DESCRIPTIONS:
@@ -694,6 +696,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case JspPackage.JSP_PROPERTY_GROUP__DESCRIPTIONS:
@@ -731,6 +734,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case JspPackage.JSP_PROPERTY_GROUP__DESCRIPTIONS:
@@ -787,6 +791,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case JspPackage.JSP_PROPERTY_GROUP__DESCRIPTIONS:
@@ -837,6 +842,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case JspPackage.JSP_PROPERTY_GROUP__DESCRIPTIONS:
@@ -874,6 +880,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

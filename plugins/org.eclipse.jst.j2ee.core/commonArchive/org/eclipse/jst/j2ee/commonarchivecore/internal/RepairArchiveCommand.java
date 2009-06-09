@@ -92,6 +92,7 @@ public class RepairArchiveCommand extends AbstractCommand {
 		return directoryNames;
 	}
 
+	@Override
 	public Collection getResult() {
 		return Arrays.asList(new Object[]{archive});
 	}
@@ -115,6 +116,7 @@ public class RepairArchiveCommand extends AbstractCommand {
 		}
 	}
 
+	@Override
 	protected boolean prepare() {
 		return true;
 	}

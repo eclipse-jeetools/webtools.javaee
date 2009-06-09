@@ -138,6 +138,7 @@ public class JSPTagAttributeImpl extends J2EEEObjectImpl implements JSPTagAttrib
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return TaglibPackage.Literals.JSP_TAG_ATTRIBUTE;
 	}
@@ -324,6 +325,7 @@ public class JSPTagAttributeImpl extends J2EEEObjectImpl implements JSPTagAttrib
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case TaglibPackage.JSP_TAG_ATTRIBUTE__DESCRIPTIONS:
@@ -337,6 +339,7 @@ public class JSPTagAttributeImpl extends J2EEEObjectImpl implements JSPTagAttrib
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case TaglibPackage.JSP_TAG_ATTRIBUTE__NAME:
@@ -361,6 +364,7 @@ public class JSPTagAttributeImpl extends J2EEEObjectImpl implements JSPTagAttrib
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case TaglibPackage.JSP_TAG_ATTRIBUTE__NAME:
@@ -391,6 +395,7 @@ public class JSPTagAttributeImpl extends J2EEEObjectImpl implements JSPTagAttrib
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case TaglibPackage.JSP_TAG_ATTRIBUTE__NAME:
@@ -420,6 +425,7 @@ public class JSPTagAttributeImpl extends J2EEEObjectImpl implements JSPTagAttrib
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case TaglibPackage.JSP_TAG_ATTRIBUTE__NAME:
@@ -441,6 +447,7 @@ public class JSPTagAttributeImpl extends J2EEEObjectImpl implements JSPTagAttrib
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

@@ -94,6 +94,7 @@ public class EJBResourceImpl extends XMLResourceImpl implements EJBResource {
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.j2eexml.XMLResourceImpl#getJ2EE_1_2_PublicID()
 	 */
+	@Override
 	public String getJ2EE_1_2_PublicID() {
 		return J2EEConstants.EJBJAR_PUBLICID_1_1;
 	}
@@ -101,10 +102,12 @@ public class EJBResourceImpl extends XMLResourceImpl implements EJBResource {
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.j2eexml.XMLResourceImpl#getJ2EE_1_2_SystemID()
 	 */
+	@Override
 	public String getJ2EE_1_2_SystemID() {
 		return J2EEConstants.EJBJAR_SYSTEMID_1_1;
 	}
 	
+	@Override
 	public String getJ2EE_Alt_1_2_SystemID() {
 		return J2EEConstants.EJBJAR_ALT_SYSTEMID_1_1;
 	}
@@ -112,6 +115,7 @@ public class EJBResourceImpl extends XMLResourceImpl implements EJBResource {
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.j2eexml.XMLResourceImpl#getJ2EE_1_3_PublicID()
 	 */
+	@Override
 	public String getJ2EE_1_3_PublicID() {
 		return J2EEConstants.EJBJAR_PUBLICID_2_0;
 	}
@@ -119,10 +123,12 @@ public class EJBResourceImpl extends XMLResourceImpl implements EJBResource {
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.j2eexml.XMLResourceImpl#getJ2EE_1_3_SystemID()
 	 */
+	@Override
 	public String getJ2EE_1_3_SystemID() {
 		return J2EEConstants.EJBJAR_SYSTEMID_2_0;
 	}
 	
+	@Override
 	public String getJ2EE_Alt_1_3_SystemID() {
 		return J2EEConstants.EJBJAR_ALT_SYSTEMID_2_0;
 	}
@@ -136,6 +142,7 @@ public class EJBResourceImpl extends XMLResourceImpl implements EJBResource {
 	
 	/* Return J2EE version based on module version
 	 */
+	@Override
 	public int getJ2EEVersionID() {
 		switch (getModuleVersionID()) {
 			case J2EEVersionConstants.EJB_1_0_ID :
@@ -167,6 +174,7 @@ public class EJBResourceImpl extends XMLResourceImpl implements EJBResource {
 	/* 
 	 * This directly sets the module version id
 	 */
+	@Override
 	public void setModuleVersionID(int id) {
 		super.setVersionID(id);
 		switch (id) {
@@ -193,6 +201,7 @@ public class EJBResourceImpl extends XMLResourceImpl implements EJBResource {
 	/*
 	 * Based on the J2EE version, this will set the module version
 	 */
+	@Override
 	public void setJ2EEVersionID(int id) {
 	switch (id) {
 		case (JEE_5_0_ID) :
@@ -216,12 +225,14 @@ public class EJBResourceImpl extends XMLResourceImpl implements EJBResource {
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.TranslatorResourceImpl#getDefaultVersionID()
 	 */
+	@Override
 	protected int getDefaultVersionID() {
 		return EJB_2_1_ID;
 	}
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.common.impl.XMLResourceImpl#syncVersionOfRootObject()
 	 */
+	@Override
 	protected void syncVersionOfRootObject() {
 		EJBJar ejbJar = getEJBJar();
 		if (ejbJar == null)
@@ -236,6 +247,7 @@ public class EJBResourceImpl extends XMLResourceImpl implements EJBResource {
 	public boolean isBatchMode() {
 		return renderer.isBatchMode();
 	}
+	@Override
 	public void setDoctypeValues(String publicId, String systemId) {
 		
 		int myVersion = J2EE_1_4_ID;

@@ -102,6 +102,7 @@ public class LoginConfigImpl extends J2EEEObjectImpl implements LoginConfig {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return WebapplicationPackage.Literals.LOGIN_CONFIG;
 	}
@@ -276,6 +277,7 @@ public class LoginConfigImpl extends J2EEEObjectImpl implements LoginConfig {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case WebapplicationPackage.LOGIN_CONFIG__WEB_APP:
@@ -295,6 +297,7 @@ public class LoginConfigImpl extends J2EEEObjectImpl implements LoginConfig {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case WebapplicationPackage.LOGIN_CONFIG__WEB_APP:
@@ -310,6 +313,7 @@ public class LoginConfigImpl extends J2EEEObjectImpl implements LoginConfig {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case WebapplicationPackage.LOGIN_CONFIG__WEB_APP:
@@ -323,6 +327,7 @@ public class LoginConfigImpl extends J2EEEObjectImpl implements LoginConfig {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case WebapplicationPackage.LOGIN_CONFIG__AUTH_METHOD:
@@ -344,6 +349,7 @@ public class LoginConfigImpl extends J2EEEObjectImpl implements LoginConfig {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case WebapplicationPackage.LOGIN_CONFIG__AUTH_METHOD:
@@ -370,6 +376,7 @@ public class LoginConfigImpl extends J2EEEObjectImpl implements LoginConfig {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case WebapplicationPackage.LOGIN_CONFIG__AUTH_METHOD:
@@ -396,6 +403,7 @@ public class LoginConfigImpl extends J2EEEObjectImpl implements LoginConfig {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case WebapplicationPackage.LOGIN_CONFIG__AUTH_METHOD:
@@ -415,6 +423,7 @@ public class LoginConfigImpl extends J2EEEObjectImpl implements LoginConfig {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

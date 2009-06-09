@@ -33,6 +33,7 @@ public class ClearPlaceHolderJob extends UIJob {
 		setRule(new NonConflictingRule());
 	}
 	
+	@Override
 	public IStatus runInUIThread(IProgressMonitor monitor) {
 
 		try {

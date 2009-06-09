@@ -31,6 +31,7 @@ public class UtilityModuleProjectItemProvider extends J2EEItemProvider {
 	/**
 	 * @see ItemProviderAdapter#getImage(Object)
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return J2EEPlugin.getPlugin().getImage("icons/full/obj16/prjutiljar_obj"); //$NON-NLS-1$
 	}
@@ -38,6 +39,7 @@ public class UtilityModuleProjectItemProvider extends J2EEItemProvider {
 	/**
 	 * @see ItemProviderAdapter#getText(Object)
 	 */
+	@Override
 	public String getText(Object object) {
 		
 		return utilProject.getName();

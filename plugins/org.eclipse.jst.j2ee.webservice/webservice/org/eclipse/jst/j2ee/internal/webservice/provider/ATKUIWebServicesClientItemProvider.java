@@ -54,6 +54,7 @@ public class ATKUIWebServicesClientItemProvider extends WebServicesClientItemPro
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return null;
 	}
@@ -64,6 +65,7 @@ public class ATKUIWebServicesClientItemProvider extends WebServicesClientItemPro
 	 * 
 	 * @non-generated
 	 */
+	@Override
 	public String getText(Object object) {
 		return WebServicePlugin.getMessage("%LABEL_UNQUALIFIED_COMPONENT"); //$NON-NLS-1$
 	}
@@ -73,6 +75,7 @@ public class ATKUIWebServicesClientItemProvider extends WebServicesClientItemPro
 	 * {@link ITreeItemContentProvider#getChildren ITreeItemContentProvider.getChildren}by calling
 	 * {@link #getChildrenReferences getChildrenReferences}and using those to collect the children.
 	 */
+	@Override
 	public Collection getChildren(Object object) {
 		if (object instanceof EList)
 			return getChildrenFromEList((EList) object);

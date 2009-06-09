@@ -39,24 +39,29 @@ public class AppClientProjectWizard extends NewProjectDataModelFacetWizard {
 		setWindowTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.APP_CLIENT_PROJECT_WIZ_TITLE));
 	}
 
+	@Override
 	protected IDataModel createDataModel() {
 		return DataModelFactory.createDataModel(new AppClientFacetProjectCreationDataModelProvider());
 	}
 
+	@Override
 	protected ImageDescriptor getDefaultPageImageDescriptor() {
 		final Bundle bundle = Platform.getBundle(J2EEUIPlugin.PLUGIN_ID);
 		final URL url = bundle.getEntry("icons/full/wizban/appclient_wiz.gif"); //$NON-NLS-1$
 		return ImageDescriptor.createFromURL(url);
 	}
 
+	@Override
 	protected IFacetedProjectTemplate getTemplate() {
 		return ProjectFacetsManager.getTemplate("template.jst.appclient"); //$NON-NLS-1$
 	}
 
+	@Override
 	protected IWizardPage createFirstPage() {
 		return new AppClientProjectFirstPage(model, "first.page"); //$NON-NLS-1$
 	}
 	
+	@Override
 	protected String getFinalPerspectiveID() {
         return ProductManager.getProperty(IProductConstants.FINAL_PERSPECTIVE_APPCLIENT);
 	}

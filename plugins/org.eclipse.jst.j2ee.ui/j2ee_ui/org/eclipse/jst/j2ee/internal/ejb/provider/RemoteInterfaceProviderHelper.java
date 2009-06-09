@@ -35,6 +35,7 @@ public class RemoteInterfaceProviderHelper extends J2EEJavaClassProviderHelper {
 		super(anEJB);
 	}
 
+	@Override
 	public Image getImage() {
 		if (image == null)
 			image = createImage();
@@ -46,14 +47,17 @@ public class RemoteInterfaceProviderHelper extends J2EEJavaClassProviderHelper {
 	 * 
 	 * @return org.eclipse.jem.internal.java.JavaClass
 	 */
+	@Override
 	public JavaClass getJavaClass() {
 		return getEjb().getRemoteInterface();
 	}
 
+	@Override
 	protected String getOverlayKey() {
 		return "remote_interface_overlay_obj";//$NON-NLS-1$
 	}
 
+	@Override
 	public String getTypeString(String className) {
 		return J2EEUIMessages.getResourceString("Remote_Interface_UI_", new Object[]{className}); //$NON-NLS-1$ = "Remote Interface"
 	}

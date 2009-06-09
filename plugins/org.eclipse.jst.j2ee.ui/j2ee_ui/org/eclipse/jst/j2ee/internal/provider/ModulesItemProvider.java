@@ -201,6 +201,7 @@ public class ModulesItemProvider extends J2EEItemProvider {
 	/**
 	 * @see org.eclipse.emf.edit.provider.ItemProviderAdapter#getImage(Object)
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return J2EEPlugin.getPlugin().getImage("folder"); //$NON-NLS-1$
 	}
@@ -209,6 +210,7 @@ public class ModulesItemProvider extends J2EEItemProvider {
 		return (Application) getParent();
 	}
 
+	@Override
 	public IFile getAssociatedFile() {
 
 		try {
@@ -226,10 +228,12 @@ public class ModulesItemProvider extends J2EEItemProvider {
 	/**
 	 * @see org.eclipse.emf.edit.provider.IItemLabelProvider#getText(Object)
 	 */
+	@Override
 	public String getText(Object object) {
 		return MODULES;
 	}
 
+	@Override
 	public boolean hasChildren(Object object) {
 		getChildren(object);
 		return !localChildren.isEmpty();
@@ -237,6 +241,7 @@ public class ModulesItemProvider extends J2EEItemProvider {
 
 	private List localChildren = null;
 
+	@Override
 	public Collection getChildren(Object object) {
 		return initChildren(object);
 	}

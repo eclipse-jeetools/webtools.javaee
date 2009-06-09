@@ -505,6 +505,7 @@ public class ClasspathElement {
 		setRelativeText(cpEntry);
 	}
 
+	@Override
 	public String toString() {
 		return "ClasspatheElement(" + getText() + ")"; //$NON-NLS-1$ //$NON-NLS-2$
 	}

@@ -38,14 +38,17 @@ public abstract class AbstractOverrideCommand extends AbstractCommand {
 		setOverridable(command);
 	}
 
+	@Override
 	public boolean canExecute() {
 		return super.canExecute() && overridable.doCanExecute();
 	}
 
+	@Override
 	public boolean canUndo() {
 		return overridable.doCanUndo();
 	}
 
+	@Override
 	public Collection getAffectedObjects() {
 		return overridable.doGetAffectedObjects();
 	}
@@ -72,6 +75,7 @@ public abstract class AbstractOverrideCommand extends AbstractCommand {
 		return overridable;
 	}
 
+	@Override
 	public Collection getResult() {
 		return getJ2eeClipboard();
 	}

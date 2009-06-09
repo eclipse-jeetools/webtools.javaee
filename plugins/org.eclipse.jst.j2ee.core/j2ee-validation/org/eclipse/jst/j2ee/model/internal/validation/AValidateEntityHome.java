@@ -40,6 +40,7 @@ public abstract class AValidateEntityHome extends AValidateHome {
 		findByPKMethods = new HashSet();
 	}
 
+	@Override
 	public void reset() {
 		super.reset();
 		findByPKMethods.clear();
@@ -85,6 +86,7 @@ public abstract class AValidateEntityHome extends AValidateHome {
 	 * This method checks that the entity home's methods comply with the EJB 1.1 specification.
 	 * Section: 9.2.8
 	 */
+	@Override
 	public void primValidate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method hiMethod) throws InvalidInputException {
 		// Can't invoke an abstract method
 		// super.primValidate(hiMethod);
@@ -109,6 +111,7 @@ public abstract class AValidateEntityHome extends AValidateHome {
 	/**
 	 * Checks to see if @ejbMethod is one of the required methods.
 	 */
+	@Override
 	protected void primValidateExistence(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method ejbMethod) throws InvalidInputException {
 		// Can't invoke an abstract method
 		//super.validateExistence(ejbMethod);
@@ -121,6 +124,7 @@ public abstract class AValidateEntityHome extends AValidateHome {
 	 * EJB 1.1 specification
 	 * Section: 9.2.8
 	 */
+	@Override
 	public void validateClass(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		super.validateClass(vc, bean, clazz);
 		// The superclass checks that the home extends javax.ejb.EJBHome,
@@ -172,6 +176,7 @@ public abstract class AValidateEntityHome extends AValidateHome {
 	 * Checks that the create method on the entity home follows the EJB 1.1. specification.
 	 * Section: 9.2.8
 	 */
+	@Override
 	public void validateCreateMethod_beanDep(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		vc.terminateIfCancelled();
 		if (method == null) {
@@ -365,6 +370,7 @@ public abstract class AValidateEntityHome extends AValidateHome {
 		}
 	}
 
+	@Override
 	public void validateMatchingBeanCreateMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		vc.terminateIfCancelled();
 
@@ -492,6 +498,7 @@ public abstract class AValidateEntityHome extends AValidateHome {
 	 * EJB 1.1 specification
 	 * Section: 9.2.8
 	 */
+	@Override
 	protected void validateMethodExists(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		// - The home interface must always include the findByPrimaryKey method, which is 
 		// always a single-object finder. The method must declare the primary key class 

@@ -37,7 +37,8 @@ public class EnvEntriesMerger extends BaseRefsMerger {
     /* (non-Javadoc)
      * @see org.eclipse.jst.javaee.ejb.model.mergers.common.ModelElementsMerger#process()
      */
-    public List process() throws ModelException {
+    @Override
+	public List process() throws ModelException {
         List warnings = new ArrayList();
         for (Object oToMerge : getToMergeElemets()) {
 			EnvEntry envEntry = (EnvEntry) oToMerge;
@@ -77,7 +78,8 @@ public class EnvEntriesMerger extends BaseRefsMerger {
     }
     
     
-    protected void copyMissingPropertesInBase(Object base, Object toMerge){
+    @Override
+	protected void copyMissingPropertesInBase(Object base, Object toMerge){
     	copyMissingPropertesInBase((EnvEntry) base, (EnvEntry) toMerge);
     }
 }

@@ -45,6 +45,7 @@ public class ErrorCodeErrorPageItemProvider extends ErrorPageItemProvider implem
 	/**
 	 * This returns errorcode_errorpage.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return WebPlugin.getDefault().getImage("errorcode_errorpage"); //$NON-NLS-1$
 	}
@@ -52,6 +53,7 @@ public class ErrorCodeErrorPageItemProvider extends ErrorPageItemProvider implem
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -81,6 +83,7 @@ public class ErrorCodeErrorPageItemProvider extends ErrorPageItemProvider implem
 	}
 
 
+	@Override
 	public String getText(Object object) {
 		//return WebAppEditResourceHandler.getString("14concat_UI_", (new Object[]{((ErrorCodeErrorPage) object).getErrorCode()})); //$NON-NLS-1$
 		return ((ErrorCodeErrorPage) object).getErrorCode() + " -> " + ((ErrorCodeErrorPage) object).getLocation(); 
@@ -92,6 +95,7 @@ public class ErrorCodeErrorPageItemProvider extends ErrorPageItemProvider implem
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(ErrorCodeErrorPage.class)) {
 			case WebapplicationPackage.ERROR_CODE_ERROR_PAGE__ERROR_CODE : {
@@ -109,6 +113,7 @@ public class ErrorCodeErrorPageItemProvider extends ErrorPageItemProvider implem
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -119,6 +124,7 @@ public class ErrorCodeErrorPageItemProvider extends ErrorPageItemProvider implem
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}

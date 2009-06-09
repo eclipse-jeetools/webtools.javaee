@@ -33,6 +33,7 @@ public abstract class AValidateBean extends AValidateEJB {
 		componentParents = new HashSet();
 	}
 	
+	@Override
 	public void reset() {
 		super.reset();
 		componentParents.clear();
@@ -78,6 +79,7 @@ public abstract class AValidateBean extends AValidateEJB {
 		return methodsExtendedList[2];
 	}
 	
+	@Override
 	public final List[] getMethodsExtended(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) {
 		// A bean class needs the following classes' extended methods:
 		//    1. home
@@ -113,6 +115,7 @@ public abstract class AValidateBean extends AValidateEJB {
 		return result;
 	}
 	
+	@Override
 	public final List[] getFieldsExtended(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) {
 		// Never check that a bean class' field is defined on another class
 		// of the bean.
@@ -306,6 +309,7 @@ public abstract class AValidateBean extends AValidateEJB {
 	 * Filter out faulty fields (i.e., null), and fields which
 	 * belong to the base type, whatever that is. (e.g. java.lang.Object)
 	 */
+	@Override
 	protected boolean isValid(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field, List[] fieldsExtendedList) throws InvalidInputException {
 		if (super.isValid(vc, bean, clazz, field, fieldsExtendedList)) {
 			// exclude root object methods
@@ -322,6 +326,7 @@ public abstract class AValidateBean extends AValidateEJB {
 	 * Filter out faulty methods (i.e., null), and methods which
 	 * belong to the base type, whatever that is. (e.g. java.lang.Object)
 	 */
+	@Override
 	protected final boolean isValid(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedList) throws InvalidInputException {
 		if (super.isValid(vc, bean, clazz, method, methodsExtendedList)) {
 			// exclude root object methods
@@ -373,6 +378,7 @@ public abstract class AValidateBean extends AValidateEJB {
 	 *   declared as final.
 	 *...
 	 */
+	@Override
 	public void primValidate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field) throws InvalidInputException {
 		//super.primValidate(ejbMethod);
 
@@ -468,6 +474,7 @@ public abstract class AValidateBean extends AValidateEJB {
 	 *     in addition to the methods required by the EJB specification.
 	 *...
 	 */
+	@Override
 	public void validateClass(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		vc.terminateIfCancelled();
 

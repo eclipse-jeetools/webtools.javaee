@@ -41,6 +41,7 @@ public class EntityTranslator extends AbstractEJBTranslator {
 		/* (non-Javadoc)
 		 * @see com.ibm.etools.emf2xml.impl.Translator#extractStringValue(org.eclipse.emf.ecore.EObject)
 		 */
+		@Override
 		public String extractStringValue(EObject emfObject) {
 			return getPersistenceType();
 		}
@@ -48,6 +49,7 @@ public class EntityTranslator extends AbstractEJBTranslator {
 		/* (non-Javadoc)
 			   * @see com.ibm.etools.emf2xml.impl.Translator#convertValueToString(java.lang.Object, org.eclipse.emf.ecore.EObject)
 			   */
+		@Override
 		public String convertValueToString(Object value, EObject owner) {
 			return getPersistenceType();
 		}
@@ -55,6 +57,7 @@ public class EntityTranslator extends AbstractEJBTranslator {
 		/* (non-Javadoc)
 		 * @see com.ibm.etools.emf2xml.impl.Translator#getMOFChildren(org.eclipse.emf.ecore.EObject)
 		 */
+		@Override
 		public List getMOFChildren(EObject mofObject) {
 			return Collections.singletonList(getPersistenceType());
 		}
@@ -76,6 +79,7 @@ public class EntityTranslator extends AbstractEJBTranslator {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.internal.model.translator.ejb.AbstractEJBTranslator#getSpecificMaps()
 	 */
+	@Override
 	protected Translator[] getSpecificMaps(int versionID) {
 		Translator reentrantTranslator = null;
 		switch (versionID) {
@@ -94,6 +98,7 @@ public class EntityTranslator extends AbstractEJBTranslator {
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.Translator#createEMFObject(java.lang.String, java.lang.String)
 	 */
+	@Override
 	public EObject createEMFObject(String nodeName, String readAheadName) {
 		return EjbFactory.eINSTANCE.createEntity();
 	}
@@ -101,6 +106,7 @@ public class EntityTranslator extends AbstractEJBTranslator {
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.Translator#getChildren(java.lang.Object, int)
 	 */
+	@Override
 	public Translator[] getChildren(Object o, int versionID) {
 		switch (versionID) {
 			case (J2EE_1_2_ID) :

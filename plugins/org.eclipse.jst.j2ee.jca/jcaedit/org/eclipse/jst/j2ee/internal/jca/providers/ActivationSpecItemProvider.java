@@ -54,6 +54,7 @@ public class ActivationSpecItemProvider extends ItemProviderAdapter implements I
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -83,6 +84,7 @@ public class ActivationSpecItemProvider extends ItemProviderAdapter implements I
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -97,6 +99,7 @@ public class ActivationSpecItemProvider extends ItemProviderAdapter implements I
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return getResourceLocator().getImage("full/obj16/ActivationSpec"); //$NON-NLS-1$
 	}
@@ -107,6 +110,7 @@ public class ActivationSpecItemProvider extends ItemProviderAdapter implements I
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((ActivationSpec) object).getActivationSpecClass();
 		return label == null || label.length() == 0 ? JCAResourceHandler._UI_ActivationSpec_type : 
@@ -119,6 +123,7 @@ public class ActivationSpecItemProvider extends ItemProviderAdapter implements I
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(ActivationSpec.class)) {
 			case JcaPackage.ACTIVATION_SPEC__ACTIVATION_SPEC_CLASS :
@@ -137,6 +142,7 @@ public class ActivationSpecItemProvider extends ItemProviderAdapter implements I
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -149,6 +155,7 @@ public class ActivationSpecItemProvider extends ItemProviderAdapter implements I
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		//return J2EEPlugin.getDefault();
 		return JcaPlugin.getPlugin();

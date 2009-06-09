@@ -112,7 +112,8 @@ public class EclipseEJBModelExtenderProvider extends RegistryReader implements I
      * readElement() - parse and deal w/ an extension like: <earModuleExtension
      * extensionClass = "com.ibm.etools.web.plugin.WebModuleExtensionImpl"/>
      */
-    public boolean readElement(IConfigurationElement element) {
+    @Override
+	public boolean readElement(IConfigurationElement element) {
         if (!element.getName().equals(Descriptor.EJB_MODEL_EXTENDER)) return false;
 
         addModuleExtension(new Descriptor(element));

@@ -195,6 +195,7 @@ public class OpenJEEResourceAction extends AbstractOpenAction {
 	/**
 	 * The user has invoked this action
 	 */
+	@Override
 	public void run() {
 		if (!isEnabled())
 			return;
@@ -340,6 +341,7 @@ public class OpenJEEResourceAction extends AbstractOpenAction {
 	 * @param sel
 	 *            the new structured selection
 	 */
+	@Override
 	public boolean updateSelection(IStructuredSelection s) {
 		if (!super.updateSelection(s))
 			return false;

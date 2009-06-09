@@ -26,6 +26,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
  */
 public class AddWebComponentToEARDataModelProvider extends AddComponentToEnterpriseApplicationDataModelProvider implements IAddWebComponentToEnterpriseApplicationDataModelProperties {
 
+	@Override
 	public Set getPropertyNames() {
 		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(CONTEXT_ROOT);
@@ -49,6 +50,7 @@ public class AddWebComponentToEARDataModelProvider extends AddComponentToEnterpr
 	/**
 	 * 
 	 */
+	@Override
 	public boolean propertySet(String propertyName, Object propertyValue) {
 		boolean notify = super.propertySet(propertyName, propertyValue);
 		if (notify && propertyName.equals(CONTEXT_ROOT))
@@ -59,6 +61,7 @@ public class AddWebComponentToEARDataModelProvider extends AddComponentToEnterpr
 	/**
 	 * 
 	 */
+	@Override
 	public Object getDefaultProperty(String propertyName) {
 		// if (propertyName.equals(CONTEXT_ROOT))
 		// return getDefaultContextRoot();
@@ -69,6 +72,7 @@ public class AddWebComponentToEARDataModelProvider extends AddComponentToEnterpr
 	/**
 	 * 
 	 */
+	@Override
 	public IStatus validate(String propertyName) {
 		if (CONTEXT_ROOT.equals(propertyName)) {
 			return validateContextRoot(getStringProperty(CONTEXT_ROOT));

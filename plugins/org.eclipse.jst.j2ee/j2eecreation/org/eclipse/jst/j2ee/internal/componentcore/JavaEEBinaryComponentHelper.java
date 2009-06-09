@@ -225,12 +225,15 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 			switch (qp.getType()) {
 			case JavaEEQuickPeek.APPLICATION_CLIENT_TYPE:
 				legacyBinaryHelper = new AppClientBinaryComponentHelper(getComponent()){
+					@Override
 					protected void aboutToClose() {
 						safeReleaseArchive(JavaEEBinaryComponentHelper.this.archive);
 					}
+					@Override
 					protected void preCleanupAfterTempSave(String uri, File original, File destinationFile) {
 						preFileSwap();
 					}
+					@Override
 					protected void postCleanupAfterTempSave(String uri, File original, File destinationFile) {
 						postFileSwap();
 					}
@@ -238,12 +241,15 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 				break;
 			case JavaEEQuickPeek.EJB_TYPE:
 				legacyBinaryHelper = new EJBBinaryComponentHelper(getComponent()){
+					@Override
 					protected void aboutToClose() {
 						safeReleaseArchive(JavaEEBinaryComponentHelper.this.archive);
 					}
+					@Override
 					protected void preCleanupAfterTempSave(String uri, File original, File destinationFile) {
 						preFileSwap();
 					}
+					@Override
 					protected void postCleanupAfterTempSave(String uri, File original, File destinationFile) {
 						postFileSwap();
 					}
@@ -251,12 +257,15 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 				break;
 			case JavaEEQuickPeek.WEB_TYPE:
 				legacyBinaryHelper = new WebBinaryComponentHelper(getComponent()){
+					@Override
 					protected void aboutToClose() {
 						safeReleaseArchive(JavaEEBinaryComponentHelper.this.archive);
 					}
+					@Override
 					protected void preCleanupAfterTempSave(String uri, File original, File destinationFile) {
 						preFileSwap();
 					}
+					@Override
 					protected void postCleanupAfterTempSave(String uri, File original, File destinationFile) {
 						postFileSwap();
 					}
@@ -264,12 +273,15 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 				break;
 			case JavaEEQuickPeek.CONNECTOR_TYPE:
 				legacyBinaryHelper = new JCABinaryComponentHelper(getComponent()){
+					@Override
 					protected void aboutToClose() {
 						safeReleaseArchive(JavaEEBinaryComponentHelper.this.archive);
 					}
+					@Override
 					protected void preCleanupAfterTempSave(String uri, File original, File destinationFile) {
 						preFileSwap();
 					}
+					@Override
 					protected void postCleanupAfterTempSave(String uri, File original, File destinationFile) {
 						postFileSwap();
 					}
@@ -277,12 +289,15 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 				break;
 			default: //utility jar
 				legacyBinaryHelper = new UtilityBinaryComponentHelper(getComponent()){
+					@Override
 					protected void aboutToClose() {
 						safeReleaseArchive(JavaEEBinaryComponentHelper.this.archive);
 					}
+					@Override
 					protected void preCleanupAfterTempSave(String uri, File original, File destinationFile) {
 						preFileSwap();
 					}
+					@Override
 					protected void postCleanupAfterTempSave(String uri, File original, File destinationFile) {
 						postFileSwap();
 					}

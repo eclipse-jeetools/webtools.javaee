@@ -62,6 +62,7 @@ public class InterfaceMappingTranslator extends Translator implements JaxrpcmapX
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.Translator#getChildren(java.lang.Object, int)
 	 */
+	@Override
 	public Translator[] getChildren(Object o, int versionID) {
 		if (o == null)
 			return CommonTranslators.EMPTY_CHILDREN;
@@ -74,6 +75,7 @@ public class InterfaceMappingTranslator extends Translator implements JaxrpcmapX
 	}
 	
 	
+	@Override
 	public String getDOMName(Object value) {
 		if (value instanceof ServiceInterfaceMapping)
 			return SERVICE_INTERFACE_MAPPING;
@@ -88,6 +90,7 @@ public class InterfaceMappingTranslator extends Translator implements JaxrpcmapX
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.Translator#createEMFObject(java.lang.String, java.lang.String)
 	 */
+	@Override
 	public EObject createEMFObject(String nodeName, String readAheadName) {
 		JaxrpcmapFactory fact = JaxrpcmapPackage.eINSTANCE.getJaxrpcmapFactory();
 		if (SERVICE_INTERFACE_MAPPING.equals(nodeName))
@@ -98,6 +101,7 @@ public class InterfaceMappingTranslator extends Translator implements JaxrpcmapX
 			return null;
 	}
 	
+	@Override
 	public boolean isManagedByParent() {
 		return false;
 	}

@@ -55,6 +55,7 @@ public class WarHelper extends J2EEValidationHelper {
 	 * will expect the coming object to be a EObject for the node who generated this message. Note:
 	 * This methods may need to be implemented higher up in the class stack.
 	 */
+	@Override
 	public int getLineNo(Object object) {
 
 
@@ -69,6 +70,7 @@ public class WarHelper extends J2EEValidationHelper {
 	 * Given a resource, return its non-eclipse-specific location. If this resource, or type of
 	 * resource, isn't handled by this helper, return null.
 	 */
+	@Override
 	public String getPortableName(IResource resource) {
 		if (!(resource instanceof IFile)) {
 			return null;
@@ -89,6 +91,7 @@ public class WarHelper extends J2EEValidationHelper {
 	 * @param object
 	 *            Object
 	 */
+	@Override
 	public String getTargetObjectName(Object object) {
 		
 		if( object != null && object instanceof WARFile ){
@@ -127,6 +130,7 @@ public class WarHelper extends J2EEValidationHelper {
 		return null;
 	}	
 	
+	@Override
 	public void cleanup(WorkbenchReporter reporter) {
 		if (edit != null) {
 			edit.dispose();

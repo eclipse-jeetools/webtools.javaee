@@ -46,6 +46,7 @@ public class SecurityRoleRefItemProvider extends CommonItemProviderAdapter imple
 	/**
 	 * This returns security_role_reference.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return J2EEPlugin.getPlugin().getImage("security_role_reference");//$NON-NLS-1$
 	}
@@ -53,6 +54,7 @@ public class SecurityRoleRefItemProvider extends CommonItemProviderAdapter imple
 	/**
 	 * This returns the servlet of the SecurityRoleRef.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return object == null ? null : ((SecurityRoleRef) object).eContainer();
 	}
@@ -60,6 +62,7 @@ public class SecurityRoleRefItemProvider extends CommonItemProviderAdapter imple
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -133,6 +136,7 @@ public class SecurityRoleRefItemProvider extends CommonItemProviderAdapter imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -142,6 +146,7 @@ public class SecurityRoleRefItemProvider extends CommonItemProviderAdapter imple
 	}
 
 
+	@Override
 	public String getText(Object object) {
 		return "SecurityRoleRef " + ((SecurityRoleRef) object).getName();//$NON-NLS-1$
 	}
@@ -152,6 +157,7 @@ public class SecurityRoleRefItemProvider extends CommonItemProviderAdapter imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(SecurityRoleRef.class)) {
 			case CommonPackage.SECURITY_ROLE_REF__NAME :
@@ -172,6 +178,7 @@ public class SecurityRoleRefItemProvider extends CommonItemProviderAdapter imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -185,6 +192,7 @@ public class SecurityRoleRefItemProvider extends CommonItemProviderAdapter imple
 	 * end-user-doc -->
 	 *  
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}
@@ -195,6 +203,7 @@ public class SecurityRoleRefItemProvider extends CommonItemProviderAdapter imple
 	 * enumeration, and this to check that enumeration, but we know there can't be any children, so
 	 * this is faster.
 	 */
+	@Override
 	public boolean hasChildren(Object object) {
 		return false;
 	}

@@ -44,6 +44,7 @@ public class JcaAdapterFactory extends AdapterFactoryImpl {
 			modelPackage = (JcaPackage)EPackage.Registry.INSTANCE.getEPackage(JcaPackage.eNS_URI);
 		}
 	}
+	@Override
 	public boolean isFactoryForType(Object type) {
 		if (type == modelPackage) {
 			return true;
@@ -55,26 +56,33 @@ public class JcaAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	protected JcaSwitch sw = new JcaSwitch() {
+		@Override
 		public Object caseConnector(Connector object) {
 			return createConnectorAdapter();
 		}
+		@Override
 		public Object caseLicense(License object) {
 			return createLicenseAdapter();
 		}
+		@Override
 		public Object caseResourceAdapter(ResourceAdapter object) {
 			return createResourceAdapterAdapter();
 		}
+		@Override
 		public Object caseSecurityPermission(SecurityPermission object) {
 			return createSecurityPermissionAdapter();
 		}
+		@Override
 		public Object caseAuthenticationMechanism(AuthenticationMechanism object) {
 			return createAuthenticationMechanismAdapter();
 		}
+		@Override
 		public Object caseConfigProperty(ConfigProperty object) {
 			return createConfigPropertyAdapter();
 		}
 	};
 
+	@Override
 	public Adapter createAdapter(Notifier target) {
 		return (Adapter)modelSwitch.doSwitch((EObject)target); // sw
 	}
@@ -128,57 +136,75 @@ public class JcaAdapterFactory extends AdapterFactoryImpl {
 	 */
 	protected JcaSwitch modelSwitch =
 		new JcaSwitch() {
+			@Override
 			public Object caseConnector(Connector object) {
 				return createConnectorAdapter();
 			}
+			@Override
 			public Object caseResourceAdapter(ResourceAdapter object) {
 				return createResourceAdapterAdapter();
 			}
+			@Override
 			public Object caseAuthenticationMechanism(AuthenticationMechanism object) {
 				return createAuthenticationMechanismAdapter();
 			}
+			@Override
 			public Object caseConfigProperty(ConfigProperty object) {
 				return createConfigPropertyAdapter();
 			}
+			@Override
 			public Object caseSecurityPermission(SecurityPermission object) {
 				return createSecurityPermissionAdapter();
 			}
+			@Override
 			public Object caseLicense(License object) {
 				return createLicenseAdapter();
 			}
+			@Override
 			public Object caseInboundResourceAdapter(InboundResourceAdapter object) {
 				return createInboundResourceAdapterAdapter();
 			}
+			@Override
 			public Object caseOutboundResourceAdapter(OutboundResourceAdapter object) {
 				return createOutboundResourceAdapterAdapter();
 			}
+			@Override
 			public Object caseMessageAdapter(MessageAdapter object) {
 				return createMessageAdapterAdapter();
 			}
+			@Override
 			public Object caseConnectionDefinition(ConnectionDefinition object) {
 				return createConnectionDefinitionAdapter();
 			}
+			@Override
 			public Object caseAdminObject(AdminObject object) {
 				return createAdminObjectAdapter();
 			}
+			@Override
 			public Object caseMessageListener(MessageListener object) {
 				return createMessageListenerAdapter();
 			}
+			@Override
 			public Object caseActivationSpec(ActivationSpec object) {
 				return createActivationSpecAdapter();
 			}
+			@Override
 			public Object caseRequiredConfigPropertyType(RequiredConfigPropertyType object) {
 				return createRequiredConfigPropertyTypeAdapter();
 			}
+			@Override
 			public Object caseJ2EEEObject(J2EEEObject object) {
 				return createJ2EEEObjectAdapter();
 			}
+			@Override
 			public Object caseDescriptionGroup(DescriptionGroup object) {
 				return createDescriptionGroupAdapter();
 			}
+			@Override
 			public Object caseCompatibilityDescriptionGroup(CompatibilityDescriptionGroup object) {
 				return createCompatibilityDescriptionGroupAdapter();
 			}
+			@Override
 			public Object defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}

@@ -42,7 +42,8 @@ public class ModulesNode extends AbstractEarNode {
 		return Messages.EAR_MODULES_NODE;
 	}
 	
-	 public List getModules() {
+	 @Override
+	public List getModules() {
 	    	IVirtualComponent projectComponent = ComponentCore.createComponent(getEarProject());
 	    	return getComponentReferencesAsList(implicitUtilityReferenceTypes, projectComponent, new Path("/")); //$NON-NLS-1$
 	 }

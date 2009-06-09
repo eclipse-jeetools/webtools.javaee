@@ -23,6 +23,7 @@ public class XmlSpecifiedDataAdapter extends org.eclipse.emf.common.notify.impl.
 public XmlSpecifiedDataAdapter() {
 	super();
 }
+@Override
 public boolean isAdapterForType(Object type) {
 	return ADAPTER_KEY.equals(type);
 }

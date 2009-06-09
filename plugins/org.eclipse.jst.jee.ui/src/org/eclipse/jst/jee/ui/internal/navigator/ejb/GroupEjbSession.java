@@ -36,6 +36,7 @@ public class GroupEjbSession extends AbstractDDNode {
     text = Messages.SESSION_BEANS;
 	}
 
+	@Override
 	public List getChildren() {
 		List children = new ArrayList();
 		List sessionBeans = null;

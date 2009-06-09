@@ -104,6 +104,7 @@ public class QueryMethodImpl extends EObjectImpl implements QueryMethod {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return EjbPackage.Literals.QUERY_METHOD;
 	}
@@ -198,6 +199,7 @@ public class QueryMethodImpl extends EObjectImpl implements QueryMethod {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EjbPackage.QUERY_METHOD__METHOD_PARAMS:
@@ -211,6 +213,7 @@ public class QueryMethodImpl extends EObjectImpl implements QueryMethod {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case EjbPackage.QUERY_METHOD__METHOD_NAME:
@@ -228,6 +231,7 @@ public class QueryMethodImpl extends EObjectImpl implements QueryMethod {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EjbPackage.QUERY_METHOD__METHOD_NAME:
@@ -248,6 +252,7 @@ public class QueryMethodImpl extends EObjectImpl implements QueryMethod {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case EjbPackage.QUERY_METHOD__METHOD_NAME:
@@ -268,6 +273,7 @@ public class QueryMethodImpl extends EObjectImpl implements QueryMethod {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case EjbPackage.QUERY_METHOD__METHOD_NAME:
@@ -285,6 +291,7 @@ public class QueryMethodImpl extends EObjectImpl implements QueryMethod {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

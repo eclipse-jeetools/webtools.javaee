@@ -50,6 +50,7 @@ public class J2EEDependenciesPage extends PropertyPage {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jface.preference.PreferencePage#createContents(org.eclipse.swt.widgets.Composite)
 	 */
+	@Override
 	protected Control createContents(Composite parent) {
 		
 		// Need to find out what type of project we are handling
@@ -158,6 +159,7 @@ public class J2EEDependenciesPage extends PropertyPage {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jface.preference.IPreferencePage#performOk()
 	 */
+	@Override
 	public boolean performOk() {
 		for (int i = 0; i < controls.length; i++) {
 			if (controls[i] != null) {
@@ -172,6 +174,7 @@ public class J2EEDependenciesPage extends PropertyPage {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jface.preference.PreferencePage#performDefaults()
 	 */
+	@Override
 	public void performDefaults() {
 		for (int i = 0; i < controls.length; i++) {
 			if (controls[i] != null) {
@@ -183,6 +186,7 @@ public class J2EEDependenciesPage extends PropertyPage {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jface.preference.IPreferencePage#performCancel()
 	 */
+	@Override
 	public boolean performCancel() {
 		for (int i = 0; i < controls.length; i++) {
 			if (controls[i] != null) {
@@ -197,6 +201,7 @@ public class J2EEDependenciesPage extends PropertyPage {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jface.dialogs.IDialogPage#setVisible(boolean)
 	 */
+	@Override
 	public void setVisible(boolean visible) {
 		super.setVisible(visible);
 		for (int i = 0; i < controls.length; i++) {
@@ -209,6 +214,7 @@ public class J2EEDependenciesPage extends PropertyPage {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jface.dialogs.IDialogPage#dispose()
 	 */
+	@Override
 	public void dispose() {
 		super.dispose();
 		for (int i = 0; i < controls.length; i++) {

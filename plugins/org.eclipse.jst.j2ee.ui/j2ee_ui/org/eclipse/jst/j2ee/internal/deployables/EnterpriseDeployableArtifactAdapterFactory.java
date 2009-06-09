@@ -31,6 +31,7 @@ public class EnterpriseDeployableArtifactAdapterFactory extends ModuleArtifactAd
 		return new Class[] {ILaunchable.class };
 	}
 
+	@Override
 	public IModuleArtifact getModuleArtifact(Object obj) {
 		return EnterpriseApplicationDeployableAdapterUtil.getModuleObject(obj);
 	}

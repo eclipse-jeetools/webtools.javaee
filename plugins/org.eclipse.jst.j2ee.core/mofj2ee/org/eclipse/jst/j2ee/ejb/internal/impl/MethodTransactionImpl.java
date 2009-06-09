@@ -103,6 +103,7 @@ public class MethodTransactionImpl extends J2EEEObjectImpl implements MethodTran
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return EjbPackage.Literals.METHOD_TRANSACTION;
 	}
@@ -273,6 +274,7 @@ public boolean isEquivalent(MethodTransaction anotherMethodTransaction) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EjbPackage.METHOD_TRANSACTION__ASSEMBLY_DESCRIPTOR:
@@ -288,6 +290,7 @@ public boolean isEquivalent(MethodTransaction anotherMethodTransaction) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EjbPackage.METHOD_TRANSACTION__ASSEMBLY_DESCRIPTOR:
@@ -305,6 +308,7 @@ public boolean isEquivalent(MethodTransaction anotherMethodTransaction) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case EjbPackage.METHOD_TRANSACTION__ASSEMBLY_DESCRIPTOR:
@@ -318,6 +322,7 @@ public boolean isEquivalent(MethodTransaction anotherMethodTransaction) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case EjbPackage.METHOD_TRANSACTION__TRANSACTION_ATTRIBUTE:
@@ -339,6 +344,7 @@ public boolean isEquivalent(MethodTransaction anotherMethodTransaction) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EjbPackage.METHOD_TRANSACTION__TRANSACTION_ATTRIBUTE:
@@ -367,6 +373,7 @@ public boolean isEquivalent(MethodTransaction anotherMethodTransaction) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case EjbPackage.METHOD_TRANSACTION__TRANSACTION_ATTRIBUTE:
@@ -393,6 +400,7 @@ public boolean isEquivalent(MethodTransaction anotherMethodTransaction) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case EjbPackage.METHOD_TRANSACTION__TRANSACTION_ATTRIBUTE:
@@ -412,6 +420,7 @@ public boolean isEquivalent(MethodTransaction anotherMethodTransaction) {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

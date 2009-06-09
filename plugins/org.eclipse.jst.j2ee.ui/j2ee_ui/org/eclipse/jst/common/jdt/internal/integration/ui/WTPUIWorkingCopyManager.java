@@ -164,6 +164,7 @@ public class WTPUIWorkingCopyManager extends WTPWorkingCopyManager {
 		}
 	}
 
+	@Override
 	public Set getAffectedFiles() {
 		Set aSet = new HashSet();
 		Iterator it = getEditorInputs().keySet().iterator();
@@ -237,6 +238,7 @@ public class WTPUIWorkingCopyManager extends WTPWorkingCopyManager {
 	 *         not encode an editor input, or if there is no remembered working copy for this
 	 *         compilation unit
 	 */
+	@Override
 	public org.eclipse.jdt.core.ICompilationUnit getExistingWorkingCopy(ICompilationUnit cu) throws CoreException {
 		if (cu == null || cu.isWorkingCopy()) {
 			return cu;
@@ -256,6 +258,7 @@ public class WTPUIWorkingCopyManager extends WTPWorkingCopyManager {
 	 * @return the working copy of the compilation unit, or <code>null</code> if there is no
 	 *         remembered working copy for this compilation unit
 	 */
+	@Override
 	public org.eclipse.jdt.core.ICompilationUnit getWorkingCopy(ICompilationUnit cu, boolean forNewCU) throws org.eclipse.core.runtime.CoreException {
 		if (forNewCU)
 			return super.getWorkingCopy(cu, forNewCU);
@@ -281,6 +284,7 @@ public class WTPUIWorkingCopyManager extends WTPWorkingCopyManager {
 		return false;
 	}
 
+	@Override
 	protected void primDispose() {
 		super.primDispose();
 		discardExistingCompilationUnits();
@@ -288,6 +292,7 @@ public class WTPUIWorkingCopyManager extends WTPWorkingCopyManager {
 		javaWorkingCopyManager = null;
 	}
 
+	@Override
 	protected void primRevert() {
 		super.primRevert();
 		revertWorkingCopies();
@@ -309,6 +314,7 @@ public class WTPUIWorkingCopyManager extends WTPWorkingCopyManager {
 	 *         not encode an editor input, or if there is no remembered working copy for this
 	 *         compilation unit
 	 */
+	@Override
 	protected org.eclipse.jdt.core.ICompilationUnit primGetWorkingCopy(ICompilationUnit cu) throws CoreException {
 		if (cu == null) {
 			return cu;
@@ -330,6 +336,7 @@ public class WTPUIWorkingCopyManager extends WTPWorkingCopyManager {
 	/**
 	 * This will save all of the referenced CompilationUnits to be saved.
 	 */
+	@Override
 	protected void primSaveCompilationUnits(org.eclipse.core.runtime.IProgressMonitor monitor) {
 		super.primSaveCompilationUnits(null);
 		saveExistingCompilationUnits(monitor);
@@ -456,6 +463,7 @@ public class WTPUIWorkingCopyManager extends WTPWorkingCopyManager {
 	}
 
 
+	@Override
 	protected void addDeletedCompilationUnit(ICompilationUnit cu) {
 		IEditorInput input = primGetEditorInput(cu);
 		if (input != null)
@@ -467,6 +475,7 @@ public class WTPUIWorkingCopyManager extends WTPWorkingCopyManager {
 	/**
 	 * @see com.ibm.etools.j2ee.workbench.IJ2EEWorkingCopyManager#hasWorkingCopies()
 	 */
+	@Override
 	public boolean hasWorkingCopies() {
 		return super.hasWorkingCopies() || (editorInputs != null && !editorInputs.isEmpty());
 	}

@@ -84,6 +84,7 @@ public class WebServicesNavigatorSynchronizer extends AdapterFactoryContentProvi
 		target = newTarget;
 	}
 
+	@Override
 	public void notifyChanged(final Notification notification) {
 		if (notification.isTouch()) {
 			//There is nothing that is required since nothing changed.

@@ -10,9 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.wizard;
 
-import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
-import org.eclipse.ui.IImportWizard;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 /**
@@ -35,7 +33,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
  * <li>{@link #doDispose()()}
  * </ul>
  */
-public abstract class J2EEComponentImportWizard extends J2EEArtifactImportWizard implements IImportWizard, IExecutableExtension {
+public abstract class J2EEComponentImportWizard extends J2EEArtifactImportWizard {
 
 	/**
 	 * <p>

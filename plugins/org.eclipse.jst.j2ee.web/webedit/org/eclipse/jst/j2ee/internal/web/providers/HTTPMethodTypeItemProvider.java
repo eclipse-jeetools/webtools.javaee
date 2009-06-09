@@ -46,6 +46,7 @@ public class HTTPMethodTypeItemProvider extends WebapplicationItemProviderAdapte
 	/**
 	 * This returns http_type.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return WebPlugin.getDefault().getImage("http_type");//$NON-NLS-1$
 	}
@@ -53,6 +54,7 @@ public class HTTPMethodTypeItemProvider extends WebapplicationItemProviderAdapte
 	/**
 	 * This returns the resCollection of the HTTPMethodType.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((HTTPMethodType) object).getHttpMethod();
 	}
@@ -60,6 +62,7 @@ public class HTTPMethodTypeItemProvider extends WebapplicationItemProviderAdapte
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -95,6 +98,7 @@ public class HTTPMethodTypeItemProvider extends WebapplicationItemProviderAdapte
 	}
 
 
+	@Override
 	public String getText(Object object) {
 		return WebAppEditResourceHandler.getString("17concat_UI_", (new Object[]{((HTTPMethodType) object).getHttpMethod()})); //$NON-NLS-1$ = "HTTPMethodType {0}"
 	}
@@ -105,6 +109,7 @@ public class HTTPMethodTypeItemProvider extends WebapplicationItemProviderAdapte
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(HTTPMethodType.class)) {
 			case WebapplicationPackage.HTTP_METHOD_TYPE__HTTP_METHOD : {
@@ -122,6 +127,7 @@ public class HTTPMethodTypeItemProvider extends WebapplicationItemProviderAdapte
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -132,6 +138,7 @@ public class HTTPMethodTypeItemProvider extends WebapplicationItemProviderAdapte
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}
@@ -142,6 +149,7 @@ public class HTTPMethodTypeItemProvider extends WebapplicationItemProviderAdapte
 	 * to return the empty enumeration, and this to check that enumeration, but we know there can't
 	 * be any children, so this is faster.
 	 */
+	@Override
 	public boolean hasChildren(Object object) {
 		return false;
 	}

@@ -46,6 +46,7 @@ public class ClientItemProviderAdapter extends ItemProviderAdapter implements or
 	/**
 	 * This creates the supported commands.
 	 */
+	@Override
 	public Command createCommand(Object object, EditingDomain editingDomain, Class commandClass, CommandParameter commandParameter) {
 		if (commandClass == CreateChildCommand.class) {
 			return new CreateChildCommand(editingDomain, (EObject) object, null, this);

@@ -220,6 +220,7 @@ public class EJBJar11VRule extends AValidationRule implements IMessagePrefixEjb1
 				_role = role;
 			}
 
+			@Override
 			public boolean equals(Object o) {
 				if (o instanceof RoleWrapper) {
 					RoleWrapper other = (RoleWrapper) o;
@@ -398,6 +399,7 @@ public class EJBJar11VRule extends AValidationRule implements IMessagePrefixEjb1
 		validateClientJAR(vc, ejbJar);
 	}
 	
+	@Override
 	public void reset() {
 		super.reset();
 		_ejbName.clear();
@@ -557,6 +559,7 @@ public class EJBJar11VRule extends AValidationRule implements IMessagePrefixEjb1
 			_bean = bean;
 		}
 
+		@Override
 		public boolean equals(Object o) {
 			if (o instanceof EjbNameWrapper) {
 				EjbNameWrapper other = (EjbNameWrapper)o;
@@ -574,6 +577,7 @@ public class EJBJar11VRule extends AValidationRule implements IMessagePrefixEjb1
 			return false;
 		}
 		
+		@Override
 		public int hashCode() {
 			if((getBean() != null) && (getBean().getName() != null)) {
 				return getBean().getName().hashCode();

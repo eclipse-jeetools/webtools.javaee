@@ -40,6 +40,7 @@ public class MessageDrivenDestinationTypeTranslator extends Translator implement
 	/**
 	 * @see com.ibm.etools.emf2xml.impl.Translator#convertValueToString(java.lang.Object, org.eclipse.emf.ecore.EObject)
 	 */
+	@Override
 	public String convertValueToString(Object value, EObject owner) {
 		if (value != null){
 			Enumerator enumerator = (Enumerator) value;
@@ -52,6 +53,7 @@ public class MessageDrivenDestinationTypeTranslator extends Translator implement
 	/**
 	 * @see com.ibm.etools.emf2xml.impl.Translator#convertStringToValue(java.lang.String, org.eclipse.emf.ecore.EObject)
 	 */
+	@Override
 	public Object convertStringToValue(String strValue, EObject owner) {
 		String correct = strValue;
 		if (strValue != null)

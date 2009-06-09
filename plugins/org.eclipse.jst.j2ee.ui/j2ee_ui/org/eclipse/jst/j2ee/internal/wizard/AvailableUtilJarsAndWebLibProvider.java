@@ -15,7 +15,6 @@
  */
 package org.eclipse.jst.j2ee.internal.wizard;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -51,7 +50,6 @@ public class AvailableUtilJarsAndWebLibProvider implements IStructuredContentPro
 		if(inputElement instanceof ArchiveWrapper){
 			ArchiveWrapper wrapper = (ArchiveWrapper)inputElement;
 			List <ArchiveWrapper> utilities = wrapper.getEARUtilitiesAndWebLibs();
-			List filteredProjects = new ArrayList();
 			if (utilities.size() > 0){
 				filterEJBClientJars(utilities, wrapper);
 				Object [] array = utilities.toArray();
@@ -62,8 +60,6 @@ public class AvailableUtilJarsAndWebLibProvider implements IStructuredContentPro
 				});
 				return array;
 			}
-			else
-				return new Object[0];
 		}
 		return new Object[0];
 	}

@@ -80,7 +80,8 @@ public class JNDIRefsMerger extends ModelElementMerger {
       return (WebApp) getToMerge();
   }
 
-    public List process() throws ModelException {
+    @Override
+	public List process() throws ModelException {
         List warnings = new ArrayList();
         if(getBase() instanceof SessionBean){
           warnings.addAll(new EnvEntriesMerger(getBaseSessionBean().getEnvEntries(), getToMergeSessionBean().getEnvEntries()).process());

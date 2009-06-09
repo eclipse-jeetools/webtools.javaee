@@ -26,12 +26,14 @@ public class AppClientFacetInstallDataModelProvider extends J2EEModuleFacetInsta
 		super();
 	}
 
+	@Override
 	public Set getPropertyNames() {
 		Set names = super.getPropertyNames();
 		names.add(CREATE_DEFAULT_MAIN_CLASS);
 		return names;
 	}
 
+	@Override
 	public Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(FACET_ID))
 			return APPLICATION_CLIENT;
@@ -52,11 +54,13 @@ public class AppClientFacetInstallDataModelProvider extends J2EEModuleFacetInsta
 		return super.getDefaultProperty(propertyName);
 	}
 
+	@Override
 	protected int convertFacetVersionToJ2EEVersion(IProjectFacetVersion version) {
 		return J2EEVersionUtil.convertAppClientVersionStringToJ2EEVersionID(version.getVersionString());
 	}
 	
-    public boolean propertySet(String propertyName, Object propertyValue) {
+    @Override
+	public boolean propertySet(String propertyName, Object propertyValue) {
         if (propertyName.equals(CONFIG_FOLDER)) 
         {
             if( this.javaFacetInstallConfig != null )

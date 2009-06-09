@@ -80,6 +80,7 @@ public class PortComponentRefImpl extends J2EEEObjectImpl implements PortCompone
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return Webservice_clientPackage.Literals.PORT_COMPONENT_REF;
 	}
@@ -159,6 +160,7 @@ public class PortComponentRefImpl extends J2EEEObjectImpl implements PortCompone
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case Webservice_clientPackage.PORT_COMPONENT_REF__PORT_COMPONENT_LINK:
@@ -175,6 +177,7 @@ public class PortComponentRefImpl extends J2EEEObjectImpl implements PortCompone
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case Webservice_clientPackage.PORT_COMPONENT_REF__PORT_COMPONENT_LINK:
@@ -192,6 +195,7 @@ public class PortComponentRefImpl extends J2EEEObjectImpl implements PortCompone
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case Webservice_clientPackage.PORT_COMPONENT_REF__PORT_COMPONENT_LINK:
@@ -209,6 +213,7 @@ public class PortComponentRefImpl extends J2EEEObjectImpl implements PortCompone
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case Webservice_clientPackage.PORT_COMPONENT_REF__PORT_COMPONENT_LINK:
@@ -224,6 +229,7 @@ public class PortComponentRefImpl extends J2EEEObjectImpl implements PortCompone
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

@@ -242,6 +242,7 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 	 * @param model
 	 * @param component
 	 */
+	@Override
 	protected void setOutputFolder(IDataModel model, IVirtualComponent component) {
 		String outputFolder = null;
 		// If using single root structure, set the output folder to "<contentRoot>/WEB-INF/classes"

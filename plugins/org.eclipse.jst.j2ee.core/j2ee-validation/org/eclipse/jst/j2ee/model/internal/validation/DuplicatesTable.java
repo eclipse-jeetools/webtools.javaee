@@ -147,6 +147,7 @@ public class DuplicatesTable extends java.util.HashMap {
 		return getElements(UNIQUE);
 	}
 
+	@Override
 	public void clear() {
 		super.clear();
 		if(_duplicates != null) {

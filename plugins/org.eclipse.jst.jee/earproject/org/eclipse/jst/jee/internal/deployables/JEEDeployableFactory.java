@@ -49,6 +49,7 @@ public class JEEDeployableFactory extends ProjectModuleFactoryDelegate {
 		super();
 	}
 
+	@Override
 	protected IModule[] createModules(IProject project) {
 		IVirtualComponent comp = ComponentCore.createComponent(project);
 		if(comp != null){
@@ -70,15 +71,16 @@ public class JEEDeployableFactory extends ProjectModuleFactoryDelegate {
 		return null;
 	}
 
+	@Override
 	public ModuleDelegate getModuleDelegate(IModule module) {
 		if (module == null)
 			return null;
 
-		ModuleDelegate md = (ModuleDelegate) moduleDelegates.get(module);
+		ModuleDelegate md = moduleDelegates.get(module);
 
 		if (md == null) {
 			createModules(module.getProject());
-			md = (ModuleDelegate) moduleDelegates.get(module);
+			md = moduleDelegates.get(module);
 		}
 
 		return md;
@@ -93,7 +95,7 @@ public class JEEDeployableFactory extends ProjectModuleFactoryDelegate {
 			if (J2EEProjectUtilities.isJEEProject(component.getProject())) {
 				IModule module = null;
 				String type = J2EEProjectUtilities.getJ2EEProjectType(component.getProject());
-				if (type != null && !type.equals("")) {
+				if (type != null && !type.equals("")) { //$NON-NLS-1$
 					String version = J2EEProjectUtilities.getJ2EEProjectVersion(component.getProject());
 					module = createModule(component.getDeployedName(), component.getDeployedName(), type, version, component.getProject());
 					JEEFlexProjDeployable moduleDelegate = new JEEFlexProjDeployable(component.getProject(), component);
@@ -177,13 +179,15 @@ public class JEEDeployableFactory extends ProjectModuleFactoryDelegate {
 	 * 
 	 * @return a possibly empty array of paths
 	 */
+	@Override
 	protected IPath[] getListenerPaths() {
-		return new IPath[] { new Path(".project"), // nature
+		return new IPath[] { new Path(".project"), // nature //$NON-NLS-1$
 				new Path(StructureEdit.MODULE_META_FILE_NAME), // component
-				new Path(".settings/org.eclipse.wst.common.project.facet.core.xml") // facets
+				new Path(".settings/org.eclipse.wst.common.project.facet.core.xml") // facets  //$NON-NLS-1$
 		};
 	}
 	
+	@Override
 	protected void clearCache(IProject project) {
 		super.clearCache(project);
 		List<IModule> modulesToRemove = null;

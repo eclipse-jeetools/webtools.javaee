@@ -27,6 +27,7 @@ public class LocalRelationshipRoleAttributeFilter extends AbstractRelationshipRo
 /**
  * Return the proper list of roles from cmpExt.
  */
+@Override
 protected java.util.List getSourceRoles(ContainerManagedEntity cmp) {
    return getRelationshipRoles(cmp); 
 }

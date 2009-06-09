@@ -47,14 +47,17 @@ public class ZipStreamSaveStrategyImpl extends SaveStrategyImpl implements SaveS
 		setZipOutputStream(new ZipOutputStream(out));
 	}
 
+	@Override
 	public void close() throws IOException {
 		getDestinationStream().close();
 	}
 
+	@Override
 	protected SaveStrategy createNestedSaveStrategy(Archive anArchive) {
 		return new ZipStreamSaveStrategyImpl(getZipOutputStream());
 	}
 
+	@Override
 	public void finish() throws IOException {
 		getZipOutputStream().finish();
 		//If this is not nested, close the stream to free up the resource
@@ -73,6 +76,7 @@ public class ZipStreamSaveStrategyImpl extends SaveStrategyImpl implements SaveS
 	/**
 	 * @see com.ibm.etools.archive.impl.SaveStrategyImpl
 	 */
+	@Override
 	protected java.io.OutputStream getOutputStreamForResource(Resource aResource) throws java.io.IOException {
 		return getZipOutputStream();
 	}
@@ -80,6 +84,7 @@ public class ZipStreamSaveStrategyImpl extends SaveStrategyImpl implements SaveS
 	/**
 	 * @see com.ibm.etools.archive.SaveStrategy#saveMofResource(Resource)
 	 */
+	@Override
 	public void saveMofResource(Resource aResource, OutputStream out) throws IOException {
 		Revisit.revisit();
 		URI uri = aResource.getURI();
@@ -114,6 +119,7 @@ public class ZipStreamSaveStrategyImpl extends SaveStrategyImpl implements SaveS
 		}
 	}
 
+	@Override
 	public void save(Archive anArchive) throws SaveFailureException {
 		try {
 			ZipEntry entry = new ZipEntry(anArchive.getURI());
@@ -125,6 +131,7 @@ public class ZipStreamSaveStrategyImpl extends SaveStrategyImpl implements SaveS
 		}
 	}
 
+	@Override
 	public void save(File aFile, InputStream in) throws SaveFailureException {
 		try {
 			String entryName = aFile.getURI();

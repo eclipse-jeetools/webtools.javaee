@@ -54,6 +54,7 @@ public class ConnectionDefinitionItemProvider extends ItemProviderAdapter implem
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -135,6 +136,7 @@ public class ConnectionDefinitionItemProvider extends ItemProviderAdapter implem
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -149,6 +151,7 @@ public class ConnectionDefinitionItemProvider extends ItemProviderAdapter implem
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return getResourceLocator().getImage("full/obj16/ConnectionDefinition"); //$NON-NLS-1$
 	}
@@ -161,6 +164,7 @@ public class ConnectionDefinitionItemProvider extends ItemProviderAdapter implem
 	 */
 
 
+	@Override
 	public String getText(Object object) {
 		String label = ((ConnectionDefinition) object).getManagedConnectionFactoryClass();
 		return label == null || label.length() == 0 ? JCAResourceHandler._UI_ConnectionDefinition_type : 
@@ -173,6 +177,7 @@ public class ConnectionDefinitionItemProvider extends ItemProviderAdapter implem
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(ConnectionDefinition.class)) {
 			case JcaPackage.CONNECTION_DEFINITION__MANAGED_CONNECTION_FACTORY_CLASS :
@@ -195,6 +200,7 @@ public class ConnectionDefinitionItemProvider extends ItemProviderAdapter implem
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -207,6 +213,7 @@ public class ConnectionDefinitionItemProvider extends ItemProviderAdapter implem
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		//return J2EEPlugin.getDefault();
 		return JcaPlugin.getPlugin();

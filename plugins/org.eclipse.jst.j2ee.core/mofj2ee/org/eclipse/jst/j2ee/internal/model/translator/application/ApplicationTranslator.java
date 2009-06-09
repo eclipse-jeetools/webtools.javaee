@@ -46,6 +46,7 @@ public class ApplicationTranslator extends RootTranslator implements EarDeployme
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.Translator#getChildren(java.lang.Object, int)
 	 */
+	@Override
 	public Translator[] getChildren(Object o, int versionID) {
 		switch (versionID) {
 			case (J2EE_1_2_ID) :

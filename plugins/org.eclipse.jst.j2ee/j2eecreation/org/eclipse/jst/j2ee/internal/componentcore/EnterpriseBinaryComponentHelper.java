@@ -135,6 +135,7 @@ public abstract class EnterpriseBinaryComponentHelper extends BinaryComponentHel
 		return archiveURI;
 	}
 
+	@Override
 	public void dispose() {
 		if (archive != null) {
 			archive.close();
@@ -156,6 +157,7 @@ public abstract class EnterpriseBinaryComponentHelper extends BinaryComponentHel
 
 	boolean gotResource = false;
 	
+	@Override
 	public Resource getResource(URI uri) {
 		Resource resource = null;
 		if(!isPhysicallyOpen(getArchive())){
@@ -218,6 +220,7 @@ public abstract class EnterpriseBinaryComponentHelper extends BinaryComponentHel
 			super(file);
 		}
 		
+		@Override
 		public void close() {
 			physicallyOpen = false;
 			super.close();
@@ -246,6 +249,7 @@ public abstract class EnterpriseBinaryComponentHelper extends BinaryComponentHel
 			} 
 		}
 		
+		@Override
 		public InputStream getInputStream(String uri) throws IOException, FileNotFoundException {
 			final boolean isPhysciallyOpen = isPhysicallyOpen();
 			Exception caughtException = null;
@@ -258,6 +262,7 @@ public abstract class EnterpriseBinaryComponentHelper extends BinaryComponentHel
 					throw new FileNotFoundException(uri);
 
 				return new java.io.BufferedInputStream(getZipFile().getInputStream(entry)) {
+					@Override
 					public void close() throws IOException {
 						super.close();
 						if (!isPhysciallyOpen ) {
@@ -282,7 +287,7 @@ public abstract class EnterpriseBinaryComponentHelper extends BinaryComponentHel
 				}
 			}
 		}
-	};
+	}
 	
 	public static class ArchiveCache {
 

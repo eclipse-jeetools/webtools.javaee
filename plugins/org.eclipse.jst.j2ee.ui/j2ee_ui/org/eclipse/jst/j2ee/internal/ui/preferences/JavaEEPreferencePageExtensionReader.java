@@ -37,6 +37,7 @@ public class JavaEEPreferencePageExtensionReader extends RegistryReader {
 		return instance;
 	}
 	
+	@Override
 	public boolean readElement(IConfigurationElement element) {
 		if (JavaEEPreferencePageExtension.JAVAEE_PAGE_EXTENSION.equals(element.getName())) {
 			addExtension(element);

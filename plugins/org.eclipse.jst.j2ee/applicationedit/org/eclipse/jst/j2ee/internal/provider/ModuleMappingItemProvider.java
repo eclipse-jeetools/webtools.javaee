@@ -49,13 +49,13 @@ public class ModuleMappingItemProvider extends ModulemapItemProviderAdapter impl
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
 			ModulemapPackage pkg = ModulemapPackage.eINSTANCE;
-			;
-
+			
 			// This is for the projectName feature.
 			//
 			itemPropertyDescriptors.add(new ItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), ApplicationProvidersResourceHandler.getString("Project_Name_1"), //$NON-NLS-1$
@@ -100,6 +100,7 @@ public class ModuleMappingItemProvider extends ModulemapItemProviderAdapter impl
 	/**
 	 * This returns the parent of the ModuleMapping.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((EObject) object).eContainer();
 	}
@@ -107,10 +108,12 @@ public class ModuleMappingItemProvider extends ModulemapItemProviderAdapter impl
 	/**
 	 * This returns ModuleMapping.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return J2EEPlugin.getPlugin().getImage("ModuleMapping"); //$NON-NLS-1$
 	}
 
+	@Override
 	public String getText(Object object) {
 		ModuleMapping moduleMapping = ((ModuleMapping) object);
 		return ApplicationProvidersResourceHandler.getString("ModuleMapping_UI_") + moduleMapping.getProjectName(); //$NON-NLS-1$
@@ -122,6 +125,7 @@ public class ModuleMappingItemProvider extends ModulemapItemProviderAdapter impl
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(ModuleMapping.class)) {
 			case ModulemapPackage.MODULE_MAPPING__PROJECT_NAME :
@@ -140,6 +144,7 @@ public class ModuleMappingItemProvider extends ModulemapItemProviderAdapter impl
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -150,6 +155,7 @@ public class ModuleMappingItemProvider extends ModulemapItemProviderAdapter impl
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return ApplicationProvidersResourceHandler.RESOURCE_LOCATOR;
 	}

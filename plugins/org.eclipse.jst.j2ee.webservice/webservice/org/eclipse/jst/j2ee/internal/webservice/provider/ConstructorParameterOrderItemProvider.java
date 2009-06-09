@@ -54,6 +54,7 @@ public class ConstructorParameterOrderItemProvider extends ItemProviderAdapter i
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -83,6 +84,7 @@ public class ConstructorParameterOrderItemProvider extends ItemProviderAdapter i
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
@@ -97,6 +99,7 @@ public class ConstructorParameterOrderItemProvider extends ItemProviderAdapter i
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return getResourceLocator().getImage("full/obj16/ConstructorParameterOrder"); //$NON-NLS-1$
 	}
@@ -107,6 +110,7 @@ public class ConstructorParameterOrderItemProvider extends ItemProviderAdapter i
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((ConstructorParameterOrder) object).getId();
 		return label == null || label.length() == 0 ? getString("_UI_ConstructorParameterOrder_type") : //$NON-NLS-1$
@@ -119,6 +123,7 @@ public class ConstructorParameterOrderItemProvider extends ItemProviderAdapter i
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(ConstructorParameterOrder.class)) {
 			case JaxrpcmapPackage.CONSTRUCTOR_PARAMETER_ORDER__ID :
@@ -137,6 +142,7 @@ public class ConstructorParameterOrderItemProvider extends ItemProviderAdapter i
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -149,6 +155,7 @@ public class ConstructorParameterOrderItemProvider extends ItemProviderAdapter i
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return Webservicej2eeEditPlugin.INSTANCE;
 	}

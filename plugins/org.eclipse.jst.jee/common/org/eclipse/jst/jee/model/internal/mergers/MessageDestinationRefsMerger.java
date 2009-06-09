@@ -37,7 +37,8 @@ public class MessageDestinationRefsMerger extends BaseRefsMerger {
         super(base, toMerge);
     }
 
-    public List<String> process() throws ModelException {
+    @Override
+	public List<String> process() throws ModelException {
         List<String> warnings = new ArrayList<String>();
         for (Object oToMerge : getToMergeElemets()) {
 			MessageDestinationRef envEntry = (MessageDestinationRef) oToMerge;
@@ -81,7 +82,8 @@ public class MessageDestinationRefsMerger extends BaseRefsMerger {
     }
     
     
-    protected void copyMissingPropertesInBase(Object base, Object toMerge){
+    @Override
+	protected void copyMissingPropertesInBase(Object base, Object toMerge){
     	copyMissingPropertesInBase((MessageDestinationRef) base, (MessageDestinationRef) toMerge);
     }
 }

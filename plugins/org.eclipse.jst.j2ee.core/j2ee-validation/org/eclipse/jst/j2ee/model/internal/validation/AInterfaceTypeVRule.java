@@ -93,6 +93,7 @@ public abstract class AInterfaceTypeVRule extends ATypeVRule implements IEJBInte
 		return null;
 	}
 	
+	@Override
 	public long getFieldType(EnterpriseBean bean, JavaClass clazz, Field field) {
 		if(field == null) {
 			return EXCLUDED_FIELD;

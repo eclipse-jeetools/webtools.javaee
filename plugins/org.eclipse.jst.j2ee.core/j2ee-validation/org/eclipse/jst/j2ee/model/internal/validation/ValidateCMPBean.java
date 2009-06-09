@@ -119,6 +119,7 @@ public class ValidateCMPBean extends AValidateEntityBean implements IMessagePref
 		MESSAGE_IDS.put(CHKJ2907, new String[]{CHKJ2907});
 	}
 	
+	@Override
 	public void reset() {
 		super.reset();
 		_containerManagedFields = null;
@@ -223,6 +224,7 @@ public class ValidateCMPBean extends AValidateEntityBean implements IMessagePref
 	 * EJB 1.1 specification
 	 * Section: 18.1.2
 	 */
+	@Override
 	public void primValidate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field) throws InvalidInputException {
 		super.primValidate(vc, bean, clazz, field);
 
@@ -235,6 +237,7 @@ public class ValidateCMPBean extends AValidateEntityBean implements IMessagePref
 	 * EJB 1.1 specification
 	 * Section: 9.2.6
 	 */
+	@Override
 	public void validateBusinessMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		// Perform common BMP/CMP business method checks
 		if (!isEjbRelationshipRoleMethod(vc, bean, clazz, method))
@@ -244,6 +247,7 @@ public class ValidateCMPBean extends AValidateEntityBean implements IMessagePref
 		// All of the points in 9.2.6 are common to both BMPs & CMPs.
 	}
 	
+	@Override
 	protected void validateBusinessMethodNoRemoteException(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		if (!isEjbRelationshipRoleMethod(vc, bean, clazz, method))
 			super.validateBusinessMethodNoRemoteException(vc, bean, clazz, method); // EJB 2.0 added "throws InvalidInputException above"
@@ -253,6 +257,7 @@ public class ValidateCMPBean extends AValidateEntityBean implements IMessagePref
 	 * EJB 1.1 specification
 	 * Section: 9.2.2
 	 */
+	@Override
 	public void validateClass(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		// All of the above checks are performed by the parent.
 		super.validateClass(vc, bean, clazz);
@@ -317,6 +322,7 @@ public class ValidateCMPBean extends AValidateEntityBean implements IMessagePref
 	 * EJB 1.1 specification
 	 * Section: 9.4.6
 	 */
+	@Override
 	public void validateEjbFindMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		if (method == null) {
 			throw new InvalidInputException();
@@ -331,6 +337,7 @@ public class ValidateCMPBean extends AValidateEntityBean implements IMessagePref
 	 * Checks that the ejbPostCreate method follows the EJB 1.1. specification.
 	 * Section: 9.2.4 and 9.4.2
 	*/
+	@Override
 	public void validateEjbPostCreateMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws InvalidInputException {
 		// Perform common BMP/CMP ejbPostCreate method checks
 		super.validateEjbPostCreateMethod(vc, bean, clazz, method);
@@ -361,6 +368,7 @@ public class ValidateCMPBean extends AValidateEntityBean implements IMessagePref
 	/**
 	 * Check that at least one field exists on the bean.
 	 */
+	@Override
 	public void verifyFieldExists(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		if (!hasContainerManagedField()) {
 			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2032, IEJBValidationContext.WARNING, bean, clazz, new String[] { clazz.getQualifiedName()}, this);
@@ -370,6 +378,7 @@ public class ValidateCMPBean extends AValidateEntityBean implements IMessagePref
 	/*
 	 * @see IValidationRule#preValidate(IEJBValidationContext, Object, Object)
 	 */
+	@Override
 	public void preValidate(IEJBValidationContext vc, Object targetParent, Object target) throws ValidationCancelledException, ValidationException {
 		super.preValidate(vc, targetParent, target);
 		_containerManagedFields = loadContainerManagedFields(vc, (EnterpriseBean)targetParent, (JavaClass)target);

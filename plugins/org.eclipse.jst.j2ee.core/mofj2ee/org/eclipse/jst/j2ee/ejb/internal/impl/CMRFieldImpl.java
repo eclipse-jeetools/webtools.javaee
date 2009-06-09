@@ -45,6 +45,7 @@ public class CMRFieldImpl extends CMPAttributeImpl implements CMRField {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return EjbPackage.Literals.CMR_FIELD;
 	}
@@ -60,10 +61,12 @@ public String getCollectionTypeName() {
 	return collectionType == null ? null : collectionType.getQualifiedName();
 }          
 
+@Override
 public boolean isPrimKeyField(){
 	return false;
 }
 
+@Override
 public boolean isCMRField() {
 	return true;
 }
@@ -146,6 +149,7 @@ public void setCollectionTypeName(String typeName) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EjbPackage.CMR_FIELD__ROLE:
@@ -161,6 +165,7 @@ public void setCollectionTypeName(String typeName) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EjbPackage.CMR_FIELD__ROLE:
@@ -174,6 +179,7 @@ public void setCollectionTypeName(String typeName) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID()) {
 			case EjbPackage.CMR_FIELD__ROLE:
@@ -187,6 +193,7 @@ public void setCollectionTypeName(String typeName) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case EjbPackage.CMR_FIELD__ROLE:
@@ -203,6 +210,7 @@ public void setCollectionTypeName(String typeName) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EjbPackage.CMR_FIELD__ROLE:
@@ -220,6 +228,7 @@ public void setCollectionTypeName(String typeName) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case EjbPackage.CMR_FIELD__ROLE:
@@ -237,6 +246,7 @@ public void setCollectionTypeName(String typeName) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case EjbPackage.CMR_FIELD__ROLE:
@@ -250,6 +260,7 @@ public void setCollectionTypeName(String typeName) {
 	/**
 	 * @see org.eclipse.jst.j2ee.ejb.internal.impl.CMPAttributeImpl#getCMPEntity()
 	 */
+	@Override
 	public ContainerManagedEntity getCMPEntity() {
 		EJBRelationshipRole role = getRole();
 		if (role != null)

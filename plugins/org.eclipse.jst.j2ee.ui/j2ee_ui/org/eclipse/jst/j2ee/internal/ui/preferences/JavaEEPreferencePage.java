@@ -65,6 +65,7 @@ public class JavaEEPreferencePage extends PreferencePage implements
 		showReferences.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.JAVA_EE_PREFERENCE_PAGE_DYN_TRANSLATION_BTN_NAME)); //$NON-NLS-1$
 		showReferences.setSelection(dynamicTranslation);
 		showReferences.addSelectionListener(new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				dynamicTranslation = showReferences.getSelection();
 			}
@@ -101,7 +102,8 @@ public class JavaEEPreferencePage extends PreferencePage implements
 		}
 	}
 	
-	 public void dispose(){
+	 @Override
+	public void dispose(){
 			for(IJavaEEPreferencePageExtender extender : extenders ){
 				extender.dispose();
 			}

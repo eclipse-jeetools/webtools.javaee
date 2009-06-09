@@ -21,6 +21,7 @@ import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 
 public abstract class ABMPHomeVRule extends AEntityHomeVRule {
 
+	@Override
 	public final void validateMatchingReturnTypeMatches(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method homeMethod, Method beanMethod, List[] methodsExtendedLists) {
 		long methodType = MethodUtility.getUtility().getMethodTypeId(bean, clazz, homeMethod, methodsExtendedLists, this);
 		if((methodType & FIND) != FIND) {

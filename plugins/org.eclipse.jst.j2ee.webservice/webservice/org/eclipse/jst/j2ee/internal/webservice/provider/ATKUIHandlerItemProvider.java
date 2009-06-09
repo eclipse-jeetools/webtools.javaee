@@ -34,6 +34,7 @@ public class ATKUIHandlerItemProvider extends HandlerItemProvider implements ITa
 	/**
 	 * This does the same thing as ITableLabelProvider.getColumnText.
 	 */
+	@Override
 	public String getColumnText(Object object, int columnIndex) {
 		return toDisplayString(((Handler) object).getHandlerName());
 	}
@@ -45,6 +46,7 @@ public class ATKUIHandlerItemProvider extends HandlerItemProvider implements ITa
 	/**
 	 * This does the same thing as ITableLabelProvider.getColumnImage.
 	 */
+	@Override
 	public Object getColumnImage(Object object, int columnIndex) {
 		return null;
 	}
@@ -60,6 +62,7 @@ public class ATKUIHandlerItemProvider extends HandlerItemProvider implements ITa
 	 * {@link ITreeItemContentProvider#getChildren ITreeItemContentProvider.getChildren}by calling
 	 * {@link #getChildrenReferences getChildrenReferences}and using those to collect the children.
 	 */
+	@Override
 	public Collection getChildren(Object object) {
 		if (object instanceof EList)
 			return getChildrenFromEList((EList) object);

@@ -10,12 +10,10 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.wizard;
 
-import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.jst.j2ee.application.internal.operations.EARComponentImportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
-import org.eclipse.ui.IImportWizard;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 import org.eclipse.wst.project.facet.IProductConstants;
@@ -27,7 +25,7 @@ import org.eclipse.wst.project.facet.ProductManager;
  * Enterprise Application Archive *.ear file.
  * </p>
  */
-public final class EARComponentImportWizard extends J2EEArtifactImportWizard implements IExecutableExtension, IImportWizard {
+public final class EARComponentImportWizard extends J2EEArtifactImportWizard{
 
 	/**
 	 * <p>
@@ -79,6 +77,7 @@ public final class EARComponentImportWizard extends J2EEArtifactImportWizard imp
 	 * 
 	 * </p>
 	 */
+	@Override
 	public void doAddPages() {
 		addPage(new EARComponentImportPage(getDataModel(), MAIN_PG));
 		addPage(new EARComponentImportOptionsPage(getDataModel(), OPTIONS_PG));
@@ -94,16 +93,19 @@ public final class EARComponentImportWizard extends J2EEArtifactImportWizard imp
 	 * Sets up the dialog window title and default wizard page image.
 	 * </p>
 	 */
+	@Override
 	protected void doInit() {
 		setWindowTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.IMPORT_WIZ_TITLE));
 		setDefaultPageImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.EAR_IMPORT_WIZARD_BANNER));
 		
 	}
 
+	@Override
 	protected IDataModelProvider getDefaultProvider() {
 		return new EARComponentImportDataModelProvider();
 	}
 	
+	@Override
 	protected String getFinalPerspectiveID() {
         return ProductManager.getProperty(IProductConstants.FINAL_PERSPECTIVE_EAR);
 	}

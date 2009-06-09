@@ -52,6 +52,7 @@ public class PortMappingItemProvider extends ItemProviderAdapter implements IEdi
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -105,6 +106,7 @@ public class PortMappingItemProvider extends ItemProviderAdapter implements IEdi
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return getResourceLocator().getImage("full/obj16/PortMapping"); //$NON-NLS-1$
 	}
@@ -115,6 +117,7 @@ public class PortMappingItemProvider extends ItemProviderAdapter implements IEdi
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((PortMapping) object).getPortName();
 		return label == null || label.length() == 0 ? getString("_UI_PortMapping_type") : //$NON-NLS-1$
@@ -127,6 +130,7 @@ public class PortMappingItemProvider extends ItemProviderAdapter implements IEdi
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(PortMapping.class)) {
 			case JaxrpcmapPackage.PORT_MAPPING__ID :
@@ -146,6 +150,7 @@ public class PortMappingItemProvider extends ItemProviderAdapter implements IEdi
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -156,6 +161,7 @@ public class PortMappingItemProvider extends ItemProviderAdapter implements IEdi
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return Webservicej2eeEditPlugin.INSTANCE;
 	}

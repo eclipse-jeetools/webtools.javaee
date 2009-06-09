@@ -79,6 +79,7 @@ public class JcaItemProviderAdapterFactory extends JcaAdapterFactory implements 
 	 * 
 	 * @return Adapter
 	 */
+	@Override
 	public Adapter createConnectorAdapter() {
 		if (connectorItemProvider == null) {
 			connectorItemProvider = new ConnectorItemProvider(this);
@@ -97,6 +98,7 @@ public class JcaItemProviderAdapterFactory extends JcaAdapterFactory implements 
 	 * 
 	 * @return Adapter
 	 */
+	@Override
 	public Adapter createLicenseAdapter() {
 		if (licenseItemProvider == null) {
 			licenseItemProvider = new LicenseItemProvider(this);
@@ -120,6 +122,7 @@ public class JcaItemProviderAdapterFactory extends JcaAdapterFactory implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createInboundResourceAdapterAdapter() {
 		if (inboundResourceAdapterItemProvider == null) {
 			inboundResourceAdapterItemProvider = new InboundResourceAdapterItemProvider(this);
@@ -143,6 +146,7 @@ public class JcaItemProviderAdapterFactory extends JcaAdapterFactory implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createOutboundResourceAdapterAdapter() {
 		if (outboundResourceAdapterItemProvider == null) {
 			outboundResourceAdapterItemProvider = new OutboundResourceAdapterItemProvider(this);
@@ -165,6 +169,7 @@ public class JcaItemProviderAdapterFactory extends JcaAdapterFactory implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createMessageAdapterAdapter() {
 		if (messageAdapterItemProvider == null) {
 			messageAdapterItemProvider = new MessageAdapterItemProvider(this);
@@ -188,6 +193,7 @@ public class JcaItemProviderAdapterFactory extends JcaAdapterFactory implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createConnectionDefinitionAdapter() {
 		if (connectionDefinitionItemProvider == null) {
 			connectionDefinitionItemProvider = new ConnectionDefinitionItemProvider(this);
@@ -210,6 +216,7 @@ public class JcaItemProviderAdapterFactory extends JcaAdapterFactory implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createAdminObjectAdapter() {
 		if (adminObjectItemProvider == null) {
 			adminObjectItemProvider = new AdminObjectItemProvider(this);
@@ -232,6 +239,7 @@ public class JcaItemProviderAdapterFactory extends JcaAdapterFactory implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createMessageListenerAdapter() {
 		if (messageListenerItemProvider == null) {
 			messageListenerItemProvider = new MessageListenerItemProvider(this);
@@ -254,6 +262,7 @@ public class JcaItemProviderAdapterFactory extends JcaAdapterFactory implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createActivationSpecAdapter() {
 		if (activationSpecItemProvider == null) {
 			activationSpecItemProvider = new ActivationSpecItemProvider(this);
@@ -277,6 +286,7 @@ public class JcaItemProviderAdapterFactory extends JcaAdapterFactory implements 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createRequiredConfigPropertyTypeAdapter() {
 		if (requiredConfigPropertyTypeItemProvider == null) {
 			requiredConfigPropertyTypeItemProvider = new RequiredConfigPropertyTypeItemProvider(this);
@@ -295,6 +305,7 @@ public class JcaItemProviderAdapterFactory extends JcaAdapterFactory implements 
 	 * 
 	 * @return Adapter
 	 */
+	@Override
 	public Adapter createResourceAdapterAdapter() {
 		if (resourceAdapterItemProvider == null) {
 			resourceAdapterItemProvider = new ResourceAdapterItemProvider(this);
@@ -313,6 +324,7 @@ public class JcaItemProviderAdapterFactory extends JcaAdapterFactory implements 
 	 * 
 	 * @return Adapter
 	 */
+	@Override
 	public Adapter createSecurityPermissionAdapter() {
 		if (securityPermissionItemProvider == null) {
 			securityPermissionItemProvider = new SecurityPermissionItemProvider(this);
@@ -331,6 +343,7 @@ public class JcaItemProviderAdapterFactory extends JcaAdapterFactory implements 
 	 * 
 	 * @return Adapter
 	 */
+	@Override
 	public Adapter createAuthenticationMechanismAdapter() {
 		if (authenticationMechanismItemProvider == null) {
 			authenticationMechanismItemProvider = new AuthenticationMechanismItemProvider(this);
@@ -347,6 +360,7 @@ public class JcaItemProviderAdapterFactory extends JcaAdapterFactory implements 
 	/**
 	 * This creates an adapter for a {@link com.ibm.etools.jca.ConfigProperty}.
 	 */
+	@Override
 	public Adapter createConfigPropertyAdapter() {
 		if (configPropertyItemProvider == null) {
 			configPropertyItemProvider = new ConfigPropertyItemProvider(this);
@@ -380,6 +394,7 @@ public class JcaItemProviderAdapterFactory extends JcaAdapterFactory implements 
 	 *            type - The given type
 	 * @return boolean
 	 */
+	@Override
 	public boolean isFactoryForType(Object type) {
 		return super.isFactoryForType(type) || supportedTypes.contains(type);
 	}// isFactoryForType
@@ -393,6 +408,7 @@ public class JcaItemProviderAdapterFactory extends JcaAdapterFactory implements 
 	 *            type - The given type
 	 * @return Adapter
 	 */
+	@Override
 	public Adapter adapt(Notifier notifier, Object type) {
 		return super.adapt(notifier, this);
 	}// adapt
@@ -406,6 +422,7 @@ public class JcaItemProviderAdapterFactory extends JcaAdapterFactory implements 
 	 *            type - The given type.
 	 * @return Object
 	 */
+	@Override
 	public Object adapt(Object object, Object type) {
 		// This is a kludge to deal with enumerators, which crash the doSwitch.
 		//

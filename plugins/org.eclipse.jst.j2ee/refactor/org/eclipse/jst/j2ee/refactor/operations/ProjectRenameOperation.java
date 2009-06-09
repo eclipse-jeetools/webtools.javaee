@@ -45,6 +45,7 @@ public class ProjectRenameOperation extends ProjectRefactorOperation {
 	/**
 	 * Override to return the pre-rename metadata.
 	 */
+	@Override
 	protected ProjectRefactorMetadata getProjectMetadata() {
         return (ProjectRefactorMetadata) model.getProperty(ProjectRenameDataModelProvider.ORIGINAL_PROJECT_METADATA);
 	}
@@ -52,6 +53,7 @@ public class ProjectRenameOperation extends ProjectRefactorOperation {
 	/**
 	 * Updates the project's own metadata.
 	 */
+	@Override
 	protected void updateProject(final ProjectRefactorMetadata originalMetadata) 
 		throws ExecutionException {
 		  
@@ -127,6 +129,7 @@ public class ProjectRenameOperation extends ProjectRefactorOperation {
 	 * Updates the metadata for dependent projects
 	 * @throws ExecutionException
 	 */
+	@Override
 	protected void updateDependentProjects(final ProjectRefactorMetadata originalMetadata,
 			final IProgressMonitor monitor) throws ExecutionException {
 	    // If this is not an EAR, update metadata for dependent projects
@@ -144,6 +147,7 @@ public class ProjectRenameOperation extends ProjectRefactorOperation {
 	/**
 	 * Updates the dependent EAR project to account for the renaming of the referenced project.
 	 */
+	@Override
 	protected void updateDependentEARProject(final ProjectRefactorMetadata dependentMetadata, 
 			final ProjectRefactorMetadata originalMetadata) throws ExecutionException {
         if (OptionalRefactorHandler.getInstance().shouldRefactorDependentProjectOnRename(originalMetadata, dependentMetadata)) {
@@ -156,6 +160,7 @@ public class ProjectRenameOperation extends ProjectRefactorOperation {
 	/**
 	 * Updates the dependent module project to account for the renaming of the referenced project.
 	 */
+	@Override
 	protected void updateDependentModuleProject(final ProjectRefactorMetadata dependentMetadata, 
 			final ProjectRefactorMetadata originalMetadata) throws ExecutionException {
         if (OptionalRefactorHandler.getInstance().shouldRefactorDependentProjectOnRename(originalMetadata, dependentMetadata)) {

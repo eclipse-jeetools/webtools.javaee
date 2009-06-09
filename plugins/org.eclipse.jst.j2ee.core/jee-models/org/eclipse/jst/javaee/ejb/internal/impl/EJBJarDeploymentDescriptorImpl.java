@@ -95,6 +95,7 @@ public class EJBJarDeploymentDescriptorImpl extends EObjectImpl implements EJBJa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return EjbPackage.Literals.EJB_JAR_DEPLOYMENT_DESCRIPTOR;
 	}
@@ -167,6 +168,7 @@ public class EJBJarDeploymentDescriptorImpl extends EObjectImpl implements EJBJa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EjbPackage.EJB_JAR_DEPLOYMENT_DESCRIPTOR__MIXED:
@@ -186,6 +188,7 @@ public class EJBJarDeploymentDescriptorImpl extends EObjectImpl implements EJBJa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case EjbPackage.EJB_JAR_DEPLOYMENT_DESCRIPTOR__MIXED:
@@ -208,6 +211,7 @@ public class EJBJarDeploymentDescriptorImpl extends EObjectImpl implements EJBJa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EjbPackage.EJB_JAR_DEPLOYMENT_DESCRIPTOR__MIXED:
@@ -231,6 +235,7 @@ public class EJBJarDeploymentDescriptorImpl extends EObjectImpl implements EJBJa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case EjbPackage.EJB_JAR_DEPLOYMENT_DESCRIPTOR__MIXED:
@@ -254,6 +259,7 @@ public class EJBJarDeploymentDescriptorImpl extends EObjectImpl implements EJBJa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case EjbPackage.EJB_JAR_DEPLOYMENT_DESCRIPTOR__MIXED:
@@ -273,6 +279,7 @@ public class EJBJarDeploymentDescriptorImpl extends EObjectImpl implements EJBJa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

@@ -97,6 +97,7 @@ public class AdapterQNameElement extends AdapterImpl implements ModifyListener {
 			featuresTexts_[i].addModifyListener(this);
 	}
 
+	@Override
 	public void notifyChanged(Notification msg) {
 		int type = msg.getEventType();
 		if ((type == Notification.SET || type == Notification.UNSET) && msg.getFeature() == childFeature_) {

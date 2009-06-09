@@ -27,6 +27,7 @@ public class WebDeployableArtifactAdapterFactory extends ModuleArtifactAdapterDe
 	}
 
 
+	@Override
 	public IModuleArtifact getModuleArtifact(Object obj) {
 		return WebDeployableArtifactUtil.getModuleObject(obj);
 	}

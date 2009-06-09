@@ -42,6 +42,7 @@ public class J2EEPropertiesPage extends PropertyPage implements J2EEPropertiesCo
 	/**
 	 * @see org.eclipse.jface.preference.PreferencePage#createContents(Composite)
 	 */
+	@Override
 	protected Control createContents(Composite parent) {
 		Composite c = parent;
 		IProject project = getProject();
@@ -169,6 +170,7 @@ public class J2EEPropertiesPage extends PropertyPage implements J2EEPropertiesCo
 		refresh();
 	}
 
+	@Override
 	public boolean performOk() {
 		return doRefactor() == IDialogConstants.OK_ID;
 	}

@@ -113,10 +113,12 @@ public class CommonItemProviderAdapterFactory extends CommonAdapterFactory imple
 		supportedTypes.add(ITableItemLabelProvider.class);
 	}
 
+	@Override
 	public Adapter adapt(Notifier target, Object adapterKey) {
 		return super.adapt(target, this);
 	}
 
+	@Override
 	public Object adapt(Object object, Object type) {
 		if (isFactoryForType(type)) {
 			Object adapter = super.adapt(object, type);
@@ -128,6 +130,7 @@ public class CommonItemProviderAdapterFactory extends CommonAdapterFactory imple
 		return null;
 	}
 
+	@Override
 	public Adapter adaptNew(Notifier target, Object adapterType) {
 		Adapter adapter = super.adaptNew(target, adapterType);
 		disposable.add(adapter);
@@ -146,6 +149,7 @@ public class CommonItemProviderAdapterFactory extends CommonAdapterFactory imple
 	/**
 	 * This creates an adapter for a {@link com.ibm.etools.common.EjbRef}.
 	 */
+	@Override
 	public Adapter createEjbRefAdapter() {
 		if (ejbRefItemProvider == null) {
 			ejbRefItemProvider = new EjbRefItemProvider(this);
@@ -159,6 +163,7 @@ public class CommonItemProviderAdapterFactory extends CommonAdapterFactory imple
 	/**
 	 * This creates an adapter for a {@link com.ibm.etools.common.UseCallerIdentity}.
 	 */
+	@Override
 	public Adapter createUseCallerIdentityAdapter() {
 		if (useCallerIdentityItemProvider == null) {
 			useCallerIdentityItemProvider = new UseCallerIdentityItemProvider(this);
@@ -183,6 +188,7 @@ public class CommonItemProviderAdapterFactory extends CommonAdapterFactory imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createDescriptionAdapter() {
 		if (descriptionItemProvider == null) {
 			descriptionItemProvider = new DescriptionItemProvider(this);
@@ -206,6 +212,7 @@ public class CommonItemProviderAdapterFactory extends CommonAdapterFactory imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createQNameAdapter() {
 		if (qNameItemProvider == null) {
 			qNameItemProvider = new QNameItemProvider(this);
@@ -229,6 +236,7 @@ public class CommonItemProviderAdapterFactory extends CommonAdapterFactory imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createListenerAdapter() {
 		if (listenerItemProvider == null) {
 			listenerItemProvider = new ListenerItemProvider(this);
@@ -253,6 +261,7 @@ public class CommonItemProviderAdapterFactory extends CommonAdapterFactory imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createCompatibilityDescriptionGroupAdapter() {
 		if (compatibilityDescriptionGroupItemProvider == null) {
 			compatibilityDescriptionGroupItemProvider = new CompatibilityDescriptionGroupItemProvider(this);
@@ -264,6 +273,7 @@ public class CommonItemProviderAdapterFactory extends CommonAdapterFactory imple
 	/**
 	 * This creates an adapter for a {@link com.ibm.etools.common.EnvEntry}.
 	 */
+	@Override
 	public Adapter createEnvEntryAdapter() {
 		if (envEntryItemProvider == null) {
 			envEntryItemProvider = new EnvEntryItemProvider(this);
@@ -275,6 +285,7 @@ public class CommonItemProviderAdapterFactory extends CommonAdapterFactory imple
 	/**
 	 * This creates an adapter for a {@link com.ibm.etools.common.ResourceRef}.
 	 */
+	@Override
 	public Adapter createResourceRefAdapter() {
 		if (resourceRefItemProvider == null) {
 			resourceRefItemProvider = new ResourceRefItemProvider(this);
@@ -286,6 +297,7 @@ public class CommonItemProviderAdapterFactory extends CommonAdapterFactory imple
 	/**
 	 * This creates an adapter for a {@link com.ibm.etools.common.ResourceEnvRef}.
 	 */
+	@Override
 	public Adapter createResourceEnvRefAdapter() {
 		if (resourceEnvRefItemProvider == null) {
 			resourceEnvRefItemProvider = new ResourceEnvRefItemProvider(this);
@@ -310,6 +322,7 @@ public class CommonItemProviderAdapterFactory extends CommonAdapterFactory imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createEJBLocalRefAdapter() {
 		if (ejbLocalRefItemProvider == null) {
 			ejbLocalRefItemProvider = new EJBLocalRefItemProvider(this);
@@ -321,6 +334,7 @@ public class CommonItemProviderAdapterFactory extends CommonAdapterFactory imple
 	/**
 	 * This creates an adapter for a {@link com.ibm.etools.common.SecurityRole}.
 	 */
+	@Override
 	public Adapter createSecurityRoleAdapter() {
 		if (securityRoleItemProvider == null) {
 			securityRoleItemProvider = new SecurityRoleItemProvider(this);
@@ -332,6 +346,7 @@ public class CommonItemProviderAdapterFactory extends CommonAdapterFactory imple
 	/**
 	 * This creates an adapter for a {@link com.ibm.etools.common.Identity}.
 	 */
+	@Override
 	public Adapter createIdentityAdapter() {
 		if (identityItemProvider == null) {
 			identityItemProvider = new IdentityItemProvider(this);
@@ -357,6 +372,7 @@ public class CommonItemProviderAdapterFactory extends CommonAdapterFactory imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createIconTypeAdapter() {
 		if (iconTypeItemProvider == null) {
 			iconTypeItemProvider = new IconTypeItemProvider(this);
@@ -381,6 +397,7 @@ public class CommonItemProviderAdapterFactory extends CommonAdapterFactory imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createDisplayNameAdapter() {
 		if (displayNameItemProvider == null) {
 			displayNameItemProvider = new DisplayNameItemProvider(this);
@@ -405,6 +422,7 @@ public class CommonItemProviderAdapterFactory extends CommonAdapterFactory imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createMessageDestinationRefAdapter() {
 		if (messageDestinationRefItemProvider == null) {
 			messageDestinationRefItemProvider = new MessageDestinationRefItemProvider(this);
@@ -429,6 +447,7 @@ public class CommonItemProviderAdapterFactory extends CommonAdapterFactory imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createMessageDestinationAdapter() {
 		if (messageDestinationItemProvider == null) {
 			messageDestinationItemProvider = new MessageDestinationItemProvider(this);
@@ -453,6 +472,7 @@ public class CommonItemProviderAdapterFactory extends CommonAdapterFactory imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createParamValueAdapter() {
 		if (paramValueItemProvider == null) {
 			paramValueItemProvider = new ParamValueItemProvider(this);
@@ -477,6 +497,7 @@ public class CommonItemProviderAdapterFactory extends CommonAdapterFactory imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createDescriptionGroupAdapter() {
 		if (descriptionGroupItemProvider == null) {
 			descriptionGroupItemProvider = new DescriptionGroupItemProvider(this);
@@ -488,6 +509,7 @@ public class CommonItemProviderAdapterFactory extends CommonAdapterFactory imple
 	/**
 	 * This creates an adapter for a {@link com.ibm.etools.common.RunAsSpecifiedIdentity}.
 	 */
+	@Override
 	public Adapter createRunAsSpecifiedIdentityAdapter() {
 		if (runAsSpecifiedIdentityItemProvider == null) {
 			runAsSpecifiedIdentityItemProvider = new RunAsSpecifiedIdentityItemProvider(this);
@@ -496,6 +518,7 @@ public class CommonItemProviderAdapterFactory extends CommonAdapterFactory imple
 		return runAsSpecifiedIdentityItemProvider;
 	}
 
+	@Override
 	public Adapter createSecurityIdentityAdapter() {
 		if (securityIdentityItemProvider == null) {
 			securityIdentityItemProvider = new SecurityIdentityItemProvider(this);
@@ -507,6 +530,7 @@ public class CommonItemProviderAdapterFactory extends CommonAdapterFactory imple
 	/**
 	 * This creates an adapter for a {@link com.ibm.etools.common.SecurityRoleRef}.
 	 */
+	@Override
 	public Adapter createSecurityRoleRefAdapter() {
 		if (securityRoleRefItemProvider == null) {
 			securityRoleRefItemProvider = new SecurityRoleRefItemProvider(this);
@@ -526,6 +550,7 @@ public class CommonItemProviderAdapterFactory extends CommonAdapterFactory imple
 		return (parentAdapterFactory == null ? this : parentAdapterFactory.getRootAdapterFactory());
 	}
 
+	@Override
 	public boolean isFactoryForType(Object type) {
 		return super.isFactoryForType(type) || supportedTypes.contains(type);
 	}

@@ -149,6 +149,7 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return CommonarchivePackage.Literals.FILE;
 	}
@@ -471,6 +472,7 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case CommonarchivePackage.FILE__CONTAINER:
@@ -486,6 +488,7 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case CommonarchivePackage.FILE__CONTAINER:
@@ -499,6 +502,7 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case CommonarchivePackage.FILE__CONTAINER:
@@ -512,6 +516,7 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case CommonarchivePackage.FILE__URI:
@@ -538,6 +543,7 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case CommonarchivePackage.FILE__URI:
@@ -570,6 +576,7 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case CommonarchivePackage.FILE__URI:
@@ -602,6 +609,7 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case CommonarchivePackage.FILE__URI:
@@ -625,6 +633,7 @@ public class FileImpl extends J2EEEObjectImpl implements File {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

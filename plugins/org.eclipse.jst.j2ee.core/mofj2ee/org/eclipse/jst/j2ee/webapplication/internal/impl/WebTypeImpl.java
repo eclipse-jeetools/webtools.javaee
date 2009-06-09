@@ -28,6 +28,7 @@ public abstract class WebTypeImpl extends J2EEEObjectImpl implements WebType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return WebapplicationPackage.Literals.WEB_TYPE;
 	}

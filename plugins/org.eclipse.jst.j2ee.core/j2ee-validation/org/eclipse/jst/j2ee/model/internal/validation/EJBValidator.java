@@ -59,6 +59,7 @@ public class EJBValidator extends AbstractEJBValidator {
 	    return logEntry;
 	}
 	
+	@Override
 	public String getBaseName() {
 		return "ejbvalidator"; //$NON-NLS-1$
 	}
@@ -94,12 +95,14 @@ public class EJBValidator extends AbstractEJBValidator {
 	}	
 	
 	
+	@Override
 	public void validate(IValidationContext helper, IReporter reporter) throws ValidationException {
 		commonValidate(helper, reporter);
 	}
 	/*
 	 * @see IValidator#validate(IValidationContext, IReporter, IFileDelta[])
 	 */
+	@Override
 	public IStatus validateInJob(IValidationContext helper, IReporter reporter) throws ValidationException {
 		commonValidate(helper, reporter);
 		return status;
@@ -163,6 +166,7 @@ public class EJBValidator extends AbstractEJBValidator {
 	
 	
 	
+	@Override
 	protected void logMissingRule(IEJBValidationContext vc, Object ruleId) {
 		Logger logger = vc.getMsgLogger();
 		if (logger != null && logger.isLoggingLevel(Level.SEVERE)) {
@@ -171,6 +175,7 @@ public class EJBValidator extends AbstractEJBValidator {
 		addInternalErrorMessage(vc);
 	}
 	
+	@Override
 	protected void preRemoveOldMessages(IEJBValidationContext vc, Map targets) throws ValidationException {
 		List validatedClasses = new ArrayList();
 		
@@ -365,6 +370,7 @@ public class EJBValidator extends AbstractEJBValidator {
 		}
 	}
 	
+	@Override
 	protected String removeOldMessagesString() {
 		return EJBValidatorModelEnum.REMOVE_OLD_MESSAGES;
 	}
@@ -496,6 +502,7 @@ public class EJBValidator extends AbstractEJBValidator {
 		}
 	}
 	
+	@Override
 	protected TargetObjectPool getTargetObjectPool() {
 		if(_targetObjectPoolSingleton == null) {
 			_targetObjectPoolSingleton = new TargetObjectPool(100);
@@ -506,7 +513,8 @@ public class EJBValidator extends AbstractEJBValidator {
     /* (non-Javadoc)
      * @see org.eclipse.jst.j2ee.internal.model.validation.AbstractEJBValidator#releaseRules(org.eclipse.jst.j2ee.internal.model.validation.ejb.IValidationRule)
      */
-    protected void releaseRules(IValidationRule rule) {
+    @Override
+	protected void releaseRules(IValidationRule rule) {
         EJBValidationRuleFactory.getFactory().release(rule);
         
     }
@@ -516,6 +524,7 @@ public class EJBValidator extends AbstractEJBValidator {
 		return null;
 	}
 	
+	@Override
 	public void cleanup(IReporter reporter){
 		if( reporter instanceof WorkbenchReporter ){
 			WorkbenchReporter wbReporter = (WorkbenchReporter)reporter;

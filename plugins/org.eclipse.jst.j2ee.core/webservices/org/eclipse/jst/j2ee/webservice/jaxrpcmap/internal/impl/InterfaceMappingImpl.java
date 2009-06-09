@@ -40,7 +40,8 @@ public class InterfaceMappingImpl extends J2EEEObjectImpl implements InterfaceMa
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  protected EClass eStaticClass() {
+  @Override
+protected EClass eStaticClass() {
 		return JaxrpcmapPackage.Literals.INTERFACE_MAPPING;
 	}
 

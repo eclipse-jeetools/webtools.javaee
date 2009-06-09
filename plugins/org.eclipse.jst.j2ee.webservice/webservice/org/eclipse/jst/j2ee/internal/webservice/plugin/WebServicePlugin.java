@@ -60,6 +60,7 @@ public class WebServicePlugin extends WTPPlugin implements ResourceLocator {
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.WTPPlugin#getPluginID()
 	 */
+	@Override
 	public String getPluginID() {
 		return PLUGIN_ID;
 	}
@@ -204,6 +205,7 @@ public class WebServicePlugin extends WTPPlugin implements ResourceLocator {
 	 * @throws CoreException
 	 *             If this plugin fails to start.
 	 */
+	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 	}
@@ -214,6 +216,7 @@ public class WebServicePlugin extends WTPPlugin implements ResourceLocator {
 	 * @throws CoreException
 	 *             If this plugin fails to shutdown.
 	 */
+	@Override
 	public void stop(BundleContext context) throws Exception {
 		super.stop(context);
 	}

@@ -54,6 +54,7 @@ public class EJBJarFileImpl extends ModuleFileImpl implements EJBJarFile {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return CommonarchivePackage.Literals.EJB_JAR_FILE;
 	}
@@ -124,6 +125,7 @@ public class EJBJarFileImpl extends ModuleFileImpl implements EJBJarFile {
 		return this.getDeploymentDescriptorGen();
 	}
 
+	@Override
 	public java.lang.String getDeploymentDescriptorUri() {
 		return J2EEConstants.EJBJAR_DD_URI;
 	}
@@ -135,6 +137,7 @@ public class EJBJarFileImpl extends ModuleFileImpl implements EJBJarFile {
 		return getDeploymentDescriptor();
 	}
 
+	@Override
 	public boolean isDeploymentDescriptorSet() {
 		return deploymentDescriptor != null;
 	}
@@ -142,6 +145,7 @@ public class EJBJarFileImpl extends ModuleFileImpl implements EJBJarFile {
 	/**
 	 * @see com.ibm.etools.commonarchive.File
 	 */
+	@Override
 	public boolean isEJBJarFile() {
 		return true;
 	}
@@ -156,6 +160,7 @@ public class EJBJarFileImpl extends ModuleFileImpl implements EJBJarFile {
 	/**
 	 * @see com.ibm.etools.commonarchive.impl.ModuleFileImpl
 	 */
+	@Override
 	public org.eclipse.emf.ecore.EObject makeDeploymentDescriptor(XMLResource resource) {
 		EJBJar ejbJar = ((EjbPackage) EPackage.Registry.INSTANCE.getEPackage(EjbPackage.eNS_URI)).getEjbFactory().createEJBJar();
 		resource.setID(ejbJar, J2EEConstants.EJBJAR_ID);
@@ -209,6 +214,7 @@ public class EJBJarFileImpl extends ModuleFileImpl implements EJBJarFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case CommonarchivePackage.EJB_JAR_FILE__DEPLOYMENT_DESCRIPTOR:
@@ -223,6 +229,7 @@ public class EJBJarFileImpl extends ModuleFileImpl implements EJBJarFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case CommonarchivePackage.EJB_JAR_FILE__DEPLOYMENT_DESCRIPTOR:
@@ -237,6 +244,7 @@ public class EJBJarFileImpl extends ModuleFileImpl implements EJBJarFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case CommonarchivePackage.EJB_JAR_FILE__DEPLOYMENT_DESCRIPTOR:
@@ -251,6 +259,7 @@ public class EJBJarFileImpl extends ModuleFileImpl implements EJBJarFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case CommonarchivePackage.EJB_JAR_FILE__DEPLOYMENT_DESCRIPTOR:

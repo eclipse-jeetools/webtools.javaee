@@ -35,6 +35,7 @@ public class J2EESessionItemProvider extends org.eclipse.jst.j2ee.internal.ejb.p
 		super(adapterFactory);
 	}
 
+	@Override
 	public Collection getChildren(Object object) {
 		List result = new ArrayList();
 		result.addAll(super.getChildrenSuper(object));

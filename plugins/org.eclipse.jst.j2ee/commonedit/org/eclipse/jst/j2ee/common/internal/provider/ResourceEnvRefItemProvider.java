@@ -49,6 +49,7 @@ public class ResourceEnvRefItemProvider extends CommonItemProviderAdapter implem
 	/**
 	 * This returns resource_reference.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return J2EEPlugin.getPlugin().getImage("res_env_ref_obj"); //$NON-NLS-1$
 	}
@@ -56,6 +57,7 @@ public class ResourceEnvRefItemProvider extends CommonItemProviderAdapter implem
 	/**
 	 * This returns the parent of the ResourceRef.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return object == null ? null : ((ResourceEnvRef) object).eContainer();
 	}
@@ -63,6 +65,7 @@ public class ResourceEnvRefItemProvider extends CommonItemProviderAdapter implem
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -135,6 +138,7 @@ public class ResourceEnvRefItemProvider extends CommonItemProviderAdapter implem
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -144,6 +148,7 @@ public class ResourceEnvRefItemProvider extends CommonItemProviderAdapter implem
 	}
 
 
+	@Override
 	public String getText(Object object) {
 		return "ResourceEnvRef " + ((ResourceEnvRef) object).getName(); //$NON-NLS-1$
 	}
@@ -154,6 +159,7 @@ public class ResourceEnvRefItemProvider extends CommonItemProviderAdapter implem
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(ResourceEnvRef.class)) {
 			case CommonPackage.RESOURCE_ENV_REF__DESCRIPTION :
@@ -173,6 +179,7 @@ public class ResourceEnvRefItemProvider extends CommonItemProviderAdapter implem
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -186,6 +193,7 @@ public class ResourceEnvRefItemProvider extends CommonItemProviderAdapter implem
 	 * end-user-doc -->
 	 *  
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}
@@ -196,6 +204,7 @@ public class ResourceEnvRefItemProvider extends CommonItemProviderAdapter implem
 	 * enumeration, and this to check that enumeration, but we know there can't be any children, so
 	 * this is faster.
 	 */
+	@Override
 	public boolean hasChildren(Object object) {
 		return false;
 	}

@@ -42,6 +42,7 @@ public abstract class AValidateRemote extends AValidateEJB {
 		return ((EnterpriseBean)parent).getRemoteInterface();
 	}
 
+	@Override
 	public final List[] getMethodsExtended(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz)  {
 		// A home or component class needs the following classes' extended methods:
 		//    1. bean class
@@ -56,6 +57,7 @@ public abstract class AValidateRemote extends AValidateEJB {
 		return result;
 	}
 	
+	@Override
 	public final List[] getFieldsExtended(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) {
 		// Never check that a home or component's field is defined on another class
 		// of the bean.
@@ -67,6 +69,7 @@ public abstract class AValidateRemote extends AValidateEJB {
 	 * Filter out faulty methods (i.e., null), and methods which
 	 * belong to the base type, whatever that is. (e.g. java.lang.Object)
 	 */
+	@Override
 	protected boolean isValid(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedList) throws InvalidInputException {
 		if (super.isValid(vc, bean, clazz, method, methodsExtendedList)) {
 			// Exclude root remote interface methods 
@@ -90,6 +93,7 @@ public abstract class AValidateRemote extends AValidateEJB {
 	 * Check the remote interface's methods against the EJB 1.1 spec.
 	 * Section: 6.10.5 and 9.2.7
 	 */
+	@Override
 	public void primValidate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method riMethod) throws InvalidInputException {
 		// Can't invoke an abstract method
 		// super.validateExistence(riMethod);
@@ -108,6 +112,7 @@ public abstract class AValidateRemote extends AValidateEJB {
 	/**
 	 * Checks to see if @ejbMethod is one of the required methods.
 	 */
+	@Override
 	protected void primValidateExistence(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method ejbMethod) throws InvalidInputException {
 		// Can't invoke an abstract method
 		//super.validateExistence(ejbMethod);
@@ -125,6 +130,7 @@ public abstract class AValidateRemote extends AValidateEJB {
 	 * URL: http://java.sun.com/products/ejb/docs.html
 	 * Section: 6.10.5 and 9.2.7
 	 */
+	@Override
 	public void validateClass(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		vc.terminateIfCancelled();
 
@@ -223,6 +229,7 @@ public abstract class AValidateRemote extends AValidateEJB {
 	/**
 	 * Final check to see if required methods were detected.
 	 */
+	@Override
 	protected void validateMethodExists(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		//There are no required methods.
 	}

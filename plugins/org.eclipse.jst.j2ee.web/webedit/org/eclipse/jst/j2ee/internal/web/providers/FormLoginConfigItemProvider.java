@@ -45,6 +45,7 @@ public class FormLoginConfigItemProvider extends WebapplicationItemProviderAdapt
 	/**
 	 * This returns form_login_config.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return WebPlugin.getDefault().getImage("form_login_config");//$NON-NLS-1$
 	}
@@ -64,6 +65,7 @@ public class FormLoginConfigItemProvider extends WebapplicationItemProviderAdapt
 	/**
 	 * This returns the loginConfig of the FormLoginConfig.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((FormLoginConfig) object).getLoginConfig();
 	}
@@ -71,6 +73,7 @@ public class FormLoginConfigItemProvider extends WebapplicationItemProviderAdapt
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -124,6 +127,7 @@ public class FormLoginConfigItemProvider extends WebapplicationItemProviderAdapt
 	}
 
 
+	@Override
 	public String getText(Object object) {
 		return WebAppEditResourceHandler.getString("16concat_UI_", (new Object[]{((FormLoginConfig) object).getFormLoginPage()})); //$NON-NLS-1$ = "FormLoginConfig {0}"
 	}
@@ -134,6 +138,7 @@ public class FormLoginConfigItemProvider extends WebapplicationItemProviderAdapt
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(FormLoginConfig.class)) {
 			case WebapplicationPackage.FORM_LOGIN_CONFIG__FORM_LOGIN_PAGE :
@@ -152,6 +157,7 @@ public class FormLoginConfigItemProvider extends WebapplicationItemProviderAdapt
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -162,6 +168,7 @@ public class FormLoginConfigItemProvider extends WebapplicationItemProviderAdapt
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}
@@ -172,6 +179,7 @@ public class FormLoginConfigItemProvider extends WebapplicationItemProviderAdapt
 	 * to return the empty enumeration, and this to check that enumeration, but we know there can't
 	 * be any children, so this is faster.
 	 */
+	@Override
 	public boolean hasChildren(Object object) {
 		return false;
 	}

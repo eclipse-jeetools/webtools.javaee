@@ -18,11 +18,6 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
-import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
-import org.eclipse.emf.edit.provider.IItemPropertySource;
-import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
-import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
@@ -37,7 +32,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
  * 
  * @generated
  */
-public class CompatibilityDescriptionGroupItemProvider extends DescriptionGroupItemProvider implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class CompatibilityDescriptionGroupItemProvider extends DescriptionGroupItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
@@ -54,6 +49,7 @@ public class CompatibilityDescriptionGroupItemProvider extends DescriptionGroupI
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -116,6 +112,7 @@ public class CompatibilityDescriptionGroupItemProvider extends DescriptionGroupI
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return getResourceLocator().getImage("full/obj16/CompatibilityDescriptionGroup"); //$NON-NLS-1$
 	}
@@ -126,6 +123,7 @@ public class CompatibilityDescriptionGroupItemProvider extends DescriptionGroupI
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((CompatibilityDescriptionGroup) object).getDisplayName();
 		return label == null || label.length() == 0 ? getString("_UI_CompatibilityDescriptionGroup_type") : //$NON-NLS-1$
@@ -138,6 +136,7 @@ public class CompatibilityDescriptionGroupItemProvider extends DescriptionGroupI
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(CompatibilityDescriptionGroup.class)) {
 			case CommonPackage.COMPATIBILITY_DESCRIPTION_GROUP__SMALL_ICON :
@@ -158,6 +157,7 @@ public class CompatibilityDescriptionGroupItemProvider extends DescriptionGroupI
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -167,6 +167,7 @@ public class CompatibilityDescriptionGroupItemProvider extends DescriptionGroupI
 	 * end-user-doc -->
 	 *  
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}

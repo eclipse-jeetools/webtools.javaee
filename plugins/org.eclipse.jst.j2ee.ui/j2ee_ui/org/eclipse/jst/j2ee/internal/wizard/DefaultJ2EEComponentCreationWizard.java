@@ -70,10 +70,12 @@ public class DefaultJ2EEComponentCreationWizard extends DataModelWizard {
 	 * 
 	 * @see org.eclipse.jface.wizard.Wizard#addPages()
 	 */
+	@Override
 	public void doAddPages() {
 		addPage(new NewJ2EEComponentSelectionPage(getDataModel(), SELECTION_PG));
 	}
 
+	@Override
 	public boolean canFinish() {
 		if (!super.canFinish()) {
 			return false;
@@ -81,7 +83,8 @@ public class DefaultJ2EEComponentCreationWizard extends DataModelWizard {
 		return getDataModel().getBooleanProperty(IDefaultJ2EEComponentCreationDataModelProperties.ENABLED);
 	}
 
-    protected IDataModelProvider getDefaultProvider() {
+    @Override
+	protected IDataModelProvider getDefaultProvider() {
         return new DefaultJ2EEComponentCreationDataModelProvider();
     }
 }

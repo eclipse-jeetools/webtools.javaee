@@ -39,6 +39,7 @@ public class TaglibAdapterFactory extends AdapterFactoryImpl {
 			modelPackage = (TaglibPackage)EPackage.Registry.INSTANCE.getEPackage(TaglibPackage.eNS_URI);
 		}
 	}
+	@Override
 	public boolean isFactoryForType(Object type) {
 		if (type == modelPackage) {
 			return true;
@@ -50,23 +51,29 @@ public class TaglibAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	protected TaglibSwitch sw = new TaglibSwitch() {
+		@Override
 		public Object caseTagLib(TagLib object) {
 			return createTagLibAdapter();
 		}
+		@Override
 		public Object caseValidator(Validator object) {
 			return createValidatorAdapter();
 		}
+		@Override
 		public Object caseJSPTag(JSPTag object) {
 			return createJSPTagAdapter();
 		}
+		@Override
 		public Object caseJSPTagAttribute(JSPTagAttribute object) {
 			return createJSPTagAttributeAdapter();
 		}
+		@Override
 		public Object caseJSPVariable(JSPVariable object) {
 			return createJSPVariableAdapter();
 		}
 	};
 
+	@Override
 	public Adapter createAdapter(Notifier target) {
 		return (Adapter)sw.doSwitch((EObject)target);
 	}
@@ -116,42 +123,55 @@ public class TaglibAdapterFactory extends AdapterFactoryImpl {
 	 */
 	protected TaglibSwitch modelSwitch =
 		new TaglibSwitch() {
+			@Override
 			public Object caseTagLib(TagLib object) {
 				return createTagLibAdapter();
 			}
+			@Override
 			public Object caseJSPTag(JSPTag object) {
 				return createJSPTagAdapter();
 			}
+			@Override
 			public Object caseJSPTagAttribute(JSPTagAttribute object) {
 				return createJSPTagAttributeAdapter();
 			}
+			@Override
 			public Object caseValidator(Validator object) {
 				return createValidatorAdapter();
 			}
+			@Override
 			public Object caseJSPVariable(JSPVariable object) {
 				return createJSPVariableAdapter();
 			}
+			@Override
 			public Object caseFunction(Function object) {
 				return createFunctionAdapter();
 			}
+			@Override
 			public Object caseTagFile(TagFile object) {
 				return createTagFileAdapter();
 			}
+			@Override
 			public Object caseTldExtension(TldExtension object) {
 				return createTldExtensionAdapter();
 			}
+			@Override
 			public Object caseExtensibleType(ExtensibleType object) {
 				return createExtensibleTypeAdapter();
 			}
+			@Override
 			public Object caseJ2EEEObject(J2EEEObject object) {
 				return createJ2EEEObjectAdapter();
 			}
+			@Override
 			public Object caseDescriptionGroup(DescriptionGroup object) {
 				return createDescriptionGroupAdapter();
 			}
+			@Override
 			public Object caseCompatibilityDescriptionGroup(CompatibilityDescriptionGroup object) {
 				return createCompatibilityDescriptionGroupAdapter();
 			}
+			@Override
 			public Object defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}

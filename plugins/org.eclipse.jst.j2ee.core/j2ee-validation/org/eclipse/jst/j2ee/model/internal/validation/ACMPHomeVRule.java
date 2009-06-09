@@ -41,6 +41,7 @@ public abstract class ACMPHomeVRule extends AEntityHomeVRule {
 		}
 	}
 
+	@Override
 	public boolean findMatchingMethod(long methodType) {
 		if((methodType & FIND) == IMethodAndFieldConstants.FIND) {
 			return false;
@@ -52,6 +53,7 @@ public abstract class ACMPHomeVRule extends AEntityHomeVRule {
 	/**
 	 * @see org.eclipse.wst.validation.internal.provisional.core.core.ejb.ejb20.rules.impl.AHomeVRule#returnsComponentInterfaceOrCollection(IEJBValidationContext, EnterpriseBean, JavaClass, Method)
 	 */
+	@Override
 	protected boolean returnsComponentInterfaceOrCollection(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method) throws ValidationCancelledException, InvalidInputException {
 		if(returnsComponentInterface(vc, bean, clazz, method)) {
 			return true;
@@ -66,6 +68,7 @@ public abstract class ACMPHomeVRule extends AEntityHomeVRule {
 		return false;
 	}
 
+	@Override
 	public final void validateMatchingReturnTypeMatches(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method homeMethod, Method beanMethod, List[] methodsExtendedList) {
 		long methodType = MethodUtility.getUtility().getMethodTypeId(bean, clazz, homeMethod, methodsExtendedList, this);
 		if((methodType & FIND) != FIND) {

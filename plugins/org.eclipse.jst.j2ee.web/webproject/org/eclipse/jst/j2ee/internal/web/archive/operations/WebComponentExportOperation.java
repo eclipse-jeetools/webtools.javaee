@@ -40,6 +40,7 @@ public class WebComponentExportOperation extends J2EEArtifactExportOperation {
 	/**
 	 * @deprecated this will be removed post 3.1 with bug 268201
 	 */
+	@Override
 	protected void export() throws SaveFailureException, CoreException, InvocationTargetException, InterruptedException {
 		IProgressMonitor subMonitor = new SubProgressMonitor(progressMonitor, EXPORT_WORK);
 		IArchive archiveFromComponent = null;
@@ -73,6 +74,7 @@ public class WebComponentExportOperation extends J2EEArtifactExportOperation {
 	/**
 	 * @deprecated this will be removed post 3.1 with bug 268201
 	 */
+	@Override
 	protected String archiveString() {
 		return "War File";
 	}

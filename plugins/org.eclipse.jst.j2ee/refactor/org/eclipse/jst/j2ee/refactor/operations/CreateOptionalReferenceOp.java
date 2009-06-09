@@ -29,6 +29,7 @@ public class CreateOptionalReferenceOp extends CreateReferenceComponentsOp {
 		super(model);
 	}
 	
+	@Override
 	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		if (!validateEdit().isOK())
 			return Status.CANCEL_STATUS;

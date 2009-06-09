@@ -39,24 +39,29 @@ public class ConnectorProjectWizard extends NewProjectDataModelFacetWizard {
 		setWindowTitle(JCAUIMessages.JCA_MODULE_WIZ_TITLE);
 	}
 
+	@Override
 	protected IDataModel createDataModel() {
 		return DataModelFactory.createDataModel(new ConnectorFacetProjectCreationDataModelProvider());
 	}
 
+	@Override
 	protected ImageDescriptor getDefaultPageImageDescriptor() {
 		final Bundle bundle = Platform.getBundle(J2EEUIPlugin.PLUGIN_ID);
 		final URL url = bundle.getEntry("icons/full/wizban/connector_wiz.gif"); //$NON-NLS-1$
 		return ImageDescriptor.createFromURL(url);
 	}
 
+	@Override
 	protected IFacetedProjectTemplate getTemplate() {
 		return ProjectFacetsManager.getTemplate("template.jst.connector"); //$NON-NLS-1$
 	}
 
+	@Override
 	protected IWizardPage createFirstPage() {
 		return new ConnectorProjectFirstPage(model, "first.page"); //$NON-NLS-1$
 	}
 	
+	@Override
 	protected String getFinalPerspectiveID() {
         return ProductManager.getProperty(IProductConstants.FINAL_PERSPECTIVE_JCA);
 	}

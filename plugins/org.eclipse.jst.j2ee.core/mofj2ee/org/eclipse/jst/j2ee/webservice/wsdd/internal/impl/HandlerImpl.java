@@ -131,7 +131,8 @@ public class HandlerImpl extends CompatibilityDescriptionGroupImpl implements Ha
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  protected EClass eStaticClass() {
+  @Override
+protected EClass eStaticClass() {
 		return WsddPackage.Literals.HANDLER;
 	}
 
@@ -218,6 +219,7 @@ public class HandlerImpl extends CompatibilityDescriptionGroupImpl implements Ha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case WsddPackage.HANDLER__INIT_PARAMS:
@@ -235,6 +237,7 @@ public class HandlerImpl extends CompatibilityDescriptionGroupImpl implements Ha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case WsddPackage.HANDLER__HANDLER_NAME:
@@ -256,6 +259,7 @@ public class HandlerImpl extends CompatibilityDescriptionGroupImpl implements Ha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case WsddPackage.HANDLER__HANDLER_NAME:
@@ -285,6 +289,7 @@ public class HandlerImpl extends CompatibilityDescriptionGroupImpl implements Ha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case WsddPackage.HANDLER__HANDLER_NAME:
@@ -311,6 +316,7 @@ public class HandlerImpl extends CompatibilityDescriptionGroupImpl implements Ha
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case WsddPackage.HANDLER__HANDLER_NAME:
@@ -332,7 +338,8 @@ public class HandlerImpl extends CompatibilityDescriptionGroupImpl implements Ha
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String toString() {
+  @Override
+public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());

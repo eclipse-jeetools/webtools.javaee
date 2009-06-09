@@ -25,6 +25,7 @@ public class WebXMLHelperImpl extends JEEXMLHelperImpl {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
 	public String getURI(String prefix) {
 		if (prefix != null && prefix.equals(""))
 			return WebPackage.eNS_URI;
@@ -32,6 +33,7 @@ public class WebXMLHelperImpl extends JEEXMLHelperImpl {
 			return super.getURI(prefix);
 	}
 
+	@Override
 	protected String getQName(EPackage ePackage, String name, boolean mustHavePrefix) {
 		String nsPrefix = getPrefix(ePackage, mustHavePrefix);
 		// Not using EE5 package namespace - default jee5 namespace is used

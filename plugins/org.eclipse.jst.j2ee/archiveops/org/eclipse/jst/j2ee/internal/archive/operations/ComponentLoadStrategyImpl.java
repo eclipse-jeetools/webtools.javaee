@@ -215,19 +215,23 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 		}
 	}
 
+	@Override
 	public boolean contains(String uri) {
 		IVirtualFolder rootFolder = vComponent.getRootFolder();
 		return rootFolder.getFile(new Path(uri)).exists();
 	}
 
+	@Override
 	protected void initializeResourceSet() {
 		resourceSet = WorkbenchResourceHelperBase.getResourceSet(vComponent.getProject());
 	}
 
+	@Override
 	protected boolean primContains(String uri) {
 		return false;
 	}
 
+	@Override
 	public List getFiles() {
 		aggregateSourceFiles();
 		aggregateClassFiles();
@@ -550,6 +554,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 		filesHolder.addFile(aFile, externalDiskFile);
 	}
 	
+	@Override
 	public InputStream getInputStream(String uri) throws IOException, FileNotFoundException {
 		// If the MANIFEST.MF of a module component is being requested and that module component references
         // Java build path-based components, need to dynamically update the manifest classpath to reflect the resolved
@@ -579,6 +584,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 		throw new FileNotFoundException(eString);
 	}
 
+	@Override
 	public Collection getLoadedMofResources() {
 		Collection resources = super.getLoadedMofResources();
 		Collection resourcesToRemove = new ArrayList();
@@ -603,10 +609,12 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 		return artifactEdit;
 	}
 	
+	@Override
 	public Resource getMofResource(String uri) throws FileNotFoundException, ResourceLoadException {
 		return getArtifactEditForRead().getResource(URI.createURI(uri));
 	}
 
+	@Override
 	public boolean isClassLoaderNeeded() {
 		return false;
 	}
@@ -623,11 +631,13 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 	
 	protected final int FILE_SAVE_WORK = 100;
 	
+	@Override
 	public FileIterator getFileIterator() throws IOException {
 		return new FileIteratorImpl(getContainer().getFiles()){
 			protected SubProgressMonitor lastSubMon = null;
 			boolean firstVisit = true;
 			
+			@Override
 			public File next() {
 				if(firstVisit){
 					firstVisit = false;
@@ -657,6 +667,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 		
 	}
 	
+	@Override
 	public void close() {
 		if(Thread.currentThread().toString().toLowerCase().indexOf("finalizer") != -1){
 			System.err.println("Opener of Archive didn't close! "+this);

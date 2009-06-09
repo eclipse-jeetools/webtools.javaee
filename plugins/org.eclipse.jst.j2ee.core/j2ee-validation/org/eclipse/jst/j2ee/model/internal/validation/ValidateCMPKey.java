@@ -81,6 +81,7 @@ public class ValidateCMPKey extends AValidateKeyClass implements IMessagePrefixE
 		MESSAGE_IDS.put(CHKJ2907, new String[]{CHKJ2907});
 	}
 	
+	@Override
 	public void reset() {
 		super.reset();
 		_beanFieldNames.clear();
@@ -94,6 +95,7 @@ public class ValidateCMPKey extends AValidateKeyClass implements IMessagePrefixE
 		return DEPENDS_ON;
 	}
 	
+	@Override
 	public Object getTarget(Object parent, Object clazz) {
 		if(parent == null) {
 			return null;
@@ -152,6 +154,7 @@ public class ValidateCMPKey extends AValidateKeyClass implements IMessagePrefixE
 	 * EJB 1.1 specification
 	 * Section: 9.4.7.2
 	 */
+	@Override
 	public void primValidate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Field field) throws InvalidInputException {
 		// All fields in the primary key class must be declared as public.
 		if (!ValidationRuleUtility.isPublic(field)) {
@@ -178,6 +181,7 @@ public class ValidateCMPKey extends AValidateKeyClass implements IMessagePrefixE
 	/**
 	 * This method actually does the validation.
 	 */
+	@Override
 	public void primValidate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method ejbMethod) throws InvalidInputException {
 		// Can't invoke an abstract method
 		// super.primValidate(ejbMethod);
@@ -188,6 +192,7 @@ public class ValidateCMPKey extends AValidateKeyClass implements IMessagePrefixE
 	/**
 	 * Checks to see if @ejbMethod is one of the required methods.
 	 */
+	@Override
 	protected void primValidateExistence(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method ejbMethod) throws InvalidInputException {
 		// Can't invoke an abstract method
 		//super.validateExistence(ejbMethod);
@@ -205,6 +210,7 @@ public class ValidateCMPKey extends AValidateKeyClass implements IMessagePrefixE
 	 * EJB 1.1 specification
 	 * Section: 9.4.7.2
 	 */
+	@Override
 	public void validateClass(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		super.validateClass(vc, bean, clazz);
 
@@ -238,6 +244,7 @@ public class ValidateCMPKey extends AValidateKeyClass implements IMessagePrefixE
 	 * EJB 1.1 specification
 	 * Section: 9.4.7.2
 	 */
+	@Override
 	public void validateMethodExists(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws InvalidInputException {
 		super.validateMethodExists(vc, bean, clazz);
 
@@ -251,6 +258,7 @@ public class ValidateCMPKey extends AValidateKeyClass implements IMessagePrefixE
 	/*
 	 * @see IValidationRule#preValidate(IEJBValidationContext, Object, Object)
 	 */
+	@Override
 	public void preValidate(IEJBValidationContext vc, Object targetParent, Object target) throws ValidationCancelledException, ValidationException {
 		super.preValidate(vc, targetParent, target);
 		hasAConstructor = false;

@@ -108,6 +108,7 @@ public class WSCDDArtifactEdit extends EnterpriseArtifactEdit {
 	 * @return an integer representation of a J2EE Spec version
 	 */
 
+	@Override
 	public int getJ2EEVersion() {
 		return getWscddXmiResource().getJ2EEVersionID();
 	}
@@ -121,6 +122,7 @@ public class WSCDDArtifactEdit extends EnterpriseArtifactEdit {
 	 * @return Resource
 	 */
 
+	@Override
 	public Resource getDeploymentDescriptorResource() {
 		if (getArtifactEditModel()!=null)
 			return getArtifactEditModel().getResource(getWebServicesClientXmlResourceURI());
@@ -153,6 +155,7 @@ public class WSCDDArtifactEdit extends EnterpriseArtifactEdit {
 	 * 
 	 * @return EObject
 	 */
+	@Override
 	public EObject getDeploymentDescriptorRoot() {
 		List contents = getDeploymentDescriptorResource().getContents();
 		if (contents.size() > 0)
@@ -374,6 +377,7 @@ public class WSCDDArtifactEdit extends EnterpriseArtifactEdit {
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit#createModelRoot()
 	 */
+	@Override
 	public EObject createModelRoot() {
 		return createModelRoot(getJ2EEVersion());
 	}
@@ -383,19 +387,23 @@ public class WSCDDArtifactEdit extends EnterpriseArtifactEdit {
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.modulecore.util.EnterpriseArtifactEdit#createModelRoot(int)
 	 */
+	@Override
 	public EObject createModelRoot(int version) {
 		WebServicesResource res = getWscddXmiResource();
 		res.setModuleVersionID(version);
 		addWebServicesClientIfNecessary(res);
 		return getWebServicesClient();
 	}
+	@Override
 	public IModelProvider create(IProject project) {
 		return (IModelProvider)getWSCDDArtifactEditForRead(project);
 	}
 
+	@Override
 	public IModelProvider create(IVirtualComponent component) {
 		return (IModelProvider)getWSCDDArtifactEditForRead(component);
 	}
+	@Override
 	public void modify(Runnable runnable, IPath modelPath) {
 		setWritableEdit(getWSCDDArtifactEditForWrite(getProject()));
 		try{
@@ -410,6 +418,7 @@ public class WSCDDArtifactEdit extends EnterpriseArtifactEdit {
 			setWritableEdit(null);
 		}
 	}
+	@Override
 	protected boolean validProjectVersion(IProject project2) {
 		return true;
 	}

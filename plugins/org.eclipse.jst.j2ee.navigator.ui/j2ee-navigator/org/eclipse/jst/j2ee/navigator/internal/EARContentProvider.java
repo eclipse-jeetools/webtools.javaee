@@ -39,6 +39,7 @@ public class EARContentProvider extends J2EEContentProvider {
 	 * This method will filter out any non Application DD objects so as not to duplicate meta nodes in
 	 * the binary modules case.
 	 */
+	@Override
 	public Object[] getChildren(Object aParentElement) {
 		if (aParentElement instanceof EObject) {
 			EObject eObject = (EObject)aParentElement;

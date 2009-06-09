@@ -36,6 +36,7 @@ public class MultiplicityTranslator extends Translator implements EjbDeploymentD
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.Translator#convertStringToValue(java.lang.String, org.eclipse.emf.ecore.EObject)
 	 */
+	@Override
 	public Object convertStringToValue(String strValue, EObject owner) {
 		String correct = strValue;
 		if (strValue.toUpperCase().equals("ONE")) //$NON-NLS-1$

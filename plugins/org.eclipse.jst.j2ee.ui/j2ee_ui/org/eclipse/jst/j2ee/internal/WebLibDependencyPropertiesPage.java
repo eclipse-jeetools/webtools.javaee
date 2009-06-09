@@ -31,7 +31,6 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jst.j2ee.application.internal.operations.ClasspathElement;
 import org.eclipse.jst.j2ee.internal.common.ClasspathModel;
-import org.eclipse.jst.j2ee.internal.common.ClasspathModelListener;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.swt.SWT;
@@ -39,7 +38,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
@@ -53,16 +51,18 @@ import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 
-public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage implements IClasspathTableOwner, Listener, ClasspathModelListener {
+public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage {
 
 	public WebLibDependencyPropertiesPage(final IProject project, final J2EEDependenciesPage page) {
 		super(project, page);
 	}
 
+	@Override
 	protected ClasspathModel createClasspathModel() {
 		return new ClasspathModel(null, true);
 	}
 	
+	@Override
 	public Composite createContents(Composite parent) {
 		initialize();
 		Composite composite = createBasicComposite(parent);
@@ -80,6 +80,7 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 		return composite;
 	}
 
+	@Override
 	protected void createProjectLabelsGroup(Composite parent) {
 
 		Composite labelsGroup = new Composite(parent, SWT.NONE);
@@ -98,6 +99,7 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 		componentNameText.setText(project.getName());
 	}
 
+	@Override
 	protected void createListGroup(Composite parent) {
 		Composite listGroup = new Composite(parent, SWT.NONE);
 		GridLayout layout = new GridLayout();
@@ -116,6 +118,7 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 		createTableComposite(listGroup);
 	}
 
+	@Override
 	protected void createTableComposite(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NONE);
 		GridData gData = new GridData(GridData.FILL_BOTH);
@@ -166,6 +169,7 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 		setEnablement();
 	}
 
+	@Override
 	public boolean performOk() {
 		if (model.getComponent() == null || !isValidWebModule()) {
 			return true;
@@ -203,8 +207,7 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 				if (elementProject != null && !elementProject.hasNature(IModuleConstants.MODULE_NATURE_ID))
 					projectsList.add(elementProject);
 			} catch (CoreException e) {
-				// TODO Auto-generated catch block
-				J2EEPlugin.getDefault().logError(e);
+				J2EEPlugin.logError(e);
 			}
 		}
 		return (IProject[])projectsList.toArray(new IProject[projectsList.size()]);
@@ -237,7 +240,7 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 
 	{
 		if (monitor != null) {
-			monitor.beginTask("", 1);
+			monitor.beginTask("", 1); //$NON-NLS-1$
 		}
 		IProject targetProject = project;
 		for (int i = 0; i < javaProjects.length; i++) {
@@ -269,7 +272,7 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 					}
 				}
 			} catch(CoreException ex) {
-				J2EEPlugin.getDefault().logError(ex);
+				J2EEPlugin.logError(ex);
 			} finally {
 				if (monitor != null) {
 					monitor.done();

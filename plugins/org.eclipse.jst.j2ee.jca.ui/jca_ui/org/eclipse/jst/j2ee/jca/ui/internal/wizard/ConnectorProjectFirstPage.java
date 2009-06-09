@@ -28,6 +28,7 @@ public class ConnectorProjectFirstPage extends J2EEComponentFacetCreationWizardP
 		setInfopopID(IJ2EEUIContextIds.NEW_CONNECTOR_WIZARD_P1);
 	}
 
+	@Override
 	protected String getModuleFacetID() {
 		return IJ2EEFacetConstants.JCA;
 	}

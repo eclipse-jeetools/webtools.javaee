@@ -38,6 +38,7 @@ public class ApplicationResourceImpl extends XMLResourceImpl implements Applicat
     }
 	/**
 	* Return the first element in the EList.	 */
+	@Override
 	public Application getApplication() {
 		return (Application) getRootObject();
 	}
@@ -60,6 +61,7 @@ public class ApplicationResourceImpl extends XMLResourceImpl implements Applicat
     }
 	/* App version is always the same as the J2EE version
 	 */
+	@Override
 	public int getJ2EEVersionID() {
 		return getModuleVersionID();
 	}
@@ -70,10 +72,12 @@ public class ApplicationResourceImpl extends XMLResourceImpl implements Applicat
     /* (non-Javadoc)
 	 * @see com.ibm.etools.j2eexml.XMLResourceImpl#getJ2EE_1_2_SystemID()
 	 */
+	@Override
 	public String getJ2EE_1_2_SystemID() {
 		return J2EEConstants.APPLICATION_SYSTEMID_1_2;
 	}
 	
+	@Override
 	public String getJ2EE_Alt_1_2_SystemID() {
 		return J2EEConstants.APPLICATION_ALT_SYSTEMID_1_2;
 	}
@@ -81,10 +85,12 @@ public class ApplicationResourceImpl extends XMLResourceImpl implements Applicat
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.j2eexml.XMLResourceImpl#getJ2EE_1_3_SystemID()
 	 */
+	@Override
 	public String getJ2EE_1_3_SystemID() {
 		return J2EEConstants.APPLICATION_SYSTEMID_1_3;
 	}
 	
+	@Override
 	public String getJ2EE_Alt_1_3_SystemID() {
 		return J2EEConstants.APPLICATION_ALT_SYSTEMID_1_3;
 	}
@@ -92,6 +98,7 @@ public class ApplicationResourceImpl extends XMLResourceImpl implements Applicat
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.j2eexml.XMLResourceImpl#getJ2EE_1_2_PublicID()
 	 */
+	@Override
 	public String getJ2EE_1_2_PublicID() {
 		return J2EEConstants.APPLICATION_PUBLICID_1_2;
 	}
@@ -99,12 +106,14 @@ public class ApplicationResourceImpl extends XMLResourceImpl implements Applicat
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.j2eexml.XMLResourceImpl#getJ2EE_1_3_PublicID()
 	 */
+	@Override
 	public String getJ2EE_1_3_PublicID() {
 		return J2EEConstants.APPLICATION_PUBLICID_1_3;
 	}
 	/* 
 	 * This directly sets the module version id
 	 */
+	@Override
 	public void setModuleVersionID(int id) {
 		super.setVersionID(id);
 		switch (id) {
@@ -122,6 +131,7 @@ public class ApplicationResourceImpl extends XMLResourceImpl implements Applicat
 		/*
 		 * Based on the J2EE version, this will set the module version(Same as J2EE Version for Application)
 		 */
+		@Override
 		public void setJ2EEVersionID(int id) {
 		primSetVersionID(id);
 		switch (id) {
@@ -140,6 +150,7 @@ public class ApplicationResourceImpl extends XMLResourceImpl implements Applicat
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.common.impl.XMLResourceImpl#syncVersionOfRootObject()
 	 */
+	@Override
 	protected void syncVersionOfRootObject() {
 		Application app = getApplication();
 		if (app == null)

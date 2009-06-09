@@ -106,6 +106,7 @@ public class UIEarValidator extends EarValidator {
 		super();
 	}
 
+	@Override
 	public Command createValidateXMLCommand() {
 
 		ValidateXmlCommand cmd = (ValidateXmlCommand) super.createValidateXMLCommand();
@@ -113,6 +114,7 @@ public class UIEarValidator extends EarValidator {
 		return cmd;
 	}
 
+	@Override
 	protected String getResourceName() {
 		return ((EarHelper) _helper).getProject().getName();
 	}
@@ -131,6 +133,7 @@ public class UIEarValidator extends EarValidator {
 	/**
 	 *  
 	 */
+	@Override
 	protected void cleanUpSubTaskMessages(EObject ref) {
 		String groupName = EJB_REF_GROUP_NAME;
 		if (ref instanceof EjbRef)
@@ -161,6 +164,7 @@ public class UIEarValidator extends EarValidator {
 		}
 	}
 
+	@Override
 	protected void cleanUpAllRefSubTaskMessages(Resource res) {
 		if (res != null) {
 			IFile file = WorkbenchResourceHelper.getFile(res);
@@ -220,6 +224,7 @@ public class UIEarValidator extends EarValidator {
 		earHelper = newEarHelper;
 	}
 
+	@Override
 	public IStatus validateInJob(IValidationContext inHelper, IReporter inReporter) throws org.eclipse.wst.validation.internal.core.ValidationException {
 		IStatus status = IValidatorJob.OK_STATUS;
 		IProject earProj = ((IWorkbenchContext) inHelper).getProject();
@@ -286,6 +291,7 @@ public class UIEarValidator extends EarValidator {
 		return status;
 	}	
 
+	@Override
 	public ISchedulingRule getSchedulingRule(IValidationContext helper) {
 		ISchedulingRule combinedRule = null;
 		IProject project = ((IWorkbenchContext) helper).getProject();
@@ -715,12 +721,14 @@ public class UIEarValidator extends EarValidator {
 	}
 	
 
+	@Override
 	public void cleanup(IReporter reporter) {
 		if (earHelper != null)
 			earHelper.closeEARFile();
 		super.cleanup(reporter);
 	}
 
+	@Override
 	public void cleanup() {
 
 	}
@@ -793,6 +801,7 @@ public class UIEarValidator extends EarValidator {
 		}
 	}
 
+	@Override
 	protected void removeAllMessages(EObject eObject, String groupName) {
 		Resource res = eObject.eResource();
 		if(res != null) {

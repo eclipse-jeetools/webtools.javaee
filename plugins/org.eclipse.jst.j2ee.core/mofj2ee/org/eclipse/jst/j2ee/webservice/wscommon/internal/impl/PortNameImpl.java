@@ -67,7 +67,8 @@ public class PortNameImpl extends J2EEEObjectImpl implements PortName
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  protected EClass eStaticClass() {
+  @Override
+protected EClass eStaticClass() {
 		return WscommonPackage.Literals.PORT_NAME;
 	}
 
@@ -97,6 +98,7 @@ public class PortNameImpl extends J2EEEObjectImpl implements PortName
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case WscommonPackage.PORT_NAME__PORT_NAME:
@@ -110,6 +112,7 @@ public class PortNameImpl extends J2EEEObjectImpl implements PortName
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case WscommonPackage.PORT_NAME__PORT_NAME:
@@ -124,6 +127,7 @@ public class PortNameImpl extends J2EEEObjectImpl implements PortName
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case WscommonPackage.PORT_NAME__PORT_NAME:
@@ -138,6 +142,7 @@ public class PortNameImpl extends J2EEEObjectImpl implements PortName
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case WscommonPackage.PORT_NAME__PORT_NAME:
@@ -151,7 +156,8 @@ public class PortNameImpl extends J2EEEObjectImpl implements PortName
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String toString() {
+  @Override
+public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());

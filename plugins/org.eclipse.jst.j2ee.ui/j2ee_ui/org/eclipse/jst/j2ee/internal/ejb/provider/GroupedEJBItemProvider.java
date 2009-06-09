@@ -29,6 +29,7 @@ public abstract class GroupedEJBItemProvider extends J2EEItemProvider {
 		super(adapterFactory, text, image, parent, children);
 	}
 	
+	@Override
 	public IFile getAssociatedFile() {
 
 		try {
@@ -42,5 +43,6 @@ public abstract class GroupedEJBItemProvider extends J2EEItemProvider {
 		return null;		
 	}
 
+	@Override
 	public abstract String getText(Object object);
 }

@@ -179,6 +179,7 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 	 */
 	private void processRename(final ProjectRefactorMetadata originalMetadata, final ProjectRefactorMetadata newMetadata, final IResourceDelta delta) {
 		WorkspaceJob job = new WorkspaceJob("J2EEProjectRenameJob") {
+			@Override
 			public IStatus runInWorkspace(IProgressMonitor monitor) throws CoreException {
 				final IDataModel dataModel = DataModelFactory.createDataModel(new ProjectRenameDataModelProvider());
 				dataModel.setProperty(ProjectRefactoringDataModelProvider.PROJECT_METADATA, newMetadata);
@@ -195,6 +196,7 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 				return Status.OK_STATUS;
 			}
 			
+			@Override
 			public boolean belongsTo(final Object family) {
 				return PROJECT_REFACTORING_JOB_FAMILY.equals(family);
 			}
@@ -206,6 +208,7 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 	
 	private void updateServerRefs(final ProjectRefactorMetadata refactorMetadata) {
 		WorkspaceJob job = new WorkspaceJob("ServerRefreshJob") { //$NON-NLS-1$
+			@Override
 			public IStatus runInWorkspace(IProgressMonitor monitor) throws CoreException {
 				final IModule moduleToRemove = refactorMetadata.getModule();
 				if (moduleToRemove == null) {
@@ -239,6 +242,7 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 				return Status.OK_STATUS;
 			}
 			
+			@Override
 			public boolean belongsTo(final Object family) {
 				return ProjectRefactoringListener.PROJECT_REFACTORING_JOB_FAMILY.equals(family);
 			}

@@ -49,6 +49,7 @@ public abstract class ModuleFileImpl extends ArchiveImpl implements ModuleFile {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return CommonarchivePackage.Literals.MODULE_FILE;
 	}
@@ -69,6 +70,7 @@ public abstract class ModuleFileImpl extends ArchiveImpl implements ModuleFile {
 	/**
 	 * @see com.ibm.etools.commonarchive.ModuleFile
 	 */
+	@Override
 	public EARFile getEARFile() {
 		Container aContainer = getContainer();
 		if (aContainer == null || !aContainer.isEARFile()) {
@@ -128,6 +130,7 @@ public abstract class ModuleFileImpl extends ArchiveImpl implements ModuleFile {
 	/**
 	 * @see com.ibm.etools.commonarchive.File
 	 */
+	@Override
 	public boolean isModuleFile() {
 		return true;
 	}
@@ -154,6 +157,7 @@ public abstract class ModuleFileImpl extends ArchiveImpl implements ModuleFile {
 		return resource;
 	}
 
+	@Override
 	public void save(SaveStrategy aSaveStrategy) throws SaveFailureException {
 		setSaveStrategy(aSaveStrategy);
 		if (getExportStrategy() != null)

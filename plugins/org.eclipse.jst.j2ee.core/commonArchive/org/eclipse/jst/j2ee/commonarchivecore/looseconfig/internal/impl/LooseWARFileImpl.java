@@ -46,10 +46,12 @@ public class LooseWARFileImpl extends LooseModuleImpl implements LooseWARFile {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return LooseconfigPackage.Literals.LOOSE_WAR_FILE;
 	}
 
+	@Override
 	public boolean isWAR() {
 		return true;
 	}
@@ -69,6 +71,7 @@ public class LooseWARFileImpl extends LooseModuleImpl implements LooseWARFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case LooseconfigPackage.LOOSE_WAR_FILE__LOOSE_LIBS:
@@ -82,6 +85,7 @@ public class LooseWARFileImpl extends LooseModuleImpl implements LooseWARFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case LooseconfigPackage.LOOSE_WAR_FILE__LOOSE_LIBS:
@@ -95,6 +99,7 @@ public class LooseWARFileImpl extends LooseModuleImpl implements LooseWARFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case LooseconfigPackage.LOOSE_WAR_FILE__LOOSE_LIBS:
@@ -108,6 +113,7 @@ public class LooseWARFileImpl extends LooseModuleImpl implements LooseWARFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case LooseconfigPackage.LOOSE_WAR_FILE__LOOSE_LIBS:
@@ -123,6 +129,7 @@ public class LooseWARFileImpl extends LooseModuleImpl implements LooseWARFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case LooseconfigPackage.LOOSE_WAR_FILE__LOOSE_LIBS:
@@ -137,6 +144,7 @@ public class LooseWARFileImpl extends LooseModuleImpl implements LooseWARFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case LooseconfigPackage.LOOSE_WAR_FILE__LOOSE_LIBS:

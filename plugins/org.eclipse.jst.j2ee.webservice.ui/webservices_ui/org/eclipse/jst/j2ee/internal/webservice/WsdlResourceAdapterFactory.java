@@ -42,6 +42,7 @@ public class WsdlResourceAdapterFactory extends J2EEEMFAdapterFactory {
 	 * 
 	 * @see org.eclipse.core.runtime.IAdapterFactory#getAdapter(java.lang.Object, java.lang.Class)
 	 */
+	@Override
 	public Object getAdapter(Object adaptableObject, Class adapterType) {
 		Resource res = null;
 		WSDLServiceHelper serviceHelper = WSDLServiceExtManager.getServiceHelper();

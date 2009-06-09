@@ -41,7 +41,8 @@ public class RootTypeQnameImpl extends QNameImpl implements RootTypeQname
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  protected EClass eStaticClass() {
+  @Override
+protected EClass eStaticClass() {
 		return JaxrpcmapPackage.Literals.ROOT_TYPE_QNAME;
 	}
 

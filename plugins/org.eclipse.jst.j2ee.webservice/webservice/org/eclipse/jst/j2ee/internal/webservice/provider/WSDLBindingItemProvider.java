@@ -49,6 +49,7 @@ public class WSDLBindingItemProvider extends QNameItemProvider implements IEditi
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -63,6 +64,7 @@ public class WSDLBindingItemProvider extends QNameItemProvider implements IEditi
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return getResourceLocator().getImage("full/obj16/WSDLBinding"); //$NON-NLS-1$
 	}
@@ -73,6 +75,7 @@ public class WSDLBindingItemProvider extends QNameItemProvider implements IEditi
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((WSDLBinding) object).getCombinedQName();
 		return label == null || label.length() == 0 ? getString("_UI_WSDLBinding_type") : //$NON-NLS-1$
@@ -85,6 +88,7 @@ public class WSDLBindingItemProvider extends QNameItemProvider implements IEditi
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		super.notifyChanged(notification);
 	}
@@ -96,6 +100,7 @@ public class WSDLBindingItemProvider extends QNameItemProvider implements IEditi
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -106,6 +111,7 @@ public class WSDLBindingItemProvider extends QNameItemProvider implements IEditi
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return Webservicej2eeEditPlugin.INSTANCE;
 	}

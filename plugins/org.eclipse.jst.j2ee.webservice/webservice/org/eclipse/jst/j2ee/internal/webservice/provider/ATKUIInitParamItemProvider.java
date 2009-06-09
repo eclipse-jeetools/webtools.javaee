@@ -21,6 +21,7 @@ public class ATKUIInitParamItemProvider extends InitParamItemProvider implements
 	/**
 	 * This does the same thing as ITableLabelProvider.getColumnText.
 	 */
+	@Override
 	public String getColumnText(Object object, int columnIndex) {
 		InitParam initParam = (InitParam) object;
 		switch (columnIndex) {
@@ -42,6 +43,7 @@ public class ATKUIInitParamItemProvider extends InitParamItemProvider implements
 	/**
 	 * This does the same thing as ITableLabelProvider.getColumnImage.
 	 */
+	@Override
 	public Object getColumnImage(Object object, int columnIndex) {
 		return null;
 	}

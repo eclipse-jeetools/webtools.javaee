@@ -55,6 +55,7 @@ public class RequiredConfigPropertyTypeItemProvider extends ItemProviderAdapter 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -84,6 +85,7 @@ public class RequiredConfigPropertyTypeItemProvider extends ItemProviderAdapter 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -98,6 +100,7 @@ public class RequiredConfigPropertyTypeItemProvider extends ItemProviderAdapter 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return getResourceLocator().getImage("full/obj16/RequiredConfigPropertyType"); //$NON-NLS-1$
 	}
@@ -108,6 +111,7 @@ public class RequiredConfigPropertyTypeItemProvider extends ItemProviderAdapter 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((RequiredConfigPropertyType) object).getName();
 		return label == null || label.length() == 0 ? JCAResourceHandler._UI_RequiredConfigPropertyType_type : 
@@ -120,6 +124,7 @@ public class RequiredConfigPropertyTypeItemProvider extends ItemProviderAdapter 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(RequiredConfigPropertyType.class)) {
 			case JcaPackage.REQUIRED_CONFIG_PROPERTY_TYPE__NAME :
@@ -138,6 +143,7 @@ public class RequiredConfigPropertyTypeItemProvider extends ItemProviderAdapter 
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -152,6 +158,7 @@ public class RequiredConfigPropertyTypeItemProvider extends ItemProviderAdapter 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		//return J2EEPlugin.getDefault();
 		return JcaPlugin.getPlugin();

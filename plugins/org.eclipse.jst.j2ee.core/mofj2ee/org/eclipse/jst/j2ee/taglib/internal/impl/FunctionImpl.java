@@ -139,6 +139,7 @@ public class FunctionImpl extends DescriptionGroupImpl implements Function {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return TaglibPackage.Literals.FUNCTION;
 	}
@@ -261,6 +262,7 @@ public class FunctionImpl extends DescriptionGroupImpl implements Function {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case TaglibPackage.FUNCTION__FUNCTION_EXTENSIONS:
@@ -274,6 +276,7 @@ public class FunctionImpl extends DescriptionGroupImpl implements Function {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case TaglibPackage.FUNCTION__NAME:
@@ -296,6 +299,7 @@ public class FunctionImpl extends DescriptionGroupImpl implements Function {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case TaglibPackage.FUNCTION__NAME:
@@ -323,6 +327,7 @@ public class FunctionImpl extends DescriptionGroupImpl implements Function {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case TaglibPackage.FUNCTION__NAME:
@@ -349,6 +354,7 @@ public class FunctionImpl extends DescriptionGroupImpl implements Function {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case TaglibPackage.FUNCTION__NAME:
@@ -370,6 +376,7 @@ public class FunctionImpl extends DescriptionGroupImpl implements Function {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

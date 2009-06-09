@@ -28,10 +28,12 @@ public class ConnectorModuleImpl extends ModuleImpl implements ConnectorModule {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return ApplicationPackage.Literals.CONNECTOR_MODULE;
 	}
 
+@Override
 public boolean isConnectorModule() {
 		return true;
 }

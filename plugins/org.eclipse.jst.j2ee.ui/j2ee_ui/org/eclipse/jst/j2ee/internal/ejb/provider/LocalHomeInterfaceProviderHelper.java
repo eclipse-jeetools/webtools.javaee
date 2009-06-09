@@ -31,10 +31,12 @@ public class LocalHomeInterfaceProviderHelper extends J2EEJavaClassProviderHelpe
 	/**
 	 * @see J2EEJavaClassProviderHelper#getJavaClass()
 	 */
+	@Override
 	public JavaClass getJavaClass() {
 		return getEjb().getLocalHomeInterface();
 	}
 
+	@Override
 	public Image getImage() {
 		if (image == null)
 			image = createImage();
@@ -44,6 +46,7 @@ public class LocalHomeInterfaceProviderHelper extends J2EEJavaClassProviderHelpe
 	/**
 	 * @see J2EEJavaClassProviderHelper#getOverlayKey()
 	 */
+	@Override
 	protected String getOverlayKey() {
 		return "local_home_interface_overlay_obj"; //$NON-NLS-1$
 	}
@@ -51,6 +54,7 @@ public class LocalHomeInterfaceProviderHelper extends J2EEJavaClassProviderHelpe
 	/**
 	 * @see J2EEJavaClassProviderHelper#getTypeString(String)
 	 */
+	@Override
 	public String getTypeString(String className) {
 		return J2EEUIMessages.getResourceString("Local_Home_Interface_UI_", new Object[]{className}); //$NON-NLS-1$ = "Local Home Interface";
 	}

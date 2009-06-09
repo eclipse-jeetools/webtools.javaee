@@ -60,6 +60,7 @@ public class WebapplicationAdapterFactory extends AdapterFactoryImpl {
 			modelPackage = (WebapplicationPackage)EPackage.Registry.INSTANCE.getEPackage(WebapplicationPackage.eNS_URI);
 		}
 	}
+	@Override
 	public boolean isFactoryForType(Object type) {
 		if (type == modelPackage) {
 			return true;
@@ -71,95 +72,125 @@ public class WebapplicationAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	protected WebapplicationSwitch sw = new WebapplicationSwitch() {
+		@Override
 		public Object caseWebApp(WebApp object) {
 			return createWebAppAdapter();
 		}
+		@Override
 		public Object caseContextParam(ContextParam object) {
 			return createContextParamAdapter();
 		}
+		@Override
 		public Object caseErrorPage(ErrorPage object) {
 			return createErrorPageAdapter();
 		}
+		@Override
 		public Object caseExceptionTypeErrorPage(ExceptionTypeErrorPage object) {
 			return createExceptionTypeErrorPageAdapter();
 		}
+		@Override
 		public Object caseErrorCodeErrorPage(ErrorCodeErrorPage object) {
 			return createErrorCodeErrorPageAdapter();
 		}
+		@Override
 		public Object caseWelcomeFileList(WelcomeFileList object) {
 			return createWelcomeFileListAdapter();
 		}
+		@Override
 		public Object caseWelcomeFile(WelcomeFile object) {
 			return createWelcomeFileAdapter();
 		}
+		@Override
 		public Object caseTagLibRef(TagLibRef object) {
 			return createTagLibRefAdapter();
 		}
+		@Override
 		public Object caseSecurityConstraint(SecurityConstraint object) {
 			return createSecurityConstraintAdapter();
 		}
+		@Override
 		public Object caseWebResourceCollection(WebResourceCollection object) {
 			return createWebResourceCollectionAdapter();
 		}
+		@Override
 		public Object caseURLPatternType(URLPatternType object) {
 			return createURLPatternTypeAdapter();
 		}
+		@Override
 		public Object caseHTTPMethodType(HTTPMethodType object) {
 			return createHTTPMethodTypeAdapter();
 		}
+		@Override
 		public Object caseAuthConstraint(AuthConstraint object) {
 			return createAuthConstraintAdapter();
 		}
+		@Override
 		public Object caseUserDataConstraint(UserDataConstraint object) {
 			return createUserDataConstraintAdapter();
 		}
+		@Override
 		public Object caseLoginConfig(LoginConfig object) {
 			return createLoginConfigAdapter();
 		}
+		@Override
 		public Object caseFormLoginConfig(FormLoginConfig object) {
 			return createFormLoginConfigAdapter();
 		}
+		@Override
 		public Object caseMimeMapping(MimeMapping object) {
 			return createMimeMappingAdapter();
 		}
+		@Override
 		public Object caseSessionConfig(SessionConfig object) {
 			return createSessionConfigAdapter();
 		}
+		@Override
 		public Object caseServletMapping(ServletMapping object) {
 			return createServletMappingAdapter();
 		}
+		@Override
 		public Object caseServlet(Servlet object) {
 			return createServletAdapter();
 		}
+		@Override
 		public Object caseWebType(WebType object) {
 			return createWebTypeAdapter();
 		}
+		@Override
 		public Object caseServletType(ServletType object) {
 			return createServletTypeAdapter();
 		}
+		@Override
 		public Object caseJSPType(JSPType object) {
 			return createJSPTypeAdapter();
 		}
+		@Override
 		public Object caseInitParam(InitParam object) {
 			return createInitParamAdapter();
 		}
+		@Override
 		public Object caseFilter(Filter object) {
 			return createFilterAdapter();
 		}
+		@Override
 		public Object caseFilterMapping(FilterMapping object) {
 			return createFilterMappingAdapter();
 		}
+		@Override
 		public Object caseRoleNameType(RoleNameType object) {
 			return createRoleNameTypeAdapter();
 		}
+		@Override
 		public Object caseLocalEncodingMappingList(LocalEncodingMappingList object) {
 			return createLocalEncodingMappingListAdapter();
 		}
+		@Override
 		public Object caseLocalEncodingMapping(LocalEncodingMapping object) {
 			return createLocalEncodingMappingAdapter();
 		}
 	};
 
+	@Override
 	public Adapter createAdapter(Notifier target) {
 		return (Adapter)sw.doSwitch((EObject)target);
 	}
@@ -319,105 +350,139 @@ public class WebapplicationAdapterFactory extends AdapterFactoryImpl {
 	 */
 	protected WebapplicationSwitch modelSwitch =
 		new WebapplicationSwitch() {
+			@Override
 			public Object caseWebApp(WebApp object) {
 				return createWebAppAdapter();
 			}
+			@Override
 			public Object caseContextParam(ContextParam object) {
 				return createContextParamAdapter();
 			}
+			@Override
 			public Object caseServlet(Servlet object) {
 				return createServletAdapter();
 			}
+			@Override
 			public Object caseServletMapping(ServletMapping object) {
 				return createServletMappingAdapter();
 			}
+			@Override
 			public Object caseSessionConfig(SessionConfig object) {
 				return createSessionConfigAdapter();
 			}
+			@Override
 			public Object caseMimeMapping(MimeMapping object) {
 				return createMimeMappingAdapter();
 			}
+			@Override
 			public Object caseWelcomeFileList(WelcomeFileList object) {
 				return createWelcomeFileListAdapter();
 			}
+			@Override
 			public Object caseErrorPage(ErrorPage object) {
 				return createErrorPageAdapter();
 			}
+			@Override
 			public Object caseTagLibRef(TagLibRef object) {
 				return createTagLibRefAdapter();
 			}
+			@Override
 			public Object caseSecurityConstraint(SecurityConstraint object) {
 				return createSecurityConstraintAdapter();
 			}
+			@Override
 			public Object caseWebResourceCollection(WebResourceCollection object) {
 				return createWebResourceCollectionAdapter();
 			}
+			@Override
 			public Object caseAuthConstraint(AuthConstraint object) {
 				return createAuthConstraintAdapter();
 			}
+			@Override
 			public Object caseUserDataConstraint(UserDataConstraint object) {
 				return createUserDataConstraintAdapter();
 			}
+			@Override
 			public Object caseLoginConfig(LoginConfig object) {
 				return createLoginConfigAdapter();
 			}
+			@Override
 			public Object caseFormLoginConfig(FormLoginConfig object) {
 				return createFormLoginConfigAdapter();
 			}
+			@Override
 			public Object caseInitParam(InitParam object) {
 				return createInitParamAdapter();
 			}
+			@Override
 			public Object caseWebType(WebType object) {
 				return createWebTypeAdapter();
 			}
+			@Override
 			public Object caseServletType(ServletType object) {
 				return createServletTypeAdapter();
 			}
+			@Override
 			public Object caseJSPType(JSPType object) {
 				return createJSPTypeAdapter();
 			}
+			@Override
 			public Object caseURLPatternType(URLPatternType object) {
 				return createURLPatternTypeAdapter();
 			}
+			@Override
 			public Object caseRoleNameType(RoleNameType object) {
 				return createRoleNameTypeAdapter();
 			}
+			@Override
 			public Object caseWelcomeFile(WelcomeFile object) {
 				return createWelcomeFileAdapter();
 			}
+			@Override
 			public Object caseExceptionTypeErrorPage(ExceptionTypeErrorPage object) {
 				return createExceptionTypeErrorPageAdapter();
 			}
+			@Override
 			public Object caseErrorCodeErrorPage(ErrorCodeErrorPage object) {
 				return createErrorCodeErrorPageAdapter();
 			}
+			@Override
 			public Object caseFilterMapping(FilterMapping object) {
 				return createFilterMappingAdapter();
 			}
+			@Override
 			public Object caseFilter(Filter object) {
 				return createFilterAdapter();
 			}
+			@Override
 			public Object caseLocalEncodingMappingList(LocalEncodingMappingList object) {
 				return createLocalEncodingMappingListAdapter();
 			}
+			@Override
 			public Object caseLocalEncodingMapping(LocalEncodingMapping object) {
 				return createLocalEncodingMappingAdapter();
 			}
+			@Override
 			public Object caseHTTPMethodType(HTTPMethodType object) {
 				return createHTTPMethodTypeAdapter();
 			}
+			@Override
 			public Object caseJ2EEEObject(J2EEEObject object) {
 				return createJ2EEEObjectAdapter();
 			}
+			@Override
 			public Object caseDescriptionGroup(DescriptionGroup object) {
 				return createDescriptionGroupAdapter();
 			}
+			@Override
 			public Object caseCompatibilityDescriptionGroup(CompatibilityDescriptionGroup object) {
 				return createCompatibilityDescriptionGroupAdapter();
 			}
+			@Override
 			public Object caseJNDIEnvRefsGroup(JNDIEnvRefsGroup object) {
 				return createJNDIEnvRefsGroupAdapter();
 			}
+			@Override
 			public Object defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}

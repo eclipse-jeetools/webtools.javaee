@@ -43,6 +43,7 @@ public class WebTypeTranslator extends Translator implements WarDeploymentDescri
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.Translator#getChildren(java.lang.Object, int)
 	 */
+	@Override
 	public Translator[] getChildren(Object o, int versionID) {
 		if (o == null)
 			return CommonTranslators.EMPTY_CHILDREN;
@@ -55,6 +56,7 @@ public class WebTypeTranslator extends Translator implements WarDeploymentDescri
 	}
 	
 	
+	@Override
 	public String getDOMName(Object value) {
 		if (((WebType)value).isJspType())
 			return JSP_FILE;
@@ -69,6 +71,7 @@ public class WebTypeTranslator extends Translator implements WarDeploymentDescri
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.Translator#createEMFObject(java.lang.String, java.lang.String)
 	 */
+	@Override
 	public EObject createEMFObject(String nodeName, String readAheadName) {
 		WebapplicationFactory fact = WebapplicationPackage.eINSTANCE.getWebapplicationFactory();
 		if (SERVLET_CLASS.equals(nodeName))
@@ -79,6 +82,7 @@ public class WebTypeTranslator extends Translator implements WarDeploymentDescri
 			return null;
 	}
 	
+	@Override
 	public boolean isManagedByParent() {
 		return false;
 	}

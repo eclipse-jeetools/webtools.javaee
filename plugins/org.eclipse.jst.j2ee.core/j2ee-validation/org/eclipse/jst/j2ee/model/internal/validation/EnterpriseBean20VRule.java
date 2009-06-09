@@ -998,6 +998,7 @@ public class EnterpriseBean20VRule extends AValidationRule implements IMessagePr
 				_ref = ref;
 			}
 
+			@Override
 			public boolean equals(Object o) {
 				if (o instanceof RoleRefWrapper) {
 					RoleRefWrapper other = (RoleRefWrapper) o;
@@ -1120,6 +1121,7 @@ public class EnterpriseBean20VRule extends AValidationRule implements IMessagePr
 	/*
 	 * @see IValidationRule#reset()
 	 */
+	@Override
 	public void reset() {
 		super.reset();
 		_securityRoles = null;
@@ -1128,6 +1130,7 @@ public class EnterpriseBean20VRule extends AValidationRule implements IMessagePr
 	/*
 	 * @see IValidationRule#preValidate(IEJBValidationContext, Object, Object)
 	 */
+	@Override
 	public void preValidate(IEJBValidationContext vc, Object targetParent, Object target) throws ValidationCancelledException, ValidationException {
 		super.preValidate(vc, targetParent, target);
 
@@ -1158,6 +1161,7 @@ public class EnterpriseBean20VRule extends AValidationRule implements IMessagePr
 			_bean = bean;
 		}
 
+		@Override
 		public boolean equals(Object o) {
 			if (o instanceof EnterpriseBean) {
 				EnterpriseBean other = (EnterpriseBean) o;
@@ -1178,6 +1182,7 @@ public class EnterpriseBean20VRule extends AValidationRule implements IMessagePr
 			_bean = bean;
 		}
 
+		@Override
 		public boolean equals(Object o) {
 			if (o instanceof ContainerManagedEntity) {
 				ContainerManagedEntity other = (ContainerManagedEntity) o;

@@ -24,11 +24,13 @@ public class ConvertStaticWebToDyamnicDataModelProvider extends  AbstractDataMod
 		super();
 	}
 
+	@Override
 	public IDataModelOperation getDefaultOperation() {
 		return new ConvertStaticWebToDyamnicOperation(model);
 	}
 
 
+	@Override
 	public Set getPropertyNames() {
 		Set propertyNames = new HashSet();
 		propertyNames.add(PROJECT);

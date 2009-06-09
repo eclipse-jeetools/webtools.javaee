@@ -28,6 +28,7 @@ import org.eclipse.jst.j2ee.jca.Connector;
 public class RarImportStrategyImpl extends XmlBasedImportStrategyImpl {
 
 	public static class Discriminator extends ArchiveTypeDiscriminatorImpl {
+		@Override
 		public boolean canImport(Archive anArchive) {
 			return anArchive.containsFile(J2EEConstants.RAR_DD_URI);
 		}
@@ -35,6 +36,7 @@ public class RarImportStrategyImpl extends XmlBasedImportStrategyImpl {
 		/**
 		 * @see com.ibm.etools.archive.ArchiveTypeDiscriminator
 		 */
+		@Override
 		public org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.ImportStrategy createImportStrategy(Archive old, Archive newArchive) {
 			return new RarImportStrategyImpl();
 		}
@@ -43,6 +45,7 @@ public class RarImportStrategyImpl extends XmlBasedImportStrategyImpl {
 			return getXmlDDMessage(CommonArchiveResourceHandler.RAR_File, J2EEConstants.RAR_DD_URI); // = "RAR File"
 		}
 
+		@Override
 		public Archive createConvertedArchive() {
 			return getArchiveFactory().createRARFile();
 		}

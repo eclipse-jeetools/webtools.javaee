@@ -83,10 +83,12 @@ public class EarFacetInstallPage extends J2EEModuleFacetInstallPage implements I
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.EAR_WIZ_BANNER));
 	}
 
+	@Override
 	protected String[] getValidationPropertyNames() {
 		return new String[]{CONTENT_DIR, J2EE_PROJECTS_LIST};
 	}
 
+	@Override
 	protected Composite createTopLevelComposite(Composite parent) {
 		setInfopopID(IJ2EEUIContextIds.NEW_EAR_ADD_MODULES_PAGE);
 		
@@ -253,6 +255,7 @@ public class EarFacetInstallPage extends J2EEModuleFacetInstallPage implements I
 	/**
 	 * @see org.eclipse.swt.widgets.Listener#handleEvent(Event)
 	 */
+	@Override
 	public void handleEvent(Event evt) {
 		if (evt.widget == selectAllButton)
 			handleSelectAllButtonPressed();
@@ -366,6 +369,7 @@ public class EarFacetInstallPage extends J2EEModuleFacetInstallPage implements I
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.J2EEWizardPage#enter()
 	 */
+	@Override
 	protected void enter() {
 		IWorkspaceRoot input = ResourcesPlugin.getWorkspace().getRoot();
 		moduleProjectsViewer.setInput(input);

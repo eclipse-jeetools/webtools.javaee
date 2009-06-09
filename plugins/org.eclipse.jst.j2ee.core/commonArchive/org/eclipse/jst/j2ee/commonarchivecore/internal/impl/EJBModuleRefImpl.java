@@ -34,6 +34,7 @@ public class EJBModuleRefImpl extends ModuleRefImpl implements EJBModuleRef {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return CommonarchivePackage.Literals.EJB_MODULE_REF;
 	}
@@ -45,6 +46,7 @@ public class EJBModuleRefImpl extends ModuleRefImpl implements EJBModuleRef {
 	/*
 	 * @see ModuleRef#isEJB()
 	 */
+	@Override
 	public boolean isEJB() {
 		return true;
 	}

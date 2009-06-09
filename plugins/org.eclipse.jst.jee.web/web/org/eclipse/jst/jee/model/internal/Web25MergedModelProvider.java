@@ -55,6 +55,7 @@ public class Web25MergedModelProvider extends AbstractMergedModelProvider<WebApp
 		return null;
 	}
 
+	@Override
 	public void modify(Runnable runnable, IPath modelPath) {
 		/*
 		 * Someone has called modify before loading the model. Try to load the
@@ -117,10 +118,12 @@ public class Web25MergedModelProvider extends AbstractMergedModelProvider<WebApp
 		app.getWelcomeFileLists().clear();
 	}
 
+	@Override
 	protected void annotationModelChanged(IModelProviderEvent event) {
 		internalModelChanged(event);
 	}
 
+	@Override
 	protected void xmlModelChanged(IModelProviderEvent event) {
 		internalModelChanged(event);
 	}
@@ -154,6 +157,7 @@ public class Web25MergedModelProvider extends AbstractMergedModelProvider<WebApp
 		merger.process();
 	}
 
+	@Override
 	protected WebApp createNewModelInstance() {
 		return WebFactory.eINSTANCE.createWebApp();
 	}

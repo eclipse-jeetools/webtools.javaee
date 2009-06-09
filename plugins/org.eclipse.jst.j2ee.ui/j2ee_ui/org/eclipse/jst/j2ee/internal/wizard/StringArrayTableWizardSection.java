@@ -121,6 +121,7 @@ public class StringArrayTableWizardSection extends Composite {
 		/**
 		 * CMPFieldDialog constructor comment.
 		 */
+		@Override
 		public Control createDialogArea(Composite parent) {
 
 			Composite composite = (Composite) super.createDialogArea(parent);
@@ -153,6 +154,7 @@ public class StringArrayTableWizardSection extends Composite {
 			return composite;
 		}
 		
+		@Override
 		protected Control createContents(Composite parent) {
 			Composite composite = (Composite) super.createContents(parent);
 			
@@ -165,6 +167,7 @@ public class StringArrayTableWizardSection extends Composite {
 			return composite;
 		}
 
+		@Override
 		protected void okPressed() {
 			stringArray = callback.retrieveResultStrings(texts);
 			super.okPressed();
@@ -195,6 +198,7 @@ public class StringArrayTableWizardSection extends Composite {
 		/**
 		 * CMPFieldDialog constructor comment.
 		 */
+		@Override
 		public Control createDialogArea(Composite parent) {
 
 			Composite composite = (Composite) super.createDialogArea(parent);
@@ -389,7 +393,8 @@ public class StringArrayTableWizardSection extends Composite {
             }
             table.setHeaderVisible(true);
             this.addControlListener(new ControlAdapter() {
-                public void controlResized(ControlEvent e) {
+                @Override
+				public void controlResized(ControlEvent e) {
                     Table table = viewer.getTable();
                     TableColumn[] columns = table.getColumns();
                     Point buttonArea = buttonCompo.computeSize(SWT.DEFAULT, SWT.DEFAULT);

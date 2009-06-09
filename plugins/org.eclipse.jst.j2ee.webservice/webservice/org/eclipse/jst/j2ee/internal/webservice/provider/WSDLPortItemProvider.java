@@ -50,6 +50,7 @@ public class WSDLPortItemProvider extends QNameItemProvider implements IEditingD
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -62,6 +63,7 @@ public class WSDLPortItemProvider extends QNameItemProvider implements IEditingD
 	/**
 	 * This returns WSDLPort.gif. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return getResourceLocator().getImage("icons/full/obj16/wsdl.gif"); //$NON-NLS-1$
 	}
@@ -84,6 +86,7 @@ public class WSDLPortItemProvider extends QNameItemProvider implements IEditingD
 	 * 
 	 * @non-generated
 	 */
+	@Override
 	public String getText(Object object) {
 		WSDLPort wsdlport = (WSDLPort) object;
 		String nsURI = wsdlport.getNamespaceURI();
@@ -104,6 +107,7 @@ public class WSDLPortItemProvider extends QNameItemProvider implements IEditingD
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		super.notifyChanged(notification);
 	}
@@ -115,6 +119,7 @@ public class WSDLPortItemProvider extends QNameItemProvider implements IEditingD
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -123,6 +128,7 @@ public class WSDLPortItemProvider extends QNameItemProvider implements IEditingD
 	 * Return the resource locator for this item provider's resources. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return WebServicePlugin.getInstance();
 	}

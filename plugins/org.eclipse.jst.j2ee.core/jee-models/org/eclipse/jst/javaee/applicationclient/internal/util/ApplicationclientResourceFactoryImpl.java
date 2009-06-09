@@ -41,6 +41,7 @@ public class ApplicationclientResourceFactoryImpl extends ResourceFactoryImpl {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 */
+	@Override
 	public Resource createResource(URI uri) {
 		XMLResource result = new ApplicationclientResourceImpl(uri);
 		result.getDefaultSaveOptions().put(XMLResource.OPTION_EXTENDED_META_DATA, Boolean.TRUE);

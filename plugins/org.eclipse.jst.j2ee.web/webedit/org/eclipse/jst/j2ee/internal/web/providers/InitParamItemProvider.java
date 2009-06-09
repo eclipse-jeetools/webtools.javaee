@@ -44,6 +44,7 @@ public class InitParamItemProvider extends WebapplicationItemProviderAdapter imp
 	/**
 	 * This returns initializ_parameter.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return WebPlugin.getDefault().getImage("initializ_parameter"); //$NON-NLS-1$
 	}
@@ -51,6 +52,7 @@ public class InitParamItemProvider extends WebapplicationItemProviderAdapter imp
 	/**
 	 * This returns the servlet of the InitParam.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((InitParam) object).eContainer();
 	}
@@ -58,6 +60,7 @@ public class InitParamItemProvider extends WebapplicationItemProviderAdapter imp
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -130,6 +133,7 @@ public class InitParamItemProvider extends WebapplicationItemProviderAdapter imp
 	 * delegating to the descriptor, which is assumed to support the IItemPropertyDescriptor
 	 * interface
 	 */
+	@Override
 	public Object getPropertyValue(Object object, String property) {
 		Object ret = null;
 		if (getPropertyDescriptor(object, property) instanceof WebToolingItemPropertyDescriptor) {
@@ -139,6 +143,7 @@ public class InitParamItemProvider extends WebapplicationItemProviderAdapter imp
 		return ret;
 	}
 
+	@Override
 	public String getText(Object object) {
 		return WebAppEditResourceHandler.getString("18concat_UI_", (new Object[]{((InitParam) object).getParamName(), ((InitParam) object).getParamValue()})); //$NON-NLS-1$ = "{0} = {1}"
 	}
@@ -149,6 +154,7 @@ public class InitParamItemProvider extends WebapplicationItemProviderAdapter imp
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(InitParam.class)) {
 			case WebapplicationPackage.INIT_PARAM__PARAM_NAME :
@@ -168,6 +174,7 @@ public class InitParamItemProvider extends WebapplicationItemProviderAdapter imp
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -178,6 +185,7 @@ public class InitParamItemProvider extends WebapplicationItemProviderAdapter imp
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}
@@ -188,6 +196,7 @@ public class InitParamItemProvider extends WebapplicationItemProviderAdapter imp
 	 * to return the empty enumeration, and this to check that enumeration, but we know there can't
 	 * be any children, so this is faster.
 	 */
+	@Override
 	public boolean hasChildren(Object object) {
 		return false;
 	}
@@ -197,6 +206,7 @@ public class InitParamItemProvider extends WebapplicationItemProviderAdapter imp
 	 * by delegating to the descriptor, which is assumed to support the IItemPropertyDescriptor
 	 * interface
 	 */
+	@Override
 	public boolean isPropertySet(Object object, String property) {
 		boolean ret = false;
 		if (getPropertyDescriptor(object, property) instanceof WebToolingItemPropertyDescriptor) {
@@ -212,6 +222,7 @@ public class InitParamItemProvider extends WebapplicationItemProviderAdapter imp
 	 * delegating to the descriptor, which is assumed to support the IItemPropertyDescriptor
 	 * interface
 	 */
+	@Override
 	public void setPropertyValue(Object object, String property, Object value) {
 
 		if (getPropertyDescriptor(object, property) instanceof WebToolingItemPropertyDescriptor) {

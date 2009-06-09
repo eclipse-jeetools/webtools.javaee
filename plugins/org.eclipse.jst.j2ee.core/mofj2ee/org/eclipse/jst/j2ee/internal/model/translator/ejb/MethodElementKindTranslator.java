@@ -32,6 +32,7 @@ public class MethodElementKindTranslator extends Translator implements EjbDeploy
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.Translator#convertStringToValue(java.lang.String, org.eclipse.emf.ecore.EObject)
 	 */
+	@Override
 	public Object convertStringToValue(String strValue, EObject owner) {
 		Object obj = super.convertStringToValue(strValue, owner);
 		if(obj != null)
@@ -51,7 +52,8 @@ public class MethodElementKindTranslator extends Translator implements EjbDeploy
 	/* (non-Javadoc)
      * @see com.ibm.etools.emf2xml.impl.Translator#isSetMOFValue(org.eclipse.emf.ecore.EObject)
      */
-    public boolean isSetMOFValue(EObject emfObject) {
+    @Override
+	public boolean isSetMOFValue(EObject emfObject) {
         if (((MethodElement)emfObject).getType() == MethodElementKind.UNSPECIFIED_LITERAL)
         	return false;
         return super.isSetMOFValue(emfObject);
@@ -60,6 +62,7 @@ public class MethodElementKindTranslator extends Translator implements EjbDeploy
     /* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.Translator#getMOFChildren(org.eclipse.emf.ecore.EObject)
 	 */
+	@Override
 	public List getMOFChildren(EObject mofObject) {
 		List result = super.getMOFChildren(mofObject);
 		if(result != null && result.size() > 0) {

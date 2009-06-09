@@ -34,7 +34,7 @@ import org.eclipse.wst.common.project.facet.core.IProjectFacet;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.web.ui.internal.wizards.DataModelFacetCreationWizardPage;
 
-public abstract class J2EEComponentFacetCreationWizardPage extends DataModelFacetCreationWizardPage implements IFacetProjectCreationDataModelProperties {
+public abstract class J2EEComponentFacetCreationWizardPage extends DataModelFacetCreationWizardPage {
 
     private static final String STORE_LABEL = "LASTEARNAME_"; //$NON-NLS-1$
     
@@ -66,17 +66,20 @@ public abstract class J2EEComponentFacetCreationWizardPage extends DataModelFace
 
 	protected abstract String getModuleFacetID();
 
+	@Override
 	protected String getModuleTypeID() {
 		return getModuleFacetID();
 	}
 	
+	@Override
 	public void dispose() {
 		super.dispose();
 		if (earPanel != null)
 			earPanel.dispose();
 	}
 	
-    public void storeDefaultSettings() {
+    @Override
+	public void storeDefaultSettings() {
     	super.storeDefaultSettings();
         IDialogSettings settings = getDialogSettings();
         if (settings != null) {
@@ -90,7 +93,8 @@ public abstract class J2EEComponentFacetCreationWizardPage extends DataModelFace
         }
     }
     
-    public void restoreDefaultSettings() {
+    @Override
+	public void restoreDefaultSettings() {
     	super.restoreDefaultSettings();
         IDialogSettings settings = getDialogSettings();
         if (settings != null) {
@@ -104,10 +108,12 @@ public abstract class J2EEComponentFacetCreationWizardPage extends DataModelFace
 		}
 	}
     
+	@Override
 	protected IDialogSettings getDialogSettings() {
         return J2EEUIPlugin.getDefault().getDialogSettings();
     }
 	
+	@Override
 	protected String[] getValidationPropertyNames() {
 		String[] superProperties = super.getValidationPropertyNames();
 		List list = Arrays.asList(superProperties);

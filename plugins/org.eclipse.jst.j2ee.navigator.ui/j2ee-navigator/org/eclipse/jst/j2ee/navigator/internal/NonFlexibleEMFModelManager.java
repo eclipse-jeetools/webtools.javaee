@@ -45,6 +45,7 @@ public class NonFlexibleEMFModelManager extends EMFModelManager implements EditM
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.navigator.internal.EMFModelManager#getModels()
 	 */
+	@Override
 	public Object[] getModels() {
 		// TODO Auto-generated method stub
 		if (getProject() == null || !getProject().isAccessible())
@@ -70,6 +71,7 @@ public class NonFlexibleEMFModelManager extends EMFModelManager implements EditM
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.navigator.internal.EMFModelManager#dispose()
 	 */
+	@Override
 	public void dispose() {
 		if (editModel != null) {
 			editModel.removeListener(this);

@@ -61,6 +61,7 @@ public class JavaClassTranslator extends Translator {
 		super(domNameAndPath, aFeature, style);
 	}
 
+	@Override
 	public Object convertStringToValue(String nodeName, String readAheadName, String value, Notifier owner) {
 		Object result = null;
 		if (value != null) {
@@ -73,6 +74,7 @@ public class JavaClassTranslator extends Translator {
 	/**
 	 * @see com.ibm.etools.emf2xml.impl.Translator#convertStringToValue(String)
 	 */
+	@Override
 	public Object convertStringToValue(String strValue, EObject owner) {
 		if (strValue != null) {
 			String qualifiedName = removePreceedingAndTrailingPeriods(strValue.trim());		
@@ -113,6 +115,7 @@ public class JavaClassTranslator extends Translator {
 	/**
 	 * @see com.ibm.etools.emf2xml.impl.Translator#convertValueToString(Object)
 	 */
+	@Override
 	public String convertValueToString(Object value, EObject owner) {
 		if (value != null)
 			return ((JavaClass) value).getQualifiedName();

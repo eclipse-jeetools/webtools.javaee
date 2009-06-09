@@ -54,6 +54,7 @@ public class AdminObjectItemProvider extends ItemProviderAdapter implements IEdi
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -96,6 +97,7 @@ public class AdminObjectItemProvider extends ItemProviderAdapter implements IEdi
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -110,6 +112,7 @@ public class AdminObjectItemProvider extends ItemProviderAdapter implements IEdi
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return getResourceLocator().getImage("full/obj16/AdminObject"); //$NON-NLS-1$
 	}
@@ -120,6 +123,7 @@ public class AdminObjectItemProvider extends ItemProviderAdapter implements IEdi
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((AdminObject) object).getAdminObjectInterface();
 		return label == null || label.length() == 0 ? JCAResourceHandler._UI_AdminObject_type : 
@@ -132,6 +136,7 @@ public class AdminObjectItemProvider extends ItemProviderAdapter implements IEdi
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(AdminObject.class)) {
 			case JcaPackage.ADMIN_OBJECT__ADMIN_OBJECT_INTERFACE :
@@ -151,6 +156,7 @@ public class AdminObjectItemProvider extends ItemProviderAdapter implements IEdi
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -163,6 +169,7 @@ public class AdminObjectItemProvider extends ItemProviderAdapter implements IEdi
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		//return J2EEPlugin.getDefault();
 		return JcaPlugin.getPlugin();

@@ -52,6 +52,7 @@ public class WelcomeFileImpl extends J2EEEObjectImpl implements WelcomeFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return WebapplicationPackage.Literals.WELCOME_FILE;
 	}
@@ -115,6 +116,7 @@ public class WelcomeFileImpl extends J2EEEObjectImpl implements WelcomeFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case WebapplicationPackage.WELCOME_FILE__FILE_LIST:
@@ -130,6 +132,7 @@ public class WelcomeFileImpl extends J2EEEObjectImpl implements WelcomeFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case WebapplicationPackage.WELCOME_FILE__FILE_LIST:
@@ -143,6 +146,7 @@ public class WelcomeFileImpl extends J2EEEObjectImpl implements WelcomeFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case WebapplicationPackage.WELCOME_FILE__FILE_LIST:
@@ -156,6 +160,7 @@ public class WelcomeFileImpl extends J2EEEObjectImpl implements WelcomeFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case WebapplicationPackage.WELCOME_FILE__WELCOME_FILE:
@@ -171,6 +176,7 @@ public class WelcomeFileImpl extends J2EEEObjectImpl implements WelcomeFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case WebapplicationPackage.WELCOME_FILE__WELCOME_FILE:
@@ -188,6 +194,7 @@ public class WelcomeFileImpl extends J2EEEObjectImpl implements WelcomeFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case WebapplicationPackage.WELCOME_FILE__WELCOME_FILE:
@@ -205,6 +212,7 @@ public class WelcomeFileImpl extends J2EEEObjectImpl implements WelcomeFile {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case WebapplicationPackage.WELCOME_FILE__WELCOME_FILE:
@@ -218,6 +226,7 @@ public class WelcomeFileImpl extends J2EEEObjectImpl implements WelcomeFile {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

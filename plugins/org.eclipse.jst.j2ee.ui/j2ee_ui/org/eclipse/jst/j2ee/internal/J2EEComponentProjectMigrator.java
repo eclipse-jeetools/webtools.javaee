@@ -76,9 +76,9 @@ import org.eclipse.wst.server.core.ServerUtil;
 
 public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 
-	private static final String WEB_LIB_CONTAINER = "org.eclipse.jst.j2ee.internal.web.container";
-	private static final String WEB_LIB_PATH = "/WEB-INF/lib";
-	private static final String OLD_DEPLOYABLES_PATH = ".deployables";
+	private static final String WEB_LIB_CONTAINER = "org.eclipse.jst.j2ee.internal.web.container"; //$NON-NLS-1$
+	private static final String WEB_LIB_PATH = "/WEB-INF/lib";  //$NON-NLS-1$
+	private static final String OLD_DEPLOYABLES_PATH = ".deployables"; //$NON-NLS-1$
 	private IProject project;
 	
 	private static final String[] J2EE_CONTENT_EXTENSION_IDS = new String[] {
@@ -230,9 +230,9 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 		}
 		//IJavaProject javaP = JemProjectUtilities.getJavaProject(aProject);
 		List oldBuilders = new ArrayList();
-		oldBuilders.add("org.eclipse.wst.common.modulecore.ComponentStructuralBuilder");
-		oldBuilders.add("org.eclipse.wst.common.modulecore.ComponentStructuralBuilderDependencyResolver");
-		oldBuilders.add("org.eclipse.wst.common.modulecore.DependencyGraphBuilder");
+		oldBuilders.add("org.eclipse.wst.common.modulecore.ComponentStructuralBuilder"); //$NON-NLS-1$
+		oldBuilders.add("org.eclipse.wst.common.modulecore.ComponentStructuralBuilderDependencyResolver"); //$NON-NLS-1$
+		oldBuilders.add("org.eclipse.wst.common.modulecore.DependencyGraphBuilder"); //$NON-NLS-1$
 		try {
 			J2EEProjectUtilities.removeBuilders(aProject,oldBuilders);
 		} catch (CoreException e) {
@@ -250,16 +250,16 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 		protected IDataModel setupJavaInstallAction(IProject aProject, boolean existing,String srcFolder) {
 			IDataModel dm = DataModelFactory.createDataModel(new JavaFacetInstallDataModelProvider());
 			dm.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, aProject.getName());
-			String jVersion = "1.4";
+			String jVersion = "1.4"; //$NON-NLS-1$
 			IScopeContext context = new ProjectScope( project );
 		    IEclipsePreferences prefs 
 		            = context.getNode( JavaCore.PLUGIN_ID );
 			if (JavaCore.VERSION_1_5.equals(prefs.get(JavaCore.COMPILER_COMPLIANCE,JavaCore.VERSION_1_4))) {
-				jVersion = "5.0";
+				jVersion = "5.0"; //$NON-NLS-1$
 			}
-			dm.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, jVersion); //$NON-NLS-1$
+			dm.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, jVersion);
 			if (!existing)
-				dm.setStringProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME, srcFolder); //$NON-NLS-1$
+				dm.setStringProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME, srcFolder);
 			return dm;
 		}
 		
@@ -378,7 +378,7 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 		private IDataModel setupStaticWebInstallAction(IProject project2) {
 			IDataModel webFacetInstallDataModel = DataModelFactory.createDataModel(new SimpleWebFacetInstallDataModelProvider());
 			webFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, project2.getName());
-			webFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, "1.0");
+			webFacetInstallDataModel.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, "1.0"); //$NON-NLS-1$
 			
 			return webFacetInstallDataModel;
 		}
@@ -388,7 +388,7 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 			IDataModel dm = DataModelFactory.createDataModel(new FacetProjectCreationDataModelProvider());
 			dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, aProject.getName());
 			FacetDataModelMap facetDMs = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-			facetDMs.add(setupJavaInstallAction(aProject,existing,"src"));
+			facetDMs.add(setupJavaInstallAction(aProject,existing,"src")); //$NON-NLS-1$
 			IDataModel newModel = setupUtilInstallAction(aProject,specVersion);
 			facetDMs.add(newModel);
 			try {
@@ -610,7 +610,7 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 		}
 
 		protected IRuntime getRuntimeByID(String id) {
-			IRuntime[] targets = ServerUtil.getRuntimes("", "");
+			IRuntime[] targets = ServerUtil.getRuntimes("", ""); //$NON-NLS-1$ //$NON-NLS-2$
 			for (int i = 0; i < targets.length; i++) {
 				IRuntime target = targets[i];
 				if (id.equals(target.getId()))

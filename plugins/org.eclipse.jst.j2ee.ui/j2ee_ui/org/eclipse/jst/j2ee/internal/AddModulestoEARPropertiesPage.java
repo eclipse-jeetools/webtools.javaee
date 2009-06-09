@@ -240,13 +240,13 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		Table table = null;
 		if (availableComponentsViewer != null) {
 		     table = availableComponentsViewer.getTable();
-		     if (table == null)
-		    	 return;
 		}
-		table.removeListener(SWT.Dispose, tableListener);
-		table.removeListener(SWT.KeyDown, tableListener);
-		table.removeListener(SWT.MouseMove, tableListener);
-		table.removeListener(SWT.MouseHover, tableListener);		
+		if(table != null){
+			table.removeListener(SWT.Dispose, tableListener);
+			table.removeListener(SWT.KeyDown, tableListener);
+			table.removeListener(SWT.MouseMove, tableListener);
+			table.removeListener(SWT.MouseHover, tableListener);
+		}
 	}
 
 	public void setVisible(boolean visible) {
@@ -361,7 +361,6 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 	}
 	
 	private IStatus addModulesToEAR(IProgressMonitor monitor) {
-		IStatus stat = OK_STATUS;
 		try {
 			if( earComponent != null ){
 				final List list = newJ2EEModulesToAdd(false);
@@ -449,7 +448,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 	protected List getComponentsToRemove(){
 		//j2eeComponentList = getCheckedJ2EEElementsAsList();
 		List list = new ArrayList();
-		if( earComponent != null && list != null ){
+		if( earComponent != null){
 			IVirtualReference[] oldrefs = earComponent.getReferences();
 			for (int j = 0; j < oldrefs.length; j++) {
 				IVirtualReference ref = oldrefs[j];
@@ -470,7 +469,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		List[] list = new ArrayList[2];
 		list[0] = new ArrayList();
 		list[1] = new ArrayList();
-		if( earComponent != null && list != null ){
+		if( earComponent != null){
 			IVirtualReference[] oldrefs = earComponent.getReferences();
 			for (int j = 0; j < oldrefs.length; j++) {
 				IVirtualReference ref = oldrefs[j];
@@ -656,10 +655,10 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 	protected void createPushButtons() {
 		selectAllButton = createPushButton(SELECT_ALL_BUTTON);
 		deselectAllButton = createPushButton(DE_SELECT_ALL_BUTTON);
-		projectJarButton = createPushButton(J2EEUIMessages.getResourceString(J2EEUIMessages.PROJECT_JAR));//$NON-NLS-1$
-		externalJarButton = createPushButton(J2EEUIMessages.getResourceString(J2EEUIMessages.EXTERNAL_JAR));//$NON-NLS-1$
-		addVariableButton = createPushButton(J2EEUIMessages.getResourceString(J2EEUIMessages.ADDVARIABLE));//$NON-NLS-1$
-		if (isVersion5) changeLibPathButton = createPushButton(J2EEUIMessages.getResourceString(J2EEUIMessages.CHANGE_LIB_DIR));//$NON-NLS-1$
+		projectJarButton = createPushButton(J2EEUIMessages.getResourceString(J2EEUIMessages.PROJECT_JAR));
+		externalJarButton = createPushButton(J2EEUIMessages.getResourceString(J2EEUIMessages.EXTERNAL_JAR));
+		addVariableButton = createPushButton(J2EEUIMessages.getResourceString(J2EEUIMessages.ADDVARIABLE));
+		if (isVersion5) changeLibPathButton = createPushButton(J2EEUIMessages.getResourceString(J2EEUIMessages.CHANGE_LIB_DIR));
 	}
 
 	protected Button createPushButton(String label) {
@@ -735,7 +734,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 				switch (event.type) {
 					case SWT.MouseDown:
 						Event e = new Event ();
-						e.item = (TableItem) label.getData ("_TABLEITEM");
+						e.item = (TableItem) label.getData ("_TABLEITEM"); //$NON-NLS-1$
 						table.setSelection (new TableItem [] {(TableItem) e.item});
 						table.notifyListeners (SWT.Selection, e);
 						shell.dispose ();
@@ -779,7 +778,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 							label = new Label (tip, SWT.WRAP);
 							label.setForeground (Display.getDefault().getSystemColor (SWT.COLOR_INFO_FOREGROUND));
 							label.setBackground (Display.getDefault().getSystemColor (SWT.COLOR_INFO_BACKGROUND));
-							label.setData ("_TABLEITEM", item);
+							label.setData ("_TABLEITEM", item); //$NON-NLS-1$
 							label.setText (J2EEUIMessages.getResourceString(J2EEUIMessages.HOVER_HELP_FOR_DISABLED_LIBS));
 							label.addListener (SWT.MouseExit, labelListener);
 							label.addListener (SWT.MouseDown, labelListener);
@@ -802,7 +801,6 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 				Object element = event.getElement();
 				if (vr.getGrayed(element)) 
 					vr.setChecked(element, !vr.getChecked(element));
-				Object o = event.getSource();
 				if (!(event instanceof SecondCheckBoxStateChangedEvent) && (isVersion5)) {
 					Object[] items = ((DoubleCheckboxTableViewer)vr).getUncheckedItems();					
 					for (int i = 0; i < items.length; i++) {
@@ -1122,7 +1120,6 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		IProject libProj = (lib instanceof IProject) ? (IProject)lib : ((IVirtualComponent)lib).getProject(); 
 		IProject earProject = earComponent.getProject();	
 		try {			
-			IVirtualComponent cmp = ComponentCore.createComponent(earProject);
 			IProject[] earRefProjects = earProject.getReferencedProjects();
 			for (int i = 0; i < earRefProjects.length; i++) {	
 				if (!J2EEProjectUtilities.isEARProject(earRefProjects[i]) &&

@@ -47,10 +47,12 @@ public class JSPTypeImpl extends WebTypeImpl implements JSPType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return WebapplicationPackage.Literals.JSP_TYPE;
 	}
 
+@Override
 public boolean isJspType() {
 	return true;
 }
@@ -79,6 +81,7 @@ public boolean isJspType() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case WebapplicationPackage.JSP_TYPE__JSP_FILE:
@@ -92,6 +95,7 @@ public boolean isJspType() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case WebapplicationPackage.JSP_TYPE__JSP_FILE:
@@ -106,6 +110,7 @@ public boolean isJspType() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case WebapplicationPackage.JSP_TYPE__JSP_FILE:
@@ -120,6 +125,7 @@ public boolean isJspType() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case WebapplicationPackage.JSP_TYPE__JSP_FILE:
@@ -131,6 +137,7 @@ public boolean isJspType() {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

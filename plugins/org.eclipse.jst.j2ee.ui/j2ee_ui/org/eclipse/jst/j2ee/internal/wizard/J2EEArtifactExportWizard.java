@@ -139,12 +139,14 @@ public abstract class J2EEArtifactExportWizard extends DataModelWizard {
 	 * 
 	 * @see com.ibm.etools.j2ee.common.wizard.datamodel.WTPWizard#dispose()
 	 */
+	@Override
 	public final void dispose() {
 		super.dispose();
 		doDispose();
 		this.currentSelection = null;
 	}
 
+	@Override
 	protected final boolean prePerformFinish() {
 		if (!CommonEditorUtility.promptToSaveAllDirtyEditors()) {
 			return false;

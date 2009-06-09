@@ -90,6 +90,7 @@ public class LicenseImpl extends J2EEEObjectImpl implements License {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return JcaPackage.Literals.LICENSE;
 	}
@@ -170,6 +171,7 @@ public class LicenseImpl extends J2EEEObjectImpl implements License {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case JcaPackage.LICENSE__DESCRIPTIONS:
@@ -183,6 +185,7 @@ public class LicenseImpl extends J2EEEObjectImpl implements License {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case JcaPackage.LICENSE__DESCRIPTION:
@@ -200,6 +203,7 @@ public class LicenseImpl extends J2EEEObjectImpl implements License {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case JcaPackage.LICENSE__DESCRIPTION:
@@ -221,6 +225,7 @@ public class LicenseImpl extends J2EEEObjectImpl implements License {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case JcaPackage.LICENSE__DESCRIPTION:
@@ -241,6 +246,7 @@ public class LicenseImpl extends J2EEEObjectImpl implements License {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case JcaPackage.LICENSE__DESCRIPTION:
@@ -256,6 +262,7 @@ public class LicenseImpl extends J2EEEObjectImpl implements License {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

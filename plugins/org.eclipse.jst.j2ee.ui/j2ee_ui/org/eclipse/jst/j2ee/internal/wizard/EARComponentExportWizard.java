@@ -48,7 +48,8 @@ public final class EARComponentExportWizard extends J2EEArtifactExportWizard imp
 		super(model);
 	}
 
-    protected IDataModelProvider getDefaultProvider() {
+    @Override
+	protected IDataModelProvider getDefaultProvider() {
         return new EARComponentExportDataModelProvider();
     }
 
@@ -60,6 +61,7 @@ public final class EARComponentExportWizard extends J2EEArtifactExportWizard imp
 	 * </ul>
 	 * </p>
 	 */
+	@Override
 	public void doAddPages() {
 		addPage(new EARComponentExportPage(getDataModel(), MAIN_PG, getSelection()));
 	}
@@ -71,6 +73,7 @@ public final class EARComponentExportWizard extends J2EEArtifactExportWizard imp
 	 * Sets up the default wizard page image.
 	 * </p>
 	 */
+	@Override
 	protected void doInit() {
 		setDefaultPageImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.EAR_EXPORT_WIZARD_BANNER));
 	}

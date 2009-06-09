@@ -46,6 +46,7 @@ public class TempZipFileLoadStrategyImpl extends ZipFileLoadStrategyImpl {
 		super(file);
 	}
 
+	@Override
 	public void close() {
 		super.close();
 		File file = getFile();
@@ -56,6 +57,7 @@ public class TempZipFileLoadStrategyImpl extends ZipFileLoadStrategyImpl {
 	/**
 	 * @see com.ibm.etools.archive.LoadStrategy
 	 */
+	@Override
 	public java.lang.String getAbsolutePath() throws java.io.FileNotFoundException {
 		throw new FileNotFoundException(CommonArchiveResourceHandler.Absolute_path_unknown_EXC_); // = "Absolute path unknown"
 	}

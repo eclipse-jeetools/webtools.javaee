@@ -77,6 +77,7 @@ public class ExcludeListImpl extends J2EEEObjectImpl implements ExcludeList {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return EjbPackage.Literals.EXCLUDE_LIST;
 	}
@@ -125,6 +126,7 @@ public class ExcludeListImpl extends J2EEEObjectImpl implements ExcludeList {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EjbPackage.EXCLUDE_LIST__METHOD_ELEMENTS:
@@ -140,6 +142,7 @@ public class ExcludeListImpl extends J2EEEObjectImpl implements ExcludeList {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case EjbPackage.EXCLUDE_LIST__DESCRIPTION:
@@ -157,6 +160,7 @@ public class ExcludeListImpl extends J2EEEObjectImpl implements ExcludeList {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EjbPackage.EXCLUDE_LIST__DESCRIPTION:
@@ -179,6 +183,7 @@ public class ExcludeListImpl extends J2EEEObjectImpl implements ExcludeList {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case EjbPackage.EXCLUDE_LIST__DESCRIPTION:
@@ -199,6 +204,7 @@ public class ExcludeListImpl extends J2EEEObjectImpl implements ExcludeList {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case EjbPackage.EXCLUDE_LIST__DESCRIPTION:
@@ -214,6 +220,7 @@ public class ExcludeListImpl extends J2EEEObjectImpl implements ExcludeList {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

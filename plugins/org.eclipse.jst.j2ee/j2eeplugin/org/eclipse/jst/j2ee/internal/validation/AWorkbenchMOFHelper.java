@@ -33,6 +33,7 @@ import org.eclipse.wst.validation.internal.operations.WorkbenchContext;
  * symbolic model name.
  */
 public abstract class AWorkbenchMOFHelper extends WorkbenchContext {
+	@Override
 	public IResource getResource(Object obj) {
 		IResource res = null;
 		if ((obj != null) && (obj instanceof EObject)) {

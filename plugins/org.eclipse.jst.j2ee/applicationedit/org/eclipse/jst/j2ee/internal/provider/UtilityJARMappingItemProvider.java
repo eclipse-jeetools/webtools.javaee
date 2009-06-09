@@ -49,13 +49,13 @@ public class UtilityJARMappingItemProvider extends ModulemapItemProviderAdapter 
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
 			ModulemapPackage pkg = ModulemapPackage.eINSTANCE;
-			;
-
+			
 			// This is for the projectName feature.
 			//
 			itemPropertyDescriptors.add(new ItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), ApplicationProvidersResourceHandler.getString("Project_Name_UI_"), //$NON-NLS-1$
@@ -100,6 +100,7 @@ public class UtilityJARMappingItemProvider extends ModulemapItemProviderAdapter 
 	/**
 	 * This returns the parent of the UtilityJARMapping.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((EObject) object).eContainer();
 	}
@@ -107,6 +108,7 @@ public class UtilityJARMappingItemProvider extends ModulemapItemProviderAdapter 
 	/**
 	 * This returns UtilityJARMapping.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return J2EEPlugin.getPlugin().getImage("icons/full/obj16/prjutiljar_obj"); //$NON-NLS-1$
 	}
@@ -135,6 +137,7 @@ public class UtilityJARMappingItemProvider extends ModulemapItemProviderAdapter 
 	//		}
 	//	}
 
+	@Override
 	public String getText(Object object) {
 		UtilityJARMapping map = ((UtilityJARMapping) object);
 		return map == null ? "<??>" : map.getUri(); //$NON-NLS-1$
@@ -146,6 +149,7 @@ public class UtilityJARMappingItemProvider extends ModulemapItemProviderAdapter 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(UtilityJARMapping.class)) {
 			case ModulemapPackage.UTILITY_JAR_MAPPING__PROJECT_NAME :
@@ -164,6 +168,7 @@ public class UtilityJARMappingItemProvider extends ModulemapItemProviderAdapter 
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -174,6 +179,7 @@ public class UtilityJARMappingItemProvider extends ModulemapItemProviderAdapter 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return ApplicationProvidersResourceHandler.RESOURCE_LOCATOR;
 	}

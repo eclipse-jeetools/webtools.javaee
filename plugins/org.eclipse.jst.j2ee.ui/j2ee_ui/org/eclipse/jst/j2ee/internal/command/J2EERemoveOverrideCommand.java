@@ -122,6 +122,7 @@ public class J2EERemoveOverrideCommand extends AbstractOverrideCommand {
 		return (RemoveCommand) getOverridable();
 	}
 
+	@Override
 	protected boolean prepare() {
 		setJ2eeClipboard(new J2EEClipboard(getRemoveCommand().getCollection()));
 		return true;
@@ -157,6 +158,7 @@ public class J2EERemoveOverrideCommand extends AbstractOverrideCommand {
 		extensionsRemoveCommand = newExtensionsRemoveCommand;
 	}
 
+	@Override
 	public void undo() {
 		getRemoveCommand().doUndo();
 		undoNested(bindingsRemoveCommand);

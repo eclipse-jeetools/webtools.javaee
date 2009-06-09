@@ -46,6 +46,7 @@ public class ServletMappingItemProvider extends WebapplicationItemProviderAdapte
 	/**
 	 * This returns servlet_mapping.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return WebPlugin.getDefault().getImage("servlet_mapping");//$NON-NLS-1$
 	}
@@ -53,6 +54,7 @@ public class ServletMappingItemProvider extends WebapplicationItemProviderAdapte
 	/**
 	 * This returns the webApp of the ServletMapping.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((ServletMapping) object).getWebApp();
 	}
@@ -60,6 +62,7 @@ public class ServletMappingItemProvider extends WebapplicationItemProviderAdapte
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -120,6 +123,7 @@ public class ServletMappingItemProvider extends WebapplicationItemProviderAdapte
 	}
 
 
+	@Override
 	public String getText(Object object) {
 		String urlStr = ((ServletMapping) object).getUrlPattern();
 		Servlet servlet = ((ServletMapping) object).getServlet();
@@ -131,6 +135,7 @@ public class ServletMappingItemProvider extends WebapplicationItemProviderAdapte
 	 * This handles notification by calling {@link #fireNotifyChanged fireNotifyChanged}. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(ServletMapping.class)) {
 			case WebapplicationPackage.SERVLET_MAPPING__URL_PATTERN :
@@ -150,6 +155,7 @@ public class ServletMappingItemProvider extends WebapplicationItemProviderAdapte
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -160,6 +166,7 @@ public class ServletMappingItemProvider extends WebapplicationItemProviderAdapte
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}
@@ -170,6 +177,7 @@ public class ServletMappingItemProvider extends WebapplicationItemProviderAdapte
 	 * to return the empty enumeration, and this to check that enumeration, but we know there can't
 	 * be any children, so this is faster.
 	 */
+	@Override
 	public boolean hasChildren(Object object) {
 		return false;
 	}

@@ -48,6 +48,7 @@ public class WebComponentImportOperation extends J2EEArtifactImportOperation {
 	protected final int LINK_COMPONENTS_WORK = 10;
 	protected final int LIB_FOLDER_WORK = 2;
 	
+	@Override
 	protected int computeTotalWork() {
 		int baseWork = super.computeTotalWork() + LIB_FOLDER_WORK;
 		List selectedLibs = (List) model.getProperty(IWebComponentImportDataModelProperties.WEB_LIB_ARCHIVES_SELECTED);
@@ -65,6 +66,7 @@ public class WebComponentImportOperation extends J2EEArtifactImportOperation {
 		return baseWork;
 	}
 	
+	@Override
 	protected void doExecute(IProgressMonitor monitor) throws ExecutionException {
 		super.doExecute(monitor);
 		IVirtualFolder libFolder = virtualComponent.getRootFolder().getFolder(WebArtifactEdit.WEBLIB);
@@ -123,10 +125,12 @@ public class WebComponentImportOperation extends J2EEArtifactImportOperation {
 		}
 	}
 
+	@Override
 	protected SaveStrategy createSaveStrategy(IVirtualComponent aVirtualComponent) {
 		return new WebComponentSaveStrategyImpl(aVirtualComponent);
 	}
 
+	@Override
 	protected ComponentArchiveSaveAdapter getArchiveSaveAdapter(
 			IVirtualComponent virtualComponent) {
 		return new WebComponentArchiveSaveAdapter(virtualComponent);

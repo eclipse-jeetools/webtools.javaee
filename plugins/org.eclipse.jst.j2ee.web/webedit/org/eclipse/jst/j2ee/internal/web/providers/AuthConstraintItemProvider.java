@@ -53,6 +53,7 @@ public class AuthConstraintItemProvider extends WebapplicationItemProviderAdapte
 	/**
 	 * This returns authority_constraint.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return WebPlugin.getDefault().getImage("authority_constraint");//$NON-NLS-1$
 	}
@@ -60,6 +61,7 @@ public class AuthConstraintItemProvider extends WebapplicationItemProviderAdapte
 	/**
 	 * This returns the secConstraint of the AuthConstraint.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((AuthConstraint) object).getSecConstraint();
 	}
@@ -67,6 +69,7 @@ public class AuthConstraintItemProvider extends WebapplicationItemProviderAdapte
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -124,6 +127,7 @@ public class AuthConstraintItemProvider extends WebapplicationItemProviderAdapte
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -132,6 +136,7 @@ public class AuthConstraintItemProvider extends WebapplicationItemProviderAdapte
 		return childrenReferences;
 	}
 
+	@Override
 	public String getText(Object object) {
 		String description = ((AuthConstraint) object).getDescription();
 		if (description == null) {
@@ -152,6 +157,7 @@ public class AuthConstraintItemProvider extends WebapplicationItemProviderAdapte
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(AuthConstraint.class)) {
 			case WebapplicationPackage.AUTH_CONSTRAINT__DESCRIPTION :
@@ -171,6 +177,7 @@ public class AuthConstraintItemProvider extends WebapplicationItemProviderAdapte
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 		newChildDescriptors.add(createChildParameter(WebapplicationPackage.eINSTANCE.getAuthConstraint_Descriptions(), CommonFactory.eINSTANCE.createDescription()));
@@ -183,6 +190,7 @@ public class AuthConstraintItemProvider extends WebapplicationItemProviderAdapte
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}
@@ -193,6 +201,7 @@ public class AuthConstraintItemProvider extends WebapplicationItemProviderAdapte
 	 * to return the empty enumeration, and this to check that enumeration, but we know there can't
 	 * be any children, so this is faster.
 	 */
+	@Override
 	public boolean hasChildren(Object object) {
 		return false;
 	}
@@ -204,6 +213,7 @@ public class AuthConstraintItemProvider extends WebapplicationItemProviderAdapte
 	 *      org.eclipse.emf.edit.domain.EditingDomain, java.lang.Class,
 	 *      org.eclipse.emf.edit.command.CommandParameter)
 	 */
+	@Override
 	public Command createCommand(Object object, EditingDomain editingDomain, Class commandClass, CommandParameter commandParameter) {
 		EStructuralFeature sf = commandParameter.getEReference();
 		if (sf == null) {

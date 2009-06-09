@@ -35,6 +35,7 @@ public class HomeInterfaceProviderHelper extends J2EEJavaClassProviderHelper {
 		super(anEJB);
 	}
 
+	@Override
 	public Image getImage() {
 		if (image == null)
 			image = createImage();
@@ -46,14 +47,17 @@ public class HomeInterfaceProviderHelper extends J2EEJavaClassProviderHelper {
 	 * 
 	 * @return org.eclipse.jem.internal.java.JavaClass
 	 */
+	@Override
 	public JavaClass getJavaClass() {
 		return getEjb().getHomeInterface();
 	}
 
+	@Override
 	protected String getOverlayKey() {
 		return "home_interface_overlay_obj";//$NON-NLS-1$
 	}
 
+	@Override
 	public String getTypeString(String className) {
 		return J2EEUIMessages.getResourceString("Home_Interface_UI_", new Object[]{className}); //$NON-NLS-1$ = "Home Interface"
 	}

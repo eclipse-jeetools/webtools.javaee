@@ -26,6 +26,7 @@ public abstract class J2EEComponentArchiveLoadAdapter extends ComponentArchiveLo
 		super(component, includeClasspathComponents);
 	}
 	
+	@Override
 	public List <IArchiveResource> getArchiveResources() {
 		super.getArchiveResources();
 		if (includeClasspathComponents) {

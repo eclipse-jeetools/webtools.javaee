@@ -57,6 +57,7 @@ public class WebResourceCollectionItemProvider extends WebapplicationItemProvide
 	/**
 	 * This creates a new child for {@link org.eclipse.jst.j2ee.internal.internal.webapplication.commandCreateChildCommand}.
 	 */
+	@Override
 	public Object createChild(Object object) {
 		// TODO: check that this is what you want.
 		URLPatternType child = WebapplicationFactory.eINSTANCE.createURLPatternType();
@@ -70,6 +71,7 @@ public class WebResourceCollectionItemProvider extends WebapplicationItemProvide
 	 * This specifies how to implement {@link #getChildren}and {@link AddCommand}and
 	 * {@link RemoveCommand}support in {@link #createCommand}.
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		WebapplicationPackage pkg = WebapplicationPackage.eINSTANCE;
 		Collection result = new ArrayList();
@@ -83,6 +85,7 @@ public class WebResourceCollectionItemProvider extends WebapplicationItemProvide
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected EReference getChildReference(Object object, Object child) {
 		// Check the type of the specified child object and return the proper feature to use for
 		// adding (see {@link AddCommand}) it as a child.
@@ -94,6 +97,7 @@ public class WebResourceCollectionItemProvider extends WebapplicationItemProvide
 	/**
 	 * This returns the image for {@link org.eclipse.jst.j2ee.internal.internal.webapplication.commandCreateChildCommand}.
 	 */
+	@Override
 	public Object getCreateChildImage(Object object) {
 		EObject refObject = (EObject) object;
 		return WebPlugin.getDefault().getImage(refObject.eClass().getName() + "CreateURLPatternType");//$NON-NLS-1$
@@ -102,6 +106,7 @@ public class WebResourceCollectionItemProvider extends WebapplicationItemProvide
 	/**
 	 * This returns the label for {@link org.eclipse.jst.j2ee.internal.internal.webapplication.commandCreateChildCommand}.
 	 */
+	@Override
 	public String getCreateChildText(Object object) {
 		return WebAppEditResourceHandler.getString("Create_URLPatternType_UI_"); //$NON-NLS-1$ = "Create URLPatternType"
 	}
@@ -110,6 +115,7 @@ public class WebResourceCollectionItemProvider extends WebapplicationItemProvide
 	 * This returns the help text for
 	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.commandCreateChildCommand}.
 	 */
+	@Override
 	public String getCreateChildToolTipText(Object object) {
 		EObject refObject = (EObject) object;
 		return WebAppEditResourceHandler.getString("37concat_UI_", (new Object[]{refObject.eClass().getName()})); //$NON-NLS-1$ = "Create a child of type URLPatternType for the selected {0}."
@@ -118,6 +124,7 @@ public class WebResourceCollectionItemProvider extends WebapplicationItemProvide
 	/**
 	 * This returns web_resource_collection.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return WebPlugin.getDefault().getImage("web_resource_collection");//$NON-NLS-1$
 	}
@@ -125,6 +132,7 @@ public class WebResourceCollectionItemProvider extends WebapplicationItemProvide
 	/**
 	 * This returns the secConstraint of the WebResourceCollection.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((WebResourceCollection) object).getSecConstraint();
 	}
@@ -132,6 +140,7 @@ public class WebResourceCollectionItemProvider extends WebapplicationItemProvide
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -208,6 +217,7 @@ public class WebResourceCollectionItemProvider extends WebapplicationItemProvide
 					WebapplicationPackage.eINSTANCE.getWebResourceCollection_HttpMethod(), true, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE));
 	}
 
+	@Override
 	public String getText(Object object) {
 		//	return WebAppEditResourceHandler.getString("38concat_UI_", (new Object[] {
 		// ((WebResourceCollection)object).getWebResourceName() })); //$NON-NLS-1$ =
@@ -221,6 +231,7 @@ public class WebResourceCollectionItemProvider extends WebapplicationItemProvide
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(WebResourceCollection.class)) {
 			case WebapplicationPackage.WEB_RESOURCE_COLLECTION__WEB_RESOURCE_NAME :
@@ -244,6 +255,7 @@ public class WebResourceCollectionItemProvider extends WebapplicationItemProvide
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -262,6 +274,7 @@ public class WebResourceCollectionItemProvider extends WebapplicationItemProvide
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}
@@ -273,6 +286,7 @@ public class WebResourceCollectionItemProvider extends WebapplicationItemProvide
 	 *      org.eclipse.emf.edit.domain.EditingDomain, java.lang.Class,
 	 *      org.eclipse.emf.edit.command.CommandParameter)
 	 */
+	@Override
 	public Command createCommand(Object object, EditingDomain editingDomain, Class commandClass, CommandParameter commandParameter) {
 		EStructuralFeature sf = commandParameter.getEReference();
 		if (sf == null) {

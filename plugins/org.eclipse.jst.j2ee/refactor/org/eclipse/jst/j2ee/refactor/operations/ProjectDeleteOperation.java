@@ -32,6 +32,7 @@ public class ProjectDeleteOperation extends ProjectRefactorOperation {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.refactor.operations.ProjectRefactorOperation#updateProject(org.eclipse.jst.j2ee.internal.refactor.operations.ProjectRefactorMetadata)
 	 */
+	@Override
 	protected void updateProject(final ProjectRefactorMetadata refactoredMetadata) 
 		throws ExecutionException {
 	}
@@ -40,6 +41,7 @@ public class ProjectDeleteOperation extends ProjectRefactorOperation {
 	 * Updates the metadata for dependent projects
 	 * @throws ExecutionException
 	 */
+	@Override
 	protected void updateDependentProjects(final ProjectRefactorMetadata refactoredMetadata,
 			final IProgressMonitor monitor) throws ExecutionException {
 	    // If this is not an EAR, update metadata for dependent projects
@@ -54,6 +56,7 @@ public class ProjectDeleteOperation extends ProjectRefactorOperation {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.refactor.operations.ProjectRefactorOperation#updateDependentEARProject(org.eclipse.jst.j2ee.internal.refactor.operations.ProjectRefactorMetadata, org.eclipse.jst.j2ee.internal.refactor.operations.ProjectRefactorMetadata)
 	 */
+	@Override
 	protected void updateDependentEARProject(final ProjectRefactorMetadata dependentMetadata, 
 			final ProjectRefactorMetadata refactoredMetadata) throws ExecutionException {
         if (OptionalRefactorHandler.getInstance().shouldRefactorDependentProjectOnDelete(refactoredMetadata, dependentMetadata)) {
@@ -66,6 +69,7 @@ public class ProjectDeleteOperation extends ProjectRefactorOperation {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.refactor.operations.ProjectRefactorOperation#updateDependentModuleProject(org.eclipse.jst.j2ee.internal.refactor.operations.ProjectRefactorMetadata, org.eclipse.jst.j2ee.internal.refactor.operations.ProjectRefactorMetadata)
 	 */
+	@Override
 	protected void updateDependentModuleProject(final ProjectRefactorMetadata dependentMetadata, 
 			final ProjectRefactorMetadata refactoredMetadata) throws ExecutionException {
         if (OptionalRefactorHandler.getInstance().shouldRefactorDependentProjectOnDelete(refactoredMetadata, dependentMetadata)) {

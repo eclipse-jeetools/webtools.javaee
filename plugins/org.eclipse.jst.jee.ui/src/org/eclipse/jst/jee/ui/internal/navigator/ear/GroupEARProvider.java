@@ -60,6 +60,7 @@ public class GroupEARProvider extends AbstractGroupProvider implements IAdaptabl
 		return earComponent.getProject();
 	}
 
+	@Override
 	public String getText() {
 		return NLS.bind(Messages.DEPLOYMENT_DESCRIPTOR, earComponent.getName());
 	}
@@ -68,6 +69,7 @@ public class GroupEARProvider extends AbstractGroupProvider implements IAdaptabl
 		return this.earComponent;
 	}
 
+	@Override
 	public List getChildren() {
 		List children = new ArrayList();
 		IProject project = getProject();
@@ -100,6 +102,7 @@ public class GroupEARProvider extends AbstractGroupProvider implements IAdaptabl
 		return children;
 	}
 
+	@Override
 	public Image getImage() {
 		return getEarImage();
 	}
@@ -112,6 +115,7 @@ public class GroupEARProvider extends AbstractGroupProvider implements IAdaptabl
 		return EAR_IMAGE;
 	}
 
+	@Override
 	public boolean hasChildren() {
 		return !getChildren().isEmpty();
 	}

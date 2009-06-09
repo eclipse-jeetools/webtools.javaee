@@ -43,6 +43,7 @@ public class UIApplicationClientValidator extends ApplicationClientValidator imp
 	 * Does the validation.
 	 */
 
+	@Override
 	public IStatus validateInJob(IValidationContext inHelper, IReporter inReporter)
 	 throws ValidationException {
 		UIApplicationClientHelper helper = (UIApplicationClientHelper) inHelper;

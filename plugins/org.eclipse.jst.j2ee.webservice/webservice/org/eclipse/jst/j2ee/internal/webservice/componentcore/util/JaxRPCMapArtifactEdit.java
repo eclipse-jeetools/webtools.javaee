@@ -365,23 +365,28 @@ public class JaxRPCMapArtifactEdit extends EnterpriseArtifactEdit {
 		return getJavaWSDLMapping();
 	}
 
+	@Override
 	public EObject createModelRoot() {
 		throw new IllegalArgumentException(WebServicePlugin.getMessage("_UI_JaxRPCMissingModel")); //$NON-NLS-1$
 	}
 
+	@Override
 	public EObject createModelRoot(int version) {
 		throw new IllegalArgumentException(WebServicePlugin.getMessage("_UI_JaxRPCMissingModel")); //$NON-NLS-1$
 	}
 
+	@Override
 	public Resource getDeploymentDescriptorResource() {
 		throw new IllegalArgumentException(WebServicePlugin.getMessage("_UI_JaxRPCMissingModel")); //$NON-NLS-1$
 	}
 
+	@Override
 	public int getJ2EEVersion() {
 		throw new IllegalArgumentException(WebServicePlugin.getMessage("_UI_JaxRPCMissingModel")); //$NON-NLS-1$
 	}
 
 	// [182417] This ArtifactEdit works for all project versions, so just return true.
+	@Override
 	protected boolean validProjectVersion(IProject project) {
 		return true;
 	}

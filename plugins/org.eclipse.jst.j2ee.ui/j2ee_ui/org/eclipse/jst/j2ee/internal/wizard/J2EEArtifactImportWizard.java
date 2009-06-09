@@ -109,6 +109,7 @@ public abstract class J2EEArtifactImportWizard extends DataModelWizard implement
 	 * 
 	 * @see com.ibm.etools.j2ee.common.wizard.datamodel.WTPWizard#dispose()
 	 */
+	@Override
 	public final void dispose() {
 		super.dispose();
 		doDispose();
@@ -155,6 +156,7 @@ public abstract class J2EEArtifactImportWizard extends DataModelWizard implement
 	 * 
 	 * @return true only if all editors are saved
 	 */
+	@Override
 	protected final boolean prePerformFinish() {
 		if (!CommonEditorUtility.promptToSaveAllDirtyEditors()) {
 			return false;
@@ -175,10 +177,12 @@ public abstract class J2EEArtifactImportWizard extends DataModelWizard implement
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizard#postPerformFinish()
 	 */
+	@Override
 	protected final void postPerformFinish() throws InvocationTargetException {
 		super.postPerformFinish();
 		if (getFinalPerspectiveID() != null && getFinalPerspectiveID().length() > 0) {
 			final IConfigurationElement element = new DelegateConfigurationElement(configurationElement) {
+				@Override
 				public String getAttribute(String aName) {
 					if (aName.equals("finalPerspective")) { //$NON-NLS-1$
 						return getFinalPerspectiveID();

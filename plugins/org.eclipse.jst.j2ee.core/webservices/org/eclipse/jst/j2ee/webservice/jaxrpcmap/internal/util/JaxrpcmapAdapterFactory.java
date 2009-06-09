@@ -80,7 +80,8 @@ public class JaxrpcmapAdapterFactory extends AdapterFactoryImpl
 	 * @return whether this factory is applicable for the type of the object.
 	 * @generated
 	 */
-  public boolean isFactoryForType(Object object) {
+  @Override
+public boolean isFactoryForType(Object object) {
 		if (object == modelPackage) {
 			return true;
 		}
@@ -98,78 +99,103 @@ public class JaxrpcmapAdapterFactory extends AdapterFactoryImpl
 	 */
   protected JaxrpcmapSwitch modelSwitch =
 		new JaxrpcmapSwitch() {
+			@Override
 			public Object caseJavaWSDLMapping(JavaWSDLMapping object) {
 				return createJavaWSDLMappingAdapter();
 			}
+			@Override
 			public Object casePackageMapping(PackageMapping object) {
 				return createPackageMappingAdapter();
 			}
+			@Override
 			public Object caseJavaXMLTypeMapping(JavaXMLTypeMapping object) {
 				return createJavaXMLTypeMappingAdapter();
 			}
+			@Override
 			public Object caseExceptionMapping(ExceptionMapping object) {
 				return createExceptionMappingAdapter();
 			}
+			@Override
 			public Object caseServiceInterfaceMapping(ServiceInterfaceMapping object) {
 				return createServiceInterfaceMappingAdapter();
 			}
+			@Override
 			public Object caseServiceEndpointInterfaceMapping(ServiceEndpointInterfaceMapping object) {
 				return createServiceEndpointInterfaceMappingAdapter();
 			}
+			@Override
 			public Object caseRootTypeQname(RootTypeQname object) {
 				return createRootTypeQnameAdapter();
 			}
+			@Override
 			public Object caseVariableMapping(VariableMapping object) {
 				return createVariableMappingAdapter();
 			}
+			@Override
 			public Object caseWSDLMessage(WSDLMessage object) {
 				return createWSDLMessageAdapter();
 			}
+			@Override
 			public Object caseConstructorParameterOrder(ConstructorParameterOrder object) {
 				return createConstructorParameterOrderAdapter();
 			}
+			@Override
 			public Object caseElementName(ElementName object) {
 				return createElementNameAdapter();
 			}
+			@Override
 			public Object caseWSDLServiceName(WSDLServiceName object) {
 				return createWSDLServiceNameAdapter();
 			}
+			@Override
 			public Object casePortMapping(PortMapping object) {
 				return createPortMappingAdapter();
 			}
+			@Override
 			public Object caseWSDLPortType(WSDLPortType object) {
 				return createWSDLPortTypeAdapter();
 			}
+			@Override
 			public Object caseWSDLBinding(WSDLBinding object) {
 				return createWSDLBindingAdapter();
 			}
+			@Override
 			public Object caseServiceEndpointMethodMapping(ServiceEndpointMethodMapping object) {
 				return createServiceEndpointMethodMappingAdapter();
 			}
+			@Override
 			public Object caseWSDLOperation(WSDLOperation object) {
 				return createWSDLOperationAdapter();
 			}
+			@Override
 			public Object caseMethodParamPartsMapping(MethodParamPartsMapping object) {
 				return createMethodParamPartsMappingAdapter();
 			}
+			@Override
 			public Object caseWSDLReturnValueMapping(WSDLReturnValueMapping object) {
 				return createWSDLReturnValueMappingAdapter();
 			}
+			@Override
 			public Object caseWSDLMessageMapping(WSDLMessageMapping object) {
 				return createWSDLMessageMappingAdapter();
 			}
+			@Override
 			public Object caseWSDLMessagePartName(WSDLMessagePartName object) {
 				return createWSDLMessagePartNameAdapter();
 			}
+			@Override
 			public Object caseInterfaceMapping(InterfaceMapping object) {
 				return createInterfaceMappingAdapter();
 			}
+			@Override
 			public Object caseJ2EEEObject(J2EEEObject object) {
 				return createJ2EEEObjectAdapter();
 			}
+			@Override
 			public Object caseQName(QName object) {
 				return createQNameAdapter();
 			}
+			@Override
 			public Object defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -183,7 +209,8 @@ public class JaxrpcmapAdapterFactory extends AdapterFactoryImpl
 	 * @return the adapter for the <code>target</code>.
 	 * @generated
 	 */
-  public Adapter createAdapter(Notifier target) {
+  @Override
+public Adapter createAdapter(Notifier target) {
 		return (Adapter)modelSwitch.doSwitch((EObject)target);
 	}
 

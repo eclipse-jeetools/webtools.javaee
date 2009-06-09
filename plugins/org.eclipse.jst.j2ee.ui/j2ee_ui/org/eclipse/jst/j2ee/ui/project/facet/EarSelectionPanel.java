@@ -72,7 +72,8 @@ public final class EarSelectionPanel implements IWebFacetInstallDataModelPropert
         
         this.newButton.addSelectionListener( new SelectionAdapter()
         {
-            public void widgetSelected( final SelectionEvent event )
+            @Override
+			public void widgetSelected( final SelectionEvent event )
             {
                 handleAddButton();
             }

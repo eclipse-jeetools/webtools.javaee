@@ -186,6 +186,7 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 		return dynamicReferences;
 	}
 
+	@Override
 	public IVirtualReference[] getReferences() {
 		
 		IVirtualReference[] cached = getCachedReferences();

@@ -157,6 +157,7 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 	/*
 	 * @see IValidationRule#reset()
 	 */
+	@Override
 	public void reset() {
 		super.reset();
 		_ejbName.clear();
@@ -335,6 +336,7 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 				_role = role;
 			}
 
+			@Override
 			public boolean equals(Object o) {
 				if (o instanceof RoleWrapper) {
 					RoleWrapper other = (RoleWrapper) o;
@@ -713,6 +715,7 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 			_bean = bean;
 		}
 
+		@Override
 		public boolean equals(Object o) {
 			if (o instanceof ASNameWrapper) {
 				ASNameWrapper other = (ASNameWrapper)o;
@@ -730,6 +733,7 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 			return false;
 		}
 
+		@Override
 		public int hashCode() {
 			if((getBean() != null) && (getBean().getAbstractSchemaName() != null)) {
 				return getBean().getAbstractSchemaName().hashCode();
@@ -758,6 +762,7 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 			_bean = bean;
 		}
 
+		@Override
 		public boolean equals(Object o) {
 			if (o instanceof EjbNameWrapper) {
 				EjbNameWrapper other = (EjbNameWrapper)o;
@@ -775,6 +780,7 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 			return false;
 		}
 		
+		@Override
 		public int hashCode() {
 			if((getBean() != null) && (getBean().getName() != null)) {
 				return getBean().getName().hashCode();
@@ -803,6 +809,7 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 			_relation = rel;
 		}
 
+		@Override
 		public boolean equals(Object o) {
 			if (o instanceof EJBRelationNameWrapper) {
 				EJBRelationNameWrapper other = (EJBRelationNameWrapper)o;
@@ -820,6 +827,7 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 			return false;
 		}
 		
+		@Override
 		public int hashCode() {
 			if((getRelation() != null) && (getRelation().getName() != null)) {
 				return getRelation().getName().hashCode();
@@ -848,6 +856,7 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 			_relationshipRole = role;
 		}
 
+		@Override
 		public boolean equals(Object o) {
 			if (o instanceof EJBRelationshipRoleNameWrapper) {
 				EJBRelationshipRoleNameWrapper other = (EJBRelationshipRoleNameWrapper)o;
@@ -865,6 +874,7 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 			return false;
 		}
 		
+		@Override
 		public int hashCode() {
 			if((getRelationshipRole() != null) && (getRelationshipRole().getRoleName() != null)) {
 				return getRelationshipRole().getRoleName().hashCode();

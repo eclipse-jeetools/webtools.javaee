@@ -41,6 +41,7 @@ public class DependentJarExportMerger {
 		includeSource = includeSourceFiles;
 	}
 
+	@Override
 	protected void finalize() throws Throwable {
 		release();
 	}

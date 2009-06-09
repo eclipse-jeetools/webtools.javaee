@@ -45,23 +45,28 @@ public class WebComponentImportPage extends J2EEModuleImportPage {
 		setInfopopID(IWebUIContextIds.WAR_IMPORT_PAGE1);
 	}
 
+	@Override
 	protected String getFileImportLabel() {
 		return WEBUIMessages.WEB_FILE_LBL;
 	}
 
+	@Override
 	protected String[] getFilterExpression() {
 		return new String[]{"*.war"}; //$NON-NLS-1$
 	}
 
+	@Override
 	protected String getProjectImportLabel() {
 		return WEBUIMessages.WEB_PROJECT_LBL;
 	}
 
+	@Override
 	protected void createAnnotationsStandaloneGroup(Composite composite) {
 		// TODO: implement with new import wizards
 		// new AnnotationsStandaloneGroup(composite, getWebDataModel(), false);
 	}
 
+	@Override
 	protected String getModuleFacetID(){
 		return J2EEProjectUtilities.DYNAMIC_WEB;
 	}	

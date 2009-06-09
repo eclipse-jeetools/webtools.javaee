@@ -20,6 +20,7 @@ import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider;
  */
 public class ComputeEARsForContextRootUpdateDataModelProvider extends AbstractDataModelProvider implements IUpdateModuleContextRootProperties {
 
+	@Override
 	public Set getPropertyNames() {
 		final Set propertyNames = super.getPropertyNames();
 		propertyNames.add(EARS_TO_UPDATE);

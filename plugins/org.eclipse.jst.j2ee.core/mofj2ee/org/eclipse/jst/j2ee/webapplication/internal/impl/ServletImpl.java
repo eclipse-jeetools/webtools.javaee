@@ -119,6 +119,7 @@ public class ServletImpl extends CompatibilityDescriptionGroupImpl implements Se
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return WebapplicationPackage.Literals.SERVLET;
 	}
@@ -189,6 +190,7 @@ public void reSyncSecurityRoleRef(java.lang.String existingRoleName, java.lang.S
 	/**
 	 *
 	 */
+	@Override
 	public void setDisplayName(String newDisplayName) {
 		super.setDisplayName(newDisplayName);
 	}
@@ -396,6 +398,7 @@ public void reSyncSecurityRoleRef(java.lang.String existingRoleName, java.lang.S
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case WebapplicationPackage.SERVLET__WEB_APP:
@@ -411,6 +414,7 @@ public void reSyncSecurityRoleRef(java.lang.String existingRoleName, java.lang.S
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case WebapplicationPackage.SERVLET__WEB_APP:
@@ -434,6 +438,7 @@ public void reSyncSecurityRoleRef(java.lang.String existingRoleName, java.lang.S
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case WebapplicationPackage.SERVLET__WEB_APP:
@@ -447,6 +452,7 @@ public void reSyncSecurityRoleRef(java.lang.String existingRoleName, java.lang.S
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case WebapplicationPackage.SERVLET__SERVLET_NAME:
@@ -474,6 +480,7 @@ public void reSyncSecurityRoleRef(java.lang.String existingRoleName, java.lang.S
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case WebapplicationPackage.SERVLET__SERVLET_NAME:
@@ -512,6 +519,7 @@ public void reSyncSecurityRoleRef(java.lang.String existingRoleName, java.lang.S
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case WebapplicationPackage.SERVLET__SERVLET_NAME:
@@ -547,6 +555,7 @@ public void reSyncSecurityRoleRef(java.lang.String existingRoleName, java.lang.S
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case WebapplicationPackage.SERVLET__SERVLET_NAME:
@@ -572,6 +581,7 @@ public void reSyncSecurityRoleRef(java.lang.String existingRoleName, java.lang.S
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

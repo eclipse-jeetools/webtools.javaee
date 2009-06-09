@@ -34,18 +34,22 @@ public class WebComponentArchiveSaveAdapter extends J2EEComponentArchiveSaveAdap
 		super(vComponent);
 	}
 
+	@Override
 	protected boolean shouldAddImportedClassesToClasspath() {
 		return false; // never add to classpath because the web app container will pick this up.
 	}
 
+	@Override
 	protected IPath getImportedClassesURI(IArchiveResource aFile){
 		return aFile.getPath().makeRelative().removeFirstSegments(IMPORTED_CLASSES_PATH.segmentCount());
 	}
 
+	@Override
 	protected IPath getImportedClassesRuntimePath() {
 		return IMPORTED_CLASSES_PATH;
 	}
 	
+	@Override
 	protected IPath getProjectRelativePath(IArchiveResource aFile) {
 		if (null != nonStandardSourceFiles && nonStandardSourceFiles.containsKey(aFile)) {
 			IPath path = nonStandardSourceFiles.get(aFile);
@@ -73,6 +77,7 @@ public class WebComponentArchiveSaveAdapter extends J2EEComponentArchiveSaveAdap
 	 */
 	protected Map<IArchiveResource, IPath> nonStandardSourceFiles;
 
+	@Override
 	protected boolean isClassWithoutSource(IArchiveResource aFile) {
 		String javaUri = ArchiveUtil.classUriToJavaUri(aFile.getPath().toString());
 		if (javaUri == null)

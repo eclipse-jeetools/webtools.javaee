@@ -36,6 +36,7 @@ public class ResAuthTranslator extends Translator implements DeploymentDescripto
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.Translator#convertStringToValue(java.lang.String, org.eclipse.emf.ecore.EObject)
 	 */
+	@Override
 	public Object convertStringToValue(String strValue, EObject owner) {
 		if (isWeb((ResourceRef)owner))
 			return convertWebStringToValue(strValue, owner);
@@ -60,6 +61,7 @@ public class ResAuthTranslator extends Translator implements DeploymentDescripto
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.Translator#convertValueToString(java.lang.Object, org.eclipse.emf.ecore.EObject)
 	 */
+	@Override
 	public String convertValueToString(Object value, EObject owner) {
 		if (isWeb22(((ResourceRef)owner)))
 			return convertWebValueToString(value, owner);

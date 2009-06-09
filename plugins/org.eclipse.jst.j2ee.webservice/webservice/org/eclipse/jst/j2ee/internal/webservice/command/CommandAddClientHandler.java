@@ -64,6 +64,7 @@ public class CommandAddClientHandler extends AbstractCommand {
 	 * 
 	 * @return whether the command is executable.
 	 */
+	@Override
 	protected boolean prepare() {
 		return true;
 	}
@@ -75,6 +76,7 @@ public class CommandAddClientHandler extends AbstractCommand {
 	 * 
 	 * @return whether the comamad is valid to <code>execute</code>.
 	 */
+	@Override
 	public boolean canExecute() {
 		return super.canExecute();
 	}
@@ -93,6 +95,7 @@ public class CommandAddClientHandler extends AbstractCommand {
 	 * 
 	 * @return <code>true</code>.
 	 */
+	@Override
 	public boolean canUndo() {
 		return true;
 	}
@@ -103,6 +106,7 @@ public class CommandAddClientHandler extends AbstractCommand {
 	 * <code>undo</code> before <code>execute</code> or <code>redo</code> have been called, or
 	 * when canUndo returns <code>false</code>, is undefined.
 	 */
+	@Override
 	public void undo() {
 		parent_.getHandlers().remove(newChild_);
 	}
@@ -124,6 +128,7 @@ public class CommandAddClientHandler extends AbstractCommand {
 	 * 
 	 * @return a collection of things which this command wishes to present as it's result.
 	 */
+	@Override
 	public Collection getResult() {
 		return super.getResult();
 	}
@@ -140,6 +145,7 @@ public class CommandAddClientHandler extends AbstractCommand {
 	 * @return the collection of things which this command wishes to present as the objects affected
 	 *         by the command.
 	 */
+	@Override
 	public Collection getAffectedObjects() {
 		return super.getAffectedObjects();
 	}
@@ -148,6 +154,7 @@ public class CommandAddClientHandler extends AbstractCommand {
 	 * Called to indicate that the command will never be used again. Calling any other method after
 	 * this one has undefined results.
 	 */
+	@Override
 	public void dispose() {
 		//Do nothing
 	}
@@ -183,6 +190,7 @@ public class CommandAddClientHandler extends AbstractCommand {
 	 *            the command to chain.
 	 * @return a command that represents the composition of this command with the given command.
 	 */
+	@Override
 	public Command chain(Command command) {
 		return super.chain(command);
 	}

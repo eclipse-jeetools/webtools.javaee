@@ -25,6 +25,7 @@ public class JavaUtilityProjectCreationDataModelProvider
 		super();
 	}
 	
+	@Override
 	public Set getPropertyNames() {
 		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(PROJECT_NAME);
@@ -36,6 +37,7 @@ public class JavaUtilityProjectCreationDataModelProvider
 	}
 	
 	
+	@Override
 	public IDataModelOperation getDefaultOperation() {
 		return new JavaUtilityProjectCreationOperation(model);
 	}

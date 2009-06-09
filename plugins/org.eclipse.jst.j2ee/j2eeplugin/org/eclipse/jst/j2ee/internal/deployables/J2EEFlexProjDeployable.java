@@ -119,6 +119,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 	 * 
 	 * @return a possibly-empty array of resource folders
 	 */
+	@Override
 	public IContainer[] getResourceFolders() {
 		List result = new ArrayList();
 		IVirtualComponent vc = ComponentCore.createComponent(getProject());
@@ -149,6 +150,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 		return J2EEProjectUtilities.getOutputContainers(project);
 	}
 
+	@Override
 	protected boolean shouldIncludeUtilityComponent(IVirtualComponent virtualComp,IVirtualReference[] references, ArtifactEdit edit) {
 		// If the component module is an EAR we know all archives are filtered out of virtual component members
 		// and we will return only those archives which are not binary J2EE modules in the EAR DD.  These J2EE modules will
@@ -160,6 +162,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 		}
 	}
 	
+	@Override
 	protected void addUtilMember(IVirtualComponent parent, IVirtualReference reference, IPath runtimePath) {
 		// do not add classpath dependencies whose runtime path (../) maps to the parent component or that represent
 		// class folders
@@ -182,6 +185,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 		return new IModuleResource[] {mf};
 	}
 	
+	@Override
 	public IModuleResource[] members() throws CoreException {
 		members.clear();
 		classpathComponentDependencyURIs.clear();
@@ -277,6 +281,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 		}
 	}
 	
+	@Override
 	protected IModuleFile createModuleFile(IFile file, IPath path) {
 		// if this is the MANIFEST.MF file and we have classpath component dependencies, 
 		// update it
@@ -315,6 +320,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 		return moduleFile;
 	}
 	
+	@Override
 	protected IModuleResource[] handleJavaPath(IPath path, IPath javaPath, IPath curPath, IContainer[] javaCont, IModuleResource[] mr, IContainer cc) throws CoreException {
 		if (curPath.equals(javaPath)) {
 			int size = javaCont.length;
@@ -641,7 +647,8 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 		return consumableMembers;
 	}
     
-    protected IModule gatherModuleReference(IVirtualComponent component, IVirtualComponent targetComponent ) {
+    @Override
+	protected IModule gatherModuleReference(IVirtualComponent component, IVirtualComponent targetComponent ) {
     	IModule module = super.gatherModuleReference(component, targetComponent);
     	// Handle binary module components
     	if (targetComponent instanceof J2EEModuleVirtualArchiveComponent) {
@@ -677,14 +684,16 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
     	return null;
     }
     
-    protected ArtifactEdit getComponentArtifactEditForRead() {
+    @Override
+	protected ArtifactEdit getComponentArtifactEditForRead() {
 		return EARArtifactEdit.getEARArtifactEditForRead(component.getProject());
 	}
     
     /**
      * The references for J2EE module deployment are only those child modules of EARs or web modules
      */
-    protected IVirtualReference[] getReferences(IVirtualComponent aComponent) {
+    @Override
+	protected IVirtualReference[] getReferences(IVirtualComponent aComponent) {
     	if (aComponent == null || aComponent.isBinary()) {
     		return new IVirtualReference[] {};
     	} else if (J2EEProjectUtilities.isDynamicWebProject(aComponent.getProject())) {
@@ -897,6 +906,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 	 * @return <code>true</code> if this module has a single root structure, and
 	 *    <code>false</code> otherwise
 	 */
+	@Override
 	public boolean isSingleRootStructure() {
 		isSingleJavaOutputNonSource = false;
 		StructureEdit edit = null;
@@ -1177,6 +1187,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 	 * 
 	 * @return boolean should file be added to members
 	 */
+	@Override
 	protected boolean shouldAddComponentFile(IFile file) {
 		IPackageFragmentRoot sourceContainer = getSourceContainer(file);
 		// If the file is not in a source container, return true

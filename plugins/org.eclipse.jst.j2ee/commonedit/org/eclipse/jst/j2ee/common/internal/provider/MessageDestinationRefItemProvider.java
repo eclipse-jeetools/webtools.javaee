@@ -57,6 +57,7 @@ public class MessageDestinationRefItemProvider extends ItemProviderAdapter imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -113,6 +114,7 @@ public class MessageDestinationRefItemProvider extends ItemProviderAdapter imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -127,6 +129,7 @@ public class MessageDestinationRefItemProvider extends ItemProviderAdapter imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return getResourceLocator().getImage("message_bean_obj"); //$NON-NLS-1$
 	}
@@ -137,6 +140,7 @@ public class MessageDestinationRefItemProvider extends ItemProviderAdapter imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((MessageDestinationRef) object).getName();
 		return CommonEditResourceHandler.getString("MessageDestinationRefItemProvider_UI_0") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$, $NON-NLS-2$
@@ -148,6 +152,7 @@ public class MessageDestinationRefItemProvider extends ItemProviderAdapter imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(MessageDestinationRef.class)) {
 			case CommonPackage.MESSAGE_DESTINATION_REF__NAME :
@@ -169,6 +174,7 @@ public class MessageDestinationRefItemProvider extends ItemProviderAdapter imple
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -182,6 +188,7 @@ public class MessageDestinationRefItemProvider extends ItemProviderAdapter imple
 	 * end-user-doc -->
 	 *  
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}
@@ -191,6 +198,7 @@ public class MessageDestinationRefItemProvider extends ItemProviderAdapter imple
 	 * 
 	 * @see org.eclipse.emf.edit.provider.ITreeItemContentProvider#hasChildren(java.lang.Object)
 	 */
+	@Override
 	public boolean hasChildren(Object arg0) {
 		return false;
 	}

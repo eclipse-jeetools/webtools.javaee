@@ -38,6 +38,7 @@ public abstract class J2EEModuleFacetInstallPage extends DataModelFacetInstallPa
 	 */
 	protected EarSelectionPanel earPanel;
 
+	@Override
 	public void dispose() {
 		if (null != earPanel) {
 			earPanel.dispose();
@@ -120,7 +121,8 @@ public abstract class J2EEModuleFacetInstallPage extends DataModelFacetInstallPa
         }
     }
 
-    protected void enter() {
+    @Override
+	protected void enter() {
     	if (isFirstTimeToPage() && addDD != null)
     	{
     		synchHelper.synchCheckbox(addDD, GENERATE_DD, null);

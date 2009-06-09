@@ -41,7 +41,8 @@ public class WSDLPortImpl extends QNameImpl implements WSDLPort
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  protected EClass eStaticClass() {
+  @Override
+protected EClass eStaticClass() {
 		return WsddPackage.Literals.WSDL_PORT;
 	}
 

@@ -33,6 +33,7 @@ public class WebFacetProjectCreationDataModelProvider extends J2EEFacetProjectCr
 		super();
 	}
 
+	@Override
 	public void init() {
 		super.init();
         
@@ -64,6 +65,7 @@ public class WebFacetProjectCreationDataModelProvider extends J2EEFacetProjectCr
 		});	
 	}
 
+	@Override
 	public boolean propertySet(String propertyName, Object propertyValue) {
 		if( propertyName.equals( MODULE_URI )){
 			FacetDataModelMap map = (FacetDataModelMap) getProperty(FACET_DM_MAP);

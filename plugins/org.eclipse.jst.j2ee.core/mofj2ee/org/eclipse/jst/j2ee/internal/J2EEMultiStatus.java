@@ -52,10 +52,12 @@ public class J2EEMultiStatus extends J2EEStatus {
 		}
 	}
 
+	@Override
 	public J2EEStatus[] getChildren() {
 		return children;
 	}
 
+	@Override
 	public boolean isMultiStatus() {
 		return true;
 	}
@@ -83,6 +85,7 @@ public class J2EEMultiStatus extends J2EEStatus {
 	 * Returns a string representation of the status, suitable 
 	 * for debugging purposes only.
 	 */
+	@Override
 	public String toString() {
 		StringBuffer buf = new StringBuffer(super.toString());
 		buf.append(" children={"); //$NON-NLS-1$
@@ -99,6 +102,7 @@ public class J2EEMultiStatus extends J2EEStatus {
 	/**
 	 * @see com.ibm.ejs.models.base.extensions.helper.J2EEStatus#append(J2EEStatus)
 	 */
+	@Override
 	public J2EEStatus append(J2EEStatus aStatus) {
 		if (aStatus != null)
 			merge(aStatus);

@@ -70,7 +70,8 @@ public class WsddAdapterFactory extends AdapterFactoryImpl
 	 * @return whether this factory is applicable for the type of the object.
 	 * @generated
 	 */
-  public boolean isFactoryForType(Object object) {
+  @Override
+public boolean isFactoryForType(Object object) {
 		if (object == modelPackage) {
 			return true;
 		}
@@ -88,54 +89,71 @@ public class WsddAdapterFactory extends AdapterFactoryImpl
 	 */
   protected WsddSwitch modelSwitch =
 		new WsddSwitch() {
+			@Override
 			public Object caseWebServices(WebServices object) {
 				return createWebServicesAdapter();
 			}
+			@Override
 			public Object caseWebServiceDescription(WebServiceDescription object) {
 				return createWebServiceDescriptionAdapter();
 			}
+			@Override
 			public Object casePortComponent(PortComponent object) {
 				return createPortComponentAdapter();
 			}
+			@Override
 			public Object caseWSDLPort(WSDLPort object) {
 				return createWSDLPortAdapter();
 			}
+			@Override
 			public Object caseServiceImplBean(ServiceImplBean object) {
 				return createServiceImplBeanAdapter();
 			}
+			@Override
 			public Object caseServletLink(ServletLink object) {
 				return createServletLinkAdapter();
 			}
+			@Override
 			public Object caseEJBLink(EJBLink object) {
 				return createEJBLinkAdapter();
 			}
+			@Override
 			public Object caseHandler(Handler object) {
 				return createHandlerAdapter();
 			}
+			@Override
 			public Object caseBeanLink(BeanLink object) {
 				return createBeanLinkAdapter();
 			}
+			@Override
 			public Object caseWSDLService(WSDLService object) {
 				return createWSDLServiceAdapter();
 			}
+			@Override
 			public Object caseHandlerChain(HandlerChain object) {
 				return createHandlerChainAdapter();
 			}
+			@Override
 			public Object caseHandlersChains(HandlersChains object) {
 				return createHandlersChainsAdapter();
 			}
+			@Override
 			public Object caseJ2EEEObject(J2EEEObject object) {
 				return createJ2EEEObjectAdapter();
 			}
+			@Override
 			public Object caseDescriptionGroup(DescriptionGroup object) {
 				return createDescriptionGroupAdapter();
 			}
+			@Override
 			public Object caseCompatibilityDescriptionGroup(CompatibilityDescriptionGroup object) {
 				return createCompatibilityDescriptionGroupAdapter();
 			}
+			@Override
 			public Object caseQName(QName object) {
 				return createQNameAdapter();
 			}
+			@Override
 			public Object defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -149,7 +167,8 @@ public class WsddAdapterFactory extends AdapterFactoryImpl
 	 * @return the adapter for the <code>target</code>.
 	 * @generated
 	 */
-  public Adapter createAdapter(Notifier target) {
+  @Override
+public Adapter createAdapter(Notifier target) {
 		return (Adapter)modelSwitch.doSwitch((EObject)target);
 	}
 

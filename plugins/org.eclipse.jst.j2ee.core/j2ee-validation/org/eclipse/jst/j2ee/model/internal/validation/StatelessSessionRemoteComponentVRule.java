@@ -70,6 +70,7 @@ public final class StatelessSessionRemoteComponentVRule extends AComponentVRule 
 		return MESSAGE_IDS;
 	}
 	
+	@Override
 	public final int getMessageRemoteExceptionSeverity() {
 		return MESSAGE_REMOTE_EXCEPTION_SEVERITY;
 	}
@@ -82,6 +83,7 @@ public final class StatelessSessionRemoteComponentVRule extends AComponentVRule 
 		return ID;
 	}
 
+	@Override
 	public final long[] getBaseTypes() {
 		return getSupertypes();
 	}

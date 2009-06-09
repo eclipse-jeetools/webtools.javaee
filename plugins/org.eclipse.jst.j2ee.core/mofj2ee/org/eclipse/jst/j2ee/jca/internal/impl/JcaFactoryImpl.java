@@ -67,6 +67,7 @@ public class JcaFactoryImpl extends EFactoryImpl implements JcaFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case JcaPackage.CONNECTOR: return createConnector();
@@ -93,6 +94,7 @@ public class JcaFactoryImpl extends EFactoryImpl implements JcaFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
 			case JcaPackage.AUTHENTICATION_MECHANISM_TYPE:
@@ -109,6 +111,7 @@ public class JcaFactoryImpl extends EFactoryImpl implements JcaFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
 			case JcaPackage.AUTHENTICATION_MECHANISM_TYPE:

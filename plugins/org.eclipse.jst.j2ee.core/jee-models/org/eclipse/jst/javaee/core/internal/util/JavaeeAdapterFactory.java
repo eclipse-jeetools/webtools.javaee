@@ -58,6 +58,7 @@ public class JavaeeAdapterFactory extends AdapterFactoryImpl {
 	 * @return whether this factory is applicable for the type of the object.
 	 * @generated
 	 */
+	@Override
 	public boolean isFactoryForType(Object object) {
 		if (object == modelPackage) {
 			return true;
@@ -76,87 +77,115 @@ public class JavaeeAdapterFactory extends AdapterFactoryImpl {
 	 */
 	protected JavaeeSwitch modelSwitch =
 		new JavaeeSwitch() {
+			@Override
 			public Object caseDescription(Description object) {
 				return createDescriptionAdapter();
 			}
+			@Override
 			public Object caseDisplayName(DisplayName object) {
 				return createDisplayNameAdapter();
 			}
+			@Override
 			public Object caseEjbLocalRef(EjbLocalRef object) {
 				return createEjbLocalRefAdapter();
 			}
+			@Override
 			public Object caseEjbRef(EjbRef object) {
 				return createEjbRefAdapter();
 			}
+			@Override
 			public Object caseEmptyType(EmptyType object) {
 				return createEmptyTypeAdapter();
 			}
+			@Override
 			public Object caseEnvEntry(EnvEntry object) {
 				return createEnvEntryAdapter();
 			}
+			@Override
 			public Object caseIcon(Icon object) {
 				return createIconAdapter();
 			}
+			@Override
 			public Object caseInjectionTarget(InjectionTarget object) {
 				return createInjectionTargetAdapter();
 			}
+			@Override
 			public Object caseLifecycleCallback(LifecycleCallback object) {
 				return createLifecycleCallbackAdapter();
 			}
+			@Override
 			public Object caseListener(Listener object) {
 				return createListenerAdapter();
 			}
+			@Override
 			public Object caseMessageDestination(MessageDestination object) {
 				return createMessageDestinationAdapter();
 			}
+			@Override
 			public Object caseMessageDestinationRef(MessageDestinationRef object) {
 				return createMessageDestinationRefAdapter();
 			}
+			@Override
 			public Object caseParamValue(ParamValue object) {
 				return createParamValueAdapter();
 			}
+			@Override
 			public Object casePersistenceContextRef(PersistenceContextRef object) {
 				return createPersistenceContextRefAdapter();
 			}
+			@Override
 			public Object casePersistenceUnitRef(PersistenceUnitRef object) {
 				return createPersistenceUnitRefAdapter();
 			}
+			@Override
 			public Object casePortComponentRef(PortComponentRef object) {
 				return createPortComponentRefAdapter();
 			}
+			@Override
 			public Object casePropertyType(PropertyType object) {
 				return createPropertyTypeAdapter();
 			}
+			@Override
 			public Object caseResourceEnvRef(ResourceEnvRef object) {
 				return createResourceEnvRefAdapter();
 			}
+			@Override
 			public Object caseResourceRef(ResourceRef object) {
 				return createResourceRefAdapter();
 			}
+			@Override
 			public Object caseRunAs(RunAs object) {
 				return createRunAsAdapter();
 			}
+			@Override
 			public Object caseSecurityRole(SecurityRole object) {
 				return createSecurityRoleAdapter();
 			}
+			@Override
 			public Object caseSecurityRoleRef(SecurityRoleRef object) {
 				return createSecurityRoleRefAdapter();
 			}
+			@Override
 			public Object caseServiceRef(ServiceRef object) {
 				return createServiceRefAdapter();
 			}
+			@Override
 			public Object caseServiceRefHandler(ServiceRefHandler object) {
 				return createServiceRefHandlerAdapter();
 			}
+			@Override
 			public Object caseServiceRefHandlerChain(ServiceRefHandlerChain object) {
 				return createServiceRefHandlerChainAdapter();
 			}
+			@Override
 			public Object caseServiceRefHandlerChains(ServiceRefHandlerChains object) {
 				return createServiceRefHandlerChainsAdapter();
 			}
+			@Override
 			public Object caseUrlPatternType(UrlPatternType object) {
 				return createUrlPatternTypeAdapter();
 			}
+			@Override
 			public Object defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -170,6 +199,7 @@ public class JavaeeAdapterFactory extends AdapterFactoryImpl {
 	 * @return the adapter for the <code>target</code>.
 	 * @generated
 	 */
+	@Override
 	public Adapter createAdapter(Notifier target) {
 		return (Adapter)modelSwitch.doSwitch((EObject)target);
 	}

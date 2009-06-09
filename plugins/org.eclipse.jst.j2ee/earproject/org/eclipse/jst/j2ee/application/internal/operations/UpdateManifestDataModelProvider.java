@@ -34,6 +34,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
  */
 public class UpdateManifestDataModelProvider extends AbstractDataModelProvider implements UpdateManifestDataModelProperties {
 
+	@Override
 	public Set getPropertyNames() {
 		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(PROJECT_NAME);
@@ -45,6 +46,7 @@ public class UpdateManifestDataModelProvider extends AbstractDataModelProvider i
 		return propertyNames;
 	}
 
+	@Override
 	public Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(MERGE)) {
 			return Boolean.TRUE;
@@ -56,6 +58,7 @@ public class UpdateManifestDataModelProvider extends AbstractDataModelProvider i
 		return super.getDefaultProperty(propertyName);
 	}
 
+	@Override
 	public boolean propertySet(String propertyName, Object propertyValue) {
 		boolean set = super.propertySet(propertyName, propertyValue);
 		if (propertyName.equals(JAR_LIST) && isPropertySet(JAR_LIST_TEXT_UI))
@@ -90,6 +93,7 @@ public class UpdateManifestDataModelProvider extends AbstractDataModelProvider i
 		return list;
 	}
 	
+	@Override
 	public IDataModelOperation getDefaultOperation() {
 		return new UpdateManifestOperation(model);
 	}

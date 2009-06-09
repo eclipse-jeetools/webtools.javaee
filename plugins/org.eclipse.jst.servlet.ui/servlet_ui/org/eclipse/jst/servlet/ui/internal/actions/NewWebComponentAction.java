@@ -38,13 +38,16 @@ public class NewWebComponentAction extends AbstractOpenWizardWorkbenchAction {
 		setImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(ICON));
 	}
 
+	@Override
 	protected Wizard createWizard() {
 		return new WebProjectWizard();
 	}
 	
+	@Override
 	protected boolean shouldAcceptElement(Object obj) { 
 		return true; /* NewGroup.isOnBuildPath(obj) && !NewGroup.isInArchive(obj); */
 	}
+	@Override
 	protected String getDialogText() {
 		return null;
 	}

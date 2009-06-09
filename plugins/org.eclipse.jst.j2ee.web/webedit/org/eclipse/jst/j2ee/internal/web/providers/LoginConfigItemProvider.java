@@ -47,6 +47,7 @@ public class LoginConfigItemProvider extends WebapplicationItemProviderAdapter i
 	/**
 	 * This creates a new child for {@link org.eclipse.jst.j2ee.internal.internal.webapplication.commandCreateChildCommand}.
 	 */
+	@Override
 	public Object createChild(Object object) {
 		// TODO: create some child object.
 		return null;
@@ -56,6 +57,7 @@ public class LoginConfigItemProvider extends WebapplicationItemProviderAdapter i
 	 * This specifies how to implement {@link #getChildren}and {@link AddCommand}and
 	 * {@link RemoveCommand}support in {@link #createCommand}.
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		WebapplicationPackage pkg = WebapplicationPackage.eINSTANCE;
 		Collection result = new ArrayList();
@@ -76,6 +78,7 @@ public class LoginConfigItemProvider extends WebapplicationItemProviderAdapter i
 	/**
 	 * This returns the label for {@link org.eclipse.jst.j2ee.internal.internal.webapplication.commandCreateChildCommand}.
 	 */
+	@Override
 	public String getCreateChildText(Object object) {
 		return WebAppEditResourceHandler.getString("Create_#CHILD_CLASS_NAME#_UI_"); //$NON-NLS-1$ = "Create #CHILD_CLASS_NAME#"
 	}
@@ -84,6 +87,7 @@ public class LoginConfigItemProvider extends WebapplicationItemProviderAdapter i
 	 * This returns the help text for
 	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.commandCreateChildCommand}.
 	 */
+	@Override
 	public String getCreateChildToolTipText(Object object) {
 		EObject refObject = (EObject) object;
 		return WebAppEditResourceHandler.getString("1concat", (new Object[]{refObject.eClass().getName()}));//$NON-NLS-1$ = "Create a child of type #CHILD_CLASS_NAME# for the selected {0}." 
@@ -92,6 +96,7 @@ public class LoginConfigItemProvider extends WebapplicationItemProviderAdapter i
 	/**
 	 * This returns form_login_config.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return WebPlugin.getDefault().getImage("form_login_config");//$NON-NLS-1$
 	}
@@ -99,6 +104,7 @@ public class LoginConfigItemProvider extends WebapplicationItemProviderAdapter i
 	/**
 	 * This returns the webApp of the LoginConfig.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((LoginConfig) object).getWebApp();
 	}
@@ -106,6 +112,7 @@ public class LoginConfigItemProvider extends WebapplicationItemProviderAdapter i
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -176,6 +183,7 @@ public class LoginConfigItemProvider extends WebapplicationItemProviderAdapter i
 					WebapplicationPackage.eINSTANCE.getLoginConfig_AuthorizationMethod(), true, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE));
 	}
 
+	@Override
 	public String getText(Object object) {
 		return WebAppEditResourceHandler.getString("21concat_UI_", (new Object[]{((LoginConfig) object).getRealmName()})); //$NON-NLS-1$ = "LoginConfig {0}"
 	}
@@ -186,6 +194,7 @@ public class LoginConfigItemProvider extends WebapplicationItemProviderAdapter i
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(LoginConfig.class)) {
 			case WebapplicationPackage.LOGIN_CONFIG__AUTH_METHOD :
@@ -206,6 +215,7 @@ public class LoginConfigItemProvider extends WebapplicationItemProviderAdapter i
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -218,6 +228,7 @@ public class LoginConfigItemProvider extends WebapplicationItemProviderAdapter i
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}

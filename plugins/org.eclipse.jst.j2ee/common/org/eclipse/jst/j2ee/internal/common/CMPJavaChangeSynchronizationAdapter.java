@@ -86,6 +86,7 @@ public class CMPJavaChangeSynchronizationAdapter extends AdapterImpl {
 	 * @param Notification
 	 *            msg - Message indicates what has changed.
 	 */
+	@Override
 	public void notifyChanged(Notification msg) {
 		if (!isEnabled(getCMP())) {
 			enable(getCMP());
@@ -296,22 +297,18 @@ public class CMPJavaChangeSynchronizationAdapter extends AdapterImpl {
 		}
 	}
 
+	@Override
 	public void setTarget(Notifier newTarget) {
 		boolean isChanged = getTarget() != newTarget;
 		if (newTarget == null) {
 			super.setTarget(newTarget);
 			cmpResource = null;
 		} else if (newTarget instanceof ContainerManagedEntity) {
-			//TODO - uncomment when compile errors are gone
-			if (false)/* (EJBCommandCopier.isCodegenCopy(newTarget)) */
-				newTarget.eAdapters().remove(this);
-			else {
-				Resource res = ((ContainerManagedEntity) newTarget).eResource();
-				if (res != null && res.getResourceSet() != null) {
-					super.setTarget(newTarget);
-					if (isChanged)
-						initializeTarget();
-				}
+			Resource res = ((ContainerManagedEntity) newTarget).eResource();
+			if (res != null && res.getResourceSet() != null) {
+				super.setTarget(newTarget);
+				if (isChanged)
+					initializeTarget();
 			}
 		}
 	}

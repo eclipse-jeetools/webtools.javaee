@@ -85,7 +85,8 @@ public class ComponentScopedRefsImpl extends J2EEEObjectImpl implements Componen
      * <!-- end-user-doc -->
 	 * @generated
 	 */
-    protected EClass eStaticClass() {
+    @Override
+	protected EClass eStaticClass() {
 		return Webservice_clientPackage.Literals.COMPONENT_SCOPED_REFS;
 	}
 
@@ -127,6 +128,7 @@ public class ComponentScopedRefsImpl extends J2EEEObjectImpl implements Componen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case Webservice_clientPackage.COMPONENT_SCOPED_REFS__SERVICE_REFS:
@@ -140,6 +142,7 @@ public class ComponentScopedRefsImpl extends J2EEEObjectImpl implements Componen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case Webservice_clientPackage.COMPONENT_SCOPED_REFS__COMPONENT_NAME:
@@ -155,6 +158,7 @@ public class ComponentScopedRefsImpl extends J2EEEObjectImpl implements Componen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case Webservice_clientPackage.COMPONENT_SCOPED_REFS__COMPONENT_NAME:
@@ -173,6 +177,7 @@ public class ComponentScopedRefsImpl extends J2EEEObjectImpl implements Componen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case Webservice_clientPackage.COMPONENT_SCOPED_REFS__COMPONENT_NAME:
@@ -190,6 +195,7 @@ public class ComponentScopedRefsImpl extends J2EEEObjectImpl implements Componen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case Webservice_clientPackage.COMPONENT_SCOPED_REFS__COMPONENT_NAME:
@@ -205,7 +211,8 @@ public class ComponentScopedRefsImpl extends J2EEEObjectImpl implements Componen
      * <!-- end-user-doc -->
 	 * @generated
 	 */
-    public String toString() {
+    @Override
+	public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());

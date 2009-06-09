@@ -74,7 +74,8 @@ public class WebServicesClientImpl extends J2EEEObjectImpl implements WebService
      * <!-- end-user-doc -->
 	 * @generated
 	 */
-    protected EClass eStaticClass() {
+    @Override
+	protected EClass eStaticClass() {
 		return Webservice_clientPackage.Literals.WEB_SERVICES_CLIENT;
 	}
 
@@ -107,6 +108,7 @@ public class WebServicesClientImpl extends J2EEEObjectImpl implements WebService
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case Webservice_clientPackage.WEB_SERVICES_CLIENT__COMPONENT_SCOPED_REFS:
@@ -122,6 +124,7 @@ public class WebServicesClientImpl extends J2EEEObjectImpl implements WebService
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case Webservice_clientPackage.WEB_SERVICES_CLIENT__COMPONENT_SCOPED_REFS:
@@ -137,6 +140,7 @@ public class WebServicesClientImpl extends J2EEEObjectImpl implements WebService
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case Webservice_clientPackage.WEB_SERVICES_CLIENT__COMPONENT_SCOPED_REFS:
@@ -156,6 +160,7 @@ public class WebServicesClientImpl extends J2EEEObjectImpl implements WebService
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case Webservice_clientPackage.WEB_SERVICES_CLIENT__COMPONENT_SCOPED_REFS:
@@ -173,6 +178,7 @@ public class WebServicesClientImpl extends J2EEEObjectImpl implements WebService
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case Webservice_clientPackage.WEB_SERVICES_CLIENT__COMPONENT_SCOPED_REFS:

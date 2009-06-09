@@ -23,6 +23,7 @@ public class EarXMLHelperImpl extends JEEXMLHelperImpl {
 	}
 
 	
+	@Override
 	public String getURI(String prefix) {
 		if (prefix != null && prefix.equals(""))
 			return ApplicationPackage.eNS_URI;
@@ -30,6 +31,7 @@ public class EarXMLHelperImpl extends JEEXMLHelperImpl {
 			return super.getURI(prefix);
 	}
 	
+	@Override
 	protected String getQName(EPackage ePackage, String name, boolean mustHavePrefix)
 	  {
 	   String nsPrefix = getPrefix(ePackage, mustHavePrefix);

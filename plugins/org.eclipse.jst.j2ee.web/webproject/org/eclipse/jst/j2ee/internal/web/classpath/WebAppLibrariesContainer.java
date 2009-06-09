@@ -75,7 +75,8 @@ public final class WebAppLibrariesContainer
         }
     }
     
-    public void refresh()
+    @Override
+	public void refresh()
     {
         ( new WebAppLibrariesContainer( this.path, this.owner ) ).install();
     }

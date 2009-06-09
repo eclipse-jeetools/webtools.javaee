@@ -38,6 +38,7 @@ public class LinkArchiveIntoProjectOperation extends J2EEUtilityJarImportAssista
 
 	}
 
+	@Override
 	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		MultiStatus status = new MultiStatus(J2EEPlugin.PLUGIN_ID, 0, NLS.bind(EARCreationResourceHandler.LinkArchiveIntoProjectOperation_Linking_archive_into_selected_proje_, getUtilityJar().getName()), null);
 
@@ -69,10 +70,12 @@ public class LinkArchiveIntoProjectOperation extends J2EEUtilityJarImportAssista
 		return status;
 	}
 
+	@Override
 	public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		return Status.CANCEL_STATUS;
 	}
 
+	@Override
 	public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		return Status.CANCEL_STATUS;
 	}

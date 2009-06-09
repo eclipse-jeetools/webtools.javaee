@@ -26,6 +26,7 @@ public class JavaComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter
 		super(vComponent, includeClasspathComponents);
 	}
 	
+	@Override
 	public List <IArchiveResource> getArchiveResources() {
 		super.getArchiveResources();
 		if (includeClasspathComponents) {

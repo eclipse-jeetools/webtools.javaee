@@ -20,6 +20,7 @@ public class AppClientComponentLoadStrategyImpl extends ComponentLoadStrategyImp
 		super(vComponent);
 	}
 
+	@Override
 	protected synchronized ArtifactEdit getArtifactEditForRead() {
 		if(artifactEdit == null){
 			artifactEdit = AppClientArtifactEdit.getAppClientArtifactEditForRead(vComponent);

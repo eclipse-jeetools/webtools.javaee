@@ -122,7 +122,8 @@ public class MethodParamPartsMappingImpl extends J2EEEObjectImpl implements Meth
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  protected EClass eStaticClass() {
+  @Override
+protected EClass eStaticClass() {
 		return JaxrpcmapPackage.Literals.METHOD_PARAM_PARTS_MAPPING;
 	}
 
@@ -237,6 +238,7 @@ public class MethodParamPartsMappingImpl extends J2EEEObjectImpl implements Meth
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case JaxrpcmapPackage.METHOD_PARAM_PARTS_MAPPING__WSDL_MESSAGE_MAPPING:
@@ -250,6 +252,7 @@ public class MethodParamPartsMappingImpl extends J2EEEObjectImpl implements Meth
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case JaxrpcmapPackage.METHOD_PARAM_PARTS_MAPPING__ID:
@@ -269,6 +272,7 @@ public class MethodParamPartsMappingImpl extends J2EEEObjectImpl implements Meth
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case JaxrpcmapPackage.METHOD_PARAM_PARTS_MAPPING__ID:
@@ -292,6 +296,7 @@ public class MethodParamPartsMappingImpl extends J2EEEObjectImpl implements Meth
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case JaxrpcmapPackage.METHOD_PARAM_PARTS_MAPPING__ID:
@@ -315,6 +320,7 @@ public class MethodParamPartsMappingImpl extends J2EEEObjectImpl implements Meth
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case JaxrpcmapPackage.METHOD_PARAM_PARTS_MAPPING__ID:
@@ -334,7 +340,8 @@ public class MethodParamPartsMappingImpl extends J2EEEObjectImpl implements Meth
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String toString() {
+  @Override
+public String toString() {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());

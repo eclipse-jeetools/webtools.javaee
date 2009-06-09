@@ -90,6 +90,7 @@ public class Webservice_clientItemProviderAdapterFactory extends Webservice_clie
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createServiceRefAdapter() {
 		if (serviceRefItemProvider == null) {
 			serviceRefItemProvider = new ServiceRefItemProvider(this);
@@ -113,6 +114,7 @@ public class Webservice_clientItemProviderAdapterFactory extends Webservice_clie
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createPortComponentRefAdapter() {
 		if (portComponentRefItemProvider == null) {
 			portComponentRefItemProvider = new PortComponentRefItemProvider(this);
@@ -135,6 +137,7 @@ public class Webservice_clientItemProviderAdapterFactory extends Webservice_clie
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createHandlerAdapter() {
 		if (handlerItemProvider == null) {
 			handlerItemProvider = new HandlerItemProvider(this);
@@ -158,6 +161,7 @@ public class Webservice_clientItemProviderAdapterFactory extends Webservice_clie
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createWebServicesClientAdapter() {
 		if (webServicesClientItemProvider == null) {
 			webServicesClientItemProvider = new WebServicesClientItemProvider(this);
@@ -181,6 +185,7 @@ public class Webservice_clientItemProviderAdapterFactory extends Webservice_clie
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter createComponentScopedRefsAdapter() {
 		if (componentScopedRefsItemProvider == null) {
 			componentScopedRefsItemProvider = new ComponentScopedRefsItemProvider(this);
@@ -214,6 +219,7 @@ public class Webservice_clientItemProviderAdapterFactory extends Webservice_clie
 	 * 
 	 * @generated
 	 */
+	@Override
 	public boolean isFactoryForType(Object type) {
 		return supportedTypes.contains(type) || super.isFactoryForType(type);
 	}
@@ -224,6 +230,7 @@ public class Webservice_clientItemProviderAdapterFactory extends Webservice_clie
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Adapter adapt(Notifier notifier, Object type) {
 		return super.adapt(notifier, this);
 	}
@@ -233,6 +240,7 @@ public class Webservice_clientItemProviderAdapterFactory extends Webservice_clie
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object adapt(Object object, Object type) {
 		if (isFactoryForType(type)) {
 			Object adapter = super.adapt(object, type);

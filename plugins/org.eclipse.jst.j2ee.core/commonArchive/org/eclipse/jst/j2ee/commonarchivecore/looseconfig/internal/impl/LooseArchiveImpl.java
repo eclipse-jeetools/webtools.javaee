@@ -81,6 +81,7 @@ public abstract class LooseArchiveImpl extends J2EEEObjectImpl implements LooseA
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return LooseconfigPackage.Literals.LOOSE_ARCHIVE;
 	}
@@ -190,6 +191,7 @@ public abstract class LooseArchiveImpl extends J2EEEObjectImpl implements LooseA
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case LooseconfigPackage.LOOSE_ARCHIVE__LOOSE_APP:
@@ -205,6 +207,7 @@ public abstract class LooseArchiveImpl extends J2EEEObjectImpl implements LooseA
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case LooseconfigPackage.LOOSE_ARCHIVE__LOOSE_APP:
@@ -218,6 +221,7 @@ public abstract class LooseArchiveImpl extends J2EEEObjectImpl implements LooseA
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case LooseconfigPackage.LOOSE_ARCHIVE__LOOSE_APP:
@@ -231,6 +235,7 @@ public abstract class LooseArchiveImpl extends J2EEEObjectImpl implements LooseA
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case LooseconfigPackage.LOOSE_ARCHIVE__URI:
@@ -250,6 +255,7 @@ public abstract class LooseArchiveImpl extends J2EEEObjectImpl implements LooseA
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case LooseconfigPackage.LOOSE_ARCHIVE__URI:
@@ -273,6 +279,7 @@ public abstract class LooseArchiveImpl extends J2EEEObjectImpl implements LooseA
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case LooseconfigPackage.LOOSE_ARCHIVE__URI:
@@ -296,6 +303,7 @@ public abstract class LooseArchiveImpl extends J2EEEObjectImpl implements LooseA
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case LooseconfigPackage.LOOSE_ARCHIVE__URI:
@@ -313,6 +321,7 @@ public abstract class LooseArchiveImpl extends J2EEEObjectImpl implements LooseA
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

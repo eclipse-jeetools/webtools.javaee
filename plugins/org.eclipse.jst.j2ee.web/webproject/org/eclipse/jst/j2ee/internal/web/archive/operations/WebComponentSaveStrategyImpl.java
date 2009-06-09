@@ -43,19 +43,23 @@ public class WebComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl 
 		return !shouldLinkAsComponentRef(archive);
 	}
 
+	@Override
 	protected boolean shouldAddImportedClassesToClasspath() {
 		return false; // never add to classpath because the web app container will pick this up.
 	}
 
+	@Override
 	protected String getImportedClassesURI(File aFile) {
 		String uri = aFile.getURI();
 		return WTProjectStrategyUtils.makeRelative(uri, ArchiveConstants.WEBAPP_CLASSES_URI);
 	}
 
+	@Override
 	protected IPath getImportedClassesRuntimePath() {
 		return new Path("/" + ArchiveConstants.WEBAPP_CLASSES_URI);
 	}
 
+	@Override
 	protected IPath getOutputPathForFile(File aFile) {
 		if (null != nonStandardSourceFiles && nonStandardSourceFiles.containsKey(aFile)) {
 			IVirtualFolder rootFolder = vComponent.getRootFolder();
@@ -72,6 +76,7 @@ public class WebComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl 
 	 */
 	protected Map nonStandardSourceFiles;
 
+	@Override
 	protected boolean isClassWithoutSource(File aFile) {
 		String javaUri = ArchiveUtil.classUriToJavaUri(aFile.getURI());
 		if (javaUri == null)

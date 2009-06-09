@@ -46,6 +46,7 @@ public class UserDataConstraintItemProvider extends WebapplicationItemProviderAd
 	/**
 	 * This returns user_data_constraint.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return WebPlugin.getDefault().getImage("user_data_constraint"); //$NON-NLS-1$
 	}
@@ -53,6 +54,7 @@ public class UserDataConstraintItemProvider extends WebapplicationItemProviderAd
 	/**
 	 * This returns the secConstraint of the UserDataConstraint.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((UserDataConstraint) object).getSecConstraint();
 	}
@@ -60,6 +62,7 @@ public class UserDataConstraintItemProvider extends WebapplicationItemProviderAd
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -120,6 +123,7 @@ public class UserDataConstraintItemProvider extends WebapplicationItemProviderAd
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		if (childrenReferences == null) {
 			super.getChildrenReferences(object);
@@ -129,6 +133,7 @@ public class UserDataConstraintItemProvider extends WebapplicationItemProviderAd
 	}
 
 
+	@Override
 	public String getText(Object object) {
 		return WebAppEditResourceHandler.getString("34concat_UI_", (new Object[]{((UserDataConstraint) object).getTransportGuarantee().getName()})); //$NON-NLS-1$ = "UserDataConstraint {0}"
 	}
@@ -139,6 +144,7 @@ public class UserDataConstraintItemProvider extends WebapplicationItemProviderAd
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(UserDataConstraint.class)) {
 			case WebapplicationPackage.USER_DATA_CONSTRAINT__DESCRIPTION :
@@ -158,6 +164,7 @@ public class UserDataConstraintItemProvider extends WebapplicationItemProviderAd
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -172,6 +179,7 @@ public class UserDataConstraintItemProvider extends WebapplicationItemProviderAd
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}
@@ -182,6 +190,7 @@ public class UserDataConstraintItemProvider extends WebapplicationItemProviderAd
 	 * to return the empty enumeration, and this to check that enumeration, but we know there can't
 	 * be any children, so this is faster.
 	 */
+	@Override
 	public boolean hasChildren(Object object) {
 		return false;
 	}

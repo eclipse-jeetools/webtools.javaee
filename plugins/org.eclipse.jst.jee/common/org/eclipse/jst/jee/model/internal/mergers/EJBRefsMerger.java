@@ -39,7 +39,8 @@ public class EJBRefsMerger extends BaseRefsMerger {
     /* (non-Javadoc)
      * @see org.eclipse.jst.javaee.ejb.model.mergers.common.ModelElementsMerger#process()
      */
-    public List process() throws ModelException {
+    @Override
+	public List process() throws ModelException {
         List warnings = new ArrayList();
         if (getToMergeElemets() == null || getToMergeElemets().isEmpty()){
           return warnings;
@@ -105,41 +106,7 @@ public class EJBRefsMerger extends BaseRefsMerger {
         return result;
     }
 
-    private static boolean isMatchingTargetBean(Object localRef,
-            Object annotatedRef) throws ModelException {
-        String localRefEJBLink = (localRef instanceof EjbRef) ? ((EjbRef)localRef).getEjbLink() : ((EjbLocalRef)localRef).getEjbLink();
-        if(localRefEJBLink == null){
-          return false;
-        }
-        String[] tokenizeEjbLink = tokenizeEjbLink(localRefEJBLink);
-        String localRefEJBName = null;
-        if (tokenizeEjbLink != null && tokenizeEjbLink.length>0){
-          localRefEJBName = tokenizeEjbLink[1];  
-        }
-
-        String annRefReferencingBean = annRefReferencingBean = (localRef instanceof EjbRef) ? ((EjbRef)localRef).getEjbLink() : ((EjbLocalRef)localRef).getEjbLink();
-         
-
-        
-        return localRefEJBName != null && annRefReferencingBean != null
-                && localRefEJBName.equals(annRefReferencingBean);
-    }
-
-    
-    private static String[] tokenizeEjbLink(String link) {
-        String[] result = new String[2];
-        
-        int index = link.indexOf('#');
-        if (index != -1) {
-            result[0] = link.substring(0,index);
-            result[1] = link.substring(index+1);
-        } else {
-            result[1] = link; 
-        }
-        return result;
-    }
-
-	@Override
+    @Override
 	protected void copyMissingPropertesInBase(Object base, Object toMerge) {
 	  if(base instanceof EjbRef){
 	    copyEjbRefPropsInBase((EjbRef)base, (EjbRef)toMerge);

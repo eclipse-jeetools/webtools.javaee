@@ -64,6 +64,7 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 		super(model);
 	}
 
+	@Override
 	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		if (monitor != null) {
 			monitor.beginTask("", 4);
@@ -88,6 +89,7 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 		}
 	}
 
+	@Override
 	protected String getArchiveName(IVirtualComponent comp) {
 		boolean useArchiveURI = true;
 		IFacetedProject facetedProject = null;
@@ -335,11 +337,13 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 		return (parent == null ? null : new SubProgressMonitor(parent, ticks));
 	}
 
+	@Override
 	public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Override
 	public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		// TODO Auto-generated method stub
 		return null;
@@ -354,6 +358,7 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 		return status;
 	}
 	
+	@Override
 	protected IStatus validateEdit() {
 		return validateEditEAR();
 	}

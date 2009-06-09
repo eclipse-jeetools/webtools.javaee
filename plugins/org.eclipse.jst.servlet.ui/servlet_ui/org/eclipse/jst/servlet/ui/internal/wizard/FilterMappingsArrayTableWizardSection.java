@@ -222,7 +222,8 @@ public class FilterMappingsArrayTableWizardSection extends Composite implements 
         viewer.setColumnProperties(new String[] {ICON_PROP, NAME_PROP, DISPATCHERS_PROP});
 		table.setHeaderVisible(true);
 		this.addControlListener(new ControlAdapter() {
-		    public void controlResized(ControlEvent e) {
+		    @Override
+			public void controlResized(ControlEvent e) {
 		        Table table = viewer.getTable();
 		        TableColumn[] columns = table.getColumns();
 		        Point buttonArea = buttonCompo.computeSize(SWT.DEFAULT, SWT.DEFAULT);

@@ -39,7 +39,9 @@ public class AppClientBinaryComponentHelper extends EnterpriseBinaryComponentHel
 		} catch (Exception e) {
 			return false;
 		} finally {
-			helper.dispose();
+			if(helper != null){
+				helper.dispose();
+			}
 		}
 	}
 
@@ -54,6 +56,7 @@ public class AppClientBinaryComponentHelper extends EnterpriseBinaryComponentHel
 			return instance;
 		}
 
+		@Override
 		public Archive createConvertedArchive() {
 			ReferenceCountedApplicationClientFileImpl archive = new ReferenceCountedApplicationClientFileImpl();
 			return archive;
@@ -70,6 +73,7 @@ public class AppClientBinaryComponentHelper extends EnterpriseBinaryComponentHel
 			}
 		}
 
+		@Override
 		public void close() {
 			helper.aboutToClose();
 			synchronized (this) {
@@ -97,6 +101,7 @@ public class AppClientBinaryComponentHelper extends EnterpriseBinaryComponentHel
 			this.helper = helper;
 		}
 		
+		@Override
 		protected LoadStrategy createLoadStrategyForReopen(Archive parent) throws IOException {
 			try {
 				return createBinaryLoadStrategy(getEnterpriseBinaryComponentHelper());
@@ -113,6 +118,7 @@ public class AppClientBinaryComponentHelper extends EnterpriseBinaryComponentHel
 		}
 	}
 
+	@Override
 	protected ArchiveTypeDiscriminator getDiscriminator() {
 		return Discriminator.getInstance();
 	}
@@ -122,6 +128,7 @@ public class AppClientBinaryComponentHelper extends EnterpriseBinaryComponentHel
 		super(component);
 	}
 
+	@Override
 	public EObject getPrimaryRootObject() {
 		return ((ApplicationClientFile) getArchive()).getDeploymentDescriptor();
 	}

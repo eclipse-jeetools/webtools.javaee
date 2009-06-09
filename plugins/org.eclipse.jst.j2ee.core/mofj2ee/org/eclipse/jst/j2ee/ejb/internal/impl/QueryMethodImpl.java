@@ -39,6 +39,7 @@ public class QueryMethodImpl extends MethodElementImpl implements QueryMethod {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return EjbPackage.Literals.QUERY_METHOD;
 	}
@@ -47,6 +48,7 @@ public class QueryMethodImpl extends MethodElementImpl implements QueryMethod {
  * For Query methods, their enterprise bean must be derived.
  * It is the Entity which contains the Query.
  */
+@Override
 public EnterpriseBean getEnterpriseBean() {
 	if (enterpriseBean == null) {
 		if (getQuery() != null)
@@ -104,6 +106,7 @@ protected void addMethodIfNotNull(List aList, Method aMethod) {
  * when the same method with the same signature exists on both the home and
  * local home.
  */
+@Override
 public Method[] getMethods() {
 	List result = new ArrayList(2);
 	if (getName().startsWith("ejbSelect")) { //$NON-NLS-1$
@@ -172,6 +175,7 @@ protected Method getSelectMethod() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EjbPackage.QUERY_METHOD__QUERY:
@@ -187,6 +191,7 @@ protected Method getSelectMethod() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EjbPackage.QUERY_METHOD__QUERY:
@@ -200,6 +205,7 @@ protected Method getSelectMethod() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case EjbPackage.QUERY_METHOD__QUERY:
@@ -213,6 +219,7 @@ protected Method getSelectMethod() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case EjbPackage.QUERY_METHOD__QUERY:
@@ -226,6 +233,7 @@ protected Method getSelectMethod() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EjbPackage.QUERY_METHOD__QUERY:
@@ -240,6 +248,7 @@ protected Method getSelectMethod() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case EjbPackage.QUERY_METHOD__QUERY:
@@ -254,6 +263,7 @@ protected Method getSelectMethod() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case EjbPackage.QUERY_METHOD__QUERY:
@@ -266,6 +276,7 @@ protected Method getSelectMethod() {
 	 * You should use getClientTypeJavaClasses to ensure you pick up both home interfaces
 	 * if they exist.
 	 */
+	@Override
 	public JavaClass getTypeJavaClass() {
 		JavaClass[] result = getClientTypeJavaClasses();
 		if (result != null && result.length > 0)

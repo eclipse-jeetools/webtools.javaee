@@ -29,6 +29,7 @@ public class EJBMethodCategoryImpl extends J2EEEObjectImpl implements EJBMethodC
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return EjbPackage.Literals.EJB_METHOD_CATEGORY;
 	}

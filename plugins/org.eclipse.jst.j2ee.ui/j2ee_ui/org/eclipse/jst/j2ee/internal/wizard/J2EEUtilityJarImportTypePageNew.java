@@ -60,7 +60,7 @@ import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPa
  */
 public class J2EEUtilityJarImportTypePageNew extends DataModelWizardPage {
 
-	protected static final String defBrowseButtonLabel = J2EEUIMessages.getResourceString(J2EEUIMessages.BROWSE_LABEL); //$NON-NLS-1$
+	protected static final String defBrowseButtonLabel = J2EEUIMessages.getResourceString(J2EEUIMessages.BROWSE_LABEL);
 
 	private static final int SIZING_TEXT_FIELD_WIDTH = 305;
 
@@ -127,6 +127,7 @@ public class J2EEUtilityJarImportTypePageNew extends DataModelWizardPage {
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#getValidationPropertyNames()
 	 */
+	@Override
 	protected String[] getValidationPropertyNames() {
 		return new String[]{IJ2EEUtilityJarListImportDataModelProperties.EAR_PROJECT_NAME, IJ2EEUtilityJarListImportDataModelProperties.PROJECT_ROOT};
 	}
@@ -136,6 +137,7 @@ public class J2EEUtilityJarImportTypePageNew extends DataModelWizardPage {
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.ui.wizard.WTPWizardPage#createTopLevelComposite(org.eclipse.swt.widgets.Composite)
 	 */
+	@Override
 	protected Composite createTopLevelComposite(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NULL);
 		GridLayout layout = new GridLayout(1, false);
@@ -260,6 +262,7 @@ public class J2EEUtilityJarImportTypePageNew extends DataModelWizardPage {
 		browseButton.setLayoutData(gd);
 		browseButton.addSelectionListener(new SelectionAdapter() {
 
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				handleRootProjectBrowseButtonPressed();
 			}
@@ -368,6 +371,7 @@ public class J2EEUtilityJarImportTypePageNew extends DataModelWizardPage {
 	 * 
 	 * @see org.eclipse.jface.wizard.WizardPage#isPageComplete()
 	 */
+	@Override
 	public boolean isPageComplete() {
 		return model.validateProperty(IJ2EEUtilityJarListImportDataModelProperties.EAR_PROJECT_NAME).isOK();
 	}

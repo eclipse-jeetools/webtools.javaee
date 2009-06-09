@@ -23,6 +23,7 @@ public class ATKUISOAPHeaderItemProvider extends SOAPHeaderItemProvider implemen
 	/**
 	 * This does the same thing as ITableLabelProvider.getColumnText.
 	 */
+	@Override
 	public String getColumnText(Object object, int columnIndex) {
 		SOAPHeader soapHeader = (SOAPHeader) object;
 		switch (columnIndex) {
@@ -42,6 +43,7 @@ public class ATKUISOAPHeaderItemProvider extends SOAPHeaderItemProvider implemen
 	/**
 	 * This does the same thing as ITableLabelProvider.getColumnImage.
 	 */
+	@Override
 	public Object getColumnImage(Object object, int columnIndex) {
 		return null;
 	}

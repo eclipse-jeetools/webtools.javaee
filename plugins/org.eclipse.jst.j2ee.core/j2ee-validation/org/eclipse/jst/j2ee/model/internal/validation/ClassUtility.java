@@ -125,6 +125,7 @@ public final class ClassUtility {
 		// IMethodType.
 		_classTypeIndex[count] = ITypeConstants.LOCAL_COMPONENT_INTERFACE;
 		_classNames[count++] = new AClassType() {
+			@Override
 			public String getName(EnterpriseBean bean) {
 				JavaHelpers clazz = getClass(bean);
 				if(clazz == null) {
@@ -133,10 +134,12 @@ public final class ClassUtility {
 				return clazz.getQualifiedName();
 			}
 			
+			@Override
 			public long getId() {
 				return ITypeConstants.LOCAL_COMPONENT_INTERFACE;
 			}
 			
+			@Override
 			public JavaHelpers getClass(EnterpriseBean bean) {
 				if(bean == null) {
 					return null;
@@ -159,6 +162,7 @@ public final class ClassUtility {
 		
 		_classTypeIndex[count] = ITypeConstants.REMOTE_COMPONENT_INTERFACE;
 		_classNames[count++] = new AClassType() {
+			@Override
 			public String getName(EnterpriseBean bean) {
 				JavaHelpers clazz = getClass(bean);
 				if(clazz == null) {
@@ -167,10 +171,12 @@ public final class ClassUtility {
 				return clazz.getQualifiedName();
 			}
 			
+			@Override
 			public long getId() {
 				return ITypeConstants.REMOTE_COMPONENT_INTERFACE;
 			}
 			
+			@Override
 			public JavaHelpers getClass(EnterpriseBean bean) {
 				if(bean == null) {
 					return null;
@@ -193,10 +199,12 @@ public final class ClassUtility {
 		
 		_classTypeIndex[count] = ITypeConstants.JAVAX_EJB_ENTITYBEAN;
 		_classNames[count++] = new AClassType() {
+			@Override
 			public String getName(EnterpriseBean bean) {
 				return ITypeConstants.CLASSNAME_JAVAX_EJB_ENTITYBEAN;
 			}
 			
+			@Override
 			public long getId() {
 				return ITypeConstants.JAVAX_EJB_ENTITYBEAN;
 			}
@@ -204,10 +212,12 @@ public final class ClassUtility {
 	
 		_classTypeIndex[count] = ITypeConstants.JAVAX_EJB_EJBLOCALHOME;
 		_classNames[count++] = new AClassType() {
+			@Override
 			public String getName(EnterpriseBean bean) {
 				return ITypeConstants.CLASSNAME_JAVAX_EJB_EJBLOCALHOME;
 			}
 			
+			@Override
 			public long getId() {
 				return ITypeConstants.JAVAX_EJB_EJBLOCALHOME;
 			}
@@ -215,10 +225,12 @@ public final class ClassUtility {
 
 		_classTypeIndex[count] = ITypeConstants.JAVAX_EJB_EJBLOCALOBJECT;
 		_classNames[count++] = new AClassType() {
+			@Override
 			public String getName(EnterpriseBean bean) {
 				return ITypeConstants.CLASSNAME_JAVAX_EJB_EJBLOCALOBJECT;
 			}
 			
+			@Override
 			public long getId() {
 				return ITypeConstants.JAVAX_EJB_EJBLOCALOBJECT;
 			}
@@ -226,10 +238,12 @@ public final class ClassUtility {
 
 		_classTypeIndex[count] = ITypeConstants.JAVAX_EJB_EJBHOME;
 		_classNames[count++] = new AClassType() {
+			@Override
 			public String getName(EnterpriseBean bean) {
 				return ITypeConstants.CLASSNAME_JAVAX_EJB_EJBHOME;
 			}
 			
+			@Override
 			public long getId() {
 				return ITypeConstants.JAVAX_EJB_EJBHOME;
 			}
@@ -237,10 +251,12 @@ public final class ClassUtility {
 
 		_classTypeIndex[count] = ITypeConstants.JAVAX_EJB_EJBOBJECT;
 		_classNames[count++] = new AClassType() {
+			@Override
 			public String getName(EnterpriseBean bean) {
 				return ITypeConstants.CLASSNAME_JAVAX_EJB_EJBOBJECT;
 			}
 			
+			@Override
 			public long getId() {
 				return ITypeConstants.JAVAX_EJB_EJBOBJECT;
 			}
@@ -248,10 +264,12 @@ public final class ClassUtility {
 
 		_classTypeIndex[count] = ITypeConstants.JAVA_LANG_OBJECT;
 		_classNames[count++] = new AClassType() {
+			@Override
 			public String getName(EnterpriseBean bean) {
 				return ITypeConstants.CLASSNAME_JAVA_LANG_OBJECT;
 			}
 			
+			@Override
 			public long getId() {
 				return ITypeConstants.JAVA_LANG_OBJECT;
 			}
@@ -259,10 +277,12 @@ public final class ClassUtility {
 
 		_classTypeIndex[count] = ITypeConstants.JAVAX_EJB_MESSAGEDRIVENBEAN;
 		_classNames[count++] = new AClassType() {
+			@Override
 			public String getName(EnterpriseBean bean) {
 				return ITypeConstants.CLASSNAME_JAVAX_EJB_MESSAGEDRIVENBEAN;
 			}
 			
+			@Override
 			public long getId() {
 				return ITypeConstants.JAVAX_EJB_MESSAGEDRIVENBEAN;
 			}
@@ -270,10 +290,12 @@ public final class ClassUtility {
 
 		_classTypeIndex[count] = ITypeConstants.JAVAX_JMS_MESSAGELISTENER;
 		_classNames[count++] = new AClassType() {
+			@Override
 			public String getName(EnterpriseBean bean) {
 				return ITypeConstants.CLASSNAME_JAVAX_JMS_MESSAGELISTENER;
 			}
 			
+			@Override
 			public long getId() {
 				return ITypeConstants.JAVAX_JMS_MESSAGELISTENER;
 			}
@@ -281,10 +303,12 @@ public final class ClassUtility {
 
 		_classTypeIndex[count] = ITypeConstants.JAVAX_EJB_SESSIONBEAN;
 		_classNames[count++] = new AClassType() {
+			@Override
 			public String getName(EnterpriseBean bean) {
 				return ITypeConstants.CLASSNAME_JAVAX_EJB_SESSIONBEAN;
 			}
 			
+			@Override
 			public long getId() {
 				return ITypeConstants.JAVAX_EJB_SESSIONBEAN;
 			}
@@ -292,10 +316,12 @@ public final class ClassUtility {
 
 		_classTypeIndex[count] = ITypeConstants.JAVAX_EJB_SESSIONSYNCHRONIZATION;
 		_classNames[count++] = new AClassType() {
+			@Override
 			public String getName(EnterpriseBean bean) {
 				return ITypeConstants.CLASSNAME_JAVAX_EJB_SESSIONSYNCHRONIZATION;
 			}
 			
+			@Override
 			public long getId() {
 				return ITypeConstants.JAVAX_EJB_SESSIONSYNCHRONIZATION;
 			}

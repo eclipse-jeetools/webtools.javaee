@@ -52,6 +52,7 @@ public class ElementNameItemProvider extends ItemProviderAdapter implements IEdi
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -92,6 +93,7 @@ public class ElementNameItemProvider extends ItemProviderAdapter implements IEdi
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return getResourceLocator().getImage("full/obj16/ElementName"); //$NON-NLS-1$
 	}
@@ -102,6 +104,7 @@ public class ElementNameItemProvider extends ItemProviderAdapter implements IEdi
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((ElementName) object).getId();
 		return label == null || label.length() == 0 ? getString("_UI_ElementName_type") : //$NON-NLS-1$
@@ -114,6 +117,7 @@ public class ElementNameItemProvider extends ItemProviderAdapter implements IEdi
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(ElementName.class)) {
 			case JaxrpcmapPackage.ELEMENT_NAME__ID :
@@ -132,6 +136,7 @@ public class ElementNameItemProvider extends ItemProviderAdapter implements IEdi
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -142,6 +147,7 @@ public class ElementNameItemProvider extends ItemProviderAdapter implements IEdi
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return Webservicej2eeEditPlugin.INSTANCE;
 	}

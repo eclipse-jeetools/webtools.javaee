@@ -44,6 +44,7 @@ public class ConnectorValidator extends J2EEValidator implements ConnectorMessag
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.model.validation.J2EEValidator#getBaseName()
 	 */
+	@Override
 	public String getBaseName() {
 		return "rarvalidation"; //$NON-NLS-1$
 	}
@@ -80,6 +81,7 @@ public class ConnectorValidator extends J2EEValidator implements ConnectorMessag
 	 * 
 	 * @throws ValidationException
 	 */
+	@Override
 	public void validate(IValidationContext inHelper, IReporter inReporter) throws ValidationException {
 		validateInJob(inHelper, inReporter);		
 	}	
@@ -105,6 +107,7 @@ public class ConnectorValidator extends J2EEValidator implements ConnectorMessag
 		return null;
 	}
 	
+	@Override
 	public IStatus validateInJob(IValidationContext helper, IReporter reporter) throws ValidationException{
 	
 		super.validateInJob(helper, reporter);
@@ -131,6 +134,7 @@ public class ConnectorValidator extends J2EEValidator implements ConnectorMessag
 		return status;		
 	}
 
+	@Override
 	public void cleanup(IReporter reporter) {
 		rarFile = null;
 		connectorDD = null;

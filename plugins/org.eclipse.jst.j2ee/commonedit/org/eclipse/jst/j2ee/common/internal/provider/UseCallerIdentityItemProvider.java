@@ -19,11 +19,6 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
-import org.eclipse.emf.edit.provider.IItemPropertySource;
-import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
-import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.jst.j2ee.common.UseCallerIdentity;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
@@ -31,7 +26,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 /**
  * This is the item provider adpater for a {@link com.ibm.etools.common.UseCallerIdentity}object.
  */
-public class UseCallerIdentityItemProvider extends SecurityIdentityItemProvider implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class UseCallerIdentityItemProvider extends SecurityIdentityItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 */
@@ -42,6 +37,7 @@ public class UseCallerIdentityItemProvider extends SecurityIdentityItemProvider 
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -52,6 +48,7 @@ public class UseCallerIdentityItemProvider extends SecurityIdentityItemProvider 
 	/**
 	 * This returns the parent of the UseCallerIdentity.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((EObject) object).eContainer();
 	}
@@ -59,10 +56,12 @@ public class UseCallerIdentityItemProvider extends SecurityIdentityItemProvider 
 	/**
 	 * This returns UseCallerIdentity.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return J2EEPlugin.getPlugin().getImage("security_identity_obj");//$NON-NLS-1$
 	}
 
+	@Override
 	public String getText(Object object) {
 		UseCallerIdentity useCallerIdentity = ((UseCallerIdentity) object);
 		return "UseCallerIdentity " + useCallerIdentity.getDescription(); //$NON-NLS-1$
@@ -74,6 +73,7 @@ public class UseCallerIdentityItemProvider extends SecurityIdentityItemProvider 
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		super.notifyChanged(notification);
 	}
@@ -85,6 +85,7 @@ public class UseCallerIdentityItemProvider extends SecurityIdentityItemProvider 
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -94,6 +95,7 @@ public class UseCallerIdentityItemProvider extends SecurityIdentityItemProvider 
 	 * end-user-doc -->
 	 *  
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}

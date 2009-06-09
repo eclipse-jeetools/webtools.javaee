@@ -36,10 +36,12 @@ public class WebProjectFirstPage extends J2EEComponentFacetCreationWizardPage {
 		setInfopopID(IWebUIContextIds.NEW_DYNAMIC_WEB_PROJECT_PAGE1);
 	}
 
+	@Override
 	protected String getModuleFacetID() {
 		return J2EEProjectUtilities.DYNAMIC_WEB;
 	}
 	
+	@Override
 	protected Set<IProjectFacetVersion> getFacetConfiguration( final IProjectFacetVersion primaryFacetVersion )
 	{
 	    final Set<IProjectFacetVersion> facets = new HashSet<IProjectFacetVersion>( 2 );

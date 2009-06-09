@@ -36,15 +36,18 @@ public class AppClient5ModelProvider extends JEE5ModelProvider {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.model.IModelProvider#getModelObject(org.eclipse.core.runtime.IPath)
 	 */
+	@Override
 	public Object getModelObject(IPath modelPath) {
 		IApplicationClientResource appRes = (IApplicationClientResource)getModelResource(modelPath);
 		if (appRes != null && appRes.getRootObject() != null) 
 			return appRes.getApplicationClient();
 		return null;
 	}
+	@Override
 	protected String getContentTypeDescriber() {
 		return APPCLIENT5_CONTENT_TYPE;
 	}
+	@Override
 	public void populateRoot(XMLResourceImpl res, String name) {
 		ApplicationClientDeploymentDescriptor dd = ApplicationclientFactory.eINSTANCE.createApplicationClientDeploymentDescriptor();
 		dd.getXMLNSPrefixMap().put("", J2EEConstants.JAVAEE_NS_URL);  //$NON-NLS-1$

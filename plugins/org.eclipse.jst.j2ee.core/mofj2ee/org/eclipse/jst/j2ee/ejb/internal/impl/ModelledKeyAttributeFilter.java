@@ -30,6 +30,7 @@ import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
 public class ModelledKeyAttributeFilter extends ContainerManagedEntityFilter {
 	private static ModelledKeyAttributeFilter singleton;
 
+	@Override
 	protected List filterNotcached(ContainerManagedEntity cmp) {
 		return getSourceAttributes(cmp);
 	}

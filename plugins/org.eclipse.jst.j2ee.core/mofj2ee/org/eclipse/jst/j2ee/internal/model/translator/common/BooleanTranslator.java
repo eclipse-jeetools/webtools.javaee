@@ -41,6 +41,7 @@ public class BooleanTranslator extends Translator {
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.Translator#convertStringToValue(java.lang.String, org.eclipse.emf.ecore.EObject)
 	 */
+	@Override
 	public Object convertStringToValue(String strValue, EObject owner) {
 		if (strValue == null)
 			return Boolean.FALSE;

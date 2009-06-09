@@ -22,11 +22,6 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.RemoveCommand;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
-import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
-import org.eclipse.emf.edit.provider.IItemPropertySource;
-import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
-import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.application.ApplicationFactory;
@@ -42,7 +37,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
  * This is the item provider adpater for a
  * {@link org.eclipse.jst.j2ee.internal.internal.application.Application}object.
  */
-public class ApplicationItemProvider extends CompatibilityDescriptionGroupItemProvider implements IEditingDomainItemProvider, IItemLabelProvider, IItemPropertySource, IStructuredItemContentProvider, ITreeItemContentProvider {
+public class ApplicationItemProvider extends CompatibilityDescriptionGroupItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 */
@@ -67,6 +62,7 @@ public class ApplicationItemProvider extends CompatibilityDescriptionGroupItemPr
 	 * This specifies how to implement {@link #getChildren}and {@link AddCommand}and
 	 * {@link RemoveCommand}support in {@link #createCommand}.
 	 */
+	@Override
 	public Collection getChildrenReferences(Object object) {
 		ApplicationPackage pkg = ApplicationPackage.eINSTANCE;
 		Collection result = new ArrayList();
@@ -80,6 +76,7 @@ public class ApplicationItemProvider extends CompatibilityDescriptionGroupItemPr
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected EReference getChildReference(Object object, Object child) {
 		// Check the type of the specified child object and return the proper feature to use for
 		// adding (see {@link AddCommand}) it as a child.
@@ -117,6 +114,7 @@ public class ApplicationItemProvider extends CompatibilityDescriptionGroupItemPr
 	/**
 	 * This returns Application.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		String key = null;
 		if (((Application) object).eResource() == null)
@@ -139,6 +137,7 @@ public class ApplicationItemProvider extends CompatibilityDescriptionGroupItemPr
 	/**
 	 * This returns the parent of the Application.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((EObject) object).eContainer();
 	}
@@ -155,6 +154,7 @@ public class ApplicationItemProvider extends CompatibilityDescriptionGroupItemPr
 					ApplicationPackage.eINSTANCE.getApplication_Version(), true, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE));
 	}
 
+	@Override
 	public String getText(Object object) {
 
 		String displayName = ((Application) object).getDisplayName();
@@ -167,6 +167,7 @@ public class ApplicationItemProvider extends CompatibilityDescriptionGroupItemPr
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(Application.class)) {
 			case ApplicationPackage.APPLICATION__VERSION :
@@ -186,6 +187,7 @@ public class ApplicationItemProvider extends CompatibilityDescriptionGroupItemPr
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
@@ -208,6 +210,7 @@ public class ApplicationItemProvider extends CompatibilityDescriptionGroupItemPr
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}

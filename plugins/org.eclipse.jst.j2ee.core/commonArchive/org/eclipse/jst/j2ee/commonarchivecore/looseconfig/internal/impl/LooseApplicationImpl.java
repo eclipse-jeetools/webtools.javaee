@@ -46,6 +46,7 @@ public class LooseApplicationImpl extends LooseArchiveImpl implements LooseAppli
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return LooseconfigPackage.Literals.LOOSE_APPLICATION;
 	}
@@ -65,6 +66,7 @@ public class LooseApplicationImpl extends LooseArchiveImpl implements LooseAppli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case LooseconfigPackage.LOOSE_APPLICATION__LOOSE_ARCHIVES:
@@ -78,6 +80,7 @@ public class LooseApplicationImpl extends LooseArchiveImpl implements LooseAppli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case LooseconfigPackage.LOOSE_APPLICATION__LOOSE_ARCHIVES:
@@ -91,6 +94,7 @@ public class LooseApplicationImpl extends LooseArchiveImpl implements LooseAppli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case LooseconfigPackage.LOOSE_APPLICATION__LOOSE_ARCHIVES:
@@ -104,6 +108,7 @@ public class LooseApplicationImpl extends LooseArchiveImpl implements LooseAppli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case LooseconfigPackage.LOOSE_APPLICATION__LOOSE_ARCHIVES:
@@ -119,6 +124,7 @@ public class LooseApplicationImpl extends LooseArchiveImpl implements LooseAppli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case LooseconfigPackage.LOOSE_APPLICATION__LOOSE_ARCHIVES:
@@ -133,6 +139,7 @@ public class LooseApplicationImpl extends LooseArchiveImpl implements LooseAppli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case LooseconfigPackage.LOOSE_APPLICATION__LOOSE_ARCHIVES:
@@ -141,6 +148,7 @@ public class LooseApplicationImpl extends LooseArchiveImpl implements LooseAppli
 		return super.eIsSet(featureID);
 	}
 
+	@Override
 	public boolean isEAR() {
 		return true;
 	}

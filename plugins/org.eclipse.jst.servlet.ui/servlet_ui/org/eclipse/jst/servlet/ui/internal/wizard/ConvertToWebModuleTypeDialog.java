@@ -45,6 +45,7 @@ public class ConvertToWebModuleTypeDialog extends Dialog {
 		super(parentShell);
 	}
 
+	@Override
 	protected Control createDialogArea(Composite parent) {
 		getShell().setText(fShellTitle);
 		
@@ -68,6 +69,7 @@ public class ConvertToWebModuleTypeDialog extends Dialog {
 		GridData gd= new GridData();
 		combo.setLayoutData(gd);
 		combo.addSelectionListener(new SelectionAdapter(){
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				fSelection= combo.getItem(combo.getSelectionIndex());
 			}

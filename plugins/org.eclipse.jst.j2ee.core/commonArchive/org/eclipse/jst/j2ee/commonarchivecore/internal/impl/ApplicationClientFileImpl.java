@@ -48,6 +48,7 @@ public class ApplicationClientFileImpl extends ModuleFileImpl implements Applica
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return CommonarchivePackage.Literals.APPLICATION_CLIENT_FILE;
 	}
@@ -73,6 +74,7 @@ public class ApplicationClientFileImpl extends ModuleFileImpl implements Applica
 	/**
 	 * @see com.ibm.etools.commonarchive.impl.ModuleFileImpl
 	 */
+	@Override
 	public java.lang.String getDeploymentDescriptorUri() {
 		return J2EEConstants.APP_CLIENT_DD_URI;
 	}
@@ -87,10 +89,12 @@ public class ApplicationClientFileImpl extends ModuleFileImpl implements Applica
 	/**
 	 * @see com.ibm.etools.commonarchive.File
 	 */
+	@Override
 	public boolean isApplicationClientFile() {
 		return true;
 	}
 
+	@Override
 	public boolean isDeploymentDescriptorSet() {
 		return deploymentDescriptor != null;
 	}
@@ -98,6 +102,7 @@ public class ApplicationClientFileImpl extends ModuleFileImpl implements Applica
 	/**
 	 * @see com.ibm.etools.commonarchive.impl.ModuleFileImpl
 	 */
+	@Override
 	public org.eclipse.emf.ecore.EObject makeDeploymentDescriptor(XMLResource resource) {
 		ApplicationClient aClient = ((ClientPackage) EPackage.Registry.INSTANCE.getEPackage(ClientPackage.eNS_URI)).getClientFactory().createApplicationClient();
 		resource.setID(aClient, J2EEConstants.APP_CLIENT_ID);
@@ -149,6 +154,7 @@ public class ApplicationClientFileImpl extends ModuleFileImpl implements Applica
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case CommonarchivePackage.APPLICATION_CLIENT_FILE__DEPLOYMENT_DESCRIPTOR:
@@ -163,6 +169,7 @@ public class ApplicationClientFileImpl extends ModuleFileImpl implements Applica
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case CommonarchivePackage.APPLICATION_CLIENT_FILE__DEPLOYMENT_DESCRIPTOR:
@@ -177,6 +184,7 @@ public class ApplicationClientFileImpl extends ModuleFileImpl implements Applica
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case CommonarchivePackage.APPLICATION_CLIENT_FILE__DEPLOYMENT_DESCRIPTOR:
@@ -191,6 +199,7 @@ public class ApplicationClientFileImpl extends ModuleFileImpl implements Applica
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case CommonarchivePackage.APPLICATION_CLIENT_FILE__DEPLOYMENT_DESCRIPTOR:

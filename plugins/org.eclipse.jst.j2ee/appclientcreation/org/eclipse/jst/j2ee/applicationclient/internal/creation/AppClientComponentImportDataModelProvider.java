@@ -38,14 +38,17 @@ public final class AppClientComponentImportDataModelProvider extends J2EECompone
 		super();
 	}
 
+	@Override
 	protected int getType() {
 		return XMLResource.APP_CLIENT_TYPE;
 	}
 
+	@Override
 	protected Archive openArchive(String uri) throws OpenFailureException {
 		return CommonarchiveFactory.eINSTANCE.openApplicationClientFile(getArchiveOptions(), uri);
 	}
 
+	@Override
 	protected void handleUnknownType(JavaEEQuickPeek jqp) {
 		jqp.setType(J2EEVersionConstants.APPLICATION_CLIENT_TYPE);
 		jqp.setVersion(J2EEVersionConstants.JEE_5_0_ID);
@@ -53,10 +56,12 @@ public final class AppClientComponentImportDataModelProvider extends J2EECompone
 	}
 
 	
+	@Override
 	public IDataModelOperation getDefaultOperation() {
 		return new AppClientComponentImportOperation(model);
 	}
 
+	@Override
 	protected IDataModel createJ2EEComponentCreationDataModel() {
 		IDataModel appClientDataModel = DataModelFactory.createDataModel(new AppClientFacetProjectCreationDataModelProvider());
 		FacetDataModelMap map = (FacetDataModelMap)appClientDataModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
@@ -65,6 +70,7 @@ public final class AppClientComponentImportDataModelProvider extends J2EECompone
 		return appClientDataModel;
 	}
 
+	@Override
 	public boolean propertySet(String propertyName, Object propertyValue) {
 		boolean set = super.propertySet(propertyName, propertyValue);
 		if (propertyName.equals(ARCHIVE_WRAPPER)) {
@@ -83,6 +89,7 @@ public final class AppClientComponentImportDataModelProvider extends J2EECompone
 		return set;
 	}
 
+	@Override
 	public void init() {
 		super.init();
 		IDataModel componentCreationDM = model.getNestedModel(NESTED_MODEL_J2EE_COMPONENT_CREATION);

@@ -191,11 +191,6 @@ public class ImportUtil {
 			IProject[] projects = root.getProjects();
 			String lowerCaseName = projectName.toLowerCase();
 			// iterate through all projects a compare lowercase names
-			if (projectName == null || projectName.length() == 0) {
-				if (projects.length == 1)
-					return projects[0].getName();
-				return null;
-			}
 			for (int i = 0; i < projects.length; i++) {
 				if (projects[i].exists()) {
 					if (WTPPlugin.isPlatformCaseSensitive()) {

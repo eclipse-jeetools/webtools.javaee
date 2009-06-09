@@ -36,10 +36,12 @@ public class AppClientComponentImportPage extends J2EEModuleImportPage {
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEImportPage#getFileImportLabel()
 	 */
+	@Override
 	protected String getFileImportLabel() {
 		return J2EEUIMessages.getResourceString(J2EEUIMessages.APP_CLIENT_IMPORT_FILE_LABEL);
 	}
 
+	@Override
 	protected String getFileNamesStoreID() {
 		return "APP_CLIENT"; //$NON-NLS-1$;
 	}
@@ -49,6 +51,7 @@ public class AppClientComponentImportPage extends J2EEModuleImportPage {
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEImportPage#getFilterExpression()
 	 */
+	@Override
 	protected String[] getFilterExpression() {
 		return new String[]{"*.jar"}; //$NON-NLS-1$
 	}
@@ -58,6 +61,7 @@ public class AppClientComponentImportPage extends J2EEModuleImportPage {
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.internal.ui.wizard.J2EEImportPage#getProjectImportLabel()
 	 */
+	@Override
 	protected String getProjectImportLabel() {
 		return J2EEUIMessages.getResourceString(J2EEUIMessages.APP_CLIENT_IMPORT_PROJECT_LABEL);
 	}
@@ -70,11 +74,13 @@ public class AppClientComponentImportPage extends J2EEModuleImportPage {
 	// return (AppClientModuleImportDataModel) model;
 	//	}
 
+	@Override
 	protected Composite createTopLevelComposite(Composite parent) {
 		setInfopopID(IJ2EEUIContextIds.IMPORT_APPCLIENT_WIZARD_P1);
 		return super.createTopLevelComposite(parent);
 	}
 	
+	@Override
 	protected String getModuleFacetID(){
 		return J2EEProjectUtilities.APPLICATION_CLIENT;
 	}

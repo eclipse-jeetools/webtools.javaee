@@ -62,6 +62,7 @@ public class ArchiveCopyUtility extends EtoolsCopyUtility {
 	 * End of code pulled from EtoolsCopyUtility to over-ride the primCopy method.
 	 */
 
+	@Override
 	protected void addDeferredSingleReferenceCopy(EReference reference, EObject aValue, String idSuffix, EObject aCopyContainer) {
 		if (((Defaultable) aValue).isDefault())
 			return;
@@ -128,6 +129,7 @@ public class ArchiveCopyUtility extends EtoolsCopyUtility {
 	 * EtoolsCopySession object with our own such that doictypes do get preserved with XML
 	 * Resources.
 	 */
+	@Override
 	public void copy(CopyGroup aGroup) {
 		if (aGroup != null) {
 			EtoolsCopySession session = new ArchiveCopySessionUtility(this);
@@ -137,6 +139,7 @@ public class ArchiveCopyUtility extends EtoolsCopyUtility {
 		}
 	}
 
+	@Override
 	public EObject copy(EObject aRefObject, String idSuffix) {
 		EtoolsCopySession session = new ArchiveCopySessionUtility(this);
 		EObject copied = session.copy(aRefObject, idSuffix);
@@ -144,6 +147,7 @@ public class ArchiveCopyUtility extends EtoolsCopyUtility {
 		return copied;
 	}
 
+	@Override
 	public Resource copy(Resource aResource, String newUri) {
 		EtoolsCopySession session = new ArchiveCopySessionUtility(this);
 		Resource copied = session.copy(aResource, newUri);
@@ -156,6 +160,7 @@ public class ArchiveCopyUtility extends EtoolsCopyUtility {
 			copy.setImportStrategy(aModuleFile.getImportStrategy().createImportStrategy(aModuleFile, copy));
 	}
 
+	@Override
 	public EObject copyObject(EObject aRefObject, String idSuffix) {
 		EtoolsCopySession session = new ArchiveCopySessionUtility(this);
 		EObject copied = session.copyObject(aRefObject, idSuffix);

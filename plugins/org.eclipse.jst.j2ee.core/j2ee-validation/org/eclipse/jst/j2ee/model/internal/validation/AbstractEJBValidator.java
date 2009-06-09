@@ -114,6 +114,7 @@ public abstract class AbstractEJBValidator extends J2EEValidator {
 	 *      org.eclipse.wst.validation.internal.core.core.IReporter,
 	 *      org.eclipse.wst.validation.internal.core.core.IFileDelta[])
 	 */
+	@Override
 	public void validate(IValidationContext helper, IReporter reporter) throws ValidationException {
 		//Default
 		super.validate(helper, reporter);
@@ -189,12 +190,14 @@ public abstract class AbstractEJBValidator extends J2EEValidator {
 			_target = t;
 		}
 		
+		@Override
 		public int hashCode() {
 			int parent = (getTargetParent() == null) ? 0 : getTargetParent().hashCode();
 			int target = (getTarget() == null) ? 0 : getTarget().hashCode();
 			return parent + target;
 		}
 		
+		@Override
 		public boolean equals(Object o) {
 			if(o == null) {
 				return false;
@@ -309,7 +312,8 @@ public abstract class AbstractEJBValidator extends J2EEValidator {
     		getTargetObjectPool().release(temp);
     	}
     }
-    public void cleanup(IReporter reporter) {
+    @Override
+	public void cleanup(IReporter reporter) {
     	if( _validated != null ){
 	    	Iterator iterator = _validated.keySet().iterator();
 	    	while(iterator.hasNext()) {

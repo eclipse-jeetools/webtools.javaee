@@ -41,7 +41,8 @@ public class PersistenceContextRefsMerger extends BaseRefsMerger {
     /* (non-Javadoc)
      * @see org.eclipse.jst.javaee.ejb.model.mergers.common.ModelElementsMerger#process()
      */
-    public List process() throws ModelException {
+    @Override
+	public List process() throws ModelException {
         List warnings = new ArrayList();
         for (Object oToMerge : getToMergeElemets()) {
 			PersistenceContextRef envEntry = (PersistenceContextRef) oToMerge;
@@ -102,7 +103,8 @@ public class PersistenceContextRefsMerger extends BaseRefsMerger {
     }
 
 
-    protected void copyMissingPropertesInBase(Object base, Object toMerge){
+    @Override
+	protected void copyMissingPropertesInBase(Object base, Object toMerge){
     	copyMissingPropertesInBase((PersistenceContextRef) base, (PersistenceContextRef) toMerge);
     }
     

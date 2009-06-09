@@ -48,6 +48,7 @@ public class EarModuleExtensionRegistry extends RegistryReader {
 	 * readElement() - parse and deal w/ an extension like: <earModuleExtension extensionClass =
 	 * "com.ibm.etools.web.plugin.WebModuleExtensionImpl"/>
 	 */
+	@Override
 	public boolean readElement(IConfigurationElement element) {
 		if (!element.getName().equals(ELEMENT_EARMODULE_EXTENSION))
 			return false;

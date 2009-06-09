@@ -69,6 +69,7 @@ public class EmptyTypeImpl extends EObjectImpl implements EmptyType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return JavaeePackage.Literals.EMPTY_TYPE;
 	}
@@ -99,6 +100,7 @@ public class EmptyTypeImpl extends EObjectImpl implements EmptyType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case JavaeePackage.EMPTY_TYPE__ID:
@@ -112,6 +114,7 @@ public class EmptyTypeImpl extends EObjectImpl implements EmptyType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case JavaeePackage.EMPTY_TYPE__ID:
@@ -126,6 +129,7 @@ public class EmptyTypeImpl extends EObjectImpl implements EmptyType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case JavaeePackage.EMPTY_TYPE__ID:
@@ -140,6 +144,7 @@ public class EmptyTypeImpl extends EObjectImpl implements EmptyType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case JavaeePackage.EMPTY_TYPE__ID:
@@ -153,6 +158,7 @@ public class EmptyTypeImpl extends EObjectImpl implements EmptyType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

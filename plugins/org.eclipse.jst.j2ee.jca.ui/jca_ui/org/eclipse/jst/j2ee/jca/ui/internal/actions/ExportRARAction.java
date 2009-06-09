@@ -45,6 +45,7 @@ public class ExportRARAction extends BaseAction {
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.common.actions.BaseAction#primRun(org.eclipse.swt.widgets.Shell)
 	 */
+	@Override
 	protected void primRun(Shell shell) {
 		ConnectorComponentExportWizard wizard = new ConnectorComponentExportWizard();
 		J2EEUIPlugin plugin = J2EEUIPlugin.getDefault();

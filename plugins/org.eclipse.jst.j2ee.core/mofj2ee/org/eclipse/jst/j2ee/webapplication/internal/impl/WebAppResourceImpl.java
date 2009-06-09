@@ -51,6 +51,7 @@ public class WebAppResourceImpl extends XMLResourceImpl implements WebAppResourc
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.j2eexml.XMLResourceImpl#getJ2EE_1_2_PublicID()
 	 */
+	@Override
 	public String getJ2EE_1_2_PublicID() {
 		return J2EEConstants.WEBAPP_PUBLICID_2_2;
 	}
@@ -58,10 +59,12 @@ public class WebAppResourceImpl extends XMLResourceImpl implements WebAppResourc
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.j2eexml.XMLResourceImpl#getJ2EE_1_2_SystemID()
 	 */
+	@Override
 	public String getJ2EE_1_2_SystemID() {
 		return J2EEConstants.WEBAPP_SYSTEMID_2_2;
 	}
 	
+	@Override
 	public String getJ2EE_Alt_1_2_SystemID() {
 		return J2EEConstants.WEBAPP_ALT_SYSTEMID_2_2;
 	}
@@ -69,6 +72,7 @@ public class WebAppResourceImpl extends XMLResourceImpl implements WebAppResourc
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.j2eexml.XMLResourceImpl#getJ2EE_1_3_PublicID()
 	 */
+	@Override
 	public String getJ2EE_1_3_PublicID() {
 		return J2EEConstants.WEBAPP_PUBLICID_2_3;
 	}
@@ -76,10 +80,12 @@ public class WebAppResourceImpl extends XMLResourceImpl implements WebAppResourc
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.j2eexml.XMLResourceImpl#getJ2EE_1_3_SystemID()
 	 */
+	@Override
 	public String getJ2EE_1_3_SystemID() {
 		return J2EEConstants.WEBAPP_SYSTEMID_2_3;
 	}
 
+	@Override
 	public String getJ2EE_Alt_1_3_SystemID() {
 		return J2EEConstants.WEBAPP_ALT_SYSTEMID_2_3;
 	}
@@ -135,6 +141,7 @@ public class WebAppResourceImpl extends XMLResourceImpl implements WebAppResourc
 	}
 	/* Return J2EE version based on module version
 	*/
+	@Override
 	public int getJ2EEVersionID() {
 		switch (getModuleVersionID()) {
 			case J2EEVersionConstants.WEB_2_2_ID :
@@ -150,6 +157,7 @@ public class WebAppResourceImpl extends XMLResourceImpl implements WebAppResourc
 	/* 
 	 * This directly sets the module version id
 	 */
+	@Override
 	public void setModuleVersionID(int id) {
 	super.setVersionID(id);
 	switch (id) {
@@ -168,6 +176,7 @@ public class WebAppResourceImpl extends XMLResourceImpl implements WebAppResourc
 	/*
 	 * Based on the J2EE version, this will set the module version
 	 */
+	@Override
 	public void setJ2EEVersionID(int id) {
 	switch (id) {
 		case (J2EE_1_4_ID) :
@@ -187,6 +196,7 @@ public class WebAppResourceImpl extends XMLResourceImpl implements WebAppResourc
 	/* (non-Javadoc)
 	 * @see com.ibm.etools.emf2xml.impl.TranslatorResourceImpl#getDefaultVersionID()
 	 */
+	@Override
 	protected int getDefaultVersionID() {
 		return WEB_2_4_ID;
 	}
@@ -194,6 +204,7 @@ public class WebAppResourceImpl extends XMLResourceImpl implements WebAppResourc
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.common.impl.XMLResourceImpl#syncVersionOfRootObject()
 	 */
+	@Override
 	protected void syncVersionOfRootObject() {
 		WebApp app = getWebApp();
 		if (app == null)

@@ -42,6 +42,7 @@ public abstract class J2EEComponentArchiveSaveAdapter extends ComponentArchiveSa
 		super(vComponent);
 	}
 
+	@Override
 	public void save(IProgressMonitor monitor) throws ArchiveSaveFailureException {
 		final int SUPER_TICKS = 1000;
 		final int LOCAL_TICKS = 10;
@@ -70,6 +71,7 @@ public abstract class J2EEComponentArchiveSaveAdapter extends ComponentArchiveSa
 		return false;
 	}
 
+	@Override
 	protected boolean shouldSave(IArchiveResource aFile) {
 		if (endsWithClassType(aFile.getPath().lastSegment())) {
 			boolean shouldSave = isClassWithoutSource(aFile);

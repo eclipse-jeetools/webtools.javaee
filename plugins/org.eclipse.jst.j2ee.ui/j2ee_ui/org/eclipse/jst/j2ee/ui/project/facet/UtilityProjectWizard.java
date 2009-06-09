@@ -43,24 +43,29 @@ public class UtilityProjectWizard extends NewProjectDataModelFacetWizard {
 		setWindowTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.JAVAUTIL_COMPONENT_WIZ_TITLE));
 	}
 
+	@Override
 	protected IDataModel createDataModel() {
 		return DataModelFactory.createDataModel(new UtilityProjectCreationDataModelProvider());
 	}
 
+	@Override
 	protected ImageDescriptor getDefaultPageImageDescriptor() {
-		final Bundle bundle = Platform.getBundle("org.eclipse.jst.j2ee.ui");
-		final URL url = bundle.getEntry("icons/util-wiz-banner.gif");
+		final Bundle bundle = Platform.getBundle("org.eclipse.jst.j2ee.ui"); //$NON-NLS-1$
+		final URL url = bundle.getEntry("icons/util-wiz-banner.gif"); //$NON-NLS-1$
 		return ImageDescriptor.createFromURL(url);
 	}
 
+	@Override
 	protected IFacetedProjectTemplate getTemplate() {
-		return ProjectFacetsManager.getTemplate("template.jst.utility");
+		return ProjectFacetsManager.getTemplate("template.jst.utility"); //$NON-NLS-1$
 	}
 
+	@Override
 	protected IWizardPage createFirstPage() {
 		return new UtilityProjectFirstPage(model, "first.page"); //$NON-NLS-1$ 
 	}
 	
+	@Override
 	protected String getFinalPerspectiveID() {
         return ProductManager.getProperty(IProductConstants.FINAL_PERSPECTIVE_UTILITY);
 	}

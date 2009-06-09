@@ -55,6 +55,7 @@ public void setType(String newType) {
  * and {@link JavaParameterDescriptor#getName()} methods are used
  * to build the result.
  */
+@Override
 public String toString() {
 	StringBuffer sb = new StringBuffer(100);
 	sb.append(getType());

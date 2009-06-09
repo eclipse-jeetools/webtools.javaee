@@ -25,6 +25,7 @@ public class EarCreateDeploymentFilesOperation extends
 		super(model);
 	}
 	
+	@Override
 	protected void createDeploymentFiles(IProject project, final IProgressMonitor monitor) {
 		final IVirtualComponent component = ComponentCore.createComponent(project);
 		final IModelProvider provider = ModelProviderManager.getModelProvider(project);

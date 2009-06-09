@@ -44,6 +44,7 @@ public abstract class ContainerImpl extends FileImpl implements Container {
 	 * Inner class which maintains the index for the domain's collection of nodes keyed by name.
 	 */
 	protected class FileNotificationAdapter extends AdapterImpl {
+		@Override
 		public boolean isAdapterForType(Object type) {
 			return (type == "FileNotificationAdapter");//$NON-NLS-1$
 		}
@@ -59,6 +60,7 @@ public abstract class ContainerImpl extends FileImpl implements Container {
 			notifier.eAdapters().remove(this);
 		}
 
+		@Override
 		public void notifyChanged(Notification notification) {
 			if (fileIndex == null || notification.getFeature() == null)
 				return;
@@ -170,6 +172,7 @@ public abstract class ContainerImpl extends FileImpl implements Container {
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return CommonarchivePackage.Literals.CONTAINER;
 	}
@@ -263,6 +266,7 @@ public abstract class ContainerImpl extends FileImpl implements Container {
 		return loadStrategy;
 	}
 
+	@Override
 	public boolean isContainer() {
 		return true;
 	}
@@ -317,6 +321,7 @@ public abstract class ContainerImpl extends FileImpl implements Container {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case CommonarchivePackage.CONTAINER__FILES:
@@ -330,6 +335,7 @@ public abstract class ContainerImpl extends FileImpl implements Container {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case CommonarchivePackage.CONTAINER__FILES:
@@ -343,6 +349,7 @@ public abstract class ContainerImpl extends FileImpl implements Container {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case CommonarchivePackage.CONTAINER__FILES:
@@ -356,6 +363,7 @@ public abstract class ContainerImpl extends FileImpl implements Container {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case CommonarchivePackage.CONTAINER__FILES:
@@ -371,6 +379,7 @@ public abstract class ContainerImpl extends FileImpl implements Container {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case CommonarchivePackage.CONTAINER__FILES:
@@ -385,6 +394,7 @@ public abstract class ContainerImpl extends FileImpl implements Container {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case CommonarchivePackage.CONTAINER__FILES:

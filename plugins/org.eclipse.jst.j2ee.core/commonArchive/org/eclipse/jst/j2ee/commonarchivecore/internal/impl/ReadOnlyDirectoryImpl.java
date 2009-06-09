@@ -33,6 +33,7 @@ public class ReadOnlyDirectoryImpl extends ContainerImpl implements ReadOnlyDire
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return CommonarchivePackage.Literals.READ_ONLY_DIRECTORY;
 	}
@@ -40,6 +41,7 @@ public class ReadOnlyDirectoryImpl extends ContainerImpl implements ReadOnlyDire
 	/**
 	 * @see com.ibm.etools.commonarchive.Archive
 	 */
+	@Override
 	public boolean containsFile(java.lang.String aUri) {
 		getFiles();
 		return getFileIndex().containsKey(aUri);
@@ -105,6 +107,7 @@ public class ReadOnlyDirectoryImpl extends ContainerImpl implements ReadOnlyDire
 	/**
 	 * isReadOnlyDirectory method comment.
 	 */
+	@Override
 	public boolean isReadOnlyDirectory() {
 		return true;
 	}

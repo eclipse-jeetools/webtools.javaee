@@ -149,7 +149,7 @@ public class AvailableJ2EEComponentsForEARContentProvider implements IStructured
 		} catch (IllegalArgumentException e) {
 			return true;
 		}
-		if ((p == null) && (p.segmentCount() == 0))
+		if ((p == null) || (p.segmentCount() == 0))
 			return true;	
 		IContainer f  = earComponent.getRootFolder().getUnderlyingFolder();
 		String rootFolderName = f.getProjectRelativePath().segment(0);
@@ -170,12 +170,13 @@ public class AvailableJ2EEComponentsForEARContentProvider implements IStructured
 		return false;
 	}
 	
-	private String stripSeparators(String dir) {
-		if (dir.startsWith(PATH_SEPARATOR)) 
-			dir = dir.substring(1);
-		if (dir.endsWith(PATH_SEPARATOR))  
-			dir = dir.substring(0, dir.length() - 1);
-		return dir;
+	private String stripSeparators(final String dir) {
+		String returnDir = dir;
+		if (returnDir.startsWith(PATH_SEPARATOR)) 
+			returnDir = returnDir.substring(1);
+		if (returnDir.endsWith(PATH_SEPARATOR))  
+			returnDir = returnDir.substring(0, returnDir.length() - 1);
+		return returnDir;
 	}	
 
 	public static void addClasspathComponentDependencies(final List componentList, final Map pathToComp, final IVirtualComponent referencedComponent) {
@@ -183,7 +184,6 @@ public class AvailableJ2EEComponentsForEARContentProvider implements IStructured
 			J2EEModuleVirtualComponent j2eeComp = (J2EEModuleVirtualComponent) referencedComponent;
 			IVirtualReference[] cpRefs = j2eeComp.getJavaClasspathReferences();
 			for (int j=0; j < cpRefs.length; j++) {
-				String unresolvedURI = null;
 				// only ../ mappings supported at this level
 				if (!cpRefs[j].getRuntimePath().equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH)) {
 					continue;
@@ -203,9 +203,8 @@ public class AvailableJ2EEComponentsForEARContentProvider implements IStructured
 						componentList.add(newComponent);
 					}
 					continue;
-				} else {
-					pathToComp.put(path, cpRefs[j].getReferencedComponent());
 				}
+				pathToComp.put(path, cpRefs[j].getReferencedComponent());
 				componentList.add(cpRefs[j].getReferencedComponent());
 			}
 		}
@@ -250,9 +249,8 @@ public class AvailableJ2EEComponentsForEARContentProvider implements IStructured
 		} else if (element instanceof IProject){
 			if (columnIndex != 2) {
 				return ((IProject)element).getName();
-			} else {
-				return ""; //$NON-NLS-1$
 			}
+			return ""; //$NON-NLS-1$
 		}		
 		return null;
 	}	

@@ -250,6 +250,7 @@ public class ArchiveUtil {
 		return new ZipFile(aFile, mode){
 			Collection <InputStream> openStreams = null;
 			
+			@Override
 			public InputStream getInputStream(ZipEntry entry) throws IOException {
 				InputStream in = super.getInputStream(entry);
 				if(in != null){
@@ -261,6 +262,7 @@ public class ArchiveUtil {
 				return in;
 			}
 			
+			@Override
 			public void close() throws IOException {
 				closeOpenStreams();
 				super.close();

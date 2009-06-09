@@ -48,6 +48,7 @@ public class SOAPHeaderItemProvider extends QNameItemProvider implements IEditin
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -62,6 +63,7 @@ public class SOAPHeaderItemProvider extends QNameItemProvider implements IEditin
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return getResourceLocator().getImage("full/obj16/SOAPHeader"); //$NON-NLS-1$
 	}
@@ -89,6 +91,7 @@ public class SOAPHeaderItemProvider extends QNameItemProvider implements IEditin
 	 * 
 	 * @non-generated
 	 */
+	@Override
 	public String getText(Object object) {
 		SOAPHeader soapHeader = (SOAPHeader) object;
 		String nsURI = soapHeader.getNamespaceURI();
@@ -108,6 +111,7 @@ public class SOAPHeaderItemProvider extends QNameItemProvider implements IEditin
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		super.notifyChanged(notification);
 	}
@@ -119,6 +123,7 @@ public class SOAPHeaderItemProvider extends QNameItemProvider implements IEditin
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}

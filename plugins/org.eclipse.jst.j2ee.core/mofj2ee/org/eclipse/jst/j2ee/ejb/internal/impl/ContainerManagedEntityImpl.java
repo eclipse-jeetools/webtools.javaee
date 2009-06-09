@@ -143,6 +143,7 @@ public class ContainerManagedEntityImpl extends EntityImpl implements ContainerM
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return EjbPackage.Literals.CONTAINER_MANAGED_ENTITY;
 	}
@@ -281,6 +282,7 @@ public int getCMPVersionID() throws IllegalStateException {
 /* (non-Javadoc)
  * @see org.eclipse.jst.j2ee.internal.ejb.EnterpriseBean#getVersionID()
  */
+@Override
 public int getVersionID() {
 	return getCMPVersionID();
 }protected List getAvailableRemoteQueryJavaMethods() {
@@ -350,6 +352,7 @@ public CMPAttribute getPrimaryKeyAttribute() {
 /**
  * isContainerManagedEntity method comment.
  */
+@Override
 public boolean isContainerManagedEntity() {
 	return true;
 }
@@ -386,12 +389,14 @@ public boolean isUnknownPrimaryKey() {
 /**
  * isVersion1_X method comment.
  */
+@Override
 public boolean isVersion1_X() {
 	return getVersion().equals(ContainerManagedEntity.VERSION_1_X);
 }
 /**
  * isVersion2_X method comment.
  */
+@Override
 public boolean isVersion2_X() {
 	return getVersion().equals(ContainerManagedEntity.VERSION_2_X);
 }
@@ -493,6 +498,7 @@ public CMPAttribute removePersistentAttribute(String aName) {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
@@ -618,6 +624,7 @@ public CMPAttribute removePersistentAttribute(String aName) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EjbPackage.CONTAINER_MANAGED_ENTITY__QUERIES:
@@ -631,6 +638,7 @@ public CMPAttribute removePersistentAttribute(String aName) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EjbPackage.CONTAINER_MANAGED_ENTITY__PERSISTENT_ATTRIBUTES:
@@ -646,6 +654,7 @@ public CMPAttribute removePersistentAttribute(String aName) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case EjbPackage.CONTAINER_MANAGED_ENTITY__VERSION:
@@ -672,6 +681,7 @@ public CMPAttribute removePersistentAttribute(String aName) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EjbPackage.CONTAINER_MANAGED_ENTITY__VERSION:
@@ -708,6 +718,7 @@ public CMPAttribute removePersistentAttribute(String aName) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case EjbPackage.CONTAINER_MANAGED_ENTITY__VERSION:
@@ -740,6 +751,7 @@ public CMPAttribute removePersistentAttribute(String aName) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case EjbPackage.CONTAINER_MANAGED_ENTITY__VERSION:

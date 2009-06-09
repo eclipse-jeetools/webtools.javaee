@@ -45,6 +45,7 @@ public abstract class J2EEComponentSaveStrategyImpl extends ComponentSaveStrateg
 		super(vComponent);
 	}
 
+	@Override
 	protected void saveFiles() throws SaveFailureException {
 		super.saveFiles();
 		linkImportedClassesFolderIfNecessary();
@@ -61,6 +62,7 @@ public abstract class J2EEComponentSaveStrategyImpl extends ComponentSaveStrateg
 		return false;
 	}
 
+	@Override
 	protected boolean shouldSave(File aFile) {
 		if (endsWithClassType(aFile.getURI())){
 			boolean shouldSave = isClassWithoutSource(aFile);
@@ -72,6 +74,7 @@ public abstract class J2EEComponentSaveStrategyImpl extends ComponentSaveStrateg
 		return super.shouldSave(aFile);
 	}
 
+	@Override
 	public void save(ArchiveManifest aManifest) throws SaveFailureException {
 		IVirtualFolder rootFolder = vComponent.getRootFolder();
 		IVirtualFile vFile = rootFolder.getFile(new Path(J2EEConstants.MANIFEST_URI));
@@ -133,6 +136,7 @@ public abstract class J2EEComponentSaveStrategyImpl extends ComponentSaveStrateg
 		return new Path("/");
 	}
 
+	@Override
 	protected IPath getOutputPathForFile(File aFile) {
 		if(endsWithClassType(aFile.getURI())){
 			return importedClassesFolder.getFile(getImportedClassesURI(aFile)).getProjectRelativePath();

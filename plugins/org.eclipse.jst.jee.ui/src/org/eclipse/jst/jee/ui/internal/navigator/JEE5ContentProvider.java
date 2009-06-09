@@ -206,6 +206,7 @@ public abstract class JEE5ContentProvider implements ITreeContentProvider, IRefr
 			} else {
 				/* Create and schedule a UI Job to update the Navigator Content Viewer */
 				Job job = new UIJob("Update the Navigator Content Viewer Job") { //$NON-NLS-1$
+					@Override
 					public IStatus runInUIThread(IProgressMonitor monitor) {
 						((AbstractTreeViewer) viewer).refresh(element, true);
 						return Status.OK_STATUS;

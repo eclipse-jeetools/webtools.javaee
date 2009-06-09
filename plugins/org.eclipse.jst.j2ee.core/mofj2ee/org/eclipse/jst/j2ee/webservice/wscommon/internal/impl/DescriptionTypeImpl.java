@@ -41,7 +41,8 @@ public class DescriptionTypeImpl extends DescriptionImpl implements DescriptionT
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  protected EClass eStaticClass() {
+  @Override
+protected EClass eStaticClass() {
 		return WscommonPackage.Literals.DESCRIPTION_TYPE;
 	}
 

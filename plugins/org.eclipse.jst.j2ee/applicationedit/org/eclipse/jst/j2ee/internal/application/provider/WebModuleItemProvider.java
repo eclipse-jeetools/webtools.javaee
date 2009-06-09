@@ -19,11 +19,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
-import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
-import org.eclipse.emf.edit.provider.IItemPropertySource;
-import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
-import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.application.WebModule;
@@ -34,7 +29,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
  * This is the item provider adpater for a
  * {@link org.eclipse.jst.j2ee.internal.internal.application.WebModule}object.
  */
-public class WebModuleItemProvider extends ModuleItemProvider implements IEditingDomainItemProvider, IItemLabelProvider, IItemPropertySource, IStructuredItemContentProvider, ITreeItemContentProvider {
+public class WebModuleItemProvider extends ModuleItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 */
@@ -45,6 +40,7 @@ public class WebModuleItemProvider extends ModuleItemProvider implements IEditin
 	/**
 	 * This returns WebModule.gif.
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return J2EEPlugin.getPlugin().getImage("module_web_obj"); //$NON-NLS-1$
 	}
@@ -55,6 +51,7 @@ public class WebModuleItemProvider extends ModuleItemProvider implements IEditin
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((WebModule) object).getUri();
 		return label == null || label.length() == 0 ? getString("_UI_WebModule_type") : //$NON-NLS-1$
@@ -67,6 +64,7 @@ public class WebModuleItemProvider extends ModuleItemProvider implements IEditin
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(WebModule.class)) {
 			case ApplicationPackage.WEB_MODULE__CONTEXT_ROOT : {
@@ -84,6 +82,7 @@ public class WebModuleItemProvider extends ModuleItemProvider implements IEditin
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -92,6 +91,7 @@ public class WebModuleItemProvider extends ModuleItemProvider implements IEditin
 	 * Return the resource locator for this item provider's resources. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return ApplicationProvidersResourceHandler.RESOURCE_LOCATOR;
 	}
@@ -99,6 +99,7 @@ public class WebModuleItemProvider extends ModuleItemProvider implements IEditin
 	/**
 	 * This returns the parent of the WebModule.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return ((EObject) object).eContainer();
 	}
@@ -106,6 +107,7 @@ public class WebModuleItemProvider extends ModuleItemProvider implements IEditin
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);

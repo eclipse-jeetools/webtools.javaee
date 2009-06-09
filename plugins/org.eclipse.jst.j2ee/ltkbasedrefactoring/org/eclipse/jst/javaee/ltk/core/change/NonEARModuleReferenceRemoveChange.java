@@ -108,6 +108,7 @@ public class NonEARModuleReferenceRemoveChange extends Change {
 		return null;
 	}
 	
+	@Override
 	public ChangeDescriptor getDescriptor() {
 		return null;
 	}

@@ -254,6 +254,7 @@ public class WebServiceViewerSynchronization implements WebServiceManagerListene
 			setSystem(true);
 		}
 
+		@Override
 		protected IStatus run(IProgressMonitor monitor) {
 			monitor.beginTask(WebServiceUIResourceHandler.WS_NAV_JOB1, 5);
 			
@@ -284,6 +285,7 @@ public class WebServiceViewerSynchronization implements WebServiceManagerListene
 			super(WebServiceUIResourceHandler.WS_NAV_JOB2);
 		}
 
+		@Override
 		public IStatus runInUIThread(IProgressMonitor monitor) {
 
 			TreeViewer viewer = contentProvider.getViewer();
@@ -301,6 +303,7 @@ public class WebServiceViewerSynchronization implements WebServiceManagerListene
 			super(WebServiceUIResourceHandler.WS_NAV_JOB3);
 		}
 
+		@Override
 		public IStatus runInUIThread(IProgressMonitor monitor) {
 			TreeViewer viewer = contentProvider.getViewer();
 
@@ -325,6 +328,7 @@ public class WebServiceViewerSynchronization implements WebServiceManagerListene
 			setSystem(true);
 		}
 
+		@Override
 		public IStatus runInUIThread(IProgressMonitor monitor) { 
 
 			monitor.beginTask(WebServiceUIResourceHandler.WS_NAV_JOB5, 4);

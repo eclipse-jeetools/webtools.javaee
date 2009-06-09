@@ -47,6 +47,7 @@ public class RoleNameTypeImpl extends J2EEEObjectImpl implements RoleNameType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return WebapplicationPackage.Literals.ROLE_NAME_TYPE;
 	}
@@ -73,6 +74,7 @@ public class RoleNameTypeImpl extends J2EEEObjectImpl implements RoleNameType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case WebapplicationPackage.ROLE_NAME_TYPE__ROLE_NAME:
@@ -86,6 +88,7 @@ public class RoleNameTypeImpl extends J2EEEObjectImpl implements RoleNameType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case WebapplicationPackage.ROLE_NAME_TYPE__ROLE_NAME:
@@ -100,6 +103,7 @@ public class RoleNameTypeImpl extends J2EEEObjectImpl implements RoleNameType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case WebapplicationPackage.ROLE_NAME_TYPE__ROLE_NAME:
@@ -114,6 +118,7 @@ public class RoleNameTypeImpl extends J2EEEObjectImpl implements RoleNameType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case WebapplicationPackage.ROLE_NAME_TYPE__ROLE_NAME:
@@ -125,6 +130,7 @@ public class RoleNameTypeImpl extends J2EEEObjectImpl implements RoleNameType {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

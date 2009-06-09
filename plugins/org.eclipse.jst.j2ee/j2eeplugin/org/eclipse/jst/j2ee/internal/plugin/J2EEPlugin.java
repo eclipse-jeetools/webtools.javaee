@@ -393,6 +393,7 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 		return null;
 	}
 
+	@Override
 	protected void initializeDefaultPluginPreferences() {
 		getJ2EEPreferences().initializeDefaultPreferences();
 	}
@@ -499,6 +500,7 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 	}
 
 
+	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 				
@@ -531,6 +533,7 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(CleanBuildCacheCleanerListener.INSTANCE, IResourceChangeEvent.PRE_BUILD);
 	}
 	
+	@Override
 	public void stop(BundleContext context) throws Exception {
 		super.stop(context);
 		ResourcesPlugin.getWorkspace().removeResourceChangeListener(J2EEComponentClasspathUpdater.getInstance());
@@ -592,6 +595,7 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 		};
 	}
 
+	@Override
 	public String getPluginID() {
 		return PLUGIN_ID;
 	}

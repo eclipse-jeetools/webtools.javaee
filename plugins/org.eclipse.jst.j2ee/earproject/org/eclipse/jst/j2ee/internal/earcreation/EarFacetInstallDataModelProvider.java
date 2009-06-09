@@ -28,6 +28,7 @@ import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 
 public class EarFacetInstallDataModelProvider extends J2EEFacetInstallDataModelProvider implements IEarFacetInstallDataModelProperties {
 
+	@Override
 	public Set getPropertyNames() {
 		Set names = super.getPropertyNames();
 		names.add(CONTENT_DIR);
@@ -36,6 +37,7 @@ public class EarFacetInstallDataModelProvider extends J2EEFacetInstallDataModelP
 		return names;
 	}
 
+	@Override
 	public Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(FACET_ID)) {
 			return ENTERPRISE_APPLICATION;
@@ -53,6 +55,7 @@ public class EarFacetInstallDataModelProvider extends J2EEFacetInstallDataModelP
 		return super.getDefaultProperty(propertyName);
 	}
 
+	@Override
 	public IStatus validate(String name) {
 		if (name.equals(J2EE_PROJECTS_LIST)) {
 			return validateTargetComponentVersion((List) model.getProperty(J2EE_PROJECTS_LIST));
@@ -77,6 +80,7 @@ public class EarFacetInstallDataModelProvider extends J2EEFacetInstallDataModelP
 		return OK_STATUS;
 	}
 
+	@Override
 	protected int convertFacetVersionToJ2EEVersion(IProjectFacetVersion version) {
 		return J2EEVersionUtil.convertVersionStringToInt(version.getVersionString());
 	}

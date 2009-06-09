@@ -50,6 +50,7 @@ public class WSDLServiceNameItemProvider extends QNameItemProvider implements IE
 	 * 
 	 * @generated
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -64,6 +65,7 @@ public class WSDLServiceNameItemProvider extends QNameItemProvider implements IE
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return getResourceLocator().getImage("full/obj16/WSDLServiceName"); //$NON-NLS-1$
 	}
@@ -74,6 +76,7 @@ public class WSDLServiceNameItemProvider extends QNameItemProvider implements IE
 	 * 
 	 * @generated
 	 */
+	@Override
 	public String getText(Object object) {
 		String label = ((WSDLServiceName) object).getCombinedQName();
 		return label == null || label.length() == 0 ? getString("_UI_WSDLServiceName_type") : //$NON-NLS-1$
@@ -86,6 +89,7 @@ public class WSDLServiceNameItemProvider extends QNameItemProvider implements IE
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		super.notifyChanged(notification);
 	}
@@ -97,6 +101,7 @@ public class WSDLServiceNameItemProvider extends QNameItemProvider implements IE
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -107,6 +112,7 @@ public class WSDLServiceNameItemProvider extends QNameItemProvider implements IE
 	 * 
 	 * @generated
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return Webservicej2eeEditPlugin.INSTANCE;
 	}

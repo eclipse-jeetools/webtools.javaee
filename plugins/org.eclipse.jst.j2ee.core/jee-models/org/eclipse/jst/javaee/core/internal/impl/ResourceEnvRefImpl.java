@@ -166,6 +166,7 @@ public class ResourceEnvRefImpl extends EObjectImpl implements ResourceEnvRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return JavaeePackage.Literals.RESOURCE_ENV_REF;
 	}
@@ -283,6 +284,7 @@ public class ResourceEnvRefImpl extends EObjectImpl implements ResourceEnvRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case JavaeePackage.RESOURCE_ENV_REF__DESCRIPTIONS:
@@ -298,6 +300,7 @@ public class ResourceEnvRefImpl extends EObjectImpl implements ResourceEnvRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case JavaeePackage.RESOURCE_ENV_REF__DESCRIPTIONS:
@@ -321,6 +324,7 @@ public class ResourceEnvRefImpl extends EObjectImpl implements ResourceEnvRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case JavaeePackage.RESOURCE_ENV_REF__DESCRIPTIONS:
@@ -352,6 +356,7 @@ public class ResourceEnvRefImpl extends EObjectImpl implements ResourceEnvRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case JavaeePackage.RESOURCE_ENV_REF__DESCRIPTIONS:
@@ -381,6 +386,7 @@ public class ResourceEnvRefImpl extends EObjectImpl implements ResourceEnvRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case JavaeePackage.RESOURCE_ENV_REF__DESCRIPTIONS:
@@ -404,6 +410,7 @@ public class ResourceEnvRefImpl extends EObjectImpl implements ResourceEnvRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

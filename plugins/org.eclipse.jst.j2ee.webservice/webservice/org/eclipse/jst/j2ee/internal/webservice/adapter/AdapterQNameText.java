@@ -38,6 +38,7 @@ public class AdapterQNameText extends AdapterText {
 		super(anArtifactEdit, eObject, feature, text, nillable);
 	}
 
+	@Override
 	public void modifyText(ModifyEvent e) {
 		if (syncTextAndModel()) {
 			//Handle QName_NamespaceURI feature in a special way.

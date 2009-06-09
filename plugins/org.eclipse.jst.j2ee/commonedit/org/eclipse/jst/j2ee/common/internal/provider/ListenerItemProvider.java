@@ -42,6 +42,7 @@ public class ListenerItemProvider extends CommonItemProviderAdapter implements I
 	/**
 	 * This returns Listener.gif
 	 */
+	@Override
 	public Object getImage(Object object) {
 		return J2EEPlugin.getPlugin().getImage("listener");//$NON-NLS-1$
 	}
@@ -49,6 +50,7 @@ public class ListenerItemProvider extends CommonItemProviderAdapter implements I
 	/**
 	 * This returns the webApp of the Listener.
 	 */
+	@Override
 	public Object getParent(Object object) {
 		return WebapplicationPackage.eINSTANCE.getWebApp();
 	}
@@ -56,6 +58,7 @@ public class ListenerItemProvider extends CommonItemProviderAdapter implements I
 	/**
 	 * This returns the property descriptors for the adapted class.
 	 */
+	@Override
 	public List getPropertyDescriptors(Object object) {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
@@ -82,6 +85,7 @@ public class ListenerItemProvider extends CommonItemProviderAdapter implements I
 	}
 
 
+	@Override
 	public String getText(Object object) {
 		Listener listener = (Listener) object;
 		String name = listener.getListenerClassName();
@@ -96,6 +100,7 @@ public class ListenerItemProvider extends CommonItemProviderAdapter implements I
 	 * 
 	 * @generated
 	 */
+	@Override
 	public void notifyChanged(Notification notification) {
 		super.notifyChanged(notification);
 	}
@@ -107,6 +112,7 @@ public class ListenerItemProvider extends CommonItemProviderAdapter implements I
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
@@ -116,6 +122,7 @@ public class ListenerItemProvider extends CommonItemProviderAdapter implements I
 	 * end-user-doc -->
 	 *  
 	 */
+	@Override
 	public ResourceLocator getResourceLocator() {
 		return J2EEPlugin.getDefault();
 	}

@@ -44,6 +44,7 @@ public class ImportRARAction extends BaseAction {
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.common.actions.BaseAction#primRun(org.eclipse.swt.widgets.Shell)
 	 */
+	@Override
 	protected void primRun(Shell shell) {
 
 		ConnectorComponentImportWizard wizard = new ConnectorComponentImportWizard();

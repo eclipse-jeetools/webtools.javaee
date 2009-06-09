@@ -36,6 +36,7 @@ public class RemoveComponentFromEnterpriseApplicationOperation extends RemoveRef
 		super(model);
 	}
 
+	@Override
 	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		try {
 			J2EEComponentClasspathUpdater.getInstance().pauseUpdates();

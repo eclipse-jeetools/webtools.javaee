@@ -52,6 +52,7 @@ public class EARComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter 
 		super(vComponent, includeClasspathComponents);
 	}
 
+	@Override
 	public List<IArchiveResource> getArchiveResources() {
 		aggregateSourceFiles();
 		addModulesAndUtilities();
@@ -64,6 +65,7 @@ public class EARComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter 
 		return files;
 	}
 
+	@Override
 	public InputStream getInputStream(IArchiveResource archiveResource) throws IOException, FileNotFoundException {
 		if (binaryResourcesToDiskFiles.containsKey(archiveResource)) {
 			java.io.File diskFile = binaryResourcesToDiskFiles.get(archiveResource);

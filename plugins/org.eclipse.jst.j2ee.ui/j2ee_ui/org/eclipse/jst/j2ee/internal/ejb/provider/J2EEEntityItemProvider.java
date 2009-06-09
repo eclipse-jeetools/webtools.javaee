@@ -34,6 +34,7 @@ public class J2EEEntityItemProvider extends EntityItemProvider {
 		super(adapterFactory);
 	}
 
+	@Override
 	public Collection getChildren(Object object) {
 		List result = new ArrayList();
 		result.addAll(super.getChildrenSuper(object));

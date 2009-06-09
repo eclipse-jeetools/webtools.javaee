@@ -68,14 +68,17 @@ public class J2EECopyFromClipboardCommand extends AbstractCommand {
 		copyUtil = null;
 	}
 
+	@Override
 	public Collection getAffectedObjects() {
 		return result;
 	}
 
+	@Override
 	public Collection getResult() {
 		return result;
 	}
 
+	@Override
 	protected boolean prepare() {
 		return true;
 	}
@@ -90,6 +93,7 @@ public class J2EECopyFromClipboardCommand extends AbstractCommand {
 		execute();
 	}
 
+	@Override
 	public void undo() {
 		result = null;
 	}

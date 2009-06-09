@@ -32,6 +32,7 @@ public class J2EEPasteFromClipboardOverrideCommand extends PasteFromClipboardCom
 		super(p.getDomain(), p.getOwner(), p.getFeature(), p.getIndex(), false);
 	}
 
+	@Override
 	public void doExecute() {
 		super.doExecute();
 		executeAddBindings();
@@ -44,14 +45,17 @@ public class J2EEPasteFromClipboardOverrideCommand extends PasteFromClipboardCom
 		}
 	}
 
+	@Override
 	public Collection doGetAffectedObjects() {
 		return copyCommand.getAffectedObjects();
 	}
 
+	@Override
 	public Collection doGetResult() {
 		return copyCommand.getResult();
 	}
 
+	@Override
 	public void doRedo() {
 		super.doRedo();
 		if (addBindingsCommand != null)
@@ -60,6 +64,7 @@ public class J2EEPasteFromClipboardOverrideCommand extends PasteFromClipboardCom
 			addExtensionsCommand.redo();
 	}
 
+	@Override
 	public void doUndo() {
 		super.doUndo();
 		if (addBindingsCommand != null)
@@ -86,6 +91,7 @@ public class J2EEPasteFromClipboardOverrideCommand extends PasteFromClipboardCom
 		return (J2EEClipboard) domain.getClipboard();
 	}
 
+	@Override
 	protected boolean prepare() {
 		if (getJ2EEClipboard() == null)
 			return false;
@@ -95,6 +101,7 @@ public class J2EEPasteFromClipboardOverrideCommand extends PasteFromClipboardCom
 		command.append(copyCommand);
 
 		command.append(new CommandWrapper() {
+			@Override
 			protected Command createCommand() {
 				Command addCommand = AddCommand.create(getDomain(), getOwner(), getFeature(), copyCommand.getResult(), getIndex());
 				return addCommand;

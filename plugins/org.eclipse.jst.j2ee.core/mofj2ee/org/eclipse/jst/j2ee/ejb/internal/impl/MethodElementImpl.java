@@ -284,6 +284,7 @@ public class MethodElementImpl extends J2EEEObjectImpl implements MethodElement 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return EjbPackage.Literals.METHOD_ELEMENT;
 	}
@@ -677,6 +678,7 @@ protected boolean parmsEqual(MethodElement me) {
 					class MyTypeNameRequestor extends TypeNameRequestor {
 						boolean isNested = false;
 
+						@Override
 						public void acceptType(int modifiers, char[] packageName, char[] simpleTypeName, char[][] enclosingTypeNames, String path) {
 							isNested = true;
 						}
@@ -960,6 +962,7 @@ public boolean uniquelyIdentifies(Method aMethod) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EjbPackage.METHOD_ELEMENT__DESCRIPTIONS:
@@ -973,6 +976,7 @@ public boolean uniquelyIdentifies(Method aMethod) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case EjbPackage.METHOD_ELEMENT__NAME:
@@ -997,6 +1001,7 @@ public boolean uniquelyIdentifies(Method aMethod) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EjbPackage.METHOD_ELEMENT__NAME:
@@ -1027,6 +1032,7 @@ public boolean uniquelyIdentifies(Method aMethod) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case EjbPackage.METHOD_ELEMENT__NAME:
@@ -1056,6 +1062,7 @@ public boolean uniquelyIdentifies(Method aMethod) {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case EjbPackage.METHOD_ELEMENT__NAME:
@@ -1077,6 +1084,7 @@ public boolean uniquelyIdentifies(Method aMethod) {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 

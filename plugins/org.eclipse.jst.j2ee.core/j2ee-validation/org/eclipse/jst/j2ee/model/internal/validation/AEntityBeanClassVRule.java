@@ -25,6 +25,7 @@ import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 public abstract class AEntityBeanClassVRule extends ABeanClassVRule {
 	private static final String missingMethodTemplate = "{0}({1})"; //$NON-NLS-1$
 	
+	@Override
 	public void validateEjbCreateMethod(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz, Method method, List[] methodsExtendedList) throws ValidationCancelledException, ValidationCancelledException, InvalidInputException, ValidationException {
 		super.validateEjbCreateMethod(vc, bean, clazz, method, methodsExtendedList);
 		

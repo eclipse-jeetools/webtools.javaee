@@ -83,6 +83,7 @@ public final class CMPRemoteComponentVRule extends AComponentVRule implements IR
 		return MESSAGE_IDS;
 	}
 	
+	@Override
 	public final int getMessageRemoteExceptionSeverity() {
 		return MESSAGE_REMOTE_EXCEPTION_SEVERITY;
 	}
@@ -95,6 +96,7 @@ public final class CMPRemoteComponentVRule extends AComponentVRule implements IR
 		return ID;
 	}
 
+	@Override
 	public final long[] getBaseTypes() {
 		return getSupertypes();
 	}
@@ -124,6 +126,7 @@ public final class CMPRemoteComponentVRule extends AComponentVRule implements IR
 		return KNOWN_METHOD_TYPES;
 	}
 
+	@Override
 	public void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws ValidationCancelledException, InvalidInputException, ValidationException {
 		super.validate(vc, bean, clazz);
 		

@@ -19,6 +19,7 @@ public class ApplicationViewerSorter extends J2EEViewerSorter {
 		super();
 	}
 	
+	@Override
 	public int compare(Viewer viewer, Object e1, Object e2) {
 		if(e1 instanceof J2EEBinaryModulesItemProvider){
 			return 1;

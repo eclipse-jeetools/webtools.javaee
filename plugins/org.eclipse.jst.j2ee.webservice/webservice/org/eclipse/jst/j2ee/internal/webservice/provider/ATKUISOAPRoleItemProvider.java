@@ -21,6 +21,7 @@ public class ATKUISOAPRoleItemProvider extends SOAPRoleItemProvider implements I
 	/**
 	 * This does the same thing as ITableLabelProvider.getColumnText.
 	 */
+	@Override
 	public String getColumnText(Object object, int columnIndex) {
 		SOAPRole soapRole = (SOAPRole) object;
 		return toDisplayString(soapRole.getSoapRole());
@@ -29,6 +30,7 @@ public class ATKUISOAPRoleItemProvider extends SOAPRoleItemProvider implements I
 	/**
 	 * This does the same thing as ITableLabelProvider.getColumnImage.
 	 */
+	@Override
 	public Object getColumnImage(Object object, int columnIndex) {
 		return null;
 	}

@@ -57,14 +57,17 @@ public class J2EECopyCommand extends AbstractCommand {
 			result.addExtension(copy, copyUtil.getCopy(extensionToCopy));
 	}
 
+	@Override
 	public Collection getAffectedObjects() {
 		return result;
 	}
 
+	@Override
 	public Collection getResult() {
 		return result;
 	}
 
+	@Override
 	protected boolean prepare() {
 		return true;
 	}

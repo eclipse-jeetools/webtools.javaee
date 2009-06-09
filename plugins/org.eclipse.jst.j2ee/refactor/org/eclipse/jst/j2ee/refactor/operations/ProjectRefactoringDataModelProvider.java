@@ -26,6 +26,7 @@ public abstract class ProjectRefactoringDataModelProvider extends
 	/* (non-Javadoc)
 	 * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider#getPropertyNames()
 	 */
+	@Override
 	public Set getPropertyNames() {
 		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(PROJECT_METADATA);
@@ -35,6 +36,7 @@ public abstract class ProjectRefactoringDataModelProvider extends
 	/* (non-Javadoc)
 	 * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider#validate(java.lang.String)
 	 */
+	@Override
 	public IStatus validate(String propertyName) {
 		Iterator i = getPropertyNames().iterator();
 		boolean valid = false;

@@ -58,6 +58,7 @@ public final class WebComponentImportWizard extends J2EEComponentImportWizard {
 	 * Adds an {@link WARImportPage} as the main wizard page ({@link #MAIN_PG}).
 	 * </p>
 	 */
+	@Override
 	public void doAddPages() {
 		addPage(new WebComponentImportPage(getDataModel(), MAIN_PG));
 		addPage(new WebComponentImportWebLibsPage(getDataModel(), WEB_LIBS_PG));
@@ -70,12 +71,14 @@ public final class WebComponentImportWizard extends J2EEComponentImportWizard {
 	 * Sets up the dialog window title and default wizard page image.
 	 * </p>
 	 */
+	@Override
 	public final void doInit() {
 		setWindowTitle(J2EEUIMessages.getResourceString(J2EEUIMessages.IMPORT_WIZ_TITLE));
 		setDefaultPageImageDescriptor(J2EEUIPlugin.getDefault().getImageDescriptor(J2EEUIPluginIcons.WEB_IMPORT_WIZARD_BANNER));
 		// updateEARToModelFromSelection(getSpecificDataModel());
 	}
 
+	@Override
 	protected String[] getModuleValidatorStrings() {
 		return new String[]{"org.eclipse.jst.j2ee.internal.web.validation.UIWarValidator"}; //$NON-NLS-1$
 	}
@@ -88,10 +91,12 @@ public final class WebComponentImportWizard extends J2EEComponentImportWizard {
 	// return getDataModel().getStringProperty(ComponentCreationDataModel.FINAL_PERSPECTIVE);
 	// }
 
+	@Override
 	protected IDataModelProvider getDefaultProvider() {
 		return new WebComponentImportDataModelProvider();
 	}
 
+	@Override
 	protected String getFinalPerspectiveID() {
         return ProductManager.getProperty(IProductConstants.FINAL_PERSPECTIVE_WEB);
 	}

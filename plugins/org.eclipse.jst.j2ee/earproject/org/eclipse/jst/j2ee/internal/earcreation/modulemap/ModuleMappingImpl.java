@@ -64,6 +64,7 @@ public class ModuleMappingImpl extends EObjectImpl implements ModuleMapping {
 	 * 
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return ModulemapPackage.eINSTANCE.getModuleMapping();
 	}
@@ -124,6 +125,7 @@ public class ModuleMappingImpl extends EObjectImpl implements ModuleMapping {
 	 * 
 	 * @generated
 	 */
+	@Override
 	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
 		switch (eDerivedStructuralFeatureID(eFeature.getFeatureID(), eFeature.getContainerClass())) {
 			case ModulemapPackage.MODULE_MAPPING__PROJECT_NAME :
@@ -139,6 +141,7 @@ public class ModuleMappingImpl extends EObjectImpl implements ModuleMapping {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public boolean eIsSet(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature.getFeatureID(), eFeature.getContainerClass())) {
 			case ModulemapPackage.MODULE_MAPPING__PROJECT_NAME :
@@ -152,6 +155,7 @@ public class ModuleMappingImpl extends EObjectImpl implements ModuleMapping {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void eSet(EStructuralFeature eFeature, Object newValue) {
 		switch (eDerivedStructuralFeatureID(eFeature.getFeatureID(), eFeature.getContainerClass())) {
 			case ModulemapPackage.MODULE_MAPPING__PROJECT_NAME :
@@ -167,6 +171,7 @@ public class ModuleMappingImpl extends EObjectImpl implements ModuleMapping {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public void eUnset(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature.getFeatureID(), eFeature.getContainerClass())) {
 			case ModulemapPackage.MODULE_MAPPING__PROJECT_NAME :
@@ -182,6 +187,7 @@ public class ModuleMappingImpl extends EObjectImpl implements ModuleMapping {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy())
 			return super.toString();

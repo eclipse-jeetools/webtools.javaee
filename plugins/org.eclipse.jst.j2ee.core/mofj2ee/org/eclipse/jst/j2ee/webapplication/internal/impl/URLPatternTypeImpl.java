@@ -51,6 +51,7 @@ public class URLPatternTypeImpl extends J2EEEObjectImpl implements URLPatternTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected EClass eStaticClass() {
 		return WebapplicationPackage.Literals.URL_PATTERN_TYPE;
 	}
@@ -114,6 +115,7 @@ public class URLPatternTypeImpl extends J2EEEObjectImpl implements URLPatternTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case WebapplicationPackage.URL_PATTERN_TYPE__RES_COLLECTION:
@@ -129,6 +131,7 @@ public class URLPatternTypeImpl extends J2EEEObjectImpl implements URLPatternTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case WebapplicationPackage.URL_PATTERN_TYPE__RES_COLLECTION:
@@ -142,6 +145,7 @@ public class URLPatternTypeImpl extends J2EEEObjectImpl implements URLPatternTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
 			case WebapplicationPackage.URL_PATTERN_TYPE__RES_COLLECTION:
@@ -155,6 +159,7 @@ public class URLPatternTypeImpl extends J2EEEObjectImpl implements URLPatternTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case WebapplicationPackage.URL_PATTERN_TYPE__URL_PATTERN:
@@ -170,6 +175,7 @@ public class URLPatternTypeImpl extends J2EEEObjectImpl implements URLPatternTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case WebapplicationPackage.URL_PATTERN_TYPE__URL_PATTERN:
@@ -187,6 +193,7 @@ public class URLPatternTypeImpl extends J2EEEObjectImpl implements URLPatternTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case WebapplicationPackage.URL_PATTERN_TYPE__URL_PATTERN:
@@ -204,6 +211,7 @@ public class URLPatternTypeImpl extends J2EEEObjectImpl implements URLPatternTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case WebapplicationPackage.URL_PATTERN_TYPE__URL_PATTERN:
@@ -217,6 +225,7 @@ public class URLPatternTypeImpl extends J2EEEObjectImpl implements URLPatternTyp
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
+	@Override
 	public String toString() {
 		if (eIsProxy()) return super.toString();
 
