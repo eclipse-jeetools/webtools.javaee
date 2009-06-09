@@ -79,10 +79,9 @@ public final class ClasspathDependencyValidatorMarkerResolutions implements IMar
 				// quick fix adds the dependency, and one to remove it
 				return new IMarkerResolution[] { new UpdateClasspathDependencyAttributeResolution(cpEntryPath, true),
 						new AddClasspathNonDependencyAttributeResolution(cpEntryPath)};	
-			} else {
-				// quick fix removes the dependency
-				return new IMarkerResolution[] { new AddClasspathNonDependencyAttributeResolution(cpEntryPath) };
 			}
+			// quick fix removes the dependency
+			return new IMarkerResolution[] { new AddClasspathNonDependencyAttributeResolution(cpEntryPath) };
 		} else if (ClasspathDependencyValidator.ProjectClasspathEntry.equals(messageId)) {
 			// quick fix removes the dependency
 			return new IMarkerResolution[] { new UpdateClasspathDependencyAttributeResolution(cpEntryPath, false) };	
