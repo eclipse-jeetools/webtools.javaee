@@ -132,22 +132,23 @@ public class JEE5ModelProvider implements IModelProvider, ResourceStateInputProv
 		return resourceURI;
 	}
 
-	protected XMLResourceImpl getModelResource(IPath modelPath) {
+	protected XMLResourceImpl getModelResource(final IPath modelPath) {
 		if (writableResource != null) {
 			addManagedResource(writableResource);
 			return writableResource;
 		}
-		if ((modelPath == null) || modelPath.equals(IModelProvider.FORCESAVE))
-			modelPath = getDefaultResourcePath();
+		IPath innerModelPath = modelPath;
+		if ((innerModelPath == null) || innerModelPath.equals(IModelProvider.FORCESAVE))
+			innerModelPath = getDefaultResourcePath();
 		ProjectResourceSet resSet = getResourceSet(proj);
 		IVirtualFolder container = ComponentCore.createComponent(proj).getRootFolder();
-		String modelPathURI = modelPath.toString();
+		String modelPathURI = innerModelPath.toString();
 		URI uri = URI.createURI(modelPathURI);
 		
 		IPath projURIPath = new Path("");//$NON-NLS-1$
 		projURIPath = projURIPath.append(container.getProjectRelativePath());
 		projURIPath = projURIPath.addTrailingSeparator();
-		projURIPath = projURIPath.append(modelPath);
+		projURIPath = projURIPath.append(innerModelPath);
 		URI projURI = URI.createURI(projURIPath.toString());
 		XMLResourceImpl res = null;
 		try {
@@ -155,20 +156,15 @@ public class JEE5ModelProvider implements IModelProvider, ResourceStateInputProv
 			{
 				res = (XMLResourceImpl) resSet.getResource(getModuleURI(uri),true);
 				addManagedResource(res);
-//				if (!resourceChangeListenerEnabled)
-//				{
-//					resourceChangeListenerEnabled = true;
-//					ResourcesPlugin.getWorkspace().addResourceChangeListener(new ResourceChangeListener(), IResourceChangeEvent.POST_CHANGE);
-//				}
 			} else {//First find in resource set, then create if not found new Empty Resource.
-				XMLResourceImpl newRes =  createModelResource(modelPath, resSet, projURI);
+				XMLResourceImpl newRes =  createModelResource(innerModelPath, resSet, projURI);
 				addManagedResource(newRes);
 				return newRes;
 			}
 		} catch (WrappedException ex) {
 			if (ex.getCause() instanceof FileNotFoundException)
 				return null;
-			else throw ex;
+			throw ex;
 		}
 		return res;
 	}
@@ -191,13 +187,10 @@ public class JEE5ModelProvider implements IModelProvider, ResourceStateInputProv
 	}
 
 	private IContentDescription getContentType(String contentTypeDescriber) {
-		
-			if (contentTypeDescriber != null)
-				return Platform.getContentTypeManager().getContentType(contentTypeDescriber).getDefaultDescription();
-			else
-				return null;
-			
-		}
+		if (contentTypeDescriber != null)
+			return Platform.getContentTypeManager().getContentType(contentTypeDescriber).getDefaultDescription();
+		return null;
+	}
 
 	public IPath getDefaultResourcePath() {
 		return defaultResourcePath;
@@ -227,18 +220,20 @@ public class JEE5ModelProvider implements IModelProvider, ResourceStateInputProv
 	
 
 
-	public IStatus validateEdit(IPath modelPath, Object context) {
-		if (modelPath == null)
-			modelPath = getDefaultResourcePath();
+	public IStatus validateEdit(final IPath modelPath, final Object context) {
+		IPath innaerModelPath = modelPath;
+		Object innerContext = context;
+		if (innaerModelPath == null)
+			innaerModelPath = getDefaultResourcePath();
 		IWorkspace work = ResourcesPlugin.getWorkspace();
-		IFile file = WorkbenchResourceHelper.getFile(getModelResource(modelPath));
+		IFile file = WorkbenchResourceHelper.getFile(getModelResource(innaerModelPath));
 		if (file != null && file.exists()) {
 			IFile[] files = { file };
-			if (context == null)
-				context = IWorkspace.VALIDATE_PROMPT;
-			return work.validateEdit(files, context);
-		} else
-			return Status.OK_STATUS;
+			if (innerContext == null)
+				innerContext = IWorkspace.VALIDATE_PROMPT;
+			return work.validateEdit(files, innerContext);
+		}
+		return Status.OK_STATUS;
 	}
 
 	public void modify(Runnable runnable, IPath modelPath) {

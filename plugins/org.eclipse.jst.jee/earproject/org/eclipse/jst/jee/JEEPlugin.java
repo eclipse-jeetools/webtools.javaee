@@ -19,7 +19,7 @@ import org.osgi.framework.BundleContext;
 public class JEEPlugin extends WTPPlugin {
 
 	// The plug-in ID
-	public static final String PLUGIN_ID = "org.eclipse.jst.jee";
+	public static final String PLUGIN_ID = "org.eclipse.jst.jee"; //$NON-NLS-1$
 
 	// The shared instance
 	private static JEEPlugin plugin;

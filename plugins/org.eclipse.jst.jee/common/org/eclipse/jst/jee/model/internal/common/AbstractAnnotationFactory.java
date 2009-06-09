@@ -245,7 +245,7 @@ public abstract class AbstractAnnotationFactory {
 	 * @return
 	 * @throws JavaModelException
 	 */
-	private String internalProcessInjection(String specifiedType, IMember member, Collection<IType> dependedTypes)
+	private String internalProcessInjection(final String specifiedType, IMember member, Collection<IType> dependedTypes)
 			throws JavaModelException {
 		boolean methodOrField = member.getElementType() == IJavaElement.METHOD
 				|| member.getElementType() == IJavaElement.FIELD;
@@ -262,6 +262,8 @@ public abstract class AbstractAnnotationFactory {
 		if (specifiedType == null && memberType == null)
 			return null;
 
+		String innerSpecifiedType = specifiedType;
+		
 		IType resolvedType = resolveType(declaringType, memberType);
 		// we were able to get a type for the param of a method or type of
 		// a field.
@@ -284,21 +286,21 @@ public abstract class AbstractAnnotationFactory {
 		// is no specified type use the member type. The check for whether they
 		// were both null is previously made
 		IType resolvedSpecifiedType = null;
-		if (specifiedType == null) {
-			specifiedType = memberType;
+		if (innerSpecifiedType == null) {
+			innerSpecifiedType = memberType;
 			resolvedSpecifiedType = resolvedType;
 		} else
-			resolvedSpecifiedType = resolveType(declaringType, specifiedType);
+			resolvedSpecifiedType = resolveType(declaringType, innerSpecifiedType);
 		if (resolvedSpecifiedType != null) {
 			if (resolvedSpecifiedType.isInterface()) {
-				specifiedType = resolvedSpecifiedType.getFullyQualifiedName();
+				innerSpecifiedType = resolvedSpecifiedType.getFullyQualifiedName();
 				dependedTypes.add(resolvedSpecifiedType);
 			} else
 				// we have resolved the specified type and it is not an
 				// interface. Not a valid annotation.
 				return null;
 		}
-		return specifiedType;
+		return innerSpecifiedType;
 	}
 
 	/**
@@ -350,7 +352,6 @@ public abstract class AbstractAnnotationFactory {
 	 */
 	private String getUnresolvedType(IMember member) throws JavaModelException {
 		int memberType = member.getElementType();
-		IType declaringType = member.getDeclaringType();
 		String unresolvedTypeName = null;
 		if (memberType == IJavaElement.FIELD) {
 			unresolvedTypeName = Signature.toString(((IField) member).getTypeSignature());
@@ -376,10 +377,11 @@ public abstract class AbstractAnnotationFactory {
 	private String getClassTypeSignature(String toResolve) {
 		if (toResolve == null)
 			return null;
-		toResolve = Signature.createTypeSignature(toResolve, false);
-		if (Signature.getTypeSignatureKind(toResolve) != Signature.CLASS_TYPE_SIGNATURE)
+		
+		String innerToResolve = Signature.createTypeSignature(toResolve, false);
+		if (Signature.getTypeSignatureKind(innerToResolve) != Signature.CLASS_TYPE_SIGNATURE)
 			return null;
-		return toResolve;
+		return innerToResolve;
 	}
 
 	protected void processDeclareRoles(Result result, List<SecurityRoleRef> securityRoleRefs, IAnnotation annotation,

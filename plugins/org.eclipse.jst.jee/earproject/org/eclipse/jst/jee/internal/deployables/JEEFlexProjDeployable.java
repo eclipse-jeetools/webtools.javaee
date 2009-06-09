@@ -13,9 +13,7 @@ package org.eclipse.jst.jee.internal.deployables;
 import java.util.Iterator;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
-import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.EjbModuleExtensionHelper;
 import org.eclipse.jst.j2ee.internal.IEJBModelExtenderManager;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEFlexProjDeployable;
@@ -28,7 +26,6 @@ import org.eclipse.jst.javaee.ejb.EJBJar;
 import org.eclipse.jst.javaee.ejb.EnterpriseBeans;
 import org.eclipse.jst.javaee.ejb.SessionBean;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
-import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.server.core.IModule;
@@ -64,8 +61,7 @@ public class JEEFlexProjDeployable extends J2EEFlexProjDeployable {
 		// be returned by getChildModules()
 		if (J2EEProjectUtilities.isEARProject(component.getProject()))
 			return virtualComp != null && virtualComp.isBinary() && !isNestedJ2EEModule(virtualComp, references, model);
-		else 
-			return super.shouldIncludeUtilityComponent(virtualComp, references, ArtifactEdit.class.isInstance(model) ? (ArtifactEdit)model : null);
+		return super.shouldIncludeUtilityComponent(virtualComp, references, ArtifactEdit.class.isInstance(model) ? (ArtifactEdit)model : null);
 	}
 	    
     public String getJNDIName(String ejbName, String interfaceName) {
@@ -99,41 +95,6 @@ public class JEEFlexProjDeployable extends J2EEFlexProjDeployable {
     	}
     	return null;
     }
-
-    
-    
-    private String getContainedURI(IModule module) {
-    	if (component instanceof J2EEModuleVirtualArchiveComponent || isBinaryModuleArchive(module))
-    		return new Path(module.getName()).lastSegment();
-    	
-    	IVirtualComponent comp = ComponentCore.createComponent(module.getProject());
-    	String aURI = null;
-    	if (comp!=null && component!=null && J2EEProjectUtilities.isEARProject(component.getProject())) {
-			//TODO when new JEE model api is available look at this code again
-    		// see bug 183320
-    		IVirtualReference [] refs = component.getReferences();
-    		for(int i=0; i<refs.length; i++){
-    			if(refs[i].getReferencedComponent().equals(comp)){
-    				aURI = refs[i].getArchiveName();
-    				break;
-    			}
-    		}
-    		EARArtifactEdit earEdit = null;
-			try {
-				earEdit = EARArtifactEdit.getEARArtifactEditForRead(component);
-				if (earEdit != null)
-					aURI = earEdit.getModuleURI(comp);
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				if (earEdit != null)
-					earEdit.dispose();
-			}
-    	}
-    	if (aURI !=null && aURI.length()>1 && aURI.startsWith("/")) //$NON-NLS-1$
-    		aURI = aURI.substring(1);
-    	return aURI;
-	} 
     
     @Override
 	protected IModule gatherModuleReference(IVirtualComponent component, IVirtualComponent targetComponent ) {
