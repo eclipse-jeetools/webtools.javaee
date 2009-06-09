@@ -147,7 +147,7 @@ public class EjbJarMerger extends ModelElementMerger {
 
 			SessionBean baseBean = getSessionBean(sessionType.getEjbName(), sessionBeansBase);
 			if (baseBean != null){
-				IMerger m = getSessionMerger((SessionBean)baseBean, sessionType, getKind());
+				IMerger m = getSessionMerger(baseBean, sessionType, getKind());
 				if(m != null){
 					warnings.addAll(m.process());
 					continue;

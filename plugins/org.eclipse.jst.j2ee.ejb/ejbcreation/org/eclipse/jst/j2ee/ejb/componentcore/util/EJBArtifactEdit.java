@@ -593,12 +593,12 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	}
 	@Override
 	public IModelProvider create(IProject project) {
-		return (IModelProvider)getEJBArtifactEditForRead(project);
+		return getEJBArtifactEditForRead(project);
 	}
 
 	@Override
 	public IModelProvider create(IVirtualComponent component) {
-		return (IModelProvider)getEJBArtifactEditForRead(component);
+		return getEJBArtifactEditForRead(component);
 	}
 	@Override
 	public void modify(Runnable runnable, IPath modelPath) {

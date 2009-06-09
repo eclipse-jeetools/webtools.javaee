@@ -48,8 +48,8 @@ public List process() throws ModelException {
     boolean isInToMerge = getToMergeBean() instanceof SessionBean;
 
     if (isInBase && isInToMerge) {
-      SessionBean baseBean = (SessionBean) getBaseBean();
-      SessionBean toMergeBean = (SessionBean) getToMergeBean();
+      SessionBean baseBean = getBaseBean();
+      SessionBean toMergeBean = getToMergeBean();
 
       List toMergeBusinessLocal = toMergeBean.getBusinessLocals();
       for(Object toMergeIntfs:toMergeBusinessLocal){

@@ -81,7 +81,7 @@ public class QueryMethodItemProvider extends MethodElementItemProvider implement
 	@Override
 	public String getText(Object object) {
 		QueryMethod queryMethod = (QueryMethod) object;
-		return queryMethod.getName(); //$NON-NLS-1$
+		return queryMethod.getName(); 
 	}
 
 	/**

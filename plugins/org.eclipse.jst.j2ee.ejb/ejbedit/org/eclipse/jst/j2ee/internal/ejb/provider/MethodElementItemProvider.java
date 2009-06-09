@@ -74,10 +74,10 @@ public class MethodElementItemProvider extends EjbItemProviderAdapter implements
 		else
 			base = J2EEPlugin.getPlugin().getImage("warn_tsk"); //$NON-NLS-1$
 
-		if (gen.isHome()) { //$NON-NLS-1$ = "Home Methods"
+		if (gen.isHome()) { // = "Home Methods"
 			overlayString = "home_interf_ov"; //$NON-NLS-1$
 		}
-		if (gen.isRemote()) { //$NON-NLS-1$ = "Remote Methods"
+		if (gen.isRemote()) { // = "Remote Methods"
 			overlayString = "remote_interf_ov"; //$NON-NLS-1$
 		}
 		if (gen.isLocal()) {
@@ -89,7 +89,7 @@ public class MethodElementItemProvider extends EjbItemProviderAdapter implements
 		if (gen.isService()) {
 			overlayString = "service_interface_ovr"; //$NON-NLS-1$
 		}
-		if (gen.isUnspecified()) { //$NON-NLS-1$ = "Common Methods"
+		if (gen.isUnspecified()) { // = "Common Methods"
 			return base;
 		}
 		overlayImage = J2EEPlugin.getPlugin().getImage(overlayString);

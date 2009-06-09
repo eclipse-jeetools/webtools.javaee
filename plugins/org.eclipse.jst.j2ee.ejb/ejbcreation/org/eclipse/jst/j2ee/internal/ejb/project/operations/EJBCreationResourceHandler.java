@@ -168,8 +168,8 @@ public final class EJBCreationResourceHandler extends NLS {
 		NLS.initializeMessages(BUNDLE_NAME, EJBCreationResourceHandler.class);
 	}
 
-	public static final String CLIENT_SAME_NAME_AS_EJB = _1; //$NON-NLS-1$
-	public static final String CLIENT_SAME_NAME_AS_EAR = _2; //$NON-NLS-1$
+	public static final String CLIENT_SAME_NAME_AS_EJB = _1; 
+	public static final String CLIENT_SAME_NAME_AS_EAR = _2; 
 
 	private static ResourceBundle fgResourceBundle;
 

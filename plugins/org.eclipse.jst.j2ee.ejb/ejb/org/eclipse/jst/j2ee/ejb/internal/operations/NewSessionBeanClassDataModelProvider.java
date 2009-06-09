@@ -82,7 +82,7 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 	@Override
 	public Set<String> getPropertyNames() {
 		// Add Bean specific properties defined in this data model
-		Set<String> propertyNames = (Set<String>) super.getPropertyNames();
+		Set<String> propertyNames = super.getPropertyNames();
 
 		propertyNames.add(BUSINESS_INTERFACES);
 		propertyNames.add(REMOTE_BUSINESS_INTERFACE);

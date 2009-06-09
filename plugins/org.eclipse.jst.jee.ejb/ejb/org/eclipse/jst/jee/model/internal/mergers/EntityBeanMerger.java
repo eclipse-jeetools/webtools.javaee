@@ -95,8 +95,8 @@ public List process() throws ModelException {
     boolean isInToMerge = getToMergeBean() instanceof EntityBean;
 
     if (isInBase && isInToMerge) {
-      EntityBean baseBean = (EntityBean) getBaseBean();
-      EntityBean toMergeBean = (EntityBean) getToMergeBean();
+      EntityBean baseBean = getBaseBean();
+      EntityBean toMergeBean = getToMergeBean();
 
       if (baseBean.getLocal() == null){
         String toMergeLocal = toMergeBean.getLocal();

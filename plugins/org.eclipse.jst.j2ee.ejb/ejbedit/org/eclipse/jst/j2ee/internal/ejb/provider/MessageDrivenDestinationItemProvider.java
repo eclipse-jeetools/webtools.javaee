@@ -56,7 +56,7 @@ public class MessageDrivenDestinationItemProvider extends EjbItemProviderAdapter
 		//    else
 		//        imageString ="msgdrivendestination_obj"; //$NON-NLS-1$
 		imageString = "msgdrivendestination_obj"; //$NON-NLS-1$
-		return J2EEPlugin.getPlugin().getImage(imageString); //$NON-NLS-1$
+		return J2EEPlugin.getPlugin().getImage(imageString); 
 	}
 
 	/**

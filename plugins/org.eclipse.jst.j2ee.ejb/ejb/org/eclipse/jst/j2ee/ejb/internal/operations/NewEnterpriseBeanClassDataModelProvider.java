@@ -47,7 +47,7 @@ public class NewEnterpriseBeanClassDataModelProvider extends NewJavaClassDataMod
 	@Override
 	public Set<String> getPropertyNames() {
 		// Add Bean specific properties defined in this data model
-		Set<String> propertyNames = (Set<String>) super.getPropertyNames();
+		Set<String> propertyNames = super.getPropertyNames();
 
 		propertyNames.add(EJB_NAME);
 		propertyNames.add(MAPPED_NAME);
