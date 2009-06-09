@@ -578,14 +578,12 @@ public class ConnectionHandler {
 	private class ArrayContentsRetriever implements Commands.ValueRetrieve {
 		int index=0;
 		Object array;
-		int length;
 		int componentType;
 		Commands.ValueObject worker = new Commands.ValueObject();
 		
 		
 		public ArrayContentsRetriever(Object anArray) {
 			array = anArray;
-			length = Array.getLength(anArray);
 			if (anArray.getClass().getComponentType().isPrimitive()) {
 				componentType = server.getIdentityID(anArray.getClass().getComponentType());
 			} else

@@ -356,19 +356,6 @@ public class FeatureAttributeValue implements Serializable {
 		}
 		
 		/**
-		 * Reset to the given next index.
-		 * @param nextIndex the next index to do a read at.
-		 * 
-		 * @since 1.1.0
-		 */
-		public void reset(int nextIndex) {
-			if (nextIndex<=length)
-				next = nextIndex;
-			else
-				next = length;
-		}
-		
-		/**
 		 * Skip the next number of chars.
 		 * @param skip number of chars to skip.
 		 * 

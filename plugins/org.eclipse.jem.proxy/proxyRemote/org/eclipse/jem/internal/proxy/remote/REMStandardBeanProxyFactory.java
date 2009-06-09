@@ -88,10 +88,6 @@ public final class REMStandardBeanProxyFactory implements IStandardBeanProxyFact
 			id = null;
 		}
 		
-		public synchronized int useCnt() {
-			return useCnt;
-		}
-		
 		public synchronized void incrUseCnt() {
 			useCnt++;
 		}

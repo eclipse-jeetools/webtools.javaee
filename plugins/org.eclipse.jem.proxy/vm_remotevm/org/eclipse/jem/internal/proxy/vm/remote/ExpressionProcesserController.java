@@ -715,10 +715,6 @@ public class ExpressionProcesserController {
 			this.type = type;
 			set = true;
 		}
-		
-		public boolean isFailedExpression() {
-			return false;
-		}
 	}
 	
 	/**
@@ -740,10 +736,6 @@ public class ExpressionProcesserController {
 
 		public FailedRemoteExpressionProxy(int proxyID) {
 			super(proxyID);
-		}
-		
-		public boolean isFailedExpression() {
-			return true;
 		}
 		
 		public boolean isSet() {

@@ -90,10 +90,8 @@ public class WebFacetInstallPage extends J2EEModuleFacetInstallPage implements I
 		public static String pageTitle;
 		public static String pageDescription;
 		public static String contextRootLabel;
-		public static String contextRootLabelInvalid;
 		public static String contentDirLabel;
-		public static String contentDirLabelInvalid;
-
+		
 		static {
 			initializeMessages(WebFacetInstallPage.class.getName(), Resources.class);
 		}
