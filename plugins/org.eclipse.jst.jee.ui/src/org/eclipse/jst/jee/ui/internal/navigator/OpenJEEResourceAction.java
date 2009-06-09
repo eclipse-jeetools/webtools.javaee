@@ -110,7 +110,7 @@ public class OpenJEEResourceAction extends AbstractOpenAction {
 
 	protected void openAppropriateEditor(String c) {
 		if(getStructuredSelection() instanceof TreeSelection){
-			IProject project = (IProject) ((TreePath)((TreeSelection)getStructuredSelection()).getPaths()[0]).getSegment(0);
+			IProject project = (IProject) (((TreeSelection)getStructuredSelection()).getPaths()[0]).getSegment(0);
 			IType findType;
 			try {
 				findType = JavaCore.create(project).findType(c);
@@ -303,9 +303,9 @@ public class OpenJEEResourceAction extends AbstractOpenAction {
 	}
 
 	private void openEObject(EObject _srcObject) {
-		EObject ro = (EObject) _srcObject;
+		EObject ro = _srcObject;
 		IResource resource = WorkbenchResourceHelper
-		.getFile((EObject) _srcObject);
+		.getFile(_srcObject);
 		if (resource != null) {
 			openAppropriateEditor(resource);
 		} else {

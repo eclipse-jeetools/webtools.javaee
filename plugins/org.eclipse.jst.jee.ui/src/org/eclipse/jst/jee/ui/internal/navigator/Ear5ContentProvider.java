@@ -101,7 +101,7 @@ public class Ear5ContentProvider extends JEE5ContentProvider {
 		IProject project = null;
 		List children = new ArrayList();
 		if (aParentElement instanceof GroupEARProvider) {
-			project = (IProject) ((GroupEARProvider)aParentElement).getProject();
+			project = ((GroupEARProvider)aParentElement).getProject();
 
 			IVirtualComponent projectComponent = ComponentCore.createComponent(project);
 			try {

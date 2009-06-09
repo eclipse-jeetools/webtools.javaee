@@ -396,12 +396,12 @@ public class WSCDDArtifactEdit extends EnterpriseArtifactEdit {
 	}
 	@Override
 	public IModelProvider create(IProject project) {
-		return (IModelProvider)getWSCDDArtifactEditForRead(project);
+		return getWSCDDArtifactEditForRead(project);
 	}
 
 	@Override
 	public IModelProvider create(IVirtualComponent component) {
-		return (IModelProvider)getWSCDDArtifactEditForRead(component);
+		return getWSCDDArtifactEditForRead(component);
 	}
 	@Override
 	public void modify(Runnable runnable, IPath modelPath) {

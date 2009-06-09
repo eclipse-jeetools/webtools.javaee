@@ -87,21 +87,21 @@ public class Ejb3ContentProvider extends JEE5ContentProvider {
 
 	private void addEntityBeanSubNodes(EntityBean eb, List<Object> children) {
 		if (eb.getLocal() != null) {
-			children.add(new BeanInterfaceNode(eb, (String)eb.getLocal(), BeanInterfaceNode.KINDS.LOCAL));
+			children.add(new BeanInterfaceNode(eb, eb.getLocal(), BeanInterfaceNode.KINDS.LOCAL));
 		}
 		if (eb.getLocalHome() != null) {
-			children.add(new BeanInterfaceNode(eb, (String)eb.getLocalHome(), BeanInterfaceNode.KINDS.LOCAL_HOME));
+			children.add(new BeanInterfaceNode(eb, eb.getLocalHome(), BeanInterfaceNode.KINDS.LOCAL_HOME));
 		}
 
 		if (eb.getRemote() != null) {
-			children.add(new BeanInterfaceNode(eb, (String)eb.getRemote(), BeanInterfaceNode.KINDS.REMOTE));
+			children.add(new BeanInterfaceNode(eb, eb.getRemote(), BeanInterfaceNode.KINDS.REMOTE));
 		}
 		if (eb.getHome() != null) {
-			children.add(new BeanInterfaceNode(eb, (String)eb.getHome(), BeanInterfaceNode.KINDS.REMOTE_HOME));
+			children.add(new BeanInterfaceNode(eb, eb.getHome(), BeanInterfaceNode.KINDS.REMOTE_HOME));
 		}
 
 
-		children.add(new BeanNode((EntityBean) eb));
+		children.add(new BeanNode(eb));
 
 	}
 
@@ -162,23 +162,23 @@ public class Ejb3ContentProvider extends JEE5ContentProvider {
 
 	private void addClassRelatedInfo(SessionBean sb, List children) {
 		if (sb.getLocal() != null) {
-			children.add(new BeanInterfaceNode(sb, (String)sb.getLocal(), BeanInterfaceNode.KINDS.LOCAL));
+			children.add(new BeanInterfaceNode(sb, sb.getLocal(), BeanInterfaceNode.KINDS.LOCAL));
 		}
 		
 		if (sb.getLocalHome() != null) {
-			children.add(new BeanInterfaceNode(sb, (String)sb.getLocalHome(), BeanInterfaceNode.KINDS.LOCAL_HOME));
+			children.add(new BeanInterfaceNode(sb, sb.getLocalHome(), BeanInterfaceNode.KINDS.LOCAL_HOME));
 		}
 
 		if (sb.getRemote() != null) {
-			children.add(new BeanInterfaceNode(sb, (String)sb.getRemote(), BeanInterfaceNode.KINDS.REMOTE));
+			children.add(new BeanInterfaceNode(sb, sb.getRemote(), BeanInterfaceNode.KINDS.REMOTE));
 		}
 		
 		if (sb.getHome() != null) {
-			children.add(new BeanInterfaceNode(sb, (String)sb.getHome(), BeanInterfaceNode.KINDS.REMOTE_HOME));
+			children.add(new BeanInterfaceNode(sb, sb.getHome(), BeanInterfaceNode.KINDS.REMOTE_HOME));
 		}
 
 		if (sb.getEjbClass() != null) {
-			children.add(new BeanNode((SessionBean) sb));
+			children.add(new BeanNode(sb));
 		}
 		
 		List r = sb.getBusinessLocals();

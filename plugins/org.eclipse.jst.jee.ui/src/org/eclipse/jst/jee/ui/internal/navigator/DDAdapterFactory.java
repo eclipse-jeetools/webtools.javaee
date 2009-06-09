@@ -13,11 +13,11 @@ public class DDAdapterFactory implements IAdapterFactory {
 				AbstractDDNode ddNode = (AbstractDDNode) adaptableObject;
 				Object node = ddNode.getAdapterNode();
 				if (node instanceof IJavaElement) 
-					return (IJavaElement) node;
+					return node;
 				if (node instanceof IAdaptable) 
-					return (IJavaElement) ((IAdaptable) node).getAdapter(IJavaElement.class);
+					return ((IAdaptable) node).getAdapter(IJavaElement.class);
 					
-				return (IJavaElement) Platform.getAdapterManager().getAdapter(node, IJavaElement.class);
+				return Platform.getAdapterManager().getAdapter(node, IJavaElement.class);
 			}
 		}
 		return null;

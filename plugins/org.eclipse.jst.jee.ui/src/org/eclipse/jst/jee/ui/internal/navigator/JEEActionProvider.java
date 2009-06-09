@@ -206,9 +206,9 @@ private static final Class IRESOURCE_CLASS = IResource.class;
 	}
 	
 	private IResource openEObject(EObject _srcObject) {
-		EObject ro = (EObject) _srcObject;
+		EObject ro = _srcObject;
 		IResource resource = WorkbenchResourceHelper
-		.getFile((EObject) _srcObject);
+		.getFile(_srcObject);
 		if (resource != null) {
 			return resource;
 		} else {
