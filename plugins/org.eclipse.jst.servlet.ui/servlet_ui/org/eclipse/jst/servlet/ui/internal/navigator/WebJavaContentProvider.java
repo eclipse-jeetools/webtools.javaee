@@ -180,9 +180,6 @@ public class WebJavaContentProvider implements IPipelinedTreeContentProvider  {
 	}
 
 	private IPackageFragment locatePackageFragment(IFolder child) throws JavaModelException {
-		IJavaProject javaProject = JavaCore.create(child.getProject());
-		IPackageFragmentRoot[] packageFragmentRoots = javaProject.getPackageFragmentRoots();
-	
 		IJavaElement elem = JavaCore.create(child);
 		if (elem instanceof IPackageFragment) {
 			IPackageFragment packageFragment = (IPackageFragment)elem;

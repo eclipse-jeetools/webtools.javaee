@@ -22,7 +22,7 @@ public class CompressedJavaSorter extends ViewerSorter {
 	public int category(Object element) { 
 		if(element instanceof CompressedJavaLibraries)
 			return 1;
-		else return 0;
+		return 0;
 	}
 	
 	@Override

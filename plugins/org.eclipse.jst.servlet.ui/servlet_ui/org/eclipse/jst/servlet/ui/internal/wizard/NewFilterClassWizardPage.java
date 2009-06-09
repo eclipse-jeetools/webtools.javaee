@@ -114,7 +114,7 @@ public class NewFilterClassWizardPage extends NewWebClassWizardPage {
 		} else if (isServlet(obj)) {
 			String servletName = getServletName(obj);
 			// set the class name
-			classText.setText(makeFirstCharUppercase(servletName) + "Filter");
+			classText.setText(makeFirstCharUppercase(servletName) + "Filter"); //$NON-NLS-1$
 			// set the filter mapping
 			if (servletName != null) {
 				List<IFilterMappingItem> mappings = new ArrayList<IFilterMappingItem>();
@@ -125,17 +125,17 @@ public class NewFilterClassWizardPage extends NewWebClassWizardPage {
 			IFolder folder = (IFolder) obj;
 			// set the class name
 			String webFolderName = makeFirstCharUppercase(folder.getName());
-			classText.setText(webFolderName + "Filter");
+			classText.setText(webFolderName + "Filter"); //$NON-NLS-1$
 			// set the filter mapping
 			String webFolderPath = getWebResourcePath(folder);
 			List<IFilterMappingItem> mappings = new ArrayList<IFilterMappingItem>();
-			mappings.add(new FilterMappingItem(IFilterMappingItem.URL_PATTERN, webFolderPath + "/*"));
+			mappings.add(new FilterMappingItem(IFilterMappingItem.URL_PATTERN, webFolderPath + "/*")); //$NON-NLS-1$
 			model.setProperty(FILTER_MAPPINGS, mappings);
 		} else if (WebUtilities.isWebResource(obj)) {
 			IFile file = (IFile) obj;
 			// set the class name
 			String webResourceName = makeFirstCharUppercase(getFileNameWithouFileExtension(file));
-			classText.setText(webResourceName + "Filter");
+			classText.setText(webResourceName + "Filter"); //$NON-NLS-1$
 			// set the filter mapping
 			String webResourcePath = getWebResourcePath(file);
 			List<IFilterMappingItem> mappings = new ArrayList<IFilterMappingItem>();

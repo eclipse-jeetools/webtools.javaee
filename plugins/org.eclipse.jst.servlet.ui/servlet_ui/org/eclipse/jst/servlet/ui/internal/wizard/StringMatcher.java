@@ -104,16 +104,18 @@ public class StringMatcher {
 			throw new IllegalArgumentException();
 			
 		int tlen= text.length();
-		if (start < 0)
-			start= 0;
-		if (end > tlen)
-			end= tlen;
-		if (end < 0 ||start >= end )
+		int innerStart = start;
+		int innerEnd = end;
+		if (innerStart < 0)
+			innerStart= 0;
+		if (innerEnd > tlen)
+			innerEnd= tlen;
+		if (innerEnd < 0 ||innerStart >= innerEnd )
 			return null;
 		if (fLength == 0)
-			return new Position(start, start);
+			return new Position(innerStart, innerStart);
 		if (fIgnoreWildCards) {
-			int x= posIn(text, start, end);
+			int x= posIn(text, innerStart, innerEnd);
 			if (x < 0)
 				return null;
 			return new Position(x, x+fLength);
@@ -121,14 +123,14 @@ public class StringMatcher {
 
 		int segCount= fSegments.length;
 		if (segCount == 0)//pattern contains only '*'(s)
-			return new Position (start, end);
+			return new Position (innerStart, innerEnd);
 					
-		int curPos= start;
+		int curPos= innerStart;
 		int matchStart= -1;
 		int i;
-		for (i= 0; i < segCount && curPos < end; ++i) {
+		for (i= 0; i < segCount && curPos < innerEnd; ++i) {
 			String current= fSegments[i];
-			int nextMatch= regExpPosIn(text, curPos, end, current);
+			int nextMatch= regExpPosIn(text, curPos, innerEnd, current);
 			if (nextMatch < 0 )
 				return null;
 			if(i == 0)
@@ -159,27 +161,30 @@ public class StringMatcher {
 		if (null == text)
 			throw new IllegalArgumentException();
 			
-		if (start > end)
+		int innerStart = start;
+		int innerEnd = end;
+		
+		if (innerStart > innerEnd)
 			return false;
 		
 		if (fIgnoreWildCards)
-			return (end - start == fLength) && fPattern.regionMatches(fIgnoreCase, 0, text, start, fLength);
+			return (innerEnd - innerStart == fLength) && fPattern.regionMatches(fIgnoreCase, 0, text, innerStart, fLength);
 		int segCount= fSegments.length;
 		if (segCount == 0 && (fHasLeadingStar || fHasTrailingStar))  // pattern contains only '*'(s)
 			return true;
-		if (start == end)
+		if (innerStart == innerEnd)
 			return fLength == 0;
 		if (fLength == 0)
-			return start == end;	
+			return innerStart == innerEnd;	
 		 
 		int tlen= text.length();
-		if (start < 0)
-			start= 0;
-		if (end > tlen)
-			end= tlen; 
+		if (innerStart < 0)
+			innerStart= 0;
+		if (innerEnd > tlen)
+			innerEnd= tlen; 
 					
-		int tCurPos= start;
-		int bound= end - fBound;
+		int tCurPos= innerStart;
+		int bound= innerEnd - fBound;
 		if ( bound < 0)
 			return false;
 		int i=0;
@@ -188,16 +193,15 @@ public class StringMatcher {
 
 		/* process first segment */
 		if (!fHasLeadingStar){ 
-			if(!regExpRegionMatches(text, start, current, 0, segLength)) {
+			if(!regExpRegionMatches(text, innerStart, current, 0, segLength)) {
 				return false;
-			} else {
-				++i;
-				tCurPos= tCurPos + segLength;
 			}
+			++i;
+			tCurPos= tCurPos + segLength;
 		}
 		if ((fSegments.length == 1) && (!fHasLeadingStar) && (!fHasTrailingStar)) {
 			// only one segment to match, no wildcards specified
-			return tCurPos == end;
+			return tCurPos == innerEnd;
 		}
 		/* process middle segments */	
 		while (i < segCount) {
@@ -205,11 +209,11 @@ public class StringMatcher {
 			int currentMatch;
 			int k= current.indexOf(fSingleWildCard);
 			if (k < 0) {
-				currentMatch= textPosIn(text, tCurPos, end, current);
+				currentMatch= textPosIn(text, tCurPos, innerEnd, current);
 				if (currentMatch < 0)
 					return false;
 			} else { 
-				currentMatch= regExpPosIn(text, tCurPos, end, current);
+				currentMatch= regExpPosIn(text, tCurPos, innerEnd, current);
 				if (currentMatch < 0)
 					return false;
 			}
@@ -218,9 +222,9 @@ public class StringMatcher {
 		}
 
 		/* process final segment */
-		if (!fHasTrailingStar && tCurPos != end) {
+		if (!fHasTrailingStar && tCurPos != innerEnd) {
 			int clen= current.length();
-			return regExpRegionMatches(text, end - clen, current, 0, clen);
+			return regExpRegionMatches(text, innerEnd - clen, current, 0, clen);
 		}
 		return i == segCount ;
 	}
@@ -338,9 +342,12 @@ public class StringMatcher {
 
 	
 	protected boolean regExpRegionMatches(String text, int tStart, String p, int pStart, int plen) {
-		while (plen-- > 0) {
-			char tchar= text.charAt(tStart++);
-			char pchar= p.charAt(pStart++);
+		int innerPlen = plen;
+		int innerTStart = tStart;
+		int innerPStart = pStart;
+		while (innerPlen-- > 0) {
+			char tchar= text.charAt(innerTStart++);
+			char pchar= p.charAt(innerPStart++);
 
 			/* process wild cards */
 			if (!fIgnoreWildCards) {

@@ -178,7 +178,7 @@ public abstract class NewWebClassWizardPage extends NewJavaClassWizardPage {
 
 	private boolean isWebDocletProject() {
 		String projectName = model.getStringProperty(PROJECT_NAME);
-		if(projectName != null && !"".equals(projectName.trim())){
+		if(projectName != null && !"".equals(projectName.trim())){ //$NON-NLS-1$
 			IProject project = ProjectUtilities.getProject(projectName);
 			try {
 				IFacetedProject facetedProject = ProjectFacetsManager.create(project);
@@ -279,7 +279,7 @@ public abstract class NewWebClassWizardPage extends NewJavaClassWizardPage {
 		IJavaElement jelem = getJavaElement(obj); 
 		
 		if (jelem == null) {
-			throw new IllegalArgumentException("the object parameter must be instance of IJavaElement");
+			throw new IllegalArgumentException("the object parameter must be instance of IJavaElement"); //$NON-NLS-1$
 		}
 		
 		if (jelem instanceof ICompilationUnit) {
@@ -398,7 +398,7 @@ public abstract class NewWebClassWizardPage extends NewJavaClassWizardPage {
 		IVirtualComponent comp = ComponentCore.createComponent(resource.getProject());
 		if (comp != null) {
 			IPath rootPath = comp.getRootFolder().getWorkspaceRelativePath();
-			return "/" + resource.getFullPath().makeRelativeTo(rootPath).toString();
+			return "/" + resource.getFullPath().makeRelativeTo(rootPath).toString(); //$NON-NLS-1$
 		}
 		return null;
 	}
