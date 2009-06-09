@@ -132,9 +132,10 @@ public class MultiSelectFilteredFilterFileSelectionDialog extends
 
 		if (title == null)
 			setTitle(WebAppEditResourceHandler.getString("File_Selection_UI_")); //$NON-NLS-1$
-		if (message == null)
-			message = WebAppEditResourceHandler.getString("Select_a_file__UI_"); //$NON-NLS-1$
-		setMessage(message);
+		String innerMessage = message;
+		if (innerMessage == null)
+			innerMessage = WebAppEditResourceHandler.getString("Select_a_file__UI_"); //$NON-NLS-1$
+		setMessage(innerMessage);
 		setExtensions(extensions);
 		addFilter(new TypedFileViewerFilter(extensions));
 		fLocalValidator = new SimpleTypedElementSelectionValidator(new Class[] { IFile.class }, allowMultiple);
@@ -142,7 +143,7 @@ public class MultiSelectFilteredFilterFileSelectionDialog extends
 		
 		//StatusInfo currStatus = new StatusInfo();
 		//currStatus.setOK();
-		Status currStatus = new Status(Status.OK, ServletUIPlugin.PLUGIN_ID, Status.OK, "", null);
+		Status currStatus = new Status(Status.OK, ServletUIPlugin.PLUGIN_ID, Status.OK, "", null);//$NON-NLS-1$
 		
 		updateStatus(currStatus);
 		fElementRenderer = new TypeRenderer();
@@ -161,21 +162,23 @@ public class MultiSelectFilteredFilterFileSelectionDialog extends
 					}
 				}
 			}
-			IJavaProject jp = jelem.getJavaProject();
-			 IType filterType = jp.findType(QUALIFIED_FILTER); //$NON-NLS-1$
-			// next 3 lines fix defect 177686
-			if (filterType == null) {
-			    return;
+			if(jelem != null){
+				IJavaProject jp = jelem.getJavaProject();
+				 IType filterType = jp.findType(QUALIFIED_FILTER);
+				// next 3 lines fix defect 177686
+				if (filterType == null) {
+				    return;
+				}
+				ArrayList filterClasses = new ArrayList();
+				ITypeHierarchy tH = filterType.newTypeHierarchy(jp, null);
+				IType[] types = tH.getAllSubtypes(filterType);
+				for (int i = 0; i < types.length; i++) {
+				    if (types[i].isClass() && !filterClasses.contains(types[i]))
+				        filterClasses.add(types[i]);
+				}
+				fIT = (IType[]) filterClasses.toArray(new IType[filterClasses.size()]);
+				filterClasses = null;
 			}
-			ArrayList filterClasses = new ArrayList();
-			ITypeHierarchy tH = filterType.newTypeHierarchy(jp, null);
-			IType[] types = tH.getAllSubtypes(filterType);
-			for (int i = 0; i < types.length; i++) {
-			    if (types[i].isClass() && !filterClasses.contains(types[i]))
-			        filterClasses.add(types[i]);
-			}
-			fIT = (IType[]) filterClasses.toArray(new IType[filterClasses.size()]);
-			filterClasses = null;
 		} catch (Exception e) {
 			ServletUIPlugin.log(e);
 		}
@@ -188,17 +191,10 @@ public class MultiSelectFilteredFilterFileSelectionDialog extends
 	protected void computeResult() {
 	    IType type = (IType) getWidgetSelection();
 	    if (type != null) {
-	        if (type == null) {
-	            String title = WebAppEditResourceHandler.getString("Select_Class_UI_"); //$NON-NLS-1$ = "Select Class"
-	            String message = WebAppEditResourceHandler.getString("Could_not_uniquely_map_the_ERROR_"); //$NON-NLS-1$ = "Could not uniquely map the class name to a class."
-	            MessageDialog.openError(getShell(), title, message);
-	            setResult(null);
-	        } else {
-	            java.util.List result = new ArrayList(1);
-	            result.add(type);
-	            setResult(result);
-	        }
-		}
+            java.util.List result = new ArrayList(1);
+            result.add(type);
+            setResult(result);
+	    }
 	}
 	
 	@Override
@@ -469,8 +465,8 @@ public class MultiSelectFilteredFilterFileSelectionDialog extends
 	public int open() {
 		if (fIT == null || fIT.length == 0) {
 		    MessageDialog.openInformation(getShell(), 
-		            WebAppEditResourceHandler.getString("Empty_List_1"), 
-		            WebAppEditResourceHandler.getString("_INFO_No_filters_exist_to_add._1"));  //$NON-NLS-2$ //$NON-NLS-1$
+		            WebAppEditResourceHandler.getString("Empty_List_1"), //$NON-NLS-1$
+		            WebAppEditResourceHandler.getString("_INFO_No_filters_exist_to_add._1")); //$NON-NLS-1$
 			return CANCEL;
 		}
 

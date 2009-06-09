@@ -140,9 +140,10 @@ public class MultiSelectFilteredFileSelectionDialog extends
 
 		if (title == null)
 			setTitle(WebAppEditResourceHandler.getString("File_Selection_UI_")); //$NON-NLS-1$
-		if (message == null)
-			message = WebAppEditResourceHandler.getString("Select_a_file__UI_"); //$NON-NLS-1$
-		setMessage(message);
+		String innerMessage = message;
+		if (innerMessage == null)
+			innerMessage = WebAppEditResourceHandler.getString("Select_a_file__UI_"); //$NON-NLS-1$
+		setMessage(innerMessage);
 		setExtensions(extensions);
 		addFilter(new TypedFileViewerFilter(extensions));
 		fLocalValidator = new SimpleTypedElementSelectionValidator(new Class[] { IFile.class }, allowMultiple);
@@ -150,7 +151,7 @@ public class MultiSelectFilteredFileSelectionDialog extends
 		
 		//StatusInfo currStatus = new StatusInfo();
 		//currStatus.setOK();
-		Status currStatus = new Status(Status.OK, ServletUIPlugin.PLUGIN_ID, Status.OK, "", null);
+		Status currStatus = new Status(Status.OK, ServletUIPlugin.PLUGIN_ID, Status.OK, "", null);//$NON-NLS-1$
 		
 		updateStatus(currStatus);
 		fElementRenderer = new TypeRenderer();
@@ -169,24 +170,25 @@ public class MultiSelectFilteredFileSelectionDialog extends
 					}
 				}
 			}
-			IJavaProject jp = jelem.getJavaProject();
-
-			IType servletType = jp.findType(QUALIFIED_SERVLET);
-			// next 3 lines fix defect 177686
-			if (servletType == null) {
-				return;
+			if(jelem != null){
+				IJavaProject jp = jelem.getJavaProject();
+	
+				IType servletType = jp.findType(QUALIFIED_SERVLET);
+				// next 3 lines fix defect 177686
+				if (servletType == null) {
+					return;
+				}
+	
+				ArrayList servletClasses = new ArrayList();
+				ITypeHierarchy tH = servletType.newTypeHierarchy(jp, null);
+				IType[] types = tH.getAllSubtypes(servletType);
+				for (int i = 0; i < types.length; i++) {
+					if (types[i].isClass() && !servletClasses.contains(types[i]))
+						servletClasses.add(types[i]);
+				}
+				fIT = (IType[]) servletClasses.toArray(new IType[servletClasses.size()]);
+				servletClasses = null;
 			}
-
-			ArrayList servletClasses = new ArrayList();
-			ITypeHierarchy tH = servletType.newTypeHierarchy(jp, null);
-			IType[] types = tH.getAllSubtypes(servletType);
-			for (int i = 0; i < types.length; i++) {
-				if (types[i].isClass() && !servletClasses.contains(types[i]))
-					servletClasses.add(types[i]);
-			}
-			fIT = (IType[]) servletClasses.toArray(new IType[servletClasses.size()]);
-			servletClasses = null;
-
 		} catch (Exception e) {
 			ServletUIPlugin.log(e);
 		}
@@ -202,16 +204,9 @@ public class MultiSelectFilteredFileSelectionDialog extends
 		} else {
 			IType type = (IType) getWidgetSelection();
 			if (type != null) {
-				if (type == null) {
-					String title = WebAppEditResourceHandler.getString("Select_Class_UI_"); //$NON-NLS-1$ = "Select Class"
-					String message = WebAppEditResourceHandler.getString("Could_not_uniquely_map_the_ERROR_"); //$NON-NLS-1$ = "Could not uniquely map the class name to a class."
-					MessageDialog.openError(getShell(), title, message);
-					setResult(null);
-				} else {
-					java.util.List result = new ArrayList(1);
-					result.add(type);
-					setResult(result);
-				}
+				java.util.List result = new ArrayList(1);
+				result.add(type);
+				setResult(result);
 			}
 		}
 	}
