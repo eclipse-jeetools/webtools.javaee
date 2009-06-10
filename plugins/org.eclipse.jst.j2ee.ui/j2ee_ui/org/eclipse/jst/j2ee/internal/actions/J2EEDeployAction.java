@@ -33,6 +33,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.internal.deploy.DeployerRegistry;
 import org.eclipse.jst.j2ee.internal.deploy.J2EEDeployOperation;
+import org.eclipse.jst.j2ee.internal.dialogs.Messages;
 import org.eclipse.jst.j2ee.internal.dialogs.RuntimeSelectionDialog;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -59,7 +60,7 @@ public class J2EEDeployAction extends BaseAction {
 
 		if (checkEnabled(shell)) {
 			final IStructuredSelection deploySelection = selection;
-			Job deployJob = new Job("Deploy") {
+			Job deployJob = new Job(Messages.J2EEDeployAction_Deploy_) {
 				@Override
 				protected IStatus run(IProgressMonitor monitor) {
 					IStatus result = null;

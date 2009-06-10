@@ -60,15 +60,11 @@ public class J2EEWebAppItemProvider extends WebAppItemProvider {
 	 * Listen and fire updates for 1.3 web service clients
 	 */
 	private class J2EEWebServiceClientDDManager extends AdapterImpl implements EditModelListener {
-		private WeakReference weakWebApp;
 		WebServicesClient client;
 
 		public J2EEWebServiceClientDDManager(WeakReference weakWebApp) {
-			this.weakWebApp = weakWebApp;
 			init();
 		}
-
-		
 
 		public void init() {
 			// TODO fix up notification
