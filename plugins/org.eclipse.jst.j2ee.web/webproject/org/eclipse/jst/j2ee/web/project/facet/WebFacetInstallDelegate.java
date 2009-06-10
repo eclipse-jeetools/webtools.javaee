@@ -192,11 +192,10 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 		// We may need to change the existing setup
 
 		if (ProductManager.shouldUseSingleRootStructure()) {
-			String outputFolder = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER)+"/"+J2EEConstants.WEB_INF_CLASSES;
+			String outputFolder = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER)+"/"+J2EEConstants.WEB_INF_CLASSES; //$NON-NLS-1$
 			
 			IJavaProject jproj = JavaCore.create(c.getProject());
 			IClasspathEntry[] current = null;
-			boolean webinf = false;
 			IPath pjpath = c.getProject().getFullPath();
 			try {
 				current = jproj.getRawClasspath();
@@ -247,7 +246,7 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 		String outputFolder = null;
 		// If using single root structure, set the output folder to "<contentRoot>/WEB-INF/classes"
 		if (ProductManager.shouldUseSingleRootStructure())
-			outputFolder = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER)+"/"+J2EEConstants.WEB_INF_CLASSES;
+			outputFolder = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER)+"/"+J2EEConstants.WEB_INF_CLASSES; //$NON-NLS-1$
 		// Otherwise set the output folder to the product setting default
 		else
 			outputFolder = CommonFrameworksPlugin.getDefault().getPluginPreferences().getString(CommonFrameworksPlugin.OUTPUT_FOLDER);

@@ -58,10 +58,7 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
                 final List<IPath> sourceFolders = this.javaFacetInstallConfig.getSourceFolders();
                 return ( sourceFolders.isEmpty() ? null : sourceFolders.get( 0 ).toPortableString() );
 		    }
-		    else
-		    {
-		        return null;
-		    }
+	        return null;
 		} else if (propertyName.equals(CONTEXT_ROOT)) {
 			return getStringProperty(FACET_PROJECT_NAME).replace(' ', '_');
 		} else if (propertyName.equals(FACET_ID)) {
@@ -93,7 +90,7 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 	            if( this.javaFacetInstallConfig != null )
 	            {
 	                final IPath outputFolder
-                        = propertyValue == null ? null : new Path( (String) propertyValue + "/" +J2EEConstants.WEB_INF_CLASSES );
+                        = propertyValue == null ? null : new Path( (String) propertyValue + "/" +J2EEConstants.WEB_INF_CLASSES ); //$NON-NLS-1$
 
 	                this.javaFacetInstallConfig.setDefaultOutputFolder( outputFolder );
 	            }

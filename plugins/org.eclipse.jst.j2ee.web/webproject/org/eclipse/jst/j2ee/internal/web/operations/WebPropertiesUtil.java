@@ -36,7 +36,6 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
-import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
@@ -306,19 +305,7 @@ public class WebPropertiesUtil {
 	}
 
 	public static void updateContextRoot(IProject project, String contextRoot) {
-		if (project.exists() && project.isOpen()) {
-			WebArtifactEdit webEdit = null;
-			try {
-				// TODO migrate to flex projects
-				// webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
-				if (webEdit != null)
-					webEdit.setServerContextRoot(contextRoot);
-			} finally {
-				if (webEdit != null)
-					webEdit.dispose();
-			}
-
-		}
+		
 	}
 
 
@@ -342,7 +329,7 @@ public class WebPropertiesUtil {
 		String errorMessage = null;
 
 		String name = contextRoot;
-		if (name.equals("") || name == null) { //$NON-NLS-1$
+		if (name.equals("")) { //$NON-NLS-1$
 			// this was added because the error message shouldnt be shown initially. It should be
 			// shown only if context root field is edited to
 			errorMessage = ProjectSupportResourceHandler.Context_Root_cannot_be_empty_2; 
@@ -534,7 +521,7 @@ public class WebPropertiesUtil {
 	}
 
 	public static IVirtualFolder getWebLibFolder(IVirtualComponent webComponent) {
-		IPath path = new Path(J2EEConstants.WEB_INF + "/" + "lib");
+		IPath path = new Path(J2EEConstants.WEB_INF + "/" + "lib");  //$NON-NLS-1$//$NON-NLS-2$
 		IVirtualFolder libFolder = webComponent.getRootFolder().getFolder(path);
 		return libFolder;
 	}

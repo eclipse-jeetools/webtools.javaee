@@ -69,7 +69,7 @@ import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
  */
 public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifactEditFactory {
 
-	private static final String WEB_CONTENT_TYPE = "org.eclipse.jst.j2ee.webDD";
+	private static final String WEB_CONTENT_TYPE = "org.eclipse.jst.j2ee.webDD"; //$NON-NLS-1$
 	/**
 	 * <p>
 	 * Identifier used to link WebArtifactEdit to a WebEditAdapterFactory {@see
@@ -644,16 +644,15 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		if (isBinary()) {
 			JavaEEBinaryComponentHelper helper = (JavaEEBinaryComponentHelper)getBinaryComponentHelper();
 			return helper.accessLegacyArchive();
-		} else {
-			WebComponentLoadStrategyImpl loader = new WebComponentLoadStrategyImpl(getComponent(), includeClasspathComponents);
-			loader.setExportSource(includeSource);
-			loader.setReadOnly(readOnly);
-			String uri = ModuleURIUtil.getHandleString(getComponent());
-			ArchiveOptions options = new ArchiveOptions();
-			options.setLoadStrategy(loader);
-			options.setIsReadOnly(readOnly);
-			return CommonarchiveFactory.eINSTANCE.openWARFile(options, uri);
 		}
+		WebComponentLoadStrategyImpl loader = new WebComponentLoadStrategyImpl(getComponent(), includeClasspathComponents);
+		loader.setExportSource(includeSource);
+		loader.setReadOnly(readOnly);
+		String uri = ModuleURIUtil.getHandleString(getComponent());
+		ArchiveOptions options = new ArchiveOptions();
+		options.setLoadStrategy(loader);
+		options.setIsReadOnly(readOnly);
+		return CommonarchiveFactory.eINSTANCE.openWARFile(options, uri);
 	}
 
 	public static void createDeploymentDescriptor(IProject project, int version) {
