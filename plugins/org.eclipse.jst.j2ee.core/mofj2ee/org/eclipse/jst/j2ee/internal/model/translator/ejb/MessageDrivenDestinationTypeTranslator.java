@@ -44,8 +44,7 @@ public class MessageDrivenDestinationTypeTranslator extends Translator implement
 	public String convertValueToString(Object value, EObject owner) {
 		if (value != null){
 			Enumerator enumerator = (Enumerator) value;
-			if (enumerator != null)
-				return JAVAX_JMS + enumerator.toString();
+			return JAVAX_JMS + enumerator.toString();
 		}
 		return super.convertValueToString(value, owner);
 	}

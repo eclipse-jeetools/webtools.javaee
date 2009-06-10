@@ -89,8 +89,6 @@ public class EntityTranslator extends AbstractEJBTranslator {
 				break;
 			case J2EE_1_4_ID :
 				reentrantTranslator = new BooleanTranslator(REENTRANT, EJB_PKG.getEntity_Reentrant());
-			default :
-				break;
 		}
 		return new Translator[] { new PersistenceTypeTranslator(), new JavaClassTranslator(PRIM_KEY_CLASS, EJB_PKG.getEntity_PrimaryKey()), reentrantTranslator };
 	}
