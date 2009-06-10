@@ -1003,9 +1003,8 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 	}
 	
 	private boolean isPhysicallyAdded(VirtualArchiveComponent component) {
-		IPath p = null;
 		try {
-			p = component.getProjectRelativePath();
+			component.getProjectRelativePath();
 			return true;
 		} catch (IllegalArgumentException e) {
 			return false;
@@ -1173,12 +1172,11 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		
 		//check to be sure this uri mapping is not already in use by another reference
 		boolean dupeArchiveName;
-		String refedCompName;
 		int lastDotIndex;
 		String increment;
 		IVirtualReference [] existingRefs = earComponent.getReferences();
 		for(int i=0;i<existingRefs.length;i++){
-			refedCompName = existingRefs[i].getReferencedComponent().getName();
+			existingRefs[i].getReferencedComponent().getName();
 			
 			//if uri mapping names of the refed component and the given archive are the same
 			//  find a new uri map name for the given archive

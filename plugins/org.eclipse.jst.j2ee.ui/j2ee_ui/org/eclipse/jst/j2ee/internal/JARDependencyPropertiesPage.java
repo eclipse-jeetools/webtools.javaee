@@ -75,7 +75,6 @@ import org.eclipse.jst.j2ee.internal.listeners.IValidateEditListener;
 import org.eclipse.jst.j2ee.internal.listeners.ValidateEditListener;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
-import org.eclipse.jst.j2ee.model.IEARModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.swt.SWT;
@@ -539,7 +538,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 	public void refreshText() {
 		ClassPathSelection sel = model.getClassPathSelection();
 		if (sel != null && classPathText != null)
-			classPathText.setText(sel == null ? "" : sel.toString()); //$NON-NLS-1$
+			classPathText.setText(sel.toString());
 	}
 
 	/**
@@ -611,7 +610,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 				while (wlpIterator.hasNext()) {
 					ClasspathElement wlpElement = (ClasspathElement) wlpIterator.next();
 					String text = element.getText();
-					int index = text.indexOf(".jar");
+					int index = text.indexOf(".jar"); //$NON-NLS-1$
 					if (index != -1) {
 						text = text.substring(0, index);
 						if (text.equals(wlpElement.getText())) {
@@ -649,7 +648,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 				while (j2eeIterator.hasNext()) {
 					ClasspathElement j2eeElement = (ClasspathElement) j2eeIterator.next();
 					String text = j2eeElement.getText();
-					int index = text.indexOf(".jar");
+					int index = text.indexOf(".jar"); //$NON-NLS-1$
 					if( index != -1 ){
 						text = text.substring(0, index);
 						if (element.getText().equals(text)) {
@@ -927,7 +926,6 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 		}
  		IProject[] ears = J2EEProjectUtilities.getReferencingEARProjects(project);
 		for (int i = 0; i < ears.length; i++) {
-			IEARModelProvider earModel = (IEARModelProvider)ModelProviderManager.getModelProvider(ears[i]);
 			if (J2EEProjectUtilities.isJEEProject(ears[i])) {	
 				IVirtualComponent earComponent = ComponentCore.createComponent(ears[i]);
 				List listToUncheck = createListToUncheck(earComponent, allCompsToUncheck, allCompNamesToUncheck);
@@ -956,7 +954,6 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 	
 	
 	private IStatus addModulesToEAR(IProgressMonitor monitor, final IVirtualComponent earComponent, final List compsToUncheckList) {
-		IStatus stat = IDataModelProvider.OK_STATUS;
 		try {
 			IWorkspaceRunnable runnable = new IWorkspaceRunnable(){
 				public void run(IProgressMonitor monitor) throws CoreException{

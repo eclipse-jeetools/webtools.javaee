@@ -110,27 +110,26 @@ public class J2EEDependenciesPage extends PropertyPage {
 			controls = new IJ2EEDependenciesControl[1];
 			controls[0] = new WebLibDependencyPropertiesPage(project, this);
 			return controls[0].createContents(parent);
-		} else {
-			// Create a tabbed folder with both "J2EE Modules" and "Web Libraries"
-			final TabFolder folder = new TabFolder(parent, SWT.LEFT);
-			folder.setLayoutData(new GridData(GridData.FILL_BOTH));
-			folder.setFont(parent.getFont());
-
-			// Create the two tabs 
-			controls = new IJ2EEDependenciesControl[2];
-		
-			controls[0] = new JARDependencyPropertiesPage(project, this);
-			TabItem tab = new TabItem(folder, SWT.NONE);
-			tab.setControl(controls[0].createContents(folder));
-			tab.setText(ManifestUIResourceHandler.J2EE_Modules);
-			controls[1] = new WebLibDependencyPropertiesPage(project, this);		
-			tab = new TabItem(folder, SWT.NONE);
-			tab.setControl(controls[1].createContents(folder));
-			tab.setText(ManifestUIResourceHandler.Web_Libraries);
-		
-			folder.setSelection(0);
-			return folder;
 		}
+		// Create a tabbed folder with both "J2EE Modules" and "Web Libraries"
+		final TabFolder folder = new TabFolder(parent, SWT.LEFT);
+		folder.setLayoutData(new GridData(GridData.FILL_BOTH));
+		folder.setFont(parent.getFont());
+
+		// Create the two tabs 
+		controls = new IJ2EEDependenciesControl[2];
+	
+		controls[0] = new JARDependencyPropertiesPage(project, this);
+		TabItem tab = new TabItem(folder, SWT.NONE);
+		tab.setControl(controls[0].createContents(folder));
+		tab.setText(ManifestUIResourceHandler.J2EE_Modules);
+		controls[1] = new WebLibDependencyPropertiesPage(project, this);		
+		tab = new TabItem(folder, SWT.NONE);
+		tab.setControl(controls[1].createContents(folder));
+		tab.setText(ManifestUIResourceHandler.Web_Libraries);
+	
+		folder.setSelection(0);
+		return folder;
 	}
 	
 	private Composite createNonEARContent(final Composite parent) {

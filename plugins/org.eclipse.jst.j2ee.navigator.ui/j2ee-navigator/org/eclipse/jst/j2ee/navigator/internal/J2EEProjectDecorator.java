@@ -42,7 +42,6 @@ public class J2EEProjectDecorator extends LabelProvider implements ILightweightL
     private static final String APPCLIENT_FACET = "jst.appclient"; //$NON-NLS-1$ 
     private static final String WEB_FACET = "jst.web"; //$NON-NLS-1$ 
     private static final String EJB_FACET = "jst.ejb"; //$NON-NLS-1$ 
-    private static final String UTILITY_FACET = "jst.utility"; //$NON-NLS-1$ 
     private static final String CONNECTOR_FACET = "jst.connector"; //$NON-NLS-1$ 
     private static final String STATIC_WEB_FACET = "wst.web"; //$NON-NLS-1$ 
     
@@ -54,13 +53,13 @@ public class J2EEProjectDecorator extends LabelProvider implements ILightweightL
     }
     
     public void decorate(Object element, IDecoration decoration) {
-    	
-    	if(element instanceof IJavaProject) {
-    		element = ((IJavaProject)element).getProject();
+    	IProject project = null;
+    	if(element instanceof IProject) {
+    		project = (IProject) element;
+    	} else if(element instanceof IJavaProject) {
+    		project = ((IJavaProject)element).getProject();
     	}
-        if (element instanceof IProject) {  
-    	
-        	IProject project = (IProject) element;
+        if (project != null) {  
         	ImageDescriptor overlay = null;
 			if (hasFacet(project, EAR_FACET))
 				overlay=getEAR();
@@ -74,9 +73,7 @@ public class J2EEProjectDecorator extends LabelProvider implements ILightweightL
 				overlay=getCONNECTOR();
 			else if (hasFacet(project, STATIC_WEB_FACET))
 				overlay=getDYNAMICWEB();
-			else if (hasFacet(project, UTILITY_FACET))
-				overlay=null;
-			
+			// keep it null for if (hasFacet(project, UTILITY_FACET))
 			if (overlay != null)
 				decoration.addOverlay(overlay); 
         }

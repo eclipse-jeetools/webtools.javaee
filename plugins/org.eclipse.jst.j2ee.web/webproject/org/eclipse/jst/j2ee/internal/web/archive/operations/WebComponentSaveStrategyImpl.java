@@ -56,7 +56,7 @@ public class WebComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl 
 
 	@Override
 	protected IPath getImportedClassesRuntimePath() {
-		return new Path("/" + ArchiveConstants.WEBAPP_CLASSES_URI);
+		return new Path("/" + ArchiveConstants.WEBAPP_CLASSES_URI); //$NON-NLS-1$
 	}
 
 	@Override

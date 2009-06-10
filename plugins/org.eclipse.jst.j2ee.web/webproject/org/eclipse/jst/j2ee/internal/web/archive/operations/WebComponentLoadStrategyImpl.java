@@ -120,7 +120,7 @@ public class WebComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 						final IFile wbFile = comp.getUnderlyingWorkbenchFile();
 						cpEntryFile = new File(wbFile.getLocation().toOSString());
 					}
-					addExternalFile("WEB-INF/lib/" + ref.getArchiveName(), cpEntryFile);
+					addExternalFile("WEB-INF/lib/" + ref.getArchiveName(), cpEntryFile); //$NON-NLS-1$
 				}
 			}
 		}

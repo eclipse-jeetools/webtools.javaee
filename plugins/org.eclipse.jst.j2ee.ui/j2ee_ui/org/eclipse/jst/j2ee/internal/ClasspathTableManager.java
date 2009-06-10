@@ -482,7 +482,7 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 							getActiveWorkbenchWindow().
 								getShell(), 
 					  DependencyConflictResolveDialog.DLG_TYPE_1);
-				if (dlg.open() == dlg.BTN_ID_CANCEL) {
+				if (dlg.open() == DependencyConflictResolveDialog.BTN_ID_CANCEL) {
 					v.setChecked(el, false);
 					return;
 				}

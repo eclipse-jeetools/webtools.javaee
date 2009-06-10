@@ -16,6 +16,10 @@ import org.eclipse.jst.j2ee.internal.ui.DoubleCheckboxTableItem;
 
 public class SecondCheckBoxStateChangedEvent extends CheckStateChangedEvent {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4497186607413856367L;
 	private DoubleCheckboxTableItem item = null;
 	
 	public SecondCheckBoxStateChangedEvent(ICheckable source, 

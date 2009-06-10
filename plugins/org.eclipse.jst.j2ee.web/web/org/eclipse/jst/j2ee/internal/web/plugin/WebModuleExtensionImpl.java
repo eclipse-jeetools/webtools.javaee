@@ -28,7 +28,6 @@ import org.eclipse.jst.j2ee.internal.moduleextension.WebModuleExtension;
 import org.eclipse.jst.j2ee.internal.project.J2EEJavaProjectInfo;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentImportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebFacetProjectCreationDataModelProvider;
-import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -79,21 +78,7 @@ public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements We
 	 *      org.eclipse.core.resources.IProject)
 	 */
 	public void setContextRootForModuleMapping(WebModule webModule, IProject nestedProject) throws CoreException {
-		WebArtifactEdit webEdit = null;
-		try {
-			// TODO migrate to flex project
-			// webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead( nestedProject
-			// );
-			if (webEdit != null) {
-				webEdit.setServerContextRoot(webModule.getContextRoot());
-			}
-		} finally {
-			if (webEdit != null)
-				webEdit.dispose();
-		}
-		// if (wnr != null) {
-		// wnr.setContextRoot(webModule.getContextRoot());
-		// }
+		// TODO migrate to flex project
 	}
 
 	/*
@@ -125,26 +110,8 @@ public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements We
 	 */
 
 	public String getContentFolder(IProject project, IFile webSettingsFile) {
-		String contentFolder = null;
-
-		// WebSettings webSettings = new WebSettings(project, webSettingsFile);
-		// if (webSettings != null) {
-		// contentFolder = webSettings.getWebContentName();
-		// }
+		return null;
 		// To do: Needs work here, no content folder exists now
-		WebArtifactEdit webEdit = null;
-		try {
-			// TODO migrate to flex project
-			// webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
-			if (webEdit != null) {
-
-			}
-		} finally {
-			if (webEdit != null)
-				webEdit.dispose();
-		}
-
-		return contentFolder;
 	}
 
 	/*
@@ -161,17 +128,7 @@ public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements We
 	}
 
 	protected String getServerContextRoot(IProject project) {
-		WebArtifactEdit webEdit = null;
-		try {
-			// TODO migrate to flex project
-			// webEdit = (WebArtifactEdit) StructureEdit.getFirstArtifactEditForRead(project);
-			if (webEdit != null) {
-				return webEdit.getServerContextRoot();
-			}
-		} finally {
-			if (webEdit != null)
-				webEdit.dispose();
-		}
+		// TODO migrate to flex project
 		return ""; //$NON-NLS-1$
 	}
 

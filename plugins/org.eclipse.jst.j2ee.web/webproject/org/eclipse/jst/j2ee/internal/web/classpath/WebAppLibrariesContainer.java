@@ -33,14 +33,14 @@ public final class WebAppLibrariesContainer
     
 {
     private static final IPath[] paths 
-        = new IPath[] { new Path( "WEB-INF/lib" ), 
-                        new Path( "WEB-INF/classes" ) };
+        = new IPath[] { new Path( "WEB-INF/lib" ),  //$NON-NLS-1$
+                        new Path( "WEB-INF/classes" ) }; //$NON-NLS-1$
     
     private static final PathType[] types 
         = new PathType[] { PathType.LIB_DIRECTORY, PathType.CLASSES_DIRECTORY };
     
     public static final String CONTAINER_ID 
-        = "org.eclipse.jst.j2ee.internal.web.container";
+        = "org.eclipse.jst.j2ee.internal.web.container"; //$NON-NLS-1$
     
     public WebAppLibrariesContainer( final IPath path,
                                      final IJavaProject jproject )
@@ -54,10 +54,7 @@ public final class WebAppLibrariesContainer
         {
             return NLS.bind( Resources.labelWithProject, this.project.getName() );
         }
-        else
-        {
-            return Resources.label;
-        }
+        return Resources.label;
     }
     
     public void install()
@@ -88,11 +85,8 @@ public final class WebAppLibrariesContainer
         {
             return jproject.getProject();
         }
-        else
-        {
-            final String name = path.segment( 1 );
-            return ResourcesPlugin.getWorkspace().getRoot().getProject( name );
-        }
+        final String name = path.segment( 1 );
+        return ResourcesPlugin.getWorkspace().getRoot().getProject( name );
     }
     
     private static final class Resources

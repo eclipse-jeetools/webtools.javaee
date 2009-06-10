@@ -175,7 +175,7 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 							e.printStackTrace();
 						}
 					}
-					if (comp!=null && comp.getComponentType()!=null)
+					if (comp.getComponentType()!=null)
 						addFacetsToProject(newProj,comp.getComponentType().getComponentTypeId(),comp.getComponentType().getVersion(),false);
 					removedComps.add(comp);
 					IFolder compFolder = project.getFolder(comp.getName());
@@ -537,7 +537,7 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 					realException.printStackTrace();
 				}
 			} catch (Exception ex) {
-				if (ex != null && ex instanceof CoreException) {
+				if (ex instanceof CoreException) {
 					IStatus st = ((CoreException)ex).getStatus();
 					if (st != null)
 						System.out.println(st);
