@@ -15,7 +15,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -219,31 +218,27 @@ public class J2EEContentProvider implements ITreeContentProvider, IRefreshHandle
 	 * @see org.eclipse.jst.j2ee.navigator.internal.EMFRootObjectManager.IRefreshHandlerListener#onRefresh(java.lang.Object)
 	 */
 	public void onRefresh(final Object element) {
-		if (viewer instanceof AbstractTreeViewer) {
-			if (Display.getCurrent() != null) {
-				(viewer).refresh(element, true);
-			} else {
-				/* Create and schedule a UI Job to update the Navigator Content Viewer */
-				Job job = new UIJob("Update the Navigator Content Viewer Job") { //$NON-NLS-1$
-					@Override
-					public IStatus runInUIThread(IProgressMonitor monitor) {
-						(viewer).refresh(element, true);
-						return Status.OK_STATUS;
-					}
-				};
-				ISchedulingRule rule = new ISchedulingRule() {
-					public boolean contains(ISchedulingRule rule) {
-						return rule == this;	
-					}
-					public boolean isConflicting(ISchedulingRule rule) {
-						return rule == this;
-					}
-				};
-				if (rule != null) {
-					job.setRule(rule);
+		if (Display.getCurrent() != null) {
+			(viewer).refresh(element, true);
+		} else {
+			/* Create and schedule a UI Job to update the Navigator Content Viewer */
+			Job job = new UIJob("Update the Navigator Content Viewer Job") { //$NON-NLS-1$
+				@Override
+				public IStatus runInUIThread(IProgressMonitor monitor) {
+					(viewer).refresh(element, true);
+					return Status.OK_STATUS;
 				}
-				job.schedule();
-			}
+			};
+			ISchedulingRule rule = new ISchedulingRule() {
+				public boolean contains(ISchedulingRule rule) {
+					return rule == this;	
+				}
+				public boolean isConflicting(ISchedulingRule rule) {
+					return rule == this;
+				}
+			};
+			job.setRule(rule);
+			job.schedule();
 		}
 	}
 

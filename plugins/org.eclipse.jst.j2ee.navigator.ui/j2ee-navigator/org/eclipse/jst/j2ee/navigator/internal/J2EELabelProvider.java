@@ -75,9 +75,8 @@ public class J2EELabelProvider implements ICommonLabelProvider {
 						return path;
 					int startIndex = path.indexOf(parent.getFullPath().toString());
 					return -1 == startIndex ? path : path.substring(startIndex);
-				} else {
-					return getText(eObj);
 				}
+				return getText(eObj);
 			}
 		}
 		return null;

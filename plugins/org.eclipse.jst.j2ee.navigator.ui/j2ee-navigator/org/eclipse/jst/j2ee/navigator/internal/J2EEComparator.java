@@ -61,5 +61,10 @@ public class J2EEComparator implements Comparator {
 	public boolean equals(Object obj) {
 		return obj instanceof J2EEComparator;
 	}
+	
+	@Override
+	public int hashCode() {
+		return J2EEComparator.class.hashCode();
+	}
 
 }

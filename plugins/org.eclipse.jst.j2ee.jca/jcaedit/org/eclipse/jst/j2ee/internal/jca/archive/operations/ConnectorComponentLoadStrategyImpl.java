@@ -141,11 +141,12 @@ public class ConnectorComponentLoadStrategyImpl extends ComponentLoadStrategyImp
 		
 		IContainer ddFolder = vComponent.getRootFolder().getFolder(J2EEConstants.META_INF).getUnderlyingFolder();
 		
+		boolean localFoundJava = foundJava;
 		for (int i = 0; i < members.length; i++) {
 			IResource res = members[i];
 			if (res.getType() == IResource.FOLDER) {
 				if (!ddFolder.equals(res)) {//if it's not the dd folder
-					foundJava = gatherFilesForJAR(iFiles, (IFolder) res, isModuleRoot, foundJava, sourceContainerSegmentCount) || foundJava;
+					localFoundJava = gatherFilesForJAR(iFiles, (IFolder) res, isModuleRoot, localFoundJava, sourceContainerSegmentCount) || localFoundJava;
 				}
 			} else {// it must be a file
 				IFile srcFile = (IFile) res;
@@ -174,11 +175,11 @@ public class ConnectorComponentLoadStrategyImpl extends ComponentLoadStrategyImp
 					}
 					}
 					if (isModuleRoot)
-						foundJava = foundJava || isJava(srcFile) || isClass(srcFile);
+						localFoundJava = localFoundJava || isJava(srcFile) || isClass(srcFile);
 				}
 			}
 		}
-		return foundJava;
+		return localFoundJava;
 	}
 
 	private File createNestedArchive(List files, IContainer sourceContainer, IFolder javaOutputFolder) {

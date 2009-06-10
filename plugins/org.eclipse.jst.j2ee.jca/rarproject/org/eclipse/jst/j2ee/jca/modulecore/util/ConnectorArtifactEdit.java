@@ -396,12 +396,11 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit implements IAr
 		if (isBinary()) {
 			JavaEEBinaryComponentHelper helper = (JavaEEBinaryComponentHelper)getBinaryComponentHelper();
 			return helper.accessLegacyArchive();
-		} else {
-			ConnectorComponentLoadStrategyImpl loader = new ConnectorComponentLoadStrategyImpl(getComponent(), includeClasspathComponents);
-			loader.setExportSource(includeSource);
-			String uri = ModuleURIUtil.getHandleString(getComponent());
-			return CommonarchiveFactory.eINSTANCE.openRARFile(loader, uri);
 		}
+		ConnectorComponentLoadStrategyImpl loader = new ConnectorComponentLoadStrategyImpl(getComponent(), includeClasspathComponents);
+		loader.setExportSource(includeSource);
+		String uri = ModuleURIUtil.getHandleString(getComponent());
+		return CommonarchiveFactory.eINSTANCE.openRARFile(loader, uri);
 	}
 
 	public static void createDeploymentDescriptor(IProject project, int version) {

@@ -61,11 +61,9 @@ public class NonFlexibleEMFModelManager extends EMFModelManager implements EditM
 		//}
 		if (rootObject==null) 
 			return EMPTY_OBJECT;
-		else {
-			Object[] objects = new Object[1];
-			objects[0] = rootObject;
-			return objects;
-		}
+		Object[] objects = new Object[1];
+		objects[0] = rootObject;
+		return objects;
 	}
 
 	/* (non-Javadoc)
