@@ -61,6 +61,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.internal.emf.utilities.ExtendedEcoreUtil;
 import org.eclipse.wst.common.project.facet.core.FacetedProjectFramework;
+import org.eclipse.jst.j2ee.internal.common.classpath.Messages;
 
 public class J2EEComponentClasspathUpdater implements IResourceChangeListener, IResourceDeltaVisitor {
 
@@ -190,7 +191,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 	}
 	
 	private static final int MODULE_UPDATE_DELAY = 30;
-	public static final String MODULE_UPDATE_JOB_NAME = "EAR Libraries Update Job"; 
+	public static final String MODULE_UPDATE_JOB_NAME = Messages.J2EEComponentClasspathUpdater_EAR_Libraries_Update_Jo_; 
 
 	private final ModuleUpdateJob moduleUpdateJob = new ModuleUpdateJob();
 
@@ -480,9 +481,8 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 				IVirtualFolder rootFolder = comp.getRootFolder();
 				if (comp instanceof EARVirtualComponent) {
 					return isRootAncester(resource, rootFolder);
-				} else { // J2EEModuleVirtualComponent
-					return isRootAncester(resource, rootFolder) || isFolder(resource, rootFolder.getFolder(J2EEConstants.META_INF));
-				}
+				}//else J2EEModuleVirtualComponent
+				return isRootAncester(resource, rootFolder) || isFolder(resource, rootFolder.getFolder(J2EEConstants.META_INF));
 			}
 			return false;
 		}
@@ -508,9 +508,9 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 				}
 			}
 		}
-		default:
-			return false;
+			
 		}
+		return false;
 	}
 	
 	public static boolean endsWithIgnoreCase(String str, String sfx) {
