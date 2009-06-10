@@ -84,7 +84,7 @@ public abstract class ProjectRefactorOperation extends AbstractDataModelOperatio
 		// get the metadata for all dependent projects
 		final ProjectRefactorMetadata[] dependentMetadata = refactoredMetadata.getDependentMetadata();
 		if (monitor != null) {
-			monitor.beginTask(RefactorResourceHandler.getString("task_name"), dependentMetadata.length); 
+			monitor.beginTask(RefactorResourceHandler.getString("task_name"), dependentMetadata.length);  //$NON-NLS-1$
 		}
 		ProjectRefactorMetadata metadata;
 		for (int i = 0; i < dependentMetadata.length; i++) {
@@ -149,13 +149,14 @@ public abstract class ProjectRefactorOperation extends AbstractDataModelOperatio
 					ServerUtil.modifyModules(wc, toAdd, toRemove, null);
 				}
 			} catch (CoreException ce) {
-				throw new ExecutionException(RefactorResourceHandler.getString("error_updating_server", 
+				throw new ExecutionException(RefactorResourceHandler.getString("error_updating_server",  //$NON-NLS-1$
 						new Object[]{server[i].getId(), originalMetadata.getProjectName()}), ce);
 			} finally {
 				try {
-					wc.saveAll(true, null);
+					if(wc != null)
+						wc.saveAll(true, null);
 				} catch (CoreException ce) {
-					throw new ExecutionException(RefactorResourceHandler.getString("error_updating_server", 
+					throw new ExecutionException(RefactorResourceHandler.getString("error_updating_server",  //$NON-NLS-1$
 							new Object[]{server[i].getId(), originalMetadata.getProjectName()}), ce);					
 				}
 			}

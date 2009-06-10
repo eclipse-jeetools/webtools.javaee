@@ -230,15 +230,13 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 				if (null != project && project.exists()) {
 
 					IFacetedProject facetedProject = null;
-					boolean canContinue = true;
 					try {
 						facetedProject = ProjectFacetsManager.create(project);
 					} catch (CoreException e) {
 						Logger.getLogger().logError(e);
-						canContinue = false;
 					}
 
-					if (canContinue) {
+					if (facetedProject != null ) {
 						IRuntime runtime = facetedProject.getRuntime();
 						if (null != runtime) {
 							setProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME, runtime);
@@ -441,19 +439,23 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 				localModel.setProperty(IJavaUtilityJarImportDataModelProperties.ARCHIVE_WRAPPER, currentArchive);
 				localModel.setProperty(IJavaUtilityJarImportDataModelProperties.EAR_PROJECT_NAME, getStringProperty(PROJECT_NAME));
 				localModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME, getProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME));
-				utilityModels.add(localModel);
+				if(utilityModels != null){
+					utilityModels.add(localModel);
+				}
 				localModel.addListener(nestedListener);
 				utilityJarsModified = true;
 			}
 		} // Remove extras
-		for (int i = utilityModels.size() - 1; i >= 0; i--) {
-			currentUtilityModel = utilityModels.get(i);
-			currentArchive = (ArchiveWrapper) currentUtilityModel.getProperty(IJavaUtilityJarImportDataModelProperties.ARCHIVE_WRAPPER);
-			if (null == utilityJars || !utilityJars.contains(currentArchive)) {
-				currentUtilityModel.removeListener(nestedListener);
-				currentUtilityModel.dispose();
-				utilityModels.remove(currentUtilityModel);
-				utilityJarsModified = true;
+		if(utilityModels != null){
+			for (int i = utilityModels.size() - 1; i >= 0; i--) {
+				currentUtilityModel = utilityModels.get(i);
+				currentArchive = (ArchiveWrapper) currentUtilityModel.getProperty(IJavaUtilityJarImportDataModelProperties.ARCHIVE_WRAPPER);
+				if (null == utilityJars || !utilityJars.contains(currentArchive)) {
+					currentUtilityModel.removeListener(nestedListener);
+					currentUtilityModel.dispose();
+					utilityModels.remove(currentUtilityModel);
+					utilityJarsModified = true;
+				}
 			}
 		}
 		allList = getProjectModels();
@@ -578,8 +580,9 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 				}
 				if (defaultModuleNames.contains(moduleName + suffix)) {
 					int count = 1;
-					for (; defaultModuleNames.contains(moduleName + suffix + count) && count < 10; count++)
-						;
+					for (; defaultModuleNames.contains(moduleName + suffix + count) && count < 10; count++){
+						//do nothing simply incrementing count
+					}
 					suffix += count;
 				}
 				localModel.setProperty(IJ2EEModuleImportDataModelProperties.PROJECT_NAME, moduleName + suffix);
