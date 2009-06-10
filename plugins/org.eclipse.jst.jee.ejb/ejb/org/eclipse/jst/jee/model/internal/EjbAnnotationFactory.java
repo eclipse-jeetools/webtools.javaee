@@ -13,7 +13,6 @@ package org.eclipse.jst.jee.model.internal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.runtime.CoreException;
@@ -192,17 +191,6 @@ public class EjbAnnotationFactory extends AbstractAnnotationFactory {
 		return sessionBean;
 	}
 
-	private EjbLocalRef findRefByName(SessionBean bean, String name) {
-		if (name == null)
-			return null;
-		for (Iterator iter = bean.getEjbLocalRefs().iterator(); iter.hasNext();) {
-			EjbLocalRef ref = (EjbLocalRef) iter.next();
-			if (name.equals(ref.getEjbRefName()))
-				return ref;
-		}
-		return null;
-	}
-
 	/**
 	 * Checks if this method can be classified as a "lifecycle" method. One on
 	 * which a lifecycle annotation like "@PostConstruct", "@PreDestory", etc
@@ -301,14 +289,17 @@ public class EjbAnnotationFactory extends AbstractAnnotationFactory {
 			throws JavaModelException {
 		SessionBean sessionBean = null;
 		MessageDrivenBean messageBean = null;
-		if (SessionBean.class.isInstance(bean)) {
+		List<EjbLocalRef> ejbRefs = null;
+		List<ResourceRef> resourceRefs = null;
+				if (SessionBean.class.isInstance(bean)) {
 			sessionBean = (SessionBean) bean;
+			ejbRefs = sessionBean.getEjbLocalRefs();
+			resourceRefs = sessionBean.getResourceRefs();
 		} else if (MessageDrivenBean.class.isInstance(bean)) {
 			messageBean = (MessageDrivenBean) bean;
+			ejbRefs = messageBean.getEjbLocalRefs();
+			resourceRefs = messageBean.getResourceRefs();
 		}
-		List<EjbLocalRef> ejbRefs = sessionBean != null ? sessionBean.getEjbLocalRefs() : messageBean.getEjbLocalRefs();
-		List<ResourceRef> resourceRefs = sessionBean != null ? sessionBean.getResourceRefs() : messageBean
-				.getResourceRefs();
 		for (IField field : type.getFields()) {
 			for (IAnnotation annotation : field.getAnnotations()) {
 				String annotationName = annotation.getElementName();
@@ -446,17 +437,23 @@ public class EjbAnnotationFactory extends AbstractAnnotationFactory {
 			throws JavaModelException {
 		SessionBean sessionBean = null;
 		MessageDrivenBean messageBean = null;
+		List<EjbLocalRef> ejbRefs = null;
+		List<ResourceRef> resourceRefs = null;
+		List<LifecycleCallback> postConstructs = null;
+		List<LifecycleCallback> preDestroys = null;
 		if (SessionBean.class.isInstance(bean)) {
 			sessionBean = (SessionBean) bean;
+			ejbRefs = sessionBean.getEjbLocalRefs();
+			resourceRefs = sessionBean.getResourceRefs();
+			postConstructs = sessionBean.getPostConstructs();
+			preDestroys = sessionBean.getPreDestroys();
 		} else if (MessageDrivenBean.class.isInstance(bean)) {
 			messageBean = (MessageDrivenBean) bean;
+			ejbRefs = messageBean.getEjbLocalRefs();
+			resourceRefs = messageBean.getResourceRefs();
+			postConstructs = messageBean.getPostConstructs();
+			preDestroys =  messageBean.getPreDestroys();
 		}
-		boolean isSession = sessionBean != null;
-		List<EjbLocalRef> ejbRefs = isSession ? sessionBean.getEjbLocalRefs() : messageBean.getEjbLocalRefs();
-		List<ResourceRef> resourceRefs = isSession ? sessionBean.getResourceRefs() : messageBean.getResourceRefs();
-		List<LifecycleCallback> postConstructs = isSession ? sessionBean.getPostConstructs() : messageBean
-				.getPostConstructs();
-		List<LifecycleCallback> preDestroys = isSession ? sessionBean.getPreDestroys() : messageBean.getPreDestroys();
 		for (IMethod method : type.getMethods()) {
 			boolean isLifecycle = isLifecycleMethod(method);
 			for (IAnnotation annotation : method.getAnnotations()) {
@@ -474,7 +471,7 @@ public class EjbAnnotationFactory extends AbstractAnnotationFactory {
 					processEjbAnnotation(annotation, ejbRefs, method, dependedTypes);
 				} else if (RESOURCE.equals(annotationName)) {
 					processResourceRefAnnotation(annotation, resourceRefs, method, dependedTypes);
-				} else if (isSession && sessionBean.getSessionType().getValue() == SessionType.STATELESS
+				} else if (sessionBean != null && sessionBean.getSessionType().getValue() == SessionType.STATELESS
 						&& TIMEOUT.equals(annotationName)) {
 					// time out annotations are set only ot stateless beans
 					processTimeoutAnnotation(sessionBean, method, annotation);
@@ -564,19 +561,22 @@ public class EjbAnnotationFactory extends AbstractAnnotationFactory {
 	private void processTypeAnnotations(Result result, JavaEEObject bean, IType type) throws JavaModelException {
 		SessionBean sessionBean = null;
 		MessageDrivenBean messageBean = null;
+		List<EjbLocalRef> ejbRefs  = null;
+		List<ResourceRef> resourceRefs  = null;
 		if (SessionBean.class.isInstance(bean)) {
 			sessionBean = (SessionBean) bean;
+			ejbRefs = sessionBean.getEjbLocalRefs();
+			resourceRefs = sessionBean.getResourceRefs();
 		} else if (MessageDrivenBean.class.isInstance(bean)) {
 			messageBean = (MessageDrivenBean) bean;
+			ejbRefs = messageBean.getEjbLocalRefs();
+			resourceRefs = messageBean.getResourceRefs();
 		}
-		boolean isSessionBean = sessionBean != null;
-		List<EjbLocalRef> ejbRefs = isSessionBean ? sessionBean.getEjbLocalRefs() : messageBean.getEjbLocalRefs();
-		List<ResourceRef> resourceRefs = isSessionBean ? sessionBean.getResourceRefs() : messageBean.getResourceRefs();
-
+		
 		for (IAnnotation annotation : type.getAnnotations()) {
 			IMemberValuePair[] pairs = annotation.getMemberValuePairs();
 			String annotationName = annotation.getElementName();
-			if (isSessionBean) {
+			if (sessionBean != null) {
 				if (LOCAL.equals(annotationName)) {
 					if (pairs.length == 1) {
 						addInterfaces(sessionBean.getBusinessLocals(), type, pairs[0], result.getDependedTypes());
@@ -616,9 +616,9 @@ public class EjbAnnotationFactory extends AbstractAnnotationFactory {
 					transaction = TransactionType.CONTAINER_LITERAL;
 				}
 				if (transaction != null) {
-					if (isSessionBean)
+					if (sessionBean != null)
 						sessionBean.setTransactionType(transaction);
-					else
+					else if( messageBean != null)
 						messageBean.setTransactionType(transaction);
 				}
 			} else if (RESOURCE.equals(annotationName)) {
@@ -631,9 +631,9 @@ public class EjbAnnotationFactory extends AbstractAnnotationFactory {
 				processRunAs(annotation, runAs);
 				identity.setRunAs(runAs);
 				if (identity.getRunAs().getRoleName() != null)
-					if (isSessionBean)
+					if (sessionBean != null)
 						sessionBean.setSecurityIdentities(identity);
-					else
+					else if( messageBean != null)
 						messageBean.setSecurityIdentity(identity);
 			}
 		}

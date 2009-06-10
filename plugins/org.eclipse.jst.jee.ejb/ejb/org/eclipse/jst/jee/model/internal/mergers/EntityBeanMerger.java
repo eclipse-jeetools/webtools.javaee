@@ -13,7 +13,6 @@ package org.eclipse.jst.jee.model.internal.mergers;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jst.j2ee.ejb.internal.operations.BusinessInterface;
 import org.eclipse.jst.javaee.core.SecurityRoleRef;
 import org.eclipse.jst.javaee.ejb.EntityBean;
 
@@ -91,10 +90,6 @@ public List process() throws ModelException {
 
 
   private void mergeInterfaces(List warnings) throws ModelException {
-    boolean isInBase = getBaseBean() instanceof EntityBean;
-    boolean isInToMerge = getToMergeBean() instanceof EntityBean;
-
-    if (isInBase && isInToMerge) {
       EntityBean baseBean = getBaseBean();
       EntityBean toMergeBean = getToMergeBean();
 
@@ -117,21 +112,7 @@ public List process() throws ModelException {
         String toMergeRemoteHome = toMergeBean.getRemote();
         baseBean.setRemote(toMergeRemoteHome);   
       }
-
-    }
   }
-
-  private boolean containsInterface(List business, BusinessInterface intfs) {
-    for (Object object : business) {
-      BusinessInterface bIntfs = (BusinessInterface) object;
-      if (bIntfs.getFullyQualifiedName().equals(intfs.getFullyQualifiedName())){
-        return true;
-      }
-    }
-    return false;
-  }
-
-
 
   private void mergeJNDIRefs(List warnings) throws ModelException {
     

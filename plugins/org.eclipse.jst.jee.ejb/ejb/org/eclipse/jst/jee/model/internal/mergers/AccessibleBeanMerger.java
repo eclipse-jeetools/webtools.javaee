@@ -44,10 +44,6 @@ public List process() throws ModelException {
   }
 
   private void mergeInterfaces(List warnings) throws ModelException {
-    boolean isInBase = getBaseBean() instanceof SessionBean;
-    boolean isInToMerge = getToMergeBean() instanceof SessionBean;
-
-    if (isInBase && isInToMerge) {
       SessionBean baseBean = getBaseBean();
       SessionBean toMergeBean = getToMergeBean();
 
@@ -91,8 +87,6 @@ public List process() throws ModelException {
         String toMergeRemoteHome = toMergeBean.getHome();
         baseBean.setHome(toMergeRemoteHome);   
       }
-      
-    }
   }
 
   private boolean containsInterface(List business, String intfs) {

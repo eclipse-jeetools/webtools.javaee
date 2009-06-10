@@ -114,7 +114,7 @@ public List process() throws ModelException {
     if(methodParams == null && methodParams2 == null){
       return true;
     }
-    if(methodParams == null | methodParams2 == null){
+    if(methodParams == null || methodParams2 == null){
       return false;
     }
 
