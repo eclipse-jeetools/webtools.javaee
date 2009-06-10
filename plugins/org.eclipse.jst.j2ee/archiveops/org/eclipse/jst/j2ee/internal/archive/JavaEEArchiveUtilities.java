@@ -41,7 +41,6 @@ import org.eclipse.jst.jee.archive.ArchiveModelLoadException;
 import org.eclipse.jst.jee.archive.ArchiveOpenFailureException;
 import org.eclipse.jst.jee.archive.ArchiveOptions;
 import org.eclipse.jst.jee.archive.IArchive;
-import org.eclipse.jst.jee.archive.IArchiveFactory;
 import org.eclipse.jst.jee.archive.IArchiveLoadAdapter;
 import org.eclipse.jst.jee.archive.IArchiveResource;
 import org.eclipse.jst.jee.archive.internal.ArchiveFactoryImpl;
