@@ -132,7 +132,7 @@ public abstract class J2EEComponentArchiveSaveAdapter extends ComponentArchiveSa
 	}
 
 	protected IPath getImportedClassesRuntimePath() {
-		return new Path("/");
+		return new Path("/"); //$NON-NLS-1$
 	}
 	
 	@Override

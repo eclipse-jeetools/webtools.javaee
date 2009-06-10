@@ -394,12 +394,11 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IAr
 		if (isBinary()) {
 			JavaEEBinaryComponentHelper helper = (JavaEEBinaryComponentHelper)getBinaryComponentHelper();
 			return helper.accessLegacyArchive();
-		} else {
-			AppClientComponentLoadStrategyImpl loader = new AppClientComponentLoadStrategyImpl(getComponent());
-			loader.setExportSource(includeSource);
-			String uri = ModuleURIUtil.getHandleString(getComponent());
-			return CommonarchiveFactory.eINSTANCE.openApplicationClientFile(loader, uri);
 		}
+		AppClientComponentLoadStrategyImpl loader = new AppClientComponentLoadStrategyImpl(getComponent());
+		loader.setExportSource(includeSource);
+		String uri = ModuleURIUtil.getHandleString(getComponent());
+		return CommonarchiveFactory.eINSTANCE.openApplicationClientFile(loader, uri);
 	}
 	
 	public static void createDeploymentDescriptor(IProject project, int version) {

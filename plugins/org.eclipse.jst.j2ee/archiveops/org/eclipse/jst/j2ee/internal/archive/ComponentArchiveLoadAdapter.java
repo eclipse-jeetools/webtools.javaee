@@ -160,9 +160,12 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 					sourceFileUri = (String) it.next();
 					zipFile = (ZipFile) fileURIMap.get(sourceFileUri);
 				}
-				ZipEntry entry = zipFile.getEntry(sourceFileUri);
-				InputStream in = zipFile.getInputStream(entry);
-				return in;
+				if(zipFile != null){
+					ZipEntry entry = zipFile.getEntry(sourceFileUri);
+					InputStream in = zipFile.getInputStream(entry);
+					return in;
+				}
+				throw new IOException();
 			} else {
 				IArchiveResource res = getArchiveResource(path);
 				return ComponentArchiveLoadAdapter.this.getSuperInputStream(res);
@@ -182,16 +185,17 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 		}
 
 		public void addEntry(ZipEntry entry, ZipFile zipFile, IPath runtimePath) {
-			if (runtimePath != null) {
-				if (!runtimePath.equals("/")) //$NON-NLS-1$
-					runtimePath = runtimePath.append(entry.getName());
+			IPath innerRuntimePath = runtimePath;
+			if (innerRuntimePath != null) {
+				if (!innerRuntimePath.equals("/")) //$NON-NLS-1$
+					innerRuntimePath = innerRuntimePath.append(entry.getName());
 				else
-					runtimePath = new Path(entry.getName());
+					innerRuntimePath = new Path(entry.getName());
 			} else {
-				runtimePath = new Path(entry.getName());
+				innerRuntimePath = new Path(entry.getName());
 			}
 
-			IArchiveResource file = createFile(runtimePath);
+			IArchiveResource file = createFile(innerRuntimePath);
 
 			Map fileURIMap = new HashMap();
 			fileURIMap.put(entry.getName(), zipFile);
@@ -653,19 +657,21 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 	@Override
 	public boolean containsModelObject(IPath modelObjectPath) {
 		initEMFHelper();
-		if (IArchive.EMPTY_MODEL_PATH == modelObjectPath) {
-			modelObjectPath = getDefaultModelObjectPath();
+		IPath innerModelObjectPath = modelObjectPath;
+		if (IArchive.EMPTY_MODEL_PATH == innerModelObjectPath) {
+			innerModelObjectPath = getDefaultModelObjectPath();
 		}
-		return emfHelper.containsModelObject(modelObjectPath);
+		return emfHelper.containsModelObject(innerModelObjectPath);
 	}
 
 	@Override
 	public Object getModelObject(IPath modelObjectPath) throws ArchiveModelLoadException {
 		initEMFHelper();
-		if (IArchive.EMPTY_MODEL_PATH == modelObjectPath) {
-			modelObjectPath = getDefaultModelObjectPath();
+		IPath innerModelObjectPath = modelObjectPath;
+		if (IArchive.EMPTY_MODEL_PATH == innerModelObjectPath) {
+			innerModelObjectPath = getDefaultModelObjectPath();
 		}
-		return emfHelper.getModelObject(modelObjectPath);
+		return emfHelper.getModelObject(innerModelObjectPath);
 	}
 
 	protected IPath getDefaultModelObjectPath() {

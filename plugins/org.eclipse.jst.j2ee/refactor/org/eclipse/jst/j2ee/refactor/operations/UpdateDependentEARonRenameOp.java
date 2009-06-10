@@ -91,7 +91,7 @@ public class UpdateDependentEARonRenameOp extends UpdateDependentProjectOp {
 			refdm.setBooleanProperty(CreateOptionalReferenceOpDataModelProvider.CREATE_PROJECT_REF,hadProjectReference);
 			refdm.getDefaultOperation().execute(monitor, null);
 		} else {
-			throw new ExecutionException(RefactorResourceHandler.getString("missing_natures"), null);
+			throw new ExecutionException(RefactorResourceHandler.getString("missing_natures"), null); //$NON-NLS-1$
 		}
 		return Status.OK_STATUS;
 	}

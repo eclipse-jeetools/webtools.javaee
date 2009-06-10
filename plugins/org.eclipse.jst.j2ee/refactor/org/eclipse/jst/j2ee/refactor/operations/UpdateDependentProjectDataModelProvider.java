@@ -13,8 +13,7 @@ package org.eclipse.jst.j2ee.refactor.operations;
 
 import java.util.Set;
 
-public abstract class UpdateDependentProjectDataModelProvider extends ProjectRefactoringDataModelProvider 
-	implements ProjectRefactoringProperties {
+public abstract class UpdateDependentProjectDataModelProvider extends ProjectRefactoringDataModelProvider {
 	
 	/* (non-Javadoc)
 	 * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider#getPropertyNames()

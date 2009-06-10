@@ -669,7 +669,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 	
 	@Override
 	public void close() {
-		if(Thread.currentThread().toString().toLowerCase().indexOf("finalizer") != -1){
+		if(Thread.currentThread().toString().toLowerCase().indexOf("finalizer") != -1){ //$NON-NLS-1$
 			System.err.println("Opener of Archive didn't close! "+this);
 			exception.printStackTrace(System.err);
 		}

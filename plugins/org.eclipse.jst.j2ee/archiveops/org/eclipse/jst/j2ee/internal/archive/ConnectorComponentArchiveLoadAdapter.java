@@ -142,46 +142,49 @@ public class ConnectorComponentArchiveLoadAdapter extends ComponentArchiveLoadAd
 		
 		IContainer ddFolder = vComponent.getRootFolder().getFolder(J2EEConstants.META_INF).getUnderlyingFolder();
 
-		for (int i = 0; i < members.length; i++) {
-			IResource res = members[i];
-			if (res.getType() == IResource.FOLDER) {
-				if (!ddFolder.equals(res)) {//if it's not the dd folder
-					foundJava = gatherFilesForJAR(iFiles, (IFolder) res, isModuleRoot, foundJava, sourceContainerSegmentCount) || foundJava;
-				}
-			} else {// it must be a file
-				IFile srcFile = (IFile) res;
-				if (belongsInNestedJAR(srcFile, isModuleRoot)) {
-					if (JavaEEArchiveUtilities.isJava(srcFile)) {
-						if (exportSource) {
-							iFiles.add(srcFile); // don't need to check
-							// duplicates here
-						}
-						String className = srcFile.getProjectRelativePath().removeFirstSegments(sourceContainerSegmentCount).toString();
-						className = className.substring(0, className.length() - dotJavaLength);
-						List classes = retrieveClasses(className);
-						if (null != classes) {
-							Iterator iterator = classes.iterator();
-							while (iterator.hasNext()) {
-								IFile clazz = (IFile) iterator.next();
-								if (!iFiles.contains(clazz)) {
-									// .class need to check for duplicates
-									iFiles.add(clazz);
+		boolean localFoundJava = foundJava;
+		if(members != null){
+			for (int i = 0; i < members.length; i++) {
+				IResource res = members[i];
+				if (res.getType() == IResource.FOLDER) {
+					if (!ddFolder.equals(res)) {//if it's not the dd folder
+						localFoundJava = gatherFilesForJAR(iFiles, (IFolder) res, isModuleRoot, localFoundJava, sourceContainerSegmentCount) || localFoundJava;
+					}
+				} else {// it must be a file
+					IFile srcFile = (IFile) res;
+					if (belongsInNestedJAR(srcFile, isModuleRoot)) {
+						if (JavaEEArchiveUtilities.isJava(srcFile)) {
+							if (exportSource) {
+								iFiles.add(srcFile); // don't need to check
+								// duplicates here
+							}
+							String className = srcFile.getProjectRelativePath().removeFirstSegments(sourceContainerSegmentCount).toString();
+							className = className.substring(0, className.length() - dotJavaLength);
+							List classes = retrieveClasses(className);
+							if (null != classes) {
+								Iterator iterator = classes.iterator();
+								while (iterator.hasNext()) {
+									IFile clazz = (IFile) iterator.next();
+									if (!iFiles.contains(clazz)) {
+										// .class need to check for duplicates
+										iFiles.add(clazz);
+									}
 								}
 							}
+						} else {
+							if (!iFiles.contains(srcFile)) {
+								// if it's not src, then it could be .class and need
+								// to check for duplicates
+								iFiles.add(srcFile);
+							}
 						}
-					} else {
-						if (!iFiles.contains(srcFile)) {
-							// if it's not src, then it could be .class and need
-							// to check for duplicates
-							iFiles.add(srcFile);
-						}
+						if (isModuleRoot)
+							localFoundJava = localFoundJava || JavaEEArchiveUtilities.isJava(srcFile) || JavaEEArchiveUtilities.isClass(srcFile);
 					}
-					if (isModuleRoot)
-						foundJava = foundJava || JavaEEArchiveUtilities.isJava(srcFile) || JavaEEArchiveUtilities.isClass(srcFile);
 				}
 			}
 		}
-		return foundJava;
+		return localFoundJava;
 	}
 
 	private IArchive createNestedArchive(List <IFile> files, IContainer sourceContainer, IFolder javaOutputFolder) throws ArchiveOpenFailureException {

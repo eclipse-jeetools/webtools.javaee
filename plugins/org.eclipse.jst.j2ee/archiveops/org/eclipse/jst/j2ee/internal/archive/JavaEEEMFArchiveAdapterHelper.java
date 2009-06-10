@@ -61,7 +61,7 @@ public class JavaEEEMFArchiveAdapterHelper {
 		public JavaEEEMFArchiveAdapterHelper getHelper() {
 			return this.helper;
 		}
-	};
+	}
 
 	protected ResourceSet resourceSet;
 
@@ -157,7 +157,7 @@ public class JavaEEEMFArchiveAdapterHelper {
 
 	public void initializeResourceSet() {
 		ResourceSet rs = new ResourceSetImpl() {
-			final String JAVA_PROTOCOL_URI_SCHEME = "java";
+			final String JAVA_PROTOCOL_URI_SCHEME = "java"; //$NON-NLS-1$
 			private IContentDescription getContentDescription(URI uri) {
 				IArchiveResource archiveResource = null;
 				InputStream ioStream = null;
@@ -239,9 +239,8 @@ public class JavaEEEMFArchiveAdapterHelper {
 					Resource result = resourceFactory.createResource(uri);
 					getResources().add(result);
 					return result;
-				} else {
-					return null;
 				}
+				return null;
 			}
 
 			private boolean isJavaURI(URI uri) {

@@ -119,92 +119,63 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
             final IClasspathAttribute attrib = checkForComponentDependencyAttribute(entry);
             if (attrib != null) {
             	continue; // already has the attribute
-            } else {
-            	// check validation logic for entry
-            	// always mark the "isWebApp" param as true so that we get both exported and non-exported entries; for non-web projects,
-            	// want to let a user have the option to see and select the non-exported entries and then just generate a validation
-            	// error if they happen to select one.
-            	final IMessage[] msgs = ClasspathDependencyValidator.validateVirtualComponentEntry(entry, null, true, project, data);
-            	boolean error = false;
-            	for (int j = 0; j < msgs.length; j++) {
-            		if (msgs[j].getSeverity() == IMessage.HIGH_SEVERITY) {
-            			error = true;
-            			break;
-            		}
-            	}
-            	if (error) {
-            		continue;
-            	}
-            	if (IClasspathEntry.CPE_LIBRARY == entry.getEntryKind()) {
-					final boolean isFile = !ClasspathDependencyUtil.isClassFolderEntry(entry);
-					if (isFile) {
-						boolean foundEntry = false;
-						IVirtualComponent component = ComponentCore.createComponent(project);
-						if (isWebApp) { // checks for web libs
-							IContainer[] webLibFolders = component.getRootFolder().getFolder(WEB_INF_LIB_PATH).getUnderlyingFolders();
-							for (IContainer webLib : webLibFolders) {
-								IPath webLibFolderPath = webLib.getFullPath();
-								if (webLibFolderPath.equals(entry.getPath().removeLastSegments(1))) {
-									foundEntry = true;
-									break;
-								}
-							}
-						} else if(isRAR){
-							IContainer [] rootFolders = component.getRootFolder().getUnderlyingFolders();
-							for(IContainer root: rootFolders){
-								IPath rootPath = root.getFullPath();
-								if(rootPath.isPrefixOf(entry.getPath())){
-									foundEntry = true;
-									break;
-								}
+            }
+        	// check validation logic for entry
+        	// always mark the "isWebApp" param as true so that we get both exported and non-exported entries; for non-web projects,
+        	// want to let a user have the option to see and select the non-exported entries and then just generate a validation
+        	// error if they happen to select one.
+        	final IMessage[] msgs = ClasspathDependencyValidator.validateVirtualComponentEntry(entry, null, true, project, data);
+        	boolean error = false;
+        	for (int j = 0; j < msgs.length; j++) {
+        		if (msgs[j].getSeverity() == IMessage.HIGH_SEVERITY) {
+        			error = true;
+        			break;
+        		}
+        	}
+        	if (error) {
+        		continue;
+        	}
+        	if (IClasspathEntry.CPE_LIBRARY == entry.getEntryKind()) {
+				final boolean isFile = !ClasspathDependencyUtil.isClassFolderEntry(entry);
+				if (isFile) {
+					boolean foundEntry = false;
+					IVirtualComponent component = ComponentCore.createComponent(project);
+					if (isWebApp) { // checks for web libs
+						IContainer[] webLibFolders = component.getRootFolder().getFolder(WEB_INF_LIB_PATH).getUnderlyingFolders();
+						for (IContainer webLib : webLibFolders) {
+							IPath webLibFolderPath = webLib.getFullPath();
+							if (webLibFolderPath.equals(entry.getPath().removeLastSegments(1))) {
+								foundEntry = true;
+								break;
 							}
 						}
-						if (foundEntry) {
-							continue;
-						}
-						// checks for manifest references
-						List manifestRefs = J2EEModuleVirtualComponent.getManifestReferences(component, null);
-						if(manifestRefs != null){
-							for (int j = 0; j < manifestRefs.size(); j++) {
-								IVirtualReference ref = (IVirtualReference) manifestRefs.get(j);
-								IVirtualComponent c = ref.getReferencedComponent();
-								if (c.isBinary()) {
-									VirtualArchiveComponent archiveComponent = (VirtualArchiveComponent) c;
-									IFile file = archiveComponent.getUnderlyingWorkbenchFile();
-									if (file != null) {
-										if (file.getFullPath().equals(entry.getPath())) {
-											foundEntry = true;
-											break;
-										}
-									}
-								}
-							}
-							if (foundEntry) {
-								continue;
+					} else if(isRAR){
+						IContainer [] rootFolders = component.getRootFolder().getUnderlyingFolders();
+						for(IContainer root: rootFolders){
+							IPath rootPath = root.getFullPath();
+							if(rootPath.isPrefixOf(entry.getPath())){
+								foundEntry = true;
+								break;
 							}
 						}
-						// checks for ear library-directory entries
-						IProject[] earProjects = EarUtilities.getReferencingEARProjects(project);
-						for (IProject earProject : earProjects) {
-							String earDDVersion = EarUtilities.getJ2EEDDProjectVersion(earProject);
-							if(!earDDVersion.equals(J2EEVersionConstants.VERSION_1_2_TEXT) && !earDDVersion.equals(J2EEVersionConstants.VERSION_1_3_TEXT) && !earDDVersion.equals(J2EEVersionConstants.VERSION_1_4_TEXT)) {
-								IVirtualComponent earComponent = ComponentCore.createComponent(earProject);
-								Application app = (Application) ModelProviderManager.getModelProvider(earComponent).getModelObject();
-								String libDir = app.getLibraryDirectory();
-								if (libDir == null) {
-									// lib is the default if no library-directory is set
-									libDir = "lib"; //$NON-NLS-1$
-								}
-								IContainer[] earLibFolders = earComponent.getRootFolder().getFolder(new Path(libDir)).getUnderlyingFolders();
-								for (IContainer earLib : earLibFolders) {
-									IPath earLibFolderPath = earLib.getFullPath();
-									if (earLibFolderPath.equals(entry.getPath().removeLastSegments(1))) {
+					}
+					if (foundEntry) {
+						continue;
+					}
+					// checks for manifest references
+					List manifestRefs = J2EEModuleVirtualComponent.getManifestReferences(component, null);
+					if(manifestRefs != null){
+						for (int j = 0; j < manifestRefs.size(); j++) {
+							IVirtualReference ref = (IVirtualReference) manifestRefs.get(j);
+							IVirtualComponent c = ref.getReferencedComponent();
+							if (c.isBinary()) {
+								VirtualArchiveComponent archiveComponent = (VirtualArchiveComponent) c;
+								IFile file = archiveComponent.getUnderlyingWorkbenchFile();
+								if (file != null) {
+									if (file.getFullPath().equals(entry.getPath())) {
 										foundEntry = true;
 										break;
 									}
-								}
-								if (foundEntry) {
-									break;
 								}
 							}
 						}
@@ -212,11 +183,39 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 							continue;
 						}
 					}
+					// checks for ear library-directory entries
+					IProject[] earProjects = EarUtilities.getReferencingEARProjects(project);
+					for (IProject earProject : earProjects) {
+						String earDDVersion = EarUtilities.getJ2EEDDProjectVersion(earProject);
+						if(!earDDVersion.equals(J2EEVersionConstants.VERSION_1_2_TEXT) && !earDDVersion.equals(J2EEVersionConstants.VERSION_1_3_TEXT) && !earDDVersion.equals(J2EEVersionConstants.VERSION_1_4_TEXT)) {
+							IVirtualComponent earComponent = ComponentCore.createComponent(earProject);
+							Application app = (Application) ModelProviderManager.getModelProvider(earComponent).getModelObject();
+							String libDir = app.getLibraryDirectory();
+							if (libDir == null) {
+								// lib is the default if no library-directory is set
+								libDir = "lib"; //$NON-NLS-1$
+							}
+							IContainer[] earLibFolders = earComponent.getRootFolder().getFolder(new Path(libDir)).getUnderlyingFolders();
+							for (IContainer earLib : earLibFolders) {
+								IPath earLibFolderPath = earLib.getFullPath();
+								if (earLibFolderPath.equals(entry.getPath().removeLastSegments(1))) {
+									foundEntry = true;
+									break;
+								}
+							}
+							if (foundEntry) {
+								break;
+							}
+						}
+					}
+					if (foundEntry) {
+						continue;
+					}
 				}
-            	
-            	// entry can potentially be tagged as a component dependency
-            	potentialRawEntries.add(entry);
-            }
+			}
+        	
+        	// entry can potentially be tagged as a component dependency
+        	potentialRawEntries.add(entry);
         }
         return potentialRawEntries;
 	}
@@ -477,7 +476,6 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 	 * @return True if this is a publish/export class folder.
 	 */
 	public static boolean isClassFolderReference(final IVirtualReference ref) {
-		final IPath runtimePath = ref.getRuntimePath();
 		final IVirtualComponent comp = ref.getReferencedComponent();
 		// must refer to a ClasspathDependencyVirtualComponent
 		if (comp instanceof ClasspathDependencyVirtualComponent) {
@@ -520,9 +518,8 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 	public static IPath getDefaultRuntimePath(final boolean isWebApp, final boolean isClassFolder) {
 		if (isWebApp) {
 			return isClassFolder ? WEB_INF_CLASSES_PATH : WEB_INF_LIB_PATH;			
-		} else {
-			return isClassFolder ? RUNTIME_MAPPING_INTO_COMPONENT_PATH : RUNTIME_MAPPING_INTO_CONTAINER_PATH;
 		}
+		return isClassFolder ? RUNTIME_MAPPING_INTO_COMPONENT_PATH : RUNTIME_MAPPING_INTO_CONTAINER_PATH;
 	}
 	
 	/**
@@ -539,9 +536,8 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 			IResource resource = getEntryResource(entry);
 			if (resource == null) {
 				return getEntryLocation(entry).lastSegment();
-			} else {
-				return resource.getFullPath().toString();
 			}
+			return resource.getFullPath().toString();
 		}
 		final IPath entryLocation = getEntryLocation(entry);
 		return entryLocation.lastSegment();

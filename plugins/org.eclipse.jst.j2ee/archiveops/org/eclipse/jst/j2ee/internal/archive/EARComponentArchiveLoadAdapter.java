@@ -86,9 +86,9 @@ public class EARComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter 
 				IArchive nestedModuleArchive = JavaEEArchiveUtilities.INSTANCE.openArchive(referencedComponent);
 				String sPath = reference.getArchiveName();
 				String srtp = reference.getRuntimePath().toString();
-				if (srtp.startsWith("" + IPath.SEPARATOR)) srtp = srtp.substring(1);
+				if (srtp.startsWith("" + IPath.SEPARATOR)) srtp = srtp.substring(1); //$NON-NLS-1$
 				String spt = srtp + IPath.SEPARATOR + sPath;
-				if (spt.startsWith("" + IPath.SEPARATOR)) spt = spt.substring(1);
+				if (spt.startsWith("" + IPath.SEPARATOR)) spt = spt.substring(1); //$NON-NLS-1$
 				nestedModuleArchive.setPath(new Path(spt));
 				nestedModuleArchive.setArchive(archive);
 				filesHolder.addFile(nestedModuleArchive);

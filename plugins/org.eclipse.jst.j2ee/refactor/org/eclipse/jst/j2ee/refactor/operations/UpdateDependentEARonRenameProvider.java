@@ -13,8 +13,7 @@ package org.eclipse.jst.j2ee.refactor.operations;
 
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
-public class UpdateDependentEARonRenameProvider extends UpdateDependentProjectRenameDataModelProvider 
-	implements ProjectRefactoringProperties {
+public class UpdateDependentEARonRenameProvider extends UpdateDependentProjectRenameDataModelProvider{
 
 	@Override
 	public IDataModelOperation getDefaultOperation() {

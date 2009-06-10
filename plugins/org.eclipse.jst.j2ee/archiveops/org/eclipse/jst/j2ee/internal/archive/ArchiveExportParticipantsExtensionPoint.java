@@ -54,7 +54,7 @@ public final class ArchiveExportParticipantsExtensionPoint
     private static final String EL_PARTICIPANT = "participant"; //$NON-NLS-1$
     private static final String EL_RUNTIME_COMPONENT = "runtime-component"; //$NON-NLS-1$
     private static final String EL_FACTORY = "factory"; //$NON-NLS-1$
-    private static final String EL_ENABLEMENT = "enablement"; 
+    private static final String EL_ENABLEMENT = "enablement"; //$NON-NLS-1$
     private static final String ATTR_ID = "id"; //$NON-NLS-1$
     private static final String ATTR_TYPE = "type"; //$NON-NLS-1$
     private static final String ATTR_VERSION = "version"; //$NON-NLS-1$
@@ -188,7 +188,7 @@ public final class ArchiveExportParticipantsExtensionPoint
         final ParticipantInfo info = new ParticipantInfo();
 
         info.pluginId = config.getContributor().getName();
-        info.id = info.pluginId + "." + findRequiredAttribute( config, ATTR_ID );
+        info.id = info.pluginId + "." + findRequiredAttribute( config, ATTR_ID ); //$NON-NLS-1$
         
         final IConfigurationElement elFactory = findRequiredElement( config, EL_FACTORY );
         info.className = findRequiredAttribute( elFactory, ATTR_CLASS );
@@ -345,10 +345,7 @@ public final class ArchiveExportParticipantsExtensionPoint
             {
                 return null;
             }
-            else
-            {
-                return children[ 0 ];
-            }
+            return children[ 0 ];
         }
         
         public static String getElementValue( final IConfigurationElement el,

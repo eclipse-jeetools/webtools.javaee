@@ -96,7 +96,7 @@ public class EARComponentExportOperation extends J2EEArtifactExportOperation {
 	 */
 	@Override
 	protected String archiveString() {
-		return "EAR";
+		return "EAR"; //$NON-NLS-1$
 	}
 
 }

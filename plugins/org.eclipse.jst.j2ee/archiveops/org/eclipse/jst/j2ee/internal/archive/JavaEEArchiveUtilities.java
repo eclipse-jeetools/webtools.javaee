@@ -242,31 +242,30 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 	public JavaEEQuickPeek getJavaEEQuickPeek(IArchive archive) {
 		if (archiveToJavaEEQuickPeek.containsKey(archive)) {
 			return archiveToJavaEEQuickPeek.get(archive);
-		} else {
-			String[] deploymentDescriptorsToCheck = new String[] { J2EEConstants.APPLICATION_DD_URI, J2EEConstants.APP_CLIENT_DD_URI, J2EEConstants.EJBJAR_DD_URI, J2EEConstants.WEBAPP_DD_URI,
-					J2EEConstants.RAR_DD_URI };
-			for (int i = 0; i < deploymentDescriptorsToCheck.length; i++) {
-				final IPath deploymentDescriptorPath = new Path(deploymentDescriptorsToCheck[i]);
-				if (archive.containsArchiveResource(deploymentDescriptorPath)) {
-					InputStream in = null;
-					IArchiveResource dd;
-					try {
-						dd = archive.getArchiveResource(deploymentDescriptorPath);
-						in = dd.getInputStream();
-						JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(in);
-						archiveToJavaEEQuickPeek.put(archive, quickPeek);
-						return quickPeek;
-					} catch (FileNotFoundException e) {
-						ArchiveUtil.warn(e);
-					} catch (IOException e) {
-						ArchiveUtil.warn(e);
-					}
+		}
+		String[] deploymentDescriptorsToCheck = new String[] { J2EEConstants.APPLICATION_DD_URI, J2EEConstants.APP_CLIENT_DD_URI, J2EEConstants.EJBJAR_DD_URI, J2EEConstants.WEBAPP_DD_URI,
+				J2EEConstants.RAR_DD_URI };
+		for (int i = 0; i < deploymentDescriptorsToCheck.length; i++) {
+			final IPath deploymentDescriptorPath = new Path(deploymentDescriptorsToCheck[i]);
+			if (archive.containsArchiveResource(deploymentDescriptorPath)) {
+				InputStream in = null;
+				IArchiveResource dd;
+				try {
+					dd = archive.getArchiveResource(deploymentDescriptorPath);
+					in = dd.getInputStream();
+					JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(in);
+					archiveToJavaEEQuickPeek.put(archive, quickPeek);
+					return quickPeek;
+				} catch (FileNotFoundException e) {
+					ArchiveUtil.warn(e);
+				} catch (IOException e) {
+					ArchiveUtil.warn(e);
 				}
 			}
-			JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(null);
-			archiveToJavaEEQuickPeek.put(archive, quickPeek);
-			return quickPeek;
 		}
+		JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(null);
+		archiveToJavaEEQuickPeek.put(archive, quickPeek);
+		return quickPeek;
 	}
 
 	/**
@@ -330,53 +329,55 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 							}
 						}
 						int definedType = J2EEVersionConstants.UNKNOWN;
-						if (qp.getVersion() == JavaEEQuickPeek.JEE_5_0_ID) {
-							org.eclipse.jst.javaee.application.Application app = (org.eclipse.jst.javaee.application.Application) ddObj;
-							org.eclipse.jst.javaee.application.Module module = app.getFirstModule(archivePath.toString());
-							//if the archive isn't found, do a smart search for it
-							if(module == null){
-								IPath noDevicePath = archivePath.setDevice(null);
-								for(int i=1; i<noDevicePath.segmentCount() && module == null; i++){
-									String stringPath = noDevicePath.removeFirstSegments(i).toString();
-									module = app.getFirstModule(stringPath);
+						if(archivePath != null) {
+							if (qp.getVersion() == JavaEEQuickPeek.JEE_5_0_ID) {
+								org.eclipse.jst.javaee.application.Application app = (org.eclipse.jst.javaee.application.Application) ddObj;
+								org.eclipse.jst.javaee.application.Module module = app.getFirstModule(archivePath.toString());
+								//if the archive isn't found, do a smart search for it
+								if(module == null){
+									IPath noDevicePath = archivePath.setDevice(null);
+									for(int i=1; i<noDevicePath.segmentCount() && module == null; i++){
+										String stringPath = noDevicePath.removeFirstSegments(i).toString();
+										module = app.getFirstModule(stringPath);
+									}
 								}
-							}
-							if (null != module) {
-								if (module.getEjb() != null) {
-									definedType = J2EEVersionConstants.EJB_TYPE;
-								} else if (module.getConnector() != null) {
-									definedType = J2EEVersionConstants.CONNECTOR_TYPE;
-								} else if (module.getJava() != null) {
-									definedType = J2EEVersionConstants.APPLICATION_CLIENT_TYPE;
-								} else if (module.getWeb() != null) {
-									definedType = J2EEVersionConstants.WEB_TYPE;
+								if (null != module) {
+									if (module.getEjb() != null) {
+										definedType = J2EEVersionConstants.EJB_TYPE;
+									} else if (module.getConnector() != null) {
+										definedType = J2EEVersionConstants.CONNECTOR_TYPE;
+									} else if (module.getJava() != null) {
+										definedType = J2EEVersionConstants.APPLICATION_CLIENT_TYPE;
+									} else if (module.getWeb() != null) {
+										definedType = J2EEVersionConstants.WEB_TYPE;
+									}
 								}
-							}
-						} else { //J2EE 1.4 or below, rely solely on DD
-							org.eclipse.jst.j2ee.application.Application app = (org.eclipse.jst.j2ee.application.Application) ddObj;
-							org.eclipse.jst.j2ee.application.Module module = app.getFirstModule(archivePath.toString());
-							//if the archive isn't found, do a smart search for it
-							if(module == null){
-								IPath noDevicePath = archivePath.setDevice(null);
-								for(int i=1; i<noDevicePath.segmentCount() && module == null; i++){
-									String stringPath = noDevicePath.removeFirstSegments(i).toString();
-									module = app.getFirstModule(stringPath);
+							} else { //J2EE 1.4 or below, rely solely on DD
+								org.eclipse.jst.j2ee.application.Application app = (org.eclipse.jst.j2ee.application.Application) ddObj;
+								org.eclipse.jst.j2ee.application.Module module = app.getFirstModule(archivePath.toString());
+								//if the archive isn't found, do a smart search for it
+								if(module == null){
+									IPath noDevicePath = archivePath.setDevice(null);
+									for(int i=1; i<noDevicePath.segmentCount() && module == null; i++){
+										String stringPath = noDevicePath.removeFirstSegments(i).toString();
+										module = app.getFirstModule(stringPath);
+									}
 								}
-							}
-							if (null != module) {
-								if (module.isEjbModule()) {
-									definedType = J2EEVersionConstants.EJB_TYPE;
-								} else if (module.isConnectorModule()) {
-									definedType = J2EEVersionConstants.CONNECTOR_TYPE;
-								} else if (module.isJavaModule()) {
-									definedType = J2EEVersionConstants.APPLICATION_CLIENT_TYPE;
-								} else if (module.isWebModule()) {
-									definedType = J2EEVersionConstants.WEB_TYPE;
+								if (null != module) {
+									if (module.isEjbModule()) {
+										definedType = J2EEVersionConstants.EJB_TYPE;
+									} else if (module.isConnectorModule()) {
+										definedType = J2EEVersionConstants.CONNECTOR_TYPE;
+									} else if (module.isJavaModule()) {
+										definedType = J2EEVersionConstants.APPLICATION_CLIENT_TYPE;
+									} else if (module.isWebModule()) {
+										definedType = J2EEVersionConstants.WEB_TYPE;
+									}
+								} else { //J2EE 1.4 or below, and not in DD, treat as utility
+									JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(null);
+									archiveToJavaEEQuickPeek.put(simpleArchive, quickPeek);
+									return simpleArchive;
 								}
-							} else { //J2EE 1.4 or below, and not in DD, treat as utility
-								JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(null);
-								archiveToJavaEEQuickPeek.put(simpleArchive, quickPeek);
-								return simpleArchive;
 							}
 						}
 						if (definedType != J2EEVersionConstants.UNKNOWN) {
@@ -600,13 +601,14 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 		}
 
 		public boolean containsModelObject(IPath modelObjectPath) {
-			if (simpleLoadAdapter.containsArchiveResource(modelObjectPath)) {
+			IPath localModelObjectPath = modelObjectPath;
+			if (simpleLoadAdapter.containsArchiveResource(localModelObjectPath)) {
 				return true;
 			}
-			if (IArchive.EMPTY_MODEL_PATH == modelObjectPath) {
-				modelObjectPath = deploymentDescriptorPath;
+			if (IArchive.EMPTY_MODEL_PATH == localModelObjectPath) {
+				localModelObjectPath = deploymentDescriptorPath;
 			}
-			return emfHelper.containsModelObject(modelObjectPath);
+			return emfHelper.containsModelObject(localModelObjectPath);
 		}
 
 		public IArchiveResource getArchiveResource(IPath resourcePath) throws FileNotFoundException {
@@ -622,13 +624,14 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 		}
 
 		public Object getModelObject(IPath modelObjectPath) throws ArchiveModelLoadException {
-			if (simpleLoadAdapter.containsModelObject(modelObjectPath)) {
-				return simpleLoadAdapter.getModelObject(modelObjectPath);
+			IPath localModelObjectPath = modelObjectPath;
+			if (simpleLoadAdapter.containsModelObject(localModelObjectPath)) {
+				return simpleLoadAdapter.getModelObject(localModelObjectPath);
 			}
-			if (IArchive.EMPTY_MODEL_PATH == modelObjectPath) {
-				modelObjectPath = deploymentDescriptorPath;
+			if (IArchive.EMPTY_MODEL_PATH == localModelObjectPath) {
+				localModelObjectPath = deploymentDescriptorPath;
 			}
-			return emfHelper.getModelObject(modelObjectPath);
+			return emfHelper.getModelObject(localModelObjectPath);
 		}
 
 		public IArchive getArchive() {

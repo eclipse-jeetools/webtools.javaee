@@ -28,7 +28,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 
 public class WebComponentArchiveSaveAdapter extends J2EEComponentArchiveSaveAdapter {
 
-	private IPath IMPORTED_CLASSES_PATH = new Path("/" + ArchiveConstants.WEBAPP_CLASSES_URI);
+	private IPath IMPORTED_CLASSES_PATH = new Path("/" + ArchiveConstants.WEBAPP_CLASSES_URI); //$NON-NLS-1$
 	
 	public WebComponentArchiveSaveAdapter(IVirtualComponent vComponent) {
 		super(vComponent);
@@ -102,8 +102,8 @@ public class WebComponentArchiveSaveAdapter extends J2EEComponentArchiveSaveAdap
 		//The format was to include the source files in a directory called source in WEB-INF
 		//Example: class  is in WEB-INF/classes/test/Foo.class
 		//         source is in WEB-INF/source/test/Foo.java
-		if(javaPath.segmentCount() > 2 && javaPath.segment(0).equals("WEB-INF") && javaPath.segment(1).equals("classes")){
-			String alternateJavaUri = javaUri.replaceFirst("classes", "source");
+		if(javaPath.segmentCount() > 2 && javaPath.segment(0).equals("WEB-INF") && javaPath.segment(1).equals("classes")){ //$NON-NLS-1$ //$NON-NLS-2$
+			String alternateJavaUri = javaUri.replaceFirst("classes", "source"); //$NON-NLS-1$ //$NON-NLS-2$
 			IPath alternateJavaPath = new Path(alternateJavaUri);
 			if (archive.containsArchiveResource(alternateJavaPath)){
 				IArchiveResource sourceFile;

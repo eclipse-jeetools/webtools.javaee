@@ -139,7 +139,7 @@ public class WebComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter 
 						final IFile wbFile = comp.getUnderlyingWorkbenchFile();
 						cpEntryFile = new File(wbFile.getLocation().toOSString());
 					}
-					addExternalFile(new Path("WEB-INF/lib/" + ref.getArchiveName()), cpEntryFile);
+					addExternalFile(new Path("WEB-INF/lib/" + ref.getArchiveName()), cpEntryFile); //$NON-NLS-1$
 				}
 			}
 		}
