@@ -82,8 +82,7 @@ public class CopyArchiveIntoProjectOperation extends J2EEUtilityJarImportAssista
 					// clear space for GC
 					data = null;
 				} finally {
-					if(fileInputStream != null) 
-						fileInputStream.close();
+					fileInputStream.close();
 				}
 
 				jarFileInputStream = new ByteArrayInputStream(bos.toByteArray());

@@ -51,8 +51,8 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
 public class J2EEModuleVirtualComponent extends VirtualComponent implements IComponentImplFactory {
 
-	public static String GET_JAVA_REFS = "GET_JAVA_REFS";
-	public static String GET_FUZZY_EAR_REFS = "GET_FUZZY_EAR_REFS";
+	public static String GET_JAVA_REFS = "GET_JAVA_REFS"; //$NON-NLS-1$
+	public static String GET_FUZZY_EAR_REFS = "GET_FUZZY_EAR_REFS"; //$NON-NLS-1$
 	
 	public J2EEModuleVirtualComponent() {
 		super();
@@ -203,13 +203,14 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 				return new IVirtualReference[0];
 			}
 
-			if (hardReferences == null) {
+			IVirtualReference[] innerHardReferences = hardReferences;
+			if (innerHardReferences == null) {
 				// only compute this not set and if we have some cp dependencies 
-				hardReferences = super.getReferences();
+				innerHardReferences = super.getReferences();
 			}
-			final IPath[] hardRefPaths = new IPath[hardReferences.length];
-			for (int j = 0; j < hardReferences.length; j++) {
-				final IVirtualComponent comp = hardReferences[j].getReferencedComponent();
+			final IPath[] hardRefPaths = new IPath[innerHardReferences.length];
+			for (int j = 0; j < innerHardReferences.length; j++) {
+				final IVirtualComponent comp = innerHardReferences[j].getReferencedComponent();
 				if (comp.isBinary()) {
 					final VirtualArchiveComponent archiveComp = (VirtualArchiveComponent) comp;
 					final File diskFile = archiveComp.getUnderlyingDiskFile();
@@ -257,7 +258,7 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 					} 
 				}
 
-				if (add) {
+				if (add && entryLocation != null) {
 					String componentPath = null;
 					ClasspathDependencyVirtualComponent entryComponent = null;
 					/*
@@ -336,7 +337,7 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 										manifestEntryString = manifestPath.toPortableString();
 									}
 									
-									if(simplePath && manifestEntryString.lastIndexOf("/") == -1){ //$NON-NLS-1$
+									if(simplePath && manifestEntryString != null && manifestEntryString.lastIndexOf("/") == -1){ //$NON-NLS-1$
 										shouldAdd = archiveName.equals(manifestEntryString);	
 									} else {
 										String earRelativeURI = ArchiveUtil.deriveEARRelativeURI(manifestEntryString, earArchiveURI);
@@ -346,7 +347,7 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 									}
 									
 									if(shouldAdd){
-										if(findFuzzyEARRefs){
+										if(findFuzzyEARRefs && foundRefAlready != null){
 											foundRefAlready[manifestIndex] = true;
 										}
 										found = true;
@@ -374,7 +375,8 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 					}
 					if(!findFuzzyEARRefs){
 						break;
-					} else {
+					}
+					if(foundRefAlready != null){
 						boolean foundAll = true;
 						for(int i = 0; i < foundRefAlready.length && foundAll; i++){
 							if(!foundRefAlready[i]){

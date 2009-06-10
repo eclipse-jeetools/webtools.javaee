@@ -388,7 +388,7 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 				String installStr = Platform.asLocalURL(new URL(installPath.toString())).getFile();
 				return new Path(installStr);
 			} catch (IOException e) {
-			};
+			}
 		}
 		return null;
 	}

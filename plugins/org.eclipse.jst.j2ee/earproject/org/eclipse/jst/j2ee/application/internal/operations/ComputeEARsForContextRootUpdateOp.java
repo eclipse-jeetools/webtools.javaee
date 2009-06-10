@@ -48,7 +48,7 @@ public class ComputeEARsForContextRootUpdateOp extends AbstractDataModelOperatio
 	@Override
 	public IStatus execute(final IProgressMonitor monitor, final IAdaptable info) throws ExecutionException {
         if (monitor != null) {
-            monitor.beginTask("", 1);
+            monitor.beginTask("", 1); //$NON-NLS-1$
         }
         
         final IProject project = (IProject)model.getProperty(PROJECT);

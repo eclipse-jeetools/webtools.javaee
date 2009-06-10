@@ -72,7 +72,7 @@ public class BinaryProjectHelper {
 			if (entries != null) {
 				IClasspathEntry entryToRemove = null;
 				for (int i = 0; i < entries.length; i++) {
-					if (entries[i].getEntryKind() == IClasspathEntry.CPE_LIBRARY && entries[i].getPath().toString().endsWith("imported_classes") && !project.getFolder("imported_classes").exists()) {
+					if (entries[i].getEntryKind() == IClasspathEntry.CPE_LIBRARY && entries[i].getPath().toString().endsWith("imported_classes") && !project.getFolder("imported_classes").exists()) {  //$NON-NLS-1$//$NON-NLS-2$
 						entryToRemove = entries[i];
 						break;
 					}

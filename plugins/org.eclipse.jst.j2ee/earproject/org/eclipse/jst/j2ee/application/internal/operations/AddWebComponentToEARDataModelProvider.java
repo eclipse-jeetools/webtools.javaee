@@ -86,7 +86,7 @@ public class AddWebComponentToEARDataModelProvider extends AddComponentToEnterpr
 	 * @return
 	 */
 	public IStatus validateContextRoot(String contextRoot) {
-		if (contextRoot.equals("") || contextRoot == null) { //$NON-NLS-1$
+		if (contextRoot.equals("")) { //$NON-NLS-1$
 			return J2EEPlugin.newErrorStatus(ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.Context_Root_cannot_be_empty_2, new Object[]{contextRoot}), null); 
 		} else if (contextRoot.trim().equals(contextRoot)) {
 			StringTokenizer stok = new StringTokenizer(contextRoot, "."); //$NON-NLS-1$

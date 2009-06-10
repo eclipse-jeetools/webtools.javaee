@@ -37,7 +37,7 @@ public final class J2EEFacetRuntimeChangedDelegate
     {
         if( monitor != null )
         {
-            monitor.beginTask( "", 1 );
+            monitor.beginTask( "", 1 ); //$NON-NLS-1$
         }
         
         try

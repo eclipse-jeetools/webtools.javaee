@@ -295,9 +295,9 @@ protected boolean primValidProjectVersion(IProject project) {
 			Resource res = ((ArtifactEditModel)getWritableEdit().getAdapter(ArtifactEditModel.ADAPTER_TYPE)).getResource(URI.createURI(modelPath.toString()));
 			if (res != null && !res.getContents().isEmpty())
 				return res.getContents().get(0);
-			else return null;
+			return null;
 		}
-			return getContentModelRoot();
+		return getContentModelRoot();
 	}
 
 	public IModelProvider create(IProject project) {

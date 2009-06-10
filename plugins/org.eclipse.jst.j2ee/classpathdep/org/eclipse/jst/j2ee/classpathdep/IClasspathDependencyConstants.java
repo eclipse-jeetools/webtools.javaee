@@ -22,7 +22,7 @@ public interface IClasspathDependencyConstants {
 	/**
 	 * Enumeration that is used to select component dependency attribute type. 
 	 */
-	public static enum DependencyAttributeType {CLASSPATH_COMPONENT_DEPENDENCY, CLASSPATH_COMPONENT_NONDEPENDENCY, DEPENDENCY_OR_NONDEPENDENCY}; 
+	public static enum DependencyAttributeType {CLASSPATH_COMPONENT_DEPENDENCY, CLASSPATH_COMPONENT_NONDEPENDENCY, DEPENDENCY_OR_NONDEPENDENCY} 
 	
 	/**
 	 * Name of the custom Java classpath entry attribute that is used to flag
@@ -39,21 +39,21 @@ public interface IClasspathDependencyConstants {
 	 * entries that are library entries are supported. All resolved entries are mapped unless they have the 
 	 * "org.eclipse.jst.component.nondependency" attribute (or are project which are not currently supported and are therefore always skipped). 
 	 */
-	public static final String CLASSPATH_COMPONENT_DEPENDENCY = "org.eclipse.jst.component.dependency"; //$NON-NLS-1
+	public static final String CLASSPATH_COMPONENT_DEPENDENCY = "org.eclipse.jst.component.dependency"; //$NON-NLS-1$
 
 	/**
 	 * Name of the custom Java classpath entry attribute that is used to flag
 	 * the resolved entries of classpath containers that should not be exposed
 	 * via the virtual component API.
 	 */
-	public static final String CLASSPATH_COMPONENT_NON_DEPENDENCY = "org.eclipse.jst.component.nondependency"; //$NON-NLS-1
+	public static final String CLASSPATH_COMPONENT_NON_DEPENDENCY = "org.eclipse.jst.component.nondependency"; //$NON-NLS-1$
 	
 	/**
 	 * Runtime path used to indicate that the resolved contributions from a classpath entry should be
 	 * mapped into the exported/deployed structure of the parent module at the same location that the target module
 	 * is mapped (will be either the EAR root or /WEB-INF/lib).
 	 */
-	public static final String RUNTIME_MAPPING_INTO_CONTAINER = "../";
+	public static final String RUNTIME_MAPPING_INTO_CONTAINER = "../"; //$NON-NLS-1$
 	
 	/**
 	 * IPath value of RUNTIME_MAPPING_INTO_CONTAINER.
@@ -64,7 +64,7 @@ public interface IClasspathDependencyConstants {
 	 * Runtime path used to indicate that the resolved contributions from a classpath entry should be
 	 * mapped into the root of the exported/deployed module.
 	 */
-	public static final String RUNTIME_MAPPING_INTO_COMPONENT ="/";
+	public static final String RUNTIME_MAPPING_INTO_COMPONENT ="/"; //$NON-NLS-1$
 	
 	/**
 	 * IPath value of RUNTIME_MAPPING_INTO_COMPONENT.

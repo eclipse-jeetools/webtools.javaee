@@ -130,7 +130,7 @@ public class J2EEModulePostImportHelper {
 				isExtensionInterested = true;
 			}
 
-			if (isExtensionInterested) {
+			if (isExtensionInterested && postImportElement != null) {
 				try {
 					//try instantiating the class before adding it to the list.
 					postImportElement.createExecutableExtension("className"); //$NON-NLS-1$

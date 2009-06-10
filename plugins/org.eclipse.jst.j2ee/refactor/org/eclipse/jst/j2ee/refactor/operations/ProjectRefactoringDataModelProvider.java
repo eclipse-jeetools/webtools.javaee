@@ -48,7 +48,7 @@ public abstract class ProjectRefactoringDataModelProvider extends
 		}
 		if (!valid) {
 			return new Status(IStatus.ERROR, J2EEPlugin.PLUGIN_ID, IStatus.OK, 
-					RefactorResourceHandler.getString("invalid_property_name", new Object[]{propertyName}), null);
+					RefactorResourceHandler.getString("invalid_property_name", new Object[]{propertyName}), null); //$NON-NLS-1$
 		}
 		return OK_STATUS;
 	}

@@ -54,7 +54,7 @@ public class WtpUserLibraryProviderInstallOperation
         }
         else
         {
-            attr = JavaCore.newClasspathAttribute( IClasspathDependencyConstants.CLASSPATH_COMPONENT_NON_DEPENDENCY, "" );
+            attr = JavaCore.newClasspathAttribute( IClasspathDependencyConstants.CLASSPATH_COMPONENT_NON_DEPENDENCY, "" ); //$NON-NLS-1$
         }
         
         IClasspathEntry cpe = super.createClasspathEntry( config, libraryName );

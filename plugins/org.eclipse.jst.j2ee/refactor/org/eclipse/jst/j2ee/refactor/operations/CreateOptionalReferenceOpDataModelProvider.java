@@ -22,12 +22,12 @@ public class CreateOptionalReferenceOpDataModelProvider extends	CreateReferenceC
 	 * Property that holds a Boolen which controls whether the component reference is
 	 * added/removed.
 	 */
-	public static final String CREATE_COMPONENT_REF = "IOptionalReferenceProperties.CREATE_COMPONENT_REF";
+	public static final String CREATE_COMPONENT_REF = "IOptionalReferenceProperties.CREATE_COMPONENT_REF"; //$NON-NLS-1$
 	/**
 	 * Property that holds a Boolen which controls whether the .project reference is
 	 * added/removed.
 	 */
-	public static final String CREATE_PROJECT_REF = "IOptionalReferenceProperties.CREATE_PROJECT_REF";
+	public static final String CREATE_PROJECT_REF = "IOptionalReferenceProperties.CREATE_PROJECT_REF"; //$NON-NLS-1$
 
 	
 	/* (non-Javadoc)

@@ -207,7 +207,7 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
 		    {
 		        final IProject project = getProject();
 		        
-		        if( project != null && propertyValue != null )
+		        if( project != null)
 		        {
 		            final IRuntime runtime = (IRuntime) propertyValue;
 		            
@@ -281,7 +281,7 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
 				}
 			}
 
-			if (relevantComponents == null || relevantComponents.size() == 0)
+			if (relevantComponents.size() == 0)
 				return null;
 
 			for (int j = 0; j < relevantComponents.size(); j++) {
@@ -296,39 +296,36 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
             final List<IRuntime> runtimes = new ArrayList<IRuntime>();
 		    final IVirtualComponent component = (IVirtualComponent) getProperty( COMPONENT );
 		    
-		    if( component != null )
-		    {
-                if( component != null )
+	        if( component != null )
+            {
+                try
                 {
-                    try
+                    final IFacetedProject fproj = ProjectFacetsManager.create( component.getProject() );
+                    
+                    for( IRuntime runtime : RuntimeManager.getRuntimes() )
                     {
-                        final IFacetedProject fproj = ProjectFacetsManager.create( component.getProject() );
-                        
-                        for( IRuntime runtime : RuntimeManager.getRuntimes() )
+                        if( fproj.isTargetable( runtime ) )
                         {
-                            if( fproj.isTargetable( runtime ) )
-                            {
-                                runtimes.add( runtime );
-                            }
+                            runtimes.add( runtime );
                         }
-                        
-                        final Comparator<IRuntime> comparator = new Comparator<IRuntime>()
-                        {
-                            public int compare( final IRuntime r1,
-                                                final IRuntime r2 )
-                            {
-                                return r1.getName().compareTo( r2.getName() );
-                            }
-                        };
-                        
-                        Collections.sort( runtimes, comparator );
                     }
-                    catch( CoreException e )
+                    
+                    final Comparator<IRuntime> comparator = new Comparator<IRuntime>()
                     {
-                        J2EEPlugin.logError( -1, e.getMessage(), e );
-                    }
+                        public int compare( final IRuntime r1,
+                                            final IRuntime r2 )
+                        {
+                            return r1.getName().compareTo( r2.getName() );
+                        }
+                    };
+                    
+                    Collections.sort( runtimes, comparator );
                 }
-		    }
+                catch( CoreException e )
+                {
+                    J2EEPlugin.logError( -1, e.getMessage(), e );
+                }
+            }
 		    
 		    return DataModelPropertyDescriptor.createDescriptors( runtimes.toArray() );		    
 		}
@@ -393,7 +390,7 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
 		String device = path.getDevice();
 		if (device == null)
 			return OK_STATUS;
-		if (path == null || device.length() == 1 && device.charAt(0) == IPath.DEVICE_SEPARATOR)
+		if (device.length() == 1 && device.charAt(0) == IPath.DEVICE_SEPARATOR)
 			return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.DESTINATION_INVALID));
 
 		if (!path.toFile().canWrite()) {
@@ -420,7 +417,7 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
 	private boolean checkForExistingFileResource(String fileName) {
 		if (!model.getBooleanProperty(OVERWRITE_EXISTING)) {
 			java.io.File externalFile = new java.io.File(fileName);
-			if (externalFile != null && externalFile.exists())
+			if (externalFile.exists())
 				return true;
 		}
 		return false;
@@ -441,10 +438,7 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
 	    {
 	        return component.getProject();
 	    }
-	    else
-	    {
-	        return null;
-	    }
+	    return null;
 	}
 
 }

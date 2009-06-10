@@ -67,11 +67,11 @@ public class J2EEModelProviderRegistry extends RegistryReader {
 			String facetId = facet[0].getAttribute(PROVIDER_FACET_ID);
 			IProjectFacet pv = ProjectFacetsManager.getProjectFacet(facetId);
 			if (pv == null) {
-				System.out.println("Unrecognized facet: " + facetId);
+				J2EEPlugin.logError("Unrecognized facet: " + facetId); //$NON-NLS-1$
 				return true;  // Unrecognized facet
 			}
 			String facetVersions = facet[0].getAttribute(PROVIDER_FACET_VERSION);
-			StringTokenizer tokens = new StringTokenizer(facetVersions,",");
+			StringTokenizer tokens = new StringTokenizer(facetVersions,","); //$NON-NLS-1$
 			while (tokens.hasMoreElements()) {
 				String facetversion = (String) tokens.nextElement();
 				IProjectFacetVersion fv = pv.getVersion(facetversion);

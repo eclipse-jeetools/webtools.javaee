@@ -445,11 +445,13 @@ public class WTPJETEmitter extends JETEmitter {
 		URL installLocation = null;
 		try {
 			installLocation = Platform.asLocalURL(outputDirectory);
+			File outputDirectoryFile = new File(installLocation.getPath());// new File(location);
+			return outputDirectoryFile.canRead() && outputDirectoryFile.isDirectory() && outputDirectoryFile.listFiles().length > 0;
 		} catch (IOException e) {
 			Logger.getLogger().logWarning(J2EEPluginResourceHandler.getString("Install_Location_Error_", new Object[]{installLocation}) + e); //$NON-NLS-1$
 		}
-		File outputDirectoryFile = new File(installLocation.getPath());// new File(location);
-		return outputDirectoryFile.canRead() && outputDirectoryFile.isDirectory() && outputDirectoryFile.listFiles().length > 0;
+		return false;
+		
 	}
 
 	/**
@@ -470,7 +472,7 @@ public class WTPJETEmitter extends JETEmitter {
 		IPath runtimeLibFullPath = null;
 		URL fullurl = null;
 		if (elements == null) {
-			if (bundle.getLocation().endsWith(".jar"))
+			if (bundle.getLocation().endsWith(".jar")) //$NON-NLS-1$
 				try {
 					runtimeLibFullPath = getJarredPluginPath(bundle);
 				} catch (IOException e) {
@@ -492,13 +494,14 @@ public class WTPJETEmitter extends JETEmitter {
 				Logger.getLogger().logError(e);
 			}
 			//TODO handle jar'ed plugins, this is a hack for now, need to find proper bundle API
-			if (bundle.getLocation().endsWith(".jar"))
+			if (bundle.getLocation().endsWith(".jar")) //$NON-NLS-1$
 				try {
 					runtimeLibFullPath = getJarredPluginPath(bundle);
 				} catch (IOException e) {
 					J2EEPlugin.logError(e);
 				}
-			if (!"jar".equals(runtimeLibFullPath.getFileExtension()) && !"zip".equals(runtimeLibFullPath.getFileExtension())) //$NON-NLS-1$ //$NON-NLS-2$
+				
+			if (runtimeLibFullPath != null && !"jar".equals(runtimeLibFullPath.getFileExtension()) && !"zip".equals(runtimeLibFullPath.getFileExtension())) //$NON-NLS-1$ //$NON-NLS-2$
 				continue;
 			appendToClassPath(runtimeLibFullPath,project);
 		}

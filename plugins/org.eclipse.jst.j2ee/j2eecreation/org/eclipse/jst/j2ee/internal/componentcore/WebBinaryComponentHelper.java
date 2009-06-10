@@ -39,7 +39,8 @@ public class WebBinaryComponentHelper extends EnterpriseBinaryComponentHelper {
 		} catch (Exception e) {
 			return false;
 		} finally {
-			helper.dispose();
+			if(helper != null)
+				helper.dispose();
 		}
 	}
 

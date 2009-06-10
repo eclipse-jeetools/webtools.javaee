@@ -155,7 +155,7 @@ public class J2EEUtilityJarListImportDataModelProvider extends AbstractDataModel
 				IPath availableJarsPath = manager.getValue(linkedPathVariable);
 				setProperty(J2EEUtilityJarListImportDataModelProvider.CREATE_LINKED_PATH_VARIABLE, Boolean.valueOf(availableJarsPath != null));
 
-				String availableJarsPathString = availableJarsPath.toOSString();
+				String availableJarsPathString = availableJarsPath == null ? null :availableJarsPath.toOSString();
 				if (availableJarsPathString != null && availableJarsPathString.length() > 0)
 					setProperty(J2EEUtilityJarListImportDataModelProvider.AVAILABLE_JARS_DIRECTORY, availableJarsPathString);
 			}

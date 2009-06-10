@@ -67,7 +67,7 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 	@Override
 	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		if (monitor != null) {
-			monitor.beginTask("", 4);
+			monitor.beginTask("", 4); //$NON-NLS-1$
 		}
 		try {
 			J2EEComponentClasspathUpdater.getInstance().pauseUpdates();
@@ -185,7 +185,6 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 		if (useNewModel) {
 			if (mod instanceof Module) {
 				// safety check
-				Module module = (Module) mod;
 				Web web = ((Module) mod).getWeb();
 				web.setContextRoot(contextroot);
 			}
@@ -276,7 +275,7 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 
 	private void updateModuleRuntimes(final IProgressMonitor monitor) {
 		if (monitor != null) {
-			monitor.beginTask("", 10);
+			monitor.beginTask("", 10); //$NON-NLS-1$
 		}
 
 		try {
@@ -308,7 +307,7 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 
 	private void moduleClasspathForceUpdate(IProgressMonitor monitor) {
 		if (monitor != null) {
-			monitor.beginTask("", 1);
+			monitor.beginTask("", 1); //$NON-NLS-1$
 		}
 		
 		try {

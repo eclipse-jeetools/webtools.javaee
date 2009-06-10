@@ -183,7 +183,7 @@ public class ClassPathSelection {
 			if( earConentFolder.getType() == IResource.FOLDER ){
 				element.setEarContentFolder( earConentFolder.getName());
 			}else {
-				element.setEarContentFolder( "" );
+				element.setEarContentFolder( "" ); //$NON-NLS-1$
 			}
 		}
 	
@@ -208,7 +208,7 @@ public class ClassPathSelection {
 			if( earConentFolder.getType() == IResource.FOLDER ){
 				element.setEarContentFolder( earConentFolder.getName());
 			}else {
-				element.setEarContentFolder( "" );
+				element.setEarContentFolder( "" ); //$NON-NLS-1$
 			}
 		}
 	
@@ -297,7 +297,7 @@ public class ClassPathSelection {
 	 * This is used to represent the case where a single unique archive is referenced/contributed by multiple dependent projects.
 	 */ 
 	public static VirtualArchiveComponent updateDisplayVirtualArchiveComponent(final VirtualArchiveComponent oldComp, final IVirtualReference newRef) {
-		final String newProjName = oldComp.getProject().getName() + " " + newRef.getReferencedComponent().getProject().getName();  
+		final String newProjName = oldComp.getProject().getName() + " " + newRef.getReferencedComponent().getProject().getName();   //$NON-NLS-1$
 		final IProject newProj = ResourcesPlugin.getWorkspace().getRoot().getProject(newProjName);
 		final VirtualArchiveComponent newComponent = (VirtualArchiveComponent) ComponentCore.createArchiveComponent(newProj, oldComp.getName());
 		return newComponent;
@@ -567,13 +567,12 @@ public class ClassPathSelection {
 					if(currentComponent.isBinary()){
 						//TODO add binary support
 						continue;
-					} else {
-						modelProvider = ModelProviderManager.getModelProvider(currentComponent);
-						if(modelProvider==null) {
-							continue;
-						}
-						rootModelObject = modelProvider.getModelObject();
 					}
+					modelProvider = ModelProviderManager.getModelProvider(currentComponent);
+					if(modelProvider==null) {
+						continue;
+					}
+					rootModelObject = modelProvider.getModelObject();
 					if (rootModelObject instanceof EJBJar)
 					{
 						ejbClientJarName = ((EJBJar)rootModelObject).getEjbClientJar();
@@ -670,18 +669,20 @@ public class ClassPathSelection {
 		}
 		
 		if (earComponent != null) {
-			Collections.sort(archives, comparator);
-			//Anything that remains in the list of available archives that is valid should be
-			//available for selection
-			for (int i = 0; i < archives.size(); i++) {
-				other = (IVirtualReference) archives.get(i);
-
-				if (other != archive && isValidDependency(other.getReferencedComponent(), component)) {
-					IProject project = other.getReferencedComponent().getProject();
-					if (null == targetProjectName || null == project || !project.getName().equals(targetProjectName)) {
-						element = createElement(component, other, null);
-						element.setProject(other.getReferencedComponent().getProject());
-						addClasspathElement(element, other.getArchiveName());
+			if(archives !=null){
+				Collections.sort(archives, comparator);
+				//Anything that remains in the list of available archives that is valid should be
+				//available for selection
+				for (int i = 0; i < archives.size(); i++) {
+					other = (IVirtualReference) archives.get(i);
+	
+					if (other != archive && isValidDependency(other.getReferencedComponent(), component)) {
+						IProject project = other.getReferencedComponent().getProject();
+						if (null == targetProjectName || null == project || !project.getName().equals(targetProjectName)) {
+							element = createElement(component, other, null);
+							element.setProject(other.getReferencedComponent().getProject());
+							addClasspathElement(element, other.getArchiveName());
+						}
 					}
 				}
 			}
@@ -750,7 +751,7 @@ public class ClassPathSelection {
 
 	boolean inManifest(String[] cp, String archiveName ){
 		boolean result = false;
-		String cpEntry = "";
+		String cpEntry = ""; //$NON-NLS-1$
 		for (int i = 0; i < cp.length; i++) {
 			cpEntry = cp[i];
 			if( archiveName.equals(cpEntry)){
@@ -1204,10 +1205,11 @@ public class ClassPathSelection {
 	private void invertSelectionIfPossible(ClasspathElement element, ClasspathElement opposite) {
 		if (element == null)
 			return;
-		if (opposite == null)
-			opposite = getOppositeElement(element);
-		if (opposite != null) {
-			opposite.setSelected(true);
+		ClasspathElement innerOpposite = opposite;
+		if (innerOpposite == null)
+			innerOpposite = getOppositeElement(element);
+		if (innerOpposite != null) {
+			innerOpposite.setSelected(true);
 			element.setSelected(false);
 		}
 	}

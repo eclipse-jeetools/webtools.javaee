@@ -97,23 +97,22 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 				comp = refs[i].getReferencedComponent();
 				if (comp.isBinary() != lastUpdate.isBinary[i]) {
 					return true;
+				}
+				IPath path = null;
+				if (comp.isBinary()) {
+					VirtualArchiveComponent archiveComp = (VirtualArchiveComponent) comp;
+					java.io.File diskFile = archiveComp.getUnderlyingDiskFile();
+					if (diskFile.exists())
+						path = new Path(diskFile.getAbsolutePath());
+					else {
+						IFile iFile = archiveComp.getUnderlyingWorkbenchFile();
+						path = iFile.getFullPath();
+					}
 				} else {
-					IPath path = null;
-					if (comp.isBinary()) {
-						VirtualArchiveComponent archiveComp = (VirtualArchiveComponent) comp;
-						java.io.File diskFile = archiveComp.getUnderlyingDiskFile();
-						if (diskFile.exists())
-							path = new Path(diskFile.getAbsolutePath());
-						else {
-							IFile iFile = archiveComp.getUnderlyingWorkbenchFile();
-							path = iFile.getFullPath();
-						}
-					} else {
-						path = comp.getProject().getFullPath();
-					}
-					if (!path.equals(lastUpdate.paths[i])) {
-						return true;
-					}
+					path = comp.getProject().getFullPath();
+				}
+				if (!path.equals(lastUpdate.paths[i])) {
+					return true;
 				}
 			}
 			return false;
@@ -145,11 +144,6 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 			retries.put(key, retryCount);
 			J2EEComponentClasspathUpdater.getInstance().queueUpdate(javaProject.getProject());
 			return;
-		} else {
-			if(key != null){
-				retries.remove(key);
-				keys.remove(key);
-			}
 		}
 		
 		IVirtualComponent comp = null;

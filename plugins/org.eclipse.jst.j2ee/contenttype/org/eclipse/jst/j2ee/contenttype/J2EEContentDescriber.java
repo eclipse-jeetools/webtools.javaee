@@ -26,7 +26,7 @@ public final class J2EEContentDescriber implements IContentDescriber {
 		super();
 	}
 
-	public final static QualifiedName JEEVERSION = new QualifiedName("jee-version", "1.4"); //$NON-NLS-1$
+	public final static QualifiedName JEEVERSION = new QualifiedName("jee-version", "1.4"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	public int describe(InputStream contents, IContentDescription description) throws IOException {
 

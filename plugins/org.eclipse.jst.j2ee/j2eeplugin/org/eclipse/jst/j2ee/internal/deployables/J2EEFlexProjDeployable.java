@@ -157,9 +157,8 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 		// be returned by getChildModules()
 		if (J2EEProjectUtilities.isEARProject(component.getProject())) {
 			return virtualComp != null && virtualComp.isBinary() && !isNestedJ2EEModule(virtualComp, references, (EARArtifactEdit)edit);
-		} else { 
-			return super.shouldIncludeUtilityComponent(virtualComp, references, edit);
-		}
+		} 
+		return super.shouldIncludeUtilityComponent(virtualComp, references, edit);
 	}
 	
 	@Override
@@ -321,7 +320,8 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 	}
 	
 	@Override
-	protected IModuleResource[] handleJavaPath(IPath path, IPath javaPath, IPath curPath, IContainer[] javaCont, IModuleResource[] mr, IContainer cc) throws CoreException {
+	protected IModuleResource[] handleJavaPath(IPath path, IPath javaPath, IPath curPath, IContainer[] javaCont, IModuleResource[] moduleResource, IContainer cc) throws CoreException {
+		IModuleResource [] mr = moduleResource;
 		if (curPath.equals(javaPath)) {
 			int size = javaCont.length;
 			for (int i = 0; i < size; i++) {
@@ -482,8 +482,8 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 	}
     
     protected boolean isBinaryModuleArchive(IModule module) {
-    	if (module!=null && module.getName().endsWith(IJ2EEModuleConstants.JAR_EXT) || module.getName().endsWith(IJ2EEModuleConstants.WAR_EXT) ||
-    			module.getName().endsWith(IJ2EEModuleConstants.RAR_EXT)) {
+    	if (module!=null && (module.getName().endsWith(IJ2EEModuleConstants.JAR_EXT) || module.getName().endsWith(IJ2EEModuleConstants.WAR_EXT) ||
+    			module.getName().endsWith(IJ2EEModuleConstants.RAR_EXT))) {
     		if (component!=null && J2EEProjectUtilities.isEARProject(component.getProject()))
     			return true;
     	}
@@ -617,7 +617,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
     		if (reference != null && reference.getDependencyType()==IVirtualReference.DEPENDENCY_TYPE_CONSUMES) {
     			IVirtualComponent consumedComponent = reference.getReferencedComponent();
     			if (consumedComponent!=null && isProjectOfType(consumedComponent.getProject(),IModuleConstants.JST_UTILITY_MODULE)) {
-    				if (consumedComponent != null && consumedComponent.getRootFolder()!=null) {
+    				if (consumedComponent.getRootFolder()!=null) {
     					IVirtualFolder vFolder = consumedComponent.getRootFolder();
     					IModuleResource[] mr = getMembers(vFolder, reference.getRuntimePath().makeRelative());
     					int size = mr.length;
@@ -765,10 +765,9 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 						if (absolutePaths.contains(absolutePath)) {
 							// have already added a member for this archive
 							continue;
-						} else {
-							addUtilMember(component, cpRef, cpRefRuntimePath);
-							absolutePaths.add(absolutePath);
 						}
+						addUtilMember(component, cpRef, cpRefRuntimePath);
+						absolutePaths.add(absolutePath);
 					}
 				}
 			}
@@ -845,24 +844,22 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
     		if (resourceToCheck.isLinked()) {
     			return true;
     		}
-    		else {
-    			switch (resourceToCheck.getType()) {
-    				case IResource.FOLDER:
-    					// recursively check sub directory contents
-    					final IResource[] subDirContents = ((IFolder) resourceToCheck).members();
-    					for (int i = 0; i < subDirContents.length; i++) {
-    						if (hasLinkedContent(subDirContents[i])) {
-    							return true;
-    						}
-    					}
-    					break;
-    				case IResource.FILE:
-    					return resourceToCheck.isLinked();
-    				default:
-    					// skip as we only care about files and folders
-    					break;
-    			}
-    		}
+			switch (resourceToCheck.getType()) {
+				case IResource.FOLDER:
+					// recursively check sub directory contents
+					final IResource[] subDirContents = ((IFolder) resourceToCheck).members();
+					for (int i = 0; i < subDirContents.length; i++) {
+						if (hasLinkedContent(subDirContents[i])) {
+							return true;
+						}
+					}
+					break;
+				case IResource.FILE:
+					return resourceToCheck.isLinked();
+				default:
+					// skip as we only care about files and folders
+					break;
+			}
     	}
     	return false;
     }
@@ -978,7 +975,8 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 								// in a single directory.
 								isSingleJavaOutputNonSource = true;
 								return true;
-							} else {
+							} 
+//							else {
 // Don't implement at this time. Currently, we claim single-rooted when ejbModlule is the output folder.  However,
 // we know this is not true because it cannot contain non Java files unless it is the only source folder. But, fixing
 // at this time would break all current users.
@@ -992,7 +990,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 //									// this is single-rooted.
 //									return true;
 //								}
-							}
+//							}
 						}
 //						// At this point for utility projects, this project is optimized, we can just use the output folder
 //						if (J2EEProjectUtilities.isUtilityProject(getProject()))
@@ -1126,10 +1124,8 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 				return getModuleResources(Path.EMPTY, getJavaOutputFolders()[0]);
 			}
 			// For J2EE modules, we use the contents of the content root
-			else {
-				IVirtualFolder vFolder = component.getRootFolder();
-				return getModuleResources(Path.EMPTY, vFolder.getUnderlyingFolder());
-			}
+			IVirtualFolder vFolder = component.getRootFolder();
+			return getModuleResources(Path.EMPTY, vFolder.getUnderlyingFolder());
 		}
 		return new IModuleResource[] {};
 	}
@@ -1195,9 +1191,8 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 			return true;
 		// Else if it is a source container and the output container is mapped in the component, return true
 		// Otherwise, return false.
-		} else {
-			IContainer outputContainer = getOutputContainer(sourceContainer);
-			return outputContainer!=null && isOutputContainerMapped(outputContainer);		
 		}
+		IContainer outputContainer = getOutputContainer(sourceContainer);
+		return outputContainer!=null && isOutputContainerMapped(outputContainer);		
 	}
 }

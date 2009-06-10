@@ -15,8 +15,7 @@ import java.util.Set;
 
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
-public class ProjectRenameDataModelProvider extends	ProjectRefactoringDataModelProvider 
-	implements ProjectRefactoringProperties {
+public class ProjectRenameDataModelProvider extends	ProjectRefactoringDataModelProvider{
 	
 	/* (non-Javadoc)
 	 * @see org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider#getPropertyNames()

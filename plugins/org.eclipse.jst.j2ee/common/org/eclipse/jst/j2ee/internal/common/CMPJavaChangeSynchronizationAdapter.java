@@ -236,7 +236,7 @@ public class CMPJavaChangeSynchronizationAdapter extends AdapterImpl {
 			return;
 		ContainerManagedEntity cmp = (ContainerManagedEntity) getTarget();
 		List cmpAttributes = cmp.getPersistentAttributes();
-		if (cmpAttributes != null || !cmpAttributes.isEmpty()) {
+		if (cmpAttributes != null && !cmpAttributes.isEmpty()) {
 			boolean modFlag = getCurrentModificationFlag();
 			try {
 				for (int i = 0; i < cmpAttributes.size(); i++) {
@@ -269,7 +269,7 @@ public class CMPJavaChangeSynchronizationAdapter extends AdapterImpl {
 		flushPrimaryKeyClass(primaryKeyClass);
 
 		List cmpAttributes = cmp.getPersistentAttributes();
-		if (cmpAttributes != null || !cmpAttributes.isEmpty()) {
+		if (cmpAttributes != null) {
 			foundKeys.clear();
 			List keyAttributesList = cmp.getKeyAttributes();
 			foundKeys.addAll(keyAttributesList);
@@ -359,12 +359,14 @@ public class CMPJavaChangeSynchronizationAdapter extends AdapterImpl {
 				if (natures.get(i) instanceof EMFNature)
 					nature = (EMFNature) natures.get(i);
 			}
-			List adapterFactories = nature.getResourceSet().getAdapterFactories();
-			AdapterFactory factory = EcoreUtil.getAdapterFactory(adapterFactories, ReadAdaptor.TYPE_KEY);
-			if (factory instanceof JavaJDOMAdapterFactory) {
-				JavaJDOMAdapterFactory javaFactory = (JavaJDOMAdapterFactory) factory;
-				javaFactory.flushReflectionNoNotification(primaryKeyClass.getQualifiedName());
-				return true;
+			if(nature !=null ){
+				List adapterFactories = nature.getResourceSet().getAdapterFactories();
+				AdapterFactory factory = EcoreUtil.getAdapterFactory(adapterFactories, ReadAdaptor.TYPE_KEY);
+				if (factory instanceof JavaJDOMAdapterFactory) {
+					JavaJDOMAdapterFactory javaFactory = (JavaJDOMAdapterFactory) factory;
+					javaFactory.flushReflectionNoNotification(primaryKeyClass.getQualifiedName());
+					return true;
+				}
 			}
 		} catch (Exception e) {
 			// We don't really care what the exception was, we'll just bail out

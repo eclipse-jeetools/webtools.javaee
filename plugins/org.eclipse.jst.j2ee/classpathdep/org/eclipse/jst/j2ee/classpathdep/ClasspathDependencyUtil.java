@@ -193,7 +193,7 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 								String libDir = app.getLibraryDirectory();
 								if (libDir == null) {
 									// lib is the default if no library-directory is set
-									libDir = "lib";
+									libDir = "lib"; //$NON-NLS-1$
 								}
 								IContainer[] earLibFolders = earComponent.getRootFolder().getFolder(new Path(libDir)).getUnderlyingFolders();
 								for (IContainer earLib : earLibFolders) {

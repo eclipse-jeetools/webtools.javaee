@@ -183,10 +183,8 @@ public abstract class J2EEUtilityJarImportAssistantOperation extends AbstractOpe
 
         if (linkedPathVariable == null || linkedPathVariable.length() == 0)
             return new Path(archiveFile.getAbsolutePath());
-        else {
-            createLinkedPathVariable(linkedPathVariable, archiveFile.getParentFile());
-            return new Path(linkedPathVariable).append(archiveFile.getName());
-        }
+        createLinkedPathVariable(linkedPathVariable, archiveFile.getParentFile());
+        return new Path(linkedPathVariable).append(archiveFile.getName());
     } 
     
     protected final String findUniqueLocation(String baseLocation, String proposedProjectName) { 

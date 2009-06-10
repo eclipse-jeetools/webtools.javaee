@@ -85,9 +85,8 @@ public class JavaEEBinaryComponentLoadAdapter extends JavaEEEMFZipFileLoadAdapte
 				IPath newPath = recomputeArchivePath();
 				if(newPath.equals(archivePath)){
 					throw new FileNotFoundException(archivePath.toOSString());
-				} else {
-					resetZipFile(newPath);
 				}
+				resetZipFile(newPath);
 			}
 			physicallyOpen = true;
 		}

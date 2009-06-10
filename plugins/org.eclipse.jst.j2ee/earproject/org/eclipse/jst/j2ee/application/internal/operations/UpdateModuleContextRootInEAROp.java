@@ -43,7 +43,7 @@ public class UpdateModuleContextRootInEAROp extends AbstractDataModelOperation i
 	@Override
 	public IStatus execute(final IProgressMonitor monitor, final IAdaptable info) throws ExecutionException {
         if(monitor != null) {
-            monitor.beginTask("", 1);
+            monitor.beginTask("", 1); //$NON-NLS-1$
         }
         
         try {

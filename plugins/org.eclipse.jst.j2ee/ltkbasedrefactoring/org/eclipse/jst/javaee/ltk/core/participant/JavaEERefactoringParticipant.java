@@ -66,24 +66,25 @@ public class JavaEERefactoringParticipant extends DeleteParticipant {
 		Set<IProject> referencingComponents = IDependencyGraph.INSTANCE.getReferencingComponents(projectToBeDeleted);
 		IProject[] dependentProjectList = referencingComponents.toArray(new IProject[referencingComponents.size()]);
 	
+		CompositeChange innerCompositeChange = compositeChange;
 		if (dependentProjectList.length > 0){
-			if(compositeChange == null){
-			compositeChange = new CompositeChange(getName());
+			if(innerCompositeChange == null){
+				innerCompositeChange = new CompositeChange(getName());
 			}
 			
 			for (int i = 0; i < dependentProjectList.length; i++){
 				IProject dependentProject = dependentProjectList[i];
 				if(JavaEEProjectUtilities.isEARProject(dependentProjectList[i])){
 					EARReferenceRemoveChange ec = new EARReferenceRemoveChange(dependentProject, projectToBeDeleted);
-					compositeChange.add(ec);
+					innerCompositeChange.add(ec);
 				}else{
 					NonEARModuleReferenceRemoveChange nc = new NonEARModuleReferenceRemoveChange(dependentProject, projectToBeDeleted);
-					compositeChange.add(nc);
+					innerCompositeChange.add(nc);
 				}
 			}
 		}
 		
-		return compositeChange;
+		return innerCompositeChange;
 	}
 	
 	

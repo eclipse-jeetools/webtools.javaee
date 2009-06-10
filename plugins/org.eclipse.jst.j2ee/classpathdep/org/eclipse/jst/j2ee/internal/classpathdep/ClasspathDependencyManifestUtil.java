@@ -116,7 +116,7 @@ public class ClasspathDependencyManifestUtil {
         	boolean first = true;
         	for (int j = 0; j < updatedCP.size(); j++) {
         		if (!first) {
-        			cpBuffer.append(" ");
+        			cpBuffer.append(" "); //$NON-NLS-1$
         		} else {
         			first = false;
         		}

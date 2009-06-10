@@ -411,9 +411,8 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 					sEdit.dispose();
 				}
 			}
-		} else {
-			return Collections.EMPTY_LIST;
 		}
+		return Collections.EMPTY_LIST;
 	}
 
 	public boolean selectDependencyIfNecessary(IProject referencedProject) {

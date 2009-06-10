@@ -42,7 +42,7 @@ public class JavaUtilityProjectCreationOperation extends AbstractDataModelOperat
 		IStatus stat = OK_STATUS;
 		
 		String projectName = model.getStringProperty( IJavaUtilityProjectCreationDataModelProperties.PROJECT_NAME );
-		String earProjectName = model.getStringProperty( IJavaUtilityProjectCreationDataModelProperties.EAR_PROJECT_NAME );;
+		String earProjectName = model.getStringProperty( IJavaUtilityProjectCreationDataModelProperties.EAR_PROJECT_NAME );
 		String javaSourceFolder = model.getStringProperty( IJavaUtilityProjectCreationDataModelProperties.SOURCE_FOLDER );
 		
 		org.eclipse.wst.common.project.facet.core.runtime.IRuntime runtime = (IRuntime) model.getProperty(IJavaUtilityProjectCreationDataModelProperties.RUNTIME);

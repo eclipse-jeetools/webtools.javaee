@@ -293,8 +293,8 @@ public class ClasspathElement {
 	}
 
 	public IClasspathEntry[] newClasspathEntriesForArchive() {
-		if( !archiveURI.equals("")){
-			String resourcePath = "";
+		if( !archiveURI.equals("")){ //$NON-NLS-1$
+			String resourcePath = ""; //$NON-NLS-1$
 			try {
 				resourcePath = ModuleURIUtil.getArchiveName(archiveURI);
 			} catch (UnresolveableURIException e) {
@@ -306,9 +306,8 @@ public class ClasspathElement {
 			java.io.File file = new java.io.File(resourcePath);
 			if( file.exists() || J2EEPlugin.getWorkspace().getRoot().exists(new Path(resourcePath))){
 				return new IClasspathEntry[]{JavaCore.newLibraryEntry( resPath, null, null, true)};
-			}else{
-				return new IClasspathEntry[]{JavaCore.newVariableEntry( resPath, null, null)};
 			}
+			return new IClasspathEntry[]{JavaCore.newVariableEntry( resPath, null, null)};
 		}	
 		return new IClasspathEntry[0];
 	}
@@ -325,7 +324,7 @@ public class ClasspathElement {
 		if (representsImportedJar())
 			return new IClasspathEntry[]{JavaCore.newLibraryEntry(getImportedJarAsIFile().getFullPath(), null, null)};
 		
-		if( archiveURI != null && !archiveURI.equals("") ){
+		if( archiveURI != null && !archiveURI.equals("") ){ //$NON-NLS-1$
 			return newClasspathEntriesForArchive();
 		}
 		if (!valid && isSelected())

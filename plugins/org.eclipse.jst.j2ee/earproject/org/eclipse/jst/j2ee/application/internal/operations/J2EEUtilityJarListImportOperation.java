@@ -16,7 +16,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.commands.operations.IUndoableOperation;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -29,7 +28,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-public class J2EEUtilityJarListImportOperation extends AbstractDataModelOperation implements IUndoableOperation {
+public class J2EEUtilityJarListImportOperation extends AbstractDataModelOperation {
 
 	private static final int ASSISTANT_TICKS = 5;
 

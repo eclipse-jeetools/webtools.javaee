@@ -644,7 +644,7 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 				protected URI convertPathToURI(IPath modelObjectPath) {
 					// TODO find a better way to getplatformURI
 					IPath path = getComponent().getRootFolder().getFile(modelObjectPath).getUnderlyingFile().getFullPath();
-					return URI.createURI("platform:/resource/" + path.toString());
+					return URI.createURI("platform:/resource/" + path.toString()); //$NON-NLS-1$
 				}
 			});
 		}

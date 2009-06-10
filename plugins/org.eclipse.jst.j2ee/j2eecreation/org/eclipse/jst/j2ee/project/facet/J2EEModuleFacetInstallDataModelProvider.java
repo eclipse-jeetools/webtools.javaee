@@ -38,7 +38,6 @@ import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -115,12 +114,10 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 				String eARName = desc.getPropertyDescription();
 				if (eARName != null && !eARName.equals("")) { //$NON-NLS-1$
 					return eARName;
-				} else {
-					return getDataModel().getStringProperty(FACET_PROJECT_NAME) + "EAR"; //$NON-NLS-1$
 				}
-			} else {
 				return getDataModel().getStringProperty(FACET_PROJECT_NAME) + "EAR"; //$NON-NLS-1$
 			}
+			return getDataModel().getStringProperty(FACET_PROJECT_NAME) + "EAR"; //$NON-NLS-1$
 		}
 		return super.getDefaultProperty(propertyName);
 	}
@@ -237,30 +234,24 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 	}
 
 	protected DataModelPropertyDescriptor[] getEARPropertyDescriptors(int j2eeVersion) {
-		StructureEdit mc = null;
 		ArrayList earDescriptorList = new ArrayList();
 
 		IProject[] projs = ProjectUtilities.getAllProjects();
 
 		for (int index = 0; index < projs.length; index++) {
 			IProject flexProject = projs[index];
-			try {
-				if (flexProject != null) {
-					if (ModuleCoreNature.isFlexibleProject(flexProject)) {
-						IVirtualComponent comp = ComponentCore.createComponent(flexProject);
-						if (J2EEProjectUtilities.isEARProject(comp.getProject())) {
-							String sVer = J2EEProjectUtilities.getJ2EEProjectVersion(comp.getProject());
-							int ver = J2EEVersionUtil.convertVersionStringToInt(sVer);
-							if (j2eeVersion <= ver) {
-								DataModelPropertyDescriptor desc = new DataModelPropertyDescriptor(comp.getProject().getName());
-								earDescriptorList.add(desc);
-							}
+			if (flexProject != null) {
+				if (ModuleCoreNature.isFlexibleProject(flexProject)) {
+					IVirtualComponent comp = ComponentCore.createComponent(flexProject);
+					if (J2EEProjectUtilities.isEARProject(comp.getProject())) {
+						String sVer = J2EEProjectUtilities.getJ2EEProjectVersion(comp.getProject());
+						int ver = J2EEVersionUtil.convertVersionStringToInt(sVer);
+						if (j2eeVersion <= ver) {
+							DataModelPropertyDescriptor desc = new DataModelPropertyDescriptor(comp.getProject().getName());
+							earDescriptorList.add(desc);
 						}
 					}
 				}
-			} finally {
-				if (mc != null)
-					mc.dispose();
 			}
 		}
 		DataModelPropertyDescriptor[] descriptors = new DataModelPropertyDescriptor[earDescriptorList.size()];
@@ -285,22 +276,21 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 			}
 		} else if (name.equals(CONFIG_FOLDER)) {
 			String folderName = model.getStringProperty(CONFIG_FOLDER);
-			if (folderName == null || folderName.length() == 0 || folderName.equals("/") || folderName.equals("\\")) {
+			if (folderName == null || folderName.length() == 0 || folderName.equals("/") || folderName.equals("\\")) { //$NON-NLS-1$ //$NON-NLS-2$
 				// all folders which meet the criteria of "CONFIG_FOLDER" are required
 				String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.SOURCEFOLDER_EMPTY);
 				return WTPCommonPlugin.createErrorStatus(errorMessage);
-			} else {
-				IStatus status = validateFolderName(folderName);
-				if (status.isOK())
-				{
-					/* bug 223072 test invalid character - URI.FRAGMENT_SEPARATOR */
-					if (folderName.indexOf('#') != -1) { 
-						String message = NLS.bind(Messages.resources_invalidCharInName, "#", folderName); //$NON-NLS-1$
-						status = new ResourceStatus(IResourceStatus.INVALID_VALUE, null, message);
-					}
-				}
-				return status;
 			}
+			IStatus status = validateFolderName(folderName);
+			if (status.isOK())
+			{
+				/* bug 223072 test invalid character - URI.FRAGMENT_SEPARATOR */
+				if (folderName.indexOf('#') != -1) { 
+					String message = NLS.bind(Messages.resources_invalidCharInName, "#", folderName); //$NON-NLS-1$
+					status = new ResourceStatus(IResourceStatus.INVALID_VALUE, null, message);
+				}
+			}
+			return status;
 		} else if (name.equals(ADD_TO_EAR)) {
 			if (!isEARSupportedByRuntime()) {
 				String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.MODULE_NOT_SUPPORTED);

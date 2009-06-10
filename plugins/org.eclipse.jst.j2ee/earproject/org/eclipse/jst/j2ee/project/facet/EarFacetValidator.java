@@ -35,7 +35,7 @@ public final class EarFacetValidator
     
 {
     private static final String MARKER_ID 
-        = J2EEPlugin.PLUGIN_ID + ".differentRuntimesDetected";
+        = J2EEPlugin.PLUGIN_ID + ".differentRuntimesDetected"; //$NON-NLS-1$
     
     public void validate( final IFacetedProject fproj ) 
     
@@ -115,9 +115,9 @@ public final class EarFacetValidator
             
             final IMarker m = ear.createWarningMarker( MARKER_ID, msg );
             
-            m.setAttribute( "moduleProject", module.getProject().getName() );
-            m.setAttribute( "runtime1", ear.getRuntime().getName() );
-            m.setAttribute( "runtime2", module.getRuntime().getName() );
+            m.setAttribute( "moduleProject", module.getProject().getName() ); //$NON-NLS-1$
+            m.setAttribute( "runtime1", ear.getRuntime().getName() ); //$NON-NLS-1$
+            m.setAttribute( "runtime2", module.getRuntime().getName() ); //$NON-NLS-1$
         }
     }
     

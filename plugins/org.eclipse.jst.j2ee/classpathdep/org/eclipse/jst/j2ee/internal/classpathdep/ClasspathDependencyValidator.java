@@ -112,7 +112,7 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 					reportMessages(msgs);
 		    		// if not a web app, warn if associated cp entry is not exported
 					if (!isWebApp && !entry.isExported()) {
-						_reporter.addMessage(this, new Message("classpathdependencyvalidator", // $NON-NLS-1$
+						_reporter.addMessage(this, new Message("classpathdependencyvalidator", //$NON-NLS-1$
 								IMessage.NORMAL_SEVERITY, NonWebNonExported, new String[]{cpEntryPath}, proj));
 					}
 				}
@@ -120,7 +120,7 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 				if (!referencedRawEntries.isEmpty()) {
 					if (JavaEEProjectUtilities.isApplicationClientProject(proj)) { 
 						// classpath component dependencies are not supported for application client projects
-						final IMessage msg = new Message("classpathdependencyvalidator", // $NON-NLS-1$
+						final IMessage msg = new Message("classpathdependencyvalidator", //$NON-NLS-1$
 								IMessage.HIGH_SEVERITY, AppClientProject, null, proj);
 						_reporter.addMessage(this, msg);
 					}
@@ -139,7 +139,7 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 						}
 						if (!referencedFromEARorWAR) {
 							// warn if there are root mappings and the project is not referenced by an EAR or a WAR
-							final IMessage msg =new Message("classpathdependencyvalidator", // $NON-NLS-1$
+							final IMessage msg =new Message("classpathdependencyvalidator", //$NON-NLS-1$
 									IMessage.NORMAL_SEVERITY, RootMappingNonEARWARRef, null, proj); 
 							_reporter.addMessage(this, msg);
 						}
@@ -152,7 +152,7 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 				i = potentialRawEntries.iterator();
 				while (i.hasNext()) {
 					final IClasspathEntry entry = (IClasspathEntry) i.next();
-					final IMessage msg =new Message("classpathdependencyvalidator", // $NON-NLS-1$
+					final IMessage msg =new Message("classpathdependencyvalidator", //$NON-NLS-1$
 							IMessage.NORMAL_SEVERITY, NonTaggedExportedClasses, new String[]{entry.getPath().toString()}, proj);
 					msg.setGroupName(entry.getPath().toString());
 					_reporter.addMessage(this, msg); 
@@ -169,7 +169,7 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 						final String archivePath = ClasspathDependencyUtil.getArchiveName(entry);
 						if (archiveNames.contains(archivePath)) {
 							// Project cp entry
-							final IMessage msg = new Message("classpathdependencyvalidator", // $NON-NLS-1$
+							final IMessage msg = new Message("classpathdependencyvalidator", //$NON-NLS-1$
 									IMessage.HIGH_SEVERITY, DuplicateArchiveName, new String[]{entry.getPath().toString()}, proj);									
 							_reporter.addMessage(this, msg); 
 						} else {
@@ -253,7 +253,7 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 		if (kind == IClasspathEntry.CPE_PROJECT) {
 			
 			// Project cp entry
-			results.add(new Message("classpathdependencyvalidator", // $NON-NLS-1$
+			results.add(new Message("classpathdependencyvalidator", //$NON-NLS-1$
 					IMessage.HIGH_SEVERITY, ProjectClasspathEntry, new String[]{entry.getPath().toString()}, project));
 
 			return (IMessage[]) results.toArray(new IMessage[results.size()]);
@@ -261,7 +261,7 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 			
 			// Source cp entry
 			
-			results.add(new Message("classpathdependencyvalidator", // $NON-NLS-1$
+			results.add(new Message("classpathdependencyvalidator", //$NON-NLS-1$
 					IMessage.HIGH_SEVERITY, SourceEntry, new String[]{entry.getPath().toString()}, project));
 			return (IMessage[]) results.toArray(new IMessage[results.size()]);
 		} else if (kind == IClasspathEntry.CPE_CONTAINER) {
@@ -273,7 +273,7 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 				final String id = (String) filteredIDs.get(i);
 				if (path.segment(0).equals(id)) {
 	        		// filtered classpath container
-	    			results.add(new Message("classpathdependencyvalidator", // $NON-NLS-1$
+	    			results.add(new Message("classpathdependencyvalidator", //$NON-NLS-1$
 	    					IMessage.HIGH_SEVERITY, FilteredContainer, new String[]{entry.getPath().toString()}, project));
 	    			return (IMessage[]) results.toArray(new IMessage[results.size()]);					
 				}
@@ -296,7 +296,7 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 
 					// Class folder reference; ensure this is not already mapped via the component file.
 					if (alreadyMapped) {
-						results.add(new Message("classpathdependencyvalidator", // $NON-NLS-1$
+						results.add(new Message("classpathdependencyvalidator", //$NON-NLS-1$
 								IMessage.HIGH_SEVERITY, DuplicateClassFolderEntry, new String[]{entry.getPath().toString()}, project));
 					}
 				}
@@ -308,7 +308,7 @@ public class ClasspathDependencyValidator implements IValidatorJob {
     		// only a ../ or / mapping is currently legal in a non-web context
     		if (!(runtimePath.equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH) 
     				|| runtimePath.equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_COMPONENT_PATH))) { 
-    			results.add(new Message("classpathdependencyvalidator", // $NON-NLS-1$
+    			results.add(new Message("classpathdependencyvalidator", //$NON-NLS-1$
     					IMessage.HIGH_SEVERITY, InvalidNonWebRuntimePath, new String[]{entry.getPath().toString(), runtimePath.toString()}, project));
     		}
     	} else {
@@ -317,7 +317,7 @@ public class ClasspathDependencyValidator implements IValidatorJob {
     		if (!runtimePath.equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH) 
     			&& !runtimePath.equals(IClasspathDependencyConstants.WEB_INF_LIB_PATH)
     			&& !runtimePath.equals(IClasspathDependencyConstants.WEB_INF_CLASSES_PATH)) { 
-    			results.add(new Message("classpathdependencyvalidator", // $NON-NLS-1$
+    			results.add(new Message("classpathdependencyvalidator", //$NON-NLS-1$
     					IMessage.HIGH_SEVERITY, InvalidWebRuntimePath, new String[]{entry.getPath().toString(), pathStr}, project));
     		}
     	}

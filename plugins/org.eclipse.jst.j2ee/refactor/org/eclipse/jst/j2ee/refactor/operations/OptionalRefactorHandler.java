@@ -99,7 +99,7 @@ public class OptionalRefactorHandler implements IOptionalRefactorHandler{
 
 	private class OptionalRefactorHandlerRegistryReader extends RegistryReader {
 
-		private List handlers = new ArrayList(); 
+		private List innerHandlers = new ArrayList(); 
 		
 		public OptionalRefactorHandlerRegistryReader() {
 			super(J2EEPlugin.PLUGIN_ID, EXTENSION_POINT);
@@ -131,16 +131,16 @@ public class OptionalRefactorHandler implements IOptionalRefactorHandler{
 
 				});
 
-				handlers.add(handlerArray[0]);
+				innerHandlers.add(handlerArray[0]);
 				return true;
 			}
 			return false;
 		}
 		
 		public IOptionalRefactorHandler [] getHandlers() {
-			IOptionalRefactorHandler [] handlersArray = new IOptionalRefactorHandler[handlers.size()];
+			IOptionalRefactorHandler [] handlersArray = new IOptionalRefactorHandler[innerHandlers.size()];
 			for(int i=0;i<handlersArray.length;i++){
-				handlersArray[i] = (IOptionalRefactorHandler)handlers.get(i);
+				handlersArray[i] = (IOptionalRefactorHandler)innerHandlers.get(i);
 			}
 			return handlersArray;
 		}

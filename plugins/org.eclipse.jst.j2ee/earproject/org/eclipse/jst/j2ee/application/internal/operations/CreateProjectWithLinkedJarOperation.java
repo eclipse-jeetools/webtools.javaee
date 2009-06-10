@@ -71,7 +71,7 @@ public class CreateProjectWithLinkedJarOperation extends J2EEUtilityJarImportAss
 			
 			/* Remove the default src folder */
 			IJavaProject utilityJarJavaProject = JavaCore.create(utilityJarProject);
-			IPackageFragmentRoot srcFolder = utilityJarJavaProject.getPackageFragmentRoot(utilityJarProject.getFolder("src"));
+			IPackageFragmentRoot srcFolder = utilityJarJavaProject.getPackageFragmentRoot(utilityJarProject.getFolder("src")); //$NON-NLS-1$
 			if(srcFolder.exists()) {
 				srcFolder.delete(IResource.FORCE, IPackageFragmentRoot.ORIGINATING_PROJECT_CLASSPATH, monitor);
 			}			
@@ -79,7 +79,7 @@ public class CreateProjectWithLinkedJarOperation extends J2EEUtilityJarImportAss
 			
 			/* Remove the /src mapping */
 			IVirtualComponent utilComponent = ComponentCore.createComponent(project);
-			status.add(removeRootMapping(utilComponent, "/src", monitor));
+			status.add(removeRootMapping(utilComponent, "/src", monitor)); //$NON-NLS-1$
 			
 			/* Create the /<archive> mapping */
 			status.add(createVirtualArchiveComponent(project, getUtilityJar().getName(), project.getFile(getUtilityJar().getName()), monitor));

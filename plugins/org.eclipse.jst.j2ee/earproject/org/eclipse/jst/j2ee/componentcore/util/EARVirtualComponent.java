@@ -150,6 +150,7 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 	}
 	
 	private static List getLooseArchiveReferences(EARVirtualComponent earComponent, List hardReferences, List dynamicReferences, EARVirtualRootFolder folder) {
+		List innerDynamicReferences = dynamicReferences;
 		try {
 			IVirtualResource[] members = folder.superMembers();
 			for (int i = 0; i < members.length; i++) {
@@ -170,20 +171,20 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 							if( dynamicComponent instanceof J2EEModuleVirtualArchiveComponent)
 								((J2EEModuleVirtualArchiveComponent)dynamicComponent).setDeploymentPath(members[i].getRuntimePath());
 							dynamicRef.setArchiveName(archiveName);
-							if (null == dynamicReferences) {
-								dynamicReferences = new ArrayList();
+							if (null == innerDynamicReferences) {
+								innerDynamicReferences = new ArrayList();
 							}
-							dynamicReferences.add(dynamicRef);
+							innerDynamicReferences.add(dynamicRef);
 						}
 					}
 				} else if(IVirtualResource.FOLDER == members[i].getType()){
-					dynamicReferences = getLooseArchiveReferences(earComponent, hardReferences, dynamicReferences, (EARVirtualRootFolder)members[i]);
+					innerDynamicReferences = getLooseArchiveReferences(earComponent, hardReferences, innerDynamicReferences, (EARVirtualRootFolder)members[i]);
 				}
 			}
 		} catch (CoreException e) {
 			Logger.getLogger().logError(e);
 		}
-		return dynamicReferences;
+		return innerDynamicReferences;
 	}
 
 	@Override
@@ -205,8 +206,7 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 	public IVirtualReference[] getCachedReferences() {
 		if (cachedReferences != null && checkIfStillValid())
 			return cachedReferences;
-		else
-			depGraphModStamp = DependencyGraphManager.getInstance().getModStamp();
+		depGraphModStamp = DependencyGraphManager.getInstance().getModStamp();
 		return null;
 	}
 

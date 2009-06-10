@@ -28,7 +28,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
 public final class J2EEUtilityJarImportDataModelProvider extends J2EEArtifactImportDataModelProvider implements IJavaUtilityJarImportDataModelProperties {
 
-	public static String J2EE_UTILITY_JAR_IMPORT_DMP_ID = "j2eeUtilityJarImportDataModelProvider";
+	public static String J2EE_UTILITY_JAR_IMPORT_DMP_ID = "j2eeUtilityJarImportDataModelProvider"; //$NON-NLS-1$
 
 	@Override
 	public Set getPropertyNames() {

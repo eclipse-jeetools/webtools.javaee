@@ -40,19 +40,19 @@ public interface IDefaultJ2EEComponentCreationDataModelProperties {
    /**
      * Default is true. type Boolean
      */
-    public static final String CREATE_EJB = "DefaultJ2EEComponentCreationDataModel.CREATE_EJB";
+    public static final String CREATE_EJB = "DefaultJ2EEComponentCreationDataModel.CREATE_EJB"; //$NON-NLS-1$
     /**
      * Default is true. type Boolean
      */
-    public static final String CREATE_WEB = "DefaultJ2EEComponentCreationDataModel.CREATE_WEB";
+    public static final String CREATE_WEB = "DefaultJ2EEComponentCreationDataModel.CREATE_WEB"; //$NON-NLS-1$
     /**
      * Default is true. type Boolean
      */
-    public static final String CREATE_APPCLIENT = "DefaultJ2EEComponentCreationDataModel.CREATE_CLIENT";
+    public static final String CREATE_APPCLIENT = "DefaultJ2EEComponentCreationDataModel.CREATE_CLIENT"; //$NON-NLS-1$
     /**
      * Default is true. type Boolean
      */
-    public static final String CREATE_CONNECTOR = "DefaultJ2EEComponentCreationDataModel.CREATE_CONNECTOR";
+    public static final String CREATE_CONNECTOR = "DefaultJ2EEComponentCreationDataModel.CREATE_CONNECTOR"; //$NON-NLS-1$
 
     /**
      * Used for validation only; validates no collsions between various module names. Do not set

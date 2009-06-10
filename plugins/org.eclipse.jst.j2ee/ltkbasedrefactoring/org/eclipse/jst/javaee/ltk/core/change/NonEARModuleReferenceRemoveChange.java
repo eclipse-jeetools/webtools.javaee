@@ -166,12 +166,9 @@ public class NonEARModuleReferenceRemoveChange extends Change {
 	protected void removeModuleDependency() throws ExecutionException {
 		
 		// create IVirtualComponents for the dependent and the refactored project
-		final IVirtualComponent dependentComp = referencingModuleProjectComp;
 		final IVirtualComponent refactoredComp = projectToRemoveComp;
 		final IProgressMonitor monitor = new NullProgressMonitor();
 		// Does the dependent project have a .component reference on the refactored project?
-		final IVirtualReference ref = hadReference();
-		final boolean webLibDep = hasWebLibDependency(ref);
 		
 		// remove the component reference on the deleted project
 		if (refactoredComp != null) {

@@ -52,14 +52,15 @@ public class EarUtilities extends JavaEEProjectUtilities {
 	 * @return - a IVirtualComponent for module name
 	 */
 	public static IVirtualComponent getModule(IVirtualComponent earComponent, String moduleName) {
-		if (moduleName == null)
+		String innerModuleName = moduleName;
+		if (innerModuleName == null)
 			return null;
-		if (moduleName.endsWith(IJ2EEModuleConstants.JAR_EXT) || moduleName.endsWith(IJ2EEModuleConstants.WAR_EXT) || moduleName.endsWith(IJ2EEModuleConstants.RAR_EXT))
-			moduleName = moduleName.substring(0, (moduleName.length() - IJ2EEModuleConstants.JAR_EXT.length()));
+		if (innerModuleName.endsWith(IJ2EEModuleConstants.JAR_EXT) || innerModuleName.endsWith(IJ2EEModuleConstants.WAR_EXT) || innerModuleName.endsWith(IJ2EEModuleConstants.RAR_EXT))
+			innerModuleName = innerModuleName.substring(0, (innerModuleName.length() - IJ2EEModuleConstants.JAR_EXT.length()));
 		IVirtualReference[] references = getComponentReferences(earComponent);
 		for (int i = 0; i < references.length; i++) {
 			IVirtualComponent component = references[i].getReferencedComponent();
-			if (component.getName().equals(moduleName)) {
+			if (component.getName().equals(innerModuleName)) {
 				return component;
 			}
 		}
@@ -270,11 +271,15 @@ public class EarUtilities extends JavaEEProjectUtilities {
 				{
 				case J2EEVersionConstants.VERSION_5_0:
 					retVal.add(DYNAMIC_WEB_25);
+					//$FALL-THROUGH$
 				case J2EEVersionConstants.VERSION_1_4:
 					retVal.add(DYNAMIC_WEB_24);
+					//$FALL-THROUGH$
 				case J2EEVersionConstants.VERSION_1_3:
 					retVal.add(DYNAMIC_WEB_23);
+					//$FALL-THROUGH$
 				case J2EEVersionConstants.VERSION_1_2:
+					//$FALL-THROUGH$
 					retVal.add(DYNAMIC_WEB_22);
 				}
 			}
@@ -284,10 +289,13 @@ public class EarUtilities extends JavaEEProjectUtilities {
 				{
 				case J2EEVersionConstants.VERSION_5_0:
 					retVal.add(EJB_30);
+					//$FALL-THROUGH$
 				case J2EEVersionConstants.VERSION_1_4:
 					retVal.add(EJB_21);
+					//$FALL-THROUGH$
 				case J2EEVersionConstants.VERSION_1_3:
 					retVal.add(EJB_20);
+					//$FALL-THROUGH$
 				case J2EEVersionConstants.VERSION_1_2:
 					retVal.add(EJB_11);
 				}
@@ -299,8 +307,10 @@ public class EarUtilities extends JavaEEProjectUtilities {
 				case J2EEVersionConstants.VERSION_5_0:
 				case J2EEVersionConstants.VERSION_1_4:
 					retVal.add(JCA_15);
+					//$FALL-THROUGH$
 				case J2EEVersionConstants.VERSION_1_3:
 					retVal.add(JCA_10);
+					//$FALL-THROUGH$
 				case J2EEVersionConstants.VERSION_1_2:
 					// there is no JCA in EAR 1.2
 				}
@@ -311,10 +321,13 @@ public class EarUtilities extends JavaEEProjectUtilities {
 				{
 				case J2EEVersionConstants.VERSION_5_0:
 					retVal.add(APPLICATION_CLIENT_50);
+					//$FALL-THROUGH$
 				case J2EEVersionConstants.VERSION_1_4:
 					retVal.add(APPLICATION_CLIENT_14);
+					//$FALL-THROUGH$
 				case J2EEVersionConstants.VERSION_1_3:
 					retVal.add(APPLICATION_CLIENT_13);
+					//$FALL-THROUGH$
 				case J2EEVersionConstants.VERSION_1_2:
 					retVal.add(APPLICATION_CLIENT_12);
 				}
@@ -326,16 +339,15 @@ public class EarUtilities extends JavaEEProjectUtilities {
 			else
 			{
 				// invalid module type
-				throw new IllegalArgumentException("The moduleProjectFacet parameter must be a valid Java EE module type.");
+				throw new IllegalArgumentException("The moduleProjectFacet parameter must be a valid Java EE module type."); //$NON-NLS-1$
 			}
 		}
 		else
 		{
 			// invalid EAR facet
 			if (earProjectFacetVersion == null)
-				throw new IllegalArgumentException("The earProjectFacetVersion parameter cannot be null");
-			else
-				throw new IllegalArgumentException("The earProjectFacetVersion parameter must be an ENTERPRISE_APPLICATION facet.");
+				throw new IllegalArgumentException("The earProjectFacetVersion parameter cannot be null"); //$NON-NLS-1$
+			throw new IllegalArgumentException("The earProjectFacetVersion parameter must be an ENTERPRISE_APPLICATION facet."); //$NON-NLS-1$
 		}
 
 		return retVal;

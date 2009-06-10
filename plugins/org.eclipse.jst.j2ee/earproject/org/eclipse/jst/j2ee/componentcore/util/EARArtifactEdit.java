@@ -69,7 +69,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
 public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifactEditFactory, IEARModelProvider {
 
-	private static final String EAR_CONTENT_TYPE = "org.eclipse.jst.j2ee.earDD";
+	private static final String EAR_CONTENT_TYPE = "org.eclipse.jst.j2ee.earDD"; //$NON-NLS-1$
 
 	public static final Class ADAPTER_TYPE = EARArtifactEdit.class;
 	
@@ -456,7 +456,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		IVirtualReference [] refs = getComponent().getReferences();
 		for(int i=0; i<refs.length; i++){
 			if(refs[i].getReferencedComponent().equals(moduleComp)){
-				if (refs[i].getRuntimePath().toString().equals("/")){
+				if (refs[i].getRuntimePath().toString().equals("/")){ //$NON-NLS-1$
 					return refs[i].getArchiveName();
 				}
 				return refs[i].getRuntimePath().append(refs[i].getArchiveName()).toString();
@@ -501,12 +501,13 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	public IVirtualComponent getModule(String moduleName) {
 		if (moduleName == null)
 			return null;
-		if (moduleName.endsWith(IJ2EEModuleConstants.JAR_EXT) || moduleName.endsWith(IJ2EEModuleConstants.WAR_EXT) || moduleName.endsWith(IJ2EEModuleConstants.RAR_EXT))
-			moduleName = moduleName.substring(0, (moduleName.length() - IJ2EEModuleConstants.JAR_EXT.length()));
+		String innerModuleName = moduleName;
+		if (innerModuleName.endsWith(IJ2EEModuleConstants.JAR_EXT) || innerModuleName.endsWith(IJ2EEModuleConstants.WAR_EXT) || innerModuleName.endsWith(IJ2EEModuleConstants.RAR_EXT))
+			innerModuleName = innerModuleName.substring(0, (innerModuleName.length() - IJ2EEModuleConstants.JAR_EXT.length()));
 		IVirtualReference[] references = getComponentReferences();
 		for (int i = 0; i < references.length; i++) {
 			IVirtualComponent component = references[i].getReferencedComponent();
-			if (component.getName().equals(moduleName)) {
+			if (component.getName().equals(innerModuleName)) {
 				return component;
 			}
 		}

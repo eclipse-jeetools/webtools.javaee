@@ -145,9 +145,8 @@ public class J2EEDependencyListener implements IResourceChangeListener, IResourc
 
 				}
 			}
-		default:
-			return false;
 		}
+		return false;
 	}
 
 	public static boolean endsWithIgnoreCase(String str, String sfx) {

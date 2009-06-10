@@ -182,7 +182,7 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 
 	public void releaseArchive(IArchive archive) {
 		if (archive != this.archive) {
-			throw new RuntimeException("The IArchive parameter must be the same IArchive retrieved from accessArchive");
+			throw new RuntimeException("The IArchive parameter must be the same IArchive retrieved from accessArchive"); //$NON-NLS-1$
 		}
 		if (null != archive) {
 			ArchiveCache cache = ArchiveCache.getInstance();
@@ -221,7 +221,6 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 	public Archive accessLegacyArchive() {
 		if(legacyBinaryHelper == null){
 			JavaEEQuickPeek qp = getJavaEEQuickPeek(getComponent());
-			IPath ddPath = null;
 			switch (qp.getType()) {
 			case JavaEEQuickPeek.APPLICATION_CLIENT_TYPE:
 				legacyBinaryHelper = new AppClientBinaryComponentHelper(getComponent()){
@@ -314,7 +313,6 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 	public void dispose() {
 		super.dispose();
 		int count = 0;
-		int legacyCount = 0;
 		synchronized (this) {
 			count = localArchiveAccessCount;
 		}

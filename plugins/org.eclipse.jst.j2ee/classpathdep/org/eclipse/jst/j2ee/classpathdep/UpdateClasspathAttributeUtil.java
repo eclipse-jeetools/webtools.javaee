@@ -41,7 +41,7 @@ public class UpdateClasspathAttributeUtil implements IClasspathDependencyConstan
 	 * @throws CoreException Thrown if a problem is encountered.
 	 */
 	public static IClasspathAttribute createDependencyAttribute() throws CoreException {
-		return createDependencyAttribute("");
+		return createDependencyAttribute(""); //$NON-NLS-1$
 	}
 	
 	/**
@@ -90,7 +90,7 @@ public class UpdateClasspathAttributeUtil implements IClasspathDependencyConstan
 	 * @throws CoreException Thrown if a problem is encountered.
 	 */
 	public static IClasspathAttribute createNonDependencyAttribute() throws CoreException {
-		return JavaCore.newClasspathAttribute(IClasspathDependencyConstants.CLASSPATH_COMPONENT_NON_DEPENDENCY, "");
+		return JavaCore.newClasspathAttribute(IClasspathDependencyConstants.CLASSPATH_COMPONENT_NON_DEPENDENCY, ""); //$NON-NLS-1$
 	}
 	
 	/**

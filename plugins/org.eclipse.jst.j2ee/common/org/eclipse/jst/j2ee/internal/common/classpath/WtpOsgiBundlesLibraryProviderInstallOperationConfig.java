@@ -126,7 +126,7 @@ public class WtpOsgiBundlesLibraryProviderInstallOperationConfig
         }
         else
         {
-            attr = JavaCore.newClasspathAttribute( IClasspathDependencyConstants.CLASSPATH_COMPONENT_NON_DEPENDENCY, "" );
+            attr = JavaCore.newClasspathAttribute( IClasspathDependencyConstants.CLASSPATH_COMPONENT_NON_DEPENDENCY, "" ); //$NON-NLS-1$
         }
         
         return new IClasspathAttribute[]{ attr };

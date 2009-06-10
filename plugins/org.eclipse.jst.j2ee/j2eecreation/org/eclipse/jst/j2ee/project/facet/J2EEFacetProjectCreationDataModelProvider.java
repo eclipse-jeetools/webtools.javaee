@@ -41,7 +41,7 @@ public class J2EEFacetProjectCreationDataModelProvider extends FacetProjectCreat
     
     static
     {
-        for( IProjectFacetVersion fv : ProjectFacetsManager.getGroup( "modules" ).getMembers() )
+        for( IProjectFacetVersion fv : ProjectFacetsManager.getGroup( "modules" ).getMembers() ) //$NON-NLS-1$
         {
             MODULE_FACETS.add( fv.getProjectFacet() );
         }
@@ -194,7 +194,7 @@ public class J2EEFacetProjectCreationDataModelProvider extends FacetProjectCreat
 		if (earName.indexOf("#") != -1 || earName.indexOf("/") != -1) { //$NON-NLS-1$ //$NON-NLS-2$
 			String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.ERR_INVALID_CHARS);
 			return WTPCommonPlugin.createErrorStatus(errorMessage);
-		} else if (earName == null || earName.equals("")) { //$NON-NLS-1$
+		} else if (earName.equals("")) { //$NON-NLS-1$
 			String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.ERR_EMPTY_MODULE_NAME);
 			return WTPCommonPlugin.createErrorStatus(errorMessage);
 		}

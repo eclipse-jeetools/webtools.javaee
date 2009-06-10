@@ -49,7 +49,7 @@ public final class EarFacetRuntimeHandler
     {
         if( monitor != null )
         {
-            monitor.beginTask( "", 1 );
+            monitor.beginTask( "", 1 ); //$NON-NLS-1$
         }
         
         try
@@ -107,7 +107,7 @@ public final class EarFacetRuntimeHandler
     {
         if( monitor != null )
         {
-            monitor.beginTask( "", moduleProjects.size() );
+            monitor.beginTask( "", moduleProjects.size() ); //$NON-NLS-1$
         }
         
         try

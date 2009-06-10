@@ -52,7 +52,7 @@ import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
-public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchiveFactory {
+public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 
 	/**
 	 * Default value = Boolean.TRUE Valid values = Boolean.TRUE or Boolean.FALSE
@@ -472,7 +472,7 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 						in = manifestResource.getInputStream();
 						Manifest manifest = new Manifest(in);
 						Attributes attributes = manifest.getMainAttributes();
-						String mainClassName = attributes.getValue("Main-Class");
+						String mainClassName = attributes.getValue("Main-Class"); //$NON-NLS-1$
 						if (mainClassName != null) {
 							JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(JavaEEQuickPeek.APPLICATION_CLIENT_TYPE, JavaEEQuickPeek.JEE_5_0_ID, JavaEEQuickPeek.JEE_5_0_ID);
 							archiveToJavaEEQuickPeek.put(simpleArchive, quickPeek);
@@ -649,7 +649,7 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 			return simpleLoadAdapter.toString();
 		}
 
-	};
+	}
 
 	private static void wrapArchive(final IArchive simpleArchive, final IPath deploymentDescriptorPath) {
 		IArchiveLoadAdapter wrappingEMFLoadAdapter = new JavaEEWrappingLoadAdapter(simpleArchive, deploymentDescriptorPath);
