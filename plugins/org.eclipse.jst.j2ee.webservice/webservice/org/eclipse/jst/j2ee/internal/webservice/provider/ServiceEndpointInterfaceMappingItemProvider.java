@@ -19,11 +19,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
-import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
-import org.eclipse.emf.edit.provider.IItemPropertySource;
-import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
-import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapFactory;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage;
@@ -37,7 +32,7 @@ import org.eclipse.jst.j2ee.webservice.jaxrpcmap.ServiceEndpointInterfaceMapping
  * 
  * @generated
  */
-public class ServiceEndpointInterfaceMappingItemProvider extends InterfaceMappingItemProvider implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class ServiceEndpointInterfaceMappingItemProvider extends InterfaceMappingItemProvider{
 	/**
 	 * This constructs an instance from a factory and a notifier. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->

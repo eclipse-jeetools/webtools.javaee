@@ -290,7 +290,7 @@ public class WSCDDArtifactEdit extends EnterpriseArtifactEdit {
 
 		IProject project = aModule.getProject();
 		ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
-		if (aModule != null && isValidWSCDDModule(aModule))
+		if (isValidWSCDDModule(aModule))
 			return new WSCDDArtifactEdit(nature, aModule, true);
 		return null;
 	}
@@ -323,7 +323,7 @@ public class WSCDDArtifactEdit extends EnterpriseArtifactEdit {
 	public static WSCDDArtifactEdit getWSCDDArtifactEditForWrite(IVirtualComponent aModule) {
 		IProject project = aModule.getProject();
 		ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
-		if (aModule != null && isValidWSCDDModule(aModule))
+		if (isValidWSCDDModule(aModule))
 			return new WSCDDArtifactEdit(nature, aModule, false);
 		return null;
 	}

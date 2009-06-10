@@ -17,11 +17,6 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
-import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
-import org.eclipse.emf.edit.provider.IItemPropertySource;
-import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
-import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.jst.j2ee.common.internal.provider.DisplayNameItemProvider;
 import org.eclipse.jst.j2ee.webservice.wscommon.DisplayNameType;
 
@@ -33,7 +28,7 @@ import org.eclipse.jst.j2ee.webservice.wscommon.DisplayNameType;
  * 
  * @generated
  */
-public class DisplayNameTypeItemProvider extends DisplayNameItemProvider implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class DisplayNameTypeItemProvider extends DisplayNameItemProvider{
 	/**
 	 * This constructs an instance from a factory and a notifier. <!-- begin-user-doc --> <!--
 	 * end-user-doc -->

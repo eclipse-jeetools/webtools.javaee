@@ -327,7 +327,7 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	public static WSDDArtifactEdit getWSDDArtifactEditForRead(IVirtualComponent aModule) {
 		IProject project = aModule.getProject();
 		ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
-		if (aModule != null && isValidWSDDModule(aModule))
+		if (isValidWSDDModule(aModule))
 			return new WSDDArtifactEdit(nature, aModule, true);
 		return null;
 	}
@@ -360,7 +360,7 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	public static WSDDArtifactEdit getWSDDArtifactEditForWrite(IVirtualComponent aModule) {
 		IProject project = aModule.getProject();
 		ModuleCoreNature nature = ModuleCoreNature.getModuleCoreNature(project);
-		if (aModule != null && isValidWSDDModule(aModule))
+		if (isValidWSDDModule(aModule))
 			return new WSDDArtifactEdit(nature, aModule, false);
 		return null;
 	}
