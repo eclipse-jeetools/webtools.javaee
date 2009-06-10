@@ -11,11 +11,11 @@ public class RemoteBusinessInterfaceTemplate
     return result;
   }
 
-  public final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
-  protected final String TEXT_1 = "package ";
-  protected final String TEXT_2 = ";";
-  protected final String TEXT_3 = NL + "import javax.ejb.Remote;" + NL + "" + NL + "@Remote" + NL + "public interface ";
-  protected final String TEXT_4 = " {" + NL + "" + NL + "}";
+  public final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl; //$NON-NLS-1$
+  protected final String TEXT_1 = "package "; //$NON-NLS-1$
+  protected final String TEXT_2 = ";"; //$NON-NLS-1$
+  protected final String TEXT_3 = NL + "import javax.ejb.Remote;" + NL + "" + NL + "@Remote" + NL + "public interface "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+  protected final String TEXT_4 = " {" + NL + "" + NL + "}"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
   protected final String TEXT_5 = NL;
 
   public String generate(Object argument)

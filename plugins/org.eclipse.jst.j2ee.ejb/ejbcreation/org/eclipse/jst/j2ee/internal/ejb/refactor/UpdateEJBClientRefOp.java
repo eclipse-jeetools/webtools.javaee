@@ -106,7 +106,7 @@ public abstract class UpdateEJBClientRefOp extends AbstractDataModelOperation
 	            		if (!remove) {
 	            			final Property newProp = ComponentcoreFactory.eINSTANCE.createProperty();
 	            			newProp.setName(CreationConstants.CLIENT_JAR_URI);
-	            			newProp.setValue(refactoredMetadata.getProjectName() + ".jar");
+	            			newProp.setValue(refactoredMetadata.getProjectName() + ".jar"); //$NON-NLS-1$
 	            			propList.add(0, newProp);
 	            		} else {
 	            			i--;

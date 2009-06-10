@@ -83,14 +83,12 @@ public class EjbClientJarCreationOperation
 			org.eclipse.wst.common.project.facet.core.runtime.IRuntime runtime = null;
 			String javaSourceFolder = ""; //$NON-NLS-1$
 			
-			boolean canContinue = true;
 			try {
 				facetedProject = ProjectFacetsManager.create(ejbproject);
 			} catch (CoreException e) {
 				EjbPlugin.logError(e);
-				canContinue = false;
 			}
-			if( canContinue ){
+			if( facetedProject != null ){
 				runtime = facetedProject.getRuntime();
 
 				IContainer container = J2EEProjectUtilities.getSourceFolderOrFirst(ejbproject, null);

@@ -305,7 +305,7 @@ public class EJBClientJarCreationHelper {
 	private boolean isFileForClientJar(IFile aFile){
 		String name = aFile.getName();
 //		 special case the was stubs  that is needed in the server side
-        if(name.startsWith("_EJS") || (name.startsWith("_") && name.indexOf("InternalHome_") > 0 )) //$NON-NLS-1$ //$NON-NLS-2$
+        if(name.startsWith("_EJS") || (name.startsWith("_") && name.indexOf("InternalHome_") > 0 )) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         	return false;
         return true;
 	}

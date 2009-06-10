@@ -11,16 +11,16 @@ public class LocalHomeInterfaceTemplate
     return result;
   }
 
-  public final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
-  protected final String TEXT_1 = "package ";
-  protected final String TEXT_2 = ";";
-  protected final String TEXT_3 = NL + "import java.rmi.RemoteException;" + NL + "" + NL + "import javax.ejb.CreateException;" + NL + "import javax.ejb.EJBLocalHome;";
-  protected final String TEXT_4 = NL + "import ";
-  protected final String TEXT_5 = ".";
-  protected final String TEXT_6 = ";";
-  protected final String TEXT_7 = NL + NL + "public interface ";
-  protected final String TEXT_8 = " extends EJBLocalHome {" + NL + "" + NL + "\tpublic ";
-  protected final String TEXT_9 = " create() throws CreateException;" + NL + "\t" + NL + "}";
+  public final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl; //$NON-NLS-1$
+  protected final String TEXT_1 = "package "; //$NON-NLS-1$
+  protected final String TEXT_2 = ";"; //$NON-NLS-1$
+  protected final String TEXT_3 = NL + "import java.rmi.RemoteException;" + NL + "" + NL + "import javax.ejb.CreateException;" + NL + "import javax.ejb.EJBLocalHome;"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+  protected final String TEXT_4 = NL + "import "; //$NON-NLS-1$
+  protected final String TEXT_5 = "."; //$NON-NLS-1$
+  protected final String TEXT_6 = ";"; //$NON-NLS-1$
+  protected final String TEXT_7 = NL + NL + "public interface "; //$NON-NLS-1$
+  protected final String TEXT_8 = " extends EJBLocalHome {" + NL + "" + NL + "\tpublic "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+  protected final String TEXT_9 = " create() throws CreateException;" + NL + "\t" + NL + "}"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
   protected final String TEXT_10 = NL;
 
   public String generate(Object argument)

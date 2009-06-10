@@ -19,18 +19,13 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
-import org.eclipse.emf.edit.provider.IItemPropertySource;
-import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
-import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 
 /**
  * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.EJBMethodCategory}object.
  */
-public class EJBMethodCategoryItemProvider extends EjbItemProviderAdapter implements IEditingDomainItemProvider, IItemLabelProvider, IItemPropertySource, IStructuredItemContentProvider, ITreeItemContentProvider {
+public class EJBMethodCategoryItemProvider extends EjbItemProviderAdapter{
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 */

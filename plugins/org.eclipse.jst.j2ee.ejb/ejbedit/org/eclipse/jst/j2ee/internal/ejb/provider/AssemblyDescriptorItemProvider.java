@@ -24,11 +24,6 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.RemoveCommand;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
-import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
-import org.eclipse.emf.edit.provider.IItemPropertySource;
-import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
-import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.ejb.AssemblyDescriptor;
@@ -41,7 +36,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 /**
  * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.AssemblyDescriptor}object.
  */
-public class AssemblyDescriptorItemProvider extends EjbItemProviderAdapter implements IEditingDomainItemProvider, IItemLabelProvider, IItemPropertySource, IStructuredItemContentProvider, ITreeItemContentProvider {
+public class AssemblyDescriptorItemProvider extends EjbItemProviderAdapter{
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 */

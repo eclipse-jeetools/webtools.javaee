@@ -28,11 +28,6 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
-import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
-import org.eclipse.emf.edit.provider.IItemPropertySource;
-import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
-import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.jem.java.JavaHelpers;
 import org.eclipse.jem.java.JavaRefFactory;
@@ -48,7 +43,7 @@ import org.eclipse.jst.j2ee.webservice.wscommon.WscommonFactory;
 /**
  * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.CMPAttribute}object.
  */
-public class CMPAttributeItemProvider extends EjbItemProviderAdapter implements IEditingDomainItemProvider, IItemLabelProvider, IItemPropertySource, IStructuredItemContentProvider, ITreeItemContentProvider {
+public class CMPAttributeItemProvider extends EjbItemProviderAdapter{
 
 	protected static final String[] choiceOfTypes = {"boolean", "byte", "byte[]", "char", "double", "float", "int", "long", "short", "java.lang.Boolean", "java.lang.Byte", "java.lang.Character", "java.lang.Double", "java.lang.Float", "java.lang.Integer", "java.lang.Long", "java.lang.Short", "java.lang.String", "java.math.BigDecimal", "java.sql.Date", "java.sql.Time", "java.sql.Timestamp", "java.util.Calendar", "java.util.Date"}; //$NON-NLS-24$//$NON-NLS-23$//$NON-NLS-22$//$NON-NLS-21$//$NON-NLS-20$//$NON-NLS-19$//$NON-NLS-18$//$NON-NLS-17$//$NON-NLS-16$//$NON-NLS-15$//$NON-NLS-14$//$NON-NLS-13$//$NON-NLS-12$//$NON-NLS-11$//$NON-NLS-10$//$NON-NLS-9$//$NON-NLS-8$//$NON-NLS-7$//$NON-NLS-6$//$NON-NLS-5$//$NON-NLS-4$//$NON-NLS-3$//$NON-NLS-2$//$NON-NLS-1$
 

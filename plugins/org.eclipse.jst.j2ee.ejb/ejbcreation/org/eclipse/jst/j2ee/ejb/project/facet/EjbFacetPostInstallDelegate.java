@@ -93,9 +93,7 @@ public class EjbFacetPostInstallDelegate extends J2EEFacetInstallDelegate implem
 										project,
 										moduleURI,
 										monitor );
-			
 				}
-
 
 				// Create the Ejb Client View
 				final boolean createClient = model.getBooleanProperty(IEjbFacetInstallDataModelProperties.CREATE_CLIENT);
@@ -133,30 +131,24 @@ public class EjbFacetPostInstallDelegate extends J2EEFacetInstallDelegate implem
 						EjbPlugin.logError(e);
 					}
 
-					if (createClient && clientProjectName != null && clientProjectName != "") { //$NON-NLS-1$
-						try {
-							if (model.getBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR))
-								runAddClientToEAROperation(model, monitor);
-							runAddClientToEJBOperation(model, monitor);
-							modifyEJBModuleJarDependency(model, monitor);
-							updateEJBDD(model, monitor);
-						} catch (CoreException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (InvocationTargetException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+					try {
+						if (model.getBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR))
+							runAddClientToEAROperation(model, monitor);
+						runAddClientToEJBOperation(model, monitor);
+						modifyEJBModuleJarDependency(model, monitor);
+						updateEJBDD(model, monitor);
+					} catch (CoreException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (InvocationTargetException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
-
 				}
-
-
 			}
-
 			if (monitor != null) {
 				monitor.worked(1);
 			}

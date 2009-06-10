@@ -25,11 +25,6 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.ComposedImage;
 import org.eclipse.emf.edit.provider.IDisposable;
-import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
-import org.eclipse.emf.edit.provider.IItemPropertySource;
-import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
-import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jst.j2ee.common.CommonFactory;
@@ -44,7 +39,7 @@ import org.eclipse.jst.j2ee.webservice.wscommon.WscommonFactory;
 /**
  * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.MethodElement}object.
  */
-public class MethodElementItemProvider extends EjbItemProviderAdapter implements IEditingDomainItemProvider, IItemLabelProvider, IItemPropertySource, IStructuredItemContentProvider, ITreeItemContentProvider {
+public class MethodElementItemProvider extends EjbItemProviderAdapter{
 	protected final static EjbPackage PACK_SF = EjbFactoryImpl.getPackage();
 	protected final static EStructuralFeature NAME_SF = PACK_SF.getMethodElement_Name();
 	protected final static EStructuralFeature DESC_SF = PACK_SF.getMethodElement_Description();

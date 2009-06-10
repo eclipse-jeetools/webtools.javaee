@@ -74,7 +74,7 @@ public class NewMessageDrivenBeanClassDataModelProvider extends NewEnterpriseBea
 			list.add(QUALIFIED_JMS_MESSAGELISTENER);
 			return list;
 		} else if (propertyName.equals(SUPERCLASS)) {
-			return "";
+			return ""; //$NON-NLS-1$
 		} else if (propertyName.equals(JMS)) {
 			return Boolean.TRUE;
 		} else if (propertyName.equals(DESTINATION_TYPE)) {
@@ -147,7 +147,7 @@ public class NewMessageDrivenBeanClassDataModelProvider extends NewEnterpriseBea
 		if (propertyName.equals(MESSAGE_LISTENER_INTERFACE)) {
 			String value = (String) getProperty(MESSAGE_LISTENER_INTERFACE);
 			if (value == null || value.trim().length() == 0){
-				List<String> interfaces = (List<String>) getProperty(INTERFACES);
+				getProperty(INTERFACES);
 				return WTPCommonPlugin.createErrorStatus(EJBCreationResourceHandler.ERR_NO_MESSAGE_LISTENER_INTERFACE);
 			}
 		}
@@ -175,7 +175,7 @@ public class NewMessageDrivenBeanClassDataModelProvider extends NewEnterpriseBea
 			String value = getStringProperty(MESSAGE_LISTENER_INTERFACE);
 			if (value == null || value.length() == 0 || QUALIFIED_JMS_MESSAGELISTENER.equals(value)) {
 				List<String> interfaces = (List<String>) getProperty(INTERFACES);
-				String messageListenerInterface = "";
+				String messageListenerInterface = ""; //$NON-NLS-1$
 				if (interfaces.size() > 0) {
 					messageListenerInterface = interfaces.get(0);
 				}

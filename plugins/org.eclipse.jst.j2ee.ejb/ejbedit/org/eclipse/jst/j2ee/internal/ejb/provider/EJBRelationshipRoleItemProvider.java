@@ -26,10 +26,6 @@ import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.RemoveCommand;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.ComposedImage;
-import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
-import org.eclipse.emf.edit.provider.IItemPropertySource;
-import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
@@ -48,7 +44,7 @@ import org.eclipse.jst.j2ee.webservice.wscommon.WscommonFactory;
 /**
  * This is the item provider adpater for a {@link org.eclipse.jst.j2ee.internal.internal.ejb.EJBRelationshipRole}object.
  */
-public class EJBRelationshipRoleItemProvider extends EjbItemProviderAdapter implements IEditingDomainItemProvider, IItemLabelProvider, IItemPropertySource, IStructuredItemContentProvider, ITreeItemContentProvider {
+public class EJBRelationshipRoleItemProvider extends EjbItemProviderAdapter{
 	protected static final EStructuralFeature ROLES_SF = EjbFactoryImpl.getPackage().getEJBRelation_RelationshipRoles();
 	protected EJBRelationshipRole targetRole;
 	private static final Class ITreeItemContentProviderClass = ITreeItemContentProvider.class;

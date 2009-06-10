@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.ejb.internal.operations;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jdt.core.IPackageFragment;
@@ -98,7 +97,7 @@ public class NewMessageDrivenBeanClassOperation extends NewEnterpriseBeanClassOp
 				MessageDrivenBeanTemplate tempImpl = MessageDrivenBeanTemplate.create(null);
 				String source = generateTemplateSource(EjbPlugin.getPlugin(), tempModel, TEMPLATE_FILE, tempImpl, monitor);
 				String javaFileName = tempModel.getClassName() + DOT_JAVA;
-				IFile aFile = createJavaFile(monitor, fragment, source, javaFileName);
+				createJavaFile(monitor, fragment, source, javaFileName);
 			}
 		} catch (Exception e) {
 			throw new WFTWrappedException(e);

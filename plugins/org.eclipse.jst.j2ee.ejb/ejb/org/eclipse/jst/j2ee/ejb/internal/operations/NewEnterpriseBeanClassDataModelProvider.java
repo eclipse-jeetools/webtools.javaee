@@ -75,7 +75,7 @@ public class NewEnterpriseBeanClassDataModelProvider extends NewJavaClassDataMod
 			className = className.substring(index+1);
 			return className;
 		} else if (propertyName.equals(SUPERCLASS)){
-			return "";
+			return ""; //$NON-NLS-1$
 		} else if (propertyName.equals(TRANSACTION_TYPE)) {
 			return TransactionType.CONTAINER.toString();
 		} 

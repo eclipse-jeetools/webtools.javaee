@@ -138,11 +138,11 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 		}
 		else if (REMOTE_BUSINESS_INTERFACE.equals(propertyName)) {
 			String className = getStringProperty(QUALIFIED_CLASS_NAME);
-			return className + ((className != null && className.length() > 0) ? REMOTE_SUFFIX : "");
+			return className + ((className != null && className.length() > 0) ? REMOTE_SUFFIX : ""); //$NON-NLS-1$
 		}
 		else if (LOCAL_BUSINESS_INTERFACE.equals(propertyName)) {
 			String className = getStringProperty(QUALIFIED_CLASS_NAME);
-			return className + ((className != null && className.length() > 0) ? LOCAL_SUFFIX : "");
+			return className + ((className != null && className.length() > 0) ? LOCAL_SUFFIX : ""); //$NON-NLS-1$
 		}
 		else if (REMOTE_HOME_INTERFACE.equals(propertyName))
 		{
@@ -301,8 +301,6 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 
 	@Override
 	public IStatus validate(String propertyName) {
-		IStatus status = null;
-		
 		if (LOCAL_BUSINESS_INTERFACE.equals(propertyName)) {
 			if (model.getBooleanProperty(LOCAL)) {
 				return validateEjbInterface(getStringProperty(propertyName));
@@ -390,14 +388,14 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 
 		if (home != null && 
 				(!home.isInterface() || 
-						!hasRequiredElementInSignature(home.getSuperInterfaceTypeSignatures(), new String[] { isLocal ? "EJBLocalHome" : "EJBHome" }))) {
+						!hasRequiredElementInSignature(home.getSuperInterfaceTypeSignatures(), new String[] { isLocal ? "EJBLocalHome" : "EJBHome" }))) { //$NON-NLS-1$ //$NON-NLS-2$
 			String msg = (isLocal) ? EJBCreationResourceHandler.ERR_LOCAL_HOME_NOT_INTERFACE : EJBCreationResourceHandler.ERR_REMOTE_HOME_NOT_INTERFACE;
 			return new Status(IStatus.ERROR, EjbPlugin.PLUGIN_ID, msg);
 		}
 
 		if (component != null && 
 				(!component.isInterface() 
-						|| !hasRequiredElementInSignature(component.getSuperInterfaceTypeSignatures(), new String[] { isLocal ? "EJBLocalObject" : "EJBObject" }))) {
+						|| !hasRequiredElementInSignature(component.getSuperInterfaceTypeSignatures(), new String[] { isLocal ? "EJBLocalObject" : "EJBObject" }))) { //$NON-NLS-1$ //$NON-NLS-2$
 			String msg = (isLocal) ? EJBCreationResourceHandler.ERR_LOCAL_COMPONENT_NOT_INTERFACE : EJBCreationResourceHandler.ERR_REMOTE_COMPONENT_NOT_INTERFACE;
 			return new Status(IStatus.ERROR, EjbPlugin.PLUGIN_ID, msg);
 		}
@@ -407,17 +405,17 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 		}
 
 
-		IMethod createMehod = home.getMethod("create", null);
-		if (createMehod == null || !createMehod.exists() || !hasRequiredElementInSignature(createMehod.getExceptionTypes(), new String[]{"CreateException", "RemoteException"})){
+		IMethod createMehod = home.getMethod("create", null); //$NON-NLS-1$
+		if (createMehod == null || !createMehod.exists() || !hasRequiredElementInSignature(createMehod.getExceptionTypes(), new String[]{"CreateException", "RemoteException"})){ //$NON-NLS-1$ //$NON-NLS-2$
 			String msg = (isLocal) ? EJBCreationResourceHandler.ERR_LOCAL_HOME_MISSING_CREATE_METHOD: EJBCreationResourceHandler.ERR_REMOTE_HOME_MISSING_CREATE_METHOD;
 			return new Status(IStatus.ERROR, EjbPlugin.PLUGIN_ID, msg);
 		}
 
-		if (component == null && !rI.endsWith("."+Signature.getSignatureSimpleName(createMehod.getReturnType()))){
+		if (component == null && !rI.endsWith("."+Signature.getSignatureSimpleName(createMehod.getReturnType()))){ //$NON-NLS-1$
 			String msg = (isLocal) ? EJBCreationResourceHandler.ERR_LOCAL_HOME_CREATE_METHOD_RETURN_TYPE_INVALID: EJBCreationResourceHandler.ERR_REMOTE_HOME_CREATE_METHOD_RETURN_TYPE_INVALID;
 			return new Status(IStatus.ERROR, EjbPlugin.PLUGIN_ID, msg);
 		}
-		if (!component.getElementName().equals(Signature.getSignatureSimpleName(createMehod.getReturnType()))){
+		if (component != null && !component.getElementName().equals(Signature.getSignatureSimpleName(createMehod.getReturnType()))){
 			String msg = (isLocal) ? EJBCreationResourceHandler.ERR_LOCAL_HOME_CREATE_METHOD_RETURN_TYPE_INVALID: EJBCreationResourceHandler.ERR_REMOTE_HOME_CREATE_METHOD_RETURN_TYPE_INVALID;
 			return new Status(IStatus.ERROR, EjbPlugin.PLUGIN_ID, msg);
 		}

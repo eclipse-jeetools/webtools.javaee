@@ -70,11 +70,11 @@ public class CreateMessageDrivenBeanTemplateModel extends
 		if (isJMS()){
 			String destinationType = dataModel.getStringProperty(DESTINATION_TYPE);
 			if (destinationType.equals(DestinationType.QUEUE.toString())) 
-				result.put(ATT_ACTIVATION_CONFIG, "javax.jms.Queue");
+				result.put(ATT_ACTIVATION_CONFIG, "javax.jms.Queue"); //$NON-NLS-1$
 			else if (destinationType.equals(DestinationType.TOPIC.toString())) 
-				result.put(ATT_ACTIVATION_CONFIG, "javax.jms.Topic");
+				result.put(ATT_ACTIVATION_CONFIG, "javax.jms.Topic"); //$NON-NLS-1$
 			else 
-				throw new IllegalStateException("illegal destination type: " + destinationType);
+				throw new IllegalStateException("illegal destination type: " + destinationType); //$NON-NLS-1$
 		}
 		String dispName = getProperty(EJB_NAME).trim();
 		if (!dispName.equals(getClassName()) && (dispName.length() > 0))

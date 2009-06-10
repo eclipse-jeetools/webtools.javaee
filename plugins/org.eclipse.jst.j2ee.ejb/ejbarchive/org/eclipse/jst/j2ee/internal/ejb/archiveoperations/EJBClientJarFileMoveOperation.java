@@ -142,7 +142,7 @@ public class EJBClientJarFileMoveOperation extends AbstractDataModelOperation
 	 */
 	private IFolder getOrCreateTargetSourceFolder(IFolder sourceSourceFolder) throws CoreException {
 		IFolder targetFolder = clientProject.getFolder(sourceSourceFolder.getProjectRelativePath());
-		if(targetFolder == null || !targetFolder.exists()) {
+		if(!targetFolder.exists()) {
 			mkFolders(targetFolder.getFullPath(), workspace.getRoot());
 			JemProjectUtilities.appendJavaClassPath(clientProject, JavaCore.newSourceEntry(targetFolder.getFullPath()));
 		}

@@ -35,29 +35,31 @@ public class ArrayHelper {
 	 * Sort the strings in the given collection.
 	 */
 	private static void quickSort(String[] sortedCollection, int left, int right) {
-		int original_left = left;
-		int original_right = right;
-		String mid = sortedCollection[(left + right) / 2];
+		int localLeft = left;
+		int localRight = right;
+		int original_left = localLeft;
+		int original_right = localRight;
+		String mid = sortedCollection[(localLeft + localRight) / 2];
 		do {
-			while (sortedCollection[left].compareTo(mid) < 0) {
-				left++;
+			while (sortedCollection[localLeft].compareTo(mid) < 0) {
+				localLeft++;
 			}
-			while (mid.compareTo(sortedCollection[right]) < 0) {
-				right--;
+			while (mid.compareTo(sortedCollection[localRight]) < 0) {
+				localRight--;
 			}
-			if (left <= right) {
-				String tmp = sortedCollection[left];
-				sortedCollection[left] = sortedCollection[right];
-				sortedCollection[right] = tmp;
-				left++;
-				right--;
+			if (localLeft <= localRight) {
+				String tmp = sortedCollection[localLeft];
+				sortedCollection[localLeft] = sortedCollection[localRight];
+				sortedCollection[localRight] = tmp;
+				localLeft++;
+				localRight--;
 			}
-		} while (left <= right);
-		if (original_left < right) {
-			quickSort(sortedCollection, original_left, right);
+		} while (localLeft <= localRight);
+		if (original_left < localRight) {
+			quickSort(sortedCollection, original_left, localRight);
 		}
-		if (left < original_right) {
-			quickSort(sortedCollection, left, original_right);
+		if (localLeft < original_right) {
+			quickSort(sortedCollection, localLeft, original_right);
 		}
 	}
 

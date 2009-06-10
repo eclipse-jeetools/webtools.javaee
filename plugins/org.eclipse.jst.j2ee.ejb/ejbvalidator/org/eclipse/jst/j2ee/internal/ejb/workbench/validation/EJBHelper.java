@@ -318,16 +318,8 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 	}
 
 	public JavaClass load(String uri) {
-		if (uri == null) {
-			return null;
-		}
 		//ToDo:revisit this
-		IFile file = null;
-		//IFile file = getProjectResources().getEJBNature().getFile(uri);
-		if ((file == null) || (!file.exists())) {
-			return null;
-		}
-		return JemProjectUtilities.getJavaClass(file);
+		return null;
 	}
 
 	/**

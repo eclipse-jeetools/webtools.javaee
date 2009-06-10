@@ -396,7 +396,7 @@ public class EJBClientJARRemovalOperation extends AbstractDataModelOperation
 				String segment = file.getProjectRelativePath().toString();
 				return ProjectUtilities.DOT_CLASSPATH.equals(segment) ||
 						ProjectUtilities.DOT_PROJECT.equals(segment) ||
-						".runtime".equals(segment) ||
+						".runtime".equals(segment) || //$NON-NLS-1$
 						segment.endsWith(IModuleConstants.COMPONENT_FILE_NAME) ||
 						segment.startsWith(".settings"); //$NON-NLS-1$ 
 			}
@@ -488,7 +488,7 @@ public class EJBClientJARRemovalOperation extends AbstractDataModelOperation
 		mkdirs(newPath, workspace.getRoot());
 		IFile existing = workspace.getRoot().getFile(newPath);
 		if (!yesToAll && existing.exists()) {
-			String message = MessageFormat.format(ClientJARCreationConstants.SHOULD_OVERWRITE, new String[]{filePath.toString(), newPath.toString()});
+			String message = MessageFormat.format(ClientJARCreationConstants.SHOULD_OVERWRITE, new Object[]{filePath.toString(), newPath.toString()});
 			int answer = IOperationHandler.YES_TO_ALL;
 			if (operationHandler != null)
 				answer = operationHandler.canContinueWithAllCheckAllowCancel(message);
@@ -563,15 +563,14 @@ public class EJBClientJARRemovalOperation extends AbstractDataModelOperation
 	protected boolean verifyFilesInSync() throws CoreException {
 		if (verifyFilesInSync(ejbProject))
 			return verifyFilesInSync(clientProject);
-		else
-			return false;
+		return false;
 	}
 	
 	protected boolean verifyFilesInSync(IProject project) throws CoreException {
 		if (!project.exists())
 			return true;
 		if (!project.isSynchronized(IResource.DEPTH_INFINITE)) {
-			String message = MessageFormat.format(ClientJARCreationConstants.FILES_OUT_OF_SYNC, new String[]{project.getName()});
+			String message = MessageFormat.format(ClientJARCreationConstants.FILES_OUT_OF_SYNC, new Object[]{project.getName()});
 			if (operationHandler == null || operationHandler.canContinue(message)) 
 				ejbProject.refreshLocal(IResource.DEPTH_INFINITE, createSubProgressMonitor(1));
 			else 

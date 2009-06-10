@@ -52,7 +52,7 @@ public class EjbFacetInstallDataModelProvider
 			return J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.EJB_CONTENT_FOLDER);
 		}else if (propertyName.equals(CLIENT_NAME)){
 			String clientProjectName = model.getStringProperty(FACET_PROJECT_NAME);
-			clientProjectName = clientProjectName + "Client";
+			clientProjectName = clientProjectName + "Client"; //$NON-NLS-1$
 			
 			//check that the default name does not already exist, if it does try 1-9, if none of thouse work use orginal default
 			IStatus status = ProjectCreationDataModelProviderNew.validateName(clientProjectName);
@@ -160,9 +160,8 @@ public class EjbFacetInstallDataModelProvider
 				String projectName = model.getStringProperty( CLIENT_NAME );
 				IStatus status = ProjectCreationDataModelProviderNew.validateName( projectName );
 				return status;
-			} else {
-				return OK_STATUS;
 			}
+			return OK_STATUS;
 		}else if( propertyName.equals(CLIENT_URI)){
 			//should only validate on CLIENT_URI if going to create a client
 			boolean createCleint = model.getBooleanProperty(CREATE_CLIENT);
@@ -170,9 +169,8 @@ public class EjbFacetInstallDataModelProvider
 				String clientURI = model.getStringProperty( CLIENT_URI );
 				IStatus status = ProjectCreationDataModelProviderNew.validateName( clientURI );
 				return status;
-			} else {
-				return OK_STATUS;
 			}
+			return OK_STATUS;
 		}
 		return super.validate(propertyName);
 	}

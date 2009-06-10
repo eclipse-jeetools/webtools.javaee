@@ -21,7 +21,7 @@ public class CreateEnterpriseBeanTemplateModel extends
 	protected static final String ATT_MAPPED_NAME = "mappedName"; //$NON-NLS-1$
 	protected static final String ATT_NAME = "name"; //$NON-NLS-1$
 	
-	protected static final String QUOTATION_STRING = "\"";
+	protected static final String QUOTATION_STRING = "\""; //$NON-NLS-1$
 	
 	public CreateEnterpriseBeanTemplateModel(IDataModel dataModel) {
 		super(dataModel);
@@ -34,6 +34,6 @@ public class CreateEnterpriseBeanTemplateModel extends
 		else if (transactionType.equals(TransactionType.BEAN.toString()))
 			return false;
 		else 
-			throw new IllegalStateException("illegal transaction type: " + transactionType);
+			throw new IllegalStateException("illegal transaction type: " + transactionType); //$NON-NLS-1$
 	}
 }

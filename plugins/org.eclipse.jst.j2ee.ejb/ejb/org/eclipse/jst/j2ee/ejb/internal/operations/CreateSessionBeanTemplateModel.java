@@ -61,7 +61,7 @@ public class CreateSessionBeanTemplateModel extends
 		else if (stateType.equals(StateType.STATEFUL.toString()))
 			collection.add(QUALIFIED_STATEFUL);
 		else
-			throw new IllegalStateException("illegal state type: " + stateType);
+			throw new IllegalStateException("illegal state type: " + stateType); //$NON-NLS-1$
 		
 		if (!isContainerType()) {
 			collection.add(QUALIFIED_TRANSACTION_MANAGEMENT);
@@ -111,7 +111,7 @@ public class CreateSessionBeanTemplateModel extends
 		else if (stateType.equals(StateType.STATEFUL.toString()))
 			beanType = STATEFUL_ANNOTATION;
 		else 
-			throw new IllegalStateException("illegal state type: " + stateType);
+			throw new IllegalStateException("illegal state type: " + stateType); //$NON-NLS-1$
 		
 		return beanType;
 	}

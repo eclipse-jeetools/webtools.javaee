@@ -66,7 +66,7 @@ import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
  */
 public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifactEditFactory {
 
-	private static final String EJB_CONTENT_TYPE = "org.eclipse.jst.j2ee.ejbDD";
+	private static final String EJB_CONTENT_TYPE = "org.eclipse.jst.j2ee.ejbDD"; //$NON-NLS-1$
 	/**
 	 * <p>
 	 * Identifier used to link EJBArtifactEdit to a EJBEditAdapterFactory {@see
@@ -571,12 +571,11 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		if (isBinary()) {
 			JavaEEBinaryComponentHelper helper = (JavaEEBinaryComponentHelper)getBinaryComponentHelper();
 			return helper.accessLegacyArchive();
-		}  else {
-			EJBComponentLoadStrategyImpl loader = new EJBComponentLoadStrategyImpl(getComponent(), includeClasspathComponents);
-			loader.setExportSource(includeSource);
-			String uri = ModuleURIUtil.getHandleString(getComponent());
-			return CommonarchiveFactory.eINSTANCE.openEJBJarFile(loader, uri);
 		}
+		EJBComponentLoadStrategyImpl loader = new EJBComponentLoadStrategyImpl(getComponent(), includeClasspathComponents);
+		loader.setExportSource(includeSource);
+		String uri = ModuleURIUtil.getHandleString(getComponent());
+		return CommonarchiveFactory.eINSTANCE.openEJBJarFile(loader, uri);
 	}
 
 	public static void createDeploymentDescriptor(IProject project, int version) {

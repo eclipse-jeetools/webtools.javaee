@@ -14,53 +14,53 @@ public class MessageDrivenBeanTemplate
     return result;
   }
 
-  public final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
-  protected final String TEXT_1 = "package ";
-  protected final String TEXT_2 = ";";
+  public final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl; //$NON-NLS-1$
+  protected final String TEXT_1 = "package "; //$NON-NLS-1$
+  protected final String TEXT_2 = ";"; //$NON-NLS-1$
   protected final String TEXT_3 = NL;
-  protected final String TEXT_4 = NL + "import ";
-  protected final String TEXT_5 = ";";
+  protected final String TEXT_4 = NL + "import "; //$NON-NLS-1$
+  protected final String TEXT_5 = ";"; //$NON-NLS-1$
   protected final String TEXT_6 = NL;
   protected final String TEXT_7 = NL;
-  protected final String TEXT_8 = "/**" + NL + " * Message-Driven Bean implementation class for: ";
-  protected final String TEXT_9 = NL + " *" + NL + " */" + NL + "@MessageDriven";
-  protected final String TEXT_10 = "(";
-  protected final String TEXT_11 = ", ";
-  protected final String TEXT_12 = NL + "\t\t";
-  protected final String TEXT_13 = NL + "\t\tactivationConfig = { @ActivationConfigProperty(" + NL + "\t\t\t\tpropertyName = \"destinationType\", propertyValue = \"";
-  protected final String TEXT_14 = "\"" + NL + "\t\t) }";
-  protected final String TEXT_15 = " = ";
-  protected final String TEXT_16 = ")";
-  protected final String TEXT_17 = NL + "@TransactionManagement(TransactionManagementType.BEAN)";
-  protected final String TEXT_18 = NL + "public ";
-  protected final String TEXT_19 = "abstract ";
-  protected final String TEXT_20 = "final ";
-  protected final String TEXT_21 = "class ";
-  protected final String TEXT_22 = " extends ";
-  protected final String TEXT_23 = " implements ";
-  protected final String TEXT_24 = ", ";
-  protected final String TEXT_25 = " {";
-  protected final String TEXT_26 = NL + NL + "    /**" + NL + "     * Default constructor. " + NL + "     */" + NL + "    public ";
-  protected final String TEXT_27 = "() {" + NL + "        // TODO Auto-generated constructor stub" + NL + "    }";
-  protected final String TEXT_28 = NL + "       " + NL + "    /**" + NL + "     * @see ";
-  protected final String TEXT_29 = "#";
-  protected final String TEXT_30 = "(";
-  protected final String TEXT_31 = ")" + NL + "     */" + NL + "    public ";
-  protected final String TEXT_32 = "(";
-  protected final String TEXT_33 = ") {" + NL + "        super(";
-  protected final String TEXT_34 = ");" + NL + "        // TODO Auto-generated constructor stub" + NL + "    }";
-  protected final String TEXT_35 = NL + NL + "\t/**" + NL + "     * @see ";
-  protected final String TEXT_36 = "#";
-  protected final String TEXT_37 = "(";
-  protected final String TEXT_38 = ")" + NL + "     */" + NL + "    public ";
-  protected final String TEXT_39 = " ";
-  protected final String TEXT_40 = "(";
-  protected final String TEXT_41 = ") {" + NL + "        // TODO Auto-generated method stub";
-  protected final String TEXT_42 = NL + "\t\t\treturn ";
-  protected final String TEXT_43 = ";";
-  protected final String TEXT_44 = NL + "    }";
-  protected final String TEXT_45 = NL + "\t" + NL + "\t/**" + NL + "     * @see MessageListener#onMessage(Message)" + NL + "     */" + NL + "    public void onMessage(Message message) {" + NL + "        // TODO Auto-generated method stub" + NL + "        " + NL + "    }";
-  protected final String TEXT_46 = NL + NL + "}";
+  protected final String TEXT_8 = "/**" + NL + " * Message-Driven Bean implementation class for: "; //$NON-NLS-1$ //$NON-NLS-2$
+  protected final String TEXT_9 = NL + " *" + NL + " */" + NL + "@MessageDriven"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+  protected final String TEXT_10 = "("; //$NON-NLS-1$
+  protected final String TEXT_11 = ", "; //$NON-NLS-1$
+  protected final String TEXT_12 = NL + "\t\t"; //$NON-NLS-1$
+  protected final String TEXT_13 = NL + "\t\tactivationConfig = { @ActivationConfigProperty(" + NL + "\t\t\t\tpropertyName = \"destinationType\", propertyValue = \""; //$NON-NLS-1$ //$NON-NLS-2$
+  protected final String TEXT_14 = "\"" + NL + "\t\t) }"; //$NON-NLS-1$ //$NON-NLS-2$
+  protected final String TEXT_15 = " = "; //$NON-NLS-1$
+  protected final String TEXT_16 = ")"; //$NON-NLS-1$
+  protected final String TEXT_17 = NL + "@TransactionManagement(TransactionManagementType.BEAN)"; //$NON-NLS-1$
+  protected final String TEXT_18 = NL + "public "; //$NON-NLS-1$
+  protected final String TEXT_19 = "abstract "; //$NON-NLS-1$
+  protected final String TEXT_20 = "final "; //$NON-NLS-1$
+  protected final String TEXT_21 = "class "; //$NON-NLS-1$
+  protected final String TEXT_22 = " extends "; //$NON-NLS-1$
+  protected final String TEXT_23 = " implements "; //$NON-NLS-1$
+  protected final String TEXT_24 = ", "; //$NON-NLS-1$
+  protected final String TEXT_25 = " {"; //$NON-NLS-1$
+  protected final String TEXT_26 = NL + NL + "    /**" + NL + "     * Default constructor. " + NL + "     */" + NL + "    public "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+  protected final String TEXT_27 = "() {" + NL + "        // TODO Auto-generated constructor stub" + NL + "    }"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+  protected final String TEXT_28 = NL + "       " + NL + "    /**" + NL + "     * @see "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+  protected final String TEXT_29 = "#"; //$NON-NLS-1$
+  protected final String TEXT_30 = "("; //$NON-NLS-1$
+  protected final String TEXT_31 = ")" + NL + "     */" + NL + "    public "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+  protected final String TEXT_32 = "("; //$NON-NLS-1$
+  protected final String TEXT_33 = ") {" + NL + "        super("; //$NON-NLS-1$ //$NON-NLS-2$
+  protected final String TEXT_34 = ");" + NL + "        // TODO Auto-generated constructor stub" + NL + "    }"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+  protected final String TEXT_35 = NL + NL + "\t/**" + NL + "     * @see "; //$NON-NLS-1$ //$NON-NLS-2$
+  protected final String TEXT_36 = "#"; //$NON-NLS-1$
+  protected final String TEXT_37 = "("; //$NON-NLS-1$
+  protected final String TEXT_38 = ")" + NL + "     */" + NL + "    public "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+  protected final String TEXT_39 = " "; //$NON-NLS-1$
+  protected final String TEXT_40 = "("; //$NON-NLS-1$
+  protected final String TEXT_41 = ") {" + NL + "        // TODO Auto-generated method stub"; //$NON-NLS-1$ //$NON-NLS-2$
+  protected final String TEXT_42 = NL + "\t\t\treturn "; //$NON-NLS-1$
+  protected final String TEXT_43 = ";"; //$NON-NLS-1$
+  protected final String TEXT_44 = NL + "    }"; //$NON-NLS-1$
+  protected final String TEXT_45 = NL + "\t" + NL + "\t/**" + NL + "     * @see MessageListener#onMessage(Message)" + NL + "     */" + NL + "    public void onMessage(Message message) {" + NL + "        // TODO Auto-generated method stub" + NL + "        " + NL + "    }"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$
+  protected final String TEXT_46 = NL + NL + "}"; //$NON-NLS-1$
   protected final String TEXT_47 = NL;
 
   public String generate(Object argument)
@@ -259,11 +259,9 @@ public class MessageDrivenBeanTemplate
 
     
 	if (model.shouldImplementAbstractMethods()) {
-		Collection<Method> unimplementedMethods = model.getUnimplementedMethods();
+		model.getUnimplementedMethods();
 		if (model.isJMS()) { 
-
-    stringBuffer.append(TEXT_45);
-    
+			stringBuffer.append(TEXT_45);
 		}
 	}
 

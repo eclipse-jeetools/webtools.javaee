@@ -23,7 +23,6 @@ import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IContainer;
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -169,7 +168,7 @@ public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperatio
 	protected void generateUsingTemplates(IProgressMonitor monitor, IPackageFragment fragment, IPackageFragment clientFragment) throws WFTWrappedException, CoreException {
 		// Create the enterprise bean template model
 		CreateSessionBeanTemplateModel tempModel = createTemplateModel();
-		IProject project = getTargetProject();
+		getTargetProject();
 		// Using the WTPJetEmitter, generate the java source based on the bean template model
 		try {
 			if (fragment != null) {
@@ -183,7 +182,7 @@ public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperatio
 				SessionBeanTemplate tempImpl = SessionBeanTemplate.create(null);
 				String source = generateTemplateSource(EjbPlugin.getPlugin(), tempModel, TEMPLATE_FILE, tempImpl, monitor);
 				String javaFileName = tempModel.getClassName() + DOT_JAVA;
-				IFile aFile = createJavaFile(monitor, fragment, source, javaFileName);
+				createJavaFile(monitor, fragment, source, javaFileName);
 			}
 		} catch (Exception e) {
 			throw new WFTWrappedException(e);
@@ -227,7 +226,7 @@ public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperatio
 			
 			tempModel.setRemoteHomeClassName(remoteFullName);
 			tempModel.setRemoteComponentClassName(remoteComponentFullName);
-			String src = "";
+			String src = ""; //$NON-NLS-1$
 			if(type == null){
 				remoteFragment = getPackageFragment(useClientJar, remoteFullName);
 				RemoteHomeInterfaceTemplate tempImpl = RemoteHomeInterfaceTemplate.create(null);
@@ -260,7 +259,7 @@ public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperatio
 			tempModel.setLocalHomeClassName(localFullName);
 			tempModel.setLocalComponentClassName(localComponentFullName);
 			
-			String src = "";
+			String src = ""; //$NON-NLS-1$
 			if(type == null){
 				localFragment = getPackageFragment(useClientJar, localFullName);
 				LocalHomeInterfaceTemplate tempImpl = LocalHomeInterfaceTemplate.create(null);

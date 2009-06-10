@@ -62,7 +62,7 @@ public class EjbPlugin extends WTPPlugin implements ResourceLocator {
 	 * Javadoc copied from interface.
 	 */
 	public URL getBaseURL() {
-		return getBundle().getEntry("/");
+		return getBundle().getEntry("/"); //$NON-NLS-1$
 	}
 
 	/**
@@ -86,7 +86,7 @@ public class EjbPlugin extends WTPPlugin implements ResourceLocator {
 	}
 
 	public static URL getInstallURL() {
-		return getDefault().getBundle().getEntry("/");
+		return getDefault().getBundle().getEntry("/"); //$NON-NLS-1$
 	}
 
 	public static EjbPlugin getPlugin() {
@@ -102,11 +102,11 @@ public class EjbPlugin extends WTPPlugin implements ResourceLocator {
 		Bundle bundle = Platform.getBundle(pluginId);
 		if (bundle != null) {
 			try {
-				IPath installPath = new Path(bundle.getEntry("/").toExternalForm()).removeTrailingSeparator();
+				IPath installPath = new Path(bundle.getEntry("/").toExternalForm()).removeTrailingSeparator(); //$NON-NLS-1$
 				String installStr = Platform.asLocalURL(new URL(installPath.toString())).getFile();
 				return new Path(installStr);
 			} catch (IOException e) {
-			};
+			}
 		}
 		return null;
 	}
@@ -138,8 +138,7 @@ public class EjbPlugin extends WTPPlugin implements ResourceLocator {
 	 * Create a new IStatus with a severity using the EjbPlugin ID. aCode is just an internal code.
 	 */
 	public static IStatus createStatus(int severity, int aCode, String aMessage, Throwable exception) {
-		return new Status(severity, PLUGIN_ID, aCode,
-				aMessage != null ? aMessage : "No message.", exception);
+		return new Status(severity, PLUGIN_ID, aCode, aMessage, exception);
 	}
 
 	public static IStatus createStatus(int severity, String message, Throwable exception) {
