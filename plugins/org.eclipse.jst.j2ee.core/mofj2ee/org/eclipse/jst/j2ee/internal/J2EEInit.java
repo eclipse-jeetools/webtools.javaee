@@ -60,6 +60,7 @@ import org.eclipse.wst.common.internal.emf.utilities.EncoderDecoderRegistry;
 import org.eclipse.wst.common.internal.emf.utilities.ExtendedEcoreUtil;
 import org.eclipse.wst.common.internal.emf.utilities.PasswordEncoderDecoder;
 import org.eclipse.wst.common.internal.emf.utilities.Revisit;
+import org.eclipse.jst.j2ee.core.internal.plugin.J2EECorePlugin;
 
 /**
  * Insert the type's description here.
@@ -79,8 +80,7 @@ public class J2EEInit {
 				System.out.println(clz.getResource("Version.class"));  //$NON-NLS-1$
 			}
 		} catch(Throwable t) {
-			System.out.println("Problem while logging version " + t);
-			t.printStackTrace();
+			J2EECorePlugin.logError(t);
 		} 
 	}
 	
