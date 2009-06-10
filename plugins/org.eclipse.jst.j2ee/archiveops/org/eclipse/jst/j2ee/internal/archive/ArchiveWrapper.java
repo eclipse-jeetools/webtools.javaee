@@ -143,14 +143,13 @@ public class ArchiveWrapper {
 	}
 
 	private void fail() {
-		throw new RuntimeException("ArchiveWrapper is inconsistent.");
+		throw new RuntimeException("ArchiveWrapper is inconsistent."); //$NON-NLS-1$
 	}
 
 	public int getSize() {
 		if (commonArchive != null)
 			return commonArchive.getFiles().size();
-		else
-			return archive.getArchiveResources().size();
+		return archive.getArchiveResources().size();
 	}
 
 	private List<ArchiveWrapper> cachedWebLibs;
@@ -179,9 +178,9 @@ public class ArchiveWrapper {
 				if (resource.getType() != IArchiveResource.DIRECTORY_TYPE) {
 					IPath path = resource.getPath();
 					if (path.segmentCount() > 2) {
-						if (path.segment(0).equals("WEB-INF") && path.segment(1).equals("lib")) {
+						if (path.segment(0).equals("WEB-INF") && path.segment(1).equals("lib")) { //$NON-NLS-1$ //$NON-NLS-2$
 							String lastSegment = path.lastSegment();
-							if (lastSegment.endsWith("jar") || lastSegment.endsWith("zip")) {
+							if (lastSegment.endsWith("jar") || lastSegment.endsWith("zip")) { //$NON-NLS-1$ //$NON-NLS-2$
 								IArchive webLib;
 								try {
 									webLib = archive.getNestedArchive(resource);
@@ -279,7 +278,7 @@ public class ArchiveWrapper {
 						IPath path = resource.getPath();
 						if (path.segmentCount() > 0) {
 							String lastSegment = path.lastSegment();
-							if (lastSegment.endsWith("jar") || lastSegment.endsWith("zip") || lastSegment.endsWith("rar") || lastSegment.endsWith("war")) {
+							if (lastSegment.endsWith("jar") || lastSegment.endsWith("zip") || lastSegment.endsWith("rar") || lastSegment.endsWith("war")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 								IArchive earmodule;
 								try {
 									earmodule = archive.getNestedArchive(resource);
@@ -574,7 +573,7 @@ public class ArchiveWrapper {
 			for (int i = 0; i < files.size(); i++) {
 				IArchiveResource file = (IArchiveResource) files.get(i);
 				String lastSegment = file.getPath().lastSegment();
-				if (lastSegment.endsWith(".jar") || lastSegment.endsWith(".rar") || lastSegment.endsWith(".war") || lastSegment.endsWith("zip")) {
+				if (lastSegment.endsWith(".jar") || lastSegment.endsWith(".rar") || lastSegment.endsWith(".war") || lastSegment.endsWith("zip")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 					IArchive nestedArchive;
 					try {
 						nestedArchive = archive.getNestedArchive(file);

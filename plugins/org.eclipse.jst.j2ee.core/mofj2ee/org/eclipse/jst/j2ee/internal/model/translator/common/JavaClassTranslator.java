@@ -103,7 +103,9 @@ public class JavaClassTranslator extends Translator {
 	private String removePreceedingAndTrailingPeriods(String qualifiedName) {
 		char[] characters = qualifiedName.toCharArray();
 		int startIndex = 0;
-		for (; startIndex < characters.length && characters[startIndex] == '.'; startIndex++);
+		for (; startIndex < characters.length && characters[startIndex] == '.'; startIndex++){
+			//do nothing simply incrementing startIndex
+		}
 		int qualifiedNameEnd = qualifiedName.length() - 1;
 		int endIndex = qualifiedNameEnd;
 		for (; endIndex > -1 && characters[endIndex] == '.'; endIndex--)
