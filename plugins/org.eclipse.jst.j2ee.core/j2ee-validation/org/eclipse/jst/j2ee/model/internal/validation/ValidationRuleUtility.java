@@ -51,6 +51,7 @@ import org.eclipse.jst.j2ee.ejb.SessionType;
 import org.eclipse.jst.j2ee.ejb.TransactionType;
 import org.eclipse.jst.j2ee.ejb.internal.impl.LocalModelledPersistentAttributeFilter;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.model.internal.validation.EARValidationMessageResourceHandler;
 
 /**
  * @version 	1.0
@@ -262,7 +263,7 @@ public final class ValidationRuleUtility {
 			// else, search the parent	
 			clazz = clazz.getSupertype();
 		}
-		while ((method == null) && (clazz != null));
+		while (clazz != null);
 
 		return null;
 	}
@@ -645,10 +646,9 @@ public final class ValidationRuleUtility {
 		}
 		if (commonClassNames.contains(javaClassName)) {
 			ResourceSet rSet = resource.getResourceSet();
-			ResourceSet set = resource == null ? null : resource.getResourceSet();
 			IProject project = null;
-			if (set instanceof ProjectResourceSet){
-				project = ((ProjectResourceSet) set).getProject();
+			if (rSet instanceof ProjectResourceSet){
+				project = ((ProjectResourceSet) rSet).getProject();
 			}
 			
 			//helperMap = getHelperMap(rSet);
@@ -725,11 +725,11 @@ public final class ValidationRuleUtility {
 			if(aLogger.isLoggingLevel(Level.FINEST)) {
 				LogEntry entry = getLogEntry();
 				entry.setSourceID("ValidationRuleUtility.getType(String, ResourceSet, boolean)"); //$NON-NLS-1$
-				String text = "invalid parameter; javaClassName = {0} and resourceSet = {1}";
+				String text = EARValidationMessageResourceHandler.ValidationRuleUtility_invalid_parameter_javaClassName_;
 				//entry.setText("invalid parameter; javaClassName = {0} and resourceSet = {1}"); //$NON-NLS-1$
 				//entry.setTokens(new String[]{javaClassName, String.valueOf(resourceSet)});
 				String result = MessageFormat.format(text,
-						 new String[]{javaClassName, String.valueOf(resourceSet)});
+						 new Object[]{javaClassName, String.valueOf(resourceSet)});
 				entry.setText(result);
 				
 				entry.appendStackTrace();
@@ -935,7 +935,7 @@ public final class ValidationRuleUtility {
 		else if(type.isArray() && compareType.isArray()) {
 			JavaClass classType = type.getWrapper();
 			JavaClass classCompareType = compareType.getWrapper();
-			if((classType == null) || (compareType == null)) {
+			if((classType == null)) {
 				return false;
 			}
 			JavaHelpers finalType = ((ArrayType)classType).getFinalComponentType();

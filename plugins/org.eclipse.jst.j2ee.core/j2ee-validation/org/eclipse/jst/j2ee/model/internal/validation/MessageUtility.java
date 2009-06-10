@@ -61,10 +61,6 @@ public final class MessageUtility {
 		// So far, the only target parent which is used as a group name is the EnterpriseBean
 		if(targetParent instanceof EnterpriseBean) {
 			EnterpriseBean bean = (EnterpriseBean)targetParent;
-			if(bean == null) {
-				return null;
-			}
-			
 			if(bean.getName() != null) {
 				return bean.getName();
 			}

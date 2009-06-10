@@ -231,21 +231,18 @@ private int primGetVersionID() {
 		try {
 			in = afile.getContents();
 			quickPeek = new JavaEEQuickPeek(in);
+			return quickPeek.getVersion();
 		}
 		catch (CoreException e) {
 			J2EECorePlugin.logError(e);
 		}
-		return quickPeek.getVersion();
 	} else{
 		String path = getURI().toFileString();
 		if (path != null) {
 			try {
 				in = new FileInputStream(path);
-				if (in != null) {
-
-					quickPeek = new JavaEEQuickPeek(in);
-					return quickPeek.getVersion();
-				}
+				quickPeek = new JavaEEQuickPeek(in);
+				return quickPeek.getVersion();
 			} catch (FileNotFoundException e1) {
 				J2EECorePlugin.logError(e1);
 			} finally {

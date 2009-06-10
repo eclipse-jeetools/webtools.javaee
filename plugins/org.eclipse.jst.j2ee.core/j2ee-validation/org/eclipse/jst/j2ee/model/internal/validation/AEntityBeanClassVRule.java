@@ -36,7 +36,7 @@ public abstract class AEntityBeanClassVRule extends ABeanClassVRule {
 		String matchingMethodName = IMethodAndFieldConstants.METHODNAME_EJBPOSTCREATE + method.getName().substring(9); // "ejbCreate" is 9 characters long, so strip off characters 0..8 inclusive
 		Method ejbPostCreateMethod = ValidationRuleUtility.getMethod(method, matchingMethodName, getBeanClassMethodsExtended(methodsExtendedLists));
 		if(ejbPostCreateMethod == null) {
-			String missingMethod = MessageFormat.format(missingMethodTemplate, new String[]{matchingMethodName, ValidationRuleUtility.getParmsAsString(method)});
+			String missingMethod = MessageFormat.format(missingMethodTemplate, new Object[]{matchingMethodName, ValidationRuleUtility.getParmsAsString(method)});
 			IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb20Constants.CHKJ2050_ejbPostCreate, IEJBValidationContext.ERROR, bean, clazz, method, new String[]{missingMethod}, this);
 			vc.addMessage(message);
 		}

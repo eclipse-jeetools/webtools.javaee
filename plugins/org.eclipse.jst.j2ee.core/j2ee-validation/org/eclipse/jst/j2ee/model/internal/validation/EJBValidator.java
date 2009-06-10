@@ -265,8 +265,9 @@ public class EJBValidator extends AbstractEJBValidator {
 					IValidationRule ejbJarRule = EJBValidationRuleFactory.getFactory().getRule(vc, id);
 					if(ejbJarRule == null) {
 						logMissingRule(vc, id);
+					} else {
+						setValidated(ejbJarRule.getId(), null, ejbJar);
 					}
-					setValidated(ejbJarRule.getId(), null, ejbJar);
 				}
 			}
 			

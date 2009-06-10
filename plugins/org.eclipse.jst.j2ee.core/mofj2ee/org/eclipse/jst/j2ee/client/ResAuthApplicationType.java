@@ -55,7 +55,7 @@ public final class ResAuthApplicationType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final ResAuthApplicationType APPLICATION_LITERAL = new ResAuthApplicationType(APPLICATION, "Application", "Application"); //$NON-NLS-1$
+	public static final ResAuthApplicationType APPLICATION_LITERAL = new ResAuthApplicationType(APPLICATION, "Application", "Application"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>Container</b></em>' literal object.
@@ -69,7 +69,7 @@ public final class ResAuthApplicationType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final ResAuthApplicationType CONTAINER_LITERAL = new ResAuthApplicationType(CONTAINER, "Container", "Container"); //$NON-NLS-1$
+	public static final ResAuthApplicationType CONTAINER_LITERAL = new ResAuthApplicationType(CONTAINER, "Container", "Container"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * An array of all the '<em><b>Res Auth Application Type</b></em>' enumerators.

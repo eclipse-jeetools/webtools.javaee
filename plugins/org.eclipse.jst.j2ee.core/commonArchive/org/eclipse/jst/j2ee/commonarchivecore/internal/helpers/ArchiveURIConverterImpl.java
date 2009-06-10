@@ -261,7 +261,10 @@ public class ArchiveURIConverterImpl extends URIConverterImpl {
 		}
 		if (url != null)
 			return url;
-		throw m;
+		else if(m != null)
+			throw m;
+		else 
+			throw new MalformedURLException();
 	}
 
 	/**

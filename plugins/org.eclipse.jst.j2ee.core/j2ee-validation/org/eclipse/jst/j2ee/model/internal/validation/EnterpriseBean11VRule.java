@@ -545,11 +545,7 @@ public class EnterpriseBean11VRule extends AValidationRule implements IMessagePr
 					Integer ejbType = new Integer(ref.getType().getValue());
 					boolean wrongType = false; // is the EJB, identified by ejb-link, of the type specified in the ejb-ref-type element?
 					String type = (namedEjb instanceof Session) ? "Session" : "Entity"; //$NON-NLS-1$  //$NON-NLS-2$
-					if (ejbType == null) {
-						// Neither session nor entity?
-						wrongType = true;
-					}
-					else if (ejbType.intValue() == EjbRefType.SESSION) {
+					if (ejbType.intValue() == EjbRefType.SESSION) {
 						if (!(namedEjb instanceof Session)) {
 							wrongType = true;
 						}
@@ -928,6 +924,11 @@ public class EnterpriseBean11VRule extends AValidationRule implements IMessagePr
 					return _ref.getName().equals(other.getRoleRef().getName());
 				}
 				return false;
+			}
+			
+			@Override
+			public int hashCode() {
+				return super.hashCode() + _ref.getName().hashCode();
 			}
 
 			public SecurityRoleRef getRoleRef() {

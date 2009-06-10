@@ -28,7 +28,7 @@ import org.eclipse.wst.validation.internal.provisional.core.IMessage;
  * @version 	1.0
  * @author
  */
-public final class MessageDrivenBeanClassVRule extends ABeanClassVRule implements IEJBType, IMessagePrefixEjb20Constants {
+public final class MessageDrivenBeanClassVRule extends ABeanClassVRule implements IMessagePrefixEjb20Constants {
 	private static final Object ID = IValidationRuleList.EJB20_MESSAGE_BEANCLASS;
 	private static final Object[] DEPENDS_ON = null;
 	private static final Map MESSAGE_IDS;

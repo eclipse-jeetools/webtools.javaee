@@ -48,7 +48,7 @@ public final class ResSharingScopeType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final ResSharingScopeType SHAREABLE_LITERAL = new ResSharingScopeType(SHAREABLE, "Shareable", "Shareable"); //$NON-NLS-1$
+	public static final ResSharingScopeType SHAREABLE_LITERAL = new ResSharingScopeType(SHAREABLE, "Shareable", "Shareable"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>Unshareable</b></em>' literal object.
@@ -62,7 +62,7 @@ public final class ResSharingScopeType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final ResSharingScopeType UNSHAREABLE_LITERAL = new ResSharingScopeType(UNSHAREABLE, "Unshareable", "Unshareable"); //$NON-NLS-1$
+	public static final ResSharingScopeType UNSHAREABLE_LITERAL = new ResSharingScopeType(UNSHAREABLE, "Unshareable", "Unshareable"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * An array of all the '<em><b>Res Sharing Scope Type</b></em>' enumerators.

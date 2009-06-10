@@ -103,6 +103,13 @@ public class CommonArchiveResourceHandler extends NLS {
 	public static String A_Application_file;
 	public static String Null_uri_EXC_;
 	public static String Internal_Error__Iterator_o_EXC_;
+	public static String AbstractArchiveSaveAdapter_Saving_resource_;
+	public static String ArchiveFactoryImpl_Saving_archive_to_0_;
+	public static String ArchiveFactoryImpl_Error_saving_archive_0_to_output_;
+	public static String ArchiveFactoryImpl_The_specified_file_0_exists_and_;
+	public static String ArchiveFactoryImpl_Saving_archiv_;
+	public static String ArchiveFactoryImpl_Error_saving_archive_0_;
+	public static String ArchiveImpl_0_in_1_;
 
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, CommonArchiveResourceHandler.class);

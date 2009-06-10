@@ -17,6 +17,10 @@ package org.eclipse.jst.j2ee.internal;
  * causes this exception to be thrown
  */
 public abstract class WrappedException extends Exception implements IWrappedException {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2477488574387544467L;
 	/** The exception which necessitated this exception */
 	protected Exception nestedException;
 

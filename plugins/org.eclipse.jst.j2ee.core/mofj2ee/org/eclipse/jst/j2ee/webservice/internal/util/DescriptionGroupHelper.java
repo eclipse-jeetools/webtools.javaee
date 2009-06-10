@@ -27,7 +27,7 @@ import org.eclipse.jst.j2ee.webservice.wsdd.PortComponent;
 import org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription;
 import org.eclipse.jst.j2ee.webservice.wsdd.WebServices;
 
-
+//TODO this may be dead code that should be removed
 public class DescriptionGroupHelper
 {
 
@@ -738,15 +738,19 @@ public class DescriptionGroupHelper
       case DescriptionGroupItem.DESCRIPTION:
         setDescription(webServices, isJ2EE14, value, setLang);
         //break;
+		//$FALL-THROUGH$
       case DescriptionGroupItem.DISPLAY_NAME:
         setDisplayName(webServices, isJ2EE14, value, setLang);
         //break;
+		//$FALL-THROUGH$
       case DescriptionGroupItem.SMALL_ICON:
         setSmallIcon(webServices, isJ2EE14, value, setLang);
         //break;
+		//$FALL-THROUGH$
       case DescriptionGroupItem.LARGE_ICON:
         setLargeIcon(webServices, isJ2EE14, value, setLang);        
         //break;        
+		//$FALL-THROUGH$
       default://do nothing ;
     }
   }
@@ -956,15 +960,19 @@ public class DescriptionGroupHelper
       case DescriptionGroupItem.DESCRIPTION:
         setDescription(webServiceDescription, isJ2EE14, value, setLang);
         //break;
+		//$FALL-THROUGH$
       case DescriptionGroupItem.DISPLAY_NAME:
         setDisplayName(webServiceDescription, isJ2EE14, value, setLang);
         //break;
+		//$FALL-THROUGH$
       case DescriptionGroupItem.SMALL_ICON:
         setSmallIcon(webServiceDescription, isJ2EE14, value, setLang);
         //break;
+		//$FALL-THROUGH$
       case DescriptionGroupItem.LARGE_ICON:
         setLargeIcon(webServiceDescription, isJ2EE14, value, setLang);        
         //break;        
+		//$FALL-THROUGH$
       default:
     }
   }
@@ -1169,15 +1177,19 @@ public class DescriptionGroupHelper
       case DescriptionGroupItem.DESCRIPTION:
         setDescription(portComponent, isJ2EE14, value, setLang);
         //break;
+		//$FALL-THROUGH$
       case DescriptionGroupItem.DISPLAY_NAME:
         setDisplayName(portComponent, isJ2EE14, value, setLang);
         //break;
+		//$FALL-THROUGH$
       case DescriptionGroupItem.SMALL_ICON:
         setSmallIcon(portComponent, isJ2EE14, value, setLang);
         //break;
+		//$FALL-THROUGH$
       case DescriptionGroupItem.LARGE_ICON:
         setLargeIcon(portComponent, isJ2EE14, value, setLang);        
         //break;        
+		//$FALL-THROUGH$
       default: 
     }
   }
@@ -1377,15 +1389,19 @@ public class DescriptionGroupHelper
       case DescriptionGroupItem.DESCRIPTION:
         setDescription(handler, isJ2EE14, value, setLang);
         //break;
+		//$FALL-THROUGH$
       case DescriptionGroupItem.DISPLAY_NAME:
         setDisplayName(handler, isJ2EE14, value, setLang);
         //break;
+		//$FALL-THROUGH$
       case DescriptionGroupItem.SMALL_ICON:
         setSmallIcon(handler, isJ2EE14, value, setLang);
         //break;
+		//$FALL-THROUGH$
       case DescriptionGroupItem.LARGE_ICON:
         setLargeIcon(handler, isJ2EE14, value, setLang);        
         //break;        
+		//$FALL-THROUGH$
       default://do nothing ;
     }
   }

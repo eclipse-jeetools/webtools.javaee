@@ -228,6 +228,11 @@ public class EJBJar11VRule extends AValidationRule implements IMessagePrefixEjb1
 				}
 				return false;
 			}
+			
+			@Override
+			public int hashCode() {
+				return super.hashCode() + _role.getRoleName().hashCode();
+			}
 
 			public SecurityRole getRole() {
 				return _role;

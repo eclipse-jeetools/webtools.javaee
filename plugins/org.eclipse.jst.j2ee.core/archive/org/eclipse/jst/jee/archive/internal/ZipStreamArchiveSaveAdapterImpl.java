@@ -32,7 +32,7 @@ import org.eclipse.jst.jee.archive.IArchiveSaveAdapter;
  * resources, will be output to a ZipOutputStream. The output stream should be passed in by the
  * client.
  */
-public class ZipStreamArchiveSaveAdapterImpl extends AbstractArchiveSaveAdapter implements IArchiveSaveAdapter {
+public class ZipStreamArchiveSaveAdapterImpl extends AbstractArchiveSaveAdapter {
 	protected OutputStream destinationStream;
 	/** Used internally */
 	protected ZipOutputStream zipOutputStream;

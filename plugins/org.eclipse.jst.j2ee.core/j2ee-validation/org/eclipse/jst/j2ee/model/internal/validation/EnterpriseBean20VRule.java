@@ -57,7 +57,7 @@ public class EnterpriseBean20VRule extends AValidationRule implements IMessagePr
 	private List _securityRoles = null;
 	private static final Map MESSAGE_IDS;
 	private static final Object[] DEPENDS_ON = new Object[]{IValidationRuleList.EJB20_BMP_BEANCLASS, IValidationRuleList.EJB20_BMP_HOME, IValidationRuleList.EJB20_BMP_KEYCLASS, IValidationRuleList.EJB20_BMP_LOCAL, IValidationRuleList.EJB20_BMP_LOCALHOME, IValidationRuleList.EJB20_BMP_REMOTE, IValidationRuleList.EJB20_CMP_BEANCLASS, IValidationRuleList.EJB20_CMP_HOME, IValidationRuleList.EJB20_CMP_KEYCLASS, IValidationRuleList.EJB20_CMP_LOCAL, IValidationRuleList.EJB20_CMP_LOCALHOME, IValidationRuleList.EJB20_CMP_REMOTE, IValidationRuleList.EJB20_STATEFUL_SESSION_BEANCLASS, IValidationRuleList.EJB20_STATEFUL_SESSION_HOME, IValidationRuleList.EJB20_STATEFUL_SESSION_LOCAL, IValidationRuleList.EJB20_STATEFUL_SESSION_LOCALHOME, IValidationRuleList.EJB20_STATEFUL_SESSION_REMOTE, IValidationRuleList.EJB20_STATELESS_SESSION_BEANCLASS, IValidationRuleList.EJB20_STATELESS_SESSION_HOME, IValidationRuleList.EJB20_STATELESS_SESSION_LOCAL, IValidationRuleList.EJB20_STATELESS_SESSION_LOCALHOME, IValidationRuleList.EJB20_STATELESS_SESSION_REMOTE};
-	private static String JMS_MESSAGING_TYPE = "javax.jms.MessageListener";
+	private static String JMS_MESSAGING_TYPE = "javax.jms.MessageListener"; //$NON-NLS-1$
 	
 	static {
 		MESSAGE_IDS = new HashMap();
@@ -564,11 +564,7 @@ public class EnterpriseBean20VRule extends AValidationRule implements IMessagePr
 					Integer ejbType = new Integer(ref.getType().getValue());
 					boolean wrongType = false; // is the EJB, identified by ejb-link, of the type specified in the ejb-ref-type element?
 					String type = (namedEjb instanceof Session) ? "Session" : "Entity"; //$NON-NLS-1$ //$NON-NLS-2$
-					if (ejbType == null) {
-						// Neither session nor entity?
-						wrongType = true;
-					}
-					else if (ejbType.intValue() == EjbRefType.SESSION) {
+					if (ejbType.intValue() == EjbRefType.SESSION) {
 						if (!(namedEjb instanceof Session)) {
 							wrongType = true;
 						}
@@ -1006,6 +1002,11 @@ public class EnterpriseBean20VRule extends AValidationRule implements IMessagePr
 				}
 				return false;
 			}
+			
+			@Override
+			public int hashCode() {
+				return super.hashCode() + _ref.getName().hashCode();
+			}
 
 			public SecurityRoleRef getRoleRef() {
 				return _ref;
@@ -1170,6 +1171,11 @@ public class EnterpriseBean20VRule extends AValidationRule implements IMessagePr
 			return false;
 		}
 
+		@Override
+		public int hashCode() {
+			return super.hashCode() + _bean.getName().hashCode();
+		}
+		
 		public EnterpriseBean getBean() {
 			return _bean;
 		}
@@ -1191,6 +1197,11 @@ public class EnterpriseBean20VRule extends AValidationRule implements IMessagePr
 			return false;
 		}
 
+		@Override
+		public int hashCode() {
+			return super.hashCode() + _bean.getAbstractSchemaName().hashCode();
+		}
+		
 		public EnterpriseBean getBean() {
 			return _bean;
 		}

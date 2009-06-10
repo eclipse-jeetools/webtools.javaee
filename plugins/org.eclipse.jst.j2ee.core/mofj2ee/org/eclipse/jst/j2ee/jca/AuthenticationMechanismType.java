@@ -48,7 +48,7 @@ public final class AuthenticationMechanismType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final AuthenticationMechanismType BASIC_PASSWORD_LITERAL = new AuthenticationMechanismType(BASIC_PASSWORD, "BasicPassword", "BasicPassword");//$NON-NLS-1$
+	public static final AuthenticationMechanismType BASIC_PASSWORD_LITERAL = new AuthenticationMechanismType(BASIC_PASSWORD, "BasicPassword", "BasicPassword");//$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>Kerbv5</b></em>' literal object.
@@ -62,7 +62,7 @@ public final class AuthenticationMechanismType extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final AuthenticationMechanismType KERBV5_LITERAL = new AuthenticationMechanismType(KERBV5, "Kerbv5", "Kerbv5");//$NON-NLS-1$
+	public static final AuthenticationMechanismType KERBV5_LITERAL = new AuthenticationMechanismType(KERBV5, "Kerbv5", "Kerbv5");//$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * An array of all the '<em><b>Authentication Mechanism Type</b></em>' enumerators.

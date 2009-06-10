@@ -64,6 +64,7 @@ import org.eclipse.wst.validation.internal.operations.LocalizedMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
+import org.eclipse.jst.j2ee.model.internal.validation.EARValidationMessageResourceHandler;
 
 
 /**
@@ -321,7 +322,7 @@ public class EarValidator extends J2EEValidator  {
 	 */
 	public void validateModules(EList modulesList) {
 //		String errorString = ""; //$NON-NLS-1$
-		IMessage msg = new LocalizedMessage(IMessage.NORMAL_SEVERITY, "Validating Modules");
+		IMessage msg = new LocalizedMessage(IMessage.NORMAL_SEVERITY, EARValidationMessageResourceHandler.EarValidator_Validating_Module_);
 		_reporter.displaySubtask( this, msg );
 		
 		
@@ -387,7 +388,7 @@ public class EarValidator extends J2EEValidator  {
 	 */
 	public void validateRefs() {
 		
-		IMessage msg = new LocalizedMessage(IMessage.NORMAL_SEVERITY, "Validating Refs");
+		IMessage msg = new LocalizedMessage(IMessage.NORMAL_SEVERITY, EARValidationMessageResourceHandler.EarValidator_Validating_Ref_);
 		_reporter.displaySubtask( this, msg );
 		
 		
@@ -421,7 +422,7 @@ public class EarValidator extends J2EEValidator  {
 	    ejbRefs.addAll(appClient.getEjbReferences());
 		validateEJBRefMandatoryElements(ejbRefs, ref.getUri());
 		validateEJBRefs(ejbRefs, ref.getUri());
-		if (appClient != null && appClient.getVersionID() <= J2EEVersionConstants.J2EE_1_3_ID) {
+		if (appClient.getVersionID() <= J2EEVersionConstants.J2EE_1_3_ID) {
 			Set allRefs = new HashSet();
 			List resourceRefs = appClient.getResourceRefs();
 			List resourceEnvRefs = appClient.getResourceEnvRefs();
@@ -446,7 +447,7 @@ public class EarValidator extends J2EEValidator  {
 	    ejbRefs.addAll(webApp.getEjbLocalRefs());
 		validateEJBRefMandatoryElements(ejbRefs, ref.getUri());
 		validateEJBRefs(ejbRefs, ref.getUri());
-		if (webApp != null && webApp.getVersionID() <= J2EEVersionConstants.WEB_2_3_ID) {
+		if (webApp.getVersionID() <= J2EEVersionConstants.WEB_2_3_ID) {
 			Set allRefs = new HashSet();
 			List resourceRefs = webApp.getResourceRefs();
 			List resourceEnvRefs = webApp.getResourceEnvRefs();
@@ -466,7 +467,7 @@ public class EarValidator extends J2EEValidator  {
 		EJBJar ejbJar = (EJBJar)ref.getDeploymentDescriptor();
 		if( ejbJar != null ) {
 			List ejbCollection = ejbJar.getEnterpriseBeans();			
-			if( ejbCollection != null || !ejbCollection.isEmpty() ) {
+			if( ejbCollection != null && !ejbCollection.isEmpty() ) {
 				Resource res = ejbJar.eResource();
 				cleanUpAllRefSubTaskMessages(res);
 				Iterator iterator = ejbCollection.iterator();	
@@ -682,25 +683,19 @@ public class EarValidator extends J2EEValidator  {
 			while( iterator.hasNext() ) {
 		  		Module module = (Module)iterator.next();
 		  		if( module.isWebModule() ) {
-		  			
 		  			WebModule webModule = (WebModule)module;
-			  			
-			  		if( webModule != null ) {
-			  			if( visitedWebContext.containsKey( webModule.getContextRoot() ) ) {
-			  				WebModule tempWebModule = (WebModule)visitedWebContext.get( webModule.getContextRoot() );
-							String[] params = new String[3];
-							params[0] = webModule.getContextRoot();
-							params[1] = webModule.getUri();
-							params[2] = tempWebModule.getUri();
-							String tmp = NLS.bind(EARValidationMessageResourceHandler.MESSAGE_EAR_DUPICATE_ROOTCONTEXT_ERROR_, params);
-							
-			  				addLocalizedError(tmp, appDD);
-			  			} else {
-			  				visitedWebContext.put( webModule.getContextRoot(), webModule );
-			  			}// if
-			  				
-			  		}// if
-		  			
+			  		if( visitedWebContext.containsKey( webModule.getContextRoot() ) ) {
+		  				WebModule tempWebModule = (WebModule)visitedWebContext.get( webModule.getContextRoot() );
+						String[] params = new String[3];
+						params[0] = webModule.getContextRoot();
+						params[1] = webModule.getUri();
+						params[2] = tempWebModule.getUri();
+						String tmp = NLS.bind(EARValidationMessageResourceHandler.MESSAGE_EAR_DUPICATE_ROOTCONTEXT_ERROR_, params);
+						
+		  				addLocalizedError(tmp, appDD);
+		  			} else {
+		  				visitedWebContext.put( webModule.getContextRoot(), webModule );
+		  			}// if
 		  		}// if
 			}// while
 	  	}// if
@@ -762,7 +757,7 @@ public class EarValidator extends J2EEValidator  {
 					if( ejbJar != null ) {
 						removeAllMessages(ejbJar,MESSAGE_DESTINATION_MDB_REF_GROUP_NAME);
 						List ejbCollection = ejbJar.getEnterpriseBeans();			
-						if( ejbCollection != null || !ejbCollection.isEmpty() ) {
+						if( ejbCollection != null && !ejbCollection.isEmpty() ) {
 						    Iterator iterator = ejbCollection.iterator();	
 							while( iterator.hasNext() ) {
 								EnterpriseBean ejbBean = (EnterpriseBean)iterator.next();
@@ -923,7 +918,7 @@ public class EarValidator extends J2EEValidator  {
 		List ejbMessageDestinationRefs = new ArrayList();
 		if( ejbJar != null ) {
 			List ejbCollection = ejbJar.getEnterpriseBeans();			
-			if( ejbCollection != null || !ejbCollection.isEmpty() ) {
+			if( ejbCollection != null && !ejbCollection.isEmpty() ) {
 			    Iterator iterator = ejbCollection.iterator();	
 				while( iterator.hasNext() ) {
 					EnterpriseBean ejbBean = (EnterpriseBean)iterator.next();

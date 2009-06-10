@@ -17,6 +17,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveResourceHandler;
 
 /**
  * Abstract implementation of {@link IArchiveSaveAdapter} intended for
@@ -40,7 +41,7 @@ public abstract class AbstractArchiveSaveAdapter extends AbstractArchiveAdapter 
 		final int TOTAL_TICKS = GATHER_RESOURCES_TICKS + SAVE_RESOURCES_TICKS + FINISH_TICKS;
 		Exception caughtException = null;
 		try {
-			monitor.beginTask("Saving resources", TOTAL_TICKS);
+			monitor.beginTask(CommonArchiveResourceHandler.AbstractArchiveSaveAdapter_Saving_resource_, TOTAL_TICKS);
 			
 			List<IArchiveResource> files = getArchiveResourcesForSave();
 			IPath manifestPath = new Path("META-INF/MANIFEST.MF"); //$NON-NLS-1$
@@ -57,7 +58,7 @@ public abstract class AbstractArchiveSaveAdapter extends AbstractArchiveAdapter 
 			int SUB_SAVE_TICKS = 10;
 			int SUB_TOTAL_TICKS = SUB_SAVE_TICKS * (files.size() + 2);
 			try {
-				saveSubMonitor.beginTask("Saving resources", SUB_TOTAL_TICKS);
+				saveSubMonitor.beginTask(CommonArchiveResourceHandler.AbstractArchiveSaveAdapter_Saving_resource_, SUB_TOTAL_TICKS);
 				if(manifest != null){
 					save(manifest);
 				}

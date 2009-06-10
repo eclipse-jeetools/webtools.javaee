@@ -357,10 +357,12 @@ public class ValidateCMPBean extends AValidateEntityBean implements IMessagePref
 			CMPAttribute keyAttribute = cmp.getPrimKeyField();
 			Field keyField = (keyAttribute == null) ? null : keyAttribute.getField();
 			JavaClass primaryKey = cmp.getPrimaryKey();
-			if ((keyField == null) || !ValidationRuleUtility.isAssignableFrom((JavaHelpers)keyField.getEType(), primaryKey)) {
-				String[] msgParm = { keyAttribute.getName(), primaryKey.getName()};
-				IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2207, IEJBValidationContext.ERROR, bean, clazz, keyField, msgParm, this);
-				vc.addMessage(message);
+			if(keyAttribute != null){
+				if ((keyField == null) || !ValidationRuleUtility.isAssignableFrom((JavaHelpers)keyField.getEType(), primaryKey)) {
+					String[] msgParm = { keyAttribute.getName(), primaryKey.getName()};
+					IMessage message = MessageUtility.getUtility().getMessage(vc, IMessagePrefixEjb11Constants.CHKJ2207, IEJBValidationContext.ERROR, bean, clazz, keyField, msgParm, this);
+					vc.addMessage(message);
+				}
 			}
 		}
 	}

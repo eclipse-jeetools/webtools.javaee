@@ -27,7 +27,7 @@ import org.eclipse.wst.validation.internal.provisional.core.IMessage;
  * @version 	1.0
  * @author
  */
-public abstract class ABeanClassVRule extends ATypeVRule implements IEJBType {
+public abstract class ABeanClassVRule extends ATypeVRule {
 	protected final static long[] BASE_TYPES = new long[]{ITypeConstants.JAVA_LANG_OBJECT};
 	protected final static int MESSAGE_REMOTE_EXCEPTION_SEVERITY = IEJBValidationContext.WARNING; // Deprecated use of RemoteException.
 	

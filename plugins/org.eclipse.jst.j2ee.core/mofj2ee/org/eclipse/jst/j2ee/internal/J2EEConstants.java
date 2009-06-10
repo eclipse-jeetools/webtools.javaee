@@ -101,8 +101,8 @@ public interface J2EEConstants extends J2EEVersionConstants {
     
     // EAR constants
     
-    String EAR_ROOT_DIR				=	"/";
-    String EAR_DEFAULT_LIB_DIR		=	"/lib";
+    String EAR_ROOT_DIR				=	"/"; //$NON-NLS-1$
+    String EAR_DEFAULT_LIB_DIR		=	"/lib"; //$NON-NLS-1$
     
     //Web app Constants
     /** "WebApp_ID"                                                                                                                 */

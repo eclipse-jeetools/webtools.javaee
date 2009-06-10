@@ -76,7 +76,7 @@ import org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage;
 import org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WsddPackageImpl;
 
 
-public class WebapplicationPackageImpl extends EPackageImpl implements WebapplicationPackage, EPackage {
+public class WebapplicationPackageImpl extends EPackageImpl implements WebapplicationPackage {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -52,7 +52,7 @@ public final class TransactionSupportKind extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final TransactionSupportKind NO_TRANSACTION_LITERAL = new TransactionSupportKind(NO_TRANSACTION, "NoTransaction", "NoTransaction");//$NON-NLS-1$
+	public static final TransactionSupportKind NO_TRANSACTION_LITERAL = new TransactionSupportKind(NO_TRANSACTION, "NoTransaction", "NoTransaction");//$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>Local Transaction</b></em>' literal object.
@@ -66,7 +66,7 @@ public final class TransactionSupportKind extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final TransactionSupportKind LOCAL_TRANSACTION_LITERAL = new TransactionSupportKind(LOCAL_TRANSACTION, "LocalTransaction", "LocalTransaction");//$NON-NLS-1$
+	public static final TransactionSupportKind LOCAL_TRANSACTION_LITERAL = new TransactionSupportKind(LOCAL_TRANSACTION, "LocalTransaction", "LocalTransaction");//$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>XA Transaction</b></em>' literal object.
@@ -80,7 +80,7 @@ public final class TransactionSupportKind extends AbstractEnumerator{
 	 * @generated
 	 * @ordered
 	 */
-	public static final TransactionSupportKind XA_TRANSACTION_LITERAL = new TransactionSupportKind(XA_TRANSACTION, "XATransaction", "XATransaction");//$NON-NLS-1$
+	public static final TransactionSupportKind XA_TRANSACTION_LITERAL = new TransactionSupportKind(XA_TRANSACTION, "XATransaction", "XATransaction");//$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * An array of all the '<em><b>Transaction Support Kind</b></em>' enumerators.

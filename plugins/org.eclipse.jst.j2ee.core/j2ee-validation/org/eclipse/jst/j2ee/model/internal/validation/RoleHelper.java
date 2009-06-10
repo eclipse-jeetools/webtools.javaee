@@ -100,7 +100,7 @@ public static final String firstAsUppercase(String aString) {
 	return aString;
 }
 protected static String format(String pattern, String[] replacements) {
-	return java.text.MessageFormat.format(pattern, replacements);
+	return java.text.MessageFormat.format(pattern, (Object[])replacements);
 }
 /**
  * Return the add method name for @aRole.

@@ -16,7 +16,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -41,7 +40,7 @@ import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
  * The web-resource-collection element is used to identify a subset of the resources and HTTP methods on those resources within a web application to which a security constraint applies. If no HTTP methods are specified, then the security constraint applies to all HTTP methods.
 
  */
-public class WebResourceCollectionImpl extends EObjectImpl implements WebResourceCollection, EObject {
+public class WebResourceCollectionImpl extends EObjectImpl implements WebResourceCollection {
 
 	/**
 	 * The default value of the '{@link #getWebResourceName() <em>Web Resource Name</em>}' attribute.

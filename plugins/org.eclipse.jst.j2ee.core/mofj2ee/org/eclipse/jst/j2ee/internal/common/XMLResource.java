@@ -23,7 +23,9 @@ public interface XMLResource extends TranslatorResource, J2EEVersionConstants {
 	public static final int RAR_TYPE = 5;
 	public static final int WEB_SERVICES_CLIENT_TYPE = 6;
 
-	public static final String DELETED_ERROR_MSG = "This resource has been deleted and can no longer be used."; /**
+	//TODO this may be dead
+	public static final String DELETED_ERROR_MSG = "This resource has been deleted and can no longer be used.";//$NON-NLS-1$ 
+	/** 
 	 * Is this a resource loaded as an alternate deployment descriptor?
 	 */
 	boolean isAlt();

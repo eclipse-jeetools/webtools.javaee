@@ -235,7 +235,7 @@ public class EJBExt20VRule extends AValidationRule implements IMessagePrefixEjb2
 			if (supertype instanceof Entity) {
 				parentKey = ((Entity) supertype).getPrimaryKey();
 
-				if ((thisKey == null) || (parentKey == null) || !thisKey.equals(parentKey)) {
+				if ((thisKey == null) || !thisKey.equals(parentKey)) {
 					String[] msgParm = new String[] { bean.getName(), parentKey.getQualifiedName()};
 					IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2106, IEJBValidationContext.ERROR, bean, msgParm, this);
 					vc.addMessage(message);

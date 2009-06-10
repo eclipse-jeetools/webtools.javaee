@@ -36,11 +36,11 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 
 	public JavaEEQuickPeek(int type, int version, int javaEEVersion) {
 		if (type == UNKNOWN) {
-			throw new RuntimeException("type must not be UNKNOWN");
+			throw new RuntimeException("type must not be UNKNOWN"); //$NON-NLS-1$
 		} else if (version == UNKNOWN) {
-			throw new RuntimeException("version must not be UNKNONW");
+			throw new RuntimeException("version must not be UNKNONW"); //$NON-NLS-1$
 		} else if (javaEEVersion == UNKNOWN) {
-			throw new RuntimeException("javaEEVersion must not be UNKNONW");
+			throw new RuntimeException("javaEEVersion must not be UNKNONW"); //$NON-NLS-1$
 		}
 		this.type = type;
 		this.version = version;
@@ -57,9 +57,7 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 				// ignore
 			} finally {
 				try {
-					if (in != null) {
-						in.reset();
-					}
+					in.reset();
 				} catch (IOException ex) {
 					// ignore
 				}
@@ -136,11 +134,7 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 				}
 			}
 		}
-		if(newChars != null){
-			return new String(newChars, 0, newCharIndex);
-		} else {
-			return schemaLocation;
-		}
+		return new String(newChars, 0, newCharIndex);
 	}
 	
 	/**

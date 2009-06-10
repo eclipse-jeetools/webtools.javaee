@@ -26,7 +26,7 @@ import org.eclipse.wst.validation.internal.core.ValidationException;
  * @version 	1.0
  * @author
  */
-public final class BMPKeyClassVRule extends AKeyClassVRule implements IEJBType, IRemoteType, IMessagePrefixEjb20Constants {
+public final class BMPKeyClassVRule extends AKeyClassVRule implements IRemoteType, IMessagePrefixEjb20Constants {
 	private static final Object ID = IValidationRuleList.EJB20_BMP_KEYCLASS;
 	private static final Object[] DEPENDS_ON = null;
 	private static final Map MESSAGE_IDS;

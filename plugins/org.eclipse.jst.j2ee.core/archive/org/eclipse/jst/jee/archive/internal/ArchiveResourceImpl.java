@@ -91,16 +91,16 @@ public class ArchiveResourceImpl implements IArchiveResource {
 		StringBuffer buffer = new StringBuffer();
 		switch (getType()) {
 		case FILE_TYPE:
-			buffer.append("File: ");
+			buffer.append("File: "); //$NON-NLS-1$
 			break;
 		case DIRECTORY_TYPE:
-			buffer.append("Directory: ");
+			buffer.append("Directory: "); //$NON-NLS-1$
 			break;
 		case ARCHIVE_TYPE:
-			buffer.append("Archive: ");
+			buffer.append("Archive: "); //$NON-NLS-1$
 			break;
 		case UNKNOWN_TYPE:
-			buffer.append("Unknown: ");
+			buffer.append("Unknown: "); //$NON-NLS-1$
 		}
 		buffer.append(getPath());
 		return buffer.toString();

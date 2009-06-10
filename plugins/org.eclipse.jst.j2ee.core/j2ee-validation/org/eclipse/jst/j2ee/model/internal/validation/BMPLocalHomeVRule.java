@@ -19,7 +19,7 @@ import java.util.Map;
  * @version 	1.0
  * @author
  */
-public final class BMPLocalHomeVRule extends ABMPHomeVRule implements ILocalType, IEJBType, IMessagePrefixEjb20Constants {
+public final class BMPLocalHomeVRule extends ABMPHomeVRule implements ILocalType, IMessagePrefixEjb20Constants {
 	private static final Object ID = IValidationRuleList.EJB20_BMP_LOCALHOME;
 	private static final Object[] DEPENDS_ON = new Object[] { IValidationRuleList.EJB20_BMP_BEANCLASS, IValidationRuleList.EJB20_BMP_KEYCLASS };
 	private static final Map MESSAGE_IDS;

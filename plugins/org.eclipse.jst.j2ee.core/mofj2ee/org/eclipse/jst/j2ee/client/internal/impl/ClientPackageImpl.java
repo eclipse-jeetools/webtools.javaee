@@ -44,7 +44,7 @@ import org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage;
 import org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WsddPackageImpl;
 
 
-public class ClientPackageImpl extends EPackageImpl implements ClientPackage, EPackage {
+public class ClientPackageImpl extends EPackageImpl implements ClientPackage {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

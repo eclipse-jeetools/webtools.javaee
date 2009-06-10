@@ -66,7 +66,7 @@ public class J2EEStatus implements J2EESpecificationConstants {
 	}
 	
 	public String format(String aPattern, String arg1) {
-		return MessageFormat.format(aPattern, new String[]{arg1});
+		return MessageFormat.format(aPattern, new Object[]{arg1});
 	}
 	
 	/**

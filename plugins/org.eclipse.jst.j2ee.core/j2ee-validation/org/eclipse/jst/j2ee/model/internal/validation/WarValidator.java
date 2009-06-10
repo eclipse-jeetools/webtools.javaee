@@ -506,7 +506,7 @@ public class WarValidator extends J2EEValidator implements WARMessageConstants {
 				}
 				if (remember.get(name) != null) { // Check for dups
 					String[] parms = new String[1];
-					parms[0] = WARValidationResourceHandler.of_Type_Parameter_Name_25 + ": " + name;
+					parms[0] = WARValidationResourceHandler.of_Type_Parameter_Name_25 + ": " + name; //$NON-NLS-1$
 					addWarning(WAR_CATEGORY, MESSAGE_WAR_VALIDATION_DUPLICATE_ENTRY, parms, initParam);
 					continue;
 				}
@@ -662,10 +662,9 @@ public class WarValidator extends J2EEValidator implements WARMessageConstants {
 	 */
 
 	public void validateErrorPages(EList errorPageList) {
-		Iterator errorPages = errorPageList.iterator();
-
 		if (errorPageList == null || errorPageList.isEmpty())
 			return;
+		Iterator errorPages = errorPageList.iterator();
 
 		while (errorPages.hasNext()) {
 			
@@ -681,7 +680,7 @@ public class WarValidator extends J2EEValidator implements WARMessageConstants {
 				parms[0] = WARValidationResourceHandler.of_Type_Error_Location_47;
 				addWarning(WAR_CATEGORY, MESSAGE_WAR_VALIDATION_EMPTY_ENTRY, parms, nextPage);
 			}
-			if (!location.startsWith("/")) { //$NON-NLS-1$
+			if (location != null && !location.startsWith("/")) { //$NON-NLS-1$
 				String[] parms = new String[1];
 				parms[0] = WARValidationResourceHandler.of_Type_Error_Location_49;
 				addWarning(WAR_CATEGORY, MESSAGE_WAR_VALIDATION_INVALID_ERROR_PAGE, parms, nextPage);
@@ -793,7 +792,7 @@ public class WarValidator extends J2EEValidator implements WARMessageConstants {
 			if (name != null) {
 				if (remember.get(name) != null) { // Check for dups
 					String[] parms = new String[1];
-					parms[0] = WARValidationResourceHandler.of_Type_Env_Entry_Name___88 + ": " + name;
+					parms[0] = WARValidationResourceHandler.of_Type_Env_Entry_Name___88 + ": " + name; //$NON-NLS-1$
 					addWarning(WAR_CATEGORY, MESSAGE_WAR_VALIDATION_DUPLICATE_ENTRY, parms, entry);
 				} else {
 					remember.put(name, "Yea"); //$NON-NLS-1$
@@ -842,7 +841,7 @@ public class WarValidator extends J2EEValidator implements WARMessageConstants {
 			if (remember.get(ext) != null) { // Check for dups
 
 				String[] parms = new String[1];
-				parms[0] = WARValidationResourceHandler.of_Type_Mime_Extension___56 + ": " + ext;
+				parms[0] = WARValidationResourceHandler.of_Type_Mime_Extension___56 + ": " + ext; //$NON-NLS-1$
 				addWarning(WAR_CATEGORY, MESSAGE_WAR_VALIDATION_DUPLICATE_ENTRY, parms, mimeMap);
 				continue;
 			}
@@ -1174,7 +1173,7 @@ public class WarValidator extends J2EEValidator implements WARMessageConstants {
 
 				// Is is a valid URI notation ?
 				try {
-					if (url.equals(""))
+					if (url.equals("")) //$NON-NLS-1$
 						throw new Exception(WARValidationResourceHandler.Invalid_URL_70);
 					// You can't use com.ibm.webtools.URI here...
 					// com.ibm.iwt.webtools.URI uri = new com.ibm.iwt.webtools.URI(url) ;
@@ -1260,7 +1259,7 @@ public class WarValidator extends J2EEValidator implements WARMessageConstants {
 
 			// Is is a valid URI notation ?
 			try {
-				if (url.equals(""))
+				if (url.equals("")) //$NON-NLS-1$
 					throw new Exception(WARValidationResourceHandler.Invalid_URL_75);
 
 				//
@@ -1383,7 +1382,7 @@ public class WarValidator extends J2EEValidator implements WARMessageConstants {
 			if (remember.get(uri) != null) { // Check for dups
 
 				String[] parms = new String[1];
-				parms[0] = WARValidationResourceHandler.of_Type_TagLib___81 + ": " + uri;
+				parms[0] = WARValidationResourceHandler.of_Type_TagLib___81 + ": " + uri; //$NON-NLS-1$
 				addWarning(WAR_CATEGORY, MESSAGE_WAR_VALIDATION_DUPLICATE_ENTRY, parms, taglib);
 				continue;
 			}
@@ -1455,10 +1454,12 @@ public class WarValidator extends J2EEValidator implements WARMessageConstants {
 				String[] parms = new String[0];
 				addWarning(WAR_CATEGORY, MESSAGE_WAR_VALIDATION_INVALID_WELCOME_FILE, parms, nextFile);
 			}
-			fileName = fileName.trim();
+			if(fileName != null){
+				fileName = fileName.trim();
+			}
 			if (remember.get(fileName) != null) {
 				String[] parms = new String[1];
-				parms[0] = WARValidationResourceHandler.of_Type_Welcome_File_Name__87 + ": " + fileName;
+				parms[0] = WARValidationResourceHandler.of_Type_Welcome_File_Name__87 + ": " + fileName; //$NON-NLS-1$
 				addWarning(WAR_CATEGORY, MESSAGE_WAR_VALIDATION_DUPLICATE_ENTRY, parms, nextFile);
 				continue;
 			}

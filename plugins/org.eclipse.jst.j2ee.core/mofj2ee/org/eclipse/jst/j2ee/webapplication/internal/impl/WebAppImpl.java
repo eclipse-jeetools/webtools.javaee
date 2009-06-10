@@ -564,13 +564,13 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 			if (version == null) 
 				throw new IllegalStateException();
 			
-				if (version.equals("2.4"))//$NON-NLS-1$
-					return J2EEVersionConstants.WEB_2_4_ID;
-				if (version.equals("2.3"))//$NON-NLS-1$
-					return J2EEVersionConstants.WEB_2_3_ID;
-				if (version.equals("2.2"))//$NON-NLS-1$
-					return J2EEVersionConstants.WEB_2_2_ID;
-			
+			if (version.equals("2.4"))//$NON-NLS-1$
+				return J2EEVersionConstants.WEB_2_4_ID;
+			if (version.equals("2.3"))//$NON-NLS-1$
+				return J2EEVersionConstants.WEB_2_3_ID;
+			if (version.equals("2.2"))//$NON-NLS-1$
+				return J2EEVersionConstants.WEB_2_2_ID;
+			throw new IllegalStateException();
 		}
 		return res.getModuleVersionID();
 	}

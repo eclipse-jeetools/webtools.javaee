@@ -31,6 +31,8 @@ import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.jst.jee.archive.IArchiveFactory;
 import org.eclipse.jst.jee.archive.IArchiveLoadAdapter;
 import org.eclipse.jst.jee.archive.IArchiveResource;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveResourceHandler;
+import org.eclipse.osgi.util.NLS;
 
 public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 
@@ -159,7 +161,7 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 			}
 		}
 		if(aFile == null){
-			throw new FileNotFoundException(archiveRelativePath.toString() +" in "+toString());
+			throw new FileNotFoundException(NLS.bind(CommonArchiveResourceHandler.ArchiveImpl_0_in_1_, new Object[] { archiveRelativePath.toString(), toString() }));
 		}
 		return aFile;
 	}

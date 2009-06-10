@@ -54,7 +54,7 @@ import org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage;
 import org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WsddPackageImpl;
 
 
-public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage, EPackage {
+public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

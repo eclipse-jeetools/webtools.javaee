@@ -77,6 +77,9 @@ public class EARValidationMessageResourceHandler extends NLS {
 	public static String CLASSPATH_COMPONENT_URI_MATCHES_ARCHIVE_URI;
 	public static String DUPLICATE_CLASSPATH_COMPONENT_URI;
 	public static String JEE5_PROJECT_REFERENCED_BY_PRE_JEE5_EAR;
+	public static String EarValidator_Validating_Module_;
+	public static String EarValidator_Validating_Ref_;
+	public static String ValidationRuleUtility_invalid_parameter_javaClassName_;
 
 
 	static {

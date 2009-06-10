@@ -23,6 +23,8 @@ import org.eclipse.jst.jee.archive.ArchiveSaveFailureException;
 import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.jst.jee.archive.IArchiveFactory;
 import org.eclipse.jst.jee.archive.IArchiveSaveAdapter;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveResourceHandler;
+import org.eclipse.osgi.util.NLS;
 
 public class ArchiveFactoryImpl implements IArchiveFactory {
 
@@ -63,7 +65,7 @@ public class ArchiveFactoryImpl implements IArchiveFactory {
 		final int CLEANUP_TICKS = 1;
 		final int TOTAL_TICKS = SAVE_TICKS + CLEANUP_TICKS;
 		try {
-			monitor.beginTask("Saving archive to: " + outputPath.toOSString(), TOTAL_TICKS);
+			monitor.beginTask(NLS.bind(CommonArchiveResourceHandler.ArchiveFactoryImpl_Saving_archive_to_0_, outputPath.toOSString()), TOTAL_TICKS);
 			String aUri = outputPath.toOSString();
 			java.io.File aFile = new java.io.File(aUri);
 			ArchiveUtil.checkWriteable(aFile);
@@ -81,7 +83,7 @@ public class ArchiveFactoryImpl implements IArchiveFactory {
 				}
 				monitor.worked(CLEANUP_TICKS);
 			} catch (java.io.IOException e) {
-				throw new ArchiveSaveFailureException("Error saving archive: " + archive + " to output path: " + outputPath, e);
+				throw new ArchiveSaveFailureException(NLS.bind(CommonArchiveResourceHandler.ArchiveFactoryImpl_Error_saving_archive_0_to_output_, new Object[] { archive, outputPath }), e);
 			} catch (ArchiveSaveFailureException failure) {
 				try {
 					if (aSaveAdapter != null)
@@ -100,7 +102,7 @@ public class ArchiveFactoryImpl implements IArchiveFactory {
 
 	protected IArchiveSaveAdapter createSaveAdapterForJar(java.io.File aFile) throws java.io.IOException {
 		if (aFile.exists() && aFile.isDirectory()) {
-			throw new IOException("The specified file: " + aFile.getAbsolutePath() + " exists and is a directory");
+			throw new IOException(NLS.bind(CommonArchiveResourceHandler.ArchiveFactoryImpl_The_specified_file_0_exists_and_, aFile.getAbsolutePath()));
 		}
 		java.io.File parent = aFile.getParentFile();
 		if (parent != null)
@@ -126,7 +128,7 @@ public class ArchiveFactoryImpl implements IArchiveFactory {
 		final int CLOSE_TICKS = 2;
 		final int TOTAL_TICKS = SAVE_TICKS + CLOSE_TICKS;
 		try {
-			monitor.beginTask("Saving archive", TOTAL_TICKS);
+			monitor.beginTask(CommonArchiveResourceHandler.ArchiveFactoryImpl_Saving_archiv_, TOTAL_TICKS);
 			IArchiveSaveAdapter aSaveAdapter = (IArchiveSaveAdapter) archiveOptions.getOption(ArchiveOptions.SAVE_ADAPTER);
 			try {
 				aSaveAdapter.setArchive(archive);
@@ -143,7 +145,7 @@ public class ArchiveFactoryImpl implements IArchiveFactory {
 				}
 				throw failure;
 			} catch (java.io.IOException ex) {
-				throw new ArchiveSaveFailureException("Error saving archive: " + archive);
+				throw new ArchiveSaveFailureException(NLS.bind(CommonArchiveResourceHandler.ArchiveFactoryImpl_Error_saving_archive_0_, archive));
 			}
 		} finally {
 			monitor.done();
