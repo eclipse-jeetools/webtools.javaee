@@ -13,7 +13,6 @@ package org.eclipse.jst.jee.ui.internal.navigator;
 import java.net.URL;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
@@ -45,10 +44,8 @@ import org.eclipse.wst.common.internal.emfworkbench.integration.DynamicAdapterFa
  */
 public class Ejb3LabelProvider extends J2EELabelProvider {
 
-  private AdapterFactoryLabelProvider delegateLabelProvider;
-  
   public Ejb3LabelProvider() {
-    delegateLabelProvider = new J2EEAdapterFactoryLabelProvider(new DynamicAdapterFactory(IJ2EENavigatorConstants.VIEWER_ID));
+    new J2EEAdapterFactoryLabelProvider(new DynamicAdapterFactory(IJ2EENavigatorConstants.VIEWER_ID));
   }
 	@Override
 	public Image getImage(Object element) {

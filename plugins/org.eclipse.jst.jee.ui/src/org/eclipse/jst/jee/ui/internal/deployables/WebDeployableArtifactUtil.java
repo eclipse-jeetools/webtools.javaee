@@ -84,8 +84,9 @@ public class WebDeployableArtifactUtil {
 					e.printStackTrace();
 				}
 				IVirtualComponent component = null;
-				if (resources[0] != null)
+				if (resources != null && resources[0] != null){
 					component = resources[0].getComponent();
+				}
 				String mapping = null;
 				java.util.List mappings = getServletMappings(resource, servlet.getServletClass());
 
@@ -317,7 +318,6 @@ public class WebDeployableArtifactUtil {
 		if ( mObj instanceof org.eclipse.jst.javaee.web.WebApp){
 			org.eclipse.jst.javaee.web.WebApp webApp= (org.eclipse.jst.javaee.web.WebApp) mObj;
 			List servlets = webApp.getServlets();
-			boolean exists = false;
 			// Ensure the display does not already exist in the web application
 			if (servlets != null && !servlets.isEmpty()) {
 				for (int i = 0; i < servlets.size(); i++) {
@@ -356,7 +356,6 @@ public class WebDeployableArtifactUtil {
 		WebApp webApp = (WebApp)provider.getModelObject();
 		
 		List servlets = webApp.getServlets();
-		boolean exists = false;
 		List list = new ArrayList();
 
 		if (servlets != null && !servlets.isEmpty()) {

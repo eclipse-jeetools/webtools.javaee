@@ -220,9 +220,7 @@ public abstract class JEE5ContentProvider implements ITreeContentProvider, IRefr
 						return rule == this;
 					}
 				};
-				if (rule != null) {
-					job.setRule(rule);
-				}
+				job.setRule(rule);
 				job.schedule();
 			}
 		}

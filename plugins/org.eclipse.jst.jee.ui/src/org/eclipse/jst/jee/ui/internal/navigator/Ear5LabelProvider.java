@@ -52,7 +52,7 @@ public class Ear5LabelProvider extends J2EELabelProvider {
 			IMG_MODULE_CONNECTOR = ImageDescriptor.createFromURL((URL) J2EEPlugin.getPlugin().getImage("full/obj16/connector_module")); //$NON-NLS-1$
 		} catch (RuntimeException e) {
 			String msg = e.getMessage() != null ? e.getMessage() : e.toString();
-			JEEUIPlugin.getDefault().logError(msg, e);
+			JEEUIPlugin.logError(msg, e);
 			IMG_MODULES_NODE = ImageDescriptor.getMissingImageDescriptor();
 			IMG_MODULE_UTIL = ImageDescriptor.getMissingImageDescriptor();
 			IMG_MODULE_WEB = ImageDescriptor.getMissingImageDescriptor();

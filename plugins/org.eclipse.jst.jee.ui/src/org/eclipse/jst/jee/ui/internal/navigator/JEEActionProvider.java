@@ -22,13 +22,7 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
-import org.eclipse.jst.j2ee.internal.archive.JavaEEArchiveUtilities;
-import org.eclipse.jst.j2ee.internal.componentcore.ComponentArchiveOptions;
 import org.eclipse.jst.j2ee.internal.provider.J2EEUtilityJarItemProvider;
-import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider;
 import org.eclipse.jst.jee.ui.internal.navigator.ejb.BeanInterfaceNode;
 import org.eclipse.jst.jee.ui.internal.navigator.ejb.BeanNode;
@@ -44,8 +38,6 @@ import org.eclipse.ui.navigator.CommonActionProvider;
 import org.eclipse.ui.navigator.ICommonActionConstants;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
 import org.eclipse.ui.navigator.ICommonMenuConstants;
-import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
-import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 
 /**
  * Standard operations Java EE Action Provider.
@@ -206,30 +198,30 @@ private static final Class IRESOURCE_CLASS = IResource.class;
 	}
 	
 	private IResource openEObject(EObject _srcObject) {
-		EObject ro = _srcObject;
-		IResource resource = WorkbenchResourceHelper
-		.getFile(_srcObject);
-		if (resource != null) {
-			return resource;
-		} else {
-			ModuleFile moduleFile = ArchiveUtil.getModuleFile(ro);
-			if (moduleFile != null) {
-				ArchiveOptions options = moduleFile.getOptions();
-				if (options instanceof ComponentArchiveOptions) {
-					IVirtualComponent component = ((ComponentArchiveOptions) options)
-					.getComponent();
-//					openAppropriateEditor(component);
-				}
-			} else {
-				IArchive archive = JavaEEArchiveUtilities.findArchive(ro);
-				if(archive != null){
-					IVirtualComponent component = JavaEEArchiveUtilities.findComponent(archive);
-					if(component != null){
-//						openAppropriateEditor(component);
-					}
-				}
-			}
-		}
+//		EObject ro = _srcObject;
+//		IResource resource = WorkbenchResourceHelper
+//		.getFile(_srcObject);
+//		if (resource != null) {
+//			return resource;
+//		}
+//		ModuleFile moduleFile = ArchiveUtil.getModuleFile(ro);
+//		if (moduleFile != null) {
+//			ArchiveOptions options = moduleFile.getOptions();
+//			if (options instanceof ComponentArchiveOptions) {
+//				IVirtualComponent component = ((ComponentArchiveOptions) options)
+//				.getComponent();
+////					openAppropriateEditor(component);
+//			}
+//		} else {
+//			IArchive archive = JavaEEArchiveUtilities.findArchive(ro);
+//			if(archive != null){
+//				IVirtualComponent component = JavaEEArchiveUtilities.findComponent(archive);
+//				if(component != null){
+////						openAppropriateEditor(component);
+//				}
+//			}
+//		}
+		
 		return null;
 	}
 }

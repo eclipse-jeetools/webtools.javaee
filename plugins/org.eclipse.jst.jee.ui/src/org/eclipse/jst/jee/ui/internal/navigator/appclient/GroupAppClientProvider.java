@@ -17,8 +17,6 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jst.j2ee.model.IModelProvider;
-import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.javaee.applicationclient.ApplicationClient;
 import org.eclipse.jst.jee.ui.internal.Messages;
 import org.eclipse.jst.jee.ui.internal.navigator.AbstractGroupProvider;
@@ -51,25 +49,6 @@ public class GroupAppClientProvider extends AbstractGroupProvider implements IAd
 	private static Image APP_CLIENT50;
 
 	private IFile ddFile;
-
-
-	private ApplicationClient getModel() {
-		if (this.javaee != null)
-			return (ApplicationClient) this.javaee;
-		IModelProvider modelProvider = ModelProviderManager
-		.getModelProvider(project);
-		Object modelObject = null;
-		try {
-			modelObject = modelProvider.getModelObject();
-		} catch (Exception e) {
-			JEEUIPlugin.logError("Error during initializing model", e); //$NON-NLS-1$
-		}
-
-		if (modelObject != null && modelObject instanceof ApplicationClient) {
-			return (ApplicationClient) modelObject;
-		}
-		return null;
-	}
 
 	@Override
 	public String getText() {

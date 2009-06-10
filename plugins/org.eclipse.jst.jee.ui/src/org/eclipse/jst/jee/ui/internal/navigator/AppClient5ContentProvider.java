@@ -50,8 +50,8 @@ public class AppClient5ContentProvider extends JEE5ContentProvider {
 	public boolean hasChildren(Object element) {
 		if (element instanceof GroupAppClientProvider) {
 			return !((GroupAppClientProvider) element).getChildren().isEmpty();
-		} else 
-			return false;
+		} 
+		return false;
 	}
 
 	public Object getParent(Object object) {

@@ -27,7 +27,6 @@ import org.eclipse.jst.javaee.web.WebFactory;
 
 public class Web25ModelProvider extends JEE5ModelProvider {
 	
-	private IWebResource webResource = null;
 	private static final String WAR25_CONTENT_TYPE = "org.eclipse.jst.jee.ee5webDD"; //$NON-NLS-1$
 	public Web25ModelProvider(IProject proj) {
 		super();

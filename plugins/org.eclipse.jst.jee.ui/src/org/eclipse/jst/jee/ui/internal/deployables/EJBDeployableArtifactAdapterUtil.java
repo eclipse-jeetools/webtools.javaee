@@ -205,9 +205,6 @@ public class EJBDeployableArtifactAdapterUtil {
 
 
 	protected static IModuleArtifact getModuleJavaObject(IFile file) {
-
-			IVirtualComponent comp = (IVirtualComponent)file.getAdapter(IVirtualComponent.class);
-			// TODO what do we return for Java class?
 		return null;
 	}
 

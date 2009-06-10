@@ -141,7 +141,7 @@ public class OpenJEEResourceAction extends AbstractOpenAction {
 		} catch (Exception e) {
 			MessageDialog
 			.openError(
-					page.getWorkbenchWindow().getShell(),
+					PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
 					J2EEUIMessages
 					.getResourceString("Problems_Opening_Editor_ERROR_"), e.getMessage()); //$NON-NLS-1$ = "Problems Opening Editor"
 		}
@@ -151,15 +151,12 @@ public class OpenJEEResourceAction extends AbstractOpenAction {
 		if (element == null) {
 			return;
 		}
-		IWorkbenchPage page = null;
 		try {
-			page = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-			.getActivePage();
 			JavaUI.openInEditor(element);
 		} catch (Exception e) {
 			MessageDialog
 			.openError(
-					page.getWorkbenchWindow().getShell(),
+					PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
 					J2EEUIMessages
 					.getResourceString("Problems_Opening_Editor_ERROR_"), e.getMessage()); //$NON-NLS-1$ = "Problems Opening Editor"
 		}
@@ -185,7 +182,7 @@ public class OpenJEEResourceAction extends AbstractOpenAction {
 		} catch (Exception e) {
 			MessageDialog
 			.openError(
-					page.getWorkbenchWindow().getShell(),
+					PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
 					J2EEUIMessages
 					.getResourceString("Problems_Opening_Editor_ERROR_"), e.getMessage()); //$NON-NLS-1$ = "Problems Opening Editor"
 		}

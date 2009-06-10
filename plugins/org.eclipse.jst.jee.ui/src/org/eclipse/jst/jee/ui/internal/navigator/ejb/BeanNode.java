@@ -14,7 +14,6 @@ import java.util.List;
 
 import org.eclipse.jdt.core.Signature;
 import org.eclipse.jdt.internal.ui.JavaPluginImages;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jst.javaee.core.JavaEEObject;
 import org.eclipse.jst.javaee.ejb.EntityBean;
 import org.eclipse.jst.javaee.ejb.MessageDrivenBean;
@@ -31,9 +30,6 @@ import org.eclipse.swt.graphics.Image;
  *
  */
 public class BeanNode extends AbstractDDNode {
-  
-  private static ImageDescriptor BEAN_OVR;
-  private static ImageDescriptor WEB_SERVICE_OVR;
   
   public BeanNode(JavaEEObject bean) {
     super(bean);

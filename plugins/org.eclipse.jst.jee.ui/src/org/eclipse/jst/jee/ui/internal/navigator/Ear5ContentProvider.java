@@ -28,7 +28,6 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.componentcore.util.EARVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
-import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.jst.jee.ui.internal.navigator.ear.AbstractEarNode;
@@ -112,48 +111,27 @@ public class Ear5ContentProvider extends JEE5ContentProvider {
 										J2EEVersionConstants.VERSION_5_0_TEXT))) {
 
 					List libs = getComponentReferencesAsList(Collections.singletonList(J2EEProjectUtilities.UTILITY), projectComponent,
-							new Path("/" + EAR_DEFAULT_LIB)); //$NON-NLS-1$
+					new Path("/" + EAR_DEFAULT_LIB)); //$NON-NLS-1$
 
-							ArrayList bundledLibs = new ArrayList();
-							ArrayList appLibsInTheRoot = new ArrayList();
+					ArrayList bundledLibs = new ArrayList();
+					ArrayList appLibsInTheRoot = new ArrayList();
 
-							for (int i = 0; i < libs.size(); i++) {
-								IVirtualReference reference = (IVirtualReference) libs.get(i);
-								IPath runtimePath = reference.getRuntimePath();
+					for (int i = 0; i < libs.size(); i++) {
+						IVirtualReference reference = (IVirtualReference) libs.get(i);
+						IPath runtimePath = reference.getRuntimePath();
 
-								if (runtimePath != null && runtimePath.segment(0) != null && 
+						if (runtimePath != null && runtimePath.segment(0) != null && 
 //										runtimePath.equals(new Path(EAR_DEFAULT_LIB))) {
-									!runtimePath.isRoot()) {
-									bundledLibs.add(libs.get(i));
-								} else {
-									appLibsInTheRoot.add(libs.get(i));
-								}
-							}
-							
-							String libDir = EAR_DEFAULT_LIB;
-							if (J2EEProjectUtilities.isJEEProject(project)) {
-								String oldLibDir = ((Application)ModelProviderManager.getModelProvider(project).getModelObject()).getLibraryDirectory();
-								if (oldLibDir == null) oldLibDir = EAR_DEFAULT_LIB;
-								libDir = oldLibDir;
-							}
-//
-//							List implicitUtilityReferenceTypes =
-//								Arrays.asList(new String[] {  
-//										IModuleConstants.JST_APPCLIENT_MODULE,
-//										IModuleConstants.JST_WEB_MODULE,
-//										IModuleConstants.JST_EJB_MODULE,
-//										IModuleConstants.JST_CONNECTOR_MODULE});
-//
-
-//							List modules = getComponentReferencesAsList(implicitUtilityReferenceTypes, projectComponent, new Path("/")); //$NON-NLS-1$
-//							ModulesNode modulesNode = new ModulesNode(project);
-
-//							children.add(modulesNode);
-//							children.add(bundledLibsNode);
+							!runtimePath.isRoot()) {
+							bundledLibs.add(libs.get(i));
+						} else {
+							appLibsInTheRoot.add(libs.get(i));
+						}
+					}
 				}
 			} catch (CoreException e) {
 				String msg = "Error in the JEEContentProvider.getChildren() for parent:" +  aParentElement; //$NON-NLS-1$
-				JEEUIPlugin.getDefault().logError(msg, e);
+				JEEUIPlugin.logError(msg, e);
 			}
 		} else if (aParentElement instanceof AbstractEarNode) {
 			return ((AbstractEarNode) aParentElement).getModules().toArray();
@@ -172,7 +150,7 @@ public class Ear5ContentProvider extends JEE5ContentProvider {
 					}
 				} catch (CoreException e) {
 					String msg = "Error in the JEEContentProvider.getChildren() for parent:" +  aParentElement; //$NON-NLS-1$
-					JEEUIPlugin.getDefault().logError(msg, e);
+					JEEUIPlugin.logError(msg, e);
 				}
 			}
 		}

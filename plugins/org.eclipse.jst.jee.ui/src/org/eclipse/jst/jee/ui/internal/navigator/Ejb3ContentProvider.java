@@ -135,31 +135,6 @@ public class Ejb3ContentProvider extends JEE5ContentProvider {
 		}
 	}
 
-	private void addSessionJNDIRefInfo(EntityBean eb, List children) {
-		if (eb.getEjbLocalRefs() != null && !eb.getEjbLocalRefs().isEmpty()){
-			children.add(new JndiRefNode(eb.getEjbLocalRefs(), KINDS.EJBLOCALREF));
-		}
-
-		if (eb.getEjbRefs() != null && !eb.getEjbRefs().isEmpty()){
-			children.add(new JndiRefNode(eb.getEjbRefs(), KINDS.EJBREF));
-		}
-
-		if (eb.getResourceEnvRefs() != null && !eb.getResourceEnvRefs().isEmpty()){
-			children.add(new JndiRefNode(eb.getResourceEnvRefs(), KINDS.RESENVENTY));
-		}
-		if (eb.getEnvEntries() != null && !eb.getEnvEntries().isEmpty()){
-			children.add(new JndiRefNode(eb.getEnvEntries(), KINDS.ENVENTRY));
-		}
-
-		if (eb.getResourceRefs() != null && !eb.getResourceRefs().isEmpty()){
-			children.add(new JndiRefNode(eb.getResourceRefs(), KINDS.RESREF));
-		}
-
-		if (eb.getServiceRefs() != null && !eb.getServiceRefs().isEmpty()){
-			children.add(new JndiRefNode(eb.getServiceRefs(), KINDS.SERVICEREF));
-		}
-	}
-
 	private void addClassRelatedInfo(SessionBean sb, List children) {
 		if (sb.getLocal() != null) {
 			children.add(new BeanInterfaceNode(sb, sb.getLocal(), BeanInterfaceNode.KINDS.LOCAL));

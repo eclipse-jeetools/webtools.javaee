@@ -120,8 +120,9 @@ public class EnterpriseApplicationDeployableAdapterUtil {
 			e.printStackTrace();
 		}
 		IVirtualComponent component = null;
-		if (resources[0] != null)
+		if (resources != null && resources[0] != null){
 			component = resources[0].getComponent();
+		}
 		return getModule(proj,component);
 	}
 

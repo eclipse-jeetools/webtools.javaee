@@ -49,7 +49,6 @@ import org.eclipse.jst.j2ee.internal.dialogs.DependencyConflictResolveDialog;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.provider.J2EEItemProvider;
-import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.navigator.internal.plugin.J2EENavigatorPlugin;
 import org.eclipse.jst.j2ee.project.facet.EARFacetUtils;
@@ -123,9 +122,8 @@ public class AddProjectToEARDropAssistant extends CommonDropAdapterAssistant {
 							DependencyConflictResolveDialog dlg = new DependencyConflictResolveDialog(getShell(), DependencyConflictResolveDialog.DLG_TYPE_2);
 							if (dlg.open() == DependencyConflictResolveDialog.BTN_ID_CANCEL) {
 								return Status.CANCEL_STATUS;
-							} else {
-								resolveConflicts = true;
 							}
+							resolveConflicts = true;
 						}
 					}
 				} else {
@@ -135,9 +133,8 @@ public class AddProjectToEARDropAssistant extends CommonDropAdapterAssistant {
 							DependencyConflictResolveDialog dlg = new DependencyConflictResolveDialog(getShell(), DependencyConflictResolveDialog.DLG_TYPE_2);
 							if (dlg.open() == DependencyConflictResolveDialog.BTN_ID_CANCEL) {
 								return Status.CANCEL_STATUS;
-							} else {
-								resolveConflicts = true;
 							}
+							resolveConflicts = true;
 						}
 					}
 				}
@@ -318,7 +315,6 @@ public class AddProjectToEARDropAssistant extends CommonDropAdapterAssistant {
 	 */
 	protected final int getEarVersion(IProject earProject) {
 		int earVersion = -1;
-		IModelProvider modelProvider = ModelProviderManager.getModelProvider(earProject);
 		IFacetedProject facetedProject = null;
 		try {
 			facetedProject = ProjectFacetsManager.create(earProject);
@@ -327,11 +323,11 @@ public class AddProjectToEARDropAssistant extends CommonDropAdapterAssistant {
 				double double1 = Double.parseDouble(facetedProject.getProjectFacetVersion(EARFacetUtils.EAR_FACET).getVersionString());
 				earVersion = (int) (double1 * 10);
 			} else {
-				JEEUIPlugin.getDefault().logError("Could not acquire model elements for project \"" + earProject.getName() + "\".", null); //$NON-NLS-1$ //$NON-NLS-2$
+				JEEUIPlugin.logError("Could not acquire model elements for project \"" + earProject.getName() + "\".", null); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 		} catch (CoreException e1) {
 			String msg = e1.getMessage() != null ? e1.getMessage() : e1.toString();
-			JEEUIPlugin.getDefault().logError(msg, e1);
+			JEEUIPlugin.logError(msg, e1);
 		}
 
 		return earVersion;
@@ -347,7 +343,7 @@ public class AddProjectToEARDropAssistant extends CommonDropAdapterAssistant {
 			facetedProject = ProjectFacetsManager.create(project);
 		} catch (CoreException e1) {
 			String msg = e1.getMessage() != null ? e1.getMessage() : e1.toString();
-			JEEUIPlugin.getDefault().logError(msg, e1);
+			JEEUIPlugin.logError(msg, e1);
 		}
 		return facetedProject != null && facetedProject.hasProjectFacet(EARFacetUtils.EAR_FACET);
 	}
@@ -491,7 +487,6 @@ public class AddProjectToEARDropAssistant extends CommonDropAdapterAssistant {
 			}
 			return false;
 		} catch (CoreException ce) {
-			int k = 0;
 		}
 		return false;
 	}
@@ -514,7 +509,7 @@ public class AddProjectToEARDropAssistant extends CommonDropAdapterAssistant {
 			return datamodel.getDefaultOperation().execute(new NullProgressMonitor(), null);
 		} catch (ExecutionException e) {
 			String msg = e.getMessage() != null ? e.getMessage() : e.toString();
-			JEEUIPlugin.getDefault().logError(msg, e);
+			JEEUIPlugin.logError(msg, e);
 		}
 		return status;
 	}
@@ -531,7 +526,7 @@ public class AddProjectToEARDropAssistant extends CommonDropAdapterAssistant {
 			}
 		} catch (ExecutionException e) {
 			String msg = e.getMessage() != null ? e.getMessage() : e.toString();
-			JEEUIPlugin.getDefault().logError(msg, e);
+			JEEUIPlugin.logError(msg, e);
 		}
 		return removeReferences(components, libDir, earComponent);
 	}
@@ -557,7 +552,7 @@ public class AddProjectToEARDropAssistant extends CommonDropAdapterAssistant {
 			return model.getDefaultOperation().execute(null, null);
 		} catch (ExecutionException e) {
 			String msg = e.getMessage() != null ? e.getMessage() : e.toString();
-			JEEUIPlugin.getDefault().logError(msg, e);
+			JEEUIPlugin.logError(msg, e);
 		}
 		return Status.CANCEL_STATUS;
 	}
@@ -585,14 +580,13 @@ public class AddProjectToEARDropAssistant extends CommonDropAdapterAssistant {
 								removeManifestDependency(refs[j].getEnclosingComponent(), refs[j].getReferencedComponent());
 							} catch (ExecutionException e) {
 								String msg = e.getMessage() != null ? e.getMessage() : e.toString();
-								JEEUIPlugin.getDefault().logError(msg, e);
+								JEEUIPlugin.logError(msg, e);
 							}
 						}
 					}
 				}
 			}
 		} catch (CoreException ce) {
-			int k = 0;
 		}
 		// return false;
 		return Status.OK_STATUS;

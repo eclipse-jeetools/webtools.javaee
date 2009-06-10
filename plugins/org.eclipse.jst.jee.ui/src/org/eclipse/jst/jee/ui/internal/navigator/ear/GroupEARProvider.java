@@ -29,7 +29,6 @@ import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
-import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
@@ -74,7 +73,6 @@ public class GroupEARProvider extends AbstractGroupProvider implements IAdaptabl
 		List children = new ArrayList();
 		IProject project = getProject();
 
-		IVirtualComponent projectComponent = ComponentCore.createComponent(project);
 		try {
 			IFacetedProject facetedProject = ProjectFacetsManager.create(project);
 			if (facetedProject != null && 
@@ -97,7 +95,7 @@ public class GroupEARProvider extends AbstractGroupProvider implements IAdaptabl
 			}
 		} catch (CoreException e) {
 			String msg = "Error in the JEEContentProvider.getChildren() for parent:" +  this; //$NON-NLS-1$
-			JEEUIPlugin.getDefault().logError(msg, e);
+			JEEUIPlugin.logError(msg, e);
 		}
 		return children;
 	}
