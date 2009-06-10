@@ -45,18 +45,18 @@ public class FilterMappingItem implements IFilterMappingItem {
     }
 
     public String getDispatchersAsString() {
-        String result = "";
+        String result = ""; //$NON-NLS-1$
         if ((dispatchers & REQUEST) > 0) {
-            result += WebAppEditResourceHandler.getString("DISPATCHER_R") + " "; 
+            result += WebAppEditResourceHandler.getString("DISPATCHER_R") + " ";  //$NON-NLS-1$ //$NON-NLS-2$
         }
         if ((dispatchers & FORWARD) > 0) {
-            result += WebAppEditResourceHandler.getString("DISPATCHER_F") + " "; 
+            result += WebAppEditResourceHandler.getString("DISPATCHER_F") + " ";  //$NON-NLS-1$ //$NON-NLS-2$
         }
         if ((dispatchers & INCLUDE) > 0) {
-            result += WebAppEditResourceHandler.getString("DISPATCHER_I") + " "; 
+            result += WebAppEditResourceHandler.getString("DISPATCHER_I") + " ";  //$NON-NLS-1$ //$NON-NLS-2$
         }
         if ((dispatchers & ERROR) > 0) {
-            result += WebAppEditResourceHandler.getString("DISPATCHER_E") + " "; 
+            result += WebAppEditResourceHandler.getString("DISPATCHER_E") + " ";  //$NON-NLS-1$ //$NON-NLS-2$
         }
         return result.trim();
     }

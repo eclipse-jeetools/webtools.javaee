@@ -132,7 +132,7 @@ public class CreateFilterTemplateModel extends CreateWebClassTemplateModel {
         while (iterator.hasNext()) {
         	builder.append(iterator.next());
         	if (iterator.hasNext()) {
-        		builder.append(",");
+        		builder.append(","); //$NON-NLS-1$
         	}
         }
 		

@@ -130,10 +130,9 @@ public class NewListenerClassDataModelProvider extends
 		
 		if (atLeastOneSelected) {
 			return WTPCommonPlugin.OK_STATUS;
-		} else {
-			String msg = WebMessages.ERR_NO_LISTENER_SELECTED;
-			return WTPCommonPlugin.createErrorStatus(msg);
 		}
+		String msg = WebMessages.ERR_NO_LISTENER_SELECTED;
+		return WTPCommonPlugin.createErrorStatus(msg);
 	}
 
 }

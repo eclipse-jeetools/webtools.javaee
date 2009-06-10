@@ -35,21 +35,19 @@ public class UrlPattern {
 			return false;
 
 		// Path Mappings must not contain "*." character sequences
-		if (urlPattern.startsWith("/")) {
-			if (urlPattern.indexOf("*.") == -1) {
+		if (urlPattern.startsWith("/")) { //$NON-NLS-1$
+			if (urlPattern.indexOf("*.") == -1) { //$NON-NLS-1$
 				return true;
-			} else {
-				return false;
 			}
+			return false;
 		}
 
 		// Extension Mappings must not contain '/' characters
-		if (urlPattern.startsWith("*.")) {
+		if (urlPattern.startsWith("*.")) { //$NON-NLS-1$
 			if (urlPattern.indexOf('/') == -1) {
 				return true;
-			} else {
-				return false;
 			}
+			return false;
 		}
 
 		// The URL Pattern is neither a Path Mapping, nor Extension Mapping

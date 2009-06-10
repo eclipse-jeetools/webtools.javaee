@@ -447,7 +447,7 @@ public class NewServletClassDataModelProvider extends
 	 */
 	private String validateValue(List prop) {
 		if (prop == null) {
-			return "";
+			return ""; //$NON-NLS-1$
 		}
 		int size = prop.size();
 		for (int i = 0; i < size; i++) {
@@ -455,7 +455,7 @@ public class NewServletClassDataModelProvider extends
 			if (!UrlPattern.isValid(urlMappingValue))
 				return urlMappingValue;
 		}
-		return "";
+		return ""; //$NON-NLS-1$
 	}
 	
 	/**

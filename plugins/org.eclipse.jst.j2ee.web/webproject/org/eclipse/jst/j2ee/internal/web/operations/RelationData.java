@@ -230,28 +230,28 @@ public class RelationData {
 
 
 	public void dump() {
-		if (false) {
-			if (inLinksTable != null) {
-				for (Enumeration aenum = inLinksTable.keys(); aenum.hasMoreElements();) {
-					StringBuffer St = new StringBuffer();
-					String key = (String) aenum.nextElement();
-					St.append("\nKey=" + key + "\n");//$NON-NLS-1$//$NON-NLS-2$
-					Vector in_links = (Vector) inLinksTable.get(key);
-					int nb_of_links = in_links.size();
-
-					// Replace the string by index
-					// Add a '+'separator only for more than one links to save space
-					//
-
-
-					for (int i = 0; i < nb_of_links; i++) {
-						Link lnk = (Link) in_links.elementAt(i);
-						St.append("\tValue=" + lnk.getURL() + "[" + lnk.getOccurrences() + "]");//$NON-NLS-3$//$NON-NLS-2$//$NON-NLS-1$
-					}
-					org.eclipse.jem.util.logger.proxy.Logger.getLogger().logInfo(St.toString());
-				}
-			}
-		}
+//		if (false) {
+//			if (inLinksTable != null) {
+//				for (Enumeration aenum = inLinksTable.keys(); aenum.hasMoreElements();) {
+//					StringBuffer St = new StringBuffer();
+//					String key = (String) aenum.nextElement();
+//					St.append("\nKey=" + key + "\n");//$NON-NLS-1$//$NON-NLS-2$
+//					Vector in_links = (Vector) inLinksTable.get(key);
+//					int nb_of_links = in_links.size();
+//
+//					// Replace the string by index
+//					// Add a '+'separator only for more than one links to save space
+//					//
+//
+//
+//					for (int i = 0; i < nb_of_links; i++) {
+//						Link lnk = (Link) in_links.elementAt(i);
+//						St.append("\tValue=" + lnk.getURL() + "[" + lnk.getOccurrences() + "]");//$NON-NLS-3$//$NON-NLS-2$//$NON-NLS-1$
+//					}
+//					org.eclipse.jem.util.logger.proxy.Logger.getLogger().logInfo(St.toString());
+//				}
+//			}
+//		}
 	}
 
 	public void dump(boolean dump) {
@@ -796,9 +796,7 @@ public class RelationData {
 							line = reader.readLine();
 						}
 						// add link string (/MyProj/file.html)
-						if (buffer != null) {
-							keys.addElement(buffer);
-						}
+						keys.addElement(buffer);
 						// add references line (+2/3...)
 						if (line != null) {
 							indices.addElement(line);

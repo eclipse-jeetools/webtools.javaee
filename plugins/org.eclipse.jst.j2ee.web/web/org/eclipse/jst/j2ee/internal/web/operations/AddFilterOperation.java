@@ -164,9 +164,7 @@ public class AddFilterOperation extends AddWebClassOperation {
             filter.getDisplayNames().add(displayNameObj);
 			filter.setFilterName(displayName);
 			filter.setFilterClass(qualifiedClassName);
-			if (webApp != null) {
-				webApp.getFilters().add(filter);
-			}
+			webApp.getFilters().add(filter);
 			// Should be return Filter's instance
 			return filter;
 		}

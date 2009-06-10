@@ -154,7 +154,7 @@ public class NewFilterClassDataModelProvider extends
 	@Override
 	public IStatus validate(String propertyName) {
 		// If our default is the superclass, we know it is ok
-		if (propertyName.equals(SUPERCLASS) && "".equals(getStringProperty(propertyName)))
+		if (propertyName.equals(SUPERCLASS) && "".equals(getStringProperty(propertyName))) //$NON-NLS-1$
 			return WTPCommonPlugin.OK_STATUS;
 		// Validate init params
 		if (propertyName.equals(INIT_PARAM))
@@ -259,7 +259,7 @@ public class NewFilterClassDataModelProvider extends
 	 */
 	private String validateValue(List prop) {
 		if (prop == null) {
-			return "";
+			return ""; //$NON-NLS-1$
 		}
 		int size = prop.size();
 		for (int i = 0; i < size; i++) {
@@ -268,7 +268,7 @@ public class NewFilterClassDataModelProvider extends
 					!UrlPattern.isValid(filterMappingValue.getName()))
 				return filterMappingValue.getName();
 		}
-		return "";
+		return ""; //$NON-NLS-1$
 	}
 
 	/**

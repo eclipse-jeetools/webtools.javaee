@@ -250,7 +250,6 @@ public class AddServletOperation extends AddWebClassOperation {
 				}
 			}
 		} else if (modelObject instanceof org.eclipse.jst.javaee.web.WebApp) {
-			org.eclipse.jst.javaee.web.WebApp webApp = (org.eclipse.jst.javaee.web.WebApp) modelObject;
 			org.eclipse.jst.javaee.web.Servlet servlet = (org.eclipse.jst.javaee.web.Servlet) servletObj;
 
 			for (int iP = 0; iP < initParamList.size(); iP++) {
