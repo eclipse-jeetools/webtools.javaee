@@ -57,7 +57,7 @@ public interface IJ2EEComponentExportDataModelProperties extends IDataModelPrope
      * Optional, type boolean, Default <code>Boolean.TRUE</code> indicating a Build runs before exporting thus output files are created
      * and archived.  However, if <code>Boolean.FALSE</code> the component is archived as is.
      */
-    public static final String RUN_BUILD = "IJ2EEComponentExportDataModelProperties.RUN_BUILD"; //$NON-NLS-1$}
+    public static final String RUN_BUILD = "IJ2EEComponentExportDataModelProperties.RUN_BUILD"; //$NON-NLS-1$
     
     public static final String COMPONENT = "IJ2EEComponentExportDataModelProperties.COMPONENT"; //$NON-NLS-1$
     
@@ -65,20 +65,20 @@ public interface IJ2EEComponentExportDataModelProperties extends IDataModelPrope
      * @since 3.0
      */
     
-    public static final String OPTIMIZE_FOR_SPECIFIC_RUNTIME = "IJ2EEComponentExportDataModelProperties.OPTIMIZE_FOR_SPECIFIC_RUNTIME";
+    public static final String OPTIMIZE_FOR_SPECIFIC_RUNTIME = "IJ2EEComponentExportDataModelProperties.OPTIMIZE_FOR_SPECIFIC_RUNTIME"; //$NON-NLS-1$
     
     /**
      * @since 3.0
      */
     
-    public static final String RUNTIME = "IJ2EEComponentExportDataModelProperties.RUNTIME"; //$NON-NLS-1
+    public static final String RUNTIME = "IJ2EEComponentExportDataModelProperties.RUNTIME"; //$NON-NLS-1$
     
     /**
      * @since 3.0
      */
     
     public static final String RUNTIME_SPECIFIC_PARTICIPANTS 
-        = "IJ2EEComponentExportDataModelProperties.RUNTIME_SPECIFIC_PARTICIPANTS"; //$NON-NLS-1
+        = "IJ2EEComponentExportDataModelProperties.RUNTIME_SPECIFIC_PARTICIPANTS"; //$NON-NLS-1$
     
     /**
      * @since 3.0

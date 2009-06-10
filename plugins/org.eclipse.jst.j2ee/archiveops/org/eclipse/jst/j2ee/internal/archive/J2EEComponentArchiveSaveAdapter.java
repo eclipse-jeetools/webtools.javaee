@@ -29,6 +29,8 @@ import org.eclipse.jst.jee.archive.IArchiveResource;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 import com.ibm.icu.util.StringTokenizer;
+import org.eclipse.jst.j2ee.internal.archive.ArchiveMessages;
+import org.eclipse.osgi.util.NLS;
 
 public abstract class J2EEComponentArchiveSaveAdapter extends ComponentArchiveSaveAdapter {
 
@@ -50,7 +52,7 @@ public abstract class J2EEComponentArchiveSaveAdapter extends ComponentArchiveSa
 		final int TOTAL_TICKS = SUPER_TICKS + LOCAL_TICKS + REFRESH_TICKS;
 
 		try {
-			monitor.beginTask("Importing " + vComponent.getName(), TOTAL_TICKS);
+			monitor.beginTask(NLS.bind(ArchiveMessages.ComponentArchiveSaveAdapter_Importing_0_, vComponent.getName()), TOTAL_TICKS);
 			super.save(new SubProgressMonitor(monitor, SUPER_TICKS));
 			linkImportedClassesFolderIfNecessary();
 			monitor.worked(LOCAL_TICKS);

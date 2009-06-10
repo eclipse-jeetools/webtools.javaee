@@ -310,38 +310,36 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 			JavaEEBinaryComponentHelper helper = null;
 			try{
 				helper = new JavaEEBinaryComponentHelper(component);
-				if(helper != null){
-					IArchive archive = null;
-					InputStream in = null;
-					try{
-						archive = helper.accessArchive();
-						if(null != archive){
-							IPath manifestPath = new Path(J2EEConstants.MANIFEST_URI);
-							if(archive.containsArchiveResource(manifestPath)){
-								IArchiveResource manifestResource = archive.getArchiveResource(manifestPath);
-								if(manifestResource != null){
-									in = manifestResource.getInputStream();
-									ArchiveManifest manifest = new ArchiveManifestImpl(in);
-									return manifest;
-								}
+				IArchive archive = null;
+				InputStream in = null;
+				try{
+					archive = helper.accessArchive();
+					if(null != archive){
+						IPath manifestPath = new Path(J2EEConstants.MANIFEST_URI);
+						if(archive.containsArchiveResource(manifestPath)){
+							IArchiveResource manifestResource = archive.getArchiveResource(manifestPath);
+							if(manifestResource != null){
+								in = manifestResource.getInputStream();
+								ArchiveManifest manifest = new ArchiveManifestImpl(in);
+								return manifest;
 							}
 						}
-					} catch (FileNotFoundException e) {
-						J2EEPlugin.logError(e);
-					} catch (IOException e) {
-						J2EEPlugin.logError(e);
-					} finally{
-						if (in != null) {
-							try {
-								in.close();
-								in = null;
-							} catch (IOException e) {
-								J2EEPlugin.logError(e);
-							}
+					}
+				} catch (FileNotFoundException e) {
+					J2EEPlugin.logError(e);
+				} catch (IOException e) {
+					J2EEPlugin.logError(e);
+				} finally{
+					if (in != null) {
+						try {
+							in.close();
+							in = null;
+						} catch (IOException e) {
+							J2EEPlugin.logError(e);
 						}
-						if(archive != null){
-							helper.releaseArchive(archive);
-						}
+					}
+					if(archive != null){
+						helper.releaseArchive(archive);
 					}
 				}
 			} finally{
@@ -530,7 +528,7 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 						if (defaultSourcePath == null)
 							break;
 					}
-					if (cp[i].getPath().equals(defaultSourcePath))
+					if (cp[i].getPath().equals(defaultSourcePath) && defaultSourcePath != null)
 						return defaultSourcePath.removeFirstSegments(1);
 				}
 			}
@@ -543,7 +541,7 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 						if (defaultSourcePath == null)
 							break;
 					}
-					if (cp[i].getPath().equals(defaultSourcePath))
+					if (cp[i].getPath().equals(defaultSourcePath) && defaultSourcePath != null)
 						return defaultSourcePath.removeFirstSegments(1);
 				}
 			}
@@ -823,7 +821,7 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 		} catch (Exception e) {
 			// Not Faceted project or not J2EE Project
 		}
-		if (facet != null && facetedProject.hasProjectFacet(facet))
+		if (facet != null && facetedProject != null && facetedProject.hasProjectFacet(facet))
 			return facetedProject.getInstalledVersion(facet).getVersionString();
 		return null;
 	}

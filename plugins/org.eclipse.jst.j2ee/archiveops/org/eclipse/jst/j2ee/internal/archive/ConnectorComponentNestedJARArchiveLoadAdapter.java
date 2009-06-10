@@ -30,6 +30,8 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.jee.archive.AbstractArchiveLoadAdapter;
 import org.eclipse.jst.jee.archive.ArchiveModelLoadException;
 import org.eclipse.jst.jee.archive.IArchiveResource;
+import org.eclipse.jst.j2ee.internal.archive.ArchiveMessages;
+import org.eclipse.osgi.util.NLS;
 
 public class ConnectorComponentNestedJARArchiveLoadAdapter extends AbstractArchiveLoadAdapter {
 
@@ -139,7 +141,7 @@ public class ConnectorComponentNestedJARArchiveLoadAdapter extends AbstractArchi
 			try {
 				return file.getContents();
 			} catch (CoreException core) {
-				throw new IOException("Unable to get contents from " + file.getProjectRelativePath() + " message " + core.getLocalizedMessage());
+				throw new IOException(NLS.bind(ArchiveMessages.ConnectorComponentNestedJARArchiveLoadAdapter_Unable_to_get_contents_from_0_mes_, new Object[] { file.getProjectRelativePath(), core.getLocalizedMessage() }));
 			}
 		}
 		throw new FileNotFoundException(archiveResource.getPath().toString());

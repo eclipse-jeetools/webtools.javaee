@@ -47,6 +47,8 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.jst.j2ee.internal.archive.ArchiveMessages;
+import org.eclipse.osgi.util.NLS;
 
 // hari: make abstract
 public class ComponentArchiveSaveAdapter extends AbstractArchiveSaveAdapter {
@@ -111,7 +113,7 @@ public class ComponentArchiveSaveAdapter extends AbstractArchiveSaveAdapter {
 		final int LOCAL_TICKS = 10;
 		final int TOTAL_TICKS = SUPER_TICKS + LOCAL_TICKS;
 		try {
-			monitor.beginTask("Importing " + vComponent.getName(), TOTAL_TICKS);
+			monitor.beginTask(NLS.bind(ArchiveMessages.ComponentArchiveSaveAdapter_Importing_0_, vComponent.getName()), TOTAL_TICKS);
 			super.save(new SubProgressMonitor(monitor, SUPER_TICKS));
 			linkArchiveComponents();
 			monitor.worked(LOCAL_TICKS);
