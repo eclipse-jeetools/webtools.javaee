@@ -124,7 +124,7 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 		}
 		// Ensure the selected folder is a valid java source folder for the component
 		IFolder sourcefolder = getJavaSourceFolder();
-		if (sourcefolder == null || (sourcefolder != null && !sourcefolder.getFullPath().equals(new Path(folderFullPath)))) {
+		if (sourcefolder == null || (!sourcefolder.getFullPath().equals(new Path(folderFullPath)))) {
 			String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_JAVA_CLASS_FOLDER_NOT_SOURCE, new String[]{folderFullPath});
 			return WTPCommonPlugin.createErrorStatus(msg);
 		}

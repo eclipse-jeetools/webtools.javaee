@@ -87,7 +87,7 @@ public class ImportsCollection implements Collection<String> {
 	}
 	
     private boolean isImportInJavaLang(String arg) {
-    	return arg.startsWith("java.lang."); 
+    	return arg.startsWith("java.lang.");  //$NON-NLS-1$
     }
     
     private boolean isImportInSamePackage(String arg) {

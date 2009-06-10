@@ -370,12 +370,13 @@ public class NewJavaClassOperation extends AbstractDataModelOperation {
 	 * This method does not accept null parameters.  It will not return null.
 	 * @see NewJavaClassOperation#getJavaFileContent(IPackageFragment, String)
 	 * 
-	 * @param superclassName
+	 * @param superClass
 	 * @param className
 	 * @param interfaces
 	 * @return String class declaration string
 	 */
-	private String getClassDeclaration(String superclassName, String className, List interfaces) {
+	private String getClassDeclaration(String superClass, String className, List interfaces) {
+		String innerSuperClass = superClass;
 		StringBuffer sb = new StringBuffer();
 		// Append appropriate modifiers
 		if (model.getBooleanProperty(MODIFIER_PUBLIC))
@@ -389,11 +390,11 @@ public class NewJavaClassOperation extends AbstractDataModelOperation {
 		// Add the class name
 		sb.append(className + SPACE);
 		// If there is a superclass, add the extends and super class name
-		if (superclassName != null && superclassName.length() > 0 && !superclassName.equals(JAVA_LANG_OBJECT)) {
-			int index = superclassName.lastIndexOf(DOT);
+		if (innerSuperClass != null && innerSuperClass.length() > 0 && !innerSuperClass.equals(JAVA_LANG_OBJECT)) {
+			int index = innerSuperClass.lastIndexOf(DOT);
 			if (index != -1)
-				superclassName = superclassName.substring(index + 1);
-			sb.append(EXTENDS + superclassName + SPACE);
+				innerSuperClass = innerSuperClass.substring(index + 1);
+			sb.append(EXTENDS + innerSuperClass + SPACE);
 		}
 		// If there are interfaces, add the implements and then interate over the interface list
 		if (interfaces != null && interfaces.size() > 0) {

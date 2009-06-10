@@ -180,9 +180,8 @@ public abstract class NewJavaEEArtifactClassOperation extends AbstractDataModelO
 		
 		if (dynamicTranslation) {
 			return generateTemplateSource(plugin, templateModel, templateFile, monitor);
-		} else {
-			return generateTemplateSource(templateModel, templateImpl);
 		}
+		return generateTemplateSource(templateModel, templateImpl);
 	}
 	
 	/**

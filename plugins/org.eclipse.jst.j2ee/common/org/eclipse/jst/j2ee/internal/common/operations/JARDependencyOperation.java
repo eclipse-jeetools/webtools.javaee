@@ -42,7 +42,6 @@ import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
-import org.eclipse.wst.common.frameworks.internal.operations.IHeadlessRunnableWithProgress;
 
 /**
  * {@link DoNotUseMeThisWillBeDeletedPost15}
@@ -73,7 +72,6 @@ public class JARDependencyOperation extends AbstractDataModelOperation implement
 		validateEdit(model);
 		monitor.beginTask("", 2); //$NON-NLS-1$
 		org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestOperation mfOperation = createManifestOperation(model);
-		IHeadlessRunnableWithProgress buildPathOperation = createBuildPathOperation(model);
 		try {
 			mfOperation.execute(new SubProgressMonitor(monitor, 1), null);
 			// No longer manipulating build path... containers will calculate
@@ -171,8 +169,7 @@ public class JARDependencyOperation extends AbstractDataModelOperation implement
 					Logger.getLogger().logError(e);
 				}			
 		} finally {
-			if (clpModel != null)
-				clpModel.dispose();			
+			clpModel.dispose();			
 			if (monitor != null)
 				monitor.done();
 		}

@@ -270,9 +270,8 @@ public final class JavaModelUtil {
 		IType outerType= type.getDeclaringType();
 		if (outerType != null) {
 			return getFullyQualifiedName(outerType);
-		} else {
-			return type.getPackageFragment().getElementName();
 		}
+		return type.getPackageFragment().getElementName();
 	}
 	
 	
@@ -527,9 +526,8 @@ public final class JavaModelUtil {
 				return JavaModelUtil.concatenateName(resolvedNames[0][0], resolvedNames[0][1]);
 			}
 			return null;
-		} else {
-			return Signature.toString(refTypeSig.substring(arrayCount));
 		}
+		return Signature.toString(refTypeSig.substring(arrayCount));
 	}
 	
 	/**
@@ -858,9 +856,8 @@ public final class JavaModelUtil {
 		int i = oldName.lastIndexOf('.');
 		if (i != -1) {
 			return newMainName + oldName.substring(i);
-		} else {
-			return newMainName;
 		}
+		return newMainName;
 	}	
 	
 	public static boolean isImplicitImport(String qualifier, ICompilationUnit cu) {
@@ -891,7 +888,6 @@ public final class JavaModelUtil {
 		ICompilationUnit cu= member.getCompilationUnit();
 		if (cu != null)
 			return cu;
-		else
-			return member.getClassFile();
+		return member.getClassFile();
 	}
 }

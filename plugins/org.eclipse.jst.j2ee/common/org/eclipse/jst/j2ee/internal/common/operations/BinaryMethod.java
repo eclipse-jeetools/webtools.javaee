@@ -74,13 +74,12 @@ public class BinaryMethod implements Method {
 				if (Signature.SIG_VOID.equals(signature)) {
 					return null;
 				} else if (Signature.SIG_BOOLEAN.equals(signature)) {
-					return "false";
+					return "false"; //$NON-NLS-1$
 				} else {
-					return "0";
+					return "0"; //$NON-NLS-1$
 				}
-			} else {
-				return "null";
 			}
+			return "null"; //$NON-NLS-1$
 		} catch (JavaModelException e) {
 			throw new RuntimeException(e);
 		}
@@ -167,7 +166,7 @@ public class BinaryMethod implements Method {
 			
 			parameterNames = new String[parameterTypes.length];
 			for (int i = 0; i < parameterNames.length; i++) {
-				parameterNames[i] = "arg" + i;
+				parameterNames[i] = "arg" + i; //$NON-NLS-1$
 			}
 		}
         
@@ -217,7 +216,7 @@ public class BinaryMethod implements Method {
 			break;
 
 		default:
-			throw new IllegalStateException("invalid type signature kind: " + kind);
+			throw new IllegalStateException("invalid type signature kind: " + kind); //$NON-NLS-1$
 		
 		}
 	}

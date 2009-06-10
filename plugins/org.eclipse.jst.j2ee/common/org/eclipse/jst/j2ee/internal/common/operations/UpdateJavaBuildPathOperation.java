@@ -101,11 +101,8 @@ public class UpdateJavaBuildPathOperation implements IHeadlessRunnableWithProgre
 				break;
 			case IClasspathEntry.CPE_VARIABLE :
 				newEntry = JavaCore.newVariableEntry(entry.getPath(), entry.getSourceAttachmentPath(), entry.getSourceAttachmentRootPath());
-			default :
-				break;
 		}
-		if (entry != null)
-			cp.set(index, newEntry);
+		cp.set(index, newEntry);
 	}
 
 	protected IClasspathEntry ensureElementInList(List cp, ClasspathElement element, IClasspathEntry predecessor) {

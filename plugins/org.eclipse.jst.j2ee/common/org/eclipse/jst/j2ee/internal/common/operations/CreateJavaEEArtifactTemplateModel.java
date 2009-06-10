@@ -194,9 +194,8 @@ public class CreateJavaEEArtifactTemplateModel {
 		String qualified = getQualifiedSuperclassName();
 		if (areFlagsSet(FLAG_QUALIFIED_SUPERCLASS_NAME) || equalSimpleNames(getClassName(), qualified)) {
 			return qualified;
-		} else {
-			return Signature.getSimpleName(qualified);
 		}
+		return Signature.getSimpleName(qualified);
 	}
 	
 	public String getQualifiedSuperclassName() {
@@ -334,16 +333,17 @@ public class CreateJavaEEArtifactTemplateModel {
 		        for (MethodDeclaration method : methods) {
 		        	unimplementedMethods.add(new SourceMethod(method));
 		        }
+		        // process super interfaces
+			    List<Type> superInterfaces = declarationFromType.superInterfaceTypes();
+			    for (Type superInterface : superInterfaces) {
+			    	ITypeBinding binding = superInterface.resolveBinding();
+			    	IType superInterfaceType = javaProject.findType(binding.getQualifiedName());
+					if (superInterfaceType != null) 
+						getUnimplementedMethod0(superInterfaceType, unimplementedMethods);
+			    }
 		    }
 		    
-		    // process super interfaces
-		    List<Type> superInterfaces = declarationFromType.superInterfaceTypes();
-		    for (Type superInterface : superInterfaces) {
-		    	ITypeBinding binding = superInterface.resolveBinding();
-		    	IType superInterfaceType = javaProject.findType(binding.getQualifiedName());
-				if (superInterfaceType != null) 
-					getUnimplementedMethod0(superInterfaceType, unimplementedMethods);
-		    }
+		   
 		}
 	}
 

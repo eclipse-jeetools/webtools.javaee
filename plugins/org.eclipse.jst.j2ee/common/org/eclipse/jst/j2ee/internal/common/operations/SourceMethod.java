@@ -84,13 +84,12 @@ public class SourceMethod implements Method {
 			if (code == PrimitiveType.VOID) {
 				return null;
 			} else if (code == PrimitiveType.BOOLEAN) {
-				return "false";
+				return "false"; //$NON-NLS-1$
 			} else {
-				return "0";
+				return "0"; //$NON-NLS-1$
 			}
-		} else {
-			return "null";
 		}
+		return "null"; //$NON-NLS-1$
 	}
 	
 	/**
@@ -228,7 +227,7 @@ public class SourceMethod implements Method {
 	
 	private void getQualifiedTypeImports(Type type, List<String> result) {
 		QualifiedType qualifiedType = (QualifiedType) type;
-		result.add(qualifiedType.getQualifier() + "." + qualifiedType.getName());
+		result.add(qualifiedType.getQualifier() + "." + qualifiedType.getName()); //$NON-NLS-1$
 	}
 
 	private void getWildcardTypeImports(Type type, List<String> result) {

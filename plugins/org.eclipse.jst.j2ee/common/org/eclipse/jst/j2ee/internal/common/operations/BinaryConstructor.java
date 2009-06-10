@@ -111,7 +111,7 @@ public class BinaryConstructor implements Constructor {
 			
 			parameterNames = new String[parameterTypes.length];
 			for (int i = 0; i < parameterNames.length; i++) {
-				parameterNames[i] = "arg" + i;
+				parameterNames[i] = "arg" + i; //$NON-NLS-1$
 			}
 		}
         
