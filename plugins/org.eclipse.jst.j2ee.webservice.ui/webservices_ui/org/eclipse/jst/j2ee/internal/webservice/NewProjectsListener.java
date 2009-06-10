@@ -94,8 +94,6 @@ public class NewProjectsListener implements IResourceChangeListener, IResourceDe
 						}
 					}
 				}				
-			default :
-				break;
 		}
 		
 		return false;

@@ -100,16 +100,14 @@ public class WebServicesNavigatorContentProvider extends AdapterFactoryContentPr
 					if (viewerSynchronization != null)
 						viewerSynchronization.setNavigatorGroupAdded(true);
 					return new Object[]{getNavigatorGroup()};
-				} else {
-					return NO_CHILDREN;
-				}
-			} else {
-				// first time on this workspace, let the job set the WebServiceViewerSynchronization.ARE_THERE_WEBSERVICES
-				if (viewerSynchronization != null && !viewerSynchronization.hasIndexJobBeenScheduled()) {
-					viewerSynchronization.startIndexJob();
 				}
 				return NO_CHILDREN;
 			}
+			// first time on this workspace, let the job set the WebServiceViewerSynchronization.ARE_THERE_WEBSERVICES
+			if (viewerSynchronization != null && !viewerSynchronization.hasIndexJobBeenScheduled()) {
+				viewerSynchronization.startIndexJob();
+			}
+			return NO_CHILDREN;
 		} else if (parentElement instanceof WebServiceNavigatorGroup){
 			if (viewerSynchronization != null && !viewerSynchronization.hasIndexJobBeenScheduled()) {
 				viewerSynchronization.startIndexJob();

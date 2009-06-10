@@ -20,8 +20,7 @@ public class WebserviceListener implements IStartup, IResourceChangeListener, IR
     /* The constants/facets/file extns are duplicated here to avoid loading plugins */
 	private static final String PROJECT_FACET = "projectFacet"; //$NON-NLS-1$     
     
-	private static final String EAR_FACET = "jst.ear"; //$NON-NLS-1$ 
-    private static final String APPCLIENT_FACET = "jst.appclient"; //$NON-NLS-1$ 
+	private static final String APPCLIENT_FACET = "jst.appclient"; //$NON-NLS-1$ 
     private static final String WEB_FACET = "jst.web"; //$NON-NLS-1$ 
     private static final String EJB_FACET = "jst.ejb"; //$NON-NLS-1$ 
     
@@ -120,8 +119,6 @@ public class WebserviceListener implements IStartup, IResourceChangeListener, IR
 						}
 					}
 				}				
-			default :
-				break;
 		}
 		
 		return false;

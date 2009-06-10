@@ -23,7 +23,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jst.j2ee.ejb.Session;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
@@ -48,7 +47,7 @@ import org.eclipse.wst.common.internal.emfworkbench.integration.DynamicAdapterFa
  * To change the template for this generated type comment go to Window - Preferences - Java - Code
  * Generation - Code and Comments
  */
-public class WebServicesNavigatorLabelProvider extends AdapterFactoryLabelProvider implements ILabelProvider {
+public class WebServicesNavigatorLabelProvider extends AdapterFactoryLabelProvider {
 
 	private final static String VIEWER_ID = "org.eclipse.wst.navigator.ui.WTPCommonNavigator";//$NON-NLS-1$
 	
@@ -127,7 +126,7 @@ public class WebServicesNavigatorLabelProvider extends AdapterFactoryLabelProvid
 					beanName14 = ((Session) ((ServiceRef) element).eContainer()).getName() + ": "; //$NON-NLS-1$
 			}
 			IProject refProj = ProjectUtilities.getProject((ServiceRef) element);
-			return (refProj != null) ? refProj.getName() : "" + ": " + beanName14 //$NON-NLS-1$
+			return (refProj != null) ? refProj.getName() : "" + ": " + beanName14 //$NON-NLS-1$ //$NON-NLS-2$
 						+ ((ServiceRef) element).getServiceRefName();
 		} else
 			return super.getText(element);

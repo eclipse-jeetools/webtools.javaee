@@ -106,7 +106,7 @@ public class WebServicesNavigatorSynchronizer extends AdapterFactoryContentProvi
 				notifier = notifier.eContainer();
 			}
 			// Refresh the associated wsdl service for the WSDD parent
-			if (notifier instanceof WebServiceDescription && notifier !=null) {
+			if (notifier instanceof WebServiceDescription) {
 				EObject wsdl = WebServicesManager.getInstance().getWSDLServiceForWebService((WebServiceDescription)notifier);
 				contentProvider.getViewer().refresh(wsdl);
 			}
