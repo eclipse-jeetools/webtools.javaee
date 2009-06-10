@@ -88,30 +88,32 @@ public class TwoArrayQuickSorter {
 	}
 
 	private void internalSort(Object[] keys, Object[] values, int left, int right) {
-		int original_left = left;
-		int original_right = right;
+		int localLeft = left;
+		int localRight = right;
+		int original_left = localLeft;
+		int original_right = localRight;
 
-		Object mid = keys[(left + right) / 2];
+		Object mid = keys[(localLeft + localRight) / 2];
 		do {
-			while (fComparator.compare(keys[left], mid) < 0)
-				left++;
+			while (fComparator.compare(keys[localLeft], mid) < 0)
+				localLeft++;
 
-			while (fComparator.compare(mid, keys[right]) < 0)
-				right--;
+			while (fComparator.compare(mid, keys[localRight]) < 0)
+				localRight--;
 
-			if (left <= right) {
-				swap(keys, left, right);
-				swap(values, left, right);
-				left++;
-				right--;
+			if (localLeft <= localRight) {
+				swap(keys, localLeft, localRight);
+				swap(values, localLeft, localRight);
+				localLeft++;
+				localRight--;
 			}
-		} while (left <= right);
+		} while (localLeft <= localRight);
 
-		if (original_left < right)
-			internalSort(keys, values, original_left, right);
+		if (original_left < localRight)
+			internalSort(keys, values, original_left, localRight);
 
-		if (left < original_right)
-			internalSort(keys, values, left, original_right);
+		if (localLeft < original_right)
+			internalSort(keys, values, localLeft, original_right);
 	}
 
 	/*

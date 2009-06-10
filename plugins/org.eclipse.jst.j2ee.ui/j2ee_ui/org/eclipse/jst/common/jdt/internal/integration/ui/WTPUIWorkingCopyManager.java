@@ -198,10 +198,11 @@ public class WTPUIWorkingCopyManager extends WTPWorkingCopyManager {
 	}
 
 	protected IEditorInput getEditorInput(IJavaElement element) throws JavaModelException {
-		while (element != null) {
-			switch (element.getElementType()) {
+		IJavaElement localElement = element;
+		while (localElement != null) {
+			switch (localElement.getElementType()) {
 				case IJavaElement.COMPILATION_UNIT : {
-					ICompilationUnit cu = (ICompilationUnit) element;
+					ICompilationUnit cu = (ICompilationUnit) localElement;
 					if (cu.isWorkingCopy())
 						cu = cu.getPrimary();
 					IResource resource = cu.getUnderlyingResource();
@@ -210,9 +211,9 @@ public class WTPUIWorkingCopyManager extends WTPWorkingCopyManager {
 					break;
 				}
 				case IJavaElement.CLASS_FILE :
-					return new InternalClassFileEditorInput((IClassFile) element);
+					return new InternalClassFileEditorInput((IClassFile) localElement);
 			}
-			element = element.getParent();
+			localElement = localElement.getParent();
 		}
 		return null;
 	}

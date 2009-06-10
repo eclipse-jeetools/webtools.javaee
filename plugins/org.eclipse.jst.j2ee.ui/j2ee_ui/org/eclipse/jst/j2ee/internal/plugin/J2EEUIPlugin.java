@@ -134,19 +134,20 @@ public class J2EEUIPlugin extends AbstractUIPlugin {
 	}
 
 	public static String getTypeDefaultProjectName(String text, int type) {
-		IPath path = new Path(text);
-		text = path.makeRelative().removeFileExtension().lastSegment();
+		String localText = text;
+		IPath path = new Path(localText);
+		localText = path.makeRelative().removeFileExtension().lastSegment();
 
 		boolean exists = false;
-		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(text);
+		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(localText);
 		if (project != null && project.exists())
 			exists = true;
-		if (exists && text.toLowerCase().indexOf(ImportUtil.SUFFIXES[type].toLowerCase()) == -1)
-			text = text + ImportUtil.SUFFIXES[type];
+		if (exists && localText.toLowerCase().indexOf(ImportUtil.SUFFIXES[type].toLowerCase()) == -1)
+			localText = localText + ImportUtil.SUFFIXES[type];
 		IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
 		for (int j = 1; j < 10; j++) {
 			boolean found = false;
-			String iteratedProjectName = text + ((j == 1) ? "" : Integer.toString(j)); //$NON-NLS-1$
+			String iteratedProjectName = localText + ((j == 1) ? "" : Integer.toString(j)); //$NON-NLS-1$
 			for (int i = 0; !found && (i < projects.length); i++) {
 				if ((projects[i]).getName().equalsIgnoreCase(iteratedProjectName)) {
 					found = true;
@@ -155,24 +156,25 @@ public class J2EEUIPlugin extends AbstractUIPlugin {
 			if (!found)
 				return iteratedProjectName;
 		}
-		return text;
+		return localText;
 	}
 
 	private static String getTypeDefaultProjectName(String text, int type, HashSet moduleNames) {
-		IPath path = new Path(text);
-		text = path.makeRelative().removeFileExtension().lastSegment();
+		String localText = text;
+		IPath path = new Path(localText);
+		localText = path.makeRelative().removeFileExtension().lastSegment();
 
-		boolean isValidName = moduleNames.add(text);
+		boolean isValidName = moduleNames.add(localText);
 		boolean exists = false;
-		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(text);
+		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(localText);
 		if (project != null && project.exists())
 			exists = true;
-		if (!isValidName || (exists && text.toLowerCase().indexOf(ImportUtil.SUFFIXES[type].toLowerCase()) == -1))
-			text = text + ImportUtil.SUFFIXES[type];
+		if (!isValidName || (exists && localText.toLowerCase().indexOf(ImportUtil.SUFFIXES[type].toLowerCase()) == -1))
+			localText = localText + ImportUtil.SUFFIXES[type];
 		IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
 		for (int j = 1; j < 10; j++) {
 			boolean found = false;
-			String iteratedProjectName = text + ((j == 1) ? "" : Integer.toString(j)); //$NON-NLS-1$
+			String iteratedProjectName = localText + ((j == 1) ? "" : Integer.toString(j)); //$NON-NLS-1$
 			for (int i = 0; !found && (i < projects.length); i++) {
 				if ((projects[i]).getName().equalsIgnoreCase(iteratedProjectName)) {
 					found = true;
@@ -181,22 +183,23 @@ public class J2EEUIPlugin extends AbstractUIPlugin {
 			if (!found)
 				return iteratedProjectName;
 		}
-		return text;
+		return localText;
 	}
 
 	// the following two methods are used by web editor
 
 	private static String getTypeDefaultUtilProjectName(String text, int type) {
-		text = text.substring(text.lastIndexOf(java.io.File.separator) + 1);
-		int i = text.lastIndexOf('.');
+		String localText = text;
+		localText = localText.substring(localText.lastIndexOf(java.io.File.separator) + 1);
+		int i = localText.lastIndexOf('.');
 		if (i > 0)
-			text = text.substring(0, i);
-		if (text.toLowerCase().indexOf(ImportUtil.SUFFIXES[type].toLowerCase()) == -1)
-			text = text + ImportUtil.SUFFIXES[type];
+			localText = localText.substring(0, i);
+		if (localText.toLowerCase().indexOf(ImportUtil.SUFFIXES[type].toLowerCase()) == -1)
+			localText = localText + ImportUtil.SUFFIXES[type];
 		IProject[] projects = getWorkspace().getRoot().getProjects();
 		for (int j = 0; j < 10; j++) {
 			boolean found = false;
-			String iteratedProjectName = text + ((j == 0) ? "" : Integer.toString(j)); //$NON-NLS-1$
+			String iteratedProjectName = localText + ((j == 0) ? "" : Integer.toString(j)); //$NON-NLS-1$
 			for (i = 0; !found && (i < projects.length); i++) {
 				if ((projects[i]).getName().equalsIgnoreCase(iteratedProjectName)) {
 					found = true;
@@ -205,7 +208,7 @@ public class J2EEUIPlugin extends AbstractUIPlugin {
 			if (!found)
 				return iteratedProjectName;
 		}
-		return text;
+		return localText;
 	}
 
 	/**

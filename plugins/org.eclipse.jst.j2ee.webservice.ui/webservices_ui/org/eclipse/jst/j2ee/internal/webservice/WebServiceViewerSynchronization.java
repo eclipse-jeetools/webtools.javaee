@@ -26,10 +26,11 @@ import org.eclipse.ui.progress.UIJob;
 import org.eclipse.wst.common.internal.emfworkbench.integration.DynamicAdapterFactory;
 import org.eclipse.wst.common.project.facet.core.internal.FacetedProjectPropertyTester;
 import org.eclipse.wst.project.facet.ProductManager;
+import org.eclipse.jst.j2ee.internal.webservice.WebServiceUIResourceHandler;
 
 public class WebServiceViewerSynchronization implements WebServiceManagerListener{
 	
-	public static final String ARE_THERE_WEBSERVICES = "areThereWebServices";
+	public static final String ARE_THERE_WEBSERVICES = "areThereWebServices"; //$NON-NLS-1$
 
 	private WebServicesManager webServicesManager = null; 
 	
@@ -209,7 +210,7 @@ public class WebServiceViewerSynchronization implements WebServiceManagerListene
 		boolean ret = false;
 		IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
 		
-		monitor.beginTask("Searching for web service capable projects...", projects.length);
+		monitor.beginTask(WebServiceUIResourceHandler.WebServiceViewerSynchronization_Searching_for_web_service_capable_p_, projects.length);
 		for (int i = 0; i < projects.length; i++) {
 			 if(isInteresting(projects[i])){
 				 ret = true;
@@ -230,7 +231,8 @@ public class WebServiceViewerSynchronization implements WebServiceManagerListene
 		if (ProductManager.shouldUseViewerSyncForWebservices()) {
 			String val = WebServiceUIPlugin.getDefault().getPluginPreferences().getString(WebServiceViewerSynchronization.ARE_THERE_WEBSERVICES);
 			return Boolean.parseBoolean(val);
-		} else return false;
+		}
+		return false;
 	}
 
 	public static boolean isThereWebServicesPreferenceSet() {

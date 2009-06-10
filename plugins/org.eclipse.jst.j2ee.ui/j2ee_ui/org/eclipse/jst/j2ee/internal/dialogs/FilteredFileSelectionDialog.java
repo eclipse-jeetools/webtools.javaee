@@ -52,9 +52,10 @@ public class FilteredFileSelectionDialog extends ElementTreeSelectionDialog {
 		setTitle(title);
 		if (title == null)
 			setTitle(J2EEUIMessages.getResourceString("File_Selection_UI_")); //$NON-NLS-1$
-		if (message == null)
-			message = J2EEUIMessages.getResourceString("Select_a_file__UI_"); //$NON-NLS-1$
-		setMessage(message);
+		String localMessage = message;
+		if (localMessage == null)
+			localMessage = J2EEUIMessages.getResourceString("Select_a_file__UI_"); //$NON-NLS-1$
+		setMessage(localMessage);
 		setAllowMultiple(true);
 		setExtensions(extensions);
 		addFilter(new TypedFileViewerFilter(extensions));

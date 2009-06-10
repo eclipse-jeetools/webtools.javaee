@@ -62,6 +62,7 @@ public final class WebServiceUIResourceHandler extends NLS {
 	public static String WSDL_PORT_UI_;
 	public static String SERVICE_IMPL_UI_;
 	public static String WSDL_UI_;
+	public static String WebServiceViewerSynchronization_Searching_for_web_service_capable_p_;
 
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, WebServiceUIResourceHandler.class);

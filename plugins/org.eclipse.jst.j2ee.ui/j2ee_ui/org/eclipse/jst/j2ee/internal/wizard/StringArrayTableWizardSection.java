@@ -99,9 +99,8 @@ public class StringArrayTableWizardSection extends Composite {
 			String[] array = (String[]) element;
 			if (array.length > 0) {
 				return array[0];
-			} else {
-				return super.getText(element);
 			}
+			return super.getText(element);
 		}
 	}
 
@@ -427,13 +426,14 @@ public class StringArrayTableWizardSection extends Composite {
                 }
 
                 private int setColumntWidth(int width, TableColumn[] columns, int consumeWidth, int i) {
+                	int localConsumeWidth = consumeWidth; 
                     if (i < columns.length - 1) {
                         columns[i].setWidth(width / columns.length);
-                        consumeWidth += columns[i].getWidth();
+                        localConsumeWidth += columns[i].getWidth();
                     } else {
-                        columns[i].setWidth(width - consumeWidth);
+                        columns[i].setWidth(width - localConsumeWidth);
                     }
-                    return consumeWidth;
+                    return localConsumeWidth;
                 }
             });
         }

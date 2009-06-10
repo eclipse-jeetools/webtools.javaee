@@ -19,12 +19,12 @@ import java.util.Vector;
 import org.eclipse.core.resources.IResourceStatus;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdapterManager;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IExtensionRegistry;
-import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
@@ -274,10 +274,7 @@ public class WebPlugin extends WTPPlugin implements ResourceLocator {
 	
 	public static void log( final Exception e )
 	{
-		final ILog log = WebPlugin.getDefault().getLog();
-		final String msg = "Encountered an unexpected exception.";
-		
-		log.log( new Status( IStatus.ERROR, PLUGIN_ID, IStatus.OK, msg, e ) );
+		logError(e);
 	}
 	public String getString(String key, boolean translate) {
 		// TODO For now...  translate not supported
@@ -287,6 +284,22 @@ public class WebPlugin extends WTPPlugin implements ResourceLocator {
 	public String getString(String key, Object[] substitutions, boolean translate) {
 		// TODO For now...  translate not supported
 		return getString(key,substitutions);
+	}
+
+	public static IStatus createStatus(int severity, String message, Throwable exception) {
+		return new Status(severity, PLUGIN_ID, message, exception);
+	}
+
+	public static IStatus createStatus(int severity, String message) {
+		return createStatus(severity, message, null);
+	}
+
+	public static void logError(Throwable exception) {
+		Platform.getLog(Platform.getBundle(PLUGIN_ID)).log( createStatus(IStatus.ERROR, exception.getMessage(), exception));
+	}
+
+	public static void logError(CoreException exception) {
+		Platform.getLog(Platform.getBundle(PLUGIN_ID)).log( exception.getStatus() );
 	}
 
 }

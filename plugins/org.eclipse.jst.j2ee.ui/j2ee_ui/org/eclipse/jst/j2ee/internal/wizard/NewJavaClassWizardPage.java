@@ -259,7 +259,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 				if (projectNameFromModel!=null && projectNameFromModel.length()>0)
 					selectedProject = ProjectUtilities.getProject(projectNameFromModel);
 			}
-		} catch (Exception e) {};
+		} catch (Exception e) {}
 		try {
 			if (selectedProject == null)
 				selectedProject = getSelectedProject();

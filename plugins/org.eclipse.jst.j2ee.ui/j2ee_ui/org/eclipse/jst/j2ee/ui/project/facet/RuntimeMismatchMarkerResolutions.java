@@ -105,10 +105,7 @@ public final class RuntimeMismatchMarkerResolutions
         {
             return RuntimeManager.getRuntime( name );
         }
-        else
-        {
-            return null;
-        }
+        return null;
     }
     
     private static final class Resolution

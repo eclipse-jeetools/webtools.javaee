@@ -40,8 +40,8 @@ public class J2EEPerspective implements org.eclipse.ui.IPerspectiveFactory {
 	private static final String ID_SEARCH_VIEW = "org.eclipse.search.ui.views.SearchView"; //$NON-NLS-1$
 	private static final String ID_DATA_VIEW = "org.eclipse.datatools.connectivity.DataSourceExplorerNavigator"; //$NON-NLS-1$
 	public static final String ID_CONSOLE_VIEW= "org.eclipse.ui.console.ConsoleView"; //$NON-NLS-1$
-	public static final String ID_MARKERS_VIEW= "org.eclipse.ui.views.AllMarkersView";
-	public static final String ID_TASKLIST_VIEW= "org.eclipse.mylyn.tasks.ui.views.tasks";
+	public static final String ID_MARKERS_VIEW= "org.eclipse.ui.views.AllMarkersView"; //$NON-NLS-1$
+	public static final String ID_TASKLIST_VIEW= "org.eclipse.mylyn.tasks.ui.views.tasks"; //$NON-NLS-1$
 
 	public J2EEPerspective() {
 		super();

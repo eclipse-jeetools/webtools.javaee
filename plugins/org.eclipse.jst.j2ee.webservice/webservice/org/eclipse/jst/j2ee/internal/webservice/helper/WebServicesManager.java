@@ -83,6 +83,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener;
+import org.eclipse.jst.j2ee.internal.webservice.helper.WebServiceManagerNLS;
 
 /**
  * @author jlanuti
@@ -920,10 +921,9 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 		
 		if (processNewProjects != null && (processNewProjects.getState() == Job.WAITING)){
 			return processNewProjects;
-		} else {
-			processNewProjects = createProjectsJob();
-			processNewProjects.schedule();
-		}
+		} 
+		processNewProjects = createProjectsJob();
+		processNewProjects.schedule();
 		return processNewProjects;
 	}
 	
@@ -934,7 +934,7 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 		
 		public ProcessProjectsWithWSDL(Set p, int newEventType)
 		{
-			super("Loading artifact edit for project");
+			super(WebServiceManagerNLS.WebServicesManager_Loading_Webservice_);
 			currentProjects = p;
 			eventType = newEventType;
 		}

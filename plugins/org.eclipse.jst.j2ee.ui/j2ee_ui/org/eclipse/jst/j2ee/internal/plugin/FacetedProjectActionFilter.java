@@ -78,29 +78,22 @@ public final class FacetedProjectActionFilter
 	            {
 	                return true;
 	            }
-	            else
-	            {
-	                final IProjectFacetVersion fv = fproj.getInstalledVersion( f );
-	                
-	                try
-	                {
-	                    if( f.getVersions( vexprstr ).contains( fv ) )
-	                    {
-	                        return true;
-	                    }
-	                }
-	                catch( CoreException e )
-	                {
-	                	//EJBUIPlugin.getDefault().log
-	                }
-	            }
-	            
+                final IProjectFacetVersion fv = fproj.getInstalledVersion( f );
+                
+                try
+                {
+                    if( f.getVersions( vexprstr ).contains( fv ) )
+                    {
+                        return true;
+                    }
+                }
+                catch( CoreException e )
+                {
+                	//EJBUIPlugin.getDefault().log
+                }
 	            return false;
 	        }
-	        else
-	        {
-	            return false;
-	        }
+            return false;
         }
         return true;
     }

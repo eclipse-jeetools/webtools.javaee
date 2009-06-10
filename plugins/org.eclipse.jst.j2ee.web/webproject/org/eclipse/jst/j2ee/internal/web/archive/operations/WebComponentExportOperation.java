@@ -76,7 +76,8 @@ public class WebComponentExportOperation extends J2EEArtifactExportOperation {
 	 */
 	@Override
 	protected String archiveString() {
-		return "War File";
+		//TODO delete this method
+		return "War File"; //$NON-NLS-1$
 	}
 
 }

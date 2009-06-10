@@ -25,10 +25,7 @@ public class FacetedProjectAdapterFactory implements IAdapterFactory {
         {
             return new FacetedProjectActionFilter();
         }
-        else
-        {
-            return null;
-        }
+        return null;
     }
 
     public Class[] getAdapterList()

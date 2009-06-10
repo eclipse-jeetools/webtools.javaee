@@ -32,6 +32,7 @@ import org.eclipse.ui.dialogs.PreferencesUtil;
 import org.eclipse.ui.forms.events.IHyperlinkListener;
 import org.eclipse.ui.forms.widgets.Hyperlink;
 import org.eclipse.wst.server.core.IRuntime;
+import org.eclipse.jst.j2ee.internal.dialogs.Messages;
 
 
 /**
@@ -77,7 +78,7 @@ public class RuntimeSelectionDialog extends MessageDialog {
 		link.setUnderlined(true);
 		Color color = new Color(parent.getDisplay(),new RGB(0,0,255) );
 		link.setForeground(color);
-		link.setText("Configure Target Runtime...");
+		link.setText(Messages.RuntimeSelectionDialog_Configure_Target_Runtime_);
 		link.addHyperlinkListener(new IHyperlinkListener() {
 			public static final String DATA_NO_LINK = "PropertyAndPreferencePage.nolink"; //$NON-NLS-1$
 
