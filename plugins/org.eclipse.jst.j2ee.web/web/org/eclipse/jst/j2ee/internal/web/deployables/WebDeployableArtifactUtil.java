@@ -83,7 +83,7 @@ public class WebDeployableArtifactUtil {
 					e.printStackTrace();
 				}
 				IVirtualComponent component = null;
-				if (resources[0] != null)
+				if (resources != null && resources[0] != null)
 					component = resources[0].getComponent();
 				String mapping = null;
 				java.util.List mappings = ((Servlet) obj).getMappings();

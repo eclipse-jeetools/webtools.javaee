@@ -191,12 +191,12 @@ public class WebPropertiesUtil {
 	 * Creation date: (4/17/01 11:48:12 AM)
 	 */
 	protected static void synch(IProject project, IProgressMonitor monitor) {
-
+		IProgressMonitor localMonitor = monitor;
 		try {
-			if (monitor == null) {
-				monitor = new NullProgressMonitor();
+			if (localMonitor == null) {
+				localMonitor = new NullProgressMonitor();
 			}
-			monitor.beginTask(ProjectSupportResourceHandler.Sychronize_Class_Path_UI_, 4); 
+			localMonitor.beginTask(ProjectSupportResourceHandler.Sychronize_Class_Path_UI_, 4); 
 			//$NON-NLS-1$ = "Sychronize Class Path"
 
 			IContainer lib_folder = getWebLibFolder(project);
@@ -213,7 +213,7 @@ public class WebPropertiesUtil {
 			// Create a map of the lib projects in the current project
 			Hashtable lib_jars = new Hashtable();
 			IResource[] children = lib_folder.members();
-			monitor.subTask(ProjectSupportResourceHandler.Catalog_Lib_Directory__UI_); 
+			localMonitor.subTask(ProjectSupportResourceHandler.Catalog_Lib_Directory__UI_); 
 			//$NON-NLS-1$ = "Catalog Lib Directory:"
 			for (int j = 0; j < children.length; j++) {
 				IResource child = children[j];
@@ -227,8 +227,8 @@ public class WebPropertiesUtil {
 
 			}
 
-			monitor.worked(1);
-			monitor.subTask(ProjectSupportResourceHandler.Update_ClassPath__UI_); 
+			localMonitor.worked(1);
+			localMonitor.subTask(ProjectSupportResourceHandler.Update_ClassPath__UI_); 
 			//$NON-NLS-1$ = "Update ClassPath:"
 			// Loop through all the classpath dirs looking for ones that may have
 			// been deleted
@@ -253,13 +253,13 @@ public class WebPropertiesUtil {
 						needsToBeModified = true;
 					}
 				} else {
-					monitor.subTask(ProjectSupportResourceHandler.Catalog_Lib_Directory__UI_ + cp[j].getPath()); 
+					localMonitor.subTask(ProjectSupportResourceHandler.Catalog_Lib_Directory__UI_ + cp[j].getPath()); 
 					//$NON-NLS-1$ = "Catalog Lib Directory:"
 					newClassPathVector.add(cp[j]);
 				}
 			}
-			monitor.worked(1);
-			monitor.subTask(ProjectSupportResourceHandler.Update_ClassPath__UI_); 
+			localMonitor.worked(1);
+			localMonitor.subTask(ProjectSupportResourceHandler.Update_ClassPath__UI_); 
 			//$NON-NLS-1$ = "Update ClassPath:"
 
 			// Add any entries not already found
@@ -274,8 +274,8 @@ public class WebPropertiesUtil {
 				needsToBeModified = true;
 			}
 
-			monitor.worked(1);
-			monitor.subTask(ProjectSupportResourceHandler.Set_ClassPath__UI_); 
+			localMonitor.worked(1);
+			localMonitor.subTask(ProjectSupportResourceHandler.Set_ClassPath__UI_); 
 			//$NON-NLS-1$ = "Set ClassPath:"
 
 			// Tansfer the vector to an array
@@ -289,7 +289,7 @@ public class WebPropertiesUtil {
 			if (needsToBeModified) {
 
 				try {
-					javaProject.setRawClasspath(newClassPathArray, monitor);
+					javaProject.setRawClasspath(newClassPathArray, localMonitor);
 				} catch (Exception e) {
 					Logger.getLogger().log(e);
 				}
@@ -300,7 +300,7 @@ public class WebPropertiesUtil {
 		} catch (CoreException ex) {
 			Logger.getLogger().log(ex);
 		} finally {
-			monitor.done();
+			localMonitor.done();
 		}
 	}
 

@@ -11,8 +11,6 @@
 package org.eclipse.jst.j2ee.commonarchivecore.internal.impl;
 
 
-import static org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage.CONTAINER;
-
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
