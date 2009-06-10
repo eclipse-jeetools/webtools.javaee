@@ -16,7 +16,6 @@ import java.util.Collections;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
@@ -41,7 +40,7 @@ import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
  * Describes a container-managed field. The field element includes an optional description of the field, and the name of the field.
 
  */
-public class CMPAttributeImpl extends EAttributeImpl implements CMPAttribute, EAttribute {
+public class CMPAttributeImpl extends EAttributeImpl implements CMPAttribute {
 
 	/**
 	 * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.

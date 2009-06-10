@@ -370,6 +370,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 				return J2EEVersionConstants.EJB_1_1_ID;
 			if (version.equals("1.0")) //$NON-NLS-1$
 				return J2EEVersionConstants.EJB_1_0_ID;
+			throw new IllegalStateException();
 		}
 		return ejbRes.getModuleVersionID();
 	}

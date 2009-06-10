@@ -268,11 +268,12 @@ private int primGetVersionID() {
 		try {
 			in = afile.getContents();
 			quickPeek = new JavaEEQuickPeek(in);
+			return quickPeek.getVersion();
 		}
 		catch (CoreException e) {
 			J2EECorePlugin.logError(e);
 		}
-	return quickPeek.getVersion();
+	
 	}
 	return getModuleVersionID();
 }

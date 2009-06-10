@@ -351,12 +351,9 @@ public java.util.List getMethodParams() {
 	for (int i = 0; i < v.size(); i++)
 	{
 		tok = new StringTokenizer((String)v.get(i),","); //$NON-NLS-1$
-		if (tok != null)
+		while (tok.hasMoreTokens())
 		{
-			while (tok.hasMoreTokens())
-			{
-				paramsList.add(tok.nextToken());
-			}
+			paramsList.add(tok.nextToken());
 		}
 	}
 	return paramsList;
@@ -416,6 +413,7 @@ public Method[] getMethods() {
 		    	    break;
 		    	}
 		   }
+		//$FALL-THROUGH$
 		case MethodElementKind.UNSPECIFIED :
 			{
 				if (ejb.isMessageDriven())
@@ -430,7 +428,10 @@ public Method[] getMethods() {
 				break;
 			}
 	}
-	return (Method[]) result.toArray(new Method[result.size()]);
+	if(result != null){
+		return (Method[]) result.toArray(new Method[result.size()]);
+	}
+	return null;
 }
 /**
  * Answer a list of all the methods for which this method element applies.  The following rules are used:

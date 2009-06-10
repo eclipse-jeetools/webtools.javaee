@@ -19,7 +19,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
-import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.Entity;
 
 /**
@@ -31,7 +30,7 @@ import org.eclipse.jst.j2ee.ejb.Entity;
  * The other elements that are optional are "optional" in the sense that they are omitted if the lists represented by them are empty. At least one cmp-field element must be present in the descriptor if
  * the entity's persistence-type is Container and the cmp-version is 1.x, and none must not be present if the entity's persistence-type is Bean.
  */
-public class EntityImpl extends EnterpriseBeanImpl implements Entity, EnterpriseBean {
+public class EntityImpl extends EnterpriseBeanImpl implements Entity {
 
 	/**
 	 * The default value of the '{@link #isReentrant() <em>Reentrant</em>}' attribute.
