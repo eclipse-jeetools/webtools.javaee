@@ -213,6 +213,7 @@ public class UIEarValidator extends EarValidator {
 
 		IProject proj = ((IWorkbenchContext) inHelper).getProject();
 		IVirtualComponent earModule = ComponentCore.createComponent(proj);
+		earHelper = (UIEarHelper)inHelper;
             if(J2EEProjectUtilities.isEARProject(proj)){
 				IVirtualFile ddFile = earModule.getRootFolder().getFile(J2EEConstants.APPLICATION_DD_URI);
 				if( ddFile.exists()) {	
@@ -273,7 +274,9 @@ public class UIEarValidator extends EarValidator {
 		for (int i = 0; i < archives.size(); i++) {
 
 			Archive anArchive = (Archive) archives.get(i);
-
+			if(anArchive.getLoadStrategy().isReadOnly()){
+				continue;
+			}
 			IFile target = getManifestFile(anArchive);
 			if (target != null)
 				_reporter.removeMessageSubset(this, target, MANIFEST_GROUP_NAME);
