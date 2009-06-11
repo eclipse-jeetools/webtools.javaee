@@ -14,7 +14,6 @@ Export-Package: org.eclipse.jst.common.jdt.internal.integration.ui;x-internal:=t
  org.eclipse.jst.j2ee.internal.command;x-internal:=true,
  org.eclipse.jst.j2ee.internal.deployables;x-internal:=true,
  org.eclipse.jst.j2ee.internal.dialogs;x-internal:=true,
- org.eclipse.jst.j2ee.internal.ear.actions;x-internal:=true,
  org.eclipse.jst.j2ee.internal.ejb.provider;x-internal:=true,
  org.eclipse.jst.j2ee.internal.listeners;x-internal:=true,
  org.eclipse.jst.j2ee.internal.perspective;x-internal:=true,
