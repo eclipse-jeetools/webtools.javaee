@@ -45,9 +45,6 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
  * Subclass of <code>UpdateDependentProjectOp</code> that updates a dependent
  * module project when one of the referenced projects has been deleted.
  */
-@Deprecated
-//This class is being deprecated in 3.1, and is in plan to be removed
-//in 3.2, since it is not being used.
 public class UpdateDependentModuleonDeleteOp extends UpdateDependentProjectOp {
 	
 	/**
@@ -146,9 +143,9 @@ public class UpdateDependentModuleonDeleteOp extends UpdateDependentProjectOp {
 			ArchiveManifest mf = new ArchiveManifestImpl(new Manifest(in));
 			return mf;
 		} catch (CoreException ce) {
-			throw new ExecutionException(RefactorResourceHandler.getString("error_reading_manifest"), ce);
+			throw new ExecutionException(RefactorResourceHandler.getString("error_reading_manifest"), ce); //$NON-NLS-1$
 		} catch (IOException io) {
-			throw new ExecutionException(RefactorResourceHandler.getString("error_reading_manifest"), io);
+			throw new ExecutionException(RefactorResourceHandler.getString("error_reading_manifest"), io); //$NON-NLS-1$
 		} finally {
 			if (in != null) {
 				try {

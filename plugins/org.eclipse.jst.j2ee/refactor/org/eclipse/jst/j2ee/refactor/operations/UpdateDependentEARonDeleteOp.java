@@ -29,9 +29,6 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
  * Subclass of <code>UpdateDependentProjectOp</code> that updates a dependent
  * EAR project when one of the referenced projects has been deleted.
  */
-@Deprecated
-//This class is being deprecated in 3.1, and is in plan to be removed
-//in 3.2, since it is not being used.
 public class UpdateDependentEARonDeleteOp extends UpdateDependentProjectOp {
 
 	/**
