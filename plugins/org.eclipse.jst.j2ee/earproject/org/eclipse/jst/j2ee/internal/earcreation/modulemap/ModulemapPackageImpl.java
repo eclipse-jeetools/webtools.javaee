@@ -72,7 +72,7 @@ public class ModulemapPackageImpl extends EPackageImpl implements ModulemapPacka
 		EcorePackageImpl.init();
 
 		// Obtain or create and register package and interdependencies
-		ModulemapPackageImpl theModulemapPackage = (ModulemapPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(eNS_URI) instanceof EPackage ? EPackage.Registry.INSTANCE.getEPackage(eNS_URI) : new ModulemapPackageImpl());
+		ModulemapPackageImpl theModulemapPackage = (ModulemapPackageImpl) (EPackage.Registry.INSTANCE.getEPackage(eNS_URI) != null ? EPackage.Registry.INSTANCE.getEPackage(eNS_URI) : new ModulemapPackageImpl());
 
 		// Step 1: create meta-model objects
 		theModulemapPackage.createPackageContents();
