@@ -178,7 +178,7 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 	 * Processes the renaming of a project.
 	 */
 	private void processRename(final ProjectRefactorMetadata originalMetadata, final ProjectRefactorMetadata newMetadata, final IResourceDelta delta) {
-		WorkspaceJob job = new WorkspaceJob("J2EEProjectRenameJob") {
+		WorkspaceJob job = new WorkspaceJob(RefactorMessages.ProjectRefactoringListener_J2EE_Project_Rename_) {
 			@Override
 			public IStatus runInWorkspace(IProgressMonitor monitor) throws CoreException {
 				final IDataModel dataModel = DataModelFactory.createDataModel(new ProjectRenameDataModelProvider());

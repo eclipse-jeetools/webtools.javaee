@@ -144,7 +144,7 @@ public class J2EEElementChangedListener implements IElementChangedListener {
 	private void updateMappingsInJob(final List pathsToAdd, final List pathsToRemove) {
 		// If there are corrections to the virtual path mappings, execute them in a Job
 		if (!pathsToAdd.isEmpty() || !pathsToRemove.isEmpty()) {
-			WorkspaceJob job = new WorkspaceJob("J2EEComponentMappingUpdateJob") {							
+			WorkspaceJob job = new WorkspaceJob(RefactorMessages.J2EEElementChangedListener_J2EE_Component_Mapping_Update_) {							
 				@Override
 				public IStatus runInWorkspace(IProgressMonitor monitor) throws CoreException {
 					for(int i=0;i<pathsToAdd.size(); i++){
@@ -259,22 +259,24 @@ public class J2EEElementChangedListener implements IElementChangedListener {
 	 * Processes a single IResourceDelta.
 	 */
 	private void processResourceDelta(final IResourceDelta delta, IVirtualFolder rootFolder, Map sourceToRuntime, final List pathsToAdd, final List pathsToRemove, final List changedJavaPaths) throws CoreException {
+		IVirtualFolder localRootFolder = rootFolder;
+		Map localSourceToRuntime = sourceToRuntime;
 		final int kind = delta.getKind();
 		if (kind == IResourceDelta.CHANGED) {
 			IResourceDelta[] childDeltas = delta.getAffectedChildren();
 			for (int i = 0; i < childDeltas.length; i++) {
-				processResourceDelta(childDeltas[i], rootFolder, sourceToRuntime, pathsToAdd, pathsToRemove, changedJavaPaths);
+				processResourceDelta(childDeltas[i], localRootFolder, localSourceToRuntime, pathsToAdd, pathsToRemove, changedJavaPaths);
 			}
 		} else {
 			final int flags = delta.getFlags();
 			if ((flags & IResourceDelta.MOVED_FROM) == IResourceDelta.MOVED_FROM) {
-				if (rootFolder == null) {
+				if (localRootFolder == null) {
 					final IProject project = delta.getResource().getProject();
 					// make certain this is a J2EE project
 					if (ModuleCoreNature.getModuleCoreNature(project) != null) {
 						IVirtualComponent c = ComponentCore.createComponent(project);
-						rootFolder = c.getRootFolder();
-						sourceToRuntime = getResourceMappings(project);
+						localRootFolder = c.getRootFolder();
+						localSourceToRuntime = getResourceMappings(project);
 					} else {
 						// not a J2EE project
 						return;
@@ -286,10 +288,10 @@ public class J2EEElementChangedListener implements IElementChangedListener {
 					return;
 				}
 				final IPath movedTo = delta.getFullPath().removeFirstSegments(1);
-				final IPath runtimePath = (IPath) sourceToRuntime.get(movedFrom);
+				final IPath runtimePath = (IPath) localSourceToRuntime.get(movedFrom);
 				// does the old path have a virtual component mapping?
 				if (runtimePath != null) {
-					final IVirtualFolder folder = rootFolder.getFolder(runtimePath);
+					final IVirtualFolder folder = localRootFolder.getFolder(runtimePath);
 					// only add if the project relative paths are not equal (these can be equal when the root folder is mapped and the project is renamed)
 					if (!movedFrom.equals(movedTo)) {
 						pathsToRemove.add(new Object[]{movedFrom, folder});
