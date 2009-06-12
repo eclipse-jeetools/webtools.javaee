@@ -73,6 +73,8 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.archive.ArchiveMessages;
 
 public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 
@@ -156,6 +158,9 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 				while (it.hasNext()) {
 					sourceFileUri = (String) it.next();
 					zipFile = (ZipFile) fileURIMap.get(sourceFileUri);
+				}
+				if(zipFile == null){
+					throw new FileNotFoundException(uri);
 				}
 				ZipEntry entry = zipFile.getEntry(sourceFileUri);
 				InputStream in = zipFile.getInputStream(entry);
@@ -595,10 +600,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 			if (res.getURI().toString().endsWith(IModuleConstants.COMPONENT_FILE_NAME) && res.getURI().segmentsList().contains(IModuleConstants.DOT_SETTINGS))
 				resourcesToRemove.add(res);
 		}
-		if (null != resourcesToRemove) {
-			resources.removeAll(resourcesToRemove);
-		}
-
+		resources.removeAll(resourcesToRemove);
 		return resources;
 	}
 
@@ -670,8 +672,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 	@Override
 	public void close() {
 		if(Thread.currentThread().toString().toLowerCase().indexOf("finalizer") != -1){ //$NON-NLS-1$
-			System.err.println("Opener of Archive didn't close! "+this);
-			exception.printStackTrace(System.err);
+			J2EEPlugin.logError(ArchiveMessages.ComponentLoadStrategyImpl_Opener_of_Archive_did_not_close_it_, exception);
 		}
 		
 		try{

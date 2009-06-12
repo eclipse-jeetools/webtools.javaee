@@ -84,6 +84,7 @@ import org.eclipse.wst.validation.internal.plugin.ValidationPlugin;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import java.lang.Throwable;
+import org.eclipse.core.runtime.MultiStatus;
 
 /**
  * This is a top-level class of the j2ee plugin.
@@ -701,6 +702,15 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 
 	public static void logError(String message) {
 		Platform.getLog(Platform.getBundle(PLUGIN_ID)).log( createStatus(IStatus.ERROR, message));
+	}
+
+	public static void logError(String message, Throwable exception) {
+		Platform.getLog(Platform.getBundle(PLUGIN_ID)).log( createStatus(IStatus.ERROR, message, exception));
+	}
+
+	public static void logError(String message, CoreException exception) {
+		MultiStatus status = new MultiStatus(PLUGIN_ID,IStatus.ERROR,new IStatus[]{exception.getStatus()},message,exception);
+		Platform.getLog(Platform.getBundle(PLUGIN_ID)).log( status );
 	} 
 
 }

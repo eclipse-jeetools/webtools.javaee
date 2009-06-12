@@ -25,6 +25,8 @@ import org.eclipse.jst.j2ee.project.facet.J2EEFacetInstallDataModelProvider;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
+import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
+import org.eclipse.osgi.util.NLS;
 
 public class EarFacetInstallDataModelProvider extends J2EEFacetInstallDataModelProvider implements IEarFacetInstallDataModelProperties {
 
@@ -73,7 +75,7 @@ public class EarFacetInstallDataModelProvider extends J2EEFacetInstallDataModelP
 			if (comp == null) return OK_STATUS; //Not a faceted project, so version not relevant
 			int compVersion = J2EEVersionUtil.convertVersionStringToInt(comp);
 			if (earVersion < compVersion) {
-				String errorStatus = "The Module specification level of " + handle.getName() + ", is incompatible with the containing EAR version"; //$NON-NLS-1$
+				String errorStatus = NLS.bind(ProjectSupportResourceHandler.EarFacetInstallDataModelProvider_The_Module_specification_level_of_, handle.getName());
 				return J2EEPlugin.newErrorStatus(errorStatus, null);
 			}
 		}
