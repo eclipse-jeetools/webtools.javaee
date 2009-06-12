@@ -188,7 +188,7 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 				try {
 					dataModel.getDefaultOperation().execute(monitor, null);
 				} catch (Exception e) {
-					final String msg = RefactorResourceHandler.getString("error_updating_project_on_rename", new Object[]{originalMetadata.getProjectName()});
+					final String msg = RefactorResourceHandler.getString("error_updating_project_on_rename", new Object[]{originalMetadata.getProjectName()}); //$NON-NLS-1$
 					J2EEPlugin.logError(msg);
 					J2EEPlugin.logError(e);
 					return new Status(Status.ERROR, J2EEPlugin.PLUGIN_ID, 0, msg, e);

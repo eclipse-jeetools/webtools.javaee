@@ -133,7 +133,7 @@ public abstract class J2EEComponentSaveStrategyImpl extends ComponentSaveStrateg
 	}
 
 	protected IPath getImportedClassesRuntimePath() {
-		return new Path("/");
+		return new Path("/"); //$NON-NLS-1$
 	}
 
 	@Override
