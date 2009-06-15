@@ -510,9 +510,6 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 		//Have to do the next line immediately to fix timing problems with factory registration
 		ArchiveInit.init(false);
 			
-		//ModuleMaps are the maps from modules in an ear project to the j2ee projects for the
-		// modules
-		org.eclipse.jst.j2ee.internal.earcreation.modulemap.ModulemapInit.init(false);
 		ensureFactoryRegistration();
 		ValidatorManager.setResourceUtilClass(ResourceUtil.class);
 		IAdapterManager manager = Platform.getAdapterManager();

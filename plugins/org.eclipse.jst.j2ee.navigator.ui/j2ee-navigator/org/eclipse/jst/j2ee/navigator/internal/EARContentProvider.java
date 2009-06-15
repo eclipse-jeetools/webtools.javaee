@@ -13,7 +13,6 @@ package org.eclipse.jst.j2ee.navigator.internal;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.common.CommonPackage;
-import org.eclipse.jst.j2ee.internal.earcreation.modulemap.ModulemapPackage;
 
 /**
  * This class handles the EAR navigator content to the project explorer
@@ -45,7 +44,7 @@ public class EARContentProvider extends J2EEContentProvider {
 			EObject eObject = (EObject)aParentElement;
 			String emfPackage = eObject.eClass().getEPackage().getNsURI();
 			if (!emfPackage.equals(ApplicationPackage.eNS_URI)&&
-					!emfPackage.equals(CommonPackage.eNS_URI)&&!emfPackage.equals(ModulemapPackage.eNS_URI))
+					!emfPackage.equals(CommonPackage.eNS_URI))
 				return new Object[]{};
 		}
 		return super.getChildren(aParentElement);

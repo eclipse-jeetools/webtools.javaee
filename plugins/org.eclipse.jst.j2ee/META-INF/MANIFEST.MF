@@ -31,7 +31,6 @@ Export-Package: org.eclipse.jst.j2ee.application.internal.operations;x-internal:
  org.eclipse.jst.j2ee.internal.deploy;x-internal:=true,
  org.eclipse.jst.j2ee.internal.deployables;x-internal:=true,
  org.eclipse.jst.j2ee.internal.earcreation;x-internal:=true,
- org.eclipse.jst.j2ee.internal.earcreation.modulemap;x-internal:=true,
  org.eclipse.jst.j2ee.internal.modulecore.util;x-internal:=true,
  org.eclipse.jst.j2ee.internal.moduleextension;x-internal:=true,
  org.eclipse.jst.j2ee.internal.plugin;x-internal:=true,
