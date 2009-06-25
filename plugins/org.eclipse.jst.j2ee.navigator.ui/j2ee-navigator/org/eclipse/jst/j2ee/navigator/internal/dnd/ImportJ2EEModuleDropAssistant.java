@@ -33,6 +33,7 @@ import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelPr
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBComponentImportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentImportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.navigator.ui.Messages;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentImportDataModelProvider;
 import org.eclipse.jst.j2ee.navigator.internal.plugin.J2EENavigatorPlugin;
 import org.eclipse.osgi.util.NLS;
@@ -97,13 +98,13 @@ public class ImportJ2EEModuleDropAssistant extends AddProjectToEARDropAssistant 
 									filename = calculateValidProjectName(filename);
 								}
 								String extension = names[i].substring(dotIndex);
-								if(IModuleExtensions.DOT_WAR.equals(extension)) {
+								if(IJ2EEModuleConstants.WAR_EXT.equals(extension)) {
 									importDataModel = DataModelFactory.createDataModel(new WebComponentImportDataModelProvider());
-								} else if(IModuleExtensions.DOT_RAR.equals(extension)) {
+								} else if(IJ2EEModuleConstants.RAR_EXT.equals(extension)) {
 									importDataModel = DataModelFactory.createDataModel(new ConnectorComponentImportDataModelProvider());
-								} else if(IModuleExtensions.DOT_EAR.equals(extension)) {
+								} else if(IJ2EEModuleConstants.EAR_EXT.equals(extension)) {
 									importDataModel = DataModelFactory.createDataModel(new EARComponentImportDataModelProvider());
-								} else if(IModuleExtensions.DOT_JAR.equals(extension)) {  									
+								} else if(IJ2EEModuleConstants.JAR_EXT.equals(extension)) {  									
 									Archive archive = null;
 									try {
 										archive = CommonarchiveFactory.eINSTANCE.openArchive(names[i]);

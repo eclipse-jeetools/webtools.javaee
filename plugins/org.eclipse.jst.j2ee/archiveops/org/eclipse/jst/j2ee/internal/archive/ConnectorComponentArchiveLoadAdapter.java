@@ -35,6 +35,7 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.jee.archive.ArchiveOpenFailureException;
 import org.eclipse.jst.jee.archive.ArchiveOptions;
@@ -54,7 +55,7 @@ public class ConnectorComponentArchiveLoadAdapter extends ComponentArchiveLoadAd
 
 	private IFile knownDD;
 
-	public static String[] knownLibExtensions = { ".jar", //$NON-NLS-1$
+	public static String[] knownLibExtensions = { IJ2EEModuleConstants.JAR_EXT,
 			".zip", //$NON-NLS-1$
 			".so", //$NON-NLS-1$
 			".o", //$NON-NLS-1$
@@ -207,7 +208,7 @@ public class ConnectorComponentArchiveLoadAdapter extends ComponentArchiveLoadAd
 			sb.append(name);
 			if (increment > 0)
 				sb.append(increment);
-			sb.append(".jar"); //$NON-NLS-1$
+			sb.append(IJ2EEModuleConstants.JAR_EXT);
 			increment++;
 		} while (filesHolder.contains(new Path(sb.toString())));
 		return sb.toString();

@@ -28,6 +28,7 @@ import org.eclipse.jst.j2ee.internal.archive.ComponentArchiveSaveAdapter;
 import org.eclipse.jst.j2ee.internal.archive.ConnectorComponentArchiveSaveAdapter;
 import org.eclipse.jst.j2ee.internal.archive.operations.ConnectorComponentSaveStrategyImpl;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEArtifactImportOperation;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.jst.jee.archive.IArchiveResource;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -35,8 +36,6 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class ConnectorComponentImportOperation extends J2EEArtifactImportOperation {
-
-	private static final String JAR_EXTENSION = ".jar"; //$NON-NLS-1$
 
 	public ConnectorComponentImportOperation(IDataModel model) {
 		super(model);
@@ -58,7 +57,7 @@ public class ConnectorComponentImportOperation extends J2EEArtifactImportOperati
 		IVirtualFile vFile = null;
 		IFile file = null;
 		for(IArchiveResource archiveResource : archiveResources){
-			if(archiveResource.getPath().lastSegment().endsWith(JAR_EXTENSION)){
+			if(archiveResource.getPath().lastSegment().endsWith(IJ2EEModuleConstants.JAR_EXT)){
 				vFile = virtualComponent.getRootFolder().getFile(archiveResource.getPath());
 				if (vFile.exists()) {
 					file = vFile.getUnderlyingFile();

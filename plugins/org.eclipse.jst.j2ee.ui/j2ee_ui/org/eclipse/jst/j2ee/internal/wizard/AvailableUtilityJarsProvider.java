@@ -26,6 +26,7 @@ import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEUtilityJarListImportDataModelProperties;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -82,7 +83,7 @@ public class AvailableUtilityJarsProvider implements IStructuredContentProvider,
 					return new File[0];
 
 				for (int i = 0; i < availableFiles.length; i++)
-					if (availableFiles[i] != null && availableFiles[i].getName().endsWith(".jar"))collectedJars.add(availableFiles[i]); //$NON-NLS-1$
+					if (availableFiles[i] != null && availableFiles[i].getName().endsWith(IJ2EEModuleConstants.JAR_EXT))collectedJars.add(availableFiles[i]);
 			}
 		}
 		return collectedJars.toArray();

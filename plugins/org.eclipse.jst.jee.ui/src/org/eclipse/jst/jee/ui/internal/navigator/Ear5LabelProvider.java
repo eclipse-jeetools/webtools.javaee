@@ -7,6 +7,7 @@
  *
  * Contributors:
  *     SAP AG - initial API and implementation
+ *     IBM - bug 281382 clean up
  ***********************************************************************/
 package org.eclipse.jst.jee.ui.internal.navigator;
 
@@ -14,11 +15,11 @@ import java.net.URL;
 
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.navigator.internal.J2EELabelProvider;
 import org.eclipse.jst.j2ee.navigator.internal.plugin.J2EENavigatorPlugin;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
-import org.eclipse.jst.jee.ui.internal.navigator.dnd.IModuleExtensions;
 import org.eclipse.jst.jee.ui.internal.navigator.ear.AbstractEarNode;
 import org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider;
 import org.eclipse.jst.jee.ui.plugin.JEEUIPlugin;
@@ -101,29 +102,29 @@ public class Ear5LabelProvider extends J2EELabelProvider {
 
 			if (JavaEEProjectUtilities.isDynamicWebComponent(component)) {
 				if (!component.isBinary()) {
-					ret = "Web " + component.getName() + IModuleExtensions.DOT_WAR; //$NON-NLS-1$
+					ret = "Web " + component.getName() + IJ2EEModuleConstants.WAR_EXT; //$NON-NLS-1$
 				} else {
 					Path path = new Path(component.getDeployedName());
 					return path.lastSegment();
 				}
 			} else if (JavaEEProjectUtilities.isEJBComponent(component)) {
 				if (!component.isBinary()) {
-					ret = "EJB " + component.getName() + IModuleExtensions.DOT_JAR; //$NON-NLS-1$
+					ret = "EJB " + component.getName() + IJ2EEModuleConstants.JAR_EXT; //$NON-NLS-1$
 				} else {
 					Path path = new Path(component.getDeployedName());
 					return path.lastSegment();
 				}
 			} else if (JavaEEProjectUtilities.isApplicationClientComponent(component)){
 				if (!component.isBinary()) {
-					ret = "APP Client " + component.getName() + IModuleExtensions.DOT_JAR; //$NON-NLS-1$
+					ret = "APP Client " + component.getName() + IJ2EEModuleConstants.JAR_EXT; //$NON-NLS-1$
 				} else {
 					Path path = new Path(component.getDeployedName());
 					return path.lastSegment();
 				}
 			} else if (JavaEEProjectUtilities.isJCAProject(component.getProject())) {
-				ret = "Connector " + component.getName() + IModuleExtensions.DOT_JAR; //$NON-NLS-1$
+				ret = "Connector " + component.getName() + IJ2EEModuleConstants.JAR_EXT; //$NON-NLS-1$
 			} else if (JavaEEProjectUtilities.isUtilityProject(component.getProject())) {
-				ret = component.getName() + IModuleExtensions.DOT_JAR;
+				ret = component.getName() + IJ2EEModuleConstants.JAR_EXT;
 			} else if (component.isBinary()) {
 				VirtualArchiveComponent virtualArchiveComponent = (VirtualArchiveComponent)component;
 				String deployedName = virtualArchiveComponent.getDeployedName();

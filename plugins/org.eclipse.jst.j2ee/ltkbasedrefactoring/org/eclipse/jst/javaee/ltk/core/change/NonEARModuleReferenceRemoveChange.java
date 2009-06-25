@@ -30,6 +30,7 @@ import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataMo
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.CreationConstants;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IModelProvider;
@@ -201,8 +202,8 @@ public class NonEARModuleReferenceRemoveChange extends Change {
 			final ArchiveManifest manifest = J2EEProjectUtilities.readManifest(manifestmf);
 			String[] cp = manifest.getClassPathTokenized();
 			List cpList = new ArrayList();
-			String newjarCp = refactoredProjName + ".jar";//$NON-NLS-1$
-			String newrarCp = refactoredProjName + ".rar";//$NON-NLS-1$
+			String newjarCp = refactoredProjName + IJ2EEModuleConstants.JAR_EXT;
+			String newrarCp = refactoredProjName + IJ2EEModuleConstants.RAR_EXT;
 			for (int i = 0; i < cp.length; i++) {
 				if (!cp[i].equals(newjarCp) && !cp[i].equals(newrarCp)) {
 					cpList.add(cp[i]);

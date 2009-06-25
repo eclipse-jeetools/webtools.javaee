@@ -73,6 +73,7 @@ import org.eclipse.jst.j2ee.internal.common.ClasspathModelListener;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.listeners.IValidateEditListener;
 import org.eclipse.jst.j2ee.internal.listeners.ValidateEditListener;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
@@ -610,7 +611,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 				while (wlpIterator.hasNext()) {
 					ClasspathElement wlpElement = (ClasspathElement) wlpIterator.next();
 					String text = element.getText();
-					int index = text.indexOf(".jar"); //$NON-NLS-1$
+					int index = text.indexOf(IJ2EEModuleConstants.JAR_EXT);
 					if (index != -1) {
 						text = text.substring(0, index);
 						if (text.equals(wlpElement.getText())) {
@@ -648,7 +649,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 				while (j2eeIterator.hasNext()) {
 					ClasspathElement j2eeElement = (ClasspathElement) j2eeIterator.next();
 					String text = j2eeElement.getText();
-					int index = text.indexOf(".jar"); //$NON-NLS-1$
+					int index = text.indexOf(IJ2EEModuleConstants.JAR_EXT);
 					if( index != -1 ){
 						text = text.substring(0, index);
 						if (element.getText().equals(text)) {
@@ -1083,7 +1084,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 		updateManifestDataModel.setProperty(UpdateManifestDataModelProperties.MANIFEST_FILE, manifestmf);
 		String[] cp = mf.getClassPathTokenized();
 		List cpList = new ArrayList();
-		String cpToRemove = targetProjName + ".jar";//$NON-NLS-1$
+		String cpToRemove = targetProjName + IJ2EEModuleConstants.JAR_EXT;
 		for (int i = 0; i < cp.length; i++) {
 			if (!cp[i].equals(cpToRemove)) {
 				cpList.add(cp[i]);

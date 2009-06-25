@@ -42,7 +42,6 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.common.jdt.internal.classpath.FlexibleProjectContainer;
-import org.eclipse.jst.j2ee.application.internal.operations.IModuleExtensions;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
@@ -495,7 +494,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 				if (null == manifestFile || resource.equals(manifestFile)) {
 					queueUpdateModule(resource.getProject());
 				}
-			} else if (endsWithIgnoreCase(name, IModuleExtensions.DOT_JAR)) {
+			} else if (endsWithIgnoreCase(name, IJ2EEModuleConstants.JAR_EXT)) {
 				try {
 					if (FacetedProjectFramework.hasProjectFacet(resource.getProject(), J2EEProjectUtilities.ENTERPRISE_APPLICATION)) {
 						IVirtualComponent comp = ComponentCore.createComponent(resource.getProject());

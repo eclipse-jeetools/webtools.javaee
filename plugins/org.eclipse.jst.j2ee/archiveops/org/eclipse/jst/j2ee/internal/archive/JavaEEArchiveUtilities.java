@@ -34,6 +34,7 @@ import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.componentcore.JavaEEBinaryComponentLoadAdapter;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
@@ -303,12 +304,6 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 		return refineForJavaEE(simpleArchive);
 	}
 
-	private static final String DOT_EAR = ".ear";//$NON-NLS-1$
-
-	private static final String DOT_WAR = ".war";//$NON-NLS-1$
-
-	private static final String DOT_JAR = ".jar";//$NON-NLS-1$
-
 	private IArchive refineForJavaEE(final IArchive simpleArchive) {
 		//Check to see if this archive is actually being opened as a nested archive from within an EAR
 		//if it is then the EAR's DD needs to be checked to see exactly what type of archive this is.
@@ -453,17 +448,17 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 
 		if (archivePath != null) {
 			String lastSegment = archivePath.lastSegment().toLowerCase();
-			if (lastSegment.endsWith(DOT_EAR)) {
+			if (lastSegment.endsWith(IJ2EEModuleConstants.EAR_EXT)) {
 				JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(JavaEEQuickPeek.APPLICATION_TYPE, JavaEEQuickPeek.JEE_5_0_ID, JavaEEQuickPeek.JEE_5_0_ID);
 				archiveToJavaEEQuickPeek.put(simpleArchive, quickPeek);
 				wrapArchive(simpleArchive, new Path(J2EEConstants.APPLICATION_DD_URI));
 				return simpleArchive;
-			} else if (lastSegment.endsWith(DOT_WAR)) {
+			} else if (lastSegment.endsWith(IJ2EEModuleConstants.WAR_EXT)) {
 				JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(JavaEEQuickPeek.WEB_TYPE, JavaEEQuickPeek.WEB_2_5_ID, JavaEEQuickPeek.JEE_5_0_ID);
 				archiveToJavaEEQuickPeek.put(simpleArchive, quickPeek);
 				wrapArchive(simpleArchive, new Path(J2EEConstants.WEBAPP_DD_URI));
 				return simpleArchive;
-			} else if (lastSegment.endsWith(DOT_JAR)) {
+			} else if (lastSegment.endsWith(IJ2EEModuleConstants.JAR_EXT)) {
 				IPath manifestPath = new Path(J2EEConstants.MANIFEST_URI);
 				if (simpleArchive.containsArchiveResource(manifestPath)) {
 					InputStream in = null;

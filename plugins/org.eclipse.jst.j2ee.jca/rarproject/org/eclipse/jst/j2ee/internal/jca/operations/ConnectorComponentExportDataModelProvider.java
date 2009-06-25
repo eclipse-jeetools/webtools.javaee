@@ -13,6 +13,7 @@ package org.eclipse.jst.j2ee.internal.jca.operations;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentExportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.jca.archive.operations.ConnectorComponentExportOperation;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
@@ -39,7 +40,7 @@ public class ConnectorComponentExportDataModelProvider extends J2EEComponentExpo
 
     @Override
 	protected String getModuleExtension() {
-        return ".rar"; //$NON-NLS-1$
+        return IJ2EEModuleConstants.RAR_EXT;
     }
     /**
      * Exports the specified Connector Module project to the specified Connector RAR file.

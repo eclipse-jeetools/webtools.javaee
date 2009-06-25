@@ -20,6 +20,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.internal.archive.operations.ComponentLoadStrategyImpl;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
 import org.eclipse.jst.j2ee.project.WebUtilities;
@@ -73,7 +74,7 @@ public class WebComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 				if (archiveName != null && archiveName.length() > 0) {
 					name = archiveName;
 				} else {
-					name = looseComponent.getName() + ".jar"; //$NON-NLS-1$
+					name = looseComponent.getName() + IJ2EEModuleConstants.JAR_EXT;
 				}
 				String prefix = iLibModule.getRuntimePath().makeRelative().toString();
 				if (prefix.length() > 0 && prefix.charAt(prefix.length() - 1)!= '/') {

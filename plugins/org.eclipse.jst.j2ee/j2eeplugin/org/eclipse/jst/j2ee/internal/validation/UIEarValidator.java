@@ -61,6 +61,7 @@ import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.internal.validation.EARValidationMessageResourceHandler;
 import org.eclipse.jst.j2ee.model.internal.validation.EarValidator;
@@ -704,13 +705,13 @@ public class UIEarValidator extends EarValidator {
 	protected void validateModuleURIExtension(Module module) {
 		String newUri = module.getUri();
 		if (newUri != null && newUri.length() > 0) {
-			if (module instanceof EjbModule && !newUri.endsWith(".jar")) { //$NON-NLS-1$
+			if (module instanceof EjbModule && !newUri.endsWith(IJ2EEModuleConstants.JAR_EXT)) {
 				String[] params = new String[1];
 				params[0] = module.getUri();
 				IResource target = earHelper.getProject().getFile(ArchiveConstants.APPLICATION_DD_URI);
 				String tmp = NLS.bind(EARValidationMessageResourceHandler.INVALID_URI_FOR_MODULE_ERROR_, params);
 				addLocalizedWarning(tmp, target);
-			} else if (module instanceof WebModule && !newUri.endsWith(".war")) { //$NON-NLS-1$
+			} else if (module instanceof WebModule && !newUri.endsWith(IJ2EEModuleConstants.WAR_EXT)) {
 				String[] params = new String[1];
 				params[0] = module.getUri();
 				IResource target = earHelper.getProject().getFile(ArchiveConstants.APPLICATION_DD_URI);

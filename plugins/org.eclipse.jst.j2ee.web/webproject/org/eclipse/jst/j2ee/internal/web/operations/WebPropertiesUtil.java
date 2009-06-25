@@ -35,6 +35,7 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -220,7 +221,7 @@ public class WebPropertiesUtil {
 				// monitor.setTaskName(ResourceHandler.getString("Catalog_Lib_Directory__UI_") +
 				// child); //$NON-NLS-1$ = "Catalog Lib Directory:"
 				// Make sure it is a zip or a jar file
-				if (child.getType() == IResource.FILE && (child.getFullPath().toString().toLowerCase().endsWith(".jar") //$NON-NLS-1$
+				if (child.getType() == IResource.FILE && (child.getFullPath().toString().toLowerCase().endsWith(IJ2EEModuleConstants.JAR_EXT)
 							|| child.getFullPath().toString().toLowerCase().endsWith(".zip"))) { //$NON-NLS-1$
 					lib_jars.put(child.getFullPath(), child);
 				}

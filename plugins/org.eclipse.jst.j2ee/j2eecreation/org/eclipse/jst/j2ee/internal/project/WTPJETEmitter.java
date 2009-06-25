@@ -67,6 +67,7 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
 import org.eclipse.osgi.util.ManifestElement;
@@ -472,7 +473,7 @@ public class WTPJETEmitter extends JETEmitter {
 		IPath runtimeLibFullPath = null;
 		URL fullurl = null;
 		if (elements == null) {
-			if (bundle.getLocation().endsWith(".jar")) //$NON-NLS-1$
+			if (bundle.getLocation().endsWith(IJ2EEModuleConstants.JAR_EXT))
 				try {
 					runtimeLibFullPath = getJarredPluginPath(bundle);
 				} catch (IOException e) {
@@ -494,7 +495,7 @@ public class WTPJETEmitter extends JETEmitter {
 				Logger.getLogger().logError(e);
 			}
 			//TODO handle jar'ed plugins, this is a hack for now, need to find proper bundle API
-			if (bundle.getLocation().endsWith(".jar")) //$NON-NLS-1$
+			if (bundle.getLocation().endsWith(IJ2EEModuleConstants.JAR_EXT))
 				try {
 					runtimeLibFullPath = getJarredPluginPath(bundle);
 				} catch (IOException e) {

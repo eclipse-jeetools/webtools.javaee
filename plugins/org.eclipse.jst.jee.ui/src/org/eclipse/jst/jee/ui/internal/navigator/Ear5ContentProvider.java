@@ -27,6 +27,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.componentcore.util.EARVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.javaee.application.Application;
@@ -194,7 +195,7 @@ public class Ear5ContentProvider extends JEE5ContentProvider {
 			if (affectedChildren != null){
 				for (int i = 0; i < affectedChildren.length; i++) {
 					if (affectedChildren[i].getResource() != null && affectedChildren[i].getResource().getName() != null
-							&& affectedChildren[i].getResource().getName().toLowerCase().endsWith(".jar")){ //$NON-NLS-1$
+							&& affectedChildren[i].getResource().getName().toLowerCase().endsWith(IJ2EEModuleConstants.JAR_EXT)){
 						projects.add(affectedChildren[i].getResource().getProject());
 					}
 				}

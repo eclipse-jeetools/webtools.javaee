@@ -22,6 +22,7 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider;
 import org.eclipse.jst.common.project.facet.JavaFacetUtils;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.datamodel.FacetProjectCreationDataModelProvider;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
@@ -60,7 +61,7 @@ public class JavaProjectMigrationOperation extends AbstractDataModelOperation im
 			udm.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, model.getStringProperty(PROJECT_NAME));
 			udm.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, "1.0"); //$NON-NLS-1$
             udm.setProperty(IJ2EEModuleFacetInstallDataModelProperties.MODULE_URI,
-                    model.getStringProperty(PROJECT_NAME) + ".jar"); //$NON-NLS-1$
+                    model.getStringProperty(PROJECT_NAME) + IJ2EEModuleConstants.JAR_EXT);
             // we do not want to add to ear by default
             udm.setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR, false);
 		} catch (Exception e) {

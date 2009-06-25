@@ -45,6 +45,7 @@ import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleManager;
 import org.eclipse.jst.j2ee.internal.moduleextension.EjbModuleExtension;
 import org.eclipse.jst.j2ee.internal.moduleextension.JcaModuleExtension;
 import org.eclipse.jst.j2ee.internal.moduleextension.WebModuleExtension;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.EARFacetProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
@@ -694,7 +695,7 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 		List utilJars = new ArrayList();
 		for (int i = 0; i < files.size(); i++) {
 			org.eclipse.jst.j2ee.commonarchivecore.internal.impl.FileImpl file = (org.eclipse.jst.j2ee.commonarchivecore.internal.impl.FileImpl) files.get(i);
-			if (file.isArchive() && !file.isModuleFile() && file.getURI().endsWith(".jar")) { //$NON-NLS-1$
+			if (file.isArchive() && !file.isModuleFile() && file.getURI().endsWith(IJ2EEModuleConstants.JAR_EXT)) {
 				utilJars.add(file);
 			}
 			if (file.isWARFile()) {

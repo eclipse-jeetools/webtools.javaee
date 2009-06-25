@@ -24,6 +24,7 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.internal.plugin.JavaProjectInfo;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.wst.server.core.IRuntime;
 
 /**
@@ -243,7 +244,7 @@ public class J2EEJavaProjectInfo extends JavaProjectInfo {
 	 * @return java.lang.String
 	 */
 	public java.lang.String getDefaultUri() {
-		return projectName.replace(' ', '_') + ".jar"; //$NON-NLS-1$
+		return projectName.replace(' ', '_') + IJ2EEModuleConstants.JAR_EXT;
 	}
 
 	/**

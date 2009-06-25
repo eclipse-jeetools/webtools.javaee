@@ -38,10 +38,12 @@ import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterp
 import org.eclipse.jst.j2ee.application.internal.operations.IAddComponentToEnterpriseApplicationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.navigator.ui.Messages;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.provider.J2EEItemProvider;
 import org.eclipse.jst.j2ee.navigator.internal.plugin.J2EENavigatorPlugin;
 import org.eclipse.jst.j2ee.project.EarUtilities;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.EARFacetUtils;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.dnd.DropTargetEvent;
@@ -251,13 +253,13 @@ public class AddProjectToEARDropAssistant extends CommonDropAdapterAssistant {
 			String verStr = J2EEProjectUtilities.getJ2EEProjectVersion(projectToAdd);
 			if (verStr != null) {
 				int version;
-				if (J2EEProjectUtilities.isApplicationClientProject(projectToAdd))
+				if (JavaEEProjectUtilities.isApplicationClientProject(projectToAdd))
 					version = J2EEVersionUtil.convertAppClientVersionStringToJ2EEVersionID(verStr);
-				else if (J2EEProjectUtilities.isEJBProject(projectToAdd))
+				else if (JavaEEProjectUtilities.isEJBProject(projectToAdd))
 					version = J2EEVersionUtil.convertEJBVersionStringToJ2EEVersionID(verStr);
-				else if (J2EEProjectUtilities.isDynamicWebProject(projectToAdd))
+				else if (JavaEEProjectUtilities.isDynamicWebProject(projectToAdd))
 					version = J2EEVersionUtil.convertWebVersionStringToJ2EEVersionID(verStr);
-				else if (J2EEProjectUtilities.isJCAProject(projectToAdd))
+				else if (JavaEEProjectUtilities.isJCAProject(projectToAdd))
 					version = J2EEVersionUtil.convertConnectorVersionStringToJ2EEVersionID(verStr);
 				else 
 					version = J2EEVersionUtil.convertVersionStringToInt(verStr);
@@ -299,14 +301,14 @@ public class AddProjectToEARDropAssistant extends CommonDropAdapterAssistant {
 		IProject project = component.getProject();
 		String name = component.getName();
 
-		if (J2EEProjectUtilities.isDynamicWebProject(project)) {
-			name += IModuleExtensions.DOT_WAR;
-		} else if (J2EEProjectUtilities.isEARProject(project)) {
-			name += IModuleExtensions.DOT_EAR;
-		} else if (J2EEProjectUtilities.isJCAProject(project)) {
-			name += IModuleExtensions.DOT_RAR;
+		if (JavaEEProjectUtilities.isDynamicWebProject(project)) {
+			name += IJ2EEModuleConstants.WAR_EXT;
+		} else if (JavaEEProjectUtilities.isEARProject(project)) {
+			name += IJ2EEModuleConstants.EAR_EXT;
+		} else if (JavaEEProjectUtilities.isJCAProject(project)) {
+			name += IJ2EEModuleConstants.RAR_EXT;
 		} else {
-			name += IModuleExtensions.DOT_JAR;
+			name += IJ2EEModuleConstants.JAR_EXT;
 		}
 		return name;
 	}

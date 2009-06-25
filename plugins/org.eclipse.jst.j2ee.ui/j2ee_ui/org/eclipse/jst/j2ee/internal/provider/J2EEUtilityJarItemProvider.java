@@ -30,6 +30,7 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -133,7 +134,7 @@ public class J2EEUtilityJarItemProvider extends J2EEItemProvider {
 						if (project == null)
 							continue;
 						// we will assume the component name is in synch with the module uri
-						IFile utilityJar = project.getFile(module.getName() + ".jar"); //$NON-NLS-1$
+						IFile utilityJar = project.getFile(module.getName() + IJ2EEModuleConstants.JAR_EXT);
 						if (utilityJar != null) {
 							if (utilityJar.exists())
 								children.add(utilityJar);
@@ -167,7 +168,7 @@ public class J2EEUtilityJarItemProvider extends J2EEItemProvider {
 	// }
 
 	public static boolean isJarFile(IResource member) {
-		return member.getType() == IResource.FILE && member.getName().toLowerCase().endsWith(".jar"); //$NON-NLS-1$
+		return member.getType() == IResource.FILE && member.getName().toLowerCase().endsWith(IJ2EEModuleConstants.JAR_EXT);
 	}
 
 	public static boolean isComponentFile(IResource member) {

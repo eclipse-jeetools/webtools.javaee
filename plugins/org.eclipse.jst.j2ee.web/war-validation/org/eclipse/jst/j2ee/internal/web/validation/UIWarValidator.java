@@ -29,6 +29,7 @@ import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.internal.validation.WarValidator;
 import org.eclipse.jst.j2ee.project.WebUtilities;
@@ -159,7 +160,7 @@ public class UIWarValidator extends WarValidator {
 				if (archiveName != null && archiveName.length() > 0) {
 					name = archiveName;
 				} else {
-					name = comp.getName() + ".jar"; //$NON-NLS-1$
+					name = comp.getName() + IJ2EEModuleConstants.JAR_EXT;
 				}
 				checkLibName(name, comp.getProject(), webLibMappings, true);
 				if (comp instanceof J2EEModuleVirtualComponent) {

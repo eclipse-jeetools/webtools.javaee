@@ -58,6 +58,7 @@ import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.internal.archive.operations.ComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.archive.operations.EARComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyEnablement;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IModelProvider;
@@ -626,7 +627,7 @@ public class ClassPathSelection {
 					if( other == null ){
 						//making a best guess for the project name
 						if( element.getProject() == null ){
-							int index = cpEntry.indexOf(".jar"); //$NON-NLS-1$
+							int index = cpEntry.indexOf(IJ2EEModuleConstants.JAR_EXT);
 							// if jar is nested in a folder you must not look for
 							// project (segments in project name cause assertion
 							// error)

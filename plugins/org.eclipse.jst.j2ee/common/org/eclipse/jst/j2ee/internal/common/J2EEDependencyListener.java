@@ -13,9 +13,9 @@ import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.jst.j2ee.application.internal.operations.IModuleExtensions;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.EarUtilities;
@@ -132,7 +132,7 @@ public class J2EEDependencyListener implements IResourceChangeListener, IResourc
 						IDependencyGraph.INSTANCE.update(sourceProject, IDependencyGraph.MODIFIED);
 					}
 				}
-			} else if (endsWithIgnoreCase(name, IModuleExtensions.DOT_JAR) || endsWithIgnoreCase(name, IModuleExtensions.DOT_WAR) || endsWithIgnoreCase(name, IModuleExtensions.DOT_RAR)) {
+			} else if (endsWithIgnoreCase(name, IJ2EEModuleConstants.JAR_EXT) || endsWithIgnoreCase(name, IJ2EEModuleConstants.WAR_EXT) || endsWithIgnoreCase(name, IJ2EEModuleConstants.RAR_EXT)) {
 				if (EarUtilities.isEARProject(resource.getProject())) {
 					IVirtualComponent comp = ComponentCore.createComponent(resource.getProject());
 					if (isFolder(resource.getParent(), comp.getRootFolder())) {

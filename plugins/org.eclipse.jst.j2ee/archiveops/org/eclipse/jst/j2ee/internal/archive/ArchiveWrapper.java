@@ -30,6 +30,7 @@ import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.EARArchiveOpsResourceHandler;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.jst.javaee.application.Module;
 import org.eclipse.jst.jee.archive.ArchiveModelLoadException;
@@ -558,7 +559,7 @@ public class ArchiveWrapper {
 			List files = commonArchive.getFiles();
 			for (int i = 0; i < files.size(); i++) {
 				FileImpl file = (FileImpl) files.get(i);
-				if (file.isArchive() && !file.isModuleFile() && file.getURI().endsWith(".jar")) { //$NON-NLS-1$
+				if (file.isArchive() && !file.isModuleFile() && file.getURI().endsWith(IJ2EEModuleConstants.JAR_EXT)) {
 					cachedEARUtilitiesAndWebLibs.add(new ArchiveWrapper((Archive) file));
 				}
 				if (file.isWARFile()) {
@@ -573,7 +574,7 @@ public class ArchiveWrapper {
 			for (int i = 0; i < files.size(); i++) {
 				IArchiveResource file = (IArchiveResource) files.get(i);
 				String lastSegment = file.getPath().lastSegment();
-				if (lastSegment.endsWith(".jar") || lastSegment.endsWith(".rar") || lastSegment.endsWith(".war") || lastSegment.endsWith("zip")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+				if (lastSegment.endsWith(IJ2EEModuleConstants.JAR_EXT) || lastSegment.endsWith(IJ2EEModuleConstants.RAR_EXT) || lastSegment.endsWith(IJ2EEModuleConstants.WAR_EXT) || lastSegment.endsWith("zip")) { //$NON-NLS-1$
 					IArchive nestedArchive;
 					try {
 						nestedArchive = archive.getNestedArchive(file);

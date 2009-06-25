@@ -18,6 +18,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
@@ -29,7 +30,7 @@ public class EARVirtualRootFolder extends VirtualFolder {
 		super(aComponentProject, aRuntimePath);
 	}
 
-	public static String [] EXTENSIONS_TO_IGNORE = new String [] {".jar", ".zip", ".rar", ".war" };  //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$//$NON-NLS-4$
+	public static String [] EXTENSIONS_TO_IGNORE = new String [] {IJ2EEModuleConstants.JAR_EXT, ".zip", IJ2EEModuleConstants.RAR_EXT, IJ2EEModuleConstants.WAR_EXT };  //$NON-NLS-1$
 	
 	public IVirtualResource[] superMembers() throws CoreException {
 		return superMembers(IResource.NONE);

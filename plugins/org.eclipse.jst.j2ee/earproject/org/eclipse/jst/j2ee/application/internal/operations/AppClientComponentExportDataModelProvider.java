@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.application.internal.operations;
 
 import org.eclipse.jst.j2ee.internal.archive.operations.AppClientComponentExportOperation;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
@@ -29,7 +30,7 @@ public class AppClientComponentExportDataModelProvider extends J2EEComponentExpo
 
     @Override
 	protected String getModuleExtension() {
-        return ".jar"; //$NON-NLS-1$
+        return IJ2EEModuleConstants.JAR_EXT;
     }
 
     @Override

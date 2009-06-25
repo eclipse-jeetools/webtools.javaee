@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.jst.j2ee.application.internal.operations.RemoveComponentFromEnterpriseApplicationDataModelProvider;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
@@ -36,13 +37,13 @@ public class RemoveDeletedComponentFromEARDataModelProvider extends RemoveCompon
 //				IProject project = component.getProject();
 				String name = component.getName();
 				if (_metadata.isWeb()) {
-					name += ".war"; //$NON-NLS-1$			
+					name += IJ2EEModuleConstants.WAR_EXT;
 				} else if (_metadata.isEJB()) {
-					name += ".jar"; //$NON-NLS-1$			
+					name += IJ2EEModuleConstants.JAR_EXT;
 				} else if (_metadata.isAppClient()) {
-					name += ".jar"; //$NON-NLS-1$			
+					name += IJ2EEModuleConstants.JAR_EXT;
 				} else if (_metadata.isConnector()) {
-					name += ".rar"; //$NON-NLS-1$			
+					name += IJ2EEModuleConstants.RAR_EXT;
 				}
 				map.put(component, name);
 			}

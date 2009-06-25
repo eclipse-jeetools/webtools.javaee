@@ -7,6 +7,7 @@
  * 
  * Contributors:
  * rfrost@bea.com - initial API and implementation
+ * IBM - bug 281382 clean up
  *******************************************************************************/
 
 package org.eclipse.jst.j2ee.refactor.operations;
@@ -32,6 +33,7 @@ import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataMo
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestImpl;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.refactor.RefactorResourceHandler;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.operation.RemoveReferenceComponentsDataModelProvider;
@@ -122,7 +124,7 @@ public class UpdateDependentModuleonDeleteOp extends UpdateDependentProjectOp {
 			final ArchiveManifest manifest = getArchiveManifest(manifestmf);
 			String[] cp = manifest.getClassPathTokenized();
 			List cpList = new ArrayList();
-			String newCp = refactoredProjName + ".jar";//$NON-NLS-1$
+			String newCp = refactoredProjName + IJ2EEModuleConstants.JAR_EXT;
 			for (int i = 0; i < cp.length; i++) {
 				if (!cp[i].equals(newCp)) {
 					cpList.add(cp[i]);

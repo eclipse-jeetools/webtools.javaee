@@ -10,10 +10,15 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.navigator.internal.dnd;
 
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
+
+//@deprecated @see org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants
+
 public interface IModuleExtensions {
 
-	String DOT_WAR = ".war"; //$NON-NLS-1$
-	String DOT_JAR =".jar"; //$NON-NLS-1$ 
-	String DOT_RAR = ".rar"; //$NON-NLS-1$
-	String DOT_EAR = ".ear"; //$NON-NLS-1$
+	public String DOT_WAR = IJ2EEModuleConstants.WAR_EXT;
+	public String DOT_JAR = IJ2EEModuleConstants.JAR_EXT; 
+	public String DOT_RAR = IJ2EEModuleConstants.RAR_EXT;
+	public String DOT_EAR = IJ2EEModuleConstants.EAR_EXT;
+
 }

@@ -21,6 +21,7 @@ import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyVirtualComponent;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
 import org.eclipse.jst.jee.archive.ArchiveOpenFailureException;
 import org.eclipse.jst.jee.archive.ArchiveOptions;
@@ -90,7 +91,7 @@ public class WebComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter 
 				if (archiveName != null && archiveName.length() > 0) {
 					name = archiveName;
 				} else {
-					name = looseComponent.getName() + ".jar"; //$NON-NLS-1$
+					name = looseComponent.getName() + IJ2EEModuleConstants.JAR_EXT;
 				}
 				String prefix = iLibModule.getRuntimePath().makeRelative().toString();
 				if (prefix.length() > 0 && prefix.charAt(prefix.length() - 1)!= '/') {

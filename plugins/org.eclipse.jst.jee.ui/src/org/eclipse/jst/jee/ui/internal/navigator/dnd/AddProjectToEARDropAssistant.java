@@ -7,6 +7,7 @@
  *
  * Contributors:
  *     SAP AG - initial API and implementation
+ *     IBM - bug 281382 clean up
  ***********************************************************************/
 package org.eclipse.jst.jee.ui.internal.navigator.dnd;
 
@@ -51,6 +52,7 @@ import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.provider.J2EEItemProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.navigator.internal.plugin.J2EENavigatorPlugin;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.EARFacetUtils;
 import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.jst.jee.ui.internal.Messages;
@@ -384,13 +386,13 @@ public class AddProjectToEARDropAssistant extends CommonDropAdapterAssistant {
 			String verStr = J2EEProjectUtilities.getJ2EEProjectVersion(projectToAdd);
 			if (verStr != null) {
 				int version;
-				if (J2EEProjectUtilities.isApplicationClientProject(projectToAdd))
+				if (JavaEEProjectUtilities.isApplicationClientProject(projectToAdd))
 					version = J2EEVersionUtil.convertAppClientVersionStringToJ2EEVersionID(verStr);
-				else if (J2EEProjectUtilities.isEJBProject(projectToAdd))
+				else if (JavaEEProjectUtilities.isEJBProject(projectToAdd))
 					version = J2EEVersionUtil.convertEJBVersionStringToJ2EEVersionID(verStr);
-				else if (J2EEProjectUtilities.isDynamicWebProject(projectToAdd))
+				else if (JavaEEProjectUtilities.isDynamicWebProject(projectToAdd))
 					version = J2EEVersionUtil.convertWebVersionStringToJ2EEVersionID(verStr);
-				else if (J2EEProjectUtilities.isJCAProject(projectToAdd))
+				else if (JavaEEProjectUtilities.isJCAProject(projectToAdd))
 					version = J2EEVersionUtil.convertConnectorVersionStringToJ2EEVersionID(verStr);
 				else
 					version = J2EEVersionUtil.convertVersionStringToInt(verStr);
@@ -445,14 +447,14 @@ public class AddProjectToEARDropAssistant extends CommonDropAdapterAssistant {
 		IProject project = component.getProject();
 		String name = component.getName();
 
-		if (J2EEProjectUtilities.isDynamicWebProject(project)) {
-			name += IModuleExtensions.DOT_WAR;
-		} else if (J2EEProjectUtilities.isEARProject(project)) {
-			name += IModuleExtensions.DOT_EAR;
-		} else if (J2EEProjectUtilities.isJCAProject(project)) {
-			name += IModuleExtensions.DOT_RAR;
+		if (JavaEEProjectUtilities.isDynamicWebProject(project)) {
+			name += IJ2EEModuleConstants.WAR_EXT;
+		} else if (JavaEEProjectUtilities.isEARProject(project)) {
+			name += IJ2EEModuleConstants.EAR_EXT;
+		} else if (JavaEEProjectUtilities.isJCAProject(project)) {
+			name += IJ2EEModuleConstants.RAR_EXT;
 		} else {
-			name += IModuleExtensions.DOT_JAR;
+			name += IJ2EEModuleConstants.JAR_EXT;
 		}
 		return name;
 	}
@@ -473,7 +475,7 @@ public class AddProjectToEARDropAssistant extends CommonDropAdapterAssistant {
 		try {
 			IProject[] earRefProjects = earProject.getReferencedProjects();
 			for (int i = 0; i < earRefProjects.length; i++) {
-				if (!J2EEProjectUtilities.isEARProject(earRefProjects[i]) && !earRefProjects[i].equals(libProj)) {
+				if (!JavaEEProjectUtilities.isEARProject(earRefProjects[i]) && !earRefProjects[i].equals(libProj)) {
 					IVirtualComponent cmp1 = ComponentCore.createComponent(earRefProjects[i]);
 					if (cmp1 == null){
 						continue;
@@ -562,7 +564,7 @@ public class AddProjectToEARDropAssistant extends CommonDropAdapterAssistant {
 		try {
 			IProject[] earRefProjects = earProject.getReferencedProjects();
 			for (int i = 0; i < earRefProjects.length; i++) {
-				if (!J2EEProjectUtilities.isEARProject(earRefProjects[i])) {
+				if (!JavaEEProjectUtilities.isEARProject(earRefProjects[i])) {
 					IVirtualComponent cmp1 = ComponentCore.createComponent(earRefProjects[i]);
 					if(cmp1 == null){
 						continue;
