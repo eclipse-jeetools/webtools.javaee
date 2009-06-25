@@ -57,20 +57,14 @@ public class J2EEComponentClasspathContainerUtils {
 	}
 	
 	public static IClasspathEntry getInstalledContainerEntry(IJavaProject jproj, IPath classpathContainerPath) {
-		if (jproj.isOpen()) {
-			try {
-				IClasspathEntry[] cpes;
-				cpes = jproj.getRawClasspath();
-				for (int j = 0; j < cpes.length; j++) {
-					final IClasspathEntry cpe = cpes[j];
-					if (cpe.getEntryKind() == IClasspathEntry.CPE_CONTAINER) {
-						if (cpe.getPath().equals(classpathContainerPath)) {
-							return cpe; // entry found
-						}
-					}
+		IClasspathEntry[] cpes;
+		cpes = jproj.readRawClasspath();
+		for (int j = 0; j < cpes.length; j++) {
+			final IClasspathEntry cpe = cpes[j];
+			if (cpe.getEntryKind() == IClasspathEntry.CPE_CONTAINER) {
+				if (cpe.getPath().equals(classpathContainerPath)) {
+					return cpe; // entry found
 				}
-			} catch (JavaModelException e) {
-				J2EEPlugin.getDefault().getLogger().logError(e);
 			}
 		}
 		// entry not found

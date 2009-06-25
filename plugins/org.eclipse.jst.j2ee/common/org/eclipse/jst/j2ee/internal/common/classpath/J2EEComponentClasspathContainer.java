@@ -30,6 +30,8 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.common.jdt.internal.classpath.ClasspathDecorations;
 import org.eclipse.jst.common.jdt.internal.classpath.ClasspathDecorationsManager;
+import org.eclipse.jst.common.jdt.internal.javalite.IJavaProjectLite;
+import org.eclipse.jst.common.jdt.internal.javalite.JavaCoreLite;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARVirtualComponent;
 import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
@@ -63,6 +65,7 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 	
 	private IPath containerPath;
 	private IJavaProject javaProject;
+	private IJavaProjectLite javaProjectLite;
 	private IClasspathEntry[] entries = new IClasspathEntry[0];
 	private boolean exportEntries = true; //the default behavior is to always export these dependencies
 	private static Map keys = new Hashtable();
@@ -80,10 +83,11 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 	public J2EEComponentClasspathContainer(IPath path, IJavaProject javaProject) {
 		this.containerPath = path;
 		this.javaProject = javaProject;
+		this.javaProjectLite = JavaCoreLite.create(javaProject);
 	}
 
 	private boolean requiresUpdate() {
-		IVirtualComponent component = ComponentCore.createComponent(javaProject.getProject());
+		IVirtualComponent component = ComponentCore.createComponent(javaProjectLite.getProject());
 		if (component == null) {
 			return false;
 		}
@@ -121,13 +125,13 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 	}
 	
 	private void update() {
-		IVirtualComponent component = ComponentCore.createComponent(javaProject.getProject());
+		IVirtualComponent component = ComponentCore.createComponent(javaProjectLite.getProject());
 		if (component == null) {
 			return;
 		} 
 		Object key = null;
-		if(!javaProject.getProject().getFile(StructureEdit.MODULE_META_FILE_NAME).exists()){
-			Integer hashCode = new Integer(javaProject.getProject().hashCode());
+		if(!javaProjectLite.getProject().getFile(StructureEdit.MODULE_META_FILE_NAME).exists()){
+			Integer hashCode = new Integer(javaProjectLite.getProject().hashCode());
 			key = keys.get(hashCode);
 			if(key == null){
 				keys.put(hashCode, hashCode);
@@ -142,7 +146,7 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 				retryCount = new Integer(retryCount.intValue() + 1);
 			}
 			retries.put(key, retryCount);
-			J2EEComponentClasspathUpdater.getInstance().queueUpdate(javaProject.getProject());
+			J2EEComponentClasspathUpdater.getInstance().queueUpdate(javaProjectLite.getProject());
 			return;
 		}
 		
@@ -213,24 +217,19 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 		List entriesList = new ArrayList();
 
 		try {
-			IJavaProject javaProject = JavaCore.create(component.getProject());
 			
 			boolean useJDTToControlExport = J2EEComponentClasspathContainerUtils.getDefaultUseEARLibrariesJDTExport();
 			if(useJDTToControlExport){
 				//if the default is not enabled, then check whether the container is being exported
-				try{
-					IClasspathEntry [] rawEntries = javaProject.getRawClasspath();
-					for(int i=0;i<rawEntries.length; i++){
-						IClasspathEntry entry = rawEntries[i];
-						if(entry.getEntryKind() == IClasspathEntry.CPE_CONTAINER){
-							if(entry.getPath().equals(CONTAINER_PATH)){
-								exportEntries = entry.isExported();
-								break;
-							}
+				IClasspathEntry [] rawEntries = javaProjectLite.readRawClasspath();
+				for(int i=0;i<rawEntries.length; i++){
+					IClasspathEntry entry = rawEntries[i];
+					if(entry.getEntryKind() == IClasspathEntry.CPE_CONTAINER){
+						if(entry.getPath().equals(CONTAINER_PATH)){
+							exportEntries = entry.isExported();
+							break;
 						}
 					}
-				}  catch (JavaModelException e) {
-					J2EEPlugin.logError(e);
 				}
 			}
 			
@@ -267,12 +266,12 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 			            srcrootpath = dec.getSourceAttachmentRootPath();
 			            attrs = dec.getExtraAttributes();
 			        }
-			        IClasspathEntry newEntry = JavaCore.newLibraryEntry( lastUpdate.paths[i], srcpath, srcrootpath, access, attrs, exportEntries ); 
+			        IClasspathEntry newEntry = JavaCoreLite.newLibraryEntry( lastUpdate.paths[i], srcpath, srcrootpath, access, attrs, exportEntries ); 
 			        entriesList.add(newEntry);
 				} else {
 					IProject project = comp.getProject();
 					lastUpdate.paths[i] = project.getFullPath();
-					entriesList.add(JavaCore.newProjectEntry(lastUpdate.paths[i], exportEntries));
+					entriesList.add(JavaCoreLite.newProjectEntry(lastUpdate.paths[i], exportEntries));
 				}
 			}
 		} finally {
@@ -314,7 +313,7 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 	
 	public IClasspathEntry[] getClasspathEntries() {
 		if(!isUpdating){
-			if(this != J2EEComponentClasspathContainerUtils.getInstalledEARLibrariesContainer(javaProject.getProject())){
+			if(this != J2EEComponentClasspathContainerUtils.getInstalledEARLibrariesContainer(javaProjectLite.getProject())){
 				try {
 					isUpdating = true;
 					update();
