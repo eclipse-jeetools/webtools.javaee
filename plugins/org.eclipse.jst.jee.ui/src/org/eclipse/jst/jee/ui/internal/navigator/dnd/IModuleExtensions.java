@@ -1,14 +1,13 @@
-/***********************************************************************
- * Copyright (c) 2008 by SAP AG, Walldorf. 
+/*******************************************************************************
+ * Copyright (c) 2003, 2006 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *     SAP AG - initial API and implementation
- *     IBM - bug 281382 clean up
- ***********************************************************************/
+ * IBM Corporation - initial API and implementation
+ *******************************************************************************/
 package org.eclipse.jst.jee.ui.internal.navigator.dnd;
 
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
