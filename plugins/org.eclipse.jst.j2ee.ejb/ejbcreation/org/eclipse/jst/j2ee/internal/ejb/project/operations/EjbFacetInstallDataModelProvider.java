@@ -68,7 +68,7 @@ public class EjbFacetInstallDataModelProvider
 			return clientProjectName; 
 		}else if (propertyName.equals(CLIENT_URI)){
 			String clientProjectURI = model.getStringProperty(CLIENT_NAME).replace(' ', '_');
-			return clientProjectURI + ".jar"; //$NON-NLS-1$ 
+			return clientProjectURI + IJ2EEModuleConstants.JAR_EXT; 
 		} else if (propertyName.equals(MODULE_URI)) {
 			String projectName = model.getStringProperty(FACET_PROJECT_NAME).replace(' ', '_');
 			return projectName + IJ2EEModuleConstants.JAR_EXT; 

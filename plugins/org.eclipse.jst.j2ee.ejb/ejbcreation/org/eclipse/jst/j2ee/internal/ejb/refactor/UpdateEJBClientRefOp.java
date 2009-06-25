@@ -21,6 +21,7 @@ import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.internal.impl.EJBJarImpl;
 import org.eclipse.jst.j2ee.internal.common.CreationConstants;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.refactor.operations.ProjectRefactorMetadata;
 import org.eclipse.jst.j2ee.refactor.operations.ProjectRefactoringProperties;
 import org.eclipse.wst.common.componentcore.internal.ComponentcoreFactory;
@@ -62,12 +63,12 @@ public abstract class UpdateEJBClientRefOp extends AbstractDataModelOperation
 			if(ejbEdit != null) {
 				final EJBJarImpl ejbres = (EJBJarImpl) ejbEdit.getDeploymentDescriptorRoot();
 				final String ejbClientJar = ejbres.getEjbClientJar();
-				if (ejbClientJar != null && ejbClientJar.equals(originalProjectName + ".jar")) { //$NON-NLS-1$
+				if (ejbClientJar != null && ejbClientJar.equals(originalProjectName + IJ2EEModuleConstants.JAR_EXT)) {
 					if (remove) {
 						ejbres.setEjbClientJar(null);
 					} else {
 						final String newProjectName = refactoredMetadata.getProjectName();
-						ejbres.setEjbClientJar(newProjectName + ".jar");//$NON-NLS-1$
+						ejbres.setEjbClientJar(newProjectName + IJ2EEModuleConstants.JAR_EXT);
 					}
 					ejbEdit.saveIfNecessary(monitor);
 				}
@@ -101,12 +102,12 @@ public abstract class UpdateEJBClientRefOp extends AbstractDataModelOperation
 	            		} else {
 	            			i--;
 	            		}
-	            	} else if (prop.getName().equals(CreationConstants.CLIENT_JAR_URI) && prop.getValue().equals(originalMetadata.getProjectName() + ".jar")) { //$NON-NLS-1$
+	            	} else if (prop.getName().equals(CreationConstants.CLIENT_JAR_URI) && prop.getValue().equals(originalMetadata.getProjectName() + IJ2EEModuleConstants.JAR_EXT)) {
 	            		propList.remove(i);
 	            		if (!remove) {
 	            			final Property newProp = ComponentcoreFactory.eINSTANCE.createProperty();
 	            			newProp.setName(CreationConstants.CLIENT_JAR_URI);
-	            			newProp.setValue(refactoredMetadata.getProjectName() + ".jar"); //$NON-NLS-1$
+	            			newProp.setValue(refactoredMetadata.getProjectName() + IJ2EEModuleConstants.JAR_EXT);
 	            			propList.add(0, newProp);
 	            		} else {
 	            			i--;

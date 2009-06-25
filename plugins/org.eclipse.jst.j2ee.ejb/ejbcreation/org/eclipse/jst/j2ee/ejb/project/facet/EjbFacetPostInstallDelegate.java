@@ -38,6 +38,7 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.CreationConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbClientProjectCreationDataModelProvider;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
@@ -277,7 +278,7 @@ public class EjbFacetPostInstallDelegate extends J2EEFacetInstallDelegate implem
                         if (clienturi != null && !clienturi.equals("")) { //$NON-NLS-1$
                             ejbres.setEjbClientJar(clienturi);
                         } else
-                            ejbres.setEjbClientJar(clientProjectName + ".jar");//$NON-NLS-1$
+                            ejbres.setEjbClientJar(clientProjectName + IJ2EEModuleConstants.JAR_EXT);
                     }
                 }
                 else
@@ -286,7 +287,7 @@ public class EjbFacetPostInstallDelegate extends J2EEFacetInstallDelegate implem
                     if (clienturi != null && !clienturi.equals("")) { //$NON-NLS-1$
                         ejbres.setEjbClientJar(clienturi);
                     } else
-                        ejbres.setEjbClientJar(clientProjectName + ".jar");//$NON-NLS-1$
+                        ejbres.setEjbClientJar(clientProjectName + IJ2EEModuleConstants.JAR_EXT);
                 }
             }
         },null);

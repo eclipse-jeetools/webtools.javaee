@@ -14,6 +14,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.IModelProviderEvent;
 import org.eclipse.jst.j2ee.model.IModelProviderListener;
@@ -176,8 +177,8 @@ public class EJB3MergedModelProvider extends AbstractMergedModelProvider<EJBJar>
 	private String getClientNameFromJarName(String jarName) {
 		if (jarName == null)
 			return null;
-		if (jarName.endsWith(".jar")) //$NON-NLS-1$
-			return jarName.substring(0, jarName.lastIndexOf(".jar")); //$NON-NLS-1$
+		if (jarName.endsWith(IJ2EEModuleConstants.JAR_EXT))
+			return jarName.substring(0, jarName.lastIndexOf(IJ2EEModuleConstants.JAR_EXT));
 		return jarName;
 	}
 

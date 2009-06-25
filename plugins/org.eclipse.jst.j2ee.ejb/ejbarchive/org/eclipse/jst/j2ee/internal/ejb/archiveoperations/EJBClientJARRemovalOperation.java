@@ -44,6 +44,7 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModelProperties;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModelProvider;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.ClientJARCreationConstants;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.LibCopyBuilder;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IModelProvider;
@@ -280,7 +281,7 @@ public class EJBClientJARRemovalOperation extends AbstractDataModelOperation
 
 		
 		ArrayList list = new ArrayList();
-		list.add(clientProject.getName() + ".jar"); //$NON-NLS-1$
+		list.add(clientProject.getName() + IJ2EEModuleConstants.JAR_EXT);
 		
 		IProject[] earProjects = J2EEProjectUtilities.getReferencingEARProjects( ejbProject );
 		

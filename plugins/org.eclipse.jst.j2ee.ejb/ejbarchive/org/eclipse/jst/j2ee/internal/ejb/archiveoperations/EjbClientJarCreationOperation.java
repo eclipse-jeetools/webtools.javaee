@@ -39,6 +39,7 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.CreationConstants;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModelProperties;
 import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModelProvider;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
@@ -301,14 +302,14 @@ public class EjbClientJarCreationOperation
                     if (clienturi != null && !clienturi.equals("")) { //$NON-NLS-1$
                     	ejbres.setEjbClientJar(clienturi);
                     } else
-                    	ejbres.setEjbClientJar(clientProjectName + ".jar");//$NON-NLS-1$
+                    	ejbres.setEjbClientJar(clientProjectName + IJ2EEModuleConstants.JAR_EXT);
                 }
                 else {
                     org.eclipse.jst.j2ee.ejb.EJBJar ejbres = (org.eclipse.jst.j2ee.ejb.EJBJar) writableEjbModel.getModelObject();
                     if (clienturi != null && !clienturi.equals("")) { //$NON-NLS-1$
                         ejbres.setEjbClientJar(clienturi);
                     } else
-                        ejbres.setEjbClientJar(clientProjectName + ".jar");//$NON-NLS-1$
+                        ejbres.setEjbClientJar(clientProjectName + IJ2EEModuleConstants.JAR_EXT);
                 }
             }
         },null);

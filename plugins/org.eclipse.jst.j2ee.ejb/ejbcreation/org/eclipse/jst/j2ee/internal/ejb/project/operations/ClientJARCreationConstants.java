@@ -14,6 +14,8 @@
  */
 package org.eclipse.jst.j2ee.internal.ejb.project.operations;
 
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
+
 
 
 
@@ -21,7 +23,8 @@ package org.eclipse.jst.j2ee.internal.ejb.project.operations;
  * @author schacher
  */
 public interface ClientJARCreationConstants {
-	String DOT_JAR = ".jar"; //$NON-NLS-1$
+// @deprecated @see org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants.JAR_EXT
+	String DOT_JAR = IJ2EEModuleConstants.JAR_EXT;
 	String SRC_FOLDER_NAME = "src"; //$NON-NLS-1$
 	String _STUB = "_Stub"; //$NON-NLS-1$
 	String UNDERSCORE = "_"; //$NON-NLS-1$
