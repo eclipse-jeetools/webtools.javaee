@@ -36,7 +36,7 @@ In the field <b>Mapped name</b> specify the bean’s global JNDI name.
 
 Note that the business interface, provided in the previous page of the wizard, is automatically mapped to the <b>Business interfaces</b> field on this page. You can click the <b>Add</b> button to add additional interfaces to implement.
 
-Note: If you create EJB 2.x beans, click on <b>Home and Components interfaces(EJB 2.x)</b> to add the home and the component interfaces. The <b>home interface</b> allows a client to create, remove and find existing instances of enterprise beans. The <b>component interface</b> allows a client to access the business methods of the enterprise bean. Check:
+Note: If you create EJB 2.x beans, click on <b>Home and Component interfaces(EJB 2.x)</b> to add the home and the component interfaces. The <b>home interface</b> allows a client to create, remove and find existing instances of enterprise beans. The <b>component interface</b> allows a client to access the business methods of the enterprise bean. Check:
   <b>- Local</b> to add the local home and component interfaces. 
   <b>- Remote</b> to add the remote home and component interfaces.
   
