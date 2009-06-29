@@ -79,11 +79,13 @@ public  class PerformanceTestCaseWrapper extends PerformanceTestCase {
 				runTest();
 				stopMeasuring();
 			}
-			
+		} catch (Throwable t) {
+			// log the error, thrown by the JUnit test, in the console and re-throw it
+			t.printStackTrace();
+			throw t;
+		} finally {
 			commitMeasurements();
 			assertPerformance();
-		}
-		finally {
 			tearDown();
 		}
 	}
