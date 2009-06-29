@@ -657,6 +657,7 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 		List result = new ArrayList();
 		result.addAll(getWorkspace13ServiceRefs());
 		result.addAll(getWorkspace14ServiceRefs());
+    result.addAll(getWorkspaceJEE5ServiceRefs());  // New, include JEE 5 services too
 		return result;
 	}
 
@@ -693,61 +694,78 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 	public List getWorkspace14ServiceRefs() {
 		return getWorkspace14ServiceRefs(getWSClientArtifactEdits());
 	}
-	
-	private List getWorkspace14ServiceRefs(List wsClientArtifactEdits) {
-		Iterator iter = wsClientArtifactEdits.iterator();
-		List result = new ArrayList();
-		while (iter.hasNext()) {
-			WSCDDArtifactEdit wscArtifactEdit = (WSCDDArtifactEdit) iter.next();
-			
-			IProject project = wscArtifactEdit.getProject(); 	
-			
-			String projectType = J2EEProjectUtilities.getJ2EEProjectType(project);
-			String projectVersion = J2EEProjectUtilities.getJ2EEProjectVersion(project);
-			int    j2eeLevel =  0;
-			if(IModuleConstants.JST_EJB_MODULE.equals(projectType)){
-				j2eeLevel = J2EEVersionUtil.convertEJBVersionStringToJ2EEVersionID(projectVersion);
-			} else if(IModuleConstants.JST_WEB_MODULE.equals(projectType)){
-				j2eeLevel = J2EEVersionUtil.convertWebVersionStringToJ2EEVersionID(projectVersion);
-			} else if(IModuleConstants.JST_APPCLIENT_MODULE.equals(projectType)){
-				j2eeLevel = J2EEVersionUtil.convertAppClientVersionStringToJ2EEVersionID(projectVersion);
-			}
-			
-			// this method needs to check that project's j2ee level is 14
-			if(j2eeLevel !=  J2EEVersionConstants.J2EE_1_4_ID)
-				continue;
-			
-			ArtifactEdit artifactEdit = ArtifactEdit.getArtifactEditForRead(project);
-			try {
-				EObject rootObject = null;
-				if (artifactEdit!=null)
-					rootObject = artifactEdit.getContentModelRoot();
-				// handle EJB project case
-				if (rootObject instanceof EJBJar) {
-					List cmps = ((EJBJar) rootObject).getEnterpriseBeans();
-					for (int j = 0; j < cmps.size(); j++) {
-						EnterpriseBean bean = (EnterpriseBean) cmps.get(j);
-						if (bean.getServiceRefs() != null && !bean.getServiceRefs().isEmpty())
-							result.addAll(bean.getServiceRefs());
-					}
-				}
-				// handle Web Project
-				else if (rootObject instanceof WebApp) {
-					if (((WebApp) rootObject).getServiceRefs() != null && !((WebApp) rootObject).getServiceRefs().isEmpty())
-						result.addAll(((WebApp) rootObject).getServiceRefs());
-				}
-				// handle App clients
-				else if (rootObject instanceof ApplicationClient) {
-					if (((ApplicationClient) rootObject).getServiceRefs() != null && !((ApplicationClient) rootObject).getServiceRefs().isEmpty())
-						result.addAll(((ApplicationClient) rootObject).getServiceRefs());
-				}
-			} finally {
-				if (artifactEdit != null)
-					artifactEdit.dispose();
-			}
-		}
-		return result;
-	}
+  
+  public List getWorkspaceJEE5ServiceRefs() {
+    return getWorkspaceJEE5ServiceRefs(getWSClientArtifactEdits());
+  }
+  
+  private List getWorkspaceJEE5ServiceRefs(List wsClientArtifactEdits) {
+    return getWorkspaceServiceRefs(wsClientArtifactEdits, J2EEVersionConstants.JEE_5_0_ID);
+  }
+
+  private List getWorkspace14ServiceRefs(List wsClientArtifactEdits) {
+     return getWorkspaceServiceRefs(wsClientArtifactEdits, J2EEVersionConstants.J2EE_1_4_ID);
+  }
+  
+  /**
+   * Include JEE 5 and/or J2EE 1.4 service refs
+   * @param wsClientArtifactEdits
+   * @return
+   */
+  private List getWorkspaceServiceRefs(List wsClientArtifactEdits, int targetJEELevel) {
+    Iterator iter = wsClientArtifactEdits.iterator();
+    List result = new ArrayList();
+    while (iter.hasNext()) {
+      WSCDDArtifactEdit wscArtifactEdit = (WSCDDArtifactEdit) iter.next();
+      
+      IProject project = wscArtifactEdit.getProject();  
+      
+      String projectType = J2EEProjectUtilities.getJ2EEProjectType(project);
+      String projectVersion = J2EEProjectUtilities.getJ2EEProjectVersion(project);
+      int    j2eeLevel =  0;
+      if(IModuleConstants.JST_EJB_MODULE.equals(projectType)){
+        j2eeLevel = J2EEVersionUtil.convertEJBVersionStringToJ2EEVersionID(projectVersion);
+      } else if(IModuleConstants.JST_WEB_MODULE.equals(projectType)){
+        j2eeLevel = J2EEVersionUtil.convertWebVersionStringToJ2EEVersionID(projectVersion);
+      } else if(IModuleConstants.JST_APPCLIENT_MODULE.equals(projectType)){
+        j2eeLevel = J2EEVersionUtil.convertAppClientVersionStringToJ2EEVersionID(projectVersion);
+      }
+      
+      // this method needs to check that project's j2ee level is 14
+      if(j2eeLevel !=  targetJEELevel)
+        continue;
+      
+      ArtifactEdit artifactEdit = ArtifactEdit.getArtifactEditForRead(project);
+      try {
+        EObject rootObject = null;
+        if (artifactEdit!=null)
+          rootObject = artifactEdit.getContentModelRoot();
+        // handle EJB project case
+        if (rootObject instanceof EJBJar) {
+          List cmps = ((EJBJar) rootObject).getEnterpriseBeans();
+          for (int j = 0; j < cmps.size(); j++) {
+            EnterpriseBean bean = (EnterpriseBean) cmps.get(j);
+            if (bean.getServiceRefs() != null && !bean.getServiceRefs().isEmpty())
+              result.addAll(bean.getServiceRefs());
+          }
+        }
+        // handle Web Project
+        else if (rootObject instanceof WebApp) {
+          if (((WebApp) rootObject).getServiceRefs() != null && !((WebApp) rootObject).getServiceRefs().isEmpty())
+            result.addAll(((WebApp) rootObject).getServiceRefs());
+        }
+        // handle App clients
+        else if (rootObject instanceof ApplicationClient) {
+          if (((ApplicationClient) rootObject).getServiceRefs() != null && !((ApplicationClient) rootObject).getServiceRefs().isEmpty())
+            result.addAll(((ApplicationClient) rootObject).getServiceRefs());
+        }
+      } finally {
+        if (artifactEdit != null)
+          artifactEdit.dispose();
+      }
+    }
+    return result;
+  }
 
 	public boolean isJ2EE14(ServiceRef ref) {
 		return !(ref.eContainer() instanceof WebServicesClient);
