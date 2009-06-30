@@ -510,7 +510,7 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 				for (int j = 0; j < refs.length; j++) {	
 					if (model.getProject().equals(refs[j].getReferencedComponent().getProject())) {
 						IVirtualReference ref = cmp.getReference(lib.getName());
-						if (!ref.getRuntimePath().isRoot()) return true;
+						if (ref != null && !ref.getRuntimePath().isRoot()) return true;
 					}
 				}
 			}
