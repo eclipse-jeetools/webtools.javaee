@@ -300,7 +300,7 @@ public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperatio
 			try {
 				createFolder( folder, false );
 			} catch (CoreException e) {
-				EjbPlugin.getDefault().getLogger().logError(e);
+				EjbPlugin.logError(e);
 			}
 
 			IProject  clientProject = EJBUtilities.getEJBClientJar(getTargetProject()).getProject();
@@ -316,7 +316,7 @@ public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperatio
 					cp.add( newEntry );
 		            jProject.setRawClasspath( cp.toArray( new IClasspathEntry[ cp.size() ] ), null );					
 				} catch (JavaModelException e) {
-					EjbPlugin.getDefault().getLogger().logError(e);
+					EjbPlugin.logError(e);
 				}
 
 			}
@@ -341,7 +341,7 @@ public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperatio
 			try {
 				pack = packRoot.createPackageFragment(packName, true, null);
 			} catch (JavaModelException e) {
-				EjbPlugin.getDefault().getLogger().logError(e);
+				EjbPlugin.logError(e);
 			}
 		}
 		// Return the package
