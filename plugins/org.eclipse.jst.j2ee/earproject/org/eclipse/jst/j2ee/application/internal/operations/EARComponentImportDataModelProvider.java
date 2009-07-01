@@ -24,7 +24,6 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentImportDataModelProvider;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveResourceHandler;
@@ -46,6 +45,7 @@ import org.eclipse.jst.j2ee.internal.moduleextension.EjbModuleExtension;
 import org.eclipse.jst.j2ee.internal.moduleextension.JcaModuleExtension;
 import org.eclipse.jst.j2ee.internal.moduleextension.WebModuleExtension;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.EARFacetProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
@@ -234,7 +234,7 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 					try {
 						facetedProject = ProjectFacetsManager.create(project);
 					} catch (CoreException e) {
-						Logger.getLogger().logError(e);
+						J2EEPlugin.logError(e);
 					}
 
 					if (facetedProject != null ) {
@@ -514,7 +514,7 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 							ejbJarsWithClients.put(localModel, clientArch);
 						}
 					} catch (Exception e) {
-						Logger.getLogger().logError(e);
+						J2EEPlugin.logError(e);
 					}
 
 				} else if (temp.isRARFile()) {
@@ -541,8 +541,8 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 					}
 				}
 			} catch (Exception e) {
-				Logger.getLogger().logError("Error loading nested archive: " + temp.getPath().toOSString()); //$NON-NLS-1$
-				Logger.getLogger().logError(e);
+				J2EEPlugin.logError("Error loading nested archive: " + temp.getPath().toOSString()); //$NON-NLS-1$
+				J2EEPlugin.logError(e);
 				cachedLoadError = temp;
 			}
 		}

@@ -33,19 +33,26 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.frameworks.CommonFrameworksPlugin;
 import org.eclipse.jst.common.project.facet.WtpUtils;
 import org.eclipse.jst.common.project.facet.core.ClasspathHelper;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
+import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainer;
+import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainerUtils;
 import org.eclipse.jst.j2ee.internal.web.classpath.WebAppLibrariesContainer;
+import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.J2EEFacetInstallDelegate;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
+import org.eclipse.jst.javaee.core.DisplayName;
+import org.eclipse.jst.javaee.core.JavaeeFactory;
+import org.eclipse.jst.javaee.web.WebApp;
+import org.eclipse.jst.javaee.web.WebFactory;
+import org.eclipse.jst.javaee.web.WelcomeFileList;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.FacetDataModelProvider;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -56,14 +63,6 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.project.facet.core.IDelegate;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.project.facet.ProductManager;
-
-import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainer;
-import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainerUtils;
-import org.eclipse.jst.javaee.core.DisplayName;
-import org.eclipse.jst.javaee.core.JavaeeFactory;
-import org.eclipse.jst.javaee.web.WebApp;
-import org.eclipse.jst.javaee.web.WebFactory;
-import org.eclipse.jst.javaee.web.WelcomeFileList;
 
 public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate implements IDelegate {
 
@@ -143,9 +142,9 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 				try {
 					createManifest(project, c.getRootFolder().getUnderlyingFolder(), monitor);
 				} catch (InvocationTargetException e) {
-					Logger.getLogger().logError(e);
+					WebPlugin.logError(e);
 				} catch (InterruptedException e) {
-					Logger.getLogger().logError(e);
+					WebPlugin.logError(e);
 				}
 			}
 
@@ -174,7 +173,7 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			try {
 				((IDataModelOperation) model.getProperty(FacetDataModelProvider.NOTIFICATION_OPERATION)).execute(monitor, null);
 			} catch (ExecutionException e) {
-				Logger.getLogger().logError(e);
+				WebPlugin.logError(e);
 			}
 
 			if (monitor != null) {
@@ -224,7 +223,7 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 					jproj.save(null, true);
 				}
 			} catch (JavaModelException e) {
-				Logger.getLogger().logError(e);
+				WebPlugin.logError(e);
 			}
 		}
 		// Now just set the property
@@ -309,7 +308,7 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
                };
                provider.modify(runnable, null);
            } catch (UnsupportedEncodingException e) {
-               Logger.getLogger().logError(e);
+        	   WebPlugin.logError(e);
            }
        }
    }

@@ -18,11 +18,11 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.validation.J2EEValidationHelper;
+import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.jst.j2ee.model.internal.validation.WARMessageConstants;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
@@ -111,7 +111,6 @@ public class WarHelper extends J2EEValidationHelper {
 	}
 
 	
-	//public EObject loadWarFile(ComponentHandle handle) {
 	public EObject loadWarFile() {
 			IVirtualComponent comp = ComponentCore.createComponent(getProject());
 			edit = ComponentUtilities.getArtifactEditForRead(comp);
@@ -120,13 +119,8 @@ public class WarHelper extends J2EEValidationHelper {
 				warFile = (WARFile)((WebArtifactEdit) edit).asArchive(false, true, true);
 				return warFile;
 			} catch (OpenFailureException e1) {
-				Logger.getLogger().log(e1);
+				WebPlugin.logError(e1);
 			}
-//			finally {
-//				if (edit != null) {
-//					edit.dispose();
-//				}
-//			}
 		return null;
 	}	
 	

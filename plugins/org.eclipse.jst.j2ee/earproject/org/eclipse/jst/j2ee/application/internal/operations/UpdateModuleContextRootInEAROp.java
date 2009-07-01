@@ -17,11 +17,11 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.application.WebModule;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
@@ -60,7 +60,7 @@ public class UpdateModuleContextRootInEAROp extends AbstractDataModelOperation i
             	}
         	}
         } catch (Exception e) {
-			Logger.getLogger().logError(e);
+        	J2EEPlugin.logError(e);
         } finally {
             if (monitor != null) {
                 monitor.done();

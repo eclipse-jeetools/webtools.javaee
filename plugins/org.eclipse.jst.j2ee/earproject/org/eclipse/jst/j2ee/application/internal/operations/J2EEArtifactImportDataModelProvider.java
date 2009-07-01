@@ -23,7 +23,6 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
@@ -33,6 +32,7 @@ import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelPr
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.archive.ArchiveWrapper;
 import org.eclipse.jst.j2ee.internal.archive.JavaEEArchiveUtilities;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EECreationResourceHandler;
 import org.eclipse.jst.jee.archive.ArchiveOpenFailureException;
 import org.eclipse.jst.jee.archive.IArchive;
@@ -145,7 +145,7 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 				try {
 					nestedModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, propertyValue);
 				} catch (Exception e) {
-					Logger.getLogger().logError(e);
+					J2EEPlugin.logError(e);
 				}
 			}
 		} else if( FACET_RUNTIME.equals( propertyName )){
@@ -356,7 +356,7 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 								}
 							}
 						} catch (CoreException e) {
-							Logger.getLogger().logError(e);
+							J2EEPlugin.logError(e);
 						}
 					}
 				

@@ -26,12 +26,12 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.WebModule;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.model.IEARModelProvider;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
@@ -167,7 +167,7 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 			}
 			se.saveIfNecessary(monitor);
 		} catch (Exception e) {
-			Logger.getLogger().logError(e);
+			J2EEPlugin.logError(e);
 		} finally {
 			if (se != null)
 				se.dispose();
@@ -297,7 +297,7 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 
 			EarFacetRuntimeHandler.updateModuleProjectRuntime(earpj, moduleProjects, submon(monitor, 9));
 		} catch (Exception e) {
-			Logger.getLogger().logError(e);
+			J2EEPlugin.logError(e);
 		} finally {
 			if (monitor != null) {
 				monitor.done();

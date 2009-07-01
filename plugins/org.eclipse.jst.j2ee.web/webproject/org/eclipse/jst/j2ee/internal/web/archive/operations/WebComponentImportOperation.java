@@ -21,13 +21,13 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubProgressMonitor;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.archive.ArchiveWrapper;
 import org.eclipse.jst.j2ee.internal.archive.ComponentArchiveSaveAdapter;
 import org.eclipse.jst.j2ee.internal.archive.WebComponentArchiveSaveAdapter;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEArtifactImportOperation;
+import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentImportDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
@@ -74,7 +74,7 @@ public class WebComponentImportOperation extends J2EEArtifactImportOperation {
 			try {
 				libFolder.create(IResource.FORCE, new SubProgressMonitor(monitor, LIB_FOLDER_WORK));
 			} catch (CoreException e) {
-				Logger.getLogger().logError(e);
+				WebPlugin.logError(e);
 			}
 		} else {
 			monitor.worked(LIB_FOLDER_WORK);
@@ -82,9 +82,9 @@ public class WebComponentImportOperation extends J2EEArtifactImportOperation {
 		try {
 			importWebLibraryProjects(monitor);
 		} catch (InvocationTargetException e) {
-			Logger.getLogger().logError(e);
+			WebPlugin.logError(e);
 		} catch (InterruptedException e) {
-			Logger.getLogger().logError(e);
+			WebPlugin.logError(e);
 		}
 	}
 

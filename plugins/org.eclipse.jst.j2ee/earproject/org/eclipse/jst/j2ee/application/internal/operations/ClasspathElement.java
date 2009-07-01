@@ -27,7 +27,6 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
@@ -298,7 +297,7 @@ public class ClasspathElement {
 			try {
 				resourcePath = ModuleURIUtil.getArchiveName(archiveURI);
 			} catch (UnresolveableURIException e) {
-				Logger.getLogger().logError(e);
+				J2EEPlugin.logError(e);
 			}
 			IPath resPath = new Path(resourcePath);
 			if (!resPath.isAbsolute())

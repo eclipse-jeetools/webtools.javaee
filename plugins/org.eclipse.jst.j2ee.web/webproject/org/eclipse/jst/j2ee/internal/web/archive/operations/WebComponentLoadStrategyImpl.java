@@ -23,6 +23,7 @@ import org.eclipse.jst.j2ee.internal.archive.operations.ComponentLoadStrategyImp
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
+import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.jst.j2ee.project.WebUtilities;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
@@ -91,7 +92,7 @@ public class WebComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 					filesHolder.addFile(utilJAR);
 				} catch (OpenFailureException oe) {
 					String message = ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.UNABLE_TO_LOAD_MODULE_ERROR_, new Object[]{uri, getComponent().getProject().getName(), oe.getConcatenatedMessages()}); 
-					org.eclipse.jem.util.logger.proxy.Logger.getLogger().logTrace(message);
+					WebPlugin.logError(message);
 				}
 			}
 		}

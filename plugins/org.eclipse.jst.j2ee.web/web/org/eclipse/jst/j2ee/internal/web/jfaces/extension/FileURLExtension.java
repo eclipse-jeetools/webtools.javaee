@@ -17,7 +17,7 @@
 package org.eclipse.jst.j2ee.internal.web.jfaces.extension;
 
 import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 
 /**
  * @author vijayb
@@ -48,7 +48,7 @@ public class FileURLExtension {
 			if (this.instance == null && !this.errorCondition)
 				this.instance = (FileURL) this.element.createExecutableExtension("run"); //$NON-NLS-1$
 		} catch (Throwable e) {
-			Logger.getLogger().logError(e);
+			WebPlugin.logError(e);
 			this.errorCondition = true;
 		}
 		return this.instance;

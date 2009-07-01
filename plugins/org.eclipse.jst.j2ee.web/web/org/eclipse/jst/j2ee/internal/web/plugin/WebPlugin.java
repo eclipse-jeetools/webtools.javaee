@@ -37,6 +37,7 @@ import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
+import java.lang.Throwable;
 
 
 /**
@@ -300,6 +301,10 @@ public class WebPlugin extends WTPPlugin implements ResourceLocator {
 
 	public static void logError(CoreException exception) {
 		Platform.getLog(Platform.getBundle(PLUGIN_ID)).log( exception.getStatus() );
+	}
+
+	public static void logError(String message) {
+		Platform.getLog(Platform.getBundle(PLUGIN_ID)).log( createStatus(IStatus.ERROR, message));
 	}
 
 }

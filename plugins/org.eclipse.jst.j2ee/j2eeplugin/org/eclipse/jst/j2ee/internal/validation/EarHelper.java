@@ -15,13 +15,13 @@ package org.eclipse.jst.j2ee.internal.validation;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.impl.ApplicationImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
@@ -89,7 +89,7 @@ public class EarHelper extends J2EEValidationHelper {
 			earFile = (EARFile)archive;
 			return archive;
 		} catch (OpenFailureException e1) {
-			Logger.getLogger().log(e1);
+			J2EEPlugin.logError(e1);
 		}
 		return null;
 	}

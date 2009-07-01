@@ -36,7 +36,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.jem.util.emf.workbench.WorkbenchURIConverter;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.application.EjbModule;
 import org.eclipse.jst.j2ee.application.Module;
@@ -62,6 +61,7 @@ import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.internal.validation.EARValidationMessageResourceHandler;
 import org.eclipse.jst.j2ee.model.internal.validation.EarValidator;
@@ -533,7 +533,7 @@ public class UIEarValidator extends EarValidator {
 	}
 
 	protected void handleManifestException(IOException ex, Archive anArchive) throws ValidationException {
-		Logger.getLogger().logError(ex);
+		J2EEPlugin.logError(ex);
 		String tmp = NLS.bind(EARValidationMessageResourceHandler.ERROR_READING_MANIFEST_ERROR_, new String[]{anArchive.getURI()});		
 		IMessage message = new LocalizedMessage(IMessage.HIGH_SEVERITY, tmp);
 		throw new ValidationException(message, ex);
@@ -796,7 +796,7 @@ public class UIEarValidator extends EarValidator {
 						addLocalizedWarning(tmp, appDD);
 					}
 				} catch (IllegalArgumentException iae) {
-					Logger.getLogger().logError(iae);
+					J2EEPlugin.logError(iae);
 				}
 			}
 		}

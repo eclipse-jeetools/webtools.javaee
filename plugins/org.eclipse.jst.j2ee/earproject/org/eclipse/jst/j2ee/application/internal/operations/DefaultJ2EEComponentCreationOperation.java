@@ -19,8 +19,8 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.earcreation.IDefaultJ2EEComponentCreationDataModelProperties;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.componentcore.datamodel.FacetProjectCreationDataModelProvider;
 import org.eclipse.wst.common.componentcore.internal.operation.FacetProjectCreationOperation;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
@@ -62,7 +62,7 @@ public class DefaultJ2EEComponentCreationOperation extends AbstractDataModelOper
                 createAppClientComponent(projectModel, monitor);
             }
         } catch (Exception e) {
-            Logger.getLogger().log(e.getMessage());
+        	J2EEPlugin.logError(e);
         }
         return OK_STATUS;
     }
@@ -119,7 +119,7 @@ public class DefaultJ2EEComponentCreationOperation extends AbstractDataModelOper
 			try {
 				FacetProjectCreationOperation.addDefaultFactets( facetedProject, runtime );
 			} catch (ExecutionException e) {
-				Logger.getLogger().logError(e);
+				J2EEPlugin.logError(e);
 			}
 		}    	
     }

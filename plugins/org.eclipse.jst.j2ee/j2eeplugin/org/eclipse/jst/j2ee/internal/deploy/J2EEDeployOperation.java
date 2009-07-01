@@ -33,7 +33,6 @@ import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -177,7 +176,7 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 				dep.execute(proj, null, ctx);
 				addOKStatus(dep.getClass().getName());
 			} catch (CoreException ex) {
-				Logger.getLogger().logError(ex);
+				J2EEPlugin.logError(ex);
 				Throwable statusException = (ex.getStatus().getException() != null) ? ex.getStatus().getException() : ex;
 				addErrorStatus(ex.getStatus(), dep.getClass().getName(), statusException);
 				continue;

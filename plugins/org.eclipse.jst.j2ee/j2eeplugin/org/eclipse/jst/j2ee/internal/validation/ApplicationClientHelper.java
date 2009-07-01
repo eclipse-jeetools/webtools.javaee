@@ -15,10 +15,10 @@ package org.eclipse.jst.j2ee.internal.validation;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.applicationclient.componentcore.util.AppClientArtifactEdit;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ApplicationClientFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.model.internal.validation.ApplicationClientMessageConstants;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -70,7 +70,7 @@ public class ApplicationClientHelper extends J2EEValidationHelper {
 			appClientFile = (ApplicationClientFile)((AppClientArtifactEdit) edit).asArchive(false);
 			return appClientFile;
 		} catch (OpenFailureException e1) {
-			Logger.getLogger().log(e1);
+			J2EEPlugin.logError(e1);
 		}finally {
 			if (edit != null) {
 				edit.dispose();

@@ -32,11 +32,11 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
+import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
@@ -292,14 +292,14 @@ public class WebPropertiesUtil {
 				try {
 					javaProject.setRawClasspath(newClassPathArray, localMonitor);
 				} catch (Exception e) {
-					Logger.getLogger().log(e);
+					WebPlugin.logError(e);
 				}
 			}
 
 		} catch (ClassCastException ex) {
-			Logger.getLogger().log(ex);
+			WebPlugin.logError(ex);
 		} catch (CoreException ex) {
-			Logger.getLogger().log(ex);
+			WebPlugin.logError(ex);
 		} finally {
 			localMonitor.done();
 		}

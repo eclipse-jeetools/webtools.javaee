@@ -39,7 +39,6 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants.DependencyAttributeType;
@@ -602,7 +601,7 @@ public class ClassPathSelection {
 				manifest = J2EEProjectUtilities.readManifest(component.getProject());
 				cp = manifest.getClassPathTokenized();
 			} catch (ManifestException ex) {
-				Logger.getLogger().logError(ex);
+				J2EEPlugin.logError(ex);
 			}
 			String projectUri = earComponent.getReference(component.getName()).getArchiveName();
 			archives = new ArrayList(Arrays.asList(earComponent.getReferences()));
@@ -665,7 +664,7 @@ public class ClassPathSelection {
 			try {
 			    createClasspathEntryElements(component, IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH, IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_COMPONENT_PATH);
 			} catch (CoreException ce) {
-				Logger.getLogger(J2EEPlugin.PLUGIN_ID).logError(ce);
+				J2EEPlugin.logError(ce);
 			}
 		}
 		
@@ -786,16 +785,15 @@ public class ClassPathSelection {
 						try {
 							archive = CommonarchiveFactoryImpl.getActiveFactory().primOpenArchive(strat, uri);
 						} catch (OpenFailureException e) {
-							// TODO Auto-generated catch block
-							Logger.getLogger().logError(e);
+							J2EEPlugin.logError(e);
 						}
 
 						archives.add(archive);
 						
 					} catch (FileNotFoundException e) {
-						Logger.getLogger().logError(e);
+						J2EEPlugin.logError(e);
 					} catch (IOException e) {
-						Logger.getLogger().logError(e);
+						J2EEPlugin.logError(e);
 					}
 				}
 				
@@ -928,7 +926,7 @@ public class ClassPathSelection {
 		try {
 			cp = referencedArchive.getManifest().getClassPathTokenized();
 		} catch (ManifestException mfEx) {
-			Logger.getLogger().logError(mfEx);
+			J2EEPlugin.logError(mfEx);
 			cp = new String[]{};
 		}
 		List paths = new ArrayList(cp.length);
@@ -972,7 +970,7 @@ public class ClassPathSelection {
 			if( referencedManifest != null )
 				cp = referencedManifest.getClassPathTokenized();
 		} catch (ManifestException mfEx) {
-			Logger.getLogger().logError(mfEx);
+			J2EEPlugin.logError(mfEx);
 			cp = new String[]{};
 		}
 		if( cp != null ){

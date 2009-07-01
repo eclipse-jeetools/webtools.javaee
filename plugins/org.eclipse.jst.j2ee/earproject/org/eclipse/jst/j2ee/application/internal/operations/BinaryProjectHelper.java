@@ -25,10 +25,10 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.emf.workbench.WorkbenchByteArrayOutputStream;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 public class BinaryProjectHelper {
 
@@ -54,11 +54,11 @@ public class BinaryProjectHelper {
 			javaProject.setRawClasspath(newEntries, monitor);
 								 
 		} catch (FileNotFoundException e) {
-			Logger.getLogger().log(e);
+			J2EEPlugin.logError(e);
 		} catch (IOException e) {
-			Logger.getLogger().log(e);
+			J2EEPlugin.logError(e);
 		} catch (JavaModelException e) {
-			Logger.getLogger().log(e);
+			J2EEPlugin.logError(e);
 		} 
 	} 
 
@@ -127,7 +127,7 @@ public class BinaryProjectHelper {
 			entries = (IClasspathEntry[]) newCp.toArray(new IClasspathEntry[newCp.size()]);
 			javaProject.setRawClasspath(entries, monitor);
 		} catch (JavaModelException ex) {
-			Logger.getLogger().log(ex);
+			J2EEPlugin.logError(ex);
 		}
 	}
 

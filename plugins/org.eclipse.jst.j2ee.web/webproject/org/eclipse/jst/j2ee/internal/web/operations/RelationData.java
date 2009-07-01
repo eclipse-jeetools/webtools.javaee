@@ -33,6 +33,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
+import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 
 
 /**
@@ -273,7 +274,7 @@ public class RelationData {
 						Link lnk = (Link) in_links.elementAt(i);
 						St.append("\tValue=" + lnk.getURL() + "[" + lnk.getOccurrences() + "]");//$NON-NLS-3$//$NON-NLS-2$//$NON-NLS-1$
 					}
-					org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(St.toString());
+					WebPlugin.logError(St.toString());
 				}
 			}
 		}
@@ -837,15 +838,15 @@ public class RelationData {
 					//		
 					//				}
 				} catch (FileNotFoundException fe) {
-					org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(fe);
+					WebPlugin.logError(fe);
 				} catch (IOException ie) {
-					org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ie);
+					WebPlugin.logError(ie);
 				} finally {
 					if (reader != null) {
 						try {
 							reader.close();
 						} catch (IOException ie2) {
-							org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ie2);
+							WebPlugin.logError(ie2);
 						}
 					}
 				}
@@ -977,7 +978,7 @@ public class RelationData {
 				out.flush();
 				out.close();
 			} catch (IOException e) {
-				org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ProjectSupportResourceHandler.Error_while_saving_links_s_EXC_); // = "Error while saving links state file"
+				WebPlugin.logError(ProjectSupportResourceHandler.Error_while_saving_links_s_EXC_); // = "Error while saving links state file"
 			}
 		}
 	}
