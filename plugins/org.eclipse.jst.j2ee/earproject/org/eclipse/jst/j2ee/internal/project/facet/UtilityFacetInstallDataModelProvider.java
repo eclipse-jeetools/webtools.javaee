@@ -10,7 +10,10 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.project.facet;
 
+import java.util.List;
+
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
@@ -41,26 +44,38 @@ public class UtilityFacetInstallDataModelProvider extends J2EEModuleFacetInstall
 		    final IFacetedProjectWorkingCopy fpjwc 
 		        = (IFacetedProjectWorkingCopy) getProperty( FACETED_PROJECT_WORKING_COPY );
 		    
-		    final IFacetedProject fpj = fpjwc.getFacetedProject();
-		    
-		    if( fpj.hasProjectFacet( JavaFacet.FACET ) )
+		    if( this.javaFacetInstallConfig != null )
 		    {
-		        try
+		        final List<IPath> sourceFolders = this.javaFacetInstallConfig.getSourceFolders();
+		        
+		        if( ! sourceFolders.isEmpty() )
 		        {
-    		        final IJavaProject jpj = JavaCore.create( fpj.getProject() );
-    		        
-    		        for( IClasspathEntry cpe : jpj.getRawClasspath() )
+		            return sourceFolders.get( 0 ).toPortableString();
+		        }
+		    }
+		    else
+		    {
+    		    final IFacetedProject fpj = fpjwc.getFacetedProject();
+    		    
+    		    if( fpj.hasProjectFacet( JavaFacet.FACET ) )
+    		    {
+    		        try
     		        {
-    		            if( cpe.getEntryKind() == IClasspathEntry.CPE_SOURCE )
-    		            {
-    		                return cpe.getPath().removeFirstSegments( 1 ).toPortableString();
-    		            }
+        		        final IJavaProject jpj = JavaCore.create( fpj.getProject() );
+        		        
+        		        for( IClasspathEntry cpe : jpj.getRawClasspath() )
+        		        {
+        		            if( cpe.getEntryKind() == IClasspathEntry.CPE_SOURCE )
+        		            {
+        		                return cpe.getPath().removeFirstSegments( 1 ).toPortableString();
+        		            }
+        		        }
     		        }
-		        }
-		        catch( CoreException e )
-		        {
-		            Logger.getLogger().logError(e);
-		        }
+    		        catch( CoreException e )
+    		        {
+    		            Logger.getLogger().logError(e);
+    		        }
+    		    }
 		    }
 		}
 		return super.getDefaultProperty(propertyName);
