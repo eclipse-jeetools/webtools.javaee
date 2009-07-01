@@ -461,7 +461,6 @@
       </action>
       <action type="uninstall">
         <delegate class="org.eclipse.jst.j2ee.project.facet.UtilityFacetUnInstallDelegate"/>
-        <config-factory class="org.eclipse.jst.j2ee.project.facet.UtilityFacetInstallDataModelProvider"/>
       </action>
       <event-handler type="RUNTIME_CHANGED">
         <delegate class="org.eclipse.jst.j2ee.project.facet.J2EEFacetRuntimeChangedDelegate"/>
