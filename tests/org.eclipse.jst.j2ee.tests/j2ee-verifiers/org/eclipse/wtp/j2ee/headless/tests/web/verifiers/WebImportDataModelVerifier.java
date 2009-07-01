@@ -11,6 +11,7 @@ import java.util.Collection;
 
 import junit.framework.Assert;
 
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.IPath;
@@ -47,7 +48,7 @@ public class WebImportDataModelVerifier extends ModuleImportDataModelVerifier {
 			Collection<IArchiveResource> importedClassesResources,
 			Collection<IArchiveResource> otherResources,
 			Collection<IArchive> nestedArchives,
-			IFolder rootFolder, IFolder importedClassesFolder) {
+			IContainer rootFolder, IFolder importedClassesFolder) {
 		
 		IPath resourcePath = null;
 		IFile resourceFile = null;

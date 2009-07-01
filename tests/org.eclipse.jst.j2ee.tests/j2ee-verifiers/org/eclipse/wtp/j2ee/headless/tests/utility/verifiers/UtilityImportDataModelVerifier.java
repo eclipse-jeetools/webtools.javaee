@@ -5,6 +5,7 @@ package org.eclipse.wtp.j2ee.headless.tests.utility.verifiers;
 
 import java.util.Collection;
 
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.runtime.IPath;
@@ -48,7 +49,7 @@ public class UtilityImportDataModelVerifier extends ModuleImportDataModelVerifie
 			Collection<IArchiveResource> sourceResources,
 			Collection<IArchiveResource> importedClassesResources,
 			Collection<IArchiveResource> otherResources,
-			Collection<IArchive> nestedArchives, IFolder rootFolder,
+			Collection<IArchive> nestedArchives, IContainer rootFolder,
 			IFolder importedClassesFolder) throws Exception {
 		
 		IPath resourcePath = null;

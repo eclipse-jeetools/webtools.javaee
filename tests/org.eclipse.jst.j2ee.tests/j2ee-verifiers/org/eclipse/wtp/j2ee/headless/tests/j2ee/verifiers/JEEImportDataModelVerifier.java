@@ -13,6 +13,7 @@ import java.util.StringTokenizer;
 
 import junit.framework.Assert;
 
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
@@ -160,7 +161,7 @@ public abstract class JEEImportDataModelVerifier extends DataModelVerifier {
 
 		IVirtualComponent projectComponent = ComponentUtilities.getComponent(project.getName());
 		IVirtualFolder rootVirtFolder = projectComponent.getRootFolder();
-		IFolder rootFolder = (IFolder)rootVirtFolder.getUnderlyingFolder();
+		IContainer rootFolder = rootVirtFolder.getUnderlyingFolder();
 		Assert.assertTrue("The root folder " + rootFolder.getName() + " should exist in the project" , rootFolder.exists());
 		
 		// when the for loops is done the classes will contain only those classes that were imported,
@@ -206,5 +207,5 @@ public abstract class JEEImportDataModelVerifier extends DataModelVerifier {
 		verifyImportedResources(sourceResources, classes, otherResources, nestedArchives, rootFolder, importedClassesFolder);
 	}
 	
-	protected abstract void verifyImportedResources(Collection<IArchiveResource> sourceResources, Collection<IArchiveResource> importedClassesResources, Collection<IArchiveResource> otherResources, Collection<IArchive> nestedArchives, IFolder rootFolder, IFolder importedClassesFolder) throws Exception;
+	protected abstract void verifyImportedResources(Collection<IArchiveResource> sourceResources, Collection<IArchiveResource> importedClassesResources, Collection<IArchiveResource> otherResources, Collection<IArchive> nestedArchives, IContainer rootFolder, IFolder importedClassesFolder) throws Exception;
 }
