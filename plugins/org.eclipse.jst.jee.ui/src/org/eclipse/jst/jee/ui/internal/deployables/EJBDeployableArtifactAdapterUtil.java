@@ -25,7 +25,6 @@ import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.javaee.ejb.EJBJar;
@@ -33,6 +32,7 @@ import org.eclipse.jst.javaee.ejb.EntityBean;
 import org.eclipse.jst.javaee.ejb.MessageDrivenBean;
 import org.eclipse.jst.javaee.ejb.SessionBean;
 import org.eclipse.jst.jee.internal.deployables.JEEFlexProjDeployable;
+import org.eclipse.jst.jee.ui.plugin.JEEUIPlugin;
 import org.eclipse.jst.server.core.EJBBean;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -92,7 +92,7 @@ public class EJBDeployableArtifactAdapterUtil {
 			}
 
 		} catch (JavaModelException e) {
-			Logger.getLogger().log(e);
+			JEEUIPlugin.logError(e);
 		}
 		return null;
 	}

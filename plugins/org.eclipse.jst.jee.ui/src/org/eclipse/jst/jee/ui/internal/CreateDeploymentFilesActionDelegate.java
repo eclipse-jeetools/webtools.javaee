@@ -18,7 +18,6 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
@@ -29,6 +28,7 @@ import org.eclipse.jst.jee.project.facet.ICreateDeploymentFilesDataModelProperti
 import org.eclipse.jst.jee.project.facet.IEJBCreateDeploymentFilesDataModelProperties;
 import org.eclipse.jst.jee.project.facet.IEarCreateDeploymentFilesDataModelProperties;
 import org.eclipse.jst.jee.project.facet.IWebCreateDeploymentFilesDataModelProperties;
+import org.eclipse.jst.jee.ui.plugin.JEEUIPlugin;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -114,7 +114,7 @@ public class CreateDeploymentFilesActionDelegate extends BaseAction {
 		try {
 			getDataModel(project).getDefaultOperation().execute( new NullProgressMonitor(), null);
 		} catch (ExecutionException e) {
-			Logger.getLogger().logError(e);
+			JEEUIPlugin.logError(e);
 		}
 	}
 

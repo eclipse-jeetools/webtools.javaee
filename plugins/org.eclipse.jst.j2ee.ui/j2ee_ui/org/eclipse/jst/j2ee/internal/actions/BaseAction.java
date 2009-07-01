@@ -16,7 +16,6 @@
  */
 package org.eclipse.jst.j2ee.internal.actions;
 
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
@@ -60,7 +59,7 @@ public abstract class BaseAction extends Action implements IActionDelegate {
 			primRun(shell);
 			this.selection = null;
 		} catch (Throwable t) {
-			Logger.getLogger().logError(t);
+			J2EEUIPlugin.logError(t);
 			String ERROR_OCCURRED_TITLE = J2EEUIMessages.getResourceString("ERROR_OCCURRED_TITLE"); //$NON-NLS-1$
 			String ERROR_OCCURRED_MESSAGE = J2EEUIMessages.getResourceString("ERROR_OCCURRED_MESSAGE"); //$NON-NLS-1$
 			ErrorDialog.openError(shell, ERROR_OCCURRED_TITLE, ERROR_OCCURRED_MESSAGE, t, 0, false);
