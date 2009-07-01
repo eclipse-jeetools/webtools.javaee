@@ -179,7 +179,12 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 						IVirtualReference[] earRefs = earComp.getReferences();
 						for (IVirtualReference earRef : earRefs) {
 							// check if the referenced component is in the library directory
-							if (libDir.equals(earRef.getRuntimePath().toString())) {
+							boolean isInLibDir = libDir.equals(earRef.getRuntimePath().toString());
+							if(!isInLibDir){
+								IPath fullPath = earRef.getRuntimePath().append(earRef.getArchiveName());
+								isInLibDir = fullPath.removeLastSegments(1).toString().equals(libDir);
+							}
+							if (isInLibDir) {
 								IVirtualComponent earRefComp = earRef.getReferencedComponent();
 								// check if the referenced component is already visited - avoid cycles in the build path
 								if (!refedComps.contains(earRefComp)) {

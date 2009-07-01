@@ -49,6 +49,10 @@ import org.eclipse.jst.j2ee.internal.componentcore.JavaEEBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.model.IModelProvider;
+import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
+import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
@@ -60,7 +64,6 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.internal.emf.utilities.ExtendedEcoreUtil;
 import org.eclipse.wst.common.project.facet.core.FacetedProjectFramework;
-import org.eclipse.jst.j2ee.internal.common.classpath.Messages;
 
 public class J2EEComponentClasspathUpdater implements IResourceChangeListener, IResourceDeltaVisitor {
 
@@ -494,22 +497,48 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 				if (null == manifestFile || resource.equals(manifestFile)) {
 					queueUpdateModule(resource.getProject());
 				}
-			} else if (endsWithIgnoreCase(name, IJ2EEModuleConstants.JAR_EXT)) {
+			} else if (endsWithIgnoreCase(name, IJ2EEModuleConstants.JAR_EXT) || endsWithIgnoreCase(name, ".zip")) { //$NON-NLS-1$
 				try {
 					if (FacetedProjectFramework.hasProjectFacet(resource.getProject(), J2EEProjectUtilities.ENTERPRISE_APPLICATION)) {
 						IVirtualComponent comp = ComponentCore.createComponent(resource.getProject());
-						if(isFolder(resource.getParent(), comp.getRootFolder())){
+						if(isFolder(resource.getParent(), comp.getRootFolder()) || isEARLibraryDirectory(resource, comp)){
 							queueUpdateEAR(resource.getProject());
 						}
 					}
 				} catch (CoreException e) {
-					J2EEPlugin.getDefault().getLogger().logError(e);
+					J2EEPlugin.logError(e);
 				}
 			}
 		}
 			
 		}
 		return false;
+	}
+	
+	private boolean isEARLibraryDirectory(IResource resource, IVirtualComponent earComponent) {
+		// check if the EAR component's version is 5 or greater
+		IProject project = earComponent.getProject();
+		if (!JavaEEProjectUtilities.isJEEComponent(earComponent, JavaEEProjectUtilities.DD_VERSION)) return false;
+		
+		// retrieve the model provider
+		IModelProvider modelProvider = ModelProviderManager.getModelProvider(project);
+		if (modelProvider == null) return false;
+		
+		// retrieve the EAR's model object
+		Application app = (Application) modelProvider.getModelObject();
+		if (app == null) return false;
+		
+		// retrieve the library directory from the model
+		String libDir = app.getLibraryDirectory();
+		if (libDir == null) {
+			return false;
+		}
+		
+		IVirtualFolder libFolder = earComponent.getRootFolder().getFolder(libDir); 
+		if(resource.getType() == IResource.FILE){
+			return isRootAncester(resource.getParent(), libFolder);
+		}
+		return isRootAncester(resource, libFolder);
 	}
 	
 	public static boolean endsWithIgnoreCase(String str, String sfx) {
