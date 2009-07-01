@@ -17,7 +17,6 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.WebModule;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
@@ -31,6 +30,7 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.EARArchiveOpsResourceHandler;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.jst.javaee.application.Module;
 import org.eclipse.jst.jee.archive.ArchiveModelLoadException;
@@ -126,7 +126,7 @@ public class ArchiveWrapper {
 				JavaEEArchiveUtilities.INSTANCE.closeArchive(archive);
 			}
 		} catch (RuntimeException e) {
-			Logger.getLogger().logError(e);
+			J2EEPlugin.logError(e);
 			throw e;
 		}
 	}
@@ -187,7 +187,7 @@ public class ArchiveWrapper {
 									webLib = archive.getNestedArchive(resource);
 									cachedWebLibs.add(new ArchiveWrapper(webLib));
 								} catch (ArchiveOpenFailureException e) {
-									Logger.getLogger().logError(e);
+									J2EEPlugin.logError(e);
 								}
 							}
 						}
@@ -231,7 +231,7 @@ public class ArchiveWrapper {
 							cachedDDMappedModuleURIs.add(uri);
 						}
 					} catch (ArchiveModelLoadException e) {
-						Logger.getLogger().logError(e);
+						J2EEPlugin.logError(e);
 					}
 				} else { 
 					try{
@@ -243,7 +243,7 @@ public class ArchiveWrapper {
 							cachedDDMappedModuleURIs.add(uri);
 						}
 					}catch (ArchiveModelLoadException e) {
-						Logger.getLogger().logError(e);
+						J2EEPlugin.logError(e);
 					}
 				}
 			}
@@ -285,7 +285,7 @@ public class ArchiveWrapper {
 									earmodule = archive.getNestedArchive(resource);
 									cachedEARModules.add(new ArchiveWrapper(earmodule));
 								} catch (ArchiveOpenFailureException e) {
-									Logger.getLogger().logError(e);
+									J2EEPlugin.logError(e);
 								}
 							}
 						}
@@ -306,7 +306,7 @@ public class ArchiveWrapper {
 								earmodule = archive.getNestedArchive(resource);
 								cachedEARModules.add(new ArchiveWrapper(earmodule));
 							} catch (ArchiveOpenFailureException e) {
-								Logger.getLogger().logError(e);
+								J2EEPlugin.logError(e);
 							} catch (FileNotFoundException e) {
 								org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
 							}
@@ -427,7 +427,7 @@ public class ArchiveWrapper {
 							cachedWebContextRoot[0] = getDefaultContextRoot();
 						}
 					} catch (ArchiveModelLoadException e) {
-						Logger.getLogger().logError(e);
+						J2EEPlugin.logError(e);
 					}
 				} else {
 					try{
@@ -440,7 +440,7 @@ public class ArchiveWrapper {
 							cachedWebContextRoot[0] = module.getContextRoot();
 						}
 					} catch (ArchiveModelLoadException e) {
-						Logger.getLogger().logError(e);
+						J2EEPlugin.logError(e);
 					}
 				}
 			} else {
@@ -490,7 +490,7 @@ public class ArchiveWrapper {
 					}
 					return ejbClientArchiveWrapper;
 				} catch (FileNotFoundException e) {
-					Logger.getLogger().logError(e);
+					J2EEPlugin.logError(e);
 				}
 			}
 			if (archive != null) {
@@ -520,19 +520,19 @@ public class ArchiveWrapper {
 									try {
 										ejbClientArchiveWrapper = new ArchiveWrapper(archive.getNestedArchive(clientJar));
 									} catch (ArchiveOpenFailureException e) {
-										Logger.getLogger().logError(e);
+										J2EEPlugin.logError(e);
 									}
 								}
 							}
 						} else {
-							Logger.getLogger().logWarning(EARArchiveOpsResourceHandler.bind(EARArchiveOpsResourceHandler.MISSING_CLIENT_JAR, new Object[] {clientJarName, ejbWrapper.getName(), archive.getPath()}));
+							J2EEPlugin.logWarning(EARArchiveOpsResourceHandler.bind(EARArchiveOpsResourceHandler.MISSING_CLIENT_JAR, new Object[] {clientJarName, ejbWrapper.getName(), archive.getPath()}));
 						}
 					}
 					return ejbClientArchiveWrapper;
 				} catch (FileNotFoundException e) {
-					Logger.getLogger().logError(e);
+					J2EEPlugin.logError(e);
 				} catch (ArchiveModelLoadException e) {
-					Logger.getLogger().logError(e);
+					J2EEPlugin.logError(e);
 				}
 			}
 		} finally {
@@ -585,7 +585,7 @@ public class ArchiveWrapper {
 							cachedEARUtilitiesAndWebLibs.add(nestedWrapper);
 						}
 					} catch (ArchiveOpenFailureException e) {
-						Logger.getLogger().logError(e);
+						J2EEPlugin.logError(e);
 					}
 				}
 			}

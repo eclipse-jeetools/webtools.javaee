@@ -30,7 +30,6 @@ import org.eclipse.jdt.core.IClasspathAttribute;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants.DependencyAttributeType;
@@ -184,7 +183,7 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 				}
 			}
 		} catch (CoreException e) {
-			Logger.getLogger(J2EEPlugin.PLUGIN_ID).logError(e);
+			J2EEPlugin.logError(e);
 		}
 		
 		return Status.OK_STATUS;

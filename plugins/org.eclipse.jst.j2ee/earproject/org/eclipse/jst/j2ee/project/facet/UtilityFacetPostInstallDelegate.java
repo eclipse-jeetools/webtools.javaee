@@ -14,7 +14,7 @@ package org.eclipse.jst.j2ee.project.facet;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IDelegate;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
@@ -47,7 +47,7 @@ public final class UtilityFacetPostInstallDelegate extends J2EEFacetInstallDeleg
 				}
 			}
 		} catch (Exception e) {
-			Logger.getLogger().logError(e);
+			J2EEPlugin.logError(e);
 		} finally {
 			if (monitor != null) {
 				monitor.done();

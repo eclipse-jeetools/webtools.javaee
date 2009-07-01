@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.applicationclient.componentcore.util.AppClientArtifactEdit;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
@@ -35,6 +34,7 @@ import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyVirtualComponent;
 import org.eclipse.jst.j2ee.internal.componentcore.JavaEEBinaryComponentHelper;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
@@ -136,7 +136,7 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 							}
 						}
 					} catch (OpenFailureException oe) {
-						Logger.getLogger().logError(oe);
+						J2EEPlugin.logError(oe);
 					} finally {
 						if (!referencedComponent.isBinary() && componentArtifactEdit != null) {
 							componentArtifactEdit.dispose();
@@ -160,7 +160,7 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 
 							}
 						} catch (OpenFailureException e) {
-							Logger.getLogger().logError(e);
+							J2EEPlugin.logError(e);
 						}
 					}
 				}

@@ -11,8 +11,16 @@
 
 package org.eclipse.jst.j2ee.internal.archive;
 
-import static org.eclipse.jst.j2ee.internal.archive.ArchiveExportParticipantsExtensionPoint.PluginUtil.*;
-import static org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.*;
+import static org.eclipse.jst.j2ee.internal.archive.ArchiveExportParticipantsExtensionPoint.PluginUtil.findExtensions;
+import static org.eclipse.jst.j2ee.internal.archive.ArchiveExportParticipantsExtensionPoint.PluginUtil.findOptionalElement;
+import static org.eclipse.jst.j2ee.internal.archive.ArchiveExportParticipantsExtensionPoint.PluginUtil.findRequiredAttribute;
+import static org.eclipse.jst.j2ee.internal.archive.ArchiveExportParticipantsExtensionPoint.PluginUtil.findRequiredElement;
+import static org.eclipse.jst.j2ee.internal.archive.ArchiveExportParticipantsExtensionPoint.PluginUtil.getTopLevelElements;
+import static org.eclipse.jst.j2ee.internal.archive.ArchiveExportParticipantsExtensionPoint.PluginUtil.instantiate;
+import static org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.PLUGIN_ID;
+import static org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.createErrorStatus;
+import static org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.log;
+import static org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError;
 
 import java.util.ArrayList;
 import java.util.Collection;

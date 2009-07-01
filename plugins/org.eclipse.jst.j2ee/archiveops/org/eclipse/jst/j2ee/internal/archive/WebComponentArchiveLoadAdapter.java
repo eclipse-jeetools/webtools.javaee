@@ -30,6 +30,7 @@ import org.eclipse.jst.jee.archive.IArchiveResource;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 public class WebComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter {
 
@@ -117,7 +118,7 @@ public class WebComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter 
 					filesHolder.addFile(webLibArchive);
 				} catch (ArchiveOpenFailureException e) {
 					String message = ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.UNABLE_TO_LOAD_MODULE_ERROR_, new Object[]{uri, getComponent().getProject().getName(), e.getMessage()});
-					org.eclipse.jem.util.logger.proxy.Logger.getLogger().logTrace(message);
+					J2EEPlugin.logError(message);
 				}
 			}
 		}

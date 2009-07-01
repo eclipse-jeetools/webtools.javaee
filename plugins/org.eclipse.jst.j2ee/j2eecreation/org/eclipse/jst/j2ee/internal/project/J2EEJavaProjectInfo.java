@@ -26,6 +26,7 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.internal.plugin.JavaProjectInfo;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.wst.server.core.IRuntime;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 /**
  * This class stores the info required for creating a new J2EE project; not all info will apply to
@@ -106,7 +107,7 @@ public class J2EEJavaProjectInfo extends JavaProjectInfo {
 		IClasspathEntry[] entry = new IClasspathEntry[1];
 		Path path = new Path(jdkJarFullPathName);
 		if (!path.toFile().exists()) {
-			org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(J2EECreationResourceHandler.getString(J2EECreationResourceHandler.JdkJarFileDoesNotExist_UI, new Object[]{jdkJarFullPathName})); 
+			J2EEPlugin.logError(J2EECreationResourceHandler.getString(J2EECreationResourceHandler.JdkJarFileDoesNotExist_UI, new Object[]{jdkJarFullPathName})); 
 			return false;
 		}
 

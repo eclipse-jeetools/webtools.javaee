@@ -14,7 +14,7 @@ package org.eclipse.jst.j2ee.refactor.operations;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
@@ -72,7 +72,7 @@ public abstract class UpdateDependentProjectOp extends AbstractDataModelOperatio
 				}
 			} 
 		} catch (CoreException ce) {
-			Logger.getLogger().logError(ce);
+			J2EEPlugin.logError(ce);
 		}
 		return false;
 	}

@@ -28,7 +28,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProperties;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProvider;
@@ -77,7 +76,7 @@ public class JARDependencyOperation extends AbstractDataModelOperation implement
 			// No longer manipulating build path... containers will calculate
 			//buildPathOperation.run(new SubProgressMonitor(monitor, 1));
 		} catch (Exception e) {
-			Logger.getLogger().logError(e);
+			J2EEPlugin.logError(e);
 		}
 	}
 
@@ -162,11 +161,11 @@ public class JARDependencyOperation extends AbstractDataModelOperation implement
 				try {
 					saveModel(clpModel, monitor);
 				} catch (InvocationTargetException e) {
-					Logger.getLogger().logError(e);
+					J2EEPlugin.logError(e);
 				} catch (InterruptedException e) {
-					Logger.getLogger().logError(e);
+					J2EEPlugin.logError(e);
 				} catch (CoreException e) {
-					Logger.getLogger().logError(e);
+					J2EEPlugin.logError(e);
 				}			
 		} finally {
 			clpModel.dispose();			

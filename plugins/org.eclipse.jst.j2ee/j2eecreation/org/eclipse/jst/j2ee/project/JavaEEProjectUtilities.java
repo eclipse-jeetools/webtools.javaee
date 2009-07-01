@@ -20,11 +20,11 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.componentcore.JavaEEBinaryComponentHelper;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -269,13 +269,13 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 						int vers = (quickPeek.getVersion() == J2EEVersionConstants.UNKNOWN) ? getJEEVersion(project) : quickPeek.getVersion();
 						return J2EEVersionUtil.convertVersionIntToString(vers);
 					} catch (CoreException e) {
-						Logger.getLogger().logError(e);
+						J2EEPlugin.logError(e);
 					} finally {
 						if(in != null){
 							try {
 								in.close();
 							} catch (IOException e) {
-								Logger.getLogger().logError(e);
+								J2EEPlugin.logError(e);
 							}
 						}
 					}

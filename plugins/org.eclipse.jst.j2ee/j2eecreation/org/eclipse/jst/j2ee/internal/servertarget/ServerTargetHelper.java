@@ -26,8 +26,8 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerCore;
 import org.eclipse.wst.server.core.ServerUtil;
@@ -68,7 +68,7 @@ public class ServerTargetHelper {
 		try {
 			JemProjectUtilities.removeFromJavaClassPath(project, existingClasspathEntries);
 		} catch (JavaModelException jme) {
-			Logger.getLogger().logError(jme);
+			J2EEPlugin.logError(jme);
 		}
 	}
 
@@ -184,7 +184,7 @@ public class ServerTargetHelper {
 	// info.getJavaProject().setRawClasspath(info.getClasspathEntries(), null);
 	// }
 	// } catch (JavaModelException jme) {
-	// Logger.getLogger().logError(jme);
+	// J2EEPlugin.logError(jme);
 	// }
 	// }
 	// public static J2EEJavaProjectInfo getNewJ2EEProjectInfo(IProject project,
@@ -305,7 +305,7 @@ public class ServerTargetHelper {
 //		try {
 //			ServerCore.getProjectProperties(project).setRuntimeTarget(runtime, monitor);
 //		} catch (CoreException ce) {
-//			Logger.getLogger().logError(ce);
+//			J2EEPlugin.logError(ce);
 //		}
 //	}
 
@@ -366,7 +366,7 @@ public class ServerTargetHelper {
 		try {
 			return project.hasNature(JAVA_NATURE_ID);
 		} catch (CoreException ce) {
-			Logger.getLogger().logTrace(ce);
+			J2EEPlugin.logError(ce);
 		}
 		return false;
 	}

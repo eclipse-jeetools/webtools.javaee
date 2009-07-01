@@ -25,13 +25,13 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.emf.workbench.WorkbenchByteArrayOutputStream;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
@@ -52,7 +52,7 @@ public abstract class J2EEComponentSaveStrategyImpl extends ComponentSaveStrateg
 		try {
 			vComponent.getProject().refreshLocal(IResource.DEPTH_INFINITE, null);
 		} catch (CoreException ex) {
-			Logger.getLogger().logError(ex);
+			J2EEPlugin.logError(ex);
 		}
 	}
 
@@ -84,12 +84,12 @@ public abstract class J2EEComponentSaveStrategyImpl extends ComponentSaveStrateg
 		try {
 			aManifest.write(out);
 		} catch (IOException e) {
-			Logger.getLogger().logError(e);
+			J2EEPlugin.logError(e);
 		} finally {
 			try {
 				out.close();
 			} catch (IOException e) {
-				Logger.getLogger().logError(e);
+				J2EEPlugin.logError(e);
 			}
 		}
 	}
@@ -104,7 +104,7 @@ public abstract class J2EEComponentSaveStrategyImpl extends ComponentSaveStrateg
 		try {
 			importedClassesFolder.create(true, true, null);
 		} catch (CoreException e1) {
-			Logger.getLogger().logError(e1);
+			J2EEPlugin.logError(e1);
 		}
 	}
 	
@@ -123,7 +123,7 @@ public abstract class J2EEComponentSaveStrategyImpl extends ComponentSaveStrateg
 					}
 				}
 			} catch (CoreException e) {
-				Logger.getLogger().logError(e);
+				J2EEPlugin.logError(e);
 			}
 		}
 	}

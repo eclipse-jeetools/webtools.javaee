@@ -51,8 +51,8 @@ import org.eclipse.jdt.core.ITypeHierarchy;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.Signature;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -170,7 +170,7 @@ public class NewJavaClassOperation extends AbstractDataModelOperation {
 			try {
 				folder.create(true, true, null);
 			} catch (CoreException e) {
-				Logger.getLogger().log(e);
+				J2EEPlugin.logError(e);
 			}
 		}
 		// Return the source folder
@@ -201,7 +201,7 @@ public class NewJavaClassOperation extends AbstractDataModelOperation {
 			try {
 				pack = packRoot.createPackageFragment(packName, true, null);
 			} catch (JavaModelException e) {
-				Logger.getLogger().log(e);
+				J2EEPlugin.logError(e);
 			}
 		}
 		// Return the package
@@ -459,7 +459,7 @@ public class NewJavaClassOperation extends AbstractDataModelOperation {
 			try {
 				superClassType = javaProj.findType(superclassName);
 			} catch (JavaModelException e) {
-				Logger.getLogger().log(e);
+				J2EEPlugin.logError(e);
 			}
 		}
 		if (model.getBooleanProperty(CONSTRUCTOR)) {
@@ -475,7 +475,7 @@ public class NewJavaClassOperation extends AbstractDataModelOperation {
 					}
 				}
 			} catch (JavaModelException e) {
-				Logger.getLogger().log(e);
+				J2EEPlugin.logError(e);
 			}
 		}
 		// Add unimplemented methods defined in the interfaces list
@@ -513,7 +513,7 @@ public class NewJavaClassOperation extends AbstractDataModelOperation {
 				} 
 			}
 		} catch (JavaModelException e) {
-			Logger.getLogger().log(e);
+			J2EEPlugin.logError(e);
 		}
 		return false;
 	}
@@ -543,7 +543,7 @@ public class NewJavaClassOperation extends AbstractDataModelOperation {
 				}
 			}
 		} catch (JavaModelException e) {
-			Logger.getLogger().log(e);
+			J2EEPlugin.logError(e);
 		}
 		// Return method stubs string
 		return sb.toString();
@@ -580,7 +580,7 @@ public class NewJavaClassOperation extends AbstractDataModelOperation {
 				}
 			}
 		} catch (JavaModelException e) {
-			Logger.getLogger().log(e);
+			J2EEPlugin.logError(e);
 		}
 		// Return method stubs string
 		return sb.toString();
@@ -749,7 +749,7 @@ public class NewJavaClassOperation extends AbstractDataModelOperation {
 			sb.append(lineSeparator);
 			sb.append(lineSeparator);
 		} catch (JavaModelException e) {
-			Logger.getLogger().log(e);
+			J2EEPlugin.logError(e);
 		}
 		return sb.toString();
 	}

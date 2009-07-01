@@ -23,7 +23,7 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.internal.core.ClasspathEntry;
-import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 
 /**
@@ -84,7 +84,7 @@ public class UpdateProjectClasspath {
 			javaProject.setRawClasspath(classpathEntries, null);
 		}
 		catch (JavaModelException e) {
-			Logger.getLogger().logError(e);
+			J2EEPlugin.logError(e);
 		}
 	}
 }

@@ -24,7 +24,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
 import org.eclipse.jst.common.project.facet.JavaFacetUtils;
 import org.eclipse.jst.common.project.facet.core.JavaFacetInstallConfig;
@@ -156,7 +155,7 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 						IFacetedProject facetProj = ProjectFacetsManager.create(project, false, new NullProgressMonitor());
 						setProperty(FACET_RUNTIME, facetProj.getRuntime());
 					} catch (CoreException e) {
-						Logger.getLogger().logError(e);
+						J2EEPlugin.logError(e);
 					}
 				}
 			}

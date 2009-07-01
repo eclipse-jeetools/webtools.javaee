@@ -21,12 +21,12 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProperties;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProvider;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties;
@@ -80,7 +80,7 @@ public class AppClientFacetPostInstallDelegate extends J2EEFacetInstallDelegate 
 			if (monitor != null)
 				monitor.worked(1);
 		} catch (Exception e) {
-			Logger.getLogger().logError(e);
+			J2EEPlugin.logError(e);
 		} finally {
 			if (monitor != null)
 				monitor.done();
@@ -114,7 +114,7 @@ public class AppClientFacetPostInstallDelegate extends J2EEFacetInstallDelegate 
 			try {
 				createManifest(project, appClientComponent.getRootFolder().getUnderlyingFolder(), monitor);
 			} catch (Exception e) {
-				Logger.getLogger().logError(e);
+				J2EEPlugin.logError(e);
 			}
 		}
 		if (model.getBooleanProperty(IAppClientFacetInstallDataModelProperties.CREATE_DEFAULT_MAIN_CLASS)) {

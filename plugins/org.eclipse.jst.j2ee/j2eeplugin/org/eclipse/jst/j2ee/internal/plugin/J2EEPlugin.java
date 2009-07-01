@@ -453,7 +453,6 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 			return Platform.getResourceString(getBundle(), key);
 		} catch (MissingResourceException ex) {
 			//TODO Don't throw error - just show unresolved key
-			//Logger.getLogger().logError(ex);
 			return '!' + key + '!';
 		}
 	}
@@ -539,9 +538,9 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 			org.eclipse.core.runtime.Platform.getJobManager().join( J2EEElementChangedListener.PROJECT_COMPONENT_UPDATE_JOB_FAMILY,
 					new NullProgressMonitor() );
 		} catch (OperationCanceledException e) {
-			Logger.getLogger().logError(e.getMessage());
+			J2EEPlugin.logError(e.getMessage());
 		} catch (InterruptedException e) {
-			Logger.getLogger().logError(e.getMessage());
+			J2EEPlugin.logError(e.getMessage());
 		}		
 	}
 
@@ -708,6 +707,10 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 	public static void logError(String message, CoreException exception) {
 		MultiStatus status = new MultiStatus(PLUGIN_ID,IStatus.ERROR,new IStatus[]{exception.getStatus()},message,exception);
 		Platform.getLog(Platform.getBundle(PLUGIN_ID)).log( status );
+	}
+
+	public static void logWarning(String message) {
+		Platform.getLog(Platform.getBundle(PLUGIN_ID)).log(createStatus(IStatus.WARNING, message));
 	} 
 
 }

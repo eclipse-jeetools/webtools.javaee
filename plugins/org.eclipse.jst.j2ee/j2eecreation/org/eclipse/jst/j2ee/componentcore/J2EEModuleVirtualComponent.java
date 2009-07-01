@@ -28,7 +28,6 @@ import org.eclipse.jdt.core.IClasspathAttribute;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestImpl;
@@ -36,6 +35,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyEnablement;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyVirtualComponent;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
@@ -152,16 +152,16 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 					ArchiveManifest manifest = new ArchiveManifestImpl(in);
 					manifestClasspath = manifest.getClassPathTokenized();
 				} catch (IOException e) {
-					Logger.getLogger().logError(e);
+					J2EEPlugin.logError(e);
 				} catch (CoreException e) {
-					Logger.getLogger().logError(e);
+					J2EEPlugin.logError(e);
 				} finally {
 					if (in != null) {
 						try {
 							in.close();
 							in = null;
 						} catch (IOException e) {
-							Logger.getLogger().logError(e);
+							J2EEPlugin.logError(e);
 						}
 					}
 				}
@@ -278,7 +278,7 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 			}
 
 		} catch (CoreException jme) {
-			Logger.getLogger().logError(jme);
+			J2EEPlugin.logError(jme);
 		} 
 		
 		return (IVirtualReference[]) cpRefs.toArray(new IVirtualReference[cpRefs.size()]);

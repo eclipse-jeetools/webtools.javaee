@@ -16,8 +16,8 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
 import org.eclipse.wst.common.componentcore.internal.operation.FacetProjectCreationOperation;
@@ -76,7 +76,7 @@ public class JavaUtilityProjectCreationOperation extends AbstractDataModelOperat
 		try {
 			stat = op.execute( monitor, null );
 		} catch (ExecutionException e) {
-			Logger.getLogger().logError(e);
+			J2EEPlugin.logError(e);
 		}
 		return stat;
 	}

@@ -44,8 +44,6 @@ import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaRefFactory;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.emf.workbench.WorkbenchByteArrayOutputStream;
-import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jem.util.plugin.JEMUtilPlugin;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
@@ -188,7 +186,7 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 			in = aFile.getContents();
 			return new ArchiveManifestImpl(in);
 		} catch (Exception ex) {
-			org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ex);
+			J2EEPlugin.logError(ex);
 			return null;
 		} finally {
 			if (in != null) {
@@ -209,7 +207,7 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 			in = aFile.getContents();
 			return new ArchiveManifestImpl(in);
 		} catch (Exception ex) {
-			org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ex);
+			J2EEPlugin.logError(ex);
 			return null;
 		} finally {
 			if (in != null) {
@@ -251,14 +249,14 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 				try {
 					ManifestFileCreationAction.createManifestFile(file, p);
 				} catch (CoreException e) {
-					Logger.getLogger().log(e);
+					J2EEPlugin.logError(e);
 				} catch (IOException e) {
-					Logger.getLogger().log(e);
+					J2EEPlugin.logError(e);
 				}
 			}
 			return file;
 		} catch (CoreException ce) {
-			Logger.getLogger().log(ce);
+			J2EEPlugin.logError(ce);
 		}
 		return null;
 	}
@@ -508,7 +506,7 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 		try {
 			cp = javaProj.getRawClasspath();
 		} catch (JavaModelException ex) {
-			JEMUtilPlugin.getLogger().logError(ex);
+			J2EEPlugin.logError(ex);
 			return null;
 		}
 		IClasspathEntry firstSource = null;
@@ -871,7 +869,7 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 				}
 			}
 		} catch (JavaModelException e) {
-			Logger.getLogger().logError(e);
+			J2EEPlugin.logError(e);
 		}
 		return (IPackageFragmentRoot[]) list.toArray(new IPackageFragmentRoot[list.size()]);
 	}
@@ -955,7 +953,7 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 				}
 			}
 		} catch (JavaModelException e) {
-			Logger.getLogger().logError(e);
+			J2EEPlugin.logError(e);
 		}
 		return (IContainer[]) list.toArray(new IContainer[list.size()]);
 	}

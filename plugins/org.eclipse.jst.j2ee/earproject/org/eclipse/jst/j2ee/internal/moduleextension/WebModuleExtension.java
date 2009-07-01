@@ -24,7 +24,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.application.WebModule;
 import org.eclipse.jst.j2ee.internal.project.J2EEJavaProjectInfo;
-//import org.eclipse.jst.j2ee.internal.project.J2EENature;
 
 
 /**

@@ -17,9 +17,9 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.project.facet.core.JavaFacet;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.project.facet.IUtilityFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.J2EEModuleFacetInstallDataModelProvider;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
@@ -74,7 +74,7 @@ public class UtilityFacetInstallDataModelProvider extends J2EEModuleFacetInstall
     		        }
     		        catch( CoreException e )
     		        {
-    		            Logger.getLogger().logError(e);
+    		            J2EEPlugin.logError(e);
     		        }
     		    }
 		    }

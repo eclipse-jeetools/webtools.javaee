@@ -66,7 +66,6 @@ import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.launching.JavaRuntime;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
@@ -449,7 +448,7 @@ public class WTPJETEmitter extends JETEmitter {
 			File outputDirectoryFile = new File(installLocation.getPath());// new File(location);
 			return outputDirectoryFile.canRead() && outputDirectoryFile.isDirectory() && outputDirectoryFile.listFiles().length > 0;
 		} catch (IOException e) {
-			Logger.getLogger().logWarning(J2EEPluginResourceHandler.getString("Install_Location_Error_", new Object[]{installLocation}) + e); //$NON-NLS-1$
+			J2EEPlugin.logWarning(J2EEPluginResourceHandler.getString("Install_Location_Error_", new Object[]{installLocation}) + e); //$NON-NLS-1$
 		}
 		return false;
 		
@@ -467,7 +466,7 @@ public class WTPJETEmitter extends JETEmitter {
 			String requires = (String) bundle.getHeaders().get(Constants.BUNDLE_CLASSPATH);
 			elements = ManifestElement.parseHeader(Constants.BUNDLE_CLASSPATH, requires);
 		} catch (Exception e) {
-			Logger.getLogger().logError(e);
+			J2EEPlugin.logError(e);
 			elements = new ManifestElement[0];
 		}
 		IPath runtimeLibFullPath = null;
@@ -492,7 +491,7 @@ public class WTPJETEmitter extends JETEmitter {
 			try {
 				runtimeLibFullPath = new Path(Platform.asLocalURL(fullurl).getPath());
 			} catch (Exception e) {
-				Logger.getLogger().logError(e);
+				J2EEPlugin.logError(e);
 			}
 			//TODO handle jar'ed plugins, this is a hack for now, need to find proper bundle API
 			if (bundle.getLocation().endsWith(IJ2EEModuleConstants.JAR_EXT))
@@ -516,8 +515,8 @@ public class WTPJETEmitter extends JETEmitter {
 				classpathEntries.add(entry);
 			//J2EEProjectUtilities.appendJavaClassPath(project, entry);
 		} catch (Exception e) {
-			Logger.getLogger().logError("Problem appending \"" + entry.getPath() + "\" to classpath of Project \"" + project.getName() + "\"."); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-			Logger.getLogger().logError(e);
+			J2EEPlugin.logError("Problem appending \"" + entry.getPath() + "\" to classpath of Project \"" + project.getName() + "\"."); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			J2EEPlugin.logError(e);
 		}
 	}
 	
@@ -619,7 +618,7 @@ public class WTPJETEmitter extends JETEmitter {
 			//J2EEProjectUtilities.appendJavaClassPath(project, entry);
 
 		} catch (Exception e) {
-			Logger.getLogger().logError(e);
+			J2EEPlugin.logError(e);
 		}
 	}
 
@@ -637,7 +636,7 @@ public class WTPJETEmitter extends JETEmitter {
 				jetCompiler = templateURIPath == null ? new MyJETCompiler(templateURI, encoding) : new MyJETCompiler(templateURIPath, templateURI, encoding);
 			}
 		} catch (JETException e) {
-			Logger.getLogger().logError(e);
+			J2EEPlugin.logError(e);
 		}
 		return jetCompiler;
 	}

@@ -22,9 +22,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestImpl;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 /**
  * Contains utility code for working manipulating the module MANIFEST.MF
@@ -88,7 +88,7 @@ public class ClasspathDependencyManifestUtil {
         				in.close();
         				in = null;
         			} catch (IOException e) {
-        				Logger.getLogger().logError(e);
+        				J2EEPlugin.logError(e);
         			}
         		}
         	}

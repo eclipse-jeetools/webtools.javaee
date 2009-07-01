@@ -31,7 +31,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.ClassPathSelection;
 import org.eclipse.jst.j2ee.application.internal.operations.ClasspathElement;
 import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
@@ -585,7 +584,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 			List javaProjects = J2EEProjectUtilities.getAllJavaNonFlexProjects();
 			possibleWebLibs.addAll(javaProjects);
 		} catch(CoreException e){
-			Logger.getLogger().logError(e);
+			J2EEPlugin.logError(e);
 		}
 		IProject[] utilityProjects = J2EEProjectUtilities.getAllProjectsInWorkspaceOfType(J2EEProjectUtilities.UTILITY);
 		possibleWebLibs.addAll(Arrays.asList(utilityProjects));
@@ -625,7 +624,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 				ClasspathElement element = classPathWLPSelection.createArchiveElement(URI.createURI(ModuleURIUtil.getHandleString(referencedComponent)), referencedComponent.getName(), archiveURI.lastSegment());
 				classPathWLPSelection.addClasspathElement(element, unresolvedURI);
 			} catch (UnresolveableURIException e) {
-				Logger.getLogger(J2EEPlugin.PLUGIN_ID).logError(e);
+				J2EEPlugin.logError(e);
 			}
 		}
 		
@@ -638,7 +637,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 			try {
 				unresolvedURI = ModuleURIUtil.getArchiveName(archiveURI);
 			} catch (UnresolveableURIException e) {
-				Logger.getLogger(J2EEPlugin.PLUGIN_ID).logError(e);
+				J2EEPlugin.logError(e);
 			}
 			if (unresolvedURI != null) {
 				final ClasspathElement element = classPathWLPSelection.createClasspathArchiveElement(c.getProject(), archiveURI, unresolvedURI);
@@ -650,7 +649,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 			try {
 				classPathWLPSelection.createClasspathEntryElements(component, WEBLIB, WEBINF_CLASSES);
 			} catch (CoreException ce) {
-				Logger.getLogger(J2EEPlugin.PLUGIN_ID).logError(ce);
+				J2EEPlugin.logError(ce);
 			}
 		}
 	}

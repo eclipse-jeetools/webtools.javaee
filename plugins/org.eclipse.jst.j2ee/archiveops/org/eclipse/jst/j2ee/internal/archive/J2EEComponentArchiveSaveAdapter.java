@@ -22,15 +22,14 @@ import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.jee.archive.ArchiveSaveFailureException;
 import org.eclipse.jst.jee.archive.IArchiveResource;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 import com.ibm.icu.util.StringTokenizer;
-import org.eclipse.jst.j2ee.internal.archive.ArchiveMessages;
-import org.eclipse.osgi.util.NLS;
 
 public abstract class J2EEComponentArchiveSaveAdapter extends ComponentArchiveSaveAdapter {
 
@@ -59,7 +58,7 @@ public abstract class J2EEComponentArchiveSaveAdapter extends ComponentArchiveSa
 			try {
 				vComponent.getProject().refreshLocal(IResource.DEPTH_INFINITE, new SubProgressMonitor(monitor, REFRESH_TICKS));
 			} catch (CoreException ex) {
-				Logger.getLogger().logError(ex);
+				J2EEPlugin.logError(ex);
 			}
 		} finally {
 			monitor.done();
@@ -91,8 +90,8 @@ public abstract class J2EEComponentArchiveSaveAdapter extends ComponentArchiveSa
 	 * vFile = rootFolder.getFile(new Path(J2EEConstants.MANIFEST_URI)); IFile
 	 * iFile = vFile.getUnderlyingFile(); validateEdit(iFile); OutputStream out =
 	 * new WorkbenchByteArrayOutputStream(iFile); try { aManifest.write(out); }
-	 * catch (IOException e) { Logger.getLogger().logError(e); } finally { try {
-	 * out.close(); } catch (IOException e) { Logger.getLogger().logError(e); } } }
+	 * catch (IOException e) { J2EEPlugin.logError(e); } finally { try {
+	 * out.close(); } catch (IOException e) { J2EEPlugin.logError(e); } } }
 	 */
 	protected boolean importedClassesFolderCreated = false;
 
@@ -105,7 +104,7 @@ public abstract class J2EEComponentArchiveSaveAdapter extends ComponentArchiveSa
 		try {
 			importedClassesFolder.create(true, true, null);
 		} catch (CoreException e1) {
-			Logger.getLogger().logError(e1);
+			J2EEPlugin.logError(e1);
 		}
 	}
 
@@ -124,7 +123,7 @@ public abstract class J2EEComponentArchiveSaveAdapter extends ComponentArchiveSa
 					}
 				}
 			} catch (CoreException e) {
-				Logger.getLogger().logError(e);
+				J2EEPlugin.logError(e);
 			}
 		}
 	}

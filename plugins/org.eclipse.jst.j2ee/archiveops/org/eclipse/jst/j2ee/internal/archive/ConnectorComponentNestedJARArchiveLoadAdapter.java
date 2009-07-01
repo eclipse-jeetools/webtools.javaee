@@ -30,7 +30,6 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.jee.archive.AbstractArchiveLoadAdapter;
 import org.eclipse.jst.jee.archive.ArchiveModelLoadException;
 import org.eclipse.jst.jee.archive.IArchiveResource;
-import org.eclipse.jst.j2ee.internal.archive.ArchiveMessages;
 import org.eclipse.osgi.util.NLS;
 
 public class ConnectorComponentNestedJARArchiveLoadAdapter extends AbstractArchiveLoadAdapter {

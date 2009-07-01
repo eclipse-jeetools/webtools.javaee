@@ -38,13 +38,13 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.EARArchiveOpsResourceHandler;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyManifestUtil;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyVirtualComponent;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.jee.archive.AbstractArchiveLoadAdapter;
 import org.eclipse.jst.jee.archive.ArchiveModelLoadException;
@@ -285,7 +285,7 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 					}
 				}
 			} catch (CoreException e) {
-				Logger.getLogger().logError(e);
+				J2EEPlugin.logError(e);
 			}
 		}
 	}
@@ -324,9 +324,9 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 						filesHolder.addEntry(entry, zipFile, path);
 					}
 				} catch (ZipException e) {
-					Logger.getLogger().logError(e);
+					J2EEPlugin.logError(e);
 				} catch (IOException e) {
-					Logger.getLogger().logError(e);
+					J2EEPlugin.logError(e);
 				}
 			}
 		}
@@ -350,7 +350,7 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 			inJavaSrc = false;
 			aggregateFiles(members);
 		} catch (CoreException e) {
-			Logger.getLogger().logError(e);
+			J2EEPlugin.logError(e);
 		}
 	}
 
@@ -389,7 +389,7 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 							}
 						}
 					} catch (UnresolveableURIException e) {
-						Logger.getLogger().logError(e);
+						J2EEPlugin.logError(e);
 					}
 					if (null == runtimePath) {
 						runtimePath = new Path(""); //$NON-NLS-1$
@@ -399,7 +399,7 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 				}
 			}
 		} catch (CoreException e) {
-			Logger.getLogger().logError(e);
+			J2EEPlugin.logError(e);
 		} finally {
 			if (se != null) {
 				se.dispose();

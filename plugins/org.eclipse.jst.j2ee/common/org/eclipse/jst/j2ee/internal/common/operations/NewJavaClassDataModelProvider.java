@@ -13,6 +13,7 @@ package org.eclipse.jst.j2ee.internal.common.operations;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.ABSTRACT_METHODS;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.CLASS_NAME;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.CONSTRUCTOR;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.GENERATE_DD;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.INTERFACES;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.JAVA_PACKAGE;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.JAVA_PACKAGE_FRAGMENT_ROOT;
@@ -26,7 +27,6 @@ import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataM
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.QUALIFIED_CLASS_NAME;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.SOURCE_FOLDER;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.SUPERCLASS;
-import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.GENERATE_DD;
 
 import java.lang.reflect.Modifier;
 import java.net.URI;
@@ -47,9 +47,9 @@ import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaConventions;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperationDataModelProvider;
@@ -120,7 +120,7 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 				return WTPCommonPlugin.createErrorStatus(msg);
 			}
 		} catch (CoreException e) {
-			Logger.getLogger().log(e);
+			J2EEPlugin.logError(e);
 		}
 		// Ensure the selected folder is a valid java source folder for the component
 		IFolder sourcefolder = getJavaSourceFolder();
@@ -414,7 +414,7 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 					return WTPCommonPlugin.createErrorStatus(msg);
 				}
 			} catch (Exception e) {
-				Logger.getLogger().log(e);
+				J2EEPlugin.logError(e);
 			}
 		}
 		// Return status of specified superclass
@@ -490,7 +490,7 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 						return WTPCommonPlugin.createErrorStatus(message); 
 					}
 				} catch (CoreException e) {
-					Logger.getLogger().log(e);
+					J2EEPlugin.logError(e);
 				}
 			}
 		}

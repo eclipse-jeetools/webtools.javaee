@@ -27,11 +27,11 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jem.util.UIContextDetermination;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.frameworks.CommonFrameworksPlugin;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.IAddComponentToEnterpriseApplicationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.ManifestFileCreationAction;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
@@ -136,7 +136,7 @@ public abstract class J2EEFacetInstallDelegate {
 			}
 			catch( CoreException e )
 			{
-			    Logger.getLogger().logError( e );
+			    J2EEPlugin.logError( e );
 			}
 		}finally {
 			if(fpjwc != null){
@@ -152,9 +152,9 @@ public abstract class J2EEFacetInstallDelegate {
         try {
             ManifestFileCreationAction.createManifestFile(file, project);
         } catch (CoreException e) {
-            Logger.getLogger().log(e);
+            J2EEPlugin.logError(e);
         } catch (IOException e) {
-            Logger.getLogger().log(e);
+            J2EEPlugin.logError(e);
         }
     }
 
@@ -171,7 +171,7 @@ public abstract class J2EEFacetInstallDelegate {
 		try {
 			dataModel.getDefaultOperation().execute(null, null);
 		} catch (ExecutionException e) {
-			Logger.getLogger().logError(e);
+			J2EEPlugin.logError(e);
 		}
     }
     

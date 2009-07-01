@@ -20,7 +20,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -169,7 +168,7 @@ protected static HashMap resourceSetListeners;
 						((IModelProviderListener)mod).modelsChanged(anEvent);
 					}
 				} catch (Exception e) {
-					Logger.getLogger().logError(e);
+					J2EEPlugin.logError(e);
 				}
 			}
 		}

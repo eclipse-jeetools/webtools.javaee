@@ -27,7 +27,6 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
 import org.eclipse.jst.j2ee.classpathdep.UpdateClasspathAttributeUtil;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
@@ -86,7 +85,7 @@ public class UpdateClasspathAttributesOperation extends AbstractDataModelOperati
 				}
 			}
 		} catch (CoreException ce) {
-			Logger.getLogger(J2EEPlugin.PLUGIN_ID).logError(ce);
+			J2EEPlugin.logError(ce);
 			return new Status(IStatus.ERROR, J2EEPlugin.PLUGIN_ID, 0, ce.getLocalizedMessage(), ce);
 		}
 		return Status.OK_STATUS;

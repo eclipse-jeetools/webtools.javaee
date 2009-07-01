@@ -27,7 +27,6 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.project.facet.WtpUtils;
 import org.eclipse.jst.common.project.facet.core.ClasspathHelper;
 import org.eclipse.jst.j2ee.applicationclient.componentcore.util.AppClientArtifactEdit;
@@ -35,6 +34,7 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainer;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainerUtils;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.FacetDataModelProvider;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
@@ -80,13 +80,13 @@ public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			try {
 				((IDataModelOperation) model.getProperty(FacetDataModelProvider.NOTIFICATION_OPERATION)).execute(monitor, null);
 			} catch (ExecutionException e) {
-				Logger.getLogger().logError(e);
+				J2EEPlugin.logError(e);
 			}
 
 			if (monitor != null)
 				monitor.worked(1);
 		} catch (Exception e) {
-			Logger.getLogger().logError(e);
+			J2EEPlugin.logError(e);
 		} finally {
 			if (monitor != null)
 				monitor.done();
@@ -126,7 +126,7 @@ public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 	                    appClientFile.create(new ByteArrayInputStream(appClientXmlContents.getBytes("UTF-8")), true, monitor); //$NON-NLS-1$
 	                   
 	                } catch (UnsupportedEncodingException e) {
-	                    Logger.getLogger().logError(e);
+	                    J2EEPlugin.logError(e);
 	                }           
 	            }
 	        }
@@ -176,7 +176,7 @@ public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 //			try {
 //				createManifest(project, appClientComponent.getRootFolder().getUnderlyingFolder(), monitor);
 //			} catch (Exception e) {
-//				Logger.getLogger().logError(e);
+//				J2EEPlugin.logError(e);
 //			}
 //			String manifestFolder = IPath.SEPARATOR + model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER) + IPath.SEPARATOR + J2EEConstants.META_INF;
 //			IContainer container = project.getFolder(manifestFolder);

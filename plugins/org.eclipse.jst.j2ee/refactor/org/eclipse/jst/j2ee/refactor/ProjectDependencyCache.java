@@ -20,7 +20,7 @@ import java.util.Map;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 /**
  * Maintains a cache of project dependencies as represented by references in the .project file.
@@ -38,7 +38,7 @@ public class ProjectDependencyCache {
 			try {
 				cache = new ProjectDependencyCache();
 			} catch (CoreException ce) {
-				Logger.getLogger().logError(ce);
+				J2EEPlugin.logError(ce);
 			}
 		}
 		return cache;

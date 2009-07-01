@@ -24,6 +24,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.DuplicateObject
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 public class DependentJarExportMerger {
 	protected Archive outgoingArchive;
@@ -67,7 +68,7 @@ public class DependentJarExportMerger {
 					dependentJar = getArchiveFactory().primOpenArchive(file.getLocation().toOSString());
 				} catch (OpenFailureException ex) {
 					// Need to write this to the log file
-					org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ex);
+					J2EEPlugin.logError(ex);
 					continue;
 				}
 				dependentArchives.add(dependentJar);

@@ -43,7 +43,6 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ResourceLoadException;
@@ -54,9 +53,11 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategyImpl
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.archive.ArchiveMessages;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyEnablement;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyManifestUtil;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyVirtualComponent;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
@@ -73,8 +74,6 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
-import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.jst.j2ee.internal.archive.ArchiveMessages;
 
 public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 
@@ -269,7 +268,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 					}
 				}
 			} catch (CoreException e) {
-				Logger.getLogger().logError(e);
+				J2EEPlugin.logError(e);
 			}
 		}
 	}
@@ -307,9 +306,9 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 						filesHolder.addEntry(entry, zipFile, path);
 					}
 				} catch (ZipException e) {
-					Logger.getLogger().logError(e);
+					J2EEPlugin.logError(e);
 				} catch (IOException e) {
-					Logger.getLogger().logError(e);
+					J2EEPlugin.logError(e);
 				}
 			}
 		}
@@ -333,7 +332,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 			inJavaSrc = false;
 			aggregateFiles(members); 
 		} catch (CoreException e) {
-			Logger.getLogger().logError(e);
+			J2EEPlugin.logError(e);
 		}
 	}
 
@@ -370,7 +369,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 							}
 						}
 					} catch (UnresolveableURIException e) {
-						Logger.getLogger().logError(e);
+						J2EEPlugin.logError(e);
 					}
 					if (null == runtimePath) {
 						runtimePath = new Path(""); //$NON-NLS-1$
@@ -379,7 +378,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 				}
 			}				
 		} catch (CoreException e) {
-			Logger.getLogger().logError(e);
+			J2EEPlugin.logError(e);
 		} finally {
 			if (se != null) {
 				se.dispose();
@@ -682,7 +681,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 				try {
 					file.close();
 				} catch (IOException e) {
-					Logger.getLogger().logError(e);
+					J2EEPlugin.logError(e);
 				}
 			}
 		} finally{

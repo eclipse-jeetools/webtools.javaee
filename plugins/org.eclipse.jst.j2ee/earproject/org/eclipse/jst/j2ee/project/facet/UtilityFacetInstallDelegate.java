@@ -23,11 +23,11 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.project.facet.WtpUtils;
 import org.eclipse.jst.common.project.facet.core.ClasspathHelper;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainer;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainerUtils;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.FacetDataModelProvider;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -91,9 +91,9 @@ public final class UtilityFacetInstallDelegate extends J2EEFacetInstallDelegate 
 				if (container != null)
 					createManifest(project, container, monitor);
 			} catch (InvocationTargetException e) {
-				Logger.getLogger().logError(e);
+				J2EEPlugin.logError(e);
 			} catch (InterruptedException e) {
-				Logger.getLogger().logError(e);
+				J2EEPlugin.logError(e);
 			}
 
 
@@ -112,13 +112,13 @@ public final class UtilityFacetInstallDelegate extends J2EEFacetInstallDelegate 
 			try {
 				((IDataModelOperation) model.getProperty(FacetDataModelProvider.NOTIFICATION_OPERATION)).execute(monitor, null);
 			} catch (ExecutionException e) {
-				Logger.getLogger().logError(e);
+				J2EEPlugin.logError(e);
 			}
 			if (monitor != null) {
 				monitor.worked(1);
 			}
 		} catch (Exception e) {
-			Logger.getLogger().logError(e);
+			J2EEPlugin.logError(e);
 		} finally {
 			if (monitor != null) {
 				monitor.done();

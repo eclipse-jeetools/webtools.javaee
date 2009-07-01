@@ -33,9 +33,9 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.jee.archive.ArchiveOpenFailureException;
 import org.eclipse.jst.jee.archive.ArchiveOptions;
@@ -89,9 +89,9 @@ public class ConnectorComponentArchiveLoadAdapter extends ComponentArchiveLoadAd
 					filesHolder.addFile(aFile);
 				}
 			} catch (JavaModelException e) {
-				Logger.getLogger().logError(e);
+				J2EEPlugin.logError(e);
 			} catch (ArchiveOpenFailureException e) {
-				Logger.getLogger().logError(e);
+				J2EEPlugin.logError(e);
 			}
 		}
 	}
@@ -106,7 +106,7 @@ public class ConnectorComponentArchiveLoadAdapter extends ComponentArchiveLoadAd
 					outputPath = javaProject.getOutputLocation();
 				}
 			} catch (CoreException e) {
-				Logger.getLogger().logError(e);
+				J2EEPlugin.logError(e);
 			}
 			if (outputPath == null) {
 				return null;
@@ -255,7 +255,7 @@ public class ConnectorComponentArchiveLoadAdapter extends ComponentArchiveLoadAd
 					indexClasses(members[i], javaOutputSegmentCount);
 				}
 			} catch (CoreException e) {
-				Logger.getLogger().logError(e);
+				J2EEPlugin.logError(e);
 			}
 			break;
 		}

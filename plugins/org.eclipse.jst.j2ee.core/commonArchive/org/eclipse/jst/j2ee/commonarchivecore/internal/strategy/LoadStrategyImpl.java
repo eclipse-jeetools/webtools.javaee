@@ -31,7 +31,6 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jem.internal.java.adapters.jdk.JavaJDKAdapterFactory;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.common.internal.impl.J2EEResouceFactorySaxRegistry;
 import org.eclipse.jst.j2ee.common.internal.impl.J2EEResourceFactoryDomRegistry;
 import org.eclipse.jst.j2ee.common.internal.impl.J2EEResourceFactoryRegistry;
@@ -51,6 +50,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.FileIteratorImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseArchive;
 import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseConfigRegister;
+import org.eclipse.jst.j2ee.core.internal.plugin.J2EECorePlugin;
 import org.eclipse.wst.common.internal.emf.utilities.ExtendedEcoreUtil;
 
 /**
@@ -478,7 +478,7 @@ public abstract class LoadStrategyImpl extends AdapterImpl implements LoadStrate
 			return ((Archive) getContainer()).openNestedArchive(uri);
 		} catch (OpenFailureException e) {
 			//Caught an exception trying to open the nested archive
-			Logger.getLogger().logError(e);
+			J2EECorePlugin.logError(e);
 			return null;
 		}
 
@@ -490,7 +490,7 @@ public abstract class LoadStrategyImpl extends AdapterImpl implements LoadStrate
 			return ((Archive) getContainer()).openNestedArchive(loose);
 		} catch (OpenFailureException e) {
 			//Caught an exception trying to open the nested archive
-			Logger.getLogger().logError(e);
+			J2EECorePlugin.logError(e);
 			return null;
 		}
 
