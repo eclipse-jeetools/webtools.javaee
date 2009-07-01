@@ -224,19 +224,15 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 			boolean useJDTToControlExport = J2EEComponentClasspathContainerUtils.getDefaultUseEARLibrariesJDTExport();
 			if(useJDTToControlExport){
 				//if the default is not enabled, then check whether the container is being exported
-				try{
-					IClasspathEntry [] rawEntries = javaProject.getRawClasspath();
-					for(int i=0;i<rawEntries.length; i++){
-						IClasspathEntry entry = rawEntries[i];
-						if(entry.getEntryKind() == IClasspathEntry.CPE_CONTAINER){
-							if(entry.getPath().equals(CONTAINER_PATH)){
-								exportEntries = entry.isExported();
-								break;
-							}
+				IClasspathEntry [] rawEntries = javaProject.readRawClasspath();
+				for(int i=0;i<rawEntries.length; i++){
+					IClasspathEntry entry = rawEntries[i];
+					if(entry.getEntryKind() == IClasspathEntry.CPE_CONTAINER){
+						if(entry.getPath().equals(CONTAINER_PATH)){
+							exportEntries = entry.isExported();
+							break;
 						}
 					}
-				}  catch (JavaModelException e) {
-					J2EEPlugin.logError(e);
 				}
 			}
 			
