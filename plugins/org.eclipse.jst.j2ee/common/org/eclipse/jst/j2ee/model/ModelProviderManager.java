@@ -101,7 +101,7 @@ protected static HashMap resourceSetListeners;
 				J2EECommonMessages.ERR_NO_MODEL_PROVIDER_FOR_PROJECT, new Object[] {project, vers});
 		Throwable error = new NullPointerException(errorMessage);
 		
-		J2EEPlugin.INSTANCE.getLogger().logError(error);
+		J2EEPlugin.logError(error);
 				
 		return null;
 	}
@@ -126,7 +126,7 @@ protected static HashMap resourceSetListeners;
 				J2EECommonMessages.ERR_NO_MODEL_PROVIDER_FOR_PROJECT, new Object[] {aModule, vers});
 		Throwable error = new NullPointerException(errorMessage);
 		
-		J2EEPlugin.INSTANCE.getLogger().logError(error);
+		J2EEPlugin.logError(error);
 		
 		return null;
 	}

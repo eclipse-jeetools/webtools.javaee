@@ -307,7 +307,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 
 			SafeRunner.run(new ISafeRunnable() {
 				public void handleException(Throwable e) {
-					J2EEPlugin.getDefault().getLogger().logError(e);
+					J2EEPlugin.logError(e);
 				}
 
 				public void run() throws Exception {
@@ -340,7 +340,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 		try {
 				container = JavaCore.getClasspathContainer(WEB_APP_LIBS_PATH, jproj);
 		} catch (JavaModelException e) {
-				J2EEPlugin.getDefault().getLogger().logError(e);
+				J2EEPlugin.logError(e);
 		}
 	}
 		return container;
@@ -410,7 +410,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 					break;
 			}
 		} catch (CoreException e) {
-			J2EEPlugin.getDefault().getLogger().logError(e);
+			J2EEPlugin.logError(e);
 		} 
 		finally {
 			resumeUpdates(scheduleJob);

@@ -38,6 +38,7 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.source.IAnnotationModel;
 import org.eclipse.jst.common.jdt.internal.integration.WTPWorkingCopyManager;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IFileEditorInput;
@@ -47,7 +48,6 @@ import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.texteditor.AbstractMarkerAnnotationModel;
 import org.eclipse.ui.texteditor.IDocumentProvider;
 import org.eclipse.wst.common.frameworks.internal.SaveFailedException;
-import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 /**
  * Insert the type's description here. Creation date: (4/25/2001 7:05:36 PM)
@@ -372,7 +372,7 @@ public class WTPUIWorkingCopyManager extends WTPWorkingCopyManager {
 				}
 			}
 		} catch (CoreException e) {
-			WTPCommonPlugin.getDefault().getLogger().logError(e);
+			J2EEUIPlugin.logError(e);
 			throw new SaveFailedException(e);
 		} finally {
 			if (canSave)

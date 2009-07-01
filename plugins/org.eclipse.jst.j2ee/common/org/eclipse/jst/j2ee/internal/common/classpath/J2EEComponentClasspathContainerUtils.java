@@ -32,7 +32,7 @@ public class J2EEComponentClasspathContainerUtils {
 			try {
 				container = JavaCore.getClasspathContainer(containerPath, jproj);
 			} catch (JavaModelException e) {
-				J2EEPlugin.getDefault().getLogger().logError(e);
+				J2EEPlugin.logError(e);
 			}
 		}
 		return container;
