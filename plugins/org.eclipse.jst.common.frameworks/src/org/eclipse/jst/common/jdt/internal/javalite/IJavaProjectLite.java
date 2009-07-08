@@ -47,6 +47,11 @@ public interface IJavaProjectLite {
 	IProject getProject();
 
 	/**
+	 * @see IJavaProject#exists()
+	 */
+	boolean exists();
+	
+	/**
 	 * @see IJavaProject#isOpen()
 	 * @return
 	 */

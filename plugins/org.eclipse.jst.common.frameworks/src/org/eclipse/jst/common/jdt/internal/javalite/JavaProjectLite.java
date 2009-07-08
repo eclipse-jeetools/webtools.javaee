@@ -36,6 +36,10 @@ public final class JavaProjectLite implements IJavaProjectLite {
 		return _javaProject.getProject();
 	}
 
+	public final boolean exists() {
+		return _javaProject.exists();
+	}
+	
 	/**
 	 * @see IJavaProjectLite#isOpen()
 	 */
