@@ -42,12 +42,12 @@ import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.core.runtime.jobs.MultiRule;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentExportDataModelProperties.IArchiveExportParticipantData;
 import org.eclipse.jst.j2ee.internal.archive.ComponentArchiveLoadAdapter;
+import org.eclipse.jst.j2ee.internal.archive.JavaEEArchiveUtilities;
 import org.eclipse.jst.j2ee.internal.plugin.LibCopyBuilder;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
+import org.eclipse.jst.jee.archive.ArchiveException;
 import org.eclipse.jst.jee.archive.ArchiveSaveFailureException;
 import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.jst.jee.archive.IArchiveFactory;
@@ -63,10 +63,6 @@ public abstract class J2EEArtifactExportOperation extends AbstractDataModelOpera
 	protected IProgressMonitor progressMonitor;
 	private IVirtualComponent component;
 	private IPath destinationPath;
-	/**
-	 * @deprecated this will be removed post 3.1 with bug 268201
-	 */
-	private ModuleFile moduleFile;
 	private boolean exportSource = false;
 
 	public J2EEArtifactExportOperation() {
@@ -123,13 +119,8 @@ public abstract class J2EEArtifactExportOperation extends AbstractDataModelOpera
     			}
     			export();
     		} catch (Exception e) {
-    			if(moduleFile != null){
-    				//The module fil will be closed if the export succeeds
-    				//Need to be careful not to close the archive twice because of ReferenceCounted Archives
-    				moduleFile.close(); 
-    				monitor.worked(CLOSE_WORK);
-    			}
-    			throw new ExecutionException(EJBArchiveOpsResourceHandler.Error_exporting__UI_ + archiveString(), e);
+    			throw new ExecutionException(EJBArchiveOpsResourceHandler.Error_exporting__UI_ + getDestinationPath(), e);
+
     		}
     		
             final IDataModel dm = getDataModel();
@@ -155,15 +146,21 @@ public abstract class J2EEArtifactExportOperation extends AbstractDataModelOpera
 		return OK_STATUS;
 	}
 
-	/**
-	 * @deprecated this will be removed post 3.1 with bug 268201
-	 */
-	protected abstract void export() throws SaveFailureException, CoreException, InvocationTargetException, InterruptedException;
-
-	/**
-	 * @deprecated this will be removed post 3.1 with bug 268201
-	 */
-	protected abstract String archiveString();
+	public void export() throws ArchiveException, CoreException, InvocationTargetException, InterruptedException {
+		IProgressMonitor subMonitor = new SubProgressMonitor(progressMonitor, EXPORT_WORK);
+		IArchive archiveFromComponent = null;
+		try {
+			archiveFromComponent = JavaEEArchiveUtilities.INSTANCE.openArchive(getComponent());
+			saveArchive(archiveFromComponent, getDestinationPath().toOSString(), subMonitor);
+		} catch (Exception e) {
+			throw new ArchiveException(AppClientArchiveOpsResourceHandler.ARCHIVE_OPERATION_OpeningArchive, e);
+		} finally {
+			if (archiveFromComponent != null){
+				JavaEEArchiveUtilities.INSTANCE.closeArchive(archiveFromComponent);
+			}
+			subMonitor.done();
+		}
+	}
 
 	protected void setProgressMonitor(IProgressMonitor newProgressMonitor) {
 		progressMonitor = newProgressMonitor;
@@ -197,20 +194,6 @@ public abstract class J2EEArtifactExportOperation extends AbstractDataModelOpera
 
 	protected void setExportSource(boolean newExportSource) {
 		exportSource = newExportSource;
-	}
-
-	/**
-	 * @deprecated this will be removed post 3.1 with bug 268201
-	 */
-	protected ModuleFile getModuleFile() {
-		return moduleFile;
-	}
-
-	/**
-	 * @deprecated this will be removed post 3.1 with bug 268201
-	 */
-	protected void setModuleFile(ModuleFile newModuleFile) {
-		moduleFile = newModuleFile;
 	}
 
 	protected void runNecessaryBuilders(IVirtualComponent component, IProgressMonitor monitor) throws CoreException {

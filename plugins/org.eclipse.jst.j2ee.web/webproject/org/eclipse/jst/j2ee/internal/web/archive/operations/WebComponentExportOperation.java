@@ -10,21 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.archive.operations;
 
-import java.lang.reflect.InvocationTargetException;
-
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.SubProgressMonitor;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
-import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.archive.JavaEEArchiveUtilities;
-import org.eclipse.jst.j2ee.internal.archive.operations.AppClientArchiveOpsResourceHandler;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEArtifactExportOperation;
-import org.eclipse.jst.jee.archive.IArchive;
-import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class WebComponentExportOperation extends J2EEArtifactExportOperation {
@@ -35,49 +21,6 @@ public class WebComponentExportOperation extends J2EEArtifactExportOperation {
 
 	public WebComponentExportOperation(IDataModel model) {
 		super(model);
-	}
-
-	/**
-	 * @deprecated this will be removed post 3.1 with bug 268201
-	 */
-	@Override
-	protected void export() throws SaveFailureException, CoreException, InvocationTargetException, InterruptedException {
-		IProgressMonitor subMonitor = new SubProgressMonitor(progressMonitor, EXPORT_WORK);
-		IArchive archiveFromComponent = null;
-		try {
-			archiveFromComponent = JavaEEArchiveUtilities.INSTANCE.openArchive(getComponent());
-			JavaEEQuickPeek quickPeek = JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(archiveFromComponent);
-			if (quickPeek.getJavaEEVersion() == J2EEConstants.JEE_5_0_ID) {
-				saveArchive(archiveFromComponent, getDestinationPath().toOSString(), subMonitor);
-			} else {
-				CommonarchiveFactory caf = ((CommonarchivePackage) EPackage.Registry.INSTANCE.getEPackage(CommonarchivePackage.eNS_URI)).getCommonarchiveFactory();
-				WebComponentLoadStrategyImpl ls = new WebComponentLoadStrategyImpl(getComponent());
-				ls.setExportSource(isExportSource());
-				ls.setReadOnly(true);
-				setModuleFile(caf.openWARFile(ls, getDestinationPath().toOSString()));
-				getModuleFile().getOptions().setIsReadOnly(true);
-				ls.setProgressMonitor(subMonitor);
-				getModuleFile().saveAsNoReopen(getDestinationPath().toOSString());
-			}
-		} catch (SaveFailureException ex) {
-			throw ex;
-		} catch (Exception e) {
-			throw new SaveFailureException(AppClientArchiveOpsResourceHandler.ARCHIVE_OPERATION_OpeningArchive, e);
-		} finally {
-			if (archiveFromComponent != null)
-				JavaEEArchiveUtilities.INSTANCE.closeArchive(archiveFromComponent);
-
-			subMonitor.done();
-		}
-	}
-
-	/**
-	 * @deprecated this will be removed post 3.1 with bug 268201
-	 */
-	@Override
-	protected String archiveString() {
-		//TODO delete this method
-		return "War File"; //$NON-NLS-1$
 	}
 
 }

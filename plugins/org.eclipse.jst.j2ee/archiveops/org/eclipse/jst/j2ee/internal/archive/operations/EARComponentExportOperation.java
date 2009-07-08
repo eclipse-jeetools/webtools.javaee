@@ -10,19 +10,9 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.archive.operations;
 
-import java.lang.reflect.InvocationTargetException;
-
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubProgressMonitor;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
-import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
-import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.internal.archive.JavaEEArchiveUtilities;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
-import org.eclipse.jst.jee.archive.IArchive;
-import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -31,49 +21,6 @@ public class EARComponentExportOperation extends J2EEArtifactExportOperation {
 
 	public EARComponentExportOperation(IDataModel model) {
 		super(model);
-	}
-
-	/**
-	 * @deprecated this will be removed post 3.1 with bug 268201
-	 */
-    @Override
-	protected void export() throws SaveFailureException, CoreException, InvocationTargetException, InterruptedException {
-		IProgressMonitor subMonitor = new SubProgressMonitor(progressMonitor, EXPORT_WORK);
-		IArchive archiveFromComponent = null;
-		try {
-			//[Bug 244049] need to use ProjectFacet version to determine how to export the EAR
-			String versionStr = J2EEProjectUtilities.getJ2EEProjectVersion(getComponent().getProject());
-			if (versionStr.equals(J2EEVersionConstants.VERSION_5_0_TEXT)) {
-				archiveFromComponent = JavaEEArchiveUtilities.INSTANCE.openArchive(getComponent());
-				saveArchive(archiveFromComponent, getDestinationPath().toOSString(), subMonitor);
-			} else {
-				EARArtifactEdit artifactEdit = null;
-				try {
-					artifactEdit = (EARArtifactEdit) ComponentUtilities.getArtifactEditForRead(getComponent());
-					EARFile archive = (EARFile) artifactEdit.asArchive(isExportSource(), true, true);
-					String destination = getDestinationPath().toOSString();
-					archive.setURI(destination);
-					setModuleFile(archive);
-					ComponentLoadStrategyImpl ls = (ComponentLoadStrategyImpl) archive.getLoadStrategy();
-					ls.setProgressMonitor(subMonitor);
-					archive.saveAsNoReopen(destination);
-				} catch (SaveFailureException ex) {
-					throw ex;
-				} catch (Exception e) {
-					throw new SaveFailureException(AppClientArchiveOpsResourceHandler.ARCHIVE_OPERATION_OpeningArchive, e);
-				} finally {
-					if (null != artifactEdit) {
-						artifactEdit.dispose();
-					}
-				}
-			}
-		} catch (Exception e) {
-			throw new SaveFailureException(AppClientArchiveOpsResourceHandler.ARCHIVE_OPERATION_OpeningArchive, e);
-		} finally {
-			if (archiveFromComponent != null)
-				JavaEEArchiveUtilities.INSTANCE.closeArchive(archiveFromComponent);
-			subMonitor.done();
-		}
 	}
 
 	@Override
@@ -89,14 +36,6 @@ public class EARComponentExportOperation extends J2EEArtifactExportOperation {
 		} finally {
 			monitor.done();
 		}
-	}
-
-	/**
-	 * @deprecated this will be removed post 3.1 with bug 268201
-	 */
-	@Override
-	protected String archiveString() {
-		return "EAR"; //$NON-NLS-1$
 	}
 
 }
