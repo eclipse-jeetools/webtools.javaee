@@ -25,6 +25,9 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
+import org.eclipse.core.runtime.Platform;
+import java.lang.Throwable;
+import org.eclipse.core.runtime.CoreException;
 
 /**
  * The main plugin class to be used in the desktop.
@@ -164,5 +167,21 @@ public class J2EENavigatorPlugin extends AbstractUIPlugin {
 	public static IStatus createErrorStatus(int aCode, String aMessage,
 			Throwable exception) {
 		return createStatus(IStatus.ERROR, aCode, aMessage, exception);
+	}
+
+	public static IStatus createStatus(int severity, String message, Throwable exception) {
+		return new Status(severity, PLUGIN_ID, message, exception);
+	}
+
+	public static IStatus createStatus(int severity, String message) {
+		return createStatus(severity, message, null);
+	}
+
+	public static void logError(Throwable exception) {
+		Platform.getLog(Platform.getBundle(PLUGIN_ID)).log( createStatus(IStatus.ERROR, exception.getMessage(), exception));
+	}
+
+	public static void logError(CoreException exception) {
+		Platform.getLog(Platform.getBundle(PLUGIN_ID)).log( exception.getStatus() );
 	}
 }

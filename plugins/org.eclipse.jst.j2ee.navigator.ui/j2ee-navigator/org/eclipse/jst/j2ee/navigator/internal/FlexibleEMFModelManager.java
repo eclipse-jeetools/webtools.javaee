@@ -24,6 +24,7 @@ import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener;
+import org.eclipse.jst.j2ee.navigator.internal.plugin.J2EENavigatorPlugin;
 
 public class FlexibleEMFModelManager extends EMFModelManager implements EditModelListener{
 
@@ -57,7 +58,7 @@ public class FlexibleEMFModelManager extends EMFModelManager implements EditMode
 				}
 			}
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			J2EENavigatorPlugin.logError(ex);
 		}
 		if (rootObjects != null) {
 			 return rootObjects.toArray() ;
@@ -114,7 +115,7 @@ public class FlexibleEMFModelManager extends EMFModelManager implements EditMode
 						artifactEdit.addListener(this);
 					}
 				} catch(Exception e){
-					e.printStackTrace();
+					J2EENavigatorPlugin.logError(e);
 				}
 			}
 		}

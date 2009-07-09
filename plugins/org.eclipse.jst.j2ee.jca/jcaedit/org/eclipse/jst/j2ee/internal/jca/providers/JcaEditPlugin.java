@@ -22,6 +22,7 @@ import org.eclipse.core.runtime.Plugin;
 import org.eclipse.jst.j2ee.jca.JcaFactory;
 import org.eclipse.jst.j2ee.jca.JcaPackage;
 import org.eclipse.jst.j2ee.jca.internal.impl.JcaFactoryImpl;
+import org.eclipse.jst.j2ee.jca.internal.plugin.JcaPlugin;
 
 
 /**
@@ -85,9 +86,8 @@ public class JcaEditPlugin extends Plugin {
 	public Object getImage(String key) {
 		try {
 			return new URL(getDescriptor().getInstallURL(), "icons/" + key + ".gif"); //$NON-NLS-1$ //$NON-NLS-2$
-		} catch (MalformedURLException exception) {
-			System.out.println("Failed to load image for '" + key + "'"); //$NON-NLS-1$ //$NON-NLS-2$
-			exception.printStackTrace();
+		} catch (MalformedURLException c) {
+			JcaPlugin.logError("Failed to load image for '" + key + "'", c);//$NON-NLS-1$ //$NON-NLS-2$
 		}
 
 		return null;

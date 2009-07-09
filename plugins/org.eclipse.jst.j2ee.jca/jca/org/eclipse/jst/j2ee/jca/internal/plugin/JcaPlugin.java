@@ -25,6 +25,11 @@ import org.eclipse.wst.common.componentcore.internal.impl.WTPResourceFactoryRegi
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.IStatus;
+import java.lang.Throwable;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.MultiStatus;
 
 
 /**
@@ -152,6 +157,27 @@ public class JcaPlugin extends WTPPlugin implements ResourceLocator {
 	public String getString(String key, Object[] substitutions, boolean translate) {
 		// TODO For now...  translate not supported
 		return getString(key,substitutions);
+	}
+
+
+	public static IStatus createStatus(int severity, String message, Throwable exception) {
+		return new Status(severity, PLUGIN_ID, message, exception);
+	}
+
+
+	public static IStatus createStatus(int severity, String message) {
+		return createStatus(severity, message, null);
+	}
+
+
+	public static void logError(String message, Throwable exception) {
+		Platform.getLog(Platform.getBundle(PLUGIN_ID)).log( createStatus(IStatus.ERROR, message, exception));
+	}
+
+
+	public static void logError(String message, CoreException exception) {
+		MultiStatus status = new MultiStatus(PLUGIN_ID,IStatus.ERROR,new IStatus[]{exception.getStatus()},message,exception);
+		Platform.getLog(Platform.getBundle(PLUGIN_ID)).log( status );
 	}
 
 }

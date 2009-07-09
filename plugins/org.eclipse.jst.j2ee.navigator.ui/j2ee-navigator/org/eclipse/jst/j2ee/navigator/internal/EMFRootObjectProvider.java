@@ -56,7 +56,6 @@ public class EMFRootObjectProvider implements  IResourceChangeListener, IResourc
 		}
 		return modelManager.getModels();
 		} catch (Exception ex) {
-			//ex.printStackTrace();
 			return null;
 		}
 	}
