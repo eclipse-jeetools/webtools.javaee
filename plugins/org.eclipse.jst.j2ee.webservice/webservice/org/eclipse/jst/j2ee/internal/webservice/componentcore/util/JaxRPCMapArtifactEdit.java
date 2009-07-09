@@ -189,7 +189,7 @@ public class JaxRPCMapArtifactEdit extends EnterpriseArtifactEdit {
 				aResource.saveIfNecessary();
 			}
 			catch (Exception e) {
-				e.printStackTrace();
+				WebServicePlugin.logError(e);
 			}
 		}
 	}

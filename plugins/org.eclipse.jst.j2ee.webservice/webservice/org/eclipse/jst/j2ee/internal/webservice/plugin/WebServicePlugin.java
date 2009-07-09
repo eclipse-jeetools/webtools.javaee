@@ -28,6 +28,7 @@ import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.wst.common.frameworks.internal.WTPPlugin;
 import org.osgi.framework.BundleContext;
+import java.lang.Throwable;
 
 
 /**
@@ -38,12 +39,14 @@ import org.osgi.framework.BundleContext;
  */
 public class WebServicePlugin extends WTPPlugin implements ResourceLocator {
 
-	public static final String PLUGIN_ID = "org.eclipse.jst.j2ee.internal.internal.webservice"; //$NON-NLS-1$
-
+	
 	/**
 	 * The reference to the singleton instance of this plugin.
 	 */
 	private static WebServicePlugin singleton;
+
+	//the ID for this plugin (added automatically by logging quickfix)
+	public static final String PLUGIN_ID = "org.eclipse.jst.j2ee.webservice"; //$NON-NLS-1$
 
 	/**
 	 * @param descriptor
@@ -293,6 +296,22 @@ public class WebServicePlugin extends WTPPlugin implements ResourceLocator {
 	public static IStatus createErrorStatus(int aCode, String aMessage,
 			Throwable exception) {
 		return createStatus(IStatus.ERROR, aCode, aMessage, exception);
+	}
+
+	public static IStatus createStatus(int severity, String message, Throwable exception) {
+		return new Status(severity, PLUGIN_ID, message, exception);
+	}
+
+	public static IStatus createStatus(int severity, String message) {
+		return createStatus(severity, message, null);
+	}
+
+	public static void logError(Throwable exception) {
+		Platform.getLog(Platform.getBundle(PLUGIN_ID)).log( createStatus(IStatus.ERROR, exception.getMessage(), exception));
+	}
+
+	public static void logError(CoreException exception) {
+		Platform.getLog(Platform.getBundle(PLUGIN_ID)).log( exception.getStatus() );
 	}
 
 }

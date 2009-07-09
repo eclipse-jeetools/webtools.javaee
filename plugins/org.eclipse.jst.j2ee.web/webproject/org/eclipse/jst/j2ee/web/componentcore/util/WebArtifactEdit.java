@@ -53,6 +53,7 @@ import org.eclipse.wst.common.componentcore.internal.util.IArtifactEditFactory;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
+import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 
 
 
@@ -454,7 +455,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 			} catch (java.net.ConnectException ex) {
 
 			} catch (Exception e) {
-				e.printStackTrace();
+				WebPlugin.logError(e);
 			}
 		}
 	}

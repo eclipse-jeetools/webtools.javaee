@@ -48,6 +48,7 @@ import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleArtifact;
 import org.eclipse.wst.server.core.ServerUtil;
 import org.eclipse.wst.server.core.util.WebResource;
+import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 
 /**
  * @version 1.0
@@ -80,7 +81,7 @@ public class WebDeployableArtifactUtil {
 					IResource eclipeServResoruce = WorkbenchResourceHelper.getFile(servResource);
 					resources = ComponentCore.createResources(eclipeServResoruce);
 				} catch (Exception e) {
-					e.printStackTrace();
+					WebPlugin.logError(e);
 				}
 				IVirtualComponent component = null;
 				if (resources != null && resources[0] != null)
