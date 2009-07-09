@@ -87,7 +87,6 @@ public class ClasspathDependencyAttributeConfiguration extends ClasspathAttribut
 	@Override
 	public IClasspathAttribute performEdit(Shell shell,
 			ClasspathAttributeAccess attribute) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

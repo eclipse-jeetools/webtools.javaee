@@ -113,9 +113,6 @@ import org.eclipse.wst.common.frameworks.internal.ui.WorkspaceModifyComposedOper
 
 /**
  * @author jialin
- * 
- * TODO To change the template for this generated type comment go to Window - Preferences - Java -
- * Code Style - Code Templates
  */
 public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IClasspathTableOwner, Listener, ClasspathModelListener, IElementChangedListener {
 

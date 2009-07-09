@@ -25,7 +25,6 @@ public class UtilityModuleProjectItemProvider extends J2EEItemProvider {
 		super(adapterFactory);
 		setParent(parent);
 		utilProject = project;
-		// TODO Auto-generated constructor stub
 	}
 	
 	/**
@@ -47,7 +46,6 @@ public class UtilityModuleProjectItemProvider extends J2EEItemProvider {
 
 	@Override
 	public Collection<?> getChildren(Object object) {
-		// TODO Auto-generated method stub
 		return super.getChildren(object);
 	}
 

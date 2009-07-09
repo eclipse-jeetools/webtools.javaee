@@ -10,9 +10,6 @@
  *******************************************************************************/
 /*
  * Created on Dec 7, 2004
- *
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Style - Code Templates
  */
 package org.eclipse.jst.j2ee.internal.perspective;
 
@@ -26,11 +23,6 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.progress.IProgressConstants;
 import org.eclipse.ui.views.IViewDescriptor;
 
-/**
- * 
- * TODO To change the template for this generated type comment go to Window - Preferences - Java -
- * Code Style - Code Templates
- */
 public class J2EEPerspective implements org.eclipse.ui.IPerspectiveFactory {
 
 	protected static String ID_SERVERS_VIEW = "org.eclipse.wst.server.ui.ServersView"; //$NON-NLS-1$
@@ -124,13 +116,11 @@ public class J2EEPerspective implements org.eclipse.ui.IPerspectiveFactory {
 		
 	}
 	private void addDBViewIfPresent(IPageLayout page,IFolderLayout bottomRight) {
-		// TODO Auto-generated method stub
 		IViewDescriptor dbView = PlatformUI.getWorkbench().getViewRegistry().find(ID_DATA_VIEW);
 		if (dbView != null)
 			bottomRight.addView(ID_DATA_VIEW);
 	}
 	private void addTLViewIfPresent(IPageLayout page,IFolderLayout topRight) {
-		// TODO Auto-generated method stub
 		IViewDescriptor tlView = PlatformUI.getWorkbench().getViewRegistry().find(ID_TASKLIST_VIEW);
 		if (tlView != null)
 			topRight.addView(ID_TASKLIST_VIEW);

@@ -10,9 +10,6 @@
  *******************************************************************************/
 /*
  * Created on Aug 11, 2004
- *
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Style - Code Templates
  */
 package org.eclipse.jst.j2ee.internal.war.ui.util;
 
@@ -33,9 +30,6 @@ import org.eclipse.jst.j2ee.webapplication.WebApp;
 
 /**
  * @author jlanuti
- * 
- * TODO To change the template for this generated type comment go to Window - Preferences - Java -
- * Code Style - Code Templates
  */
 public abstract class WebGroupItemProvider extends J2EEItemProvider {
 
@@ -80,7 +74,6 @@ public abstract class WebGroupItemProvider extends J2EEItemProvider {
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
 		super.dispose();
 		weakWebApp = null;
 	}

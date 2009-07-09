@@ -104,7 +104,6 @@ public abstract class AbstractOpenAction extends SelectionListenerAction impleme
 	 * @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
 	 */
 	public void run(IAction action) {
-		// TODO Auto-generated method stub
 		run();
 
 	}

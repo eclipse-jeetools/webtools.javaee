@@ -73,6 +73,7 @@ import org.eclipse.wst.common.frameworks.internal.SimpleValidateEdit;
 import org.eclipse.wst.project.facet.SimpleWebFacetInstallDataModelProvider;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerUtil;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 
 public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 
@@ -92,7 +93,6 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 	
 	public J2EEComponentProjectMigrator() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public void migrateProject(IProject aProject) {
@@ -171,8 +171,7 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 							createProj(newProj,(!comp.getComponentType().getComponentTypeId().equals(J2EEProjectUtilities.ENTERPRISE_APPLICATION)));
 							WtpUtils.addNatures(newProj);
 						} catch (CoreException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+							J2EEUIPlugin.logError(e);
 						}
 					}
 					if (comp.getComponentType()!=null)
@@ -183,8 +182,7 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 						try {
 							compFolder.delete(true,null);
 						} catch (CoreException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
+							J2EEUIPlugin.logError(e);
 						}
 				}
 				se.getComponentModelRoot().getComponents().removeAll(removedComps);
@@ -225,8 +223,7 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 		try {
 			aProject.refreshLocal(IResource.DEPTH_INFINITE,null);
 		} catch (CoreException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			J2EEUIPlugin.logError(e1);
 		}
 		//IJavaProject javaP = JemProjectUtilities.getJavaProject(aProject);
 		List oldBuilders = new ArrayList();
@@ -236,10 +233,8 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 		try {
 			J2EEProjectUtilities.removeBuilders(aProject,oldBuilders);
 		} catch (CoreException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			J2EEUIPlugin.logError(e);
 		}
-		
 	}
 
 		public String getFacetFromProject(IProject aProject) {
@@ -573,8 +568,7 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 					jproj.save(null, true);
 				}
 			} catch (JavaModelException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				J2EEUIPlugin.logError(e);
 			}
 			
 		
@@ -603,8 +597,7 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 				jproj.setRawClasspath(updated, null);
 				jproj.save(null, true);
 			} catch (JavaModelException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				J2EEUIPlugin.logError(e);
 			}
 			
 		}

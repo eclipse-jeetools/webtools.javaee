@@ -11,9 +11,6 @@
  *******************************************************************************/
 /*
  * Created on May 13, 2004
- *
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Generation - Code and Comments
  */
 package org.eclipse.jst.j2ee.internal.wizard;
 
@@ -54,9 +51,6 @@ import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPa
 
 /**
  * @author mdelder
- * 
- * TODO To change the template for this generated type comment go to Window - Preferences - Java -
- * Code Generation - Code and Comments
  */
 public class J2EEUtilityJarImportTypePageNew extends DataModelWizardPage {
 
