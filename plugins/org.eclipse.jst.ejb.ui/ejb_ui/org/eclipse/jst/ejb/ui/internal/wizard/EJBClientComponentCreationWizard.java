@@ -35,7 +35,6 @@ public class EJBClientComponentCreationWizard extends DataModelWizard {
 	 */
 	public EJBClientComponentCreationWizard() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/*

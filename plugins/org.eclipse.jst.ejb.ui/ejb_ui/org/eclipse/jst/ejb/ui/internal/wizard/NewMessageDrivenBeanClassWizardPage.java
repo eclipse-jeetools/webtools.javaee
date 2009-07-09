@@ -66,7 +66,6 @@ public class NewMessageDrivenBeanClassWizardPage extends NewEnterpriseBeanClassW
 				destinationTypeCombo.setEnabled(jmsCheckbox.getSelection());
 			}
 			public void widgetDefaultSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
 			}
 		});
 		
