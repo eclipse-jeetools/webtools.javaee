@@ -708,7 +708,6 @@ public abstract class AbstractAnnotationTagProposal {
 	}
 	
 	private IJavaProject getProject() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

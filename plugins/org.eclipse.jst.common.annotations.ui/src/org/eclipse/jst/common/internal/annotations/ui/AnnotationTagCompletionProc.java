@@ -100,7 +100,6 @@ public class AnnotationTagCompletionProc implements IJavadocCompletionProcessor,
 	 *      int)
 	 */
 	public IContextInformation[] computeContextInformation(ICompilationUnit cu, int offset) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -506,7 +505,6 @@ public class AnnotationTagCompletionProc implements IJavadocCompletionProcessor,
 	 * @see org.eclipse.jdt.ui.text.java.IJavadocCompletionProcessor#getErrorMessage()
 	 */
 	public String getErrorMessage() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
