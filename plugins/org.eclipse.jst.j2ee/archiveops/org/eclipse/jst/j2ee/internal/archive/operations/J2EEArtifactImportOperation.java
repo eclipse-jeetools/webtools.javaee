@@ -19,7 +19,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.archive.ArchiveWrapper;
 import org.eclipse.jst.j2ee.internal.archive.ComponentArchiveSaveAdapter;
@@ -37,10 +36,6 @@ import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedExc
 
 public abstract class J2EEArtifactImportOperation extends AbstractDataModelOperation {
 
-	/**
-	 * @deprecated use {@link #archiveWrapper}
-	 */
-	protected Archive moduleFile;
 	protected ArchiveWrapper archiveWrapper;
 	protected IVirtualComponent virtualComponent;
 	protected IAdaptable info;
@@ -57,7 +52,6 @@ public abstract class J2EEArtifactImportOperation extends AbstractDataModelOpera
 		try {
 			J2EEComponentClasspathUpdater.getInstance().pauseUpdates();
 			this.info = anInfo;
-			moduleFile = (Archive) model.getProperty(IJ2EEComponentImportDataModelProperties.FILE);
 			archiveWrapper = (ArchiveWrapper)model.getProperty(IJ2EEComponentImportDataModelProperties.ARCHIVE_WRAPPER);
 			monitor.beginTask(ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.Importing_archive, new Object [] { archiveWrapper.getPath() }), computeTotalWork());
 			doExecute(monitor);
