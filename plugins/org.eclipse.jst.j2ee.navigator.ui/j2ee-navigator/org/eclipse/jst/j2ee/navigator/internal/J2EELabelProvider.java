@@ -250,12 +250,8 @@ public class J2EELabelProvider implements ICommonLabelProvider {
 	}
 
 	public void restoreState(IMemento aMemento) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	public void saveState(IMemento aMemento) {
-		// TODO Auto-generated method stub
-		
 	}
 }

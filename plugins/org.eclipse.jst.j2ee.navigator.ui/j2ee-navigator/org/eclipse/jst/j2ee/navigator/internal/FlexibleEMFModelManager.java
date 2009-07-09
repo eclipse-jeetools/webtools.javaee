@@ -10,9 +10,6 @@
  *******************************************************************************/
 /*
  * Created on Feb 17, 2005
- *
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Style - Code Templates
  */
 package org.eclipse.jst.j2ee.navigator.internal;
 
@@ -28,12 +25,6 @@ import org.eclipse.wst.common.internal.emfworkbench.integration.EditModel;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener;
 
-/**
- * @author Admin
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
 public class FlexibleEMFModelManager extends EMFModelManager implements EditModelListener{
 
 	private List rootObjects = new ArrayList();
