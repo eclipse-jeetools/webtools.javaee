@@ -22,6 +22,7 @@ import org.eclipse.jst.jee.model.internal.mergers.ModelElementMerger;
 import org.eclipse.jst.jee.model.internal.mergers.ModelException;
 import org.eclipse.jst.jee.model.internal.mergers.WebAppMerger;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
+import org.eclipse.jst.jee.web.Activator;
 
 /**
  * @author Kiril Mitov k.mitov@sap.com
@@ -147,7 +148,7 @@ public class Web25MergedModelProvider extends AbstractMergedModelProvider<WebApp
 				mergeWithModel(annotationsModel);
 			}
 		} catch (ModelException e) {
-			e.printStackTrace();
+			Activator.logError(e);
 		}
 		return mergedModel;
 	}

@@ -25,6 +25,7 @@ import org.eclipse.wst.project.facet.IProductConstants;
 import org.eclipse.wst.project.facet.ProductManager;
 import org.eclipse.wst.web.ui.internal.wizards.NewProjectDataModelFacetWizard;
 import org.osgi.framework.Bundle;
+import org.eclipse.jst.servlet.ui.internal.plugin.ServletUIPlugin;
 
 public class WebProjectWizard extends NewProjectDataModelFacetWizard {
 
@@ -46,7 +47,7 @@ public class WebProjectWizard extends NewProjectDataModelFacetWizard {
 	    }
 	    catch( Exception e )
 	    {
-	        e.printStackTrace();
+	    	ServletUIPlugin.logError(e);
 	        return null;
 	    }
 	}

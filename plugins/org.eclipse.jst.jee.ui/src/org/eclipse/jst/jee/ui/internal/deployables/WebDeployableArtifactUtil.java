@@ -41,6 +41,7 @@ import org.eclipse.jst.javaee.web.Servlet;
 import org.eclipse.jst.javaee.web.ServletMapping;
 import org.eclipse.jst.javaee.web.WebApp;
 import org.eclipse.jst.javaee.web.internal.impl.ServletImpl;
+import org.eclipse.jst.jee.ui.plugin.JEEUIPlugin;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
@@ -81,7 +82,7 @@ public class WebDeployableArtifactUtil {
 					IResource eclipeServResoruce = WorkbenchResourceHelper.getFile(servResource);
 					resources = ComponentCore.createResources(eclipeServResoruce);
 				} catch (Exception e) {
-					e.printStackTrace();
+					JEEUIPlugin.logError(e);
 				}
 				IVirtualComponent component = null;
 				if (resources != null && resources[0] != null){

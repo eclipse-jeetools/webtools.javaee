@@ -165,7 +165,7 @@ public class EJBDeployableArtifactAdapterUtil {
 			if (resources[0] != null)
 				component = resources[0].getComponent();
 		} catch (Exception e) {
-			e.printStackTrace();
+			JEEUIPlugin.logError(e);
 		}
 		return getModule(proj, component);
 	}

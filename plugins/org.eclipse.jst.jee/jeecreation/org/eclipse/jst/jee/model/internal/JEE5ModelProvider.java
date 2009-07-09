@@ -248,10 +248,10 @@ public class JEE5ModelProvider implements IModelProvider, ResourceStateInputProv
 						res.save(Collections.EMPTY_MAP);
 				}
 			} catch (IOException e) {
-				e.printStackTrace();
+				JEEPlugin.logError(e);
 			}
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			JEEPlugin.logError(ex);
 		} finally {
 			setWritableResource(null);
 		}
