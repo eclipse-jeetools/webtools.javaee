@@ -34,7 +34,6 @@ public class ServiceRefEditorItemProvider extends ServiceRefItemProvider {
 	 */
 	public ServiceRefEditorItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

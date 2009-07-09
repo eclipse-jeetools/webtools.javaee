@@ -30,7 +30,6 @@ public class Webservice_clientEditorItemProviderFactory extends Webservice_clien
 	 */
 	public Webservice_clientEditorItemProviderFactory() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/*

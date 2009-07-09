@@ -73,7 +73,6 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 */
 	public WSDDArtifactEdit(IProject aProject, boolean toAccessAsReadOnly) throws IllegalArgumentException {
 		super(aProject, toAccessAsReadOnly);
-		// TODO Auto-generated constructor stub
 	}
 	
 	/**
@@ -219,7 +218,6 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 			try {
 				aResource.saveIfNecessary();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

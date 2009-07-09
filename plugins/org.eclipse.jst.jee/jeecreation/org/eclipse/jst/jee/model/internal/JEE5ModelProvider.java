@@ -182,8 +182,6 @@ public class JEE5ModelProvider implements IModelProvider, ResourceStateInputProv
 	}
 
 	public void populateRoot(XMLResourceImpl res, String string) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	private IContentDescription getContentType(String contentTypeDescriber) {
@@ -205,7 +203,6 @@ public class JEE5ModelProvider implements IModelProvider, ResourceStateInputProv
 	}
 
 	public Object getModelObject(IPath modelPath) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	

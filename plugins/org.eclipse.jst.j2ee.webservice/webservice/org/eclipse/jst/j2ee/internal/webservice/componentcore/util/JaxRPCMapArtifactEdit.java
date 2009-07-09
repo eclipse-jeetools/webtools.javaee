@@ -61,7 +61,6 @@ public class JaxRPCMapArtifactEdit extends EnterpriseArtifactEdit {
 	 */
 	public JaxRPCMapArtifactEdit(IProject aProject, boolean toAccessAsReadOnly) throws IllegalArgumentException {
 		super(aProject, toAccessAsReadOnly);
-		// TODO Auto-generated constructor stub
 	}
 	
 
@@ -190,7 +189,6 @@ public class JaxRPCMapArtifactEdit extends EnterpriseArtifactEdit {
 				aResource.saveIfNecessary();
 			}
 			catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
