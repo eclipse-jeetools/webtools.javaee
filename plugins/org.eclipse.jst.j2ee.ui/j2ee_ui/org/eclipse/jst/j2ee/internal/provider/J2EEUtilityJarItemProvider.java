@@ -33,6 +33,7 @@ import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
@@ -261,7 +262,7 @@ public class J2EEUtilityJarItemProvider extends J2EEItemProvider {
 			try {
 				event.getDelta().accept(this);
 			} catch (CoreException e) {
-				e.printStackTrace();
+				J2EEUIPlugin.logError(e);
 			}
 		}
 

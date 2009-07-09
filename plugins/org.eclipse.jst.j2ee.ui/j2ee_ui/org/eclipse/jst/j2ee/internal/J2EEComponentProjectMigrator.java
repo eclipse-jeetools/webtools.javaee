@@ -363,9 +363,8 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 				Throwable realException = e.getCause();
 				if (realException != null && realException instanceof CoreException) {
 					IStatus st = ((CoreException)realException).getStatus();
-					if (st != null)
-						System.out.println(st);
-					realException.printStackTrace();
+					String message = st != null ? st.toString() : ""; //$NON-NLS-1$
+					J2EEUIPlugin.logError(message, realException);
 				}
 			}
 		}
@@ -396,9 +395,8 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 				Throwable realException = e.getCause();
 				if (realException != null && realException instanceof CoreException) {
 					IStatus st = ((CoreException)realException).getStatus();
-					if (st != null)
-						System.out.println(st);
-					realException.printStackTrace();
+					String message = st != null ? st.toString() : ""; //$NON-NLS-1$
+					J2EEUIPlugin.logError(message, realException);
 				}
 			}
 			
@@ -422,9 +420,8 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 				Throwable realException = e.getCause();
 				if (realException != null && realException instanceof CoreException) {
 					IStatus st = ((CoreException)realException).getStatus();
-					if (st != null)
-						System.out.println(st);
-					realException.printStackTrace();
+					String message = st != null ? st.toString() : ""; //$NON-NLS-1$
+					J2EEUIPlugin.logError(message, realException);
 				}
 			}
 			
@@ -446,9 +443,8 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 				Throwable realException = e.getCause();
 				if (realException != null && realException instanceof CoreException) {
 					IStatus st = ((CoreException)realException).getStatus();
-					if (st != null)
-						System.out.println(st);
-					realException.printStackTrace();
+					String message = st != null ? st.toString() : ""; //$NON-NLS-1$
+					J2EEUIPlugin.logError(message, realException);
 				}
 			}
 			
@@ -472,9 +468,8 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 				Throwable realException = e.getCause();
 				if (realException != null && realException instanceof CoreException) {
 					IStatus st = ((CoreException)realException).getStatus();
-					if (st != null)
-						System.out.println(st);
-					realException.printStackTrace();
+					String message = st != null ? st.toString() : ""; //$NON-NLS-1$
+					J2EEUIPlugin.logError(message, realException);
 				}
 			}
 			
@@ -499,9 +494,8 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 				Throwable realException = e.getCause();
 				if (realException != null && realException instanceof CoreException) {
 					IStatus st = ((CoreException)realException).getStatus();
-					if (st != null)
-						System.out.println(st);
-					realException.printStackTrace();
+					String message = st != null ? st.toString() : ""; //$NON-NLS-1$
+					J2EEUIPlugin.logError(message, realException);
 				}
 			}
 			
@@ -527,16 +521,14 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 				Throwable realException = e.getCause();
 				if (realException != null && realException instanceof CoreException) {
 					IStatus st = ((CoreException)realException).getStatus();
-					if (st != null)
-						System.out.println(st);
-					realException.printStackTrace();
+					String message = st != null ? st.toString() : ""; //$NON-NLS-1$
+					J2EEUIPlugin.logError(message, realException);
 				}
 			} catch (Exception ex) {
 				if (ex instanceof CoreException) {
 					IStatus st = ((CoreException)ex).getStatus();
-					if (st != null)
-						System.out.println(st);
-					ex.printStackTrace();
+					String message = st != null ? st.toString() : ""; //$NON-NLS-1$
+					J2EEUIPlugin.logError(message, ex);
 				}
 			}
 			

@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jst.j2ee.internal.dialogs.ListMessageDialog;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.swt.events.ShellAdapter;
 import org.eclipse.swt.events.ShellEvent;
 import org.eclipse.swt.widgets.Display;
@@ -70,7 +71,7 @@ public class ValidateEditListener extends ShellAdapter implements IValidateEditL
 			});
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			J2EEUIPlugin.logError(e);
 		}
 	}
 	/**

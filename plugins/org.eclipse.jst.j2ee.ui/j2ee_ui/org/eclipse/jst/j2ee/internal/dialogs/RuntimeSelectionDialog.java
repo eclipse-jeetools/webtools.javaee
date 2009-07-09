@@ -19,6 +19,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
@@ -122,7 +123,7 @@ public class RuntimeSelectionDialog extends MessageDialog {
 			IRuntime runtime = J2EEProjectUtilities.getServerRuntime(project);
 			return runtime;
 		} catch (CoreException e) {
-			e.printStackTrace();
+			J2EEUIPlugin.logError(e);
 		}
 		return null;
 	}

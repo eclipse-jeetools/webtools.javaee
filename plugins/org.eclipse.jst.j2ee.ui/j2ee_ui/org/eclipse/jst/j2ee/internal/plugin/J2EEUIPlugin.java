@@ -36,6 +36,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.core.runtime.Platform;
 import java.lang.Throwable;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.MultiStatus;
 
 
 /**
@@ -359,6 +360,15 @@ public class J2EEUIPlugin extends AbstractUIPlugin {
 
 	public static void logError(CoreException exception) {
 		Platform.getLog(Platform.getBundle(PLUGIN_ID)).log( exception.getStatus() );
+	}
+
+	public static void logError(String message, Throwable exception) {
+		Platform.getLog(Platform.getBundle(PLUGIN_ID)).log( createStatus(IStatus.ERROR, message, exception));
+	}
+
+	public static void logError(String message, CoreException exception) {
+		MultiStatus status = new MultiStatus(PLUGIN_ID,IStatus.ERROR,new IStatus[]{exception.getStatus()},message,exception);
+		Platform.getLog(Platform.getBundle(PLUGIN_ID)).log( status );
 	}
 
 

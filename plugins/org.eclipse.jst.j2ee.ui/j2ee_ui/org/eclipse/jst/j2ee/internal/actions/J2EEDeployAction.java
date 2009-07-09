@@ -36,6 +36,7 @@ import org.eclipse.jst.j2ee.internal.deploy.J2EEDeployOperation;
 import org.eclipse.jst.j2ee.internal.dialogs.Messages;
 import org.eclipse.jst.j2ee.internal.dialogs.RuntimeSelectionDialog;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -147,8 +148,7 @@ public class J2EEDeployAction extends BaseAction {
 			
 			return true;
 		} catch (CoreException e) {
-			System.out.println("Deploy Action recovering from problem verifying enablement."); //$NON-NLS-1$
-			e.printStackTrace();
+			J2EEUIPlugin.logError(e);
 		}
 		return false;
 	}

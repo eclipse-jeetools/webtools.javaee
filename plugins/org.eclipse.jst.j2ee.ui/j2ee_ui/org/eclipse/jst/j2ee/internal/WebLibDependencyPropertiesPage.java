@@ -50,6 +50,7 @@ import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 
 public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage {
 
@@ -218,16 +219,15 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 			if (composed != null)
 				new ProgressMonitorDialog(propPage.getShell()).run(true, true, composed);
 		} catch (InvocationTargetException ex) {
-			ex.printStackTrace();
 			if (ex.getCause() != null) {
-				ex.getCause().printStackTrace();
+				J2EEUIPlugin.logError(ex.getCause());
 			}
 			String title = ManifestUIResourceHandler.An_internal_error_occurred_ERROR_;
 			String msg = title;
 			if (ex.getTargetException() != null && ex.getTargetException().getMessage() != null)
 				msg = ex.getTargetException().getMessage();
 			MessageDialog.openError(propPage.getShell(), title, msg);
-			org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ex);
+			J2EEUIPlugin.logError(ex);
 			return false;
 		} catch (InterruptedException e) {
 			// cancelled
