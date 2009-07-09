@@ -1,8 +1,5 @@
 /*
  * Created on Mar 18, 2005
- *
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Style - Code Templates
  */
 package org.eclipse.jst.j2ee.core.tests.api;
 
@@ -37,14 +34,6 @@ import org.eclipse.jst.j2ee.webapplication.test.WebapplicationFactoryTest;
 import org.eclipse.jst.j2ee.webservice.wscommon.test.WscommonFactoryTest;
 import org.eclipse.jst.j2ee.webservice.wsdd.test.WsddFactoryTest;
 
-
-
-/**
- * @author Admin
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
 public class AllAPITest  extends TestSuite {
 
 	 public static Test suite(){

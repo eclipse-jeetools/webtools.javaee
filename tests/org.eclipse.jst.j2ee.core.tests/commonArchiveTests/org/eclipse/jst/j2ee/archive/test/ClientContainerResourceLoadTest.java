@@ -31,7 +31,6 @@ public class ClientContainerResourceLoadTest extends TestCase{
 	}
 
 	protected void setUp() throws Exception {
-		// TODO Auto-generated method stub
 		super.setUp();
 		ArchiveInit.init();
 	}

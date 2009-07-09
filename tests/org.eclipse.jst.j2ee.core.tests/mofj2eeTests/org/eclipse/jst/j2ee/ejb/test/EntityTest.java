@@ -32,7 +32,6 @@ public class EntityTest extends EjbEMFTestBase{
 	 * @see junit.framework.TestCase#setUp()
 	 */
 	protected void setUp() throws Exception {
-		// TODO Auto-generated method stub
 		super.setUp();
 	}
 

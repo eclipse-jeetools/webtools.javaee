@@ -27,7 +27,6 @@ public class AutomatedBVTEclipse extends AutomatedBVT {
         try {
         	AutomatedBVT.baseDirectory = Platform.asLocalURL(url).getFile() + "commonArchiveResources"+ java.io.File.separatorChar;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
