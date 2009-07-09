@@ -48,7 +48,6 @@ public class WebModuleExtensionImpl extends EarModuleExtensionImpl implements We
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.WebModuleExtension#createProjectInfo()
 	 */
 	public J2EEJavaProjectInfo createProjectInfo() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
