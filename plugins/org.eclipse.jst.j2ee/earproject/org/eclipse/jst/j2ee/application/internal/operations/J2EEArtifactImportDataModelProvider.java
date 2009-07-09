@@ -69,7 +69,6 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 		propertyNames.add(FILE_NAME);
 		propertyNames.add(FILE);
 		propertyNames.add(SAVE_FILTER);
-		propertyNames.add(OVERWRITE_HANDLER);
 		propertyNames.add(CLOSE_ARCHIVE_ON_DISPOSE);
 		propertyNames.add(USE_DEFAULT_PROJECT_NAME);
 		propertyNames.add(PROJECT_NAME);

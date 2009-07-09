@@ -59,13 +59,6 @@ public interface IJ2EEComponentImportDataModelProperties extends IDataModelPrope
 	 */
 	public static final String ARCHIVE_WRAPPER = "IJ2EEComponentImportDataModelProperties.ARCHIVE_WRAPPER"; //$NON-NLS-1$
 
-	
-	/**
-	 * Optional, type IOverwriteHandler. Defines a IOverwriteHandler for the component in the
-	 * workspace if an existing component should be overwritten (OVERWRITE_COMPONENT).
-	 */
-	public static final String OVERWRITE_HANDLER = "IJ2EEArtifactImportDataModelProperties.OVERWRITE_HANDLER"; //$NON-NLS-1$
-
 	/**
 	 * Optional, type SaveFilter, default is null
 	 * @deprecated

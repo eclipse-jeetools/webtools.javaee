@@ -21,7 +21,6 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubProgressMonitor;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.archive.ArchiveWrapper;
 import org.eclipse.jst.j2ee.internal.archive.ComponentArchiveSaveAdapter;
@@ -123,11 +122,6 @@ public class WebComponentImportOperation extends J2EEArtifactImportOperation {
 			createRefComponentsModel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP, compToURIMap);
 			createRefComponentsModel.getDefaultOperation().execute(new SubProgressMonitor(monitor, LINK_COMPONENTS_WORK * targetComponents.size()), info);
 		}
-	}
-
-	@Override
-	protected SaveStrategy createSaveStrategy(IVirtualComponent aVirtualComponent) {
-		return new WebComponentSaveStrategyImpl(aVirtualComponent);
 	}
 
 	@Override

@@ -44,10 +44,6 @@ public class EARComponentSaveStrategyImpl extends ComponentSaveStrategyImpl {
 		super.setDataModel(dataModel);
 
 		setArchive((Archive) dataModel.getProperty(IEARComponentImportDataModelProperties.FILE));
-		overwriteHandler = (IOverwriteHandler) dataModel.getProperty(IEARComponentImportDataModelProperties.OVERWRITE_HANDLER);
-		if (null != overwriteHandler) {
-			overwriteHandler.setEarSaveStrategy(this);
-		}
 //		buildProjectsMap();
 	}
 

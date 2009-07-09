@@ -17,14 +17,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
@@ -203,15 +201,6 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 			model = (IDataModel) models.get(i);
 			model.setProperty(IJ2EEComponentImportDataModelProperties.CLOSE_ARCHIVE_ON_DISPOSE, Boolean.TRUE);
 		}
-	}
-
-	protected SaveStrategy createSaveStrategy(IProject project) { // NOOP
-		return null;
-	}
-
-	@Override
-	protected SaveStrategy createSaveStrategy(IVirtualComponent virtualComponent) {
-		return new EARComponentSaveStrategyImpl(virtualComponent);
 	}
 
 	protected EARFile getEarFile() {

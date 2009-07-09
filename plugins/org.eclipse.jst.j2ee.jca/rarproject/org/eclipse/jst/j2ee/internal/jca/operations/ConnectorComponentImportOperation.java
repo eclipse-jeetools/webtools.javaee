@@ -22,11 +22,9 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.archive.ComponentArchiveSaveAdapter;
 import org.eclipse.jst.j2ee.internal.archive.ConnectorComponentArchiveSaveAdapter;
-import org.eclipse.jst.j2ee.internal.archive.operations.ConnectorComponentSaveStrategyImpl;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEArtifactImportOperation;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.jee.archive.IArchive;
@@ -104,13 +102,6 @@ public class ConnectorComponentImportOperation extends J2EEArtifactImportOperati
 				javaProject.setRawClasspath(newJavaClasspath, new NullProgressMonitor());
 			}
 		}
-	}
-	
-	
-	@Override
-	protected SaveStrategy createSaveStrategy(IVirtualComponent component) {
-		ConnectorComponentSaveStrategyImpl saveStrat = new ConnectorComponentSaveStrategyImpl(component);
-		return saveStrat;
 	}
 	
 	@Override

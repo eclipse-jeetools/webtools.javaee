@@ -10,11 +10,9 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.application.internal.operations;
 
-import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.internal.archive.ComponentArchiveSaveAdapter;
 import org.eclipse.jst.j2ee.internal.archive.J2EEJavaComponentArchiveSaveAdapter;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEArtifactImportOperation;
-import org.eclipse.jst.j2ee.internal.archive.operations.J2EEJavaComponentSaveStrategyImpl;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -35,10 +33,4 @@ public class J2EEUtilityJarImportOperationNew extends J2EEArtifactImportOperatio
 		return new J2EEJavaComponentArchiveSaveAdapter(virtualComponent);
 	}
 	
-	@Override
-	protected SaveStrategy createSaveStrategy(IVirtualComponent virtualComponent) {
-		J2EEJavaComponentSaveStrategyImpl saveStrat = new J2EEJavaComponentSaveStrategyImpl(virtualComponent);
-		return saveStrat;
-	}
-
 }

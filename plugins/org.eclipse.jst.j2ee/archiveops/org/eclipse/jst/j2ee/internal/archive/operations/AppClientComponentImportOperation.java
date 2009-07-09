@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.archive.operations;
 
-import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.internal.archive.AppClientComponentArchiveSaveAdapter;
 import org.eclipse.jst.j2ee.internal.archive.ComponentArchiveSaveAdapter;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -22,12 +21,6 @@ public class AppClientComponentImportOperation extends J2EEArtifactImportOperati
 		super(model);
 	}
 
-	@Override
-	protected SaveStrategy createSaveStrategy(IVirtualComponent virtualComponent) {
-		AppClientComponentSaveStrategyImpl saveStrat = new AppClientComponentSaveStrategyImpl(virtualComponent);
-		return saveStrat;
-	}
-	
 	@Override
 	protected ComponentArchiveSaveAdapter getArchiveSaveAdapter(IVirtualComponent virtualComponent) {
 		return new AppClientComponentArchiveSaveAdapter(virtualComponent);

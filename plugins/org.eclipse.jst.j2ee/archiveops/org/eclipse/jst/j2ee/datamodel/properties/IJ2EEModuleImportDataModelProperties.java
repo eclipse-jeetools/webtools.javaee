@@ -30,6 +30,4 @@ package org.eclipse.jst.j2ee.datamodel.properties;
  */
 public interface IJ2EEModuleImportDataModelProperties extends IJ2EEComponentImportDataModelProperties {
     
-	public static final String EXTENDED_IMPORT_FACTORY = "IJ2EEModuleImportDataModelProperties.EXTENDED_IMPORT_FACTORY"; //$NON-NLS-1$
-
 }
