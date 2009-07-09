@@ -9,7 +9,6 @@ package org.eclipse.wtp.j2ee.headless.tests.jca.operations;
 import junit.framework.Test;
 
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
-import org.eclipse.jst.j2ee.internal.archive.operations.IOverwriteHandler;
 import org.eclipse.jst.j2ee.internal.jca.operations.ConnectorComponentImportDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -75,20 +74,16 @@ public class JCAImportOperationTest extends ModuleImportOperationTest {
 	}
 	
 	@Override
-	protected IDataModel getImportDataModel(String filePath, String projectName, IOverwriteHandler overwriteHandler, IDataModel creationModel, boolean closeArchiveOnDispose) {
-		return getJCAImportDataModel(filePath, projectName, overwriteHandler, creationModel, closeArchiveOnDispose);
+	protected IDataModel getImportDataModel(String filePath, String projectName, IDataModel creationModel, boolean closeArchiveOnDispose) {
+		return getJCAImportDataModel(filePath, projectName, creationModel, closeArchiveOnDispose);
 	}
 	
-    public static IDataModel getJCAImportDataModel(String filePath, String projectName, IOverwriteHandler overwriteHandler, IDataModel creationModel, boolean closeArchiveOnDispose) {
+    public static IDataModel getJCAImportDataModel(String filePath, String projectName, IDataModel creationModel, boolean closeArchiveOnDispose) {
     	IDataModel importModel = DataModelFactory.createDataModel(new ConnectorComponentImportDataModelProvider());
     	
     	importModel.setProperty(IJ2EEComponentImportDataModelProperties.FILE_NAME, filePath);
     	importModel.setProperty(IJ2EEComponentImportDataModelProperties.PROJECT_NAME, projectName);
     	importModel.setProperty(IJ2EEComponentImportDataModelProperties.CLOSE_ARCHIVE_ON_DISPOSE, closeArchiveOnDispose);
-    	
-    	if(overwriteHandler != null) {
-    		importModel.setProperty(IJ2EEComponentImportDataModelProperties.OVERWRITE_HANDLER, overwriteHandler);
-    	}
     	
     	if(creationModel != null) {
     		importModel.setProperty(IJ2EEComponentImportDataModelProperties.NESTED_MODEL_J2EE_COMPONENT_CREATION, creationModel);

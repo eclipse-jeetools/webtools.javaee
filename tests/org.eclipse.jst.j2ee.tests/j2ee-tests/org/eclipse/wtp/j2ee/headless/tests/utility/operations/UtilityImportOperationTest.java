@@ -11,7 +11,6 @@ import junit.framework.Test;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.internal.archive.ArchiveWrapper;
 import org.eclipse.jst.j2ee.internal.archive.JavaEEArchiveUtilities;
-import org.eclipse.jst.j2ee.internal.archive.operations.IOverwriteHandler;
 import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.tests.OperationTestCase;
@@ -85,11 +84,11 @@ public class UtilityImportOperationTest extends ModuleImportOperationTest {
 	 */
 	@Override
 	protected IDataModel getImportDataModel(String filePath,
-			String projectName, IOverwriteHandler overwriteHandler,
+			String projectName, 
 			IDataModel creationModel, boolean closeArchiveOnDispose) throws Exception {
 		
 		//only makes sense to test utility projects exported/imported within an EAR
-		IDataModel earImportModel = EARImportOperationTest.getEARImportDataModel(filePath, projectName, overwriteHandler, creationModel, closeArchiveOnDispose);
+		IDataModel earImportModel = EARImportOperationTest.getEARImportDataModel(filePath, projectName, creationModel, closeArchiveOnDispose);
 
 		archive = null;
 		List <ArchiveWrapper> utilityArchiveWrappers = Collections.EMPTY_LIST;

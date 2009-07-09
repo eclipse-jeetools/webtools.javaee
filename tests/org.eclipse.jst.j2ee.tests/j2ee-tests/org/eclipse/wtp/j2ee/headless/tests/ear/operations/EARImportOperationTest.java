@@ -12,7 +12,6 @@ import org.eclipse.jst.j2ee.application.internal.operations.EARComponentImportDa
 import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.archive.ArchiveWrapper;
-import org.eclipse.jst.j2ee.internal.archive.operations.IOverwriteHandler;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
@@ -238,20 +237,16 @@ public class EARImportOperationTest extends JEEImportOperationTest {
 	}
 
 	@Override
-	protected IDataModel getImportDataModel(String filePath, String projectName, IOverwriteHandler overwriteHandler, IDataModel creationModel, boolean closeArchiveOnDispose) {
-		return getEARImportDataModel(filePath, projectName, overwriteHandler, creationModel, closeArchiveOnDispose);
+	protected IDataModel getImportDataModel(String filePath, String projectName, IDataModel creationModel, boolean closeArchiveOnDispose) {
+		return getEARImportDataModel(filePath, projectName, creationModel, closeArchiveOnDispose);
 	}
 	
-	public static IDataModel getEARImportDataModel(String filePath, String projectName, IOverwriteHandler overwriteHandler, IDataModel creationModel, boolean closeArchiveOnDispose) {
+	public static IDataModel getEARImportDataModel(String filePath, String projectName, IDataModel creationModel, boolean closeArchiveOnDispose) {
 		IDataModel importModel = DataModelFactory.createDataModel(new EARComponentImportDataModelProvider());
     	
     	importModel.setProperty(IJ2EEComponentImportDataModelProperties.FILE_NAME, filePath);
     	importModel.setProperty(IJ2EEComponentImportDataModelProperties.PROJECT_NAME, projectName);
     	importModel.setProperty(IJ2EEComponentImportDataModelProperties.CLOSE_ARCHIVE_ON_DISPOSE, closeArchiveOnDispose);
-    	
-    	if(overwriteHandler != null) {
-    		importModel.setProperty(IJ2EEComponentImportDataModelProperties.OVERWRITE_HANDLER, overwriteHandler);
-    	}
     	
     	if(creationModel != null) {
     		importModel.setProperty(IJ2EEComponentImportDataModelProperties.NESTED_MODEL_J2EE_COMPONENT_CREATION, creationModel);
@@ -311,7 +306,7 @@ public class EARImportOperationTest extends JEEImportOperationTest {
 		verifyImportArchiveExists(archivePath);
 		
 		//remove some of the selected models
-		IDataModel importModel = getImportDataModel(archivePath, projectName, null, null, true);
+		IDataModel importModel = getImportDataModel(archivePath, projectName, null, true);
     	List selectedModelsList = (List)importModel.getProperty(IEARComponentImportDataModelProperties.SELECTED_MODELS_LIST);
     	for(int i = 0; i<2 & i<selectedModelsList.size(); i++) {
     		selectedModelsList.remove(i);
@@ -330,7 +325,7 @@ public class EARImportOperationTest extends JEEImportOperationTest {
 		verifyImportArchiveExists(archivePath);
 		
 		//remove all of the selected models
-		IDataModel importModel = getImportDataModel(archivePath, projectName, null, null, true);
+		IDataModel importModel = getImportDataModel(archivePath, projectName, null, true);
 		importModel = setExtendedEARImportDataModelProperties(importModel, null, null, Collections.EMPTY_LIST, null, null, null);
 		runAndVerify(importModel);
 		

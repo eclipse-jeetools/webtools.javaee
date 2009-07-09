@@ -12,7 +12,6 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.archive.JavaEEArchiveUtilities;
-import org.eclipse.jst.j2ee.internal.archive.operations.IOverwriteHandler;
 import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.jst.jee.archive.IArchiveResource;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -68,7 +67,7 @@ public abstract class JEEImportOperationTest extends OperationTestCase {
 	 * @param closeArchiveOnDispose
 	 * @return
 	 */
-    protected abstract IDataModel getImportDataModel(String filePath, String projectName, IOverwriteHandler overwriteHandler, IDataModel creationModel, boolean closeArchiveOnDispose) throws Exception;
+    protected abstract IDataModel getImportDataModel(String filePath, String projectName, IDataModel creationModel, boolean closeArchiveOnDispose) throws Exception;
     
     protected abstract IDataModel getExportDataModel(String projectName, String destination, boolean exportSource, boolean runBuild, boolean overwriteExisting);
     
@@ -110,7 +109,7 @@ public abstract class JEEImportOperationTest extends OperationTestCase {
 		
 		verifyImportArchiveExists(archivePath);
 		
-		IDataModel importModel = getImportDataModel(archivePath, projectName, null, null, true);
+		IDataModel importModel = getImportDataModel(archivePath, projectName, null, true);
 		OperationTestCase.runAndVerify(importModel);
 		
 		runAndVerifyReExportation(importModel, true, true);
@@ -122,7 +121,7 @@ public abstract class JEEImportOperationTest extends OperationTestCase {
 		
 		verifyImportArchiveExists(archivePath);
 		
-		IDataModel importModel = getImportDataModel(archivePath, projectName, null, null, true);
+		IDataModel importModel = getImportDataModel(archivePath, projectName, null, true);
 		runAndVerify(importModel);
 		
 		runAndVerifyReExportation(importModel, true, true);
@@ -134,7 +133,7 @@ public abstract class JEEImportOperationTest extends OperationTestCase {
 		
 		verifyImportArchiveExists(archivePath);
 		
-		IDataModel importModel = getImportDataModel(archivePath, projectName, null, null, true);
+		IDataModel importModel = getImportDataModel(archivePath, projectName, null, true);
 		runAndVerify(importModel);
 	}
 	
@@ -144,7 +143,7 @@ public abstract class JEEImportOperationTest extends OperationTestCase {
 		
 		verifyImportArchiveExists(archivePath);
 		
-		IDataModel importModel = getImportDataModel(archivePath, projectName, null, null, true);
+		IDataModel importModel = getImportDataModel(archivePath, projectName, null, true);
 		runAndVerify(importModel);
 	}
 	

@@ -11,7 +11,6 @@ import java.util.List;
 import junit.framework.Test;
 
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
-import org.eclipse.jst.j2ee.internal.archive.operations.IOverwriteHandler;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentImportDataModelProvider;
 import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentImportDataModelProperties;
 import org.eclipse.jst.jee.archive.IArchive;
@@ -315,20 +314,17 @@ public class WebImportOperationTest extends ModuleImportOperationTest {
 	}
 	
     @Override
-    protected IDataModel getImportDataModel(String filePath, String projectName, IOverwriteHandler overwriteHandler, IDataModel creationModel, boolean closeArchiveOnDispose) {
-    	return getWebImportDataModel(filePath, projectName, overwriteHandler, creationModel, closeArchiveOnDispose, null, null);
+    protected IDataModel getImportDataModel(String filePath, String projectName, IDataModel creationModel, boolean closeArchiveOnDispose) {
+    	return getWebImportDataModel(filePath, projectName, creationModel, closeArchiveOnDispose, null, null);
     }
     
-    public static IDataModel getWebImportDataModel(String filePath, String projectName, IOverwriteHandler overwriteHandler, IDataModel creationModel, boolean closeArchiveOnDispose, List<IArchive> webLibArchivesToExpand, String contextRoot) {
+    public static IDataModel getWebImportDataModel(String filePath, String projectName, IDataModel creationModel, boolean closeArchiveOnDispose, List<IArchive> webLibArchivesToExpand, String contextRoot) {
     	IDataModel importModel = DataModelFactory.createDataModel(new WebComponentImportDataModelProvider());
     	
     	importModel.setProperty(IJ2EEComponentImportDataModelProperties.FILE_NAME, filePath);
     	importModel.setProperty(IJ2EEComponentImportDataModelProperties.PROJECT_NAME, projectName);
     	importModel.setProperty(IJ2EEComponentImportDataModelProperties.CLOSE_ARCHIVE_ON_DISPOSE, closeArchiveOnDispose);
     	
-    	if(overwriteHandler != null) {
-    		importModel.setProperty(IJ2EEComponentImportDataModelProperties.OVERWRITE_HANDLER, overwriteHandler);
-    	}
     	
     	if(creationModel != null) {
     		importModel.setProperty(IJ2EEComponentImportDataModelProperties.NESTED_MODEL_J2EE_COMPONENT_CREATION, creationModel);

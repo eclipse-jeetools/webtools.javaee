@@ -40,7 +40,6 @@ import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.internal.impl.EJBJarResourceFactory;
 import org.eclipse.jst.j2ee.ejb.internal.impl.EJBResourceImpl;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.archive.operations.IOverwriteHandler;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBComponentImportDataModelProvider;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPreferences;
@@ -74,16 +73,12 @@ public class JEE5LegacyModelTest extends GeneralEMFPopulationTest {
         else
             return super.primCreateAttributeValue(att, eObject);
     }
-    public static IDataModel getEJBImportDataModel(String filePath, String projectName, IOverwriteHandler overwriteHandler, IDataModel creationModel, boolean closeArchiveOnDispose) {
+    public static IDataModel getEJBImportDataModel(String filePath, String projectName, IDataModel creationModel, boolean closeArchiveOnDispose) {
     	IDataModel importModel = DataModelFactory.createDataModel(new EJBComponentImportDataModelProvider());
     	
     	importModel.setProperty(IJ2EEComponentImportDataModelProperties.FILE_NAME, filePath);
     	importModel.setProperty(IJ2EEComponentImportDataModelProperties.PROJECT_NAME, projectName);
     	importModel.setProperty(IJ2EEComponentImportDataModelProperties.CLOSE_ARCHIVE_ON_DISPOSE, closeArchiveOnDispose);
-    	
-    	if(overwriteHandler != null) {
-    		importModel.setProperty(IJ2EEComponentImportDataModelProperties.OVERWRITE_HANDLER, overwriteHandler);
-    	}
     	
     	if(creationModel != null) {
     		importModel.setProperty(IJ2EEComponentImportDataModelProperties.NESTED_MODEL_J2EE_COMPONENT_CREATION, creationModel);
@@ -113,7 +108,7 @@ public class JEE5LegacyModelTest extends GeneralEMFPopulationTest {
            {
                 try {
                 	String archiveName = getArchivePath("TestEJB3.jar");
-                	IDataModel importModel = getEJBImportDataModel(archiveName, "TESTEJB3Import", null, null, true);
+                	IDataModel importModel = getEJBImportDataModel(archiveName, "TESTEJB3Import", null, true);
                 	IStatus operationStatus = importModel.getDefaultOperation().execute(new NullProgressMonitor(), null);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block

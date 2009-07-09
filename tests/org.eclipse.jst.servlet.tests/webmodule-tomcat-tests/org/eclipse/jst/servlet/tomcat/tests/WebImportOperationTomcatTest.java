@@ -12,7 +12,6 @@ import java.util.List;
 import junit.framework.Test;
 
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
-import org.eclipse.jst.j2ee.internal.archive.operations.IOverwriteHandler;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wst.common.tests.SimpleTestSuite;
@@ -162,7 +161,7 @@ public class WebImportOperationTomcatTest extends ModuleImportOperationTest {
 	}
 
 	protected IDataModel getImportDataModel(String filePath,
-			String projectName, IOverwriteHandler overwriteHandler,
+			String projectName, 
 			IDataModel creationModel, boolean closeArchiveOnDispose) {
 		
 		// TODO Auto-generated method stub
