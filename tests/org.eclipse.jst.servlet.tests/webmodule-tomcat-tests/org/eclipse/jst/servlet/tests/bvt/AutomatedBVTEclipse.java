@@ -25,7 +25,6 @@ public class AutomatedBVTEclipse extends AutomatedBVT {
         try {
         	AutomatedBVT.baseDirectory = Platform.asLocalURL(url).getFile() + "WARImportTests"+ java.io.File.separatorChar; //$NON-NLS-1$
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

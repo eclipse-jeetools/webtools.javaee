@@ -158,7 +158,6 @@ public class WebProjectCreationTomcatTest extends TestCase {
         // try {
         // verifier.verify(model);
         // } catch (Exception e) {
-        // // TODO Auto-generated catch block
         // e.printStackTrace();
         // }
 
@@ -213,7 +212,6 @@ public class WebProjectCreationTomcatTest extends TestCase {
      * @see org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleProjectCreationOperationTest#getProjectCreationDataModel()
      */
     public IDataModel getProjectCreationDataModel() {
-        // TODO Auto-generated method stub
         return null;
     }
 

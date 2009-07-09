@@ -137,21 +137,17 @@ public class WebExportOperationTomcatTest extends ModuleExportOperationTest {
 
 	protected void addJavaFilesToProject(String projectName,
 			String[] classNames, String prackageName) throws Exception {
-		// TODO Auto-generated method stub
-		
 	}
 
 	protected void verifyJavaFilesExported(String archivePath,
 			String[] classNames, String packageName, boolean withClassFiles,
 			boolean withSource) throws Exception {
-		// TODO Auto-generated method stub
 		
 	}
 
 	protected IDataModel getExportDataModel(String projectName,
 			String destination, boolean exportSource, boolean runBuild,
 			boolean overwriteExisting) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

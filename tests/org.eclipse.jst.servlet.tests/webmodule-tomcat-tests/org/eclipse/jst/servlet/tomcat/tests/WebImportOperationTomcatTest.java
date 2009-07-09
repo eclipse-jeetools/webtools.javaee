@@ -155,21 +155,16 @@ public class WebImportOperationTomcatTest extends ModuleImportOperationTest {
 	protected IDataModel getExportDataModel(String projectName,
 			String destination, boolean exportSource, boolean runBuild,
 			boolean overwriteExisting) {
-		
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	protected IDataModel getImportDataModel(String filePath,
 			String projectName, 
 			IDataModel creationModel, boolean closeArchiveOnDispose) {
-		
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
 	protected String getModuleExtension() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
