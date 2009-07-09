@@ -168,7 +168,7 @@ public class EJBClientJarFileMoveOperation extends AbstractDataModelOperation
 		try {
 			res = packageFragmentRoot.getUnderlyingResource();
 		} catch (JavaModelException e) {
-			e.printStackTrace();
+			EjbPlugin.logError(e);
 		}
 		if(res != null && res instanceof IFolder)
 			return (IFolder)res;

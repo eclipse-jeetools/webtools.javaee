@@ -158,11 +158,11 @@ public class EjbClientJarCreationOperation
 	            
 	            
 			}catch (CoreException e) {
-				e.printStackTrace();
+				EjbPlugin.logError(e);
 			} catch (InvocationTargetException e) {
-				e.printStackTrace();
+				EjbPlugin.logError(e);
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				EjbPlugin.logError(e);
 			}
 			
 			EJBClientJarCreationHelper helper = new EJBClientJarCreationHelper( ejbproject );
