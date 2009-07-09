@@ -139,14 +139,11 @@ public class EjbFacetPostInstallDelegate extends J2EEFacetInstallDelegate implem
 						modifyEJBModuleJarDependency(model, monitor);
 						updateEJBDD(model, monitor);
 					} catch (CoreException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						EjbPlugin.logError(e);
 					} catch (InvocationTargetException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						EjbPlugin.logError(e);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						EjbPlugin.logError(e);
 					}
 				}
 			}

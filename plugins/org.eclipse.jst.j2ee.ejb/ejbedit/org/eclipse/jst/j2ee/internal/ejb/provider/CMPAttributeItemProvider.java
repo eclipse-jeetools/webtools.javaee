@@ -345,7 +345,6 @@ public class CMPAttributeItemProvider extends EjbItemProviderAdapter{
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
 		super.dispose();
 	}
 }

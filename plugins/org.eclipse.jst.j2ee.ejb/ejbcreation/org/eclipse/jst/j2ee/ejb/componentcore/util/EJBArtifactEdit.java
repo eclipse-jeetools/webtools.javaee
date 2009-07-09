@@ -52,6 +52,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
+import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
 
 /**
  * <p>
@@ -375,8 +376,7 @@ public class EJBArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 				if (aResource.isModified())
 					aResource.saveIfNecessary();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				EjbPlugin.logError(e);
 			}
 		}
 	}
