@@ -48,6 +48,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 // hari: make abstract
 public class ComponentArchiveSaveAdapter extends AbstractArchiveSaveAdapter {
@@ -236,8 +237,7 @@ public class ComponentArchiveSaveAdapter extends AbstractArchiveSaveAdapter {
 			try {
 				createReferencesDataModel.getDefaultOperation().execute(null, null);
 			} catch (ExecutionException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				J2EEPlugin.logError(e);
 			}
 		}
 	}

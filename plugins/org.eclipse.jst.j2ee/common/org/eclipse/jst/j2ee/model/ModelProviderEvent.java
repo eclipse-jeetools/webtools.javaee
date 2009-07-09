@@ -40,7 +40,6 @@ public class ModelProviderEvent implements IModelProviderEvent {
 	}
 
 	public int getEventCode() {
-		// TODO Auto-generated method stub
 		return event;
 	}
 

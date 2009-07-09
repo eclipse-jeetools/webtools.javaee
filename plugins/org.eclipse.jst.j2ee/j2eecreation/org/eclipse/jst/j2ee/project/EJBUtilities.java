@@ -27,7 +27,6 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 public class EJBUtilities extends JavaEEProjectUtilities {
 
 	public EJBUtilities() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public static IVirtualComponent getEJBClientJar(IVirtualComponent ejbComponent){

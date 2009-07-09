@@ -57,8 +57,7 @@ public class EarModuleExtensionRegistry extends RegistryReader {
 		try {
 			extension = (EarModuleExtension) element.createExecutableExtension(MODULE_EXTENSION_CLASS);
 		} catch (CoreException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			J2EEPlugin.logError(e);
 		}
 		if (extension != null)
 			addModuleExtension(extension);

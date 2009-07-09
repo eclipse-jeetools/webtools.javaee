@@ -27,7 +27,6 @@ public abstract class EarModuleExtensionImpl implements EarModuleExtension {
 	 */
 	public EarModuleExtensionImpl() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/*

@@ -41,7 +41,6 @@ import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 public class EarUtilities extends JavaEEProjectUtilities {
 
 	public EarUtilities() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

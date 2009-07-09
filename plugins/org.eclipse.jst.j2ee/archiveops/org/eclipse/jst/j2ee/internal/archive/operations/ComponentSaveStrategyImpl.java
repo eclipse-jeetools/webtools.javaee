@@ -35,6 +35,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureExce
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategyImpl;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsDataModelProvider;
@@ -231,8 +232,7 @@ public abstract class ComponentSaveStrategyImpl extends SaveStrategyImpl {
 			try {
 				createReferencesDataModel.getDefaultOperation().execute(null, null);
 			} catch (ExecutionException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				J2EEPlugin.logError(e);
 			}
 		}
 	}

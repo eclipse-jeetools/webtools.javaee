@@ -877,7 +877,6 @@ public class NewJavaClassOperation extends AbstractDataModelOperation {
 	@Override
 	public IStatus execute(IProgressMonitor monitor, IAdaptable info)
 			throws ExecutionException {
-		// TODO Auto-generated method stub
 		return doExecute(monitor, info);
 	}
 	

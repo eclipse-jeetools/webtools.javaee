@@ -17,6 +17,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.project.datamodel.properties.IJ2EEProjectServerTargetDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
@@ -31,7 +32,6 @@ public class J2EEProjectServerTargetOp extends AbstractDataModelOperation {
      */
     public J2EEProjectServerTargetOp(IDataModel model) {
         super(model);
-        // TODO Auto-generated constructor stub
     }
 
 	@Override
@@ -51,8 +51,7 @@ public class J2EEProjectServerTargetOp extends AbstractDataModelOperation {
 					//ServerTargetHelper.setNewServerTargetForEARUtilityJars(runtime, project);
 				}
 			} catch (CoreException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				J2EEPlugin.logError(e);
 			}
 		}
 		return OK_STATUS;
@@ -60,13 +59,11 @@ public class J2EEProjectServerTargetOp extends AbstractDataModelOperation {
 
 	@Override
 	public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

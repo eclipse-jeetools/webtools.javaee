@@ -42,7 +42,6 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 	public static final int DD_VERSION = 1;
 	
 	public JavaEEProjectUtilities() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public static boolean isProjectOfType(IProject project, String typeID) {

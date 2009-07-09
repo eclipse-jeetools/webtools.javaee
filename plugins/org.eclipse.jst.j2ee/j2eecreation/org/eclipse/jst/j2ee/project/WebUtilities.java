@@ -32,7 +32,6 @@ public class WebUtilities extends JavaEEProjectUtilities {
 	public static IPath WEBLIB = new Path("/WEB-INF/lib"); //$NON-NLS-1$
 
 	public WebUtilities() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

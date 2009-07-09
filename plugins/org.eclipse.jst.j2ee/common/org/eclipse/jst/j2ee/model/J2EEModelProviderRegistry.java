@@ -56,8 +56,7 @@ public class J2EEModelProviderRegistry extends RegistryReader {
 		try {
 			factory = (IModelProviderFactory) mp[0].createExecutableExtension(PROVIDER_FACTORY_CLASS);
 		} catch (CoreException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			J2EEPlugin.logError(e);
 		}
 		if (factory != null) {  //Optionally read priority if to override providers for type
 			priority = mp[0].getAttribute(PROVIDER_PRIORITY);

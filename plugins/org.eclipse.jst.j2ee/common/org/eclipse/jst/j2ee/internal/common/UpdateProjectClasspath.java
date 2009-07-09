@@ -25,12 +25,6 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.internal.core.ClasspathEntry;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
-
-/**
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
 public class UpdateProjectClasspath {
 	
  

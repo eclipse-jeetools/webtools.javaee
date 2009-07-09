@@ -55,13 +55,11 @@ public class JARDependencyOperation extends AbstractDataModelOperation implement
 
 	@Override
 	public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
 	@Override
 	public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	

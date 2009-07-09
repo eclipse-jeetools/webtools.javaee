@@ -181,7 +181,6 @@ public class EnterpriseApplicationDeployableAdapterUtil {
 	 * @see org.eclipse.wst.server.core.IModuleArtifactAdapter#getId()
 	 */
 	public String getId() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -191,7 +190,6 @@ public class EnterpriseApplicationDeployableAdapterUtil {
 	 * @see org.eclipse.wst.server.core.IModuleArtifactAdapter#getObjectClassName()
 	 */
 	public String getObjectClassName() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -201,7 +199,6 @@ public class EnterpriseApplicationDeployableAdapterUtil {
 	 * @see org.eclipse.wst.server.core.IModuleArtifactAdapter#isPluginActivated()
 	 */
 	public boolean isPluginActivated() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

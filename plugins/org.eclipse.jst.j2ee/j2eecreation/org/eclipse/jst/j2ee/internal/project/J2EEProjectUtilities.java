@@ -1068,8 +1068,7 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 				ret = facetedProject.hasProjectFacet(appFacet.getVersion(J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.JEE_5_0_ID)));
 			}
 		} catch (CoreException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			J2EEPlugin.logError(e);
 		}
 		return ret;
 	}
@@ -1123,8 +1122,7 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 				ret = true;
 			} 
 		} catch (CoreException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			J2EEPlugin.logError(e);
 		}
 		return ret;
 	}

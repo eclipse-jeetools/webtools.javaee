@@ -33,7 +33,6 @@ public class FatalDeployerException extends Exception {
 	 */
 	public FatalDeployerException() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -41,7 +40,6 @@ public class FatalDeployerException extends Exception {
 	 */
 	public FatalDeployerException(String message) {
 		super(message);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -50,7 +48,6 @@ public class FatalDeployerException extends Exception {
 	 */
 	public FatalDeployerException(String message, Throwable cause) {
 		super(message, cause);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -58,6 +55,5 @@ public class FatalDeployerException extends Exception {
 	 */
 	public FatalDeployerException(Throwable cause) {
 		super(cause);
-		// TODO Auto-generated constructor stub
 	}
 }

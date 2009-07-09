@@ -52,7 +52,6 @@ public class ServerTargetHelper {
 	 */
 	public ServerTargetHelper() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public static void cleanUpNonServerTargetClasspath(IProject project) {

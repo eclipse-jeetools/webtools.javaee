@@ -231,8 +231,6 @@ public class BinaryMethod implements Method {
 	}
 
 	private void getCaptureTypeImports(String type, List<String> result) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	private void getClassTypeImports(String type, List<String> result) {
@@ -240,13 +238,9 @@ public class BinaryMethod implements Method {
 	}
 
 	private void getTypeVarialbleImports(String type, List<String> result) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	private void getWildcardTypeImports(String type, List<String> result) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }
