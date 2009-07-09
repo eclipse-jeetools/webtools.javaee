@@ -23,6 +23,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
 
 
@@ -80,7 +81,7 @@ public class J2EEModulePostImportHelper {
 				J2EEModulePostImportHandler postCreate = (J2EEModulePostImportHandler) postImportElement[i].createExecutableExtension("className"); //$NON-NLS-1$
 				postCreate.moduleImported(project);
 			} catch (CoreException e) {
-				e.printStackTrace();
+				J2EEPlugin.logError(e);
 			}
 		}
 	}
@@ -120,7 +121,7 @@ public class J2EEModulePostImportHelper {
 					}
 				} catch (Exception e) {
 					if (shouldLogErrors) {
-						e.printStackTrace();
+						J2EEPlugin.logError(e);
 					}
 				}
 			}
@@ -136,7 +137,7 @@ public class J2EEModulePostImportHelper {
 					postImportElement.createExecutableExtension("className"); //$NON-NLS-1$
 					interestedExtensions.add(postImportElement);
 				} catch (Exception e) {
-					e.printStackTrace();
+					J2EEPlugin.logError(e);
 				}
 			}
 		}

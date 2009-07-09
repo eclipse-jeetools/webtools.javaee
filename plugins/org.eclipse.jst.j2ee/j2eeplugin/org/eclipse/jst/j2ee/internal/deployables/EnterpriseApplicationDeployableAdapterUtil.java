@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -117,7 +118,7 @@ public class EnterpriseApplicationDeployableAdapterUtil {
 			IResource eclipeServResoruce = WorkbenchResourceHelper.getFile(servResource);
 			resources = ComponentCore.createResources(eclipeServResoruce);
 		} catch (Exception e) {
-			e.printStackTrace();
+			J2EEPlugin.logError(e);
 		}
 		IVirtualComponent component = null;
 		if (resources != null && resources[0] != null)

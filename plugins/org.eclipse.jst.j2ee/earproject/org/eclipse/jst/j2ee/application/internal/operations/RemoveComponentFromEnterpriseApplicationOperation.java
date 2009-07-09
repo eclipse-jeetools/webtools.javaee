@@ -19,6 +19,7 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.model.IEARModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.jee.application.ICommonApplication;
@@ -75,7 +76,7 @@ public class RemoveComponentFromEnterpriseApplicationOperation extends RemoveRef
 							try {
 								iFile.delete(true, monitor);
 							} catch (CoreException e) {
-								e.printStackTrace();
+								J2EEPlugin.logError(e);
 							}
 						}
 					}

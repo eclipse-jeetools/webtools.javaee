@@ -151,48 +151,4 @@ public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 		return c;
 	}
 
-//	private void addMainClass(IProgressMonitor monitor, IDataModel model, IProject project) {
-//		try {
-//			IDataModel mainClassDataModel = DataModelFactory.createDataModel(NewJavaClassDataModelProvider.class);
-//			mainClassDataModel.setProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME, project.getName());
-//			mainClassDataModel.setProperty(INewJavaClassDataModelProperties.CLASS_NAME, "Main"); //$NON-NLS-1$
-//			mainClassDataModel.setBooleanProperty(INewJavaClassDataModelProperties.MAIN_METHOD, true);
-//			String projRelativeSourcePath = IPath.SEPARATOR + project.getName() + IPath.SEPARATOR + model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER);
-//			mainClassDataModel.setProperty(INewJavaClassDataModelProperties.SOURCE_FOLDER, projRelativeSourcePath);
-//			IJavaProject javaProject = JemProjectUtilities.getJavaProject(project);
-//			mainClassDataModel.setProperty(INewJavaClassDataModelProperties.JAVA_PACKAGE_FRAGMENT_ROOT, javaProject.getPackageFragmentRoots()[0]);
-//			mainClassDataModel.getDefaultOperation().execute(monitor, null);
-//			createManifestEntryForMainClass(monitor, model, project);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
-
-//	protected void createManifestEntryForMainClass(IProgressMonitor monitor, IDataModel model, IProject project) throws CoreException, InvocationTargetException, InterruptedException {
-//		IVirtualComponent appClientComponent = ComponentCore.createComponent(project);
-//		IVirtualFile vf = appClientComponent.getRootFolder().getFile(new Path(J2EEConstants.MANIFEST_URI));
-//		IFile manifestmf = vf.getUnderlyingFile();
-//		if (manifestmf == null || !manifestmf.exists()) {
-//			try {
-//				createManifest(project, appClientComponent.getRootFolder().getUnderlyingFolder(), monitor);
-//			} catch (Exception e) {
-//				J2EEPlugin.logError(e);
-//			}
-//			String manifestFolder = IPath.SEPARATOR + model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER) + IPath.SEPARATOR + J2EEConstants.META_INF;
-//			IContainer container = project.getFolder(manifestFolder);
-//			manifestmf = container.getFile(new Path(J2EEConstants.MANIFEST_SHORT_NAME));
-//		}
-//		if (model.getBooleanProperty(IAppClientFacetInstallDataModelProperties.CREATE_DEFAULT_MAIN_CLASS)) {
-//			IDataModel dm = DataModelFactory.createDataModel(UpdateManifestDataModelProvider.class);
-//			dm.setProperty(UpdateManifestDataModelProperties.PROJECT_NAME, project.getName());
-//			dm.setBooleanProperty(UpdateManifestDataModelProperties.MERGE, false);
-//			dm.setProperty(UpdateManifestDataModelProperties.MANIFEST_FILE, manifestmf);
-//			dm.setProperty(UpdateManifestDataModelProperties.MAIN_CLASS, "Main"); //$NON-NLS-1$
-//			try {
-//				dm.getDefaultOperation().execute(monitor, null);
-//			} catch (Exception e) {
-//				// Ignore
-//			}
-//		}
-//	}
 }

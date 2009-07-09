@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jem.internal.plugin;
 /*
- * $RCSfile: JavaPlugin.java,v $ $Revision: 1.13 $ $Date: 2006/05/17 20:13:58 $
+ * $RCSfile: JavaPlugin.java,v $ $Revision: 1.14 $ $Date: 2009/07/09 20:12:32 $
  */
 
 import org.eclipse.core.runtime.Plugin;
@@ -22,6 +22,11 @@ import org.eclipse.jem.java.util.JavaContext;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.util.logger.proxyrender.EclipseLogger;
 import org.eclipse.jem.util.plugin.JEMUtilPlugin;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
+import java.lang.Throwable;
+import org.eclipse.core.runtime.CoreException;
 
 /**
  * This is a top-level class of the java plugin tool.
@@ -31,6 +36,8 @@ import org.eclipse.jem.util.plugin.JEMUtilPlugin;
 
 public class JavaPlugin extends Plugin {
 
+	//the ID for this plugin (added automatically by logging quickfix)
+	public static final String PLUGIN_ID = "org.eclipse.jem.workbench"; //$NON-NLS-1$
 	private static JavaPlugin INSTANCE;
 	private Logger logger;
 
@@ -62,6 +69,22 @@ public class JavaPlugin extends Plugin {
 		INSTANCE = this;
 		JavaContext.setReflectionAdapterFactoryClass(JavaJDOMAdapterFactory.class);
 		JEMUtilPlugin.getPluginResourceSet().getAdapterFactories().add(new JavaJDKAdapterFactory());		
+	}
+
+	public static IStatus createStatus(int severity, String message, Throwable exception) {
+		return new Status(severity, PLUGIN_ID, message, exception);
+	}
+
+	public static IStatus createStatus(int severity, String message) {
+		return createStatus(severity, message, null);
+	}
+
+	public static void logError(Throwable exception) {
+		Platform.getLog(Platform.getBundle(PLUGIN_ID)).log( createStatus(IStatus.ERROR, exception.getMessage(), exception));
+	}
+
+	public static void logError(CoreException exception) {
+		Platform.getLog(Platform.getBundle(PLUGIN_ID)).log( exception.getStatus() );
 	}
 
 }

@@ -69,7 +69,7 @@ public class WebServicesClientDataRegistry extends RegistryReader {
 			}
 			helper.setRuntime(runtimeList);
 		} catch (Exception e) {
-			e.printStackTrace();
+			J2EEPlugin.logError(e);
 		}
 		// Add data helper class to registry extensions list
 		if (helper != null) {

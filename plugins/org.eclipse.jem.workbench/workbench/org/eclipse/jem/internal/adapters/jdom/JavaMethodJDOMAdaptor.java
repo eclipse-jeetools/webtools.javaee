@@ -29,6 +29,7 @@ import org.eclipse.jem.internal.java.adapters.nls.ResourceHandler;
 import org.eclipse.jem.java.*;
 import org.eclipse.jem.java.internal.impl.MethodImpl;
 import org.eclipse.jem.util.TimerTests;
+import org.eclipse.jem.internal.plugin.JavaPlugin;
 
 /**
  * Java Method Reflection Adapter for JDOM (i.e. JDT model)
@@ -160,7 +161,7 @@ public class JavaMethodJDOMAdaptor extends JDOMAdaptor implements IJavaMethodAda
 				typeSigs[i] = Signature.createTypeSignature(new String(typeNames[i]), getParentType().isBinary());
 			}
 		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
+			JavaPlugin.logError(e);
 		}
 		return typeSigs;
 	}

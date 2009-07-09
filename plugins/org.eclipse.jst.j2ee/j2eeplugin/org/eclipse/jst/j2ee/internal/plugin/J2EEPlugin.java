@@ -290,7 +290,7 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 				return new URL( bundle.getEntry("/"), path.toString()); //$NON-NLS-1$ 
 			} catch (MalformedURLException exception) {
 				org.eclipse.jem.util.logger.proxy.Logger.getLogger().logWarning(J2EEPluginResourceHandler.getString("Load_Image_Error_", new Object[]{key})); //$NON-NLS-1$
-				exception.printStackTrace();
+				J2EEPlugin.logError(exception);
 				continue;
 			}
 		}

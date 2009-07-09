@@ -153,7 +153,7 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 			try {
 				dep = (ICommand) ((IConfigurationElement) visitors.get(i)).createExecutableExtension(DeployerRegistryReader.DEPLOYER_CLASS);
 			} catch (Exception e) {
-				e.printStackTrace();
+				J2EEPlugin.logError(e);
 				continue;
 			}
 

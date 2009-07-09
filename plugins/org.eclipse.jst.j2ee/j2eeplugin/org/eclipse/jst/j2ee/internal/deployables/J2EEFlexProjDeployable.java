@@ -397,7 +397,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 				return modHelper == null ? null : modHelper.getJNDIName(jar, jar.getEnterpriseBeanNamed(ejbName));
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			J2EEPlugin.logError(e);
 		} finally {
 			if (ejbEdit != null)
 				ejbEdit.dispose();
@@ -438,7 +438,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 				if (earEdit != null)
 					aURI = earEdit.getModuleURI(component);
 			} catch (Exception e) {
-				e.printStackTrace();
+				J2EEPlugin.logError(e);
 			} finally {
 				if (earEdit != null)
 					earEdit.dispose();
@@ -518,7 +518,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 				if (earEdit != null)
 					aURI = earEdit.getModuleURI(comp);
 			} catch (Exception e) {
-				e.printStackTrace();
+				J2EEPlugin.logError(e);
 			} finally {
 				if (earEdit != null)
 					earEdit.dispose();

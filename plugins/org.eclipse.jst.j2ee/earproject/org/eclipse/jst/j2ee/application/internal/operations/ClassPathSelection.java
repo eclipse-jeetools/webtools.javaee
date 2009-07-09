@@ -702,7 +702,7 @@ public class ClassPathSelection {
 						try {
 							unresolvedURI = ModuleURIUtil.getArchiveName(URI.createURI(ModuleURIUtil.getHandleString(referencedComponent)));
 						} catch (UnresolveableURIException e) {
-							e.printStackTrace();
+							J2EEPlugin.logError(e);
 						}
 					}
 

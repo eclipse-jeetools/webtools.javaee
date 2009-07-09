@@ -245,7 +245,7 @@ public class NewJavaClassOperation extends AbstractDataModelOperation {
 			}
 			// editModel.getWorkingCopy(cu, true); //Track CU.
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			J2EEPlugin.logError(ex);
 		}
 	}
 

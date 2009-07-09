@@ -57,6 +57,7 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.ui.texteditor.link.EditorLinkedModeUI;
 import org.osgi.framework.Bundle;
+import org.eclipse.jst.common.internal.annotations.ui.UiPlugin;
 
 /**
  * 
@@ -90,7 +91,7 @@ public abstract class AbstractAnnotationTagProposal {
 	
 			} catch (BadPositionCategoryException e) {
 				// should not happen
-				e.printStackTrace();
+				UiPlugin.logError(e);
 			}
 		}
 	
@@ -107,7 +108,7 @@ public abstract class AbstractAnnotationTagProposal {
 	
 			} catch (BadPositionCategoryException e) {
 				// should not happen
-				e.printStackTrace();
+				UiPlugin.logError(e);
 			}
 			return fPosition.getOffset();
 		}
@@ -458,7 +459,7 @@ public abstract class AbstractAnnotationTagProposal {
 				try {
 					fStyleSheetURL= FileLocator.toFileURL(fStyleSheetURL);
 				} catch (IOException ex) {
-					ex.printStackTrace();
+					UiPlugin.logError(ex);
 				}
 			}
 		}
@@ -885,7 +886,7 @@ public abstract class AbstractAnnotationTagProposal {
 				ui.setCyclingMode(LinkedModeUI.CYCLE_NEVER);
 				ui.enter();
 			} catch (BadLocationException x) {
-				x.printStackTrace();
+				UiPlugin.logError(x);
 			}
 		}
 	}

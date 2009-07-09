@@ -402,7 +402,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 				resources.addAll(structuralModel.getResources());
 				return resources;
 			} catch(Exception e){
-				e.printStackTrace();
+				J2EEPlugin.logError(e);
 				return Collections.EMPTY_LIST;	
 			}
 			finally {

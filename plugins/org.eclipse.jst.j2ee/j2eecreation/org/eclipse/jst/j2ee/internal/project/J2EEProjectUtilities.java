@@ -574,7 +574,7 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 				return sourceFolder.findMember(J2EEConstants.RAR_DD_URI) != null;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			J2EEPlugin.logError(e);
 		}
 		return false;
 	}

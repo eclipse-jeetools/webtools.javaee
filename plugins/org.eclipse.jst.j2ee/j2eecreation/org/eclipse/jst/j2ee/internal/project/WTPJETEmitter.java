@@ -113,7 +113,7 @@ public class WTPJETEmitter extends JETEmitter {
 		try {
 			initialize(new NullProgressMonitor());
 		} catch (JETException e) {
-			e.printStackTrace();
+			J2EEPlugin.logError(e);
 		}
 	}
 

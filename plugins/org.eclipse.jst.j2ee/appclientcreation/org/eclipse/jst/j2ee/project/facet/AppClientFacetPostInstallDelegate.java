@@ -102,7 +102,8 @@ public class AppClientFacetPostInstallDelegate extends J2EEFacetInstallDelegate 
 				createManifestEntryForMainClass(monitor, model, project);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			J2EEPlugin.logError(e);
+
 		}
 	}
 	

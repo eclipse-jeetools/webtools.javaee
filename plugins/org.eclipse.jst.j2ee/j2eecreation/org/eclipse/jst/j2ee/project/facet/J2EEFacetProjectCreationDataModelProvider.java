@@ -21,6 +21,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.componentcore.datamodel.FacetProjectCreationDataModelProvider;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
@@ -119,7 +120,7 @@ public class J2EEFacetProjectCreationDataModelProvider extends FacetProjectCreat
 								setProperty(FACET_RUNTIME, facetdEarProject.getRuntime());
 							}
 						} catch (CoreException e) {
-							e.printStackTrace();
+							J2EEPlugin.logError(e);
 						}
 					}
 				}
@@ -164,7 +165,7 @@ public class J2EEFacetProjectCreationDataModelProvider extends FacetProjectCreat
 								return false;
 							}
 						} catch (CoreException e) {
-							e.printStackTrace();
+							J2EEPlugin.logError(e);
 						}
 					}
 				}

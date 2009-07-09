@@ -426,11 +426,9 @@ public class UIEarValidator extends EarValidator {
 		try{
 			manifest = anArchive.getManifest();
 		}catch( ManifestException mf){
-			//mf.printStackTrace();
 			mf.getMessage();
 			String[] args = new String[]{anArchive.getURI()};
 			String tmp = NLS.bind(EARValidationMessageResourceHandler.ERROR_READING_MANIFEST_ERROR_, args);
-			
 			addLocalizedError(tmp, args);
 		}
 		
