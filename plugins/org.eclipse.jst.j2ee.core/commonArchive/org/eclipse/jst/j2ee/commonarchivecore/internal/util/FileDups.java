@@ -23,6 +23,8 @@ import java.util.TreeMap;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import org.eclipse.jst.j2ee.core.internal.plugin.J2EECorePlugin;
+
 import com.ibm.icu.util.StringTokenizer;
 
 /**
@@ -145,7 +147,7 @@ public class FileDups {
 
 			System.out.println("\r\nSearched " + sJARs + " jars, found " + sDups + " dups in " + sFiles + " files."); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 		} catch (Exception x) {
-			x.printStackTrace();
+			J2EECorePlugin.logError(x);
 		}
 	}
 

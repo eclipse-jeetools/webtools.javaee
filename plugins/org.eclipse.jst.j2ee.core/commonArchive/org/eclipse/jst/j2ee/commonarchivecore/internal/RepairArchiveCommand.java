@@ -21,6 +21,7 @@ import java.util.Map;
 
 import org.eclipse.emf.common.command.AbstractCommand;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
+import org.eclipse.jst.j2ee.core.internal.plugin.J2EECorePlugin;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.jee.archive.internal.ArchiveUtil;
 
@@ -112,7 +113,7 @@ public class RepairArchiveCommand extends AbstractCommand {
 			anArchive.saveAs(args[1]);
 		} catch (Exception ex) {
 			System.out.println(CommonArchiveResourceHandler.Repair_command_failed___ex_EXC_); // = "Repair command failed - exception stack trace:"
-			ex.printStackTrace();
+			J2EECorePlugin.logError(ex);
 		}
 	}
 

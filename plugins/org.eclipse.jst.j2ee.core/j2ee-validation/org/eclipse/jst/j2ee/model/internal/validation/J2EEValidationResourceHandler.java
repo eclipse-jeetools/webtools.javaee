@@ -14,6 +14,8 @@ import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.MissingResourceException;
 
+import org.eclipse.jst.j2ee.core.internal.plugin.J2EECorePlugin;
+
 public class J2EEValidationResourceHandler {
 	private static java.util.Hashtable handlers = new java.util.Hashtable();
 	protected ClassLoader resourceClassLoader;
@@ -52,7 +54,7 @@ public java.util.ResourceBundle getBundle() {
 		} catch (MissingResourceException e) {
 			System.out.println("Exception retrieving bundle: " + getBundleName() +//$NON-NLS-1$
 				" using locale: " + getLocale().toString());//$NON-NLS-1$
-			e.printStackTrace();
+			J2EECorePlugin.logError(e);
 		} // endtry
 	} // endif
 	return this.bundle;

@@ -27,6 +27,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveResourceHand
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ArchiveRuntimeException;
+import org.eclipse.jst.j2ee.core.internal.plugin.J2EECorePlugin;
 
 
 /**
@@ -296,7 +297,7 @@ public class ArchiveFileDynamicClassLoader extends ClassLoader {
 			try {
 				return new URL(null, URL_PROTOCOL + "://" + name, handler); //$NON-NLS-1$
 			} catch (MalformedURLException e) {
-				e.printStackTrace();
+				J2EECorePlugin.logError(e);
 				throw new RuntimeException(e);
 			}
 		}

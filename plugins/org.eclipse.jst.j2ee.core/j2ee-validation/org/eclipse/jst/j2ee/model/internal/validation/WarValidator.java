@@ -32,6 +32,7 @@ import org.eclipse.jst.j2ee.common.internal.impl.EjbRefImpl;
 import org.eclipse.jst.j2ee.common.internal.impl.ResourceRefImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
+import org.eclipse.jst.j2ee.core.internal.plugin.J2EECorePlugin;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.webapplication.AuthConstraint;
@@ -367,7 +368,7 @@ public class WarValidator extends J2EEValidator implements WARMessageConstants {
 			validate();
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			J2EECorePlugin.logError(e);
 			String[] parms = new String[1];
 			parms[0] = e.toString();
 			IMessage errorMsg = new Message(getBaseName(), IMessage.HIGH_SEVERITY, ERROR_WAR_VALIDATION_FAILED, parms);

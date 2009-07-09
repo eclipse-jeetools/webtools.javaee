@@ -134,7 +134,7 @@ public class JNDIBindingsHelperManager {
 				try {
 					addHelper((IJNDIBindingsHelper) element.createExecutableExtension(ATT_CLASS));
 				} catch (CoreException e) {
-					e.printStackTrace();
+					J2EECorePlugin.logError(e);
 					return false;
 				}
 				return true;
