@@ -25,6 +25,7 @@ import org.eclipse.jst.jee.model.internal.mergers.EjbJarMerger;
 import org.eclipse.jst.jee.model.internal.mergers.ModelElementMerger;
 import org.eclipse.jst.jee.model.internal.mergers.ModelException;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
+import org.eclipse.jst.jee.ejb.Activator;
 
 /**
  * This model provider gives a "merged" view of the model loaded from the
@@ -170,7 +171,7 @@ public class EJB3MergedModelProvider extends AbstractMergedModelProvider<EJBJar>
 			annotationModelProvider = loadAnnotationModel(getXmlEjbJar());
 			enableInternalNotifications();
 		} catch (CoreException e) {
-			e.printStackTrace();
+			Activator.logError(e);
 		}
 	}
 
@@ -192,7 +193,7 @@ public class EJB3MergedModelProvider extends AbstractMergedModelProvider<EJBJar>
 				mergeWithModel(annotationsModel);
 			}
 		} catch (ModelException e) {
-			e.printStackTrace();
+			Activator.logError(e);
 		}
 		return mergedModel;
 	}
