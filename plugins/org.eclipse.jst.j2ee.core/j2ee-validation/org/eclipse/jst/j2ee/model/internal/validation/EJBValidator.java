@@ -521,7 +521,6 @@ public class EJBValidator extends AbstractEJBValidator {
     }
 
 	public ISchedulingRule getSchedulingRule(IValidationContext helper) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	

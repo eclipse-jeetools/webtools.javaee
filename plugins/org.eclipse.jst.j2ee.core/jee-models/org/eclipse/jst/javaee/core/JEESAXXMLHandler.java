@@ -23,7 +23,6 @@ public class JEESAXXMLHandler extends SAXXMIHandler {
 	public JEESAXXMLHandler(XMLResource xmiResource, XMLHelper helper,
 			Map<?, ?> options) {
 		super(xmiResource, helper, options);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

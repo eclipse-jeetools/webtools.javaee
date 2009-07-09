@@ -19,7 +19,6 @@ public class AppClientXMLHelperImpl extends JEEXMLHelperImpl {
 
 	public AppClientXMLHelperImpl(XMLResource resource) {
 		super(resource);
-		// TODO Auto-generated constructor stub
 	}
 
 	

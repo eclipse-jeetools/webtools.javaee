@@ -65,6 +65,7 @@ import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
 import org.eclipse.jst.j2ee.model.internal.validation.EARValidationMessageResourceHandler;
+import org.eclipse.jst.j2ee.core.internal.plugin.J2EECorePlugin;
 
 
 /**
@@ -837,8 +838,7 @@ public class EarValidator extends J2EEValidator  {
 				removeAllMessages(moduleRef.getDeploymentDescriptor(),MESSAGE_DESTINATION_REF_GROUP_NAME);
 			}
 		} catch (ArchiveWrappedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			J2EECorePlugin.logError(e);
 		}
 		for (int refNo = 0; refNo < destinationsRefs.size(); refNo++) {
 			MessageDestinationRef ref = (MessageDestinationRef) (destinationsRefs.get(refNo));

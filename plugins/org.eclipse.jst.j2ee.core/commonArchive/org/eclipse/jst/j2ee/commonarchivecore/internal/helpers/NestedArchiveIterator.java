@@ -34,7 +34,6 @@ public class NestedArchiveIterator extends FileIteratorImpl {
 		 */
 		public WrapperInputStream(InputStream in) {
 			super(in);
-			// TODO Auto-generated constructor stub
 		}
 
 		/*

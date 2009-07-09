@@ -10,9 +10,6 @@
  *******************************************************************************/
 /*
  * Created on May 20, 2004
- *
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Generation - Code and Comments
  */
 package org.eclipse.jst.j2ee.common.internal.impl;
 
@@ -32,9 +29,6 @@ import org.eclipse.wst.common.internal.emf.resource.EMF2SAXRendererFactory;
 
 /**
  * @author mdelder
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Generation - Code and Comments
  */
 public class J2EEResourceFactoryDomRegistry
         extends J2EEResourceFactoryRegistry {

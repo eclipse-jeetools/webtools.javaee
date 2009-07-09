@@ -1281,7 +1281,6 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	 * @see org.eclipse.emf.ecore.EModelElement#getEAnnotation(java.lang.String)
 	 */
 	public EAnnotation getEAnnotation(String source) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -1289,7 +1288,6 @@ public abstract class EnterpriseBeanImpl extends JNDIEnvRefsGroupImpl implements
 	 * @see org.eclipse.emf.ecore.EModelElement#getEAnnotations()
 	 */
 	public EList getEAnnotations() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

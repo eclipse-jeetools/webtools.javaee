@@ -19,7 +19,6 @@ public class EarXMLHelperImpl extends JEEXMLHelperImpl {
 
 	public EarXMLHelperImpl(XMLResource resource) {
 		super(resource);
-		// TODO Auto-generated constructor stub
 	}
 
 	

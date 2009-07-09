@@ -38,21 +38,18 @@ public class J2EEXMIResource extends CompatibilityXMIResourceImpl implements J2E
 	 * @see org.eclipse.jst.j2ee.internal.common.J2EEVersionResource#getJ2EEVersionID()
 	 */
 	public int getJ2EEVersionID() {
-		// TODO Auto-generated method stub
 		return J2EEVersionConstants.J2EE_1_3_ID;
 	}
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.common.J2EEVersionResource#getModuleVersionID()
 	 */
 	public int getModuleVersionID() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.common.J2EEVersionResource#getVersionID()
 	 */
 	public int getVersionID() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 }

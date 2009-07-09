@@ -477,8 +477,6 @@ public class ModuleImpl extends EObjectImpl implements Module, ICommonModule {
 	}
 
 	public void setUri(String value) {
-		// TODO Auto-generated method stub
-		
 	}
 	public boolean isConnectorModule() {
 		if (eIsSet(ApplicationPackage.MODULE__CONNECTOR))

@@ -22,7 +22,6 @@ public class WebXMLHelperImpl extends JEEXMLHelperImpl {
 
 	public WebXMLHelperImpl(XMLResource resource) {
 		super(resource);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

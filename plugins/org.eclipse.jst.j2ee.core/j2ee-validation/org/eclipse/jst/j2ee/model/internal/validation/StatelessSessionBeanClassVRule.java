@@ -237,7 +237,6 @@ public final class StatelessSessionBeanClassVRule extends ASessionBeanClassVRule
 	 */
 	@Override
 	public void validate(IEJBValidationContext vc, EnterpriseBean bean, JavaClass clazz) throws ValidationCancelledException, InvalidInputException, ValidationException {
-		// TODO Auto-generated method stub
 		super.validate(vc, bean, clazz);
 		/*
 		 * 6.5.3 The optional SessionSynchronization interface
