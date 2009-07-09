@@ -34,13 +34,11 @@ public class JavaArtifactEditModel extends ArtifactEditModel implements WorkingC
 	public JavaArtifactEditModel(String anEditModelId, EMFWorkbenchContext context, boolean toMakeReadOnly,
 			boolean toAccessUnknownResourcesAsReadOnly, URI moduleURI, URI rootURI, String rootContentType) {
 		super(anEditModelId, context, toMakeReadOnly, toAccessUnknownResourcesAsReadOnly, moduleURI, rootURI, rootContentType);
-		// TODO Auto-generated constructor stub
 	}
 
 	public JavaArtifactEditModel(String editModelID, EMFWorkbenchContext context, boolean toMakeReadOnly, URI moduleURI, URI rootURI,
 			String rootContentType) {
 		super(editModelID, context, toMakeReadOnly, moduleURI, rootURI, rootContentType);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -53,7 +51,6 @@ public class JavaArtifactEditModel extends ArtifactEditModel implements WorkingC
 	public JavaArtifactEditModel(String anEditModelId, EMFWorkbenchContext aContext, boolean toMakeReadOnly, boolean toAccessUnknownResourcesAsReadOnly, URI aModuleURI) {
 		super(anEditModelId, aContext, toMakeReadOnly,
 				toAccessUnknownResourcesAsReadOnly, aModuleURI);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -64,7 +61,6 @@ public class JavaArtifactEditModel extends ArtifactEditModel implements WorkingC
 	 */
 	public JavaArtifactEditModel(String anEditModelId, EMFWorkbenchContext aContext, boolean toMakeReadOnly, URI aModuleURI) {
 		super(anEditModelId, aContext, toMakeReadOnly, aModuleURI);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

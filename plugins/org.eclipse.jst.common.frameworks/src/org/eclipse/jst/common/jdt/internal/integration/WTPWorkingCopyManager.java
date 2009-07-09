@@ -31,6 +31,7 @@ import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.common.frameworks.CommonFrameworksPlugin;
 import org.eclipse.wst.common.frameworks.internal.ISaveHandler;
 import org.eclipse.wst.common.frameworks.internal.SaveFailedException;
 import org.eclipse.wst.common.frameworks.internal.SaveHandlerHeadless;
@@ -152,11 +153,9 @@ public class WTPWorkingCopyManager implements WorkingCopyManager {
 			} else {
 				runnable.run(null);
 			}
-			} catch (CoreException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (CoreException e) {
+			CommonFrameworksPlugin.logError(e);
 		}
-		//runOperation(runnable, null, true);
 	}
 
 	public void revert() {
