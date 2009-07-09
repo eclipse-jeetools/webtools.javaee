@@ -98,7 +98,6 @@ public class Migrate07EJBTest extends TestCase {
 			try {
 				manager.migrateOldMetaData(ejbProject,true);
 			} catch (CoreException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		
@@ -107,7 +106,6 @@ public class Migrate07EJBTest extends TestCase {
 			try {
 				manager.migrateOldMetaData(webProject,true);
 			} catch (CoreException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
     

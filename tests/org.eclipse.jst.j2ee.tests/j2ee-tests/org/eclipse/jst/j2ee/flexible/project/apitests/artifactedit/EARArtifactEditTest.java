@@ -202,7 +202,6 @@ public class EARArtifactEditTest extends TestCase {
 			component = ComponentCore.createComponent(earProject, earModuleName);
 			EARArtifactEdit.isValidEARModule(component);
 		} catch (UnresolveableURIException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		boolean isValid = ArtifactEdit.isValidEditableModule(component);
@@ -215,7 +214,6 @@ public class EARArtifactEditTest extends TestCase {
 			component = ComponentCore.createComponent(earProject, earModuleName);
 			EARArtifactEdit.isValidEARModule(component);
 		} catch (UnresolveableURIException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		boolean isValid = ArtifactEdit.isValidEditableModule(component);

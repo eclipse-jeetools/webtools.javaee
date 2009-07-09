@@ -92,7 +92,6 @@ public class JEE5ModelTest extends GeneralEMFPopulationTest {
     
     
 	protected void setUp() throws Exception {
-		// TODO Auto-generated method stub
 		super.setUp();
 		final IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		if(workspace.getRoot().getProject(PROJECTNAME).isAccessible()) return;
@@ -108,10 +107,8 @@ public class JEE5ModelTest extends GeneralEMFPopulationTest {
                 try {
 					createProject(description, workspace.getRoot().getProject(PROJECTNAME), monitor);
 				} catch (OperationCanceledException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (CoreException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
             }

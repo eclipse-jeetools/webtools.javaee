@@ -48,7 +48,6 @@ public class JavaFileUpdateListener implements IResourceChangeListener, IResourc
 				try {
 					event.getDelta().accept(this);
 				} catch (CoreException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			break;

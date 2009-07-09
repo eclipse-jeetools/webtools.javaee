@@ -93,7 +93,6 @@ public class JEE5LegacyModelTest extends GeneralEMFPopulationTest {
 	}
     
 	protected void setUp() throws Exception {
-		// TODO Auto-generated method stub
 		super.setUp();
 		final IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		if(workspace.getRoot().getProject(PROJECTNAME).isAccessible()) return;
@@ -111,7 +110,6 @@ public class JEE5LegacyModelTest extends GeneralEMFPopulationTest {
                 	IDataModel importModel = getEJBImportDataModel(archiveName, "TESTEJB3Import", null, true);
                 	IStatus operationStatus = importModel.getDefaultOperation().execute(new NullProgressMonitor(), null);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
             }

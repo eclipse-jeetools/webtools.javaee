@@ -144,10 +144,8 @@ private void createSessionBean(String projName) throws ExecutionException {
 	try {
 		Job.getJobManager().join(ResourcesPlugin.FAMILY_AUTO_BUILD,null);
 	} catch (OperationCanceledException e) {
-		// TODO Auto-generated catch block
 		e.printStackTrace();
 	} catch (InterruptedException e) {
-		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
 }

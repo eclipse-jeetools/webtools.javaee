@@ -23,7 +23,6 @@ public class StaticWebProjectCreationOperationTest extends ModuleProjectCreation
 
 	public StaticWebProjectCreationOperationTest(String name) {
 		super(name);
-		// TODO Auto-generated constructor stub
 	}
 	
 	public static Test suite() {

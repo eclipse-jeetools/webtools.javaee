@@ -43,7 +43,6 @@ public class FlexibleProjectBuilderTest extends TestCase {
 
 	public FlexibleProjectBuilderTest(String name) {
 		super(name);
-		// TODO Auto-generated constructor stub
 	}
 
 	public static Test suite() {
@@ -83,7 +82,7 @@ public class FlexibleProjectBuilderTest extends TestCase {
 		try {
 			ResourcesPlugin.getWorkspace().build(IncrementalProjectBuilder.FULL_BUILD, null);
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 	}
 

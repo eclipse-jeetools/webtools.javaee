@@ -10,9 +10,6 @@
  *******************************************************************************/
 /*
  * Created on Feb 18, 2005
- *
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Style - Code Templates
  */
 package org.eclipse.jst.j2ee.tests.modulecore;
 
@@ -27,10 +24,6 @@ import org.eclipse.wst.server.core.IRuntimeType;
 import org.eclipse.wst.server.core.IRuntimeWorkingCopy;
 import org.eclipse.wst.server.core.ServerCore;
 
-/**
- * To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Generation - Code and Comments
- */
 public class AllTests extends TestSuite {
 	
 	public static IRuntime JONAS_TOMCAT_RUNTIME = createJONASRuntime();
