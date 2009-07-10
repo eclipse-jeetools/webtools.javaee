@@ -61,6 +61,7 @@ public class AssemblyDescriptorMerger extends ModelElementMerger {
     List warnings = new ArrayList();
     mergeSecurityRoles(warnings);
     mergeTransactionAttribute(warnings);
+    copyGeneralData(warnings);
     return warnings;
   }
   //TODO 
@@ -84,6 +85,7 @@ public class AssemblyDescriptorMerger extends ModelElementMerger {
       }
     }
   }
+  
 
   private boolean containsSecRole(SecurityRole secRole, List secRoles){
     for (Object sRoles : secRoles) {
@@ -96,5 +98,38 @@ public class AssemblyDescriptorMerger extends ModelElementMerger {
     }
     return false;
   }
+  
+  private void copyGeneralData(List warnings){
 
+	    if (getToMergeAssemblyDescriptor().getApplicationExceptions() != null && getToMergeAssemblyDescriptor().getApplicationExceptions().size() > 0){
+	      copyMissingContentInBase(getToMergeAssemblyDescriptor().getApplicationExceptions(), getBaseAssemblyDescriptor().getApplicationExceptions());
+	    }
+
+	    if (getToMergeAssemblyDescriptor().getInterceptorBindings() != null && getToMergeAssemblyDescriptor().getInterceptorBindings().size() > 0){
+		      copyMissingContentInBase(getToMergeAssemblyDescriptor().getInterceptorBindings(), getBaseAssemblyDescriptor().getInterceptorBindings());
+		}
+
+	    if (getToMergeAssemblyDescriptor().getContainerTransactions() != null && getToMergeAssemblyDescriptor().getContainerTransactions().size() > 0){
+		      copyMissingContentInBase(getToMergeAssemblyDescriptor().getContainerTransactions(), getBaseAssemblyDescriptor().getContainerTransactions());
+		}
+
+	    if (getToMergeAssemblyDescriptor().getMessageDestinations() != null && getToMergeAssemblyDescriptor().getMessageDestinations().size() > 0){
+		      copyMissingContentInBase(getToMergeAssemblyDescriptor().getMessageDestinations(), getBaseAssemblyDescriptor().getMessageDestinations());
+		}
+
+	    if (getToMergeAssemblyDescriptor().getMethodPermissions() != null && getToMergeAssemblyDescriptor().getMethodPermissions().size() > 0){
+		      copyMissingContentInBase(getToMergeAssemblyDescriptor().getMethodPermissions(), getBaseAssemblyDescriptor().getMethodPermissions());
+		}
+
+	    if (getToMergeAssemblyDescriptor().getExcludeList() != null && getToMergeAssemblyDescriptor().getExcludeList().getMethods().size() > 0){
+		      copyMissingContentInBase(getToMergeAssemblyDescriptor().getExcludeList().getMethods(), getBaseAssemblyDescriptor().getExcludeList().getMethods());
+		}
+
+	  }
+
+	  private void copyMissingContentInBase(List listSource, List target) {
+	    for (Object object : listSource) {
+	        target.add(EcoreUtil.copy((EObject) object));        
+	    }
+	  }
 }
