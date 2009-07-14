@@ -18,9 +18,6 @@ import java.util.Set;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentImportDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEUtilityJarImportDataModelProvider;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
@@ -159,12 +156,6 @@ public final class WebComponentImportDataModelProvider extends J2EEComponentImpo
 		return status;
 	}
 	
-	@Override
-	protected Archive openArchive(String uri) throws OpenFailureException {
-		Archive archive = CommonarchiveFactory.eINSTANCE.openWARFile(getArchiveOptions(), uri);
-		return archive;
-	}
-
 	@Override
 	protected IDataModel createJ2EEComponentCreationDataModel() {
 		return DataModelFactory.createDataModel(new WebFacetProjectCreationDataModelProvider());

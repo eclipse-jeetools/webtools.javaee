@@ -25,10 +25,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.applicationclient.internal.creation.AppClientComponentImportDataModelProvider;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveResourceHandler;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.datamodel.properties.IAddWebComponentToEnterpriseApplicationDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
@@ -597,22 +594,6 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 		return XMLResource.APPLICATION_TYPE;
 	}
 
-	@Override
-	protected Archive openArchive(String uri) throws OpenFailureException {
-		return CommonarchiveFactory.eINSTANCE.openEARFile(getArchiveOptions(), uri);
-	}
-
-	/*
-	 * private EARFile getEARFile() { return (EARFile) getArchiveFile(); }
-	 */
-	/*
-	 * public boolean handlesArchive(Archive anArchive) { List temp = new ArrayList(); List tempList = (List)
-	 * getProperty(MODULE_MODELS_LIST); if (null != tempList) { temp.addAll(tempList); } tempList = (List)
-	 * getProperty(EJB_CLIENT_LIST); if (null != tempList) { temp.addAll(tempList); } tempList = getSelectedModels();
-	 * for (int i = 0; i < tempList.size(); i++) { if (!temp.contains(tempList.get(i))) { temp.add(tempList.get(i)); } }
-	 * IDataModel importDM = null; for (int i = 0; i < temp.size(); i++) { importDM = (IDataModel) temp.get(i); if
-	 * (importDM.getProperty(ARCHIVE_WRAPPER) == anArchive) { return true; } } return false; }
-	 */
 	private List<IDataModel> getProjectModels() {
 		List<IDataModel> temp = new ArrayList<IDataModel>();
 		List tempList = (List) getProperty(MODULE_MODELS_LIST);
@@ -743,13 +724,13 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 	}
 	
 	@Override
-	protected ArchiveWrapper openArchiveWrapper(String uri) throws OpenFailureException, ArchiveOpenFailureException {
+	protected ArchiveWrapper openArchiveWrapper(String uri) throws ArchiveOpenFailureException {
 		ArchiveWrapper wrapper = super.openArchiveWrapper(uri);
 		if(null != wrapper){
 			JavaEEQuickPeek jqp =  wrapper.getJavaEEQuickPeek();
 			if(jqp.getType() != JavaEEQuickPeek.APPLICATION_TYPE){
 				wrapper.close();
-				throw new OpenFailureException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.could_not_open_EXC_, (new Object[]{uri})));
+				throw new ArchiveOpenFailureException(CommonArchiveResourceHandler.getString(CommonArchiveResourceHandler.could_not_open_EXC_, (new Object[]{uri})));
 			}
 		}
 		return wrapper;

@@ -11,9 +11,6 @@
 package org.eclipse.jst.j2ee.applicationclient.internal.creation;
 
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentImportDataModelProvider;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.datamodel.properties.IAppClientComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.AppClientComponentImportOperation;
@@ -41,11 +38,6 @@ public final class AppClientComponentImportDataModelProvider extends J2EECompone
 	@Override
 	protected int getType() {
 		return XMLResource.APP_CLIENT_TYPE;
-	}
-
-	@Override
-	protected Archive openArchive(String uri) throws OpenFailureException {
-		return CommonarchiveFactory.eINSTANCE.openApplicationClientFile(getArchiveOptions(), uri);
 	}
 
 	@Override

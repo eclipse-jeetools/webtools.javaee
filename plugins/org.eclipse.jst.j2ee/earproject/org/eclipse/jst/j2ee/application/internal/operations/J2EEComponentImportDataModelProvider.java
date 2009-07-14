@@ -13,7 +13,6 @@ package org.eclipse.jst.j2ee.application.internal.operations;
 import java.util.Set;
 
 import org.eclipse.jst.common.project.facet.JavaFacetUtils;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEModuleImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.archive.ArchiveWrapper;
@@ -46,13 +45,6 @@ public abstract class J2EEComponentImportDataModelProvider extends J2EEArtifactI
 		return wrapper.getJavaEEQuickPeek().getVersion();
 	}
 
-	/**
-	 * @deprecated use #IARCHIVE_WRAPPER
-	 */
-	protected ModuleFile getModuleFile() {
-		return (ModuleFile) getArchiveFile();
-	}
-	
 	/**
 	 * Updates the Java Facet Version so it is compliant with the Java EE Module version 
 	 */

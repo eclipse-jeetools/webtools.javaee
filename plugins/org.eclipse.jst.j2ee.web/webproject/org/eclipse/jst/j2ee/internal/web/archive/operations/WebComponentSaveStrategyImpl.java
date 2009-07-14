@@ -26,6 +26,12 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 
+/**
+ * @deprecated this will be deleted post WTP 3.2.  This code is no longer
+ * called because the IArchive API is used to handle imports.
+ * 
+ * @author jsholl
+ */
 public class WebComponentSaveStrategyImpl extends J2EEComponentSaveStrategyImpl {
 
 	public WebComponentSaveStrategyImpl(IVirtualComponent vComponent) {

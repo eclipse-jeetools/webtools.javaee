@@ -39,12 +39,6 @@ public interface IJ2EEComponentImportDataModelProperties extends IDataModelPrope
 	public static final String FILE_NAME = "IJ2EEArtifactImportDataModelProperties.FILE_NAME"; //$NON-NLS-1$
 
 	/**
-	 * Optional, type Archive, used when a file is available as an object rather than a url (i.e.
-	 * using the FILE_NAME property will not work).
-	 * @deprecated use {@link #ARCHIVE_WRAPPER}
-	 */
-	public static final String FILE = "IJ2EEArtifactImportDataModelProperties.FILE"; //$NON-NLS-1$
-	/**
 	 * Required, type String, name of the Project which the Archive will be imported.
 	 */
 	public static final String PROJECT_NAME = "IJ2EEComponentImportDataModelProperties.PROJECT_NAME"; //$NON-NLS-1$
@@ -58,12 +52,6 @@ public interface IJ2EEComponentImportDataModelProperties extends IDataModelPrope
 	 * Unsettable property used for archive switch.
 	 */
 	public static final String ARCHIVE_WRAPPER = "IJ2EEComponentImportDataModelProperties.ARCHIVE_WRAPPER"; //$NON-NLS-1$
-
-	/**
-	 * Optional, type SaveFilter, default is null
-	 * @deprecated
-	 */
-	public static final String SAVE_FILTER = "IJ2EEArtifactImportDataModelProperties.SAVE_FILTER"; //$NON-NLS-1$
 
 	/**
 	 * Optional, type Boolean - Should the archive be closed on dispose?

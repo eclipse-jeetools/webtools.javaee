@@ -23,10 +23,6 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.SaveFilter;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
@@ -67,8 +63,6 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 	public Set getPropertyNames() {
 		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(FILE_NAME);
-		propertyNames.add(FILE);
-		propertyNames.add(SAVE_FILTER);
 		propertyNames.add(CLOSE_ARCHIVE_ON_DISPOSE);
 		propertyNames.add(USE_DEFAULT_PROJECT_NAME);
 		propertyNames.add(PROJECT_NAME);
@@ -113,24 +107,10 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 				updateDefaultComponentName();
 			}
 			return true;
-		} else if(propertyName.equals(FILE)){
-			if(propertyValue != null){
-				if(!settingFileName) {
-					ArchiveWrapper archiveWrapper = getArchiveWrapper();
-					if(null == archiveWrapper || archiveWrapper.getCommonArchive() != propertyValue){
-						archiveWrapper = new ArchiveWrapper((Archive)propertyValue);
-						setProperty(ARCHIVE_WRAPPER, archiveWrapper);
-					}
-				}
-			}
-		} else if (propertyName.equals(SAVE_FILTER) && getArchiveWrapper() != null && getArchiveWrapper().getCommonArchive() != null) {
-			getArchiveWrapper().getCommonArchive().setSaveFilter(getSaveFilter());
 		} else if (FILE_NAME.equals(propertyName)) {
 			try {
 				archiveOpenFailure = null;
 				handleArchiveSetup((String) propertyValue);
-			} catch (OpenFailureException oe) {
-				archiveOpenFailure = oe;
 			} catch (ArchiveOpenFailureException e) {
 				archiveOpenFailure = e;
 			}
@@ -173,13 +153,12 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 		}
 	}
 
-	private boolean handleArchiveSetup(String fileName) throws OpenFailureException, ArchiveOpenFailureException {
+	private boolean handleArchiveSetup(String fileName) throws ArchiveOpenFailureException {
 		try {
 			settingFileName = true;
 			ArchiveWrapper wrapper = getArchiveWrapper();
 			if (wrapper!= null) {
 				wrapper.close();
-				setProperty(FILE, null);
 				setProperty(ARCHIVE_WRAPPER, null);
 			}
 			String uri = getStringProperty(FILE_NAME);
@@ -188,9 +167,6 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 			wrapper = openArchiveWrapper(uri);
 			if(wrapper != null){
 				setProperty(ARCHIVE_WRAPPER, wrapper);
-				if(wrapper.getCommonArchive() != null){
-					setProperty(FILE, wrapper.getCommonArchive());
-				}
 			}
 			return wrapper!= null;
 		} finally {
@@ -199,7 +175,7 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 
 	}
 
-	protected ArchiveWrapper openArchiveWrapper(String uri) throws OpenFailureException, ArchiveOpenFailureException{
+	protected ArchiveWrapper openArchiveWrapper(String uri) throws ArchiveOpenFailureException{
 		IArchive archive = null;
 		IPath path = new Path(uri);
 		archive = JavaEEArchiveUtilities.INSTANCE.openArchive(path);
@@ -219,8 +195,6 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 	 */
 	protected void handleUnknownType(JavaEEQuickPeek jqp) {
 	}
-
-	protected abstract Archive openArchive(String uri) throws OpenFailureException;
 
 	private boolean closeArchive() {
 		if (null != getArchiveWrapper()) {
@@ -279,32 +253,10 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 		super.dispose();
 	}
 
-	protected final void setArchiveFile(Archive archiveFile) {
-		setProperty(FILE, archiveFile);
-	}
-	
 	protected final ArchiveWrapper getArchiveWrapper(){
 		return (ArchiveWrapper)getProperty(ARCHIVE_WRAPPER);
 	}
 	
-	/**
-	 * @deprecated
-	 * @return use ARCHIVE_WRAPPER
-	 */
-	protected final Archive getArchiveFile() {
-		return (Archive) getProperty(FILE);
-	}
-
-	protected final ArchiveOptions getArchiveOptions() {
-		ArchiveOptions opts = new ArchiveOptions();
-		opts.setIsReadOnly(true);
-		return opts;
-	}
-
-	private SaveFilter getSaveFilter() {
-		return (SaveFilter) getProperty(SAVE_FILTER);
-	}
-
 	@Override
 	public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName) {
 		return super.getValidPropertyDescriptors(propertyName);

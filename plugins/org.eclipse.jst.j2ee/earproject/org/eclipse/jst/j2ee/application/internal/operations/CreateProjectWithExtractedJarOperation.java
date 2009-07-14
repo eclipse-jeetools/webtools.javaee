@@ -22,9 +22,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubProgressMonitor;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.datamodel.properties.IJavaUtilityJarImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
@@ -35,10 +32,8 @@ import org.eclipse.wst.common.frameworks.internal.operations.IProjectCreationPro
 
 
 public class CreateProjectWithExtractedJarOperation extends J2EEUtilityJarImportAssistantOperation {
-//	private boolean createBinaryProject = false; 
 	private String newProjectName;
 	private String projectRoot;
-//	private boolean createAsBinary;
 
 	public CreateProjectWithExtractedJarOperation(File utilityJar, String overridingProjectRoot) {
 		super(NLS.bind(EARCreationResourceHandler.CreateProjectWithExtractedJarOperation_Create_project_with_extracted_conte_, utilityJar.getName()), utilityJar);
@@ -49,23 +44,18 @@ public class CreateProjectWithExtractedJarOperation extends J2EEUtilityJarImport
 	@Override
 	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
 		MultiStatus status = new MultiStatus(J2EEPlugin.PLUGIN_ID, 0, NLS.bind(EARCreationResourceHandler.CreateProjectWithExtractedJarOperation_Create_project_with_extracted_conte_, getUtilityJar().getName()), null);
-		Archive archive = null;
 		try {
-			archive = CommonarchiveFactory.eINSTANCE.primOpenArchive(getUtilityJar().getAbsolutePath());
 
 			IDataModel importModel = DataModelFactory.createDataModel(new J2EEUtilityJarImportDataModelProvider()); 
 
-			importModel.setProperty(IJavaUtilityJarImportDataModelProperties.FILE, archive);
-//			importModel.setProperty(IJavaUtilityJarImportDataModelProperties.FILE_NAME, getUtilityJar().getAbsolutePath());
+			importModel.setProperty(IJavaUtilityJarImportDataModelProperties.FILE_NAME, getUtilityJar().getAbsolutePath());
 
 			if (projectRoot != null && projectRoot.length() > 0) {				
 				importModel.setBooleanProperty(IProjectCreationPropertiesNew.USE_DEFAULT_LOCATION, false);
 				importModel.setProperty(IProjectCreationPropertiesNew.USER_DEFINED_LOCATION, projectRoot);
 			}
 
-			// importModel.getJ2eeProjectCreationDataModel().setBooleanProperty(J2EEProjectCreationDataModel.ADD_SERVER_TARGET, true);
 			if (isOverwriteIfNecessary()) {
-				// importModel.setBooleanProperty(IJavaUtilityJarImportDataModelProperties.OVERWRITE_HANDLER);
 				IProject existingProject = getWorkspaceRoot().getProject(newProjectName);
 				if (existingProject.exists()) {
 					existingProject.delete(true, true, monitor);
@@ -81,9 +71,6 @@ public class CreateProjectWithExtractedJarOperation extends J2EEUtilityJarImport
  			IProject utilityJarProject = getWorkspaceRoot().getProject(newProjectName);
 			linkArchiveToEAR(associatedEARProject, getUtilityJar().getName(), utilityJarProject, new SubProgressMonitor(monitor, 1));
 			
-		} catch (OpenFailureException e) {
-			status.add(J2EEPlugin.createErrorStatus(0, e.getMessage(), e));
-			J2EEPlugin.logError(0, e.getMessage(), e);
 		} catch (InvocationTargetException e) {
 			status.add(J2EEPlugin.createErrorStatus(0, e.getMessage(), e));
 			J2EEPlugin.logError(0, e.getMessage(), e);
@@ -93,10 +80,7 @@ public class CreateProjectWithExtractedJarOperation extends J2EEUtilityJarImport
 		} catch (CoreException e) {
 			status.add(J2EEPlugin.createErrorStatus(0, e.getMessage(), e));
 			J2EEPlugin.logError(0, e.getMessage(), e);
-		} finally {
-			if(archive != null)
-				archive.close();
-		}
+		} 
 		return status;
 	}
 

@@ -18,8 +18,6 @@ package org.eclipse.jst.j2ee.application.internal.operations;
 
 import java.util.Set;
 
-import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.datamodel.properties.IJavaUtilityJarImportDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.UtilityProjectCreationDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
@@ -35,11 +33,6 @@ public final class J2EEUtilityJarImportDataModelProvider extends J2EEArtifactImp
 		Set propertyNames = super.getPropertyNames();
 		propertyNames.add(EAR_PROJECT_NAME);
 		return propertyNames;
-	}
-
-	@Override
-	protected Archive openArchive(String uri) throws OpenFailureException {
-		return null;
 	}
 
 	@Override

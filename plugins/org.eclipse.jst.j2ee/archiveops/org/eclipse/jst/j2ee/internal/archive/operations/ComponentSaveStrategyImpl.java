@@ -47,6 +47,12 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
+/**
+ * @deprecated this will be deleted post WTP 3.2.  This code is no longer
+ * called because the IArchive API is used to handle imports.
+ * 
+ * @author jsholl
+ */
 public abstract class ComponentSaveStrategyImpl extends SaveStrategyImpl {
 
 	protected IDataModel dataModel;

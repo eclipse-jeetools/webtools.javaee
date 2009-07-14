@@ -17,14 +17,6 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.jst.j2ee.application.WebModule;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBJarFile;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.FileImpl;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
@@ -41,58 +33,24 @@ import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 
 public class ArchiveWrapper {
 
-	//TODO remove commonArchive; possibly remove this entire class and
-	//code directly to IArchive
-	private Archive commonArchive = null;
 	private IArchive archive = null;
 	private JavaEEQuickPeek jqp = null;
 
 	public ArchiveWrapper(IArchive archive) {
 		this.archive = archive;
+		if(archive == null){
+			throw new NullPointerException();
+		}
 		JavaEEArchiveUtilities jea = JavaEEArchiveUtilities.INSTANCE;
 		jqp = jea.getJavaEEQuickPeek(archive);
-	}
-
-	public ArchiveWrapper(Archive mFile) {
-		this.commonArchive = mFile;
-		int type = J2EEConstants.UNKNOWN;
-
-		if (mFile.isApplicationClientFile()) {
-			type = J2EEConstants.APPLICATION_CLIENT_TYPE;
-		} else if (mFile.isEARFile()) {
-			type = J2EEConstants.APPLICATION_TYPE;
-		} else if (mFile.isEJBJarFile()) {
-			type = J2EEConstants.EJB_TYPE;
-		} else if (mFile.isWARFile()) {
-			type = J2EEConstants.WEB_TYPE;
-		} else if (mFile.isRARFile()) {
-			type = J2EEConstants.CONNECTOR_TYPE;
-		}
-		if (type != J2EEConstants.UNKNOWN) {
-			int version = ArchiveUtil.getFastSpecVersion((ModuleFile) mFile);
-			jqp = new JavaEEQuickPeek(type, version);
-		} else {
-			jqp = new JavaEEQuickPeek(null);
-		}
 	}
 
 	public JavaEEQuickPeek getJavaEEQuickPeek() {
 		return jqp;
 	}
 
-	public Archive getCommonArchive() {
-		return commonArchive;
-	}
-
 	public Object getUnderLyingArchive() {
-		if (archive != null) {
-			return archive;
-		}
-		if (commonArchive != null) {
-			return commonArchive;
-		}
-		fail();
-		return null;
+		return archive;
 	}
 
 	private ArchiveWrapper cachedParent = null;
@@ -101,16 +59,8 @@ public class ArchiveWrapper {
 		if (null != cachedParent) {
 			return cachedParent;
 		}
-		if (archive != null) {
-			cachedParent = new ArchiveWrapper(archive.getArchive());
-			return cachedParent;
-		}
-		if (commonArchive != null) {
-			cachedParent = new ArchiveWrapper((Archive) commonArchive.eContainer());
-			return cachedParent;
-		}
-		fail();
-		return null;
+		cachedParent = new ArchiveWrapper(archive.getArchive());
+		return cachedParent;
 	}
 
 	public IArchive getIArchive() {
@@ -119,10 +69,7 @@ public class ArchiveWrapper {
 
 	public void close() {
 		try {
-			if (commonArchive != null && commonArchive.isOpen()) {
-				commonArchive.close();
-			}
-			if (archive != null && archive.isOpen()) {
+			if (archive.isOpen()) {
 				JavaEEArchiveUtilities.INSTANCE.closeArchive(archive);
 			}
 		} catch (RuntimeException e) {
@@ -132,15 +79,7 @@ public class ArchiveWrapper {
 	}
 
 	public IPath getPath() {
-		if (commonArchive != null) {
-			IPath path = new Path(commonArchive.getURI());
-			return path;
-		}
-		if (archive != null) {
-			return archive.getPath();
-		}
-		fail();
-		return null;
+		return archive.getPath();
 	}
 
 	private void fail() {
@@ -148,8 +87,6 @@ public class ArchiveWrapper {
 	}
 
 	public int getSize() {
-		if (commonArchive != null)
-			return commonArchive.getFiles().size();
 		return archive.getArchiveResources().size();
 	}
 
@@ -165,39 +102,27 @@ public class ArchiveWrapper {
 
 		cachedWebLibs = new ArrayList<ArchiveWrapper>();
 
-		if (commonArchive != null) {
-			WARFile war = (WARFile) commonArchive;
-			List libs = war.getLibArchives();
-			for (int i = 0; i < libs.size(); i++) {
-				cachedWebLibs.add(new ArchiveWrapper((Archive) libs.get(i)));
-			}
-			return cachedWebLibs;
-		}
-		if (archive != null) {
-			List<IArchiveResource> resources = archive.getArchiveResources();
-			for (IArchiveResource resource : resources) {
-				if (resource.getType() != IArchiveResource.DIRECTORY_TYPE) {
-					IPath path = resource.getPath();
-					if (path.segmentCount() > 2) {
-						if (path.segment(0).equals("WEB-INF") && path.segment(1).equals("lib")) { //$NON-NLS-1$ //$NON-NLS-2$
-							String lastSegment = path.lastSegment();
-							if (lastSegment.endsWith("jar") || lastSegment.endsWith("zip")) { //$NON-NLS-1$ //$NON-NLS-2$
-								IArchive webLib;
-								try {
-									webLib = archive.getNestedArchive(resource);
-									cachedWebLibs.add(new ArchiveWrapper(webLib));
-								} catch (ArchiveOpenFailureException e) {
-									J2EEPlugin.logError(e);
-								}
+		List<IArchiveResource> resources = archive.getArchiveResources();
+		for (IArchiveResource resource : resources) {
+			if (resource.getType() != IArchiveResource.DIRECTORY_TYPE) {
+				IPath path = resource.getPath();
+				if (path.segmentCount() > 2) {
+					if (path.segment(0).equals("WEB-INF") && path.segment(1).equals("lib")) { //$NON-NLS-1$ //$NON-NLS-2$
+						String lastSegment = path.lastSegment();
+						if (lastSegment.endsWith("jar") || lastSegment.endsWith("zip")) { //$NON-NLS-1$ //$NON-NLS-2$
+							IArchive webLib;
+							try {
+								webLib = archive.getNestedArchive(resource);
+								cachedWebLibs.add(new ArchiveWrapper(webLib));
+							} catch (ArchiveOpenFailureException e) {
+								J2EEPlugin.logError(e);
 							}
 						}
 					}
 				}
 			}
-			return cachedWebLibs;
 		}
-		fail();
-		return null;
+		return cachedWebLibs;
 	}
 
 	private List <String>cachedDDMappedModuleURIs = null;
@@ -212,39 +137,30 @@ public class ArchiveWrapper {
 		
 		cachedDDMappedModuleURIs = new ArrayList<String>();
 		
-		if (commonArchive != null) {
-			EARFile ear = (EARFile) commonArchive;
-			List earMods = ear.getModuleFiles();
-			for (int i = 0; i < earMods.size(); i++) {
-				cachedDDMappedModuleURIs.add(((Archive) earMods.get(i)).getURI());
-			}
-			return cachedDDMappedModuleURIs;
-		} else if(archive != null) {
-			if(archive.containsArchiveResource(new Path(J2EEConstants.APPLICATION_DD_URI))){
-				if(jqp.getJavaEEVersion() == JavaEEQuickPeek.JEE_5_0_ID){
-					try {
-						Application application = (Application) archive.getModelObject();
-						List modules = application.getModules();
-						for(int i=0;i<modules.size();i++){
-							Module module = (Module)modules.get(i);
-							String uri = module.getUri();
-							cachedDDMappedModuleURIs.add(uri);
-						}
-					} catch (ArchiveModelLoadException e) {
-						J2EEPlugin.logError(e);
+		if(archive.containsArchiveResource(new Path(J2EEConstants.APPLICATION_DD_URI))){
+			if(jqp.getJavaEEVersion() == JavaEEQuickPeek.JEE_5_0_ID){
+				try {
+					Application application = (Application) archive.getModelObject();
+					List modules = application.getModules();
+					for(int i=0;i<modules.size();i++){
+						Module module = (Module)modules.get(i);
+						String uri = module.getUri();
+						cachedDDMappedModuleURIs.add(uri);
 					}
-				} else { 
-					try{
-						org.eclipse.jst.j2ee.application.Application application = (org.eclipse.jst.j2ee.application.Application)archive.getModelObject();
-						List modules = application.getModules();
-						for(int i=0;i<modules.size();i++){
-							org.eclipse.jst.j2ee.application.Module module = (org.eclipse.jst.j2ee.application.Module)modules.get(i);
-							String uri = module.getUri();
-							cachedDDMappedModuleURIs.add(uri);
-						}
-					}catch (ArchiveModelLoadException e) {
-						J2EEPlugin.logError(e);
+				} catch (ArchiveModelLoadException e) {
+					J2EEPlugin.logError(e);
+				}
+			} else { 
+				try{
+					org.eclipse.jst.j2ee.application.Application application = (org.eclipse.jst.j2ee.application.Application)archive.getModelObject();
+					List modules = application.getModules();
+					for(int i=0;i<modules.size();i++){
+						org.eclipse.jst.j2ee.application.Module module = (org.eclipse.jst.j2ee.application.Module)modules.get(i);
+						String uri = module.getUri();
+						cachedDDMappedModuleURIs.add(uri);
 					}
+				}catch (ArchiveModelLoadException e) {
+					J2EEPlugin.logError(e);
 				}
 			}
 		}
@@ -263,74 +179,55 @@ public class ArchiveWrapper {
 		}
 		cachedEARModules = new ArrayList<ArchiveWrapper>();
 
-		if (commonArchive != null) {
-			EARFile ear = (EARFile) commonArchive;
-			List earMods = ear.getModuleFiles();
-			for (int i = 0; i < earMods.size(); i++) {
-				cachedEARModules.add(new ArchiveWrapper((Archive) earMods.get(i)));
-			}
-			return cachedEARModules;
-		}
-		if (archive != null) {
-			if(jqp.getJavaEEVersion() == JavaEEQuickPeek.JEE_5_0_ID){
-				List<IArchiveResource> resources = archive.getArchiveResources();
-				for (IArchiveResource resource : resources) {
-					if (resource.getType() != IArchiveResource.DIRECTORY_TYPE) {
-						IPath path = resource.getPath();
-						if (path.segmentCount() > 0) {
-							String lastSegment = path.lastSegment();
-							if (lastSegment.endsWith("jar") || lastSegment.endsWith("zip") || lastSegment.endsWith("rar") || lastSegment.endsWith("war")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-								IArchive earmodule;
-								try {
-									earmodule = archive.getNestedArchive(resource);
-									cachedEARModules.add(new ArchiveWrapper(earmodule));
-								} catch (ArchiveOpenFailureException e) {
-									J2EEPlugin.logError(e);
-								}
-							}
-						}
-					}
-				}
-			} else {
-				try {
-					org.eclipse.jst.j2ee.application.Application app = (org.eclipse.jst.j2ee.application.Application)archive.getModelObject();
-					List modules = app.getModules();
-					for(int i=0;i<modules.size();i++){
-						org.eclipse.jst.j2ee.application.Module mod = (org.eclipse.jst.j2ee.application.Module)modules.get(i);
-						String uri = mod.getUri();
-						IPath path = new Path(uri);
-						if(archive.containsArchiveResource(path)){
+		if(jqp.getJavaEEVersion() == JavaEEQuickPeek.JEE_5_0_ID){
+			List<IArchiveResource> resources = archive.getArchiveResources();
+			for (IArchiveResource resource : resources) {
+				if (resource.getType() != IArchiveResource.DIRECTORY_TYPE) {
+					IPath path = resource.getPath();
+					if (path.segmentCount() > 0) {
+						String lastSegment = path.lastSegment();
+						if (lastSegment.endsWith("jar") || lastSegment.endsWith("zip") || lastSegment.endsWith("rar") || lastSegment.endsWith("war")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+							IArchive earmodule;
 							try {
-								IArchiveResource resource = archive.getArchiveResource(path);
-								IArchive earmodule;
 								earmodule = archive.getNestedArchive(resource);
 								cachedEARModules.add(new ArchiveWrapper(earmodule));
 							} catch (ArchiveOpenFailureException e) {
 								J2EEPlugin.logError(e);
-							} catch (FileNotFoundException e) {
-								org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
 							}
 						}
 					}
-				} catch (ArchiveModelLoadException e) {
-					org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
 				}
 			}
-			return cachedEARModules;
+		} else {
+			try {
+				org.eclipse.jst.j2ee.application.Application app = (org.eclipse.jst.j2ee.application.Application)archive.getModelObject();
+				List modules = app.getModules();
+				for(int i=0;i<modules.size();i++){
+					org.eclipse.jst.j2ee.application.Module mod = (org.eclipse.jst.j2ee.application.Module)modules.get(i);
+					String uri = mod.getUri();
+					IPath path = new Path(uri);
+					if(archive.containsArchiveResource(path)){
+						try {
+							IArchiveResource resource = archive.getArchiveResource(path);
+							IArchive earmodule;
+							earmodule = archive.getNestedArchive(resource);
+							cachedEARModules.add(new ArchiveWrapper(earmodule));
+						} catch (ArchiveOpenFailureException e) {
+							J2EEPlugin.logError(e);
+						} catch (FileNotFoundException e) {
+							org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
+						}
+					}
+				}
+			} catch (ArchiveModelLoadException e) {
+				org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
+			}
 		}
-		fail();
-		return null;
+		return cachedEARModules;
 	}
 
 	public String getName() {
-		if (commonArchive != null) {
-			return commonArchive.getName();
-		}
-		if (archive != null) {
-			return archive.getPath().lastSegment();
-		}
-		fail();
-		return null;
+		return archive.getPath().lastSegment();
 	}
 
 	public boolean isModule() {
@@ -350,48 +247,23 @@ public class ArchiveWrapper {
 	}
 
 	public boolean isApplicationClientFile() {
-		if (commonArchive != null)
-			return commonArchive.isApplicationClientFile();
-		if (archive != null)
-			return (JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(archive).getType() == J2EEConstants.APPLICATION_CLIENT_TYPE);
-		fail();
-		return false;
+		return (JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(archive).getType() == J2EEConstants.APPLICATION_CLIENT_TYPE);
 	}
 
 	public boolean isWARFile() {
-		if (commonArchive != null)
-			return commonArchive.isWARFile();
-		if (archive != null)
-			return (JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(archive).getType() == J2EEConstants.WEB_TYPE);
-		fail();
-		return false;
+		return (JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(archive).getType() == J2EEConstants.WEB_TYPE);
 	}
 
 	public boolean isEJBJarFile() {
-		if (commonArchive != null)
-			return commonArchive.isEJBJarFile();
-		if (archive != null)
-			return (JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(archive).getType() == J2EEConstants.EJB_TYPE);
-		fail();
-		return false;
+		return (JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(archive).getType() == J2EEConstants.EJB_TYPE);
 	}
 
 	public boolean isEarFile() {
-		if (commonArchive != null)
-			return commonArchive.isEARFile();
-		if (archive != null)
-			return (JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(archive).getType() == J2EEConstants.APPLICATION_TYPE);
-		fail();
-		return false;
+		return (JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(archive).getType() == J2EEConstants.APPLICATION_TYPE);
 	}
 
 	public boolean isRARFile() {
-		if (commonArchive != null)
-			return commonArchive.isRARFile();
-		if (archive != null)
-			return (JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(archive).getType() == J2EEConstants.CONNECTOR_TYPE);
-		fail();
-		return false;
+		return (JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(archive).getType() == J2EEConstants.CONNECTOR_TYPE);
 	}
 
 	// This is an array so we can tell the difference between initialized and null vs not initialized
@@ -408,48 +280,40 @@ public class ArchiveWrapper {
 		}
 		cachedWebContextRoot = new String[1];
 
-		if (commonArchive != null) {
-			cachedWebContextRoot[0] = ((WebModule) ((EARFile) commonArchive.getContainer()).getModule(commonArchive.getURI(), null)).getContextRoot();
-			return cachedWebContextRoot[0];
-		}
-		if (archive != null) {
-			IArchive earArchive = archive.getArchive();
-			if(earArchive.containsArchiveResource(new Path(J2EEConstants.APPLICATION_DD_URI))){
-				JavaEEQuickPeek earJQP = JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(earArchive);
-				if(earJQP.getJavaEEVersion() == JavaEEQuickPeek.JEE_5_0_ID){
-					try {
-						Application application = (Application) earArchive.getModelObject();
-						String moduleName = archive.getPath().toString();
-						Module module = application.getFirstModule(moduleName);
-						if(module != null){
-							cachedWebContextRoot[0] = module.getWeb().getContextRoot();
-						} else {
-							cachedWebContextRoot[0] = getDefaultContextRoot();
-						}
-					} catch (ArchiveModelLoadException e) {
-						J2EEPlugin.logError(e);
+		IArchive earArchive = archive.getArchive();
+		if(earArchive.containsArchiveResource(new Path(J2EEConstants.APPLICATION_DD_URI))){
+			JavaEEQuickPeek earJQP = JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(earArchive);
+			if(earJQP.getJavaEEVersion() == JavaEEQuickPeek.JEE_5_0_ID){
+				try {
+					Application application = (Application) earArchive.getModelObject();
+					String moduleName = archive.getPath().toString();
+					Module module = application.getFirstModule(moduleName);
+					if(module != null){
+						cachedWebContextRoot[0] = module.getWeb().getContextRoot();
+					} else {
+						cachedWebContextRoot[0] = getDefaultContextRoot();
 					}
-				} else {
-					try{
-						org.eclipse.jst.j2ee.application.Application application = (org.eclipse.jst.j2ee.application.Application)earArchive.getModelObject();
-						String moduleName = archive.getPath().toString();
-						org.eclipse.jst.j2ee.application.WebModule module = (org.eclipse.jst.j2ee.application.WebModule)application.getFirstModule(moduleName);
-						if(module == null){
-							cachedWebContextRoot[0] = null;
-						} else {
-							cachedWebContextRoot[0] = module.getContextRoot();
-						}
-					} catch (ArchiveModelLoadException e) {
-						J2EEPlugin.logError(e);
-					}
+				} catch (ArchiveModelLoadException e) {
+					J2EEPlugin.logError(e);
 				}
 			} else {
-				cachedWebContextRoot[0] = getDefaultContextRoot();
+				try{
+					org.eclipse.jst.j2ee.application.Application application = (org.eclipse.jst.j2ee.application.Application)earArchive.getModelObject();
+					String moduleName = archive.getPath().toString();
+					org.eclipse.jst.j2ee.application.WebModule module = (org.eclipse.jst.j2ee.application.WebModule)application.getFirstModule(moduleName);
+					if(module == null){
+						cachedWebContextRoot[0] = null;
+					} else {
+						cachedWebContextRoot[0] = module.getContextRoot();
+					}
+				} catch (ArchiveModelLoadException e) {
+					J2EEPlugin.logError(e);
+				}
 			}
-			return cachedWebContextRoot[0];
+		} else {
+			cachedWebContextRoot[0] = getDefaultContextRoot();
 		}
-		fail();
-		return null;
+		return cachedWebContextRoot[0];
 	}
 
 	private String getDefaultContextRoot() {
@@ -478,68 +342,48 @@ public class ArchiveWrapper {
 		}
 
 		ArchiveWrapper ejbClientArchiveWrapper = null;
-		try{
-			if (commonArchive != null) {
-				try {
-					EJBJar jar = ((EJBJarFile) ejbWrapper.getUnderLyingArchive()).getDeploymentDescriptor();
-					if (jar != null) {
-						if (jar.getEjbClientJar() != null) {
-							String clientName = jar.getEjbClientJar();
-							ejbClientArchiveWrapper = new ArchiveWrapper((Archive) ((EARFile) commonArchive).getFile(clientName));
-						}
-					}
-					return ejbClientArchiveWrapper;
-				} catch (FileNotFoundException e) {
-					J2EEPlugin.logError(e);
+		try {
+			JavaEEQuickPeek jqp = JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(ejbWrapper.archive);
+			String clientJarName = null;
+			if(jqp.getVersion() == J2EEVersionConstants.EJB_3_0_ID){
+				if(ejbWrapper.archive.containsArchiveResource(new Path(J2EEConstants.EJBJAR_DD_URI))){
+					org.eclipse.jst.javaee.ejb.EJBJar edd = (org.eclipse.jst.javaee.ejb.EJBJar) ejbWrapper.archive.getModelObject();
+					clientJarName = edd.getEjbClientJar();
+				}
+			} else {
+				EJBJar jar = (EJBJar)ejbWrapper.archive.getModelObject();
+				if (jar != null) {
+					clientJarName = jar.getEjbClientJar();
 				}
 			}
-			if (archive != null) {
-				try {
-					JavaEEQuickPeek jqp = JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(ejbWrapper.archive);
-					String clientJarName = null;
-					if(jqp.getVersion() == J2EEVersionConstants.EJB_3_0_ID){
-						if(ejbWrapper.archive.containsArchiveResource(new Path(J2EEConstants.EJBJAR_DD_URI))){
-							org.eclipse.jst.javaee.ejb.EJBJar edd = (org.eclipse.jst.javaee.ejb.EJBJar) ejbWrapper.archive.getModelObject();
-							clientJarName = edd.getEjbClientJar();
-						}
-					} else {
-						EJBJar jar = (EJBJar)ejbWrapper.archive.getModelObject();
-						if (jar != null) {
-							clientJarName = jar.getEjbClientJar();
-						}
-					}
-					
-					if (null != clientJarName) {
-						IPath clientJarPath = new Path(clientJarName);
-						if(archive.containsArchiveResource(clientJarPath)){
-							IArchiveResource clientJar = archive.getArchiveResource(clientJarPath);
-							if(null != clientJar){
-								if (clientJar.getType() == IArchiveResource.ARCHIVE_TYPE) {
-									ejbClientArchiveWrapper = new ArchiveWrapper((IArchive) clientJar);
-								} else {
-									try {
-										ejbClientArchiveWrapper = new ArchiveWrapper(archive.getNestedArchive(clientJar));
-									} catch (ArchiveOpenFailureException e) {
-										J2EEPlugin.logError(e);
-									}
-								}
-							}
+			
+			if (null != clientJarName) {
+				IPath clientJarPath = new Path(clientJarName);
+				if(archive.containsArchiveResource(clientJarPath)){
+					IArchiveResource clientJar = archive.getArchiveResource(clientJarPath);
+					if(null != clientJar){
+						if (clientJar.getType() == IArchiveResource.ARCHIVE_TYPE) {
+							ejbClientArchiveWrapper = new ArchiveWrapper((IArchive) clientJar);
 						} else {
-							J2EEPlugin.logWarning(EARArchiveOpsResourceHandler.bind(EARArchiveOpsResourceHandler.MISSING_CLIENT_JAR, new Object[] {clientJarName, ejbWrapper.getName(), archive.getPath()}));
+							try {
+								ejbClientArchiveWrapper = new ArchiveWrapper(archive.getNestedArchive(clientJar));
+							} catch (ArchiveOpenFailureException e) {
+								J2EEPlugin.logError(e);
+							}
 						}
 					}
-					return ejbClientArchiveWrapper;
-				} catch (FileNotFoundException e) {
-					J2EEPlugin.logError(e);
-				} catch (ArchiveModelLoadException e) {
-					J2EEPlugin.logError(e);
+				} else {
+					J2EEPlugin.logWarning(EARArchiveOpsResourceHandler.bind(EARArchiveOpsResourceHandler.MISSING_CLIENT_JAR, new Object[] {clientJarName, ejbWrapper.getName(), archive.getPath()}));
 				}
 			}
+		} catch (FileNotFoundException e) {
+			J2EEPlugin.logError(e);
+		} catch (ArchiveModelLoadException e) {
+			J2EEPlugin.logError(e);
 		} finally {
 			cachedEJBClientArchiveWrapper.put(ejbWrapper, ejbClientArchiveWrapper);
 		}
-		fail();
-		return null;
+		return ejbClientArchiveWrapper;
 	}
 
 	private List<ArchiveWrapper> cachedEARUtilitiesAndWebLibs = null;
@@ -555,45 +399,26 @@ public class ArchiveWrapper {
 		}
 
 		cachedEARUtilitiesAndWebLibs = new ArrayList<ArchiveWrapper>();
-		if (commonArchive != null) {
-			List files = commonArchive.getFiles();
-			for (int i = 0; i < files.size(); i++) {
-				FileImpl file = (FileImpl) files.get(i);
-				if (file.isArchive() && !file.isModuleFile() && file.getURI().endsWith(IJ2EEModuleConstants.JAR_EXT)) {
-					cachedEARUtilitiesAndWebLibs.add(new ArchiveWrapper((Archive) file));
-				}
-				if (file.isWARFile()) {
-					ArchiveWrapper wrapper = new ArchiveWrapper((Archive) file);
-					cachedEARUtilitiesAndWebLibs.addAll(wrapper.getWebLibs());
-				}
-			}
-			return cachedEARUtilitiesAndWebLibs;
-		}
-		if (archive != null) {
-			List files = archive.getArchiveResources();
-			for (int i = 0; i < files.size(); i++) {
-				IArchiveResource file = (IArchiveResource) files.get(i);
-				String lastSegment = file.getPath().lastSegment();
-				if (lastSegment.endsWith(IJ2EEModuleConstants.JAR_EXT) || lastSegment.endsWith(IJ2EEModuleConstants.RAR_EXT) || lastSegment.endsWith(IJ2EEModuleConstants.WAR_EXT) || lastSegment.endsWith("zip")) { //$NON-NLS-1$
-					IArchive nestedArchive;
-					try {
-						nestedArchive = archive.getNestedArchive(file);
-						ArchiveWrapper nestedWrapper = new ArchiveWrapper(nestedArchive);
-						if (nestedWrapper.isWARFile()) {
-							cachedEARUtilitiesAndWebLibs.addAll(nestedWrapper.getWebLibs());
-						} else if (!nestedWrapper.isModule()) {
-							cachedEARUtilitiesAndWebLibs.add(nestedWrapper);
-						}
-					} catch (ArchiveOpenFailureException e) {
-						J2EEPlugin.logError(e);
+		List files = archive.getArchiveResources();
+		for (int i = 0; i < files.size(); i++) {
+			IArchiveResource file = (IArchiveResource) files.get(i);
+			String lastSegment = file.getPath().lastSegment();
+			if (lastSegment.endsWith(IJ2EEModuleConstants.JAR_EXT) || lastSegment.endsWith(IJ2EEModuleConstants.RAR_EXT) || lastSegment.endsWith(IJ2EEModuleConstants.WAR_EXT) || lastSegment.endsWith("zip")) { //$NON-NLS-1$
+				IArchive nestedArchive;
+				try {
+					nestedArchive = archive.getNestedArchive(file);
+					ArchiveWrapper nestedWrapper = new ArchiveWrapper(nestedArchive);
+					if (nestedWrapper.isWARFile()) {
+						cachedEARUtilitiesAndWebLibs.addAll(nestedWrapper.getWebLibs());
+					} else if (!nestedWrapper.isModule()) {
+						cachedEARUtilitiesAndWebLibs.add(nestedWrapper);
 					}
+				} catch (ArchiveOpenFailureException e) {
+					J2EEPlugin.logError(e);
 				}
 			}
-			return cachedEARUtilitiesAndWebLibs;
-
 		}
-		fail();
-		return null;
+		return cachedEARUtilitiesAndWebLibs;
 	}
 	
 }

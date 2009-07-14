@@ -12,7 +12,6 @@ package org.eclipse.jst.j2ee.internal.archive.operations;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.Path;
@@ -23,7 +22,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.SaveFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
-import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -31,9 +29,13 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
+/**
+ * @deprecated this will be deleted post WTP 3.2.  This code is no longer
+ * called because the IArchive API is used to handle imports.
+ * 
+ * @author jsholl
+ */
 public class EARComponentSaveStrategyImpl extends ComponentSaveStrategyImpl {
-
-//	protected Map createdComponentsMap;
 
 	public EARComponentSaveStrategyImpl(IVirtualComponent component) {
 		super(component);
@@ -42,45 +44,7 @@ public class EARComponentSaveStrategyImpl extends ComponentSaveStrategyImpl {
 	@Override
 	public void setDataModel(IDataModel dataModel) {
 		super.setDataModel(dataModel);
-
-		setArchive((Archive) dataModel.getProperty(IEARComponentImportDataModelProperties.FILE));
-//		buildProjectsMap();
 	}
-
-
-
-//	/**
-//	 * Creates a Map mapping archive uris to projects for all archives in the ear that imported as
-//	 * projects.
-//	 */
-//	private void buildProjectsMap() {
-//		createdComponentsMap = new HashMap();
-//		List createdProjectsList = (List) dataModel.getProperty(IEARComponentImportDataModelProperties.ALL_PROJECT_MODELS_LIST);
-//		IDataModel importDM = null;
-//		Archive anArchive = null;
-//		for (int i = 0; i < createdProjectsList.size(); i++) {
-//			importDM = (IDataModel) createdProjectsList.get(i);
-//			anArchive = (Archive) importDM.getProperty(IJ2EEComponentImportDataModelProperties.FILE);
-//			createdComponentsMap.put(anArchive.getURI(), importDM.getProperty(IJ2EEComponentImportDataModelProperties.COMPONENT));
-//		}
-//	}
-
-//	protected void addFileToClasspath(IProject p, IFile file, List cp) {
-//		if (!file.exists())
-//			return;
-//
-//		// Assume the file also contains the source
-//		IPath path = file.getFullPath();
-//		IClasspathEntry entry = JavaCore.newLibraryEntry(path, path, null, true);
-//		if (!cp.contains(entry))
-//			cp.add(entry);
-//	}
-
-//	protected void addProjectToClasspath(IProject dependent, IProject prereq, List cp) {
-//		IClasspathEntry entry = JavaCore.newProjectEntry(prereq.getFullPath(), true);
-//		if (!cp.contains(entry))
-//			cp.add(entry);
-//	}
 
 	protected EARFile getEARFile() {
 		return (EARFile) getArchive();
@@ -99,8 +63,6 @@ public class EARComponentSaveStrategyImpl extends ComponentSaveStrategyImpl {
 		saveManifest();
 		saveMofResources();
 		progressMonitor.subTask(EARArchiveOpsResourceHandler.Updating_project_classpath_UI_);
-		//updateComponentClasspaths();
-
 	}
 
 	@Override
@@ -136,14 +98,7 @@ public class EARComponentSaveStrategyImpl extends ComponentSaveStrategyImpl {
 
 	@Override
 	protected boolean shouldLinkAsComponentRef(Archive archive) {
-		if (null != dataModel) {
-			List list = (List) dataModel.getProperty(IEARComponentImportDataModelProperties.HANDLED_PROJECT_MODELS_LIST);
-			for (int i = 0; i < list.size(); i++) {
-				if (archive == ((IDataModel) list.get(i)).getProperty(IEARComponentImportDataModelProperties.FILE)) {
-					return false;
-				}
-			}
-		}
+		
 		return true;
 	}
 
@@ -176,77 +131,5 @@ public class EARComponentSaveStrategyImpl extends ComponentSaveStrategyImpl {
 			}
 		}
 	}
-	
-
-//	/*
-//	 * Parse the manifest of the module file; for each cp entry 1) cananonicalize to a uri that
-//	 * looks like the entry in the ear 2) If the ear contains a file with that uri (the entry is
-//	 * valid) a) If the file is another was blown out to a project, add a cp entry for a referenced
-//	 * project b) otherwise, add a cp entry that points to the file in the ear project, and cp
-//	 * entries for all prereqs
-//	 */
-//	protected void updateProjectClasspath(Archive anArchive, IVirtualComponent component) {
-//
-//		String message = EARArchiveOpsResourceHandler.Updating_project_classpath_UI_ + component.getName();
-//		progressMonitor.subTask(message);
-//		List projectCpEntries = new ArrayList();
-//		Set visited = new HashSet();
-//		traverseClasspaths(component.getProject(), anArchive, projectCpEntries, visited);
-//
-//		try {
-//			if (!projectCpEntries.isEmpty())
-//				JemProjectUtilities.appendJavaClassPath(component.getProject(), projectCpEntries);
-//			JemProjectUtilities.forceClasspathReload(component.getProject());
-//		} catch (JavaModelException ex) {
-//			org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(ex);
-//		}
-//
-//	}
-
-//	/*
-//	 * If you have a dependency to a JAR in the EAR project, and the JAR depends on another JAR in
-//	 * the EAR; you want to compile cleanly after import, so you need both those JARs on your build
-//	 * path
-//	 */
-//	protected void traverseClasspaths(IProject p, Archive anArchive, List projectCpEntries, Set visitedArchives) {
-//		visitedArchives.add(anArchive);
-//		String[] manifestCpEntries = anArchive.getManifest().getClassPathTokenized();
-//		EARFile earFile = (EARFile) dataModel.getProperty(IJ2EEComponentImportDataModelProperties.FILE);
-//		for (int i = 0; i < manifestCpEntries.length; i++) {
-//			String uri = ArchiveUtil.deriveEARRelativeURI(manifestCpEntries[i], anArchive);
-//			// ensure the entry is valid or skip to the next
-//			if (uri == null)
-//				continue;
-//			File aFile = null;
-//			try {
-//				aFile = earFile.getFile(uri);
-//			} catch (FileNotFoundException notThere) {
-//			}
-//			if (aFile == null || !aFile.isArchive() || visitedArchives.contains(aFile))
-//				continue;
-//			Archive depArchive = (Archive) aFile;
-//			IProject prereq = null;
-//			IVirtualComponent depComponent = (IVirtualComponent) createdComponentsMap.get(uri);
-//			if (depComponent != null)
-//				prereq = depComponent.getProject();
-//
-//			if (prereq != null) {
-//				addProjectToClasspath(p, prereq, projectCpEntries);
-//			} else {
-//				addFileToClasspath(p, vComponent.getRootFolder().getFile(uri).getUnderlyingFile(), projectCpEntries);
-//				traverseClasspaths(p, depArchive, projectCpEntries, visitedArchives);
-//			}
-//		}
-//	}
-
-//	protected void updateComponentClasspaths() {
-//		List jarFiles = getEARFile().getArchiveFiles();
-//		for (int i = 0; i < jarFiles.size(); i++) {
-//			Archive anArchive = (Archive) jarFiles.get(i);
-//			IVirtualComponent component = (IVirtualComponent) createdComponentsMap.get(anArchive.getURI());
-//			if (component != null)
-//				updateProjectClasspath(anArchive, component);
-//		}
-//	}
 
 }

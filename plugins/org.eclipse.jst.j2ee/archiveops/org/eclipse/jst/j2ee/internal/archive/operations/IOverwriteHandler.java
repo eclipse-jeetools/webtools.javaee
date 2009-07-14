@@ -18,9 +18,10 @@ import org.eclipse.wst.common.internal.emfworkbench.validateedit.ResourceStateVa
 
 
 /**
- * Insert the type's description here. Creation date: (4/16/2001 3:12:41 PM)
+ * @deprecated this will be deleted post WTP 3.2.  This code is no longer
+ * called because the IArchive API is used to handle imports.
  * 
- * @author: Administrator
+ * @author jsholl
  */
 public interface IOverwriteHandler {
 	public static final String NO = EJBArchiveOpsResourceHandler.No_UI; 
