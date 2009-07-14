@@ -46,6 +46,7 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.emf.workbench.WorkbenchByteArrayOutputStream;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBJarFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.File;
@@ -53,7 +54,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.DeploymentDescr
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestImpl;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
@@ -171,7 +171,7 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 		IPath path = getBinaryProjectJARLocation(aProject);
 		if (path != null) {
 			String location = path.toOSString();
-			Archive anArchive = CommonarchiveFactoryImpl.getActiveFactory().primOpenArchive(location);
+			Archive anArchive = CommonarchiveFactory.eINSTANCE.primOpenArchive(location);
 			anArchive.setURI(jarUri);
 			return anArchive;
 		}
@@ -586,7 +586,7 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 	public static Archive asArchive(String jarUri, IProject project, boolean exportSource, boolean includeClasspathComponents) throws OpenFailureException {
 		JavaComponentLoadStrategyImpl strat = new JavaComponentLoadStrategyImpl(ComponentCore.createComponent(project), includeClasspathComponents);
 		strat.setExportSource(exportSource);
-		return CommonarchiveFactoryImpl.getActiveFactory().primOpenArchive(strat, jarUri);
+		return CommonarchiveFactory.eINSTANCE.primOpenArchive(strat, jarUri);
 	}
 
 	/**

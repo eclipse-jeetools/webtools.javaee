@@ -18,10 +18,10 @@ import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.client.ApplicationClient;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ApplicationClientFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBJarFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
@@ -61,7 +61,7 @@ public class ImportUtil {
 		Archive anArchive = null;
 		try {
 			try {
-				anArchive = CommonarchiveFactoryImpl.getActiveFactory().openArchive(fileName);
+				anArchive =CommonarchiveFactory.eINSTANCE.openArchive(fileName);
 				int archiveType = getArchiveType(anArchive);
 				if (archiveType == UNKNOWN && isImportClassType(fileName))
 					return IMPORTCLASSTYPE;
@@ -83,7 +83,7 @@ public class ImportUtil {
 		try {
 			int archiveType = UNKNOWN;
 			try {
-				anArchive = CommonarchiveFactoryImpl.getActiveFactory().openArchive(fileName);
+				anArchive = CommonarchiveFactory.eINSTANCE.openArchive(fileName);
 				try {
 					if (anArchive.isEJBJarFile()) {
 						archiveType = EJBJARFILE;
