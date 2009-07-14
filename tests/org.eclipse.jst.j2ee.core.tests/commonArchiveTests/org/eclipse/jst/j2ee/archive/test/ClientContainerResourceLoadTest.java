@@ -13,7 +13,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ResourceLoadException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveInit;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
 import org.eclipse.jst.j2ee.core.tests.bvt.AutomatedBVT;
 
 
@@ -52,7 +51,7 @@ public class ClientContainerResourceLoadTest extends TestCase{
 
 		try {
 
-			CommonarchiveFactory factory = CommonarchiveFactoryImpl.getActiveFactory();
+			CommonarchiveFactory factory = CommonarchiveFactory.eINSTANCE;
 			String in = AutomatedBVT.baseDirectory + "mtapp2.ear";
 			String out = AutomatedBVT.baseDirectory + "mtapp2Finished.ear";
 			earFile = factory.openEARFile (in);

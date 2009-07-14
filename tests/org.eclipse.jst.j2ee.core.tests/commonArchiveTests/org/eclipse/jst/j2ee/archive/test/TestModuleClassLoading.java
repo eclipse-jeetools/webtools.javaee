@@ -22,7 +22,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.impl.CommonarchiveFactoryImpl;
 import org.eclipse.jst.j2ee.core.tests.bvt.AutomatedBVT;
 
 
@@ -66,7 +65,7 @@ public class TestModuleClassLoading extends TestCase {
        // com.ibm.websphere.models.config.init.ConfigInit.init();
         for (int i = 0; i < files.length; i++) {
             String filename = files[i];   
-			CommonarchiveFactory factory = CommonarchiveFactoryImpl.getActiveFactory();
+			CommonarchiveFactory factory = CommonarchiveFactory.eINSTANCE;
 
 			String in = AutomatedBVT.baseDirectory + files[i];
             try {
