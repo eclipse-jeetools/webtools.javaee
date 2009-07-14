@@ -12,31 +12,28 @@ package org.eclipse.jst.j2ee.internal.plugin;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashSet;
 
 import org.eclipse.core.internal.boot.PlatformURLConnection;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
-import org.eclipse.jst.j2ee.internal.wizard.ImportUtil;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.eclipse.core.runtime.Platform;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import java.lang.Throwable;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.MultiStatus;
 
 
 /**
@@ -78,8 +75,8 @@ public class J2EEUIPlugin extends AbstractUIPlugin {
 			try {
 				String installLocation = ((PlatformURLConnection) url.openConnection()).getURLAsLocal().getFile();
 				location = new Path(installLocation);
-			} catch (IOException e) {
-				org.eclipse.jem.util.logger.proxy.Logger.getLogger().logWarning(J2EEPluginResourceHandler.getString("Install_Location_Error_", new Object[]{url}) + e); //$NON-NLS-1$
+			}catch (IOException e) {
+				logWarning(J2EEPluginResourceHandler.getString("Install_Location_Error_", new Object[]{url}) + e); //$NON-NLS-1$
 			}
 		}
 		return location;
@@ -87,129 +84,6 @@ public class J2EEUIPlugin extends AbstractUIPlugin {
 
 	public static URL getInstallURL() {
 		return getDefault().getBundle().getEntry("/"); //$NON-NLS-1$
-	}
-
-	public static String getArchiveDefaultProjectName(Archive anArchive) {
-		if (anArchive == null)
-			return null;
-		int type = getArchiveType(anArchive);
-		return getTypeDefaultProjectName(anArchive.getURI(), type);
-	}
-
-	public static String getArchiveDefaultUtilProjectName(Archive anArchive) {
-		if (anArchive == null)
-			return null;
-		int type = getArchiveType(anArchive);
-		return getTypeDefaultUtilProjectName(anArchive.getName(), type);
-	}
-
-	public static String getArchiveDefaultProjectName(Archive anArchive, HashSet moduleNames) {
-		if (anArchive == null)
-			return null;
-		int type = getArchiveType(anArchive);
-		return getTypeDefaultProjectName(anArchive.getURI(), type, moduleNames);
-	}
-
-	public static int getArchiveType(Archive anArchive) {
-		int type = ImportUtil.UNKNOWN;
-		try {
-			try {
-				if (anArchive.isEJBJarFile())
-					type = ImportUtil.EJBJARFILE;
-				else if (anArchive.isWARFile())
-					type = ImportUtil.WARFILE;
-				else if (anArchive.isApplicationClientFile())
-					type = ImportUtil.CLIENTJARFILE;
-				else if (anArchive.isRARFile())
-					type = ImportUtil.RARFILE;
-				else if (anArchive.isEARFile())
-					type = ImportUtil.EARFILE;
-			} catch (Exception e) {
-				//Ignore
-			}
-		} finally {
-			if (anArchive != null)
-				anArchive.close();
-		}
-		return type;
-	}
-
-	public static String getTypeDefaultProjectName(String text, int type) {
-		String localText = text;
-		IPath path = new Path(localText);
-		localText = path.makeRelative().removeFileExtension().lastSegment();
-
-		boolean exists = false;
-		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(localText);
-		if (project != null && project.exists())
-			exists = true;
-		if (exists && localText.toLowerCase().indexOf(ImportUtil.SUFFIXES[type].toLowerCase()) == -1)
-			localText = localText + ImportUtil.SUFFIXES[type];
-		IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
-		for (int j = 1; j < 10; j++) {
-			boolean found = false;
-			String iteratedProjectName = localText + ((j == 1) ? "" : Integer.toString(j)); //$NON-NLS-1$
-			for (int i = 0; !found && (i < projects.length); i++) {
-				if ((projects[i]).getName().equalsIgnoreCase(iteratedProjectName)) {
-					found = true;
-				}
-			}
-			if (!found)
-				return iteratedProjectName;
-		}
-		return localText;
-	}
-
-	private static String getTypeDefaultProjectName(String text, int type, HashSet moduleNames) {
-		String localText = text;
-		IPath path = new Path(localText);
-		localText = path.makeRelative().removeFileExtension().lastSegment();
-
-		boolean isValidName = moduleNames.add(localText);
-		boolean exists = false;
-		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(localText);
-		if (project != null && project.exists())
-			exists = true;
-		if (!isValidName || (exists && localText.toLowerCase().indexOf(ImportUtil.SUFFIXES[type].toLowerCase()) == -1))
-			localText = localText + ImportUtil.SUFFIXES[type];
-		IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
-		for (int j = 1; j < 10; j++) {
-			boolean found = false;
-			String iteratedProjectName = localText + ((j == 1) ? "" : Integer.toString(j)); //$NON-NLS-1$
-			for (int i = 0; !found && (i < projects.length); i++) {
-				if ((projects[i]).getName().equalsIgnoreCase(iteratedProjectName)) {
-					found = true;
-				}
-			}
-			if (!found)
-				return iteratedProjectName;
-		}
-		return localText;
-	}
-
-	// the following two methods are used by web editor
-
-	private static String getTypeDefaultUtilProjectName(String text, int type) {
-		String localText = text;
-		localText = localText.substring(localText.lastIndexOf(java.io.File.separator) + 1);
-		int i = localText.lastIndexOf('.');
-		if (i > 0)
-			localText = localText.substring(0, i);
-		if (localText.toLowerCase().indexOf(ImportUtil.SUFFIXES[type].toLowerCase()) == -1)
-			localText = localText + ImportUtil.SUFFIXES[type];
-		IProject[] projects = getWorkspace().getRoot().getProjects();
-		for (int j = 0; j < 10; j++) {
-			boolean found = false;
-			String iteratedProjectName = localText + ((j == 0) ? "" : Integer.toString(j)); //$NON-NLS-1$
-			for (i = 0; !found && (i < projects.length); i++) {
-				if ((projects[i]).getName().equalsIgnoreCase(iteratedProjectName)) {
-					found = true;
-				}
-			}
-			if (!found)
-				return iteratedProjectName;
-		}
-		return localText;
 	}
 
 	/**
@@ -369,6 +243,10 @@ public class J2EEUIPlugin extends AbstractUIPlugin {
 	public static void logError(String message, CoreException exception) {
 		MultiStatus status = new MultiStatus(PLUGIN_ID,IStatus.ERROR,new IStatus[]{exception.getStatus()},message,exception);
 		Platform.getLog(Platform.getBundle(PLUGIN_ID)).log( status );
+	}
+
+	public static void logWarning(String message) {
+		Platform.getLog(Platform.getBundle(PLUGIN_ID)).log(createStatus(IStatus.WARNING, message));
 	}
 
 
