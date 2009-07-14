@@ -250,17 +250,6 @@ public class DefectVerificationTests extends OperationTestCase {
 		model.setProperty(IEARComponentImportDataModelProperties.FILE_NAME, earFileName);
 		List moduleList = (List) model.getProperty(IEARComponentImportDataModelProperties.SELECTED_MODELS_LIST);
 
-		List modulesNeeded = new ArrayList();
-		for (int i = 0; i < moduleList.size(); i++) {
-			IDataModel aModel = (IDataModel) moduleList.get(i);
-			Object file = aModel.getProperty(IEARComponentImportDataModelProperties.FILE);
-
-			if (file instanceof ModuleFile) {
-				ModuleFile moduleFile = (ModuleFile) file;
-				if (moduleFile.isEJBJarFile())
-					modulesNeeded.add(aModel);
-			}
-		}
 		runAndVerify(model);
 		IVirtualComponent component = (IVirtualComponent) model.getProperty(IEARComponentImportDataModelProperties.COMPONENT);
 		EnterpriseArtifactEdit artifactEdit = null;
@@ -329,17 +318,6 @@ public class DefectVerificationTests extends OperationTestCase {
 		String earFileName = getFullTestDataPath(earName);
 		IDataModel model = DataModelFactory.createDataModel(new EARComponentImportDataModelProvider());
 		model.setProperty(IEARComponentImportDataModelProperties.FILE_NAME, earFileName);
-
-		List moduleList = (List) model.getProperty(IEARComponentImportDataModelProperties.SELECTED_MODELS_LIST);
-		for (int i = moduleList.size() - 1; i > -1; i--) {
-			IDataModel aModel = (IDataModel) moduleList.get(i);
-			Object file = aModel.getProperty(IEARComponentImportDataModelProperties.FILE);
-			if (file instanceof ModuleFile) {
-				ModuleFile moduleFile = (ModuleFile) file;
-				if (moduleFile.isWARFile())
-					moduleList.remove(aModel);
-			}
-		}
 
 		runAndVerify(model);
 		IVirtualComponent comp = (IVirtualComponent) model.getProperty(IEARComponentImportDataModelProperties.COMPONENT);
