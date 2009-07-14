@@ -11,9 +11,6 @@
 package org.eclipse.jst.j2ee.internal.ejb.project.operations;
 
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentImportDataModelProvider;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEJBComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
@@ -43,12 +40,6 @@ public final class EJBComponentImportDataModelProvider extends J2EEComponentImpo
 	@Override
 	protected int getType() {
 		return XMLResource.EJB_TYPE;
-	}
-
-	@Override
-	protected Archive openArchive(String uri) throws OpenFailureException {
-		Archive archive =  CommonarchiveFactory.eINSTANCE.openEJBJarFile(getArchiveOptions(), uri);
-		return archive;
 	}
 
 	@Override
