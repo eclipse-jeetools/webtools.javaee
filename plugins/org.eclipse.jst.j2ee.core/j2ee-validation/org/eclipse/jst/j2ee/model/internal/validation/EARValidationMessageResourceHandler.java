@@ -15,7 +15,7 @@ import org.eclipse.osgi.util.NLS;
 
 public class EARValidationMessageResourceHandler extends NLS {
 
-	private static final String BUNDLE_NAME = "earvalidation";//$NON-NLS-1$
+	private static final String BUNDLE_NAME = "org.eclipse.jst.j2ee.model.internal.validation.earvalidation";//$NON-NLS-1$
 
 	private EARValidationMessageResourceHandler() {
 		// Do not instantiate

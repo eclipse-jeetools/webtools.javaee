@@ -15,10 +15,10 @@ package org.eclipse.jst.j2ee.model.internal.validation;
  */
 public interface J2EEMessageConstants {
 	public static final String EREF_CATEGORY = "org.eclipse.jst.j2ee.core.internal.plugin.erefvalidation"; //$NON-NLS-1$
-	public static final String WAR_CATEGORY = "warvalidation"; //$NON-NLS-1$
-	public static final String EAR_CATEGORY = "earvalidation"; //$NON-NLS-1$
-	public static final String EJBJAR_CATEGORY = "ejbjarvalidation"; //$NON-NLS-1$
-	public static final String APLICATIONCLIENT_CATEGORY = "applicationclientvalidation"; //$NON-NLS-1$
+	public static final String WAR_CATEGORY = "org.eclipse.jst.j2ee.model.internal.validation.warvalidation"; //$NON-NLS-1$
+	public static final String EAR_CATEGORY = "org.eclipse.jst.j2ee.model.internal.validation.earvalidation"; //$NON-NLS-1$
+	public static final String EJBJAR_CATEGORY = "org.eclipse.jst.j2ee.model.internal.validation.ejbjarvalidation"; //$NON-NLS-1$
+	public static final String APLICATIONCLIENT_CATEGORY = "org.eclipse.jst.j2ee.model.internal.validation.applicationclientvalidation"; //$NON-NLS-1$
 	public static final String VALIDATOR_NAME = "validator.name"; //$NON-NLS-1$
 	public static final String ERROR_EAR_MISSING_EREFNAME = "ERROR_EAR_MISSING_EREFNAME"; //$NON-NLS-1$
 	public static final String ERROR_EAR_MISSING_EREFTYPE = "ERROR_EAR_MISSING_EREFTYPE"; //$NON-NLS-1$

@@ -46,7 +46,7 @@ public class ConnectorValidator extends J2EEValidator implements ConnectorMessag
 	 */
 	@Override
 	public String getBaseName() {
-		return "rarvalidation"; //$NON-NLS-1$
+		return "org.eclipse.jst.j2ee.model.internal.validation.rarvalidation"; //$NON-NLS-1$
 	}
 	/**
 	 * @return Returns the connectorDD.

@@ -14,7 +14,7 @@ import org.eclipse.osgi.util.NLS;
 
 public final class WARValidationResourceHandler extends NLS {
 
-	private static final String BUNDLE_NAME = "warvalidation";//$NON-NLS-1$
+	private static final String BUNDLE_NAME = "org.eclipse.jst.j2ee.model.internal.validation.warvalidation";//$NON-NLS-1$
 
 	private WARValidationResourceHandler() {
 		// Do not instantiate
