@@ -210,7 +210,7 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 			if (fileName == null || fileName.length() == 0) {
 				return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.ARCHIVE_FILE_NAME_EMPTY_ERROR, new Object[]{ArchiveUtil.getModuleFileTypeName(getType())}));
 			} else if (archiveOpenFailure != null) {
-				return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(archiveOpenFailure.getMessage()));
+				return WTPCommonPlugin.createErrorStatus(archiveOpenFailure.getMessage());
 			} else if (!archiveExistsOnFile()) {
 				return WTPCommonPlugin.createErrorStatus(WTPCommonPlugin.getResourceString(WTPCommonMessages.FILE_DOES_NOT_EXIST_ERROR, new Object[]{ArchiveUtil.getModuleFileTypeName(getType())}));
 			}
