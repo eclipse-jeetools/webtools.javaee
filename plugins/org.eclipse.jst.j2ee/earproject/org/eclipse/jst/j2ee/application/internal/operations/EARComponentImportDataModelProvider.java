@@ -41,7 +41,6 @@ import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleManager;
 import org.eclipse.jst.j2ee.internal.moduleextension.EjbModuleExtension;
 import org.eclipse.jst.j2ee.internal.moduleextension.JcaModuleExtension;
 import org.eclipse.jst.j2ee.internal.moduleextension.WebModuleExtension;
-import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.EARFacetProjectCreationDataModelProvider;
@@ -638,11 +637,6 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 		return removeHandledModels(selectedModels, selectedModels, true);
 	}
 
-	/*
-	 * public int getJ2EEVersion() { EARFile ef = getEARFile(); return null == ef ? J2EEVersionConstants.J2EE_1_2_ID :
-	 * ArchiveUtil.getFastSpecVersion(ef); }
-	 */
-
 	@Override
 	public boolean isPropertyEnabled(String propertyName) {
 		if (!super.isPropertyEnabled(propertyName)) {
@@ -664,45 +658,6 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 			((IDataModel) list.get(i)).dispose();
 		}
 	}
-
-	/**
-	 * Do not use this it will be deleted post 2.0.  This method will be moved to a utility class.
-	 * @deprecated 
-	 * @param earFile
-	 * @return
-	 */
-	public static List getAllUtilities(org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile earFile) {
-		List files = earFile.getFiles();
-		List utilJars = new ArrayList();
-		for (int i = 0; i < files.size(); i++) {
-			org.eclipse.jst.j2ee.commonarchivecore.internal.impl.FileImpl file = (org.eclipse.jst.j2ee.commonarchivecore.internal.impl.FileImpl) files.get(i);
-			if (file.isArchive() && !file.isModuleFile() && file.getURI().endsWith(IJ2EEModuleConstants.JAR_EXT)) {
-				utilJars.add(file);
-			}
-			if (file.isWARFile()) {
-				utilJars.addAll(getWebLibs((org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile) file));
-			}
-		}
-		return utilJars;
-	}
-	
-	/**
-	 * Do not use this it will be deleted post 2.0  This method will be moved to a utility class.
-	 * @deprecated
-	 * @param warFile
-	 * @return
-	 */
-	public static List getWebLibs(org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile warFile) {
-		return ((org.eclipse.jst.j2ee.commonarchivecore.internal.impl.WARFileImpl) warFile).getLibArchives();
-	}
-	
-	// TODO: Implement with J2EEArtifactImportDataModelProvider
-	/*
-	 * public J2EEArtifactImportDataModel getMatchingEJBJarOrClient(J2EEArtifactImportDataModel model) { if
-	 * (clientJarToEjbJarModels.containsKey(model)) { return (J2EEArtifactImportDataModel)
-	 * clientJarToEjbJarModels.get(model); } else if (ejbJarToClientJarModels.containsKey(model)) { return
-	 * (J2EEArtifactImportDataModel) ejbJarToClientJarModels.get(model); } else { return null; } }
-	 */
 
 	@Override
 	protected IDataModel createJ2EEComponentCreationDataModel() {
