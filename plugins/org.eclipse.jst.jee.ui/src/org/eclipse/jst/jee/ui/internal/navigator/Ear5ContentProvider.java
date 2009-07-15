@@ -50,6 +50,8 @@ import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 public class Ear5ContentProvider extends JEE5ContentProvider {
 
 	public final static String EAR_DEFAULT_LIB = "/lib"; //$NON-NLS-1$
+	public final static String CHANGED_RESOURCE = "org.eclipse.wst.common.component"; //$NON-NLS-1$
+
 
 	private List getComponentReferencesAsList(List componentTypes, IVirtualComponent virtualComponent, IPath runtimePath) {
 		List components = new ArrayList();
@@ -191,11 +193,12 @@ public class Ear5ContentProvider extends JEE5ContentProvider {
 		private Set<IProject> projects = new HashSet<IProject>();
 
 		public boolean visit(IResourceDelta delta) throws CoreException {
-			IResourceDelta[] affectedChildren = delta.getAffectedChildren(IResourceDelta.ADDED | IResourceDelta.REMOVED | IResourceDelta.REPLACED);
+			IResourceDelta[] affectedChildren = delta.getAffectedChildren(IResourceDelta.ADDED | IResourceDelta.REMOVED | IResourceDelta.REPLACED | IResourceDelta.CHANGED);
 			if (affectedChildren != null){
 				for (int i = 0; i < affectedChildren.length; i++) {
 					if (affectedChildren[i].getResource() != null && affectedChildren[i].getResource().getName() != null
-							&& affectedChildren[i].getResource().getName().toLowerCase().endsWith(IJ2EEModuleConstants.JAR_EXT)){
+							&& (affectedChildren[i].getResource().getName().toLowerCase().endsWith(IJ2EEModuleConstants.JAR_EXT) 
+									|| (affectedChildren[i].getResource().getName().equals(CHANGED_RESOURCE) && affectedChildren[i].getKind()==IResourceDelta.CHANGED))){
 						projects.add(affectedChildren[i].getResource().getProject());
 					}
 				}
