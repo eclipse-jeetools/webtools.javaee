@@ -21,7 +21,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
@@ -86,7 +85,7 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 			for (int i = modelsToImport.size() - 1; i > 0; i--) {
 				importModel = (IDataModel) modelsToImport.get(i);
 				ArchiveWrapper nestedArchive = (ArchiveWrapper) importModel.getProperty(IEARComponentImportDataModelProperties.ARCHIVE_WRAPPER);
-				if (nestedArchive.getPath().toString().startsWith(ArchiveConstants.WEBAPP_LIB_URI)) {
+				if (nestedArchive.getPath().toString().startsWith("WEB-INF/lib/")) { //$NON-NLS-1$
 					ArchiveWrapper owningWar = nestedArchive.getParent();
 					modelsToImport.remove(importModel);
 					for (int j = 0; j < modelsToImport.size(); j++) {
