@@ -10,6 +10,8 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 
 public final class JavaCoreLite {
+	
+	public static String NATURE_ID = JavaCore.NATURE_ID;
 
 	public static final IJavaProjectLite create(IProject project) {
 		IJavaProject javaProject = JavaCore.create(project);
