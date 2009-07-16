@@ -31,6 +31,9 @@ import org.eclipse.jdt.core.IClasspathAttribute;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
+import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jst.common.jdt.internal.javalite.IJavaProjectLite;
+import org.eclipse.jst.common.jdt.internal.javalite.JavaCoreLite;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyEnablement;
@@ -68,21 +71,31 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 	}
 	
 	/**
+	 * @deprecated use {@link #getRawComponentClasspathDependencies(IJavaProjectLite, org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants.DependencyAttributeType)}
+	 * @param javaProject
+	 * @param attributeType
+	 * @return
+	 * @throws CoreException
+	 */
+	public static Map getRawComponentClasspathDependencies(final IJavaProject javaProject, DependencyAttributeType attributeType) throws CoreException {
+		return getRawComponentClasspathDependencies(JavaCoreLite.create(javaProject), attributeType);
+	}
+	/**
 	 * Returns all unresolved classpath entries for the specified Java project that
 	 * have the special WTP classpath component dependency attribute.
 	 *  
-	 * @param javaProject Java project whose component classpath dependencies are being retrieved.
+	 * @param javaProjectLite Java project whose component classpath dependencies are being retrieved.
 	 * @parem attributeType the attribute to search for
 	 * @return Map from IClasspathEntry to IClasspathAttribute for classpath component dependency.
 	 * @return IClasspathEntries with the special component dependency attribute.
 	 * @throws CoreException Thrown if an error is encountered accessing the unresolved classpath.
 	 */
-	public static Map getRawComponentClasspathDependencies(final IJavaProject javaProject, DependencyAttributeType attributeType) throws CoreException {
-		if (javaProject == null || !ClasspathDependencyEnablement.isAllowClasspathComponentDependency()) {
+	public static Map getRawComponentClasspathDependencies(final IJavaProjectLite javaProjectLite, DependencyAttributeType attributeType) throws CoreException {
+		if (javaProjectLite == null || !ClasspathDependencyEnablement.isAllowClasspathComponentDependency()) {
 			return Collections.EMPTY_MAP;
 		}
 		final Map referencedRawEntries = new HashMap();
-		final IClasspathEntry[] entries = javaProject.getRawClasspath();
+		final IClasspathEntry[] entries = javaProjectLite.readRawClasspath();
         for (int i = 0; i < entries.length; i++) {
             final IClasspathEntry entry = entries[i];
             final IClasspathAttribute attrib = checkForComponentDependencyAttribute(entry, attributeType);
@@ -94,26 +107,36 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 	}
 	
 	/**
+	 * @deprecated use {@link #getPotentialComponentClasspathDependencies(IJavaProjectLite)}
+	 * @param javaProject
+	 * @return
+	 * @throws CoreException
+	 */
+	public static List getPotentialComponentClasspathDependencies(final IJavaProject javaProject) throws CoreException {
+		return getPotentialComponentClasspathDependencies(JavaCoreLite.create(javaProject));
+	}
+	
+	/**
 	 * Retrieves the unresolved classpath entries for the specified Java project that
 	 * could potentially be mapped into the virtual component tree for the project via
 	 * the special WTP classpath component dependence attribute. Classpath entries that
 	 * currently have the attribute are not returned by this method (@see {@link #getRawComponentClasspathDependencies(IJavaProject, boolean)})
 	 * 
-	 * @param javaProject Java project whose potential component classpath dependencies will be retrieved.
+	 * @param javaProjectLite Java project whose potential component classpath dependencies will be retrieved.
 	 * @return List of raw IClasspathEntries for potential classpath component dependencies.
 	 * @throws CoreException Thrown if an error is encountered. 
 	 */
-	public static List getPotentialComponentClasspathDependencies(final IJavaProject javaProject) throws CoreException {
+	public static List getPotentialComponentClasspathDependencies(final IJavaProjectLite javaProjectLite) throws CoreException {
 		final List potentialRawEntries = new ArrayList();
 
-		if (javaProject == null || !javaProject.getProject().isAccessible() || !ClasspathDependencyEnablement.isAllowClasspathComponentDependency()) {
+		if (javaProjectLite == null || !javaProjectLite.getProject().isAccessible() || !ClasspathDependencyEnablement.isAllowClasspathComponentDependency()) {
 			return Collections.EMPTY_LIST;
 		}
-		final IProject project = javaProject.getProject();
+		final IProject project = javaProjectLite.getProject();
 		final boolean isWebApp = JavaEEProjectUtilities.isDynamicWebProject(project);
 		final boolean isRAR = JavaEEProjectUtilities.isJCAProject(project);
 		final ClasspathDependencyValidatorData data = new ClasspathDependencyValidatorData(project);
-		final IClasspathEntry[] entries = javaProject.getRawClasspath();
+		final IClasspathEntry[] entries = javaProjectLite.readRawClasspath();
         for (int i = 0; i < entries.length; i++) {
             final IClasspathEntry entry = entries[i];
             final IClasspathAttribute attrib = checkForComponentDependencyAttribute(entry);
@@ -242,8 +265,31 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 	 * @return Map from IClasspathEntry to IClasspathAttribute for classpath component dependencies.
 	 * @throws CoreException Thrown if an error is encountered accessing the unresolved classpath.
 	 */
+	public static Map getComponentClasspathDependencies(final IJavaProjectLite javaProjectLite, final boolean isWebApp) throws CoreException {
+		return getComponentClasspathDependencies(javaProjectLite, isWebApp, true);
+	}
+
+	/**
+	 * @deprecated use {@link #getComponentClasspathDependencies(IJavaProjectLite, boolean)}
+	 * @param javaProject
+	 * @param isWebApp
+	 * @return
+	 * @throws CoreException
+	 */
 	public static Map getComponentClasspathDependencies(final IJavaProject javaProject, final boolean isWebApp) throws CoreException {
-		return getComponentClasspathDependencies(javaProject, isWebApp, true);
+		return getComponentClasspathDependencies(JavaCoreLite.create(javaProject), isWebApp);
+	}
+
+	/**
+	 * @deprecated use {@link #getComponentClasspathDependencies(IJavaProjectLite, boolean, boolean)}
+	 * @param javaProject
+	 * @param isWebApp
+	 * @param onlyValid
+	 * @return
+	 * @throws CoreException
+	 */
+	public static Map getComponentClasspathDependencies(final IJavaProject javaProject, final boolean isWebApp, final boolean onlyValid) throws CoreException {
+		return getComponentClasspathDependencies(JavaCoreLite.create(javaProject), isWebApp, onlyValid);
 	}
 
 	/**
@@ -257,15 +303,15 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 	 * @return Map from IClasspathEntry to IClasspathAttribute for classpath component dependencies.
 	 * @throws CoreException Thrown if an error is encountered accessing the unresolved classpath.
 	 */
-	public static Map getComponentClasspathDependencies(final IJavaProject javaProject, final boolean isWebApp, final boolean onlyValid) throws CoreException {
+	public static Map getComponentClasspathDependencies(final IJavaProjectLite javaProjectLite, final boolean isWebApp, final boolean onlyValid) throws CoreException {
 		if(!ClasspathDependencyEnablement.isAllowClasspathComponentDependency()){
 			return Collections.EMPTY_MAP;
 		}
 		
-		final ClasspathDependencyValidatorData data = new ClasspathDependencyValidatorData(javaProject.getProject());
+		final ClasspathDependencyValidatorData data = new ClasspathDependencyValidatorData(javaProjectLite.getProject());
 		
 		// get the raw entries
-		final Map referencedRawEntries = getRawComponentClasspathDependencies(javaProject, DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY);
+		final Map referencedRawEntries = getRawComponentClasspathDependencies(javaProjectLite, DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY);
 		final Map validRawEntries = new HashMap();
 
 		// filter out non-valid referenced raw entries
@@ -273,7 +319,7 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 		while (i.hasNext()) {
 			final IClasspathEntry entry = (IClasspathEntry) i.next();
 			final IClasspathAttribute attrib = (IClasspathAttribute) referencedRawEntries.get(entry);
-			if (isValid(entry, attrib, isWebApp, javaProject.getProject(), data)) {
+			if (isValid(entry, attrib, isWebApp, javaProjectLite.getProject(), data)) {
 				validRawEntries.put(entry, attrib);
 			}
 		}
@@ -291,6 +337,9 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 		// support retrieval using the resolved IPackageFragmentRoot
 		
 		// retrieve the resolved classpath
+		//TODO this call to javaProject needs to be removed.  Need to figure out what exactly this is attempting to do.
+		IJavaProject javaProject = JavaCore.create(javaProjectLite.getProject());
+		//TODO this call to javaProject needs to be removed.  Need to figure out what exactly this is attempting to do.
 		final IClasspathEntry[] entries = javaProject.getResolvedClasspath(true);
 		final Map pathToResolvedEntry = new HashMap();
 		
@@ -306,7 +355,7 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 		// TODO this ignores project cp entries; can easily add in the raw project cp entries, however, do not have a good way to 
 		// map project cp entries resolved from cp containers back to the corresponding raw entry (and thereby determine if the
 		// entry has the publish/export attribute)
-		
+		//TODO this call to javaProject needs to be removed.  Need to figure out what exactly this is attempting to do.
 		final IPackageFragmentRoot[] roots = javaProject.getPackageFragmentRoots();
 		for (int j = 0; j < roots.length; j++) {
 			final IPackageFragmentRoot root = roots[j];
@@ -325,7 +374,7 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 			// dependency attribute for it to be included
 			if (resolvedAttrib == null || resolvedAttrib.getName().equals(CLASSPATH_COMPONENT_DEPENDENCY)) {
 				// filter out resolved entry if it doesn't pass the validation rules
-				if (!onlyValid || isValid(resolvedEntry, resolvedAttrib != null?resolvedAttrib:attrib,isWebApp, javaProject.getProject(), data)) {
+				if (!onlyValid || isValid(resolvedEntry, resolvedAttrib != null?resolvedAttrib:attrib,isWebApp, javaProjectLite.getProject(), data)) {
 					if (resolvedAttrib != null) {
 						// if there is an attribute on the sub-entry, use that
 						attrib = resolvedAttrib;

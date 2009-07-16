@@ -28,8 +28,8 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.jdt.core.IClasspathAttribute;
 import org.eclipse.jdt.core.IClasspathEntry;
-import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jst.common.jdt.internal.javalite.IJavaProjectLite;
+import org.eclipse.jst.common.jdt.internal.javalite.JavaCoreLite;
 import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants.DependencyAttributeType;
@@ -83,12 +83,12 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 		try {
 			if (proj.isAccessible() 
 			    && proj.hasNature(ModuleCoreNature.MODULE_NATURE_ID)
-			    && proj.hasNature(JavaCore.NATURE_ID)) {
+			    && proj.hasNature(JavaCoreLite.NATURE_ID)) {
 			    
-				final IJavaProject javaProject = JavaCore.create(proj);
+				final IJavaProjectLite javaProjectLite = JavaCoreLite.create(proj);
 			    final boolean isWebApp = JavaEEProjectUtilities.isDynamicWebProject(proj);
-				final Map referencedRawEntries = ClasspathDependencyUtil.getRawComponentClasspathDependencies(javaProject, DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY); 				
-				final List potentialRawEntries = ClasspathDependencyUtil.getPotentialComponentClasspathDependencies(javaProject);
+				final Map referencedRawEntries = ClasspathDependencyUtil.getRawComponentClasspathDependencies(javaProjectLite, DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY); 				
+				final List potentialRawEntries = ClasspathDependencyUtil.getPotentialComponentClasspathDependencies(javaProjectLite);
 				final IVirtualComponent component = ComponentCore.createComponent(proj);				
 				final ClasspathDependencyValidatorData data = new ClasspathDependencyValidatorData(proj);
 				
@@ -159,7 +159,7 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 				
 				// validate all resolved entries (only perform this if there are raw referenced entries)
 				if (!referencedRawEntries.isEmpty()) {
-					final Map referencedResolvedEntries = ClasspathDependencyUtil.getComponentClasspathDependencies(javaProject, isWebApp, false);  
+					final Map referencedResolvedEntries = ClasspathDependencyUtil.getComponentClasspathDependencies(javaProjectLite, isWebApp, false);  
 					i = referencedResolvedEntries.keySet().iterator();
 					while (i.hasNext()) {
 						final IClasspathEntry entry = (IClasspathEntry) i.next();

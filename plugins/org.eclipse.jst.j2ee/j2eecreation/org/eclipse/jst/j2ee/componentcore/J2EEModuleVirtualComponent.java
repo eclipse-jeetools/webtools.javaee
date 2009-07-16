@@ -26,8 +26,8 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathAttribute;
 import org.eclipse.jdt.core.IClasspathEntry;
-import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jst.common.jdt.internal.javalite.IJavaProjectLite;
+import org.eclipse.jst.common.jdt.internal.javalite.JavaCoreLite;
 import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestImpl;
@@ -184,20 +184,20 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 		}
 		final IProject project = getProject();
 		final List cpRefs = new ArrayList();
-		final boolean isWebApp = J2EEProjectUtilities.isDynamicWebComponent(this);
+		final boolean isWebApp = JavaEEProjectUtilities.isDynamicWebComponent(this);
 		
 		try {
-			if (project == null || !project.isAccessible() || !project.hasNature(JavaCore.NATURE_ID)) { 
+			if (project == null || !project.isAccessible() || !project.hasNature(JavaCoreLite.NATURE_ID)) { 
 				return new IVirtualReference[0];
 			}
 
-			final IJavaProject javaProject = JavaCore.create(project);
-			if (javaProject == null) {
+			final IJavaProjectLite javaProjectLite = JavaCoreLite.create(project);
+			if (javaProjectLite == null) {
 				return new IVirtualReference[0];
 			}
 
 			// retrieve all referenced classpath entries
-			final Map referencedEntries = ClasspathDependencyUtil.getComponentClasspathDependencies(javaProject, isWebApp);
+			final Map referencedEntries = ClasspathDependencyUtil.getComponentClasspathDependencies(javaProjectLite, isWebApp);
 
 			if (referencedEntries.isEmpty()) {
 				return new IVirtualReference[0];
