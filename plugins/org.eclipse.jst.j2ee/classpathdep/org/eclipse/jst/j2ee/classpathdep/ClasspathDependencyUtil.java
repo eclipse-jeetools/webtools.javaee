@@ -66,7 +66,8 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 	 * @return
 	 * @throws CoreException
 	 */
-	public static Map getRawComponentClasspathDependencies(final IJavaProject javaProject) throws CoreException {
+	@Deprecated
+	public static Map <IClasspathEntry, IClasspathAttribute> getRawComponentClasspathDependencies(final IJavaProject javaProject) throws CoreException {
 		return getRawComponentClasspathDependencies(javaProject, DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY);
 	}
 	
@@ -77,7 +78,8 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 	 * @return
 	 * @throws CoreException
 	 */
-	public static Map getRawComponentClasspathDependencies(final IJavaProject javaProject, DependencyAttributeType attributeType) throws CoreException {
+	@Deprecated
+	public static Map <IClasspathEntry, IClasspathAttribute> getRawComponentClasspathDependencies(final IJavaProject javaProject, DependencyAttributeType attributeType) throws CoreException {
 		return getRawComponentClasspathDependencies(JavaCoreLite.create(javaProject), attributeType);
 	}
 	/**
@@ -90,14 +92,13 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 	 * @return IClasspathEntries with the special component dependency attribute.
 	 * @throws CoreException Thrown if an error is encountered accessing the unresolved classpath.
 	 */
-	public static Map getRawComponentClasspathDependencies(final IJavaProjectLite javaProjectLite, DependencyAttributeType attributeType) throws CoreException {
+	public static Map <IClasspathEntry, IClasspathAttribute> getRawComponentClasspathDependencies(final IJavaProjectLite javaProjectLite, DependencyAttributeType attributeType) throws CoreException {
 		if (javaProjectLite == null || !ClasspathDependencyEnablement.isAllowClasspathComponentDependency()) {
-			return Collections.EMPTY_MAP;
+			return Collections.emptyMap();
 		}
-		final Map referencedRawEntries = new HashMap();
+		final Map<IClasspathEntry, IClasspathAttribute> referencedRawEntries = new HashMap<IClasspathEntry, IClasspathAttribute>();
 		final IClasspathEntry[] entries = javaProjectLite.readRawClasspath();
-        for (int i = 0; i < entries.length; i++) {
-            final IClasspathEntry entry = entries[i];
+        for (IClasspathEntry entry : entries) {
             final IClasspathAttribute attrib = checkForComponentDependencyAttribute(entry, attributeType);
             if (attrib != null) {
             	referencedRawEntries.put(entry, attrib);
@@ -112,7 +113,8 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 	 * @return
 	 * @throws CoreException
 	 */
-	public static List getPotentialComponentClasspathDependencies(final IJavaProject javaProject) throws CoreException {
+	@Deprecated
+	public static List <IClasspathEntry> getPotentialComponentClasspathDependencies(final IJavaProject javaProject) throws CoreException {
 		return getPotentialComponentClasspathDependencies(JavaCoreLite.create(javaProject));
 	}
 	
@@ -126,11 +128,11 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 	 * @return List of raw IClasspathEntries for potential classpath component dependencies.
 	 * @throws CoreException Thrown if an error is encountered. 
 	 */
-	public static List getPotentialComponentClasspathDependencies(final IJavaProjectLite javaProjectLite) throws CoreException {
-		final List potentialRawEntries = new ArrayList();
+	public static List <IClasspathEntry> getPotentialComponentClasspathDependencies(final IJavaProjectLite javaProjectLite) throws CoreException {
+		final List <IClasspathEntry> potentialRawEntries = new ArrayList<IClasspathEntry>();
 
 		if (javaProjectLite == null || !javaProjectLite.getProject().isAccessible() || !ClasspathDependencyEnablement.isAllowClasspathComponentDependency()) {
-			return Collections.EMPTY_LIST;
+			return Collections.emptyList();
 		}
 		final IProject project = javaProjectLite.getProject();
 		final boolean isWebApp = JavaEEProjectUtilities.isDynamicWebProject(project);
@@ -265,7 +267,7 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 	 * @return Map from IClasspathEntry to IClasspathAttribute for classpath component dependencies.
 	 * @throws CoreException Thrown if an error is encountered accessing the unresolved classpath.
 	 */
-	public static Map getComponentClasspathDependencies(final IJavaProjectLite javaProjectLite, final boolean isWebApp) throws CoreException {
+	public static Map <IClasspathEntry, IClasspathAttribute> getComponentClasspathDependencies(final IJavaProjectLite javaProjectLite, final boolean isWebApp) throws CoreException {
 		return getComponentClasspathDependencies(javaProjectLite, isWebApp, true);
 	}
 
@@ -276,7 +278,8 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 	 * @return
 	 * @throws CoreException
 	 */
-	public static Map getComponentClasspathDependencies(final IJavaProject javaProject, final boolean isWebApp) throws CoreException {
+	@Deprecated
+	public static Map <IClasspathEntry, IClasspathAttribute> getComponentClasspathDependencies(final IJavaProject javaProject, final boolean isWebApp) throws CoreException {
 		return getComponentClasspathDependencies(JavaCoreLite.create(javaProject), isWebApp);
 	}
 
@@ -288,7 +291,8 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 	 * @return
 	 * @throws CoreException
 	 */
-	public static Map getComponentClasspathDependencies(final IJavaProject javaProject, final boolean isWebApp, final boolean onlyValid) throws CoreException {
+	@Deprecated
+	public static Map  <IClasspathEntry, IClasspathAttribute> getComponentClasspathDependencies(final IJavaProject javaProject, final boolean isWebApp, final boolean onlyValid) throws CoreException {
 		return getComponentClasspathDependencies(JavaCoreLite.create(javaProject), isWebApp, onlyValid);
 	}
 
@@ -303,22 +307,22 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 	 * @return Map from IClasspathEntry to IClasspathAttribute for classpath component dependencies.
 	 * @throws CoreException Thrown if an error is encountered accessing the unresolved classpath.
 	 */
-	public static Map getComponentClasspathDependencies(final IJavaProjectLite javaProjectLite, final boolean isWebApp, final boolean onlyValid) throws CoreException {
+	public static Map <IClasspathEntry, IClasspathAttribute> getComponentClasspathDependencies(final IJavaProjectLite javaProjectLite, final boolean isWebApp, final boolean onlyValid) throws CoreException {
 		if(!ClasspathDependencyEnablement.isAllowClasspathComponentDependency()){
-			return Collections.EMPTY_MAP;
+			return Collections.emptyMap();
 		}
 		
 		final ClasspathDependencyValidatorData data = new ClasspathDependencyValidatorData(javaProjectLite.getProject());
 		
 		// get the raw entries
-		final Map referencedRawEntries = getRawComponentClasspathDependencies(javaProjectLite, DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY);
-		final Map validRawEntries = new HashMap();
+		final Map<IClasspathEntry, IClasspathAttribute> referencedRawEntries = getRawComponentClasspathDependencies(javaProjectLite, DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY);
+		final Map<IClasspathEntry, IClasspathAttribute>validRawEntries = new HashMap<IClasspathEntry, IClasspathAttribute>();
 
 		// filter out non-valid referenced raw entries
-		final Iterator i = referencedRawEntries.keySet().iterator();
+		final Iterator<IClasspathEntry> i = referencedRawEntries.keySet().iterator();
 		while (i.hasNext()) {
-			final IClasspathEntry entry = (IClasspathEntry) i.next();
-			final IClasspathAttribute attrib = (IClasspathAttribute) referencedRawEntries.get(entry);
+			final IClasspathEntry entry = i.next();
+			final IClasspathAttribute attrib = referencedRawEntries.get(entry);
 			if (isValid(entry, attrib, isWebApp, javaProjectLite.getProject(), data)) {
 				validRawEntries.put(entry, attrib);
 			}
@@ -326,7 +330,7 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 
 		// if we have no valid raw entries, return empty map
 		if (validRawEntries.isEmpty()) {
-        	return Collections.EMPTY_MAP;
+        	return Collections.emptyMap();
 		}
 
 		// XXX Would like to replace the code below with use of a public JDT API that returns
@@ -341,14 +345,14 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 		IJavaProject javaProject = JavaCore.create(javaProjectLite.getProject());
 		//TODO this call to javaProject needs to be removed.  Need to figure out what exactly this is attempting to do.
 		final IClasspathEntry[] entries = javaProject.getResolvedClasspath(true);
-		final Map pathToResolvedEntry = new HashMap();
+		final Map <IPath, IClasspathEntry> pathToResolvedEntry = new HashMap<IPath, IClasspathEntry>();
 		
 		// store in a map from path to entry
 		for (int j = 0; j < entries.length; j++) {
 			pathToResolvedEntry.put(entries[j].getPath(), entries[j]);
 		}
 
-		final Map referencedEntries = new LinkedHashMap();
+		final Map <IClasspathEntry, IClasspathAttribute> referencedEntries = new LinkedHashMap <IClasspathEntry, IClasspathAttribute>();
 		
 		// grab all IPackageFragmentRoots
 		
@@ -357,18 +361,17 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 		// entry has the publish/export attribute)
 		//TODO this call to javaProject needs to be removed.  Need to figure out what exactly this is attempting to do.
 		final IPackageFragmentRoot[] roots = javaProject.getPackageFragmentRoots();
-		for (int j = 0; j < roots.length; j++) {
-			final IPackageFragmentRoot root = roots[j];
+		for (IPackageFragmentRoot root : roots) {
 			final IClasspathEntry rawEntry = root.getRawClasspathEntry();
 			
 			// is the raw entry valid?
-			IClasspathAttribute attrib = (IClasspathAttribute) validRawEntries.get(rawEntry);
+			IClasspathAttribute attrib = validRawEntries.get(rawEntry);
 			if (attrib == null) {
 				continue;
 			}
 			
 			final IPath pkgFragPath = root.getPath();
-			final IClasspathEntry resolvedEntry = (IClasspathEntry) pathToResolvedEntry.get(pkgFragPath);
+			final IClasspathEntry resolvedEntry = pathToResolvedEntry.get(pkgFragPath);
 			final IClasspathAttribute resolvedAttrib = checkForComponentDependencyAttribute(resolvedEntry);
 			// attribute for the resolved entry must either be unspecified or it must be the
 			// dependency attribute for it to be included
