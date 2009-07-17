@@ -74,9 +74,36 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 	private static Map retries = new Hashtable();
 	
 	private class LastUpdate {
+		private int baseRefCount = 0; // count of references returned directly from a component
 		private int refCount = 0;
 		private boolean[] isBinary = new boolean[refCount];
 		private IPath[] paths = new IPath[refCount];
+		
+		private int baseLibRefCount = 0; // count of references resolved by EAR 5 lib directory
+		
+		private boolean areSame(IVirtualComponent comp, int i){
+			if (comp.isBinary() != isBinary[i]) {
+				return false;
+			} else {
+				IPath path = null;
+				if (comp.isBinary()) {
+					VirtualArchiveComponent archiveComp = (VirtualArchiveComponent) comp;
+					java.io.File diskFile = archiveComp.getUnderlyingDiskFile();
+					if (diskFile.exists())
+						path = new Path(diskFile.getAbsolutePath());
+					else {
+						IFile iFile = archiveComp.getUnderlyingWorkbenchFile();
+						path = iFile.getFullPath();
+					}
+				} else {
+					path = comp.getProject().getFullPath();
+				}
+				if (!path.equals(paths[i])) {
+					return false;
+				}
+			}
+			return true;
+		}
 	}
 
 	private LastUpdate lastUpdate = new LastUpdate();
@@ -93,38 +120,53 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 		}
 		
 		IVirtualReference[] refs = component instanceof J2EEModuleVirtualComponent ? ((J2EEModuleVirtualComponent)component).getReferences(false, true): component.getReferences();
-		IVirtualComponent comp = null;
-
+		
 		// avoid updating the container if references haven't changed
-		if (refs.length == lastUpdate.refCount) {
-			for (int i = 0; i < lastUpdate.refCount; i++) {
+		if (refs.length == lastUpdate.baseRefCount) {
+			for (int i = 0; i < lastUpdate.baseRefCount; i++) {
+				IVirtualComponent comp = null;
 				comp = refs[i].getReferencedComponent();
-				if (comp.isBinary() != lastUpdate.isBinary[i]) {
+				if(!lastUpdate.areSame(comp, i)){
 					return true;
-				} else {
-					IPath path = null;
-					if (comp.isBinary()) {
-						VirtualArchiveComponent archiveComp = (VirtualArchiveComponent) comp;
-						java.io.File diskFile = archiveComp.getUnderlyingDiskFile();
-						if (diskFile.exists())
-							path = new Path(diskFile.getAbsolutePath());
-						else {
-							IFile iFile = archiveComp.getUnderlyingWorkbenchFile();
-							path = iFile.getFullPath();
+				}
+			}
+			List <IVirtualReference> earRefs = getBaseEARLibRefs(component);
+			if(earRefs.size() != lastUpdate.baseLibRefCount){
+				return true;
+			} else {
+				List refsList = new ArrayList();
+				Set refedComps = new HashSet();
+				refedComps.add(component);
+				for(int i = 0; i<refs.length;i++){
+					refsList.add(refs[i]);
+					refedComps.add(refs[i].getReferencedComponent());
+				}
+				int i=lastUpdate.baseRefCount;
+				for(IVirtualReference earRef : earRefs){
+					IVirtualComponent comp = earRef.getReferencedComponent();
+					// check if the referenced component is already visited - avoid cycles in the build path
+					if (!refedComps.contains(comp)) {
+						if(i == lastUpdate.refCount){
+							return true; // found something new and need update
 						}
-					} else {
-						path = comp.getProject().getFullPath();
+						// visit the referenced component
+						refsList.add(earRef);
+						refedComps.add(comp);
+						if(!lastUpdate.areSame(comp, i)){
+							return true;
+						}
+						i++;
 					}
-					if (!path.equals(lastUpdate.paths[i])) {
-						return true;
-					}
+				}
+				if(i!= lastUpdate.refCount){
+					return true; // didn't find them all
 				}
 			}
 			return false;
 		}
 		return true;
 	}
-	
+
 	private void update() {
 		IVirtualComponent component = ComponentCore.createComponent(javaProject.getProject());
 		if (component == null) {
@@ -160,7 +202,8 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 		IVirtualReference ref = null;
 		
 		IVirtualReference[] refs = component instanceof J2EEModuleVirtualComponent ? ((J2EEModuleVirtualComponent)component).getReferences(false, true): component.getReferences();
-
+		lastUpdate.baseRefCount = refs.length;
+		
 		List refsList = new ArrayList();
 		Set refedComps = new HashSet();
 		refedComps.add(component);
@@ -168,40 +211,16 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 			refsList.add(refs[i]);
 			refedComps.add(refs[i].getReferencedComponent());
 		}
-		
-		// check for the references in the lib dirs of the referencing EARs
-		IVirtualComponent[] referencingList = component.getReferencingComponents();
-		for (IVirtualComponent referencingComp : referencingList) {
-			// check if the referencing component is an EAR
-			if (EarUtilities.isEARProject(referencingComp.getProject())) {
-				EARVirtualComponent earComp = (EARVirtualComponent) referencingComp;
-				// retrieve the EAR's library directory 
-				String libDir = getEARLibDir(earComp);
-				// if the EAR version is lower than 5, then the library directory will be null
-				if (libDir != null) {
-					// check if the component itself is not in the library directory of this EAR - avoid cycles in the build patch
-					if (!libDir.equals(earComp.getReference(component.getName()).getRuntimePath().toString())) {
-						// retrieve the referenced components from the EAR
-						IVirtualReference[] earRefs = earComp.getReferences();
-						for (IVirtualReference earRef : earRefs) {
-							// check if the referenced component is in the library directory
-							boolean isInLibDir = libDir.equals(earRef.getRuntimePath().toString());
-							if(!isInLibDir){
-								IPath fullPath = earRef.getRuntimePath().append(earRef.getArchiveName());
-								isInLibDir = fullPath.removeLastSegments(1).toString().equals(libDir);
-							}
-							if (isInLibDir) {
-								IVirtualComponent earRefComp = earRef.getReferencedComponent();
-								// check if the referenced component is already visited - avoid cycles in the build path
-								if (!refedComps.contains(earRefComp)) {
-									// visit the referenced component
-									refsList.add(earRef);
-									refedComps.add(earRefComp);
-								}
-							}
-						}
-					}
-				}
+
+		List <IVirtualReference> earLibReferences = getBaseEARLibRefs(component);
+		lastUpdate.baseLibRefCount = earLibReferences.size();
+		for(IVirtualReference earRef : earLibReferences){
+			IVirtualComponent earRefComp = earRef.getReferencedComponent();
+			// check if the referenced component is already visited - avoid cycles in the build path
+			if (!refedComps.contains(earRefComp)) {
+				// visit the referenced component
+				refsList.add(earRef);
+				refedComps.add(earRefComp);
 			}
 		}
 		
@@ -292,6 +311,40 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 				entries[i] = (IClasspathEntry) entriesList.get(i);
 			}
 		}
+	}
+
+	private List<IVirtualReference> getBaseEARLibRefs(IVirtualComponent component) {
+		List <IVirtualReference> libRefs = new ArrayList<IVirtualReference>();
+		// check for the references in the lib dirs of the referencing EARs
+		IVirtualComponent[] referencingList = component.getReferencingComponents();
+		for (IVirtualComponent referencingComp : referencingList) {
+			// check if the referencing component is an EAR
+			if (EarUtilities.isEARProject(referencingComp.getProject())) {
+				EARVirtualComponent earComp = (EARVirtualComponent) referencingComp;
+				// retrieve the EAR's library directory 
+				String libDir = getEARLibDir(earComp);
+				// if the EAR version is lower than 5, then the library directory will be null
+				if (libDir != null) {
+					// check if the component itself is not in the library directory of this EAR - avoid cycles in the build patch
+					if (!libDir.equals(earComp.getReference(component.getName()).getRuntimePath().toString())) {
+						// retrieve the referenced components from the EAR
+						IVirtualReference[] earRefs = earComp.getReferences();
+						for (IVirtualReference earRef : earRefs) {
+							// check if the referenced component is in the library directory
+							boolean isInLibDir = libDir.equals(earRef.getRuntimePath().toString());
+							if(!isInLibDir){
+								IPath fullPath = earRef.getRuntimePath().append(earRef.getArchiveName());
+								isInLibDir = fullPath.removeLastSegments(1).toString().equals(libDir);
+							}
+							if (isInLibDir) {
+								libRefs.add(earRef);
+							}
+						}
+					}
+				}
+			}
+		}
+		return libRefs;
 	}
 
 	public static void install(IPath containerPath, IJavaProject javaProject) {
