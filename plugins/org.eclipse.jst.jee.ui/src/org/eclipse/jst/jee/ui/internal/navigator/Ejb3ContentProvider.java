@@ -63,7 +63,9 @@ public class Ejb3ContentProvider extends JEE5ContentProvider {
 		} else if (aParentElement instanceof MessageDrivenBean) {
 			Object msgBean = new BeanNode((MessageDrivenBean) aParentElement);
 			addActivationConfigProperties((MessageDrivenBean) aParentElement, children);
-			children.add(msgBean);
+			if(((MessageDrivenBean) aParentElement).getEjbClass()!=null){
+			    children.add(msgBean);
+			}
 		} else 
 			if (aParentElement instanceof IAdaptable) {
 				project = (IProject) ((IAdaptable) aParentElement)
@@ -100,8 +102,9 @@ public class Ejb3ContentProvider extends JEE5ContentProvider {
 			children.add(new BeanInterfaceNode(eb, eb.getHome(), BeanInterfaceNode.KINDS.REMOTE_HOME));
 		}
 
-
-		children.add(new BeanNode(eb));
+		if (eb.getEjbClass() != null) {
+			children.add(new BeanNode(eb));
+		}
 
 	}
 
