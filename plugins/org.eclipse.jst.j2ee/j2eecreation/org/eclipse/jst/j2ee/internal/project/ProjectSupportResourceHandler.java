@@ -56,7 +56,7 @@ public class ProjectSupportResourceHandler extends NLS {
 	public static String Names_cannot_contain_whitespace_;
 	public static String Importing_archive;
 	public static String Exporting_archive;
-
+	public static String DYNAMIC_WEB_DISTINCT_SRC_WEBCONTENT_ERROR;
 
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, ProjectSupportResourceHandler.class);
