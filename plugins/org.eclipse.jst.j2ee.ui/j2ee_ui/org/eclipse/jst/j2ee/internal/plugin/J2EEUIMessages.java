@@ -214,6 +214,7 @@ public class J2EEUIMessages extends Messages {
 	public static final String JAVA_EE_PREFERENCE_PAGE_NAME = "JAVA_EE_PREFERENCE_PAGE_NAME"; //$NON-NLS-1$
 	public static final String JAVA_EE_PREFERENCE_PAGE_JET_TEMPLATE = "JAVA_EE_PREFERENCE_PAGE_JET_TEMPLATE"; //$NON-NLS-1$
 	public static final String JAVA_EE_PREFERENCE_PAGE_DYN_TRANSLATION_BTN_NAME = "JAVA_EE_PREFERENCE_PAGE_DYN_TRANSLATION_BTN_NAME"; //$NON-NLS-1$
+	public static final String OPEN_J2EE_RESOURCE_ACTION_0 = "OpenJ2EEResourceAction.0"; //$NON-NLS-1$
 	/**
 	 * Returns the string from the resource bundle, or 'key' if not found.
 	 */

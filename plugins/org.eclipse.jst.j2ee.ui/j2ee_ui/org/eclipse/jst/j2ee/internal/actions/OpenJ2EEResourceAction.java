@@ -88,7 +88,7 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 	 * Create an instance of this class
 	 */
 	public OpenJ2EEResourceAction() {
-		super("Open"); //$NON-NLS-1$
+		super(J2EEUIMessages.getResourceString(J2EEUIMessages.OPEN_J2EE_RESOURCE_ACTION_0));
 	}
 
 	/**
