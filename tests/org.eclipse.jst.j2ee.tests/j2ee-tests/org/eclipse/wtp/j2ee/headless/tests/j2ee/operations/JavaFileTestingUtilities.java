@@ -10,17 +10,19 @@ import java.util.Map;
 
 import junit.framework.Assert;
 
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.jdt.core.IPackageFragmentRoot;
+import org.eclipse.jst.common.jdt.internal.javalite.JavaLiteUtilities;
 import org.eclipse.jst.j2ee.internal.archive.JavaEEArchiveUtilities;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.jst.jee.archive.IArchiveResource;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
@@ -68,13 +70,9 @@ public class JavaFileTestingUtilities {
 		IProject proj = J2EEProjectUtilities.getProject(projectName);
 		
 		//for web projects the default src directory is not in the root folder
-		IPackageFragmentRoot[] fragmentSrcRoots = J2EEProjectUtilities.getSourceContainers(proj);
-		IPackageFragmentRoot fragmentSrcRoot = fragmentSrcRoots[0];
-		Assert.assertNotNull("Project should have at least one source root", fragmentSrcRoot);
-		IPath srcRootProjectRelitivePath = fragmentSrcRoot.getPath().removeFirstSegments(1);
-		
-		IFolder srcFolder = proj.getFolder(srcRootProjectRelitivePath);
-		
+		List <IContainer> sourceContainers = JavaLiteUtilities.getJavaSourceContainers(ComponentCore.createComponent(proj));
+		Assert.assertTrue("Project should have at least one source root", sourceContainers.size() > 0);
+		IFolder srcFolder = (IFolder)sourceContainers.get(0);
 		addJavaFilesToSrcFolder(srcFolder, classNames, prackageName, null);
 	}
 	
