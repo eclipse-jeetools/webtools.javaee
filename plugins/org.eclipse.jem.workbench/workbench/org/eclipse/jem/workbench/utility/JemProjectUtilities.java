@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jem.workbench.utility;
 /*
- * $RCSfile: JemProjectUtilities.java,v $ $Revision: 1.12 $ $Date: 2008/07/17 16:39:25 $
+ * $RCSfile: JemProjectUtilities.java,v $ $Revision: 1.13 $ $Date: 2009/07/22 16:46:29 $
  */
 
 import java.net.URL;
@@ -237,7 +237,7 @@ public class JemProjectUtilities extends ProjectUtilities {
 				return null;
 			if (!javaProj.isOpen())
 				javaProj.open(null);
-			return javaProj.getOutputLocation();
+			return javaProj.readOutputLocation();
 		} catch (JavaModelException e) {
 			return null;
 		}
@@ -508,11 +508,7 @@ public class JemProjectUtilities extends ProjectUtilities {
 		if (javaProj == null)
 			return false;
 		IClasspathEntry[] entries = null;
-		try {
-			entries = javaProj.getRawClasspath();
-		} catch (JavaModelException jme) {
-			return false;
-		}
+		entries = javaProj.readRawClasspath();
 		for (int i = 0; i < entries.length; i++) {
 			IClasspathEntry entry = entries[i];
 			if (entry.getEntryKind() == IClasspathEntry.CPE_SOURCE)
@@ -676,19 +672,15 @@ public class JemProjectUtilities extends ProjectUtilities {
 			return null;
 		IPath projectPath = proj.getFullPath();
 		List result = new ArrayList();
-		try {
-			IClasspathEntry[] entries = javaProj.getRawClasspath();
-			for (int i = 0; i < entries.length; i++) {
-				IClasspathEntry entry = entries[i];
-				if (entry.getEntryKind() == IClasspathEntry.CPE_LIBRARY) {
-					IPath path = entry.getPath();
-					int segments = path.matchingFirstSegments(projectPath);
-					if (segments > 0)
-						result.add(path.removeFirstSegments(segments));
-				}
+		IClasspathEntry[] entries = javaProj.readRawClasspath();
+		for (int i = 0; i < entries.length; i++) {
+			IClasspathEntry entry = entries[i];
+			if (entry.getEntryKind() == IClasspathEntry.CPE_LIBRARY) {
+				IPath path = entry.getPath();
+				int segments = path.matchingFirstSegments(projectPath);
+				if (segments > 0)
+					result.add(path.removeFirstSegments(segments));
 			}
-		} catch (JavaModelException e) {
-			JEMUtilPlugin.getLogger().logError(e);
 		}
 		return result;
 	}

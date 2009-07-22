@@ -45,6 +45,9 @@ import org.eclipse.jem.java.JavaRefFactory;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.emf.workbench.WorkbenchByteArrayOutputStream;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
+import org.eclipse.jst.common.jdt.internal.javalite.IJavaProjectLite;
+import org.eclipse.jst.common.jdt.internal.javalite.JavaCoreLite;
+import org.eclipse.jst.common.jdt.internal.javalite.JavaLiteUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
@@ -838,10 +841,9 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 	}
 
 	/**
-	 * Retrieve all the source containers for a given virtual workbench component
-	 * 
-	 * @param vc
-	 * @return the array of IPackageFragmentRoots
+	 * @deprecated use {@link JavaLiteUtilities#getJavaSourceContainers(IVirtualComponent)}
+	 * @param project
+	 * @return
 	 */
 	public static IPackageFragmentRoot[] getSourceContainers(IProject project) {
 		IJavaProject jProject = JemProjectUtilities.getJavaProject(project);
@@ -875,89 +877,41 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 	}
 	
 	/**
-	 * Retrieves the IContainers for all Java output folders that correspond to src folders that are mapped to the
-	 * virtual component tree via the component file.
-	 * 
-	 * @param vc
-	 * @return array of IContainers for the output folders
+	 * @deprecated use {@link JavaLiteUtilities#getJavaOutputContainers(IVirtualComponent)} 
+	 * @param project
+	 * @return
 	 */
 	public static IContainer[] getOutputContainers(IProject project) {
-		List result = new ArrayList();
-		try {
-			if (!project.hasNature(JavaCore.NATURE_ID))
-				return new IContainer[] {};
-		} catch (Exception e) {
-		}
-		IPackageFragmentRoot[] sourceContainers = getSourceContainers(project);
-		for (int i = 0; i < sourceContainers.length; i++) {
-			IContainer outputFolder = getOutputContainer(project, sourceContainers[i]);
-			if (outputFolder != null && !result.contains(outputFolder))
-				result.add(outputFolder);
-		}
-		return (IContainer[]) result.toArray(new IContainer[result.size()]);
+		IVirtualComponent virtualComponent = ComponentCore.createComponent(project);
+		List <IContainer> containers = JavaLiteUtilities.getJavaOutputContainers(virtualComponent);
+		return (IContainer[])containers.toArray();
 	}
 
+	/**
+	 * @deprecated use {@link JavaLiteUtilities#getJavaOutputContainer(IJavaProjectLite, IClasspathEntry)} 
+	 * 
+	 * {@link #getJavaOutputContainer(IJavaProjectLite, IClasspathEntry)}
+	 * @param project
+	 * @param sourceContainer
+	 * @return
+	 */
 	public static IContainer getOutputContainer(IProject project, IPackageFragmentRoot sourceContainer) {
 		try {
-			IJavaProject jProject = JavaCore.create(project);
-			IPath outputPath = sourceContainer.getRawClasspathEntry().getOutputLocation();
-			if (outputPath == null) {
-				if (jProject.getOutputLocation().segmentCount() == 1)
-					return project;
-				return project.getFolder(jProject.getOutputLocation().removeFirstSegments(1));
-			}
-			return project.getFolder(outputPath.removeFirstSegments(1));
-		} catch (Exception e) {
+			return JavaLiteUtilities.getJavaOutputContainer(JavaCoreLite.create(project), sourceContainer.getRawClasspathEntry());
+		} catch (JavaModelException e) {
+			org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
 		}
 		return null;
 	}
 
 	/**
-	 * Retrieve all Java output containers mapped into the virtual resource tree via the component file. Includes both directly
-	 * mapped class folders and the class folders associated with mapped source folders.
-	 * 
-	 * @param vc
-	 * @return the array of IPackageFragmentRoots
+	 * @deprecated use {@link JavaLiteUtilities#getJavaOutputContainers(IVirtualComponent)}
+	 * @param project
+	 * @return
 	 */
 	public static IContainer[] getAllOutputContainers(IProject project) {
-		IJavaProject jProject = JemProjectUtilities.getJavaProject(project);
-		if (jProject == null)
-			return new IContainer[0];
-		List list = new ArrayList();
-		IContainer[] srcOutputContainers = getOutputContainers(project);
-		for (int i = 0; i < srcOutputContainers.length; i++) {
-			list.add(srcOutputContainers[i]);
-		}
-		IVirtualComponent vc = ComponentCore.createComponent(project);
-		IPackageFragmentRoot[] roots;
-		try {
-			roots = jProject.getPackageFragmentRoots();
-			for (int i = 0; i < roots.length; i++) {
-				if (roots[i].getKind() != IPackageFragmentRoot.K_BINARY)
-					continue;
-				IResource resource = roots[i].getResource();
-				if (null != resource) {
-					IVirtualResource[] vResources = ComponentCore.createResources(resource);
-					boolean found = false;
-					for (int j = 0; !found && j < vResources.length; j++) {
-						if (vResources[j].getComponent().equals(vc)) {
-							if (resource instanceof IContainer) {
-								IContainer outputContainer = (IContainer) resource;
-								if (!list.contains(outputContainer)) {
-									list.add(outputContainer);
-									found = true;
-								}
-							}
-						}
-					}
-				}
-			}
-		} catch (JavaModelException e) {
-			J2EEPlugin.logError(e);
-		}
-		return (IContainer[]) list.toArray(new IContainer[list.size()]);
+		return getOutputContainers(project);
 	}
-
 	
 	/**
 	 * 

@@ -30,11 +30,11 @@ import org.eclipse.jdt.core.IClasspathAttribute;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jst.common.jdt.internal.javalite.IJavaProjectLite;
 import org.eclipse.jst.common.jdt.internal.javalite.JavaCoreLite;
+import org.eclipse.jst.common.jdt.internal.javalite.JavaLiteUtilities;
 import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants.DependencyAttributeType;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
@@ -212,21 +212,29 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 	 *
 	 */
 	public static class ClasspathDependencyValidatorData {
-		private final IProject project;
+		private final IProject _project;
 		// Class folders mapped via the component file (either directly or via src folders)
-		private final IContainer[] mappedClassFolders;
+		private final List <IContainer> javaOutputFolders;
 		
 		public ClasspathDependencyValidatorData(final IProject project) {
-			this.project = project;
-			this.mappedClassFolders = J2EEProjectUtilities.getAllOutputContainers(project);
+			this._project = project;
+			javaOutputFolders = JavaLiteUtilities.getJavaOutputContainers(ComponentCore.createComponent(project));
 		}
 		
 		public IProject getProject() {
-			return project;
+			return _project;
 		}
 		
+		public List <IContainer> getJavaOutputFolders(){
+			return javaOutputFolders;
+		}
+		
+		/**
+		 * @deprecated use {@link #getJavaOutputFolders()}
+		 * @return
+		 */
 		public IContainer[] getMappedClassFolders() {
-			return mappedClassFolders;
+			return (IContainer[])javaOutputFolders.toArray();
 		}
 	}
 	

@@ -15,94 +15,171 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.IClasspathEntry;
+import org.eclipse.jst.common.frameworks.CommonFrameworksPlugin;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 
 public final class JavaLiteUtilities {
 
-	public final static List<IContainer> getAllJavaSourceContainers(final IJavaProjectLite javaProject) {
-		IClasspathEntry[] entries = javaProject.readRawClasspath();
-		List<IContainer> sourceContainers = new ArrayList<IContainer>();
+	/**
+	 * Returns the Java source (i.e. where the .java files are) IContainers for
+	 * the specified IJavaProjectLite
+	 * 
+	 * @param javaProjectLite
+	 * @return
+	 */
+	public final static List<IContainer> getJavaSourceContainers(final IJavaProjectLite javaProjectLite) {
+		IClasspathEntry[] entries = javaProjectLite.readRawClasspath();
+		List<IContainer> containers = new ArrayList<IContainer>();
 		for (IClasspathEntry entry : entries) {
 			if (entry.getEntryKind() == IClasspathEntry.CPE_SOURCE) {
-				IContainer container = javaProject.getProject().getFolder(entry.getPath());
-				sourceContainers.add(container);
+				IContainer container = javaProjectLite.getProject().getFolder(entry.getPath());
+				containers.add(container);
 			}
 		}
-		return sourceContainers;
+		return containers;
 	}
 
-	public final static List<IContainer> getJavaSourceContainers(final IVirtualComponent component) {
-		if (!component.isBinary()) {
-			IJavaProjectLite javaProject = JavaCoreLite.create(component.getProject());
-			if (javaProject != null) {
-				List<IContainer> allSourceContainers = getAllJavaSourceContainers(javaProject);
-				List<IContainer> componentSourceContainers = new ArrayList<IContainer>();
-				for (IContainer sourceContainer : allSourceContainers) {
-					IVirtualResource[] virtualResources = ComponentCore.createResources(sourceContainer);
-					for (IVirtualResource virtualResource : virtualResources) {
-						if (virtualResource.getComponent().equals(component)) {
-							componentSourceContainers.add(sourceContainer);
-							break;
-						}
-					}
+	/**
+	 * Returns the Java source (i.e. where the compiled .class files are) IContainers for
+	 * the specified IJavaProjectLite
+	 * 
+	 * @param javaProjectLite
+	 * @return
+	 */
+	public final static List<IContainer> getJavaOutputContainers(final IJavaProjectLite javaProjectLite) {
+		List<IContainer> containers = new ArrayList<IContainer>();
+		IContainer defaultOutputContainer = getDefaultJavaOutputContainer(javaProjectLite);
+		containers.add(defaultOutputContainer);
+		IClasspathEntry[] entries = javaProjectLite.readRawClasspath();
+		for (IClasspathEntry entry : entries) {
+			if (entry.getEntryKind() == IClasspathEntry.CPE_SOURCE) {
+				IContainer outputContainer = getJavaOutputContainer(javaProjectLite, entry);
+				if (!containers.contains(outputContainer)) {
+					containers.add(outputContainer);
 				}
 			}
 		}
-		return Collections.emptyList();
+		return containers;
 	}
 
-	public final static List<IContainer> getOutputContainers(final IVirtualComponent component, int kind) {
-		if (!component.isBinary()) {
-			IJavaProjectLite javaProject = JavaCoreLite.create(component.getProject());
-			if (javaProject != null) {
-				IClasspathEntry[] entries;
-				entries = javaProject.readRawClasspath();
-				List<IContainer> componentOutputContainers = new ArrayList<IContainer>();
-				for (IClasspathEntry entry : entries) {
-					IContainer container = null;
-					if (entry.getEntryKind() == IClasspathEntry.CPE_SOURCE
-							&& (kind & IClasspathEntry.CPE_SOURCE) == IClasspathEntry.CPE_SOURCE) {
-						container = javaProject.getProject().getFolder(entry.getPath());
-					} else if (entry.getEntryKind() == IClasspathEntry.CPE_LIBRARY
-							&& (kind & IClasspathEntry.CPE_LIBRARY) == IClasspathEntry.CPE_LIBRARY) {
-						container = javaProject.getProject().getFolder(entry.getPath());
-						if (!container.exists()) {
-							container = null;
-						}
-					}
-					if (container != null) {
-						IVirtualResource[] virtualResources = ComponentCore.createResources(container);
-						for (IVirtualResource virtualResource : virtualResources) {
-							if (virtualResource.getComponent().equals(component)) {
-								IPath outputPath = entry.getOutputLocation();
-								IContainer outputContainer = null;
-								if (outputPath == null) {
-									if (javaProject.readOutputLocation().segmentCount() == 1) {
-										outputContainer = javaProject.getProject();
-									} else {
-										outputContainer = javaProject.getProject().getFolder(
-												javaProject.readOutputLocation().removeFirstSegments(1));
-									}
-								} else {
-									outputContainer = javaProject.getProject().getFolder(
-											outputPath.removeFirstSegments(1));
+	private static enum JavaContainerType {
+		SOURCE, OUTPUT
+	}
+
+	/**
+	 * Returns all Java output (i.e. where the compiled .class files are)
+	 * IContainers whose source is explicitly mapped by the specified component.
+	 * 
+	 * @param virtualComponent
+	 * @return
+	 */
+	public static List<IContainer> getJavaOutputContainers(IVirtualComponent virtualComponent) {
+		return getJavaContainers(virtualComponent, JavaContainerType.OUTPUT);
+	}
+
+	/**
+	 * Returns all Java source (i.e. where the .java files are) IContainers
+	 * explicitly mapped by the specified component.
+	 * 
+	 * @param virtualComponent
+	 * @return
+	 */
+	public static List<IContainer> getJavaSourceContainers(IVirtualComponent virtualComponent) {
+		return getJavaContainers(virtualComponent, JavaContainerType.SOURCE);
+	}
+
+	private static List<IContainer> getJavaContainers(IVirtualComponent virtualComponent, JavaContainerType javaContainerType) {
+		if (virtualComponent.isBinary()) {
+			return Collections.emptyList();
+		}
+		IProject project = virtualComponent.getProject();
+		try {
+			if (!project.hasNature(JavaCoreLite.NATURE_ID)) {
+				return Collections.emptyList();
+			}
+		} catch (CoreException e) {
+			CommonFrameworksPlugin.logError(e);
+			return Collections.emptyList();
+		}
+
+		IJavaProjectLite javaProjectLite = JavaCoreLite.create(project);
+		List<IContainer> containers = new ArrayList<IContainer>();
+		if (javaContainerType == JavaContainerType.OUTPUT) {
+			IContainer defaultOutputContainer = getDefaultJavaOutputContainer(javaProjectLite);
+			IVirtualResource[] virtualResources = ComponentCore.createResources(defaultOutputContainer);
+			for (IVirtualResource virtualResource : virtualResources) {
+				if (virtualResource.getComponent().equals(virtualComponent)) {
+					containers.add(defaultOutputContainer);
+					break;
+				}
+			}
+		}
+		IClasspathEntry[] entries = javaProjectLite.readRawClasspath();
+		for (IClasspathEntry entry : entries) {
+			if (entry.getEntryKind() == IClasspathEntry.CPE_SOURCE) {
+				IPath sourcePath = entry.getPath();
+				IContainer sourceContainer = project.getFolder(sourcePath);
+				if (sourceContainer != null) {
+					IVirtualResource[] virtualResources = ComponentCore.createResources(sourceContainer);
+					for (IVirtualResource virtualResource : virtualResources) {
+						if (virtualResource.getComponent().equals(virtualComponent)) {
+							switch (javaContainerType) {
+							case SOURCE:
+								if (!containers.contains(sourceContainer)) {
+									containers.add(sourceContainer);
 								}
-								if (!componentOutputContainers.contains(outputContainer)) {
-									componentOutputContainers.add(outputContainer);
+								break;
+							case OUTPUT:
+								IContainer outputContainer = getJavaOutputContainer(javaProjectLite, entry);
+								if (!containers.contains(outputContainer)) {
+									containers.add(outputContainer);
 								}
 								break;
 							}
 						}
 					}
 				}
-				return componentOutputContainers;
 			}
 		}
-		return Collections.emptyList();
+		return containers;
 	}
 
+	/**
+	 * Returns the default Java output IContainer (i.e. where the compiled
+	 * .class files go)
+	 * 
+	 * @param javaProjectLite
+	 * @return
+	 */
+	public static IContainer getDefaultJavaOutputContainer(IJavaProjectLite javaProjectLite) {
+		IProject project = javaProjectLite.getProject();
+		IPath defaultOutputPath = javaProjectLite.readOutputLocation();
+		if (defaultOutputPath.segmentCount() == 1) {
+			return project;
+		}
+		return project.getFolder(defaultOutputPath.removeFirstSegments(1));
+	}
+
+	/**
+	 * Returns the Java output (i.e. where the compiled .class files go)
+	 * IContainer for the specified IClasspathEntry
+	 * 
+	 * @param javaProjectLite
+	 * @param entry
+	 * @return
+	 */
+	public static IContainer getJavaOutputContainer(IJavaProjectLite javaProjectLite, IClasspathEntry entry) {
+		IProject project = javaProjectLite.getProject();
+		IPath outputPath = entry.getOutputLocation();
+		if (outputPath != null) {
+			return project.getFolder(outputPath.removeFirstSegments(1));
+		}
+		return getDefaultJavaOutputContainer(javaProjectLite);
+	}
 }
