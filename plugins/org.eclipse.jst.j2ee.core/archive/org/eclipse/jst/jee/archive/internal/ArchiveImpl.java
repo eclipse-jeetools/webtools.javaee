@@ -145,6 +145,16 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 			IArchiveFactory.INSTANCE.closeArchive(nestedArchive);
 		}
 		loadAdapter.close();
+		dispose();
+	}
+
+	@Override
+	protected void dispose() {
+		super.dispose();
+		archiveFileIndex = null;
+		loadAdapter = null;
+		archiveFactory = null;
+		archiveOptions = null;
 	}
 
 	public IArchiveResource getArchiveResource(IPath archiveRelativePath) throws FileNotFoundException {

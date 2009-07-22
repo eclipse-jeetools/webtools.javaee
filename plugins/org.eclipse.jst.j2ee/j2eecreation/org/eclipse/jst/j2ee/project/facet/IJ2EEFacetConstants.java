@@ -19,28 +19,28 @@ public interface IJ2EEFacetConstants {
 
 	//moduleTypes
 	public static final String ENTERPRISE_APPLICATION = IModuleConstants.JST_EAR_MODULE;
-	public static final IProjectFacet ENTERPRISE_APPLICATION_FACET = ProjectFacetsManager.getProjectFacet(ENTERPRISE_APPLICATION);
+	public IProjectFacet ENTERPRISE_APPLICATION_FACET = ProjectFacetsManager.getProjectFacet(ENTERPRISE_APPLICATION);
 	public static final IProjectFacetVersion ENTERPRISE_APPLICATION_12 = ENTERPRISE_APPLICATION_FACET.getVersion("1.2"); //$NON-NLS-1$
 	public static final IProjectFacetVersion ENTERPRISE_APPLICATION_13 = ENTERPRISE_APPLICATION_FACET.getVersion("1.3"); //$NON-NLS-1$
 	public static final IProjectFacetVersion ENTERPRISE_APPLICATION_14 = ENTERPRISE_APPLICATION_FACET.getVersion("1.4"); //$NON-NLS-1$
 	public static final IProjectFacetVersion ENTERPRISE_APPLICATION_50 = ENTERPRISE_APPLICATION_FACET.getVersion("5.0"); //$NON-NLS-1$
 	
 	public static final String APPLICATION_CLIENT = IModuleConstants.JST_APPCLIENT_MODULE;
-	public static final IProjectFacet APPLICATION_CLIENT_FACET = ProjectFacetsManager.getProjectFacet(APPLICATION_CLIENT);
+	public IProjectFacet APPLICATION_CLIENT_FACET = ProjectFacetsManager.getProjectFacet(APPLICATION_CLIENT);
 	public static final IProjectFacetVersion APPLICATION_CLIENT_12 = APPLICATION_CLIENT_FACET.getVersion("1.2"); //$NON-NLS-1$
 	public static final IProjectFacetVersion APPLICATION_CLIENT_13 = APPLICATION_CLIENT_FACET.getVersion("1.3"); //$NON-NLS-1$
 	public static final IProjectFacetVersion APPLICATION_CLIENT_14 = APPLICATION_CLIENT_FACET.getVersion("1.4"); //$NON-NLS-1$
 	public static final IProjectFacetVersion APPLICATION_CLIENT_50 = APPLICATION_CLIENT_FACET.getVersion("5.0"); //$NON-NLS-1$
 	
 	public static final String EJB = IModuleConstants.JST_EJB_MODULE;
-	public static final IProjectFacet EJB_FACET = ProjectFacetsManager.getProjectFacet(EJB);
+	public IProjectFacet EJB_FACET = ProjectFacetsManager.getProjectFacet(EJB);
 	public static final IProjectFacetVersion EJB_11 = EJB_FACET.getVersion("1.1"); //$NON-NLS-1$
 	public static final IProjectFacetVersion EJB_20 = EJB_FACET.getVersion("2.0"); //$NON-NLS-1$
 	public static final IProjectFacetVersion EJB_21 = EJB_FACET.getVersion("2.1"); //$NON-NLS-1$
 	public static final IProjectFacetVersion EJB_30 = EJB_FACET.getVersion("3.0"); //$NON-NLS-1$
 
 	public static final String DYNAMIC_WEB = IModuleConstants.JST_WEB_MODULE;
-	public static final IProjectFacet DYNAMIC_WEB_FACET = ProjectFacetsManager.getProjectFacet(DYNAMIC_WEB);
+	public IProjectFacet DYNAMIC_WEB_FACET = ProjectFacetsManager.getProjectFacet(DYNAMIC_WEB);
 	public static final IProjectFacetVersion DYNAMIC_WEB_22 = DYNAMIC_WEB_FACET.getVersion("2.2"); //$NON-NLS-1$
 	public static final IProjectFacetVersion DYNAMIC_WEB_23 = DYNAMIC_WEB_FACET.getVersion("2.3"); //$NON-NLS-1$
 	public static final IProjectFacetVersion DYNAMIC_WEB_24 = DYNAMIC_WEB_FACET.getVersion("2.4"); //$NON-NLS-1$
@@ -49,11 +49,11 @@ public interface IJ2EEFacetConstants {
 	public static final String DYNAMIC_WEB_XDOCLET = "jst.web.xdoclet"; //$NON-NLS-1$
 	
 	public static final String UTILITY = IModuleConstants.JST_UTILITY_MODULE;
-	public static final IProjectFacet UTILITY_FACET = ProjectFacetsManager.getProjectFacet(UTILITY);
+	public IProjectFacet UTILITY_FACET = ProjectFacetsManager.getProjectFacet(UTILITY);
 	public static final IProjectFacetVersion UTILITY_FACET_10 = UTILITY_FACET.getVersion("1.0"); //$NON-NLS-1$ 
 
 	public static final String JCA = IModuleConstants.JST_CONNECTOR_MODULE;
-	public static final IProjectFacet JCA_FACET = ProjectFacetsManager.getProjectFacet(JCA);
+	public IProjectFacet JCA_FACET = ProjectFacetsManager.getProjectFacet(JCA);
 	public static final IProjectFacetVersion JCA_10 = JCA_FACET.getVersion("1.0"); //$NON-NLS-1$
 	public static final IProjectFacetVersion JCA_15 = JCA_FACET.getVersion("1.5"); //$NON-NLS-1$
 

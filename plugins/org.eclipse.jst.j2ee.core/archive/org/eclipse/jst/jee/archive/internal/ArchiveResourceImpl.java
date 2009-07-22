@@ -106,4 +106,8 @@ public class ArchiveResourceImpl implements IArchiveResource {
 		return buffer.toString();
 	}
 
+	protected void dispose() {
+		archive = null;
+	}
+
 }

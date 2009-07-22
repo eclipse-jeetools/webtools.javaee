@@ -16,6 +16,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
@@ -269,15 +270,16 @@ public class ArchiveUtil {
 
 			private void closeOpenStreams() {
 				if(openStreams != null){
-					for(InputStream in:openStreams){
+					for (Iterator iterator = openStreams.iterator(); iterator.hasNext();) {
+						InputStream in = (InputStream) iterator.next();
 						try {
 							in.close();
 						} catch (IOException e) {
 							warn(e);
 						}
+						iterator.remove();
 					}
 				}
-				
 			}
 		};
 	}
