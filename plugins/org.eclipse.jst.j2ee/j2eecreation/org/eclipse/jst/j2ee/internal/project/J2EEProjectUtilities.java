@@ -884,7 +884,7 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 	public static IContainer[] getOutputContainers(IProject project) {
 		IVirtualComponent virtualComponent = ComponentCore.createComponent(project);
 		List <IContainer> containers = JavaLiteUtilities.getJavaOutputContainers(virtualComponent);
-		return (IContainer[])containers.toArray();
+		return containers.toArray(new IContainer[containers.size()]);
 	}
 
 	/**

@@ -234,7 +234,7 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 		 * @return
 		 */
 		public IContainer[] getMappedClassFolders() {
-			return (IContainer[])javaOutputFolders.toArray();
+			return javaOutputFolders.toArray(new IContainer[javaOutputFolders.size()]);
 		}
 	}
 	
