@@ -124,7 +124,7 @@ public final class JavaLiteUtilities {
 		for (IClasspathEntry entry : entries) {
 			if (entry.getEntryKind() == IClasspathEntry.CPE_SOURCE) {
 				IPath sourcePath = entry.getPath().removeFirstSegments(1); // remove the project from the path
-				IContainer sourceContainer = project.getFolder(sourcePath);
+				IContainer sourceContainer = sourcePath.segmentCount() == 0 ? project : project.getFolder(sourcePath);
 				if (sourceContainer != null) {
 					IVirtualResource[] virtualResources = ComponentCore.createResources(sourceContainer);
 					for (IVirtualResource virtualResource : virtualResources) {
