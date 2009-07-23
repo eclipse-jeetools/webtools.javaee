@@ -210,20 +210,20 @@ public class EarValidator extends J2EEValidator  {
 	  params[0] = refName;
 	  params[1] = uri;
 	  
-	  if ((eref.getName().trim() == null) || (eref.getName().trim().length() == 0)) {
-		addWarning(EREF_CATEGORY, ERROR_EAR_MISSING_EREFNAME, params);
+	  if ((eref.getName() == null) || (eref.getName().trim() == null) || (eref.getName().trim().length() == 0)) {
+		addError(EREF_CATEGORY, ERROR_EAR_MISSING_EREFNAME, params);
 	  }// if
 	  if (eref.isSetType())
 	    {if(eref.getType() == null ) 
-		  addWarning(EREF_CATEGORY, ERROR_EAR_INVALID_EREFTYPE, params);}
+	    	addError(EREF_CATEGORY, ERROR_EAR_INVALID_EREFTYPE, params);}
 	  else 
-	  	 addWarning(EREF_CATEGORY, ERROR_EAR_MISSING_EREFTYPE, params);
+		  addError(EREF_CATEGORY, ERROR_EAR_MISSING_EREFTYPE, params);
 	  // if
 	  if ((eref.getHome() == null) || (eref.getHome().trim().length() == 0)) {
-		addWarning(EREF_CATEGORY, ERROR_EAR_MISSING_EREFHOME, params);
+		  addError(EREF_CATEGORY, ERROR_EAR_MISSING_EREFHOME, params);
 	  }// if
 	  if ((eref.getRemote() == null) || (eref.getRemote().trim().length() == 0)) {
-		addWarning(EREF_CATEGORY, ERROR_EAR_MISSING_EREFREMOTE, params);
+		  addError(EREF_CATEGORY, ERROR_EAR_MISSING_EREFREMOTE, params);
 	  }
 	 }
 	}
