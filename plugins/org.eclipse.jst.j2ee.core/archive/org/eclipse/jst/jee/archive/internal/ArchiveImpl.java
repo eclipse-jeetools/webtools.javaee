@@ -140,12 +140,14 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 	}
 
 	public void close() {
-		openendBy = null;
-		for (IArchive nestedArchive : getNestedArchives()) {
-			IArchiveFactory.INSTANCE.closeArchive(nestedArchive);
+		if(isOpen()){
+			openendBy = null;
+			for (IArchive nestedArchive : getNestedArchives()) {
+				IArchiveFactory.INSTANCE.closeArchive(nestedArchive);
+			}
+			loadAdapter.close();
+			dispose();
 		}
-		loadAdapter.close();
-		dispose();
 	}
 
 	@Override
