@@ -791,9 +791,12 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 				return false;
 			// If this is not for an EAR, verify it is also a src container
 			if (!isForEAR) {
-				IPath sourcePath = getProject().getFullPath().append(resourceMap.getSourcePath());
-				if (!isSourceContainer(sourcePath))
-					return false;
+				IResource sourceResource = getProject().findMember(resourceMap.getSourcePath());
+				if(sourceResource != null && sourceResource.exists()){
+					IPath sourcePath = getProject().getFullPath().append(resourceMap.getSourcePath());
+					if (!isSourceContainer(sourcePath))
+						return false;
+				}
 			}
 		}
 		return true;
