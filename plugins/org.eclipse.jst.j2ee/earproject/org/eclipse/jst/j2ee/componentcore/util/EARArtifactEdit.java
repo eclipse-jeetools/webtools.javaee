@@ -479,11 +479,14 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 //	}
 	
 	public IVirtualComponent getModuleByManifestURI(final String uri) {
+		if (uri == null)
+			return null;
+		
 		IVirtualComponent earComponent = ComponentCore.createComponent(getProject());
 		IVirtualReference [] refs = earComponent.getReferences();
 
 		for(int i=0;i<refs.length; i++){
-			if(refs[i].getArchiveName().equals(uri)){
+			if(uri.equals(refs[i].getArchiveName())){
 				return refs[i].getReferencedComponent();
 			}
 		}
