@@ -68,9 +68,9 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 	private IJavaProjectLite javaProjectLite;
 	private IClasspathEntry[] entries = new IClasspathEntry[0];
 	private boolean exportEntries = true; //the default behavior is to always export these dependencies
-	private static Map keys = new Hashtable();
+	private static Map<Integer, Integer> keys = new Hashtable<Integer, Integer>();
 	private static int MAX_RETRIES = 10;
-	private static Map retries = new Hashtable();
+	private static Map<Integer, Integer>retries = new Hashtable<Integer, Integer>();
 	
 	private class LastUpdate {
 		private int baseRefCount = 0; // count of references returned directly from a component
@@ -133,8 +133,8 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 			if(earRefs.size() != lastUpdate.baseLibRefCount){
 				return true;
 			} 
-			List refsList = new ArrayList();
-			Set refedComps = new HashSet();
+			List <IVirtualReference> refsList = new ArrayList<IVirtualReference>();
+			Set <IVirtualComponent> refedComps = new HashSet<IVirtualComponent>();
 			refedComps.add(component);
 			for(int i = 0; i<refs.length;i++){
 				refsList.add(refs[i]);
@@ -170,7 +170,7 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 		if (component == null) {
 			return;
 		} 
-		Object key = null;
+		Integer key = null;
 		if(!javaProjectLite.getProject().getFile(StructureEdit.MODULE_META_FILE_NAME).exists()){
 			Integer hashCode = new Integer(javaProjectLite.getProject().hashCode());
 			key = keys.get(hashCode);
@@ -178,7 +178,7 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 				keys.put(hashCode, hashCode);
 				key = hashCode;
 			}
-			Integer retryCount = (Integer)retries.get(key);
+			Integer retryCount = retries.get(key);
 			if(retryCount == null){
 				retryCount = new Integer(1);
 			} else if(retryCount.intValue() > MAX_RETRIES){
@@ -197,8 +197,8 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 		IVirtualReference[] refs = component instanceof J2EEModuleVirtualComponent ? ((J2EEModuleVirtualComponent)component).getReferences(false, true): component.getReferences();
 		lastUpdate.baseRefCount = refs.length;
 		
-		List refsList = new ArrayList();
-		Set refedComps = new HashSet();
+		List<IVirtualReference> refsList = new ArrayList<IVirtualReference>();
+		Set<IVirtualComponent> refedComps = new HashSet<IVirtualComponent>();
 		refedComps.add(component);
 		for(int i = 0; i<refs.length;i++){
 			refsList.add(refs[i]);
@@ -218,7 +218,7 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 		}
 		
 		for(int i=0; i< refsList.size(); i++){
-			comp = ((IVirtualReference)refsList.get(i)).getReferencedComponent();
+			comp = refsList.get(i).getReferencedComponent();
 			if(comp.isBinary()){
 				IVirtualReference [] binaryRefs = comp.getReferences();
 				for(int j = 0; j<binaryRefs.length; j++){
@@ -237,7 +237,7 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 		boolean isWeb = JavaEEProjectUtilities.isDynamicWebProject(component.getProject());
 		boolean shouldAdd = true;
 
-		List entriesList = new ArrayList();
+		List <IClasspathEntry>entriesList = new ArrayList<IClasspathEntry>();
 
 		try {
 			
@@ -257,7 +257,7 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 			}
 			
 			for (int i = 0; i < refsList.size(); i++) {
-				ref = (IVirtualReference)refsList.get(i);
+				ref = refsList.get(i);
 				comp = ref.getReferencedComponent();
 				lastUpdate.isBinary[i] = comp.isBinary();
 				shouldAdd = !(isWeb && ref.getRuntimePath().equals(WEBLIB)); 
@@ -300,7 +300,7 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 		} finally {
 			entries = new IClasspathEntry[entriesList.size()];
 			for (int i = 0; i < entries.length; i++) {
-				entries[i] = (IClasspathEntry) entriesList.get(i);
+				entries[i] = entriesList.get(i);
 			}
 		}
 	}
