@@ -61,6 +61,12 @@ import org.eclipse.wst.common.internal.emf.utilities.ExtendedEcoreUtil;
 import org.eclipse.wst.common.internal.emf.utilities.PasswordEncoderDecoder;
 import org.eclipse.wst.common.internal.emf.utilities.Revisit;
 import org.eclipse.jst.j2ee.core.internal.plugin.J2EECorePlugin;
+import org.eclipse.jst.javaee.applicationclient.ApplicationclientFactory;
+import org.eclipse.jst.javaee.applicationclient.internal.metadata.ApplicationclientPackage;
+import org.eclipse.jst.javaee.core.JavaeeFactory;
+import org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage;
+import org.eclipse.jst.javaee.web.WebFactory;
+import org.eclipse.jst.javaee.web.internal.metadata.WebPackage;
 
 /**
  * Insert the type's description here.
@@ -96,8 +102,10 @@ public class J2EEInit {
 			setDefaultEncoderDecoder();
 			DOMUtilities.setDefaultEntityResolver(J2EEXmlDtDEntityResolver.INSTANCE);
 			org.eclipse.jem.internal.java.init.JavaInit.init(shouldPreRegisterPackages);
-			if (shouldPreRegisterPackages)
+			if (shouldPreRegisterPackages){
 				preRegisterPackages();
+				preregisterJavaEEPackages();
+			}
 			initResourceFactories();
 			EjbFactoryImpl.internalRegisterEJBRelationAdapterFactory(new AdapterFactoryDescriptor() {
 				public AdapterFactory createAdapterFactory() {
@@ -235,6 +243,54 @@ public class J2EEInit {
 			}
 		});	
 		
+	}
+	private static void preregisterJavaEEPackages() {
+		ExtendedEcoreUtil.preRegisterPackage(JavaeePackage.eNS_URI, new EPackage.Descriptor() {
+			public EPackage getEPackage() {
+				return JavaeePackage.eINSTANCE;
+			}
+
+			public EFactory getEFactory() {
+				return JavaeeFactory.eINSTANCE;
+			}
+		});
+		ExtendedEcoreUtil.preRegisterPackage(EjbPackage.eNS_URI, new EPackage.Descriptor() {
+			public EPackage getEPackage() {
+				return EjbPackage.eINSTANCE;
+			}
+
+			public EFactory getEFactory() {
+				return EjbFactory.eINSTANCE;
+			}
+		});
+		ExtendedEcoreUtil.preRegisterPackage(WebPackage.eNS_URI, new EPackage.Descriptor() {
+			public EPackage getEPackage() {
+				return WebPackage.eINSTANCE;
+			}
+
+			public EFactory getEFactory() {
+				return WebFactory.eINSTANCE;
+			}
+		});
+		ExtendedEcoreUtil.preRegisterPackage(ApplicationPackage.eNS_URI, new EPackage.Descriptor() {
+			public EPackage getEPackage() {
+				return ApplicationPackage.eINSTANCE;
+			}
+
+			public EFactory getEFactory() {
+				return ApplicationFactory.eINSTANCE;
+			}
+		});
+		ExtendedEcoreUtil.preRegisterPackage(ApplicationclientPackage.eNS_URI, new EPackage.Descriptor() {
+			public EPackage getEPackage() {
+				return ApplicationclientPackage.eINSTANCE;
+			}
+
+			public EFactory getEFactory() {
+				return ApplicationclientFactory.eINSTANCE;
+			}
+		});
+
 	}
 
 	public static void initResourceFactories() {
