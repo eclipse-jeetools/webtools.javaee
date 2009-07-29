@@ -28,6 +28,7 @@ import org.eclipse.jdt.core.IClasspathAttribute;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jst.common.jdt.internal.javalite.IJavaProjectLite;
 import org.eclipse.jst.common.jdt.internal.javalite.JavaCoreLite;
+import org.eclipse.jst.common.jdt.internal.javalite.JavaLiteUtilities;
 import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestImpl;
@@ -247,7 +248,8 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 					}
 				} else { // check class folders mapped in component file as class folders associated with mapped src folders
 					if (mappedClassFolders == null) {
-						mappedClassFolders = J2EEProjectUtilities.getAllOutputContainers(getProject());
+						List <IContainer> containers = JavaLiteUtilities.getJavaOutputContainers(this);
+						mappedClassFolders = containers.toArray(new IContainer[containers.size()]);
 					}
 					for (int j = 0; j < mappedClassFolders.length; j++) {
 						if (entryLocation.equals(mappedClassFolders[j].getFullPath())) {
