@@ -531,7 +531,8 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 		// retrieve the library directory from the model
 		String libDir = app.getLibraryDirectory();
 		if (libDir == null) {
-			return false;
+			// the library directory is not set - use the default one
+			libDir = J2EEConstants.EAR_DEFAULT_LIB_DIR;
 		}
 		
 		IVirtualFolder libFolder = earComponent.getRootFolder().getFolder(libDir); 
