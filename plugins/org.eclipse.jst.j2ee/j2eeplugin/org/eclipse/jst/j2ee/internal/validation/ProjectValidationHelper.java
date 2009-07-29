@@ -54,6 +54,10 @@ public class ProjectValidationHelper implements IProjectValidationHelper {
 	
 	}
 	public IContainer[] getOutputContainers(IProject project) {
+		ProjectValidationHelper inst = getInstance();
+		if(inst == null){
+			return null;
+		}
 		return getInstance().getCachedOutputContainers(project);
 	}
 	
