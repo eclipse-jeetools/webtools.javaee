@@ -23,6 +23,8 @@ public class RefactoringResourceHandler extends NLS {
 	public static String Remove_JavaEE_References;
 	public static String JavaEE_Refactorings_Participant_title;
 	public static String Delete_EJB_Client_Project;
+
+	public static String CheckStateTester_Could_not_find_Check_State_Tester_E_;
 	
 	private RefactoringResourceHandler() {
 		// Do not instantiate

@@ -22,6 +22,7 @@
    <extension-point id="classpathdep" name="classpathdep" schema="schema/ClasspathDep.exsd"/>
    <extension-point id="J2EEModelProvider" name="J2EE Model Provider" schema="schema/J2EEModelProvider.exsd"/>
    <extension-point id="archiveExportParticipants" name="Archive Export Participants Extension Point" schema="schema/archiveExportParticipants.exsd"/>
+   <extension-point id="RefactoringChecker" name="RefactoringChecker" schema="schema/RefactoringChecker.exsd"/>
 
 <!--============================-->
 <!-- Module Core Nature         -->

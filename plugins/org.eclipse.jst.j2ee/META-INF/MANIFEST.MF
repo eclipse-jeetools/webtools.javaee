@@ -50,7 +50,8 @@ Export-Package: org.eclipse.jst.j2ee.application.internal.operations;x-internal:
  org.eclipse.jst.javaee.ltk.core.change,
  org.eclipse.jst.javaee.ltk.core.descriptor,
  org.eclipse.jst.javaee.ltk.core.nls,
- org.eclipse.jst.javaee.ltk.core.participant
+ org.eclipse.jst.javaee.ltk.core.participant,
+ org.eclipse.jst.javaee.ltk.core.refactoringchecker
 Require-Bundle: org.eclipse.emf.edit;bundle-version="[2.2.0,3.0.0)",
  org.eclipse.jem.workbench;bundle-version="[2.0.0,3.0.0)",
  org.eclipse.jst.j2ee.core;bundle-version="[1.1.0,1.2.0)",

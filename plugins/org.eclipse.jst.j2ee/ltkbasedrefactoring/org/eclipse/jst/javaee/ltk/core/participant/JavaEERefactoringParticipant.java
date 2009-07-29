@@ -11,6 +11,7 @@
 
 package org.eclipse.jst.javaee.ltk.core.participant;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
@@ -23,6 +24,8 @@ import org.eclipse.jst.javaee.ltk.core.change.DeleteEJBClientProjectChange;
 import org.eclipse.jst.javaee.ltk.core.change.EARReferenceRemoveChange;
 import org.eclipse.jst.javaee.ltk.core.change.NonEARModuleReferenceRemoveChange;
 import org.eclipse.jst.javaee.ltk.core.nls.RefactoringResourceHandler;
+import org.eclipse.jst.javaee.ltk.core.refactoringchecker.CheckStateTester;
+import org.eclipse.jst.javaee.ltk.core.refactoringchecker.IRefactoringCheckStateTester;
 import org.eclipse.ltk.core.refactoring.Change;
 import org.eclipse.ltk.core.refactoring.CompositeChange;
 import org.eclipse.ltk.core.refactoring.RefactoringStatus;
@@ -76,14 +79,19 @@ public class JavaEERefactoringParticipant extends DeleteParticipant {
 				IProject dependentProject = dependentProjectList[i];
 				if(JavaEEProjectUtilities.isEARProject(dependentProjectList[i])){
 					EARReferenceRemoveChange ec = new EARReferenceRemoveChange(dependentProject, projectToBeDeleted);
+					if(shouldUncheckDeletion(projectToBeDeleted)){
+						ec.setEnabled(false);	
+					}
 					innerCompositeChange.add(ec);
 				}else{
 					NonEARModuleReferenceRemoveChange nc = new NonEARModuleReferenceRemoveChange(dependentProject, projectToBeDeleted);
+					if(shouldUncheckDeletion(projectToBeDeleted)){
+						nc.setEnabled(false);
+					}
 					innerCompositeChange.add(nc);
 				}
 			}
 		}
-		
 		return innerCompositeChange;
 	}
 	
@@ -118,5 +126,15 @@ public class JavaEERefactoringParticipant extends DeleteParticipant {
 		}
 		return true;
 	}
-
+	
+	protected boolean shouldUncheckDeletion(IProject project){
+		CheckStateTester cst = CheckStateTester.INSTANCE;
+		ArrayList<IRefactoringCheckStateTester> testers = cst.getCheckStateTesters();
+		for(IRefactoringCheckStateTester tester : testers){
+			if(tester.testUncheckState(project) == true){
+				return true;
+			}
+		}
+		return false;
+	}
 }
