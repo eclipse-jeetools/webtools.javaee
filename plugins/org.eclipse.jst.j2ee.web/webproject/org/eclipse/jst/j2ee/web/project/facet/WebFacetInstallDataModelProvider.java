@@ -25,6 +25,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPreferences;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
 import org.eclipse.jst.j2ee.project.facet.J2EEModuleFacetInstallDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.project.facet.ProductManager;
 
@@ -125,7 +126,17 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 		if (name.equals(CONTEXT_ROOT)) {
 			return validateContextRoot(getStringProperty(CONTEXT_ROOT));
 		} else if (name.equals(SOURCE_FOLDER)) {
-			return validateFolderName(getStringProperty(SOURCE_FOLDER));
+			IStatus status =  validateFolderName(getStringProperty(SOURCE_FOLDER));
+			if( status.isOK() ){
+				return validateSourceAndContentFolderUniqueness();
+			}
+			return status;			
+		}else if (name.equals( CONFIG_FOLDER )) {
+			IStatus status = super.validate( CONFIG_FOLDER );
+			if( status.isOK() ){
+				return validateSourceAndContentFolderUniqueness();
+			}
+			return status;
 		}
 		// the superclass validates the content directory which is actually a "CONFIG_FOLDER"
 		return super.validate(name);
@@ -150,4 +161,16 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 			return J2EEPlugin.newErrorStatus(ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.Names_cannot_begin_or_end_with_whitespace_5, new Object[]{contextRoot}), null); 
 		return OK_STATUS;
 	}
+	
+	protected IStatus validateSourceAndContentFolderUniqueness(){
+		String srcFolder = getStringProperty(SOURCE_FOLDER);
+		String contentFolder = getStringProperty( CONFIG_FOLDER );
+		if( srcFolder != null && contentFolder != null){
+			if (srcFolder.equals( contentFolder )){
+				String errorMessage = ProjectSupportResourceHandler.DYNAMIC_WEB_DISTINCT_SRC_WEBCONTENT_ERROR;
+				return WTPCommonPlugin.createErrorStatus(errorMessage);
+			}
+		}
+		return OK_STATUS;
+	}	
 }
