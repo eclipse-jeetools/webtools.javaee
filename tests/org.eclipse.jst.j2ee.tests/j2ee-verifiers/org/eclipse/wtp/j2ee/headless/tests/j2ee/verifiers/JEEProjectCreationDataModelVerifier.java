@@ -96,37 +96,18 @@ public abstract class JEEProjectCreationDataModelVerifier extends DataModelVerif
 	protected void verifyModelProvider() throws Exception {
 		IModelProvider provider = ModelProviderManager.getModelProvider(project);
 		Object modelObj = provider.getModelObject();
-		Object modelObj2 = null;
-		
+		Assert.assertNotNull("Project Deployment Descriptor should not be null", modelObj);
+		this.verifyDD(modelObj);
+        Object modelObj2 = null;
 		IArchive archive = null;
         try{
         	archive = JavaEEArchiveUtilities.INSTANCE.openArchive(component);
-        	
-        	FacetDataModelMap facetMap = (FacetDataModelMap) model.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-            IDataModel facetModel = facetMap.getFacetDataModel(facetProjectType);
-            
-            //NOTE: Check to see if a DataModel should exist removed 7/9/07 because even without DD's all projects should return models
-
-//            boolean hasDD = facetModel.getBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD);
-//            IFile deploymentDescriptorFile = this.getDDFile();
-//            if(hasDD != deploymentDescriptorFile.exists()){
-//            	Assert.fail("Deployment descriptor should exist if project is supposed to have a deployment descriptor");
-//            }
-
-//            if(hasDD) {
-				Assert.assertNotNull("Deployment Descriptor should not be null", modelObj);
-				this.verifyDD(modelObj);
-				
-				System.err.println("TODO -- //modelObj2 = archive.getModelObject();");
+        	modelObj2 = archive.getModelObject();
+        	Assert.assertNotNull("Archive Deployment Descriptor should not be null", modelObj2);
+    		if(modelObj != modelObj2){
+            	System.err.println("TODO -- Project and IArchive Deployment Descriptor should be equal");
             	System.err.println("     -- see https://bugs.eclipse.org/bugs/show_bug.cgi?id=195670");
-            	//modelObj2 = archive.getModelObject();
-//			} else {
-//				Assert.assertNull("Project should not have a Deployment Descriptor", modelObj);
-//			}
-            if(modelObj != modelObj2){
-            	System.err.println("TODO -- Deployment Descriptor should be equal to its self");
-            	System.err.println("     -- see https://bugs.eclipse.org/bugs/show_bug.cgi?id=195670");
-            	//AssertWarn.warnTrue("Deployment Descriptor should be equal to its self", modelObj == modelObj2);
+            	//AssertWarn.warnTrue("Project and IArchive Deployment Descriptor should be equal", modelObj == modelObj2);
             }
         } finally {
         	if(archive != null){
