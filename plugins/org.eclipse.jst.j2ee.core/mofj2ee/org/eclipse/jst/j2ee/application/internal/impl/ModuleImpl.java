@@ -20,13 +20,14 @@ import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
+import org.eclipse.jst.j2ee.internal.ICommonEMFModule;
 import org.eclipse.jst.jee.application.ICommonModule;
 
 /**
  * The module element represents a single J2EE module and contains an ejb, java, or web element, which indicates the module type and contains a path to the module file, and an optional alt-dd element, which specifies an optional URI to the post-assembly version of the deployment descriptor. The application deployment descriptor must have one module element for each J2EE module in the application package.
  * @generated
  */
-public class ModuleImpl extends J2EEEObjectImpl implements Module, ICommonModule {
+public class ModuleImpl extends J2EEEObjectImpl implements Module, ICommonModule, ICommonEMFModule {
 
 	/**
 	 * The default value of the '{@link #getUri() <em>Uri</em>}' attribute.
@@ -308,6 +309,20 @@ public boolean isWebModule() {
 		result.append(altDD);
 		result.append(')');
 		return result.toString();
+	}
+	public void setId(String frag) {
+		// This is a No-op because Id's are automatically set during proxy resolution
+		
+	}
+	/* 
+	 * @see org.eclipse.jst.j2ee.internal.ICommonEMFModule#getId()
+	 * This returns the id based on the containing resource
+	 */
+	public String getId() {
+		if (eResource() != null)
+			return eResource().getURIFragment(this);
+		else
+			return null;
 	}
 
 }
