@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.jst.jee.archive.internal;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
