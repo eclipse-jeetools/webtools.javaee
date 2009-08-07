@@ -38,7 +38,6 @@ public class Ejb3ModelProviderTest extends TestCase {
 
 	public static TestSuite suite() throws Exception {
 		TestSuite suite = new TestSuite(Ejb3ModelProviderTest.class);
-		setUpProject();
 		return suite;
 	}
 
@@ -74,5 +73,11 @@ public class Ejb3ModelProviderTest extends TestCase {
 		Collection<IModelProviderEvent> events = listener.getReceivedEvents();
 		assertEquals(1, events.size());
 		modelProvider.removeListener(listener);
+	}
+
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+		setUpProject();
 	}
 }

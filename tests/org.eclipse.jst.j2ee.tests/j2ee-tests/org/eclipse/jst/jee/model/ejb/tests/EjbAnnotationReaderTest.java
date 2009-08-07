@@ -7,7 +7,7 @@
  * it only in accordance with the terms of the license agreement you entered
  * into with SAP.
  * 
- * $Id: EjbAnnotationReaderTest.java,v 1.5 2008/10/07 18:01:48 kmitov Exp $
+ * $Id: EjbAnnotationReaderTest.java,v 1.6 2009/08/07 19:43:09 canderson Exp $
  ***********************************************************************/
 package org.eclipse.jst.jee.model.ejb.tests;
 
@@ -56,7 +56,6 @@ public class EjbAnnotationReaderTest extends AbstractAnnotationModelTest {
 
 	public static TestSuite suite() throws Exception {
 		TestSuite suite = new TestSuite(EjbAnnotationReaderTest.class);
-		setUpProject();
 		return suite;
 	}
 

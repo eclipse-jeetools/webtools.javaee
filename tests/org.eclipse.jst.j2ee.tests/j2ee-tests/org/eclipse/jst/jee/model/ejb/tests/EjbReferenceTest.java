@@ -40,7 +40,6 @@ public class EjbReferenceTest extends AbstractAnnotationModelTest {
 
 	public static TestSuite suite() throws Exception {
 		TestSuite suite = new TestSuite(EjbReferenceTest.class);
-		setUpProject();
 		return suite;
 	}
 

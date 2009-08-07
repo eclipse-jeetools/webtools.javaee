@@ -43,7 +43,6 @@ public class LifecycleAnnotationsTest extends AbstractAnnotationFactoryTest {
 	
 	public static TestSuite suite() throws Exception {
 		TestSuite suite = new TestSuite(LifecycleAnnotationsTest.class);
-		setUpProject();
 		return suite;
 	}
 

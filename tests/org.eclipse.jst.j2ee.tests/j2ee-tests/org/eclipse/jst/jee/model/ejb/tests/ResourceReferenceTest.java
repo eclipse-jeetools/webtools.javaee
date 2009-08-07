@@ -40,7 +40,6 @@ public class ResourceReferenceTest extends AbstractAnnotationModelTest {
 
 	public static TestSuite suite() throws Exception {
 		TestSuite suite = new TestSuite(ResourceReferenceTest.class);
-		setUpProject();
 		return suite;
 	}
 

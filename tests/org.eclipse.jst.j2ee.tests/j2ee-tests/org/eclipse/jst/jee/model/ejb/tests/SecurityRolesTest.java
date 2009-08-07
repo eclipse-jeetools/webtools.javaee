@@ -42,7 +42,6 @@ public class SecurityRolesTest extends AbstractAnnotationModelTest {
 
 	public static TestSuite suite() throws Exception {
 		TestSuite suite = new TestSuite(SecurityRolesTest.class);
-		setUpProject();
 		return suite;
 	}
 	

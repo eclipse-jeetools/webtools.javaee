@@ -44,7 +44,6 @@ public class EJBAnnotationReaderWithClientTest extends AbstractAnnotationModelTe
 
 	public static TestSuite suite() throws Exception {
 		TestSuite suite = new TestSuite(EJBAnnotationReaderWithClientTest.class);
-		setUpProject();
 		return suite;
 	}
 

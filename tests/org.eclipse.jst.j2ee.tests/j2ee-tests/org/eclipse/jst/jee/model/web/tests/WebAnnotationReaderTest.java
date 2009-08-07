@@ -49,7 +49,6 @@ public class WebAnnotationReaderTest extends AbstractAnnotationModelTest {
 
 	public static TestSuite suite() throws Exception {
 		TestSuite suite = new TestSuite(WebAnnotationReaderTest.class);
-		setUpProject();
 		return suite;
 	}
 
