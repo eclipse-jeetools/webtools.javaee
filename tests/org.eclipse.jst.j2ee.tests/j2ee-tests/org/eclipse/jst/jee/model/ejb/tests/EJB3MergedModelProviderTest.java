@@ -60,6 +60,7 @@ public class EJB3MergedModelProviderTest extends AbstractAnnotationModelTest {
 
 	public static TestSuite suite() throws Exception {
 		TestSuite suite = new TestSuite(EJB3MergedModelProviderTest.class);
+		setUpProject();
 		return suite;
 	}
 
@@ -100,10 +101,8 @@ public class EJB3MergedModelProviderTest extends AbstractAnnotationModelTest {
 	}
 
 	// @Before
-	@Override
-	protected void setUp() throws Exception {
+	public void setUp() throws Exception {
 		super.setUp();
-		setUpProject();
 		if (facetedProject == null)
 			return;
 		fixture = ModelProviderManager.getModelProvider(facetedProject.getProject());
