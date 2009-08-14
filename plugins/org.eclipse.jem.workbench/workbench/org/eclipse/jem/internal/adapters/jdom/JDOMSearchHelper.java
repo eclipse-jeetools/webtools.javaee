@@ -270,6 +270,7 @@ public class JDOMSearchHelper {
 		int index = qualifiedName.lastIndexOf("."); //$NON-NLS-1$
 		if (index > 0) {
 			innerName = qualifiedName.substring(0, index);
+			String pkgName = innerName;
 			innerName += "$"; //$NON-NLS-1$
 			innerName += qualifiedName.substring(index + 1, qualifiedName.length());
 			if (adaptor != null) {
@@ -281,8 +282,13 @@ public class JDOMSearchHelper {
 			}
 			info[1] = innerName;
 			info[0] = findJavaElement(innerName, javaProject, adaptor);
-			if (javaProject.getProject().isAccessible()&& info[0] == null)
+			if (javaProject.getProject().isAccessible()&& info[0] == null) {
+				index = innerName.lastIndexOf("."); //$NON-NLS-1$
+				if (index > 0 && innerName.substring(0, index).equals(pkgName)) {
+					return;
+				}
 				findInnerJavaElement(info, javaProject, adaptor);
+			}
 		}
 	}
 
