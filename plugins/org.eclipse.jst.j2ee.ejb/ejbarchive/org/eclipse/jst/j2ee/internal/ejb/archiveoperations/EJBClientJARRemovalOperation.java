@@ -397,7 +397,6 @@ public class EJBClientJARRemovalOperation extends AbstractDataModelOperation
 				String segment = file.getProjectRelativePath().toString();
 				return ProjectUtilities.DOT_CLASSPATH.equals(segment) ||
 						ProjectUtilities.DOT_PROJECT.equals(segment) ||
-						".runtime".equals(segment) || //$NON-NLS-1$
 						segment.endsWith(IModuleConstants.COMPONENT_FILE_NAME) ||
 						segment.startsWith(".settings"); //$NON-NLS-1$ 
 			}
