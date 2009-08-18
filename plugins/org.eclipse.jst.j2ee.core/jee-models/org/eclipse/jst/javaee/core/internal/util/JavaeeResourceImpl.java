@@ -14,13 +14,10 @@ import java.io.IOException;
 import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
-import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
-import org.eclipse.jem.util.plugin.JEMUtilPlugin;
+import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 
 /**
  * <!-- begin-user-doc -->
@@ -48,29 +45,16 @@ public class JavaeeResourceImpl extends XMLResourceImpl {
 		if (file == null || !file.exists()) return; // Only save if file existed
 		super.save(options);
 	}
-	
-	/**
-	 * Return the IFile for the <code>uri</code> within the Workspace. This URI is assumed to be
-	 * absolute in the following format: platform:/resource/....
-	 */
-	private IFile getPlatformFile(URI uri) {
-		if (WorkbenchResourceHelperBase.isPlatformResourceURI(uri)) {
-			String fileString = URI.decode(uri.path());
-			fileString = fileString.substring(JEMUtilPlugin.PLATFORM_RESOURCE.length() + 1);
-			return ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(fileString));
-		}
-		return null;
-	}
 
 	private IFile getPlatformFile() {
 		IFile file = null;
-		file = getPlatformFile(getURI());
+		file = WorkbenchResourceHelper.getPlatformFile(getURI());
 		if (file == null) {
 			if (getResourceSet() != null) {
 				URIConverter converter = getResourceSet().getURIConverter();
 				URI convertedUri = converter.normalize(uri);
 				if (!uri.equals(convertedUri))
-					file = getPlatformFile(convertedUri);
+					file = WorkbenchResourceHelper.getPlatformFile(convertedUri);
 			}
 		}
 		return file;
