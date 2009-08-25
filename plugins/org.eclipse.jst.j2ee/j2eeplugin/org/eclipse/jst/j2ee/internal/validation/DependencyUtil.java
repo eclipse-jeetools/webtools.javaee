@@ -12,7 +12,6 @@ package org.eclipse.jst.j2ee.internal.validation;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.logging.Level;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
@@ -20,8 +19,6 @@ import org.eclipse.jdt.core.IJavaModel;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jem.util.logger.LogEntry;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 /**
@@ -109,13 +106,7 @@ public final class DependencyUtil {
 			System.arraycopy(temp, 0, result, 0, count);
 			return result;
 		} catch (CoreException exc) {
-			Logger logger = J2EEPlugin.getDefault().getMsgLogger();
-			if (logger.isLoggingLevel(Level.SEVERE)) {
-				LogEntry entry = J2EEPlugin.getLogEntry();
-				entry.setSourceID("DependencyCache::getRequiredProjects(" + project.getName() + ")"); //$NON-NLS-1$  //$NON-NLS-2$
-				entry.setTargetException(exc);
-				logger.write(Level.SEVERE, exc);
-			}
+			J2EEPlugin.log(J2EEPlugin.createErrorStatus(0, project.getName(), exc));
 
 			return EMPTY_PROJECTS;
 		}
@@ -148,13 +139,7 @@ public final class DependencyUtil {
 			tempSet.toArray(dependency);
 			return dependency;
 		} catch (JavaModelException exc) {
-			Logger logger = J2EEPlugin.getDefault().getMsgLogger();
-			if (logger.isLoggingLevel(Level.SEVERE)) {
-				LogEntry entry = J2EEPlugin.getLogEntry();
-				entry.setSourceID("DependencyCache::getDependentJavaProjects(" + javaproject.getProject().getName() + ")"); //$NON-NLS-1$  //$NON-NLS-2$
-				entry.setTargetException(exc);
-				logger.write(Level.SEVERE, exc);
-			}
+			J2EEPlugin.log(J2EEPlugin.createErrorStatus(0, javaproject.getProject().getName(), exc));
 
 			return EMPTY_JAVAPROJECTS;
 		}
@@ -171,13 +156,8 @@ public final class DependencyUtil {
 		try {
 			IJavaModel jm = javaproject.getJavaModel();
 			if (jm == null) {
-				Logger logger = J2EEPlugin.getDefault().getMsgLogger();
-				if (logger.isLoggingLevel(Level.SEVERE)) {
-					LogEntry entry = J2EEPlugin.getLogEntry();
-					entry.setSourceID("DependencyCache::getRequiredJavaProjects(" + javaproject.getProject().getName() + ")"); //$NON-NLS-1$  //$NON-NLS-2$
-					//entry.setText("IJavaModel == null"); //$NON-NLS-1$
-					logger.write(Level.SEVERE, "IJavaModel == null"); //$NON-NLS-1$
-				}
+				J2EEPlugin.log(J2EEPlugin.createErrorStatus(0, "DependencyCache::getRequiredJavaProjects(" + javaproject.getProject().getName() + ") IJavaModel == null", null));  //$NON-NLS-1$//$NON-NLS-2$
+
 				return EMPTY_JAVAPROJECTS;
 			}
 
@@ -205,13 +185,8 @@ public final class DependencyUtil {
 
 					temp[count++] = jp;
 				} catch (CoreException exc) {
-					Logger logger = J2EEPlugin.getDefault().getMsgLogger();
-					if (logger.isLoggingLevel(Level.SEVERE)) {
-						LogEntry entry = J2EEPlugin.getLogEntry();
-						entry.setSourceID("DependencyCache::getRequiredJavaProjects(" + javaproject.getProject().getName() + ")"); //$NON-NLS-1$  //$NON-NLS-2$
-						entry.setTargetException(exc);
-						logger.write(Level.SEVERE, exc);
-					}
+					J2EEPlugin.log(J2EEPlugin.createErrorStatus(0, javaproject.getProject().getName(), exc));
+					
 					continue;
 				}
 			}
@@ -228,13 +203,7 @@ public final class DependencyUtil {
 			System.arraycopy(temp, 0, result, 0, count);
 			return result;
 		} catch (JavaModelException exc) {
-			Logger logger = J2EEPlugin.getDefault().getMsgLogger();
-			if (logger.isLoggingLevel(Level.SEVERE)) {
-				LogEntry entry = J2EEPlugin.getLogEntry();
-				entry.setSourceID("DependencyCache::getRequiredJavaProjects(" + javaproject.getProject().getName() + ")"); //$NON-NLS-1$  //$NON-NLS-2$
-				entry.setTargetException(exc);
-				logger.write(Level.SEVERE, exc);
-			}
+			J2EEPlugin.log(J2EEPlugin.createErrorStatus(0, javaproject.getProject().getName(), exc));
 
 			return EMPTY_JAVAPROJECTS;
 		}
