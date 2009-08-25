@@ -18,7 +18,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Level;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -41,8 +40,6 @@ import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaHelpers;
 import org.eclipse.jem.java.Method;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jem.util.logger.LogEntry;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.common.SecurityRoleRef;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
@@ -65,7 +62,6 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.validation.AWorkbenchMOFHelper;
 import org.eclipse.jst.j2ee.model.internal.validation.EJBValidator;
 import org.eclipse.jst.j2ee.model.internal.validation.EJBValidatorModelEnum;
-import org.eclipse.jst.j2ee.model.internal.validation.IEJBValidatorConstants;
 import org.eclipse.jst.j2ee.model.internal.validation.InvalidInputException;
 import org.eclipse.jst.j2ee.model.internal.validation.MessageUtility;
 import org.eclipse.jst.j2ee.model.internal.validation.ValidationRuleUtility;
@@ -92,8 +88,6 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 	// projects) or an EJBProjectResources. See
 	// constructor for more details.
 	private static final JavaClass[] EMPTY_ARRAY_JAVACLASS = new JavaClass[0];
-	private static LogEntry logEntry;
-	private static Logger logger;
 	private ArtifactEdit edit = null;
 	private EJBJarFile ejbJarFile = null;
 	private EJBJar ejbJar = null;
@@ -124,26 +118,6 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 		registerModel(EJBValidatorModelEnum.EJB_FILE, "loadEjbFile"); //$NON-NLS-1$
 		registerModel(EJBValidatorModelEnum.EJB_CLIENTJAR, "loadClientJAR", new Class[]{String.class}); //$NON-NLS-1$
 		registerModel(EJBValidatorModelEnum.REMOVE_OLD_MESSAGES, "removeOldMessages", new Class[]{IReporter.class, Map.class}); //$NON-NLS-1$
-	}
-
-	/**
-	 * @return
-	 */
-	private static LogEntry getLogEntry() {
-		if (logEntry == null) {
-			logEntry = new LogEntry(IEJBValidatorConstants.BUNDLE_NAME);
-		}
-		logEntry.reset(); // reset the values so that we're not logging stale data
-		return logEntry;
-	}
-
-	/**
-	 * @return
-	 */
-	private static Logger getMsgLogger() {
-		if (logger == null)
-			logger = EjbPlugin.getPlugin().getMsgLogger();
-		return logger;
 	}
 
 	/**
@@ -354,11 +328,9 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 	 * implement these types.
 	 */
 	public JavaClass[] loadChildren(IReporter reporter, Set classes) {
-		long start = System.currentTimeMillis(), end = 0;
 		JavaClass[] children = EMPTY_ARRAY_JAVACLASS;
 		int executionMap = 0;
 		Set tempSet = getTempSet();
-		Logger aLogger = getMsgLogger();
 		try {
 			if ((classes == null) || (classes.size() == 0)) {
 				executionMap |= 0x00000001;
@@ -392,12 +364,12 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 					JavaClass clazz = (JavaClass) iterator.next();
 					IType type = getType(clazz);
 					if (type == null) {
-						if (aLogger.isLoggingLevel(Level.FINER)) {
-							LogEntry entry = getLogEntry();
-							entry.setSourceID("EJBHelper::loadChildren(JavaClass[])::region"); //$NON-NLS-1$
-							entry.setText((clazz != null) ? clazz.getJavaName() : "null JavaClass"); //$NON-NLS-1$
-							aLogger.write(Level.FINER, entry);
-						}
+//						if (aLogger.isLoggingLevel(Level.FINER)) {
+//							LogEntry entry = getLogEntry();
+//							entry.setSourceID("EJBHelper::loadChildren(JavaClass[])::region"); //$NON-NLS-1$
+//							entry.setText((clazz != null) ? clazz.getJavaName() : "null JavaClass"); //$NON-NLS-1$
+//							aLogger.write(Level.FINER, entry);
+//						}
 					} else {
 						region.add(type);
 					}
@@ -413,16 +385,16 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 						return children;
 					}
 					IType type = (IType) rootTypes[i];
-					long hStart = System.currentTimeMillis();
+//					long hStart = System.currentTimeMillis();
 					ITypeHierarchy hierarchy = type.newTypeHierarchy(monitor);
-					long hEnd = System.currentTimeMillis();
-					if (aLogger.isLoggingLevel(Level.FINER)) {
-						LogEntry entry = getLogEntry();
-						entry.setSourceID("EJBHelper::loadChildren(JavaClass[])::newTypeHierarchy"); //$NON-NLS-1$
-						entry.setElapsedTime(hEnd - hStart);
-						entry.setText(type.getElementName());
-						aLogger.write(Level.FINER, entry);
-					}
+//					long hEnd = System.currentTimeMillis();
+//					if (aLogger.isLoggingLevel(Level.FINER)) {
+//						LogEntry entry = getLogEntry();
+//						entry.setSourceID("EJBHelper::loadChildren(JavaClass[])::newTypeHierarchy"); //$NON-NLS-1$
+//						entry.setElapsedTime(hEnd - hStart);
+//						entry.setText(type.getElementName());
+//						aLogger.write(Level.FINER, entry);
+//					}
 					rootHierarchies[i] = hierarchy;
 				}
 				// For each of the changed types, find its subtypes. Add each
@@ -460,24 +432,24 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 			while (iterator.hasNext()) {
 				IType type = (IType) iterator.next();
 				if (type == null) {
-					if (aLogger.isLoggingLevel(Level.FINER)) {
-						LogEntry entry = getLogEntry();
-						entry.setSourceID("EJBHelper::loadChildren(JavaClass[])"); //$NON-NLS-1$
-						entry.setText("null type used in project " + getProject().getName()); //$NON-NLS-1$
-						aLogger.write(Level.FINER, entry);
-					}
+//					if (aLogger.isLoggingLevel(Level.FINER)) {
+//						LogEntry entry = getLogEntry();
+//						entry.setSourceID("EJBHelper::loadChildren(JavaClass[])"); //$NON-NLS-1$
+//						entry.setText("null type used in project " + getProject().getName()); //$NON-NLS-1$
+//						aLogger.write(Level.FINER, entry);
+//					}
 					continue;
 				}
 				JavaHelpers child = getJavaClass(type);
 				if ((child != null) && (child.getWrapper() != null)) {
 					tempChildren[count++] = child.getWrapper();
 				} else {
-					if (aLogger.isLoggingLevel(Level.FINER)) {
-						LogEntry entry = getLogEntry();
-						entry.setSourceID("EJBHelper::loadChildren(JavaClass[])"); //$NON-NLS-1$
-						entry.setText(type.getElementName() + " was found in project " + type.getJavaProject().getProject().getName() + ", but either the JavaHelpers is null or its wrapper is null."); //$NON-NLS-1$ //$NON-NLS-2$
-						aLogger.write(Level.FINER, entry);
-					}
+//					if (aLogger.isLoggingLevel(Level.FINER)) {
+//						LogEntry entry = getLogEntry();
+//						entry.setSourceID("EJBHelper::loadChildren(JavaClass[])"); //$NON-NLS-1$
+//						entry.setText(type.getElementName() + " was found in project " + type.getJavaProject().getProject().getName() + ", but either the JavaHelpers is null or its wrapper is null."); //$NON-NLS-1$ //$NON-NLS-2$
+//						aLogger.write(Level.FINER, entry);
+//					}
 				}
 			}
 			if (count != tempChildren.length) {
@@ -491,45 +463,33 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 			}
 		} catch (JavaModelException exc) {
 			executionMap |= 0x00000020;
-			aLogger = getMsgLogger();
-			if (aLogger.isLoggingLevel(Level.SEVERE)) {
-				LogEntry entry = getLogEntry();
-				entry.setSourceID("EJBHelper::loadChildren(JavaClass[])"); //$NON-NLS-1$
-				entry.setTargetException(exc);
-				aLogger.write(Level.SEVERE, entry);
-			}
+			EjbPlugin.logError(exc);
 		} catch (Throwable exc) {
 			executionMap |= 0x00000040;
-			aLogger = getMsgLogger();
-			if (aLogger.isLoggingLevel(Level.SEVERE)) {
-				LogEntry entry = getLogEntry();
-				entry.setSourceID("EJBHelper::loadChildren(JavaClass[])"); //$NON-NLS-1$
-				entry.setTargetException(exc);
-				aLogger.write(Level.SEVERE, entry);
-			}
+			EjbPlugin.logError(exc);
 		} finally {
 			getTempSet().clear();
-			end = System.currentTimeMillis();
-			aLogger = getMsgLogger();
-			if (aLogger.isLoggingLevel(Level.FINER)) {
-				StringBuffer buffer = new StringBuffer("Children found in project "); //$NON-NLS-1$
-				buffer.append(getProject().getName());
-				buffer.append(": IType["); //$NON-NLS-1$
-				buffer.append(children.length);
-				buffer.append("] = {"); //$NON-NLS-1$
-				for (int i = 0; i < children.length; i++) {
-					JavaClass clazz = children[i];
-					buffer.append(clazz.getJavaName());
-					buffer.append(", "); //$NON-NLS-1$
-				}
-				buffer.append("}"); //$NON-NLS-1$
-				LogEntry entry = getLogEntry();
-				entry.setSourceID("EJBHelper::loadChildren(JavaClass[])"); //$NON-NLS-1$
-				entry.setText(buffer.toString());
-				entry.setElapsedTime(end - start);
-				entry.setExecutionMap(executionMap);
-				aLogger.write(Level.FINER, entry);
-			}
+//			end = System.currentTimeMillis();
+//			aLogger = getMsgLogger();
+//			if (aLogger.isLoggingLevel(Level.FINER)) {
+//				StringBuffer buffer = new StringBuffer("Children found in project "); //$NON-NLS-1$
+//				buffer.append(getProject().getName());
+//				buffer.append(": IType["); //$NON-NLS-1$
+//				buffer.append(children.length);
+//				buffer.append("] = {"); //$NON-NLS-1$
+//				for (int i = 0; i < children.length; i++) {
+//					JavaClass clazz = children[i];
+//					buffer.append(clazz.getJavaName());
+//					buffer.append(", "); //$NON-NLS-1$
+//				}
+//				buffer.append("}"); //$NON-NLS-1$
+//				LogEntry entry = getLogEntry();
+//				entry.setSourceID("EJBHelper::loadChildren(JavaClass[])"); //$NON-NLS-1$
+//				entry.setText(buffer.toString());
+//				entry.setElapsedTime(end - start);
+//				entry.setExecutionMap(executionMap);
+//				aLogger.write(Level.FINER, entry);
+//			}
 		}
 		return children;
 	}

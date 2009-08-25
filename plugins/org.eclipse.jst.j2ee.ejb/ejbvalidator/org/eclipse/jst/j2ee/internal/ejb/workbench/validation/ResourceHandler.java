@@ -11,10 +11,7 @@
 package org.eclipse.jst.j2ee.internal.ejb.workbench.validation;
 
 import java.util.MissingResourceException;
-import java.util.logging.Level;
 
-import org.eclipse.jem.util.logger.LogEntry;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
 import org.eclipse.jst.j2ee.model.internal.validation.IEJBValidatorConstants;
 import org.eclipse.jst.j2ee.model.internal.validation.J2EEValidationResourceHandler;
@@ -27,8 +24,6 @@ import org.eclipse.jst.j2ee.model.internal.validation.J2EEValidationResourceHand
 public final class ResourceHandler {
 	public final static String VALIDATION_PROP_FILE_NAME = IEJBValidatorConstants.BUNDLE_NAME;
 	private static ResourceHandler _handler = null;
-	private static LogEntry logEntry;
-	private static Logger logger;
 
 	/**
 	 * ResourceHandler constructor comment.
@@ -37,38 +32,12 @@ public final class ResourceHandler {
 		super();
 	}
 
-	/**
-	 * @return
-	 */
-	private static LogEntry getLogEntry() {
-		if (logEntry == null) {
-			logEntry = new LogEntry(IEJBValidatorConstants.BUNDLE_NAME);
-		}
-		logEntry.reset(); // reset the values so that we're not logging stale data
-		return logEntry;
-	}
-
-	/**
-	 * @return
-	 */
-	private static Logger getMsgLogger() {
-		if (logger == null)
-			logger = EjbPlugin.getPlugin().getMsgLogger();
-		return logger;
-	}
-
 	public static String getExternalizedMessage(String key) {
 		try {
 			return J2EEValidationResourceHandler.getExternalizedMessage(VALIDATION_PROP_FILE_NAME, key, getHandler().getClass());
 		} catch (NullPointerException exc) {
 
-			if (getMsgLogger().isLoggingLevel(Level.SEVERE)) {
-				LogEntry entry = getLogEntry();
-				entry.setSourceID("ResourceHandler.getExternalizedMessage(String)"); //$NON-NLS-1$
-				entry.setText(key);
-				entry.setTargetException(exc);
-				getMsgLogger().write(Level.SEVERE, entry);
-			}
+			EjbPlugin.log(EjbPlugin.createErrorStatus(key, exc));
 		}
 		return ""; //$NON-NLS-1$
 	}
@@ -79,21 +48,9 @@ public final class ResourceHandler {
 			res = java.text.MessageFormat.format(getExternalizedMessage(key), (Object[])parms);
 		} catch (MissingResourceException exc) {
 
-			if (getMsgLogger().isLoggingLevel(Level.SEVERE)) {
-				LogEntry entry = getLogEntry();
-				entry.setSourceID("ResourceHandler.getExternalizedMessage(String, String[])"); //$NON-NLS-1$
-				entry.setTargetException(exc);
-				entry.setText(key);
-				getMsgLogger().write(Level.SEVERE, entry);
-			}
+			EjbPlugin.log(EjbPlugin.createErrorStatus(key, exc));
 		} catch (NullPointerException exc) {
-			if (getMsgLogger().isLoggingLevel(Level.SEVERE)) {
-				LogEntry entry = getLogEntry();
-				entry.setSourceID("ResourceHandler.getExternalizedMessage(String, String[])"); //$NON-NLS-1$
-				entry.setTargetException(exc);
-				entry.setText(key);
-				getMsgLogger().write(Level.SEVERE, entry);
-			}
+			EjbPlugin.log(EjbPlugin.createErrorStatus(key, exc));
 		}
 		return res;
 	}
