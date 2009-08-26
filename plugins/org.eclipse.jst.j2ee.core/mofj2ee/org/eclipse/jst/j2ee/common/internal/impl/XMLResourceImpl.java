@@ -139,7 +139,9 @@ public abstract class XMLResourceImpl extends TranslatorResourceImpl implements 
 		else if (systemId.equals(getJ2EE_1_2_SystemID()) || systemId.equals(getJ2EE_Alt_1_2_SystemID()))
 			version = J2EE_1_2_ID;
 		super.setDoctypeValues(publicId, systemId);
-		setJ2EEVersionID(version);
+		//Only set if versionID not set if version is 14
+		if ((version != J2EE_1_4_ID) || (version == J2EE_1_4_ID && getModuleVersionID() == 0))
+			setJ2EEVersionID(version);
 	}
 
 
