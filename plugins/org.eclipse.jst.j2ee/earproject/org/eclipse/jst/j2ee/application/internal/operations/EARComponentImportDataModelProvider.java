@@ -449,6 +449,7 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 				currentArchive = (ArchiveWrapper) currentUtilityModel.getProperty(IJavaUtilityJarImportDataModelProperties.ARCHIVE_WRAPPER);
 				if (null == utilityJars || !utilityJars.contains(currentArchive)) {
 					currentUtilityModel.removeListener(nestedListener);
+					currentUtilityModel.setBooleanProperty(IJavaUtilityJarImportDataModelProperties.CLOSE_ARCHIVE_ON_DISPOSE, false);
 					currentUtilityModel.dispose();
 					utilityModels.remove(currentUtilityModel);
 					utilityJarsModified = true;
