@@ -252,6 +252,7 @@ public class ArchiveImpl extends ArchiveResourceImpl implements IArchive {
 			if (archiveResource.getArchive() != this) {
 				throw new ArchiveOpenFailureException("Attempted to open nested IArchive " + archiveResource.getPath() + " using an IArchiveResource not contained in this IArchive."); //$NON-NLS-1$//$NON-NLS-2$
 			}
+			getArchiveResources(); // need to force the full index to be built now.
 			IArchiveResource cachedArchiveResource = getArchiveResource(archiveResource.getPath());
 
 			if (cachedArchiveResource.getType() == IArchiveResource.ARCHIVE_TYPE) {
