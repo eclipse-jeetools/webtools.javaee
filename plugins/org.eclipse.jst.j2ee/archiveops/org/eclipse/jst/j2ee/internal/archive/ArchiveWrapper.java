@@ -272,6 +272,7 @@ public class ArchiveWrapper {
 			return cachedEARModules;
 		}
 		if (archive != null) {
+			archive.getArchiveResources(); // need to force the full index to be built now.
 			if(jqp.getJavaEEVersion() == JavaEEQuickPeek.JEE_5_0_ID){
 				List<IArchiveResource> resources = archive.getArchiveResources();
 				for (IArchiveResource resource : resources) {
@@ -577,7 +578,11 @@ public class ArchiveWrapper {
 				if (lastSegment.endsWith(".jar") || lastSegment.endsWith(".rar") || lastSegment.endsWith(".war") || lastSegment.endsWith("zip")) {
 					IArchive nestedArchive;
 					try {
-						nestedArchive = archive.getNestedArchive(file);
+						if(file.getType() == IArchive.ARCHIVE_TYPE){
+							nestedArchive = (IArchive)file;
+						} else {
+							nestedArchive = archive.getNestedArchive(file);
+						}
 						ArchiveWrapper nestedWrapper = new ArchiveWrapper(nestedArchive);
 						if (nestedWrapper.isWARFile()) {
 							cachedEARUtilitiesAndWebLibs.addAll(nestedWrapper.getWebLibs());
