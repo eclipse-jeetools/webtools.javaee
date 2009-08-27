@@ -18,6 +18,9 @@ import static org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModel
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.jst.j2ee.common.CommonFactory;
+import org.eclipse.jst.j2ee.common.Description;
+import org.eclipse.jst.j2ee.common.ParamValue;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaEEArtifactClassOperation;
 import org.eclipse.jst.j2ee.webapplication.DispatcherType;
@@ -197,12 +200,17 @@ public class AddFilterOperation extends AddWebClassOperation {
 				for (int iP = 0; iP < initParamList.size(); iP++) {
 					String[] stringArray = (String[]) initParamList.get(iP);
 					// Create 1.4 common param value
-					InitParam param = WebapplicationFactory.eINSTANCE.createInitParam();
-					param.setParamName(stringArray[0]);
-					param.setParamValue(stringArray[1]);
+					ParamValue param = CommonFactory.eINSTANCE.createParamValue();
+					param.setName(stringArray[0]);
+					param.setValue(stringArray[1]);
+					// Create 1.4 common descripton value
+					Description descriptionObj = CommonFactory.eINSTANCE.createDescription();
+					descriptionObj.setValue(stringArray[2]);
+					// Set the description on the param
+					param.getDescriptions().add(descriptionObj);
 					param.setDescription(stringArray[2]);
 					// Set the param to the filter model list of init params
-					filter.getInitParams().add(param);
+					filter.getInitParamValues().add(param);
 				}
 			}
 			// If J2EE 1.2 or 1.3, use the filter specific init param instances
