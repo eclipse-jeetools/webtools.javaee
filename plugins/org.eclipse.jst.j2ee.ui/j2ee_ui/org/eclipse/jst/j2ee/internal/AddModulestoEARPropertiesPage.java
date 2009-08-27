@@ -518,17 +518,31 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		} 
 	}
 
+	/** 
+	 * [Bug 279386] Grayed items must not be deselected. 
+	 */
 	private void handleDeselectAllButtonPressed() {
-		availableComponentsViewer.setAllChecked(false);
-		if (isVersion5) {
-			((DoubleCheckboxTableViewer)availableComponentsViewer).setAllSecondChecked(false);
-			libsToUncheck.clear();
-		}
-		j2eeComponentList = new ArrayList();
-		javaProjectsList = new ArrayList();
-		if (isVersion5) {
-			j2eeLibElementList = new ArrayList();
-			javaLibProjectsList = new ArrayList();			
+		TableItem[] items = availableComponentsViewer.getTable().getItems();
+		for (TableItem item : items) {
+			if (item.getChecked() && !item.getGrayed()) {
+				// uncheck this item if already checked and not grayed
+				item.setChecked(false);
+				if (isVersion5) {
+					((DoubleCheckboxTableItem) item).setSecondChecked(false);
+				}
+				
+				// remove from the cache lists
+				Object comp = item.getData();
+				if (comp != null) {
+					j2eeComponentList.remove(comp);
+					javaProjectsList.remove(comp);
+					if (isVersion5) {
+						libsToUncheck.remove(comp);
+						j2eeLibElementList.remove(comp);
+						javaLibProjectsList.remove(comp);
+					}
+				}
+			}
 		}
 	}
 	
