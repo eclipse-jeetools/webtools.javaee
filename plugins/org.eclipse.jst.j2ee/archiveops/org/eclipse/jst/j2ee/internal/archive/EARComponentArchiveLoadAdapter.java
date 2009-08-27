@@ -82,46 +82,59 @@ public class EARComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter 
 			if(vComponent.equals(referencedComponent)){
 				continue;
 			}
+			IArchiveResource nestedModuleResource = null;
+			IArchive nestedModuleArchive = null;
+			ArchiveOpenFailureException caughtException = null;
 			try {
-				IArchive nestedModuleArchive = JavaEEArchiveUtilities.INSTANCE.openArchive(referencedComponent);
-				String sPath = reference.getArchiveName();
-				String srtp = reference.getRuntimePath().toString();
-				if (srtp.startsWith("" + IPath.SEPARATOR)) srtp = srtp.substring(1); //$NON-NLS-1$
-				String spt = srtp + IPath.SEPARATOR + sPath;
-				if (spt.startsWith("" + IPath.SEPARATOR)) spt = spt.substring(1); //$NON-NLS-1$
-				nestedModuleArchive.setPath(new Path(spt));
-				nestedModuleArchive.setArchive(archive);
-				filesHolder.addFile(nestedModuleArchive);
-
-				if (referencedComponent.isBinary()) {
-					java.io.File diskFile = null;
-					diskFile = ((VirtualArchiveComponent) referencedComponent).getUnderlyingDiskFile();
-					if (!diskFile.exists()) {
-						IFile wbFile = ((VirtualArchiveComponent) referencedComponent).getUnderlyingWorkbenchFile();
-						diskFile = new File(wbFile.getLocation().toOSString());
-					}
-					binaryResourcesToDiskFiles.put(nestedModuleArchive, diskFile);
-				} else {
-					// Bug 220912 - set "export source" flag before calling JavaEEQuickPeek
-					if (nestedModuleArchive.getType() == IArchive.ARCHIVE_TYPE) {
-						IArchiveLoadAdapter nestedLoadAdapter = (nestedModuleArchive).getLoadAdapter();
-						if(nestedLoadAdapter instanceof ComponentArchiveLoadAdapter){
-							((ComponentArchiveLoadAdapter)nestedLoadAdapter).setExportSource(isExportSource());
-						}
-					}
-					
-					JavaEEQuickPeek quickPeek = JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(nestedModuleArchive);
-					switch (quickPeek.getType()) {
-					case JavaEEQuickPeek.CONNECTOR_TYPE:
-					case JavaEEQuickPeek.EJB_TYPE:
-					case JavaEEQuickPeek.WEB_TYPE:
-						((ComponentArchiveLoadAdapter) nestedModuleArchive.getLoadAdapter()).setIncludeClasspathComponents(includeClasspathComponents);
-						addClasspathComponentDependencies(referencedComponent);
-					}
-
-				}
+				nestedModuleResource = JavaEEArchiveUtilities.INSTANCE.openArchive(referencedComponent);
 			} catch (ArchiveOpenFailureException e) {
-				ArchiveUtil.warn(e);
+				caughtException = e;
+			} 
+			String sPath = reference.getArchiveName();
+			String srtp = reference.getRuntimePath().toString();
+			if (srtp.startsWith("" + IPath.SEPARATOR)) srtp = srtp.substring(1); //$NON-NLS-1$
+			String spt = srtp + IPath.SEPARATOR + sPath;
+			if (spt.startsWith("" + IPath.SEPARATOR)) spt = spt.substring(1); //$NON-NLS-1$
+			if(nestedModuleResource == null){
+				if(referencedComponent.isBinary()){
+					nestedModuleResource = createFile(new Path(spt));
+				} else {
+					ArchiveUtil.warn(caughtException);
+					return;
+				}
+			} else {
+				nestedModuleArchive = (IArchive)nestedModuleResource;
+				nestedModuleResource.setPath(new Path(spt));
+				nestedModuleResource.setArchive(archive);
+				filesHolder.addFile(nestedModuleResource);
+			}
+			
+			if (referencedComponent.isBinary()) {
+				java.io.File diskFile = null;
+				diskFile = ((VirtualArchiveComponent) referencedComponent).getUnderlyingDiskFile();
+				if (!diskFile.exists()) {
+					IFile wbFile = ((VirtualArchiveComponent) referencedComponent).getUnderlyingWorkbenchFile();
+					diskFile = new File(wbFile.getLocation().toOSString());
+				}
+				binaryResourcesToDiskFiles.put(nestedModuleResource, diskFile);
+			} else if(null != nestedModuleArchive){
+				// Bug 220912 - set "export source" flag before calling JavaEEQuickPeek
+				if (nestedModuleResource.getType() == IArchive.ARCHIVE_TYPE) {
+					IArchiveLoadAdapter nestedLoadAdapter = nestedModuleArchive.getLoadAdapter();
+					if(nestedLoadAdapter instanceof ComponentArchiveLoadAdapter){
+						((ComponentArchiveLoadAdapter)nestedLoadAdapter).setExportSource(isExportSource());
+					}
+				}
+				
+				JavaEEQuickPeek quickPeek = JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(nestedModuleArchive);
+				switch (quickPeek.getType()) {
+				case JavaEEQuickPeek.CONNECTOR_TYPE:
+				case JavaEEQuickPeek.EJB_TYPE:
+				case JavaEEQuickPeek.WEB_TYPE:
+					((ComponentArchiveLoadAdapter) nestedModuleArchive.getLoadAdapter()).setIncludeClasspathComponents(includeClasspathComponents);
+					addClasspathComponentDependencies(referencedComponent);
+				}
+
 			}
 		}
 	}
