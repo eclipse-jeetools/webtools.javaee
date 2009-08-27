@@ -21,6 +21,7 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.refactor.RefactorResourceHandler;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -55,7 +56,9 @@ public abstract class ProjectRefactorOperation extends AbstractDataModelOperatio
 			final ProjectRefactorMetadata refactoredMetadata = getProjectMetadata();
 
 			// Update this project's metadata
-			if (refactoredMetadata.hasModuleCoreNature()) {
+			String pType = JavaEEProjectUtilities.getJ2EEProjectType(
+					refactoredMetadata.getProject());
+			if (!pType.equals("")) { //$NON-NLS-1$
 				updateProject(refactoredMetadata);
 			}
 			
