@@ -380,12 +380,8 @@ public class EarFacetInstallPage extends J2EEModuleFacetInstallPage implements I
 	private static final class Resources
 
 	extends NLS
-
 	{
-//		public static String pageTitle;
-//		public static String pageDescription;
 		public static String contentDirLabel;
-//		public static String contentDirLabelInvalid;
 
 		static {
 			initializeMessages(EarFacetInstallPage.class.getName(), Resources.class);
