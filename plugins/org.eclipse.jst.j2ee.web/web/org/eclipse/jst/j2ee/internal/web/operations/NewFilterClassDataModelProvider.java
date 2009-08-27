@@ -11,6 +11,7 @@
 package org.eclipse.jst.j2ee.internal.web.operations;
 
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.ABSTRACT_METHODS;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.CLASS_NAME;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.INTERFACES;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.SUPERCLASS;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewFilterClassDataModelProperties.DESTROY;
@@ -360,9 +361,10 @@ public class NewFilterClassDataModelProvider extends
 
 	@Override
 	public boolean propertySet(String propertyName, Object propertyValue) {
-		if (DISPLAY_NAME.equals(propertyName)) {
+		if (DISPLAY_NAME.equals(propertyName) || CLASS_NAME.equals(propertyName)) {
 			model.notifyPropertyChange(FILTER_MAPPINGS, IDataModel.DEFAULT_CHG);
-		}
+		} 
+		
 		return super.propertySet(propertyName, propertyValue);
 	}
 
