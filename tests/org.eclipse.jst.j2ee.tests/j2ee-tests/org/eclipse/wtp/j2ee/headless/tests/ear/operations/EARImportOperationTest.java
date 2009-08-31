@@ -8,6 +8,7 @@ import junit.framework.Test;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.application.internal.operations.EARComponentImportDataModelProvider;
 import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
@@ -231,6 +232,17 @@ public class EARImportOperationTest extends JEEImportOperationTest {
 		OperationTestCase.deleteAllProjects();
     }    
 	
+    public void test288180() throws Exception {
+    	String archiveName = "288180.ear";
+    	String archivePath = getArchivePath(archiveName);
+    	verifyImportArchiveExists(archivePath);
+		IDataModel importModel = getImportDataModel(archivePath, "288180", null, true);
+		IStatus status = importModel.validate();
+		assertTrue(status.isOK());
+		importModel.dispose();
+		OperationTestCase.deleteAllProjects();
+    }
+    
 	@Override
 	protected String getModuleExtension() {
 		return ".ear";
