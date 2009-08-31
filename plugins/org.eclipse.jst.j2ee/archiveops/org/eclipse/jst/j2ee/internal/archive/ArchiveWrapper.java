@@ -421,4 +421,28 @@ public class ArchiveWrapper {
 		return cachedEARUtilitiesAndWebLibs;
 	}
 	
+	@Override
+	public boolean equals(Object otherObject) {
+		if(this == otherObject){
+			return true;
+		}
+		if(null == otherObject || !(otherObject instanceof ArchiveWrapper)){
+			return false;
+		}
+		ArchiveWrapper other = (ArchiveWrapper)otherObject;
+		
+		if(archive != null){
+			return archive.equals(other.archive);
+		}
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		if(archive != null){
+			return archive.hashCode();
+		}
+		return super.hashCode();
+	}
+	
 }
