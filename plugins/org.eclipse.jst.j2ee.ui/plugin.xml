@@ -507,6 +507,9 @@
 			<and>
 				<adapt
 					type="org.eclipse.core.resources.IProject">
+					<test forcePluginActivation="true"
+							property="org.eclipse.jst.j2ee.preferenceId"
+							value="showJavaEEModuleDependencyPage" />
 					<or> 
 						<test forcePluginActivation="true"
 							property="org.eclipse.wst.common.project.facet.core.projectFacet"
