@@ -750,9 +750,13 @@
       properties="projectFacet"
       class="org.eclipse.jst.j2ee.internal.common.FacetedProjectPropertyTester">
     </propertyTester>
-  </extension>
-  
-  <extension point="org.eclipse.core.expressions.propertyTesters">
+    <propertyTester
+      id="org.eclipse.jst.j2ee.internal.common.WtpPreferencePropertyTester"
+      type="org.eclipse.core.resources.IProject"
+      namespace="org.eclipse.jst.j2ee"
+      properties="preferenceId"
+      class="org.eclipse.jst.j2ee.internal.common.J2EEPreferencePropertyTester">
+    </propertyTester>
 	<propertyTester
   		id="org.eclipse.jst.j2ee.internal.provider.FacetedProjectPropertyTester"
   		type="org.eclipse.jst.j2ee.internal.provider.J2EEItemProvider"

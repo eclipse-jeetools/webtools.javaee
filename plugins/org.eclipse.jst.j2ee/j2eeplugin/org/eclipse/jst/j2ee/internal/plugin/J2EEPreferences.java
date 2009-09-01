@@ -108,6 +108,10 @@ public class J2EEPreferences {
 		 * @since 3.0
 		 */
 		static String ID_PERSPECTIVE_HIERARCHY_VIEW = "perspective_hierarchy_view_id"; //$NON-NLS-1$
+		/**
+		 * @since 3.1
+		 */
+		static String SHOW_JAVA_EE_MODULE_DEPENDENCY_PAGE = "showJavaEEModuleDependencyPage"; //$NON-NLS-1$
 
 	}
 
@@ -152,6 +156,7 @@ public class J2EEPreferences {
 		final static boolean USE_EAR_LIBRARIES_JDT_EXPORT = false;
 		final static String ID_PERSPECTIVE_HIERARCHY_VIEW = "org.eclipse.ui.navigator.ProjectExplorer"; //$NON-NLS-1$
 		final static boolean ALLOW_CLASSPATH_DEP = true;
+		final static boolean SHOW_JAVA_EE_MODULE_DEPENDENCY_PAGE = true;
 	}
 
 	private Plugin owner = null;
@@ -198,6 +203,9 @@ public class J2EEPreferences {
 		String perspectiveID = ProductManager.getProperty(IProductConstants.ID_PERSPECTIVE_HIERARCHY_VIEW);
 		getPreferences().setDefault(Keys.ID_PERSPECTIVE_HIERARCHY_VIEW, (perspectiveID != null) ? perspectiveID : Defaults.ID_PERSPECTIVE_HIERARCHY_VIEW);
 		getPreferences().setDefault(Keys.ALLOW_CLASSPATH_DEP, Defaults.ALLOW_CLASSPATH_DEP);
+		String showJavaEEModuleDependencyPage = ProductManager.getProperty(IProductConstants.SHOW_JAVA_EE_MODULE_DEPENDENCY_PAGE);
+		boolean showJavaEEModuleDependencyPageDefault = (showJavaEEModuleDependencyPage != null) ? Boolean.parseBoolean(showJavaEEModuleDependencyPage) : Defaults.SHOW_JAVA_EE_MODULE_DEPENDENCY_PAGE;
+		getPreferences().setDefault(Keys.SHOW_JAVA_EE_MODULE_DEPENDENCY_PAGE, showJavaEEModuleDependencyPageDefault);
 	}
 
 	
