@@ -177,9 +177,10 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 			mf = new ModuleFile(utilFile, utilFile.getName(), ((J2EEModuleVirtualArchiveComponent)component).getRuntimePath().makeRelative());
 		} else {
 			File extFile = ((J2EEModuleVirtualArchiveComponent)component).getUnderlyingDiskFile();
-			mf = new ModuleFile(extFile, extFile.getName(), ((J2EEModuleVirtualArchiveComponent)component).getRuntimePath().makeRelative());
+			if( extFile != null )
+				mf = new ModuleFile(extFile, extFile.getName(), ((J2EEModuleVirtualArchiveComponent)component).getRuntimePath().makeRelative());
 		}
-		return new IModuleResource[] {mf};
+		return mf == null ? new IModuleResource[]{} : new IModuleResource[] {mf};
 	}
 	
 	public IModuleResource[] members() throws CoreException {
