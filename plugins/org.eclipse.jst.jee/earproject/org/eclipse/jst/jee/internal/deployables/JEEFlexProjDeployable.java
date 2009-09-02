@@ -21,6 +21,7 @@ import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IEARModelProvider;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.jst.javaee.ejb.EJBJar;
 import org.eclipse.jst.javaee.ejb.EnterpriseBeans;
@@ -59,7 +60,7 @@ public class JEEFlexProjDeployable extends J2EEFlexProjDeployable {
 		// If the component module is an EAR we know all archives are filtered out of virtual component members
 		// and we will return only those archives which are not binary J2EE modules in the EAR DD.  These J2EE modules will
 		// be returned by getChildModules()
-		if (J2EEProjectUtilities.isEARProject(component.getProject()))
+		if (JavaEEProjectUtilities.isEARProject(component.getProject()))
 			return virtualComp != null && virtualComp.isBinary() && !isNestedJ2EEModule(virtualComp, references, model);
 		return super.shouldIncludeUtilityComponent(virtualComp, references, ArtifactEdit.class.isInstance(model) ? (ArtifactEdit)model : null);
 	}
@@ -97,11 +98,11 @@ public class JEEFlexProjDeployable extends J2EEFlexProjDeployable {
     }
     
     @Override
-	protected IModule gatherModuleReference(IVirtualComponent component, IVirtualComponent targetComponent ) {
+    protected IModule gatherModuleReference(IVirtualComponent component, IVirtualComponent targetComponent ) {
     	IModule module = super.gatherModuleReference(component, targetComponent);
     	// Handle binary module components
     	if (targetComponent instanceof J2EEModuleVirtualArchiveComponent) {
-    		if (J2EEProjectUtilities.isEARProject(component.getProject()) || targetComponent.getProject()!=component.getProject())
+    		if (JavaEEProjectUtilities.isEARProject(component.getProject()) || targetComponent.getProject()!=component.getProject())
     			module = ServerUtil.getModule(JEEDeployableFactory.ID+":"+targetComponent.getName()); //$NON-NLS-1$
     	}
 		return module;
