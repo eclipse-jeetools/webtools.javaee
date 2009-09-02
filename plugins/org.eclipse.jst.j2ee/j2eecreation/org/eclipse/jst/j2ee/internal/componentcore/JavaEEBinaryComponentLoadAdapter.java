@@ -57,6 +57,8 @@ public class JavaEEBinaryComponentLoadAdapter extends JavaEEEMFZipFileLoadAdapte
 		java.io.File diskFile = archiveComponent.getUnderlyingDiskFile();
 		if (!diskFile.exists()) {
 			IFile wbFile = archiveComponent.getUnderlyingWorkbenchFile();
+			if( wbFile == null )
+				return new Path(diskFile.getAbsolutePath());
 			diskFile = new File(wbFile.getLocation().toOSString());
 		}
 		IPath archivePath = new Path(diskFile.getAbsolutePath());
