@@ -601,4 +601,32 @@ public class ArchiveWrapper {
 		return null;
 	}
 	
+	@Override
+	public boolean equals(Object otherObject) {
+		if(this == otherObject){
+			return true;
+		}
+		if(null == otherObject || !(otherObject instanceof ArchiveWrapper)){
+			return false;
+		}
+		ArchiveWrapper other = (ArchiveWrapper)otherObject;
+		
+		if(archive != null){
+			return archive.equals(other.archive);
+		} else if(commonArchive != null) {
+			return commonArchive.equals(other.commonArchive);
+		}
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		if(archive != null){
+			return archive.hashCode();
+		} else if(commonArchive != null){
+			return commonArchive.hashCode();
+		}
+		return super.hashCode();
+	}
+	
 }

@@ -423,7 +423,7 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 			boolean added = false;
 			for (int j = 0; utilityModels != null && j < utilityModels.size() && !added; j++) {
 				currentUtilityModel = (IDataModel) utilityModels.get(j);
-				if (currentUtilityModel.getProperty(IJavaUtilityJarImportDataModelProperties.ARCHIVE_WRAPPER) == currentArchive) {
+				if (currentUtilityModel.getProperty(IJavaUtilityJarImportDataModelProperties.ARCHIVE_WRAPPER).equals(currentArchive)) {
 					added = true;
 				}
 			}
