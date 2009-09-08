@@ -413,22 +413,31 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 	 */
 	private String getEARLibDir(EARVirtualComponent earComponent) {
 		// check if the EAR component's version is 5 or greater
-		IProject project = earComponent.getProject();
-		if (!JavaEEProjectUtilities.isJEEComponent(earComponent, JavaEEProjectUtilities.DD_VERSION)) return null;
+		IProject earProject = earComponent.getProject();
+		if (!JavaEEProjectUtilities.isJEEComponent(earComponent, JavaEEProjectUtilities.DD_VERSION)) {
+			return null;
+		}
+		
+		// default lib dir if there is no deployment descriptor
+		// or if the deployment descriptor does not override
+		String libDir = J2EEConstants.EAR_DEFAULT_LIB_DIR;
 		
 		// retrieve the model provider
-		IModelProvider modelProvider = ModelProviderManager.getModelProvider(project);
-		if (modelProvider == null) return null;
+		IModelProvider modelProvider = ModelProviderManager.getModelProvider(earProject);
+		if (modelProvider == null){
+			return libDir;
+		}
 		
-		// retrieve the EAR's model object
-		Application app = (Application) modelProvider.getModelObject();
-		if (app == null) return null;
+		// retrieve the EAR's deployment descriptor model object
+		Application app = (Application) modelProvider.getModelObject(new Path(J2EEConstants.APPLICATION_DD_URI));
+		if (app == null){
+			return libDir;
+		}
 		
 		// retrieve the library directory from the model
-		String libDir = app.getLibraryDirectory();
-		if (libDir == null) {
-			// the library directory is not set - use the default one
-			libDir = J2EEConstants.EAR_DEFAULT_LIB_DIR;
+		String ddLibDir = app.getLibraryDirectory();
+		if (ddLibDir != null) {
+			libDir = ddLibDir;
 		}
 		
 		return libDir;
