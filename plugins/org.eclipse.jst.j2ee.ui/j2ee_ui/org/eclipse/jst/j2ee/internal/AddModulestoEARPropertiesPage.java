@@ -566,7 +566,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		}
 		
 		//only add the archive as a potentialy new reference if it does not already exist
-		if(!refAlreadyExists) {
+		if(!refAlreadyExists && !j2eeComponentList.contains(archive) && !addedJARComponents.contains(archive)) {
 			this.j2eeComponentList.add(archive);
 			this.addedJARComponents.add(archive);
 		} else {
