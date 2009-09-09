@@ -232,16 +232,69 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 
 	@Override
 	public IArchiveResource getArchiveResource(IPath resourcePath) throws FileNotFoundException {
-		initArchiveResources();
+		initArchiveResource(resourcePath);
 		return filesHolder.getArchiveResource(resourcePath);
 	}
 
 	@Override
 	public boolean containsArchiveResource(IPath path) {
-		initArchiveResources();
+		initArchiveResource(path);
 		return filesHolder.contains(path);
 	}
 
+	/**
+	 * Will lazily initialize File type ArchiveResources contained in the component structure without loading the entire
+	 * archive.  If the File can not be found, then the entire structure will be loaded.
+	 * @param resourcePath
+	 */
+	protected void initArchiveResource(IPath resourcePath) {
+		if(archiveResourcesInitialized) {
+			//if the entire archive has been initialized, there is no need to repeat
+			return;
+		}
+		if(filesHolder.contains(resourcePath)){
+			//if the archive already knows about the resource return
+			return;
+		}
+		initSourceRoots();
+		// want to be quick if possible, so only try to load from the component structure
+		// if the file is not present there, then look everywhere
+		IVirtualFolder rootFolder = vComponent.getRootFolder();
+		IVirtualFile vFile = rootFolder.getFile(resourcePath);
+		if (vFile.exists()) {
+			IPath runtimePath = vFile.getRuntimePath();
+			if (runtimePath != null){
+				runtimePath = runtimePath.setDevice(null).makeRelative();
+				if(runtimePath.equals(resourcePath)){
+					boolean inJavaSrc = inJavaSrc(vFile);
+					if(aggregateResource(vFile, runtimePath, inJavaSrc, IArchiveResource.FILE_TYPE) != null){
+						return; //found the file and added it
+					}
+				}								
+			}
+		}
+		//if it was not found above then do the full initialize
+		initArchiveResources();
+	}
+	
+	protected boolean sourceRootsInitialized = false;
+	
+	protected void initSourceRoots() {
+		if(!sourceRootsInitialized){
+			sourceRootsInitialized = true;
+			try {
+				IPackageFragmentRoot[] srcPkgs = J2EEProjectUtilities.getSourceContainers(vComponent.getProject());
+				sourceRoots = new IResource[srcPkgs.length];
+				for (int i = 0; i < srcPkgs.length; i++) {
+					sourceRoots[i] = srcPkgs[i].getCorrespondingResource();
+				}
+				inJavaSrc = false;
+			} catch (CoreException e) {
+				J2EEPlugin.logError(e);
+			}
+		}
+	}
+	
 	protected boolean archiveResourcesInitialized = false;
 
 	protected void initArchiveResources() {
@@ -340,13 +393,9 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 
 	protected void aggregateSourceFiles() {
 		try {
+			initSourceRoots();
 			IVirtualFolder rootFolder = vComponent.getRootFolder();
 			IVirtualResource[] members = rootFolder.members();
-			IPackageFragmentRoot[] srcPkgs = J2EEProjectUtilities.getSourceContainers(vComponent.getProject());
-			sourceRoots = new IResource[srcPkgs.length];
-			for (int i = 0; i < srcPkgs.length; i++) {
-				sourceRoots[i] = srcPkgs[i].getCorrespondingResource();
-			}
 			inJavaSrc = false;
 			aggregateFiles(members);
 		} catch (CoreException e) {
@@ -465,24 +514,10 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 			if (filesHolder.contains(runtimePath))
 				continue;
 
-			IArchiveResource cFile = null;
-
 			if (virtualResources[i].getType() == IVirtualResource.FILE) {
-				if (!shouldInclude(runtimePath))
-					continue;
-				IResource resource = virtualResources[i].getUnderlyingResource();
-				// want to ignore derived resources nested within Java src
-				// directories; this covers the case where
-				// a user has nested a Java output directory within a Java src
-				// directory (note: should ideally be
-				// respecting Java src path exclusion filters)
-				if (inJavaSrc && resource.isDerived()) {
-					continue;
+				if(aggregateResource(virtualResources[i], runtimePath, inJavaSrc, IArchiveResource.FILE_TYPE) != null){
+					fileAdded = true;
 				}
-				cFile = createFile(runtimePath);
-				cFile.setLastModified(getLastModified(resource));
-				filesHolder.addFile(cFile, resource);
-				fileAdded = true;
 			} else if (shouldInclude((IVirtualContainer) virtualResources[i])) {
 				boolean inJavaSrcAtThisLevel = inJavaSrc;
 				try {
@@ -493,16 +528,9 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 					IVirtualResource[] nestedVirtualResources = ((IVirtualContainer) virtualResources[i]).members();
 					aggregateFiles(nestedVirtualResources);
 					if (!filesHolder.contains(runtimePath)) {
-						if (!shouldInclude(runtimePath))
-							continue;
-						IResource resource = virtualResources[i].getUnderlyingResource();
-						if (inJavaSrc && resource.isDerived()) {
-							continue;
+						if(aggregateResource(virtualResources[i], runtimePath, inJavaSrc, IArchiveResource.DIRECTORY_TYPE) != null){
+							fileAdded = true;
 						}
-						cFile = createDirectory(runtimePath);
-						cFile.setLastModified(getLastModified(resource));
-						filesHolder.addFile(cFile);
-						fileAdded = true;
 					}
 				} finally {
 					inJavaSrc = inJavaSrcAtThisLevel;
@@ -512,6 +540,38 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 		return fileAdded;
 	}
 
+	
+	protected IArchiveResource aggregateResource(IVirtualResource virtualResource, IPath runtimePath, boolean inJavaSrc, int archiveResourceType){
+		if (!shouldInclude(runtimePath)){
+			return null;
+		}
+		IResource resource = virtualResource.getUnderlyingResource();
+		// want to ignore derived resources nested within Java src
+		// directories; this covers the case where
+		// a user has nested a Java output directory within a Java src
+		// directory (note: should ideally be
+		// respecting Java src path exclusion filters)
+		if (inJavaSrc && resource.isDerived()) {
+			return null;
+		}
+		IArchiveResource cFile = null;
+		switch(archiveResourceType){
+		case IArchiveResource.FILE_TYPE:
+			cFile = createFile(runtimePath);
+			break;
+		case IArchiveResource.DIRECTORY_TYPE:
+			cFile = createDirectory(runtimePath);
+			break;
+		default:
+			return null;
+		}
+		
+		cFile.setLastModified(getLastModified(resource));
+		filesHolder.addFile(cFile, resource);
+		return cFile;
+	}
+
+	
 	/**
 	 * Determines if the specified IVirtualResource maps to a IResource that is
 	 * contained within a Java src root.
