@@ -14,7 +14,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -27,7 +26,6 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -35,6 +33,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
+import org.eclipse.jst.common.jdt.internal.javalite.JavaLiteUtilities;
 import org.eclipse.jst.j2ee.application.Application;
 import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants;
@@ -73,16 +72,18 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.ServerUtil;
-import org.eclipse.wst.server.core.internal.ModuleFile;
-import org.eclipse.wst.server.core.internal.ModuleFolder;
 import org.eclipse.wst.server.core.model.IModuleFile;
 import org.eclipse.wst.server.core.model.IModuleFolder;
 import org.eclipse.wst.server.core.model.IModuleResource;
+import org.eclipse.wst.server.core.util.ModuleFile;
+import org.eclipse.wst.server.core.util.ModuleFolder;
 import org.eclipse.wst.web.internal.deployables.ComponentDeployable;
 /**
  * J2EE module superclass.
  */
-public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EEModule, IEnterpriseApplication, IApplicationClientModule, IConnectorModule, IEJBModule, IWebModule {
+public class J2EEFlexProjDeployable extends ComponentDeployable implements 
+				IJ2EEModule, IEnterpriseApplication, IApplicationClientModule, 
+				IConnectorModule, IEJBModule, IWebModule {
 	protected static final IPath WEB_CLASSES_PATH = new Path(J2EEConstants.WEB_INF_CLASSES);
 	protected static final IPath MANIFEST_PATH = new Path(J2EEConstants.MANIFEST_URI);
 	protected static IPath WEBLIB = new Path(J2EEConstants.WEB_INF_LIB).makeAbsolute();
@@ -92,7 +93,6 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 	protected HashMap cachedOutputMappings;
 	protected HashMap cachedSourceOutputPairs;
 	protected List classpathComponentDependencyURIs = new ArrayList();
-	private boolean isSingleJavaOutputNonSource = false;
 
 	/**
 	 * Constructor for J2EEFlexProjDeployable.
@@ -116,21 +116,13 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 
 	/**
 	 * Returns the root folders for the resources in this module.
+	 * The implementation was no different than the superclass implementation;
 	 * 
 	 * @return a possibly-empty array of resource folders
 	 */
 	@Override
 	public IContainer[] getResourceFolders() {
-		List result = new ArrayList();
-		IVirtualComponent vc = ComponentCore.createComponent(getProject());
-		if (vc != null) {
-			IVirtualFolder vFolder = vc.getRootFolder();
-			if (vFolder != null) {
-				IContainer[] underlyingFolders = vFolder.getUnderlyingFolders();
-				result.addAll(Arrays.asList(underlyingFolders));
-			}
-		}
-		return (IContainer[]) result.toArray(new IContainer[result.size()]);
+		return super.getResourceFolders();
 	}
 
 	/**
@@ -140,15 +132,16 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 	 */
 	public IContainer[] getJavaOutputFolders() {
 		if (cachedOutputContainers == null)
-			cachedOutputContainers = getJavaOutputFolders(getProject());
+			cachedOutputContainers = getJavaOutputFolders(component);
 		return cachedOutputContainers;
 	}
 	
-	public IContainer[] getJavaOutputFolders(IProject project) {
-		if (project == null)
+	public IContainer[] getJavaOutputFolders(IVirtualComponent component) {
+		if (component == null)
 			return new IContainer[0];
-		return J2EEProjectUtilities.getOutputContainers(project);
-	}
+		List<IContainer> l = JavaLiteUtilities.getJavaOutputContainers(component);
+		return l.toArray(new IContainer[l.size()]);
+	}	
 
 	@Override
 	protected boolean shouldIncludeUtilityComponent(IVirtualComponent virtualComp,IVirtualReference[] references, ArtifactEdit edit) {
@@ -189,16 +182,18 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 	public IModuleResource[] members() throws CoreException {
 		members.clear();
 		classpathComponentDependencyURIs.clear();
+		cachedSourceContainers = null;
+		getSourceContainers(); // set the cache
 
 		// Handle binary components
 		if (component instanceof J2EEModuleVirtualArchiveComponent)
 			return getBinaryModuleMembers();
 
-		if (J2EEProjectUtilities.isEARProject(component.getProject())) {
+		if (JavaEEProjectUtilities.isEARProject(component.getProject())) {
 			// If an EAR, add classpath contributions for all referenced modules
 			addReferencedComponentClasspathDependencies(component, false);
 		} else {
-			if (J2EEProjectUtilities.isDynamicWebProject(component.getProject())) {
+			if (JavaEEProjectUtilities.isDynamicWebProject(component.getProject())) {
 				// If a web, add classpath contributions for all WEB-INF/lib modules
 				addReferencedComponentClasspathDependencies(component, true);
 			}
@@ -208,38 +203,20 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 			// Add all Java output folders that have publish/export attributes
 			addClassFolderDependencies(component);
 		}
-		
-		// If j2ee project structure is a single root structure, just return optimized members
-		if (isSingleRootStructure()) {
-			final IModuleResource[] resources = getOptimizedMembers();
-			if (!classpathComponentDependencyURIs.isEmpty()) {
-				for (int i = 0; i < resources.length; i++) {
-					if (resources[i] instanceof IModuleFolder) {
-						IModuleFolder folder = (IModuleFolder) resources[i];
-						if (folder.getName().equals(J2EEConstants.META_INF)) {
-							IModuleResource[] files = folder.members();
-							for (int j = 0; j < files.length; j++) {
-								if (files[j] instanceof IModuleFile)
-								{
-									files[j] = replaceManifestFile((IModuleFile) files[j]);
-								}
-							}
-						}
-					}
-				}
-			}
-			// add to any potentially mapped Java class folders
-			for (int i = 0; i < resources.length; i++) {
-				members.add(resources[i]);
-			}
-			return (IModuleResource[]) members.toArray(new IModuleResource[members.size()]);
-		}
-		
-		cachedSourceContainers = J2EEProjectUtilities.getSourceContainers(getProject());
+
+		if( isForceSingleRoot())
+			return getOptimizedMembers();
+
 		try {
-			IPath javaPath = Path.EMPTY;
-			if (J2EEProjectUtilities.isDynamicWebProject(component.getProject()))
-				javaPath = WEB_CLASSES_PATH;
+
+			/*
+			 *  This section will traverse the VCF and create all the 
+			 *  ModuleFile and ModuleFolder objects needed.
+			 *  The impl. is a bit odd. Unseen-before folders
+			 *  are automatically added to "members", but unseen files
+			 *  are instead returned via the return value.
+			 *  The upstream impl could benefit from cleanup
+			 */
 			
 			if (component != null) {
 				IVirtualFolder vFolder = component.getRootFolder();
@@ -248,26 +225,15 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 				for (int j = 0; j < size; j++) {
 					members.add(mr[j]);
 				}
-			}
-			
-			IContainer[] javaCont = getJavaOutputFolders();		
-			int size = javaCont.length;
-			for (int i = 0; i < size; i++) {
-				//If the java output is in the scope of the virtual component, ignore to avoid duplicates
-				if (ComponentCore.createResources(javaCont[i]).length > 0) 
-					continue;
-				IModuleResource[] mr = getMembers(javaCont[i], javaPath, javaPath, javaCont);
-				int size2 = mr.length;
-				for (int j = 0; j < size2; j++) {
-					members.add(mr[j]);
+
+				addRelevantOutputFolders();
+
+				if (component != null) {
+					addUtilMembers(component);
+					List consumableMembers = getConsumableReferencedMembers(component);
+					if (!consumableMembers.isEmpty())
+						members.addAll(consumableMembers);
 				}
-			}
-									
-			if (component != null) {
-				addUtilMembers(component);
-				List consumableMembers = getConsumableReferencedMembers(component);
-				if (!consumableMembers.isEmpty())
-					members.addAll(consumableMembers);
 			}
 			
 			IModuleResource[] mr = new IModuleResource[members.size()];
@@ -280,6 +246,50 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 			cachedSourceOutputPairs = null;
 		}
 	}
+
+
+    /*
+	 * This method was separated out because previously the paths that designated
+	 * where to put these files was completely ignoring the component.xml
+	 * and was instead making assumptions based on project type. 
+	 */
+	protected void addRelevantOutputFolders() throws CoreException {
+		StructureEdit edit = null;
+		try {
+			edit = StructureEdit.getStructureEditForRead(getProject());
+			if (edit == null || edit.getComponent() == null)
+				return;
+			List resourceMaps = edit.getComponent().getResources();
+			ComponentResource source;
+			for( int i = 0; i < resourceMaps.size(); i++ ) {
+				source = ((ComponentResource)resourceMaps.get(i));
+				if( isSourceContainer(source)) {
+					IContainer out = getOutputContainerIfExists(source.getSourcePath());
+					if (ComponentCore.createResources(out).length > 0) 
+						continue;
+					IModuleResource[] mr = getMembers(out, source.getRuntimePath(), 
+							source.getRuntimePath(), getJavaOutputFolders());
+					int size2 = mr.length;
+					for (int j = 0; j < size2; j++) {
+						members.add(mr[j]);
+					}
+				}
+			}
+		} finally {
+			if( edit != null ) 
+				edit.dispose();
+		}
+	}
+
+	protected boolean hasConsumableReferences(IVirtualComponent vc) {
+		IVirtualReference[] refComponents = vc.getReferences();
+    	for (int i = 0; i < refComponents.length; i++) {
+    		IVirtualReference reference = refComponents[i];
+    		if (reference != null && reference.getDependencyType()==IVirtualReference.DEPENDENCY_TYPE_CONSUMES) 
+    			return true;
+    	}
+    	return false;
+    }
 	
 	@Override
 	protected IModuleFile createModuleFile(IFile file, IPath path) {
@@ -374,18 +384,18 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
      * @return an array of paths
      */
     public IPath[] getClasspath() {
-		List paths = new ArrayList();
+		List<IPath> paths = new ArrayList<IPath>();
         IJavaProject proj = JemProjectUtilities.getJavaProject(getProject());
         URL[] urls = JemProjectUtilities.getClasspathAsURLArray(proj);
 		for (int i = 0; i < urls.length; i++) {
 			URL url = urls[i];
 			paths.add(Path.fromOSString(url.getPath()));
 		}
-        return  (IPath[]) paths.toArray(new IPath[paths.size()]);
+        return paths.toArray(new IPath[paths.size()]);
     }
     
     public String getJNDIName(String ejbName) {
-    	if (!J2EEProjectUtilities.isEJBProject(component.getProject()))
+    	if (!JavaEEProjectUtilities.isEJBProject(component.getProject()))
     		return null;
 		EjbModuleExtensionHelper modHelper = null;
 		EJBJar jar = null;
@@ -417,13 +427,13 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
      */
     public String getURI(IModule module) {
     	// If the component is an ear and the module passed in is a child module
-    	if (component!=null && module!=null && J2EEProjectUtilities.isEARProject(component.getProject()))
+    	if (component!=null && module!=null && JavaEEProjectUtilities.isEARProject(component.getProject()))
  			return getContainedURI(module);
 
     	IVirtualComponent ear = null;
     	String aURI = null;
     	// If the component is a child module and the module passed in is the ear
-    	if (module != null && J2EEProjectUtilities.isEARProject(module.getProject()))
+    	if (module != null && JavaEEProjectUtilities.isEARProject(module.getProject()))
     		ear = ComponentCore.createComponent(module.getProject());
     	// else if the component is a child module and the module passed in is null, search for first ear
     	else if (module==null && component != null) {
@@ -446,17 +456,17 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 			}
     	} 
     	// We have an ear component and no child module
-    	else if (component!=null && J2EEProjectUtilities.isEARProject(component.getProject())) {
+    	else if (component!=null && JavaEEProjectUtilities.isEARProject(component.getProject())) {
 			aURI = component.getDeployedName()+IJ2EEModuleConstants.EAR_EXT;
     	} 
     	// We have child components but could not find valid ears
-    	else if (component != null && J2EEProjectUtilities.isDynamicWebProject(component.getProject())) {
+    	else if (component != null && JavaEEProjectUtilities.isDynamicWebProject(component.getProject())) {
 			if (module != null) {
 				IVirtualComponent webComp = ComponentCore.createComponent(component.getProject());
 				String extension = IJ2EEModuleConstants.JAR_EXT;
-				if (J2EEProjectUtilities.isDynamicWebProject(module.getProject())) {
+				if (JavaEEProjectUtilities.isDynamicWebProject(module.getProject())) {
 					extension = IJ2EEModuleConstants.WAR_EXT;
-				} else if (J2EEProjectUtilities.isJCAProject(module.getProject())) {
+				} else if (JavaEEProjectUtilities.isJCAProject(module.getProject())) {
 					extension = IJ2EEModuleConstants.RAR_EXT;
 				}
 				IVirtualReference reference = webComp.getReference(module.getProject().getName());
@@ -485,7 +495,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
     protected boolean isBinaryModuleArchive(IModule module) {
     	if (module!=null && (module.getName().endsWith(IJ2EEModuleConstants.JAR_EXT) || module.getName().endsWith(IJ2EEModuleConstants.WAR_EXT) ||
     			module.getName().endsWith(IJ2EEModuleConstants.RAR_EXT))) {
-    		if (component!=null && J2EEProjectUtilities.isEARProject(component.getProject()))
+    		if (component!=null && JavaEEProjectUtilities.isEARProject(component.getProject()))
     			return true;
     	}
     	return false;
@@ -553,7 +563,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
     	String contextRoot = null;
     	if (earModule == null)
     		return getContextRoot();
-    	else if (J2EEProjectUtilities.isEARProject(earModule.getProject()) && J2EEProjectUtilities.isDynamicWebProject(deployProject)) {
+    	else if (JavaEEProjectUtilities.isEARProject(earModule.getProject()) && J2EEProjectUtilities.isDynamicWebProject(deployProject)) {
     		EARArtifactEdit edit = null;
     		try {
     			edit = EARArtifactEdit.getEARArtifactEditForRead(earModule.getProject());
@@ -572,7 +582,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
      * @param file
      * @return IPackageFragmentRoot sourceContainer for IFile
      */
-    protected IPackageFragmentRoot getSourceContainer(IFile file) {
+    protected IPackageFragmentRoot getSourceContainer(IResource file) {
     	if (file == null)
     		return null;
     	IPackageFragmentRoot[] srcContainers = getSourceContainers();
@@ -632,7 +642,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
     						members.addAll(childConsumableMembers);
     				}
     				
-    				IContainer[] javaCont = getJavaOutputFolders(consumedComponent.getProject());		
+    				IContainer[] javaCont = getJavaOutputFolders(consumedComponent);		
     				int size = javaCont.length;
     				for (int j = 0; j < size; j++) {
     					IModuleResource[] mr = getMembers(javaCont[j], reference.getRuntimePath(), reference.getRuntimePath(), javaCont);
@@ -653,7 +663,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
     	IModule module = super.gatherModuleReference(component, targetComponent);
     	// Handle binary module components
     	if (targetComponent instanceof J2EEModuleVirtualArchiveComponent) {
-    		if (J2EEProjectUtilities.isEARProject(component.getProject()) || targetComponent.getProject()!=component.getProject())
+    		if (JavaEEProjectUtilities.isEARProject(component.getProject()) || targetComponent.getProject()!=component.getProject())
     			module = ServerUtil.getModule(J2EEDeployableFactory.ID+":"+targetComponent.getName()); //$NON-NLS-1$
     	}
 		return module;
@@ -697,9 +707,9 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 	protected IVirtualReference[] getReferences(IVirtualComponent aComponent) {
     	if (aComponent == null || aComponent.isBinary()) {
     		return new IVirtualReference[] {};
-    	} else if (J2EEProjectUtilities.isDynamicWebProject(aComponent.getProject())) {
+    	} else if (JavaEEProjectUtilities.isDynamicWebProject(aComponent.getProject())) {
     		return getWebLibModules((J2EEModuleVirtualComponent)aComponent);
-    	} else if (J2EEProjectUtilities.isEARProject(aComponent.getProject())) {
+    	} else if (JavaEEProjectUtilities.isEARProject(aComponent.getProject())) {
     		return super.getReferences(aComponent);
     	} else {
     		return new IVirtualReference[] {};
@@ -782,10 +792,10 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 	private boolean canExportClasspathComponentDependencies(IVirtualComponent component) {
 		final IProject project = component.getProject();
 		// check for valid project type
-		if (J2EEProjectUtilities.isEJBProject(project) 
-				|| J2EEProjectUtilities.isDynamicWebProject(project)
-				|| J2EEProjectUtilities.isJCAProject(project)
-    			|| J2EEProjectUtilities.isUtilityProject(project)) {
+		if (JavaEEProjectUtilities.isEJBProject(project) 
+				|| JavaEEProjectUtilities.isDynamicWebProject(project)
+				|| JavaEEProjectUtilities.isJCAProject(project)
+    			|| JavaEEProjectUtilities.isUtilityProject(project)) {
 			return true;
 		}
 		return false;
@@ -910,232 +920,213 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 	 */
 	@Override
 	public boolean isSingleRootStructure() {
-		isSingleJavaOutputNonSource = false;
+		return isForceSingleRoot() || getSingleRoot() != null;
+	}
+	
+	/**
+	 * Will attempt to return the IContainer that counts as the "single-root".
+	 * If this module does not qualify as a "single-root" module, this
+	 * method will return null. Otherwise it will return an IContainer
+	 * that may be used as the single root container. 
+	 * 
+	 * @return
+	 */
+	
+	public IContainer getSingleRoot() {
 		StructureEdit edit = null;
 		try {
 			edit = StructureEdit.getStructureEditForRead(getProject());
 			if (edit == null || edit.getComponent() == null)
-				return false;
-			WorkbenchComponent wbComp = edit.getComponent();
-			List resourceMaps = wbComp.getResources();
+				return null;
 			
-			// 229650 - check to see if the property 'useSingleRoot' is defined. If it is set and
-			// the value of the property is true then it will override the logic checks below
-			final List componentProperties = wbComp.getProperties();
-			if (componentProperties != null) {
-				final Iterator componentPropertiesIterator = componentProperties.iterator();
-				while (componentPropertiesIterator.hasNext()) {
-					Property wbProperty = (Property) componentPropertiesIterator.next();
-					if (J2EEFlexProjDeployable.USE_SINGLE_ROOT_PROPERTY.equals(wbProperty.getName())) {
-						boolean useSingleRoot = Boolean.valueOf(wbProperty.getValue()).booleanValue();
-						if (useSingleRoot) {
-							return true;
-						}
-					}
-				}
+			// 229650 - check to see if the property 'useSingleRoot' is defined. 
+			// The force status will be checked until a suitable root folder is found
+			boolean forceSingleRoot = isForceSingleRoot(edit); 
+			
+			// if there are any consumed references, this is not single root
+			if( hasConsumableReferences(component) && !forceSingleRoot)
+				return null;
+			
+			// if there are any linked resources in the workspace under this folder,
+			// then this is not a single root module
+			if (rootFoldersHaveLinkedContent() && !forceSingleRoot)
+				return null;
+
+			// Always return false for EARs so that members for EAR 
+			// are always calculated and j2ee modules are filtered out
+			if (JavaEEProjectUtilities.isEARProject(getProject()) && !forceSingleRoot)
+				return null;
+			
+			List resourceMaps = edit.getComponent().getResources();
+
+			// No mappings at all... undefined?  false for now
+			if (resourceMaps.size()<1)
+				return null;
+			
+			// One mapping, and something maps to root. That's a good sign
+			if( resourceMaps.size() == 1 ) {
+				ComponentResource mapping = (ComponentResource)resourceMaps.get(0); 
+				if( isRootMapping(mapping))
+					return getOutputContainerIfExists(mapping.getSourcePath());
+				// One mapping, but doesn't map to root... so there's no root to point to
+				if( !forceSingleRoot)
+					return null;
 			}
 			
-			if (J2EEProjectUtilities.isEARProject(getProject())) {
-				// Always return false for EARs so that members for EAR are always calculated and j2ee modules
-				// are filtered out
-				return false;
-			} else if (J2EEProjectUtilities.isDynamicWebProject(getProject())) {
-				// if there are any linked resources then this is not a singleroot module
-				if (this.rootFoldersHaveLinkedContent()) {
-					return false;
+			// There are several mappings to root. 
+			// If more than one map to root, not single root
+			if( countRootMappings(resourceMaps) > 1 )
+				return !forceSingleRoot ? null :  
+					getOutputContainerIfExists(getFirstRootPath(resourceMaps));
+			
+			// if ALL are source folders, 
+			if( countSourceMappings(resourceMaps) == resourceMaps.size()) {
+				// then we check that they all output to the same place
+				if (getJavaOutputFolders().length==1) {
+					// Currently, we claim single-rooted when all source folders 
+					// have the same output folder.  However, we know this is not 
+					// true because it cannot contain non Java files unless it is 
+					// the only source folder. But, fixing at this time would break 
+					// all current users.
+					return getJavaOutputFolders()[0];
 				}
-				// Ensure there are only basic component resource mappings -- one for the content folder 
-				// and any for src folders mapped to WEB-INF/classes
-				if (hasDefaultWebResourceMappings(resourceMaps)) {
-					// Verify only one java output folder
-					if (getJavaOutputFolders().length==1) {
-						// Verify the java output folder is to <content root>/WEB-INF/classes
-						IPath javaOutputPath = getJavaOutputFolders()[0].getProjectRelativePath();
-						IPath compRootPath = component.getRootFolder().getUnderlyingFolder().getProjectRelativePath();
-						if (compRootPath.append(J2EEConstants.WEB_INF_CLASSES).equals(javaOutputPath)) 
-							return true;
-					}
-				}
-				return false;
-			} else if (JavaEEProjectUtilities.isEJBProject(getProject()) || JavaEEProjectUtilities.isJCAProject(getProject())
-					|| JavaEEProjectUtilities.isApplicationClientProject(getProject()) || JavaEEProjectUtilities.isUtilityProject(getProject())) {
-				// if there are any linked resources then this is not a singleroot module
-				if (this.rootFoldersHaveLinkedContent()) {
-					return false;
-				}
-				// Ensure there are only source folder component resource mappings to the root content folder
-				if (isRootResourceMapping(resourceMaps,false)) {
-					IContainer[] javaOutputFolders = getJavaOutputFolders();
-					// Verify only one java outputfolder
-					if (javaOutputFolders.length==1) {
-						// By the time we get here we know: for any folders defined as source in the 
-						// .component file that they are also java source folders.
-						if (JavaEEProjectUtilities.isUtilityProject(getProject()) || 
-								JavaEEProjectUtilities.isEJBProject(getProject()) || 
-								JavaEEProjectUtilities.isApplicationClientProject(getProject())) {
-							if (! isSourceContainer(javaOutputFolders[0].getFullPath())) {
-								// The single output folder is NOT a source folder so this is single-rooted. Since the
-								// output folder (something like classes or bin) is not a source folder, JDT copies all files
-								// (including non Java files) to this folder, so every resource needed at runtime is located 
-								// in a single directory.
-								isSingleJavaOutputNonSource = true;
-								return true;
-							} 
-//							else {
-// Don't implement at this time. Currently, we claim single-rooted when ejbModlule is the output folder.  However,
-// we know this is not true because it cannot contain non Java files unless it is the only source folder. But, fixing
-// at this time would break all current users.
-//								// The single output folder IS a source folder. If there is more than one source folder
-//								// then this cannot be single-rooted because JDT does NOTcopy non Java resources into the
-//								// output folder when it is a source folder.
-//								if (getSourceContainers().length > 1) {
-//									return false;
-//								} else {
-//									// There is only one source folder and since the output folder is a source folder
-//									// this is single-rooted.
-//									return true;
-//								}
-//							}
-						}
-//						// At this point for utility projects, this project is optimized, we can just use the output folder
-//						if (J2EEProjectUtilities.isUtilityProject(getProject()))
-//							return true;
-						// Verify the java output folder is the same as one of the content roots
-						IPath javaOutputPath = getJavaOutputFolders()[0].getProjectRelativePath();
-						IContainer[] rootFolders = component.getRootFolder().getUnderlyingFolders();
-						for (int i=0; i<rootFolders.length; i++) {
-							IPath compRootPath = rootFolders[i].getProjectRelativePath();
-							if (javaOutputPath.equals(compRootPath))
-								return true;
-						}
-					}
-				}
-				return false;
+				if( !forceSingleRoot)
+					return null;
 			}
-			return true;
+			
+			// Not all of them are source mappings, but there's only one root mapping
+			// Lets find our root mapping container
+			IContainer rootContainer = component.getRootFolder().getUnderlyingFolder();
+			IPath projectRelative = component.getRootFolder().getProjectRelativePath();
+			if( forceSingleRoot)
+				return getOutputContainerIfExists(projectRelative);
+			
+			// Lets check the underlying folders of all OTHER mappings, which are all source folders,
+			// and check its output folder against this root mapping. If the output is to  
+			// somewhere under the root mapping, then it's single root
+			IContainer[] outputFolders = getJavaOutputFolders();
+			IPath rootContainerProjectRelative = rootContainer.getProjectRelativePath(); 
+			for( int i = 0; i < outputFolders.length; i++ ) {
+				if( !rootContainerProjectRelative.isPrefixOf(outputFolders[i].getProjectRelativePath())) {
+					return null;
+				}
+			}
+
+			// All outputs go somewhere under the root folder, or the root folder doesn't exist (EH?)
+			return getOutputContainerIfExists(projectRelative);
 		} finally {
 			if (edit !=null)
 				edit.dispose();
 		}
 	}
 	
-	/**
-	 * Ensure that any component resource mappings are for source folders and 
-	 * that they map to the root content folder
-	 * 
-	 * @param resourceMaps
-	 * @return boolean
-	 */
-	private boolean isRootResourceMapping(List resourceMaps, boolean isForEAR) {
-		// If the list is empty, return false
-		if (resourceMaps.size()<1)
-			return false;
-		
-		for (int i=0; i<resourceMaps.size(); i++) {
-			ComponentResource resourceMap = (ComponentResource) resourceMaps.get(i);
-			// Verify it maps to "/" for the content root
-			if (!resourceMap.getRuntimePath().equals(Path.ROOT))
-				return false;
-			// If this is not for an EAR, verify it is also a src container
-			if (!isForEAR) {
-				IResource sourceResource = getProject().findMember(resourceMap.getSourcePath());
-				if(sourceResource != null && sourceResource.exists()){
-					IPath sourcePath = getProject().getFullPath().append(resourceMap.getSourcePath());
-					if (!isSourceContainer(sourcePath))
-						return false;
+	protected boolean isForceSingleRoot() {
+		StructureEdit edit =  StructureEdit.getStructureEditForRead(getProject());
+		return isForceSingleRoot(edit);
+	}
+	
+	protected boolean isForceSingleRoot(StructureEdit edit) {
+		WorkbenchComponent wbComp = edit.getComponent();
+		final List componentProperties = wbComp.getProperties();
+		if (componentProperties != null) {
+			final Iterator componentPropertiesIterator = componentProperties.iterator();
+			while (componentPropertiesIterator.hasNext()) {
+				Property wbProperty = (Property) componentPropertiesIterator.next();
+				if (J2EEFlexProjDeployable.USE_SINGLE_ROOT_PROPERTY.equals(wbProperty.getName())) {
+					boolean useSingleRoot = Boolean.valueOf(wbProperty.getValue()).booleanValue();
+					if (useSingleRoot) {
+						return true;
+					}
 				}
 			}
 		}
-		return true;
+		return false;
 	}
 	
 	/**
-	 * Checks if the path argument is to a source container for the project.
-	 * 
-	 * @param a workspace relative full path
-	 * @return is path a source container?
+	 * This method will return the container related to the given path.
+	 * If the container is a source path, this method will return its output
+	 * folder.
+	 * If the container is not a source path, the container itself will be returned
+	 * @param projectRelative
+	 * @return
 	 */
-	private boolean isSourceContainer(IPath path) {
+	protected IContainer getOutputContainerIfExists(IPath projectRelative) {
+		IContainer container = (IContainer)getProject().findMember(projectRelative); 
+		if( !isSourceContainer(projectRelative))
+			return container;
+		return getOutputContainer(getSourceContainer(container));
+	}
+	
+	private int countRootMappings(List resourceMaps) {
+		int count = 0;
+		for (int i=0; i<resourceMaps.size(); i++) {
+			if(isRootMapping((ComponentResource)resourceMaps.get(i)))
+				count++;
+		}
+		return count;
+	}
+	
+	private IPath getFirstRootPath(List resourceMaps) {
+		for (int i=0; i<resourceMaps.size(); i++) {
+			if(isRootMapping((ComponentResource)resourceMaps.get(i)))
+				return ((ComponentResource)resourceMaps.get(i)).getSourcePath();
+		}
+		return null;
+	}
+	
+	private boolean isRootMapping(ComponentResource mapping) {
+		// Verify it maps to "/" for the content root
+		if (mapping != null && !mapping.getRuntimePath().equals(Path.ROOT))
+			return false;
+		return true;
+	}
+	
+	private int countSourceMappings(List resourceMaps) {
+		int count = 0;
+		for (int i=0; i<resourceMaps.size(); i++) {
+			if(isSourceContainer((ComponentResource)resourceMaps.get(i)))
+				count++;
+		}
+		return count;
+	}
+
+	private boolean isSourceContainer(ComponentResource mapping) {
+		return isSourceContainer(mapping.getSourcePath());
+	}
+	
+	private boolean isSourceContainer(IPath projectRelative) {
+		IResource sourceResource = getProject().findMember(projectRelative);
+		if(sourceResource != null && sourceResource.exists()){
+			IPath sourcePath = getProject().getFullPath().append(projectRelative);
+			if (!isSourceContainer2(sourcePath))
+				return false;
+		}
+		return true;
+	}
+
+	private boolean isSourceContainer2(IPath fullPath) {
 		IPackageFragmentRoot[] srcContainers = getSourceContainers();
 		for (int i=0; i<srcContainers.length; i++) {
-			if (srcContainers[i].getPath().equals(path))
+			if (srcContainers[i].getPath().equals(fullPath))
 				return true;
 		}
 		return false;
 	}
 
-	/**
-	 * Checks if the path argument exists relative to this workspace root.
-	 * 
-	 * @param a workspace relative full path
-	 * @return is path in the workspace?
-	 */
-	private boolean exists(IPath path) {
-		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
-		return workspaceRoot.exists(path);
-	}
 
 	/**
-	 * Ensure the default web setup is correct with one resource map and any number of java 
-	 * resource maps to WEB-INF/classes
-	 * 
-	 * @param resourceMaps
-	 * @return boolean
-	 */
-	private boolean hasDefaultWebResourceMappings(List resourceMaps) {
-		int rootValidMaps = 0;
-		int javaValidRoots = 0;
-		
-		// If there aren't at least 2 maps, return false
-		if (resourceMaps.size()<2)
-			return false;
-		
-		IPath webInfClasses = new Path(J2EEConstants.WEB_INF_CLASSES).makeAbsolute();
-		for (int i=0; i<resourceMaps.size(); i++) {
-			ComponentResource resourceMap = (ComponentResource) resourceMaps.get(i);
-			IPath sourcePath = getProject().getFullPath().append(resourceMap.getSourcePath());
-			
-			// Verify if the map is for the content root
-			if (resourceMap.getRuntimePath().equals(Path.ROOT)) {
-				rootValidMaps++;
-			// Verify if the map is for a java src folder and is mapped to "WEB-INF/classes"
-			} else if (resourceMap.getRuntimePath().equals(webInfClasses) && isSourceContainer(sourcePath)) {
-				javaValidRoots++;
-			// Otherwise we bail because we have a non optimized map
-			// Except if  the source path is to a nonexistent resource then just ignore the map and keep trying
-			} else if (exists(sourcePath)) {
-				return false;
-			}
-		}
-		// Make sure only one of the maps is the content root, and that at least one is for the java folder
-		return rootValidMaps==1 && javaValidRoots>0;
-	}
-	
-	/**
-	 * This method is added for performance reasons. It can ONLY be called when the project is single root.
-	 * @see isSingleRootStructure().  If the project has an output folder that is also a source folder then,
-	 * it assumes the virtual component is not using any flexible features and is in a standard J2EE format
-	 * with one component root folder and an output folder the same as its content folder.  This will bypass 
-	 * the virtual component API and just return the module resources as they are on disk.
+	 * This method is added so that force-singleroot use case can behave properly. 
 	 * 
 	 * @return array of ModuleResources
 	 * @throws CoreException
 	 */
 	private IModuleResource[] getOptimizedMembers() throws CoreException {
-		if (component != null) {
-			if (isSingleJavaOutputNonSource) {
-				// We determined when testing for a single root structure that this project has
-				// one output folder and that output folder is not a source folder. Since the
-				// output folder (for example, classes or bin) is not a source folder, JDT copies all files
-				// (including non Java files) to this folder, so every resource needed at runtime is located 
-				// in that single output directory.
-				return getModuleResources(Path.EMPTY, getJavaOutputFolders()[0]);
-			}
-			// For J2EE modules, we use the contents of the content root
-			IVirtualFolder vFolder = component.getRootFolder();
-			return getModuleResources(Path.EMPTY, vFolder.getUnderlyingFolder());
-		}
-		return new IModuleResource[] {};
+		IContainer root = getSingleRoot();
+		IModuleResource[] resources = getModuleResources(Path.EMPTY, root);
+		for( int i = 0; i < resources.length; i++ )
+			members.add(resources[i]);
+		return (IModuleResource[]) members.toArray(new IModuleResource[members.size()]);
 	}
 	
 	/**
