@@ -975,9 +975,9 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements
 			
 			// There are several mappings to root. 
 			// If more than one map to root, not single root
-			if( countRootMappings(resourceMaps) > 1 )
+			if( countExistingRootMappings(resourceMaps) > 1 )
 				return !forceSingleRoot ? null :  
-					getOutputContainerIfExists(getFirstRootPath(resourceMaps));
+					getOutputContainerIfExists(getFirstExistingRootPath(resourceMaps));
 			
 			// if ALL are source folders, 
 			if( countSourceMappings(resourceMaps) == resourceMaps.size()) {
@@ -1058,21 +1058,30 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements
 		return getOutputContainer(getSourceContainer(container));
 	}
 	
-	private int countRootMappings(List resourceMaps) {
+	private int countExistingRootMappings(List resourceMaps) {
 		int count = 0;
+		ComponentResource cr = null;
 		for (int i=0; i<resourceMaps.size(); i++) {
-			if(isRootMapping((ComponentResource)resourceMaps.get(i)))
+			cr = (ComponentResource)resourceMaps.get(i);
+			if(isRootMapping(cr) && exists(cr))
 				count++;
 		}
 		return count;
 	}
 	
-	private IPath getFirstRootPath(List resourceMaps) {
+	private IPath getFirstExistingRootPath(List resourceMaps) {
+		ComponentResource cr = null;
 		for (int i=0; i<resourceMaps.size(); i++) {
-			if(isRootMapping((ComponentResource)resourceMaps.get(i)))
-				return ((ComponentResource)resourceMaps.get(i)).getSourcePath();
+			cr = (ComponentResource)resourceMaps.get(i);
+			if(isRootMapping(cr) && exists(cr))
+				return cr.getSourcePath();
 		}
 		return null;
+	}
+	
+	private boolean exists(ComponentResource cr) {
+		IContainer container = (IContainer)getProject().findMember(cr.getSourcePath());
+		return container != null && container.exists();
 	}
 	
 	private boolean isRootMapping(ComponentResource mapping) {
