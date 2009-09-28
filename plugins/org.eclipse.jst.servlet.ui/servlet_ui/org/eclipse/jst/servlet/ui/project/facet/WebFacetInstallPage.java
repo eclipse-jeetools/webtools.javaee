@@ -14,9 +14,10 @@ package org.eclipse.jst.servlet.ui.project.facet;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleFacetInstallPage;
 import org.eclipse.jst.j2ee.web.project.facet.IWebFacetInstallDataModelProperties;
-import org.eclipse.jst.j2ee.web.project.facet.WebFacetUtils;
 import org.eclipse.jst.servlet.ui.IWebUIContextIds;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
@@ -26,7 +27,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 
 /**
  * @author <a href="mailto:kosta@bea.com">Konstantin Komissarchik</a>
@@ -80,8 +80,9 @@ public class WebFacetInstallPage extends J2EEModuleFacetInstallPage implements I
 	@Override
 	protected void handleFacetVersionChangedEvent()
 	{
-	    final IProjectFacetVersion fv = (IProjectFacetVersion) this.model.getProperty( FACET_VERSION );
-	    this.addDD.setVisible( fv == WebFacetUtils.WEB_25 );
+	    String fv = model.getStringProperty(FACET_VERSION_STR);
+	    boolean isWeb25OrGreater = J2EEVersionUtil.convertVersionStringToInt(fv) >= J2EEVersionConstants.WEB_2_5_ID;
+	    this.addDD.setVisible(isWeb25OrGreater);
 	}
 	
 	@Override

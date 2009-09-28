@@ -18,6 +18,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.common.project.facet.core.JavaFacetInstallConfig.ChangeEvent;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
@@ -68,8 +69,8 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 			String projectName = model.getStringProperty(FACET_PROJECT_NAME).replace(' ', '_');
 			return projectName + IJ2EEModuleConstants.WAR_EXT;
 		} else if (propertyName.equals(GENERATE_DD)) {
-			IProjectFacetVersion facetVersion = (IProjectFacetVersion)getProperty(FACET_VERSION);
-			if(facetVersion == WebFacetUtils.WEB_25){
+			String facetVersion = getStringProperty(FACET_VERSION_STR);
+			if(J2EEVersionUtil.convertVersionStringToInt(facetVersion) >= J2EEVersionConstants.WEB_2_5_ID) {
 				return Boolean.valueOf(J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.DYNAMIC_WEB_GENERATE_DD));
 			}
 			return Boolean.TRUE;
