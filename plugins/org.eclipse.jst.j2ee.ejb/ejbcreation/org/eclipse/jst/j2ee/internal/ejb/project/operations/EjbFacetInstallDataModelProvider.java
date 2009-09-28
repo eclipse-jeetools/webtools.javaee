@@ -15,6 +15,7 @@ import java.util.Set;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
@@ -76,8 +77,8 @@ public class EjbFacetInstallDataModelProvider
 			if (getBooleanProperty(CREATE_CLIENT)) {
 				return Boolean.TRUE;
 			}
-			IProjectFacetVersion facetVersion = (IProjectFacetVersion)getProperty(FACET_VERSION);
-			if (facetVersion == EJB_30) {
+			String facetVersion = getStringProperty(FACET_VERSION_STR);
+			if (J2EEVersionUtil.convertVersionStringToInt(facetVersion) >= J2EEVersionConstants.EJB_3_0_ID) {
 				return J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.EJB_GENERATE_DD);
 			}
 			return Boolean.TRUE;
