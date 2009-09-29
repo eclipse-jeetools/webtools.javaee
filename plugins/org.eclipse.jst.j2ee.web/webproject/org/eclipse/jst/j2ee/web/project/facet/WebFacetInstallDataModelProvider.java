@@ -144,14 +144,18 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 	}
 
 	protected IStatus validateContextRoot(String contextRoot) {
-		if (contextRoot == null) {
+		if (contextRoot == null || contextRoot.length() == 0) {
 			return J2EEPlugin.newErrorStatus(ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.Context_Root_cannot_be_empty_2, new Object[]{contextRoot}), null);
 		} else if (contextRoot.trim().equals(contextRoot)) {
 			StringTokenizer stok = new StringTokenizer(contextRoot, "."); //$NON-NLS-1$
 			while (stok.hasMoreTokens()) {
 				String token = stok.nextToken();
 				for (int i = 0; i < token.length(); i++) {
-					if (!(token.charAt(i) == '_') && !(token.charAt(i) == '-') && !(token.charAt(i) == '/') && Character.isLetterOrDigit(token.charAt(i)) == false) {
+					if(token.charAt(i) == ' ')
+					{
+						return J2EEPlugin.newErrorStatus(ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.Names_cannot_contain_whitespace_, new Object[]{contextRoot}), null); 
+					}
+					else if (!(token.charAt(i) == '_') && !(token.charAt(i) == '-') && !(token.charAt(i) == '/') && Character.isLetterOrDigit(token.charAt(i)) == false) {
 						Object[] invalidChar = new Object[]{(new Character(token.charAt(i))).toString()};
 						String errorStatus = ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.The_character_is_invalid_in_a_context_root, invalidChar); 
 						return J2EEPlugin.newErrorStatus(errorStatus, null);
@@ -159,7 +163,7 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 				}
 			}
 		} else
-			return J2EEPlugin.newErrorStatus(ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.Names_cannot_begin_or_end_with_whitespace_5, new Object[]{contextRoot}), null); 
+			return J2EEPlugin.newErrorStatus(ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.Names_cannot_contain_whitespace_, new Object[]{contextRoot}), null); 
 		return OK_STATUS;
 	}
 	
