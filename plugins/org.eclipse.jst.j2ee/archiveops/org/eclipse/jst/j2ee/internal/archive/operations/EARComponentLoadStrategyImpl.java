@@ -46,6 +46,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 
 	private List artifactEditsToDispose = new ArrayList();
+	private List <Archive> archivesToClose = new ArrayList<Archive>();
 	private Map binaryComponentURIsToDiskFileMap = new HashMap();
 
 	public EARComponentLoadStrategyImpl(IVirtualComponent vComponent) {
@@ -134,6 +135,7 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 							if (addClasspathComponentDependencies) {
 								addClasspathComponentDependencies(referencedComponent);
 							}
+							archivesToClose.add(archive);
 						}
 					} catch (OpenFailureException oe) {
 						J2EEPlugin.logError(oe);
@@ -204,6 +206,10 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 			edit.dispose();
 		}
 		artifactEditsToDispose.clear();
+		for(Archive archive:archivesToClose){
+			archive.close();
+		}
+		archivesToClose.clear();
 	}
 
 	public ZipFileLoadStrategyImpl createLoadStrategy(String uri) throws FileNotFoundException, IOException {
