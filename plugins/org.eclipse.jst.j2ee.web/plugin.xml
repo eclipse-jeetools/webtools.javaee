@@ -425,7 +425,7 @@
     </action>
 
     <event-handler facet="jst.web" version="[2.2-2.5]" type="RUNTIME_CHANGED">
-      <delegate class="org.eclipse.jst.j2ee.web.project.facet.WebFacetRuntimeChangedDelegate"/>
+      <delegate class="org.eclipse.jst.j2ee.project.facet.J2EEFacetRuntimeChangedDelegate"/>
     </event-handler>
     
     <event-handler type="POST_INSTALL" facet="jst.web" version="[2.2-2.5]">
