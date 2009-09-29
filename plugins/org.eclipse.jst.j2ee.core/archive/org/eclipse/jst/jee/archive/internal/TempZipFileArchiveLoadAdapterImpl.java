@@ -11,7 +11,6 @@
 package org.eclipse.jst.jee.archive.internal;
 
 import java.io.File;
-import java.util.zip.ZipFile;
 
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.DeleteOnExitUtility;
 
