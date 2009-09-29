@@ -267,8 +267,10 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements
 					IContainer out = getOutputContainerIfExists(source.getSourcePath());
 					if (ComponentCore.createResources(out).length > 0) 
 						continue;
-					IModuleResource[] mr = getMembers(out, source.getRuntimePath(), 
-							source.getRuntimePath(), getJavaOutputFolders());
+					IModuleResource[] mr = getMembers(out, 
+							source.getRuntimePath().makeRelative(), 
+							source.getRuntimePath().makeRelative(), 
+							getJavaOutputFolders());
 					int size2 = mr.length;
 					for (int j = 0; j < size2; j++) {
 						members.add(mr[j]);
