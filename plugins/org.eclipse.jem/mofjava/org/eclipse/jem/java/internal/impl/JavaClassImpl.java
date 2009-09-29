@@ -245,7 +245,17 @@ public class JavaClassImpl extends EClassImpl implements JavaClass {
 			if (!excludedClasses.contains(javaClass))
 				javaClass.collectMethodsExtended(methods, onlyPublic, excludedClasses, excludedMethods);
 		}
-		it1 = onlyPublic ? getPublicMethods().iterator() : getMethods().iterator();
+		
+		List allMethods = null;
+		if(onlyPublic){
+			allMethods = getPublicMethods();
+		} else{
+			allMethods = new ArrayList();
+			synchronized(getMethods()){
+				allMethods.addAll(getMethods());
+			}
+		}
+		it1 = allMethods.iterator();
 		Method nextMethod;
 		while (it1.hasNext()) {
 			nextMethod = (Method) it1.next();
