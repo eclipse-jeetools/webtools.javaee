@@ -23,18 +23,22 @@ import java.util.Set;
 import java.util.Vector;
 import java.util.logging.Level;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.wst.validation.ValidationState;
 import org.eclipse.wst.validation.internal.core.ValidationException;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
+import org.eclipse.wst.validation.internal.provisional.core.IValidatorExtender;
 /**
  * @author vijayb
  * 
  * To change the template for this generated type comment go to
  * Window>Preferences>Java>Code Generation>Code and Comments
  */
-public abstract class AbstractEJBValidator extends J2EEValidator {
+public abstract class AbstractEJBValidator extends J2EEValidator implements IValidatorExtender {
 	protected Map _validated = null;
 	/**
 	 *  
@@ -313,8 +317,12 @@ public abstract class AbstractEJBValidator extends J2EEValidator {
     	}
     }
     @Override
-	public void cleanup(IReporter reporter) {
-    	if( _validated != null ){
+    public void cleanup(IReporter reporter) {
+    	//cleanup has been moved to the validationFinishing method below.  See bugzilla 290581 for details.
+    }
+
+	public void validationFinishing(IProject project, ValidationState state, IProgressMonitor monitor) {
+		if( _validated != null ){
 	    	Iterator iterator = _validated.keySet().iterator();
 	    	while(iterator.hasNext()) {
 	    		Set done = (Set)_validated.get(iterator.next());
@@ -327,8 +335,8 @@ public abstract class AbstractEJBValidator extends J2EEValidator {
 	    	}
 	    	_validated.clear();
 	    	_validated = null;
-    	}
-    	setValidationContext(null);
-    }
+		}
+		setValidationContext(null);
+	}
 
 }
