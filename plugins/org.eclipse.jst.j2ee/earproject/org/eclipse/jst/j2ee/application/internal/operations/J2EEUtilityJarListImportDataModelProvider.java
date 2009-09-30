@@ -80,12 +80,6 @@ public class J2EEUtilityJarListImportDataModelProvider extends AbstractDataModel
 			else
 				model.setProperty(UTILITY_JAR_LIST, propertyValue);
 
-		} else if (PROJECT_ROOT.equals(propertyName)) {
-			if (propertyValue == null || ((String) propertyValue).length() == 0)
-				setBooleanProperty(OVERRIDE_PROJECT_ROOT, false);
-			else
-				setBooleanProperty(OVERRIDE_PROJECT_ROOT, true);
-
 		} else if (J2EEUtilityJarListImportDataModelProvider.CREATE_PROJECT.equals(propertyName) && getBooleanProperty(J2EEUtilityJarListImportDataModelProvider.CREATE_PROJECT)) {
 
 			setBooleanProperty(LINK_IMPORT, false);
@@ -136,7 +130,7 @@ public class J2EEUtilityJarListImportDataModelProvider extends AbstractDataModel
 
 
 		} else if (J2EEUtilityJarListImportDataModelProvider.OVERRIDE_PROJECT_ROOT.equals(propertyName)) {
-			model.notifyPropertyChange(PROJECT_ROOT, IDataModel.ENABLE_CHG);
+			model.notifyPropertyChange(PROJECT_ROOT, IDataModel.VALUE_CHG);
 		} else if (J2EEUtilityJarListImportDataModelProvider.CREATE_LINKED_PATH_VARIABLE.equals(propertyName)) {
 
 			if (isLinkedPathVariableInvalid())
