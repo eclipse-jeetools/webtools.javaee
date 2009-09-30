@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -25,6 +26,7 @@ import org.eclipse.wst.common.componentcore.internal.impl.WTPModulesResourceFact
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
+import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 
 public class J2EEDependencyListener implements IResourceChangeListener, IResourceDeltaVisitor {
 
@@ -135,7 +137,7 @@ public class J2EEDependencyListener implements IResourceChangeListener, IResourc
 			} else if (endsWithIgnoreCase(name, IJ2EEModuleConstants.JAR_EXT) || endsWithIgnoreCase(name, IJ2EEModuleConstants.WAR_EXT) || endsWithIgnoreCase(name, IJ2EEModuleConstants.RAR_EXT)) {
 				if (EarUtilities.isEARProject(resource.getProject())) {
 					IVirtualComponent comp = ComponentCore.createComponent(resource.getProject());
-					if (isFolder(resource.getParent(), comp.getRootFolder())) {
+					if (isInTree((IFile)resource, comp.getRootFolder())) {
 						IVirtualReference[] refs = comp.getReferences();
 						for (IVirtualReference ref : refs) {
 							IDependencyGraph.INSTANCE.update(ref.getReferencedComponent().getProject(), IDependencyGraph.MODIFIED);
@@ -149,6 +151,34 @@ public class J2EEDependencyListener implements IResourceChangeListener, IResourc
 		return false;
 	}
 
+	public static boolean isInTree(IFile file, IVirtualFolder folder) {
+		// If we are the folder, return true
+		if( isFolder(file.getParent(), folder))
+				return true;
+		
+		// if resource is any level under current VF's underlying folders, return true 
+		IContainer[] underlying = folder.getUnderlyingFolders();
+		for( int i = 0; i < underlying.length; i++ ) {
+			if( underlying[i].getFullPath().isPrefixOf(file.getFullPath()))
+				return true;
+		}
+		
+		// continue to peruse in case there's some odd mapping, such as 
+		// /EarConten5 -> /my/secret/location/wherever/it/goes
+		boolean found = false;
+		try {
+			IVirtualResource[] children = folder.members();
+			for(int i = 0; i < children.length && !found; i++ ) {
+				if( children[i].getType() == IVirtualResource.FOLDER) {
+					found |= isInTree(file, (IVirtualFolder)children[i]);
+				}
+			}
+		} catch( CoreException ce) {
+			J2EEPlugin.logError(ce);
+		}
+		return found;
+	}
+	
 	public static boolean endsWithIgnoreCase(String str, String sfx) {
 		return J2EEComponentClasspathUpdater.endsWithIgnoreCase(str, sfx);
 
