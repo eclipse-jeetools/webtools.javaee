@@ -80,7 +80,7 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 				// for now, only dependencies on ModuleCoreNature projects
 				final IProject project = (IProject) event.getResource();
                 // ensure project is accessible and has both module core and faceted natures
-				if (ModuleCoreNature.getModuleCoreNature(project) != null
+				if (ModuleCoreNature.isFlexibleProject(project)
                         && ProjectFacetsManager.create(project) != null) {
 					cacheDeletedProjectMetadata(project);
 				}
