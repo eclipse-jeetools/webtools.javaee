@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JavaClassImpl.java,v $
- *  $Revision: 1.4 $  $Date: 2006/05/17 20:13:07 $ 
+ *  $Revision: 1.4.6.1 $  $Date: 2009/10/01 22:01:28 $ 
  */
 package org.eclipse.jem.java.internal.impl;
 
@@ -262,7 +262,17 @@ public class JavaClassImpl extends EClassImpl implements JavaClass {
 			if (!excludedClasses.contains(javaClass))
 				javaClass.collectMethodsExtended(methods, onlyPublic, excludedClasses, excludedMethods);
 		}
-		it1 = onlyPublic ? getPublicMethods().iterator() : getMethods().iterator();
+		
+		List allMethods = null;
+		if(onlyPublic){
+			allMethods = getPublicMethods();
+		} else{
+			allMethods = new ArrayList();
+			synchronized(getMethods()){
+				allMethods.addAll(getMethods());
+			}
+		}
+		it1 = allMethods.iterator();
 		Method nextMethod;
 		while (it1.hasNext()) {
 			nextMethod = (Method) it1.next();

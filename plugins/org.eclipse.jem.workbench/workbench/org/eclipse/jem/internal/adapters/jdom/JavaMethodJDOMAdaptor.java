@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JavaMethodJDOMAdaptor.java,v $
- *  $Revision: 1.15.2.1 $  $Date: 2007/04/18 13:46:00 $ 
+ *  $Revision: 1.15.2.1.2.1 $  $Date: 2009/10/01 22:01:27 $ 
  */
 package org.eclipse.jem.internal.adapters.jdom;
 
@@ -134,10 +134,12 @@ public class JavaMethodJDOMAdaptor extends JDOMAdaptor implements IJavaMethodAda
 	protected IType getParentType() {
 		if (parentType == null) {
 			Method targetMethod = (Method) getTarget();
-			JavaClass parentJavaClass = targetMethod.getContainingJavaClass();
-			JavaClassJDOMAdaptor pa = (JavaClassJDOMAdaptor) EcoreUtil.getAdapter(parentJavaClass.eAdapters(), ReadAdaptor.TYPE_KEY);
-			if (pa != null)
-				parentType = pa.getSourceType();
+			if(targetMethod != null){
+				JavaClass parentJavaClass = targetMethod.getContainingJavaClass();
+				JavaClassJDOMAdaptor pa = (JavaClassJDOMAdaptor) EcoreUtil.getAdapter(parentJavaClass.eAdapters(), ReadAdaptor.TYPE_KEY);
+				if (pa != null)
+					parentType = pa.getSourceType();
+			}
 		}
 		return parentType;
 	}
