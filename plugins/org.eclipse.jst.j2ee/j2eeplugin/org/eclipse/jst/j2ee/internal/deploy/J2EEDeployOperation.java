@@ -160,7 +160,7 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 	 */
 	private void addOKStatus(String DeployerName) {
 
-		IStatus statusLocal = new Status(IStatus.OK, " ", IStatus.OK, (J2EEPluginResourceHandler.getString("J2EEDeployOperation_2_UI_", new Object[]{DeployerName})), null); //$NON-NLS-1$ //$NON-NLS-2$		
+		IStatus statusLocal = new Status(IStatus.OK, " ", IStatus.OK, (J2EEPluginResourceHandler.getString(J2EEPluginResourceHandler.J2EEDeployOperation_2_UI_, new Object[]{DeployerName})), null); //$NON-NLS-1$		
 		//TODO
 		getMultiStatus().add(statusLocal);
 
