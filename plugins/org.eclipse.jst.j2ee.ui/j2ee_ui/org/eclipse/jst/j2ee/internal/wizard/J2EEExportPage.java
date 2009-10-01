@@ -152,6 +152,8 @@ public abstract class J2EEExportPage extends DataModelWizardPage {
 		Composite composite = new Composite(parent, SWT.NULL);
 		GridLayout layout = new GridLayout(3, false);
 		composite.setLayout(layout);
+		GridData data = new GridData(GridData.FILL_HORIZONTAL);
+        composite.setLayoutData(data);
 		createExportComponentGroup(composite);
 		createDestinationGroup(composite);
 
@@ -198,7 +200,8 @@ public abstract class J2EEExportPage extends DataModelWizardPage {
         // destination browse button
         destinationBrowseButton = new Button(parent, SWT.PUSH);
         destinationBrowseButton.setText(defBrowseButtonLabel);
-        destinationBrowseButton.setLayoutData((new GridData(GridData.FILL_HORIZONTAL)));
+        // bug 290709
+//        destinationBrowseButton.setLayoutData((new GridData(GridData.FILL_HORIZONTAL)));
         destinationBrowseButton.addSelectionListener(new SelectionAdapter() {
             @Override
 			public void widgetSelected(SelectionEvent e) {
