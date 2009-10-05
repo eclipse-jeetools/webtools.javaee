@@ -134,10 +134,12 @@ public class JavaMethodJDOMAdaptor extends JDOMAdaptor implements IJavaMethodAda
 	protected IType getParentType() {
 		if (parentType == null) {
 			Method targetMethod = (Method) getTarget();
-			JavaClass parentJavaClass = targetMethod.getContainingJavaClass();
-			JavaClassJDOMAdaptor pa = (JavaClassJDOMAdaptor) EcoreUtil.getAdapter(parentJavaClass.eAdapters(), ReadAdaptor.TYPE_KEY);
-			if (pa != null)
-				parentType = pa.getSourceType();
+			if(targetMethod != null){
+				JavaClass parentJavaClass = targetMethod.getContainingJavaClass();
+				JavaClassJDOMAdaptor pa = (JavaClassJDOMAdaptor) EcoreUtil.getAdapter(parentJavaClass.eAdapters(), ReadAdaptor.TYPE_KEY);
+				if (pa != null)
+					parentType = pa.getSourceType();
+			}
 		}
 		return parentType;
 	}
