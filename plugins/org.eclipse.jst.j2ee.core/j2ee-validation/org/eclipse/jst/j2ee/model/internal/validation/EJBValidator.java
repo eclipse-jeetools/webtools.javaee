@@ -20,6 +20,7 @@ import java.util.Set;
 import java.util.logging.Level;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.jem.java.JavaClass;
@@ -29,8 +30,8 @@ import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.Entity;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.wst.validation.ValidationState;
 import org.eclipse.wst.validation.internal.core.ValidationException;
-import org.eclipse.wst.validation.internal.operations.WorkbenchReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
@@ -517,16 +518,16 @@ public class EJBValidator extends AbstractEJBValidator {
 	}
 	
 	public void cleanup(IReporter reporter){
-		if( reporter instanceof WorkbenchReporter ){
-			WorkbenchReporter wbReporter = (WorkbenchReporter)reporter;
-			IProject project = wbReporter.getProject();
-			HashMap helperMap = ValidationRuleUtility.getHelperMap(project);
-			helperMap.clear();
-			ValidationRuleUtility.projectHelperMap.remove( helperMap );
-			helperMap = null;
-		}
 		// clear the map when the ejb validator is done see bug 187286
 		EJBValidationRuleFactory.getFactory().clearRuleMap(reporter);
-		super.cleanup(reporter);
 	}
+
+	public void validationFinishing(IProject project, ValidationState state, IProgressMonitor monitor) {
+		HashMap helperMap = ValidationRuleUtility.getHelperMap(project);
+		helperMap.clear();
+		ValidationRuleUtility.projectHelperMap.remove( helperMap );
+		helperMap = null;
+		super.validationFinishing(project, state, monitor);
+	}
+
 }
