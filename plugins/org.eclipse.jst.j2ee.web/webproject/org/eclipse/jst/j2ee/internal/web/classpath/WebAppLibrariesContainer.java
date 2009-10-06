@@ -11,6 +11,9 @@
 
 package org.eclipse.jst.j2ee.internal.web.classpath;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
@@ -22,6 +25,9 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.common.jdt.internal.classpath.FlexibleProjectContainer;
 import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.osgi.util.NLS;
+import org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
 /**
  * @author <a href="mailto:kosta@bea.com">Konstantin Komissarchik</a>
@@ -78,6 +84,16 @@ public final class WebAppLibrariesContainer
     public void refresh()
     {
         ( new WebAppLibrariesContainer( this.path, this.owner ) ).install();
+    }
+    
+    private static Map<String, Object> referenceOptions = new HashMap<String, Object>();
+    static {
+    	referenceOptions.put("GET_JAVA_REFS", Boolean.FALSE);
+    }
+    
+    @Override
+    protected IVirtualReference[] computeReferences(IVirtualComponent vc) {
+    	return ((VirtualComponent)vc).getReferences(referenceOptions);
     }
     
     private static final IProject getProject( final IPath path,

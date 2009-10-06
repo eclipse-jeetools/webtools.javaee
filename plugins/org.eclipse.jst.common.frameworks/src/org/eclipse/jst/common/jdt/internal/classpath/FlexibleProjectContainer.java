@@ -166,6 +166,10 @@ public abstract class FlexibleProjectContainer
         return decorations;
     }
     
+    protected IVirtualReference [] computeReferences(IVirtualComponent vc){
+    	return vc.getReferences();
+    }
+    
     private List computeClasspathEntries()
     {
         final List entries = new ArrayList();
@@ -178,7 +182,7 @@ public abstract class FlexibleProjectContainer
             return entries;
         }
         
-        IVirtualReference[] refs = vc.getReferences();
+        IVirtualReference[] refs = computeReferences(vc);
         IVirtualComponent comp = null;
         Set jarsHandled = new HashSet();
         String jarName = null;

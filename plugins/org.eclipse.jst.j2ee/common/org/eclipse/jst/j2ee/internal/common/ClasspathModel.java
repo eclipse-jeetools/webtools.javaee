@@ -38,7 +38,6 @@ import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyEnablement;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -646,13 +645,11 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 				classPathWLPSelection.addClasspathElement(element, unresolvedURI);
 			}
 		}
-		if(ClasspathDependencyEnablement.isAllowClasspathComponentDependency()){
-			// Add elements for raw classpath entries (either already tagged or potentially taggable) 
-			try {
-				classPathWLPSelection.createClasspathEntryElements(component, WEBLIB, WEBINF_CLASSES);
-			} catch (CoreException ce) {
-				Logger.getLogger(J2EEPlugin.PLUGIN_ID).logError(ce);
-			}
+		// Add elements for raw classpath entries (either already tagged or potentially taggable) 
+		try {
+			classPathWLPSelection.createClasspathEntryElements(component, WEBLIB, WEBINF_CLASSES);
+		} catch (CoreException ce) {
+			Logger.getLogger(J2EEPlugin.PLUGIN_ID).logError(ce);
 		}
 	}
 
