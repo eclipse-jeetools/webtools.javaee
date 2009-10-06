@@ -22,7 +22,21 @@
    </requires>
 
    <plugin
+         id="org.eclipse.jem"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
          id="org.eclipse.jem.workbench"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.jst.common.frameworks"
          download-size="0"
          install-size="0"
          version="0.0.0"
