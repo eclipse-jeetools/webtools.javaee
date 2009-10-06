@@ -1,0 +1,258 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="org.eclipse.jem.beaninfo">
+<annotation>
+      <appInfo>
+         <meta.schema plugin="org.eclipse.jem.beaninfo" id="registrations" name="BeanInfo Extension Registrations"/>
+      </appInfo>
+      <documentation>
+         This extension point is used to register contributors, beaninfo, and overrides for BeanInfo contributions.
+&lt;p&gt;An important concept is visibility of a container, plugin, or project to the top-level project. The top-level project is the project being introspected. For a container, plugin, or project to be visible to that project, the container, plugin, or project must be in the classpath of the top-level project, or it must be exported from a visible project or plugin. Once a non-visible project/plugin is reached, any projects, containers, or plugins that it may contain are not considered to be visible.
+&lt;p&gt;The registrations are identified with the container id and/or plugin id. If that container or plugin is visible, then that registration will be processed for the top-level project. If the container/plugin is found more than once in the build path of the top-level project, it will only be processed once.
+&lt;p&gt;There are three forms of registrations.
+&lt;ul&gt;
+&lt;li&gt;BeanInfo registrations. These supply standard BeanInfo and overrides.
+&lt;li&gt;&lt;samp&gt;IClasspathContainer&lt;/samp&gt; that implements &lt;samp&gt;IBeanInfoContributor&lt;/samp&gt;.
+&lt;li&gt;An explicit contributor that implements &lt;samp&gt;IBeanInfoContributor&lt;/samp&gt;.
+&lt;/ul&gt;
+&lt;p&gt;It runs through the visible BeanInfo registrations. 
+&lt;p&gt;
+The IClasspathContainer registration isn&apos;t specified as part of this extension point. For all visible containers, if the classpath container (from JDT) also implements IBeanInfoContributor, then it will be called to contribute to the BeanInfo.
+&lt;p&gt;Then it runs through the visible explicit contributors. Note that if the explicit contributor also implements &lt;samp&gt;org.eclipse.jem.internal.proxy.core.IConfigurationContributor&lt;/samp&gt; it will also be called for proxy contributions. This allows for special setup required by any contributed BeanInfo for the launched proxy registry. This shouldn&apos;t normally be necessary because normal classpath updates to include the BeanInfo jar will be done by the IBeanInfoContributor itself through the BeanInfo registration callback.
+&lt;p&gt;The order of processing for the overrides will be to first run through the specified overrides (through Beaninfo registrations). Then it runs through the visible containers that implement IBeanInfoContributor, and then finally it runs through the explicit IBeanInfoContributors. This order is chosen because the overrides files are not dynamic so they need to be applied in a consistent way. The contributors are dynamic and can handle change.
+&lt;p&gt;The only order guarantee is that contributions from this extension point will be processed in plugin order of where the extension was declared. For example if there was an extension declared in plugin A and in plugin B, and plugin B requires plugin A, then the extensions declarations in plugin A will be processed before the extension declarations in plugin B.
+      </documentation>
+   </annotation>
+
+   <element name="extension">
+      <complexType>
+         <sequence>
+            <element ref="registration" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="contributor" minOccurs="0" maxOccurs="unbounded"/>
+         </sequence>
+         <attribute name="point" type="string" use="required">
+            <annotation>
+               <documentation>
+                  a fully qualified identifier of the target extension point
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="id" type="string">
+            <annotation>
+               <documentation>
+                  an optional identifier of the extension instance
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  an optional name of the extension instance
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="registration">
+      <annotation>
+         <documentation>
+            This is a registration for a container or plugin. It supplies the BeanInfo and the overrides.
+         </documentation>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="beaninfo" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="override" minOccurs="0" maxOccurs="unbounded"/>
+         </sequence>
+         <attribute name="container" type="string">
+            <annotation>
+               <documentation>
+                  contributor is for a container. The value is the container id (e.g. &lt;b&gt;&quot;JRE_CONTAINER&quot;&lt;/b&gt;). This will match &quot;/JRE_CONTAINER&quot; or &quot;/JRE_CONTAINER/...&quot;. Or &lt;b&gt;&quot;JRE_CONTAINER/XYZ&quot;&lt;/b&gt; would match &quot;/JRE_CONTAINER/XYZ/...&quot;.
+&lt;p&gt;
+You can also use a regular expression. An expression such as &lt;b&gt;&quot;SWT_CONTAINER/.*/JFACE&quot;&lt;/b&gt; will match &quot;/SWT_CONTAINER/PDE/JFACE&quot; but will not match &quot;/SWT_CONTAINER&quot;.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="plugin" type="string">
+            <annotation>
+               <documentation>
+                  contributor is for a plugin. The value is the plugin id (e.g. &quot;org.eclipse.swt&quot;).
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="contributor">
+      <annotation>
+         <documentation>
+            This is a contributor for the visible container/plugin defined by container and plugin attributes.
+         </documentation>
+      </annotation>
+      <complexType>
+         <attribute name="container" type="string">
+            <annotation>
+               <documentation>
+                  contributor is for a container. The value is the container id (e.g. &lt;b&gt;&quot;JRE_CONTAINER&quot;&lt;/b&gt;). This will match &quot;/JRE_CONTAINER&quot; or &quot;/JRE_CONTAINER/...&quot;. Or &lt;b&gt;&quot;JRE_CONTAINER/XYZ&quot;&lt;/b&gt; would match &quot;/JRE_CONTAINER/XYZ/...&quot;.
+&lt;p&gt;
+You can also use a regular expression. An expression such as &lt;b&gt;&quot;SWT_CONTAINER/.*/JFACE&quot;&lt;/b&gt; will match &quot;/SWT_CONTAINER/PDE/JFACE&quot; but will not match &quot;/SWT_CONTAINER&quot;.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="plugin" type="string">
+            <annotation>
+               <documentation>
+                  contributor is for a plugin. The value is the plugin id (e.g. &quot;org.eclipse.swt&quot;).
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  the class that implements this contributor. The class must implement IBeanInfoContributor.
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn="org.eclipse.jem.internal.beaninfo.core.IBeanInfoContributor"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="beaninfo">
+      <annotation>
+         <documentation>
+            Provide a BeanInfo jar from this or some other plugin, and provide search path packages.
+         </documentation>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="searchpath" minOccurs="0" maxOccurs="unbounded"/>
+         </sequence>
+         <attribute name="path" type="string" use="required">
+            <annotation>
+               <documentation>
+                  This is the path to the BeanInfo jar from within this or some other plugin. If it is within this plugin, there should be no leading &apos;/&apos;. There can be subfolders though, e.g. &lt;samp&gt;xyz/qxr.jar&lt;/samp&gt;. If it is within another plugin, then it must be fully-qualified with leading &apos;/&apos; followed by plugin id, followed by a &apos;/&apos; and then the path to the jar relative to that plugin, e.g. &lt;samp&gt;/org.xyz/qxr/ddd.jar&lt;/samp&gt;.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="searchpath">
+      <annotation>
+         <documentation>
+            This is a search path. It gives the package to add to the search path for BeanInfo.
+It refers to packages within the BeanInfo jar contributed by the &lt;samp&gt;beaninfo&lt;/samp&gt; element that it is found within.
+There really should be at least one search path. The only way this jar could contribute BeanInfo and not need something added to the search path is if the BeanInfos are in the same package as the bean itself. This is not a recommended way of supplying BeanInfo.
+         </documentation>
+      </annotation>
+      <complexType>
+         <attribute name="package" type="string" use="required">
+            <annotation>
+               <documentation>
+                  This is the java package to search into for BeanInfo. If there are more than one search paths in this &lt;samp&gt;beaninfo&lt;/samp&gt; element, then they will be searched in the order found in the element.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="override">
+      <annotation>
+         <appInfo>
+            <meta.element labelAttribute="package"/>
+         </appInfo>
+         <documentation>
+            This describes an override file for BeanInfo. An override file is an XMI file that is read when a class is first introspected. It happens before the actual introspection. It allows overrides to the Java EMF model class (&lt;samp&gt;JavaClass&lt;/samp&gt;) that can be done through standard BeanInfo. These are annotations that are specific to the Visual Editor implementation in Eclipse. The annotations have no meaning to the standard BeanInfo specification so they are supplied here instead. They provide a much enriched experience in the Visual Editor by providing classes that run in the editor.
+         </documentation>
+      </annotation>
+      <complexType>
+         <attribute name="package" type="string" use="required">
+            <annotation>
+               <documentation>
+                  This is the name of a package or a package fragment. When this package or package fragment matches the package or fragment of a class being introspected, the specified override file from the given path will be applied. For example if the package was &lt;samp&gt;javax.swing&lt;/samp&gt; and the path was &quot;xyz&quot;, then for class &quot;javax.swing.Container&quot; it will look for file &quot;xyz/Container.override&quot;, and if found, it will apply it. If it was &lt;samp&gt;javax.swing.text.JTextComponent&lt;/samp&gt; it will look for file &quot;xyz/text/JTextComponent.override&quot;.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="path" type="string" use="required">
+            <annotation>
+               <documentation>
+                  This is the path relative to the plugin where this extension is declared for the folder to search for the override files. See the package attribute description above for how this works.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="since"/>
+      </appInfo>
+      <documentation>
+         1.0.0
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="examples"/>
+      </appInfo>
+      <documentation>
+         The following is an example of a registration:
+&lt;p&gt;
+&lt;pre&gt;
+  &lt;extension point=&quot;org.eclipse.jem.beaninfo.registration&quot;&gt;
+    &lt;registration container=&quot;VE_CONTAINER&quot;&gt;
+      &lt;beaninfo path=&quot;xyzbeaninfo.jar&quot;&gt;
+        &lt;searchpath package=&quot;com.xyz.beaninfo&quot;/&gt;
+        &lt;searchpath package=&quot;com.xyz.qxr.beaninfo&quot;/&gt;
+      &lt;/beaninfo&gt;
+      &lt;override package=&quot;com.xyz&quot; path=&quot;overrides/e&quot;/&gt;
+    &lt;/registration&gt;
+    &lt;contributor plugin=&quot;org.eclipse.ve&quot; class=&quot;com.xyz.myContributor&quot;/&gt;
+  &lt;/extension&gt;
+&lt;/pre&gt;
+&lt;/p&gt;
+&lt;p&gt;
+This says that if container &quot;VE_CONTAINER&quot; is visible to the project being introspected, then then BeanInfo jar &quot;xyzbeaninfo.jar&quot; (found in the plugin that declared this extension) will be looked into for BeanInfos. The two packages listed will be added to the search path of packages.
+&lt;p&gt;
+The override says that, again for &quot;VE_CONTAINER&quot; visible, for any classes that start with &quot;com.xyz&quot;, then the override file (classname.override) will be searched for in the directory &quot;overrides/e&quot;. For example, if the class was &lt;samp&gt;com.xyz.ABC&lt;/samp&gt; it will look for override file &quot;overrides/e/ABC.override&quot;. If the class was &lt;samp&gt;com.xyz.qxr.ABC&lt;/samp&gt; it will for file &quot;overrides/e/qxr/ABC.override&quot;.
+&lt;p&gt;
+Finally if plugin &quot;org.eclipse.ve&quot; is visible to the project, then &lt;samp&gt;com.xyz.myContributor&lt;/samp&gt; will be used to contribute to the BeanInfo.
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="apiInfo"/>
+      </appInfo>
+      <documentation>
+         The &lt;samp&gt;class&lt;/samp&gt; attribute must be a class that implements the &lt;samp&gt;org.eclipse.jem.internal.beaninfo.core.IBeanInfoContributor&lt;/samp&gt; interface.
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="implementation"/>
+      </appInfo>
+      <documentation>
+         [Enter information about supplied implementation of this extension point.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="copyright"/>
+      </appInfo>
+      <documentation>
+         Copyright (c) 2004 IBM Corporation and others.&lt;br&gt;
+All rights reserved. This program and the accompanying materials are made 
+available under the terms of the Eclipse Public License v1.0 which accompanies 
+this distribution, and is available at 
+&lt;a href=&quot;http://www.eclipse.org/legal/epl-v10.html&quot;&gt;http://www.eclipse.org/legal/epl-v10.html&lt;/a&gt;
+      </documentation>
+   </annotation>
+
+</schema>

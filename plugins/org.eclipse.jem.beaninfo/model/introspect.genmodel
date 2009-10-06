@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.jem.beaninfo/beaninfo"
+    editDirectory="/org.eclipse.jem.beaninfo.edit/src" editorDirectory="/org.eclipse.jem.beaninfo.editor/src"
+    modelPluginID="" modelName="Beaninfo" editPluginClass="org.eclipse.jem.internal.beaninfo.provider.BeaninfoEditPlugin"
+    editorPluginClass="org.eclipse.jem.internal.beaninfo.presentation.BeaninfoEditorPlugin"
+    updateClasspath="false" booleanFlagsField="eFlags" booleanFlagsReservedBits="8"
+    importerID="org.eclipse.emf.importer.rose" usedGenPackages="../../org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../org.eclipse.jem/model/javaModel.genmodel#//java">
+  <foreignModel>..\rose\introspect.mdl</foreignModel>
+  <foreignModel>WorkspaceRoot</foreignModel>
+  <foreignModel>../..</foreignModel>
+  <genPackages prefix="Beaninfo" basePackage="org.eclipse.jem.internal" adapterFactory="false"
+      ecorePackage="beaninfo.ecore#/">
+    <genEnums ecoreEnum="beaninfo.ecore#//ImplicitItem">
+      <genEnumLiterals ecoreEnumLiteral="beaninfo.ecore#//ImplicitItem/NOT_IMPLICIT"/>
+      <genEnumLiterals ecoreEnumLiteral="beaninfo.ecore#//ImplicitItem/IMPLICIT_DECORATOR"/>
+      <genEnumLiterals ecoreEnumLiteral="beaninfo.ecore#//ImplicitItem/IMPLICIT_DECORATOR_AND_FEATURE"/>
+    </genEnums>
+    <genDataTypes ecoreDataType="beaninfo.ecore#//FeatureAttributeValue"/>
+    <genClasses ecoreClass="beaninfo.ecore#//FeatureDecorator">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute beaninfo.ecore#//FeatureDecorator/displayName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute beaninfo.ecore#//FeatureDecorator/shortDescription"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute beaninfo.ecore#//FeatureDecorator/category"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute beaninfo.ecore#//FeatureDecorator/expert"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute beaninfo.ecore#//FeatureDecorator/hidden"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute beaninfo.ecore#//FeatureDecorator/preferred"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute beaninfo.ecore#//FeatureDecorator/mergeIntrospection"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute beaninfo.ecore#//FeatureDecorator/attributesExplicitEmpty"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute beaninfo.ecore#//FeatureDecorator/implicitlySetBits"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute beaninfo.ecore#//FeatureDecorator/implicitDecoratorFlag"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference beaninfo.ecore#//FeatureDecorator/attributes"/>
+      <genOperations ecoreOperation="beaninfo.ecore#//FeatureDecorator/getName"/>
+    </genClasses>
+    <genClasses ecoreClass="beaninfo.ecore#//BeanDecorator">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute beaninfo.ecore#//BeanDecorator/mergeSuperProperties"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute beaninfo.ecore#//BeanDecorator/mergeSuperMethods"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute beaninfo.ecore#//BeanDecorator/mergeSuperEvents"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute beaninfo.ecore#//BeanDecorator/introspectProperties"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute beaninfo.ecore#//BeanDecorator/introspectMethods"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute beaninfo.ecore#//BeanDecorator/introspectEvents"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute beaninfo.ecore#//BeanDecorator/doBeaninfo"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute beaninfo.ecore#//BeanDecorator/notInheritedPropertyNames"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute beaninfo.ecore#//BeanDecorator/notInheritedMethodNames"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute beaninfo.ecore#//BeanDecorator/notInheritedEventNames"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference beaninfo.ecore#//BeanDecorator/customizerClass"/>
+    </genClasses>
+    <genClasses ecoreClass="beaninfo.ecore#//EventSetDecorator">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute beaninfo.ecore#//EventSetDecorator/inDefaultEventSet"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute beaninfo.ecore#//EventSetDecorator/unicast"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute beaninfo.ecore#//EventSetDecorator/listenerMethodsExplicitEmpty"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference beaninfo.ecore#//EventSetDecorator/addListenerMethod"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference beaninfo.ecore#//EventSetDecorator/listenerMethods"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference beaninfo.ecore#//EventSetDecorator/listenerType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference beaninfo.ecore#//EventSetDecorator/removeListenerMethod"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference beaninfo.ecore#//EventSetDecorator/eventAdapterClass"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference beaninfo.ecore#//EventSetDecorator/serListMthd"/>
+    </genClasses>
+    <genClasses ecoreClass="beaninfo.ecore#//MethodDecorator">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute beaninfo.ecore#//MethodDecorator/parmsExplicitEmpty"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference beaninfo.ecore#//MethodDecorator/parameterDescriptors"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference beaninfo.ecore#//MethodDecorator/serParmDesc"/>
+    </genClasses>
+    <genClasses ecoreClass="beaninfo.ecore#//ParameterDecorator">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute beaninfo.ecore#//ParameterDecorator/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference beaninfo.ecore#//ParameterDecorator/parameter"/>
+    </genClasses>
+    <genClasses ecoreClass="beaninfo.ecore#//PropertyDecorator">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute beaninfo.ecore#//PropertyDecorator/bound"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute beaninfo.ecore#//PropertyDecorator/constrained"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute beaninfo.ecore#//PropertyDecorator/designTime"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute beaninfo.ecore#//PropertyDecorator/alwaysIncompatible"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute beaninfo.ecore#//PropertyDecorator/filterFlags"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute beaninfo.ecore#//PropertyDecorator/fieldReadOnly"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference beaninfo.ecore#//PropertyDecorator/propertyEditorClass"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference beaninfo.ecore#//PropertyDecorator/readMethod"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference beaninfo.ecore#//PropertyDecorator/writeMethod"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference beaninfo.ecore#//PropertyDecorator/field"/>
+      <genOperations ecoreOperation="beaninfo.ecore#//PropertyDecorator/getPropertyType"/>
+      <genOperations ecoreOperation="beaninfo.ecore#//PropertyDecorator/setPropertyType">
+        <genParameters ecoreParameter="beaninfo.ecore#//PropertyDecorator/setPropertyType/propertyType"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="beaninfo.ecore#//IndexedPropertyDecorator">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference beaninfo.ecore#//IndexedPropertyDecorator/indexedReadMethod"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference beaninfo.ecore#//IndexedPropertyDecorator/indexedWriteMethod"/>
+    </genClasses>
+    <genClasses ecoreClass="beaninfo.ecore#//MethodProxy">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference beaninfo.ecore#//MethodProxy/method"/>
+    </genClasses>
+    <genClasses ecoreClass="beaninfo.ecore#//BeanEvent"/>
+    <genClasses ecoreClass="beaninfo.ecore#//FeatureAttributeMapEntry">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute beaninfo.ecore#//FeatureAttributeMapEntry/key"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EAttribute beaninfo.ecore#//FeatureAttributeMapEntry/value"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
