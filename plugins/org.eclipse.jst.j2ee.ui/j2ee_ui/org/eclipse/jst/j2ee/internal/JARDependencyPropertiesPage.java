@@ -77,6 +77,7 @@ import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
@@ -96,7 +97,7 @@ import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
-import org.eclipse.wst.common.componentcore.internal.builder.DependencyGraphManager;
+import org.eclipse.wst.common.componentcore.internal.builder.IDependencyGraph;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.operation.RemoveReferenceComponentsDataModelProvider;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
@@ -1013,11 +1014,12 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 			
 			final List compsForProject = new ArrayList();
 			final IVirtualComponent comp = (IVirtualComponent) components.get(i);
-			final IProject[] dependentProjects = DependencyGraphManager.getInstance().getDependencyGraph().getReferencingComponents(comp.getProject());
+			Set<IProject> referencingComponents = IDependencyGraph.INSTANCE.getReferencingComponents(project);
+			IProject [] dependentProjects = referencingComponents.toArray(new IProject[referencingComponents.size()]);
 			for (int j = 0; j < dependentProjects.length; j++) {
 				final IProject project = dependentProjects[j];
 				// if this is an EAR, can skip
-				if (J2EEProjectUtilities.isEARProject(project)) {
+				if (JavaEEProjectUtilities.isEARProject(project)) {
 					continue;
 				}
 				final IVirtualComponent dependentComp = ComponentCore.createComponent(project);
@@ -1034,7 +1036,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 					continue;
 				}
 				// if the dependency is a web lib dependency, can skip
-				if (J2EEProjectUtilities.isDynamicWebProject(project)) {
+				if (JavaEEProjectUtilities.isDynamicWebProject(project)) {
 					IVirtualReference ref = dependentComp.getReference(comp.getName());
 					if (ref != null && ref.getRuntimePath().equals(new Path("/WEB-INF/lib"))) { //$NON-NLS-1$
 						continue;

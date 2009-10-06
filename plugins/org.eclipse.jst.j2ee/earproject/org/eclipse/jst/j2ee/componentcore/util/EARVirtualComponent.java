@@ -28,7 +28,7 @@ import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
-import org.eclipse.wst.common.componentcore.internal.builder.DependencyGraphManager;
+import org.eclipse.wst.common.componentcore.internal.builder.IDependencyGraph;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IComponentImplFactory;
@@ -206,11 +206,11 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 	public IVirtualReference[] getCachedReferences() {
 		if (cachedReferences != null && checkIfStillValid())
 			return cachedReferences;
-		depGraphModStamp = DependencyGraphManager.getInstance().getModStamp();
+		depGraphModStamp = IDependencyGraph.INSTANCE.getModStamp();
 		return null;
 	}
 
 	private boolean checkIfStillValid() {
-		return DependencyGraphManager.getInstance().checkIfStillValid(depGraphModStamp);
+		return IDependencyGraph.INSTANCE.getModStamp() == depGraphModStamp;
 	}
 }

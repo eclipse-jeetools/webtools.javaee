@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -36,7 +37,7 @@ import org.eclipse.jst.j2ee.refactor.operations.ProjectRefactorMetadata;
 import org.eclipse.jst.j2ee.refactor.operations.ProjectRefactoringDataModelProvider;
 import org.eclipse.jst.j2ee.refactor.operations.ProjectRenameDataModelProvider;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
-import org.eclipse.wst.common.componentcore.internal.builder.DependencyGraphManager;
+import org.eclipse.wst.common.componentcore.internal.builder.IDependencyGraph;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
@@ -97,8 +98,9 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 		// precompute the metadata while the project still exists
 		metadata.computeMetadata();
 		metadata.computeServers();
-		metadata.computeDependentMetadata(ProjectRefactorMetadata.REF_CACHING,
-				DependencyGraphManager.getInstance().getDependencyGraph().getReferencingComponents(project));
+		Set<IProject> referencingComponents = IDependencyGraph.INSTANCE.getReferencingComponents(project);
+		IProject [] referencingProjects = referencingComponents.toArray(new IProject[referencingComponents.size()]);
+		metadata.computeDependentMetadata(ProjectRefactorMetadata.REF_CACHING, referencingProjects);
 		deletedProjectMetadata.put(project.getName(), metadata);
 	}
 	
