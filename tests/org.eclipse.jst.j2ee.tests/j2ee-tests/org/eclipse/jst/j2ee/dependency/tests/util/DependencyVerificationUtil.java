@@ -11,6 +11,7 @@
 package org.eclipse.jst.j2ee.dependency.tests.util;
 
 import java.io.IOException;
+import java.util.Set;
 
 import junit.framework.Assert;
 
@@ -31,7 +32,7 @@ import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.internal.builder.DependencyGraphManager;
+import org.eclipse.wst.common.componentcore.internal.builder.IDependencyGraph;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
@@ -53,10 +54,10 @@ public class DependencyVerificationUtil {
 	 * @throws Exception
 	 */
 	public static void verifyDependency(final IProject source, final IProject target, final boolean hasDep) {
-		IProject[] referencingProjects  = DependencyGraphManager.getInstance().getDependencyGraph().getReferencingComponents(target);
+		Set<IProject> referencingComponents = IDependencyGraph.INSTANCE.getReferencingComponents(target);
 		boolean dep = false;
-		for (int i = 0; i < referencingProjects.length; i++) {
-			if (referencingProjects[i].equals(source)) {
+		for (IProject project: referencingComponents) {
+			if (project.equals(source)) {
 				dep= true;
 				break;
 			}
