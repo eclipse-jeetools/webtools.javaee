@@ -17,4 +17,5 @@ public interface IJ2EEModuleFacetInstallDataModelProperties extends IJ2EEFacetIn
 	public static final String CONFIG_FOLDER = "IJ2EEFacetInstallDataModelProperties.CONFIG_FOLDER"; //$NON-NLS-1$
 	public static final String LAST_EAR_NAME = "IJ2EEModuleFacetInstallDataModelProperties.LAST_EAR_NAME";	//$NON-NLS-1$
 	public static final String MODULE_URI = "IJ2EEModuleFacetInstallDataModelProperties.MODULE_URI"; //$NON-NLS-1$
+	public static final String OUTPUT_FOLDER="IJ2EEModuleFacetInstallDataModelProperties.OUTPUT_FOLDER";//$NON-NLS-1$
 }

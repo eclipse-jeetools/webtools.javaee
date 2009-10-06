@@ -29,6 +29,9 @@ public class ConnectorFacetInstallPage extends J2EEModuleFacetInstallPage implem
 	private Label configFolderLabel;
 	private Text configFolder;
 	
+	private Text outputFolder;
+	private Label outputFolderLabel;
+	
 	public ConnectorFacetInstallPage() {
 		super(IModuleConstants.JST_CONNECTOR_MODULE);
 		setTitle(JCAUIMessages.JCA_MODULE_MAIN_PG_TITLE);
@@ -36,7 +39,7 @@ public class ConnectorFacetInstallPage extends J2EEModuleFacetInstallPage implem
 	}
 
 	protected String[] getValidationPropertyNames() {
-		return new String[]{EAR_PROJECT_NAME, CONFIG_FOLDER};
+		return new String[]{EAR_PROJECT_NAME, CONFIG_FOLDER, OUTPUT_FOLDER};
 	}
 
 	protected Composite createTopLevelComposite(Composite parent) {
@@ -54,6 +57,16 @@ public class ConnectorFacetInstallPage extends J2EEModuleFacetInstallPage implem
 		configFolder.setLayoutData(gdhfill());
 		configFolder.setData("label", configFolderLabel); //$NON-NLS-1$
 		synchHelper.synchText(configFolder, CONFIG_FOLDER, null);
+		
+		outputFolderLabel = new Label(composite, SWT.NONE);
+		outputFolderLabel.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.OUTPUTFOLDER));
+		outputFolderLabel.setLayoutData(gdhfill());
+		
+		outputFolder = new Text(composite, SWT.BORDER);
+		outputFolder.setLayoutData(gdhfill());
+		outputFolder.setData("label", this.outputFolderLabel); //$NON-NLS-1$
+		synchHelper.synchText(outputFolder, OUTPUT_FOLDER, null);
+		
 	    Dialog.applyDialogFont(parent);
 		return composite;
 	}

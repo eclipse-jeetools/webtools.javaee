@@ -29,6 +29,8 @@ public class AppClientFacetInstallPage extends J2EEModuleFacetInstallPage implem
 	private Label configFolderLabel;
 	private Text configFolder;
 	private Button createMainClass;
+	private Text outputFolder;
+	private Label outputFolderLabel;
 	
 	public AppClientFacetInstallPage() {
 		super("appclient.facet.install.page"); //$NON-NLS-1$
@@ -37,7 +39,7 @@ public class AppClientFacetInstallPage extends J2EEModuleFacetInstallPage implem
 	}
 
 	protected String[] getValidationPropertyNames() {
-		return new String[]{EAR_PROJECT_NAME, CONFIG_FOLDER, CREATE_DEFAULT_MAIN_CLASS};
+		return new String[]{EAR_PROJECT_NAME, CONFIG_FOLDER, CREATE_DEFAULT_MAIN_CLASS, OUTPUT_FOLDER};
 	}
 
 	protected Composite createTopLevelComposite(Composite parent) {
@@ -53,6 +55,15 @@ public class AppClientFacetInstallPage extends J2EEModuleFacetInstallPage implem
 		configFolder.setLayoutData(gdhfill());
 		configFolder.setData("label", configFolderLabel); //$NON-NLS-1$
 		synchHelper.synchText(configFolder, CONFIG_FOLDER, null);
+		
+		outputFolderLabel = new Label(composite, SWT.NONE);
+		outputFolderLabel.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.OUTPUTFOLDER));
+		outputFolderLabel.setLayoutData(gdhfill());
+		
+		outputFolder = new Text(composite, SWT.BORDER);
+		outputFolder.setLayoutData(gdhfill());
+		outputFolder.setData("label", this.outputFolderLabel); //$NON-NLS-1$
+		synchHelper.synchText(outputFolder, OUTPUT_FOLDER, null);
 		
 		createMainClass = new Button(composite, SWT.CHECK);
 		createMainClass.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.APP_CLIENT_CREATE_MAIN));

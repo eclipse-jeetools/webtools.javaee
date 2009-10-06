@@ -34,6 +34,8 @@ public class ConnectorFacetInstallDataModelProvider extends J2EEModuleFacetInsta
 			return projectName + IJ2EEModuleConstants.RAR_EXT; 
 		} else if(propertyName.equals(GENERATE_DD)){
 			return Boolean.TRUE;
+		}else if (propertyName.equals(OUTPUT_FOLDER)) {
+			return J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.JCA_OUTPUT_FOLDER);	
 		}
 		return super.getDefaultProperty(propertyName);
 	}

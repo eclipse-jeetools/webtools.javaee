@@ -209,6 +209,7 @@ public class J2EEUIMessages extends Messages {
 	public static final String SUPPORTMULTIPLEMODULES="SUPPORTMULTIPLEMODULES";//$NON-NLS-1$
 	public static final String SOURCEFOLDER="SOURCEFOLDER";//$NON-NLS-1$
 	public static final String CONTENT_FOLDER = "102"; //$NON-NLS-1$
+	public static final String OUTPUTFOLDER = "OUTPUTFOLDER"; //$NON-NLS-1$
 	
 	public static final String HOVER_HELP_FOR_DISABLED_LIBS = "HOVER_HELP_FOR_DISABLED_LIBS"; //$NON-NLS-1$
 

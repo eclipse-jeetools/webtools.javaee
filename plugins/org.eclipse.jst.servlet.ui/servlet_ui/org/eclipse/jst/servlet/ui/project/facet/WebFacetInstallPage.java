@@ -13,6 +13,7 @@
 package org.eclipse.jst.servlet.ui.project.facet;
 
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleFacetInstallPage;
 import org.eclipse.jst.j2ee.web.project.facet.IWebFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.web.project.facet.WebFacetUtils;
@@ -36,7 +37,10 @@ public class WebFacetInstallPage extends J2EEModuleFacetInstallPage implements I
 	private Text contentDir;
 	private Text sourceDir;
 	private Label sourceDirLabel;
-
+	
+	private Text outputFolder;
+	private Label outputFolderLabel;
+	
 	public WebFacetInstallPage() {
 		super("web.facet.install.page"); //$NON-NLS-1$
 		setTitle(Resources.pageTitle);
@@ -75,6 +79,15 @@ public class WebFacetInstallPage extends J2EEModuleFacetInstallPage implements I
 		this.sourceDir.setData("label", this.sourceDirLabel); //$NON-NLS-1$
 		synchHelper.synchText(sourceDir, SOURCE_FOLDER, null);
 		
+		outputFolderLabel = new Label(composite, SWT.NONE);
+		outputFolderLabel.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.OUTPUTFOLDER));
+		outputFolderLabel.setLayoutData(gdhfill());
+		
+		outputFolder = new Text(composite, SWT.BORDER);
+		outputFolder.setLayoutData(gdhfill());
+		outputFolder.setData("label", this.outputFolderLabel); //$NON-NLS-1$
+		synchHelper.synchText(outputFolder, OUTPUT_FOLDER, null);
+		
 		createGenerateDescriptorControl( composite );
 		registerFacetVersionChangeListener();
 		
@@ -90,7 +103,7 @@ public class WebFacetInstallPage extends J2EEModuleFacetInstallPage implements I
 	}
 	
 	protected String[] getValidationPropertyNames() {
-		return new String[]{EAR_PROJECT_NAME, CONTEXT_ROOT, CONFIG_FOLDER, SOURCE_FOLDER};
+		return new String[]{EAR_PROJECT_NAME, CONTEXT_ROOT, CONFIG_FOLDER, SOURCE_FOLDER, OUTPUT_FOLDER};
 	}
 
 	private static final class Resources extends NLS {

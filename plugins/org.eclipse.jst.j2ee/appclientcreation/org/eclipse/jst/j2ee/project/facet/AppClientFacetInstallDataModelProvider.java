@@ -46,6 +46,8 @@ public class AppClientFacetInstallDataModelProvider extends J2EEModuleFacetInsta
 				return Boolean.valueOf(J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.APP_CLIENT_GENERATE_DD));
 			}
 			return Boolean.TRUE;
+		}else if (propertyName.equals(OUTPUT_FOLDER)) {
+			return J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.APP_CLIENT_OUTPUT_FOLDER);	
 		}
 		return super.getDefaultProperty(propertyName);
 	}

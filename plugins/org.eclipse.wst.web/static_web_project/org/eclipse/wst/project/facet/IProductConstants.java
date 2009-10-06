@@ -32,7 +32,15 @@ public interface IProductConstants {
 	public static final String OUTPUT_FOLDER = "outputFolder"; //$NON-NLS-1$
 	public static final String USE_SINGLE_ROOT_STRUCTURE = "useSingleRootStructure"; //$NON-NLS-1$
 	public static final String ID_PERSPECTIVE_HIERARCHY_VIEW = "idPerspectiveHierarchyView"; //$NON-NLS-1$
-	
+		
+	public static final String DYN_WEB_OUTPUT_FOLDER = "dynWebOutput"; //$NON-NLS-1$
+	public static final String EJB_OUTPUT_FOLDER = "ejbOutput"; //$NON-NLS-1$
+    public static final String APP_CLIENT_OUTPUT_FOLDER = "appClientOutput"; //$NON-NLS-1$
+    public static final String JCA_OUTPUT_FOLDER = "jcaOutput"; //$NON-NLS-1$
+    public static final String UTILITY_OUTPUT_FOLDER ="utilOutput"; //$NON-NLS-1$
+    
+    
+    
 	/**
      * Alters the final perspective used by the following new project wizards
      */
