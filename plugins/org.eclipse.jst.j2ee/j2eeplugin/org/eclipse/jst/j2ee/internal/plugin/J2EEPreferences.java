@@ -480,7 +480,7 @@ public class J2EEPreferences {
 	
 	
 	public String getDynamicWebDefaultSourceFolder(){
-		return getJavaSourceFolderName();
+		return getSingleRootDefaultJavaSrcFolder();
 	}
 	
 	public String getDynamicWebDefaultOuputFolderName(){
