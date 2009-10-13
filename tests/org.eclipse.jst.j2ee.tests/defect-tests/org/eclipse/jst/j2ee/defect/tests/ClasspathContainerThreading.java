@@ -20,6 +20,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
@@ -120,7 +121,7 @@ public class ClasspathContainerThreading {
 		List earProjects = new ArrayList();
 		List modulesProjects = new ArrayList();
 		for (int i = 0; i < allProjects.length; i++) {
-			if (J2EEProjectUtilities.isEARProject(allProjects[i])) {
+			if (JavaEEProjectUtilities.isEARProject(allProjects[i])) {
 				earProjects.add(allProjects[i]);
 			} else {
 				IVirtualComponent comp = ComponentCore.createComponent(allProjects[i]);
