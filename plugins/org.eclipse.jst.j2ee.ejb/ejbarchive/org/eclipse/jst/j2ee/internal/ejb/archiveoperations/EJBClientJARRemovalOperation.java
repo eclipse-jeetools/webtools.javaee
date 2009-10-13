@@ -49,6 +49,7 @@ import org.eclipse.jst.j2ee.internal.plugin.LibCopyBuilder;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.operation.RemoveReferenceComponentsDataModelProvider;
@@ -283,7 +284,7 @@ public class EJBClientJARRemovalOperation extends AbstractDataModelOperation
 		ArrayList list = new ArrayList();
 		list.add(clientProject.getName() + IJ2EEModuleConstants.JAR_EXT);
 		
-		IProject[] earProjects = J2EEProjectUtilities.getReferencingEARProjects( ejbProject );
+		IProject[] earProjects = EarUtilities.getReferencingEARProjects( ejbProject );
 		
 		//remove  project dependency of client project from the  EJB project.
 		IDataModel dataModel = DataModelFactory.createDataModel( new JARDependencyDataModelProvider() );
@@ -341,7 +342,7 @@ public class EJBClientJARRemovalOperation extends AbstractDataModelOperation
 	private void moveIncomingJARDependencies() throws InvocationTargetException, InterruptedException {
 		
 		InvertClientJARDependencyCompoundOperation op = 
-			new InvertClientJARDependencyCompoundOperation( J2EEProjectUtilities.getReferencingEARProjects( ejbProject ),
+			new InvertClientJARDependencyCompoundOperation( EarUtilities.getReferencingEARProjects( ejbProject ),
 						clientProject,
 						ejbProject );
 		try {
@@ -516,7 +517,7 @@ public class EJBClientJARRemovalOperation extends AbstractDataModelOperation
 
 	private void removeClientProjectFromEARs() {
 
-		IProject[] earProjects = J2EEProjectUtilities.getReferencingEARProjects( clientProject );
+		IProject[] earProjects = EarUtilities.getReferencingEARProjects( clientProject );
 		for (int i = 0; i < earProjects.length; i++) {
 			removeClientProjectFromEAR( earProjects[i] );
 		}

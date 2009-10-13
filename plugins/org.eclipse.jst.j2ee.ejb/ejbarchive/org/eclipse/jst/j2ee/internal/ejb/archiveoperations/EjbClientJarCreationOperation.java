@@ -43,6 +43,7 @@ import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.jst.j2ee.project.facet.IUtilityFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.UtilityProjectCreationDataModelProvider;
 import org.eclipse.jst.jee.project.facet.ICreateDeploymentFilesDataModelProperties;
@@ -98,7 +99,7 @@ public class EjbClientJarCreationOperation
 				}
 				
 			}
-			IProject[] earprojects = J2EEProjectUtilities.getReferencingEARProjects( ejbproject );
+			IProject[] earprojects = EarUtilities.getReferencingEARProjects( ejbproject );
 			
 			
 			String projectName = model.getStringProperty( PROJECT_NAME );
@@ -319,7 +320,7 @@ public class EjbClientJarCreationOperation
 	private void moveIncomingJARDependencies(IProject ejbProject, IProject clientProject ) throws InvocationTargetException, InterruptedException {
 		
 		InvertClientJARDependencyCompoundOperation op = 
-			new InvertClientJARDependencyCompoundOperation( J2EEProjectUtilities.getReferencingEARProjects( ejbProject ),
+			new InvertClientJARDependencyCompoundOperation( EarUtilities.getReferencingEARProjects( ejbProject ),
 						ejbProject,
 						clientProject );
 	
@@ -350,7 +351,7 @@ public class EjbClientJarCreationOperation
         if (mfEntries.length == 0)
             return;
         
-        IProject[] earProjects = J2EEProjectUtilities.getReferencingEARProjects( ejbproject );
+        IProject[] earProjects = EarUtilities.getReferencingEARProjects( ejbproject );
         
         IProgressMonitor sub = createSubProgressMonitor( earProjects.length * 2 );
         for (int i = 0; i < earProjects.length; i++) {
