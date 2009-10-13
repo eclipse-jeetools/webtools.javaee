@@ -36,6 +36,7 @@ import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyVirtualComp
 import org.eclipse.jst.j2ee.internal.componentcore.JavaEEBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
@@ -110,15 +111,15 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 					boolean addClasspathComponentDependencies = false;
 					ArtifactEdit componentArtifactEdit = null;
 					try {
-						if (J2EEProjectUtilities.isApplicationClientComponent(referencedComponent)) {
+						if (JavaEEProjectUtilities.isApplicationClientComponent(referencedComponent)) {
 							componentArtifactEdit = AppClientArtifactEdit.getAppClientArtifactEditForRead(referencedComponent);
-						} else if (J2EEProjectUtilities.isEJBComponent(referencedComponent)) {
+						} else if (JavaEEProjectUtilities.isEJBComponent(referencedComponent)) {
 							addClasspathComponentDependencies = true;
 							componentArtifactEdit = ArtifactEditRegistryReader.instance().getArtifactEdit(J2EEProjectUtilities.EJB).createArtifactEditForRead(referencedComponent);
-						} else if (J2EEProjectUtilities.isDynamicWebComponent(referencedComponent)) {
+						} else if (JavaEEProjectUtilities.isDynamicWebComponent(referencedComponent)) {
 							addClasspathComponentDependencies = true;
 							componentArtifactEdit = ArtifactEditRegistryReader.instance().getArtifactEdit(J2EEProjectUtilities.DYNAMIC_WEB).createArtifactEditForRead(referencedComponent);
-						} else if (J2EEProjectUtilities.isJCAComponent(referencedComponent)) {
+						} else if (JavaEEProjectUtilities.isJCAComponent(referencedComponent)) {
 							addClasspathComponentDependencies = true;
 							componentArtifactEdit = ArtifactEditRegistryReader.instance().getArtifactEdit(J2EEProjectUtilities.JCA).createArtifactEditForRead(referencedComponent);
 						}

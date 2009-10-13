@@ -62,6 +62,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.javaee.ejb.EJBJar;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
@@ -528,7 +529,7 @@ public class ClassPathSelection {
 
 	public static boolean isValidDependency(IVirtualComponent referencedJAR, IVirtualComponent referencingJAR) {
 		//No other modules should reference wars
-		if (J2EEProjectUtilities.isDynamicWebComponent(referencedJAR))
+		if (JavaEEProjectUtilities.isDynamicWebComponent(referencedJAR))
 			return false;
 
 		if ( referencedJAR.getName().equals( referencingJAR.getName() ) )
@@ -537,7 +538,7 @@ public class ClassPathSelection {
 		//Clients can reference all but the WARs, which we've already covered
 		// above; WARs and EJB JARs
 		//can reference all but WARs, above, or ApplicationClients
-		return J2EEProjectUtilities.isApplicationClientComponent(referencingJAR) || !J2EEProjectUtilities.isApplicationClientComponent(referencedJAR);
+		return JavaEEProjectUtilities.isApplicationClientComponent(referencingJAR) || !JavaEEProjectUtilities.isApplicationClientComponent(referencedJAR);
 	}
 
 	protected void initializeElements() {
