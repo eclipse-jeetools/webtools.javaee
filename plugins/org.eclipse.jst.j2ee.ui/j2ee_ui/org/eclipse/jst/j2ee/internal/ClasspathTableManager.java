@@ -39,6 +39,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.wizard.AvailableJarsProvider;
 import org.eclipse.jst.j2ee.project.EarUtilities;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -454,7 +455,7 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 		if (J2EEProjectUtilities.isDynamicWebComponent(component)) return false;
 		if (J2EEProjectUtilities.isJCAComponent(component)) return false;
 		if (J2EEProjectUtilities.isStaticWebProject(component.getProject())) return false;
-		if (J2EEProjectUtilities.isProjectOfType(component.getProject(), IJ2EEFacetConstants.JAVA)) return true;
+		if (JavaEEProjectUtilities.isProjectOfType(component.getProject(), IJ2EEFacetConstants.JAVA)) return true;
 		return true;
 	}			
 	
