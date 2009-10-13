@@ -22,6 +22,7 @@ import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEModuleImportDataModelPrope
 import org.eclipse.jst.j2ee.internal.archive.JavaEEArchiveUtilities;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.jst.jee.archive.IArchiveResource;
 import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
@@ -96,7 +97,7 @@ public abstract class JEEImportDataModelVerifier extends DataModelVerifier {
 	protected abstract int getExportType();
 
 	private void verifyImportedProjectTypeAndVersion(IArchive archive) throws Exception {
-		if(J2EEProjectUtilities.isUtilityProject(project)){
+		if(JavaEEProjectUtilities.isUtilityProject(project)){
 			JavaEEQuickPeek archiveQuickPeek = JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(archive);
 			int type = archiveQuickPeek.getType();
 			if(JavaEEQuickPeek.UNKNOWN != type){
