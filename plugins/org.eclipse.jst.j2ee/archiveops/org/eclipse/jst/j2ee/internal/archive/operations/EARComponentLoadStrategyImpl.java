@@ -150,7 +150,7 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 					if (referencedComponent.isBinary()) {
 						String uri = reference.getArchiveName();
 						addExternalFile(uri, diskFile);
-					} else if (J2EEProjectUtilities.isUtilityProject(referencedComponent.getProject())) {
+					} else if (JavaEEProjectUtilities.isUtilityProject(referencedComponent.getProject())) {
 						try {
 							if (!referencedComponent.isBinary()) {
 								String uri = earArtifactEdit.getModuleURI(referencedComponent);

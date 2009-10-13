@@ -14,8 +14,8 @@ package org.eclipse.jst.j2ee.internal.validation;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.internal.validation.ApplicationClientValidator;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
@@ -49,7 +49,7 @@ public class UIApplicationClientValidator extends ApplicationClientValidator imp
 		UIApplicationClientHelper helper = (UIApplicationClientHelper) inHelper;
 		IProject proj = ((IWorkbenchContext) inHelper).getProject();
 		IVirtualComponent virComp = ComponentCore.createComponent(proj);
-            if(J2EEProjectUtilities.isApplicationClientProject(proj)) {
+            if(JavaEEProjectUtilities.isApplicationClientProject(proj)) {
 				IVirtualFile ddFile = virComp.getRootFolder().getFile(J2EEConstants.APP_CLIENT_DD_URI);
 				if( ddFile.exists()) {						
 					status = super.validateInJob(helper, inReporter);

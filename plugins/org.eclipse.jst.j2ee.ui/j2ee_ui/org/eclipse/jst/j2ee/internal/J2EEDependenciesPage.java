@@ -17,6 +17,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -103,7 +104,7 @@ public class J2EEDependenciesPage extends PropertyPage {
 	}
 	
 	private Composite createWebContent(final Composite parent) {
-		final boolean standalone = J2EEProjectUtilities.isStandaloneProject(project);
+		final boolean standalone = EarUtilities.isStandaloneProject(project);
 		
 		if (standalone) {
 			// only need to create the Web Libraries page
@@ -134,7 +135,7 @@ public class J2EEDependenciesPage extends PropertyPage {
 	
 	private Composite createNonEARContent(final Composite parent) {
 		controls = new IJ2EEDependenciesControl[1];
-		final boolean standalone = J2EEProjectUtilities.isStandaloneProject(project);
+		final boolean standalone = EarUtilities.isStandaloneProject(project);
 		if (standalone) {
 			// if not referenced by an EAR, check if referenced by a dynamic web project
 			if (J2EEProjectUtilities.getReferencingWebProjects(project).length > 0) {

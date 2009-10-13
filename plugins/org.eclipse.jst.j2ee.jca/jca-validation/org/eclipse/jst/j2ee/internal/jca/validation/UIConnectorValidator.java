@@ -19,8 +19,8 @@ package org.eclipse.jst.j2ee.internal.jca.validation;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.internal.validation.ConnectorValidator;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
@@ -56,7 +56,7 @@ public class UIConnectorValidator extends ConnectorValidator {
 		IProject proj = ((IWorkbenchContext) helper).getProject();
 		IVirtualComponent wbModule = ComponentCore.createComponent(proj);
 		
-        if(J2EEProjectUtilities.isJCAProject(proj)) {
+        if(JavaEEProjectUtilities.isJCAProject(proj)) {
 			IVirtualFile rarDD = wbModule.getRootFolder().getFile(J2EEConstants.RAR_DD_URI);
 			if( rarDD.exists()) {			
 				status =  super.validateInJob(helper, reporter);

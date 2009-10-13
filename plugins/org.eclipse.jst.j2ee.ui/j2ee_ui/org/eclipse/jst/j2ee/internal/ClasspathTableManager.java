@@ -488,7 +488,7 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 		} else if (!event.getChecked()) {
 			compsToUncheck.remove(comp);
 		}
-		if (!J2EEProjectUtilities.isStandaloneProject(model.getComponent().getProject()) && (isReadOnly() || !validatateEdit() || (isMyClientJAR(event) && !event.getChecked()))) {
+		if (!EarUtilities.isStandaloneProject(model.getComponent().getProject()) && (isReadOnly() || !validatateEdit() || (isMyClientJAR(event) && !event.getChecked()))) {
 			availableJARsViewer.setChecked(event.getElement(), !event.getChecked());
 			return;
 		}
@@ -541,7 +541,7 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 	}
 
 	protected ClassPathSelection getClasspathSelection() {
-		if (model == null || model.getSelectedEARComponent() == null && !(J2EEProjectUtilities.isStandaloneProject(model.getComponent().getProject())))
+		if (model == null || model.getSelectedEARComponent() == null && !(EarUtilities.isStandaloneProject(model.getComponent().getProject())))
 			return null;
 		return model.getClassPathSelection();
 	}
@@ -562,7 +562,7 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 	public void refresh() {
 		final IProject project = model.getComponent().getProject();
 		// if not a web project and it is either referenced by an EAR or a dynamic web project.
-		if (!isWLPEntry() && (!J2EEProjectUtilities.isStandaloneProject(project) || 
+		if (!isWLPEntry() && (!EarUtilities.isStandaloneProject(project) || 
 				               (J2EEProjectUtilities.getReferencingWebProjects(project).length > 0))) {
 			availableJARsViewer.setInput(getClasspathSelection());
 			GridData data = new GridData(GridData.FILL_BOTH);

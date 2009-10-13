@@ -19,9 +19,9 @@ import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.jst.javaee.applicationclient.ApplicationClient;
 import org.eclipse.jst.javaee.core.DisplayName;
@@ -86,7 +86,7 @@ public class ProjectRenameOperation extends ProjectRefactorOperation {
 			}
 		}
 		final IProject refactoredProject = refactoredMetadata.getProject();
-		if (J2EEProjectUtilities.isUtilityProject(refactoredProject)) {
+		if (JavaEEProjectUtilities.isUtilityProject(refactoredProject)) {
 			// skip if a utility project (will not have a ModelProvider and checking logs an error
 			return;
 		}

@@ -35,6 +35,7 @@ import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.componentcore.JavaEEBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IModelProvider;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
@@ -355,7 +356,7 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	public static boolean isValidApplicationClientModule(IVirtualComponent aModule) throws UnresolveableURIException {
 		if (!isValidEditableModule(aModule))
 			return false;
-		return J2EEProjectUtilities.isApplicationClientProject(aModule.getProject());
+		return JavaEEProjectUtilities.isApplicationClientProject(aModule.getProject());
 	}
 
 	@Override

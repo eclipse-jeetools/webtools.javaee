@@ -34,7 +34,7 @@ import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
@@ -130,7 +130,7 @@ public class J2EEUtilityJarItemProvider extends J2EEItemProvider {
 					if (module.getProject() == null || !module.getProject().isAccessible())
 						continue;
 					// return only jars for utility components
-					if (J2EEProjectUtilities.isUtilityProject(module.getProject())) {
+					if (JavaEEProjectUtilities.isUtilityProject(module.getProject())) {
 						IProject project = ProjectUtilities.getProject(application);
 						if (project == null)
 							continue;

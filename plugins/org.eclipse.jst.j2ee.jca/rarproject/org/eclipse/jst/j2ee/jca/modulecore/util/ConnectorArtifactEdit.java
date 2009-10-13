@@ -31,6 +31,7 @@ import org.eclipse.jst.j2ee.jca.Connector;
 import org.eclipse.jst.j2ee.jca.ConnectorResource;
 import org.eclipse.jst.j2ee.jca.JcaFactory;
 import org.eclipse.jst.j2ee.model.IModelProvider;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
@@ -336,7 +337,7 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit implements IAr
 		if (!isValidEditableModule(aModule))
 			return false;
 		/* and match the JST_Connector_MODULE type */
-		return J2EEProjectUtilities.isJCAProject(aModule.getProject());
+		return JavaEEProjectUtilities.isJCAProject(aModule.getProject());
 	}
 
 	/**

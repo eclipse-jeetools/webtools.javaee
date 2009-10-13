@@ -563,7 +563,7 @@ public class ClassPathSelection {
 				rootModelObject = null;
 				ejbClientJarName = null;
 				currentComponent = references[cnt].getReferencedComponent();
-				if (J2EEProjectUtilities.isEJBComponent(currentComponent))
+				if (JavaEEProjectUtilities.isEJBComponent(currentComponent))
 				{
 					if(currentComponent.isBinary()){
 						//TODO add binary support
@@ -871,7 +871,7 @@ public class ClassPathSelection {
 			return;
 		else if (clientToEJBJARs.containsKey(other.getReferencedComponent()))
 			element.setJarType(ClasspathElement.EJB_CLIENT_JAR);
-		else if (J2EEProjectUtilities.isEJBComponent(other.getReferencedComponent()))
+		else if (JavaEEProjectUtilities.isEJBComponent(other.getReferencedComponent()))
 			element.setJarType(ClasspathElement.EJB_JAR);
 	}
 
