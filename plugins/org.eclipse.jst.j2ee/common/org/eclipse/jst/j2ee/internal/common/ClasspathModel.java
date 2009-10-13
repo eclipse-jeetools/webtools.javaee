@@ -40,6 +40,7 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyEnablement;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ModuleStructuralModel;
@@ -103,7 +104,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 
 	protected IVirtualComponent[] refreshAvailableEARs() {
 		if (component != null) {
-			IProject[] earProjects = J2EEProjectUtilities.getReferencingEARProjects(getComponent().getProject());
+			IProject[] earProjects = EarUtilities.getReferencingEARProjects(getComponent().getProject());
 			availableEARComponents = ComponentUtilities.getComponents(earProjects);
 			if (availableEARComponents != null && availableEARComponents.length > 0) {
 				Arrays.sort(availableEARComponents, comparator);

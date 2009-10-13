@@ -717,26 +717,13 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 		return EarUtilities.isStandaloneProject(project);
 	}
 	
+	
 	/**
-	 * Returns all referencing EAR projects.
-	 * @param project Project to check. If null or an EAR, returns a zero length array.
-	 * @return Array of referencing EAR projects.
+	 * @deprecated use {@link EarUtilities#getReferencingEARProjects(IProject)}
+	 * 
 	 */
 	public static IProject[] getReferencingEARProjects(final IProject project) {
-		if(project != null && isEARProject(project)){
-			return new IProject[] {project};
-		}
-		
-		List result = new ArrayList();
-		IVirtualComponent component = ComponentCore.createComponent(project);
-		if (component != null) {
-			IVirtualComponent[] refComponents = component.getReferencingComponents();
-			for (int i = 0; i < refComponents.length; i++) {
-				if (isEARProject(refComponents[i].getProject()))
-					result.add(refComponents[i].getProject());
-			}
-		}
-		return (IProject[]) result.toArray(new IProject[result.size()]);
+		return EarUtilities.getReferencingEARProjects(project);
 	}
 	
 	/**

@@ -50,6 +50,7 @@ import org.eclipse.jst.j2ee.internal.componentcore.JavaEEBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.jst.server.core.IApplicationClientModule;
@@ -439,7 +440,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements
     		ear = ComponentCore.createComponent(module.getProject());
     	// else if the component is a child module and the module passed in is null, search for first ear
     	else if (module==null && component != null) {
-    		IProject[] earProjects = J2EEProjectUtilities.getReferencingEARProjects(component.getProject());
+    		IProject[] earProjects = EarUtilities.getReferencingEARProjects(component.getProject());
 	        if (earProjects.length>0)
 	        	ear = ComponentCore.createComponent(earProjects[0]);
     	}

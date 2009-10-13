@@ -38,6 +38,7 @@ import org.eclipse.jst.j2ee.internal.listeners.IValidateEditListener;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.wizard.AvailableJarsProvider;
+import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -496,7 +497,7 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 
 	
 	private boolean isConflict(IVirtualComponent lib) {
-		IProject[] ears = J2EEProjectUtilities.getReferencingEARProjects(lib.getProject());
+		IProject[] ears = EarUtilities.getReferencingEARProjects(lib.getProject());
 		for (int i = 0; i < ears.length; i++) {
 			if (J2EEProjectUtilities.isJEEProject(ears[i])) {
 				IVirtualComponent cmp = ComponentCore.createComponent(ears[i]);

@@ -51,6 +51,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -249,7 +250,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 			for (int p = 0; p < projects.length; p++) {
 				IProject project = (IProject) projects[p];
 				if (!isKnown(project)) {
-					IProject[] earProjects = J2EEProjectUtilities.getReferencingEARProjects(project);
+					IProject[] earProjects = EarUtilities.getReferencingEARProjects(project);
 					for (int i = 0; i < earProjects.length; i++) {
 						queueEAR(earProjects[i]);
 					}
@@ -391,7 +392,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 								}
 									
 							} else {
-								IProject[] earProjects = J2EEProjectUtilities.getReferencingEARProjects((IProject)resource);
+								IProject[] earProjects = EarUtilities.getReferencingEARProjects((IProject)resource);
 								for(int i=0; i<earProjects.length; i++){
 									queueUpdateEAR(earProjects[i]);
 								}

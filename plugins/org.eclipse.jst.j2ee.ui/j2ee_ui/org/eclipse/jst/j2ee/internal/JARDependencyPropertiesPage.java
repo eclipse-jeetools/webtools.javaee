@@ -77,6 +77,7 @@ import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.swt.SWT;
@@ -923,7 +924,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 			allCompsToUncheck.add(comp);
 			if (comp instanceof J2EEModuleVirtualArchiveComponent) allCompNamesToUncheck.add(comp.getName());
 		}
- 		IProject[] ears = J2EEProjectUtilities.getReferencingEARProjects(project);
+ 		IProject[] ears = EarUtilities.getReferencingEARProjects(project);
 		for (int i = 0; i < ears.length; i++) {
 			if (J2EEProjectUtilities.isJEEProject(ears[i])) {	
 				IVirtualComponent earComponent = ComponentCore.createComponent(ears[i]);
@@ -1024,7 +1025,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 				}
 				final IVirtualComponent dependentComp = ComponentCore.createComponent(project);
 				// ensure that the project's share an EAR
-				final IProject[] refEARs = J2EEProjectUtilities.getReferencingEARProjects(project);
+				final IProject[] refEARs = EarUtilities.getReferencingEARProjects(project);
 				boolean sameEAR = false;
 				for (int k = 0; k < refEARs.length; k++) {
 					if (refEARs[k].equals(earComponent.getProject())) {

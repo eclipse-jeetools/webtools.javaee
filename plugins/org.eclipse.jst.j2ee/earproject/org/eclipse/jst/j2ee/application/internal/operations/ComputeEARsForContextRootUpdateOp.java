@@ -25,7 +25,7 @@ import org.eclipse.jst.j2ee.application.WebModule;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
@@ -55,7 +55,7 @@ public class ComputeEARsForContextRootUpdateOp extends AbstractDataModelOperatio
         final List earsToUpdate = new ArrayList();
         try {
         	// get the set of all referencing EARs
-        	final IProject[] ears = J2EEProjectUtilities.getReferencingEARProjects(project);
+        	final IProject[] ears = EarUtilities.getReferencingEARProjects(project);
         	
         	// for each EAR, check if the current context-root value is equal to the old context-root setting
         	// if it is, update it to reflect the new value
