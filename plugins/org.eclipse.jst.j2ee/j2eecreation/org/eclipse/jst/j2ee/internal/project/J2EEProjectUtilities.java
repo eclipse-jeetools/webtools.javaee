@@ -568,7 +568,7 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 		try {
 			if (!project.isAccessible())
 				return false;
-			if (isEJBProject(project)) {
+			if (JavaEEProjectUtilities.isEJBProject(project)) {
 				return sourceFolder.findMember(J2EEConstants.EJBJAR_DD_URI) != null;
 			} else if (isApplicationClientProject(project)) {
 				return sourceFolder.findMember(J2EEConstants.APP_CLIENT_DD_URI) != null;

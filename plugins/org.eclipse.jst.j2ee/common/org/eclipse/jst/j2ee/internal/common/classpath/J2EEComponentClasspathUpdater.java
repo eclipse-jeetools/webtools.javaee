@@ -163,7 +163,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 	public void queueUpdate(IProject project) {
 		if (J2EEProjectUtilities.isEARProject(project)) {
 			queueUpdateEAR(project);
-		} else if (J2EEProjectUtilities.isApplicationClientProject(project) || J2EEProjectUtilities.isEJBProject(project) || J2EEProjectUtilities.isDynamicWebProject(project)
+		} else if (J2EEProjectUtilities.isApplicationClientProject(project) || JavaEEProjectUtilities.isEJBProject(project) || J2EEProjectUtilities.isDynamicWebProject(project)
 				|| J2EEProjectUtilities.isJCAProject(project) || J2EEProjectUtilities.isUtilityProject(project)) {
 			queueUpdateModule(project);
 		}

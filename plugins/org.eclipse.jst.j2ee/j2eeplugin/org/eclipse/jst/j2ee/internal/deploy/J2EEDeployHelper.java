@@ -21,6 +21,7 @@ import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.jca.Connector;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
@@ -43,7 +44,7 @@ public class J2EEDeployHelper {
 		try {
 			if (resource instanceof IProject) {
 				IVirtualComponent comp = ComponentCore.createComponent((IProject)resource);
-				if (J2EEProjectUtilities.isEJBProject(comp.getProject())) {
+				if (JavaEEProjectUtilities.isEJBProject(comp.getProject())) {
 					edit = (EnterpriseArtifactEdit)ComponentUtilities.getArtifactEditForRead(comp);
 					return (EJBJar)edit.getDeploymentDescriptorRoot();
 				}

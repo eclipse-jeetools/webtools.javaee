@@ -483,7 +483,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements
 				aURI = component.getDeployedName() + IJ2EEModuleConstants.WAR_EXT;
 			}
 		} 
-    	else if (component!=null && (J2EEProjectUtilities.isEJBProject(component.getProject()) || J2EEProjectUtilities.isApplicationClientProject(component.getProject()))) {
+    	else if (component!=null && (JavaEEProjectUtilities.isEJBProject(component.getProject()) || J2EEProjectUtilities.isApplicationClientProject(component.getProject()))) {
     		aURI = component.getDeployedName()+IJ2EEModuleConstants.JAR_EXT;
     	} 
     	else if (component!=null && J2EEProjectUtilities.isJCAProject(component.getProject())) {

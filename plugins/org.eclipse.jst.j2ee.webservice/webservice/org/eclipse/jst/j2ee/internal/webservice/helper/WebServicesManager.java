@@ -62,6 +62,7 @@ import org.eclipse.jst.j2ee.internal.webservice.componentcore.util.WSCDDArtifact
 import org.eclipse.jst.j2ee.internal.webservice.componentcore.util.WSDDArtifactEdit;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtManager;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebAppResource;
 import org.eclipse.jst.j2ee.webservice.wsclient.ComponentScopedRefs;
@@ -83,7 +84,6 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener;
-import org.eclipse.jst.j2ee.internal.webservice.helper.WebServiceManagerNLS;
 
 /**
  * @author jlanuti
@@ -668,7 +668,7 @@ public class WebServicesManager implements EditModelListener, IResourceChangeLis
 			WSCDDArtifactEdit artifactEdit = (WSCDDArtifactEdit) iter.next();
 			WebServicesResource res = artifactEdit.getWscddXmiResource();
 			if (res != null && res.isLoaded() && res.getWebServicesClient() != null) {
-				if (J2EEProjectUtilities.isEJBProject(artifactEdit.getProject())) {
+				if (JavaEEProjectUtilities.isEJBProject(artifactEdit.getProject())) {
 					List scopedBeans = res.getWebServicesClient().getComponentScopedRefs();
 					for (Iterator iterator = scopedBeans.iterator(); iterator.hasNext();) {
 						ComponentScopedRefs refBean = (ComponentScopedRefs) iterator.next();

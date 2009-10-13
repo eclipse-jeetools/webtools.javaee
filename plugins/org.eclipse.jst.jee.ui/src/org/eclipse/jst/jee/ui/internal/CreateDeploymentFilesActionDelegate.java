@@ -23,6 +23,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.actions.BaseAction;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.jee.project.facet.IAppClientCreateDeploymentFilesDataModelProperties;
 import org.eclipse.jst.jee.project.facet.ICreateDeploymentFilesDataModelProperties;
 import org.eclipse.jst.jee.project.facet.IEJBCreateDeploymentFilesDataModelProperties;
@@ -80,13 +81,13 @@ public class CreateDeploymentFilesActionDelegate extends BaseAction {
 	private boolean hasDeploymentDescriptor(IProject project, Shell shell) {
 		boolean ret = true;
 		IPath ddFilePath = null;
-		if(J2EEProjectUtilities.isEARProject(project)){
+		if(JavaEEProjectUtilities.isEARProject(project)){
 			ddFilePath = new Path(J2EEConstants.APPLICATION_DD_URI);
-		} else if(J2EEProjectUtilities.isEJBProject(project)){
+		} else if(JavaEEProjectUtilities.isEJBProject(project)){
 			ddFilePath = new Path(J2EEConstants.EJBJAR_DD_URI);
-		} else if(J2EEProjectUtilities.isDynamicWebProject(project)){
+		} else if(JavaEEProjectUtilities.isDynamicWebProject(project)){
 			ddFilePath = new Path(J2EEConstants.WEBAPP_DD_URI);
-		} else if(J2EEProjectUtilities.isApplicationClientProject(project)){
+		} else if(JavaEEProjectUtilities.isApplicationClientProject(project)){
 			ddFilePath = new Path(J2EEConstants.APP_CLIENT_DD_URI);
 		}
 		IVirtualComponent component = ComponentCore.createComponent(project);
@@ -117,13 +118,13 @@ public class CreateDeploymentFilesActionDelegate extends BaseAction {
 
 	private IDataModel getDataModel(IProject project) {
 		Class dataModelClass = null;
-		if(J2EEProjectUtilities.isEARProject(project)){
+		if(JavaEEProjectUtilities.isEARProject(project)){
 			dataModelClass = IEarCreateDeploymentFilesDataModelProperties.class;
-		} else if(J2EEProjectUtilities.isEJBProject(project)){
+		} else if(JavaEEProjectUtilities.isEJBProject(project)){
 			dataModelClass = IEJBCreateDeploymentFilesDataModelProperties.class;
-		} else if(J2EEProjectUtilities.isDynamicWebProject(project)){
+		} else if(JavaEEProjectUtilities.isDynamicWebProject(project)){
 			dataModelClass = IWebCreateDeploymentFilesDataModelProperties.class;
-		} else if(J2EEProjectUtilities.isApplicationClientProject(project)){
+		} else if(JavaEEProjectUtilities.isApplicationClientProject(project)){
 			dataModelClass = IAppClientCreateDeploymentFilesDataModelProperties.class;
 		}
 		IDataModel dataModel = DataModelFactory.createDataModel(dataModelClass);

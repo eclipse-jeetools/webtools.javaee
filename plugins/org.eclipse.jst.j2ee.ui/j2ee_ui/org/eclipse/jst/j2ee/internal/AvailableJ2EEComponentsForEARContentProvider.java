@@ -83,7 +83,7 @@ public class AvailableJ2EEComponentsForEARContentProvider implements IStructured
 			if(ModuleCoreNature.isFlexibleProject(project)){
 				IVirtualComponent component = ComponentCore.createComponent(project);
 				if (J2EEProjectUtilities.isApplicationClientProject(project) ||
-						J2EEProjectUtilities.isEJBProject(project) ||
+						JavaEEProjectUtilities.isEJBProject(project) ||
 						J2EEProjectUtilities.isDynamicWebProject(project) ||
 						J2EEProjectUtilities.isJCAProject(project) ||
 						J2EEProjectUtilities.isUtilityProject(project) ){

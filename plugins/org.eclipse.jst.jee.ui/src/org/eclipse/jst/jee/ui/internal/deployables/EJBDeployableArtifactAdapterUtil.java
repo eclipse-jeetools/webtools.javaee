@@ -27,6 +27,7 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.javaee.ejb.EJBJar;
 import org.eclipse.jst.javaee.ejb.EntityBean;
 import org.eclipse.jst.javaee.ejb.MessageDrivenBean;
@@ -79,7 +80,7 @@ public class EJBDeployableArtifactAdapterUtil {
 	}
 
 	protected static boolean hasInterestedComponents(IProject project) {
-		return J2EEProjectUtilities.isEJBProject(project);
+		return JavaEEProjectUtilities.isEJBProject(project);
 	}
 
 	protected static IModuleArtifact getModuleObject(ICompilationUnit cu) {

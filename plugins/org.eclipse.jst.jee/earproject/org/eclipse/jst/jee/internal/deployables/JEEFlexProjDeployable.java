@@ -17,7 +17,6 @@ import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
 import org.eclipse.jst.j2ee.internal.EjbModuleExtensionHelper;
 import org.eclipse.jst.j2ee.internal.IEJBModelExtenderManager;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEFlexProjDeployable;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IEARModelProvider;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
@@ -66,7 +65,7 @@ public class JEEFlexProjDeployable extends J2EEFlexProjDeployable {
 	}
 	    
     public String getJNDIName(String ejbName, String interfaceName) {
-    	if (!J2EEProjectUtilities.isEJBProject(component.getProject()))
+    	if (!JavaEEProjectUtilities.isEJBProject(component.getProject()))
     		return null;
 
 		EjbModuleExtensionHelper modHelper = null;

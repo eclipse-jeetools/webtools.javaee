@@ -28,6 +28,7 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -181,7 +182,7 @@ public class DeployerRegistry {
 			typeID = J2EEProjectUtilities.DYNAMIC_WEB;
 		else if (J2EEProjectUtilities.isStaticWebProject(project))
 			typeID = J2EEProjectUtilities.STATIC_WEB;
-		else if (J2EEProjectUtilities.isEJBProject(project))
+		else if (JavaEEProjectUtilities.isEJBProject(project))
 			typeID = J2EEProjectUtilities.EJB;
 		else if (J2EEProjectUtilities.isJCAProject(project))
 			typeID = J2EEProjectUtilities.JCA;

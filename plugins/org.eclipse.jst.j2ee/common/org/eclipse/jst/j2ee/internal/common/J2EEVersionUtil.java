@@ -15,6 +15,7 @@ package org.eclipse.jst.j2ee.internal.common;
 
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 /**
@@ -211,7 +212,7 @@ public class J2EEVersionUtil {
 		String version = J2EEProjectUtilities.getJ2EEProjectVersion(comp.getProject());
 		if (J2EEProjectUtilities.isDynamicWebProject(comp.getProject()))
 			return convertWebVersionStringToJ2EEVersionID(version);
-		if (J2EEProjectUtilities.isEJBProject(comp.getProject()))
+		if (JavaEEProjectUtilities.isEJBProject(comp.getProject()))
 			return convertEJBVersionStringToJ2EEVersionID(version);
 		if (J2EEProjectUtilities.isEARProject(comp.getProject()))
 			return convertVersionStringToInt(version);

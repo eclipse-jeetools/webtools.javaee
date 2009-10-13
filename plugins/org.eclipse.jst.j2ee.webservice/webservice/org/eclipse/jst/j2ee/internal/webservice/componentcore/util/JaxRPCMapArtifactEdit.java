@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.webservice.plugin.WebServicePlugin;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaWSDLMapping;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapFactory;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapResource;
@@ -323,7 +324,7 @@ public class JaxRPCMapArtifactEdit extends EnterpriseArtifactEdit {
 	 *         JST module
 	 */
 	public static boolean isValidEJBModule(IVirtualComponent aComponent) {
-		return J2EEProjectUtilities.isEJBProject(aComponent.getProject());
+		return JavaEEProjectUtilities.isEJBProject(aComponent.getProject());
 	}
 	/**
 	 * @param component

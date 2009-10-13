@@ -22,6 +22,7 @@ import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IModelProvider;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesClient;
 import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesResource;
 import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientFactory;
@@ -334,7 +335,7 @@ public class WSCDDArtifactEdit extends EnterpriseArtifactEdit {
 	 *         the moduleTypeId is a JST module
 	 */
 	public static boolean isValidEJBModule(IVirtualComponent aComponent) {
-		return aComponent !=null && J2EEProjectUtilities.isEJBProject(aComponent.getProject());
+		return aComponent !=null && JavaEEProjectUtilities.isEJBProject(aComponent.getProject());
 	}
 
 	/**
