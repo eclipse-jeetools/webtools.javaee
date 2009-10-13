@@ -566,7 +566,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements
     	String contextRoot = null;
     	if (earModule == null)
     		return getContextRoot();
-    	else if (JavaEEProjectUtilities.isEARProject(earModule.getProject()) && J2EEProjectUtilities.isDynamicWebProject(deployProject)) {
+    	else if (JavaEEProjectUtilities.isEARProject(earModule.getProject()) && JavaEEProjectUtilities.isDynamicWebProject(deployProject)) {
     		EARArtifactEdit edit = null;
     		try {
     			edit = EARArtifactEdit.getEARArtifactEditForRead(earModule.getProject());

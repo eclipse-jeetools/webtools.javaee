@@ -269,7 +269,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	public static boolean isValidWebModule(IVirtualComponent aModule) throws UnresolveableURIException {
 		if (!isValidEditableModule(aModule))
 			return false;
-		return J2EEProjectUtilities.isDynamicWebProject(aModule.getProject());
+		return JavaEEProjectUtilities.isDynamicWebProject(aModule.getProject());
 	}
 
 	/**

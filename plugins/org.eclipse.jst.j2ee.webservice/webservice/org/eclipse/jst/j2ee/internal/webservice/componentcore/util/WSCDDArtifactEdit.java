@@ -20,7 +20,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesClient;
@@ -357,7 +356,7 @@ public class WSCDDArtifactEdit extends EnterpriseArtifactEdit {
 	 *         the moduleTypeId is a JST module
 	 */
 	public static boolean isValidWebModule(IVirtualComponent aComponent) {
-		return aComponent !=null && J2EEProjectUtilities.isDynamicWebProject(aComponent.getProject());
+		return aComponent !=null && JavaEEProjectUtilities.isDynamicWebProject(aComponent.getProject());
 	}
 
 	/**
@@ -368,7 +367,7 @@ public class WSCDDArtifactEdit extends EnterpriseArtifactEdit {
 	 *         the moduleTypeId is a JST module
 	 */
 	public static boolean isValidAppClientModule(IVirtualComponent aComponent) {
-		return aComponent !=null && J2EEProjectUtilities.isApplicationClientProject(aComponent.getProject());
+		return aComponent !=null && JavaEEProjectUtilities.isApplicationClientProject(aComponent.getProject());
 	}
 
 	/*

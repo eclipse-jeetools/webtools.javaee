@@ -284,7 +284,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 			for (int i = 0; i < projects.length; i++) {
 				IProject project = (IProject) projects[i];
 				// this block is for Web app Libraries
-				if (J2EEProjectUtilities.isDynamicWebProject(project)) {
+				if (JavaEEProjectUtilities.isDynamicWebProject(project)) {
 					IClasspathContainer webAppLibrariesContainer = J2EEComponentClasspathContainerUtils.getInstalledWebAppLibrariesContainer(project);
 					// If the container is present, refresh it
 					if (webAppLibrariesContainer != null) {

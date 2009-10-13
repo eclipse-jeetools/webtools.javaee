@@ -36,6 +36,7 @@ import org.eclipse.jst.j2ee.internal.web.jfaces.extension.FileURL;
 import org.eclipse.jst.j2ee.internal.web.jfaces.extension.FileURLExtensionReader;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.javaee.core.UrlPatternType;
 import org.eclipse.jst.javaee.web.Servlet;
 import org.eclipse.jst.javaee.web.ServletMapping;
@@ -349,7 +350,7 @@ public class WebDeployableArtifactUtil {
 	}
 
 	protected static boolean hasInterestedComponents(IProject project) {
-		return J2EEProjectUtilities.isDynamicWebProject(project);
+		return JavaEEProjectUtilities.isDynamicWebProject(project);
 	}
 
 	private static List getServletMappings(IResource resource, String typeName){ 

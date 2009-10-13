@@ -27,7 +27,7 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.servlet.ui.internal.plugin.ServletUIPlugin;
 import org.eclipse.ui.IMemento;
 import org.eclipse.ui.navigator.CommonViewer;
@@ -65,7 +65,7 @@ public class WebJavaContentProvider implements IPipelinedTreeContentProvider  {
 
 	public void getPipelinedChildren(Object aParent, Set theCurrentChildren) {
 		try {
-			if (aParent instanceof IProject && ((IProject)aParent).hasNature(JavaCore.NATURE_ID) && J2EEProjectUtilities.isDynamicWebProject((IProject)aParent)) {
+			if (aParent instanceof IProject && ((IProject)aParent).hasNature(JavaCore.NATURE_ID) && JavaEEProjectUtilities.isDynamicWebProject((IProject)aParent)) {
 				cleanJavaContribution(theCurrentChildren);
 				theCurrentChildren.add(getCompressedNode((IProject)aParent));
 			}
@@ -88,7 +88,7 @@ public class WebJavaContentProvider implements IPipelinedTreeContentProvider  {
 	}
 
 	private CompressedJavaProject getCompressedNode(IProject project) {
-		if (!J2EEProjectUtilities.isDynamicWebProject(project))
+		if (!JavaEEProjectUtilities.isDynamicWebProject(project))
 			return null;
 		CompressedJavaProject result = (CompressedJavaProject) compressedNodes.get(project);
 		if (result == null) {
@@ -109,14 +109,14 @@ public class WebJavaContentProvider implements IPipelinedTreeContentProvider  {
 				if (!root.isExternal()) {
 					if( aSuggestedParent instanceof IJavaProject ) {
 						return getCompressedNode( ((IJavaProject) aSuggestedParent).getProject() );
-					} else if ( aSuggestedParent instanceof IProject && ((IProject)aSuggestedParent).hasNature(JavaCore.NATURE_ID) && J2EEProjectUtilities.isDynamicWebProject((IProject)aSuggestedParent) ){
+					} else if ( aSuggestedParent instanceof IProject && ((IProject)aSuggestedParent).hasNature(JavaCore.NATURE_ID) && JavaEEProjectUtilities.isDynamicWebProject((IProject)aSuggestedParent) ){
 						return getCompressedNode( ((IProject) aSuggestedParent) );
 					}
 				}
 			} else if(INTERNAL_CONTAINER_CLASS.isInstance(anObject)) {
 				if( aSuggestedParent instanceof IJavaProject ) {
 					return getCompressedNode( ((IJavaProject) aSuggestedParent).getProject() ).getCompressedJavaLibraries();
-				} else if ( aSuggestedParent instanceof IProject && ((IProject)aSuggestedParent).hasNature(JavaCore.NATURE_ID) && J2EEProjectUtilities.isDynamicWebProject((IProject)aSuggestedParent)){
+				} else if ( aSuggestedParent instanceof IProject && ((IProject)aSuggestedParent).hasNature(JavaCore.NATURE_ID) && JavaEEProjectUtilities.isDynamicWebProject((IProject)aSuggestedParent)){
 					return getCompressedNode( ((IProject) aSuggestedParent) ).getCompressedJavaLibraries();
 				} 
 			}
@@ -132,7 +132,7 @@ public class WebJavaContentProvider implements IPipelinedTreeContentProvider  {
 		
 		if (parent instanceof IPackageFragmentRoot) {
 			IPackageFragmentRoot sourceFolder = (IPackageFragmentRoot) parent;
-			if (J2EEProjectUtilities.isDynamicWebProject(sourceFolder.getJavaProject().getProject())) {
+			if (JavaEEProjectUtilities.isDynamicWebProject(sourceFolder.getJavaProject().getProject())) {
 				CompressedJavaProject compressedNode = getCompressedNode(sourceFolder.getJavaProject().getProject());
 				if(compressedNode.isFlatteningSourceFolder()) {
 					anAddModification.setParent(compressedNode);
@@ -167,7 +167,7 @@ public class WebJavaContentProvider implements IPipelinedTreeContentProvider  {
 		
 		if (parent instanceof IPackageFragmentRoot) {
 			IPackageFragmentRoot sourceFolder = (IPackageFragmentRoot) parent;
-			if (J2EEProjectUtilities.isDynamicWebProject(sourceFolder.getJavaProject().getProject())) {
+			if (JavaEEProjectUtilities.isDynamicWebProject(sourceFolder.getJavaProject().getProject())) {
 				CompressedJavaProject compressedNode = getCompressedNode(sourceFolder.getJavaProject().getProject());
 				if(compressedNode.isFlatteningSourceFolder()) {
 					aRemoveModification.setParent(compressedNode);
@@ -202,7 +202,7 @@ public class WebJavaContentProvider implements IPipelinedTreeContentProvider  {
 			Object refreshTarget = iter.next();
 			if (refreshTarget instanceof IPackageFragmentRoot) {
 				IPackageFragmentRoot sourceFolder = (IPackageFragmentRoot) refreshTarget;
-				if (J2EEProjectUtilities.isDynamicWebProject(sourceFolder.getJavaProject().getProject())) {
+				if (JavaEEProjectUtilities.isDynamicWebProject(sourceFolder.getJavaProject().getProject())) {
 					CompressedJavaProject compressedNode = getCompressedNode(sourceFolder.getJavaProject().getProject());
 					if(compressedNode.isFlatteningSourceFolder()) {
 						iter.remove(); // voids the iter but is okay because we're done with it
@@ -224,7 +224,7 @@ public class WebJavaContentProvider implements IPipelinedTreeContentProvider  {
 			Object refreshTarget = iter.next();
 			if (refreshTarget instanceof IPackageFragmentRoot) {
 				IPackageFragmentRoot sourceFolder = (IPackageFragmentRoot) refreshTarget;
-				if (sourceFolder.getJavaProject()!=null && sourceFolder.getJavaProject().exists() && sourceFolder.getJavaProject().isOpen() && J2EEProjectUtilities.isDynamicWebProject(sourceFolder.getJavaProject().getProject())) {
+				if (sourceFolder.getJavaProject()!=null && sourceFolder.getJavaProject().exists() && sourceFolder.getJavaProject().isOpen() && JavaEEProjectUtilities.isDynamicWebProject(sourceFolder.getJavaProject().getProject())) {
 					CompressedJavaProject compressedNode = getCompressedNode(sourceFolder.getJavaProject().getProject());
 					if(compressedNode.isFlatteningSourceFolder()) {
 						iter.remove(); // voids the iterator; but is okay because we're done with it

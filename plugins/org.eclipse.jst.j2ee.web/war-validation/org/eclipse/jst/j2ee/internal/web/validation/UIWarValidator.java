@@ -30,8 +30,8 @@ import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.internal.validation.WarValidator;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.project.WebUtilities;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -108,7 +108,7 @@ public class UIWarValidator extends WarValidator {
 		setWarHelper((UIWarHelper) inHelper);
 		IProject proj = ((IWorkbenchContext) warHelper).getProject();
 		IVirtualComponent wbModule = ComponentCore.createComponent(proj);
-        if( wbModule != null && J2EEProjectUtilities.isDynamicWebProject(proj)) {           	
+        if( wbModule != null && JavaEEProjectUtilities.isDynamicWebProject(proj)) {           	
         	IVirtualFile webFile = wbModule.getRootFolder().getFile(J2EEConstants.WEBAPP_DD_URI);
 			if( webFile.exists()) {
 				status = super.validateInJob(inHelper, inReporter);

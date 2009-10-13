@@ -37,7 +37,7 @@ import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
@@ -326,7 +326,7 @@ public class J2EEElementChangedListener implements IElementChangedListener {
 	 */
 	private IVirtualFolder getDestinationFolder(final IVirtualComponent c) throws CoreException {
 		final IVirtualFolder root = c.getRootFolder();
-		if (J2EEProjectUtilities.isDynamicWebProject(c.getProject())) {
+		if (JavaEEProjectUtilities.isDynamicWebProject(c.getProject())) {
 			// web projects map to WEB-INF/classes
 			return root.getFolder(new Path(J2EEConstants.WEB_INF_CLASSES));
 		}

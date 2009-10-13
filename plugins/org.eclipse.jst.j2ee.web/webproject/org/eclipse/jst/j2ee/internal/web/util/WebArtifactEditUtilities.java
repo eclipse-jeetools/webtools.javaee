@@ -12,7 +12,7 @@ package org.eclipse.jst.j2ee.internal.web.util;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.Servlet;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
@@ -26,7 +26,7 @@ public class WebArtifactEditUtilities {
 		IVirtualComponent component = ComponentCore.createComponent(project);
 			WebArtifactEdit edit = null;
 			try {
-				if (J2EEProjectUtilities.isDynamicWebProject(project)) {
+				if (JavaEEProjectUtilities.isDynamicWebProject(project)) {
 					edit = WebArtifactEdit.getWebArtifactEditForRead(component);
 					WebApp webapp = edit.getWebApp();
 					if (webapp.getServletNamed(servlet.getServletName()) != null)

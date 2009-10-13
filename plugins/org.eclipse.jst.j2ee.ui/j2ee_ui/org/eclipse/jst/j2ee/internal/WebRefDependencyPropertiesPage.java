@@ -15,6 +15,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
@@ -63,7 +64,7 @@ public class WebRefDependencyPropertiesPage extends JARDependencyPropertiesPage 
 		try {
 			isJavaProject = project.hasNature(JavaCore.NATURE_ID);
 		} catch (CoreException ce) {}
-		if (J2EEProjectUtilities.isDynamicWebProject(project) || !isJavaProject) {
+		if (JavaEEProjectUtilities.isDynamicWebProject(project) || !isJavaProject) {
 			propPage.setErrorMessage(ManifestUIResourceHandler.Dynamic_Web_Error); 
 			return false;
 		} else if (J2EEProjectUtilities.getReferencingWebProjects(project).length == 0) {

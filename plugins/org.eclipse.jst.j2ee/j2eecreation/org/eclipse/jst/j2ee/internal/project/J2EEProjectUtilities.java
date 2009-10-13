@@ -570,11 +570,11 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 				return false;
 			if (JavaEEProjectUtilities.isEJBProject(project)) {
 				return sourceFolder.findMember(J2EEConstants.EJBJAR_DD_URI) != null;
-			} else if (isApplicationClientProject(project)) {
+			} else if (JavaEEProjectUtilities.isApplicationClientProject(project)) {
 				return sourceFolder.findMember(J2EEConstants.APP_CLIENT_DD_URI) != null;
-			} else if (isDynamicWebProject(project)) {
+			} else if (JavaEEProjectUtilities.isDynamicWebProject(project)) {
 				return sourceFolder.findMember(J2EEConstants.WEBAPP_DD_URI) != null;
-			} else if (isJCAProject(project)) {
+			} else if (JavaEEProjectUtilities.isJCAProject(project)) {
 				return sourceFolder.findMember(J2EEConstants.RAR_DD_URI) != null;
 			}
 		} catch (Exception e) {
@@ -732,7 +732,7 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 	 * @return Array of referencing dynamic web projects.
 	 */
 	public static IProject[] getReferencingWebProjects(final IProject project) {
-		if(project != null && isDynamicWebProject(project)){
+		if(project != null && JavaEEProjectUtilities.isDynamicWebProject(project)){
 			return new IProject[] {project};
 		}
 		
@@ -741,7 +741,7 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 		if (component != null) {
 			IVirtualComponent[] refComponents = component.getReferencingComponents();
 			for (int i = 0; i < refComponents.length; i++) {
-				if (isDynamicWebProject(refComponents[i].getProject()))
+				if (JavaEEProjectUtilities.isDynamicWebProject(refComponents[i].getProject()))
 					result.add(refComponents[i].getProject());
 			}
 		}

@@ -310,7 +310,7 @@ public class ClassPathSelection {
 			final IProject project = comp.getProject();
 			if (project.hasNature(JavaCore.NATURE_ID)) {
 				final IJavaProject javaProject = JavaCore.create(project);
-				final boolean isWebApp = J2EEProjectUtilities.isDynamicWebProject(project);
+				final boolean isWebApp = JavaEEProjectUtilities.isDynamicWebProject(project);
 				final Map taggedEntries = ClasspathDependencyUtil.getRawComponentClasspathDependencies(javaProject, DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY);
 				
 				Iterator i = taggedEntries.keySet().iterator();

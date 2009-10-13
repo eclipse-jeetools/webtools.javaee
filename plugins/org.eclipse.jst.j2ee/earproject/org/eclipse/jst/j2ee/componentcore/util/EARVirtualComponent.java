@@ -22,7 +22,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.jee.application.ICommonModule;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
@@ -112,11 +112,11 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 										// If dependent object is not set, assume
 										// compname is module name + proper
 										// extension
-										if (J2EEProjectUtilities.isDynamicWebProject(referencedProject) || J2EEProjectUtilities.isStaticWebProject(referencedProject)) {
+										if (JavaEEProjectUtilities.isDynamicWebProject(referencedProject) || JavaEEProjectUtilities.isStaticWebProject(referencedProject)) {
 											archiveName = referencedIVirtualComponent.getName() + IJ2EEModuleConstants.WAR_EXT;
-										} else if (J2EEProjectUtilities.isJCAProject(referencedProject)) {
+										} else if (JavaEEProjectUtilities.isJCAProject(referencedProject)) {
 											archiveName = referencedIVirtualComponent.getName() + IJ2EEModuleConstants.RAR_EXT;
-										} else if (J2EEProjectUtilities.isUtilityProject(referencedProject)) {
+										} else if (JavaEEProjectUtilities.isUtilityProject(referencedProject)) {
 											archiveName = getJarURI(referencedComponent, referencedIVirtualComponent);
 										} else {
 											archiveName = referencedIVirtualComponent.getName() + IJ2EEModuleConstants.JAR_EXT;

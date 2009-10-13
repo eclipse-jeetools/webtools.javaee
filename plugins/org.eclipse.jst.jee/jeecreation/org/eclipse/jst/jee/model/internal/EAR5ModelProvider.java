@@ -18,8 +18,8 @@ import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
 import org.eclipse.jst.j2ee.application.WebModule;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IEARModelProvider;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.jst.javaee.application.ApplicationDeploymentDescriptor;
 import org.eclipse.jst.javaee.application.ApplicationFactory;
@@ -72,7 +72,7 @@ public class EAR5ModelProvider extends JEE5ModelProvider implements IEARModelPro
 	 * @return contextRoot String
 	 */
 	public String getWebContextRoot(IProject webProject) {
-		if (webProject == null || !J2EEProjectUtilities.isDynamicWebProject(webProject))
+		if (webProject == null || !JavaEEProjectUtilities.isDynamicWebProject(webProject))
 			return null;
 		IVirtualComponent webComp = ComponentCore.createComponent(webProject);
 		String webModuleURI = getModuleURI(webComp);
@@ -105,7 +105,7 @@ public class EAR5ModelProvider extends JEE5ModelProvider implements IEARModelPro
 	 * @param aContextRoot
 	 */
 	public void setWebContextRoot(IProject webProject, String aContextRoot) {
-		if (webProject == null || !J2EEProjectUtilities.isDynamicWebProject(webProject))
+		if (webProject == null || !JavaEEProjectUtilities.isDynamicWebProject(webProject))
 			return;
 		IVirtualComponent webComp = ComponentCore.createComponent(webProject);
 		String webModuleURI = getModuleURI(webComp);

@@ -32,7 +32,8 @@ import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jst.j2ee.application.internal.operations.ClasspathElement;
 import org.eclipse.jst.j2ee.internal.common.ClasspathModel;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -50,7 +51,6 @@ import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
-import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 
 public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage {
 
@@ -129,7 +129,7 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 	}
 
 	protected boolean isValidWebModule() {
-		if (!J2EEProjectUtilities.isDynamicWebProject(project)) {
+		if (!JavaEEProjectUtilities.isDynamicWebProject(project)) {
 			propPage.setErrorMessage(ManifestUIResourceHandler.Web_Lib_Error);
 			return false;
 		}
@@ -294,7 +294,7 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 	}
 	
 	public void handleSelectExternalJarButton() {
-		if (J2EEProjectUtilities.isDynamicWebProject(project)) {
+		if (JavaEEProjectUtilities.isDynamicWebProject(project)) {
 			IPath[] selected = BuildPathDialogAccess.chooseExternalJAREntries(propPage.getShell());
 			if (selected != null) {
 				String type = VirtualArchiveComponent.LIBARCHIVETYPE + IPath.SEPARATOR;
@@ -307,7 +307,7 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 	}
 
 	public void handleSelectVariableButton() {
-		if (J2EEProjectUtilities.isDynamicWebProject(project)) {
+		if (JavaEEProjectUtilities.isDynamicWebProject(project)) {
 			IPath existingPath[] = new Path[0];
 			IPath[] selected = BuildPathDialogAccess.chooseVariableEntries(propPage.getShell(), existingPath);
 
@@ -352,7 +352,7 @@ public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage 
 //	}
 
 	public void handleSelectProjectJarButton() {
-		if (J2EEProjectUtilities.isDynamicWebProject(project)) {
+		if (JavaEEProjectUtilities.isDynamicWebProject(project)) {
 			IPath[] selected = BuildPathDialogAccess.chooseJAREntries(propPage.getShell(), project.getLocation(), new IPath[0]);
 			if (selected != null) {
 				String type = VirtualArchiveComponent.LIBARCHIVETYPE + IPath.SEPARATOR;

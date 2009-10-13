@@ -30,7 +30,7 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
 import org.eclipse.jst.j2ee.classpathdep.UpdateClasspathAttributeUtil;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -137,7 +137,7 @@ public class UpdateClasspathAttributesOperation extends AbstractDataModelOperati
 					IPath runtimePath = (IPath) entries.get(entry);
 					if (runtimePath == null) {
 						// compute the default runtime path
-						final boolean isWebApp = J2EEProjectUtilities.isDynamicWebProject(javaProject.getProject());
+						final boolean isWebApp = JavaEEProjectUtilities.isDynamicWebProject(javaProject.getProject());
 						runtimePath = ClasspathDependencyUtil.getDefaultRuntimePath(isWebApp, ClasspathDependencyUtil.isClassFolderEntry(entry));
 					}
 					IClasspathAttribute attrib = null;

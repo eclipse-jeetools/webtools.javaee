@@ -110,7 +110,7 @@ public class J2EEDeployHelper {
 		try {
 			if (resource instanceof IProject) {
 				IVirtualComponent comp = ComponentCore.createComponent((IProject)resource);
-					if (J2EEProjectUtilities.isDynamicWebProject(comp.getProject())) {
+					if (JavaEEProjectUtilities.isDynamicWebProject(comp.getProject())) {
 						edit = (EnterpriseArtifactEdit)ComponentUtilities.getArtifactEditForRead(comp);
 						return (WebApp)edit.getDeploymentDescriptorRoot();
 					}

@@ -26,7 +26,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.webservice.plugin.WebServicePlugin;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceExtManager;
 import org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper;
@@ -394,7 +393,7 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 *         the moduleTypeId is a JST module
 	 */
 	public static boolean isValidWebModule(IVirtualComponent aComponent) {
-		return J2EEProjectUtilities.isDynamicWebProject(aComponent.getProject());
+		return JavaEEProjectUtilities.isDynamicWebProject(aComponent.getProject());
 	}
 
 	/**
@@ -405,7 +404,7 @@ public class WSDDArtifactEdit extends EnterpriseArtifactEdit {
 	 *         the moduleTypeId is a JST module
 	 */
 	public static boolean isValidAppClientModule(IVirtualComponent aComponent) {
-		return J2EEProjectUtilities.isApplicationClientProject(aComponent.getProject());
+		return JavaEEProjectUtilities.isApplicationClientProject(aComponent.getProject());
 	}
 
 	/*

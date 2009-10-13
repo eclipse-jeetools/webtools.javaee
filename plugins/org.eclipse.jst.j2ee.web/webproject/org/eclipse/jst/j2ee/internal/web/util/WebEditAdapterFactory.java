@@ -11,7 +11,7 @@
 package org.eclipse.jst.j2ee.internal.web.util;
 
 import org.eclipse.core.runtime.IAdapterFactory;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
@@ -33,7 +33,7 @@ public class WebEditAdapterFactory implements IAdapterFactory {
 	public Object getAdapter(Object adaptableObject, Class adapterType) {
 		if (adapterType == WebArtifactEdit.ADAPTER_TYPE || adapterType == ArtifactEdit.ADAPTER_TYPE) {
 			ArtifactEditModel editModel = (ArtifactEditModel) adaptableObject;
-			if (J2EEProjectUtilities.isDynamicWebProject(editModel.getProject()))
+			if (JavaEEProjectUtilities.isDynamicWebProject(editModel.getProject()))
 				return new WebArtifactEdit((ArtifactEditModel) adaptableObject);
 		}
 		return null;

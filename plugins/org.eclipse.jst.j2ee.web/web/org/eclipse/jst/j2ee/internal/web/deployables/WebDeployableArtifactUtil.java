@@ -33,6 +33,8 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.web.jfaces.extension.FileURL;
 import org.eclipse.jst.j2ee.internal.web.jfaces.extension.FileURLExtensionReader;
+import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.JSPType;
 import org.eclipse.jst.j2ee.webapplication.Servlet;
@@ -48,7 +50,6 @@ import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleArtifact;
 import org.eclipse.wst.server.core.ServerUtil;
 import org.eclipse.wst.server.core.util.WebResource;
-import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 
 /**
  * @version 1.0
@@ -348,7 +349,7 @@ public class WebDeployableArtifactUtil {
 	}
 
 	protected static boolean hasInterestedComponents(IProject project) {
-		return J2EEProjectUtilities.isDynamicWebProject(project);
+		return JavaEEProjectUtilities.isDynamicWebProject(project);
 	}
 
 }
