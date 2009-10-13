@@ -46,9 +46,9 @@ import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPreferences;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.IAppClientFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.web.project.facet.IWebFacetInstallDataModelProperties;
 import org.eclipse.jst.javaee.application.Application;
@@ -530,13 +530,13 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 
 	private IDataModel getDDCreationDataModel(IProject project) {
 		Class dataModelClass = null;
-		if (J2EEProjectUtilities.isEARProject(project)) {
+		if (JavaEEProjectUtilities.isEARProject(project)) {
 			dataModelClass = IEarCreateDeploymentFilesDataModelProperties.class;
-		} else if (J2EEProjectUtilities.isEJBProject(project)) {
+		} else if (JavaEEProjectUtilities.isEJBProject(project)) {
 			dataModelClass = IEJBCreateDeploymentFilesDataModelProperties.class;
-		} else if (J2EEProjectUtilities.isDynamicWebProject(project)) {
+		} else if (JavaEEProjectUtilities.isDynamicWebProject(project)) {
 			dataModelClass = IWebCreateDeploymentFilesDataModelProperties.class;
-		} else if (J2EEProjectUtilities.isApplicationClientProject(project)) {
+		} else if (JavaEEProjectUtilities.isApplicationClientProject(project)) {
 			dataModelClass = IAppClientCreateDeploymentFilesDataModelProperties.class;
 		}
 		IDataModel dataModel = DataModelFactory.createDataModel(dataModelClass);
