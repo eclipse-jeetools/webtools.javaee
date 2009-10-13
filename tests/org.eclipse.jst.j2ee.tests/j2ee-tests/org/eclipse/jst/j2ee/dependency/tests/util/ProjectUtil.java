@@ -30,6 +30,7 @@ import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpda
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EjbFacetProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebFacetProjectCreationDataModelProvider;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.EARFacetProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
@@ -349,7 +350,7 @@ public class ProjectUtil {
 		if (projectName != null) {
             final IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
             Assert.assertTrue("Failed to create project " + projectName, project.exists());
-            Assert.assertTrue("Project not is of type " + type, J2EEProjectUtilities.isProjectOfType(project, type));
+            Assert.assertTrue("Project not is of type " + type, JavaEEProjectUtilities.isProjectOfType(project, type));
             return project;
         }	
 		return null;
