@@ -12,7 +12,7 @@ package org.eclipse.jst.j2ee.ejb.internal.modulecore.util;
 
 import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 
@@ -26,7 +26,7 @@ public class EJBEditAdapterFactory implements IAdapterFactory {
 	public Object getAdapter(Object adaptableObject, Class adapterType) {
 		if (adapterType == EJBArtifactEdit.ADAPTER_TYPE || adapterType == ArtifactEdit.ADAPTER_TYPE) {
 			ArtifactEditModel editModel = (ArtifactEditModel) adaptableObject;
-			if (J2EEProjectUtilities.isEJBProject(editModel.getProject()))
+			if (JavaEEProjectUtilities.isEJBProject(editModel.getProject()))
 				return new EJBArtifactEdit((ArtifactEditModel) adaptableObject);
 		}
 		return null;

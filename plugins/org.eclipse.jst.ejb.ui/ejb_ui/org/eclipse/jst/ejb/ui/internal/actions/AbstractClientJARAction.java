@@ -19,9 +19,9 @@ import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.actions.BaseAction;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.ClientJARCreationConstants;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 
 
 
@@ -46,7 +46,7 @@ public abstract class AbstractClientJARAction extends BaseAction implements Clie
 		IProject project = getProject();
 
 		if (project != null && project.exists() && project.isAccessible()) {
-			if (J2EEProjectUtilities.isEJBProject(project)) {
+			if (JavaEEProjectUtilities.isEJBProject(project)) {
 				IModelProvider provider = ModelProviderManager.getModelProvider(project);
 				Object mObj = provider.getModelObject();
 				if (mObj != null && provider.getModelObject(new Path(J2EEConstants.EJBJAR_DD_URI)) != null) {

@@ -32,6 +32,7 @@ import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEFlexProjDeployable;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.server.core.EJBBean;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -74,7 +75,7 @@ public class EJBDeployableArtifactAdapterUtil {
 	}
 
 	protected static boolean hasInterestedComponents(IProject project) {
-		return J2EEProjectUtilities.isEJBProject(project);
+		return JavaEEProjectUtilities.isEJBProject(project);
 	}
 
 	protected static IModuleArtifact getModuleObject(ICompilationUnit cu) {

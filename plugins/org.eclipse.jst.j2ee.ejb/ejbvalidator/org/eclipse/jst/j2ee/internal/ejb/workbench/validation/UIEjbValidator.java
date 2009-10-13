@@ -18,8 +18,8 @@ import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.internal.validation.EJBValidator;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
@@ -45,7 +45,7 @@ public class UIEjbValidator extends EJBValidator {
 		
 
 		IProject proj = ((IWorkbenchContext) inHelper).getProject();
-		if (J2EEProjectUtilities.isEJBProject(proj)) {
+		if (JavaEEProjectUtilities.isEJBProject(proj)) {
 				EnterpriseArtifactEdit edit = null;
 				try {
 					edit = EJBArtifactEdit.getEJBArtifactEditForRead(proj);
