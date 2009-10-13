@@ -112,7 +112,7 @@ public class DeployerRegistry {
 				if (root == null || modules.contains(component))
 					continue;
 				// Order Ears first...
-				if (J2EEProjectUtilities.isEARProject(component.getProject()))
+				if (JavaEEProjectUtilities.isEARProject(component.getProject()))
 					modules.add(0, component);
 				else
 					modules.add(component);
@@ -174,19 +174,19 @@ public class DeployerRegistry {
 	 */
 	public List getDeployModuleExtensions(IProject project, IRuntime runtime) {
 		String typeID = ""; //$NON-NLS-1$
-		if (J2EEProjectUtilities.isEARProject(project))
+		if (JavaEEProjectUtilities.isEARProject(project))
 			typeID = J2EEProjectUtilities.ENTERPRISE_APPLICATION;
-		else if (J2EEProjectUtilities.isApplicationClientProject(project))
+		else if (JavaEEProjectUtilities.isApplicationClientProject(project))
 			typeID = J2EEProjectUtilities.APPLICATION_CLIENT;
-		else if (J2EEProjectUtilities.isDynamicWebProject(project))
+		else if (JavaEEProjectUtilities.isDynamicWebProject(project))
 			typeID = J2EEProjectUtilities.DYNAMIC_WEB;
-		else if (J2EEProjectUtilities.isStaticWebProject(project))
+		else if (JavaEEProjectUtilities.isStaticWebProject(project))
 			typeID = J2EEProjectUtilities.STATIC_WEB;
 		else if (JavaEEProjectUtilities.isEJBProject(project))
 			typeID = J2EEProjectUtilities.EJB;
-		else if (J2EEProjectUtilities.isJCAProject(project))
+		else if (JavaEEProjectUtilities.isJCAProject(project))
 			typeID = J2EEProjectUtilities.JCA;
-		else if (J2EEProjectUtilities.isUtilityProject(project))
+		else if (JavaEEProjectUtilities.isUtilityProject(project))
 			typeID = J2EEProjectUtilities.UTILITY;
 		String runtimeID = runtime.getRuntimeType().getId();
 		return getDeployers(typeID, runtimeID);

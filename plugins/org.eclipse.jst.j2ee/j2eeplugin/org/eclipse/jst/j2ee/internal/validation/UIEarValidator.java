@@ -230,7 +230,7 @@ public class UIEarValidator extends EarValidator {
 		IStatus status = IValidatorJob.OK_STATUS;
 		IProject earProj = ((IWorkbenchContext) inHelper).getProject();
 		IVirtualComponent earModule = ComponentCore.createComponent(earProj);
-            if(J2EEProjectUtilities.isEARProject(earProj)){
+            if(JavaEEProjectUtilities.isEARProject(earProj)){
 				IVirtualFile ddFile = earModule.getRootFolder().getFile(J2EEConstants.APPLICATION_DD_URI);
 				if( ddFile.exists()) {
 					inReporter.removeAllMessages(this);

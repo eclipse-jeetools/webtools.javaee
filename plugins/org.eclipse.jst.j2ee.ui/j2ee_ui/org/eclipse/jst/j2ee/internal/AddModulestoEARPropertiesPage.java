@@ -52,7 +52,6 @@ import org.eclipse.jst.j2ee.internal.dialogs.DependencyConflictResolveDialog;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.ui.DoubleCheckboxTableItem;
 import org.eclipse.jst.j2ee.internal.ui.DoubleCheckboxTableViewer;
 import org.eclipse.jst.j2ee.model.IEARModelProvider;
@@ -1135,7 +1134,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		try {			
 			IProject[] earRefProjects = earProject.getReferencedProjects();
 			for (int i = 0; i < earRefProjects.length; i++) {	
-				if (!J2EEProjectUtilities.isEARProject(earRefProjects[i]) &&
+				if (!JavaEEProjectUtilities.isEARProject(earRefProjects[i]) &&
 						!earRefProjects[i].equals(libProj)) {
 					IVirtualComponent cmp1 = ComponentCore.createComponent(earRefProjects[i]);
 					if (cmp1 != null) {

@@ -66,7 +66,7 @@ public class J2EEDeployHelper {
 		try {
 			if (resource instanceof IProject) {
 				IVirtualComponent comp = ComponentCore.createComponent((IProject)resource);
-					if (J2EEProjectUtilities.isEARProject(comp.getProject())) {
+					if (JavaEEProjectUtilities.isEARProject(comp.getProject())) {
 						edit = (EnterpriseArtifactEdit)ComponentUtilities.getArtifactEditForRead(comp);
 						return (Application)edit.getDeploymentDescriptorRoot();
 					}

@@ -149,7 +149,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements
 		// If the component module is an EAR we know all archives are filtered out of virtual component members
 		// and we will return only those archives which are not binary J2EE modules in the EAR DD.  These J2EE modules will
 		// be returned by getChildModules()
-		if (J2EEProjectUtilities.isEARProject(component.getProject())) {
+		if (JavaEEProjectUtilities.isEARProject(component.getProject())) {
 			return virtualComp != null && virtualComp.isBinary() && !isNestedJ2EEModule(virtualComp, references, (EARArtifactEdit)edit);
 		} 
 		return super.shouldIncludeUtilityComponent(virtualComp, references, edit);
@@ -525,7 +525,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements
 
     	IVirtualComponent comp = ComponentCore.createComponent(module.getProject());
     	String aURI = null;
-    	if (comp!=null && component!=null && J2EEProjectUtilities.isEARProject(component.getProject())) {
+    	if (comp!=null && component!=null && JavaEEProjectUtilities.isEARProject(component.getProject())) {
 			EARArtifactEdit earEdit = null;
 			try {
 				earEdit = EARArtifactEdit.getEARArtifactEditForRead(component);

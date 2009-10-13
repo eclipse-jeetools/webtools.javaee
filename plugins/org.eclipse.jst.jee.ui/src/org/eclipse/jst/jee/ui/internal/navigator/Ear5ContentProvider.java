@@ -139,7 +139,7 @@ public class Ear5ContentProvider extends JEE5ContentProvider {
 			return ((AbstractEarNode) aParentElement).getModules().toArray();
 		} else if (aParentElement instanceof IAdaptable) {
 			project = (IProject) ((IAdaptable) aParentElement).getAdapter(IPROJECT_CLASS);
-			if (project != null && J2EEProjectUtilities.isEARProject(project)) {
+			if (project != null && JavaEEProjectUtilities.isEARProject(project)) {
 				IFacetedProject facetedProject;
 				try {
 					facetedProject = ProjectFacetsManager.create(project);

@@ -82,18 +82,18 @@ public class AvailableJ2EEComponentsForEARContentProvider implements IStructured
 			IProject project = projects[i];
 			if(ModuleCoreNature.isFlexibleProject(project)){
 				IVirtualComponent component = ComponentCore.createComponent(project);
-				if (J2EEProjectUtilities.isApplicationClientProject(project) ||
+				if (JavaEEProjectUtilities.isApplicationClientProject(project) ||
 						JavaEEProjectUtilities.isEJBProject(project) ||
-						J2EEProjectUtilities.isDynamicWebProject(project) ||
-						J2EEProjectUtilities.isJCAProject(project) ||
-						J2EEProjectUtilities.isUtilityProject(project) ){
+						JavaEEProjectUtilities.isDynamicWebProject(project) ||
+						JavaEEProjectUtilities.isJCAProject(project) ||
+						JavaEEProjectUtilities.isUtilityProject(project) ){
 					int compJ2EEVersion = J2EEVersionUtil.convertVersionStringToInt(component);
 					if( compJ2EEVersion <= j2eeVersion){
 						validCompList.add(component);
 					} else if(isEE5){
 						validCompList.add(component);
 					}
-				}else if(null != earComponent && J2EEProjectUtilities.isEARProject(project)){
+				}else if(null != earComponent && JavaEEProjectUtilities.isEARProject(project)){
 					//find the ArchiveComponent
 					if (component.equals( earComponent )) {
 						if (isEE5) {

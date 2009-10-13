@@ -41,6 +41,7 @@ import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyEnablement;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.EarUtilities;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ModuleStructuralModel;
@@ -148,7 +149,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	}
 
 	protected void initializeSelection(ArchiveManifest existing) {
-			if (!J2EEProjectUtilities.isEARProject(getProject())) {
+			if (!JavaEEProjectUtilities.isEARProject(getProject())) {
 				if (getProject() != null) {
 					if(existing != null){
 						manifest = existing;

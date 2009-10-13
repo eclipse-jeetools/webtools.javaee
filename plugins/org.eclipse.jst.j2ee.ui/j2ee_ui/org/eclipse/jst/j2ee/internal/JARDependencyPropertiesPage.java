@@ -327,7 +327,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 	}
 
 	protected boolean isValidComponent() {
-		if (J2EEProjectUtilities.isEARProject(project)) {
+		if (JavaEEProjectUtilities.isEARProject(project)) {
 			propPage.setErrorMessage(ManifestUIResourceHandler.EAR_Module_Dep_Error);
 			return false;
 		} else if (J2EEProjectUtilities.isStandaloneProject(model.getComponent().getProject())) {

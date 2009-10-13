@@ -210,15 +210,15 @@ public class J2EEVersionUtil {
 	
 	public static int convertVersionStringToInt(IVirtualComponent comp) {
 		String version = J2EEProjectUtilities.getJ2EEProjectVersion(comp.getProject());
-		if (J2EEProjectUtilities.isDynamicWebProject(comp.getProject()))
+		if (JavaEEProjectUtilities.isDynamicWebProject(comp.getProject()))
 			return convertWebVersionStringToJ2EEVersionID(version);
 		if (JavaEEProjectUtilities.isEJBProject(comp.getProject()))
 			return convertEJBVersionStringToJ2EEVersionID(version);
-		if (J2EEProjectUtilities.isEARProject(comp.getProject()))
+		if (JavaEEProjectUtilities.isEARProject(comp.getProject()))
 			return convertVersionStringToInt(version);
-		if (J2EEProjectUtilities.isJCAProject(comp.getProject()))
+		if (JavaEEProjectUtilities.isJCAProject(comp.getProject()))
 			return convertConnectorVersionStringToJ2EEVersionID(version);
-		if (J2EEProjectUtilities.isApplicationClientProject(comp.getProject()))
+		if (JavaEEProjectUtilities.isApplicationClientProject(comp.getProject()))
 			return convertAppClientVersionStringToJ2EEVersionID(version);
 		return 0;
 	}

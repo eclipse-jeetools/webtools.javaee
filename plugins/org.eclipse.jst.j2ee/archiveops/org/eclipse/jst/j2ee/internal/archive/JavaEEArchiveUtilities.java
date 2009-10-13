@@ -150,22 +150,22 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 		}
 		int type = J2EEVersionConstants.UNKNOWN;
 		IArchiveLoadAdapter archiveLoadAdapter = null;
-		if (J2EEProjectUtilities.isEARProject(virtualComponent.getProject())) {
+		if (JavaEEProjectUtilities.isEARProject(virtualComponent.getProject())) {
 			archiveLoadAdapter = new EARComponentArchiveLoadAdapter(virtualComponent);
 			type = J2EEVersionConstants.APPLICATION_TYPE;
-		} else if (J2EEProjectUtilities.isEJBComponent(virtualComponent)) {
+		} else if (JavaEEProjectUtilities.isEJBComponent(virtualComponent)) {
 			archiveLoadAdapter = new EJBComponentArchiveLoadAdapter(virtualComponent);
 			type = J2EEVersionConstants.EJB_TYPE;
-		} else if (J2EEProjectUtilities.isApplicationClientComponent(virtualComponent)) {
+		} else if (JavaEEProjectUtilities.isApplicationClientComponent(virtualComponent)) {
 			archiveLoadAdapter = new AppClientComponentArchiveLoadAdapter(virtualComponent);
 			type = J2EEVersionConstants.APPLICATION_CLIENT_TYPE;
-		} else if (J2EEProjectUtilities.isJCAComponent(virtualComponent)) {
+		} else if (JavaEEProjectUtilities.isJCAComponent(virtualComponent)) {
 			archiveLoadAdapter = new ConnectorComponentArchiveLoadAdapter(virtualComponent);
 			type = J2EEVersionConstants.CONNECTOR_TYPE;
-		} else if (J2EEProjectUtilities.isDynamicWebComponent(virtualComponent)) {
+		} else if (JavaEEProjectUtilities.isDynamicWebComponent(virtualComponent)) {
 			archiveLoadAdapter = new WebComponentArchiveLoadAdapter(virtualComponent);
 			type = J2EEVersionConstants.WEB_TYPE;
-		} else if (J2EEProjectUtilities.isUtilityProject(virtualComponent.getProject())) {
+		} else if (JavaEEProjectUtilities.isUtilityProject(virtualComponent.getProject())) {
 			archiveLoadAdapter = new JavaComponentArchiveLoadAdapter(virtualComponent);
 		}
 

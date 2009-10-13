@@ -161,10 +161,10 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 	private boolean forceUpdateOnNextRun = false;
 	
 	public void queueUpdate(IProject project) {
-		if (J2EEProjectUtilities.isEARProject(project)) {
+		if (JavaEEProjectUtilities.isEARProject(project)) {
 			queueUpdateEAR(project);
-		} else if (J2EEProjectUtilities.isApplicationClientProject(project) || JavaEEProjectUtilities.isEJBProject(project) || J2EEProjectUtilities.isDynamicWebProject(project)
-				|| J2EEProjectUtilities.isJCAProject(project) || J2EEProjectUtilities.isUtilityProject(project)) {
+		} else if (JavaEEProjectUtilities.isApplicationClientProject(project) || JavaEEProjectUtilities.isEJBProject(project) || JavaEEProjectUtilities.isDynamicWebProject(project)
+				|| JavaEEProjectUtilities.isJCAProject(project) || JavaEEProjectUtilities.isUtilityProject(project)) {
 			queueUpdateModule(project);
 		}
 	}
@@ -262,7 +262,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 			Object[] earProjects = earQueue.getListeners();
 			for (int i = 0; i < earProjects.length; i++) {
 				IProject earProject = (IProject) earProjects[i];
-				if (J2EEProjectUtilities.isEARProject(earProject))
+				if (JavaEEProjectUtilities.isEARProject(earProject))
 				{
 					IVirtualComponent earComponent = ComponentCore.createComponent(earProject); 
 					IVirtualReference[] refs = J2EEProjectUtilities.getComponentReferences(earComponent);
@@ -379,7 +379,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 					IResource resource = event.getResource();
 					if(resource.getType() == IResource.PROJECT){
 						if(ModuleCoreNature.isFlexibleProject((IProject) resource)){
-							if(J2EEProjectUtilities.isEARProject((IProject)resource)){
+							if(JavaEEProjectUtilities.isEARProject((IProject)resource)){
 								IProject earProject = (IProject) resource;
 								
 								IVirtualReference[] refs = J2EEProjectUtilities.getComponentReferences(ComponentCore.createComponent(earProject));

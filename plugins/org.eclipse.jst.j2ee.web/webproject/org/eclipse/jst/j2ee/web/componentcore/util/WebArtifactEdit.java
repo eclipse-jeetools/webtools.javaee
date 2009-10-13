@@ -33,7 +33,9 @@ import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.componentcore.JavaEEBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentLoadStrategyImpl;
+import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.jst.j2ee.model.IModelProvider;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.project.WebUtilities;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebAppResource;
@@ -53,7 +55,6 @@ import org.eclipse.wst.common.componentcore.internal.util.IArtifactEditFactory;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
-import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 
 
 
@@ -567,7 +568,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @return contextRoot String
 	 */
 	public String getServerContextRoot(IProject earProject) {
-		if (earProject == null || !J2EEProjectUtilities.isEARProject(earProject))
+		if (earProject == null || !JavaEEProjectUtilities.isEARProject(earProject))
 			return getServerContextRoot();
 		EARArtifactEdit earEdit = null;
 		String contextRoot = null;
@@ -590,7 +591,7 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @param aContextRoot
 	 */
 	public void setServerContextRoot(IProject earProject, String aContextRoot) {
-		if (earProject == null || !J2EEProjectUtilities.isEARProject(earProject))
+		if (earProject == null || !JavaEEProjectUtilities.isEARProject(earProject))
 			setServerContextRoot(aContextRoot);
 		EARArtifactEdit earEdit = null;
 		try {

@@ -449,12 +449,12 @@ public class ClasspathTableManager implements Listener, ICommonManifestUIConstan
 	}
 
 	private boolean isLibrary(IVirtualComponent component) {
-		if (J2EEProjectUtilities.isApplicationClientComponent(component)) return false;
-		if (J2EEProjectUtilities.isEARProject(component.getProject()) && component.isBinary()) return true;
-		if (J2EEProjectUtilities.isEJBComponent(component)) return false;
-		if (J2EEProjectUtilities.isDynamicWebComponent(component)) return false;
-		if (J2EEProjectUtilities.isJCAComponent(component)) return false;
-		if (J2EEProjectUtilities.isStaticWebProject(component.getProject())) return false;
+		if (JavaEEProjectUtilities.isApplicationClientComponent(component)) return false;
+		if (JavaEEProjectUtilities.isEARProject(component.getProject()) && component.isBinary()) return true;
+		if (JavaEEProjectUtilities.isEJBComponent(component)) return false;
+		if (JavaEEProjectUtilities.isDynamicWebComponent(component)) return false;
+		if (JavaEEProjectUtilities.isJCAComponent(component)) return false;
+		if (JavaEEProjectUtilities.isStaticWebProject(component.getProject())) return false;
 		if (JavaEEProjectUtilities.isProjectOfType(component.getProject(), IJ2EEFacetConstants.JAVA)) return true;
 		return true;
 	}			

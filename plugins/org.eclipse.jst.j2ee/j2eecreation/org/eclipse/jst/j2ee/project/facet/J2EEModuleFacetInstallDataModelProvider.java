@@ -32,6 +32,7 @@ import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPreferences;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
@@ -150,7 +151,7 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 			IStatus status = validateEAR(model.getStringProperty(EAR_PROJECT_NAME));
 			if (status.isOK()) {
 				IProject project = ProjectUtilities.getProject(getStringProperty(EAR_PROJECT_NAME));
-				if (project.exists() && project.isAccessible() && J2EEProjectUtilities.isEARProject(project)) {
+				if (project.exists() && project.isAccessible() && JavaEEProjectUtilities.isEARProject(project)) {
 					try {
 						IFacetedProject facetProj = ProjectFacetsManager.create(project, false, new NullProgressMonitor());
 						setProperty(FACET_RUNTIME, facetProj.getRuntime());
@@ -242,7 +243,7 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 			if (flexProject != null) {
 				if (ModuleCoreNature.isFlexibleProject(flexProject)) {
 					IVirtualComponent comp = ComponentCore.createComponent(flexProject);
-					if (J2EEProjectUtilities.isEARProject(comp.getProject())) {
+					if (JavaEEProjectUtilities.isEARProject(comp.getProject())) {
 						String sVer = J2EEProjectUtilities.getJ2EEProjectVersion(comp.getProject());
 						int ver = J2EEVersionUtil.convertVersionStringToInt(sVer);
 						if (j2eeVersion <= ver) {

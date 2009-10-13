@@ -38,6 +38,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
@@ -257,7 +258,7 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 					continue;
 				}
 				// Order Ears first...
-				if (J2EEProjectUtilities.isEARProject(component.getProject())) {
+				if (JavaEEProjectUtilities.isEARProject(component.getProject())) {
 					components.add(0,component);
 				}
 				else {
