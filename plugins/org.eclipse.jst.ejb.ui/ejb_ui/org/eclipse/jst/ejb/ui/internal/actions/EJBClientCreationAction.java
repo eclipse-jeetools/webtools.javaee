@@ -28,7 +28,7 @@ import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.IEjbClientJarCreation
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.ejb.provider.GroupedEJBItemProvider;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -89,7 +89,7 @@ public class EJBClientCreationAction extends AbstractClientJARAction {
     
     private boolean hasEARProject() {
         IProject project = getSelectedProject();
-        return !J2EEProjectUtilities.isStandaloneProject(project);
+        return !EarUtilities.isStandaloneProject(project);
     }
 
 
