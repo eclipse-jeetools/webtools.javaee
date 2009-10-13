@@ -7,7 +7,7 @@ import junit.framework.TestCase;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
@@ -47,7 +47,7 @@ public class ProjectFacetCreationTest extends TestCase {
 		facetProj.modify( actions,null);
 		
 		IVirtualComponent comp = ComponentCore.createComponent(facetProj.getProject());
-		assertTrue(J2EEProjectUtilities.isDynamicWebProject(comp.getProject()));
+		assertTrue(JavaEEProjectUtilities.isDynamicWebProject(comp.getProject()));
 		
     }
 

@@ -14,8 +14,8 @@ import junit.framework.Test;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentExportDataModelProvider;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentExportDataModelProvider;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
@@ -82,7 +82,7 @@ public class WebExportOperationTomcatTest extends ModuleExportOperationTest {
 		List filteredProjs = new ArrayList();
 		for (int i = 0; i < projs.length; i++) {
 			IProject project = projs[i];
-			if (J2EEProjectUtilities.isDynamicWebProject(project))
+			if (JavaEEProjectUtilities.isDynamicWebProject(project))
 				filteredProjs.add(project);
 		}
 		return (IProject[]) filteredProjs.toArray(new IProject[filteredProjs.size()]);

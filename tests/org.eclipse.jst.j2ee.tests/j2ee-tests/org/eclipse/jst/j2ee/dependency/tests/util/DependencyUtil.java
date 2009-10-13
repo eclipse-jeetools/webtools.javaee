@@ -27,15 +27,13 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.jobs.IJobManager;
 import org.eclipse.core.runtime.jobs.Job;
-
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.refactor.listeners.J2EEElementChangedListener;
 import org.eclipse.jst.j2ee.refactor.listeners.ProjectRefactoringListener;
-
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
@@ -234,7 +232,7 @@ public class DependencyUtil {
      */
     public static void verifyComponentMapping(final IProject project, final IPath projectPath, final boolean exists) throws CoreException {
     	IPath runtimePath = Path.ROOT;
-    	if (J2EEProjectUtilities.isDynamicWebProject(project)) {
+    	if (JavaEEProjectUtilities.isDynamicWebProject(project)) {
     		// web projects map to WEB-INF/classes
     		runtimePath = new Path(J2EEConstants.WEB_INF_CLASSES);
     	}
