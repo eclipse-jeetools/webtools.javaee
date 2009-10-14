@@ -86,10 +86,13 @@ import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelEvent;
 import org.eclipse.wst.common.internal.emfworkbench.integration.EditModelListener;
 
 /**
- * @author jlanuti
+ * Internal API class
  * 
- * To change the template for this generated type comment go to Window - Preferences - Java - Code
- * Generation - Code and Comments
+ * This utility class is meant to aid in managing webservice(jsr109) metadata related to Java EE 1.4 or earlier, and will not be upgraded beyond this release.
+ * The WTP webservices team has duplicate public api for gathering serviceRef's etc.
+ * 
+ * Marking as @frozen to support <= Java EE 1.4
+ * 
  */
 public class WebServicesManager implements EditModelListener, IResourceChangeListener, IResourceDeltaVisitor {
 
