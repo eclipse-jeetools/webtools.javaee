@@ -214,7 +214,7 @@ public class Session2xInterfacesTable extends Composite {
 		
 		// 1st column abbreviation
 		TableColumn column = new TableColumn(getTable(), SWT.CENTER, 0);		
-		column.setWidth(25);
+		column.setWidth(30);
 		
 		// 2nd column className
 		column = new TableColumn(getTable(), SWT.LEFT, 1);

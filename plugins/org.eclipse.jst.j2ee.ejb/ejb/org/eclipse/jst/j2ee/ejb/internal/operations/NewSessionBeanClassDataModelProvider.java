@@ -338,38 +338,39 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 			IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
 			IJavaProject javaProject = JavaCore.create(project);
 			try {
-				if (getBooleanProperty(REMOTE_HOME)) {
-					String remoteHomeInterface = getStringProperty(REMOTE_HOME_INTERFACE);
-					String remoteComponentInterface = getStringProperty(REMOTE_COMPONENT_INTERFACE);
-					result = validate2xInterfaces(javaProject, remoteHomeInterface, remoteComponentInterface, false);
-					if (!result.isOK()){
-						return result;
-					}
-					if (result.isOK()) {
-						IType findType = javaProject.findType(remoteHomeInterface);
-						if (findType == null || !findType.exists()) {
-							result = validateEjbInterface(remoteHomeInterface);
-						}
-						findType = javaProject.findType(remoteComponentInterface);
-						if ((findType == null || !findType.exists()) && result.isOK()) {
-							result = validateEjbInterface(remoteComponentInterface);
-						}
-					}
-				}
-
 				if (getBooleanProperty(LOCAL_HOME)) {
 					String localHomeInterface = getStringProperty(LOCAL_HOME_INTERFACE);
 					String localComponentInterface = getStringProperty(LOCAL_COMPONENT_INTERFACE);
 					result = validate2xInterfaces(javaProject, localHomeInterface, localComponentInterface, true);
-					if (result.isOK()) {
-						IType findType = javaProject.findType(localHomeInterface);
-						if (findType == null || !findType.exists()) {
-							result = validateEjbInterface(localHomeInterface);
-						}
-						findType = javaProject.findType(localComponentInterface);
-						if ((findType == null || !findType.exists()) && result.isOK()) {
-							result = validateEjbInterface(localComponentInterface);
-						}
+					if (!result.isOK()) return result;
+					
+					IType findType = javaProject.findType(localComponentInterface);
+					if ((findType == null || !findType.exists()) && result.isOK()) {
+						result = validateEjbInterface(localComponentInterface);
+						if (!result.isOK()) return result;
+					}
+					
+					findType = javaProject.findType(localHomeInterface);
+					if (findType == null || !findType.exists()) {
+						result = validateEjbInterface(localHomeInterface);
+						if (!result.isOK()) return result;
+					}
+				}
+				if (getBooleanProperty(REMOTE_HOME)) {
+					String remoteHomeInterface = getStringProperty(REMOTE_HOME_INTERFACE);
+					String remoteComponentInterface = getStringProperty(REMOTE_COMPONENT_INTERFACE);
+					result = validate2xInterfaces(javaProject, remoteHomeInterface, remoteComponentInterface, false);
+					if (!result.isOK()) return result;
+					
+					IType findType = javaProject.findType(remoteComponentInterface);
+					if ((findType == null || !findType.exists()) && result.isOK()) {
+						result = validateEjbInterface(remoteComponentInterface);
+						if (!result.isOK()) return result;
+					}
+					findType = javaProject.findType(remoteHomeInterface);
+					if (findType == null || !findType.exists()) {
+						result = validateEjbInterface(remoteHomeInterface);
+						if (!result.isOK()) return result;
 					}
 				}
 			} catch (JavaModelException e) {
