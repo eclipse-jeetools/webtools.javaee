@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2006 IBM Corporation and others.
+ * Copyright (c) 2005, 2009 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,71 +7,56 @@
  *
  * Contributors:
  *     IBM Corporation - initial API and implementation
+ *     Milen Manov, milen.manov@sap.com - bugs 248623
  *******************************************************************************/
-/*
- * Created on Mar 21, 2005
- */
 package org.eclipse.jst.j2ee.internal.wizard;
 
-import org.eclipse.core.resources.IProject;
-import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
+import org.eclipse.jface.viewers.ITableLabelProvider;
+import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.LabelProviderChangedEvent;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
+public class J2EEComponentLabelProvider extends LabelProvider {
 
-
-/**
- * @author jialin
- */
-public class J2EEComponentLabelProvider implements ILabelProvider {
-
+	ITableLabelProvider tableLableProvider;
+	
+	private J2EEComponentLabelProvider instance;
+	
+	public J2EEComponentLabelProvider(ITableLabelProvider tableLableProvider){
+		this.tableLableProvider = tableLableProvider;
+		instance = this;
+		tableLableProvider.addListener(new ILabelProviderListener(){
+			public void labelProviderChanged(LabelProviderChangedEvent event) {
+				LabelProviderChangedEvent newEvent = new LabelProviderChangedEvent(instance);
+				fireLabelProviderChanged(newEvent);
+			}
+		});
+	}
 	/* (non-Javadoc)
 	 * @see org.eclipse.jface.viewers.ILabelProvider#getImage(java.lang.Object)
 	 */
+	@Override
 	public Image getImage(Object element) {
-		return null;
+		return tableLableProvider.getColumnImage(element, 1);
 	}
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.jface.viewers.ILabelProvider#getText(java.lang.Object)
 	 */
+	@Override
 	public String getText(Object element) {
-		if(element instanceof IVirtualComponent){
-			IVirtualComponent comp = (IVirtualComponent)element;
-			return comp.getProject().getName();
-		}
-		
-		if (element instanceof IProject) {
-			IProject handle = (IProject)element;
-			return handle.getName();
-		}
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.viewers.IBaseLabelProvider#addListener(org.eclipse.jface.viewers.ILabelProviderListener)
-	 */
-	public void addListener(ILabelProviderListener listener) {
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.viewers.IBaseLabelProvider#dispose()
-	 */
-	public void dispose() {
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.viewers.IBaseLabelProvider#isLabelProperty(java.lang.Object, java.lang.String)
-	 */
-	public boolean isLabelProperty(Object element, String property) {
-		return false;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.jface.viewers.IBaseLabelProvider#removeListener(org.eclipse.jface.viewers.ILabelProviderListener)
-	 */
-	public void removeListener(ILabelProviderListener listener) {
+		return tableLableProvider.getColumnText(element, 1);
+//		if(element instanceof IVirtualComponent){
+//			IVirtualComponent comp = (IVirtualComponent)element;
+//			return comp.getProject().getName();
+//		}
+//		
+//		if (element instanceof IProject) {
+//			IProject handle = (IProject)element;
+//			return handle.getName();
+//		}
+//		return null;
 	}
 
 }

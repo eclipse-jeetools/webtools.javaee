@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2008 IBM Corporation and others.
+ * Copyright (c) 2005, 2009 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *     IBM Corporation - initial API and implementation
  *	   David Schneider, david.schneider@unisys.com - [142500] WTP properties pages fonts don't follow Eclipse preferences
  *     Stefan Dimov, stefan.dimov@sap.com - bugs 207826, 222651
+ *     Milen Manov, milen.manov@sap.com - bugs 248623
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal;
 
@@ -40,6 +41,9 @@ import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.IContentProvider;
+import org.eclipse.jface.viewers.ILabelDecorator;
+import org.eclipse.jface.viewers.ILabelProviderListener;
+import org.eclipse.jface.viewers.LabelProviderChangedEvent;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.RemoveComponentFromEnterpriseApplicationDataModelProvider;
@@ -710,9 +714,18 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 
 		if (earComponent != null) {
 			int j2eeVersion = J2EEVersionUtil.convertVersionStringToInt(earComponent);
-			AvailableJ2EEComponentsForEARContentProvider provider = new AvailableJ2EEComponentsForEARContentProvider(earComponent, j2eeVersion);
+			ILabelDecorator decorator = PlatformUI.getWorkbench().getDecoratorManager().getLabelDecorator();
+			AvailableJ2EEComponentsForEARContentProvider provider = new AvailableJ2EEComponentsForEARContentProvider(earComponent, j2eeVersion, decorator);
+			decorator.addListener(new ILabelProviderListener(){
+			
+				public void labelProviderChanged(LabelProviderChangedEvent event) {
+					refresh();
+				}
+			});
 			availableComponentsViewer.setContentProvider(provider);
 			availableComponentsViewer.setLabelProvider(provider);
+			
+			
 			setLibDirInContentProvider();
 			addTableListeners();
 		}
@@ -1033,14 +1046,16 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 	
 	
 	public void refresh() {
-
+		if(availableComponentsViewer.getContentProvider() == null){
+			return;
+		}
 		IWorkspaceRoot input = ResourcesPlugin.getWorkspace().getRoot();
 		availableComponentsViewer.setInput(input);
 		GridData data = new GridData(GridData.FILL_BOTH);
 		int numlines = Math.min(10, availableComponentsViewer.getTable().getItemCount());
 		data.heightHint = availableComponentsViewer.getTable().getItemHeight() * numlines;
 		availableComponentsViewer.getTable().setLayoutData(data);
-
+		
 		//[Bug 238264] for all the jars in the cache temparaly list them in the grid
 		// until the user applys the changes
 		for(IVirtualComponent jarComponent : this.addedJARComponents) {

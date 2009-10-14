@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2005, 2006 BEA Systems, Inc. and others.
+ * Copyright (c) 2005, 2009 BEA Systems, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -8,6 +8,7 @@
  * Contributors:
  *    Konstantin Komissarchik - initial API and implementation
  *    David Schneider, david.schneider@unisys.com - [142500] WTP properties pages fonts don't follow Eclipse preferences
+ *    Milen Manov, milen.manov@sap.com - bugs 248623
  ******************************************************************************/
 
 package org.eclipse.jst.j2ee.ui.project.facet;
@@ -26,6 +27,9 @@ import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.ICheckStateListener;
+import org.eclipse.jface.viewers.ILabelDecorator;
+import org.eclipse.jface.viewers.ILabelProviderListener;
+import org.eclipse.jface.viewers.LabelProviderChangedEvent;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.j2ee.earcreation.IEarFacetInstallDataModelProperties;
@@ -50,6 +54,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
@@ -128,9 +133,19 @@ public class EarFacetInstallPage extends J2EEModuleFacetInstallPage implements I
 		gData.heightHint = 80;
 		moduleProjectsViewer.getControl().setLayoutData(gData);
 		int j2eeVersion = getJ2EEVersion();
-		AvailableJ2EEComponentsForEARContentProvider provider = new AvailableJ2EEComponentsForEARContentProvider(null, j2eeVersion);
+		ILabelDecorator decorator = PlatformUI.getWorkbench().getDecoratorManager().getLabelDecorator();
+		AvailableJ2EEComponentsForEARContentProvider provider = new AvailableJ2EEComponentsForEARContentProvider(null, j2eeVersion, decorator);
 		moduleProjectsViewer.setContentProvider(provider);
-		moduleProjectsViewer.setLabelProvider(new J2EEComponentLabelProvider());
+		final J2EEComponentLabelProvider labelProvider = new J2EEComponentLabelProvider(provider);
+		decorator.addListener(new ILabelProviderListener(){
+		
+			public void labelProviderChanged(LabelProviderChangedEvent event) {
+				if(!moduleProjectsViewer.getTable().isDisposed()){
+					moduleProjectsViewer.refresh(true);
+				}
+			}
+		});
+		moduleProjectsViewer.setLabelProvider(labelProvider);
 		setCheckedItemsFromModel();
 		
 		moduleProjectsViewer.addCheckStateListener(new ICheckStateListener() {

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2008 IBM Corporation and others.
+ * Copyright (c) 2005, 2009 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -8,6 +8,7 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *     Stefan Dimov, stefan.dimov@sap.com - bug 207826
+ *     Milen Manov, milen.manov@sap.com - bugs 248623
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal;
 
@@ -22,9 +23,11 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jface.viewers.ILabelProviderListener;
+import org.eclipse.jface.viewers.ILabelDecorator;
+import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
+import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jst.j2ee.application.internal.operations.ClassPathSelection;
 import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
@@ -38,13 +41,16 @@ import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
-public class AvailableJ2EEComponentsForEARContentProvider implements IStructuredContentProvider, ITableLabelProvider {
+public class AvailableJ2EEComponentsForEARContentProvider extends LabelProvider
+	implements IStructuredContentProvider, ITableLabelProvider {
 	
 	final static String PATH_SEPARATOR = String.valueOf(IPath.SEPARATOR);
 	
@@ -53,11 +59,19 @@ public class AvailableJ2EEComponentsForEARContentProvider implements IStructured
 	private boolean isEE5 = false;
 	private String libDir = null;
 	
+	private ILabelDecorator decorator = PlatformUI.getWorkbench().getDecoratorManager().getLabelDecorator();
+	
+	private ILabelProvider workbenchLabelProvider = new WorkbenchLabelProvider();
 	
 	public AvailableJ2EEComponentsForEARContentProvider(IVirtualComponent aEarComponent, int j2eeVersion) {
 		super();
 		this.j2eeVersion = j2eeVersion;
 		earComponent = aEarComponent;
+	}
+	
+	public AvailableJ2EEComponentsForEARContentProvider(IVirtualComponent aEarComponent, int j2eeVersion, ILabelDecorator decorator) {
+		this(aEarComponent, j2eeVersion);
+		this.decorator = decorator;
 	}
 
 	/*
@@ -216,7 +230,30 @@ public class AvailableJ2EEComponentsForEARContentProvider implements IStructured
 	 * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnImage(java.lang.Object, int)
 	 */
 	public Image getColumnImage(Object element, int columnIndex) {
+		if (columnIndex < 2){
+			if (element instanceof IVirtualComponent) {
+				IVirtualComponent comp = (IVirtualComponent)element;
+				return getDecoratedImage(comp);
+			} else if (element instanceof IProject){
+				return workbenchLabelProvider.getImage(element);
+			}
+		}
 		return null;
+	}
+
+	private Image getDecoratedImage(IVirtualComponent comp) {
+		return getDecoratedImage(comp.getProject());
+	}
+	
+	private Image getDecoratedImage(IProject project) {
+		Image image = workbenchLabelProvider.getImage(project);
+		if (decorator != null) {
+			Image decorated = decorator.decorateImage(image, project);
+			if (decorated != null) {
+				return decorated;
+			}
+		}
+		return image;
 	}
 
 	/*
@@ -254,47 +291,15 @@ public class AvailableJ2EEComponentsForEARContentProvider implements IStructured
 		}		
 		return null;
 	}	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jface.viewers.IContentProvider#inputChanged(org.eclipse.jface.viewers.Viewer,
-	 *      java.lang.Object, java.lang.Object)
-	 */
-	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-		//do nothing
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jface.viewers.IBaseLabelProvider#addListener(org.eclipse.jface.viewers.ILabelProviderListener)
-	 */
-	public void addListener(ILabelProviderListener listener) {
-		//do nothing
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jface.viewers.IBaseLabelProvider#isLabelProperty(java.lang.Object,
-	 *      java.lang.String)
-	 */
-	public boolean isLabelProperty(Object element, String property) {
-		return false;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jface.viewers.IBaseLabelProvider#removeListener(org.eclipse.jface.viewers.ILabelProviderListener)
-	 */
-	public void removeListener(ILabelProviderListener listener) {
-		//do nothing
-	}
-
+	
 	/* (non-Javadoc)
 	 * @see org.eclipse.jface.viewers.IContentProvider#dispose()
 	 */
+	@Override
 	public void dispose() {
+	}
+
+	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+		
 	}
 }
