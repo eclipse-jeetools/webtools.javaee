@@ -1888,7 +1888,7 @@ public class JndiRefsTest extends TestCase{
     assertEquals(1, beanBase.getEnvEntries().size());
     assertEquals("mapped1", ((EnvEntry)beanBase.getEnvEntries().get(0)).getMappedName());
     assertEquals("refName1", ((EnvEntry)beanBase.getEnvEntries().get(0)).getEnvEntryName());
-    assertEquals(EnvEntryType.JAVA_LANG_BOOLEAN_LITERAL, ((EnvEntry)beanBase.getEnvEntries().get(0)).getEnvEntryType());
+    assertEquals(EnvEntryType.JAVA_LANG_BOOLEAN_LITERAL.getLiteral(), ((EnvEntry)beanBase.getEnvEntries().get(0)).getEnvEntryType());
     assertEquals("true", ((EnvEntry)beanBase.getEnvEntries().get(0)).getEnvEntryValue());
   }
 
@@ -1924,7 +1924,7 @@ public class JndiRefsTest extends TestCase{
     assertEquals(1, beanBase.getEnvEntries().size());
     assertEquals("mapped1", ((EnvEntry)beanBase.getEnvEntries().get(0)).getMappedName());
     assertEquals("refName1", ((EnvEntry)beanBase.getEnvEntries().get(0)).getEnvEntryName());
-    assertEquals(EnvEntryType.JAVA_LANG_BOOLEAN_LITERAL, ((EnvEntry)beanBase.getEnvEntries().get(0)).getEnvEntryType());
+    assertEquals(EnvEntryType.JAVA_LANG_BOOLEAN_LITERAL.getLiteral(), ((EnvEntry)beanBase.getEnvEntries().get(0)).getEnvEntryType());
     assertEquals("true", ((EnvEntry)beanBase.getEnvEntries().get(0)).getEnvEntryValue());
   }
 
@@ -1963,7 +1963,7 @@ public class JndiRefsTest extends TestCase{
     assertEquals(1, beanBase.getEnvEntries().size());
     assertEquals("mapped1", ((EnvEntry)beanBase.getEnvEntries().get(0)).getMappedName());
     assertEquals("refName1", ((EnvEntry)beanBase.getEnvEntries().get(0)).getEnvEntryName());
-    assertEquals(EnvEntryType.JAVA_LANG_BOOLEAN_LITERAL, ((EnvEntry)beanBase.getEnvEntries().get(0)).getEnvEntryType());
+    assertEquals(EnvEntryType.JAVA_LANG_BOOLEAN_LITERAL.getLiteral(), ((EnvEntry)beanBase.getEnvEntries().get(0)).getEnvEntryType());
     assertEquals("true", ((EnvEntry)beanBase.getEnvEntries().get(0)).getEnvEntryValue());
 
   }
@@ -2005,11 +2005,11 @@ public class JndiRefsTest extends TestCase{
     EnvEntry test = getEnvEntry(beanBase.getEnvEntries(), "refName1");
     EnvEntry test2 = getEnvEntry(beanBase.getEnvEntries(), "refName2");
     assertEquals("mapped1", test.getMappedName());
-    assertEquals(EnvEntryType.JAVA_LANG_BOOLEAN_LITERAL, test.getEnvEntryType());
+    assertEquals(EnvEntryType.JAVA_LANG_BOOLEAN_LITERAL.getLiteral(), test.getEnvEntryType());
     assertEquals("true", test.getEnvEntryValue());
 
     assertEquals("mapped2", test2.getMappedName());
-    assertEquals(EnvEntryType.JAVA_LANG_BYTE_LITERAL, test2.getEnvEntryType());
+    assertEquals(EnvEntryType.JAVA_LANG_BYTE_LITERAL.getLiteral(), test2.getEnvEntryType());
     assertEquals("00", test2.getEnvEntryValue());
 
   }
@@ -2047,7 +2047,7 @@ public class JndiRefsTest extends TestCase{
     assertEquals(1, beanBase.getEnvEntries().size());
 
     EnvEntry test = getEnvEntry(beanBase.getEnvEntries(), "refName1");
-    assertEquals(EnvEntryType.JAVA_LANG_BYTE_LITERAL, test.getEnvEntryType());
+    assertEquals(EnvEntryType.JAVA_LANG_BYTE_LITERAL.getLiteral(), test.getEnvEntryType());
     assertEquals("mapped2", test.getMappedName());
     assertEquals("00", test.getEnvEntryValue());
 
