@@ -47,22 +47,22 @@ public List process() throws ModelException {
       SessionBean baseBean = getBaseBean();
       SessionBean toMergeBean = getToMergeBean();
 
-      List toMergeBusinessLocal = toMergeBean.getBusinessLocals();
-      for(Object toMergeIntfs:toMergeBusinessLocal){
-        if (containsInterface(baseBean.getBusinessRemotes(), (String) toMergeIntfs)) {
+      List<String> toMergeBusinessLocal = toMergeBean.getBusinessLocals();
+      for(String toMergeIntfs:toMergeBusinessLocal){
+        if (containsInterface(baseBean.getBusinessRemotes(), toMergeIntfs)) {
           continue;
         }
-        if (!containsInterface(baseBean.getBusinessLocals(), (String) toMergeIntfs)) {
+        if (!containsInterface(baseBean.getBusinessLocals(), toMergeIntfs)) {
           baseBean.getBusinessLocals().add(toMergeIntfs);
         }
       }
 
-      List toMergeIntfs = toMergeBean.getBusinessRemotes();       
-      for(Object toMergeRemoteIntf:toMergeIntfs){
-        if (containsInterface(baseBean.getBusinessLocals(), (String) toMergeRemoteIntf)) {
+      List<String> toMergeIntfs = toMergeBean.getBusinessRemotes();       
+      for(String toMergeRemoteIntf:toMergeIntfs){
+        if (containsInterface(baseBean.getBusinessLocals(), toMergeRemoteIntf)) {
           continue;
         }
-        if (!containsInterface(baseBean.getBusinessRemotes(), (String) toMergeRemoteIntf)) {
+        if (!containsInterface(baseBean.getBusinessRemotes(), toMergeRemoteIntf)) {
           baseBean.getBusinessRemotes().add(toMergeRemoteIntf);
         }
       }

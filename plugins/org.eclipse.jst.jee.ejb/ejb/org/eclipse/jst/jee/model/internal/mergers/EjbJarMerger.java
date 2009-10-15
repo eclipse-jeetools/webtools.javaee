@@ -241,9 +241,9 @@ public class EjbJarMerger extends ModelElementMerger {
 			getBaseEjbJar().setInterceptors((InterceptorsType) (EcoreUtil.copy((EObject) getToMergeEjbJar().getInterceptors())));
 		}
 
-		//    if (!getToMergeEjbJar().isSetVersion()){
-			//      getBaseEjbJar().setVersion(getToMergeEjbJar().getVersion());
-			//    }
+		    if (getToMergeEjbJar().isSetVersion()){
+			      getBaseEjbJar().setVersion(getToMergeEjbJar().getVersion());
+			    }
 	}
 
 	private void copyAllContentInBase(List listSource, List target) {

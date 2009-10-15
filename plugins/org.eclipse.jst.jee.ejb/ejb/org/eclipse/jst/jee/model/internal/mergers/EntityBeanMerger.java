@@ -64,13 +64,13 @@ public List process() throws ModelException {
 
 
   private void mergeSecurityRoleRefs(List warnings) throws ModelException {
-    List toMergeList = getToMergeBean().getSecurityRoleRefs();
+    List<SecurityRoleRef> toMergeList = getToMergeBean().getSecurityRoleRefs();
     addAllRoleRefs(toMergeList, warnings);
   }
 
-  private void addAllRoleRefs(List roleRefs, List warnings) {
-    for (Object roleRef:roleRefs) {
-      if(!existingSecRoleRef(getBaseBean().getSecurityRoleRefs(), (SecurityRoleRef) roleRef)){
+  private void addAllRoleRefs(List<SecurityRoleRef> roleRefs, List warnings) {
+    for (SecurityRoleRef roleRef:roleRefs) {
+      if(!existingSecRoleRef(getBaseBean().getSecurityRoleRefs(), roleRef)){
         getBaseBean().getSecurityRoleRefs().add(roleRef);
       }
 

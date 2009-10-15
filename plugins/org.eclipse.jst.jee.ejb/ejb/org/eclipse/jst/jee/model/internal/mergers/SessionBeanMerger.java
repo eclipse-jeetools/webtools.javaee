@@ -93,7 +93,7 @@ public List process() throws ModelException {
           base.setRetainIfException(((RemoveMethodType)object).isRetainIfException());
         }
       } else {
-        getBaseBean().getRemoveMethods().add(EcoreUtil.copy((EObject) object)); 
+        getBaseBean().getRemoveMethods().add((RemoveMethodType) EcoreUtil.copy((EObject) object)); 
       }
     } 
   }
@@ -134,7 +134,7 @@ public List process() throws ModelException {
     List toMergeList = getToMergeBean().getSecurityRoleRefs();
     for (Object roleRef:toMergeList) {
       if(!existingSecRoleRef(getBaseBean().getSecurityRoleRefs(), (SecurityRoleRef) roleRef)){
-        getBaseBean().getSecurityRoleRefs().add(EcoreUtil.copy((EObject) roleRef));
+        getBaseBean().getSecurityRoleRefs().add((SecurityRoleRef) EcoreUtil.copy((EObject) roleRef));
       }
 
     } 
