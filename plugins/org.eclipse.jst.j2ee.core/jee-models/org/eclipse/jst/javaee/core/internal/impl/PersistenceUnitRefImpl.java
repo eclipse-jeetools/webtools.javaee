@@ -45,6 +45,7 @@ import org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage;
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.PersistenceUnitRefImpl#getPersistenceUnitName <em>Persistence Unit Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.PersistenceUnitRefImpl#getMappedName <em>Mapped Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.PersistenceUnitRefImpl#getInjectionTargets <em>Injection Targets</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.PersistenceUnitRefImpl#getLookupName <em>Lookup Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.PersistenceUnitRefImpl#getId <em>Id</em>}</li>
  * </ul>
  * </p>
@@ -60,7 +61,7 @@ public class PersistenceUnitRefImpl extends EObjectImpl implements PersistenceUn
 	 * @generated
 	 * @ordered
 	 */
-	protected EList descriptions = null;
+	protected EList<Description> descriptions;
 
 	/**
 	 * The default value of the '{@link #getPersistenceUnitRefName() <em>Persistence Unit Ref Name</em>}' attribute.
@@ -130,7 +131,27 @@ public class PersistenceUnitRefImpl extends EObjectImpl implements PersistenceUn
 	 * @generated
 	 * @ordered
 	 */
-	protected EList injectionTargets = null;
+	protected EList<InjectionTarget> injectionTargets;
+
+	/**
+	 * The default value of the '{@link #getLookupName() <em>Lookup Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLookupName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String LOOKUP_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getLookupName() <em>Lookup Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLookupName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String lookupName = LOOKUP_NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -176,9 +197,9 @@ public class PersistenceUnitRefImpl extends EObjectImpl implements PersistenceUn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDescriptions() {
+	public List<Description> getDescriptions() {
 		if (descriptions == null) {
-			descriptions = new EObjectContainmentEList(Description.class, this, JavaeePackage.PERSISTENCE_UNIT_REF__DESCRIPTIONS);
+			descriptions = new EObjectContainmentEList<Description>(Description.class, this, JavaeePackage.PERSISTENCE_UNIT_REF__DESCRIPTIONS);
 		}
 		return descriptions;
 	}
@@ -251,11 +272,32 @@ public class PersistenceUnitRefImpl extends EObjectImpl implements PersistenceUn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getInjectionTargets() {
+	public List<InjectionTarget> getInjectionTargets() {
 		if (injectionTargets == null) {
-			injectionTargets = new EObjectContainmentEList(InjectionTarget.class, this, JavaeePackage.PERSISTENCE_UNIT_REF__INJECTION_TARGETS);
+			injectionTargets = new EObjectContainmentEList<InjectionTarget>(InjectionTarget.class, this, JavaeePackage.PERSISTENCE_UNIT_REF__INJECTION_TARGETS);
 		}
 		return injectionTargets;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getLookupName() {
+		return lookupName;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setLookupName(String newLookupName) {
+		String oldLookupName = lookupName;
+		lookupName = newLookupName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, JavaeePackage.PERSISTENCE_UNIT_REF__LOOKUP_NAME, oldLookupName, lookupName));
 	}
 
 	/**
@@ -288,9 +330,9 @@ public class PersistenceUnitRefImpl extends EObjectImpl implements PersistenceUn
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case JavaeePackage.PERSISTENCE_UNIT_REF__DESCRIPTIONS:
-				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDescriptions()).basicRemove(otherEnd, msgs);
 			case JavaeePackage.PERSISTENCE_UNIT_REF__INJECTION_TARGETS:
-				return ((InternalEList)getInjectionTargets()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getInjectionTargets()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -313,6 +355,8 @@ public class PersistenceUnitRefImpl extends EObjectImpl implements PersistenceUn
 				return getMappedName();
 			case JavaeePackage.PERSISTENCE_UNIT_REF__INJECTION_TARGETS:
 				return getInjectionTargets();
+			case JavaeePackage.PERSISTENCE_UNIT_REF__LOOKUP_NAME:
+				return getLookupName();
 			case JavaeePackage.PERSISTENCE_UNIT_REF__ID:
 				return getId();
 		}
@@ -324,12 +368,13 @@ public class PersistenceUnitRefImpl extends EObjectImpl implements PersistenceUn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case JavaeePackage.PERSISTENCE_UNIT_REF__DESCRIPTIONS:
 				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
+				getDescriptions().addAll((Collection<? extends Description>)newValue);
 				return;
 			case JavaeePackage.PERSISTENCE_UNIT_REF__PERSISTENCE_UNIT_REF_NAME:
 				setPersistenceUnitRefName((String)newValue);
@@ -342,7 +387,10 @@ public class PersistenceUnitRefImpl extends EObjectImpl implements PersistenceUn
 				return;
 			case JavaeePackage.PERSISTENCE_UNIT_REF__INJECTION_TARGETS:
 				getInjectionTargets().clear();
-				getInjectionTargets().addAll((Collection)newValue);
+				getInjectionTargets().addAll((Collection<? extends InjectionTarget>)newValue);
+				return;
+			case JavaeePackage.PERSISTENCE_UNIT_REF__LOOKUP_NAME:
+				setLookupName((String)newValue);
 				return;
 			case JavaeePackage.PERSISTENCE_UNIT_REF__ID:
 				setId((String)newValue);
@@ -374,6 +422,9 @@ public class PersistenceUnitRefImpl extends EObjectImpl implements PersistenceUn
 			case JavaeePackage.PERSISTENCE_UNIT_REF__INJECTION_TARGETS:
 				getInjectionTargets().clear();
 				return;
+			case JavaeePackage.PERSISTENCE_UNIT_REF__LOOKUP_NAME:
+				setLookupName(LOOKUP_NAME_EDEFAULT);
+				return;
 			case JavaeePackage.PERSISTENCE_UNIT_REF__ID:
 				setId(ID_EDEFAULT);
 				return;
@@ -399,6 +450,8 @@ public class PersistenceUnitRefImpl extends EObjectImpl implements PersistenceUn
 				return MAPPED_NAME_EDEFAULT == null ? mappedName != null : !MAPPED_NAME_EDEFAULT.equals(mappedName);
 			case JavaeePackage.PERSISTENCE_UNIT_REF__INJECTION_TARGETS:
 				return injectionTargets != null && !injectionTargets.isEmpty();
+			case JavaeePackage.PERSISTENCE_UNIT_REF__LOOKUP_NAME:
+				return LOOKUP_NAME_EDEFAULT == null ? lookupName != null : !LOOKUP_NAME_EDEFAULT.equals(lookupName);
 			case JavaeePackage.PERSISTENCE_UNIT_REF__ID:
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 		}
@@ -421,6 +474,8 @@ public class PersistenceUnitRefImpl extends EObjectImpl implements PersistenceUn
 		result.append(persistenceUnitName);
 		result.append(", mappedName: "); //$NON-NLS-1$
 		result.append(mappedName);
+		result.append(", lookupName: "); //$NON-NLS-1$
+		result.append(lookupName);
 		result.append(", id: "); //$NON-NLS-1$
 		result.append(id);
 		result.append(')');

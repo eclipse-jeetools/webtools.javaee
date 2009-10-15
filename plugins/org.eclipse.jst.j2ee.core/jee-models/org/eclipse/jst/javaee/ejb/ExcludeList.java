@@ -12,6 +12,7 @@ package org.eclipse.jst.javaee.ejb;
 
 import java.util.List;
 
+import org.eclipse.jst.javaee.core.Description;
 import org.eclipse.jst.javaee.core.JavaEEObject;
 
 /**
@@ -22,13 +23,14 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The exclude-listType specifies one or more methods which
- * 	the Assembler marks to be uncallable.
- * 
- * 	If the method permission relation contains methods that are
- * 	in the exclude list, the Deployer should consider those
- * 	methods to be uncallable.
- * 
+ *         The exclude-listType specifies one or more methods which
+ *         the Assembler marks to be uncallable.
+ *         
+ *         If the method permission relation contains methods that are
+ *         in the exclude list, the Deployer should consider those
+ *         methods to be uncallable.
+ *         
+ *         @since Java EE 5, EJB 3.0
  *       
  * <!-- end-model-doc -->
  *
@@ -59,7 +61,7 @@ public interface ExcludeList extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getExcludeList_Descriptions()
 	 * @generated
 	 */
-	List getDescriptions();
+	List<Description> getDescriptions();
 
 	/**
 	 * Returns the value of the '<em><b>Methods</b></em>' containment reference list.
@@ -74,7 +76,7 @@ public interface ExcludeList extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getExcludeList_Methods()
 	 * @generated
 	 */
-	List getMethods();
+	List<MethodType> getMethods();
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.

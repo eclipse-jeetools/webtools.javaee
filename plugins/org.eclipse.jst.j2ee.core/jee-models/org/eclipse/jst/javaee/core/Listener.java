@@ -20,9 +20,10 @@ import java.util.List;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The listenerType indicates the deployment properties for a web
- * 	application listener bean.
- * 
+ *         The listenerType indicates the deployment properties for a web
+ *         application listener bean.
+ *         
+ *         @since Java EE 5
  *       
  * <!-- end-model-doc -->
  *
@@ -55,7 +56,7 @@ public interface Listener extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getListener_Descriptions()
 	 * @generated
 	 */
-	List getDescriptions();
+	List<Description> getDescriptions();
 
 	/**
 	 * Returns the value of the '<em><b>Display Names</b></em>' containment reference list.
@@ -70,7 +71,7 @@ public interface Listener extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getListener_DisplayNames()
 	 * @generated
 	 */
-	List getDisplayNames();
+	List<DisplayName> getDisplayNames();
 
 	/**
 	 * Returns the value of the '<em><b>Icons</b></em>' containment reference list.
@@ -85,7 +86,7 @@ public interface Listener extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getListener_Icons()
 	 * @generated
 	 */
-	List getIcons();
+	List<Icon> getIcons();
 
 	/**
 	 * Returns the value of the '<em><b>Listener Class</b></em>' attribute.
@@ -94,12 +95,13 @@ public interface Listener extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	    The listener-class element declares a class in the
-	 * 	    application must be registered as a web
-	 * 	    application listener bean. The value is the fully
-	 * 	    qualified classname of the listener class.
-	 * 
-	 * 	  
+	 *             The listener-class element declares a class in the
+	 *             application must be registered as a web
+	 *             application listener bean. The value is the fully
+	 *             qualified classname of the listener class.
+	 *             
+	 *             @since Java EE 5
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Listener Class</em>' attribute.
 	 * @see #setListenerClass(String)

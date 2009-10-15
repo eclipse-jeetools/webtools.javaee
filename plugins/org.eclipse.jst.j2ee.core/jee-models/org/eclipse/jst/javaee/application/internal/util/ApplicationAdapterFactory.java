@@ -70,31 +70,31 @@ public class ApplicationAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * The switch the delegates to the <code>createXXX</code> methods.
+	 * The switch that delegates to the <code>createXXX</code> methods.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ApplicationSwitch modelSwitch =
-		new ApplicationSwitch() {
+	protected ApplicationSwitch<Adapter> modelSwitch =
+		new ApplicationSwitch<Adapter>() {
 			@Override
-			public Object caseApplication(Application object) {
+			public Adapter caseApplication(Application object) {
 				return createApplicationAdapter();
 			}
 			@Override
-			public Object caseApplicationDeploymentDescriptor(ApplicationDeploymentDescriptor object) {
+			public Adapter caseApplicationDeploymentDescriptor(ApplicationDeploymentDescriptor object) {
 				return createApplicationDeploymentDescriptorAdapter();
 			}
 			@Override
-			public Object caseModule(Module object) {
+			public Adapter caseModule(Module object) {
 				return createModuleAdapter();
 			}
 			@Override
-			public Object caseWeb(Web object) {
+			public Adapter caseWeb(Web object) {
 				return createWebAdapter();
 			}
 			@Override
-			public Object defaultCase(EObject object) {
+			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
 		};
@@ -109,7 +109,7 @@ public class ApplicationAdapterFactory extends AdapterFactoryImpl {
 	 */
 	@Override
 	public Adapter createAdapter(Notifier target) {
-		return (Adapter)modelSwitch.doSwitch((EObject)target);
+		return modelSwitch.doSwitch((EObject)target);
 	}
 
 

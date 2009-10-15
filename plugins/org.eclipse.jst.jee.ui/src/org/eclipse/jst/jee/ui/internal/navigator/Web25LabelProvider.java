@@ -110,7 +110,7 @@ public class Web25LabelProvider extends J2EELabelProvider {
 		UrlPatternType urlPatterns = null;
 		String value = null;
 		if (element.getUrlPatterns().size() > 0){
-			urlPatterns = (UrlPatternType) element.getUrlPatterns().get(0);
+			urlPatterns = element.getUrlPatterns().get(0);
 			value = urlPatterns.getValue();
 		}else{
 			FeatureMap group = element.getGroup();
@@ -123,7 +123,7 @@ public class Web25LabelProvider extends J2EELabelProvider {
 	}
 
 	private String getServletMappingDisplay(ServletMapping element) {
-		UrlPatternType urlPatterns = (UrlPatternType) element.getUrlPatterns().get(0);
+		UrlPatternType urlPatterns = element.getUrlPatterns().get(0);
 		return urlPatterns.getValue() + " -> " + element.getServletName(); //$NON-NLS-1$;
 	}
 

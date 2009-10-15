@@ -70,23 +70,23 @@ public class ApplicationclientAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * The switch the delegates to the <code>createXXX</code> methods.
+	 * The switch that delegates to the <code>createXXX</code> methods.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ApplicationclientSwitch modelSwitch =
-		new ApplicationclientSwitch() {
+	protected ApplicationclientSwitch<Adapter> modelSwitch =
+		new ApplicationclientSwitch<Adapter>() {
 			@Override
-			public Object caseApplicationClient(ApplicationClient object) {
+			public Adapter caseApplicationClient(ApplicationClient object) {
 				return createApplicationClientAdapter();
 			}
 			@Override
-			public Object caseApplicationClientDeploymentDescriptor(ApplicationClientDeploymentDescriptor object) {
+			public Adapter caseApplicationClientDeploymentDescriptor(ApplicationClientDeploymentDescriptor object) {
 				return createApplicationClientDeploymentDescriptorAdapter();
 			}
 			@Override
-			public Object defaultCase(EObject object) {
+			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
 		};
@@ -101,7 +101,7 @@ public class ApplicationclientAdapterFactory extends AdapterFactoryImpl {
 	 */
 	@Override
 	public Adapter createAdapter(Notifier target) {
-		return (Adapter)modelSwitch.doSwitch((EObject)target);
+		return modelSwitch.doSwitch((EObject)target);
 	}
 
 

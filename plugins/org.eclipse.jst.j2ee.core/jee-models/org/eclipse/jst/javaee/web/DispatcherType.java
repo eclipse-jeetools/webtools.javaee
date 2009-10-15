@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.emf.common.util.AbstractEnumerator;
+import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,23 +24,77 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The dispatcher has four legal values: FORWARD, REQUEST, INCLUDE,
- * 	and ERROR. A value of FORWARD means the Filter will be applied
- * 	under RequestDispatcher.forward() calls.  A value of REQUEST
- * 	means the Filter will be applied under ordinary client calls to
- * 	the path or servlet. A value of INCLUDE means the Filter will be
- * 	applied under RequestDispatcher.include() calls.  A value of
- * 	ERROR means the Filter will be applied under the error page
- * 	mechanism.  The absence of any dispatcher elements in a
- * 	filter-mapping indicates a default of applying filters only under
- * 	ordinary client calls to the path or servlet.
- * 
+ *         The dispatcher has five legal values: FORWARD, REQUEST,
+ *         INCLUDE, ASYNC, and ERROR.
+ *         
+ *         A value of FORWARD means the Filter will be applied under
+ *         RequestDispatcher.forward() calls.
+ *         A value of REQUEST means the Filter will be applied under
+ *         ordinary client calls to the path or servlet.
+ *         A value of INCLUDE means the Filter will be applied under
+ *         RequestDispatcher.include() calls.
+ *         A value of ASYNC means the Filter will be applied under
+ *         calls dispatched from an AsyncContext.
+ *         A value of ERROR means the Filter will be applied under the
+ *         error page mechanism.
+ *         
+ *         The absence of any dispatcher elements in a filter-mapping
+ *         indicates a default of applying filters only under ordinary
+ *         client calls to the path or servlet.
+ *         
+ *         @since Java EE 5, Web 2.5
  *       
  * <!-- end-model-doc -->
  * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getDispatcherType()
  * @generated
  */
-public final class DispatcherType extends AbstractEnumerator {
+public enum DispatcherType implements Enumerator
+{
+	/**
+	 * The '<em><b>FORWARD</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #FORWARD
+	 * @generated
+	 * @ordered
+	 */
+	FORWARD_LITERAL(0, "FORWARD", "FORWARD"), //$NON-NLS-1$ //$NON-NLS-2$
+	/**
+	 * The '<em><b>INCLUDE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #INCLUDE
+	 * @generated
+	 * @ordered
+	 */
+	INCLUDE_LITERAL(1, "INCLUDE", "INCLUDE"), //$NON-NLS-1$ //$NON-NLS-2$
+	/**
+	 * The '<em><b>REQUEST</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #REQUEST
+	 * @generated
+	 * @ordered
+	 */
+	REQUEST_LITERAL(2, "REQUEST", "REQUEST"), //$NON-NLS-1$ //$NON-NLS-2$
+	/**
+	 * The '<em><b>ASYNC</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #ASYNC
+	 * @generated
+	 * @ordered
+	 */
+	ASYNC_LITERAL(3, "ASYNC", "ASYNC"), //$NON-NLS-1$ //$NON-NLS-2$
+	/**
+	 * The '<em><b>ERROR</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #ERROR
+	 * @generated
+	 * @ordered
+	 */
+	ERROR_LITERAL(4, "ERROR", "ERROR"); //$NON-NLS-1$ //$NON-NLS-2$
 	/**
 	 * The '<em><b>FORWARD</b></em>' literal value.
 	 * <!-- begin-user-doc -->
@@ -84,6 +138,21 @@ public final class DispatcherType extends AbstractEnumerator {
 	public static final int REQUEST = 2;
 
 	/**
+	 * The '<em><b>ASYNC</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *               @since Java EE 6, Web 3.0
+	 *             
+	 * <!-- end-model-doc -->
+	 * @see #ASYNC_LITERAL
+	 * @generated
+	 * @ordered
+	 */
+	public static final int ASYNC = 3;
+
+	/**
 	 * The '<em><b>ERROR</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -95,47 +164,7 @@ public final class DispatcherType extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int ERROR = 3;
-
-	/**
-	 * The '<em><b>FORWARD</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #FORWARD
-	 * @generated
-	 * @ordered
-	 */
-	public static final DispatcherType FORWARD_LITERAL = new DispatcherType(FORWARD, "FORWARD", "FORWARD"); //$NON-NLS-1$ //$NON-NLS-2$
-
-	/**
-	 * The '<em><b>INCLUDE</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #INCLUDE
-	 * @generated
-	 * @ordered
-	 */
-	public static final DispatcherType INCLUDE_LITERAL = new DispatcherType(INCLUDE, "INCLUDE", "INCLUDE"); //$NON-NLS-1$ //$NON-NLS-2$
-
-	/**
-	 * The '<em><b>REQUEST</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #REQUEST
-	 * @generated
-	 * @ordered
-	 */
-	public static final DispatcherType REQUEST_LITERAL = new DispatcherType(REQUEST, "REQUEST", "REQUEST"); //$NON-NLS-1$ //$NON-NLS-2$
-
-	/**
-	 * The '<em><b>ERROR</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #ERROR
-	 * @generated
-	 * @ordered
-	 */
-	public static final DispatcherType ERROR_LITERAL = new DispatcherType(ERROR, "ERROR", "ERROR"); //$NON-NLS-1$ //$NON-NLS-2$
+	public static final int ERROR = 4;
 
 	/**
 	 * An array of all the '<em><b>Dispatcher Type</b></em>' enumerators.
@@ -148,6 +177,7 @@ public final class DispatcherType extends AbstractEnumerator {
 			FORWARD_LITERAL,
 			INCLUDE_LITERAL,
 			REQUEST_LITERAL,
+			ASYNC_LITERAL,
 			ERROR_LITERAL,
 		};
 
@@ -157,7 +187,7 @@ public final class DispatcherType extends AbstractEnumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<DispatcherType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>Dispatcher Type</b></em>' literal with the specified literal value.
@@ -202,10 +232,32 @@ public final class DispatcherType extends AbstractEnumerator {
 			case FORWARD: return FORWARD_LITERAL;
 			case INCLUDE: return INCLUDE_LITERAL;
 			case REQUEST: return REQUEST_LITERAL;
+			case ASYNC: return ASYNC_LITERAL;
 			case ERROR: return ERROR_LITERAL;
 		}
-		return null;	
+		return null;
 	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final int value;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String name;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String literal;
 
 	/**
 	 * Only this class can construct instances.
@@ -214,7 +266,46 @@ public final class DispatcherType extends AbstractEnumerator {
 	 * @generated
 	 */
 	private DispatcherType(int value, String name, String literal) {
-		super(value, name, literal);
+		this.value = value;
+		this.name = name;
+		this.literal = literal;
 	}
 
-} //DispatcherType
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getValue() {
+	  return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getName() {
+	  return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getLiteral() {
+	  return literal;
+	}
+
+	/**
+	 * Returns the literal value of the enumerator, which is its string representation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		return literal;
+	}
+}

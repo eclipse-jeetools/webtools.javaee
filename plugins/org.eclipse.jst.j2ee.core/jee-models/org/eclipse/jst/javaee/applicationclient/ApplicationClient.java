@@ -12,7 +12,20 @@ package org.eclipse.jst.javaee.applicationclient;
 
 import java.util.List;
 
+import org.eclipse.jst.javaee.core.DataSourceType;
+import org.eclipse.jst.javaee.core.Description;
+import org.eclipse.jst.javaee.core.DisplayName;
+import org.eclipse.jst.javaee.core.EjbRef;
+import org.eclipse.jst.javaee.core.EnvEntry;
+import org.eclipse.jst.javaee.core.Icon;
 import org.eclipse.jst.javaee.core.JavaEEObject;
+import org.eclipse.jst.javaee.core.LifecycleCallback;
+import org.eclipse.jst.javaee.core.MessageDestination;
+import org.eclipse.jst.javaee.core.MessageDestinationRef;
+import org.eclipse.jst.javaee.core.PersistenceUnitRef;
+import org.eclipse.jst.javaee.core.ResourceEnvRef;
+import org.eclipse.jst.javaee.core.ResourceRef;
+import org.eclipse.jst.javaee.core.ServiceRef;
 
 /**
  * <!-- begin-user-doc -->
@@ -22,6 +35,7 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link org.eclipse.jst.javaee.applicationclient.ApplicationClient#getModuleName <em>Module Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.applicationclient.ApplicationClient#getDescriptions <em>Descriptions</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.applicationclient.ApplicationClient#getDisplayNames <em>Display Names</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.applicationclient.ApplicationClient#getIcons <em>Icons</em>}</li>
@@ -36,6 +50,7 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  *   <li>{@link org.eclipse.jst.javaee.applicationclient.ApplicationClient#getPreDestroys <em>Pre Destroys</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.applicationclient.ApplicationClient#getCallbackHandler <em>Callback Handler</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.applicationclient.ApplicationClient#getMessageDestinations <em>Message Destinations</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.applicationclient.ApplicationClient#getDataSource <em>Data Source</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.applicationclient.ApplicationClient#getId <em>Id</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.applicationclient.ApplicationClient#isMetadataComplete <em>Metadata Complete</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.applicationclient.ApplicationClient#getVersion <em>Version</em>}</li>
@@ -47,6 +62,32 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * @generated
  */
 public interface ApplicationClient extends JavaEEObject {
+	/**
+	 * Returns the value of the '<em><b>Module Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *             @since Java EE 6, Application Client 6
+	 *           
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Module Name</em>' attribute.
+	 * @see #setModuleName(String)
+	 * @see org.eclipse.jst.javaee.applicationclient.internal.metadata.ApplicationclientPackage#getApplicationClient_ModuleName()
+	 * @generated
+	 */
+	String getModuleName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.jst.javaee.applicationclient.ApplicationClient#getModuleName <em>Module Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Module Name</em>' attribute.
+	 * @see #getModuleName()
+	 * @generated
+	 */
+	void setModuleName(String value);
+
 	/**
 	 * Returns the value of the '<em><b>Descriptions</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.jst.javaee.core.Description}.
@@ -60,7 +101,7 @@ public interface ApplicationClient extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.applicationclient.internal.metadata.ApplicationclientPackage#getApplicationClient_Descriptions()
 	 * @generated
 	 */
-	List getDescriptions();
+	List<Description> getDescriptions();
 
 	/**
 	 * Returns the value of the '<em><b>Display Names</b></em>' containment reference list.
@@ -75,7 +116,7 @@ public interface ApplicationClient extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.applicationclient.internal.metadata.ApplicationclientPackage#getApplicationClient_DisplayNames()
 	 * @generated
 	 */
-	List getDisplayNames();
+	List<DisplayName> getDisplayNames();
 
 	/**
 	 * Returns the value of the '<em><b>Icons</b></em>' containment reference list.
@@ -90,7 +131,7 @@ public interface ApplicationClient extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.applicationclient.internal.metadata.ApplicationclientPackage#getApplicationClient_Icons()
 	 * @generated
 	 */
-	List getIcons();
+	List<Icon> getIcons();
 
 	/**
 	 * Returns the value of the '<em><b>Env Entries</b></em>' containment reference list.
@@ -105,7 +146,7 @@ public interface ApplicationClient extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.applicationclient.internal.metadata.ApplicationclientPackage#getApplicationClient_EnvEntries()
 	 * @generated
 	 */
-	List getEnvEntries();
+	List<EnvEntry> getEnvEntries();
 
 	/**
 	 * Returns the value of the '<em><b>Ejb Refs</b></em>' containment reference list.
@@ -120,7 +161,7 @@ public interface ApplicationClient extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.applicationclient.internal.metadata.ApplicationclientPackage#getApplicationClient_EjbRefs()
 	 * @generated
 	 */
-	List getEjbRefs();
+	List<EjbRef> getEjbRefs();
 
 	/**
 	 * Returns the value of the '<em><b>Service Refs</b></em>' containment reference list.
@@ -135,7 +176,7 @@ public interface ApplicationClient extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.applicationclient.internal.metadata.ApplicationclientPackage#getApplicationClient_ServiceRefs()
 	 * @generated
 	 */
-	List getServiceRefs();
+	List<ServiceRef> getServiceRefs();
 
 	/**
 	 * Returns the value of the '<em><b>Resource Refs</b></em>' containment reference list.
@@ -150,7 +191,7 @@ public interface ApplicationClient extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.applicationclient.internal.metadata.ApplicationclientPackage#getApplicationClient_ResourceRefs()
 	 * @generated
 	 */
-	List getResourceRefs();
+	List<ResourceRef> getResourceRefs();
 
 	/**
 	 * Returns the value of the '<em><b>Resource Env Refs</b></em>' containment reference list.
@@ -165,7 +206,7 @@ public interface ApplicationClient extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.applicationclient.internal.metadata.ApplicationclientPackage#getApplicationClient_ResourceEnvRefs()
 	 * @generated
 	 */
-	List getResourceEnvRefs();
+	List<ResourceEnvRef> getResourceEnvRefs();
 
 	/**
 	 * Returns the value of the '<em><b>Message Destination Refs</b></em>' containment reference list.
@@ -180,7 +221,7 @@ public interface ApplicationClient extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.applicationclient.internal.metadata.ApplicationclientPackage#getApplicationClient_MessageDestinationRefs()
 	 * @generated
 	 */
-	List getMessageDestinationRefs();
+	List<MessageDestinationRef> getMessageDestinationRefs();
 
 	/**
 	 * Returns the value of the '<em><b>Persistence Unit Refs</b></em>' containment reference list.
@@ -195,7 +236,7 @@ public interface ApplicationClient extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.applicationclient.internal.metadata.ApplicationclientPackage#getApplicationClient_PersistenceUnitRefs()
 	 * @generated
 	 */
-	List getPersistenceUnitRefs();
+	List<PersistenceUnitRef> getPersistenceUnitRefs();
 
 	/**
 	 * Returns the value of the '<em><b>Post Constructs</b></em>' containment reference list.
@@ -210,7 +251,7 @@ public interface ApplicationClient extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.applicationclient.internal.metadata.ApplicationclientPackage#getApplicationClient_PostConstructs()
 	 * @generated
 	 */
-	List getPostConstructs();
+	List<LifecycleCallback> getPostConstructs();
 
 	/**
 	 * Returns the value of the '<em><b>Pre Destroys</b></em>' containment reference list.
@@ -225,7 +266,7 @@ public interface ApplicationClient extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.applicationclient.internal.metadata.ApplicationclientPackage#getApplicationClient_PreDestroys()
 	 * @generated
 	 */
-	List getPreDestroys();
+	List<LifecycleCallback> getPreDestroys();
 
 	/**
 	 * Returns the value of the '<em><b>Callback Handler</b></em>' attribute.
@@ -234,15 +275,16 @@ public interface ApplicationClient extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	    The callback-handler element names a class provided by
-	 * 	    the application.  The class must have a no args
-	 * 	    constructor and must implement the
-	 * 	    javax.security.auth.callback.CallbackHandler
-	 * 	    interface.  The class will be instantiated by the
-	 * 	    application client container and used by the container
-	 * 	    to collect authentication information from the user.
-	 * 
-	 * 	  
+	 *             The callback-handler element names a class provided by
+	 *             the application.  The class must have a no args
+	 *             constructor and must implement the
+	 *             javax.security.auth.callback.CallbackHandler
+	 *             interface.  The class will be instantiated by the
+	 *             application client container and used by the container
+	 *             to collect authentication information from the user.
+	 *             
+	 *             @since Java EE 5, Application Client 5
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Callback Handler</em>' attribute.
 	 * @see #setCallbackHandler(String)
@@ -274,7 +316,23 @@ public interface ApplicationClient extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.applicationclient.internal.metadata.ApplicationclientPackage#getApplicationClient_MessageDestinations()
 	 * @generated
 	 */
-	List getMessageDestinations();
+	List<MessageDestination> getMessageDestinations();
+
+	/**
+	 * Returns the value of the '<em><b>Data Source</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.jst.javaee.core.DataSourceType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *             @since Java EE 6, Application Client 6
+	 *           
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Data Source</em>' containment reference list.
+	 * @see org.eclipse.jst.javaee.applicationclient.internal.metadata.ApplicationclientPackage#getApplicationClient_DataSource()
+	 * @generated
+	 */
+	List<DataSourceType> getDataSource();
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.
@@ -308,25 +366,26 @@ public interface ApplicationClient extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	  The metadata-complete attribute defines whether this
-	 * 	  deployment descriptor and other related deployment
-	 * 	  descriptors for this module (e.g., web service
-	 * 	  descriptors) are complete, or whether the class
-	 * 	  files available to this module and packaged with
-	 * 	  this application should be examined for annotations
-	 * 	  that specify deployment information.
-	 * 
-	 * 	  If metadata-complete is set to "true", the deployment
-	 * 	  tool must ignore any annotations that specify deployment
-	 * 	  information, which might be present in the class files
-	 * 	  of the application.
-	 * 
-	 * 	  If metadata-complete is not specified or is set to
-	 * 	  "false", the deployment tool must examine the class
-	 * 	  files of the application for annotations, as
-	 * 	  specified by the specifications.
-	 * 
-	 * 	
+	 *           The metadata-complete attribute defines whether this
+	 *           deployment descriptor and other related deployment
+	 *           descriptors for this module (e.g., web service
+	 *           descriptors) are complete, or whether the class
+	 *           files available to this module and packaged with
+	 *           this application should be examined for annotations
+	 *           that specify deployment information.
+	 *           
+	 *           If metadata-complete is set to "true", the deployment
+	 *           tool must ignore any annotations that specify deployment
+	 *           information, which might be present in the class files
+	 *           of the application.
+	 *           
+	 *           If metadata-complete is not specified or is set to
+	 *           "false", the deployment tool must examine the class
+	 *           files of the application for annotations, as
+	 *           specified by the specifications.
+	 *           
+	 *           @since Java EE 5, Application Client 5
+	 *         
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Metadata Complete</em>' attribute.
 	 * @see #isSetMetadataComplete()
@@ -374,15 +433,15 @@ public interface ApplicationClient extends JavaEEObject {
 
 	/**
 	 * Returns the value of the '<em><b>Version</b></em>' attribute.
-	 * The default value is <code>"5"</code>.
+	 * The default value is <code>"6"</code>.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	  The required value for the version is 5.
-	 * 
-	 * 	
+	 *           The required value for the version is 6.
+	 *           
+	 *         
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Version</em>' attribute.
 	 * @see #isSetVersion()

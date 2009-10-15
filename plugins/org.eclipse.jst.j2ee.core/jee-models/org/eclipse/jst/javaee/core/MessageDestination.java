@@ -19,30 +19,30 @@ import java.util.List;
  *
  * <!-- begin-model-doc -->
  * 
- * 	
- * 
- * 	  The message-destinationType specifies a message
- * 	  destination. The logical destination described by this
- * 	  element is mapped to a physical destination by the Deployer.
- * 
- * 	  The message destination element contains:
- * 
- * 		  - an optional description
- * 		  - an optional display-name
- * 		  - an optional icon
- * 		  - a message destination name which must be unique
- * 		    among message destination names within the same
- * 		    Deployment File.
- * 		  - an optional mapped name
- * 
- * 	  Example:
- * 
- * 	  &lt;message-destination&gt;
- * 		  &lt;message-destination-name&gt;CorporateStocks
- * 		  &lt;/message-destination-name&gt;
- * 	  &lt;/message-destination&gt;
- * 
- * 	  
+ * <![CDATA[[
+ *         The message-destinationType specifies a message
+ *         destination. The logical destination described by this
+ *         element is mapped to a physical destination by the Deployer.
+ *         
+ *         The message destination element contains: 
+ *         
+ *         - an optional description
+ *         - an optional display-name
+ *         - an optional icon
+ *         - a message destination name which must be unique
+ *         among message destination names within the same 
+ *         Deployment File. 
+ *         - an optional mapped name
+ *         
+ *         Example: 
+ *         
+ *         <message-destination>
+ *         <message-destination-name>CorporateStocks
+ *         </message-destination-name>
+ *         </message-destination>
+ *         
+ * ]]>
+ *         @since Java EE 5
  *       
  * <!-- end-model-doc -->
  *
@@ -76,7 +76,7 @@ public interface MessageDestination extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getMessageDestination_Descriptions()
 	 * @generated
 	 */
-	List getDescriptions();
+	List<Description> getDescriptions();
 
 	/**
 	 * Returns the value of the '<em><b>Display Names</b></em>' containment reference list.
@@ -91,7 +91,7 @@ public interface MessageDestination extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getMessageDestination_DisplayNames()
 	 * @generated
 	 */
-	List getDisplayNames();
+	List<DisplayName> getDisplayNames();
 
 	/**
 	 * Returns the value of the '<em><b>Icons</b></em>' containment reference list.
@@ -106,7 +106,7 @@ public interface MessageDestination extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getMessageDestination_Icons()
 	 * @generated
 	 */
-	List getIcons();
+	List<Icon> getIcons();
 
 	/**
 	 * Returns the value of the '<em><b>Message Destination Name</b></em>' attribute.
@@ -115,12 +115,13 @@ public interface MessageDestination extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	    The message-destination-name element specifies a
-	 * 	    name for a message destination.  This name must be
-	 * 	    unique among the names of message destinations
-	 * 	    within the Deployment File.
-	 * 
-	 * 	  
+	 *             The message-destination-name element specifies a
+	 *             name for a message destination.  This name must be
+	 *             unique among the names of message destinations
+	 *             within the Deployment File.
+	 *             
+	 *             @since Java EE 5
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Message Destination Name</em>' attribute.
 	 * @see #setMessageDestinationName(String)
@@ -145,27 +146,26 @@ public interface MessageDestination extends JavaEEObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * 
-	 * 	    
 	 * 
-	 * 	      A product specific name that this message destination
-	 * 	      should be mapped to.  Each message-destination-ref
-	 * 	      element that references this message destination will
-	 * 	      define a name in the namespace of the referencing
-	 * 	      component.  (It's a name in the JNDI java:comp/env
-	 * 	      namespace.)  Many application servers provide a way to
-	 * 	      map these local names to names of resources known to the
-	 * 	      application server.  This mapped name is often a global
-	 * 	      JNDI name, but may be a name of any form.  Each of the
-	 * 	      local names should be mapped to this same global name.
-	 * 
-	 * 	      Application servers are not required to support any
-	 * 	      particular form or type of mapped name, nor the ability
-	 * 	      to use mapped names.  The mapped name is
-	 * 	      product-dependent and often installation-dependent.  No
-	 * 	      use of a mapped name is portable.
-	 * 
-	 * 	      
-	 * 	  
+	 *             A product specific name that this message destination
+	 *             should be mapped to.  Each message-destination-ref
+	 *             element that references this message destination will
+	 *             define a name in the namespace of the referencing
+	 *             component.  (It's a name in the JNDI java:comp/env
+	 *             namespace.)  Many application servers provide a way to
+	 *             map these local names to names of resources known to the
+	 *             application server.  This mapped name is often a global
+	 *             JNDI name, but may be a name of any form.  Each of the
+	 *             local names should be mapped to this same global name.
+	 *             
+	 *             Application servers are not required to support any
+	 *             particular form or type of mapped name, nor the ability
+	 *             to use mapped names.  The mapped name is
+	 *             product-dependent and often installation-dependent.  No
+	 *             use of a mapped name is portable.
+	 *             
+	 *             @since Java EE 5
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Mapped Name</em>' attribute.
 	 * @see #setMappedName(String)

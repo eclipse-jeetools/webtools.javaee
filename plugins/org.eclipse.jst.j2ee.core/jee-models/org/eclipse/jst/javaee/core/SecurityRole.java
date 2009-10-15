@@ -19,23 +19,23 @@ import java.util.List;
  *
  * <!-- begin-model-doc -->
  * 
- * 	
- * 
- * 	  The security-roleType contains the definition of a security
- * 	  role. The definition consists of an optional description of
- * 	  the security role, and the security role name.
- * 
- * 	  Example:
- * 
- * 	      &lt;security-role&gt;
- * 	      &lt;description&gt;
- * 		  This role includes all employees who are authorized
- * 		  to access the employee service application.
- * 	      &lt;/description&gt;
- * 	      &lt;role-name&gt;employee&lt;/role-name&gt;
- * 	      &lt;/security-role&gt;
- * 
- * 	  
+ * <![CDATA[[
+ *         The security-roleType contains the definition of a security
+ *         role. The definition consists of an optional description of
+ *         the security role, and the security role name.
+ *         
+ *         Example:
+ *         
+ *         <security-role>
+ *         <description>
+ *         This role includes all employees who are authorized
+ *         to access the employee service application.
+ *         </description>
+ *         <role-name>employee</role-name>
+ *         </security-role>
+ *         
+ * ]]>
+ *         @since Java EE 5
  *       
  * <!-- end-model-doc -->
  *
@@ -66,7 +66,7 @@ public interface SecurityRole extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getSecurityRole_Descriptions()
 	 * @generated
 	 */
-	List getDescriptions();
+	List<Description> getDescriptions();
 
 	/**
 	 * Returns the value of the '<em><b>Role Name</b></em>' attribute.

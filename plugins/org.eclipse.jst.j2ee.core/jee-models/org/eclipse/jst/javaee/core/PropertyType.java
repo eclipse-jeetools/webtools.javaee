@@ -19,8 +19,9 @@ package org.eclipse.jst.javaee.core;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	Specifies a name/value pair.
- * 
+ *         Specifies a name/value pair.
+ *         
+ *         @since Java EE 5
  *       
  * <!-- end-model-doc -->
  *

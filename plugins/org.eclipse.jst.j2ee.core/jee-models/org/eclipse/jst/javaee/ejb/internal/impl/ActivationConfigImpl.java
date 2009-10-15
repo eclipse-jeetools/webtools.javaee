@@ -58,7 +58,7 @@ public class ActivationConfigImpl extends EObjectImpl implements ActivationConfi
 	 * @generated
 	 * @ordered
 	 */
-	protected EList descriptions = null;
+	protected EList<Description> descriptions;
 
 	/**
 	 * The cached value of the '{@link #getActivationConfigProperties() <em>Activation Config Properties</em>}' containment reference list.
@@ -68,7 +68,7 @@ public class ActivationConfigImpl extends EObjectImpl implements ActivationConfi
 	 * @generated
 	 * @ordered
 	 */
-	protected EList activationConfigProperties = null;
+	protected EList<ActivationConfigProperty> activationConfigProperties;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -114,9 +114,9 @@ public class ActivationConfigImpl extends EObjectImpl implements ActivationConfi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDescriptions() {
+	public List<Description> getDescriptions() {
 		if (descriptions == null) {
-			descriptions = new EObjectContainmentEList(Description.class, this, EjbPackage.ACTIVATION_CONFIG__DESCRIPTIONS);
+			descriptions = new EObjectContainmentEList<Description>(Description.class, this, EjbPackage.ACTIVATION_CONFIG__DESCRIPTIONS);
 		}
 		return descriptions;
 	}
@@ -126,9 +126,9 @@ public class ActivationConfigImpl extends EObjectImpl implements ActivationConfi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getActivationConfigProperties() {
+	public List<ActivationConfigProperty> getActivationConfigProperties() {
 		if (activationConfigProperties == null) {
-			activationConfigProperties = new EObjectContainmentEList(ActivationConfigProperty.class, this, EjbPackage.ACTIVATION_CONFIG__ACTIVATION_CONFIG_PROPERTIES);
+			activationConfigProperties = new EObjectContainmentEList<ActivationConfigProperty>(ActivationConfigProperty.class, this, EjbPackage.ACTIVATION_CONFIG__ACTIVATION_CONFIG_PROPERTIES);
 		}
 		return activationConfigProperties;
 	}
@@ -163,9 +163,9 @@ public class ActivationConfigImpl extends EObjectImpl implements ActivationConfi
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EjbPackage.ACTIVATION_CONFIG__DESCRIPTIONS:
-				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDescriptions()).basicRemove(otherEnd, msgs);
 			case EjbPackage.ACTIVATION_CONFIG__ACTIVATION_CONFIG_PROPERTIES:
-				return ((InternalEList)getActivationConfigProperties()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getActivationConfigProperties()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -193,16 +193,17 @@ public class ActivationConfigImpl extends EObjectImpl implements ActivationConfi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EjbPackage.ACTIVATION_CONFIG__DESCRIPTIONS:
 				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
+				getDescriptions().addAll((Collection<? extends Description>)newValue);
 				return;
 			case EjbPackage.ACTIVATION_CONFIG__ACTIVATION_CONFIG_PROPERTIES:
 				getActivationConfigProperties().clear();
-				getActivationConfigProperties().addAll((Collection)newValue);
+				getActivationConfigProperties().addAll((Collection<? extends ActivationConfigProperty>)newValue);
 				return;
 			case EjbPackage.ACTIVATION_CONFIG__ID:
 				setId((String)newValue);

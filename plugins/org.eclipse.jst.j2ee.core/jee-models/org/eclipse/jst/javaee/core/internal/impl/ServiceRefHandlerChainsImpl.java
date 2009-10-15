@@ -55,7 +55,7 @@ public class ServiceRefHandlerChainsImpl extends EObjectImpl implements ServiceR
 	 * @generated
 	 * @ordered
 	 */
-	protected EList handlerChains = null;
+	protected EList<ServiceRefHandlerChain> handlerChains;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -101,9 +101,9 @@ public class ServiceRefHandlerChainsImpl extends EObjectImpl implements ServiceR
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getHandlerChains() {
+	public List<ServiceRefHandlerChain> getHandlerChains() {
 		if (handlerChains == null) {
-			handlerChains = new EObjectContainmentEList(ServiceRefHandlerChain.class, this, JavaeePackage.SERVICE_REF_HANDLER_CHAINS__HANDLER_CHAINS);
+			handlerChains = new EObjectContainmentEList<ServiceRefHandlerChain>(ServiceRefHandlerChain.class, this, JavaeePackage.SERVICE_REF_HANDLER_CHAINS__HANDLER_CHAINS);
 		}
 		return handlerChains;
 	}
@@ -138,7 +138,7 @@ public class ServiceRefHandlerChainsImpl extends EObjectImpl implements ServiceR
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case JavaeePackage.SERVICE_REF_HANDLER_CHAINS__HANDLER_CHAINS:
-				return ((InternalEList)getHandlerChains()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getHandlerChains()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -164,12 +164,13 @@ public class ServiceRefHandlerChainsImpl extends EObjectImpl implements ServiceR
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case JavaeePackage.SERVICE_REF_HANDLER_CHAINS__HANDLER_CHAINS:
 				getHandlerChains().clear();
-				getHandlerChains().addAll((Collection)newValue);
+				getHandlerChains().addAll((Collection<? extends ServiceRefHandlerChain>)newValue);
 				return;
 			case JavaeePackage.SERVICE_REF_HANDLER_CHAINS__ID:
 				setId((String)newValue);

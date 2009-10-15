@@ -20,11 +20,12 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The mime-mappingType defines a mapping between an extension
- * 	and a mime type.
- * 
- * 	Used in: web-app
- * 
+ *         The mime-mappingType defines a mapping between an extension
+ *         and a mime type.
+ *         
+ *         Used in: web-app
+ *         
+ *         @since Java EE 5, Web 2.5
  *       
  * <!-- end-model-doc -->
  *

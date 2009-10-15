@@ -12,6 +12,7 @@ package org.eclipse.jst.javaee.ejb;
 
 import java.util.List;
 
+import org.eclipse.jst.javaee.core.Description;
 import org.eclipse.jst.javaee.core.EmptyType;
 import org.eclipse.jst.javaee.core.JavaEEObject;
 import org.eclipse.jst.javaee.core.RunAs;
@@ -24,12 +25,13 @@ import org.eclipse.jst.javaee.core.RunAs;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The security-identityType specifies whether the caller's
- * 	security identity is to be used for the execution of the
- * 	methods of the enterprise bean or whether a specific run-as
- * 	identity is to be used. It contains an optional description
- * 	and a specification of the security identity to be used.
- * 
+ *         The security-identityType specifies whether the caller's
+ *         security identity is to be used for the execution of the
+ *         methods of the enterprise bean or whether a specific run-as
+ *         identity is to be used. It contains an optional description
+ *         and a specification of the security identity to be used.
+ *         
+ *         @since Java EE 5, EJB 3.0
  *       
  * <!-- end-model-doc -->
  *
@@ -61,7 +63,7 @@ public interface SecurityIdentityType extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getSecurityIdentityType_Descriptions()
 	 * @generated
 	 */
-	List getDescriptions();
+	List<Description> getDescriptions();
 
 	/**
 	 * Returns the value of the '<em><b>Use Caller Identity</b></em>' containment reference.
@@ -70,12 +72,13 @@ public interface SecurityIdentityType extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	      The use-caller-identity element specifies that
-	 * 	      the caller's security identity be used as the
-	 * 	      security identity for the execution of the
-	 * 	      enterprise bean's methods.
-	 * 
-	 * 	    
+	 *               The use-caller-identity element specifies that
+	 *               the caller's security identity be used as the
+	 *               security identity for the execution of the
+	 *               enterprise bean's methods.
+	 *               
+	 *               @since Java EE 5, EJB 3.0
+	 *             
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Use Caller Identity</em>' containment reference.
 	 * @see #setUseCallerIdentity(EmptyType)

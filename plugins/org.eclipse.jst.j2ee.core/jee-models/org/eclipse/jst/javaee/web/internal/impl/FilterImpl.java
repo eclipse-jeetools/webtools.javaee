@@ -48,6 +48,7 @@ import org.eclipse.jst.javaee.web.internal.metadata.WebPackage;
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.FilterImpl#getIcons <em>Icons</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.FilterImpl#getFilterName <em>Filter Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.FilterImpl#getFilterClass <em>Filter Class</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.FilterImpl#isAsyncSupported <em>Async Supported</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.FilterImpl#getInitParams <em>Init Params</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.FilterImpl#getId <em>Id</em>}</li>
  * </ul>
@@ -64,7 +65,7 @@ public class FilterImpl extends EObjectImpl implements Filter {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList descriptions = null;
+	protected EList<Description> descriptions;
 
 	/**
 	 * The cached value of the '{@link #getDisplayNames() <em>Display Names</em>}' containment reference list.
@@ -74,7 +75,7 @@ public class FilterImpl extends EObjectImpl implements Filter {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList displayNames = null;
+	protected EList<DisplayName> displayNames;
 
 	/**
 	 * The cached value of the '{@link #getIcons() <em>Icons</em>}' containment reference list.
@@ -84,7 +85,7 @@ public class FilterImpl extends EObjectImpl implements Filter {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList icons = null;
+	protected EList<Icon> icons;
 
 	/**
 	 * The default value of the '{@link #getFilterName() <em>Filter Name</em>}' attribute.
@@ -127,6 +128,35 @@ public class FilterImpl extends EObjectImpl implements Filter {
 	protected String filterClass = FILTER_CLASS_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #isAsyncSupported() <em>Async Supported</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isAsyncSupported()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean ASYNC_SUPPORTED_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isAsyncSupported() <em>Async Supported</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isAsyncSupported()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean asyncSupported = ASYNC_SUPPORTED_EDEFAULT;
+
+	/**
+	 * This is true if the Async Supported attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean asyncSupportedESet;
+
+	/**
 	 * The cached value of the '{@link #getInitParams() <em>Init Params</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -134,7 +164,7 @@ public class FilterImpl extends EObjectImpl implements Filter {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList initParams = null;
+	protected EList<ParamValue> initParams;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -180,9 +210,9 @@ public class FilterImpl extends EObjectImpl implements Filter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDescriptions() {
+	public List<Description> getDescriptions() {
 		if (descriptions == null) {
-			descriptions = new EObjectContainmentEList(Description.class, this, WebPackage.FILTER__DESCRIPTIONS);
+			descriptions = new EObjectContainmentEList<Description>(Description.class, this, WebPackage.FILTER__DESCRIPTIONS);
 		}
 		return descriptions;
 	}
@@ -192,9 +222,9 @@ public class FilterImpl extends EObjectImpl implements Filter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDisplayNames() {
+	public List<DisplayName> getDisplayNames() {
 		if (displayNames == null) {
-			displayNames = new EObjectContainmentEList(DisplayName.class, this, WebPackage.FILTER__DISPLAY_NAMES);
+			displayNames = new EObjectContainmentEList<DisplayName>(DisplayName.class, this, WebPackage.FILTER__DISPLAY_NAMES);
 		}
 		return displayNames;
 	}
@@ -204,9 +234,9 @@ public class FilterImpl extends EObjectImpl implements Filter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getIcons() {
+	public List<Icon> getIcons() {
 		if (icons == null) {
-			icons = new EObjectContainmentEList(Icon.class, this, WebPackage.FILTER__ICONS);
+			icons = new EObjectContainmentEList<Icon>(Icon.class, this, WebPackage.FILTER__ICONS);
 		}
 		return icons;
 	}
@@ -258,9 +288,55 @@ public class FilterImpl extends EObjectImpl implements Filter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getInitParams() {
+	public boolean isAsyncSupported() {
+		return asyncSupported;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setAsyncSupported(boolean newAsyncSupported) {
+		boolean oldAsyncSupported = asyncSupported;
+		asyncSupported = newAsyncSupported;
+		boolean oldAsyncSupportedESet = asyncSupportedESet;
+		asyncSupportedESet = true;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, WebPackage.FILTER__ASYNC_SUPPORTED, oldAsyncSupported, asyncSupported, !oldAsyncSupportedESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetAsyncSupported() {
+		boolean oldAsyncSupported = asyncSupported;
+		boolean oldAsyncSupportedESet = asyncSupportedESet;
+		asyncSupported = ASYNC_SUPPORTED_EDEFAULT;
+		asyncSupportedESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, WebPackage.FILTER__ASYNC_SUPPORTED, oldAsyncSupported, ASYNC_SUPPORTED_EDEFAULT, oldAsyncSupportedESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetAsyncSupported() {
+		return asyncSupportedESet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<ParamValue> getInitParams() {
 		if (initParams == null) {
-			initParams = new EObjectContainmentEList(ParamValue.class, this, WebPackage.FILTER__INIT_PARAMS);
+			initParams = new EObjectContainmentEList<ParamValue>(ParamValue.class, this, WebPackage.FILTER__INIT_PARAMS);
 		}
 		return initParams;
 	}
@@ -295,13 +371,13 @@ public class FilterImpl extends EObjectImpl implements Filter {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case WebPackage.FILTER__DESCRIPTIONS:
-				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDescriptions()).basicRemove(otherEnd, msgs);
 			case WebPackage.FILTER__DISPLAY_NAMES:
-				return ((InternalEList)getDisplayNames()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDisplayNames()).basicRemove(otherEnd, msgs);
 			case WebPackage.FILTER__ICONS:
-				return ((InternalEList)getIcons()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getIcons()).basicRemove(otherEnd, msgs);
 			case WebPackage.FILTER__INIT_PARAMS:
-				return ((InternalEList)getInitParams()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getInitParams()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -324,6 +400,8 @@ public class FilterImpl extends EObjectImpl implements Filter {
 				return getFilterName();
 			case WebPackage.FILTER__FILTER_CLASS:
 				return getFilterClass();
+			case WebPackage.FILTER__ASYNC_SUPPORTED:
+				return isAsyncSupported();
 			case WebPackage.FILTER__INIT_PARAMS:
 				return getInitParams();
 			case WebPackage.FILTER__ID:
@@ -337,20 +415,21 @@ public class FilterImpl extends EObjectImpl implements Filter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case WebPackage.FILTER__DESCRIPTIONS:
 				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
+				getDescriptions().addAll((Collection<? extends Description>)newValue);
 				return;
 			case WebPackage.FILTER__DISPLAY_NAMES:
 				getDisplayNames().clear();
-				getDisplayNames().addAll((Collection)newValue);
+				getDisplayNames().addAll((Collection<? extends DisplayName>)newValue);
 				return;
 			case WebPackage.FILTER__ICONS:
 				getIcons().clear();
-				getIcons().addAll((Collection)newValue);
+				getIcons().addAll((Collection<? extends Icon>)newValue);
 				return;
 			case WebPackage.FILTER__FILTER_NAME:
 				setFilterName((String)newValue);
@@ -358,9 +437,12 @@ public class FilterImpl extends EObjectImpl implements Filter {
 			case WebPackage.FILTER__FILTER_CLASS:
 				setFilterClass((String)newValue);
 				return;
+			case WebPackage.FILTER__ASYNC_SUPPORTED:
+				setAsyncSupported((Boolean)newValue);
+				return;
 			case WebPackage.FILTER__INIT_PARAMS:
 				getInitParams().clear();
-				getInitParams().addAll((Collection)newValue);
+				getInitParams().addAll((Collection<? extends ParamValue>)newValue);
 				return;
 			case WebPackage.FILTER__ID:
 				setId((String)newValue);
@@ -392,6 +474,9 @@ public class FilterImpl extends EObjectImpl implements Filter {
 			case WebPackage.FILTER__FILTER_CLASS:
 				setFilterClass(FILTER_CLASS_EDEFAULT);
 				return;
+			case WebPackage.FILTER__ASYNC_SUPPORTED:
+				unsetAsyncSupported();
+				return;
 			case WebPackage.FILTER__INIT_PARAMS:
 				getInitParams().clear();
 				return;
@@ -420,6 +505,8 @@ public class FilterImpl extends EObjectImpl implements Filter {
 				return FILTER_NAME_EDEFAULT == null ? filterName != null : !FILTER_NAME_EDEFAULT.equals(filterName);
 			case WebPackage.FILTER__FILTER_CLASS:
 				return FILTER_CLASS_EDEFAULT == null ? filterClass != null : !FILTER_CLASS_EDEFAULT.equals(filterClass);
+			case WebPackage.FILTER__ASYNC_SUPPORTED:
+				return isSetAsyncSupported();
 			case WebPackage.FILTER__INIT_PARAMS:
 				return initParams != null && !initParams.isEmpty();
 			case WebPackage.FILTER__ID:
@@ -442,6 +529,8 @@ public class FilterImpl extends EObjectImpl implements Filter {
 		result.append(filterName);
 		result.append(", filterClass: "); //$NON-NLS-1$
 		result.append(filterClass);
+		result.append(", asyncSupported: "); //$NON-NLS-1$
+		if (asyncSupportedESet) result.append(asyncSupported); else result.append("<unset>"); //$NON-NLS-1$
 		result.append(", id: "); //$NON-NLS-1$
 		result.append(id);
 		result.append(')');

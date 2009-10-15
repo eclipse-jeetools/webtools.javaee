@@ -70,123 +70,135 @@ public class JavaeeAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * The switch the delegates to the <code>createXXX</code> methods.
+	 * The switch that delegates to the <code>createXXX</code> methods.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected JavaeeSwitch modelSwitch =
-		new JavaeeSwitch() {
+	protected JavaeeSwitch<Adapter> modelSwitch =
+		new JavaeeSwitch<Adapter>() {
 			@Override
-			public Object caseDescription(Description object) {
+			public Adapter caseAddressingType(AddressingType object) {
+				return createAddressingTypeAdapter();
+			}
+			@Override
+			public Adapter caseDataSourceType(DataSourceType object) {
+				return createDataSourceTypeAdapter();
+			}
+			@Override
+			public Adapter caseDescription(Description object) {
 				return createDescriptionAdapter();
 			}
 			@Override
-			public Object caseDisplayName(DisplayName object) {
+			public Adapter caseDisplayName(DisplayName object) {
 				return createDisplayNameAdapter();
 			}
 			@Override
-			public Object caseEjbLocalRef(EjbLocalRef object) {
+			public Adapter caseEjbLocalRef(EjbLocalRef object) {
 				return createEjbLocalRefAdapter();
 			}
 			@Override
-			public Object caseEjbRef(EjbRef object) {
+			public Adapter caseEjbRef(EjbRef object) {
 				return createEjbRefAdapter();
 			}
 			@Override
-			public Object caseEmptyType(EmptyType object) {
+			public Adapter caseEmptyType(EmptyType object) {
 				return createEmptyTypeAdapter();
 			}
 			@Override
-			public Object caseEnvEntry(EnvEntry object) {
+			public Adapter caseEnvEntry(EnvEntry object) {
 				return createEnvEntryAdapter();
 			}
 			@Override
-			public Object caseIcon(Icon object) {
+			public Adapter caseIcon(Icon object) {
 				return createIconAdapter();
 			}
 			@Override
-			public Object caseInjectionTarget(InjectionTarget object) {
+			public Adapter caseInjectionTarget(InjectionTarget object) {
 				return createInjectionTargetAdapter();
 			}
 			@Override
-			public Object caseLifecycleCallback(LifecycleCallback object) {
+			public Adapter caseLifecycleCallback(LifecycleCallback object) {
 				return createLifecycleCallbackAdapter();
 			}
 			@Override
-			public Object caseListener(Listener object) {
+			public Adapter caseListener(Listener object) {
 				return createListenerAdapter();
 			}
 			@Override
-			public Object caseMessageDestination(MessageDestination object) {
+			public Adapter caseMessageDestination(MessageDestination object) {
 				return createMessageDestinationAdapter();
 			}
 			@Override
-			public Object caseMessageDestinationRef(MessageDestinationRef object) {
+			public Adapter caseMessageDestinationRef(MessageDestinationRef object) {
 				return createMessageDestinationRefAdapter();
 			}
 			@Override
-			public Object caseParamValue(ParamValue object) {
+			public Adapter caseParamValue(ParamValue object) {
 				return createParamValueAdapter();
 			}
 			@Override
-			public Object casePersistenceContextRef(PersistenceContextRef object) {
+			public Adapter casePersistenceContextRef(PersistenceContextRef object) {
 				return createPersistenceContextRefAdapter();
 			}
 			@Override
-			public Object casePersistenceUnitRef(PersistenceUnitRef object) {
+			public Adapter casePersistenceUnitRef(PersistenceUnitRef object) {
 				return createPersistenceUnitRefAdapter();
 			}
 			@Override
-			public Object casePortComponentRef(PortComponentRef object) {
+			public Adapter casePortComponentRef(PortComponentRef object) {
 				return createPortComponentRefAdapter();
 			}
 			@Override
-			public Object casePropertyType(PropertyType object) {
+			public Adapter casePropertyType(PropertyType object) {
 				return createPropertyTypeAdapter();
 			}
 			@Override
-			public Object caseResourceEnvRef(ResourceEnvRef object) {
+			public Adapter caseResourceEnvRef(ResourceEnvRef object) {
 				return createResourceEnvRefAdapter();
 			}
 			@Override
-			public Object caseResourceRef(ResourceRef object) {
+			public Adapter caseResourceRef(ResourceRef object) {
 				return createResourceRefAdapter();
 			}
 			@Override
-			public Object caseRunAs(RunAs object) {
+			public Adapter caseRespectBindingType(RespectBindingType object) {
+				return createRespectBindingTypeAdapter();
+			}
+			@Override
+			public Adapter caseRunAs(RunAs object) {
 				return createRunAsAdapter();
 			}
 			@Override
-			public Object caseSecurityRole(SecurityRole object) {
+			public Adapter caseSecurityRole(SecurityRole object) {
 				return createSecurityRoleAdapter();
 			}
 			@Override
-			public Object caseSecurityRoleRef(SecurityRoleRef object) {
+			public Adapter caseSecurityRoleRef(SecurityRoleRef object) {
 				return createSecurityRoleRefAdapter();
 			}
 			@Override
-			public Object caseServiceRef(ServiceRef object) {
+			public Adapter caseServiceRef(ServiceRef object) {
 				return createServiceRefAdapter();
 			}
 			@Override
-			public Object caseServiceRefHandler(ServiceRefHandler object) {
+			public Adapter caseServiceRefHandler(ServiceRefHandler object) {
 				return createServiceRefHandlerAdapter();
 			}
 			@Override
-			public Object caseServiceRefHandlerChain(ServiceRefHandlerChain object) {
+			public Adapter caseServiceRefHandlerChain(ServiceRefHandlerChain object) {
 				return createServiceRefHandlerChainAdapter();
 			}
 			@Override
-			public Object caseServiceRefHandlerChains(ServiceRefHandlerChains object) {
+			public Adapter caseServiceRefHandlerChains(ServiceRefHandlerChains object) {
 				return createServiceRefHandlerChainsAdapter();
 			}
 			@Override
-			public Object caseUrlPatternType(UrlPatternType object) {
+			public Adapter caseUrlPatternType(UrlPatternType object) {
 				return createUrlPatternTypeAdapter();
 			}
 			@Override
-			public Object defaultCase(EObject object) {
+			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
 		};
@@ -201,9 +213,37 @@ public class JavaeeAdapterFactory extends AdapterFactoryImpl {
 	 */
 	@Override
 	public Adapter createAdapter(Notifier target) {
-		return (Adapter)modelSwitch.doSwitch((EObject)target);
+		return modelSwitch.doSwitch((EObject)target);
 	}
 
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.javaee.core.AddressingType <em>Addressing Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.jst.javaee.core.AddressingType
+	 * @generated
+	 */
+	public Adapter createAddressingTypeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.javaee.core.DataSourceType <em>Data Source Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.jst.javaee.core.DataSourceType
+	 * @generated
+	 */
+	public Adapter createDataSourceTypeAdapter() {
+		return null;
+	}
 
 	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.javaee.core.Description <em>Description</em>}'.
@@ -468,6 +508,20 @@ public class JavaeeAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createResourceRefAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.javaee.core.RespectBindingType <em>Respect Binding Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.jst.javaee.core.RespectBindingType
+	 * @generated
+	 */
+	public Adapter createRespectBindingTypeAdapter() {
 		return null;
 	}
 

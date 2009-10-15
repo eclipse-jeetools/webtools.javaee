@@ -57,7 +57,7 @@ public class RelationshipRoleSourceTypeImpl extends EObjectImpl implements Relat
 	 * @generated
 	 * @ordered
 	 */
-	protected EList descriptions = null;
+	protected EList<Description> descriptions;
 
 	/**
 	 * The default value of the '{@link #getEjbName() <em>Ejb Name</em>}' attribute.
@@ -123,9 +123,9 @@ public class RelationshipRoleSourceTypeImpl extends EObjectImpl implements Relat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDescriptions() {
+	public List<Description> getDescriptions() {
 		if (descriptions == null) {
-			descriptions = new EObjectContainmentEList(Description.class, this, EjbPackage.RELATIONSHIP_ROLE_SOURCE_TYPE__DESCRIPTIONS);
+			descriptions = new EObjectContainmentEList<Description>(Description.class, this, EjbPackage.RELATIONSHIP_ROLE_SOURCE_TYPE__DESCRIPTIONS);
 		}
 		return descriptions;
 	}
@@ -181,7 +181,7 @@ public class RelationshipRoleSourceTypeImpl extends EObjectImpl implements Relat
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EjbPackage.RELATIONSHIP_ROLE_SOURCE_TYPE__DESCRIPTIONS:
-				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDescriptions()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -209,12 +209,13 @@ public class RelationshipRoleSourceTypeImpl extends EObjectImpl implements Relat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EjbPackage.RELATIONSHIP_ROLE_SOURCE_TYPE__DESCRIPTIONS:
 				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
+				getDescriptions().addAll((Collection<? extends Description>)newValue);
 				return;
 			case EjbPackage.RELATIONSHIP_ROLE_SOURCE_TYPE__EJB_NAME:
 				setEjbName((String)newValue);

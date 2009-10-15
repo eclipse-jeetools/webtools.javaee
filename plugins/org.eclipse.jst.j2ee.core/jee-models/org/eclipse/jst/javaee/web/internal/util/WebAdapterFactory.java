@@ -70,87 +70,131 @@ public class WebAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * The switch the delegates to the <code>createXXX</code> methods.
+	 * The switch that delegates to the <code>createXXX</code> methods.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected WebSwitch modelSwitch =
-		new WebSwitch() {
+	protected WebSwitch<Adapter> modelSwitch =
+		new WebSwitch<Adapter>() {
 			@Override
-			public Object caseAuthConstraint(AuthConstraint object) {
+			public Adapter caseAbsoluteOrderingType(AbsoluteOrderingType object) {
+				return createAbsoluteOrderingTypeAdapter();
+			}
+			@Override
+			public Adapter caseAuthConstraint(AuthConstraint object) {
 				return createAuthConstraintAdapter();
 			}
 			@Override
-			public Object caseErrorPage(ErrorPage object) {
+			public Adapter caseCookieCommentType(CookieCommentType object) {
+				return createCookieCommentTypeAdapter();
+			}
+			@Override
+			public Adapter caseCookieConfigType(CookieConfigType object) {
+				return createCookieConfigTypeAdapter();
+			}
+			@Override
+			public Adapter caseCookieDomainType(CookieDomainType object) {
+				return createCookieDomainTypeAdapter();
+			}
+			@Override
+			public Adapter caseCookieNameType(CookieNameType object) {
+				return createCookieNameTypeAdapter();
+			}
+			@Override
+			public Adapter caseCookiePathType(CookiePathType object) {
+				return createCookiePathTypeAdapter();
+			}
+			@Override
+			public Adapter caseErrorPage(ErrorPage object) {
 				return createErrorPageAdapter();
 			}
 			@Override
-			public Object caseFilter(Filter object) {
+			public Adapter caseFilter(Filter object) {
 				return createFilterAdapter();
 			}
 			@Override
-			public Object caseFilterMapping(FilterMapping object) {
+			public Adapter caseFilterMapping(FilterMapping object) {
 				return createFilterMappingAdapter();
 			}
 			@Override
-			public Object caseFormLoginConfig(FormLoginConfig object) {
+			public Adapter caseFormLoginConfig(FormLoginConfig object) {
 				return createFormLoginConfigAdapter();
 			}
 			@Override
-			public Object caseLocaleEncodingMapping(LocaleEncodingMapping object) {
+			public Adapter caseLocaleEncodingMapping(LocaleEncodingMapping object) {
 				return createLocaleEncodingMappingAdapter();
 			}
 			@Override
-			public Object caseLocaleEncodingMappingList(LocaleEncodingMappingList object) {
+			public Adapter caseLocaleEncodingMappingList(LocaleEncodingMappingList object) {
 				return createLocaleEncodingMappingListAdapter();
 			}
 			@Override
-			public Object caseLoginConfig(LoginConfig object) {
+			public Adapter caseLoginConfig(LoginConfig object) {
 				return createLoginConfigAdapter();
 			}
 			@Override
-			public Object caseMimeMapping(MimeMapping object) {
+			public Adapter caseMimeMapping(MimeMapping object) {
 				return createMimeMappingAdapter();
 			}
 			@Override
-			public Object caseSecurityConstraint(SecurityConstraint object) {
+			public Adapter caseMultipartConfigType(MultipartConfigType object) {
+				return createMultipartConfigTypeAdapter();
+			}
+			@Override
+			public Adapter caseOrderingOrderingType(OrderingOrderingType object) {
+				return createOrderingOrderingTypeAdapter();
+			}
+			@Override
+			public Adapter caseOrderingOthersType(OrderingOthersType object) {
+				return createOrderingOthersTypeAdapter();
+			}
+			@Override
+			public Adapter caseOrderingType(OrderingType object) {
+				return createOrderingTypeAdapter();
+			}
+			@Override
+			public Adapter caseSecurityConstraint(SecurityConstraint object) {
 				return createSecurityConstraintAdapter();
 			}
 			@Override
-			public Object caseServlet(Servlet object) {
+			public Adapter caseServlet(Servlet object) {
 				return createServletAdapter();
 			}
 			@Override
-			public Object caseServletMapping(ServletMapping object) {
+			public Adapter caseServletMapping(ServletMapping object) {
 				return createServletMappingAdapter();
 			}
 			@Override
-			public Object caseSessionConfig(SessionConfig object) {
+			public Adapter caseSessionConfig(SessionConfig object) {
 				return createSessionConfigAdapter();
 			}
 			@Override
-			public Object caseUserDataConstraint(UserDataConstraint object) {
+			public Adapter caseUserDataConstraint(UserDataConstraint object) {
 				return createUserDataConstraintAdapter();
 			}
 			@Override
-			public Object caseWebApp(WebApp object) {
+			public Adapter caseWebApp(WebApp object) {
 				return createWebAppAdapter();
 			}
 			@Override
-			public Object caseWebAppDeploymentDescriptor(WebAppDeploymentDescriptor object) {
+			public Adapter caseWebAppDeploymentDescriptor(WebAppDeploymentDescriptor object) {
 				return createWebAppDeploymentDescriptorAdapter();
 			}
 			@Override
-			public Object caseWebResourceCollection(WebResourceCollection object) {
+			public Adapter caseWebFragment(WebFragment object) {
+				return createWebFragmentAdapter();
+			}
+			@Override
+			public Adapter caseWebResourceCollection(WebResourceCollection object) {
 				return createWebResourceCollectionAdapter();
 			}
 			@Override
-			public Object caseWelcomeFileList(WelcomeFileList object) {
+			public Adapter caseWelcomeFileList(WelcomeFileList object) {
 				return createWelcomeFileListAdapter();
 			}
 			@Override
-			public Object defaultCase(EObject object) {
+			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
 		};
@@ -165,9 +209,23 @@ public class WebAdapterFactory extends AdapterFactoryImpl {
 	 */
 	@Override
 	public Adapter createAdapter(Notifier target) {
-		return (Adapter)modelSwitch.doSwitch((EObject)target);
+		return modelSwitch.doSwitch((EObject)target);
 	}
 
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.javaee.web.AbsoluteOrderingType <em>Absolute Ordering Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.jst.javaee.web.AbsoluteOrderingType
+	 * @generated
+	 */
+	public Adapter createAbsoluteOrderingTypeAdapter() {
+		return null;
+	}
 
 	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.javaee.web.AuthConstraint <em>Auth Constraint</em>}'.
@@ -180,6 +238,76 @@ public class WebAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createAuthConstraintAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.javaee.web.CookieCommentType <em>Cookie Comment Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.jst.javaee.web.CookieCommentType
+	 * @generated
+	 */
+	public Adapter createCookieCommentTypeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.javaee.web.CookieConfigType <em>Cookie Config Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.jst.javaee.web.CookieConfigType
+	 * @generated
+	 */
+	public Adapter createCookieConfigTypeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.javaee.web.CookieDomainType <em>Cookie Domain Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.jst.javaee.web.CookieDomainType
+	 * @generated
+	 */
+	public Adapter createCookieDomainTypeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.javaee.web.CookieNameType <em>Cookie Name Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.jst.javaee.web.CookieNameType
+	 * @generated
+	 */
+	public Adapter createCookieNameTypeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.javaee.web.CookiePathType <em>Cookie Path Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.jst.javaee.web.CookiePathType
+	 * @generated
+	 */
+	public Adapter createCookiePathTypeAdapter() {
 		return null;
 	}
 
@@ -296,6 +424,62 @@ public class WebAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.javaee.web.MultipartConfigType <em>Multipart Config Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.jst.javaee.web.MultipartConfigType
+	 * @generated
+	 */
+	public Adapter createMultipartConfigTypeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.javaee.web.OrderingOrderingType <em>Ordering Ordering Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.jst.javaee.web.OrderingOrderingType
+	 * @generated
+	 */
+	public Adapter createOrderingOrderingTypeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.javaee.web.OrderingOthersType <em>Ordering Others Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.jst.javaee.web.OrderingOthersType
+	 * @generated
+	 */
+	public Adapter createOrderingOthersTypeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.javaee.web.OrderingType <em>Ordering Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.jst.javaee.web.OrderingType
+	 * @generated
+	 */
+	public Adapter createOrderingTypeAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.javaee.web.SecurityConstraint <em>Security Constraint</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -390,6 +574,20 @@ public class WebAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createWebAppDeploymentDescriptorAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.javaee.web.WebFragment <em>Fragment</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.jst.javaee.web.WebFragment
+	 * @generated
+	 */
+	public Adapter createWebFragmentAdapter() {
 		return null;
 	}
 

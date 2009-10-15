@@ -171,6 +171,7 @@ public class JspFactoryImpl extends EFactoryImpl implements JspFactory {
 	 * @deprecated
 	 * @generated
 	 */
+	@Deprecated
 	public static JspPackage getPackage() {
 		return JspPackage.eINSTANCE;
 	}

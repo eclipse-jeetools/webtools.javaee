@@ -22,11 +22,12 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The welcome-file-list contains an ordered list of welcome
- * 	files elements.
- * 
- * 	Used in: web-app
- * 
+ *         The welcome-file-list contains an ordered list of welcome
+ *         files elements.
+ *         
+ *         Used in: web-app
+ *         
+ *         @since Java EE 5, Web 2.5
  *       
  * <!-- end-model-doc -->
  *
@@ -51,16 +52,17 @@ public interface WelcomeFileList extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	    The welcome-file element contains file name to use
-	 * 	    as a default welcome file, such as index.html
-	 * 
-	 * 	  
+	 *             The welcome-file element contains file name to use
+	 *             as a default welcome file, such as index.html
+	 *             
+	 *             @since Java EE 5, Web 2.5
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Welcome Files</em>' attribute list.
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWelcomeFileList_WelcomeFiles()
 	 * @generated
 	 */
-	List getWelcomeFiles();
+	List<String> getWelcomeFiles();
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.

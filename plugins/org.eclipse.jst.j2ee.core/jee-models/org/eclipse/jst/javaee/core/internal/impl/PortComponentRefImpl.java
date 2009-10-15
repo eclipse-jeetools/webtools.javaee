@@ -10,15 +10,20 @@
  *******************************************************************************/
 package org.eclipse.jst.javaee.core.internal.impl;
 
+import java.math.BigInteger;
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
+import org.eclipse.jst.javaee.core.AddressingType;
 import org.eclipse.jst.javaee.core.PortComponentRef;
 
+import org.eclipse.jst.javaee.core.RespectBindingType;
 import org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage;
 
 /**
@@ -30,6 +35,9 @@ import org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage;
  * <ul>
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.PortComponentRefImpl#getServiceEndpointInterface <em>Service Endpoint Interface</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.PortComponentRefImpl#isEnableMtom <em>Enable Mtom</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.PortComponentRefImpl#getMtomThreshold <em>Mtom Threshold</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.PortComponentRefImpl#getAddressing <em>Addressing</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.PortComponentRefImpl#getRespectBinding <em>Respect Binding</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.PortComponentRefImpl#getPortComponentLink <em>Port Component Link</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.PortComponentRefImpl#getId <em>Id</em>}</li>
  * </ul>
@@ -85,7 +93,47 @@ public class PortComponentRefImpl extends EObjectImpl implements PortComponentRe
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean enableMtomESet = false;
+	protected boolean enableMtomESet;
+
+	/**
+	 * The default value of the '{@link #getMtomThreshold() <em>Mtom Threshold</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMtomThreshold()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final BigInteger MTOM_THRESHOLD_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getMtomThreshold() <em>Mtom Threshold</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMtomThreshold()
+	 * @generated
+	 * @ordered
+	 */
+	protected BigInteger mtomThreshold = MTOM_THRESHOLD_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getAddressing() <em>Addressing</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAddressing()
+	 * @generated
+	 * @ordered
+	 */
+	protected AddressingType addressing;
+
+	/**
+	 * The cached value of the '{@link #getRespectBinding() <em>Respect Binding</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRespectBinding()
+	 * @generated
+	 * @ordered
+	 */
+	protected RespectBindingType respectBinding;
 
 	/**
 	 * The default value of the '{@link #getPortComponentLink() <em>Port Component Link</em>}' attribute.
@@ -218,6 +266,113 @@ public class PortComponentRefImpl extends EObjectImpl implements PortComponentRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public BigInteger getMtomThreshold() {
+		return mtomThreshold;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setMtomThreshold(BigInteger newMtomThreshold) {
+		BigInteger oldMtomThreshold = mtomThreshold;
+		mtomThreshold = newMtomThreshold;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, JavaeePackage.PORT_COMPONENT_REF__MTOM_THRESHOLD, oldMtomThreshold, mtomThreshold));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AddressingType getAddressing() {
+		return addressing;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetAddressing(AddressingType newAddressing, NotificationChain msgs) {
+		AddressingType oldAddressing = addressing;
+		addressing = newAddressing;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, JavaeePackage.PORT_COMPONENT_REF__ADDRESSING, oldAddressing, newAddressing);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setAddressing(AddressingType newAddressing) {
+		if (newAddressing != addressing) {
+			NotificationChain msgs = null;
+			if (addressing != null)
+				msgs = ((InternalEObject)addressing).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - JavaeePackage.PORT_COMPONENT_REF__ADDRESSING, null, msgs);
+			if (newAddressing != null)
+				msgs = ((InternalEObject)newAddressing).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - JavaeePackage.PORT_COMPONENT_REF__ADDRESSING, null, msgs);
+			msgs = basicSetAddressing(newAddressing, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, JavaeePackage.PORT_COMPONENT_REF__ADDRESSING, newAddressing, newAddressing));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public RespectBindingType getRespectBinding() {
+		return respectBinding;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetRespectBinding(RespectBindingType newRespectBinding, NotificationChain msgs) {
+		RespectBindingType oldRespectBinding = respectBinding;
+		respectBinding = newRespectBinding;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, JavaeePackage.PORT_COMPONENT_REF__RESPECT_BINDING, oldRespectBinding, newRespectBinding);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setRespectBinding(RespectBindingType newRespectBinding) {
+		if (newRespectBinding != respectBinding) {
+			NotificationChain msgs = null;
+			if (respectBinding != null)
+				msgs = ((InternalEObject)respectBinding).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - JavaeePackage.PORT_COMPONENT_REF__RESPECT_BINDING, null, msgs);
+			if (newRespectBinding != null)
+				msgs = ((InternalEObject)newRespectBinding).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - JavaeePackage.PORT_COMPONENT_REF__RESPECT_BINDING, null, msgs);
+			msgs = basicSetRespectBinding(newRespectBinding, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, JavaeePackage.PORT_COMPONENT_REF__RESPECT_BINDING, newRespectBinding, newRespectBinding));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getPortComponentLink() {
 		return portComponentLink;
 	}
@@ -261,12 +416,34 @@ public class PortComponentRefImpl extends EObjectImpl implements PortComponentRe
 	 * @generated
 	 */
 	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case JavaeePackage.PORT_COMPONENT_REF__ADDRESSING:
+				return basicSetAddressing(null, msgs);
+			case JavaeePackage.PORT_COMPONENT_REF__RESPECT_BINDING:
+				return basicSetRespectBinding(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case JavaeePackage.PORT_COMPONENT_REF__SERVICE_ENDPOINT_INTERFACE:
 				return getServiceEndpointInterface();
 			case JavaeePackage.PORT_COMPONENT_REF__ENABLE_MTOM:
-				return isEnableMtom() ? Boolean.TRUE : Boolean.FALSE;
+				return isEnableMtom();
+			case JavaeePackage.PORT_COMPONENT_REF__MTOM_THRESHOLD:
+				return getMtomThreshold();
+			case JavaeePackage.PORT_COMPONENT_REF__ADDRESSING:
+				return getAddressing();
+			case JavaeePackage.PORT_COMPONENT_REF__RESPECT_BINDING:
+				return getRespectBinding();
 			case JavaeePackage.PORT_COMPONENT_REF__PORT_COMPONENT_LINK:
 				return getPortComponentLink();
 			case JavaeePackage.PORT_COMPONENT_REF__ID:
@@ -287,7 +464,16 @@ public class PortComponentRefImpl extends EObjectImpl implements PortComponentRe
 				setServiceEndpointInterface((String)newValue);
 				return;
 			case JavaeePackage.PORT_COMPONENT_REF__ENABLE_MTOM:
-				setEnableMtom(((Boolean)newValue).booleanValue());
+				setEnableMtom((Boolean)newValue);
+				return;
+			case JavaeePackage.PORT_COMPONENT_REF__MTOM_THRESHOLD:
+				setMtomThreshold((BigInteger)newValue);
+				return;
+			case JavaeePackage.PORT_COMPONENT_REF__ADDRESSING:
+				setAddressing((AddressingType)newValue);
+				return;
+			case JavaeePackage.PORT_COMPONENT_REF__RESPECT_BINDING:
+				setRespectBinding((RespectBindingType)newValue);
 				return;
 			case JavaeePackage.PORT_COMPONENT_REF__PORT_COMPONENT_LINK:
 				setPortComponentLink((String)newValue);
@@ -313,6 +499,15 @@ public class PortComponentRefImpl extends EObjectImpl implements PortComponentRe
 			case JavaeePackage.PORT_COMPONENT_REF__ENABLE_MTOM:
 				unsetEnableMtom();
 				return;
+			case JavaeePackage.PORT_COMPONENT_REF__MTOM_THRESHOLD:
+				setMtomThreshold(MTOM_THRESHOLD_EDEFAULT);
+				return;
+			case JavaeePackage.PORT_COMPONENT_REF__ADDRESSING:
+				setAddressing((AddressingType)null);
+				return;
+			case JavaeePackage.PORT_COMPONENT_REF__RESPECT_BINDING:
+				setRespectBinding((RespectBindingType)null);
+				return;
 			case JavaeePackage.PORT_COMPONENT_REF__PORT_COMPONENT_LINK:
 				setPortComponentLink(PORT_COMPONENT_LINK_EDEFAULT);
 				return;
@@ -335,6 +530,12 @@ public class PortComponentRefImpl extends EObjectImpl implements PortComponentRe
 				return SERVICE_ENDPOINT_INTERFACE_EDEFAULT == null ? serviceEndpointInterface != null : !SERVICE_ENDPOINT_INTERFACE_EDEFAULT.equals(serviceEndpointInterface);
 			case JavaeePackage.PORT_COMPONENT_REF__ENABLE_MTOM:
 				return isSetEnableMtom();
+			case JavaeePackage.PORT_COMPONENT_REF__MTOM_THRESHOLD:
+				return MTOM_THRESHOLD_EDEFAULT == null ? mtomThreshold != null : !MTOM_THRESHOLD_EDEFAULT.equals(mtomThreshold);
+			case JavaeePackage.PORT_COMPONENT_REF__ADDRESSING:
+				return addressing != null;
+			case JavaeePackage.PORT_COMPONENT_REF__RESPECT_BINDING:
+				return respectBinding != null;
 			case JavaeePackage.PORT_COMPONENT_REF__PORT_COMPONENT_LINK:
 				return PORT_COMPONENT_LINK_EDEFAULT == null ? portComponentLink != null : !PORT_COMPONENT_LINK_EDEFAULT.equals(portComponentLink);
 			case JavaeePackage.PORT_COMPONENT_REF__ID:
@@ -357,6 +558,8 @@ public class PortComponentRefImpl extends EObjectImpl implements PortComponentRe
 		result.append(serviceEndpointInterface);
 		result.append(", enableMtom: "); //$NON-NLS-1$
 		if (enableMtomESet) result.append(enableMtom); else result.append("<unset>"); //$NON-NLS-1$
+		result.append(", mtomThreshold: "); //$NON-NLS-1$
+		result.append(mtomThreshold);
 		result.append(", portComponentLink: "); //$NON-NLS-1$
 		result.append(portComponentLink);
 		result.append(", id: "); //$NON-NLS-1$

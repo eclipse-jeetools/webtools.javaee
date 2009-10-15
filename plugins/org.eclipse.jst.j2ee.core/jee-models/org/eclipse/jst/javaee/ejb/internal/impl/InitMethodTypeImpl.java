@@ -48,7 +48,7 @@ public class InitMethodTypeImpl extends EObjectImpl implements InitMethodType {
 	 * @generated
 	 * @ordered
 	 */
-	protected NamedMethodType createMethod = null;
+	protected NamedMethodType createMethod;
 
 	/**
 	 * The cached value of the '{@link #getBeanMethod() <em>Bean Method</em>}' containment reference.
@@ -58,7 +58,7 @@ public class InitMethodTypeImpl extends EObjectImpl implements InitMethodType {
 	 * @generated
 	 * @ordered
 	 */
-	protected NamedMethodType beanMethod = null;
+	protected NamedMethodType beanMethod;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.

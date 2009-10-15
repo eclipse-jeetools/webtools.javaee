@@ -109,7 +109,7 @@ public class ModuleImpl extends EObjectImpl implements Module, ICommonModule, IC
 	 * @generated
 	 * @ordered
 	 */
-	protected Web web = null;
+	protected Web web;
 
 	/**
 	 * The default value of the '{@link #getAltDd() <em>Alt Dd</em>}' attribute.

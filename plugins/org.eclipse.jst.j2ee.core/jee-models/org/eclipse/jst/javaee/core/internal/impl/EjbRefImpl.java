@@ -49,6 +49,7 @@ import org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage;
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.EjbRefImpl#getEjbLink <em>Ejb Link</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.EjbRefImpl#getMappedName <em>Mapped Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.EjbRefImpl#getInjectionTargets <em>Injection Targets</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.EjbRefImpl#getLookupName <em>Lookup Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.EjbRefImpl#getId <em>Id</em>}</li>
  * </ul>
  * </p>
@@ -64,7 +65,7 @@ public class EjbRefImpl extends EObjectImpl implements EjbRef {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList descriptions = null;
+	protected EList<Description> descriptions;
 
 	/**
 	 * The default value of the '{@link #getEjbRefName() <em>Ejb Ref Name</em>}' attribute.
@@ -113,7 +114,7 @@ public class EjbRefImpl extends EObjectImpl implements EjbRef {
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean ejbRefTypeESet = false;
+	protected boolean ejbRefTypeESet;
 
 	/**
 	 * The default value of the '{@link #getHome() <em>Home</em>}' attribute.
@@ -203,7 +204,27 @@ public class EjbRefImpl extends EObjectImpl implements EjbRef {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList injectionTargets = null;
+	protected EList<InjectionTarget> injectionTargets;
+
+	/**
+	 * The default value of the '{@link #getLookupName() <em>Lookup Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLookupName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String LOOKUP_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getLookupName() <em>Lookup Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLookupName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String lookupName = LOOKUP_NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -249,9 +270,9 @@ public class EjbRefImpl extends EObjectImpl implements EjbRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDescriptions() {
+	public List<Description> getDescriptions() {
 		if (descriptions == null) {
-			descriptions = new EObjectContainmentEList(Description.class, this, JavaeePackage.EJB_REF__DESCRIPTIONS);
+			descriptions = new EObjectContainmentEList<Description>(Description.class, this, JavaeePackage.EJB_REF__DESCRIPTIONS);
 		}
 		return descriptions;
 	}
@@ -412,11 +433,32 @@ public class EjbRefImpl extends EObjectImpl implements EjbRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getInjectionTargets() {
+	public List<InjectionTarget> getInjectionTargets() {
 		if (injectionTargets == null) {
-			injectionTargets = new EObjectContainmentEList(InjectionTarget.class, this, JavaeePackage.EJB_REF__INJECTION_TARGETS);
+			injectionTargets = new EObjectContainmentEList<InjectionTarget>(InjectionTarget.class, this, JavaeePackage.EJB_REF__INJECTION_TARGETS);
 		}
 		return injectionTargets;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getLookupName() {
+		return lookupName;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setLookupName(String newLookupName) {
+		String oldLookupName = lookupName;
+		lookupName = newLookupName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, JavaeePackage.EJB_REF__LOOKUP_NAME, oldLookupName, lookupName));
 	}
 
 	/**
@@ -449,9 +491,9 @@ public class EjbRefImpl extends EObjectImpl implements EjbRef {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case JavaeePackage.EJB_REF__DESCRIPTIONS:
-				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDescriptions()).basicRemove(otherEnd, msgs);
 			case JavaeePackage.EJB_REF__INJECTION_TARGETS:
-				return ((InternalEList)getInjectionTargets()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getInjectionTargets()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -480,6 +522,8 @@ public class EjbRefImpl extends EObjectImpl implements EjbRef {
 				return getMappedName();
 			case JavaeePackage.EJB_REF__INJECTION_TARGETS:
 				return getInjectionTargets();
+			case JavaeePackage.EJB_REF__LOOKUP_NAME:
+				return getLookupName();
 			case JavaeePackage.EJB_REF__ID:
 				return getId();
 		}
@@ -491,12 +535,13 @@ public class EjbRefImpl extends EObjectImpl implements EjbRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case JavaeePackage.EJB_REF__DESCRIPTIONS:
 				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
+				getDescriptions().addAll((Collection<? extends Description>)newValue);
 				return;
 			case JavaeePackage.EJB_REF__EJB_REF_NAME:
 				setEjbRefName((String)newValue);
@@ -518,7 +563,10 @@ public class EjbRefImpl extends EObjectImpl implements EjbRef {
 				return;
 			case JavaeePackage.EJB_REF__INJECTION_TARGETS:
 				getInjectionTargets().clear();
-				getInjectionTargets().addAll((Collection)newValue);
+				getInjectionTargets().addAll((Collection<? extends InjectionTarget>)newValue);
+				return;
+			case JavaeePackage.EJB_REF__LOOKUP_NAME:
+				setLookupName((String)newValue);
 				return;
 			case JavaeePackage.EJB_REF__ID:
 				setId((String)newValue);
@@ -559,6 +607,9 @@ public class EjbRefImpl extends EObjectImpl implements EjbRef {
 			case JavaeePackage.EJB_REF__INJECTION_TARGETS:
 				getInjectionTargets().clear();
 				return;
+			case JavaeePackage.EJB_REF__LOOKUP_NAME:
+				setLookupName(LOOKUP_NAME_EDEFAULT);
+				return;
 			case JavaeePackage.EJB_REF__ID:
 				setId(ID_EDEFAULT);
 				return;
@@ -590,6 +641,8 @@ public class EjbRefImpl extends EObjectImpl implements EjbRef {
 				return MAPPED_NAME_EDEFAULT == null ? mappedName != null : !MAPPED_NAME_EDEFAULT.equals(mappedName);
 			case JavaeePackage.EJB_REF__INJECTION_TARGETS:
 				return injectionTargets != null && !injectionTargets.isEmpty();
+			case JavaeePackage.EJB_REF__LOOKUP_NAME:
+				return LOOKUP_NAME_EDEFAULT == null ? lookupName != null : !LOOKUP_NAME_EDEFAULT.equals(lookupName);
 			case JavaeePackage.EJB_REF__ID:
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 		}
@@ -618,6 +671,8 @@ public class EjbRefImpl extends EObjectImpl implements EjbRef {
 		result.append(ejbLink);
 		result.append(", mappedName: "); //$NON-NLS-1$
 		result.append(mappedName);
+		result.append(", lookupName: "); //$NON-NLS-1$
+		result.append(lookupName);
 		result.append(", id: "); //$NON-NLS-1$
 		result.append(id);
 		result.append(')');

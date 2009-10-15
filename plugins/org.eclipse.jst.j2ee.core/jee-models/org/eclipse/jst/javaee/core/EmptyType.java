@@ -19,9 +19,10 @@ package org.eclipse.jst.javaee.core;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	This type is used to designate an empty
- * 	element when used.
- * 
+ *         This type is used to designate an empty
+ *         element when used. 
+ *         
+ *         @since Java EE 5
  *       
  * <!-- end-model-doc -->
  *

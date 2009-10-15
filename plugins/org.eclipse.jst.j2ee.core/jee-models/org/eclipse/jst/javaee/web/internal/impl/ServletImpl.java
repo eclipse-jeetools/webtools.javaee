@@ -34,6 +34,7 @@ import org.eclipse.jst.javaee.core.ParamValue;
 import org.eclipse.jst.javaee.core.RunAs;
 import org.eclipse.jst.javaee.core.SecurityRoleRef;
 
+import org.eclipse.jst.javaee.web.MultipartConfigType;
 import org.eclipse.jst.javaee.web.Servlet;
 
 import org.eclipse.jst.javaee.web.internal.metadata.WebPackage;
@@ -53,8 +54,11 @@ import org.eclipse.jst.javaee.web.internal.metadata.WebPackage;
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.ServletImpl#getJspFile <em>Jsp File</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.ServletImpl#getInitParams <em>Init Params</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.ServletImpl#getLoadOnStartup <em>Load On Startup</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.ServletImpl#isEnabled <em>Enabled</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.ServletImpl#isAsyncSupported <em>Async Supported</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.ServletImpl#getRunAs <em>Run As</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.ServletImpl#getSecurityRoleRefs <em>Security Role Refs</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.ServletImpl#getMultipartConfig <em>Multipart Config</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.ServletImpl#getId <em>Id</em>}</li>
  * </ul>
  * </p>
@@ -70,7 +74,7 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList descriptions = null;
+	protected EList<Description> descriptions;
 
 	/**
 	 * The cached value of the '{@link #getDisplayNames() <em>Display Names</em>}' containment reference list.
@@ -80,7 +84,7 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList displayNames = null;
+	protected EList<DisplayName> displayNames;
 
 	/**
 	 * The cached value of the '{@link #getIcons() <em>Icons</em>}' containment reference list.
@@ -90,7 +94,7 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList icons = null;
+	protected EList<Icon> icons;
 
 	/**
 	 * The default value of the '{@link #getServletName() <em>Servlet Name</em>}' attribute.
@@ -160,7 +164,7 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList initParams = null;
+	protected EList<ParamValue> initParams;
 
 	/**
 	 * The default value of the '{@link #getLoadOnStartup() <em>Load On Startup</em>}' attribute.
@@ -183,6 +187,64 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 	protected Object loadOnStartup = LOAD_ON_STARTUP_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #isEnabled() <em>Enabled</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isEnabled()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean ENABLED_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isEnabled() <em>Enabled</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isEnabled()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean enabled = ENABLED_EDEFAULT;
+
+	/**
+	 * This is true if the Enabled attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean enabledESet;
+
+	/**
+	 * The default value of the '{@link #isAsyncSupported() <em>Async Supported</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isAsyncSupported()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean ASYNC_SUPPORTED_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isAsyncSupported() <em>Async Supported</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isAsyncSupported()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean asyncSupported = ASYNC_SUPPORTED_EDEFAULT;
+
+	/**
+	 * This is true if the Async Supported attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean asyncSupportedESet;
+
+	/**
 	 * The cached value of the '{@link #getRunAs() <em>Run As</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -190,7 +252,7 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 	 * @generated
 	 * @ordered
 	 */
-	protected RunAs runAs = null;
+	protected RunAs runAs;
 
 	/**
 	 * The cached value of the '{@link #getSecurityRoleRefs() <em>Security Role Refs</em>}' containment reference list.
@@ -200,7 +262,17 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList securityRoleRefs = null;
+	protected EList<SecurityRoleRef> securityRoleRefs;
+
+	/**
+	 * The cached value of the '{@link #getMultipartConfig() <em>Multipart Config</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMultipartConfig()
+	 * @generated
+	 * @ordered
+	 */
+	protected MultipartConfigType multipartConfig;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -246,9 +318,9 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDescriptions() {
+	public List<Description> getDescriptions() {
 		if (descriptions == null) {
-			descriptions = new EObjectContainmentEList(Description.class, this, WebPackage.SERVLET__DESCRIPTIONS);
+			descriptions = new EObjectContainmentEList<Description>(Description.class, this, WebPackage.SERVLET__DESCRIPTIONS);
 		}
 		return descriptions;
 	}
@@ -258,9 +330,9 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDisplayNames() {
+	public List<DisplayName> getDisplayNames() {
 		if (displayNames == null) {
-			displayNames = new EObjectContainmentEList(DisplayName.class, this, WebPackage.SERVLET__DISPLAY_NAMES);
+			displayNames = new EObjectContainmentEList<DisplayName>(DisplayName.class, this, WebPackage.SERVLET__DISPLAY_NAMES);
 		}
 		return displayNames;
 	}
@@ -270,9 +342,9 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getIcons() {
+	public List<Icon> getIcons() {
 		if (icons == null) {
-			icons = new EObjectContainmentEList(Icon.class, this, WebPackage.SERVLET__ICONS);
+			icons = new EObjectContainmentEList<Icon>(Icon.class, this, WebPackage.SERVLET__ICONS);
 		}
 		return icons;
 	}
@@ -345,9 +417,9 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getInitParams() {
+	public List<ParamValue> getInitParams() {
 		if (initParams == null) {
-			initParams = new EObjectContainmentEList(ParamValue.class, this, WebPackage.SERVLET__INIT_PARAMS);
+			initParams = new EObjectContainmentEList<ParamValue>(ParamValue.class, this, WebPackage.SERVLET__INIT_PARAMS);
 		}
 		return initParams;
 	}
@@ -371,6 +443,98 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 		loadOnStartup = newLoadOnStartup;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, WebPackage.SERVLET__LOAD_ON_STARTUP, oldLoadOnStartup, loadOnStartup));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEnabled(boolean newEnabled) {
+		boolean oldEnabled = enabled;
+		enabled = newEnabled;
+		boolean oldEnabledESet = enabledESet;
+		enabledESet = true;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, WebPackage.SERVLET__ENABLED, oldEnabled, enabled, !oldEnabledESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetEnabled() {
+		boolean oldEnabled = enabled;
+		boolean oldEnabledESet = enabledESet;
+		enabled = ENABLED_EDEFAULT;
+		enabledESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, WebPackage.SERVLET__ENABLED, oldEnabled, ENABLED_EDEFAULT, oldEnabledESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetEnabled() {
+		return enabledESet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isAsyncSupported() {
+		return asyncSupported;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setAsyncSupported(boolean newAsyncSupported) {
+		boolean oldAsyncSupported = asyncSupported;
+		asyncSupported = newAsyncSupported;
+		boolean oldAsyncSupportedESet = asyncSupportedESet;
+		asyncSupportedESet = true;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, WebPackage.SERVLET__ASYNC_SUPPORTED, oldAsyncSupported, asyncSupported, !oldAsyncSupportedESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetAsyncSupported() {
+		boolean oldAsyncSupported = asyncSupported;
+		boolean oldAsyncSupportedESet = asyncSupportedESet;
+		asyncSupported = ASYNC_SUPPORTED_EDEFAULT;
+		asyncSupportedESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, WebPackage.SERVLET__ASYNC_SUPPORTED, oldAsyncSupported, ASYNC_SUPPORTED_EDEFAULT, oldAsyncSupportedESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetAsyncSupported() {
+		return asyncSupportedESet;
 	}
 
 	/**
@@ -421,11 +585,54 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getSecurityRoleRefs() {
+	public List<SecurityRoleRef> getSecurityRoleRefs() {
 		if (securityRoleRefs == null) {
-			securityRoleRefs = new EObjectContainmentEList(SecurityRoleRef.class, this, WebPackage.SERVLET__SECURITY_ROLE_REFS);
+			securityRoleRefs = new EObjectContainmentEList<SecurityRoleRef>(SecurityRoleRef.class, this, WebPackage.SERVLET__SECURITY_ROLE_REFS);
 		}
 		return securityRoleRefs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public MultipartConfigType getMultipartConfig() {
+		return multipartConfig;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetMultipartConfig(MultipartConfigType newMultipartConfig, NotificationChain msgs) {
+		MultipartConfigType oldMultipartConfig = multipartConfig;
+		multipartConfig = newMultipartConfig;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, WebPackage.SERVLET__MULTIPART_CONFIG, oldMultipartConfig, newMultipartConfig);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setMultipartConfig(MultipartConfigType newMultipartConfig) {
+		if (newMultipartConfig != multipartConfig) {
+			NotificationChain msgs = null;
+			if (multipartConfig != null)
+				msgs = ((InternalEObject)multipartConfig).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - WebPackage.SERVLET__MULTIPART_CONFIG, null, msgs);
+			if (newMultipartConfig != null)
+				msgs = ((InternalEObject)newMultipartConfig).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - WebPackage.SERVLET__MULTIPART_CONFIG, null, msgs);
+			msgs = basicSetMultipartConfig(newMultipartConfig, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, WebPackage.SERVLET__MULTIPART_CONFIG, newMultipartConfig, newMultipartConfig));
 	}
 
 	/**
@@ -458,17 +665,19 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case WebPackage.SERVLET__DESCRIPTIONS:
-				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDescriptions()).basicRemove(otherEnd, msgs);
 			case WebPackage.SERVLET__DISPLAY_NAMES:
-				return ((InternalEList)getDisplayNames()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDisplayNames()).basicRemove(otherEnd, msgs);
 			case WebPackage.SERVLET__ICONS:
-				return ((InternalEList)getIcons()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getIcons()).basicRemove(otherEnd, msgs);
 			case WebPackage.SERVLET__INIT_PARAMS:
-				return ((InternalEList)getInitParams()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getInitParams()).basicRemove(otherEnd, msgs);
 			case WebPackage.SERVLET__RUN_AS:
 				return basicSetRunAs(null, msgs);
 			case WebPackage.SERVLET__SECURITY_ROLE_REFS:
-				return ((InternalEList)getSecurityRoleRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getSecurityRoleRefs()).basicRemove(otherEnd, msgs);
+			case WebPackage.SERVLET__MULTIPART_CONFIG:
+				return basicSetMultipartConfig(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -497,10 +706,16 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 				return getInitParams();
 			case WebPackage.SERVLET__LOAD_ON_STARTUP:
 				return getLoadOnStartup();
+			case WebPackage.SERVLET__ENABLED:
+				return isEnabled();
+			case WebPackage.SERVLET__ASYNC_SUPPORTED:
+				return isAsyncSupported();
 			case WebPackage.SERVLET__RUN_AS:
 				return getRunAs();
 			case WebPackage.SERVLET__SECURITY_ROLE_REFS:
 				return getSecurityRoleRefs();
+			case WebPackage.SERVLET__MULTIPART_CONFIG:
+				return getMultipartConfig();
 			case WebPackage.SERVLET__ID:
 				return getId();
 		}
@@ -512,20 +727,21 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case WebPackage.SERVLET__DESCRIPTIONS:
 				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
+				getDescriptions().addAll((Collection<? extends Description>)newValue);
 				return;
 			case WebPackage.SERVLET__DISPLAY_NAMES:
 				getDisplayNames().clear();
-				getDisplayNames().addAll((Collection)newValue);
+				getDisplayNames().addAll((Collection<? extends DisplayName>)newValue);
 				return;
 			case WebPackage.SERVLET__ICONS:
 				getIcons().clear();
-				getIcons().addAll((Collection)newValue);
+				getIcons().addAll((Collection<? extends Icon>)newValue);
 				return;
 			case WebPackage.SERVLET__SERVLET_NAME:
 				setServletName((String)newValue);
@@ -538,17 +754,26 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 				return;
 			case WebPackage.SERVLET__INIT_PARAMS:
 				getInitParams().clear();
-				getInitParams().addAll((Collection)newValue);
+				getInitParams().addAll((Collection<? extends ParamValue>)newValue);
 				return;
 			case WebPackage.SERVLET__LOAD_ON_STARTUP:
 				setLoadOnStartup(newValue);
+				return;
+			case WebPackage.SERVLET__ENABLED:
+				setEnabled((Boolean)newValue);
+				return;
+			case WebPackage.SERVLET__ASYNC_SUPPORTED:
+				setAsyncSupported((Boolean)newValue);
 				return;
 			case WebPackage.SERVLET__RUN_AS:
 				setRunAs((RunAs)newValue);
 				return;
 			case WebPackage.SERVLET__SECURITY_ROLE_REFS:
 				getSecurityRoleRefs().clear();
-				getSecurityRoleRefs().addAll((Collection)newValue);
+				getSecurityRoleRefs().addAll((Collection<? extends SecurityRoleRef>)newValue);
+				return;
+			case WebPackage.SERVLET__MULTIPART_CONFIG:
+				setMultipartConfig((MultipartConfigType)newValue);
 				return;
 			case WebPackage.SERVLET__ID:
 				setId((String)newValue);
@@ -589,11 +814,20 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 			case WebPackage.SERVLET__LOAD_ON_STARTUP:
 				setLoadOnStartup(LOAD_ON_STARTUP_EDEFAULT);
 				return;
+			case WebPackage.SERVLET__ENABLED:
+				unsetEnabled();
+				return;
+			case WebPackage.SERVLET__ASYNC_SUPPORTED:
+				unsetAsyncSupported();
+				return;
 			case WebPackage.SERVLET__RUN_AS:
 				setRunAs((RunAs)null);
 				return;
 			case WebPackage.SERVLET__SECURITY_ROLE_REFS:
 				getSecurityRoleRefs().clear();
+				return;
+			case WebPackage.SERVLET__MULTIPART_CONFIG:
+				setMultipartConfig((MultipartConfigType)null);
 				return;
 			case WebPackage.SERVLET__ID:
 				setId(ID_EDEFAULT);
@@ -626,10 +860,16 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 				return initParams != null && !initParams.isEmpty();
 			case WebPackage.SERVLET__LOAD_ON_STARTUP:
 				return LOAD_ON_STARTUP_EDEFAULT == null ? loadOnStartup != null : !LOAD_ON_STARTUP_EDEFAULT.equals(loadOnStartup);
+			case WebPackage.SERVLET__ENABLED:
+				return isSetEnabled();
+			case WebPackage.SERVLET__ASYNC_SUPPORTED:
+				return isSetAsyncSupported();
 			case WebPackage.SERVLET__RUN_AS:
 				return runAs != null;
 			case WebPackage.SERVLET__SECURITY_ROLE_REFS:
 				return securityRoleRefs != null && !securityRoleRefs.isEmpty();
+			case WebPackage.SERVLET__MULTIPART_CONFIG:
+				return multipartConfig != null;
 			case WebPackage.SERVLET__ID:
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 		}
@@ -654,6 +894,10 @@ public class ServletImpl extends EObjectImpl implements Servlet {
 		result.append(jspFile);
 		result.append(", loadOnStartup: "); //$NON-NLS-1$
 		result.append(loadOnStartup);
+		result.append(", enabled: "); //$NON-NLS-1$
+		if (enabledESet) result.append(enabled); else result.append("<unset>"); //$NON-NLS-1$
+		result.append(", asyncSupported: "); //$NON-NLS-1$
+		if (asyncSupportedESet) result.append(asyncSupported); else result.append("<unset>"); //$NON-NLS-1$
 		result.append(", id: "); //$NON-NLS-1$
 		result.append(id);
 		result.append(')');

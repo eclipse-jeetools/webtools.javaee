@@ -12,6 +12,7 @@ package org.eclipse.jst.javaee.web;
 
 import java.util.List;
 
+import org.eclipse.jst.javaee.core.Description;
 import org.eclipse.jst.javaee.core.JavaEEObject;
 
 /**
@@ -22,19 +23,20 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The auth-constraintType indicates the user roles that
- * 	should be permitted access to this resource
- * 	collection. The role-name used here must either correspond
- * 	to the role-name of one of the security-role elements
- * 	defined for this web application, or be the specially
- * 	reserved role-name "*" that is a compact syntax for
- * 	indicating all roles in the web application. If both "*"
- * 	and rolenames appear, the container interprets this as all
- * 	roles.  If no roles are defined, no user is allowed access
- * 	to the portion of the web application described by the
- * 	containing security-constraint.  The container matches
- * 	role names case sensitively when determining access.
- * 
+ *         The auth-constraintType indicates the user roles that
+ *         should be permitted access to this resource
+ *         collection. The role-name used here must either correspond
+ *         to the role-name of one of the security-role elements
+ *         defined for this web application, or be the specially
+ *         reserved role-name "*" that is a compact syntax for
+ *         indicating all roles in the web application. If both "*"
+ *         and rolenames appear, the container interprets this as all
+ *         roles.  If no roles are defined, no user is allowed access
+ *         to the portion of the web application described by the
+ *         containing security-constraint.  The container matches
+ *         role names case sensitively when determining access.
+ *         
+ *         @since Java EE 5, Web 2.5
  *       
  * <!-- end-model-doc -->
  *
@@ -65,7 +67,7 @@ public interface AuthConstraint extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getAuthConstraint_Descriptions()
 	 * @generated
 	 */
-	List getDescriptions();
+	List<Description> getDescriptions();
 
 	/**
 	 * Returns the value of the '<em><b>Role Names</b></em>' attribute list.
@@ -80,7 +82,7 @@ public interface AuthConstraint extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getAuthConstraint_RoleNames()
 	 * @generated
 	 */
-	List getRoleNames();
+	List<String> getRoleNames();
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.

@@ -20,9 +20,10 @@ import java.util.List;
  * <!-- begin-model-doc -->
  * 
  * 
- *       The handler-chains element defines the handlerchains associated with this
- *       service or service endpoint.
- * 
+ *         The handler-chains element defines the handlerchains associated with this
+ *         service or service endpoint.
+ *         
+ *         @since Java EE 5, Web Services Client 1.2
  *       
  * <!-- end-model-doc -->
  *
@@ -52,7 +53,7 @@ public interface ServiceRefHandlerChains extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getServiceRefHandlerChains_HandlerChains()
 	 * @generated
 	 */
-	List getHandlerChains();
+	List<ServiceRefHandlerChain> getHandlerChains();
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.

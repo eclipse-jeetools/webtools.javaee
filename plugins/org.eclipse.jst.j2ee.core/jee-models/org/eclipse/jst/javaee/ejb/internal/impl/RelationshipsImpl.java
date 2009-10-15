@@ -58,7 +58,7 @@ public class RelationshipsImpl extends EObjectImpl implements Relationships {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList descriptions = null;
+	protected EList<Description> descriptions;
 
 	/**
 	 * The cached value of the '{@link #getEjbRelations() <em>Ejb Relations</em>}' containment reference list.
@@ -68,7 +68,7 @@ public class RelationshipsImpl extends EObjectImpl implements Relationships {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList ejbRelations = null;
+	protected EList<EJBRelation> ejbRelations;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -114,9 +114,9 @@ public class RelationshipsImpl extends EObjectImpl implements Relationships {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDescriptions() {
+	public List<Description> getDescriptions() {
 		if (descriptions == null) {
-			descriptions = new EObjectContainmentEList(Description.class, this, EjbPackage.RELATIONSHIPS__DESCRIPTIONS);
+			descriptions = new EObjectContainmentEList<Description>(Description.class, this, EjbPackage.RELATIONSHIPS__DESCRIPTIONS);
 		}
 		return descriptions;
 	}
@@ -126,9 +126,9 @@ public class RelationshipsImpl extends EObjectImpl implements Relationships {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getEjbRelations() {
+	public List<EJBRelation> getEjbRelations() {
 		if (ejbRelations == null) {
-			ejbRelations = new EObjectContainmentEList(EJBRelation.class, this, EjbPackage.RELATIONSHIPS__EJB_RELATIONS);
+			ejbRelations = new EObjectContainmentEList<EJBRelation>(EJBRelation.class, this, EjbPackage.RELATIONSHIPS__EJB_RELATIONS);
 		}
 		return ejbRelations;
 	}
@@ -163,9 +163,9 @@ public class RelationshipsImpl extends EObjectImpl implements Relationships {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EjbPackage.RELATIONSHIPS__DESCRIPTIONS:
-				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDescriptions()).basicRemove(otherEnd, msgs);
 			case EjbPackage.RELATIONSHIPS__EJB_RELATIONS:
-				return ((InternalEList)getEjbRelations()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getEjbRelations()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -193,16 +193,17 @@ public class RelationshipsImpl extends EObjectImpl implements Relationships {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EjbPackage.RELATIONSHIPS__DESCRIPTIONS:
 				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
+				getDescriptions().addAll((Collection<? extends Description>)newValue);
 				return;
 			case EjbPackage.RELATIONSHIPS__EJB_RELATIONS:
 				getEjbRelations().clear();
-				getEjbRelations().addAll((Collection)newValue);
+				getEjbRelations().addAll((Collection<? extends EJBRelation>)newValue);
 				return;
 			case EjbPackage.RELATIONSHIPS__ID:
 				setId((String)newValue);

@@ -58,7 +58,7 @@ public class InterceptorsTypeImpl extends EObjectImpl implements InterceptorsTyp
 	 * @generated
 	 * @ordered
 	 */
-	protected EList descriptions = null;
+	protected EList<Description> descriptions;
 
 	/**
 	 * The cached value of the '{@link #getInterceptors() <em>Interceptors</em>}' containment reference list.
@@ -68,7 +68,7 @@ public class InterceptorsTypeImpl extends EObjectImpl implements InterceptorsTyp
 	 * @generated
 	 * @ordered
 	 */
-	protected EList interceptors = null;
+	protected EList<InterceptorType> interceptors;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -114,9 +114,9 @@ public class InterceptorsTypeImpl extends EObjectImpl implements InterceptorsTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDescriptions() {
+	public List<Description> getDescriptions() {
 		if (descriptions == null) {
-			descriptions = new EObjectContainmentEList(Description.class, this, EjbPackage.INTERCEPTORS_TYPE__DESCRIPTIONS);
+			descriptions = new EObjectContainmentEList<Description>(Description.class, this, EjbPackage.INTERCEPTORS_TYPE__DESCRIPTIONS);
 		}
 		return descriptions;
 	}
@@ -126,9 +126,9 @@ public class InterceptorsTypeImpl extends EObjectImpl implements InterceptorsTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getInterceptors() {
+	public List<InterceptorType> getInterceptors() {
 		if (interceptors == null) {
-			interceptors = new EObjectContainmentEList(InterceptorType.class, this, EjbPackage.INTERCEPTORS_TYPE__INTERCEPTORS);
+			interceptors = new EObjectContainmentEList<InterceptorType>(InterceptorType.class, this, EjbPackage.INTERCEPTORS_TYPE__INTERCEPTORS);
 		}
 		return interceptors;
 	}
@@ -163,9 +163,9 @@ public class InterceptorsTypeImpl extends EObjectImpl implements InterceptorsTyp
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EjbPackage.INTERCEPTORS_TYPE__DESCRIPTIONS:
-				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDescriptions()).basicRemove(otherEnd, msgs);
 			case EjbPackage.INTERCEPTORS_TYPE__INTERCEPTORS:
-				return ((InternalEList)getInterceptors()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getInterceptors()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -193,16 +193,17 @@ public class InterceptorsTypeImpl extends EObjectImpl implements InterceptorsTyp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EjbPackage.INTERCEPTORS_TYPE__DESCRIPTIONS:
 				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
+				getDescriptions().addAll((Collection<? extends Description>)newValue);
 				return;
 			case EjbPackage.INTERCEPTORS_TYPE__INTERCEPTORS:
 				getInterceptors().clear();
-				getInterceptors().addAll((Collection)newValue);
+				getInterceptors().addAll((Collection<? extends InterceptorType>)newValue);
 				return;
 			case EjbPackage.INTERCEPTORS_TYPE__ID:
 				setId((String)newValue);

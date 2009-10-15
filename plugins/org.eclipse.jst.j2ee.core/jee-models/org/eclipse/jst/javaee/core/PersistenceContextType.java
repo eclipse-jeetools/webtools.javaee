@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.emf.common.util.AbstractEnumerator;
+import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,20 +24,40 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The persistence-context-typeType specifies the transactional
- * 	nature of a persistence context reference.
- * 
- * 	The value of the persistence-context-type element must be
- * 	one of the following:
- * 	    Transaction
- *             Extended
- * 
+ *         The persistence-context-typeType specifies the transactional
+ *         nature of a persistence context reference.  
+ *         
+ *         The value of the persistence-context-type element must be
+ *         one of the following:
+ *         Transaction
+ *         Extended
+ *         
+ *         @since Java EE 5
  *       
  * <!-- end-model-doc -->
  * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getPersistenceContextType()
  * @generated
  */
-public final class PersistenceContextType extends AbstractEnumerator {
+public enum PersistenceContextType implements Enumerator
+{
+	/**
+	 * The '<em><b>Transaction</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #TRANSACTION
+	 * @generated
+	 * @ordered
+	 */
+	TRANSACTION_LITERAL(0, "Transaction", "Transaction"), //$NON-NLS-1$ //$NON-NLS-2$
+	/**
+	 * The '<em><b>Extended</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #EXTENDED
+	 * @generated
+	 * @ordered
+	 */
+	EXTENDED_LITERAL(1, "Extended", "Extended"); //$NON-NLS-1$ //$NON-NLS-2$
 	/**
 	 * The '<em><b>Transaction</b></em>' literal value.
 	 * <!-- begin-user-doc -->
@@ -67,26 +87,6 @@ public final class PersistenceContextType extends AbstractEnumerator {
 	public static final int EXTENDED = 1;
 
 	/**
-	 * The '<em><b>Transaction</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #TRANSACTION
-	 * @generated
-	 * @ordered
-	 */
-	public static final PersistenceContextType TRANSACTION_LITERAL = new PersistenceContextType(TRANSACTION, "Transaction", "Transaction"); //$NON-NLS-1$ //$NON-NLS-2$
-
-	/**
-	 * The '<em><b>Extended</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #EXTENDED
-	 * @generated
-	 * @ordered
-	 */
-	public static final PersistenceContextType EXTENDED_LITERAL = new PersistenceContextType(EXTENDED, "Extended", "Extended"); //$NON-NLS-1$ //$NON-NLS-2$
-
-	/**
 	 * An array of all the '<em><b>Persistence Context Type</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -104,7 +104,7 @@ public final class PersistenceContextType extends AbstractEnumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<PersistenceContextType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>Persistence Context Type</b></em>' literal with the specified literal value.
@@ -149,8 +149,29 @@ public final class PersistenceContextType extends AbstractEnumerator {
 			case TRANSACTION: return TRANSACTION_LITERAL;
 			case EXTENDED: return EXTENDED_LITERAL;
 		}
-		return null;	
+		return null;
 	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final int value;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String name;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String literal;
 
 	/**
 	 * Only this class can construct instances.
@@ -159,7 +180,46 @@ public final class PersistenceContextType extends AbstractEnumerator {
 	 * @generated
 	 */
 	private PersistenceContextType(int value, String name, String literal) {
-		super(value, name, literal);
+		this.value = value;
+		this.name = name;
+		this.literal = literal;
 	}
 
-} //PersistenceContextType
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getValue() {
+	  return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getName() {
+	  return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getLiteral() {
+	  return literal;
+	}
+
+	/**
+	 * Returns the literal value of the enumerator, which is its string representation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		return literal;
+	}
+}

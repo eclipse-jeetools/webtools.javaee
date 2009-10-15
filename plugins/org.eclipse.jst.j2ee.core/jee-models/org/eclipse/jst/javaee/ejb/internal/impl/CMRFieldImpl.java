@@ -59,7 +59,7 @@ public class CMRFieldImpl extends EObjectImpl implements CMRField {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList descriptions = null;
+	protected EList<Description> descriptions;
 
 	/**
 	 * The default value of the '{@link #getCmrFieldName() <em>Cmr Field Name</em>}' attribute.
@@ -108,7 +108,7 @@ public class CMRFieldImpl extends EObjectImpl implements CMRField {
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean cmrFieldTypeESet = false;
+	protected boolean cmrFieldTypeESet;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -154,9 +154,9 @@ public class CMRFieldImpl extends EObjectImpl implements CMRField {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDescriptions() {
+	public List<Description> getDescriptions() {
 		if (descriptions == null) {
-			descriptions = new EObjectContainmentEList(Description.class, this, EjbPackage.CMR_FIELD__DESCRIPTIONS);
+			descriptions = new EObjectContainmentEList<Description>(Description.class, this, EjbPackage.CMR_FIELD__DESCRIPTIONS);
 		}
 		return descriptions;
 	}
@@ -258,7 +258,7 @@ public class CMRFieldImpl extends EObjectImpl implements CMRField {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EjbPackage.CMR_FIELD__DESCRIPTIONS:
-				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDescriptions()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -288,12 +288,13 @@ public class CMRFieldImpl extends EObjectImpl implements CMRField {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EjbPackage.CMR_FIELD__DESCRIPTIONS:
 				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
+				getDescriptions().addAll((Collection<? extends Description>)newValue);
 				return;
 			case EjbPackage.CMR_FIELD__CMR_FIELD_NAME:
 				setCmrFieldName((String)newValue);

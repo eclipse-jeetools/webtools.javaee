@@ -108,6 +108,7 @@ public class ApplicationclientFactoryImpl extends EFactoryImpl implements Applic
 	 * @deprecated
 	 * @generated
 	 */
+	@Deprecated
 	public static ApplicationclientPackage getPackage() {
 		return ApplicationclientPackage.eINSTANCE;
 	}

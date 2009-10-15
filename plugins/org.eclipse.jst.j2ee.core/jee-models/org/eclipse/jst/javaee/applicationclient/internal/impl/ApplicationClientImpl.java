@@ -31,6 +31,7 @@ import org.eclipse.jst.javaee.applicationclient.ApplicationClient;
 
 import org.eclipse.jst.javaee.applicationclient.internal.metadata.ApplicationclientPackage;
 
+import org.eclipse.jst.javaee.core.DataSourceType;
 import org.eclipse.jst.javaee.core.Description;
 import org.eclipse.jst.javaee.core.DisplayName;
 import org.eclipse.jst.javaee.core.EjbRef;
@@ -51,6 +52,7 @@ import org.eclipse.jst.javaee.core.ServiceRef;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.eclipse.jst.javaee.applicationclient.internal.impl.ApplicationClientImpl#getModuleName <em>Module Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.applicationclient.internal.impl.ApplicationClientImpl#getDescriptions <em>Descriptions</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.applicationclient.internal.impl.ApplicationClientImpl#getDisplayNames <em>Display Names</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.applicationclient.internal.impl.ApplicationClientImpl#getIcons <em>Icons</em>}</li>
@@ -65,6 +67,7 @@ import org.eclipse.jst.javaee.core.ServiceRef;
  *   <li>{@link org.eclipse.jst.javaee.applicationclient.internal.impl.ApplicationClientImpl#getPreDestroys <em>Pre Destroys</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.applicationclient.internal.impl.ApplicationClientImpl#getCallbackHandler <em>Callback Handler</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.applicationclient.internal.impl.ApplicationClientImpl#getMessageDestinations <em>Message Destinations</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.applicationclient.internal.impl.ApplicationClientImpl#getDataSource <em>Data Source</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.applicationclient.internal.impl.ApplicationClientImpl#getId <em>Id</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.applicationclient.internal.impl.ApplicationClientImpl#isMetadataComplete <em>Metadata Complete</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.applicationclient.internal.impl.ApplicationClientImpl#getVersion <em>Version</em>}</li>
@@ -75,6 +78,26 @@ import org.eclipse.jst.javaee.core.ServiceRef;
  */
 public class ApplicationClientImpl extends EObjectImpl implements ApplicationClient {
 	/**
+	 * The default value of the '{@link #getModuleName() <em>Module Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getModuleName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String MODULE_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getModuleName() <em>Module Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getModuleName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String moduleName = MODULE_NAME_EDEFAULT;
+
+	/**
 	 * The cached value of the '{@link #getDescriptions() <em>Descriptions</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -82,7 +105,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * @generated
 	 * @ordered
 	 */
-	protected EList descriptions = null;
+	protected EList<Description> descriptions;
 
 	/**
 	 * The cached value of the '{@link #getDisplayNames() <em>Display Names</em>}' containment reference list.
@@ -92,7 +115,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * @generated
 	 * @ordered
 	 */
-	protected EList displayNames = null;
+	protected EList<DisplayName> displayNames;
 
 	/**
 	 * The cached value of the '{@link #getIcons() <em>Icons</em>}' containment reference list.
@@ -102,7 +125,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * @generated
 	 * @ordered
 	 */
-	protected EList icons = null;
+	protected EList<Icon> icons;
 
 	/**
 	 * The cached value of the '{@link #getEnvEntries() <em>Env Entries</em>}' containment reference list.
@@ -112,7 +135,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * @generated
 	 * @ordered
 	 */
-	protected EList envEntries = null;
+	protected EList<EnvEntry> envEntries;
 
 	/**
 	 * The cached value of the '{@link #getEjbRefs() <em>Ejb Refs</em>}' containment reference list.
@@ -122,7 +145,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * @generated
 	 * @ordered
 	 */
-	protected EList ejbRefs = null;
+	protected EList<EjbRef> ejbRefs;
 
 	/**
 	 * The cached value of the '{@link #getServiceRefs() <em>Service Refs</em>}' containment reference list.
@@ -132,7 +155,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * @generated
 	 * @ordered
 	 */
-	protected EList serviceRefs = null;
+	protected EList<ServiceRef> serviceRefs;
 
 	/**
 	 * The cached value of the '{@link #getResourceRefs() <em>Resource Refs</em>}' containment reference list.
@@ -142,7 +165,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * @generated
 	 * @ordered
 	 */
-	protected EList resourceRefs = null;
+	protected EList<ResourceRef> resourceRefs;
 
 	/**
 	 * The cached value of the '{@link #getResourceEnvRefs() <em>Resource Env Refs</em>}' containment reference list.
@@ -152,7 +175,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * @generated
 	 * @ordered
 	 */
-	protected EList resourceEnvRefs = null;
+	protected EList<ResourceEnvRef> resourceEnvRefs;
 
 	/**
 	 * The cached value of the '{@link #getMessageDestinationRefs() <em>Message Destination Refs</em>}' containment reference list.
@@ -162,7 +185,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * @generated
 	 * @ordered
 	 */
-	protected EList messageDestinationRefs = null;
+	protected EList<MessageDestinationRef> messageDestinationRefs;
 
 	/**
 	 * The cached value of the '{@link #getPersistenceUnitRefs() <em>Persistence Unit Refs</em>}' containment reference list.
@@ -172,7 +195,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * @generated
 	 * @ordered
 	 */
-	protected EList persistenceUnitRefs = null;
+	protected EList<PersistenceUnitRef> persistenceUnitRefs;
 
 	/**
 	 * The cached value of the '{@link #getPostConstructs() <em>Post Constructs</em>}' containment reference list.
@@ -182,7 +205,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * @generated
 	 * @ordered
 	 */
-	protected EList postConstructs = null;
+	protected EList<LifecycleCallback> postConstructs;
 
 	/**
 	 * The cached value of the '{@link #getPreDestroys() <em>Pre Destroys</em>}' containment reference list.
@@ -192,7 +215,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * @generated
 	 * @ordered
 	 */
-	protected EList preDestroys = null;
+	protected EList<LifecycleCallback> preDestroys;
 
 	/**
 	 * The default value of the '{@link #getCallbackHandler() <em>Callback Handler</em>}' attribute.
@@ -222,7 +245,17 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * @generated
 	 * @ordered
 	 */
-	protected EList messageDestinations = null;
+	protected EList<MessageDestination> messageDestinations;
+
+	/**
+	 * The cached value of the '{@link #getDataSource() <em>Data Source</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDataSource()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<DataSourceType> dataSource;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -271,7 +304,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean metadataCompleteESet = false;
+	protected boolean metadataCompleteESet;
 
 	/**
 	 * The default value of the '{@link #getVersion() <em>Version</em>}' attribute.
@@ -281,7 +314,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String VERSION_EDEFAULT = "5"; //$NON-NLS-1$
+	protected static final String VERSION_EDEFAULT = "6"; //$NON-NLS-1$
 
 	/**
 	 * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute.
@@ -300,7 +333,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean versionESet = false;
+	protected boolean versionESet;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -326,9 +359,30 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDescriptions() {
+	public String getModuleName() {
+		return moduleName;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setModuleName(String newModuleName) {
+		String oldModuleName = moduleName;
+		moduleName = newModuleName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ApplicationclientPackage.APPLICATION_CLIENT__MODULE_NAME, oldModuleName, moduleName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<Description> getDescriptions() {
 		if (descriptions == null) {
-			descriptions = new EObjectContainmentEList(Description.class, this, ApplicationclientPackage.APPLICATION_CLIENT__DESCRIPTIONS);
+			descriptions = new EObjectContainmentEList<Description>(Description.class, this, ApplicationclientPackage.APPLICATION_CLIENT__DESCRIPTIONS);
 		}
 		return descriptions;
 	}
@@ -338,9 +392,9 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDisplayNames() {
+	public List<DisplayName> getDisplayNames() {
 		if (displayNames == null) {
-			displayNames = new EObjectContainmentEList(DisplayName.class, this, ApplicationclientPackage.APPLICATION_CLIENT__DISPLAY_NAMES);
+			displayNames = new EObjectContainmentEList<DisplayName>(DisplayName.class, this, ApplicationclientPackage.APPLICATION_CLIENT__DISPLAY_NAMES);
 		}
 		return displayNames;
 	}
@@ -350,9 +404,9 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getIcons() {
+	public List<Icon> getIcons() {
 		if (icons == null) {
-			icons = new EObjectContainmentEList(Icon.class, this, ApplicationclientPackage.APPLICATION_CLIENT__ICONS);
+			icons = new EObjectContainmentEList<Icon>(Icon.class, this, ApplicationclientPackage.APPLICATION_CLIENT__ICONS);
 		}
 		return icons;
 	}
@@ -362,9 +416,9 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getEnvEntries() {
+	public List<EnvEntry> getEnvEntries() {
 		if (envEntries == null) {
-			envEntries = new EObjectContainmentEList(EnvEntry.class, this, ApplicationclientPackage.APPLICATION_CLIENT__ENV_ENTRIES);
+			envEntries = new EObjectContainmentEList<EnvEntry>(EnvEntry.class, this, ApplicationclientPackage.APPLICATION_CLIENT__ENV_ENTRIES);
 		}
 		return envEntries;
 	}
@@ -374,9 +428,9 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getEjbRefs() {
+	public List<EjbRef> getEjbRefs() {
 		if (ejbRefs == null) {
-			ejbRefs = new EObjectContainmentEList(EjbRef.class, this, ApplicationclientPackage.APPLICATION_CLIENT__EJB_REFS);
+			ejbRefs = new EObjectContainmentEList<EjbRef>(EjbRef.class, this, ApplicationclientPackage.APPLICATION_CLIENT__EJB_REFS);
 		}
 		return ejbRefs;
 	}
@@ -386,9 +440,9 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getServiceRefs() {
+	public List<ServiceRef> getServiceRefs() {
 		if (serviceRefs == null) {
-			serviceRefs = new EObjectContainmentEList(ServiceRef.class, this, ApplicationclientPackage.APPLICATION_CLIENT__SERVICE_REFS);
+			serviceRefs = new EObjectContainmentEList<ServiceRef>(ServiceRef.class, this, ApplicationclientPackage.APPLICATION_CLIENT__SERVICE_REFS);
 		}
 		return serviceRefs;
 	}
@@ -398,9 +452,9 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getResourceRefs() {
+	public List<ResourceRef> getResourceRefs() {
 		if (resourceRefs == null) {
-			resourceRefs = new EObjectContainmentEList(ResourceRef.class, this, ApplicationclientPackage.APPLICATION_CLIENT__RESOURCE_REFS);
+			resourceRefs = new EObjectContainmentEList<ResourceRef>(ResourceRef.class, this, ApplicationclientPackage.APPLICATION_CLIENT__RESOURCE_REFS);
 		}
 		return resourceRefs;
 	}
@@ -410,9 +464,9 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getResourceEnvRefs() {
+	public List<ResourceEnvRef> getResourceEnvRefs() {
 		if (resourceEnvRefs == null) {
-			resourceEnvRefs = new EObjectContainmentEList(ResourceEnvRef.class, this, ApplicationclientPackage.APPLICATION_CLIENT__RESOURCE_ENV_REFS);
+			resourceEnvRefs = new EObjectContainmentEList<ResourceEnvRef>(ResourceEnvRef.class, this, ApplicationclientPackage.APPLICATION_CLIENT__RESOURCE_ENV_REFS);
 		}
 		return resourceEnvRefs;
 	}
@@ -422,9 +476,9 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getMessageDestinationRefs() {
+	public List<MessageDestinationRef> getMessageDestinationRefs() {
 		if (messageDestinationRefs == null) {
-			messageDestinationRefs = new EObjectContainmentEList(MessageDestinationRef.class, this, ApplicationclientPackage.APPLICATION_CLIENT__MESSAGE_DESTINATION_REFS);
+			messageDestinationRefs = new EObjectContainmentEList<MessageDestinationRef>(MessageDestinationRef.class, this, ApplicationclientPackage.APPLICATION_CLIENT__MESSAGE_DESTINATION_REFS);
 		}
 		return messageDestinationRefs;
 	}
@@ -434,9 +488,9 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getPersistenceUnitRefs() {
+	public List<PersistenceUnitRef> getPersistenceUnitRefs() {
 		if (persistenceUnitRefs == null) {
-			persistenceUnitRefs = new EObjectContainmentEList(PersistenceUnitRef.class, this, ApplicationclientPackage.APPLICATION_CLIENT__PERSISTENCE_UNIT_REFS);
+			persistenceUnitRefs = new EObjectContainmentEList<PersistenceUnitRef>(PersistenceUnitRef.class, this, ApplicationclientPackage.APPLICATION_CLIENT__PERSISTENCE_UNIT_REFS);
 		}
 		return persistenceUnitRefs;
 	}
@@ -446,9 +500,9 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getPostConstructs() {
+	public List<LifecycleCallback> getPostConstructs() {
 		if (postConstructs == null) {
-			postConstructs = new EObjectContainmentEList(LifecycleCallback.class, this, ApplicationclientPackage.APPLICATION_CLIENT__POST_CONSTRUCTS);
+			postConstructs = new EObjectContainmentEList<LifecycleCallback>(LifecycleCallback.class, this, ApplicationclientPackage.APPLICATION_CLIENT__POST_CONSTRUCTS);
 		}
 		return postConstructs;
 	}
@@ -458,9 +512,9 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getPreDestroys() {
+	public List<LifecycleCallback> getPreDestroys() {
 		if (preDestroys == null) {
-			preDestroys = new EObjectContainmentEList(LifecycleCallback.class, this, ApplicationclientPackage.APPLICATION_CLIENT__PRE_DESTROYS);
+			preDestroys = new EObjectContainmentEList<LifecycleCallback>(LifecycleCallback.class, this, ApplicationclientPackage.APPLICATION_CLIENT__PRE_DESTROYS);
 		}
 		return preDestroys;
 	}
@@ -491,11 +545,23 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getMessageDestinations() {
+	public List<MessageDestination> getMessageDestinations() {
 		if (messageDestinations == null) {
-			messageDestinations = new EObjectContainmentEList(MessageDestination.class, this, ApplicationclientPackage.APPLICATION_CLIENT__MESSAGE_DESTINATIONS);
+			messageDestinations = new EObjectContainmentEList<MessageDestination>(MessageDestination.class, this, ApplicationclientPackage.APPLICATION_CLIENT__MESSAGE_DESTINATIONS);
 		}
 		return messageDestinations;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<DataSourceType> getDataSource() {
+		if (dataSource == null) {
+			dataSource = new EObjectContainmentEList<DataSourceType>(DataSourceType.class, this, ApplicationclientPackage.APPLICATION_CLIENT__DATA_SOURCE);
+		}
+		return dataSource;
 	}
 
 	/**
@@ -620,31 +686,33 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case ApplicationclientPackage.APPLICATION_CLIENT__DESCRIPTIONS:
-				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDescriptions()).basicRemove(otherEnd, msgs);
 			case ApplicationclientPackage.APPLICATION_CLIENT__DISPLAY_NAMES:
-				return ((InternalEList)getDisplayNames()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDisplayNames()).basicRemove(otherEnd, msgs);
 			case ApplicationclientPackage.APPLICATION_CLIENT__ICONS:
-				return ((InternalEList)getIcons()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getIcons()).basicRemove(otherEnd, msgs);
 			case ApplicationclientPackage.APPLICATION_CLIENT__ENV_ENTRIES:
-				return ((InternalEList)getEnvEntries()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getEnvEntries()).basicRemove(otherEnd, msgs);
 			case ApplicationclientPackage.APPLICATION_CLIENT__EJB_REFS:
-				return ((InternalEList)getEjbRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getEjbRefs()).basicRemove(otherEnd, msgs);
 			case ApplicationclientPackage.APPLICATION_CLIENT__SERVICE_REFS:
-				return ((InternalEList)getServiceRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getServiceRefs()).basicRemove(otherEnd, msgs);
 			case ApplicationclientPackage.APPLICATION_CLIENT__RESOURCE_REFS:
-				return ((InternalEList)getResourceRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getResourceRefs()).basicRemove(otherEnd, msgs);
 			case ApplicationclientPackage.APPLICATION_CLIENT__RESOURCE_ENV_REFS:
-				return ((InternalEList)getResourceEnvRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getResourceEnvRefs()).basicRemove(otherEnd, msgs);
 			case ApplicationclientPackage.APPLICATION_CLIENT__MESSAGE_DESTINATION_REFS:
-				return ((InternalEList)getMessageDestinationRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getMessageDestinationRefs()).basicRemove(otherEnd, msgs);
 			case ApplicationclientPackage.APPLICATION_CLIENT__PERSISTENCE_UNIT_REFS:
-				return ((InternalEList)getPersistenceUnitRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getPersistenceUnitRefs()).basicRemove(otherEnd, msgs);
 			case ApplicationclientPackage.APPLICATION_CLIENT__POST_CONSTRUCTS:
-				return ((InternalEList)getPostConstructs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getPostConstructs()).basicRemove(otherEnd, msgs);
 			case ApplicationclientPackage.APPLICATION_CLIENT__PRE_DESTROYS:
-				return ((InternalEList)getPreDestroys()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getPreDestroys()).basicRemove(otherEnd, msgs);
 			case ApplicationclientPackage.APPLICATION_CLIENT__MESSAGE_DESTINATIONS:
-				return ((InternalEList)getMessageDestinations()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getMessageDestinations()).basicRemove(otherEnd, msgs);
+			case ApplicationclientPackage.APPLICATION_CLIENT__DATA_SOURCE:
+				return ((InternalEList<?>)getDataSource()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -657,6 +725,8 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case ApplicationclientPackage.APPLICATION_CLIENT__MODULE_NAME:
+				return getModuleName();
 			case ApplicationclientPackage.APPLICATION_CLIENT__DESCRIPTIONS:
 				return getDescriptions();
 			case ApplicationclientPackage.APPLICATION_CLIENT__DISPLAY_NAMES:
@@ -685,10 +755,12 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 				return getCallbackHandler();
 			case ApplicationclientPackage.APPLICATION_CLIENT__MESSAGE_DESTINATIONS:
 				return getMessageDestinations();
+			case ApplicationclientPackage.APPLICATION_CLIENT__DATA_SOURCE:
+				return getDataSource();
 			case ApplicationclientPackage.APPLICATION_CLIENT__ID:
 				return getId();
 			case ApplicationclientPackage.APPLICATION_CLIENT__METADATA_COMPLETE:
-				return isMetadataComplete() ? Boolean.TRUE : Boolean.FALSE;
+				return isMetadataComplete();
 			case ApplicationclientPackage.APPLICATION_CLIENT__VERSION:
 				return getVersion();
 		}
@@ -700,69 +772,77 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case ApplicationclientPackage.APPLICATION_CLIENT__MODULE_NAME:
+				setModuleName((String)newValue);
+				return;
 			case ApplicationclientPackage.APPLICATION_CLIENT__DESCRIPTIONS:
 				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
+				getDescriptions().addAll((Collection<? extends Description>)newValue);
 				return;
 			case ApplicationclientPackage.APPLICATION_CLIENT__DISPLAY_NAMES:
 				getDisplayNames().clear();
-				getDisplayNames().addAll((Collection)newValue);
+				getDisplayNames().addAll((Collection<? extends DisplayName>)newValue);
 				return;
 			case ApplicationclientPackage.APPLICATION_CLIENT__ICONS:
 				getIcons().clear();
-				getIcons().addAll((Collection)newValue);
+				getIcons().addAll((Collection<? extends Icon>)newValue);
 				return;
 			case ApplicationclientPackage.APPLICATION_CLIENT__ENV_ENTRIES:
 				getEnvEntries().clear();
-				getEnvEntries().addAll((Collection)newValue);
+				getEnvEntries().addAll((Collection<? extends EnvEntry>)newValue);
 				return;
 			case ApplicationclientPackage.APPLICATION_CLIENT__EJB_REFS:
 				getEjbRefs().clear();
-				getEjbRefs().addAll((Collection)newValue);
+				getEjbRefs().addAll((Collection<? extends EjbRef>)newValue);
 				return;
 			case ApplicationclientPackage.APPLICATION_CLIENT__SERVICE_REFS:
 				getServiceRefs().clear();
-				getServiceRefs().addAll((Collection)newValue);
+				getServiceRefs().addAll((Collection<? extends ServiceRef>)newValue);
 				return;
 			case ApplicationclientPackage.APPLICATION_CLIENT__RESOURCE_REFS:
 				getResourceRefs().clear();
-				getResourceRefs().addAll((Collection)newValue);
+				getResourceRefs().addAll((Collection<? extends ResourceRef>)newValue);
 				return;
 			case ApplicationclientPackage.APPLICATION_CLIENT__RESOURCE_ENV_REFS:
 				getResourceEnvRefs().clear();
-				getResourceEnvRefs().addAll((Collection)newValue);
+				getResourceEnvRefs().addAll((Collection<? extends ResourceEnvRef>)newValue);
 				return;
 			case ApplicationclientPackage.APPLICATION_CLIENT__MESSAGE_DESTINATION_REFS:
 				getMessageDestinationRefs().clear();
-				getMessageDestinationRefs().addAll((Collection)newValue);
+				getMessageDestinationRefs().addAll((Collection<? extends MessageDestinationRef>)newValue);
 				return;
 			case ApplicationclientPackage.APPLICATION_CLIENT__PERSISTENCE_UNIT_REFS:
 				getPersistenceUnitRefs().clear();
-				getPersistenceUnitRefs().addAll((Collection)newValue);
+				getPersistenceUnitRefs().addAll((Collection<? extends PersistenceUnitRef>)newValue);
 				return;
 			case ApplicationclientPackage.APPLICATION_CLIENT__POST_CONSTRUCTS:
 				getPostConstructs().clear();
-				getPostConstructs().addAll((Collection)newValue);
+				getPostConstructs().addAll((Collection<? extends LifecycleCallback>)newValue);
 				return;
 			case ApplicationclientPackage.APPLICATION_CLIENT__PRE_DESTROYS:
 				getPreDestroys().clear();
-				getPreDestroys().addAll((Collection)newValue);
+				getPreDestroys().addAll((Collection<? extends LifecycleCallback>)newValue);
 				return;
 			case ApplicationclientPackage.APPLICATION_CLIENT__CALLBACK_HANDLER:
 				setCallbackHandler((String)newValue);
 				return;
 			case ApplicationclientPackage.APPLICATION_CLIENT__MESSAGE_DESTINATIONS:
 				getMessageDestinations().clear();
-				getMessageDestinations().addAll((Collection)newValue);
+				getMessageDestinations().addAll((Collection<? extends MessageDestination>)newValue);
+				return;
+			case ApplicationclientPackage.APPLICATION_CLIENT__DATA_SOURCE:
+				getDataSource().clear();
+				getDataSource().addAll((Collection<? extends DataSourceType>)newValue);
 				return;
 			case ApplicationclientPackage.APPLICATION_CLIENT__ID:
 				setId((String)newValue);
 				return;
 			case ApplicationclientPackage.APPLICATION_CLIENT__METADATA_COMPLETE:
-				setMetadataComplete(((Boolean)newValue).booleanValue());
+				setMetadataComplete((Boolean)newValue);
 				return;
 			case ApplicationclientPackage.APPLICATION_CLIENT__VERSION:
 				setVersion((String)newValue);
@@ -779,6 +859,9 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case ApplicationclientPackage.APPLICATION_CLIENT__MODULE_NAME:
+				setModuleName(MODULE_NAME_EDEFAULT);
+				return;
 			case ApplicationclientPackage.APPLICATION_CLIENT__DESCRIPTIONS:
 				getDescriptions().clear();
 				return;
@@ -821,6 +904,9 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 			case ApplicationclientPackage.APPLICATION_CLIENT__MESSAGE_DESTINATIONS:
 				getMessageDestinations().clear();
 				return;
+			case ApplicationclientPackage.APPLICATION_CLIENT__DATA_SOURCE:
+				getDataSource().clear();
+				return;
 			case ApplicationclientPackage.APPLICATION_CLIENT__ID:
 				setId(ID_EDEFAULT);
 				return;
@@ -842,6 +928,8 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case ApplicationclientPackage.APPLICATION_CLIENT__MODULE_NAME:
+				return MODULE_NAME_EDEFAULT == null ? moduleName != null : !MODULE_NAME_EDEFAULT.equals(moduleName);
 			case ApplicationclientPackage.APPLICATION_CLIENT__DESCRIPTIONS:
 				return descriptions != null && !descriptions.isEmpty();
 			case ApplicationclientPackage.APPLICATION_CLIENT__DISPLAY_NAMES:
@@ -870,6 +958,8 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 				return CALLBACK_HANDLER_EDEFAULT == null ? callbackHandler != null : !CALLBACK_HANDLER_EDEFAULT.equals(callbackHandler);
 			case ApplicationclientPackage.APPLICATION_CLIENT__MESSAGE_DESTINATIONS:
 				return messageDestinations != null && !messageDestinations.isEmpty();
+			case ApplicationclientPackage.APPLICATION_CLIENT__DATA_SOURCE:
+				return dataSource != null && !dataSource.isEmpty();
 			case ApplicationclientPackage.APPLICATION_CLIENT__ID:
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 			case ApplicationclientPackage.APPLICATION_CLIENT__METADATA_COMPLETE:
@@ -890,7 +980,9 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (callbackHandler: "); //$NON-NLS-1$
+		result.append(" (moduleName: "); //$NON-NLS-1$
+		result.append(moduleName);
+		result.append(", callbackHandler: "); //$NON-NLS-1$
 		result.append(callbackHandler);
 		result.append(", id: "); //$NON-NLS-1$
 		result.append(id);

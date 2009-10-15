@@ -12,6 +12,7 @@ package org.eclipse.jst.javaee.ejb;
 
 import java.util.List;
 
+import org.eclipse.jst.javaee.core.Description;
 import org.eclipse.jst.javaee.core.JavaEEObject;
 
 /**
@@ -22,10 +23,11 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The cmp-fieldType describes a container-managed field. The
- * 	cmp-fieldType contains an optional description of the field,
- * 	and the name of the field.
- * 
+ *         The cmp-fieldType describes a container-managed field. The
+ *         cmp-fieldType contains an optional description of the field,
+ *         and the name of the field.
+ *         
+ *         @since Java EE 5, EJB 3.0
  *       
  * <!-- end-model-doc -->
  *
@@ -56,7 +58,7 @@ public interface CMPField extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getCMPField_Descriptions()
 	 * @generated
 	 */
-	List getDescriptions();
+	List<Description> getDescriptions();
 
 	/**
 	 * Returns the value of the '<em><b>Field Name</b></em>' attribute.
@@ -65,21 +67,22 @@ public interface CMPField extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	    The field-name element specifies the name of a
-	 * 	    container managed field.
-	 * 
-	 * 	    The name of the cmp-field of an entity bean with
-	 * 	    cmp-version 2.x must begin with a lowercase
-	 * 	    letter. This field is accessed by methods whose
-	 * 	    names consists of the name of the field specified by
-	 * 	    field-name in which the first letter is uppercased,
-	 * 	    prefixed by "get" or "set".
-	 * 
-	 * 	    The name of the cmp-field of an entity bean with
-	 * 	    cmp-version 1.x must denote a public field of the
-	 * 	    enterprise bean class or one of its superclasses.
-	 * 
-	 * 	  
+	 *             The field-name element specifies the name of a
+	 *             container managed field.
+	 *             
+	 *             The name of the cmp-field of an entity bean with
+	 *             cmp-version 2.x must begin with a lowercase
+	 *             letter. This field is accessed by methods whose
+	 *             names consists of the name of the field specified by
+	 *             field-name in which the first letter is uppercased,
+	 *             prefixed by "get" or "set".
+	 *             
+	 *             The name of the cmp-field of an entity bean with
+	 *             cmp-version 1.x must denote a public field of the
+	 *             enterprise bean class or one of its superclasses.
+	 *             
+	 *             @since Java EE 5, EJB 3.0
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Field Name</em>' attribute.
 	 * @see #setFieldName(String)

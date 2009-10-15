@@ -12,6 +12,7 @@ package org.eclipse.jst.javaee.ejb;
 
 import java.util.List;
 
+import org.eclipse.jst.javaee.core.Description;
 import org.eclipse.jst.javaee.core.EmptyType;
 import org.eclipse.jst.javaee.core.JavaEEObject;
 
@@ -23,19 +24,20 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The method-permissionType specifies that one or more
- * 	security roles are allowed to invoke one or more enterprise
- * 	bean methods. The method-permissionType consists of an
- * 	optional description, a list of security role names or an
- * 	indicator to state that the method is unchecked for
- * 	authorization, and a list of method elements.
- * 
- * 	The security roles used in the method-permissionType
- * 	must be defined in the security-role elements of the
- * 	deployment descriptor, and the methods must be methods
- * 	defined in the enterprise bean's business, home, component
+ *         The method-permissionType specifies that one or more
+ *         security roles are allowed to invoke one or more enterprise
+ *         bean methods. The method-permissionType consists of an
+ *         optional description, a list of security role names or an
+ *         indicator to state that the method is unchecked for
+ *         authorization, and a list of method elements.
+ *         
+ *         The security roles used in the method-permissionType
+ *         must be defined in the security-role elements of the
+ *         deployment descriptor, and the methods must be methods
+ *         defined in the enterprise bean's business, home, component 
  *         and/or web service endpoint interfaces.
- * 
+ *         
+ *         @since Java EE 5, EJB 3.0
  *       
  * <!-- end-model-doc -->
  *
@@ -68,7 +70,7 @@ public interface MethodPermission extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getMethodPermission_Descriptions()
 	 * @generated
 	 */
-	List getDescriptions();
+	List<Description> getDescriptions();
 
 	/**
 	 * Returns the value of the '<em><b>Role Names</b></em>' attribute list.
@@ -83,7 +85,7 @@ public interface MethodPermission extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getMethodPermission_RoleNames()
 	 * @generated
 	 */
-	List getRoleNames();
+	List<String> getRoleNames();
 
 	/**
 	 * Returns the value of the '<em><b>Unchecked</b></em>' containment reference.
@@ -92,11 +94,12 @@ public interface MethodPermission extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	      The unchecked element specifies that a method is
-	 * 	      not checked for authorization by the container
-	 * 	      prior to invocation of the method.
-	 * 
-	 * 	    
+	 *               The unchecked element specifies that a method is
+	 *               not checked for authorization by the container
+	 *               prior to invocation of the method.
+	 *               
+	 *               @since Java EE 5, EJB 3.0
+	 *             
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Unchecked</em>' containment reference.
 	 * @see #setUnchecked(EmptyType)
@@ -128,7 +131,7 @@ public interface MethodPermission extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getMethodPermission_Methods()
 	 * @generated
 	 */
-	List getMethods();
+	List<MethodType> getMethods();
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.

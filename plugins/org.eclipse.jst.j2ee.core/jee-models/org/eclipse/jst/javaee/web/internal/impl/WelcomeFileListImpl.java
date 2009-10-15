@@ -51,7 +51,7 @@ public class WelcomeFileListImpl extends EObjectImpl implements WelcomeFileList 
 	 * @generated
 	 * @ordered
 	 */
-	protected EList welcomeFiles = null;
+	protected EList<String> welcomeFiles;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -97,9 +97,9 @@ public class WelcomeFileListImpl extends EObjectImpl implements WelcomeFileList 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getWelcomeFiles() {
+	public List<String> getWelcomeFiles() {
 		if (welcomeFiles == null) {
-			welcomeFiles = new EDataTypeEList(String.class, this, WebPackage.WELCOME_FILE_LIST__WELCOME_FILES);
+			welcomeFiles = new EDataTypeEList<String>(String.class, this, WebPackage.WELCOME_FILE_LIST__WELCOME_FILES);
 		}
 		return welcomeFiles;
 	}
@@ -146,12 +146,13 @@ public class WelcomeFileListImpl extends EObjectImpl implements WelcomeFileList 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case WebPackage.WELCOME_FILE_LIST__WELCOME_FILES:
 				getWelcomeFiles().clear();
-				getWelcomeFiles().addAll((Collection)newValue);
+				getWelcomeFiles().addAll((Collection<? extends String>)newValue);
 				return;
 			case WebPackage.WELCOME_FILE_LIST__ID:
 				setId((String)newValue);

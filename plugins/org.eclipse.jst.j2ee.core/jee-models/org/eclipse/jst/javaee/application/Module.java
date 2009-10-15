@@ -20,12 +20,13 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The moduleType defines a single Java EE module and contains a
- * 	connector, ejb, java, or web element, which indicates the
- * 	module type and contains a path to the module file, and an
- * 	optional alt-dd element, which specifies an optional URI to
- * 	the post-assembly version of the deployment descriptor.
- * 
+ *         The moduleType defines a single Java EE module and contains a
+ *         connector, ejb, java, or web element, which indicates the
+ *         module type and contains a path to the module file, and an
+ *         optional alt-dd element, which specifies an optional URI to
+ *         the post-assembly version of the deployment descriptor.
+ *         
+ *         @since Java EE 5, Application 5
  *       
  * <!-- end-model-doc -->
  *
@@ -53,11 +54,12 @@ public interface Module extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	      The connector element specifies the URI of a
-	 * 	      resource adapter archive file, relative to the
-	 * 	      top level of the application package.
-	 * 
-	 * 	    
+	 *               The connector element specifies the URI of a
+	 *               resource adapter archive file, relative to the
+	 *               top level of the application package.
+	 *               
+	 *               @since Java EE 5, Application 5
+	 *             
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Connector</em>' attribute.
 	 * @see #setConnector(String)
@@ -83,11 +85,12 @@ public interface Module extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	      The ejb element specifies the URI of an ejb-jar,
-	 * 	      relative to the top level of the application
-	 * 	      package.
-	 * 
-	 * 	    
+	 *               The ejb element specifies the URI of an ejb-jar,
+	 *               relative to the top level of the application
+	 *               package.
+	 *               
+	 *               @since Java EE 5, Application 5
+	 *             
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Ejb</em>' attribute.
 	 * @see #setEjb(String)
@@ -113,11 +116,12 @@ public interface Module extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	      The java element specifies the URI of a java
-	 * 	      application client module, relative to the top
-	 * 	      level of the application package.
-	 * 
-	 * 	    
+	 *               The java element specifies the URI of a java
+	 *               application client module, relative to the top
+	 *               level of the application package.
+	 *               
+	 *               @since Java EE 5, Application 5
+	 *             
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Java</em>' attribute.
 	 * @see #setJava(String)
@@ -168,17 +172,18 @@ public interface Module extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	    The alt-dd element specifies an optional URI to the
-	 * 	    post-assembly version of the deployment descriptor
-	 * 	    file for a particular Java EE module.  The URI must
-	 * 	    specify the full pathname of the deployment
-	 * 	    descriptor file relative to the application's root
-	 * 	    directory. If alt-dd is not specified, the deployer
-	 * 	    must read the deployment descriptor from the default
-	 * 	    location and file name required by the respective
-	 * 	    component specification.
-	 * 
-	 * 	  
+	 *             The alt-dd element specifies an optional URI to the
+	 *             post-assembly version of the deployment descriptor
+	 *             file for a particular Java EE module.  The URI must
+	 *             specify the full pathname of the deployment
+	 *             descriptor file relative to the application's root
+	 *             directory. If alt-dd is not specified, the deployer
+	 *             must read the deployment descriptor from the default
+	 *             location and file name required by the respective
+	 *             component specification.
+	 *             
+	 *             @since Java EE 5, Application 5
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Alt Dd</em>' attribute.
 	 * @see #setAltDd(String)

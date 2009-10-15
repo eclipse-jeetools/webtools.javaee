@@ -25,16 +25,23 @@ import org.eclipse.jst.javaee.applicationclient.internal.impl.ApplicationclientP
 import org.eclipse.jst.javaee.applicationclient.internal.metadata.ApplicationclientPackage;
 import org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl;
 import org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage;
+import org.eclipse.jst.javaee.ejb.AccessTimeoutType;
 import org.eclipse.jst.javaee.ejb.ActivationConfig;
 import org.eclipse.jst.javaee.ejb.ActivationConfigProperty;
 import org.eclipse.jst.javaee.ejb.ApplicationException;
 import org.eclipse.jst.javaee.ejb.AroundInvokeType;
+import org.eclipse.jst.javaee.ejb.AroundTimeoutType;
 import org.eclipse.jst.javaee.ejb.AssemblyDescriptor;
+import org.eclipse.jst.javaee.ejb.AsyncMethodType;
 import org.eclipse.jst.javaee.ejb.CMPField;
 import org.eclipse.jst.javaee.ejb.CMRField;
 import org.eclipse.jst.javaee.ejb.CMRFieldType;
 import org.eclipse.jst.javaee.ejb.CmpVersionType;
+import org.eclipse.jst.javaee.ejb.ConcurrencyManagementTypeType;
+import org.eclipse.jst.javaee.ejb.ConcurrentLockTypeType;
+import org.eclipse.jst.javaee.ejb.ConcurrentMethodType;
 import org.eclipse.jst.javaee.ejb.ContainerTransactionType;
+import org.eclipse.jst.javaee.ejb.DependsOnType;
 import org.eclipse.jst.javaee.ejb.EJBJar;
 import org.eclipse.jst.javaee.ejb.EJBJarDeploymentDescriptor;
 import org.eclipse.jst.javaee.ejb.EJBRelation;
@@ -65,13 +72,23 @@ import org.eclipse.jst.javaee.ejb.ResultTypeMappingType;
 import org.eclipse.jst.javaee.ejb.SecurityIdentityType;
 import org.eclipse.jst.javaee.ejb.SessionBean;
 import org.eclipse.jst.javaee.ejb.SessionType;
+import org.eclipse.jst.javaee.ejb.StatefulTimeoutType;
+import org.eclipse.jst.javaee.ejb.TimeUnitTypeType;
+import org.eclipse.jst.javaee.ejb.TimerScheduleType;
+import org.eclipse.jst.javaee.ejb.TimerType;
 import org.eclipse.jst.javaee.ejb.TransactionAttributeType;
 import org.eclipse.jst.javaee.ejb.TransactionType;
 import org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage;
+import org.eclipse.jst.javaee.jca.internal.impl.JcaPackageImpl;
+import org.eclipse.jst.javaee.jca.internal.metadata.JcaPackage;
 import org.eclipse.jst.javaee.jsp.internal.impl.JspPackageImpl;
 import org.eclipse.jst.javaee.jsp.internal.metadata.JspPackage;
 import org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl;
 import org.eclipse.jst.javaee.web.internal.metadata.WebPackage;
+import org.eclipse.jst.javaee.webapp.internal.impl.WebappPackageImpl;
+import org.eclipse.jst.javaee.webapp.internal.metadata.WebappPackage;
+import org.eclipse.jst.javaee.webfragment.internal.impl.WebfragmentPackageImpl;
+import org.eclipse.jst.javaee.webfragment.internal.metadata.WebfragmentPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -80,6 +97,13 @@ import org.eclipse.jst.javaee.web.internal.metadata.WebPackage;
  * @generated
  */
 public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass accessTimeoutTypeEClass = null;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -113,7 +137,21 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass aroundTimeoutTypeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass assemblyDescriptorEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass asyncMethodTypeEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -134,7 +172,21 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass concurrentMethodTypeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass containerTransactionTypeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass dependsOnTypeEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -309,6 +361,27 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass statefulTimeoutTypeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass timerScheduleTypeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass timerTypeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum cmpVersionTypeEEnum = null;
 
 	/**
@@ -317,6 +390,20 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * @generated
 	 */
 	private EEnum cmrFieldTypeEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum concurrencyManagementTypeTypeEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum concurrentLockTypeTypeEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -358,6 +445,13 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EEnum timeUnitTypeTypeEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum transactionAttributeTypeEEnum = null;
 
 	/**
@@ -380,6 +474,20 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * @generated
 	 */
 	private EDataType cmrFieldTypeObjectEDataType = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType concurrencyManagementTypeTypeObjectEDataType = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType concurrentLockTypeTypeObjectEDataType = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -442,6 +550,13 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EDataType timeUnitTypeTypeObjectEDataType = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EDataType transactionAttributeTypeObjectEDataType = null;
 
 	/**
@@ -478,20 +593,10 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	private static boolean isInited = false;
 
 	/**
-	 * Creates, registers, and initializes the <b>Package</b> for this
-	 * model, and for any others upon which it depends.  Simple
-	 * dependencies are satisfied by calling this method on all
-	 * dependent packages before doing anything else.  This method drives
-	 * initialization for interdependent packages directly, in parallel
-	 * with this package, itself.
-	 * <p>Of this package and its interdependencies, all packages which
-	 * have not yet been registered by their URI values are first created
-	 * and registered.  The packages are then initialized in two steps:
-	 * meta-model objects for all of the packages are created before any
-	 * are initialized, since one package's meta-model objects may refer to
-	 * those of another.
-	 * <p>Invocation of this method will not affect any packages that have
-	 * already been initialized.
+	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
+	 * 
+	 * <p>This method is used to initialize {@link EjbPackage#eINSTANCE} when that field is accessed.
+	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #eNS_URI
@@ -503,7 +608,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		if (isInited) return (EjbPackage)EPackage.Registry.INSTANCE.getEPackage(EjbPackage.eNS_URI);
 
 		// Obtain or create and register package
-		EjbPackageImpl theEjbPackage = (EjbPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(eNS_URI) instanceof EjbPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(eNS_URI) : new EjbPackageImpl());
+		EjbPackageImpl theEjbPackage = (EjbPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof EjbPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new EjbPackageImpl());
 
 		isInited = true;
 
@@ -512,32 +617,80 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		XMLTypePackage.eINSTANCE.eClass();
 
 		// Obtain or create and register interdependencies
-		WebPackageImpl theWebPackage = (WebPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WebPackage.eNS_URI) instanceof WebPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WebPackage.eNS_URI) : WebPackage.eINSTANCE);
 		ApplicationPackageImpl theApplicationPackage = (ApplicationPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI) instanceof ApplicationPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI) : ApplicationPackage.eINSTANCE);
 		JavaeePackageImpl theJavaeePackage = (JavaeePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(JavaeePackage.eNS_URI) instanceof JavaeePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(JavaeePackage.eNS_URI) : JavaeePackage.eINSTANCE);
 		ApplicationclientPackageImpl theApplicationclientPackage = (ApplicationclientPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ApplicationclientPackage.eNS_URI) instanceof ApplicationclientPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ApplicationclientPackage.eNS_URI) : ApplicationclientPackage.eINSTANCE);
+		JcaPackageImpl theJcaPackage = (JcaPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(JcaPackage.eNS_URI) instanceof JcaPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(JcaPackage.eNS_URI) : JcaPackage.eINSTANCE);
 		JspPackageImpl theJspPackage = (JspPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(JspPackage.eNS_URI) instanceof JspPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(JspPackage.eNS_URI) : JspPackage.eINSTANCE);
+		WebPackageImpl theWebPackage = (WebPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WebPackage.eNS_URI) instanceof WebPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WebPackage.eNS_URI) : WebPackage.eINSTANCE);
+		WebappPackageImpl theWebappPackage = (WebappPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WebappPackage.eNS_URI) instanceof WebappPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WebappPackage.eNS_URI) : WebappPackage.eINSTANCE);
+		WebfragmentPackageImpl theWebfragmentPackage = (WebfragmentPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WebfragmentPackage.eNS_URI) instanceof WebfragmentPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WebfragmentPackage.eNS_URI) : WebfragmentPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theEjbPackage.createPackageContents();
-		theWebPackage.createPackageContents();
 		theApplicationPackage.createPackageContents();
 		theJavaeePackage.createPackageContents();
 		theApplicationclientPackage.createPackageContents();
+		theJcaPackage.createPackageContents();
 		theJspPackage.createPackageContents();
+		theWebPackage.createPackageContents();
+		theWebappPackage.createPackageContents();
+		theWebfragmentPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theEjbPackage.initializePackageContents();
-		theWebPackage.initializePackageContents();
 		theApplicationPackage.initializePackageContents();
 		theJavaeePackage.initializePackageContents();
 		theApplicationclientPackage.initializePackageContents();
+		theJcaPackage.initializePackageContents();
 		theJspPackage.initializePackageContents();
+		theWebPackage.initializePackageContents();
+		theWebappPackage.initializePackageContents();
+		theWebfragmentPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theEjbPackage.freeze();
 
+  
+		// Update the registry and return the package
+		EPackage.Registry.INSTANCE.put(EjbPackage.eNS_URI, theEjbPackage);
 		return theEjbPackage;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAccessTimeoutType() {
+		return accessTimeoutTypeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAccessTimeoutType_Timeout() {
+		return (EAttribute)accessTimeoutTypeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAccessTimeoutType_Unit() {
+		return (EAttribute)accessTimeoutTypeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAccessTimeoutType_Id() {
+		return (EAttribute)accessTimeoutTypeEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -644,8 +797,17 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getApplicationException_Id() {
+	public EAttribute getApplicationException_Inherited() {
 		return (EAttribute)applicationExceptionEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getApplicationException_Id() {
+		return (EAttribute)applicationExceptionEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -673,6 +835,33 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 */
 	public EAttribute getAroundInvokeType_MethodName() {
 		return (EAttribute)aroundInvokeTypeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAroundTimeoutType() {
+		return aroundTimeoutTypeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAroundTimeoutType_Class() {
+		return (EAttribute)aroundTimeoutTypeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAroundTimeoutType_MethodName() {
+		return (EAttribute)aroundTimeoutTypeEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -761,6 +950,51 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getAsyncMethodType() {
+		return asyncMethodTypeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAsyncMethodType_MethodName() {
+		return (EAttribute)asyncMethodTypeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAsyncMethodType_MethodParams() {
+		return (EReference)asyncMethodTypeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAsyncMethodType_MethodIntf() {
+		return (EAttribute)asyncMethodTypeEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAsyncMethodType_Id() {
+		return (EAttribute)asyncMethodTypeEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getCMPField() {
 		return cmpFieldEClass;
 	}
@@ -842,6 +1076,51 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getConcurrentMethodType() {
+		return concurrentMethodTypeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getConcurrentMethodType_Method() {
+		return (EReference)concurrentMethodTypeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getConcurrentMethodType_Lock() {
+		return (EAttribute)concurrentMethodTypeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getConcurrentMethodType_AccessTimeout() {
+		return (EReference)concurrentMethodTypeEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getConcurrentMethodType_Id() {
+		return (EAttribute)concurrentMethodTypeEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getContainerTransactionType() {
 		return containerTransactionTypeEClass;
 	}
@@ -887,6 +1166,33 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getDependsOnType() {
+		return dependsOnTypeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getDependsOnType_EjbName() {
+		return (EAttribute)dependsOnTypeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getDependsOnType_Id() {
+		return (EAttribute)dependsOnTypeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getEJBJar() {
 		return ejbJarEClass;
 	}
@@ -923,8 +1229,8 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getEJBJar_EnterpriseBeans() {
-		return (EReference)ejbJarEClass.getEStructuralFeatures().get(3);
+	public EAttribute getEJBJar_ModuleName() {
+		return (EAttribute)ejbJarEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -932,7 +1238,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getEJBJar_Interceptors() {
+	public EReference getEJBJar_EnterpriseBeans() {
 		return (EReference)ejbJarEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -941,7 +1247,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getEJBJar_Relationships() {
+	public EReference getEJBJar_Interceptors() {
 		return (EReference)ejbJarEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -950,7 +1256,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getEJBJar_AssemblyDescriptor() {
+	public EReference getEJBJar_Relationships() {
 		return (EReference)ejbJarEClass.getEStructuralFeatures().get(6);
 	}
 
@@ -959,8 +1265,8 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEJBJar_EjbClientJar() {
-		return (EAttribute)ejbJarEClass.getEStructuralFeatures().get(7);
+	public EReference getEJBJar_AssemblyDescriptor() {
+		return (EReference)ejbJarEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -968,7 +1274,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEJBJar_Id() {
+	public EAttribute getEJBJar_EjbClientJar() {
 		return (EAttribute)ejbJarEClass.getEStructuralFeatures().get(8);
 	}
 
@@ -977,7 +1283,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEJBJar_MetadataComplete() {
+	public EAttribute getEJBJar_Id() {
 		return (EAttribute)ejbJarEClass.getEStructuralFeatures().get(9);
 	}
 
@@ -986,8 +1292,17 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEJBJar_Version() {
+	public EAttribute getEJBJar_MetadataComplete() {
 		return (EAttribute)ejbJarEClass.getEStructuralFeatures().get(10);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getEJBJar_Version() {
+		return (EAttribute)ejbJarEClass.getEStructuralFeatures().get(11);
 	}
 
 	/**
@@ -1472,7 +1787,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getEntityBean_SecurityRoleRefs() {
+	public EReference getEntityBean_DataSource() {
 		return (EReference)entityBeanEClass.getEStructuralFeatures().get(28);
 	}
 
@@ -1481,7 +1796,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getEntityBean_SecurityIdentity() {
+	public EReference getEntityBean_SecurityRoleRefs() {
 		return (EReference)entityBeanEClass.getEStructuralFeatures().get(29);
 	}
 
@@ -1490,7 +1805,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getEntityBean_Queries() {
+	public EReference getEntityBean_SecurityIdentity() {
 		return (EReference)entityBeanEClass.getEStructuralFeatures().get(30);
 	}
 
@@ -1499,8 +1814,17 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getEntityBean_Queries() {
+		return (EReference)entityBeanEClass.getEStructuralFeatures().get(31);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EAttribute getEntityBean_Id() {
-		return (EAttribute)entityBeanEClass.getEStructuralFeatures().get(31);
+		return (EAttribute)entityBeanEClass.getEStructuralFeatures().get(32);
 	}
 
 	/**
@@ -1760,7 +2084,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInterceptorType_EnvEntries() {
+	public EReference getInterceptorType_AroundTimeouts() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -1769,7 +2093,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInterceptorType_EjbRefs() {
+	public EReference getInterceptorType_EnvEntries() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -1778,7 +2102,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInterceptorType_EjbLocalRefs() {
+	public EReference getInterceptorType_EjbRefs() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -1787,7 +2111,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInterceptorType_ServiceRefs() {
+	public EReference getInterceptorType_EjbLocalRefs() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(6);
 	}
 
@@ -1796,7 +2120,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInterceptorType_ResourceRefs() {
+	public EReference getInterceptorType_ServiceRefs() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(7);
 	}
 
@@ -1805,7 +2129,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInterceptorType_ResourceEnvRefs() {
+	public EReference getInterceptorType_ResourceRefs() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(8);
 	}
 
@@ -1814,7 +2138,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInterceptorType_MessageDestinationRefs() {
+	public EReference getInterceptorType_ResourceEnvRefs() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(9);
 	}
 
@@ -1823,7 +2147,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInterceptorType_PersistenceContextRefs() {
+	public EReference getInterceptorType_MessageDestinationRefs() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(10);
 	}
 
@@ -1832,7 +2156,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInterceptorType_PersistenceUnitRefs() {
+	public EReference getInterceptorType_PersistenceContextRefs() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(11);
 	}
 
@@ -1841,7 +2165,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInterceptorType_PostConstructs() {
+	public EReference getInterceptorType_PersistenceUnitRefs() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(12);
 	}
 
@@ -1850,7 +2174,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInterceptorType_PreDestroys() {
+	public EReference getInterceptorType_PostConstructs() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(13);
 	}
 
@@ -1859,7 +2183,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInterceptorType_PostActivates() {
+	public EReference getInterceptorType_PreDestroys() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(14);
 	}
 
@@ -1868,7 +2192,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInterceptorType_PrePassivates() {
+	public EReference getInterceptorType_DataSource() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(15);
 	}
 
@@ -1877,8 +2201,26 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getInterceptorType_PostActivates() {
+		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(16);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getInterceptorType_PrePassivates() {
+		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(17);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EAttribute getInterceptorType_Id() {
-		return (EAttribute)interceptorTypeEClass.getEStructuralFeatures().get(16);
+		return (EAttribute)interceptorTypeEClass.getEStructuralFeatures().get(18);
 	}
 
 	/**
@@ -1967,8 +2309,8 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getMessageDrivenBean_TransactionType() {
-		return (EAttribute)messageDrivenBeanEClass.getEStructuralFeatures().get(8);
+	public EReference getMessageDrivenBean_Timer() {
+		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -1976,7 +2318,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getMessageDrivenBean_MessageDestinationType() {
+	public EAttribute getMessageDrivenBean_TransactionType() {
 		return (EAttribute)messageDrivenBeanEClass.getEStructuralFeatures().get(9);
 	}
 
@@ -1985,7 +2327,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getMessageDrivenBean_MessageDestinationLink() {
+	public EAttribute getMessageDrivenBean_MessageDestinationType() {
 		return (EAttribute)messageDrivenBeanEClass.getEStructuralFeatures().get(10);
 	}
 
@@ -1994,8 +2336,8 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMessageDrivenBean_ActivationConfig() {
-		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(11);
+	public EAttribute getMessageDrivenBean_MessageDestinationLink() {
+		return (EAttribute)messageDrivenBeanEClass.getEStructuralFeatures().get(11);
 	}
 
 	/**
@@ -2003,7 +2345,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMessageDrivenBean_AroundInvokes() {
+	public EReference getMessageDrivenBean_ActivationConfig() {
 		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(12);
 	}
 
@@ -2012,7 +2354,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMessageDrivenBean_EnvEntries() {
+	public EReference getMessageDrivenBean_AroundInvokes() {
 		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(13);
 	}
 
@@ -2021,7 +2363,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMessageDrivenBean_EjbRefs() {
+	public EReference getMessageDrivenBean_AroundTimeouts() {
 		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(14);
 	}
 
@@ -2030,7 +2372,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMessageDrivenBean_EjbLocalRefs() {
+	public EReference getMessageDrivenBean_EnvEntries() {
 		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(15);
 	}
 
@@ -2039,7 +2381,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMessageDrivenBean_ServiceRefs() {
+	public EReference getMessageDrivenBean_EjbRefs() {
 		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(16);
 	}
 
@@ -2048,7 +2390,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMessageDrivenBean_ResourceRefs() {
+	public EReference getMessageDrivenBean_EjbLocalRefs() {
 		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(17);
 	}
 
@@ -2057,7 +2399,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMessageDrivenBean_ResourceEnvRefs() {
+	public EReference getMessageDrivenBean_ServiceRefs() {
 		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(18);
 	}
 
@@ -2066,7 +2408,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMessageDrivenBean_MessageDestinationRefs() {
+	public EReference getMessageDrivenBean_ResourceRefs() {
 		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(19);
 	}
 
@@ -2075,7 +2417,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMessageDrivenBean_PersistenceContextRefs() {
+	public EReference getMessageDrivenBean_ResourceEnvRefs() {
 		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(20);
 	}
 
@@ -2084,7 +2426,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMessageDrivenBean_PersistenceUnitRefs() {
+	public EReference getMessageDrivenBean_MessageDestinationRefs() {
 		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(21);
 	}
 
@@ -2093,7 +2435,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMessageDrivenBean_PostConstructs() {
+	public EReference getMessageDrivenBean_PersistenceContextRefs() {
 		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(22);
 	}
 
@@ -2102,7 +2444,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMessageDrivenBean_PreDestroys() {
+	public EReference getMessageDrivenBean_PersistenceUnitRefs() {
 		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(23);
 	}
 
@@ -2111,7 +2453,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMessageDrivenBean_SecurityIdentity() {
+	public EReference getMessageDrivenBean_PostConstructs() {
 		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(24);
 	}
 
@@ -2120,8 +2462,44 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getMessageDrivenBean_PreDestroys() {
+		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(25);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getMessageDrivenBean_DataSource() {
+		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(26);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getMessageDrivenBean_SecurityRoleRef() {
+		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(27);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getMessageDrivenBean_SecurityIdentity() {
+		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(28);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EAttribute getMessageDrivenBean_Id() {
-		return (EAttribute)messageDrivenBeanEClass.getEStructuralFeatures().get(25);
+		return (EAttribute)messageDrivenBeanEClass.getEStructuralFeatures().get(29);
 	}
 
 	/**
@@ -2660,8 +3038,8 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSessionBean_ServiceEndpoint() {
-		return (EAttribute)sessionBeanEClass.getEStructuralFeatures().get(11);
+	public EReference getSessionBean_LocalBean() {
+		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(11);
 	}
 
 	/**
@@ -2669,7 +3047,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSessionBean_EjbClass() {
+	public EAttribute getSessionBean_ServiceEndpoint() {
 		return (EAttribute)sessionBeanEClass.getEStructuralFeatures().get(12);
 	}
 
@@ -2678,7 +3056,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSessionBean_SessionType() {
+	public EAttribute getSessionBean_EjbClass() {
 		return (EAttribute)sessionBeanEClass.getEStructuralFeatures().get(13);
 	}
 
@@ -2687,8 +3065,8 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSessionBean_TimeoutMethod() {
-		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(14);
+	public EAttribute getSessionBean_SessionType() {
+		return (EAttribute)sessionBeanEClass.getEStructuralFeatures().get(14);
 	}
 
 	/**
@@ -2696,7 +3074,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSessionBean_InitMethods() {
+	public EReference getSessionBean_StatefulTimeout() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(15);
 	}
 
@@ -2705,7 +3083,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSessionBean_RemoveMethods() {
+	public EReference getSessionBean_TimeoutMethod() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(16);
 	}
 
@@ -2714,8 +3092,8 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getSessionBean_TransactionType() {
-		return (EAttribute)sessionBeanEClass.getEStructuralFeatures().get(17);
+	public EReference getSessionBean_Timer() {
+		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(17);
 	}
 
 	/**
@@ -2723,8 +3101,8 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSessionBean_AroundInvokes() {
-		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(18);
+	public EAttribute getSessionBean_InitOnStartup() {
+		return (EAttribute)sessionBeanEClass.getEStructuralFeatures().get(18);
 	}
 
 	/**
@@ -2732,8 +3110,8 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSessionBean_EnvEntries() {
-		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(19);
+	public EAttribute getSessionBean_ConcurrencyManagementType() {
+		return (EAttribute)sessionBeanEClass.getEStructuralFeatures().get(19);
 	}
 
 	/**
@@ -2741,7 +3119,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSessionBean_EjbRefs() {
+	public EReference getSessionBean_ConcurrentMethod() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(20);
 	}
 
@@ -2750,7 +3128,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSessionBean_EjbLocalRefs() {
+	public EReference getSessionBean_DependsOn() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(21);
 	}
 
@@ -2759,7 +3137,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSessionBean_ServiceRefs() {
+	public EReference getSessionBean_InitMethods() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(22);
 	}
 
@@ -2768,7 +3146,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSessionBean_ResourceRefs() {
+	public EReference getSessionBean_RemoveMethods() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(23);
 	}
 
@@ -2777,7 +3155,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSessionBean_ResourceEnvRefs() {
+	public EReference getSessionBean_AsyncMethod() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(24);
 	}
 
@@ -2786,8 +3164,8 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSessionBean_MessageDestinationRefs() {
-		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(25);
+	public EAttribute getSessionBean_TransactionType() {
+		return (EAttribute)sessionBeanEClass.getEStructuralFeatures().get(25);
 	}
 
 	/**
@@ -2795,7 +3173,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSessionBean_PersistenceContextRefs() {
+	public EReference getSessionBean_AfterBeginMethod() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(26);
 	}
 
@@ -2804,7 +3182,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSessionBean_PersistenceUnitRefs() {
+	public EReference getSessionBean_BeforeCompletionMethod() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(27);
 	}
 
@@ -2813,7 +3191,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSessionBean_PostConstructs() {
+	public EReference getSessionBean_AfterCompletionMethod() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(28);
 	}
 
@@ -2822,7 +3200,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSessionBean_PreDestroys() {
+	public EReference getSessionBean_AroundInvokes() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(29);
 	}
 
@@ -2831,7 +3209,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSessionBean_PostActivates() {
+	public EReference getSessionBean_AroundTimeouts() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(30);
 	}
 
@@ -2840,7 +3218,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSessionBean_PrePassivates() {
+	public EReference getSessionBean_EnvEntries() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(31);
 	}
 
@@ -2849,7 +3227,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSessionBean_SecurityRoleRefs() {
+	public EReference getSessionBean_EjbRefs() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(32);
 	}
 
@@ -2858,7 +3236,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSessionBean_SecurityIdentities() {
+	public EReference getSessionBean_EjbLocalRefs() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(33);
 	}
 
@@ -2867,8 +3245,332 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getSessionBean_ServiceRefs() {
+		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(34);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSessionBean_ResourceRefs() {
+		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(35);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSessionBean_ResourceEnvRefs() {
+		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(36);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSessionBean_MessageDestinationRefs() {
+		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(37);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSessionBean_PersistenceContextRefs() {
+		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(38);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSessionBean_PersistenceUnitRefs() {
+		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(39);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSessionBean_PostConstructs() {
+		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(40);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSessionBean_PreDestroys() {
+		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(41);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSessionBean_DataSource() {
+		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(42);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSessionBean_PostActivates() {
+		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(43);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSessionBean_PrePassivates() {
+		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(44);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSessionBean_SecurityRoleRefs() {
+		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(45);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSessionBean_SecurityIdentities() {
+		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(46);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EAttribute getSessionBean_Id() {
-		return (EAttribute)sessionBeanEClass.getEStructuralFeatures().get(34);
+		return (EAttribute)sessionBeanEClass.getEStructuralFeatures().get(47);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getStatefulTimeoutType() {
+		return statefulTimeoutTypeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getStatefulTimeoutType_Timeout() {
+		return (EAttribute)statefulTimeoutTypeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getStatefulTimeoutType_Unit() {
+		return (EAttribute)statefulTimeoutTypeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getStatefulTimeoutType_Id() {
+		return (EAttribute)statefulTimeoutTypeEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getTimerScheduleType() {
+		return timerScheduleTypeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTimerScheduleType_Second() {
+		return (EAttribute)timerScheduleTypeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTimerScheduleType_Minute() {
+		return (EAttribute)timerScheduleTypeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTimerScheduleType_Hour() {
+		return (EAttribute)timerScheduleTypeEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTimerScheduleType_DayOfMonth() {
+		return (EAttribute)timerScheduleTypeEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTimerScheduleType_Month() {
+		return (EAttribute)timerScheduleTypeEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTimerScheduleType_DayOfWeek() {
+		return (EAttribute)timerScheduleTypeEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTimerScheduleType_Year() {
+		return (EAttribute)timerScheduleTypeEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTimerScheduleType_Id() {
+		return (EAttribute)timerScheduleTypeEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getTimerType() {
+		return timerTypeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTimerType_Description() {
+		return (EReference)timerTypeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTimerType_Schedule() {
+		return (EReference)timerTypeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTimerType_Start() {
+		return (EAttribute)timerTypeEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTimerType_End() {
+		return (EAttribute)timerTypeEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTimerType_TimeoutMethod() {
+		return (EReference)timerTypeEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTimerType_Persistent() {
+		return (EAttribute)timerTypeEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTimerType_Timezone() {
+		return (EAttribute)timerTypeEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTimerType_Info() {
+		return (EAttribute)timerTypeEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTimerType_Id() {
+		return (EAttribute)timerTypeEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -2887,6 +3589,24 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 */
 	public EEnum getCMRFieldType() {
 		return cmrFieldTypeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getConcurrencyManagementTypeType() {
+		return concurrencyManagementTypeTypeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getConcurrentLockTypeType() {
+		return concurrentLockTypeTypeEEnum;
 	}
 
 	/**
@@ -2939,6 +3659,15 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getTimeUnitTypeType() {
+		return timeUnitTypeTypeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getTransactionAttributeType() {
 		return transactionAttributeTypeEEnum;
 	}
@@ -2968,6 +3697,24 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 */
 	public EDataType getCMRFieldTypeObject() {
 		return cmrFieldTypeObjectEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EDataType getConcurrencyManagementTypeTypeObject() {
+		return concurrencyManagementTypeTypeObjectEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EDataType getConcurrentLockTypeTypeObject() {
+		return concurrentLockTypeTypeObjectEDataType;
 	}
 
 	/**
@@ -3047,6 +3794,15 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EDataType getTimeUnitTypeTypeObject() {
+		return timeUnitTypeTypeObjectEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EDataType getTransactionAttributeTypeObject() {
 		return transactionAttributeTypeObjectEDataType;
 	}
@@ -3088,6 +3844,11 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		isCreated = true;
 
 		// Create classes and their features
+		accessTimeoutTypeEClass = createEClass(ACCESS_TIMEOUT_TYPE);
+		createEAttribute(accessTimeoutTypeEClass, ACCESS_TIMEOUT_TYPE__TIMEOUT);
+		createEAttribute(accessTimeoutTypeEClass, ACCESS_TIMEOUT_TYPE__UNIT);
+		createEAttribute(accessTimeoutTypeEClass, ACCESS_TIMEOUT_TYPE__ID);
+
 		activationConfigEClass = createEClass(ACTIVATION_CONFIG);
 		createEReference(activationConfigEClass, ACTIVATION_CONFIG__DESCRIPTIONS);
 		createEReference(activationConfigEClass, ACTIVATION_CONFIG__ACTIVATION_CONFIG_PROPERTIES);
@@ -3101,11 +3862,16 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		applicationExceptionEClass = createEClass(APPLICATION_EXCEPTION);
 		createEAttribute(applicationExceptionEClass, APPLICATION_EXCEPTION__EXCEPTION_CLASS);
 		createEAttribute(applicationExceptionEClass, APPLICATION_EXCEPTION__ROLLBACK);
+		createEAttribute(applicationExceptionEClass, APPLICATION_EXCEPTION__INHERITED);
 		createEAttribute(applicationExceptionEClass, APPLICATION_EXCEPTION__ID);
 
 		aroundInvokeTypeEClass = createEClass(AROUND_INVOKE_TYPE);
 		createEAttribute(aroundInvokeTypeEClass, AROUND_INVOKE_TYPE__CLASS);
 		createEAttribute(aroundInvokeTypeEClass, AROUND_INVOKE_TYPE__METHOD_NAME);
+
+		aroundTimeoutTypeEClass = createEClass(AROUND_TIMEOUT_TYPE);
+		createEAttribute(aroundTimeoutTypeEClass, AROUND_TIMEOUT_TYPE__CLASS);
+		createEAttribute(aroundTimeoutTypeEClass, AROUND_TIMEOUT_TYPE__METHOD_NAME);
 
 		assemblyDescriptorEClass = createEClass(ASSEMBLY_DESCRIPTOR);
 		createEReference(assemblyDescriptorEClass, ASSEMBLY_DESCRIPTOR__SECURITY_ROLES);
@@ -3116,6 +3882,12 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		createEReference(assemblyDescriptorEClass, ASSEMBLY_DESCRIPTOR__EXCLUDE_LIST);
 		createEReference(assemblyDescriptorEClass, ASSEMBLY_DESCRIPTOR__APPLICATION_EXCEPTIONS);
 		createEAttribute(assemblyDescriptorEClass, ASSEMBLY_DESCRIPTOR__ID);
+
+		asyncMethodTypeEClass = createEClass(ASYNC_METHOD_TYPE);
+		createEAttribute(asyncMethodTypeEClass, ASYNC_METHOD_TYPE__METHOD_NAME);
+		createEReference(asyncMethodTypeEClass, ASYNC_METHOD_TYPE__METHOD_PARAMS);
+		createEAttribute(asyncMethodTypeEClass, ASYNC_METHOD_TYPE__METHOD_INTF);
+		createEAttribute(asyncMethodTypeEClass, ASYNC_METHOD_TYPE__ID);
 
 		cmpFieldEClass = createEClass(CMP_FIELD);
 		createEReference(cmpFieldEClass, CMP_FIELD__DESCRIPTIONS);
@@ -3128,16 +3900,27 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		createEAttribute(cmrFieldEClass, CMR_FIELD__CMR_FIELD_TYPE);
 		createEAttribute(cmrFieldEClass, CMR_FIELD__ID);
 
+		concurrentMethodTypeEClass = createEClass(CONCURRENT_METHOD_TYPE);
+		createEReference(concurrentMethodTypeEClass, CONCURRENT_METHOD_TYPE__METHOD);
+		createEAttribute(concurrentMethodTypeEClass, CONCURRENT_METHOD_TYPE__LOCK);
+		createEReference(concurrentMethodTypeEClass, CONCURRENT_METHOD_TYPE__ACCESS_TIMEOUT);
+		createEAttribute(concurrentMethodTypeEClass, CONCURRENT_METHOD_TYPE__ID);
+
 		containerTransactionTypeEClass = createEClass(CONTAINER_TRANSACTION_TYPE);
 		createEReference(containerTransactionTypeEClass, CONTAINER_TRANSACTION_TYPE__DESCRIPTIONS);
 		createEReference(containerTransactionTypeEClass, CONTAINER_TRANSACTION_TYPE__METHODS);
 		createEAttribute(containerTransactionTypeEClass, CONTAINER_TRANSACTION_TYPE__TRANS_ATTRIBUTE);
 		createEAttribute(containerTransactionTypeEClass, CONTAINER_TRANSACTION_TYPE__ID);
 
+		dependsOnTypeEClass = createEClass(DEPENDS_ON_TYPE);
+		createEAttribute(dependsOnTypeEClass, DEPENDS_ON_TYPE__EJB_NAME);
+		createEAttribute(dependsOnTypeEClass, DEPENDS_ON_TYPE__ID);
+
 		ejbJarEClass = createEClass(EJB_JAR);
 		createEReference(ejbJarEClass, EJB_JAR__DESCRIPTIONS);
 		createEReference(ejbJarEClass, EJB_JAR__DISPLAY_NAMES);
 		createEReference(ejbJarEClass, EJB_JAR__ICONS);
+		createEAttribute(ejbJarEClass, EJB_JAR__MODULE_NAME);
 		createEReference(ejbJarEClass, EJB_JAR__ENTERPRISE_BEANS);
 		createEReference(ejbJarEClass, EJB_JAR__INTERCEPTORS);
 		createEReference(ejbJarEClass, EJB_JAR__RELATIONSHIPS);
@@ -3204,6 +3987,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		createEReference(entityBeanEClass, ENTITY_BEAN__PERSISTENCE_UNIT_REFS);
 		createEReference(entityBeanEClass, ENTITY_BEAN__POST_CONSTRUCTS);
 		createEReference(entityBeanEClass, ENTITY_BEAN__PRE_DESTROYS);
+		createEReference(entityBeanEClass, ENTITY_BEAN__DATA_SOURCE);
 		createEReference(entityBeanEClass, ENTITY_BEAN__SECURITY_ROLE_REFS);
 		createEReference(entityBeanEClass, ENTITY_BEAN__SECURITY_IDENTITY);
 		createEReference(entityBeanEClass, ENTITY_BEAN__QUERIES);
@@ -3242,6 +4026,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		createEReference(interceptorTypeEClass, INTERCEPTOR_TYPE__DESCRIPTIONS);
 		createEAttribute(interceptorTypeEClass, INTERCEPTOR_TYPE__INTERCEPTOR_CLASS);
 		createEReference(interceptorTypeEClass, INTERCEPTOR_TYPE__AROUND_INVOKES);
+		createEReference(interceptorTypeEClass, INTERCEPTOR_TYPE__AROUND_TIMEOUTS);
 		createEReference(interceptorTypeEClass, INTERCEPTOR_TYPE__ENV_ENTRIES);
 		createEReference(interceptorTypeEClass, INTERCEPTOR_TYPE__EJB_REFS);
 		createEReference(interceptorTypeEClass, INTERCEPTOR_TYPE__EJB_LOCAL_REFS);
@@ -3253,6 +4038,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		createEReference(interceptorTypeEClass, INTERCEPTOR_TYPE__PERSISTENCE_UNIT_REFS);
 		createEReference(interceptorTypeEClass, INTERCEPTOR_TYPE__POST_CONSTRUCTS);
 		createEReference(interceptorTypeEClass, INTERCEPTOR_TYPE__PRE_DESTROYS);
+		createEReference(interceptorTypeEClass, INTERCEPTOR_TYPE__DATA_SOURCE);
 		createEReference(interceptorTypeEClass, INTERCEPTOR_TYPE__POST_ACTIVATES);
 		createEReference(interceptorTypeEClass, INTERCEPTOR_TYPE__PRE_PASSIVATES);
 		createEAttribute(interceptorTypeEClass, INTERCEPTOR_TYPE__ID);
@@ -3266,11 +4052,13 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		createEAttribute(messageDrivenBeanEClass, MESSAGE_DRIVEN_BEAN__EJB_CLASS);
 		createEAttribute(messageDrivenBeanEClass, MESSAGE_DRIVEN_BEAN__MESSAGING_TYPE);
 		createEReference(messageDrivenBeanEClass, MESSAGE_DRIVEN_BEAN__TIMEOUT_METHOD);
+		createEReference(messageDrivenBeanEClass, MESSAGE_DRIVEN_BEAN__TIMER);
 		createEAttribute(messageDrivenBeanEClass, MESSAGE_DRIVEN_BEAN__TRANSACTION_TYPE);
 		createEAttribute(messageDrivenBeanEClass, MESSAGE_DRIVEN_BEAN__MESSAGE_DESTINATION_TYPE);
 		createEAttribute(messageDrivenBeanEClass, MESSAGE_DRIVEN_BEAN__MESSAGE_DESTINATION_LINK);
 		createEReference(messageDrivenBeanEClass, MESSAGE_DRIVEN_BEAN__ACTIVATION_CONFIG);
 		createEReference(messageDrivenBeanEClass, MESSAGE_DRIVEN_BEAN__AROUND_INVOKES);
+		createEReference(messageDrivenBeanEClass, MESSAGE_DRIVEN_BEAN__AROUND_TIMEOUTS);
 		createEReference(messageDrivenBeanEClass, MESSAGE_DRIVEN_BEAN__ENV_ENTRIES);
 		createEReference(messageDrivenBeanEClass, MESSAGE_DRIVEN_BEAN__EJB_REFS);
 		createEReference(messageDrivenBeanEClass, MESSAGE_DRIVEN_BEAN__EJB_LOCAL_REFS);
@@ -3282,6 +4070,8 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		createEReference(messageDrivenBeanEClass, MESSAGE_DRIVEN_BEAN__PERSISTENCE_UNIT_REFS);
 		createEReference(messageDrivenBeanEClass, MESSAGE_DRIVEN_BEAN__POST_CONSTRUCTS);
 		createEReference(messageDrivenBeanEClass, MESSAGE_DRIVEN_BEAN__PRE_DESTROYS);
+		createEReference(messageDrivenBeanEClass, MESSAGE_DRIVEN_BEAN__DATA_SOURCE);
+		createEReference(messageDrivenBeanEClass, MESSAGE_DRIVEN_BEAN__SECURITY_ROLE_REF);
 		createEReference(messageDrivenBeanEClass, MESSAGE_DRIVEN_BEAN__SECURITY_IDENTITY);
 		createEAttribute(messageDrivenBeanEClass, MESSAGE_DRIVEN_BEAN__ID);
 
@@ -3354,14 +4144,26 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		createEAttribute(sessionBeanEClass, SESSION_BEAN__LOCAL);
 		createEAttribute(sessionBeanEClass, SESSION_BEAN__BUSINESS_LOCALS);
 		createEAttribute(sessionBeanEClass, SESSION_BEAN__BUSINESS_REMOTES);
+		createEReference(sessionBeanEClass, SESSION_BEAN__LOCAL_BEAN);
 		createEAttribute(sessionBeanEClass, SESSION_BEAN__SERVICE_ENDPOINT);
 		createEAttribute(sessionBeanEClass, SESSION_BEAN__EJB_CLASS);
 		createEAttribute(sessionBeanEClass, SESSION_BEAN__SESSION_TYPE);
+		createEReference(sessionBeanEClass, SESSION_BEAN__STATEFUL_TIMEOUT);
 		createEReference(sessionBeanEClass, SESSION_BEAN__TIMEOUT_METHOD);
+		createEReference(sessionBeanEClass, SESSION_BEAN__TIMER);
+		createEAttribute(sessionBeanEClass, SESSION_BEAN__INIT_ON_STARTUP);
+		createEAttribute(sessionBeanEClass, SESSION_BEAN__CONCURRENCY_MANAGEMENT_TYPE);
+		createEReference(sessionBeanEClass, SESSION_BEAN__CONCURRENT_METHOD);
+		createEReference(sessionBeanEClass, SESSION_BEAN__DEPENDS_ON);
 		createEReference(sessionBeanEClass, SESSION_BEAN__INIT_METHODS);
 		createEReference(sessionBeanEClass, SESSION_BEAN__REMOVE_METHODS);
+		createEReference(sessionBeanEClass, SESSION_BEAN__ASYNC_METHOD);
 		createEAttribute(sessionBeanEClass, SESSION_BEAN__TRANSACTION_TYPE);
+		createEReference(sessionBeanEClass, SESSION_BEAN__AFTER_BEGIN_METHOD);
+		createEReference(sessionBeanEClass, SESSION_BEAN__BEFORE_COMPLETION_METHOD);
+		createEReference(sessionBeanEClass, SESSION_BEAN__AFTER_COMPLETION_METHOD);
 		createEReference(sessionBeanEClass, SESSION_BEAN__AROUND_INVOKES);
+		createEReference(sessionBeanEClass, SESSION_BEAN__AROUND_TIMEOUTS);
 		createEReference(sessionBeanEClass, SESSION_BEAN__ENV_ENTRIES);
 		createEReference(sessionBeanEClass, SESSION_BEAN__EJB_REFS);
 		createEReference(sessionBeanEClass, SESSION_BEAN__EJB_LOCAL_REFS);
@@ -3373,26 +4175,58 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		createEReference(sessionBeanEClass, SESSION_BEAN__PERSISTENCE_UNIT_REFS);
 		createEReference(sessionBeanEClass, SESSION_BEAN__POST_CONSTRUCTS);
 		createEReference(sessionBeanEClass, SESSION_BEAN__PRE_DESTROYS);
+		createEReference(sessionBeanEClass, SESSION_BEAN__DATA_SOURCE);
 		createEReference(sessionBeanEClass, SESSION_BEAN__POST_ACTIVATES);
 		createEReference(sessionBeanEClass, SESSION_BEAN__PRE_PASSIVATES);
 		createEReference(sessionBeanEClass, SESSION_BEAN__SECURITY_ROLE_REFS);
 		createEReference(sessionBeanEClass, SESSION_BEAN__SECURITY_IDENTITIES);
 		createEAttribute(sessionBeanEClass, SESSION_BEAN__ID);
 
+		statefulTimeoutTypeEClass = createEClass(STATEFUL_TIMEOUT_TYPE);
+		createEAttribute(statefulTimeoutTypeEClass, STATEFUL_TIMEOUT_TYPE__TIMEOUT);
+		createEAttribute(statefulTimeoutTypeEClass, STATEFUL_TIMEOUT_TYPE__UNIT);
+		createEAttribute(statefulTimeoutTypeEClass, STATEFUL_TIMEOUT_TYPE__ID);
+
+		timerScheduleTypeEClass = createEClass(TIMER_SCHEDULE_TYPE);
+		createEAttribute(timerScheduleTypeEClass, TIMER_SCHEDULE_TYPE__SECOND);
+		createEAttribute(timerScheduleTypeEClass, TIMER_SCHEDULE_TYPE__MINUTE);
+		createEAttribute(timerScheduleTypeEClass, TIMER_SCHEDULE_TYPE__HOUR);
+		createEAttribute(timerScheduleTypeEClass, TIMER_SCHEDULE_TYPE__DAY_OF_MONTH);
+		createEAttribute(timerScheduleTypeEClass, TIMER_SCHEDULE_TYPE__MONTH);
+		createEAttribute(timerScheduleTypeEClass, TIMER_SCHEDULE_TYPE__DAY_OF_WEEK);
+		createEAttribute(timerScheduleTypeEClass, TIMER_SCHEDULE_TYPE__YEAR);
+		createEAttribute(timerScheduleTypeEClass, TIMER_SCHEDULE_TYPE__ID);
+
+		timerTypeEClass = createEClass(TIMER_TYPE);
+		createEReference(timerTypeEClass, TIMER_TYPE__DESCRIPTION);
+		createEReference(timerTypeEClass, TIMER_TYPE__SCHEDULE);
+		createEAttribute(timerTypeEClass, TIMER_TYPE__START);
+		createEAttribute(timerTypeEClass, TIMER_TYPE__END);
+		createEReference(timerTypeEClass, TIMER_TYPE__TIMEOUT_METHOD);
+		createEAttribute(timerTypeEClass, TIMER_TYPE__PERSISTENT);
+		createEAttribute(timerTypeEClass, TIMER_TYPE__TIMEZONE);
+		createEAttribute(timerTypeEClass, TIMER_TYPE__INFO);
+		createEAttribute(timerTypeEClass, TIMER_TYPE__ID);
+
 		// Create enums
 		cmpVersionTypeEEnum = createEEnum(CMP_VERSION_TYPE);
 		cmrFieldTypeEEnum = createEEnum(CMR_FIELD_TYPE);
+		concurrencyManagementTypeTypeEEnum = createEEnum(CONCURRENCY_MANAGEMENT_TYPE_TYPE);
+		concurrentLockTypeTypeEEnum = createEEnum(CONCURRENT_LOCK_TYPE_TYPE);
 		methodInterfaceTypeEEnum = createEEnum(METHOD_INTERFACE_TYPE);
 		multiplicityTypeEEnum = createEEnum(MULTIPLICITY_TYPE);
 		persistenceTypeEEnum = createEEnum(PERSISTENCE_TYPE);
 		resultTypeMappingTypeEEnum = createEEnum(RESULT_TYPE_MAPPING_TYPE);
 		sessionTypeEEnum = createEEnum(SESSION_TYPE);
+		timeUnitTypeTypeEEnum = createEEnum(TIME_UNIT_TYPE_TYPE);
 		transactionAttributeTypeEEnum = createEEnum(TRANSACTION_ATTRIBUTE_TYPE);
 		transactionTypeEEnum = createEEnum(TRANSACTION_TYPE);
 
 		// Create data types
 		cmpVersionTypeObjectEDataType = createEDataType(CMP_VERSION_TYPE_OBJECT);
 		cmrFieldTypeObjectEDataType = createEDataType(CMR_FIELD_TYPE_OBJECT);
+		concurrencyManagementTypeTypeObjectEDataType = createEDataType(CONCURRENCY_MANAGEMENT_TYPE_TYPE_OBJECT);
+		concurrentLockTypeTypeObjectEDataType = createEDataType(CONCURRENT_LOCK_TYPE_TYPE_OBJECT);
 		ejbClassTypeEDataType = createEDataType(EJB_CLASS_TYPE);
 		ejbNameTypeEDataType = createEDataType(EJB_NAME_TYPE);
 		methodInterfaceTypeObjectEDataType = createEDataType(METHOD_INTERFACE_TYPE_OBJECT);
@@ -3401,6 +4235,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		persistenceTypeObjectEDataType = createEDataType(PERSISTENCE_TYPE_OBJECT);
 		resultTypeMappingTypeObjectEDataType = createEDataType(RESULT_TYPE_MAPPING_TYPE_OBJECT);
 		sessionTypeObjectEDataType = createEDataType(SESSION_TYPE_OBJECT);
+		timeUnitTypeTypeObjectEDataType = createEDataType(TIME_UNIT_TYPE_TYPE_OBJECT);
 		transactionAttributeTypeObjectEDataType = createEDataType(TRANSACTION_ATTRIBUTE_TYPE_OBJECT);
 		transactionTypeObjectEDataType = createEDataType(TRANSACTION_TYPE_OBJECT);
 	}
@@ -3429,30 +4264,44 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		JavaeePackage theJavaeePackage = (JavaeePackage)EPackage.Registry.INSTANCE.getEPackage(JavaeePackage.eNS_URI);
 		XMLTypePackage theXMLTypePackage = (XMLTypePackage)EPackage.Registry.INSTANCE.getEPackage(XMLTypePackage.eNS_URI);
+		JavaeePackage theJavaeePackage = (JavaeePackage)EPackage.Registry.INSTANCE.getEPackage(JavaeePackage.eNS_URI);
+
+		// Create type parameters
+
+		// Set bounds for type parameters
 
 		// Add supertypes to classes
 
 		// Initialize classes and features; add operations and parameters
+		initEClass(accessTimeoutTypeEClass, AccessTimeoutType.class, "AccessTimeoutType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getAccessTimeoutType_Timeout(), theXMLTypePackage.getPositiveInteger(), "timeout", null, 1, 1, AccessTimeoutType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getAccessTimeoutType_Unit(), this.getTimeUnitTypeType(), "unit", null, 1, 1, AccessTimeoutType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getAccessTimeoutType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, AccessTimeoutType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
 		initEClass(activationConfigEClass, ActivationConfig.class, "ActivationConfig", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(getActivationConfig_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, ActivationConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getActivationConfig_ActivationConfigProperties(), this.getActivationConfigProperty(), null, "activationConfigProperties", null, 1, -1, ActivationConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getActivationConfig_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ActivationConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getActivationConfig_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ActivationConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(activationConfigPropertyEClass, ActivationConfigProperty.class, "ActivationConfigProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getActivationConfigProperty_ActivationConfigPropertyName(), theXMLTypePackage.getString(), "activationConfigPropertyName", null, 1, 1, ActivationConfigProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getActivationConfigProperty_ActivationConfigPropertyValue(), theXMLTypePackage.getString(), "activationConfigPropertyValue", null, 1, 1, ActivationConfigProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getActivationConfigProperty_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ActivationConfigProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getActivationConfigProperty_ActivationConfigPropertyName(), theXMLTypePackage.getString(), "activationConfigPropertyName", null, 1, 1, ActivationConfigProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getActivationConfigProperty_ActivationConfigPropertyValue(), theXMLTypePackage.getString(), "activationConfigPropertyValue", null, 1, 1, ActivationConfigProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getActivationConfigProperty_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ActivationConfigProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(applicationExceptionEClass, ApplicationException.class, "ApplicationException", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getApplicationException_ExceptionClass(), theJavaeePackage.getFullyQualifiedClassType(), "exceptionClass", null, 1, 1, ApplicationException.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getApplicationException_Rollback(), theJavaeePackage.getTrueFalseType(), "rollback", null, 0, 1, ApplicationException.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getApplicationException_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ApplicationException.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getApplicationException_ExceptionClass(), theJavaeePackage.getFullyQualifiedClassType(), "exceptionClass", null, 1, 1, ApplicationException.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getApplicationException_Rollback(), theJavaeePackage.getTrueFalseType(), "rollback", null, 0, 1, ApplicationException.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getApplicationException_Inherited(), theJavaeePackage.getTrueFalseType(), "inherited", null, 0, 1, ApplicationException.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getApplicationException_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ApplicationException.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(aroundInvokeTypeEClass, AroundInvokeType.class, "AroundInvokeType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getAroundInvokeType_Class(), theJavaeePackage.getFullyQualifiedClassType(), "class", null, 0, 1, AroundInvokeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getAroundInvokeType_MethodName(), theJavaeePackage.getJavaIdentifier(), "methodName", null, 1, 1, AroundInvokeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getAroundInvokeType_Class(), theJavaeePackage.getFullyQualifiedClassType(), "class", null, 0, 1, AroundInvokeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getAroundInvokeType_MethodName(), theJavaeePackage.getJavaIdentifier(), "methodName", null, 1, 1, AroundInvokeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(aroundTimeoutTypeEClass, AroundTimeoutType.class, "AroundTimeoutType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getAroundTimeoutType_Class(), theJavaeePackage.getFullyQualifiedClassType(), "class", null, 0, 1, AroundTimeoutType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getAroundTimeoutType_MethodName(), theJavaeePackage.getJavaIdentifier(), "methodName", null, 1, 1, AroundTimeoutType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(assemblyDescriptorEClass, AssemblyDescriptor.class, "AssemblyDescriptor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(getAssemblyDescriptor_SecurityRoles(), theJavaeePackage.getSecurityRole(), null, "securityRoles", null, 0, -1, AssemblyDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
@@ -3462,37 +4311,54 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		initEReference(getAssemblyDescriptor_MessageDestinations(), theJavaeePackage.getMessageDestination(), null, "messageDestinations", null, 0, -1, AssemblyDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getAssemblyDescriptor_ExcludeList(), this.getExcludeList(), null, "excludeList", null, 0, 1, AssemblyDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getAssemblyDescriptor_ApplicationExceptions(), this.getApplicationException(), null, "applicationExceptions", null, 0, -1, AssemblyDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getAssemblyDescriptor_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, AssemblyDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getAssemblyDescriptor_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, AssemblyDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(asyncMethodTypeEClass, AsyncMethodType.class, "AsyncMethodType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getAsyncMethodType_MethodName(), theXMLTypePackage.getToken(), "methodName", null, 1, 1, AsyncMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getAsyncMethodType_MethodParams(), this.getMethodParams(), null, "methodParams", null, 0, 1, AsyncMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getAsyncMethodType_MethodIntf(), this.getMethodInterfaceType(), "methodIntf", null, 0, 1, AsyncMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getAsyncMethodType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, AsyncMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(cmpFieldEClass, CMPField.class, "CMPField", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(getCMPField_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, CMPField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getCMPField_FieldName(), theJavaeePackage.getJavaIdentifier(), "fieldName", null, 1, 1, CMPField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getCMPField_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, CMPField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getCMPField_FieldName(), theJavaeePackage.getJavaIdentifier(), "fieldName", null, 1, 1, CMPField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getCMPField_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, CMPField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(cmrFieldEClass, CMRField.class, "CMRField", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(getCMRField_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, CMRField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getCMRField_CmrFieldName(), theXMLTypePackage.getToken(), "cmrFieldName", null, 1, 1, CMRField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getCMRField_CmrFieldType(), this.getCMRFieldType(), "cmrFieldType", "java.util.Collection", 0, 1, CMRField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$ //$NON-NLS-2$
-		initEAttribute(getCMRField_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, CMRField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getCMRField_CmrFieldName(), theXMLTypePackage.getToken(), "cmrFieldName", null, 1, 1, CMRField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getCMRField_CmrFieldType(), this.getCMRFieldType(), "cmrFieldType", null, 0, 1, CMRField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getCMRField_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, CMRField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(concurrentMethodTypeEClass, ConcurrentMethodType.class, "ConcurrentMethodType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getConcurrentMethodType_Method(), this.getNamedMethodType(), null, "method", null, 1, 1, ConcurrentMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getConcurrentMethodType_Lock(), this.getConcurrentLockTypeType(), "lock", null, 0, 1, ConcurrentMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getConcurrentMethodType_AccessTimeout(), this.getAccessTimeoutType(), null, "accessTimeout", null, 0, 1, ConcurrentMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getConcurrentMethodType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ConcurrentMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(containerTransactionTypeEClass, ContainerTransactionType.class, "ContainerTransactionType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(getContainerTransactionType_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, ContainerTransactionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getContainerTransactionType_Methods(), this.getMethodType(), null, "methods", null, 1, -1, ContainerTransactionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getContainerTransactionType_TransAttribute(), this.getTransactionAttributeType(), "transAttribute", "NotSupported", 1, 1, ContainerTransactionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$ //$NON-NLS-2$
-		initEAttribute(getContainerTransactionType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ContainerTransactionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getContainerTransactionType_TransAttribute(), this.getTransactionAttributeType(), "transAttribute", null, 1, 1, ContainerTransactionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getContainerTransactionType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ContainerTransactionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(dependsOnTypeEClass, DependsOnType.class, "DependsOnType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getDependsOnType_EjbName(), theJavaeePackage.getEJBLink(), "ejbName", null, 1, -1, DependsOnType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getDependsOnType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, DependsOnType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(ejbJarEClass, EJBJar.class, "EJBJar", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(getEJBJar_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getEJBJar_DisplayNames(), theJavaeePackage.getDisplayName(), null, "displayNames", null, 0, -1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getEJBJar_Icons(), theJavaeePackage.getIcon(), null, "icons", null, 0, -1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEJBJar_ModuleName(), theXMLTypePackage.getToken(), "moduleName", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getEJBJar_EnterpriseBeans(), this.getEnterpriseBeans(), null, "enterpriseBeans", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getEJBJar_Interceptors(), this.getInterceptorsType(), null, "interceptors", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getEJBJar_Relationships(), this.getRelationships(), null, "relationships", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getEJBJar_AssemblyDescriptor(), this.getAssemblyDescriptor(), null, "assemblyDescriptor", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getEJBJar_EjbClientJar(), theJavaeePackage.getPathType(), "ejbClientJar", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getEJBJar_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getEJBJar_MetadataComplete(), theXMLTypePackage.getBoolean(), "metadataComplete", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getEJBJar_Version(), theJavaeePackage.getDeweyVersionType(), "version", "3.0", 1, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$ //$NON-NLS-2$
+		initEAttribute(getEJBJar_EjbClientJar(), theJavaeePackage.getPathType(), "ejbClientJar", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEJBJar_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEJBJar_MetadataComplete(), theXMLTypePackage.getBoolean(), "metadataComplete", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEJBJar_Version(), theJavaeePackage.getDeweyVersionType(), "version", "3.1", 1, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$ //$NON-NLS-2$
 
 		initEClass(ejbJarDeploymentDescriptorEClass, EJBJarDeploymentDescriptor.class, "EJBJarDeploymentDescriptor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEAttribute(getEJBJarDeploymentDescriptor_Mixed(), ecorePackage.getEFeatureMapEntry(), "mixed", null, 0, -1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
@@ -3502,44 +4368,44 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 
 		initEClass(ejbRelationEClass, EJBRelation.class, "EJBRelation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(getEJBRelation_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, EJBRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getEJBRelation_EjbRelationName(), theXMLTypePackage.getToken(), "ejbRelationName", null, 0, 1, EJBRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEJBRelation_EjbRelationName(), theXMLTypePackage.getToken(), "ejbRelationName", null, 0, 1, EJBRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getEJBRelation_EjbRelationshipRoles(), this.getEJBRelationshipRole(), null, "ejbRelationshipRoles", null, 2, 2, EJBRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getEJBRelation_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, EJBRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEJBRelation_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, EJBRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(ejbRelationshipRoleEClass, EJBRelationshipRole.class, "EJBRelationshipRole", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(getEJBRelationshipRole_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, EJBRelationshipRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getEJBRelationshipRole_EjbRelationshipRoleName(), theXMLTypePackage.getToken(), "ejbRelationshipRoleName", null, 0, 1, EJBRelationshipRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getEJBRelationshipRole_Multiplicity(), this.getMultiplicityType(), "multiplicity", "One", 1, 1, EJBRelationshipRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$ //$NON-NLS-2$
+		initEAttribute(getEJBRelationshipRole_EjbRelationshipRoleName(), theXMLTypePackage.getToken(), "ejbRelationshipRoleName", null, 0, 1, EJBRelationshipRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEJBRelationshipRole_Multiplicity(), this.getMultiplicityType(), "multiplicity", null, 1, 1, EJBRelationshipRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getEJBRelationshipRole_CascadeDelete(), theJavaeePackage.getEmptyType(), null, "cascadeDelete", null, 0, 1, EJBRelationshipRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getEJBRelationshipRole_RelationshipRoleSource(), this.getRelationshipRoleSourceType(), null, "relationshipRoleSource", null, 1, 1, EJBRelationshipRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getEJBRelationshipRole_CmrField(), this.getCMRField(), null, "cmrField", null, 0, 1, EJBRelationshipRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getEJBRelationshipRole_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, EJBRelationshipRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEJBRelationshipRole_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, EJBRelationshipRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(enterpriseBeansEClass, EnterpriseBeans.class, "EnterpriseBeans", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEAttribute(getEnterpriseBeans_Group(), ecorePackage.getEFeatureMapEntry(), "group", null, 0, -1, EnterpriseBeans.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getEnterpriseBeans_SessionBeans(), this.getSessionBean(), null, "sessionBeans", null, 0, -1, EnterpriseBeans.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getEnterpriseBeans_EntityBeans(), this.getEntityBean(), null, "entityBeans", null, 0, -1, EnterpriseBeans.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getEnterpriseBeans_MessageDrivenBeans(), this.getMessageDrivenBean(), null, "messageDrivenBeans", null, 0, -1, EnterpriseBeans.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getEnterpriseBeans_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, EnterpriseBeans.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEnterpriseBeans_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, EnterpriseBeans.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(entityBeanEClass, EntityBean.class, "EntityBean", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(getEntityBean_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getEntityBean_DisplayNames(), theJavaeePackage.getDisplayName(), null, "displayNames", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getEntityBean_Icons(), theJavaeePackage.getIcon(), null, "icons", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getEntityBean_EjbName(), this.getEjbNameType(), "ejbName", null, 1, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getEntityBean_MappedName(), theXMLTypePackage.getString(), "mappedName", null, 0, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getEntityBean_Home(), theJavaeePackage.getHome(), "home", null, 0, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getEntityBean_Remote(), theJavaeePackage.getRemote(), "remote", null, 0, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getEntityBean_LocalHome(), theJavaeePackage.getLocalHome(), "localHome", null, 0, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getEntityBean_Local(), theJavaeePackage.getLocal(), "local", null, 0, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getEntityBean_EjbClass(), this.getEjbClassType(), "ejbClass", null, 1, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getEntityBean_PersistenceType(), this.getPersistenceType(), "persistenceType", "Bean", 1, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$ //$NON-NLS-2$
-		initEAttribute(getEntityBean_PrimKeyClass(), theJavaeePackage.getFullyQualifiedClassType(), "primKeyClass", null, 1, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getEntityBean_Reentrant(), theJavaeePackage.getTrueFalseType(), "reentrant", null, 1, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getEntityBean_CmpVersion(), this.getCmpVersionType(), "cmpVersion", "1.x", 0, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$ //$NON-NLS-2$
-		initEAttribute(getEntityBean_AbstractSchemaName(), theJavaeePackage.getJavaIdentifier(), "abstractSchemaName", null, 0, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEntityBean_EjbName(), this.getEjbNameType(), "ejbName", null, 1, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEntityBean_MappedName(), theXMLTypePackage.getString(), "mappedName", null, 0, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEntityBean_Home(), theJavaeePackage.getHome(), "home", null, 0, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEntityBean_Remote(), theJavaeePackage.getRemote(), "remote", null, 0, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEntityBean_LocalHome(), theJavaeePackage.getLocalHome(), "localHome", null, 0, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEntityBean_Local(), theJavaeePackage.getLocal(), "local", null, 0, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEntityBean_EjbClass(), this.getEjbClassType(), "ejbClass", null, 1, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEntityBean_PersistenceType(), this.getPersistenceType(), "persistenceType", null, 1, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEntityBean_PrimKeyClass(), theJavaeePackage.getFullyQualifiedClassType(), "primKeyClass", null, 1, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEntityBean_Reentrant(), theJavaeePackage.getTrueFalseType(), "reentrant", null, 1, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEntityBean_CmpVersion(), this.getCmpVersionType(), "cmpVersion", null, 0, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEntityBean_AbstractSchemaName(), theJavaeePackage.getJavaIdentifier(), "abstractSchemaName", null, 0, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getEntityBean_CmpFields(), this.getCMPField(), null, "cmpFields", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getEntityBean_PrimkeyField(), theXMLTypePackage.getToken(), "primkeyField", null, 0, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEntityBean_PrimkeyField(), theXMLTypePackage.getToken(), "primkeyField", null, 0, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getEntityBean_EnvEntries(), theJavaeePackage.getEnvEntry(), null, "envEntries", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getEntityBean_EjbRefs(), theJavaeePackage.getEjbRef(), null, "ejbRefs", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getEntityBean_EjbLocalRefs(), theJavaeePackage.getEjbLocalRef(), null, "ejbLocalRefs", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
@@ -3551,44 +4417,46 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		initEReference(getEntityBean_PersistenceUnitRefs(), theJavaeePackage.getPersistenceUnitRef(), null, "persistenceUnitRefs", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getEntityBean_PostConstructs(), theJavaeePackage.getLifecycleCallback(), null, "postConstructs", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getEntityBean_PreDestroys(), theJavaeePackage.getLifecycleCallback(), null, "preDestroys", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEntityBean_DataSource(), theJavaeePackage.getDataSourceType(), null, "dataSource", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getEntityBean_SecurityRoleRefs(), theJavaeePackage.getSecurityRoleRef(), null, "securityRoleRefs", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getEntityBean_SecurityIdentity(), this.getSecurityIdentityType(), null, "securityIdentity", null, 0, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getEntityBean_Queries(), this.getQuery(), null, "queries", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getEntityBean_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEntityBean_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(excludeListEClass, ExcludeList.class, "ExcludeList", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(getExcludeList_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, ExcludeList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getExcludeList_Methods(), this.getMethodType(), null, "methods", null, 1, -1, ExcludeList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getExcludeList_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ExcludeList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getExcludeList_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ExcludeList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(initMethodTypeEClass, InitMethodType.class, "InitMethodType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(getInitMethodType_CreateMethod(), this.getNamedMethodType(), null, "createMethod", null, 1, 1, InitMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getInitMethodType_BeanMethod(), this.getNamedMethodType(), null, "beanMethod", null, 1, 1, InitMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getInitMethodType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, InitMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getInitMethodType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, InitMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(interceptorBindingTypeEClass, InterceptorBindingType.class, "InterceptorBindingType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(getInterceptorBindingType_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, InterceptorBindingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getInterceptorBindingType_EjbName(), theXMLTypePackage.getToken(), "ejbName", null, 1, 1, InterceptorBindingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getInterceptorBindingType_EjbName(), theXMLTypePackage.getToken(), "ejbName", null, 1, 1, InterceptorBindingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getInterceptorBindingType_InterceptorClasses(), theJavaeePackage.getFullyQualifiedClassType(), "interceptorClasses", null, 0, -1, InterceptorBindingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getInterceptorBindingType_InterceptorOrder(), this.getInterceptorOrderType(), null, "interceptorOrder", null, 0, 1, InterceptorBindingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getInterceptorBindingType_ExcludeDefaultInterceptors(), theJavaeePackage.getTrueFalseType(), "excludeDefaultInterceptors", null, 0, 1, InterceptorBindingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getInterceptorBindingType_ExcludeClassInterceptors(), theJavaeePackage.getTrueFalseType(), "excludeClassInterceptors", null, 0, 1, InterceptorBindingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getInterceptorBindingType_ExcludeDefaultInterceptors(), theJavaeePackage.getTrueFalseType(), "excludeDefaultInterceptors", null, 0, 1, InterceptorBindingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getInterceptorBindingType_ExcludeClassInterceptors(), theJavaeePackage.getTrueFalseType(), "excludeClassInterceptors", null, 0, 1, InterceptorBindingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getInterceptorBindingType_Method(), this.getNamedMethodType(), null, "method", null, 0, 1, InterceptorBindingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getInterceptorBindingType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, InterceptorBindingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getInterceptorBindingType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, InterceptorBindingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(interceptorOrderTypeEClass, InterceptorOrderType.class, "InterceptorOrderType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEAttribute(getInterceptorOrderType_InterceptorClasses(), theJavaeePackage.getFullyQualifiedClassType(), "interceptorClasses", null, 1, -1, InterceptorOrderType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getInterceptorOrderType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, InterceptorOrderType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getInterceptorOrderType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, InterceptorOrderType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(interceptorsTypeEClass, InterceptorsType.class, "InterceptorsType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(getInterceptorsType_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, InterceptorsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getInterceptorsType_Interceptors(), this.getInterceptorType(), null, "interceptors", null, 1, -1, InterceptorsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getInterceptorsType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, InterceptorsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getInterceptorsType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, InterceptorsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(interceptorTypeEClass, InterceptorType.class, "InterceptorType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(getInterceptorType_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getInterceptorType_InterceptorClass(), theJavaeePackage.getFullyQualifiedClassType(), "interceptorClass", null, 1, 1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getInterceptorType_InterceptorClass(), theJavaeePackage.getFullyQualifiedClassType(), "interceptorClass", null, 1, 1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getInterceptorType_AroundInvokes(), this.getAroundInvokeType(), null, "aroundInvokes", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getInterceptorType_AroundTimeouts(), this.getAroundTimeoutType(), null, "aroundTimeouts", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getInterceptorType_EnvEntries(), theJavaeePackage.getEnvEntry(), null, "envEntries", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getInterceptorType_EjbRefs(), theJavaeePackage.getEjbRef(), null, "ejbRefs", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getInterceptorType_EjbLocalRefs(), theJavaeePackage.getEjbLocalRef(), null, "ejbLocalRefs", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
@@ -3600,24 +4468,27 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		initEReference(getInterceptorType_PersistenceUnitRefs(), theJavaeePackage.getPersistenceUnitRef(), null, "persistenceUnitRefs", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getInterceptorType_PostConstructs(), theJavaeePackage.getLifecycleCallback(), null, "postConstructs", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getInterceptorType_PreDestroys(), theJavaeePackage.getLifecycleCallback(), null, "preDestroys", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getInterceptorType_DataSource(), theJavaeePackage.getDataSourceType(), null, "dataSource", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getInterceptorType_PostActivates(), theJavaeePackage.getLifecycleCallback(), null, "postActivates", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getInterceptorType_PrePassivates(), theJavaeePackage.getLifecycleCallback(), null, "prePassivates", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getInterceptorType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getInterceptorType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(messageDrivenBeanEClass, MessageDrivenBean.class, "MessageDrivenBean", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(getMessageDrivenBean_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getMessageDrivenBean_DisplayNames(), theJavaeePackage.getDisplayName(), null, "displayNames", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getMessageDrivenBean_Icons(), theJavaeePackage.getIcon(), null, "icons", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getMessageDrivenBean_EjbName(), this.getEjbNameType(), "ejbName", null, 1, 1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getMessageDrivenBean_MappedName(), theXMLTypePackage.getString(), "mappedName", null, 0, 1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getMessageDrivenBean_EjbClass(), this.getEjbClassType(), "ejbClass", null, 0, 1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getMessageDrivenBean_MessagingType(), theJavaeePackage.getFullyQualifiedClassType(), "messagingType", null, 0, 1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMessageDrivenBean_EjbName(), this.getEjbNameType(), "ejbName", null, 1, 1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMessageDrivenBean_MappedName(), theXMLTypePackage.getString(), "mappedName", null, 0, 1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMessageDrivenBean_EjbClass(), this.getEjbClassType(), "ejbClass", null, 0, 1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMessageDrivenBean_MessagingType(), theJavaeePackage.getFullyQualifiedClassType(), "messagingType", null, 0, 1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getMessageDrivenBean_TimeoutMethod(), this.getNamedMethodType(), null, "timeoutMethod", null, 0, 1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getMessageDrivenBean_TransactionType(), this.getTransactionType(), "transactionType", "Bean", 0, 1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$ //$NON-NLS-2$
-		initEAttribute(getMessageDrivenBean_MessageDestinationType(), theJavaeePackage.getMessageDestinationTypeType(), "messageDestinationType", null, 0, 1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getMessageDrivenBean_MessageDestinationLink(), theJavaeePackage.getMessageDestinationLink(), "messageDestinationLink", null, 0, 1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getMessageDrivenBean_Timer(), this.getTimerType(), null, "timer", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMessageDrivenBean_TransactionType(), this.getTransactionType(), "transactionType", null, 0, 1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMessageDrivenBean_MessageDestinationType(), theJavaeePackage.getMessageDestinationTypeType(), "messageDestinationType", null, 0, 1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMessageDrivenBean_MessageDestinationLink(), theJavaeePackage.getMessageDestinationLink(), "messageDestinationLink", null, 0, 1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getMessageDrivenBean_ActivationConfig(), this.getActivationConfig(), null, "activationConfig", null, 0, 1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getMessageDrivenBean_AroundInvokes(), this.getAroundInvokeType(), null, "aroundInvokes", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getMessageDrivenBean_AroundTimeouts(), this.getAroundTimeoutType(), null, "aroundTimeouts", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getMessageDrivenBean_EnvEntries(), theJavaeePackage.getEnvEntry(), null, "envEntries", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getMessageDrivenBean_EjbRefs(), theJavaeePackage.getEjbRef(), null, "ejbRefs", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getMessageDrivenBean_EjbLocalRefs(), theJavaeePackage.getEjbLocalRef(), null, "ejbLocalRefs", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
@@ -3629,86 +4500,100 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		initEReference(getMessageDrivenBean_PersistenceUnitRefs(), theJavaeePackage.getPersistenceUnitRef(), null, "persistenceUnitRefs", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getMessageDrivenBean_PostConstructs(), theJavaeePackage.getLifecycleCallback(), null, "postConstructs", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getMessageDrivenBean_PreDestroys(), theJavaeePackage.getLifecycleCallback(), null, "preDestroys", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getMessageDrivenBean_DataSource(), theJavaeePackage.getDataSourceType(), null, "dataSource", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getMessageDrivenBean_SecurityRoleRef(), theJavaeePackage.getSecurityRoleRef(), null, "securityRoleRef", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getMessageDrivenBean_SecurityIdentity(), this.getSecurityIdentityType(), null, "securityIdentity", null, 0, 1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getMessageDrivenBean_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMessageDrivenBean_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(methodParamsEClass, MethodParams.class, "MethodParams", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEAttribute(getMethodParams_MethodParams(), theJavaeePackage.getJavaType(), "methodParams", null, 0, -1, MethodParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getMethodParams_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, MethodParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMethodParams_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, MethodParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(methodPermissionEClass, MethodPermission.class, "MethodPermission", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(getMethodPermission_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, MethodPermission.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getMethodPermission_RoleNames(), theJavaeePackage.getRoleName(), "roleNames", null, 0, -1, MethodPermission.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getMethodPermission_Unchecked(), theJavaeePackage.getEmptyType(), null, "unchecked", null, 0, 1, MethodPermission.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getMethodPermission_Methods(), this.getMethodType(), null, "methods", null, 1, -1, MethodPermission.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getMethodPermission_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, MethodPermission.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMethodPermission_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, MethodPermission.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(methodTypeEClass, MethodType.class, "MethodType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(getMethodType_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, MethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getMethodType_EjbName(), this.getEjbNameType(), "ejbName", null, 1, 1, MethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getMethodType_MethodIntf(), this.getMethodInterfaceType(), "methodIntf", "Home", 0, 1, MethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$ //$NON-NLS-2$
-		initEAttribute(getMethodType_MethodName(), this.getMethodNameType(), "methodName", null, 1, 1, MethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMethodType_EjbName(), this.getEjbNameType(), "ejbName", null, 1, 1, MethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMethodType_MethodIntf(), this.getMethodInterfaceType(), "methodIntf", null, 0, 1, MethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMethodType_MethodName(), this.getMethodNameType(), "methodName", null, 1, 1, MethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getMethodType_MethodParams(), this.getMethodParams(), null, "methodParams", null, 0, 1, MethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getMethodType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, MethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMethodType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, MethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(namedMethodTypeEClass, NamedMethodType.class, "NamedMethodType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getNamedMethodType_MethodName(), theXMLTypePackage.getToken(), "methodName", null, 1, 1, NamedMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getNamedMethodType_MethodName(), theXMLTypePackage.getToken(), "methodName", null, 1, 1, NamedMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getNamedMethodType_MethodParams(), this.getMethodParams(), null, "methodParams", null, 0, 1, NamedMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getNamedMethodType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, NamedMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getNamedMethodType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, NamedMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(queryEClass, Query.class, "Query", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(getQuery_Description(), theJavaeePackage.getDescription(), null, "description", null, 0, 1, Query.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getQuery_QueryMethod(), this.getQueryMethod(), null, "queryMethod", null, 1, 1, Query.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getQuery_ResultTypeMapping(), this.getResultTypeMappingType(), "resultTypeMapping", "Local", 0, 1, Query.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$ //$NON-NLS-2$
-		initEAttribute(getQuery_EjbQl(), theXMLTypePackage.getString(), "ejbQl", null, 1, 1, Query.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getQuery_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, Query.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getQuery_ResultTypeMapping(), this.getResultTypeMappingType(), "resultTypeMapping", null, 0, 1, Query.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getQuery_EjbQl(), theXMLTypePackage.getString(), "ejbQl", null, 1, 1, Query.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getQuery_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, Query.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(queryMethodEClass, QueryMethod.class, "QueryMethod", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getQueryMethod_MethodName(), this.getMethodNameType(), "methodName", null, 1, 1, QueryMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getQueryMethod_MethodName(), this.getMethodNameType(), "methodName", null, 1, 1, QueryMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getQueryMethod_MethodParams(), this.getMethodParams(), null, "methodParams", null, 1, 1, QueryMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getQueryMethod_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, QueryMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getQueryMethod_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, QueryMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(relationshipRoleSourceTypeEClass, RelationshipRoleSourceType.class, "RelationshipRoleSourceType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(getRelationshipRoleSourceType_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, RelationshipRoleSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getRelationshipRoleSourceType_EjbName(), this.getEjbNameType(), "ejbName", null, 1, 1, RelationshipRoleSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getRelationshipRoleSourceType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, RelationshipRoleSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getRelationshipRoleSourceType_EjbName(), this.getEjbNameType(), "ejbName", null, 1, 1, RelationshipRoleSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getRelationshipRoleSourceType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, RelationshipRoleSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(relationshipsEClass, Relationships.class, "Relationships", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(getRelationships_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, Relationships.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getRelationships_EjbRelations(), this.getEJBRelation(), null, "ejbRelations", null, 1, -1, Relationships.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getRelationships_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, Relationships.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getRelationships_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, Relationships.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(removeMethodTypeEClass, RemoveMethodType.class, "RemoveMethodType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(getRemoveMethodType_BeanMethod(), this.getNamedMethodType(), null, "beanMethod", null, 1, 1, RemoveMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getRemoveMethodType_RetainIfException(), theJavaeePackage.getTrueFalseType(), "retainIfException", null, 0, 1, RemoveMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getRemoveMethodType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, RemoveMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getRemoveMethodType_RetainIfException(), theJavaeePackage.getTrueFalseType(), "retainIfException", null, 0, 1, RemoveMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getRemoveMethodType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, RemoveMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(securityIdentityTypeEClass, SecurityIdentityType.class, "SecurityIdentityType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(getSecurityIdentityType_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, SecurityIdentityType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getSecurityIdentityType_UseCallerIdentity(), theJavaeePackage.getEmptyType(), null, "useCallerIdentity", null, 0, 1, SecurityIdentityType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getSecurityIdentityType_RunAs(), theJavaeePackage.getRunAs(), null, "runAs", null, 0, 1, SecurityIdentityType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getSecurityIdentityType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, SecurityIdentityType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getSecurityIdentityType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, SecurityIdentityType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(sessionBeanEClass, SessionBean.class, "SessionBean", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(getSessionBean_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getSessionBean_DisplayNames(), theJavaeePackage.getDisplayName(), null, "displayNames", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getSessionBean_Icons(), theJavaeePackage.getIcon(), null, "icons", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getSessionBean_EjbName(), this.getEjbNameType(), "ejbName", null, 1, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getSessionBean_MappedName(), theXMLTypePackage.getString(), "mappedName", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getSessionBean_Home(), theJavaeePackage.getHome(), "home", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getSessionBean_Remote(), theJavaeePackage.getRemote(), "remote", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getSessionBean_LocalHome(), theJavaeePackage.getLocalHome(), "localHome", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getSessionBean_Local(), theJavaeePackage.getLocal(), "local", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getSessionBean_EjbName(), this.getEjbNameType(), "ejbName", null, 1, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getSessionBean_MappedName(), theXMLTypePackage.getString(), "mappedName", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getSessionBean_Home(), theJavaeePackage.getHome(), "home", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getSessionBean_Remote(), theJavaeePackage.getRemote(), "remote", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getSessionBean_LocalHome(), theJavaeePackage.getLocalHome(), "localHome", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getSessionBean_Local(), theJavaeePackage.getLocal(), "local", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getSessionBean_BusinessLocals(), theJavaeePackage.getFullyQualifiedClassType(), "businessLocals", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getSessionBean_BusinessRemotes(), theJavaeePackage.getFullyQualifiedClassType(), "businessRemotes", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getSessionBean_ServiceEndpoint(), theJavaeePackage.getFullyQualifiedClassType(), "serviceEndpoint", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getSessionBean_EjbClass(), this.getEjbClassType(), "ejbClass", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getSessionBean_SessionType(), this.getSessionType(), "sessionType", "Stateful", 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$ //$NON-NLS-2$
+		initEReference(getSessionBean_LocalBean(), theJavaeePackage.getEmptyType(), null, "localBean", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getSessionBean_ServiceEndpoint(), theJavaeePackage.getFullyQualifiedClassType(), "serviceEndpoint", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getSessionBean_EjbClass(), this.getEjbClassType(), "ejbClass", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getSessionBean_SessionType(), this.getSessionType(), "sessionType", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_StatefulTimeout(), this.getStatefulTimeoutType(), null, "statefulTimeout", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getSessionBean_TimeoutMethod(), this.getNamedMethodType(), null, "timeoutMethod", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_Timer(), this.getTimerType(), null, "timer", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getSessionBean_InitOnStartup(), theJavaeePackage.getTrueFalseType(), "initOnStartup", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getSessionBean_ConcurrencyManagementType(), this.getConcurrencyManagementTypeType(), "concurrencyManagementType", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_ConcurrentMethod(), this.getConcurrentMethodType(), null, "concurrentMethod", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_DependsOn(), this.getDependsOnType(), null, "dependsOn", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getSessionBean_InitMethods(), this.getInitMethodType(), null, "initMethods", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getSessionBean_RemoveMethods(), this.getRemoveMethodType(), null, "removeMethods", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getSessionBean_TransactionType(), this.getTransactionType(), "transactionType", "Bean", 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$ //$NON-NLS-2$
+		initEReference(getSessionBean_AsyncMethod(), this.getAsyncMethodType(), null, "asyncMethod", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getSessionBean_TransactionType(), this.getTransactionType(), "transactionType", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_AfterBeginMethod(), this.getNamedMethodType(), null, "afterBeginMethod", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_BeforeCompletionMethod(), this.getNamedMethodType(), null, "beforeCompletionMethod", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_AfterCompletionMethod(), this.getNamedMethodType(), null, "afterCompletionMethod", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getSessionBean_AroundInvokes(), this.getAroundInvokeType(), null, "aroundInvokes", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_AroundTimeouts(), this.getAroundTimeoutType(), null, "aroundTimeouts", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getSessionBean_EnvEntries(), theJavaeePackage.getEnvEntry(), null, "envEntries", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getSessionBean_EjbRefs(), theJavaeePackage.getEjbRef(), null, "ejbRefs", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getSessionBean_EjbLocalRefs(), theJavaeePackage.getEjbLocalRef(), null, "ejbLocalRefs", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
@@ -3720,11 +4605,38 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		initEReference(getSessionBean_PersistenceUnitRefs(), theJavaeePackage.getPersistenceUnitRef(), null, "persistenceUnitRefs", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getSessionBean_PostConstructs(), theJavaeePackage.getLifecycleCallback(), null, "postConstructs", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getSessionBean_PreDestroys(), theJavaeePackage.getLifecycleCallback(), null, "preDestroys", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_DataSource(), theJavaeePackage.getDataSourceType(), null, "dataSource", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getSessionBean_PostActivates(), theJavaeePackage.getLifecycleCallback(), null, "postActivates", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getSessionBean_PrePassivates(), theJavaeePackage.getLifecycleCallback(), null, "prePassivates", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getSessionBean_SecurityRoleRefs(), theJavaeePackage.getSecurityRoleRef(), null, "securityRoleRefs", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getSessionBean_SecurityIdentities(), this.getSecurityIdentityType(), null, "securityIdentities", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getSessionBean_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getSessionBean_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(statefulTimeoutTypeEClass, StatefulTimeoutType.class, "StatefulTimeoutType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getStatefulTimeoutType_Timeout(), theXMLTypePackage.getPositiveInteger(), "timeout", null, 1, 1, StatefulTimeoutType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getStatefulTimeoutType_Unit(), this.getTimeUnitTypeType(), "unit", null, 1, 1, StatefulTimeoutType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getStatefulTimeoutType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, StatefulTimeoutType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(timerScheduleTypeEClass, TimerScheduleType.class, "TimerScheduleType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getTimerScheduleType_Second(), theXMLTypePackage.getToken(), "second", null, 0, 1, TimerScheduleType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getTimerScheduleType_Minute(), theXMLTypePackage.getToken(), "minute", null, 0, 1, TimerScheduleType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getTimerScheduleType_Hour(), theXMLTypePackage.getToken(), "hour", null, 0, 1, TimerScheduleType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getTimerScheduleType_DayOfMonth(), theXMLTypePackage.getToken(), "dayOfMonth", null, 0, 1, TimerScheduleType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getTimerScheduleType_Month(), theXMLTypePackage.getToken(), "month", null, 0, 1, TimerScheduleType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getTimerScheduleType_DayOfWeek(), theXMLTypePackage.getToken(), "dayOfWeek", null, 0, 1, TimerScheduleType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getTimerScheduleType_Year(), theXMLTypePackage.getToken(), "year", null, 0, 1, TimerScheduleType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getTimerScheduleType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, TimerScheduleType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(timerTypeEClass, TimerType.class, "TimerType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getTimerType_Description(), theJavaeePackage.getDescription(), null, "description", null, 0, -1, TimerType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getTimerType_Schedule(), this.getTimerScheduleType(), null, "schedule", null, 1, 1, TimerType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getTimerType_Start(), theXMLTypePackage.getDateTime(), "start", null, 0, 1, TimerType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getTimerType_End(), theXMLTypePackage.getDateTime(), "end", null, 0, 1, TimerType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getTimerType_TimeoutMethod(), this.getNamedMethodType(), null, "timeoutMethod", null, 1, 1, TimerType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getTimerType_Persistent(), theJavaeePackage.getTrueFalseType(), "persistent", null, 0, 1, TimerType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getTimerType_Timezone(), theXMLTypePackage.getToken(), "timezone", null, 0, 1, TimerType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getTimerType_Info(), theXMLTypePackage.getToken(), "info", null, 0, 1, TimerType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getTimerType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, TimerType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		// Initialize enums and add enum literals
 		initEEnum(cmpVersionTypeEEnum, CmpVersionType.class, "CmpVersionType"); //$NON-NLS-1$
@@ -3735,12 +4647,23 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		addEEnumLiteral(cmrFieldTypeEEnum, CMRFieldType.JAVA_UTIL_COLLECTION_LITERAL);
 		addEEnumLiteral(cmrFieldTypeEEnum, CMRFieldType.JAVA_UTIL_SET_LITERAL);
 
+		initEEnum(concurrencyManagementTypeTypeEEnum, ConcurrencyManagementTypeType.class, "ConcurrencyManagementTypeType"); //$NON-NLS-1$
+		addEEnumLiteral(concurrencyManagementTypeTypeEEnum, ConcurrencyManagementTypeType.BEAN);
+		addEEnumLiteral(concurrencyManagementTypeTypeEEnum, ConcurrencyManagementTypeType.CONTAINER);
+		addEEnumLiteral(concurrencyManagementTypeTypeEEnum, ConcurrencyManagementTypeType.NOT_ALLOWED);
+
+		initEEnum(concurrentLockTypeTypeEEnum, ConcurrentLockTypeType.class, "ConcurrentLockTypeType"); //$NON-NLS-1$
+		addEEnumLiteral(concurrentLockTypeTypeEEnum, ConcurrentLockTypeType.READ);
+		addEEnumLiteral(concurrentLockTypeTypeEEnum, ConcurrentLockTypeType.WRITE);
+
 		initEEnum(methodInterfaceTypeEEnum, MethodInterfaceType.class, "MethodInterfaceType"); //$NON-NLS-1$
 		addEEnumLiteral(methodInterfaceTypeEEnum, MethodInterfaceType.HOME_LITERAL);
 		addEEnumLiteral(methodInterfaceTypeEEnum, MethodInterfaceType.REMOTE_LITERAL);
 		addEEnumLiteral(methodInterfaceTypeEEnum, MethodInterfaceType.LOCAL_HOME_LITERAL);
 		addEEnumLiteral(methodInterfaceTypeEEnum, MethodInterfaceType.LOCAL_LITERAL);
 		addEEnumLiteral(methodInterfaceTypeEEnum, MethodInterfaceType.SERVICE_ENDPOINT_LITERAL);
+		addEEnumLiteral(methodInterfaceTypeEEnum, MethodInterfaceType.TIMER_LITERAL);
+		addEEnumLiteral(methodInterfaceTypeEEnum, MethodInterfaceType.MESSAGE_ENDPOINT_LITERAL);
 
 		initEEnum(multiplicityTypeEEnum, MultiplicityType.class, "MultiplicityType"); //$NON-NLS-1$
 		addEEnumLiteral(multiplicityTypeEEnum, MultiplicityType.ONE_LITERAL);
@@ -3755,8 +4678,18 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		addEEnumLiteral(resultTypeMappingTypeEEnum, ResultTypeMappingType.REMOTE_LITERAL);
 
 		initEEnum(sessionTypeEEnum, SessionType.class, "SessionType"); //$NON-NLS-1$
+		addEEnumLiteral(sessionTypeEEnum, SessionType.SINGLETON_LITERAL);
 		addEEnumLiteral(sessionTypeEEnum, SessionType.STATEFUL_LITERAL);
 		addEEnumLiteral(sessionTypeEEnum, SessionType.STATELESS_LITERAL);
+
+		initEEnum(timeUnitTypeTypeEEnum, TimeUnitTypeType.class, "TimeUnitTypeType"); //$NON-NLS-1$
+		addEEnumLiteral(timeUnitTypeTypeEEnum, TimeUnitTypeType.DAYS);
+		addEEnumLiteral(timeUnitTypeTypeEEnum, TimeUnitTypeType.HOURS);
+		addEEnumLiteral(timeUnitTypeTypeEEnum, TimeUnitTypeType.MINUTES);
+		addEEnumLiteral(timeUnitTypeTypeEEnum, TimeUnitTypeType.SECONDS);
+		addEEnumLiteral(timeUnitTypeTypeEEnum, TimeUnitTypeType.MILLISECONDS);
+		addEEnumLiteral(timeUnitTypeTypeEEnum, TimeUnitTypeType.MICROSECONDS);
+		addEEnumLiteral(timeUnitTypeTypeEEnum, TimeUnitTypeType.NANOSECONDS);
 
 		initEEnum(transactionAttributeTypeEEnum, TransactionAttributeType.class, "TransactionAttributeType"); //$NON-NLS-1$
 		addEEnumLiteral(transactionAttributeTypeEEnum, TransactionAttributeType.NOT_SUPPORTED_LITERAL);
@@ -3773,6 +4706,8 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		// Initialize data types
 		initEDataType(cmpVersionTypeObjectEDataType, CmpVersionType.class, "CmpVersionTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEDataType(cmrFieldTypeObjectEDataType, CMRFieldType.class, "CMRFieldTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(concurrencyManagementTypeTypeObjectEDataType, ConcurrencyManagementTypeType.class, "ConcurrencyManagementTypeTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(concurrentLockTypeTypeObjectEDataType, ConcurrentLockTypeType.class, "ConcurrentLockTypeTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEDataType(ejbClassTypeEDataType, String.class, "EjbClassType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEDataType(ejbNameTypeEDataType, String.class, "EjbNameType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEDataType(methodInterfaceTypeObjectEDataType, MethodInterfaceType.class, "MethodInterfaceTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
@@ -3781,6 +4716,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		initEDataType(persistenceTypeObjectEDataType, PersistenceType.class, "PersistenceTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEDataType(resultTypeMappingTypeObjectEDataType, ResultTypeMappingType.class, "ResultTypeMappingTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEDataType(sessionTypeObjectEDataType, SessionType.class, "SessionTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(timeUnitTypeTypeObjectEDataType, TimeUnitTypeType.class, "TimeUnitTypeTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEDataType(transactionAttributeTypeObjectEDataType, TransactionAttributeType.class, "TransactionAttributeTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEDataType(transactionTypeObjectEDataType, TransactionType.class, "TransactionTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 
@@ -3800,6 +4736,36 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 */
 	protected void createExtendedMetaDataAnnotations() {
 		String source = "http:///org/eclipse/emf/ecore/util/ExtendedMetaData"; //$NON-NLS-1$				
+		addAnnotation
+		  (accessTimeoutTypeEClass, 
+		   source, 
+		   new String[] {
+			 "name", "access-timeoutType", //$NON-NLS-1$ //$NON-NLS-2$
+			 "kind", "elementOnly" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getAccessTimeoutType_Timeout(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "timeout", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getAccessTimeoutType_Unit(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "unit", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getAccessTimeoutType_Id(), 
+		   source, 
+		   new String[] {
+			 "kind", "attribute", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "id" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
 		addAnnotation
 		  (activationConfigEClass, 
 		   source, 
@@ -3882,6 +4848,14 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "rollback", //$NON-NLS-1$ //$NON-NLS-2$
 			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getApplicationException_Inherited(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "inherited", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getApplicationException_Id(), 
@@ -3907,6 +4881,29 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   });		
 		addAnnotation
 		  (getAroundInvokeType_MethodName(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "method-name", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (aroundTimeoutTypeEClass, 
+		   source, 
+		   new String[] {
+			 "name", "around-timeoutType", //$NON-NLS-1$ //$NON-NLS-2$
+			 "kind", "elementOnly" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getAroundTimeoutType_Class(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "class", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getAroundTimeoutType_MethodName(), 
 		   source, 
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
@@ -3978,6 +4975,44 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   });		
 		addAnnotation
 		  (getAssemblyDescriptor_Id(), 
+		   source, 
+		   new String[] {
+			 "kind", "attribute", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "id" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (asyncMethodTypeEClass, 
+		   source, 
+		   new String[] {
+			 "name", "async-methodType", //$NON-NLS-1$ //$NON-NLS-2$
+			 "kind", "elementOnly" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getAsyncMethodType_MethodName(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "method-name", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getAsyncMethodType_MethodParams(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "method-params", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getAsyncMethodType_MethodIntf(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "method-intf", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getAsyncMethodType_Id(), 
 		   source, 
 		   new String[] {
 			 "kind", "attribute", //$NON-NLS-1$ //$NON-NLS-2$
@@ -4078,6 +5113,70 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 			 "baseType", "cmr-field-typeType" //$NON-NLS-1$ //$NON-NLS-2$
 		   });			
 		addAnnotation
+		  (concurrencyManagementTypeTypeEEnum, 
+		   source, 
+		   new String[] {
+			 "name", "concurrency-management-typeType" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (concurrencyManagementTypeTypeObjectEDataType, 
+		   source, 
+		   new String[] {
+			 "name", "concurrency-management-typeType:Object", //$NON-NLS-1$ //$NON-NLS-2$
+			 "baseType", "concurrency-management-typeType" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (concurrentLockTypeTypeEEnum, 
+		   source, 
+		   new String[] {
+			 "name", "concurrent-lock-typeType" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (concurrentLockTypeTypeObjectEDataType, 
+		   source, 
+		   new String[] {
+			 "name", "concurrent-lock-typeType:Object", //$NON-NLS-1$ //$NON-NLS-2$
+			 "baseType", "concurrent-lock-typeType" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (concurrentMethodTypeEClass, 
+		   source, 
+		   new String[] {
+			 "name", "concurrent-methodType", //$NON-NLS-1$ //$NON-NLS-2$
+			 "kind", "elementOnly" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getConcurrentMethodType_Method(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "method", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getConcurrentMethodType_Lock(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "lock", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getConcurrentMethodType_AccessTimeout(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "access-timeout", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getConcurrentMethodType_Id(), 
+		   source, 
+		   new String[] {
+			 "kind", "attribute", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "id" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
 		  (containerTransactionTypeEClass, 
 		   source, 
 		   new String[] {
@@ -4110,6 +5209,28 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   });		
 		addAnnotation
 		  (getContainerTransactionType_Id(), 
+		   source, 
+		   new String[] {
+			 "kind", "attribute", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "id" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (dependsOnTypeEClass, 
+		   source, 
+		   new String[] {
+			 "name", "depends-onType", //$NON-NLS-1$ //$NON-NLS-2$
+			 "kind", "elementOnly" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getDependsOnType_EjbName(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "ejb-name", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getDependsOnType_Id(), 
 		   source, 
 		   new String[] {
 			 "kind", "attribute", //$NON-NLS-1$ //$NON-NLS-2$
@@ -4152,6 +5273,14 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "icon", //$NON-NLS-1$ //$NON-NLS-2$
 			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getEJBJar_ModuleName(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "module-name", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getEJBJar_EnterpriseBeans(), 
@@ -4637,6 +5766,14 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
+		  (getEntityBean_DataSource(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "data-source", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
 		  (getEntityBean_SecurityRoleRefs(), 
 		   source, 
 		   new String[] {
@@ -4881,6 +6018,14 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
+		  (getInterceptorType_AroundTimeouts(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "around-timeout", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
 		  (getInterceptorType_EnvEntries(), 
 		   source, 
 		   new String[] {
@@ -4969,6 +6114,14 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
+		  (getInterceptorType_DataSource(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "data-source", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
 		  (getInterceptorType_PostActivates(), 
 		   source, 
 		   new String[] {
@@ -5053,13 +6206,21 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "messaging-type", //$NON-NLS-1$ //$NON-NLS-2$
 			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
-		   });		
+		   });			
 		addAnnotation
 		  (getMessageDrivenBean_TimeoutMethod(), 
 		   source, 
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "timeout-method", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getMessageDrivenBean_Timer(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "timer", //$NON-NLS-1$ //$NON-NLS-2$
 			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
@@ -5100,6 +6261,14 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "around-invoke", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getMessageDrivenBean_AroundTimeouts(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "around-timeout", //$NON-NLS-1$ //$NON-NLS-2$
 			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
@@ -5191,6 +6360,22 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
+		  (getMessageDrivenBean_DataSource(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "data-source", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getMessageDrivenBean_SecurityRoleRef(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "security-role-ref", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
 		  (getMessageDrivenBean_SecurityIdentity(), 
 		   source, 
 		   new String[] {
@@ -5210,7 +6395,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   source, 
 		   new String[] {
 			 "name", "method-intfType" //$NON-NLS-1$ //$NON-NLS-2$
-		   });		
+		   });				
 		addAnnotation
 		  (methodInterfaceTypeObjectEDataType, 
 		   source, 
@@ -5715,6 +6900,14 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
 		   });			
 		addAnnotation
+		  (getSessionBean_LocalBean(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "local-bean", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
 		  (getSessionBean_ServiceEndpoint(), 
 		   source, 
 		   new String[] {
@@ -5739,11 +6932,59 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
+		  (getSessionBean_StatefulTimeout(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "stateful-timeout", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
 		  (getSessionBean_TimeoutMethod(), 
 		   source, 
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "timeout-method", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getSessionBean_Timer(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "timer", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getSessionBean_InitOnStartup(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "init-on-startup", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getSessionBean_ConcurrencyManagementType(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "concurrency-management-type", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getSessionBean_ConcurrentMethod(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "concurrent-method", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getSessionBean_DependsOn(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "depends-on", //$NON-NLS-1$ //$NON-NLS-2$
 			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
 		   });			
 		addAnnotation
@@ -5763,11 +7004,43 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
+		  (getSessionBean_AsyncMethod(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "async-method", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
 		  (getSessionBean_TransactionType(), 
 		   source, 
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "transaction-type", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getSessionBean_AfterBeginMethod(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "after-begin-method", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getSessionBean_BeforeCompletionMethod(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "before-completion-method", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getSessionBean_AfterCompletionMethod(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "after-completion-method", //$NON-NLS-1$ //$NON-NLS-2$
 			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
@@ -5776,6 +7049,14 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "around-invoke", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getSessionBean_AroundTimeouts(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "around-timeout", //$NON-NLS-1$ //$NON-NLS-2$
 			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
@@ -5867,6 +7148,14 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
+		  (getSessionBean_DataSource(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "data-source", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
 		  (getSessionBean_PostActivates(), 
 		   source, 
 		   new String[] {
@@ -5910,13 +7199,204 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   source, 
 		   new String[] {
 			 "name", "session-typeType" //$NON-NLS-1$ //$NON-NLS-2$
-		   });		
+		   });			
 		addAnnotation
 		  (sessionTypeObjectEDataType, 
 		   source, 
 		   new String[] {
 			 "name", "session-typeType:Object", //$NON-NLS-1$ //$NON-NLS-2$
 			 "baseType", "session-typeType" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (statefulTimeoutTypeEClass, 
+		   source, 
+		   new String[] {
+			 "name", "stateful-timeoutType", //$NON-NLS-1$ //$NON-NLS-2$
+			 "kind", "elementOnly" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getStatefulTimeoutType_Timeout(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "timeout", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getStatefulTimeoutType_Unit(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "unit", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getStatefulTimeoutType_Id(), 
+		   source, 
+		   new String[] {
+			 "kind", "attribute", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "id" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (timerScheduleTypeEClass, 
+		   source, 
+		   new String[] {
+			 "name", "timer-scheduleType", //$NON-NLS-1$ //$NON-NLS-2$
+			 "kind", "elementOnly" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getTimerScheduleType_Second(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "second", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getTimerScheduleType_Minute(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "minute", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getTimerScheduleType_Hour(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "hour", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getTimerScheduleType_DayOfMonth(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "day-of-month", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getTimerScheduleType_Month(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "month", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getTimerScheduleType_DayOfWeek(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "day-of-week", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getTimerScheduleType_Year(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "year", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getTimerScheduleType_Id(), 
+		   source, 
+		   new String[] {
+			 "kind", "attribute", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "id" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (timerTypeEClass, 
+		   source, 
+		   new String[] {
+			 "name", "timerType", //$NON-NLS-1$ //$NON-NLS-2$
+			 "kind", "elementOnly" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getTimerType_Description(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "description", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getTimerType_Schedule(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "schedule", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getTimerType_Start(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "start", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getTimerType_End(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "end", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getTimerType_TimeoutMethod(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "timeout-method", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getTimerType_Persistent(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "persistent", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getTimerType_Timezone(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "timezone", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getTimerType_Info(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "info", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getTimerType_Id(), 
+		   source, 
+		   new String[] {
+			 "kind", "attribute", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "id" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (timeUnitTypeTypeEEnum, 
+		   source, 
+		   new String[] {
+			 "name", "time-unit-typeType" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (timeUnitTypeTypeObjectEDataType, 
+		   source, 
+		   new String[] {
+			 "name", "time-unit-typeType:Object", //$NON-NLS-1$ //$NON-NLS-2$
+			 "baseType", "time-unit-typeType" //$NON-NLS-1$ //$NON-NLS-2$
 		   });			
 		addAnnotation
 		  (transactionAttributeTypeEEnum, 

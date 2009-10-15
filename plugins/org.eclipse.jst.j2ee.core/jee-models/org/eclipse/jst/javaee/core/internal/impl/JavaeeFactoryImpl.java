@@ -11,7 +11,6 @@
 package org.eclipse.jst.javaee.core.internal.impl;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -77,6 +76,8 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
+			case JavaeePackage.ADDRESSING_TYPE: return (EObject)createAddressingType();
+			case JavaeePackage.DATA_SOURCE_TYPE: return (EObject)createDataSourceType();
 			case JavaeePackage.DESCRIPTION: return (EObject)createDescription();
 			case JavaeePackage.DISPLAY_NAME: return (EObject)createDisplayName();
 			case JavaeePackage.EJB_LOCAL_REF: return (EObject)createEjbLocalRef();
@@ -96,6 +97,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 			case JavaeePackage.PROPERTY_TYPE: return (EObject)createPropertyType();
 			case JavaeePackage.RESOURCE_ENV_REF: return (EObject)createResourceEnvRef();
 			case JavaeePackage.RESOURCE_REF: return (EObject)createResourceRef();
+			case JavaeePackage.RESPECT_BINDING_TYPE: return (EObject)createRespectBindingType();
 			case JavaeePackage.RUN_AS: return (EObject)createRunAs();
 			case JavaeePackage.SECURITY_ROLE: return (EObject)createSecurityRole();
 			case JavaeePackage.SECURITY_ROLE_REF: return (EObject)createSecurityRoleRef();
@@ -117,10 +119,14 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
+			case JavaeePackage.ADDRESSING_RESPONSES_TYPE:
+				return createAddressingResponsesTypeFromString(eDataType, initialValue);
 			case JavaeePackage.EJB_REF_TYPE:
 				return createEjbRefTypeFromString(eDataType, initialValue);
-			case JavaeePackage.ENV_ENTRY_TYPE:
-				return createEnvEntryTypeFromString(eDataType, initialValue);
+			case JavaeePackage.GENERIC_BOOLEAN_TYPE:
+				return createGenericBooleanTypeFromString(eDataType, initialValue);
+			case JavaeePackage.ISOLATION_LEVEL_TYPE:
+				return createIsolationLevelTypeFromString(eDataType, initialValue);
 			case JavaeePackage.MESSAGE_DESTINATION_USAGE_TYPE:
 				return createMessageDestinationUsageTypeFromString(eDataType, initialValue);
 			case JavaeePackage.PERSISTENCE_CONTEXT_TYPE:
@@ -129,6 +135,8 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 				return createResAuthTypeFromString(eDataType, initialValue);
 			case JavaeePackage.RES_SHARING_SCOPE_TYPE:
 				return createResSharingScopeTypeFromString(eDataType, initialValue);
+			case JavaeePackage.ADDRESSING_RESPONSES_TYPE_OBJECT:
+				return createAddressingResponsesTypeObjectFromString(eDataType, initialValue);
 			case JavaeePackage.DEWEY_VERSION_TYPE:
 				return createDeweyVersionTypeFromString(eDataType, initialValue);
 			case JavaeePackage.EJB_LINK:
@@ -137,16 +145,22 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 				return createEjbRefNameTypeFromString(eDataType, initialValue);
 			case JavaeePackage.EJB_REF_TYPE_OBJECT:
 				return createEjbRefTypeObjectFromString(eDataType, initialValue);
-			case JavaeePackage.ENV_ENTRY_TYPE_OBJECT:
-				return createEnvEntryTypeObjectFromString(eDataType, initialValue);
+			case JavaeePackage.ENV_ENTRY_TYPE:
+				return createEnvEntryTypeFromString(eDataType, initialValue);
 			case JavaeePackage.FULLY_QUALIFIED_CLASS_TYPE:
 				return createFullyQualifiedClassTypeFromString(eDataType, initialValue);
+			case JavaeePackage.GENERIC_BOOLEAN_TYPE_OBJECT:
+				return createGenericBooleanTypeObjectFromString(eDataType, initialValue);
 			case JavaeePackage.HOME:
 				return createHomeFromString(eDataType, initialValue);
+			case JavaeePackage.ISOLATION_LEVEL_TYPE_OBJECT:
+				return createIsolationLevelTypeObjectFromString(eDataType, initialValue);
 			case JavaeePackage.JAVA_IDENTIFIER:
 				return createJavaIdentifierFromString(eDataType, initialValue);
 			case JavaeePackage.JAVA_TYPE:
 				return createJavaTypeFromString(eDataType, initialValue);
+			case JavaeePackage.JDBC_URL_TYPE:
+				return createJdbcUrlTypeFromString(eDataType, initialValue);
 			case JavaeePackage.JNDI_NAME:
 				return createJNDINameFromString(eDataType, initialValue);
 			case JavaeePackage.LOCAL:
@@ -163,6 +177,14 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 				return createPathTypeFromString(eDataType, initialValue);
 			case JavaeePackage.PERSISTENCE_CONTEXT_TYPE_OBJECT:
 				return createPersistenceContextTypeObjectFromString(eDataType, initialValue);
+			case JavaeePackage.PROTOCOL_BINDING_LIST_TYPE:
+				return createProtocolBindingListTypeFromString(eDataType, initialValue);
+			case JavaeePackage.PROTOCOL_BINDING_TYPE:
+				return createProtocolBindingTypeFromString(eDataType, initialValue);
+			case JavaeePackage.PROTOCOL_URI_ALIAS_TYPE:
+				return createProtocolURIAliasTypeFromString(eDataType, initialValue);
+			case JavaeePackage.QNAME_PATTERN:
+				return createQnamePatternFromString(eDataType, initialValue);
 			case JavaeePackage.REMOTE:
 				return createRemoteFromString(eDataType, initialValue);
 			case JavaeePackage.RES_AUTH_TYPE_OBJECT:
@@ -171,14 +193,6 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 				return createResSharingScopeTypeObjectFromString(eDataType, initialValue);
 			case JavaeePackage.ROLE_NAME:
 				return createRoleNameFromString(eDataType, initialValue);
-			case JavaeePackage.SERVICE_REF_PROTOCOL_BINDING_LIST_TYPE:
-				return createServiceRefProtocolBindingListTypeFromString(eDataType, initialValue);
-			case JavaeePackage.SERVICE_REF_PROTOCOL_BINDING_TYPE:
-				return createServiceRefProtocolBindingTypeFromString(eDataType, initialValue);
-			case JavaeePackage.SERVICE_REF_PROTOCOL_URI_ALIAS_TYPE:
-				return createServiceRefProtocolURIAliasTypeFromString(eDataType, initialValue);
-			case JavaeePackage.SERVICE_REF_QNAME_PATTERN:
-				return createServiceRefQnamePatternFromString(eDataType, initialValue);
 			case JavaeePackage.TRUE_FALSE_TYPE:
 				return createTrueFalseTypeFromString(eDataType, initialValue);
 			case JavaeePackage.TRUE_FALSE_TYPE_OBJECT:
@@ -196,10 +210,14 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
+			case JavaeePackage.ADDRESSING_RESPONSES_TYPE:
+				return convertAddressingResponsesTypeToString(eDataType, instanceValue);
 			case JavaeePackage.EJB_REF_TYPE:
 				return convertEjbRefTypeToString(eDataType, instanceValue);
-			case JavaeePackage.ENV_ENTRY_TYPE:
-				return convertEnvEntryTypeToString(eDataType, instanceValue);
+			case JavaeePackage.GENERIC_BOOLEAN_TYPE:
+				return convertGenericBooleanTypeToString(eDataType, instanceValue);
+			case JavaeePackage.ISOLATION_LEVEL_TYPE:
+				return convertIsolationLevelTypeToString(eDataType, instanceValue);
 			case JavaeePackage.MESSAGE_DESTINATION_USAGE_TYPE:
 				return convertMessageDestinationUsageTypeToString(eDataType, instanceValue);
 			case JavaeePackage.PERSISTENCE_CONTEXT_TYPE:
@@ -208,6 +226,8 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 				return convertResAuthTypeToString(eDataType, instanceValue);
 			case JavaeePackage.RES_SHARING_SCOPE_TYPE:
 				return convertResSharingScopeTypeToString(eDataType, instanceValue);
+			case JavaeePackage.ADDRESSING_RESPONSES_TYPE_OBJECT:
+				return convertAddressingResponsesTypeObjectToString(eDataType, instanceValue);
 			case JavaeePackage.DEWEY_VERSION_TYPE:
 				return convertDeweyVersionTypeToString(eDataType, instanceValue);
 			case JavaeePackage.EJB_LINK:
@@ -216,16 +236,22 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 				return convertEjbRefNameTypeToString(eDataType, instanceValue);
 			case JavaeePackage.EJB_REF_TYPE_OBJECT:
 				return convertEjbRefTypeObjectToString(eDataType, instanceValue);
-			case JavaeePackage.ENV_ENTRY_TYPE_OBJECT:
-				return convertEnvEntryTypeObjectToString(eDataType, instanceValue);
+			case JavaeePackage.ENV_ENTRY_TYPE:
+				return convertEnvEntryTypeToString(eDataType, instanceValue);
 			case JavaeePackage.FULLY_QUALIFIED_CLASS_TYPE:
 				return convertFullyQualifiedClassTypeToString(eDataType, instanceValue);
+			case JavaeePackage.GENERIC_BOOLEAN_TYPE_OBJECT:
+				return convertGenericBooleanTypeObjectToString(eDataType, instanceValue);
 			case JavaeePackage.HOME:
 				return convertHomeToString(eDataType, instanceValue);
+			case JavaeePackage.ISOLATION_LEVEL_TYPE_OBJECT:
+				return convertIsolationLevelTypeObjectToString(eDataType, instanceValue);
 			case JavaeePackage.JAVA_IDENTIFIER:
 				return convertJavaIdentifierToString(eDataType, instanceValue);
 			case JavaeePackage.JAVA_TYPE:
 				return convertJavaTypeToString(eDataType, instanceValue);
+			case JavaeePackage.JDBC_URL_TYPE:
+				return convertJdbcUrlTypeToString(eDataType, instanceValue);
 			case JavaeePackage.JNDI_NAME:
 				return convertJNDINameToString(eDataType, instanceValue);
 			case JavaeePackage.LOCAL:
@@ -242,6 +268,14 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 				return convertPathTypeToString(eDataType, instanceValue);
 			case JavaeePackage.PERSISTENCE_CONTEXT_TYPE_OBJECT:
 				return convertPersistenceContextTypeObjectToString(eDataType, instanceValue);
+			case JavaeePackage.PROTOCOL_BINDING_LIST_TYPE:
+				return convertProtocolBindingListTypeToString(eDataType, instanceValue);
+			case JavaeePackage.PROTOCOL_BINDING_TYPE:
+				return convertProtocolBindingTypeToString(eDataType, instanceValue);
+			case JavaeePackage.PROTOCOL_URI_ALIAS_TYPE:
+				return convertProtocolURIAliasTypeToString(eDataType, instanceValue);
+			case JavaeePackage.QNAME_PATTERN:
+				return convertQnamePatternToString(eDataType, instanceValue);
 			case JavaeePackage.REMOTE:
 				return convertRemoteToString(eDataType, instanceValue);
 			case JavaeePackage.RES_AUTH_TYPE_OBJECT:
@@ -250,14 +284,6 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 				return convertResSharingScopeTypeObjectToString(eDataType, instanceValue);
 			case JavaeePackage.ROLE_NAME:
 				return convertRoleNameToString(eDataType, instanceValue);
-			case JavaeePackage.SERVICE_REF_PROTOCOL_BINDING_LIST_TYPE:
-				return convertServiceRefProtocolBindingListTypeToString(eDataType, instanceValue);
-			case JavaeePackage.SERVICE_REF_PROTOCOL_BINDING_TYPE:
-				return convertServiceRefProtocolBindingTypeToString(eDataType, instanceValue);
-			case JavaeePackage.SERVICE_REF_PROTOCOL_URI_ALIAS_TYPE:
-				return convertServiceRefProtocolURIAliasTypeToString(eDataType, instanceValue);
-			case JavaeePackage.SERVICE_REF_QNAME_PATTERN:
-				return convertServiceRefQnamePatternToString(eDataType, instanceValue);
 			case JavaeePackage.TRUE_FALSE_TYPE:
 				return convertTrueFalseTypeToString(eDataType, instanceValue);
 			case JavaeePackage.TRUE_FALSE_TYPE_OBJECT:
@@ -265,6 +291,26 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AddressingType createAddressingType() {
+		AddressingTypeImpl addressingType = new AddressingTypeImpl();
+		return addressingType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DataSourceType createDataSourceType() {
+		DataSourceTypeImpl dataSourceType = new DataSourceTypeImpl();
+		return dataSourceType;
 	}
 
 	/**
@@ -462,6 +508,16 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public RespectBindingType createRespectBindingType() {
+		RespectBindingTypeImpl respectBindingType = new RespectBindingTypeImpl();
+		return respectBindingType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public RunAs createRunAs() {
 		RunAsImpl runAs = new RunAsImpl();
 		return runAs;
@@ -542,6 +598,26 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public AddressingResponsesType createAddressingResponsesTypeFromString(EDataType eDataType, String initialValue) {
+		AddressingResponsesType result = AddressingResponsesType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertAddressingResponsesTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EjbRefType createEjbRefTypeFromString(EDataType eDataType, String initialValue) {
 		EjbRefType result = EjbRefType.get(initialValue);
 		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
@@ -562,8 +638,8 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EnvEntryType createEnvEntryTypeFromString(EDataType eDataType, String initialValue) {
-		EnvEntryType result = EnvEntryType.get(initialValue);
+	public GenericBooleanType createGenericBooleanTypeFromString(EDataType eDataType, String initialValue) {
+		GenericBooleanType result = GenericBooleanType.get(initialValue);
 		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		return result;
 	}
@@ -573,8 +649,46 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertEnvEntryTypeToString(EDataType eDataType, Object instanceValue) {
+	public String convertGenericBooleanTypeToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public IsolationLevelType createIsolationLevelTypeFromString(EDataType eDataType, String initialValue) {
+		IsolationLevelType result = IsolationLevelType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertIsolationLevelTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String createEnvEntryTypeFromString(EDataType eDataType, String initialValue) {
+		return createFullyQualifiedClassTypeFromString(JavaeePackage.Literals.FULLY_QUALIFIED_CLASS_TYPE, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertEnvEntryTypeToString(EDataType eDataType, Object instanceValue) {
+		return convertFullyQualifiedClassTypeToString(JavaeePackage.Literals.FULLY_QUALIFIED_CLASS_TYPE, instanceValue);
 	}
 
 	/**
@@ -662,6 +776,24 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public AddressingResponsesType createAddressingResponsesTypeObjectFromString(EDataType eDataType, String initialValue) {
+		return createAddressingResponsesTypeFromString(JavaeePackage.Literals.ADDRESSING_RESPONSES_TYPE, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertAddressingResponsesTypeObjectToString(EDataType eDataType, Object instanceValue) {
+		return convertAddressingResponsesTypeToString(JavaeePackage.Literals.ADDRESSING_RESPONSES_TYPE, instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String createDeweyVersionTypeFromString(EDataType eDataType, String initialValue) {
 		return (String)XMLTypeFactory.eINSTANCE.createFromString(XMLTypePackage.Literals.TOKEN, initialValue);
 	}
@@ -734,24 +866,6 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EnvEntryType createEnvEntryTypeObjectFromString(EDataType eDataType, String initialValue) {
-		return createEnvEntryTypeFromString(JavaeePackage.Literals.ENV_ENTRY_TYPE, initialValue);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String convertEnvEntryTypeObjectToString(EDataType eDataType, Object instanceValue) {
-		return convertEnvEntryTypeToString(JavaeePackage.Literals.ENV_ENTRY_TYPE, instanceValue);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public String createFullyQualifiedClassTypeFromString(EDataType eDataType, String initialValue) {
 		return (String)super.createFromString(eDataType, initialValue);
 	}
@@ -770,6 +884,24 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public GenericBooleanType createGenericBooleanTypeObjectFromString(EDataType eDataType, String initialValue) {
+		return createGenericBooleanTypeFromString(JavaeePackage.Literals.GENERIC_BOOLEAN_TYPE, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertGenericBooleanTypeObjectToString(EDataType eDataType, Object instanceValue) {
+		return convertGenericBooleanTypeToString(JavaeePackage.Literals.GENERIC_BOOLEAN_TYPE, instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String createHomeFromString(EDataType eDataType, String initialValue) {
 		return (String)super.createFromString(eDataType, initialValue);
 	}
@@ -781,6 +913,24 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 */
 	public String convertHomeToString(EDataType eDataType, Object instanceValue) {
 		return super.convertToString(eDataType, instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public IsolationLevelType createIsolationLevelTypeObjectFromString(EDataType eDataType, String initialValue) {
+		return createIsolationLevelTypeFromString(JavaeePackage.Literals.ISOLATION_LEVEL_TYPE, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertIsolationLevelTypeObjectToString(EDataType eDataType, Object instanceValue) {
+		return convertIsolationLevelTypeToString(JavaeePackage.Literals.ISOLATION_LEVEL_TYPE, instanceValue);
 	}
 
 	/**
@@ -816,6 +966,24 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * @generated
 	 */
 	public String convertJavaTypeToString(EDataType eDataType, Object instanceValue) {
+		return XMLTypeFactory.eINSTANCE.convertToString(XMLTypePackage.Literals.TOKEN, instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String createJdbcUrlTypeFromString(EDataType eDataType, String initialValue) {
+		return (String)XMLTypeFactory.eINSTANCE.createFromString(XMLTypePackage.Literals.TOKEN, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertJdbcUrlTypeToString(EDataType eDataType, Object instanceValue) {
 		return XMLTypeFactory.eINSTANCE.convertToString(XMLTypePackage.Literals.TOKEN, instanceValue);
 	}
 
@@ -968,6 +1136,134 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public List<String> createProtocolBindingListTypeFromString(EDataType eDataType, String initialValue) {
+		if (initialValue == null) return null;
+		List<String> result = new ArrayList<String>();
+		for (StringTokenizer stringTokenizer = new StringTokenizer(initialValue); stringTokenizer.hasMoreTokens(); ) {
+			String item = stringTokenizer.nextToken();
+			result.add(createProtocolBindingTypeFromString(JavaeePackage.Literals.PROTOCOL_BINDING_TYPE, item));
+		}
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertProtocolBindingListTypeToString(EDataType eDataType, Object instanceValue) {
+		if (instanceValue == null) return null;
+		List<?> list = (List<?>)instanceValue;
+		if (list.isEmpty()) return ""; //$NON-NLS-1$
+		StringBuffer result = new StringBuffer();
+		for (Object item : list) {
+			result.append(convertProtocolBindingTypeToString(JavaeePackage.Literals.PROTOCOL_BINDING_TYPE, item));
+			result.append(' ');
+		}
+		return result.substring(0, result.length() - 1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String createProtocolBindingTypeFromString(EDataType eDataType, String initialValue) {
+		if (initialValue == null) return null;
+		String result = null;
+		RuntimeException exception = null;
+		try {
+			result = (String)XMLTypeFactory.eINSTANCE.createFromString(XMLTypePackage.Literals.ANY_URI, initialValue);
+			if (result != null && Diagnostician.INSTANCE.validate(eDataType, result, null, null)) {
+				return result;
+			}
+		}
+		catch (RuntimeException e) {
+			exception = e;
+		}
+		try {
+			result = createProtocolURIAliasTypeFromString(JavaeePackage.Literals.PROTOCOL_URI_ALIAS_TYPE, initialValue);
+			if (result != null && Diagnostician.INSTANCE.validate(eDataType, result, null, null)) {
+				return result;
+			}
+		}
+		catch (RuntimeException e) {
+			exception = e;
+		}
+		if (result != null || exception == null) return result;
+    
+		throw exception;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertProtocolBindingTypeToString(EDataType eDataType, Object instanceValue) {
+		if (instanceValue == null) return null;
+		if (XMLTypePackage.Literals.ANY_URI.isInstance(instanceValue)) {
+			try {
+				String value = XMLTypeFactory.eINSTANCE.convertToString(XMLTypePackage.Literals.ANY_URI, instanceValue);
+				if (value != null) return value;
+			}
+			catch (Exception e) {
+				// Keep trying other member types until all have failed.
+			}
+		}
+		if (JavaeePackage.Literals.PROTOCOL_URI_ALIAS_TYPE.isInstance(instanceValue)) {
+			try {
+				String value = convertProtocolURIAliasTypeToString(JavaeePackage.Literals.PROTOCOL_URI_ALIAS_TYPE, instanceValue);
+				if (value != null) return value;
+			}
+			catch (Exception e) {
+				// Keep trying other member types until all have failed.
+			}
+		}
+		throw new IllegalArgumentException("Invalid value: '"+instanceValue+"' for datatype :"+eDataType.getName()); //$NON-NLS-1$ //$NON-NLS-2$
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String createProtocolURIAliasTypeFromString(EDataType eDataType, String initialValue) {
+		return (String)XMLTypeFactory.eINSTANCE.createFromString(XMLTypePackage.Literals.TOKEN, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertProtocolURIAliasTypeToString(EDataType eDataType, Object instanceValue) {
+		return XMLTypeFactory.eINSTANCE.convertToString(XMLTypePackage.Literals.TOKEN, instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String createQnamePatternFromString(EDataType eDataType, String initialValue) {
+		return (String)XMLTypeFactory.eINSTANCE.createFromString(XMLTypePackage.Literals.TOKEN, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertQnamePatternToString(EDataType eDataType, Object instanceValue) {
+		return XMLTypeFactory.eINSTANCE.convertToString(XMLTypePackage.Literals.TOKEN, instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String createRemoteFromString(EDataType eDataType, String initialValue) {
 		return (String)super.createFromString(eDataType, initialValue);
 	}
@@ -1040,132 +1336,6 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List createServiceRefProtocolBindingListTypeFromString(EDataType eDataType, String initialValue) {
-		if (initialValue == null) return null;
-		List result = new ArrayList();
-		for (StringTokenizer stringTokenizer = new StringTokenizer(initialValue); stringTokenizer.hasMoreTokens(); ) {
-			String item = stringTokenizer.nextToken();
-			result.add(createServiceRefProtocolBindingTypeFromString(JavaeePackage.Literals.SERVICE_REF_PROTOCOL_BINDING_TYPE, item));
-		}
-		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String convertServiceRefProtocolBindingListTypeToString(EDataType eDataType, Object instanceValue) {
-		if (instanceValue == null) return null;
-		List list = (List)instanceValue;
-		if (list.isEmpty()) return ""; //$NON-NLS-1$
-		StringBuffer result = new StringBuffer();
-		for (Iterator i = list.iterator(); i.hasNext(); ) {
-			result.append(convertServiceRefProtocolBindingTypeToString(JavaeePackage.Literals.SERVICE_REF_PROTOCOL_BINDING_TYPE, i.next()));
-			result.append(' ');
-		}
-		return result.substring(0, result.length() - 1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String createServiceRefProtocolBindingTypeFromString(EDataType eDataType, String initialValue) {
-		if (initialValue == null) return null;
-		String result = null;
-		RuntimeException exception = null;
-		try {
-			result = (String)XMLTypeFactory.eINSTANCE.createFromString(XMLTypePackage.Literals.ANY_URI, initialValue);
-			if (result != null && Diagnostician.INSTANCE.validate(eDataType, result, null, null)) {
-				return result;
-			}
-		}
-		catch (RuntimeException e) {
-			exception = e;
-		}
-		try {
-			result = createServiceRefProtocolURIAliasTypeFromString(JavaeePackage.Literals.SERVICE_REF_PROTOCOL_URI_ALIAS_TYPE, initialValue);
-			if (result != null && Diagnostician.INSTANCE.validate(eDataType, result, null, null)) {
-				return result;
-			}
-		}
-		catch (RuntimeException e) {
-			exception = e;
-		}
-		if (result != null || exception == null) return result;
-    
-		throw exception;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String convertServiceRefProtocolBindingTypeToString(EDataType eDataType, Object instanceValue) {
-		if (instanceValue == null) return null;
-		if (XMLTypePackage.Literals.ANY_URI.isInstance(instanceValue)) {
-			try {
-				String value = XMLTypeFactory.eINSTANCE.convertToString(XMLTypePackage.Literals.ANY_URI, instanceValue);
-				if (value != null) return value;
-			}
-			catch (Exception e) {
-			}
-		}
-		if (JavaeePackage.Literals.SERVICE_REF_PROTOCOL_URI_ALIAS_TYPE.isInstance(instanceValue)) {
-			try {
-				String value = convertServiceRefProtocolURIAliasTypeToString(JavaeePackage.Literals.SERVICE_REF_PROTOCOL_URI_ALIAS_TYPE, instanceValue);
-				if (value != null) return value;
-			}
-			catch (Exception e) {
-			}
-		}
-		throw new IllegalArgumentException("Invalid value: '"+instanceValue+"' for datatype :"+eDataType.getName()); //$NON-NLS-1$ //$NON-NLS-2$
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String createServiceRefProtocolURIAliasTypeFromString(EDataType eDataType, String initialValue) {
-		return (String)XMLTypeFactory.eINSTANCE.createFromString(XMLTypePackage.Literals.TOKEN, initialValue);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String convertServiceRefProtocolURIAliasTypeToString(EDataType eDataType, Object instanceValue) {
-		return XMLTypeFactory.eINSTANCE.convertToString(XMLTypePackage.Literals.TOKEN, instanceValue);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String createServiceRefQnamePatternFromString(EDataType eDataType, String initialValue) {
-		return (String)XMLTypeFactory.eINSTANCE.createFromString(XMLTypePackage.Literals.TOKEN, initialValue);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String convertServiceRefQnamePatternToString(EDataType eDataType, Object instanceValue) {
-		return XMLTypeFactory.eINSTANCE.convertToString(XMLTypePackage.Literals.TOKEN, instanceValue);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public Boolean createTrueFalseTypeFromString(EDataType eDataType, String initialValue) {
 		return (Boolean)XMLTypeFactory.eINSTANCE.createFromString(XMLTypePackage.Literals.BOOLEAN, initialValue);
 	}
@@ -1212,6 +1382,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * @deprecated
 	 * @generated
 	 */
+	@Deprecated
 	public static JavaeePackage getPackage() {
 		return JavaeePackage.eINSTANCE;
 	}

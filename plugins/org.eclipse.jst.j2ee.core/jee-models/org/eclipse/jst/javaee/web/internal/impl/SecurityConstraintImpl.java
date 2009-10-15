@@ -62,7 +62,7 @@ public class SecurityConstraintImpl extends EObjectImpl implements SecurityConst
 	 * @generated
 	 * @ordered
 	 */
-	protected EList displayNames = null;
+	protected EList<DisplayName> displayNames;
 
 	/**
 	 * The cached value of the '{@link #getWebResourceCollections() <em>Web Resource Collections</em>}' containment reference list.
@@ -72,7 +72,7 @@ public class SecurityConstraintImpl extends EObjectImpl implements SecurityConst
 	 * @generated
 	 * @ordered
 	 */
-	protected EList webResourceCollections = null;
+	protected EList<WebResourceCollection> webResourceCollections;
 
 	/**
 	 * The cached value of the '{@link #getAuthConstraint() <em>Auth Constraint</em>}' containment reference.
@@ -82,7 +82,7 @@ public class SecurityConstraintImpl extends EObjectImpl implements SecurityConst
 	 * @generated
 	 * @ordered
 	 */
-	protected AuthConstraint authConstraint = null;
+	protected AuthConstraint authConstraint;
 
 	/**
 	 * The cached value of the '{@link #getUserDataConstraint() <em>User Data Constraint</em>}' containment reference.
@@ -92,7 +92,7 @@ public class SecurityConstraintImpl extends EObjectImpl implements SecurityConst
 	 * @generated
 	 * @ordered
 	 */
-	protected UserDataConstraint userDataConstraint = null;
+	protected UserDataConstraint userDataConstraint;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -138,9 +138,9 @@ public class SecurityConstraintImpl extends EObjectImpl implements SecurityConst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDisplayNames() {
+	public List<DisplayName> getDisplayNames() {
 		if (displayNames == null) {
-			displayNames = new EObjectContainmentEList(DisplayName.class, this, WebPackage.SECURITY_CONSTRAINT__DISPLAY_NAMES);
+			displayNames = new EObjectContainmentEList<DisplayName>(DisplayName.class, this, WebPackage.SECURITY_CONSTRAINT__DISPLAY_NAMES);
 		}
 		return displayNames;
 	}
@@ -150,9 +150,9 @@ public class SecurityConstraintImpl extends EObjectImpl implements SecurityConst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getWebResourceCollections() {
+	public List<WebResourceCollection> getWebResourceCollections() {
 		if (webResourceCollections == null) {
-			webResourceCollections = new EObjectContainmentEList(WebResourceCollection.class, this, WebPackage.SECURITY_CONSTRAINT__WEB_RESOURCE_COLLECTIONS);
+			webResourceCollections = new EObjectContainmentEList<WebResourceCollection>(WebResourceCollection.class, this, WebPackage.SECURITY_CONSTRAINT__WEB_RESOURCE_COLLECTIONS);
 		}
 		return webResourceCollections;
 	}
@@ -273,9 +273,9 @@ public class SecurityConstraintImpl extends EObjectImpl implements SecurityConst
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case WebPackage.SECURITY_CONSTRAINT__DISPLAY_NAMES:
-				return ((InternalEList)getDisplayNames()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDisplayNames()).basicRemove(otherEnd, msgs);
 			case WebPackage.SECURITY_CONSTRAINT__WEB_RESOURCE_COLLECTIONS:
-				return ((InternalEList)getWebResourceCollections()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getWebResourceCollections()).basicRemove(otherEnd, msgs);
 			case WebPackage.SECURITY_CONSTRAINT__AUTH_CONSTRAINT:
 				return basicSetAuthConstraint(null, msgs);
 			case WebPackage.SECURITY_CONSTRAINT__USER_DATA_CONSTRAINT:
@@ -311,16 +311,17 @@ public class SecurityConstraintImpl extends EObjectImpl implements SecurityConst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case WebPackage.SECURITY_CONSTRAINT__DISPLAY_NAMES:
 				getDisplayNames().clear();
-				getDisplayNames().addAll((Collection)newValue);
+				getDisplayNames().addAll((Collection<? extends DisplayName>)newValue);
 				return;
 			case WebPackage.SECURITY_CONSTRAINT__WEB_RESOURCE_COLLECTIONS:
 				getWebResourceCollections().clear();
-				getWebResourceCollections().addAll((Collection)newValue);
+				getWebResourceCollections().addAll((Collection<? extends WebResourceCollection>)newValue);
 				return;
 			case WebPackage.SECURITY_CONSTRAINT__AUTH_CONSTRAINT:
 				setAuthConstraint((AuthConstraint)newValue);

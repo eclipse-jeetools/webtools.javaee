@@ -94,7 +94,7 @@ public class WebDeployableArtifactUtil {
 
 				if (mappings != null && !mappings.isEmpty()) {
 					ServletMapping map = (ServletMapping) mappings.get(0);
-					UrlPatternType urlPattern = (UrlPatternType)map.getUrlPatterns().get(0);
+					UrlPatternType urlPattern = map.getUrlPatterns().get(0);
 					mapping = urlPattern.getValue();
 				}
 				if (mapping != null) {
@@ -332,7 +332,7 @@ public class WebDeployableArtifactUtil {
 							while( it.hasNext() ){
 								org.eclipse.jst.javaee.web.ServletMapping map = (org.eclipse.jst.javaee.web.ServletMapping) it.next();
 								if( map.getServletName().equals(servlet.getServletName())){
-									org.eclipse.jst.javaee.core.UrlPatternType urlPattern = (org.eclipse.jst.javaee.core.UrlPatternType)map.getUrlPatterns().get(0);
+									org.eclipse.jst.javaee.core.UrlPatternType urlPattern = map.getUrlPatterns().get(0);
 									return  urlPattern.getValue();
 								}
 							}

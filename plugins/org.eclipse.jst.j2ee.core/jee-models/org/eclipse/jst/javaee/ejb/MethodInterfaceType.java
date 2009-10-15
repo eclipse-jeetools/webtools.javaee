@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.emf.common.util.AbstractEnumerator;
+import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,31 +24,109 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The method-intf element allows a method element to
- * 	differentiate between the methods with the same name and
- * 	signature that are multiply defined across the home and
- * 	component interfaces (e.g, in both an enterprise bean's
- * 	remote and local interfaces or in both an enterprise bean's
- * 	home and remote interfaces, etc.); the component and web
- * 	service endpoint interfaces, and so on. The Local applies to
- *         both local component interface and local business interface.
- *         Similarly, Remote applies to both remote component interface
- *         and the remote business interface.
- * 
- * 	The method-intf element must be one of the following:
- * 
- * 	    Home
- * 	    Remote
- * 	    LocalHome
- * 	    Local
- * 	    ServiceEndpoint
- * 
+ *         The method-intf element allows a method element to
+ *         differentiate between the methods with the same name and
+ *         signature that are multiply defined across the home and
+ *         component interfaces (e.g, in both an enterprise bean's
+ *         remote and local interfaces or in both an enterprise bean's
+ *         home and remote interfaces, etc.); the component and web
+ *         service endpoint interfaces, and so on. 
+ *         
+ *         Local applies to the local component interface, local business 
+ *         interfaces, and the no-interface view. 
+ *         
+ *         Remote applies to both remote component interface and the remote 
+ *         business interfaces.  
+ *         
+ *         ServiceEndpoint refers to methods exposed through a web service
+ *         endpoint.
+ *         
+ *         Timer refers to the bean's timeout callback methods.
+ *         
+ *         MessageEndpoint refers to the methods of a message-driven bean's
+ *         message-listener interface.
+ *         
+ *         The method-intf element must be one of the following:
+ *         
+ *         Home
+ *         Remote
+ *         LocalHome
+ *         Local
+ *         ServiceEndpoint
+ *         Timer
+ *         MessageEndpoint
+ *         
+ *         @since Java EE 5, EJB 3.0
  *       
  * <!-- end-model-doc -->
  * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getMethodInterfaceType()
  * @generated
  */
-public final class MethodInterfaceType extends AbstractEnumerator {
+public enum MethodInterfaceType implements Enumerator
+{
+	/**
+	 * The '<em><b>Home</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #HOME
+	 * @generated
+	 * @ordered
+	 */
+	HOME_LITERAL(0, "Home", "Home"), //$NON-NLS-1$ //$NON-NLS-2$
+	/**
+	 * The '<em><b>Remote</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #REMOTE
+	 * @generated
+	 * @ordered
+	 */
+	REMOTE_LITERAL(1, "Remote", "Remote"), //$NON-NLS-1$ //$NON-NLS-2$
+	/**
+	 * The '<em><b>Local Home</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #LOCAL_HOME
+	 * @generated
+	 * @ordered
+	 */
+	LOCAL_HOME_LITERAL(2, "LocalHome", "LocalHome"), //$NON-NLS-1$ //$NON-NLS-2$
+	/**
+	 * The '<em><b>Local</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #LOCAL
+	 * @generated
+	 * @ordered
+	 */
+	LOCAL_LITERAL(3, "Local", "Local"), //$NON-NLS-1$ //$NON-NLS-2$
+	/**
+	 * The '<em><b>Service Endpoint</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #SERVICE_ENDPOINT
+	 * @generated
+	 * @ordered
+	 */
+	SERVICE_ENDPOINT_LITERAL(4, "ServiceEndpoint", "ServiceEndpoint"), //$NON-NLS-1$ //$NON-NLS-2$
+	/**
+	 * The '<em><b>Timer</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #TIMER
+	 * @generated
+	 * @ordered
+	 */
+	TIMER_LITERAL(5, "Timer", "Timer"), //$NON-NLS-1$ //$NON-NLS-2$
+	/**
+	 * The '<em><b>Message Endpoint</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #MESSAGE_ENDPOINT
+	 * @generated
+	 * @ordered
+	 */
+	MESSAGE_ENDPOINT_LITERAL(6, "MessageEndpoint", "MessageEndpoint"); //$NON-NLS-1$ //$NON-NLS-2$
 	/**
 	 * The '<em><b>Home</b></em>' literal value.
 	 * <!-- begin-user-doc -->
@@ -120,54 +198,34 @@ public final class MethodInterfaceType extends AbstractEnumerator {
 	public static final int SERVICE_ENDPOINT = 4;
 
 	/**
-	 * The '<em><b>Home</b></em>' literal object.
+	 * The '<em><b>Timer</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #HOME
+	 * <!-- begin-model-doc -->
+	 * 
+	 *               @since Java EE 6, EJB 3.1
+	 *             
+	 * <!-- end-model-doc -->
+	 * @see #TIMER_LITERAL
 	 * @generated
 	 * @ordered
 	 */
-	public static final MethodInterfaceType HOME_LITERAL = new MethodInterfaceType(HOME, "Home", "Home"); //$NON-NLS-1$ //$NON-NLS-2$
+	public static final int TIMER = 5;
 
 	/**
-	 * The '<em><b>Remote</b></em>' literal object.
+	 * The '<em><b>Message Endpoint</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #REMOTE
+	 * <!-- begin-model-doc -->
+	 * 
+	 *               @since Java EE 6, EJB 3.1
+	 *             
+	 * <!-- end-model-doc -->
+	 * @see #MESSAGE_ENDPOINT_LITERAL
 	 * @generated
 	 * @ordered
 	 */
-	public static final MethodInterfaceType REMOTE_LITERAL = new MethodInterfaceType(REMOTE, "Remote", "Remote"); //$NON-NLS-1$ //$NON-NLS-2$
-
-	/**
-	 * The '<em><b>Local Home</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #LOCAL_HOME
-	 * @generated
-	 * @ordered
-	 */
-	public static final MethodInterfaceType LOCAL_HOME_LITERAL = new MethodInterfaceType(LOCAL_HOME, "LocalHome", "LocalHome"); //$NON-NLS-1$ //$NON-NLS-2$
-
-	/**
-	 * The '<em><b>Local</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #LOCAL
-	 * @generated
-	 * @ordered
-	 */
-	public static final MethodInterfaceType LOCAL_LITERAL = new MethodInterfaceType(LOCAL, "Local", "Local"); //$NON-NLS-1$ //$NON-NLS-2$
-
-	/**
-	 * The '<em><b>Service Endpoint</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #SERVICE_ENDPOINT
-	 * @generated
-	 * @ordered
-	 */
-	public static final MethodInterfaceType SERVICE_ENDPOINT_LITERAL = new MethodInterfaceType(SERVICE_ENDPOINT, "ServiceEndpoint", "ServiceEndpoint"); //$NON-NLS-1$ //$NON-NLS-2$
+	public static final int MESSAGE_ENDPOINT = 6;
 
 	/**
 	 * An array of all the '<em><b>Method Interface Type</b></em>' enumerators.
@@ -182,6 +240,8 @@ public final class MethodInterfaceType extends AbstractEnumerator {
 			LOCAL_HOME_LITERAL,
 			LOCAL_LITERAL,
 			SERVICE_ENDPOINT_LITERAL,
+			TIMER_LITERAL,
+			MESSAGE_ENDPOINT_LITERAL,
 		};
 
 	/**
@@ -190,7 +250,7 @@ public final class MethodInterfaceType extends AbstractEnumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<MethodInterfaceType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>Method Interface Type</b></em>' literal with the specified literal value.
@@ -237,9 +297,32 @@ public final class MethodInterfaceType extends AbstractEnumerator {
 			case LOCAL_HOME: return LOCAL_HOME_LITERAL;
 			case LOCAL: return LOCAL_LITERAL;
 			case SERVICE_ENDPOINT: return SERVICE_ENDPOINT_LITERAL;
+			case TIMER: return TIMER_LITERAL;
+			case MESSAGE_ENDPOINT: return MESSAGE_ENDPOINT_LITERAL;
 		}
-		return null;	
+		return null;
 	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final int value;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String name;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String literal;
 
 	/**
 	 * Only this class can construct instances.
@@ -248,7 +331,46 @@ public final class MethodInterfaceType extends AbstractEnumerator {
 	 * @generated
 	 */
 	private MethodInterfaceType(int value, String name, String literal) {
-		super(value, name, literal);
+		this.value = value;
+		this.name = name;
+		this.literal = literal;
 	}
 
-} //MethodInterfaceType
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getValue() {
+	  return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getName() {
+	  return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getLiteral() {
+	  return literal;
+	}
+
+	/**
+	 * Returns the literal value of the enumerator, which is its string representation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		return literal;
+	}
+}

@@ -12,6 +12,7 @@ package org.eclipse.jst.javaee.ejb;
 
 import java.util.List;
 
+import org.eclipse.jst.javaee.core.Description;
 import org.eclipse.jst.javaee.core.JavaEEObject;
 
 /**
@@ -21,101 +22,103 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  *
  * <!-- begin-model-doc -->
  * 
- * 
+ * <![CDATA[[
  *         The interceptor-bindingType element describes the binding of
  *         interceptor classes to beans within the ejb-jar.
  *         It consists of :
- * 
- *           - An optional description.
- *           - The name of an ejb within the ejb-jar or the wildcard value "*",
- *             which is used to define interceptors that are bound to all
- *             beans in the ejb-jar.
- *           - A list of interceptor classes that are bound to the contents of
- *             the ejb-name element or a specification of the total ordering
- *             over the interceptors defined for the given level and above.
- *           - An optional exclude-default-interceptors element.  If set to true,
- *             specifies that default interceptors are not to be applied to
- *             a bean-class and/or business method.
- *           - An optional exclude-class-interceptors element.  If set to true,
- *             specifies that class interceptors are not to be applied to
- *             a business method.
- *           - An optional set of method elements for describing the name/params
- *             of a method-level interceptor.
- * 
- *          Interceptors bound to all classes using the wildcard syntax
- *          "*" are default interceptors for the components in the ejb-jar.
- *          In addition, interceptors may be bound at the level of the bean
- *          class (class-level interceptors) or business methods (method-level
- *          interceptors ).
- * 
- *          The binding of interceptors to classes is additive.  If interceptors
- *          are bound at the class-level and/or default-level as well as the
- *          method-level, both class-level and/or default-level as well as
- *          method-level will apply.
- * 
- *          There are four possible styles of the interceptor element syntax :
- * 
- *          1.
- *          <interceptor-binding xmlns="http://www.w3.org/2001/XMLSchema">
- *            <ejb-name>*</ejb-name>
- *            <interceptor-class>INTERCEPTOR</interceptor-class>
- *          </interceptor-binding>
- * 
- *          Specifying the ejb-name as the wildcard value "*" designates
- *          default interceptors (interceptors that apply to all session and
- *          message-driven beans contained in the ejb-jar).
- * 
- *          2.
- *          <interceptor-binding xmlns="http://www.w3.org/2001/XMLSchema">
- *            <ejb-name>EJBNAME</ejb-name>
- *            <interceptor-class>INTERCEPTOR</interceptor-class>
- *          </interceptor-binding>
- * 
- *          This style is used to refer to interceptors associated with the
- *          specified enterprise bean(class-level interceptors).
- * 
- *          3.
- *          <interceptor-binding xmlns="http://www.w3.org/2001/XMLSchema">
- *            <ejb-name>EJBNAME</ejb-name>
- *            <interceptor-class>INTERCEPTOR</interceptor-class>
- *            <method>
- *              <method-name>METHOD</method-name>
- *            </method>
- *          </interceptor-binding>
- * 
- *          This style is used to associate a method-level interceptor with
- *          the specified enterprise bean.  If there are multiple methods
- *          with the same overloaded name, the element of this style refers
- *          to all the methods with the overloaded name.  Method-level
- *          interceptors can only be associated with business methods of the
- *          bean class.   Note that the wildcard value "*" cannot be used
- *          to specify method-level interceptors.
- * 
- *          4.
- *          <interceptor-binding xmlns="http://www.w3.org/2001/XMLSchema">
- *            <ejb-name>EJBNAME</ejb-name>
- *            <interceptor-class>INTERCEPTOR</interceptor-class>
- *            <method>
- *              <method-name>METHOD</method-name>
- *              <method-params>
- *                <method-param>PARAM-1</method-param>
- *                <method-param>PARAM-2</method-param>
- *                ...
- *                <method-param>PARAM-N</method-param>
- *              </method-params>
- *            </method>
- *          </interceptor-binding>
- * 
- *          This style is used to associate a method-level interceptor with
- *          the specified method of the specified enterprise bean.  This
- *          style is used to refer to a single method within a set of methods
- *          with an overloaded name.  The values PARAM-1 through PARAM-N
- *          are the fully-qualified Java types of the method's input parameters
- *          (if the method has no input arguments, the method-params element
- *          contains no method-param elements). Arrays are specified by the
- *          array element's type, followed by one or more pair of square
- *          brackets (e.g. int[][]).
- * 
+ *         
+ *         - An optional description.
+ *         - The name of an ejb within the ejb-jar or the wildcard value "*",
+ *         which is used to define interceptors that are bound to all
+ *         beans in the ejb-jar.
+ *         - A list of interceptor classes that are bound to the contents of
+ *         the ejb-name element or a specification of the total ordering
+ *         over the interceptors defined for the given level and above.
+ *         - An optional exclude-default-interceptors element.  If set to true,
+ *         specifies that default interceptors are not to be applied to 
+ *         a bean-class and/or business method.
+ *         - An optional exclude-class-interceptors element.  If set to true,
+ *         specifies that class interceptors are not to be applied to 
+ *         a business method.
+ *         - An optional set of method elements for describing the name/params
+ *         of a method-level interceptor.
+ *         
+ *         Interceptors bound to all classes using the wildcard syntax
+ *         "*" are default interceptors for the components in the ejb-jar. 
+ *         In addition, interceptors may be bound at the level of the bean
+ *         class (class-level interceptors) or business methods (method-level
+ *         interceptors ).
+ *         
+ *         The binding of interceptors to classes is additive.  If interceptors
+ *         are bound at the class-level and/or default-level as well as the
+ *         method-level, both class-level and/or default-level as well as
+ *         method-level will apply. 
+ *         
+ *         There are four possible styles of the interceptor element syntax :
+ *         
+ *         1.
+ *         <interceptor-binding>
+ *         <ejb-name>*</ejb-name>
+ *         <interceptor-class>INTERCEPTOR</interceptor-class>
+ *         </interceptor-binding>
+ *         
+ *         Specifying the ejb-name as the wildcard value "*" designates
+ *         default interceptors (interceptors that apply to all session and
+ *         message-driven beans contained in the ejb-jar).
+ *         
+ *         2. 
+ *         <interceptor-binding>
+ *         <ejb-name>EJBNAME</ejb-name>
+ *         <interceptor-class>INTERCEPTOR</interceptor-class>
+ *         </interceptor-binding>
+ *         
+ *         This style is used to refer to interceptors associated with the
+ *         specified enterprise bean(class-level interceptors).
+ *         
+ *         3. 
+ *         <interceptor-binding>
+ *         <ejb-name>EJBNAME</ejb-name>
+ *         <interceptor-class>INTERCEPTOR</interceptor-class>
+ *         <method>
+ *         <method-name>METHOD</method-name>
+ *         </method>
+ *         </interceptor-binding>
+ *         
+ *         This style is used to associate a method-level interceptor with 
+ *         the specified enterprise bean.  If there are multiple methods
+ *         with the same overloaded name, the element of this style refers
+ *         to all the methods with the overloaded name.  Method-level
+ *         interceptors can only be associated with business methods of the
+ *         bean class.   Note that the wildcard value "*" cannot be used
+ *         to specify method-level interceptors.
+ *         
+ *         4. 
+ *         <interceptor-binding>
+ *         <ejb-name>EJBNAME</ejb-name>
+ *         <interceptor-class>INTERCEPTOR</interceptor-class>
+ *         <method>
+ *         <method-name>METHOD</method-name>
+ *         <method-params>
+ *         <method-param>PARAM-1</method-param>
+ *         <method-param>PARAM-2</method-param>
+ *         ...
+ *         <method-param>PARAM-N</method-param>
+ *         </method-params>
+ *         </method>
+ *         </interceptor-binding>
+ *         
+ *         This style is used to associate a method-level interceptor with 
+ *         the specified method of the specified enterprise bean.  This 
+ *         style is used to refer to a single method within a set of methods
+ *         with an overloaded name.  The values PARAM-1 through PARAM-N
+ *         are the fully-qualified Java types of the method's input parameters
+ *         (if the method has no input arguments, the method-params element
+ *         contains no method-param elements). Arrays are specified by the
+ *         array element's type, followed by one or more pair of square 
+ *         brackets (e.g. int[][]).
+ *         
+ * ]]>
+ *         @since Java EE 5, EJB 3.0
  *       
  * <!-- end-model-doc -->
  *
@@ -151,7 +154,7 @@ public interface InterceptorBindingType extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getInterceptorBindingType_Descriptions()
 	 * @generated
 	 */
-	List getDescriptions();
+	List<Description> getDescriptions();
 
 	/**
 	 * Returns the value of the '<em><b>Ejb Name</b></em>' attribute.
@@ -191,7 +194,7 @@ public interface InterceptorBindingType extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getInterceptorBindingType_InterceptorClasses()
 	 * @generated
 	 */
-	List getInterceptorClasses();
+	List<String> getInterceptorClasses();
 
 	/**
 	 * Returns the value of the '<em><b>Interceptor Order</b></em>' containment reference.

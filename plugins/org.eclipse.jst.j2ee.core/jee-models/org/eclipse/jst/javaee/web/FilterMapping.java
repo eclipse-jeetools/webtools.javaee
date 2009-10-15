@@ -15,6 +15,7 @@ import java.util.List;
 import org.eclipse.emf.ecore.util.FeatureMap;
 
 import org.eclipse.jst.javaee.core.JavaEEObject;
+import org.eclipse.jst.javaee.core.UrlPatternType;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,22 +25,23 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	Declaration of the filter mappings in this web
- * 	application is done by using filter-mappingType.
- * 	The container uses the filter-mapping
- * 	declarations to decide which filters to apply to a request,
- * 	and in what order. The container matches the request URI to
- * 	a Servlet in the normal way. To determine which filters to
- * 	apply it matches filter-mapping declarations either on
- * 	servlet-name, or on url-pattern for each filter-mapping
- * 	element, depending on which style is used. The order in
- * 	which filters are invoked is the order in which
- * 	filter-mapping declarations that match a request URI for a
- * 	servlet appear in the list of filter-mapping elements.The
- * 	filter-name value must be the value of the filter-name
- * 	sub-elements of one of the filter declarations in the
- * 	deployment descriptor.
- * 
+ *         Declaration of the filter mappings in this web
+ *         application is done by using filter-mappingType. 
+ *         The container uses the filter-mapping
+ *         declarations to decide which filters to apply to a request,
+ *         and in what order. The container matches the request URI to
+ *         a Servlet in the normal way. To determine which filters to
+ *         apply it matches filter-mapping declarations either on
+ *         servlet-name, or on url-pattern for each filter-mapping
+ *         element, depending on which style is used. The order in
+ *         which filters are invoked is the order in which
+ *         filter-mapping declarations that match a request URI for a
+ *         servlet appear in the list of filter-mapping elements.The
+ *         filter-name value must be the value of the filter-name
+ *         sub-elements of one of the filter declarations in the
+ *         deployment descriptor.
+ *         
+ *         @since Java EE 5, Web 2.5
  *       
  * <!-- end-model-doc -->
  *
@@ -113,7 +115,7 @@ public interface FilterMapping extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getFilterMapping_UrlPatterns()
 	 * @generated
 	 */
-	List getUrlPatterns();
+	List<UrlPatternType> getUrlPatterns();
 
 	/**
 	 * Returns the value of the '<em><b>Servlet Names</b></em>' attribute list.
@@ -128,7 +130,7 @@ public interface FilterMapping extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getFilterMapping_ServletNames()
 	 * @generated
 	 */
-	List getServletNames();
+	List<String> getServletNames();
 
 	/**
 	 * Returns the value of the '<em><b>Dispatchers</b></em>' attribute list.
@@ -145,7 +147,7 @@ public interface FilterMapping extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getFilterMapping_Dispatchers()
 	 * @generated
 	 */
-	List getDispatchers();
+	List<DispatcherType> getDispatchers();
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.

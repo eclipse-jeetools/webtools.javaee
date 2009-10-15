@@ -65,7 +65,7 @@ public interface ApplicationClientDeploymentDescriptor extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.applicationclient.internal.metadata.ApplicationclientPackage#getApplicationClientDeploymentDescriptor_XMLNSPrefixMap()
 	 * @generated
 	 */
-	Map getXMLNSPrefixMap();
+	Map<String, String> getXMLNSPrefixMap();
 
 	/**
 	 * Returns the value of the '<em><b>XSI Schema Location</b></em>' map.
@@ -81,7 +81,7 @@ public interface ApplicationClientDeploymentDescriptor extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.applicationclient.internal.metadata.ApplicationclientPackage#getApplicationClientDeploymentDescriptor_XSISchemaLocation()
 	 * @generated
 	 */
-	Map getXSISchemaLocation();
+	Map<String, String> getXSISchemaLocation();
 
 	/**
 	 * Returns the value of the '<em><b>Application Client</b></em>' containment reference.
@@ -90,12 +90,13 @@ public interface ApplicationClientDeploymentDescriptor extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	The application-client element is the root element of an
-	 * 	application client deployment descriptor.  The application
-	 * 	client deployment descriptor describes the EJB components
-	 * 	and external resources referenced by the application
-	 * 	client.
-	 * 
+	 *         The application-client element is the root element of an
+	 *         application client deployment descriptor.  The application
+	 *         client deployment descriptor describes the EJB components
+	 *         and external resources referenced by the application
+	 *         client.
+	 *         
+	 *         @since Java EE 5, Application Client 5
 	 *       
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Application Client</em>' containment reference.

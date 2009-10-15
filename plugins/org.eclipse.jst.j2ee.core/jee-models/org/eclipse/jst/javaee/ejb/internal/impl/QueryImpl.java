@@ -53,7 +53,7 @@ public class QueryImpl extends EObjectImpl implements Query {
 	 * @generated
 	 * @ordered
 	 */
-	protected Description description = null;
+	protected Description description;
 
 	/**
 	 * The cached value of the '{@link #getQueryMethod() <em>Query Method</em>}' containment reference.
@@ -63,7 +63,7 @@ public class QueryImpl extends EObjectImpl implements Query {
 	 * @generated
 	 * @ordered
 	 */
-	protected QueryMethod queryMethod = null;
+	protected QueryMethod queryMethod;
 
 	/**
 	 * The default value of the '{@link #getResultTypeMapping() <em>Result Type Mapping</em>}' attribute.
@@ -92,7 +92,7 @@ public class QueryImpl extends EObjectImpl implements Query {
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean resultTypeMappingESet = false;
+	protected boolean resultTypeMappingESet;
 
 	/**
 	 * The default value of the '{@link #getEjbQl() <em>Ejb Ql</em>}' attribute.

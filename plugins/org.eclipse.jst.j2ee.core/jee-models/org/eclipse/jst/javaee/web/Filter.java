@@ -12,7 +12,11 @@ package org.eclipse.jst.javaee.web;
 
 import java.util.List;
 
+import org.eclipse.jst.javaee.core.Description;
+import org.eclipse.jst.javaee.core.DisplayName;
+import org.eclipse.jst.javaee.core.Icon;
 import org.eclipse.jst.javaee.core.JavaEEObject;
+import org.eclipse.jst.javaee.core.ParamValue;
 
 /**
  * <!-- begin-user-doc -->
@@ -22,15 +26,16 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The filterType is used to declare a filter in the web
- * 	application. The filter is mapped to either a servlet or a
- * 	URL pattern in the filter-mapping element, using the
- * 	filter-name value to reference. Filters can access the
- * 	initialization parameters declared in the deployment
- * 	descriptor at runtime via the FilterConfig interface.
- * 
- * 	Used in: web-app
- * 
+ *         The filterType is used to declare a filter in the web
+ *         application. The filter is mapped to either a servlet or a
+ *         URL pattern in the filter-mapping element, using the
+ *         filter-name value to reference. Filters can access the
+ *         initialization parameters declared in the deployment
+ *         descriptor at runtime via the FilterConfig interface.
+ *         
+ *         Used in: web-app
+ *         
+ *         @since Java EE 5, Web 2.5
  *       
  * <!-- end-model-doc -->
  *
@@ -42,6 +47,7 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  *   <li>{@link org.eclipse.jst.javaee.web.Filter#getIcons <em>Icons</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.Filter#getFilterName <em>Filter Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.Filter#getFilterClass <em>Filter Class</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.web.Filter#isAsyncSupported <em>Async Supported</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.Filter#getInitParams <em>Init Params</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.Filter#getId <em>Id</em>}</li>
  * </ul>
@@ -65,7 +71,7 @@ public interface Filter extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getFilter_Descriptions()
 	 * @generated
 	 */
-	List getDescriptions();
+	List<Description> getDescriptions();
 
 	/**
 	 * Returns the value of the '<em><b>Display Names</b></em>' containment reference list.
@@ -80,7 +86,7 @@ public interface Filter extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getFilter_DisplayNames()
 	 * @generated
 	 */
-	List getDisplayNames();
+	List<DisplayName> getDisplayNames();
 
 	/**
 	 * Returns the value of the '<em><b>Icons</b></em>' containment reference list.
@@ -95,7 +101,7 @@ public interface Filter extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getFilter_Icons()
 	 * @generated
 	 */
-	List getIcons();
+	List<Icon> getIcons();
 
 	/**
 	 * Returns the value of the '<em><b>Filter Name</b></em>' attribute.
@@ -129,9 +135,10 @@ public interface Filter extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	    The fully qualified classname of the filter.
-	 * 
-	 * 	  
+	 *             The fully qualified classname of the filter.
+	 *             
+	 *             @since Java EE 5, Web 2.5
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Filter Class</em>' attribute.
 	 * @see #setFilterClass(String)
@@ -151,6 +158,59 @@ public interface Filter extends JavaEEObject {
 	void setFilterClass(String value);
 
 	/**
+	 * Returns the value of the '<em><b>Async Supported</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *             @since Java EE 6, Web 3.0
+	 *           
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Async Supported</em>' attribute.
+	 * @see #isSetAsyncSupported()
+	 * @see #unsetAsyncSupported()
+	 * @see #setAsyncSupported(boolean)
+	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getFilter_AsyncSupported()
+	 * @generated
+	 */
+	boolean isAsyncSupported();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.jst.javaee.web.Filter#isAsyncSupported <em>Async Supported</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Async Supported</em>' attribute.
+	 * @see #isSetAsyncSupported()
+	 * @see #unsetAsyncSupported()
+	 * @see #isAsyncSupported()
+	 * @generated
+	 */
+	void setAsyncSupported(boolean value);
+
+	/**
+	 * Unsets the value of the '{@link org.eclipse.jst.javaee.web.Filter#isAsyncSupported <em>Async Supported</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetAsyncSupported()
+	 * @see #isAsyncSupported()
+	 * @see #setAsyncSupported(boolean)
+	 * @generated
+	 */
+	void unsetAsyncSupported();
+
+	/**
+	 * Returns whether the value of the '{@link org.eclipse.jst.javaee.web.Filter#isAsyncSupported <em>Async Supported</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Async Supported</em>' attribute is set.
+	 * @see #unsetAsyncSupported()
+	 * @see #isAsyncSupported()
+	 * @see #setAsyncSupported(boolean)
+	 * @generated
+	 */
+	boolean isSetAsyncSupported();
+
+	/**
 	 * Returns the value of the '<em><b>Init Params</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.jst.javaee.core.ParamValue}.
 	 * <!-- begin-user-doc -->
@@ -158,16 +218,17 @@ public interface Filter extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	    The init-param element contains a name/value pair as
-	 * 	    an initialization param of a servlet filter
-	 * 
-	 * 	  
+	 *             The init-param element contains a name/value pair as
+	 *             an initialization param of a servlet filter
+	 *             
+	 *             @since Java EE 5, Web 2.5
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Init Params</em>' containment reference list.
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getFilter_InitParams()
 	 * @generated
 	 */
-	List getInitParams();
+	List<ParamValue> getInitParams();
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.

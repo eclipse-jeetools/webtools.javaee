@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.emf.common.util.AbstractEnumerator;
+import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,24 +24,44 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The res-authType specifies whether the Deployment Component
- * 	code signs on programmatically to the resource manager, or
- * 	whether the Container will sign on to the resource manager
- * 	on behalf of the Deployment Component. In the latter case,
- * 	the Container uses information that is supplied by the
- * 	Deployer.
- * 
- * 	The value must be one of the two following:
- * 
- * 	    Application
- * 	    Container
- * 
+ *         The res-authType specifies whether the Deployment Component
+ *         code signs on programmatically to the resource manager, or
+ *         whether the Container will sign on to the resource manager
+ *         on behalf of the Deployment Component. In the latter case,
+ *         the Container uses information that is supplied by the
+ *         Deployer.
+ *         
+ *         The value must be one of the two following:
+ *         
+ *         Application
+ *         Container
+ *         
+ *         @since Java EE 5
  *       
  * <!-- end-model-doc -->
  * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getResAuthType()
  * @generated
  */
-public final class ResAuthType extends AbstractEnumerator {
+public enum ResAuthType implements Enumerator
+{
+	/**
+	 * The '<em><b>Application</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #APPLICATION
+	 * @generated
+	 * @ordered
+	 */
+	APPLICATION_LITERAL(0, "Application", "Application"), //$NON-NLS-1$ //$NON-NLS-2$
+	/**
+	 * The '<em><b>Container</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #CONTAINER
+	 * @generated
+	 * @ordered
+	 */
+	CONTAINER_LITERAL(1, "Container", "Container"); //$NON-NLS-1$ //$NON-NLS-2$
 	/**
 	 * The '<em><b>Application</b></em>' literal value.
 	 * <!-- begin-user-doc -->
@@ -71,26 +91,6 @@ public final class ResAuthType extends AbstractEnumerator {
 	public static final int CONTAINER = 1;
 
 	/**
-	 * The '<em><b>Application</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #APPLICATION
-	 * @generated
-	 * @ordered
-	 */
-	public static final ResAuthType APPLICATION_LITERAL = new ResAuthType(APPLICATION, "Application", "Application"); //$NON-NLS-1$ //$NON-NLS-2$
-
-	/**
-	 * The '<em><b>Container</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #CONTAINER
-	 * @generated
-	 * @ordered
-	 */
-	public static final ResAuthType CONTAINER_LITERAL = new ResAuthType(CONTAINER, "Container", "Container"); //$NON-NLS-1$ //$NON-NLS-2$
-
-	/**
 	 * An array of all the '<em><b>Res Auth Type</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -108,7 +108,7 @@ public final class ResAuthType extends AbstractEnumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<ResAuthType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>Res Auth Type</b></em>' literal with the specified literal value.
@@ -153,8 +153,29 @@ public final class ResAuthType extends AbstractEnumerator {
 			case APPLICATION: return APPLICATION_LITERAL;
 			case CONTAINER: return CONTAINER_LITERAL;
 		}
-		return null;	
+		return null;
 	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final int value;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String name;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String literal;
 
 	/**
 	 * Only this class can construct instances.
@@ -163,7 +184,46 @@ public final class ResAuthType extends AbstractEnumerator {
 	 * @generated
 	 */
 	private ResAuthType(int value, String name, String literal) {
-		super(value, name, literal);
+		this.value = value;
+		this.name = name;
+		this.literal = literal;
 	}
 
-} //ResAuthType
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getValue() {
+	  return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getName() {
+	  return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getLiteral() {
+	  return literal;
+	}
+
+	/**
+	 * Returns the literal value of the enumerator, which is its string representation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		return literal;
+	}
+}

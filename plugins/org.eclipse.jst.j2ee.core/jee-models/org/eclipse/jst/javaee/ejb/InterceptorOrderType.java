@@ -21,8 +21,11 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  *
  * <!-- begin-model-doc -->
  * 
+ * 
  *         The interceptor-orderType element describes a total ordering
  *         of interceptor classes.
+ *         
+ *         @since Java EE 5, EJB 3.0
  *       
  * <!-- end-model-doc -->
  *
@@ -52,7 +55,7 @@ public interface InterceptorOrderType extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getInterceptorOrderType_InterceptorClasses()
 	 * @generated
 	 */
-	List getInterceptorClasses();
+	List<String> getInterceptorClasses();
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.

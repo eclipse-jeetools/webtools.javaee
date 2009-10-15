@@ -57,7 +57,7 @@ public class SecurityRoleRefImpl extends EObjectImpl implements SecurityRoleRef 
 	 * @generated
 	 * @ordered
 	 */
-	protected EList descriptions = null;
+	protected EList<Description> descriptions;
 
 	/**
 	 * The default value of the '{@link #getRoleName() <em>Role Name</em>}' attribute.
@@ -143,9 +143,9 @@ public class SecurityRoleRefImpl extends EObjectImpl implements SecurityRoleRef 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDescriptions() {
+	public List<Description> getDescriptions() {
 		if (descriptions == null) {
-			descriptions = new EObjectContainmentEList(Description.class, this, JavaeePackage.SECURITY_ROLE_REF__DESCRIPTIONS);
+			descriptions = new EObjectContainmentEList<Description>(Description.class, this, JavaeePackage.SECURITY_ROLE_REF__DESCRIPTIONS);
 		}
 		return descriptions;
 	}
@@ -222,7 +222,7 @@ public class SecurityRoleRefImpl extends EObjectImpl implements SecurityRoleRef 
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case JavaeePackage.SECURITY_ROLE_REF__DESCRIPTIONS:
-				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDescriptions()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -252,12 +252,13 @@ public class SecurityRoleRefImpl extends EObjectImpl implements SecurityRoleRef 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case JavaeePackage.SECURITY_ROLE_REF__DESCRIPTIONS:
 				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
+				getDescriptions().addAll((Collection<? extends Description>)newValue);
 				return;
 			case JavaeePackage.SECURITY_ROLE_REF__ROLE_NAME:
 				setRoleName((String)newValue);

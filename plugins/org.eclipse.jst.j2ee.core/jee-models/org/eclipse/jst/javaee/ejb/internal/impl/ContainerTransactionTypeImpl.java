@@ -60,7 +60,7 @@ public class ContainerTransactionTypeImpl extends EObjectImpl implements Contain
 	 * @generated
 	 * @ordered
 	 */
-	protected EList descriptions = null;
+	protected EList<Description> descriptions;
 
 	/**
 	 * The cached value of the '{@link #getMethods() <em>Methods</em>}' containment reference list.
@@ -70,7 +70,7 @@ public class ContainerTransactionTypeImpl extends EObjectImpl implements Contain
 	 * @generated
 	 * @ordered
 	 */
-	protected EList methods = null;
+	protected EList<MethodType> methods;
 
 	/**
 	 * The default value of the '{@link #getTransAttribute() <em>Trans Attribute</em>}' attribute.
@@ -99,7 +99,7 @@ public class ContainerTransactionTypeImpl extends EObjectImpl implements Contain
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean transAttributeESet = false;
+	protected boolean transAttributeESet;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -145,9 +145,9 @@ public class ContainerTransactionTypeImpl extends EObjectImpl implements Contain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDescriptions() {
+	public List<Description> getDescriptions() {
 		if (descriptions == null) {
-			descriptions = new EObjectContainmentEList(Description.class, this, EjbPackage.CONTAINER_TRANSACTION_TYPE__DESCRIPTIONS);
+			descriptions = new EObjectContainmentEList<Description>(Description.class, this, EjbPackage.CONTAINER_TRANSACTION_TYPE__DESCRIPTIONS);
 		}
 		return descriptions;
 	}
@@ -157,9 +157,9 @@ public class ContainerTransactionTypeImpl extends EObjectImpl implements Contain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getMethods() {
+	public List<MethodType> getMethods() {
 		if (methods == null) {
-			methods = new EObjectContainmentEList(MethodType.class, this, EjbPackage.CONTAINER_TRANSACTION_TYPE__METHODS);
+			methods = new EObjectContainmentEList<MethodType>(MethodType.class, this, EjbPackage.CONTAINER_TRANSACTION_TYPE__METHODS);
 		}
 		return methods;
 	}
@@ -240,9 +240,9 @@ public class ContainerTransactionTypeImpl extends EObjectImpl implements Contain
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EjbPackage.CONTAINER_TRANSACTION_TYPE__DESCRIPTIONS:
-				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDescriptions()).basicRemove(otherEnd, msgs);
 			case EjbPackage.CONTAINER_TRANSACTION_TYPE__METHODS:
-				return ((InternalEList)getMethods()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getMethods()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -272,16 +272,17 @@ public class ContainerTransactionTypeImpl extends EObjectImpl implements Contain
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EjbPackage.CONTAINER_TRANSACTION_TYPE__DESCRIPTIONS:
 				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
+				getDescriptions().addAll((Collection<? extends Description>)newValue);
 				return;
 			case EjbPackage.CONTAINER_TRANSACTION_TYPE__METHODS:
 				getMethods().clear();
-				getMethods().addAll((Collection)newValue);
+				getMethods().addAll((Collection<? extends MethodType>)newValue);
 				return;
 			case EjbPackage.CONTAINER_TRANSACTION_TYPE__TRANS_ATTRIBUTE:
 				setTransAttribute((TransactionAttributeType)newValue);

@@ -56,6 +56,9 @@ import org.eclipse.jst.javaee.jsp.internal.metadata.JspPackage;
  *   <li>{@link org.eclipse.jst.javaee.jsp.internal.impl.JspPropertyGroupImpl#getIncludeCodas <em>Include Codas</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.jsp.internal.impl.JspPropertyGroupImpl#isDeferredSyntaxAllowedAsLiteral <em>Deferred Syntax Allowed As Literal</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.jsp.internal.impl.JspPropertyGroupImpl#isTrimDirectiveWhitespaces <em>Trim Directive Whitespaces</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.jsp.internal.impl.JspPropertyGroupImpl#getDefaultContentType <em>Default Content Type</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.jsp.internal.impl.JspPropertyGroupImpl#getBuffer <em>Buffer</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.jsp.internal.impl.JspPropertyGroupImpl#isErrorOnUndeclaredNamespace <em>Error On Undeclared Namespace</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.jsp.internal.impl.JspPropertyGroupImpl#getId <em>Id</em>}</li>
  * </ul>
  * </p>
@@ -71,7 +74,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * @generated
 	 * @ordered
 	 */
-	protected EList descriptions = null;
+	protected EList<Description> descriptions;
 
 	/**
 	 * The cached value of the '{@link #getDisplayNames() <em>Display Names</em>}' containment reference list.
@@ -81,7 +84,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * @generated
 	 * @ordered
 	 */
-	protected EList displayNames = null;
+	protected EList<DisplayName> displayNames;
 
 	/**
 	 * The cached value of the '{@link #getIcons() <em>Icons</em>}' containment reference list.
@@ -91,7 +94,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * @generated
 	 * @ordered
 	 */
-	protected EList icons = null;
+	protected EList<Icon> icons;
 
 	/**
 	 * The cached value of the '{@link #getUrlPatterns() <em>Url Patterns</em>}' containment reference list.
@@ -101,7 +104,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * @generated
 	 * @ordered
 	 */
-	protected EList urlPatterns = null;
+	protected EList<UrlPatternType> urlPatterns;
 
 	/**
 	 * The default value of the '{@link #isElIgnored() <em>El Ignored</em>}' attribute.
@@ -130,7 +133,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean elIgnoredESet = false;
+	protected boolean elIgnoredESet;
 
 	/**
 	 * The default value of the '{@link #getPageEncoding() <em>Page Encoding</em>}' attribute.
@@ -179,7 +182,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean scriptingInvalidESet = false;
+	protected boolean scriptingInvalidESet;
 
 	/**
 	 * The default value of the '{@link #isIsXml() <em>Is Xml</em>}' attribute.
@@ -208,7 +211,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean isXmlESet = false;
+	protected boolean isXmlESet;
 
 	/**
 	 * The cached value of the '{@link #getIncludePreludes() <em>Include Preludes</em>}' attribute list.
@@ -218,7 +221,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * @generated
 	 * @ordered
 	 */
-	protected EList includePreludes = null;
+	protected EList<String> includePreludes;
 
 	/**
 	 * The cached value of the '{@link #getIncludeCodas() <em>Include Codas</em>}' attribute list.
@@ -228,7 +231,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * @generated
 	 * @ordered
 	 */
-	protected EList includeCodas = null;
+	protected EList<String> includeCodas;
 
 	/**
 	 * The default value of the '{@link #isDeferredSyntaxAllowedAsLiteral() <em>Deferred Syntax Allowed As Literal</em>}' attribute.
@@ -257,7 +260,7 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean deferredSyntaxAllowedAsLiteralESet = false;
+	protected boolean deferredSyntaxAllowedAsLiteralESet;
 
 	/**
 	 * The default value of the '{@link #isTrimDirectiveWhitespaces() <em>Trim Directive Whitespaces</em>}' attribute.
@@ -286,7 +289,76 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean trimDirectiveWhitespacesESet = false;
+	protected boolean trimDirectiveWhitespacesESet;
+
+	/**
+	 * The default value of the '{@link #getDefaultContentType() <em>Default Content Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDefaultContentType()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String DEFAULT_CONTENT_TYPE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getDefaultContentType() <em>Default Content Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDefaultContentType()
+	 * @generated
+	 * @ordered
+	 */
+	protected String defaultContentType = DEFAULT_CONTENT_TYPE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getBuffer() <em>Buffer</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBuffer()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String BUFFER_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getBuffer() <em>Buffer</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBuffer()
+	 * @generated
+	 * @ordered
+	 */
+	protected String buffer = BUFFER_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isErrorOnUndeclaredNamespace() <em>Error On Undeclared Namespace</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isErrorOnUndeclaredNamespace()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean ERROR_ON_UNDECLARED_NAMESPACE_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isErrorOnUndeclaredNamespace() <em>Error On Undeclared Namespace</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isErrorOnUndeclaredNamespace()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean errorOnUndeclaredNamespace = ERROR_ON_UNDECLARED_NAMESPACE_EDEFAULT;
+
+	/**
+	 * This is true if the Error On Undeclared Namespace attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean errorOnUndeclaredNamespaceESet;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -332,9 +404,9 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDescriptions() {
+	public List<Description> getDescriptions() {
 		if (descriptions == null) {
-			descriptions = new EObjectContainmentEList(Description.class, this, JspPackage.JSP_PROPERTY_GROUP__DESCRIPTIONS);
+			descriptions = new EObjectContainmentEList<Description>(Description.class, this, JspPackage.JSP_PROPERTY_GROUP__DESCRIPTIONS);
 		}
 		return descriptions;
 	}
@@ -344,9 +416,9 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDisplayNames() {
+	public List<DisplayName> getDisplayNames() {
 		if (displayNames == null) {
-			displayNames = new EObjectContainmentEList(DisplayName.class, this, JspPackage.JSP_PROPERTY_GROUP__DISPLAY_NAMES);
+			displayNames = new EObjectContainmentEList<DisplayName>(DisplayName.class, this, JspPackage.JSP_PROPERTY_GROUP__DISPLAY_NAMES);
 		}
 		return displayNames;
 	}
@@ -356,9 +428,9 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getIcons() {
+	public List<Icon> getIcons() {
 		if (icons == null) {
-			icons = new EObjectContainmentEList(Icon.class, this, JspPackage.JSP_PROPERTY_GROUP__ICONS);
+			icons = new EObjectContainmentEList<Icon>(Icon.class, this, JspPackage.JSP_PROPERTY_GROUP__ICONS);
 		}
 		return icons;
 	}
@@ -368,9 +440,9 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getUrlPatterns() {
+	public List<UrlPatternType> getUrlPatterns() {
 		if (urlPatterns == null) {
-			urlPatterns = new EObjectContainmentEList(UrlPatternType.class, this, JspPackage.JSP_PROPERTY_GROUP__URL_PATTERNS);
+			urlPatterns = new EObjectContainmentEList<UrlPatternType>(UrlPatternType.class, this, JspPackage.JSP_PROPERTY_GROUP__URL_PATTERNS);
 		}
 		return urlPatterns;
 	}
@@ -539,9 +611,9 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getIncludePreludes() {
+	public List<String> getIncludePreludes() {
 		if (includePreludes == null) {
-			includePreludes = new EDataTypeEList(String.class, this, JspPackage.JSP_PROPERTY_GROUP__INCLUDE_PRELUDES);
+			includePreludes = new EDataTypeEList<String>(String.class, this, JspPackage.JSP_PROPERTY_GROUP__INCLUDE_PRELUDES);
 		}
 		return includePreludes;
 	}
@@ -551,9 +623,9 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getIncludeCodas() {
+	public List<String> getIncludeCodas() {
 		if (includeCodas == null) {
-			includeCodas = new EDataTypeEList(String.class, this, JspPackage.JSP_PROPERTY_GROUP__INCLUDE_CODAS);
+			includeCodas = new EDataTypeEList<String>(String.class, this, JspPackage.JSP_PROPERTY_GROUP__INCLUDE_CODAS);
 		}
 		return includeCodas;
 	}
@@ -655,6 +727,94 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getDefaultContentType() {
+		return defaultContentType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDefaultContentType(String newDefaultContentType) {
+		String oldDefaultContentType = defaultContentType;
+		defaultContentType = newDefaultContentType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, JspPackage.JSP_PROPERTY_GROUP__DEFAULT_CONTENT_TYPE, oldDefaultContentType, defaultContentType));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getBuffer() {
+		return buffer;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setBuffer(String newBuffer) {
+		String oldBuffer = buffer;
+		buffer = newBuffer;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, JspPackage.JSP_PROPERTY_GROUP__BUFFER, oldBuffer, buffer));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isErrorOnUndeclaredNamespace() {
+		return errorOnUndeclaredNamespace;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setErrorOnUndeclaredNamespace(boolean newErrorOnUndeclaredNamespace) {
+		boolean oldErrorOnUndeclaredNamespace = errorOnUndeclaredNamespace;
+		errorOnUndeclaredNamespace = newErrorOnUndeclaredNamespace;
+		boolean oldErrorOnUndeclaredNamespaceESet = errorOnUndeclaredNamespaceESet;
+		errorOnUndeclaredNamespaceESet = true;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, JspPackage.JSP_PROPERTY_GROUP__ERROR_ON_UNDECLARED_NAMESPACE, oldErrorOnUndeclaredNamespace, errorOnUndeclaredNamespace, !oldErrorOnUndeclaredNamespaceESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetErrorOnUndeclaredNamespace() {
+		boolean oldErrorOnUndeclaredNamespace = errorOnUndeclaredNamespace;
+		boolean oldErrorOnUndeclaredNamespaceESet = errorOnUndeclaredNamespaceESet;
+		errorOnUndeclaredNamespace = ERROR_ON_UNDECLARED_NAMESPACE_EDEFAULT;
+		errorOnUndeclaredNamespaceESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, JspPackage.JSP_PROPERTY_GROUP__ERROR_ON_UNDECLARED_NAMESPACE, oldErrorOnUndeclaredNamespace, ERROR_ON_UNDECLARED_NAMESPACE_EDEFAULT, oldErrorOnUndeclaredNamespaceESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetErrorOnUndeclaredNamespace() {
+		return errorOnUndeclaredNamespaceESet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getId() {
 		return id;
 	}
@@ -680,13 +840,13 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case JspPackage.JSP_PROPERTY_GROUP__DESCRIPTIONS:
-				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDescriptions()).basicRemove(otherEnd, msgs);
 			case JspPackage.JSP_PROPERTY_GROUP__DISPLAY_NAMES:
-				return ((InternalEList)getDisplayNames()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDisplayNames()).basicRemove(otherEnd, msgs);
 			case JspPackage.JSP_PROPERTY_GROUP__ICONS:
-				return ((InternalEList)getIcons()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getIcons()).basicRemove(otherEnd, msgs);
 			case JspPackage.JSP_PROPERTY_GROUP__URL_PATTERNS:
-				return ((InternalEList)getUrlPatterns()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getUrlPatterns()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -708,21 +868,27 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 			case JspPackage.JSP_PROPERTY_GROUP__URL_PATTERNS:
 				return getUrlPatterns();
 			case JspPackage.JSP_PROPERTY_GROUP__EL_IGNORED:
-				return isElIgnored() ? Boolean.TRUE : Boolean.FALSE;
+				return isElIgnored();
 			case JspPackage.JSP_PROPERTY_GROUP__PAGE_ENCODING:
 				return getPageEncoding();
 			case JspPackage.JSP_PROPERTY_GROUP__SCRIPTING_INVALID:
-				return isScriptingInvalid() ? Boolean.TRUE : Boolean.FALSE;
+				return isScriptingInvalid();
 			case JspPackage.JSP_PROPERTY_GROUP__IS_XML:
-				return isIsXml() ? Boolean.TRUE : Boolean.FALSE;
+				return isIsXml();
 			case JspPackage.JSP_PROPERTY_GROUP__INCLUDE_PRELUDES:
 				return getIncludePreludes();
 			case JspPackage.JSP_PROPERTY_GROUP__INCLUDE_CODAS:
 				return getIncludeCodas();
 			case JspPackage.JSP_PROPERTY_GROUP__DEFERRED_SYNTAX_ALLOWED_AS_LITERAL:
-				return isDeferredSyntaxAllowedAsLiteral() ? Boolean.TRUE : Boolean.FALSE;
+				return isDeferredSyntaxAllowedAsLiteral();
 			case JspPackage.JSP_PROPERTY_GROUP__TRIM_DIRECTIVE_WHITESPACES:
-				return isTrimDirectiveWhitespaces() ? Boolean.TRUE : Boolean.FALSE;
+				return isTrimDirectiveWhitespaces();
+			case JspPackage.JSP_PROPERTY_GROUP__DEFAULT_CONTENT_TYPE:
+				return getDefaultContentType();
+			case JspPackage.JSP_PROPERTY_GROUP__BUFFER:
+				return getBuffer();
+			case JspPackage.JSP_PROPERTY_GROUP__ERROR_ON_UNDECLARED_NAMESPACE:
+				return isErrorOnUndeclaredNamespace();
 			case JspPackage.JSP_PROPERTY_GROUP__ID:
 				return getId();
 		}
@@ -734,50 +900,60 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case JspPackage.JSP_PROPERTY_GROUP__DESCRIPTIONS:
 				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
+				getDescriptions().addAll((Collection<? extends Description>)newValue);
 				return;
 			case JspPackage.JSP_PROPERTY_GROUP__DISPLAY_NAMES:
 				getDisplayNames().clear();
-				getDisplayNames().addAll((Collection)newValue);
+				getDisplayNames().addAll((Collection<? extends DisplayName>)newValue);
 				return;
 			case JspPackage.JSP_PROPERTY_GROUP__ICONS:
 				getIcons().clear();
-				getIcons().addAll((Collection)newValue);
+				getIcons().addAll((Collection<? extends Icon>)newValue);
 				return;
 			case JspPackage.JSP_PROPERTY_GROUP__URL_PATTERNS:
 				getUrlPatterns().clear();
-				getUrlPatterns().addAll((Collection)newValue);
+				getUrlPatterns().addAll((Collection<? extends UrlPatternType>)newValue);
 				return;
 			case JspPackage.JSP_PROPERTY_GROUP__EL_IGNORED:
-				setElIgnored(((Boolean)newValue).booleanValue());
+				setElIgnored((Boolean)newValue);
 				return;
 			case JspPackage.JSP_PROPERTY_GROUP__PAGE_ENCODING:
 				setPageEncoding((String)newValue);
 				return;
 			case JspPackage.JSP_PROPERTY_GROUP__SCRIPTING_INVALID:
-				setScriptingInvalid(((Boolean)newValue).booleanValue());
+				setScriptingInvalid((Boolean)newValue);
 				return;
 			case JspPackage.JSP_PROPERTY_GROUP__IS_XML:
-				setIsXml(((Boolean)newValue).booleanValue());
+				setIsXml((Boolean)newValue);
 				return;
 			case JspPackage.JSP_PROPERTY_GROUP__INCLUDE_PRELUDES:
 				getIncludePreludes().clear();
-				getIncludePreludes().addAll((Collection)newValue);
+				getIncludePreludes().addAll((Collection<? extends String>)newValue);
 				return;
 			case JspPackage.JSP_PROPERTY_GROUP__INCLUDE_CODAS:
 				getIncludeCodas().clear();
-				getIncludeCodas().addAll((Collection)newValue);
+				getIncludeCodas().addAll((Collection<? extends String>)newValue);
 				return;
 			case JspPackage.JSP_PROPERTY_GROUP__DEFERRED_SYNTAX_ALLOWED_AS_LITERAL:
-				setDeferredSyntaxAllowedAsLiteral(((Boolean)newValue).booleanValue());
+				setDeferredSyntaxAllowedAsLiteral((Boolean)newValue);
 				return;
 			case JspPackage.JSP_PROPERTY_GROUP__TRIM_DIRECTIVE_WHITESPACES:
-				setTrimDirectiveWhitespaces(((Boolean)newValue).booleanValue());
+				setTrimDirectiveWhitespaces((Boolean)newValue);
+				return;
+			case JspPackage.JSP_PROPERTY_GROUP__DEFAULT_CONTENT_TYPE:
+				setDefaultContentType((String)newValue);
+				return;
+			case JspPackage.JSP_PROPERTY_GROUP__BUFFER:
+				setBuffer((String)newValue);
+				return;
+			case JspPackage.JSP_PROPERTY_GROUP__ERROR_ON_UNDECLARED_NAMESPACE:
+				setErrorOnUndeclaredNamespace((Boolean)newValue);
 				return;
 			case JspPackage.JSP_PROPERTY_GROUP__ID:
 				setId((String)newValue);
@@ -830,6 +1006,15 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 			case JspPackage.JSP_PROPERTY_GROUP__TRIM_DIRECTIVE_WHITESPACES:
 				unsetTrimDirectiveWhitespaces();
 				return;
+			case JspPackage.JSP_PROPERTY_GROUP__DEFAULT_CONTENT_TYPE:
+				setDefaultContentType(DEFAULT_CONTENT_TYPE_EDEFAULT);
+				return;
+			case JspPackage.JSP_PROPERTY_GROUP__BUFFER:
+				setBuffer(BUFFER_EDEFAULT);
+				return;
+			case JspPackage.JSP_PROPERTY_GROUP__ERROR_ON_UNDECLARED_NAMESPACE:
+				unsetErrorOnUndeclaredNamespace();
+				return;
 			case JspPackage.JSP_PROPERTY_GROUP__ID:
 				setId(ID_EDEFAULT);
 				return;
@@ -869,6 +1054,12 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 				return isSetDeferredSyntaxAllowedAsLiteral();
 			case JspPackage.JSP_PROPERTY_GROUP__TRIM_DIRECTIVE_WHITESPACES:
 				return isSetTrimDirectiveWhitespaces();
+			case JspPackage.JSP_PROPERTY_GROUP__DEFAULT_CONTENT_TYPE:
+				return DEFAULT_CONTENT_TYPE_EDEFAULT == null ? defaultContentType != null : !DEFAULT_CONTENT_TYPE_EDEFAULT.equals(defaultContentType);
+			case JspPackage.JSP_PROPERTY_GROUP__BUFFER:
+				return BUFFER_EDEFAULT == null ? buffer != null : !BUFFER_EDEFAULT.equals(buffer);
+			case JspPackage.JSP_PROPERTY_GROUP__ERROR_ON_UNDECLARED_NAMESPACE:
+				return isSetErrorOnUndeclaredNamespace();
 			case JspPackage.JSP_PROPERTY_GROUP__ID:
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 		}
@@ -901,6 +1092,12 @@ public class JspPropertyGroupImpl extends EObjectImpl implements JspPropertyGrou
 		if (deferredSyntaxAllowedAsLiteralESet) result.append(deferredSyntaxAllowedAsLiteral); else result.append("<unset>"); //$NON-NLS-1$
 		result.append(", trimDirectiveWhitespaces: "); //$NON-NLS-1$
 		if (trimDirectiveWhitespacesESet) result.append(trimDirectiveWhitespaces); else result.append("<unset>"); //$NON-NLS-1$
+		result.append(", defaultContentType: "); //$NON-NLS-1$
+		result.append(defaultContentType);
+		result.append(", buffer: "); //$NON-NLS-1$
+		result.append(buffer);
+		result.append(", errorOnUndeclaredNamespace: "); //$NON-NLS-1$
+		if (errorOnUndeclaredNamespaceESet) result.append(errorOnUndeclaredNamespace); else result.append("<unset>"); //$NON-NLS-1$
 		result.append(", id: "); //$NON-NLS-1$
 		result.append(id);
 		result.append(')');

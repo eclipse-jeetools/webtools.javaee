@@ -32,6 +32,24 @@ public interface JavaeeFactory extends EFactory {
 	JavaeeFactory eINSTANCE = org.eclipse.jst.javaee.core.internal.impl.JavaeeFactoryImpl.init();
 
 	/**
+	 * Returns a new object of class '<em>Addressing Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Addressing Type</em>'.
+	 * @generated
+	 */
+	AddressingType createAddressingType();
+
+	/**
+	 * Returns a new object of class '<em>Data Source Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Data Source Type</em>'.
+	 * @generated
+	 */
+	DataSourceType createDataSourceType();
+
+	/**
 	 * Returns a new object of class '<em>Description</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -201,6 +219,15 @@ public interface JavaeeFactory extends EFactory {
 	 * @generated
 	 */
 	ResourceRef createResourceRef();
+
+	/**
+	 * Returns a new object of class '<em>Respect Binding Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Respect Binding Type</em>'.
+	 * @generated
+	 */
+	RespectBindingType createRespectBindingType();
 
 	/**
 	 * Returns a new object of class '<em>Run As</em>'.

@@ -20,9 +20,10 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The webType defines the web-uri and context-root of
- * 	a web application module.
- * 
+ *         The webType defines the web-uri and context-root of
+ *         a web application module.
+ *         
+ *         @since Java EE 5, Application 5
  *       
  * <!-- end-model-doc -->
  *
@@ -47,11 +48,12 @@ public interface Web extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	    The web-uri element specifies the URI of a web
-	 * 	    application file, relative to the top level of the
-	 * 	    application package.
-	 * 
-	 * 	  
+	 *             The web-uri element specifies the URI of a web
+	 *             application file, relative to the top level of the
+	 *             application package.
+	 *             
+	 *             @since Java EE 5, Application 5
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Web Uri</em>' attribute.
 	 * @see #setWebUri(String)
@@ -77,10 +79,11 @@ public interface Web extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	    The context-root element specifies the context root
-	 * 	    of a web application.
-	 * 
-	 * 	  
+	 *             The context-root element specifies the context root
+	 *             of a web application.
+	 *             
+	 *             @since Java EE 5, Application 5
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Context Root</em>' attribute.
 	 * @see #setContextRoot(String)

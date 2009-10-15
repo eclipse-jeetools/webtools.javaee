@@ -89,7 +89,7 @@ public class LoginConfigImpl extends EObjectImpl implements LoginConfig {
 	 * @generated
 	 * @ordered
 	 */
-	protected FormLoginConfig formLoginConfig = null;
+	protected FormLoginConfig formLoginConfig;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.

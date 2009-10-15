@@ -70,27 +70,27 @@ public class JspAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * The switch the delegates to the <code>createXXX</code> methods.
+	 * The switch that delegates to the <code>createXXX</code> methods.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected JspSwitch modelSwitch =
-		new JspSwitch() {
+	protected JspSwitch<Adapter> modelSwitch =
+		new JspSwitch<Adapter>() {
 			@Override
-			public Object caseJspConfig(JspConfig object) {
+			public Adapter caseJspConfig(JspConfig object) {
 				return createJspConfigAdapter();
 			}
 			@Override
-			public Object caseJspPropertyGroup(JspPropertyGroup object) {
+			public Adapter caseJspPropertyGroup(JspPropertyGroup object) {
 				return createJspPropertyGroupAdapter();
 			}
 			@Override
-			public Object caseTagLib(TagLib object) {
+			public Adapter caseTagLib(TagLib object) {
 				return createTagLibAdapter();
 			}
 			@Override
-			public Object defaultCase(EObject object) {
+			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
 		};
@@ -105,7 +105,7 @@ public class JspAdapterFactory extends AdapterFactoryImpl {
 	 */
 	@Override
 	public Adapter createAdapter(Notifier target) {
-		return (Adapter)modelSwitch.doSwitch((EObject)target);
+		return modelSwitch.doSwitch((EObject)target);
 	}
 
 

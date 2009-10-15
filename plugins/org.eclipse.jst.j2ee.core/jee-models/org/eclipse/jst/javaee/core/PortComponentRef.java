@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.jst.javaee.core;
 
+import java.math.BigInteger;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -19,12 +21,13 @@ package org.eclipse.jst.javaee.core;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The port-component-ref element declares a client dependency
- * 	on the container for resolving a Service Endpoint Interface
- * 	to a WSDL port. It optionally associates the Service Endpoint
- * 	Interface with a particular port-component. This is only used
- * 	by the container for a Service.getPort(Class) method call.
- * 
+ *         The port-component-ref element declares a client dependency
+ *         on the container for resolving a Service Endpoint Interface
+ *         to a WSDL port. It optionally associates the Service Endpoint
+ *         Interface with a particular port-component. This is only used
+ *         by the container for a Service.getPort(Class) method call.
+ *         
+ *         @since Java EE 5, Web Services Client 1.2
  *       
  * <!-- end-model-doc -->
  *
@@ -33,6 +36,9 @@ package org.eclipse.jst.javaee.core;
  * <ul>
  *   <li>{@link org.eclipse.jst.javaee.core.PortComponentRef#getServiceEndpointInterface <em>Service Endpoint Interface</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.PortComponentRef#isEnableMtom <em>Enable Mtom</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.core.PortComponentRef#getMtomThreshold <em>Mtom Threshold</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.core.PortComponentRef#getAddressing <em>Addressing</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.core.PortComponentRef#getRespectBinding <em>Respect Binding</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.PortComponentRef#getPortComponentLink <em>Port Component Link</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.PortComponentRef#getId <em>Id</em>}</li>
  * </ul>
@@ -50,11 +56,12 @@ public interface PortComponentRef extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	    The service-endpoint-interface element defines a fully qualified
-	 * 	    Java class that represents the Service Endpoint Interface of a
-	 * 	    WSDL port.
-	 * 
-	 * 	  
+	 *             The service-endpoint-interface element defines a fully qualified
+	 *             Java class that represents the Service Endpoint Interface of a
+	 *             WSDL port.
+	 *             
+	 *             @since Java EE 5, Web Services Client 1.2
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Service Endpoint Interface</em>' attribute.
 	 * @see #setServiceEndpointInterface(String)
@@ -81,9 +88,11 @@ public interface PortComponentRef extends JavaEEObject {
 	 * 
 	 * 
 	 *             Used to enable or disable SOAP MTOM/XOP mechanism on the client
-	 * 	    side for a port-component.
-	 * 
-	 * 	    Not to be specified for JAX-RPC runtime
+	 *             side for a port-component. 
+	 *             
+	 *             Not to be specified for JAX-RPC runtime
+	 *             
+	 *             @since Java EE 5, Web Services Client 1.2
 	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Enable Mtom</em>' attribute.
@@ -131,23 +140,126 @@ public interface PortComponentRef extends JavaEEObject {
 	boolean isSetEnableMtom();
 
 	/**
+	 * Returns the value of the '<em><b>Mtom Threshold</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * 
+	 *             When MTOM is enabled, binary data above this size in bytes
+	 *             should be XOP encoded or sent as attachment. Default value is 0.
+	 *             
+	 *             Not to be specified for JAX-RPC runtime
+	 *             
+	 *             @since Java EE 6, Web Services Client 1.3
+	 *           
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Mtom Threshold</em>' attribute.
+	 * @see #setMtomThreshold(BigInteger)
+	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getPortComponentRef_MtomThreshold()
+	 * @generated
+	 */
+	BigInteger getMtomThreshold();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.jst.javaee.core.PortComponentRef#getMtomThreshold <em>Mtom Threshold</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Mtom Threshold</em>' attribute.
+	 * @see #getMtomThreshold()
+	 * @generated
+	 */
+	void setMtomThreshold(BigInteger value);
+
+	/**
+	 * Returns the value of the '<em><b>Addressing</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * 
+	 *             This specifies the WS-Addressing requirements for a JAX-WS
+	 *             web service. It corresponds to javax.xml.ws.soap.Addressing
+	 *             annotation or its feature javax.xml.ws.soap.AddressingFeature.
+	 *             
+	 *             See the addressingType for more information.
+	 *             
+	 *             Not to be specified for JAX-RPC runtime
+	 *             
+	 *             @since Java EE 6, Web Services Client 1.3
+	 *           
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Addressing</em>' containment reference.
+	 * @see #setAddressing(AddressingType)
+	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getPortComponentRef_Addressing()
+	 * @generated
+	 */
+	AddressingType getAddressing();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.jst.javaee.core.PortComponentRef#getAddressing <em>Addressing</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Addressing</em>' containment reference.
+	 * @see #getAddressing()
+	 * @generated
+	 */
+	void setAddressing(AddressingType value);
+
+	/**
+	 * Returns the value of the '<em><b>Respect Binding</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * 
+	 *             Corresponds to the javax.xml.ws.RespectBinding annotation
+	 *             or its corresponding javax.xml.ws.RespectBindingFeature web
+	 *             service feature. This is used to control whether a JAX-WS
+	 *             implementation must respect/honor the contents of the
+	 *             wsdl:binding in the WSDL that is associated with the service.
+	 *             
+	 *             Not to be specified for JAX-RPC runtime
+	 *             
+	 *             @since Java EE 6, Web Services Client 1.3
+	 *           
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Respect Binding</em>' containment reference.
+	 * @see #setRespectBinding(RespectBindingType)
+	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getPortComponentRef_RespectBinding()
+	 * @generated
+	 */
+	RespectBindingType getRespectBinding();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.jst.javaee.core.PortComponentRef#getRespectBinding <em>Respect Binding</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Respect Binding</em>' containment reference.
+	 * @see #getRespectBinding()
+	 * @generated
+	 */
+	void setRespectBinding(RespectBindingType value);
+
+	/**
 	 * Returns the value of the '<em><b>Port Component Link</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	    The port-component-link element links a port-component-ref
-	 * 	    to a specific port-component required to be made available
-	 * 	    by a service reference.
-	 * 
-	 * 	    The value of a port-component-link must be the
-	 * 	    port-component-name of a port-component in the same module
-	 * 	    or another module in the same application unit. The syntax
-	 * 	    for specification follows the syntax defined for ejb-link
-	 * 	    in the EJB 2.0 specification.
-	 * 
-	 * 	  
+	 *             The port-component-link element links a port-component-ref
+	 *             to a specific port-component required to be made available
+	 *             by a service reference.
+	 *             
+	 *             The value of a port-component-link must be the
+	 *             port-component-name of a port-component in the same module
+	 *             or another module in the same application unit. The syntax
+	 *             for specification follows the syntax defined for ejb-link
+	 *             in the EJB 2.0 specification.
+	 *             
+	 *             @since Java EE 5, Web Services Client 1.2
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Port Component Link</em>' attribute.
 	 * @see #setPortComponentLink(String)

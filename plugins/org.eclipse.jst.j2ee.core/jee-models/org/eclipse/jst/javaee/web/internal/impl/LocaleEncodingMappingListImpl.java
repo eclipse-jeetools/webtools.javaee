@@ -55,7 +55,7 @@ public class LocaleEncodingMappingListImpl extends EObjectImpl implements Locale
 	 * @generated
 	 * @ordered
 	 */
-	protected EList localEncodingMappings = null;
+	protected EList<LocaleEncodingMapping> localEncodingMappings;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -101,9 +101,9 @@ public class LocaleEncodingMappingListImpl extends EObjectImpl implements Locale
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getLocalEncodingMappings() {
+	public List<LocaleEncodingMapping> getLocalEncodingMappings() {
 		if (localEncodingMappings == null) {
-			localEncodingMappings = new EObjectContainmentEList(LocaleEncodingMapping.class, this, WebPackage.LOCALE_ENCODING_MAPPING_LIST__LOCAL_ENCODING_MAPPINGS);
+			localEncodingMappings = new EObjectContainmentEList<LocaleEncodingMapping>(LocaleEncodingMapping.class, this, WebPackage.LOCALE_ENCODING_MAPPING_LIST__LOCAL_ENCODING_MAPPINGS);
 		}
 		return localEncodingMappings;
 	}
@@ -138,7 +138,7 @@ public class LocaleEncodingMappingListImpl extends EObjectImpl implements Locale
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case WebPackage.LOCALE_ENCODING_MAPPING_LIST__LOCAL_ENCODING_MAPPINGS:
-				return ((InternalEList)getLocalEncodingMappings()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getLocalEncodingMappings()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -164,12 +164,13 @@ public class LocaleEncodingMappingListImpl extends EObjectImpl implements Locale
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case WebPackage.LOCALE_ENCODING_MAPPING_LIST__LOCAL_ENCODING_MAPPINGS:
 				getLocalEncodingMappings().clear();
-				getLocalEncodingMappings().addAll((Collection)newValue);
+				getLocalEncodingMappings().addAll((Collection<? extends LocaleEncodingMapping>)newValue);
 				return;
 			case WebPackage.LOCALE_ENCODING_MAPPING_LIST__ID:
 				setId((String)newValue);

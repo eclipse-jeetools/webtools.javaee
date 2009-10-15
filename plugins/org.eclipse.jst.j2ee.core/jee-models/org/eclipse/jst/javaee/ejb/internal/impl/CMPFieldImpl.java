@@ -57,7 +57,7 @@ public class CMPFieldImpl extends EObjectImpl implements CMPField {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList descriptions = null;
+	protected EList<Description> descriptions;
 
 	/**
 	 * The default value of the '{@link #getFieldName() <em>Field Name</em>}' attribute.
@@ -123,9 +123,9 @@ public class CMPFieldImpl extends EObjectImpl implements CMPField {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDescriptions() {
+	public List<Description> getDescriptions() {
 		if (descriptions == null) {
-			descriptions = new EObjectContainmentEList(Description.class, this, EjbPackage.CMP_FIELD__DESCRIPTIONS);
+			descriptions = new EObjectContainmentEList<Description>(Description.class, this, EjbPackage.CMP_FIELD__DESCRIPTIONS);
 		}
 		return descriptions;
 	}
@@ -181,7 +181,7 @@ public class CMPFieldImpl extends EObjectImpl implements CMPField {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EjbPackage.CMP_FIELD__DESCRIPTIONS:
-				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDescriptions()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -209,12 +209,13 @@ public class CMPFieldImpl extends EObjectImpl implements CMPField {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EjbPackage.CMP_FIELD__DESCRIPTIONS:
 				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
+				getDescriptions().addAll((Collection<? extends Description>)newValue);
 				return;
 			case EjbPackage.CMP_FIELD__FIELD_NAME:
 				setFieldName((String)newValue);

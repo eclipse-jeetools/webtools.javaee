@@ -28,10 +28,12 @@ import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.eclipse.jst.javaee.core.DataSourceType;
 import org.eclipse.jst.javaee.core.Description;
 import org.eclipse.jst.javaee.core.DisplayName;
 import org.eclipse.jst.javaee.core.EjbLocalRef;
 import org.eclipse.jst.javaee.core.EjbRef;
+import org.eclipse.jst.javaee.core.EmptyType;
 import org.eclipse.jst.javaee.core.EnvEntry;
 import org.eclipse.jst.javaee.core.Icon;
 import org.eclipse.jst.javaee.core.LifecycleCallback;
@@ -44,12 +46,19 @@ import org.eclipse.jst.javaee.core.SecurityRoleRef;
 import org.eclipse.jst.javaee.core.ServiceRef;
 
 import org.eclipse.jst.javaee.ejb.AroundInvokeType;
+import org.eclipse.jst.javaee.ejb.AroundTimeoutType;
+import org.eclipse.jst.javaee.ejb.AsyncMethodType;
+import org.eclipse.jst.javaee.ejb.ConcurrencyManagementTypeType;
+import org.eclipse.jst.javaee.ejb.ConcurrentMethodType;
+import org.eclipse.jst.javaee.ejb.DependsOnType;
 import org.eclipse.jst.javaee.ejb.InitMethodType;
 import org.eclipse.jst.javaee.ejb.NamedMethodType;
 import org.eclipse.jst.javaee.ejb.RemoveMethodType;
 import org.eclipse.jst.javaee.ejb.SecurityIdentityType;
 import org.eclipse.jst.javaee.ejb.SessionBean;
 import org.eclipse.jst.javaee.ejb.SessionType;
+import org.eclipse.jst.javaee.ejb.StatefulTimeoutType;
+import org.eclipse.jst.javaee.ejb.TimerType;
 import org.eclipse.jst.javaee.ejb.TransactionType;
 
 import org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage;
@@ -72,14 +81,26 @@ import org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage;
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getLocal <em>Local</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getBusinessLocals <em>Business Locals</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getBusinessRemotes <em>Business Remotes</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getLocalBean <em>Local Bean</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getServiceEndpoint <em>Service Endpoint</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getEjbClass <em>Ejb Class</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getSessionType <em>Session Type</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getStatefulTimeout <em>Stateful Timeout</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getTimeoutMethod <em>Timeout Method</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getTimer <em>Timer</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#isInitOnStartup <em>Init On Startup</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getConcurrencyManagementType <em>Concurrency Management Type</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getConcurrentMethod <em>Concurrent Method</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getDependsOn <em>Depends On</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getInitMethods <em>Init Methods</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getRemoveMethods <em>Remove Methods</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getAsyncMethod <em>Async Method</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getTransactionType <em>Transaction Type</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getAfterBeginMethod <em>After Begin Method</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getBeforeCompletionMethod <em>Before Completion Method</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getAfterCompletionMethod <em>After Completion Method</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getAroundInvokes <em>Around Invokes</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getAroundTimeouts <em>Around Timeouts</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getEnvEntries <em>Env Entries</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getEjbRefs <em>Ejb Refs</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getEjbLocalRefs <em>Ejb Local Refs</em>}</li>
@@ -91,6 +112,7 @@ import org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage;
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getPersistenceUnitRefs <em>Persistence Unit Refs</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getPostConstructs <em>Post Constructs</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getPreDestroys <em>Pre Destroys</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getDataSource <em>Data Source</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getPostActivates <em>Post Activates</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getPrePassivates <em>Pre Passivates</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getSecurityRoleRefs <em>Security Role Refs</em>}</li>
@@ -110,7 +132,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList descriptions = null;
+	protected EList<Description> descriptions;
 
 	/**
 	 * The cached value of the '{@link #getDisplayNames() <em>Display Names</em>}' containment reference list.
@@ -120,7 +142,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList displayNames = null;
+	protected EList<DisplayName> displayNames;
 
 	/**
 	 * The cached value of the '{@link #getIcons() <em>Icons</em>}' containment reference list.
@@ -130,7 +152,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList icons = null;
+	protected EList<Icon> icons;
 
 	/**
 	 * The default value of the '{@link #getEjbName() <em>Ejb Name</em>}' attribute.
@@ -260,7 +282,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList businessLocals = null;
+	protected EList<String> businessLocals;
 
 	/**
 	 * The cached value of the '{@link #getBusinessRemotes() <em>Business Remotes</em>}' attribute list.
@@ -270,7 +292,17 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList businessRemotes = null;
+	protected EList<String> businessRemotes;
+
+	/**
+	 * The cached value of the '{@link #getLocalBean() <em>Local Bean</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLocalBean()
+	 * @generated
+	 * @ordered
+	 */
+	protected EmptyType localBean;
 
 	/**
 	 * The default value of the '{@link #getServiceEndpoint() <em>Service Endpoint</em>}' attribute.
@@ -320,7 +352,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final SessionType SESSION_TYPE_EDEFAULT = SessionType.STATEFUL_LITERAL;
+	protected static final SessionType SESSION_TYPE_EDEFAULT = SessionType.SINGLETON_LITERAL;
 
 	/**
 	 * The cached value of the '{@link #getSessionType() <em>Session Type</em>}' attribute.
@@ -339,7 +371,17 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean sessionTypeESet = false;
+	protected boolean sessionTypeESet;
+
+	/**
+	 * The cached value of the '{@link #getStatefulTimeout() <em>Stateful Timeout</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStatefulTimeout()
+	 * @generated
+	 * @ordered
+	 */
+	protected StatefulTimeoutType statefulTimeout;
 
 	/**
 	 * The cached value of the '{@link #getTimeoutMethod() <em>Timeout Method</em>}' containment reference.
@@ -349,7 +391,95 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected NamedMethodType timeoutMethod = null;
+	protected NamedMethodType timeoutMethod;
+
+	/**
+	 * The cached value of the '{@link #getTimer() <em>Timer</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTimer()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<TimerType> timer;
+
+	/**
+	 * The default value of the '{@link #isInitOnStartup() <em>Init On Startup</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isInitOnStartup()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean INIT_ON_STARTUP_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isInitOnStartup() <em>Init On Startup</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isInitOnStartup()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean initOnStartup = INIT_ON_STARTUP_EDEFAULT;
+
+	/**
+	 * This is true if the Init On Startup attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean initOnStartupESet;
+
+	/**
+	 * The default value of the '{@link #getConcurrencyManagementType() <em>Concurrency Management Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getConcurrencyManagementType()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final ConcurrencyManagementTypeType CONCURRENCY_MANAGEMENT_TYPE_EDEFAULT = ConcurrencyManagementTypeType.BEAN;
+
+	/**
+	 * The cached value of the '{@link #getConcurrencyManagementType() <em>Concurrency Management Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getConcurrencyManagementType()
+	 * @generated
+	 * @ordered
+	 */
+	protected ConcurrencyManagementTypeType concurrencyManagementType = CONCURRENCY_MANAGEMENT_TYPE_EDEFAULT;
+
+	/**
+	 * This is true if the Concurrency Management Type attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean concurrencyManagementTypeESet;
+
+	/**
+	 * The cached value of the '{@link #getConcurrentMethod() <em>Concurrent Method</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getConcurrentMethod()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ConcurrentMethodType> concurrentMethod;
+
+	/**
+	 * The cached value of the '{@link #getDependsOn() <em>Depends On</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDependsOn()
+	 * @generated
+	 * @ordered
+	 */
+	protected DependsOnType dependsOn;
 
 	/**
 	 * The cached value of the '{@link #getInitMethods() <em>Init Methods</em>}' containment reference list.
@@ -359,7 +489,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList initMethods = null;
+	protected EList<InitMethodType> initMethods;
 
 	/**
 	 * The cached value of the '{@link #getRemoveMethods() <em>Remove Methods</em>}' containment reference list.
@@ -369,7 +499,17 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList removeMethods = null;
+	protected EList<RemoveMethodType> removeMethods;
+
+	/**
+	 * The cached value of the '{@link #getAsyncMethod() <em>Async Method</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAsyncMethod()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<AsyncMethodType> asyncMethod;
 
 	/**
 	 * The default value of the '{@link #getTransactionType() <em>Transaction Type</em>}' attribute.
@@ -398,7 +538,37 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean transactionTypeESet = false;
+	protected boolean transactionTypeESet;
+
+	/**
+	 * The cached value of the '{@link #getAfterBeginMethod() <em>After Begin Method</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAfterBeginMethod()
+	 * @generated
+	 * @ordered
+	 */
+	protected NamedMethodType afterBeginMethod;
+
+	/**
+	 * The cached value of the '{@link #getBeforeCompletionMethod() <em>Before Completion Method</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBeforeCompletionMethod()
+	 * @generated
+	 * @ordered
+	 */
+	protected NamedMethodType beforeCompletionMethod;
+
+	/**
+	 * The cached value of the '{@link #getAfterCompletionMethod() <em>After Completion Method</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAfterCompletionMethod()
+	 * @generated
+	 * @ordered
+	 */
+	protected NamedMethodType afterCompletionMethod;
 
 	/**
 	 * The cached value of the '{@link #getAroundInvokes() <em>Around Invokes</em>}' containment reference list.
@@ -408,7 +578,17 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList aroundInvokes = null;
+	protected EList<AroundInvokeType> aroundInvokes;
+
+	/**
+	 * The cached value of the '{@link #getAroundTimeouts() <em>Around Timeouts</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAroundTimeouts()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<AroundTimeoutType> aroundTimeouts;
 
 	/**
 	 * The cached value of the '{@link #getEnvEntries() <em>Env Entries</em>}' containment reference list.
@@ -418,7 +598,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList envEntries = null;
+	protected EList<EnvEntry> envEntries;
 
 	/**
 	 * The cached value of the '{@link #getEjbRefs() <em>Ejb Refs</em>}' containment reference list.
@@ -428,7 +608,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList ejbRefs = null;
+	protected EList<EjbRef> ejbRefs;
 
 	/**
 	 * The cached value of the '{@link #getEjbLocalRefs() <em>Ejb Local Refs</em>}' containment reference list.
@@ -438,7 +618,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList ejbLocalRefs = null;
+	protected EList<EjbLocalRef> ejbLocalRefs;
 
 	/**
 	 * The cached value of the '{@link #getServiceRefs() <em>Service Refs</em>}' containment reference list.
@@ -448,7 +628,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList serviceRefs = null;
+	protected EList<ServiceRef> serviceRefs;
 
 	/**
 	 * The cached value of the '{@link #getResourceRefs() <em>Resource Refs</em>}' containment reference list.
@@ -458,7 +638,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList resourceRefs = null;
+	protected EList<ResourceRef> resourceRefs;
 
 	/**
 	 * The cached value of the '{@link #getResourceEnvRefs() <em>Resource Env Refs</em>}' containment reference list.
@@ -468,7 +648,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList resourceEnvRefs = null;
+	protected EList<ResourceEnvRef> resourceEnvRefs;
 
 	/**
 	 * The cached value of the '{@link #getMessageDestinationRefs() <em>Message Destination Refs</em>}' containment reference list.
@@ -478,7 +658,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList messageDestinationRefs = null;
+	protected EList<MessageDestinationRef> messageDestinationRefs;
 
 	/**
 	 * The cached value of the '{@link #getPersistenceContextRefs() <em>Persistence Context Refs</em>}' containment reference list.
@@ -488,7 +668,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList persistenceContextRefs = null;
+	protected EList<PersistenceContextRef> persistenceContextRefs;
 
 	/**
 	 * The cached value of the '{@link #getPersistenceUnitRefs() <em>Persistence Unit Refs</em>}' containment reference list.
@@ -498,7 +678,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList persistenceUnitRefs = null;
+	protected EList<PersistenceUnitRef> persistenceUnitRefs;
 
 	/**
 	 * The cached value of the '{@link #getPostConstructs() <em>Post Constructs</em>}' containment reference list.
@@ -508,7 +688,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList postConstructs = null;
+	protected EList<LifecycleCallback> postConstructs;
 
 	/**
 	 * The cached value of the '{@link #getPreDestroys() <em>Pre Destroys</em>}' containment reference list.
@@ -518,7 +698,17 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList preDestroys = null;
+	protected EList<LifecycleCallback> preDestroys;
+
+	/**
+	 * The cached value of the '{@link #getDataSource() <em>Data Source</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDataSource()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<DataSourceType> dataSource;
 
 	/**
 	 * The cached value of the '{@link #getPostActivates() <em>Post Activates</em>}' containment reference list.
@@ -528,7 +718,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList postActivates = null;
+	protected EList<LifecycleCallback> postActivates;
 
 	/**
 	 * The cached value of the '{@link #getPrePassivates() <em>Pre Passivates</em>}' containment reference list.
@@ -538,7 +728,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList prePassivates = null;
+	protected EList<LifecycleCallback> prePassivates;
 
 	/**
 	 * The cached value of the '{@link #getSecurityRoleRefs() <em>Security Role Refs</em>}' containment reference list.
@@ -548,7 +738,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList securityRoleRefs = null;
+	protected EList<SecurityRoleRef> securityRoleRefs;
 
 	/**
 	 * The cached value of the '{@link #getSecurityIdentities() <em>Security Identities</em>}' containment reference.
@@ -558,7 +748,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected SecurityIdentityType securityIdentities = null;
+	protected SecurityIdentityType securityIdentities;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -604,9 +794,9 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDescriptions() {
+	public List<Description> getDescriptions() {
 		if (descriptions == null) {
-			descriptions = new EObjectContainmentEList(Description.class, this, EjbPackage.SESSION_BEAN__DESCRIPTIONS);
+			descriptions = new EObjectContainmentEList<Description>(Description.class, this, EjbPackage.SESSION_BEAN__DESCRIPTIONS);
 		}
 		return descriptions;
 	}
@@ -616,9 +806,9 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDisplayNames() {
+	public List<DisplayName> getDisplayNames() {
 		if (displayNames == null) {
-			displayNames = new EObjectContainmentEList(DisplayName.class, this, EjbPackage.SESSION_BEAN__DISPLAY_NAMES);
+			displayNames = new EObjectContainmentEList<DisplayName>(DisplayName.class, this, EjbPackage.SESSION_BEAN__DISPLAY_NAMES);
 		}
 		return displayNames;
 	}
@@ -628,9 +818,9 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getIcons() {
+	public List<Icon> getIcons() {
 		if (icons == null) {
-			icons = new EObjectContainmentEList(Icon.class, this, EjbPackage.SESSION_BEAN__ICONS);
+			icons = new EObjectContainmentEList<Icon>(Icon.class, this, EjbPackage.SESSION_BEAN__ICONS);
 		}
 		return icons;
 	}
@@ -766,9 +956,9 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getBusinessLocals() {
+	public List<String> getBusinessLocals() {
 		if (businessLocals == null) {
-			businessLocals = new EDataTypeEList(String.class, this, EjbPackage.SESSION_BEAN__BUSINESS_LOCALS);
+			businessLocals = new EDataTypeEList<String>(String.class, this, EjbPackage.SESSION_BEAN__BUSINESS_LOCALS);
 		}
 		return businessLocals;
 	}
@@ -778,11 +968,54 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getBusinessRemotes() {
+	public List<String> getBusinessRemotes() {
 		if (businessRemotes == null) {
-			businessRemotes = new EDataTypeEList(String.class, this, EjbPackage.SESSION_BEAN__BUSINESS_REMOTES);
+			businessRemotes = new EDataTypeEList<String>(String.class, this, EjbPackage.SESSION_BEAN__BUSINESS_REMOTES);
 		}
 		return businessRemotes;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EmptyType getLocalBean() {
+		return localBean;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetLocalBean(EmptyType newLocalBean, NotificationChain msgs) {
+		EmptyType oldLocalBean = localBean;
+		localBean = newLocalBean;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EjbPackage.SESSION_BEAN__LOCAL_BEAN, oldLocalBean, newLocalBean);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setLocalBean(EmptyType newLocalBean) {
+		if (newLocalBean != localBean) {
+			NotificationChain msgs = null;
+			if (localBean != null)
+				msgs = ((InternalEObject)localBean).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EjbPackage.SESSION_BEAN__LOCAL_BEAN, null, msgs);
+			if (newLocalBean != null)
+				msgs = ((InternalEObject)newLocalBean).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - EjbPackage.SESSION_BEAN__LOCAL_BEAN, null, msgs);
+			msgs = basicSetLocalBean(newLocalBean, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, EjbPackage.SESSION_BEAN__LOCAL_BEAN, newLocalBean, newLocalBean));
 	}
 
 	/**
@@ -878,6 +1111,49 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public StatefulTimeoutType getStatefulTimeout() {
+		return statefulTimeout;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetStatefulTimeout(StatefulTimeoutType newStatefulTimeout, NotificationChain msgs) {
+		StatefulTimeoutType oldStatefulTimeout = statefulTimeout;
+		statefulTimeout = newStatefulTimeout;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EjbPackage.SESSION_BEAN__STATEFUL_TIMEOUT, oldStatefulTimeout, newStatefulTimeout);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setStatefulTimeout(StatefulTimeoutType newStatefulTimeout) {
+		if (newStatefulTimeout != statefulTimeout) {
+			NotificationChain msgs = null;
+			if (statefulTimeout != null)
+				msgs = ((InternalEObject)statefulTimeout).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EjbPackage.SESSION_BEAN__STATEFUL_TIMEOUT, null, msgs);
+			if (newStatefulTimeout != null)
+				msgs = ((InternalEObject)newStatefulTimeout).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - EjbPackage.SESSION_BEAN__STATEFUL_TIMEOUT, null, msgs);
+			msgs = basicSetStatefulTimeout(newStatefulTimeout, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, EjbPackage.SESSION_BEAN__STATEFUL_TIMEOUT, newStatefulTimeout, newStatefulTimeout));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public NamedMethodType getTimeoutMethod() {
 		return timeoutMethod;
 	}
@@ -921,9 +1197,168 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getInitMethods() {
+	public List<TimerType> getTimer() {
+		if (timer == null) {
+			timer = new EObjectContainmentEList<TimerType>(TimerType.class, this, EjbPackage.SESSION_BEAN__TIMER);
+		}
+		return timer;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isInitOnStartup() {
+		return initOnStartup;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setInitOnStartup(boolean newInitOnStartup) {
+		boolean oldInitOnStartup = initOnStartup;
+		initOnStartup = newInitOnStartup;
+		boolean oldInitOnStartupESet = initOnStartupESet;
+		initOnStartupESet = true;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, EjbPackage.SESSION_BEAN__INIT_ON_STARTUP, oldInitOnStartup, initOnStartup, !oldInitOnStartupESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetInitOnStartup() {
+		boolean oldInitOnStartup = initOnStartup;
+		boolean oldInitOnStartupESet = initOnStartupESet;
+		initOnStartup = INIT_ON_STARTUP_EDEFAULT;
+		initOnStartupESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, EjbPackage.SESSION_BEAN__INIT_ON_STARTUP, oldInitOnStartup, INIT_ON_STARTUP_EDEFAULT, oldInitOnStartupESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetInitOnStartup() {
+		return initOnStartupESet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ConcurrencyManagementTypeType getConcurrencyManagementType() {
+		return concurrencyManagementType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setConcurrencyManagementType(ConcurrencyManagementTypeType newConcurrencyManagementType) {
+		ConcurrencyManagementTypeType oldConcurrencyManagementType = concurrencyManagementType;
+		concurrencyManagementType = newConcurrencyManagementType == null ? CONCURRENCY_MANAGEMENT_TYPE_EDEFAULT : newConcurrencyManagementType;
+		boolean oldConcurrencyManagementTypeESet = concurrencyManagementTypeESet;
+		concurrencyManagementTypeESet = true;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, EjbPackage.SESSION_BEAN__CONCURRENCY_MANAGEMENT_TYPE, oldConcurrencyManagementType, concurrencyManagementType, !oldConcurrencyManagementTypeESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetConcurrencyManagementType() {
+		ConcurrencyManagementTypeType oldConcurrencyManagementType = concurrencyManagementType;
+		boolean oldConcurrencyManagementTypeESet = concurrencyManagementTypeESet;
+		concurrencyManagementType = CONCURRENCY_MANAGEMENT_TYPE_EDEFAULT;
+		concurrencyManagementTypeESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, EjbPackage.SESSION_BEAN__CONCURRENCY_MANAGEMENT_TYPE, oldConcurrencyManagementType, CONCURRENCY_MANAGEMENT_TYPE_EDEFAULT, oldConcurrencyManagementTypeESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetConcurrencyManagementType() {
+		return concurrencyManagementTypeESet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<ConcurrentMethodType> getConcurrentMethod() {
+		if (concurrentMethod == null) {
+			concurrentMethod = new EObjectContainmentEList<ConcurrentMethodType>(ConcurrentMethodType.class, this, EjbPackage.SESSION_BEAN__CONCURRENT_METHOD);
+		}
+		return concurrentMethod;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DependsOnType getDependsOn() {
+		return dependsOn;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetDependsOn(DependsOnType newDependsOn, NotificationChain msgs) {
+		DependsOnType oldDependsOn = dependsOn;
+		dependsOn = newDependsOn;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EjbPackage.SESSION_BEAN__DEPENDS_ON, oldDependsOn, newDependsOn);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDependsOn(DependsOnType newDependsOn) {
+		if (newDependsOn != dependsOn) {
+			NotificationChain msgs = null;
+			if (dependsOn != null)
+				msgs = ((InternalEObject)dependsOn).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EjbPackage.SESSION_BEAN__DEPENDS_ON, null, msgs);
+			if (newDependsOn != null)
+				msgs = ((InternalEObject)newDependsOn).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - EjbPackage.SESSION_BEAN__DEPENDS_ON, null, msgs);
+			msgs = basicSetDependsOn(newDependsOn, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, EjbPackage.SESSION_BEAN__DEPENDS_ON, newDependsOn, newDependsOn));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<InitMethodType> getInitMethods() {
 		if (initMethods == null) {
-			initMethods = new EObjectContainmentEList(InitMethodType.class, this, EjbPackage.SESSION_BEAN__INIT_METHODS);
+			initMethods = new EObjectContainmentEList<InitMethodType>(InitMethodType.class, this, EjbPackage.SESSION_BEAN__INIT_METHODS);
 		}
 		return initMethods;
 	}
@@ -933,11 +1368,23 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getRemoveMethods() {
+	public List<RemoveMethodType> getRemoveMethods() {
 		if (removeMethods == null) {
-			removeMethods = new EObjectContainmentEList(RemoveMethodType.class, this, EjbPackage.SESSION_BEAN__REMOVE_METHODS);
+			removeMethods = new EObjectContainmentEList<RemoveMethodType>(RemoveMethodType.class, this, EjbPackage.SESSION_BEAN__REMOVE_METHODS);
 		}
 		return removeMethods;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<AsyncMethodType> getAsyncMethod() {
+		if (asyncMethod == null) {
+			asyncMethod = new EObjectContainmentEList<AsyncMethodType>(AsyncMethodType.class, this, EjbPackage.SESSION_BEAN__ASYNC_METHOD);
+		}
+		return asyncMethod;
 	}
 
 	/**
@@ -991,9 +1438,138 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getAroundInvokes() {
+	public NamedMethodType getAfterBeginMethod() {
+		return afterBeginMethod;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetAfterBeginMethod(NamedMethodType newAfterBeginMethod, NotificationChain msgs) {
+		NamedMethodType oldAfterBeginMethod = afterBeginMethod;
+		afterBeginMethod = newAfterBeginMethod;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EjbPackage.SESSION_BEAN__AFTER_BEGIN_METHOD, oldAfterBeginMethod, newAfterBeginMethod);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setAfterBeginMethod(NamedMethodType newAfterBeginMethod) {
+		if (newAfterBeginMethod != afterBeginMethod) {
+			NotificationChain msgs = null;
+			if (afterBeginMethod != null)
+				msgs = ((InternalEObject)afterBeginMethod).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EjbPackage.SESSION_BEAN__AFTER_BEGIN_METHOD, null, msgs);
+			if (newAfterBeginMethod != null)
+				msgs = ((InternalEObject)newAfterBeginMethod).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - EjbPackage.SESSION_BEAN__AFTER_BEGIN_METHOD, null, msgs);
+			msgs = basicSetAfterBeginMethod(newAfterBeginMethod, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, EjbPackage.SESSION_BEAN__AFTER_BEGIN_METHOD, newAfterBeginMethod, newAfterBeginMethod));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NamedMethodType getBeforeCompletionMethod() {
+		return beforeCompletionMethod;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetBeforeCompletionMethod(NamedMethodType newBeforeCompletionMethod, NotificationChain msgs) {
+		NamedMethodType oldBeforeCompletionMethod = beforeCompletionMethod;
+		beforeCompletionMethod = newBeforeCompletionMethod;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EjbPackage.SESSION_BEAN__BEFORE_COMPLETION_METHOD, oldBeforeCompletionMethod, newBeforeCompletionMethod);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setBeforeCompletionMethod(NamedMethodType newBeforeCompletionMethod) {
+		if (newBeforeCompletionMethod != beforeCompletionMethod) {
+			NotificationChain msgs = null;
+			if (beforeCompletionMethod != null)
+				msgs = ((InternalEObject)beforeCompletionMethod).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EjbPackage.SESSION_BEAN__BEFORE_COMPLETION_METHOD, null, msgs);
+			if (newBeforeCompletionMethod != null)
+				msgs = ((InternalEObject)newBeforeCompletionMethod).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - EjbPackage.SESSION_BEAN__BEFORE_COMPLETION_METHOD, null, msgs);
+			msgs = basicSetBeforeCompletionMethod(newBeforeCompletionMethod, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, EjbPackage.SESSION_BEAN__BEFORE_COMPLETION_METHOD, newBeforeCompletionMethod, newBeforeCompletionMethod));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NamedMethodType getAfterCompletionMethod() {
+		return afterCompletionMethod;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetAfterCompletionMethod(NamedMethodType newAfterCompletionMethod, NotificationChain msgs) {
+		NamedMethodType oldAfterCompletionMethod = afterCompletionMethod;
+		afterCompletionMethod = newAfterCompletionMethod;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, EjbPackage.SESSION_BEAN__AFTER_COMPLETION_METHOD, oldAfterCompletionMethod, newAfterCompletionMethod);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setAfterCompletionMethod(NamedMethodType newAfterCompletionMethod) {
+		if (newAfterCompletionMethod != afterCompletionMethod) {
+			NotificationChain msgs = null;
+			if (afterCompletionMethod != null)
+				msgs = ((InternalEObject)afterCompletionMethod).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - EjbPackage.SESSION_BEAN__AFTER_COMPLETION_METHOD, null, msgs);
+			if (newAfterCompletionMethod != null)
+				msgs = ((InternalEObject)newAfterCompletionMethod).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - EjbPackage.SESSION_BEAN__AFTER_COMPLETION_METHOD, null, msgs);
+			msgs = basicSetAfterCompletionMethod(newAfterCompletionMethod, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, EjbPackage.SESSION_BEAN__AFTER_COMPLETION_METHOD, newAfterCompletionMethod, newAfterCompletionMethod));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<AroundInvokeType> getAroundInvokes() {
 		if (aroundInvokes == null) {
-			aroundInvokes = new EObjectContainmentEList(AroundInvokeType.class, this, EjbPackage.SESSION_BEAN__AROUND_INVOKES);
+			aroundInvokes = new EObjectContainmentEList<AroundInvokeType>(AroundInvokeType.class, this, EjbPackage.SESSION_BEAN__AROUND_INVOKES);
 		}
 		return aroundInvokes;
 	}
@@ -1003,9 +1579,21 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getEnvEntries() {
+	public List<AroundTimeoutType> getAroundTimeouts() {
+		if (aroundTimeouts == null) {
+			aroundTimeouts = new EObjectContainmentEList<AroundTimeoutType>(AroundTimeoutType.class, this, EjbPackage.SESSION_BEAN__AROUND_TIMEOUTS);
+		}
+		return aroundTimeouts;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<EnvEntry> getEnvEntries() {
 		if (envEntries == null) {
-			envEntries = new EObjectContainmentEList(EnvEntry.class, this, EjbPackage.SESSION_BEAN__ENV_ENTRIES);
+			envEntries = new EObjectContainmentEList<EnvEntry>(EnvEntry.class, this, EjbPackage.SESSION_BEAN__ENV_ENTRIES);
 		}
 		return envEntries;
 	}
@@ -1015,9 +1603,9 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getEjbRefs() {
+	public List<EjbRef> getEjbRefs() {
 		if (ejbRefs == null) {
-			ejbRefs = new EObjectContainmentEList(EjbRef.class, this, EjbPackage.SESSION_BEAN__EJB_REFS);
+			ejbRefs = new EObjectContainmentEList<EjbRef>(EjbRef.class, this, EjbPackage.SESSION_BEAN__EJB_REFS);
 		}
 		return ejbRefs;
 	}
@@ -1027,9 +1615,9 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getEjbLocalRefs() {
+	public List<EjbLocalRef> getEjbLocalRefs() {
 		if (ejbLocalRefs == null) {
-			ejbLocalRefs = new EObjectContainmentEList(EjbLocalRef.class, this, EjbPackage.SESSION_BEAN__EJB_LOCAL_REFS);
+			ejbLocalRefs = new EObjectContainmentEList<EjbLocalRef>(EjbLocalRef.class, this, EjbPackage.SESSION_BEAN__EJB_LOCAL_REFS);
 		}
 		return ejbLocalRefs;
 	}
@@ -1039,9 +1627,9 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getServiceRefs() {
+	public List<ServiceRef> getServiceRefs() {
 		if (serviceRefs == null) {
-			serviceRefs = new EObjectContainmentEList(ServiceRef.class, this, EjbPackage.SESSION_BEAN__SERVICE_REFS);
+			serviceRefs = new EObjectContainmentEList<ServiceRef>(ServiceRef.class, this, EjbPackage.SESSION_BEAN__SERVICE_REFS);
 		}
 		return serviceRefs;
 	}
@@ -1051,9 +1639,9 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getResourceRefs() {
+	public List<ResourceRef> getResourceRefs() {
 		if (resourceRefs == null) {
-			resourceRefs = new EObjectContainmentEList(ResourceRef.class, this, EjbPackage.SESSION_BEAN__RESOURCE_REFS);
+			resourceRefs = new EObjectContainmentEList<ResourceRef>(ResourceRef.class, this, EjbPackage.SESSION_BEAN__RESOURCE_REFS);
 		}
 		return resourceRefs;
 	}
@@ -1063,9 +1651,9 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getResourceEnvRefs() {
+	public List<ResourceEnvRef> getResourceEnvRefs() {
 		if (resourceEnvRefs == null) {
-			resourceEnvRefs = new EObjectContainmentEList(ResourceEnvRef.class, this, EjbPackage.SESSION_BEAN__RESOURCE_ENV_REFS);
+			resourceEnvRefs = new EObjectContainmentEList<ResourceEnvRef>(ResourceEnvRef.class, this, EjbPackage.SESSION_BEAN__RESOURCE_ENV_REFS);
 		}
 		return resourceEnvRefs;
 	}
@@ -1075,9 +1663,9 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getMessageDestinationRefs() {
+	public List<MessageDestinationRef> getMessageDestinationRefs() {
 		if (messageDestinationRefs == null) {
-			messageDestinationRefs = new EObjectContainmentEList(MessageDestinationRef.class, this, EjbPackage.SESSION_BEAN__MESSAGE_DESTINATION_REFS);
+			messageDestinationRefs = new EObjectContainmentEList<MessageDestinationRef>(MessageDestinationRef.class, this, EjbPackage.SESSION_BEAN__MESSAGE_DESTINATION_REFS);
 		}
 		return messageDestinationRefs;
 	}
@@ -1087,9 +1675,9 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getPersistenceContextRefs() {
+	public List<PersistenceContextRef> getPersistenceContextRefs() {
 		if (persistenceContextRefs == null) {
-			persistenceContextRefs = new EObjectContainmentEList(PersistenceContextRef.class, this, EjbPackage.SESSION_BEAN__PERSISTENCE_CONTEXT_REFS);
+			persistenceContextRefs = new EObjectContainmentEList<PersistenceContextRef>(PersistenceContextRef.class, this, EjbPackage.SESSION_BEAN__PERSISTENCE_CONTEXT_REFS);
 		}
 		return persistenceContextRefs;
 	}
@@ -1099,9 +1687,9 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getPersistenceUnitRefs() {
+	public List<PersistenceUnitRef> getPersistenceUnitRefs() {
 		if (persistenceUnitRefs == null) {
-			persistenceUnitRefs = new EObjectContainmentEList(PersistenceUnitRef.class, this, EjbPackage.SESSION_BEAN__PERSISTENCE_UNIT_REFS);
+			persistenceUnitRefs = new EObjectContainmentEList<PersistenceUnitRef>(PersistenceUnitRef.class, this, EjbPackage.SESSION_BEAN__PERSISTENCE_UNIT_REFS);
 		}
 		return persistenceUnitRefs;
 	}
@@ -1111,9 +1699,9 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getPostConstructs() {
+	public List<LifecycleCallback> getPostConstructs() {
 		if (postConstructs == null) {
-			postConstructs = new EObjectContainmentEList(LifecycleCallback.class, this, EjbPackage.SESSION_BEAN__POST_CONSTRUCTS);
+			postConstructs = new EObjectContainmentEList<LifecycleCallback>(LifecycleCallback.class, this, EjbPackage.SESSION_BEAN__POST_CONSTRUCTS);
 		}
 		return postConstructs;
 	}
@@ -1123,9 +1711,9 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getPreDestroys() {
+	public List<LifecycleCallback> getPreDestroys() {
 		if (preDestroys == null) {
-			preDestroys = new EObjectContainmentEList(LifecycleCallback.class, this, EjbPackage.SESSION_BEAN__PRE_DESTROYS);
+			preDestroys = new EObjectContainmentEList<LifecycleCallback>(LifecycleCallback.class, this, EjbPackage.SESSION_BEAN__PRE_DESTROYS);
 		}
 		return preDestroys;
 	}
@@ -1135,9 +1723,21 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getPostActivates() {
+	public List<DataSourceType> getDataSource() {
+		if (dataSource == null) {
+			dataSource = new EObjectContainmentEList<DataSourceType>(DataSourceType.class, this, EjbPackage.SESSION_BEAN__DATA_SOURCE);
+		}
+		return dataSource;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<LifecycleCallback> getPostActivates() {
 		if (postActivates == null) {
-			postActivates = new EObjectContainmentEList(LifecycleCallback.class, this, EjbPackage.SESSION_BEAN__POST_ACTIVATES);
+			postActivates = new EObjectContainmentEList<LifecycleCallback>(LifecycleCallback.class, this, EjbPackage.SESSION_BEAN__POST_ACTIVATES);
 		}
 		return postActivates;
 	}
@@ -1147,9 +1747,9 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getPrePassivates() {
+	public List<LifecycleCallback> getPrePassivates() {
 		if (prePassivates == null) {
-			prePassivates = new EObjectContainmentEList(LifecycleCallback.class, this, EjbPackage.SESSION_BEAN__PRE_PASSIVATES);
+			prePassivates = new EObjectContainmentEList<LifecycleCallback>(LifecycleCallback.class, this, EjbPackage.SESSION_BEAN__PRE_PASSIVATES);
 		}
 		return prePassivates;
 	}
@@ -1159,9 +1759,9 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getSecurityRoleRefs() {
+	public List<SecurityRoleRef> getSecurityRoleRefs() {
 		if (securityRoleRefs == null) {
-			securityRoleRefs = new EObjectContainmentEList(SecurityRoleRef.class, this, EjbPackage.SESSION_BEAN__SECURITY_ROLE_REFS);
+			securityRoleRefs = new EObjectContainmentEList<SecurityRoleRef>(SecurityRoleRef.class, this, EjbPackage.SESSION_BEAN__SECURITY_ROLE_REFS);
 		}
 		return securityRoleRefs;
 	}
@@ -1239,47 +1839,69 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EjbPackage.SESSION_BEAN__DESCRIPTIONS:
-				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDescriptions()).basicRemove(otherEnd, msgs);
 			case EjbPackage.SESSION_BEAN__DISPLAY_NAMES:
-				return ((InternalEList)getDisplayNames()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDisplayNames()).basicRemove(otherEnd, msgs);
 			case EjbPackage.SESSION_BEAN__ICONS:
-				return ((InternalEList)getIcons()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getIcons()).basicRemove(otherEnd, msgs);
+			case EjbPackage.SESSION_BEAN__LOCAL_BEAN:
+				return basicSetLocalBean(null, msgs);
+			case EjbPackage.SESSION_BEAN__STATEFUL_TIMEOUT:
+				return basicSetStatefulTimeout(null, msgs);
 			case EjbPackage.SESSION_BEAN__TIMEOUT_METHOD:
 				return basicSetTimeoutMethod(null, msgs);
+			case EjbPackage.SESSION_BEAN__TIMER:
+				return ((InternalEList<?>)getTimer()).basicRemove(otherEnd, msgs);
+			case EjbPackage.SESSION_BEAN__CONCURRENT_METHOD:
+				return ((InternalEList<?>)getConcurrentMethod()).basicRemove(otherEnd, msgs);
+			case EjbPackage.SESSION_BEAN__DEPENDS_ON:
+				return basicSetDependsOn(null, msgs);
 			case EjbPackage.SESSION_BEAN__INIT_METHODS:
-				return ((InternalEList)getInitMethods()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getInitMethods()).basicRemove(otherEnd, msgs);
 			case EjbPackage.SESSION_BEAN__REMOVE_METHODS:
-				return ((InternalEList)getRemoveMethods()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getRemoveMethods()).basicRemove(otherEnd, msgs);
+			case EjbPackage.SESSION_BEAN__ASYNC_METHOD:
+				return ((InternalEList<?>)getAsyncMethod()).basicRemove(otherEnd, msgs);
+			case EjbPackage.SESSION_BEAN__AFTER_BEGIN_METHOD:
+				return basicSetAfterBeginMethod(null, msgs);
+			case EjbPackage.SESSION_BEAN__BEFORE_COMPLETION_METHOD:
+				return basicSetBeforeCompletionMethod(null, msgs);
+			case EjbPackage.SESSION_BEAN__AFTER_COMPLETION_METHOD:
+				return basicSetAfterCompletionMethod(null, msgs);
 			case EjbPackage.SESSION_BEAN__AROUND_INVOKES:
-				return ((InternalEList)getAroundInvokes()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getAroundInvokes()).basicRemove(otherEnd, msgs);
+			case EjbPackage.SESSION_BEAN__AROUND_TIMEOUTS:
+				return ((InternalEList<?>)getAroundTimeouts()).basicRemove(otherEnd, msgs);
 			case EjbPackage.SESSION_BEAN__ENV_ENTRIES:
-				return ((InternalEList)getEnvEntries()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getEnvEntries()).basicRemove(otherEnd, msgs);
 			case EjbPackage.SESSION_BEAN__EJB_REFS:
-				return ((InternalEList)getEjbRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getEjbRefs()).basicRemove(otherEnd, msgs);
 			case EjbPackage.SESSION_BEAN__EJB_LOCAL_REFS:
-				return ((InternalEList)getEjbLocalRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getEjbLocalRefs()).basicRemove(otherEnd, msgs);
 			case EjbPackage.SESSION_BEAN__SERVICE_REFS:
-				return ((InternalEList)getServiceRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getServiceRefs()).basicRemove(otherEnd, msgs);
 			case EjbPackage.SESSION_BEAN__RESOURCE_REFS:
-				return ((InternalEList)getResourceRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getResourceRefs()).basicRemove(otherEnd, msgs);
 			case EjbPackage.SESSION_BEAN__RESOURCE_ENV_REFS:
-				return ((InternalEList)getResourceEnvRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getResourceEnvRefs()).basicRemove(otherEnd, msgs);
 			case EjbPackage.SESSION_BEAN__MESSAGE_DESTINATION_REFS:
-				return ((InternalEList)getMessageDestinationRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getMessageDestinationRefs()).basicRemove(otherEnd, msgs);
 			case EjbPackage.SESSION_BEAN__PERSISTENCE_CONTEXT_REFS:
-				return ((InternalEList)getPersistenceContextRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getPersistenceContextRefs()).basicRemove(otherEnd, msgs);
 			case EjbPackage.SESSION_BEAN__PERSISTENCE_UNIT_REFS:
-				return ((InternalEList)getPersistenceUnitRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getPersistenceUnitRefs()).basicRemove(otherEnd, msgs);
 			case EjbPackage.SESSION_BEAN__POST_CONSTRUCTS:
-				return ((InternalEList)getPostConstructs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getPostConstructs()).basicRemove(otherEnd, msgs);
 			case EjbPackage.SESSION_BEAN__PRE_DESTROYS:
-				return ((InternalEList)getPreDestroys()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getPreDestroys()).basicRemove(otherEnd, msgs);
+			case EjbPackage.SESSION_BEAN__DATA_SOURCE:
+				return ((InternalEList<?>)getDataSource()).basicRemove(otherEnd, msgs);
 			case EjbPackage.SESSION_BEAN__POST_ACTIVATES:
-				return ((InternalEList)getPostActivates()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getPostActivates()).basicRemove(otherEnd, msgs);
 			case EjbPackage.SESSION_BEAN__PRE_PASSIVATES:
-				return ((InternalEList)getPrePassivates()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getPrePassivates()).basicRemove(otherEnd, msgs);
 			case EjbPackage.SESSION_BEAN__SECURITY_ROLE_REFS:
-				return ((InternalEList)getSecurityRoleRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getSecurityRoleRefs()).basicRemove(otherEnd, msgs);
 			case EjbPackage.SESSION_BEAN__SECURITY_IDENTITIES:
 				return basicSetSecurityIdentities(null, msgs);
 		}
@@ -1316,22 +1938,46 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 				return getBusinessLocals();
 			case EjbPackage.SESSION_BEAN__BUSINESS_REMOTES:
 				return getBusinessRemotes();
+			case EjbPackage.SESSION_BEAN__LOCAL_BEAN:
+				return getLocalBean();
 			case EjbPackage.SESSION_BEAN__SERVICE_ENDPOINT:
 				return getServiceEndpoint();
 			case EjbPackage.SESSION_BEAN__EJB_CLASS:
 				return getEjbClass();
 			case EjbPackage.SESSION_BEAN__SESSION_TYPE:
 				return getSessionType();
+			case EjbPackage.SESSION_BEAN__STATEFUL_TIMEOUT:
+				return getStatefulTimeout();
 			case EjbPackage.SESSION_BEAN__TIMEOUT_METHOD:
 				return getTimeoutMethod();
+			case EjbPackage.SESSION_BEAN__TIMER:
+				return getTimer();
+			case EjbPackage.SESSION_BEAN__INIT_ON_STARTUP:
+				return isInitOnStartup();
+			case EjbPackage.SESSION_BEAN__CONCURRENCY_MANAGEMENT_TYPE:
+				return getConcurrencyManagementType();
+			case EjbPackage.SESSION_BEAN__CONCURRENT_METHOD:
+				return getConcurrentMethod();
+			case EjbPackage.SESSION_BEAN__DEPENDS_ON:
+				return getDependsOn();
 			case EjbPackage.SESSION_BEAN__INIT_METHODS:
 				return getInitMethods();
 			case EjbPackage.SESSION_BEAN__REMOVE_METHODS:
 				return getRemoveMethods();
+			case EjbPackage.SESSION_BEAN__ASYNC_METHOD:
+				return getAsyncMethod();
 			case EjbPackage.SESSION_BEAN__TRANSACTION_TYPE:
 				return getTransactionType();
+			case EjbPackage.SESSION_BEAN__AFTER_BEGIN_METHOD:
+				return getAfterBeginMethod();
+			case EjbPackage.SESSION_BEAN__BEFORE_COMPLETION_METHOD:
+				return getBeforeCompletionMethod();
+			case EjbPackage.SESSION_BEAN__AFTER_COMPLETION_METHOD:
+				return getAfterCompletionMethod();
 			case EjbPackage.SESSION_BEAN__AROUND_INVOKES:
 				return getAroundInvokes();
+			case EjbPackage.SESSION_BEAN__AROUND_TIMEOUTS:
+				return getAroundTimeouts();
 			case EjbPackage.SESSION_BEAN__ENV_ENTRIES:
 				return getEnvEntries();
 			case EjbPackage.SESSION_BEAN__EJB_REFS:
@@ -1354,6 +2000,8 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 				return getPostConstructs();
 			case EjbPackage.SESSION_BEAN__PRE_DESTROYS:
 				return getPreDestroys();
+			case EjbPackage.SESSION_BEAN__DATA_SOURCE:
+				return getDataSource();
 			case EjbPackage.SESSION_BEAN__POST_ACTIVATES:
 				return getPostActivates();
 			case EjbPackage.SESSION_BEAN__PRE_PASSIVATES:
@@ -1373,20 +2021,21 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EjbPackage.SESSION_BEAN__DESCRIPTIONS:
 				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
+				getDescriptions().addAll((Collection<? extends Description>)newValue);
 				return;
 			case EjbPackage.SESSION_BEAN__DISPLAY_NAMES:
 				getDisplayNames().clear();
-				getDisplayNames().addAll((Collection)newValue);
+				getDisplayNames().addAll((Collection<? extends DisplayName>)newValue);
 				return;
 			case EjbPackage.SESSION_BEAN__ICONS:
 				getIcons().clear();
-				getIcons().addAll((Collection)newValue);
+				getIcons().addAll((Collection<? extends Icon>)newValue);
 				return;
 			case EjbPackage.SESSION_BEAN__EJB_NAME:
 				setEjbName((String)newValue);
@@ -1408,11 +2057,14 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 				return;
 			case EjbPackage.SESSION_BEAN__BUSINESS_LOCALS:
 				getBusinessLocals().clear();
-				getBusinessLocals().addAll((Collection)newValue);
+				getBusinessLocals().addAll((Collection<? extends String>)newValue);
 				return;
 			case EjbPackage.SESSION_BEAN__BUSINESS_REMOTES:
 				getBusinessRemotes().clear();
-				getBusinessRemotes().addAll((Collection)newValue);
+				getBusinessRemotes().addAll((Collection<? extends String>)newValue);
+				return;
+			case EjbPackage.SESSION_BEAN__LOCAL_BEAN:
+				setLocalBean((EmptyType)newValue);
 				return;
 			case EjbPackage.SESSION_BEAN__SERVICE_ENDPOINT:
 				setServiceEndpoint((String)newValue);
@@ -1423,79 +2075,120 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 			case EjbPackage.SESSION_BEAN__SESSION_TYPE:
 				setSessionType((SessionType)newValue);
 				return;
+			case EjbPackage.SESSION_BEAN__STATEFUL_TIMEOUT:
+				setStatefulTimeout((StatefulTimeoutType)newValue);
+				return;
 			case EjbPackage.SESSION_BEAN__TIMEOUT_METHOD:
 				setTimeoutMethod((NamedMethodType)newValue);
 				return;
+			case EjbPackage.SESSION_BEAN__TIMER:
+				getTimer().clear();
+				getTimer().addAll((Collection<? extends TimerType>)newValue);
+				return;
+			case EjbPackage.SESSION_BEAN__INIT_ON_STARTUP:
+				setInitOnStartup((Boolean)newValue);
+				return;
+			case EjbPackage.SESSION_BEAN__CONCURRENCY_MANAGEMENT_TYPE:
+				setConcurrencyManagementType((ConcurrencyManagementTypeType)newValue);
+				return;
+			case EjbPackage.SESSION_BEAN__CONCURRENT_METHOD:
+				getConcurrentMethod().clear();
+				getConcurrentMethod().addAll((Collection<? extends ConcurrentMethodType>)newValue);
+				return;
+			case EjbPackage.SESSION_BEAN__DEPENDS_ON:
+				setDependsOn((DependsOnType)newValue);
+				return;
 			case EjbPackage.SESSION_BEAN__INIT_METHODS:
 				getInitMethods().clear();
-				getInitMethods().addAll((Collection)newValue);
+				getInitMethods().addAll((Collection<? extends InitMethodType>)newValue);
 				return;
 			case EjbPackage.SESSION_BEAN__REMOVE_METHODS:
 				getRemoveMethods().clear();
-				getRemoveMethods().addAll((Collection)newValue);
+				getRemoveMethods().addAll((Collection<? extends RemoveMethodType>)newValue);
+				return;
+			case EjbPackage.SESSION_BEAN__ASYNC_METHOD:
+				getAsyncMethod().clear();
+				getAsyncMethod().addAll((Collection<? extends AsyncMethodType>)newValue);
 				return;
 			case EjbPackage.SESSION_BEAN__TRANSACTION_TYPE:
 				setTransactionType((TransactionType)newValue);
 				return;
+			case EjbPackage.SESSION_BEAN__AFTER_BEGIN_METHOD:
+				setAfterBeginMethod((NamedMethodType)newValue);
+				return;
+			case EjbPackage.SESSION_BEAN__BEFORE_COMPLETION_METHOD:
+				setBeforeCompletionMethod((NamedMethodType)newValue);
+				return;
+			case EjbPackage.SESSION_BEAN__AFTER_COMPLETION_METHOD:
+				setAfterCompletionMethod((NamedMethodType)newValue);
+				return;
 			case EjbPackage.SESSION_BEAN__AROUND_INVOKES:
 				getAroundInvokes().clear();
-				getAroundInvokes().addAll((Collection)newValue);
+				getAroundInvokes().addAll((Collection<? extends AroundInvokeType>)newValue);
+				return;
+			case EjbPackage.SESSION_BEAN__AROUND_TIMEOUTS:
+				getAroundTimeouts().clear();
+				getAroundTimeouts().addAll((Collection<? extends AroundTimeoutType>)newValue);
 				return;
 			case EjbPackage.SESSION_BEAN__ENV_ENTRIES:
 				getEnvEntries().clear();
-				getEnvEntries().addAll((Collection)newValue);
+				getEnvEntries().addAll((Collection<? extends EnvEntry>)newValue);
 				return;
 			case EjbPackage.SESSION_BEAN__EJB_REFS:
 				getEjbRefs().clear();
-				getEjbRefs().addAll((Collection)newValue);
+				getEjbRefs().addAll((Collection<? extends EjbRef>)newValue);
 				return;
 			case EjbPackage.SESSION_BEAN__EJB_LOCAL_REFS:
 				getEjbLocalRefs().clear();
-				getEjbLocalRefs().addAll((Collection)newValue);
+				getEjbLocalRefs().addAll((Collection<? extends EjbLocalRef>)newValue);
 				return;
 			case EjbPackage.SESSION_BEAN__SERVICE_REFS:
 				getServiceRefs().clear();
-				getServiceRefs().addAll((Collection)newValue);
+				getServiceRefs().addAll((Collection<? extends ServiceRef>)newValue);
 				return;
 			case EjbPackage.SESSION_BEAN__RESOURCE_REFS:
 				getResourceRefs().clear();
-				getResourceRefs().addAll((Collection)newValue);
+				getResourceRefs().addAll((Collection<? extends ResourceRef>)newValue);
 				return;
 			case EjbPackage.SESSION_BEAN__RESOURCE_ENV_REFS:
 				getResourceEnvRefs().clear();
-				getResourceEnvRefs().addAll((Collection)newValue);
+				getResourceEnvRefs().addAll((Collection<? extends ResourceEnvRef>)newValue);
 				return;
 			case EjbPackage.SESSION_BEAN__MESSAGE_DESTINATION_REFS:
 				getMessageDestinationRefs().clear();
-				getMessageDestinationRefs().addAll((Collection)newValue);
+				getMessageDestinationRefs().addAll((Collection<? extends MessageDestinationRef>)newValue);
 				return;
 			case EjbPackage.SESSION_BEAN__PERSISTENCE_CONTEXT_REFS:
 				getPersistenceContextRefs().clear();
-				getPersistenceContextRefs().addAll((Collection)newValue);
+				getPersistenceContextRefs().addAll((Collection<? extends PersistenceContextRef>)newValue);
 				return;
 			case EjbPackage.SESSION_BEAN__PERSISTENCE_UNIT_REFS:
 				getPersistenceUnitRefs().clear();
-				getPersistenceUnitRefs().addAll((Collection)newValue);
+				getPersistenceUnitRefs().addAll((Collection<? extends PersistenceUnitRef>)newValue);
 				return;
 			case EjbPackage.SESSION_BEAN__POST_CONSTRUCTS:
 				getPostConstructs().clear();
-				getPostConstructs().addAll((Collection)newValue);
+				getPostConstructs().addAll((Collection<? extends LifecycleCallback>)newValue);
 				return;
 			case EjbPackage.SESSION_BEAN__PRE_DESTROYS:
 				getPreDestroys().clear();
-				getPreDestroys().addAll((Collection)newValue);
+				getPreDestroys().addAll((Collection<? extends LifecycleCallback>)newValue);
+				return;
+			case EjbPackage.SESSION_BEAN__DATA_SOURCE:
+				getDataSource().clear();
+				getDataSource().addAll((Collection<? extends DataSourceType>)newValue);
 				return;
 			case EjbPackage.SESSION_BEAN__POST_ACTIVATES:
 				getPostActivates().clear();
-				getPostActivates().addAll((Collection)newValue);
+				getPostActivates().addAll((Collection<? extends LifecycleCallback>)newValue);
 				return;
 			case EjbPackage.SESSION_BEAN__PRE_PASSIVATES:
 				getPrePassivates().clear();
-				getPrePassivates().addAll((Collection)newValue);
+				getPrePassivates().addAll((Collection<? extends LifecycleCallback>)newValue);
 				return;
 			case EjbPackage.SESSION_BEAN__SECURITY_ROLE_REFS:
 				getSecurityRoleRefs().clear();
-				getSecurityRoleRefs().addAll((Collection)newValue);
+				getSecurityRoleRefs().addAll((Collection<? extends SecurityRoleRef>)newValue);
 				return;
 			case EjbPackage.SESSION_BEAN__SECURITY_IDENTITIES:
 				setSecurityIdentities((SecurityIdentityType)newValue);
@@ -1548,6 +2241,9 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 			case EjbPackage.SESSION_BEAN__BUSINESS_REMOTES:
 				getBusinessRemotes().clear();
 				return;
+			case EjbPackage.SESSION_BEAN__LOCAL_BEAN:
+				setLocalBean((EmptyType)null);
+				return;
 			case EjbPackage.SESSION_BEAN__SERVICE_ENDPOINT:
 				setServiceEndpoint(SERVICE_ENDPOINT_EDEFAULT);
 				return;
@@ -1557,8 +2253,26 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 			case EjbPackage.SESSION_BEAN__SESSION_TYPE:
 				unsetSessionType();
 				return;
+			case EjbPackage.SESSION_BEAN__STATEFUL_TIMEOUT:
+				setStatefulTimeout((StatefulTimeoutType)null);
+				return;
 			case EjbPackage.SESSION_BEAN__TIMEOUT_METHOD:
 				setTimeoutMethod((NamedMethodType)null);
+				return;
+			case EjbPackage.SESSION_BEAN__TIMER:
+				getTimer().clear();
+				return;
+			case EjbPackage.SESSION_BEAN__INIT_ON_STARTUP:
+				unsetInitOnStartup();
+				return;
+			case EjbPackage.SESSION_BEAN__CONCURRENCY_MANAGEMENT_TYPE:
+				unsetConcurrencyManagementType();
+				return;
+			case EjbPackage.SESSION_BEAN__CONCURRENT_METHOD:
+				getConcurrentMethod().clear();
+				return;
+			case EjbPackage.SESSION_BEAN__DEPENDS_ON:
+				setDependsOn((DependsOnType)null);
 				return;
 			case EjbPackage.SESSION_BEAN__INIT_METHODS:
 				getInitMethods().clear();
@@ -1566,11 +2280,26 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 			case EjbPackage.SESSION_BEAN__REMOVE_METHODS:
 				getRemoveMethods().clear();
 				return;
+			case EjbPackage.SESSION_BEAN__ASYNC_METHOD:
+				getAsyncMethod().clear();
+				return;
 			case EjbPackage.SESSION_BEAN__TRANSACTION_TYPE:
 				unsetTransactionType();
 				return;
+			case EjbPackage.SESSION_BEAN__AFTER_BEGIN_METHOD:
+				setAfterBeginMethod((NamedMethodType)null);
+				return;
+			case EjbPackage.SESSION_BEAN__BEFORE_COMPLETION_METHOD:
+				setBeforeCompletionMethod((NamedMethodType)null);
+				return;
+			case EjbPackage.SESSION_BEAN__AFTER_COMPLETION_METHOD:
+				setAfterCompletionMethod((NamedMethodType)null);
+				return;
 			case EjbPackage.SESSION_BEAN__AROUND_INVOKES:
 				getAroundInvokes().clear();
+				return;
+			case EjbPackage.SESSION_BEAN__AROUND_TIMEOUTS:
+				getAroundTimeouts().clear();
 				return;
 			case EjbPackage.SESSION_BEAN__ENV_ENTRIES:
 				getEnvEntries().clear();
@@ -1604,6 +2333,9 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 				return;
 			case EjbPackage.SESSION_BEAN__PRE_DESTROYS:
 				getPreDestroys().clear();
+				return;
+			case EjbPackage.SESSION_BEAN__DATA_SOURCE:
+				getDataSource().clear();
 				return;
 			case EjbPackage.SESSION_BEAN__POST_ACTIVATES:
 				getPostActivates().clear();
@@ -1654,22 +2386,46 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 				return businessLocals != null && !businessLocals.isEmpty();
 			case EjbPackage.SESSION_BEAN__BUSINESS_REMOTES:
 				return businessRemotes != null && !businessRemotes.isEmpty();
+			case EjbPackage.SESSION_BEAN__LOCAL_BEAN:
+				return localBean != null;
 			case EjbPackage.SESSION_BEAN__SERVICE_ENDPOINT:
 				return SERVICE_ENDPOINT_EDEFAULT == null ? serviceEndpoint != null : !SERVICE_ENDPOINT_EDEFAULT.equals(serviceEndpoint);
 			case EjbPackage.SESSION_BEAN__EJB_CLASS:
 				return EJB_CLASS_EDEFAULT == null ? ejbClass != null : !EJB_CLASS_EDEFAULT.equals(ejbClass);
 			case EjbPackage.SESSION_BEAN__SESSION_TYPE:
 				return isSetSessionType();
+			case EjbPackage.SESSION_BEAN__STATEFUL_TIMEOUT:
+				return statefulTimeout != null;
 			case EjbPackage.SESSION_BEAN__TIMEOUT_METHOD:
 				return timeoutMethod != null;
+			case EjbPackage.SESSION_BEAN__TIMER:
+				return timer != null && !timer.isEmpty();
+			case EjbPackage.SESSION_BEAN__INIT_ON_STARTUP:
+				return isSetInitOnStartup();
+			case EjbPackage.SESSION_BEAN__CONCURRENCY_MANAGEMENT_TYPE:
+				return isSetConcurrencyManagementType();
+			case EjbPackage.SESSION_BEAN__CONCURRENT_METHOD:
+				return concurrentMethod != null && !concurrentMethod.isEmpty();
+			case EjbPackage.SESSION_BEAN__DEPENDS_ON:
+				return dependsOn != null;
 			case EjbPackage.SESSION_BEAN__INIT_METHODS:
 				return initMethods != null && !initMethods.isEmpty();
 			case EjbPackage.SESSION_BEAN__REMOVE_METHODS:
 				return removeMethods != null && !removeMethods.isEmpty();
+			case EjbPackage.SESSION_BEAN__ASYNC_METHOD:
+				return asyncMethod != null && !asyncMethod.isEmpty();
 			case EjbPackage.SESSION_BEAN__TRANSACTION_TYPE:
 				return isSetTransactionType();
+			case EjbPackage.SESSION_BEAN__AFTER_BEGIN_METHOD:
+				return afterBeginMethod != null;
+			case EjbPackage.SESSION_BEAN__BEFORE_COMPLETION_METHOD:
+				return beforeCompletionMethod != null;
+			case EjbPackage.SESSION_BEAN__AFTER_COMPLETION_METHOD:
+				return afterCompletionMethod != null;
 			case EjbPackage.SESSION_BEAN__AROUND_INVOKES:
 				return aroundInvokes != null && !aroundInvokes.isEmpty();
+			case EjbPackage.SESSION_BEAN__AROUND_TIMEOUTS:
+				return aroundTimeouts != null && !aroundTimeouts.isEmpty();
 			case EjbPackage.SESSION_BEAN__ENV_ENTRIES:
 				return envEntries != null && !envEntries.isEmpty();
 			case EjbPackage.SESSION_BEAN__EJB_REFS:
@@ -1692,6 +2448,8 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 				return postConstructs != null && !postConstructs.isEmpty();
 			case EjbPackage.SESSION_BEAN__PRE_DESTROYS:
 				return preDestroys != null && !preDestroys.isEmpty();
+			case EjbPackage.SESSION_BEAN__DATA_SOURCE:
+				return dataSource != null && !dataSource.isEmpty();
 			case EjbPackage.SESSION_BEAN__POST_ACTIVATES:
 				return postActivates != null && !postActivates.isEmpty();
 			case EjbPackage.SESSION_BEAN__PRE_PASSIVATES:
@@ -1738,6 +2496,10 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 		result.append(ejbClass);
 		result.append(", sessionType: "); //$NON-NLS-1$
 		if (sessionTypeESet) result.append(sessionType); else result.append("<unset>"); //$NON-NLS-1$
+		result.append(", initOnStartup: "); //$NON-NLS-1$
+		if (initOnStartupESet) result.append(initOnStartup); else result.append("<unset>"); //$NON-NLS-1$
+		result.append(", concurrencyManagementType: "); //$NON-NLS-1$
+		if (concurrencyManagementTypeESet) result.append(concurrencyManagementType); else result.append("<unset>"); //$NON-NLS-1$
 		result.append(", transactionType: "); //$NON-NLS-1$
 		if (transactionTypeESet) result.append(transactionType); else result.append("<unset>"); //$NON-NLS-1$
 		result.append(", id: "); //$NON-NLS-1$

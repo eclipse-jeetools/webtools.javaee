@@ -26,6 +26,7 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * 	to override implicit map entries from TLD files and
  * 	from the container.
  * 
+ * 	@since Java EE 5, JSP 2.1
  *       
  * <!-- end-model-doc -->
  *
@@ -57,6 +58,7 @@ public interface TagLib extends JavaEEObject {
 	 * 	    There should be no entries in web.xml with the
 	 * 	    same taglib-uri value.
 	 * 
+	 * 	    @since Java EE 5, JSP 2.1
 	 * 	  
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Taglib Uri</em>' attribute.
@@ -88,6 +90,7 @@ public interface TagLib extends JavaEEObject {
 	 * 	    application) where to find the Tag Library
 	 * 	    Description file for the tag library.
 	 * 
+	 * 	    @since Java EE 5, JSP 2.1
 	 * 	  
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Taglib Location</em>' attribute.

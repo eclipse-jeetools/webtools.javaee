@@ -20,9 +20,10 @@ import java.util.List;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	This type is a general type that can be used to declare
- * 	parameter/value lists.
- * 
+ *         This type is a general type that can be used to declare
+ *         parameter/value lists.
+ *         
+ *         @since Java EE 5
  *       
  * <!-- end-model-doc -->
  *
@@ -54,7 +55,7 @@ public interface ParamValue extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getParamValue_Descriptions()
 	 * @generated
 	 */
-	List getDescriptions();
+	List<Description> getDescriptions();
 
 	/**
 	 * Returns the value of the '<em><b>Param Name</b></em>' attribute.
@@ -63,10 +64,11 @@ public interface ParamValue extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	    The param-name element contains the name of a
-	 * 	    parameter.
-	 * 
-	 * 	  
+	 *             The param-name element contains the name of a
+	 *             parameter.
+	 *             
+	 *             @since Java EE 5
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Param Name</em>' attribute.
 	 * @see #setParamName(String)
@@ -92,10 +94,11 @@ public interface ParamValue extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	    The param-value element contains the value of a
-	 * 	    parameter.
-	 * 
-	 * 	  
+	 *             The param-value element contains the value of a
+	 *             parameter.
+	 *             
+	 *             @since Java EE 5
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Param Value</em>' attribute.
 	 * @see #setParamValue(String)

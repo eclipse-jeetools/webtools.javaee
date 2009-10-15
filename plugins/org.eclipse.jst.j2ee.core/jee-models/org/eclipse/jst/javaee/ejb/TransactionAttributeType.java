@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.emf.common.util.AbstractEnumerator;
+import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,25 +24,81 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The trans-attributeType specifies how the container must
- * 	manage the transaction boundaries when delegating a method
- * 	invocation to an enterprise bean's business method.
- * 
- * 	The value must be one of the following:
- * 
- * 	    NotSupported
- * 	    Supports
- * 	    Required
- * 	    RequiresNew
- * 	    Mandatory
- * 	    Never
- * 
+ *         The trans-attributeType specifies how the container must
+ *         manage the transaction boundaries when delegating a method 
+ *         invocation to an enterprise bean's business method. 
+ *         
+ *         The value must be one of the following: 
+ *         
+ *         NotSupported 
+ *         Supports 
+ *         Required  
+ *         RequiresNew 
+ *         Mandatory 
+ *         Never 
+ *         
+ *         @since Java EE 5, EJB 3.0
  *       
  * <!-- end-model-doc -->
  * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getTransactionAttributeType()
  * @generated
  */
-public final class TransactionAttributeType extends AbstractEnumerator {
+public enum TransactionAttributeType implements Enumerator
+{
+	/**
+	 * The '<em><b>Not Supported</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #NOT_SUPPORTED
+	 * @generated
+	 * @ordered
+	 */
+	NOT_SUPPORTED_LITERAL(0, "NotSupported", "NotSupported"), //$NON-NLS-1$ //$NON-NLS-2$
+	/**
+	 * The '<em><b>Supports</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #SUPPORTS
+	 * @generated
+	 * @ordered
+	 */
+	SUPPORTS_LITERAL(1, "Supports", "Supports"), //$NON-NLS-1$ //$NON-NLS-2$
+	/**
+	 * The '<em><b>Required</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #REQUIRED
+	 * @generated
+	 * @ordered
+	 */
+	REQUIRED_LITERAL(2, "Required", "Required"), //$NON-NLS-1$ //$NON-NLS-2$
+	/**
+	 * The '<em><b>Requires New</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #REQUIRES_NEW
+	 * @generated
+	 * @ordered
+	 */
+	REQUIRES_NEW_LITERAL(3, "RequiresNew", "RequiresNew"), //$NON-NLS-1$ //$NON-NLS-2$
+	/**
+	 * The '<em><b>Mandatory</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #MANDATORY
+	 * @generated
+	 * @ordered
+	 */
+	MANDATORY_LITERAL(4, "Mandatory", "Mandatory"), //$NON-NLS-1$ //$NON-NLS-2$
+	/**
+	 * The '<em><b>Never</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #NEVER
+	 * @generated
+	 * @ordered
+	 */
+	NEVER_LITERAL(5, "Never", "Never"); //$NON-NLS-1$ //$NON-NLS-2$
 	/**
 	 * The '<em><b>Not Supported</b></em>' literal value.
 	 * <!-- begin-user-doc -->
@@ -128,66 +184,6 @@ public final class TransactionAttributeType extends AbstractEnumerator {
 	public static final int NEVER = 5;
 
 	/**
-	 * The '<em><b>Not Supported</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #NOT_SUPPORTED
-	 * @generated
-	 * @ordered
-	 */
-	public static final TransactionAttributeType NOT_SUPPORTED_LITERAL = new TransactionAttributeType(NOT_SUPPORTED, "NotSupported", "NotSupported"); //$NON-NLS-1$ //$NON-NLS-2$
-
-	/**
-	 * The '<em><b>Supports</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #SUPPORTS
-	 * @generated
-	 * @ordered
-	 */
-	public static final TransactionAttributeType SUPPORTS_LITERAL = new TransactionAttributeType(SUPPORTS, "Supports", "Supports"); //$NON-NLS-1$ //$NON-NLS-2$
-
-	/**
-	 * The '<em><b>Required</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #REQUIRED
-	 * @generated
-	 * @ordered
-	 */
-	public static final TransactionAttributeType REQUIRED_LITERAL = new TransactionAttributeType(REQUIRED, "Required", "Required"); //$NON-NLS-1$ //$NON-NLS-2$
-
-	/**
-	 * The '<em><b>Requires New</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #REQUIRES_NEW
-	 * @generated
-	 * @ordered
-	 */
-	public static final TransactionAttributeType REQUIRES_NEW_LITERAL = new TransactionAttributeType(REQUIRES_NEW, "RequiresNew", "RequiresNew"); //$NON-NLS-1$ //$NON-NLS-2$
-
-	/**
-	 * The '<em><b>Mandatory</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #MANDATORY
-	 * @generated
-	 * @ordered
-	 */
-	public static final TransactionAttributeType MANDATORY_LITERAL = new TransactionAttributeType(MANDATORY, "Mandatory", "Mandatory"); //$NON-NLS-1$ //$NON-NLS-2$
-
-	/**
-	 * The '<em><b>Never</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #NEVER
-	 * @generated
-	 * @ordered
-	 */
-	public static final TransactionAttributeType NEVER_LITERAL = new TransactionAttributeType(NEVER, "Never", "Never"); //$NON-NLS-1$ //$NON-NLS-2$
-
-	/**
 	 * An array of all the '<em><b>Transaction Attribute Type</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -209,7 +205,7 @@ public final class TransactionAttributeType extends AbstractEnumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<TransactionAttributeType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>Transaction Attribute Type</b></em>' literal with the specified literal value.
@@ -258,8 +254,29 @@ public final class TransactionAttributeType extends AbstractEnumerator {
 			case MANDATORY: return MANDATORY_LITERAL;
 			case NEVER: return NEVER_LITERAL;
 		}
-		return null;	
+		return null;
 	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final int value;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String name;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String literal;
 
 	/**
 	 * Only this class can construct instances.
@@ -268,7 +285,46 @@ public final class TransactionAttributeType extends AbstractEnumerator {
 	 * @generated
 	 */
 	private TransactionAttributeType(int value, String name, String literal) {
-		super(value, name, literal);
+		this.value = value;
+		this.name = name;
+		this.literal = literal;
 	}
 
-} //TransactionAttributeType
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getValue() {
+	  return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getName() {
+	  return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getLiteral() {
+	  return literal;
+	}
+
+	/**
+	 * Returns the literal value of the enumerator, which is its string representation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		return literal;
+	}
+}

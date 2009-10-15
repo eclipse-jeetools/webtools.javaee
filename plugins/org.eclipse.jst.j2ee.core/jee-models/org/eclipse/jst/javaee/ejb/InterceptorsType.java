@@ -12,6 +12,7 @@ package org.eclipse.jst.javaee.ejb;
 
 import java.util.List;
 
+import org.eclipse.jst.javaee.core.Description;
 import org.eclipse.jst.javaee.core.JavaEEObject;
 
 /**
@@ -25,10 +26,11 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  *         The interceptorsType element declares one or more interceptor
  *         classes used by components within this ejb-jar.  The declaration
  *         consists of :
- * 
- *             - An optional description.
- *             - One or more interceptor elements.
- * 
+ *         
+ *         - An optional description.
+ *         - One or more interceptor elements.
+ *         
+ *         @since Java EE 5, EJB 3.0
  *       
  * <!-- end-model-doc -->
  *
@@ -59,7 +61,7 @@ public interface InterceptorsType extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getInterceptorsType_Descriptions()
 	 * @generated
 	 */
-	List getDescriptions();
+	List<Description> getDescriptions();
 
 	/**
 	 * Returns the value of the '<em><b>Interceptors</b></em>' containment reference list.
@@ -74,7 +76,7 @@ public interface InterceptorsType extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getInterceptorsType_Interceptors()
 	 * @generated
 	 */
-	List getInterceptors();
+	List<InterceptorType> getInterceptors();
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.

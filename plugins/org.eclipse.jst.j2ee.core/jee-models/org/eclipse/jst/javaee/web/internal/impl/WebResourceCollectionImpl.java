@@ -46,6 +46,7 @@ import org.eclipse.jst.javaee.web.internal.metadata.WebPackage;
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebResourceCollectionImpl#getDescriptions <em>Descriptions</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebResourceCollectionImpl#getUrlPatterns <em>Url Patterns</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebResourceCollectionImpl#getHttpMethods <em>Http Methods</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebResourceCollectionImpl#getHttpMethodOmission <em>Http Method Omission</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebResourceCollectionImpl#getId <em>Id</em>}</li>
  * </ul>
  * </p>
@@ -81,7 +82,7 @@ public class WebResourceCollectionImpl extends EObjectImpl implements WebResourc
 	 * @generated
 	 * @ordered
 	 */
-	protected EList descriptions = null;
+	protected EList<Description> descriptions;
 
 	/**
 	 * The cached value of the '{@link #getUrlPatterns() <em>Url Patterns</em>}' containment reference list.
@@ -91,7 +92,7 @@ public class WebResourceCollectionImpl extends EObjectImpl implements WebResourc
 	 * @generated
 	 * @ordered
 	 */
-	protected EList urlPatterns = null;
+	protected EList<UrlPatternType> urlPatterns;
 
 	/**
 	 * The cached value of the '{@link #getHttpMethods() <em>Http Methods</em>}' attribute list.
@@ -101,7 +102,17 @@ public class WebResourceCollectionImpl extends EObjectImpl implements WebResourc
 	 * @generated
 	 * @ordered
 	 */
-	protected EList httpMethods = null;
+	protected EList<String> httpMethods;
+
+	/**
+	 * The cached value of the '{@link #getHttpMethodOmission() <em>Http Method Omission</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getHttpMethodOmission()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<String> httpMethodOmission;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -168,9 +179,9 @@ public class WebResourceCollectionImpl extends EObjectImpl implements WebResourc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDescriptions() {
+	public List<Description> getDescriptions() {
 		if (descriptions == null) {
-			descriptions = new EObjectContainmentEList(Description.class, this, WebPackage.WEB_RESOURCE_COLLECTION__DESCRIPTIONS);
+			descriptions = new EObjectContainmentEList<Description>(Description.class, this, WebPackage.WEB_RESOURCE_COLLECTION__DESCRIPTIONS);
 		}
 		return descriptions;
 	}
@@ -180,9 +191,9 @@ public class WebResourceCollectionImpl extends EObjectImpl implements WebResourc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getUrlPatterns() {
+	public List<UrlPatternType> getUrlPatterns() {
 		if (urlPatterns == null) {
-			urlPatterns = new EObjectContainmentEList(UrlPatternType.class, this, WebPackage.WEB_RESOURCE_COLLECTION__URL_PATTERNS);
+			urlPatterns = new EObjectContainmentEList<UrlPatternType>(UrlPatternType.class, this, WebPackage.WEB_RESOURCE_COLLECTION__URL_PATTERNS);
 		}
 		return urlPatterns;
 	}
@@ -192,11 +203,23 @@ public class WebResourceCollectionImpl extends EObjectImpl implements WebResourc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getHttpMethods() {
+	public List<String> getHttpMethods() {
 		if (httpMethods == null) {
-			httpMethods = new EDataTypeEList(String.class, this, WebPackage.WEB_RESOURCE_COLLECTION__HTTP_METHODS);
+			httpMethods = new EDataTypeEList<String>(String.class, this, WebPackage.WEB_RESOURCE_COLLECTION__HTTP_METHODS);
 		}
 		return httpMethods;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<String> getHttpMethodOmission() {
+		if (httpMethodOmission == null) {
+			httpMethodOmission = new EDataTypeEList<String>(String.class, this, WebPackage.WEB_RESOURCE_COLLECTION__HTTP_METHOD_OMISSION);
+		}
+		return httpMethodOmission;
 	}
 
 	/**
@@ -229,9 +252,9 @@ public class WebResourceCollectionImpl extends EObjectImpl implements WebResourc
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case WebPackage.WEB_RESOURCE_COLLECTION__DESCRIPTIONS:
-				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDescriptions()).basicRemove(otherEnd, msgs);
 			case WebPackage.WEB_RESOURCE_COLLECTION__URL_PATTERNS:
-				return ((InternalEList)getUrlPatterns()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getUrlPatterns()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -252,6 +275,8 @@ public class WebResourceCollectionImpl extends EObjectImpl implements WebResourc
 				return getUrlPatterns();
 			case WebPackage.WEB_RESOURCE_COLLECTION__HTTP_METHODS:
 				return getHttpMethods();
+			case WebPackage.WEB_RESOURCE_COLLECTION__HTTP_METHOD_OMISSION:
+				return getHttpMethodOmission();
 			case WebPackage.WEB_RESOURCE_COLLECTION__ID:
 				return getId();
 		}
@@ -263,6 +288,7 @@ public class WebResourceCollectionImpl extends EObjectImpl implements WebResourc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -271,15 +297,19 @@ public class WebResourceCollectionImpl extends EObjectImpl implements WebResourc
 				return;
 			case WebPackage.WEB_RESOURCE_COLLECTION__DESCRIPTIONS:
 				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
+				getDescriptions().addAll((Collection<? extends Description>)newValue);
 				return;
 			case WebPackage.WEB_RESOURCE_COLLECTION__URL_PATTERNS:
 				getUrlPatterns().clear();
-				getUrlPatterns().addAll((Collection)newValue);
+				getUrlPatterns().addAll((Collection<? extends UrlPatternType>)newValue);
 				return;
 			case WebPackage.WEB_RESOURCE_COLLECTION__HTTP_METHODS:
 				getHttpMethods().clear();
-				getHttpMethods().addAll((Collection)newValue);
+				getHttpMethods().addAll((Collection<? extends String>)newValue);
+				return;
+			case WebPackage.WEB_RESOURCE_COLLECTION__HTTP_METHOD_OMISSION:
+				getHttpMethodOmission().clear();
+				getHttpMethodOmission().addAll((Collection<? extends String>)newValue);
 				return;
 			case WebPackage.WEB_RESOURCE_COLLECTION__ID:
 				setId((String)newValue);
@@ -308,6 +338,9 @@ public class WebResourceCollectionImpl extends EObjectImpl implements WebResourc
 			case WebPackage.WEB_RESOURCE_COLLECTION__HTTP_METHODS:
 				getHttpMethods().clear();
 				return;
+			case WebPackage.WEB_RESOURCE_COLLECTION__HTTP_METHOD_OMISSION:
+				getHttpMethodOmission().clear();
+				return;
 			case WebPackage.WEB_RESOURCE_COLLECTION__ID:
 				setId(ID_EDEFAULT);
 				return;
@@ -331,6 +364,8 @@ public class WebResourceCollectionImpl extends EObjectImpl implements WebResourc
 				return urlPatterns != null && !urlPatterns.isEmpty();
 			case WebPackage.WEB_RESOURCE_COLLECTION__HTTP_METHODS:
 				return httpMethods != null && !httpMethods.isEmpty();
+			case WebPackage.WEB_RESOURCE_COLLECTION__HTTP_METHOD_OMISSION:
+				return httpMethodOmission != null && !httpMethodOmission.isEmpty();
 			case WebPackage.WEB_RESOURCE_COLLECTION__ID:
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 		}
@@ -351,6 +386,8 @@ public class WebResourceCollectionImpl extends EObjectImpl implements WebResourc
 		result.append(webResourceName);
 		result.append(", httpMethods: "); //$NON-NLS-1$
 		result.append(httpMethods);
+		result.append(", httpMethodOmission: "); //$NON-NLS-1$
+		result.append(httpMethodOmission);
 		result.append(", id: "); //$NON-NLS-1$
 		result.append(id);
 		result.append(')');

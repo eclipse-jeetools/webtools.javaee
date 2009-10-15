@@ -18,6 +18,7 @@ import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.DiagnosticChain;
 
+import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
@@ -105,14 +106,18 @@ public class JavaeeValidator extends EObjectValidator {
 	}
 
 	/**
-	 * Calls <code>validateXXX</code> for the corresonding classifier of the model.
+	 * Calls <code>validateXXX</code> for the corresponding classifier of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	protected boolean validate(int classifierID, Object value, DiagnosticChain diagnostics, Map context) {
+	protected boolean validate(int classifierID, Object value, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		switch (classifierID) {
+			case JavaeePackage.ADDRESSING_TYPE:
+				return validateAddressingType((AddressingType)value, diagnostics, context);
+			case JavaeePackage.DATA_SOURCE_TYPE:
+				return validateDataSourceType((DataSourceType)value, diagnostics, context);
 			case JavaeePackage.DESCRIPTION:
 				return validateDescription((Description)value, diagnostics, context);
 			case JavaeePackage.DISPLAY_NAME:
@@ -151,6 +156,8 @@ public class JavaeeValidator extends EObjectValidator {
 				return validateResourceEnvRef((ResourceEnvRef)value, diagnostics, context);
 			case JavaeePackage.RESOURCE_REF:
 				return validateResourceRef((ResourceRef)value, diagnostics, context);
+			case JavaeePackage.RESPECT_BINDING_TYPE:
+				return validateRespectBindingType((RespectBindingType)value, diagnostics, context);
 			case JavaeePackage.RUN_AS:
 				return validateRunAs((RunAs)value, diagnostics, context);
 			case JavaeePackage.SECURITY_ROLE:
@@ -167,10 +174,14 @@ public class JavaeeValidator extends EObjectValidator {
 				return validateServiceRefHandlerChains((ServiceRefHandlerChains)value, diagnostics, context);
 			case JavaeePackage.URL_PATTERN_TYPE:
 				return validateUrlPatternType((UrlPatternType)value, diagnostics, context);
+			case JavaeePackage.ADDRESSING_RESPONSES_TYPE:
+				return validateAddressingResponsesType((AddressingResponsesType)value, diagnostics, context);
 			case JavaeePackage.EJB_REF_TYPE:
 				return validateEjbRefType((EjbRefType)value, diagnostics, context);
-			case JavaeePackage.ENV_ENTRY_TYPE:
-				return validateEnvEntryType((EnvEntryType)value, diagnostics, context);
+			case JavaeePackage.GENERIC_BOOLEAN_TYPE:
+				return validateGenericBooleanType((GenericBooleanType)value, diagnostics, context);
+			case JavaeePackage.ISOLATION_LEVEL_TYPE:
+				return validateIsolationLevelType((IsolationLevelType)value, diagnostics, context);
 			case JavaeePackage.MESSAGE_DESTINATION_USAGE_TYPE:
 				return validateMessageDestinationUsageType((MessageDestinationUsageType)value, diagnostics, context);
 			case JavaeePackage.PERSISTENCE_CONTEXT_TYPE:
@@ -179,6 +190,8 @@ public class JavaeeValidator extends EObjectValidator {
 				return validateResAuthType((ResAuthType)value, diagnostics, context);
 			case JavaeePackage.RES_SHARING_SCOPE_TYPE:
 				return validateResSharingScopeType((ResSharingScopeType)value, diagnostics, context);
+			case JavaeePackage.ADDRESSING_RESPONSES_TYPE_OBJECT:
+				return validateAddressingResponsesTypeObject((AddressingResponsesType)value, diagnostics, context);
 			case JavaeePackage.DEWEY_VERSION_TYPE:
 				return validateDeweyVersionType((String)value, diagnostics, context);
 			case JavaeePackage.EJB_LINK:
@@ -187,16 +200,22 @@ public class JavaeeValidator extends EObjectValidator {
 				return validateEjbRefNameType((String)value, diagnostics, context);
 			case JavaeePackage.EJB_REF_TYPE_OBJECT:
 				return validateEjbRefTypeObject((EjbRefType)value, diagnostics, context);
-			case JavaeePackage.ENV_ENTRY_TYPE_OBJECT:
-				return validateEnvEntryTypeObject((EnvEntryType)value, diagnostics, context);
+			case JavaeePackage.ENV_ENTRY_TYPE:
+				return validateEnvEntryType((String)value, diagnostics, context);
 			case JavaeePackage.FULLY_QUALIFIED_CLASS_TYPE:
 				return validateFullyQualifiedClassType((String)value, diagnostics, context);
+			case JavaeePackage.GENERIC_BOOLEAN_TYPE_OBJECT:
+				return validateGenericBooleanTypeObject((GenericBooleanType)value, diagnostics, context);
 			case JavaeePackage.HOME:
 				return validateHome((String)value, diagnostics, context);
+			case JavaeePackage.ISOLATION_LEVEL_TYPE_OBJECT:
+				return validateIsolationLevelTypeObject((IsolationLevelType)value, diagnostics, context);
 			case JavaeePackage.JAVA_IDENTIFIER:
 				return validateJavaIdentifier((String)value, diagnostics, context);
 			case JavaeePackage.JAVA_TYPE:
 				return validateJavaType((String)value, diagnostics, context);
+			case JavaeePackage.JDBC_URL_TYPE:
+				return validateJdbcUrlType((String)value, diagnostics, context);
 			case JavaeePackage.JNDI_NAME:
 				return validateJNDIName((String)value, diagnostics, context);
 			case JavaeePackage.LOCAL:
@@ -213,6 +232,14 @@ public class JavaeeValidator extends EObjectValidator {
 				return validatePathType((String)value, diagnostics, context);
 			case JavaeePackage.PERSISTENCE_CONTEXT_TYPE_OBJECT:
 				return validatePersistenceContextTypeObject((PersistenceContextType)value, diagnostics, context);
+			case JavaeePackage.PROTOCOL_BINDING_LIST_TYPE:
+				return validateProtocolBindingListType((List<?>)value, diagnostics, context);
+			case JavaeePackage.PROTOCOL_BINDING_TYPE:
+				return validateProtocolBindingType((String)value, diagnostics, context);
+			case JavaeePackage.PROTOCOL_URI_ALIAS_TYPE:
+				return validateProtocolURIAliasType((String)value, diagnostics, context);
+			case JavaeePackage.QNAME_PATTERN:
+				return validateQnamePattern((String)value, diagnostics, context);
 			case JavaeePackage.REMOTE:
 				return validateRemote((String)value, diagnostics, context);
 			case JavaeePackage.RES_AUTH_TYPE_OBJECT:
@@ -221,19 +248,11 @@ public class JavaeeValidator extends EObjectValidator {
 				return validateResSharingScopeTypeObject((ResSharingScopeType)value, diagnostics, context);
 			case JavaeePackage.ROLE_NAME:
 				return validateRoleName((String)value, diagnostics, context);
-			case JavaeePackage.SERVICE_REF_PROTOCOL_BINDING_LIST_TYPE:
-				return validateServiceRefProtocolBindingListType((List)value, diagnostics, context);
-			case JavaeePackage.SERVICE_REF_PROTOCOL_BINDING_TYPE:
-				return validateServiceRefProtocolBindingType((String)value, diagnostics, context);
-			case JavaeePackage.SERVICE_REF_PROTOCOL_URI_ALIAS_TYPE:
-				return validateServiceRefProtocolURIAliasType((String)value, diagnostics, context);
-			case JavaeePackage.SERVICE_REF_QNAME_PATTERN:
-				return validateServiceRefQnamePattern((String)value, diagnostics, context);
 			case JavaeePackage.TRUE_FALSE_TYPE:
-				return validateTrueFalseType(((Boolean)value).booleanValue(), diagnostics, context);
+				return validateTrueFalseType((Boolean)value, diagnostics, context);
 			case JavaeePackage.TRUE_FALSE_TYPE_OBJECT:
 				return validateTrueFalseTypeObject((Boolean)value, diagnostics, context);
-			default: 
+			default:
 				return true;
 		}
 	}
@@ -243,7 +262,25 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateDescription(Description description, DiagnosticChain diagnostics, Map context) {
+	public boolean validateAddressingType(AddressingType addressingType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint((EObject)addressingType, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateDataSourceType(DataSourceType dataSourceType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint((EObject)dataSourceType, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateDescription(Description description, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)description, diagnostics, context);
 	}
 
@@ -252,7 +289,7 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateDisplayName(DisplayName displayName, DiagnosticChain diagnostics, Map context) {
+	public boolean validateDisplayName(DisplayName displayName, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)displayName, diagnostics, context);
 	}
 
@@ -261,7 +298,7 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateEjbLocalRef(EjbLocalRef ejbLocalRef, DiagnosticChain diagnostics, Map context) {
+	public boolean validateEjbLocalRef(EjbLocalRef ejbLocalRef, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)ejbLocalRef, diagnostics, context);
 	}
 
@@ -270,7 +307,7 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateEjbRef(EjbRef ejbRef, DiagnosticChain diagnostics, Map context) {
+	public boolean validateEjbRef(EjbRef ejbRef, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)ejbRef, diagnostics, context);
 	}
 
@@ -279,7 +316,7 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateEmptyType(EmptyType emptyType, DiagnosticChain diagnostics, Map context) {
+	public boolean validateEmptyType(EmptyType emptyType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)emptyType, diagnostics, context);
 	}
 
@@ -288,7 +325,7 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateEnvEntry(EnvEntry envEntry, DiagnosticChain diagnostics, Map context) {
+	public boolean validateEnvEntry(EnvEntry envEntry, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)envEntry, diagnostics, context);
 	}
 
@@ -297,7 +334,7 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateIcon(Icon icon, DiagnosticChain diagnostics, Map context) {
+	public boolean validateIcon(Icon icon, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)icon, diagnostics, context);
 	}
 
@@ -306,7 +343,7 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateInjectionTarget(InjectionTarget injectionTarget, DiagnosticChain diagnostics, Map context) {
+	public boolean validateInjectionTarget(InjectionTarget injectionTarget, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)injectionTarget, diagnostics, context);
 	}
 
@@ -315,7 +352,7 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateLifecycleCallback(LifecycleCallback lifecycleCallback, DiagnosticChain diagnostics, Map context) {
+	public boolean validateLifecycleCallback(LifecycleCallback lifecycleCallback, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)lifecycleCallback, diagnostics, context);
 	}
 
@@ -324,7 +361,7 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateListener(Listener listener, DiagnosticChain diagnostics, Map context) {
+	public boolean validateListener(Listener listener, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)listener, diagnostics, context);
 	}
 
@@ -333,7 +370,7 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateMessageDestination(MessageDestination messageDestination, DiagnosticChain diagnostics, Map context) {
+	public boolean validateMessageDestination(MessageDestination messageDestination, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)messageDestination, diagnostics, context);
 	}
 
@@ -342,7 +379,7 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateMessageDestinationRef(MessageDestinationRef messageDestinationRef, DiagnosticChain diagnostics, Map context) {
+	public boolean validateMessageDestinationRef(MessageDestinationRef messageDestinationRef, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)messageDestinationRef, diagnostics, context);
 	}
 
@@ -351,7 +388,7 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateParamValue(ParamValue paramValue, DiagnosticChain diagnostics, Map context) {
+	public boolean validateParamValue(ParamValue paramValue, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)paramValue, diagnostics, context);
 	}
 
@@ -360,7 +397,7 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validatePersistenceContextRef(PersistenceContextRef persistenceContextRef, DiagnosticChain diagnostics, Map context) {
+	public boolean validatePersistenceContextRef(PersistenceContextRef persistenceContextRef, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)persistenceContextRef, diagnostics, context);
 	}
 
@@ -369,7 +406,7 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validatePersistenceUnitRef(PersistenceUnitRef persistenceUnitRef, DiagnosticChain diagnostics, Map context) {
+	public boolean validatePersistenceUnitRef(PersistenceUnitRef persistenceUnitRef, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)persistenceUnitRef, diagnostics, context);
 	}
 
@@ -378,7 +415,7 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validatePortComponentRef(PortComponentRef portComponentRef, DiagnosticChain diagnostics, Map context) {
+	public boolean validatePortComponentRef(PortComponentRef portComponentRef, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)portComponentRef, diagnostics, context);
 	}
 
@@ -387,7 +424,7 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validatePropertyType(PropertyType propertyType, DiagnosticChain diagnostics, Map context) {
+	public boolean validatePropertyType(PropertyType propertyType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)propertyType, diagnostics, context);
 	}
 
@@ -396,7 +433,7 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateResourceEnvRef(ResourceEnvRef resourceEnvRef, DiagnosticChain diagnostics, Map context) {
+	public boolean validateResourceEnvRef(ResourceEnvRef resourceEnvRef, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)resourceEnvRef, diagnostics, context);
 	}
 
@@ -405,7 +442,7 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateResourceRef(ResourceRef resourceRef, DiagnosticChain diagnostics, Map context) {
+	public boolean validateResourceRef(ResourceRef resourceRef, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)resourceRef, diagnostics, context);
 	}
 
@@ -414,7 +451,16 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateRunAs(RunAs runAs, DiagnosticChain diagnostics, Map context) {
+	public boolean validateRespectBindingType(RespectBindingType respectBindingType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint((EObject)respectBindingType, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateRunAs(RunAs runAs, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)runAs, diagnostics, context);
 	}
 
@@ -423,7 +469,7 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateSecurityRole(SecurityRole securityRole, DiagnosticChain diagnostics, Map context) {
+	public boolean validateSecurityRole(SecurityRole securityRole, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)securityRole, diagnostics, context);
 	}
 
@@ -432,7 +478,7 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateSecurityRoleRef(SecurityRoleRef securityRoleRef, DiagnosticChain diagnostics, Map context) {
+	public boolean validateSecurityRoleRef(SecurityRoleRef securityRoleRef, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)securityRoleRef, diagnostics, context);
 	}
 
@@ -441,7 +487,7 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateServiceRef(ServiceRef serviceRef, DiagnosticChain diagnostics, Map context) {
+	public boolean validateServiceRef(ServiceRef serviceRef, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)serviceRef, diagnostics, context);
 	}
 
@@ -450,7 +496,7 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateServiceRefHandler(ServiceRefHandler serviceRefHandler, DiagnosticChain diagnostics, Map context) {
+	public boolean validateServiceRefHandler(ServiceRefHandler serviceRefHandler, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)serviceRefHandler, diagnostics, context);
 	}
 
@@ -459,7 +505,7 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateServiceRefHandlerChain(ServiceRefHandlerChain serviceRefHandlerChain, DiagnosticChain diagnostics, Map context) {
+	public boolean validateServiceRefHandlerChain(ServiceRefHandlerChain serviceRefHandlerChain, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)serviceRefHandlerChain, diagnostics, context);
 	}
 
@@ -468,7 +514,7 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateServiceRefHandlerChains(ServiceRefHandlerChains serviceRefHandlerChains, DiagnosticChain diagnostics, Map context) {
+	public boolean validateServiceRefHandlerChains(ServiceRefHandlerChains serviceRefHandlerChains, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)serviceRefHandlerChains, diagnostics, context);
 	}
 
@@ -477,7 +523,7 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateUrlPatternType(UrlPatternType urlPatternType, DiagnosticChain diagnostics, Map context) {
+	public boolean validateUrlPatternType(UrlPatternType urlPatternType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)urlPatternType, diagnostics, context);
 	}
 
@@ -486,7 +532,7 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateEjbRefType(EjbRefType ejbRefType, DiagnosticChain diagnostics, Map context) {
+	public boolean validateAddressingResponsesType(AddressingResponsesType addressingResponsesType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 
@@ -495,7 +541,7 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateEnvEntryType(EnvEntryType envEntryType, DiagnosticChain diagnostics, Map context) {
+	public boolean validateEjbRefType(EjbRefType ejbRefType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 
@@ -504,7 +550,7 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateMessageDestinationUsageType(MessageDestinationUsageType messageDestinationUsageType, DiagnosticChain diagnostics, Map context) {
+	public boolean validateGenericBooleanType(GenericBooleanType genericBooleanType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 
@@ -513,7 +559,7 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validatePersistenceContextType(PersistenceContextType persistenceContextType, DiagnosticChain diagnostics, Map context) {
+	public boolean validateIsolationLevelType(IsolationLevelType isolationLevelType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 
@@ -522,7 +568,7 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateResAuthType(ResAuthType resAuthType, DiagnosticChain diagnostics, Map context) {
+	public boolean validateMessageDestinationUsageType(MessageDestinationUsageType messageDestinationUsageType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 
@@ -531,7 +577,7 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateResSharingScopeType(ResSharingScopeType resSharingScopeType, DiagnosticChain diagnostics, Map context) {
+	public boolean validatePersistenceContextType(PersistenceContextType persistenceContextType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 
@@ -540,7 +586,34 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateDeweyVersionType(String deweyVersionType, DiagnosticChain diagnostics, Map context) {
+	public boolean validateResAuthType(ResAuthType resAuthType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateResSharingScopeType(ResSharingScopeType resSharingScopeType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateAddressingResponsesTypeObject(AddressingResponsesType addressingResponsesTypeObject, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateDeweyVersionType(String deweyVersionType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		boolean result = validateDeweyVersionType_Pattern(deweyVersionType, diagnostics, context);
 		return result;
 	}
@@ -564,7 +637,7 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateDeweyVersionType_Pattern(String deweyVersionType, DiagnosticChain diagnostics, Map context) {
+	public boolean validateDeweyVersionType_Pattern(String deweyVersionType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validatePattern(JavaeePackage.Literals.DEWEY_VERSION_TYPE, deweyVersionType, DEWEY_VERSION_TYPE__PATTERN__VALUES, diagnostics, context);
 	}
 
@@ -573,7 +646,7 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateEJBLink(String ejbLink, DiagnosticChain diagnostics, Map context) {
+	public boolean validateEJBLink(String ejbLink, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 
@@ -582,7 +655,7 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateEjbRefNameType(String ejbRefNameType, DiagnosticChain diagnostics, Map context) {
+	public boolean validateEjbRefNameType(String ejbRefNameType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 
@@ -591,7 +664,7 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateEjbRefTypeObject(EjbRefType ejbRefTypeObject, DiagnosticChain diagnostics, Map context) {
+	public boolean validateEjbRefTypeObject(EjbRefType ejbRefTypeObject, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 
@@ -600,7 +673,7 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateEnvEntryTypeObject(EnvEntryType envEntryTypeObject, DiagnosticChain diagnostics, Map context) {
+	public boolean validateEnvEntryType(String envEntryType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 
@@ -609,7 +682,7 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateFullyQualifiedClassType(String fullyQualifiedClassType, DiagnosticChain diagnostics, Map context) {
+	public boolean validateFullyQualifiedClassType(String fullyQualifiedClassType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 
@@ -618,7 +691,7 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateHome(String home, DiagnosticChain diagnostics, Map context) {
+	public boolean validateGenericBooleanTypeObject(GenericBooleanType genericBooleanTypeObject, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 
@@ -627,7 +700,25 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateJavaIdentifier(String javaIdentifier, DiagnosticChain diagnostics, Map context) {
+	public boolean validateHome(String home, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateIsolationLevelTypeObject(IsolationLevelType isolationLevelTypeObject, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateJavaIdentifier(String javaIdentifier, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		boolean result = validateJavaIdentifier_Pattern(javaIdentifier, diagnostics, context);
 		return result;
 	}
@@ -651,7 +742,7 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateJavaIdentifier_Pattern(String javaIdentifier, DiagnosticChain diagnostics, Map context) {
+	public boolean validateJavaIdentifier_Pattern(String javaIdentifier, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validatePattern(JavaeePackage.Literals.JAVA_IDENTIFIER, javaIdentifier, JAVA_IDENTIFIER__PATTERN__VALUES, diagnostics, context);
 	}
 
@@ -660,7 +751,7 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateJavaType(String javaType, DiagnosticChain diagnostics, Map context) {
+	public boolean validateJavaType(String javaType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		boolean result = validateJavaType_Pattern(javaType, diagnostics, context);
 		return result;
 	}
@@ -684,7 +775,7 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateJavaType_Pattern(String javaType, DiagnosticChain diagnostics, Map context) {
+	public boolean validateJavaType_Pattern(String javaType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validatePattern(JavaeePackage.Literals.JAVA_TYPE, javaType, JAVA_TYPE__PATTERN__VALUES, diagnostics, context);
 	}
 
@@ -693,135 +784,132 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateJNDIName(String jndiName, DiagnosticChain diagnostics, Map context) {
-		return true;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateLocal(String local, DiagnosticChain diagnostics, Map context) {
-		return true;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateLocalHome(String localHome, DiagnosticChain diagnostics, Map context) {
-		return true;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateMessageDestinationLink(String messageDestinationLink, DiagnosticChain diagnostics, Map context) {
-		return true;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateMessageDestinationTypeType(String messageDestinationTypeType, DiagnosticChain diagnostics, Map context) {
-		return true;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateMessageDestinationUsageTypeObject(MessageDestinationUsageType messageDestinationUsageTypeObject, DiagnosticChain diagnostics, Map context) {
-		return true;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validatePathType(String pathType, DiagnosticChain diagnostics, Map context) {
-		return true;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validatePersistenceContextTypeObject(PersistenceContextType persistenceContextTypeObject, DiagnosticChain diagnostics, Map context) {
-		return true;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateRemote(String remote, DiagnosticChain diagnostics, Map context) {
-		return true;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateResAuthTypeObject(ResAuthType resAuthTypeObject, DiagnosticChain diagnostics, Map context) {
-		return true;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateResSharingScopeTypeObject(ResSharingScopeType resSharingScopeTypeObject, DiagnosticChain diagnostics, Map context) {
-		return true;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateRoleName(String roleName, DiagnosticChain diagnostics, Map context) {
-		return true;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean validateServiceRefProtocolBindingListType(List serviceRefProtocolBindingListType, DiagnosticChain diagnostics, Map context) {
-		boolean result = validateServiceRefProtocolBindingListType_ItemType(serviceRefProtocolBindingListType, diagnostics, context);
+	public boolean validateJdbcUrlType(String jdbcUrlType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		boolean result = validateJdbcUrlType_Pattern(jdbcUrlType, diagnostics, context);
 		return result;
 	}
 
 	/**
-	 * Validates the ItemType constraint of '<em>Service Ref Protocol Binding List Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @see #validateJdbcUrlType_Pattern
+	 */
+	public static final  PatternMatcher [][] JDBC_URL_TYPE__PATTERN__VALUES =
+		new PatternMatcher [][] {
+			new PatternMatcher [] {
+				XMLTypeUtil.createPatternMatcher("jdbc:(.*):(.*)") //$NON-NLS-1$
+			}
+		};
+
+	/**
+	 * Validates the Pattern constraint of '<em>Jdbc Url Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateServiceRefProtocolBindingListType_ItemType(List serviceRefProtocolBindingListType, DiagnosticChain diagnostics, Map context) {
+	public boolean validateJdbcUrlType_Pattern(String jdbcUrlType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validatePattern(JavaeePackage.Literals.JDBC_URL_TYPE, jdbcUrlType, JDBC_URL_TYPE__PATTERN__VALUES, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateJNDIName(String jndiName, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateLocal(String local, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateLocalHome(String localHome, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateMessageDestinationLink(String messageDestinationLink, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateMessageDestinationTypeType(String messageDestinationTypeType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateMessageDestinationUsageTypeObject(MessageDestinationUsageType messageDestinationUsageTypeObject, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validatePathType(String pathType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validatePersistenceContextTypeObject(PersistenceContextType persistenceContextTypeObject, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateProtocolBindingListType(List<?> protocolBindingListType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		boolean result = validateProtocolBindingListType_ItemType(protocolBindingListType, diagnostics, context);
+		return result;
+	}
+
+	/**
+	 * Validates the ItemType constraint of '<em>Protocol Binding List Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateProtocolBindingListType_ItemType(List<?> protocolBindingListType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		boolean result = true;
-		for (Iterator i = serviceRefProtocolBindingListType.iterator(); i.hasNext() && (result || diagnostics != null); ) {
+		for (Iterator<?> i = protocolBindingListType.iterator(); i.hasNext() && (result || diagnostics != null); ) {
 			Object item = i.next();
-			if (JavaeePackage.Literals.SERVICE_REF_PROTOCOL_BINDING_TYPE.isInstance(item)) {
-				result &= validateServiceRefProtocolBindingType((String)item, diagnostics, context);
+			if (JavaeePackage.Literals.PROTOCOL_BINDING_TYPE.isInstance(item)) {
+				result &= validateProtocolBindingType((String)item, diagnostics, context);
 			}
 			else {
 				result = false;
-				reportDataValueTypeViolation(JavaeePackage.Literals.SERVICE_REF_PROTOCOL_BINDING_TYPE, item, diagnostics, context);
+				reportDataValueTypeViolation(JavaeePackage.Literals.PROTOCOL_BINDING_TYPE, item, diagnostics, context);
 			}
 		}
 		return result;
@@ -832,37 +920,36 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateServiceRefProtocolBindingType(String serviceRefProtocolBindingType, DiagnosticChain diagnostics, Map context) {
-		boolean result = validateServiceRefProtocolBindingType_MemberTypes(serviceRefProtocolBindingType, diagnostics, context);
+	public boolean validateProtocolBindingType(String protocolBindingType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		boolean result = validateProtocolBindingType_MemberTypes(protocolBindingType, diagnostics, context);
 		return result;
 	}
 
 	/**
-	 * Validates the MemberTypes constraint of '<em>Service Ref Protocol Binding Type</em>'.
+	 * Validates the MemberTypes constraint of '<em>Protocol Binding Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateServiceRefProtocolBindingType_MemberTypes(String serviceRefProtocolBindingType, DiagnosticChain diagnostics, Map context) {
+	public boolean validateProtocolBindingType_MemberTypes(String protocolBindingType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		if (diagnostics != null) {
 			BasicDiagnostic tempDiagnostics = new BasicDiagnostic();
-			if (XMLTypePackage.Literals.ANY_URI.isInstance(serviceRefProtocolBindingType)) {
-				if (xmlTypeValidator.validateAnyURI(serviceRefProtocolBindingType, tempDiagnostics, context)) return true;
+			if (XMLTypePackage.Literals.ANY_URI.isInstance(protocolBindingType)) {
+				if (xmlTypeValidator.validateAnyURI(protocolBindingType, tempDiagnostics, context)) return true;
 			}
-			if (JavaeePackage.Literals.SERVICE_REF_PROTOCOL_URI_ALIAS_TYPE.isInstance(serviceRefProtocolBindingType)) {
-				if (validateServiceRefProtocolURIAliasType(serviceRefProtocolBindingType, tempDiagnostics, context)) return true;
+			if (JavaeePackage.Literals.PROTOCOL_URI_ALIAS_TYPE.isInstance(protocolBindingType)) {
+				if (validateProtocolURIAliasType(protocolBindingType, tempDiagnostics, context)) return true;
 			}
-			List children = tempDiagnostics.getChildren();
-			for (int i = 0; i < children.size(); i++) {
-				diagnostics.add((Diagnostic)children.get(i));
+			for (Diagnostic diagnostic : tempDiagnostics.getChildren()) {
+				diagnostics.add(diagnostic);
 			}
 		}
 		else {
-			if (XMLTypePackage.Literals.ANY_URI.isInstance(serviceRefProtocolBindingType)) {
-				if (xmlTypeValidator.validateAnyURI(serviceRefProtocolBindingType, null, context)) return true;
+			if (XMLTypePackage.Literals.ANY_URI.isInstance(protocolBindingType)) {
+				if (xmlTypeValidator.validateAnyURI(protocolBindingType, null, context)) return true;
 			}
-			if (JavaeePackage.Literals.SERVICE_REF_PROTOCOL_URI_ALIAS_TYPE.isInstance(serviceRefProtocolBindingType)) {
-				if (validateServiceRefProtocolURIAliasType(serviceRefProtocolBindingType, null, context)) return true;
+			if (JavaeePackage.Literals.PROTOCOL_URI_ALIAS_TYPE.isInstance(protocolBindingType)) {
+				if (validateProtocolURIAliasType(protocolBindingType, null, context)) return true;
 			}
 		}
 		return false;
@@ -873,8 +960,8 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateServiceRefProtocolURIAliasType(String serviceRefProtocolURIAliasType, DiagnosticChain diagnostics, Map context) {
-		boolean result = validateServiceRefProtocolURIAliasType_Pattern(serviceRefProtocolURIAliasType, diagnostics, context);
+	public boolean validateProtocolURIAliasType(String protocolURIAliasType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		boolean result = validateProtocolURIAliasType_Pattern(protocolURIAliasType, diagnostics, context);
 		return result;
 	}
 
@@ -882,9 +969,9 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
-	 * @see #validateServiceRefProtocolURIAliasType_Pattern
+	 * @see #validateProtocolURIAliasType_Pattern
 	 */
-	public static final  PatternMatcher [][] SERVICE_REF_PROTOCOL_URI_ALIAS_TYPE__PATTERN__VALUES =
+	public static final  PatternMatcher [][] PROTOCOL_URI_ALIAS_TYPE__PATTERN__VALUES =
 		new PatternMatcher [][] {
 			new PatternMatcher [] {
 				XMLTypeUtil.createPatternMatcher("##.+") //$NON-NLS-1$
@@ -892,13 +979,13 @@ public class JavaeeValidator extends EObjectValidator {
 		};
 
 	/**
-	 * Validates the Pattern constraint of '<em>Service Ref Protocol URI Alias Type</em>'.
+	 * Validates the Pattern constraint of '<em>Protocol URI Alias Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateServiceRefProtocolURIAliasType_Pattern(String serviceRefProtocolURIAliasType, DiagnosticChain diagnostics, Map context) {
-		return validatePattern(JavaeePackage.Literals.SERVICE_REF_PROTOCOL_URI_ALIAS_TYPE, serviceRefProtocolURIAliasType, SERVICE_REF_PROTOCOL_URI_ALIAS_TYPE__PATTERN__VALUES, diagnostics, context);
+	public boolean validateProtocolURIAliasType_Pattern(String protocolURIAliasType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validatePattern(JavaeePackage.Literals.PROTOCOL_URI_ALIAS_TYPE, protocolURIAliasType, PROTOCOL_URI_ALIAS_TYPE__PATTERN__VALUES, diagnostics, context);
 	}
 
 	/**
@@ -906,8 +993,8 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateServiceRefQnamePattern(String serviceRefQnamePattern, DiagnosticChain diagnostics, Map context) {
-		boolean result = validateServiceRefQnamePattern_Pattern(serviceRefQnamePattern, diagnostics, context);
+	public boolean validateQnamePattern(String qnamePattern, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		boolean result = validateQnamePattern_Pattern(qnamePattern, diagnostics, context);
 		return result;
 	}
 
@@ -915,9 +1002,9 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
-	 * @see #validateServiceRefQnamePattern_Pattern
+	 * @see #validateQnamePattern_Pattern
 	 */
-	public static final  PatternMatcher [][] SERVICE_REF_QNAME_PATTERN__PATTERN__VALUES =
+	public static final  PatternMatcher [][] QNAME_PATTERN__PATTERN__VALUES =
 		new PatternMatcher [][] {
 			new PatternMatcher [] {
 				XMLTypeUtil.createPatternMatcher("\\*|([\\i-[:]][\\c-[:]]*:)?[\\i-[:]][\\c-[:]]*\\*?") //$NON-NLS-1$
@@ -925,13 +1012,13 @@ public class JavaeeValidator extends EObjectValidator {
 		};
 
 	/**
-	 * Validates the Pattern constraint of '<em>Service Ref Qname Pattern</em>'.
+	 * Validates the Pattern constraint of '<em>Qname Pattern</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateServiceRefQnamePattern_Pattern(String serviceRefQnamePattern, DiagnosticChain diagnostics, Map context) {
-		return validatePattern(JavaeePackage.Literals.SERVICE_REF_QNAME_PATTERN, serviceRefQnamePattern, SERVICE_REF_QNAME_PATTERN__PATTERN__VALUES, diagnostics, context);
+	public boolean validateQnamePattern_Pattern(String qnamePattern, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validatePattern(JavaeePackage.Literals.QNAME_PATTERN, qnamePattern, QNAME_PATTERN__PATTERN__VALUES, diagnostics, context);
 	}
 
 	/**
@@ -939,7 +1026,43 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateTrueFalseType(boolean trueFalseType, DiagnosticChain diagnostics, Map context) {
+	public boolean validateRemote(String remote, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateResAuthTypeObject(ResAuthType resAuthTypeObject, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateResSharingScopeTypeObject(ResSharingScopeType resSharingScopeTypeObject, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateRoleName(String roleName, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateTrueFalseType(boolean trueFalseType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		boolean result = validateTrueFalseType_Pattern(trueFalseType, diagnostics, context);
 		return result;
 	}
@@ -963,8 +1086,8 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateTrueFalseType_Pattern(boolean trueFalseType, DiagnosticChain diagnostics, Map context) {
-		return validatePattern(JavaeePackage.Literals.TRUE_FALSE_TYPE, new Boolean(trueFalseType), TRUE_FALSE_TYPE__PATTERN__VALUES, diagnostics, context);
+	public boolean validateTrueFalseType_Pattern(boolean trueFalseType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validatePattern(JavaeePackage.Literals.TRUE_FALSE_TYPE, trueFalseType, TRUE_FALSE_TYPE__PATTERN__VALUES, diagnostics, context);
 	}
 
 	/**
@@ -972,9 +1095,23 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateTrueFalseTypeObject(Boolean trueFalseTypeObject, DiagnosticChain diagnostics, Map context) {
-		boolean result = validateTrueFalseType_Pattern(trueFalseTypeObject.booleanValue(), diagnostics, context);
+	public boolean validateTrueFalseTypeObject(Boolean trueFalseTypeObject, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		boolean result = validateTrueFalseType_Pattern(trueFalseTypeObject, diagnostics, context);
 		return result;
+	}
+
+	/**
+	 * Returns the resource locator that will be used to fetch messages for this validator's diagnostics.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ResourceLocator getResourceLocator() {
+		// TODO
+		// Specialize this to return a resource locator for messages specific to this validator.
+		// Ensure that you remove @generated or mark it @generated NOT
+		return super.getResourceLocator();
 	}
 
 } //JavaeeValidator

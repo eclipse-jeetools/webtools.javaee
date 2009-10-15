@@ -59,7 +59,7 @@ public class ApplicationClientDeploymentDescriptorImpl extends EObjectImpl imple
 	 * @generated
 	 * @ordered
 	 */
-	protected FeatureMap mixed = null;
+	protected FeatureMap mixed;
 
 	/**
 	 * The cached value of the '{@link #getXMLNSPrefixMap() <em>XMLNS Prefix Map</em>}' map.
@@ -69,7 +69,7 @@ public class ApplicationClientDeploymentDescriptorImpl extends EObjectImpl imple
 	 * @generated
 	 * @ordered
 	 */
-	protected EMap xMLNSPrefixMap = null;
+	protected EMap<String, String> xMLNSPrefixMap;
 
 	/**
 	 * The cached value of the '{@link #getXSISchemaLocation() <em>XSI Schema Location</em>}' map.
@@ -79,7 +79,7 @@ public class ApplicationClientDeploymentDescriptorImpl extends EObjectImpl imple
 	 * @generated
 	 * @ordered
 	 */
-	protected EMap xSISchemaLocation = null;
+	protected EMap<String, String> xSISchemaLocation;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -117,9 +117,9 @@ public class ApplicationClientDeploymentDescriptorImpl extends EObjectImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Map getXMLNSPrefixMap() {
+	public Map<String, String> getXMLNSPrefixMap() {
 		if (xMLNSPrefixMap == null) {
-			xMLNSPrefixMap = new EcoreEMap(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY, EStringToStringMapEntryImpl.class, this, ApplicationclientPackage.APPLICATION_CLIENT_DEPLOYMENT_DESCRIPTOR__XMLNS_PREFIX_MAP);
+			xMLNSPrefixMap = new EcoreEMap<String,String>(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY, EStringToStringMapEntryImpl.class, this, ApplicationclientPackage.APPLICATION_CLIENT_DEPLOYMENT_DESCRIPTOR__XMLNS_PREFIX_MAP);
 		}
 		return xMLNSPrefixMap.map();
 	}
@@ -129,9 +129,9 @@ public class ApplicationClientDeploymentDescriptorImpl extends EObjectImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Map getXSISchemaLocation() {
+	public Map<String, String> getXSISchemaLocation() {
 		if (xSISchemaLocation == null) {
-			xSISchemaLocation = new EcoreEMap(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY, EStringToStringMapEntryImpl.class, this, ApplicationclientPackage.APPLICATION_CLIENT_DEPLOYMENT_DESCRIPTOR__XSI_SCHEMA_LOCATION);
+			xSISchemaLocation = new EcoreEMap<String,String>(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY, EStringToStringMapEntryImpl.class, this, ApplicationclientPackage.APPLICATION_CLIENT_DEPLOYMENT_DESCRIPTOR__XSI_SCHEMA_LOCATION);
 		}
 		return xSISchemaLocation.map();
 	}
@@ -172,11 +172,11 @@ public class ApplicationClientDeploymentDescriptorImpl extends EObjectImpl imple
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case ApplicationclientPackage.APPLICATION_CLIENT_DEPLOYMENT_DESCRIPTOR__MIXED:
-				return ((InternalEList)getMixed()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getMixed()).basicRemove(otherEnd, msgs);
 			case ApplicationclientPackage.APPLICATION_CLIENT_DEPLOYMENT_DESCRIPTOR__XMLNS_PREFIX_MAP:
-				return ((InternalEList)((EMap.InternalMapView)getXMLNSPrefixMap()).eMap()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)((EMap.InternalMapView<String, String>)getXMLNSPrefixMap()).eMap()).basicRemove(otherEnd, msgs);
 			case ApplicationclientPackage.APPLICATION_CLIENT_DEPLOYMENT_DESCRIPTOR__XSI_SCHEMA_LOCATION:
-				return ((InternalEList)((EMap.InternalMapView)getXSISchemaLocation()).eMap()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)((EMap.InternalMapView<String, String>)getXSISchemaLocation()).eMap()).basicRemove(otherEnd, msgs);
 			case ApplicationclientPackage.APPLICATION_CLIENT_DEPLOYMENT_DESCRIPTOR__APPLICATION_CLIENT:
 				return basicSetApplicationClient(null, msgs);
 		}
@@ -195,10 +195,10 @@ public class ApplicationClientDeploymentDescriptorImpl extends EObjectImpl imple
 				if (coreType) return getMixed();
 				return ((FeatureMap.Internal)getMixed()).getWrapper();
 			case ApplicationclientPackage.APPLICATION_CLIENT_DEPLOYMENT_DESCRIPTOR__XMLNS_PREFIX_MAP:
-				if (coreType) return ((EMap.InternalMapView)getXMLNSPrefixMap()).eMap();
+				if (coreType) return ((EMap.InternalMapView<String, String>)getXMLNSPrefixMap()).eMap();
 				else return getXMLNSPrefixMap();
 			case ApplicationclientPackage.APPLICATION_CLIENT_DEPLOYMENT_DESCRIPTOR__XSI_SCHEMA_LOCATION:
-				if (coreType) return ((EMap.InternalMapView)getXSISchemaLocation()).eMap();
+				if (coreType) return ((EMap.InternalMapView<String, String>)getXSISchemaLocation()).eMap();
 				else return getXSISchemaLocation();
 			case ApplicationclientPackage.APPLICATION_CLIENT_DEPLOYMENT_DESCRIPTOR__APPLICATION_CLIENT:
 				return getApplicationClient();
@@ -218,10 +218,10 @@ public class ApplicationClientDeploymentDescriptorImpl extends EObjectImpl imple
 				((FeatureMap.Internal)getMixed()).set(newValue);
 				return;
 			case ApplicationclientPackage.APPLICATION_CLIENT_DEPLOYMENT_DESCRIPTOR__XMLNS_PREFIX_MAP:
-				((EStructuralFeature.Setting)((EMap.InternalMapView)getXMLNSPrefixMap()).eMap()).set(newValue);
+				((EStructuralFeature.Setting)((EMap.InternalMapView<String, String>)getXMLNSPrefixMap()).eMap()).set(newValue);
 				return;
 			case ApplicationclientPackage.APPLICATION_CLIENT_DEPLOYMENT_DESCRIPTOR__XSI_SCHEMA_LOCATION:
-				((EStructuralFeature.Setting)((EMap.InternalMapView)getXSISchemaLocation()).eMap()).set(newValue);
+				((EStructuralFeature.Setting)((EMap.InternalMapView<String, String>)getXSISchemaLocation()).eMap()).set(newValue);
 				return;
 			case ApplicationclientPackage.APPLICATION_CLIENT_DEPLOYMENT_DESCRIPTOR__APPLICATION_CLIENT:
 				setApplicationClient((ApplicationClient)newValue);

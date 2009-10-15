@@ -22,9 +22,10 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The method-paramsType defines a list of the
- * 	fully-qualified Java type names of the method parameters.
- * 
+ *         The method-paramsType defines a list of the
+ *         fully-qualified Java type names of the method parameters.
+ *         
+ *         @since Java EE 5, EJB 3.0
  *       
  * <!-- end-model-doc -->
  *
@@ -49,17 +50,18 @@ public interface MethodParams extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	    The method-param element contains a primitive
-	 * 	    or a fully-qualified Java type name of a method
-	 * 	    parameter.
-	 * 
-	 * 	  
+	 *             The method-param element contains a primitive
+	 *             or a fully-qualified Java type name of a method
+	 *             parameter.
+	 *             
+	 *             @since Java EE 5, EJB 3.0
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Method Params</em>' attribute list.
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getMethodParams_MethodParams()
 	 * @generated
 	 */
-	List getMethodParams();
+	List<String> getMethodParams();
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.

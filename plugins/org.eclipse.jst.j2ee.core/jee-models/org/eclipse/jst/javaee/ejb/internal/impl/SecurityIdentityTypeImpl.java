@@ -60,7 +60,7 @@ public class SecurityIdentityTypeImpl extends EObjectImpl implements SecurityIde
 	 * @generated
 	 * @ordered
 	 */
-	protected EList descriptions = null;
+	protected EList<Description> descriptions;
 
 	/**
 	 * The cached value of the '{@link #getUseCallerIdentity() <em>Use Caller Identity</em>}' containment reference.
@@ -70,7 +70,7 @@ public class SecurityIdentityTypeImpl extends EObjectImpl implements SecurityIde
 	 * @generated
 	 * @ordered
 	 */
-	protected EmptyType useCallerIdentity = null;
+	protected EmptyType useCallerIdentity;
 
 	/**
 	 * The cached value of the '{@link #getRunAs() <em>Run As</em>}' containment reference.
@@ -80,7 +80,7 @@ public class SecurityIdentityTypeImpl extends EObjectImpl implements SecurityIde
 	 * @generated
 	 * @ordered
 	 */
-	protected RunAs runAs = null;
+	protected RunAs runAs;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -126,9 +126,9 @@ public class SecurityIdentityTypeImpl extends EObjectImpl implements SecurityIde
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDescriptions() {
+	public List<Description> getDescriptions() {
 		if (descriptions == null) {
-			descriptions = new EObjectContainmentEList(Description.class, this, EjbPackage.SECURITY_IDENTITY_TYPE__DESCRIPTIONS);
+			descriptions = new EObjectContainmentEList<Description>(Description.class, this, EjbPackage.SECURITY_IDENTITY_TYPE__DESCRIPTIONS);
 		}
 		return descriptions;
 	}
@@ -249,7 +249,7 @@ public class SecurityIdentityTypeImpl extends EObjectImpl implements SecurityIde
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EjbPackage.SECURITY_IDENTITY_TYPE__DESCRIPTIONS:
-				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDescriptions()).basicRemove(otherEnd, msgs);
 			case EjbPackage.SECURITY_IDENTITY_TYPE__USE_CALLER_IDENTITY:
 				return basicSetUseCallerIdentity(null, msgs);
 			case EjbPackage.SECURITY_IDENTITY_TYPE__RUN_AS:
@@ -283,12 +283,13 @@ public class SecurityIdentityTypeImpl extends EObjectImpl implements SecurityIde
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EjbPackage.SECURITY_IDENTITY_TYPE__DESCRIPTIONS:
 				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
+				getDescriptions().addAll((Collection<? extends Description>)newValue);
 				return;
 			case EjbPackage.SECURITY_IDENTITY_TYPE__USE_CALLER_IDENTITY:
 				setUseCallerIdentity((EmptyType)newValue);

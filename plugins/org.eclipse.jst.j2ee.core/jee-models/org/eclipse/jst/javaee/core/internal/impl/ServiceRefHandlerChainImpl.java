@@ -98,7 +98,7 @@ public class ServiceRefHandlerChainImpl extends EObjectImpl implements ServiceRe
 	 * @generated
 	 * @ordered
 	 */
-	protected static final List PROTOCOL_BINDINGS_EDEFAULT = null;
+	protected static final List<String> PROTOCOL_BINDINGS_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getProtocolBindings() <em>Protocol Bindings</em>}' attribute.
@@ -108,7 +108,7 @@ public class ServiceRefHandlerChainImpl extends EObjectImpl implements ServiceRe
 	 * @generated
 	 * @ordered
 	 */
-	protected List protocolBindings = PROTOCOL_BINDINGS_EDEFAULT;
+	protected List<String> protocolBindings = PROTOCOL_BINDINGS_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getHandlers() <em>Handlers</em>}' containment reference list.
@@ -118,7 +118,7 @@ public class ServiceRefHandlerChainImpl extends EObjectImpl implements ServiceRe
 	 * @generated
 	 * @ordered
 	 */
-	protected EList handlers = null;
+	protected EList<ServiceRefHandler> handlers;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -206,7 +206,7 @@ public class ServiceRefHandlerChainImpl extends EObjectImpl implements ServiceRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getProtocolBindings() {
+	public List<String> getProtocolBindings() {
 		return protocolBindings;
 	}
 
@@ -215,8 +215,8 @@ public class ServiceRefHandlerChainImpl extends EObjectImpl implements ServiceRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setProtocolBindings(List newProtocolBindings) {
-		List oldProtocolBindings = protocolBindings;
+	public void setProtocolBindings(List<String> newProtocolBindings) {
+		List<String> oldProtocolBindings = protocolBindings;
 		protocolBindings = newProtocolBindings;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, JavaeePackage.SERVICE_REF_HANDLER_CHAIN__PROTOCOL_BINDINGS, oldProtocolBindings, protocolBindings));
@@ -227,9 +227,9 @@ public class ServiceRefHandlerChainImpl extends EObjectImpl implements ServiceRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getHandlers() {
+	public List<ServiceRefHandler> getHandlers() {
 		if (handlers == null) {
-			handlers = new EObjectContainmentEList(ServiceRefHandler.class, this, JavaeePackage.SERVICE_REF_HANDLER_CHAIN__HANDLERS);
+			handlers = new EObjectContainmentEList<ServiceRefHandler>(ServiceRefHandler.class, this, JavaeePackage.SERVICE_REF_HANDLER_CHAIN__HANDLERS);
 		}
 		return handlers;
 	}
@@ -264,7 +264,7 @@ public class ServiceRefHandlerChainImpl extends EObjectImpl implements ServiceRe
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case JavaeePackage.SERVICE_REF_HANDLER_CHAIN__HANDLERS:
-				return ((InternalEList)getHandlers()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getHandlers()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -296,6 +296,7 @@ public class ServiceRefHandlerChainImpl extends EObjectImpl implements ServiceRe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -306,11 +307,11 @@ public class ServiceRefHandlerChainImpl extends EObjectImpl implements ServiceRe
 				setPortNamePattern((String)newValue);
 				return;
 			case JavaeePackage.SERVICE_REF_HANDLER_CHAIN__PROTOCOL_BINDINGS:
-				setProtocolBindings((List)newValue);
+				setProtocolBindings((List<String>)newValue);
 				return;
 			case JavaeePackage.SERVICE_REF_HANDLER_CHAIN__HANDLERS:
 				getHandlers().clear();
-				getHandlers().addAll((Collection)newValue);
+				getHandlers().addAll((Collection<? extends ServiceRefHandler>)newValue);
 				return;
 			case JavaeePackage.SERVICE_REF_HANDLER_CHAIN__ID:
 				setId((String)newValue);

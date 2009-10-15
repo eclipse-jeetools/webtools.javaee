@@ -13,6 +13,8 @@ package org.eclipse.jst.javaee.ejb;
 import java.util.List;
 
 import org.eclipse.jst.javaee.core.JavaEEObject;
+import org.eclipse.jst.javaee.core.MessageDestination;
+import org.eclipse.jst.javaee.core.SecurityRole;
 
 /**
  * <!-- begin-user-doc -->
@@ -22,24 +24,25 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The assembly-descriptorType defines
- * 	application-assembly information.
- * 
- * 	The application-assembly information consists of the
- * 	following parts: the definition of security roles, the
- * 	definition of method permissions, the definition of
- * 	transaction attributes for enterprise beans with
- * 	container-managed transaction demarcation, the definition
+ *         The assembly-descriptorType defines
+ *         application-assembly information.
+ *         
+ *         The application-assembly information consists of the
+ *         following parts: the definition of security roles, the
+ *         definition of method permissions, the definition of
+ *         transaction attributes for enterprise beans with
+ *         container-managed transaction demarcation, the definition
  *         of interceptor bindings, a list of
- * 	methods to be excluded from being invoked, and a list of
+ *         methods to be excluded from being invoked, and a list of
  *         exception types that should be treated as application exceptions.
- * 
- * 	All the parts are optional in the sense that they are
- * 	omitted if the lists represented by them are empty.
- * 
- * 	Providing an assembly-descriptor in the deployment
- * 	descriptor is optional for the ejb-jar file producer.
- * 
+ *         
+ *         All the parts are optional in the sense that they are
+ *         omitted if the lists represented by them are empty.
+ *         
+ *         Providing an assembly-descriptor in the deployment
+ *         descriptor is optional for the ejb-jar file producer.
+ *         
+ *         @since Java EE 5, EJB 3.0
  *       
  * <!-- end-model-doc -->
  *
@@ -75,7 +78,7 @@ public interface AssemblyDescriptor extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getAssemblyDescriptor_SecurityRoles()
 	 * @generated
 	 */
-	List getSecurityRoles();
+	List<SecurityRole> getSecurityRoles();
 
 	/**
 	 * Returns the value of the '<em><b>Method Permissions</b></em>' containment reference list.
@@ -90,7 +93,7 @@ public interface AssemblyDescriptor extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getAssemblyDescriptor_MethodPermissions()
 	 * @generated
 	 */
-	List getMethodPermissions();
+	List<MethodPermission> getMethodPermissions();
 
 	/**
 	 * Returns the value of the '<em><b>Container Transactions</b></em>' containment reference list.
@@ -105,7 +108,7 @@ public interface AssemblyDescriptor extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getAssemblyDescriptor_ContainerTransactions()
 	 * @generated
 	 */
-	List getContainerTransactions();
+	List<ContainerTransactionType> getContainerTransactions();
 
 	/**
 	 * Returns the value of the '<em><b>Interceptor Bindings</b></em>' containment reference list.
@@ -120,7 +123,7 @@ public interface AssemblyDescriptor extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getAssemblyDescriptor_InterceptorBindings()
 	 * @generated
 	 */
-	List getInterceptorBindings();
+	List<InterceptorBindingType> getInterceptorBindings();
 
 	/**
 	 * Returns the value of the '<em><b>Message Destinations</b></em>' containment reference list.
@@ -135,7 +138,7 @@ public interface AssemblyDescriptor extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getAssemblyDescriptor_MessageDestinations()
 	 * @generated
 	 */
-	List getMessageDestinations();
+	List<MessageDestination> getMessageDestinations();
 
 	/**
 	 * Returns the value of the '<em><b>Exclude List</b></em>' containment reference.
@@ -175,7 +178,7 @@ public interface AssemblyDescriptor extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getAssemblyDescriptor_ApplicationExceptions()
 	 * @generated
 	 */
-	List getApplicationExceptions();
+	List<ApplicationException> getApplicationExceptions();
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.

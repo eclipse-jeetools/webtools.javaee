@@ -68,7 +68,7 @@ public class AssemblyDescriptorImpl extends EObjectImpl implements AssemblyDescr
 	 * @generated
 	 * @ordered
 	 */
-	protected EList securityRoles = null;
+	protected EList<SecurityRole> securityRoles;
 
 	/**
 	 * The cached value of the '{@link #getMethodPermissions() <em>Method Permissions</em>}' containment reference list.
@@ -78,7 +78,7 @@ public class AssemblyDescriptorImpl extends EObjectImpl implements AssemblyDescr
 	 * @generated
 	 * @ordered
 	 */
-	protected EList methodPermissions = null;
+	protected EList<MethodPermission> methodPermissions;
 
 	/**
 	 * The cached value of the '{@link #getContainerTransactions() <em>Container Transactions</em>}' containment reference list.
@@ -88,7 +88,7 @@ public class AssemblyDescriptorImpl extends EObjectImpl implements AssemblyDescr
 	 * @generated
 	 * @ordered
 	 */
-	protected EList containerTransactions = null;
+	protected EList<ContainerTransactionType> containerTransactions;
 
 	/**
 	 * The cached value of the '{@link #getInterceptorBindings() <em>Interceptor Bindings</em>}' containment reference list.
@@ -98,7 +98,7 @@ public class AssemblyDescriptorImpl extends EObjectImpl implements AssemblyDescr
 	 * @generated
 	 * @ordered
 	 */
-	protected EList interceptorBindings = null;
+	protected EList<InterceptorBindingType> interceptorBindings;
 
 	/**
 	 * The cached value of the '{@link #getMessageDestinations() <em>Message Destinations</em>}' containment reference list.
@@ -108,7 +108,7 @@ public class AssemblyDescriptorImpl extends EObjectImpl implements AssemblyDescr
 	 * @generated
 	 * @ordered
 	 */
-	protected EList messageDestinations = null;
+	protected EList<MessageDestination> messageDestinations;
 
 	/**
 	 * The cached value of the '{@link #getExcludeList() <em>Exclude List</em>}' containment reference.
@@ -118,7 +118,7 @@ public class AssemblyDescriptorImpl extends EObjectImpl implements AssemblyDescr
 	 * @generated
 	 * @ordered
 	 */
-	protected ExcludeList excludeList = null;
+	protected ExcludeList excludeList;
 
 	/**
 	 * The cached value of the '{@link #getApplicationExceptions() <em>Application Exceptions</em>}' containment reference list.
@@ -128,7 +128,7 @@ public class AssemblyDescriptorImpl extends EObjectImpl implements AssemblyDescr
 	 * @generated
 	 * @ordered
 	 */
-	protected EList applicationExceptions = null;
+	protected EList<ApplicationException> applicationExceptions;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -174,9 +174,9 @@ public class AssemblyDescriptorImpl extends EObjectImpl implements AssemblyDescr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getSecurityRoles() {
+	public List<SecurityRole> getSecurityRoles() {
 		if (securityRoles == null) {
-			securityRoles = new EObjectContainmentEList(SecurityRole.class, this, EjbPackage.ASSEMBLY_DESCRIPTOR__SECURITY_ROLES);
+			securityRoles = new EObjectContainmentEList<SecurityRole>(SecurityRole.class, this, EjbPackage.ASSEMBLY_DESCRIPTOR__SECURITY_ROLES);
 		}
 		return securityRoles;
 	}
@@ -186,9 +186,9 @@ public class AssemblyDescriptorImpl extends EObjectImpl implements AssemblyDescr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getMethodPermissions() {
+	public List<MethodPermission> getMethodPermissions() {
 		if (methodPermissions == null) {
-			methodPermissions = new EObjectContainmentEList(MethodPermission.class, this, EjbPackage.ASSEMBLY_DESCRIPTOR__METHOD_PERMISSIONS);
+			methodPermissions = new EObjectContainmentEList<MethodPermission>(MethodPermission.class, this, EjbPackage.ASSEMBLY_DESCRIPTOR__METHOD_PERMISSIONS);
 		}
 		return methodPermissions;
 	}
@@ -198,9 +198,9 @@ public class AssemblyDescriptorImpl extends EObjectImpl implements AssemblyDescr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getContainerTransactions() {
+	public List<ContainerTransactionType> getContainerTransactions() {
 		if (containerTransactions == null) {
-			containerTransactions = new EObjectContainmentEList(ContainerTransactionType.class, this, EjbPackage.ASSEMBLY_DESCRIPTOR__CONTAINER_TRANSACTIONS);
+			containerTransactions = new EObjectContainmentEList<ContainerTransactionType>(ContainerTransactionType.class, this, EjbPackage.ASSEMBLY_DESCRIPTOR__CONTAINER_TRANSACTIONS);
 		}
 		return containerTransactions;
 	}
@@ -210,9 +210,9 @@ public class AssemblyDescriptorImpl extends EObjectImpl implements AssemblyDescr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getInterceptorBindings() {
+	public List<InterceptorBindingType> getInterceptorBindings() {
 		if (interceptorBindings == null) {
-			interceptorBindings = new EObjectContainmentEList(InterceptorBindingType.class, this, EjbPackage.ASSEMBLY_DESCRIPTOR__INTERCEPTOR_BINDINGS);
+			interceptorBindings = new EObjectContainmentEList<InterceptorBindingType>(InterceptorBindingType.class, this, EjbPackage.ASSEMBLY_DESCRIPTOR__INTERCEPTOR_BINDINGS);
 		}
 		return interceptorBindings;
 	}
@@ -222,9 +222,9 @@ public class AssemblyDescriptorImpl extends EObjectImpl implements AssemblyDescr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getMessageDestinations() {
+	public List<MessageDestination> getMessageDestinations() {
 		if (messageDestinations == null) {
-			messageDestinations = new EObjectContainmentEList(MessageDestination.class, this, EjbPackage.ASSEMBLY_DESCRIPTOR__MESSAGE_DESTINATIONS);
+			messageDestinations = new EObjectContainmentEList<MessageDestination>(MessageDestination.class, this, EjbPackage.ASSEMBLY_DESCRIPTOR__MESSAGE_DESTINATIONS);
 		}
 		return messageDestinations;
 	}
@@ -277,9 +277,9 @@ public class AssemblyDescriptorImpl extends EObjectImpl implements AssemblyDescr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getApplicationExceptions() {
+	public List<ApplicationException> getApplicationExceptions() {
 		if (applicationExceptions == null) {
-			applicationExceptions = new EObjectContainmentEList(ApplicationException.class, this, EjbPackage.ASSEMBLY_DESCRIPTOR__APPLICATION_EXCEPTIONS);
+			applicationExceptions = new EObjectContainmentEList<ApplicationException>(ApplicationException.class, this, EjbPackage.ASSEMBLY_DESCRIPTOR__APPLICATION_EXCEPTIONS);
 		}
 		return applicationExceptions;
 	}
@@ -314,19 +314,19 @@ public class AssemblyDescriptorImpl extends EObjectImpl implements AssemblyDescr
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EjbPackage.ASSEMBLY_DESCRIPTOR__SECURITY_ROLES:
-				return ((InternalEList)getSecurityRoles()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getSecurityRoles()).basicRemove(otherEnd, msgs);
 			case EjbPackage.ASSEMBLY_DESCRIPTOR__METHOD_PERMISSIONS:
-				return ((InternalEList)getMethodPermissions()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getMethodPermissions()).basicRemove(otherEnd, msgs);
 			case EjbPackage.ASSEMBLY_DESCRIPTOR__CONTAINER_TRANSACTIONS:
-				return ((InternalEList)getContainerTransactions()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getContainerTransactions()).basicRemove(otherEnd, msgs);
 			case EjbPackage.ASSEMBLY_DESCRIPTOR__INTERCEPTOR_BINDINGS:
-				return ((InternalEList)getInterceptorBindings()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getInterceptorBindings()).basicRemove(otherEnd, msgs);
 			case EjbPackage.ASSEMBLY_DESCRIPTOR__MESSAGE_DESTINATIONS:
-				return ((InternalEList)getMessageDestinations()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getMessageDestinations()).basicRemove(otherEnd, msgs);
 			case EjbPackage.ASSEMBLY_DESCRIPTOR__EXCLUDE_LIST:
 				return basicSetExcludeList(null, msgs);
 			case EjbPackage.ASSEMBLY_DESCRIPTOR__APPLICATION_EXCEPTIONS:
-				return ((InternalEList)getApplicationExceptions()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getApplicationExceptions()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -364,35 +364,36 @@ public class AssemblyDescriptorImpl extends EObjectImpl implements AssemblyDescr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EjbPackage.ASSEMBLY_DESCRIPTOR__SECURITY_ROLES:
 				getSecurityRoles().clear();
-				getSecurityRoles().addAll((Collection)newValue);
+				getSecurityRoles().addAll((Collection<? extends SecurityRole>)newValue);
 				return;
 			case EjbPackage.ASSEMBLY_DESCRIPTOR__METHOD_PERMISSIONS:
 				getMethodPermissions().clear();
-				getMethodPermissions().addAll((Collection)newValue);
+				getMethodPermissions().addAll((Collection<? extends MethodPermission>)newValue);
 				return;
 			case EjbPackage.ASSEMBLY_DESCRIPTOR__CONTAINER_TRANSACTIONS:
 				getContainerTransactions().clear();
-				getContainerTransactions().addAll((Collection)newValue);
+				getContainerTransactions().addAll((Collection<? extends ContainerTransactionType>)newValue);
 				return;
 			case EjbPackage.ASSEMBLY_DESCRIPTOR__INTERCEPTOR_BINDINGS:
 				getInterceptorBindings().clear();
-				getInterceptorBindings().addAll((Collection)newValue);
+				getInterceptorBindings().addAll((Collection<? extends InterceptorBindingType>)newValue);
 				return;
 			case EjbPackage.ASSEMBLY_DESCRIPTOR__MESSAGE_DESTINATIONS:
 				getMessageDestinations().clear();
-				getMessageDestinations().addAll((Collection)newValue);
+				getMessageDestinations().addAll((Collection<? extends MessageDestination>)newValue);
 				return;
 			case EjbPackage.ASSEMBLY_DESCRIPTOR__EXCLUDE_LIST:
 				setExcludeList((ExcludeList)newValue);
 				return;
 			case EjbPackage.ASSEMBLY_DESCRIPTOR__APPLICATION_EXCEPTIONS:
 				getApplicationExceptions().clear();
-				getApplicationExceptions().addAll((Collection)newValue);
+				getApplicationExceptions().addAll((Collection<? extends ApplicationException>)newValue);
 				return;
 			case EjbPackage.ASSEMBLY_DESCRIPTOR__ID:
 				setId((String)newValue);

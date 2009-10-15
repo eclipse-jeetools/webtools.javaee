@@ -13,6 +13,7 @@ package org.eclipse.jst.javaee.web;
 import java.util.List;
 
 import org.eclipse.jst.javaee.core.JavaEEObject;
+import org.eclipse.jst.javaee.core.UrlPatternType;
 
 /**
  * <!-- begin-user-doc -->
@@ -22,11 +23,12 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The servlet-mappingType defines a mapping between a
- * 	servlet and a url pattern.
- * 
- * 	Used in: web-app
- * 
+ *         The servlet-mappingType defines a mapping between a
+ *         servlet and a url pattern. 
+ *         
+ *         Used in: web-app
+ *         
+ *         @since Java EE 5, Web 2.5
  *       
  * <!-- end-model-doc -->
  *
@@ -82,7 +84,7 @@ public interface ServletMapping extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getServletMapping_UrlPatterns()
 	 * @generated
 	 */
-	List getUrlPatterns();
+	List<UrlPatternType> getUrlPatterns();
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.

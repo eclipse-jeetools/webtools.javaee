@@ -26,9 +26,41 @@ import org.eclipse.emf.ecore.util.BasicFeatureMap;
 import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.eclipse.jst.javaee.core.DataSourceType;
+import org.eclipse.jst.javaee.core.Description;
+import org.eclipse.jst.javaee.core.DisplayName;
+import org.eclipse.jst.javaee.core.EjbLocalRef;
+import org.eclipse.jst.javaee.core.EjbRef;
+import org.eclipse.jst.javaee.core.EmptyType;
+import org.eclipse.jst.javaee.core.EnvEntry;
+import org.eclipse.jst.javaee.core.Icon;
+import org.eclipse.jst.javaee.core.LifecycleCallback;
+import org.eclipse.jst.javaee.core.Listener;
+import org.eclipse.jst.javaee.core.MessageDestination;
+import org.eclipse.jst.javaee.core.MessageDestinationRef;
+import org.eclipse.jst.javaee.core.ParamValue;
+import org.eclipse.jst.javaee.core.PersistenceContextRef;
+import org.eclipse.jst.javaee.core.PersistenceUnitRef;
+import org.eclipse.jst.javaee.core.ResourceEnvRef;
+import org.eclipse.jst.javaee.core.ResourceRef;
+import org.eclipse.jst.javaee.core.SecurityRole;
+import org.eclipse.jst.javaee.core.ServiceRef;
+import org.eclipse.jst.javaee.jsp.JspConfig;
+import org.eclipse.jst.javaee.web.AbsoluteOrderingType;
+import org.eclipse.jst.javaee.web.ErrorPage;
+import org.eclipse.jst.javaee.web.Filter;
+import org.eclipse.jst.javaee.web.FilterMapping;
+import org.eclipse.jst.javaee.web.LocaleEncodingMappingList;
+import org.eclipse.jst.javaee.web.LoginConfig;
+import org.eclipse.jst.javaee.web.MimeMapping;
+import org.eclipse.jst.javaee.web.SecurityConstraint;
+import org.eclipse.jst.javaee.web.Servlet;
+import org.eclipse.jst.javaee.web.ServletMapping;
+import org.eclipse.jst.javaee.web.SessionConfig;
 import org.eclipse.jst.javaee.web.WebApp;
 import org.eclipse.jst.javaee.web.WebAppVersionType;
 
+import org.eclipse.jst.javaee.web.WelcomeFileList;
 import org.eclipse.jst.javaee.web.internal.metadata.WebPackage;
 
 /**
@@ -42,6 +74,7 @@ import org.eclipse.jst.javaee.web.internal.metadata.WebPackage;
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getDescriptions <em>Descriptions</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getDisplayNames <em>Display Names</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getIcons <em>Icons</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getDistributables <em>Distributables</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getContextParams <em>Context Params</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getFilters <em>Filters</em>}</li>
@@ -68,8 +101,11 @@ import org.eclipse.jst.javaee.web.internal.metadata.WebPackage;
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getPersistenceUnitRefs <em>Persistence Unit Refs</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getPostConstructs <em>Post Constructs</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getPreDestroys <em>Pre Destroys</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getDataSource <em>Data Source</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getMessageDestinations <em>Message Destinations</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getLocalEncodingMappingsLists <em>Local Encoding Mappings Lists</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getModuleName <em>Module Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getAbsoluteOrdering <em>Absolute Ordering</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getId <em>Id</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#isMetadataComplete <em>Metadata Complete</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getVersion <em>Version</em>}</li>
@@ -87,7 +123,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * @generated
 	 * @ordered
 	 */
-	protected FeatureMap group = null;
+	protected FeatureMap group;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -136,7 +172,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean metadataCompleteESet = false;
+	protected boolean metadataCompleteESet;
 
 	/**
 	 * The default value of the '{@link #getVersion() <em>Version</em>}' attribute.
@@ -165,7 +201,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean versionESet = false;
+	protected boolean versionESet;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -203,8 +239,8 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDescriptions() {
-		return (getGroup()).list(WebPackage.Literals.WEB_APP__DESCRIPTIONS);
+	public List<Description> getDescriptions() {
+		return getGroup().list(WebPackage.Literals.WEB_APP__DESCRIPTIONS);
 	}
 
 	/**
@@ -212,8 +248,8 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDisplayNames() {
-		return (getGroup()).list(WebPackage.Literals.WEB_APP__DISPLAY_NAMES);
+	public List<DisplayName> getDisplayNames() {
+		return getGroup().list(WebPackage.Literals.WEB_APP__DISPLAY_NAMES);
 	}
 
 	/**
@@ -221,8 +257,8 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getIcons() {
-		return (getGroup()).list(WebPackage.Literals.WEB_APP__ICONS);
+	public List<Icon> getIcons() {
+		return getGroup().list(WebPackage.Literals.WEB_APP__ICONS);
 	}
 
 	/**
@@ -230,8 +266,8 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDistributables() {
-		return (getGroup()).list(WebPackage.Literals.WEB_APP__DISTRIBUTABLES);
+	public List<String> getName() {
+		return getGroup().list(WebPackage.Literals.WEB_APP__NAME);
 	}
 
 	/**
@@ -239,8 +275,8 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getContextParams() {
-		return (getGroup()).list(WebPackage.Literals.WEB_APP__CONTEXT_PARAMS);
+	public List<EmptyType> getDistributables() {
+		return getGroup().list(WebPackage.Literals.WEB_APP__DISTRIBUTABLES);
 	}
 
 	/**
@@ -248,8 +284,8 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getFilters() {
-		return (getGroup()).list(WebPackage.Literals.WEB_APP__FILTERS);
+	public List<ParamValue> getContextParams() {
+		return getGroup().list(WebPackage.Literals.WEB_APP__CONTEXT_PARAMS);
 	}
 
 	/**
@@ -257,8 +293,8 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getFilterMappings() {
-		return (getGroup()).list(WebPackage.Literals.WEB_APP__FILTER_MAPPINGS);
+	public List<Filter> getFilters() {
+		return getGroup().list(WebPackage.Literals.WEB_APP__FILTERS);
 	}
 
 	/**
@@ -266,8 +302,8 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getListeners() {
-		return (getGroup()).list(WebPackage.Literals.WEB_APP__LISTENERS);
+	public List<FilterMapping> getFilterMappings() {
+		return getGroup().list(WebPackage.Literals.WEB_APP__FILTER_MAPPINGS);
 	}
 
 	/**
@@ -275,8 +311,8 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getServlets() {
-		return (getGroup()).list(WebPackage.Literals.WEB_APP__SERVLETS);
+	public List<Listener> getListeners() {
+		return getGroup().list(WebPackage.Literals.WEB_APP__LISTENERS);
 	}
 
 	/**
@@ -284,8 +320,8 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getServletMappings() {
-		return (getGroup()).list(WebPackage.Literals.WEB_APP__SERVLET_MAPPINGS);
+	public List<Servlet> getServlets() {
+		return getGroup().list(WebPackage.Literals.WEB_APP__SERVLETS);
 	}
 
 	/**
@@ -293,8 +329,8 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getSessionConfigs() {
-		return (getGroup()).list(WebPackage.Literals.WEB_APP__SESSION_CONFIGS);
+	public List<ServletMapping> getServletMappings() {
+		return getGroup().list(WebPackage.Literals.WEB_APP__SERVLET_MAPPINGS);
 	}
 
 	/**
@@ -302,8 +338,8 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getMimeMappings() {
-		return (getGroup()).list(WebPackage.Literals.WEB_APP__MIME_MAPPINGS);
+	public List<SessionConfig> getSessionConfigs() {
+		return getGroup().list(WebPackage.Literals.WEB_APP__SESSION_CONFIGS);
 	}
 
 	/**
@@ -311,8 +347,8 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getWelcomeFileLists() {
-		return (getGroup()).list(WebPackage.Literals.WEB_APP__WELCOME_FILE_LISTS);
+	public List<MimeMapping> getMimeMappings() {
+		return getGroup().list(WebPackage.Literals.WEB_APP__MIME_MAPPINGS);
 	}
 
 	/**
@@ -320,8 +356,8 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getErrorPages() {
-		return (getGroup()).list(WebPackage.Literals.WEB_APP__ERROR_PAGES);
+	public List<WelcomeFileList> getWelcomeFileLists() {
+		return getGroup().list(WebPackage.Literals.WEB_APP__WELCOME_FILE_LISTS);
 	}
 
 	/**
@@ -329,8 +365,8 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getJspConfigs() {
-		return (getGroup()).list(WebPackage.Literals.WEB_APP__JSP_CONFIGS);
+	public List<ErrorPage> getErrorPages() {
+		return getGroup().list(WebPackage.Literals.WEB_APP__ERROR_PAGES);
 	}
 
 	/**
@@ -338,8 +374,8 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getSecurityConstraints() {
-		return (getGroup()).list(WebPackage.Literals.WEB_APP__SECURITY_CONSTRAINTS);
+	public List<JspConfig> getJspConfigs() {
+		return getGroup().list(WebPackage.Literals.WEB_APP__JSP_CONFIGS);
 	}
 
 	/**
@@ -347,8 +383,8 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getLoginConfigs() {
-		return (getGroup()).list(WebPackage.Literals.WEB_APP__LOGIN_CONFIGS);
+	public List<SecurityConstraint> getSecurityConstraints() {
+		return getGroup().list(WebPackage.Literals.WEB_APP__SECURITY_CONSTRAINTS);
 	}
 
 	/**
@@ -356,8 +392,8 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getSecurityRoles() {
-		return (getGroup()).list(WebPackage.Literals.WEB_APP__SECURITY_ROLES);
+	public List<LoginConfig> getLoginConfigs() {
+		return getGroup().list(WebPackage.Literals.WEB_APP__LOGIN_CONFIGS);
 	}
 
 	/**
@@ -365,8 +401,8 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getEnvEntries() {
-		return (getGroup()).list(WebPackage.Literals.WEB_APP__ENV_ENTRIES);
+	public List<SecurityRole> getSecurityRoles() {
+		return getGroup().list(WebPackage.Literals.WEB_APP__SECURITY_ROLES);
 	}
 
 	/**
@@ -374,8 +410,8 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getEjbRefs() {
-		return (getGroup()).list(WebPackage.Literals.WEB_APP__EJB_REFS);
+	public List<EnvEntry> getEnvEntries() {
+		return getGroup().list(WebPackage.Literals.WEB_APP__ENV_ENTRIES);
 	}
 
 	/**
@@ -383,8 +419,8 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getEjbLocalRefs() {
-		return (getGroup()).list(WebPackage.Literals.WEB_APP__EJB_LOCAL_REFS);
+	public List<EjbRef> getEjbRefs() {
+		return getGroup().list(WebPackage.Literals.WEB_APP__EJB_REFS);
 	}
 
 	/**
@@ -392,8 +428,8 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getServiceRefs() {
-		return (getGroup()).list(WebPackage.Literals.WEB_APP__SERVICE_REFS);
+	public List<EjbLocalRef> getEjbLocalRefs() {
+		return getGroup().list(WebPackage.Literals.WEB_APP__EJB_LOCAL_REFS);
 	}
 
 	/**
@@ -401,8 +437,8 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getResourceRefs() {
-		return (getGroup()).list(WebPackage.Literals.WEB_APP__RESOURCE_REFS);
+	public List<ServiceRef> getServiceRefs() {
+		return getGroup().list(WebPackage.Literals.WEB_APP__SERVICE_REFS);
 	}
 
 	/**
@@ -410,8 +446,8 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getResourceEnvRefs() {
-		return (getGroup()).list(WebPackage.Literals.WEB_APP__RESOURCE_ENV_REFS);
+	public List<ResourceRef> getResourceRefs() {
+		return getGroup().list(WebPackage.Literals.WEB_APP__RESOURCE_REFS);
 	}
 
 	/**
@@ -419,8 +455,8 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getMessageDestinationRefs() {
-		return (getGroup()).list(WebPackage.Literals.WEB_APP__MESSAGE_DESTINATION_REFS);
+	public List<ResourceEnvRef> getResourceEnvRefs() {
+		return getGroup().list(WebPackage.Literals.WEB_APP__RESOURCE_ENV_REFS);
 	}
 
 	/**
@@ -428,8 +464,8 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getPersistenceContextRefs() {
-		return (getGroup()).list(WebPackage.Literals.WEB_APP__PERSISTENCE_CONTEXT_REFS);
+	public List<MessageDestinationRef> getMessageDestinationRefs() {
+		return getGroup().list(WebPackage.Literals.WEB_APP__MESSAGE_DESTINATION_REFS);
 	}
 
 	/**
@@ -437,8 +473,8 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getPersistenceUnitRefs() {
-		return (getGroup()).list(WebPackage.Literals.WEB_APP__PERSISTENCE_UNIT_REFS);
+	public List<PersistenceContextRef> getPersistenceContextRefs() {
+		return getGroup().list(WebPackage.Literals.WEB_APP__PERSISTENCE_CONTEXT_REFS);
 	}
 
 	/**
@@ -446,8 +482,8 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getPostConstructs() {
-		return (getGroup()).list(WebPackage.Literals.WEB_APP__POST_CONSTRUCTS);
+	public List<PersistenceUnitRef> getPersistenceUnitRefs() {
+		return getGroup().list(WebPackage.Literals.WEB_APP__PERSISTENCE_UNIT_REFS);
 	}
 
 	/**
@@ -455,8 +491,8 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getPreDestroys() {
-		return (getGroup()).list(WebPackage.Literals.WEB_APP__PRE_DESTROYS);
+	public List<LifecycleCallback> getPostConstructs() {
+		return getGroup().list(WebPackage.Literals.WEB_APP__POST_CONSTRUCTS);
 	}
 
 	/**
@@ -464,8 +500,8 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getMessageDestinations() {
-		return (getGroup()).list(WebPackage.Literals.WEB_APP__MESSAGE_DESTINATIONS);
+	public List<LifecycleCallback> getPreDestroys() {
+		return getGroup().list(WebPackage.Literals.WEB_APP__PRE_DESTROYS);
 	}
 
 	/**
@@ -473,8 +509,44 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getLocalEncodingMappingsLists() {
-		return (getGroup()).list(WebPackage.Literals.WEB_APP__LOCAL_ENCODING_MAPPINGS_LISTS);
+	public List<DataSourceType> getDataSource() {
+		return getGroup().list(WebPackage.Literals.WEB_APP__DATA_SOURCE);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<MessageDestination> getMessageDestinations() {
+		return getGroup().list(WebPackage.Literals.WEB_APP__MESSAGE_DESTINATIONS);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<LocaleEncodingMappingList> getLocalEncodingMappingsLists() {
+		return getGroup().list(WebPackage.Literals.WEB_APP__LOCAL_ENCODING_MAPPINGS_LISTS);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<String> getModuleName() {
+		return getGroup().list(WebPackage.Literals.WEB_APP__MODULE_NAME);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<AbsoluteOrderingType> getAbsoluteOrdering() {
+		return getGroup().list(WebPackage.Literals.WEB_APP__ABSOLUTE_ORDERING);
 	}
 
 	/**
@@ -599,69 +671,73 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case WebPackage.WEB_APP__GROUP:
-				return ((InternalEList)getGroup()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getGroup()).basicRemove(otherEnd, msgs);
 			case WebPackage.WEB_APP__DESCRIPTIONS:
-				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDescriptions()).basicRemove(otherEnd, msgs);
 			case WebPackage.WEB_APP__DISPLAY_NAMES:
-				return ((InternalEList)getDisplayNames()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDisplayNames()).basicRemove(otherEnd, msgs);
 			case WebPackage.WEB_APP__ICONS:
-				return ((InternalEList)getIcons()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getIcons()).basicRemove(otherEnd, msgs);
 			case WebPackage.WEB_APP__DISTRIBUTABLES:
-				return ((InternalEList)getDistributables()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDistributables()).basicRemove(otherEnd, msgs);
 			case WebPackage.WEB_APP__CONTEXT_PARAMS:
-				return ((InternalEList)getContextParams()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getContextParams()).basicRemove(otherEnd, msgs);
 			case WebPackage.WEB_APP__FILTERS:
-				return ((InternalEList)getFilters()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getFilters()).basicRemove(otherEnd, msgs);
 			case WebPackage.WEB_APP__FILTER_MAPPINGS:
-				return ((InternalEList)getFilterMappings()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getFilterMappings()).basicRemove(otherEnd, msgs);
 			case WebPackage.WEB_APP__LISTENERS:
-				return ((InternalEList)getListeners()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getListeners()).basicRemove(otherEnd, msgs);
 			case WebPackage.WEB_APP__SERVLETS:
-				return ((InternalEList)getServlets()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getServlets()).basicRemove(otherEnd, msgs);
 			case WebPackage.WEB_APP__SERVLET_MAPPINGS:
-				return ((InternalEList)getServletMappings()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getServletMappings()).basicRemove(otherEnd, msgs);
 			case WebPackage.WEB_APP__SESSION_CONFIGS:
-				return ((InternalEList)getSessionConfigs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getSessionConfigs()).basicRemove(otherEnd, msgs);
 			case WebPackage.WEB_APP__MIME_MAPPINGS:
-				return ((InternalEList)getMimeMappings()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getMimeMappings()).basicRemove(otherEnd, msgs);
 			case WebPackage.WEB_APP__WELCOME_FILE_LISTS:
-				return ((InternalEList)getWelcomeFileLists()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getWelcomeFileLists()).basicRemove(otherEnd, msgs);
 			case WebPackage.WEB_APP__ERROR_PAGES:
-				return ((InternalEList)getErrorPages()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getErrorPages()).basicRemove(otherEnd, msgs);
 			case WebPackage.WEB_APP__JSP_CONFIGS:
-				return ((InternalEList)getJspConfigs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getJspConfigs()).basicRemove(otherEnd, msgs);
 			case WebPackage.WEB_APP__SECURITY_CONSTRAINTS:
-				return ((InternalEList)getSecurityConstraints()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getSecurityConstraints()).basicRemove(otherEnd, msgs);
 			case WebPackage.WEB_APP__LOGIN_CONFIGS:
-				return ((InternalEList)getLoginConfigs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getLoginConfigs()).basicRemove(otherEnd, msgs);
 			case WebPackage.WEB_APP__SECURITY_ROLES:
-				return ((InternalEList)getSecurityRoles()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getSecurityRoles()).basicRemove(otherEnd, msgs);
 			case WebPackage.WEB_APP__ENV_ENTRIES:
-				return ((InternalEList)getEnvEntries()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getEnvEntries()).basicRemove(otherEnd, msgs);
 			case WebPackage.WEB_APP__EJB_REFS:
-				return ((InternalEList)getEjbRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getEjbRefs()).basicRemove(otherEnd, msgs);
 			case WebPackage.WEB_APP__EJB_LOCAL_REFS:
-				return ((InternalEList)getEjbLocalRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getEjbLocalRefs()).basicRemove(otherEnd, msgs);
 			case WebPackage.WEB_APP__SERVICE_REFS:
-				return ((InternalEList)getServiceRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getServiceRefs()).basicRemove(otherEnd, msgs);
 			case WebPackage.WEB_APP__RESOURCE_REFS:
-				return ((InternalEList)getResourceRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getResourceRefs()).basicRemove(otherEnd, msgs);
 			case WebPackage.WEB_APP__RESOURCE_ENV_REFS:
-				return ((InternalEList)getResourceEnvRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getResourceEnvRefs()).basicRemove(otherEnd, msgs);
 			case WebPackage.WEB_APP__MESSAGE_DESTINATION_REFS:
-				return ((InternalEList)getMessageDestinationRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getMessageDestinationRefs()).basicRemove(otherEnd, msgs);
 			case WebPackage.WEB_APP__PERSISTENCE_CONTEXT_REFS:
-				return ((InternalEList)getPersistenceContextRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getPersistenceContextRefs()).basicRemove(otherEnd, msgs);
 			case WebPackage.WEB_APP__PERSISTENCE_UNIT_REFS:
-				return ((InternalEList)getPersistenceUnitRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getPersistenceUnitRefs()).basicRemove(otherEnd, msgs);
 			case WebPackage.WEB_APP__POST_CONSTRUCTS:
-				return ((InternalEList)getPostConstructs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getPostConstructs()).basicRemove(otherEnd, msgs);
 			case WebPackage.WEB_APP__PRE_DESTROYS:
-				return ((InternalEList)getPreDestroys()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getPreDestroys()).basicRemove(otherEnd, msgs);
+			case WebPackage.WEB_APP__DATA_SOURCE:
+				return ((InternalEList<?>)getDataSource()).basicRemove(otherEnd, msgs);
 			case WebPackage.WEB_APP__MESSAGE_DESTINATIONS:
-				return ((InternalEList)getMessageDestinations()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getMessageDestinations()).basicRemove(otherEnd, msgs);
 			case WebPackage.WEB_APP__LOCAL_ENCODING_MAPPINGS_LISTS:
-				return ((InternalEList)getLocalEncodingMappingsLists()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getLocalEncodingMappingsLists()).basicRemove(otherEnd, msgs);
+			case WebPackage.WEB_APP__ABSOLUTE_ORDERING:
+				return ((InternalEList<?>)getAbsoluteOrdering()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -683,6 +759,8 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 				return getDisplayNames();
 			case WebPackage.WEB_APP__ICONS:
 				return getIcons();
+			case WebPackage.WEB_APP__NAME:
+				return getName();
 			case WebPackage.WEB_APP__DISTRIBUTABLES:
 				return getDistributables();
 			case WebPackage.WEB_APP__CONTEXT_PARAMS:
@@ -735,14 +813,20 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 				return getPostConstructs();
 			case WebPackage.WEB_APP__PRE_DESTROYS:
 				return getPreDestroys();
+			case WebPackage.WEB_APP__DATA_SOURCE:
+				return getDataSource();
 			case WebPackage.WEB_APP__MESSAGE_DESTINATIONS:
 				return getMessageDestinations();
 			case WebPackage.WEB_APP__LOCAL_ENCODING_MAPPINGS_LISTS:
 				return getLocalEncodingMappingsLists();
+			case WebPackage.WEB_APP__MODULE_NAME:
+				return getModuleName();
+			case WebPackage.WEB_APP__ABSOLUTE_ORDERING:
+				return getAbsoluteOrdering();
 			case WebPackage.WEB_APP__ID:
 				return getId();
 			case WebPackage.WEB_APP__METADATA_COMPLETE:
-				return isMetadataComplete() ? Boolean.TRUE : Boolean.FALSE;
+				return isMetadataComplete();
 			case WebPackage.WEB_APP__VERSION:
 				return getVersion();
 		}
@@ -754,6 +838,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -762,133 +847,149 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 				return;
 			case WebPackage.WEB_APP__DESCRIPTIONS:
 				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
+				getDescriptions().addAll((Collection<? extends Description>)newValue);
 				return;
 			case WebPackage.WEB_APP__DISPLAY_NAMES:
 				getDisplayNames().clear();
-				getDisplayNames().addAll((Collection)newValue);
+				getDisplayNames().addAll((Collection<? extends DisplayName>)newValue);
 				return;
 			case WebPackage.WEB_APP__ICONS:
 				getIcons().clear();
-				getIcons().addAll((Collection)newValue);
+				getIcons().addAll((Collection<? extends Icon>)newValue);
+				return;
+			case WebPackage.WEB_APP__NAME:
+				getName().clear();
+				getName().addAll((Collection<? extends String>)newValue);
 				return;
 			case WebPackage.WEB_APP__DISTRIBUTABLES:
 				getDistributables().clear();
-				getDistributables().addAll((Collection)newValue);
+				getDistributables().addAll((Collection<? extends EmptyType>)newValue);
 				return;
 			case WebPackage.WEB_APP__CONTEXT_PARAMS:
 				getContextParams().clear();
-				getContextParams().addAll((Collection)newValue);
+				getContextParams().addAll((Collection<? extends ParamValue>)newValue);
 				return;
 			case WebPackage.WEB_APP__FILTERS:
 				getFilters().clear();
-				getFilters().addAll((Collection)newValue);
+				getFilters().addAll((Collection<? extends Filter>)newValue);
 				return;
 			case WebPackage.WEB_APP__FILTER_MAPPINGS:
 				getFilterMappings().clear();
-				getFilterMappings().addAll((Collection)newValue);
+				getFilterMappings().addAll((Collection<? extends FilterMapping>)newValue);
 				return;
 			case WebPackage.WEB_APP__LISTENERS:
 				getListeners().clear();
-				getListeners().addAll((Collection)newValue);
+				getListeners().addAll((Collection<? extends Listener>)newValue);
 				return;
 			case WebPackage.WEB_APP__SERVLETS:
 				getServlets().clear();
-				getServlets().addAll((Collection)newValue);
+				getServlets().addAll((Collection<? extends Servlet>)newValue);
 				return;
 			case WebPackage.WEB_APP__SERVLET_MAPPINGS:
 				getServletMappings().clear();
-				getServletMappings().addAll((Collection)newValue);
+				getServletMappings().addAll((Collection<? extends ServletMapping>)newValue);
 				return;
 			case WebPackage.WEB_APP__SESSION_CONFIGS:
 				getSessionConfigs().clear();
-				getSessionConfigs().addAll((Collection)newValue);
+				getSessionConfigs().addAll((Collection<? extends SessionConfig>)newValue);
 				return;
 			case WebPackage.WEB_APP__MIME_MAPPINGS:
 				getMimeMappings().clear();
-				getMimeMappings().addAll((Collection)newValue);
+				getMimeMappings().addAll((Collection<? extends MimeMapping>)newValue);
 				return;
 			case WebPackage.WEB_APP__WELCOME_FILE_LISTS:
 				getWelcomeFileLists().clear();
-				getWelcomeFileLists().addAll((Collection)newValue);
+				getWelcomeFileLists().addAll((Collection<? extends WelcomeFileList>)newValue);
 				return;
 			case WebPackage.WEB_APP__ERROR_PAGES:
 				getErrorPages().clear();
-				getErrorPages().addAll((Collection)newValue);
+				getErrorPages().addAll((Collection<? extends ErrorPage>)newValue);
 				return;
 			case WebPackage.WEB_APP__JSP_CONFIGS:
 				getJspConfigs().clear();
-				getJspConfigs().addAll((Collection)newValue);
+				getJspConfigs().addAll((Collection<? extends JspConfig>)newValue);
 				return;
 			case WebPackage.WEB_APP__SECURITY_CONSTRAINTS:
 				getSecurityConstraints().clear();
-				getSecurityConstraints().addAll((Collection)newValue);
+				getSecurityConstraints().addAll((Collection<? extends SecurityConstraint>)newValue);
 				return;
 			case WebPackage.WEB_APP__LOGIN_CONFIGS:
 				getLoginConfigs().clear();
-				getLoginConfigs().addAll((Collection)newValue);
+				getLoginConfigs().addAll((Collection<? extends LoginConfig>)newValue);
 				return;
 			case WebPackage.WEB_APP__SECURITY_ROLES:
 				getSecurityRoles().clear();
-				getSecurityRoles().addAll((Collection)newValue);
+				getSecurityRoles().addAll((Collection<? extends SecurityRole>)newValue);
 				return;
 			case WebPackage.WEB_APP__ENV_ENTRIES:
 				getEnvEntries().clear();
-				getEnvEntries().addAll((Collection)newValue);
+				getEnvEntries().addAll((Collection<? extends EnvEntry>)newValue);
 				return;
 			case WebPackage.WEB_APP__EJB_REFS:
 				getEjbRefs().clear();
-				getEjbRefs().addAll((Collection)newValue);
+				getEjbRefs().addAll((Collection<? extends EjbRef>)newValue);
 				return;
 			case WebPackage.WEB_APP__EJB_LOCAL_REFS:
 				getEjbLocalRefs().clear();
-				getEjbLocalRefs().addAll((Collection)newValue);
+				getEjbLocalRefs().addAll((Collection<? extends EjbLocalRef>)newValue);
 				return;
 			case WebPackage.WEB_APP__SERVICE_REFS:
 				getServiceRefs().clear();
-				getServiceRefs().addAll((Collection)newValue);
+				getServiceRefs().addAll((Collection<? extends ServiceRef>)newValue);
 				return;
 			case WebPackage.WEB_APP__RESOURCE_REFS:
 				getResourceRefs().clear();
-				getResourceRefs().addAll((Collection)newValue);
+				getResourceRefs().addAll((Collection<? extends ResourceRef>)newValue);
 				return;
 			case WebPackage.WEB_APP__RESOURCE_ENV_REFS:
 				getResourceEnvRefs().clear();
-				getResourceEnvRefs().addAll((Collection)newValue);
+				getResourceEnvRefs().addAll((Collection<? extends ResourceEnvRef>)newValue);
 				return;
 			case WebPackage.WEB_APP__MESSAGE_DESTINATION_REFS:
 				getMessageDestinationRefs().clear();
-				getMessageDestinationRefs().addAll((Collection)newValue);
+				getMessageDestinationRefs().addAll((Collection<? extends MessageDestinationRef>)newValue);
 				return;
 			case WebPackage.WEB_APP__PERSISTENCE_CONTEXT_REFS:
 				getPersistenceContextRefs().clear();
-				getPersistenceContextRefs().addAll((Collection)newValue);
+				getPersistenceContextRefs().addAll((Collection<? extends PersistenceContextRef>)newValue);
 				return;
 			case WebPackage.WEB_APP__PERSISTENCE_UNIT_REFS:
 				getPersistenceUnitRefs().clear();
-				getPersistenceUnitRefs().addAll((Collection)newValue);
+				getPersistenceUnitRefs().addAll((Collection<? extends PersistenceUnitRef>)newValue);
 				return;
 			case WebPackage.WEB_APP__POST_CONSTRUCTS:
 				getPostConstructs().clear();
-				getPostConstructs().addAll((Collection)newValue);
+				getPostConstructs().addAll((Collection<? extends LifecycleCallback>)newValue);
 				return;
 			case WebPackage.WEB_APP__PRE_DESTROYS:
 				getPreDestroys().clear();
-				getPreDestroys().addAll((Collection)newValue);
+				getPreDestroys().addAll((Collection<? extends LifecycleCallback>)newValue);
+				return;
+			case WebPackage.WEB_APP__DATA_SOURCE:
+				getDataSource().clear();
+				getDataSource().addAll((Collection<? extends DataSourceType>)newValue);
 				return;
 			case WebPackage.WEB_APP__MESSAGE_DESTINATIONS:
 				getMessageDestinations().clear();
-				getMessageDestinations().addAll((Collection)newValue);
+				getMessageDestinations().addAll((Collection<? extends MessageDestination>)newValue);
 				return;
 			case WebPackage.WEB_APP__LOCAL_ENCODING_MAPPINGS_LISTS:
 				getLocalEncodingMappingsLists().clear();
-				getLocalEncodingMappingsLists().addAll((Collection)newValue);
+				getLocalEncodingMappingsLists().addAll((Collection<? extends LocaleEncodingMappingList>)newValue);
+				return;
+			case WebPackage.WEB_APP__MODULE_NAME:
+				getModuleName().clear();
+				getModuleName().addAll((Collection<? extends String>)newValue);
+				return;
+			case WebPackage.WEB_APP__ABSOLUTE_ORDERING:
+				getAbsoluteOrdering().clear();
+				getAbsoluteOrdering().addAll((Collection<? extends AbsoluteOrderingType>)newValue);
 				return;
 			case WebPackage.WEB_APP__ID:
 				setId((String)newValue);
 				return;
 			case WebPackage.WEB_APP__METADATA_COMPLETE:
-				setMetadataComplete(((Boolean)newValue).booleanValue());
+				setMetadataComplete((Boolean)newValue);
 				return;
 			case WebPackage.WEB_APP__VERSION:
 				setVersion((WebAppVersionType)newValue);
@@ -917,6 +1018,9 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 			case WebPackage.WEB_APP__ICONS:
 				getIcons().clear();
 				return;
+			case WebPackage.WEB_APP__NAME:
+				getName().clear();
+				return;
 			case WebPackage.WEB_APP__DISTRIBUTABLES:
 				getDistributables().clear();
 				return;
@@ -995,11 +1099,20 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 			case WebPackage.WEB_APP__PRE_DESTROYS:
 				getPreDestroys().clear();
 				return;
+			case WebPackage.WEB_APP__DATA_SOURCE:
+				getDataSource().clear();
+				return;
 			case WebPackage.WEB_APP__MESSAGE_DESTINATIONS:
 				getMessageDestinations().clear();
 				return;
 			case WebPackage.WEB_APP__LOCAL_ENCODING_MAPPINGS_LISTS:
 				getLocalEncodingMappingsLists().clear();
+				return;
+			case WebPackage.WEB_APP__MODULE_NAME:
+				getModuleName().clear();
+				return;
+			case WebPackage.WEB_APP__ABSOLUTE_ORDERING:
+				getAbsoluteOrdering().clear();
 				return;
 			case WebPackage.WEB_APP__ID:
 				setId(ID_EDEFAULT);
@@ -1030,6 +1143,8 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 				return !getDisplayNames().isEmpty();
 			case WebPackage.WEB_APP__ICONS:
 				return !getIcons().isEmpty();
+			case WebPackage.WEB_APP__NAME:
+				return !getName().isEmpty();
 			case WebPackage.WEB_APP__DISTRIBUTABLES:
 				return !getDistributables().isEmpty();
 			case WebPackage.WEB_APP__CONTEXT_PARAMS:
@@ -1082,10 +1197,16 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 				return !getPostConstructs().isEmpty();
 			case WebPackage.WEB_APP__PRE_DESTROYS:
 				return !getPreDestroys().isEmpty();
+			case WebPackage.WEB_APP__DATA_SOURCE:
+				return !getDataSource().isEmpty();
 			case WebPackage.WEB_APP__MESSAGE_DESTINATIONS:
 				return !getMessageDestinations().isEmpty();
 			case WebPackage.WEB_APP__LOCAL_ENCODING_MAPPINGS_LISTS:
 				return !getLocalEncodingMappingsLists().isEmpty();
+			case WebPackage.WEB_APP__MODULE_NAME:
+				return !getModuleName().isEmpty();
+			case WebPackage.WEB_APP__ABSOLUTE_ORDERING:
+				return !getAbsoluteOrdering().isEmpty();
 			case WebPackage.WEB_APP__ID:
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 			case WebPackage.WEB_APP__METADATA_COMPLETE:

@@ -41,6 +41,8 @@ import org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl;
 
 import org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage;
 
+import org.eclipse.jst.javaee.jca.internal.impl.JcaPackageImpl;
+import org.eclipse.jst.javaee.jca.internal.metadata.JcaPackage;
 import org.eclipse.jst.javaee.jsp.internal.impl.JspPackageImpl;
 
 import org.eclipse.jst.javaee.jsp.internal.metadata.JspPackage;
@@ -48,6 +50,10 @@ import org.eclipse.jst.javaee.jsp.internal.metadata.JspPackage;
 import org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl;
 
 import org.eclipse.jst.javaee.web.internal.metadata.WebPackage;
+import org.eclipse.jst.javaee.webapp.internal.impl.WebappPackageImpl;
+import org.eclipse.jst.javaee.webapp.internal.metadata.WebappPackage;
+import org.eclipse.jst.javaee.webfragment.internal.impl.WebfragmentPackageImpl;
+import org.eclipse.jst.javaee.webfragment.internal.metadata.WebfragmentPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -111,20 +117,10 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	private static boolean isInited = false;
 
 	/**
-	 * Creates, registers, and initializes the <b>Package</b> for this
-	 * model, and for any others upon which it depends.  Simple
-	 * dependencies are satisfied by calling this method on all
-	 * dependent packages before doing anything else.  This method drives
-	 * initialization for interdependent packages directly, in parallel
-	 * with this package, itself.
-	 * <p>Of this package and its interdependencies, all packages which
-	 * have not yet been registered by their URI values are first created
-	 * and registered.  The packages are then initialized in two steps:
-	 * meta-model objects for all of the packages are created before any
-	 * are initialized, since one package's meta-model objects may refer to
-	 * those of another.
-	 * <p>Invocation of this method will not affect any packages that have
-	 * already been initialized.
+	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
+	 * 
+	 * <p>This method is used to initialize {@link ApplicationPackage#eINSTANCE} when that field is accessed.
+	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #eNS_URI
@@ -136,7 +132,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 		if (isInited) return (ApplicationPackage)EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI);
 
 		// Obtain or create and register package
-		ApplicationPackageImpl theApplicationPackage = (ApplicationPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(eNS_URI) instanceof ApplicationPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(eNS_URI) : new ApplicationPackageImpl());
+		ApplicationPackageImpl theApplicationPackage = (ApplicationPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof ApplicationPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new ApplicationPackageImpl());
 
 		isInited = true;
 
@@ -145,31 +141,43 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 		XMLTypePackage.eINSTANCE.eClass();
 
 		// Obtain or create and register interdependencies
-		WebPackageImpl theWebPackage = (WebPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WebPackage.eNS_URI) instanceof WebPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WebPackage.eNS_URI) : WebPackage.eINSTANCE);
 		JavaeePackageImpl theJavaeePackage = (JavaeePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(JavaeePackage.eNS_URI) instanceof JavaeePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(JavaeePackage.eNS_URI) : JavaeePackage.eINSTANCE);
-		EjbPackageImpl theEjbPackage = (EjbPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(EjbPackage.eNS_URI) instanceof EjbPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(EjbPackage.eNS_URI) : EjbPackage.eINSTANCE);
 		ApplicationclientPackageImpl theApplicationclientPackage = (ApplicationclientPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ApplicationclientPackage.eNS_URI) instanceof ApplicationclientPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ApplicationclientPackage.eNS_URI) : ApplicationclientPackage.eINSTANCE);
+		JcaPackageImpl theJcaPackage = (JcaPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(JcaPackage.eNS_URI) instanceof JcaPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(JcaPackage.eNS_URI) : JcaPackage.eINSTANCE);
+		EjbPackageImpl theEjbPackage = (EjbPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(EjbPackage.eNS_URI) instanceof EjbPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(EjbPackage.eNS_URI) : EjbPackage.eINSTANCE);
 		JspPackageImpl theJspPackage = (JspPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(JspPackage.eNS_URI) instanceof JspPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(JspPackage.eNS_URI) : JspPackage.eINSTANCE);
+		WebPackageImpl theWebPackage = (WebPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WebPackage.eNS_URI) instanceof WebPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WebPackage.eNS_URI) : WebPackage.eINSTANCE);
+		WebappPackageImpl theWebappPackage = (WebappPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WebappPackage.eNS_URI) instanceof WebappPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WebappPackage.eNS_URI) : WebappPackage.eINSTANCE);
+		WebfragmentPackageImpl theWebfragmentPackage = (WebfragmentPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WebfragmentPackage.eNS_URI) instanceof WebfragmentPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WebfragmentPackage.eNS_URI) : WebfragmentPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theApplicationPackage.createPackageContents();
-		theWebPackage.createPackageContents();
 		theJavaeePackage.createPackageContents();
-		theEjbPackage.createPackageContents();
 		theApplicationclientPackage.createPackageContents();
+		theJcaPackage.createPackageContents();
+		theEjbPackage.createPackageContents();
 		theJspPackage.createPackageContents();
+		theWebPackage.createPackageContents();
+		theWebappPackage.createPackageContents();
+		theWebfragmentPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theApplicationPackage.initializePackageContents();
-		theWebPackage.initializePackageContents();
 		theJavaeePackage.initializePackageContents();
-		theEjbPackage.initializePackageContents();
 		theApplicationclientPackage.initializePackageContents();
+		theJcaPackage.initializePackageContents();
+		theEjbPackage.initializePackageContents();
 		theJspPackage.initializePackageContents();
+		theWebPackage.initializePackageContents();
+		theWebappPackage.initializePackageContents();
+		theWebfragmentPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theApplicationPackage.freeze();
 
+  
+		// Update the registry and return the package
+		EPackage.Registry.INSTANCE.put(ApplicationPackage.eNS_URI, theApplicationPackage);
 		return theApplicationPackage;
 	}
 
@@ -187,8 +195,8 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getApplication_Descriptions() {
-		return (EReference)applicationEClass.getEStructuralFeatures().get(0);
+	public EAttribute getApplication_ApplicationName() {
+		return (EAttribute)applicationEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -196,7 +204,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getApplication_DisplayNames() {
+	public EReference getApplication_Descriptions() {
 		return (EReference)applicationEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -205,7 +213,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getApplication_Icons() {
+	public EReference getApplication_DisplayNames() {
 		return (EReference)applicationEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -214,7 +222,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getApplication_Modules() {
+	public EReference getApplication_Icons() {
 		return (EReference)applicationEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -223,8 +231,26 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getApplication_InitializeInOrder() {
+		return (EAttribute)applicationEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getApplication_Modules() {
+		return (EReference)applicationEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getApplication_SecurityRoles() {
-		return (EReference)applicationEClass.getEStructuralFeatures().get(4);
+		return (EReference)applicationEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -233,7 +259,106 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * @generated
 	 */
 	public EAttribute getApplication_LibraryDirectory() {
-		return (EAttribute)applicationEClass.getEStructuralFeatures().get(5);
+		return (EAttribute)applicationEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getApplication_EnvEntry() {
+		return (EReference)applicationEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getApplication_EjbRef() {
+		return (EReference)applicationEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getApplication_EjbLocalRef() {
+		return (EReference)applicationEClass.getEStructuralFeatures().get(10);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getApplication_ServiceRefs() {
+		return (EReference)applicationEClass.getEStructuralFeatures().get(11);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getApplication_ResourceRef() {
+		return (EReference)applicationEClass.getEStructuralFeatures().get(12);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getApplication_ResourceEnvRef() {
+		return (EReference)applicationEClass.getEStructuralFeatures().get(13);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getApplication_MessageDestinationRef() {
+		return (EReference)applicationEClass.getEStructuralFeatures().get(14);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getApplication_PersistenceContextRef() {
+		return (EReference)applicationEClass.getEStructuralFeatures().get(15);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getApplication_PersistenceUnitRef() {
+		return (EReference)applicationEClass.getEStructuralFeatures().get(16);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getApplication_MessageDestination() {
+		return (EReference)applicationEClass.getEStructuralFeatures().get(17);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getApplication_DataSource() {
+		return (EReference)applicationEClass.getEStructuralFeatures().get(18);
 	}
 
 	/**
@@ -242,7 +367,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * @generated
 	 */
 	public EAttribute getApplication_Id() {
-		return (EAttribute)applicationEClass.getEStructuralFeatures().get(6);
+		return (EAttribute)applicationEClass.getEStructuralFeatures().get(19);
 	}
 
 	/**
@@ -251,7 +376,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 	 * @generated
 	 */
 	public EAttribute getApplication_Version() {
-		return (EAttribute)applicationEClass.getEStructuralFeatures().get(7);
+		return (EAttribute)applicationEClass.getEStructuralFeatures().get(20);
 	}
 
 	/**
@@ -427,12 +552,25 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 
 		// Create classes and their features
 		applicationEClass = createEClass(APPLICATION);
+		createEAttribute(applicationEClass, APPLICATION__APPLICATION_NAME);
 		createEReference(applicationEClass, APPLICATION__DESCRIPTIONS);
 		createEReference(applicationEClass, APPLICATION__DISPLAY_NAMES);
 		createEReference(applicationEClass, APPLICATION__ICONS);
+		createEAttribute(applicationEClass, APPLICATION__INITIALIZE_IN_ORDER);
 		createEReference(applicationEClass, APPLICATION__MODULES);
 		createEReference(applicationEClass, APPLICATION__SECURITY_ROLES);
 		createEAttribute(applicationEClass, APPLICATION__LIBRARY_DIRECTORY);
+		createEReference(applicationEClass, APPLICATION__ENV_ENTRY);
+		createEReference(applicationEClass, APPLICATION__EJB_REF);
+		createEReference(applicationEClass, APPLICATION__EJB_LOCAL_REF);
+		createEReference(applicationEClass, APPLICATION__SERVICE_REFS);
+		createEReference(applicationEClass, APPLICATION__RESOURCE_REF);
+		createEReference(applicationEClass, APPLICATION__RESOURCE_ENV_REF);
+		createEReference(applicationEClass, APPLICATION__MESSAGE_DESTINATION_REF);
+		createEReference(applicationEClass, APPLICATION__PERSISTENCE_CONTEXT_REF);
+		createEReference(applicationEClass, APPLICATION__PERSISTENCE_UNIT_REF);
+		createEReference(applicationEClass, APPLICATION__MESSAGE_DESTINATION);
+		createEReference(applicationEClass, APPLICATION__DATA_SOURCE);
 		createEAttribute(applicationEClass, APPLICATION__ID);
 		createEAttribute(applicationEClass, APPLICATION__VERSION);
 
@@ -480,21 +618,38 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		JavaeePackage theJavaeePackage = (JavaeePackage)EPackage.Registry.INSTANCE.getEPackage(JavaeePackage.eNS_URI);
 		XMLTypePackage theXMLTypePackage = (XMLTypePackage)EPackage.Registry.INSTANCE.getEPackage(XMLTypePackage.eNS_URI);
+		JavaeePackage theJavaeePackage = (JavaeePackage)EPackage.Registry.INSTANCE.getEPackage(JavaeePackage.eNS_URI);
+
+		// Create type parameters
+
+		// Set bounds for type parameters
 
 		// Add supertypes to classes
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(applicationEClass, Application.class, "Application", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getApplication_ApplicationName(), theXMLTypePackage.getToken(), "applicationName", null, 0, 1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getApplication_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getApplication_DisplayNames(), theJavaeePackage.getDisplayName(), null, "displayNames", null, 0, -1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getApplication_Icons(), theJavaeePackage.getIcon(), null, "icons", null, 0, -1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getApplication_InitializeInOrder(), theJavaeePackage.getGenericBooleanType(), "initializeInOrder", null, 0, 1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getApplication_Modules(), this.getModule(), null, "modules", null, 1, -1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getApplication_SecurityRoles(), theJavaeePackage.getSecurityRole(), null, "securityRoles", null, 0, -1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getApplication_LibraryDirectory(), theJavaeePackage.getPathType(), "libraryDirectory", null, 0, 1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getApplication_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getApplication_Version(), theJavaeePackage.getDeweyVersionType(), "version", "5", 1, 1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$ //$NON-NLS-2$
+		initEAttribute(getApplication_LibraryDirectory(), theJavaeePackage.getPathType(), "libraryDirectory", null, 0, 1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getApplication_EnvEntry(), theJavaeePackage.getEnvEntry(), null, "envEntry", null, 0, -1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getApplication_EjbRef(), theJavaeePackage.getEjbRef(), null, "ejbRef", null, 0, -1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getApplication_EjbLocalRef(), theJavaeePackage.getEjbLocalRef(), null, "ejbLocalRef", null, 0, -1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getApplication_ServiceRefs(), theJavaeePackage.getServiceRef(), null, "serviceRefs", null, 0, -1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getApplication_ResourceRef(), theJavaeePackage.getResourceRef(), null, "resourceRef", null, 0, -1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getApplication_ResourceEnvRef(), theJavaeePackage.getResourceEnvRef(), null, "resourceEnvRef", null, 0, -1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getApplication_MessageDestinationRef(), theJavaeePackage.getMessageDestinationRef(), null, "messageDestinationRef", null, 0, -1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getApplication_PersistenceContextRef(), theJavaeePackage.getPersistenceContextRef(), null, "persistenceContextRef", null, 0, -1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getApplication_PersistenceUnitRef(), theJavaeePackage.getPersistenceUnitRef(), null, "persistenceUnitRef", null, 0, -1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getApplication_MessageDestination(), theJavaeePackage.getMessageDestination(), null, "messageDestination", null, 0, -1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getApplication_DataSource(), theJavaeePackage.getDataSourceType(), null, "dataSource", null, 0, -1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getApplication_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getApplication_Version(), theJavaeePackage.getDeweyVersionType(), "version", "6", 1, 1, Application.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$ //$NON-NLS-2$
 
 		initEClass(applicationDeploymentDescriptorEClass, ApplicationDeploymentDescriptor.class, "ApplicationDeploymentDescriptor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEAttribute(getApplicationDeploymentDescriptor_Mixed(), ecorePackage.getEFeatureMapEntry(), "mixed", null, 0, -1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
@@ -503,17 +658,17 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 		initEReference(getApplicationDeploymentDescriptor_Application(), this.getApplication(), null, "application", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(moduleEClass, Module.class, "Module", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getModule_Connector(), theJavaeePackage.getPathType(), "connector", null, 0, 1, Module.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getModule_Ejb(), theJavaeePackage.getPathType(), "ejb", null, 0, 1, Module.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getModule_Java(), theJavaeePackage.getPathType(), "java", null, 0, 1, Module.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getModule_Connector(), theJavaeePackage.getPathType(), "connector", null, 0, 1, Module.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getModule_Ejb(), theJavaeePackage.getPathType(), "ejb", null, 0, 1, Module.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getModule_Java(), theJavaeePackage.getPathType(), "java", null, 0, 1, Module.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getModule_Web(), this.getWeb(), null, "web", null, 0, 1, Module.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getModule_AltDd(), theJavaeePackage.getPathType(), "altDd", null, 0, 1, Module.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getModule_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, Module.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getModule_AltDd(), theJavaeePackage.getPathType(), "altDd", null, 0, 1, Module.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getModule_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, Module.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(webEClass, Web.class, "Web", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getWeb_WebUri(), theJavaeePackage.getPathType(), "webUri", null, 1, 1, Web.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getWeb_ContextRoot(), theXMLTypePackage.getToken(), "contextRoot", null, 1, 1, Web.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getWeb_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, Web.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getWeb_WebUri(), theJavaeePackage.getPathType(), "webUri", null, 1, 1, Web.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getWeb_ContextRoot(), theXMLTypePackage.getToken(), "contextRoot", null, 1, 1, Web.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getWeb_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, Web.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		// Create resource
 		createResource(eNS_URI);
@@ -537,6 +692,14 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 		   new String[] {
 			 "name", "applicationType", //$NON-NLS-1$ //$NON-NLS-2$
 			 "kind", "elementOnly" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getApplication_ApplicationName(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "application-name", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getApplication_Descriptions(), 
@@ -563,13 +726,21 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });			
 		addAnnotation
+		  (getApplication_InitializeInOrder(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "initialize-in-order", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
 		  (getApplication_Modules(), 
 		   source, 
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "module", //$NON-NLS-1$ //$NON-NLS-2$
 			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
-		   });		
+		   });			
 		addAnnotation
 		  (getApplication_SecurityRoles(), 
 		   source, 
@@ -584,6 +755,94 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "library-directory", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getApplication_EnvEntry(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "env-entry", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getApplication_EjbRef(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "ejb-ref", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getApplication_EjbLocalRef(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "ejb-local-ref", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getApplication_ServiceRefs(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "service-ref", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getApplication_ResourceRef(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "resource-ref", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getApplication_ResourceEnvRef(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "resource-env-ref", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getApplication_MessageDestinationRef(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "message-destination-ref", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getApplication_PersistenceContextRef(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "persistence-context-ref", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getApplication_PersistenceUnitRef(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "persistence-unit-ref", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getApplication_MessageDestination(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "message-destination", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getApplication_DataSource(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "data-source", //$NON-NLS-1$ //$NON-NLS-2$
 			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation

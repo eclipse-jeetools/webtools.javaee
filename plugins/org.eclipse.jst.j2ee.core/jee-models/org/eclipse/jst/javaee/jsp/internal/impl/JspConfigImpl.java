@@ -57,7 +57,7 @@ public class JspConfigImpl extends EObjectImpl implements JspConfig {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList tagLibs = null;
+	protected EList<TagLib> tagLibs;
 
 	/**
 	 * The cached value of the '{@link #getJspPropertyGroups() <em>Jsp Property Groups</em>}' containment reference list.
@@ -67,7 +67,7 @@ public class JspConfigImpl extends EObjectImpl implements JspConfig {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList jspPropertyGroups = null;
+	protected EList<JspPropertyGroup> jspPropertyGroups;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -113,9 +113,9 @@ public class JspConfigImpl extends EObjectImpl implements JspConfig {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getTagLibs() {
+	public List<TagLib> getTagLibs() {
 		if (tagLibs == null) {
-			tagLibs = new EObjectContainmentEList(TagLib.class, this, JspPackage.JSP_CONFIG__TAG_LIBS);
+			tagLibs = new EObjectContainmentEList<TagLib>(TagLib.class, this, JspPackage.JSP_CONFIG__TAG_LIBS);
 		}
 		return tagLibs;
 	}
@@ -125,9 +125,9 @@ public class JspConfigImpl extends EObjectImpl implements JspConfig {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getJspPropertyGroups() {
+	public List<JspPropertyGroup> getJspPropertyGroups() {
 		if (jspPropertyGroups == null) {
-			jspPropertyGroups = new EObjectContainmentEList(JspPropertyGroup.class, this, JspPackage.JSP_CONFIG__JSP_PROPERTY_GROUPS);
+			jspPropertyGroups = new EObjectContainmentEList<JspPropertyGroup>(JspPropertyGroup.class, this, JspPackage.JSP_CONFIG__JSP_PROPERTY_GROUPS);
 		}
 		return jspPropertyGroups;
 	}
@@ -162,9 +162,9 @@ public class JspConfigImpl extends EObjectImpl implements JspConfig {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case JspPackage.JSP_CONFIG__TAG_LIBS:
-				return ((InternalEList)getTagLibs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getTagLibs()).basicRemove(otherEnd, msgs);
 			case JspPackage.JSP_CONFIG__JSP_PROPERTY_GROUPS:
-				return ((InternalEList)getJspPropertyGroups()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getJspPropertyGroups()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -192,16 +192,17 @@ public class JspConfigImpl extends EObjectImpl implements JspConfig {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case JspPackage.JSP_CONFIG__TAG_LIBS:
 				getTagLibs().clear();
-				getTagLibs().addAll((Collection)newValue);
+				getTagLibs().addAll((Collection<? extends TagLib>)newValue);
 				return;
 			case JspPackage.JSP_CONFIG__JSP_PROPERTY_GROUPS:
 				getJspPropertyGroups().clear();
-				getJspPropertyGroups().addAll((Collection)newValue);
+				getJspPropertyGroups().addAll((Collection<? extends JspPropertyGroup>)newValue);
 				return;
 			case JspPackage.JSP_CONFIG__ID:
 				setId((String)newValue);

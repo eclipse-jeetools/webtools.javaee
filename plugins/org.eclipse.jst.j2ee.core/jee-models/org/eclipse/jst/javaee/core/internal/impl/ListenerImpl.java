@@ -60,7 +60,7 @@ public class ListenerImpl extends EObjectImpl implements Listener {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList descriptions = null;
+	protected EList<Description> descriptions;
 
 	/**
 	 * The cached value of the '{@link #getDisplayNames() <em>Display Names</em>}' containment reference list.
@@ -70,7 +70,7 @@ public class ListenerImpl extends EObjectImpl implements Listener {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList displayNames = null;
+	protected EList<DisplayName> displayNames;
 
 	/**
 	 * The cached value of the '{@link #getIcons() <em>Icons</em>}' containment reference list.
@@ -80,7 +80,7 @@ public class ListenerImpl extends EObjectImpl implements Listener {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList icons = null;
+	protected EList<Icon> icons;
 
 	/**
 	 * The default value of the '{@link #getListenerClass() <em>Listener Class</em>}' attribute.
@@ -146,9 +146,9 @@ public class ListenerImpl extends EObjectImpl implements Listener {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDescriptions() {
+	public List<Description> getDescriptions() {
 		if (descriptions == null) {
-			descriptions = new EObjectContainmentEList(Description.class, this, JavaeePackage.LISTENER__DESCRIPTIONS);
+			descriptions = new EObjectContainmentEList<Description>(Description.class, this, JavaeePackage.LISTENER__DESCRIPTIONS);
 		}
 		return descriptions;
 	}
@@ -158,9 +158,9 @@ public class ListenerImpl extends EObjectImpl implements Listener {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDisplayNames() {
+	public List<DisplayName> getDisplayNames() {
 		if (displayNames == null) {
-			displayNames = new EObjectContainmentEList(DisplayName.class, this, JavaeePackage.LISTENER__DISPLAY_NAMES);
+			displayNames = new EObjectContainmentEList<DisplayName>(DisplayName.class, this, JavaeePackage.LISTENER__DISPLAY_NAMES);
 		}
 		return displayNames;
 	}
@@ -170,9 +170,9 @@ public class ListenerImpl extends EObjectImpl implements Listener {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getIcons() {
+	public List<Icon> getIcons() {
 		if (icons == null) {
-			icons = new EObjectContainmentEList(Icon.class, this, JavaeePackage.LISTENER__ICONS);
+			icons = new EObjectContainmentEList<Icon>(Icon.class, this, JavaeePackage.LISTENER__ICONS);
 		}
 		return icons;
 	}
@@ -228,11 +228,11 @@ public class ListenerImpl extends EObjectImpl implements Listener {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case JavaeePackage.LISTENER__DESCRIPTIONS:
-				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDescriptions()).basicRemove(otherEnd, msgs);
 			case JavaeePackage.LISTENER__DISPLAY_NAMES:
-				return ((InternalEList)getDisplayNames()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDisplayNames()).basicRemove(otherEnd, msgs);
 			case JavaeePackage.LISTENER__ICONS:
-				return ((InternalEList)getIcons()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getIcons()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -264,20 +264,21 @@ public class ListenerImpl extends EObjectImpl implements Listener {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case JavaeePackage.LISTENER__DESCRIPTIONS:
 				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
+				getDescriptions().addAll((Collection<? extends Description>)newValue);
 				return;
 			case JavaeePackage.LISTENER__DISPLAY_NAMES:
 				getDisplayNames().clear();
-				getDisplayNames().addAll((Collection)newValue);
+				getDisplayNames().addAll((Collection<? extends DisplayName>)newValue);
 				return;
 			case JavaeePackage.LISTENER__ICONS:
 				getIcons().clear();
-				getIcons().addAll((Collection)newValue);
+				getIcons().addAll((Collection<? extends Icon>)newValue);
 				return;
 			case JavaeePackage.LISTENER__LISTENER_CLASS:
 				setListenerClass((String)newValue);

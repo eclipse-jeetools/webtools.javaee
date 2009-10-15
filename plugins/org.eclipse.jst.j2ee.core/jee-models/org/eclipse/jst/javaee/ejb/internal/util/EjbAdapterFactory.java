@@ -70,143 +70,175 @@ public class EjbAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * The switch the delegates to the <code>createXXX</code> methods.
+	 * The switch that delegates to the <code>createXXX</code> methods.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected EjbSwitch modelSwitch =
-		new EjbSwitch() {
+	protected EjbSwitch<Adapter> modelSwitch =
+		new EjbSwitch<Adapter>() {
 			@Override
-			public Object caseActivationConfig(ActivationConfig object) {
+			public Adapter caseAccessTimeoutType(AccessTimeoutType object) {
+				return createAccessTimeoutTypeAdapter();
+			}
+			@Override
+			public Adapter caseActivationConfig(ActivationConfig object) {
 				return createActivationConfigAdapter();
 			}
 			@Override
-			public Object caseActivationConfigProperty(ActivationConfigProperty object) {
+			public Adapter caseActivationConfigProperty(ActivationConfigProperty object) {
 				return createActivationConfigPropertyAdapter();
 			}
 			@Override
-			public Object caseApplicationException(ApplicationException object) {
+			public Adapter caseApplicationException(ApplicationException object) {
 				return createApplicationExceptionAdapter();
 			}
 			@Override
-			public Object caseAroundInvokeType(AroundInvokeType object) {
+			public Adapter caseAroundInvokeType(AroundInvokeType object) {
 				return createAroundInvokeTypeAdapter();
 			}
 			@Override
-			public Object caseAssemblyDescriptor(AssemblyDescriptor object) {
+			public Adapter caseAroundTimeoutType(AroundTimeoutType object) {
+				return createAroundTimeoutTypeAdapter();
+			}
+			@Override
+			public Adapter caseAssemblyDescriptor(AssemblyDescriptor object) {
 				return createAssemblyDescriptorAdapter();
 			}
 			@Override
-			public Object caseCMPField(CMPField object) {
+			public Adapter caseAsyncMethodType(AsyncMethodType object) {
+				return createAsyncMethodTypeAdapter();
+			}
+			@Override
+			public Adapter caseCMPField(CMPField object) {
 				return createCMPFieldAdapter();
 			}
 			@Override
-			public Object caseCMRField(CMRField object) {
+			public Adapter caseCMRField(CMRField object) {
 				return createCMRFieldAdapter();
 			}
 			@Override
-			public Object caseContainerTransactionType(ContainerTransactionType object) {
+			public Adapter caseConcurrentMethodType(ConcurrentMethodType object) {
+				return createConcurrentMethodTypeAdapter();
+			}
+			@Override
+			public Adapter caseContainerTransactionType(ContainerTransactionType object) {
 				return createContainerTransactionTypeAdapter();
 			}
 			@Override
-			public Object caseEJBJar(EJBJar object) {
+			public Adapter caseDependsOnType(DependsOnType object) {
+				return createDependsOnTypeAdapter();
+			}
+			@Override
+			public Adapter caseEJBJar(EJBJar object) {
 				return createEJBJarAdapter();
 			}
 			@Override
-			public Object caseEJBJarDeploymentDescriptor(EJBJarDeploymentDescriptor object) {
+			public Adapter caseEJBJarDeploymentDescriptor(EJBJarDeploymentDescriptor object) {
 				return createEJBJarDeploymentDescriptorAdapter();
 			}
 			@Override
-			public Object caseEJBRelation(EJBRelation object) {
+			public Adapter caseEJBRelation(EJBRelation object) {
 				return createEJBRelationAdapter();
 			}
 			@Override
-			public Object caseEJBRelationshipRole(EJBRelationshipRole object) {
+			public Adapter caseEJBRelationshipRole(EJBRelationshipRole object) {
 				return createEJBRelationshipRoleAdapter();
 			}
 			@Override
-			public Object caseEnterpriseBeans(EnterpriseBeans object) {
+			public Adapter caseEnterpriseBeans(EnterpriseBeans object) {
 				return createEnterpriseBeansAdapter();
 			}
 			@Override
-			public Object caseEntityBean(EntityBean object) {
+			public Adapter caseEntityBean(EntityBean object) {
 				return createEntityBeanAdapter();
 			}
 			@Override
-			public Object caseExcludeList(ExcludeList object) {
+			public Adapter caseExcludeList(ExcludeList object) {
 				return createExcludeListAdapter();
 			}
 			@Override
-			public Object caseInitMethodType(InitMethodType object) {
+			public Adapter caseInitMethodType(InitMethodType object) {
 				return createInitMethodTypeAdapter();
 			}
 			@Override
-			public Object caseInterceptorBindingType(InterceptorBindingType object) {
+			public Adapter caseInterceptorBindingType(InterceptorBindingType object) {
 				return createInterceptorBindingTypeAdapter();
 			}
 			@Override
-			public Object caseInterceptorOrderType(InterceptorOrderType object) {
+			public Adapter caseInterceptorOrderType(InterceptorOrderType object) {
 				return createInterceptorOrderTypeAdapter();
 			}
 			@Override
-			public Object caseInterceptorsType(InterceptorsType object) {
+			public Adapter caseInterceptorsType(InterceptorsType object) {
 				return createInterceptorsTypeAdapter();
 			}
 			@Override
-			public Object caseInterceptorType(InterceptorType object) {
+			public Adapter caseInterceptorType(InterceptorType object) {
 				return createInterceptorTypeAdapter();
 			}
 			@Override
-			public Object caseMessageDrivenBean(MessageDrivenBean object) {
+			public Adapter caseMessageDrivenBean(MessageDrivenBean object) {
 				return createMessageDrivenBeanAdapter();
 			}
 			@Override
-			public Object caseMethodParams(MethodParams object) {
+			public Adapter caseMethodParams(MethodParams object) {
 				return createMethodParamsAdapter();
 			}
 			@Override
-			public Object caseMethodPermission(MethodPermission object) {
+			public Adapter caseMethodPermission(MethodPermission object) {
 				return createMethodPermissionAdapter();
 			}
 			@Override
-			public Object caseMethodType(MethodType object) {
+			public Adapter caseMethodType(MethodType object) {
 				return createMethodTypeAdapter();
 			}
 			@Override
-			public Object caseNamedMethodType(NamedMethodType object) {
+			public Adapter caseNamedMethodType(NamedMethodType object) {
 				return createNamedMethodTypeAdapter();
 			}
 			@Override
-			public Object caseQuery(Query object) {
+			public Adapter caseQuery(Query object) {
 				return createQueryAdapter();
 			}
 			@Override
-			public Object caseQueryMethod(QueryMethod object) {
+			public Adapter caseQueryMethod(QueryMethod object) {
 				return createQueryMethodAdapter();
 			}
 			@Override
-			public Object caseRelationshipRoleSourceType(RelationshipRoleSourceType object) {
+			public Adapter caseRelationshipRoleSourceType(RelationshipRoleSourceType object) {
 				return createRelationshipRoleSourceTypeAdapter();
 			}
 			@Override
-			public Object caseRelationships(Relationships object) {
+			public Adapter caseRelationships(Relationships object) {
 				return createRelationshipsAdapter();
 			}
 			@Override
-			public Object caseRemoveMethodType(RemoveMethodType object) {
+			public Adapter caseRemoveMethodType(RemoveMethodType object) {
 				return createRemoveMethodTypeAdapter();
 			}
 			@Override
-			public Object caseSecurityIdentityType(SecurityIdentityType object) {
+			public Adapter caseSecurityIdentityType(SecurityIdentityType object) {
 				return createSecurityIdentityTypeAdapter();
 			}
 			@Override
-			public Object caseSessionBean(SessionBean object) {
+			public Adapter caseSessionBean(SessionBean object) {
 				return createSessionBeanAdapter();
 			}
 			@Override
-			public Object defaultCase(EObject object) {
+			public Adapter caseStatefulTimeoutType(StatefulTimeoutType object) {
+				return createStatefulTimeoutTypeAdapter();
+			}
+			@Override
+			public Adapter caseTimerScheduleType(TimerScheduleType object) {
+				return createTimerScheduleTypeAdapter();
+			}
+			@Override
+			public Adapter caseTimerType(TimerType object) {
+				return createTimerTypeAdapter();
+			}
+			@Override
+			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
 		};
@@ -221,9 +253,23 @@ public class EjbAdapterFactory extends AdapterFactoryImpl {
 	 */
 	@Override
 	public Adapter createAdapter(Notifier target) {
-		return (Adapter)modelSwitch.doSwitch((EObject)target);
+		return modelSwitch.doSwitch((EObject)target);
 	}
 
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.javaee.ejb.AccessTimeoutType <em>Access Timeout Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.jst.javaee.ejb.AccessTimeoutType
+	 * @generated
+	 */
+	public Adapter createAccessTimeoutTypeAdapter() {
+		return null;
+	}
 
 	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.javaee.ejb.ActivationConfig <em>Activation Config</em>}'.
@@ -282,6 +328,20 @@ public class EjbAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.javaee.ejb.AroundTimeoutType <em>Around Timeout Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.jst.javaee.ejb.AroundTimeoutType
+	 * @generated
+	 */
+	public Adapter createAroundTimeoutTypeAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.javaee.ejb.AssemblyDescriptor <em>Assembly Descriptor</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -292,6 +352,20 @@ public class EjbAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createAssemblyDescriptorAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.javaee.ejb.AsyncMethodType <em>Async Method Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.jst.javaee.ejb.AsyncMethodType
+	 * @generated
+	 */
+	public Adapter createAsyncMethodTypeAdapter() {
 		return null;
 	}
 
@@ -324,6 +398,20 @@ public class EjbAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.javaee.ejb.ConcurrentMethodType <em>Concurrent Method Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.jst.javaee.ejb.ConcurrentMethodType
+	 * @generated
+	 */
+	public Adapter createConcurrentMethodTypeAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.javaee.ejb.ContainerTransactionType <em>Container Transaction Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -334,6 +422,20 @@ public class EjbAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createContainerTransactionTypeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.javaee.ejb.DependsOnType <em>Depends On Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.jst.javaee.ejb.DependsOnType
+	 * @generated
+	 */
+	public Adapter createDependsOnTypeAdapter() {
 		return null;
 	}
 
@@ -670,6 +772,48 @@ public class EjbAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createSessionBeanAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.javaee.ejb.StatefulTimeoutType <em>Stateful Timeout Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.jst.javaee.ejb.StatefulTimeoutType
+	 * @generated
+	 */
+	public Adapter createStatefulTimeoutTypeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.javaee.ejb.TimerScheduleType <em>Timer Schedule Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.jst.javaee.ejb.TimerScheduleType
+	 * @generated
+	 */
+	public Adapter createTimerScheduleTypeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.javaee.ejb.TimerType <em>Timer Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.jst.javaee.ejb.TimerType
+	 * @generated
+	 */
+	public Adapter createTimerTypeAdapter() {
 		return null;
 	}
 

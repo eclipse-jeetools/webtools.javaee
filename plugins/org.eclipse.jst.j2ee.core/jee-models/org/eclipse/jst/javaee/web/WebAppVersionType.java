@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.emf.common.util.AbstractEnumerator;
+import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,16 +24,36 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	This type contains the recognized versions of
- * 	web-application supported. It is used to designate the
- * 	version of the web application.
- * 
+ *         This type contains the recognized versions of
+ *         web-application supported. It is used to designate the
+ *         version of the web application.
+ *         
+ *         @since Java EE 5, Web 2.5
  *       
  * <!-- end-model-doc -->
  * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebAppVersionType()
  * @generated
  */
-public final class WebAppVersionType extends AbstractEnumerator {
+public enum WebAppVersionType implements Enumerator
+{
+	/**
+	 * The '<em><b>25</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #_25
+	 * @generated
+	 * @ordered
+	 */
+	_25_LITERAL(0, "_25", "2.5"), //$NON-NLS-1$ //$NON-NLS-2$
+	/**
+	 * The '<em><b>30</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #_30
+	 * @generated
+	 * @ordered
+	 */
+	_30_LITERAL(1, "_30", "3.0"); //$NON-NLS-1$ //$NON-NLS-2$
 	/**
 	 * The '<em><b>25</b></em>' literal value.
 	 * <!-- begin-user-doc -->
@@ -49,14 +69,18 @@ public final class WebAppVersionType extends AbstractEnumerator {
 	public static final int _25 = 0;
 
 	/**
-	 * The '<em><b>25</b></em>' literal object.
+	 * The '<em><b>30</b></em>' literal value.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>30</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #_25
+	 * @see #_30_LITERAL
 	 * @generated
 	 * @ordered
 	 */
-	public static final WebAppVersionType _25_LITERAL = new WebAppVersionType(_25, "_25", "2.5"); //$NON-NLS-1$ //$NON-NLS-2$
+	public static final int _30 = 1;
 
 	/**
 	 * An array of all the '<em><b>App Version Type</b></em>' enumerators.
@@ -67,6 +91,7 @@ public final class WebAppVersionType extends AbstractEnumerator {
 	private static final WebAppVersionType[] VALUES_ARRAY =
 		new WebAppVersionType[] {
 			_25_LITERAL,
+			_30_LITERAL,
 		};
 
 	/**
@@ -75,7 +100,7 @@ public final class WebAppVersionType extends AbstractEnumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<WebAppVersionType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>App Version Type</b></em>' literal with the specified literal value.
@@ -118,9 +143,31 @@ public final class WebAppVersionType extends AbstractEnumerator {
 	public static WebAppVersionType get(int value) {
 		switch (value) {
 			case _25: return _25_LITERAL;
+			case _30: return _30_LITERAL;
 		}
-		return null;	
+		return null;
 	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final int value;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String name;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String literal;
 
 	/**
 	 * Only this class can construct instances.
@@ -129,7 +176,46 @@ public final class WebAppVersionType extends AbstractEnumerator {
 	 * @generated
 	 */
 	private WebAppVersionType(int value, String name, String literal) {
-		super(value, name, literal);
+		this.value = value;
+		this.name = name;
+		this.literal = literal;
 	}
 
-} //WebAppVersionType
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getValue() {
+	  return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getName() {
+	  return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getLiteral() {
+	  return literal;
+	}
+
+	/**
+	 * Returns the literal value of the enumerator, which is its string representation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		return literal;
+	}
+}

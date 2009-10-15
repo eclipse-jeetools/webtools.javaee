@@ -73,14 +73,19 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
+			case EjbPackage.ACCESS_TIMEOUT_TYPE: return (EObject)createAccessTimeoutType();
 			case EjbPackage.ACTIVATION_CONFIG: return (EObject)createActivationConfig();
 			case EjbPackage.ACTIVATION_CONFIG_PROPERTY: return (EObject)createActivationConfigProperty();
 			case EjbPackage.APPLICATION_EXCEPTION: return (EObject)createApplicationException();
 			case EjbPackage.AROUND_INVOKE_TYPE: return (EObject)createAroundInvokeType();
+			case EjbPackage.AROUND_TIMEOUT_TYPE: return (EObject)createAroundTimeoutType();
 			case EjbPackage.ASSEMBLY_DESCRIPTOR: return (EObject)createAssemblyDescriptor();
+			case EjbPackage.ASYNC_METHOD_TYPE: return (EObject)createAsyncMethodType();
 			case EjbPackage.CMP_FIELD: return (EObject)createCMPField();
 			case EjbPackage.CMR_FIELD: return (EObject)createCMRField();
+			case EjbPackage.CONCURRENT_METHOD_TYPE: return (EObject)createConcurrentMethodType();
 			case EjbPackage.CONTAINER_TRANSACTION_TYPE: return (EObject)createContainerTransactionType();
+			case EjbPackage.DEPENDS_ON_TYPE: return (EObject)createDependsOnType();
 			case EjbPackage.EJB_JAR: return (EObject)createEJBJar();
 			case EjbPackage.EJB_JAR_DEPLOYMENT_DESCRIPTOR: return (EObject)createEJBJarDeploymentDescriptor();
 			case EjbPackage.EJB_RELATION: return (EObject)createEJBRelation();
@@ -105,6 +110,9 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 			case EjbPackage.REMOVE_METHOD_TYPE: return (EObject)createRemoveMethodType();
 			case EjbPackage.SECURITY_IDENTITY_TYPE: return (EObject)createSecurityIdentityType();
 			case EjbPackage.SESSION_BEAN: return (EObject)createSessionBean();
+			case EjbPackage.STATEFUL_TIMEOUT_TYPE: return (EObject)createStatefulTimeoutType();
+			case EjbPackage.TIMER_SCHEDULE_TYPE: return (EObject)createTimerScheduleType();
+			case EjbPackage.TIMER_TYPE: return (EObject)createTimerType();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
@@ -122,6 +130,10 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 				return createCmpVersionTypeFromString(eDataType, initialValue);
 			case EjbPackage.CMR_FIELD_TYPE:
 				return createCMRFieldTypeFromString(eDataType, initialValue);
+			case EjbPackage.CONCURRENCY_MANAGEMENT_TYPE_TYPE:
+				return createConcurrencyManagementTypeTypeFromString(eDataType, initialValue);
+			case EjbPackage.CONCURRENT_LOCK_TYPE_TYPE:
+				return createConcurrentLockTypeTypeFromString(eDataType, initialValue);
 			case EjbPackage.METHOD_INTERFACE_TYPE:
 				return createMethodInterfaceTypeFromString(eDataType, initialValue);
 			case EjbPackage.MULTIPLICITY_TYPE:
@@ -132,6 +144,8 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 				return createResultTypeMappingTypeFromString(eDataType, initialValue);
 			case EjbPackage.SESSION_TYPE:
 				return createSessionTypeFromString(eDataType, initialValue);
+			case EjbPackage.TIME_UNIT_TYPE_TYPE:
+				return createTimeUnitTypeTypeFromString(eDataType, initialValue);
 			case EjbPackage.TRANSACTION_ATTRIBUTE_TYPE:
 				return createTransactionAttributeTypeFromString(eDataType, initialValue);
 			case EjbPackage.TRANSACTION_TYPE:
@@ -140,6 +154,10 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 				return createCmpVersionTypeObjectFromString(eDataType, initialValue);
 			case EjbPackage.CMR_FIELD_TYPE_OBJECT:
 				return createCMRFieldTypeObjectFromString(eDataType, initialValue);
+			case EjbPackage.CONCURRENCY_MANAGEMENT_TYPE_TYPE_OBJECT:
+				return createConcurrencyManagementTypeTypeObjectFromString(eDataType, initialValue);
+			case EjbPackage.CONCURRENT_LOCK_TYPE_TYPE_OBJECT:
+				return createConcurrentLockTypeTypeObjectFromString(eDataType, initialValue);
 			case EjbPackage.EJB_CLASS_TYPE:
 				return createEjbClassTypeFromString(eDataType, initialValue);
 			case EjbPackage.EJB_NAME_TYPE:
@@ -156,6 +174,8 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 				return createResultTypeMappingTypeObjectFromString(eDataType, initialValue);
 			case EjbPackage.SESSION_TYPE_OBJECT:
 				return createSessionTypeObjectFromString(eDataType, initialValue);
+			case EjbPackage.TIME_UNIT_TYPE_TYPE_OBJECT:
+				return createTimeUnitTypeTypeObjectFromString(eDataType, initialValue);
 			case EjbPackage.TRANSACTION_ATTRIBUTE_TYPE_OBJECT:
 				return createTransactionAttributeTypeObjectFromString(eDataType, initialValue);
 			case EjbPackage.TRANSACTION_TYPE_OBJECT:
@@ -177,6 +197,10 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 				return convertCmpVersionTypeToString(eDataType, instanceValue);
 			case EjbPackage.CMR_FIELD_TYPE:
 				return convertCMRFieldTypeToString(eDataType, instanceValue);
+			case EjbPackage.CONCURRENCY_MANAGEMENT_TYPE_TYPE:
+				return convertConcurrencyManagementTypeTypeToString(eDataType, instanceValue);
+			case EjbPackage.CONCURRENT_LOCK_TYPE_TYPE:
+				return convertConcurrentLockTypeTypeToString(eDataType, instanceValue);
 			case EjbPackage.METHOD_INTERFACE_TYPE:
 				return convertMethodInterfaceTypeToString(eDataType, instanceValue);
 			case EjbPackage.MULTIPLICITY_TYPE:
@@ -187,6 +211,8 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 				return convertResultTypeMappingTypeToString(eDataType, instanceValue);
 			case EjbPackage.SESSION_TYPE:
 				return convertSessionTypeToString(eDataType, instanceValue);
+			case EjbPackage.TIME_UNIT_TYPE_TYPE:
+				return convertTimeUnitTypeTypeToString(eDataType, instanceValue);
 			case EjbPackage.TRANSACTION_ATTRIBUTE_TYPE:
 				return convertTransactionAttributeTypeToString(eDataType, instanceValue);
 			case EjbPackage.TRANSACTION_TYPE:
@@ -195,6 +221,10 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 				return convertCmpVersionTypeObjectToString(eDataType, instanceValue);
 			case EjbPackage.CMR_FIELD_TYPE_OBJECT:
 				return convertCMRFieldTypeObjectToString(eDataType, instanceValue);
+			case EjbPackage.CONCURRENCY_MANAGEMENT_TYPE_TYPE_OBJECT:
+				return convertConcurrencyManagementTypeTypeObjectToString(eDataType, instanceValue);
+			case EjbPackage.CONCURRENT_LOCK_TYPE_TYPE_OBJECT:
+				return convertConcurrentLockTypeTypeObjectToString(eDataType, instanceValue);
 			case EjbPackage.EJB_CLASS_TYPE:
 				return convertEjbClassTypeToString(eDataType, instanceValue);
 			case EjbPackage.EJB_NAME_TYPE:
@@ -211,6 +241,8 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 				return convertResultTypeMappingTypeObjectToString(eDataType, instanceValue);
 			case EjbPackage.SESSION_TYPE_OBJECT:
 				return convertSessionTypeObjectToString(eDataType, instanceValue);
+			case EjbPackage.TIME_UNIT_TYPE_TYPE_OBJECT:
+				return convertTimeUnitTypeTypeObjectToString(eDataType, instanceValue);
 			case EjbPackage.TRANSACTION_ATTRIBUTE_TYPE_OBJECT:
 				return convertTransactionAttributeTypeObjectToString(eDataType, instanceValue);
 			case EjbPackage.TRANSACTION_TYPE_OBJECT:
@@ -218,6 +250,16 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AccessTimeoutType createAccessTimeoutType() {
+		AccessTimeoutTypeImpl accessTimeoutType = new AccessTimeoutTypeImpl();
+		return accessTimeoutType;
 	}
 
 	/**
@@ -265,9 +307,29 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public AroundTimeoutType createAroundTimeoutType() {
+		AroundTimeoutTypeImpl aroundTimeoutType = new AroundTimeoutTypeImpl();
+		return aroundTimeoutType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public AssemblyDescriptor createAssemblyDescriptor() {
 		AssemblyDescriptorImpl assemblyDescriptor = new AssemblyDescriptorImpl();
 		return assemblyDescriptor;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AsyncMethodType createAsyncMethodType() {
+		AsyncMethodTypeImpl asyncMethodType = new AsyncMethodTypeImpl();
+		return asyncMethodType;
 	}
 
 	/**
@@ -295,9 +357,29 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ConcurrentMethodType createConcurrentMethodType() {
+		ConcurrentMethodTypeImpl concurrentMethodType = new ConcurrentMethodTypeImpl();
+		return concurrentMethodType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ContainerTransactionType createContainerTransactionType() {
 		ContainerTransactionTypeImpl containerTransactionType = new ContainerTransactionTypeImpl();
 		return containerTransactionType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DependsOnType createDependsOnType() {
+		DependsOnTypeImpl dependsOnType = new DependsOnTypeImpl();
+		return dependsOnType;
 	}
 
 	/**
@@ -545,6 +627,36 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public StatefulTimeoutType createStatefulTimeoutType() {
+		StatefulTimeoutTypeImpl statefulTimeoutType = new StatefulTimeoutTypeImpl();
+		return statefulTimeoutType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TimerScheduleType createTimerScheduleType() {
+		TimerScheduleTypeImpl timerScheduleType = new TimerScheduleTypeImpl();
+		return timerScheduleType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TimerType createTimerType() {
+		TimerTypeImpl timerType = new TimerTypeImpl();
+		return timerType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public CmpVersionType createCmpVersionTypeFromString(EDataType eDataType, String initialValue) {
 		CmpVersionType result = CmpVersionType.get(initialValue);
 		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
@@ -577,6 +689,46 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * @generated
 	 */
 	public String convertCMRFieldTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ConcurrencyManagementTypeType createConcurrencyManagementTypeTypeFromString(EDataType eDataType, String initialValue) {
+		ConcurrencyManagementTypeType result = ConcurrencyManagementTypeType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertConcurrencyManagementTypeTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ConcurrentLockTypeType createConcurrentLockTypeTypeFromString(EDataType eDataType, String initialValue) {
+		ConcurrentLockTypeType result = ConcurrentLockTypeType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertConcurrentLockTypeTypeToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 
@@ -685,6 +837,26 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public TimeUnitTypeType createTimeUnitTypeTypeFromString(EDataType eDataType, String initialValue) {
+		TimeUnitTypeType result = TimeUnitTypeType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertTimeUnitTypeTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public TransactionAttributeType createTransactionAttributeTypeFromString(EDataType eDataType, String initialValue) {
 		TransactionAttributeType result = TransactionAttributeType.get(initialValue);
 		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
@@ -754,6 +926,42 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 */
 	public String convertCMRFieldTypeObjectToString(EDataType eDataType, Object instanceValue) {
 		return convertCMRFieldTypeToString(EjbPackage.Literals.CMR_FIELD_TYPE, instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ConcurrencyManagementTypeType createConcurrencyManagementTypeTypeObjectFromString(EDataType eDataType, String initialValue) {
+		return createConcurrencyManagementTypeTypeFromString(EjbPackage.Literals.CONCURRENCY_MANAGEMENT_TYPE_TYPE, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertConcurrencyManagementTypeTypeObjectToString(EDataType eDataType, Object instanceValue) {
+		return convertConcurrencyManagementTypeTypeToString(EjbPackage.Literals.CONCURRENCY_MANAGEMENT_TYPE_TYPE, instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ConcurrentLockTypeType createConcurrentLockTypeTypeObjectFromString(EDataType eDataType, String initialValue) {
+		return createConcurrentLockTypeTypeFromString(EjbPackage.Literals.CONCURRENT_LOCK_TYPE_TYPE, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertConcurrentLockTypeTypeObjectToString(EDataType eDataType, Object instanceValue) {
+		return convertConcurrentLockTypeTypeToString(EjbPackage.Literals.CONCURRENT_LOCK_TYPE_TYPE, instanceValue);
 	}
 
 	/**
@@ -905,6 +1113,24 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public TimeUnitTypeType createTimeUnitTypeTypeObjectFromString(EDataType eDataType, String initialValue) {
+		return createTimeUnitTypeTypeFromString(EjbPackage.Literals.TIME_UNIT_TYPE_TYPE, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertTimeUnitTypeTypeObjectToString(EDataType eDataType, Object instanceValue) {
+		return convertTimeUnitTypeTypeToString(EjbPackage.Literals.TIME_UNIT_TYPE_TYPE, instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public TransactionAttributeType createTransactionAttributeTypeObjectFromString(EDataType eDataType, String initialValue) {
 		return createTransactionAttributeTypeFromString(EjbPackage.Literals.TRANSACTION_ATTRIBUTE_TYPE, initialValue);
 	}
@@ -951,6 +1177,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 * @deprecated
 	 * @generated
 	 */
+	@Deprecated
 	public static EjbPackage getPackage() {
 		return EjbPackage.eINSTANCE;
 	}

@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.emf.common.util.AbstractEnumerator;
+import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,21 +24,66 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The session-typeType describes whether the session bean is a
- * 	stateful session or stateless session. It is used by
- * 	session-type elements.
- * 
- * 	The value must be one of the two following:
- * 
- * 	    Stateful
- * 	    Stateless
- * 
+ *         The session-typeType describes whether the session bean is a
+ *         singleton, stateful or stateless session. It is used by
+ *         session-type elements.
+ *         
+ *         The value must be one of the three following:
+ *         
+ *         Singleton
+ *         Stateful
+ *         Stateless
+ *         
+ *         @since Java EE 5, EJB 3.0
  *       
  * <!-- end-model-doc -->
  * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getSessionType()
  * @generated
  */
-public final class SessionType extends AbstractEnumerator {
+public enum SessionType implements Enumerator
+{
+	/**
+	 * The '<em><b>Singleton</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #SINGLETON
+	 * @generated
+	 * @ordered
+	 */
+	SINGLETON_LITERAL(0, "Singleton", "Singleton"), //$NON-NLS-1$ //$NON-NLS-2$
+	/**
+	 * The '<em><b>Stateful</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #STATEFUL
+	 * @generated
+	 * @ordered
+	 */
+	STATEFUL_LITERAL(1, "Stateful", "Stateful"), //$NON-NLS-1$ //$NON-NLS-2$
+	/**
+	 * The '<em><b>Stateless</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #STATELESS
+	 * @generated
+	 * @ordered
+	 */
+	STATELESS_LITERAL(2, "Stateless", "Stateless"); //$NON-NLS-1$ //$NON-NLS-2$
+	/**
+	 * The '<em><b>Singleton</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *               @since Java EE 6, EJB 3.1
+	 *             
+	 * <!-- end-model-doc -->
+	 * @see #SINGLETON_LITERAL
+	 * @generated
+	 * @ordered
+	 */
+	public static final int SINGLETON = 0;
+
 	/**
 	 * The '<em><b>Stateful</b></em>' literal value.
 	 * <!-- begin-user-doc -->
@@ -51,7 +96,7 @@ public final class SessionType extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int STATEFUL = 0;
+	public static final int STATEFUL = 1;
 
 	/**
 	 * The '<em><b>Stateless</b></em>' literal value.
@@ -65,27 +110,7 @@ public final class SessionType extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int STATELESS = 1;
-
-	/**
-	 * The '<em><b>Stateful</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #STATEFUL
-	 * @generated
-	 * @ordered
-	 */
-	public static final SessionType STATEFUL_LITERAL = new SessionType(STATEFUL, "Stateful", "Stateful"); //$NON-NLS-1$ //$NON-NLS-2$
-
-	/**
-	 * The '<em><b>Stateless</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #STATELESS
-	 * @generated
-	 * @ordered
-	 */
-	public static final SessionType STATELESS_LITERAL = new SessionType(STATELESS, "Stateless", "Stateless"); //$NON-NLS-1$ //$NON-NLS-2$
+	public static final int STATELESS = 2;
 
 	/**
 	 * An array of all the '<em><b>Session Type</b></em>' enumerators.
@@ -95,6 +120,7 @@ public final class SessionType extends AbstractEnumerator {
 	 */
 	private static final SessionType[] VALUES_ARRAY =
 		new SessionType[] {
+			SINGLETON_LITERAL,
 			STATEFUL_LITERAL,
 			STATELESS_LITERAL,
 		};
@@ -105,7 +131,7 @@ public final class SessionType extends AbstractEnumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<SessionType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>Session Type</b></em>' literal with the specified literal value.
@@ -147,11 +173,33 @@ public final class SessionType extends AbstractEnumerator {
 	 */
 	public static SessionType get(int value) {
 		switch (value) {
+			case SINGLETON: return SINGLETON_LITERAL;
 			case STATEFUL: return STATEFUL_LITERAL;
 			case STATELESS: return STATELESS_LITERAL;
 		}
-		return null;	
+		return null;
 	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final int value;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String name;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String literal;
 
 	/**
 	 * Only this class can construct instances.
@@ -160,7 +208,46 @@ public final class SessionType extends AbstractEnumerator {
 	 * @generated
 	 */
 	private SessionType(int value, String name, String literal) {
-		super(value, name, literal);
+		this.value = value;
+		this.name = name;
+		this.literal = literal;
 	}
 
-} //SessionType
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getValue() {
+	  return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getName() {
+	  return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getLiteral() {
+	  return literal;
+	}
+
+	/**
+	 * Returns the literal value of the enumerator, which is its string representation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		return literal;
+	}
+}

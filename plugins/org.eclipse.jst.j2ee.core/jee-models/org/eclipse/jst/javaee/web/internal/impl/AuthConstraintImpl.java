@@ -58,7 +58,7 @@ public class AuthConstraintImpl extends EObjectImpl implements AuthConstraint {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList descriptions = null;
+	protected EList<Description> descriptions;
 
 	/**
 	 * The cached value of the '{@link #getRoleNames() <em>Role Names</em>}' attribute list.
@@ -68,7 +68,7 @@ public class AuthConstraintImpl extends EObjectImpl implements AuthConstraint {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList roleNames = null;
+	protected EList<String> roleNames;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -114,9 +114,9 @@ public class AuthConstraintImpl extends EObjectImpl implements AuthConstraint {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDescriptions() {
+	public List<Description> getDescriptions() {
 		if (descriptions == null) {
-			descriptions = new EObjectContainmentEList(Description.class, this, WebPackage.AUTH_CONSTRAINT__DESCRIPTIONS);
+			descriptions = new EObjectContainmentEList<Description>(Description.class, this, WebPackage.AUTH_CONSTRAINT__DESCRIPTIONS);
 		}
 		return descriptions;
 	}
@@ -126,9 +126,9 @@ public class AuthConstraintImpl extends EObjectImpl implements AuthConstraint {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getRoleNames() {
+	public List<String> getRoleNames() {
 		if (roleNames == null) {
-			roleNames = new EDataTypeEList(String.class, this, WebPackage.AUTH_CONSTRAINT__ROLE_NAMES);
+			roleNames = new EDataTypeEList<String>(String.class, this, WebPackage.AUTH_CONSTRAINT__ROLE_NAMES);
 		}
 		return roleNames;
 	}
@@ -163,7 +163,7 @@ public class AuthConstraintImpl extends EObjectImpl implements AuthConstraint {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case WebPackage.AUTH_CONSTRAINT__DESCRIPTIONS:
-				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDescriptions()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -191,16 +191,17 @@ public class AuthConstraintImpl extends EObjectImpl implements AuthConstraint {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case WebPackage.AUTH_CONSTRAINT__DESCRIPTIONS:
 				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
+				getDescriptions().addAll((Collection<? extends Description>)newValue);
 				return;
 			case WebPackage.AUTH_CONSTRAINT__ROLE_NAMES:
 				getRoleNames().clear();
-				getRoleNames().addAll((Collection)newValue);
+				getRoleNames().addAll((Collection<? extends String>)newValue);
 				return;
 			case WebPackage.AUTH_CONSTRAINT__ID:
 				setId((String)newValue);

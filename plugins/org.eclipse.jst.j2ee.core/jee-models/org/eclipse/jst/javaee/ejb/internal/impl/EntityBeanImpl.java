@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.eclipse.jst.javaee.core.DataSourceType;
 import org.eclipse.jst.javaee.core.Description;
 import org.eclipse.jst.javaee.core.DisplayName;
 import org.eclipse.jst.javaee.core.EjbLocalRef;
@@ -86,6 +87,7 @@ import org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage;
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.EntityBeanImpl#getPersistenceUnitRefs <em>Persistence Unit Refs</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.EntityBeanImpl#getPostConstructs <em>Post Constructs</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.EntityBeanImpl#getPreDestroys <em>Pre Destroys</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.EntityBeanImpl#getDataSource <em>Data Source</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.EntityBeanImpl#getSecurityRoleRefs <em>Security Role Refs</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.EntityBeanImpl#getSecurityIdentity <em>Security Identity</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.EntityBeanImpl#getQueries <em>Queries</em>}</li>
@@ -104,7 +106,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList descriptions = null;
+	protected EList<Description> descriptions;
 
 	/**
 	 * The cached value of the '{@link #getDisplayNames() <em>Display Names</em>}' containment reference list.
@@ -114,7 +116,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList displayNames = null;
+	protected EList<DisplayName> displayNames;
 
 	/**
 	 * The cached value of the '{@link #getIcons() <em>Icons</em>}' containment reference list.
@@ -124,7 +126,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList icons = null;
+	protected EList<Icon> icons;
 
 	/**
 	 * The default value of the '{@link #getEjbName() <em>Ejb Name</em>}' attribute.
@@ -293,7 +295,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean persistenceTypeESet = false;
+	protected boolean persistenceTypeESet;
 
 	/**
 	 * The default value of the '{@link #getPrimKeyClass() <em>Prim Key Class</em>}' attribute.
@@ -342,7 +344,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean reentrantESet = false;
+	protected boolean reentrantESet;
 
 	/**
 	 * The default value of the '{@link #getCmpVersion() <em>Cmp Version</em>}' attribute.
@@ -371,7 +373,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean cmpVersionESet = false;
+	protected boolean cmpVersionESet;
 
 	/**
 	 * The default value of the '{@link #getAbstractSchemaName() <em>Abstract Schema Name</em>}' attribute.
@@ -401,7 +403,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList cmpFields = null;
+	protected EList<CMPField> cmpFields;
 
 	/**
 	 * The default value of the '{@link #getPrimkeyField() <em>Primkey Field</em>}' attribute.
@@ -431,7 +433,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList envEntries = null;
+	protected EList<EnvEntry> envEntries;
 
 	/**
 	 * The cached value of the '{@link #getEjbRefs() <em>Ejb Refs</em>}' containment reference list.
@@ -441,7 +443,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList ejbRefs = null;
+	protected EList<EjbRef> ejbRefs;
 
 	/**
 	 * The cached value of the '{@link #getEjbLocalRefs() <em>Ejb Local Refs</em>}' containment reference list.
@@ -451,7 +453,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList ejbLocalRefs = null;
+	protected EList<EjbLocalRef> ejbLocalRefs;
 
 	/**
 	 * The cached value of the '{@link #getServiceRefs() <em>Service Refs</em>}' containment reference list.
@@ -461,7 +463,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList serviceRefs = null;
+	protected EList<ServiceRef> serviceRefs;
 
 	/**
 	 * The cached value of the '{@link #getResourceRefs() <em>Resource Refs</em>}' containment reference list.
@@ -471,7 +473,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList resourceRefs = null;
+	protected EList<ResourceRef> resourceRefs;
 
 	/**
 	 * The cached value of the '{@link #getResourceEnvRefs() <em>Resource Env Refs</em>}' containment reference list.
@@ -481,7 +483,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList resourceEnvRefs = null;
+	protected EList<ResourceEnvRef> resourceEnvRefs;
 
 	/**
 	 * The cached value of the '{@link #getMessageDestinationRefs() <em>Message Destination Refs</em>}' containment reference list.
@@ -491,7 +493,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList messageDestinationRefs = null;
+	protected EList<MessageDestinationRef> messageDestinationRefs;
 
 	/**
 	 * The cached value of the '{@link #getPersistenceContextRefs() <em>Persistence Context Refs</em>}' containment reference list.
@@ -501,7 +503,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList persistenceContextRefs = null;
+	protected EList<PersistenceContextRef> persistenceContextRefs;
 
 	/**
 	 * The cached value of the '{@link #getPersistenceUnitRefs() <em>Persistence Unit Refs</em>}' containment reference list.
@@ -511,7 +513,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList persistenceUnitRefs = null;
+	protected EList<PersistenceUnitRef> persistenceUnitRefs;
 
 	/**
 	 * The cached value of the '{@link #getPostConstructs() <em>Post Constructs</em>}' containment reference list.
@@ -521,7 +523,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList postConstructs = null;
+	protected EList<LifecycleCallback> postConstructs;
 
 	/**
 	 * The cached value of the '{@link #getPreDestroys() <em>Pre Destroys</em>}' containment reference list.
@@ -531,7 +533,17 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList preDestroys = null;
+	protected EList<LifecycleCallback> preDestroys;
+
+	/**
+	 * The cached value of the '{@link #getDataSource() <em>Data Source</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDataSource()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<DataSourceType> dataSource;
 
 	/**
 	 * The cached value of the '{@link #getSecurityRoleRefs() <em>Security Role Refs</em>}' containment reference list.
@@ -541,7 +553,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList securityRoleRefs = null;
+	protected EList<SecurityRoleRef> securityRoleRefs;
 
 	/**
 	 * The cached value of the '{@link #getSecurityIdentity() <em>Security Identity</em>}' containment reference.
@@ -551,7 +563,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected SecurityIdentityType securityIdentity = null;
+	protected SecurityIdentityType securityIdentity;
 
 	/**
 	 * The cached value of the '{@link #getQueries() <em>Queries</em>}' containment reference list.
@@ -561,7 +573,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList queries = null;
+	protected EList<Query> queries;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -607,9 +619,9 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDescriptions() {
+	public List<Description> getDescriptions() {
 		if (descriptions == null) {
-			descriptions = new EObjectContainmentEList(Description.class, this, EjbPackage.ENTITY_BEAN__DESCRIPTIONS);
+			descriptions = new EObjectContainmentEList<Description>(Description.class, this, EjbPackage.ENTITY_BEAN__DESCRIPTIONS);
 		}
 		return descriptions;
 	}
@@ -619,9 +631,9 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDisplayNames() {
+	public List<DisplayName> getDisplayNames() {
 		if (displayNames == null) {
-			displayNames = new EObjectContainmentEList(DisplayName.class, this, EjbPackage.ENTITY_BEAN__DISPLAY_NAMES);
+			displayNames = new EObjectContainmentEList<DisplayName>(DisplayName.class, this, EjbPackage.ENTITY_BEAN__DISPLAY_NAMES);
 		}
 		return displayNames;
 	}
@@ -631,9 +643,9 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getIcons() {
+	public List<Icon> getIcons() {
 		if (icons == null) {
-			icons = new EObjectContainmentEList(Icon.class, this, EjbPackage.ENTITY_BEAN__ICONS);
+			icons = new EObjectContainmentEList<Icon>(Icon.class, this, EjbPackage.ENTITY_BEAN__ICONS);
 		}
 		return icons;
 	}
@@ -970,9 +982,9 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getCmpFields() {
+	public List<CMPField> getCmpFields() {
 		if (cmpFields == null) {
-			cmpFields = new EObjectContainmentEList(CMPField.class, this, EjbPackage.ENTITY_BEAN__CMP_FIELDS);
+			cmpFields = new EObjectContainmentEList<CMPField>(CMPField.class, this, EjbPackage.ENTITY_BEAN__CMP_FIELDS);
 		}
 		return cmpFields;
 	}
@@ -1003,9 +1015,9 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getEnvEntries() {
+	public List<EnvEntry> getEnvEntries() {
 		if (envEntries == null) {
-			envEntries = new EObjectContainmentEList(EnvEntry.class, this, EjbPackage.ENTITY_BEAN__ENV_ENTRIES);
+			envEntries = new EObjectContainmentEList<EnvEntry>(EnvEntry.class, this, EjbPackage.ENTITY_BEAN__ENV_ENTRIES);
 		}
 		return envEntries;
 	}
@@ -1015,9 +1027,9 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getEjbRefs() {
+	public List<EjbRef> getEjbRefs() {
 		if (ejbRefs == null) {
-			ejbRefs = new EObjectContainmentEList(EjbRef.class, this, EjbPackage.ENTITY_BEAN__EJB_REFS);
+			ejbRefs = new EObjectContainmentEList<EjbRef>(EjbRef.class, this, EjbPackage.ENTITY_BEAN__EJB_REFS);
 		}
 		return ejbRefs;
 	}
@@ -1027,9 +1039,9 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getEjbLocalRefs() {
+	public List<EjbLocalRef> getEjbLocalRefs() {
 		if (ejbLocalRefs == null) {
-			ejbLocalRefs = new EObjectContainmentEList(EjbLocalRef.class, this, EjbPackage.ENTITY_BEAN__EJB_LOCAL_REFS);
+			ejbLocalRefs = new EObjectContainmentEList<EjbLocalRef>(EjbLocalRef.class, this, EjbPackage.ENTITY_BEAN__EJB_LOCAL_REFS);
 		}
 		return ejbLocalRefs;
 	}
@@ -1039,9 +1051,9 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getServiceRefs() {
+	public List<ServiceRef> getServiceRefs() {
 		if (serviceRefs == null) {
-			serviceRefs = new EObjectContainmentEList(ServiceRef.class, this, EjbPackage.ENTITY_BEAN__SERVICE_REFS);
+			serviceRefs = new EObjectContainmentEList<ServiceRef>(ServiceRef.class, this, EjbPackage.ENTITY_BEAN__SERVICE_REFS);
 		}
 		return serviceRefs;
 	}
@@ -1051,9 +1063,9 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getResourceRefs() {
+	public List<ResourceRef> getResourceRefs() {
 		if (resourceRefs == null) {
-			resourceRefs = new EObjectContainmentEList(ResourceRef.class, this, EjbPackage.ENTITY_BEAN__RESOURCE_REFS);
+			resourceRefs = new EObjectContainmentEList<ResourceRef>(ResourceRef.class, this, EjbPackage.ENTITY_BEAN__RESOURCE_REFS);
 		}
 		return resourceRefs;
 	}
@@ -1063,9 +1075,9 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getResourceEnvRefs() {
+	public List<ResourceEnvRef> getResourceEnvRefs() {
 		if (resourceEnvRefs == null) {
-			resourceEnvRefs = new EObjectContainmentEList(ResourceEnvRef.class, this, EjbPackage.ENTITY_BEAN__RESOURCE_ENV_REFS);
+			resourceEnvRefs = new EObjectContainmentEList<ResourceEnvRef>(ResourceEnvRef.class, this, EjbPackage.ENTITY_BEAN__RESOURCE_ENV_REFS);
 		}
 		return resourceEnvRefs;
 	}
@@ -1075,9 +1087,9 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getMessageDestinationRefs() {
+	public List<MessageDestinationRef> getMessageDestinationRefs() {
 		if (messageDestinationRefs == null) {
-			messageDestinationRefs = new EObjectContainmentEList(MessageDestinationRef.class, this, EjbPackage.ENTITY_BEAN__MESSAGE_DESTINATION_REFS);
+			messageDestinationRefs = new EObjectContainmentEList<MessageDestinationRef>(MessageDestinationRef.class, this, EjbPackage.ENTITY_BEAN__MESSAGE_DESTINATION_REFS);
 		}
 		return messageDestinationRefs;
 	}
@@ -1087,9 +1099,9 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getPersistenceContextRefs() {
+	public List<PersistenceContextRef> getPersistenceContextRefs() {
 		if (persistenceContextRefs == null) {
-			persistenceContextRefs = new EObjectContainmentEList(PersistenceContextRef.class, this, EjbPackage.ENTITY_BEAN__PERSISTENCE_CONTEXT_REFS);
+			persistenceContextRefs = new EObjectContainmentEList<PersistenceContextRef>(PersistenceContextRef.class, this, EjbPackage.ENTITY_BEAN__PERSISTENCE_CONTEXT_REFS);
 		}
 		return persistenceContextRefs;
 	}
@@ -1099,9 +1111,9 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getPersistenceUnitRefs() {
+	public List<PersistenceUnitRef> getPersistenceUnitRefs() {
 		if (persistenceUnitRefs == null) {
-			persistenceUnitRefs = new EObjectContainmentEList(PersistenceUnitRef.class, this, EjbPackage.ENTITY_BEAN__PERSISTENCE_UNIT_REFS);
+			persistenceUnitRefs = new EObjectContainmentEList<PersistenceUnitRef>(PersistenceUnitRef.class, this, EjbPackage.ENTITY_BEAN__PERSISTENCE_UNIT_REFS);
 		}
 		return persistenceUnitRefs;
 	}
@@ -1111,9 +1123,9 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getPostConstructs() {
+	public List<LifecycleCallback> getPostConstructs() {
 		if (postConstructs == null) {
-			postConstructs = new EObjectContainmentEList(LifecycleCallback.class, this, EjbPackage.ENTITY_BEAN__POST_CONSTRUCTS);
+			postConstructs = new EObjectContainmentEList<LifecycleCallback>(LifecycleCallback.class, this, EjbPackage.ENTITY_BEAN__POST_CONSTRUCTS);
 		}
 		return postConstructs;
 	}
@@ -1123,9 +1135,9 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getPreDestroys() {
+	public List<LifecycleCallback> getPreDestroys() {
 		if (preDestroys == null) {
-			preDestroys = new EObjectContainmentEList(LifecycleCallback.class, this, EjbPackage.ENTITY_BEAN__PRE_DESTROYS);
+			preDestroys = new EObjectContainmentEList<LifecycleCallback>(LifecycleCallback.class, this, EjbPackage.ENTITY_BEAN__PRE_DESTROYS);
 		}
 		return preDestroys;
 	}
@@ -1135,9 +1147,21 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getSecurityRoleRefs() {
+	public List<DataSourceType> getDataSource() {
+		if (dataSource == null) {
+			dataSource = new EObjectContainmentEList<DataSourceType>(DataSourceType.class, this, EjbPackage.ENTITY_BEAN__DATA_SOURCE);
+		}
+		return dataSource;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<SecurityRoleRef> getSecurityRoleRefs() {
 		if (securityRoleRefs == null) {
-			securityRoleRefs = new EObjectContainmentEList(SecurityRoleRef.class, this, EjbPackage.ENTITY_BEAN__SECURITY_ROLE_REFS);
+			securityRoleRefs = new EObjectContainmentEList<SecurityRoleRef>(SecurityRoleRef.class, this, EjbPackage.ENTITY_BEAN__SECURITY_ROLE_REFS);
 		}
 		return securityRoleRefs;
 	}
@@ -1190,9 +1214,9 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getQueries() {
+	public List<Query> getQueries() {
 		if (queries == null) {
-			queries = new EObjectContainmentEList(Query.class, this, EjbPackage.ENTITY_BEAN__QUERIES);
+			queries = new EObjectContainmentEList<Query>(Query.class, this, EjbPackage.ENTITY_BEAN__QUERIES);
 		}
 		return queries;
 	}
@@ -1227,41 +1251,43 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EjbPackage.ENTITY_BEAN__DESCRIPTIONS:
-				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDescriptions()).basicRemove(otherEnd, msgs);
 			case EjbPackage.ENTITY_BEAN__DISPLAY_NAMES:
-				return ((InternalEList)getDisplayNames()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDisplayNames()).basicRemove(otherEnd, msgs);
 			case EjbPackage.ENTITY_BEAN__ICONS:
-				return ((InternalEList)getIcons()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getIcons()).basicRemove(otherEnd, msgs);
 			case EjbPackage.ENTITY_BEAN__CMP_FIELDS:
-				return ((InternalEList)getCmpFields()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getCmpFields()).basicRemove(otherEnd, msgs);
 			case EjbPackage.ENTITY_BEAN__ENV_ENTRIES:
-				return ((InternalEList)getEnvEntries()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getEnvEntries()).basicRemove(otherEnd, msgs);
 			case EjbPackage.ENTITY_BEAN__EJB_REFS:
-				return ((InternalEList)getEjbRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getEjbRefs()).basicRemove(otherEnd, msgs);
 			case EjbPackage.ENTITY_BEAN__EJB_LOCAL_REFS:
-				return ((InternalEList)getEjbLocalRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getEjbLocalRefs()).basicRemove(otherEnd, msgs);
 			case EjbPackage.ENTITY_BEAN__SERVICE_REFS:
-				return ((InternalEList)getServiceRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getServiceRefs()).basicRemove(otherEnd, msgs);
 			case EjbPackage.ENTITY_BEAN__RESOURCE_REFS:
-				return ((InternalEList)getResourceRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getResourceRefs()).basicRemove(otherEnd, msgs);
 			case EjbPackage.ENTITY_BEAN__RESOURCE_ENV_REFS:
-				return ((InternalEList)getResourceEnvRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getResourceEnvRefs()).basicRemove(otherEnd, msgs);
 			case EjbPackage.ENTITY_BEAN__MESSAGE_DESTINATION_REFS:
-				return ((InternalEList)getMessageDestinationRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getMessageDestinationRefs()).basicRemove(otherEnd, msgs);
 			case EjbPackage.ENTITY_BEAN__PERSISTENCE_CONTEXT_REFS:
-				return ((InternalEList)getPersistenceContextRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getPersistenceContextRefs()).basicRemove(otherEnd, msgs);
 			case EjbPackage.ENTITY_BEAN__PERSISTENCE_UNIT_REFS:
-				return ((InternalEList)getPersistenceUnitRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getPersistenceUnitRefs()).basicRemove(otherEnd, msgs);
 			case EjbPackage.ENTITY_BEAN__POST_CONSTRUCTS:
-				return ((InternalEList)getPostConstructs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getPostConstructs()).basicRemove(otherEnd, msgs);
 			case EjbPackage.ENTITY_BEAN__PRE_DESTROYS:
-				return ((InternalEList)getPreDestroys()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getPreDestroys()).basicRemove(otherEnd, msgs);
+			case EjbPackage.ENTITY_BEAN__DATA_SOURCE:
+				return ((InternalEList<?>)getDataSource()).basicRemove(otherEnd, msgs);
 			case EjbPackage.ENTITY_BEAN__SECURITY_ROLE_REFS:
-				return ((InternalEList)getSecurityRoleRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getSecurityRoleRefs()).basicRemove(otherEnd, msgs);
 			case EjbPackage.ENTITY_BEAN__SECURITY_IDENTITY:
 				return basicSetSecurityIdentity(null, msgs);
 			case EjbPackage.ENTITY_BEAN__QUERIES:
-				return ((InternalEList)getQueries()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getQueries()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -1299,7 +1325,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 			case EjbPackage.ENTITY_BEAN__PRIM_KEY_CLASS:
 				return getPrimKeyClass();
 			case EjbPackage.ENTITY_BEAN__REENTRANT:
-				return isReentrant() ? Boolean.TRUE : Boolean.FALSE;
+				return isReentrant();
 			case EjbPackage.ENTITY_BEAN__CMP_VERSION:
 				return getCmpVersion();
 			case EjbPackage.ENTITY_BEAN__ABSTRACT_SCHEMA_NAME:
@@ -1330,6 +1356,8 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 				return getPostConstructs();
 			case EjbPackage.ENTITY_BEAN__PRE_DESTROYS:
 				return getPreDestroys();
+			case EjbPackage.ENTITY_BEAN__DATA_SOURCE:
+				return getDataSource();
 			case EjbPackage.ENTITY_BEAN__SECURITY_ROLE_REFS:
 				return getSecurityRoleRefs();
 			case EjbPackage.ENTITY_BEAN__SECURITY_IDENTITY:
@@ -1347,20 +1375,21 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EjbPackage.ENTITY_BEAN__DESCRIPTIONS:
 				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
+				getDescriptions().addAll((Collection<? extends Description>)newValue);
 				return;
 			case EjbPackage.ENTITY_BEAN__DISPLAY_NAMES:
 				getDisplayNames().clear();
-				getDisplayNames().addAll((Collection)newValue);
+				getDisplayNames().addAll((Collection<? extends DisplayName>)newValue);
 				return;
 			case EjbPackage.ENTITY_BEAN__ICONS:
 				getIcons().clear();
-				getIcons().addAll((Collection)newValue);
+				getIcons().addAll((Collection<? extends Icon>)newValue);
 				return;
 			case EjbPackage.ENTITY_BEAN__EJB_NAME:
 				setEjbName((String)newValue);
@@ -1390,7 +1419,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 				setPrimKeyClass((String)newValue);
 				return;
 			case EjbPackage.ENTITY_BEAN__REENTRANT:
-				setReentrant(((Boolean)newValue).booleanValue());
+				setReentrant((Boolean)newValue);
 				return;
 			case EjbPackage.ENTITY_BEAN__CMP_VERSION:
 				setCmpVersion((CmpVersionType)newValue);
@@ -1400,65 +1429,69 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 				return;
 			case EjbPackage.ENTITY_BEAN__CMP_FIELDS:
 				getCmpFields().clear();
-				getCmpFields().addAll((Collection)newValue);
+				getCmpFields().addAll((Collection<? extends CMPField>)newValue);
 				return;
 			case EjbPackage.ENTITY_BEAN__PRIMKEY_FIELD:
 				setPrimkeyField((String)newValue);
 				return;
 			case EjbPackage.ENTITY_BEAN__ENV_ENTRIES:
 				getEnvEntries().clear();
-				getEnvEntries().addAll((Collection)newValue);
+				getEnvEntries().addAll((Collection<? extends EnvEntry>)newValue);
 				return;
 			case EjbPackage.ENTITY_BEAN__EJB_REFS:
 				getEjbRefs().clear();
-				getEjbRefs().addAll((Collection)newValue);
+				getEjbRefs().addAll((Collection<? extends EjbRef>)newValue);
 				return;
 			case EjbPackage.ENTITY_BEAN__EJB_LOCAL_REFS:
 				getEjbLocalRefs().clear();
-				getEjbLocalRefs().addAll((Collection)newValue);
+				getEjbLocalRefs().addAll((Collection<? extends EjbLocalRef>)newValue);
 				return;
 			case EjbPackage.ENTITY_BEAN__SERVICE_REFS:
 				getServiceRefs().clear();
-				getServiceRefs().addAll((Collection)newValue);
+				getServiceRefs().addAll((Collection<? extends ServiceRef>)newValue);
 				return;
 			case EjbPackage.ENTITY_BEAN__RESOURCE_REFS:
 				getResourceRefs().clear();
-				getResourceRefs().addAll((Collection)newValue);
+				getResourceRefs().addAll((Collection<? extends ResourceRef>)newValue);
 				return;
 			case EjbPackage.ENTITY_BEAN__RESOURCE_ENV_REFS:
 				getResourceEnvRefs().clear();
-				getResourceEnvRefs().addAll((Collection)newValue);
+				getResourceEnvRefs().addAll((Collection<? extends ResourceEnvRef>)newValue);
 				return;
 			case EjbPackage.ENTITY_BEAN__MESSAGE_DESTINATION_REFS:
 				getMessageDestinationRefs().clear();
-				getMessageDestinationRefs().addAll((Collection)newValue);
+				getMessageDestinationRefs().addAll((Collection<? extends MessageDestinationRef>)newValue);
 				return;
 			case EjbPackage.ENTITY_BEAN__PERSISTENCE_CONTEXT_REFS:
 				getPersistenceContextRefs().clear();
-				getPersistenceContextRefs().addAll((Collection)newValue);
+				getPersistenceContextRefs().addAll((Collection<? extends PersistenceContextRef>)newValue);
 				return;
 			case EjbPackage.ENTITY_BEAN__PERSISTENCE_UNIT_REFS:
 				getPersistenceUnitRefs().clear();
-				getPersistenceUnitRefs().addAll((Collection)newValue);
+				getPersistenceUnitRefs().addAll((Collection<? extends PersistenceUnitRef>)newValue);
 				return;
 			case EjbPackage.ENTITY_BEAN__POST_CONSTRUCTS:
 				getPostConstructs().clear();
-				getPostConstructs().addAll((Collection)newValue);
+				getPostConstructs().addAll((Collection<? extends LifecycleCallback>)newValue);
 				return;
 			case EjbPackage.ENTITY_BEAN__PRE_DESTROYS:
 				getPreDestroys().clear();
-				getPreDestroys().addAll((Collection)newValue);
+				getPreDestroys().addAll((Collection<? extends LifecycleCallback>)newValue);
+				return;
+			case EjbPackage.ENTITY_BEAN__DATA_SOURCE:
+				getDataSource().clear();
+				getDataSource().addAll((Collection<? extends DataSourceType>)newValue);
 				return;
 			case EjbPackage.ENTITY_BEAN__SECURITY_ROLE_REFS:
 				getSecurityRoleRefs().clear();
-				getSecurityRoleRefs().addAll((Collection)newValue);
+				getSecurityRoleRefs().addAll((Collection<? extends SecurityRoleRef>)newValue);
 				return;
 			case EjbPackage.ENTITY_BEAN__SECURITY_IDENTITY:
 				setSecurityIdentity((SecurityIdentityType)newValue);
 				return;
 			case EjbPackage.ENTITY_BEAN__QUERIES:
 				getQueries().clear();
-				getQueries().addAll((Collection)newValue);
+				getQueries().addAll((Collection<? extends Query>)newValue);
 				return;
 			case EjbPackage.ENTITY_BEAN__ID:
 				setId((String)newValue);
@@ -1559,6 +1592,9 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 			case EjbPackage.ENTITY_BEAN__PRE_DESTROYS:
 				getPreDestroys().clear();
 				return;
+			case EjbPackage.ENTITY_BEAN__DATA_SOURCE:
+				getDataSource().clear();
+				return;
 			case EjbPackage.ENTITY_BEAN__SECURITY_ROLE_REFS:
 				getSecurityRoleRefs().clear();
 				return;
@@ -1639,6 +1675,8 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 				return postConstructs != null && !postConstructs.isEmpty();
 			case EjbPackage.ENTITY_BEAN__PRE_DESTROYS:
 				return preDestroys != null && !preDestroys.isEmpty();
+			case EjbPackage.ENTITY_BEAN__DATA_SOURCE:
+				return dataSource != null && !dataSource.isEmpty();
 			case EjbPackage.ENTITY_BEAN__SECURITY_ROLE_REFS:
 				return securityRoleRefs != null && !securityRoleRefs.isEmpty();
 			case EjbPackage.ENTITY_BEAN__SECURITY_IDENTITY:

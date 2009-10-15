@@ -68,7 +68,7 @@ public class QueryMethodImpl extends EObjectImpl implements QueryMethod {
 	 * @generated
 	 * @ordered
 	 */
-	protected MethodParams methodParams = null;
+	protected MethodParams methodParams;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.

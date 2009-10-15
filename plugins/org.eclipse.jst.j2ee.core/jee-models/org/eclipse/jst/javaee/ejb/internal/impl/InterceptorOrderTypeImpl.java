@@ -51,7 +51,7 @@ public class InterceptorOrderTypeImpl extends EObjectImpl implements Interceptor
 	 * @generated
 	 * @ordered
 	 */
-	protected EList interceptorClasses = null;
+	protected EList<String> interceptorClasses;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -97,9 +97,9 @@ public class InterceptorOrderTypeImpl extends EObjectImpl implements Interceptor
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getInterceptorClasses() {
+	public List<String> getInterceptorClasses() {
 		if (interceptorClasses == null) {
-			interceptorClasses = new EDataTypeEList(String.class, this, EjbPackage.INTERCEPTOR_ORDER_TYPE__INTERCEPTOR_CLASSES);
+			interceptorClasses = new EDataTypeEList<String>(String.class, this, EjbPackage.INTERCEPTOR_ORDER_TYPE__INTERCEPTOR_CLASSES);
 		}
 		return interceptorClasses;
 	}
@@ -146,12 +146,13 @@ public class InterceptorOrderTypeImpl extends EObjectImpl implements Interceptor
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EjbPackage.INTERCEPTOR_ORDER_TYPE__INTERCEPTOR_CLASSES:
 				getInterceptorClasses().clear();
-				getInterceptorClasses().addAll((Collection)newValue);
+				getInterceptorClasses().addAll((Collection<? extends String>)newValue);
 				return;
 			case EjbPackage.INTERCEPTOR_ORDER_TYPE__ID:
 				setId((String)newValue);

@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.emf.common.util.AbstractEnumerator;
+import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,17 +24,37 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The cmr-field-type element specifies the class of a
- * 	collection-valued logical relationship field in the entity
- * 	bean class. The value of an element using cmr-field-typeType
- * 	must be either: java.util.Collection or java.util.Set.
- * 
+ *         The cmr-field-type element specifies the class of a
+ *         collection-valued logical relationship field in the entity
+ *         bean class. The value of an element using cmr-field-typeType
+ *         must be either: java.util.Collection or java.util.Set.
+ *         
+ *         @since Java EE 5, EJB 3.0
  *       
  * <!-- end-model-doc -->
  * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getCMRFieldType()
  * @generated
  */
-public final class CMRFieldType extends AbstractEnumerator {
+public enum CMRFieldType implements Enumerator
+{
+	/**
+	 * The '<em><b>Java Util Collection</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #JAVA_UTIL_COLLECTION
+	 * @generated
+	 * @ordered
+	 */
+	JAVA_UTIL_COLLECTION_LITERAL(0, "javaUtilCollection", "java.util.Collection"), //$NON-NLS-1$ //$NON-NLS-2$
+	/**
+	 * The '<em><b>Java Util Set</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #JAVA_UTIL_SET
+	 * @generated
+	 * @ordered
+	 */
+	JAVA_UTIL_SET_LITERAL(1, "javaUtilSet", "java.util.Set"); //$NON-NLS-1$ //$NON-NLS-2$
 	/**
 	 * The '<em><b>Java Util Collection</b></em>' literal value.
 	 * <!-- begin-user-doc -->
@@ -64,26 +84,6 @@ public final class CMRFieldType extends AbstractEnumerator {
 	public static final int JAVA_UTIL_SET = 1;
 
 	/**
-	 * The '<em><b>Java Util Collection</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #JAVA_UTIL_COLLECTION
-	 * @generated
-	 * @ordered
-	 */
-	public static final CMRFieldType JAVA_UTIL_COLLECTION_LITERAL = new CMRFieldType(JAVA_UTIL_COLLECTION, "javaUtilCollection", "java.util.Collection"); //$NON-NLS-1$ //$NON-NLS-2$
-
-	/**
-	 * The '<em><b>Java Util Set</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #JAVA_UTIL_SET
-	 * @generated
-	 * @ordered
-	 */
-	public static final CMRFieldType JAVA_UTIL_SET_LITERAL = new CMRFieldType(JAVA_UTIL_SET, "javaUtilSet", "java.util.Set"); //$NON-NLS-1$ //$NON-NLS-2$
-
-	/**
 	 * An array of all the '<em><b>CMR Field Type</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -101,7 +101,7 @@ public final class CMRFieldType extends AbstractEnumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<CMRFieldType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>CMR Field Type</b></em>' literal with the specified literal value.
@@ -146,8 +146,29 @@ public final class CMRFieldType extends AbstractEnumerator {
 			case JAVA_UTIL_COLLECTION: return JAVA_UTIL_COLLECTION_LITERAL;
 			case JAVA_UTIL_SET: return JAVA_UTIL_SET_LITERAL;
 		}
-		return null;	
+		return null;
 	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final int value;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String name;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String literal;
 
 	/**
 	 * Only this class can construct instances.
@@ -156,7 +177,46 @@ public final class CMRFieldType extends AbstractEnumerator {
 	 * @generated
 	 */
 	private CMRFieldType(int value, String name, String literal) {
-		super(value, name, literal);
+		this.value = value;
+		this.name = name;
+		this.literal = literal;
 	}
 
-} //CMRFieldType
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getValue() {
+	  return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getName() {
+	  return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getLiteral() {
+	  return literal;
+	}
+
+	/**
+	 * Returns the literal value of the enumerator, which is its string representation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		return literal;
+	}
+}

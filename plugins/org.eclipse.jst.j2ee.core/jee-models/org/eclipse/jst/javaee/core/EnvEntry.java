@@ -20,26 +20,27 @@ import java.util.List;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The env-entryType is used to declare an application's
- * 	environment entry. The declaration consists of an optional
- * 	description, the name of the environment entry, a type
- * 	(optional if the value is injected, otherwise required), and
- * 	an optional value.
- * 
- * 	It also includes optional elements to define injection of
- * 	the named resource into fields or JavaBeans properties.
- * 
- * 	If a value is not specified and injection is requested,
- * 	no injection will occur and no entry of the specified name
- * 	will be created.  This allows an initial value to be
- * 	specified in the source code without being incorrectly
- * 	changed when no override has been specified.
- * 
- * 	If a value is not specified and no injection is requested,
- * 	a value must be supplied during deployment.
- * 
- * 	This type is used by env-entry elements.
- * 
+ *         The env-entryType is used to declare an application's
+ *         environment entry. The declaration consists of an optional
+ *         description, the name of the environment entry, a type
+ *         (optional if the value is injected, otherwise required), and
+ *         an optional value.
+ *         
+ *         It also includes optional elements to define injection of
+ *         the named resource into fields or JavaBeans properties.
+ *         
+ *         If a value is not specified and injection is requested,
+ *         no injection will occur and no entry of the specified name
+ *         will be created.  This allows an initial value to be
+ *         specified in the source code without being incorrectly
+ *         changed when no override has been specified.
+ *         
+ *         If a value is not specified and no injection is requested,
+ *         a value must be supplied during deployment. 
+ *         
+ *         This type is used by env-entry elements.
+ *         
+ *         @since Java EE 5
  *       
  * <!-- end-model-doc -->
  *
@@ -52,6 +53,7 @@ import java.util.List;
  *   <li>{@link org.eclipse.jst.javaee.core.EnvEntry#getEnvEntryValue <em>Env Entry Value</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.EnvEntry#getMappedName <em>Mapped Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.EnvEntry#getInjectionTargets <em>Injection Targets</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.core.EnvEntry#getLookupName <em>Lookup Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.EnvEntry#getId <em>Id</em>}</li>
  * </ul>
  * </p>
@@ -74,7 +76,7 @@ public interface EnvEntry extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getEnvEntry_Descriptions()
 	 * @generated
 	 */
-	List getDescriptions();
+	List<Description> getDescriptions();
 
 	/**
 	 * Returns the value of the '<em><b>Env Entry Name</b></em>' attribute.
@@ -82,22 +84,22 @@ public interface EnvEntry extends JavaEEObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * 
-	 * 	    
-	 * 
-	 * 	      The env-entry-name element contains the name of a
-	 * 	      Deployment Component's environment entry.  The name
-	 * 	      is a JNDI name relative to the java:comp/env
-	 * 	      context.  The name must be unique within a
-	 * 	      Deployment Component. The uniqueness
-	 * 	      constraints must be defined within the declared
-	 * 	      context.
-	 * 
-	 * 	      Example:
-	 * 
-	 * 	      &lt;env-entry-name&gt;minAmount&lt;/env-entry-name&gt;
-	 * 
-	 * 	      
-	 * 	  
+	 * <![CDATA[[
+	 *             The env-entry-name element contains the name of a
+	 *             Deployment Component's environment entry.  The name
+	 *             is a JNDI name relative to the java:comp/env
+	 *             context.  The name must be unique within a 
+	 *             Deployment Component. The uniqueness
+	 *             constraints must be defined within the declared
+	 *             context.
+	 *             
+	 *             Example:
+	 *             
+	 *             <env-entry-name>minAmount</env-entry-name>
+	 *             
+	 * ]]>
+	 *             @since Java EE 5
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Env Entry Name</em>' attribute.
 	 * @see #setEnvEntryName(String)
@@ -118,73 +120,42 @@ public interface EnvEntry extends JavaEEObject {
 
 	/**
 	 * Returns the value of the '<em><b>Env Entry Type</b></em>' attribute.
-	 * The default value is <code>"java.lang.Boolean"</code>.
-	 * The literals are from the enumeration {@link org.eclipse.jst.javaee.core.EnvEntryType}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * 
-	 * 	    
-	 * 
-	 * 	      The env-entry-type element contains the Java language
-	 * 	      type of the environment entry.  If an injection target
-	 * 	      is specified for the environment entry, the type may
-	 * 	      be omitted, or must match the type of the injection
-	 * 	      target.  If no injection target is specified, the type
-	 * 	      is required.
-	 * 
-	 * 	      Example:
-	 * 
-	 * 	      &lt;env-entry-type&gt;java.lang.Integer&lt;/env-entry-type&gt;
-	 * 
-	 * 	      
-	 * 	  
+	 * <![CDATA[[
+	 *             The env-entry-type element contains the Java language
+	 *             type of the environment entry.  If an injection target
+	 *             is specified for the environment entry, the type may
+	 *             be omitted, or must match the type of the injection
+	 *             target.  If no injection target is specified, the type
+	 *             is required.
+	 *             
+	 *             Example:
+	 *             
+	 *             <env-entry-type>java.lang.Integer</env-entry-type>
+	 *             
+	 * ]]>
+	 *             @since Java EE 5
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Env Entry Type</em>' attribute.
-	 * @see org.eclipse.jst.javaee.core.EnvEntryType
-	 * @see #isSetEnvEntryType()
-	 * @see #unsetEnvEntryType()
-	 * @see #setEnvEntryType(EnvEntryType)
+	 * @see #setEnvEntryType(String)
 	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getEnvEntry_EnvEntryType()
 	 * @generated
 	 */
-	EnvEntryType getEnvEntryType();
+	String getEnvEntryType();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.jst.javaee.core.EnvEntry#getEnvEntryType <em>Env Entry Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Env Entry Type</em>' attribute.
-	 * @see org.eclipse.jst.javaee.core.EnvEntryType
-	 * @see #isSetEnvEntryType()
-	 * @see #unsetEnvEntryType()
 	 * @see #getEnvEntryType()
 	 * @generated
 	 */
-	void setEnvEntryType(EnvEntryType value);
-
-	/**
-	 * Unsets the value of the '{@link org.eclipse.jst.javaee.core.EnvEntry#getEnvEntryType <em>Env Entry Type</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isSetEnvEntryType()
-	 * @see #getEnvEntryType()
-	 * @see #setEnvEntryType(EnvEntryType)
-	 * @generated
-	 */
-	void unsetEnvEntryType();
-
-	/**
-	 * Returns whether the value of the '{@link org.eclipse.jst.javaee.core.EnvEntry#getEnvEntryType <em>Env Entry Type</em>}' attribute is set.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return whether the value of the '<em>Env Entry Type</em>' attribute is set.
-	 * @see #unsetEnvEntryType()
-	 * @see #getEnvEntryType()
-	 * @see #setEnvEntryType(EnvEntryType)
-	 * @generated
-	 */
-	boolean isSetEnvEntryType();
+	void setEnvEntryType(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Env Entry Value</b></em>' attribute.
@@ -192,21 +163,21 @@ public interface EnvEntry extends JavaEEObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * 
-	 * 	    
-	 * 
-	 * 	      The env-entry-value designates the value of a
-	 * 	      Deployment Component's environment entry. The value
-	 * 	      must be a String that is valid for the
-	 * 	      constructor of the specified type that takes a
-	 * 	      single String parameter, or for java.lang.Character,
-	 * 	      a single character.
-	 * 
-	 * 	      Example:
-	 * 
-	 * 	      &lt;env-entry-value&gt;100.00&lt;/env-entry-value&gt;
-	 * 
-	 * 	      
-	 * 	  
+	 * <![CDATA[[
+	 *             The env-entry-value designates the value of a
+	 *             Deployment Component's environment entry. The value
+	 *             must be a String that is valid for the
+	 *             constructor of the specified type that takes a
+	 *             single String parameter, or for java.lang.Character,
+	 *             a single character.
+	 *             
+	 *             Example:
+	 *             
+	 *             <env-entry-value>100.00</env-entry-value>
+	 *             
+	 * ]]>
+	 *             @since Java EE 5
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Env Entry Value</em>' attribute.
 	 * @see #setEnvEntryValue(String)
@@ -231,26 +202,25 @@ public interface EnvEntry extends JavaEEObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * 
-	 * 	    
 	 * 
-	 * 	      A product specific name that this resource should be
-	 * 	      mapped to.  The name of this resource, as defined by the
-	 * 	      resource's name element or defaulted, is a name that is
-	 * 	      local to the application component using the resource.
-	 * 	      (It's a name in the JNDI java:comp/env namespace.)  Many
-	 * 	      application servers provide a way to map these local
-	 * 	      names to names of resources known to the application
-	 * 	      server.  This mapped name is often a global JNDI name,
-	 * 	      but may be a name of any form.
-	 * 
-	 * 	      Application servers are not required to support any
-	 * 	      particular form or type of mapped name, nor the ability
-	 * 	      to use mapped names.  The mapped name is
-	 * 	      product-dependent and often installation-dependent.  No
-	 * 	      use of a mapped name is portable.
-	 * 
-	 * 	      
-	 * 	  
+	 *             A product specific name that this resource should be
+	 *             mapped to.  The name of this resource, as defined by the
+	 *             resource's name element or defaulted, is a name that is
+	 *             local to the application component using the resource.
+	 *             (It's a name in the JNDI java:comp/env namespace.)  Many
+	 *             application servers provide a way to map these local
+	 *             names to names of resources known to the application
+	 *             server.  This mapped name is often a global JNDI name,
+	 *             but may be a name of any form.
+	 *             
+	 *             Application servers are not required to support any
+	 *             particular form or type of mapped name, nor the ability
+	 *             to use mapped names.  The mapped name is
+	 *             product-dependent and often installation-dependent.  No
+	 *             use of a mapped name is portable.
+	 *             
+	 *             @since Java EE 5
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Mapped Name</em>' attribute.
 	 * @see #setMappedName(String)
@@ -282,7 +252,36 @@ public interface EnvEntry extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getEnvEntry_InjectionTargets()
 	 * @generated
 	 */
-	List getInjectionTargets();
+	List<InjectionTarget> getInjectionTargets();
+
+	/**
+	 * Returns the value of the '<em><b>Lookup Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * 
+	 *             The JNDI name to be looked up to resolve a resource reference.
+	 *             
+	 *             @since Java EE 6
+	 *           
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Lookup Name</em>' attribute.
+	 * @see #setLookupName(String)
+	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getEnvEntry_LookupName()
+	 * @generated
+	 */
+	String getLookupName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.jst.javaee.core.EnvEntry#getLookupName <em>Lookup Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Lookup Name</em>' attribute.
+	 * @see #getLookupName()
+	 * @generated
+	 */
+	void setLookupName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.
@@ -308,5 +307,35 @@ public interface EnvEntry extends JavaEEObject {
 	 * @generated
 	 */
 	void setId(String value);
+	
+	/**
+	 * Sets the value of the '{@link org.eclipse.jst.javaee.core.EnvEntry#getEnvEntryType <em>Env Entry Type</em>}' attribute.
+	 * @param value the new value of the '<em>Env Entry Type</em>' attribute.
+	 * @see org.eclipse.jst.javaee.core.EnvEntryType
+	 * @see #isSetEnvEntryType()
+	 * @see #unsetEnvEntryType()
+	 * @see #getEnvEntryType()
+	 * This is provided for Java EE 5 model equivalence
+	 */
+	void setEnvEntryType(EnvEntryType value);
+
+	/**
+	 * Unsets the value of the '{@link org.eclipse.jst.javaee.core.EnvEntry#getEnvEntryType <em>Env Entry Type</em>}' attribute.
+	 * @see #isSetEnvEntryType()
+	 * @see #getEnvEntryType()
+	 * @see #setEnvEntryType(EnvEntryType)
+	 * This is provided for Java EE 5 model equivalence
+	 */
+	void unsetEnvEntryType();
+
+	/**
+	 * Returns whether the value of the '{@link org.eclipse.jst.javaee.core.EnvEntry#getEnvEntryType <em>Env Entry Type</em>}' attribute is set.
+	 * @return whether the value of the '<em>Env Entry Type</em>' attribute is set.
+	 * @see #unsetEnvEntryType()
+	 * @see #getEnvEntryType()
+	 * @see #setEnvEntryType(EnvEntryType)
+	 * This is provided for Java EE 5 model equivalence
+	 */
+	boolean isSetEnvEntryType();
 
 } // EnvEntry

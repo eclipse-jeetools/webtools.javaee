@@ -29,266 +29,244 @@ import org.eclipse.jst.javaee.application.ApplicationFactory;
  * <!-- end-user-doc -->
  * <!-- begin-model-doc -->
  * 
- *       @(#)application_5.xsds	1.17 08/05/05
- *     
  * 
- * 
- *       Copyright 2003-2006 Sun Microsystems, Inc.
- *       4150 Network Circle
- *       Santa Clara, California 95054
- *       U.S.A
- *       All rights reserved.
- * 
- *       Sun Microsystems, Inc. has intellectual property rights
- *       relating to technology described in this document. In
- *       particular, and without limitation, these intellectual
- *       property rights may include one or more of the U.S. patents
- *       listed at http://www.sun.com/patents and one or more
- *       additional patents or pending patent applications in the
- *       U.S. and other countries.
- * 
- *       This document and the technology which it describes are
- *       distributed under licenses restricting their use, copying,
- *       distribution, and decompilation. No part of this document
- *       may be reproduced in any form by any means without prior
- *       written authorization of Sun and its licensors, if any.
- * 
- *       Third-party software, including font technology, is
- *       copyrighted and licensed from Sun suppliers.
- * 
- *       Sun, Sun Microsystems, the Sun logo, Solaris, Java, J2EE,
- *       JavaServer Pages, Enterprise JavaBeans and the Java Coffee
- *       Cup logo are trademarks or registered trademarks of Sun
- *       Microsystems, Inc. in the U.S. and other countries.
- * 
- *       Federal Acquisitions: Commercial Software - Government Users
- *       Subject to Standard License Terms and Conditions.
- * 
- *     
- * 
+ *       $Id: ApplicationPackage.java,v 1.3 2009/10/15 18:52:21 canderson Exp $
  *       
+ *     
  * 
- * 	This is the XML Schema for the application 5 deployment
- * 	descriptor.  The deployment descriptor must be named
- * 	"META-INF/application.xml" in the application's ear file.
- * 	All application deployment descriptors must indicate
- * 	the application schema by using the Java EE namespace:
- * 
- * 	http://java.sun.com/xml/ns/javaee
- * 
- * 	and indicate the version of the schema by
- * 	using the version element as shown below:
- * 
- * 	    &lt;application xmlns="http://java.sun.com/xml/ns/javaee"
- * 	      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- * 	      xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
- * 		http://java.sun.com/xml/ns/javaee/application_5.xsd"
- * 	      version="5"&gt;
- * 	      ...
- * 	    &lt;/application&gt;
- * 
- * 	The instance documents may indicate the published version of
- * 	the schema using the xsi:schemaLocation attribute for Java EE
- * 	namespace with the following location:
- * 
- * 	http://java.sun.com/xml/ns/javaee/application_5.xsd
- * 
- * 	
+ * <![CDATA[[
+ *       This is the XML Schema for the application 6 deployment
+ *       descriptor.  The deployment descriptor must be named
+ *       "META-INF/application.xml" in the application's ear file.
+ *       All application deployment descriptors must indicate
+ *       the application schema by using the Java EE namespace:
+ *       
+ *       http://java.sun.com/xml/ns/javaee
+ *       
+ *       and indicate the version of the schema by
+ *       using the version element as shown below:
+ *       
+ *       <application xmlns="http://java.sun.com/xml/ns/javaee"
+ *       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ *       xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+ *       	http://java.sun.com/xml/ns/javaee/application_6.xsd"
+ *       version="6">
+ *       ...
+ *       </application>
+ *       
+ *       The instance documents may indicate the published version of
+ *       the schema using the xsi:schemaLocation attribute for Java EE
+ *       namespace with the following location:
+ *       
+ *       http://java.sun.com/xml/ns/javaee/application_6.xsd
+ *       
+ * ]]>
  *     
  * 
  * 
  *       The following conventions apply to all Java EE
  *       deployment descriptor elements unless indicated otherwise.
- * 
+ *       
  *       - In elements that specify a pathname to a file within the
- * 	same JAR file, relative filenames (i.e., those not
- * 	starting with "/") are considered relative to the root of
- * 	the JAR file's namespace.  Absolute filenames (i.e., those
- * 	starting with "/") also specify names in the root of the
- * 	JAR file's namespace.  In general, relative names are
- * 	preferred.  The exception is .war files where absolute
- * 	names are preferred for consistency with the Servlet API.
- * 
- *     
- * 
- *       @(#)javaee_5.xsds	1.65 06/02/17
+ *       same JAR file, relative filenames (i.e., those not
+ *       starting with "/") are considered relative to the root of
+ *       the JAR file's namespace.  Absolute filenames (i.e., those
+ *       starting with "/") also specify names in the root of the
+ *       JAR file's namespace.  In general, relative names are
+ *       preferred.  The exception is .war files where absolute
+ *       names are preferred for consistency with the Servlet API.
+ *       
  *     
  * 
  * 
- *       Copyright 2003-2006 Sun Microsystems, Inc.
- *       4150 Network Circle
- *       Santa Clara, California 95054
- *       U.S.A
- *       All rights reserved.
- * 
- *       Sun Microsystems, Inc. has intellectual property rights
- *       relating to technology described in this document. In
- *       particular, and without limitation, these intellectual
- *       property rights may include one or more of the U.S. patents
- *       listed at http://www.sun.com/patents and one or more
- *       additional patents or pending patent applications in the
- *       U.S. and other countries.
- * 
- *       This document and the technology which it describes are
- *       distributed under licenses restricting their use, copying,
- *       distribution, and decompilation. No part of this document
- *       may be reproduced in any form by any means without prior
- *       written authorization of Sun and its licensors, if any.
- * 
- *       Third-party software, including font technology, is
- *       copyrighted and licensed from Sun suppliers.
- * 
- *       Sun, Sun Microsystems, the Sun logo, Solaris, Java, J2EE,
- *       JavaServer Pages, Enterprise JavaBeans and the Java Coffee
- *       Cup logo are trademarks or registered trademarks of Sun
- *       Microsystems, Inc. in the U.S. and other countries.
- * 
- *       Federal Acquisitions: Commercial Software - Government Users
- *       Subject to Standard License Terms and Conditions.
- * 
+ *       $Id: ApplicationPackage.java,v 1.3 2009/10/15 18:52:21 canderson Exp $
+ *       
  *     
  * 
  * 
- * The following definitions that appear in the common
- * shareable schema(s) of J2EE deployment descriptors should be
- * interpreted with respect to the context they are included:
- * 
- * Deployment Component may indicate one of the following:
- *     j2ee application;
- *     application client;
- *     web application;
- *     enterprise bean;
- *     resource adapter;
- * 
- * Deployment File may indicate one of the following:
- *     ear file;
- *     war file;
- *     jar file;
- *     rar file;
- * 
- * 
- * 
- *       @(#)javaee_web_services_client_1_2.xsds	1.19 02/13/06
+ *       The following definitions that appear in the common
+ *       shareable schema(s) of Java EE deployment descriptors should be
+ *       interpreted with respect to the context they are included:
+ *       
+ *       Deployment Component may indicate one of the following:
+ *       java ee application;
+ *       application client;
+ *       web application;
+ *       enterprise bean;
+ *       resource adapter; 
+ *       
+ *       Deployment File may indicate one of the following:
+ *       ear file;
+ *       war file;
+ *       jar file;
+ *       rar file;
+ *       
  *     
  * 
  * 
- *       Copyright 2003-2006 Sun Microsystems, Inc.
- *       4150 Network Circle
- *       Santa Clara, California 95054
- *       U.S.A
- *       All rights reserved.
- * 
- *       Sun Microsystems, Inc. has intellectual property rights
- *       relating to technology described in this document. In
- *       particular, and without limitation, these intellectual
- *       property rights may include one or more of the U.S. patents
- *       listed at http://www.sun.com/patents and one or more
- *       additional patents or pending patent applications in the
- *       U.S. and other countries.
- * 
- *       This document and the technology which it describes are
- *       distributed under licenses restricting their use, copying,
- *       distribution, and decompilation. No part of this document
- *       may be reproduced in any form by any means without prior
- *       written authorization of Sun and its licensors, if any.
- * 
- *       Third-party software, including font technology, is
- *       copyrighted and licensed from Sun suppliers.
- * 
- *       Sun, Sun Microsystems, the Sun logo, Solaris, Java, J2EE,
- *       JavaServer Pages, Enterprise JavaBeans and the Java Coffee
- *       Cup logo are trademarks or registered trademarks of Sun
- *       Microsystems, Inc. in the U.S. and other countries.
- * 
- *       Federal Acquisitions: Commercial Software - Government Users
- *       Subject to Standard License Terms and Conditions.
- * 
+ *       $Id: ApplicationPackage.java,v 1.3 2009/10/15 18:52:21 canderson Exp $
+ *       
  *     
  * 
  * 
  *       (C) Copyright International Business Machines Corporation 2002
- * 
+ *       
  *     
  * 
- *    See http://www.w3.org/XML/1998/namespace.html and
- *    http://www.w3.org/TR/REC-xml for information about this namespace.
+ *    <div xmlns="http://www.w3.org/1999/xhtml">
+ *     <h1>About the XML namespace</h1>
  * 
- *     This schema document describes the XML namespace, in a form
- *     suitable for import by other schema documents.  
- * 
- *     Note that local names in this namespace are intended to be defined
- *     only by the World Wide Web Consortium or its subgroups.  The
- *     following names are currently defined in this namespace and should
- *     not be used with conflicting semantics by any Working Group,
- *     specification, or document instance:
- * 
- *     base (as an attribute name): denotes an attribute whose value
- *          provides a URI to be used as the base for interpreting any
- *          relative URIs in the scope of the element on which it
- *          appears; its value is inherited.  This name is reserved
- *          by virtue of its definition in the XML Base specification.
- * 
- *     id   (as an attribute name): denotes an attribute whose value
- *          should be interpreted as if declared to be of type ID.
- *          The xml:id specification is not yet a W3C Recommendation,
- *          but this attribute is included here to facilitate experimentation
- *          with the mechanisms it proposes.  Note that it is _not_ included
- *          in the specialAttrs attribute group.
- * 
- *     lang (as an attribute name): denotes an attribute whose value
- *          is a language code for the natural language of the content of
- *          any element; its value is inherited.  This name is reserved
- *          by virtue of its definition in the XML specification.
+ *     <div class="bodytext">
+ *      <p>
+ *       This schema document describes the XML namespace, in a form
+ *       suitable for import by other schema documents.
+ *      </p>
+ *      <p>
+ *       See <a href="http://www.w3.org/XML/1998/namespace.html">
+ *       http://www.w3.org/XML/1998/namespace.html</a> and
+ *       <a href="http://www.w3.org/TR/REC-xml">
+ *       http://www.w3.org/TR/REC-xml</a> for information 
+ *       about this namespace.
+ *      </p>
+ *      <p>
+ *       Note that local names in this namespace are intended to be
+ *       defined only by the World Wide Web Consortium or its subgroups.
+ *       The names currently defined in this namespace are listed below.
+ *       They should not be used with conflicting semantics by any Working
+ *       Group, specification, or document instance.
+ *      </p>
+ *      <p>   
+ *       See further below in this document for more information about <a href="#usage">how to refer to this schema document from your own
+ *       XSD schema documents</a> and about <a href="#nsversioning">the
+ *       namespace-versioning policy governing this schema document</a>.
+ *      </p>
+ *     </div>
+ *    </div>
  *   
- *     space (as an attribute name): denotes an attribute whose
- *          value is a keyword indicating what whitespace processing
- *          discipline is intended for the content of the element; its
- *          value is inherited.  This name is reserved by virtue of its
- *          definition in the XML specification.
  * 
- *     Father (in any context at all): denotes Jon Bosak, the chair of 
- *          the original XML Working Group.  This name is reserved by 
- *          the following decision of the W3C XML Plenary and 
- *          XML Coordination groups:
+ *    <div xmlns="http://www.w3.org/1999/xhtml">
+ *    
+ *     <h3>Father (in any context at all)</h3> 
  * 
- *              In appreciation for his vision, leadership and dedication
- *              the W3C XML Plenary on this 10th day of February, 2000
- *              reserves for Jon Bosak in perpetuity the XML name
- *              xml:Father
+ *     <div class="bodytext">
+ *      <p>
+ *       denotes Jon Bosak, the chair of 
+ *       the original XML Working Group.  This name is reserved by 
+ *       the following decision of the W3C XML Plenary and 
+ *       XML Coordination groups:
+ *      </p>
+ *      <blockquote>
+ *        <p>
+ * 	In appreciation for his vision, leadership and
+ * 	dedication the W3C XML Plenary on this 10th day of
+ * 	February, 2000, reserves for Jon Bosak in perpetuity
+ * 	the XML name "xml:Father".
+ *        </p>
+ *      </blockquote>
+ *     </div>
+ *    </div>
  *   
- * This schema defines attributes and an attribute group
- *         suitable for use by
- *         schemas wishing to allow xml:base, xml:lang, xml:space or xml:id
- *         attributes on elements they define.
  * 
- *         To enable this, such a schema must import this schema
- *         for the XML namespace, e.g. as follows:
- *         &lt;schema . . .&gt;
- *          . . .
- *          &lt;import namespace="http://www.w3.org/XML/1998/namespace"
- *                     schemaLocation="http://www.w3.org/2001/xml.xsd"/&gt;
+ *    <div id="usage" xml:id="usage" xmlns="http://www.w3.org/1999/xhtml">
+ *     <h2>
+ *       <a name="usage">About this schema document</a>
+ *     </h2>
  * 
- *         Subsequently, qualified reference to any of the attributes
- *         or the group defined below will have the desired effect, e.g.
+ *     <div class="bodytext">
+ *      <p>
+ *       This schema defines attributes and an attribute group suitable
+ *       for use by schemas wishing to allow <code>xml:base</code>,
+ *       <code>xml:lang</code>, <code>xml:space</code> or
+ *       <code>xml:id</code> attributes on elements they define.
+ *      </p>
+ *      <p>
+ *       To enable this, such a schema must import this schema for
+ *       the XML namespace, e.g. as follows:
+ *      </p>
+ *      <pre>
+ *           &lt;schema . . .&gt;
+ *            . . .
+ *            &lt;import namespace="http://www.w3.org/XML/1998/namespace"
+ *                       schemaLocation="http://www.w3.org/2001/xml.xsd"/&gt;
+ *      </pre>
+ *      <p>
+ *       or
+ *      </p>
+ *      <pre>
+ *            &lt;import namespace="http://www.w3.org/XML/1998/namespace"
+ *                       schemaLocation="http://www.w3.org/2009/01/xml.xsd"/&gt;
+ *      </pre>
+ *      <p>
+ *       Subsequently, qualified reference to any of the attributes or the
+ *       group defined below will have the desired effect, e.g.
+ *      </p>
+ *      <pre>
+ *           &lt;type . . .&gt;
+ *            . . .
+ *            &lt;attributeGroup ref="xml:specialAttrs"/&gt;
+ *      </pre>
+ *      <p>
+ *       will define a type which will schema-validate an instance element
+ *       with any of those attributes.
+ *      </p>
+ *     </div>
+ *    </div>
+ *   
  * 
- *         &lt;type . . .&gt;
- *          . . .
- *          &lt;attributeGroup ref="xml:specialAttrs"/&gt;
- *  
- *          will define a type which will schema-validate an instance
- *          element with any of those attributes
- * In keeping with the XML Schema WG's standard versioning
- *    policy, this schema document will persist at
- *    http://www.w3.org/2005/08/xml.xsd.
- *    At the date of issue it can also be found at
- *    http://www.w3.org/2001/xml.xsd.
- *    The schema document at that URI may however change in the future,
- *    in order to remain compatible with the latest version of XML Schema
- *    itself, or with the XML namespace itself.  In other words, if the XML
- *    Schema or XML namespaces change, the version of this document at
- *    http://www.w3.org/2001/xml.xsd will change
- *    accordingly; the version at
- *    http://www.w3.org/2005/08/xml.xsd will not change.
+ *    <div id="nsversioning" xml:id="nsversioning" xmlns="http://www.w3.org/1999/xhtml">
+ *     <h2>
+ *       <a name="nsversioning">Versioning policy for this schema document</a>
+ *     </h2>
+ *     <div class="bodytext">
+ *      <p>
+ *       In keeping with the XML Schema WG's standard versioning
+ *       policy, this schema document will persist at
+ *       <a href="http://www.w3.org/2009/01/xml.xsd">
+ *        http://www.w3.org/2009/01/xml.xsd</a>.
+ *      </p>
+ *      <p>
+ *       At the date of issue it can also be found at
+ *       <a href="http://www.w3.org/2001/xml.xsd">
+ *        http://www.w3.org/2001/xml.xsd</a>.
+ *      </p>
+ *      <p>
+ *       The schema document at that URI may however change in the future,
+ *       in order to remain compatible with the latest version of XML
+ *       Schema itself, or with the XML namespace itself.  In other words,
+ *       if the XML Schema or XML namespaces change, the version of this
+ *       document at <a href="http://www.w3.org/2001/xml.xsd">
+ *        http://www.w3.org/2001/xml.xsd 
+ *       </a> 
+ *       will change accordingly; the version at 
+ *       <a href="http://www.w3.org/2009/01/xml.xsd">
+ *        http://www.w3.org/2009/01/xml.xsd 
+ *       </a> 
+ *       will not change.
+ *      </p>
+ *      <p>
+ *       Previous dated (and unchanging) versions of this schema 
+ *       document are at:
+ *      </p>
+ *      <ul>
+ *       <li>
+ *           <a href="http://www.w3.org/2009/01/xml.xsd">
+ * 	http://www.w3.org/2009/01/xml.xsd</a>
+ *         </li>
+ *       <li>
+ *           <a href="http://www.w3.org/2007/08/xml.xsd">
+ * 	http://www.w3.org/2007/08/xml.xsd</a>
+ *         </li>
+ *       <li>
+ *           <a href="http://www.w3.org/2004/10/xml.xsd">
+ * 	http://www.w3.org/2004/10/xml.xsd</a>
+ *         </li>
+ *       <li>
+ *           <a href="http://www.w3.org/2001/03/xml.xsd">
+ * 	http://www.w3.org/2001/03/xml.xsd</a>
+ *         </li>
+ *      </ul>
+ *     </div>
+ *    </div>
  *   
  * <!-- end-model-doc -->
  * @see org.eclipse.jst.javaee.application.ApplicationFactory
@@ -337,13 +315,22 @@ public interface ApplicationPackage extends EPackage {
 	int APPLICATION = 0;
 
 	/**
+	 * The feature id for the '<em><b>Application Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION__APPLICATION_NAME = 0;
+
+	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int APPLICATION__DESCRIPTIONS = 0;
+	int APPLICATION__DESCRIPTIONS = 1;
 
 	/**
 	 * The feature id for the '<em><b>Display Names</b></em>' containment reference list.
@@ -352,7 +339,7 @@ public interface ApplicationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int APPLICATION__DISPLAY_NAMES = 1;
+	int APPLICATION__DISPLAY_NAMES = 2;
 
 	/**
 	 * The feature id for the '<em><b>Icons</b></em>' containment reference list.
@@ -361,7 +348,16 @@ public interface ApplicationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int APPLICATION__ICONS = 2;
+	int APPLICATION__ICONS = 3;
+
+	/**
+	 * The feature id for the '<em><b>Initialize In Order</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION__INITIALIZE_IN_ORDER = 4;
 
 	/**
 	 * The feature id for the '<em><b>Modules</b></em>' containment reference list.
@@ -370,7 +366,7 @@ public interface ApplicationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int APPLICATION__MODULES = 3;
+	int APPLICATION__MODULES = 5;
 
 	/**
 	 * The feature id for the '<em><b>Security Roles</b></em>' containment reference list.
@@ -379,7 +375,7 @@ public interface ApplicationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int APPLICATION__SECURITY_ROLES = 4;
+	int APPLICATION__SECURITY_ROLES = 6;
 
 	/**
 	 * The feature id for the '<em><b>Library Directory</b></em>' attribute.
@@ -388,7 +384,106 @@ public interface ApplicationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int APPLICATION__LIBRARY_DIRECTORY = 5;
+	int APPLICATION__LIBRARY_DIRECTORY = 7;
+
+	/**
+	 * The feature id for the '<em><b>Env Entry</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION__ENV_ENTRY = 8;
+
+	/**
+	 * The feature id for the '<em><b>Ejb Ref</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION__EJB_REF = 9;
+
+	/**
+	 * The feature id for the '<em><b>Ejb Local Ref</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION__EJB_LOCAL_REF = 10;
+
+	/**
+	 * The feature id for the '<em><b>Service Refs</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION__SERVICE_REFS = 11;
+
+	/**
+	 * The feature id for the '<em><b>Resource Ref</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION__RESOURCE_REF = 12;
+
+	/**
+	 * The feature id for the '<em><b>Resource Env Ref</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION__RESOURCE_ENV_REF = 13;
+
+	/**
+	 * The feature id for the '<em><b>Message Destination Ref</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION__MESSAGE_DESTINATION_REF = 14;
+
+	/**
+	 * The feature id for the '<em><b>Persistence Context Ref</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION__PERSISTENCE_CONTEXT_REF = 15;
+
+	/**
+	 * The feature id for the '<em><b>Persistence Unit Ref</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION__PERSISTENCE_UNIT_REF = 16;
+
+	/**
+	 * The feature id for the '<em><b>Message Destination</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION__MESSAGE_DESTINATION = 17;
+
+	/**
+	 * The feature id for the '<em><b>Data Source</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION__DATA_SOURCE = 18;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -397,7 +492,7 @@ public interface ApplicationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int APPLICATION__ID = 6;
+	int APPLICATION__ID = 19;
 
 	/**
 	 * The feature id for the '<em><b>Version</b></em>' attribute.
@@ -406,7 +501,7 @@ public interface ApplicationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int APPLICATION__VERSION = 7;
+	int APPLICATION__VERSION = 20;
 
 	/**
 	 * The number of structural features of the '<em>Application</em>' class.
@@ -415,7 +510,7 @@ public interface ApplicationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int APPLICATION_FEATURE_COUNT = 8;
+	int APPLICATION_FEATURE_COUNT = 21;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.application.internal.impl.ApplicationDeploymentDescriptorImpl <em>Deployment Descriptor</em>}' class.
@@ -603,6 +698,17 @@ public interface ApplicationPackage extends EPackage {
 	EClass getApplication();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.application.Application#getApplicationName <em>Application Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Application Name</em>'.
+	 * @see org.eclipse.jst.javaee.application.Application#getApplicationName()
+	 * @see #getApplication()
+	 * @generated
+	 */
+	EAttribute getApplication_ApplicationName();
+
+	/**
 	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.application.Application#getDescriptions <em>Descriptions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -636,6 +742,17 @@ public interface ApplicationPackage extends EPackage {
 	EReference getApplication_Icons();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.application.Application#getInitializeInOrder <em>Initialize In Order</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Initialize In Order</em>'.
+	 * @see org.eclipse.jst.javaee.application.Application#getInitializeInOrder()
+	 * @see #getApplication()
+	 * @generated
+	 */
+	EAttribute getApplication_InitializeInOrder();
+
+	/**
 	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.application.Application#getModules <em>Modules</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -667,6 +784,127 @@ public interface ApplicationPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getApplication_LibraryDirectory();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.application.Application#getEnvEntry <em>Env Entry</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Env Entry</em>'.
+	 * @see org.eclipse.jst.javaee.application.Application#getEnvEntry()
+	 * @see #getApplication()
+	 * @generated
+	 */
+	EReference getApplication_EnvEntry();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.application.Application#getEjbRef <em>Ejb Ref</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Ejb Ref</em>'.
+	 * @see org.eclipse.jst.javaee.application.Application#getEjbRef()
+	 * @see #getApplication()
+	 * @generated
+	 */
+	EReference getApplication_EjbRef();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.application.Application#getEjbLocalRef <em>Ejb Local Ref</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Ejb Local Ref</em>'.
+	 * @see org.eclipse.jst.javaee.application.Application#getEjbLocalRef()
+	 * @see #getApplication()
+	 * @generated
+	 */
+	EReference getApplication_EjbLocalRef();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.application.Application#getServiceRefs <em>Service Refs</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Service Refs</em>'.
+	 * @see org.eclipse.jst.javaee.application.Application#getServiceRefs()
+	 * @see #getApplication()
+	 * @generated
+	 */
+	EReference getApplication_ServiceRefs();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.application.Application#getResourceRef <em>Resource Ref</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Resource Ref</em>'.
+	 * @see org.eclipse.jst.javaee.application.Application#getResourceRef()
+	 * @see #getApplication()
+	 * @generated
+	 */
+	EReference getApplication_ResourceRef();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.application.Application#getResourceEnvRef <em>Resource Env Ref</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Resource Env Ref</em>'.
+	 * @see org.eclipse.jst.javaee.application.Application#getResourceEnvRef()
+	 * @see #getApplication()
+	 * @generated
+	 */
+	EReference getApplication_ResourceEnvRef();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.application.Application#getMessageDestinationRef <em>Message Destination Ref</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Message Destination Ref</em>'.
+	 * @see org.eclipse.jst.javaee.application.Application#getMessageDestinationRef()
+	 * @see #getApplication()
+	 * @generated
+	 */
+	EReference getApplication_MessageDestinationRef();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.application.Application#getPersistenceContextRef <em>Persistence Context Ref</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Persistence Context Ref</em>'.
+	 * @see org.eclipse.jst.javaee.application.Application#getPersistenceContextRef()
+	 * @see #getApplication()
+	 * @generated
+	 */
+	EReference getApplication_PersistenceContextRef();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.application.Application#getPersistenceUnitRef <em>Persistence Unit Ref</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Persistence Unit Ref</em>'.
+	 * @see org.eclipse.jst.javaee.application.Application#getPersistenceUnitRef()
+	 * @see #getApplication()
+	 * @generated
+	 */
+	EReference getApplication_PersistenceUnitRef();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.application.Application#getMessageDestination <em>Message Destination</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Message Destination</em>'.
+	 * @see org.eclipse.jst.javaee.application.Application#getMessageDestination()
+	 * @see #getApplication()
+	 * @generated
+	 */
+	EReference getApplication_MessageDestination();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.application.Application#getDataSource <em>Data Source</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Data Source</em>'.
+	 * @see org.eclipse.jst.javaee.application.Application#getDataSource()
+	 * @see #getApplication()
+	 * @generated
+	 */
+	EReference getApplication_DataSource();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.application.Application#getId <em>Id</em>}'.
@@ -896,6 +1134,14 @@ public interface ApplicationPackage extends EPackage {
 		EClass APPLICATION = eINSTANCE.getApplication();
 
 		/**
+		 * The meta object literal for the '<em><b>Application Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute APPLICATION__APPLICATION_NAME = eINSTANCE.getApplication_ApplicationName();
+
+		/**
 		 * The meta object literal for the '<em><b>Descriptions</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -920,6 +1166,14 @@ public interface ApplicationPackage extends EPackage {
 		EReference APPLICATION__ICONS = eINSTANCE.getApplication_Icons();
 
 		/**
+		 * The meta object literal for the '<em><b>Initialize In Order</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute APPLICATION__INITIALIZE_IN_ORDER = eINSTANCE.getApplication_InitializeInOrder();
+
+		/**
 		 * The meta object literal for the '<em><b>Modules</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -942,6 +1196,94 @@ public interface ApplicationPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute APPLICATION__LIBRARY_DIRECTORY = eINSTANCE.getApplication_LibraryDirectory();
+
+		/**
+		 * The meta object literal for the '<em><b>Env Entry</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APPLICATION__ENV_ENTRY = eINSTANCE.getApplication_EnvEntry();
+
+		/**
+		 * The meta object literal for the '<em><b>Ejb Ref</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APPLICATION__EJB_REF = eINSTANCE.getApplication_EjbRef();
+
+		/**
+		 * The meta object literal for the '<em><b>Ejb Local Ref</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APPLICATION__EJB_LOCAL_REF = eINSTANCE.getApplication_EjbLocalRef();
+
+		/**
+		 * The meta object literal for the '<em><b>Service Refs</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APPLICATION__SERVICE_REFS = eINSTANCE.getApplication_ServiceRefs();
+
+		/**
+		 * The meta object literal for the '<em><b>Resource Ref</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APPLICATION__RESOURCE_REF = eINSTANCE.getApplication_ResourceRef();
+
+		/**
+		 * The meta object literal for the '<em><b>Resource Env Ref</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APPLICATION__RESOURCE_ENV_REF = eINSTANCE.getApplication_ResourceEnvRef();
+
+		/**
+		 * The meta object literal for the '<em><b>Message Destination Ref</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APPLICATION__MESSAGE_DESTINATION_REF = eINSTANCE.getApplication_MessageDestinationRef();
+
+		/**
+		 * The meta object literal for the '<em><b>Persistence Context Ref</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APPLICATION__PERSISTENCE_CONTEXT_REF = eINSTANCE.getApplication_PersistenceContextRef();
+
+		/**
+		 * The meta object literal for the '<em><b>Persistence Unit Ref</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APPLICATION__PERSISTENCE_UNIT_REF = eINSTANCE.getApplication_PersistenceUnitRef();
+
+		/**
+		 * The meta object literal for the '<em><b>Message Destination</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APPLICATION__MESSAGE_DESTINATION = eINSTANCE.getApplication_MessageDestination();
+
+		/**
+		 * The meta object literal for the '<em><b>Data Source</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APPLICATION__DATA_SOURCE = eINSTANCE.getApplication_DataSource();
 
 		/**
 		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.

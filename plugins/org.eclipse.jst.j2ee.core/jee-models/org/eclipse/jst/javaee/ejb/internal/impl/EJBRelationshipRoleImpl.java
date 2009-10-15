@@ -65,7 +65,7 @@ public class EJBRelationshipRoleImpl extends EObjectImpl implements EJBRelations
 	 * @generated
 	 * @ordered
 	 */
-	protected EList descriptions = null;
+	protected EList<Description> descriptions;
 
 	/**
 	 * The default value of the '{@link #getEjbRelationshipRoleName() <em>Ejb Relationship Role Name</em>}' attribute.
@@ -114,7 +114,7 @@ public class EJBRelationshipRoleImpl extends EObjectImpl implements EJBRelations
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean multiplicityESet = false;
+	protected boolean multiplicityESet;
 
 	/**
 	 * The cached value of the '{@link #getCascadeDelete() <em>Cascade Delete</em>}' containment reference.
@@ -124,7 +124,7 @@ public class EJBRelationshipRoleImpl extends EObjectImpl implements EJBRelations
 	 * @generated
 	 * @ordered
 	 */
-	protected EmptyType cascadeDelete = null;
+	protected EmptyType cascadeDelete;
 
 	/**
 	 * The cached value of the '{@link #getRelationshipRoleSource() <em>Relationship Role Source</em>}' containment reference.
@@ -134,7 +134,7 @@ public class EJBRelationshipRoleImpl extends EObjectImpl implements EJBRelations
 	 * @generated
 	 * @ordered
 	 */
-	protected RelationshipRoleSourceType relationshipRoleSource = null;
+	protected RelationshipRoleSourceType relationshipRoleSource;
 
 	/**
 	 * The cached value of the '{@link #getCmrField() <em>Cmr Field</em>}' containment reference.
@@ -144,7 +144,7 @@ public class EJBRelationshipRoleImpl extends EObjectImpl implements EJBRelations
 	 * @generated
 	 * @ordered
 	 */
-	protected CMRField cmrField = null;
+	protected CMRField cmrField;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -190,9 +190,9 @@ public class EJBRelationshipRoleImpl extends EObjectImpl implements EJBRelations
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDescriptions() {
+	public List<Description> getDescriptions() {
 		if (descriptions == null) {
-			descriptions = new EObjectContainmentEList(Description.class, this, EjbPackage.EJB_RELATIONSHIP_ROLE__DESCRIPTIONS);
+			descriptions = new EObjectContainmentEList<Description>(Description.class, this, EjbPackage.EJB_RELATIONSHIP_ROLE__DESCRIPTIONS);
 		}
 		return descriptions;
 	}
@@ -423,7 +423,7 @@ public class EJBRelationshipRoleImpl extends EObjectImpl implements EJBRelations
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EjbPackage.EJB_RELATIONSHIP_ROLE__DESCRIPTIONS:
-				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDescriptions()).basicRemove(otherEnd, msgs);
 			case EjbPackage.EJB_RELATIONSHIP_ROLE__CASCADE_DELETE:
 				return basicSetCascadeDelete(null, msgs);
 			case EjbPackage.EJB_RELATIONSHIP_ROLE__RELATIONSHIP_ROLE_SOURCE:
@@ -465,12 +465,13 @@ public class EJBRelationshipRoleImpl extends EObjectImpl implements EJBRelations
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EjbPackage.EJB_RELATIONSHIP_ROLE__DESCRIPTIONS:
 				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
+				getDescriptions().addAll((Collection<? extends Description>)newValue);
 				return;
 			case EjbPackage.EJB_RELATIONSHIP_ROLE__EJB_RELATIONSHIP_ROLE_NAME:
 				setEjbRelationshipRoleName((String)newValue);

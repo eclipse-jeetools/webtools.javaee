@@ -30,6 +30,7 @@ import org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage;
  * <ul>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.ApplicationExceptionImpl#getExceptionClass <em>Exception Class</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.ApplicationExceptionImpl#isRollback <em>Rollback</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.ApplicationExceptionImpl#isInherited <em>Inherited</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.ApplicationExceptionImpl#getId <em>Id</em>}</li>
  * </ul>
  * </p>
@@ -84,7 +85,36 @@ public class ApplicationExceptionImpl extends EObjectImpl implements Application
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean rollbackESet = false;
+	protected boolean rollbackESet;
+
+	/**
+	 * The default value of the '{@link #isInherited() <em>Inherited</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isInherited()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean INHERITED_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isInherited() <em>Inherited</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isInherited()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean inherited = INHERITED_EDEFAULT;
+
+	/**
+	 * This is true if the Inherited attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean inheritedESet;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -197,6 +227,52 @@ public class ApplicationExceptionImpl extends EObjectImpl implements Application
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isInherited() {
+		return inherited;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setInherited(boolean newInherited) {
+		boolean oldInherited = inherited;
+		inherited = newInherited;
+		boolean oldInheritedESet = inheritedESet;
+		inheritedESet = true;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, EjbPackage.APPLICATION_EXCEPTION__INHERITED, oldInherited, inherited, !oldInheritedESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetInherited() {
+		boolean oldInherited = inherited;
+		boolean oldInheritedESet = inheritedESet;
+		inherited = INHERITED_EDEFAULT;
+		inheritedESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, EjbPackage.APPLICATION_EXCEPTION__INHERITED, oldInherited, INHERITED_EDEFAULT, oldInheritedESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetInherited() {
+		return inheritedESet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getId() {
 		return id;
 	}
@@ -224,7 +300,9 @@ public class ApplicationExceptionImpl extends EObjectImpl implements Application
 			case EjbPackage.APPLICATION_EXCEPTION__EXCEPTION_CLASS:
 				return getExceptionClass();
 			case EjbPackage.APPLICATION_EXCEPTION__ROLLBACK:
-				return isRollback() ? Boolean.TRUE : Boolean.FALSE;
+				return isRollback();
+			case EjbPackage.APPLICATION_EXCEPTION__INHERITED:
+				return isInherited();
 			case EjbPackage.APPLICATION_EXCEPTION__ID:
 				return getId();
 		}
@@ -243,7 +321,10 @@ public class ApplicationExceptionImpl extends EObjectImpl implements Application
 				setExceptionClass((String)newValue);
 				return;
 			case EjbPackage.APPLICATION_EXCEPTION__ROLLBACK:
-				setRollback(((Boolean)newValue).booleanValue());
+				setRollback((Boolean)newValue);
+				return;
+			case EjbPackage.APPLICATION_EXCEPTION__INHERITED:
+				setInherited((Boolean)newValue);
 				return;
 			case EjbPackage.APPLICATION_EXCEPTION__ID:
 				setId((String)newValue);
@@ -266,6 +347,9 @@ public class ApplicationExceptionImpl extends EObjectImpl implements Application
 			case EjbPackage.APPLICATION_EXCEPTION__ROLLBACK:
 				unsetRollback();
 				return;
+			case EjbPackage.APPLICATION_EXCEPTION__INHERITED:
+				unsetInherited();
+				return;
 			case EjbPackage.APPLICATION_EXCEPTION__ID:
 				setId(ID_EDEFAULT);
 				return;
@@ -285,6 +369,8 @@ public class ApplicationExceptionImpl extends EObjectImpl implements Application
 				return EXCEPTION_CLASS_EDEFAULT == null ? exceptionClass != null : !EXCEPTION_CLASS_EDEFAULT.equals(exceptionClass);
 			case EjbPackage.APPLICATION_EXCEPTION__ROLLBACK:
 				return isSetRollback();
+			case EjbPackage.APPLICATION_EXCEPTION__INHERITED:
+				return isSetInherited();
 			case EjbPackage.APPLICATION_EXCEPTION__ID:
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 		}
@@ -305,6 +391,8 @@ public class ApplicationExceptionImpl extends EObjectImpl implements Application
 		result.append(exceptionClass);
 		result.append(", rollback: "); //$NON-NLS-1$
 		if (rollbackESet) result.append(rollback); else result.append("<unset>"); //$NON-NLS-1$
+		result.append(", inherited: "); //$NON-NLS-1$
+		if (inheritedESet) result.append(inherited); else result.append("<unset>"); //$NON-NLS-1$
 		result.append(", id: "); //$NON-NLS-1$
 		result.append(id);
 		result.append(')');

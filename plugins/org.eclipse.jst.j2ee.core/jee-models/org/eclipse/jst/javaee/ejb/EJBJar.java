@@ -12,6 +12,9 @@ package org.eclipse.jst.javaee.ejb;
 
 import java.util.List;
 
+import org.eclipse.jst.javaee.core.Description;
+import org.eclipse.jst.javaee.core.DisplayName;
+import org.eclipse.jst.javaee.core.Icon;
 import org.eclipse.jst.javaee.core.JavaEEObject;
 
 /**
@@ -22,23 +25,26 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The ejb-jarType defines the root element of the EJB
- * 	deployment descriptor. It contains
- * 
- * 	    - an optional description of the ejb-jar file
- * 	    - an optional display name
- * 	    - an optional icon that contains a small and a large
- * 	      icon file name
- * 	    - structural information about all included
- * 	      enterprise beans that is not specified through
- *               annotations
- *             - structural information about interceptor classes
- * 	    - a descriptor for container managed relationships,
- * 	      if any.
- * 	    - an optional application-assembly descriptor
- * 	    - an optional name of an ejb-client-jar file for the
- * 	      ejb-jar.
- * 
+ *         The ejb-jarType defines the root element of the EJB
+ *         deployment descriptor. It contains
+ *         
+ *         - an optional description of the ejb-jar file
+ *         - an optional display name
+ *         - an optional icon that contains a small and a large
+ *         icon file name
+ *         - an optional module name. Only applicable to
+ *         stand-alone ejb-jars or ejb-jars packaged in an ear.
+ *         - structural information about all included
+ *         enterprise beans that is not specified through
+ *         annotations
+ *         - structural information about interceptor classes
+ *         - a descriptor for container managed relationships, 
+ *         if any. 
+ *         - an optional application-assembly descriptor
+ *         - an optional name of an ejb-client-jar file for the 
+ *         ejb-jar.
+ *         
+ *         @since Java EE 5, EJB 3.0
  *       
  * <!-- end-model-doc -->
  *
@@ -48,6 +54,7 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  *   <li>{@link org.eclipse.jst.javaee.ejb.EJBJar#getDescriptions <em>Descriptions</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.EJBJar#getDisplayNames <em>Display Names</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.EJBJar#getIcons <em>Icons</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.EJBJar#getModuleName <em>Module Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.EJBJar#getEnterpriseBeans <em>Enterprise Beans</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.EJBJar#getInterceptors <em>Interceptors</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.EJBJar#getRelationships <em>Relationships</em>}</li>
@@ -77,7 +84,7 @@ public interface EJBJar extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEJBJar_Descriptions()
 	 * @generated
 	 */
-	List getDescriptions();
+	List<Description> getDescriptions();
 
 	/**
 	 * Returns the value of the '<em><b>Display Names</b></em>' containment reference list.
@@ -92,7 +99,7 @@ public interface EJBJar extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEJBJar_DisplayNames()
 	 * @generated
 	 */
-	List getDisplayNames();
+	List<DisplayName> getDisplayNames();
 
 	/**
 	 * Returns the value of the '<em><b>Icons</b></em>' containment reference list.
@@ -107,7 +114,33 @@ public interface EJBJar extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEJBJar_Icons()
 	 * @generated
 	 */
-	List getIcons();
+	List<Icon> getIcons();
+
+	/**
+	 * Returns the value of the '<em><b>Module Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *             @since Java EE 6, EJB 3.1
+	 *           
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Module Name</em>' attribute.
+	 * @see #setModuleName(String)
+	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEJBJar_ModuleName()
+	 * @generated
+	 */
+	String getModuleName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.jst.javaee.ejb.EJBJar#getModuleName <em>Module Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Module Name</em>' attribute.
+	 * @see #getModuleName()
+	 * @generated
+	 */
+	void setModuleName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Enterprise Beans</b></em>' containment reference.
@@ -191,11 +224,12 @@ public interface EJBJar extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	    Providing an assembly-descriptor in the deployment
-	 * 	    descriptor is optional for the ejb-jar file
-	 * 	    producer.
-	 * 
-	 * 	  
+	 *             Providing an assembly-descriptor in the deployment
+	 *             descriptor is optional for the ejb-jar file
+	 *             producer.
+	 *             
+	 *             @since Java EE 5, EJB 3.0
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Assembly Descriptor</em>' containment reference.
 	 * @see #setAssemblyDescriptor(AssemblyDescriptor)
@@ -220,20 +254,20 @@ public interface EJBJar extends JavaEEObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * 
-	 * 	    
-	 * 
-	 * 	      The optional ejb-client-jar element specifies a JAR
-	 * 	      file that contains the class files necessary for a
-	 * 	      client program to access the
-	 * 	      enterprise beans in the ejb-jar file.
-	 * 
-	 * 	      Example:
-	 * 
-	 * 		  &lt;ejb-client-jar&gt;employee_service_client.jar
-	 * 		  &lt;/ejb-client-jar&gt;
-	 * 
-	 * 	      
-	 * 	  
+	 * <![CDATA[[
+	 *             The optional ejb-client-jar element specifies a JAR
+	 *             file that contains the class files necessary for a
+	 *             client program to access the
+	 *             enterprise beans in the ejb-jar file.
+	 *             
+	 *             Example:
+	 *             
+	 *             	  <ejb-client-jar>employee_service_client.jar
+	 *             	  </ejb-client-jar>
+	 *             
+	 * ]]>
+	 *             @since Java EE 5, EJB 3.0
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Ejb Client Jar</em>' attribute.
 	 * @see #setEjbClientJar(String)
@@ -284,25 +318,26 @@ public interface EJBJar extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	  The metadata-complete attribute defines whether this
-	 * 	  deployment descriptor and other related deployment
-	 * 	  descriptors for this module (e.g., web service
-	 * 	  descriptors) are complete, or whether the class
-	 * 	  files available to this module and packaged with
-	 * 	  this application should be examined for annotations
-	 * 	  that specify deployment information.
-	 * 
-	 * 	  If metadata-complete is set to "true", the deployment
-	 * 	  tool must ignore any annotations that specify deployment
-	 * 	  information, which might be present in the class files
-	 * 	  of the application.
-	 * 
-	 * 	  If metadata-complete is not specified or is set to
-	 * 	  "false", the deployment tool must examine the class
-	 * 	  files of the application for annotations, as
-	 * 	  specified by the specifications.
-	 * 
-	 * 	
+	 *           The metadata-complete attribute defines whether this
+	 *           deployment descriptor and other related deployment
+	 *           descriptors for this module (e.g., web service
+	 *           descriptors) are complete, or whether the class
+	 *           files available to this module and packaged with
+	 *           this application should be examined for annotations
+	 *           that specify deployment information.
+	 *           
+	 *           If metadata-complete is set to "true", the deployment
+	 *           tool must ignore any annotations that specify deployment
+	 *           information, which might be present in the class files
+	 *           of the application.
+	 *           
+	 *           If metadata-complete is not specified or is set to
+	 *           "false", the deployment tool must examine the class
+	 *           files of the application for annotations, as
+	 *           specified by the specifications.
+	 *           
+	 *           @since Java EE 5, EJB 3.0
+	 *         
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Metadata Complete</em>' attribute.
 	 * @see #isSetMetadataComplete()
@@ -350,20 +385,21 @@ public interface EJBJar extends JavaEEObject {
 
 	/**
 	 * Returns the value of the '<em><b>Version</b></em>' attribute.
-	 * The default value is <code>"3.0"</code>.
+	 * The default value is <code>"3.1"</code>.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	  The version specifies the version of the
-	 * 	  EJB specification that the instance document must
-	 * 	  comply with. This information enables deployment tools
-	 * 	  to validate a particular EJB Deployment
-	 * 	  Descriptor with respect to a specific version of the EJB
-	 * 	  schema.
-	 * 
-	 * 	
+	 *           The version specifies the version of the
+	 *           EJB specification that the instance document must 
+	 *           comply with. This information enables deployment tools
+	 *           to validate a particular EJB Deployment
+	 *           Descriptor with respect to a specific version of the EJB
+	 *           schema. 
+	 *           
+	 *           @since Java EE 5, EJB 3.0
+	 *         
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Version</em>' attribute.
 	 * @see #isSetVersion()

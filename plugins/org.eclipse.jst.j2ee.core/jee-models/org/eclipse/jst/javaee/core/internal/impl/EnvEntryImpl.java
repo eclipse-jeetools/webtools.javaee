@@ -47,6 +47,7 @@ import org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage;
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.EnvEntryImpl#getEnvEntryValue <em>Env Entry Value</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.EnvEntryImpl#getMappedName <em>Mapped Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.EnvEntryImpl#getInjectionTargets <em>Injection Targets</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.EnvEntryImpl#getLookupName <em>Lookup Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.EnvEntryImpl#getId <em>Id</em>}</li>
  * </ul>
  * </p>
@@ -62,7 +63,7 @@ public class EnvEntryImpl extends EObjectImpl implements EnvEntry {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList descriptions = null;
+	protected EList<Description> descriptions;
 
 	/**
 	 * The default value of the '{@link #getEnvEntryName() <em>Env Entry Name</em>}' attribute.
@@ -92,7 +93,7 @@ public class EnvEntryImpl extends EObjectImpl implements EnvEntry {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final EnvEntryType ENV_ENTRY_TYPE_EDEFAULT = EnvEntryType.JAVA_LANG_BOOLEAN_LITERAL;
+	protected static final String ENV_ENTRY_TYPE_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getEnvEntryType() <em>Env Entry Type</em>}' attribute.
@@ -102,16 +103,7 @@ public class EnvEntryImpl extends EObjectImpl implements EnvEntry {
 	 * @generated
 	 * @ordered
 	 */
-	protected EnvEntryType envEntryType = ENV_ENTRY_TYPE_EDEFAULT;
-
-	/**
-	 * This is true if the Env Entry Type attribute has been set.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	protected boolean envEntryTypeESet = false;
+	protected String envEntryType = ENV_ENTRY_TYPE_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getEnvEntryValue() <em>Env Entry Value</em>}' attribute.
@@ -161,7 +153,27 @@ public class EnvEntryImpl extends EObjectImpl implements EnvEntry {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList injectionTargets = null;
+	protected EList<InjectionTarget> injectionTargets;
+
+	/**
+	 * The default value of the '{@link #getLookupName() <em>Lookup Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLookupName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String LOOKUP_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getLookupName() <em>Lookup Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLookupName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String lookupName = LOOKUP_NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -207,9 +219,9 @@ public class EnvEntryImpl extends EObjectImpl implements EnvEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDescriptions() {
+	public List<Description> getDescriptions() {
 		if (descriptions == null) {
-			descriptions = new EObjectContainmentEList(Description.class, this, JavaeePackage.ENV_ENTRY__DESCRIPTIONS);
+			descriptions = new EObjectContainmentEList<Description>(Description.class, this, JavaeePackage.ENV_ENTRY__DESCRIPTIONS);
 		}
 		return descriptions;
 	}
@@ -240,7 +252,7 @@ public class EnvEntryImpl extends EObjectImpl implements EnvEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EnvEntryType getEnvEntryType() {
+	public String getEnvEntryType() {
 		return envEntryType;
 	}
 
@@ -249,36 +261,11 @@ public class EnvEntryImpl extends EObjectImpl implements EnvEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setEnvEntryType(EnvEntryType newEnvEntryType) {
-		EnvEntryType oldEnvEntryType = envEntryType;
-		envEntryType = newEnvEntryType == null ? ENV_ENTRY_TYPE_EDEFAULT : newEnvEntryType;
-		boolean oldEnvEntryTypeESet = envEntryTypeESet;
-		envEntryTypeESet = true;
+	public void setEnvEntryType(String newEnvEntryType) {
+		String oldEnvEntryType = envEntryType;
+		envEntryType = newEnvEntryType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, JavaeePackage.ENV_ENTRY__ENV_ENTRY_TYPE, oldEnvEntryType, envEntryType, !oldEnvEntryTypeESet));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void unsetEnvEntryType() {
-		EnvEntryType oldEnvEntryType = envEntryType;
-		boolean oldEnvEntryTypeESet = envEntryTypeESet;
-		envEntryType = ENV_ENTRY_TYPE_EDEFAULT;
-		envEntryTypeESet = false;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.UNSET, JavaeePackage.ENV_ENTRY__ENV_ENTRY_TYPE, oldEnvEntryType, ENV_ENTRY_TYPE_EDEFAULT, oldEnvEntryTypeESet));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean isSetEnvEntryType() {
-		return envEntryTypeESet;
+			eNotify(new ENotificationImpl(this, Notification.SET, JavaeePackage.ENV_ENTRY__ENV_ENTRY_TYPE, oldEnvEntryType, envEntryType));
 	}
 
 	/**
@@ -328,11 +315,32 @@ public class EnvEntryImpl extends EObjectImpl implements EnvEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getInjectionTargets() {
+	public List<InjectionTarget> getInjectionTargets() {
 		if (injectionTargets == null) {
-			injectionTargets = new EObjectContainmentEList(InjectionTarget.class, this, JavaeePackage.ENV_ENTRY__INJECTION_TARGETS);
+			injectionTargets = new EObjectContainmentEList<InjectionTarget>(InjectionTarget.class, this, JavaeePackage.ENV_ENTRY__INJECTION_TARGETS);
 		}
 		return injectionTargets;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getLookupName() {
+		return lookupName;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setLookupName(String newLookupName) {
+		String oldLookupName = lookupName;
+		lookupName = newLookupName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, JavaeePackage.ENV_ENTRY__LOOKUP_NAME, oldLookupName, lookupName));
 	}
 
 	/**
@@ -365,9 +373,9 @@ public class EnvEntryImpl extends EObjectImpl implements EnvEntry {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case JavaeePackage.ENV_ENTRY__DESCRIPTIONS:
-				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDescriptions()).basicRemove(otherEnd, msgs);
 			case JavaeePackage.ENV_ENTRY__INJECTION_TARGETS:
-				return ((InternalEList)getInjectionTargets()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getInjectionTargets()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -392,6 +400,8 @@ public class EnvEntryImpl extends EObjectImpl implements EnvEntry {
 				return getMappedName();
 			case JavaeePackage.ENV_ENTRY__INJECTION_TARGETS:
 				return getInjectionTargets();
+			case JavaeePackage.ENV_ENTRY__LOOKUP_NAME:
+				return getLookupName();
 			case JavaeePackage.ENV_ENTRY__ID:
 				return getId();
 		}
@@ -403,18 +413,19 @@ public class EnvEntryImpl extends EObjectImpl implements EnvEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case JavaeePackage.ENV_ENTRY__DESCRIPTIONS:
 				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
+				getDescriptions().addAll((Collection<? extends Description>)newValue);
 				return;
 			case JavaeePackage.ENV_ENTRY__ENV_ENTRY_NAME:
 				setEnvEntryName((String)newValue);
 				return;
 			case JavaeePackage.ENV_ENTRY__ENV_ENTRY_TYPE:
-				setEnvEntryType((EnvEntryType)newValue);
+				setEnvEntryType((String)newValue);
 				return;
 			case JavaeePackage.ENV_ENTRY__ENV_ENTRY_VALUE:
 				setEnvEntryValue((String)newValue);
@@ -424,7 +435,10 @@ public class EnvEntryImpl extends EObjectImpl implements EnvEntry {
 				return;
 			case JavaeePackage.ENV_ENTRY__INJECTION_TARGETS:
 				getInjectionTargets().clear();
-				getInjectionTargets().addAll((Collection)newValue);
+				getInjectionTargets().addAll((Collection<? extends InjectionTarget>)newValue);
+				return;
+			case JavaeePackage.ENV_ENTRY__LOOKUP_NAME:
+				setLookupName((String)newValue);
 				return;
 			case JavaeePackage.ENV_ENTRY__ID:
 				setId((String)newValue);
@@ -448,7 +462,7 @@ public class EnvEntryImpl extends EObjectImpl implements EnvEntry {
 				setEnvEntryName(ENV_ENTRY_NAME_EDEFAULT);
 				return;
 			case JavaeePackage.ENV_ENTRY__ENV_ENTRY_TYPE:
-				unsetEnvEntryType();
+				setEnvEntryType(ENV_ENTRY_TYPE_EDEFAULT);
 				return;
 			case JavaeePackage.ENV_ENTRY__ENV_ENTRY_VALUE:
 				setEnvEntryValue(ENV_ENTRY_VALUE_EDEFAULT);
@@ -458,6 +472,9 @@ public class EnvEntryImpl extends EObjectImpl implements EnvEntry {
 				return;
 			case JavaeePackage.ENV_ENTRY__INJECTION_TARGETS:
 				getInjectionTargets().clear();
+				return;
+			case JavaeePackage.ENV_ENTRY__LOOKUP_NAME:
+				setLookupName(LOOKUP_NAME_EDEFAULT);
 				return;
 			case JavaeePackage.ENV_ENTRY__ID:
 				setId(ID_EDEFAULT);
@@ -479,13 +496,15 @@ public class EnvEntryImpl extends EObjectImpl implements EnvEntry {
 			case JavaeePackage.ENV_ENTRY__ENV_ENTRY_NAME:
 				return ENV_ENTRY_NAME_EDEFAULT == null ? envEntryName != null : !ENV_ENTRY_NAME_EDEFAULT.equals(envEntryName);
 			case JavaeePackage.ENV_ENTRY__ENV_ENTRY_TYPE:
-				return isSetEnvEntryType();
+				return ENV_ENTRY_TYPE_EDEFAULT == null ? envEntryType != null : !ENV_ENTRY_TYPE_EDEFAULT.equals(envEntryType);
 			case JavaeePackage.ENV_ENTRY__ENV_ENTRY_VALUE:
 				return ENV_ENTRY_VALUE_EDEFAULT == null ? envEntryValue != null : !ENV_ENTRY_VALUE_EDEFAULT.equals(envEntryValue);
 			case JavaeePackage.ENV_ENTRY__MAPPED_NAME:
 				return MAPPED_NAME_EDEFAULT == null ? mappedName != null : !MAPPED_NAME_EDEFAULT.equals(mappedName);
 			case JavaeePackage.ENV_ENTRY__INJECTION_TARGETS:
 				return injectionTargets != null && !injectionTargets.isEmpty();
+			case JavaeePackage.ENV_ENTRY__LOOKUP_NAME:
+				return LOOKUP_NAME_EDEFAULT == null ? lookupName != null : !LOOKUP_NAME_EDEFAULT.equals(lookupName);
 			case JavaeePackage.ENV_ENTRY__ID:
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 		}
@@ -505,15 +524,42 @@ public class EnvEntryImpl extends EObjectImpl implements EnvEntry {
 		result.append(" (envEntryName: "); //$NON-NLS-1$
 		result.append(envEntryName);
 		result.append(", envEntryType: "); //$NON-NLS-1$
-		if (envEntryTypeESet) result.append(envEntryType); else result.append("<unset>"); //$NON-NLS-1$
+		result.append(envEntryType);
 		result.append(", envEntryValue: "); //$NON-NLS-1$
 		result.append(envEntryValue);
 		result.append(", mappedName: "); //$NON-NLS-1$
 		result.append(mappedName);
+		result.append(", lookupName: "); //$NON-NLS-1$
+		result.append(lookupName);
 		result.append(", id: "); //$NON-NLS-1$
 		result.append(id);
 		result.append(')');
 		return result.toString();
+	}
+
+	/**
+	 * This is provided for Java EE 5 model equivalence
+	 * @param newEnvEntryType
+	 */
+	public void setEnvEntryType(EnvEntryType newEnvEntryType) {
+		if (newEnvEntryType != null)
+		{
+			setEnvEntryType(newEnvEntryType.getLiteral());
+		}
+		else
+		{
+			setEnvEntryType((String)null);
+		}
+	}
+
+	public void unsetEnvEntryType()
+	{
+		setEnvEntryType((String)null);
+	}
+
+	public boolean isSetEnvEntryType()
+	{
+		return (envEntryType != null);
 	}
 
 } //EnvEntryImpl

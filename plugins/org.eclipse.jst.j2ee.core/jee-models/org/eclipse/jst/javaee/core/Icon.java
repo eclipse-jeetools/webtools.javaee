@@ -19,15 +19,16 @@ package org.eclipse.jst.javaee.core;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The icon type contains small-icon and large-icon elements
- * 	that specify the file names for small and large GIF, JPEG,
- * 	or PNG icon images used to represent the parent element in a
- * 	GUI tool.
- * 
- * 	The xml:lang attribute defines the language that the
- * 	icon file names are provided in. Its value is "en" (English)
- * 	by default.
- * 
+ *         The icon type contains small-icon and large-icon elements
+ *         that specify the file names for small and large GIF, JPEG,
+ *         or PNG icon images used to represent the parent element in a
+ *         GUI tool. 
+ *         
+ *         The xml:lang attribute defines the language that the
+ *         icon file names are provided in. Its value is "en" (English)
+ *         by default. 
+ *         
+ *         @since Java EE 5
  *       
  * <!-- end-model-doc -->
  *
@@ -52,22 +53,22 @@ public interface Icon extends JavaEEObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * 
-	 * 	    
-	 * 
-	 * 	      The small-icon element contains the name of a file
-	 * 	      containing a small (16 x 16) icon image. The file
-	 * 	      name is a relative path within the Deployment
-	 * 	      Component's Deployment File.
-	 * 
-	 * 	      The image may be in the GIF, JPEG, or PNG format.
-	 * 	      The icon can be used by tools.
-	 * 
-	 * 	      Example:
-	 * 
-	 * 	      &lt;small-icon&gt;employee-service-icon16x16.jpg&lt;/small-icon&gt;
-	 * 
-	 * 	      
-	 * 	  
+	 * <![CDATA[[
+	 *             The small-icon element contains the name of a file
+	 *             containing a small (16 x 16) icon image. The file
+	 *             name is a relative path within the Deployment
+	 *             Component's Deployment File.
+	 *             
+	 *             The image may be in the GIF, JPEG, or PNG format.
+	 *             The icon can be used by tools.
+	 *             
+	 *             Example:
+	 *             
+	 *             <small-icon>employee-service-icon16x16.jpg</small-icon>
+	 *             
+	 * ]]>
+	 *             @since Java EE 5
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Small Icon</em>' attribute.
 	 * @see #setSmallIcon(String)
@@ -92,23 +93,23 @@ public interface Icon extends JavaEEObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * 
-	 * 	    
-	 * 
-	 * 	      The large-icon element contains the name of a file
-	 * 	      containing a large
-	 * 	      (32 x 32) icon image. The file name is a relative
-	 * 	      path within the Deployment Component's Deployment
-	 * 	      File.
-	 * 
-	 * 	      The image may be in the GIF, JPEG, or PNG format.
-	 * 	      The icon can be used by tools.
-	 * 
-	 * 	      Example:
-	 * 
-	 * 	      &lt;large-icon&gt;employee-service-icon32x32.jpg&lt;/large-icon&gt;
-	 * 
-	 * 	      
-	 * 	  
+	 * <![CDATA[[
+	 *             The large-icon element contains the name of a file
+	 *             containing a large
+	 *             (32 x 32) icon image. The file name is a relative 
+	 *             path within the Deployment Component's Deployment
+	 *             File.
+	 *             
+	 *             The image may be in the GIF, JPEG, or PNG format.
+	 *             The icon can be used by tools.
+	 *             
+	 *             Example:
+	 *             
+	 *             <large-icon>employee-service-icon32x32.jpg</large-icon>
+	 *             
+	 * ]]>
+	 *             @since Java EE 5
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Large Icon</em>' attribute.
 	 * @see #setLargeIcon(String)
@@ -157,15 +158,38 @@ public interface Icon extends JavaEEObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Attempting to install the relevant ISO 2- and 3-letter
-	 *          codes as the enumerated possible values is probably never
-	 *          going to be a realistic possibility.  See
-	 *          RFC 3066 at http://www.ietf.org/rfc/rfc3066.txt and the IANA registry
-	 *          at http://www.iana.org/assignments/lang-tag-apps.htm for
-	 *          further information.
 	 * 
-	 *          The union allows for the 'un-declaration' of xml:lang with
-	 *          the empty string.
+	 *     <div xmlns="http://www.w3.org/1999/xhtml">
+	 *      
+	 *       <h3>lang (as an attribute name)</h3>
+	 *       <p>
+	 *        denotes an attribute whose value
+	 *        is a language code for the natural language of the content of
+	 *        any element; its value is inherited.  This name is reserved
+	 *        by virtue of its definition in the XML specification.</p>
+	 *      
+	 *     </div>
+	 *     <div xmlns="http://www.w3.org/1999/xhtml">
+	 *      <h4>Notes</h4>
+	 *      <p>
+	 *       Attempting to install the relevant ISO 2- and 3-letter
+	 *       codes as the enumerated possible values is probably never
+	 *       going to be a realistic possibility.  
+	 *      </p>
+	 *      <p>
+	 *       See BCP 47 at <a href="http://www.rfc-editor.org/rfc/bcp/bcp47.txt">
+	 *        http://www.rfc-editor.org/rfc/bcp/bcp47.txt</a>
+	 *       and the IANA language subtag registry at
+	 *       <a href="http://www.iana.org/assignments/language-subtag-registry">
+	 *        http://www.iana.org/assignments/language-subtag-registry</a>
+	 *       for further information.
+	 *      </p>
+	 *      <p>
+	 *       The union allows for the 'un-declaration' of xml:lang with
+	 *       the empty string.
+	 *      </p>
+	 *     </div>
+	 *    
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Lang</em>' attribute.
 	 * @see #setLang(String)

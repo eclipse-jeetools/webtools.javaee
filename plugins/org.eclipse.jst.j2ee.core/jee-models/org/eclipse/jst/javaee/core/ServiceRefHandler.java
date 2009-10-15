@@ -11,6 +11,7 @@
 package org.eclipse.jst.javaee.core;
 
 import java.util.List;
+import javax.xml.namespace.QName;
 
 /**
  * <!-- begin-user-doc -->
@@ -20,13 +21,12 @@ import java.util.List;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	Declares the handler for a port-component. Handlers can access the
- * 	init-param name/value pairs using the HandlerInfo interface. If
- * 	port-name is not specified, the handler is assumed to be associated
- * 	with all ports of the service.
- * 
- * 	Used in: service-ref
- * 
+ *         Declares the handler for a port-component, service-ref. Handlers can
+ *         access the init-param name/value pairs using the HandlerInfo interface.
+ *         
+ *         Used in: port-component, service-ref
+ *         
+ *         @since Java EE 5, Web Services Client 1.2
  *       
  * <!-- end-model-doc -->
  *
@@ -64,7 +64,7 @@ public interface ServiceRefHandler extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getServiceRefHandler_Descriptions()
 	 * @generated
 	 */
-	List getDescriptions();
+	List<Description> getDescriptions();
 
 	/**
 	 * Returns the value of the '<em><b>Display Names</b></em>' containment reference list.
@@ -79,7 +79,7 @@ public interface ServiceRefHandler extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getServiceRefHandler_DisplayNames()
 	 * @generated
 	 */
-	List getDisplayNames();
+	List<DisplayName> getDisplayNames();
 
 	/**
 	 * Returns the value of the '<em><b>Icons</b></em>' containment reference list.
@@ -94,7 +94,7 @@ public interface ServiceRefHandler extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getServiceRefHandler_Icons()
 	 * @generated
 	 */
-	List getIcons();
+	List<Icon> getIcons();
 
 	/**
 	 * Returns the value of the '<em><b>Handler Name</b></em>' attribute.
@@ -103,10 +103,11 @@ public interface ServiceRefHandler extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	    Defines the name of the handler. The name must be unique
-	 * 	    within the module.
-	 * 
-	 * 	  
+	 *             Defines the name of the handler. The name must be unique within the
+	 *             module.
+	 *             
+	 *             @since Java EE 5, Web Services Client 1.2
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Handler Name</em>' attribute.
 	 * @see #setHandlerName(String)
@@ -132,10 +133,10 @@ public interface ServiceRefHandler extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	    Defines a fully qualified class name for the handler
-	 * 	    implementation.
-	 * 
-	 * 	  
+	 *             Defines a fully qualified class name for the handler implementation.
+	 *             
+	 *             @since Java EE 5, Web Services Client 1.2
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Handler Class</em>' attribute.
 	 * @see #setHandlerClass(String)
@@ -163,30 +164,41 @@ public interface ServiceRefHandler extends JavaEEObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * 
+	 *             Not to be specified for JAX-WS runtime
+	 *             
+	 *             @since Java EE 5, Web Services Client 1.2
+	 *           
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Init Params</em>' containment reference list.
 	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getServiceRefHandler_InitParams()
 	 * @generated
 	 */
-	List getInitParams();
+	List<ParamValue> getInitParams();
 
 	/**
 	 * Returns the value of the '<em><b>Soap Headers</b></em>' attribute list.
-	 * The list contents are of type {@link java.lang.Object}.
+	 * The list contents are of type {@link javax.xml.namespace.QName}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	    Defines the QName of a SOAP header that will be processed
-	 * 	    by the handler.
-	 * 
-	 * 	  
+	 *             Defines the QName of a SOAP header that will be processed by the
+	 *             handler.
+	 *             
+	 *             Not to be specified for JAX-WS runtime
+	 *             
+	 *             @since Java EE 5, Web Services Client 1.2
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Soap Headers</em>' attribute list.
 	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getServiceRefHandler_SoapHeaders()
 	 * @generated
 	 */
-	List getSoapHeaders();
+	List<QName> getSoapHeaders();
 
 	/**
 	 * Returns the value of the '<em><b>Soap Roles</b></em>' attribute list.
@@ -196,16 +208,17 @@ public interface ServiceRefHandler extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	    The soap-role element contains a SOAP actor definition that
-	 * 	    the Handler will play as a role.
-	 * 
-	 * 	  
+	 *             The soap-role element contains a SOAP actor definition that the
+	 *             Handler will play as a role.
+	 *             
+	 *             @since Java EE 5, Web Services Client 1.2
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Soap Roles</em>' attribute list.
 	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getServiceRefHandler_SoapRoles()
 	 * @generated
 	 */
-	List getSoapRoles();
+	List<String> getSoapRoles();
 
 	/**
 	 * Returns the value of the '<em><b>Port Names</b></em>' attribute list.
@@ -215,16 +228,21 @@ public interface ServiceRefHandler extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	    The port-name element defines the WSDL port-name that a
-	 * 	    handler should be associated with.
-	 * 
-	 * 	  
+	 *             The port-name element defines the WSDL port-name that a
+	 *             handler should be associated with. If port-name is not
+	 *             specified, the handler is assumed to be associated with
+	 *             all ports of the service.
+	 *             
+	 *             Not to be specified for JAX-WS runtime
+	 *             
+	 *             @since Java EE 5, Web Services Client 1.2
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Port Names</em>' attribute list.
 	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getServiceRefHandler_PortNames()
 	 * @generated
 	 */
-	List getPortNames();
+	List<String> getPortNames();
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.

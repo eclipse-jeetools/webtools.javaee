@@ -31,272 +31,250 @@ import org.eclipse.jst.javaee.web.WebFactory;
  * <!-- end-user-doc -->
  * <!-- begin-model-doc -->
  * 
- *       @(#)web-app_2_5.xsds	1.62 05/08/06
- *     
  * 
- * 
- *       Copyright 2003-2006 Sun Microsystems, Inc.
- *       4150 Network Circle
- *       Santa Clara, California 95054
- *       U.S.A
- *       All rights reserved.
- * 
- *       Sun Microsystems, Inc. has intellectual property rights
- *       relating to technology described in this document. In
- *       particular, and without limitation, these intellectual
- *       property rights may include one or more of the U.S. patents
- *       listed at http://www.sun.com/patents and one or more
- *       additional patents or pending patent applications in the
- *       U.S. and other countries.
- * 
- *       This document and the technology which it describes are
- *       distributed under licenses restricting their use, copying,
- *       distribution, and decompilation. No part of this document
- *       may be reproduced in any form by any means without prior
- *       written authorization of Sun and its licensors, if any.
- * 
- *       Third-party software, including font technology, is
- *       copyrighted and licensed from Sun suppliers.
- * 
- *       Sun, Sun Microsystems, the Sun logo, Solaris, Java, J2EE,
- *       JavaServer Pages, Enterprise JavaBeans and the Java Coffee
- *       Cup logo are trademarks or registered trademarks of Sun
- *       Microsystems, Inc. in the U.S. and other countries.
- * 
- *       Federal Acquisitions: Commercial Software - Government Users
- *       Subject to Standard License Terms and Conditions.
- * 
- *     
- * 
+ *       $Id: WebPackage.java,v 1.4 2009/10/15 18:52:21 canderson Exp $
  *       
+ *     
  * 
- * 	This is the XML Schema for the Servlet 2.5 deployment descriptor.
- * 	The deployment descriptor must be named "WEB-INF/web.xml" in the
- * 	web application's war file.  All Servlet deployment descriptors
- * 	must indicate the web application schema by using the Java EE
- * 	namespace:
- * 
- * 	http://java.sun.com/xml/ns/javaee
- * 
- * 	and by indicating the version of the schema by
- * 	using the version element as shown below:
- * 
- * 	    &lt;web-app xmlns="http://java.sun.com/xml/ns/javaee"
- * 	      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- * 	      xsi:schemaLocation="..."
- * 	      version="2.5"&gt;
- * 	      ...
- * 	    &lt;/web-app&gt;
- * 
- * 	The instance documents may indicate the published version of
- * 	the schema using the xsi:schemaLocation attribute for Java EE
- * 	namespace with the following location:
- * 
- * 	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd
- * 
- * 	
+ * <![CDATA[[
+ *       This is the common XML Schema for the Servlet 3.0 deployment descriptor.
+ *       This file is in turn used by web.xml and web-fragment.xml
+ *       web application's war file.  All Servlet deployment descriptors
+ *       must indicate the web common schema by using the Java EE
+ *       namespace:
+ *       
+ *       http://java.sun.com/xml/ns/javaee 
+ *       
+ *       and by indicating the version of the schema by 
+ *       using the version element as shown below: 
+ *       
+ *       <web-app xmlns="http://java.sun.com/xml/ns/javaee"
+ *       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ *       xsi:schemaLocation="..."
+ *       version="3.0"> 
+ *       ...
+ *       </web-app>
+ *       
+ *       The instance documents may indicate the published version of
+ *       the schema using the xsi:schemaLocation attribute for Java EE
+ *       namespace with the following location:
+ *       
+ *       http://java.sun.com/xml/ns/javaee/web-common_3_0.xsd
+ *       
+ * ]]>
  *     
  * 
  * 
  *       The following conventions apply to all Java EE
  *       deployment descriptor elements unless indicated otherwise.
- * 
+ *       
  *       - In elements that specify a pathname to a file within the
- * 	same JAR file, relative filenames (i.e., those not
- * 	starting with "/") are considered relative to the root of
- * 	the JAR file's namespace.  Absolute filenames (i.e., those
- * 	starting with "/") also specify names in the root of the
- * 	JAR file's namespace.  In general, relative names are
- * 	preferred.  The exception is .war files where absolute
- * 	names are preferred for consistency with the Servlet API.
- * 
- *     
- * 
- *       @(#)javaee_5.xsds	1.65 06/02/17
+ *       same JAR file, relative filenames (i.e., those not
+ *       starting with "/") are considered relative to the root of
+ *       the JAR file's namespace.  Absolute filenames (i.e., those
+ *       starting with "/") also specify names in the root of the
+ *       JAR file's namespace.  In general, relative names are
+ *       preferred.  The exception is .war files where absolute
+ *       names are preferred for consistency with the Servlet API.
+ *       
  *     
  * 
  * 
- *       Copyright 2003-2006 Sun Microsystems, Inc.
- *       4150 Network Circle
- *       Santa Clara, California 95054
- *       U.S.A
- *       All rights reserved.
- * 
- *       Sun Microsystems, Inc. has intellectual property rights
- *       relating to technology described in this document. In
- *       particular, and without limitation, these intellectual
- *       property rights may include one or more of the U.S. patents
- *       listed at http://www.sun.com/patents and one or more
- *       additional patents or pending patent applications in the
- *       U.S. and other countries.
- * 
- *       This document and the technology which it describes are
- *       distributed under licenses restricting their use, copying,
- *       distribution, and decompilation. No part of this document
- *       may be reproduced in any form by any means without prior
- *       written authorization of Sun and its licensors, if any.
- * 
- *       Third-party software, including font technology, is
- *       copyrighted and licensed from Sun suppliers.
- * 
- *       Sun, Sun Microsystems, the Sun logo, Solaris, Java, J2EE,
- *       JavaServer Pages, Enterprise JavaBeans and the Java Coffee
- *       Cup logo are trademarks or registered trademarks of Sun
- *       Microsystems, Inc. in the U.S. and other countries.
- * 
- *       Federal Acquisitions: Commercial Software - Government Users
- *       Subject to Standard License Terms and Conditions.
- * 
+ *       $Id: WebPackage.java,v 1.4 2009/10/15 18:52:21 canderson Exp $
+ *       
  *     
  * 
  * 
- * The following definitions that appear in the common
- * shareable schema(s) of J2EE deployment descriptors should be
- * interpreted with respect to the context they are included:
- * 
- * Deployment Component may indicate one of the following:
- *     j2ee application;
- *     application client;
- *     web application;
- *     enterprise bean;
- *     resource adapter;
- * 
- * Deployment File may indicate one of the following:
- *     ear file;
- *     war file;
- *     jar file;
- *     rar file;
- * 
- * 
- * 
- *       @(#)javaee_web_services_client_1_2.xsds	1.19 02/13/06
+ *       The following definitions that appear in the common
+ *       shareable schema(s) of Java EE deployment descriptors should be
+ *       interpreted with respect to the context they are included:
+ *       
+ *       Deployment Component may indicate one of the following:
+ *       java ee application;
+ *       application client;
+ *       web application;
+ *       enterprise bean;
+ *       resource adapter; 
+ *       
+ *       Deployment File may indicate one of the following:
+ *       ear file;
+ *       war file;
+ *       jar file;
+ *       rar file;
+ *       
  *     
  * 
  * 
- *       Copyright 2003-2006 Sun Microsystems, Inc.
- *       4150 Network Circle
- *       Santa Clara, California 95054
- *       U.S.A
- *       All rights reserved.
- * 
- *       Sun Microsystems, Inc. has intellectual property rights
- *       relating to technology described in this document. In
- *       particular, and without limitation, these intellectual
- *       property rights may include one or more of the U.S. patents
- *       listed at http://www.sun.com/patents and one or more
- *       additional patents or pending patent applications in the
- *       U.S. and other countries.
- * 
- *       This document and the technology which it describes are
- *       distributed under licenses restricting their use, copying,
- *       distribution, and decompilation. No part of this document
- *       may be reproduced in any form by any means without prior
- *       written authorization of Sun and its licensors, if any.
- * 
- *       Third-party software, including font technology, is
- *       copyrighted and licensed from Sun suppliers.
- * 
- *       Sun, Sun Microsystems, the Sun logo, Solaris, Java, J2EE,
- *       JavaServer Pages, Enterprise JavaBeans and the Java Coffee
- *       Cup logo are trademarks or registered trademarks of Sun
- *       Microsystems, Inc. in the U.S. and other countries.
- * 
- *       Federal Acquisitions: Commercial Software - Government Users
- *       Subject to Standard License Terms and Conditions.
- * 
+ *       $Id: WebPackage.java,v 1.4 2009/10/15 18:52:21 canderson Exp $
+ *       
  *     
  * 
  * 
  *       (C) Copyright International Business Machines Corporation 2002
- * 
+ *       
  *     
  * 
- *    See http://www.w3.org/XML/1998/namespace.html and
- *    http://www.w3.org/TR/REC-xml for information about this namespace.
+ *    <div xmlns="http://www.w3.org/1999/xhtml">
+ *     <h1>About the XML namespace</h1>
  * 
- *     This schema document describes the XML namespace, in a form
- *     suitable for import by other schema documents.  
- * 
- *     Note that local names in this namespace are intended to be defined
- *     only by the World Wide Web Consortium or its subgroups.  The
- *     following names are currently defined in this namespace and should
- *     not be used with conflicting semantics by any Working Group,
- *     specification, or document instance:
- * 
- *     base (as an attribute name): denotes an attribute whose value
- *          provides a URI to be used as the base for interpreting any
- *          relative URIs in the scope of the element on which it
- *          appears; its value is inherited.  This name is reserved
- *          by virtue of its definition in the XML Base specification.
- * 
- *     id   (as an attribute name): denotes an attribute whose value
- *          should be interpreted as if declared to be of type ID.
- *          The xml:id specification is not yet a W3C Recommendation,
- *          but this attribute is included here to facilitate experimentation
- *          with the mechanisms it proposes.  Note that it is _not_ included
- *          in the specialAttrs attribute group.
- * 
- *     lang (as an attribute name): denotes an attribute whose value
- *          is a language code for the natural language of the content of
- *          any element; its value is inherited.  This name is reserved
- *          by virtue of its definition in the XML specification.
- *   
- *     space (as an attribute name): denotes an attribute whose
- *          value is a keyword indicating what whitespace processing
- *          discipline is intended for the content of the element; its
- *          value is inherited.  This name is reserved by virtue of its
- *          definition in the XML specification.
- * 
- *     Father (in any context at all): denotes Jon Bosak, the chair of 
- *          the original XML Working Group.  This name is reserved by 
- *          the following decision of the W3C XML Plenary and 
- *          XML Coordination groups:
- * 
- *              In appreciation for his vision, leadership and dedication
- *              the W3C XML Plenary on this 10th day of February, 2000
- *              reserves for Jon Bosak in perpetuity the XML name
- *              xml:Father
- *   
- * This schema defines attributes and an attribute group
- *         suitable for use by
- *         schemas wishing to allow xml:base, xml:lang, xml:space or xml:id
- *         attributes on elements they define.
- * 
- *         To enable this, such a schema must import this schema
- *         for the XML namespace, e.g. as follows:
- *         &lt;schema . . .&gt;
- *          . . .
- *          &lt;import namespace="http://www.w3.org/XML/1998/namespace"
- *                     schemaLocation="http://www.w3.org/2001/xml.xsd"/&gt;
- * 
- *         Subsequently, qualified reference to any of the attributes
- *         or the group defined below will have the desired effect, e.g.
- * 
- *         &lt;type . . .&gt;
- *          . . .
- *          &lt;attributeGroup ref="xml:specialAttrs"/&gt;
- *  
- *          will define a type which will schema-validate an instance
- *          element with any of those attributes
- * In keeping with the XML Schema WG's standard versioning
- *    policy, this schema document will persist at
- *    http://www.w3.org/2005/08/xml.xsd.
- *    At the date of issue it can also be found at
- *    http://www.w3.org/2001/xml.xsd.
- *    The schema document at that URI may however change in the future,
- *    in order to remain compatible with the latest version of XML Schema
- *    itself, or with the XML namespace itself.  In other words, if the XML
- *    Schema or XML namespaces change, the version of this document at
- *    http://www.w3.org/2001/xml.xsd will change
- *    accordingly; the version at
- *    http://www.w3.org/2005/08/xml.xsd will not change.
+ *     <div class="bodytext">
+ *      <p>
+ *       This schema document describes the XML namespace, in a form
+ *       suitable for import by other schema documents.
+ *      </p>
+ *      <p>
+ *       See <a href="http://www.w3.org/XML/1998/namespace.html">
+ *       http://www.w3.org/XML/1998/namespace.html</a> and
+ *       <a href="http://www.w3.org/TR/REC-xml">
+ *       http://www.w3.org/TR/REC-xml</a> for information 
+ *       about this namespace.
+ *      </p>
+ *      <p>
+ *       Note that local names in this namespace are intended to be
+ *       defined only by the World Wide Web Consortium or its subgroups.
+ *       The names currently defined in this namespace are listed below.
+ *       They should not be used with conflicting semantics by any Working
+ *       Group, specification, or document instance.
+ *      </p>
+ *      <p>   
+ *       See further below in this document for more information about <a href="#usage">how to refer to this schema document from your own
+ *       XSD schema documents</a> and about <a href="#nsversioning">the
+ *       namespace-versioning policy governing this schema document</a>.
+ *      </p>
+ *     </div>
+ *    </div>
  *   
  * 
- *       @(#)jsp_2_1.xsds	1.5 08/11/05
+ *    <div xmlns="http://www.w3.org/1999/xhtml">
+ *    
+ *     <h3>Father (in any context at all)</h3> 
+ * 
+ *     <div class="bodytext">
+ *      <p>
+ *       denotes Jon Bosak, the chair of 
+ *       the original XML Working Group.  This name is reserved by 
+ *       the following decision of the W3C XML Plenary and 
+ *       XML Coordination groups:
+ *      </p>
+ *      <blockquote>
+ *        <p>
+ * 	In appreciation for his vision, leadership and
+ * 	dedication the W3C XML Plenary on this 10th day of
+ * 	February, 2000, reserves for Jon Bosak in perpetuity
+ * 	the XML name "xml:Father".
+ *        </p>
+ *      </blockquote>
+ *     </div>
+ *    </div>
+ *   
+ * 
+ *    <div id="usage" xml:id="usage" xmlns="http://www.w3.org/1999/xhtml">
+ *     <h2>
+ *       <a name="usage">About this schema document</a>
+ *     </h2>
+ * 
+ *     <div class="bodytext">
+ *      <p>
+ *       This schema defines attributes and an attribute group suitable
+ *       for use by schemas wishing to allow <code>xml:base</code>,
+ *       <code>xml:lang</code>, <code>xml:space</code> or
+ *       <code>xml:id</code> attributes on elements they define.
+ *      </p>
+ *      <p>
+ *       To enable this, such a schema must import this schema for
+ *       the XML namespace, e.g. as follows:
+ *      </p>
+ *      <pre>
+ *           &lt;schema . . .&gt;
+ *            . . .
+ *            &lt;import namespace="http://www.w3.org/XML/1998/namespace"
+ *                       schemaLocation="http://www.w3.org/2001/xml.xsd"/&gt;
+ *      </pre>
+ *      <p>
+ *       or
+ *      </p>
+ *      <pre>
+ *            &lt;import namespace="http://www.w3.org/XML/1998/namespace"
+ *                       schemaLocation="http://www.w3.org/2009/01/xml.xsd"/&gt;
+ *      </pre>
+ *      <p>
+ *       Subsequently, qualified reference to any of the attributes or the
+ *       group defined below will have the desired effect, e.g.
+ *      </p>
+ *      <pre>
+ *           &lt;type . . .&gt;
+ *            . . .
+ *            &lt;attributeGroup ref="xml:specialAttrs"/&gt;
+ *      </pre>
+ *      <p>
+ *       will define a type which will schema-validate an instance element
+ *       with any of those attributes.
+ *      </p>
+ *     </div>
+ *    </div>
+ *   
+ * 
+ *    <div id="nsversioning" xml:id="nsversioning" xmlns="http://www.w3.org/1999/xhtml">
+ *     <h2>
+ *       <a name="nsversioning">Versioning policy for this schema document</a>
+ *     </h2>
+ *     <div class="bodytext">
+ *      <p>
+ *       In keeping with the XML Schema WG's standard versioning
+ *       policy, this schema document will persist at
+ *       <a href="http://www.w3.org/2009/01/xml.xsd">
+ *        http://www.w3.org/2009/01/xml.xsd</a>.
+ *      </p>
+ *      <p>
+ *       At the date of issue it can also be found at
+ *       <a href="http://www.w3.org/2001/xml.xsd">
+ *        http://www.w3.org/2001/xml.xsd</a>.
+ *      </p>
+ *      <p>
+ *       The schema document at that URI may however change in the future,
+ *       in order to remain compatible with the latest version of XML
+ *       Schema itself, or with the XML namespace itself.  In other words,
+ *       if the XML Schema or XML namespaces change, the version of this
+ *       document at <a href="http://www.w3.org/2001/xml.xsd">
+ *        http://www.w3.org/2001/xml.xsd 
+ *       </a> 
+ *       will change accordingly; the version at 
+ *       <a href="http://www.w3.org/2009/01/xml.xsd">
+ *        http://www.w3.org/2009/01/xml.xsd 
+ *       </a> 
+ *       will not change.
+ *      </p>
+ *      <p>
+ *       Previous dated (and unchanging) versions of this schema 
+ *       document are at:
+ *      </p>
+ *      <ul>
+ *       <li>
+ *           <a href="http://www.w3.org/2009/01/xml.xsd">
+ * 	http://www.w3.org/2009/01/xml.xsd</a>
+ *         </li>
+ *       <li>
+ *           <a href="http://www.w3.org/2007/08/xml.xsd">
+ * 	http://www.w3.org/2007/08/xml.xsd</a>
+ *         </li>
+ *       <li>
+ *           <a href="http://www.w3.org/2004/10/xml.xsd">
+ * 	http://www.w3.org/2004/10/xml.xsd</a>
+ *         </li>
+ *       <li>
+ *           <a href="http://www.w3.org/2001/03/xml.xsd">
+ * 	http://www.w3.org/2001/03/xml.xsd</a>
+ *         </li>
+ *      </ul>
+ *     </div>
+ *    </div>
+ *   
+ * 
+ *       @(#)jsp_2_2.xsds	02/26/09
  *     
  * 
  * 
- *       Copyright 2003-2006 Sun Microsystems, Inc.
+ *       Copyright 2003-2009 Sun Microsystems, Inc.
  *       4150 Network Circle
  *       Santa Clara, California 95054
  *       U.S.A
@@ -330,12 +308,12 @@ import org.eclipse.jst.javaee.web.WebFactory;
  *     
  * 
  * 
- *       This is the XML Schema for the JSP 2.1 deployment descriptor
- *       types.  The JSP 2.1 schema contains all the special
+ *       This is the XML Schema for the JSP 2.2 deployment descriptor
+ *       types.  The JSP 2.2 schema contains all the special
  *       structures and datatypes that are necessary to use JSP files
  *       from a web application.
  * 
- *       The contents of this schema is used by the web-app_2_5.xsd
+ *       The contents of this schema is used by the web-app_3_0.xsd
  *       file to define JSP specific content.
  * 
  *     
@@ -391,6 +369,52 @@ public interface WebPackage extends EPackage {
 	WebPackage eINSTANCE = org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl.init();
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.jst.javaee.web.internal.impl.AbsoluteOrderingTypeImpl <em>Absolute Ordering Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.web.internal.impl.AbsoluteOrderingTypeImpl
+	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getAbsoluteOrderingType()
+	 * @generated
+	 */
+	int ABSOLUTE_ORDERING_TYPE = 0;
+
+	/**
+	 * The feature id for the '<em><b>Group</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSOLUTE_ORDERING_TYPE__GROUP = 0;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSOLUTE_ORDERING_TYPE__NAME = 1;
+
+	/**
+	 * The feature id for the '<em><b>Others</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSOLUTE_ORDERING_TYPE__OTHERS = 2;
+
+	/**
+	 * The number of structural features of the '<em>Absolute Ordering Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSOLUTE_ORDERING_TYPE_FEATURE_COUNT = 3;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.web.internal.impl.AuthConstraintImpl <em>Auth Constraint</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -398,7 +422,7 @@ public interface WebPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getAuthConstraint()
 	 * @generated
 	 */
-	int AUTH_CONSTRAINT = 0;
+	int AUTH_CONSTRAINT = 1;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -437,6 +461,209 @@ public interface WebPackage extends EPackage {
 	int AUTH_CONSTRAINT_FEATURE_COUNT = 3;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.jst.javaee.web.internal.impl.CookieCommentTypeImpl <em>Cookie Comment Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.web.internal.impl.CookieCommentTypeImpl
+	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getCookieCommentType()
+	 * @generated
+	 */
+	int COOKIE_COMMENT_TYPE = 2;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COOKIE_COMMENT_TYPE__VALUE = 0;
+
+	/**
+	 * The number of structural features of the '<em>Cookie Comment Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COOKIE_COMMENT_TYPE_FEATURE_COUNT = 1;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.jst.javaee.web.internal.impl.CookieConfigTypeImpl <em>Cookie Config Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.web.internal.impl.CookieConfigTypeImpl
+	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getCookieConfigType()
+	 * @generated
+	 */
+	int COOKIE_CONFIG_TYPE = 3;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COOKIE_CONFIG_TYPE__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Domain</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COOKIE_CONFIG_TYPE__DOMAIN = 1;
+
+	/**
+	 * The feature id for the '<em><b>Path</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COOKIE_CONFIG_TYPE__PATH = 2;
+
+	/**
+	 * The feature id for the '<em><b>Comment</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COOKIE_CONFIG_TYPE__COMMENT = 3;
+
+	/**
+	 * The feature id for the '<em><b>Http Only</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COOKIE_CONFIG_TYPE__HTTP_ONLY = 4;
+
+	/**
+	 * The feature id for the '<em><b>Secure</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COOKIE_CONFIG_TYPE__SECURE = 5;
+
+	/**
+	 * The feature id for the '<em><b>Max Age</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COOKIE_CONFIG_TYPE__MAX_AGE = 6;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COOKIE_CONFIG_TYPE__ID = 7;
+
+	/**
+	 * The number of structural features of the '<em>Cookie Config Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COOKIE_CONFIG_TYPE_FEATURE_COUNT = 8;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.jst.javaee.web.internal.impl.CookieDomainTypeImpl <em>Cookie Domain Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.web.internal.impl.CookieDomainTypeImpl
+	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getCookieDomainType()
+	 * @generated
+	 */
+	int COOKIE_DOMAIN_TYPE = 4;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COOKIE_DOMAIN_TYPE__VALUE = 0;
+
+	/**
+	 * The number of structural features of the '<em>Cookie Domain Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COOKIE_DOMAIN_TYPE_FEATURE_COUNT = 1;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.jst.javaee.web.internal.impl.CookieNameTypeImpl <em>Cookie Name Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.web.internal.impl.CookieNameTypeImpl
+	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getCookieNameType()
+	 * @generated
+	 */
+	int COOKIE_NAME_TYPE = 5;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COOKIE_NAME_TYPE__VALUE = 0;
+
+	/**
+	 * The number of structural features of the '<em>Cookie Name Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COOKIE_NAME_TYPE_FEATURE_COUNT = 1;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.jst.javaee.web.internal.impl.CookiePathTypeImpl <em>Cookie Path Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.web.internal.impl.CookiePathTypeImpl
+	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getCookiePathType()
+	 * @generated
+	 */
+	int COOKIE_PATH_TYPE = 6;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COOKIE_PATH_TYPE__VALUE = 0;
+
+	/**
+	 * The number of structural features of the '<em>Cookie Path Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COOKIE_PATH_TYPE_FEATURE_COUNT = 1;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.web.internal.impl.ErrorPageImpl <em>Error Page</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -444,7 +671,7 @@ public interface WebPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getErrorPage()
 	 * @generated
 	 */
-	int ERROR_PAGE = 1;
+	int ERROR_PAGE = 7;
 
 	/**
 	 * The feature id for the '<em><b>Error Code</b></em>' attribute.
@@ -499,7 +726,7 @@ public interface WebPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getFilter()
 	 * @generated
 	 */
-	int FILTER = 2;
+	int FILTER = 8;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -547,13 +774,22 @@ public interface WebPackage extends EPackage {
 	int FILTER__FILTER_CLASS = 4;
 
 	/**
+	 * The feature id for the '<em><b>Async Supported</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FILTER__ASYNC_SUPPORTED = 5;
+
+	/**
 	 * The feature id for the '<em><b>Init Params</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FILTER__INIT_PARAMS = 5;
+	int FILTER__INIT_PARAMS = 6;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -562,7 +798,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FILTER__ID = 6;
+	int FILTER__ID = 7;
 
 	/**
 	 * The number of structural features of the '<em>Filter</em>' class.
@@ -571,7 +807,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FILTER_FEATURE_COUNT = 7;
+	int FILTER_FEATURE_COUNT = 8;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.web.internal.impl.FilterMappingImpl <em>Filter Mapping</em>}' class.
@@ -581,7 +817,7 @@ public interface WebPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getFilterMapping()
 	 * @generated
 	 */
-	int FILTER_MAPPING = 3;
+	int FILTER_MAPPING = 9;
 
 	/**
 	 * The feature id for the '<em><b>Filter Name</b></em>' attribute.
@@ -654,7 +890,7 @@ public interface WebPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getFormLoginConfig()
 	 * @generated
 	 */
-	int FORM_LOGIN_CONFIG = 4;
+	int FORM_LOGIN_CONFIG = 10;
 
 	/**
 	 * The feature id for the '<em><b>Form Login Page</b></em>' attribute.
@@ -700,7 +936,7 @@ public interface WebPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getLocaleEncodingMapping()
 	 * @generated
 	 */
-	int LOCALE_ENCODING_MAPPING = 5;
+	int LOCALE_ENCODING_MAPPING = 11;
 
 	/**
 	 * The feature id for the '<em><b>Locale</b></em>' attribute.
@@ -746,7 +982,7 @@ public interface WebPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getLocaleEncodingMappingList()
 	 * @generated
 	 */
-	int LOCALE_ENCODING_MAPPING_LIST = 6;
+	int LOCALE_ENCODING_MAPPING_LIST = 12;
 
 	/**
 	 * The feature id for the '<em><b>Local Encoding Mappings</b></em>' containment reference list.
@@ -783,7 +1019,7 @@ public interface WebPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getLoginConfig()
 	 * @generated
 	 */
-	int LOGIN_CONFIG = 7;
+	int LOGIN_CONFIG = 13;
 
 	/**
 	 * The feature id for the '<em><b>Auth Method</b></em>' attribute.
@@ -838,7 +1074,7 @@ public interface WebPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getMimeMapping()
 	 * @generated
 	 */
-	int MIME_MAPPING = 8;
+	int MIME_MAPPING = 14;
 
 	/**
 	 * The feature id for the '<em><b>Extension</b></em>' attribute.
@@ -877,6 +1113,163 @@ public interface WebPackage extends EPackage {
 	int MIME_MAPPING_FEATURE_COUNT = 3;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.jst.javaee.web.internal.impl.MultipartConfigTypeImpl <em>Multipart Config Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.web.internal.impl.MultipartConfigTypeImpl
+	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getMultipartConfigType()
+	 * @generated
+	 */
+	int MULTIPART_CONFIG_TYPE = 15;
+
+	/**
+	 * The feature id for the '<em><b>Location</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MULTIPART_CONFIG_TYPE__LOCATION = 0;
+
+	/**
+	 * The feature id for the '<em><b>Max File Size</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MULTIPART_CONFIG_TYPE__MAX_FILE_SIZE = 1;
+
+	/**
+	 * The feature id for the '<em><b>Max Request Size</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MULTIPART_CONFIG_TYPE__MAX_REQUEST_SIZE = 2;
+
+	/**
+	 * The feature id for the '<em><b>File Size Threshold</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MULTIPART_CONFIG_TYPE__FILE_SIZE_THRESHOLD = 3;
+
+	/**
+	 * The number of structural features of the '<em>Multipart Config Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MULTIPART_CONFIG_TYPE_FEATURE_COUNT = 4;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.jst.javaee.web.internal.impl.OrderingOrderingTypeImpl <em>Ordering Ordering Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.web.internal.impl.OrderingOrderingTypeImpl
+	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getOrderingOrderingType()
+	 * @generated
+	 */
+	int ORDERING_ORDERING_TYPE = 16;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ORDERING_ORDERING_TYPE__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Others</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ORDERING_ORDERING_TYPE__OTHERS = 1;
+
+	/**
+	 * The number of structural features of the '<em>Ordering Ordering Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ORDERING_ORDERING_TYPE_FEATURE_COUNT = 2;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.jst.javaee.web.internal.impl.OrderingOthersTypeImpl <em>Ordering Others Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.web.internal.impl.OrderingOthersTypeImpl
+	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getOrderingOthersType()
+	 * @generated
+	 */
+	int ORDERING_OTHERS_TYPE = 17;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ORDERING_OTHERS_TYPE__ID = 0;
+
+	/**
+	 * The number of structural features of the '<em>Ordering Others Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ORDERING_OTHERS_TYPE_FEATURE_COUNT = 1;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.jst.javaee.web.internal.impl.OrderingTypeImpl <em>Ordering Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.web.internal.impl.OrderingTypeImpl
+	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getOrderingType()
+	 * @generated
+	 */
+	int ORDERING_TYPE = 18;
+
+	/**
+	 * The feature id for the '<em><b>After</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ORDERING_TYPE__AFTER = 0;
+
+	/**
+	 * The feature id for the '<em><b>Before</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ORDERING_TYPE__BEFORE = 1;
+
+	/**
+	 * The number of structural features of the '<em>Ordering Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ORDERING_TYPE_FEATURE_COUNT = 2;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.web.internal.impl.SecurityConstraintImpl <em>Security Constraint</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -884,7 +1277,7 @@ public interface WebPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getSecurityConstraint()
 	 * @generated
 	 */
-	int SECURITY_CONSTRAINT = 9;
+	int SECURITY_CONSTRAINT = 19;
 
 	/**
 	 * The feature id for the '<em><b>Display Names</b></em>' containment reference list.
@@ -948,7 +1341,7 @@ public interface WebPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getServlet()
 	 * @generated
 	 */
-	int SERVLET = 10;
+	int SERVLET = 20;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -1023,13 +1416,31 @@ public interface WebPackage extends EPackage {
 	int SERVLET__LOAD_ON_STARTUP = 7;
 
 	/**
+	 * The feature id for the '<em><b>Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERVLET__ENABLED = 8;
+
+	/**
+	 * The feature id for the '<em><b>Async Supported</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERVLET__ASYNC_SUPPORTED = 9;
+
+	/**
 	 * The feature id for the '<em><b>Run As</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SERVLET__RUN_AS = 8;
+	int SERVLET__RUN_AS = 10;
 
 	/**
 	 * The feature id for the '<em><b>Security Role Refs</b></em>' containment reference list.
@@ -1038,7 +1449,16 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SERVLET__SECURITY_ROLE_REFS = 9;
+	int SERVLET__SECURITY_ROLE_REFS = 11;
+
+	/**
+	 * The feature id for the '<em><b>Multipart Config</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERVLET__MULTIPART_CONFIG = 12;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -1047,7 +1467,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SERVLET__ID = 10;
+	int SERVLET__ID = 13;
 
 	/**
 	 * The number of structural features of the '<em>Servlet</em>' class.
@@ -1056,7 +1476,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SERVLET_FEATURE_COUNT = 11;
+	int SERVLET_FEATURE_COUNT = 14;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.web.internal.impl.ServletMappingImpl <em>Servlet Mapping</em>}' class.
@@ -1066,7 +1486,7 @@ public interface WebPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getServletMapping()
 	 * @generated
 	 */
-	int SERVLET_MAPPING = 11;
+	int SERVLET_MAPPING = 21;
 
 	/**
 	 * The feature id for the '<em><b>Servlet Name</b></em>' attribute.
@@ -1112,7 +1532,7 @@ public interface WebPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getSessionConfig()
 	 * @generated
 	 */
-	int SESSION_CONFIG = 12;
+	int SESSION_CONFIG = 22;
 
 	/**
 	 * The feature id for the '<em><b>Session Timeout</b></em>' attribute.
@@ -1124,13 +1544,31 @@ public interface WebPackage extends EPackage {
 	int SESSION_CONFIG__SESSION_TIMEOUT = 0;
 
 	/**
+	 * The feature id for the '<em><b>Cookie Config</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SESSION_CONFIG__COOKIE_CONFIG = 1;
+
+	/**
+	 * The feature id for the '<em><b>Tracking Mode</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SESSION_CONFIG__TRACKING_MODE = 2;
+
+	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SESSION_CONFIG__ID = 1;
+	int SESSION_CONFIG__ID = 3;
 
 	/**
 	 * The number of structural features of the '<em>Session Config</em>' class.
@@ -1139,7 +1577,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SESSION_CONFIG_FEATURE_COUNT = 2;
+	int SESSION_CONFIG_FEATURE_COUNT = 4;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.web.internal.impl.UserDataConstraintImpl <em>User Data Constraint</em>}' class.
@@ -1149,7 +1587,7 @@ public interface WebPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getUserDataConstraint()
 	 * @generated
 	 */
-	int USER_DATA_CONSTRAINT = 13;
+	int USER_DATA_CONSTRAINT = 23;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -1195,7 +1633,7 @@ public interface WebPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getWebApp()
 	 * @generated
 	 */
-	int WEB_APP = 14;
+	int WEB_APP = 24;
 
 	/**
 	 * The feature id for the '<em><b>Group</b></em>' attribute list.
@@ -1234,13 +1672,22 @@ public interface WebPackage extends EPackage {
 	int WEB_APP__ICONS = 3;
 
 	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_APP__NAME = 4;
+
+	/**
 	 * The feature id for the '<em><b>Distributables</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__DISTRIBUTABLES = 4;
+	int WEB_APP__DISTRIBUTABLES = 5;
 
 	/**
 	 * The feature id for the '<em><b>Context Params</b></em>' containment reference list.
@@ -1249,7 +1696,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__CONTEXT_PARAMS = 5;
+	int WEB_APP__CONTEXT_PARAMS = 6;
 
 	/**
 	 * The feature id for the '<em><b>Filters</b></em>' containment reference list.
@@ -1258,7 +1705,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__FILTERS = 6;
+	int WEB_APP__FILTERS = 7;
 
 	/**
 	 * The feature id for the '<em><b>Filter Mappings</b></em>' containment reference list.
@@ -1267,7 +1714,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__FILTER_MAPPINGS = 7;
+	int WEB_APP__FILTER_MAPPINGS = 8;
 
 	/**
 	 * The feature id for the '<em><b>Listeners</b></em>' containment reference list.
@@ -1276,7 +1723,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__LISTENERS = 8;
+	int WEB_APP__LISTENERS = 9;
 
 	/**
 	 * The feature id for the '<em><b>Servlets</b></em>' containment reference list.
@@ -1285,7 +1732,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__SERVLETS = 9;
+	int WEB_APP__SERVLETS = 10;
 
 	/**
 	 * The feature id for the '<em><b>Servlet Mappings</b></em>' containment reference list.
@@ -1294,7 +1741,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__SERVLET_MAPPINGS = 10;
+	int WEB_APP__SERVLET_MAPPINGS = 11;
 
 	/**
 	 * The feature id for the '<em><b>Session Configs</b></em>' containment reference list.
@@ -1303,7 +1750,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__SESSION_CONFIGS = 11;
+	int WEB_APP__SESSION_CONFIGS = 12;
 
 	/**
 	 * The feature id for the '<em><b>Mime Mappings</b></em>' containment reference list.
@@ -1312,7 +1759,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__MIME_MAPPINGS = 12;
+	int WEB_APP__MIME_MAPPINGS = 13;
 
 	/**
 	 * The feature id for the '<em><b>Welcome File Lists</b></em>' containment reference list.
@@ -1321,7 +1768,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__WELCOME_FILE_LISTS = 13;
+	int WEB_APP__WELCOME_FILE_LISTS = 14;
 
 	/**
 	 * The feature id for the '<em><b>Error Pages</b></em>' containment reference list.
@@ -1330,7 +1777,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__ERROR_PAGES = 14;
+	int WEB_APP__ERROR_PAGES = 15;
 
 	/**
 	 * The feature id for the '<em><b>Jsp Configs</b></em>' containment reference list.
@@ -1339,7 +1786,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__JSP_CONFIGS = 15;
+	int WEB_APP__JSP_CONFIGS = 16;
 
 	/**
 	 * The feature id for the '<em><b>Security Constraints</b></em>' containment reference list.
@@ -1348,7 +1795,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__SECURITY_CONSTRAINTS = 16;
+	int WEB_APP__SECURITY_CONSTRAINTS = 17;
 
 	/**
 	 * The feature id for the '<em><b>Login Configs</b></em>' containment reference list.
@@ -1357,7 +1804,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__LOGIN_CONFIGS = 17;
+	int WEB_APP__LOGIN_CONFIGS = 18;
 
 	/**
 	 * The feature id for the '<em><b>Security Roles</b></em>' containment reference list.
@@ -1366,7 +1813,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__SECURITY_ROLES = 18;
+	int WEB_APP__SECURITY_ROLES = 19;
 
 	/**
 	 * The feature id for the '<em><b>Env Entries</b></em>' containment reference list.
@@ -1375,7 +1822,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__ENV_ENTRIES = 19;
+	int WEB_APP__ENV_ENTRIES = 20;
 
 	/**
 	 * The feature id for the '<em><b>Ejb Refs</b></em>' containment reference list.
@@ -1384,7 +1831,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__EJB_REFS = 20;
+	int WEB_APP__EJB_REFS = 21;
 
 	/**
 	 * The feature id for the '<em><b>Ejb Local Refs</b></em>' containment reference list.
@@ -1393,7 +1840,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__EJB_LOCAL_REFS = 21;
+	int WEB_APP__EJB_LOCAL_REFS = 22;
 
 	/**
 	 * The feature id for the '<em><b>Service Refs</b></em>' containment reference list.
@@ -1402,7 +1849,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__SERVICE_REFS = 22;
+	int WEB_APP__SERVICE_REFS = 23;
 
 	/**
 	 * The feature id for the '<em><b>Resource Refs</b></em>' containment reference list.
@@ -1411,7 +1858,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__RESOURCE_REFS = 23;
+	int WEB_APP__RESOURCE_REFS = 24;
 
 	/**
 	 * The feature id for the '<em><b>Resource Env Refs</b></em>' containment reference list.
@@ -1420,7 +1867,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__RESOURCE_ENV_REFS = 24;
+	int WEB_APP__RESOURCE_ENV_REFS = 25;
 
 	/**
 	 * The feature id for the '<em><b>Message Destination Refs</b></em>' containment reference list.
@@ -1429,7 +1876,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__MESSAGE_DESTINATION_REFS = 25;
+	int WEB_APP__MESSAGE_DESTINATION_REFS = 26;
 
 	/**
 	 * The feature id for the '<em><b>Persistence Context Refs</b></em>' containment reference list.
@@ -1438,7 +1885,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__PERSISTENCE_CONTEXT_REFS = 26;
+	int WEB_APP__PERSISTENCE_CONTEXT_REFS = 27;
 
 	/**
 	 * The feature id for the '<em><b>Persistence Unit Refs</b></em>' containment reference list.
@@ -1447,7 +1894,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__PERSISTENCE_UNIT_REFS = 27;
+	int WEB_APP__PERSISTENCE_UNIT_REFS = 28;
 
 	/**
 	 * The feature id for the '<em><b>Post Constructs</b></em>' containment reference list.
@@ -1456,7 +1903,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__POST_CONSTRUCTS = 28;
+	int WEB_APP__POST_CONSTRUCTS = 29;
 
 	/**
 	 * The feature id for the '<em><b>Pre Destroys</b></em>' containment reference list.
@@ -1465,7 +1912,16 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__PRE_DESTROYS = 29;
+	int WEB_APP__PRE_DESTROYS = 30;
+
+	/**
+	 * The feature id for the '<em><b>Data Source</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_APP__DATA_SOURCE = 31;
 
 	/**
 	 * The feature id for the '<em><b>Message Destinations</b></em>' containment reference list.
@@ -1474,7 +1930,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__MESSAGE_DESTINATIONS = 30;
+	int WEB_APP__MESSAGE_DESTINATIONS = 32;
 
 	/**
 	 * The feature id for the '<em><b>Local Encoding Mappings Lists</b></em>' containment reference list.
@@ -1483,7 +1939,25 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__LOCAL_ENCODING_MAPPINGS_LISTS = 31;
+	int WEB_APP__LOCAL_ENCODING_MAPPINGS_LISTS = 33;
+
+	/**
+	 * The feature id for the '<em><b>Module Name</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_APP__MODULE_NAME = 34;
+
+	/**
+	 * The feature id for the '<em><b>Absolute Ordering</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_APP__ABSOLUTE_ORDERING = 35;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -1492,7 +1966,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__ID = 32;
+	int WEB_APP__ID = 36;
 
 	/**
 	 * The feature id for the '<em><b>Metadata Complete</b></em>' attribute.
@@ -1501,7 +1975,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__METADATA_COMPLETE = 33;
+	int WEB_APP__METADATA_COMPLETE = 37;
 
 	/**
 	 * The feature id for the '<em><b>Version</b></em>' attribute.
@@ -1510,7 +1984,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__VERSION = 34;
+	int WEB_APP__VERSION = 38;
 
 	/**
 	 * The number of structural features of the '<em>App</em>' class.
@@ -1519,7 +1993,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP_FEATURE_COUNT = 35;
+	int WEB_APP_FEATURE_COUNT = 39;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.web.internal.impl.WebAppDeploymentDescriptorImpl <em>App Deployment Descriptor</em>}' class.
@@ -1529,7 +2003,7 @@ public interface WebPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getWebAppDeploymentDescriptor()
 	 * @generated
 	 */
-	int WEB_APP_DEPLOYMENT_DESCRIPTOR = 15;
+	int WEB_APP_DEPLOYMENT_DESCRIPTOR = 25;
 
 	/**
 	 * The feature id for the '<em><b>Mixed</b></em>' attribute list.
@@ -1577,6 +2051,367 @@ public interface WebPackage extends EPackage {
 	int WEB_APP_DEPLOYMENT_DESCRIPTOR_FEATURE_COUNT = 4;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.jst.javaee.web.internal.impl.WebFragmentImpl <em>Fragment</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.web.internal.impl.WebFragmentImpl
+	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getWebFragment()
+	 * @generated
+	 */
+	int WEB_FRAGMENT = 26;
+
+	/**
+	 * The feature id for the '<em><b>Group</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__GROUP = 0;
+
+	/**
+	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__DESCRIPTIONS = 1;
+
+	/**
+	 * The feature id for the '<em><b>Display Names</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__DISPLAY_NAMES = 2;
+
+	/**
+	 * The feature id for the '<em><b>Icons</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__ICONS = 3;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__NAME = 4;
+
+	/**
+	 * The feature id for the '<em><b>Distributables</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__DISTRIBUTABLES = 5;
+
+	/**
+	 * The feature id for the '<em><b>Context Params</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__CONTEXT_PARAMS = 6;
+
+	/**
+	 * The feature id for the '<em><b>Filters</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__FILTERS = 7;
+
+	/**
+	 * The feature id for the '<em><b>Filter Mappings</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__FILTER_MAPPINGS = 8;
+
+	/**
+	 * The feature id for the '<em><b>Listeners</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__LISTENERS = 9;
+
+	/**
+	 * The feature id for the '<em><b>Servlets</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__SERVLETS = 10;
+
+	/**
+	 * The feature id for the '<em><b>Servlet Mappings</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__SERVLET_MAPPINGS = 11;
+
+	/**
+	 * The feature id for the '<em><b>Session Configs</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__SESSION_CONFIGS = 12;
+
+	/**
+	 * The feature id for the '<em><b>Mime Mappings</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__MIME_MAPPINGS = 13;
+
+	/**
+	 * The feature id for the '<em><b>Welcome File Lists</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__WELCOME_FILE_LISTS = 14;
+
+	/**
+	 * The feature id for the '<em><b>Error Pages</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__ERROR_PAGES = 15;
+
+	/**
+	 * The feature id for the '<em><b>Jsp Configs</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__JSP_CONFIGS = 16;
+
+	/**
+	 * The feature id for the '<em><b>Security Constraints</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__SECURITY_CONSTRAINTS = 17;
+
+	/**
+	 * The feature id for the '<em><b>Login Configs</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__LOGIN_CONFIGS = 18;
+
+	/**
+	 * The feature id for the '<em><b>Security Roles</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__SECURITY_ROLES = 19;
+
+	/**
+	 * The feature id for the '<em><b>Env Entries</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__ENV_ENTRIES = 20;
+
+	/**
+	 * The feature id for the '<em><b>Ejb Refs</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__EJB_REFS = 21;
+
+	/**
+	 * The feature id for the '<em><b>Ejb Local Refs</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__EJB_LOCAL_REFS = 22;
+
+	/**
+	 * The feature id for the '<em><b>Service Refs</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__SERVICE_REFS = 23;
+
+	/**
+	 * The feature id for the '<em><b>Resource Refs</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__RESOURCE_REFS = 24;
+
+	/**
+	 * The feature id for the '<em><b>Resource Env Refs</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__RESOURCE_ENV_REFS = 25;
+
+	/**
+	 * The feature id for the '<em><b>Message Destination Refs</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__MESSAGE_DESTINATION_REFS = 26;
+
+	/**
+	 * The feature id for the '<em><b>Persistence Context Refs</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__PERSISTENCE_CONTEXT_REFS = 27;
+
+	/**
+	 * The feature id for the '<em><b>Persistence Unit Refs</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__PERSISTENCE_UNIT_REFS = 28;
+
+	/**
+	 * The feature id for the '<em><b>Post Constructs</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__POST_CONSTRUCTS = 29;
+
+	/**
+	 * The feature id for the '<em><b>Pre Destroys</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__PRE_DESTROYS = 30;
+
+	/**
+	 * The feature id for the '<em><b>Data Source</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__DATA_SOURCE = 31;
+
+	/**
+	 * The feature id for the '<em><b>Message Destinations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__MESSAGE_DESTINATIONS = 32;
+
+	/**
+	 * The feature id for the '<em><b>Local Encoding Mappings Lists</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__LOCAL_ENCODING_MAPPINGS_LISTS = 33;
+
+	/**
+	 * The feature id for the '<em><b>Ordering</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__ORDERING = 34;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__ID = 35;
+
+	/**
+	 * The feature id for the '<em><b>Metadata Complete</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__METADATA_COMPLETE = 36;
+
+	/**
+	 * The feature id for the '<em><b>Version</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__VERSION = 37;
+
+	/**
+	 * The number of structural features of the '<em>Fragment</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT_FEATURE_COUNT = 38;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.web.internal.impl.WebResourceCollectionImpl <em>Resource Collection</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1584,7 +2419,7 @@ public interface WebPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getWebResourceCollection()
 	 * @generated
 	 */
-	int WEB_RESOURCE_COLLECTION = 16;
+	int WEB_RESOURCE_COLLECTION = 27;
 
 	/**
 	 * The feature id for the '<em><b>Web Resource Name</b></em>' attribute.
@@ -1623,13 +2458,22 @@ public interface WebPackage extends EPackage {
 	int WEB_RESOURCE_COLLECTION__HTTP_METHODS = 3;
 
 	/**
+	 * The feature id for the '<em><b>Http Method Omission</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_RESOURCE_COLLECTION__HTTP_METHOD_OMISSION = 4;
+
+	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_RESOURCE_COLLECTION__ID = 4;
+	int WEB_RESOURCE_COLLECTION__ID = 5;
 
 	/**
 	 * The number of structural features of the '<em>Resource Collection</em>' class.
@@ -1638,7 +2482,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_RESOURCE_COLLECTION_FEATURE_COUNT = 5;
+	int WEB_RESOURCE_COLLECTION_FEATURE_COUNT = 6;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.web.internal.impl.WelcomeFileListImpl <em>Welcome File List</em>}' class.
@@ -1648,7 +2492,7 @@ public interface WebPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getWelcomeFileList()
 	 * @generated
 	 */
-	int WELCOME_FILE_LIST = 17;
+	int WELCOME_FILE_LIST = 28;
 
 	/**
 	 * The feature id for the '<em><b>Welcome Files</b></em>' attribute list.
@@ -1685,7 +2529,7 @@ public interface WebPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getDispatcherType()
 	 * @generated
 	 */
-	int DISPATCHER_TYPE = 18;
+	int DISPATCHER_TYPE = 29;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.web.NullCharType <em>Null Char Type</em>}' enum.
@@ -1695,7 +2539,17 @@ public interface WebPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getNullCharType()
 	 * @generated
 	 */
-	int NULL_CHAR_TYPE = 19;
+	int NULL_CHAR_TYPE = 30;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.jst.javaee.web.TrackingModeType <em>Tracking Mode Type</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.web.TrackingModeType
+	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getTrackingModeType()
+	 * @generated
+	 */
+	int TRACKING_MODE_TYPE = 31;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.web.TransportGuaranteeType <em>Transport Guarantee Type</em>}' enum.
@@ -1705,7 +2559,7 @@ public interface WebPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getTransportGuaranteeType()
 	 * @generated
 	 */
-	int TRANSPORT_GUARANTEE_TYPE = 20;
+	int TRANSPORT_GUARANTEE_TYPE = 32;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.web.WebAppVersionType <em>App Version Type</em>}' enum.
@@ -1715,7 +2569,7 @@ public interface WebPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getWebAppVersionType()
 	 * @generated
 	 */
-	int WEB_APP_VERSION_TYPE = 21;
+	int WEB_APP_VERSION_TYPE = 33;
 
 	/**
 	 * The meta object id for the '<em>Auth Method Type</em>' data type.
@@ -1725,7 +2579,7 @@ public interface WebPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getAuthMethodType()
 	 * @generated
 	 */
-	int AUTH_METHOD_TYPE = 22;
+	int AUTH_METHOD_TYPE = 34;
 
 	/**
 	 * The meta object id for the '<em>Dispatcher Type Object</em>' data type.
@@ -1735,7 +2589,7 @@ public interface WebPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getDispatcherTypeObject()
 	 * @generated
 	 */
-	int DISPATCHER_TYPE_OBJECT = 23;
+	int DISPATCHER_TYPE_OBJECT = 35;
 
 	/**
 	 * The meta object id for the '<em>Encoding Type</em>' data type.
@@ -1745,7 +2599,7 @@ public interface WebPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getEncodingType()
 	 * @generated
 	 */
-	int ENCODING_TYPE = 24;
+	int ENCODING_TYPE = 36;
 
 	/**
 	 * The meta object id for the '<em>Error Code Type</em>' data type.
@@ -1755,7 +2609,7 @@ public interface WebPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getErrorCodeType()
 	 * @generated
 	 */
-	int ERROR_CODE_TYPE = 25;
+	int ERROR_CODE_TYPE = 37;
 
 	/**
 	 * The meta object id for the '<em>Filter Name Type</em>' data type.
@@ -1765,7 +2619,7 @@ public interface WebPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getFilterNameType()
 	 * @generated
 	 */
-	int FILTER_NAME_TYPE = 26;
+	int FILTER_NAME_TYPE = 38;
 
 	/**
 	 * The meta object id for the '<em>Http Method Type</em>' data type.
@@ -1775,7 +2629,7 @@ public interface WebPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getHttpMethodType()
 	 * @generated
 	 */
-	int HTTP_METHOD_TYPE = 27;
+	int HTTP_METHOD_TYPE = 39;
 
 	/**
 	 * The meta object id for the '<em>Load On Startup Type</em>' data type.
@@ -1785,7 +2639,7 @@ public interface WebPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getLoadOnStartupType()
 	 * @generated
 	 */
-	int LOAD_ON_STARTUP_TYPE = 28;
+	int LOAD_ON_STARTUP_TYPE = 40;
 
 	/**
 	 * The meta object id for the '<em>Locale Type</em>' data type.
@@ -1795,7 +2649,7 @@ public interface WebPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getLocaleType()
 	 * @generated
 	 */
-	int LOCALE_TYPE = 29;
+	int LOCALE_TYPE = 41;
 
 	/**
 	 * The meta object id for the '<em>Mime Type Type</em>' data type.
@@ -1805,7 +2659,7 @@ public interface WebPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getMimeTypeType()
 	 * @generated
 	 */
-	int MIME_TYPE_TYPE = 30;
+	int MIME_TYPE_TYPE = 42;
 
 	/**
 	 * The meta object id for the '<em>Non Empty String Type</em>' data type.
@@ -1815,7 +2669,7 @@ public interface WebPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getNonEmptyStringType()
 	 * @generated
 	 */
-	int NON_EMPTY_STRING_TYPE = 31;
+	int NON_EMPTY_STRING_TYPE = 43;
 
 	/**
 	 * The meta object id for the '<em>Null Char Type Object</em>' data type.
@@ -1825,7 +2679,7 @@ public interface WebPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getNullCharTypeObject()
 	 * @generated
 	 */
-	int NULL_CHAR_TYPE_OBJECT = 32;
+	int NULL_CHAR_TYPE_OBJECT = 44;
 
 	/**
 	 * The meta object id for the '<em>Servlet Name Type</em>' data type.
@@ -1835,7 +2689,17 @@ public interface WebPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getServletNameType()
 	 * @generated
 	 */
-	int SERVLET_NAME_TYPE = 33;
+	int SERVLET_NAME_TYPE = 45;
+
+	/**
+	 * The meta object id for the '<em>Tracking Mode Type Object</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.web.TrackingModeType
+	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getTrackingModeTypeObject()
+	 * @generated
+	 */
+	int TRACKING_MODE_TYPE_OBJECT = 46;
 
 	/**
 	 * The meta object id for the '<em>Transport Guarantee Type Object</em>' data type.
@@ -1845,7 +2709,7 @@ public interface WebPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getTransportGuaranteeTypeObject()
 	 * @generated
 	 */
-	int TRANSPORT_GUARANTEE_TYPE_OBJECT = 34;
+	int TRANSPORT_GUARANTEE_TYPE_OBJECT = 47;
 
 	/**
 	 * The meta object id for the '<em>War Path Type</em>' data type.
@@ -1855,7 +2719,7 @@ public interface WebPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getWarPathType()
 	 * @generated
 	 */
-	int WAR_PATH_TYPE = 35;
+	int WAR_PATH_TYPE = 48;
 
 	/**
 	 * The meta object id for the '<em>App Version Type Object</em>' data type.
@@ -1865,8 +2729,51 @@ public interface WebPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getWebAppVersionTypeObject()
 	 * @generated
 	 */
-	int WEB_APP_VERSION_TYPE_OBJECT = 36;
+	int WEB_APP_VERSION_TYPE_OBJECT = 49;
 
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.web.AbsoluteOrderingType <em>Absolute Ordering Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Absolute Ordering Type</em>'.
+	 * @see org.eclipse.jst.javaee.web.AbsoluteOrderingType
+	 * @generated
+	 */
+	EClass getAbsoluteOrderingType();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link org.eclipse.jst.javaee.web.AbsoluteOrderingType#getGroup <em>Group</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Group</em>'.
+	 * @see org.eclipse.jst.javaee.web.AbsoluteOrderingType#getGroup()
+	 * @see #getAbsoluteOrderingType()
+	 * @generated
+	 */
+	EAttribute getAbsoluteOrderingType_Group();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link org.eclipse.jst.javaee.web.AbsoluteOrderingType#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Name</em>'.
+	 * @see org.eclipse.jst.javaee.web.AbsoluteOrderingType#getName()
+	 * @see #getAbsoluteOrderingType()
+	 * @generated
+	 */
+	EAttribute getAbsoluteOrderingType_Name();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.AbsoluteOrderingType#getOthers <em>Others</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Others</em>'.
+	 * @see org.eclipse.jst.javaee.web.AbsoluteOrderingType#getOthers()
+	 * @see #getAbsoluteOrderingType()
+	 * @generated
+	 */
+	EReference getAbsoluteOrderingType_Others();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.web.AuthConstraint <em>Auth Constraint</em>}'.
@@ -1910,6 +2817,188 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getAuthConstraint_Id();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.web.CookieCommentType <em>Cookie Comment Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Cookie Comment Type</em>'.
+	 * @see org.eclipse.jst.javaee.web.CookieCommentType
+	 * @generated
+	 */
+	EClass getCookieCommentType();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.web.CookieCommentType#getValue <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Value</em>'.
+	 * @see org.eclipse.jst.javaee.web.CookieCommentType#getValue()
+	 * @see #getCookieCommentType()
+	 * @generated
+	 */
+	EAttribute getCookieCommentType_Value();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.web.CookieConfigType <em>Cookie Config Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Cookie Config Type</em>'.
+	 * @see org.eclipse.jst.javaee.web.CookieConfigType
+	 * @generated
+	 */
+	EClass getCookieConfigType();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.javaee.web.CookieConfigType#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Name</em>'.
+	 * @see org.eclipse.jst.javaee.web.CookieConfigType#getName()
+	 * @see #getCookieConfigType()
+	 * @generated
+	 */
+	EReference getCookieConfigType_Name();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.javaee.web.CookieConfigType#getDomain <em>Domain</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Domain</em>'.
+	 * @see org.eclipse.jst.javaee.web.CookieConfigType#getDomain()
+	 * @see #getCookieConfigType()
+	 * @generated
+	 */
+	EReference getCookieConfigType_Domain();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.javaee.web.CookieConfigType#getPath <em>Path</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Path</em>'.
+	 * @see org.eclipse.jst.javaee.web.CookieConfigType#getPath()
+	 * @see #getCookieConfigType()
+	 * @generated
+	 */
+	EReference getCookieConfigType_Path();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.javaee.web.CookieConfigType#getComment <em>Comment</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Comment</em>'.
+	 * @see org.eclipse.jst.javaee.web.CookieConfigType#getComment()
+	 * @see #getCookieConfigType()
+	 * @generated
+	 */
+	EReference getCookieConfigType_Comment();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.web.CookieConfigType#isHttpOnly <em>Http Only</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Http Only</em>'.
+	 * @see org.eclipse.jst.javaee.web.CookieConfigType#isHttpOnly()
+	 * @see #getCookieConfigType()
+	 * @generated
+	 */
+	EAttribute getCookieConfigType_HttpOnly();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.web.CookieConfigType#isSecure <em>Secure</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Secure</em>'.
+	 * @see org.eclipse.jst.javaee.web.CookieConfigType#isSecure()
+	 * @see #getCookieConfigType()
+	 * @generated
+	 */
+	EAttribute getCookieConfigType_Secure();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.web.CookieConfigType#getMaxAge <em>Max Age</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Max Age</em>'.
+	 * @see org.eclipse.jst.javaee.web.CookieConfigType#getMaxAge()
+	 * @see #getCookieConfigType()
+	 * @generated
+	 */
+	EAttribute getCookieConfigType_MaxAge();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.web.CookieConfigType#getId <em>Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Id</em>'.
+	 * @see org.eclipse.jst.javaee.web.CookieConfigType#getId()
+	 * @see #getCookieConfigType()
+	 * @generated
+	 */
+	EAttribute getCookieConfigType_Id();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.web.CookieDomainType <em>Cookie Domain Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Cookie Domain Type</em>'.
+	 * @see org.eclipse.jst.javaee.web.CookieDomainType
+	 * @generated
+	 */
+	EClass getCookieDomainType();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.web.CookieDomainType#getValue <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Value</em>'.
+	 * @see org.eclipse.jst.javaee.web.CookieDomainType#getValue()
+	 * @see #getCookieDomainType()
+	 * @generated
+	 */
+	EAttribute getCookieDomainType_Value();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.web.CookieNameType <em>Cookie Name Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Cookie Name Type</em>'.
+	 * @see org.eclipse.jst.javaee.web.CookieNameType
+	 * @generated
+	 */
+	EClass getCookieNameType();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.web.CookieNameType#getValue <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Value</em>'.
+	 * @see org.eclipse.jst.javaee.web.CookieNameType#getValue()
+	 * @see #getCookieNameType()
+	 * @generated
+	 */
+	EAttribute getCookieNameType_Value();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.web.CookiePathType <em>Cookie Path Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Cookie Path Type</em>'.
+	 * @see org.eclipse.jst.javaee.web.CookiePathType
+	 * @generated
+	 */
+	EClass getCookiePathType();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.web.CookiePathType#getValue <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Value</em>'.
+	 * @see org.eclipse.jst.javaee.web.CookiePathType#getValue()
+	 * @see #getCookiePathType()
+	 * @generated
+	 */
+	EAttribute getCookiePathType_Value();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.web.ErrorPage <em>Error Page</em>}'.
@@ -2029,6 +3118,17 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getFilter_FilterClass();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.web.Filter#isAsyncSupported <em>Async Supported</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Async Supported</em>'.
+	 * @see org.eclipse.jst.javaee.web.Filter#isAsyncSupported()
+	 * @see #getFilter()
+	 * @generated
+	 */
+	EAttribute getFilter_AsyncSupported();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.Filter#getInitParams <em>Init Params</em>}'.
@@ -2344,6 +3444,145 @@ public interface WebPackage extends EPackage {
 	EAttribute getMimeMapping_Id();
 
 	/**
+	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.web.MultipartConfigType <em>Multipart Config Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Multipart Config Type</em>'.
+	 * @see org.eclipse.jst.javaee.web.MultipartConfigType
+	 * @generated
+	 */
+	EClass getMultipartConfigType();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.web.MultipartConfigType#getLocation <em>Location</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Location</em>'.
+	 * @see org.eclipse.jst.javaee.web.MultipartConfigType#getLocation()
+	 * @see #getMultipartConfigType()
+	 * @generated
+	 */
+	EAttribute getMultipartConfigType_Location();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.web.MultipartConfigType#getMaxFileSize <em>Max File Size</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Max File Size</em>'.
+	 * @see org.eclipse.jst.javaee.web.MultipartConfigType#getMaxFileSize()
+	 * @see #getMultipartConfigType()
+	 * @generated
+	 */
+	EAttribute getMultipartConfigType_MaxFileSize();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.web.MultipartConfigType#getMaxRequestSize <em>Max Request Size</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Max Request Size</em>'.
+	 * @see org.eclipse.jst.javaee.web.MultipartConfigType#getMaxRequestSize()
+	 * @see #getMultipartConfigType()
+	 * @generated
+	 */
+	EAttribute getMultipartConfigType_MaxRequestSize();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.web.MultipartConfigType#getFileSizeThreshold <em>File Size Threshold</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>File Size Threshold</em>'.
+	 * @see org.eclipse.jst.javaee.web.MultipartConfigType#getFileSizeThreshold()
+	 * @see #getMultipartConfigType()
+	 * @generated
+	 */
+	EAttribute getMultipartConfigType_FileSizeThreshold();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.web.OrderingOrderingType <em>Ordering Ordering Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Ordering Ordering Type</em>'.
+	 * @see org.eclipse.jst.javaee.web.OrderingOrderingType
+	 * @generated
+	 */
+	EClass getOrderingOrderingType();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link org.eclipse.jst.javaee.web.OrderingOrderingType#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Name</em>'.
+	 * @see org.eclipse.jst.javaee.web.OrderingOrderingType#getName()
+	 * @see #getOrderingOrderingType()
+	 * @generated
+	 */
+	EAttribute getOrderingOrderingType_Name();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.javaee.web.OrderingOrderingType#getOthers <em>Others</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Others</em>'.
+	 * @see org.eclipse.jst.javaee.web.OrderingOrderingType#getOthers()
+	 * @see #getOrderingOrderingType()
+	 * @generated
+	 */
+	EReference getOrderingOrderingType_Others();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.web.OrderingOthersType <em>Ordering Others Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Ordering Others Type</em>'.
+	 * @see org.eclipse.jst.javaee.web.OrderingOthersType
+	 * @generated
+	 */
+	EClass getOrderingOthersType();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.web.OrderingOthersType#getId <em>Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Id</em>'.
+	 * @see org.eclipse.jst.javaee.web.OrderingOthersType#getId()
+	 * @see #getOrderingOthersType()
+	 * @generated
+	 */
+	EAttribute getOrderingOthersType_Id();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.web.OrderingType <em>Ordering Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Ordering Type</em>'.
+	 * @see org.eclipse.jst.javaee.web.OrderingType
+	 * @generated
+	 */
+	EClass getOrderingType();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.javaee.web.OrderingType#getAfter <em>After</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>After</em>'.
+	 * @see org.eclipse.jst.javaee.web.OrderingType#getAfter()
+	 * @see #getOrderingType()
+	 * @generated
+	 */
+	EReference getOrderingType_After();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.javaee.web.OrderingType#getBefore <em>Before</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Before</em>'.
+	 * @see org.eclipse.jst.javaee.web.OrderingType#getBefore()
+	 * @see #getOrderingType()
+	 * @generated
+	 */
+	EReference getOrderingType_Before();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.web.SecurityConstraint <em>Security Constraint</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2507,6 +3746,28 @@ public interface WebPackage extends EPackage {
 	EAttribute getServlet_LoadOnStartup();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.web.Servlet#isEnabled <em>Enabled</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Enabled</em>'.
+	 * @see org.eclipse.jst.javaee.web.Servlet#isEnabled()
+	 * @see #getServlet()
+	 * @generated
+	 */
+	EAttribute getServlet_Enabled();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.web.Servlet#isAsyncSupported <em>Async Supported</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Async Supported</em>'.
+	 * @see org.eclipse.jst.javaee.web.Servlet#isAsyncSupported()
+	 * @see #getServlet()
+	 * @generated
+	 */
+	EAttribute getServlet_AsyncSupported();
+
+	/**
 	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.javaee.web.Servlet#getRunAs <em>Run As</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2527,6 +3788,17 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getServlet_SecurityRoleRefs();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.javaee.web.Servlet#getMultipartConfig <em>Multipart Config</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Multipart Config</em>'.
+	 * @see org.eclipse.jst.javaee.web.Servlet#getMultipartConfig()
+	 * @see #getServlet()
+	 * @generated
+	 */
+	EReference getServlet_MultipartConfig();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.web.Servlet#getId <em>Id</em>}'.
@@ -2602,6 +3874,28 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getSessionConfig_SessionTimeout();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.javaee.web.SessionConfig#getCookieConfig <em>Cookie Config</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Cookie Config</em>'.
+	 * @see org.eclipse.jst.javaee.web.SessionConfig#getCookieConfig()
+	 * @see #getSessionConfig()
+	 * @generated
+	 */
+	EReference getSessionConfig_CookieConfig();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link org.eclipse.jst.javaee.web.SessionConfig#getTrackingMode <em>Tracking Mode</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Tracking Mode</em>'.
+	 * @see org.eclipse.jst.javaee.web.SessionConfig#getTrackingMode()
+	 * @see #getSessionConfig()
+	 * @generated
+	 */
+	EAttribute getSessionConfig_TrackingMode();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.web.SessionConfig#getId <em>Id</em>}'.
@@ -2710,6 +4004,17 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getWebApp_Icons();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link org.eclipse.jst.javaee.web.WebApp#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Name</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebApp#getName()
+	 * @see #getWebApp()
+	 * @generated
+	 */
+	EAttribute getWebApp_Name();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebApp#getDistributables <em>Distributables</em>}'.
@@ -2998,6 +4303,17 @@ public interface WebPackage extends EPackage {
 	EReference getWebApp_PreDestroys();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebApp#getDataSource <em>Data Source</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Data Source</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebApp#getDataSource()
+	 * @see #getWebApp()
+	 * @generated
+	 */
+	EReference getWebApp_DataSource();
+
+	/**
 	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebApp#getMessageDestinations <em>Message Destinations</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3018,6 +4334,28 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getWebApp_LocalEncodingMappingsLists();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link org.eclipse.jst.javaee.web.WebApp#getModuleName <em>Module Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Module Name</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebApp#getModuleName()
+	 * @see #getWebApp()
+	 * @generated
+	 */
+	EAttribute getWebApp_ModuleName();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebApp#getAbsoluteOrdering <em>Absolute Ordering</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Absolute Ordering</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebApp#getAbsoluteOrdering()
+	 * @see #getWebApp()
+	 * @generated
+	 */
+	EReference getWebApp_AbsoluteOrdering();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.web.WebApp#getId <em>Id</em>}'.
@@ -3107,6 +4445,434 @@ public interface WebPackage extends EPackage {
 	EReference getWebAppDeploymentDescriptor_WebApp();
 
 	/**
+	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.web.WebFragment <em>Fragment</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Fragment</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment
+	 * @generated
+	 */
+	EClass getWebFragment();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link org.eclipse.jst.javaee.web.WebFragment#getGroup <em>Group</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Group</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#getGroup()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EAttribute getWebFragment_Group();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebFragment#getDescriptions <em>Descriptions</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Descriptions</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#getDescriptions()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EReference getWebFragment_Descriptions();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebFragment#getDisplayNames <em>Display Names</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Display Names</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#getDisplayNames()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EReference getWebFragment_DisplayNames();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebFragment#getIcons <em>Icons</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Icons</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#getIcons()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EReference getWebFragment_Icons();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link org.eclipse.jst.javaee.web.WebFragment#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Name</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#getName()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EAttribute getWebFragment_Name();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebFragment#getDistributables <em>Distributables</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Distributables</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#getDistributables()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EReference getWebFragment_Distributables();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebFragment#getContextParams <em>Context Params</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Context Params</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#getContextParams()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EReference getWebFragment_ContextParams();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebFragment#getFilters <em>Filters</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Filters</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#getFilters()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EReference getWebFragment_Filters();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebFragment#getFilterMappings <em>Filter Mappings</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Filter Mappings</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#getFilterMappings()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EReference getWebFragment_FilterMappings();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebFragment#getListeners <em>Listeners</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Listeners</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#getListeners()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EReference getWebFragment_Listeners();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebFragment#getServlets <em>Servlets</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Servlets</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#getServlets()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EReference getWebFragment_Servlets();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebFragment#getServletMappings <em>Servlet Mappings</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Servlet Mappings</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#getServletMappings()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EReference getWebFragment_ServletMappings();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebFragment#getSessionConfigs <em>Session Configs</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Session Configs</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#getSessionConfigs()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EReference getWebFragment_SessionConfigs();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebFragment#getMimeMappings <em>Mime Mappings</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Mime Mappings</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#getMimeMappings()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EReference getWebFragment_MimeMappings();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebFragment#getWelcomeFileLists <em>Welcome File Lists</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Welcome File Lists</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#getWelcomeFileLists()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EReference getWebFragment_WelcomeFileLists();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebFragment#getErrorPages <em>Error Pages</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Error Pages</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#getErrorPages()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EReference getWebFragment_ErrorPages();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebFragment#getJspConfigs <em>Jsp Configs</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Jsp Configs</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#getJspConfigs()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EReference getWebFragment_JspConfigs();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebFragment#getSecurityConstraints <em>Security Constraints</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Security Constraints</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#getSecurityConstraints()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EReference getWebFragment_SecurityConstraints();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebFragment#getLoginConfigs <em>Login Configs</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Login Configs</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#getLoginConfigs()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EReference getWebFragment_LoginConfigs();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebFragment#getSecurityRoles <em>Security Roles</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Security Roles</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#getSecurityRoles()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EReference getWebFragment_SecurityRoles();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebFragment#getEnvEntries <em>Env Entries</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Env Entries</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#getEnvEntries()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EReference getWebFragment_EnvEntries();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebFragment#getEjbRefs <em>Ejb Refs</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Ejb Refs</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#getEjbRefs()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EReference getWebFragment_EjbRefs();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebFragment#getEjbLocalRefs <em>Ejb Local Refs</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Ejb Local Refs</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#getEjbLocalRefs()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EReference getWebFragment_EjbLocalRefs();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebFragment#getServiceRefs <em>Service Refs</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Service Refs</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#getServiceRefs()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EReference getWebFragment_ServiceRefs();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebFragment#getResourceRefs <em>Resource Refs</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Resource Refs</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#getResourceRefs()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EReference getWebFragment_ResourceRefs();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebFragment#getResourceEnvRefs <em>Resource Env Refs</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Resource Env Refs</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#getResourceEnvRefs()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EReference getWebFragment_ResourceEnvRefs();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebFragment#getMessageDestinationRefs <em>Message Destination Refs</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Message Destination Refs</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#getMessageDestinationRefs()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EReference getWebFragment_MessageDestinationRefs();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebFragment#getPersistenceContextRefs <em>Persistence Context Refs</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Persistence Context Refs</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#getPersistenceContextRefs()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EReference getWebFragment_PersistenceContextRefs();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebFragment#getPersistenceUnitRefs <em>Persistence Unit Refs</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Persistence Unit Refs</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#getPersistenceUnitRefs()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EReference getWebFragment_PersistenceUnitRefs();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebFragment#getPostConstructs <em>Post Constructs</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Post Constructs</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#getPostConstructs()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EReference getWebFragment_PostConstructs();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebFragment#getPreDestroys <em>Pre Destroys</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Pre Destroys</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#getPreDestroys()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EReference getWebFragment_PreDestroys();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebFragment#getDataSource <em>Data Source</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Data Source</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#getDataSource()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EReference getWebFragment_DataSource();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebFragment#getMessageDestinations <em>Message Destinations</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Message Destinations</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#getMessageDestinations()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EReference getWebFragment_MessageDestinations();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebFragment#getLocalEncodingMappingsLists <em>Local Encoding Mappings Lists</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Local Encoding Mappings Lists</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#getLocalEncodingMappingsLists()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EReference getWebFragment_LocalEncodingMappingsLists();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebFragment#getOrdering <em>Ordering</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Ordering</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#getOrdering()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EReference getWebFragment_Ordering();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.web.WebFragment#getId <em>Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Id</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#getId()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EAttribute getWebFragment_Id();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.web.WebFragment#isMetadataComplete <em>Metadata Complete</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Metadata Complete</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#isMetadataComplete()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EAttribute getWebFragment_MetadataComplete();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.web.WebFragment#getVersion <em>Version</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Version</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#getVersion()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EAttribute getWebFragment_Version();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.web.WebResourceCollection <em>Resource Collection</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3159,6 +4925,17 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getWebResourceCollection_HttpMethods();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link org.eclipse.jst.javaee.web.WebResourceCollection#getHttpMethodOmission <em>Http Method Omission</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Http Method Omission</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebResourceCollection#getHttpMethodOmission()
+	 * @see #getWebResourceCollection()
+	 * @generated
+	 */
+	EAttribute getWebResourceCollection_HttpMethodOmission();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.web.WebResourceCollection#getId <em>Id</em>}'.
@@ -3222,6 +4999,16 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getNullCharType();
+
+	/**
+	 * Returns the meta object for enum '{@link org.eclipse.jst.javaee.web.TrackingModeType <em>Tracking Mode Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Tracking Mode Type</em>'.
+	 * @see org.eclipse.jst.javaee.web.TrackingModeType
+	 * @generated
+	 */
+	EEnum getTrackingModeType();
 
 	/**
 	 * Returns the meta object for enum '{@link org.eclipse.jst.javaee.web.TransportGuaranteeType <em>Transport Guarantee Type</em>}'.
@@ -3364,6 +5151,16 @@ public interface WebPackage extends EPackage {
 	EDataType getServletNameType();
 
 	/**
+	 * Returns the meta object for data type '{@link org.eclipse.jst.javaee.web.TrackingModeType <em>Tracking Mode Type Object</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>Tracking Mode Type Object</em>'.
+	 * @see org.eclipse.jst.javaee.web.TrackingModeType
+	 * @generated
+	 */
+	EDataType getTrackingModeTypeObject();
+
+	/**
 	 * Returns the meta object for data type '{@link org.eclipse.jst.javaee.web.TransportGuaranteeType <em>Transport Guarantee Type Object</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3416,6 +5213,40 @@ public interface WebPackage extends EPackage {
 	 */
 	interface Literals  {
 		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.javaee.web.internal.impl.AbsoluteOrderingTypeImpl <em>Absolute Ordering Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.web.internal.impl.AbsoluteOrderingTypeImpl
+		 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getAbsoluteOrderingType()
+		 * @generated
+		 */
+		EClass ABSOLUTE_ORDERING_TYPE = eINSTANCE.getAbsoluteOrderingType();
+
+		/**
+		 * The meta object literal for the '<em><b>Group</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ABSOLUTE_ORDERING_TYPE__GROUP = eINSTANCE.getAbsoluteOrderingType_Group();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ABSOLUTE_ORDERING_TYPE__NAME = eINSTANCE.getAbsoluteOrderingType_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Others</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ABSOLUTE_ORDERING_TYPE__OTHERS = eINSTANCE.getAbsoluteOrderingType_Others();
+
+		/**
 		 * The meta object literal for the '{@link org.eclipse.jst.javaee.web.internal.impl.AuthConstraintImpl <em>Auth Constraint</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -3448,6 +5279,152 @@ public interface WebPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute AUTH_CONSTRAINT__ID = eINSTANCE.getAuthConstraint_Id();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.javaee.web.internal.impl.CookieCommentTypeImpl <em>Cookie Comment Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.web.internal.impl.CookieCommentTypeImpl
+		 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getCookieCommentType()
+		 * @generated
+		 */
+		EClass COOKIE_COMMENT_TYPE = eINSTANCE.getCookieCommentType();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COOKIE_COMMENT_TYPE__VALUE = eINSTANCE.getCookieCommentType_Value();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.javaee.web.internal.impl.CookieConfigTypeImpl <em>Cookie Config Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.web.internal.impl.CookieConfigTypeImpl
+		 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getCookieConfigType()
+		 * @generated
+		 */
+		EClass COOKIE_CONFIG_TYPE = eINSTANCE.getCookieConfigType();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference COOKIE_CONFIG_TYPE__NAME = eINSTANCE.getCookieConfigType_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Domain</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference COOKIE_CONFIG_TYPE__DOMAIN = eINSTANCE.getCookieConfigType_Domain();
+
+		/**
+		 * The meta object literal for the '<em><b>Path</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference COOKIE_CONFIG_TYPE__PATH = eINSTANCE.getCookieConfigType_Path();
+
+		/**
+		 * The meta object literal for the '<em><b>Comment</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference COOKIE_CONFIG_TYPE__COMMENT = eINSTANCE.getCookieConfigType_Comment();
+
+		/**
+		 * The meta object literal for the '<em><b>Http Only</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COOKIE_CONFIG_TYPE__HTTP_ONLY = eINSTANCE.getCookieConfigType_HttpOnly();
+
+		/**
+		 * The meta object literal for the '<em><b>Secure</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COOKIE_CONFIG_TYPE__SECURE = eINSTANCE.getCookieConfigType_Secure();
+
+		/**
+		 * The meta object literal for the '<em><b>Max Age</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COOKIE_CONFIG_TYPE__MAX_AGE = eINSTANCE.getCookieConfigType_MaxAge();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COOKIE_CONFIG_TYPE__ID = eINSTANCE.getCookieConfigType_Id();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.javaee.web.internal.impl.CookieDomainTypeImpl <em>Cookie Domain Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.web.internal.impl.CookieDomainTypeImpl
+		 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getCookieDomainType()
+		 * @generated
+		 */
+		EClass COOKIE_DOMAIN_TYPE = eINSTANCE.getCookieDomainType();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COOKIE_DOMAIN_TYPE__VALUE = eINSTANCE.getCookieDomainType_Value();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.javaee.web.internal.impl.CookieNameTypeImpl <em>Cookie Name Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.web.internal.impl.CookieNameTypeImpl
+		 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getCookieNameType()
+		 * @generated
+		 */
+		EClass COOKIE_NAME_TYPE = eINSTANCE.getCookieNameType();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COOKIE_NAME_TYPE__VALUE = eINSTANCE.getCookieNameType_Value();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.javaee.web.internal.impl.CookiePathTypeImpl <em>Cookie Path Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.web.internal.impl.CookiePathTypeImpl
+		 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getCookiePathType()
+		 * @generated
+		 */
+		EClass COOKIE_PATH_TYPE = eINSTANCE.getCookiePathType();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COOKIE_PATH_TYPE__VALUE = eINSTANCE.getCookiePathType_Value();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.jst.javaee.web.internal.impl.ErrorPageImpl <em>Error Page</em>}' class.
@@ -3540,6 +5517,14 @@ public interface WebPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute FILTER__FILTER_CLASS = eINSTANCE.getFilter_FilterClass();
+
+		/**
+		 * The meta object literal for the '<em><b>Async Supported</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute FILTER__ASYNC_SUPPORTED = eINSTANCE.getFilter_AsyncSupported();
 
 		/**
 		 * The meta object literal for the '<em><b>Init Params</b></em>' containment reference list feature.
@@ -3786,6 +5771,118 @@ public interface WebPackage extends EPackage {
 		EAttribute MIME_MAPPING__ID = eINSTANCE.getMimeMapping_Id();
 
 		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.javaee.web.internal.impl.MultipartConfigTypeImpl <em>Multipart Config Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.web.internal.impl.MultipartConfigTypeImpl
+		 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getMultipartConfigType()
+		 * @generated
+		 */
+		EClass MULTIPART_CONFIG_TYPE = eINSTANCE.getMultipartConfigType();
+
+		/**
+		 * The meta object literal for the '<em><b>Location</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MULTIPART_CONFIG_TYPE__LOCATION = eINSTANCE.getMultipartConfigType_Location();
+
+		/**
+		 * The meta object literal for the '<em><b>Max File Size</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MULTIPART_CONFIG_TYPE__MAX_FILE_SIZE = eINSTANCE.getMultipartConfigType_MaxFileSize();
+
+		/**
+		 * The meta object literal for the '<em><b>Max Request Size</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MULTIPART_CONFIG_TYPE__MAX_REQUEST_SIZE = eINSTANCE.getMultipartConfigType_MaxRequestSize();
+
+		/**
+		 * The meta object literal for the '<em><b>File Size Threshold</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MULTIPART_CONFIG_TYPE__FILE_SIZE_THRESHOLD = eINSTANCE.getMultipartConfigType_FileSizeThreshold();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.javaee.web.internal.impl.OrderingOrderingTypeImpl <em>Ordering Ordering Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.web.internal.impl.OrderingOrderingTypeImpl
+		 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getOrderingOrderingType()
+		 * @generated
+		 */
+		EClass ORDERING_ORDERING_TYPE = eINSTANCE.getOrderingOrderingType();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ORDERING_ORDERING_TYPE__NAME = eINSTANCE.getOrderingOrderingType_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Others</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ORDERING_ORDERING_TYPE__OTHERS = eINSTANCE.getOrderingOrderingType_Others();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.javaee.web.internal.impl.OrderingOthersTypeImpl <em>Ordering Others Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.web.internal.impl.OrderingOthersTypeImpl
+		 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getOrderingOthersType()
+		 * @generated
+		 */
+		EClass ORDERING_OTHERS_TYPE = eINSTANCE.getOrderingOthersType();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ORDERING_OTHERS_TYPE__ID = eINSTANCE.getOrderingOthersType_Id();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.javaee.web.internal.impl.OrderingTypeImpl <em>Ordering Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.web.internal.impl.OrderingTypeImpl
+		 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getOrderingType()
+		 * @generated
+		 */
+		EClass ORDERING_TYPE = eINSTANCE.getOrderingType();
+
+		/**
+		 * The meta object literal for the '<em><b>After</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ORDERING_TYPE__AFTER = eINSTANCE.getOrderingType_After();
+
+		/**
+		 * The meta object literal for the '<em><b>Before</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ORDERING_TYPE__BEFORE = eINSTANCE.getOrderingType_Before();
+
+		/**
 		 * The meta object literal for the '{@link org.eclipse.jst.javaee.web.internal.impl.SecurityConstraintImpl <em>Security Constraint</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -3910,6 +6007,22 @@ public interface WebPackage extends EPackage {
 		EAttribute SERVLET__LOAD_ON_STARTUP = eINSTANCE.getServlet_LoadOnStartup();
 
 		/**
+		 * The meta object literal for the '<em><b>Enabled</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SERVLET__ENABLED = eINSTANCE.getServlet_Enabled();
+
+		/**
+		 * The meta object literal for the '<em><b>Async Supported</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SERVLET__ASYNC_SUPPORTED = eINSTANCE.getServlet_AsyncSupported();
+
+		/**
 		 * The meta object literal for the '<em><b>Run As</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -3924,6 +6037,14 @@ public interface WebPackage extends EPackage {
 		 * @generated
 		 */
 		EReference SERVLET__SECURITY_ROLE_REFS = eINSTANCE.getServlet_SecurityRoleRefs();
+
+		/**
+		 * The meta object literal for the '<em><b>Multipart Config</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SERVLET__MULTIPART_CONFIG = eINSTANCE.getServlet_MultipartConfig();
 
 		/**
 		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
@@ -3984,6 +6105,22 @@ public interface WebPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute SESSION_CONFIG__SESSION_TIMEOUT = eINSTANCE.getSessionConfig_SessionTimeout();
+
+		/**
+		 * The meta object literal for the '<em><b>Cookie Config</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SESSION_CONFIG__COOKIE_CONFIG = eINSTANCE.getSessionConfig_CookieConfig();
+
+		/**
+		 * The meta object literal for the '<em><b>Tracking Mode</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SESSION_CONFIG__TRACKING_MODE = eINSTANCE.getSessionConfig_TrackingMode();
 
 		/**
 		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
@@ -4068,6 +6205,14 @@ public interface WebPackage extends EPackage {
 		 * @generated
 		 */
 		EReference WEB_APP__ICONS = eINSTANCE.getWebApp_Icons();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WEB_APP__NAME = eINSTANCE.getWebApp_Name();
 
 		/**
 		 * The meta object literal for the '<em><b>Distributables</b></em>' containment reference list feature.
@@ -4278,6 +6423,14 @@ public interface WebPackage extends EPackage {
 		EReference WEB_APP__PRE_DESTROYS = eINSTANCE.getWebApp_PreDestroys();
 
 		/**
+		 * The meta object literal for the '<em><b>Data Source</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_APP__DATA_SOURCE = eINSTANCE.getWebApp_DataSource();
+
+		/**
 		 * The meta object literal for the '<em><b>Message Destinations</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -4292,6 +6445,22 @@ public interface WebPackage extends EPackage {
 		 * @generated
 		 */
 		EReference WEB_APP__LOCAL_ENCODING_MAPPINGS_LISTS = eINSTANCE.getWebApp_LocalEncodingMappingsLists();
+
+		/**
+		 * The meta object literal for the '<em><b>Module Name</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WEB_APP__MODULE_NAME = eINSTANCE.getWebApp_ModuleName();
+
+		/**
+		 * The meta object literal for the '<em><b>Absolute Ordering</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_APP__ABSOLUTE_ORDERING = eINSTANCE.getWebApp_AbsoluteOrdering();
 
 		/**
 		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
@@ -4360,6 +6529,320 @@ public interface WebPackage extends EPackage {
 		EReference WEB_APP_DEPLOYMENT_DESCRIPTOR__WEB_APP = eINSTANCE.getWebAppDeploymentDescriptor_WebApp();
 
 		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.javaee.web.internal.impl.WebFragmentImpl <em>Fragment</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.web.internal.impl.WebFragmentImpl
+		 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getWebFragment()
+		 * @generated
+		 */
+		EClass WEB_FRAGMENT = eINSTANCE.getWebFragment();
+
+		/**
+		 * The meta object literal for the '<em><b>Group</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WEB_FRAGMENT__GROUP = eINSTANCE.getWebFragment_Group();
+
+		/**
+		 * The meta object literal for the '<em><b>Descriptions</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_FRAGMENT__DESCRIPTIONS = eINSTANCE.getWebFragment_Descriptions();
+
+		/**
+		 * The meta object literal for the '<em><b>Display Names</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_FRAGMENT__DISPLAY_NAMES = eINSTANCE.getWebFragment_DisplayNames();
+
+		/**
+		 * The meta object literal for the '<em><b>Icons</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_FRAGMENT__ICONS = eINSTANCE.getWebFragment_Icons();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WEB_FRAGMENT__NAME = eINSTANCE.getWebFragment_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Distributables</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_FRAGMENT__DISTRIBUTABLES = eINSTANCE.getWebFragment_Distributables();
+
+		/**
+		 * The meta object literal for the '<em><b>Context Params</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_FRAGMENT__CONTEXT_PARAMS = eINSTANCE.getWebFragment_ContextParams();
+
+		/**
+		 * The meta object literal for the '<em><b>Filters</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_FRAGMENT__FILTERS = eINSTANCE.getWebFragment_Filters();
+
+		/**
+		 * The meta object literal for the '<em><b>Filter Mappings</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_FRAGMENT__FILTER_MAPPINGS = eINSTANCE.getWebFragment_FilterMappings();
+
+		/**
+		 * The meta object literal for the '<em><b>Listeners</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_FRAGMENT__LISTENERS = eINSTANCE.getWebFragment_Listeners();
+
+		/**
+		 * The meta object literal for the '<em><b>Servlets</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_FRAGMENT__SERVLETS = eINSTANCE.getWebFragment_Servlets();
+
+		/**
+		 * The meta object literal for the '<em><b>Servlet Mappings</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_FRAGMENT__SERVLET_MAPPINGS = eINSTANCE.getWebFragment_ServletMappings();
+
+		/**
+		 * The meta object literal for the '<em><b>Session Configs</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_FRAGMENT__SESSION_CONFIGS = eINSTANCE.getWebFragment_SessionConfigs();
+
+		/**
+		 * The meta object literal for the '<em><b>Mime Mappings</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_FRAGMENT__MIME_MAPPINGS = eINSTANCE.getWebFragment_MimeMappings();
+
+		/**
+		 * The meta object literal for the '<em><b>Welcome File Lists</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_FRAGMENT__WELCOME_FILE_LISTS = eINSTANCE.getWebFragment_WelcomeFileLists();
+
+		/**
+		 * The meta object literal for the '<em><b>Error Pages</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_FRAGMENT__ERROR_PAGES = eINSTANCE.getWebFragment_ErrorPages();
+
+		/**
+		 * The meta object literal for the '<em><b>Jsp Configs</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_FRAGMENT__JSP_CONFIGS = eINSTANCE.getWebFragment_JspConfigs();
+
+		/**
+		 * The meta object literal for the '<em><b>Security Constraints</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_FRAGMENT__SECURITY_CONSTRAINTS = eINSTANCE.getWebFragment_SecurityConstraints();
+
+		/**
+		 * The meta object literal for the '<em><b>Login Configs</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_FRAGMENT__LOGIN_CONFIGS = eINSTANCE.getWebFragment_LoginConfigs();
+
+		/**
+		 * The meta object literal for the '<em><b>Security Roles</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_FRAGMENT__SECURITY_ROLES = eINSTANCE.getWebFragment_SecurityRoles();
+
+		/**
+		 * The meta object literal for the '<em><b>Env Entries</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_FRAGMENT__ENV_ENTRIES = eINSTANCE.getWebFragment_EnvEntries();
+
+		/**
+		 * The meta object literal for the '<em><b>Ejb Refs</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_FRAGMENT__EJB_REFS = eINSTANCE.getWebFragment_EjbRefs();
+
+		/**
+		 * The meta object literal for the '<em><b>Ejb Local Refs</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_FRAGMENT__EJB_LOCAL_REFS = eINSTANCE.getWebFragment_EjbLocalRefs();
+
+		/**
+		 * The meta object literal for the '<em><b>Service Refs</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_FRAGMENT__SERVICE_REFS = eINSTANCE.getWebFragment_ServiceRefs();
+
+		/**
+		 * The meta object literal for the '<em><b>Resource Refs</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_FRAGMENT__RESOURCE_REFS = eINSTANCE.getWebFragment_ResourceRefs();
+
+		/**
+		 * The meta object literal for the '<em><b>Resource Env Refs</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_FRAGMENT__RESOURCE_ENV_REFS = eINSTANCE.getWebFragment_ResourceEnvRefs();
+
+		/**
+		 * The meta object literal for the '<em><b>Message Destination Refs</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_FRAGMENT__MESSAGE_DESTINATION_REFS = eINSTANCE.getWebFragment_MessageDestinationRefs();
+
+		/**
+		 * The meta object literal for the '<em><b>Persistence Context Refs</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_FRAGMENT__PERSISTENCE_CONTEXT_REFS = eINSTANCE.getWebFragment_PersistenceContextRefs();
+
+		/**
+		 * The meta object literal for the '<em><b>Persistence Unit Refs</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_FRAGMENT__PERSISTENCE_UNIT_REFS = eINSTANCE.getWebFragment_PersistenceUnitRefs();
+
+		/**
+		 * The meta object literal for the '<em><b>Post Constructs</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_FRAGMENT__POST_CONSTRUCTS = eINSTANCE.getWebFragment_PostConstructs();
+
+		/**
+		 * The meta object literal for the '<em><b>Pre Destroys</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_FRAGMENT__PRE_DESTROYS = eINSTANCE.getWebFragment_PreDestroys();
+
+		/**
+		 * The meta object literal for the '<em><b>Data Source</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_FRAGMENT__DATA_SOURCE = eINSTANCE.getWebFragment_DataSource();
+
+		/**
+		 * The meta object literal for the '<em><b>Message Destinations</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_FRAGMENT__MESSAGE_DESTINATIONS = eINSTANCE.getWebFragment_MessageDestinations();
+
+		/**
+		 * The meta object literal for the '<em><b>Local Encoding Mappings Lists</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_FRAGMENT__LOCAL_ENCODING_MAPPINGS_LISTS = eINSTANCE.getWebFragment_LocalEncodingMappingsLists();
+
+		/**
+		 * The meta object literal for the '<em><b>Ordering</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_FRAGMENT__ORDERING = eINSTANCE.getWebFragment_Ordering();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WEB_FRAGMENT__ID = eINSTANCE.getWebFragment_Id();
+
+		/**
+		 * The meta object literal for the '<em><b>Metadata Complete</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WEB_FRAGMENT__METADATA_COMPLETE = eINSTANCE.getWebFragment_MetadataComplete();
+
+		/**
+		 * The meta object literal for the '<em><b>Version</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WEB_FRAGMENT__VERSION = eINSTANCE.getWebFragment_Version();
+
+		/**
 		 * The meta object literal for the '{@link org.eclipse.jst.javaee.web.internal.impl.WebResourceCollectionImpl <em>Resource Collection</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -4400,6 +6883,14 @@ public interface WebPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute WEB_RESOURCE_COLLECTION__HTTP_METHODS = eINSTANCE.getWebResourceCollection_HttpMethods();
+
+		/**
+		 * The meta object literal for the '<em><b>Http Method Omission</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute WEB_RESOURCE_COLLECTION__HTTP_METHOD_OMISSION = eINSTANCE.getWebResourceCollection_HttpMethodOmission();
 
 		/**
 		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
@@ -4454,6 +6945,16 @@ public interface WebPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum NULL_CHAR_TYPE = eINSTANCE.getNullCharType();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.javaee.web.TrackingModeType <em>Tracking Mode Type</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.web.TrackingModeType
+		 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getTrackingModeType()
+		 * @generated
+		 */
+		EEnum TRACKING_MODE_TYPE = eINSTANCE.getTrackingModeType();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.jst.javaee.web.TransportGuaranteeType <em>Transport Guarantee Type</em>}' enum.
@@ -4594,6 +7095,16 @@ public interface WebPackage extends EPackage {
 		 * @generated
 		 */
 		EDataType SERVLET_NAME_TYPE = eINSTANCE.getServletNameType();
+
+		/**
+		 * The meta object literal for the '<em>Tracking Mode Type Object</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.web.TrackingModeType
+		 * @see org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl#getTrackingModeTypeObject()
+		 * @generated
+		 */
+		EDataType TRACKING_MODE_TYPE_OBJECT = eINSTANCE.getTrackingModeTypeObject();
 
 		/**
 		 * The meta object literal for the '<em>Transport Guarantee Type Object</em>' data type.

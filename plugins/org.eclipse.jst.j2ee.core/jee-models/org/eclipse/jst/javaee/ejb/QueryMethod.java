@@ -19,34 +19,34 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  *
  * <!-- begin-model-doc -->
  * 
- * 	
- * 
- * 	  The query-method specifies the method for a finder or select
- * 	  query.
- * 
- * 	  The method-name element specifies the name of a finder or select
- * 	  method in the entity bean's implementation class.
- * 
- * 	  Each method-param must be defined for a query-method using the
- * 	  method-params element.
- * 
- * 	  It is used by the query-method element.
- * 
- * 	  Example:
- * 
- * 	  &lt;query&gt;
- * 	      &lt;description&gt;Method finds large orders&lt;/description&gt;
- * 	      &lt;query-method&gt;
- * 		  &lt;method-name&gt;findLargeOrders&lt;/method-name&gt;
- * 		  &lt;method-params&gt;&lt;/method-params&gt;
- * 	      &lt;/query-method&gt;
- * 	      &lt;ejb-ql&gt;
- * 		SELECT OBJECT(o) FROM Order o
- * 		  WHERE o.amount &amp;gt; 1000
- * 	      &lt;/ejb-ql&gt;
- * 	  &lt;/query&gt;
- * 
- * 	  
+ * <![CDATA[[
+ *         The query-method specifies the method for a finder or select
+ *         query.
+ *         
+ *         The method-name element specifies the name of a finder or select
+ *         method in the entity bean's implementation class.
+ *         
+ *         Each method-param must be defined for a query-method using the
+ *         method-params element.
+ *         
+ *         It is used by the query-method element. 
+ *         
+ *         Example:
+ *         
+ *         <query>
+ *         <description>Method finds large orders</description>
+ *         <query-method>
+ *         	  <method-name>findLargeOrders</method-name>
+ *         	  <method-params></method-params>
+ *         </query-method>
+ *         <ejb-ql>
+ *         	SELECT OBJECT(o) FROM Order o
+ *         	  WHERE o.amount &gt; 1000
+ *         </ejb-ql>
+ *         </query>
+ *         
+ * ]]>
+ *         @since Java EE 5, EJB 3.0
  *       
  * <!-- end-model-doc -->
  *

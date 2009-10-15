@@ -12,7 +12,9 @@ package org.eclipse.jst.javaee.web;
 
 import java.util.List;
 
+import org.eclipse.jst.javaee.core.Description;
 import org.eclipse.jst.javaee.core.JavaEEObject;
+import org.eclipse.jst.javaee.core.UrlPatternType;
 
 /**
  * <!-- begin-user-doc -->
@@ -22,14 +24,19 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The web-resource-collectionType is used to identify a subset
- * 	of the resources and HTTP methods on those resources within
- * 	a web application to which a security constraint applies. If
- * 	no HTTP methods are specified, then the security constraint
- * 	applies to all HTTP methods.
- * 
- * 	Used in: security-constraint
- * 
+ *         The web-resource-collectionType is used to identify the
+ *         resources and HTTP methods on those resources to which a
+ *         security constraint applies. If no HTTP methods are specified,
+ *         then the security constraint applies to all HTTP methods.
+ *         If HTTP methods are specified by http-method-omission
+ *         elements, the security constraint applies to all methods
+ *         except those identified in the collection.
+ *         http-method-omission and http-method elements are never
+ *         mixed in the same collection. 
+ *         
+ *         Used in: security-constraint
+ *         
+ *         @since Java EE 5, Web 2.5
  *       
  * <!-- end-model-doc -->
  *
@@ -40,6 +47,7 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  *   <li>{@link org.eclipse.jst.javaee.web.WebResourceCollection#getDescriptions <em>Descriptions</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.WebResourceCollection#getUrlPatterns <em>Url Patterns</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.WebResourceCollection#getHttpMethods <em>Http Methods</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.web.WebResourceCollection#getHttpMethodOmission <em>Http Method Omission</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.WebResourceCollection#getId <em>Id</em>}</li>
  * </ul>
  * </p>
@@ -56,10 +64,11 @@ public interface WebResourceCollection extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	    The web-resource-name contains the name of this web
-	 * 	    resource collection.
-	 * 
-	 * 	  
+	 *             The web-resource-name contains the name of this web
+	 *             resource collection.
+	 *             
+	 *             @since Java EE 5, Web 2.5
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Web Resource Name</em>' attribute.
 	 * @see #setWebResourceName(String)
@@ -91,7 +100,7 @@ public interface WebResourceCollection extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebResourceCollection_Descriptions()
 	 * @generated
 	 */
-	List getDescriptions();
+	List<Description> getDescriptions();
 
 	/**
 	 * Returns the value of the '<em><b>Url Patterns</b></em>' containment reference list.
@@ -106,7 +115,7 @@ public interface WebResourceCollection extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebResourceCollection_UrlPatterns()
 	 * @generated
 	 */
-	List getUrlPatterns();
+	List<UrlPatternType> getUrlPatterns();
 
 	/**
 	 * Returns the value of the '<em><b>Http Methods</b></em>' attribute list.
@@ -117,11 +126,40 @@ public interface WebResourceCollection extends JavaEEObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * 
+	 *               Each http-method names an HTTP method to which the
+	 *               constraint applies.
+	 *               
+	 *               @since Java EE 5, Web 2.5
+	 *             
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Http Methods</em>' attribute list.
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebResourceCollection_HttpMethods()
 	 * @generated
 	 */
-	List getHttpMethods();
+	List<String> getHttpMethods();
+
+	/**
+	 * Returns the value of the '<em><b>Http Method Omission</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * 
+	 *               Each http-method-omission names an HTTP method to
+	 *               which the constraint does not apply.
+	 *               
+	 *               @since Java EE 6, Web 3.0
+	 *             
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Http Method Omission</em>' attribute list.
+	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebResourceCollection_HttpMethodOmission()
+	 * @generated
+	 */
+	List<String> getHttpMethodOmission();
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.

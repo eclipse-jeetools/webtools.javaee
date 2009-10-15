@@ -65,7 +65,7 @@ public interface EJBJarDeploymentDescriptor extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEJBJarDeploymentDescriptor_XMLNSPrefixMap()
 	 * @generated
 	 */
-	Map getXMLNSPrefixMap();
+	Map<String, String> getXMLNSPrefixMap();
 
 	/**
 	 * Returns the value of the '<em><b>XSI Schema Location</b></em>' map.
@@ -81,7 +81,7 @@ public interface EJBJarDeploymentDescriptor extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEJBJarDeploymentDescriptor_XSISchemaLocation()
 	 * @generated
 	 */
-	Map getXSISchemaLocation();
+	Map<String, String> getXSISchemaLocation();
 
 	/**
 	 * Returns the value of the '<em><b>Ejb Jar</b></em>' containment reference.
@@ -90,8 +90,9 @@ public interface EJBJarDeploymentDescriptor extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	This is the root of the ejb-jar deployment descriptor.
-	 * 
+	 *         This is the root of the ejb-jar deployment descriptor.
+	 *         
+	 *         @since Java EE 5, EJB 3.0
 	 *       
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Ejb Jar</em>' containment reference.

@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.eclipse.jst.javaee.core.UrlPatternType;
 import org.eclipse.jst.javaee.web.DispatcherType;
 import org.eclipse.jst.javaee.web.FilterMapping;
 
@@ -81,7 +82,7 @@ public class FilterMappingImpl extends EObjectImpl implements FilterMapping {
 	 * @generated
 	 * @ordered
 	 */
-	protected FeatureMap group = null;
+	protected FeatureMap group;
 
 	/**
 	 * The cached value of the '{@link #getDispatchers() <em>Dispatchers</em>}' attribute list.
@@ -91,7 +92,7 @@ public class FilterMappingImpl extends EObjectImpl implements FilterMapping {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList dispatchers = null;
+	protected EList<DispatcherType> dispatchers;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -170,8 +171,8 @@ public class FilterMappingImpl extends EObjectImpl implements FilterMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getUrlPatterns() {
-		return (getGroup()).list(WebPackage.Literals.FILTER_MAPPING__URL_PATTERNS);
+	public List<UrlPatternType> getUrlPatterns() {
+		return getGroup().list(WebPackage.Literals.FILTER_MAPPING__URL_PATTERNS);
 	}
 
 	/**
@@ -179,8 +180,8 @@ public class FilterMappingImpl extends EObjectImpl implements FilterMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getServletNames() {
-		return (getGroup()).list(WebPackage.Literals.FILTER_MAPPING__SERVLET_NAMES);
+	public List<String> getServletNames() {
+		return getGroup().list(WebPackage.Literals.FILTER_MAPPING__SERVLET_NAMES);
 	}
 
 	/**
@@ -188,9 +189,9 @@ public class FilterMappingImpl extends EObjectImpl implements FilterMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDispatchers() {
+	public List<DispatcherType> getDispatchers() {
 		if (dispatchers == null) {
-			dispatchers = new EDataTypeEList(DispatcherType.class, this, WebPackage.FILTER_MAPPING__DISPATCHERS);
+			dispatchers = new EDataTypeEList<DispatcherType>(DispatcherType.class, this, WebPackage.FILTER_MAPPING__DISPATCHERS);
 		}
 		return dispatchers;
 	}
@@ -225,9 +226,9 @@ public class FilterMappingImpl extends EObjectImpl implements FilterMapping {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case WebPackage.FILTER_MAPPING__GROUP:
-				return ((InternalEList)getGroup()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getGroup()).basicRemove(otherEnd, msgs);
 			case WebPackage.FILTER_MAPPING__URL_PATTERNS:
-				return ((InternalEList)getUrlPatterns()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getUrlPatterns()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -262,6 +263,7 @@ public class FilterMappingImpl extends EObjectImpl implements FilterMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -273,15 +275,15 @@ public class FilterMappingImpl extends EObjectImpl implements FilterMapping {
 				return;
 			case WebPackage.FILTER_MAPPING__URL_PATTERNS:
 				getUrlPatterns().clear();
-				getUrlPatterns().addAll((Collection)newValue);
+				getUrlPatterns().addAll((Collection<? extends UrlPatternType>)newValue);
 				return;
 			case WebPackage.FILTER_MAPPING__SERVLET_NAMES:
 				getServletNames().clear();
-				getServletNames().addAll((Collection)newValue);
+				getServletNames().addAll((Collection<? extends String>)newValue);
 				return;
 			case WebPackage.FILTER_MAPPING__DISPATCHERS:
 				getDispatchers().clear();
-				getDispatchers().addAll((Collection)newValue);
+				getDispatchers().addAll((Collection<? extends DispatcherType>)newValue);
 				return;
 			case WebPackage.FILTER_MAPPING__ID:
 				setId((String)newValue);

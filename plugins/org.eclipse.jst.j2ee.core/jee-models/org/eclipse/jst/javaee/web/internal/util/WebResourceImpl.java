@@ -28,7 +28,7 @@ import org.eclipse.wst.common.internal.emf.resource.IRootObjectResource;
  * @see org.eclipse.jst.javaee.web.internal.util.WebResourceFactoryImpl
  * @generated
  */
-public class WebResourceImpl extends JavaeeResourceImpl implements IRootObjectResource, IWebResource{
+public class WebResourceImpl extends JavaeeResourceImpl implements IRootObjectResource, IWebResource {
 	/**
 	 * Creates an instance of the resource.
 	 * <!-- begin-user-doc -->

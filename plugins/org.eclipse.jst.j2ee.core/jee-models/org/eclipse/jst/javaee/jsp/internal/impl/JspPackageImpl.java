@@ -38,6 +38,8 @@ import org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl;
 
 import org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage;
 
+import org.eclipse.jst.javaee.jca.internal.impl.JcaPackageImpl;
+import org.eclipse.jst.javaee.jca.internal.metadata.JcaPackage;
 import org.eclipse.jst.javaee.jsp.JspConfig;
 import org.eclipse.jst.javaee.jsp.JspFactory;
 import org.eclipse.jst.javaee.jsp.JspPropertyGroup;
@@ -48,6 +50,10 @@ import org.eclipse.jst.javaee.jsp.internal.metadata.JspPackage;
 import org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl;
 
 import org.eclipse.jst.javaee.web.internal.metadata.WebPackage;
+import org.eclipse.jst.javaee.webapp.internal.impl.WebappPackageImpl;
+import org.eclipse.jst.javaee.webapp.internal.metadata.WebappPackage;
+import org.eclipse.jst.javaee.webfragment.internal.impl.WebfragmentPackageImpl;
+import org.eclipse.jst.javaee.webfragment.internal.metadata.WebfragmentPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -111,20 +117,10 @@ public class JspPackageImpl extends EPackageImpl implements JspPackage {
 	private static boolean isInited = false;
 
 	/**
-	 * Creates, registers, and initializes the <b>Package</b> for this
-	 * model, and for any others upon which it depends.  Simple
-	 * dependencies are satisfied by calling this method on all
-	 * dependent packages before doing anything else.  This method drives
-	 * initialization for interdependent packages directly, in parallel
-	 * with this package, itself.
-	 * <p>Of this package and its interdependencies, all packages which
-	 * have not yet been registered by their URI values are first created
-	 * and registered.  The packages are then initialized in two steps:
-	 * meta-model objects for all of the packages are created before any
-	 * are initialized, since one package's meta-model objects may refer to
-	 * those of another.
-	 * <p>Invocation of this method will not affect any packages that have
-	 * already been initialized.
+	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
+	 * 
+	 * <p>This method is used to initialize {@link JspPackage#eINSTANCE} when that field is accessed.
+	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #eNS_URI
@@ -136,7 +132,7 @@ public class JspPackageImpl extends EPackageImpl implements JspPackage {
 		if (isInited) return (JspPackage)EPackage.Registry.INSTANCE.getEPackage(JspPackage.eNS_URI);
 
 		// Obtain or create and register package
-		JspPackageImpl theJspPackage = (JspPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(eNS_URI) instanceof JspPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(eNS_URI) : new JspPackageImpl());
+		JspPackageImpl theJspPackage = (JspPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof JspPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new JspPackageImpl());
 
 		isInited = true;
 
@@ -145,31 +141,43 @@ public class JspPackageImpl extends EPackageImpl implements JspPackage {
 		XMLTypePackage.eINSTANCE.eClass();
 
 		// Obtain or create and register interdependencies
-		WebPackageImpl theWebPackage = (WebPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WebPackage.eNS_URI) instanceof WebPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WebPackage.eNS_URI) : WebPackage.eINSTANCE);
 		ApplicationPackageImpl theApplicationPackage = (ApplicationPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI) instanceof ApplicationPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI) : ApplicationPackage.eINSTANCE);
 		JavaeePackageImpl theJavaeePackage = (JavaeePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(JavaeePackage.eNS_URI) instanceof JavaeePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(JavaeePackage.eNS_URI) : JavaeePackage.eINSTANCE);
-		EjbPackageImpl theEjbPackage = (EjbPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(EjbPackage.eNS_URI) instanceof EjbPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(EjbPackage.eNS_URI) : EjbPackage.eINSTANCE);
 		ApplicationclientPackageImpl theApplicationclientPackage = (ApplicationclientPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ApplicationclientPackage.eNS_URI) instanceof ApplicationclientPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ApplicationclientPackage.eNS_URI) : ApplicationclientPackage.eINSTANCE);
+		JcaPackageImpl theJcaPackage = (JcaPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(JcaPackage.eNS_URI) instanceof JcaPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(JcaPackage.eNS_URI) : JcaPackage.eINSTANCE);
+		EjbPackageImpl theEjbPackage = (EjbPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(EjbPackage.eNS_URI) instanceof EjbPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(EjbPackage.eNS_URI) : EjbPackage.eINSTANCE);
+		WebPackageImpl theWebPackage = (WebPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WebPackage.eNS_URI) instanceof WebPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WebPackage.eNS_URI) : WebPackage.eINSTANCE);
+		WebappPackageImpl theWebappPackage = (WebappPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WebappPackage.eNS_URI) instanceof WebappPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WebappPackage.eNS_URI) : WebappPackage.eINSTANCE);
+		WebfragmentPackageImpl theWebfragmentPackage = (WebfragmentPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WebfragmentPackage.eNS_URI) instanceof WebfragmentPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WebfragmentPackage.eNS_URI) : WebfragmentPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theJspPackage.createPackageContents();
-		theWebPackage.createPackageContents();
 		theApplicationPackage.createPackageContents();
 		theJavaeePackage.createPackageContents();
-		theEjbPackage.createPackageContents();
 		theApplicationclientPackage.createPackageContents();
+		theJcaPackage.createPackageContents();
+		theEjbPackage.createPackageContents();
+		theWebPackage.createPackageContents();
+		theWebappPackage.createPackageContents();
+		theWebfragmentPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theJspPackage.initializePackageContents();
-		theWebPackage.initializePackageContents();
 		theApplicationPackage.initializePackageContents();
 		theJavaeePackage.initializePackageContents();
-		theEjbPackage.initializePackageContents();
 		theApplicationclientPackage.initializePackageContents();
+		theJcaPackage.initializePackageContents();
+		theEjbPackage.initializePackageContents();
+		theWebPackage.initializePackageContents();
+		theWebappPackage.initializePackageContents();
+		theWebfragmentPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theJspPackage.freeze();
 
+  
+		// Update the registry and return the package
+		EPackage.Registry.INSTANCE.put(JspPackage.eNS_URI, theJspPackage);
 		return theJspPackage;
 	}
 
@@ -331,8 +339,35 @@ public class JspPackageImpl extends EPackageImpl implements JspPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getJspPropertyGroup_Id() {
+	public EAttribute getJspPropertyGroup_DefaultContentType() {
 		return (EAttribute)jspPropertyGroupEClass.getEStructuralFeatures().get(12);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getJspPropertyGroup_Buffer() {
+		return (EAttribute)jspPropertyGroupEClass.getEStructuralFeatures().get(13);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getJspPropertyGroup_ErrorOnUndeclaredNamespace() {
+		return (EAttribute)jspPropertyGroupEClass.getEStructuralFeatures().get(14);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getJspPropertyGroup_Id() {
+		return (EAttribute)jspPropertyGroupEClass.getEStructuralFeatures().get(15);
 	}
 
 	/**
@@ -426,6 +461,9 @@ public class JspPackageImpl extends EPackageImpl implements JspPackage {
 		createEAttribute(jspPropertyGroupEClass, JSP_PROPERTY_GROUP__INCLUDE_CODAS);
 		createEAttribute(jspPropertyGroupEClass, JSP_PROPERTY_GROUP__DEFERRED_SYNTAX_ALLOWED_AS_LITERAL);
 		createEAttribute(jspPropertyGroupEClass, JSP_PROPERTY_GROUP__TRIM_DIRECTIVE_WHITESPACES);
+		createEAttribute(jspPropertyGroupEClass, JSP_PROPERTY_GROUP__DEFAULT_CONTENT_TYPE);
+		createEAttribute(jspPropertyGroupEClass, JSP_PROPERTY_GROUP__BUFFER);
+		createEAttribute(jspPropertyGroupEClass, JSP_PROPERTY_GROUP__ERROR_ON_UNDECLARED_NAMESPACE);
 		createEAttribute(jspPropertyGroupEClass, JSP_PROPERTY_GROUP__ID);
 
 		tagLibEClass = createEClass(TAG_LIB);
@@ -464,33 +502,40 @@ public class JspPackageImpl extends EPackageImpl implements JspPackage {
 		XMLTypePackage theXMLTypePackage = (XMLTypePackage)EPackage.Registry.INSTANCE.getEPackage(XMLTypePackage.eNS_URI);
 		JavaeePackage theJavaeePackage = (JavaeePackage)EPackage.Registry.INSTANCE.getEPackage(JavaeePackage.eNS_URI);
 
+		// Create type parameters
+
+		// Set bounds for type parameters
+
 		// Add supertypes to classes
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(jspConfigEClass, JspConfig.class, "JspConfig", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(getJspConfig_TagLibs(), this.getTagLib(), null, "tagLibs", null, 0, -1, JspConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getJspConfig_JspPropertyGroups(), this.getJspPropertyGroup(), null, "jspPropertyGroups", null, 0, -1, JspConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getJspConfig_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, JspConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getJspConfig_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, JspConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(jspPropertyGroupEClass, JspPropertyGroup.class, "JspPropertyGroup", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(getJspPropertyGroup_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, JspPropertyGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getJspPropertyGroup_DisplayNames(), theJavaeePackage.getDisplayName(), null, "displayNames", null, 0, -1, JspPropertyGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getJspPropertyGroup_Icons(), theJavaeePackage.getIcon(), null, "icons", null, 0, -1, JspPropertyGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getJspPropertyGroup_UrlPatterns(), theJavaeePackage.getUrlPatternType(), null, "urlPatterns", null, 1, -1, JspPropertyGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getJspPropertyGroup_ElIgnored(), theJavaeePackage.getTrueFalseType(), "elIgnored", null, 0, 1, JspPropertyGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getJspPropertyGroup_PageEncoding(), theXMLTypePackage.getToken(), "pageEncoding", null, 0, 1, JspPropertyGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getJspPropertyGroup_ScriptingInvalid(), theJavaeePackage.getTrueFalseType(), "scriptingInvalid", null, 0, 1, JspPropertyGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getJspPropertyGroup_IsXml(), theJavaeePackage.getTrueFalseType(), "isXml", null, 0, 1, JspPropertyGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getJspPropertyGroup_ElIgnored(), theJavaeePackage.getTrueFalseType(), "elIgnored", null, 0, 1, JspPropertyGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getJspPropertyGroup_PageEncoding(), theXMLTypePackage.getToken(), "pageEncoding", null, 0, 1, JspPropertyGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getJspPropertyGroup_ScriptingInvalid(), theJavaeePackage.getTrueFalseType(), "scriptingInvalid", null, 0, 1, JspPropertyGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getJspPropertyGroup_IsXml(), theJavaeePackage.getTrueFalseType(), "isXml", null, 0, 1, JspPropertyGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getJspPropertyGroup_IncludePreludes(), theJavaeePackage.getPathType(), "includePreludes", null, 0, -1, JspPropertyGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getJspPropertyGroup_IncludeCodas(), theJavaeePackage.getPathType(), "includeCodas", null, 0, -1, JspPropertyGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getJspPropertyGroup_DeferredSyntaxAllowedAsLiteral(), theJavaeePackage.getTrueFalseType(), "deferredSyntaxAllowedAsLiteral", null, 0, 1, JspPropertyGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getJspPropertyGroup_TrimDirectiveWhitespaces(), theJavaeePackage.getTrueFalseType(), "trimDirectiveWhitespaces", null, 0, 1, JspPropertyGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getJspPropertyGroup_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, JspPropertyGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getJspPropertyGroup_DeferredSyntaxAllowedAsLiteral(), theJavaeePackage.getTrueFalseType(), "deferredSyntaxAllowedAsLiteral", null, 0, 1, JspPropertyGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getJspPropertyGroup_TrimDirectiveWhitespaces(), theJavaeePackage.getTrueFalseType(), "trimDirectiveWhitespaces", null, 0, 1, JspPropertyGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getJspPropertyGroup_DefaultContentType(), theXMLTypePackage.getToken(), "defaultContentType", null, 0, 1, JspPropertyGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getJspPropertyGroup_Buffer(), theXMLTypePackage.getToken(), "buffer", null, 0, 1, JspPropertyGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getJspPropertyGroup_ErrorOnUndeclaredNamespace(), theJavaeePackage.getTrueFalseType(), "errorOnUndeclaredNamespace", null, 0, 1, JspPropertyGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getJspPropertyGroup_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, JspPropertyGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(tagLibEClass, TagLib.class, "TagLib", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getTagLib_TaglibUri(), theXMLTypePackage.getToken(), "taglibUri", null, 1, 1, TagLib.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getTagLib_TaglibLocation(), theJavaeePackage.getPathType(), "taglibLocation", null, 1, 1, TagLib.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getTagLib_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, TagLib.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getTagLib_TaglibUri(), theXMLTypePackage.getToken(), "taglibUri", null, 1, 1, TagLib.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getTagLib_TaglibLocation(), theJavaeePackage.getPathType(), "taglibLocation", null, 1, 1, TagLib.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getTagLib_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, TagLib.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		// Initialize data types
 		initEDataType(jspFileTypeEDataType, String.class, "JspFileType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
@@ -649,6 +694,30 @@ public class JspPackageImpl extends EPackageImpl implements JspPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "trim-directive-whitespaces", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getJspPropertyGroup_DefaultContentType(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "default-content-type", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getJspPropertyGroup_Buffer(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "buffer", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getJspPropertyGroup_ErrorOnUndeclaredNamespace(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "error-on-undeclared-namespace", //$NON-NLS-1$ //$NON-NLS-2$
 			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation

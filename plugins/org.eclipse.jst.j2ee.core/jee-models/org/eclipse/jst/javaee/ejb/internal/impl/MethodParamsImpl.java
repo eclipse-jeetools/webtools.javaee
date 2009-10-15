@@ -51,7 +51,7 @@ public class MethodParamsImpl extends EObjectImpl implements MethodParams {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList methodParams = null;
+	protected EList<String> methodParams;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -97,9 +97,9 @@ public class MethodParamsImpl extends EObjectImpl implements MethodParams {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getMethodParams() {
+	public List<String> getMethodParams() {
 		if (methodParams == null) {
-			methodParams = new EDataTypeEList(String.class, this, EjbPackage.METHOD_PARAMS__METHOD_PARAMS);
+			methodParams = new EDataTypeEList<String>(String.class, this, EjbPackage.METHOD_PARAMS__METHOD_PARAMS);
 		}
 		return methodParams;
 	}
@@ -146,12 +146,13 @@ public class MethodParamsImpl extends EObjectImpl implements MethodParams {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EjbPackage.METHOD_PARAMS__METHOD_PARAMS:
 				getMethodParams().clear();
-				getMethodParams().addAll((Collection)newValue);
+				getMethodParams().addAll((Collection<? extends String>)newValue);
 				return;
 			case EjbPackage.METHOD_PARAMS__ID:
 				setId((String)newValue);

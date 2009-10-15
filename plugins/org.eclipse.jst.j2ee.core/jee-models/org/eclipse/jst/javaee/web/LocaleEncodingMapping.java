@@ -20,11 +20,12 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The locale-encoding-mapping contains locale name and
- * 	encoding name. The locale name must be either "Language-code",
- * 	such as "ja", defined by ISO-639 or "Language-code_Country-code",
- * 	such as "ja_JP".  "Country code" is defined by ISO-3166.
- * 
+ *         The locale-encoding-mapping contains locale name and
+ *         encoding name. The locale name must be either "Language-code",
+ *         such as "ja", defined by ISO-639 or "Language-code_Country-code",
+ *         such as "ja_JP".  "Country code" is defined by ISO-3166.
+ *         
+ *         @since Java EE 5, Web 2.5
  *       
  * <!-- end-model-doc -->
  *

@@ -26,6 +26,7 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * 	information for the JSP files in a web application. It has
  * 	two subelements, taglib and jsp-property-group.
  * 
+ * 	@since Java EE 5, JSP 2.1
  *       
  * <!-- end-model-doc -->
  *
@@ -56,7 +57,7 @@ public interface JspConfig extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.jsp.internal.metadata.JspPackage#getJspConfig_TagLibs()
 	 * @generated
 	 */
-	List getTagLibs();
+	List<TagLib> getTagLibs();
 
 	/**
 	 * Returns the value of the '<em><b>Jsp Property Groups</b></em>' containment reference list.
@@ -71,7 +72,7 @@ public interface JspConfig extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.jsp.internal.metadata.JspPackage#getJspConfig_JspPropertyGroups()
 	 * @generated
 	 */
-	List getJspPropertyGroups();
+	List<JspPropertyGroup> getJspPropertyGroups();
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.

@@ -65,7 +65,7 @@ public interface ApplicationDeploymentDescriptor extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.application.internal.metadata.ApplicationPackage#getApplicationDeploymentDescriptor_XMLNSPrefixMap()
 	 * @generated
 	 */
-	Map getXMLNSPrefixMap();
+	Map<String, String> getXMLNSPrefixMap();
 
 	/**
 	 * Returns the value of the '<em><b>XSI Schema Location</b></em>' map.
@@ -81,7 +81,7 @@ public interface ApplicationDeploymentDescriptor extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.application.internal.metadata.ApplicationPackage#getApplicationDeploymentDescriptor_XSISchemaLocation()
 	 * @generated
 	 */
-	Map getXSISchemaLocation();
+	Map<String, String> getXSISchemaLocation();
 
 	/**
 	 * Returns the value of the '<em><b>Application</b></em>' containment reference.
@@ -90,9 +90,10 @@ public interface ApplicationDeploymentDescriptor extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	The application element is the root element of a Java EE
-	 * 	application deployment descriptor.
-	 * 
+	 *         The application element is the root element of a Java EE
+	 *         application deployment descriptor.
+	 *         
+	 *         @since Java EE 5, Application 5
 	 *       
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Application</em>' containment reference.

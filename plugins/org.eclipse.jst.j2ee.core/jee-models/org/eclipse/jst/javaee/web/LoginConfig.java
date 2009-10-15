@@ -20,13 +20,14 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The login-configType is used to configure the authentication
- * 	method that should be used, the realm name that should be
- * 	used for this application, and the attributes that are
- * 	needed by the form login mechanism.
- * 
- * 	Used in: web-app
- * 
+ *         The login-configType is used to configure the authentication
+ *         method that should be used, the realm name that should be
+ *         used for this application, and the attributes that are
+ *         needed by the form login mechanism.
+ *         
+ *         Used in: web-app
+ *         
+ *         @since Java EE 5, Web 2.5
  *       
  * <!-- end-model-doc -->
  *
@@ -77,10 +78,11 @@ public interface LoginConfig extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	    The realm name element specifies the realm name to
-	 * 	    use in HTTP Basic authorization.
-	 * 
-	 * 	  
+	 *             The realm name element specifies the realm name to
+	 *             use in HTTP Basic authorization.
+	 *             
+	 *             @since Java EE 5, Web 2.5
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Realm Name</em>' attribute.
 	 * @see #setRealmName(String)

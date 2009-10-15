@@ -32,7 +32,7 @@ import org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage;
  * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage
  * @generated
  */
-public class JavaeeSwitch {
+public class JavaeeSwitch<T> {
 	/**
 	 * The cached model package
 	 * <!-- begin-user-doc -->
@@ -60,7 +60,7 @@ public class JavaeeSwitch {
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
-	public Object doSwitch(EObject theEObject) {
+	public T doSwitch(EObject theEObject) {
 		return doSwitch(theEObject.eClass(), theEObject);
 	}
 
@@ -71,16 +71,16 @@ public class JavaeeSwitch {
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
-	protected Object doSwitch(EClass theEClass, EObject theEObject) {
+	protected T doSwitch(EClass theEClass, EObject theEObject) {
 		if (theEClass.eContainer() == modelPackage) {
 			return doSwitch(theEClass.getClassifierID(), theEObject);
 		}
 		else {
-			List eSuperTypes = theEClass.getESuperTypes();
+			List<EClass> eSuperTypes = theEClass.getESuperTypes();
 			return
 				eSuperTypes.isEmpty() ?
 					defaultCase(theEObject) :
-					doSwitch((EClass)eSuperTypes.get(0), theEObject);
+					doSwitch(eSuperTypes.get(0), theEObject);
 		}
 	}
 
@@ -91,167 +91,185 @@ public class JavaeeSwitch {
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
-	protected Object doSwitch(int classifierID, EObject theEObject) {
+	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
+			case JavaeePackage.ADDRESSING_TYPE: {
+				AddressingType addressingType = (AddressingType)theEObject;
+				T result = caseAddressingType(addressingType);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case JavaeePackage.DATA_SOURCE_TYPE: {
+				DataSourceType dataSourceType = (DataSourceType)theEObject;
+				T result = caseDataSourceType(dataSourceType);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case JavaeePackage.DESCRIPTION: {
 				Description description = (Description)theEObject;
-				Object result = caseDescription(description);
+				T result = caseDescription(description);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JavaeePackage.DISPLAY_NAME: {
 				DisplayName displayName = (DisplayName)theEObject;
-				Object result = caseDisplayName(displayName);
+				T result = caseDisplayName(displayName);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JavaeePackage.EJB_LOCAL_REF: {
 				EjbLocalRef ejbLocalRef = (EjbLocalRef)theEObject;
-				Object result = caseEjbLocalRef(ejbLocalRef);
+				T result = caseEjbLocalRef(ejbLocalRef);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JavaeePackage.EJB_REF: {
 				EjbRef ejbRef = (EjbRef)theEObject;
-				Object result = caseEjbRef(ejbRef);
+				T result = caseEjbRef(ejbRef);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JavaeePackage.EMPTY_TYPE: {
 				EmptyType emptyType = (EmptyType)theEObject;
-				Object result = caseEmptyType(emptyType);
+				T result = caseEmptyType(emptyType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JavaeePackage.ENV_ENTRY: {
 				EnvEntry envEntry = (EnvEntry)theEObject;
-				Object result = caseEnvEntry(envEntry);
+				T result = caseEnvEntry(envEntry);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JavaeePackage.ICON: {
 				Icon icon = (Icon)theEObject;
-				Object result = caseIcon(icon);
+				T result = caseIcon(icon);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JavaeePackage.INJECTION_TARGET: {
 				InjectionTarget injectionTarget = (InjectionTarget)theEObject;
-				Object result = caseInjectionTarget(injectionTarget);
+				T result = caseInjectionTarget(injectionTarget);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JavaeePackage.LIFECYCLE_CALLBACK: {
 				LifecycleCallback lifecycleCallback = (LifecycleCallback)theEObject;
-				Object result = caseLifecycleCallback(lifecycleCallback);
+				T result = caseLifecycleCallback(lifecycleCallback);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JavaeePackage.LISTENER: {
 				Listener listener = (Listener)theEObject;
-				Object result = caseListener(listener);
+				T result = caseListener(listener);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JavaeePackage.MESSAGE_DESTINATION: {
 				MessageDestination messageDestination = (MessageDestination)theEObject;
-				Object result = caseMessageDestination(messageDestination);
+				T result = caseMessageDestination(messageDestination);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JavaeePackage.MESSAGE_DESTINATION_REF: {
 				MessageDestinationRef messageDestinationRef = (MessageDestinationRef)theEObject;
-				Object result = caseMessageDestinationRef(messageDestinationRef);
+				T result = caseMessageDestinationRef(messageDestinationRef);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JavaeePackage.PARAM_VALUE: {
 				ParamValue paramValue = (ParamValue)theEObject;
-				Object result = caseParamValue(paramValue);
+				T result = caseParamValue(paramValue);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JavaeePackage.PERSISTENCE_CONTEXT_REF: {
 				PersistenceContextRef persistenceContextRef = (PersistenceContextRef)theEObject;
-				Object result = casePersistenceContextRef(persistenceContextRef);
+				T result = casePersistenceContextRef(persistenceContextRef);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JavaeePackage.PERSISTENCE_UNIT_REF: {
 				PersistenceUnitRef persistenceUnitRef = (PersistenceUnitRef)theEObject;
-				Object result = casePersistenceUnitRef(persistenceUnitRef);
+				T result = casePersistenceUnitRef(persistenceUnitRef);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JavaeePackage.PORT_COMPONENT_REF: {
 				PortComponentRef portComponentRef = (PortComponentRef)theEObject;
-				Object result = casePortComponentRef(portComponentRef);
+				T result = casePortComponentRef(portComponentRef);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JavaeePackage.PROPERTY_TYPE: {
 				PropertyType propertyType = (PropertyType)theEObject;
-				Object result = casePropertyType(propertyType);
+				T result = casePropertyType(propertyType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JavaeePackage.RESOURCE_ENV_REF: {
 				ResourceEnvRef resourceEnvRef = (ResourceEnvRef)theEObject;
-				Object result = caseResourceEnvRef(resourceEnvRef);
+				T result = caseResourceEnvRef(resourceEnvRef);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JavaeePackage.RESOURCE_REF: {
 				ResourceRef resourceRef = (ResourceRef)theEObject;
-				Object result = caseResourceRef(resourceRef);
+				T result = caseResourceRef(resourceRef);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case JavaeePackage.RESPECT_BINDING_TYPE: {
+				RespectBindingType respectBindingType = (RespectBindingType)theEObject;
+				T result = caseRespectBindingType(respectBindingType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JavaeePackage.RUN_AS: {
 				RunAs runAs = (RunAs)theEObject;
-				Object result = caseRunAs(runAs);
+				T result = caseRunAs(runAs);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JavaeePackage.SECURITY_ROLE: {
 				SecurityRole securityRole = (SecurityRole)theEObject;
-				Object result = caseSecurityRole(securityRole);
+				T result = caseSecurityRole(securityRole);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JavaeePackage.SECURITY_ROLE_REF: {
 				SecurityRoleRef securityRoleRef = (SecurityRoleRef)theEObject;
-				Object result = caseSecurityRoleRef(securityRoleRef);
+				T result = caseSecurityRoleRef(securityRoleRef);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JavaeePackage.SERVICE_REF: {
 				ServiceRef serviceRef = (ServiceRef)theEObject;
-				Object result = caseServiceRef(serviceRef);
+				T result = caseServiceRef(serviceRef);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JavaeePackage.SERVICE_REF_HANDLER: {
 				ServiceRefHandler serviceRefHandler = (ServiceRefHandler)theEObject;
-				Object result = caseServiceRefHandler(serviceRefHandler);
+				T result = caseServiceRefHandler(serviceRefHandler);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JavaeePackage.SERVICE_REF_HANDLER_CHAIN: {
 				ServiceRefHandlerChain serviceRefHandlerChain = (ServiceRefHandlerChain)theEObject;
-				Object result = caseServiceRefHandlerChain(serviceRefHandlerChain);
+				T result = caseServiceRefHandlerChain(serviceRefHandlerChain);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JavaeePackage.SERVICE_REF_HANDLER_CHAINS: {
 				ServiceRefHandlerChains serviceRefHandlerChains = (ServiceRefHandlerChains)theEObject;
-				Object result = caseServiceRefHandlerChains(serviceRefHandlerChains);
+				T result = caseServiceRefHandlerChains(serviceRefHandlerChains);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JavaeePackage.URL_PATTERN_TYPE: {
 				UrlPatternType urlPatternType = (UrlPatternType)theEObject;
-				Object result = caseUrlPatternType(urlPatternType);
+				T result = caseUrlPatternType(urlPatternType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -260,422 +278,467 @@ public class JavaeeSwitch {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Description</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Addressing Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Description</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Addressing Type</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseDescription(Description object) {
+	public T caseAddressingType(AddressingType object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Display Name</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Data Source Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Display Name</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Data Source Type</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseDisplayName(DisplayName object) {
+	public T caseDataSourceType(DataSourceType object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Ejb Local Ref</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Description</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Ejb Local Ref</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Description</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseEjbLocalRef(EjbLocalRef object) {
+	public T caseDescription(Description object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Ejb Ref</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Display Name</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Ejb Ref</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Display Name</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseEjbRef(EjbRef object) {
+	public T caseDisplayName(DisplayName object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Empty Type</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Ejb Local Ref</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Empty Type</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Ejb Local Ref</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseEmptyType(EmptyType object) {
+	public T caseEjbLocalRef(EjbLocalRef object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Env Entry</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Ejb Ref</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Env Entry</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Ejb Ref</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseEnvEntry(EnvEntry object) {
+	public T caseEjbRef(EjbRef object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Icon</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Empty Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Icon</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Empty Type</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseIcon(Icon object) {
+	public T caseEmptyType(EmptyType object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Injection Target</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Env Entry</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Injection Target</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Env Entry</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseInjectionTarget(InjectionTarget object) {
+	public T caseEnvEntry(EnvEntry object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Lifecycle Callback</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Icon</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Lifecycle Callback</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Icon</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseLifecycleCallback(LifecycleCallback object) {
+	public T caseIcon(Icon object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Listener</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Injection Target</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Listener</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Injection Target</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseListener(Listener object) {
+	public T caseInjectionTarget(InjectionTarget object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Message Destination</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Lifecycle Callback</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Message Destination</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Lifecycle Callback</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseMessageDestination(MessageDestination object) {
+	public T caseLifecycleCallback(LifecycleCallback object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Message Destination Ref</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Listener</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Message Destination Ref</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Listener</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseMessageDestinationRef(MessageDestinationRef object) {
+	public T caseListener(Listener object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Param Value</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Message Destination</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Param Value</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Message Destination</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseParamValue(ParamValue object) {
+	public T caseMessageDestination(MessageDestination object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Persistence Context Ref</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Message Destination Ref</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Persistence Context Ref</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Message Destination Ref</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object casePersistenceContextRef(PersistenceContextRef object) {
+	public T caseMessageDestinationRef(MessageDestinationRef object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Persistence Unit Ref</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Param Value</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Persistence Unit Ref</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Param Value</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object casePersistenceUnitRef(PersistenceUnitRef object) {
+	public T caseParamValue(ParamValue object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Port Component Ref</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Persistence Context Ref</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Port Component Ref</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Persistence Context Ref</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object casePortComponentRef(PortComponentRef object) {
+	public T casePersistenceContextRef(PersistenceContextRef object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Property Type</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Persistence Unit Ref</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Property Type</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Persistence Unit Ref</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object casePropertyType(PropertyType object) {
+	public T casePersistenceUnitRef(PersistenceUnitRef object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Resource Env Ref</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Port Component Ref</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Resource Env Ref</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Port Component Ref</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseResourceEnvRef(ResourceEnvRef object) {
+	public T casePortComponentRef(PortComponentRef object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Resource Ref</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Property Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Resource Ref</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Property Type</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseResourceRef(ResourceRef object) {
+	public T casePropertyType(PropertyType object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Run As</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Resource Env Ref</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Run As</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Resource Env Ref</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseRunAs(RunAs object) {
+	public T caseResourceEnvRef(ResourceEnvRef object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Security Role</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Resource Ref</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Security Role</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Resource Ref</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseSecurityRole(SecurityRole object) {
+	public T caseResourceRef(ResourceRef object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Security Role Ref</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Respect Binding Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Security Role Ref</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Respect Binding Type</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseSecurityRoleRef(SecurityRoleRef object) {
+	public T caseRespectBindingType(RespectBindingType object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Service Ref</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Run As</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Service Ref</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Run As</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseServiceRef(ServiceRef object) {
+	public T caseRunAs(RunAs object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Service Ref Handler</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Security Role</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Service Ref Handler</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Security Role</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseServiceRefHandler(ServiceRefHandler object) {
+	public T caseSecurityRole(SecurityRole object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Service Ref Handler Chain</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Security Role Ref</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Service Ref Handler Chain</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Security Role Ref</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseServiceRefHandlerChain(ServiceRefHandlerChain object) {
+	public T caseSecurityRoleRef(SecurityRoleRef object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Service Ref Handler Chains</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Service Ref</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Service Ref Handler Chains</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Service Ref</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseServiceRefHandlerChains(ServiceRefHandlerChains object) {
+	public T caseServiceRef(ServiceRef object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Url Pattern Type</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Service Ref Handler</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Url Pattern Type</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Service Ref Handler</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseUrlPatternType(UrlPatternType object) {
+	public T caseServiceRefHandler(ServiceRefHandler object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>EObject</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Service Ref Handler Chain</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Service Ref Handler Chain</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseServiceRefHandlerChain(ServiceRefHandlerChain object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Service Ref Handler Chains</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Service Ref Handler Chains</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseServiceRefHandlerChains(ServiceRefHandlerChains object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Url Pattern Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Url Pattern Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseUrlPatternType(UrlPatternType object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>EObject</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch, but this is the last case anyway.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>EObject</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>EObject</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject)
 	 * @generated
 	 */
-	public Object defaultCase(EObject object) {
+	public T defaultCase(EObject object) {
 		return null;
 	}
 

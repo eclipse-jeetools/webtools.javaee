@@ -22,17 +22,26 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * 
  *         The application-exceptionType declares an application
  *         exception. The declaration consists of:
- * 
- *             - the exception class. When the container receives
- *               an exception of this type, it is required to
- *               forward this exception as an applcation exception
- *               to the client regardless of whether it is a checked
- *               or unchecked exception.
- *             - an optional rollback element. If this element is
- *               set to true, the container must rollback the current
- *               transaction before forwarding the exception to the
- *               client.  If not specified, it defaults to false.
- * 
+ *         
+ *         - the exception class. When the container receives
+ *         an exception of this type, it is required to 
+ *         forward this exception as an applcation exception 
+ *         to the client regardless of whether it is a checked
+ *         or unchecked exception.
+ *         - an optional rollback element. If this element is 
+ *         set to true, the container must rollback the current 
+ *         transaction before forwarding the exception to the
+ *         client.  If not specified, it defaults to false.
+ *         - an optional inherited element. If this element is 
+ *         set to true, subclasses of the exception class type
+ *         are also automatically considered application 
+ *         exceptions (unless overriden at a lower level).
+ *         If set to false, only the exception class type is
+ *         considered an application-exception, not its
+ *         exception subclasses. If not specified, this
+ *         value defaults to true.
+ *         
+ *         @since Java EE 5, EJB 3.0
  *       
  * <!-- end-model-doc -->
  *
@@ -41,6 +50,7 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * <ul>
  *   <li>{@link org.eclipse.jst.javaee.ejb.ApplicationException#getExceptionClass <em>Exception Class</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.ApplicationException#isRollback <em>Rollback</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.ApplicationException#isInherited <em>Inherited</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.ApplicationException#getId <em>Id</em>}</li>
  * </ul>
  * </p>
@@ -126,6 +136,59 @@ public interface ApplicationException extends JavaEEObject {
 	 * @generated
 	 */
 	boolean isSetRollback();
+
+	/**
+	 * Returns the value of the '<em><b>Inherited</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *             @since Java EE 6, EJB 3.1
+	 *           
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Inherited</em>' attribute.
+	 * @see #isSetInherited()
+	 * @see #unsetInherited()
+	 * @see #setInherited(boolean)
+	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getApplicationException_Inherited()
+	 * @generated
+	 */
+	boolean isInherited();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.jst.javaee.ejb.ApplicationException#isInherited <em>Inherited</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Inherited</em>' attribute.
+	 * @see #isSetInherited()
+	 * @see #unsetInherited()
+	 * @see #isInherited()
+	 * @generated
+	 */
+	void setInherited(boolean value);
+
+	/**
+	 * Unsets the value of the '{@link org.eclipse.jst.javaee.ejb.ApplicationException#isInherited <em>Inherited</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetInherited()
+	 * @see #isInherited()
+	 * @see #setInherited(boolean)
+	 * @generated
+	 */
+	void unsetInherited();
+
+	/**
+	 * Returns whether the value of the '{@link org.eclipse.jst.javaee.ejb.ApplicationException#isInherited <em>Inherited</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Inherited</em>' attribute is set.
+	 * @see #unsetInherited()
+	 * @see #isInherited()
+	 * @see #setInherited(boolean)
+	 * @generated
+	 */
+	boolean isSetInherited();
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.

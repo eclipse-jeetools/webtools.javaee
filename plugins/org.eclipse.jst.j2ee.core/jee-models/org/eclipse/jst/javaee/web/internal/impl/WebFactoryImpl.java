@@ -74,7 +74,13 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
+			case WebPackage.ABSOLUTE_ORDERING_TYPE: return (EObject)createAbsoluteOrderingType();
 			case WebPackage.AUTH_CONSTRAINT: return (EObject)createAuthConstraint();
+			case WebPackage.COOKIE_COMMENT_TYPE: return (EObject)createCookieCommentType();
+			case WebPackage.COOKIE_CONFIG_TYPE: return (EObject)createCookieConfigType();
+			case WebPackage.COOKIE_DOMAIN_TYPE: return (EObject)createCookieDomainType();
+			case WebPackage.COOKIE_NAME_TYPE: return (EObject)createCookieNameType();
+			case WebPackage.COOKIE_PATH_TYPE: return (EObject)createCookiePathType();
 			case WebPackage.ERROR_PAGE: return (EObject)createErrorPage();
 			case WebPackage.FILTER: return (EObject)createFilter();
 			case WebPackage.FILTER_MAPPING: return (EObject)createFilterMapping();
@@ -83,6 +89,10 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 			case WebPackage.LOCALE_ENCODING_MAPPING_LIST: return (EObject)createLocaleEncodingMappingList();
 			case WebPackage.LOGIN_CONFIG: return (EObject)createLoginConfig();
 			case WebPackage.MIME_MAPPING: return (EObject)createMimeMapping();
+			case WebPackage.MULTIPART_CONFIG_TYPE: return (EObject)createMultipartConfigType();
+			case WebPackage.ORDERING_ORDERING_TYPE: return (EObject)createOrderingOrderingType();
+			case WebPackage.ORDERING_OTHERS_TYPE: return (EObject)createOrderingOthersType();
+			case WebPackage.ORDERING_TYPE: return (EObject)createOrderingType();
 			case WebPackage.SECURITY_CONSTRAINT: return (EObject)createSecurityConstraint();
 			case WebPackage.SERVLET: return (EObject)createServlet();
 			case WebPackage.SERVLET_MAPPING: return (EObject)createServletMapping();
@@ -90,6 +100,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 			case WebPackage.USER_DATA_CONSTRAINT: return (EObject)createUserDataConstraint();
 			case WebPackage.WEB_APP: return (EObject)createWebApp();
 			case WebPackage.WEB_APP_DEPLOYMENT_DESCRIPTOR: return (EObject)createWebAppDeploymentDescriptor();
+			case WebPackage.WEB_FRAGMENT: return (EObject)createWebFragment();
 			case WebPackage.WEB_RESOURCE_COLLECTION: return (EObject)createWebResourceCollection();
 			case WebPackage.WELCOME_FILE_LIST: return (EObject)createWelcomeFileList();
 			default:
@@ -109,6 +120,8 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 				return createDispatcherTypeFromString(eDataType, initialValue);
 			case WebPackage.NULL_CHAR_TYPE:
 				return createNullCharTypeFromString(eDataType, initialValue);
+			case WebPackage.TRACKING_MODE_TYPE:
+				return createTrackingModeTypeFromString(eDataType, initialValue);
 			case WebPackage.TRANSPORT_GUARANTEE_TYPE:
 				return createTransportGuaranteeTypeFromString(eDataType, initialValue);
 			case WebPackage.WEB_APP_VERSION_TYPE:
@@ -137,6 +150,8 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 				return createNullCharTypeObjectFromString(eDataType, initialValue);
 			case WebPackage.SERVLET_NAME_TYPE:
 				return createServletNameTypeFromString(eDataType, initialValue);
+			case WebPackage.TRACKING_MODE_TYPE_OBJECT:
+				return createTrackingModeTypeObjectFromString(eDataType, initialValue);
 			case WebPackage.TRANSPORT_GUARANTEE_TYPE_OBJECT:
 				return createTransportGuaranteeTypeObjectFromString(eDataType, initialValue);
 			case WebPackage.WAR_PATH_TYPE:
@@ -160,6 +175,8 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 				return convertDispatcherTypeToString(eDataType, instanceValue);
 			case WebPackage.NULL_CHAR_TYPE:
 				return convertNullCharTypeToString(eDataType, instanceValue);
+			case WebPackage.TRACKING_MODE_TYPE:
+				return convertTrackingModeTypeToString(eDataType, instanceValue);
 			case WebPackage.TRANSPORT_GUARANTEE_TYPE:
 				return convertTransportGuaranteeTypeToString(eDataType, instanceValue);
 			case WebPackage.WEB_APP_VERSION_TYPE:
@@ -188,6 +205,8 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 				return convertNullCharTypeObjectToString(eDataType, instanceValue);
 			case WebPackage.SERVLET_NAME_TYPE:
 				return convertServletNameTypeToString(eDataType, instanceValue);
+			case WebPackage.TRACKING_MODE_TYPE_OBJECT:
+				return convertTrackingModeTypeObjectToString(eDataType, instanceValue);
 			case WebPackage.TRANSPORT_GUARANTEE_TYPE_OBJECT:
 				return convertTransportGuaranteeTypeObjectToString(eDataType, instanceValue);
 			case WebPackage.WAR_PATH_TYPE:
@@ -204,9 +223,69 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public AbsoluteOrderingType createAbsoluteOrderingType() {
+		AbsoluteOrderingTypeImpl absoluteOrderingType = new AbsoluteOrderingTypeImpl();
+		return absoluteOrderingType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public AuthConstraint createAuthConstraint() {
 		AuthConstraintImpl authConstraint = new AuthConstraintImpl();
 		return authConstraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CookieCommentType createCookieCommentType() {
+		CookieCommentTypeImpl cookieCommentType = new CookieCommentTypeImpl();
+		return cookieCommentType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CookieConfigType createCookieConfigType() {
+		CookieConfigTypeImpl cookieConfigType = new CookieConfigTypeImpl();
+		return cookieConfigType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CookieDomainType createCookieDomainType() {
+		CookieDomainTypeImpl cookieDomainType = new CookieDomainTypeImpl();
+		return cookieDomainType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CookieNameType createCookieNameType() {
+		CookieNameTypeImpl cookieNameType = new CookieNameTypeImpl();
+		return cookieNameType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CookiePathType createCookiePathType() {
+		CookiePathTypeImpl cookiePathType = new CookiePathTypeImpl();
+		return cookiePathType;
 	}
 
 	/**
@@ -294,6 +373,46 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public MultipartConfigType createMultipartConfigType() {
+		MultipartConfigTypeImpl multipartConfigType = new MultipartConfigTypeImpl();
+		return multipartConfigType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public OrderingOrderingType createOrderingOrderingType() {
+		OrderingOrderingTypeImpl orderingOrderingType = new OrderingOrderingTypeImpl();
+		return orderingOrderingType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public OrderingOthersType createOrderingOthersType() {
+		OrderingOthersTypeImpl orderingOthersType = new OrderingOthersTypeImpl();
+		return orderingOthersType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public OrderingType createOrderingType() {
+		OrderingTypeImpl orderingType = new OrderingTypeImpl();
+		return orderingType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public SecurityConstraint createSecurityConstraint() {
 		SecurityConstraintImpl securityConstraint = new SecurityConstraintImpl();
 		return securityConstraint;
@@ -364,6 +483,16 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public WebFragment createWebFragment() {
+		WebFragmentImpl webFragment = new WebFragmentImpl();
+		return webFragment;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public WebResourceCollection createWebResourceCollection() {
 		WebResourceCollectionImpl webResourceCollection = new WebResourceCollectionImpl();
 		return webResourceCollection;
@@ -416,6 +545,26 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * @generated
 	 */
 	public String convertNullCharTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TrackingModeType createTrackingModeTypeFromString(EDataType eDataType, String initialValue) {
+		TrackingModeType result = TrackingModeType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertTrackingModeTypeToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 
@@ -721,6 +870,24 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public TrackingModeType createTrackingModeTypeObjectFromString(EDataType eDataType, String initialValue) {
+		return createTrackingModeTypeFromString(WebPackage.Literals.TRACKING_MODE_TYPE, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertTrackingModeTypeObjectToString(EDataType eDataType, Object instanceValue) {
+		return convertTrackingModeTypeToString(WebPackage.Literals.TRACKING_MODE_TYPE, instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public TransportGuaranteeType createTransportGuaranteeTypeObjectFromString(EDataType eDataType, String initialValue) {
 		return createTransportGuaranteeTypeFromString(WebPackage.Literals.TRANSPORT_GUARANTEE_TYPE, initialValue);
 	}
@@ -785,6 +952,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 * @deprecated
 	 * @generated
 	 */
+	@Deprecated
 	public static WebPackage getPackage() {
 		return WebPackage.eINSTANCE;
 	}

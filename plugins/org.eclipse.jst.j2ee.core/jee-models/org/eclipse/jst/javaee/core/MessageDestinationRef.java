@@ -19,43 +19,43 @@ import java.util.List;
  *
  * <!-- begin-model-doc -->
  * 
- * 	
- * 
- * 	  The message-destination-ref element contains a declaration
- * 	  of Deployment Component's reference to a message destination
- * 	  associated with a resource in Deployment Component's
- * 	  environment. It consists of:
- * 
- * 		  - an optional description
- * 		  - the message destination reference name
- * 		  - an optional message destination type
- * 		  - an optional specification as to whether
- * 		    the destination is used for
- * 		    consuming or producing messages, or both.
- * 		    if not specified, "both" is assumed.
- * 		  - an optional link to the message destination
- * 		  - optional injection targets
- * 
- * 	  The message destination type must be supplied unless an
- * 	  injection target is specified, in which case the type
- * 	  of the target is used.  If both are specified, the type
- * 	  must be assignment compatible with the type of the injection
- * 	  target.
- * 
- * 	  Examples:
- * 
- * 	  &lt;message-destination-ref&gt;
- * 		  &lt;message-destination-ref-name&gt;jms/StockQueue
- * 		  &lt;/message-destination-ref-name&gt;
- * 		  &lt;message-destination-type&gt;javax.jms.Queue
- * 		  &lt;/message-destination-type&gt;
- * 		  &lt;message-destination-usage&gt;Consumes
- * 		  &lt;/message-destination-usage&gt;
- * 		  &lt;message-destination-link&gt;CorporateStocks
- * 		  &lt;/message-destination-link&gt;
- * 	  &lt;/message-destination-ref&gt;
- * 
- * 	  
+ * <![CDATA[[
+ *         The message-destination-ref element contains a declaration
+ *         of Deployment Component's reference to a message destination
+ *         associated with a resource in Deployment Component's
+ *         environment. It consists of:
+ *         
+ *         - an optional description
+ *         - the message destination reference name
+ *         - an optional message destination type
+ *         - an optional specification as to whether
+ *         the destination is used for 
+ *         consuming or producing messages, or both.
+ *         if not specified, "both" is assumed.
+ *         - an optional link to the message destination
+ *         - optional injection targets
+ *         
+ *         The message destination type must be supplied unless an
+ *         injection target is specified, in which case the type
+ *         of the target is used.  If both are specified, the type
+ *         must be assignment compatible with the type of the injection
+ *         target.
+ *         
+ *         Examples:
+ *         
+ *         <message-destination-ref>
+ *         <message-destination-ref-name>jms/StockQueue
+ *         </message-destination-ref-name>
+ *         <message-destination-type>javax.jms.Queue
+ *         </message-destination-type>
+ *         <message-destination-usage>Consumes
+ *         </message-destination-usage>
+ *         <message-destination-link>CorporateStocks
+ *         </message-destination-link>
+ *         </message-destination-ref>
+ *         
+ * ]]>
+ *         @since Java EE 5
  *       
  * <!-- end-model-doc -->
  *
@@ -69,6 +69,7 @@ import java.util.List;
  *   <li>{@link org.eclipse.jst.javaee.core.MessageDestinationRef#getMessageDestinationLink <em>Message Destination Link</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.MessageDestinationRef#getMappedName <em>Mapped Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.MessageDestinationRef#getInjectionTargets <em>Injection Targets</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.core.MessageDestinationRef#getLookupName <em>Lookup Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.MessageDestinationRef#getId <em>Id</em>}</li>
  * </ul>
  * </p>
@@ -91,7 +92,7 @@ public interface MessageDestinationRef extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getMessageDestinationRef_Descriptions()
 	 * @generated
 	 */
-	List getDescriptions();
+	List<Description> getDescriptions();
 
 	/**
 	 * Returns the value of the '<em><b>Message Destination Ref Name</b></em>' attribute.
@@ -100,15 +101,16 @@ public interface MessageDestinationRef extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	    The message-destination-ref-name element specifies
-	 * 	    the name of a message destination reference; its
-	 * 	    value is the environment entry name used in
-	 * 	    Deployment Component code.  The name is a JNDI name
-	 * 	    relative to the java:comp/env context and must be
-	 * 	    unique within an ejb-jar (for enterprise beans) or a
-	 * 	    Deployment File (for others).
-	 * 
-	 * 	  
+	 *             The message-destination-ref-name element specifies
+	 *             the name of a message destination reference; its
+	 *             value is the environment entry name used in
+	 *             Deployment Component code.  The name is a JNDI name
+	 *             relative to the java:comp/env context and must be
+	 *             unique within an ejb-jar (for enterprise beans) or a
+	 *             Deployment File (for others).
+	 *             
+	 *             @since Java EE 5
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Message Destination Ref Name</em>' attribute.
 	 * @see #setMessageDestinationRefName(String)
@@ -154,7 +156,6 @@ public interface MessageDestinationRef extends JavaEEObject {
 
 	/**
 	 * Returns the value of the '<em><b>Message Destination Usage</b></em>' attribute.
-	 * The default value is <code>"Consumes"</code>.
 	 * The literals are from the enumeration {@link org.eclipse.jst.javaee.core.MessageDestinationUsageType}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -239,26 +240,25 @@ public interface MessageDestinationRef extends JavaEEObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * 
-	 * 	    
 	 * 
-	 * 	      A product specific name that this resource should be
-	 * 	      mapped to.  The name of this resource, as defined by the
-	 * 	      resource's name element or defaulted, is a name that is
-	 * 	      local to the application component using the resource.
-	 * 	      (It's a name in the JNDI java:comp/env namespace.)  Many
-	 * 	      application servers provide a way to map these local
-	 * 	      names to names of resources known to the application
-	 * 	      server.  This mapped name is often a global JNDI name,
-	 * 	      but may be a name of any form.
-	 * 
-	 * 	      Application servers are not required to support any
-	 * 	      particular form or type of mapped name, nor the ability
-	 * 	      to use mapped names.  The mapped name is
-	 * 	      product-dependent and often installation-dependent.  No
-	 * 	      use of a mapped name is portable.
-	 * 
-	 * 	      
-	 * 	  
+	 *             A product specific name that this resource should be
+	 *             mapped to.  The name of this resource, as defined by the
+	 *             resource's name element or defaulted, is a name that is
+	 *             local to the application component using the resource.
+	 *             (It's a name in the JNDI java:comp/env namespace.)  Many
+	 *             application servers provide a way to map these local
+	 *             names to names of resources known to the application
+	 *             server.  This mapped name is often a global JNDI name,
+	 *             but may be a name of any form.
+	 *             
+	 *             Application servers are not required to support any
+	 *             particular form or type of mapped name, nor the ability
+	 *             to use mapped names.  The mapped name is
+	 *             product-dependent and often installation-dependent.  No
+	 *             use of a mapped name is portable.
+	 *             
+	 *             @since Java EE 5
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Mapped Name</em>' attribute.
 	 * @see #setMappedName(String)
@@ -290,7 +290,36 @@ public interface MessageDestinationRef extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getMessageDestinationRef_InjectionTargets()
 	 * @generated
 	 */
-	List getInjectionTargets();
+	List<InjectionTarget> getInjectionTargets();
+
+	/**
+	 * Returns the value of the '<em><b>Lookup Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * 
+	 *             The JNDI name to be looked up to resolve a resource reference.
+	 *             
+	 *             @since Java EE 6
+	 *           
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Lookup Name</em>' attribute.
+	 * @see #setLookupName(String)
+	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getMessageDestinationRef_LookupName()
+	 * @generated
+	 */
+	String getLookupName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.jst.javaee.core.MessageDestinationRef#getLookupName <em>Lookup Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Lookup Name</em>' attribute.
+	 * @see #getLookupName()
+	 * @generated
+	 */
+	void setLookupName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.

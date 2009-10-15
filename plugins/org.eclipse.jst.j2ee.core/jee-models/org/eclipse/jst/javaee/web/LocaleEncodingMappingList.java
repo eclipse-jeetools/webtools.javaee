@@ -22,9 +22,10 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The locale-encoding-mapping-list contains one or more
- * 	locale-encoding-mapping(s).
- * 
+ *         The locale-encoding-mapping-list contains one or more
+ *         locale-encoding-mapping(s).
+ *         
+ *         @since Java EE 5, Web 2.5
  *       
  * <!-- end-model-doc -->
  *
@@ -54,7 +55,7 @@ public interface LocaleEncodingMappingList extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getLocaleEncodingMappingList_LocalEncodingMappings()
 	 * @generated
 	 */
-	List getLocalEncodingMappings();
+	List<LocaleEncodingMapping> getLocalEncodingMappings();
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.

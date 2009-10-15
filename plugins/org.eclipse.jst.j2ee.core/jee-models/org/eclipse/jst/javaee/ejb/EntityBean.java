@@ -12,7 +12,22 @@ package org.eclipse.jst.javaee.ejb;
 
 import java.util.List;
 
+import org.eclipse.jst.javaee.core.DataSourceType;
+import org.eclipse.jst.javaee.core.Description;
+import org.eclipse.jst.javaee.core.DisplayName;
+import org.eclipse.jst.javaee.core.EjbLocalRef;
+import org.eclipse.jst.javaee.core.EjbRef;
+import org.eclipse.jst.javaee.core.EnvEntry;
+import org.eclipse.jst.javaee.core.Icon;
 import org.eclipse.jst.javaee.core.JavaEEObject;
+import org.eclipse.jst.javaee.core.LifecycleCallback;
+import org.eclipse.jst.javaee.core.MessageDestinationRef;
+import org.eclipse.jst.javaee.core.PersistenceContextRef;
+import org.eclipse.jst.javaee.core.PersistenceUnitRef;
+import org.eclipse.jst.javaee.core.ResourceEnvRef;
+import org.eclipse.jst.javaee.core.ResourceRef;
+import org.eclipse.jst.javaee.core.SecurityRoleRef;
+import org.eclipse.jst.javaee.core.ServiceRef;
 
 /**
  * <!-- begin-user-doc -->
@@ -22,96 +37,97 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The entity-beanType declares an entity bean. The declaration
- * 	consists of:
- * 
- * 	    - an optional description
- * 	    - an optional display name
- * 	    - an optional icon element that contains a small and a large
- * 	      icon file name
- * 	    - a unique name assigned to the enterprise bean
- * 	      in the deployment descriptor
- *             - an optional mapped-name element that can be used to provide
- *               vendor-specific deployment information such as the physical
- *               jndi-name of the entity bean's remote home interface. This
- *               element is not required to be supported by all implementations.
- *               Any use of this element is non-portable.
- * 	    - the names of the entity bean's remote home
- * 	      and remote interfaces, if any
- * 	    - the names of the entity bean's local home and local
- * 	      interfaces, if any
- * 	    - the entity bean's implementation class
- * 	    - the optional entity bean's persistence management type. If
- *               this element is not specified it is defaulted to Container.
- * 	    - the entity bean's primary key class name
- * 	    - an indication of the entity bean's reentrancy
- * 	    - an optional specification of the
- * 	      entity bean's cmp-version
- * 	    - an optional specification of the entity bean's
- * 	      abstract schema name
- * 	    - an optional list of container-managed fields
- * 	    - an optional specification of the primary key
- * 	      field
- * 	    - an optional declaration of the bean's environment
- * 	      entries
- * 	    - an optional declaration of the bean's EJB
- * 	      references
- * 	    - an optional declaration of the bean's local
- * 	      EJB references
- * 	    - an optional declaration of the bean's web
- * 	      service references
- * 	    - an optional declaration of the security role
- * 	      references
- * 	    - an optional declaration of the security identity
- * 	      to be used for the execution of the bean's methods
- * 	    - an optional declaration of the bean's
- * 	      resource manager connection factory references
- * 	    - an optional declaration of the bean's
- * 	      resource environment references
- * 	    - an optional declaration of the bean's message
- * 	      destination references
- * 	    - an optional set of query declarations
- * 	      for finder and select methods for an entity
- * 	      bean with cmp-version 2.x.
- * 
- * 	The optional abstract-schema-name element must be specified
- * 	for an entity bean with container-managed persistence and
- * 	cmp-version 2.x.
- * 
- * 	The optional primkey-field may be present in the descriptor
- * 	if the entity's persistence-type is Container.
- * 
- * 	The optional cmp-version element may be present in the
- * 	descriptor if the entity's persistence-type is Container. If
- * 	the persistence-type is Container and the cmp-version
- * 	element is not specified, its value defaults to 2.x.
- * 
- * 	The optional home and remote elements must be specified if
- * 	the entity bean cmp-version is 1.x.
- * 
- * 	The optional home and remote elements must be specified if
- * 	the entity bean has a remote home and remote interface.
- * 
- * 	The optional local-home and local elements must be specified
- * 	if the entity bean has a local home and local interface.
- * 
- * 	Either both the local-home and the local elements or both
- * 	the home and the remote elements must be specified.
- * 
- * 	The optional query elements must be present if the
- * 	persistence-type is Container and the cmp-version is 2.x and
- * 	query methods other than findByPrimaryKey have been defined
- * 	for the entity bean.
- * 
- * 	The other elements that are optional are "optional" in the
- * 	sense that they are omitted if the lists represented by them
- * 	are empty.
- * 
- * 	At least one cmp-field element must be present in the
- * 	descriptor if the entity's persistence-type is Container and
- * 	the cmp-version is 1.x, and none must not be present if the
- * 	entity's persistence-type is Bean.
- * 
+ *         The entity-beanType declares an entity bean. The declaration
+ *         consists of:
+ *         
+ *         - an optional description
+ *         - an optional display name
+ *         - an optional icon element that contains a small and a large 
+ *         icon file name
+ *         - a unique name assigned to the enterprise bean
+ *         in the deployment descriptor
+ *         - an optional mapped-name element that can be used to provide
+ *         vendor-specific deployment information such as the physical
+ *         jndi-name of the entity bean's remote home interface. This 
+ *         element is not required to be supported by all implementations.
+ *         Any use of this element is non-portable.
+ *         - the names of the entity bean's remote home 
+ *         and remote interfaces, if any
+ *         - the names of the entity bean's local home and local
+ *         interfaces, if any
+ *         - the entity bean's implementation class
+ *         - the optional entity bean's persistence management type. If 
+ *         this element is not specified it is defaulted to Container.
+ *         - the entity bean's primary key class name
+ *         - an indication of the entity bean's reentrancy
+ *         - an optional specification of the 
+ *         entity bean's cmp-version
+ *         - an optional specification of the entity bean's
+ *         abstract schema name
+ *         - an optional list of container-managed fields
+ *         - an optional specification of the primary key 
+ *         field
+ *         - an optional declaration of the bean's environment 
+ *         entries
+ *         - an optional declaration of the bean's EJB 
+ *         references
+ *         - an optional declaration of the bean's local 
+ *         EJB references
+ *         - an optional declaration of the bean's web 
+ *         service references
+ *         - an optional declaration of the security role 
+ *         references
+ *         - an optional declaration of the security identity
+ *         to be used for the execution of the bean's methods
+ *         - an optional declaration of the bean's 
+ *         resource manager connection factory references
+ *         - an optional declaration of the bean's
+ *         resource environment references
+ *         - an optional declaration of the bean's message 
+ *         destination references
+ *         - an optional set of query declarations
+ *         for finder and select methods for an entity
+ *         bean with cmp-version 2.x.
+ *         
+ *         The optional abstract-schema-name element must be specified
+ *         for an entity bean with container-managed persistence and
+ *         cmp-version 2.x.
+ *         
+ *         The optional primkey-field may be present in the descriptor
+ *         if the entity's persistence-type is Container.
+ *         
+ *         The optional cmp-version element may be present in the
+ *         descriptor if the entity's persistence-type is Container. If
+ *         the persistence-type is Container and the cmp-version
+ *         element is not specified, its value defaults to 2.x.
+ *         
+ *         The optional home and remote elements must be specified if
+ *         the entity bean cmp-version is 1.x.
+ *         
+ *         The optional home and remote elements must be specified if
+ *         the entity bean has a remote home and remote interface.
+ *         
+ *         The optional local-home and local elements must be specified
+ *         if the entity bean has a local home and local interface.
+ *         
+ *         Either both the local-home and the local elements or both
+ *         the home and the remote elements must be specified.
+ *         
+ *         The optional query elements must be present if the
+ *         persistence-type is Container and the cmp-version is 2.x and
+ *         query methods other than findByPrimaryKey have been defined
+ *         for the entity bean.
+ *         
+ *         The other elements that are optional are "optional" in the
+ *         sense that they are omitted if the lists represented by them
+ *         are empty.
+ *         
+ *         At least one cmp-field element must be present in the
+ *         descriptor if the entity's persistence-type is Container and
+ *         the cmp-version is 1.x, and none must not be present if the
+ *         entity's persistence-type is Bean.
+ *         
+ *         @since Java EE 5, EJB 3.0
  *       
  * <!-- end-model-doc -->
  *
@@ -146,6 +162,7 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  *   <li>{@link org.eclipse.jst.javaee.ejb.EntityBean#getPersistenceUnitRefs <em>Persistence Unit Refs</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.EntityBean#getPostConstructs <em>Post Constructs</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.EntityBean#getPreDestroys <em>Pre Destroys</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.EntityBean#getDataSource <em>Data Source</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.EntityBean#getSecurityRoleRefs <em>Security Role Refs</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.EntityBean#getSecurityIdentity <em>Security Identity</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.EntityBean#getQueries <em>Queries</em>}</li>
@@ -171,7 +188,7 @@ public interface EntityBean extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEntityBean_Descriptions()
 	 * @generated
 	 */
-	List getDescriptions();
+	List<Description> getDescriptions();
 
 	/**
 	 * Returns the value of the '<em><b>Display Names</b></em>' containment reference list.
@@ -186,7 +203,7 @@ public interface EntityBean extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEntityBean_DisplayNames()
 	 * @generated
 	 */
-	List getDisplayNames();
+	List<DisplayName> getDisplayNames();
 
 	/**
 	 * Returns the value of the '<em><b>Icons</b></em>' containment reference list.
@@ -201,7 +218,7 @@ public interface EntityBean extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEntityBean_Icons()
 	 * @generated
 	 */
-	List getIcons();
+	List<Icon> getIcons();
 
 	/**
 	 * Returns the value of the '<em><b>Ejb Name</b></em>' attribute.
@@ -380,7 +397,6 @@ public interface EntityBean extends JavaEEObject {
 
 	/**
 	 * Returns the value of the '<em><b>Persistence Type</b></em>' attribute.
-	 * The default value is <code>"Bean"</code>.
 	 * The literals are from the enumeration {@link org.eclipse.jst.javaee.ejb.PersistenceType}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -441,15 +457,16 @@ public interface EntityBean extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	    The prim-key-class element contains the
-	 * 	    fully-qualified name of an
-	 * 	    entity bean's primary key class.
-	 * 
-	 * 	    If the definition of the primary key class is
-	 * 	    deferred to deployment time, the prim-key-class
-	 * 	    element should specify java.lang.Object.
-	 * 
-	 * 	  
+	 *             The prim-key-class element contains the
+	 *             fully-qualified name of an
+	 *             entity bean's primary key class.
+	 *             
+	 *             If the definition of the primary key class is
+	 *             deferred to deployment time, the prim-key-class 
+	 *             element should specify java.lang.Object.
+	 *             
+	 *             @since Java EE 5, EJB 3.0
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Prim Key Class</em>' attribute.
 	 * @see #setPrimKeyClass(String)
@@ -475,13 +492,14 @@ public interface EntityBean extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	    The reentrant element specifies whether an entity
-	 * 	    bean is reentrant or not.
-	 * 
-	 * 	    The reentrant element must be one of the two
-	 * 	    following: true or false
-	 * 
-	 * 	  
+	 *             The reentrant element specifies whether an entity
+	 *             bean is reentrant or not.
+	 *             
+	 *             The reentrant element must be one of the two
+	 *             following: true or false
+	 *             
+	 *             @since Java EE 5, EJB 3.0
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Reentrant</em>' attribute.
 	 * @see #isSetReentrant()
@@ -529,7 +547,6 @@ public interface EntityBean extends JavaEEObject {
 
 	/**
 	 * Returns the value of the '<em><b>Cmp Version</b></em>' attribute.
-	 * The default value is <code>"1.x"</code>.
 	 * The literals are from the enumeration {@link org.eclipse.jst.javaee.ejb.CmpVersionType}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -590,15 +607,16 @@ public interface EntityBean extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	    The abstract-schema-name element specifies the name
-	 * 	    of the abstract schema type of an entity bean with
-	 * 	    cmp-version 2.x. It is used in EJB QL queries.
-	 * 
-	 * 	    For example, the abstract-schema-name for an entity
-	 * 	    bean whose local interface is
-	 * 	    com.acme.commerce.Order might be Order.
-	 * 
-	 * 	  
+	 *             The abstract-schema-name element specifies the name
+	 *             of the abstract schema type of an entity bean with 
+	 *             cmp-version 2.x. It is used in EJB QL queries. 
+	 *             
+	 *             For example, the abstract-schema-name for an entity 
+	 *             bean whose local interface is 
+	 *             com.acme.commerce.Order might be Order. 
+	 *             
+	 *             @since Java EE 5, EJB 3.0
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Abstract Schema Name</em>' attribute.
 	 * @see #setAbstractSchemaName(String)
@@ -630,7 +648,7 @@ public interface EntityBean extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEntityBean_CmpFields()
 	 * @generated
 	 */
-	List getCmpFields();
+	List<CMPField> getCmpFields();
 
 	/**
 	 * Returns the value of the '<em><b>Primkey Field</b></em>' attribute.
@@ -639,22 +657,23 @@ public interface EntityBean extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	    The primkey-field element is used to specify the
-	 * 	    name of the primary key field for an entity with
-	 * 	    container-managed persistence.
-	 * 
-	 * 	    The primkey-field must be one of the fields declared
-	 * 	    in the cmp-field element, and the type of the field
-	 * 	    must be the same as the primary key type.
-	 * 
-	 * 	    The primkey-field element is not used if the primary
-	 * 	    key maps to multiple container-managed fields
-	 * 	    (i.e. the key is a compound key). In this case, the
-	 * 	    fields of the primary key class must be public, and
-	 * 	    their names must correspond to the field names of
-	 * 	    the entity bean class that comprise the key.
-	 * 
-	 * 	  
+	 *             The primkey-field element is used to specify the
+	 *             name of the primary key field for an entity with
+	 *             container-managed persistence.
+	 *             
+	 *             The primkey-field must be one of the fields declared
+	 *             in the cmp-field element, and the type of the field
+	 *             must be the same as the primary key type.
+	 *             
+	 *             The primkey-field element is not used if the primary
+	 *             key maps to multiple container-managed fields
+	 *             (i.e. the key is a compound key). In this case, the
+	 *             fields of the primary key class must be public, and
+	 *             their names must correspond to the field names of
+	 *             the entity bean class that comprise the key.
+	 *             
+	 *             @since Java EE 5, EJB 3.0
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Primkey Field</em>' attribute.
 	 * @see #setPrimkeyField(String)
@@ -686,7 +705,7 @@ public interface EntityBean extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEntityBean_EnvEntries()
 	 * @generated
 	 */
-	List getEnvEntries();
+	List<EnvEntry> getEnvEntries();
 
 	/**
 	 * Returns the value of the '<em><b>Ejb Refs</b></em>' containment reference list.
@@ -701,7 +720,7 @@ public interface EntityBean extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEntityBean_EjbRefs()
 	 * @generated
 	 */
-	List getEjbRefs();
+	List<EjbRef> getEjbRefs();
 
 	/**
 	 * Returns the value of the '<em><b>Ejb Local Refs</b></em>' containment reference list.
@@ -716,7 +735,7 @@ public interface EntityBean extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEntityBean_EjbLocalRefs()
 	 * @generated
 	 */
-	List getEjbLocalRefs();
+	List<EjbLocalRef> getEjbLocalRefs();
 
 	/**
 	 * Returns the value of the '<em><b>Service Refs</b></em>' containment reference list.
@@ -731,7 +750,7 @@ public interface EntityBean extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEntityBean_ServiceRefs()
 	 * @generated
 	 */
-	List getServiceRefs();
+	List<ServiceRef> getServiceRefs();
 
 	/**
 	 * Returns the value of the '<em><b>Resource Refs</b></em>' containment reference list.
@@ -746,7 +765,7 @@ public interface EntityBean extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEntityBean_ResourceRefs()
 	 * @generated
 	 */
-	List getResourceRefs();
+	List<ResourceRef> getResourceRefs();
 
 	/**
 	 * Returns the value of the '<em><b>Resource Env Refs</b></em>' containment reference list.
@@ -761,7 +780,7 @@ public interface EntityBean extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEntityBean_ResourceEnvRefs()
 	 * @generated
 	 */
-	List getResourceEnvRefs();
+	List<ResourceEnvRef> getResourceEnvRefs();
 
 	/**
 	 * Returns the value of the '<em><b>Message Destination Refs</b></em>' containment reference list.
@@ -776,7 +795,7 @@ public interface EntityBean extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEntityBean_MessageDestinationRefs()
 	 * @generated
 	 */
-	List getMessageDestinationRefs();
+	List<MessageDestinationRef> getMessageDestinationRefs();
 
 	/**
 	 * Returns the value of the '<em><b>Persistence Context Refs</b></em>' containment reference list.
@@ -791,7 +810,7 @@ public interface EntityBean extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEntityBean_PersistenceContextRefs()
 	 * @generated
 	 */
-	List getPersistenceContextRefs();
+	List<PersistenceContextRef> getPersistenceContextRefs();
 
 	/**
 	 * Returns the value of the '<em><b>Persistence Unit Refs</b></em>' containment reference list.
@@ -806,7 +825,7 @@ public interface EntityBean extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEntityBean_PersistenceUnitRefs()
 	 * @generated
 	 */
-	List getPersistenceUnitRefs();
+	List<PersistenceUnitRef> getPersistenceUnitRefs();
 
 	/**
 	 * Returns the value of the '<em><b>Post Constructs</b></em>' containment reference list.
@@ -821,7 +840,7 @@ public interface EntityBean extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEntityBean_PostConstructs()
 	 * @generated
 	 */
-	List getPostConstructs();
+	List<LifecycleCallback> getPostConstructs();
 
 	/**
 	 * Returns the value of the '<em><b>Pre Destroys</b></em>' containment reference list.
@@ -836,7 +855,22 @@ public interface EntityBean extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEntityBean_PreDestroys()
 	 * @generated
 	 */
-	List getPreDestroys();
+	List<LifecycleCallback> getPreDestroys();
+
+	/**
+	 * Returns the value of the '<em><b>Data Source</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.jst.javaee.core.DataSourceType}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Data Source</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Data Source</em>' containment reference list.
+	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEntityBean_DataSource()
+	 * @generated
+	 */
+	List<DataSourceType> getDataSource();
 
 	/**
 	 * Returns the value of the '<em><b>Security Role Refs</b></em>' containment reference list.
@@ -851,7 +885,7 @@ public interface EntityBean extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEntityBean_SecurityRoleRefs()
 	 * @generated
 	 */
-	List getSecurityRoleRefs();
+	List<SecurityRoleRef> getSecurityRoleRefs();
 
 	/**
 	 * Returns the value of the '<em><b>Security Identity</b></em>' containment reference.
@@ -891,7 +925,7 @@ public interface EntityBean extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEntityBean_Queries()
 	 * @generated
 	 */
-	List getQueries();
+	List<Query> getQueries();
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.

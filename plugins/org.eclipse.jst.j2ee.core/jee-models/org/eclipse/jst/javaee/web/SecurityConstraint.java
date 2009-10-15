@@ -12,6 +12,7 @@ package org.eclipse.jst.javaee.web;
 
 import java.util.List;
 
+import org.eclipse.jst.javaee.core.DisplayName;
 import org.eclipse.jst.javaee.core.JavaEEObject;
 
 /**
@@ -22,12 +23,13 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The security-constraintType is used to associate
- * 	security constraints with one or more web resource
- * 	collections
- * 
- * 	Used in: web-app
- * 
+ *         The security-constraintType is used to associate
+ *         security constraints with one or more web resource
+ *         collections
+ *         
+ *         Used in: web-app
+ *         
+ *         @since Java EE 5, Web 2.5
  *       
  * <!-- end-model-doc -->
  *
@@ -60,7 +62,7 @@ public interface SecurityConstraint extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getSecurityConstraint_DisplayNames()
 	 * @generated
 	 */
-	List getDisplayNames();
+	List<DisplayName> getDisplayNames();
 
 	/**
 	 * Returns the value of the '<em><b>Web Resource Collections</b></em>' containment reference list.
@@ -75,7 +77,7 @@ public interface SecurityConstraint extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getSecurityConstraint_WebResourceCollections()
 	 * @generated
 	 */
-	List getWebResourceCollections();
+	List<WebResourceCollection> getWebResourceCollections();
 
 	/**
 	 * Returns the value of the '<em><b>Auth Constraint</b></em>' containment reference.

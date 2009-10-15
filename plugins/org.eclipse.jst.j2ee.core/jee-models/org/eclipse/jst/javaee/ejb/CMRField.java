@@ -12,6 +12,7 @@ package org.eclipse.jst.javaee.ejb;
 
 import java.util.List;
 
+import org.eclipse.jst.javaee.core.Description;
 import org.eclipse.jst.javaee.core.JavaEEObject;
 
 /**
@@ -22,15 +23,16 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The cmr-fieldType describes the bean provider's view of
- * 	a relationship. It consists of an optional description, and
- * 	the name and the class type of a field in the source of a
- * 	role of a relationship. The cmr-field-name element
- * 	corresponds to the name used for the get and set accessor
- * 	methods for the relationship. The cmr-field-type element is
- * 	used only for collection-valued cmr-fields. It specifies the
- * 	type of the collection that is used.
- * 
+ *         The cmr-fieldType describes the bean provider's view of
+ *         a relationship. It consists of an optional description, and
+ *         the name and the class type of a field in the source of a
+ *         role of a relationship. The cmr-field-name element
+ *         corresponds to the name used for the get and set accessor
+ *         methods for the relationship. The cmr-field-type element is
+ *         used only for collection-valued cmr-fields. It specifies the
+ *         type of the collection that is used.
+ *         
+ *         @since Java EE 5, EJB 3.0
  *       
  * <!-- end-model-doc -->
  *
@@ -62,7 +64,7 @@ public interface CMRField extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getCMRField_Descriptions()
 	 * @generated
 	 */
-	List getDescriptions();
+	List<Description> getDescriptions();
 
 	/**
 	 * Returns the value of the '<em><b>Cmr Field Name</b></em>' attribute.
@@ -71,15 +73,16 @@ public interface CMRField extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	    The cmr-field-name element specifies the name of a
-	 * 	    logical relationship field in the entity bean
-	 * 	    class. The name of the cmr-field must begin with a
-	 * 	    lowercase letter. This field is accessed by methods
-	 * 	    whose names consist of the name of the field
-	 * 	    specified by cmr-field-name in which the first
-	 * 	    letter is uppercased, prefixed by "get" or "set".
-	 * 
-	 * 	  
+	 *             The cmr-field-name element specifies the name of a
+	 *             logical relationship field in the entity bean
+	 *             class. The name of the cmr-field must begin with a
+	 *             lowercase letter. This field is accessed by methods
+	 *             whose names consist of the name of the field
+	 *             specified by cmr-field-name in which the first
+	 *             letter is uppercased, prefixed by "get" or "set".
+	 *             
+	 *             @since Java EE 5, EJB 3.0
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Cmr Field Name</em>' attribute.
 	 * @see #setCmrFieldName(String)
@@ -100,7 +103,6 @@ public interface CMRField extends JavaEEObject {
 
 	/**
 	 * Returns the value of the '<em><b>Cmr Field Type</b></em>' attribute.
-	 * The default value is <code>"java.util.Collection"</code>.
 	 * The literals are from the enumeration {@link org.eclipse.jst.javaee.ejb.CMRFieldType}.
 	 * <!-- begin-user-doc -->
 	 * <p>

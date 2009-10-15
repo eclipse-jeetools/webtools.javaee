@@ -32,7 +32,7 @@ import org.eclipse.jst.javaee.application.internal.metadata.ApplicationPackage;
  * @see org.eclipse.jst.javaee.application.internal.metadata.ApplicationPackage
  * @generated
  */
-public class ApplicationSwitch {
+public class ApplicationSwitch<T> {
 	/**
 	 * The cached model package
 	 * <!-- begin-user-doc -->
@@ -60,7 +60,7 @@ public class ApplicationSwitch {
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
-	public Object doSwitch(EObject theEObject) {
+	public T doSwitch(EObject theEObject) {
 		return doSwitch(theEObject.eClass(), theEObject);
 	}
 
@@ -71,16 +71,16 @@ public class ApplicationSwitch {
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
-	protected Object doSwitch(EClass theEClass, EObject theEObject) {
+	protected T doSwitch(EClass theEClass, EObject theEObject) {
 		if (theEClass.eContainer() == modelPackage) {
 			return doSwitch(theEClass.getClassifierID(), theEObject);
 		}
 		else {
-			List eSuperTypes = theEClass.getESuperTypes();
+			List<EClass> eSuperTypes = theEClass.getESuperTypes();
 			return
 				eSuperTypes.isEmpty() ?
 					defaultCase(theEObject) :
-					doSwitch((EClass)eSuperTypes.get(0), theEObject);
+					doSwitch(eSuperTypes.get(0), theEObject);
 		}
 	}
 
@@ -91,29 +91,29 @@ public class ApplicationSwitch {
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
-	protected Object doSwitch(int classifierID, EObject theEObject) {
+	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
 			case ApplicationPackage.APPLICATION: {
 				Application application = (Application)theEObject;
-				Object result = caseApplication(application);
+				T result = caseApplication(application);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case ApplicationPackage.APPLICATION_DEPLOYMENT_DESCRIPTOR: {
 				ApplicationDeploymentDescriptor applicationDeploymentDescriptor = (ApplicationDeploymentDescriptor)theEObject;
-				Object result = caseApplicationDeploymentDescriptor(applicationDeploymentDescriptor);
+				T result = caseApplicationDeploymentDescriptor(applicationDeploymentDescriptor);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case ApplicationPackage.MODULE: {
 				Module module = (Module)theEObject;
-				Object result = caseModule(module);
+				T result = caseModule(module);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case ApplicationPackage.WEB: {
 				Web web = (Web)theEObject;
-				Object result = caseWeb(web);
+				T result = caseWeb(web);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -122,77 +122,77 @@ public class ApplicationSwitch {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Application</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Application</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Application</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Application</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseApplication(Application object) {
+	public T caseApplication(Application object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Deployment Descriptor</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Deployment Descriptor</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Deployment Descriptor</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Deployment Descriptor</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseApplicationDeploymentDescriptor(ApplicationDeploymentDescriptor object) {
+	public T caseApplicationDeploymentDescriptor(ApplicationDeploymentDescriptor object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Module</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Module</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Module</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Module</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseModule(Module object) {
+	public T caseModule(Module object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Web</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Web</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Web</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Web</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseWeb(Web object) {
+	public T caseWeb(Web object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>EObject</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>EObject</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch, but this is the last case anyway.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>EObject</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>EObject</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject)
 	 * @generated
 	 */
-	public Object defaultCase(EObject object) {
+	public T defaultCase(EObject object) {
 		return null;
 	}
 

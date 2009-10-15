@@ -12,13 +12,13 @@ package org.eclipse.jst.javaee.web.internal.util;
 
 import java.math.BigInteger;
 
-import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.DiagnosticChain;
 
+import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
@@ -106,16 +106,28 @@ public class WebValidator extends EObjectValidator {
 	}
 
 	/**
-	 * Calls <code>validateXXX</code> for the corresonding classifier of the model.
+	 * Calls <code>validateXXX</code> for the corresponding classifier of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	protected boolean validate(int classifierID, Object value, DiagnosticChain diagnostics, Map context) {
+	protected boolean validate(int classifierID, Object value, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		switch (classifierID) {
+			case WebPackage.ABSOLUTE_ORDERING_TYPE:
+				return validateAbsoluteOrderingType((AbsoluteOrderingType)value, diagnostics, context);
 			case WebPackage.AUTH_CONSTRAINT:
 				return validateAuthConstraint((AuthConstraint)value, diagnostics, context);
+			case WebPackage.COOKIE_COMMENT_TYPE:
+				return validateCookieCommentType((CookieCommentType)value, diagnostics, context);
+			case WebPackage.COOKIE_CONFIG_TYPE:
+				return validateCookieConfigType((CookieConfigType)value, diagnostics, context);
+			case WebPackage.COOKIE_DOMAIN_TYPE:
+				return validateCookieDomainType((CookieDomainType)value, diagnostics, context);
+			case WebPackage.COOKIE_NAME_TYPE:
+				return validateCookieNameType((CookieNameType)value, diagnostics, context);
+			case WebPackage.COOKIE_PATH_TYPE:
+				return validateCookiePathType((CookiePathType)value, diagnostics, context);
 			case WebPackage.ERROR_PAGE:
 				return validateErrorPage((ErrorPage)value, diagnostics, context);
 			case WebPackage.FILTER:
@@ -132,6 +144,14 @@ public class WebValidator extends EObjectValidator {
 				return validateLoginConfig((LoginConfig)value, diagnostics, context);
 			case WebPackage.MIME_MAPPING:
 				return validateMimeMapping((MimeMapping)value, diagnostics, context);
+			case WebPackage.MULTIPART_CONFIG_TYPE:
+				return validateMultipartConfigType((MultipartConfigType)value, diagnostics, context);
+			case WebPackage.ORDERING_ORDERING_TYPE:
+				return validateOrderingOrderingType((OrderingOrderingType)value, diagnostics, context);
+			case WebPackage.ORDERING_OTHERS_TYPE:
+				return validateOrderingOthersType((OrderingOthersType)value, diagnostics, context);
+			case WebPackage.ORDERING_TYPE:
+				return validateOrderingType((OrderingType)value, diagnostics, context);
 			case WebPackage.SECURITY_CONSTRAINT:
 				return validateSecurityConstraint((SecurityConstraint)value, diagnostics, context);
 			case WebPackage.SERVLET:
@@ -146,6 +166,8 @@ public class WebValidator extends EObjectValidator {
 				return validateWebApp((WebApp)value, diagnostics, context);
 			case WebPackage.WEB_APP_DEPLOYMENT_DESCRIPTOR:
 				return validateWebAppDeploymentDescriptor((WebAppDeploymentDescriptor)value, diagnostics, context);
+			case WebPackage.WEB_FRAGMENT:
+				return validateWebFragment((WebFragment)value, diagnostics, context);
 			case WebPackage.WEB_RESOURCE_COLLECTION:
 				return validateWebResourceCollection((WebResourceCollection)value, diagnostics, context);
 			case WebPackage.WELCOME_FILE_LIST:
@@ -154,6 +176,8 @@ public class WebValidator extends EObjectValidator {
 				return validateDispatcherType((DispatcherType)value, diagnostics, context);
 			case WebPackage.NULL_CHAR_TYPE:
 				return validateNullCharType((NullCharType)value, diagnostics, context);
+			case WebPackage.TRACKING_MODE_TYPE:
+				return validateTrackingModeType((TrackingModeType)value, diagnostics, context);
 			case WebPackage.TRANSPORT_GUARANTEE_TYPE:
 				return validateTransportGuaranteeType((TransportGuaranteeType)value, diagnostics, context);
 			case WebPackage.WEB_APP_VERSION_TYPE:
@@ -182,13 +206,15 @@ public class WebValidator extends EObjectValidator {
 				return validateNullCharTypeObject((NullCharType)value, diagnostics, context);
 			case WebPackage.SERVLET_NAME_TYPE:
 				return validateServletNameType((String)value, diagnostics, context);
+			case WebPackage.TRACKING_MODE_TYPE_OBJECT:
+				return validateTrackingModeTypeObject((TrackingModeType)value, diagnostics, context);
 			case WebPackage.TRANSPORT_GUARANTEE_TYPE_OBJECT:
 				return validateTransportGuaranteeTypeObject((TransportGuaranteeType)value, diagnostics, context);
 			case WebPackage.WAR_PATH_TYPE:
 				return validateWarPathType((String)value, diagnostics, context);
 			case WebPackage.WEB_APP_VERSION_TYPE_OBJECT:
 				return validateWebAppVersionTypeObject((WebAppVersionType)value, diagnostics, context);
-			default: 
+			default:
 				return true;
 		}
 	}
@@ -198,7 +224,16 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateAuthConstraint(AuthConstraint authConstraint, DiagnosticChain diagnostics, Map context) {
+	public boolean validateAbsoluteOrderingType(AbsoluteOrderingType absoluteOrderingType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint((EObject)absoluteOrderingType, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateAuthConstraint(AuthConstraint authConstraint, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)authConstraint, diagnostics, context);
 	}
 
@@ -207,7 +242,52 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateErrorPage(ErrorPage errorPage, DiagnosticChain diagnostics, Map context) {
+	public boolean validateCookieCommentType(CookieCommentType cookieCommentType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint((EObject)cookieCommentType, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateCookieConfigType(CookieConfigType cookieConfigType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint((EObject)cookieConfigType, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateCookieDomainType(CookieDomainType cookieDomainType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint((EObject)cookieDomainType, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateCookieNameType(CookieNameType cookieNameType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint((EObject)cookieNameType, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateCookiePathType(CookiePathType cookiePathType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint((EObject)cookiePathType, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateErrorPage(ErrorPage errorPage, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)errorPage, diagnostics, context);
 	}
 
@@ -216,7 +296,7 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateFilter(Filter filter, DiagnosticChain diagnostics, Map context) {
+	public boolean validateFilter(Filter filter, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)filter, diagnostics, context);
 	}
 
@@ -225,7 +305,7 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateFilterMapping(FilterMapping filterMapping, DiagnosticChain diagnostics, Map context) {
+	public boolean validateFilterMapping(FilterMapping filterMapping, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)filterMapping, diagnostics, context);
 	}
 
@@ -234,7 +314,7 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateFormLoginConfig(FormLoginConfig formLoginConfig, DiagnosticChain diagnostics, Map context) {
+	public boolean validateFormLoginConfig(FormLoginConfig formLoginConfig, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)formLoginConfig, diagnostics, context);
 	}
 
@@ -243,7 +323,7 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateLocaleEncodingMapping(LocaleEncodingMapping localeEncodingMapping, DiagnosticChain diagnostics, Map context) {
+	public boolean validateLocaleEncodingMapping(LocaleEncodingMapping localeEncodingMapping, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)localeEncodingMapping, diagnostics, context);
 	}
 
@@ -252,7 +332,7 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateLocaleEncodingMappingList(LocaleEncodingMappingList localeEncodingMappingList, DiagnosticChain diagnostics, Map context) {
+	public boolean validateLocaleEncodingMappingList(LocaleEncodingMappingList localeEncodingMappingList, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)localeEncodingMappingList, diagnostics, context);
 	}
 
@@ -261,7 +341,7 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateLoginConfig(LoginConfig loginConfig, DiagnosticChain diagnostics, Map context) {
+	public boolean validateLoginConfig(LoginConfig loginConfig, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)loginConfig, diagnostics, context);
 	}
 
@@ -270,7 +350,7 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateMimeMapping(MimeMapping mimeMapping, DiagnosticChain diagnostics, Map context) {
+	public boolean validateMimeMapping(MimeMapping mimeMapping, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)mimeMapping, diagnostics, context);
 	}
 
@@ -279,7 +359,43 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateSecurityConstraint(SecurityConstraint securityConstraint, DiagnosticChain diagnostics, Map context) {
+	public boolean validateMultipartConfigType(MultipartConfigType multipartConfigType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint((EObject)multipartConfigType, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateOrderingOrderingType(OrderingOrderingType orderingOrderingType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint((EObject)orderingOrderingType, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateOrderingOthersType(OrderingOthersType orderingOthersType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint((EObject)orderingOthersType, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateOrderingType(OrderingType orderingType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint((EObject)orderingType, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateSecurityConstraint(SecurityConstraint securityConstraint, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)securityConstraint, diagnostics, context);
 	}
 
@@ -288,7 +404,7 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateServlet(Servlet servlet, DiagnosticChain diagnostics, Map context) {
+	public boolean validateServlet(Servlet servlet, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)servlet, diagnostics, context);
 	}
 
@@ -297,7 +413,7 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateServletMapping(ServletMapping servletMapping, DiagnosticChain diagnostics, Map context) {
+	public boolean validateServletMapping(ServletMapping servletMapping, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)servletMapping, diagnostics, context);
 	}
 
@@ -306,7 +422,7 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateSessionConfig(SessionConfig sessionConfig, DiagnosticChain diagnostics, Map context) {
+	public boolean validateSessionConfig(SessionConfig sessionConfig, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)sessionConfig, diagnostics, context);
 	}
 
@@ -315,7 +431,7 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateUserDataConstraint(UserDataConstraint userDataConstraint, DiagnosticChain diagnostics, Map context) {
+	public boolean validateUserDataConstraint(UserDataConstraint userDataConstraint, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)userDataConstraint, diagnostics, context);
 	}
 
@@ -324,7 +440,7 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateWebApp(WebApp webApp, DiagnosticChain diagnostics, Map context) {
+	public boolean validateWebApp(WebApp webApp, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)webApp, diagnostics, context);
 	}
 
@@ -333,7 +449,7 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateWebAppDeploymentDescriptor(WebAppDeploymentDescriptor webAppDeploymentDescriptor, DiagnosticChain diagnostics, Map context) {
+	public boolean validateWebAppDeploymentDescriptor(WebAppDeploymentDescriptor webAppDeploymentDescriptor, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)webAppDeploymentDescriptor, diagnostics, context);
 	}
 
@@ -342,7 +458,16 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateWebResourceCollection(WebResourceCollection webResourceCollection, DiagnosticChain diagnostics, Map context) {
+	public boolean validateWebFragment(WebFragment webFragment, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint((EObject)webFragment, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateWebResourceCollection(WebResourceCollection webResourceCollection, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)webResourceCollection, diagnostics, context);
 	}
 
@@ -351,7 +476,7 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateWelcomeFileList(WelcomeFileList welcomeFileList, DiagnosticChain diagnostics, Map context) {
+	public boolean validateWelcomeFileList(WelcomeFileList welcomeFileList, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)welcomeFileList, diagnostics, context);
 	}
 
@@ -360,7 +485,7 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateDispatcherType(DispatcherType dispatcherType, DiagnosticChain diagnostics, Map context) {
+	public boolean validateDispatcherType(DispatcherType dispatcherType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 
@@ -369,7 +494,7 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateNullCharType(NullCharType nullCharType, DiagnosticChain diagnostics, Map context) {
+	public boolean validateNullCharType(NullCharType nullCharType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 
@@ -378,7 +503,7 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateTransportGuaranteeType(TransportGuaranteeType transportGuaranteeType, DiagnosticChain diagnostics, Map context) {
+	public boolean validateTrackingModeType(TrackingModeType trackingModeType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 
@@ -387,7 +512,7 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateWebAppVersionType(WebAppVersionType webAppVersionType, DiagnosticChain diagnostics, Map context) {
+	public boolean validateTransportGuaranteeType(TransportGuaranteeType transportGuaranteeType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 
@@ -396,7 +521,7 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateAuthMethodType(String authMethodType, DiagnosticChain diagnostics, Map context) {
+	public boolean validateWebAppVersionType(WebAppVersionType webAppVersionType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 
@@ -405,7 +530,7 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateDispatcherTypeObject(DispatcherType dispatcherTypeObject, DiagnosticChain diagnostics, Map context) {
+	public boolean validateAuthMethodType(String authMethodType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 
@@ -414,7 +539,16 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateEncodingType(String encodingType, DiagnosticChain diagnostics, Map context) {
+	public boolean validateDispatcherTypeObject(DispatcherType dispatcherTypeObject, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateEncodingType(String encodingType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		boolean result = validateEncodingType_Pattern(encodingType, diagnostics, context);
 		return result;
 	}
@@ -438,7 +572,7 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateEncodingType_Pattern(String encodingType, DiagnosticChain diagnostics, Map context) {
+	public boolean validateEncodingType_Pattern(String encodingType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validatePattern(WebPackage.Literals.ENCODING_TYPE, encodingType, ENCODING_TYPE__PATTERN__VALUES, diagnostics, context);
 	}
 
@@ -447,7 +581,7 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateErrorCodeType(BigInteger errorCodeType, DiagnosticChain diagnostics, Map context) {
+	public boolean validateErrorCodeType(BigInteger errorCodeType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		boolean result = xmlTypeValidator.validatePositiveInteger_Min(errorCodeType, diagnostics, context);
 		if (result || diagnostics != null) result &= validateErrorCodeType_Pattern(errorCodeType, diagnostics, context);
 		return result;
@@ -472,7 +606,7 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateErrorCodeType_Pattern(BigInteger errorCodeType, DiagnosticChain diagnostics, Map context) {
+	public boolean validateErrorCodeType_Pattern(BigInteger errorCodeType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validatePattern(WebPackage.Literals.ERROR_CODE_TYPE, errorCodeType, ERROR_CODE_TYPE__PATTERN__VALUES, diagnostics, context);
 	}
 
@@ -481,7 +615,7 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateFilterNameType(String filterNameType, DiagnosticChain diagnostics, Map context) {
+	public boolean validateFilterNameType(String filterNameType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		boolean result = validateNonEmptyStringType_MinLength(filterNameType, diagnostics, context);
 		return result;
 	}
@@ -491,7 +625,7 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateHttpMethodType(String httpMethodType, DiagnosticChain diagnostics, Map context) {
+	public boolean validateHttpMethodType(String httpMethodType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		boolean result = validateHttpMethodType_Pattern(httpMethodType, diagnostics, context);
 		return result;
 	}
@@ -505,7 +639,7 @@ public class WebValidator extends EObjectValidator {
 	public static final  PatternMatcher [][] HTTP_METHOD_TYPE__PATTERN__VALUES =
 		new PatternMatcher [][] {
 			new PatternMatcher [] {
-				XMLTypeUtil.createPatternMatcher("[\\p{L}-[\\p{Cc}\\p{Z}]]+") //$NON-NLS-1$
+				XMLTypeUtil.createPatternMatcher("[!-~-[\\(\\)<>@,;:\"/\\[\\]?=\\{\\}\\\\\\p{Z}]]+") //$NON-NLS-1$
 			}
 		};
 
@@ -515,7 +649,7 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateHttpMethodType_Pattern(String httpMethodType, DiagnosticChain diagnostics, Map context) {
+	public boolean validateHttpMethodType_Pattern(String httpMethodType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validatePattern(WebPackage.Literals.HTTP_METHOD_TYPE, httpMethodType, HTTP_METHOD_TYPE__PATTERN__VALUES, diagnostics, context);
 	}
 
@@ -524,7 +658,7 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateLoadOnStartupType(Object loadOnStartupType, DiagnosticChain diagnostics, Map context) {
+	public boolean validateLoadOnStartupType(Object loadOnStartupType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		boolean result = validateLoadOnStartupType_MemberTypes(loadOnStartupType, diagnostics, context);
 		return result;
 	}
@@ -535,7 +669,7 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateLoadOnStartupType_MemberTypes(Object loadOnStartupType, DiagnosticChain diagnostics, Map context) {
+	public boolean validateLoadOnStartupType_MemberTypes(Object loadOnStartupType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		if (diagnostics != null) {
 			BasicDiagnostic tempDiagnostics = new BasicDiagnostic();
 			if (WebPackage.Literals.NULL_CHAR_TYPE.isInstance(loadOnStartupType)) {
@@ -544,9 +678,8 @@ public class WebValidator extends EObjectValidator {
 			if (XMLTypePackage.Literals.INTEGER.isInstance(loadOnStartupType)) {
 				if (xmlTypeValidator.validateInteger((BigInteger)loadOnStartupType, tempDiagnostics, context)) return true;
 			}
-			List children = tempDiagnostics.getChildren();
-			for (int i = 0; i < children.size(); i++) {
-				diagnostics.add((Diagnostic)children.get(i));
+			for (Diagnostic diagnostic : tempDiagnostics.getChildren()) {
+				diagnostics.add(diagnostic);
 			}
 		}
 		else {
@@ -565,7 +698,7 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateLocaleType(String localeType, DiagnosticChain diagnostics, Map context) {
+	public boolean validateLocaleType(String localeType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		boolean result = validateLocaleType_Pattern(localeType, diagnostics, context);
 		return result;
 	}
@@ -589,7 +722,7 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateLocaleType_Pattern(String localeType, DiagnosticChain diagnostics, Map context) {
+	public boolean validateLocaleType_Pattern(String localeType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validatePattern(WebPackage.Literals.LOCALE_TYPE, localeType, LOCALE_TYPE__PATTERN__VALUES, diagnostics, context);
 	}
 
@@ -598,7 +731,7 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateMimeTypeType(String mimeTypeType, DiagnosticChain diagnostics, Map context) {
+	public boolean validateMimeTypeType(String mimeTypeType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		boolean result = validateMimeTypeType_Pattern(mimeTypeType, diagnostics, context);
 		return result;
 	}
@@ -622,7 +755,7 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateMimeTypeType_Pattern(String mimeTypeType, DiagnosticChain diagnostics, Map context) {
+	public boolean validateMimeTypeType_Pattern(String mimeTypeType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validatePattern(WebPackage.Literals.MIME_TYPE_TYPE, mimeTypeType, MIME_TYPE_TYPE__PATTERN__VALUES, diagnostics, context);
 	}
 
@@ -631,7 +764,7 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateNonEmptyStringType(String nonEmptyStringType, DiagnosticChain diagnostics, Map context) {
+	public boolean validateNonEmptyStringType(String nonEmptyStringType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		boolean result = validateNonEmptyStringType_MinLength(nonEmptyStringType, diagnostics, context);
 		return result;
 	}
@@ -642,10 +775,10 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateNonEmptyStringType_MinLength(String nonEmptyStringType, DiagnosticChain diagnostics, Map context) {
-		int length = nonEmptyStringType.length();  
+	public boolean validateNonEmptyStringType_MinLength(String nonEmptyStringType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		int length = nonEmptyStringType.length();
 		boolean result = length >= 1;
-		if (!result && diagnostics != null) 
+		if (!result && diagnostics != null)
 			reportMinLengthViolation(WebPackage.Literals.NON_EMPTY_STRING_TYPE, nonEmptyStringType, length, 1, diagnostics, context);
 		return result;
 	}
@@ -655,7 +788,7 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateNullCharTypeObject(NullCharType nullCharTypeObject, DiagnosticChain diagnostics, Map context) {
+	public boolean validateNullCharTypeObject(NullCharType nullCharTypeObject, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 
@@ -664,7 +797,7 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateServletNameType(String servletNameType, DiagnosticChain diagnostics, Map context) {
+	public boolean validateServletNameType(String servletNameType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		boolean result = validateNonEmptyStringType_MinLength(servletNameType, diagnostics, context);
 		return result;
 	}
@@ -674,7 +807,7 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateTransportGuaranteeTypeObject(TransportGuaranteeType transportGuaranteeTypeObject, DiagnosticChain diagnostics, Map context) {
+	public boolean validateTrackingModeTypeObject(TrackingModeType trackingModeTypeObject, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 
@@ -683,7 +816,16 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateWarPathType(String warPathType, DiagnosticChain diagnostics, Map context) {
+	public boolean validateTransportGuaranteeTypeObject(TransportGuaranteeType transportGuaranteeTypeObject, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateWarPathType(String warPathType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		boolean result = validateWarPathType_Pattern(warPathType, diagnostics, context);
 		return result;
 	}
@@ -707,7 +849,7 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateWarPathType_Pattern(String warPathType, DiagnosticChain diagnostics, Map context) {
+	public boolean validateWarPathType_Pattern(String warPathType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validatePattern(WebPackage.Literals.WAR_PATH_TYPE, warPathType, WAR_PATH_TYPE__PATTERN__VALUES, diagnostics, context);
 	}
 
@@ -716,8 +858,22 @@ public class WebValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean validateWebAppVersionTypeObject(WebAppVersionType webAppVersionTypeObject, DiagnosticChain diagnostics, Map context) {
+	public boolean validateWebAppVersionTypeObject(WebAppVersionType webAppVersionTypeObject, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
+	}
+
+	/**
+	 * Returns the resource locator that will be used to fetch messages for this validator's diagnostics.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ResourceLocator getResourceLocator() {
+		// TODO
+		// Specialize this to return a resource locator for messages specific to this validator.
+		// Ensure that you remove @generated or mark it @generated NOT
+		return super.getResourceLocator();
 	}
 
 } //WebValidator

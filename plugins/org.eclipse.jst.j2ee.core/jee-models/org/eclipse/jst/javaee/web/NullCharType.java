@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.emf.common.util.AbstractEnumerator;
+import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,7 +24,17 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getNullCharType()
  * @generated
  */
-public final class NullCharType extends AbstractEnumerator {
+public enum NullCharType implements Enumerator
+{
+	/**
+	 * The '<em><b></b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #_
+	 * @generated
+	 * @ordered
+	 */
+	__LITERAL(0, "_", ""); //$NON-NLS-1$ //$NON-NLS-2$
 	/**
 	 * The '<em><b></b></em>' literal value.
 	 * <!-- begin-user-doc -->
@@ -38,16 +48,6 @@ public final class NullCharType extends AbstractEnumerator {
 	 * @ordered
 	 */
 	public static final int _ = 0;
-
-	/**
-	 * The '<em><b></b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #_
-	 * @generated
-	 * @ordered
-	 */
-	public static final NullCharType __LITERAL = new NullCharType(_, "_", ""); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * An array of all the '<em><b>Null Char Type</b></em>' enumerators.
@@ -66,7 +66,7 @@ public final class NullCharType extends AbstractEnumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<NullCharType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>Null Char Type</b></em>' literal with the specified literal value.
@@ -110,8 +110,29 @@ public final class NullCharType extends AbstractEnumerator {
 		switch (value) {
 			case _: return __LITERAL;
 		}
-		return null;	
+		return null;
 	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final int value;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String name;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String literal;
 
 	/**
 	 * Only this class can construct instances.
@@ -120,7 +141,46 @@ public final class NullCharType extends AbstractEnumerator {
 	 * @generated
 	 */
 	private NullCharType(int value, String name, String literal) {
-		super(value, name, literal);
+		this.value = value;
+		this.name = name;
+		this.literal = literal;
 	}
 
-} //NullCharType
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getValue() {
+	  return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getName() {
+	  return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getLiteral() {
+	  return literal;
+	}
+
+	/**
+	 * Returns the literal value of the enumerator, which is its string representation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		return literal;
+	}
+}

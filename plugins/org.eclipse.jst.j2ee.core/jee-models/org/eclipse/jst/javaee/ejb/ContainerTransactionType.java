@@ -12,6 +12,7 @@ package org.eclipse.jst.javaee.ejb;
 
 import java.util.List;
 
+import org.eclipse.jst.javaee.core.Description;
 import org.eclipse.jst.javaee.core.JavaEEObject;
 
 /**
@@ -22,13 +23,14 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The container-transactionType specifies how the container
- * 	must manage transaction scopes for the enterprise bean's
- * 	method invocations. It defines an optional description, a
- * 	list of method elements, and a transaction attribute. The
- * 	transaction attribute is to be applied to all the specified
- * 	methods.
- * 
+ *         The container-transactionType specifies how the container
+ *         must manage transaction scopes for the enterprise bean's
+ *         method invocations. It defines an optional description, a
+ *         list of method elements, and a transaction attribute. The
+ *         transaction attribute is to be applied to all the specified
+ *         methods.
+ *         
+ *         @since Java EE 5, EJB 3.0
  *       
  * <!-- end-model-doc -->
  *
@@ -60,7 +62,7 @@ public interface ContainerTransactionType extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getContainerTransactionType_Descriptions()
 	 * @generated
 	 */
-	List getDescriptions();
+	List<Description> getDescriptions();
 
 	/**
 	 * Returns the value of the '<em><b>Methods</b></em>' containment reference list.
@@ -75,11 +77,10 @@ public interface ContainerTransactionType extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getContainerTransactionType_Methods()
 	 * @generated
 	 */
-	List getMethods();
+	List<MethodType> getMethods();
 
 	/**
 	 * Returns the value of the '<em><b>Trans Attribute</b></em>' attribute.
-	 * The default value is <code>"NotSupported"</code>.
 	 * The literals are from the enumeration {@link org.eclipse.jst.javaee.ejb.TransactionAttributeType}.
 	 * <!-- begin-user-doc -->
 	 * <p>

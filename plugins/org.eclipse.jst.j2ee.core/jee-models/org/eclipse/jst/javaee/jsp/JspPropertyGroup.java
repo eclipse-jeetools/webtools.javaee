@@ -12,7 +12,11 @@ package org.eclipse.jst.javaee.jsp;
 
 import java.util.List;
 
+import org.eclipse.jst.javaee.core.Description;
+import org.eclipse.jst.javaee.core.DisplayName;
+import org.eclipse.jst.javaee.core.Icon;
 import org.eclipse.jst.javaee.core.JavaEEObject;
+import org.eclipse.jst.javaee.core.UrlPatternType;
 
 /**
  * <!-- begin-user-doc -->
@@ -36,7 +40,12 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  *               when used as a String literal.
  *             - Control whether template text containing only
  *               whitespaces must be removed from the response output.
+ * 	    - Indicate the default contentType information.
+ * 	    - Indicate the default buffering model for JspWriter
+ * 	    - Control whether error should be raised for the use of
+ * 	      undeclared namespaces in a JSP page.
  * 
+ * 	@since Java EE 5, JSP 2.1
  *       
  * <!-- end-model-doc -->
  *
@@ -55,6 +64,9 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  *   <li>{@link org.eclipse.jst.javaee.jsp.JspPropertyGroup#getIncludeCodas <em>Include Codas</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.jsp.JspPropertyGroup#isDeferredSyntaxAllowedAsLiteral <em>Deferred Syntax Allowed As Literal</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.jsp.JspPropertyGroup#isTrimDirectiveWhitespaces <em>Trim Directive Whitespaces</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.jsp.JspPropertyGroup#getDefaultContentType <em>Default Content Type</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.jsp.JspPropertyGroup#getBuffer <em>Buffer</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.jsp.JspPropertyGroup#isErrorOnUndeclaredNamespace <em>Error On Undeclared Namespace</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.jsp.JspPropertyGroup#getId <em>Id</em>}</li>
  * </ul>
  * </p>
@@ -77,7 +89,7 @@ public interface JspPropertyGroup extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.jsp.internal.metadata.JspPackage#getJspPropertyGroup_Descriptions()
 	 * @generated
 	 */
-	List getDescriptions();
+	List<Description> getDescriptions();
 
 	/**
 	 * Returns the value of the '<em><b>Display Names</b></em>' containment reference list.
@@ -92,7 +104,7 @@ public interface JspPropertyGroup extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.jsp.internal.metadata.JspPackage#getJspPropertyGroup_DisplayNames()
 	 * @generated
 	 */
-	List getDisplayNames();
+	List<DisplayName> getDisplayNames();
 
 	/**
 	 * Returns the value of the '<em><b>Icons</b></em>' containment reference list.
@@ -107,7 +119,7 @@ public interface JspPropertyGroup extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.jsp.internal.metadata.JspPackage#getJspPropertyGroup_Icons()
 	 * @generated
 	 */
-	List getIcons();
+	List<Icon> getIcons();
 
 	/**
 	 * Returns the value of the '<em><b>Url Patterns</b></em>' containment reference list.
@@ -122,7 +134,7 @@ public interface JspPropertyGroup extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.jsp.internal.metadata.JspPackage#getJspPropertyGroup_UrlPatterns()
 	 * @generated
 	 */
-	List getUrlPatterns();
+	List<UrlPatternType> getUrlPatterns();
 
 	/**
 	 * Returns the value of the '<em><b>El Ignored</b></em>' attribute.
@@ -137,6 +149,7 @@ public interface JspPropertyGroup extends JavaEEObject {
 	 * 	    a Servlet 2.4 or greater web.xml, and disabled
 	 * 	    otherwise.
 	 * 
+	 * 	    @since Java EE 5, JSP 2.1
 	 * 	  
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>El Ignored</em>' attribute.
@@ -202,6 +215,7 @@ public interface JspPropertyGroup extends JavaEEObject {
 	 * 	    It is legal to name the same encoding through
 	 * 	    mulitple mechanisms.
 	 * 
+	 * 	    @since Java EE 5, JSP 2.1
 	 * 	  
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Page Encoding</em>' attribute.
@@ -232,6 +246,7 @@ public interface JspPropertyGroup extends JavaEEObject {
 	 * 	    group of JSP pages.  By default, scripting is
 	 * 	    enabled.
 	 * 
+	 * 	    @since Java EE 5, JSP 2.1
 	 * 	  
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Scripting Invalid</em>' attribute.
@@ -292,6 +307,7 @@ public interface JspPropertyGroup extends JavaEEObject {
 	 * 	    be JSP documents, unless there is another
 	 * 	    property group that indicates otherwise.
 	 * 
+	 * 	    @since Java EE 5, JSP 2.1
 	 * 	  
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Is Xml</em>' attribute.
@@ -353,13 +369,14 @@ public interface JspPropertyGroup extends JavaEEObject {
 	 * 	    in an include directive) at the beginning of each
 	 * 	    JSP page in this jsp-property-group.
 	 * 
+	 * 	    @since Java EE 5, JSP 2.1
 	 * 	  
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Include Preludes</em>' attribute list.
 	 * @see org.eclipse.jst.javaee.jsp.internal.metadata.JspPackage#getJspPropertyGroup_IncludePreludes()
 	 * @generated
 	 */
-	List getIncludePreludes();
+	List<String> getIncludePreludes();
 
 	/**
 	 * Returns the value of the '<em><b>Include Codas</b></em>' attribute list.
@@ -376,13 +393,14 @@ public interface JspPropertyGroup extends JavaEEObject {
 	 * 	    in an include directive) at the end of each
 	 * 	    JSP page in this jsp-property-group.
 	 * 
+	 * 	    @since Java EE 5, JSP 2.1
 	 * 	  
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Include Codas</em>' attribute list.
 	 * @see org.eclipse.jst.javaee.jsp.internal.metadata.JspPackage#getJspPropertyGroup_IncludeCodas()
 	 * @generated
 	 */
-	List getIncludeCodas();
+	List<String> getIncludeCodas();
 
 	/**
 	 * Returns the value of the '<em><b>Deferred Syntax Allowed As Literal</b></em>' attribute.
@@ -397,6 +415,7 @@ public interface JspPropertyGroup extends JavaEEObject {
 	 *              this element is enabled (true). Disabled (false) by
 	 *              default.
 	 * 
+	 *              @since Java EE 5, JSP 2.1
 	 * 	  
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Deferred Syntax Allowed As Literal</em>' attribute.
@@ -455,6 +474,7 @@ public interface JspPropertyGroup extends JavaEEObject {
 	 *              effect on JSP documents (XML syntax). Disabled (false)
 	 *              by default.
 	 * 
+	 *              @since Java EE 5, JSP 2.1
 	 * 	  
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Trim Directive Whitespaces</em>' attribute.
@@ -500,6 +520,130 @@ public interface JspPropertyGroup extends JavaEEObject {
 	 * @generated
 	 */
 	boolean isSetTrimDirectiveWhitespaces();
+
+	/**
+	 * Returns the value of the '<em><b>Default Content Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * 
+	 *             The valid values of default-content-type are those of the
+	 *             contentType page directive.  It specifies the default
+	 *             response contentType if the page directive does not include
+	 *             a contentType attribute.
+	 * 
+	 *             @since Java EE 6, JSP 2.2
+	 *           
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Default Content Type</em>' attribute.
+	 * @see #setDefaultContentType(String)
+	 * @see org.eclipse.jst.javaee.jsp.internal.metadata.JspPackage#getJspPropertyGroup_DefaultContentType()
+	 * @generated
+	 */
+	String getDefaultContentType();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.jst.javaee.jsp.JspPropertyGroup#getDefaultContentType <em>Default Content Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Default Content Type</em>' attribute.
+	 * @see #getDefaultContentType()
+	 * @generated
+	 */
+	void setDefaultContentType(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Buffer</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * 
+	 *             The valid values of buffer are those of the
+	 *             buffer page directive.  It specifies if buffering should be
+	 *             used for the output to response, and if so, the size of the
+	 *             buffer to use.
+	 * 
+	 *             @since Java EE 6, JSP 2.2
+	 *           
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Buffer</em>' attribute.
+	 * @see #setBuffer(String)
+	 * @see org.eclipse.jst.javaee.jsp.internal.metadata.JspPackage#getJspPropertyGroup_Buffer()
+	 * @generated
+	 */
+	String getBuffer();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.jst.javaee.jsp.JspPropertyGroup#getBuffer <em>Buffer</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Buffer</em>' attribute.
+	 * @see #getBuffer()
+	 * @generated
+	 */
+	void setBuffer(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Error On Undeclared Namespace</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * 
+	 *             The default behavior when a tag with unknown namespace is used
+	 *             in a JSP page (regular syntax) is to silently ignore it.  If
+	 *             set to true, then an error must be raised during the translation
+	 *             time when an undeclared tag is used in a JSP page.  Disabled
+	 *             (false) by default.
+	 * 
+	 *             @since Java EE 6, JSP 2.2
+	 *           
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Error On Undeclared Namespace</em>' attribute.
+	 * @see #isSetErrorOnUndeclaredNamespace()
+	 * @see #unsetErrorOnUndeclaredNamespace()
+	 * @see #setErrorOnUndeclaredNamespace(boolean)
+	 * @see org.eclipse.jst.javaee.jsp.internal.metadata.JspPackage#getJspPropertyGroup_ErrorOnUndeclaredNamespace()
+	 * @generated
+	 */
+	boolean isErrorOnUndeclaredNamespace();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.jst.javaee.jsp.JspPropertyGroup#isErrorOnUndeclaredNamespace <em>Error On Undeclared Namespace</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Error On Undeclared Namespace</em>' attribute.
+	 * @see #isSetErrorOnUndeclaredNamespace()
+	 * @see #unsetErrorOnUndeclaredNamespace()
+	 * @see #isErrorOnUndeclaredNamespace()
+	 * @generated
+	 */
+	void setErrorOnUndeclaredNamespace(boolean value);
+
+	/**
+	 * Unsets the value of the '{@link org.eclipse.jst.javaee.jsp.JspPropertyGroup#isErrorOnUndeclaredNamespace <em>Error On Undeclared Namespace</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetErrorOnUndeclaredNamespace()
+	 * @see #isErrorOnUndeclaredNamespace()
+	 * @see #setErrorOnUndeclaredNamespace(boolean)
+	 * @generated
+	 */
+	void unsetErrorOnUndeclaredNamespace();
+
+	/**
+	 * Returns whether the value of the '{@link org.eclipse.jst.javaee.jsp.JspPropertyGroup#isErrorOnUndeclaredNamespace <em>Error On Undeclared Namespace</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Error On Undeclared Namespace</em>' attribute is set.
+	 * @see #unsetErrorOnUndeclaredNamespace()
+	 * @see #isErrorOnUndeclaredNamespace()
+	 * @see #setErrorOnUndeclaredNamespace(boolean)
+	 * @generated
+	 */
+	boolean isSetErrorOnUndeclaredNamespace();
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.

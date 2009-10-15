@@ -11,6 +11,7 @@
 package org.eclipse.jst.javaee.ejb;
 
 import org.eclipse.emf.ecore.EFactory;
+
 import org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage;
 
 /**
@@ -29,6 +30,15 @@ public interface EjbFactory extends EFactory {
 	 * @generated
 	 */
 	EjbFactory eINSTANCE = org.eclipse.jst.javaee.ejb.internal.impl.EjbFactoryImpl.init();
+
+	/**
+	 * Returns a new object of class '<em>Access Timeout Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Access Timeout Type</em>'.
+	 * @generated
+	 */
+	AccessTimeoutType createAccessTimeoutType();
 
 	/**
 	 * Returns a new object of class '<em>Activation Config</em>'.
@@ -67,6 +77,15 @@ public interface EjbFactory extends EFactory {
 	AroundInvokeType createAroundInvokeType();
 
 	/**
+	 * Returns a new object of class '<em>Around Timeout Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Around Timeout Type</em>'.
+	 * @generated
+	 */
+	AroundTimeoutType createAroundTimeoutType();
+
+	/**
 	 * Returns a new object of class '<em>Assembly Descriptor</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -74,6 +93,15 @@ public interface EjbFactory extends EFactory {
 	 * @generated
 	 */
 	AssemblyDescriptor createAssemblyDescriptor();
+
+	/**
+	 * Returns a new object of class '<em>Async Method Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Async Method Type</em>'.
+	 * @generated
+	 */
+	AsyncMethodType createAsyncMethodType();
 
 	/**
 	 * Returns a new object of class '<em>CMP Field</em>'.
@@ -94,6 +122,15 @@ public interface EjbFactory extends EFactory {
 	CMRField createCMRField();
 
 	/**
+	 * Returns a new object of class '<em>Concurrent Method Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Concurrent Method Type</em>'.
+	 * @generated
+	 */
+	ConcurrentMethodType createConcurrentMethodType();
+
+	/**
 	 * Returns a new object of class '<em>Container Transaction Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -101,6 +138,15 @@ public interface EjbFactory extends EFactory {
 	 * @generated
 	 */
 	ContainerTransactionType createContainerTransactionType();
+
+	/**
+	 * Returns a new object of class '<em>Depends On Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Depends On Type</em>'.
+	 * @generated
+	 */
+	DependsOnType createDependsOnType();
 
 	/**
 	 * Returns a new object of class '<em>EJB Jar</em>'.
@@ -317,6 +363,33 @@ public interface EjbFactory extends EFactory {
 	 * @generated
 	 */
 	SessionBean createSessionBean();
+
+	/**
+	 * Returns a new object of class '<em>Stateful Timeout Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Stateful Timeout Type</em>'.
+	 * @generated
+	 */
+	StatefulTimeoutType createStatefulTimeoutType();
+
+	/**
+	 * Returns a new object of class '<em>Timer Schedule Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Timer Schedule Type</em>'.
+	 * @generated
+	 */
+	TimerScheduleType createTimerScheduleType();
+
+	/**
+	 * Returns a new object of class '<em>Timer Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Timer Type</em>'.
+	 * @generated
+	 */
+	TimerType createTimerType();
 
 	/**
 	 * Returns the package supported by this factory.

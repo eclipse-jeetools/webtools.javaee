@@ -12,6 +12,7 @@ package org.eclipse.jst.javaee.web;
 
 import java.util.List;
 
+import org.eclipse.jst.javaee.core.Description;
 import org.eclipse.jst.javaee.core.JavaEEObject;
 
 /**
@@ -22,12 +23,13 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The user-data-constraintType is used to indicate how
- * 	data communicated between the client and container should be
- * 	protected.
- * 
- * 	Used in: security-constraint
- * 
+ *         The user-data-constraintType is used to indicate how
+ *         data communicated between the client and container should be
+ *         protected.
+ *         
+ *         Used in: security-constraint
+ *         
+ *         @since Java EE 5, Web 2.5
  *       
  * <!-- end-model-doc -->
  *
@@ -58,11 +60,10 @@ public interface UserDataConstraint extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getUserDataConstraint_Descriptions()
 	 * @generated
 	 */
-	List getDescriptions();
+	List<Description> getDescriptions();
 
 	/**
 	 * Returns the value of the '<em><b>Transport Guarantee</b></em>' attribute.
-	 * The default value is <code>"NONE"</code>.
 	 * The literals are from the enumeration {@link org.eclipse.jst.javaee.web.TransportGuaranteeType}.
 	 * <!-- begin-user-doc -->
 	 * <p>

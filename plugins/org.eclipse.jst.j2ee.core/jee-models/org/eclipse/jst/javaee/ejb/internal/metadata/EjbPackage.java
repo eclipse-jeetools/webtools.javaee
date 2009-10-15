@@ -31,265 +31,243 @@ import org.eclipse.jst.javaee.ejb.EjbFactory;
  * <!-- end-user-doc -->
  * <!-- begin-model-doc -->
  * 
- *       @(#)ejb-jar_3_0.xsds	1.51 02/23/06
- *     
  * 
- * 
- *       Copyright 2003-2006 Sun Microsystems, Inc.
- *       4150 Network Circle
- *       Santa Clara, California 95054
- *       U.S.A
- *       All rights reserved.
- * 
- *       Sun Microsystems, Inc. has intellectual property rights
- *       relating to technology described in this document. In
- *       particular, and without limitation, these intellectual
- *       property rights may include one or more of the U.S. patents
- *       listed at http://www.sun.com/patents and one or more
- *       additional patents or pending patent applications in the
- *       U.S. and other countries.
- * 
- *       This document and the technology which it describes are
- *       distributed under licenses restricting their use, copying,
- *       distribution, and decompilation. No part of this document
- *       may be reproduced in any form by any means without prior
- *       written authorization of Sun and its licensors, if any.
- * 
- *       Third-party software, including font technology, is
- *       copyrighted and licensed from Sun suppliers.
- * 
- *       Sun, Sun Microsystems, the Sun logo, Solaris, Java, javaee,
- *       JavaServer Pages, Enterprise JavaBeans and the Java Coffee
- *       Cup logo are trademarks or registered trademarks of Sun
- *       Microsystems, Inc. in the U.S. and other countries.
- * 
- *       Federal Acquisitions: Commercial Software - Government Users
- *       Subject to Standard License Terms and Conditions.
- * 
- *     
- * 
+ *       $Id: EjbPackage.java,v 1.3 2009/10/15 18:52:07 canderson Exp $
  *       
+ *     
  * 
- * 	This is the XML Schema for the EJB 3.0 deployment descriptor.
- * 	The deployment descriptor must be named "META-INF/ejb-jar.xml" in
- * 	the EJB's jar file.  All EJB deployment descriptors must indicate
- * 	the ejb-jar schema by using the Java EE namespace:
- * 
- * 	http://java.sun.com/xml/ns/javaee
- * 
- * 	and by indicating the version of the schema by
- * 	using the version element as shown below:
- * 
- * 	    &lt;ejb-jar xmlns="http://java.sun.com/xml/ns/javaee"
- * 	      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- * 	      xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
- * 		  http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd"
- * 	      version="3.0"&gt;
- * 	      ...
- * 	    &lt;/ejb-jar&gt;
- * 
- * 	The instance documents may indicate the published version of
- * 	the schema using the xsi:schemaLocation attribute for the
- * 	Java EE namespace with the following location:
- * 
- * 	http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd
- * 
- * 	
+ * <![CDATA[[
+ *       This is the XML Schema for the EJB 3.1 deployment descriptor.
+ *       
+ *       All EJB deployment descriptors must indicate
+ *       the ejb-jar schema by using the Java EE namespace:
+ *       
+ *       http://java.sun.com/xml/ns/javaee
+ *       
+ *       and by indicating the version of the schema by
+ *       using the version element as shown below:
+ *       
+ *       <ejb-jar xmlns="http://java.sun.com/xml/ns/javaee"
+ *       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ *       xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+ *       	  http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd"
+ *       version="3.1">
+ *       ...
+ *       </ejb-jar>
+ *       
+ *       The instance documents may indicate the published version of
+ *       the schema using the xsi:schemaLocation attribute for the
+ *       Java EE namespace with the following location:
+ *       
+ *       http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd
+ *       
+ * ]]>
  *     
  * 
  * 
  *       The following conventions apply to all Java EE
  *       deployment descriptor elements unless indicated otherwise.
- * 
+ *       
  *       - In elements that specify a pathname to a file within the
- * 	same JAR file, relative filenames (i.e., those not
- * 	starting with "/") are considered relative to the root of
- * 	the JAR file's namespace.  Absolute filenames (i.e., those
- * 	starting with "/") also specify names in the root of the
- * 	JAR file's namespace.  In general, relative names are
- * 	preferred.  The exception is .war files where absolute
- * 	names are preferred for consistency with the Servlet API.
- * 
- *     
- * 
- *       @(#)javaee_5.xsds	1.65 06/02/17
+ *       same JAR file, relative filenames (i.e., those not
+ *       starting with "/") are considered relative to the root of
+ *       the JAR file's namespace.  Absolute filenames (i.e., those
+ *       starting with "/") also specify names in the root of the
+ *       JAR file's namespace.  In general, relative names are
+ *       preferred.  The exception is .war files where absolute
+ *       names are preferred for consistency with the Servlet API.
+ *       
  *     
  * 
  * 
- *       Copyright 2003-2006 Sun Microsystems, Inc.
- *       4150 Network Circle
- *       Santa Clara, California 95054
- *       U.S.A
- *       All rights reserved.
- * 
- *       Sun Microsystems, Inc. has intellectual property rights
- *       relating to technology described in this document. In
- *       particular, and without limitation, these intellectual
- *       property rights may include one or more of the U.S. patents
- *       listed at http://www.sun.com/patents and one or more
- *       additional patents or pending patent applications in the
- *       U.S. and other countries.
- * 
- *       This document and the technology which it describes are
- *       distributed under licenses restricting their use, copying,
- *       distribution, and decompilation. No part of this document
- *       may be reproduced in any form by any means without prior
- *       written authorization of Sun and its licensors, if any.
- * 
- *       Third-party software, including font technology, is
- *       copyrighted and licensed from Sun suppliers.
- * 
- *       Sun, Sun Microsystems, the Sun logo, Solaris, Java, J2EE,
- *       JavaServer Pages, Enterprise JavaBeans and the Java Coffee
- *       Cup logo are trademarks or registered trademarks of Sun
- *       Microsystems, Inc. in the U.S. and other countries.
- * 
- *       Federal Acquisitions: Commercial Software - Government Users
- *       Subject to Standard License Terms and Conditions.
- * 
+ *       $Id: EjbPackage.java,v 1.3 2009/10/15 18:52:07 canderson Exp $
+ *       
  *     
  * 
  * 
- * The following definitions that appear in the common
- * shareable schema(s) of J2EE deployment descriptors should be
- * interpreted with respect to the context they are included:
- * 
- * Deployment Component may indicate one of the following:
- *     j2ee application;
- *     application client;
- *     web application;
- *     enterprise bean;
- *     resource adapter;
- * 
- * Deployment File may indicate one of the following:
- *     ear file;
- *     war file;
- *     jar file;
- *     rar file;
- * 
- * 
- * 
- *       @(#)javaee_web_services_client_1_2.xsds	1.19 02/13/06
+ *       The following definitions that appear in the common
+ *       shareable schema(s) of Java EE deployment descriptors should be
+ *       interpreted with respect to the context they are included:
+ *       
+ *       Deployment Component may indicate one of the following:
+ *       java ee application;
+ *       application client;
+ *       web application;
+ *       enterprise bean;
+ *       resource adapter; 
+ *       
+ *       Deployment File may indicate one of the following:
+ *       ear file;
+ *       war file;
+ *       jar file;
+ *       rar file;
+ *       
  *     
  * 
  * 
- *       Copyright 2003-2006 Sun Microsystems, Inc.
- *       4150 Network Circle
- *       Santa Clara, California 95054
- *       U.S.A
- *       All rights reserved.
- * 
- *       Sun Microsystems, Inc. has intellectual property rights
- *       relating to technology described in this document. In
- *       particular, and without limitation, these intellectual
- *       property rights may include one or more of the U.S. patents
- *       listed at http://www.sun.com/patents and one or more
- *       additional patents or pending patent applications in the
- *       U.S. and other countries.
- * 
- *       This document and the technology which it describes are
- *       distributed under licenses restricting their use, copying,
- *       distribution, and decompilation. No part of this document
- *       may be reproduced in any form by any means without prior
- *       written authorization of Sun and its licensors, if any.
- * 
- *       Third-party software, including font technology, is
- *       copyrighted and licensed from Sun suppliers.
- * 
- *       Sun, Sun Microsystems, the Sun logo, Solaris, Java, J2EE,
- *       JavaServer Pages, Enterprise JavaBeans and the Java Coffee
- *       Cup logo are trademarks or registered trademarks of Sun
- *       Microsystems, Inc. in the U.S. and other countries.
- * 
- *       Federal Acquisitions: Commercial Software - Government Users
- *       Subject to Standard License Terms and Conditions.
- * 
+ *       $Id: EjbPackage.java,v 1.3 2009/10/15 18:52:07 canderson Exp $
+ *       
  *     
  * 
  * 
  *       (C) Copyright International Business Machines Corporation 2002
- * 
+ *       
  *     
  * 
- *    See http://www.w3.org/XML/1998/namespace.html and
- *    http://www.w3.org/TR/REC-xml for information about this namespace.
+ *    <div xmlns="http://www.w3.org/1999/xhtml">
+ *     <h1>About the XML namespace</h1>
  * 
- *     This schema document describes the XML namespace, in a form
- *     suitable for import by other schema documents.  
- * 
- *     Note that local names in this namespace are intended to be defined
- *     only by the World Wide Web Consortium or its subgroups.  The
- *     following names are currently defined in this namespace and should
- *     not be used with conflicting semantics by any Working Group,
- *     specification, or document instance:
- * 
- *     base (as an attribute name): denotes an attribute whose value
- *          provides a URI to be used as the base for interpreting any
- *          relative URIs in the scope of the element on which it
- *          appears; its value is inherited.  This name is reserved
- *          by virtue of its definition in the XML Base specification.
- * 
- *     id   (as an attribute name): denotes an attribute whose value
- *          should be interpreted as if declared to be of type ID.
- *          The xml:id specification is not yet a W3C Recommendation,
- *          but this attribute is included here to facilitate experimentation
- *          with the mechanisms it proposes.  Note that it is _not_ included
- *          in the specialAttrs attribute group.
- * 
- *     lang (as an attribute name): denotes an attribute whose value
- *          is a language code for the natural language of the content of
- *          any element; its value is inherited.  This name is reserved
- *          by virtue of its definition in the XML specification.
+ *     <div class="bodytext">
+ *      <p>
+ *       This schema document describes the XML namespace, in a form
+ *       suitable for import by other schema documents.
+ *      </p>
+ *      <p>
+ *       See <a href="http://www.w3.org/XML/1998/namespace.html">
+ *       http://www.w3.org/XML/1998/namespace.html</a> and
+ *       <a href="http://www.w3.org/TR/REC-xml">
+ *       http://www.w3.org/TR/REC-xml</a> for information 
+ *       about this namespace.
+ *      </p>
+ *      <p>
+ *       Note that local names in this namespace are intended to be
+ *       defined only by the World Wide Web Consortium or its subgroups.
+ *       The names currently defined in this namespace are listed below.
+ *       They should not be used with conflicting semantics by any Working
+ *       Group, specification, or document instance.
+ *      </p>
+ *      <p>   
+ *       See further below in this document for more information about <a href="#usage">how to refer to this schema document from your own
+ *       XSD schema documents</a> and about <a href="#nsversioning">the
+ *       namespace-versioning policy governing this schema document</a>.
+ *      </p>
+ *     </div>
+ *    </div>
  *   
- *     space (as an attribute name): denotes an attribute whose
- *          value is a keyword indicating what whitespace processing
- *          discipline is intended for the content of the element; its
- *          value is inherited.  This name is reserved by virtue of its
- *          definition in the XML specification.
  * 
- *     Father (in any context at all): denotes Jon Bosak, the chair of 
- *          the original XML Working Group.  This name is reserved by 
- *          the following decision of the W3C XML Plenary and 
- *          XML Coordination groups:
+ *    <div xmlns="http://www.w3.org/1999/xhtml">
+ *    
+ *     <h3>Father (in any context at all)</h3> 
  * 
- *              In appreciation for his vision, leadership and dedication
- *              the W3C XML Plenary on this 10th day of February, 2000
- *              reserves for Jon Bosak in perpetuity the XML name
- *              xml:Father
+ *     <div class="bodytext">
+ *      <p>
+ *       denotes Jon Bosak, the chair of 
+ *       the original XML Working Group.  This name is reserved by 
+ *       the following decision of the W3C XML Plenary and 
+ *       XML Coordination groups:
+ *      </p>
+ *      <blockquote>
+ *        <p>
+ * 	In appreciation for his vision, leadership and
+ * 	dedication the W3C XML Plenary on this 10th day of
+ * 	February, 2000, reserves for Jon Bosak in perpetuity
+ * 	the XML name "xml:Father".
+ *        </p>
+ *      </blockquote>
+ *     </div>
+ *    </div>
  *   
- * This schema defines attributes and an attribute group
- *         suitable for use by
- *         schemas wishing to allow xml:base, xml:lang, xml:space or xml:id
- *         attributes on elements they define.
  * 
- *         To enable this, such a schema must import this schema
- *         for the XML namespace, e.g. as follows:
- *         &lt;schema . . .&gt;
- *          . . .
- *          &lt;import namespace="http://www.w3.org/XML/1998/namespace"
- *                     schemaLocation="http://www.w3.org/2001/xml.xsd"/&gt;
+ *    <div id="usage" xml:id="usage" xmlns="http://www.w3.org/1999/xhtml">
+ *     <h2>
+ *       <a name="usage">About this schema document</a>
+ *     </h2>
  * 
- *         Subsequently, qualified reference to any of the attributes
- *         or the group defined below will have the desired effect, e.g.
+ *     <div class="bodytext">
+ *      <p>
+ *       This schema defines attributes and an attribute group suitable
+ *       for use by schemas wishing to allow <code>xml:base</code>,
+ *       <code>xml:lang</code>, <code>xml:space</code> or
+ *       <code>xml:id</code> attributes on elements they define.
+ *      </p>
+ *      <p>
+ *       To enable this, such a schema must import this schema for
+ *       the XML namespace, e.g. as follows:
+ *      </p>
+ *      <pre>
+ *           &lt;schema . . .&gt;
+ *            . . .
+ *            &lt;import namespace="http://www.w3.org/XML/1998/namespace"
+ *                       schemaLocation="http://www.w3.org/2001/xml.xsd"/&gt;
+ *      </pre>
+ *      <p>
+ *       or
+ *      </p>
+ *      <pre>
+ *            &lt;import namespace="http://www.w3.org/XML/1998/namespace"
+ *                       schemaLocation="http://www.w3.org/2009/01/xml.xsd"/&gt;
+ *      </pre>
+ *      <p>
+ *       Subsequently, qualified reference to any of the attributes or the
+ *       group defined below will have the desired effect, e.g.
+ *      </p>
+ *      <pre>
+ *           &lt;type . . .&gt;
+ *            . . .
+ *            &lt;attributeGroup ref="xml:specialAttrs"/&gt;
+ *      </pre>
+ *      <p>
+ *       will define a type which will schema-validate an instance element
+ *       with any of those attributes.
+ *      </p>
+ *     </div>
+ *    </div>
+ *   
  * 
- *         &lt;type . . .&gt;
- *          . . .
- *          &lt;attributeGroup ref="xml:specialAttrs"/&gt;
- *  
- *          will define a type which will schema-validate an instance
- *          element with any of those attributes
- * In keeping with the XML Schema WG's standard versioning
- *    policy, this schema document will persist at
- *    http://www.w3.org/2005/08/xml.xsd.
- *    At the date of issue it can also be found at
- *    http://www.w3.org/2001/xml.xsd.
- *    The schema document at that URI may however change in the future,
- *    in order to remain compatible with the latest version of XML Schema
- *    itself, or with the XML namespace itself.  In other words, if the XML
- *    Schema or XML namespaces change, the version of this document at
- *    http://www.w3.org/2001/xml.xsd will change
- *    accordingly; the version at
- *    http://www.w3.org/2005/08/xml.xsd will not change.
+ *    <div id="nsversioning" xml:id="nsversioning" xmlns="http://www.w3.org/1999/xhtml">
+ *     <h2>
+ *       <a name="nsversioning">Versioning policy for this schema document</a>
+ *     </h2>
+ *     <div class="bodytext">
+ *      <p>
+ *       In keeping with the XML Schema WG's standard versioning
+ *       policy, this schema document will persist at
+ *       <a href="http://www.w3.org/2009/01/xml.xsd">
+ *        http://www.w3.org/2009/01/xml.xsd</a>.
+ *      </p>
+ *      <p>
+ *       At the date of issue it can also be found at
+ *       <a href="http://www.w3.org/2001/xml.xsd">
+ *        http://www.w3.org/2001/xml.xsd</a>.
+ *      </p>
+ *      <p>
+ *       The schema document at that URI may however change in the future,
+ *       in order to remain compatible with the latest version of XML
+ *       Schema itself, or with the XML namespace itself.  In other words,
+ *       if the XML Schema or XML namespaces change, the version of this
+ *       document at <a href="http://www.w3.org/2001/xml.xsd">
+ *        http://www.w3.org/2001/xml.xsd 
+ *       </a> 
+ *       will change accordingly; the version at 
+ *       <a href="http://www.w3.org/2009/01/xml.xsd">
+ *        http://www.w3.org/2009/01/xml.xsd 
+ *       </a> 
+ *       will not change.
+ *      </p>
+ *      <p>
+ *       Previous dated (and unchanging) versions of this schema 
+ *       document are at:
+ *      </p>
+ *      <ul>
+ *       <li>
+ *           <a href="http://www.w3.org/2009/01/xml.xsd">
+ * 	http://www.w3.org/2009/01/xml.xsd</a>
+ *         </li>
+ *       <li>
+ *           <a href="http://www.w3.org/2007/08/xml.xsd">
+ * 	http://www.w3.org/2007/08/xml.xsd</a>
+ *         </li>
+ *       <li>
+ *           <a href="http://www.w3.org/2004/10/xml.xsd">
+ * 	http://www.w3.org/2004/10/xml.xsd</a>
+ *         </li>
+ *       <li>
+ *           <a href="http://www.w3.org/2001/03/xml.xsd">
+ * 	http://www.w3.org/2001/03/xml.xsd</a>
+ *         </li>
+ *      </ul>
+ *     </div>
+ *    </div>
  *   
  * <!-- end-model-doc -->
  * @see org.eclipse.jst.javaee.ejb.EjbFactory
@@ -328,6 +306,52 @@ public interface EjbPackage extends EPackage {
 	EjbPackage eINSTANCE = org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl.init();
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.AccessTimeoutTypeImpl <em>Access Timeout Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.ejb.internal.impl.AccessTimeoutTypeImpl
+	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getAccessTimeoutType()
+	 * @generated
+	 */
+	int ACCESS_TIMEOUT_TYPE = 0;
+
+	/**
+	 * The feature id for the '<em><b>Timeout</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS_TIMEOUT_TYPE__TIMEOUT = 0;
+
+	/**
+	 * The feature id for the '<em><b>Unit</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS_TIMEOUT_TYPE__UNIT = 1;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS_TIMEOUT_TYPE__ID = 2;
+
+	/**
+	 * The number of structural features of the '<em>Access Timeout Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACCESS_TIMEOUT_TYPE_FEATURE_COUNT = 3;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.ActivationConfigImpl <em>Activation Config</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -335,7 +359,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getActivationConfig()
 	 * @generated
 	 */
-	int ACTIVATION_CONFIG = 0;
+	int ACTIVATION_CONFIG = 1;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -381,7 +405,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getActivationConfigProperty()
 	 * @generated
 	 */
-	int ACTIVATION_CONFIG_PROPERTY = 1;
+	int ACTIVATION_CONFIG_PROPERTY = 2;
 
 	/**
 	 * The feature id for the '<em><b>Activation Config Property Name</b></em>' attribute.
@@ -427,7 +451,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getApplicationException()
 	 * @generated
 	 */
-	int APPLICATION_EXCEPTION = 2;
+	int APPLICATION_EXCEPTION = 3;
 
 	/**
 	 * The feature id for the '<em><b>Exception Class</b></em>' attribute.
@@ -448,13 +472,22 @@ public interface EjbPackage extends EPackage {
 	int APPLICATION_EXCEPTION__ROLLBACK = 1;
 
 	/**
+	 * The feature id for the '<em><b>Inherited</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION_EXCEPTION__INHERITED = 2;
+
+	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int APPLICATION_EXCEPTION__ID = 2;
+	int APPLICATION_EXCEPTION__ID = 3;
 
 	/**
 	 * The number of structural features of the '<em>Application Exception</em>' class.
@@ -463,7 +496,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int APPLICATION_EXCEPTION_FEATURE_COUNT = 3;
+	int APPLICATION_EXCEPTION_FEATURE_COUNT = 4;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.AroundInvokeTypeImpl <em>Around Invoke Type</em>}' class.
@@ -473,7 +506,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getAroundInvokeType()
 	 * @generated
 	 */
-	int AROUND_INVOKE_TYPE = 3;
+	int AROUND_INVOKE_TYPE = 4;
 
 	/**
 	 * The feature id for the '<em><b>Class</b></em>' attribute.
@@ -503,6 +536,43 @@ public interface EjbPackage extends EPackage {
 	int AROUND_INVOKE_TYPE_FEATURE_COUNT = 2;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.AroundTimeoutTypeImpl <em>Around Timeout Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.ejb.internal.impl.AroundTimeoutTypeImpl
+	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getAroundTimeoutType()
+	 * @generated
+	 */
+	int AROUND_TIMEOUT_TYPE = 5;
+
+	/**
+	 * The feature id for the '<em><b>Class</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AROUND_TIMEOUT_TYPE__CLASS = 0;
+
+	/**
+	 * The feature id for the '<em><b>Method Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AROUND_TIMEOUT_TYPE__METHOD_NAME = 1;
+
+	/**
+	 * The number of structural features of the '<em>Around Timeout Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AROUND_TIMEOUT_TYPE_FEATURE_COUNT = 2;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.AssemblyDescriptorImpl <em>Assembly Descriptor</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -510,7 +580,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getAssemblyDescriptor()
 	 * @generated
 	 */
-	int ASSEMBLY_DESCRIPTOR = 4;
+	int ASSEMBLY_DESCRIPTOR = 6;
 
 	/**
 	 * The feature id for the '<em><b>Security Roles</b></em>' containment reference list.
@@ -594,6 +664,61 @@ public interface EjbPackage extends EPackage {
 	int ASSEMBLY_DESCRIPTOR_FEATURE_COUNT = 8;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.AsyncMethodTypeImpl <em>Async Method Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.ejb.internal.impl.AsyncMethodTypeImpl
+	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getAsyncMethodType()
+	 * @generated
+	 */
+	int ASYNC_METHOD_TYPE = 7;
+
+	/**
+	 * The feature id for the '<em><b>Method Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASYNC_METHOD_TYPE__METHOD_NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Method Params</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASYNC_METHOD_TYPE__METHOD_PARAMS = 1;
+
+	/**
+	 * The feature id for the '<em><b>Method Intf</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASYNC_METHOD_TYPE__METHOD_INTF = 2;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASYNC_METHOD_TYPE__ID = 3;
+
+	/**
+	 * The number of structural features of the '<em>Async Method Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASYNC_METHOD_TYPE_FEATURE_COUNT = 4;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.CMPFieldImpl <em>CMP Field</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -601,7 +726,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getCMPField()
 	 * @generated
 	 */
-	int CMP_FIELD = 5;
+	int CMP_FIELD = 8;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -647,7 +772,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getCMRField()
 	 * @generated
 	 */
-	int CMR_FIELD = 6;
+	int CMR_FIELD = 9;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -695,6 +820,61 @@ public interface EjbPackage extends EPackage {
 	int CMR_FIELD_FEATURE_COUNT = 4;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.ConcurrentMethodTypeImpl <em>Concurrent Method Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.ejb.internal.impl.ConcurrentMethodTypeImpl
+	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getConcurrentMethodType()
+	 * @generated
+	 */
+	int CONCURRENT_METHOD_TYPE = 10;
+
+	/**
+	 * The feature id for the '<em><b>Method</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCURRENT_METHOD_TYPE__METHOD = 0;
+
+	/**
+	 * The feature id for the '<em><b>Lock</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCURRENT_METHOD_TYPE__LOCK = 1;
+
+	/**
+	 * The feature id for the '<em><b>Access Timeout</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCURRENT_METHOD_TYPE__ACCESS_TIMEOUT = 2;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCURRENT_METHOD_TYPE__ID = 3;
+
+	/**
+	 * The number of structural features of the '<em>Concurrent Method Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONCURRENT_METHOD_TYPE_FEATURE_COUNT = 4;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.ContainerTransactionTypeImpl <em>Container Transaction Type</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -702,7 +882,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getContainerTransactionType()
 	 * @generated
 	 */
-	int CONTAINER_TRANSACTION_TYPE = 7;
+	int CONTAINER_TRANSACTION_TYPE = 11;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -750,6 +930,43 @@ public interface EjbPackage extends EPackage {
 	int CONTAINER_TRANSACTION_TYPE_FEATURE_COUNT = 4;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.DependsOnTypeImpl <em>Depends On Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.ejb.internal.impl.DependsOnTypeImpl
+	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getDependsOnType()
+	 * @generated
+	 */
+	int DEPENDS_ON_TYPE = 12;
+
+	/**
+	 * The feature id for the '<em><b>Ejb Name</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DEPENDS_ON_TYPE__EJB_NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DEPENDS_ON_TYPE__ID = 1;
+
+	/**
+	 * The number of structural features of the '<em>Depends On Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DEPENDS_ON_TYPE_FEATURE_COUNT = 2;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.EJBJarImpl <em>EJB Jar</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -757,7 +974,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getEJBJar()
 	 * @generated
 	 */
-	int EJB_JAR = 8;
+	int EJB_JAR = 13;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -787,13 +1004,22 @@ public interface EjbPackage extends EPackage {
 	int EJB_JAR__ICONS = 2;
 
 	/**
+	 * The feature id for the '<em><b>Module Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EJB_JAR__MODULE_NAME = 3;
+
+	/**
 	 * The feature id for the '<em><b>Enterprise Beans</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EJB_JAR__ENTERPRISE_BEANS = 3;
+	int EJB_JAR__ENTERPRISE_BEANS = 4;
 
 	/**
 	 * The feature id for the '<em><b>Interceptors</b></em>' containment reference.
@@ -802,7 +1028,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EJB_JAR__INTERCEPTORS = 4;
+	int EJB_JAR__INTERCEPTORS = 5;
 
 	/**
 	 * The feature id for the '<em><b>Relationships</b></em>' containment reference.
@@ -811,7 +1037,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EJB_JAR__RELATIONSHIPS = 5;
+	int EJB_JAR__RELATIONSHIPS = 6;
 
 	/**
 	 * The feature id for the '<em><b>Assembly Descriptor</b></em>' containment reference.
@@ -820,7 +1046,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EJB_JAR__ASSEMBLY_DESCRIPTOR = 6;
+	int EJB_JAR__ASSEMBLY_DESCRIPTOR = 7;
 
 	/**
 	 * The feature id for the '<em><b>Ejb Client Jar</b></em>' attribute.
@@ -829,7 +1055,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EJB_JAR__EJB_CLIENT_JAR = 7;
+	int EJB_JAR__EJB_CLIENT_JAR = 8;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -838,7 +1064,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EJB_JAR__ID = 8;
+	int EJB_JAR__ID = 9;
 
 	/**
 	 * The feature id for the '<em><b>Metadata Complete</b></em>' attribute.
@@ -847,7 +1073,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EJB_JAR__METADATA_COMPLETE = 9;
+	int EJB_JAR__METADATA_COMPLETE = 10;
 
 	/**
 	 * The feature id for the '<em><b>Version</b></em>' attribute.
@@ -856,7 +1082,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EJB_JAR__VERSION = 10;
+	int EJB_JAR__VERSION = 11;
 
 	/**
 	 * The number of structural features of the '<em>EJB Jar</em>' class.
@@ -865,7 +1091,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EJB_JAR_FEATURE_COUNT = 11;
+	int EJB_JAR_FEATURE_COUNT = 12;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.EJBJarDeploymentDescriptorImpl <em>EJB Jar Deployment Descriptor</em>}' class.
@@ -875,7 +1101,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getEJBJarDeploymentDescriptor()
 	 * @generated
 	 */
-	int EJB_JAR_DEPLOYMENT_DESCRIPTOR = 9;
+	int EJB_JAR_DEPLOYMENT_DESCRIPTOR = 14;
 
 	/**
 	 * The feature id for the '<em><b>Mixed</b></em>' attribute list.
@@ -930,7 +1156,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getEJBRelation()
 	 * @generated
 	 */
-	int EJB_RELATION = 10;
+	int EJB_RELATION = 15;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -985,7 +1211,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getEJBRelationshipRole()
 	 * @generated
 	 */
-	int EJB_RELATIONSHIP_ROLE = 11;
+	int EJB_RELATIONSHIP_ROLE = 16;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -1067,7 +1293,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getEnterpriseBeans()
 	 * @generated
 	 */
-	int ENTERPRISE_BEANS = 12;
+	int ENTERPRISE_BEANS = 17;
 
 	/**
 	 * The feature id for the '<em><b>Group</b></em>' attribute list.
@@ -1131,7 +1357,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getEntityBean()
 	 * @generated
 	 */
-	int ENTITY_BEAN = 13;
+	int ENTITY_BEAN = 18;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -1386,13 +1612,22 @@ public interface EjbPackage extends EPackage {
 	int ENTITY_BEAN__PRE_DESTROYS = 27;
 
 	/**
+	 * The feature id for the '<em><b>Data Source</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENTITY_BEAN__DATA_SOURCE = 28;
+
+	/**
 	 * The feature id for the '<em><b>Security Role Refs</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ENTITY_BEAN__SECURITY_ROLE_REFS = 28;
+	int ENTITY_BEAN__SECURITY_ROLE_REFS = 29;
 
 	/**
 	 * The feature id for the '<em><b>Security Identity</b></em>' containment reference.
@@ -1401,7 +1636,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ENTITY_BEAN__SECURITY_IDENTITY = 29;
+	int ENTITY_BEAN__SECURITY_IDENTITY = 30;
 
 	/**
 	 * The feature id for the '<em><b>Queries</b></em>' containment reference list.
@@ -1410,7 +1645,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ENTITY_BEAN__QUERIES = 30;
+	int ENTITY_BEAN__QUERIES = 31;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -1419,7 +1654,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ENTITY_BEAN__ID = 31;
+	int ENTITY_BEAN__ID = 32;
 
 	/**
 	 * The number of structural features of the '<em>Entity Bean</em>' class.
@@ -1428,7 +1663,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ENTITY_BEAN_FEATURE_COUNT = 32;
+	int ENTITY_BEAN_FEATURE_COUNT = 33;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.ExcludeListImpl <em>Exclude List</em>}' class.
@@ -1438,7 +1673,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getExcludeList()
 	 * @generated
 	 */
-	int EXCLUDE_LIST = 14;
+	int EXCLUDE_LIST = 19;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -1484,7 +1719,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getInitMethodType()
 	 * @generated
 	 */
-	int INIT_METHOD_TYPE = 15;
+	int INIT_METHOD_TYPE = 20;
 
 	/**
 	 * The feature id for the '<em><b>Create Method</b></em>' containment reference.
@@ -1530,7 +1765,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getInterceptorBindingType()
 	 * @generated
 	 */
-	int INTERCEPTOR_BINDING_TYPE = 16;
+	int INTERCEPTOR_BINDING_TYPE = 21;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -1621,7 +1856,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getInterceptorOrderType()
 	 * @generated
 	 */
-	int INTERCEPTOR_ORDER_TYPE = 17;
+	int INTERCEPTOR_ORDER_TYPE = 22;
 
 	/**
 	 * The feature id for the '<em><b>Interceptor Classes</b></em>' attribute list.
@@ -1658,7 +1893,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getInterceptorsType()
 	 * @generated
 	 */
-	int INTERCEPTORS_TYPE = 18;
+	int INTERCEPTORS_TYPE = 23;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -1704,7 +1939,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getInterceptorType()
 	 * @generated
 	 */
-	int INTERCEPTOR_TYPE = 19;
+	int INTERCEPTOR_TYPE = 24;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -1734,13 +1969,22 @@ public interface EjbPackage extends EPackage {
 	int INTERCEPTOR_TYPE__AROUND_INVOKES = 2;
 
 	/**
+	 * The feature id for the '<em><b>Around Timeouts</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTERCEPTOR_TYPE__AROUND_TIMEOUTS = 3;
+
+	/**
 	 * The feature id for the '<em><b>Env Entries</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INTERCEPTOR_TYPE__ENV_ENTRIES = 3;
+	int INTERCEPTOR_TYPE__ENV_ENTRIES = 4;
 
 	/**
 	 * The feature id for the '<em><b>Ejb Refs</b></em>' containment reference list.
@@ -1749,7 +1993,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTERCEPTOR_TYPE__EJB_REFS = 4;
+	int INTERCEPTOR_TYPE__EJB_REFS = 5;
 
 	/**
 	 * The feature id for the '<em><b>Ejb Local Refs</b></em>' containment reference list.
@@ -1758,7 +2002,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTERCEPTOR_TYPE__EJB_LOCAL_REFS = 5;
+	int INTERCEPTOR_TYPE__EJB_LOCAL_REFS = 6;
 
 	/**
 	 * The feature id for the '<em><b>Service Refs</b></em>' containment reference list.
@@ -1767,7 +2011,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTERCEPTOR_TYPE__SERVICE_REFS = 6;
+	int INTERCEPTOR_TYPE__SERVICE_REFS = 7;
 
 	/**
 	 * The feature id for the '<em><b>Resource Refs</b></em>' containment reference list.
@@ -1776,7 +2020,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTERCEPTOR_TYPE__RESOURCE_REFS = 7;
+	int INTERCEPTOR_TYPE__RESOURCE_REFS = 8;
 
 	/**
 	 * The feature id for the '<em><b>Resource Env Refs</b></em>' containment reference list.
@@ -1785,7 +2029,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTERCEPTOR_TYPE__RESOURCE_ENV_REFS = 8;
+	int INTERCEPTOR_TYPE__RESOURCE_ENV_REFS = 9;
 
 	/**
 	 * The feature id for the '<em><b>Message Destination Refs</b></em>' containment reference list.
@@ -1794,7 +2038,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTERCEPTOR_TYPE__MESSAGE_DESTINATION_REFS = 9;
+	int INTERCEPTOR_TYPE__MESSAGE_DESTINATION_REFS = 10;
 
 	/**
 	 * The feature id for the '<em><b>Persistence Context Refs</b></em>' containment reference list.
@@ -1803,7 +2047,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTERCEPTOR_TYPE__PERSISTENCE_CONTEXT_REFS = 10;
+	int INTERCEPTOR_TYPE__PERSISTENCE_CONTEXT_REFS = 11;
 
 	/**
 	 * The feature id for the '<em><b>Persistence Unit Refs</b></em>' containment reference list.
@@ -1812,7 +2056,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTERCEPTOR_TYPE__PERSISTENCE_UNIT_REFS = 11;
+	int INTERCEPTOR_TYPE__PERSISTENCE_UNIT_REFS = 12;
 
 	/**
 	 * The feature id for the '<em><b>Post Constructs</b></em>' containment reference list.
@@ -1821,7 +2065,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTERCEPTOR_TYPE__POST_CONSTRUCTS = 12;
+	int INTERCEPTOR_TYPE__POST_CONSTRUCTS = 13;
 
 	/**
 	 * The feature id for the '<em><b>Pre Destroys</b></em>' containment reference list.
@@ -1830,7 +2074,16 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTERCEPTOR_TYPE__PRE_DESTROYS = 13;
+	int INTERCEPTOR_TYPE__PRE_DESTROYS = 14;
+
+	/**
+	 * The feature id for the '<em><b>Data Source</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTERCEPTOR_TYPE__DATA_SOURCE = 15;
 
 	/**
 	 * The feature id for the '<em><b>Post Activates</b></em>' containment reference list.
@@ -1839,7 +2092,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTERCEPTOR_TYPE__POST_ACTIVATES = 14;
+	int INTERCEPTOR_TYPE__POST_ACTIVATES = 16;
 
 	/**
 	 * The feature id for the '<em><b>Pre Passivates</b></em>' containment reference list.
@@ -1848,7 +2101,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTERCEPTOR_TYPE__PRE_PASSIVATES = 15;
+	int INTERCEPTOR_TYPE__PRE_PASSIVATES = 17;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -1857,7 +2110,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTERCEPTOR_TYPE__ID = 16;
+	int INTERCEPTOR_TYPE__ID = 18;
 
 	/**
 	 * The number of structural features of the '<em>Interceptor Type</em>' class.
@@ -1866,7 +2119,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTERCEPTOR_TYPE_FEATURE_COUNT = 17;
+	int INTERCEPTOR_TYPE_FEATURE_COUNT = 19;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.MessageDrivenBeanImpl <em>Message Driven Bean</em>}' class.
@@ -1876,7 +2129,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getMessageDrivenBean()
 	 * @generated
 	 */
-	int MESSAGE_DRIVEN_BEAN = 20;
+	int MESSAGE_DRIVEN_BEAN = 25;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -1951,13 +2204,22 @@ public interface EjbPackage extends EPackage {
 	int MESSAGE_DRIVEN_BEAN__TIMEOUT_METHOD = 7;
 
 	/**
+	 * The feature id for the '<em><b>Timer</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MESSAGE_DRIVEN_BEAN__TIMER = 8;
+
+	/**
 	 * The feature id for the '<em><b>Transaction Type</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MESSAGE_DRIVEN_BEAN__TRANSACTION_TYPE = 8;
+	int MESSAGE_DRIVEN_BEAN__TRANSACTION_TYPE = 9;
 
 	/**
 	 * The feature id for the '<em><b>Message Destination Type</b></em>' attribute.
@@ -1966,7 +2228,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MESSAGE_DRIVEN_BEAN__MESSAGE_DESTINATION_TYPE = 9;
+	int MESSAGE_DRIVEN_BEAN__MESSAGE_DESTINATION_TYPE = 10;
 
 	/**
 	 * The feature id for the '<em><b>Message Destination Link</b></em>' attribute.
@@ -1975,7 +2237,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MESSAGE_DRIVEN_BEAN__MESSAGE_DESTINATION_LINK = 10;
+	int MESSAGE_DRIVEN_BEAN__MESSAGE_DESTINATION_LINK = 11;
 
 	/**
 	 * The feature id for the '<em><b>Activation Config</b></em>' containment reference.
@@ -1984,7 +2246,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MESSAGE_DRIVEN_BEAN__ACTIVATION_CONFIG = 11;
+	int MESSAGE_DRIVEN_BEAN__ACTIVATION_CONFIG = 12;
 
 	/**
 	 * The feature id for the '<em><b>Around Invokes</b></em>' containment reference list.
@@ -1993,7 +2255,16 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MESSAGE_DRIVEN_BEAN__AROUND_INVOKES = 12;
+	int MESSAGE_DRIVEN_BEAN__AROUND_INVOKES = 13;
+
+	/**
+	 * The feature id for the '<em><b>Around Timeouts</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MESSAGE_DRIVEN_BEAN__AROUND_TIMEOUTS = 14;
 
 	/**
 	 * The feature id for the '<em><b>Env Entries</b></em>' containment reference list.
@@ -2002,7 +2273,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MESSAGE_DRIVEN_BEAN__ENV_ENTRIES = 13;
+	int MESSAGE_DRIVEN_BEAN__ENV_ENTRIES = 15;
 
 	/**
 	 * The feature id for the '<em><b>Ejb Refs</b></em>' containment reference list.
@@ -2011,7 +2282,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MESSAGE_DRIVEN_BEAN__EJB_REFS = 14;
+	int MESSAGE_DRIVEN_BEAN__EJB_REFS = 16;
 
 	/**
 	 * The feature id for the '<em><b>Ejb Local Refs</b></em>' containment reference list.
@@ -2020,7 +2291,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MESSAGE_DRIVEN_BEAN__EJB_LOCAL_REFS = 15;
+	int MESSAGE_DRIVEN_BEAN__EJB_LOCAL_REFS = 17;
 
 	/**
 	 * The feature id for the '<em><b>Service Refs</b></em>' containment reference list.
@@ -2029,7 +2300,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MESSAGE_DRIVEN_BEAN__SERVICE_REFS = 16;
+	int MESSAGE_DRIVEN_BEAN__SERVICE_REFS = 18;
 
 	/**
 	 * The feature id for the '<em><b>Resource Refs</b></em>' containment reference list.
@@ -2038,7 +2309,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MESSAGE_DRIVEN_BEAN__RESOURCE_REFS = 17;
+	int MESSAGE_DRIVEN_BEAN__RESOURCE_REFS = 19;
 
 	/**
 	 * The feature id for the '<em><b>Resource Env Refs</b></em>' containment reference list.
@@ -2047,7 +2318,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MESSAGE_DRIVEN_BEAN__RESOURCE_ENV_REFS = 18;
+	int MESSAGE_DRIVEN_BEAN__RESOURCE_ENV_REFS = 20;
 
 	/**
 	 * The feature id for the '<em><b>Message Destination Refs</b></em>' containment reference list.
@@ -2056,7 +2327,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MESSAGE_DRIVEN_BEAN__MESSAGE_DESTINATION_REFS = 19;
+	int MESSAGE_DRIVEN_BEAN__MESSAGE_DESTINATION_REFS = 21;
 
 	/**
 	 * The feature id for the '<em><b>Persistence Context Refs</b></em>' containment reference list.
@@ -2065,7 +2336,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MESSAGE_DRIVEN_BEAN__PERSISTENCE_CONTEXT_REFS = 20;
+	int MESSAGE_DRIVEN_BEAN__PERSISTENCE_CONTEXT_REFS = 22;
 
 	/**
 	 * The feature id for the '<em><b>Persistence Unit Refs</b></em>' containment reference list.
@@ -2074,7 +2345,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MESSAGE_DRIVEN_BEAN__PERSISTENCE_UNIT_REFS = 21;
+	int MESSAGE_DRIVEN_BEAN__PERSISTENCE_UNIT_REFS = 23;
 
 	/**
 	 * The feature id for the '<em><b>Post Constructs</b></em>' containment reference list.
@@ -2083,7 +2354,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MESSAGE_DRIVEN_BEAN__POST_CONSTRUCTS = 22;
+	int MESSAGE_DRIVEN_BEAN__POST_CONSTRUCTS = 24;
 
 	/**
 	 * The feature id for the '<em><b>Pre Destroys</b></em>' containment reference list.
@@ -2092,7 +2363,25 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MESSAGE_DRIVEN_BEAN__PRE_DESTROYS = 23;
+	int MESSAGE_DRIVEN_BEAN__PRE_DESTROYS = 25;
+
+	/**
+	 * The feature id for the '<em><b>Data Source</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MESSAGE_DRIVEN_BEAN__DATA_SOURCE = 26;
+
+	/**
+	 * The feature id for the '<em><b>Security Role Ref</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MESSAGE_DRIVEN_BEAN__SECURITY_ROLE_REF = 27;
 
 	/**
 	 * The feature id for the '<em><b>Security Identity</b></em>' containment reference.
@@ -2101,7 +2390,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MESSAGE_DRIVEN_BEAN__SECURITY_IDENTITY = 24;
+	int MESSAGE_DRIVEN_BEAN__SECURITY_IDENTITY = 28;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -2110,7 +2399,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MESSAGE_DRIVEN_BEAN__ID = 25;
+	int MESSAGE_DRIVEN_BEAN__ID = 29;
 
 	/**
 	 * The number of structural features of the '<em>Message Driven Bean</em>' class.
@@ -2119,7 +2408,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MESSAGE_DRIVEN_BEAN_FEATURE_COUNT = 26;
+	int MESSAGE_DRIVEN_BEAN_FEATURE_COUNT = 30;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.MethodParamsImpl <em>Method Params</em>}' class.
@@ -2129,7 +2418,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getMethodParams()
 	 * @generated
 	 */
-	int METHOD_PARAMS = 21;
+	int METHOD_PARAMS = 26;
 
 	/**
 	 * The feature id for the '<em><b>Method Params</b></em>' attribute list.
@@ -2166,7 +2455,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getMethodPermission()
 	 * @generated
 	 */
-	int METHOD_PERMISSION = 22;
+	int METHOD_PERMISSION = 27;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -2230,7 +2519,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getMethodType()
 	 * @generated
 	 */
-	int METHOD_TYPE = 23;
+	int METHOD_TYPE = 28;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -2303,7 +2592,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getNamedMethodType()
 	 * @generated
 	 */
-	int NAMED_METHOD_TYPE = 24;
+	int NAMED_METHOD_TYPE = 29;
 
 	/**
 	 * The feature id for the '<em><b>Method Name</b></em>' attribute.
@@ -2349,7 +2638,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getQuery()
 	 * @generated
 	 */
-	int QUERY = 25;
+	int QUERY = 30;
 
 	/**
 	 * The feature id for the '<em><b>Description</b></em>' containment reference.
@@ -2413,7 +2702,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getQueryMethod()
 	 * @generated
 	 */
-	int QUERY_METHOD = 26;
+	int QUERY_METHOD = 31;
 
 	/**
 	 * The feature id for the '<em><b>Method Name</b></em>' attribute.
@@ -2459,7 +2748,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getRelationshipRoleSourceType()
 	 * @generated
 	 */
-	int RELATIONSHIP_ROLE_SOURCE_TYPE = 27;
+	int RELATIONSHIP_ROLE_SOURCE_TYPE = 32;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -2505,7 +2794,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getRelationships()
 	 * @generated
 	 */
-	int RELATIONSHIPS = 28;
+	int RELATIONSHIPS = 33;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -2551,7 +2840,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getRemoveMethodType()
 	 * @generated
 	 */
-	int REMOVE_METHOD_TYPE = 29;
+	int REMOVE_METHOD_TYPE = 34;
 
 	/**
 	 * The feature id for the '<em><b>Bean Method</b></em>' containment reference.
@@ -2597,7 +2886,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getSecurityIdentityType()
 	 * @generated
 	 */
-	int SECURITY_IDENTITY_TYPE = 30;
+	int SECURITY_IDENTITY_TYPE = 35;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -2652,7 +2941,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getSessionBean()
 	 * @generated
 	 */
-	int SESSION_BEAN = 31;
+	int SESSION_BEAN = 36;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -2754,13 +3043,22 @@ public interface EjbPackage extends EPackage {
 	int SESSION_BEAN__BUSINESS_REMOTES = 10;
 
 	/**
+	 * The feature id for the '<em><b>Local Bean</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SESSION_BEAN__LOCAL_BEAN = 11;
+
+	/**
 	 * The feature id for the '<em><b>Service Endpoint</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SESSION_BEAN__SERVICE_ENDPOINT = 11;
+	int SESSION_BEAN__SERVICE_ENDPOINT = 12;
 
 	/**
 	 * The feature id for the '<em><b>Ejb Class</b></em>' attribute.
@@ -2769,7 +3067,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SESSION_BEAN__EJB_CLASS = 12;
+	int SESSION_BEAN__EJB_CLASS = 13;
 
 	/**
 	 * The feature id for the '<em><b>Session Type</b></em>' attribute.
@@ -2778,7 +3076,16 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SESSION_BEAN__SESSION_TYPE = 13;
+	int SESSION_BEAN__SESSION_TYPE = 14;
+
+	/**
+	 * The feature id for the '<em><b>Stateful Timeout</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SESSION_BEAN__STATEFUL_TIMEOUT = 15;
 
 	/**
 	 * The feature id for the '<em><b>Timeout Method</b></em>' containment reference.
@@ -2787,7 +3094,52 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SESSION_BEAN__TIMEOUT_METHOD = 14;
+	int SESSION_BEAN__TIMEOUT_METHOD = 16;
+
+	/**
+	 * The feature id for the '<em><b>Timer</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SESSION_BEAN__TIMER = 17;
+
+	/**
+	 * The feature id for the '<em><b>Init On Startup</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SESSION_BEAN__INIT_ON_STARTUP = 18;
+
+	/**
+	 * The feature id for the '<em><b>Concurrency Management Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SESSION_BEAN__CONCURRENCY_MANAGEMENT_TYPE = 19;
+
+	/**
+	 * The feature id for the '<em><b>Concurrent Method</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SESSION_BEAN__CONCURRENT_METHOD = 20;
+
+	/**
+	 * The feature id for the '<em><b>Depends On</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SESSION_BEAN__DEPENDS_ON = 21;
 
 	/**
 	 * The feature id for the '<em><b>Init Methods</b></em>' containment reference list.
@@ -2796,7 +3148,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SESSION_BEAN__INIT_METHODS = 15;
+	int SESSION_BEAN__INIT_METHODS = 22;
 
 	/**
 	 * The feature id for the '<em><b>Remove Methods</b></em>' containment reference list.
@@ -2805,7 +3157,16 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SESSION_BEAN__REMOVE_METHODS = 16;
+	int SESSION_BEAN__REMOVE_METHODS = 23;
+
+	/**
+	 * The feature id for the '<em><b>Async Method</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SESSION_BEAN__ASYNC_METHOD = 24;
 
 	/**
 	 * The feature id for the '<em><b>Transaction Type</b></em>' attribute.
@@ -2814,7 +3175,34 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SESSION_BEAN__TRANSACTION_TYPE = 17;
+	int SESSION_BEAN__TRANSACTION_TYPE = 25;
+
+	/**
+	 * The feature id for the '<em><b>After Begin Method</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SESSION_BEAN__AFTER_BEGIN_METHOD = 26;
+
+	/**
+	 * The feature id for the '<em><b>Before Completion Method</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SESSION_BEAN__BEFORE_COMPLETION_METHOD = 27;
+
+	/**
+	 * The feature id for the '<em><b>After Completion Method</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SESSION_BEAN__AFTER_COMPLETION_METHOD = 28;
 
 	/**
 	 * The feature id for the '<em><b>Around Invokes</b></em>' containment reference list.
@@ -2823,7 +3211,16 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SESSION_BEAN__AROUND_INVOKES = 18;
+	int SESSION_BEAN__AROUND_INVOKES = 29;
+
+	/**
+	 * The feature id for the '<em><b>Around Timeouts</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SESSION_BEAN__AROUND_TIMEOUTS = 30;
 
 	/**
 	 * The feature id for the '<em><b>Env Entries</b></em>' containment reference list.
@@ -2832,7 +3229,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SESSION_BEAN__ENV_ENTRIES = 19;
+	int SESSION_BEAN__ENV_ENTRIES = 31;
 
 	/**
 	 * The feature id for the '<em><b>Ejb Refs</b></em>' containment reference list.
@@ -2841,7 +3238,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SESSION_BEAN__EJB_REFS = 20;
+	int SESSION_BEAN__EJB_REFS = 32;
 
 	/**
 	 * The feature id for the '<em><b>Ejb Local Refs</b></em>' containment reference list.
@@ -2850,7 +3247,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SESSION_BEAN__EJB_LOCAL_REFS = 21;
+	int SESSION_BEAN__EJB_LOCAL_REFS = 33;
 
 	/**
 	 * The feature id for the '<em><b>Service Refs</b></em>' containment reference list.
@@ -2859,7 +3256,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SESSION_BEAN__SERVICE_REFS = 22;
+	int SESSION_BEAN__SERVICE_REFS = 34;
 
 	/**
 	 * The feature id for the '<em><b>Resource Refs</b></em>' containment reference list.
@@ -2868,7 +3265,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SESSION_BEAN__RESOURCE_REFS = 23;
+	int SESSION_BEAN__RESOURCE_REFS = 35;
 
 	/**
 	 * The feature id for the '<em><b>Resource Env Refs</b></em>' containment reference list.
@@ -2877,7 +3274,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SESSION_BEAN__RESOURCE_ENV_REFS = 24;
+	int SESSION_BEAN__RESOURCE_ENV_REFS = 36;
 
 	/**
 	 * The feature id for the '<em><b>Message Destination Refs</b></em>' containment reference list.
@@ -2886,7 +3283,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SESSION_BEAN__MESSAGE_DESTINATION_REFS = 25;
+	int SESSION_BEAN__MESSAGE_DESTINATION_REFS = 37;
 
 	/**
 	 * The feature id for the '<em><b>Persistence Context Refs</b></em>' containment reference list.
@@ -2895,7 +3292,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SESSION_BEAN__PERSISTENCE_CONTEXT_REFS = 26;
+	int SESSION_BEAN__PERSISTENCE_CONTEXT_REFS = 38;
 
 	/**
 	 * The feature id for the '<em><b>Persistence Unit Refs</b></em>' containment reference list.
@@ -2904,7 +3301,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SESSION_BEAN__PERSISTENCE_UNIT_REFS = 27;
+	int SESSION_BEAN__PERSISTENCE_UNIT_REFS = 39;
 
 	/**
 	 * The feature id for the '<em><b>Post Constructs</b></em>' containment reference list.
@@ -2913,7 +3310,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SESSION_BEAN__POST_CONSTRUCTS = 28;
+	int SESSION_BEAN__POST_CONSTRUCTS = 40;
 
 	/**
 	 * The feature id for the '<em><b>Pre Destroys</b></em>' containment reference list.
@@ -2922,7 +3319,16 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SESSION_BEAN__PRE_DESTROYS = 29;
+	int SESSION_BEAN__PRE_DESTROYS = 41;
+
+	/**
+	 * The feature id for the '<em><b>Data Source</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SESSION_BEAN__DATA_SOURCE = 42;
 
 	/**
 	 * The feature id for the '<em><b>Post Activates</b></em>' containment reference list.
@@ -2931,7 +3337,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SESSION_BEAN__POST_ACTIVATES = 30;
+	int SESSION_BEAN__POST_ACTIVATES = 43;
 
 	/**
 	 * The feature id for the '<em><b>Pre Passivates</b></em>' containment reference list.
@@ -2940,7 +3346,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SESSION_BEAN__PRE_PASSIVATES = 31;
+	int SESSION_BEAN__PRE_PASSIVATES = 44;
 
 	/**
 	 * The feature id for the '<em><b>Security Role Refs</b></em>' containment reference list.
@@ -2949,7 +3355,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SESSION_BEAN__SECURITY_ROLE_REFS = 32;
+	int SESSION_BEAN__SECURITY_ROLE_REFS = 45;
 
 	/**
 	 * The feature id for the '<em><b>Security Identities</b></em>' containment reference.
@@ -2958,7 +3364,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SESSION_BEAN__SECURITY_IDENTITIES = 33;
+	int SESSION_BEAN__SECURITY_IDENTITIES = 46;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -2967,7 +3373,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SESSION_BEAN__ID = 34;
+	int SESSION_BEAN__ID = 47;
 
 	/**
 	 * The number of structural features of the '<em>Session Bean</em>' class.
@@ -2976,7 +3382,244 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SESSION_BEAN_FEATURE_COUNT = 35;
+	int SESSION_BEAN_FEATURE_COUNT = 48;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.StatefulTimeoutTypeImpl <em>Stateful Timeout Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.ejb.internal.impl.StatefulTimeoutTypeImpl
+	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getStatefulTimeoutType()
+	 * @generated
+	 */
+	int STATEFUL_TIMEOUT_TYPE = 37;
+
+	/**
+	 * The feature id for the '<em><b>Timeout</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATEFUL_TIMEOUT_TYPE__TIMEOUT = 0;
+
+	/**
+	 * The feature id for the '<em><b>Unit</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATEFUL_TIMEOUT_TYPE__UNIT = 1;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATEFUL_TIMEOUT_TYPE__ID = 2;
+
+	/**
+	 * The number of structural features of the '<em>Stateful Timeout Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATEFUL_TIMEOUT_TYPE_FEATURE_COUNT = 3;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.TimerScheduleTypeImpl <em>Timer Schedule Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.ejb.internal.impl.TimerScheduleTypeImpl
+	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getTimerScheduleType()
+	 * @generated
+	 */
+	int TIMER_SCHEDULE_TYPE = 38;
+
+	/**
+	 * The feature id for the '<em><b>Second</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIMER_SCHEDULE_TYPE__SECOND = 0;
+
+	/**
+	 * The feature id for the '<em><b>Minute</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIMER_SCHEDULE_TYPE__MINUTE = 1;
+
+	/**
+	 * The feature id for the '<em><b>Hour</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIMER_SCHEDULE_TYPE__HOUR = 2;
+
+	/**
+	 * The feature id for the '<em><b>Day Of Month</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIMER_SCHEDULE_TYPE__DAY_OF_MONTH = 3;
+
+	/**
+	 * The feature id for the '<em><b>Month</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIMER_SCHEDULE_TYPE__MONTH = 4;
+
+	/**
+	 * The feature id for the '<em><b>Day Of Week</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIMER_SCHEDULE_TYPE__DAY_OF_WEEK = 5;
+
+	/**
+	 * The feature id for the '<em><b>Year</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIMER_SCHEDULE_TYPE__YEAR = 6;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIMER_SCHEDULE_TYPE__ID = 7;
+
+	/**
+	 * The number of structural features of the '<em>Timer Schedule Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIMER_SCHEDULE_TYPE_FEATURE_COUNT = 8;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.TimerTypeImpl <em>Timer Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.ejb.internal.impl.TimerTypeImpl
+	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getTimerType()
+	 * @generated
+	 */
+	int TIMER_TYPE = 39;
+
+	/**
+	 * The feature id for the '<em><b>Description</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIMER_TYPE__DESCRIPTION = 0;
+
+	/**
+	 * The feature id for the '<em><b>Schedule</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIMER_TYPE__SCHEDULE = 1;
+
+	/**
+	 * The feature id for the '<em><b>Start</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIMER_TYPE__START = 2;
+
+	/**
+	 * The feature id for the '<em><b>End</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIMER_TYPE__END = 3;
+
+	/**
+	 * The feature id for the '<em><b>Timeout Method</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIMER_TYPE__TIMEOUT_METHOD = 4;
+
+	/**
+	 * The feature id for the '<em><b>Persistent</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIMER_TYPE__PERSISTENT = 5;
+
+	/**
+	 * The feature id for the '<em><b>Timezone</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIMER_TYPE__TIMEZONE = 6;
+
+	/**
+	 * The feature id for the '<em><b>Info</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIMER_TYPE__INFO = 7;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIMER_TYPE__ID = 8;
+
+	/**
+	 * The number of structural features of the '<em>Timer Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIMER_TYPE_FEATURE_COUNT = 9;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.ejb.CmpVersionType <em>Cmp Version Type</em>}' enum.
@@ -2986,7 +3629,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getCmpVersionType()
 	 * @generated
 	 */
-	int CMP_VERSION_TYPE = 32;
+	int CMP_VERSION_TYPE = 40;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.ejb.CMRFieldType <em>CMR Field Type</em>}' enum.
@@ -2996,7 +3639,27 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getCMRFieldType()
 	 * @generated
 	 */
-	int CMR_FIELD_TYPE = 33;
+	int CMR_FIELD_TYPE = 41;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.jst.javaee.ejb.ConcurrencyManagementTypeType <em>Concurrency Management Type Type</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.ejb.ConcurrencyManagementTypeType
+	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getConcurrencyManagementTypeType()
+	 * @generated
+	 */
+	int CONCURRENCY_MANAGEMENT_TYPE_TYPE = 42;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.jst.javaee.ejb.ConcurrentLockTypeType <em>Concurrent Lock Type Type</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.ejb.ConcurrentLockTypeType
+	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getConcurrentLockTypeType()
+	 * @generated
+	 */
+	int CONCURRENT_LOCK_TYPE_TYPE = 43;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.ejb.MethodInterfaceType <em>Method Interface Type</em>}' enum.
@@ -3006,7 +3669,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getMethodInterfaceType()
 	 * @generated
 	 */
-	int METHOD_INTERFACE_TYPE = 34;
+	int METHOD_INTERFACE_TYPE = 44;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.ejb.MultiplicityType <em>Multiplicity Type</em>}' enum.
@@ -3016,7 +3679,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getMultiplicityType()
 	 * @generated
 	 */
-	int MULTIPLICITY_TYPE = 35;
+	int MULTIPLICITY_TYPE = 45;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.ejb.PersistenceType <em>Persistence Type</em>}' enum.
@@ -3026,7 +3689,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getPersistenceType()
 	 * @generated
 	 */
-	int PERSISTENCE_TYPE = 36;
+	int PERSISTENCE_TYPE = 46;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.ejb.ResultTypeMappingType <em>Result Type Mapping Type</em>}' enum.
@@ -3036,7 +3699,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getResultTypeMappingType()
 	 * @generated
 	 */
-	int RESULT_TYPE_MAPPING_TYPE = 37;
+	int RESULT_TYPE_MAPPING_TYPE = 47;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.ejb.SessionType <em>Session Type</em>}' enum.
@@ -3046,7 +3709,17 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getSessionType()
 	 * @generated
 	 */
-	int SESSION_TYPE = 38;
+	int SESSION_TYPE = 48;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.jst.javaee.ejb.TimeUnitTypeType <em>Time Unit Type Type</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.ejb.TimeUnitTypeType
+	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getTimeUnitTypeType()
+	 * @generated
+	 */
+	int TIME_UNIT_TYPE_TYPE = 49;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.ejb.TransactionAttributeType <em>Transaction Attribute Type</em>}' enum.
@@ -3056,7 +3729,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getTransactionAttributeType()
 	 * @generated
 	 */
-	int TRANSACTION_ATTRIBUTE_TYPE = 39;
+	int TRANSACTION_ATTRIBUTE_TYPE = 50;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.ejb.TransactionType <em>Transaction Type</em>}' enum.
@@ -3066,7 +3739,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getTransactionType()
 	 * @generated
 	 */
-	int TRANSACTION_TYPE = 40;
+	int TRANSACTION_TYPE = 51;
 
 	/**
 	 * The meta object id for the '<em>Cmp Version Type Object</em>' data type.
@@ -3076,7 +3749,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getCmpVersionTypeObject()
 	 * @generated
 	 */
-	int CMP_VERSION_TYPE_OBJECT = 41;
+	int CMP_VERSION_TYPE_OBJECT = 52;
 
 	/**
 	 * The meta object id for the '<em>CMR Field Type Object</em>' data type.
@@ -3086,7 +3759,27 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getCMRFieldTypeObject()
 	 * @generated
 	 */
-	int CMR_FIELD_TYPE_OBJECT = 42;
+	int CMR_FIELD_TYPE_OBJECT = 53;
+
+	/**
+	 * The meta object id for the '<em>Concurrency Management Type Type Object</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.ejb.ConcurrencyManagementTypeType
+	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getConcurrencyManagementTypeTypeObject()
+	 * @generated
+	 */
+	int CONCURRENCY_MANAGEMENT_TYPE_TYPE_OBJECT = 54;
+
+	/**
+	 * The meta object id for the '<em>Concurrent Lock Type Type Object</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.ejb.ConcurrentLockTypeType
+	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getConcurrentLockTypeTypeObject()
+	 * @generated
+	 */
+	int CONCURRENT_LOCK_TYPE_TYPE_OBJECT = 55;
 
 	/**
 	 * The meta object id for the '<em>Class Type</em>' data type.
@@ -3096,7 +3789,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getEjbClassType()
 	 * @generated
 	 */
-	int EJB_CLASS_TYPE = 43;
+	int EJB_CLASS_TYPE = 56;
 
 	/**
 	 * The meta object id for the '<em>Name Type</em>' data type.
@@ -3106,7 +3799,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getEjbNameType()
 	 * @generated
 	 */
-	int EJB_NAME_TYPE = 44;
+	int EJB_NAME_TYPE = 57;
 
 	/**
 	 * The meta object id for the '<em>Method Interface Type Object</em>' data type.
@@ -3116,7 +3809,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getMethodInterfaceTypeObject()
 	 * @generated
 	 */
-	int METHOD_INTERFACE_TYPE_OBJECT = 45;
+	int METHOD_INTERFACE_TYPE_OBJECT = 58;
 
 	/**
 	 * The meta object id for the '<em>Method Name Type</em>' data type.
@@ -3126,7 +3819,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getMethodNameType()
 	 * @generated
 	 */
-	int METHOD_NAME_TYPE = 46;
+	int METHOD_NAME_TYPE = 59;
 
 	/**
 	 * The meta object id for the '<em>Multiplicity Type Object</em>' data type.
@@ -3136,7 +3829,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getMultiplicityTypeObject()
 	 * @generated
 	 */
-	int MULTIPLICITY_TYPE_OBJECT = 47;
+	int MULTIPLICITY_TYPE_OBJECT = 60;
 
 	/**
 	 * The meta object id for the '<em>Persistence Type Object</em>' data type.
@@ -3146,7 +3839,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getPersistenceTypeObject()
 	 * @generated
 	 */
-	int PERSISTENCE_TYPE_OBJECT = 48;
+	int PERSISTENCE_TYPE_OBJECT = 61;
 
 	/**
 	 * The meta object id for the '<em>Result Type Mapping Type Object</em>' data type.
@@ -3156,7 +3849,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getResultTypeMappingTypeObject()
 	 * @generated
 	 */
-	int RESULT_TYPE_MAPPING_TYPE_OBJECT = 49;
+	int RESULT_TYPE_MAPPING_TYPE_OBJECT = 62;
 
 	/**
 	 * The meta object id for the '<em>Session Type Object</em>' data type.
@@ -3166,7 +3859,17 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getSessionTypeObject()
 	 * @generated
 	 */
-	int SESSION_TYPE_OBJECT = 50;
+	int SESSION_TYPE_OBJECT = 63;
+
+	/**
+	 * The meta object id for the '<em>Time Unit Type Type Object</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.ejb.TimeUnitTypeType
+	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getTimeUnitTypeTypeObject()
+	 * @generated
+	 */
+	int TIME_UNIT_TYPE_TYPE_OBJECT = 64;
 
 	/**
 	 * The meta object id for the '<em>Transaction Attribute Type Object</em>' data type.
@@ -3176,7 +3879,7 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getTransactionAttributeTypeObject()
 	 * @generated
 	 */
-	int TRANSACTION_ATTRIBUTE_TYPE_OBJECT = 51;
+	int TRANSACTION_ATTRIBUTE_TYPE_OBJECT = 65;
 
 	/**
 	 * The meta object id for the '<em>Transaction Type Object</em>' data type.
@@ -3186,8 +3889,51 @@ public interface EjbPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getTransactionTypeObject()
 	 * @generated
 	 */
-	int TRANSACTION_TYPE_OBJECT = 52;
+	int TRANSACTION_TYPE_OBJECT = 66;
 
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.ejb.AccessTimeoutType <em>Access Timeout Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Access Timeout Type</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.AccessTimeoutType
+	 * @generated
+	 */
+	EClass getAccessTimeoutType();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.AccessTimeoutType#getTimeout <em>Timeout</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Timeout</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.AccessTimeoutType#getTimeout()
+	 * @see #getAccessTimeoutType()
+	 * @generated
+	 */
+	EAttribute getAccessTimeoutType_Timeout();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.AccessTimeoutType#getUnit <em>Unit</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Unit</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.AccessTimeoutType#getUnit()
+	 * @see #getAccessTimeoutType()
+	 * @generated
+	 */
+	EAttribute getAccessTimeoutType_Unit();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.AccessTimeoutType#getId <em>Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Id</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.AccessTimeoutType#getId()
+	 * @see #getAccessTimeoutType()
+	 * @generated
+	 */
+	EAttribute getAccessTimeoutType_Id();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.ejb.ActivationConfig <em>Activation Config</em>}'.
@@ -3308,6 +4054,17 @@ public interface EjbPackage extends EPackage {
 	EAttribute getApplicationException_Rollback();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.ApplicationException#isInherited <em>Inherited</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Inherited</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.ApplicationException#isInherited()
+	 * @see #getApplicationException()
+	 * @generated
+	 */
+	EAttribute getApplicationException_Inherited();
+
+	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.ApplicationException#getId <em>Id</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3349,6 +4106,38 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getAroundInvokeType_MethodName();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.ejb.AroundTimeoutType <em>Around Timeout Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Around Timeout Type</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.AroundTimeoutType
+	 * @generated
+	 */
+	EClass getAroundTimeoutType();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.AroundTimeoutType#getClass_ <em>Class</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Class</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.AroundTimeoutType#getClass_()
+	 * @see #getAroundTimeoutType()
+	 * @generated
+	 */
+	EAttribute getAroundTimeoutType_Class();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.AroundTimeoutType#getMethodName <em>Method Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Method Name</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.AroundTimeoutType#getMethodName()
+	 * @see #getAroundTimeoutType()
+	 * @generated
+	 */
+	EAttribute getAroundTimeoutType_MethodName();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.ejb.AssemblyDescriptor <em>Assembly Descriptor</em>}'.
@@ -3449,6 +4238,60 @@ public interface EjbPackage extends EPackage {
 	EAttribute getAssemblyDescriptor_Id();
 
 	/**
+	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.ejb.AsyncMethodType <em>Async Method Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Async Method Type</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.AsyncMethodType
+	 * @generated
+	 */
+	EClass getAsyncMethodType();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.AsyncMethodType#getMethodName <em>Method Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Method Name</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.AsyncMethodType#getMethodName()
+	 * @see #getAsyncMethodType()
+	 * @generated
+	 */
+	EAttribute getAsyncMethodType_MethodName();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.javaee.ejb.AsyncMethodType#getMethodParams <em>Method Params</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Method Params</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.AsyncMethodType#getMethodParams()
+	 * @see #getAsyncMethodType()
+	 * @generated
+	 */
+	EReference getAsyncMethodType_MethodParams();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.AsyncMethodType#getMethodIntf <em>Method Intf</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Method Intf</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.AsyncMethodType#getMethodIntf()
+	 * @see #getAsyncMethodType()
+	 * @generated
+	 */
+	EAttribute getAsyncMethodType_MethodIntf();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.AsyncMethodType#getId <em>Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Id</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.AsyncMethodType#getId()
+	 * @see #getAsyncMethodType()
+	 * @generated
+	 */
+	EAttribute getAsyncMethodType_Id();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.ejb.CMPField <em>CMP Field</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3546,6 +4389,60 @@ public interface EjbPackage extends EPackage {
 	EAttribute getCMRField_Id();
 
 	/**
+	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.ejb.ConcurrentMethodType <em>Concurrent Method Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Concurrent Method Type</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.ConcurrentMethodType
+	 * @generated
+	 */
+	EClass getConcurrentMethodType();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.javaee.ejb.ConcurrentMethodType#getMethod <em>Method</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Method</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.ConcurrentMethodType#getMethod()
+	 * @see #getConcurrentMethodType()
+	 * @generated
+	 */
+	EReference getConcurrentMethodType_Method();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.ConcurrentMethodType#getLock <em>Lock</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Lock</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.ConcurrentMethodType#getLock()
+	 * @see #getConcurrentMethodType()
+	 * @generated
+	 */
+	EAttribute getConcurrentMethodType_Lock();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.javaee.ejb.ConcurrentMethodType#getAccessTimeout <em>Access Timeout</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Access Timeout</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.ConcurrentMethodType#getAccessTimeout()
+	 * @see #getConcurrentMethodType()
+	 * @generated
+	 */
+	EReference getConcurrentMethodType_AccessTimeout();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.ConcurrentMethodType#getId <em>Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Id</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.ConcurrentMethodType#getId()
+	 * @see #getConcurrentMethodType()
+	 * @generated
+	 */
+	EAttribute getConcurrentMethodType_Id();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.ejb.ContainerTransactionType <em>Container Transaction Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3600,6 +4497,38 @@ public interface EjbPackage extends EPackage {
 	EAttribute getContainerTransactionType_Id();
 
 	/**
+	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.ejb.DependsOnType <em>Depends On Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Depends On Type</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.DependsOnType
+	 * @generated
+	 */
+	EClass getDependsOnType();
+
+	/**
+	 * Returns the meta object for the attribute list '{@link org.eclipse.jst.javaee.ejb.DependsOnType#getEjbName <em>Ejb Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Ejb Name</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.DependsOnType#getEjbName()
+	 * @see #getDependsOnType()
+	 * @generated
+	 */
+	EAttribute getDependsOnType_EjbName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.DependsOnType#getId <em>Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Id</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.DependsOnType#getId()
+	 * @see #getDependsOnType()
+	 * @generated
+	 */
+	EAttribute getDependsOnType_Id();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.ejb.EJBJar <em>EJB Jar</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3641,6 +4570,17 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getEJBJar_Icons();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.EJBJar#getModuleName <em>Module Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Module Name</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.EJBJar#getModuleName()
+	 * @see #getEJBJar()
+	 * @generated
+	 */
+	EAttribute getEJBJar_ModuleName();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.javaee.ejb.EJBJar#getEnterpriseBeans <em>Enterprise Beans</em>}'.
@@ -4309,6 +5249,17 @@ public interface EjbPackage extends EPackage {
 	EReference getEntityBean_PreDestroys();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.EntityBean#getDataSource <em>Data Source</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Data Source</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.EntityBean#getDataSource()
+	 * @see #getEntityBean()
+	 * @generated
+	 */
+	EReference getEntityBean_DataSource();
+
+	/**
 	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.EntityBean#getSecurityRoleRefs <em>Security Role Refs</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4655,6 +5606,17 @@ public interface EjbPackage extends EPackage {
 	EReference getInterceptorType_AroundInvokes();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.InterceptorType#getAroundTimeouts <em>Around Timeouts</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Around Timeouts</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.InterceptorType#getAroundTimeouts()
+	 * @see #getInterceptorType()
+	 * @generated
+	 */
+	EReference getInterceptorType_AroundTimeouts();
+
+	/**
 	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.InterceptorType#getEnvEntries <em>Env Entries</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4774,6 +5736,17 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getInterceptorType_PreDestroys();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.InterceptorType#getDataSource <em>Data Source</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Data Source</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.InterceptorType#getDataSource()
+	 * @see #getInterceptorType()
+	 * @generated
+	 */
+	EReference getInterceptorType_DataSource();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.InterceptorType#getPostActivates <em>Post Activates</em>}'.
@@ -4907,6 +5880,17 @@ public interface EjbPackage extends EPackage {
 	EReference getMessageDrivenBean_TimeoutMethod();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.MessageDrivenBean#getTimer <em>Timer</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Timer</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.MessageDrivenBean#getTimer()
+	 * @see #getMessageDrivenBean()
+	 * @generated
+	 */
+	EReference getMessageDrivenBean_Timer();
+
+	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.MessageDrivenBean#getTransactionType <em>Transaction Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4960,6 +5944,17 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getMessageDrivenBean_AroundInvokes();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.MessageDrivenBean#getAroundTimeouts <em>Around Timeouts</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Around Timeouts</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.MessageDrivenBean#getAroundTimeouts()
+	 * @see #getMessageDrivenBean()
+	 * @generated
+	 */
+	EReference getMessageDrivenBean_AroundTimeouts();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.MessageDrivenBean#getEnvEntries <em>Env Entries</em>}'.
@@ -5081,6 +6076,28 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getMessageDrivenBean_PreDestroys();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.MessageDrivenBean#getDataSource <em>Data Source</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Data Source</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.MessageDrivenBean#getDataSource()
+	 * @see #getMessageDrivenBean()
+	 * @generated
+	 */
+	EReference getMessageDrivenBean_DataSource();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.MessageDrivenBean#getSecurityRoleRef <em>Security Role Ref</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Security Role Ref</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.MessageDrivenBean#getSecurityRoleRef()
+	 * @see #getMessageDrivenBean()
+	 * @generated
+	 */
+	EReference getMessageDrivenBean_SecurityRoleRef();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.javaee.ejb.MessageDrivenBean#getSecurityIdentity <em>Security Identity</em>}'.
@@ -5743,6 +6760,17 @@ public interface EjbPackage extends EPackage {
 	EAttribute getSessionBean_BusinessRemotes();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.javaee.ejb.SessionBean#getLocalBean <em>Local Bean</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Local Bean</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.SessionBean#getLocalBean()
+	 * @see #getSessionBean()
+	 * @generated
+	 */
+	EReference getSessionBean_LocalBean();
+
+	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.SessionBean#getServiceEndpoint <em>Service Endpoint</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5776,6 +6804,17 @@ public interface EjbPackage extends EPackage {
 	EAttribute getSessionBean_SessionType();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.javaee.ejb.SessionBean#getStatefulTimeout <em>Stateful Timeout</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Stateful Timeout</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.SessionBean#getStatefulTimeout()
+	 * @see #getSessionBean()
+	 * @generated
+	 */
+	EReference getSessionBean_StatefulTimeout();
+
+	/**
 	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.javaee.ejb.SessionBean#getTimeoutMethod <em>Timeout Method</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5785,6 +6824,61 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getSessionBean_TimeoutMethod();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.SessionBean#getTimer <em>Timer</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Timer</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.SessionBean#getTimer()
+	 * @see #getSessionBean()
+	 * @generated
+	 */
+	EReference getSessionBean_Timer();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.SessionBean#isInitOnStartup <em>Init On Startup</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Init On Startup</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.SessionBean#isInitOnStartup()
+	 * @see #getSessionBean()
+	 * @generated
+	 */
+	EAttribute getSessionBean_InitOnStartup();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.SessionBean#getConcurrencyManagementType <em>Concurrency Management Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Concurrency Management Type</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.SessionBean#getConcurrencyManagementType()
+	 * @see #getSessionBean()
+	 * @generated
+	 */
+	EAttribute getSessionBean_ConcurrencyManagementType();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.SessionBean#getConcurrentMethod <em>Concurrent Method</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Concurrent Method</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.SessionBean#getConcurrentMethod()
+	 * @see #getSessionBean()
+	 * @generated
+	 */
+	EReference getSessionBean_ConcurrentMethod();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.javaee.ejb.SessionBean#getDependsOn <em>Depends On</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Depends On</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.SessionBean#getDependsOn()
+	 * @see #getSessionBean()
+	 * @generated
+	 */
+	EReference getSessionBean_DependsOn();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.SessionBean#getInitMethods <em>Init Methods</em>}'.
@@ -5809,6 +6903,17 @@ public interface EjbPackage extends EPackage {
 	EReference getSessionBean_RemoveMethods();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.SessionBean#getAsyncMethod <em>Async Method</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Async Method</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.SessionBean#getAsyncMethod()
+	 * @see #getSessionBean()
+	 * @generated
+	 */
+	EReference getSessionBean_AsyncMethod();
+
+	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.SessionBean#getTransactionType <em>Transaction Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5820,6 +6925,39 @@ public interface EjbPackage extends EPackage {
 	EAttribute getSessionBean_TransactionType();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.javaee.ejb.SessionBean#getAfterBeginMethod <em>After Begin Method</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>After Begin Method</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.SessionBean#getAfterBeginMethod()
+	 * @see #getSessionBean()
+	 * @generated
+	 */
+	EReference getSessionBean_AfterBeginMethod();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.javaee.ejb.SessionBean#getBeforeCompletionMethod <em>Before Completion Method</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Before Completion Method</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.SessionBean#getBeforeCompletionMethod()
+	 * @see #getSessionBean()
+	 * @generated
+	 */
+	EReference getSessionBean_BeforeCompletionMethod();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.javaee.ejb.SessionBean#getAfterCompletionMethod <em>After Completion Method</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>After Completion Method</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.SessionBean#getAfterCompletionMethod()
+	 * @see #getSessionBean()
+	 * @generated
+	 */
+	EReference getSessionBean_AfterCompletionMethod();
+
+	/**
 	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.SessionBean#getAroundInvokes <em>Around Invokes</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5829,6 +6967,17 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getSessionBean_AroundInvokes();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.SessionBean#getAroundTimeouts <em>Around Timeouts</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Around Timeouts</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.SessionBean#getAroundTimeouts()
+	 * @see #getSessionBean()
+	 * @generated
+	 */
+	EReference getSessionBean_AroundTimeouts();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.SessionBean#getEnvEntries <em>Env Entries</em>}'.
@@ -5952,6 +7101,17 @@ public interface EjbPackage extends EPackage {
 	EReference getSessionBean_PreDestroys();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.SessionBean#getDataSource <em>Data Source</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Data Source</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.SessionBean#getDataSource()
+	 * @see #getSessionBean()
+	 * @generated
+	 */
+	EReference getSessionBean_DataSource();
+
+	/**
 	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.SessionBean#getPostActivates <em>Post Activates</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6007,6 +7167,256 @@ public interface EjbPackage extends EPackage {
 	EAttribute getSessionBean_Id();
 
 	/**
+	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.ejb.StatefulTimeoutType <em>Stateful Timeout Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Stateful Timeout Type</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.StatefulTimeoutType
+	 * @generated
+	 */
+	EClass getStatefulTimeoutType();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.StatefulTimeoutType#getTimeout <em>Timeout</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Timeout</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.StatefulTimeoutType#getTimeout()
+	 * @see #getStatefulTimeoutType()
+	 * @generated
+	 */
+	EAttribute getStatefulTimeoutType_Timeout();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.StatefulTimeoutType#getUnit <em>Unit</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Unit</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.StatefulTimeoutType#getUnit()
+	 * @see #getStatefulTimeoutType()
+	 * @generated
+	 */
+	EAttribute getStatefulTimeoutType_Unit();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.StatefulTimeoutType#getId <em>Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Id</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.StatefulTimeoutType#getId()
+	 * @see #getStatefulTimeoutType()
+	 * @generated
+	 */
+	EAttribute getStatefulTimeoutType_Id();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.ejb.TimerScheduleType <em>Timer Schedule Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Timer Schedule Type</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.TimerScheduleType
+	 * @generated
+	 */
+	EClass getTimerScheduleType();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.TimerScheduleType#getSecond <em>Second</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Second</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.TimerScheduleType#getSecond()
+	 * @see #getTimerScheduleType()
+	 * @generated
+	 */
+	EAttribute getTimerScheduleType_Second();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.TimerScheduleType#getMinute <em>Minute</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Minute</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.TimerScheduleType#getMinute()
+	 * @see #getTimerScheduleType()
+	 * @generated
+	 */
+	EAttribute getTimerScheduleType_Minute();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.TimerScheduleType#getHour <em>Hour</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Hour</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.TimerScheduleType#getHour()
+	 * @see #getTimerScheduleType()
+	 * @generated
+	 */
+	EAttribute getTimerScheduleType_Hour();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.TimerScheduleType#getDayOfMonth <em>Day Of Month</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Day Of Month</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.TimerScheduleType#getDayOfMonth()
+	 * @see #getTimerScheduleType()
+	 * @generated
+	 */
+	EAttribute getTimerScheduleType_DayOfMonth();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.TimerScheduleType#getMonth <em>Month</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Month</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.TimerScheduleType#getMonth()
+	 * @see #getTimerScheduleType()
+	 * @generated
+	 */
+	EAttribute getTimerScheduleType_Month();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.TimerScheduleType#getDayOfWeek <em>Day Of Week</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Day Of Week</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.TimerScheduleType#getDayOfWeek()
+	 * @see #getTimerScheduleType()
+	 * @generated
+	 */
+	EAttribute getTimerScheduleType_DayOfWeek();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.TimerScheduleType#getYear <em>Year</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Year</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.TimerScheduleType#getYear()
+	 * @see #getTimerScheduleType()
+	 * @generated
+	 */
+	EAttribute getTimerScheduleType_Year();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.TimerScheduleType#getId <em>Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Id</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.TimerScheduleType#getId()
+	 * @see #getTimerScheduleType()
+	 * @generated
+	 */
+	EAttribute getTimerScheduleType_Id();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.ejb.TimerType <em>Timer Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Timer Type</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.TimerType
+	 * @generated
+	 */
+	EClass getTimerType();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.TimerType#getDescription <em>Description</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Description</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.TimerType#getDescription()
+	 * @see #getTimerType()
+	 * @generated
+	 */
+	EReference getTimerType_Description();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.javaee.ejb.TimerType#getSchedule <em>Schedule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Schedule</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.TimerType#getSchedule()
+	 * @see #getTimerType()
+	 * @generated
+	 */
+	EReference getTimerType_Schedule();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.TimerType#getStart <em>Start</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Start</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.TimerType#getStart()
+	 * @see #getTimerType()
+	 * @generated
+	 */
+	EAttribute getTimerType_Start();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.TimerType#getEnd <em>End</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>End</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.TimerType#getEnd()
+	 * @see #getTimerType()
+	 * @generated
+	 */
+	EAttribute getTimerType_End();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.javaee.ejb.TimerType#getTimeoutMethod <em>Timeout Method</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Timeout Method</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.TimerType#getTimeoutMethod()
+	 * @see #getTimerType()
+	 * @generated
+	 */
+	EReference getTimerType_TimeoutMethod();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.TimerType#isPersistent <em>Persistent</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Persistent</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.TimerType#isPersistent()
+	 * @see #getTimerType()
+	 * @generated
+	 */
+	EAttribute getTimerType_Persistent();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.TimerType#getTimezone <em>Timezone</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Timezone</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.TimerType#getTimezone()
+	 * @see #getTimerType()
+	 * @generated
+	 */
+	EAttribute getTimerType_Timezone();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.TimerType#getInfo <em>Info</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Info</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.TimerType#getInfo()
+	 * @see #getTimerType()
+	 * @generated
+	 */
+	EAttribute getTimerType_Info();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.TimerType#getId <em>Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Id</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.TimerType#getId()
+	 * @see #getTimerType()
+	 * @generated
+	 */
+	EAttribute getTimerType_Id();
+
+	/**
 	 * Returns the meta object for enum '{@link org.eclipse.jst.javaee.ejb.CmpVersionType <em>Cmp Version Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6025,6 +7435,26 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getCMRFieldType();
+
+	/**
+	 * Returns the meta object for enum '{@link org.eclipse.jst.javaee.ejb.ConcurrencyManagementTypeType <em>Concurrency Management Type Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Concurrency Management Type Type</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.ConcurrencyManagementTypeType
+	 * @generated
+	 */
+	EEnum getConcurrencyManagementTypeType();
+
+	/**
+	 * Returns the meta object for enum '{@link org.eclipse.jst.javaee.ejb.ConcurrentLockTypeType <em>Concurrent Lock Type Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Concurrent Lock Type Type</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.ConcurrentLockTypeType
+	 * @generated
+	 */
+	EEnum getConcurrentLockTypeType();
 
 	/**
 	 * Returns the meta object for enum '{@link org.eclipse.jst.javaee.ejb.MethodInterfaceType <em>Method Interface Type</em>}'.
@@ -6077,6 +7507,16 @@ public interface EjbPackage extends EPackage {
 	EEnum getSessionType();
 
 	/**
+	 * Returns the meta object for enum '{@link org.eclipse.jst.javaee.ejb.TimeUnitTypeType <em>Time Unit Type Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Time Unit Type Type</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.TimeUnitTypeType
+	 * @generated
+	 */
+	EEnum getTimeUnitTypeType();
+
+	/**
 	 * Returns the meta object for enum '{@link org.eclipse.jst.javaee.ejb.TransactionAttributeType <em>Transaction Attribute Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6115,6 +7555,26 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 */
 	EDataType getCMRFieldTypeObject();
+
+	/**
+	 * Returns the meta object for data type '{@link org.eclipse.jst.javaee.ejb.ConcurrencyManagementTypeType <em>Concurrency Management Type Type Object</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>Concurrency Management Type Type Object</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.ConcurrencyManagementTypeType
+	 * @generated
+	 */
+	EDataType getConcurrencyManagementTypeTypeObject();
+
+	/**
+	 * Returns the meta object for data type '{@link org.eclipse.jst.javaee.ejb.ConcurrentLockTypeType <em>Concurrent Lock Type Type Object</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>Concurrent Lock Type Type Object</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.ConcurrentLockTypeType
+	 * @generated
+	 */
+	EDataType getConcurrentLockTypeTypeObject();
 
 	/**
 	 * Returns the meta object for data type '{@link java.lang.String <em>Class Type</em>}'.
@@ -6197,6 +7657,16 @@ public interface EjbPackage extends EPackage {
 	EDataType getSessionTypeObject();
 
 	/**
+	 * Returns the meta object for data type '{@link org.eclipse.jst.javaee.ejb.TimeUnitTypeType <em>Time Unit Type Type Object</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>Time Unit Type Type Object</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.TimeUnitTypeType
+	 * @generated
+	 */
+	EDataType getTimeUnitTypeTypeObject();
+
+	/**
 	 * Returns the meta object for data type '{@link org.eclipse.jst.javaee.ejb.TransactionAttributeType <em>Transaction Attribute Type Object</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6238,6 +7708,40 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 */
 	interface Literals  {
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.AccessTimeoutTypeImpl <em>Access Timeout Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.ejb.internal.impl.AccessTimeoutTypeImpl
+		 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getAccessTimeoutType()
+		 * @generated
+		 */
+		EClass ACCESS_TIMEOUT_TYPE = eINSTANCE.getAccessTimeoutType();
+
+		/**
+		 * The meta object literal for the '<em><b>Timeout</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ACCESS_TIMEOUT_TYPE__TIMEOUT = eINSTANCE.getAccessTimeoutType_Timeout();
+
+		/**
+		 * The meta object literal for the '<em><b>Unit</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ACCESS_TIMEOUT_TYPE__UNIT = eINSTANCE.getAccessTimeoutType_Unit();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ACCESS_TIMEOUT_TYPE__ID = eINSTANCE.getAccessTimeoutType_Id();
+
 		/**
 		 * The meta object literal for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.ActivationConfigImpl <em>Activation Config</em>}' class.
 		 * <!-- begin-user-doc -->
@@ -6333,6 +7837,14 @@ public interface EjbPackage extends EPackage {
 		EAttribute APPLICATION_EXCEPTION__ROLLBACK = eINSTANCE.getApplicationException_Rollback();
 
 		/**
+		 * The meta object literal for the '<em><b>Inherited</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute APPLICATION_EXCEPTION__INHERITED = eINSTANCE.getApplicationException_Inherited();
+
+		/**
 		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -6365,6 +7877,32 @@ public interface EjbPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute AROUND_INVOKE_TYPE__METHOD_NAME = eINSTANCE.getAroundInvokeType_MethodName();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.AroundTimeoutTypeImpl <em>Around Timeout Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.ejb.internal.impl.AroundTimeoutTypeImpl
+		 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getAroundTimeoutType()
+		 * @generated
+		 */
+		EClass AROUND_TIMEOUT_TYPE = eINSTANCE.getAroundTimeoutType();
+
+		/**
+		 * The meta object literal for the '<em><b>Class</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute AROUND_TIMEOUT_TYPE__CLASS = eINSTANCE.getAroundTimeoutType_Class();
+
+		/**
+		 * The meta object literal for the '<em><b>Method Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute AROUND_TIMEOUT_TYPE__METHOD_NAME = eINSTANCE.getAroundTimeoutType_MethodName();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.AssemblyDescriptorImpl <em>Assembly Descriptor</em>}' class.
@@ -6439,6 +7977,48 @@ public interface EjbPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute ASSEMBLY_DESCRIPTOR__ID = eINSTANCE.getAssemblyDescriptor_Id();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.AsyncMethodTypeImpl <em>Async Method Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.ejb.internal.impl.AsyncMethodTypeImpl
+		 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getAsyncMethodType()
+		 * @generated
+		 */
+		EClass ASYNC_METHOD_TYPE = eINSTANCE.getAsyncMethodType();
+
+		/**
+		 * The meta object literal for the '<em><b>Method Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ASYNC_METHOD_TYPE__METHOD_NAME = eINSTANCE.getAsyncMethodType_MethodName();
+
+		/**
+		 * The meta object literal for the '<em><b>Method Params</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ASYNC_METHOD_TYPE__METHOD_PARAMS = eINSTANCE.getAsyncMethodType_MethodParams();
+
+		/**
+		 * The meta object literal for the '<em><b>Method Intf</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ASYNC_METHOD_TYPE__METHOD_INTF = eINSTANCE.getAsyncMethodType_MethodIntf();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ASYNC_METHOD_TYPE__ID = eINSTANCE.getAsyncMethodType_Id();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.CMPFieldImpl <em>CMP Field</em>}' class.
@@ -6517,6 +8097,48 @@ public interface EjbPackage extends EPackage {
 		EAttribute CMR_FIELD__ID = eINSTANCE.getCMRField_Id();
 
 		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.ConcurrentMethodTypeImpl <em>Concurrent Method Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.ejb.internal.impl.ConcurrentMethodTypeImpl
+		 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getConcurrentMethodType()
+		 * @generated
+		 */
+		EClass CONCURRENT_METHOD_TYPE = eINSTANCE.getConcurrentMethodType();
+
+		/**
+		 * The meta object literal for the '<em><b>Method</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONCURRENT_METHOD_TYPE__METHOD = eINSTANCE.getConcurrentMethodType_Method();
+
+		/**
+		 * The meta object literal for the '<em><b>Lock</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONCURRENT_METHOD_TYPE__LOCK = eINSTANCE.getConcurrentMethodType_Lock();
+
+		/**
+		 * The meta object literal for the '<em><b>Access Timeout</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONCURRENT_METHOD_TYPE__ACCESS_TIMEOUT = eINSTANCE.getConcurrentMethodType_AccessTimeout();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONCURRENT_METHOD_TYPE__ID = eINSTANCE.getConcurrentMethodType_Id();
+
+		/**
 		 * The meta object literal for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.ContainerTransactionTypeImpl <em>Container Transaction Type</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -6559,6 +8181,32 @@ public interface EjbPackage extends EPackage {
 		EAttribute CONTAINER_TRANSACTION_TYPE__ID = eINSTANCE.getContainerTransactionType_Id();
 
 		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.DependsOnTypeImpl <em>Depends On Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.ejb.internal.impl.DependsOnTypeImpl
+		 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getDependsOnType()
+		 * @generated
+		 */
+		EClass DEPENDS_ON_TYPE = eINSTANCE.getDependsOnType();
+
+		/**
+		 * The meta object literal for the '<em><b>Ejb Name</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DEPENDS_ON_TYPE__EJB_NAME = eINSTANCE.getDependsOnType_EjbName();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DEPENDS_ON_TYPE__ID = eINSTANCE.getDependsOnType_Id();
+
+		/**
 		 * The meta object literal for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.EJBJarImpl <em>EJB Jar</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -6591,6 +8239,14 @@ public interface EjbPackage extends EPackage {
 		 * @generated
 		 */
 		EReference EJB_JAR__ICONS = eINSTANCE.getEJBJar_Icons();
+
+		/**
+		 * The meta object literal for the '<em><b>Module Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EJB_JAR__MODULE_NAME = eINSTANCE.getEJBJar_ModuleName();
 
 		/**
 		 * The meta object literal for the '<em><b>Enterprise Beans</b></em>' containment reference feature.
@@ -7091,6 +8747,14 @@ public interface EjbPackage extends EPackage {
 		EReference ENTITY_BEAN__PRE_DESTROYS = eINSTANCE.getEntityBean_PreDestroys();
 
 		/**
+		 * The meta object literal for the '<em><b>Data Source</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ENTITY_BEAN__DATA_SOURCE = eINSTANCE.getEntityBean_DataSource();
+
+		/**
 		 * The meta object literal for the '<em><b>Security Role Refs</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -7359,6 +9023,14 @@ public interface EjbPackage extends EPackage {
 		EReference INTERCEPTOR_TYPE__AROUND_INVOKES = eINSTANCE.getInterceptorType_AroundInvokes();
 
 		/**
+		 * The meta object literal for the '<em><b>Around Timeouts</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference INTERCEPTOR_TYPE__AROUND_TIMEOUTS = eINSTANCE.getInterceptorType_AroundTimeouts();
+
+		/**
 		 * The meta object literal for the '<em><b>Env Entries</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -7445,6 +9117,14 @@ public interface EjbPackage extends EPackage {
 		 * @generated
 		 */
 		EReference INTERCEPTOR_TYPE__PRE_DESTROYS = eINSTANCE.getInterceptorType_PreDestroys();
+
+		/**
+		 * The meta object literal for the '<em><b>Data Source</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference INTERCEPTOR_TYPE__DATA_SOURCE = eINSTANCE.getInterceptorType_DataSource();
 
 		/**
 		 * The meta object literal for the '<em><b>Post Activates</b></em>' containment reference list feature.
@@ -7545,6 +9225,14 @@ public interface EjbPackage extends EPackage {
 		EReference MESSAGE_DRIVEN_BEAN__TIMEOUT_METHOD = eINSTANCE.getMessageDrivenBean_TimeoutMethod();
 
 		/**
+		 * The meta object literal for the '<em><b>Timer</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MESSAGE_DRIVEN_BEAN__TIMER = eINSTANCE.getMessageDrivenBean_Timer();
+
+		/**
 		 * The meta object literal for the '<em><b>Transaction Type</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -7583,6 +9271,14 @@ public interface EjbPackage extends EPackage {
 		 * @generated
 		 */
 		EReference MESSAGE_DRIVEN_BEAN__AROUND_INVOKES = eINSTANCE.getMessageDrivenBean_AroundInvokes();
+
+		/**
+		 * The meta object literal for the '<em><b>Around Timeouts</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MESSAGE_DRIVEN_BEAN__AROUND_TIMEOUTS = eINSTANCE.getMessageDrivenBean_AroundTimeouts();
 
 		/**
 		 * The meta object literal for the '<em><b>Env Entries</b></em>' containment reference list feature.
@@ -7671,6 +9367,22 @@ public interface EjbPackage extends EPackage {
 		 * @generated
 		 */
 		EReference MESSAGE_DRIVEN_BEAN__PRE_DESTROYS = eINSTANCE.getMessageDrivenBean_PreDestroys();
+
+		/**
+		 * The meta object literal for the '<em><b>Data Source</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MESSAGE_DRIVEN_BEAN__DATA_SOURCE = eINSTANCE.getMessageDrivenBean_DataSource();
+
+		/**
+		 * The meta object literal for the '<em><b>Security Role Ref</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MESSAGE_DRIVEN_BEAN__SECURITY_ROLE_REF = eINSTANCE.getMessageDrivenBean_SecurityRoleRef();
 
 		/**
 		 * The meta object literal for the '<em><b>Security Identity</b></em>' containment reference feature.
@@ -8183,6 +9895,14 @@ public interface EjbPackage extends EPackage {
 		EAttribute SESSION_BEAN__BUSINESS_REMOTES = eINSTANCE.getSessionBean_BusinessRemotes();
 
 		/**
+		 * The meta object literal for the '<em><b>Local Bean</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SESSION_BEAN__LOCAL_BEAN = eINSTANCE.getSessionBean_LocalBean();
+
+		/**
 		 * The meta object literal for the '<em><b>Service Endpoint</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -8207,12 +9927,60 @@ public interface EjbPackage extends EPackage {
 		EAttribute SESSION_BEAN__SESSION_TYPE = eINSTANCE.getSessionBean_SessionType();
 
 		/**
+		 * The meta object literal for the '<em><b>Stateful Timeout</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SESSION_BEAN__STATEFUL_TIMEOUT = eINSTANCE.getSessionBean_StatefulTimeout();
+
+		/**
 		 * The meta object literal for the '<em><b>Timeout Method</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference SESSION_BEAN__TIMEOUT_METHOD = eINSTANCE.getSessionBean_TimeoutMethod();
+
+		/**
+		 * The meta object literal for the '<em><b>Timer</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SESSION_BEAN__TIMER = eINSTANCE.getSessionBean_Timer();
+
+		/**
+		 * The meta object literal for the '<em><b>Init On Startup</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SESSION_BEAN__INIT_ON_STARTUP = eINSTANCE.getSessionBean_InitOnStartup();
+
+		/**
+		 * The meta object literal for the '<em><b>Concurrency Management Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SESSION_BEAN__CONCURRENCY_MANAGEMENT_TYPE = eINSTANCE.getSessionBean_ConcurrencyManagementType();
+
+		/**
+		 * The meta object literal for the '<em><b>Concurrent Method</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SESSION_BEAN__CONCURRENT_METHOD = eINSTANCE.getSessionBean_ConcurrentMethod();
+
+		/**
+		 * The meta object literal for the '<em><b>Depends On</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SESSION_BEAN__DEPENDS_ON = eINSTANCE.getSessionBean_DependsOn();
 
 		/**
 		 * The meta object literal for the '<em><b>Init Methods</b></em>' containment reference list feature.
@@ -8231,6 +9999,14 @@ public interface EjbPackage extends EPackage {
 		EReference SESSION_BEAN__REMOVE_METHODS = eINSTANCE.getSessionBean_RemoveMethods();
 
 		/**
+		 * The meta object literal for the '<em><b>Async Method</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SESSION_BEAN__ASYNC_METHOD = eINSTANCE.getSessionBean_AsyncMethod();
+
+		/**
 		 * The meta object literal for the '<em><b>Transaction Type</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -8239,12 +10015,44 @@ public interface EjbPackage extends EPackage {
 		EAttribute SESSION_BEAN__TRANSACTION_TYPE = eINSTANCE.getSessionBean_TransactionType();
 
 		/**
+		 * The meta object literal for the '<em><b>After Begin Method</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SESSION_BEAN__AFTER_BEGIN_METHOD = eINSTANCE.getSessionBean_AfterBeginMethod();
+
+		/**
+		 * The meta object literal for the '<em><b>Before Completion Method</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SESSION_BEAN__BEFORE_COMPLETION_METHOD = eINSTANCE.getSessionBean_BeforeCompletionMethod();
+
+		/**
+		 * The meta object literal for the '<em><b>After Completion Method</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SESSION_BEAN__AFTER_COMPLETION_METHOD = eINSTANCE.getSessionBean_AfterCompletionMethod();
+
+		/**
 		 * The meta object literal for the '<em><b>Around Invokes</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference SESSION_BEAN__AROUND_INVOKES = eINSTANCE.getSessionBean_AroundInvokes();
+
+		/**
+		 * The meta object literal for the '<em><b>Around Timeouts</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SESSION_BEAN__AROUND_TIMEOUTS = eINSTANCE.getSessionBean_AroundTimeouts();
 
 		/**
 		 * The meta object literal for the '<em><b>Env Entries</b></em>' containment reference list feature.
@@ -8335,6 +10143,14 @@ public interface EjbPackage extends EPackage {
 		EReference SESSION_BEAN__PRE_DESTROYS = eINSTANCE.getSessionBean_PreDestroys();
 
 		/**
+		 * The meta object literal for the '<em><b>Data Source</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SESSION_BEAN__DATA_SOURCE = eINSTANCE.getSessionBean_DataSource();
+
+		/**
 		 * The meta object literal for the '<em><b>Post Activates</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -8375,6 +10191,196 @@ public interface EjbPackage extends EPackage {
 		EAttribute SESSION_BEAN__ID = eINSTANCE.getSessionBean_Id();
 
 		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.StatefulTimeoutTypeImpl <em>Stateful Timeout Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.ejb.internal.impl.StatefulTimeoutTypeImpl
+		 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getStatefulTimeoutType()
+		 * @generated
+		 */
+		EClass STATEFUL_TIMEOUT_TYPE = eINSTANCE.getStatefulTimeoutType();
+
+		/**
+		 * The meta object literal for the '<em><b>Timeout</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute STATEFUL_TIMEOUT_TYPE__TIMEOUT = eINSTANCE.getStatefulTimeoutType_Timeout();
+
+		/**
+		 * The meta object literal for the '<em><b>Unit</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute STATEFUL_TIMEOUT_TYPE__UNIT = eINSTANCE.getStatefulTimeoutType_Unit();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute STATEFUL_TIMEOUT_TYPE__ID = eINSTANCE.getStatefulTimeoutType_Id();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.TimerScheduleTypeImpl <em>Timer Schedule Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.ejb.internal.impl.TimerScheduleTypeImpl
+		 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getTimerScheduleType()
+		 * @generated
+		 */
+		EClass TIMER_SCHEDULE_TYPE = eINSTANCE.getTimerScheduleType();
+
+		/**
+		 * The meta object literal for the '<em><b>Second</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TIMER_SCHEDULE_TYPE__SECOND = eINSTANCE.getTimerScheduleType_Second();
+
+		/**
+		 * The meta object literal for the '<em><b>Minute</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TIMER_SCHEDULE_TYPE__MINUTE = eINSTANCE.getTimerScheduleType_Minute();
+
+		/**
+		 * The meta object literal for the '<em><b>Hour</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TIMER_SCHEDULE_TYPE__HOUR = eINSTANCE.getTimerScheduleType_Hour();
+
+		/**
+		 * The meta object literal for the '<em><b>Day Of Month</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TIMER_SCHEDULE_TYPE__DAY_OF_MONTH = eINSTANCE.getTimerScheduleType_DayOfMonth();
+
+		/**
+		 * The meta object literal for the '<em><b>Month</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TIMER_SCHEDULE_TYPE__MONTH = eINSTANCE.getTimerScheduleType_Month();
+
+		/**
+		 * The meta object literal for the '<em><b>Day Of Week</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TIMER_SCHEDULE_TYPE__DAY_OF_WEEK = eINSTANCE.getTimerScheduleType_DayOfWeek();
+
+		/**
+		 * The meta object literal for the '<em><b>Year</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TIMER_SCHEDULE_TYPE__YEAR = eINSTANCE.getTimerScheduleType_Year();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TIMER_SCHEDULE_TYPE__ID = eINSTANCE.getTimerScheduleType_Id();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.TimerTypeImpl <em>Timer Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.ejb.internal.impl.TimerTypeImpl
+		 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getTimerType()
+		 * @generated
+		 */
+		EClass TIMER_TYPE = eINSTANCE.getTimerType();
+
+		/**
+		 * The meta object literal for the '<em><b>Description</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TIMER_TYPE__DESCRIPTION = eINSTANCE.getTimerType_Description();
+
+		/**
+		 * The meta object literal for the '<em><b>Schedule</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TIMER_TYPE__SCHEDULE = eINSTANCE.getTimerType_Schedule();
+
+		/**
+		 * The meta object literal for the '<em><b>Start</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TIMER_TYPE__START = eINSTANCE.getTimerType_Start();
+
+		/**
+		 * The meta object literal for the '<em><b>End</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TIMER_TYPE__END = eINSTANCE.getTimerType_End();
+
+		/**
+		 * The meta object literal for the '<em><b>Timeout Method</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TIMER_TYPE__TIMEOUT_METHOD = eINSTANCE.getTimerType_TimeoutMethod();
+
+		/**
+		 * The meta object literal for the '<em><b>Persistent</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TIMER_TYPE__PERSISTENT = eINSTANCE.getTimerType_Persistent();
+
+		/**
+		 * The meta object literal for the '<em><b>Timezone</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TIMER_TYPE__TIMEZONE = eINSTANCE.getTimerType_Timezone();
+
+		/**
+		 * The meta object literal for the '<em><b>Info</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TIMER_TYPE__INFO = eINSTANCE.getTimerType_Info();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TIMER_TYPE__ID = eINSTANCE.getTimerType_Id();
+
+		/**
 		 * The meta object literal for the '{@link org.eclipse.jst.javaee.ejb.CmpVersionType <em>Cmp Version Type</em>}' enum.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -8393,6 +10399,26 @@ public interface EjbPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum CMR_FIELD_TYPE = eINSTANCE.getCMRFieldType();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.javaee.ejb.ConcurrencyManagementTypeType <em>Concurrency Management Type Type</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.ejb.ConcurrencyManagementTypeType
+		 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getConcurrencyManagementTypeType()
+		 * @generated
+		 */
+		EEnum CONCURRENCY_MANAGEMENT_TYPE_TYPE = eINSTANCE.getConcurrencyManagementTypeType();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.javaee.ejb.ConcurrentLockTypeType <em>Concurrent Lock Type Type</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.ejb.ConcurrentLockTypeType
+		 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getConcurrentLockTypeType()
+		 * @generated
+		 */
+		EEnum CONCURRENT_LOCK_TYPE_TYPE = eINSTANCE.getConcurrentLockTypeType();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.jst.javaee.ejb.MethodInterfaceType <em>Method Interface Type</em>}' enum.
@@ -8445,6 +10471,16 @@ public interface EjbPackage extends EPackage {
 		EEnum SESSION_TYPE = eINSTANCE.getSessionType();
 
 		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.javaee.ejb.TimeUnitTypeType <em>Time Unit Type Type</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.ejb.TimeUnitTypeType
+		 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getTimeUnitTypeType()
+		 * @generated
+		 */
+		EEnum TIME_UNIT_TYPE_TYPE = eINSTANCE.getTimeUnitTypeType();
+
+		/**
 		 * The meta object literal for the '{@link org.eclipse.jst.javaee.ejb.TransactionAttributeType <em>Transaction Attribute Type</em>}' enum.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -8483,6 +10519,26 @@ public interface EjbPackage extends EPackage {
 		 * @generated
 		 */
 		EDataType CMR_FIELD_TYPE_OBJECT = eINSTANCE.getCMRFieldTypeObject();
+
+		/**
+		 * The meta object literal for the '<em>Concurrency Management Type Type Object</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.ejb.ConcurrencyManagementTypeType
+		 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getConcurrencyManagementTypeTypeObject()
+		 * @generated
+		 */
+		EDataType CONCURRENCY_MANAGEMENT_TYPE_TYPE_OBJECT = eINSTANCE.getConcurrencyManagementTypeTypeObject();
+
+		/**
+		 * The meta object literal for the '<em>Concurrent Lock Type Type Object</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.ejb.ConcurrentLockTypeType
+		 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getConcurrentLockTypeTypeObject()
+		 * @generated
+		 */
+		EDataType CONCURRENT_LOCK_TYPE_TYPE_OBJECT = eINSTANCE.getConcurrentLockTypeTypeObject();
 
 		/**
 		 * The meta object literal for the '<em>Class Type</em>' data type.
@@ -8563,6 +10619,16 @@ public interface EjbPackage extends EPackage {
 		 * @generated
 		 */
 		EDataType SESSION_TYPE_OBJECT = eINSTANCE.getSessionTypeObject();
+
+		/**
+		 * The meta object literal for the '<em>Time Unit Type Type Object</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.ejb.TimeUnitTypeType
+		 * @see org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl#getTimeUnitTypeTypeObject()
+		 * @generated
+		 */
+		EDataType TIME_UNIT_TYPE_TYPE_OBJECT = eINSTANCE.getTimeUnitTypeTypeObject();
 
 		/**
 		 * The meta object literal for the '<em>Transaction Attribute Type Object</em>' data type.

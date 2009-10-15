@@ -14,6 +14,7 @@ import java.util.Map;
 
 import org.eclipse.emf.ecore.EPackage;
 
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.util.XMLProcessor;
 
 import org.eclipse.jst.javaee.web.internal.metadata.WebPackage;
@@ -43,7 +44,7 @@ public class WebXMLProcessor extends XMLProcessor {
 	 * @generated
 	 */
 	@Override
-	protected Map getRegistrations() {
+	protected Map<String, Resource.Factory> getRegistrations() {
 		if (registrations == null) {
 			super.getRegistrations();
 			registrations.put(XML_EXTENSION, new WebResourceFactoryImpl());

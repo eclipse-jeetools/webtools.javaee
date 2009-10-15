@@ -19,39 +19,39 @@ import java.util.List;
  *
  * <!-- begin-model-doc -->
  * 
- * 	
- * 
- * 	  The persistence-context-ref element contains a declaration
- * 	  of Deployment Component's reference to a persistence context
- * 	  associated within a Deployment Component's
- * 	  environment. It consists of:
- * 
- * 		  - an optional description
- * 		  - the persistence context reference name
- * 		  - an optional persistence unit name.  If not specified,
- *                     the default persistence unit is assumed.
- * 		  - an optional specification as to whether
- * 		    the persistence context type is Transaction or
- * 		    Extended.  If not specified, Transaction is assumed.
- *                   - an optional list of persistence properties
- * 		  - optional injection targets
- * 
- * 	  Examples:
- * 
- *             &lt;persistence-context-ref&gt;
- *               &lt;persistence-context-ref-name&gt;myPersistenceContext
- *               &lt;/persistence-context-ref-name&gt;
- *             &lt;/persistence-context-ref&gt;
- * 
- *             &lt;persistence-context-ref&gt;
- *               &lt;persistence-context-ref-name&gt;myPersistenceContext
- *                 &lt;/persistence-context-ref-name&gt;
- *               &lt;persistence-unit-name&gt;PersistenceUnit1
- *                 &lt;/persistence-unit-name&gt;
- *               &lt;persistence-context-type&gt;Extended&lt;/persistence-context-type&gt;
- *             &lt;/persistence-context-ref&gt;
- * 
- * 	  
+ * <![CDATA[[
+ *         The persistence-context-ref element contains a declaration
+ *         of Deployment Component's reference to a persistence context
+ *         associated within a Deployment Component's
+ *         environment. It consists of:
+ *         
+ *         - an optional description
+ *         - the persistence context reference name
+ *         - an optional persistence unit name.  If not specified,
+ *         the default persistence unit is assumed.
+ *         - an optional specification as to whether
+ *         the persistence context type is Transaction or
+ *         Extended.  If not specified, Transaction is assumed.
+ *         - an optional list of persistence properties
+ *         - optional injection targets
+ *         
+ *         Examples:
+ *         
+ *         <persistence-context-ref>
+ *         <persistence-context-ref-name>myPersistenceContext
+ *         </persistence-context-ref-name>
+ *         </persistence-context-ref>
+ *         
+ *         <persistence-context-ref>
+ *         <persistence-context-ref-name>myPersistenceContext
+ *         </persistence-context-ref-name>
+ *         <persistence-unit-name>PersistenceUnit1
+ *         </persistence-unit-name>
+ *         <persistence-context-type>Extended</persistence-context-type>
+ *         </persistence-context-ref>
+ *         
+ * ]]>
+ *         @since Java EE 5
  *       
  * <!-- end-model-doc -->
  *
@@ -65,6 +65,7 @@ import java.util.List;
  *   <li>{@link org.eclipse.jst.javaee.core.PersistenceContextRef#getPersistenceProperties <em>Persistence Properties</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.PersistenceContextRef#getMappedName <em>Mapped Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.PersistenceContextRef#getInjectionTargets <em>Injection Targets</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.core.PersistenceContextRef#getLookupName <em>Lookup Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.PersistenceContextRef#getId <em>Id</em>}</li>
  * </ul>
  * </p>
@@ -87,7 +88,7 @@ public interface PersistenceContextRef extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getPersistenceContextRef_Descriptions()
 	 * @generated
 	 */
-	List getDescriptions();
+	List<Description> getDescriptions();
 
 	/**
 	 * Returns the value of the '<em><b>Persistence Context Ref Name</b></em>' attribute.
@@ -96,13 +97,14 @@ public interface PersistenceContextRef extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	    The persistence-context-ref-name element specifies
-	 * 	    the name of a persistence context reference; its
-	 * 	    value is the environment entry name used in
-	 * 	    Deployment Component code.  The name is a JNDI name
-	 * 	    relative to the java:comp/env context.
-	 * 
-	 * 	  
+	 *             The persistence-context-ref-name element specifies
+	 *             the name of a persistence context reference; its
+	 *             value is the environment entry name used in
+	 *             Deployment Component code.  The name is a JNDI name
+	 *             relative to the java:comp/env context.
+	 *             
+	 *             @since Java EE 5
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Persistence Context Ref Name</em>' attribute.
 	 * @see #setPersistenceContextRefName(String)
@@ -131,17 +133,18 @@ public interface PersistenceContextRef extends JavaEEObject {
 	 *             The Application Assembler(or BeanProvider) may use the
 	 *             following syntax to avoid the need to rename persistence
 	 *             units to have unique names within a Java EE application.
-	 * 
+	 *             
 	 *             The Application Assembler specifies the pathname of the
 	 *             root of the persistence.xml file for the referenced
 	 *             persistence unit and appends the name of the persistence
 	 *             unit separated from the pathname by #. The pathname is
-	 *             relative to the referencing application component jar file.
+	 *             relative to the referencing application component jar file. 
 	 *             In this manner, multiple persistence units with the same
-	 *             persistence unit name may be uniquely identified when the
+	 *             persistence unit name may be uniquely identified when the 
 	 *             Application Assembler cannot change persistence unit names.
-	 * 
-	 * 	  
+	 *             
+	 *             @since Java EE 5
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Persistence Unit Name</em>' attribute.
 	 * @see #setPersistenceUnitName(String)
@@ -162,7 +165,6 @@ public interface PersistenceContextRef extends JavaEEObject {
 
 	/**
 	 * Returns the value of the '<em><b>Persistence Context Type</b></em>' attribute.
-	 * The default value is <code>"Transaction"</code>.
 	 * The literals are from the enumeration {@link org.eclipse.jst.javaee.core.PersistenceContextType}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -227,18 +229,19 @@ public interface PersistenceContextRef extends JavaEEObject {
 	 *             Used to specify properties for the container or persistence
 	 *             provider.  Vendor-specific properties may be included in
 	 *             the set of properties.  Properties that are not recognized
-	 *             by a vendor must be ignored.  Entries that make use of the
+	 *             by a vendor must be ignored.  Entries that make use of the 
 	 *             namespace javax.persistence and its subnamespaces must not
 	 *             be used for vendor-specific properties.  The namespace
 	 *             javax.persistence is reserved for use by the specification.
-	 * 
-	 * 	  
+	 *             
+	 *             @since Java EE 5
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Persistence Properties</em>' containment reference list.
 	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getPersistenceContextRef_PersistenceProperties()
 	 * @generated
 	 */
-	List getPersistenceProperties();
+	List<PropertyType> getPersistenceProperties();
 
 	/**
 	 * Returns the value of the '<em><b>Mapped Name</b></em>' attribute.
@@ -246,26 +249,25 @@ public interface PersistenceContextRef extends JavaEEObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * 
-	 * 	    
 	 * 
-	 * 	      A product specific name that this resource should be
-	 * 	      mapped to.  The name of this resource, as defined by the
-	 * 	      resource's name element or defaulted, is a name that is
-	 * 	      local to the application component using the resource.
-	 * 	      (It's a name in the JNDI java:comp/env namespace.)  Many
-	 * 	      application servers provide a way to map these local
-	 * 	      names to names of resources known to the application
-	 * 	      server.  This mapped name is often a global JNDI name,
-	 * 	      but may be a name of any form.
-	 * 
-	 * 	      Application servers are not required to support any
-	 * 	      particular form or type of mapped name, nor the ability
-	 * 	      to use mapped names.  The mapped name is
-	 * 	      product-dependent and often installation-dependent.  No
-	 * 	      use of a mapped name is portable.
-	 * 
-	 * 	      
-	 * 	  
+	 *             A product specific name that this resource should be
+	 *             mapped to.  The name of this resource, as defined by the
+	 *             resource's name element or defaulted, is a name that is
+	 *             local to the application component using the resource.
+	 *             (It's a name in the JNDI java:comp/env namespace.)  Many
+	 *             application servers provide a way to map these local
+	 *             names to names of resources known to the application
+	 *             server.  This mapped name is often a global JNDI name,
+	 *             but may be a name of any form.
+	 *             
+	 *             Application servers are not required to support any
+	 *             particular form or type of mapped name, nor the ability
+	 *             to use mapped names.  The mapped name is
+	 *             product-dependent and often installation-dependent.  No
+	 *             use of a mapped name is portable.
+	 *             
+	 *             @since Java EE 5
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Mapped Name</em>' attribute.
 	 * @see #setMappedName(String)
@@ -297,7 +299,36 @@ public interface PersistenceContextRef extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getPersistenceContextRef_InjectionTargets()
 	 * @generated
 	 */
-	List getInjectionTargets();
+	List<InjectionTarget> getInjectionTargets();
+
+	/**
+	 * Returns the value of the '<em><b>Lookup Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * 
+	 *             The JNDI name to be looked up to resolve a resource reference.
+	 *             
+	 *             @since Java EE 6
+	 *           
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Lookup Name</em>' attribute.
+	 * @see #setLookupName(String)
+	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getPersistenceContextRef_LookupName()
+	 * @generated
+	 */
+	String getLookupName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.jst.javaee.core.PersistenceContextRef#getLookupName <em>Lookup Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Lookup Name</em>' attribute.
+	 * @see #getLookupName()
+	 * @generated
+	 */
+	void setLookupName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.

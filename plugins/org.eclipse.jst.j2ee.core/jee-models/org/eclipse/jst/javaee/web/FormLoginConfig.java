@@ -20,12 +20,13 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The form-login-configType specifies the login and error
- * 	pages that should be used in form based login. If form based
- * 	authentication is not used, these elements are ignored.
+ *         The form-login-configType specifies the login and error
+ *         pages that should be used in form based login. If form based
+ *         authentication is not used, these elements are ignored.
+ *         
+ *         Used in: login-config
  * 
- * 	Used in: login-config
- * 
+ *         @since Java EE 5, Web 2.5        
  *       
  * <!-- end-model-doc -->
  *
@@ -50,12 +51,13 @@ public interface FormLoginConfig extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	    The form-login-page element defines the location in the web
-	 * 	    app where the page that can be used for login can be
-	 * 	    found.  The path begins with a leading / and is interpreted
-	 * 	    relative to the root of the WAR.
-	 * 
-	 * 	  
+	 *             The form-login-page element defines the location in the web
+	 *             app where the page that can be used for login can be
+	 *             found.  The path begins with a leading / and is interpreted
+	 *             relative to the root of the WAR.
+	 *             
+	 *             @since Java EE 5, Web 2.5
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Form Login Page</em>' attribute.
 	 * @see #setFormLoginPage(String)
@@ -81,13 +83,14 @@ public interface FormLoginConfig extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	    The form-error-page element defines the location in
-	 * 	    the web app where the error page that is displayed
-	 * 	    when login is not successful can be found.
-	 * 	    The path begins with a leading / and is interpreted
-	 * 	    relative to the root of the WAR.
-	 * 
-	 * 	  
+	 *             The form-error-page element defines the location in
+	 *             the web app where the error page that is displayed
+	 *             when login is not successful can be found. 
+	 *             The path begins with a leading / and is interpreted
+	 *             relative to the root of the WAR.
+	 *             
+	 *             @since Java EE 5, Web 2.5
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Form Error Page</em>' attribute.
 	 * @see #setFormErrorPage(String)

@@ -77,7 +77,7 @@ public class ServletMappingImpl extends EObjectImpl implements ServletMapping {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList urlPatterns = null;
+	protected EList<UrlPatternType> urlPatterns;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -144,9 +144,9 @@ public class ServletMappingImpl extends EObjectImpl implements ServletMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getUrlPatterns() {
+	public List<UrlPatternType> getUrlPatterns() {
 		if (urlPatterns == null) {
-			urlPatterns = new EObjectContainmentEList(UrlPatternType.class, this, WebPackage.SERVLET_MAPPING__URL_PATTERNS);
+			urlPatterns = new EObjectContainmentEList<UrlPatternType>(UrlPatternType.class, this, WebPackage.SERVLET_MAPPING__URL_PATTERNS);
 		}
 		return urlPatterns;
 	}
@@ -181,7 +181,7 @@ public class ServletMappingImpl extends EObjectImpl implements ServletMapping {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case WebPackage.SERVLET_MAPPING__URL_PATTERNS:
-				return ((InternalEList)getUrlPatterns()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getUrlPatterns()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -209,6 +209,7 @@ public class ServletMappingImpl extends EObjectImpl implements ServletMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -217,7 +218,7 @@ public class ServletMappingImpl extends EObjectImpl implements ServletMapping {
 				return;
 			case WebPackage.SERVLET_MAPPING__URL_PATTERNS:
 				getUrlPatterns().clear();
-				getUrlPatterns().addAll((Collection)newValue);
+				getUrlPatterns().addAll((Collection<? extends UrlPatternType>)newValue);
 				return;
 			case WebPackage.SERVLET_MAPPING__ID:
 				setId((String)newValue);

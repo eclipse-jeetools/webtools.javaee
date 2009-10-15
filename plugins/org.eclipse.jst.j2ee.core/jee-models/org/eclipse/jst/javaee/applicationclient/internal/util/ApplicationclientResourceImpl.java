@@ -28,7 +28,7 @@ import org.eclipse.wst.common.internal.emf.resource.IRootObjectResource;
  * @see org.eclipse.jst.javaee.applicationclient.internal.util.ApplicationclientResourceFactoryImpl
  * @generated
  */
-public class ApplicationclientResourceImpl extends JavaeeResourceImpl implements IRootObjectResource, IApplicationClientResource{
+public class ApplicationclientResourceImpl extends JavaeeResourceImpl implements IRootObjectResource, IApplicationClientResource {
 	/**
 	 * Creates an instance of the resource.
 	 * <!-- begin-user-doc -->

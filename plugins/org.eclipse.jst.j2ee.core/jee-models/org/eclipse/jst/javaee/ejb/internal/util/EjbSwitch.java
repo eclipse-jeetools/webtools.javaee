@@ -32,7 +32,7 @@ import org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage;
  * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage
  * @generated
  */
-public class EjbSwitch {
+public class EjbSwitch<T> {
 	/**
 	 * The cached model package
 	 * <!-- begin-user-doc -->
@@ -60,7 +60,7 @@ public class EjbSwitch {
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
-	public Object doSwitch(EObject theEObject) {
+	public T doSwitch(EObject theEObject) {
 		return doSwitch(theEObject.eClass(), theEObject);
 	}
 
@@ -71,16 +71,16 @@ public class EjbSwitch {
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
-	protected Object doSwitch(EClass theEClass, EObject theEObject) {
+	protected T doSwitch(EClass theEClass, EObject theEObject) {
 		if (theEClass.eContainer() == modelPackage) {
 			return doSwitch(theEClass.getClassifierID(), theEObject);
 		}
 		else {
-			List eSuperTypes = theEClass.getESuperTypes();
+			List<EClass> eSuperTypes = theEClass.getESuperTypes();
 			return
 				eSuperTypes.isEmpty() ?
 					defaultCase(theEObject) :
-					doSwitch((EClass)eSuperTypes.get(0), theEObject);
+					doSwitch(eSuperTypes.get(0), theEObject);
 		}
 	}
 
@@ -91,197 +91,245 @@ public class EjbSwitch {
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
-	protected Object doSwitch(int classifierID, EObject theEObject) {
+	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
+			case EjbPackage.ACCESS_TIMEOUT_TYPE: {
+				AccessTimeoutType accessTimeoutType = (AccessTimeoutType)theEObject;
+				T result = caseAccessTimeoutType(accessTimeoutType);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case EjbPackage.ACTIVATION_CONFIG: {
 				ActivationConfig activationConfig = (ActivationConfig)theEObject;
-				Object result = caseActivationConfig(activationConfig);
+				T result = caseActivationConfig(activationConfig);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.ACTIVATION_CONFIG_PROPERTY: {
 				ActivationConfigProperty activationConfigProperty = (ActivationConfigProperty)theEObject;
-				Object result = caseActivationConfigProperty(activationConfigProperty);
+				T result = caseActivationConfigProperty(activationConfigProperty);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.APPLICATION_EXCEPTION: {
 				ApplicationException applicationException = (ApplicationException)theEObject;
-				Object result = caseApplicationException(applicationException);
+				T result = caseApplicationException(applicationException);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.AROUND_INVOKE_TYPE: {
 				AroundInvokeType aroundInvokeType = (AroundInvokeType)theEObject;
-				Object result = caseAroundInvokeType(aroundInvokeType);
+				T result = caseAroundInvokeType(aroundInvokeType);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case EjbPackage.AROUND_TIMEOUT_TYPE: {
+				AroundTimeoutType aroundTimeoutType = (AroundTimeoutType)theEObject;
+				T result = caseAroundTimeoutType(aroundTimeoutType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.ASSEMBLY_DESCRIPTOR: {
 				AssemblyDescriptor assemblyDescriptor = (AssemblyDescriptor)theEObject;
-				Object result = caseAssemblyDescriptor(assemblyDescriptor);
+				T result = caseAssemblyDescriptor(assemblyDescriptor);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case EjbPackage.ASYNC_METHOD_TYPE: {
+				AsyncMethodType asyncMethodType = (AsyncMethodType)theEObject;
+				T result = caseAsyncMethodType(asyncMethodType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.CMP_FIELD: {
 				CMPField cmpField = (CMPField)theEObject;
-				Object result = caseCMPField(cmpField);
+				T result = caseCMPField(cmpField);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.CMR_FIELD: {
 				CMRField cmrField = (CMRField)theEObject;
-				Object result = caseCMRField(cmrField);
+				T result = caseCMRField(cmrField);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case EjbPackage.CONCURRENT_METHOD_TYPE: {
+				ConcurrentMethodType concurrentMethodType = (ConcurrentMethodType)theEObject;
+				T result = caseConcurrentMethodType(concurrentMethodType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.CONTAINER_TRANSACTION_TYPE: {
 				ContainerTransactionType containerTransactionType = (ContainerTransactionType)theEObject;
-				Object result = caseContainerTransactionType(containerTransactionType);
+				T result = caseContainerTransactionType(containerTransactionType);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case EjbPackage.DEPENDS_ON_TYPE: {
+				DependsOnType dependsOnType = (DependsOnType)theEObject;
+				T result = caseDependsOnType(dependsOnType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.EJB_JAR: {
 				EJBJar ejbJar = (EJBJar)theEObject;
-				Object result = caseEJBJar(ejbJar);
+				T result = caseEJBJar(ejbJar);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.EJB_JAR_DEPLOYMENT_DESCRIPTOR: {
 				EJBJarDeploymentDescriptor ejbJarDeploymentDescriptor = (EJBJarDeploymentDescriptor)theEObject;
-				Object result = caseEJBJarDeploymentDescriptor(ejbJarDeploymentDescriptor);
+				T result = caseEJBJarDeploymentDescriptor(ejbJarDeploymentDescriptor);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.EJB_RELATION: {
 				EJBRelation ejbRelation = (EJBRelation)theEObject;
-				Object result = caseEJBRelation(ejbRelation);
+				T result = caseEJBRelation(ejbRelation);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.EJB_RELATIONSHIP_ROLE: {
 				EJBRelationshipRole ejbRelationshipRole = (EJBRelationshipRole)theEObject;
-				Object result = caseEJBRelationshipRole(ejbRelationshipRole);
+				T result = caseEJBRelationshipRole(ejbRelationshipRole);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.ENTERPRISE_BEANS: {
 				EnterpriseBeans enterpriseBeans = (EnterpriseBeans)theEObject;
-				Object result = caseEnterpriseBeans(enterpriseBeans);
+				T result = caseEnterpriseBeans(enterpriseBeans);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.ENTITY_BEAN: {
 				EntityBean entityBean = (EntityBean)theEObject;
-				Object result = caseEntityBean(entityBean);
+				T result = caseEntityBean(entityBean);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.EXCLUDE_LIST: {
 				ExcludeList excludeList = (ExcludeList)theEObject;
-				Object result = caseExcludeList(excludeList);
+				T result = caseExcludeList(excludeList);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.INIT_METHOD_TYPE: {
 				InitMethodType initMethodType = (InitMethodType)theEObject;
-				Object result = caseInitMethodType(initMethodType);
+				T result = caseInitMethodType(initMethodType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.INTERCEPTOR_BINDING_TYPE: {
 				InterceptorBindingType interceptorBindingType = (InterceptorBindingType)theEObject;
-				Object result = caseInterceptorBindingType(interceptorBindingType);
+				T result = caseInterceptorBindingType(interceptorBindingType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.INTERCEPTOR_ORDER_TYPE: {
 				InterceptorOrderType interceptorOrderType = (InterceptorOrderType)theEObject;
-				Object result = caseInterceptorOrderType(interceptorOrderType);
+				T result = caseInterceptorOrderType(interceptorOrderType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.INTERCEPTORS_TYPE: {
 				InterceptorsType interceptorsType = (InterceptorsType)theEObject;
-				Object result = caseInterceptorsType(interceptorsType);
+				T result = caseInterceptorsType(interceptorsType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.INTERCEPTOR_TYPE: {
 				InterceptorType interceptorType = (InterceptorType)theEObject;
-				Object result = caseInterceptorType(interceptorType);
+				T result = caseInterceptorType(interceptorType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.MESSAGE_DRIVEN_BEAN: {
 				MessageDrivenBean messageDrivenBean = (MessageDrivenBean)theEObject;
-				Object result = caseMessageDrivenBean(messageDrivenBean);
+				T result = caseMessageDrivenBean(messageDrivenBean);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.METHOD_PARAMS: {
 				MethodParams methodParams = (MethodParams)theEObject;
-				Object result = caseMethodParams(methodParams);
+				T result = caseMethodParams(methodParams);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.METHOD_PERMISSION: {
 				MethodPermission methodPermission = (MethodPermission)theEObject;
-				Object result = caseMethodPermission(methodPermission);
+				T result = caseMethodPermission(methodPermission);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.METHOD_TYPE: {
 				MethodType methodType = (MethodType)theEObject;
-				Object result = caseMethodType(methodType);
+				T result = caseMethodType(methodType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.NAMED_METHOD_TYPE: {
 				NamedMethodType namedMethodType = (NamedMethodType)theEObject;
-				Object result = caseNamedMethodType(namedMethodType);
+				T result = caseNamedMethodType(namedMethodType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.QUERY: {
 				Query query = (Query)theEObject;
-				Object result = caseQuery(query);
+				T result = caseQuery(query);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.QUERY_METHOD: {
 				QueryMethod queryMethod = (QueryMethod)theEObject;
-				Object result = caseQueryMethod(queryMethod);
+				T result = caseQueryMethod(queryMethod);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.RELATIONSHIP_ROLE_SOURCE_TYPE: {
 				RelationshipRoleSourceType relationshipRoleSourceType = (RelationshipRoleSourceType)theEObject;
-				Object result = caseRelationshipRoleSourceType(relationshipRoleSourceType);
+				T result = caseRelationshipRoleSourceType(relationshipRoleSourceType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.RELATIONSHIPS: {
 				Relationships relationships = (Relationships)theEObject;
-				Object result = caseRelationships(relationships);
+				T result = caseRelationships(relationships);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.REMOVE_METHOD_TYPE: {
 				RemoveMethodType removeMethodType = (RemoveMethodType)theEObject;
-				Object result = caseRemoveMethodType(removeMethodType);
+				T result = caseRemoveMethodType(removeMethodType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.SECURITY_IDENTITY_TYPE: {
 				SecurityIdentityType securityIdentityType = (SecurityIdentityType)theEObject;
-				Object result = caseSecurityIdentityType(securityIdentityType);
+				T result = caseSecurityIdentityType(securityIdentityType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case EjbPackage.SESSION_BEAN: {
 				SessionBean sessionBean = (SessionBean)theEObject;
-				Object result = caseSessionBean(sessionBean);
+				T result = caseSessionBean(sessionBean);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case EjbPackage.STATEFUL_TIMEOUT_TYPE: {
+				StatefulTimeoutType statefulTimeoutType = (StatefulTimeoutType)theEObject;
+				T result = caseStatefulTimeoutType(statefulTimeoutType);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case EjbPackage.TIMER_SCHEDULE_TYPE: {
+				TimerScheduleType timerScheduleType = (TimerScheduleType)theEObject;
+				T result = caseTimerScheduleType(timerScheduleType);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case EjbPackage.TIMER_TYPE: {
+				TimerType timerType = (TimerType)theEObject;
+				T result = caseTimerType(timerType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -290,497 +338,617 @@ public class EjbSwitch {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Activation Config</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Access Timeout Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Activation Config</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Access Timeout Type</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseActivationConfig(ActivationConfig object) {
+	public T caseAccessTimeoutType(AccessTimeoutType object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Activation Config Property</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Activation Config</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Activation Config Property</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Activation Config</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseActivationConfigProperty(ActivationConfigProperty object) {
+	public T caseActivationConfig(ActivationConfig object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Application Exception</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Activation Config Property</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Application Exception</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Activation Config Property</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseApplicationException(ApplicationException object) {
+	public T caseActivationConfigProperty(ActivationConfigProperty object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Around Invoke Type</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Application Exception</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Around Invoke Type</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Application Exception</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseAroundInvokeType(AroundInvokeType object) {
+	public T caseApplicationException(ApplicationException object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Assembly Descriptor</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Around Invoke Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Assembly Descriptor</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Around Invoke Type</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseAssemblyDescriptor(AssemblyDescriptor object) {
+	public T caseAroundInvokeType(AroundInvokeType object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>CMP Field</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Around Timeout Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>CMP Field</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Around Timeout Type</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseCMPField(CMPField object) {
+	public T caseAroundTimeoutType(AroundTimeoutType object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>CMR Field</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Assembly Descriptor</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>CMR Field</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Assembly Descriptor</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseCMRField(CMRField object) {
+	public T caseAssemblyDescriptor(AssemblyDescriptor object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Container Transaction Type</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Async Method Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Container Transaction Type</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Async Method Type</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseContainerTransactionType(ContainerTransactionType object) {
+	public T caseAsyncMethodType(AsyncMethodType object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>EJB Jar</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>CMP Field</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>EJB Jar</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>CMP Field</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseEJBJar(EJBJar object) {
+	public T caseCMPField(CMPField object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>EJB Jar Deployment Descriptor</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>CMR Field</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>EJB Jar Deployment Descriptor</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>CMR Field</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseEJBJarDeploymentDescriptor(EJBJarDeploymentDescriptor object) {
+	public T caseCMRField(CMRField object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>EJB Relation</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Concurrent Method Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>EJB Relation</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Concurrent Method Type</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseEJBRelation(EJBRelation object) {
+	public T caseConcurrentMethodType(ConcurrentMethodType object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>EJB Relationship Role</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Container Transaction Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>EJB Relationship Role</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Container Transaction Type</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseEJBRelationshipRole(EJBRelationshipRole object) {
+	public T caseContainerTransactionType(ContainerTransactionType object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Enterprise Beans</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Depends On Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Enterprise Beans</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Depends On Type</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseEnterpriseBeans(EnterpriseBeans object) {
+	public T caseDependsOnType(DependsOnType object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Entity Bean</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>EJB Jar</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Entity Bean</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>EJB Jar</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseEntityBean(EntityBean object) {
+	public T caseEJBJar(EJBJar object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Exclude List</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>EJB Jar Deployment Descriptor</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Exclude List</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>EJB Jar Deployment Descriptor</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseExcludeList(ExcludeList object) {
+	public T caseEJBJarDeploymentDescriptor(EJBJarDeploymentDescriptor object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Init Method Type</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>EJB Relation</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Init Method Type</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>EJB Relation</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseInitMethodType(InitMethodType object) {
+	public T caseEJBRelation(EJBRelation object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Interceptor Binding Type</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>EJB Relationship Role</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Interceptor Binding Type</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>EJB Relationship Role</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseInterceptorBindingType(InterceptorBindingType object) {
+	public T caseEJBRelationshipRole(EJBRelationshipRole object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Interceptor Order Type</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Enterprise Beans</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Interceptor Order Type</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Enterprise Beans</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseInterceptorOrderType(InterceptorOrderType object) {
+	public T caseEnterpriseBeans(EnterpriseBeans object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Interceptors Type</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Entity Bean</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Interceptors Type</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Entity Bean</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseInterceptorsType(InterceptorsType object) {
+	public T caseEntityBean(EntityBean object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Interceptor Type</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Exclude List</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Interceptor Type</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Exclude List</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseInterceptorType(InterceptorType object) {
+	public T caseExcludeList(ExcludeList object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Message Driven Bean</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Init Method Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Message Driven Bean</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Init Method Type</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseMessageDrivenBean(MessageDrivenBean object) {
+	public T caseInitMethodType(InitMethodType object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Method Params</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Interceptor Binding Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Method Params</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Interceptor Binding Type</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseMethodParams(MethodParams object) {
+	public T caseInterceptorBindingType(InterceptorBindingType object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Method Permission</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Interceptor Order Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Method Permission</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Interceptor Order Type</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseMethodPermission(MethodPermission object) {
+	public T caseInterceptorOrderType(InterceptorOrderType object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Method Type</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Interceptors Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Method Type</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Interceptors Type</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseMethodType(MethodType object) {
+	public T caseInterceptorsType(InterceptorsType object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Named Method Type</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Interceptor Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Named Method Type</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Interceptor Type</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseNamedMethodType(NamedMethodType object) {
+	public T caseInterceptorType(InterceptorType object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Query</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Message Driven Bean</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Query</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Message Driven Bean</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseQuery(Query object) {
+	public T caseMessageDrivenBean(MessageDrivenBean object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Query Method</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Method Params</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Query Method</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Method Params</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseQueryMethod(QueryMethod object) {
+	public T caseMethodParams(MethodParams object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Relationship Role Source Type</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Method Permission</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Relationship Role Source Type</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Method Permission</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseRelationshipRoleSourceType(RelationshipRoleSourceType object) {
+	public T caseMethodPermission(MethodPermission object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Relationships</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Method Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Relationships</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Method Type</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseRelationships(Relationships object) {
+	public T caseMethodType(MethodType object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Remove Method Type</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Named Method Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Remove Method Type</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Named Method Type</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseRemoveMethodType(RemoveMethodType object) {
+	public T caseNamedMethodType(NamedMethodType object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Security Identity Type</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Query</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Security Identity Type</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Query</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseSecurityIdentityType(SecurityIdentityType object) {
+	public T caseQuery(Query object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Session Bean</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Query Method</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Session Bean</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Query Method</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseSessionBean(SessionBean object) {
+	public T caseQueryMethod(QueryMethod object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>EObject</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Relationship Role Source Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Relationship Role Source Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseRelationshipRoleSourceType(RelationshipRoleSourceType object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Relationships</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Relationships</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseRelationships(Relationships object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Remove Method Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Remove Method Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseRemoveMethodType(RemoveMethodType object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Security Identity Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Security Identity Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSecurityIdentityType(SecurityIdentityType object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Session Bean</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Session Bean</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSessionBean(SessionBean object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Stateful Timeout Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Stateful Timeout Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseStatefulTimeoutType(StatefulTimeoutType object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Timer Schedule Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Timer Schedule Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTimerScheduleType(TimerScheduleType object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Timer Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Timer Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseTimerType(TimerType object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>EObject</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch, but this is the last case anyway.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>EObject</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>EObject</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject)
 	 * @generated
 	 */
-	public Object defaultCase(EObject object) {
+	public T defaultCase(EObject object) {
 		return null;
 	}
 

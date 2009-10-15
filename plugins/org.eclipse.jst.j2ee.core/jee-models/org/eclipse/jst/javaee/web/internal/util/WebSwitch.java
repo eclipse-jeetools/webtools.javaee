@@ -32,7 +32,7 @@ import org.eclipse.jst.javaee.web.internal.metadata.WebPackage;
  * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage
  * @generated
  */
-public class WebSwitch {
+public class WebSwitch<T> {
 	/**
 	 * The cached model package
 	 * <!-- begin-user-doc -->
@@ -60,7 +60,7 @@ public class WebSwitch {
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
-	public Object doSwitch(EObject theEObject) {
+	public T doSwitch(EObject theEObject) {
 		return doSwitch(theEObject.eClass(), theEObject);
 	}
 
@@ -71,16 +71,16 @@ public class WebSwitch {
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
-	protected Object doSwitch(EClass theEClass, EObject theEObject) {
+	protected T doSwitch(EClass theEClass, EObject theEObject) {
 		if (theEClass.eContainer() == modelPackage) {
 			return doSwitch(theEClass.getClassifierID(), theEObject);
 		}
 		else {
-			List eSuperTypes = theEClass.getESuperTypes();
+			List<EClass> eSuperTypes = theEClass.getESuperTypes();
 			return
 				eSuperTypes.isEmpty() ?
 					defaultCase(theEObject) :
-					doSwitch((EClass)eSuperTypes.get(0), theEObject);
+					doSwitch(eSuperTypes.get(0), theEObject);
 		}
 	}
 
@@ -91,113 +91,179 @@ public class WebSwitch {
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
-	protected Object doSwitch(int classifierID, EObject theEObject) {
+	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
+			case WebPackage.ABSOLUTE_ORDERING_TYPE: {
+				AbsoluteOrderingType absoluteOrderingType = (AbsoluteOrderingType)theEObject;
+				T result = caseAbsoluteOrderingType(absoluteOrderingType);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case WebPackage.AUTH_CONSTRAINT: {
 				AuthConstraint authConstraint = (AuthConstraint)theEObject;
-				Object result = caseAuthConstraint(authConstraint);
+				T result = caseAuthConstraint(authConstraint);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case WebPackage.COOKIE_COMMENT_TYPE: {
+				CookieCommentType cookieCommentType = (CookieCommentType)theEObject;
+				T result = caseCookieCommentType(cookieCommentType);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case WebPackage.COOKIE_CONFIG_TYPE: {
+				CookieConfigType cookieConfigType = (CookieConfigType)theEObject;
+				T result = caseCookieConfigType(cookieConfigType);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case WebPackage.COOKIE_DOMAIN_TYPE: {
+				CookieDomainType cookieDomainType = (CookieDomainType)theEObject;
+				T result = caseCookieDomainType(cookieDomainType);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case WebPackage.COOKIE_NAME_TYPE: {
+				CookieNameType cookieNameType = (CookieNameType)theEObject;
+				T result = caseCookieNameType(cookieNameType);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case WebPackage.COOKIE_PATH_TYPE: {
+				CookiePathType cookiePathType = (CookiePathType)theEObject;
+				T result = caseCookiePathType(cookiePathType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WebPackage.ERROR_PAGE: {
 				ErrorPage errorPage = (ErrorPage)theEObject;
-				Object result = caseErrorPage(errorPage);
+				T result = caseErrorPage(errorPage);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WebPackage.FILTER: {
 				Filter filter = (Filter)theEObject;
-				Object result = caseFilter(filter);
+				T result = caseFilter(filter);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WebPackage.FILTER_MAPPING: {
 				FilterMapping filterMapping = (FilterMapping)theEObject;
-				Object result = caseFilterMapping(filterMapping);
+				T result = caseFilterMapping(filterMapping);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WebPackage.FORM_LOGIN_CONFIG: {
 				FormLoginConfig formLoginConfig = (FormLoginConfig)theEObject;
-				Object result = caseFormLoginConfig(formLoginConfig);
+				T result = caseFormLoginConfig(formLoginConfig);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WebPackage.LOCALE_ENCODING_MAPPING: {
 				LocaleEncodingMapping localeEncodingMapping = (LocaleEncodingMapping)theEObject;
-				Object result = caseLocaleEncodingMapping(localeEncodingMapping);
+				T result = caseLocaleEncodingMapping(localeEncodingMapping);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WebPackage.LOCALE_ENCODING_MAPPING_LIST: {
 				LocaleEncodingMappingList localeEncodingMappingList = (LocaleEncodingMappingList)theEObject;
-				Object result = caseLocaleEncodingMappingList(localeEncodingMappingList);
+				T result = caseLocaleEncodingMappingList(localeEncodingMappingList);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WebPackage.LOGIN_CONFIG: {
 				LoginConfig loginConfig = (LoginConfig)theEObject;
-				Object result = caseLoginConfig(loginConfig);
+				T result = caseLoginConfig(loginConfig);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WebPackage.MIME_MAPPING: {
 				MimeMapping mimeMapping = (MimeMapping)theEObject;
-				Object result = caseMimeMapping(mimeMapping);
+				T result = caseMimeMapping(mimeMapping);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case WebPackage.MULTIPART_CONFIG_TYPE: {
+				MultipartConfigType multipartConfigType = (MultipartConfigType)theEObject;
+				T result = caseMultipartConfigType(multipartConfigType);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case WebPackage.ORDERING_ORDERING_TYPE: {
+				OrderingOrderingType orderingOrderingType = (OrderingOrderingType)theEObject;
+				T result = caseOrderingOrderingType(orderingOrderingType);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case WebPackage.ORDERING_OTHERS_TYPE: {
+				OrderingOthersType orderingOthersType = (OrderingOthersType)theEObject;
+				T result = caseOrderingOthersType(orderingOthersType);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case WebPackage.ORDERING_TYPE: {
+				OrderingType orderingType = (OrderingType)theEObject;
+				T result = caseOrderingType(orderingType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WebPackage.SECURITY_CONSTRAINT: {
 				SecurityConstraint securityConstraint = (SecurityConstraint)theEObject;
-				Object result = caseSecurityConstraint(securityConstraint);
+				T result = caseSecurityConstraint(securityConstraint);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WebPackage.SERVLET: {
 				Servlet servlet = (Servlet)theEObject;
-				Object result = caseServlet(servlet);
+				T result = caseServlet(servlet);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WebPackage.SERVLET_MAPPING: {
 				ServletMapping servletMapping = (ServletMapping)theEObject;
-				Object result = caseServletMapping(servletMapping);
+				T result = caseServletMapping(servletMapping);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WebPackage.SESSION_CONFIG: {
 				SessionConfig sessionConfig = (SessionConfig)theEObject;
-				Object result = caseSessionConfig(sessionConfig);
+				T result = caseSessionConfig(sessionConfig);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WebPackage.USER_DATA_CONSTRAINT: {
 				UserDataConstraint userDataConstraint = (UserDataConstraint)theEObject;
-				Object result = caseUserDataConstraint(userDataConstraint);
+				T result = caseUserDataConstraint(userDataConstraint);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WebPackage.WEB_APP: {
 				WebApp webApp = (WebApp)theEObject;
-				Object result = caseWebApp(webApp);
+				T result = caseWebApp(webApp);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WebPackage.WEB_APP_DEPLOYMENT_DESCRIPTOR: {
 				WebAppDeploymentDescriptor webAppDeploymentDescriptor = (WebAppDeploymentDescriptor)theEObject;
-				Object result = caseWebAppDeploymentDescriptor(webAppDeploymentDescriptor);
+				T result = caseWebAppDeploymentDescriptor(webAppDeploymentDescriptor);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case WebPackage.WEB_FRAGMENT: {
+				WebFragment webFragment = (WebFragment)theEObject;
+				T result = caseWebFragment(webFragment);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WebPackage.WEB_RESOURCE_COLLECTION: {
 				WebResourceCollection webResourceCollection = (WebResourceCollection)theEObject;
-				Object result = caseWebResourceCollection(webResourceCollection);
+				T result = caseWebResourceCollection(webResourceCollection);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case WebPackage.WELCOME_FILE_LIST: {
 				WelcomeFileList welcomeFileList = (WelcomeFileList)theEObject;
-				Object result = caseWelcomeFileList(welcomeFileList);
+				T result = caseWelcomeFileList(welcomeFileList);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -206,287 +272,452 @@ public class WebSwitch {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Auth Constraint</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Absolute Ordering Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Auth Constraint</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Absolute Ordering Type</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseAuthConstraint(AuthConstraint object) {
+	public T caseAbsoluteOrderingType(AbsoluteOrderingType object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Error Page</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Auth Constraint</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Error Page</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Auth Constraint</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseErrorPage(ErrorPage object) {
+	public T caseAuthConstraint(AuthConstraint object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Filter</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Cookie Comment Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Filter</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Cookie Comment Type</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseFilter(Filter object) {
+	public T caseCookieCommentType(CookieCommentType object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Filter Mapping</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Cookie Config Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Filter Mapping</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Cookie Config Type</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseFilterMapping(FilterMapping object) {
+	public T caseCookieConfigType(CookieConfigType object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Form Login Config</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Cookie Domain Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Form Login Config</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Cookie Domain Type</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseFormLoginConfig(FormLoginConfig object) {
+	public T caseCookieDomainType(CookieDomainType object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Locale Encoding Mapping</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Cookie Name Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Locale Encoding Mapping</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Cookie Name Type</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseLocaleEncodingMapping(LocaleEncodingMapping object) {
+	public T caseCookieNameType(CookieNameType object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Locale Encoding Mapping List</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Cookie Path Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Locale Encoding Mapping List</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Cookie Path Type</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseLocaleEncodingMappingList(LocaleEncodingMappingList object) {
+	public T caseCookiePathType(CookiePathType object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Login Config</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Error Page</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Login Config</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Error Page</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseLoginConfig(LoginConfig object) {
+	public T caseErrorPage(ErrorPage object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Mime Mapping</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Filter</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Mime Mapping</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Filter</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseMimeMapping(MimeMapping object) {
+	public T caseFilter(Filter object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Security Constraint</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Filter Mapping</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Security Constraint</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Filter Mapping</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseSecurityConstraint(SecurityConstraint object) {
+	public T caseFilterMapping(FilterMapping object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Servlet</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Form Login Config</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Servlet</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Form Login Config</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseServlet(Servlet object) {
+	public T caseFormLoginConfig(FormLoginConfig object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Servlet Mapping</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Locale Encoding Mapping</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Servlet Mapping</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Locale Encoding Mapping</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseServletMapping(ServletMapping object) {
+	public T caseLocaleEncodingMapping(LocaleEncodingMapping object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Session Config</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Locale Encoding Mapping List</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Session Config</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Locale Encoding Mapping List</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseSessionConfig(SessionConfig object) {
+	public T caseLocaleEncodingMappingList(LocaleEncodingMappingList object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>User Data Constraint</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Login Config</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>User Data Constraint</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Login Config</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseUserDataConstraint(UserDataConstraint object) {
+	public T caseLoginConfig(LoginConfig object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>App</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Mime Mapping</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>App</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Mime Mapping</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseWebApp(WebApp object) {
+	public T caseMimeMapping(MimeMapping object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>App Deployment Descriptor</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Multipart Config Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>App Deployment Descriptor</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Multipart Config Type</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseWebAppDeploymentDescriptor(WebAppDeploymentDescriptor object) {
+	public T caseMultipartConfigType(MultipartConfigType object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Resource Collection</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Ordering Ordering Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Resource Collection</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Ordering Ordering Type</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseWebResourceCollection(WebResourceCollection object) {
+	public T caseOrderingOrderingType(OrderingOrderingType object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Welcome File List</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Ordering Others Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Welcome File List</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Ordering Others Type</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseWelcomeFileList(WelcomeFileList object) {
+	public T caseOrderingOthersType(OrderingOthersType object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>EObject</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Ordering Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Ordering Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseOrderingType(OrderingType object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Security Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Security Constraint</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSecurityConstraint(SecurityConstraint object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Servlet</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Servlet</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseServlet(Servlet object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Servlet Mapping</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Servlet Mapping</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseServletMapping(ServletMapping object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Session Config</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Session Config</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSessionConfig(SessionConfig object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>User Data Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>User Data Constraint</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseUserDataConstraint(UserDataConstraint object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>App</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>App</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseWebApp(WebApp object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>App Deployment Descriptor</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>App Deployment Descriptor</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseWebAppDeploymentDescriptor(WebAppDeploymentDescriptor object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Fragment</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Fragment</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseWebFragment(WebFragment object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Resource Collection</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Resource Collection</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseWebResourceCollection(WebResourceCollection object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Welcome File List</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Welcome File List</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseWelcomeFileList(WelcomeFileList object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>EObject</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch, but this is the last case anyway.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>EObject</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>EObject</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject)
 	 * @generated
 	 */
-	public Object defaultCase(EObject object) {
+	public T defaultCase(EObject object) {
 		return null;
 	}
 

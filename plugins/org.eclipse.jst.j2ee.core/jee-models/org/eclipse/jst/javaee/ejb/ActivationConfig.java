@@ -12,6 +12,7 @@ package org.eclipse.jst.javaee.ejb;
 
 import java.util.List;
 
+import org.eclipse.jst.javaee.core.Description;
 import org.eclipse.jst.javaee.core.JavaEEObject;
 
 /**
@@ -22,18 +23,19 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The activation-configType defines information about the
- * 	expected configuration properties of the message-driven bean
- * 	in its operational environment. This may include information
- * 	about message acknowledgement, message selector, expected
- * 	destination type, etc.
- * 
- * 	The configuration information is expressed in terms of
- * 	name/value configuration properties.
- * 
- * 	The properties that are recognized for a particular
- * 	message-driven bean are determined by the messaging type.
- * 
+ *         The activation-configType defines information about the
+ *         expected configuration properties of the message-driven bean
+ *         in its operational environment. This may include information
+ *         about message acknowledgement, message selector, expected
+ *         destination type, etc.
+ *         
+ *         The configuration information is expressed in terms of
+ *         name/value configuration properties.
+ *         
+ *         The properties that are recognized for a particular
+ *         message-driven bean are determined by the messaging type.
+ *         
+ *         @since Java EE 5, EJB 3.0
  *       
  * <!-- end-model-doc -->
  *
@@ -64,7 +66,7 @@ public interface ActivationConfig extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getActivationConfig_Descriptions()
 	 * @generated
 	 */
-	List getDescriptions();
+	List<Description> getDescriptions();
 
 	/**
 	 * Returns the value of the '<em><b>Activation Config Properties</b></em>' containment reference list.
@@ -79,7 +81,7 @@ public interface ActivationConfig extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getActivationConfig_ActivationConfigProperties()
 	 * @generated
 	 */
-	List getActivationConfigProperties();
+	List<ActivationConfigProperty> getActivationConfigProperties();
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.

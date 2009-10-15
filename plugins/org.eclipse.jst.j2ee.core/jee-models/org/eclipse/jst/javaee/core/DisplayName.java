@@ -18,22 +18,22 @@ package org.eclipse.jst.javaee.core;
  *
  * <!-- begin-model-doc -->
  * 
- * 	
- * 
- * 	  The display-name type contains a short name that is intended
- * 	  to be displayed by tools. It is used by display-name
- * 	  elements.  The display name need not be unique.
- * 
- * 	  Example:
- * 
- * 	  ...
- * 	     &lt;display-name xml:lang="en"&gt;
- * 	       Employee Self Service
- * 	     &lt;/display-name&gt;
- * 
- * 	  The value of the xml:lang attribute is "en" (English) by default.
- * 
- * 	  
+ * <![CDATA[[
+ *         The display-name type contains a short name that is intended
+ *         to be displayed by tools. It is used by display-name
+ *         elements.  The display name need not be unique.
+ *         
+ *         Example: 
+ *         
+ *         ...
+ *         <display-name xml:lang="en">
+ *         Employee Self Service
+ *         </display-name>
+ *         
+ *         The value of the xml:lang attribute is "en" (English) by default. 
+ *         
+ * ]]>
+ *         @since Java EE 5
  *       
  * <!-- end-model-doc -->
  *
@@ -80,15 +80,38 @@ public interface DisplayName extends JavaEEObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Attempting to install the relevant ISO 2- and 3-letter
-	 *          codes as the enumerated possible values is probably never
-	 *          going to be a realistic possibility.  See
-	 *          RFC 3066 at http://www.ietf.org/rfc/rfc3066.txt and the IANA registry
-	 *          at http://www.iana.org/assignments/lang-tag-apps.htm for
-	 *          further information.
 	 * 
-	 *          The union allows for the 'un-declaration' of xml:lang with
-	 *          the empty string.
+	 *     <div xmlns="http://www.w3.org/1999/xhtml">
+	 *      
+	 *       <h3>lang (as an attribute name)</h3>
+	 *       <p>
+	 *        denotes an attribute whose value
+	 *        is a language code for the natural language of the content of
+	 *        any element; its value is inherited.  This name is reserved
+	 *        by virtue of its definition in the XML specification.</p>
+	 *      
+	 *     </div>
+	 *     <div xmlns="http://www.w3.org/1999/xhtml">
+	 *      <h4>Notes</h4>
+	 *      <p>
+	 *       Attempting to install the relevant ISO 2- and 3-letter
+	 *       codes as the enumerated possible values is probably never
+	 *       going to be a realistic possibility.  
+	 *      </p>
+	 *      <p>
+	 *       See BCP 47 at <a href="http://www.rfc-editor.org/rfc/bcp/bcp47.txt">
+	 *        http://www.rfc-editor.org/rfc/bcp/bcp47.txt</a>
+	 *       and the IANA language subtag registry at
+	 *       <a href="http://www.iana.org/assignments/language-subtag-registry">
+	 *        http://www.iana.org/assignments/language-subtag-registry</a>
+	 *       for further information.
+	 *      </p>
+	 *      <p>
+	 *       The union allows for the 'un-declaration' of xml:lang with
+	 *       the empty string.
+	 *      </p>
+	 *     </div>
+	 *    
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Lang</em>' attribute.
 	 * @see #setLang(String)

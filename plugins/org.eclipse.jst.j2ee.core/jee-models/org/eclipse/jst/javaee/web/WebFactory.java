@@ -32,6 +32,15 @@ public interface WebFactory extends EFactory {
 	WebFactory eINSTANCE = org.eclipse.jst.javaee.web.internal.impl.WebFactoryImpl.init();
 
 	/**
+	 * Returns a new object of class '<em>Absolute Ordering Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Absolute Ordering Type</em>'.
+	 * @generated
+	 */
+	AbsoluteOrderingType createAbsoluteOrderingType();
+
+	/**
 	 * Returns a new object of class '<em>Auth Constraint</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -39,6 +48,51 @@ public interface WebFactory extends EFactory {
 	 * @generated
 	 */
 	AuthConstraint createAuthConstraint();
+
+	/**
+	 * Returns a new object of class '<em>Cookie Comment Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Cookie Comment Type</em>'.
+	 * @generated
+	 */
+	CookieCommentType createCookieCommentType();
+
+	/**
+	 * Returns a new object of class '<em>Cookie Config Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Cookie Config Type</em>'.
+	 * @generated
+	 */
+	CookieConfigType createCookieConfigType();
+
+	/**
+	 * Returns a new object of class '<em>Cookie Domain Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Cookie Domain Type</em>'.
+	 * @generated
+	 */
+	CookieDomainType createCookieDomainType();
+
+	/**
+	 * Returns a new object of class '<em>Cookie Name Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Cookie Name Type</em>'.
+	 * @generated
+	 */
+	CookieNameType createCookieNameType();
+
+	/**
+	 * Returns a new object of class '<em>Cookie Path Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Cookie Path Type</em>'.
+	 * @generated
+	 */
+	CookiePathType createCookiePathType();
 
 	/**
 	 * Returns a new object of class '<em>Error Page</em>'.
@@ -113,6 +167,42 @@ public interface WebFactory extends EFactory {
 	MimeMapping createMimeMapping();
 
 	/**
+	 * Returns a new object of class '<em>Multipart Config Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Multipart Config Type</em>'.
+	 * @generated
+	 */
+	MultipartConfigType createMultipartConfigType();
+
+	/**
+	 * Returns a new object of class '<em>Ordering Ordering Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Ordering Ordering Type</em>'.
+	 * @generated
+	 */
+	OrderingOrderingType createOrderingOrderingType();
+
+	/**
+	 * Returns a new object of class '<em>Ordering Others Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Ordering Others Type</em>'.
+	 * @generated
+	 */
+	OrderingOthersType createOrderingOthersType();
+
+	/**
+	 * Returns a new object of class '<em>Ordering Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Ordering Type</em>'.
+	 * @generated
+	 */
+	OrderingType createOrderingType();
+
+	/**
 	 * Returns a new object of class '<em>Security Constraint</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -174,6 +264,15 @@ public interface WebFactory extends EFactory {
 	 * @generated
 	 */
 	WebAppDeploymentDescriptor createWebAppDeploymentDescriptor();
+
+	/**
+	 * Returns a new object of class '<em>Fragment</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Fragment</em>'.
+	 * @generated
+	 */
+	WebFragment createWebFragment();
 
 	/**
 	 * Returns a new object of class '<em>Resource Collection</em>'.

@@ -31,184 +31,195 @@ import org.eclipse.jst.javaee.core.JavaeeFactory;
  * <!-- end-user-doc -->
  * <!-- begin-model-doc -->
  * 
- *       @(#)javaee_5.xsds	1.65 06/02/17
+ * 
+ *       $Id: JavaeePackage.java,v 1.3 2009/10/15 18:52:20 canderson Exp $
+ *       
  *     
  * 
  * 
- *       Copyright 2003-2006 Sun Microsystems, Inc.
- *       4150 Network Circle
- *       Santa Clara, California 95054
- *       U.S.A
- *       All rights reserved.
- * 
- *       Sun Microsystems, Inc. has intellectual property rights
- *       relating to technology described in this document. In
- *       particular, and without limitation, these intellectual
- *       property rights may include one or more of the U.S. patents
- *       listed at http://www.sun.com/patents and one or more
- *       additional patents or pending patent applications in the
- *       U.S. and other countries.
- * 
- *       This document and the technology which it describes are
- *       distributed under licenses restricting their use, copying,
- *       distribution, and decompilation. No part of this document
- *       may be reproduced in any form by any means without prior
- *       written authorization of Sun and its licensors, if any.
- * 
- *       Third-party software, including font technology, is
- *       copyrighted and licensed from Sun suppliers.
- * 
- *       Sun, Sun Microsystems, the Sun logo, Solaris, Java, J2EE,
- *       JavaServer Pages, Enterprise JavaBeans and the Java Coffee
- *       Cup logo are trademarks or registered trademarks of Sun
- *       Microsystems, Inc. in the U.S. and other countries.
- * 
- *       Federal Acquisitions: Commercial Software - Government Users
- *       Subject to Standard License Terms and Conditions.
- * 
+ *       The following definitions that appear in the common
+ *       shareable schema(s) of Java EE deployment descriptors should be
+ *       interpreted with respect to the context they are included:
+ *       
+ *       Deployment Component may indicate one of the following:
+ *       java ee application;
+ *       application client;
+ *       web application;
+ *       enterprise bean;
+ *       resource adapter; 
+ *       
+ *       Deployment File may indicate one of the following:
+ *       ear file;
+ *       war file;
+ *       jar file;
+ *       rar file;
+ *       
  *     
  * 
  * 
- * The following definitions that appear in the common
- * shareable schema(s) of J2EE deployment descriptors should be
- * interpreted with respect to the context they are included:
- * 
- * Deployment Component may indicate one of the following:
- *     j2ee application;
- *     application client;
- *     web application;
- *     enterprise bean;
- *     resource adapter;
- * 
- * Deployment File may indicate one of the following:
- *     ear file;
- *     war file;
- *     jar file;
- *     rar file;
- * 
- * 
- * 
- *       @(#)javaee_web_services_client_1_2.xsds	1.19 02/13/06
- *     
- * 
- * 
- *       Copyright 2003-2006 Sun Microsystems, Inc.
- *       4150 Network Circle
- *       Santa Clara, California 95054
- *       U.S.A
- *       All rights reserved.
- * 
- *       Sun Microsystems, Inc. has intellectual property rights
- *       relating to technology described in this document. In
- *       particular, and without limitation, these intellectual
- *       property rights may include one or more of the U.S. patents
- *       listed at http://www.sun.com/patents and one or more
- *       additional patents or pending patent applications in the
- *       U.S. and other countries.
- * 
- *       This document and the technology which it describes are
- *       distributed under licenses restricting their use, copying,
- *       distribution, and decompilation. No part of this document
- *       may be reproduced in any form by any means without prior
- *       written authorization of Sun and its licensors, if any.
- * 
- *       Third-party software, including font technology, is
- *       copyrighted and licensed from Sun suppliers.
- * 
- *       Sun, Sun Microsystems, the Sun logo, Solaris, Java, J2EE,
- *       JavaServer Pages, Enterprise JavaBeans and the Java Coffee
- *       Cup logo are trademarks or registered trademarks of Sun
- *       Microsystems, Inc. in the U.S. and other countries.
- * 
- *       Federal Acquisitions: Commercial Software - Government Users
- *       Subject to Standard License Terms and Conditions.
- * 
+ *       $Id: JavaeePackage.java,v 1.3 2009/10/15 18:52:20 canderson Exp $
+ *       
  *     
  * 
  * 
  *       (C) Copyright International Business Machines Corporation 2002
- * 
+ *       
  *     
  * 
- *    See http://www.w3.org/XML/1998/namespace.html and
- *    http://www.w3.org/TR/REC-xml for information about this namespace.
+ *    <div xmlns="http://www.w3.org/1999/xhtml">
+ *     <h1>About the XML namespace</h1>
  * 
- *     This schema document describes the XML namespace, in a form
- *     suitable for import by other schema documents.  
- * 
- *     Note that local names in this namespace are intended to be defined
- *     only by the World Wide Web Consortium or its subgroups.  The
- *     following names are currently defined in this namespace and should
- *     not be used with conflicting semantics by any Working Group,
- *     specification, or document instance:
- * 
- *     base (as an attribute name): denotes an attribute whose value
- *          provides a URI to be used as the base for interpreting any
- *          relative URIs in the scope of the element on which it
- *          appears; its value is inherited.  This name is reserved
- *          by virtue of its definition in the XML Base specification.
- * 
- *     id   (as an attribute name): denotes an attribute whose value
- *          should be interpreted as if declared to be of type ID.
- *          The xml:id specification is not yet a W3C Recommendation,
- *          but this attribute is included here to facilitate experimentation
- *          with the mechanisms it proposes.  Note that it is _not_ included
- *          in the specialAttrs attribute group.
- * 
- *     lang (as an attribute name): denotes an attribute whose value
- *          is a language code for the natural language of the content of
- *          any element; its value is inherited.  This name is reserved
- *          by virtue of its definition in the XML specification.
+ *     <div class="bodytext">
+ *      <p>
+ *       This schema document describes the XML namespace, in a form
+ *       suitable for import by other schema documents.
+ *      </p>
+ *      <p>
+ *       See <a href="http://www.w3.org/XML/1998/namespace.html">
+ *       http://www.w3.org/XML/1998/namespace.html</a> and
+ *       <a href="http://www.w3.org/TR/REC-xml">
+ *       http://www.w3.org/TR/REC-xml</a> for information 
+ *       about this namespace.
+ *      </p>
+ *      <p>
+ *       Note that local names in this namespace are intended to be
+ *       defined only by the World Wide Web Consortium or its subgroups.
+ *       The names currently defined in this namespace are listed below.
+ *       They should not be used with conflicting semantics by any Working
+ *       Group, specification, or document instance.
+ *      </p>
+ *      <p>   
+ *       See further below in this document for more information about <a href="#usage">how to refer to this schema document from your own
+ *       XSD schema documents</a> and about <a href="#nsversioning">the
+ *       namespace-versioning policy governing this schema document</a>.
+ *      </p>
+ *     </div>
+ *    </div>
  *   
- *     space (as an attribute name): denotes an attribute whose
- *          value is a keyword indicating what whitespace processing
- *          discipline is intended for the content of the element; its
- *          value is inherited.  This name is reserved by virtue of its
- *          definition in the XML specification.
  * 
- *     Father (in any context at all): denotes Jon Bosak, the chair of 
- *          the original XML Working Group.  This name is reserved by 
- *          the following decision of the W3C XML Plenary and 
- *          XML Coordination groups:
+ *    <div xmlns="http://www.w3.org/1999/xhtml">
+ *    
+ *     <h3>Father (in any context at all)</h3> 
  * 
- *              In appreciation for his vision, leadership and dedication
- *              the W3C XML Plenary on this 10th day of February, 2000
- *              reserves for Jon Bosak in perpetuity the XML name
- *              xml:Father
+ *     <div class="bodytext">
+ *      <p>
+ *       denotes Jon Bosak, the chair of 
+ *       the original XML Working Group.  This name is reserved by 
+ *       the following decision of the W3C XML Plenary and 
+ *       XML Coordination groups:
+ *      </p>
+ *      <blockquote>
+ *        <p>
+ * 	In appreciation for his vision, leadership and
+ * 	dedication the W3C XML Plenary on this 10th day of
+ * 	February, 2000, reserves for Jon Bosak in perpetuity
+ * 	the XML name "xml:Father".
+ *        </p>
+ *      </blockquote>
+ *     </div>
+ *    </div>
  *   
- * This schema defines attributes and an attribute group
- *         suitable for use by
- *         schemas wishing to allow xml:base, xml:lang, xml:space or xml:id
- *         attributes on elements they define.
  * 
- *         To enable this, such a schema must import this schema
- *         for the XML namespace, e.g. as follows:
- *         &lt;schema . . .&gt;
- *          . . .
- *          &lt;import namespace="http://www.w3.org/XML/1998/namespace"
- *                     schemaLocation="http://www.w3.org/2001/xml.xsd"/&gt;
+ *    <div id="usage" xml:id="usage" xmlns="http://www.w3.org/1999/xhtml">
+ *     <h2>
+ *       <a name="usage">About this schema document</a>
+ *     </h2>
  * 
- *         Subsequently, qualified reference to any of the attributes
- *         or the group defined below will have the desired effect, e.g.
+ *     <div class="bodytext">
+ *      <p>
+ *       This schema defines attributes and an attribute group suitable
+ *       for use by schemas wishing to allow <code>xml:base</code>,
+ *       <code>xml:lang</code>, <code>xml:space</code> or
+ *       <code>xml:id</code> attributes on elements they define.
+ *      </p>
+ *      <p>
+ *       To enable this, such a schema must import this schema for
+ *       the XML namespace, e.g. as follows:
+ *      </p>
+ *      <pre>
+ *           &lt;schema . . .&gt;
+ *            . . .
+ *            &lt;import namespace="http://www.w3.org/XML/1998/namespace"
+ *                       schemaLocation="http://www.w3.org/2001/xml.xsd"/&gt;
+ *      </pre>
+ *      <p>
+ *       or
+ *      </p>
+ *      <pre>
+ *            &lt;import namespace="http://www.w3.org/XML/1998/namespace"
+ *                       schemaLocation="http://www.w3.org/2009/01/xml.xsd"/&gt;
+ *      </pre>
+ *      <p>
+ *       Subsequently, qualified reference to any of the attributes or the
+ *       group defined below will have the desired effect, e.g.
+ *      </p>
+ *      <pre>
+ *           &lt;type . . .&gt;
+ *            . . .
+ *            &lt;attributeGroup ref="xml:specialAttrs"/&gt;
+ *      </pre>
+ *      <p>
+ *       will define a type which will schema-validate an instance element
+ *       with any of those attributes.
+ *      </p>
+ *     </div>
+ *    </div>
+ *   
  * 
- *         &lt;type . . .&gt;
- *          . . .
- *          &lt;attributeGroup ref="xml:specialAttrs"/&gt;
- *  
- *          will define a type which will schema-validate an instance
- *          element with any of those attributes
- * In keeping with the XML Schema WG's standard versioning
- *    policy, this schema document will persist at
- *    http://www.w3.org/2005/08/xml.xsd.
- *    At the date of issue it can also be found at
- *    http://www.w3.org/2001/xml.xsd.
- *    The schema document at that URI may however change in the future,
- *    in order to remain compatible with the latest version of XML Schema
- *    itself, or with the XML namespace itself.  In other words, if the XML
- *    Schema or XML namespaces change, the version of this document at
- *    http://www.w3.org/2001/xml.xsd will change
- *    accordingly; the version at
- *    http://www.w3.org/2005/08/xml.xsd will not change.
+ *    <div id="nsversioning" xml:id="nsversioning" xmlns="http://www.w3.org/1999/xhtml">
+ *     <h2>
+ *       <a name="nsversioning">Versioning policy for this schema document</a>
+ *     </h2>
+ *     <div class="bodytext">
+ *      <p>
+ *       In keeping with the XML Schema WG's standard versioning
+ *       policy, this schema document will persist at
+ *       <a href="http://www.w3.org/2009/01/xml.xsd">
+ *        http://www.w3.org/2009/01/xml.xsd</a>.
+ *      </p>
+ *      <p>
+ *       At the date of issue it can also be found at
+ *       <a href="http://www.w3.org/2001/xml.xsd">
+ *        http://www.w3.org/2001/xml.xsd</a>.
+ *      </p>
+ *      <p>
+ *       The schema document at that URI may however change in the future,
+ *       in order to remain compatible with the latest version of XML
+ *       Schema itself, or with the XML namespace itself.  In other words,
+ *       if the XML Schema or XML namespaces change, the version of this
+ *       document at <a href="http://www.w3.org/2001/xml.xsd">
+ *        http://www.w3.org/2001/xml.xsd 
+ *       </a> 
+ *       will change accordingly; the version at 
+ *       <a href="http://www.w3.org/2009/01/xml.xsd">
+ *        http://www.w3.org/2009/01/xml.xsd 
+ *       </a> 
+ *       will not change.
+ *      </p>
+ *      <p>
+ *       Previous dated (and unchanging) versions of this schema 
+ *       document are at:
+ *      </p>
+ *      <ul>
+ *       <li>
+ *           <a href="http://www.w3.org/2009/01/xml.xsd">
+ * 	http://www.w3.org/2009/01/xml.xsd</a>
+ *         </li>
+ *       <li>
+ *           <a href="http://www.w3.org/2007/08/xml.xsd">
+ * 	http://www.w3.org/2007/08/xml.xsd</a>
+ *         </li>
+ *       <li>
+ *           <a href="http://www.w3.org/2004/10/xml.xsd">
+ * 	http://www.w3.org/2004/10/xml.xsd</a>
+ *         </li>
+ *       <li>
+ *           <a href="http://www.w3.org/2001/03/xml.xsd">
+ * 	http://www.w3.org/2001/03/xml.xsd</a>
+ *         </li>
+ *      </ul>
+ *     </div>
+ *    </div>
  *   
  * <!-- end-model-doc -->
  * @see org.eclipse.jst.javaee.core.JavaeeFactory
@@ -248,6 +259,242 @@ public interface JavaeePackage extends EPackage {
 	JavaeePackage eINSTANCE = org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl.init();
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.internal.impl.AddressingTypeImpl <em>Addressing Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.core.internal.impl.AddressingTypeImpl
+	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getAddressingType()
+	 * @generated
+	 */
+	int ADDRESSING_TYPE = 0;
+
+	/**
+	 * The feature id for the '<em><b>Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADDRESSING_TYPE__ENABLED = 0;
+
+	/**
+	 * The feature id for the '<em><b>Required</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADDRESSING_TYPE__REQUIRED = 1;
+
+	/**
+	 * The feature id for the '<em><b>Responses</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADDRESSING_TYPE__RESPONSES = 2;
+
+	/**
+	 * The number of structural features of the '<em>Addressing Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADDRESSING_TYPE_FEATURE_COUNT = 3;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.internal.impl.DataSourceTypeImpl <em>Data Source Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.core.internal.impl.DataSourceTypeImpl
+	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getDataSourceType()
+	 * @generated
+	 */
+	int DATA_SOURCE_TYPE = 1;
+
+	/**
+	 * The feature id for the '<em><b>Description</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_SOURCE_TYPE__DESCRIPTION = 0;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_SOURCE_TYPE__NAME = 1;
+
+	/**
+	 * The feature id for the '<em><b>Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_SOURCE_TYPE__CLASS_NAME = 2;
+
+	/**
+	 * The feature id for the '<em><b>Server Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_SOURCE_TYPE__SERVER_NAME = 3;
+
+	/**
+	 * The feature id for the '<em><b>Port Number</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_SOURCE_TYPE__PORT_NUMBER = 4;
+
+	/**
+	 * The feature id for the '<em><b>Database Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_SOURCE_TYPE__DATABASE_NAME = 5;
+
+	/**
+	 * The feature id for the '<em><b>Url</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_SOURCE_TYPE__URL = 6;
+
+	/**
+	 * The feature id for the '<em><b>User</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_SOURCE_TYPE__USER = 7;
+
+	/**
+	 * The feature id for the '<em><b>Password</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_SOURCE_TYPE__PASSWORD = 8;
+
+	/**
+	 * The feature id for the '<em><b>Property</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_SOURCE_TYPE__PROPERTY = 9;
+
+	/**
+	 * The feature id for the '<em><b>Login Timeout</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_SOURCE_TYPE__LOGIN_TIMEOUT = 10;
+
+	/**
+	 * The feature id for the '<em><b>Transactional</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_SOURCE_TYPE__TRANSACTIONAL = 11;
+
+	/**
+	 * The feature id for the '<em><b>Isolation Level</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_SOURCE_TYPE__ISOLATION_LEVEL = 12;
+
+	/**
+	 * The feature id for the '<em><b>Initial Pool Size</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_SOURCE_TYPE__INITIAL_POOL_SIZE = 13;
+
+	/**
+	 * The feature id for the '<em><b>Max Pool Size</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_SOURCE_TYPE__MAX_POOL_SIZE = 14;
+
+	/**
+	 * The feature id for the '<em><b>Min Pool Size</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_SOURCE_TYPE__MIN_POOL_SIZE = 15;
+
+	/**
+	 * The feature id for the '<em><b>Max Idle Time</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_SOURCE_TYPE__MAX_IDLE_TIME = 16;
+
+	/**
+	 * The feature id for the '<em><b>Max Statements</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_SOURCE_TYPE__MAX_STATEMENTS = 17;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_SOURCE_TYPE__ID = 18;
+
+	/**
+	 * The number of structural features of the '<em>Data Source Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DATA_SOURCE_TYPE_FEATURE_COUNT = 19;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.internal.impl.DescriptionImpl <em>Description</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -255,7 +502,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getDescription()
 	 * @generated
 	 */
-	int DESCRIPTION = 0;
+	int DESCRIPTION = 2;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -292,7 +539,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getDisplayName()
 	 * @generated
 	 */
-	int DISPLAY_NAME = 1;
+	int DISPLAY_NAME = 3;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -329,7 +576,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getEjbLocalRef()
 	 * @generated
 	 */
-	int EJB_LOCAL_REF = 2;
+	int EJB_LOCAL_REF = 4;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -404,13 +651,22 @@ public interface JavaeePackage extends EPackage {
 	int EJB_LOCAL_REF__INJECTION_TARGETS = 7;
 
 	/**
+	 * The feature id for the '<em><b>Lookup Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EJB_LOCAL_REF__LOOKUP_NAME = 8;
+
+	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EJB_LOCAL_REF__ID = 8;
+	int EJB_LOCAL_REF__ID = 9;
 
 	/**
 	 * The number of structural features of the '<em>Ejb Local Ref</em>' class.
@@ -419,7 +675,7 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EJB_LOCAL_REF_FEATURE_COUNT = 9;
+	int EJB_LOCAL_REF_FEATURE_COUNT = 10;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.internal.impl.EjbRefImpl <em>Ejb Ref</em>}' class.
@@ -429,7 +685,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getEjbRef()
 	 * @generated
 	 */
-	int EJB_REF = 3;
+	int EJB_REF = 5;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -504,13 +760,22 @@ public interface JavaeePackage extends EPackage {
 	int EJB_REF__INJECTION_TARGETS = 7;
 
 	/**
+	 * The feature id for the '<em><b>Lookup Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EJB_REF__LOOKUP_NAME = 8;
+
+	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EJB_REF__ID = 8;
+	int EJB_REF__ID = 9;
 
 	/**
 	 * The number of structural features of the '<em>Ejb Ref</em>' class.
@@ -519,7 +784,7 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EJB_REF_FEATURE_COUNT = 9;
+	int EJB_REF_FEATURE_COUNT = 10;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.internal.impl.EmptyTypeImpl <em>Empty Type</em>}' class.
@@ -529,7 +794,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getEmptyType()
 	 * @generated
 	 */
-	int EMPTY_TYPE = 4;
+	int EMPTY_TYPE = 6;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -557,7 +822,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getEnvEntry()
 	 * @generated
 	 */
-	int ENV_ENTRY = 5;
+	int ENV_ENTRY = 7;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -614,13 +879,22 @@ public interface JavaeePackage extends EPackage {
 	int ENV_ENTRY__INJECTION_TARGETS = 5;
 
 	/**
+	 * The feature id for the '<em><b>Lookup Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENV_ENTRY__LOOKUP_NAME = 6;
+
+	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ENV_ENTRY__ID = 6;
+	int ENV_ENTRY__ID = 7;
 
 	/**
 	 * The number of structural features of the '<em>Env Entry</em>' class.
@@ -629,7 +903,7 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ENV_ENTRY_FEATURE_COUNT = 7;
+	int ENV_ENTRY_FEATURE_COUNT = 8;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.internal.impl.IconImpl <em>Icon</em>}' class.
@@ -639,7 +913,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getIcon()
 	 * @generated
 	 */
-	int ICON = 6;
+	int ICON = 8;
 
 	/**
 	 * The feature id for the '<em><b>Small Icon</b></em>' attribute.
@@ -694,7 +968,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getInjectionTarget()
 	 * @generated
 	 */
-	int INJECTION_TARGET = 7;
+	int INJECTION_TARGET = 9;
 
 	/**
 	 * The feature id for the '<em><b>Injection Target Class</b></em>' attribute.
@@ -731,7 +1005,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getLifecycleCallback()
 	 * @generated
 	 */
-	int LIFECYCLE_CALLBACK = 8;
+	int LIFECYCLE_CALLBACK = 10;
 
 	/**
 	 * The feature id for the '<em><b>Lifecycle Callback Class</b></em>' attribute.
@@ -768,7 +1042,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getListener()
 	 * @generated
 	 */
-	int LISTENER = 9;
+	int LISTENER = 11;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -832,7 +1106,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getMessageDestination()
 	 * @generated
 	 */
-	int MESSAGE_DESTINATION = 10;
+	int MESSAGE_DESTINATION = 12;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -905,7 +1179,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getMessageDestinationRef()
 	 * @generated
 	 */
-	int MESSAGE_DESTINATION_REF = 11;
+	int MESSAGE_DESTINATION_REF = 13;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -971,13 +1245,22 @@ public interface JavaeePackage extends EPackage {
 	int MESSAGE_DESTINATION_REF__INJECTION_TARGETS = 6;
 
 	/**
+	 * The feature id for the '<em><b>Lookup Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MESSAGE_DESTINATION_REF__LOOKUP_NAME = 7;
+
+	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MESSAGE_DESTINATION_REF__ID = 7;
+	int MESSAGE_DESTINATION_REF__ID = 8;
 
 	/**
 	 * The number of structural features of the '<em>Message Destination Ref</em>' class.
@@ -986,7 +1269,7 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MESSAGE_DESTINATION_REF_FEATURE_COUNT = 8;
+	int MESSAGE_DESTINATION_REF_FEATURE_COUNT = 9;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.internal.impl.ParamValueImpl <em>Param Value</em>}' class.
@@ -996,7 +1279,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getParamValue()
 	 * @generated
 	 */
-	int PARAM_VALUE = 12;
+	int PARAM_VALUE = 14;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -1051,7 +1334,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getPersistenceContextRef()
 	 * @generated
 	 */
-	int PERSISTENCE_CONTEXT_REF = 13;
+	int PERSISTENCE_CONTEXT_REF = 15;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -1117,13 +1400,22 @@ public interface JavaeePackage extends EPackage {
 	int PERSISTENCE_CONTEXT_REF__INJECTION_TARGETS = 6;
 
 	/**
+	 * The feature id for the '<em><b>Lookup Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PERSISTENCE_CONTEXT_REF__LOOKUP_NAME = 7;
+
+	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PERSISTENCE_CONTEXT_REF__ID = 7;
+	int PERSISTENCE_CONTEXT_REF__ID = 8;
 
 	/**
 	 * The number of structural features of the '<em>Persistence Context Ref</em>' class.
@@ -1132,7 +1424,7 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PERSISTENCE_CONTEXT_REF_FEATURE_COUNT = 8;
+	int PERSISTENCE_CONTEXT_REF_FEATURE_COUNT = 9;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.internal.impl.PersistenceUnitRefImpl <em>Persistence Unit Ref</em>}' class.
@@ -1142,7 +1434,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getPersistenceUnitRef()
 	 * @generated
 	 */
-	int PERSISTENCE_UNIT_REF = 14;
+	int PERSISTENCE_UNIT_REF = 16;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -1190,13 +1482,22 @@ public interface JavaeePackage extends EPackage {
 	int PERSISTENCE_UNIT_REF__INJECTION_TARGETS = 4;
 
 	/**
+	 * The feature id for the '<em><b>Lookup Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PERSISTENCE_UNIT_REF__LOOKUP_NAME = 5;
+
+	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PERSISTENCE_UNIT_REF__ID = 5;
+	int PERSISTENCE_UNIT_REF__ID = 6;
 
 	/**
 	 * The number of structural features of the '<em>Persistence Unit Ref</em>' class.
@@ -1205,7 +1506,7 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PERSISTENCE_UNIT_REF_FEATURE_COUNT = 6;
+	int PERSISTENCE_UNIT_REF_FEATURE_COUNT = 7;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.internal.impl.PortComponentRefImpl <em>Port Component Ref</em>}' class.
@@ -1215,7 +1516,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getPortComponentRef()
 	 * @generated
 	 */
-	int PORT_COMPONENT_REF = 15;
+	int PORT_COMPONENT_REF = 17;
 
 	/**
 	 * The feature id for the '<em><b>Service Endpoint Interface</b></em>' attribute.
@@ -1236,13 +1537,40 @@ public interface JavaeePackage extends EPackage {
 	int PORT_COMPONENT_REF__ENABLE_MTOM = 1;
 
 	/**
+	 * The feature id for the '<em><b>Mtom Threshold</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_COMPONENT_REF__MTOM_THRESHOLD = 2;
+
+	/**
+	 * The feature id for the '<em><b>Addressing</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_COMPONENT_REF__ADDRESSING = 3;
+
+	/**
+	 * The feature id for the '<em><b>Respect Binding</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_COMPONENT_REF__RESPECT_BINDING = 4;
+
+	/**
 	 * The feature id for the '<em><b>Port Component Link</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PORT_COMPONENT_REF__PORT_COMPONENT_LINK = 2;
+	int PORT_COMPONENT_REF__PORT_COMPONENT_LINK = 5;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -1251,7 +1579,7 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PORT_COMPONENT_REF__ID = 3;
+	int PORT_COMPONENT_REF__ID = 6;
 
 	/**
 	 * The number of structural features of the '<em>Port Component Ref</em>' class.
@@ -1260,7 +1588,7 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PORT_COMPONENT_REF_FEATURE_COUNT = 4;
+	int PORT_COMPONENT_REF_FEATURE_COUNT = 7;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.internal.impl.PropertyTypeImpl <em>Property Type</em>}' class.
@@ -1270,7 +1598,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getPropertyType()
 	 * @generated
 	 */
-	int PROPERTY_TYPE = 16;
+	int PROPERTY_TYPE = 18;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1316,7 +1644,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getResourceEnvRef()
 	 * @generated
 	 */
-	int RESOURCE_ENV_REF = 17;
+	int RESOURCE_ENV_REF = 19;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -1364,13 +1692,22 @@ public interface JavaeePackage extends EPackage {
 	int RESOURCE_ENV_REF__INJECTION_TARGETS = 4;
 
 	/**
+	 * The feature id for the '<em><b>Lookup Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RESOURCE_ENV_REF__LOOKUP_NAME = 5;
+
+	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RESOURCE_ENV_REF__ID = 5;
+	int RESOURCE_ENV_REF__ID = 6;
 
 	/**
 	 * The number of structural features of the '<em>Resource Env Ref</em>' class.
@@ -1379,7 +1716,7 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RESOURCE_ENV_REF_FEATURE_COUNT = 6;
+	int RESOURCE_ENV_REF_FEATURE_COUNT = 7;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.internal.impl.ResourceRefImpl <em>Resource Ref</em>}' class.
@@ -1389,7 +1726,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getResourceRef()
 	 * @generated
 	 */
-	int RESOURCE_REF = 18;
+	int RESOURCE_REF = 20;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -1455,13 +1792,22 @@ public interface JavaeePackage extends EPackage {
 	int RESOURCE_REF__INJECTION_TARGETS = 6;
 
 	/**
+	 * The feature id for the '<em><b>Lookup Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RESOURCE_REF__LOOKUP_NAME = 7;
+
+	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RESOURCE_REF__ID = 7;
+	int RESOURCE_REF__ID = 8;
 
 	/**
 	 * The number of structural features of the '<em>Resource Ref</em>' class.
@@ -1470,7 +1816,35 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RESOURCE_REF_FEATURE_COUNT = 8;
+	int RESOURCE_REF_FEATURE_COUNT = 9;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.internal.impl.RespectBindingTypeImpl <em>Respect Binding Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.core.internal.impl.RespectBindingTypeImpl
+	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getRespectBindingType()
+	 * @generated
+	 */
+	int RESPECT_BINDING_TYPE = 21;
+
+	/**
+	 * The feature id for the '<em><b>Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RESPECT_BINDING_TYPE__ENABLED = 0;
+
+	/**
+	 * The number of structural features of the '<em>Respect Binding Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RESPECT_BINDING_TYPE_FEATURE_COUNT = 1;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.internal.impl.RunAsImpl <em>Run As</em>}' class.
@@ -1480,7 +1854,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getRunAs()
 	 * @generated
 	 */
-	int RUN_AS = 19;
+	int RUN_AS = 22;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -1526,7 +1900,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getSecurityRole()
 	 * @generated
 	 */
-	int SECURITY_ROLE = 20;
+	int SECURITY_ROLE = 23;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -1572,7 +1946,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getSecurityRoleRef()
 	 * @generated
 	 */
-	int SECURITY_ROLE_REF = 21;
+	int SECURITY_ROLE_REF = 24;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -1627,7 +2001,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getServiceRef()
 	 * @generated
 	 */
-	int SERVICE_REF = 22;
+	int SERVICE_REF = 25;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -1756,13 +2130,22 @@ public interface JavaeePackage extends EPackage {
 	int SERVICE_REF__INJECTION_TARGETS = 13;
 
 	/**
+	 * The feature id for the '<em><b>Lookup Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SERVICE_REF__LOOKUP_NAME = 14;
+
+	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SERVICE_REF__ID = 14;
+	int SERVICE_REF__ID = 15;
 
 	/**
 	 * The number of structural features of the '<em>Service Ref</em>' class.
@@ -1771,7 +2154,7 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SERVICE_REF_FEATURE_COUNT = 15;
+	int SERVICE_REF_FEATURE_COUNT = 16;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.internal.impl.ServiceRefHandlerImpl <em>Service Ref Handler</em>}' class.
@@ -1781,7 +2164,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getServiceRefHandler()
 	 * @generated
 	 */
-	int SERVICE_REF_HANDLER = 23;
+	int SERVICE_REF_HANDLER = 26;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -1890,7 +2273,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getServiceRefHandlerChain()
 	 * @generated
 	 */
-	int SERVICE_REF_HANDLER_CHAIN = 24;
+	int SERVICE_REF_HANDLER_CHAIN = 27;
 
 	/**
 	 * The feature id for the '<em><b>Service Name Pattern</b></em>' attribute.
@@ -1954,7 +2337,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getServiceRefHandlerChains()
 	 * @generated
 	 */
-	int SERVICE_REF_HANDLER_CHAINS = 25;
+	int SERVICE_REF_HANDLER_CHAINS = 28;
 
 	/**
 	 * The feature id for the '<em><b>Handler Chains</b></em>' containment reference list.
@@ -1991,7 +2374,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getUrlPatternType()
 	 * @generated
 	 */
-	int URL_PATTERN_TYPE = 26;
+	int URL_PATTERN_TYPE = 29;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -2012,6 +2395,16 @@ public interface JavaeePackage extends EPackage {
 	int URL_PATTERN_TYPE_FEATURE_COUNT = 1;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.AddressingResponsesType <em>Addressing Responses Type</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.core.AddressingResponsesType
+	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getAddressingResponsesType()
+	 * @generated
+	 */
+	int ADDRESSING_RESPONSES_TYPE = 30;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.EjbRefType <em>Ejb Ref Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2019,17 +2412,37 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getEjbRefType()
 	 * @generated
 	 */
-	int EJB_REF_TYPE = 27;
+	int EJB_REF_TYPE = 31;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.EnvEntryType <em>Env Entry Type</em>}' enum.
+	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.GenericBooleanType <em>Generic Boolean Type</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.javaee.core.EnvEntryType
+	 * @see org.eclipse.jst.javaee.core.GenericBooleanType
+	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getGenericBooleanType()
+	 * @generated
+	 */
+	int GENERIC_BOOLEAN_TYPE = 32;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.IsolationLevelType <em>Isolation Level Type</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.core.IsolationLevelType
+	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getIsolationLevelType()
+	 * @generated
+	 */
+	int ISOLATION_LEVEL_TYPE = 33;
+
+	/**
+	 * The meta object id for the '<em>Env Entry Type</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see java.lang.String
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getEnvEntryType()
 	 * @generated
 	 */
-	int ENV_ENTRY_TYPE = 28;
+	int ENV_ENTRY_TYPE = 43;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.MessageDestinationUsageType <em>Message Destination Usage Type</em>}' enum.
@@ -2039,7 +2452,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getMessageDestinationUsageType()
 	 * @generated
 	 */
-	int MESSAGE_DESTINATION_USAGE_TYPE = 29;
+	int MESSAGE_DESTINATION_USAGE_TYPE = 34;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.PersistenceContextType <em>Persistence Context Type</em>}' enum.
@@ -2049,7 +2462,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getPersistenceContextType()
 	 * @generated
 	 */
-	int PERSISTENCE_CONTEXT_TYPE = 30;
+	int PERSISTENCE_CONTEXT_TYPE = 35;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.ResAuthType <em>Res Auth Type</em>}' enum.
@@ -2059,7 +2472,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getResAuthType()
 	 * @generated
 	 */
-	int RES_AUTH_TYPE = 31;
+	int RES_AUTH_TYPE = 36;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.ResSharingScopeType <em>Res Sharing Scope Type</em>}' enum.
@@ -2069,7 +2482,17 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getResSharingScopeType()
 	 * @generated
 	 */
-	int RES_SHARING_SCOPE_TYPE = 32;
+	int RES_SHARING_SCOPE_TYPE = 37;
+
+	/**
+	 * The meta object id for the '<em>Addressing Responses Type Object</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.core.AddressingResponsesType
+	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getAddressingResponsesTypeObject()
+	 * @generated
+	 */
+	int ADDRESSING_RESPONSES_TYPE_OBJECT = 38;
 
 	/**
 	 * The meta object id for the '<em>Dewey Version Type</em>' data type.
@@ -2079,7 +2502,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getDeweyVersionType()
 	 * @generated
 	 */
-	int DEWEY_VERSION_TYPE = 33;
+	int DEWEY_VERSION_TYPE = 39;
 
 	/**
 	 * The meta object id for the '<em>EJB Link</em>' data type.
@@ -2089,7 +2512,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getEJBLink()
 	 * @generated
 	 */
-	int EJB_LINK = 34;
+	int EJB_LINK = 40;
 
 	/**
 	 * The meta object id for the '<em>Ejb Ref Name Type</em>' data type.
@@ -2099,7 +2522,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getEjbRefNameType()
 	 * @generated
 	 */
-	int EJB_REF_NAME_TYPE = 35;
+	int EJB_REF_NAME_TYPE = 41;
 
 	/**
 	 * The meta object id for the '<em>Ejb Ref Type Object</em>' data type.
@@ -2109,17 +2532,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getEjbRefTypeObject()
 	 * @generated
 	 */
-	int EJB_REF_TYPE_OBJECT = 36;
-
-	/**
-	 * The meta object id for the '<em>Env Entry Type Object</em>' data type.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.javaee.core.EnvEntryType
-	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getEnvEntryTypeObject()
-	 * @generated
-	 */
-	int ENV_ENTRY_TYPE_OBJECT = 37;
+	int EJB_REF_TYPE_OBJECT = 42;
 
 	/**
 	 * The meta object id for the '<em>Fully Qualified Class Type</em>' data type.
@@ -2129,7 +2542,17 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getFullyQualifiedClassType()
 	 * @generated
 	 */
-	int FULLY_QUALIFIED_CLASS_TYPE = 38;
+	int FULLY_QUALIFIED_CLASS_TYPE = 44;
+
+	/**
+	 * The meta object id for the '<em>Generic Boolean Type Object</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.core.GenericBooleanType
+	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getGenericBooleanTypeObject()
+	 * @generated
+	 */
+	int GENERIC_BOOLEAN_TYPE_OBJECT = 45;
 
 	/**
 	 * The meta object id for the '<em>Home</em>' data type.
@@ -2139,7 +2562,17 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getHome()
 	 * @generated
 	 */
-	int HOME = 39;
+	int HOME = 46;
+
+	/**
+	 * The meta object id for the '<em>Isolation Level Type Object</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.core.IsolationLevelType
+	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getIsolationLevelTypeObject()
+	 * @generated
+	 */
+	int ISOLATION_LEVEL_TYPE_OBJECT = 47;
 
 	/**
 	 * The meta object id for the '<em>Java Identifier</em>' data type.
@@ -2149,7 +2582,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getJavaIdentifier()
 	 * @generated
 	 */
-	int JAVA_IDENTIFIER = 40;
+	int JAVA_IDENTIFIER = 48;
 
 	/**
 	 * The meta object id for the '<em>Java Type</em>' data type.
@@ -2159,7 +2592,17 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getJavaType()
 	 * @generated
 	 */
-	int JAVA_TYPE = 41;
+	int JAVA_TYPE = 49;
+
+	/**
+	 * The meta object id for the '<em>Jdbc Url Type</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see java.lang.String
+	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getJdbcUrlType()
+	 * @generated
+	 */
+	int JDBC_URL_TYPE = 50;
 
 	/**
 	 * The meta object id for the '<em>JNDI Name</em>' data type.
@@ -2169,7 +2612,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getJNDIName()
 	 * @generated
 	 */
-	int JNDI_NAME = 42;
+	int JNDI_NAME = 51;
 
 	/**
 	 * The meta object id for the '<em>Local</em>' data type.
@@ -2179,7 +2622,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getLocal()
 	 * @generated
 	 */
-	int LOCAL = 43;
+	int LOCAL = 52;
 
 	/**
 	 * The meta object id for the '<em>Local Home</em>' data type.
@@ -2189,7 +2632,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getLocalHome()
 	 * @generated
 	 */
-	int LOCAL_HOME = 44;
+	int LOCAL_HOME = 53;
 
 	/**
 	 * The meta object id for the '<em>Message Destination Link</em>' data type.
@@ -2199,7 +2642,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getMessageDestinationLink()
 	 * @generated
 	 */
-	int MESSAGE_DESTINATION_LINK = 45;
+	int MESSAGE_DESTINATION_LINK = 54;
 
 	/**
 	 * The meta object id for the '<em>Message Destination Type Type</em>' data type.
@@ -2209,7 +2652,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getMessageDestinationTypeType()
 	 * @generated
 	 */
-	int MESSAGE_DESTINATION_TYPE_TYPE = 46;
+	int MESSAGE_DESTINATION_TYPE_TYPE = 55;
 
 	/**
 	 * The meta object id for the '<em>Message Destination Usage Type Object</em>' data type.
@@ -2219,7 +2662,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getMessageDestinationUsageTypeObject()
 	 * @generated
 	 */
-	int MESSAGE_DESTINATION_USAGE_TYPE_OBJECT = 47;
+	int MESSAGE_DESTINATION_USAGE_TYPE_OBJECT = 56;
 
 	/**
 	 * The meta object id for the '<em>Path Type</em>' data type.
@@ -2229,7 +2672,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getPathType()
 	 * @generated
 	 */
-	int PATH_TYPE = 48;
+	int PATH_TYPE = 57;
 
 	/**
 	 * The meta object id for the '<em>Persistence Context Type Object</em>' data type.
@@ -2239,7 +2682,47 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getPersistenceContextTypeObject()
 	 * @generated
 	 */
-	int PERSISTENCE_CONTEXT_TYPE_OBJECT = 49;
+	int PERSISTENCE_CONTEXT_TYPE_OBJECT = 58;
+
+	/**
+	 * The meta object id for the '<em>Protocol Binding List Type</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see java.util.List
+	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getProtocolBindingListType()
+	 * @generated
+	 */
+	int PROTOCOL_BINDING_LIST_TYPE = 59;
+
+	/**
+	 * The meta object id for the '<em>Protocol Binding Type</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see java.lang.String
+	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getProtocolBindingType()
+	 * @generated
+	 */
+	int PROTOCOL_BINDING_TYPE = 60;
+
+	/**
+	 * The meta object id for the '<em>Protocol URI Alias Type</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see java.lang.String
+	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getProtocolURIAliasType()
+	 * @generated
+	 */
+	int PROTOCOL_URI_ALIAS_TYPE = 61;
+
+	/**
+	 * The meta object id for the '<em>Qname Pattern</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see java.lang.String
+	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getQnamePattern()
+	 * @generated
+	 */
+	int QNAME_PATTERN = 62;
 
 	/**
 	 * The meta object id for the '<em>Remote</em>' data type.
@@ -2249,7 +2732,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getRemote()
 	 * @generated
 	 */
-	int REMOTE = 50;
+	int REMOTE = 63;
 
 	/**
 	 * The meta object id for the '<em>Res Auth Type Object</em>' data type.
@@ -2259,7 +2742,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getResAuthTypeObject()
 	 * @generated
 	 */
-	int RES_AUTH_TYPE_OBJECT = 51;
+	int RES_AUTH_TYPE_OBJECT = 64;
 
 	/**
 	 * The meta object id for the '<em>Res Sharing Scope Type Object</em>' data type.
@@ -2269,7 +2752,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getResSharingScopeTypeObject()
 	 * @generated
 	 */
-	int RES_SHARING_SCOPE_TYPE_OBJECT = 52;
+	int RES_SHARING_SCOPE_TYPE_OBJECT = 65;
 
 	/**
 	 * The meta object id for the '<em>Role Name</em>' data type.
@@ -2279,47 +2762,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getRoleName()
 	 * @generated
 	 */
-	int ROLE_NAME = 53;
-
-	/**
-	 * The meta object id for the '<em>Service Ref Protocol Binding List Type</em>' data type.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see java.util.List
-	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getServiceRefProtocolBindingListType()
-	 * @generated
-	 */
-	int SERVICE_REF_PROTOCOL_BINDING_LIST_TYPE = 54;
-
-	/**
-	 * The meta object id for the '<em>Service Ref Protocol Binding Type</em>' data type.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see java.lang.String
-	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getServiceRefProtocolBindingType()
-	 * @generated
-	 */
-	int SERVICE_REF_PROTOCOL_BINDING_TYPE = 55;
-
-	/**
-	 * The meta object id for the '<em>Service Ref Protocol URI Alias Type</em>' data type.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see java.lang.String
-	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getServiceRefProtocolURIAliasType()
-	 * @generated
-	 */
-	int SERVICE_REF_PROTOCOL_URI_ALIAS_TYPE = 56;
-
-	/**
-	 * The meta object id for the '<em>Service Ref Qname Pattern</em>' data type.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see java.lang.String
-	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getServiceRefQnamePattern()
-	 * @generated
-	 */
-	int SERVICE_REF_QNAME_PATTERN = 57;
+	int ROLE_NAME = 66;
 
 	/**
 	 * The meta object id for the '<em>True False Type</em>' data type.
@@ -2328,7 +2771,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getTrueFalseType()
 	 * @generated
 	 */
-	int TRUE_FALSE_TYPE = 58;
+	int TRUE_FALSE_TYPE = 67;
 
 	/**
 	 * The meta object id for the '<em>True False Type Object</em>' data type.
@@ -2338,8 +2781,270 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getTrueFalseTypeObject()
 	 * @generated
 	 */
-	int TRUE_FALSE_TYPE_OBJECT = 59;
+	int TRUE_FALSE_TYPE_OBJECT = 68;
 
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.core.AddressingType <em>Addressing Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Addressing Type</em>'.
+	 * @see org.eclipse.jst.javaee.core.AddressingType
+	 * @generated
+	 */
+	EClass getAddressingType();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.AddressingType#isEnabled <em>Enabled</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Enabled</em>'.
+	 * @see org.eclipse.jst.javaee.core.AddressingType#isEnabled()
+	 * @see #getAddressingType()
+	 * @generated
+	 */
+	EAttribute getAddressingType_Enabled();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.AddressingType#isRequired <em>Required</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Required</em>'.
+	 * @see org.eclipse.jst.javaee.core.AddressingType#isRequired()
+	 * @see #getAddressingType()
+	 * @generated
+	 */
+	EAttribute getAddressingType_Required();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.AddressingType#getResponses <em>Responses</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Responses</em>'.
+	 * @see org.eclipse.jst.javaee.core.AddressingType#getResponses()
+	 * @see #getAddressingType()
+	 * @generated
+	 */
+	EAttribute getAddressingType_Responses();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.core.DataSourceType <em>Data Source Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Data Source Type</em>'.
+	 * @see org.eclipse.jst.javaee.core.DataSourceType
+	 * @generated
+	 */
+	EClass getDataSourceType();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.javaee.core.DataSourceType#getDescription <em>Description</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Description</em>'.
+	 * @see org.eclipse.jst.javaee.core.DataSourceType#getDescription()
+	 * @see #getDataSourceType()
+	 * @generated
+	 */
+	EReference getDataSourceType_Description();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.DataSourceType#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see org.eclipse.jst.javaee.core.DataSourceType#getName()
+	 * @see #getDataSourceType()
+	 * @generated
+	 */
+	EAttribute getDataSourceType_Name();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.DataSourceType#getClassName <em>Class Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Class Name</em>'.
+	 * @see org.eclipse.jst.javaee.core.DataSourceType#getClassName()
+	 * @see #getDataSourceType()
+	 * @generated
+	 */
+	EAttribute getDataSourceType_ClassName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.DataSourceType#getServerName <em>Server Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Server Name</em>'.
+	 * @see org.eclipse.jst.javaee.core.DataSourceType#getServerName()
+	 * @see #getDataSourceType()
+	 * @generated
+	 */
+	EAttribute getDataSourceType_ServerName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.DataSourceType#getPortNumber <em>Port Number</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Port Number</em>'.
+	 * @see org.eclipse.jst.javaee.core.DataSourceType#getPortNumber()
+	 * @see #getDataSourceType()
+	 * @generated
+	 */
+	EAttribute getDataSourceType_PortNumber();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.DataSourceType#getDatabaseName <em>Database Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Database Name</em>'.
+	 * @see org.eclipse.jst.javaee.core.DataSourceType#getDatabaseName()
+	 * @see #getDataSourceType()
+	 * @generated
+	 */
+	EAttribute getDataSourceType_DatabaseName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.DataSourceType#getUrl <em>Url</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Url</em>'.
+	 * @see org.eclipse.jst.javaee.core.DataSourceType#getUrl()
+	 * @see #getDataSourceType()
+	 * @generated
+	 */
+	EAttribute getDataSourceType_Url();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.DataSourceType#getUser <em>User</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>User</em>'.
+	 * @see org.eclipse.jst.javaee.core.DataSourceType#getUser()
+	 * @see #getDataSourceType()
+	 * @generated
+	 */
+	EAttribute getDataSourceType_User();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.DataSourceType#getPassword <em>Password</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Password</em>'.
+	 * @see org.eclipse.jst.javaee.core.DataSourceType#getPassword()
+	 * @see #getDataSourceType()
+	 * @generated
+	 */
+	EAttribute getDataSourceType_Password();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.core.DataSourceType#getProperty <em>Property</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Property</em>'.
+	 * @see org.eclipse.jst.javaee.core.DataSourceType#getProperty()
+	 * @see #getDataSourceType()
+	 * @generated
+	 */
+	EReference getDataSourceType_Property();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.DataSourceType#getLoginTimeout <em>Login Timeout</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Login Timeout</em>'.
+	 * @see org.eclipse.jst.javaee.core.DataSourceType#getLoginTimeout()
+	 * @see #getDataSourceType()
+	 * @generated
+	 */
+	EAttribute getDataSourceType_LoginTimeout();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.DataSourceType#isTransactional <em>Transactional</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Transactional</em>'.
+	 * @see org.eclipse.jst.javaee.core.DataSourceType#isTransactional()
+	 * @see #getDataSourceType()
+	 * @generated
+	 */
+	EAttribute getDataSourceType_Transactional();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.DataSourceType#getIsolationLevel <em>Isolation Level</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Isolation Level</em>'.
+	 * @see org.eclipse.jst.javaee.core.DataSourceType#getIsolationLevel()
+	 * @see #getDataSourceType()
+	 * @generated
+	 */
+	EAttribute getDataSourceType_IsolationLevel();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.DataSourceType#getInitialPoolSize <em>Initial Pool Size</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Initial Pool Size</em>'.
+	 * @see org.eclipse.jst.javaee.core.DataSourceType#getInitialPoolSize()
+	 * @see #getDataSourceType()
+	 * @generated
+	 */
+	EAttribute getDataSourceType_InitialPoolSize();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.DataSourceType#getMaxPoolSize <em>Max Pool Size</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Max Pool Size</em>'.
+	 * @see org.eclipse.jst.javaee.core.DataSourceType#getMaxPoolSize()
+	 * @see #getDataSourceType()
+	 * @generated
+	 */
+	EAttribute getDataSourceType_MaxPoolSize();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.DataSourceType#getMinPoolSize <em>Min Pool Size</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Min Pool Size</em>'.
+	 * @see org.eclipse.jst.javaee.core.DataSourceType#getMinPoolSize()
+	 * @see #getDataSourceType()
+	 * @generated
+	 */
+	EAttribute getDataSourceType_MinPoolSize();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.DataSourceType#getMaxIdleTime <em>Max Idle Time</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Max Idle Time</em>'.
+	 * @see org.eclipse.jst.javaee.core.DataSourceType#getMaxIdleTime()
+	 * @see #getDataSourceType()
+	 * @generated
+	 */
+	EAttribute getDataSourceType_MaxIdleTime();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.DataSourceType#getMaxStatements <em>Max Statements</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Max Statements</em>'.
+	 * @see org.eclipse.jst.javaee.core.DataSourceType#getMaxStatements()
+	 * @see #getDataSourceType()
+	 * @generated
+	 */
+	EAttribute getDataSourceType_MaxStatements();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.DataSourceType#getId <em>Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Id</em>'.
+	 * @see org.eclipse.jst.javaee.core.DataSourceType#getId()
+	 * @see #getDataSourceType()
+	 * @generated
+	 */
+	EAttribute getDataSourceType_Id();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.core.Description <em>Description</em>}'.
@@ -2504,6 +3209,17 @@ public interface JavaeePackage extends EPackage {
 	EReference getEjbLocalRef_InjectionTargets();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.EjbLocalRef#getLookupName <em>Lookup Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Lookup Name</em>'.
+	 * @see org.eclipse.jst.javaee.core.EjbLocalRef#getLookupName()
+	 * @see #getEjbLocalRef()
+	 * @generated
+	 */
+	EAttribute getEjbLocalRef_LookupName();
+
+	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.EjbLocalRef#getId <em>Id</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2613,6 +3329,17 @@ public interface JavaeePackage extends EPackage {
 	EReference getEjbRef_InjectionTargets();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.EjbRef#getLookupName <em>Lookup Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Lookup Name</em>'.
+	 * @see org.eclipse.jst.javaee.core.EjbRef#getLookupName()
+	 * @see #getEjbRef()
+	 * @generated
+	 */
+	EAttribute getEjbRef_LookupName();
+
+	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.EjbRef#getId <em>Id</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2719,6 +3446,17 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getEnvEntry_InjectionTargets();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.EnvEntry#getLookupName <em>Lookup Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Lookup Name</em>'.
+	 * @see org.eclipse.jst.javaee.core.EnvEntry#getLookupName()
+	 * @see #getEnvEntry()
+	 * @generated
+	 */
+	EAttribute getEnvEntry_LookupName();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.EnvEntry#getId <em>Id</em>}'.
@@ -3078,6 +3816,17 @@ public interface JavaeePackage extends EPackage {
 	EReference getMessageDestinationRef_InjectionTargets();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.MessageDestinationRef#getLookupName <em>Lookup Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Lookup Name</em>'.
+	 * @see org.eclipse.jst.javaee.core.MessageDestinationRef#getLookupName()
+	 * @see #getMessageDestinationRef()
+	 * @generated
+	 */
+	EAttribute getMessageDestinationRef_LookupName();
+
+	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.MessageDestinationRef#getId <em>Id</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3230,6 +3979,17 @@ public interface JavaeePackage extends EPackage {
 	EReference getPersistenceContextRef_InjectionTargets();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.PersistenceContextRef#getLookupName <em>Lookup Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Lookup Name</em>'.
+	 * @see org.eclipse.jst.javaee.core.PersistenceContextRef#getLookupName()
+	 * @see #getPersistenceContextRef()
+	 * @generated
+	 */
+	EAttribute getPersistenceContextRef_LookupName();
+
+	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.PersistenceContextRef#getId <em>Id</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3306,6 +4066,17 @@ public interface JavaeePackage extends EPackage {
 	EReference getPersistenceUnitRef_InjectionTargets();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.PersistenceUnitRef#getLookupName <em>Lookup Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Lookup Name</em>'.
+	 * @see org.eclipse.jst.javaee.core.PersistenceUnitRef#getLookupName()
+	 * @see #getPersistenceUnitRef()
+	 * @generated
+	 */
+	EAttribute getPersistenceUnitRef_LookupName();
+
+	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.PersistenceUnitRef#getId <em>Id</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3347,6 +4118,39 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getPortComponentRef_EnableMtom();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.PortComponentRef#getMtomThreshold <em>Mtom Threshold</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Mtom Threshold</em>'.
+	 * @see org.eclipse.jst.javaee.core.PortComponentRef#getMtomThreshold()
+	 * @see #getPortComponentRef()
+	 * @generated
+	 */
+	EAttribute getPortComponentRef_MtomThreshold();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.javaee.core.PortComponentRef#getAddressing <em>Addressing</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Addressing</em>'.
+	 * @see org.eclipse.jst.javaee.core.PortComponentRef#getAddressing()
+	 * @see #getPortComponentRef()
+	 * @generated
+	 */
+	EReference getPortComponentRef_Addressing();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.javaee.core.PortComponentRef#getRespectBinding <em>Respect Binding</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Respect Binding</em>'.
+	 * @see org.eclipse.jst.javaee.core.PortComponentRef#getRespectBinding()
+	 * @see #getPortComponentRef()
+	 * @generated
+	 */
+	EReference getPortComponentRef_RespectBinding();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.PortComponentRef#getPortComponentLink <em>Port Component Link</em>}'.
@@ -3479,6 +4283,17 @@ public interface JavaeePackage extends EPackage {
 	EReference getResourceEnvRef_InjectionTargets();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.ResourceEnvRef#getLookupName <em>Lookup Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Lookup Name</em>'.
+	 * @see org.eclipse.jst.javaee.core.ResourceEnvRef#getLookupName()
+	 * @see #getResourceEnvRef()
+	 * @generated
+	 */
+	EAttribute getResourceEnvRef_LookupName();
+
+	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.ResourceEnvRef#getId <em>Id</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3577,6 +4392,17 @@ public interface JavaeePackage extends EPackage {
 	EReference getResourceRef_InjectionTargets();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.ResourceRef#getLookupName <em>Lookup Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Lookup Name</em>'.
+	 * @see org.eclipse.jst.javaee.core.ResourceRef#getLookupName()
+	 * @see #getResourceRef()
+	 * @generated
+	 */
+	EAttribute getResourceRef_LookupName();
+
+	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.ResourceRef#getId <em>Id</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3586,6 +4412,27 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getResourceRef_Id();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.core.RespectBindingType <em>Respect Binding Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Respect Binding Type</em>'.
+	 * @see org.eclipse.jst.javaee.core.RespectBindingType
+	 * @generated
+	 */
+	EClass getRespectBindingType();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.RespectBindingType#isEnabled <em>Enabled</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Enabled</em>'.
+	 * @see org.eclipse.jst.javaee.core.RespectBindingType#isEnabled()
+	 * @see #getRespectBindingType()
+	 * @generated
+	 */
+	EAttribute getRespectBindingType_Enabled();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.core.RunAs <em>Run As</em>}'.
@@ -3892,6 +4739,17 @@ public interface JavaeePackage extends EPackage {
 	EReference getServiceRef_InjectionTargets();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.ServiceRef#getLookupName <em>Lookup Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Lookup Name</em>'.
+	 * @see org.eclipse.jst.javaee.core.ServiceRef#getLookupName()
+	 * @see #getServiceRef()
+	 * @generated
+	 */
+	EAttribute getServiceRef_LookupName();
+
+	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.ServiceRef#getId <em>Id</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4141,6 +4999,16 @@ public interface JavaeePackage extends EPackage {
 	EAttribute getUrlPatternType_Value();
 
 	/**
+	 * Returns the meta object for enum '{@link org.eclipse.jst.javaee.core.AddressingResponsesType <em>Addressing Responses Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Addressing Responses Type</em>'.
+	 * @see org.eclipse.jst.javaee.core.AddressingResponsesType
+	 * @generated
+	 */
+	EEnum getAddressingResponsesType();
+
+	/**
 	 * Returns the meta object for enum '{@link org.eclipse.jst.javaee.core.EjbRefType <em>Ejb Ref Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4151,14 +5019,34 @@ public interface JavaeePackage extends EPackage {
 	EEnum getEjbRefType();
 
 	/**
-	 * Returns the meta object for enum '{@link org.eclipse.jst.javaee.core.EnvEntryType <em>Env Entry Type</em>}'.
+	 * Returns the meta object for enum '{@link org.eclipse.jst.javaee.core.GenericBooleanType <em>Generic Boolean Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for enum '<em>Env Entry Type</em>'.
-	 * @see org.eclipse.jst.javaee.core.EnvEntryType
+	 * @return the meta object for enum '<em>Generic Boolean Type</em>'.
+	 * @see org.eclipse.jst.javaee.core.GenericBooleanType
 	 * @generated
 	 */
-	EEnum getEnvEntryType();
+	EEnum getGenericBooleanType();
+
+	/**
+	 * Returns the meta object for enum '{@link org.eclipse.jst.javaee.core.IsolationLevelType <em>Isolation Level Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Isolation Level Type</em>'.
+	 * @see org.eclipse.jst.javaee.core.IsolationLevelType
+	 * @generated
+	 */
+	EEnum getIsolationLevelType();
+
+	/**
+	 * Returns the meta object for data type '{@link java.lang.String <em>Env Entry Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>Env Entry Type</em>'.
+	 * @see java.lang.String
+	 * @generated
+	 */
+	EDataType getEnvEntryType();
 
 	/**
 	 * Returns the meta object for enum '{@link org.eclipse.jst.javaee.core.MessageDestinationUsageType <em>Message Destination Usage Type</em>}'.
@@ -4201,6 +5089,16 @@ public interface JavaeePackage extends EPackage {
 	EEnum getResSharingScopeType();
 
 	/**
+	 * Returns the meta object for data type '{@link org.eclipse.jst.javaee.core.AddressingResponsesType <em>Addressing Responses Type Object</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>Addressing Responses Type Object</em>'.
+	 * @see org.eclipse.jst.javaee.core.AddressingResponsesType
+	 * @generated
+	 */
+	EDataType getAddressingResponsesTypeObject();
+
+	/**
 	 * Returns the meta object for data type '{@link java.lang.String <em>Dewey Version Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4241,16 +5139,6 @@ public interface JavaeePackage extends EPackage {
 	EDataType getEjbRefTypeObject();
 
 	/**
-	 * Returns the meta object for data type '{@link org.eclipse.jst.javaee.core.EnvEntryType <em>Env Entry Type Object</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for data type '<em>Env Entry Type Object</em>'.
-	 * @see org.eclipse.jst.javaee.core.EnvEntryType
-	 * @generated
-	 */
-	EDataType getEnvEntryTypeObject();
-
-	/**
 	 * Returns the meta object for data type '{@link java.lang.String <em>Fully Qualified Class Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4261,6 +5149,16 @@ public interface JavaeePackage extends EPackage {
 	EDataType getFullyQualifiedClassType();
 
 	/**
+	 * Returns the meta object for data type '{@link org.eclipse.jst.javaee.core.GenericBooleanType <em>Generic Boolean Type Object</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>Generic Boolean Type Object</em>'.
+	 * @see org.eclipse.jst.javaee.core.GenericBooleanType
+	 * @generated
+	 */
+	EDataType getGenericBooleanTypeObject();
+
+	/**
 	 * Returns the meta object for data type '{@link java.lang.String <em>Home</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4269,6 +5167,16 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 */
 	EDataType getHome();
+
+	/**
+	 * Returns the meta object for data type '{@link org.eclipse.jst.javaee.core.IsolationLevelType <em>Isolation Level Type Object</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>Isolation Level Type Object</em>'.
+	 * @see org.eclipse.jst.javaee.core.IsolationLevelType
+	 * @generated
+	 */
+	EDataType getIsolationLevelTypeObject();
 
 	/**
 	 * Returns the meta object for data type '{@link java.lang.String <em>Java Identifier</em>}'.
@@ -4289,6 +5197,16 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 */
 	EDataType getJavaType();
+
+	/**
+	 * Returns the meta object for data type '{@link java.lang.String <em>Jdbc Url Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>Jdbc Url Type</em>'.
+	 * @see java.lang.String
+	 * @generated
+	 */
+	EDataType getJdbcUrlType();
 
 	/**
 	 * Returns the meta object for data type '{@link java.lang.String <em>JNDI Name</em>}'.
@@ -4371,6 +5289,46 @@ public interface JavaeePackage extends EPackage {
 	EDataType getPersistenceContextTypeObject();
 
 	/**
+	 * Returns the meta object for data type '{@link java.util.List <em>Protocol Binding List Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>Protocol Binding List Type</em>'.
+	 * @see java.util.List
+	 * @generated
+	 */
+	EDataType getProtocolBindingListType();
+
+	/**
+	 * Returns the meta object for data type '{@link java.lang.String <em>Protocol Binding Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>Protocol Binding Type</em>'.
+	 * @see java.lang.String
+	 * @generated
+	 */
+	EDataType getProtocolBindingType();
+
+	/**
+	 * Returns the meta object for data type '{@link java.lang.String <em>Protocol URI Alias Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>Protocol URI Alias Type</em>'.
+	 * @see java.lang.String
+	 * @generated
+	 */
+	EDataType getProtocolURIAliasType();
+
+	/**
+	 * Returns the meta object for data type '{@link java.lang.String <em>Qname Pattern</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>Qname Pattern</em>'.
+	 * @see java.lang.String
+	 * @generated
+	 */
+	EDataType getQnamePattern();
+
+	/**
 	 * Returns the meta object for data type '{@link java.lang.String <em>Remote</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4409,46 +5367,6 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 */
 	EDataType getRoleName();
-
-	/**
-	 * Returns the meta object for data type '{@link java.util.List <em>Service Ref Protocol Binding List Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for data type '<em>Service Ref Protocol Binding List Type</em>'.
-	 * @see java.util.List
-	 * @generated
-	 */
-	EDataType getServiceRefProtocolBindingListType();
-
-	/**
-	 * Returns the meta object for data type '{@link java.lang.String <em>Service Ref Protocol Binding Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for data type '<em>Service Ref Protocol Binding Type</em>'.
-	 * @see java.lang.String
-	 * @generated
-	 */
-	EDataType getServiceRefProtocolBindingType();
-
-	/**
-	 * Returns the meta object for data type '{@link java.lang.String <em>Service Ref Protocol URI Alias Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for data type '<em>Service Ref Protocol URI Alias Type</em>'.
-	 * @see java.lang.String
-	 * @generated
-	 */
-	EDataType getServiceRefProtocolURIAliasType();
-
-	/**
-	 * Returns the meta object for data type '{@link java.lang.String <em>Service Ref Qname Pattern</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for data type '<em>Service Ref Qname Pattern</em>'.
-	 * @see java.lang.String
-	 * @generated
-	 */
-	EDataType getServiceRefQnamePattern();
 
 	/**
 	 * Returns the meta object for data type '<em>True False Type</em>'.
@@ -4491,6 +5409,202 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 */
 	interface Literals  {
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.javaee.core.internal.impl.AddressingTypeImpl <em>Addressing Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.core.internal.impl.AddressingTypeImpl
+		 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getAddressingType()
+		 * @generated
+		 */
+		EClass ADDRESSING_TYPE = eINSTANCE.getAddressingType();
+
+		/**
+		 * The meta object literal for the '<em><b>Enabled</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ADDRESSING_TYPE__ENABLED = eINSTANCE.getAddressingType_Enabled();
+
+		/**
+		 * The meta object literal for the '<em><b>Required</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ADDRESSING_TYPE__REQUIRED = eINSTANCE.getAddressingType_Required();
+
+		/**
+		 * The meta object literal for the '<em><b>Responses</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ADDRESSING_TYPE__RESPONSES = eINSTANCE.getAddressingType_Responses();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.javaee.core.internal.impl.DataSourceTypeImpl <em>Data Source Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.core.internal.impl.DataSourceTypeImpl
+		 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getDataSourceType()
+		 * @generated
+		 */
+		EClass DATA_SOURCE_TYPE = eINSTANCE.getDataSourceType();
+
+		/**
+		 * The meta object literal for the '<em><b>Description</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference DATA_SOURCE_TYPE__DESCRIPTION = eINSTANCE.getDataSourceType_Description();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DATA_SOURCE_TYPE__NAME = eINSTANCE.getDataSourceType_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Class Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DATA_SOURCE_TYPE__CLASS_NAME = eINSTANCE.getDataSourceType_ClassName();
+
+		/**
+		 * The meta object literal for the '<em><b>Server Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DATA_SOURCE_TYPE__SERVER_NAME = eINSTANCE.getDataSourceType_ServerName();
+
+		/**
+		 * The meta object literal for the '<em><b>Port Number</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DATA_SOURCE_TYPE__PORT_NUMBER = eINSTANCE.getDataSourceType_PortNumber();
+
+		/**
+		 * The meta object literal for the '<em><b>Database Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DATA_SOURCE_TYPE__DATABASE_NAME = eINSTANCE.getDataSourceType_DatabaseName();
+
+		/**
+		 * The meta object literal for the '<em><b>Url</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DATA_SOURCE_TYPE__URL = eINSTANCE.getDataSourceType_Url();
+
+		/**
+		 * The meta object literal for the '<em><b>User</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DATA_SOURCE_TYPE__USER = eINSTANCE.getDataSourceType_User();
+
+		/**
+		 * The meta object literal for the '<em><b>Password</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DATA_SOURCE_TYPE__PASSWORD = eINSTANCE.getDataSourceType_Password();
+
+		/**
+		 * The meta object literal for the '<em><b>Property</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference DATA_SOURCE_TYPE__PROPERTY = eINSTANCE.getDataSourceType_Property();
+
+		/**
+		 * The meta object literal for the '<em><b>Login Timeout</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DATA_SOURCE_TYPE__LOGIN_TIMEOUT = eINSTANCE.getDataSourceType_LoginTimeout();
+
+		/**
+		 * The meta object literal for the '<em><b>Transactional</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DATA_SOURCE_TYPE__TRANSACTIONAL = eINSTANCE.getDataSourceType_Transactional();
+
+		/**
+		 * The meta object literal for the '<em><b>Isolation Level</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DATA_SOURCE_TYPE__ISOLATION_LEVEL = eINSTANCE.getDataSourceType_IsolationLevel();
+
+		/**
+		 * The meta object literal for the '<em><b>Initial Pool Size</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DATA_SOURCE_TYPE__INITIAL_POOL_SIZE = eINSTANCE.getDataSourceType_InitialPoolSize();
+
+		/**
+		 * The meta object literal for the '<em><b>Max Pool Size</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DATA_SOURCE_TYPE__MAX_POOL_SIZE = eINSTANCE.getDataSourceType_MaxPoolSize();
+
+		/**
+		 * The meta object literal for the '<em><b>Min Pool Size</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DATA_SOURCE_TYPE__MIN_POOL_SIZE = eINSTANCE.getDataSourceType_MinPoolSize();
+
+		/**
+		 * The meta object literal for the '<em><b>Max Idle Time</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DATA_SOURCE_TYPE__MAX_IDLE_TIME = eINSTANCE.getDataSourceType_MaxIdleTime();
+
+		/**
+		 * The meta object literal for the '<em><b>Max Statements</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DATA_SOURCE_TYPE__MAX_STATEMENTS = eINSTANCE.getDataSourceType_MaxStatements();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute DATA_SOURCE_TYPE__ID = eINSTANCE.getDataSourceType_Id();
+
 		/**
 		 * The meta object literal for the '{@link org.eclipse.jst.javaee.core.internal.impl.DescriptionImpl <em>Description</em>}' class.
 		 * <!-- begin-user-doc -->
@@ -4618,6 +5732,14 @@ public interface JavaeePackage extends EPackage {
 		EReference EJB_LOCAL_REF__INJECTION_TARGETS = eINSTANCE.getEjbLocalRef_InjectionTargets();
 
 		/**
+		 * The meta object literal for the '<em><b>Lookup Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EJB_LOCAL_REF__LOOKUP_NAME = eINSTANCE.getEjbLocalRef_LookupName();
+
+		/**
 		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -4698,6 +5820,14 @@ public interface JavaeePackage extends EPackage {
 		 * @generated
 		 */
 		EReference EJB_REF__INJECTION_TARGETS = eINSTANCE.getEjbRef_InjectionTargets();
+
+		/**
+		 * The meta object literal for the '<em><b>Lookup Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EJB_REF__LOOKUP_NAME = eINSTANCE.getEjbRef_LookupName();
 
 		/**
 		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
@@ -4782,6 +5912,14 @@ public interface JavaeePackage extends EPackage {
 		 * @generated
 		 */
 		EReference ENV_ENTRY__INJECTION_TARGETS = eINSTANCE.getEnvEntry_InjectionTargets();
+
+		/**
+		 * The meta object literal for the '<em><b>Lookup Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ENV_ENTRY__LOOKUP_NAME = eINSTANCE.getEnvEntry_LookupName();
 
 		/**
 		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
@@ -5060,6 +6198,14 @@ public interface JavaeePackage extends EPackage {
 		EReference MESSAGE_DESTINATION_REF__INJECTION_TARGETS = eINSTANCE.getMessageDestinationRef_InjectionTargets();
 
 		/**
+		 * The meta object literal for the '<em><b>Lookup Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MESSAGE_DESTINATION_REF__LOOKUP_NAME = eINSTANCE.getMessageDestinationRef_LookupName();
+
+		/**
 		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -5176,6 +6322,14 @@ public interface JavaeePackage extends EPackage {
 		EReference PERSISTENCE_CONTEXT_REF__INJECTION_TARGETS = eINSTANCE.getPersistenceContextRef_InjectionTargets();
 
 		/**
+		 * The meta object literal for the '<em><b>Lookup Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PERSISTENCE_CONTEXT_REF__LOOKUP_NAME = eINSTANCE.getPersistenceContextRef_LookupName();
+
+		/**
 		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -5234,6 +6388,14 @@ public interface JavaeePackage extends EPackage {
 		EReference PERSISTENCE_UNIT_REF__INJECTION_TARGETS = eINSTANCE.getPersistenceUnitRef_InjectionTargets();
 
 		/**
+		 * The meta object literal for the '<em><b>Lookup Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PERSISTENCE_UNIT_REF__LOOKUP_NAME = eINSTANCE.getPersistenceUnitRef_LookupName();
+
+		/**
 		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -5266,6 +6428,30 @@ public interface JavaeePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute PORT_COMPONENT_REF__ENABLE_MTOM = eINSTANCE.getPortComponentRef_EnableMtom();
+
+		/**
+		 * The meta object literal for the '<em><b>Mtom Threshold</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PORT_COMPONENT_REF__MTOM_THRESHOLD = eINSTANCE.getPortComponentRef_MtomThreshold();
+
+		/**
+		 * The meta object literal for the '<em><b>Addressing</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PORT_COMPONENT_REF__ADDRESSING = eINSTANCE.getPortComponentRef_Addressing();
+
+		/**
+		 * The meta object literal for the '<em><b>Respect Binding</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PORT_COMPONENT_REF__RESPECT_BINDING = eINSTANCE.getPortComponentRef_RespectBinding();
 
 		/**
 		 * The meta object literal for the '<em><b>Port Component Link</b></em>' attribute feature.
@@ -5368,6 +6554,14 @@ public interface JavaeePackage extends EPackage {
 		EReference RESOURCE_ENV_REF__INJECTION_TARGETS = eINSTANCE.getResourceEnvRef_InjectionTargets();
 
 		/**
+		 * The meta object literal for the '<em><b>Lookup Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute RESOURCE_ENV_REF__LOOKUP_NAME = eINSTANCE.getResourceEnvRef_LookupName();
+
+		/**
 		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -5442,12 +6636,38 @@ public interface JavaeePackage extends EPackage {
 		EReference RESOURCE_REF__INJECTION_TARGETS = eINSTANCE.getResourceRef_InjectionTargets();
 
 		/**
+		 * The meta object literal for the '<em><b>Lookup Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute RESOURCE_REF__LOOKUP_NAME = eINSTANCE.getResourceRef_LookupName();
+
+		/**
 		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EAttribute RESOURCE_REF__ID = eINSTANCE.getResourceRef_Id();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.javaee.core.internal.impl.RespectBindingTypeImpl <em>Respect Binding Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.core.internal.impl.RespectBindingTypeImpl
+		 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getRespectBindingType()
+		 * @generated
+		 */
+		EClass RESPECT_BINDING_TYPE = eINSTANCE.getRespectBindingType();
+
+		/**
+		 * The meta object literal for the '<em><b>Enabled</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute RESPECT_BINDING_TYPE__ENABLED = eINSTANCE.getRespectBindingType_Enabled();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.jst.javaee.core.internal.impl.RunAsImpl <em>Run As</em>}' class.
@@ -5682,6 +6902,14 @@ public interface JavaeePackage extends EPackage {
 		EReference SERVICE_REF__INJECTION_TARGETS = eINSTANCE.getServiceRef_InjectionTargets();
 
 		/**
+		 * The meta object literal for the '<em><b>Lookup Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SERVICE_REF__LOOKUP_NAME = eINSTANCE.getServiceRef_LookupName();
+
+		/**
 		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -5874,6 +7102,16 @@ public interface JavaeePackage extends EPackage {
 		EAttribute URL_PATTERN_TYPE__VALUE = eINSTANCE.getUrlPatternType_Value();
 
 		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.javaee.core.AddressingResponsesType <em>Addressing Responses Type</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.core.AddressingResponsesType
+		 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getAddressingResponsesType()
+		 * @generated
+		 */
+		EEnum ADDRESSING_RESPONSES_TYPE = eINSTANCE.getAddressingResponsesType();
+
+		/**
 		 * The meta object literal for the '{@link org.eclipse.jst.javaee.core.EjbRefType <em>Ejb Ref Type</em>}' enum.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -5884,14 +7122,34 @@ public interface JavaeePackage extends EPackage {
 		EEnum EJB_REF_TYPE = eINSTANCE.getEjbRefType();
 
 		/**
-		 * The meta object literal for the '{@link org.eclipse.jst.javaee.core.EnvEntryType <em>Env Entry Type</em>}' enum.
+		 * The meta object literal for the '{@link org.eclipse.jst.javaee.core.GenericBooleanType <em>Generic Boolean Type</em>}' enum.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.eclipse.jst.javaee.core.EnvEntryType
+		 * @see org.eclipse.jst.javaee.core.GenericBooleanType
+		 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getGenericBooleanType()
+		 * @generated
+		 */
+		EEnum GENERIC_BOOLEAN_TYPE = eINSTANCE.getGenericBooleanType();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.javaee.core.IsolationLevelType <em>Isolation Level Type</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.core.IsolationLevelType
+		 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getIsolationLevelType()
+		 * @generated
+		 */
+		EEnum ISOLATION_LEVEL_TYPE = eINSTANCE.getIsolationLevelType();
+
+		/**
+		 * The meta object literal for the '<em>Env Entry Type</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see java.lang.String
 		 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getEnvEntryType()
 		 * @generated
 		 */
-		EEnum ENV_ENTRY_TYPE = eINSTANCE.getEnvEntryType();
+		EDataType ENV_ENTRY_TYPE = eINSTANCE.getEnvEntryType();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.jst.javaee.core.MessageDestinationUsageType <em>Message Destination Usage Type</em>}' enum.
@@ -5934,6 +7192,16 @@ public interface JavaeePackage extends EPackage {
 		EEnum RES_SHARING_SCOPE_TYPE = eINSTANCE.getResSharingScopeType();
 
 		/**
+		 * The meta object literal for the '<em>Addressing Responses Type Object</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.core.AddressingResponsesType
+		 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getAddressingResponsesTypeObject()
+		 * @generated
+		 */
+		EDataType ADDRESSING_RESPONSES_TYPE_OBJECT = eINSTANCE.getAddressingResponsesTypeObject();
+
+		/**
 		 * The meta object literal for the '<em>Dewey Version Type</em>' data type.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -5974,16 +7242,6 @@ public interface JavaeePackage extends EPackage {
 		EDataType EJB_REF_TYPE_OBJECT = eINSTANCE.getEjbRefTypeObject();
 
 		/**
-		 * The meta object literal for the '<em>Env Entry Type Object</em>' data type.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.eclipse.jst.javaee.core.EnvEntryType
-		 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getEnvEntryTypeObject()
-		 * @generated
-		 */
-		EDataType ENV_ENTRY_TYPE_OBJECT = eINSTANCE.getEnvEntryTypeObject();
-
-		/**
 		 * The meta object literal for the '<em>Fully Qualified Class Type</em>' data type.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -5994,6 +7252,16 @@ public interface JavaeePackage extends EPackage {
 		EDataType FULLY_QUALIFIED_CLASS_TYPE = eINSTANCE.getFullyQualifiedClassType();
 
 		/**
+		 * The meta object literal for the '<em>Generic Boolean Type Object</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.core.GenericBooleanType
+		 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getGenericBooleanTypeObject()
+		 * @generated
+		 */
+		EDataType GENERIC_BOOLEAN_TYPE_OBJECT = eINSTANCE.getGenericBooleanTypeObject();
+
+		/**
 		 * The meta object literal for the '<em>Home</em>' data type.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -6002,6 +7270,16 @@ public interface JavaeePackage extends EPackage {
 		 * @generated
 		 */
 		EDataType HOME = eINSTANCE.getHome();
+
+		/**
+		 * The meta object literal for the '<em>Isolation Level Type Object</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.core.IsolationLevelType
+		 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getIsolationLevelTypeObject()
+		 * @generated
+		 */
+		EDataType ISOLATION_LEVEL_TYPE_OBJECT = eINSTANCE.getIsolationLevelTypeObject();
 
 		/**
 		 * The meta object literal for the '<em>Java Identifier</em>' data type.
@@ -6022,6 +7300,16 @@ public interface JavaeePackage extends EPackage {
 		 * @generated
 		 */
 		EDataType JAVA_TYPE = eINSTANCE.getJavaType();
+
+		/**
+		 * The meta object literal for the '<em>Jdbc Url Type</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see java.lang.String
+		 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getJdbcUrlType()
+		 * @generated
+		 */
+		EDataType JDBC_URL_TYPE = eINSTANCE.getJdbcUrlType();
 
 		/**
 		 * The meta object literal for the '<em>JNDI Name</em>' data type.
@@ -6104,6 +7392,46 @@ public interface JavaeePackage extends EPackage {
 		EDataType PERSISTENCE_CONTEXT_TYPE_OBJECT = eINSTANCE.getPersistenceContextTypeObject();
 
 		/**
+		 * The meta object literal for the '<em>Protocol Binding List Type</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see java.util.List
+		 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getProtocolBindingListType()
+		 * @generated
+		 */
+		EDataType PROTOCOL_BINDING_LIST_TYPE = eINSTANCE.getProtocolBindingListType();
+
+		/**
+		 * The meta object literal for the '<em>Protocol Binding Type</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see java.lang.String
+		 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getProtocolBindingType()
+		 * @generated
+		 */
+		EDataType PROTOCOL_BINDING_TYPE = eINSTANCE.getProtocolBindingType();
+
+		/**
+		 * The meta object literal for the '<em>Protocol URI Alias Type</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see java.lang.String
+		 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getProtocolURIAliasType()
+		 * @generated
+		 */
+		EDataType PROTOCOL_URI_ALIAS_TYPE = eINSTANCE.getProtocolURIAliasType();
+
+		/**
+		 * The meta object literal for the '<em>Qname Pattern</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see java.lang.String
+		 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getQnamePattern()
+		 * @generated
+		 */
+		EDataType QNAME_PATTERN = eINSTANCE.getQnamePattern();
+
+		/**
 		 * The meta object literal for the '<em>Remote</em>' data type.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -6142,46 +7470,6 @@ public interface JavaeePackage extends EPackage {
 		 * @generated
 		 */
 		EDataType ROLE_NAME = eINSTANCE.getRoleName();
-
-		/**
-		 * The meta object literal for the '<em>Service Ref Protocol Binding List Type</em>' data type.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see java.util.List
-		 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getServiceRefProtocolBindingListType()
-		 * @generated
-		 */
-		EDataType SERVICE_REF_PROTOCOL_BINDING_LIST_TYPE = eINSTANCE.getServiceRefProtocolBindingListType();
-
-		/**
-		 * The meta object literal for the '<em>Service Ref Protocol Binding Type</em>' data type.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see java.lang.String
-		 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getServiceRefProtocolBindingType()
-		 * @generated
-		 */
-		EDataType SERVICE_REF_PROTOCOL_BINDING_TYPE = eINSTANCE.getServiceRefProtocolBindingType();
-
-		/**
-		 * The meta object literal for the '<em>Service Ref Protocol URI Alias Type</em>' data type.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see java.lang.String
-		 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getServiceRefProtocolURIAliasType()
-		 * @generated
-		 */
-		EDataType SERVICE_REF_PROTOCOL_URI_ALIAS_TYPE = eINSTANCE.getServiceRefProtocolURIAliasType();
-
-		/**
-		 * The meta object literal for the '<em>Service Ref Qname Pattern</em>' data type.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see java.lang.String
-		 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getServiceRefQnamePattern()
-		 * @generated
-		 */
-		EDataType SERVICE_REF_QNAME_PATTERN = eINSTANCE.getServiceRefQnamePattern();
 
 		/**
 		 * The meta object literal for the '<em>True False Type</em>' data type.

@@ -20,12 +20,13 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The activation-config-propertyType contains a name/value
- * 	configuration property pair for a message-driven bean.
- * 
- * 	The properties that are recognized for a particular
- * 	message-driven bean are determined by the messaging type.
- * 
+ *         The activation-config-propertyType contains a name/value
+ *         configuration property pair for a message-driven bean.
+ *         
+ *         The properties that are recognized for a particular
+ *         message-driven bean are determined by the messaging type.
+ *         
+ *         @since Java EE 5, EJB 3.0
  *       
  * <!-- end-model-doc -->
  *
@@ -50,15 +51,16 @@ public interface ActivationConfigProperty extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	    The activation-config-property-name element contains
-	 * 	    the name for an activation configuration property of
-	 * 	    a message-driven bean.
-	 * 
-	 * 	    For JMS message-driven beans, the following property
-	 * 	    names are recognized: acknowledgeMode,
-	 * 	    messageSelector, destinationType, subscriptionDurability
-	 * 
-	 * 	  
+	 *             The activation-config-property-name element contains
+	 *             the name for an activation configuration property of
+	 *             a message-driven bean.
+	 *             
+	 *             For JMS message-driven beans, the following property
+	 *             names are recognized: acknowledgeMode,
+	 *             messageSelector, destinationType, subscriptionDurability
+	 *             
+	 *             @since Java EE 5, EJB 3.0
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Activation Config Property Name</em>' attribute.
 	 * @see #setActivationConfigPropertyName(String)
@@ -84,11 +86,12 @@ public interface ActivationConfigProperty extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	    The activation-config-property-value element
-	 * 	    contains the value for an activation configuration
-	 * 	    property of a message-driven bean.
-	 * 
-	 * 	  
+	 *             The activation-config-property-value element
+	 *             contains the value for an activation configuration
+	 *             property of a message-driven bean.
+	 *             
+	 *             @since Java EE 5, EJB 3.0
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Activation Config Property Value</em>' attribute.
 	 * @see #setActivationConfigPropertyValue(String)

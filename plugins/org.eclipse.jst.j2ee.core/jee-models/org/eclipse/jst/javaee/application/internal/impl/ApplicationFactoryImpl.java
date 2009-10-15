@@ -130,6 +130,7 @@ public class ApplicationFactoryImpl extends EFactoryImpl implements ApplicationF
 	 * @deprecated
 	 * @generated
 	 */
+	@Deprecated
 	public static ApplicationPackage getPackage() {
 		return ApplicationPackage.eINSTANCE;
 	}

@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.eclipse.jst.javaee.core.DataSourceType;
 import org.eclipse.jst.javaee.core.Description;
 import org.eclipse.jst.javaee.core.DisplayName;
 import org.eclipse.jst.javaee.core.EjbLocalRef;
@@ -39,13 +40,16 @@ import org.eclipse.jst.javaee.core.PersistenceContextRef;
 import org.eclipse.jst.javaee.core.PersistenceUnitRef;
 import org.eclipse.jst.javaee.core.ResourceEnvRef;
 import org.eclipse.jst.javaee.core.ResourceRef;
+import org.eclipse.jst.javaee.core.SecurityRoleRef;
 import org.eclipse.jst.javaee.core.ServiceRef;
 
 import org.eclipse.jst.javaee.ejb.ActivationConfig;
 import org.eclipse.jst.javaee.ejb.AroundInvokeType;
+import org.eclipse.jst.javaee.ejb.AroundTimeoutType;
 import org.eclipse.jst.javaee.ejb.MessageDrivenBean;
 import org.eclipse.jst.javaee.ejb.NamedMethodType;
 import org.eclipse.jst.javaee.ejb.SecurityIdentityType;
+import org.eclipse.jst.javaee.ejb.TimerType;
 import org.eclipse.jst.javaee.ejb.TransactionType;
 
 import org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage;
@@ -65,11 +69,13 @@ import org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage;
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.MessageDrivenBeanImpl#getEjbClass <em>Ejb Class</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.MessageDrivenBeanImpl#getMessagingType <em>Messaging Type</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.MessageDrivenBeanImpl#getTimeoutMethod <em>Timeout Method</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.MessageDrivenBeanImpl#getTimer <em>Timer</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.MessageDrivenBeanImpl#getTransactionType <em>Transaction Type</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.MessageDrivenBeanImpl#getMessageDestinationType <em>Message Destination Type</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.MessageDrivenBeanImpl#getMessageDestinationLink <em>Message Destination Link</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.MessageDrivenBeanImpl#getActivationConfig <em>Activation Config</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.MessageDrivenBeanImpl#getAroundInvokes <em>Around Invokes</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.MessageDrivenBeanImpl#getAroundTimeouts <em>Around Timeouts</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.MessageDrivenBeanImpl#getEnvEntries <em>Env Entries</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.MessageDrivenBeanImpl#getEjbRefs <em>Ejb Refs</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.MessageDrivenBeanImpl#getEjbLocalRefs <em>Ejb Local Refs</em>}</li>
@@ -81,6 +87,8 @@ import org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage;
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.MessageDrivenBeanImpl#getPersistenceUnitRefs <em>Persistence Unit Refs</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.MessageDrivenBeanImpl#getPostConstructs <em>Post Constructs</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.MessageDrivenBeanImpl#getPreDestroys <em>Pre Destroys</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.MessageDrivenBeanImpl#getDataSource <em>Data Source</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.MessageDrivenBeanImpl#getSecurityRoleRef <em>Security Role Ref</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.MessageDrivenBeanImpl#getSecurityIdentity <em>Security Identity</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.MessageDrivenBeanImpl#getId <em>Id</em>}</li>
  * </ul>
@@ -97,7 +105,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * @generated
 	 * @ordered
 	 */
-	protected EList descriptions = null;
+	protected EList<Description> descriptions;
 
 	/**
 	 * The cached value of the '{@link #getDisplayNames() <em>Display Names</em>}' containment reference list.
@@ -107,7 +115,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * @generated
 	 * @ordered
 	 */
-	protected EList displayNames = null;
+	protected EList<DisplayName> displayNames;
 
 	/**
 	 * The cached value of the '{@link #getIcons() <em>Icons</em>}' containment reference list.
@@ -117,7 +125,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * @generated
 	 * @ordered
 	 */
-	protected EList icons = null;
+	protected EList<Icon> icons;
 
 	/**
 	 * The default value of the '{@link #getEjbName() <em>Ejb Name</em>}' attribute.
@@ -207,7 +215,17 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * @generated
 	 * @ordered
 	 */
-	protected NamedMethodType timeoutMethod = null;
+	protected NamedMethodType timeoutMethod;
+
+	/**
+	 * The cached value of the '{@link #getTimer() <em>Timer</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTimer()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<TimerType> timer;
 
 	/**
 	 * The default value of the '{@link #getTransactionType() <em>Transaction Type</em>}' attribute.
@@ -236,7 +254,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean transactionTypeESet = false;
+	protected boolean transactionTypeESet;
 
 	/**
 	 * The default value of the '{@link #getMessageDestinationType() <em>Message Destination Type</em>}' attribute.
@@ -286,7 +304,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * @generated
 	 * @ordered
 	 */
-	protected ActivationConfig activationConfig = null;
+	protected ActivationConfig activationConfig;
 
 	/**
 	 * The cached value of the '{@link #getAroundInvokes() <em>Around Invokes</em>}' containment reference list.
@@ -296,7 +314,17 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * @generated
 	 * @ordered
 	 */
-	protected EList aroundInvokes = null;
+	protected EList<AroundInvokeType> aroundInvokes;
+
+	/**
+	 * The cached value of the '{@link #getAroundTimeouts() <em>Around Timeouts</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAroundTimeouts()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<AroundTimeoutType> aroundTimeouts;
 
 	/**
 	 * The cached value of the '{@link #getEnvEntries() <em>Env Entries</em>}' containment reference list.
@@ -306,7 +334,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * @generated
 	 * @ordered
 	 */
-	protected EList envEntries = null;
+	protected EList<EnvEntry> envEntries;
 
 	/**
 	 * The cached value of the '{@link #getEjbRefs() <em>Ejb Refs</em>}' containment reference list.
@@ -316,7 +344,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * @generated
 	 * @ordered
 	 */
-	protected EList ejbRefs = null;
+	protected EList<EjbRef> ejbRefs;
 
 	/**
 	 * The cached value of the '{@link #getEjbLocalRefs() <em>Ejb Local Refs</em>}' containment reference list.
@@ -326,7 +354,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * @generated
 	 * @ordered
 	 */
-	protected EList ejbLocalRefs = null;
+	protected EList<EjbLocalRef> ejbLocalRefs;
 
 	/**
 	 * The cached value of the '{@link #getServiceRefs() <em>Service Refs</em>}' containment reference list.
@@ -336,7 +364,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * @generated
 	 * @ordered
 	 */
-	protected EList serviceRefs = null;
+	protected EList<ServiceRef> serviceRefs;
 
 	/**
 	 * The cached value of the '{@link #getResourceRefs() <em>Resource Refs</em>}' containment reference list.
@@ -346,7 +374,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * @generated
 	 * @ordered
 	 */
-	protected EList resourceRefs = null;
+	protected EList<ResourceRef> resourceRefs;
 
 	/**
 	 * The cached value of the '{@link #getResourceEnvRefs() <em>Resource Env Refs</em>}' containment reference list.
@@ -356,7 +384,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * @generated
 	 * @ordered
 	 */
-	protected EList resourceEnvRefs = null;
+	protected EList<ResourceEnvRef> resourceEnvRefs;
 
 	/**
 	 * The cached value of the '{@link #getMessageDestinationRefs() <em>Message Destination Refs</em>}' containment reference list.
@@ -366,7 +394,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * @generated
 	 * @ordered
 	 */
-	protected EList messageDestinationRefs = null;
+	protected EList<MessageDestinationRef> messageDestinationRefs;
 
 	/**
 	 * The cached value of the '{@link #getPersistenceContextRefs() <em>Persistence Context Refs</em>}' containment reference list.
@@ -376,7 +404,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * @generated
 	 * @ordered
 	 */
-	protected EList persistenceContextRefs = null;
+	protected EList<PersistenceContextRef> persistenceContextRefs;
 
 	/**
 	 * The cached value of the '{@link #getPersistenceUnitRefs() <em>Persistence Unit Refs</em>}' containment reference list.
@@ -386,7 +414,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * @generated
 	 * @ordered
 	 */
-	protected EList persistenceUnitRefs = null;
+	protected EList<PersistenceUnitRef> persistenceUnitRefs;
 
 	/**
 	 * The cached value of the '{@link #getPostConstructs() <em>Post Constructs</em>}' containment reference list.
@@ -396,7 +424,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * @generated
 	 * @ordered
 	 */
-	protected EList postConstructs = null;
+	protected EList<LifecycleCallback> postConstructs;
 
 	/**
 	 * The cached value of the '{@link #getPreDestroys() <em>Pre Destroys</em>}' containment reference list.
@@ -406,7 +434,27 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * @generated
 	 * @ordered
 	 */
-	protected EList preDestroys = null;
+	protected EList<LifecycleCallback> preDestroys;
+
+	/**
+	 * The cached value of the '{@link #getDataSource() <em>Data Source</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDataSource()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<DataSourceType> dataSource;
+
+	/**
+	 * The cached value of the '{@link #getSecurityRoleRef() <em>Security Role Ref</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSecurityRoleRef()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<SecurityRoleRef> securityRoleRef;
 
 	/**
 	 * The cached value of the '{@link #getSecurityIdentity() <em>Security Identity</em>}' containment reference.
@@ -416,7 +464,7 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * @generated
 	 * @ordered
 	 */
-	protected SecurityIdentityType securityIdentity = null;
+	protected SecurityIdentityType securityIdentity;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -462,9 +510,9 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDescriptions() {
+	public List<Description> getDescriptions() {
 		if (descriptions == null) {
-			descriptions = new EObjectContainmentEList(Description.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__DESCRIPTIONS);
+			descriptions = new EObjectContainmentEList<Description>(Description.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__DESCRIPTIONS);
 		}
 		return descriptions;
 	}
@@ -474,9 +522,9 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDisplayNames() {
+	public List<DisplayName> getDisplayNames() {
 		if (displayNames == null) {
-			displayNames = new EObjectContainmentEList(DisplayName.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__DISPLAY_NAMES);
+			displayNames = new EObjectContainmentEList<DisplayName>(DisplayName.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__DISPLAY_NAMES);
 		}
 		return displayNames;
 	}
@@ -486,9 +534,9 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getIcons() {
+	public List<Icon> getIcons() {
 		if (icons == null) {
-			icons = new EObjectContainmentEList(Icon.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__ICONS);
+			icons = new EObjectContainmentEList<Icon>(Icon.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__ICONS);
 		}
 		return icons;
 	}
@@ -618,6 +666,18 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 		}
 		else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, EjbPackage.MESSAGE_DRIVEN_BEAN__TIMEOUT_METHOD, newTimeoutMethod, newTimeoutMethod));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<TimerType> getTimer() {
+		if (timer == null) {
+			timer = new EObjectContainmentEList<TimerType>(TimerType.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__TIMER);
+		}
+		return timer;
 	}
 
 	/**
@@ -756,9 +816,9 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getAroundInvokes() {
+	public List<AroundInvokeType> getAroundInvokes() {
 		if (aroundInvokes == null) {
-			aroundInvokes = new EObjectContainmentEList(AroundInvokeType.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__AROUND_INVOKES);
+			aroundInvokes = new EObjectContainmentEList<AroundInvokeType>(AroundInvokeType.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__AROUND_INVOKES);
 		}
 		return aroundInvokes;
 	}
@@ -768,9 +828,21 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getEnvEntries() {
+	public List<AroundTimeoutType> getAroundTimeouts() {
+		if (aroundTimeouts == null) {
+			aroundTimeouts = new EObjectContainmentEList<AroundTimeoutType>(AroundTimeoutType.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__AROUND_TIMEOUTS);
+		}
+		return aroundTimeouts;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<EnvEntry> getEnvEntries() {
 		if (envEntries == null) {
-			envEntries = new EObjectContainmentEList(EnvEntry.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__ENV_ENTRIES);
+			envEntries = new EObjectContainmentEList<EnvEntry>(EnvEntry.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__ENV_ENTRIES);
 		}
 		return envEntries;
 	}
@@ -780,9 +852,9 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getEjbRefs() {
+	public List<EjbRef> getEjbRefs() {
 		if (ejbRefs == null) {
-			ejbRefs = new EObjectContainmentEList(EjbRef.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__EJB_REFS);
+			ejbRefs = new EObjectContainmentEList<EjbRef>(EjbRef.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__EJB_REFS);
 		}
 		return ejbRefs;
 	}
@@ -792,9 +864,9 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getEjbLocalRefs() {
+	public List<EjbLocalRef> getEjbLocalRefs() {
 		if (ejbLocalRefs == null) {
-			ejbLocalRefs = new EObjectContainmentEList(EjbLocalRef.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__EJB_LOCAL_REFS);
+			ejbLocalRefs = new EObjectContainmentEList<EjbLocalRef>(EjbLocalRef.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__EJB_LOCAL_REFS);
 		}
 		return ejbLocalRefs;
 	}
@@ -804,9 +876,9 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getServiceRefs() {
+	public List<ServiceRef> getServiceRefs() {
 		if (serviceRefs == null) {
-			serviceRefs = new EObjectContainmentEList(ServiceRef.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__SERVICE_REFS);
+			serviceRefs = new EObjectContainmentEList<ServiceRef>(ServiceRef.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__SERVICE_REFS);
 		}
 		return serviceRefs;
 	}
@@ -816,9 +888,9 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getResourceRefs() {
+	public List<ResourceRef> getResourceRefs() {
 		if (resourceRefs == null) {
-			resourceRefs = new EObjectContainmentEList(ResourceRef.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__RESOURCE_REFS);
+			resourceRefs = new EObjectContainmentEList<ResourceRef>(ResourceRef.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__RESOURCE_REFS);
 		}
 		return resourceRefs;
 	}
@@ -828,9 +900,9 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getResourceEnvRefs() {
+	public List<ResourceEnvRef> getResourceEnvRefs() {
 		if (resourceEnvRefs == null) {
-			resourceEnvRefs = new EObjectContainmentEList(ResourceEnvRef.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__RESOURCE_ENV_REFS);
+			resourceEnvRefs = new EObjectContainmentEList<ResourceEnvRef>(ResourceEnvRef.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__RESOURCE_ENV_REFS);
 		}
 		return resourceEnvRefs;
 	}
@@ -840,9 +912,9 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getMessageDestinationRefs() {
+	public List<MessageDestinationRef> getMessageDestinationRefs() {
 		if (messageDestinationRefs == null) {
-			messageDestinationRefs = new EObjectContainmentEList(MessageDestinationRef.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__MESSAGE_DESTINATION_REFS);
+			messageDestinationRefs = new EObjectContainmentEList<MessageDestinationRef>(MessageDestinationRef.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__MESSAGE_DESTINATION_REFS);
 		}
 		return messageDestinationRefs;
 	}
@@ -852,9 +924,9 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getPersistenceContextRefs() {
+	public List<PersistenceContextRef> getPersistenceContextRefs() {
 		if (persistenceContextRefs == null) {
-			persistenceContextRefs = new EObjectContainmentEList(PersistenceContextRef.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__PERSISTENCE_CONTEXT_REFS);
+			persistenceContextRefs = new EObjectContainmentEList<PersistenceContextRef>(PersistenceContextRef.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__PERSISTENCE_CONTEXT_REFS);
 		}
 		return persistenceContextRefs;
 	}
@@ -864,9 +936,9 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getPersistenceUnitRefs() {
+	public List<PersistenceUnitRef> getPersistenceUnitRefs() {
 		if (persistenceUnitRefs == null) {
-			persistenceUnitRefs = new EObjectContainmentEList(PersistenceUnitRef.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__PERSISTENCE_UNIT_REFS);
+			persistenceUnitRefs = new EObjectContainmentEList<PersistenceUnitRef>(PersistenceUnitRef.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__PERSISTENCE_UNIT_REFS);
 		}
 		return persistenceUnitRefs;
 	}
@@ -876,9 +948,9 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getPostConstructs() {
+	public List<LifecycleCallback> getPostConstructs() {
 		if (postConstructs == null) {
-			postConstructs = new EObjectContainmentEList(LifecycleCallback.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__POST_CONSTRUCTS);
+			postConstructs = new EObjectContainmentEList<LifecycleCallback>(LifecycleCallback.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__POST_CONSTRUCTS);
 		}
 		return postConstructs;
 	}
@@ -888,11 +960,35 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getPreDestroys() {
+	public List<LifecycleCallback> getPreDestroys() {
 		if (preDestroys == null) {
-			preDestroys = new EObjectContainmentEList(LifecycleCallback.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__PRE_DESTROYS);
+			preDestroys = new EObjectContainmentEList<LifecycleCallback>(LifecycleCallback.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__PRE_DESTROYS);
 		}
 		return preDestroys;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<DataSourceType> getDataSource() {
+		if (dataSource == null) {
+			dataSource = new EObjectContainmentEList<DataSourceType>(DataSourceType.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__DATA_SOURCE);
+		}
+		return dataSource;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<SecurityRoleRef> getSecurityRoleRef() {
+		if (securityRoleRef == null) {
+			securityRoleRef = new EObjectContainmentEList<SecurityRoleRef>(SecurityRoleRef.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__SECURITY_ROLE_REF);
+		}
+		return securityRoleRef;
 	}
 
 	/**
@@ -968,39 +1064,47 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__DESCRIPTIONS:
-				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDescriptions()).basicRemove(otherEnd, msgs);
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__DISPLAY_NAMES:
-				return ((InternalEList)getDisplayNames()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDisplayNames()).basicRemove(otherEnd, msgs);
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__ICONS:
-				return ((InternalEList)getIcons()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getIcons()).basicRemove(otherEnd, msgs);
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__TIMEOUT_METHOD:
 				return basicSetTimeoutMethod(null, msgs);
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__TIMER:
+				return ((InternalEList<?>)getTimer()).basicRemove(otherEnd, msgs);
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__ACTIVATION_CONFIG:
 				return basicSetActivationConfig(null, msgs);
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__AROUND_INVOKES:
-				return ((InternalEList)getAroundInvokes()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getAroundInvokes()).basicRemove(otherEnd, msgs);
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__AROUND_TIMEOUTS:
+				return ((InternalEList<?>)getAroundTimeouts()).basicRemove(otherEnd, msgs);
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__ENV_ENTRIES:
-				return ((InternalEList)getEnvEntries()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getEnvEntries()).basicRemove(otherEnd, msgs);
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__EJB_REFS:
-				return ((InternalEList)getEjbRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getEjbRefs()).basicRemove(otherEnd, msgs);
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__EJB_LOCAL_REFS:
-				return ((InternalEList)getEjbLocalRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getEjbLocalRefs()).basicRemove(otherEnd, msgs);
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__SERVICE_REFS:
-				return ((InternalEList)getServiceRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getServiceRefs()).basicRemove(otherEnd, msgs);
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__RESOURCE_REFS:
-				return ((InternalEList)getResourceRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getResourceRefs()).basicRemove(otherEnd, msgs);
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__RESOURCE_ENV_REFS:
-				return ((InternalEList)getResourceEnvRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getResourceEnvRefs()).basicRemove(otherEnd, msgs);
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__MESSAGE_DESTINATION_REFS:
-				return ((InternalEList)getMessageDestinationRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getMessageDestinationRefs()).basicRemove(otherEnd, msgs);
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__PERSISTENCE_CONTEXT_REFS:
-				return ((InternalEList)getPersistenceContextRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getPersistenceContextRefs()).basicRemove(otherEnd, msgs);
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__PERSISTENCE_UNIT_REFS:
-				return ((InternalEList)getPersistenceUnitRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getPersistenceUnitRefs()).basicRemove(otherEnd, msgs);
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__POST_CONSTRUCTS:
-				return ((InternalEList)getPostConstructs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getPostConstructs()).basicRemove(otherEnd, msgs);
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__PRE_DESTROYS:
-				return ((InternalEList)getPreDestroys()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getPreDestroys()).basicRemove(otherEnd, msgs);
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__DATA_SOURCE:
+				return ((InternalEList<?>)getDataSource()).basicRemove(otherEnd, msgs);
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__SECURITY_ROLE_REF:
+				return ((InternalEList<?>)getSecurityRoleRef()).basicRemove(otherEnd, msgs);
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__SECURITY_IDENTITY:
 				return basicSetSecurityIdentity(null, msgs);
 		}
@@ -1031,6 +1135,8 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 				return getMessagingType();
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__TIMEOUT_METHOD:
 				return getTimeoutMethod();
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__TIMER:
+				return getTimer();
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__TRANSACTION_TYPE:
 				return getTransactionType();
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__MESSAGE_DESTINATION_TYPE:
@@ -1041,6 +1147,8 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 				return getActivationConfig();
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__AROUND_INVOKES:
 				return getAroundInvokes();
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__AROUND_TIMEOUTS:
+				return getAroundTimeouts();
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__ENV_ENTRIES:
 				return getEnvEntries();
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__EJB_REFS:
@@ -1063,6 +1171,10 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 				return getPostConstructs();
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__PRE_DESTROYS:
 				return getPreDestroys();
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__DATA_SOURCE:
+				return getDataSource();
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__SECURITY_ROLE_REF:
+				return getSecurityRoleRef();
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__SECURITY_IDENTITY:
 				return getSecurityIdentity();
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__ID:
@@ -1076,20 +1188,21 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__DESCRIPTIONS:
 				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
+				getDescriptions().addAll((Collection<? extends Description>)newValue);
 				return;
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__DISPLAY_NAMES:
 				getDisplayNames().clear();
-				getDisplayNames().addAll((Collection)newValue);
+				getDisplayNames().addAll((Collection<? extends DisplayName>)newValue);
 				return;
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__ICONS:
 				getIcons().clear();
-				getIcons().addAll((Collection)newValue);
+				getIcons().addAll((Collection<? extends Icon>)newValue);
 				return;
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__EJB_NAME:
 				setEjbName((String)newValue);
@@ -1106,6 +1219,10 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__TIMEOUT_METHOD:
 				setTimeoutMethod((NamedMethodType)newValue);
 				return;
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__TIMER:
+				getTimer().clear();
+				getTimer().addAll((Collection<? extends TimerType>)newValue);
+				return;
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__TRANSACTION_TYPE:
 				setTransactionType((TransactionType)newValue);
 				return;
@@ -1120,51 +1237,63 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 				return;
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__AROUND_INVOKES:
 				getAroundInvokes().clear();
-				getAroundInvokes().addAll((Collection)newValue);
+				getAroundInvokes().addAll((Collection<? extends AroundInvokeType>)newValue);
+				return;
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__AROUND_TIMEOUTS:
+				getAroundTimeouts().clear();
+				getAroundTimeouts().addAll((Collection<? extends AroundTimeoutType>)newValue);
 				return;
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__ENV_ENTRIES:
 				getEnvEntries().clear();
-				getEnvEntries().addAll((Collection)newValue);
+				getEnvEntries().addAll((Collection<? extends EnvEntry>)newValue);
 				return;
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__EJB_REFS:
 				getEjbRefs().clear();
-				getEjbRefs().addAll((Collection)newValue);
+				getEjbRefs().addAll((Collection<? extends EjbRef>)newValue);
 				return;
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__EJB_LOCAL_REFS:
 				getEjbLocalRefs().clear();
-				getEjbLocalRefs().addAll((Collection)newValue);
+				getEjbLocalRefs().addAll((Collection<? extends EjbLocalRef>)newValue);
 				return;
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__SERVICE_REFS:
 				getServiceRefs().clear();
-				getServiceRefs().addAll((Collection)newValue);
+				getServiceRefs().addAll((Collection<? extends ServiceRef>)newValue);
 				return;
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__RESOURCE_REFS:
 				getResourceRefs().clear();
-				getResourceRefs().addAll((Collection)newValue);
+				getResourceRefs().addAll((Collection<? extends ResourceRef>)newValue);
 				return;
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__RESOURCE_ENV_REFS:
 				getResourceEnvRefs().clear();
-				getResourceEnvRefs().addAll((Collection)newValue);
+				getResourceEnvRefs().addAll((Collection<? extends ResourceEnvRef>)newValue);
 				return;
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__MESSAGE_DESTINATION_REFS:
 				getMessageDestinationRefs().clear();
-				getMessageDestinationRefs().addAll((Collection)newValue);
+				getMessageDestinationRefs().addAll((Collection<? extends MessageDestinationRef>)newValue);
 				return;
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__PERSISTENCE_CONTEXT_REFS:
 				getPersistenceContextRefs().clear();
-				getPersistenceContextRefs().addAll((Collection)newValue);
+				getPersistenceContextRefs().addAll((Collection<? extends PersistenceContextRef>)newValue);
 				return;
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__PERSISTENCE_UNIT_REFS:
 				getPersistenceUnitRefs().clear();
-				getPersistenceUnitRefs().addAll((Collection)newValue);
+				getPersistenceUnitRefs().addAll((Collection<? extends PersistenceUnitRef>)newValue);
 				return;
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__POST_CONSTRUCTS:
 				getPostConstructs().clear();
-				getPostConstructs().addAll((Collection)newValue);
+				getPostConstructs().addAll((Collection<? extends LifecycleCallback>)newValue);
 				return;
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__PRE_DESTROYS:
 				getPreDestroys().clear();
-				getPreDestroys().addAll((Collection)newValue);
+				getPreDestroys().addAll((Collection<? extends LifecycleCallback>)newValue);
+				return;
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__DATA_SOURCE:
+				getDataSource().clear();
+				getDataSource().addAll((Collection<? extends DataSourceType>)newValue);
+				return;
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__SECURITY_ROLE_REF:
+				getSecurityRoleRef().clear();
+				getSecurityRoleRef().addAll((Collection<? extends SecurityRoleRef>)newValue);
 				return;
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__SECURITY_IDENTITY:
 				setSecurityIdentity((SecurityIdentityType)newValue);
@@ -1208,6 +1337,9 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__TIMEOUT_METHOD:
 				setTimeoutMethod((NamedMethodType)null);
 				return;
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__TIMER:
+				getTimer().clear();
+				return;
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__TRANSACTION_TYPE:
 				unsetTransactionType();
 				return;
@@ -1222,6 +1354,9 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 				return;
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__AROUND_INVOKES:
 				getAroundInvokes().clear();
+				return;
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__AROUND_TIMEOUTS:
+				getAroundTimeouts().clear();
 				return;
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__ENV_ENTRIES:
 				getEnvEntries().clear();
@@ -1255,6 +1390,12 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 				return;
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__PRE_DESTROYS:
 				getPreDestroys().clear();
+				return;
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__DATA_SOURCE:
+				getDataSource().clear();
+				return;
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__SECURITY_ROLE_REF:
+				getSecurityRoleRef().clear();
 				return;
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__SECURITY_IDENTITY:
 				setSecurityIdentity((SecurityIdentityType)null);
@@ -1290,6 +1431,8 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 				return MESSAGING_TYPE_EDEFAULT == null ? messagingType != null : !MESSAGING_TYPE_EDEFAULT.equals(messagingType);
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__TIMEOUT_METHOD:
 				return timeoutMethod != null;
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__TIMER:
+				return timer != null && !timer.isEmpty();
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__TRANSACTION_TYPE:
 				return isSetTransactionType();
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__MESSAGE_DESTINATION_TYPE:
@@ -1300,6 +1443,8 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 				return activationConfig != null;
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__AROUND_INVOKES:
 				return aroundInvokes != null && !aroundInvokes.isEmpty();
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__AROUND_TIMEOUTS:
+				return aroundTimeouts != null && !aroundTimeouts.isEmpty();
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__ENV_ENTRIES:
 				return envEntries != null && !envEntries.isEmpty();
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__EJB_REFS:
@@ -1322,6 +1467,10 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 				return postConstructs != null && !postConstructs.isEmpty();
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__PRE_DESTROYS:
 				return preDestroys != null && !preDestroys.isEmpty();
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__DATA_SOURCE:
+				return dataSource != null && !dataSource.isEmpty();
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__SECURITY_ROLE_REF:
+				return securityRoleRef != null && !securityRoleRef.isEmpty();
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__SECURITY_IDENTITY:
 				return securityIdentity != null;
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__ID:

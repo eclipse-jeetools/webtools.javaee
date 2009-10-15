@@ -57,7 +57,7 @@ public class ParamValueImpl extends EObjectImpl implements ParamValue {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList descriptions = null;
+	protected EList<Description> descriptions;
 
 	/**
 	 * The default value of the '{@link #getParamName() <em>Param Name</em>}' attribute.
@@ -143,9 +143,9 @@ public class ParamValueImpl extends EObjectImpl implements ParamValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDescriptions() {
+	public List<Description> getDescriptions() {
 		if (descriptions == null) {
-			descriptions = new EObjectContainmentEList(Description.class, this, JavaeePackage.PARAM_VALUE__DESCRIPTIONS);
+			descriptions = new EObjectContainmentEList<Description>(Description.class, this, JavaeePackage.PARAM_VALUE__DESCRIPTIONS);
 		}
 		return descriptions;
 	}
@@ -222,7 +222,7 @@ public class ParamValueImpl extends EObjectImpl implements ParamValue {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case JavaeePackage.PARAM_VALUE__DESCRIPTIONS:
-				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDescriptions()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -252,12 +252,13 @@ public class ParamValueImpl extends EObjectImpl implements ParamValue {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case JavaeePackage.PARAM_VALUE__DESCRIPTIONS:
 				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
+				getDescriptions().addAll((Collection<? extends Description>)newValue);
 				return;
 			case JavaeePackage.PARAM_VALUE__PARAM_NAME:
 				setParamName((String)newValue);

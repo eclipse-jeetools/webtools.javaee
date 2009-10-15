@@ -62,7 +62,7 @@ public class MethodPermissionImpl extends EObjectImpl implements MethodPermissio
 	 * @generated
 	 * @ordered
 	 */
-	protected EList descriptions = null;
+	protected EList<Description> descriptions;
 
 	/**
 	 * The cached value of the '{@link #getRoleNames() <em>Role Names</em>}' attribute list.
@@ -72,7 +72,7 @@ public class MethodPermissionImpl extends EObjectImpl implements MethodPermissio
 	 * @generated
 	 * @ordered
 	 */
-	protected EList roleNames = null;
+	protected EList<String> roleNames;
 
 	/**
 	 * The cached value of the '{@link #getUnchecked() <em>Unchecked</em>}' containment reference.
@@ -82,7 +82,7 @@ public class MethodPermissionImpl extends EObjectImpl implements MethodPermissio
 	 * @generated
 	 * @ordered
 	 */
-	protected EmptyType unchecked = null;
+	protected EmptyType unchecked;
 
 	/**
 	 * The cached value of the '{@link #getMethods() <em>Methods</em>}' containment reference list.
@@ -92,7 +92,7 @@ public class MethodPermissionImpl extends EObjectImpl implements MethodPermissio
 	 * @generated
 	 * @ordered
 	 */
-	protected EList methods = null;
+	protected EList<MethodType> methods;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -138,9 +138,9 @@ public class MethodPermissionImpl extends EObjectImpl implements MethodPermissio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDescriptions() {
+	public List<Description> getDescriptions() {
 		if (descriptions == null) {
-			descriptions = new EObjectContainmentEList(Description.class, this, EjbPackage.METHOD_PERMISSION__DESCRIPTIONS);
+			descriptions = new EObjectContainmentEList<Description>(Description.class, this, EjbPackage.METHOD_PERMISSION__DESCRIPTIONS);
 		}
 		return descriptions;
 	}
@@ -150,9 +150,9 @@ public class MethodPermissionImpl extends EObjectImpl implements MethodPermissio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getRoleNames() {
+	public List<String> getRoleNames() {
 		if (roleNames == null) {
-			roleNames = new EDataTypeEList(String.class, this, EjbPackage.METHOD_PERMISSION__ROLE_NAMES);
+			roleNames = new EDataTypeEList<String>(String.class, this, EjbPackage.METHOD_PERMISSION__ROLE_NAMES);
 		}
 		return roleNames;
 	}
@@ -205,9 +205,9 @@ public class MethodPermissionImpl extends EObjectImpl implements MethodPermissio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getMethods() {
+	public List<MethodType> getMethods() {
 		if (methods == null) {
-			methods = new EObjectContainmentEList(MethodType.class, this, EjbPackage.METHOD_PERMISSION__METHODS);
+			methods = new EObjectContainmentEList<MethodType>(MethodType.class, this, EjbPackage.METHOD_PERMISSION__METHODS);
 		}
 		return methods;
 	}
@@ -242,11 +242,11 @@ public class MethodPermissionImpl extends EObjectImpl implements MethodPermissio
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EjbPackage.METHOD_PERMISSION__DESCRIPTIONS:
-				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDescriptions()).basicRemove(otherEnd, msgs);
 			case EjbPackage.METHOD_PERMISSION__UNCHECKED:
 				return basicSetUnchecked(null, msgs);
 			case EjbPackage.METHOD_PERMISSION__METHODS:
-				return ((InternalEList)getMethods()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getMethods()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -278,23 +278,24 @@ public class MethodPermissionImpl extends EObjectImpl implements MethodPermissio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EjbPackage.METHOD_PERMISSION__DESCRIPTIONS:
 				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
+				getDescriptions().addAll((Collection<? extends Description>)newValue);
 				return;
 			case EjbPackage.METHOD_PERMISSION__ROLE_NAMES:
 				getRoleNames().clear();
-				getRoleNames().addAll((Collection)newValue);
+				getRoleNames().addAll((Collection<? extends String>)newValue);
 				return;
 			case EjbPackage.METHOD_PERMISSION__UNCHECKED:
 				setUnchecked((EmptyType)newValue);
 				return;
 			case EjbPackage.METHOD_PERMISSION__METHODS:
 				getMethods().clear();
-				getMethods().addAll((Collection)newValue);
+				getMethods().addAll((Collection<? extends MethodType>)newValue);
 				return;
 			case EjbPackage.METHOD_PERMISSION__ID:
 				setId((String)newValue);

@@ -20,10 +20,11 @@ import java.util.List;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The run-asType specifies the run-as identity to be
- * 	used for the execution of a component. It contains an
- * 	optional description, and the name of a security role.
- * 
+ *         The run-asType specifies the run-as identity to be
+ *         used for the execution of a component. It contains an 
+ *         optional description, and the name of a security role.
+ *         
+ *         @since Java EE 5
  *       
  * <!-- end-model-doc -->
  *
@@ -54,7 +55,7 @@ public interface RunAs extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getRunAs_Descriptions()
 	 * @generated
 	 */
-	List getDescriptions();
+	List<Description> getDescriptions();
 
 	/**
 	 * Returns the value of the '<em><b>Role Name</b></em>' attribute.

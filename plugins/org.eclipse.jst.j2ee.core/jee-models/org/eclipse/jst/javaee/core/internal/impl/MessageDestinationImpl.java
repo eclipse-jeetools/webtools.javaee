@@ -61,7 +61,7 @@ public class MessageDestinationImpl extends EObjectImpl implements MessageDestin
 	 * @generated
 	 * @ordered
 	 */
-	protected EList descriptions = null;
+	protected EList<Description> descriptions;
 
 	/**
 	 * The cached value of the '{@link #getDisplayNames() <em>Display Names</em>}' containment reference list.
@@ -71,7 +71,7 @@ public class MessageDestinationImpl extends EObjectImpl implements MessageDestin
 	 * @generated
 	 * @ordered
 	 */
-	protected EList displayNames = null;
+	protected EList<DisplayName> displayNames;
 
 	/**
 	 * The cached value of the '{@link #getIcons() <em>Icons</em>}' containment reference list.
@@ -81,7 +81,7 @@ public class MessageDestinationImpl extends EObjectImpl implements MessageDestin
 	 * @generated
 	 * @ordered
 	 */
-	protected EList icons = null;
+	protected EList<Icon> icons;
 
 	/**
 	 * The default value of the '{@link #getMessageDestinationName() <em>Message Destination Name</em>}' attribute.
@@ -167,9 +167,9 @@ public class MessageDestinationImpl extends EObjectImpl implements MessageDestin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDescriptions() {
+	public List<Description> getDescriptions() {
 		if (descriptions == null) {
-			descriptions = new EObjectContainmentEList(Description.class, this, JavaeePackage.MESSAGE_DESTINATION__DESCRIPTIONS);
+			descriptions = new EObjectContainmentEList<Description>(Description.class, this, JavaeePackage.MESSAGE_DESTINATION__DESCRIPTIONS);
 		}
 		return descriptions;
 	}
@@ -179,9 +179,9 @@ public class MessageDestinationImpl extends EObjectImpl implements MessageDestin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDisplayNames() {
+	public List<DisplayName> getDisplayNames() {
 		if (displayNames == null) {
-			displayNames = new EObjectContainmentEList(DisplayName.class, this, JavaeePackage.MESSAGE_DESTINATION__DISPLAY_NAMES);
+			displayNames = new EObjectContainmentEList<DisplayName>(DisplayName.class, this, JavaeePackage.MESSAGE_DESTINATION__DISPLAY_NAMES);
 		}
 		return displayNames;
 	}
@@ -191,9 +191,9 @@ public class MessageDestinationImpl extends EObjectImpl implements MessageDestin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getIcons() {
+	public List<Icon> getIcons() {
 		if (icons == null) {
-			icons = new EObjectContainmentEList(Icon.class, this, JavaeePackage.MESSAGE_DESTINATION__ICONS);
+			icons = new EObjectContainmentEList<Icon>(Icon.class, this, JavaeePackage.MESSAGE_DESTINATION__ICONS);
 		}
 		return icons;
 	}
@@ -270,11 +270,11 @@ public class MessageDestinationImpl extends EObjectImpl implements MessageDestin
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case JavaeePackage.MESSAGE_DESTINATION__DESCRIPTIONS:
-				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDescriptions()).basicRemove(otherEnd, msgs);
 			case JavaeePackage.MESSAGE_DESTINATION__DISPLAY_NAMES:
-				return ((InternalEList)getDisplayNames()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDisplayNames()).basicRemove(otherEnd, msgs);
 			case JavaeePackage.MESSAGE_DESTINATION__ICONS:
-				return ((InternalEList)getIcons()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getIcons()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -308,20 +308,21 @@ public class MessageDestinationImpl extends EObjectImpl implements MessageDestin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case JavaeePackage.MESSAGE_DESTINATION__DESCRIPTIONS:
 				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
+				getDescriptions().addAll((Collection<? extends Description>)newValue);
 				return;
 			case JavaeePackage.MESSAGE_DESTINATION__DISPLAY_NAMES:
 				getDisplayNames().clear();
-				getDisplayNames().addAll((Collection)newValue);
+				getDisplayNames().addAll((Collection<? extends DisplayName>)newValue);
 				return;
 			case JavaeePackage.MESSAGE_DESTINATION__ICONS:
 				getIcons().clear();
-				getIcons().addAll((Collection)newValue);
+				getIcons().addAll((Collection<? extends Icon>)newValue);
 				return;
 			case JavaeePackage.MESSAGE_DESTINATION__MESSAGE_DESTINATION_NAME:
 				setMessageDestinationName((String)newValue);

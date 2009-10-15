@@ -12,6 +12,7 @@ package org.eclipse.jst.javaee.ejb;
 
 import java.util.List;
 
+import org.eclipse.jst.javaee.core.Description;
 import org.eclipse.jst.javaee.core.JavaEEObject;
 
 /**
@@ -22,15 +23,16 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The ejb-relationType describes a relationship between two
- * 	entity beans with container-managed persistence.  It is used
- * 	by ejb-relation elements. It contains a description; an
- * 	optional ejb-relation-name element; and exactly two
- * 	relationship role declarations, defined by the
- * 	ejb-relationship-role elements. The name of the
- * 	relationship, if specified, is unique within the ejb-jar
- * 	file.
- * 
+ *         The ejb-relationType describes a relationship between two
+ *         entity beans with container-managed persistence.  It is used
+ *         by ejb-relation elements. It contains a description; an
+ *         optional ejb-relation-name element; and exactly two
+ *         relationship role declarations, defined by the
+ *         ejb-relationship-role elements. The name of the
+ *         relationship, if specified, is unique within the ejb-jar
+ *         file.
+ *         
+ *         @since Java EE 5, EJB 3.0
  *       
  * <!-- end-model-doc -->
  *
@@ -62,7 +64,7 @@ public interface EJBRelation extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEJBRelation_Descriptions()
 	 * @generated
 	 */
-	List getDescriptions();
+	List<Description> getDescriptions();
 
 	/**
 	 * Returns the value of the '<em><b>Ejb Relation Name</b></em>' attribute.
@@ -71,10 +73,11 @@ public interface EJBRelation extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	    The ejb-relation-name element provides a unique name
-	 * 	    within the ejb-jar file for a relationship.
-	 * 
-	 * 	      
+	 *             The ejb-relation-name element provides a unique name
+	 *             within the ejb-jar file for a relationship.
+	 *             
+	 *             @since Java EE 5, EJB 3.0
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Ejb Relation Name</em>' attribute.
 	 * @see #setEjbRelationName(String)
@@ -106,7 +109,7 @@ public interface EJBRelation extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEJBRelation_EjbRelationshipRoles()
 	 * @generated
 	 */
-	List getEjbRelationshipRoles();
+	List<EJBRelationshipRole> getEjbRelationshipRoles();
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.

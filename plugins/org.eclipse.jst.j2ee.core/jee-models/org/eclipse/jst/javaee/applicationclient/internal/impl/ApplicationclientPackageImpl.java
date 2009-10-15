@@ -39,6 +39,8 @@ import org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl;
 
 import org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage;
 
+import org.eclipse.jst.javaee.jca.internal.impl.JcaPackageImpl;
+import org.eclipse.jst.javaee.jca.internal.metadata.JcaPackage;
 import org.eclipse.jst.javaee.jsp.internal.impl.JspPackageImpl;
 
 import org.eclipse.jst.javaee.jsp.internal.metadata.JspPackage;
@@ -46,6 +48,10 @@ import org.eclipse.jst.javaee.jsp.internal.metadata.JspPackage;
 import org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl;
 
 import org.eclipse.jst.javaee.web.internal.metadata.WebPackage;
+import org.eclipse.jst.javaee.webapp.internal.impl.WebappPackageImpl;
+import org.eclipse.jst.javaee.webapp.internal.metadata.WebappPackage;
+import org.eclipse.jst.javaee.webfragment.internal.impl.WebfragmentPackageImpl;
+import org.eclipse.jst.javaee.webfragment.internal.metadata.WebfragmentPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -95,20 +101,10 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	private static boolean isInited = false;
 
 	/**
-	 * Creates, registers, and initializes the <b>Package</b> for this
-	 * model, and for any others upon which it depends.  Simple
-	 * dependencies are satisfied by calling this method on all
-	 * dependent packages before doing anything else.  This method drives
-	 * initialization for interdependent packages directly, in parallel
-	 * with this package, itself.
-	 * <p>Of this package and its interdependencies, all packages which
-	 * have not yet been registered by their URI values are first created
-	 * and registered.  The packages are then initialized in two steps:
-	 * meta-model objects for all of the packages are created before any
-	 * are initialized, since one package's meta-model objects may refer to
-	 * those of another.
-	 * <p>Invocation of this method will not affect any packages that have
-	 * already been initialized.
+	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
+	 * 
+	 * <p>This method is used to initialize {@link ApplicationclientPackage#eINSTANCE} when that field is accessed.
+	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #eNS_URI
@@ -120,7 +116,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 		if (isInited) return (ApplicationclientPackage)EPackage.Registry.INSTANCE.getEPackage(ApplicationclientPackage.eNS_URI);
 
 		// Obtain or create and register package
-		ApplicationclientPackageImpl theApplicationclientPackage = (ApplicationclientPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(eNS_URI) instanceof ApplicationclientPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(eNS_URI) : new ApplicationclientPackageImpl());
+		ApplicationclientPackageImpl theApplicationclientPackage = (ApplicationclientPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof ApplicationclientPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new ApplicationclientPackageImpl());
 
 		isInited = true;
 
@@ -129,31 +125,43 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 		XMLTypePackage.eINSTANCE.eClass();
 
 		// Obtain or create and register interdependencies
-		WebPackageImpl theWebPackage = (WebPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WebPackage.eNS_URI) instanceof WebPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WebPackage.eNS_URI) : WebPackage.eINSTANCE);
 		ApplicationPackageImpl theApplicationPackage = (ApplicationPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI) instanceof ApplicationPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI) : ApplicationPackage.eINSTANCE);
 		JavaeePackageImpl theJavaeePackage = (JavaeePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(JavaeePackage.eNS_URI) instanceof JavaeePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(JavaeePackage.eNS_URI) : JavaeePackage.eINSTANCE);
+		JcaPackageImpl theJcaPackage = (JcaPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(JcaPackage.eNS_URI) instanceof JcaPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(JcaPackage.eNS_URI) : JcaPackage.eINSTANCE);
 		EjbPackageImpl theEjbPackage = (EjbPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(EjbPackage.eNS_URI) instanceof EjbPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(EjbPackage.eNS_URI) : EjbPackage.eINSTANCE);
 		JspPackageImpl theJspPackage = (JspPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(JspPackage.eNS_URI) instanceof JspPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(JspPackage.eNS_URI) : JspPackage.eINSTANCE);
+		WebPackageImpl theWebPackage = (WebPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WebPackage.eNS_URI) instanceof WebPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WebPackage.eNS_URI) : WebPackage.eINSTANCE);
+		WebappPackageImpl theWebappPackage = (WebappPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WebappPackage.eNS_URI) instanceof WebappPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WebappPackage.eNS_URI) : WebappPackage.eINSTANCE);
+		WebfragmentPackageImpl theWebfragmentPackage = (WebfragmentPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WebfragmentPackage.eNS_URI) instanceof WebfragmentPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WebfragmentPackage.eNS_URI) : WebfragmentPackage.eINSTANCE);
 
 		// Create package meta-data objects
 		theApplicationclientPackage.createPackageContents();
-		theWebPackage.createPackageContents();
 		theApplicationPackage.createPackageContents();
 		theJavaeePackage.createPackageContents();
+		theJcaPackage.createPackageContents();
 		theEjbPackage.createPackageContents();
 		theJspPackage.createPackageContents();
+		theWebPackage.createPackageContents();
+		theWebappPackage.createPackageContents();
+		theWebfragmentPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theApplicationclientPackage.initializePackageContents();
-		theWebPackage.initializePackageContents();
 		theApplicationPackage.initializePackageContents();
 		theJavaeePackage.initializePackageContents();
+		theJcaPackage.initializePackageContents();
 		theEjbPackage.initializePackageContents();
 		theJspPackage.initializePackageContents();
+		theWebPackage.initializePackageContents();
+		theWebappPackage.initializePackageContents();
+		theWebfragmentPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theApplicationclientPackage.freeze();
 
+  
+		// Update the registry and return the package
+		EPackage.Registry.INSTANCE.put(ApplicationclientPackage.eNS_URI, theApplicationclientPackage);
 		return theApplicationclientPackage;
 	}
 
@@ -171,8 +179,8 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getApplicationClient_Descriptions() {
-		return (EReference)applicationClientEClass.getEStructuralFeatures().get(0);
+	public EAttribute getApplicationClient_ModuleName() {
+		return (EAttribute)applicationClientEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -180,7 +188,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getApplicationClient_DisplayNames() {
+	public EReference getApplicationClient_Descriptions() {
 		return (EReference)applicationClientEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -189,7 +197,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getApplicationClient_Icons() {
+	public EReference getApplicationClient_DisplayNames() {
 		return (EReference)applicationClientEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -198,7 +206,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getApplicationClient_EnvEntries() {
+	public EReference getApplicationClient_Icons() {
 		return (EReference)applicationClientEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -207,7 +215,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getApplicationClient_EjbRefs() {
+	public EReference getApplicationClient_EnvEntries() {
 		return (EReference)applicationClientEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -216,7 +224,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getApplicationClient_ServiceRefs() {
+	public EReference getApplicationClient_EjbRefs() {
 		return (EReference)applicationClientEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -225,7 +233,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getApplicationClient_ResourceRefs() {
+	public EReference getApplicationClient_ServiceRefs() {
 		return (EReference)applicationClientEClass.getEStructuralFeatures().get(6);
 	}
 
@@ -234,7 +242,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getApplicationClient_ResourceEnvRefs() {
+	public EReference getApplicationClient_ResourceRefs() {
 		return (EReference)applicationClientEClass.getEStructuralFeatures().get(7);
 	}
 
@@ -243,7 +251,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getApplicationClient_MessageDestinationRefs() {
+	public EReference getApplicationClient_ResourceEnvRefs() {
 		return (EReference)applicationClientEClass.getEStructuralFeatures().get(8);
 	}
 
@@ -252,7 +260,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getApplicationClient_PersistenceUnitRefs() {
+	public EReference getApplicationClient_MessageDestinationRefs() {
 		return (EReference)applicationClientEClass.getEStructuralFeatures().get(9);
 	}
 
@@ -261,7 +269,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getApplicationClient_PostConstructs() {
+	public EReference getApplicationClient_PersistenceUnitRefs() {
 		return (EReference)applicationClientEClass.getEStructuralFeatures().get(10);
 	}
 
@@ -270,7 +278,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getApplicationClient_PreDestroys() {
+	public EReference getApplicationClient_PostConstructs() {
 		return (EReference)applicationClientEClass.getEStructuralFeatures().get(11);
 	}
 
@@ -279,8 +287,17 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getApplicationClient_PreDestroys() {
+		return (EReference)applicationClientEClass.getEStructuralFeatures().get(12);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EAttribute getApplicationClient_CallbackHandler() {
-		return (EAttribute)applicationClientEClass.getEStructuralFeatures().get(12);
+		return (EAttribute)applicationClientEClass.getEStructuralFeatures().get(13);
 	}
 
 	/**
@@ -289,7 +306,16 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * @generated
 	 */
 	public EReference getApplicationClient_MessageDestinations() {
-		return (EReference)applicationClientEClass.getEStructuralFeatures().get(13);
+		return (EReference)applicationClientEClass.getEStructuralFeatures().get(14);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getApplicationClient_DataSource() {
+		return (EReference)applicationClientEClass.getEStructuralFeatures().get(15);
 	}
 
 	/**
@@ -298,7 +324,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * @generated
 	 */
 	public EAttribute getApplicationClient_Id() {
-		return (EAttribute)applicationClientEClass.getEStructuralFeatures().get(14);
+		return (EAttribute)applicationClientEClass.getEStructuralFeatures().get(16);
 	}
 
 	/**
@@ -307,7 +333,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * @generated
 	 */
 	public EAttribute getApplicationClient_MetadataComplete() {
-		return (EAttribute)applicationClientEClass.getEStructuralFeatures().get(15);
+		return (EAttribute)applicationClientEClass.getEStructuralFeatures().get(17);
 	}
 
 	/**
@@ -316,7 +342,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * @generated
 	 */
 	public EAttribute getApplicationClient_Version() {
-		return (EAttribute)applicationClientEClass.getEStructuralFeatures().get(16);
+		return (EAttribute)applicationClientEClass.getEStructuralFeatures().get(18);
 	}
 
 	/**
@@ -393,6 +419,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 
 		// Create classes and their features
 		applicationClientEClass = createEClass(APPLICATION_CLIENT);
+		createEAttribute(applicationClientEClass, APPLICATION_CLIENT__MODULE_NAME);
 		createEReference(applicationClientEClass, APPLICATION_CLIENT__DESCRIPTIONS);
 		createEReference(applicationClientEClass, APPLICATION_CLIENT__DISPLAY_NAMES);
 		createEReference(applicationClientEClass, APPLICATION_CLIENT__ICONS);
@@ -407,6 +434,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 		createEReference(applicationClientEClass, APPLICATION_CLIENT__PRE_DESTROYS);
 		createEAttribute(applicationClientEClass, APPLICATION_CLIENT__CALLBACK_HANDLER);
 		createEReference(applicationClientEClass, APPLICATION_CLIENT__MESSAGE_DESTINATIONS);
+		createEReference(applicationClientEClass, APPLICATION_CLIENT__DATA_SOURCE);
 		createEAttribute(applicationClientEClass, APPLICATION_CLIENT__ID);
 		createEAttribute(applicationClientEClass, APPLICATION_CLIENT__METADATA_COMPLETE);
 		createEAttribute(applicationClientEClass, APPLICATION_CLIENT__VERSION);
@@ -442,13 +470,18 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		JavaeePackage theJavaeePackage = (JavaeePackage)EPackage.Registry.INSTANCE.getEPackage(JavaeePackage.eNS_URI);
 		XMLTypePackage theXMLTypePackage = (XMLTypePackage)EPackage.Registry.INSTANCE.getEPackage(XMLTypePackage.eNS_URI);
+		JavaeePackage theJavaeePackage = (JavaeePackage)EPackage.Registry.INSTANCE.getEPackage(JavaeePackage.eNS_URI);
+
+		// Create type parameters
+
+		// Set bounds for type parameters
 
 		// Add supertypes to classes
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(applicationClientEClass, ApplicationClient.class, "ApplicationClient", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getApplicationClient_ModuleName(), theXMLTypePackage.getToken(), "moduleName", null, 0, 1, ApplicationClient.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getApplicationClient_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, ApplicationClient.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getApplicationClient_DisplayNames(), theJavaeePackage.getDisplayName(), null, "displayNames", null, 0, -1, ApplicationClient.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getApplicationClient_Icons(), theJavaeePackage.getIcon(), null, "icons", null, 0, -1, ApplicationClient.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
@@ -461,11 +494,12 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 		initEReference(getApplicationClient_PersistenceUnitRefs(), theJavaeePackage.getPersistenceUnitRef(), null, "persistenceUnitRefs", null, 0, -1, ApplicationClient.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getApplicationClient_PostConstructs(), theJavaeePackage.getLifecycleCallback(), null, "postConstructs", null, 0, -1, ApplicationClient.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getApplicationClient_PreDestroys(), theJavaeePackage.getLifecycleCallback(), null, "preDestroys", null, 0, -1, ApplicationClient.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getApplicationClient_CallbackHandler(), theJavaeePackage.getFullyQualifiedClassType(), "callbackHandler", null, 0, 1, ApplicationClient.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getApplicationClient_CallbackHandler(), theJavaeePackage.getFullyQualifiedClassType(), "callbackHandler", null, 0, 1, ApplicationClient.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getApplicationClient_MessageDestinations(), theJavaeePackage.getMessageDestination(), null, "messageDestinations", null, 0, -1, ApplicationClient.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getApplicationClient_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ApplicationClient.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getApplicationClient_MetadataComplete(), theXMLTypePackage.getBoolean(), "metadataComplete", null, 0, 1, ApplicationClient.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getApplicationClient_Version(), theJavaeePackage.getDeweyVersionType(), "version", "5", 1, 1, ApplicationClient.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$ //$NON-NLS-2$
+		initEReference(getApplicationClient_DataSource(), theJavaeePackage.getDataSourceType(), null, "dataSource", null, 0, -1, ApplicationClient.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getApplicationClient_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ApplicationClient.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getApplicationClient_MetadataComplete(), theXMLTypePackage.getBoolean(), "metadataComplete", null, 0, 1, ApplicationClient.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getApplicationClient_Version(), theJavaeePackage.getDeweyVersionType(), "version", "6", 1, 1, ApplicationClient.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$ //$NON-NLS-2$
 
 		initEClass(applicationClientDeploymentDescriptorEClass, ApplicationClientDeploymentDescriptor.class, "ApplicationClientDeploymentDescriptor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEAttribute(getApplicationClientDeploymentDescriptor_Mixed(), ecorePackage.getEFeatureMapEntry(), "mixed", null, 0, -1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
@@ -495,6 +529,14 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 		   new String[] {
 			 "name", "application-clientType", //$NON-NLS-1$ //$NON-NLS-2$
 			 "kind", "elementOnly" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getApplicationClient_ModuleName(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "module-name", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getApplicationClient_Descriptions(), 
@@ -606,6 +648,14 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "message-destination", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getApplicationClient_DataSource(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "data-source", //$NON-NLS-1$ //$NON-NLS-2$
 			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation

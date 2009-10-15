@@ -20,14 +20,15 @@ import java.util.List;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The security-role-refType contains the declaration of a
- * 	security role reference in a component's or a
- * 	Deployment Component's code. The declaration consists of an
- * 	optional description, the security role name used in the
- * 	code, and an optional link to a security role. If the
- * 	security role is not specified, the Deployer must choose an
- * 	appropriate security role.
- * 
+ *         The security-role-refType contains the declaration of a
+ *         security role reference in a component's or a
+ *         Deployment Component's code. The declaration consists of an
+ *         optional description, the security role name used in the
+ *         code, and an optional link to a security role. If the
+ *         security role is not specified, the Deployer must choose an
+ *         appropriate security role.
+ *         
+ *         @since Java EE 5
  *       
  * <!-- end-model-doc -->
  *
@@ -59,7 +60,7 @@ public interface SecurityRoleRef extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getSecurityRoleRef_Descriptions()
 	 * @generated
 	 */
-	List getDescriptions();
+	List<Description> getDescriptions();
 
 	/**
 	 * Returns the value of the '<em><b>Role Name</b></em>' attribute.
@@ -68,12 +69,13 @@ public interface SecurityRoleRef extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	    The value of the role-name element must be the String used
-	 * 	    as the parameter to the
-	 * 	    EJBContext.isCallerInRole(String roleName) method or the
-	 * 	    HttpServletRequest.isUserInRole(String role) method.
-	 * 
-	 * 	  
+	 *             The value of the role-name element must be the String used
+	 *             as the parameter to the 
+	 *             EJBContext.isCallerInRole(String roleName) method or the
+	 *             HttpServletRequest.isUserInRole(String role) method.
+	 *             
+	 *             @since Java EE 5
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Role Name</em>' attribute.
 	 * @see #setRoleName(String)
@@ -99,12 +101,13 @@ public interface SecurityRoleRef extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	    The role-link element is a reference to a defined
-	 * 	    security role. The role-link element must contain
-	 * 	    the name of one of the security roles defined in the
-	 * 	    security-role elements.
-	 * 
-	 * 	  
+	 *             The role-link element is a reference to a defined
+	 *             security role. The role-link element must contain
+	 *             the name of one of the security roles defined in the
+	 *             security-role elements.
+	 *             
+	 *             @since Java EE 5
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Role Link</em>' attribute.
 	 * @see #setRoleLink(String)

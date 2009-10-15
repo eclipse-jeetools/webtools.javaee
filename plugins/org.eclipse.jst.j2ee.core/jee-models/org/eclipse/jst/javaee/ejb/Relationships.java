@@ -12,6 +12,7 @@ package org.eclipse.jst.javaee.ejb;
 
 import java.util.List;
 
+import org.eclipse.jst.javaee.core.Description;
 import org.eclipse.jst.javaee.core.JavaEEObject;
 
 /**
@@ -22,12 +23,13 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The relationshipsType describes the relationships in
- * 	which entity beans with container-managed persistence
- * 	participate. The relationshipsType contains an optional
- * 	description; and a list of ejb-relation elements, which
- * 	specify the container managed relationships.
- * 
+ *         The relationshipsType describes the relationships in
+ *         which entity beans with container-managed persistence
+ *         participate. The relationshipsType contains an optional
+ *         description; and a list of ejb-relation elements, which
+ *         specify the container managed relationships.
+ *         
+ *         @since Java EE 5, EJB 3.0
  *       
  * <!-- end-model-doc -->
  *
@@ -58,7 +60,7 @@ public interface Relationships extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getRelationships_Descriptions()
 	 * @generated
 	 */
-	List getDescriptions();
+	List<Description> getDescriptions();
 
 	/**
 	 * Returns the value of the '<em><b>Ejb Relations</b></em>' containment reference list.
@@ -73,7 +75,7 @@ public interface Relationships extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getRelationships_EjbRelations()
 	 * @generated
 	 */
-	List getEjbRelations();
+	List<EJBRelation> getEjbRelations();
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.

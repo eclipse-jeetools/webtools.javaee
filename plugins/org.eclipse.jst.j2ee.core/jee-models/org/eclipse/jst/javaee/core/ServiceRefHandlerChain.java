@@ -20,17 +20,18 @@ import java.util.List;
  * <!-- begin-model-doc -->
  * 
  * 
- *       The handler-chain element defines the handlerchain.
- *       Handlerchain can be defined such that the handlers in the
- *       handlerchain operate,all ports of a service, on a specific
- *       port or on a list of protocol-bindings. The choice of elements
- *       service-name-pattern, port-name-pattern and protocol-bindings
- *       are used to specify whether the handlers in handler-chain are
- *       for a service, port or protocol binding. If none of these
- *       choices are specified with the handler-chain element then the
- *       handlers specified in the handler-chain will be applied on
- *       everything.
- * 
+ *         The handler-chain element defines the handlerchain. 
+ *         Handlerchain can be defined such that the handlers in the
+ *         handlerchain operate,all ports of a service, on a specific
+ *         port or on a list of protocol-bindings. The choice of elements
+ *         service-name-pattern, port-name-pattern and protocol-bindings
+ *         are used to specify whether the handlers in handler-chain are
+ *         for a service, port or protocol binding. If none of these 
+ *         choices are specified with the handler-chain element then the
+ *         handlers specified in the handler-chain will be applied on 
+ *         everything.
+ *         
+ *         @since Java EE 5, Web Services Client 1.2
  *       
  * <!-- end-model-doc -->
  *
@@ -113,7 +114,7 @@ public interface ServiceRefHandlerChain extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getServiceRefHandlerChain_ProtocolBindings()
 	 * @generated
 	 */
-	List getProtocolBindings();
+	List<String> getProtocolBindings();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.jst.javaee.core.ServiceRefHandlerChain#getProtocolBindings <em>Protocol Bindings</em>}' attribute.
@@ -123,7 +124,7 @@ public interface ServiceRefHandlerChain extends JavaEEObject {
 	 * @see #getProtocolBindings()
 	 * @generated
 	 */
-	void setProtocolBindings(List value);
+	void setProtocolBindings(List<String> value);
 
 	/**
 	 * Returns the value of the '<em><b>Handlers</b></em>' containment reference list.
@@ -138,7 +139,7 @@ public interface ServiceRefHandlerChain extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getServiceRefHandlerChain_Handlers()
 	 * @generated
 	 */
-	List getHandlers();
+	List<ServiceRefHandler> getHandlers();
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.

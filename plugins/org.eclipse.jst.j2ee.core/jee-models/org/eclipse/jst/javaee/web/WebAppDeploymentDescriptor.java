@@ -65,7 +65,7 @@ public interface WebAppDeploymentDescriptor extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebAppDeploymentDescriptor_XMLNSPrefixMap()
 	 * @generated
 	 */
-	Map getXMLNSPrefixMap();
+	Map<String, String> getXMLNSPrefixMap();
 
 	/**
 	 * Returns the value of the '<em><b>XSI Schema Location</b></em>' map.
@@ -81,32 +81,12 @@ public interface WebAppDeploymentDescriptor extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebAppDeploymentDescriptor_XSISchemaLocation()
 	 * @generated
 	 */
-	Map getXSISchemaLocation();
+	Map<String, String> getXSISchemaLocation();
 
 	/**
 	 * Returns the value of the '<em><b>Web App</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * 
-	 * 
-	 * 	The web-app element is the root of the deployment
-	 * 	descriptor for a web application.  Note that the sub-elements
-	 * 	of this element can be in the arbitrary order. Because of
-	 * 	that, the multiplicity of the elements of distributable,
-	 * 	session-config, welcome-file-list, jsp-config, login-config,
-	 * 	and locale-encoding-mapping-list was changed from "?" to "*"
-	 * 	in this schema.  However, the deployment descriptor instance
-	 * 	file must not contain multiple elements of session-config,
-	 * 	jsp-config, and login-config. When there are multiple elements of
-	 * 	welcome-file-list or locale-encoding-mapping-list, the container
-	 * 	must concatenate the element contents.  The multiple occurence
-	 * 	of the element distributable is redundant and the container
-	 * 	treats that case exactly in the same way when there is only
-	 * 	one distributable.
-	 * 
-	 *       
-	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Web App</em>' containment reference.
 	 * @see #setWebApp(WebApp)
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebAppDeploymentDescriptor_WebApp()

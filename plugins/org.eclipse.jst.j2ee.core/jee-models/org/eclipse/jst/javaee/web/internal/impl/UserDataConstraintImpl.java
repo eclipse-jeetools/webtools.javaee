@@ -58,7 +58,7 @@ public class UserDataConstraintImpl extends EObjectImpl implements UserDataConst
 	 * @generated
 	 * @ordered
 	 */
-	protected EList descriptions = null;
+	protected EList<Description> descriptions;
 
 	/**
 	 * The default value of the '{@link #getTransportGuarantee() <em>Transport Guarantee</em>}' attribute.
@@ -87,7 +87,7 @@ public class UserDataConstraintImpl extends EObjectImpl implements UserDataConst
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean transportGuaranteeESet = false;
+	protected boolean transportGuaranteeESet;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -133,9 +133,9 @@ public class UserDataConstraintImpl extends EObjectImpl implements UserDataConst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDescriptions() {
+	public List<Description> getDescriptions() {
 		if (descriptions == null) {
-			descriptions = new EObjectContainmentEList(Description.class, this, WebPackage.USER_DATA_CONSTRAINT__DESCRIPTIONS);
+			descriptions = new EObjectContainmentEList<Description>(Description.class, this, WebPackage.USER_DATA_CONSTRAINT__DESCRIPTIONS);
 		}
 		return descriptions;
 	}
@@ -216,7 +216,7 @@ public class UserDataConstraintImpl extends EObjectImpl implements UserDataConst
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case WebPackage.USER_DATA_CONSTRAINT__DESCRIPTIONS:
-				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDescriptions()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -244,12 +244,13 @@ public class UserDataConstraintImpl extends EObjectImpl implements UserDataConst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case WebPackage.USER_DATA_CONSTRAINT__DESCRIPTIONS:
 				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
+				getDescriptions().addAll((Collection<? extends Description>)newValue);
 				return;
 			case WebPackage.USER_DATA_CONSTRAINT__TRANSPORT_GUARANTEE:
 				setTransportGuarantee((TransportGuaranteeType)newValue);

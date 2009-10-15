@@ -20,26 +20,27 @@ import java.util.List;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The ejb-local-refType is used by ejb-local-ref elements for
- * 	the declaration of a reference to an enterprise bean's local
- * 	home or to the local business interface of a 3.0 bean.
+ *         The ejb-local-refType is used by ejb-local-ref elements for
+ *         the declaration of a reference to an enterprise bean's local
+ *         home or to the local business interface of a 3.0 bean.
  *         The declaration consists of:
- * 
- * 	    - an optional description
- * 	    - the EJB reference name used in the code of the Deployment
- * 	      Component that's referencing the enterprise bean.
- * 	    - the optional expected type of the referenced enterprise bean
- * 	    - the optional expected local interface of the referenced
- *               enterprise bean or the local business interface of the
- *               referenced enterprise bean.
- * 	    - the optional expected local home interface of the referenced
- *               enterprise bean. Not applicable if this ejb-local-ref refers
- *               to the local business interface of a 3.0 bean.
- * 	    - optional ejb-link information, used to specify the
- * 	      referenced enterprise bean
- *             - optional elements to define injection of the named enterprise
- *               bean into a component field or property.
- * 
+ *         
+ *         - an optional description
+ *         - the EJB reference name used in the code of the Deployment 
+ *         Component that's referencing the enterprise bean.
+ *         - the optional expected type of the referenced enterprise bean
+ *         - the optional expected local interface of the referenced 
+ *         enterprise bean or the local business interface of the 
+ *         referenced enterprise bean.
+ *         - the optional expected local home interface of the referenced 
+ *         enterprise bean. Not applicable if this ejb-local-ref refers
+ *         to the local business interface of a 3.0 bean.
+ *         - optional ejb-link information, used to specify the 
+ *         referenced enterprise bean
+ *         - optional elements to define injection of the named enterprise  
+ *         bean into a component field or property.
+ *         
+ *         @since Java EE 5
  *       
  * <!-- end-model-doc -->
  *
@@ -54,6 +55,7 @@ import java.util.List;
  *   <li>{@link org.eclipse.jst.javaee.core.EjbLocalRef#getEjbLink <em>Ejb Link</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.EjbLocalRef#getMappedName <em>Mapped Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.EjbLocalRef#getInjectionTargets <em>Injection Targets</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.core.EjbLocalRef#getLookupName <em>Lookup Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.EjbLocalRef#getId <em>Id</em>}</li>
  * </ul>
  * </p>
@@ -76,7 +78,7 @@ public interface EjbLocalRef extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getEjbLocalRef_Descriptions()
 	 * @generated
 	 */
-	List getDescriptions();
+	List<Description> getDescriptions();
 
 	/**
 	 * Returns the value of the '<em><b>Ejb Ref Name</b></em>' attribute.
@@ -105,7 +107,6 @@ public interface EjbLocalRef extends JavaEEObject {
 
 	/**
 	 * Returns the value of the '<em><b>Ejb Ref Type</b></em>' attribute.
-	 * The default value is <code>"Entity"</code>.
 	 * The literals are from the enumeration {@link org.eclipse.jst.javaee.core.EjbRefType}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -240,26 +241,25 @@ public interface EjbLocalRef extends JavaEEObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * 
-	 * 	    
 	 * 
-	 * 	      A product specific name that this resource should be
-	 * 	      mapped to.  The name of this resource, as defined by the
-	 * 	      resource's name element or defaulted, is a name that is
-	 * 	      local to the application component using the resource.
-	 * 	      (It's a name in the JNDI java:comp/env namespace.)  Many
-	 * 	      application servers provide a way to map these local
-	 * 	      names to names of resources known to the application
-	 * 	      server.  This mapped name is often a global JNDI name,
-	 * 	      but may be a name of any form.
-	 * 
-	 * 	      Application servers are not required to support any
-	 * 	      particular form or type of mapped name, nor the ability
-	 * 	      to use mapped names.  The mapped name is
-	 * 	      product-dependent and often installation-dependent.  No
-	 * 	      use of a mapped name is portable.
-	 * 
-	 * 	      
-	 * 	  
+	 *             A product specific name that this resource should be
+	 *             mapped to.  The name of this resource, as defined by the
+	 *             resource's name element or defaulted, is a name that is
+	 *             local to the application component using the resource.
+	 *             (It's a name in the JNDI java:comp/env namespace.)  Many
+	 *             application servers provide a way to map these local
+	 *             names to names of resources known to the application
+	 *             server.  This mapped name is often a global JNDI name,
+	 *             but may be a name of any form.
+	 *             
+	 *             Application servers are not required to support any
+	 *             particular form or type of mapped name, nor the ability
+	 *             to use mapped names.  The mapped name is
+	 *             product-dependent and often installation-dependent.  No
+	 *             use of a mapped name is portable.
+	 *             
+	 *             @since Java EE 5
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Mapped Name</em>' attribute.
 	 * @see #setMappedName(String)
@@ -291,7 +291,36 @@ public interface EjbLocalRef extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getEjbLocalRef_InjectionTargets()
 	 * @generated
 	 */
-	List getInjectionTargets();
+	List<InjectionTarget> getInjectionTargets();
+
+	/**
+	 * Returns the value of the '<em><b>Lookup Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * 
+	 *             The JNDI name to be looked up to resolve a resource reference.
+	 *             
+	 *             @since Java EE 6
+	 *           
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Lookup Name</em>' attribute.
+	 * @see #setLookupName(String)
+	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getEjbLocalRef_LookupName()
+	 * @generated
+	 */
+	String getLookupName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.jst.javaee.core.EjbLocalRef#getLookupName <em>Lookup Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Lookup Name</em>' attribute.
+	 * @see #getLookupName()
+	 * @generated
+	 */
+	void setLookupName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.

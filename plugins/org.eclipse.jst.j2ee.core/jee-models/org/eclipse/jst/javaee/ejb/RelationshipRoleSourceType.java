@@ -12,6 +12,7 @@ package org.eclipse.jst.javaee.ejb;
 
 import java.util.List;
 
+import org.eclipse.jst.javaee.core.Description;
 import org.eclipse.jst.javaee.core.JavaEEObject;
 
 /**
@@ -22,12 +23,13 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The relationship-role-sourceType designates the source of a
- * 	role that participates in a relationship. A
- * 	relationship-role-sourceType is used by
- * 	relationship-role-source elements to uniquely identify an
- * 	entity bean.
- * 
+ *         The relationship-role-sourceType designates the source of a
+ *         role that participates in a relationship. A
+ *         relationship-role-sourceType is used by
+ *         relationship-role-source elements to uniquely identify an
+ *         entity bean.
+ *         
+ *         @since Java EE 5, EJB 3.0
  *       
  * <!-- end-model-doc -->
  *
@@ -58,7 +60,7 @@ public interface RelationshipRoleSourceType extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getRelationshipRoleSourceType_Descriptions()
 	 * @generated
 	 */
-	List getDescriptions();
+	List<Description> getDescriptions();
 
 	/**
 	 * Returns the value of the '<em><b>Ejb Name</b></em>' attribute.

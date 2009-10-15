@@ -21,27 +21,28 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The queryType defines a finder or select
- * 	query. It contains
- * 	    - an optional description of the query
- * 	    - the specification of the finder or select
- * 	      method it is used by
- * 		- an optional specification of the result type
- * 		  mapping, if the query is for a select method
- * 		  and entity objects are returned.
- * 		- the EJB QL query string that defines the query.
- * 
- * 	Queries that are expressible in EJB QL must use the ejb-ql
- * 	element to specify the query. If a query is not expressible
- * 	in EJB QL, the description element should be used to
- * 	describe the semantics of the query and the ejb-ql element
- * 	should be empty.
- * 
- * 	The result-type-mapping is an optional element. It can only
- * 	be present if the query-method specifies a select method
- * 	that returns entity objects.  The default value for the
- * 	result-type-mapping element is "Local".
- * 
+ *         The queryType defines a finder or select
+ *         query. It contains
+ *         - an optional description of the query
+ *         - the specification of the finder or select
+ *         method it is used by
+ *         	- an optional specification of the result type 
+ *         	  mapping, if the query is for a select method 
+ *         	  and entity objects are returned.
+ *         	- the EJB QL query string that defines the query.
+ *         
+ *         Queries that are expressible in EJB QL must use the ejb-ql
+ *         element to specify the query. If a query is not expressible
+ *         in EJB QL, the description element should be used to
+ *         describe the semantics of the query and the ejb-ql element
+ *         should be empty.
+ *         
+ *         The result-type-mapping is an optional element. It can only
+ *         be present if the query-method specifies a select method
+ *         that returns entity objects.  The default value for the
+ *         result-type-mapping element is "Local".
+ *         
+ *         @since Java EE 5, EJB 3.0
  *       
  * <!-- end-model-doc -->
  *
@@ -113,7 +114,6 @@ public interface Query extends JavaEEObject {
 
 	/**
 	 * Returns the value of the '<em><b>Result Type Mapping</b></em>' attribute.
-	 * The default value is <code>"Local"</code>.
 	 * The literals are from the enumeration {@link org.eclipse.jst.javaee.ejb.ResultTypeMappingType}.
 	 * <!-- begin-user-doc -->
 	 * <p>

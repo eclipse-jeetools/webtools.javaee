@@ -13,6 +13,7 @@ package org.eclipse.jst.javaee.core.internal.impl;
 import java.util.Collection;
 import java.util.List;
 
+import javax.xml.namespace.QName;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -67,7 +68,7 @@ public class ServiceRefHandlerImpl extends EObjectImpl implements ServiceRefHand
 	 * @generated
 	 * @ordered
 	 */
-	protected EList descriptions = null;
+	protected EList<Description> descriptions;
 
 	/**
 	 * The cached value of the '{@link #getDisplayNames() <em>Display Names</em>}' containment reference list.
@@ -77,7 +78,7 @@ public class ServiceRefHandlerImpl extends EObjectImpl implements ServiceRefHand
 	 * @generated
 	 * @ordered
 	 */
-	protected EList displayNames = null;
+	protected EList<DisplayName> displayNames;
 
 	/**
 	 * The cached value of the '{@link #getIcons() <em>Icons</em>}' containment reference list.
@@ -87,7 +88,7 @@ public class ServiceRefHandlerImpl extends EObjectImpl implements ServiceRefHand
 	 * @generated
 	 * @ordered
 	 */
-	protected EList icons = null;
+	protected EList<Icon> icons;
 
 	/**
 	 * The default value of the '{@link #getHandlerName() <em>Handler Name</em>}' attribute.
@@ -137,7 +138,7 @@ public class ServiceRefHandlerImpl extends EObjectImpl implements ServiceRefHand
 	 * @generated
 	 * @ordered
 	 */
-	protected EList initParams = null;
+	protected EList<ParamValue> initParams;
 
 	/**
 	 * The cached value of the '{@link #getSoapHeaders() <em>Soap Headers</em>}' attribute list.
@@ -147,7 +148,7 @@ public class ServiceRefHandlerImpl extends EObjectImpl implements ServiceRefHand
 	 * @generated
 	 * @ordered
 	 */
-	protected EList soapHeaders = null;
+	protected EList<QName> soapHeaders;
 
 	/**
 	 * The cached value of the '{@link #getSoapRoles() <em>Soap Roles</em>}' attribute list.
@@ -157,7 +158,7 @@ public class ServiceRefHandlerImpl extends EObjectImpl implements ServiceRefHand
 	 * @generated
 	 * @ordered
 	 */
-	protected EList soapRoles = null;
+	protected EList<String> soapRoles;
 
 	/**
 	 * The cached value of the '{@link #getPortNames() <em>Port Names</em>}' attribute list.
@@ -167,7 +168,7 @@ public class ServiceRefHandlerImpl extends EObjectImpl implements ServiceRefHand
 	 * @generated
 	 * @ordered
 	 */
-	protected EList portNames = null;
+	protected EList<String> portNames;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -213,9 +214,9 @@ public class ServiceRefHandlerImpl extends EObjectImpl implements ServiceRefHand
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDescriptions() {
+	public List<Description> getDescriptions() {
 		if (descriptions == null) {
-			descriptions = new EObjectContainmentEList(Description.class, this, JavaeePackage.SERVICE_REF_HANDLER__DESCRIPTIONS);
+			descriptions = new EObjectContainmentEList<Description>(Description.class, this, JavaeePackage.SERVICE_REF_HANDLER__DESCRIPTIONS);
 		}
 		return descriptions;
 	}
@@ -225,9 +226,9 @@ public class ServiceRefHandlerImpl extends EObjectImpl implements ServiceRefHand
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDisplayNames() {
+	public List<DisplayName> getDisplayNames() {
 		if (displayNames == null) {
-			displayNames = new EObjectContainmentEList(DisplayName.class, this, JavaeePackage.SERVICE_REF_HANDLER__DISPLAY_NAMES);
+			displayNames = new EObjectContainmentEList<DisplayName>(DisplayName.class, this, JavaeePackage.SERVICE_REF_HANDLER__DISPLAY_NAMES);
 		}
 		return displayNames;
 	}
@@ -237,9 +238,9 @@ public class ServiceRefHandlerImpl extends EObjectImpl implements ServiceRefHand
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getIcons() {
+	public List<Icon> getIcons() {
 		if (icons == null) {
-			icons = new EObjectContainmentEList(Icon.class, this, JavaeePackage.SERVICE_REF_HANDLER__ICONS);
+			icons = new EObjectContainmentEList<Icon>(Icon.class, this, JavaeePackage.SERVICE_REF_HANDLER__ICONS);
 		}
 		return icons;
 	}
@@ -291,9 +292,9 @@ public class ServiceRefHandlerImpl extends EObjectImpl implements ServiceRefHand
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getInitParams() {
+	public List<ParamValue> getInitParams() {
 		if (initParams == null) {
-			initParams = new EObjectContainmentEList(ParamValue.class, this, JavaeePackage.SERVICE_REF_HANDLER__INIT_PARAMS);
+			initParams = new EObjectContainmentEList<ParamValue>(ParamValue.class, this, JavaeePackage.SERVICE_REF_HANDLER__INIT_PARAMS);
 		}
 		return initParams;
 	}
@@ -303,9 +304,9 @@ public class ServiceRefHandlerImpl extends EObjectImpl implements ServiceRefHand
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getSoapHeaders() {
+	public List<QName> getSoapHeaders() {
 		if (soapHeaders == null) {
-			soapHeaders = new EDataTypeEList(Object.class, this, JavaeePackage.SERVICE_REF_HANDLER__SOAP_HEADERS);
+			soapHeaders = new EDataTypeEList<QName>(QName.class, this, JavaeePackage.SERVICE_REF_HANDLER__SOAP_HEADERS);
 		}
 		return soapHeaders;
 	}
@@ -315,9 +316,9 @@ public class ServiceRefHandlerImpl extends EObjectImpl implements ServiceRefHand
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getSoapRoles() {
+	public List<String> getSoapRoles() {
 		if (soapRoles == null) {
-			soapRoles = new EDataTypeEList(String.class, this, JavaeePackage.SERVICE_REF_HANDLER__SOAP_ROLES);
+			soapRoles = new EDataTypeEList<String>(String.class, this, JavaeePackage.SERVICE_REF_HANDLER__SOAP_ROLES);
 		}
 		return soapRoles;
 	}
@@ -327,9 +328,9 @@ public class ServiceRefHandlerImpl extends EObjectImpl implements ServiceRefHand
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getPortNames() {
+	public List<String> getPortNames() {
 		if (portNames == null) {
-			portNames = new EDataTypeEList(String.class, this, JavaeePackage.SERVICE_REF_HANDLER__PORT_NAMES);
+			portNames = new EDataTypeEList<String>(String.class, this, JavaeePackage.SERVICE_REF_HANDLER__PORT_NAMES);
 		}
 		return portNames;
 	}
@@ -364,13 +365,13 @@ public class ServiceRefHandlerImpl extends EObjectImpl implements ServiceRefHand
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case JavaeePackage.SERVICE_REF_HANDLER__DESCRIPTIONS:
-				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDescriptions()).basicRemove(otherEnd, msgs);
 			case JavaeePackage.SERVICE_REF_HANDLER__DISPLAY_NAMES:
-				return ((InternalEList)getDisplayNames()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDisplayNames()).basicRemove(otherEnd, msgs);
 			case JavaeePackage.SERVICE_REF_HANDLER__ICONS:
-				return ((InternalEList)getIcons()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getIcons()).basicRemove(otherEnd, msgs);
 			case JavaeePackage.SERVICE_REF_HANDLER__INIT_PARAMS:
-				return ((InternalEList)getInitParams()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getInitParams()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -412,20 +413,21 @@ public class ServiceRefHandlerImpl extends EObjectImpl implements ServiceRefHand
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case JavaeePackage.SERVICE_REF_HANDLER__DESCRIPTIONS:
 				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
+				getDescriptions().addAll((Collection<? extends Description>)newValue);
 				return;
 			case JavaeePackage.SERVICE_REF_HANDLER__DISPLAY_NAMES:
 				getDisplayNames().clear();
-				getDisplayNames().addAll((Collection)newValue);
+				getDisplayNames().addAll((Collection<? extends DisplayName>)newValue);
 				return;
 			case JavaeePackage.SERVICE_REF_HANDLER__ICONS:
 				getIcons().clear();
-				getIcons().addAll((Collection)newValue);
+				getIcons().addAll((Collection<? extends Icon>)newValue);
 				return;
 			case JavaeePackage.SERVICE_REF_HANDLER__HANDLER_NAME:
 				setHandlerName((String)newValue);
@@ -435,19 +437,19 @@ public class ServiceRefHandlerImpl extends EObjectImpl implements ServiceRefHand
 				return;
 			case JavaeePackage.SERVICE_REF_HANDLER__INIT_PARAMS:
 				getInitParams().clear();
-				getInitParams().addAll((Collection)newValue);
+				getInitParams().addAll((Collection<? extends ParamValue>)newValue);
 				return;
 			case JavaeePackage.SERVICE_REF_HANDLER__SOAP_HEADERS:
 				getSoapHeaders().clear();
-				getSoapHeaders().addAll((Collection)newValue);
+				getSoapHeaders().addAll((Collection<? extends QName>)newValue);
 				return;
 			case JavaeePackage.SERVICE_REF_HANDLER__SOAP_ROLES:
 				getSoapRoles().clear();
-				getSoapRoles().addAll((Collection)newValue);
+				getSoapRoles().addAll((Collection<? extends String>)newValue);
 				return;
 			case JavaeePackage.SERVICE_REF_HANDLER__PORT_NAMES:
 				getPortNames().clear();
-				getPortNames().addAll((Collection)newValue);
+				getPortNames().addAll((Collection<? extends String>)newValue);
 				return;
 			case JavaeePackage.SERVICE_REF_HANDLER__ID:
 				setId((String)newValue);

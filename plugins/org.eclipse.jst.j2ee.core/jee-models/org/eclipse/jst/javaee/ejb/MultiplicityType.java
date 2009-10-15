@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.emf.common.util.AbstractEnumerator;
+import org.eclipse.emf.common.util.Enumerator;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,20 +24,40 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The multiplicityType describes the multiplicity of the
- * 	role that participates in a relation.
- * 
- * 	The value must be one of the two following:
- * 
- * 	    One
- * 	    Many
- * 
+ *         The multiplicityType describes the multiplicity of the
+ *         role that participates in a relation.
+ *         
+ *         The value must be one of the two following:
+ *         
+ *         One
+ *         Many
+ *         
+ *         @since Java EE 5, EJB 3.0
  *       
  * <!-- end-model-doc -->
  * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getMultiplicityType()
  * @generated
  */
-public final class MultiplicityType extends AbstractEnumerator {
+public enum MultiplicityType implements Enumerator
+{
+	/**
+	 * The '<em><b>One</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #ONE
+	 * @generated
+	 * @ordered
+	 */
+	ONE_LITERAL(0, "One", "One"), //$NON-NLS-1$ //$NON-NLS-2$
+	/**
+	 * The '<em><b>Many</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #MANY
+	 * @generated
+	 * @ordered
+	 */
+	MANY_LITERAL(1, "Many", "Many"); //$NON-NLS-1$ //$NON-NLS-2$
 	/**
 	 * The '<em><b>One</b></em>' literal value.
 	 * <!-- begin-user-doc -->
@@ -67,26 +87,6 @@ public final class MultiplicityType extends AbstractEnumerator {
 	public static final int MANY = 1;
 
 	/**
-	 * The '<em><b>One</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #ONE
-	 * @generated
-	 * @ordered
-	 */
-	public static final MultiplicityType ONE_LITERAL = new MultiplicityType(ONE, "One", "One"); //$NON-NLS-1$ //$NON-NLS-2$
-
-	/**
-	 * The '<em><b>Many</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #MANY
-	 * @generated
-	 * @ordered
-	 */
-	public static final MultiplicityType MANY_LITERAL = new MultiplicityType(MANY, "Many", "Many"); //$NON-NLS-1$ //$NON-NLS-2$
-
-	/**
 	 * An array of all the '<em><b>Multiplicity Type</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -104,7 +104,7 @@ public final class MultiplicityType extends AbstractEnumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<MultiplicityType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>Multiplicity Type</b></em>' literal with the specified literal value.
@@ -149,8 +149,29 @@ public final class MultiplicityType extends AbstractEnumerator {
 			case ONE: return ONE_LITERAL;
 			case MANY: return MANY_LITERAL;
 		}
-		return null;	
+		return null;
 	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final int value;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String name;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private final String literal;
 
 	/**
 	 * Only this class can construct instances.
@@ -159,7 +180,46 @@ public final class MultiplicityType extends AbstractEnumerator {
 	 * @generated
 	 */
 	private MultiplicityType(int value, String name, String literal) {
-		super(value, name, literal);
+		this.value = value;
+		this.name = name;
+		this.literal = literal;
 	}
 
-} //MultiplicityType
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int getValue() {
+	  return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getName() {
+	  return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getLiteral() {
+	  return literal;
+	}
+
+	/**
+	 * Returns the literal value of the enumerator, which is its string representation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		return literal;
+	}
+}

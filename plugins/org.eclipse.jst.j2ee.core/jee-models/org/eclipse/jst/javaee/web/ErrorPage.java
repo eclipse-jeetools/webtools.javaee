@@ -22,12 +22,19 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The error-pageType contains a mapping between an error code
- * 	or exception type to the path of a resource in the web
- * 	application.
- * 
- * 	Used in: web-app
- * 
+ *         The error-pageType contains a mapping between an error code
+ *         or exception type to the path of a resource in the web
+ *         application.
+ *         
+ *         Error-page declarations using the exception-type element in
+ *         the deployment descriptor must be unique up to the class name of
+ *         the exception-type. Similarly, error-page declarations using the
+ *         status-code element must be unique in the deployment descriptor
+ *         up to the status code.
+ *         
+ *         Used in: web-app
+ *         
+ *         @since Java EE 5, Web 2.5
  *       
  * <!-- end-model-doc -->
  *
@@ -78,10 +85,11 @@ public interface ErrorPage extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	      The exception-type contains a fully qualified class
-	 * 	      name of a Java exception type.
-	 * 
-	 * 	    
+	 *               The exception-type contains a fully qualified class
+	 *               name of a Java exception type.
+	 *               
+	 *               @since Java EE 5, Web 2.5
+	 *             
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Exception Type</em>' attribute.
 	 * @see #setExceptionType(String)
@@ -107,12 +115,13 @@ public interface ErrorPage extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	    The location element contains the location of the
-	 * 	    resource in the web application relative to the root of
-	 * 	    the web application. The value of the location must have
-	 * 	    a leading `/'.
-	 * 
-	 * 	  
+	 *             The location element contains the location of the
+	 *             resource in the web application relative to the root of
+	 *             the web application. The value of the location must have
+	 *             a leading `/'.
+	 *             
+	 *             @since Java EE 5, Web 2.5
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Location</em>' attribute.
 	 * @see #setLocation(String)

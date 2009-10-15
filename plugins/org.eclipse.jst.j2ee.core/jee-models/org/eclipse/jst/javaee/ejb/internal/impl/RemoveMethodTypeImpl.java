@@ -48,7 +48,7 @@ public class RemoveMethodTypeImpl extends EObjectImpl implements RemoveMethodTyp
 	 * @generated
 	 * @ordered
 	 */
-	protected NamedMethodType beanMethod = null;
+	protected NamedMethodType beanMethod;
 
 	/**
 	 * The default value of the '{@link #isRetainIfException() <em>Retain If Exception</em>}' attribute.
@@ -77,7 +77,7 @@ public class RemoveMethodTypeImpl extends EObjectImpl implements RemoveMethodTyp
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean retainIfExceptionESet = false;
+	protected boolean retainIfExceptionESet;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -253,7 +253,7 @@ public class RemoveMethodTypeImpl extends EObjectImpl implements RemoveMethodTyp
 			case EjbPackage.REMOVE_METHOD_TYPE__BEAN_METHOD:
 				return getBeanMethod();
 			case EjbPackage.REMOVE_METHOD_TYPE__RETAIN_IF_EXCEPTION:
-				return isRetainIfException() ? Boolean.TRUE : Boolean.FALSE;
+				return isRetainIfException();
 			case EjbPackage.REMOVE_METHOD_TYPE__ID:
 				return getId();
 		}
@@ -272,7 +272,7 @@ public class RemoveMethodTypeImpl extends EObjectImpl implements RemoveMethodTyp
 				setBeanMethod((NamedMethodType)newValue);
 				return;
 			case EjbPackage.REMOVE_METHOD_TYPE__RETAIN_IF_EXCEPTION:
-				setRetainIfException(((Boolean)newValue).booleanValue());
+				setRetainIfException((Boolean)newValue);
 				return;
 			case EjbPackage.REMOVE_METHOD_TYPE__ID:
 				setId((String)newValue);

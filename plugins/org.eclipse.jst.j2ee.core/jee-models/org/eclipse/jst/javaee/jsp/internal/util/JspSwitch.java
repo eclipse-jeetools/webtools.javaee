@@ -32,7 +32,7 @@ import org.eclipse.jst.javaee.jsp.internal.metadata.JspPackage;
  * @see org.eclipse.jst.javaee.jsp.internal.metadata.JspPackage
  * @generated
  */
-public class JspSwitch {
+public class JspSwitch<T> {
 	/**
 	 * The cached model package
 	 * <!-- begin-user-doc -->
@@ -60,7 +60,7 @@ public class JspSwitch {
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
-	public Object doSwitch(EObject theEObject) {
+	public T doSwitch(EObject theEObject) {
 		return doSwitch(theEObject.eClass(), theEObject);
 	}
 
@@ -71,16 +71,16 @@ public class JspSwitch {
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
-	protected Object doSwitch(EClass theEClass, EObject theEObject) {
+	protected T doSwitch(EClass theEClass, EObject theEObject) {
 		if (theEClass.eContainer() == modelPackage) {
 			return doSwitch(theEClass.getClassifierID(), theEObject);
 		}
 		else {
-			List eSuperTypes = theEClass.getESuperTypes();
+			List<EClass> eSuperTypes = theEClass.getESuperTypes();
 			return
 				eSuperTypes.isEmpty() ?
 					defaultCase(theEObject) :
-					doSwitch((EClass)eSuperTypes.get(0), theEObject);
+					doSwitch(eSuperTypes.get(0), theEObject);
 		}
 	}
 
@@ -91,23 +91,23 @@ public class JspSwitch {
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
-	protected Object doSwitch(int classifierID, EObject theEObject) {
+	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
 			case JspPackage.JSP_CONFIG: {
 				JspConfig jspConfig = (JspConfig)theEObject;
-				Object result = caseJspConfig(jspConfig);
+				T result = caseJspConfig(jspConfig);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JspPackage.JSP_PROPERTY_GROUP: {
 				JspPropertyGroup jspPropertyGroup = (JspPropertyGroup)theEObject;
-				Object result = caseJspPropertyGroup(jspPropertyGroup);
+				T result = caseJspPropertyGroup(jspPropertyGroup);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case JspPackage.TAG_LIB: {
 				TagLib tagLib = (TagLib)theEObject;
-				Object result = caseTagLib(tagLib);
+				T result = caseTagLib(tagLib);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -116,62 +116,62 @@ public class JspSwitch {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Config</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Config</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Config</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Config</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseJspConfig(JspConfig object) {
+	public T caseJspConfig(JspConfig object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Property Group</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Property Group</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Property Group</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Property Group</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseJspPropertyGroup(JspPropertyGroup object) {
+	public T caseJspPropertyGroup(JspPropertyGroup object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Tag Lib</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Tag Lib</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Tag Lib</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Tag Lib</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseTagLib(TagLib object) {
+	public T caseTagLib(TagLib object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>EObject</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>EObject</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch, but this is the last case anyway.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>EObject</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>EObject</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject)
 	 * @generated
 	 */
-	public Object defaultCase(EObject object) {
+	public T defaultCase(EObject object) {
 		return null;
 	}
 

@@ -65,7 +65,7 @@ public class InterceptorBindingTypeImpl extends EObjectImpl implements Intercept
 	 * @generated
 	 * @ordered
 	 */
-	protected EList descriptions = null;
+	protected EList<Description> descriptions;
 
 	/**
 	 * The default value of the '{@link #getEjbName() <em>Ejb Name</em>}' attribute.
@@ -95,7 +95,7 @@ public class InterceptorBindingTypeImpl extends EObjectImpl implements Intercept
 	 * @generated
 	 * @ordered
 	 */
-	protected EList interceptorClasses = null;
+	protected EList<String> interceptorClasses;
 
 	/**
 	 * The cached value of the '{@link #getInterceptorOrder() <em>Interceptor Order</em>}' containment reference.
@@ -105,7 +105,7 @@ public class InterceptorBindingTypeImpl extends EObjectImpl implements Intercept
 	 * @generated
 	 * @ordered
 	 */
-	protected InterceptorOrderType interceptorOrder = null;
+	protected InterceptorOrderType interceptorOrder;
 
 	/**
 	 * The default value of the '{@link #isExcludeDefaultInterceptors() <em>Exclude Default Interceptors</em>}' attribute.
@@ -134,7 +134,7 @@ public class InterceptorBindingTypeImpl extends EObjectImpl implements Intercept
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean excludeDefaultInterceptorsESet = false;
+	protected boolean excludeDefaultInterceptorsESet;
 
 	/**
 	 * The default value of the '{@link #isExcludeClassInterceptors() <em>Exclude Class Interceptors</em>}' attribute.
@@ -163,7 +163,7 @@ public class InterceptorBindingTypeImpl extends EObjectImpl implements Intercept
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean excludeClassInterceptorsESet = false;
+	protected boolean excludeClassInterceptorsESet;
 
 	/**
 	 * The cached value of the '{@link #getMethod() <em>Method</em>}' containment reference.
@@ -173,7 +173,7 @@ public class InterceptorBindingTypeImpl extends EObjectImpl implements Intercept
 	 * @generated
 	 * @ordered
 	 */
-	protected NamedMethodType method = null;
+	protected NamedMethodType method;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -219,9 +219,9 @@ public class InterceptorBindingTypeImpl extends EObjectImpl implements Intercept
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDescriptions() {
+	public List<Description> getDescriptions() {
 		if (descriptions == null) {
-			descriptions = new EObjectContainmentEList(Description.class, this, EjbPackage.INTERCEPTOR_BINDING_TYPE__DESCRIPTIONS);
+			descriptions = new EObjectContainmentEList<Description>(Description.class, this, EjbPackage.INTERCEPTOR_BINDING_TYPE__DESCRIPTIONS);
 		}
 		return descriptions;
 	}
@@ -252,9 +252,9 @@ public class InterceptorBindingTypeImpl extends EObjectImpl implements Intercept
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getInterceptorClasses() {
+	public List<String> getInterceptorClasses() {
 		if (interceptorClasses == null) {
-			interceptorClasses = new EDataTypeEList(String.class, this, EjbPackage.INTERCEPTOR_BINDING_TYPE__INTERCEPTOR_CLASSES);
+			interceptorClasses = new EDataTypeEList<String>(String.class, this, EjbPackage.INTERCEPTOR_BINDING_TYPE__INTERCEPTOR_CLASSES);
 		}
 		return interceptorClasses;
 	}
@@ -467,7 +467,7 @@ public class InterceptorBindingTypeImpl extends EObjectImpl implements Intercept
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EjbPackage.INTERCEPTOR_BINDING_TYPE__DESCRIPTIONS:
-				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDescriptions()).basicRemove(otherEnd, msgs);
 			case EjbPackage.INTERCEPTOR_BINDING_TYPE__INTERCEPTOR_ORDER:
 				return basicSetInterceptorOrder(null, msgs);
 			case EjbPackage.INTERCEPTOR_BINDING_TYPE__METHOD:
@@ -493,9 +493,9 @@ public class InterceptorBindingTypeImpl extends EObjectImpl implements Intercept
 			case EjbPackage.INTERCEPTOR_BINDING_TYPE__INTERCEPTOR_ORDER:
 				return getInterceptorOrder();
 			case EjbPackage.INTERCEPTOR_BINDING_TYPE__EXCLUDE_DEFAULT_INTERCEPTORS:
-				return isExcludeDefaultInterceptors() ? Boolean.TRUE : Boolean.FALSE;
+				return isExcludeDefaultInterceptors();
 			case EjbPackage.INTERCEPTOR_BINDING_TYPE__EXCLUDE_CLASS_INTERCEPTORS:
-				return isExcludeClassInterceptors() ? Boolean.TRUE : Boolean.FALSE;
+				return isExcludeClassInterceptors();
 			case EjbPackage.INTERCEPTOR_BINDING_TYPE__METHOD:
 				return getMethod();
 			case EjbPackage.INTERCEPTOR_BINDING_TYPE__ID:
@@ -509,28 +509,29 @@ public class InterceptorBindingTypeImpl extends EObjectImpl implements Intercept
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EjbPackage.INTERCEPTOR_BINDING_TYPE__DESCRIPTIONS:
 				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
+				getDescriptions().addAll((Collection<? extends Description>)newValue);
 				return;
 			case EjbPackage.INTERCEPTOR_BINDING_TYPE__EJB_NAME:
 				setEjbName((String)newValue);
 				return;
 			case EjbPackage.INTERCEPTOR_BINDING_TYPE__INTERCEPTOR_CLASSES:
 				getInterceptorClasses().clear();
-				getInterceptorClasses().addAll((Collection)newValue);
+				getInterceptorClasses().addAll((Collection<? extends String>)newValue);
 				return;
 			case EjbPackage.INTERCEPTOR_BINDING_TYPE__INTERCEPTOR_ORDER:
 				setInterceptorOrder((InterceptorOrderType)newValue);
 				return;
 			case EjbPackage.INTERCEPTOR_BINDING_TYPE__EXCLUDE_DEFAULT_INTERCEPTORS:
-				setExcludeDefaultInterceptors(((Boolean)newValue).booleanValue());
+				setExcludeDefaultInterceptors((Boolean)newValue);
 				return;
 			case EjbPackage.INTERCEPTOR_BINDING_TYPE__EXCLUDE_CLASS_INTERCEPTORS:
-				setExcludeClassInterceptors(((Boolean)newValue).booleanValue());
+				setExcludeClassInterceptors((Boolean)newValue);
 				return;
 			case EjbPackage.INTERCEPTOR_BINDING_TYPE__METHOD:
 				setMethod((NamedMethodType)newValue);

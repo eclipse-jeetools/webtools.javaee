@@ -14,7 +14,27 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.util.FeatureMap;
 
+import org.eclipse.jst.javaee.core.DataSourceType;
+import org.eclipse.jst.javaee.core.Description;
+import org.eclipse.jst.javaee.core.DisplayName;
+import org.eclipse.jst.javaee.core.EjbLocalRef;
+import org.eclipse.jst.javaee.core.EjbRef;
+import org.eclipse.jst.javaee.core.EmptyType;
+import org.eclipse.jst.javaee.core.EnvEntry;
+import org.eclipse.jst.javaee.core.Icon;
 import org.eclipse.jst.javaee.core.JavaEEObject;
+import org.eclipse.jst.javaee.core.LifecycleCallback;
+import org.eclipse.jst.javaee.core.Listener;
+import org.eclipse.jst.javaee.core.MessageDestination;
+import org.eclipse.jst.javaee.core.MessageDestinationRef;
+import org.eclipse.jst.javaee.core.ParamValue;
+import org.eclipse.jst.javaee.core.PersistenceContextRef;
+import org.eclipse.jst.javaee.core.PersistenceUnitRef;
+import org.eclipse.jst.javaee.core.ResourceEnvRef;
+import org.eclipse.jst.javaee.core.ResourceRef;
+import org.eclipse.jst.javaee.core.SecurityRole;
+import org.eclipse.jst.javaee.core.ServiceRef;
+import org.eclipse.jst.javaee.jsp.JspConfig;
 
 /**
  * <!-- begin-user-doc -->
@@ -28,6 +48,7 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  *   <li>{@link org.eclipse.jst.javaee.web.WebApp#getDescriptions <em>Descriptions</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.WebApp#getDisplayNames <em>Display Names</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.WebApp#getIcons <em>Icons</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.web.WebApp#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.WebApp#getDistributables <em>Distributables</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.WebApp#getContextParams <em>Context Params</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.WebApp#getFilters <em>Filters</em>}</li>
@@ -54,8 +75,11 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  *   <li>{@link org.eclipse.jst.javaee.web.WebApp#getPersistenceUnitRefs <em>Persistence Unit Refs</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.WebApp#getPostConstructs <em>Post Constructs</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.WebApp#getPreDestroys <em>Pre Destroys</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.web.WebApp#getDataSource <em>Data Source</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.WebApp#getMessageDestinations <em>Message Destinations</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.WebApp#getLocalEncodingMappingsLists <em>Local Encoding Mappings Lists</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.web.WebApp#getModuleName <em>Module Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.web.WebApp#getAbsoluteOrdering <em>Absolute Ordering</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.WebApp#getId <em>Id</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.WebApp#isMetadataComplete <em>Metadata Complete</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.WebApp#getVersion <em>Version</em>}</li>
@@ -95,7 +119,7 @@ public interface WebApp extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_Descriptions()
 	 * @generated
 	 */
-	List getDescriptions();
+	List<Description> getDescriptions();
 
 	/**
 	 * Returns the value of the '<em><b>Display Names</b></em>' containment reference list.
@@ -110,7 +134,7 @@ public interface WebApp extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_DisplayNames()
 	 * @generated
 	 */
-	List getDisplayNames();
+	List<DisplayName> getDisplayNames();
 
 	/**
 	 * Returns the value of the '<em><b>Icons</b></em>' containment reference list.
@@ -125,7 +149,23 @@ public interface WebApp extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_Icons()
 	 * @generated
 	 */
-	List getIcons();
+	List<Icon> getIcons();
+
+	/**
+	 * Returns the value of the '<em><b>Name</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *             @since Java EE 6, Web 3.0
+	 *           
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Name</em>' attribute list.
+	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_Name()
+	 * @generated
+	 */
+	List<String> getName();
 
 	/**
 	 * Returns the value of the '<em><b>Distributables</b></em>' containment reference list.
@@ -140,7 +180,7 @@ public interface WebApp extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_Distributables()
 	 * @generated
 	 */
-	List getDistributables();
+	List<EmptyType> getDistributables();
 
 	/**
 	 * Returns the value of the '<em><b>Context Params</b></em>' containment reference list.
@@ -150,17 +190,18 @@ public interface WebApp extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	    The context-param element contains the declaration
-	 * 	    of a web application's servlet context
-	 * 	    initialization parameters.
-	 * 
-	 * 	  
+	 *             The context-param element contains the declaration
+	 *             of a web application's servlet context
+	 *             initialization parameters.
+	 *             
+	 *             @since Java EE 5, Web 2.5
+	 *           
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Context Params</em>' containment reference list.
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_ContextParams()
 	 * @generated
 	 */
-	List getContextParams();
+	List<ParamValue> getContextParams();
 
 	/**
 	 * Returns the value of the '<em><b>Filters</b></em>' containment reference list.
@@ -175,7 +216,7 @@ public interface WebApp extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_Filters()
 	 * @generated
 	 */
-	List getFilters();
+	List<Filter> getFilters();
 
 	/**
 	 * Returns the value of the '<em><b>Filter Mappings</b></em>' containment reference list.
@@ -190,7 +231,7 @@ public interface WebApp extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_FilterMappings()
 	 * @generated
 	 */
-	List getFilterMappings();
+	List<FilterMapping> getFilterMappings();
 
 	/**
 	 * Returns the value of the '<em><b>Listeners</b></em>' containment reference list.
@@ -205,7 +246,7 @@ public interface WebApp extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_Listeners()
 	 * @generated
 	 */
-	List getListeners();
+	List<Listener> getListeners();
 
 	/**
 	 * Returns the value of the '<em><b>Servlets</b></em>' containment reference list.
@@ -220,7 +261,7 @@ public interface WebApp extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_Servlets()
 	 * @generated
 	 */
-	List getServlets();
+	List<Servlet> getServlets();
 
 	/**
 	 * Returns the value of the '<em><b>Servlet Mappings</b></em>' containment reference list.
@@ -235,7 +276,7 @@ public interface WebApp extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_ServletMappings()
 	 * @generated
 	 */
-	List getServletMappings();
+	List<ServletMapping> getServletMappings();
 
 	/**
 	 * Returns the value of the '<em><b>Session Configs</b></em>' containment reference list.
@@ -250,7 +291,7 @@ public interface WebApp extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_SessionConfigs()
 	 * @generated
 	 */
-	List getSessionConfigs();
+	List<SessionConfig> getSessionConfigs();
 
 	/**
 	 * Returns the value of the '<em><b>Mime Mappings</b></em>' containment reference list.
@@ -265,7 +306,7 @@ public interface WebApp extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_MimeMappings()
 	 * @generated
 	 */
-	List getMimeMappings();
+	List<MimeMapping> getMimeMappings();
 
 	/**
 	 * Returns the value of the '<em><b>Welcome File Lists</b></em>' containment reference list.
@@ -280,7 +321,7 @@ public interface WebApp extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_WelcomeFileLists()
 	 * @generated
 	 */
-	List getWelcomeFileLists();
+	List<WelcomeFileList> getWelcomeFileLists();
 
 	/**
 	 * Returns the value of the '<em><b>Error Pages</b></em>' containment reference list.
@@ -295,7 +336,7 @@ public interface WebApp extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_ErrorPages()
 	 * @generated
 	 */
-	List getErrorPages();
+	List<ErrorPage> getErrorPages();
 
 	/**
 	 * Returns the value of the '<em><b>Jsp Configs</b></em>' containment reference list.
@@ -310,7 +351,7 @@ public interface WebApp extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_JspConfigs()
 	 * @generated
 	 */
-	List getJspConfigs();
+	List<JspConfig> getJspConfigs();
 
 	/**
 	 * Returns the value of the '<em><b>Security Constraints</b></em>' containment reference list.
@@ -325,7 +366,7 @@ public interface WebApp extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_SecurityConstraints()
 	 * @generated
 	 */
-	List getSecurityConstraints();
+	List<SecurityConstraint> getSecurityConstraints();
 
 	/**
 	 * Returns the value of the '<em><b>Login Configs</b></em>' containment reference list.
@@ -340,7 +381,7 @@ public interface WebApp extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_LoginConfigs()
 	 * @generated
 	 */
-	List getLoginConfigs();
+	List<LoginConfig> getLoginConfigs();
 
 	/**
 	 * Returns the value of the '<em><b>Security Roles</b></em>' containment reference list.
@@ -355,7 +396,7 @@ public interface WebApp extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_SecurityRoles()
 	 * @generated
 	 */
-	List getSecurityRoles();
+	List<SecurityRole> getSecurityRoles();
 
 	/**
 	 * Returns the value of the '<em><b>Env Entries</b></em>' containment reference list.
@@ -370,7 +411,7 @@ public interface WebApp extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_EnvEntries()
 	 * @generated
 	 */
-	List getEnvEntries();
+	List<EnvEntry> getEnvEntries();
 
 	/**
 	 * Returns the value of the '<em><b>Ejb Refs</b></em>' containment reference list.
@@ -385,7 +426,7 @@ public interface WebApp extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_EjbRefs()
 	 * @generated
 	 */
-	List getEjbRefs();
+	List<EjbRef> getEjbRefs();
 
 	/**
 	 * Returns the value of the '<em><b>Ejb Local Refs</b></em>' containment reference list.
@@ -400,7 +441,7 @@ public interface WebApp extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_EjbLocalRefs()
 	 * @generated
 	 */
-	List getEjbLocalRefs();
+	List<EjbLocalRef> getEjbLocalRefs();
 
 	/**
 	 * Returns the value of the '<em><b>Service Refs</b></em>' containment reference list.
@@ -415,7 +456,7 @@ public interface WebApp extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_ServiceRefs()
 	 * @generated
 	 */
-	List getServiceRefs();
+	List<ServiceRef> getServiceRefs();
 
 	/**
 	 * Returns the value of the '<em><b>Resource Refs</b></em>' containment reference list.
@@ -430,7 +471,7 @@ public interface WebApp extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_ResourceRefs()
 	 * @generated
 	 */
-	List getResourceRefs();
+	List<ResourceRef> getResourceRefs();
 
 	/**
 	 * Returns the value of the '<em><b>Resource Env Refs</b></em>' containment reference list.
@@ -445,7 +486,7 @@ public interface WebApp extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_ResourceEnvRefs()
 	 * @generated
 	 */
-	List getResourceEnvRefs();
+	List<ResourceEnvRef> getResourceEnvRefs();
 
 	/**
 	 * Returns the value of the '<em><b>Message Destination Refs</b></em>' containment reference list.
@@ -460,7 +501,7 @@ public interface WebApp extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_MessageDestinationRefs()
 	 * @generated
 	 */
-	List getMessageDestinationRefs();
+	List<MessageDestinationRef> getMessageDestinationRefs();
 
 	/**
 	 * Returns the value of the '<em><b>Persistence Context Refs</b></em>' containment reference list.
@@ -475,7 +516,7 @@ public interface WebApp extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_PersistenceContextRefs()
 	 * @generated
 	 */
-	List getPersistenceContextRefs();
+	List<PersistenceContextRef> getPersistenceContextRefs();
 
 	/**
 	 * Returns the value of the '<em><b>Persistence Unit Refs</b></em>' containment reference list.
@@ -490,7 +531,7 @@ public interface WebApp extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_PersistenceUnitRefs()
 	 * @generated
 	 */
-	List getPersistenceUnitRefs();
+	List<PersistenceUnitRef> getPersistenceUnitRefs();
 
 	/**
 	 * Returns the value of the '<em><b>Post Constructs</b></em>' containment reference list.
@@ -505,7 +546,7 @@ public interface WebApp extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_PostConstructs()
 	 * @generated
 	 */
-	List getPostConstructs();
+	List<LifecycleCallback> getPostConstructs();
 
 	/**
 	 * Returns the value of the '<em><b>Pre Destroys</b></em>' containment reference list.
@@ -520,7 +561,22 @@ public interface WebApp extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_PreDestroys()
 	 * @generated
 	 */
-	List getPreDestroys();
+	List<LifecycleCallback> getPreDestroys();
+
+	/**
+	 * Returns the value of the '<em><b>Data Source</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.jst.javaee.core.DataSourceType}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Data Source</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Data Source</em>' containment reference list.
+	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_DataSource()
+	 * @generated
+	 */
+	List<DataSourceType> getDataSource();
 
 	/**
 	 * Returns the value of the '<em><b>Message Destinations</b></em>' containment reference list.
@@ -535,7 +591,7 @@ public interface WebApp extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_MessageDestinations()
 	 * @generated
 	 */
-	List getMessageDestinations();
+	List<MessageDestination> getMessageDestinations();
 
 	/**
 	 * Returns the value of the '<em><b>Local Encoding Mappings Lists</b></em>' containment reference list.
@@ -546,11 +602,48 @@ public interface WebApp extends JavaEEObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *             @since Java EE 6, Web 3.0
+	 *           
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Local Encoding Mappings Lists</em>' containment reference list.
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_LocalEncodingMappingsLists()
 	 * @generated
 	 */
-	List getLocalEncodingMappingsLists();
+	List<LocaleEncodingMappingList> getLocalEncodingMappingsLists();
+
+	/**
+	 * Returns the value of the '<em><b>Module Name</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *             @since Java EE 6, Web 3.0
+	 *           
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Module Name</em>' attribute list.
+	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_ModuleName()
+	 * @generated
+	 */
+	List<String> getModuleName();
+
+	/**
+	 * Returns the value of the '<em><b>Absolute Ordering</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.jst.javaee.web.AbsoluteOrderingType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *             @since Java EE 6, Web 3.0
+	 *           
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Absolute Ordering</em>' containment reference list.
+	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_AbsoluteOrdering()
+	 * @generated
+	 */
+	List<AbsoluteOrderingType> getAbsoluteOrdering();
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.
@@ -584,25 +677,26 @@ public interface WebApp extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 * 	  The metadata-complete attribute defines whether this
-	 * 	  deployment descriptor and other related deployment
-	 * 	  descriptors for this module (e.g., web service
-	 * 	  descriptors) are complete, or whether the class
-	 * 	  files available to this module and packaged with
-	 * 	  this application should be examined for annotations
-	 * 	  that specify deployment information.
-	 * 
-	 * 	  If metadata-complete is set to "true", the deployment
-	 * 	  tool must ignore any annotations that specify deployment
-	 * 	  information, which might be present in the class files
-	 * 	  of the application.
-	 * 
-	 * 	  If metadata-complete is not specified or is set to
-	 * 	  "false", the deployment tool must examine the class
-	 * 	  files of the application for annotations, as
-	 * 	  specified by the specifications.
-	 * 
-	 * 	
+	 *           The metadata-complete attribute defines whether this
+	 *           deployment descriptor and other related deployment
+	 *           descriptors for this module (e.g., web service
+	 *           descriptors) are complete, or whether the class
+	 *           files available to this module and packaged with
+	 *           this application should be examined for annotations
+	 *           that specify deployment information.
+	 *           
+	 *           If metadata-complete is set to "true", the deployment
+	 *           tool must ignore any annotations that specify deployment
+	 *           information, which might be present in the class files
+	 *           of the application.
+	 *           
+	 *           If metadata-complete is not specified or is set to
+	 *           "false", the deployment tool must examine the class
+	 *           files of the application for annotations, as
+	 *           specified by the specifications.
+	 *           
+	 *           @since Java EE 5, Web 2.5
+	 *         
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Metadata Complete</em>' attribute.
 	 * @see #isSetMetadataComplete()
@@ -650,7 +744,6 @@ public interface WebApp extends JavaEEObject {
 
 	/**
 	 * Returns the value of the '<em><b>Version</b></em>' attribute.
-	 * The default value is <code>"2.5"</code>.
 	 * The literals are from the enumeration {@link org.eclipse.jst.javaee.web.WebAppVersionType}.
 	 * <!-- begin-user-doc -->
 	 * <p>

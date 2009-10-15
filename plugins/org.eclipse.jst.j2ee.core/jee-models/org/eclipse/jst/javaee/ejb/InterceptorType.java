@@ -12,7 +12,19 @@ package org.eclipse.jst.javaee.ejb;
 
 import java.util.List;
 
+import org.eclipse.jst.javaee.core.DataSourceType;
+import org.eclipse.jst.javaee.core.Description;
+import org.eclipse.jst.javaee.core.EjbLocalRef;
+import org.eclipse.jst.javaee.core.EjbRef;
+import org.eclipse.jst.javaee.core.EnvEntry;
 import org.eclipse.jst.javaee.core.JavaEEObject;
+import org.eclipse.jst.javaee.core.LifecycleCallback;
+import org.eclipse.jst.javaee.core.MessageDestinationRef;
+import org.eclipse.jst.javaee.core.PersistenceContextRef;
+import org.eclipse.jst.javaee.core.PersistenceUnitRef;
+import org.eclipse.jst.javaee.core.ResourceEnvRef;
+import org.eclipse.jst.javaee.core.ResourceRef;
+import org.eclipse.jst.javaee.core.ServiceRef;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,18 +36,21 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * 
  *         The interceptorType element declares information about a single
  *         interceptor class.  It consists of :
- * 
- *             - An optional description.
- *             - The fully-qualified name of the interceptor class.
- *             - An optional list of around invoke methods declared on the
- *               interceptor class and/or its super-classes.
- *             - An optional list environment dependencies for the interceptor
- *               class and/or its super-classes.
- *             - An optional list of post-activate methods declared on the
- *               interceptor class and/or its super-classes.
- *             - An optional list of pre-passivate methods declared on the
- *               interceptor class and/or its super-classes.
- * 
+ *         
+ *         - An optional description.
+ *         - The fully-qualified name of the interceptor class.
+ *         - An optional list of around invoke methods declared on the
+ *         interceptor class and/or its super-classes.
+ *         - An optional list of around timeout methods declared on the
+ *         interceptor class and/or its super-classes.
+ *         - An optional list environment dependencies for the interceptor
+ *         class and/or its super-classes.
+ *         - An optional list of post-activate methods declared on the
+ *         interceptor class and/or its super-classes.
+ *         - An optional list of pre-passivate methods declared on the
+ *         interceptor class and/or its super-classes.
+ *         
+ *         @since Java EE 5, EJB 3.0
  *       
  * <!-- end-model-doc -->
  *
@@ -45,6 +60,7 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  *   <li>{@link org.eclipse.jst.javaee.ejb.InterceptorType#getDescriptions <em>Descriptions</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.InterceptorType#getInterceptorClass <em>Interceptor Class</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.InterceptorType#getAroundInvokes <em>Around Invokes</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.InterceptorType#getAroundTimeouts <em>Around Timeouts</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.InterceptorType#getEnvEntries <em>Env Entries</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.InterceptorType#getEjbRefs <em>Ejb Refs</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.InterceptorType#getEjbLocalRefs <em>Ejb Local Refs</em>}</li>
@@ -56,6 +72,7 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  *   <li>{@link org.eclipse.jst.javaee.ejb.InterceptorType#getPersistenceUnitRefs <em>Persistence Unit Refs</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.InterceptorType#getPostConstructs <em>Post Constructs</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.InterceptorType#getPreDestroys <em>Pre Destroys</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.InterceptorType#getDataSource <em>Data Source</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.InterceptorType#getPostActivates <em>Post Activates</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.InterceptorType#getPrePassivates <em>Pre Passivates</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.InterceptorType#getId <em>Id</em>}</li>
@@ -80,7 +97,7 @@ public interface InterceptorType extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getInterceptorType_Descriptions()
 	 * @generated
 	 */
-	List getDescriptions();
+	List<Description> getDescriptions();
 
 	/**
 	 * Returns the value of the '<em><b>Interceptor Class</b></em>' attribute.
@@ -120,7 +137,22 @@ public interface InterceptorType extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getInterceptorType_AroundInvokes()
 	 * @generated
 	 */
-	List getAroundInvokes();
+	List<AroundInvokeType> getAroundInvokes();
+
+	/**
+	 * Returns the value of the '<em><b>Around Timeouts</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.jst.javaee.ejb.AroundTimeoutType}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Around Timeouts</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Around Timeouts</em>' containment reference list.
+	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getInterceptorType_AroundTimeouts()
+	 * @generated
+	 */
+	List<AroundTimeoutType> getAroundTimeouts();
 
 	/**
 	 * Returns the value of the '<em><b>Env Entries</b></em>' containment reference list.
@@ -135,7 +167,7 @@ public interface InterceptorType extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getInterceptorType_EnvEntries()
 	 * @generated
 	 */
-	List getEnvEntries();
+	List<EnvEntry> getEnvEntries();
 
 	/**
 	 * Returns the value of the '<em><b>Ejb Refs</b></em>' containment reference list.
@@ -150,7 +182,7 @@ public interface InterceptorType extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getInterceptorType_EjbRefs()
 	 * @generated
 	 */
-	List getEjbRefs();
+	List<EjbRef> getEjbRefs();
 
 	/**
 	 * Returns the value of the '<em><b>Ejb Local Refs</b></em>' containment reference list.
@@ -165,7 +197,7 @@ public interface InterceptorType extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getInterceptorType_EjbLocalRefs()
 	 * @generated
 	 */
-	List getEjbLocalRefs();
+	List<EjbLocalRef> getEjbLocalRefs();
 
 	/**
 	 * Returns the value of the '<em><b>Service Refs</b></em>' containment reference list.
@@ -180,7 +212,7 @@ public interface InterceptorType extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getInterceptorType_ServiceRefs()
 	 * @generated
 	 */
-	List getServiceRefs();
+	List<ServiceRef> getServiceRefs();
 
 	/**
 	 * Returns the value of the '<em><b>Resource Refs</b></em>' containment reference list.
@@ -195,7 +227,7 @@ public interface InterceptorType extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getInterceptorType_ResourceRefs()
 	 * @generated
 	 */
-	List getResourceRefs();
+	List<ResourceRef> getResourceRefs();
 
 	/**
 	 * Returns the value of the '<em><b>Resource Env Refs</b></em>' containment reference list.
@@ -210,7 +242,7 @@ public interface InterceptorType extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getInterceptorType_ResourceEnvRefs()
 	 * @generated
 	 */
-	List getResourceEnvRefs();
+	List<ResourceEnvRef> getResourceEnvRefs();
 
 	/**
 	 * Returns the value of the '<em><b>Message Destination Refs</b></em>' containment reference list.
@@ -225,7 +257,7 @@ public interface InterceptorType extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getInterceptorType_MessageDestinationRefs()
 	 * @generated
 	 */
-	List getMessageDestinationRefs();
+	List<MessageDestinationRef> getMessageDestinationRefs();
 
 	/**
 	 * Returns the value of the '<em><b>Persistence Context Refs</b></em>' containment reference list.
@@ -240,7 +272,7 @@ public interface InterceptorType extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getInterceptorType_PersistenceContextRefs()
 	 * @generated
 	 */
-	List getPersistenceContextRefs();
+	List<PersistenceContextRef> getPersistenceContextRefs();
 
 	/**
 	 * Returns the value of the '<em><b>Persistence Unit Refs</b></em>' containment reference list.
@@ -255,7 +287,7 @@ public interface InterceptorType extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getInterceptorType_PersistenceUnitRefs()
 	 * @generated
 	 */
-	List getPersistenceUnitRefs();
+	List<PersistenceUnitRef> getPersistenceUnitRefs();
 
 	/**
 	 * Returns the value of the '<em><b>Post Constructs</b></em>' containment reference list.
@@ -270,7 +302,7 @@ public interface InterceptorType extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getInterceptorType_PostConstructs()
 	 * @generated
 	 */
-	List getPostConstructs();
+	List<LifecycleCallback> getPostConstructs();
 
 	/**
 	 * Returns the value of the '<em><b>Pre Destroys</b></em>' containment reference list.
@@ -285,7 +317,22 @@ public interface InterceptorType extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getInterceptorType_PreDestroys()
 	 * @generated
 	 */
-	List getPreDestroys();
+	List<LifecycleCallback> getPreDestroys();
+
+	/**
+	 * Returns the value of the '<em><b>Data Source</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.jst.javaee.core.DataSourceType}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Data Source</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Data Source</em>' containment reference list.
+	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getInterceptorType_DataSource()
+	 * @generated
+	 */
+	List<DataSourceType> getDataSource();
 
 	/**
 	 * Returns the value of the '<em><b>Post Activates</b></em>' containment reference list.
@@ -300,7 +347,7 @@ public interface InterceptorType extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getInterceptorType_PostActivates()
 	 * @generated
 	 */
-	List getPostActivates();
+	List<LifecycleCallback> getPostActivates();
 
 	/**
 	 * Returns the value of the '<em><b>Pre Passivates</b></em>' containment reference list.
@@ -315,7 +362,7 @@ public interface InterceptorType extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getInterceptorType_PrePassivates()
 	 * @generated
 	 */
-	List getPrePassivates();
+	List<LifecycleCallback> getPrePassivates();
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.

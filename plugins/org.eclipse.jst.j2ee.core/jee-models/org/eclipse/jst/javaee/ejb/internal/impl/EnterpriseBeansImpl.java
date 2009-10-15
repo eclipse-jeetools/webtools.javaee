@@ -28,6 +28,9 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.jst.javaee.ejb.EnterpriseBeans;
 
+import org.eclipse.jst.javaee.ejb.EntityBean;
+import org.eclipse.jst.javaee.ejb.MessageDrivenBean;
+import org.eclipse.jst.javaee.ejb.SessionBean;
 import org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage;
 
 /**
@@ -56,7 +59,7 @@ public class EnterpriseBeansImpl extends EObjectImpl implements EnterpriseBeans 
 	 * @generated
 	 * @ordered
 	 */
-	protected FeatureMap group = null;
+	protected FeatureMap group;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -114,8 +117,8 @@ public class EnterpriseBeansImpl extends EObjectImpl implements EnterpriseBeans 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getSessionBeans() {
-		return (getGroup()).list(EjbPackage.Literals.ENTERPRISE_BEANS__SESSION_BEANS);
+	public List<SessionBean> getSessionBeans() {
+		return getGroup().list(EjbPackage.Literals.ENTERPRISE_BEANS__SESSION_BEANS);
 	}
 
 	/**
@@ -123,8 +126,8 @@ public class EnterpriseBeansImpl extends EObjectImpl implements EnterpriseBeans 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getEntityBeans() {
-		return (getGroup()).list(EjbPackage.Literals.ENTERPRISE_BEANS__ENTITY_BEANS);
+	public List<EntityBean> getEntityBeans() {
+		return getGroup().list(EjbPackage.Literals.ENTERPRISE_BEANS__ENTITY_BEANS);
 	}
 
 	/**
@@ -132,8 +135,8 @@ public class EnterpriseBeansImpl extends EObjectImpl implements EnterpriseBeans 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getMessageDrivenBeans() {
-		return (getGroup()).list(EjbPackage.Literals.ENTERPRISE_BEANS__MESSAGE_DRIVEN_BEANS);
+	public List<MessageDrivenBean> getMessageDrivenBeans() {
+		return getGroup().list(EjbPackage.Literals.ENTERPRISE_BEANS__MESSAGE_DRIVEN_BEANS);
 	}
 
 	/**
@@ -166,13 +169,13 @@ public class EnterpriseBeansImpl extends EObjectImpl implements EnterpriseBeans 
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EjbPackage.ENTERPRISE_BEANS__GROUP:
-				return ((InternalEList)getGroup()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getGroup()).basicRemove(otherEnd, msgs);
 			case EjbPackage.ENTERPRISE_BEANS__SESSION_BEANS:
-				return ((InternalEList)getSessionBeans()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getSessionBeans()).basicRemove(otherEnd, msgs);
 			case EjbPackage.ENTERPRISE_BEANS__ENTITY_BEANS:
-				return ((InternalEList)getEntityBeans()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getEntityBeans()).basicRemove(otherEnd, msgs);
 			case EjbPackage.ENTERPRISE_BEANS__MESSAGE_DRIVEN_BEANS:
-				return ((InternalEList)getMessageDrivenBeans()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getMessageDrivenBeans()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -205,6 +208,7 @@ public class EnterpriseBeansImpl extends EObjectImpl implements EnterpriseBeans 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -213,15 +217,15 @@ public class EnterpriseBeansImpl extends EObjectImpl implements EnterpriseBeans 
 				return;
 			case EjbPackage.ENTERPRISE_BEANS__SESSION_BEANS:
 				getSessionBeans().clear();
-				getSessionBeans().addAll((Collection)newValue);
+				getSessionBeans().addAll((Collection<? extends SessionBean>)newValue);
 				return;
 			case EjbPackage.ENTERPRISE_BEANS__ENTITY_BEANS:
 				getEntityBeans().clear();
-				getEntityBeans().addAll((Collection)newValue);
+				getEntityBeans().addAll((Collection<? extends EntityBean>)newValue);
 				return;
 			case EjbPackage.ENTERPRISE_BEANS__MESSAGE_DRIVEN_BEANS:
 				getMessageDrivenBeans().clear();
-				getMessageDrivenBeans().addAll((Collection)newValue);
+				getMessageDrivenBeans().addAll((Collection<? extends MessageDrivenBean>)newValue);
 				return;
 			case EjbPackage.ENTERPRISE_BEANS__ID:
 				setId((String)newValue);

@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.eclipse.jst.javaee.core.DataSourceType;
 import org.eclipse.jst.javaee.core.Description;
 import org.eclipse.jst.javaee.core.EjbLocalRef;
 import org.eclipse.jst.javaee.core.EjbRef;
@@ -40,6 +41,7 @@ import org.eclipse.jst.javaee.core.ResourceRef;
 import org.eclipse.jst.javaee.core.ServiceRef;
 
 import org.eclipse.jst.javaee.ejb.AroundInvokeType;
+import org.eclipse.jst.javaee.ejb.AroundTimeoutType;
 import org.eclipse.jst.javaee.ejb.InterceptorType;
 
 import org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage;
@@ -54,6 +56,7 @@ import org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage;
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.InterceptorTypeImpl#getDescriptions <em>Descriptions</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.InterceptorTypeImpl#getInterceptorClass <em>Interceptor Class</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.InterceptorTypeImpl#getAroundInvokes <em>Around Invokes</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.InterceptorTypeImpl#getAroundTimeouts <em>Around Timeouts</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.InterceptorTypeImpl#getEnvEntries <em>Env Entries</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.InterceptorTypeImpl#getEjbRefs <em>Ejb Refs</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.InterceptorTypeImpl#getEjbLocalRefs <em>Ejb Local Refs</em>}</li>
@@ -65,6 +68,7 @@ import org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage;
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.InterceptorTypeImpl#getPersistenceUnitRefs <em>Persistence Unit Refs</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.InterceptorTypeImpl#getPostConstructs <em>Post Constructs</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.InterceptorTypeImpl#getPreDestroys <em>Pre Destroys</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.InterceptorTypeImpl#getDataSource <em>Data Source</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.InterceptorTypeImpl#getPostActivates <em>Post Activates</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.InterceptorTypeImpl#getPrePassivates <em>Pre Passivates</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.InterceptorTypeImpl#getId <em>Id</em>}</li>
@@ -82,7 +86,7 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * @generated
 	 * @ordered
 	 */
-	protected EList descriptions = null;
+	protected EList<Description> descriptions;
 
 	/**
 	 * The default value of the '{@link #getInterceptorClass() <em>Interceptor Class</em>}' attribute.
@@ -112,7 +116,17 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * @generated
 	 * @ordered
 	 */
-	protected EList aroundInvokes = null;
+	protected EList<AroundInvokeType> aroundInvokes;
+
+	/**
+	 * The cached value of the '{@link #getAroundTimeouts() <em>Around Timeouts</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAroundTimeouts()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<AroundTimeoutType> aroundTimeouts;
 
 	/**
 	 * The cached value of the '{@link #getEnvEntries() <em>Env Entries</em>}' containment reference list.
@@ -122,7 +136,7 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * @generated
 	 * @ordered
 	 */
-	protected EList envEntries = null;
+	protected EList<EnvEntry> envEntries;
 
 	/**
 	 * The cached value of the '{@link #getEjbRefs() <em>Ejb Refs</em>}' containment reference list.
@@ -132,7 +146,7 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * @generated
 	 * @ordered
 	 */
-	protected EList ejbRefs = null;
+	protected EList<EjbRef> ejbRefs;
 
 	/**
 	 * The cached value of the '{@link #getEjbLocalRefs() <em>Ejb Local Refs</em>}' containment reference list.
@@ -142,7 +156,7 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * @generated
 	 * @ordered
 	 */
-	protected EList ejbLocalRefs = null;
+	protected EList<EjbLocalRef> ejbLocalRefs;
 
 	/**
 	 * The cached value of the '{@link #getServiceRefs() <em>Service Refs</em>}' containment reference list.
@@ -152,7 +166,7 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * @generated
 	 * @ordered
 	 */
-	protected EList serviceRefs = null;
+	protected EList<ServiceRef> serviceRefs;
 
 	/**
 	 * The cached value of the '{@link #getResourceRefs() <em>Resource Refs</em>}' containment reference list.
@@ -162,7 +176,7 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * @generated
 	 * @ordered
 	 */
-	protected EList resourceRefs = null;
+	protected EList<ResourceRef> resourceRefs;
 
 	/**
 	 * The cached value of the '{@link #getResourceEnvRefs() <em>Resource Env Refs</em>}' containment reference list.
@@ -172,7 +186,7 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * @generated
 	 * @ordered
 	 */
-	protected EList resourceEnvRefs = null;
+	protected EList<ResourceEnvRef> resourceEnvRefs;
 
 	/**
 	 * The cached value of the '{@link #getMessageDestinationRefs() <em>Message Destination Refs</em>}' containment reference list.
@@ -182,7 +196,7 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * @generated
 	 * @ordered
 	 */
-	protected EList messageDestinationRefs = null;
+	protected EList<MessageDestinationRef> messageDestinationRefs;
 
 	/**
 	 * The cached value of the '{@link #getPersistenceContextRefs() <em>Persistence Context Refs</em>}' containment reference list.
@@ -192,7 +206,7 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * @generated
 	 * @ordered
 	 */
-	protected EList persistenceContextRefs = null;
+	protected EList<PersistenceContextRef> persistenceContextRefs;
 
 	/**
 	 * The cached value of the '{@link #getPersistenceUnitRefs() <em>Persistence Unit Refs</em>}' containment reference list.
@@ -202,7 +216,7 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * @generated
 	 * @ordered
 	 */
-	protected EList persistenceUnitRefs = null;
+	protected EList<PersistenceUnitRef> persistenceUnitRefs;
 
 	/**
 	 * The cached value of the '{@link #getPostConstructs() <em>Post Constructs</em>}' containment reference list.
@@ -212,7 +226,7 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * @generated
 	 * @ordered
 	 */
-	protected EList postConstructs = null;
+	protected EList<LifecycleCallback> postConstructs;
 
 	/**
 	 * The cached value of the '{@link #getPreDestroys() <em>Pre Destroys</em>}' containment reference list.
@@ -222,7 +236,17 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * @generated
 	 * @ordered
 	 */
-	protected EList preDestroys = null;
+	protected EList<LifecycleCallback> preDestroys;
+
+	/**
+	 * The cached value of the '{@link #getDataSource() <em>Data Source</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDataSource()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<DataSourceType> dataSource;
 
 	/**
 	 * The cached value of the '{@link #getPostActivates() <em>Post Activates</em>}' containment reference list.
@@ -232,7 +256,7 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * @generated
 	 * @ordered
 	 */
-	protected EList postActivates = null;
+	protected EList<LifecycleCallback> postActivates;
 
 	/**
 	 * The cached value of the '{@link #getPrePassivates() <em>Pre Passivates</em>}' containment reference list.
@@ -242,7 +266,7 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * @generated
 	 * @ordered
 	 */
-	protected EList prePassivates = null;
+	protected EList<LifecycleCallback> prePassivates;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -288,9 +312,9 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getDescriptions() {
+	public List<Description> getDescriptions() {
 		if (descriptions == null) {
-			descriptions = new EObjectContainmentEList(Description.class, this, EjbPackage.INTERCEPTOR_TYPE__DESCRIPTIONS);
+			descriptions = new EObjectContainmentEList<Description>(Description.class, this, EjbPackage.INTERCEPTOR_TYPE__DESCRIPTIONS);
 		}
 		return descriptions;
 	}
@@ -321,9 +345,9 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getAroundInvokes() {
+	public List<AroundInvokeType> getAroundInvokes() {
 		if (aroundInvokes == null) {
-			aroundInvokes = new EObjectContainmentEList(AroundInvokeType.class, this, EjbPackage.INTERCEPTOR_TYPE__AROUND_INVOKES);
+			aroundInvokes = new EObjectContainmentEList<AroundInvokeType>(AroundInvokeType.class, this, EjbPackage.INTERCEPTOR_TYPE__AROUND_INVOKES);
 		}
 		return aroundInvokes;
 	}
@@ -333,9 +357,21 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getEnvEntries() {
+	public List<AroundTimeoutType> getAroundTimeouts() {
+		if (aroundTimeouts == null) {
+			aroundTimeouts = new EObjectContainmentEList<AroundTimeoutType>(AroundTimeoutType.class, this, EjbPackage.INTERCEPTOR_TYPE__AROUND_TIMEOUTS);
+		}
+		return aroundTimeouts;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<EnvEntry> getEnvEntries() {
 		if (envEntries == null) {
-			envEntries = new EObjectContainmentEList(EnvEntry.class, this, EjbPackage.INTERCEPTOR_TYPE__ENV_ENTRIES);
+			envEntries = new EObjectContainmentEList<EnvEntry>(EnvEntry.class, this, EjbPackage.INTERCEPTOR_TYPE__ENV_ENTRIES);
 		}
 		return envEntries;
 	}
@@ -345,9 +381,9 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getEjbRefs() {
+	public List<EjbRef> getEjbRefs() {
 		if (ejbRefs == null) {
-			ejbRefs = new EObjectContainmentEList(EjbRef.class, this, EjbPackage.INTERCEPTOR_TYPE__EJB_REFS);
+			ejbRefs = new EObjectContainmentEList<EjbRef>(EjbRef.class, this, EjbPackage.INTERCEPTOR_TYPE__EJB_REFS);
 		}
 		return ejbRefs;
 	}
@@ -357,9 +393,9 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getEjbLocalRefs() {
+	public List<EjbLocalRef> getEjbLocalRefs() {
 		if (ejbLocalRefs == null) {
-			ejbLocalRefs = new EObjectContainmentEList(EjbLocalRef.class, this, EjbPackage.INTERCEPTOR_TYPE__EJB_LOCAL_REFS);
+			ejbLocalRefs = new EObjectContainmentEList<EjbLocalRef>(EjbLocalRef.class, this, EjbPackage.INTERCEPTOR_TYPE__EJB_LOCAL_REFS);
 		}
 		return ejbLocalRefs;
 	}
@@ -369,9 +405,9 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getServiceRefs() {
+	public List<ServiceRef> getServiceRefs() {
 		if (serviceRefs == null) {
-			serviceRefs = new EObjectContainmentEList(ServiceRef.class, this, EjbPackage.INTERCEPTOR_TYPE__SERVICE_REFS);
+			serviceRefs = new EObjectContainmentEList<ServiceRef>(ServiceRef.class, this, EjbPackage.INTERCEPTOR_TYPE__SERVICE_REFS);
 		}
 		return serviceRefs;
 	}
@@ -381,9 +417,9 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getResourceRefs() {
+	public List<ResourceRef> getResourceRefs() {
 		if (resourceRefs == null) {
-			resourceRefs = new EObjectContainmentEList(ResourceRef.class, this, EjbPackage.INTERCEPTOR_TYPE__RESOURCE_REFS);
+			resourceRefs = new EObjectContainmentEList<ResourceRef>(ResourceRef.class, this, EjbPackage.INTERCEPTOR_TYPE__RESOURCE_REFS);
 		}
 		return resourceRefs;
 	}
@@ -393,9 +429,9 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getResourceEnvRefs() {
+	public List<ResourceEnvRef> getResourceEnvRefs() {
 		if (resourceEnvRefs == null) {
-			resourceEnvRefs = new EObjectContainmentEList(ResourceEnvRef.class, this, EjbPackage.INTERCEPTOR_TYPE__RESOURCE_ENV_REFS);
+			resourceEnvRefs = new EObjectContainmentEList<ResourceEnvRef>(ResourceEnvRef.class, this, EjbPackage.INTERCEPTOR_TYPE__RESOURCE_ENV_REFS);
 		}
 		return resourceEnvRefs;
 	}
@@ -405,9 +441,9 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getMessageDestinationRefs() {
+	public List<MessageDestinationRef> getMessageDestinationRefs() {
 		if (messageDestinationRefs == null) {
-			messageDestinationRefs = new EObjectContainmentEList(MessageDestinationRef.class, this, EjbPackage.INTERCEPTOR_TYPE__MESSAGE_DESTINATION_REFS);
+			messageDestinationRefs = new EObjectContainmentEList<MessageDestinationRef>(MessageDestinationRef.class, this, EjbPackage.INTERCEPTOR_TYPE__MESSAGE_DESTINATION_REFS);
 		}
 		return messageDestinationRefs;
 	}
@@ -417,9 +453,9 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getPersistenceContextRefs() {
+	public List<PersistenceContextRef> getPersistenceContextRefs() {
 		if (persistenceContextRefs == null) {
-			persistenceContextRefs = new EObjectContainmentEList(PersistenceContextRef.class, this, EjbPackage.INTERCEPTOR_TYPE__PERSISTENCE_CONTEXT_REFS);
+			persistenceContextRefs = new EObjectContainmentEList<PersistenceContextRef>(PersistenceContextRef.class, this, EjbPackage.INTERCEPTOR_TYPE__PERSISTENCE_CONTEXT_REFS);
 		}
 		return persistenceContextRefs;
 	}
@@ -429,9 +465,9 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getPersistenceUnitRefs() {
+	public List<PersistenceUnitRef> getPersistenceUnitRefs() {
 		if (persistenceUnitRefs == null) {
-			persistenceUnitRefs = new EObjectContainmentEList(PersistenceUnitRef.class, this, EjbPackage.INTERCEPTOR_TYPE__PERSISTENCE_UNIT_REFS);
+			persistenceUnitRefs = new EObjectContainmentEList<PersistenceUnitRef>(PersistenceUnitRef.class, this, EjbPackage.INTERCEPTOR_TYPE__PERSISTENCE_UNIT_REFS);
 		}
 		return persistenceUnitRefs;
 	}
@@ -441,9 +477,9 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getPostConstructs() {
+	public List<LifecycleCallback> getPostConstructs() {
 		if (postConstructs == null) {
-			postConstructs = new EObjectContainmentEList(LifecycleCallback.class, this, EjbPackage.INTERCEPTOR_TYPE__POST_CONSTRUCTS);
+			postConstructs = new EObjectContainmentEList<LifecycleCallback>(LifecycleCallback.class, this, EjbPackage.INTERCEPTOR_TYPE__POST_CONSTRUCTS);
 		}
 		return postConstructs;
 	}
@@ -453,9 +489,9 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getPreDestroys() {
+	public List<LifecycleCallback> getPreDestroys() {
 		if (preDestroys == null) {
-			preDestroys = new EObjectContainmentEList(LifecycleCallback.class, this, EjbPackage.INTERCEPTOR_TYPE__PRE_DESTROYS);
+			preDestroys = new EObjectContainmentEList<LifecycleCallback>(LifecycleCallback.class, this, EjbPackage.INTERCEPTOR_TYPE__PRE_DESTROYS);
 		}
 		return preDestroys;
 	}
@@ -465,9 +501,21 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getPostActivates() {
+	public List<DataSourceType> getDataSource() {
+		if (dataSource == null) {
+			dataSource = new EObjectContainmentEList<DataSourceType>(DataSourceType.class, this, EjbPackage.INTERCEPTOR_TYPE__DATA_SOURCE);
+		}
+		return dataSource;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<LifecycleCallback> getPostActivates() {
 		if (postActivates == null) {
-			postActivates = new EObjectContainmentEList(LifecycleCallback.class, this, EjbPackage.INTERCEPTOR_TYPE__POST_ACTIVATES);
+			postActivates = new EObjectContainmentEList<LifecycleCallback>(LifecycleCallback.class, this, EjbPackage.INTERCEPTOR_TYPE__POST_ACTIVATES);
 		}
 		return postActivates;
 	}
@@ -477,9 +525,9 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public List getPrePassivates() {
+	public List<LifecycleCallback> getPrePassivates() {
 		if (prePassivates == null) {
-			prePassivates = new EObjectContainmentEList(LifecycleCallback.class, this, EjbPackage.INTERCEPTOR_TYPE__PRE_PASSIVATES);
+			prePassivates = new EObjectContainmentEList<LifecycleCallback>(LifecycleCallback.class, this, EjbPackage.INTERCEPTOR_TYPE__PRE_PASSIVATES);
 		}
 		return prePassivates;
 	}
@@ -514,35 +562,39 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case EjbPackage.INTERCEPTOR_TYPE__DESCRIPTIONS:
-				return ((InternalEList)getDescriptions()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getDescriptions()).basicRemove(otherEnd, msgs);
 			case EjbPackage.INTERCEPTOR_TYPE__AROUND_INVOKES:
-				return ((InternalEList)getAroundInvokes()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getAroundInvokes()).basicRemove(otherEnd, msgs);
+			case EjbPackage.INTERCEPTOR_TYPE__AROUND_TIMEOUTS:
+				return ((InternalEList<?>)getAroundTimeouts()).basicRemove(otherEnd, msgs);
 			case EjbPackage.INTERCEPTOR_TYPE__ENV_ENTRIES:
-				return ((InternalEList)getEnvEntries()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getEnvEntries()).basicRemove(otherEnd, msgs);
 			case EjbPackage.INTERCEPTOR_TYPE__EJB_REFS:
-				return ((InternalEList)getEjbRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getEjbRefs()).basicRemove(otherEnd, msgs);
 			case EjbPackage.INTERCEPTOR_TYPE__EJB_LOCAL_REFS:
-				return ((InternalEList)getEjbLocalRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getEjbLocalRefs()).basicRemove(otherEnd, msgs);
 			case EjbPackage.INTERCEPTOR_TYPE__SERVICE_REFS:
-				return ((InternalEList)getServiceRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getServiceRefs()).basicRemove(otherEnd, msgs);
 			case EjbPackage.INTERCEPTOR_TYPE__RESOURCE_REFS:
-				return ((InternalEList)getResourceRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getResourceRefs()).basicRemove(otherEnd, msgs);
 			case EjbPackage.INTERCEPTOR_TYPE__RESOURCE_ENV_REFS:
-				return ((InternalEList)getResourceEnvRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getResourceEnvRefs()).basicRemove(otherEnd, msgs);
 			case EjbPackage.INTERCEPTOR_TYPE__MESSAGE_DESTINATION_REFS:
-				return ((InternalEList)getMessageDestinationRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getMessageDestinationRefs()).basicRemove(otherEnd, msgs);
 			case EjbPackage.INTERCEPTOR_TYPE__PERSISTENCE_CONTEXT_REFS:
-				return ((InternalEList)getPersistenceContextRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getPersistenceContextRefs()).basicRemove(otherEnd, msgs);
 			case EjbPackage.INTERCEPTOR_TYPE__PERSISTENCE_UNIT_REFS:
-				return ((InternalEList)getPersistenceUnitRefs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getPersistenceUnitRefs()).basicRemove(otherEnd, msgs);
 			case EjbPackage.INTERCEPTOR_TYPE__POST_CONSTRUCTS:
-				return ((InternalEList)getPostConstructs()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getPostConstructs()).basicRemove(otherEnd, msgs);
 			case EjbPackage.INTERCEPTOR_TYPE__PRE_DESTROYS:
-				return ((InternalEList)getPreDestroys()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getPreDestroys()).basicRemove(otherEnd, msgs);
+			case EjbPackage.INTERCEPTOR_TYPE__DATA_SOURCE:
+				return ((InternalEList<?>)getDataSource()).basicRemove(otherEnd, msgs);
 			case EjbPackage.INTERCEPTOR_TYPE__POST_ACTIVATES:
-				return ((InternalEList)getPostActivates()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getPostActivates()).basicRemove(otherEnd, msgs);
 			case EjbPackage.INTERCEPTOR_TYPE__PRE_PASSIVATES:
-				return ((InternalEList)getPrePassivates()).basicRemove(otherEnd, msgs);
+				return ((InternalEList<?>)getPrePassivates()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -561,6 +613,8 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 				return getInterceptorClass();
 			case EjbPackage.INTERCEPTOR_TYPE__AROUND_INVOKES:
 				return getAroundInvokes();
+			case EjbPackage.INTERCEPTOR_TYPE__AROUND_TIMEOUTS:
+				return getAroundTimeouts();
 			case EjbPackage.INTERCEPTOR_TYPE__ENV_ENTRIES:
 				return getEnvEntries();
 			case EjbPackage.INTERCEPTOR_TYPE__EJB_REFS:
@@ -583,6 +637,8 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 				return getPostConstructs();
 			case EjbPackage.INTERCEPTOR_TYPE__PRE_DESTROYS:
 				return getPreDestroys();
+			case EjbPackage.INTERCEPTOR_TYPE__DATA_SOURCE:
+				return getDataSource();
 			case EjbPackage.INTERCEPTOR_TYPE__POST_ACTIVATES:
 				return getPostActivates();
 			case EjbPackage.INTERCEPTOR_TYPE__PRE_PASSIVATES:
@@ -598,71 +654,80 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case EjbPackage.INTERCEPTOR_TYPE__DESCRIPTIONS:
 				getDescriptions().clear();
-				getDescriptions().addAll((Collection)newValue);
+				getDescriptions().addAll((Collection<? extends Description>)newValue);
 				return;
 			case EjbPackage.INTERCEPTOR_TYPE__INTERCEPTOR_CLASS:
 				setInterceptorClass((String)newValue);
 				return;
 			case EjbPackage.INTERCEPTOR_TYPE__AROUND_INVOKES:
 				getAroundInvokes().clear();
-				getAroundInvokes().addAll((Collection)newValue);
+				getAroundInvokes().addAll((Collection<? extends AroundInvokeType>)newValue);
+				return;
+			case EjbPackage.INTERCEPTOR_TYPE__AROUND_TIMEOUTS:
+				getAroundTimeouts().clear();
+				getAroundTimeouts().addAll((Collection<? extends AroundTimeoutType>)newValue);
 				return;
 			case EjbPackage.INTERCEPTOR_TYPE__ENV_ENTRIES:
 				getEnvEntries().clear();
-				getEnvEntries().addAll((Collection)newValue);
+				getEnvEntries().addAll((Collection<? extends EnvEntry>)newValue);
 				return;
 			case EjbPackage.INTERCEPTOR_TYPE__EJB_REFS:
 				getEjbRefs().clear();
-				getEjbRefs().addAll((Collection)newValue);
+				getEjbRefs().addAll((Collection<? extends EjbRef>)newValue);
 				return;
 			case EjbPackage.INTERCEPTOR_TYPE__EJB_LOCAL_REFS:
 				getEjbLocalRefs().clear();
-				getEjbLocalRefs().addAll((Collection)newValue);
+				getEjbLocalRefs().addAll((Collection<? extends EjbLocalRef>)newValue);
 				return;
 			case EjbPackage.INTERCEPTOR_TYPE__SERVICE_REFS:
 				getServiceRefs().clear();
-				getServiceRefs().addAll((Collection)newValue);
+				getServiceRefs().addAll((Collection<? extends ServiceRef>)newValue);
 				return;
 			case EjbPackage.INTERCEPTOR_TYPE__RESOURCE_REFS:
 				getResourceRefs().clear();
-				getResourceRefs().addAll((Collection)newValue);
+				getResourceRefs().addAll((Collection<? extends ResourceRef>)newValue);
 				return;
 			case EjbPackage.INTERCEPTOR_TYPE__RESOURCE_ENV_REFS:
 				getResourceEnvRefs().clear();
-				getResourceEnvRefs().addAll((Collection)newValue);
+				getResourceEnvRefs().addAll((Collection<? extends ResourceEnvRef>)newValue);
 				return;
 			case EjbPackage.INTERCEPTOR_TYPE__MESSAGE_DESTINATION_REFS:
 				getMessageDestinationRefs().clear();
-				getMessageDestinationRefs().addAll((Collection)newValue);
+				getMessageDestinationRefs().addAll((Collection<? extends MessageDestinationRef>)newValue);
 				return;
 			case EjbPackage.INTERCEPTOR_TYPE__PERSISTENCE_CONTEXT_REFS:
 				getPersistenceContextRefs().clear();
-				getPersistenceContextRefs().addAll((Collection)newValue);
+				getPersistenceContextRefs().addAll((Collection<? extends PersistenceContextRef>)newValue);
 				return;
 			case EjbPackage.INTERCEPTOR_TYPE__PERSISTENCE_UNIT_REFS:
 				getPersistenceUnitRefs().clear();
-				getPersistenceUnitRefs().addAll((Collection)newValue);
+				getPersistenceUnitRefs().addAll((Collection<? extends PersistenceUnitRef>)newValue);
 				return;
 			case EjbPackage.INTERCEPTOR_TYPE__POST_CONSTRUCTS:
 				getPostConstructs().clear();
-				getPostConstructs().addAll((Collection)newValue);
+				getPostConstructs().addAll((Collection<? extends LifecycleCallback>)newValue);
 				return;
 			case EjbPackage.INTERCEPTOR_TYPE__PRE_DESTROYS:
 				getPreDestroys().clear();
-				getPreDestroys().addAll((Collection)newValue);
+				getPreDestroys().addAll((Collection<? extends LifecycleCallback>)newValue);
+				return;
+			case EjbPackage.INTERCEPTOR_TYPE__DATA_SOURCE:
+				getDataSource().clear();
+				getDataSource().addAll((Collection<? extends DataSourceType>)newValue);
 				return;
 			case EjbPackage.INTERCEPTOR_TYPE__POST_ACTIVATES:
 				getPostActivates().clear();
-				getPostActivates().addAll((Collection)newValue);
+				getPostActivates().addAll((Collection<? extends LifecycleCallback>)newValue);
 				return;
 			case EjbPackage.INTERCEPTOR_TYPE__PRE_PASSIVATES:
 				getPrePassivates().clear();
-				getPrePassivates().addAll((Collection)newValue);
+				getPrePassivates().addAll((Collection<? extends LifecycleCallback>)newValue);
 				return;
 			case EjbPackage.INTERCEPTOR_TYPE__ID:
 				setId((String)newValue);
@@ -688,6 +753,9 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 			case EjbPackage.INTERCEPTOR_TYPE__AROUND_INVOKES:
 				getAroundInvokes().clear();
 				return;
+			case EjbPackage.INTERCEPTOR_TYPE__AROUND_TIMEOUTS:
+				getAroundTimeouts().clear();
+				return;
 			case EjbPackage.INTERCEPTOR_TYPE__ENV_ENTRIES:
 				getEnvEntries().clear();
 				return;
@@ -720,6 +788,9 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 				return;
 			case EjbPackage.INTERCEPTOR_TYPE__PRE_DESTROYS:
 				getPreDestroys().clear();
+				return;
+			case EjbPackage.INTERCEPTOR_TYPE__DATA_SOURCE:
+				getDataSource().clear();
 				return;
 			case EjbPackage.INTERCEPTOR_TYPE__POST_ACTIVATES:
 				getPostActivates().clear();
@@ -748,6 +819,8 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 				return INTERCEPTOR_CLASS_EDEFAULT == null ? interceptorClass != null : !INTERCEPTOR_CLASS_EDEFAULT.equals(interceptorClass);
 			case EjbPackage.INTERCEPTOR_TYPE__AROUND_INVOKES:
 				return aroundInvokes != null && !aroundInvokes.isEmpty();
+			case EjbPackage.INTERCEPTOR_TYPE__AROUND_TIMEOUTS:
+				return aroundTimeouts != null && !aroundTimeouts.isEmpty();
 			case EjbPackage.INTERCEPTOR_TYPE__ENV_ENTRIES:
 				return envEntries != null && !envEntries.isEmpty();
 			case EjbPackage.INTERCEPTOR_TYPE__EJB_REFS:
@@ -770,6 +843,8 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 				return postConstructs != null && !postConstructs.isEmpty();
 			case EjbPackage.INTERCEPTOR_TYPE__PRE_DESTROYS:
 				return preDestroys != null && !preDestroys.isEmpty();
+			case EjbPackage.INTERCEPTOR_TYPE__DATA_SOURCE:
+				return dataSource != null && !dataSource.isEmpty();
 			case EjbPackage.INTERCEPTOR_TYPE__POST_ACTIVATES:
 				return postActivates != null && !postActivates.isEmpty();
 			case EjbPackage.INTERCEPTOR_TYPE__PRE_PASSIVATES:

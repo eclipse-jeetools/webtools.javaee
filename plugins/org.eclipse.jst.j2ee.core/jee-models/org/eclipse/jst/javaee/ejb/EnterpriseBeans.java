@@ -24,10 +24,11 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The enterprise-beansType declares one or more enterprise
- * 	beans. Each bean can be a session, entity or message-driven
- * 	bean.
- * 
+ *         The enterprise-beansType declares one or more enterprise
+ *         beans. Each bean can be a session, entity or message-driven
+ *         bean.
+ *         
+ *         @since Java EE 5, EJB 3.0
  *       
  * <!-- end-model-doc -->
  *
@@ -75,7 +76,7 @@ public interface EnterpriseBeans extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEnterpriseBeans_SessionBeans()
 	 * @generated
 	 */
-	List getSessionBeans();
+	List<SessionBean> getSessionBeans();
 
 	/**
 	 * Returns the value of the '<em><b>Entity Beans</b></em>' containment reference list.
@@ -90,7 +91,7 @@ public interface EnterpriseBeans extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEnterpriseBeans_EntityBeans()
 	 * @generated
 	 */
-	List getEntityBeans();
+	List<EntityBean> getEntityBeans();
 
 	/**
 	 * Returns the value of the '<em><b>Message Driven Beans</b></em>' containment reference list.
@@ -105,7 +106,7 @@ public interface EnterpriseBeans extends JavaEEObject {
 	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getEnterpriseBeans_MessageDrivenBeans()
 	 * @generated
 	 */
-	List getMessageDrivenBeans();
+	List<MessageDrivenBean> getMessageDrivenBeans();
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.
