@@ -36,18 +36,27 @@ public final class JEEContentDescriber implements IContentDescriber {
 		case JavaEEQuickPeek.APPLICATION_TYPE:
 			switch (quickPeek.getVersion()) {
 			case JavaEEQuickPeek.JEE_5_0_ID:
+			case JavaEEQuickPeek.JEE_6_0_ID:
 				return VALID;
 			}
 			return INVALID;
 		case JavaEEQuickPeek.EJB_TYPE:
 			switch (quickPeek.getVersion()) {
 			case JavaEEQuickPeek.EJB_3_0_ID:
+			case JavaEEQuickPeek.EJB_3_1_ID:
 				return VALID;
 			}
 			return INVALID;
 		case JavaEEQuickPeek.WEB_TYPE:
 			switch (quickPeek.getVersion()) {
 			case JavaEEQuickPeek.WEB_2_5_ID:
+			case JavaEEQuickPeek.WEB_3_0_ID:
+				return VALID;
+			}
+			return INVALID;
+		case JavaEEQuickPeek.CONNECTOR_TYPE:
+			switch (quickPeek.getVersion()) {
+			case JavaEEQuickPeek.JCA_1_6_ID:
 				return VALID;
 			}
 			return INVALID;
