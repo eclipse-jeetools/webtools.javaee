@@ -428,13 +428,12 @@ public class WebProjectCreationOperationTest extends ModuleProjectCreationOperat
     		facetModel.setStringProperty(IWebFacetInstallDataModelProperties.SOURCE_FOLDER, javaSrcDir);
     	}
     	
-    	//this option only exists if JEE5
-    	if(version == JavaEEFacetConstants.WEB_25){
+    	
     		facetModel.setBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD, createDD);
     		
             IDataModel javaFacetModel = facetMap.getFacetDataModel(IJ2EEFacetConstants.JAVA);
             javaFacetModel.setProperty(IFacetDataModelProperties.FACET_VERSION, JavaEEFacetConstants.JAVA_5);
-    	}
+    	
     	
     	return dm;
     }

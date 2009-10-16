@@ -214,10 +214,9 @@ public class EARProjectCreationOperationTest extends JEEProjectCreationOperation
 			facetModel.setProperty(IEarFacetInstallDataModelProperties.JAVA_PROJECT_LIST, dependenciesJava);
 		}
 		
-        //this option only exists if JEE5
-        if(version == JavaEEFacetConstants.EAR_5){
-            facetModel.setBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD, createDD);
-        }
+        
+        facetModel.setBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD, createDD);
+        
 		
     	return dm;
     }

@@ -70,16 +70,16 @@ import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.common.tests.SimpleTestSuite;
 import org.eclipse.wtp.j2ee.headless.tests.web.operations.WebProjectCreationOperationTest;
 
-public class JEE5ModelTest extends GeneralEMFPopulationTest {
+public class JEE6ModelTest extends GeneralEMFPopulationTest {
 	
 	private static final String PROJECTNAME = "TestNewModels";
-	public JEE5ModelTest(String name) {
+	public JEE6ModelTest(String name) {
 		super(name);
 	}
 	
 	
     public static Test suite() {
-        return new SimpleTestSuite(JEE5ModelTest.class);
+        return new SimpleTestSuite(JEE6ModelTest.class);
     }
     /**
 	 * @param eObject
@@ -192,7 +192,7 @@ public class JEE5ModelTest extends GeneralEMFPopulationTest {
 //	}
 public void testEJBModel() throws Exception {
 		
-	String projName = "TestEE5EjbProject";//$NON-NLS-1$
+	String projName = "TestEE6EjbProject";//$NON-NLS-1$
 	createEjbProject(projName);
 	
 	EMFAttributeFeatureGenerator.reset();
@@ -223,7 +223,7 @@ public void testEJBModel() throws Exception {
 }
 public void testAppClientModel() throws Exception {
 	
-	String projName = "TestEE5AppClientProject";//$NON-NLS-1$
+	String projName = "TestEE6AppClientProject";//$NON-NLS-1$
 	createAppClientProject(projName);
 	
 	EMFAttributeFeatureGenerator.reset();
@@ -243,7 +243,7 @@ public void testAppClientModel() throws Exception {
 }
 public void testEarModel() throws Exception {
 	
-	String projName = "TestEE5EarProject";//$NON-NLS-1$
+	String projName = "TestEE6EarProject";//$NON-NLS-1$
 	createEarProject(projName);
 	
 	EMFAttributeFeatureGenerator.reset();
@@ -263,7 +263,7 @@ public void testEarModel() throws Exception {
 }
 public void testWarModel() throws Exception {
 	
-	String projName = "TestEE5WarProject";//$NON-NLS-1$
+	String projName = "TestEE6WarProject";//$NON-NLS-1$
 	createWebProject(projName);
 	
 	EMFAttributeFeatureGenerator.reset();
@@ -290,7 +290,7 @@ public void testWarModel() throws Exception {
 
 	private IProject createWebProject(String projName) throws ExecutionException {
 		
-			String webVersionString = J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.WEB_2_5_ID);
+			String webVersionString = J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.WEB_3_0_ID);
 			IProjectFacet webFacet = ProjectFacetsManager.getProjectFacet(IWebFacetInstallDataModelProperties.DYNAMIC_WEB);
 			IProjectFacetVersion webFacetVersion = webFacet.getVersion(webVersionString);
 			IDataModel dataModel = WebProjectCreationOperationTest.getWebDataModel(projName, null, null, null, null,
@@ -302,7 +302,7 @@ public void testWarModel() throws Exception {
 	}
 	private IProject createEjbProject(String projName) throws ExecutionException {
 		IDataModel dataModel = DataModelFactory.createDataModel(IEjbFacetInstallDataModelProperties.class);
-		String versionString = J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.EJB_3_0_ID);
+		String versionString = J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.EJB_3_1_ID);
 		IProjectFacet facet = ProjectFacetsManager.getProjectFacet(IEjbFacetInstallDataModelProperties.EJB);
 		IProjectFacetVersion facetVersion = facet.getVersion(versionString); //$NON-NLS-1$
 		addVersionProperties(dataModel, projName, facetVersion,IJ2EEFacetInstallDataModelProperties.EJB);
@@ -316,7 +316,7 @@ public void testWarModel() throws Exception {
 	}
 	private IProject createEarProject(String projName) throws ExecutionException {
 		IDataModel dataModel = DataModelFactory.createDataModel(IEarFacetInstallDataModelProperties.class);
-		String versionString = J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.JEE_5_0_ID);
+		String versionString = J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.JEE_6_0_ID);
 		IProjectFacet facet = ProjectFacetsManager.getProjectFacet(IEarFacetInstallDataModelProperties.ENTERPRISE_APPLICATION);
 		IProjectFacetVersion facetVersion = facet.getVersion(versionString); //$NON-NLS-1$
 		addVersionProperties(dataModel, projName, facetVersion,IJ2EEFacetInstallDataModelProperties.ENTERPRISE_APPLICATION);
@@ -327,7 +327,7 @@ public void testWarModel() throws Exception {
 	}
 	private IProject createAppClientProject(String projName) throws ExecutionException {
 		IDataModel dataModel = DataModelFactory.createDataModel(IAppClientFacetInstallDataModelProperties.class);
-		String versionString = J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.JEE_5_0_ID);
+		String versionString = J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.JEE_6_0_ID);
 		IProjectFacet facet = ProjectFacetsManager.getProjectFacet(IAppClientFacetInstallDataModelProperties.APPLICATION_CLIENT);
 		IProjectFacetVersion facetVersion = facet.getVersion(versionString); //$NON-NLS-1$
 		addVersionProperties(dataModel, projName, facetVersion,IJ2EEFacetInstallDataModelProperties.APPLICATION_CLIENT);
@@ -342,7 +342,7 @@ public void testWarModel() throws Exception {
 	protected IDataModel setupJavaInstallAction(String aProjectName, String srcFolder) {
 		IDataModel dm = DataModelFactory.createDataModel(new JavaFacetInstallDataModelProvider());
 		dm.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, aProjectName);
-		String jVersion = "5.0";
+		String jVersion = "6.0";
 		dm.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, jVersion); //$NON-NLS-1$
 		dm.setStringProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME, srcFolder); //$NON-NLS-1$
 		return dm;

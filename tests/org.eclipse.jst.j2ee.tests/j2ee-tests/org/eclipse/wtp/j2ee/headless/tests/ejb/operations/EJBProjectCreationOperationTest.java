@@ -239,13 +239,11 @@ public class EJBProjectCreationOperationTest extends ModuleProjectCreationOperat
     		dm.setProperty(IJ2EEFacetProjectCreationDataModelProperties.ADD_TO_EAR, false);
     	}
     	
-        //this option only exists if JEE5
-        if(version == JavaEEFacetConstants.EJB_3){
             facetModel.setBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD, createDD);
             
             IDataModel javaFacetModel = facetMap.getFacetDataModel(IJ2EEFacetConstants.JAVA);
             javaFacetModel.setProperty(IFacetDataModelProperties.FACET_VERSION, JavaEEFacetConstants.JAVA_5);
-        }
+        
         
     	return dm;
 	}

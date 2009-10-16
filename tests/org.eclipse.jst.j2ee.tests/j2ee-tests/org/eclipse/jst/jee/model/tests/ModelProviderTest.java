@@ -86,10 +86,7 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 
 	public static Test suite() {
 		SimpleTestSuite suite = new SimpleTestSuite(ModelProviderTest.class);
-		suite.addTestSuite(ModelProviderTest.class);
-		suite.addTestSuite(ModelProviderTest.class);
-		suite.addTestSuite(ModelProviderTest.class);
-		suite.addTestSuite(ModelProviderTest.class);
+		
 		return suite;
 	}
 
@@ -154,6 +151,35 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 
 		String projName = "TestEE5EarProject";//$NON-NLS-1$
 		IProject earProj = createEarProject(projName, J2EEVersionConstants.JEE_5_0_ID, true);
+
+		final IModelProvider provider = ModelProviderManager.getModelProvider(earProj);
+
+		provider.modify(new Runnable() {
+			public void run() {
+				Application ear = (Application) provider.getModelObject();
+				Description desc = JavaeeFactory.eINSTANCE.createDescription();
+				desc.setValue(descText);
+				ear.getDescriptions().add(desc);
+			}
+		}, null);
+
+		// Close project to force flush
+		earProj.close(new NullProgressMonitor());
+		// Re-open project
+		earProj.open(new NullProgressMonitor());
+
+		IModelProvider newProvider = ModelProviderManager.getModelProvider(earProj);
+		Application sameEar = (Application) newProvider.getModelObject();
+		Assert.assertNotNull("Application Model Object should not be null", sameEar);
+
+		Description desc = (Description) sameEar.getDescriptions().get(0);
+		Assert.assertEquals(descText, desc.getValue());
+
+	}
+	public void testUseEar6Model() throws Exception {
+
+		String projName = "TestEE6EarProject";//$NON-NLS-1$
+		IProject earProj = createEarProject(projName, J2EEVersionConstants.JEE_6_0_ID, true);
 
 		final IModelProvider provider = ModelProviderManager.getModelProvider(earProj);
 
@@ -271,6 +297,33 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 		Assert.assertEquals(descText, desc.getValue());
 
 	}
+	public void testUseWeb30Model() throws Exception {
+
+		String projName = "TestEE6WebProject";//$NON-NLS-1$
+		IProject webProj = createWebProject(projName, J2EEVersionConstants.WEB_3_0_ID, true);
+
+		final IModelProvider provider = ModelProviderManager.getModelProvider(webProj);
+
+		provider.modify(new Runnable() {
+			public void run() {
+				WebApp webApp = (WebApp) provider.getModelObject();
+				Description desc = JavaeeFactory.eINSTANCE.createDescription();
+				desc.setValue(descText);
+				webApp.getDescriptions().add(desc);
+			}
+		}, null);
+
+		// Close project to force flush
+		webProj.close(new NullProgressMonitor());
+		// Re-open project
+		webProj.open(new NullProgressMonitor());
+
+		IModelProvider newProvider = ModelProviderManager.getModelProvider(webProj);
+		WebApp sameWebApp = (WebApp) newProvider.getModelObject();
+		Description desc = (Description) sameWebApp.getDescriptions().get(0);
+		Assert.assertEquals(descText, desc.getValue());
+
+	}
 
 	public void testUseWeb25NoDDModel() throws Exception {
 		String projName = "TestEE5WebProject";//$NON-NLS-1$
@@ -336,6 +389,35 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 
 		String projName = "TestEE5EjbProject";//$NON-NLS-1$
 		IProject ejbProj = createEjbProject(projName, J2EEVersionConstants.EJB_3_0_ID, true);
+
+		final IModelProvider provider = ModelProviderManager.getModelProvider(ejbProj);
+
+		provider.modify(new Runnable() {
+			public void run() {
+				EJBJar ejbJar = (EJBJar) provider.getModelObject();
+				Description desc = JavaeeFactory.eINSTANCE.createDescription();
+				desc.setValue(descText);
+				ejbJar.getDescriptions().add(desc);
+			}
+		}, null);
+
+		// Close project to force flush
+		ejbProj.close(new NullProgressMonitor());
+		// Re-open project
+		ejbProj.open(new NullProgressMonitor());
+
+		IModelProvider newProvider = ModelProviderManager.getModelProvider(ejbProj);
+		EJBJar sameEjbJar = (EJBJar) newProvider.getModelObject();
+		Assert.assertNotNull("EJBJar Model Object should not be null", sameEjbJar);
+
+		Description desc = findDescritprion(sameEjbJar.getDescriptions(), descText);
+		Assert.assertNotNull(desc);
+
+	}
+	public void testUseEjb31Model() throws Exception {
+
+		String projName = "TestEE6EjbProject";//$NON-NLS-1$
+		IProject ejbProj = createEjbProject(projName, J2EEVersionConstants.EJB_3_1_ID, true);
 
 		final IModelProvider provider = ModelProviderManager.getModelProvider(ejbProj);
 
@@ -462,6 +544,37 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 
 		String projName = "TestEE5AppClientProject";//$NON-NLS-1$
 		IProject appClientProj = createAppClientProject(projName, J2EEVersionConstants.JEE_5_0_ID, true);
+		final IModelProvider provider = ModelProviderManager.getModelProvider(appClientProj);
+
+		// Test getting model through path api.
+		org.eclipse.jst.javaee.applicationclient.ApplicationClient client = (org.eclipse.jst.javaee.applicationclient.ApplicationClient) provider
+				.getModelObject(new Path(J2EEConstants.APP_CLIENT_DD_URI));
+
+		provider.modify(new Runnable() {
+			public void run() {
+				org.eclipse.jst.javaee.applicationclient.ApplicationClient client = (org.eclipse.jst.javaee.applicationclient.ApplicationClient) provider
+						.getModelObject();
+				Description desc = JavaeeFactory.eINSTANCE.createDescription();
+				desc.setValue(descText);
+				client.getDescriptions().add(desc);
+			}
+		}, null);
+
+		// Close project to force flush
+		appClientProj.close(new NullProgressMonitor());
+		// Re-open project
+		appClientProj.open(new NullProgressMonitor());
+
+		IModelProvider newProvider = ModelProviderManager.getModelProvider(appClientProj);
+		org.eclipse.jst.javaee.applicationclient.ApplicationClient sameClient = (org.eclipse.jst.javaee.applicationclient.ApplicationClient) newProvider
+				.getModelObject();
+		Description desc = (Description) sameClient.getDescriptions().get(0);
+		Assert.assertEquals(descText, desc.getValue());
+	}
+	public void testUseAppClient6Model() throws Exception {
+
+		String projName = "TestEE6AppClientProject";//$NON-NLS-1$
+		IProject appClientProj = createAppClientProject(projName, J2EEVersionConstants.JEE_6_0_ID, true);
 		final IModelProvider provider = ModelProviderManager.getModelProvider(appClientProj);
 
 		// Test getting model through path api.

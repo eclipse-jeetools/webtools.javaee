@@ -25,6 +25,8 @@ import org.eclipse.jst.j2ee.defect.tests.DefectVerificationTestsSuite;
 import org.eclipse.jst.j2ee.flexible.project.fvtests.ProjectMigrationTest;
 import org.eclipse.jst.jee.model.mergers.tests.MergersTestSuite;
 import org.eclipse.jst.jee.model.tests.AllAnnotationModelTests;
+import org.eclipse.jst.jee.model.tests.JEE5ModelTest;
+import org.eclipse.jst.jee.model.tests.JEE6ModelTest;
 import org.eclipse.jst.jee.model.tests.ModelProviderTest;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.IRuntimeType;
@@ -57,6 +59,8 @@ public class AllPluginTests extends TestSuite {
 	      addTest(org.eclipse.wtp.j2ee.headless.tests.utility.operations.AllTests.suite());
 	      addTest(org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.SourceFolderUpdateTest.suite());
 	      addTest(org.eclipse.jst.j2ee.tests.modulecore.AllTests.suite());
+	      addTest(JEE5ModelTest.suite());
+	      addTest(JEE6ModelTest.suite());
 	      // model provider
 		  addTest(ModelProviderTest.suite());
 	      addTest(ProjectMigrationTest.suite());

@@ -199,13 +199,11 @@ public class AppClientProjectCreationOperationTest extends ModuleProjectCreation
         facetModel.setProperty(IFacetDataModelProperties.FACET_VERSION, version);
         facetModel.setProperty(IAppClientFacetInstallDataModelProperties.CREATE_DEFAULT_MAIN_CLASS, createDefaultMainClass);
         
-        //this option only exists if JEE5
-        if(version == JavaEEFacetConstants.APP_CLIENT_5){
-            facetModel.setBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD, createDD);
+        
+        facetModel.setBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD, createDD);
             
-            IDataModel javaFacetModel = facetMap.getFacetDataModel(IJ2EEFacetConstants.JAVA);
-            javaFacetModel.setProperty(IFacetDataModelProperties.FACET_VERSION, JavaEEFacetConstants.JAVA_5);
-        }
+        IDataModel javaFacetModel = facetMap.getFacetDataModel(IJ2EEFacetConstants.JAVA);
+        javaFacetModel.setProperty(IFacetDataModelProperties.FACET_VERSION, JavaEEFacetConstants.JAVA_5);
         
     	return dm;
     }

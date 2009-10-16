@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.archive.testutilities;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +25,7 @@ import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
 import org.eclipse.jem.java.internal.impl.JavaClassImpl;
 import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
@@ -129,6 +131,8 @@ public class EMFAttributeFeatureGenerator {
 			return createCollection(att);
 		else if (meta.getInstanceClassName().equals("java.lang.String"))
 			return  generateRandomAttributeString(att);
+		else if (meta.getInstanceClassName().equals("java.math.BigInteger"))
+			return  generateRandomBigInteger(att);
 		else if (meta.getInstanceClassName().equals("boolean"))
 			return  generateRandomBoolean(att);
 		else if (meta.getInstanceClassName().equals("java.util.List"))
@@ -145,6 +149,8 @@ public class EMFAttributeFeatureGenerator {
 			case EcorePackage.EINTEGER_OBJECT:
 			case EcorePackage.EINT:
 				return generateRandomInteger(att);
+			case EcorePackage.EBIG_INTEGER:
+				return generateRandomBigInteger(att);
 			case EcorePackage.EFLOAT_OBJECT:
 			case EcorePackage.EFLOAT:
 				return generateRandomFloat(att);
@@ -153,6 +159,7 @@ public class EMFAttributeFeatureGenerator {
 				return generateRandomChar(att);
 			case EcorePackage.ELONG_OBJECT:
 			case EcorePackage.ELONG:
+			case XMLTypePackage.LONG:
 				return generateRandomLong();
 			case EcorePackage.EBYTE_OBJECT:
 			case EcorePackage.EBYTE:
@@ -405,6 +412,10 @@ public class EMFAttributeFeatureGenerator {
 
     protected static Object generateRandomInteger(EAttributeDescriptor att) {
     	return new Integer(generateNumber(att));
+    }
+    
+    protected static Object generateRandomBigInteger(EAttributeDescriptor att) {
+    	return new BigInteger(new Long(generateNumber(att)).toString());
     }
     
     protected static char [] intToCharMapping = new char [] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j' };
