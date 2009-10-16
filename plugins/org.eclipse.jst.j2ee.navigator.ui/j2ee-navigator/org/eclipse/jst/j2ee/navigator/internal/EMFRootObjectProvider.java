@@ -45,23 +45,26 @@ public class EMFRootObjectProvider implements  IResourceChangeListener, IResourc
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(this);
 	}
 	
-	public synchronized Object[] getModels(IProject project){
+	public Object[] getModels(IProject project){
 		try {
-		EMFModelManager modelManager = (EMFModelManager) emfModelCache.get(project);
-		if (modelManager == null) {
+			EMFModelManager modelManager = null;
 			synchronized (emfModelCache) {
-				modelManager= EMFModelManagerFactory.createEMFModelManager(project,this) ;
-				emfModelCache.put(project,modelManager);
+				modelManager = (EMFModelManager) emfModelCache.get(project);
+				if (modelManager == null) {
+					modelManager= EMFModelManagerFactory.createEMFModelManager(project,this) ;
+					emfModelCache.put(project,modelManager);
+				}
 			}
-		}
 		return modelManager.getModels();
 		} catch (Exception ex) {
 			return null;
 		}
 	}
 	
-	public synchronized boolean hasLoadedModels(IProject project) {
-		return emfModelCache.get(project) != null;
+	public boolean hasLoadedModels(IProject project) {
+		synchronized (emfModelCache) {
+			return emfModelCache.get(project) != null;
+		}
 	}
 
 	/* (non-Javadoc)
