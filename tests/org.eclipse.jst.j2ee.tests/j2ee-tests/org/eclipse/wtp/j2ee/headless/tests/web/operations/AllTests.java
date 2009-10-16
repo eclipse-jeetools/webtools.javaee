@@ -49,7 +49,7 @@ public class AllTests extends TestSuite {
        addTest(WebProjectCreationOperationTest.suite());
        
        addTest(WebDeployTest.suite());
-       //addTest(StaticWebProjectCreationOperationTest.suite());
+       addTest(StaticWebProjectCreationOperationTest.suite());
        addTest(AddWebArtifactOperationTest.suite());
        addTest(UrlPatternTest.suite());
        // addTest(WebComponentCreationTest.suite());

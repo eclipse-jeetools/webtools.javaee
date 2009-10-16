@@ -16,6 +16,7 @@ import junit.framework.TestSuite;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.tests.OperationTestCase;
 import org.eclipse.wst.project.facet.SimpleWebFacetProjectCreationDataModelProvider;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleProjectCreationOperationTest;
 
@@ -29,20 +30,17 @@ public class StaticWebProjectCreationOperationTest extends ModuleProjectCreation
         return new TestSuite(StaticWebProjectCreationOperationTest.class);
     }
 
-    /* (non-Javadoc)
-     * @see org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleProjectCreationOperationTest#getProjectCreationDataModel()
-     */
-    public IDataModel getComponentCreationDataModel() {
-        return DataModelFactory.createDataModel(new SimpleWebFacetProjectCreationDataModelProvider());
+	public static IDataModel getStaticWebDataModel(String projName, String earName){
+    	IDataModel model = DataModelFactory.createDataModel(new SimpleWebFacetProjectCreationDataModelProvider());
+    	
+    	model.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, projName);
+    	
+    	return model;
     }
     
-    public void createSimpleModule(String componentName) throws Exception {
-        IDataModel dataModel = getComponentCreationDataModel();
-        dataModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, componentName);
-       runAndVerify(dataModel,false,true);
-    }
-    
-    public IDataModel getComponentCreationDataModelWithEar() {
-    	return null;
-    } 
+
+	public void testStatic_Defaults() throws Exception{
+		IDataModel dm = getStaticWebDataModel("aStaticWeb",null);
+		OperationTestCase.runAndVerify(dm);
+	} 
 }
