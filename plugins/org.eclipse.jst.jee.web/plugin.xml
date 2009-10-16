@@ -7,7 +7,7 @@
 
         	<modelProvider factoryClass="org.eclipse.jst.jee.model.internal.Web25MergedModelProviderFactory"/>
         	<!--<modelProvider factoryClass="org.eclipse.jst.jee.model.internal.Web25ModelProviderFactory"/>-->
-      		<facet id="jst.web" versions="2.5"/>
+      		<facet id="jst.web" versions="2.5,3.0"/>
       	</provider>
    </extension>
  </plugin>
