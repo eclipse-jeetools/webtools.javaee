@@ -1,28 +1,18 @@
-/**
- * <copyright>
- * </copyright>
+/*******************************************************************************
+ * Copyright (c) 2009 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  *
- * $Id: JcaFactory.java,v 1.1 2009/10/15 18:52:16 canderson Exp $
- */
-package org.eclipse.jst.javaee.jca.internal.metadata;
+ * Contributors:
+ * IBM Corporation - initial API and implementation
+ *******************************************************************************/
+package org.eclipse.jst.javaee.jca;
 
 import org.eclipse.emf.ecore.EFactory;
 
-import org.eclipse.jst.javaee.jca.ActivationSpec;
-import org.eclipse.jst.javaee.jca.AdminObject;
-import org.eclipse.jst.javaee.jca.AuthenticationMechanism;
-import org.eclipse.jst.javaee.jca.ConfigProperty;
-import org.eclipse.jst.javaee.jca.ConnectionDefinition;
-import org.eclipse.jst.javaee.jca.Connector;
-import org.eclipse.jst.javaee.jca.ConnectorDeploymentDescriptor;
-import org.eclipse.jst.javaee.jca.InboundResourceAdapter;
-import org.eclipse.jst.javaee.jca.License;
-import org.eclipse.jst.javaee.jca.MessageAdapter;
-import org.eclipse.jst.javaee.jca.MessageListener;
-import org.eclipse.jst.javaee.jca.OutboundResourceAdapter;
-import org.eclipse.jst.javaee.jca.RequiredConfigProperty;
-import org.eclipse.jst.javaee.jca.ResourceAdapter;
-import org.eclipse.jst.javaee.jca.SecurityPermission;
+import org.eclipse.jst.javaee.jca.internal.metadata.JcaPackage;
 
 /**
  * <!-- begin-user-doc -->

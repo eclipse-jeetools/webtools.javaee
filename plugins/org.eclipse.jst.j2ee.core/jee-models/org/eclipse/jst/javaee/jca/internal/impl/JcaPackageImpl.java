@@ -1,9 +1,13 @@
-/**
- * <copyright>
- * </copyright>
+/*******************************************************************************
+ * Copyright (c) 2009 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  *
- * $Id: JcaPackageImpl.java,v 1.1 2009/10/15 18:52:02 canderson Exp $
- */
+ * Contributors:
+ * IBM Corporation - initial API and implementation
+ *******************************************************************************/
 package org.eclipse.jst.javaee.jca.internal.impl;
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -45,6 +49,7 @@ import org.eclipse.jst.javaee.jca.Connector;
 import org.eclipse.jst.javaee.jca.ConnectorDeploymentDescriptor;
 import org.eclipse.jst.javaee.jca.CredentialInterfaceType;
 import org.eclipse.jst.javaee.jca.InboundResourceAdapter;
+import org.eclipse.jst.javaee.jca.JcaFactory;
 import org.eclipse.jst.javaee.jca.License;
 import org.eclipse.jst.javaee.jca.MessageAdapter;
 import org.eclipse.jst.javaee.jca.MessageListener;
@@ -54,7 +59,6 @@ import org.eclipse.jst.javaee.jca.ResourceAdapter;
 import org.eclipse.jst.javaee.jca.SecurityPermission;
 import org.eclipse.jst.javaee.jca.TransactionSupportType;
 
-import org.eclipse.jst.javaee.jca.internal.metadata.JcaFactory;
 import org.eclipse.jst.javaee.jca.internal.metadata.JcaPackage;
 
 import org.eclipse.jst.javaee.jsp.internal.impl.JspPackageImpl;

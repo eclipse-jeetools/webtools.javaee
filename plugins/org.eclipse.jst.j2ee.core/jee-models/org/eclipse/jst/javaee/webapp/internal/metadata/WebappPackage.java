@@ -1,15 +1,20 @@
-/**
- * <copyright>
- * </copyright>
+/*******************************************************************************
+ * Copyright (c) 2009 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  *
- * $Id: WebappPackage.java,v 1.1 2009/10/15 18:52:19 canderson Exp $
- */
+ * Contributors:
+ * IBM Corporation - initial API and implementation
+ *******************************************************************************/
 package org.eclipse.jst.javaee.webapp.internal.metadata;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.jst.javaee.webapp.WebappFactory;
 
 /**
  * <!-- begin-user-doc -->
@@ -25,7 +30,7 @@ import org.eclipse.emf.ecore.EReference;
  * <!-- begin-model-doc -->
  * 
  * 
- *       $Id: WebappPackage.java,v 1.1 2009/10/15 18:52:19 canderson Exp $
+ *       $Id: WebappPackage.java,v 1.2 2009/10/16 03:33:22 canderson Exp $
  *       
  *     
  * 
@@ -73,7 +78,7 @@ import org.eclipse.emf.ecore.EReference;
  *     
  * 
  * 
- *       $Id: WebappPackage.java,v 1.1 2009/10/15 18:52:19 canderson Exp $
+ *       $Id: WebappPackage.java,v 1.2 2009/10/16 03:33:22 canderson Exp $
  *       
  *     
  * 
@@ -121,7 +126,7 @@ import org.eclipse.emf.ecore.EReference;
  *     
  * 
  * 
- *       $Id: WebappPackage.java,v 1.1 2009/10/15 18:52:19 canderson Exp $
+ *       $Id: WebappPackage.java,v 1.2 2009/10/16 03:33:22 canderson Exp $
  *       
  *     
  * 
@@ -146,7 +151,7 @@ import org.eclipse.emf.ecore.EReference;
  *     
  * 
  * 
- *       $Id: WebappPackage.java,v 1.1 2009/10/15 18:52:19 canderson Exp $
+ *       $Id: WebappPackage.java,v 1.2 2009/10/16 03:33:22 canderson Exp $
  *       
  *     
  * 
@@ -374,7 +379,7 @@ import org.eclipse.emf.ecore.EReference;
  * 
  *     
  * <!-- end-model-doc -->
- * @see org.eclipse.jst.javaee.webapp.internal.metadata.WebappFactory
+ * @see org.eclipse.jst.javaee.webapp.WebappFactory
  * @generated
  */
 public interface WebappPackage extends EPackage {

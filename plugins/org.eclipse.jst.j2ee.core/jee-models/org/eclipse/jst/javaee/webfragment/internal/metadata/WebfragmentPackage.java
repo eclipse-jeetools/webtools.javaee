@@ -1,15 +1,20 @@
-/**
- * <copyright>
- * </copyright>
+/*******************************************************************************
+ * Copyright (c) 2009 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  *
- * $Id: WebfragmentPackage.java,v 1.1 2009/10/15 18:52:20 canderson Exp $
- */
+ * Contributors:
+ * IBM Corporation - initial API and implementation
+ *******************************************************************************/
 package org.eclipse.jst.javaee.webfragment.internal.metadata;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.jst.javaee.webfragment.WebfragmentFactory;
 
 /**
  * <!-- begin-user-doc -->
@@ -72,7 +77,7 @@ import org.eclipse.emf.ecore.EReference;
  *     
  * 
  * 
- *       $Id: WebfragmentPackage.java,v 1.1 2009/10/15 18:52:20 canderson Exp $
+ *       $Id: WebfragmentPackage.java,v 1.2 2009/10/16 03:33:22 canderson Exp $
  *       
  *     
  * 
@@ -120,7 +125,7 @@ import org.eclipse.emf.ecore.EReference;
  *     
  * 
  * 
- *       $Id: WebfragmentPackage.java,v 1.1 2009/10/15 18:52:20 canderson Exp $
+ *       $Id: WebfragmentPackage.java,v 1.2 2009/10/16 03:33:22 canderson Exp $
  *       
  *     
  * 
@@ -145,7 +150,7 @@ import org.eclipse.emf.ecore.EReference;
  *     
  * 
  * 
- *       $Id: WebfragmentPackage.java,v 1.1 2009/10/15 18:52:20 canderson Exp $
+ *       $Id: WebfragmentPackage.java,v 1.2 2009/10/16 03:33:22 canderson Exp $
  *       
  *     
  * 
@@ -373,7 +378,7 @@ import org.eclipse.emf.ecore.EReference;
  * 
  *     
  * <!-- end-model-doc -->
- * @see org.eclipse.jst.javaee.webfragment.internal.metadata.WebfragmentFactory
+ * @see org.eclipse.jst.javaee.webfragment.WebfragmentFactory
  * @generated
  */
 public interface WebfragmentPackage extends EPackage {

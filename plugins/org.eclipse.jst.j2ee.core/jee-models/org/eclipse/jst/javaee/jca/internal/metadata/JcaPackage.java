@@ -1,9 +1,13 @@
-/**
- * <copyright>
- * </copyright>
+/*******************************************************************************
+ * Copyright (c) 2009 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  *
- * $Id: JcaPackage.java,v 1.1 2009/10/15 18:52:16 canderson Exp $
- */
+ * Contributors:
+ * IBM Corporation - initial API and implementation
+ *******************************************************************************/
 package org.eclipse.jst.javaee.jca.internal.metadata;
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -12,6 +16,7 @@ import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.jst.javaee.jca.JcaFactory;
 
 /**
  * <!-- begin-user-doc -->
@@ -27,7 +32,7 @@ import org.eclipse.emf.ecore.EReference;
  * <!-- begin-model-doc -->
  * 
  * 
- *       $Id: JcaPackage.java,v 1.1 2009/10/15 18:52:16 canderson Exp $
+ *       $Id: JcaPackage.java,v 1.2 2009/10/16 03:33:22 canderson Exp $
  *       
  *     
  * 
@@ -76,7 +81,7 @@ import org.eclipse.emf.ecore.EReference;
  *     
  * 
  * 
- *       $Id: JcaPackage.java,v 1.1 2009/10/15 18:52:16 canderson Exp $
+ *       $Id: JcaPackage.java,v 1.2 2009/10/16 03:33:22 canderson Exp $
  *       
  *     
  * 
@@ -101,7 +106,7 @@ import org.eclipse.emf.ecore.EReference;
  *     
  * 
  * 
- *       $Id: JcaPackage.java,v 1.1 2009/10/15 18:52:16 canderson Exp $
+ *       $Id: JcaPackage.java,v 1.2 2009/10/16 03:33:22 canderson Exp $
  *       
  *     
  * 
@@ -266,7 +271,7 @@ import org.eclipse.emf.ecore.EReference;
  *    </div>
  *   
  * <!-- end-model-doc -->
- * @see org.eclipse.jst.javaee.jca.internal.metadata.JcaFactory
+ * @see org.eclipse.jst.javaee.jca.JcaFactory
  * @generated
  */
 public interface JcaPackage extends EPackage {
