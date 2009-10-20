@@ -225,7 +225,7 @@ public class J2EEElementChangedListener implements IElementChangedListener {
 							}
 							// getting a kind = REMOVED and flags = 0 for removal of the folder (w/o removing the CPE), probably
 							// should not be generated
-						} else if ((flags & IJavaElementDelta.F_REMOVED_FROM_CLASSPATH) == IJavaElementDelta.F_REMOVED_FROM_CLASSPATH) {
+						} else if (kind == IJavaElementDelta.REMOVED || (flags & IJavaElementDelta.F_REMOVED_FROM_CLASSPATH) == IJavaElementDelta.F_REMOVED_FROM_CLASSPATH) {
 							IPath path = root.getPath().removeFirstSegments(1);
 							pathsToRemove.add(new Object[]{path, defaultDestFolder});
 						} 
