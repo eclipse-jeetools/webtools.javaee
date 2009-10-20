@@ -104,7 +104,7 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		//TODO: Remove this line after ws xsd's are restored.
+		
 		RendererFactory.getDefaultRendererFactory().setValidating(false);
 		final IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		if (workspace.getRoot().getProject(PROJECTNAME).isAccessible())

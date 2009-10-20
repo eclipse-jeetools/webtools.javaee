@@ -64,6 +64,7 @@ import org.eclipse.wst.common.componentcore.internal.impl.WTPResourceFactoryRegi
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.IHeadlessRunnableWithProgress;
+import org.eclipse.wst.common.internal.emf.resource.RendererFactory;
 import org.eclipse.wst.common.project.facet.core.IProjectFacet;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
@@ -96,6 +97,7 @@ public class JEE6ModelTest extends GeneralEMFPopulationTest {
 	protected void setUp() throws Exception {
 		super.setUp();
 		final IWorkspace workspace = ResourcesPlugin.getWorkspace();
+		RendererFactory.getDefaultRendererFactory().setValidating(false);
 		if(workspace.getRoot().getProject(PROJECTNAME).isAccessible()) return;
         final IProjectDescription description = workspace
                 .newProjectDescription(PROJECTNAME);
