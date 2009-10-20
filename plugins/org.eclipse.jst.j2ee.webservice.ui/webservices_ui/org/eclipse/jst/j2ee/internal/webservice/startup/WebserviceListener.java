@@ -80,7 +80,8 @@ public class WebserviceListener implements IStartup, IResourceChangeListener, IR
 			INSTANCE = this;
 			startListening();
 		} else {
-			org.eclipse.jst.j2ee.internal.webservice.WebServiceViewerSynchronization.setAreThereWebServices(false);
+			//Change to no-op
+			//org.eclipse.jst.j2ee.internal.webservice.WebServiceViewerSynchronization.setAreThereWebServices(false);
 		}
 	}
 
