@@ -66,6 +66,7 @@ import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModel
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.IHeadlessRunnableWithProgress;
+import org.eclipse.wst.common.internal.emf.resource.RendererFactory;
 import org.eclipse.wst.common.project.facet.core.IProjectFacet;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
@@ -103,6 +104,8 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 
 	protected void setUp() throws Exception {
 		super.setUp();
+		//TODO: Remove this line after ws xsd's are restored.
+		RendererFactory.getDefaultRendererFactory().setValidating(false);
 		final IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		if (workspace.getRoot().getProject(PROJECTNAME).isAccessible())
 			return;
