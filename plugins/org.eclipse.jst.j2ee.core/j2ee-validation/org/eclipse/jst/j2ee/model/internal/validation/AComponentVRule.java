@@ -81,7 +81,7 @@ public abstract class AComponentVRule extends AInterfaceTypeVRule {
 			// IWAD4354 = {0} must exist on {1}. Read section 12.2.10 of the EJB 2.0 specification.
 			// IWAD4211 = {0} must exist on {1}. Read section 10.6.9 of the EJB 2.0 specification.
 			// IWAD4227 = {0} must exist on {1}. Read section 10.6.11 of the EJB 2.0 specification.
-			IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2023, IEJBValidationContext.WARNING, bean, clazz, method, new String[]{method.getMethodElementSignature(), bean.getEjbClass().getJavaName()}, this);
+			IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2023, IEJBValidationContext.ERROR, bean, clazz, method, new String[]{method.getMethodElementSignature(), bean.getEjbClass().getJavaName()}, this);
 			vc.addMessage(message);
 		}
 		else {
