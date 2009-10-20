@@ -64,9 +64,11 @@ import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataMo
 import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants;
 import org.eclipse.jst.j2ee.classpathdep.UpdateClasspathAttributeUtil;
+import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants.DependencyAttributeType;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestImpl;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
+import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyEnablement;
 import org.eclipse.jst.j2ee.internal.common.ClasspathModel;
 import org.eclipse.jst.j2ee.internal.common.ClasspathModelEvent;
 import org.eclipse.jst.j2ee.internal.common.ClasspathModelListener;
@@ -871,6 +873,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 	}
 	
 	protected void createClasspathAttributeUpdateOperation(final WorkspaceModifyComposedOperation composedOp, final ClassPathSelection selection, final boolean isWebApp) {
+		final boolean webLibsOnly = isWebApp && !ClasspathDependencyEnablement.isAllowClasspathComponentDependency();
 		final Map selectedEntriesToRuntimePath = new HashMap();
 		final Map unselectedEntriesToRuntimePath = new HashMap();
 		final List elements = selection.getClasspathElements();
@@ -878,7 +881,7 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 			final ClasspathElement element = (ClasspathElement) elements.get(i);
 			if (element.isClasspathEntry()) {
 				final IClasspathEntry entry = element.getClasspathEntry();
-				final IClasspathAttribute attrib = ClasspathDependencyUtil.checkForComponentDependencyAttribute(entry);
+				final IClasspathAttribute attrib = ClasspathDependencyUtil.checkForComponentDependencyAttribute(entry, DependencyAttributeType.DEPENDENCY_OR_NONDEPENDENCY, webLibsOnly);
 				boolean hasDepAttrib = false;
 				if (attrib != null && attrib.getName().equals(IClasspathDependencyConstants.CLASSPATH_COMPONENT_DEPENDENCY)) {
 					hasDepAttrib = true;

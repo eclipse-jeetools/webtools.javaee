@@ -36,9 +36,10 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.jdt.core.IClasspathAttribute;
 import org.eclipse.jdt.core.IClasspathContainer;
 import org.eclipse.jdt.core.IClasspathEntry;
-import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jst.common.jdt.internal.javalite.IJavaProjectLite;
+import org.eclipse.jst.common.jdt.internal.javalite.JavaCoreLite;
 import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants.DependencyAttributeType;
@@ -309,9 +310,10 @@ public class ClassPathSelection {
 		if (comp != null && comp.getProject().isAccessible()) {
 			final IProject project = comp.getProject();
 			if (project.hasNature(JavaCore.NATURE_ID)) {
-				final IJavaProject javaProject = JavaCore.create(project);
+				final IJavaProjectLite javaProjectLite = JavaCoreLite.create(project);
 				final boolean isWebApp = JavaEEProjectUtilities.isDynamicWebProject(project);
-				final Map taggedEntries = ClasspathDependencyUtil.getRawComponentClasspathDependencies(javaProject, DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY);
+				final boolean webLibsOnly = isWebApp && !ClasspathDependencyEnablement.isAllowClasspathComponentDependency();
+				final Map taggedEntries = ClasspathDependencyUtil.getRawComponentClasspathDependencies(javaProjectLite, DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY, webLibsOnly);
 				
 				Iterator i = taggedEntries.keySet().iterator();
 				while (i.hasNext()) {
@@ -328,7 +330,7 @@ public class ClassPathSelection {
 					addClasspathElement(element, element.getArchiveURI().toString());
 				}
 				
-				final List potentialEntries = ClasspathDependencyUtil.getPotentialComponentClasspathDependencies(javaProject);
+				final List potentialEntries = ClasspathDependencyUtil.getPotentialComponentClasspathDependencies(javaProjectLite);
 				i = potentialEntries.iterator();
 				while (i.hasNext()) {
 					final IClasspathEntry entry = (IClasspathEntry) i.next();

@@ -71,15 +71,13 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 	
 	public IStatus validateInJob(IValidationContext helper, IReporter reporter)
 			throws ValidationException {
-		if(!ClasspathDependencyEnablement.isAllowClasspathComponentDependency()){
-			return OK_STATUS;
-		}
 		_reporter = reporter;
 		//Remove all markers related to this validator
 		_reporter.removeAllMessages(this);
 		//Using the helper class, load the module model
 		final Set archiveNames = new HashSet();
 		final IProject proj = ((ClasspathDependencyValidatorHelper) helper).getProject();
+		
 		try {
 			if (proj.isAccessible() 
 			    && proj.hasNature(ModuleCoreNature.MODULE_NATURE_ID)
@@ -87,8 +85,16 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 			    
 				final IJavaProjectLite javaProjectLite = JavaCoreLite.create(proj);
 			    final boolean isWebApp = JavaEEProjectUtilities.isDynamicWebProject(proj);
-				final Map referencedRawEntries = ClasspathDependencyUtil.getRawComponentClasspathDependencies(javaProjectLite, DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY); 				
-				final List potentialRawEntries = ClasspathDependencyUtil.getPotentialComponentClasspathDependencies(javaProjectLite);
+			    boolean webLibsOnly = false;
+			    if(!ClasspathDependencyEnablement.isAllowClasspathComponentDependency()){
+			    	if(!isWebApp){
+			    		return OK_STATUS;
+			    	}
+			    	webLibsOnly = true;
+				}
+			    
+				final Map referencedRawEntries = ClasspathDependencyUtil.getRawComponentClasspathDependencies(javaProjectLite, DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY, webLibsOnly); 				
+				final List potentialRawEntries = ClasspathDependencyUtil.getPotentialComponentClasspathDependencies(javaProjectLite, webLibsOnly);
 				final IVirtualComponent component = ComponentCore.createComponent(proj);				
 				final ClasspathDependencyValidatorData data = new ClasspathDependencyValidatorData(proj);
 				

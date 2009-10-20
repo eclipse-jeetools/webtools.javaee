@@ -179,12 +179,13 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 	}
 	
 	private IVirtualReference[] getJavaClasspathReferences(IVirtualReference[] hardReferences) {
-		if(!ClasspathDependencyEnablement.isAllowClasspathComponentDependency()){
+		final boolean isWebApp = JavaEEProjectUtilities.isDynamicWebComponent(this);
+		
+		if(!isWebApp && !ClasspathDependencyEnablement.isAllowClasspathComponentDependency()){
 			return new IVirtualReference[0];
 		}
 		final IProject project = getProject();
 		final List cpRefs = new ArrayList();
-		final boolean isWebApp = JavaEEProjectUtilities.isDynamicWebComponent(this);
 		
 		try {
 			if (project == null || !project.isAccessible() || !project.hasNature(JavaCoreLite.NATURE_ID)) { 
