@@ -26,9 +26,9 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathAttribute;
 import org.eclipse.jdt.core.IClasspathEntry;
-import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.common.jdt.internal.javalite.IJavaProjectLite;
+import org.eclipse.jst.common.jdt.internal.javalite.JavaCoreLite;
+import org.eclipse.jst.common.jdt.internal.javalite.JavaLiteUtilities;
 import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestImpl;
@@ -36,7 +36,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyEnablement;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyVirtualComponent;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -51,8 +51,8 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
 public class J2EEModuleVirtualComponent extends VirtualComponent implements IComponentImplFactory {
 
-	public static String GET_JAVA_REFS = "GET_JAVA_REFS";
-	public static String GET_FUZZY_EAR_REFS = "GET_FUZZY_EAR_REFS";
+	public static String GET_JAVA_REFS = "GET_JAVA_REFS"; //$NON-NLS-1$
+	public static String GET_FUZZY_EAR_REFS = "GET_FUZZY_EAR_REFS"; //$NON-NLS-1$
 	
 	public J2EEModuleVirtualComponent() {
 		super();
@@ -92,6 +92,7 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 		return getReferences(getJavaRefs, findFuzzyEARRefs);
 	}
 	
+	@Override
 	public IVirtualReference[] getReferences() {
 		return getReferences(true, false);
 	}
@@ -151,16 +152,16 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 					ArchiveManifest manifest = new ArchiveManifestImpl(in);
 					manifestClasspath = manifest.getClassPathTokenized();
 				} catch (IOException e) {
-					Logger.getLogger().logError(e);
+					J2EEPlugin.logError(e);
 				} catch (CoreException e) {
-					Logger.getLogger().logError(e);
+					J2EEPlugin.logError(e);
 				} finally {
 					if (in != null) {
 						try {
 							in.close();
 							in = null;
 						} catch (IOException e) {
-							Logger.getLogger().logError(e);
+							J2EEPlugin.logError(e);
 						}
 					}
 				}
@@ -178,37 +179,39 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 	}
 	
 	private IVirtualReference[] getJavaClasspathReferences(IVirtualReference[] hardReferences) {
-		if(!ClasspathDependencyEnablement.isAllowClasspathComponentDependency()){
+		final boolean isWebApp = JavaEEProjectUtilities.isDynamicWebComponent(this);
+		
+		if(!isWebApp && !ClasspathDependencyEnablement.isAllowClasspathComponentDependency()){
 			return new IVirtualReference[0];
 		}
 		final IProject project = getProject();
 		final List cpRefs = new ArrayList();
-		final boolean isWebApp = J2EEProjectUtilities.isDynamicWebComponent(this);
 		
 		try {
-			if (project == null || !project.isAccessible() || !project.hasNature(JavaCore.NATURE_ID)) { 
+			if (project == null || !project.isAccessible() || !project.hasNature(JavaCoreLite.NATURE_ID)) { 
 				return new IVirtualReference[0];
 			}
 
-			final IJavaProject javaProject = JavaCore.create(project);
-			if (javaProject == null) {
+			final IJavaProjectLite javaProjectLite = JavaCoreLite.create(project);
+			if (javaProjectLite == null) {
 				return new IVirtualReference[0];
 			}
 
 			// retrieve all referenced classpath entries
-			final Map referencedEntries = ClasspathDependencyUtil.getComponentClasspathDependencies(javaProject, isWebApp);
+			final Map referencedEntries = ClasspathDependencyUtil.getComponentClasspathDependencies(javaProjectLite, isWebApp);
 
 			if (referencedEntries.isEmpty()) {
 				return new IVirtualReference[0];
 			}
 
-			if (hardReferences == null) {
+			IVirtualReference[] innerHardReferences = hardReferences;
+			if (innerHardReferences == null) {
 				// only compute this not set and if we have some cp dependencies 
-				hardReferences = super.getReferences();
+				innerHardReferences = super.getReferences();
 			}
-			final IPath[] hardRefPaths = new IPath[hardReferences.length];
-			for (int j = 0; j < hardReferences.length; j++) {
-				final IVirtualComponent comp = hardReferences[j].getReferencedComponent();
+			final IPath[] hardRefPaths = new IPath[innerHardReferences.length];
+			for (int j = 0; j < innerHardReferences.length; j++) {
+				final IVirtualComponent comp = innerHardReferences[j].getReferencedComponent();
 				if (comp.isBinary()) {
 					final VirtualArchiveComponent archiveComp = (VirtualArchiveComponent) comp;
 					final File diskFile = archiveComp.getUnderlyingDiskFile();
@@ -245,7 +248,8 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 					}
 				} else { // check class folders mapped in component file as class folders associated with mapped src folders
 					if (mappedClassFolders == null) {
-						mappedClassFolders = J2EEProjectUtilities.getAllOutputContainers(getProject());
+						List <IContainer> containers = JavaLiteUtilities.getJavaOutputContainers(this);
+						mappedClassFolders = containers.toArray(new IContainer[containers.size()]);
 					}
 					for (int j = 0; j < mappedClassFolders.length; j++) {
 						if (entryLocation.equals(mappedClassFolders[j].getFullPath())) {
@@ -256,7 +260,7 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 					} 
 				}
 
-				if (add) {
+				if (add && entryLocation != null) {
 					String componentPath = null;
 					ClasspathDependencyVirtualComponent entryComponent = null;
 					/*
@@ -276,7 +280,7 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 			}
 
 		} catch (CoreException jme) {
-			Logger.getLogger().logError(jme);
+			J2EEPlugin.logError(jme);
 		} 
 		
 		return (IVirtualReference[]) cpRefs.toArray(new IVirtualReference[cpRefs.size()]);
@@ -335,7 +339,7 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 										manifestEntryString = manifestPath.toPortableString();
 									}
 									
-									if(simplePath && manifestEntryString.lastIndexOf("/") == -1){ //$NON-NLS-1$
+									if(simplePath && manifestEntryString != null && manifestEntryString.lastIndexOf("/") == -1){ //$NON-NLS-1$
 										shouldAdd = archiveName.equals(manifestEntryString);	
 									} else {
 										String earRelativeURI = ArchiveUtil.deriveEARRelativeURI(manifestEntryString, earArchiveURI);
@@ -345,7 +349,7 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 									}
 									
 									if(shouldAdd){
-										if(findFuzzyEARRefs){
+										if(findFuzzyEARRefs && foundRefAlready != null){
 											foundRefAlready[manifestIndex] = true;
 										}
 										found = true;
@@ -373,7 +377,8 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 					}
 					if(!findFuzzyEARRefs){
 						break;
-					} else {
+					}
+					if(foundRefAlready != null){
 						boolean foundAll = true;
 						for(int i = 0; i < foundRefAlready.length && foundAll; i++){
 							if(!foundRefAlready[i]){

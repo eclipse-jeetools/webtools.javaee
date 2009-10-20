@@ -36,10 +36,11 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.jdt.core.IClasspathAttribute;
 import org.eclipse.jdt.core.IClasspathContainer;
 import org.eclipse.jdt.core.IClasspathEntry;
-import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.common.jdt.internal.javalite.IJavaProjectLite;
+import org.eclipse.jst.common.jdt.internal.javalite.JavaCoreLite;
 import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants.DependencyAttributeType;
@@ -62,6 +63,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.javaee.ejb.EJBJar;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
@@ -308,9 +310,10 @@ public class ClassPathSelection {
 		if (comp != null && comp.getProject().isAccessible()) {
 			final IProject project = comp.getProject();
 			if (project.hasNature(JavaCore.NATURE_ID)) {
-				final IJavaProject javaProject = JavaCore.create(project);
-				final boolean isWebApp = J2EEProjectUtilities.isDynamicWebProject(project);
-				final Map taggedEntries = ClasspathDependencyUtil.getRawComponentClasspathDependencies(javaProject, DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY);
+				final IJavaProjectLite javaProjectLite = JavaCoreLite.create(project);
+				final boolean isWebApp = JavaEEProjectUtilities.isDynamicWebProject(project);
+				final boolean webLibsOnly = isWebApp && !ClasspathDependencyEnablement.isAllowClasspathComponentDependency();
+				final Map taggedEntries = ClasspathDependencyUtil.getRawComponentClasspathDependencies(javaProjectLite, DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY, webLibsOnly);
 				
 				Iterator i = taggedEntries.keySet().iterator();
 				while (i.hasNext()) {
@@ -327,7 +330,7 @@ public class ClassPathSelection {
 					addClasspathElement(element, element.getArchiveURI().toString());
 				}
 				
-				final List potentialEntries = ClasspathDependencyUtil.getPotentialComponentClasspathDependencies(javaProject);
+				final List potentialEntries = ClasspathDependencyUtil.getPotentialComponentClasspathDependencies(javaProjectLite, webLibsOnly);
 				i = potentialEntries.iterator();
 				while (i.hasNext()) {
 					final IClasspathEntry entry = (IClasspathEntry) i.next();
