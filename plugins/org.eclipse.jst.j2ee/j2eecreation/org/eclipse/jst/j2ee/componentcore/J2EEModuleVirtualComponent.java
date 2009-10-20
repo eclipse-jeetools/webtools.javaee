@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +44,7 @@ import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualFolder;
+import org.eclipse.wst.common.componentcore.internal.resources.VirtualReference;
 import org.eclipse.wst.common.componentcore.internal.util.IComponentImplFactory;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
@@ -85,10 +87,14 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 	
 	@Override
 	public IVirtualReference[] getReferences(Map<String, Object> options) {
+		Object ignoreDerived = options.get(IGNORE_DERIVED_REFERENCES);
 		Object objGetJavaRefs = options.get(GET_JAVA_REFS);
 		Object objGetFuzzyEarRefs = options.get(GET_FUZZY_EAR_REFS);
+		boolean ignoreDerivedRefs = ignoreDerived != null ? ((Boolean)ignoreDerived).booleanValue() : false;
 		boolean getJavaRefs = objGetJavaRefs != null ? ((Boolean)objGetJavaRefs).booleanValue() : true;
 		boolean findFuzzyEARRefs = objGetFuzzyEarRefs != null ? ((Boolean)objGetFuzzyEarRefs).booleanValue() : false;
+		if( ignoreDerivedRefs ) 
+			return getReferences(false, false);
 		return getReferences(getJavaRefs, findFuzzyEARRefs);
 	}
 	
@@ -124,7 +130,9 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 		final List allRefs = new ArrayList();
 		
 		// add component file references
-		IVirtualReference[] hardReferences = super.getReferences();
+		Map<String, Object> superMap = new HashMap<String,Object>();
+		superMap.put(IGNORE_DERIVED_REFERENCES, true);
+		IVirtualReference[] hardReferences = super.getReferences(superMap);
 		for (int i = 0; i < hardReferences.length; i++) {
 			allRefs.add(hardReferences[i]);
 		}
@@ -274,6 +282,7 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 					entryComponent = new ClasspathDependencyVirtualComponent(project, componentPath, isClassFolder);
 					//}
 					final IVirtualReference entryReference = ComponentCore.createReference(this, entryComponent, runtimePath);
+					((VirtualReference)entryReference).setDerived(true);
 					entryReference.setArchiveName(ClasspathDependencyUtil.getArchiveName(entry));
 					cpRefs.add(entryReference);
 				}
@@ -364,6 +373,7 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 										}
 										if (shouldInclude) {
 											IVirtualReference dynamicReference = ComponentCore.createReference(moduleComponent, dynamicComponent);
+											((VirtualReference)dynamicReference).setDerived(true);
 											if (null == dynamicReferences) {
 												dynamicReferences = new ArrayList();
 											}

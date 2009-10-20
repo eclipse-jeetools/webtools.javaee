@@ -275,6 +275,9 @@ public class ProjectRefactorMetadata {
 		public IVirtualReference[] getReferences() {
 			return _comp.getReferences();
 		}
+		public IVirtualReference[] getReferences(Map<String, Object> options) {
+			return _comp.getReferences(options);
+		}
 		public void setCaching(boolean caching) {
 			_caching = caching;
 		}

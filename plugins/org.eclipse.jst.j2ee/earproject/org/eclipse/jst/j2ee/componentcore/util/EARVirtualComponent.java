@@ -31,6 +31,7 @@ import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.builder.IDependencyGraph;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent;
+import org.eclipse.wst.common.componentcore.internal.resources.VirtualReference;
 import org.eclipse.wst.common.componentcore.internal.util.IComponentImplFactory;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
@@ -168,6 +169,7 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 							IResource iResource = members[i].getUnderlyingResource();
 							IVirtualComponent dynamicComponent = ComponentCore.createArchiveComponent(earComponent.getProject(), VirtualArchiveComponent.LIBARCHIVETYPE + iResource.getFullPath().toString());
 							IVirtualReference dynamicRef = ComponentCore.createReference(earComponent, dynamicComponent);
+							((VirtualReference)dynamicRef).setDerived(true);
 							if( dynamicComponent instanceof J2EEModuleVirtualArchiveComponent)
 								((J2EEModuleVirtualArchiveComponent)dynamicComponent).setDeploymentPath(members[i].getRuntimePath());
 							dynamicRef.setArchiveName(archiveName);
