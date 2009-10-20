@@ -55,12 +55,7 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 		if (propertyName.equals(CONFIG_FOLDER)) {
 			return J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.WEB_CONTENT_FOLDER);
 		} else if (propertyName.equals(SOURCE_FOLDER)) {
-		    if( this.javaFacetInstallConfig != null )
-		    {
-                final List<IPath> sourceFolders = this.javaFacetInstallConfig.getSourceFolders();
-                return ( sourceFolders.isEmpty() ? null : sourceFolders.get( 0 ).toPortableString() );
-		    }
-	        return null;
+			return J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.DYN_WEB_SRC_FOLDER);
 		} else if (propertyName.equals(CONTEXT_ROOT)) {
 			return getStringProperty(FACET_PROJECT_NAME).replace(' ', '_');
 		} else if (propertyName.equals(FACET_ID)) {
@@ -85,18 +80,6 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 		} else if (FACET_PROJECT_NAME.equals(propertyName)) {
 			model.notifyPropertyChange(CONTEXT_ROOT, IDataModel.VALID_VALUES_CHG);
 		} else if (propertyName.equals(CONFIG_FOLDER)) {
-			// If using optimized single root structure, update the output folder based on content folder change
-			// The output folder will be "<contentRoot>/WEB-INF/classes"
-			if (ProductManager.shouldUseSingleRootStructure()) 
-			{
-	            if( this.javaFacetInstallConfig != null )
-	            {
-	                final IPath outputFolder
-                        = propertyValue == null ? null : new Path( (String) propertyValue + "/" +J2EEConstants.WEB_INF_CLASSES ); //$NON-NLS-1$
-
-	                this.javaFacetInstallConfig.setDefaultOutputFolder( outputFolder );
-	            }
-			}
 			return true;
 		} else if (propertyName.equals(SOURCE_FOLDER)) 
 		{
@@ -135,7 +118,16 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 		}else if (name.equals( CONFIG_FOLDER )) {
 			IStatus status = super.validate( CONFIG_FOLDER );
 			if( status.isOK() ){
-				return validateSourceAndContentFolderUniqueness();
+				status = validateSourceAndContentFolderUniqueness();
+			}
+			if( status.isOK() ){
+				String configFolder = model.getStringProperty(CONFIG_FOLDER);
+				String outFolder = null;
+			    if( javaFacetInstallConfig != null ){
+			    	outFolder = javaFacetInstallConfig.getDefaultOutputFolder().toString();
+				}				
+			    if( outFolder != null )
+			    	status = validateWebConfigAndOutputFolder(configFolder, outFolder);
 			}
 			return status;
 		}
@@ -174,6 +166,18 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 			if (srcFolder.equals( contentFolder )){
 				String errorMessage = ProjectSupportResourceHandler.DYNAMIC_WEB_DISTINCT_SRC_WEBCONTENT_ERROR;
 				return WTPCommonPlugin.createErrorStatus(errorMessage);
+			}
+		}
+		return OK_STATUS;
+	}
+	
+	public static IStatus validateWebConfigAndOutputFolder(String rawConfigFolder, String outFolder){ 
+		if( ProductManager.shouldUseSingleRootStructure()){
+			String expectedOutFolder = rawConfigFolder+"/"+J2EEConstants.WEB_INF_CLASSES; //$NON-NLS-1$
+			if( !outFolder.equals(expectedOutFolder) ){
+				String message = ProjectSupportResourceHandler.getString( ProjectSupportResourceHandler.DYNAMIC_WEB_PERFORMANCE_VALIDATION,
+						new Object[]{expectedOutFolder});
+				return WTPCommonPlugin.createWarningStatus(message);
 			}
 		}
 		return OK_STATUS;

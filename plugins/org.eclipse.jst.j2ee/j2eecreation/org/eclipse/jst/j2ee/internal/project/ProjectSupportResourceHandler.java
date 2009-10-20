@@ -58,7 +58,8 @@ public class ProjectSupportResourceHandler extends NLS {
 	public static String Exporting_archive;
 	public static String EarFacetInstallDataModelProvider_The_Module_specification_level_of_;
 	public static String DYNAMIC_WEB_DISTINCT_SRC_WEBCONTENT_ERROR;
-
+	public static String DYNAMIC_WEB_PERFORMANCE_VALIDATION;
+	public static String SOURCE_OUPUT_FOLDER_DIFF_BYCASE_ONLY;
 
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, ProjectSupportResourceHandler.class);
