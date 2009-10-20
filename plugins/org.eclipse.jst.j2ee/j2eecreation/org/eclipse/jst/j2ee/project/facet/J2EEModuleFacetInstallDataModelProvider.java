@@ -53,7 +53,6 @@ import org.eclipse.wst.common.project.facet.core.events.IFacetedProjectEvent;
 import org.eclipse.wst.common.project.facet.core.events.IFacetedProjectListener;
 import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 import org.eclipse.wst.common.project.facet.core.util.IEventListener;
-import org.eclipse.wst.project.facet.ProductManager;
 
 public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetInstallDataModelProvider implements IJ2EEModuleFacetInstallDataModelProperties {
 
@@ -142,9 +141,6 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 				IDataModel javaModel = map.getFacetDataModel(JAVA);
 				if (javaModel != null) {
 					javaModel.setProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME, propertyValue);
-					// If applicable, react to the change in content folder to update the output folder for single root structures
-					if (ProductManager.shouldUseSingleRootStructure())
-						javaModel.setProperty(IJavaFacetInstallDataModelProperties.DEFAULT_OUTPUT_FOLDER_NAME,propertyValue);
 				}
 			}
 		} else if ((EAR_PROJECT_NAME.equals(propertyName) || ADD_TO_EAR.equals(propertyName) || LAST_EAR_NAME.equals(propertyName)) && getBooleanProperty(ADD_TO_EAR)) {

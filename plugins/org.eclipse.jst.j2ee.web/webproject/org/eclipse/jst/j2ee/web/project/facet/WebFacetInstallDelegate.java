@@ -14,7 +14,6 @@ package org.eclipse.jst.j2ee.web.project.facet;
 import java.io.ByteArrayInputStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -32,13 +31,13 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jst.common.frameworks.CommonFrameworksPlugin;
 import org.eclipse.jst.common.project.facet.WtpUtils;
 import org.eclipse.jst.common.project.facet.core.ClasspathHelper;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
+import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainer;
+import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainerUtils;
 import org.eclipse.jst.j2ee.internal.web.classpath.WebAppLibrariesContainer;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
@@ -46,6 +45,11 @@ import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.J2EEFacetInstallDelegate;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
+import org.eclipse.jst.javaee.core.DisplayName;
+import org.eclipse.jst.javaee.core.JavaeeFactory;
+import org.eclipse.jst.javaee.web.WebApp;
+import org.eclipse.jst.javaee.web.WebFactory;
+import org.eclipse.jst.javaee.web.WelcomeFileList;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.FacetDataModelProvider;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -55,15 +59,6 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.project.facet.core.IDelegate;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
-import org.eclipse.wst.project.facet.ProductManager;
-
-import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainer;
-import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainerUtils;
-import org.eclipse.jst.javaee.core.DisplayName;
-import org.eclipse.jst.javaee.core.JavaeeFactory;
-import org.eclipse.jst.javaee.web.WebApp;
-import org.eclipse.jst.javaee.web.WebFactory;
-import org.eclipse.jst.javaee.web.WelcomeFileList;
 
 public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate implements IDelegate {
 
@@ -104,7 +99,7 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 
 			String contextRoot = model.getStringProperty(IWebFacetInstallDataModelProperties.CONTEXT_ROOT);
 			setContextRootPropertyIfNeeded(c, contextRoot);
-			setJavaOutputPropertyIfNeeded(model,c);
+			setOutputFolder(model, c);
 
 			final IVirtualFolder webroot = c.getRootFolder();
 			if (webroot.getProjectRelativePath().equals(new Path("/"))) //$NON-NLS-1$
@@ -187,72 +182,8 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 		}
 	}
 
-	private void setJavaOutputPropertyIfNeeded(IDataModel model, final IVirtualComponent c) {
-		// Make sure output folder is set properly for web projects, and the product setting for single root structure is maintained.
-		// We may need to change the existing setup
 
-		if (ProductManager.shouldUseSingleRootStructure()) {
-			String outputFolder = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER)+"/"+J2EEConstants.WEB_INF_CLASSES;
-			
-			IJavaProject jproj = JavaCore.create(c.getProject());
-			IClasspathEntry[] current = null;
-			boolean webinf = false;
-			IPath pjpath = c.getProject().getFullPath();
-			try {
-				current = jproj.getRawClasspath();
-				List updatedList = new ArrayList();
-				IPath sourcePath = null;
-				boolean changeNeeded = false;
-				for (int i = 0; i < current.length; i++) {
-					IClasspathEntry entry = current[i];
-					if ((entry.getEntryKind() == IClasspathEntry.CPE_SOURCE) && (entry.getOutputLocation() != null && entry.getOutputLocation().toString().indexOf(J2EEConstants.WEB_INF_CLASSES) == -1)) {
-						//output different than J2EEConstants.WEB_INF_CLASSES
-						sourcePath = entry.getPath();
-						updatedList.add(JavaCore.newSourceEntry(sourcePath));
-						changeNeeded = true;
-					}
-					else
-						updatedList.add(entry);
-				}
-				IPath currentDefaultOutput = null;
-				currentDefaultOutput = jproj.getOutputLocation();
-				if (currentDefaultOutput.toString().indexOf(J2EEConstants.WEB_INF_CLASSES) == -1)
-					changeNeeded = true;
-				if (changeNeeded) {
-					IClasspathEntry[] updated = (IClasspathEntry[])updatedList.toArray(new IClasspathEntry[updatedList.size()]);
-					IPath outdir = pjpath.append(outputFolder); 
-					jproj.setRawClasspath(updated,outdir ,null);
-					jproj.save(null, true);
-				}
-			} catch (JavaModelException e) {
-				Logger.getLogger().logError(e);
-			}
-		}
-		// Now just set the property
-		String existing = c.getMetaProperties().getProperty("java-output-path"); //$NON-NLS-1$
-		if (existing == null)
-			setOutputFolder(model, c);
-	}
 	
-	/**
-	 * This overrides the default J2EE set output folder which sets the output folder to the content root
-	 * if the optimized single root structure is used.  For web projects, we need to switch this to
-	 * set the output folder to "<contentRoot>/WEB-INF/classes"
-	 * 
-	 * @param model
-	 * @param component
-	 */
-	protected void setOutputFolder(IDataModel model, IVirtualComponent component) {
-		String outputFolder = null;
-		// If using single root structure, set the output folder to "<contentRoot>/WEB-INF/classes"
-		if (ProductManager.shouldUseSingleRootStructure())
-			outputFolder = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER)+"/"+J2EEConstants.WEB_INF_CLASSES;
-		// Otherwise set the output folder to the product setting default
-		else
-			outputFolder = CommonFrameworksPlugin.getDefault().getPluginPreferences().getString(CommonFrameworksPlugin.OUTPUT_FOLDER);
-
-		component.setMetaProperty("java-output-path", outputFolder ); //$NON-NLS-1$
-	}
 
 	private void setContextRootPropertyIfNeeded(final IVirtualComponent c, String contextRoot) {
 		String existing = c.getMetaProperties().getProperty("context-root"); //$NON-NLS-1$
