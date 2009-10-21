@@ -13,10 +13,8 @@ package org.eclipse.jst.j2ee.internal;
 import java.lang.reflect.Method;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EFactory;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.application.ApplicationFactory;
 import org.eclipse.jst.j2ee.application.ApplicationPackage;
 import org.eclipse.jst.j2ee.application.internal.impl.ApplicationResourceFactory;
@@ -25,13 +23,11 @@ import org.eclipse.jst.j2ee.client.ClientPackage;
 import org.eclipse.jst.j2ee.client.internal.impl.ApplicationClientResourceFactory;
 import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.CommonPackage;
-import org.eclipse.jst.j2ee.common.internal.impl.J2EEResourceFactoryRegistry;
 import org.eclipse.jst.j2ee.ejb.EjbFactory;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.internal.impl.EJBJarResourceFactory;
 import org.eclipse.jst.j2ee.ejb.internal.impl.EjbFactoryImpl;
 import org.eclipse.jst.j2ee.ejb.internal.util.EJBAttributeMaintenanceFactoryImpl;
-import org.eclipse.jst.j2ee.internal.common.J2EEXMIResourceFactory;
 import org.eclipse.jst.j2ee.internal.xml.J2EEXmlDtDEntityResolver;
 import org.eclipse.jst.j2ee.jca.JcaFactory;
 import org.eclipse.jst.j2ee.jca.JcaPackage;
@@ -297,24 +293,6 @@ public class J2EEInit {
 		//Make protected	
 		Revisit.revisit();
 
-		// Only register the default factories if another set has not
-		// already been registered.
-
-		Resource.Factory j2ee = J2EEResourceFactoryRegistry.INSTANCE.getFactory(J2EEConstants.EJBJAR_DD_URI_OBJ);
-		Resource.Factory defaultFact = J2EEResourceFactoryRegistry.INSTANCE.getFactory(URI.createURI(Resource.Factory.Registry.DEFAULT_EXTENSION));
-		if (j2ee == defaultFact) {
-			EJBJarResourceFactory.register();
-			WebAppResourceFactory.register();
-			ApplicationClientResourceFactory.register();
-			ApplicationResourceFactory.register();
-			ConnectorResourceFactory.register();
-			WebServicesClientResourceFactory.register();
-			WsddResourceFactory.register();
-			//register() is not called on the JaxrpcmapResourceFactory because
-			//the jaxprc-mapping descriptor does not have a standard short name.
-			//The short names have to be registered once they are known.
-			J2EEXMIResourceFactory.register();
-		}
 		EJBJarResourceFactory.registerDtds();
 		WebAppResourceFactory.registerDtds();
 		ApplicationClientResourceFactory.registerDtds();
