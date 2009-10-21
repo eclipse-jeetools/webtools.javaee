@@ -215,7 +215,9 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 			IVirtualReference[] innerHardReferences = hardReferences;
 			if (innerHardReferences == null) {
 				// only compute this not set and if we have some cp dependencies 
-				innerHardReferences = super.getReferences();
+				HashMap<String, Object> map = new HashMap<String, Object>();
+				map.put(IVirtualComponent.IGNORE_DERIVED_REFERENCES, new Boolean(true));
+				innerHardReferences = super.getReferences(map);
 			}
 			final IPath[] hardRefPaths = new IPath[innerHardReferences.length];
 			for (int j = 0; j < innerHardReferences.length; j++) {
