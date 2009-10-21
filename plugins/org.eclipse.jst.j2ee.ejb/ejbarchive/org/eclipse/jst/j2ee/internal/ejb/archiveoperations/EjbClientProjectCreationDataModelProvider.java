@@ -37,6 +37,7 @@ public class EjbClientProjectCreationDataModelProvider
 		propertyNames.add(EJB_PROJECT_NAME);
 		propertyNames.add(CLIENT_URI);
 		propertyNames.add(ADD_TO_EAR);
+		propertyNames.add(DEFAULT_OUTPUT_FOLDER);
 		return propertyNames;
 	}
 	

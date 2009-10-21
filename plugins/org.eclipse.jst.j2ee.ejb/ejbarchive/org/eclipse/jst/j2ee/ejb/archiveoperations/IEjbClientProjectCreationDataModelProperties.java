@@ -23,4 +23,5 @@ public interface IEjbClientProjectCreationDataModelProperties extends IJavaUtili
 	public static final String EJB_PROJECT_NAME = "IEjbClientProjectCreationDataModelProperties.EJB_PROJECT_NAME"; //$NON-NLS-1$
 	public static final String CLIENT_URI = "IEjbClientProjectCreationDataModelProperties.CLIENT_URI ";//$NON-NLS-1$	
 	public static final String ADD_TO_EAR = IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR;
+	public static final String DEFAULT_OUTPUT_FOLDER = "IEjbClientProjectCreationDataModelProperties.DEFAULT_OUTPUT_FOLDER";//$NON-NLS-1$
 }

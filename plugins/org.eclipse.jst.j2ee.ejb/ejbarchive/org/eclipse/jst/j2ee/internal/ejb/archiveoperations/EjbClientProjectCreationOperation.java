@@ -16,6 +16,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
 import org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider;
+import org.eclipse.jst.j2ee.ejb.archiveoperations.IEjbClientProjectCreationDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.IJavaUtilityProjectCreationDataModelProperties;
@@ -45,7 +46,7 @@ public class EjbClientProjectCreationOperation
 		String projectName = model.getStringProperty( IJavaUtilityProjectCreationDataModelProperties.PROJECT_NAME );
 		String earProjectName = model.getStringProperty( IJavaUtilityProjectCreationDataModelProperties.EAR_PROJECT_NAME );
 		String javaSourceFolder = model.getStringProperty( IJavaUtilityProjectCreationDataModelProperties.SOURCE_FOLDER );
-		
+		String defaultOutputFolder = model.getStringProperty( IEjbClientProjectCreationDataModelProperties.DEFAULT_OUTPUT_FOLDER );
 		org.eclipse.wst.common.project.facet.core.runtime.IRuntime runtime = (IRuntime) model.getProperty(IJavaUtilityProjectCreationDataModelProperties.RUNTIME);
 		
 		IDataModel dm = null;
@@ -65,8 +66,12 @@ public class EjbClientProjectCreationOperation
 			javadm.setProperty( JavaFacetInstallDataModelProvider.SOURCE_FOLDER_NAME,
 					javaSourceFolder);
 			
+			if( defaultOutputFolder == null || defaultOutputFolder.isEmpty() ){
+				defaultOutputFolder = javaSourceFolder;
+			}
+			
 			javadm.setProperty(IJavaFacetInstallDataModelProperties.DEFAULT_OUTPUT_FOLDER_NAME,
-					javaSourceFolder);			
+					defaultOutputFolder);			
 	
 			//		 if the parent data model has set these properties we will use it, or else default to the utility facet install
 			if(model.isPropertySet(ADD_TO_EAR))

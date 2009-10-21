@@ -27,6 +27,8 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProperties;
@@ -120,6 +122,15 @@ public class EjbFacetPostInstallDelegate extends J2EEFacetInstallDelegate implem
 						dm.setStringProperty(IJavaUtilityProjectCreationDataModelProperties.EAR_PROJECT_NAME, earProjectName);
 						String ejbConfigFolder = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER);
 						dm.setStringProperty(IJavaUtilityProjectCreationDataModelProperties.SOURCE_FOLDER, ejbConfigFolder);
+
+				        IJavaProject jproject = JavaCore.create(project);
+				        String outputPath = jproject.getOutputLocation().toString();
+				        //the above outputPath contains name of EJB project too which we don't want, remvoe the name
+				        if( outputPath.length() > project.getName().length()+ 1 ){
+				        	outputPath = outputPath.substring( project.getName().length()+ 1 );
+				        }
+
+						dm.setStringProperty(IEjbClientProjectCreationDataModelProperties.DEFAULT_OUTPUT_FOLDER, outputPath);
 						dm.setProperty(IJavaUtilityProjectCreationDataModelProperties.RUNTIME, rt);
 
 						// because we do not want utility->add to ear, as we are going to perform ejb client->add to ear
