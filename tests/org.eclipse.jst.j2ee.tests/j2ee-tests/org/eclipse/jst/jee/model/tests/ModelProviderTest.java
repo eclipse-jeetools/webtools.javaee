@@ -152,7 +152,7 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 
 	public void testUseEar5Model() throws Exception {
 
-		String projName = "TestEE5EarProject";//$NON-NLS-1$
+		String projName = PROJECTNAME + "EE5EarProject";//$NON-NLS-1$
 		IProject earProj = createEarProject(projName, J2EEVersionConstants.JEE_5_0_ID, true);
 
 		final IModelProvider provider = ModelProviderManager.getModelProvider(earProj);
@@ -181,7 +181,7 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 	}
 	public void testUseEar6Model() throws Exception {
 
-		String projName = "TestEE6EarProject";//$NON-NLS-1$
+		String projName = PROJECTNAME + "EE6EarProject";//$NON-NLS-1$
 		IProject earProj = createEarProject(projName, J2EEVersionConstants.JEE_6_0_ID, true);
 
 		final IModelProvider provider = ModelProviderManager.getModelProvider(earProj);
@@ -211,7 +211,7 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 
 	public void testUseEar5NoDDModel() throws Exception {
 
-		String projName = "TestEE5EarProject";//$NON-NLS-1$
+		String projName = PROJECTNAME + "EE5EarProject";//$NON-NLS-1$
 		IProject earProj = createEarProject(projName, J2EEVersionConstants.JEE_5_0_ID, false);
 
 		// create the DD because the project was created without one
@@ -243,7 +243,7 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 
 	public void testUseEar14Model() throws Exception {
 
-		String projName = "TestEE14EarProject";//$NON-NLS-1$
+		String projName = PROJECTNAME + "EE14EarProject";//$NON-NLS-1$
 		IProject earProj = createEarProject(projName, J2EEVersionConstants.J2EE_1_4_ID, true);
 		final IModelProvider provider = ModelProviderManager.getModelProvider(earProj);
 
@@ -275,7 +275,7 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 
 	public void testUseWeb25Model() throws Exception {
 
-		String projName = "TestEE5WebProject";//$NON-NLS-1$
+		String projName = PROJECTNAME + "EE5WebProject";//$NON-NLS-1$
 		IProject webProj = createWebProject(projName, J2EEVersionConstants.WEB_2_5_ID, true);
 
 		final IModelProvider provider = ModelProviderManager.getModelProvider(webProj);
@@ -302,7 +302,7 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 	}
 	public void testUseWeb30Model() throws Exception {
 
-		String projName = "TestEE6WebProject";//$NON-NLS-1$
+		String projName = PROJECTNAME + "EE6WebProject";//$NON-NLS-1$
 		IProject webProj = createWebProject(projName, J2EEVersionConstants.WEB_3_0_ID, true);
 
 		final IModelProvider provider = ModelProviderManager.getModelProvider(webProj);
@@ -329,7 +329,7 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 	}
 
 	public void testUseWeb25NoDDModel() throws Exception {
-		String projName = "TestEE5WebProject";//$NON-NLS-1$
+		String projName = PROJECTNAME + "EE5WebProject";//$NON-NLS-1$
 		IProject webProj = createWebProject(projName, J2EEVersionConstants.WEB_2_5_ID, false);
 
 		// create the DD because the project was created without one
@@ -362,7 +362,7 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 
 	public void testUseWeb24Model() throws Exception {
 
-		String projName = "TestEE14WebProject";//$NON-NLS-1$
+		String projName = PROJECTNAME + "EE14WebProject";//$NON-NLS-1$
 		IProject webProj = createWebProject(projName, J2EEVersionConstants.WEB_2_4_ID, true);
 		final IModelProvider provider = ModelProviderManager.getModelProvider(webProj);
 
@@ -390,7 +390,7 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 
 	public void testUseEjb3Model() throws Exception {
 
-		String projName = "TestEE5EjbProject";//$NON-NLS-1$
+		String projName = PROJECTNAME + "EE5EjbProject";//$NON-NLS-1$
 		IProject ejbProj = createEjbProject(projName, J2EEVersionConstants.EJB_3_0_ID, true);
 
 		final IModelProvider provider = ModelProviderManager.getModelProvider(ejbProj);
@@ -419,7 +419,7 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 	}
 	public void testUseEjb31Model() throws Exception {
 
-		String projName = "TestEE6EjbProject";//$NON-NLS-1$
+		String projName = PROJECTNAME + "EE6EjbProject";//$NON-NLS-1$
 		IProject ejbProj = createEjbProject(projName, J2EEVersionConstants.EJB_3_1_ID, true);
 
 		final IModelProvider provider = ModelProviderManager.getModelProvider(ejbProj);
@@ -458,7 +458,7 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 	}
 
 	public void testUseEjb3NoDDModel() throws Exception {
-		String projName = "TestEE5EjbProject";//$NON-NLS-1$
+		String projName = PROJECTNAME + "EE5EjbProject";//$NON-NLS-1$
 		IProject ejbProj = createEjbProject(projName, J2EEVersionConstants.EJB_3_0_ID, false);
 
 		// create the DD because the project was created without one
@@ -491,7 +491,7 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 
 	public void testUseEjb21Model() throws Exception {
 
-		String projName = "TestEE14EjbProject";//$NON-NLS-1$
+		String projName = PROJECTNAME + "EE14EjbProject";//$NON-NLS-1$
 		IProject ejbProj = createEjbProject(projName, J2EEVersionConstants.EJB_2_1_ID, true);
 		final IModelProvider provider = ModelProviderManager.getModelProvider(ejbProj);
 
@@ -516,7 +516,7 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 	}
 
 	public void testUseAppClient14Model() throws Exception {
-		String projName = "TestEE14AppClientProject";//$NON-NLS-1$
+		String projName = PROJECTNAME + "EE14AppClientProject";//$NON-NLS-1$
 		IProject appClientProj = createAppClientProject(projName, J2EEVersionConstants.J2EE_1_4_ID, true);
 		final IModelProvider provider = ModelProviderManager.getModelProvider(appClientProj);
 
@@ -545,7 +545,7 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 
 	public void testUseAppClient5Model() throws Exception {
 
-		String projName = "TestEE5AppClientProject";//$NON-NLS-1$
+		String projName = PROJECTNAME + "EE5AppClientProject";//$NON-NLS-1$
 		IProject appClientProj = createAppClientProject(projName, J2EEVersionConstants.JEE_5_0_ID, true);
 		final IModelProvider provider = ModelProviderManager.getModelProvider(appClientProj);
 
@@ -576,7 +576,7 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 	}
 	public void testUseAppClient6Model() throws Exception {
 
-		String projName = "TestEE6AppClientProject";//$NON-NLS-1$
+		String projName = PROJECTNAME + "EE6AppClientProject";//$NON-NLS-1$
 		IProject appClientProj = createAppClientProject(projName, J2EEVersionConstants.JEE_6_0_ID, true);
 		final IModelProvider provider = ModelProviderManager.getModelProvider(appClientProj);
 
@@ -607,7 +607,7 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 	}
 
 	public void testUseAppClient5NoDDModel() throws Exception {
-		String projName = "TestEE5AppClientProject";//$NON-NLS-1$
+		String projName = PROJECTNAME + "EE5AppClientProject";//$NON-NLS-1$
 		IProject appClientProj = createAppClientProject(projName, J2EEVersionConstants.JEE_5_0_ID, false);
 
 		// create the DD because the project was created without one
@@ -735,7 +735,7 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 
 	public void testListener() throws Exception {
 
-		String projName = "TestEE5EjbProject";//$NON-NLS-1$
+		String projName = PROJECTNAME + "EE5EjbProject";//$NON-NLS-1$
 		IProject ejbProj = createEjbProject(projName, J2EEVersionConstants.EJB_3_0_ID, true);
 
 		// Add description
