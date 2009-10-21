@@ -297,6 +297,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 		} catch (IOException e) {
 			J2EEPlugin.logError(e);
 		}
+		classPathSelection = null;
 		getClassPathSelection(); // Ensure the selection is initialized.
 		fireNotification(new ClasspathModelEvent(ClasspathModelEvent.MANIFEST_CHANGED));
 	}
