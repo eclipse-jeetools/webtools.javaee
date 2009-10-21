@@ -66,7 +66,7 @@ public class EjbClientProjectCreationOperation
 			javadm.setProperty( JavaFacetInstallDataModelProvider.SOURCE_FOLDER_NAME,
 					javaSourceFolder);
 			
-			if( defaultOutputFolder == null || defaultOutputFolder.isEmpty() ){
+			if( defaultOutputFolder == null || defaultOutputFolder.length() == 0 ){
 				defaultOutputFolder = javaSourceFolder;
 			}
 			
