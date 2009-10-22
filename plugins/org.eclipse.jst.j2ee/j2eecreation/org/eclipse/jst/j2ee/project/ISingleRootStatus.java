@@ -49,6 +49,8 @@ public interface ISingleRootStatus extends IStatus {
 
 	public static final int ONLY_1_CONTENT_ROOT_ALLOWED = 80;
 	
+	public static final int EXPLICITLY_DISABLED = 81;
+	
 	public ComponentResource getComponentResource();
 
 
