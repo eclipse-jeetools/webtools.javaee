@@ -22,7 +22,6 @@ import junit.framework.TestSuite;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.common.annotations.tests.AnnotationProviderTest;
 import org.eclipse.jst.j2ee.defect.tests.DefectVerificationTestsSuite;
-import org.eclipse.jst.j2ee.flexible.project.fvtests.ProjectMigrationTest;
 import org.eclipse.jst.jee.model.mergers.tests.MergersTestSuite;
 import org.eclipse.jst.jee.model.tests.AllAnnotationModelTests;
 import org.eclipse.jst.jee.model.tests.JEE5ModelTest;
@@ -63,7 +62,6 @@ public class AllPluginTests extends TestSuite {
 	      addTest(JEE6ModelTest.suite());
 	      // model provider
 		  addTest(ModelProviderTest.suite());
-	      addTest(ProjectMigrationTest.suite());
 	      addTest(AnnotationProviderTest.suite());
 	      addTest(org.eclipse.jst.j2ee.dependency.tests.AllTests.suite());
 	      addTest(org.eclipse.jst.j2ee.classpath.tests.AllTests.suite());
