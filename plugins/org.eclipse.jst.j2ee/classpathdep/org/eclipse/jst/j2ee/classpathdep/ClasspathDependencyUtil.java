@@ -106,7 +106,7 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
             final IClasspathAttribute attrib = checkForComponentDependencyAttribute(entry, attributeType, webLibsOnly);
             if (attrib != null) {
             	if(webLibsOnly) {
-            		if(WebUtilities.WEBLIB.toString().equals(attrib.getValue())){
+            		if(DependencyAttributeType.CLASSPATH_COMPONENT_NONDEPENDENCY == attributeType || WebUtilities.WEBLIB.toString().equals(attrib.getValue())){
             			referencedRawEntries.put(entry, attrib);
             		}
             	} else{
