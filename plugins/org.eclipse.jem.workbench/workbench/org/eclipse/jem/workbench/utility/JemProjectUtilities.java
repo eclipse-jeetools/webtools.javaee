@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jem.workbench.utility;
 /*
- * $RCSfile: JemProjectUtilities.java,v $ $Revision: 1.12 $ $Date: 2008/07/17 16:39:25 $
+ * $RCSfile: JemProjectUtilities.java,v $ $Revision: 1.12.2.1 $ $Date: 2009/10/22 15:46:07 $
  */
 
 import java.net.URL;
@@ -474,9 +474,17 @@ public class JemProjectUtilities extends ProjectUtilities {
 	private static void collectClasspathEntryURL(IClasspathEntry entry, List urls) {
 		IPath path = entry.getPath();
 		if (null == path.getDevice()) {
-			IFile jarFile = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
-			if (jarFile.exists()) {
-				path = jarFile.getLocation();
+			// workspace resource - is the IPath a file, folder, or a class folder whose location is the project root?
+			if(path.segmentCount() == 1) {
+				// It's a class folder whose location is the project root
+				path = ResourcesPlugin.getWorkspace().getRoot().getProject(path.lastSegment()).getLocation();
+			}
+			else {
+				// It's a file or folder - capture it's absolute location
+				IFile jarFile = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
+				if(jarFile.exists()){
+					path = jarFile.getLocation();
+				}
 			}
 		}
 
