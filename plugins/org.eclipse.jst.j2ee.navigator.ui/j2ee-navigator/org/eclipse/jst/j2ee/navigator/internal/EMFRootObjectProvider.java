@@ -10,9 +10,6 @@
  *******************************************************************************/
 /*
  * Created on Feb 17, 2005
- *
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Style - Code Templates
  */
 package org.eclipse.jst.j2ee.navigator.internal;
 
@@ -32,12 +29,6 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.swt.SWTError;
 import org.eclipse.swt.SWTException;
 
-/**
- * @author Admin
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
 public class EMFRootObjectProvider implements  IResourceChangeListener, IResourceDeltaVisitor{
 	private final HashMap emfModelCache = new HashMap();
 	private final List listeners = new ArrayList();
@@ -54,24 +45,26 @@ public class EMFRootObjectProvider implements  IResourceChangeListener, IResourc
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(this);
 	}
 	
-	public synchronized Object[] getModels(IProject project){
+	public Object[] getModels(IProject project){
 		try {
-		EMFModelManager modelManager = (EMFModelManager) emfModelCache.get(project);
-		if (modelManager == null) {
+			EMFModelManager modelManager = null;
 			synchronized (emfModelCache) {
-				modelManager= EMFModelManagerFactory.createEMFModelManager(project,this) ;
-				emfModelCache.put(project,modelManager);
+				modelManager = (EMFModelManager) emfModelCache.get(project);
+				if (modelManager == null) {
+					modelManager= EMFModelManagerFactory.createEMFModelManager(project,this) ;
+					emfModelCache.put(project,modelManager);
+				}
 			}
-		}
 		return modelManager.getModels();
 		} catch (Exception ex) {
-			//ex.printStackTrace();
 			return null;
 		}
 	}
 	
-	public synchronized boolean hasLoadedModels(IProject project) {
-		return emfModelCache.get(project) != null;
+	public boolean hasLoadedModels(IProject project) {
+		synchronized (emfModelCache) {
+			return emfModelCache.get(project) != null;
+		}
 	}
 
 	/* (non-Javadoc)
