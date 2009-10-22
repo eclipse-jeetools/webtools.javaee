@@ -174,19 +174,14 @@ public class SingleRootUtil {
 			if (javaOutputFolders.length==1) {
 				// By the time we get here we know: for any folders defined as source in the 
 				// .component file that they are also java source folders.
-				if (JavaEEProjectUtilities.isUtilityProject(getProject()) || 
-						JavaEEProjectUtilities.isEJBProject(getProject()) || 
-						JavaEEProjectUtilities.isApplicationClientProject(getProject())) {
-					
-					if (!isSourceContainer(javaOutputFolders[0].getFullPath())) {
-						// The single output folder is NOT a source folder so this is single-rooted. Since the
-						// output folder (something like classes or bin) is not a source folder, JDT copies all files
-						// (including non Java files) to this folder, so every resource needed at runtime is located 
-						// in a single directory.
-						isSingleJavaOutputNonSource  = true;
-						return;
-					} 
-				}
+				if (!isSourceContainer(javaOutputFolders[0].getFullPath())) {
+					// The single output folder is NOT a source folder so this is single-rooted. Since the
+					// output folder (something like classes or bin) is not a source folder, JDT copies all files
+					// (including non Java files) to this folder, so every resource needed at runtime is located 
+					// in a single directory.
+					isSingleJavaOutputNonSource  = true;
+					return;
+				} 
 				// Verify the java output folder is the same as one of the content roots
 				IPath javaOutputPath = getJavaOutputFolders()[0].getProjectRelativePath();
 				IContainer[] rootFolders = component.getRootFolder().getUnderlyingFolders();
