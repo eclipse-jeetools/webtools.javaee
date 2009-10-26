@@ -107,6 +107,7 @@ public class Ear5ContentProvider extends JEE5ContentProvider {
 			IVirtualComponent projectComponent = ComponentCore.createComponent(project);
 			try {
 				IFacetedProject facetedProject = ProjectFacetsManager.create(project);
+				//EE6TODO
 				if (facetedProject != null && 
 						facetedProject.hasProjectFacet(
 								ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EAR_MODULE).getVersion(

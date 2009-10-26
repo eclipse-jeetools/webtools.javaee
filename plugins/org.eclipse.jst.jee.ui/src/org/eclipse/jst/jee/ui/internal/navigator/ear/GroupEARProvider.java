@@ -75,6 +75,7 @@ public class GroupEARProvider extends AbstractGroupProvider implements IAdaptabl
 
 		try {
 			IFacetedProject facetedProject = ProjectFacetsManager.create(project);
+			//EE6TODO
 			if (facetedProject != null && 
 					facetedProject.hasProjectFacet(
 							ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EAR_MODULE).getVersion(

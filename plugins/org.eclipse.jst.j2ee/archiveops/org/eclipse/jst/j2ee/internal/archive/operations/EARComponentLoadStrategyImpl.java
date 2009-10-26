@@ -95,6 +95,7 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 				if (referencedComponent.isBinary()) {
 					JavaEEQuickPeek qp = JavaEEBinaryComponentHelper.getJavaEEQuickPeek(referencedComponent);
 					int jeeVersion = qp.getJavaEEVersion();
+					//EE6TODO
 					if(jeeVersion == J2EEVersionConstants.JEE_5_0_ID){
 						forceUtility = true;
 					}

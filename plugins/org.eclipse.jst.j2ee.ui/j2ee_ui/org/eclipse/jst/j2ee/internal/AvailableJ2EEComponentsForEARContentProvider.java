@@ -112,6 +112,7 @@ public class AvailableJ2EEComponentsForEARContentProvider extends LabelProvider
 					if (component.equals( earComponent )) {
 						if (isEE5) {
 							String earDDVersion = JavaEEProjectUtilities.getJ2EEDDProjectVersion(project);
+							//EE6TODO
 							boolean isDDVersion5 = earDDVersion.equals(J2EEVersionConstants.VERSION_5_0_TEXT) ? true : false;
 							if (isDDVersion5) {
 								Application app = (Application)ModelProviderManager.getModelProvider(project).getModelObject();

@@ -149,6 +149,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 			IFacetedProject facetedProject = ProjectFacetsManager.create(project);
 			if(facetedProject != null){
 				IProjectFacetVersion facetVersion = facetedProject.getProjectFacetVersion(EarUtilities.ENTERPRISE_APPLICATION_FACET);
+				//EE6TODO
 				if(facetVersion.equals(EarUtilities.ENTERPRISE_APPLICATION_50)){
 					hasEE5Facet = true;
 				}
@@ -156,7 +157,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		} catch (CoreException e) {
 			J2EEUIPlugin.logError(e);
 		}
-		
+		//EE6TODO
 		if(hasEE5Facet){
 			String earDDVersion = JavaEEProjectUtilities.getJ2EEDDProjectVersion(project);
 			if (earDDVersion.equals(J2EEVersionConstants.VERSION_5_0_TEXT)) {

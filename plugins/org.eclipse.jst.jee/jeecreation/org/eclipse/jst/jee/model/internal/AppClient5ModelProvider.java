@@ -58,6 +58,7 @@ public class AppClient5ModelProvider extends JEE5ModelProvider {
 		dn.setValue(name);
 		client.getDisplayNames().add(dn);
 		dd.setApplicationClient(client);
+		//EE6TODO
 		client.setVersion(J2EEVersionConstants.VERSION_5_TEXT);
 		res.getContents().add((EObject) dd);
 	}

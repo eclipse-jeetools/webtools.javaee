@@ -138,6 +138,7 @@ public class ArchiveWrapper {
 		cachedDDMappedModuleURIs = new ArrayList<String>();
 		
 		if(archive.containsArchiveResource(new Path(J2EEConstants.APPLICATION_DD_URI))){
+			//EE6TODO
 			if(jqp.getJavaEEVersion() == JavaEEQuickPeek.JEE_5_0_ID){
 				try {
 					Application application = (Application) archive.getModelObject();
@@ -178,7 +179,7 @@ public class ArchiveWrapper {
 			fail();
 		}
 		cachedEARModules = new ArrayList<ArchiveWrapper>();
-
+		//EE6TODO
 		if(jqp.getJavaEEVersion() == JavaEEQuickPeek.JEE_5_0_ID){
 			List<IArchiveResource> resources = archive.getArchiveResources();
 			for (IArchiveResource resource : resources) {
@@ -283,6 +284,7 @@ public class ArchiveWrapper {
 		IArchive earArchive = archive.getArchive();
 		if(earArchive.containsArchiveResource(new Path(J2EEConstants.APPLICATION_DD_URI))){
 			JavaEEQuickPeek earJQP = JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(earArchive);
+			//EE6TODO
 			if(earJQP.getJavaEEVersion() == JavaEEQuickPeek.JEE_5_0_ID){
 				try {
 					Application application = (Application) earArchive.getModelObject();
@@ -345,6 +347,7 @@ public class ArchiveWrapper {
 		try {
 			JavaEEQuickPeek jqp = JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(ejbWrapper.archive);
 			String clientJarName = null;
+			//EE6TODO
 			if(jqp.getVersion() == J2EEVersionConstants.EJB_3_0_ID){
 				if(ejbWrapper.archive.containsArchiveResource(new Path(J2EEConstants.EJBJAR_DD_URI))){
 					org.eclipse.jst.javaee.ejb.EJBJar edd = (org.eclipse.jst.javaee.ejb.EJBJar) ejbWrapper.archive.getModelObject();

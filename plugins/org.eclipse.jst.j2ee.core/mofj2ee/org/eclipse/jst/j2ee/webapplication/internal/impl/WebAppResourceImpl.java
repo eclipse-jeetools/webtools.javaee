@@ -161,6 +161,7 @@ public class WebAppResourceImpl extends XMLResourceImpl implements WebAppResourc
 	public void setModuleVersionID(int id) {
 	super.setVersionID(id);
 	switch (id) {
+			//EE6TODO
 			case (WEB_2_5_ID) :
 				super.setDoctypeValues(null, null);
 				primSetVersionID(WEB_2_5_ID);
@@ -184,6 +185,7 @@ public class WebAppResourceImpl extends XMLResourceImpl implements WebAppResourc
 	@Override
 	public void setJ2EEVersionID(int id) {
 	switch (id) {
+		//EE6TODO
 		case (JEE_5_0_ID) :
 					primSetDoctypeValues(null, null);
 					primSetVersionID(WEB_2_5_ID);

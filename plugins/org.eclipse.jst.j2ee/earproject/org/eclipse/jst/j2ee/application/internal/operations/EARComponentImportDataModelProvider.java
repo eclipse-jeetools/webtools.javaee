@@ -695,7 +695,7 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 	@Override
 	protected void handleUnknownType(JavaEEQuickPeek jqp) {
 		jqp.setType(J2EEVersionConstants.APPLICATION_TYPE);
-		jqp.setVersion(J2EEVersionConstants.JEE_5_0_ID);
-		jqp.setJavaEEVersion(J2EEVersionConstants.JEE_5_0_ID);
+		jqp.setVersion(J2EEVersionConstants.JEE_6_0_ID);
+		jqp.setJavaEEVersion(J2EEVersionConstants.JEE_6_0_ID);
 	}
 }

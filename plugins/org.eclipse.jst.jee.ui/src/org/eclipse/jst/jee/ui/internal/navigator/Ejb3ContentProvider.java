@@ -173,6 +173,7 @@ public class Ejb3ContentProvider extends JEE5ContentProvider {
 	private boolean isEjbModuleProject(IProject project) {
 		try {
 			IFacetedProject facetedProject = ProjectFacetsManager.create(project);
+			//EE6TODO
 			IProjectFacetVersion installedVersion = facetedProject.getInstalledVersion(ProjectFacetsManager.getProjectFacet(IJ2EEFacetConstants.EJB).getVersion(IJ2EEFacetConstants.EJB_30.getVersionString()).getProjectFacet());
 			return installedVersion != null;
 		} catch (CoreException e) {

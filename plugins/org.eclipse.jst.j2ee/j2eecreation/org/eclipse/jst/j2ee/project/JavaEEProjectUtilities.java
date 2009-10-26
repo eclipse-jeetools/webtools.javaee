@@ -265,7 +265,7 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 					try{
 						in = vFile.getUnderlyingFile().getContents();
 						JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(in);
-						int vers = (quickPeek.getVersion() == J2EEVersionConstants.UNKNOWN) ? getJEEVersion(project) : quickPeek.getVersion();
+						int vers = (quickPeek.getVersion() == J2EEVersionConstants.UNKNOWN) ? getLatestVersion(project) : quickPeek.getVersion();
 						return J2EEVersionUtil.convertVersionIntToString(vers);
 					} catch (CoreException e) {
 						J2EEPlugin.logError(e);
@@ -281,7 +281,7 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 					
 				}
 				else
-					return J2EEVersionUtil.convertVersionIntToString(getJEEVersion(project));
+					return J2EEVersionUtil.convertVersionIntToString(getLatestVersion(project));
 			}
 		}
 		
@@ -289,13 +289,13 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 	}
 
 
-	private static int getJEEVersion(IProject project) {
+	private static int getLatestVersion(IProject project) {
 		if (isEARProject(project) || isApplicationClientProject(project))
-			return J2EEVersionConstants.VERSION_5_0;
+			return J2EEVersionConstants.VERSION_6_0;
 		if (isEJBProject(project))
-			return J2EEVersionConstants.VERSION_3_0;
+			return J2EEVersionConstants.VERSION_3_1;
 		if (isDynamicWebProject(project))
-			return J2EEVersionConstants.VERSION_2_5;
+			return J2EEVersionConstants.VERSION_3_0;
 		return J2EEVersionConstants.UNKNOWN;
 			
 	}

@@ -93,6 +93,7 @@ public class EAR5ModelProvider extends JEE5ModelProvider implements IEARModelPro
 		DisplayName dn = JavaeeFactory.eINSTANCE.createDisplayName();
 		dn.setValue(name);
 		ear.getDisplayNames().add(dn);
+		//EE6TODO
 		ear.setVersion(J2EEVersionConstants.VERSION_5_TEXT);
 		dd.setApplication(ear);
 		res.getContents().add((EObject) dd);

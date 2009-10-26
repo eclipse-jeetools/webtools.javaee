@@ -52,6 +52,7 @@ public class WebUtilities extends JavaEEProjectUtilities {
 		else if (webAppResource instanceof WebApp)
 		{
 			switch (((WebApp)webAppResource).getVersion().getValue()) {
+				//EE6TODO
 				case WebAppVersionType._25: 
 					retVal = J2EEVersionConstants.WEB_2_5_ID;
 					break;
