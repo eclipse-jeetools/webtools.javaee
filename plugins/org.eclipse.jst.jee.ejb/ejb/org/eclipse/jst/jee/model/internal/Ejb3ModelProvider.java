@@ -61,6 +61,7 @@ public class Ejb3ModelProvider extends JEE5ModelProvider {
 		dn.setValue(name);
 		jar.getDisplayNames().add(dn);
 		dd.setEjbJar(jar);
+		//EE6TODO
 		jar.setVersion(J2EEVersionConstants.VERSION_3_0_TEXT);
 		res.getContents().add((EObject) dd);
 	}

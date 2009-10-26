@@ -45,8 +45,8 @@ public final class EJBComponentImportDataModelProvider extends J2EEComponentImpo
 	@Override
 	protected void handleUnknownType(JavaEEQuickPeek jqp) {
 		jqp.setType(J2EEVersionConstants.EJB_TYPE);
-		jqp.setVersion(J2EEVersionConstants.EJB_3_0_ID);
-		jqp.setJavaEEVersion(J2EEVersionConstants.JEE_5_0_ID);
+		jqp.setVersion(J2EEVersionConstants.EJB_3_1_ID);
+		jqp.setJavaEEVersion(J2EEVersionConstants.JEE_6_0_ID);
 	}
 	
 	@Override
