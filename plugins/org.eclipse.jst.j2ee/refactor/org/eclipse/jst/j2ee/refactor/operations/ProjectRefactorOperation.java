@@ -113,12 +113,14 @@ public abstract class ProjectRefactorOperation extends AbstractDataModelOperatio
 		throws ExecutionException {
 		final IModule originalModule = originalMetadata.getModule();
 
-		/* 
-		 * XXX Due to https://bugs.eclipse.org/bugs/show_bug.cgi?id=124292,
-		 * need to ensure that the IModule for the renamed project has the
-		 * is the newest available from the module factory. 
-		 */
-		newMetadata.computeMetadata();
+		if (newMetadata != null) {
+			/* 
+			 * Due to https://bugs.eclipse.org/bugs/show_bug.cgi?id=124292,
+			 * need to ensure that the IModule for the renamed project has the
+			 * is the newest available from the module factory. 
+			 */
+			newMetadata.computeMetadata();
+		}
 
 		if (originalModule == null) {
 			// no module for the original project, so return
