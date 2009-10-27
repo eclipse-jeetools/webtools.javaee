@@ -72,7 +72,7 @@ public class UpdateDependentEARonRenameOp extends UpdateDependentProjectOp {
 		if (refactoredMetadata.hasModuleCoreNature()) {
 			// the refactored project was a module project
 			final IDataModel dm = DataModelFactory.createDataModel(new AddComponentToEnterpriseApplicationDataModelProvider());
-			dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComp); 
+			dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComp.getComponent()); 
 			final List depList = new ArrayList();
 			depList.add(refactoredComp);
 			dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, depList);
