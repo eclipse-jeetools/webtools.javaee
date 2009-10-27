@@ -62,6 +62,11 @@ public class EJBProjectCreationOperationTest extends ModuleProjectCreationOperat
     	runAndVerify(dm);
     }
     
+    public void testEJB31_Defaults() throws Exception {
+    	IDataModel dm = getEJBDataModel("blahEJB", null, null, null, JavaEEFacetConstants.EJB_31, false);
+    	runAndVerify(dm);
+    }
+    
     
     public void testEJB11_AddToEAR_Defaults() throws Exception {
     	IDataModel dm = getEJBDataModel("testEJB", null, null, "testEAR", JavaEEFacetConstants.EJB_11, true);
@@ -83,6 +88,10 @@ public class EJBProjectCreationOperationTest extends ModuleProjectCreationOperat
     	runAndVerify(dm);
     }
     
+    public void testEJB31_AddToEAR_Defaults() throws Exception {
+    	IDataModel dm = getEJBDataModel("booEJB", null, null, "trymeEAR", JavaEEFacetConstants.EJB_31, false);
+    	runAndVerify(dm);
+    }    
     
     public void testEJB11_AddToEAR_NoClient() throws Exception {
     	IDataModel dm = getEJBDataModel("testEJB", null, null, "testEAR", JavaEEFacetConstants.EJB_11, false, true);
@@ -104,6 +113,10 @@ public class EJBProjectCreationOperationTest extends ModuleProjectCreationOperat
     	runAndVerify(dm);
     }
     
+    public void testEJB31_AddToEAR_NoClient() throws Exception {
+    	IDataModel dm = getEJBDataModel("booEJB", null, null, "trymeEAR", JavaEEFacetConstants.EJB_31, false, false);
+    	runAndVerify(dm);
+    }   
     
     public void testEJB11_AddToEAR_ChangedEJBClientName() throws Exception {
     	IDataModel dm = getEJBDataModel("fooBarEJB", "testEJBClient", null, "theirEAR", JavaEEFacetConstants.EJB_11, true);
@@ -125,6 +138,10 @@ public class EJBProjectCreationOperationTest extends ModuleProjectCreationOperat
     	runAndVerify(dm);
     }
     
+    public void testEJB31_AddToEAR_ChangedEJBClientName() throws Exception {
+    	IDataModel dm = getEJBDataModel("scaryEJB", "booEJBClient", null, "scaredEAR", JavaEEFacetConstants.EJB_31, false);
+    	runAndVerify(dm);
+    }
     
     public void testEJB11_AddToEAR_ChangedClientSourceFolder() throws Exception {
     	IDataModel dm = getEJBDataModel("cupEJB", null, "src", "openEAR", JavaEEFacetConstants.EJB_11, true);
@@ -146,6 +163,10 @@ public class EJBProjectCreationOperationTest extends ModuleProjectCreationOperat
     	runAndVerify(dm);
     }
     
+    public void testEJB31_AddToEAR_ChangedClientSourceFolder() throws Exception {
+    	IDataModel dm = getEJBDataModel("goEJB", null, "boo", "goEAR", JavaEEFacetConstants.EJB_31, false);
+    	runAndVerify(dm);
+    }    
     
     public void testEJB11A_ddToEAR_ChangedEJBClientName_ChangedClientSourceFolder() throws Exception {
     	IDataModel dm = getEJBDataModel("cupEJB", "superClient", "src", "openEAR", JavaEEFacetConstants.EJB_11, true);
@@ -167,7 +188,10 @@ public class EJBProjectCreationOperationTest extends ModuleProjectCreationOperat
     	runAndVerify(dm);
     }
     
-    
+    public void testEJB31_AddToEARChangedEJB_ClientName_ChangedClientSourceFolder() throws Exception {
+    	IDataModel dm = getEJBDataModel("goEJB", "workClient", "boo", "goEAR", JavaEEFacetConstants.EJB_31, false);
+    	runAndVerify(dm);
+    }
     
     public void testEJB30_Defaults_WithDD() throws Exception {
     	IDataModel dm = getEJBDataModel("tigerEJB", null, null, null, JavaEEFacetConstants.EJB_3, true);
@@ -199,6 +223,35 @@ public class EJBProjectCreationOperationTest extends ModuleProjectCreationOperat
     	runAndVerify(dm);
     }
     
+    public void testEJB31_Defaults_WithDD() throws Exception {
+    	IDataModel dm = getEJBDataModel("spiderEJB", null, null, null, JavaEEFacetConstants.EJB_31, true);
+    	runAndVerify(dm);
+    }
+    
+    public void testEJB31_AddToEAR_Defaults_WithDD() throws Exception {
+    	IDataModel dm = getEJBDataModel("yogiEJB", null, null, "bearEAR", JavaEEFacetConstants.EJB_31, true);
+    	runAndVerify(dm);
+    }
+    
+    public void testEJB31_AddToEAR_NoClient_WithDD() throws Exception {
+    	IDataModel dm = getEJBDataModel("booEJB", null, null, "trymeEAR", JavaEEFacetConstants.EJB_31, false, true);
+    	runAndVerify(dm);
+    }   
+    
+    public void testEJB31_AddToEAR_ChangedEJBClientName_WithDD() throws Exception {
+    	IDataModel dm = getEJBDataModel("starEJB", "rockstarclient", null, "rockEAR", JavaEEFacetConstants.EJB_31, true);
+    	runAndVerify(dm);
+    }
+    
+    public void testEJB31_AddToEAR_ChangedClientSourceFolder_WithDD() throws Exception {
+    	IDataModel dm = getEJBDataModel("sharkEJB", null, "fishySrc", "fishEAR", JavaEEFacetConstants.EJB_31, true);
+    	runAndVerify(dm);
+    }
+    
+    public void testEJB31_AddToEAR_ChangedEJBClientName_ChangedClientSourceFolder_WithDD() throws Exception {
+    	IDataModel dm = getEJBDataModel("trainEJB", "booClient", "booSrc", "fastEAR", JavaEEFacetConstants.EJB_31, true);
+    	runAndVerify(dm);
+    }
     /**
      * Creates and returns an EJB Data Model with the given name and of the given version.
      * Can also set the clientName to be different then the default.
@@ -216,34 +269,41 @@ public class EJBProjectCreationOperationTest extends ModuleProjectCreationOperat
     public static IDataModel getEJBDataModel(String projName, String clientName, String clientSourceFolder, String earName, IProjectFacetVersion version, boolean createDD) {
     	IDataModel dm = DataModelFactory.createDataModel(new EjbFacetProjectCreationDataModelProvider());
     	dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, projName);
-    	
+
     	FacetDataModelMap facetMap = (FacetDataModelMap) dm.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-        IDataModel facetModel = facetMap.getFacetDataModel(IJ2EEFacetConstants.EJB);
-        facetModel.setProperty(IFacetDataModelProperties.FACET_VERSION, version);
-    	
+    	IDataModel facetModel = facetMap.getFacetDataModel(IJ2EEFacetConstants.EJB);
+    	facetModel.setProperty(IFacetDataModelProperties.FACET_VERSION, version);
+
     	if(earName != null) {
-        	dm.setProperty(IJ2EEFacetProjectCreationDataModelProperties.ADD_TO_EAR, true);
-        	dm.setProperty(IJ2EEFacetProjectCreationDataModelProperties.EAR_PROJECT_NAME, earName);
-        	
-            //only create client if given a client name, and is added to EAR
-            if(clientName != null) {
-            	facetModel.setBooleanProperty(IEjbFacetInstallDataModelProperties.CREATE_CLIENT, true);
-            	facetModel.setStringProperty(IEjbFacetInstallDataModelProperties.CLIENT_NAME, clientName);
-            	
-            	//use default source folder unless different name is given
-            	if(clientSourceFolder != null) {
-            		facetModel.setStringProperty(IEjbFacetInstallDataModelProperties.CLIENT_SOURCE_FOLDER, clientSourceFolder);
-            	}
-            }
+    		dm.setProperty(IJ2EEFacetProjectCreationDataModelProperties.ADD_TO_EAR, true);
+    		dm.setProperty(IJ2EEFacetProjectCreationDataModelProperties.EAR_PROJECT_NAME, earName);
+
+    		//only create client if given a client name, and is added to EAR
+    		if(clientName != null) {
+    			facetModel.setBooleanProperty(IEjbFacetInstallDataModelProperties.CREATE_CLIENT, true);
+    			facetModel.setStringProperty(IEjbFacetInstallDataModelProperties.CLIENT_NAME, clientName);
+
+    			//use default source folder unless different name is given
+    			if(clientSourceFolder != null) {
+    				facetModel.setStringProperty(IEjbFacetInstallDataModelProperties.CLIENT_SOURCE_FOLDER, clientSourceFolder);
+    			}
+    		}
     	} else {
     		dm.setProperty(IJ2EEFacetProjectCreationDataModelProperties.ADD_TO_EAR, false);
     	}
-    	
-            facetModel.setBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD, createDD);
-            
-            IDataModel javaFacetModel = facetMap.getFacetDataModel(IJ2EEFacetConstants.JAVA);
-            javaFacetModel.setProperty(IFacetDataModelProperties.FACET_VERSION, JavaEEFacetConstants.JAVA_5);
-        
+
+    	facetModel.setBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD, createDD);
+
+    	if(version.equals(JavaEEFacetConstants.EJB_31))
+    	{
+    		IDataModel javaFacetModel = facetMap.getFacetDataModel(IJ2EEFacetConstants.JAVA);
+	    	javaFacetModel.setProperty(IFacetDataModelProperties.FACET_VERSION, JavaEEFacetConstants.JAVA_6);
+    	}
+    	else{    
+	    	IDataModel javaFacetModel = facetMap.getFacetDataModel(IJ2EEFacetConstants.JAVA);
+	    	javaFacetModel.setProperty(IFacetDataModelProperties.FACET_VERSION, JavaEEFacetConstants.JAVA_5);
+    	}
+
         
     	return dm;
 	}

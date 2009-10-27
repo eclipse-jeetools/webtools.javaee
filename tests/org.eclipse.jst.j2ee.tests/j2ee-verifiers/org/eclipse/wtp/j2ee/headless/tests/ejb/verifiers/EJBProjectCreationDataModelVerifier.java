@@ -62,7 +62,7 @@ public class EJBProjectCreationDataModelVerifier extends ModuleProjectCreationDa
 	@Override
 	protected void verifyDD(Object modelObj) {
 		String version = J2EEProjectUtilities.getJ2EEProjectVersion(project);
-		if(version.equals(J2EEVersionConstants.VERSION_3_0_TEXT)){
+		if(version.equals(J2EEVersionConstants.VERSION_3_0_TEXT) || version.equals(J2EEVersionConstants.VERSION_3_1_TEXT) ){
 			EJBJar ejb = (EJBJar)modelObj;
 			Assert.assertEquals("Invalid project version", version, ejb.getVersion());
 		} else {
