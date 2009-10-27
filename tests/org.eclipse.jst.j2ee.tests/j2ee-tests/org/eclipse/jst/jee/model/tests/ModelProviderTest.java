@@ -413,7 +413,7 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 		EJBJar sameEjbJar = (EJBJar) newProvider.getModelObject();
 		Assert.assertNotNull("EJBJar Model Object should not be null", sameEjbJar);
 
-		Description desc = findDescritprion(sameEjbJar.getDescriptions(), descText);
+		Description desc = findDescription(sameEjbJar.getDescriptions(), descText);
 		Assert.assertNotNull(desc);
 
 	}
@@ -442,12 +442,12 @@ public class ModelProviderTest extends GeneralEMFPopulationTest {
 		EJBJar sameEjbJar = (EJBJar) newProvider.getModelObject();
 		Assert.assertNotNull("EJBJar Model Object should not be null", sameEjbJar);
 
-		Description desc = findDescritprion(sameEjbJar.getDescriptions(), descText);
+		Description desc = findDescription(sameEjbJar.getDescriptions(), descText);
 		Assert.assertNotNull(desc);
 
 	}
 
-	private Description findDescritprion(List list, String descText2) {
+	private Description findDescription(List list, String descText2) {
 		for (Object object : list) {
 			Description descr = (Description) object;
 			if (descText2.equals(descr.getValue())) {
