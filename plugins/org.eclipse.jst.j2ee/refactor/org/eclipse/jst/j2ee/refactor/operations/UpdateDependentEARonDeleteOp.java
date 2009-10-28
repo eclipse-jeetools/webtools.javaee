@@ -57,7 +57,7 @@ public class UpdateDependentEARonDeleteOp extends UpdateDependentProjectOp {
 			final ProjectRefactorMetadata refactoredMetadata) throws ExecutionException {
 
 		// create IVirtualComponents for the EAR and the refactored project
-		final IVirtualComponent earComp = dependentMetadata.getVirtualComponent().getComponent();
+		final IVirtualComponent earComp = dependentMetadata.getVirtualComponent();
 		final IVirtualComponent refactoredComp = refactoredMetadata.getVirtualComponent();
 		final IProgressMonitor monitor = new NullProgressMonitor();
 		
