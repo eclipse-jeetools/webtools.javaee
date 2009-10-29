@@ -54,6 +54,9 @@ public class EARProjectCreationDataModelVerifier extends JEEProjectCreationDataM
 		if(version.equals(J2EEVersionConstants.VERSION_5_0_TEXT)){
 			Application ear = (Application)modelObj;
 			Assert.assertEquals("Invalid project version", J2EEVersionConstants.VERSION_5_TEXT, ear.getVersion());
+		} else if(version.equals(J2EEVersionConstants.VERSION_6_0_TEXT)){
+			Application ear = (Application)modelObj;
+			Assert.assertEquals("Invalid project version", J2EEVersionConstants.VERSION_6_TEXT, ear.getVersion());
 		} else {
 			org.eclipse.jst.j2ee.application.Application ear = (org.eclipse.jst.j2ee.application.Application)modelObj;
 			Assert.assertEquals("Invalid project version", version, ear.getVersion());

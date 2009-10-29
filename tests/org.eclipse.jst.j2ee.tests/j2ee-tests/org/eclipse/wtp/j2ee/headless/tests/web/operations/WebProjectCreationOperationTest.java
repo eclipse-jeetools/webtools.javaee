@@ -68,7 +68,13 @@ public class WebProjectCreationOperationTest extends ModuleProjectCreationOperat
 	public void testWeb25_Defaults() throws Exception {
 		IDataModel dm = getWebDataModel("netoWeb", null, null, null, null, JavaEEFacetConstants.WEB_25, false);
 		OperationTestCase.runAndVerify(dm);
-	}	
+	}
+	
+	public void testWeb30_Defaults() throws Exception {
+		IDataModel dm = getWebDataModel("badWeb", null, null, null, null, JavaEEFacetConstants.WEB_30, false);
+		OperationTestCase.runAndVerify(dm);
+	}
+	
 	
 	public void testWeb22_ChangedContentDir() throws Exception {
 		IDataModel dm = getWebDataModel("goodWeb", null, null, "myAwesomeContentDir", null, JavaEEFacetConstants.WEB_22, true);
@@ -90,6 +96,10 @@ public class WebProjectCreationOperationTest extends ModuleProjectCreationOperat
 		OperationTestCase.runAndVerify(dm);
 	}
 	
+	public void testWeb30_ChangedContentDir() throws Exception {
+		IDataModel dm = getWebDataModel("madWeb", null, null, "madContent", null, JavaEEFacetConstants.WEB_30, false);
+		OperationTestCase.runAndVerify(dm);
+	}
 	
 	public void testWeb22_ChangedJavaSrcDir() throws Exception {
 		IDataModel dm = getWebDataModel("penWeb", null, null, null, "myJavaSrc", JavaEEFacetConstants.WEB_22, true);
@@ -108,6 +118,11 @@ public class WebProjectCreationOperationTest extends ModuleProjectCreationOperat
 	
 	public void testWeb25_ChangedJavaSrcDir() throws Exception {
 		IDataModel dm = getWebDataModel("markerWeb", null, null, null, "srcOfCool", JavaEEFacetConstants.WEB_25, false);
+		OperationTestCase.runAndVerify(dm);
+	}
+	
+	public void testWeb30_ChangedJavaSrcDir() throws Exception {
+		IDataModel dm = getWebDataModel("booWeb", null, null, null, "booSrc", JavaEEFacetConstants.WEB_30, false);
 		OperationTestCase.runAndVerify(dm);
 	}
 	
@@ -132,6 +147,11 @@ public class WebProjectCreationOperationTest extends ModuleProjectCreationOperat
 		OperationTestCase.runAndVerify(dm);
 	}
 	
+	public void testWeb30_ChangedContentDir_ChangedJavaSrcDir() throws Exception {
+		IDataModel dm = getWebDataModel("eeWeb", null, null, "contentEE", "srcTry", JavaEEFacetConstants.WEB_30, false);
+		OperationTestCase.runAndVerify(dm);
+	}
+	
 	
 	public void testWeb22_Defaults_WithEAR() throws Exception {
 		IDataModel dm = getWebDataModel("testWeb", "teatEAR", null, null, null, JavaEEFacetConstants.WEB_22, true);
@@ -153,6 +173,10 @@ public class WebProjectCreationOperationTest extends ModuleProjectCreationOperat
 		OperationTestCase.runAndVerify(dm);
 	}
 	
+	public void testWeb30_Defaults_WithEAR() throws Exception {
+		IDataModel dm = getWebDataModel("badWeb", "badEAR", null, null, null, JavaEEFacetConstants.WEB_30, false);
+		OperationTestCase.runAndVerify(dm);
+	}
 	
 	public void testWeb22_ChangedContextRoot_WithEAR() throws Exception {
 		IDataModel dm = getWebDataModel("myWeb", "earMy", "superContextRoot", null, null, JavaEEFacetConstants.WEB_22, true);
@@ -171,6 +195,11 @@ public class WebProjectCreationOperationTest extends ModuleProjectCreationOperat
 	
 	public void testWeb25_ChangedContextRoot_WithEAR() throws Exception {
 		IDataModel dm = getWebDataModel("theirWeb", "earTheir", "theRootOfContext", null, null, JavaEEFacetConstants.WEB_25, false);
+		OperationTestCase.runAndVerify(dm);
+	}
+	
+	public void testWeb30_ChangedContextRoot_WithEAR() throws Exception {
+		IDataModel dm = getWebDataModel("herWeb", "earHer", "herContextRoot", null, null, JavaEEFacetConstants.WEB_30, false);
 		OperationTestCase.runAndVerify(dm);
 	}
 	
@@ -195,6 +224,11 @@ public class WebProjectCreationOperationTest extends ModuleProjectCreationOperat
 		OperationTestCase.runAndVerify(dm);
 	}
 	
+	public void testWeb30_ChangedContentDir_WithEAR() throws Exception {
+		IDataModel dm = getWebDataModel("madWeb", "eeEAR", null, "madContent", null, JavaEEFacetConstants.WEB_30, false);
+		OperationTestCase.runAndVerify(dm);
+	}
+	
 	
 	public void testWeb22_ChangedJavaSrcDir_WithEAR() throws Exception {
 		IDataModel dm = getWebDataModel("penWeb", "fEAR", null, null, "myJavaSrc", JavaEEFacetConstants.WEB_22, true);
@@ -213,6 +247,11 @@ public class WebProjectCreationOperationTest extends ModuleProjectCreationOperat
 	
 	public void testWeb25_ChangedJavaSrcDir_WithEAR() throws Exception {
 		IDataModel dm = getWebDataModel("markerWeb", "iEAR", null, null, "srcOfCool", JavaEEFacetConstants.WEB_25, false);
+		OperationTestCase.runAndVerify(dm);
+	}
+	
+	public void testWeb30_ChangedJavaSrcDir_WithEAR() throws Exception {
+		IDataModel dm = getWebDataModel("booWeb", "jjEAR", null, null, "booSrc", JavaEEFacetConstants.WEB_30, false);
 		OperationTestCase.runAndVerify(dm);
 	}
 	
@@ -237,6 +276,11 @@ public class WebProjectCreationOperationTest extends ModuleProjectCreationOperat
 		OperationTestCase.runAndVerify(dm);
 	}
 	
+	public void testWeb30_ChangedContextRoot_ChangedContentDir_WithEAR() throws Exception {
+		IDataModel dm = getWebDataModel("pinkWeb", "nnEAR", "pinkCR", "pinkContent", null, JavaEEFacetConstants.WEB_30, false);
+		OperationTestCase.runAndVerify(dm);
+	}
+	
 	
 	public void testWeb22_ChangedContextRoot_ChangedJavaSrcDir_WithEAR() throws Exception {
 		IDataModel dm = getWebDataModel("farWeb", "nEAR", "ourCR", null, "superSrc", JavaEEFacetConstants.WEB_22, true);
@@ -255,6 +299,11 @@ public class WebProjectCreationOperationTest extends ModuleProjectCreationOperat
 	
 	public void testWeb25_ChangedContextRoot_ChangedJavaSrcDir_WithEAR() throws Exception {
 		IDataModel dm = getWebDataModel("awayWeb", "qEAR", "yourCR", null, "coolSrc", JavaEEFacetConstants.WEB_25, false);
+		OperationTestCase.runAndVerify(dm);
+	}
+	
+	public void testWeb30_ChangedContextRoot_ChangedJavaSrcDir_WithEAR() throws Exception {
+		IDataModel dm = getWebDataModel("veryfarWeb", "rEAR", "herCR", null, "verybadSrc", JavaEEFacetConstants.WEB_30, false);
 		OperationTestCase.runAndVerify(dm);
 	}
 	
@@ -279,6 +328,11 @@ public class WebProjectCreationOperationTest extends ModuleProjectCreationOperat
 		OperationTestCase.runAndVerify(dm);
 	}
 	
+	public void testWeb30_ChangedContentDir_ChangedJavaSrcDir_WithEAR() throws Exception {
+		IDataModel dm = getWebDataModel("eeWeb", "eeEAR", null, "contentEE", "srcTry", JavaEEFacetConstants.WEB_30, false);
+		OperationTestCase.runAndVerify(dm);
+	}
+	
 	
 	public void testWeb22_ChangedContextRoot_ChangedContentDir_ChangedJavaSrcDir_WithEAR() throws Exception {
 		IDataModel dm = getWebDataModel("eWeb", "eEAR", "eRoot", "eContDir", "srcE", JavaEEFacetConstants.WEB_22, true);
@@ -300,6 +354,10 @@ public class WebProjectCreationOperationTest extends ModuleProjectCreationOperat
 		OperationTestCase.runAndVerify(dm);
 	}
 	
+	public void testWeb30_ChangedContextRoot_ChangedContentDir_ChangedJavaSrcDir_WithEAR() throws Exception {
+		IDataModel dm = getWebDataModel("iiWeb", "iiEAR", "iiRoot", "iiContDir", "srgII", JavaEEFacetConstants.WEB_30, false);
+		OperationTestCase.runAndVerify(dm);
+	}
 	
 	
 	public void testWeb25_Defaults_WithDD() throws Exception {
@@ -382,6 +440,77 @@ public class WebProjectCreationOperationTest extends ModuleProjectCreationOperat
 		OperationTestCase.runAndVerify(dm);
 	}
 	
+	public void testWeb30_Defaults_WithDD() throws Exception {
+		IDataModel dm = getWebDataModel("badWeb", null, null, null, null, JavaEEFacetConstants.WEB_30, true);
+		OperationTestCase.runAndVerify(dm);
+	}
+	
+	public void testWeb30_ChangedContextRoot_WithDD() throws Exception {
+		IDataModel dm = getWebDataModel("herWeb", null, "herRootOfContext", null, null, JavaEEFacetConstants.WEB_30, true);
+		OperationTestCase.runAndVerify(dm);
+	}
+	
+	public void testWeb30_ChangedContentDir_WithDD() throws Exception {
+		IDataModel dm = getWebDataModel("madWeb", null, null, "madContent", null, JavaEEFacetConstants.WEB_30, true);
+		OperationTestCase.runAndVerify(dm);
+	}
+	
+	public void testWeb30_ChangedContextRoot_ChangedContentDir_WithDD() throws Exception {
+		IDataModel dm = getWebDataModel("pinkWeb", null, "pinkRC", "tryContent", null, JavaEEFacetConstants.WEB_30, true);
+		OperationTestCase.runAndVerify(dm);
+	}
+	
+	public void testWeb30_ChangedContextRoot_ChangedJavaSrcDir_WithDD() throws Exception {
+		IDataModel dm = getWebDataModel("farawayWeb", null, "farawayCR", null, "farSrc", JavaEEFacetConstants.WEB_30, true);
+		OperationTestCase.runAndVerify(dm);
+	}
+	
+	public void testWeb30_ChangedContentDir_ChangedJavaSrcDir_WithDD() throws Exception {
+		IDataModel dm = getWebDataModel("eeWeb", null, null, "contentE", "srcTry", JavaEEFacetConstants.WEB_30, true);
+		OperationTestCase.runAndVerify(dm);
+	}
+	
+	public void testWeb30_Defaults_WithEAR_WithDD() throws Exception {
+		IDataModel dm = getWebDataModel("badWeb", "badEAR", null, null, null, JavaEEFacetConstants.WEB_30, true);
+		OperationTestCase.runAndVerify(dm);
+	}
+	
+	public void testWeb30_ChangedContextRoot_WithEAR_WithDD() throws Exception {
+		IDataModel dm = getWebDataModel("herWeb", "earHer", "herContextRoot", null, null, JavaEEFacetConstants.WEB_30, true);
+		OperationTestCase.runAndVerify(dm);
+	}
+	
+	public void testWeb30_ChangedContentDir_WithEAR_WithDD() throws Exception {
+		IDataModel dm = getWebDataModel("madWeb", "eeEAR", null, "madContent", null, JavaEEFacetConstants.WEB_30, true);
+		OperationTestCase.runAndVerify(dm);
+	}
+	
+	public void testWeb30_ChangedJavaSrcDir_WithEAR_WithDD() throws Exception {
+		IDataModel dm = getWebDataModel("booWeb", "jjEAR", null, null, "booSrc", JavaEEFacetConstants.WEB_30, true);
+		OperationTestCase.runAndVerify(dm);
+	}
+	
+	public void testWeb30_ChangedContextRoot_ChangedContentDir_WithEAR_WithDD() throws Exception {
+		IDataModel dm = getWebDataModel("pinkWeb", "nnEAR", "pinkCR", "pinkContent", null, JavaEEFacetConstants.WEB_30, true);
+		OperationTestCase.runAndVerify(dm);
+	}
+	
+	public void testWeb30_ChangedContextRoot_ChangedJavaSrcDir_WithEAR_WithDD() throws Exception {
+		IDataModel dm = getWebDataModel("veryfarWeb", "rEAR", "herCR", null, "verybadSrc", JavaEEFacetConstants.WEB_30, true);
+		OperationTestCase.runAndVerify(dm);
+	}
+	
+	public void testWeb30_ChangedContentDir_ChangedJavaSrcDir_WithEAR_WithDD() throws Exception {
+		IDataModel dm = getWebDataModel("eeWeb", "eeEAR", null, "contentEE", "srcTry", JavaEEFacetConstants.WEB_30, true);
+		OperationTestCase.runAndVerify(dm);
+	}
+	
+	public void testWeb30_ChangedContextRoot_ChangedContentDir_ChangedJavaSrcDir_WithEAR_WithDD() throws Exception {
+		IDataModel dm = getWebDataModel("iiWeb", "iiEAR", "iiRoot", "iiContDir", "srgII", JavaEEFacetConstants.WEB_30, true);
+		OperationTestCase.runAndVerify(dm);
+	}
+	
+	
     /**
      * Creates and returns a Web Data Model with the given name and of the given version.
      * Can also be used to specify none default context root, content directory, and/or
@@ -428,12 +557,16 @@ public class WebProjectCreationOperationTest extends ModuleProjectCreationOperat
     		facetModel.setStringProperty(IWebFacetInstallDataModelProperties.SOURCE_FOLDER, javaSrcDir);
     	}
     	
+    	facetModel.setBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD, createDD);
     	
-    		facetModel.setBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD, createDD);
-    		
+    	if(version.equals(JavaEEFacetConstants.WEB_30))    	{
+    		IDataModel javaFacetModel = facetMap.getFacetDataModel(IJ2EEFacetConstants.JAVA);
+	    	javaFacetModel.setProperty(IFacetDataModelProperties.FACET_VERSION, JavaEEFacetConstants.JAVA_6);
+    	}
+    	else{    		
             IDataModel javaFacetModel = facetMap.getFacetDataModel(IJ2EEFacetConstants.JAVA);
             javaFacetModel.setProperty(IFacetDataModelProperties.FACET_VERSION, JavaEEFacetConstants.JAVA_5);
-    	
+    	}
     	
     	return dm;
     }

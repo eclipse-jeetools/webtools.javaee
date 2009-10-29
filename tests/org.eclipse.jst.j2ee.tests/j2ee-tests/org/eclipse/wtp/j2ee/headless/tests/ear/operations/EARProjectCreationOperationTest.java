@@ -55,16 +55,19 @@ public class EARProjectCreationOperationTest extends JEEProjectCreationOperation
 	private static final String APP_CLIENT_PROJ_13 = "myAppClient_13";
 	private static final String APP_CLIENT_PROJ_14 = "myAppClient_14";
 	private static final String APP_CLIENT_PROJ_5 = "myAppClient_5";
+	private static final String APP_CLIENT_PROJ_6 = "myAppClient_6";
 	
 	private static final String EJB_PROJ_11 = "myEJB_11";
 	private static final String EJB_PROJ_2 = "myEJB_2";
 	private static final String EJB_PROJ_21 = "myEJB_21";
 	private static final String EJB_PROJ_3 = "myEJB_3";
+	private static final String EJB_PROJ_31 = "myEJB_31";
 	
 	private static final String WEB_PROJ_22 = "myWeb_22";
 	private static final String WEB_PROJ_23 = "myWeb_23";
 	private static final String WEB_PROJ_24 = "myWeb_24";
 	private static final String WEB_PROJ_25 = "myWeb_25";
+	private static final String WEB_PROJ_30 = "myWeb_30";
 	
 	private static final String CONNECTOR_PROJ_1 = "myConnector_1";
 	private static final String CONNECTOR_PROJ_15 = "myConnector_15";
@@ -97,6 +100,11 @@ public class EARProjectCreationOperationTest extends JEEProjectCreationOperation
     	OperationTestCase.runAndVerify(dm);
     }
     
+    public void testEAR60_Defaults() throws Exception{
+    	IDataModel dm = getEARDataModel("eeEAR", null, null, null, JavaEEFacetConstants.EAR_6, false);
+    	OperationTestCase.runAndVerify(dm);
+    }
+    
     
     public void testEAR12_ChangedContentDir() throws Exception{
     	IDataModel dm = getEARDataModel("eEAR", "whosContent", null, null, JavaEEFacetConstants.EAR_12, true);
@@ -115,6 +123,11 @@ public class EARProjectCreationOperationTest extends JEEProjectCreationOperation
     
     public void testEAR50_ChangedContentDir() throws Exception{
     	IDataModel dm = getEARDataModel("hEAR", "ourContent", null, null, JavaEEFacetConstants.EAR_5, false);
+    	OperationTestCase.runAndVerify(dm);
+    }
+    
+    public void testEAR60_ChangedContentDir() throws Exception{
+    	IDataModel dm = getEARDataModel("iEAR", "herContent", null, null, JavaEEFacetConstants.EAR_6, false);
     	OperationTestCase.runAndVerify(dm);
     }
     
@@ -139,6 +152,11 @@ public class EARProjectCreationOperationTest extends JEEProjectCreationOperation
     	OperationTestCase.runAndVerify(dm);
     }
     
+    public void testEAR60_WithDependencies() throws Exception{
+    	IDataModel dm = getEARDataModel("whyEAR", null, getJ2EEDependencyList_6(), getJavaDependencyList_6(), JavaEEFacetConstants.EAR_6, false);
+    	OperationTestCase.runAndVerify(dm);
+    }
+    
     
     public void testEAR12_ChangedContentDir_WithDependencies() throws Exception{
     	IDataModel dm = getEARDataModel("zEAR", "myContent", getJ2EEDependencyList_12(), getJavaDependencyList_12(), JavaEEFacetConstants.EAR_12, true);
@@ -160,16 +178,33 @@ public class EARProjectCreationOperationTest extends JEEProjectCreationOperation
     	OperationTestCase.runAndVerify(dm);
     }
     
+    public void testEAR60_ChangedContentDir_WithDependencies() throws Exception{
+    	IDataModel dm = getEARDataModel("xyzEAR", "hisContent", getJ2EEDependencyList_6(), getJavaDependencyList_6(), JavaEEFacetConstants.EAR_6, false);
+    	OperationTestCase.runAndVerify(dm);
+    }
+    
     
     public void testEAR50_Defaults_WithDD() throws Exception{
     	IDataModel dm = getEARDataModel("myEAR", null, null, null, JavaEEFacetConstants.EAR_5, true);
     	OperationTestCase.runAndVerify(dm);
     }
     
+    public void testEAR60_Defaults_WithDD() throws Exception{
+    	IDataModel dm = getEARDataModel("mineEAR", null, null, null, JavaEEFacetConstants.EAR_6, true);
+    	OperationTestCase.runAndVerify(dm);
+    }
+    
+    
     public void testEAR50_ChangedContentDir_WithDD() throws Exception{
     	IDataModel dm = getEARDataModel("yourEAR", "ourContent", null, null, JavaEEFacetConstants.EAR_5, true);
     	OperationTestCase.runAndVerify(dm);
     }
+    
+    public void testEAR60_ChangedContentDir_WithDD() throws Exception{
+    	IDataModel dm = getEARDataModel("thatEAR", "thatContent", null, null, JavaEEFacetConstants.EAR_6, true);
+    	OperationTestCase.runAndVerify(dm);
+    }
+    
 /*    
     public void testEAR50_WithDependencies_WithDD() throws Exception{
     	IDataModel dm = getEARDataModel("anEAR", null, getJ2EEDependencyList_5(), getJavaDependencyList_5(), JavaEEFacetConstants.EAR_5, true);
@@ -324,6 +359,34 @@ public class EARProjectCreationOperationTest extends JEEProjectCreationOperation
     }
     
     public static List getJavaDependencyList_5() {
+    	return Collections.emptyList();
+    }
+    
+    public static List getJ2EEDependencyList_6() throws Exception {
+    	getJ2EEDependencyList_5();
+    	List dependencies = new ArrayList();
+    	
+    	List<IDataModel> models = new ArrayList<IDataModel>();
+    	
+    	models.add(AppClientProjectCreationOperationTest.getAppClientCreationDataModel(APP_CLIENT_PROJ_6, null, JavaEEFacetConstants.APP_CLIENT_6, true, false));
+    	models.add(AppClientProjectCreationOperationTest.getAppClientCreationDataModel(APP_CLIENT_PROJ_6 + "_WithDD", null, JavaEEFacetConstants.APP_CLIENT_6, true, true));
+    	
+    	models.add(EJBProjectCreationOperationTest.getEJBDataModel(EJB_PROJ_31, null, null, null, JavaEEFacetConstants.EJB_31, false));
+    	models.add(EJBProjectCreationOperationTest.getEJBDataModel(EJB_PROJ_31 + "_WithDD", null, null, null, JavaEEFacetConstants.EJB_31, true));
+    	
+    	models.add(WebProjectCreationOperationTest.getWebDataModel(WEB_PROJ_30, null, null, null, null, JavaEEFacetConstants.WEB_30, false));
+      	models.add(WebProjectCreationOperationTest.getWebDataModel(WEB_PROJ_30 + "_WithDD", null, null, null, null, JavaEEFacetConstants.WEB_30, true));
+    	
+    	for(int i = 0; i < models.size(); i++) {
+    		OperationTestCase.runDataModel(models.get(i));
+    	}
+    	
+    	dependencies.addAll(Arrays.asList(JavaEEProjectUtilities.getAllProjects()));
+    	
+    	return dependencies;
+    }
+    
+    public static List getJavaDependencyList_6() {
     	return Collections.emptyList();
     }
 }

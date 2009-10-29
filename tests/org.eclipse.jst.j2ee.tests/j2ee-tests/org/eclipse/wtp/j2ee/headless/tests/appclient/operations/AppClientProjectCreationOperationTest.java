@@ -71,6 +71,12 @@ public class AppClientProjectCreationOperationTest extends ModuleProjectCreation
     	OperationTestCase.runAndVerify(dm);
     }
     
+    public void testAC60_Defaults() throws Exception {
+    	IDataModel dm = getAppClientCreationDataModel("greatApp", null, JavaEEFacetConstants.APP_CLIENT_6, true, false);
+    	OperationTestCase.runAndVerify(dm);
+    }
+    
+    
     public void testAC12_NoDefaultClass() throws Exception{
     	IDataModel dm = getAppClientCreationDataModel("randomApp", null, JavaEEFacetConstants.APP_CLIENT_12, false, true);
     	OperationTestCase.runAndVerify(dm);
@@ -90,6 +96,12 @@ public class AppClientProjectCreationOperationTest extends ModuleProjectCreation
     	IDataModel dm = getAppClientCreationDataModel("amazingApp", null, JavaEEFacetConstants.APP_CLIENT_5, false, false);
     	OperationTestCase.runAndVerify(dm);
     }
+    
+    public void testAC60_NoDefaultClass() throws Exception {
+    	IDataModel dm = getAppClientCreationDataModel("greatApp", null, JavaEEFacetConstants.APP_CLIENT_6, false, false);
+    	OperationTestCase.runAndVerify(dm);
+    }
+    
     
     public void testAC12_AddToEAR() throws Exception {
     	IDataModel dm = getAppClientCreationDataModel("fooAppToEar", "someEar", JavaEEFacetConstants.APP_CLIENT_12, true, true);
@@ -111,6 +123,12 @@ public class AppClientProjectCreationOperationTest extends ModuleProjectCreation
     	OperationTestCase.runAndVerify(dm);
     }
     
+    public void testAC60_AddToEAR() throws Exception {
+    	IDataModel dm = getAppClientCreationDataModel("fooAppToEar", "niceEar", JavaEEFacetConstants.APP_CLIENT_6, true, false);
+    	OperationTestCase.runAndVerify(dm);
+    }
+    
+    
     public void testAC12_InterestingName() throws Exception{
     	IDataModel dm = getAppClientCreationDataModel("kd3(2k_djfD3", null, JavaEEFacetConstants.APP_CLIENT_12, true, true);
     	OperationTestCase.runAndVerify(dm);
@@ -130,6 +148,12 @@ public class AppClientProjectCreationOperationTest extends ModuleProjectCreation
     	IDataModel dm = getAppClientCreationDataModel("a_1B2c()3D4", null, JavaEEFacetConstants.APP_CLIENT_5, true, false);
     	OperationTestCase.runAndVerify(dm);
     }
+    
+    public void testAC60_InterestingName() throws Exception{
+    	IDataModel dm = getAppClientCreationDataModel("ASDbt_23()Gfr2", null, JavaEEFacetConstants.APP_CLIENT_6, true, false);
+    	OperationTestCase.runAndVerify(dm);
+    }
+    
     
     public void testAC12_AddToEAR_InterestingName() throws Exception{
     	IDataModel dm = getAppClientCreationDataModel("kd(32k_djfD)3", "hFdf(8G_Fij))3", JavaEEFacetConstants.APP_CLIENT_12, true, true);
@@ -151,6 +175,11 @@ public class AppClientProjectCreationOperationTest extends ModuleProjectCreation
     	OperationTestCase.runAndVerify(dm);
     }
     
+    public void testAC60_AddToEAR_InterestingName() throws Exception{
+    	IDataModel dm = getAppClientCreationDataModel("ASDbt_23()Gfr2", "23Sgsd)(_fg4", JavaEEFacetConstants.APP_CLIENT_6, true, false);
+    	OperationTestCase.runAndVerify(dm);
+    }
+    
     public void testAC50_WithDD() throws Exception {
     	IDataModel dm = getAppClientCreationDataModel("insaneApp", null, JavaEEFacetConstants.APP_CLIENT_5, true, true);
     	OperationTestCase.runAndVerify(dm);
@@ -168,6 +197,26 @@ public class AppClientProjectCreationOperationTest extends ModuleProjectCreation
     
     public void testAC50_AddToEAR_InterestingName_WithDD() throws Exception {
     	IDataModel dm = getAppClientCreationDataModel("D875)_DFj", "7D_3cF2)BaQ", JavaEEFacetConstants.APP_CLIENT_5, true, true);
+    	OperationTestCase.runAndVerify(dm);
+    }
+    
+    public void testAC60_WithDD() throws Exception {
+    	IDataModel dm = getAppClientCreationDataModel("freshApp", null, JavaEEFacetConstants.APP_CLIENT_6, true, true);
+    	OperationTestCase.runAndVerify(dm);
+    }
+    
+    public void testAC60_NoDefaultClass_WithDD() throws Exception {
+    	IDataModel dm = getAppClientCreationDataModel("freshApp", null, JavaEEFacetConstants.APP_CLIENT_6, false, true);
+    	OperationTestCase.runAndVerify(dm);
+    }
+    
+    public void testAC60_AddToEAR_WithDD() throws Exception {
+    	IDataModel dm = getAppClientCreationDataModel("tryAddToEARWithDD", "tryEAR", JavaEEFacetConstants.APP_CLIENT_6, true, true);
+    	OperationTestCase.runAndVerify(dm);
+    }
+    
+    public void testAC60_AddToEAR_InterestingName_WithDD() throws Exception {
+    	IDataModel dm = getAppClientCreationDataModel("4vG_s(70)", "RAS_b46j)(a)1", JavaEEFacetConstants.APP_CLIENT_6, true, true);
     	OperationTestCase.runAndVerify(dm);
     }
     
@@ -201,9 +250,16 @@ public class AppClientProjectCreationOperationTest extends ModuleProjectCreation
         
         
         facetModel.setBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD, createDD);
-            
-        IDataModel javaFacetModel = facetMap.getFacetDataModel(IJ2EEFacetConstants.JAVA);
-        javaFacetModel.setProperty(IFacetDataModelProperties.FACET_VERSION, JavaEEFacetConstants.JAVA_5);
+        
+        if(version.equals(JavaEEFacetConstants.APP_CLIENT_6))
+    	{
+    		IDataModel javaFacetModel = facetMap.getFacetDataModel(IJ2EEFacetConstants.JAVA);
+	    	javaFacetModel.setProperty(IFacetDataModelProperties.FACET_VERSION, JavaEEFacetConstants.JAVA_6);
+    	}
+    	else{ 
+    		IDataModel javaFacetModel = facetMap.getFacetDataModel(IJ2EEFacetConstants.JAVA);
+    		javaFacetModel.setProperty(IFacetDataModelProperties.FACET_VERSION, JavaEEFacetConstants.JAVA_5);
+    	}
         
     	return dm;
     }

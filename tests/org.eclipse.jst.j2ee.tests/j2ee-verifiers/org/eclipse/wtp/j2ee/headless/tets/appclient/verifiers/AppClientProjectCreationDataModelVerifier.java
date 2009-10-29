@@ -57,6 +57,9 @@ public class AppClientProjectCreationDataModelVerifier extends ModuleProjectCrea
 		if(version.equals(J2EEVersionConstants.VERSION_5_0_TEXT)){
 			ApplicationClient client = (ApplicationClient)modelObj;
 			Assert.assertEquals("Invalid project version", J2EEVersionConstants.VERSION_5_TEXT, client.getVersion());
+		} else if(version.equals(J2EEVersionConstants.VERSION_6_0_TEXT)){
+			ApplicationClient client = (ApplicationClient)modelObj;
+			Assert.assertEquals("Invalid project version", J2EEVersionConstants.VERSION_6_TEXT, client.getVersion());
 		} else {
 			org.eclipse.jst.j2ee.client.ApplicationClient client = (org.eclipse.jst.j2ee.client.ApplicationClient)modelObj;
 			Assert.assertEquals("Invalid project version", version, client.getVersion());
