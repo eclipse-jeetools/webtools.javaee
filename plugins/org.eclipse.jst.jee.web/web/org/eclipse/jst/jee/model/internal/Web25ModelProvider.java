@@ -17,6 +17,8 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.javaee.core.DisplayName;
 import org.eclipse.jst.javaee.core.JavaeeFactory;
 import org.eclipse.jst.javaee.web.IWebResource;
@@ -53,13 +55,23 @@ public class Web25ModelProvider extends JEE5ModelProvider {
 		WebAppDeploymentDescriptor dd = WebFactory.eINSTANCE.createWebAppDeploymentDescriptor();
 		dd.getXMLNSPrefixMap().put("", J2EEConstants.JAVAEE_NS_URL);  //$NON-NLS-1$
 		dd.getXMLNSPrefixMap().put("xsi", J2EEConstants.XSI_NS_URL); //$NON-NLS-1$
-		dd.getXSISchemaLocation().put(J2EEConstants.JAVAEE_NS_URL, J2EEConstants.WEB_APP_SCHEMA_LOC_2_5);
+		
 		WebApp war = WebFactory.eINSTANCE.createWebApp();
 		DisplayName dn = JavaeeFactory.eINSTANCE.createDisplayName();
 		dn.setValue(name);
 		war.getDisplayNames().add(dn);
-		dd.setWebApp(war);
-		war.setVersion(WebAppVersionType._25_LITERAL);
+		
+		String version = J2EEProjectUtilities.getJ2EEProjectVersion(proj);
+		if(version != null && version.equals(J2EEVersionConstants.VERSION_2_5_TEXT)) {
+			dd.getXSISchemaLocation().put(J2EEConstants.JAVAEE_NS_URL, J2EEConstants.WEB_APP_SCHEMA_LOC_2_5);
+			war.setVersion(WebAppVersionType._25_LITERAL);
+		}
+		else
+		{
+			dd.getXSISchemaLocation().put(J2EEConstants.JAVAEE_NS_URL, J2EEConstants.WEB_APP_SCHEMA_LOC_3_0);
+			war.setVersion(WebAppVersionType._30_LITERAL);
+		}		
+		dd.setWebApp(war);		
 		res.getContents().add((EObject) dd);
 	}
 
