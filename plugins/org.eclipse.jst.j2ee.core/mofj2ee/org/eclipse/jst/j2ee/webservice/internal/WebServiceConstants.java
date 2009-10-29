@@ -22,6 +22,8 @@ public final class WebServiceConstants
   public static final String WEBSERVICE_SCHEMA_LOC_SUN_1_1 = "http://java.sun.com/xml/ns/j2ee/j2ee_web_services_1_1.xsd";//$NON-NLS-1$
   public static final String WEBSERVICE_SCHEMA_LOC_1_2 = "http://java.sun.com/xml/ns/javaee/javaee_web_services_1_2.xsd";//$NON-NLS-1$
   public static final String WEBSERVICE_SCHEMA_LOC_SUN_1_2 = "http://java.sun.com/xml/ns/javaee/javaee_web_services_1_2.xsd";//$NON-NLS-1$
+  public static final String WEBSERVICE_SCHEMA_LOC_1_3 = "http://java.sun.com/xml/ns/javaee/javaee_web_services_1_3.xsd";//$NON-NLS-1$
+  public static final String WEBSERVICE_SCHEMA_LOC_SUN_1_3 = "http://java.sun.com/xml/ns/javaee/javaee_web_services_1_3.xsd";//$NON-NLS-1$
 
   public static final String WEBSERVICECLIENT_DD_SHORT_NAME   = "webservicesclient.xml"; //$NON-NLS-1$
   public static final String WEBSERVICECLIENT_SYSTEMID    = "http://www.ibm.com/webservices/dtd/j2ee_web_services_client_1_0.dtd"; //$NON-NLS-1$
@@ -42,8 +44,10 @@ public static final String WEBSERVICE_TEMP_DD_SHORT_NAME = "webservices-temp.xml
   public static final int WEBSERVICE_1_0_ID = 10;
   public static final int WEBSERVICE_1_1_ID = 11;
   public static final int WEBSERVICE_1_2_ID = 12;
+  public static final int WEBSERVICE_1_3_ID = 13;
   public static final String WEBSERVICE_SCHEMA_VERSION_1_1 = "1.1";//$NON-NLS-1$
   public static final String WEBSERVICE_SCHEMA_VERSION_1_2 = "1.2";//$NON-NLS-1$
+  public static final String WEBSERVICE_SCHEMA_VERSION_1_3 = "1.3";//$NON-NLS-1$
 
 }
 

@@ -198,6 +198,20 @@ public class WsddSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case WsddPackage.RESPECT_BINDING_TYPE: {
+				RespectBindingType respectBindingType = (RespectBindingType)theEObject;
+				Object result = caseRespectBindingType(respectBindingType);
+				if (result == null) result = caseJ2EEEObject(respectBindingType);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case WsddPackage.ADDRESSING_TYPE: {
+				AddressingType addressingType = (AddressingType)theEObject;
+				Object result = caseAddressingType(addressingType);
+				if (result == null) result = caseJ2EEEObject(addressingType);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -379,6 +393,36 @@ public class WsddSwitch {
 	 * @generated
 	 */
 	public Object caseHandlersChains(HandlersChains object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Respect Binding Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Respect Binding Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseRespectBindingType(RespectBindingType object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Addressing Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Addressing Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseAddressingType(AddressingType object) {
 		return null;
 	}
 

@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.webservice.wsdd.internal.impl;
 
+import java.math.BigInteger;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -24,9 +25,11 @@ import org.eclipse.jst.j2ee.common.IconType;
 import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
 import org.eclipse.jst.j2ee.webservice.wscommon.DescriptionType;
 import org.eclipse.jst.j2ee.webservice.wscommon.DisplayNameType;
+import org.eclipse.jst.j2ee.webservice.wsdd.AddressingType;
 import org.eclipse.jst.j2ee.webservice.wsdd.Handler;
 import org.eclipse.jst.j2ee.webservice.wsdd.HandlersChains;
 import org.eclipse.jst.j2ee.webservice.wsdd.PortComponent;
+import org.eclipse.jst.j2ee.webservice.wsdd.RespectBindingType;
 import org.eclipse.jst.j2ee.webservice.wsdd.ServiceImplBean;
 import org.eclipse.jst.j2ee.webservice.wsdd.WSDLPort;
 import org.eclipse.jst.j2ee.webservice.wsdd.WSDLService;
@@ -56,6 +59,9 @@ import org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage;
  *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.PortComponentImpl#isEnableMtom <em>Enable Mtom</em>}</li>
  *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.PortComponentImpl#getProtocolBinding <em>Protocol Binding</em>}</li>
  *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.PortComponentImpl#getHandlerChains <em>Handler Chains</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.PortComponentImpl#getMtomThreshold <em>Mtom Threshold</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.PortComponentImpl#getRespectBinding <em>Respect Binding</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.PortComponentImpl#getAddressing <em>Addressing</em>}</li>
  * </ul>
  * </p>
  *
@@ -302,6 +308,46 @@ public class PortComponentImpl extends J2EEEObjectImpl implements PortComponent
 	 * @ordered
 	 */
 	protected HandlersChains handlerChains;
+
+	/**
+	 * The default value of the '{@link #getMtomThreshold() <em>Mtom Threshold</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMtomThreshold()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final BigInteger MTOM_THRESHOLD_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getMtomThreshold() <em>Mtom Threshold</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMtomThreshold()
+	 * @generated
+	 * @ordered
+	 */
+	protected BigInteger mtomThreshold = MTOM_THRESHOLD_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getRespectBinding() <em>Respect Binding</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRespectBinding()
+	 * @generated
+	 * @ordered
+	 */
+	protected RespectBindingType respectBinding;
+
+	/**
+	 * The cached value of the '{@link #getAddressing() <em>Addressing</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAddressing()
+	 * @generated
+	 * @ordered
+	 */
+	protected AddressingType addressing;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -808,6 +854,113 @@ protected EClass eStaticClass() {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public BigInteger getMtomThreshold() {
+		return mtomThreshold;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setMtomThreshold(BigInteger newMtomThreshold) {
+		BigInteger oldMtomThreshold = mtomThreshold;
+		mtomThreshold = newMtomThreshold;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, WsddPackage.PORT_COMPONENT__MTOM_THRESHOLD, oldMtomThreshold, mtomThreshold));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public RespectBindingType getRespectBinding() {
+		return respectBinding;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetRespectBinding(RespectBindingType newRespectBinding, NotificationChain msgs) {
+		RespectBindingType oldRespectBinding = respectBinding;
+		respectBinding = newRespectBinding;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, WsddPackage.PORT_COMPONENT__RESPECT_BINDING, oldRespectBinding, newRespectBinding);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setRespectBinding(RespectBindingType newRespectBinding) {
+		if (newRespectBinding != respectBinding) {
+			NotificationChain msgs = null;
+			if (respectBinding != null)
+				msgs = ((InternalEObject)respectBinding).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - WsddPackage.PORT_COMPONENT__RESPECT_BINDING, null, msgs);
+			if (newRespectBinding != null)
+				msgs = ((InternalEObject)newRespectBinding).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - WsddPackage.PORT_COMPONENT__RESPECT_BINDING, null, msgs);
+			msgs = basicSetRespectBinding(newRespectBinding, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, WsddPackage.PORT_COMPONENT__RESPECT_BINDING, newRespectBinding, newRespectBinding));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AddressingType getAddressing() {
+		return addressing;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetAddressing(AddressingType newAddressing, NotificationChain msgs) {
+		AddressingType oldAddressing = addressing;
+		addressing = newAddressing;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, WsddPackage.PORT_COMPONENT__ADDRESSING, oldAddressing, newAddressing);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setAddressing(AddressingType newAddressing) {
+		if (newAddressing != addressing) {
+			NotificationChain msgs = null;
+			if (addressing != null)
+				msgs = ((InternalEObject)addressing).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - WsddPackage.PORT_COMPONENT__ADDRESSING, null, msgs);
+			if (newAddressing != null)
+				msgs = ((InternalEObject)newAddressing).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - WsddPackage.PORT_COMPONENT__ADDRESSING, null, msgs);
+			msgs = basicSetAddressing(newAddressing, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, WsddPackage.PORT_COMPONENT__ADDRESSING, newAddressing, newAddressing));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -827,6 +980,10 @@ protected EClass eStaticClass() {
 				return basicSetWsdlService(null, msgs);
 			case WsddPackage.PORT_COMPONENT__HANDLER_CHAINS:
 				return basicSetHandlerChains(null, msgs);
+			case WsddPackage.PORT_COMPONENT__RESPECT_BINDING:
+				return basicSetRespectBinding(null, msgs);
+			case WsddPackage.PORT_COMPONENT__ADDRESSING:
+				return basicSetAddressing(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -871,6 +1028,12 @@ protected EClass eStaticClass() {
 				return getProtocolBinding();
 			case WsddPackage.PORT_COMPONENT__HANDLER_CHAINS:
 				return getHandlerChains();
+			case WsddPackage.PORT_COMPONENT__MTOM_THRESHOLD:
+				return getMtomThreshold();
+			case WsddPackage.PORT_COMPONENT__RESPECT_BINDING:
+				return getRespectBinding();
+			case WsddPackage.PORT_COMPONENT__ADDRESSING:
+				return getAddressing();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -932,6 +1095,15 @@ protected EClass eStaticClass() {
 			case WsddPackage.PORT_COMPONENT__HANDLER_CHAINS:
 				setHandlerChains((HandlersChains)newValue);
 				return;
+			case WsddPackage.PORT_COMPONENT__MTOM_THRESHOLD:
+				setMtomThreshold((BigInteger)newValue);
+				return;
+			case WsddPackage.PORT_COMPONENT__RESPECT_BINDING:
+				setRespectBinding((RespectBindingType)newValue);
+				return;
+			case WsddPackage.PORT_COMPONENT__ADDRESSING:
+				setAddressing((AddressingType)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -992,6 +1164,15 @@ protected EClass eStaticClass() {
 			case WsddPackage.PORT_COMPONENT__HANDLER_CHAINS:
 				setHandlerChains((HandlersChains)null);
 				return;
+			case WsddPackage.PORT_COMPONENT__MTOM_THRESHOLD:
+				setMtomThreshold(MTOM_THRESHOLD_EDEFAULT);
+				return;
+			case WsddPackage.PORT_COMPONENT__RESPECT_BINDING:
+				setRespectBinding((RespectBindingType)null);
+				return;
+			case WsddPackage.PORT_COMPONENT__ADDRESSING:
+				setAddressing((AddressingType)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -1036,6 +1217,12 @@ protected EClass eStaticClass() {
 				return PROTOCOL_BINDING_EDEFAULT == null ? protocolBinding != null : !PROTOCOL_BINDING_EDEFAULT.equals(protocolBinding);
 			case WsddPackage.PORT_COMPONENT__HANDLER_CHAINS:
 				return handlerChains != null;
+			case WsddPackage.PORT_COMPONENT__MTOM_THRESHOLD:
+				return MTOM_THRESHOLD_EDEFAULT == null ? mtomThreshold != null : !MTOM_THRESHOLD_EDEFAULT.equals(mtomThreshold);
+			case WsddPackage.PORT_COMPONENT__RESPECT_BINDING:
+				return respectBinding != null;
+			case WsddPackage.PORT_COMPONENT__ADDRESSING:
+				return addressing != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -1066,6 +1253,8 @@ public String toString() {
 		result.append(enableMtom);
 		result.append(", protocolBinding: "); //$NON-NLS-1$
 		result.append(protocolBinding);
+		result.append(", mtomThreshold: "); //$NON-NLS-1$
+		result.append(mtomThreshold);
 		result.append(')');
 		return result.toString();
 	}

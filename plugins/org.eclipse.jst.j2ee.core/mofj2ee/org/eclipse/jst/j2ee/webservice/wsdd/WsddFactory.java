@@ -138,6 +138,24 @@ public interface WsddFactory extends EFactory {
 	HandlersChains createHandlersChains();
 
 	/**
+	 * Returns a new object of class '<em>Respect Binding Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Respect Binding Type</em>'.
+	 * @generated
+	 */
+	RespectBindingType createRespectBindingType();
+
+	/**
+	 * Returns a new object of class '<em>Addressing Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Addressing Type</em>'.
+	 * @generated
+	 */
+	AddressingType createAddressingType();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * This method is NOT api, and may change in future releases.  

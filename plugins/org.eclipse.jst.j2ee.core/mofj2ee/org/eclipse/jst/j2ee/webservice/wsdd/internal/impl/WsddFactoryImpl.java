@@ -11,6 +11,7 @@
 package org.eclipse.jst.j2ee.webservice.wsdd.internal.impl;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
@@ -45,7 +46,7 @@ public class WsddFactoryImpl extends EFactoryImpl implements WsddFactory
 	 */
 	public static WsddFactory init() {
 		try {
-			WsddFactory theWsddFactory = (WsddFactory)EPackage.Registry.INSTANCE.getEFactory("wsdd.xmi");  //$NON-NLS-1$
+			WsddFactory theWsddFactory = (WsddFactory)EPackage.Registry.INSTANCE.getEFactory("wsdd.xmi"); //$NON-NLS-1$ 
 			if (theWsddFactory != null) {
 				return theWsddFactory;
 			}
@@ -86,8 +87,40 @@ public EObject create(EClass eClass) {
 			case WsddPackage.WSDL_SERVICE: return createWSDLService();
 			case WsddPackage.HANDLER_CHAIN: return createHandlerChain();
 			case WsddPackage.HANDLERS_CHAINS: return createHandlersChains();
+			case WsddPackage.RESPECT_BINDING_TYPE: return createRespectBindingType();
+			case WsddPackage.ADDRESSING_TYPE: return createAddressingType();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object createFromString(EDataType eDataType, String initialValue) {
+		switch (eDataType.getClassifierID()) {
+			case WsddPackage.ADDRESSING_RESPONSES_TYPE:
+				return createAddressingResponsesTypeFromString(eDataType, initialValue);
+			default:
+				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String convertToString(EDataType eDataType, Object instanceValue) {
+		switch (eDataType.getClassifierID()) {
+			case WsddPackage.ADDRESSING_RESPONSES_TYPE:
+				return convertAddressingResponsesTypeToString(eDataType, instanceValue);
+			default:
+				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 	}
 
@@ -209,6 +242,46 @@ public EObject create(EClass eClass) {
 	public HandlersChains createHandlersChains() {
 		HandlersChainsImpl handlersChains = new HandlersChainsImpl();
 		return handlersChains;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public RespectBindingType createRespectBindingType() {
+		RespectBindingTypeImpl respectBindingType = new RespectBindingTypeImpl();
+		return respectBindingType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AddressingType createAddressingType() {
+		AddressingTypeImpl addressingType = new AddressingTypeImpl();
+		return addressingType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AddressingResponsesType createAddressingResponsesTypeFromString(EDataType eDataType, String initialValue) {
+		AddressingResponsesType result = AddressingResponsesType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertAddressingResponsesTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**

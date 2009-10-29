@@ -81,6 +81,11 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="protocolBinding" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="handlerChains" eType="#//HandlersChains"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="mtomThreshold" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBigInteger"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="respectBinding" eType="#//RespectBindingType"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="addressing" eType="#//AddressingType"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="WSDLPort" eSuperTypes="common.ecore#//QName">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -146,5 +151,18 @@
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="handlerChain" upperBound="-1"
         eType="#//HandlerChain" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RespectBindingType" eSuperTypes="common.ecore#//J2EEEObject">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabled" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AddressingType" eSuperTypes="common.ecore#//J2EEEObject">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabled" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="required" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="responses" eType="#//AddressingResponsesType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="AddressingResponsesType">
+    <eLiterals name="ANONYMOUS"/>
+    <eLiterals name="NONANONYMOUS" value="1"/>
+    <eLiterals name="ALL" value="2"/>
   </eClassifiers>
 </ecore:EPackage>

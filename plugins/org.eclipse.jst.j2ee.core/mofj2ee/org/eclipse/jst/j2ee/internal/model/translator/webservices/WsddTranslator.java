@@ -101,7 +101,7 @@ public class WsddTranslator extends RootTranslator implements WsddXmlMapperI, J2
 		};
 	}
 	
-protected Translator[] create12Children() {
+	protected Translator[] create12Children() {
 		
 		return new Translator[] {
 			IDTranslator.INSTANCE,
@@ -113,6 +113,21 @@ protected Translator[] create12Children() {
 			CommonTranslators.DISPLAYNAMES_TRANSLATOR,
 			CommonTranslators.ICONS_TRANSLATOR,			
 			create12WebServiceDescTranslator()
+		};
+	}
+
+	protected Translator[] create13Children() {
+		
+		return new Translator[] {
+			IDTranslator.INSTANCE,
+			new ConstantAttributeTranslator(XML_NS, JAVAEE_NS_URL),
+			new ConstantAttributeTranslator(XML_NS_XSI, XSI_NS_URL),
+			new ConstantAttributeTranslator(XSI_SCHEMA_LOCATION, JAVAEE_NS_URL+' '+WebServiceConstants.WEBSERVICE_SCHEMA_LOC_1_3),
+			new ConstantAttributeTranslator(VERSION, WebServiceConstants.WEBSERVICE_SCHEMA_VERSION_1_3),			  
+			CommonTranslators.DESCRIPTIONS_TRANSLATOR,
+			CommonTranslators.DISPLAYNAMES_TRANSLATOR,
+			CommonTranslators.ICONS_TRANSLATOR,			
+			create13WebServiceDescTranslator()
 		};
 	}
 
@@ -148,7 +163,7 @@ protected Translator[] create12Children() {
 		return result;	
 	}
 	
-public Translator create12WebServiceDescTranslator() {
+	public Translator create12WebServiceDescTranslator() {
 	    
 		GenericTranslator result = new GenericTranslator(WEBSERVICE_DESCRIPTION, WSDD_PKG.getWebServices_WebServiceDescriptions());
 		result.setChildren(new Translator[] {
@@ -164,7 +179,21 @@ public Translator create12WebServiceDescTranslator() {
 		return result;	
 	}
 
-
+	public Translator create13WebServiceDescTranslator() {
+	    
+		GenericTranslator result = new GenericTranslator(WEBSERVICE_DESCRIPTION, WSDD_PKG.getWebServices_WebServiceDescriptions());
+		result.setChildren(new Translator[] {
+			IDTranslator.INSTANCE,
+			create11DescriptionTranslator(WSDD_PKG.getWebServiceDescription_DescriptionType()),
+			create11DisplayNameTranslator(WSDD_PKG.getWebServiceDescription_DisplayNameType()),			
+			create11IconTranslator(WSDD_PKG.getWebServiceDescription_IconType()),			
+			new Translator(WEBSERVICE_DESCRIPTION_NAME, WSDD_PKG.getWebServiceDescription_WebServiceDescriptionName()),
+			new Translator(WSDL_FILE, WSDD_PKG.getWebServiceDescription_WsdlFile()),			
+			new Translator(JAXRPC_MAPPING_FILE, WSDD_PKG.getWebServiceDescription_JaxrpcMappingFile()),			
+			create13PortComponentTranslator()			  
+		});
+		return result;	
+	}
 
 	public Translator create10PortComponentTranslator() {
 		GenericTranslator result = new GenericTranslator(PORT_COMPONENT, WSDD_PKG.getWebServiceDescription_PortComponents());
@@ -199,7 +228,29 @@ public Translator create12WebServiceDescTranslator() {
 		});
 		return result;	
 	}
+
 	public Translator create12PortComponentTranslator() {
+		GenericTranslator result = new GenericTranslator(PORT_COMPONENT, WSDD_PKG.getWebServiceDescription_PortComponents());
+		result.setChildren(new Translator[] {
+			IDTranslator.INSTANCE,
+			new Translator(DESCRIPTION, WSDD_PKG.getPortComponent_Description()),			
+			new Translator(DISPLAY_NAME, WSDD_PKG.getPortComponent_DisplayName()),			
+			new Translator(SMALL_ICON, WSDD_PKG.getPortComponent_SmallIcon()),			
+			new Translator(LARGE_ICON, WSDD_PKG.getPortComponent_LargeIcon()),				
+			new Translator(PORT_COMPONENT_NAME, WSDD_PKG.getPortComponent_PortComponentName()),
+			CommonTranslators.createQNameTranslator(WSDL_SERVICE, WSDD_PKG.getPortComponent_WsdlService()),
+			CommonTranslators.createQNameTranslator(WSDL_PORT, WSDD_PKG.getPortComponent_WsdlPort()),
+			new BooleanTranslator(ENABLE_MTOM, WSDD_PKG.getPortComponent_EnableMtom()),
+			new Translator(PROTOCOL_BINDING, WSDD_PKG.getPortComponent_ProtocolBinding()),
+			new Translator(SERVICE_ENPOINT_INTERFACE, WSDD_PKG.getPortComponent_ServiceEndpointInterface()),
+			createServiceImplBeanTranslator(),
+			createHandler11Translator(WSDD_PKG.getPortComponent_Handlers()),
+			createHandlerChains12Translator()
+		});
+		return result;	
+	}
+
+	public Translator create13PortComponentTranslator() {
 		GenericTranslator result = new GenericTranslator(PORT_COMPONENT, WSDD_PKG.getWebServiceDescription_PortComponents());
 		result.setChildren(new Translator[] {
 			IDTranslator.INSTANCE,

@@ -77,8 +77,10 @@ public class WsddResourceFactory extends TranslatorResourceFactory
     //http://www.ibm.com/webservices/dtd/j2ee_web_services_1_0.dtd
   	J2EEXmlDtDEntityResolver.registerDtD(WebServiceConstants.WEBSERVICE_SYSTEMID, "j2ee_web_services_1_0.dtd");//$NON-NLS-1$
 	J2EEXmlDtDEntityResolver.registerDtD(WebServiceConstants.WEBSERVICE_SCHEMA_LOC_1_1, "j2ee_web_services_1_1.xsd"); //$NON-NLS-1$
-    J2EEXmlDtDEntityResolver.registerDtD(WebServiceConstants.WEBSERVICE_SCHEMA_LOC_SUN_1_1, "j2ee_web_services_1_1.xsd"); //$NON-NLS-1$	
+    J2EEXmlDtDEntityResolver.registerDtD(WebServiceConstants.WEBSERVICE_SCHEMA_LOC_SUN_1_1, "j2ee_web_services_1_1.xsd"); //$NON-NLS-1$
     J2EEXmlDtDEntityResolver.registerDtD(WebServiceConstants.WEBSERVICE_SCHEMA_LOC_1_2, "javaee_web_services_1_2.xsd"); //$NON-NLS-1$
-    J2EEXmlDtDEntityResolver.registerDtD(WebServiceConstants.WEBSERVICE_SCHEMA_LOC_SUN_1_2, "javaee_web_services_1_2.xsd"); //$NON-NLS-1$	
+    J2EEXmlDtDEntityResolver.registerDtD(WebServiceConstants.WEBSERVICE_SCHEMA_LOC_SUN_1_2, "javaee_web_services_1_2.xsd"); //$NON-NLS-1$
+    J2EEXmlDtDEntityResolver.registerDtD(WebServiceConstants.WEBSERVICE_SCHEMA_LOC_1_3, "javaee_web_services_1_3.xsd"); //$NON-NLS-1$
+    J2EEXmlDtDEntityResolver.registerDtD(WebServiceConstants.WEBSERVICE_SCHEMA_LOC_SUN_1_3, "javaee_web_services_1_3.xsd"); //$NON-NLS-1$
   }
 }

@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.webservice.wsdd;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.jst.j2ee.common.CommonPackage;
@@ -438,13 +439,40 @@ public interface WsddPackage extends EPackage {
 	int PORT_COMPONENT__HANDLER_CHAINS = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 15;
 
 	/**
+	 * The feature id for the '<em><b>Mtom Threshold</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_COMPONENT__MTOM_THRESHOLD = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 16;
+
+	/**
+	 * The feature id for the '<em><b>Respect Binding</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_COMPONENT__RESPECT_BINDING = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 17;
+
+	/**
+	 * The feature id for the '<em><b>Addressing</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PORT_COMPONENT__ADDRESSING = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 18;
+
+	/**
 	 * The number of structural features of the '<em>Port Component</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int PORT_COMPONENT_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 16;
+  int PORT_COMPONENT_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 19;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WSDLPortImpl <em>WSDL Port</em>}' class.
@@ -890,6 +918,91 @@ public interface WsddPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.RespectBindingTypeImpl <em>Respect Binding Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.RespectBindingTypeImpl
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WsddPackageImpl#getRespectBindingType()
+	 * @generated
+	 */
+	int RESPECT_BINDING_TYPE = 12;
+
+	/**
+	 * The feature id for the '<em><b>Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RESPECT_BINDING_TYPE__ENABLED = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Respect Binding Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RESPECT_BINDING_TYPE_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.AddressingTypeImpl <em>Addressing Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.AddressingTypeImpl
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WsddPackageImpl#getAddressingType()
+	 * @generated
+	 */
+	int ADDRESSING_TYPE = 13;
+
+	/**
+	 * The feature id for the '<em><b>Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADDRESSING_TYPE__ENABLED = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Required</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADDRESSING_TYPE__REQUIRED = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Responses</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADDRESSING_TYPE__RESPONSES = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Addressing Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADDRESSING_TYPE_FEATURE_COUNT = CommonPackage.J2EEE_OBJECT_FEATURE_COUNT + 3;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.jst.j2ee.webservice.wsdd.AddressingResponsesType <em>Addressing Responses Type</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.AddressingResponsesType
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WsddPackageImpl#getAddressingResponsesType()
+	 * @generated
+	 */
+	int ADDRESSING_RESPONSES_TYPE = 14;
+
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.webservice.wsdd.WebServices <em>Web Services</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1228,6 +1341,39 @@ public interface WsddPackage extends EPackage {
 	EReference getPortComponent_HandlerChains();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getMtomThreshold <em>Mtom Threshold</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Mtom Threshold</em>'.
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getMtomThreshold()
+	 * @see #getPortComponent()
+	 * @generated
+	 */
+	EAttribute getPortComponent_MtomThreshold();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getRespectBinding <em>Respect Binding</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Respect Binding</em>'.
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getRespectBinding()
+	 * @see #getPortComponent()
+	 * @generated
+	 */
+	EReference getPortComponent_RespectBinding();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getAddressing <em>Addressing</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Addressing</em>'.
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getAddressing()
+	 * @see #getPortComponent()
+	 * @generated
+	 */
+	EReference getPortComponent_Addressing();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.webservice.wsdd.WSDLPort <em>WSDL Port</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1481,6 +1627,80 @@ public interface WsddPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getHandlersChains_HandlerChain();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.webservice.wsdd.RespectBindingType <em>Respect Binding Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Respect Binding Type</em>'.
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.RespectBindingType
+	 * @generated
+	 */
+	EClass getRespectBindingType();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.webservice.wsdd.RespectBindingType#isEnabled <em>Enabled</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Enabled</em>'.
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.RespectBindingType#isEnabled()
+	 * @see #getRespectBindingType()
+	 * @generated
+	 */
+	EAttribute getRespectBindingType_Enabled();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.jst.j2ee.webservice.wsdd.AddressingType <em>Addressing Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Addressing Type</em>'.
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.AddressingType
+	 * @generated
+	 */
+	EClass getAddressingType();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.webservice.wsdd.AddressingType#isEnabled <em>Enabled</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Enabled</em>'.
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.AddressingType#isEnabled()
+	 * @see #getAddressingType()
+	 * @generated
+	 */
+	EAttribute getAddressingType_Enabled();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.webservice.wsdd.AddressingType#isRequired <em>Required</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Required</em>'.
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.AddressingType#isRequired()
+	 * @see #getAddressingType()
+	 * @generated
+	 */
+	EAttribute getAddressingType_Required();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.j2ee.webservice.wsdd.AddressingType#getResponses <em>Responses</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Responses</em>'.
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.AddressingType#getResponses()
+	 * @see #getAddressingType()
+	 * @generated
+	 */
+	EAttribute getAddressingType_Responses();
+
+	/**
+	 * Returns the meta object for enum '{@link org.eclipse.jst.j2ee.webservice.wsdd.AddressingResponsesType <em>Addressing Responses Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Addressing Responses Type</em>'.
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.AddressingResponsesType
+	 * @generated
+	 */
+	EEnum getAddressingResponsesType();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -1759,6 +1979,30 @@ public interface WsddPackage extends EPackage {
 		EReference PORT_COMPONENT__HANDLER_CHAINS = eINSTANCE.getPortComponent_HandlerChains();
 
 		/**
+		 * The meta object literal for the '<em><b>Mtom Threshold</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PORT_COMPONENT__MTOM_THRESHOLD = eINSTANCE.getPortComponent_MtomThreshold();
+
+		/**
+		 * The meta object literal for the '<em><b>Respect Binding</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PORT_COMPONENT__RESPECT_BINDING = eINSTANCE.getPortComponent_RespectBinding();
+
+		/**
+		 * The meta object literal for the '<em><b>Addressing</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PORT_COMPONENT__ADDRESSING = eINSTANCE.getPortComponent_Addressing();
+
+		/**
 		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WSDLPortImpl <em>WSDL Port</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1967,6 +2211,68 @@ public interface WsddPackage extends EPackage {
 		 * @generated
 		 */
 		EReference HANDLERS_CHAINS__HANDLER_CHAIN = eINSTANCE.getHandlersChains_HandlerChain();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.RespectBindingTypeImpl <em>Respect Binding Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.RespectBindingTypeImpl
+		 * @see org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WsddPackageImpl#getRespectBindingType()
+		 * @generated
+		 */
+		EClass RESPECT_BINDING_TYPE = eINSTANCE.getRespectBindingType();
+
+		/**
+		 * The meta object literal for the '<em><b>Enabled</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute RESPECT_BINDING_TYPE__ENABLED = eINSTANCE.getRespectBindingType_Enabled();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.AddressingTypeImpl <em>Addressing Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.AddressingTypeImpl
+		 * @see org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WsddPackageImpl#getAddressingType()
+		 * @generated
+		 */
+		EClass ADDRESSING_TYPE = eINSTANCE.getAddressingType();
+
+		/**
+		 * The meta object literal for the '<em><b>Enabled</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ADDRESSING_TYPE__ENABLED = eINSTANCE.getAddressingType_Enabled();
+
+		/**
+		 * The meta object literal for the '<em><b>Required</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ADDRESSING_TYPE__REQUIRED = eINSTANCE.getAddressingType_Required();
+
+		/**
+		 * The meta object literal for the '<em><b>Responses</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ADDRESSING_TYPE__RESPONSES = eINSTANCE.getAddressingType_Responses();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.j2ee.webservice.wsdd.AddressingResponsesType <em>Addressing Responses Type</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.j2ee.webservice.wsdd.AddressingResponsesType
+		 * @see org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WsddPackageImpl#getAddressingResponsesType()
+		 * @generated
+		 */
+		EEnum ADDRESSING_RESPONSES_TYPE = eINSTANCE.getAddressingResponsesType();
 
 	}
 

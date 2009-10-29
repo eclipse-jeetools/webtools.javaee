@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.webservice.wsdd;
 
+import java.math.BigInteger;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jst.j2ee.common.IconType;
 import org.eclipse.jst.j2ee.common.J2EEEObject;
@@ -46,6 +47,9 @@ import org.eclipse.jst.j2ee.webservice.wscommon.DisplayNameType;
  *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#isEnableMtom <em>Enable Mtom</em>}</li>
  *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getProtocolBinding <em>Protocol Binding</em>}</li>
  *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getHandlerChains <em>Handler Chains</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getMtomThreshold <em>Mtom Threshold</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getRespectBinding <em>Respect Binding</em>}</li>
+ *   <li>{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getAddressing <em>Addressing</em>}</li>
  * </ul>
  * </p>
  *
@@ -469,5 +473,83 @@ public interface PortComponent extends J2EEEObject {
 	 * @generated
 	 */
 	void setHandlerChains(HandlersChains value);
+
+	/**
+	 * Returns the value of the '<em><b>Mtom Threshold</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Mtom Threshold</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Mtom Threshold</em>' attribute.
+	 * @see #setMtomThreshold(BigInteger)
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getPortComponent_MtomThreshold()
+	 * @model
+	 * @generated
+	 */
+	BigInteger getMtomThreshold();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getMtomThreshold <em>Mtom Threshold</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Mtom Threshold</em>' attribute.
+	 * @see #getMtomThreshold()
+	 * @generated
+	 */
+	void setMtomThreshold(BigInteger value);
+
+	/**
+	 * Returns the value of the '<em><b>Respect Binding</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Respect Binding</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Respect Binding</em>' containment reference.
+	 * @see #setRespectBinding(RespectBindingType)
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getPortComponent_RespectBinding()
+	 * @model containment="true"
+	 * @generated
+	 */
+	RespectBindingType getRespectBinding();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getRespectBinding <em>Respect Binding</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Respect Binding</em>' containment reference.
+	 * @see #getRespectBinding()
+	 * @generated
+	 */
+	void setRespectBinding(RespectBindingType value);
+
+	/**
+	 * Returns the value of the '<em><b>Addressing</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Addressing</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Addressing</em>' containment reference.
+	 * @see #setAddressing(AddressingType)
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage#getPortComponent_Addressing()
+	 * @model containment="true"
+	 * @generated
+	 */
+	AddressingType getAddressing();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.jst.j2ee.webservice.wsdd.PortComponent#getAddressing <em>Addressing</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Addressing</em>' containment reference.
+	 * @see #getAddressing()
+	 * @generated
+	 */
+	void setAddressing(AddressingType value);
 
 } // PortComponent

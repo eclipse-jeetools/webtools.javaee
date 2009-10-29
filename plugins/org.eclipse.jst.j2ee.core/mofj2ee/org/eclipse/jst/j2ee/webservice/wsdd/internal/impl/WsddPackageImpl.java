@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.webservice.wsdd.internal.impl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -37,12 +38,15 @@ import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage;
 import org.eclipse.jst.j2ee.webservice.wsclient.internal.impl.Webservice_clientPackageImpl;
 import org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage;
 import org.eclipse.jst.j2ee.webservice.wscommon.internal.impl.WscommonPackageImpl;
+import org.eclipse.jst.j2ee.webservice.wsdd.AddressingResponsesType;
+import org.eclipse.jst.j2ee.webservice.wsdd.AddressingType;
 import org.eclipse.jst.j2ee.webservice.wsdd.BeanLink;
 import org.eclipse.jst.j2ee.webservice.wsdd.EJBLink;
 import org.eclipse.jst.j2ee.webservice.wsdd.Handler;
 import org.eclipse.jst.j2ee.webservice.wsdd.HandlerChain;
 import org.eclipse.jst.j2ee.webservice.wsdd.HandlersChains;
 import org.eclipse.jst.j2ee.webservice.wsdd.PortComponent;
+import org.eclipse.jst.j2ee.webservice.wsdd.RespectBindingType;
 import org.eclipse.jst.j2ee.webservice.wsdd.ServiceImplBean;
 import org.eclipse.jst.j2ee.webservice.wsdd.ServletLink;
 import org.eclipse.jst.j2ee.webservice.wsdd.WSDLPort;
@@ -146,6 +150,27 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 	private EClass handlersChainsEClass = null;
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass respectBindingTypeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass addressingTypeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum addressingResponsesTypeEEnum = null;
+
+	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
 	 * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
 	 * package URI value.
@@ -172,20 +197,10 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
   private static boolean isInited = false;
 
 	/**
-	 * Creates, registers, and initializes the <b>Package</b> for this
-	 * model, and for any others upon which it depends.  Simple
-	 * dependencies are satisfied by calling this method on all
-	 * dependent packages before doing anything else.  This method drives
-	 * initialization for interdependent packages directly, in parallel
-	 * with this package, itself.
-	 * <p>Of this package and its interdependencies, all packages which
-	 * have not yet been registered by their URI values are first created
-	 * and registered.  The packages are then initialized in two steps:
-	 * meta-model objects for all of the packages are created before any
-	 * are initialized, since one package's meta-model objects may refer to
-	 * those of another.
-	 * <p>Invocation of this method will not affect any packages that have
-	 * already been initialized.
+	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
+	 * 
+	 * <p>This method is used to initialize {@link WsddPackage#eINSTANCE} when that field is accessed.
+	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @see #eNS_URI
@@ -197,12 +212,11 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 		if (isInited) return (WsddPackage)EPackage.Registry.INSTANCE.getEPackage(WsddPackage.eNS_URI);
 
 		// Obtain or create and register package
-		WsddPackageImpl theWsddPackage = (WsddPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(eNS_URI) instanceof WsddPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(eNS_URI) : new WsddPackageImpl());
+		WsddPackageImpl theWsddPackage = (WsddPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof WsddPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new WsddPackageImpl());
 
 		isInited = true;
 
 		// Initialize simple dependencies
-		EcorePackage.eINSTANCE.eClass();
 		JavaRefPackage.eINSTANCE.eClass();
 
 		// Obtain or create and register interdependencies
@@ -249,6 +263,9 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 		// Mark meta-data to indicate it can't be changed
 		theWsddPackage.freeze();
 
+  
+		// Update the registry and return the package
+		EPackage.Registry.INSTANCE.put(WsddPackage.eNS_URI, theWsddPackage);
 		return theWsddPackage;
 	}
 
@@ -533,6 +550,33 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPortComponent_MtomThreshold() {
+		return (EAttribute)portComponentEClass.getEStructuralFeatures().get(16);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPortComponent_RespectBinding() {
+		return (EReference)portComponentEClass.getEStructuralFeatures().get(17);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPortComponent_Addressing() {
+		return (EReference)portComponentEClass.getEStructuralFeatures().get(18);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -749,6 +793,69 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getRespectBindingType() {
+		return respectBindingTypeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getRespectBindingType_Enabled() {
+		return (EAttribute)respectBindingTypeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAddressingType() {
+		return addressingTypeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAddressingType_Enabled() {
+		return (EAttribute)addressingTypeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAddressingType_Required() {
+		return (EAttribute)addressingTypeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAddressingType_Responses() {
+		return (EAttribute)addressingTypeEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getAddressingResponsesType() {
+		return addressingResponsesTypeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -808,6 +915,9 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 		createEAttribute(portComponentEClass, PORT_COMPONENT__ENABLE_MTOM);
 		createEAttribute(portComponentEClass, PORT_COMPONENT__PROTOCOL_BINDING);
 		createEReference(portComponentEClass, PORT_COMPONENT__HANDLER_CHAINS);
+		createEAttribute(portComponentEClass, PORT_COMPONENT__MTOM_THRESHOLD);
+		createEReference(portComponentEClass, PORT_COMPONENT__RESPECT_BINDING);
+		createEReference(portComponentEClass, PORT_COMPONENT__ADDRESSING);
 
 		wsdlPortEClass = createEClass(WSDL_PORT);
 
@@ -841,6 +951,17 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 
 		handlersChainsEClass = createEClass(HANDLERS_CHAINS);
 		createEReference(handlersChainsEClass, HANDLERS_CHAINS__HANDLER_CHAIN);
+
+		respectBindingTypeEClass = createEClass(RESPECT_BINDING_TYPE);
+		createEAttribute(respectBindingTypeEClass, RESPECT_BINDING_TYPE__ENABLED);
+
+		addressingTypeEClass = createEClass(ADDRESSING_TYPE);
+		createEAttribute(addressingTypeEClass, ADDRESSING_TYPE__ENABLED);
+		createEAttribute(addressingTypeEClass, ADDRESSING_TYPE__REQUIRED);
+		createEAttribute(addressingTypeEClass, ADDRESSING_TYPE__RESPONSES);
+
+		// Create enums
+		addressingResponsesTypeEEnum = createEEnum(ADDRESSING_RESPONSES_TYPE);
 	}
 
 	/**
@@ -884,6 +1005,8 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 		wsdlServiceEClass.getESuperTypes().add(theCommonPackage.getQName());
 		handlerChainEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
 		handlersChainsEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		respectBindingTypeEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+		addressingTypeEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(webServicesEClass, WebServices.class, "WebServices", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
@@ -919,6 +1042,9 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 		initEAttribute(getPortComponent_EnableMtom(), theEcorePackage.getEBoolean(), "enableMtom", "", 0, 1, PortComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$ //$NON-NLS-2$
 		initEAttribute(getPortComponent_ProtocolBinding(), ecorePackage.getEString(), "protocolBinding", null, 0, 1, PortComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getPortComponent_HandlerChains(), this.getHandlersChains(), null, "handlerChains", null, 0, 1, PortComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getPortComponent_MtomThreshold(), theEcorePackage.getEBigInteger(), "mtomThreshold", null, 0, 1, PortComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getPortComponent_RespectBinding(), this.getRespectBindingType(), null, "respectBinding", null, 0, 1, PortComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getPortComponent_Addressing(), this.getAddressingType(), null, "addressing", null, 0, 1, PortComponent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(wsdlPortEClass, WSDLPort.class, "WSDLPort", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 
@@ -952,6 +1078,20 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 
 		initEClass(handlersChainsEClass, HandlersChains.class, "HandlersChains", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(getHandlersChains_HandlerChain(), this.getHandlerChain(), null, "handlerChain", null, 0, -1, HandlersChains.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(respectBindingTypeEClass, RespectBindingType.class, "RespectBindingType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getRespectBindingType_Enabled(), theEcorePackage.getEBoolean(), "enabled", null, 0, 1, RespectBindingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(addressingTypeEClass, AddressingType.class, "AddressingType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getAddressingType_Enabled(), theEcorePackage.getEBoolean(), "enabled", null, 0, 1, AddressingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getAddressingType_Required(), theEcorePackage.getEBoolean(), "required", null, 0, 1, AddressingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getAddressingType_Responses(), this.getAddressingResponsesType(), "responses", null, 0, 1, AddressingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		// Initialize enums and add enum literals
+		initEEnum(addressingResponsesTypeEEnum, AddressingResponsesType.class, "AddressingResponsesType"); //$NON-NLS-1$
+		addEEnumLiteral(addressingResponsesTypeEEnum, AddressingResponsesType.ANONYMOUS_LITERAL);
+		addEEnumLiteral(addressingResponsesTypeEEnum, AddressingResponsesType.NONANONYMOUS_LITERAL);
+		addEEnumLiteral(addressingResponsesTypeEEnum, AddressingResponsesType.ALL_LITERAL);
 
 		// Create resource
 		createResource(eNS_URI);

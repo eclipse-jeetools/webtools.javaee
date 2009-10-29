@@ -82,7 +82,7 @@ public boolean isFactoryForType(Object object) {
 	}
 
 	/**
-	 * The switch the delegates to the <code>createXXX</code> methods.
+	 * The switch that delegates to the <code>createXXX</code> methods.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -136,6 +136,14 @@ public boolean isFactoryForType(Object object) {
 			@Override
 			public Object caseHandlersChains(HandlersChains object) {
 				return createHandlersChainsAdapter();
+			}
+			@Override
+			public Object caseRespectBindingType(RespectBindingType object) {
+				return createRespectBindingTypeAdapter();
+			}
+			@Override
+			public Object caseAddressingType(AddressingType object) {
+				return createAddressingTypeAdapter();
 			}
 			@Override
 			public Object caseJ2EEEObject(J2EEEObject object) {
@@ -338,6 +346,34 @@ public Adapter createAdapter(Notifier target) {
 	 * @generated
 	 */
 	public Adapter createHandlersChainsAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.wsdd.RespectBindingType <em>Respect Binding Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.RespectBindingType
+	 * @generated
+	 */
+	public Adapter createRespectBindingTypeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.j2ee.webservice.wsdd.AddressingType <em>Addressing Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.jst.j2ee.webservice.wsdd.AddressingType
+	 * @generated
+	 */
+	public Adapter createAddressingTypeAdapter() {
 		return null;
 	}
 

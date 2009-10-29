@@ -46,5 +46,10 @@ public interface WsddResource extends XMLResource
 	 * @return boolean value
 	 */
 	public boolean isWebService1_2();
+	/**
+	 * Returns true if the WebService is of version 1.2
+	 * @return boolean value
+	 */
+	public boolean isWebService1_3();
   
 }

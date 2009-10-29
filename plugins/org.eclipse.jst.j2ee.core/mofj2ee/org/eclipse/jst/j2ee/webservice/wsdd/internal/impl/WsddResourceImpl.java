@@ -99,6 +99,10 @@ public class WsddResourceImpl extends XMLResourceImpl implements WsddResource
    {
       return (getModuleVersionID()==WebServiceConstants.WEBSERVICE_1_2_ID);  
    }
+   public boolean isWebService1_3()
+   {
+      return (getModuleVersionID()==WebServiceConstants.WEBSERVICE_1_3_ID);  
+   }
 
 	/* 
 	 * This directly sets the module version id
@@ -107,6 +111,10 @@ public class WsddResourceImpl extends XMLResourceImpl implements WsddResource
 	public void setModuleVersionID(int id) {
 	//super.setVersionID(id);
 	switch (id) {
+			case (WebServiceConstants.WEBSERVICE_1_3_ID) :
+				super.setDoctypeValues(null, null);
+				primSetVersionID(WebServiceConstants.WEBSERVICE_1_3_ID);
+				break;
 			case (WebServiceConstants.WEBSERVICE_1_2_ID) :
 				super.setDoctypeValues(null, null);
 				primSetVersionID(WebServiceConstants.WEBSERVICE_1_2_ID);
