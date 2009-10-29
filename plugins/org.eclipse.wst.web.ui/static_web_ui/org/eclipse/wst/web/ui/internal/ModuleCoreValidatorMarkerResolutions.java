@@ -27,9 +27,11 @@ import org.eclipse.ui.views.markers.WorkbenchMarkerResolution;
 import org.eclipse.wst.common.componentcore.internal.ModuleMigratorManager;
 
 /**
+ * This has been deprecated since WTP 3.1.2 and will be deleted post WTP 3.2.
+ * See https://bugs.eclipse.org/bugs/show_bug.cgi?id=292934
+ * @deprecated 
  * @author <a href="mailto:kosta@bea.com">Konstantin Komissarchik</a>
  */
-
 public final class ModuleCoreValidatorMarkerResolutions
 
     implements IMarkerResolutionGenerator

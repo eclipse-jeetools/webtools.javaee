@@ -74,6 +74,12 @@ import org.eclipse.wst.project.facet.SimpleWebFacetInstallDataModelProvider;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.ServerUtil;
 
+/**
+ * This has been deprecated since WTP 3.1.2 and will be deleted post WTP 3.2.
+ * See https://bugs.eclipse.org/bugs/show_bug.cgi?id=292934
+ * @deprecated 
+ * @author jsholl
+ */
 public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 
 	private static final String WEB_LIB_CONTAINER = "org.eclipse.jst.j2ee.internal.web.container";
