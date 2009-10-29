@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.javaee.applicationclient.ApplicationClient;
 import org.eclipse.jst.javaee.applicationclient.ApplicationClientDeploymentDescriptor;
 import org.eclipse.jst.javaee.applicationclient.ApplicationclientFactory;
@@ -52,14 +53,23 @@ public class AppClient5ModelProvider extends JEE5ModelProvider {
 		ApplicationClientDeploymentDescriptor dd = ApplicationclientFactory.eINSTANCE.createApplicationClientDeploymentDescriptor();
 		dd.getXMLNSPrefixMap().put("", J2EEConstants.JAVAEE_NS_URL);  //$NON-NLS-1$
 		dd.getXMLNSPrefixMap().put("xsi", J2EEConstants.XSI_NS_URL); //$NON-NLS-1$
-		dd.getXSISchemaLocation().put(J2EEConstants.JAVAEE_NS_URL, J2EEConstants.APP_CLIENT_SCHEMA_LOC_5);
+		
 		ApplicationClient client = ApplicationclientFactory.eINSTANCE.createApplicationClient();
 		DisplayName dn = JavaeeFactory.eINSTANCE.createDisplayName();
 		dn.setValue(name);
 		client.getDisplayNames().add(dn);
+		
+		String version = J2EEProjectUtilities.getJ2EEProjectVersion(proj);
+		if(version != null && version.equals(J2EEVersionConstants.VERSION_5_0_TEXT)) {
+			dd.getXSISchemaLocation().put(J2EEConstants.JAVAEE_NS_URL, J2EEConstants.APP_CLIENT_SCHEMA_LOC_5);
+			client.setVersion(J2EEVersionConstants.VERSION_5_TEXT);
+		}
+		else {
+			dd.getXSISchemaLocation().put(J2EEConstants.JAVAEE_NS_URL, J2EEConstants.APP_CLIENT_SCHEMA_LOC_6);
+			client.setVersion(J2EEVersionConstants.VERSION_6_TEXT);
+		}
+
 		dd.setApplicationClient(client);
-		//EE6TODO
-		client.setVersion(J2EEVersionConstants.VERSION_5_TEXT);
 		res.getContents().add((EObject) dd);
 	}
 

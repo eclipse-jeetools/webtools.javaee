@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
 import org.eclipse.jst.j2ee.application.WebModule;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IEARModelProvider;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.javaee.application.Application;
@@ -88,13 +89,22 @@ public class EAR5ModelProvider extends JEE5ModelProvider implements IEARModelPro
 		ApplicationDeploymentDescriptor dd = ApplicationFactory.eINSTANCE.createApplicationDeploymentDescriptor();
 		dd.getXMLNSPrefixMap().put("", J2EEConstants.JAVAEE_NS_URL);  //$NON-NLS-1$
 		dd.getXMLNSPrefixMap().put("xsi", J2EEConstants.XSI_NS_URL); //$NON-NLS-1$
-		dd.getXSISchemaLocation().put(J2EEConstants.JAVAEE_NS_URL, J2EEConstants.APPLICATION_SCHEMA_LOC_5);
+		
 		Application ear = ApplicationFactory.eINSTANCE.createApplication();
 		DisplayName dn = JavaeeFactory.eINSTANCE.createDisplayName();
 		dn.setValue(name);
 		ear.getDisplayNames().add(dn);
-		//EE6TODO
-		ear.setVersion(J2EEVersionConstants.VERSION_5_TEXT);
+		
+		String version = J2EEProjectUtilities.getJ2EEProjectVersion(proj);
+		if(version != null && version.equals(J2EEVersionConstants.VERSION_5_0_TEXT)) {
+			dd.getXSISchemaLocation().put(J2EEConstants.JAVAEE_NS_URL, J2EEConstants.APPLICATION_SCHEMA_LOC_5);
+			ear.setVersion(J2EEVersionConstants.VERSION_5_TEXT);
+		}
+		else {
+			dd.getXSISchemaLocation().put(J2EEConstants.JAVAEE_NS_URL, J2EEConstants.APPLICATION_SCHEMA_LOC_6);
+			ear.setVersion(J2EEVersionConstants.VERSION_6_TEXT);
+		}
+
 		dd.setApplication(ear);
 		res.getContents().add((EObject) dd);
 	}
