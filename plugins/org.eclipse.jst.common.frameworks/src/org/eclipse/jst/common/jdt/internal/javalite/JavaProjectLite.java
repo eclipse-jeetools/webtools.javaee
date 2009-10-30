@@ -14,6 +14,8 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jst.common.frameworks.CommonFrameworksPlugin;
 
 /**
  * @see IJavaProjectLite
@@ -21,22 +23,76 @@ import org.eclipse.jdt.core.IJavaProject;
 public final class JavaProjectLite implements IJavaProjectLite {
 	private final IJavaProject _javaProject;
 
-	JavaProjectLite(IJavaProject javaProject) {
+	private Object lock = new Object();
+	private boolean _javaProjectInitialized = false;
+	private boolean _rawClasspathRead = false;
+	private IClasspathEntry[] _rawClasspath;
+	private boolean _rawOutputLocationRead = false;
+	private IPath _rawOutputLocation;
+
+	JavaProjectLite(IJavaProject javaProject, boolean javaProjectInitialized) {
 		this._javaProject = javaProject;
+		this._javaProjectInitialized = javaProjectInitialized;
 	}
 
-	/**
-	 * @see IJavaProjectLite#readRawClasspath()
-	 */
+	void markJavaProjectInitialized() {
+		synchronized (lock) {
+			if (!_javaProjectInitialized) {
+				_javaProjectInitialized = true;
+				flushClasspath();
+			}
+		}
+	}
+
+	private boolean isJavaProjectInitialized() {
+		synchronized (lock) {
+			return _javaProjectInitialized;
+		}
+	}
+
+	void flushClasspath() {
+		synchronized (lock) {
+			_rawClasspathRead = false;
+			_rawClasspath = null;
+			_rawOutputLocationRead = false;
+			_rawOutputLocation = null;
+		}
+	}
+
 	public final IClasspathEntry[] readRawClasspath() {
-		return _javaProject.readRawClasspath();
+		if (isJavaProjectInitialized()) {
+			try {
+				return _javaProject.getRawClasspath();
+			} catch (JavaModelException e) {
+				CommonFrameworksPlugin.log(e);
+			}
+		}
+
+		synchronized (lock) {
+			if (!_rawClasspathRead) {
+				_rawClasspathRead = true;
+				_rawClasspath = _javaProject.readRawClasspath();
+			}
+		}
+		return _rawClasspath;
 	}
 
-	/**
-	 * @see IJavaProjectLite#readOutputLocation()
-	 */
 	public final IPath readOutputLocation() {
-		return _javaProject.readOutputLocation();
+		if (isJavaProjectInitialized()) {
+			try {
+				return _javaProject.getOutputLocation();
+			} catch (JavaModelException e) {
+				CommonFrameworksPlugin.log(e);
+			}
+		}
+
+		synchronized (lock) {
+			if (!_rawOutputLocationRead) {
+				_rawOutputLocationRead = true;
+				_rawOutputLocation = _javaProject.readOutputLocation();
+			}
+		}
+		return _rawOutputLocation;
 	}
 
 	/**
@@ -49,18 +105,19 @@ public final class JavaProjectLite implements IJavaProjectLite {
 	public final boolean exists() {
 		return _javaProject.exists();
 	}
-	
+
 	/**
 	 * @see IJavaProjectLite#isOpen()
 	 */
 	public final boolean isOpen() {
 		return _javaProject.isOpen();
 	}
-	
+
 	/**
 	 * @see IJavaProjectLite#hasBuildState()
 	 */
-	public final boolean hasBuildState(){
+	public final boolean hasBuildState() {
 		return _javaProject.hasBuildState();
 	}
+
 }

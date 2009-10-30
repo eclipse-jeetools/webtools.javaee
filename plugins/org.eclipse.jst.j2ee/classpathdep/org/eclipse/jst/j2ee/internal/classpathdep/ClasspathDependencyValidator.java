@@ -83,8 +83,7 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 			    && proj.hasNature(ModuleCoreNature.MODULE_NATURE_ID)
 			    && proj.hasNature(JavaCoreLite.NATURE_ID)) {
 			    
-				final IJavaProjectLite javaProjectLite = JavaCoreLite.create(proj);
-			    final boolean isWebApp = JavaEEProjectUtilities.isDynamicWebProject(proj);
+				final boolean isWebApp = JavaEEProjectUtilities.isDynamicWebProject(proj);
 			    boolean webLibsOnly = false;
 			    if(!ClasspathDependencyEnablement.isAllowClasspathComponentDependency()){
 			    	if(!isWebApp){
@@ -94,7 +93,8 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 			    	}
 				}
 			    
-				final Map referencedRawEntries = ClasspathDependencyUtil.getRawComponentClasspathDependencies(javaProjectLite, DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY, webLibsOnly); 				
+			    final IJavaProjectLite javaProjectLite = JavaCoreLite.create(proj);
+			    final Map referencedRawEntries = ClasspathDependencyUtil.getRawComponentClasspathDependencies(javaProjectLite, DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY, webLibsOnly); 				
 				final List potentialRawEntries = ClasspathDependencyUtil.getPotentialComponentClasspathDependencies(javaProjectLite, webLibsOnly);
 				final IVirtualComponent component = ComponentCore.createComponent(proj);				
 				final ClasspathDependencyValidatorData data = new ClasspathDependencyValidatorData(proj);
@@ -221,11 +221,10 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 	public static class ClasspathDependencyValidatorData {
 		private final IProject _project;
 		// Class folders mapped via the component file (either directly or via src folders)
-		private final List <IContainer> javaOutputFolders;
+		private List <IContainer> javaOutputFolders;
 		
 		public ClasspathDependencyValidatorData(final IProject project) {
 			this._project = project;
-			javaOutputFolders = JavaLiteUtilities.getJavaOutputContainers(ComponentCore.createComponent(project));
 		}
 		
 		public IProject getProject() {
@@ -233,6 +232,9 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 		}
 		
 		public List <IContainer> getJavaOutputFolders(){
+			if(javaOutputFolders == null){
+				javaOutputFolders = JavaLiteUtilities.getJavaOutputContainers(ComponentCore.createComponent(_project));		
+			}
 			return javaOutputFolders;
 		}
 		
@@ -241,7 +243,7 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 		 * @return
 		 */
 		public IContainer[] getMappedClassFolders() {
-			return javaOutputFolders.toArray(new IContainer[javaOutputFolders.size()]);
+			return getJavaOutputFolders().toArray(new IContainer[javaOutputFolders.size()]);
 		}
 	}
 	
