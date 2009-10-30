@@ -143,6 +143,9 @@ public class AvailableJ2EEComponentsForEARContentProvider implements IStructured
 			return true;
 		
 		VirtualArchiveComponent comp = (VirtualArchiveComponent)component;
+		if(comp.getWorkspaceRelativePath() == null || !comp.getWorkspaceRelativePath().segment(0).equals(earComponent.getName()))
+			return true;
+		
 		IPath p = null;
 		try {
 			p = comp.getProjectRelativePath();
