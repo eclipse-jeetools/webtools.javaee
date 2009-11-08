@@ -452,7 +452,14 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		IVirtualReference [] refs = getComponent().getReferences();
 		for(int i=0; i<refs.length; i++){
 			if(refs[i].getReferencedComponent().equals(moduleComp)){
-				return refs[i].getArchiveName();
+				if (refs[i].getRuntimePath().toString().equals("/")){
+					return refs[i].getArchiveName();
+				}
+				String uri = refs[i].getRuntimePath().append(refs[i].getArchiveName()).toString();
+				if(uri.startsWith("/")){
+					uri = uri.substring(1);
+				}
+				return uri;
 			}
 		}
 		return null;		

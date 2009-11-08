@@ -16,6 +16,10 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IResourceChangeEvent;
+import org.eclipse.core.resources.IResourceChangeListener;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.ClasspathContainerInitializer;
 import org.eclipse.jdt.core.ElementChangedEvent;
@@ -37,7 +41,7 @@ public final class JavaCoreLite {
 
 	private static JavaCoreLite INSTANCE = null;
 
-	private class JavaCoreLiteListener implements IElementChangedListener {
+	private class JavaCoreLiteListener implements IElementChangedListener, IResourceChangeListener {
 		public void elementChanged(ElementChangedEvent event) {
 			IJavaElementDelta delta = event.getDelta();
 			IJavaElementDelta[] children = delta.getAffectedChildren();
@@ -55,7 +59,6 @@ public final class JavaCoreLite {
 				synchronized (lock) {
 					initializedJavaProjects.remove(project);
 					javaProjectLiteCache.remove(project);
-
 				}
 			} else if ((flags & IJavaElementDelta.F_CLASSPATH_CHANGED) != 0) {
 				IJavaElement element = delta.getElement();
@@ -86,6 +89,21 @@ public final class JavaCoreLite {
 				}
 			}
 		}
+
+		public void resourceChanged(IResourceChangeEvent event) {
+			switch (event.getType()) {
+			case IResourceChangeEvent.PRE_CLOSE:
+			case IResourceChangeEvent.PRE_DELETE:
+				IResource resource = event.getResource();
+				if (resource.getType() == IResource.PROJECT) {
+					IProject project = (IProject) resource;
+					synchronized (lock) {
+						initializedJavaProjects.remove(project);
+						javaProjectLiteCache.remove(project);
+					}
+				}
+			}
+		}
 	}
 
 	private Set<IProject> initializedJavaProjects = new HashSet<IProject>();
@@ -104,6 +122,7 @@ public final class JavaCoreLite {
 	private JavaCoreLite() {
 		listener = new JavaCoreLiteListener();
 		JavaCore.addElementChangedListener(listener);
+		ResourcesPlugin.getWorkspace().addResourceChangeListener(listener, IResourceChangeEvent.PRE_CLOSE | IResourceChangeEvent.PRE_DELETE);
 	}
 
 	private IJavaProjectLite createImpl(IProject project) {
@@ -119,15 +138,12 @@ public final class JavaCoreLite {
 			synchronized (lock) {
 				javaProjectInitialized = initializedJavaProjects.contains(project);
 			}
-			if (!javaProjectInitialized && javaProject.isOpen()) {
-				JavaModelManager.PerProjectInfo projectInfo = JavaModelManager.getJavaModelManager().getPerProjectInfo(project, false);
-				if (projectInfo != null) {
-					if (projectInfo.getResolvedClasspath() != null) {
-						synchronized (lock) {
-							initializedJavaProjects.add(project);
-						}
-						javaProjectInitialized = true;
+			if (!javaProjectInitialized) {
+				if (isInitialized(javaProject)) {
+					synchronized (lock) {
+						initializedJavaProjects.add(project);
 					}
+					javaProjectInitialized = true;
 				}
 			}
 			JavaProjectLite javaProjectLite = new JavaProjectLite(javaProject, javaProjectInitialized);
@@ -137,6 +153,18 @@ public final class JavaCoreLite {
 			return javaProjectLite;
 		}
 		return null;
+	}
+
+	static boolean isInitialized(IJavaProject javaProject) {
+		if (javaProject.isOpen()) {
+			JavaModelManager.PerProjectInfo projectInfo = JavaModelManager.getJavaModelManager().getPerProjectInfo(javaProject.getProject(), false);
+			if (projectInfo != null) {
+				if (projectInfo.getResolvedClasspath() != null) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	public static final IJavaProjectLite create(IProject project) {
