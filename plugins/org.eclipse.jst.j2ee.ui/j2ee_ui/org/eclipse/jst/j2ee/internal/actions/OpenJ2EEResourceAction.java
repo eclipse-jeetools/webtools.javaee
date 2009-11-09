@@ -156,9 +156,11 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 		IEditorPart editor = null;
 		try {
 			page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-			editor = page.openEditor(new FileEditorInput((IFile) r), currentDescriptor.getId());
-			if (editor instanceof ISetSelectionTarget)
-				((ISetSelectionTarget) editor).selectReveal(getStructuredSelection());
+			if( currentDescriptor != null ){
+				editor = page.openEditor(new FileEditorInput((IFile) r), currentDescriptor.getId());
+				if (editor instanceof ISetSelectionTarget)
+					((ISetSelectionTarget) editor).selectReveal(getStructuredSelection());
+			}
 		} catch (Exception e) {
 			MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), J2EEUIMessages.getResourceString("Problems_Opening_Editor_ERROR_"), e.getMessage()); //$NON-NLS-1$ = "Problems Opening Editor"
 		}
@@ -207,6 +209,11 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 							ICompilationUnit cu = type.getCompilationUnit();
 							EditorUtility.openInEditor(cu);
 						} else{
+							if(resource.exists() && resource.getType() == IResource.FILE ){
+								IFile file = (IFile)resource;
+								IContentType contentType = IDE.getContentType(file);
+								currentDescriptor = PlatformUI.getWorkbench().getEditorRegistry().getDefaultEditor(file.getName(), contentType);
+							}						
 							openAppropriateEditor(resource);
 						}
 					} catch (JavaModelException e) {
