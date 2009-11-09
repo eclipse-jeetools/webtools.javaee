@@ -154,7 +154,11 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 						manifest = existing;
 					}
 				}
-				createClassPathSelection();
+				if( existing == null )
+					createClassPathSelection();
+				else{
+					createClassPathSelection(manifest);
+				}
 			}
 	}
 
@@ -167,6 +171,17 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 			classPathSelection = null;
 		}
 	}
+	
+	protected void createClassPathSelection(ArchiveManifest manifest) {
+		if (getComponent() != null && selectedEARComponent != null ) {
+			classPathSelection = new ClassPathSelection(getComponent(), selectedEARComponent, manifest);
+		} else if (selectedEARComponent == null) {
+			classPathSelection = new ClassPathSelection(getComponent(), manifest);
+		} else {
+			classPathSelection = null;
+		}
+	}
+	
 
 	public void dispose() {
 	}
@@ -301,6 +316,13 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 		getClassPathSelection(); // Ensure the selection is initialized.
 		fireNotification(new ClasspathModelEvent(ClasspathModelEvent.MANIFEST_CHANGED));
 	}
+	
+	public void forceUpdateClasspath(ArchiveManifest newManifest) {
+		primSetManifest(newManifest);
+		classPathSelection = null;
+		initializeSelection(newManifest);
+		fireNotification(new ClasspathModelEvent(ClasspathModelEvent.MANIFEST_CHANGED));		
+	}	
 
 	public void selectEAR(int index) {
 		selectedEARComponent = availableEARComponents[index];

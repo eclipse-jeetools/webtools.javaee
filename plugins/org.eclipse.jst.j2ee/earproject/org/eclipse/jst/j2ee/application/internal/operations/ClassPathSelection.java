@@ -157,6 +157,23 @@ public class ClassPathSelection {
 		initializeElements();
 	}
 
+	public ClassPathSelection(IVirtualComponent aComponent, IVirtualComponent anEarComponent, ArchiveManifest aManifest) {
+		this(aComponent);
+		earComponent = anEarComponent;
+		earProject = earComponent.getProject();
+		manifest = aManifest;
+		initializeElements();
+	}
+	
+	public ClassPathSelection(IVirtualComponent aComponent, ArchiveManifest aManifest) {
+		super();
+		component = aComponent;
+		targetProjectName = aComponent.getProject().getName();
+		manifest = aManifest;
+		initializeElements();
+	}
+	
+	
 	/**
 	 * ClassPathSelection constructor comment.
 	 */
@@ -601,7 +618,10 @@ public class ClassPathSelection {
 			
 			try {
 				//			cp = archive.getManifest().getClassPathTokenized();
-				manifest = J2EEProjectUtilities.readManifest(component.getProject());
+				
+				if( manifest == null ){
+					manifest = J2EEProjectUtilities.readManifest(component.getProject());
+				}
 				cp = manifest.getClassPathTokenized();
 			} catch (ManifestException ex) {
 				J2EEPlugin.logError(ex);
