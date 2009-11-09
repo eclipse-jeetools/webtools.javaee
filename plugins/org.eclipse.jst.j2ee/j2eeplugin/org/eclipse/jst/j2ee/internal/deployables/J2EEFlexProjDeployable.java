@@ -262,12 +262,14 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements
 				return;
 			List resourceMaps = edit.getComponent().getResources();
 			ComponentResource source;
+			List addedOutputFolders = new ArrayList();
 			for( int i = 0; i < resourceMaps.size(); i++ ) {
 				source = ((ComponentResource)resourceMaps.get(i));
 				if( isSourceContainer(source)) {
 					IContainer out = getOutputContainerIfExists(source.getSourcePath());
-					if (ComponentCore.createResources(out).length > 0) 
+					if (out == null || ComponentCore.createResources(out).length > 0 || addedOutputFolders.contains(out)) 
 						continue;
+					addedOutputFolders.add(out);
 					IModuleResource[] mr = getMembers(out, 
 							source.getRuntimePath().makeRelative(), 
 							source.getRuntimePath().makeRelative(), 
