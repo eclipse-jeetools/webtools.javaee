@@ -22,6 +22,8 @@ import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.progress.IProgressConstants;
 import org.eclipse.ui.views.IViewDescriptor;
+import org.eclipse.wst.project.facet.IProductConstants;
+import org.eclipse.wst.project.facet.ProductManager;
 
 public class J2EEPerspective implements org.eclipse.ui.IPerspectiveFactory {
 
@@ -38,9 +40,20 @@ public class J2EEPerspective implements org.eclipse.ui.IPerspectiveFactory {
 	public J2EEPerspective() {
 		super();
 		//If preference exists for alternate view, replace.
-		String viewerID = J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.ID_PERSPECTIVE_HIERARCHY_VIEW);
-		if (viewerID != null)
-			ID_J2EE_HIERARCHY_VIEW = viewerID;
+		String viewerID = ProductManager.getProperty(IProductConstants.ID_PERSPECTIVE_HIERARCHY_VIEW);
+		if (viewerID != null) {
+			// verify that the view actually exists
+			if (PlatformUI.getWorkbench().getViewRegistry().find(viewerID) != null){
+				ID_J2EE_HIERARCHY_VIEW = viewerID;
+			}
+		} else {
+			viewerID = J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.ID_PERSPECTIVE_HIERARCHY_VIEW);
+			if (viewerID != null){
+				if (PlatformUI.getWorkbench().getViewRegistry().find(viewerID) != null){
+					ID_J2EE_HIERARCHY_VIEW = viewerID;
+				}
+			}
+		}
 	}
 
 	/*
