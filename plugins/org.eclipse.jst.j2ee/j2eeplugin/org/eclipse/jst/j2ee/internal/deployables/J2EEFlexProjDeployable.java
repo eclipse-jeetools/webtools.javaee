@@ -57,7 +57,6 @@ import org.eclipse.jst.server.core.IApplicationClientModule;
 import org.eclipse.jst.server.core.IConnectorModule;
 import org.eclipse.jst.server.core.IEJBModule;
 import org.eclipse.jst.server.core.IEnterpriseApplication;
-import org.eclipse.jst.server.core.IJ2EEModule;
 import org.eclipse.jst.server.core.IWebModule;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -83,7 +82,7 @@ import org.eclipse.wst.web.internal.deployables.ComponentDeployable;
  * J2EE module superclass.
  */
 public class J2EEFlexProjDeployable extends ComponentDeployable implements 
-				IJ2EEModule, IEnterpriseApplication, IApplicationClientModule, 
+				IEnterpriseApplication, IApplicationClientModule, 
 				IConnectorModule, IEJBModule, IWebModule {
 	protected static final IPath WEB_CLASSES_PATH = new Path(J2EEConstants.WEB_INF_CLASSES);
 	protected static final IPath MANIFEST_PATH = new Path(J2EEConstants.MANIFEST_URI);
