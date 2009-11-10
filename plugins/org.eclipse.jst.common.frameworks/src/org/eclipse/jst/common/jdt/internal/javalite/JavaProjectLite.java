@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.common.jdt.internal.javalite;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.IClasspathEntry;
@@ -29,6 +30,7 @@ public final class JavaProjectLite implements IJavaProjectLite {
 	private IClasspathEntry[] _rawClasspath;
 	private boolean _rawOutputLocationRead = false;
 	private IPath _rawOutputLocation;
+	private long _dotClasspathModificationStamp = IFile.NULL_STAMP;
 
 	JavaProjectLite(IJavaProject javaProject, boolean javaProjectInitialized) {
 		this._javaProject = javaProject;
@@ -56,10 +58,45 @@ public final class JavaProjectLite implements IJavaProjectLite {
 			_rawClasspath = null;
 			_rawOutputLocationRead = false;
 			_rawOutputLocation = null;
+			_dotClasspathModificationStamp = IFile.NULL_STAMP;
+		}
+	}
+
+	private void verifyDotClasspathModificationStamp() {
+		long modificationStamp = IFile.NULL_STAMP;
+		synchronized (lock) {
+			modificationStamp = _dotClasspathModificationStamp;
+		}
+		if (modificationStamp == IFile.NULL_STAMP) {
+			flushClasspath();
+			return;
+		}
+		IFile dotClasspath = _javaProject.getProject().getFile(".classpath");
+		if (!dotClasspath.exists()) {
+			flushClasspath();
+			return;
+		}
+		if (modificationStamp != dotClasspath.getModificationStamp()) {
+			flushClasspath();
+			return;
+		}
+	}
+
+	private void updateDotClasspathModificationStamp() {
+		IFile dotClasspath = _javaProject.getProject().getFile(".classpath");
+		long modificationStamp = dotClasspath.getModificationStamp();
+		synchronized (lock) {
+			_dotClasspathModificationStamp = modificationStamp;
 		}
 	}
 
 	public final IClasspathEntry[] readRawClasspath() {
+		if (!isJavaProjectInitialized()) {
+			if (JavaCoreLite.isInitialized(_javaProject)) {
+				markJavaProjectInitialized();
+			}
+		}
+
 		if (isJavaProjectInitialized()) {
 			try {
 				return _javaProject.getRawClasspath();
@@ -68,16 +105,30 @@ public final class JavaProjectLite implements IJavaProjectLite {
 			}
 		}
 
+		verifyDotClasspathModificationStamp();
+
+		boolean dataRead = false;
 		synchronized (lock) {
-			if (!_rawClasspathRead) {
+			dataRead = _rawClasspathRead;
+		}
+		if (!dataRead) {
+			updateDotClasspathModificationStamp();
+			IClasspathEntry[] rawClasspath = _javaProject.readRawClasspath();
+			synchronized (lock) {
 				_rawClasspathRead = true;
-				_rawClasspath = _javaProject.readRawClasspath();
+				_rawClasspath = rawClasspath;
 			}
 		}
 		return _rawClasspath;
 	}
 
 	public final IPath readOutputLocation() {
+		if (!isJavaProjectInitialized()) {
+			if (JavaCoreLite.isInitialized(_javaProject)) {
+				markJavaProjectInitialized();
+			}
+		}
+
 		if (isJavaProjectInitialized()) {
 			try {
 				return _javaProject.getOutputLocation();
@@ -86,10 +137,18 @@ public final class JavaProjectLite implements IJavaProjectLite {
 			}
 		}
 
+		verifyDotClasspathModificationStamp();
+
+		boolean dataRead = false;
 		synchronized (lock) {
-			if (!_rawOutputLocationRead) {
+			dataRead = _rawOutputLocationRead;
+		}
+		if (!dataRead) {
+			updateDotClasspathModificationStamp();
+			IPath rawOutputLocation = _javaProject.readOutputLocation();
+			synchronized (lock) {
 				_rawOutputLocationRead = true;
-				_rawOutputLocation = _javaProject.readOutputLocation();
+				_rawOutputLocation = rawOutputLocation;
 			}
 		}
 		return _rawOutputLocation;
