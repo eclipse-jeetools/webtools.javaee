@@ -138,7 +138,7 @@
         point="org.eclipse.jst.j2ee.J2EEModelProvider">
         <provider>
         	<modelProvider factoryClass="org.eclipse.jst.j2ee.jca.modulecore.util.ConnectorArtifactEdit"/>	
-      		<facet id="jst.connector" versions="1.0,1.5"/>
+      		<facet id="jst.connector" versions="1.0,1.5,1.6"/>
       	</provider>
   </extension>	
 </plugin>

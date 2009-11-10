@@ -199,6 +199,7 @@ public interface J2EEConstants extends J2EEVersionConstants {
     String EJB_JAR_SCHEMA_LOC_3_0    		= "http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd"; //$NON-NLS-1$ // EJB3
     String EJB_JAR_SCHEMA_LOC_3_1    		= "http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd"; //$NON-NLS-1$ // EJB3.1
     String CONNECTOR_SCHEMA_LOC_1_5         = "http://java.sun.com/xml/ns/j2ee/connector_1_5.xsd"; //$NON-NLS-1$
+    String CONNECTOR_SCHEMA_LOC_1_6         = "http://java.sun.com/xml/ns/javaee/connector_1_6.xsd"; //$NON-NLS-1$
     String WEB_APP_SCHEMA_LOC_2_4           = "http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"; //$NON-NLS-1$
     String WEB_APP_SCHEMA_LOC_2_5           = "http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"; //$NON-NLS-1$ //EJB3
     String WEB_APP_SCHEMA_LOC_3_0           = "http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"; //$NON-NLS-1$ //Web 3

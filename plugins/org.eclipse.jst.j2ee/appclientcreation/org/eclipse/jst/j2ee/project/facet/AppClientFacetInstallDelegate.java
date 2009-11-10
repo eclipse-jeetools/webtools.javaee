@@ -111,7 +111,7 @@ public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 		IPath configFolderpath = pjpath.append(configFolderName);
 		sourceFolder = ws.getRoot().getFolder(configFolderpath);
 
-		if( fv == IJ2EEFacetConstants.APPLICATION_CLIENT_60 )
+		if( fv == IJ2EEFacetConstants.APPLICATION_CLIENT_60 || fv == IJ2EEFacetConstants.APPLICATION_CLIENT_50)
 		{
 	        if(model.getBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD)){
 	            // Create the deployment descriptor (application-client.xml) if one doesn't exist
@@ -122,32 +122,16 @@ public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 	                            && (appClientFile.getParent().getType() ==  IResource.FOLDER)){
 	                        ((IFolder)appClientFile.getParent()).create(true, true, monitor);
 	                    }
-	                    //EE6TODO - Update DD header
-	                    final String appClientXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<application-client version=\"6\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application-client_6.xsd\">\n <display-name> \n" + project.getName() +  "</display-name> \n </application-client>"; //$NON-NLS-1$ //$NON-NLS-2$
+	                    String appClientXmlContents = null;
+	                    if( fv == IJ2EEFacetConstants.APPLICATION_CLIENT_60) {
+	                    	appClientXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<application-client version=\"6\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application-client_6.xsd\">\n <display-name> \n" + project.getName() +  "</display-name> \n </application-client>"; //$NON-NLS-1$ //$NON-NLS-2$
+	                    }
+	                    else {
+		                    appClientXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<application-client version=\"5\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application-client_5.xsd\">\n <display-name> \n" + project.getName() +  "</display-name> \n </application-client>"; //$NON-NLS-1$  //$NON-NLS-2$
+		                }
 	                    appClientFile.create(new ByteArrayInputStream(appClientXmlContents.getBytes("UTF-8")), true, monitor); //$NON-NLS-1$
-	                   
 	                } catch (UnsupportedEncodingException e) {
 	                	J2EEPlugin.logError(e);
-	                }           
-	            }
-	        }
-		}
-		else if( fv == IJ2EEFacetConstants.APPLICATION_CLIENT_50 )
-		{
-	        if(model.getBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD)){
-	            // Create the deployment descriptor (application-client.xml) if one doesn't exist
-	            IFile appClientFile = sourceFolder.getFile(new Path(J2EEConstants.APP_CLIENT_DD_URI));
-	            if (!appClientFile.exists()) {
-	                try {
-	                    if(!appClientFile.getParent().exists()
-	                            && (appClientFile.getParent().getType() ==  IResource.FOLDER)){
-	                        ((IFolder)appClientFile.getParent()).create(true, true, monitor);
-	                    }
-	                    final String appClientXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<application-client version=\"5\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application-client_5.xsd\">\n <display-name> \n" + project.getName() +  "</display-name> \n </application-client>"; //$NON-NLS-1$  //$NON-NLS-2$
-	                    appClientFile.create(new ByteArrayInputStream(appClientXmlContents.getBytes("UTF-8")), true, monitor); //$NON-NLS-1$
-	                   
-	                } catch (UnsupportedEncodingException e) {
-	                    J2EEPlugin.logError(e);
 	                }           
 	            }
 	        }

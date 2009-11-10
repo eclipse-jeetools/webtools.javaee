@@ -27,6 +27,7 @@ public class ConnectorFacetPostInstallDelegate extends J2EEFacetInstallDelegate 
 
 	public static final String CONNECTOR_XML_TEMPLATE_10		= "rartp10.xml";								//$NON-NLS-1$
 	public static final String CONNECTOR_XML_TEMPLATE_15		= "rartp15.xml"; //$NON-NLS-1$
+	public static final String CONNECTOR_XML_TEMPLATE_16		= "rartp16.xml"; //$NON-NLS-1$
 	
 	public void execute(IProject project, IProjectFacetVersion fv, Object config, IProgressMonitor monitor) throws CoreException {
 		if (monitor != null) {

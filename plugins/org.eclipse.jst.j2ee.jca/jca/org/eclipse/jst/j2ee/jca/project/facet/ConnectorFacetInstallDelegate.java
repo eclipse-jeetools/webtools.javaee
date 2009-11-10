@@ -58,6 +58,7 @@ public class ConnectorFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 
 	public static final String CONNECTOR_XML_TEMPLATE_10		= "rartp10.xml";								//$NON-NLS-1$
 	public static final String CONNECTOR_XML_TEMPLATE_15		= "rartp15.xml"; //$NON-NLS-1$
+	public static final String CONNECTOR_XML_TEMPLATE_16		= "rartp16.xml"; //$NON-NLS-1$
 	
 	public void execute(IProject project, IProjectFacetVersion fv, Object config, IProgressMonitor monitor) throws CoreException {
 		if (monitor != null) {
@@ -100,9 +101,18 @@ public class ConnectorFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 				
 				IFile aFile = sourceFolder.getFile(new Path(J2EEConstants.RAR_DD_URI));
 				OutputStream out = new WorkbenchByteArrayOutputStream(aFile);
-				String template = nVer == J2EEVersionConstants.JCA_1_0_ID
-						? CONNECTOR_XML_TEMPLATE_10
-						: CONNECTOR_XML_TEMPLATE_15;
+				
+				String template = null;
+				if(nVer == J2EEVersionConstants.JCA_1_0_ID) {
+					template = CONNECTOR_XML_TEMPLATE_10;
+				}
+				else if (nVer == J2EEVersionConstants.JCA_1_5_ID) {
+					template = CONNECTOR_XML_TEMPLATE_15;
+				}
+				else {
+					template = CONNECTOR_XML_TEMPLATE_16;
+				}
+
 				InputStream in = getClass().getResourceAsStream(template);
 				if (in != null) {
 					try {

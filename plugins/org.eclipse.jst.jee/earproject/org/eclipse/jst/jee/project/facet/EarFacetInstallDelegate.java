@@ -69,7 +69,7 @@ public final class EarFacetInstallDelegate implements IDelegate {
 				JEEPlugin.logError(e);
 			}
 			
-			if( fv == IJ2EEFacetConstants.ENTERPRISE_APPLICATION_60) {
+			if( fv == IJ2EEFacetConstants.ENTERPRISE_APPLICATION_60 || fv == IJ2EEFacetConstants.ENTERPRISE_APPLICATION_50) {
 				if(model.getBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD)){
 					// Create the deployment descriptor (web.xml) if one doesn't exist
 					IFile appXmlFile = earroot.getUnderlyingFolder().getFile(new Path(J2EEConstants.APPLICATION_DD_URI));
@@ -79,26 +79,13 @@ public final class EarFacetInstallDelegate implements IDelegate {
 									&& (appXmlFile.getParent().getType() ==  IResource.FOLDER)){
 								((IFolder)appXmlFile.getParent()).create(true, true, monitor);
 							}
-							//EE6TODO verify for JEE6
-							final String appXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<application id=\"Application_ID\" version=\"6\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_6.xsd\">\n <display-name> \n" + project.getName() +  "</display-name> \n </application> "; //$NON-NLS-1$ //$NON-NLS-2$
-							appXmlFile.create(new ByteArrayInputStream(appXmlContents.getBytes("UTF-8")), true, monitor); //$NON-NLS-1$
-						} catch (UnsupportedEncodingException e) {
-							JEEPlugin.logError(e);
-						}
-					}
-				}
-			}
-			else if( fv == IJ2EEFacetConstants.ENTERPRISE_APPLICATION_50 ) {
-				if(model.getBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD)){
-					// Create the deployment descriptor (web.xml) if one doesn't exist
-					IFile appXmlFile = earroot.getUnderlyingFolder().getFile(new Path(J2EEConstants.APPLICATION_DD_URI));
-					if (!appXmlFile.exists()) {
-						try {
-							if(!appXmlFile.getParent().exists()
-									&& (appXmlFile.getParent().getType() ==  IResource.FOLDER)){
-								((IFolder)appXmlFile.getParent()).create(true, true, monitor);
+							String appXmlContents = null;
+							if(fv == IJ2EEFacetConstants.ENTERPRISE_APPLICATION_60) {
+								appXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<application id=\"Application_ID\" version=\"6\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_6.xsd\">\n <display-name> \n" + project.getName() +  "</display-name> \n </application> "; //$NON-NLS-1$ //$NON-NLS-2$
 							}
-							final String appXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<application id=\"Application_ID\" version=\"5\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_5.xsd\">\n <display-name> \n" + project.getName() +  "</display-name> \n </application> "; //$NON-NLS-1$ //$NON-NLS-2$
+							else {
+								appXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<application id=\"Application_ID\" version=\"5\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_5.xsd\">\n <display-name> \n" + project.getName() +  "</display-name> \n </application> "; //$NON-NLS-1$ //$NON-NLS-2$
+							}
 							appXmlFile.create(new ByteArrayInputStream(appXmlContents.getBytes("UTF-8")), true, monitor); //$NON-NLS-1$
 						} catch (UnsupportedEncodingException e) {
 							JEEPlugin.logError(e);
