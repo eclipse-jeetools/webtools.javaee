@@ -522,9 +522,6 @@
 							value="jst.utility" />
 						<test forcePluginActivation="true"
 							property="org.eclipse.wst.common.project.facet.core.projectFacet"
-							value="jst.ear" />
-						<test forcePluginActivation="true"
-							property="org.eclipse.wst.common.project.facet.core.projectFacet"
 							value="jst.appclient" />
 						<test forcePluginActivation="true"
 							property="org.eclipse.wst.common.project.facet.core.projectFacet"
@@ -802,6 +799,15 @@
            name="%j2ee">
      </page>
   </extension>
+
+  <extension
+          point="org.eclipse.wst.common.modulecore.ui.moduleDependencyPropertyPage">
+     <dependencyPage
+             class="org.eclipse.jst.j2ee.internal.ui.preferences.EarModuleDependencyPageProvider"
+             id="org.eclipse.jst.j2ee.internal.ui.preferences.EarModuleDependencyPageProvider">
+     </dependencyPage>
+  </extension>
+
 
   <!-- 
     *****************************

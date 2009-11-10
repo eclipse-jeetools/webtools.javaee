@@ -8,48 +8,39 @@
  * Contributors:
  *    Rob Stryker - initial implementation and ongoing maintenance
  ******************************************************************************/
-package org.eclipse.jst.j2ee.internal.ui;
+package org.eclipse.jst.j2ee.internal.ui.preferences;
 
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
+import org.eclipse.wst.common.project.facet.core.IFacetedProject;
+import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.common.componentcore.ui.propertypage.IDependencyPageProvider;
 import org.eclipse.wst.common.componentcore.ui.propertypage.IModuleDependenciesControl;
 import org.eclipse.wst.common.componentcore.ui.propertypage.ModuleAssemblyRootPage;
-import org.eclipse.wst.common.project.facet.core.IFacetedProject;
-import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
-public class J2EEDependencyPageProvider implements IDependencyPageProvider {
+public class EarModuleDependencyPageProvider implements IDependencyPageProvider {
 
 	public boolean canHandle(IFacetedProject project) {
-		return isWeb(project);
+		boolean isEAR = project.hasProjectFacet(ProjectFacetsManager.getProjectFacet("jst.ear")); //$NON-NLS-1$
+		return isEAR;
 	}
 
 	public IModuleDependenciesControl[] createPages(IFacetedProject project,
 			ModuleAssemblyRootPage parent) {
-		if( isWeb(project)) {
-			return new IModuleDependenciesControl[] { 
-					new WebDependencyPageProvider(project.getProject(), parent) };
-		}
-		return null;
+		return new IModuleDependenciesControl[] {
+				new EarModuleDependenciesPropertyPage(project.getProject(), parent)
+		};
 	}
 
-	public Composite createRootControl(
-			IFacetedProject project,
-			IModuleDependenciesControl[] pages,
+	public Composite createRootControl(IFacetedProject project,IModuleDependenciesControl[] pages,
 			Composite parent) {
-		if( isWeb(project)) {
+		if( pages.length == 1 && pages[0] != null)
 			return pages[0].createContents(parent);
-		}
 		return null;
 	}
 	
-	protected boolean isWeb(IFacetedProject project) {
-		return project.hasProjectFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_WEB_MODULE));
+	public String getPageTitle() {
+		return Messages.EarModuleDependencyPageProvider_0;
 	}
 
-	public String getPageTitle() {
-		
-		return Messages.J2EEDependencyPageProvider_0;
-	}
 
 }
