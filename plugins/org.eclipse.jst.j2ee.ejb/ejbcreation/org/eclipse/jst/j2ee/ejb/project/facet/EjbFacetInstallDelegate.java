@@ -100,33 +100,22 @@ public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements
 				}
 			}
 			
-			if( fv == IJ2EEFacetConstants.EJB_31 )
+			if( fv == IJ2EEFacetConstants.EJB_31 || fv == IJ2EEFacetConstants.EJB_30)
             {
                 if(model.getBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD)){
                     // Create the deployment descriptor (ejb-jar.xml) if one doesn't exist
                     IFile ejbJarXmlFile = ejbFolder.getFile(J2EEConstants.EJBJAR_DD_URI);
                     if (!ejbJarXmlFile.exists()) {
                         try {
-                            final String ejbJarXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<ejb-jar version=\"3.1\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd\">\n  <display-name> \n" + project.getName() +" </display-name> \n </ejb-jar>"; //$NON-NLS-1$ //$NON-NLS-2$
-                            ejbJarXmlFile.create(new ByteArrayInputStream(ejbJarXmlContents.getBytes("UTF-8")), true, monitor); //$NON-NLS-1$
+                        	String ejbJarXmlContents = null;
+                        	if(fv == IJ2EEFacetConstants.EJB_31) {
+	                            ejbJarXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<ejb-jar version=\"3.1\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd\">\n  <display-name> \n" + project.getName() +" </display-name> \n </ejb-jar>"; //$NON-NLS-1$ //$NON-NLS-2$
+                        	} else {
+                        		ejbJarXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<ejb-jar version=\"3.0\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd\">\n  <display-name> \n" + project.getName() +" </display-name> \n </ejb-jar>"; //$NON-NLS-1$ //$NON-NLS-2$
+                        	}
+                        	ejbJarXmlFile.create(new ByteArrayInputStream(ejbJarXmlContents.getBytes("UTF-8")), true, monitor); //$NON-NLS-1$
                         } catch (UnsupportedEncodingException e) {
-                            EjbPlugin.logError(e);
-                        }
-                    }
-                }
-            } 
-			else if( fv == IJ2EEFacetConstants.EJB_30 )
-            {
-                if(model.getBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD)){
-                    // Create the deployment descriptor (ejb-jar.xml) if one doesn't exist
-                    IFile ejbJarXmlFile = ejbFolder.getFile(J2EEConstants.EJBJAR_DD_URI);
-                    if (!ejbJarXmlFile.exists()) {
-                        try {
-                        	//EE6TODO - Update DD header
-                            final String ejbJarXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<ejb-jar version=\"3.0\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd\">\n  <display-name> \n" + project.getName() +" </display-name> \n </ejb-jar>"; //$NON-NLS-1$ //$NON-NLS-2$
-                            ejbJarXmlFile.create(new ByteArrayInputStream(ejbJarXmlContents.getBytes("UTF-8")), true, monitor); //$NON-NLS-1$
-                        } catch (UnsupportedEncodingException e) {
-                            EjbPlugin.logError(e);
+                        	EjbPlugin.logError(e);
                         }
                     }
                 }
