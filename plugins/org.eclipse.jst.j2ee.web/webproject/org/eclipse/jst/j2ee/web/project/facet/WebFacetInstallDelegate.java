@@ -14,6 +14,7 @@ package org.eclipse.jst.j2ee.web.project.facet;
 import java.io.ByteArrayInputStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -31,6 +32,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.common.project.facet.WtpUtils;
 import org.eclipse.jst.common.project.facet.core.ClasspathHelper;
@@ -38,6 +40,8 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainer;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainerUtils;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPreferences;
 import org.eclipse.jst.j2ee.internal.web.classpath.WebAppLibrariesContainer;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
@@ -59,6 +63,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.project.facet.core.IDelegate;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
+import org.eclipse.wst.project.facet.ProductManager;
 
 public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate implements IDelegate {
 
@@ -99,7 +104,8 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 
 			String contextRoot = model.getStringProperty(IWebFacetInstallDataModelProperties.CONTEXT_ROOT);
 			setContextRootPropertyIfNeeded(c, contextRoot);
-			setOutputFolder(model, c);
+			//setOutputFolder(model, c);
+			setJavaOutputPropertyIfNeeded(model, c);
 
 			final IVirtualFolder webroot = c.getRootFolder();
 			if (webroot.getProjectRelativePath().equals(new Path("/"))) //$NON-NLS-1$
@@ -269,4 +275,52 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 		    }
 		}
 	}
+	
+	private void setJavaOutputPropertyIfNeeded(IDataModel model, final IVirtualComponent c) {
+		// Make sure output folder is set properly for web projects, and the product setting for single root structure is maintained.
+		// We may need to change the existing setup
+
+		if (ProductManager.shouldUseSingleRootStructure()) {
+			String outputFolder = J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.DYN_WEB_OUTPUT_FOLDER);
+			
+			IJavaProject jproj = JavaCore.create(c.getProject());
+			IClasspathEntry[] current = null;
+			boolean webinf = false;
+			IPath pjpath = c.getProject().getFullPath();
+			try {
+				current = jproj.getRawClasspath();
+				List updatedList = new ArrayList();
+				IPath sourcePath = null;
+				boolean changeNeeded = false;
+				for (int i = 0; i < current.length; i++) {
+					IClasspathEntry entry = current[i];
+					if ((entry.getEntryKind() == IClasspathEntry.CPE_SOURCE) && (entry.getOutputLocation() != null && entry.getOutputLocation().toString().indexOf(outputFolder) == -1)) {
+						//output different than the preference value
+						sourcePath = entry.getPath();
+						updatedList.add(JavaCore.newSourceEntry(sourcePath));
+						changeNeeded = true;
+					}
+					else
+						updatedList.add(entry);
+				}
+				IPath currentDefaultOutput = null;
+				currentDefaultOutput = jproj.getOutputLocation();
+				if (currentDefaultOutput.toString().indexOf(outputFolder) == -1)
+					changeNeeded = true;
+				if (changeNeeded) {
+					IClasspathEntry[] updated = (IClasspathEntry[])updatedList.toArray(new IClasspathEntry[updatedList.size()]);
+					IPath outdir = pjpath.append(outputFolder); 
+					jproj.setRawClasspath(updated,outdir ,null);
+					jproj.save(null, true);
+				}
+			} catch (JavaModelException e) {
+				Logger.getLogger().logError(e);
+			}
+		}
+		// Now just set the property
+		String existing = c.getMetaProperties().getProperty("java-output-path"); //$NON-NLS-1$
+		if (existing == null)
+			setOutputFolder(model, c);
+	}
+	
 }
