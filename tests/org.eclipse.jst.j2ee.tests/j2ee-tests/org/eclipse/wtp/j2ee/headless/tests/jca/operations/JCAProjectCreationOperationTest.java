@@ -52,6 +52,11 @@ public class JCAProjectCreationOperationTest extends ModuleProjectCreationOperat
     	OperationTestCase.runAndVerify(dm);
     }
     
+    public void testConnector16_Defaults() throws Exception{
+    	IDataModel dm = getConnectorDataModel("iConnector", null, null, JavaEEFacetConstants.CONNECTOR_16);
+    	OperationTestCase.runAndVerify(dm);
+    }
+    
     public void testConnector10_WithEAR() throws Exception{
     	IDataModel dm = getConnectorDataModel("cConnector", "myEAR", null, JavaEEFacetConstants.CONNECTOR_1);
     	OperationTestCase.runAndVerify(dm);
@@ -59,6 +64,11 @@ public class JCAProjectCreationOperationTest extends ModuleProjectCreationOperat
     
     public void testConnector15_WithEAR() throws Exception{
     	IDataModel dm = getConnectorDataModel("dConnector", "yourEAR", null, JavaEEFacetConstants.CONNECTOR_15);
+    	OperationTestCase.runAndVerify(dm);
+    }
+    
+    public void testConnector16_WithEAR() throws Exception{
+    	IDataModel dm = getConnectorDataModel("jConnector", "herEAR", null, JavaEEFacetConstants.CONNECTOR_16);
     	OperationTestCase.runAndVerify(dm);
     }
     
@@ -72,6 +82,11 @@ public class JCAProjectCreationOperationTest extends ModuleProjectCreationOperat
     	OperationTestCase.runAndVerify(dm);
     }
     
+    public void testConnector16_ChangedSrouceFolder() throws Exception{
+    	IDataModel dm = getConnectorDataModel("kConnector", null, "herSrc", JavaEEFacetConstants.CONNECTOR_16);
+    	OperationTestCase.runAndVerify(dm);
+    }
+    
     public void testConnector10_ChangedSrouceFolder_WithEAR() throws Exception{
     	IDataModel dm = getConnectorDataModel("gConnector", "coolEAR", "theirSrc", JavaEEFacetConstants.CONNECTOR_1);
     	OperationTestCase.runAndVerify(dm);
@@ -79,6 +94,11 @@ public class JCAProjectCreationOperationTest extends ModuleProjectCreationOperat
     
     public void testConnector15_ChangedSrouceFolder_WithEAR() throws Exception{
     	IDataModel dm = getConnectorDataModel("hConnector", "netoEAR", "weSrc", JavaEEFacetConstants.CONNECTOR_15);
+    	OperationTestCase.runAndVerify(dm);
+    }
+    
+    public void testConnector16_ChangedSrouceFolder_WithEAR() throws Exception{
+    	IDataModel dm = getConnectorDataModel("lConnector", "niceEAR", "hisSrc", JavaEEFacetConstants.CONNECTOR_16);
     	OperationTestCase.runAndVerify(dm);
     }
 
@@ -116,6 +136,10 @@ public class JCAProjectCreationOperationTest extends ModuleProjectCreationOperat
         if(version == JavaEEFacetConstants.CONNECTOR_15){
             IDataModel javaFacetModel = facetMap.getFacetDataModel(IJ2EEFacetConstants.JAVA);
             javaFacetModel.setProperty(IFacetDataModelProperties.FACET_VERSION, JavaEEFacetConstants.JAVA_5);
+        }
+        else if(version == JavaEEFacetConstants.CONNECTOR_16) {
+            IDataModel javaFacetModel = facetMap.getFacetDataModel(IJ2EEFacetConstants.JAVA);
+            javaFacetModel.setProperty(IFacetDataModelProperties.FACET_VERSION, JavaEEFacetConstants.JAVA_6);
         }
         
     	return dm;
