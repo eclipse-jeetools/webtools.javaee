@@ -398,17 +398,19 @@ public class WTPWorkingCopyManager implements WorkingCopyManager {
 	}
 
 	protected void reviveDeletedCompilationUnit(ICompilationUnit cu, Object[] info, IProgressMonitor pm) {
-		if (info[0] != null && info[1] != null) {
-			String typeName = cu.getElementName();
-			IPackageFragment pack = (IPackageFragment) info[0];
-			String source = (String) info[1];
-			try {
-				ICompilationUnit existingCU = pack.getCompilationUnit(typeName);
-				if (existingCU.exists() && getNewCompilationUnits().contains(existingCU))
-					existingCU.delete(false, pm);
-				pack.createCompilationUnit(typeName, source, false, pm);
-			} catch (JavaModelException e) {
-				org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(e);
+		if(cu.getJavaProject().isOpen()) {
+			if (info[0] != null && info[1] != null) {
+				String typeName = cu.getElementName();
+				IPackageFragment pack = (IPackageFragment) info[0];
+				String source = (String) info[1];
+				try {
+					ICompilationUnit existingCU = pack.getCompilationUnit(typeName);
+					if (existingCU.exists() && getNewCompilationUnits().contains(existingCU))
+						existingCU.delete(false, pm);
+					pack.createCompilationUnit(typeName, source, false, pm);
+				} catch (JavaModelException e) {
+					org.eclipse.jem.util.logger.proxy.Logger.getLogger().logError(e);
+				}
 			}
 		}
 	}
@@ -416,6 +418,7 @@ public class WTPWorkingCopyManager implements WorkingCopyManager {
 	protected void reviveDeletedCompilationUnits() {
 		if (getDeletedCompilationUnits().isEmpty())
 			return;
+		
 		IProgressMonitor pm = new org.eclipse.core.runtime.NullProgressMonitor();
 		Iterator it = getDeletedCompilationUnits().entrySet().iterator();
 		Map.Entry entry;
