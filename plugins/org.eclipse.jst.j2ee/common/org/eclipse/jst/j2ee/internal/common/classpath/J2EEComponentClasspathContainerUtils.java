@@ -8,6 +8,8 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.common.jdt.internal.classpath.FlexibleProjectContainer;
+import org.eclipse.jst.common.jdt.internal.javalite.IJavaProjectLite;
+import org.eclipse.jst.common.jdt.internal.javalite.JavaCoreLite;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 public class J2EEComponentClasspathContainerUtils {
@@ -58,8 +60,8 @@ public class J2EEComponentClasspathContainerUtils {
 	
 	public static IClasspathEntry getInstalledContainerEntry(IJavaProject jproj, IPath classpathContainerPath) {
 		if(jproj.exists()){
-			IClasspathEntry[] cpes;
-			cpes = jproj.readRawClasspath();
+			IJavaProjectLite javaProjectLite = JavaCoreLite.create(jproj);
+			IClasspathEntry[] cpes = javaProjectLite.readRawClasspath();
 			for (int j = 0; j < cpes.length; j++) {
 				final IClasspathEntry cpe = cpes[j];
 				if (cpe.getEntryKind() == IClasspathEntry.CPE_CONTAINER) {
