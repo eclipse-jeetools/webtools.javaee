@@ -1031,6 +1031,8 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 	
 	private boolean isPhysicallyAdded(VirtualArchiveComponent component) {
 		try {
+			if(component.getWorkspaceRelativePath() == null || !component.getWorkspaceRelativePath().segment(0).equals(earComponent.getName()))
+				return false;
 			component.getProjectRelativePath();
 			return true;
 		} catch (IllegalArgumentException e) {
