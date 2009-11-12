@@ -326,7 +326,9 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 		}
 		
 		try {
-			EARVirtualComponent ear = (EARVirtualComponent) this.model.getProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT);
+			IVirtualComponent component = (IVirtualComponent) this.model.getProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT);
+			// If this is a caching component, this will return the underlying; otherwise self
+			EARVirtualComponent ear = (EARVirtualComponent)component.getComponent();
 			String deployPath = model.getStringProperty(IAddComponentToEnterpriseApplicationDataModelProperties.TARGET_COMPONENTS_DEPLOY_PATH);
 			String libDir = EarUtilities.getEARLibDir(ear);
 			
