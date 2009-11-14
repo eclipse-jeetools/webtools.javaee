@@ -261,7 +261,14 @@ public class J2EEElementChangedListener implements IElementChangedListener {
 			for (int i = 0; i < childDeltas.length; i++) {
 				processResourceDelta(childDeltas[i], rootFolder, sourceToRuntime, pathsToAdd, pathsToRemove, changedJavaPaths);
 			}
-		} else {
+		} else if (kind == IResourceDelta.REMOVED){
+			final IPath movedFrom = delta.getProjectRelativePath();
+			IVirtualComponent c = ComponentCore.createComponent(delta.getResource().getProject());
+			rootFolder = c.getRootFolder();
+			final IPath runtimePath = (IPath) sourceToRuntime.get(movedFrom);
+			final IVirtualFolder folder = rootFolder.getFolder(runtimePath);
+			pathsToRemove.add(new Object[]{movedFrom, folder});
+		}else {
 			final int flags = delta.getFlags();
 			if ((flags & IResourceDelta.MOVED_FROM) == IResourceDelta.MOVED_FROM) {
 				if (rootFolder == null) {
