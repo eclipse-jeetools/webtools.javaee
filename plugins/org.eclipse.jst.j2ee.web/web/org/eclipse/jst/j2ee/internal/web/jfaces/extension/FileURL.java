@@ -21,5 +21,10 @@ import org.eclipse.core.runtime.IPath;
  * @author vijayb
  */
 public interface FileURL {
+	
+	/**
+	 * @return The existingURL if no suitable extender is found, else the 
+	 * path corresponding to the passed in resource. 
+	 */
 	public IPath getFileURL(IResource resource, IPath existingURL);
 }

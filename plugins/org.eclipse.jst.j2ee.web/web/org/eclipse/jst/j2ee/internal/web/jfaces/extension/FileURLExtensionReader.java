@@ -17,8 +17,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.jem.util.RegistryReader;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.wst.common.core.util.RegistryReader;
 import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 
 /**
@@ -26,6 +28,7 @@ import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
  * 
  * This class loads all the extensions that define the correct URL string for the Java Server Faces
  * file
+ *  
  *  
  */
 public class FileURLExtensionReader extends RegistryReader {
@@ -84,13 +87,41 @@ public class FileURLExtensionReader extends RegistryReader {
 	 */
 	public FileURL getFilesURL() {
 		FileURLExtension fileURLExt;
+		ArrayList<FileURL> fileUrlList = new ArrayList<FileURL>();
+		FileURL currentURL = null;
 		for (Iterator fileURLExtItr = getFileURLExtensions().iterator(); fileURLExtItr.hasNext();) {
 			fileURLExt = (FileURLExtension) fileURLExtItr.next();
-			return fileURLExt.getInstance();
+			currentURL = fileURLExt.getInstance();
+			if (currentURL != null)
+				fileUrlList.add(currentURL);
 		}
-		return null;
+		if (fileUrlList.size() == 1)
+			return fileUrlList.get(0);
+		return new FileURLWrapper(fileUrlList);
 	}
 
+	
+	
+	private class FileURLWrapper implements FileURL {
+		ArrayList<FileURL> myUrlList = new ArrayList<FileURL>();
+		public FileURLWrapper(ArrayList<FileURL> newUrlList)
+		{
+			myUrlList = newUrlList;
+		}
+		public IPath getFileURL(IResource resource, IPath existingURL) {
+			IPath retVal = existingURL;
+			for (FileURL fileUrl: myUrlList){
+				retVal = fileUrl.getFileURL(resource, existingURL);
+				if (retVal != existingURL && retVal != null)
+				{
+					return retVal;
+				}
+			}
+			return retVal;
+		}
+	}
+	
+	
 	/**
 	 * Gets the instance.
 	 * 
