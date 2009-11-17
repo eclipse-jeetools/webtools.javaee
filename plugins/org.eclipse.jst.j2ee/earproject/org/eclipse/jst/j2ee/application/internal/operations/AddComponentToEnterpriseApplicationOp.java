@@ -114,13 +114,14 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 
 	protected void updateEARDD(IProgressMonitor monitor) {
 		
-		IVirtualComponent sourceComp = (IVirtualComponent) model.getProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT);
-		final IEARModelProvider earModel = (IEARModelProvider)ModelProviderManager.getModelProvider(sourceComp.getProject());
-		final IVirtualComponent ear = (IVirtualComponent) this.model.getProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT);
-		final IProject earpj = ear.getProject();
-		StructureEdit se = StructureEdit.getStructureEditForWrite(sourceComp.getProject());
+		StructureEdit se = null;
 		try {
-			
+			IVirtualComponent sourceComp = (IVirtualComponent) model.getProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT);
+			final IEARModelProvider earModel = (IEARModelProvider)ModelProviderManager.getModelProvider(sourceComp.getProject());
+			final IVirtualComponent ear = (IVirtualComponent) this.model.getProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT);
+			final IProject earpj = ear.getProject();
+			se = StructureEdit.getStructureEditForWrite(sourceComp.getProject());
+				
 			if (earModel != null) {
 				List list = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
 				final Map map = (Map) model.getProperty(IAddComponentToEnterpriseApplicationDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP);
@@ -135,8 +136,9 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 								((J2EEModuleVirtualArchiveComponent)wc).setLinkedToEAR(false);
 							}
 							WorkbenchComponent earwc = se.getComponent();
-							final StructureEdit compse = StructureEdit.getStructureEditForWrite(wc.getProject());
+							StructureEdit compse = null;
 							try {
+								compse = StructureEdit.getStructureEditForWrite(wc.getProject());
 								WorkbenchComponent refwc = compse.getComponent();
 								final ReferencedComponent ref = se.findReferencedComponent(earwc, refwc);
 								earModel.modify(new Runnable() {
