@@ -518,22 +518,27 @@ public class J2EEPreferences {
 		return getDefaultOutputFolderName();
 	}
 	
-	public String getDefaultOutputFolderName(){
-		
+	
+	/**
+	 * Default if undefined is "build/classes"
+	 * @see org.eclipse.jst.common.project.facet.core.JavaFacetInstallConfig#DEFAULT_OUTPUT_FOLDER
+	 * @return
+	 */
+	public String getDefaultOutputFolderName() {
+
 		if (ProductManager.shouldUseSingleRootStructure())
 			return getDefaultJavaSrcFolder();
-		
-	    String outputFolder = getProductProperty( "defaultJavaOutputFolder" ); //$NON-NLS-1$
-	    
-	    if( outputFolder == null ){
-	        outputFolder = getProductProperty( "outputFolder" ); //$NON-NLS-1$
-	    }
-	    
-	    if( outputFolder == null )
-	   {
-	        outputFolder = FacetCorePlugin.DEFUALT_OUTPUT_FOLDER;
-	    }
-	    return outputFolder;
+
+		String outputFolder = getProductProperty("defaultJavaOutputFolder"); //$NON-NLS-1$
+
+		if (outputFolder == null) {
+			outputFolder = getProductProperty("outputFolder"); //$NON-NLS-1$
+		}
+
+		if (outputFolder == null) {
+			outputFolder = "build/classes"; //$NON-NLS-1$
+		}
+		return outputFolder;
 	}
 	    
 	public String getDefaultJavaSrcFolder(){
