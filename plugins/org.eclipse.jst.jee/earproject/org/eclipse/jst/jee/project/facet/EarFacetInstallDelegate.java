@@ -40,6 +40,9 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.project.facet.core.IDelegate;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 
+/**
+ * @deprecated - This class had duplicated functionality. Please use {@link org.eclipse.jst.j2ee.project.facet.EarFacetInstallDelegate} 
+ */
 public final class EarFacetInstallDelegate implements IDelegate {
 
 	public void execute(final IProject project, final IProjectFacetVersion fv, final Object cfg, final IProgressMonitor monitor) throws CoreException {

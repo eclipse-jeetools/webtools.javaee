@@ -10,31 +10,13 @@ package org.eclipse.jst.jee.ui.project.facet;
  * Contributors: IBM Corporation - initial API and implementation
  **************************************************************************************************/
 
-import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Composite;
-
+/**
+ * @deprecated - For consistency with other FacetInstallPage classes this class should be removed. Please use {@link org.eclipse.jst.j2ee.ui.project.facet.EarFacetInstallPage} 
+ */
 public class EarJavaEEFacetInstallPage extends
 		org.eclipse.jst.j2ee.ui.project.facet.EarFacetInstallPage {
 
-	protected Button addDD;
-
 	public EarJavaEEFacetInstallPage() {
 		super();
-	}
-
-	@Override
-	protected Composite createTopLevelComposite(Composite parent) {
-		Composite composite = super.createTopLevelComposite(parent);
-		
-		Composite holder = new Composite(composite, SWT.NONE);
-		holder.setLayout(new GridLayout());
-		holder.setLayoutData(gdhfill());
-		createGenerateDescriptorControl(holder, J2EEConstants.APPLICATION_DD_SHORT_NAME);
-		
-		return composite;
-	}
-	
+	}	
 }

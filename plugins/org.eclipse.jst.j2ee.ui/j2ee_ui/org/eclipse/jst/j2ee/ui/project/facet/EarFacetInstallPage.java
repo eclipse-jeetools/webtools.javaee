@@ -34,6 +34,8 @@ import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.j2ee.earcreation.IEarFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.internal.AvailableJ2EEComponentsForEARContentProvider;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.earcreation.DefaultJ2EEComponentCreationDataModelProvider;
@@ -103,6 +105,9 @@ public class EarFacetInstallPage extends J2EEModuleFacetInstallPage implements I
 		
 		createModuleProjectOptions(composite);
 		createContentDirGroup(composite);
+		
+		createGenerateDescriptorControl(composite, J2EEConstants.APPLICATION_DD_SHORT_NAME);
+		registerFacetVersionChangeListener();
 		
 	    Dialog.applyDialogFont(parent);
 		return composite;
@@ -282,6 +287,14 @@ public class EarFacetInstallPage extends J2EEModuleFacetInstallPage implements I
 			super.handleEvent(evt);
 	}
 
+	@Override
+	protected void handleFacetVersionChangedEvent()
+	{
+	    String fv = model.getStringProperty(FACET_VERSION_STR);
+	    boolean isEAR50OrGreater = J2EEVersionUtil.convertVersionStringToInt(fv) >= J2EEVersionConstants.VERSION_5_0;
+	    this.addDD.setVisible(isEAR50OrGreater);
+	}
+	
 	/**
 	 *  
 	 */
