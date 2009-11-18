@@ -21,8 +21,9 @@ import org.eclipse.jst.j2ee.internal.navigator.ui.Messages;
 import org.eclipse.jst.j2ee.navigator.internal.plugin.J2EENavigatorPlugin;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.wst.common.ui.internal.navigator.ILoadingDDNode;
 
-public class LoadingDDNode {
+public class LoadingDDNode implements ILoadingDDNode{
 
 	private static ImageDescriptor loadingOne;
 	private static ImageDescriptor loadingTwo;
