@@ -269,8 +269,22 @@ public class EJBExportOperationTest extends ModuleExportOperationTest {
     	runExportTests_All(dm);
     }
     
+    public void testEJBExport31_Defaults_WithDD() throws Exception {
+    	IDataModel dm = EJBProjectCreationOperationTest.getEJBDataModel("EE6tigerEJB", null, null, null, JavaEEFacetConstants.EJB_31, true);
+    	runDataModel(dm);
+    	
+    	runExportTests_All(dm);
+    }
+    
     public void testEJBExport30_AddToEAR_Defaults_WithDD() throws Exception {
     	IDataModel dm = EJBProjectCreationOperationTest.getEJBDataModel("pandaEJB", null, null, "roundEAR", JavaEEFacetConstants.EJB_3, true);
+    	runDataModel(dm);
+    	
+    	runExportTests_All(dm);
+    }
+    
+    public void testEJBExport31_AddToEAR_Defaults_WithDD() throws Exception {
+    	IDataModel dm = EJBProjectCreationOperationTest.getEJBDataModel("EE6pandaEJB", null, null, "EE6roundEAR", JavaEEFacetConstants.EJB_31, true);
     	runDataModel(dm);
     	
     	runExportTests_All(dm);
@@ -283,6 +297,13 @@ public class EJBExportOperationTest extends ModuleExportOperationTest {
     	runExportTests_All(dm);
     }
     
+    public void testEJBExport31_AddToEAR_NoClient_WithDD() throws Exception {
+    	IDataModel dm = EJBProjectCreationOperationTest.getEJBDataModel("EE6netoEJB", null, null, "EE6myEAR", JavaEEFacetConstants.EJB_31, false, true);
+    	runDataModel(dm);
+    	
+    	runExportTests_All(dm);
+    }
+
     public void testEJBExport30_AddToEAR_ChangedEJBClientName_WithDD() throws Exception {
     	IDataModel dm = EJBProjectCreationOperationTest.getEJBDataModel("snakeEJB", "client", null, "groundEAR", JavaEEFacetConstants.EJB_3, true);
     	runDataModel(dm);
@@ -290,8 +311,22 @@ public class EJBExportOperationTest extends ModuleExportOperationTest {
     	runExportTests_All(dm);
     }
     
+    public void testEJBExport31_AddToEAR_ChangedEJBClientName_WithDD() throws Exception {
+    	IDataModel dm = EJBProjectCreationOperationTest.getEJBDataModel("EE6snakeEJB", "EE6client", null, "EE6groundEAR", JavaEEFacetConstants.EJB_31, true);
+    	runDataModel(dm);
+    	
+    	runExportTests_All(dm);
+    }
+
     public void testEJBExport30_AddToEAR_ChangedClientSourceFolder_WithDD() throws Exception {
     	IDataModel dm = EJBProjectCreationOperationTest.getEJBDataModel("lionEJB", null, "barSrc", "pinEAR", JavaEEFacetConstants.EJB_3, true);
+    	runDataModel(dm);
+    	
+    	runExportTests_All(dm);
+    }
+    
+    public void testEJBExport31_AddToEAR_ChangedClientSourceFolder_WithDD() throws Exception {
+    	IDataModel dm = EJBProjectCreationOperationTest.getEJBDataModel("EE6lionEJB", null, "EE6barSrc", "EE6pinEAR", JavaEEFacetConstants.EJB_31, true);
     	runDataModel(dm);
     	
     	runExportTests_All(dm);
@@ -304,6 +339,13 @@ public class EJBExportOperationTest extends ModuleExportOperationTest {
     	runExportTests_All(dm);
     }
     
+    public void testEJBExport31_AddToEAR_ChangedEJBClientName_ChangedClientSourceFolder_WithDD() throws Exception {
+    	IDataModel dm = EJBProjectCreationOperationTest.getEJBDataModel("EE6monkeyEJB", "EE6fooFooClient", "EE6fooSrc", "EE6outsideEAR", JavaEEFacetConstants.EJB_31, true);
+    	runDataModel(dm);
+    	
+    	runExportTests_All(dm);
+    }
+
     @Override
     protected String getModuleExtension() {
     	return ".jar";

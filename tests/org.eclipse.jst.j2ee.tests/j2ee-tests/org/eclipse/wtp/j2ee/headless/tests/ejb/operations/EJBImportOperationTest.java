@@ -64,7 +64,11 @@ public class EJBImportOperationTest extends ModuleImportOperationTest {
     public void testEJBImport30_Defaults() throws Exception {
 		runImportTests_All("EJB30_Defaults");
     }
-    
+    //TODO -- annotations to scan?
+    //EE6TODO 
+//    public void testEJBImport31_Defaults() throws Exception {
+//		runImportTests_All("EJB31_Defaults");
+//    }
     
     public void testEJBImport11_AddToEAR_Defaults() throws Exception {
 		runImportTests_All("EJB11_AddToEAR_Defaults");
@@ -82,6 +86,9 @@ public class EJBImportOperationTest extends ModuleImportOperationTest {
 		runImportTests_All("EJB30_AddToEAR_Defaults");
     }
     
+    public void testEJBImport31_AddToEAR_Defaults() throws Exception {
+		runImportTests_All("EJB30_AddToEAR_Defaults");
+    }
     
     public void testEJBImport11_AddToEAR_NoClient() throws Exception {
 		runImportTests_All("EJB11_AddToEAR_NoClient");
@@ -99,6 +106,11 @@ public class EJBImportOperationTest extends ModuleImportOperationTest {
 		runImportTests_All("EJB30_AddToEAR_NoClient");
     }
     
+    //TODO -- annotations to scan?
+    //EE6TODO 
+//    public void testEJBImport31_AddToEAR_NoClient() throws Exception {
+//		runImportTests_All("EJB31_AddToEAR_NoClient");
+//    }
     
     public void testEJBImport11_AddToEAR_DiffClientName() throws Exception {
 		runImportTests_All("EJB11_AddToEAR_DiffClientName");
@@ -116,6 +128,11 @@ public class EJBImportOperationTest extends ModuleImportOperationTest {
 		runImportTests_All("EJB30_AddToEAR_DiffClientName");
     }
     
+    //TODO -- annotations to scan?
+    //EE6TODO 
+//    public void testEJBImport31_AddToEAR_DifClientName() throws Exception {
+//		runImportTests_All("EJB31_AddToEAR_DiffClientName");
+//    }
     
     public void testEJBImport11_AddToEAR_DiffClientSourceFolder() throws Exception {
 		runImportTests_All("EJB11_AddToEAR_DiffClientSourceFolder");
@@ -133,6 +150,11 @@ public class EJBImportOperationTest extends ModuleImportOperationTest {
 		runImportTests_All("EJB30_AddToEAR_DiffClientSourceFolder");
     }
     
+    //TODO -- annotations to scan?
+    //EE6TODO 
+//    public void testEJBImport31_AddToEAR_DiffClientSourceFolder() throws Exception {
+//		runImportTests_All("EJB31_AddToEAR_DiffClientSourceFolder");
+//    }
     
     public void testEJBImport11_AddToEAR_DiffClientName_DiffClientSourceFolder() throws Exception {
 		runImportTests_All("EJB11_AddToEAR_DiffClientName_DiffClientSourceFolder");
@@ -149,33 +171,60 @@ public class EJBImportOperationTest extends ModuleImportOperationTest {
     public void testEJBImport30_AddToEAR_DiffClientName_DiffClientSourceFolder() throws Exception {
 		runImportTests_All("EJB30_AddToEAR_DiffClientName_DiffClientSourceFolder");
     }
-    
-    
+
+    //TODO -- annotations to scan?
+    //EE6TODO 
+//    public void testEJBImport31_AddToEAR_DiffClientName_DiffClientSourceFolder() throws Exception {
+//		runImportTests_All("EJB31_AddToEAR_DiffClientName_DiffClientSourceFolder");
+//    }
     
     public void testEJBImport30_Defaults_WithDD() throws Exception {
 		runImportTests_All("EJB30_Defaults_WithDD");
+    }
+    
+    public void testEJBImport31_Defaults_WithDD() throws Exception {
+		runImportTests_All("EJB31_Defaults_WithDD");
     }
     
     public void testEJBImport30_AddToEAR_Defaults_WithDD() throws Exception {
 		runImportTests_All("EJB30_AddToEAR_Defaults_WithDD");
     }
     
+    public void testEJBImport31_AddToEAR_Defaults_WithDD() throws Exception {
+		runImportTests_All("EJB31_AddToEAR_Defaults_WithDD");
+    }
+    
     public void testEJBImport30_AddToEAR_NoClient_WithDD() throws Exception {
 		runImportTests_All("EJB30_AddToEAR_NoClient_WithDD");
+    }
+    
+    public void testEJBImport31_AddToEAR_NoClient_WithDD() throws Exception {
+		runImportTests_All("EJB31_AddToEAR_NoClient_WithDD");
     }
     
     public void testEJBImport30_AddToEAR_DiffClientName_WithDD() throws Exception {
 		runImportTests_All("EJB30_AddToEAR_DiffClientName_WithDD");
     }
     
+    public void testEJBImport31_AddToEAR_DiffClientName_WithDD() throws Exception {
+		runImportTests_All("EJB31_AddToEAR_DiffClientName_WithDD");
+    }
+    
     public void testEJBImport30_AddToEAR_DiffClientSourceFolder_WithDD() throws Exception {
 		runImportTests_All("EJB30_AddToEAR_DiffClientSourceFolder_WithDD");
+    }
+    
+    public void testEJBImport31_AddToEAR_DiffClientSourceFolder_WithDD() throws Exception {
+		runImportTests_All("EJB31_AddToEAR_DiffClientSourceFolder_WithDD");
     }
     
     public void testEJBImport30_AddToEAR_DiffClientName_DiffClientSourceFolder_WithDD() throws Exception {
 		runImportTests_All("EJB30_AddToEAR_DiffClientName_DiffClientSourceFolder_WithDD");
     }
 	
+    public void testEJBImport31_AddToEAR_DiffClientName_DiffClientSourceFolder_WithDD() throws Exception {
+		runImportTests_All("EJB31_AddToEAR_DiffClientName_DiffClientSourceFolder_WithDD");
+    }
     
 	@Override
 	protected IDataModel getImportDataModel(String filePath, String projectName, IDataModel creationModel, boolean closeArchiveOnDispose) {
