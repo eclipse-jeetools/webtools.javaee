@@ -25,9 +25,11 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.WebModule;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
+import org.eclipse.jst.j2ee.internal.ICommonEMFModule;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.model.IEARModelProvider;
@@ -49,6 +51,7 @@ import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.internal.emf.resource.CompatibilityXMIResource;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IProjectFacet;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
@@ -110,14 +113,13 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 			final IEARModelProvider earModel = (IEARModelProvider)ModelProviderManager.getModelProvider(sourceComp.getProject());
 			final IVirtualComponent ear = (IVirtualComponent) this.model.getProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT);
 			final IProject earpj = ear.getProject();
-			
 			se = StructureEdit.getStructureEditForWrite(sourceComp.getProject());
 			if (earModel != null) {
 				List list = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
 				final Map map = (Map) model.getProperty(IAddComponentToEnterpriseApplicationDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP);
 				if (list != null && list.size() > 0) {
 					for (int i = 0; i < list.size(); i++) {
-						StructureEdit compse = null;
+						
 						final IVirtualComponent wc = (IVirtualComponent) list.get(i);
 						boolean linkedToEAR = true;
 						try{
@@ -126,6 +128,7 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 								((J2EEModuleVirtualArchiveComponent)wc).setLinkedToEAR(false);
 							}
 							WorkbenchComponent earwc = se.getComponent();
+							StructureEdit compse = null;
 							try {
 								compse = StructureEdit.getStructureEditForWrite(wc.getProject());
 								WorkbenchComponent refwc = compse.getComponent();
@@ -140,6 +143,15 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 											if (JavaEEProjectUtilities.isStaticWebProject(wc.getProject())
 													|| JavaEEProjectUtilities.isDynamicWebComponent(wc)) {
 												updateContextRoot(earpj, wc, mod);
+											}
+											
+											Resource theResource = ((EObject)mod).eResource();
+											if (theResource != null)
+											{
+												String frag = null;
+												if (theResource instanceof CompatibilityXMIResource)
+													frag = theResource.getURIFragment((EObject)mod);
+												((ICommonEMFModule)mod).setId(frag);
 											}
 										}
 									}						

@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.jst.j2ee.internal.ICommonEMFModule;
 import org.eclipse.jst.javaee.application.Module;
 import org.eclipse.jst.javaee.application.Web;
 import org.eclipse.jst.javaee.application.internal.metadata.ApplicationPackage;
@@ -39,7 +40,7 @@ import org.eclipse.jst.jee.application.ICommonModule;
  *
  * @generated
  */
-public class ModuleImpl extends EObjectImpl implements Module, ICommonModule {
+public class ModuleImpl extends EObjectImpl implements Module, ICommonModule, ICommonEMFModule {
 	/**
 	 * The default value of the '{@link #getConnector() <em>Connector</em>}' attribute.
 	 * <!-- begin-user-doc -->
