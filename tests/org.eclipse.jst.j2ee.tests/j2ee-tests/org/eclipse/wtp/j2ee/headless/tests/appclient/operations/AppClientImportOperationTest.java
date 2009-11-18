@@ -54,6 +54,12 @@ public class AppClientImportOperationTest extends ModuleImportOperationTest {
     	runImportTests_All("AC50_Defaults");
     }
     
+    //TODO -- annotations to scan?
+    //EE6TODO 
+//    public void testACImport60_Defaults() throws Exception {
+//    	runImportTests_All("AC60_Defaults");
+//    }
+    
     public void testACImport12_NoDefaultClass() throws Exception{
     	runImportTests_All("AC12_NoDefaultClass");
     }
@@ -66,10 +72,14 @@ public class AppClientImportOperationTest extends ModuleImportOperationTest {
     	runImportTests_All("AC14_NoDefaultClass");
     }
 
-    //TODO this test should be added back, but we need to not fail becaues the versions don't match
-    //The versions currently fail to match because the actual archive type is not an application client.
-//    public void testACImport50_NoDefaultClass() throws Exception {
-//    	runImportTests_All("AC50_NoDefaultClass");
+    public void testACImport50_NoDefaultClass() throws Exception {
+    	runImportTests_All("AC50_NoDefaultClass");
+    }
+    
+    //TODO -- annotations to scan?
+    //EE6TODO 
+//    public void testACImport60_NoDefaultClass() throws Exception {
+//    	runImportTests_All("AC60_NoDefaultClass");
 //    }
     
     public void testACImport12_AddToEAR() throws Exception {
@@ -87,6 +97,12 @@ public class AppClientImportOperationTest extends ModuleImportOperationTest {
     public void testACImport50_AddToEAR() throws Exception {
     	runImportTests_All("AC50_AddToEAR");
     }
+
+    //TODO -- annotations to scan?
+    //EE6TODO 
+//    public void testACImport60_AddToEAR() throws Exception {
+//    	runImportTests_All("AC60_AddToEAR");
+//    }
     
     public void testACImport12_InterestingName() throws Exception{
     	runImportTests_All("AC12_InterestingName");
@@ -103,7 +119,13 @@ public class AppClientImportOperationTest extends ModuleImportOperationTest {
     public void testACImport50_InterestingName() throws Exception{
     	runImportTests_All("AC50_InterestingName");
     }
-    
+
+    //TODO -- annotations to scan?
+    //EE6TODO 
+//    public void testACImport60_InterestingName() throws Exception{
+//    	runImportTests_All("AC60_InterestingName");
+//    }
+
     public void testACImport12_AddToEAR_InterestingName() throws Exception{
     	runImportTests_All("AC12_AddToEAR_InterestingName");
     }
@@ -119,23 +141,44 @@ public class AppClientImportOperationTest extends ModuleImportOperationTest {
     public void testACImport50_AddToEAR_InterestingName() throws Exception{
     	runImportTests_All("AC50_AddToEAR_InterestingName");
     }
+
+    //TODO -- annotations to scan?
+    //EE6TODO 
+//    public void testACImport60_AddToEAR_InterestingName() throws Exception{
+//    	runImportTests_All("AC60_AddToEAR_InterestingName");
+//    }
     
     public void testACImport50_WithDD() throws Exception {
     	runImportTests_All("AC50_WithDD");
     }
-    
+
+    public void testACImport60_WithDD() throws Exception {
+    	runImportTests_All("AC60_WithDD");
+    }
+
     public void testACImport50_NoDefaultClass_WithDD() throws Exception {
     	runImportTests_All("AC50_NoDefaultClass_WithDD");
     }
-    
+
+    public void testACImport60_NoDefaultClass_WithDD() throws Exception {
+    	runImportTests_All("AC60_NoDefaultClass_WithDD");
+    }
+
     public void testACImport50_AddToEAR_WithDD() throws Exception {
     	runImportTests_All("AC50_AddToEAR_WithDD");
+    }
+
+    public void testACImport60_AddToEAR_WithDD() throws Exception {
+    	runImportTests_All("AC60_AddToEAR_WithDD");
     }
     
     public void testACImport50_AddToEAR_InterestingName_WithDD() throws Exception {
     	runImportTests_All("AC50_AddToEAR_InterestingName_WithDD");
     }
     
+    public void testACImport60_AddToEAR_InterestingName_WithDD() throws Exception {
+    	runImportTests_All("AC60_AddToEAR_InterestingName_WithDD");
+    }
     @Override
     protected String getModuleExtension() {
     	return ".jar";

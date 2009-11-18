@@ -78,6 +78,13 @@ public class AppClientExportOperationTest extends ModuleExportOperationTest {
     	runExportTests_All(dm);
     }
     
+    public void testACExport60_Defaults() throws Exception {
+    	IDataModel dm = AppClientProjectCreationOperationTest.getAppClientCreationDataModel("jazzyApp", null, JavaEEFacetConstants.APP_CLIENT_6, true, false);
+    	OperationTestCase.runDataModel(dm);
+    	
+    	runExportTests_All(dm);
+    }
+
     public void testACExport12_NoDefaultClass() throws Exception{
     	IDataModel dm = AppClientProjectCreationOperationTest.getAppClientCreationDataModel("randomApp", null, JavaEEFacetConstants.APP_CLIENT_12, false, true);
     	OperationTestCase.runDataModel(dm);
@@ -99,14 +106,20 @@ public class AppClientExportOperationTest extends ModuleExportOperationTest {
     	runExportTests_All(dm);
     }
     
-    //TODO this should be added back with an extra step to include a main class manifest entry; otherwise
-    //this test will fail during the verification because the resulting archive is not valid
-//    public void testACExport50_NoDefaultClass() throws Exception {
-//    	IDataModel dm = AppClientProjectCreationOperationTest.getAppClientCreationDataModel("amazingApp", null, JavaEEFacetConstants.APP_CLIENT_5, false, false);
-//    	OperationTestCase.runDataModel(dm);
-//    	
-//    	runExportTests_All(dm);
-//    }
+    public void testACExport50_NoDefaultClass() throws Exception {
+    	IDataModel dm = AppClientProjectCreationOperationTest.getAppClientCreationDataModel("amazingApp", null, JavaEEFacetConstants.APP_CLIENT_5, false, false);
+    	OperationTestCase.runDataModel(dm);
+    	
+    	runExportTests_All(dm);
+    }
+
+    public void testACExport60_NoDefaultClass() throws Exception {
+    	IDataModel dm = AppClientProjectCreationOperationTest.getAppClientCreationDataModel("jazzyApp", null, JavaEEFacetConstants.APP_CLIENT_6, false, false);
+    	OperationTestCase.runDataModel(dm);
+    	
+    	runExportTests_All(dm);
+    }
+
     
     public void testACExport12_AddToEAR() throws Exception {
     	IDataModel dm = AppClientProjectCreationOperationTest.getAppClientCreationDataModel("fooAppToEar", "someEar", JavaEEFacetConstants.APP_CLIENT_12, true, true);
@@ -136,6 +149,13 @@ public class AppClientExportOperationTest extends ModuleExportOperationTest {
     	runExportTests_All(dm);
     }
     
+    public void testACExport60_AddToEAR() throws Exception {
+    	IDataModel dm = AppClientProjectCreationOperationTest.getAppClientCreationDataModel("fooAppToEar", "jelloEar", JavaEEFacetConstants.APP_CLIENT_6, true, false);
+    	OperationTestCase.runDataModel(dm);
+    	
+    	runExportTests_All(dm);
+    }
+
     public void testACExport12_InterestingName() throws Exception{
     	IDataModel dm = AppClientProjectCreationOperationTest.getAppClientCreationDataModel("kd3(2k_djfD3", null, JavaEEFacetConstants.APP_CLIENT_12, true, true);
     	OperationTestCase.runDataModel(dm);
@@ -164,6 +184,13 @@ public class AppClientExportOperationTest extends ModuleExportOperationTest {
     	runExportTests_All(dm);
     }
     
+    public void testACExport60_InterestingName() throws Exception{
+    	IDataModel dm = AppClientProjectCreationOperationTest.getAppClientCreationDataModel("EE6_a_1B2c()3D4", null, JavaEEFacetConstants.APP_CLIENT_6, true, false);
+    	OperationTestCase.runDataModel(dm);
+    	
+    	runExportTests_All(dm);
+    }
+
     public void testACExport12_AddToEAR_InterestingName() throws Exception{
     	IDataModel dm = AppClientProjectCreationOperationTest.getAppClientCreationDataModel("kd(32k_djfD)3", "hFdf(8G_Fij))3", JavaEEFacetConstants.APP_CLIENT_12, true, true);
     	OperationTestCase.runDataModel(dm);
@@ -191,6 +218,13 @@ public class AppClientExportOperationTest extends ModuleExportOperationTest {
     	
     	runExportTests_All(dm);
     }
+
+    public void testACExport60_AddToEAR_InterestingName() throws Exception{
+    	IDataModel dm = AppClientProjectCreationOperationTest.getAppClientCreationDataModel("EE6_a1B_2c)3D4", "EE6_4D_3c2)B1a", JavaEEFacetConstants.APP_CLIENT_6, true, false);
+    	OperationTestCase.runDataModel(dm);
+    	
+    	runExportTests_All(dm);
+    }
     
     public void testACExport50_WithDD() throws Exception {
     	IDataModel dm = AppClientProjectCreationOperationTest.getAppClientCreationDataModel("insaneApp", null, JavaEEFacetConstants.APP_CLIENT_5, true, true);
@@ -199,6 +233,13 @@ public class AppClientExportOperationTest extends ModuleExportOperationTest {
     	runExportTests_All(dm);
     }
     
+    public void testACExport60_WithDD() throws Exception {
+    	IDataModel dm = AppClientProjectCreationOperationTest.getAppClientCreationDataModel("insaneApp6", null, JavaEEFacetConstants.APP_CLIENT_6, true, true);
+    	OperationTestCase.runDataModel(dm);
+    	
+    	runExportTests_All(dm);
+    }
+
     public void testACExport50_NoDefaultClass_WithDD() throws Exception {
     	IDataModel dm = AppClientProjectCreationOperationTest.getAppClientCreationDataModel("insaneApp", null, JavaEEFacetConstants.APP_CLIENT_5, false, true);
     	OperationTestCase.runDataModel(dm);
@@ -206,6 +247,13 @@ public class AppClientExportOperationTest extends ModuleExportOperationTest {
     	runExportTests_All(dm);
     }
     
+    public void testACExport60_NoDefaultClass_WithDD() throws Exception {
+    	IDataModel dm = AppClientProjectCreationOperationTest.getAppClientCreationDataModel("insaneApp6", null, JavaEEFacetConstants.APP_CLIENT_6, false, true);
+    	OperationTestCase.runDataModel(dm);
+    	
+    	runExportTests_All(dm);
+    }
+
     public void testACExport50_AddToEAR_WithDD() throws Exception {
     	IDataModel dm = AppClientProjectCreationOperationTest.getAppClientCreationDataModel("appToEARwithDD", "bigEAR", JavaEEFacetConstants.APP_CLIENT_5, true, true);
     	OperationTestCase.runDataModel(dm);
@@ -213,6 +261,13 @@ public class AppClientExportOperationTest extends ModuleExportOperationTest {
     	runExportTests_All(dm);
     }
     
+    public void testACExport60_AddToEAR_WithDD() throws Exception {
+    	IDataModel dm = AppClientProjectCreationOperationTest.getAppClientCreationDataModel("appToEARwithDD6", "bigEAR6", JavaEEFacetConstants.APP_CLIENT_6, true, true);
+    	OperationTestCase.runDataModel(dm);
+    	
+    	runExportTests_All(dm);
+    }
+
     public void testACExport50_AddToEAR_InterestingName_WithDD() throws Exception {
     	IDataModel dm = AppClientProjectCreationOperationTest.getAppClientCreationDataModel("D875)_DFj", "7D_3cF2)BaQ", JavaEEFacetConstants.APP_CLIENT_5, true, true);
     	OperationTestCase.runDataModel(dm);
@@ -220,6 +275,13 @@ public class AppClientExportOperationTest extends ModuleExportOperationTest {
     	runExportTests_All(dm);
     }
     
+    public void testACExport60_AddToEAR_InterestingName_WithDD() throws Exception {
+    	IDataModel dm = AppClientProjectCreationOperationTest.getAppClientCreationDataModel("EE6_D875)_DFj", "EE6_7D_3cF2)BaQ", JavaEEFacetConstants.APP_CLIENT_6, true, true);
+    	OperationTestCase.runDataModel(dm);
+    	
+    	runExportTests_All(dm);
+    }
+
     @Override
     protected String getModuleExtension() {
     	return ".jar";
