@@ -9,7 +9,7 @@
  *    Rob Stryker - initial implementation and ongoing maintenance
  *    Chuck Bridgham - Additional support
  ******************************************************************************/
-package org.eclipse.jst.j2ee.internal.ui.preferences;
+package org.eclipse.jst.j2ee.internal.ui;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.swt.widgets.Composite;
@@ -20,17 +20,17 @@ import org.eclipse.wst.common.componentcore.ui.propertypage.ModuleAssemblyRootPa
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
-public class EarModuleDependencyPageProvider implements IDependencyPageProvider {
+public class WebModuleDependencyPageProvider implements IDependencyPageProvider {
 
 	public boolean canHandle(IFacetedProject project) {
-		boolean isEAR = project.hasProjectFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EAR_MODULE));
-		return isEAR;
+		boolean isWeb = project.hasProjectFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_WEB_MODULE));
+		return isWeb;
 	}
 
 	public IModuleDependenciesControl[] createPages(IFacetedProject project,
 			ModuleAssemblyRootPage parent) {
 		return new IModuleDependenciesControl[] {
-				new EarModuleDependenciesPropertyPage(project.getProject(), parent)
+				new WebDependencyPropertyPage(project.getProject(), parent)
 		};
 	}
 
@@ -41,10 +41,9 @@ public class EarModuleDependencyPageProvider implements IDependencyPageProvider 
 		return null;
 	}
 	
-	public String getPageTitle(IProject project) {
-		return Messages.EarModuleDependencyPageProvider_0;
+public String getPageTitle(IProject project) {
+		return Messages.J2EEDependencyPageProvider_0;
 	}
-
 
 
 }

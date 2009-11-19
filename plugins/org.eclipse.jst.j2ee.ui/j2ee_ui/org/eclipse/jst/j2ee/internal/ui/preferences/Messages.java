@@ -10,6 +10,8 @@ public class Messages extends NLS {
 	public static String EarModuleDependenciesPropertyPage_3;
 	public static String EarModuleDependenciesPropertyPage_4;
 	public static String EarModuleDependencyPageProvider_0;
+	public static String WebDependencyPropertyPage_0;
+	public static String WebDependencyPropertyPage_1;
 	static {
 		// initialize resource bundle
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

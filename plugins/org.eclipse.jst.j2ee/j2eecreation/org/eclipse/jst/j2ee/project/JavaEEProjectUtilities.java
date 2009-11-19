@@ -24,7 +24,11 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.componentcore.JavaEEBinaryComponentHelper;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.model.IEARModelProvider;
+import org.eclipse.jst.j2ee.model.IModelProvider;
+import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -466,6 +470,34 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 	 */
 	public static boolean isLegacyJ2EEComponent(IVirtualComponent component){
 		return !isJEEComponent(component);
+	}
+	
+	public static String getComponentURI(IVirtualComponent comp) {
+		String name = null;
+		//First find URI contained in EAR
+		IProject[] earProjects = EarUtilities.getReferencingEARProjects(comp.getProject());
+		if (earProjects.length > 0) {
+			IModelProvider provider = ModelProviderManager.getModelProvider(earProjects[0]);
+			if (provider instanceof IEARModelProvider)	{
+				name = ((IEARModelProvider)provider).getModuleURI(comp);
+			}
+		}
+		//If not found, then return the default name
+		if( name == null || name == "" ){ //$NON-NLS-1$  comp not found in ear use default extensions
+			name = comp.getName();
+			if(isDynamicWebComponent(comp)) {
+					//web module URIs need to end in WAR
+					name += IJ2EEModuleConstants.WAR_EXT;
+				
+			} else if(isJCAComponent(comp)) {
+					//connector module URIs need to end in RAR
+					name += IJ2EEModuleConstants.RAR_EXT;
+				
+			} else
+				//all other modules (EJB, AppClient, Utility) need to end in JAR
+				name += IJ2EEModuleConstants.JAR_EXT;
+		}
+		return name;
 	}
 	
 }

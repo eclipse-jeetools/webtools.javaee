@@ -25,6 +25,7 @@ import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterp
 import org.eclipse.jst.j2ee.application.internal.operations.RemoveComponentFromEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
+import org.eclipse.jst.j2ee.internal.componentcore.JavaEEModuleHandler;
 import org.eclipse.jst.j2ee.internal.dialogs.ChangeLibDirDialog;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
@@ -37,6 +38,7 @@ import org.eclipse.jst.jee.project.facet.ICreateDeploymentFilesDataModelProperti
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.wst.common.componentcore.internal.IModuleHandler;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.ui.propertypage.AddModuleDependenciesPropertiesPage;
@@ -186,6 +188,13 @@ public class EarModuleDependenciesPropertyPage extends
 				app2.setLibraryDirectory(libDir);
 			}}, null);
 		}
+	}
+
+	@Override
+	protected IModuleHandler getModuleHandler() {
+		if(moduleHandler == null)
+			moduleHandler = new JavaEEModuleHandler();
+		return moduleHandler;
 	}
 
 }
