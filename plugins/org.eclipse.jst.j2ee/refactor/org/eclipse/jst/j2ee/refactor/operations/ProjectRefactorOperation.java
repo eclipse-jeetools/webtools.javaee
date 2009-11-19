@@ -15,23 +15,19 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.refactor.RefactorResourceHandler;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.server.core.IModule;
-import org.eclipse.wst.server.core.IModuleType;
 import org.eclipse.wst.server.core.IServer;
 import org.eclipse.wst.server.core.IServerWorkingCopy;
 import org.eclipse.wst.server.core.ServerUtil;
 import org.eclipse.wst.server.core.internal.DeletedModule;
-import org.eclipse.wst.server.core.internal.Module;
 
 /**
  * Abstract base class for project refactoring operations.
@@ -55,9 +51,7 @@ public abstract class ProjectRefactorOperation extends AbstractDataModelOperatio
 			final ProjectRefactorMetadata refactoredMetadata = getProjectMetadata();
 
 			// Update this project's metadata
-			String pType = JavaEEProjectUtilities.getJ2EEProjectType(
-					refactoredMetadata.getProject());
-			if (!pType.equals("")) {
+			if (refactoredMetadata.hasModuleCoreNature()) {
 				updateProject(refactoredMetadata);
 			}
 			
@@ -112,6 +106,7 @@ public abstract class ProjectRefactorOperation extends AbstractDataModelOperatio
 			final ProjectRefactorMetadata newMetadata)
 		throws ExecutionException {
 		final IModule originalModule = originalMetadata.getModule();
+
 		if (originalModule == null) {
 			// no module for the original project, so return
 			return;
@@ -124,19 +119,17 @@ public abstract class ProjectRefactorOperation extends AbstractDataModelOperatio
 		IModule newModule = null;
 		IModule[] toAdd = new IModule[0];
 		if (newMetadata != null) {
+			/* 
+			 * Due to https://bugs.eclipse.org/bugs/show_bug.cgi?id=124292,
+			 * need to ensure that the IModule for the renamed project has the
+			 * is the newest available from the module factory. 
+			 */
+			newMetadata.computeMetadata();
 			newModule = newMetadata.getModule();
 			if (newModule == null) {
 				// no module for the new project, so return
 				return;
 			}
-			// XXX Due to https://bugs.eclipse.org/bugs/show_bug.cgi?id=124292,
-			// need to ensure that the IModule for the renamed project has the
-			// id and name for the renamed IProject and not the old name
-			final IProject newProject = newMetadata.getProject();
-			final IModuleType moduleType = newModule.getModuleType();
-            ((Module) newModule).getModuleFactory().getModules();
-			newModule = new Module(((Module) newModule).getModuleFactory(), newProject.getName(), newProject.getName(), moduleType.getId(), 
-					moduleType.getVersion(), newProject);
 			toAdd = new IModule[]{newModule};
 		}
 		
