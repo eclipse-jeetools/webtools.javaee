@@ -11,13 +11,14 @@
 
 package org.eclipse.jst.common.jdt.internal.classpath;
 
-import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -35,6 +36,7 @@ import org.eclipse.jst.common.frameworks.CommonFrameworksPlugin;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 
 /**
  * @author <a href="mailto:kosta@bea.com">Konstantin Komissarchik</a>
@@ -102,8 +104,8 @@ public final class ClasspathDecorationsManager
         
         try
         {
-            w = new PrintWriter( new BufferedWriter( new FileWriter( this.f ) ) );
-            
+            w = new PrintWriter( new BufferedWriter( new OutputStreamWriter( new FileOutputStream( this.f ), "UTF-8" ) ) ); //$NON-NLS-1$
+           
             w.println( "<classpath>" ); //$NON-NLS-1$
             
             for( Iterator itr1 = decorations.entrySet().iterator(); 
@@ -179,7 +181,7 @@ public final class ClasspathDecorationsManager
         final HashMap map = new HashMap();
         if( ! this.f.exists() ) return map;
 
-        InputStream in = null;
+        BufferedReader in = null;
         Element root = null;
 
         try
@@ -189,8 +191,8 @@ public final class ClasspathDecorationsManager
             
             final DocumentBuilder docbuilder = factory.newDocumentBuilder();
             
-            in = new BufferedInputStream( new FileInputStream( f ) );
-            root = docbuilder.parse( in ).getDocumentElement();
+            in = new BufferedReader(new InputStreamReader( new FileInputStream( f.getPath()),"UTF-8")); //$NON-NLS-1$
+            root = docbuilder.parse( new InputSource(in)).getDocumentElement();
         }
         catch( Exception e )
         {
