@@ -291,8 +291,7 @@ protected static HashMap resourceSetListeners;
 			try {
 				fp = ProjectFacetsManager.create(proj);
 			} catch (CoreException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				J2EEPlugin.logError(e);
 			}
 			if (fp != null && facet != null) {
 				return fp.getInstalledVersion(facet);
