@@ -285,18 +285,20 @@ protected static HashMap resourceSetListeners;
 
 	private static IProjectFacetVersion getDefaultFacet(IProject proj) {
 		String type = J2EEProjectUtilities.getJ2EEProjectType(proj);
-		IProjectFacet facet = ProjectFacetsManager.getProjectFacet(type);
-		IFacetedProject fp = null;
-		try {
-			fp = ProjectFacetsManager.create(proj);
-		} catch (CoreException e) {
-			J2EEPlugin.logError(e);
-		}
-		if (fp != null && facet != null) {
-			return fp.getInstalledVersion(facet);
+		if( ProjectFacetsManager.isProjectFacetDefined(type)) {
+			IProjectFacet facet = ProjectFacetsManager.getProjectFacet(type);
+			IFacetedProject fp = null;
+			try {
+				fp = ProjectFacetsManager.create(proj);
+			} catch (CoreException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if (fp != null && facet != null) {
+				return fp.getInstalledVersion(facet);
+			}
 		}
 		return null;
-			
 	}
 
 	private static IProjectFacetVersion getDefaultFacet(IVirtualComponent aModule) {

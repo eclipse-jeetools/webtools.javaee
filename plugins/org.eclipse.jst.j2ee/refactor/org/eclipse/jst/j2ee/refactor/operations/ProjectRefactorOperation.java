@@ -15,13 +15,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.refactor.RefactorResourceHandler;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -54,10 +52,7 @@ public abstract class ProjectRefactorOperation extends AbstractDataModelOperatio
 			final ProjectRefactorMetadata refactoredMetadata = getProjectMetadata();
 
 			// Update this project's metadata
-			IProject newProject = ((ProjectRefactorMetadata)
-					model.getProperty(PROJECT_METADATA)).getProject();
-			String pType = JavaEEProjectUtilities.getJ2EEProjectType(newProject);
-			if (!pType.equals("")) { //$NON-NLS-1$
+			if (refactoredMetadata.hasModuleCoreNature()) {
 				updateProject(refactoredMetadata);
 			}
 			
