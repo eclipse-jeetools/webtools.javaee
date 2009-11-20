@@ -47,38 +47,49 @@ public class J2EEModelProviderRegistry extends RegistryReader {
 	
 	@Override
 	public boolean readElement(IConfigurationElement element) {
-		String priority = null;
-		if (!element.getName().equals(ELEMENT_providers))
-			return false;
-
-		IModelProviderFactory factory = null;
-		IConfigurationElement[] mp = element.getChildren(MODEL_PROVIDER);
-		try {
-			factory = (IModelProviderFactory) mp[0].createExecutableExtension(PROVIDER_FACTORY_CLASS);
-		} catch (CoreException e) {
+		try{
+			String priority = null;
+			if (!element.getName().equals(ELEMENT_providers))
+				return false;
+	
+			IModelProviderFactory factory = null;
+			IConfigurationElement[] mp = element.getChildren(MODEL_PROVIDER);
+			try {
+				factory = (IModelProviderFactory) mp[0].createExecutableExtension(PROVIDER_FACTORY_CLASS);
+			} catch (CoreException e) {
+				J2EEPlugin.logError(e);
+			}
+			if (factory != null) {  //Optionally read priority if to override providers for type
+				priority = mp[0].getAttribute(PROVIDER_PRIORITY);
+			}
+			if (factory != null) {
+				IConfigurationElement[] facet = element.getChildren(PROVIDER_FACET);
+				String facetId = facet[0].getAttribute(PROVIDER_FACET_ID);
+				IProjectFacet pv = null;
+				try{
+					pv = ProjectFacetsManager.getProjectFacet(facetId);
+				} catch (IllegalArgumentException e){
+					J2EEPlugin.logError("Unrecognized facet: " + facetId); //$NON-NLS-1$
+					J2EEPlugin.logError(e);
+				}
+				if (pv == null) {
+					J2EEPlugin.logError("Unrecognized facet: " + facetId); //$NON-NLS-1$
+					return true;  // Unrecognized facet
+				}
+				String facetVersions = facet[0].getAttribute(PROVIDER_FACET_VERSION);
+				StringTokenizer tokens = new StringTokenizer(facetVersions,","); //$NON-NLS-1$
+				while (tokens.hasMoreElements()) {
+					String facetversion = (String) tokens.nextElement();
+					IProjectFacetVersion fv = pv.getVersion(facetversion);
+					if (fv != null)
+						addModelProvider(factory, fv, priority);
+				}
+				
+				
+			}
+			return true;
+		} catch (Exception e) {
 			J2EEPlugin.logError(e);
-		}
-		if (factory != null) {  //Optionally read priority if to override providers for type
-			priority = mp[0].getAttribute(PROVIDER_PRIORITY);
-		}
-		if (factory != null) {
-			IConfigurationElement[] facet = element.getChildren(PROVIDER_FACET);
-			String facetId = facet[0].getAttribute(PROVIDER_FACET_ID);
-			IProjectFacet pv = ProjectFacetsManager.getProjectFacet(facetId);
-			if (pv == null) {
-				J2EEPlugin.logError("Unrecognized facet: " + facetId); //$NON-NLS-1$
-				return true;  // Unrecognized facet
-			}
-			String facetVersions = facet[0].getAttribute(PROVIDER_FACET_VERSION);
-			StringTokenizer tokens = new StringTokenizer(facetVersions,","); //$NON-NLS-1$
-			while (tokens.hasMoreElements()) {
-				String facetversion = (String) tokens.nextElement();
-				IProjectFacetVersion fv = pv.getVersion(facetversion);
-				if (fv != null)
-					addModelProvider(factory, fv, priority);
-			}
-			
-			
 		}
 		return true;
 	}
