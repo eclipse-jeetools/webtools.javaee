@@ -40,8 +40,6 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainer;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainerUtils;
-import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.jst.j2ee.internal.plugin.J2EEPreferences;
 import org.eclipse.jst.j2ee.internal.web.classpath.WebAppLibrariesContainer;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
@@ -278,8 +276,7 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 		// We may need to change the existing setup
 
 		if (ProductManager.shouldUseSingleRootStructure()) {
-			String outputFolder = J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.DYN_WEB_OUTPUT_FOLDER);
-			
+			String outputFolder = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.OUTPUT_FOLDER);
 			IJavaProject jproj = JavaCore.create(c.getProject());
 			IClasspathEntry[] current = null;
 			boolean webinf = false;
