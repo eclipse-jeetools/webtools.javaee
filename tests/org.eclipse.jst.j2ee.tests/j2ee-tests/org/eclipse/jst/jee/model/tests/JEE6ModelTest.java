@@ -45,6 +45,7 @@ import org.eclipse.jst.j2ee.internal.common.CreationConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPreferences;
+import org.eclipse.jst.j2ee.jca.project.facet.IConnectorFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IAppClientFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.web.project.facet.IWebFacetInstallDataModelProperties;
@@ -54,6 +55,8 @@ import org.eclipse.jst.javaee.applicationclient.ApplicationClient;
 import org.eclipse.jst.javaee.applicationclient.internal.util.ApplicationclientResourceImpl;
 import org.eclipse.jst.javaee.ejb.EJBJar;
 import org.eclipse.jst.javaee.ejb.internal.util.EjbResourceImpl;
+import org.eclipse.jst.javaee.jca.Connector;
+import org.eclipse.jst.javaee.jca.internal.util.JcaResourceImpl;
 import org.eclipse.jst.javaee.web.WebApp;
 import org.eclipse.jst.javaee.web.internal.util.WebResourceImpl;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
@@ -263,6 +266,26 @@ public void testEarModel() throws Exception {
 	}
 
 }
+public void testConnectorModel() throws Exception {
+	
+	String projName = "TestEE6ConnectorProject";//$NON-NLS-1$
+	createConnectorProject(projName);
+	
+	EMFAttributeFeatureGenerator.reset();
+	String modelPathURI = J2EEConstants.RAR_DD_URI;
+	URI uri = URI.createURI(J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.JCA_CONTENT_FOLDER) + "/" + modelPathURI);
+	ProjectResourceSet resSet = getResourceSet(projName);
+	
+	JcaResourceImpl connectorRes = (JcaResourceImpl) resSet.getResource(uri,true);
+	Assert.assertTrue(connectorRes.getContents().size() > 0);
+	
+	if (connectorRes.getContents().size() > 0) {
+		Connector connector = connectorRes.getConnector();
+		populateRoot((EObjectImpl)connector);
+		connectorRes.save(null);
+	}
+
+}
 public void testWarModel() throws Exception {
 	
 	String projName = "TestEE6WarProject";//$NON-NLS-1$
@@ -324,8 +347,8 @@ public void testWarModel() throws Exception {
 		addVersionProperties(dataModel, projName, facetVersion,IJ2EEFacetInstallDataModelProperties.ENTERPRISE_APPLICATION);
 		dataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, projName);
 		dataModel.getDefaultOperation().execute( new NullProgressMonitor(), null);
-		IProject webProj = ResourcesPlugin.getWorkspace().getRoot().getProject(projName);
-		return webProj;
+		IProject earProj = ResourcesPlugin.getWorkspace().getRoot().getProject(projName);
+		return earProj;
 	}
 	private IProject createAppClientProject(String projName) throws ExecutionException {
 		IDataModel dataModel = DataModelFactory.createDataModel(IAppClientFacetInstallDataModelProperties.class);
@@ -340,6 +363,17 @@ public void testWarModel() throws Exception {
 		dataModel.getDefaultOperation().execute( new NullProgressMonitor(), null);
 		IProject webProj = ResourcesPlugin.getWorkspace().getRoot().getProject(projName);
 		return webProj;
+	}
+	private IProject createConnectorProject(String projName) throws ExecutionException {
+		IDataModel dataModel = DataModelFactory.createDataModel(IConnectorFacetInstallDataModelProperties.class);
+		String versionString = J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.JCA_1_6_ID);
+		IProjectFacet facet = ProjectFacetsManager.getProjectFacet(IConnectorFacetInstallDataModelProperties.JCA);
+		IProjectFacetVersion facetVersion = facet.getVersion(versionString); //$NON-NLS-1$
+		addVersionProperties(dataModel, projName, facetVersion,IJ2EEFacetInstallDataModelProperties.JCA);
+		dataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, projName);
+		dataModel.getDefaultOperation().execute( new NullProgressMonitor(), null);
+		IProject connectorProj = ResourcesPlugin.getWorkspace().getRoot().getProject(projName);
+		return connectorProj;
 	}
 	protected IDataModel setupJavaInstallAction(String aProjectName, String srcFolder) {
 		IDataModel dm = DataModelFactory.createDataModel(new JavaFacetInstallDataModelProvider());
