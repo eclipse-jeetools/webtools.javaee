@@ -51,7 +51,7 @@ public class ApplicationResourceImpl extends JavaeeResourceImpl implements IRoot
 		return new EarXMLHelperImpl(this);
 	}
 	/* (non-Javadoc)
-	 * @see org.eclipse.jst.javaee.application.internal.util.IApplicationResource#getRootObject()
+	 * @see org.eclipse.jst.javaee.application.IApplicationResource#getRootObject()
 	 */
 	public EObject getRootObject() {
 		if (contents == null || contents.isEmpty())
@@ -63,7 +63,7 @@ public class ApplicationResourceImpl extends JavaeeResourceImpl implements IRoot
 		return (EObject)((ApplicationDeploymentDescriptor)root).getApplication();
 	}
 	/* (non-Javadoc)
-	 * @see org.eclipse.jst.javaee.application.internal.util.IApplicationResource#getApplication()
+	 * @see org.eclipse.jst.javaee.application.IApplicationResource#getApplication()
 	 */
 	public Application getApplication() {
 		return (Application)getRootObject();

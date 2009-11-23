@@ -51,7 +51,7 @@ public class WebResourceImpl extends JavaeeResourceImpl implements IRootObjectRe
 		return new WebXMLHelperImpl(this);
 	}
 	/* (non-Javadoc)
-	 * @see org.eclipse.jst.javaee.web.internal.util.IWebResource#getRootObject()
+	 * @see org.eclipse.jst.javaee.web.IWebResource#getRootObject()
 	 */
 	public EObject getRootObject() {
 		if (contents == null || contents.isEmpty())
@@ -63,7 +63,7 @@ public class WebResourceImpl extends JavaeeResourceImpl implements IRootObjectRe
 		return (EObject)((WebAppDeploymentDescriptor)root).getWebApp();
 	}
 	/* (non-Javadoc)
-	 * @see org.eclipse.jst.javaee.web.internal.util.IWebResource#getWebApp()
+	 * @see org.eclipse.jst.javaee.web.IWebResource#getWebApp()
 	 */
 	public WebApp getWebApp() {
 		return (WebApp)getRootObject();

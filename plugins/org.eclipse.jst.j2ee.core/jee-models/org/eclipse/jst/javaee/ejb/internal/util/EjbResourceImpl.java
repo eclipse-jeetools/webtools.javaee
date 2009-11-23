@@ -53,7 +53,7 @@ public class EjbResourceImpl extends JavaeeResourceImpl implements IRootObjectRe
 	}
 	
 	/* (non-Javadoc)
-	 * @see org.eclipse.jst.javaee.ejb.internal.util.IEJBResource#getRootObject()
+	 * @see org.eclipse.jst.javaee.ejb.IEJBResource#getRootObject()
 	 */
 	public EObject getRootObject() {
 		if (contents == null || contents.isEmpty())
@@ -65,7 +65,7 @@ public class EjbResourceImpl extends JavaeeResourceImpl implements IRootObjectRe
 		return (EObject)((EJBJarDeploymentDescriptor)root).getEjbJar();
 	}
 	/* (non-Javadoc)
-	 * @see org.eclipse.jst.javaee.ejb.internal.util.IEJBResource#getEjbJar()
+	 * @see org.eclipse.jst.javaee.ejb.IEJBResource#getEjbJar()
 	 */
 	public EJBJar getEjbJar() {
 		return (EJBJar)getRootObject();

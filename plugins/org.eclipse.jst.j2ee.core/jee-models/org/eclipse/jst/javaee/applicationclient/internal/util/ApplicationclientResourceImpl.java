@@ -53,7 +53,7 @@ public class ApplicationclientResourceImpl extends JavaeeResourceImpl implements
 	}
 	
 	/* (non-Javadoc)
-	 * @see org.eclipse.jst.javaee.applicationclient.internal.util.IApplicationClientResource#getRootObject()
+	 * @see org.eclipse.jst.javaee.applicationclient.IApplicationClientResource#getRootObject()
 	 */
 	public EObject getRootObject() {
 		if (contents == null || contents.isEmpty())
@@ -65,7 +65,7 @@ public class ApplicationclientResourceImpl extends JavaeeResourceImpl implements
 		return (EObject)((ApplicationClientDeploymentDescriptor)root).getApplicationClient();
 	}
 	/* (non-Javadoc)
-	 * @see org.eclipse.jst.javaee.applicationclient.internal.util.IApplicationClientResource#getApplicationClient()
+	 * @see org.eclipse.jst.javaee.applicationclient.IApplicationClientResource#getApplicationClient()
 	 */
 	public ApplicationClient getApplicationClient() {
 		return (ApplicationClient)getRootObject();

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 IBM Corporation and others.
+ * Copyright (c) 2009 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -8,11 +8,11 @@
  * Contributors:
  * IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.javaee.application;
+package org.eclipse.jst.javaee.jca;
 
 import org.eclipse.emf.ecore.EObject;
 
-public interface IApplicationResource {
+public interface IConnectorResource {
 
 	/**
 	 * Return the first element in the EList.
@@ -20,8 +20,7 @@ public interface IApplicationResource {
 	public abstract EObject getRootObject();
 
 	/**
-	 * Return the ear
+	 * Return the Connector
 	 */
-	public abstract Application getApplication();
-
+	public abstract Connector getConnector();
 }

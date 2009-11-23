@@ -12,7 +12,12 @@ package org.eclipse.jst.javaee.jca.internal.util;
 
 import org.eclipse.emf.common.util.URI;
 
-import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jst.javaee.core.internal.util.JavaeeResourceImpl;
+import org.eclipse.jst.javaee.jca.Connector;
+import org.eclipse.jst.javaee.jca.ConnectorDeploymentDescriptor;
+import org.eclipse.jst.javaee.jca.IConnectorResource;
+import org.eclipse.wst.common.internal.emf.resource.IRootObjectResource;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,7 +26,7 @@ import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
  * @see org.eclipse.jst.javaee.jca.internal.util.JcaResourceFactoryImpl
  * @generated
  */
-public class JcaResourceImpl extends XMLResourceImpl {
+public class JcaResourceImpl extends JavaeeResourceImpl implements IRootObjectResource, IConnectorResource {
 	/**
 	 * Creates an instance of the resource.
 	 * <!-- begin-user-doc -->
@@ -31,6 +36,25 @@ public class JcaResourceImpl extends XMLResourceImpl {
 	 */
 	public JcaResourceImpl(URI uri) {
 		super(uri);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jst.javaee.jca.IConnectorResource#getRootObject()
+	 */
+	public EObject getRootObject() {
+		if (contents == null || contents.isEmpty())
+			return null;
+		Object root = getContents().get(0);
+		if(root == null){
+			return null;
+		}
+		return (EObject)((ConnectorDeploymentDescriptor)root).getConnector();
+	}
+	/* (non-Javadoc)
+	 * @see org.eclipse.jst.javaee.jca.IConnectorResource#getConnector()
+	 */
+	public Connector getConnector() {
+		return (Connector)getRootObject();
 	}
 
 } //JcaResourceImpl
