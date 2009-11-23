@@ -13,6 +13,9 @@ package org.eclipse.jst.javaee.jca.internal.util;
 import org.eclipse.emf.common.util.URI;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.xmi.XMLHelper;
+import org.eclipse.emf.ecore.xmi.XMLLoad;
+import org.eclipse.jst.javaee.core.JEEXMLLoadImpl;
 import org.eclipse.jst.javaee.core.internal.util.JavaeeResourceImpl;
 import org.eclipse.jst.javaee.jca.Connector;
 import org.eclipse.jst.javaee.jca.ConnectorDeploymentDescriptor;
@@ -36,6 +39,18 @@ public class JcaResourceImpl extends JavaeeResourceImpl implements IRootObjectRe
 	 */
 	public JcaResourceImpl(URI uri) {
 		super(uri);
+	}
+
+	@Override
+	protected XMLLoad createXMLLoad() {
+		 return new JEEXMLLoadImpl(createXMLHelper());
+	}
+
+	
+	@Override
+	protected XMLHelper createXMLHelper() {
+		
+		return new JcaXMLHelperImpl(this);
 	}
 
 	/* (non-Javadoc)

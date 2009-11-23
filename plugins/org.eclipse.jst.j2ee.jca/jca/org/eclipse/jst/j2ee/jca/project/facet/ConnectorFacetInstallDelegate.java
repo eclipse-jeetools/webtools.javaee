@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2006 IBM Corporation and others.
+ * Copyright (c) 2005, 2009 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,6 +19,7 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -39,10 +40,17 @@ import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainer;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainerUtils;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.jca.Connector;
 import org.eclipse.jst.j2ee.jca.modulecore.util.ConnectorArtifactEdit;
+import org.eclipse.jst.j2ee.model.IModelProvider;
+import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.J2EEFacetInstallDelegate;
+import org.eclipse.jst.javaee.core.DisplayName;
+import org.eclipse.jst.javaee.core.JavaeeFactory;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.FacetDataModelProvider;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
@@ -95,7 +103,27 @@ public class ConnectorFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			IPath configFolderpath = pjpath.append(configFolderName);
 			sourceFolder = ws.getRoot().getFolder(configFolderpath);
 
-			if (!sourceFolder.getFile(J2EEConstants.RAR_DD_URI).exists()) {
+			if( fv == IJ2EEFacetConstants.JCA_16)
+			{
+		        if(model.getBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD)){
+		            // Create the deployment descriptor (ra.xml) if one doesn't exist
+		            IFile rarFile = sourceFolder.getFile(new Path(J2EEConstants.RAR_DD_URI));
+		            if (!rarFile.exists()) {
+		                try {
+		                    if(!rarFile.getParent().exists()
+		                            && (rarFile.getParent().getType() ==  IResource.FOLDER)){
+		                        ((IFolder)rarFile.getParent()).create(true, true, monitor);
+		                    }
+		                    InputStream in = getClass().getResourceAsStream(CONNECTOR_XML_TEMPLATE_16);
+		                    rarFile.create(in, true, monitor);
+		                    populateDefaultContent(project, fv);
+		                } catch (CoreException e) {
+		                	J2EEPlugin.logError(e);
+		                }
+		            }
+		        }
+			}
+			else if (!sourceFolder.getFile(J2EEConstants.RAR_DD_URI).exists()) {
 				String ver = model.getStringProperty(IFacetDataModelProperties.FACET_VERSION_STR);
 				int nVer = J2EEVersionUtil.convertVersionStringToInt(ver);
 				
@@ -109,9 +137,10 @@ public class ConnectorFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 				else if (nVer == J2EEVersionConstants.JCA_1_5_ID) {
 					template = CONNECTOR_XML_TEMPLATE_15;
 				}
-				else {
-					template = CONNECTOR_XML_TEMPLATE_16;
-				}
+//				JCA 1.6 handled separately
+//				else {
+//					template = CONNECTOR_XML_TEMPLATE_16;
+//				}
 
 				InputStream in = getClass().getResourceAsStream(template);
 				if (in != null) {
@@ -203,4 +232,20 @@ public class ConnectorFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 
 	}
 
+	private void populateDefaultContent(final IProject project,
+			final IProjectFacetVersion fv) {
+		final IModelProvider provider = ModelProviderManager.getModelProvider(project, fv);
+		   Runnable runnable = new Runnable(){
+   
+		       public void run() {
+		           Connector connector = (Connector) provider.getModelObject();
+		           
+		           // Add the display-name tag
+		           DisplayName displayName = JavaeeFactory.eINSTANCE.createDisplayName();
+		           displayName.setValue(project.getName());
+		           connector.getDisplayNames().add(displayName);
+		       }
+		   };
+		   provider.modify(runnable, null);
+	}
 }

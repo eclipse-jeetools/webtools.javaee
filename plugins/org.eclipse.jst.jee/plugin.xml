@@ -38,6 +38,14 @@
               contentTypeId="org.eclipse.jst.jee.ee5earDD">
         </contentTypeBinding>
      </resourceFactory>
+     <resourceFactory
+           class="org.eclipse.jst.javaee.jca.internal.util.JcaResourceFactoryImpl"
+           isDefault="false"
+           shortSegment="ra.xml">
+        <contentTypeBinding
+              contentTypeId="org.eclipse.jst.jee.ee6connectorDD">
+        </contentTypeBinding>
+     </resourceFactory>
   </extension>
   
   <extension
@@ -170,7 +178,21 @@
                class="org.eclipse.jst.jee.contenttype.JEEContentDescriber">
          </describer>
       </content-type>
-  	</extension>  
+  	</extension>
+ 
+  	 <extension
+         point="org.eclipse.core.runtime.contentTypes">
+      <content-type
+            file-names="ra.xml"
+            id="ee6connectorDD"
+            base-type="org.eclipse.core.runtime.xml"
+            name="%ee6connectorContentType"
+            priority="high">
+         <describer
+               class="org.eclipse.jst.jee.contenttype.JEEContentDescriber">
+         </describer>
+      </content-type>
+  	</extension>
   	
   	<extension
         point="org.eclipse.jst.j2ee.J2EEModelProvider">
@@ -187,5 +209,13 @@
       		<facet id="jst.appclient" versions="5.0,6.0"/>
       	</provider>
    </extension>
-  	  
+
+   <extension
+        point="org.eclipse.jst.j2ee.J2EEModelProvider">
+      	<provider>
+        	<modelProvider factoryClass="org.eclipse.jst.jee.model.internal.Connector16ModelProviderFactory"/>
+      		<facet id="jst.connector" versions="1.6"/>
+      	</provider>
+   </extension>
+
 </plugin>

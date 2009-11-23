@@ -215,7 +215,7 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
                final String webXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<web-app id=\"WebApp_ID\" version=\"3.0\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd\">\n</web-app>"; //$NON-NLS-1$
                webxmlFile.create(new ByteArrayInputStream(webXmlContents.getBytes("UTF-8")), true, monitor); //$NON-NLS-1$
                
-               // TODO do some stuff with the module
+               populateDefaultContent(project, fv);
            } catch (UnsupportedEncodingException e) {
         	   WebPlugin.logError(e);
            }
@@ -232,39 +232,45 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
                final String webXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<web-app id=\"WebApp_ID\" version=\"2.5\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd\">\n</web-app>"; //$NON-NLS-1$
                webxmlFile.create(new ByteArrayInputStream(webXmlContents.getBytes("UTF-8")), true, monitor); //$NON-NLS-1$
            
-               final IModelProvider provider = ModelProviderManager.getModelProvider(project, fv);
-               Runnable runnable = new Runnable(){
-   
-                   public void run() {
-                       WebApp webApp = (WebApp) provider.getModelObject();
-                       
-                       // Add the display-name tag
-                       DisplayName displayName = JavaeeFactory.eINSTANCE.createDisplayName();
-                       displayName.setValue(project.getName());
-                       webApp.getDisplayNames().add(displayName);
-                       
-                       // welcome file list
-                       List<String> welcomeFiles = Arrays.asList(
-                               "index.html", //$NON-NLS-1$
-                               "index.htm", //$NON-NLS-1$
-                               "index.jsp", //$NON-NLS-1$
-                               "default.html", //$NON-NLS-1$
-                               "default.htm", //$NON-NLS-1$
-                               "default.jsp" //$NON-NLS-1$
-                       );
-                       
-                       // Add the welcome-file-list tag
-                       WelcomeFileList welcomeFileList = WebFactory.eINSTANCE.createWelcomeFileList();
-                       welcomeFileList.getWelcomeFiles().addAll(welcomeFiles); 
-                       webApp.getWelcomeFileLists().add(welcomeFileList);
-                   }
-               };
-               provider.modify(runnable, null);
+               populateDefaultContent(project, fv);
            } catch (UnsupportedEncodingException e) {
         	   WebPlugin.logError(e);
            }
        }
    }
+
+
+	private void populateDefaultContent(final IProject project,
+			final IProjectFacetVersion fv) {
+		final IModelProvider provider = ModelProviderManager.getModelProvider(project, fv);
+		   Runnable runnable = new Runnable(){
+   
+		       public void run() {
+		           WebApp webApp = (WebApp) provider.getModelObject();
+		           
+		           // Add the display-name tag
+		           DisplayName displayName = JavaeeFactory.eINSTANCE.createDisplayName();
+		           displayName.setValue(project.getName());
+		           webApp.getDisplayNames().add(displayName);
+		           
+		           // welcome file list
+		           List<String> welcomeFiles = Arrays.asList(
+		                   "index.html", //$NON-NLS-1$
+		                   "index.htm", //$NON-NLS-1$
+		                   "index.jsp", //$NON-NLS-1$
+		                   "default.html", //$NON-NLS-1$
+		                   "default.htm", //$NON-NLS-1$
+		                   "default.jsp" //$NON-NLS-1$
+		           );
+		           
+		           // Add the welcome-file-list tag
+		           WelcomeFileList welcomeFileList = WebFactory.eINSTANCE.createWelcomeFileList();
+		           welcomeFileList.getWelcomeFiles().addAll(welcomeFiles); 
+		           webApp.getWelcomeFileLists().add(welcomeFileList);
+		       }
+		   };
+		   provider.modify(runnable, null);
+	}
 	
 
 	private static void mkdirs(final IFolder folder)
