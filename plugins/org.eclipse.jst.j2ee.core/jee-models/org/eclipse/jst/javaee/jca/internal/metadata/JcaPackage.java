@@ -32,7 +32,7 @@ import org.eclipse.jst.javaee.jca.JcaFactory;
  * <!-- begin-model-doc -->
  * 
  * 
- *       $Id: JcaPackage.java,v 1.2 2009/10/16 03:33:22 canderson Exp $
+ *       $Id: JcaPackage.java,v 1.3 2009/11/24 19:57:55 canderson Exp $
  *       
  *     
  * 
@@ -81,7 +81,7 @@ import org.eclipse.jst.javaee.jca.JcaFactory;
  *     
  * 
  * 
- *       $Id: JcaPackage.java,v 1.2 2009/10/16 03:33:22 canderson Exp $
+ *       $Id: JcaPackage.java,v 1.3 2009/11/24 19:57:55 canderson Exp $
  *       
  *     
  * 
@@ -106,7 +106,7 @@ import org.eclipse.jst.javaee.jca.JcaFactory;
  *     
  * 
  * 
- *       $Id: JcaPackage.java,v 1.2 2009/10/16 03:33:22 canderson Exp $
+ *       $Id: JcaPackage.java,v 1.3 2009/11/24 19:57:55 canderson Exp $
  *       
  *     
  * 
@@ -289,7 +289,7 @@ public interface JcaPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "http://java.sun.com/xml/ns/javaee/jca"; //$NON-NLS-1$
+	String eNS_URI = "http://java.sun.com/xml/ns/javaee/connector_1_6.xsd"; //$NON-NLS-1$
 
 	/**
 	 * The package namespace name.

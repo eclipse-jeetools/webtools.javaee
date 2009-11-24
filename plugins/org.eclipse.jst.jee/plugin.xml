@@ -86,6 +86,13 @@
    <extension
          point="org.eclipse.emf.ecore.generated_package">
       <package
+            uri="http://java.sun.com/xml/ns/javaee/connector_1_6.xsd"
+            class="org.eclipse.jst.javaee.jca.internal.metadata.JcaPackage">
+      </package>
+   </extension>
+   <extension
+         point="org.eclipse.emf.ecore.generated_package">
+      <package
             uri="http://java.sun.com/xml/ns/javaee/jsp"
             class="org.eclipse.jst.javaee.jsp.internal.metadata.JspPackage">
       </package>
