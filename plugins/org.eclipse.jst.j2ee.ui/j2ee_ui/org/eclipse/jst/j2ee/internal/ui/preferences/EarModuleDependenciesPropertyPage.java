@@ -171,10 +171,24 @@ public class EarModuleDependenciesPropertyPage extends
 	@Override
 	public boolean performOk() {
 		
-		boolean result = super.performOk();
-		updateLibDir();
+		boolean result = makeProjectsFlexibleIfNeccesary();
+		if(result) {
+			result = super.performOk();
+			updateLibDir();
+		}
 		return result;
 	}
+	private boolean makeProjectsFlexibleIfNeccesary() {
+//		IProject elementProject = element.getProject();
+//		try {
+//			if (elementProject != null && !elementProject.hasNature(IModuleConstants.MODULE_NATURE_ID)) {
+//				if (composedOp == null) {
+//					composedOp = new WorkspaceModifyComposedOperation();
+//				}
+//				composedOp.addRunnable(WTPUIPlugin.getRunnableWithProgress(J2EEProjectUtilities.createFlexJavaProjectForProjectOperation(elementProject, false)));
+		return true;
+	}
+
 	private void updateLibDir() {
 		
 		if (libDir == null) return;
