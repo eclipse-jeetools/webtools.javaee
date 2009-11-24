@@ -65,9 +65,7 @@ public final class EarFacetValidator
                 if( refvc != null && !refvc.isBinary())
                 {
                     final IProject refpj = refvc.getProject();
-                    IFacetedProject facetedProject = ProjectFacetsManager.create( refpj );
-                    if( facetedProject != null )
-                    	validate( fproj, facetedProject );
+                    validate( fproj, ProjectFacetsManager.create( refpj ) );
                 }
             }
         }
