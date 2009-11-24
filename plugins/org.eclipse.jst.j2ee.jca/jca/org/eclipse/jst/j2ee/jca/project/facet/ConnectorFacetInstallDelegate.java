@@ -41,7 +41,6 @@ import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainer;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainerUtils;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.jst.j2ee.jca.Connector;
 import org.eclipse.jst.j2ee.jca.modulecore.util.ConnectorArtifactEdit;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
@@ -51,6 +50,7 @@ import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProper
 import org.eclipse.jst.j2ee.project.facet.J2EEFacetInstallDelegate;
 import org.eclipse.jst.javaee.core.DisplayName;
 import org.eclipse.jst.javaee.core.JavaeeFactory;
+import org.eclipse.jst.javaee.jca.Connector;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.FacetDataModelProvider;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
@@ -165,7 +165,7 @@ public class ConnectorFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 					ConnectorArtifactEdit edit = null;
 					try{
 						edit = new ConnectorArtifactEdit(project, false, true);
-						Connector connector = edit.getConnector();
+						org.eclipse.jst.j2ee.jca.Connector connector = edit.getConnector();
 						connector.setDisplayName(project.getName());
 						edit.saveIfNecessary(new NullProgressMonitor());
 					}finally{

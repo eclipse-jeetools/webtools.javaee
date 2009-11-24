@@ -25,9 +25,11 @@
          name="%connector_validator_UI_"
          point="org.eclipse.wst.validation.validator">
       <validator>
-         <facet
-               facetId="jst.connector">
-         </facet>
+         <enablement>
+      		<and>
+        		<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.connector:1.5]"/>
+			</and>
+		</enablement>
           <contentTypeBinding
                contentTypeId="org.eclipse.jst.j2ee.connectorDD">
          </contentTypeBinding>
