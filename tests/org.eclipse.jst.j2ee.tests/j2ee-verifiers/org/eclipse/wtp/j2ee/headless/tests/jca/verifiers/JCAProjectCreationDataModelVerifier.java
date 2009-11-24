@@ -12,6 +12,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.jca.Connector;
 import org.eclipse.jst.j2ee.jca.project.facet.IConnectorFacetInstallDataModelProperties;
@@ -48,9 +49,18 @@ public class JCAProjectCreationDataModelVerifier extends ModuleProjectCreationDa
 	@Override
 	protected void verifyDD(Object modelObj) {
 		String projectVersion = J2EEProjectUtilities.getJ2EEProjectVersion(project);
-		Connector connector = (Connector)modelObj;
-		String modelVersion = connector.getVersion();
-		if(projectVersion != modelVersion){
+		String modelVersion = null;
+		if (J2EEVersionConstants.VERSION_1_6_TEXT.equals(projectVersion))
+		{
+			org.eclipse.jst.javaee.jca.Connector connector = (org.eclipse.jst.javaee.jca.Connector)modelObj;
+			modelVersion = connector.getVersion(); 
+		}
+		else
+		{
+			Connector connector = (Connector)modelObj;
+			modelVersion = connector.getVersion();
+		}
+		if(projectVersion == null || !projectVersion.equals(modelVersion)){
 			//TODO see https://bugs.eclipse.org/bugs/show_bug.cgi?id=197014
 			System.err.println("TODO -- connector version incorrect.");
 			System.err.println("     -- see https://bugs.eclipse.org/bugs/show_bug.cgi?id=197014");
