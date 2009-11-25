@@ -34,6 +34,7 @@ public class JCAUIMessages extends NLS {
 	public static String _1;
 	public static String _0;
 	public static String _11;
+	public static String CONNECTOR_SETTINGS;	
 
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, JCAUIMessages.class);
@@ -51,4 +52,5 @@ public class JCAUIMessages extends NLS {
 	public static final String JCA_EXPORT_MAIN_PG_TITLE = _9;
 	public static final String JCA_EXPORT_MAIN_PG_DESC = _10;
 	public static final String JCA_FACET_CONFIGURATION= _11;
+
 }

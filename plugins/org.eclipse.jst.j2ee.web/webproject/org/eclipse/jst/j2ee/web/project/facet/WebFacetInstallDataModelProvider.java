@@ -65,9 +65,13 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 			return projectName + IJ2EEModuleConstants.WAR_EXT;
 		} else if (propertyName.equals(GENERATE_DD)) {
 			String facetVersion = getStringProperty(FACET_VERSION_STR);
-			if(J2EEVersionUtil.convertVersionStringToInt(facetVersion) >= J2EEVersionConstants.WEB_2_5_ID) {
+			if(J2EEVersionConstants.VERSION_2_5_TEXT.equals(facetVersion)) {
 				return Boolean.valueOf(J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.DYNAMIC_WEB_GENERATE_DD));
 			}
+			if(J2EEVersionConstants.VERSION_3_0_TEXT.equals(facetVersion)) {
+				return Boolean.valueOf(J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.EE6_DYNAMIC_WEB_GENERATE_DD));
+			}			
+			
 			return Boolean.TRUE;
 		}
 		return super.getDefaultProperty(propertyName);

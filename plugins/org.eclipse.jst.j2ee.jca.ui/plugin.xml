@@ -58,5 +58,11 @@
          </selection>
        </wizard>
      </extension>
-    
+
+  <extension point="org.eclipse.wst.common.project.facet.ui.wizardPages">
+    <wizard-pages action="jst.connector.install">
+      <page class="org.eclipse.jst.j2ee.jca.ui.internal.wizard.ConnectorFacetInstallPage"/>
+    </wizard-pages>
+  </extension>
+      
 </plugin>

@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.internal.jca.project.facet;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
@@ -32,6 +33,10 @@ public class ConnectorFacetInstallDataModelProvider extends J2EEModuleFacetInsta
 			String projectName = model.getStringProperty(FACET_PROJECT_NAME).replace(' ','_');
 			return projectName + IJ2EEModuleConstants.RAR_EXT; 
 		} else if(propertyName.equals(GENERATE_DD)){
+			String facetVersion = getStringProperty(FACET_VERSION_STR);
+			if(J2EEVersionConstants.VERSION_1_6_TEXT.equals(facetVersion)) {
+				return Boolean.valueOf(J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.EE6_CONNECTOR_GENERATE_DD));
+			}
 			return Boolean.TRUE;
 		}
 		return super.getDefaultProperty(propertyName);

@@ -138,7 +138,17 @@ public class J2EEPreferences {
 		/**
 		 * 
 		 */
-	    static final String JCA_OUTPUT_FOLDER = IProductConstants.JCA_OUTPUT_FOLDER; 		
+	    static final String JCA_OUTPUT_FOLDER = IProductConstants.JCA_OUTPUT_FOLDER;
+	    
+	    /**
+	     * @since 3.2
+	     */
+		static final String EE6_DYNAMIC_WEB_GENERATE_DD = "ee6_dynamic_web_generate_dd"; //$NON-NLS-1$
+		
+	    /**
+	     * @since 3.2
+	     */
+		static final String EE6_CONNECTOR_GENERATE_DD = "ee6_connector_generate_dd"; //$NON-NLS-1$		
 
 	}
 
@@ -221,6 +231,9 @@ public class J2EEPreferences {
 		getPreferences().setDefault(Keys.APPLICATION_GENERATE_DD, false);
 		// for ee5 jee web projects default it to true so that we can create servlets, otherwise false
 		getPreferences().setDefault(Keys.DYNAMIC_WEB_GENERATE_DD, true);
+		getPreferences().setDefault(Keys.EE6_DYNAMIC_WEB_GENERATE_DD, false);
+		getPreferences().setDefault(Keys.EE6_CONNECTOR_GENERATE_DD, false);
+		
 		getPreferences().setDefault(Keys.EJB_GENERATE_DD, false);
 		getPreferences().setDefault(Keys.APP_CLIENT_GENERATE_DD, false);	
 		
