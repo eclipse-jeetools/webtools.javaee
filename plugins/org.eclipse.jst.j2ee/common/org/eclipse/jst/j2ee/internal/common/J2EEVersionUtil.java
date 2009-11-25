@@ -226,59 +226,55 @@ public class J2EEVersionUtil {
 	public static int convertVersionStringToInt(String version) {
 		int nVersion = 0;
 		
-		if( version.endsWith("")){ //$NON-NLS-1$
-			nVersion = 0;
-		}
-		
-		if (version.equals(J2EEVersionConstants.VERSION_1_0_TEXT))
+		if (J2EEVersionConstants.VERSION_1_0_TEXT.equals(version))
 			nVersion = J2EEVersionConstants.VERSION_1_0;
 		
-		else if (version.equals(J2EEVersionConstants.VERSION_1_1_TEXT))
+		else if (J2EEVersionConstants.VERSION_1_1_TEXT.equals(version))
 			nVersion = J2EEVersionConstants.VERSION_1_1;
 		
-		else if (version.equals(J2EEVersionConstants.VERSION_1_2_TEXT))
+		else if (J2EEVersionConstants.VERSION_1_2_TEXT.equals(version))
 			nVersion = J2EEVersionConstants.VERSION_1_2;
 		
-		else if (version.equals(J2EEVersionConstants.VERSION_1_3_TEXT))
+		else if (J2EEVersionConstants.VERSION_1_3_TEXT.equals(version))
 			nVersion = J2EEVersionConstants.VERSION_1_3;	
 		
-		else if (version.equals(J2EEVersionConstants.VERSION_1_4_TEXT))
+		else if (J2EEVersionConstants.VERSION_1_4_TEXT.equals(version))
 			nVersion = J2EEVersionConstants.VERSION_1_4;
 		
-		else if (version.equals(J2EEVersionConstants.VERSION_1_5_TEXT))
+		else if (J2EEVersionConstants.VERSION_1_5_TEXT.equals(version))
 			nVersion = J2EEVersionConstants.VERSION_1_5;
 		
-		else if (version.equals(J2EEVersionConstants.VERSION_1_6_TEXT))
+		else if (J2EEVersionConstants.VERSION_1_6_TEXT.equals(version))
 			nVersion = J2EEVersionConstants.VERSION_1_6;
 		
-		else if (version.equals(J2EEVersionConstants.VERSION_2_0_TEXT))
+		else if (J2EEVersionConstants.VERSION_2_0_TEXT.equals(version))
 			nVersion = J2EEVersionConstants.VERSION_2_0;
 		
-		else if (version.equals(J2EEVersionConstants.VERSION_2_1_TEXT))
+		else if (J2EEVersionConstants.VERSION_2_1_TEXT.equals(version))
 			nVersion = J2EEVersionConstants.VERSION_2_1;	
 		
-		else if (version.equals(J2EEVersionConstants.VERSION_2_2_TEXT))
+		else if (J2EEVersionConstants.VERSION_2_2_TEXT.equals(version))
 			nVersion = J2EEVersionConstants.VERSION_2_2;
 		
-		else if (version.equals(J2EEVersionConstants.VERSION_2_3_TEXT))
+		else if (J2EEVersionConstants.VERSION_2_3_TEXT.equals(version))
 			nVersion = J2EEVersionConstants.VERSION_2_3;
 		
-		else if (version.equals(J2EEVersionConstants.VERSION_2_4_TEXT))
+		else if (J2EEVersionConstants.VERSION_2_4_TEXT.equals(version))
 			nVersion = J2EEVersionConstants.VERSION_2_4;
 		
-		else if (version.equals(J2EEVersionConstants.VERSION_2_5_TEXT))
+		else if (J2EEVersionConstants.VERSION_2_5_TEXT.equals(version))
 			nVersion = J2EEVersionConstants.VERSION_2_5;	
 
-		else if (version.equals(J2EEVersionConstants.VERSION_3_0_TEXT))
+		else if (J2EEVersionConstants.VERSION_3_0_TEXT.equals(version))
 			nVersion = J2EEVersionConstants.VERSION_3_0;			
 
-		else if (version.equals(J2EEVersionConstants.VERSION_3_1_TEXT))
+		else if (J2EEVersionConstants.VERSION_3_1_TEXT.equals(version))
 			nVersion = J2EEVersionConstants.VERSION_3_1;	
 		
-		else if (version.equals(J2EEVersionConstants.VERSION_5_0_TEXT))
+		else if (J2EEVersionConstants.VERSION_5_0_TEXT.equals(version))
 			nVersion = J2EEVersionConstants.VERSION_5_0;			
 		
-		else if (version.equals(J2EEVersionConstants.VERSION_6_0_TEXT))
+		else if (J2EEVersionConstants.VERSION_6_0_TEXT.equals(version))
 			nVersion = J2EEVersionConstants.VERSION_6_0;	
 
 		return nVersion;
