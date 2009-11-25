@@ -167,7 +167,8 @@ public class ConnectorFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 						edit = new ConnectorArtifactEdit(project, false, true);
 						org.eclipse.jst.j2ee.jca.Connector connector = edit.getConnector();
 						connector.setDisplayName(project.getName());
-						connector.setVersion(ver);
+						// TODO: investigate setting the version and the impact on adopters
+						//connector.setVersion(ver);
 						edit.saveIfNecessary(new SubProgressMonitor(monitor,1));
 					}finally{
 						if( edit != null ){
