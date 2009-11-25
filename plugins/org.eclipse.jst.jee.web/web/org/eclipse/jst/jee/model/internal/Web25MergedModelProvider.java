@@ -21,8 +21,8 @@ import org.eclipse.jst.jee.model.internal.common.AbstractMergedModelProvider;
 import org.eclipse.jst.jee.model.internal.mergers.ModelElementMerger;
 import org.eclipse.jst.jee.model.internal.mergers.ModelException;
 import org.eclipse.jst.jee.model.internal.mergers.WebAppMerger;
-import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.jst.jee.web.Activator;
+import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
 /**
  * @author Kiril Mitov k.mitov@sap.com
@@ -45,11 +45,11 @@ public class Web25MergedModelProvider extends AbstractMergedModelProvider<WebApp
 	}
 
 	private WebApp getAnnotationWebApp() {
-		return (WebApp) annotationModelProvider.getModelObject();
+		return annotationModelProvider != null ? (WebApp) annotationModelProvider.getModelObject() : null;
 	}
 
 	private WebApp getXmlWebApp() {
-		return (WebApp) ddProvider.getModelObject();
+		return ddProvider != null ? (WebApp) ddProvider.getModelObject() : null;
 	}
 
 	public Object getModelObject(IPath modelPath) {
@@ -79,7 +79,10 @@ public class Web25MergedModelProvider extends AbstractMergedModelProvider<WebApp
 		} finally {
 			mergedModel = backup;
 		}
-		merge(getXmlWebApp(), getAnnotationWebApp());
+		if (mergedModel == null)
+			mergedModel = getMergedModel();
+		else
+			merge(getXmlWebApp(), getAnnotationWebApp());
 	}
 
 	private void clearModel(WebApp app) {
@@ -154,6 +157,8 @@ public class Web25MergedModelProvider extends AbstractMergedModelProvider<WebApp
 	}
 
 	private void mergeWithModel(WebApp model) throws ModelException {
+		if (model == null)
+			return;
 		WebAppMerger merger = new WebAppMerger(mergedModel, model, ModelElementMerger.ADD);
 		merger.process();
 	}
