@@ -25,6 +25,7 @@ import org.eclipse.jst.j2ee.internal.actions.BaseAction;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.jee.project.facet.IAppClientCreateDeploymentFilesDataModelProperties;
+import org.eclipse.jst.jee.project.facet.IConnectorCreateDeploymentFilesDataModelProperties;
 import org.eclipse.jst.jee.project.facet.ICreateDeploymentFilesDataModelProperties;
 import org.eclipse.jst.jee.project.facet.IEJBCreateDeploymentFilesDataModelProperties;
 import org.eclipse.jst.jee.project.facet.IEarCreateDeploymentFilesDataModelProperties;
@@ -89,6 +90,8 @@ public class CreateDeploymentFilesActionDelegate extends BaseAction {
 			ddFilePath = new Path(J2EEConstants.WEBAPP_DD_URI);
 		} else if(JavaEEProjectUtilities.isApplicationClientProject(project)){
 			ddFilePath = new Path(J2EEConstants.APP_CLIENT_DD_URI);
+		}else if(JavaEEProjectUtilities.isJCAProject(project)){
+			ddFilePath = new Path(J2EEConstants.RAR_DD_URI);
 		}
 		IVirtualComponent component = ComponentCore.createComponent(project);
 		if(component.getRootFolder() != null
@@ -126,6 +129,8 @@ public class CreateDeploymentFilesActionDelegate extends BaseAction {
 			dataModelClass = IWebCreateDeploymentFilesDataModelProperties.class;
 		} else if(JavaEEProjectUtilities.isApplicationClientProject(project)){
 			dataModelClass = IAppClientCreateDeploymentFilesDataModelProperties.class;
+		}else if(JavaEEProjectUtilities.isJCAProject(project)){
+			dataModelClass = IConnectorCreateDeploymentFilesDataModelProperties.class;
 		}
 		IDataModel dataModel = DataModelFactory.createDataModel(dataModelClass);
 		dataModel.setProperty(ICreateDeploymentFilesDataModelProperties.TARGET_PROJECT, project);
