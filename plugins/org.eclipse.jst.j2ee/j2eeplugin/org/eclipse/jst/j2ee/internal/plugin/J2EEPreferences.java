@@ -18,287 +18,94 @@ package org.eclipse.jst.j2ee.internal.plugin;
 
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
-import org.eclipse.core.runtime.Preferences;
-import org.eclipse.jst.common.frameworks.CommonFrameworksPlugin;
+import org.eclipse.core.runtime.preferences.DefaultScope;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.core.runtime.preferences.IPreferencesService;
+import org.eclipse.core.runtime.preferences.IScopeContext;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jst.common.project.facet.core.internal.FacetCorePlugin;
-import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.wst.project.facet.IProductConstants;
-import org.eclipse.wst.project.facet.ProductManager;
+import org.osgi.service.prefs.BackingStoreException;
 
 
 /**
  * @author mdelder
+ * @deprecated
  */
+
 public class J2EEPreferences {
 
-	public interface Keys {
-		
-		
-		/**
-		 * @deprecated, use CommonFrameworksPlugin.DEFAULT_SOURCE_FOLDER or use
-		 * getJavaSourceFolderName()
-		 * do not call J2EEPlugin.getJ2EEPreferences.getString(JAVA_SOURCE)
-		 * @since 2.0
-		 */
-		static final String JAVA_SOURCE = "org.eclipse.jst.j2ee.preference.javaSourceName"; //$NON-NLS-1$
-
-		static final String SERVER_TARGET_SUPPORT = "org.eclipse.jst.j2ee.preference.servertargetsupport"; //$NON-NLS-1$
-		static final String CREATE_EJB_CLIENT_JAR = "org.eclipse.jst.j2ee.preference.createClientJar"; //$NON-NLS-1$
-		static final String J2EE_VERSION = "org.eclipse.jst.j2ee.ui.preference.j2eeVersion"; //$NON-NLS-1$
-		static final String EJB_CLIENT_JAR_CP_COMPATIBILITY = "org.eclipse.jst.j2ee.preference.clientjar.cp.compatibility"; //$NON-NLS-1$
-		static final String INCREMENTAL_DEPLOYMENT_SUPPORT = "org.eclipse.jst.j2ee.ui.preference.incrementalDeployment"; //$NON-NLS-1$
-		
-		final static String USE_EAR_LIBRARIES = "org.eclipse.jst.j2ee.preferences.useEARLibraries";//$NON-NLS-1$
-		final static String USE_WEB_APP_LIBRARIES = "org.eclipse.jst.j2ee.preferences.useWebAppLibraries";//$NON-NLS-1$
-		final static String USE_EAR_LIBRARIES_JDT_EXPORT = "org.eclipse.jst.j2ee.preferences.useEARLibrariesJDTExport";//$NON-NLS-1$
-		final static String ALLOW_CLASSPATH_DEP = "org.eclipse.jst.j2ee.preferences.allowClasspathDep";//$NON-NLS-1$
-
-		/**
-		 * @deprecated, 
-		 * but should it be deprecated ? is j2ee_web_content a better name than web_content_folder ?
-		 * @since 2.0
-		 */
-		static final String J2EE_WEB_CONTENT = "org.eclipse.jst.j2ee.preference.j2eeWebContentName"; //$NON-NLS-1$
-		/**
-		 * @deprecated, static web content is got from ProductManager
-		 * @since 2.0
-		 */
-		static final String STATIC_WEB_CONTENT = "org.eclipse.jst.j2ee.preference.staticWebContentName"; //$NON-NLS-1$
-		/**
-		 * @since 2.0
-		 */
-		static final String APPLICATION_CONTENT_FOLDER = IProductConstants.APPLICATION_CONTENT_FOLDER;
-		/**
-		 * @since 2.0
-		 */
-		static final String WEB_CONTENT_FOLDER = IProductConstants.WEB_CONTENT_FOLDER;
-		/**
-		 * @since 2.0
-		 */
-		static final String EJB_CONTENT_FOLDER = IProductConstants.EJB_CONTENT_FOLDER;
-		/**
-		 * @since 2.0
-		 */
-		static final String APP_CLIENT_CONTENT_FOLDER = IProductConstants.APP_CLIENT_CONTENT_FOLDER;
-		/**
-		 * @since 2.0
-		 */
-		static final String JCA_CONTENT_FOLDER = IProductConstants.JCA_CONTENT_FOLDER;
-		
-		/**
-		 * @since 2.0
-		 */
-		static final String ADD_TO_EAR_BY_DEFAULT = IProductConstants.ADD_TO_EAR_BY_DEFAULT;
-		/**
-		 * @since 2.0
-		 */
-		static final String APPLICATION_GENERATE_DD = "application_generate_dd"; //$NON-NLS-1$
-		/**
-		 * @since 2.0
-		 */
-		static final String DYNAMIC_WEB_GENERATE_DD = "dynamic_web_generate_dd"; //$NON-NLS-1$
-		/**
-		 * @since 2.0
-		 */
-		static final String EJB_GENERATE_DD = "ejb_generate_dd"; //$NON-NLS-1$
-		/**
-		 * @since 2.0
-		 */
-		static final String APP_CLIENT_GENERATE_DD = "app_client_generate_dd"; //$NON-NLS-1$
-		/**
-		 * @since 3.0
-		 */
-		static String ID_PERSPECTIVE_HIERARCHY_VIEW = "perspective_hierarchy_view_id"; //$NON-NLS-1$
-		/**
-		 * @since 3.1
-		 */
-		static String SHOW_JAVA_EE_MODULE_DEPENDENCY_PAGE = "showJavaEEModuleDependencyPage"; //$NON-NLS-1$
-		
-		
-		/**
-		 * 
-		 */
-		static final String DYN_WEB_SRC_FOLDER = "dynWebSource"; //$NON-NLS-1$
-		/**
-		 * 
-		 */
-		
-		static final String DYN_WEB_OUTPUT_FOLDER = IProductConstants.DYN_WEB_OUTPUT_FOLDER;
-		/**
-		 * 
-		 */
-		static final String EJB_OUTPUT_FOLDER = IProductConstants.EJB_OUTPUT_FOLDER;
-		
-		/**
-		 * 
-		 */
-	    static final String APP_CLIENT_OUTPUT_FOLDER = IProductConstants.APP_CLIENT_OUTPUT_FOLDER;
-	    
-		/**
-		 * 
-		 */
-	    static final String JCA_OUTPUT_FOLDER = IProductConstants.JCA_OUTPUT_FOLDER;
 	
-	    /**
-	     * @since 3.2
-	     */
-		static final String EE6_CONNECTOR_GENERATE_DD = "ee6_connector_generate_dd"; //$NON-NLS-1$		
+	public interface Keys extends JavaEEPreferencesInitializer.Keys{}
 
-	}
+	public interface Values extends JavaEEPreferencesInitializer.Values {}
 
-	public interface Values {
-		final static String J2EE_VERSION_1_2 = "J2EE_1_2"; //$NON-NLS-1$
-		final static String J2EE_VERSION_1_3 = "J2EE_1_3"; //$NON-NLS-1$
-		final static String J2EE_VERSION_1_4 = "J2EE_1_4"; //$NON-NLS-1$
+	public interface Defaults extends JavaEEPreferencesInitializer.Defaults {}
 
-		/**
-		 * @deprecated, see initializeDefaultPreferences() it uses ProductManager
-		 */
-		final static String J2EE_WEB_CONTENT = ProductManager.getProperty(IProductConstants.WEB_CONTENT_FOLDER);
-		/**
-		 * @deprecated, see initializeDefaultPreferences() it uses ProductManager
-		 */
-		final static String STATIC_WEB_CONTENT = ProductManager.getProperty(IProductConstants.WEB_CONTENT_FOLDER);
-		/**
-		 * @deprecated, use CommonFrameworksPlugin.DEFAULT_SOURCE_FOLDER
-		 */
-		final static String JAVA_SOURCE = CommonFrameworksPlugin.getDefault().getPluginPreferences().getString(CommonFrameworksPlugin.DEFAULT_SOURCE_FOLDER);
-	}
-
-	public interface Defaults {
-
-		/**
-		 * @deprecated, see initializeDefaultPreferences() it uses ProductManager
-		 */
-		final static String J2EE_WEB_CONTENT = Values.J2EE_WEB_CONTENT;
-		/**
-		 * @deprecated, see initializeDefaultPreferences() it uses ProductManager
-		 */
-		final static String STATIC_WEB_CONTENT = Values.STATIC_WEB_CONTENT;
-		/**
-		 * @deprecated, see DEFAULT_SOURCE_FOLDER
-		 */
-		final static String JAVA_SOURCE = Values.JAVA_SOURCE;
-		final static String J2EE_VERSION = Values.J2EE_VERSION_1_4;
-		final static int J2EE_VERSION_ID = J2EEVersionConstants.J2EE_1_4_ID;
-		final static boolean CREATE_EJB_CLIENT_JAR = false;
-		final static boolean EJB_CLIENT_JAR_CP_COMPATIBILITY = true;
-		final static boolean INCREMENTAL_DEPLOYMENT_SUPPORT = true;
-		final static boolean USE_EAR_LIBRARIES_JDT_EXPORT = false;
-		final static String ID_PERSPECTIVE_HIERARCHY_VIEW = "org.eclipse.ui.navigator.ProjectExplorer"; //$NON-NLS-1$
-		final static boolean ALLOW_CLASSPATH_DEP = true;
-		final static boolean SHOW_JAVA_EE_MODULE_DEPENDENCY_PAGE = true;
-	}
-
-	private Plugin owner = null;
-	private Preferences preferences = null;
 	private boolean persistOnChange = false;
 
 	public J2EEPreferences(Plugin owner) {
-		this.owner = owner;
 	}
-
-	protected void initializeDefaultPreferences() {
-
-		getPreferences().setDefault(Keys.J2EE_VERSION, Defaults.J2EE_VERSION);
-		getPreferences().setDefault(Keys.CREATE_EJB_CLIENT_JAR, Defaults.CREATE_EJB_CLIENT_JAR);
-		getPreferences().setDefault(Keys.EJB_CLIENT_JAR_CP_COMPATIBILITY, Defaults.EJB_CLIENT_JAR_CP_COMPATIBILITY);
-		getPreferences().setDefault(Keys.INCREMENTAL_DEPLOYMENT_SUPPORT, Defaults.INCREMENTAL_DEPLOYMENT_SUPPORT);
-		
-		// since 2.0
-		getPreferences().setDefault(Keys.J2EE_WEB_CONTENT, ProductManager.getProperty(IProductConstants.WEB_CONTENT_FOLDER));
-		getPreferences().setDefault(Keys.STATIC_WEB_CONTENT, ProductManager.getProperty(IProductConstants.WEB_CONTENT_FOLDER));
-		// since 2.0
-		getPreferences().setDefault(Keys.JAVA_SOURCE, FacetCorePlugin.getJavaSrcFolder());
-		// done in CommonFrameworksPref..Initializer
-		//getPreferences().setDefault(Keys.DEFAULT_SOURCE_FOLDER, ProductManager.getProperty(IProductConstants.DEFAULT_SOURCE_FOLDER));
-		getPreferences().setDefault(Keys.APPLICATION_CONTENT_FOLDER, ProductManager.getProperty(IProductConstants.APPLICATION_CONTENT_FOLDER));
-		getPreferences().setDefault(Keys.WEB_CONTENT_FOLDER, ProductManager.getProperty(IProductConstants.WEB_CONTENT_FOLDER));
-		getPreferences().setDefault(Keys.APP_CLIENT_CONTENT_FOLDER, ProductManager.getProperty(IProductConstants.APP_CLIENT_CONTENT_FOLDER));
-		getPreferences().setDefault(Keys.EJB_CONTENT_FOLDER, ProductManager.getProperty(IProductConstants.EJB_CONTENT_FOLDER));
-		getPreferences().setDefault(Keys.JCA_CONTENT_FOLDER, ProductManager.getProperty(IProductConstants.JCA_CONTENT_FOLDER));
-		getPreferences().setDefault(Keys.ADD_TO_EAR_BY_DEFAULT, ProductManager.getProperty(IProductConstants.ADD_TO_EAR_BY_DEFAULT));
-		// done in CommonFrameworksPref..Initializer
-		//getPreferences().setDefault(Keys.OUTPUT_FOLDER, ProductManager.getProperty(IProductConstants.OUTPUT_FOLDER));
-		
-		// since 2.0, for java ee projects
-		getPreferences().setDefault(Keys.APPLICATION_GENERATE_DD, false);
-		getPreferences().setDefault(Keys.DYNAMIC_WEB_GENERATE_DD, false);
-
-		getPreferences().setDefault(Keys.EE6_CONNECTOR_GENERATE_DD, false);
-		
-		getPreferences().setDefault(Keys.EJB_GENERATE_DD, false);
-		getPreferences().setDefault(Keys.APP_CLIENT_GENERATE_DD, false);	
-		
-		getPreferences().setDefault(Keys.USE_EAR_LIBRARIES, true);
-		getPreferences().setDefault(Keys.USE_WEB_APP_LIBRARIES, true);
-		getPreferences().setDefault(Keys.USE_EAR_LIBRARIES_JDT_EXPORT, Defaults.USE_EAR_LIBRARIES_JDT_EXPORT);
-		String perspectiveID = ProductManager.getProperty(IProductConstants.ID_PERSPECTIVE_HIERARCHY_VIEW);
-		getPreferences().setDefault(Keys.ID_PERSPECTIVE_HIERARCHY_VIEW, (perspectiveID != null) ? perspectiveID : Defaults.ID_PERSPECTIVE_HIERARCHY_VIEW);
-		getPreferences().setDefault(Keys.ALLOW_CLASSPATH_DEP, Defaults.ALLOW_CLASSPATH_DEP);
-		String showJavaEEModuleDependencyPage = ProductManager.getProperty(IProductConstants.SHOW_JAVA_EE_MODULE_DEPENDENCY_PAGE);
-		boolean showJavaEEModuleDependencyPageDefault = (showJavaEEModuleDependencyPage != null) ? Boolean.parseBoolean(showJavaEEModuleDependencyPage) : Defaults.SHOW_JAVA_EE_MODULE_DEPENDENCY_PAGE;
-		getPreferences().setDefault(Keys.SHOW_JAVA_EE_MODULE_DEPENDENCY_PAGE, showJavaEEModuleDependencyPageDefault);
-		
-		getPreferences().setDefault(Keys.DYN_WEB_SRC_FOLDER, getDynamicWebDefaultSourceFolder());
-		getPreferences().setDefault(Keys.DYN_WEB_OUTPUT_FOLDER, getDynamicWebDefaultOuputFolderName());
-		getPreferences().setDefault(Keys.APP_CLIENT_OUTPUT_FOLDER,  getAppClientDefaultOutputFolderName() );
-		getPreferences().setDefault(Keys.EJB_OUTPUT_FOLDER, getEJBDefaultOutputFolderName() );
-		getPreferences().setDefault(Keys.JCA_OUTPUT_FOLDER, getJCADefaultOutputFolderName() );		
-	}
+/**
+ * @deprecated
+ * See JavaEEPreferencesInitializer.initializeDefaultPreferences
+ * which will get called lazily. No need to explicitly call this method 
+ * for initialization anymore.
+ */
+	protected void initializeDefaultPreferences() {}
 
 	
 	public String getSetting(String key){
-		return getPreferences().getString(key);
+		return getString(key);
 	}
 	
 	public void setSetting(String key, String value){
-		getPreferences().setValue(key, value);
+		getInstancePreferenceNode(J2EEPlugin.PLUGIN_ID).put(key, value);
 		firePreferenceChanged();
 	}
 	
 	public boolean getUseEARLibraries() {
-		return getPreferences().getBoolean(Keys.USE_EAR_LIBRARIES);
+		return getBoolean(Keys.USE_EAR_LIBRARIES);
 	}
 	
 	public void setUseEARLibraries(boolean value) {
-		getPreferences().setValue(Keys.USE_EAR_LIBRARIES, value);
+		getInstancePreferenceNode(J2EEPlugin.PLUGIN_ID).putBoolean(Keys.USE_EAR_LIBRARIES, value);
 		firePreferenceChanged();
 	}
 	
 	public boolean getUseEARLibrariesJDTExport() {
-		return getPreferences().getBoolean(Keys.USE_EAR_LIBRARIES_JDT_EXPORT);
+		return getBoolean(Keys.USE_EAR_LIBRARIES_JDT_EXPORT);
 	}
 	
 	public void setUseEARLibrariesJDTExport(boolean value) {
-		getPreferences().setValue(Keys.USE_EAR_LIBRARIES_JDT_EXPORT, value);
+		getInstancePreferenceNode(J2EEPlugin.PLUGIN_ID).putBoolean(Keys.USE_EAR_LIBRARIES_JDT_EXPORT, value);
 		firePreferenceChanged();
 	}
 	
 	public boolean getUseWebLibaries() {
-		return getPreferences().getBoolean(Keys.USE_WEB_APP_LIBRARIES);
+		return getBoolean(Keys.USE_WEB_APP_LIBRARIES);
 	}
 	
 	public void setUseWebLibraries(boolean value) {
-		getPreferences().setValue(Keys.USE_WEB_APP_LIBRARIES, value);
+		getInstancePreferenceNode(J2EEPlugin.PLUGIN_ID).putBoolean(Keys.USE_WEB_APP_LIBRARIES, value);
 		firePreferenceChanged();
 	}
 	
 	public boolean getAllowClasspathDep() {
-		return getPreferences().getBoolean(Keys.ALLOW_CLASSPATH_DEP);
+		return getBoolean(Keys.ALLOW_CLASSPATH_DEP);
 	}
 	
 	public void setAllowClasspathDep(boolean value) {
-		getPreferences().setValue(Keys.ALLOW_CLASSPATH_DEP, value);
+		getInstancePreferenceNode(J2EEPlugin.PLUGIN_ID).putBoolean(Keys.ALLOW_CLASSPATH_DEP, value);
 		firePreferenceChanged();
 	}
 	
+	public IEclipsePreferences getInstancePreferenceNode(String qualifier){
+		return new InstanceScope().getNode(J2EEPlugin.PLUGIN_ID); 
+	}
+	
 	public String getJ2EEWebContentFolderName() {
-		//return getPreferences().getString(Keys.J2EE_WEB_CONTENT);
-		//but should it be deprecated ? is j2ee_web_content a better name than web_content_folder ?
-		return getPreferences().getString(Keys.WEB_CONTENT_FOLDER);
-		
+		return getString(Keys.WEB_CONTENT_FOLDER);
 	}
 
 	/**
@@ -306,7 +113,7 @@ public class J2EEPreferences {
 	 * @deprecated 
 	 */
 	public String getStaticWebContentFolderName() {
-		return getPreferences().getString(Keys.STATIC_WEB_CONTENT);
+		return getString(Keys.STATIC_WEB_CONTENT);
 	}
 
 	public String getJavaSourceFolderName() {
@@ -316,18 +123,18 @@ public class J2EEPreferences {
 	}
 
 	public String getHighestJ2EEVersionSetting() {
-		return getPreferences().getString(Keys.J2EE_VERSION);
+		return getString(Keys.J2EE_VERSION);
 	}
 
 	public boolean isServerTargetingEnabled() {
-		return getPreferences().getBoolean(Keys.SERVER_TARGET_SUPPORT);
+		return getBoolean(Keys.SERVER_TARGET_SUPPORT);
 	}
 
 	///
 	public void setJ2EEWebContentFolderName(String value) {
 		//getPreferences().setValue(Keys.J2EE_WEB_CONTENT, value);
 		// TODO but should it be deprecated ? is j2ee_web_content a better name than web_content_folder ?
-		getPreferences().setValue(Keys.WEB_CONTENT_FOLDER, value);
+		getInstancePreferenceNode(J2EEPlugin.PLUGIN_ID).put(Keys.WEB_CONTENT_FOLDER, value);
 		firePreferenceChanged();
 	}
 
@@ -336,7 +143,7 @@ public class J2EEPreferences {
 	 * @deprecated
 	 */
 	public void setStaticWebContentFolderName(String value) {
-		getPreferences().setValue(Keys.STATIC_WEB_CONTENT, value);
+		getInstancePreferenceNode(J2EEPlugin.PLUGIN_ID).put(Keys.STATIC_WEB_CONTENT, value);
 		firePreferenceChanged();
 	}
 
@@ -349,22 +156,22 @@ public class J2EEPreferences {
 	}
 
 	public void setHighestJ2EEVersionSetting(String value) {
-		getPreferences().setValue(Keys.J2EE_VERSION, value);
+		getInstancePreferenceNode(J2EEPlugin.PLUGIN_ID).put(Keys.J2EE_VERSION, value);
 		firePreferenceChanged();
 	}
 
 	public void setServerTargetingEnabled(boolean value) {
-		getPreferences().setValue(Keys.SERVER_TARGET_SUPPORT, value);
+		getInstancePreferenceNode(J2EEPlugin.PLUGIN_ID).putBoolean(Keys.SERVER_TARGET_SUPPORT, value);
 		firePreferenceChanged();
 	}
 
 	public void setIncrementalDeploymentEnabled(boolean value) {
-		getPreferences().setValue(Keys.INCREMENTAL_DEPLOYMENT_SUPPORT, value);
+		getInstancePreferenceNode(J2EEPlugin.PLUGIN_ID).putBoolean(Keys.INCREMENTAL_DEPLOYMENT_SUPPORT, value);
 		firePreferenceChanged();
 	}
 
 	public boolean isIncrementalDeploymentEnabled() {
-		return getPreferences().getBoolean(Keys.INCREMENTAL_DEPLOYMENT_SUPPORT);
+		return getBoolean(Keys.INCREMENTAL_DEPLOYMENT_SUPPORT);
 	}
 
 	/**
@@ -386,7 +193,11 @@ public class J2EEPreferences {
 	}
 
 	public void persist() {
-		getOwner().savePluginPreferences();
+		try {
+			getInstancePreferenceNode(J2EEPlugin.PLUGIN_ID).flush();
+		} catch (BackingStoreException e) {
+			org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
+		}
 	}
 
 	/**
@@ -404,18 +215,8 @@ public class J2EEPreferences {
 		this.persistOnChange = persistOnChange;
 	}
 
-	private Preferences getPreferences() {
-		if (this.preferences == null)
-			this.preferences = getOwner().getPluginPreferences();
-		return this.preferences;
-	}
 
-	/**
-	 * @return Returns the owner.
-	 */
-	private Plugin getOwner() {
-		return this.owner;
-	}
+	
 
 	/**
 	 * Returns the default value for the boolean-valued property
@@ -426,10 +227,11 @@ public class J2EEPreferences {
 	 * The given name must not be <code>null</code>.
 	 *
 	 * @param name the name of the property
-	 * @return the default value of the named property
+	 * @return the default value of the named property. If default value 
+	 * is not set, a false will be returned
 	 */
 	public boolean getDefaultBoolean(String name) {
-		return getPreferences().getDefaultBoolean(name);
+		return new DefaultScope().getNode(J2EEPlugin.PLUGIN_ID).getBoolean(name, Defaults.BOOLEAN_DEFAULT_DEFAULT);
 	}
 	/**
 	 * Returns the current value of the boolean-valued property with the
@@ -437,10 +239,12 @@ public class J2EEPreferences {
 	 * The given name must not be <code>null</code>.
 	 *
 	 * @param name the name of the property
-	 * @return the boolean-valued property
+	 * @return the boolean-valued property. If property value is not set, a false is returned.
 	 */
 	public boolean getBoolean(String name) {
-		return getPreferences().getBoolean(name);
+		IPreferencesService preferencesService = Platform.getPreferencesService();
+		IScopeContext[] lookupOrder = new IScopeContext[]{new InstanceScope(), new DefaultScope()};
+		return preferencesService.getBoolean(J2EEPlugin.PLUGIN_ID, name, Defaults.BOOLEAN_DEFAULT_DEFAULT, lookupOrder);
 	}
 
 	/**
@@ -450,7 +254,7 @@ public class J2EEPreferences {
 	 * @param value the new current value of the property
 	 */
 	public void setValue(String name, boolean value) {
-		getPreferences().setValue(name, value);
+		getInstancePreferenceNode(J2EEPlugin.PLUGIN_ID).putBoolean(name, value);
 		firePreferenceChanged();
 	}
 
@@ -466,7 +270,7 @@ public class J2EEPreferences {
 	 * @return the default value of the named property
 	 */
 	public String getDefaultString(String name) {
-		return getPreferences().getDefaultString(name);
+		return new DefaultScope().getNode(J2EEPlugin.PLUGIN_ID).get(name, Defaults.STRING_DEFAULT_DEFAULT);
 	}	
 	
 	/**
@@ -480,7 +284,7 @@ public class J2EEPreferences {
 	 * @return the string-valued property
 	 */
 	public String getString(String name) {
-		return getPreferences().getString(name);
+		return JavaEEPreferencesInitializer.getString(name);
 	}
 
 	/**
@@ -490,84 +294,40 @@ public class J2EEPreferences {
 	 * @param value the new current value of the property
 	 */
 	public void setValue(String name, String value) {
-		getPreferences().setValue(name, value);
+		getInstancePreferenceNode(J2EEPlugin.PLUGIN_ID).put(name, value);
 		firePreferenceChanged();
 	}
 
 		
 		
 	public String getDynamicWebDefaultSourceFolder(){
-		return getDefaultJavaSrcFolder();
+		return JavaEEPreferencesInitializer.getDynamicWebDefaultSourceFolder();
 	}
 	
 	public String getDynamicWebDefaultOuputFolderName(){
-		if ( ProductManager.shouldUseSingleRootStructure() ){
-			return ProductManager.getProperty(IProductConstants.WEB_CONTENT_FOLDER) + "/"+ J2EEConstants.WEB_INF_CLASSES; //$NON-NLS-1$
+		return JavaEEPreferencesInitializer.getDynamicWebDefaultOuputFolderName(); 
 		}
-		return getDefaultOutputFolderName();
-	}
 	
 	public String getAppClientDefaultOutputFolderName(){
-		if (ProductManager.shouldUseSingleRootStructure())
-			return getString(J2EEPreferences.Keys.APP_CLIENT_CONTENT_FOLDER);
-		return getDefaultOutputFolderName();
+		return JavaEEPreferencesInitializer.getAppClientDefaultOutputFolderName();
 	}
 	
 	public String getEJBDefaultOutputFolderName(){
-		if (ProductManager.shouldUseSingleRootStructure())
-			return getString(J2EEPreferences.Keys.EJB_CONTENT_FOLDER);
-		return getDefaultOutputFolderName();
+		return JavaEEPreferencesInitializer.getEJBDefaultOutputFolderName();
 	}
 	
 	public String getJCADefaultOutputFolderName(){
-		if (ProductManager.shouldUseSingleRootStructure())
-			return getString(J2EEPreferences.Keys.JCA_CONTENT_FOLDER);
-		return getDefaultOutputFolderName();
+		return JavaEEPreferencesInitializer.getJCADefaultOutputFolderName();
 	}
 	
 	public String getDefaultOutputFolderName(){
-		
-		if (ProductManager.shouldUseSingleRootStructure())
-			return getDefaultJavaSrcFolder();
-		
-	    String outputFolder = getProductProperty( "defaultJavaOutputFolder" ); //$NON-NLS-1$
-	    
-	    if( outputFolder == null ){
-	        outputFolder = getProductProperty( "outputFolder" ); //$NON-NLS-1$
-	    }
-	    
-	    if( outputFolder == null )
-	   {
-	        outputFolder = FacetCorePlugin.DEFUALT_OUTPUT_FOLDER;
-	    }
-	    return outputFolder;
+		return JavaEEPreferencesInitializer.getDefaultOutputFolderName();
 	}
 	    
 	public String getDefaultJavaSrcFolder(){
-		String srcFolder = FacetCorePlugin.getDefault().getPluginPreferences().getDefaultString(FacetCorePlugin.PROD_PROP_SOURCE_FOLDER_LEGACY);
-		if( srcFolder == null || srcFolder.equals("") ){ //$NON-NLS-1$
-			if( Platform.getProduct() != null ){
-				srcFolder = Platform.getProduct().getProperty( "defaultJavaSourceFolder" ); //$NON-NLS-1$
-			    if( srcFolder == null || srcFolder.equals("")){ //$NON-NLS-1$
-			    	srcFolder = Platform.getProduct().getProperty( FacetCorePlugin.PROD_PROP_SOURCE_FOLDER_LEGACY );
-			    }      			
-			}
-	    	if( srcFolder == null || srcFolder.equals("") ){ //$NON-NLS-1$
-	    		srcFolder = FacetCorePlugin.DEFAULT_SOURCE_FOLDER;
-	    	}
-	
-		}
-	    return srcFolder;
+		return JavaEEPreferencesInitializer.getDefaultJavaSrcFolder();
 	}
 	
-	
-	private static String getProductProperty( final String propName ){
-	    String value = null;
-	    if( Platform.getProduct() != null ){
-	        value = Platform.getProduct().getProperty( propName );
-	    }
-	    return value;
-	}
 	
 	public String getUtilityOutputFolderName(){
 		
