@@ -12,9 +12,12 @@ package org.eclipse.jst.j2ee.internal.archive;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants;
@@ -22,6 +25,7 @@ import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyVirtualComponent;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
 import org.eclipse.jst.jee.archive.ArchiveOpenFailureException;
 import org.eclipse.jst.jee.archive.ArchiveOptions;
@@ -30,11 +34,12 @@ import org.eclipse.jst.jee.archive.IArchiveResource;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
-import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 public class WebComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter {
 
 	public static IPath WEBLIB = new Path("/WEB-INF/lib"); //$NON-NLS-1$
+	
+	private Map<IPath, IResource> pathsToWorkbenchLibJars = new HashMap<IPath, IResource>();
 	
 	public WebComponentArchiveLoadAdapter(IVirtualComponent vComponent) {
 		super(vComponent);
@@ -111,6 +116,8 @@ public class WebComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter 
 					webLibArchive = JavaEEArchiveUtilities.INSTANCE.openArchive(webLibOptions);
 					webLibArchive.setPath(new Path(uri));
 					webLibArchive.setArchive(archive);
+					//save jar file since it is later removed from filesHolder
+					addFile(webLibArchive.getPath());
 					//this is in case there is a jar in the WEB-INF/lib folder which is also
 					//mapped as a project.  If it is not removed here, then export will include
 					//the jar version instead of the project version.
@@ -122,6 +129,17 @@ public class WebComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter 
 				}
 			}
 		}
+	}
+
+	private void addFile(IPath deployPath) {
+		IResource weblibJar = getWorkbenchResources(deployPath);
+		if (weblibJar != null) {
+			pathsToWorkbenchLibJars.put(deployPath, weblibJar);
+		}
+	}
+	
+	public IResource getWorkbenchLibJars(IPath deployPath) {
+		return pathsToWorkbenchLibJars.get(deployPath);
 	}
 	
 	private void addClasspathComponentDependencies(final IVirtualComponent referencedComponent) {
@@ -151,5 +169,7 @@ public class WebComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter 
 	protected IPath getDefaultModelObjectPath() {
 		return new Path(J2EEConstants.WEBAPP_DD_URI);
 	}
+	
+	
 
 }

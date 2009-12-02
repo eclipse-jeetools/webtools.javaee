@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.internal.archive;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -46,6 +47,7 @@ import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyManifestUti
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyVirtualComponent;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.SingleRootUtil;
 import org.eclipse.jst.jee.archive.AbstractArchiveLoadAdapter;
 import org.eclipse.jst.jee.archive.ArchiveModelLoadException;
 import org.eclipse.jst.jee.archive.IArchive;
@@ -82,27 +84,29 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 	protected IVirtualComponent vComponent;
 
 	protected boolean exportSource = true;
+	
+	protected boolean optimizeMembers = false;
 
-	private List zipFiles = new ArrayList();
+	private List<ZipFile> zipFiles = new ArrayList<ZipFile>();
 
-	private List javaClasspathURIs = new ArrayList();
+	private List<String> javaClasspathURIs = new ArrayList<String>();
 
 	protected boolean includeClasspathComponents = true;
 
 	protected class FilesHolder {
 
-		private Map pathsToArchiveResources = new HashMap();
+		private Map<IPath, IArchiveResource> pathsToArchiveResources = new HashMap<IPath, IArchiveResource>();
 
-		private Map pathsToWorkbenchResources = new HashMap();
+		private Map<IPath, IResource> pathsToWorkbenchResources = new HashMap<IPath, IResource>();
 
-		private Map workbenchResourcesToPaths = new HashMap();
+		private Map<IResource, IPath> workbenchResourcesToPaths = new HashMap<IResource, IPath>();
 
-		private Map pathsToDiskFiles;
+		private Map<IPath, java.io.File> pathsToDiskFiles = new HashMap<IPath, java.io.File>();
 
 		private Map pathsToZipEntry = new HashMap();
 
 		public void removeIFile(IFile file) {
-			IPath path = (IPath) workbenchResourcesToPaths.get(file);
+			IPath path = workbenchResourcesToPaths.get(file);
 			remove(path);
 		}
 
@@ -112,9 +116,7 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 			if (resource != null) {
 				workbenchResourcesToPaths.remove(resource);
 			}
-			if (pathsToDiskFiles != null) {
-				pathsToDiskFiles.remove(path);
-			}
+			pathsToDiskFiles.remove(path);
 		}
 
 		public void addFile(IArchiveResource file) {
@@ -125,9 +127,6 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 		public void addFile(IArchiveResource file, java.io.File externalDiskFile) {
 			IPath path = file.getPath();
 			pathsToArchiveResources.put(path, file);
-			if (null == pathsToDiskFiles) {
-				pathsToDiskFiles = new HashMap();
-			}
 			pathsToDiskFiles.put(path, externalDiskFile);
 		}
 
@@ -140,10 +139,10 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 		public InputStream getInputStream(IPath path) throws IOException, FileNotFoundException {
 			java.io.File diskFile = null;
 
-			if (pathsToDiskFiles != null && pathsToDiskFiles.containsKey(path)) {
-				diskFile = (java.io.File) pathsToDiskFiles.get(path);
-			} else if (pathsToWorkbenchResources != null && pathsToWorkbenchResources.containsKey(path)) {
-				IResource resource = (IResource) pathsToWorkbenchResources.get(path);
+			if (pathsToDiskFiles.containsKey(path)) {
+				diskFile = pathsToDiskFiles.get(path);
+			} else if (pathsToWorkbenchResources.containsKey(path)) {
+				IResource resource = pathsToWorkbenchResources.get(path);
 				diskFile = new java.io.File(resource.getLocation().toOSString());
 			}
 			if (diskFile != null) {
@@ -181,7 +180,7 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 		}
 
 		public IArchiveResource getArchiveResource(IPath path) {
-			return (IArchiveResource) pathsToArchiveResources.get(path);
+			return pathsToArchiveResources.get(path);
 		}
 
 		public void addEntry(ZipEntry entry, ZipFile zipFile, IPath runtimePath) {
@@ -197,7 +196,7 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 
 			IArchiveResource file = createFile(innerRuntimePath);
 
-			Map fileURIMap = new HashMap();
+			Map<String, ZipFile> fileURIMap = new HashMap<String, ZipFile>();
 			fileURIMap.put(entry.getName(), zipFile);
 
 			pathsToZipEntry.put(file.getPath(), fileURIMap);
@@ -296,21 +295,47 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 	}
 	
 	protected boolean archiveResourcesInitialized = false;
+	protected boolean membersOptimized = false;
 
 	protected void initArchiveResources() {
 		if (!archiveResourcesInitialized) {
 			archiveResourcesInitialized = true;
-			aggregateSourceFiles();
-			aggregateClassFiles();
+			if (shouldOptimize()) {
+				attemptOptimization();
+			}
+			if (!membersOptimized) {
+				aggregateSourceFiles();
+				aggregateClassFiles();
+			}
 			addUtilities();
+		}
+	}
+
+	protected void attemptOptimization() {
+		SingleRootUtil util = new SingleRootUtil(getComponent());
+		IContainer rootContainer = util.getSingleRoot();
+		if (rootContainer != null) {
+			try {
+				membersOptimized = true;
+				optimizeMembers(Path.EMPTY, rootContainer);
+			} catch (CoreException e) {
+				J2EEPlugin.logError(e);
+			}
 		}
 	}
 
 	@Override
 	public List<IArchiveResource> getArchiveResources() {
-
 		initArchiveResources();
 		return filesHolder.getFiles();
+	}
+	
+	public IResource getWorkbenchResources(IPath path) {
+		return filesHolder.pathsToWorkbenchResources.get(path);
+	}
+	
+	public File getExternalFiles(IPath path) {
+		return filesHolder.pathsToDiskFiles.get(path);
 	}
 
 	/**
@@ -484,7 +509,7 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 						continue;
 					cFile = createDirectory(runtimePath);
 					cFile.setLastModified(getLastModified(resources[i]));
-					filesHolder.addFile(cFile);
+					filesHolder.addFile(cFile, resources[i]);
 					fileAdded = true;
 				}
 			}
@@ -497,6 +522,7 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 	 * is currently within a Java Source folder.
 	 */
 	private boolean inJavaSrc = false;
+
 
 	protected boolean aggregateFiles(IVirtualResource[] virtualResources) throws CoreException {
 		boolean fileAdded = false;
@@ -610,6 +636,36 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 	protected long getLastModified(IResource aResource) {
 		return aResource.getLocation().toFile().lastModified();
 	}
+	
+	protected void optimizeMembers(IPath path, IContainer container) throws CoreException {
+		IResource[] resources;
+		resources = container.members();
+		if (resources != null) {
+			int size = resources.length;
+			for (int i = 0; i < size; i++) {
+				IResource resource = resources[i];
+				IArchiveResource cFile = null;
+				if (resource != null && resource.exists()) {
+					IPath deployPath = path.append(resource.getName());
+					if (filesHolder.contains(deployPath)) {
+						continue;
+					}
+					if (resource instanceof IContainer) {
+						IContainer container2 = (IContainer) resource;
+						cFile = createDirectory(deployPath);
+						optimizeMembers(deployPath, container2);
+
+					} else if ((resource instanceof IFile) && (isExportSource() || !isSource(deployPath))) {
+						cFile = createFile(deployPath);
+					}
+				}
+				if (cFile != null) {
+					cFile.setLastModified(getLastModified(resource));
+					filesHolder.addFile(cFile, resource);
+				}
+			}
+		}
+	} 
 
 	public void setExportSource(boolean newExportSource) {
 		exportSource = newExportSource;
@@ -619,6 +675,23 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 		return exportSource;
 	}
 
+	public void setOptimize(boolean optimize) {
+		optimizeMembers = optimize;
+	}
+	
+	public boolean shouldOptimize() {
+		return optimizeMembers;
+	}
+	
+	public boolean shouldUpdateManifest(IArchiveResource archiveResource) {
+		IPath path = archiveResource.getPath();
+		if (includeClasspathComponents && path.equals(new Path(J2EEConstants.MANIFEST_URI)) && !javaClasspathURIs.isEmpty() && manifestFile != null
+				&& manifestFile.getUnderlyingFile() != null && manifestFile.getUnderlyingFile().exists()) {
+			return true;
+		}
+		return false;
+	}
+	
 	protected boolean shouldInclude(IContainer aContainer) {
 		return true;
 	}
@@ -639,7 +712,7 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 		}
 		return isExportSource() || !isSource(path);
 	}
-
+	
 	// TODO add a mechanism for ignoring specific file types
 	protected boolean isSource(IPath path) {
 		if (path == null)
@@ -665,20 +738,18 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 
 	@Override
 	public InputStream getInputStream(IArchiveResource archiveResource) throws IOException, FileNotFoundException {
-		IPath path = archiveResource.getPath();
 		// If the MANIFEST.MF of a module component is being requested and that
 		// module component references
 		// Java build path-based components, need to dynamically update the
 		// manifest classpath to reflect the resolved
 		// contributions from the build path
-		if (includeClasspathComponents && path.equals(J2EEConstants.MANIFEST_URI) && !javaClasspathURIs.isEmpty() && manifestFile != null && manifestFile.getUnderlyingFile() != null
-				&& manifestFile.getUnderlyingFile().exists()) {
+		if (shouldUpdateManifest(archiveResource)) {
 			// update the manifest classpath for the component
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			ClasspathDependencyManifestUtil.updateManifestClasspath(manifestFile.getUnderlyingFile(), javaClasspathURIs, baos);
 			return new ByteArrayInputStream(baos.toByteArray());
 		}
-
+		IPath path = archiveResource.getPath();
 		if (filesHolder.contains(path)) {
 			return filesHolder.getInputStream(path);
 		}

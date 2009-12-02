@@ -85,7 +85,14 @@ public class SingleRootUtil {
 		return validateSingleRoot(INCLUDE_FIRST_ERROR).getSeverity() != IStatus.ERROR;
 	}
 	
-	
+	/**
+	 * Will attempt to return the IContainer that counts as the "single-root".
+	 * If this module does not qualify as a "single-root" module, this
+	 * method will return null. Otherwise it will return an IContainer
+	 * that may be used as the single-root container. 
+	 * 
+	 * @return IContainer representing single-root container
+	 */
 	public IContainer getSingleRoot() {
 		IStatus status = validateSingleRoot(GET_SINGLE_ROOT_CONTAINER);
 		if (status.getSeverity() == IStatus.INFO) {
@@ -230,7 +237,7 @@ public class SingleRootUtil {
 				// Verify the java output folder is the same as one of the content roots
 				IPath javaOutputPath = getJavaOutputFolders()[0].getProjectRelativePath();
 				IContainer[] rootFolders = aComponent.getRootFolder().getUnderlyingFolders();
-				for (int i=0; i<rootFolders.length; i++) {
+				for (int i=0; i < rootFolders.length; i++) {
 					IPath compRootPath = rootFolders[i].getProjectRelativePath();
 					if (javaOutputPath.equals(compRootPath)) {
 						reportStatus(ISingleRootStatus.SINGLE_ROOT_CONTAINER_FOUND, aComponent.getRootFolder().getUnderlyingFolder());
@@ -254,9 +261,10 @@ public class SingleRootUtil {
 			if (javaOutputFolders.length == 1) {
 				// Verify the java output folder is to <content root>/WEB-INF/classes
 				IPath javaOutputPath = getJavaOutputFolders()[0].getProjectRelativePath();
-				IPath compRootPath = aComponent.getRootFolder().getUnderlyingFolder().getProjectRelativePath();
+				IContainer rootContainer = aComponent.getRootFolder().getUnderlyingFolder();
+				IPath compRootPath = rootContainer.getProjectRelativePath();
 				if (compRootPath.append(J2EEConstants.WEB_INF_CLASSES).equals(javaOutputPath)) {
-					reportStatus(ISingleRootStatus.SINGLE_ROOT_CONTAINER_FOUND, javaOutputFolders[0]);
+					reportStatus(ISingleRootStatus.SINGLE_ROOT_CONTAINER_FOUND, rootContainer);
 					return;
 				}
 				reportStatus(ISingleRootStatus.JAVA_OUTPUT_NOT_WEBINF_CLASSES);

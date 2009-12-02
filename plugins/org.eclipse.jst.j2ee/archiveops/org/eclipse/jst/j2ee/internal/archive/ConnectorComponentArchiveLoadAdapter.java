@@ -74,8 +74,13 @@ public class ConnectorComponentArchiveLoadAdapter extends ComponentArchiveLoadAd
 
 	@Override
 	public List<IArchiveResource> getArchiveResources() {
-		addNestedJARsFromSourceRoots();
-		aggregateSourceFiles();
+		if (shouldOptimize()) {
+			attemptOptimization();
+		}
+		if (!membersOptimized) {
+			addNestedJARsFromSourceRoots();
+			aggregateSourceFiles();
+		}
 		return filesHolder.getFiles();
 	}
 
