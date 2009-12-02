@@ -62,4 +62,18 @@ public class ConnectorFacetInstallPage extends J2EEModuleFacetInstallPage  {
 		return null;
 	}
 
+    @Override
+	protected void enter() {
+		super.enter();
+        final IProjectFacetVersion fv = (IProjectFacetVersion) this.model.getProperty( FACET_VERSION );
+        boolean isJEE6OrGreater = J2EEVersionUtil.convertVersionStringToInt(fv.getVersionString()) >= J2EEVersionConstants.JCA_1_6_ID;
+        if( isJEE6OrGreater ){
+        	this.addDD.setVisible(isJEE6OrGreater);
+        	this.addDD.setEnabled(isJEE6OrGreater);
+        }
+        else{
+        	this.addDD.setVisible(true);
+        	this.addDD.setEnabled(isJEE6OrGreater);
+        }		
+	}	
 }
