@@ -333,8 +333,7 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 						}
 						int definedType = J2EEVersionConstants.UNKNOWN;
 						if(archivePath != null) {
-							//EE6TODO
-							if (qp.getVersion() == JavaEEQuickPeek.JEE_5_0_ID) {
+							if (qp.getVersion() == JavaEEQuickPeek.JEE_5_0_ID || qp.getVersion() == JavaEEQuickPeek.JEE_6_0_ID) {
 								org.eclipse.jst.javaee.application.Application app = (org.eclipse.jst.javaee.application.Application) ddObj;
 								org.eclipse.jst.javaee.application.Module module = app.getFirstModule(archivePath.toString());
 								//if the archive isn't found, do a smart search for it
