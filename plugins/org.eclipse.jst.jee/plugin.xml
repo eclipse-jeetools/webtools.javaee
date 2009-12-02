@@ -46,6 +46,38 @@
               contentTypeId="org.eclipse.jst.jee.ee6connectorDD">
         </contentTypeBinding>
      </resourceFactory>
+     <resourceFactory
+           class="org.eclipse.jst.javaee.web.internal.util.WebResourceFactoryImpl"
+           isDefault="false"
+           shortSegment="web.xml">
+        <contentTypeBinding
+              contentTypeId="org.eclipse.jst.jee.ee6webDD">
+        </contentTypeBinding>
+     </resourceFactory>
+     <resourceFactory
+           class="org.eclipse.jst.javaee.ejb.internal.util.EjbResourceFactoryImpl"
+           isDefault="false"
+           shortSegment="ejb-jar.xml">
+        <contentTypeBinding
+              contentTypeId="org.eclipse.jst.jee.ee6ejbDD">
+        </contentTypeBinding>
+     </resourceFactory>
+     <resourceFactory
+           class="org.eclipse.jst.javaee.applicationclient.internal.util.ApplicationclientResourceFactoryImpl"
+           isDefault="false"
+           shortSegment="application-client.xml">
+        <contentTypeBinding
+              contentTypeId="org.eclipse.jst.jee.ee6appclientDD">
+        </contentTypeBinding>
+     </resourceFactory>
+     <resourceFactory
+           class="org.eclipse.jst.javaee.application.internal.util.ApplicationResourceFactoryImpl"
+           isDefault="false"
+           shortSegment="application.xml">
+        <contentTypeBinding
+              contentTypeId="org.eclipse.jst.jee.ee6earDD">
+        </contentTypeBinding>
+     </resourceFactory>    
   </extension>
   
   <extension
@@ -144,6 +176,20 @@
       </content-type>
   	</extension>   
   	
+  	<extension
+         point="org.eclipse.core.runtime.contentTypes">
+      <content-type
+            file-names="ejb-jar.xml"
+            id="ee6ejbDD"
+            base-type="org.eclipse.core.runtime.xml"
+            name="%ee6ejbContentType"
+            priority="high">
+         <describer
+               class="org.eclipse.jst.jee.contenttype.JEE6ContentDescriber">
+         </describer>
+      </content-type>
+  	</extension>   
+  	
   	 <extension
          point="org.eclipse.core.runtime.contentTypes">
       <content-type
@@ -161,6 +207,21 @@
   	 <extension
          point="org.eclipse.core.runtime.contentTypes">
       <content-type
+            file-names="web.xml"
+            id="ee6webDD"
+            base-type="org.eclipse.core.runtime.xml"
+            name="%ee6webContentType"
+            priority="high">
+         <describer
+               class="org.eclipse.jst.jee.contenttype.JEE6ContentDescriber">
+         </describer>
+      </content-type>
+  	</extension> 
+  	
+  	  	
+  	 <extension
+         point="org.eclipse.core.runtime.contentTypes">
+      <content-type
             file-names="application.xml"
             id="ee5earDD"
             base-type="org.eclipse.core.runtime.xml"
@@ -172,6 +233,19 @@
       </content-type>
   	</extension>   
   	
+ 	<extension
+         point="org.eclipse.core.runtime.contentTypes">
+      <content-type
+            file-names="application.xml"
+            id="ee6earDD"
+            base-type="org.eclipse.core.runtime.xml"
+            name="%ee6earContentType"
+            priority="high">
+         <describer
+               class="org.eclipse.jst.jee.contenttype.JEE6ContentDescriber">
+         </describer>
+      </content-type>
+  	</extension> 
   	
   	 <extension
          point="org.eclipse.core.runtime.contentTypes">
@@ -186,6 +260,20 @@
          </describer>
       </content-type>
   	</extension>
+  	
+  	<extension
+         point="org.eclipse.core.runtime.contentTypes">
+      <content-type
+            file-names="application-client.xml"
+            id="ee6appclientDD"
+            base-type="org.eclipse.core.runtime.xml"
+            name="%ee6appclientContentType"
+            priority="high">
+         <describer
+               class="org.eclipse.jst.jee.contenttype.JEE6ContentDescriber">
+         </describer>
+      </content-type>
+  	</extension>
  
   	 <extension
          point="org.eclipse.core.runtime.contentTypes">
@@ -196,7 +284,7 @@
             name="%ee6connectorContentType"
             priority="high">
          <describer
-               class="org.eclipse.jst.jee.contenttype.JEEContentDescriber">
+               class="org.eclipse.jst.jee.contenttype.JEE6ContentDescriber">
          </describer>
       </content-type>
   	</extension>

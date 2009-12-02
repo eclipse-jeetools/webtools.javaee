@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2007 IBM Corporation and others.
+ * Copyright (c) 2001, 2009 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -21,8 +21,8 @@ import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 /**
  * A content describer for detecting a j2ee module
  */
-public final class JEEContentDescriber implements IContentDescriber {
-	public JEEContentDescriber() {
+public final class JEE6ContentDescriber implements IContentDescriber {
+	public JEE6ContentDescriber() {
 		super();
 	}
 
@@ -35,19 +35,25 @@ public final class JEEContentDescriber implements IContentDescriber {
 		case JavaEEQuickPeek.APPLICATION_CLIENT_TYPE:
 		case JavaEEQuickPeek.APPLICATION_TYPE:
 			switch (quickPeek.getVersion()) {
-			case JavaEEQuickPeek.JEE_5_0_ID:
+			case JavaEEQuickPeek.JEE_6_0_ID:
 				return VALID;
 			}
 			return INVALID;
 		case JavaEEQuickPeek.EJB_TYPE:
 			switch (quickPeek.getVersion()) {
-			case JavaEEQuickPeek.EJB_3_0_ID:
+			case JavaEEQuickPeek.EJB_3_1_ID:
 				return VALID;
 			}
 			return INVALID;
 		case JavaEEQuickPeek.WEB_TYPE:
 			switch (quickPeek.getVersion()) {
-			case JavaEEQuickPeek.WEB_2_5_ID:
+			case JavaEEQuickPeek.WEB_3_0_ID:
+				return VALID;
+			}
+			return INVALID;
+		case JavaEEQuickPeek.CONNECTOR_TYPE:
+			switch (quickPeek.getVersion()) {
+			case JavaEEQuickPeek.JCA_1_6_ID:
 				return VALID;
 			}
 			return INVALID;
