@@ -97,7 +97,7 @@ public class JEEDeployableFactory extends ProjectModuleFactoryDelegate {
 				String type = J2EEProjectUtilities.getJ2EEProjectType(component.getProject());
 				if (type != null && !type.equals("")) { //$NON-NLS-1$
 					String version = J2EEProjectUtilities.getJ2EEProjectVersion(component.getProject());
-					module = createModule(component.getDeployedName(), component.getDeployedName(), type, version, component.getProject());
+					module = createModule(component.getName(), component.getDeployedName(), type, version, component.getProject());
 					JEEFlexProjDeployable moduleDelegate = new JEEFlexProjDeployable(component.getProject(), component);
 					moduleDelegates.put(module, moduleDelegate);
 					projectModules.add(module);
@@ -159,7 +159,7 @@ public class JEEDeployableFactory extends ProjectModuleFactoryDelegate {
 				int version = qp.getVersion();
 				moduleVersion = J2EEVersionUtil.convertVersionIntToString(version);
 
-				IModule nestedModule = createModule(moduleComponent.getDeployedName(), moduleComponent.getDeployedName(), moduleType, moduleVersion, moduleComponent.getProject());
+				IModule nestedModule = createModule(moduleComponent.getName(), moduleComponent.getDeployedName(), moduleType, moduleVersion, moduleComponent.getProject());
 				if (nestedModule != null) {
 					J2EEFlexProjDeployable moduleDelegate = new J2EEFlexProjDeployable(moduleComponent.getProject(), moduleComponent);
 					moduleDelegates.put(nestedModule, moduleDelegate);
