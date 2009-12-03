@@ -387,8 +387,13 @@ public class EarUtilities extends JavaEEProjectUtilities {
 			return libDir;
 		}
 		
-		// retrieve the EAR's deployment descriptor model object
-		Application app = (Application) modelProvider.getModelObject(new Path(J2EEConstants.APPLICATION_DD_URI));
+		// retrieve the EAR's deployment descriptor model object 
+		Object o = modelProvider.getModelObject(new Path(J2EEConstants.APPLICATION_DD_URI));
+		Application app = null;
+		// check to see the type - if this is in a project with a j2ee 1.4 or older facet, lib dir is unavailable.
+		if (o instanceof Application){
+			app = (Application) o;
+		}
 		if (app == null){
 			return libDir;
 		}
