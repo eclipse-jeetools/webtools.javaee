@@ -37,6 +37,7 @@ import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.common.jdt.internal.javalite.JavaLiteUtilities;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
+import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.internal.EjbModuleExtensionHelper;
@@ -71,10 +72,10 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.ServerUtil;
+import org.eclipse.wst.server.core.internal.ModuleFile;
+import org.eclipse.wst.server.core.internal.ModuleFolder;
 import org.eclipse.wst.server.core.model.IModuleFile;
 import org.eclipse.wst.server.core.model.IModuleResource;
-import org.eclipse.wst.server.core.util.ModuleFile;
-import org.eclipse.wst.server.core.util.ModuleFolder;
 import org.eclipse.wst.web.internal.deployables.ComponentDeployable;
 /**
  * J2EE module superclass.
@@ -353,6 +354,45 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements
 			singleUtil = new SingleRootUtil(component);
 		}
 		return singleUtil;
+	}
+	
+	 /**
+     * The references for J2EE module deployment are only those child modules of EARs or web modules
+     */
+    @Override
+	protected IVirtualReference[] getReferences(IVirtualComponent aComponent) {
+    	if (aComponent == null || aComponent.isBinary()) {
+    		return new IVirtualReference[] {};
+    	} else if (JavaEEProjectUtilities.isDynamicWebProject(aComponent.getProject())) {
+    		return getWebLibModules((J2EEModuleVirtualComponent)aComponent);
+    	} else if (JavaEEProjectUtilities.isEARProject(aComponent.getProject())) {
+    		return super.getReferences(aComponent);
+    	} else {
+    		return new IVirtualReference[] {};
+    	}
+    }
+    
+    @Override
+	protected ArtifactEdit getComponentArtifactEditForRead() {
+		return EARArtifactEdit.getEARArtifactEditForRead(component.getProject());
+	}
+    
+    /**
+	 * This method will return the list of dependent modules which are utility jars in the web lib
+	 * folder of the deployed path of the module. It will not return null.
+	 * 
+	 * @return array of the web library dependent modules
+	 */
+	private IVirtualReference[] getWebLibModules(J2EEModuleVirtualComponent comp) {
+		List result = new ArrayList();
+		IVirtualReference[] refComponents = comp.getNonManifestReferences();
+		// Check the deployed path to make sure it has a lib parent folder and matchs the web.xml
+		// base path
+		for (int i = 0; i < refComponents.length; i++) {
+			if (refComponents[i].getRuntimePath().equals(WEBLIB))
+				result.add(refComponents[i]);
+		}
+		return (IVirtualReference[]) result.toArray(new IVirtualReference[result.size()]);
 	}
 	
     /**
