@@ -465,6 +465,11 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 				archiveToJavaEEQuickPeek.put(simpleArchive, quickPeek);
 				wrapArchive(simpleArchive, new Path(J2EEConstants.APPLICATION_DD_URI));
 				return simpleArchive;
+			} else if (lastSegment.endsWith(IJ2EEModuleConstants.RAR_EXT)){
+				JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(JavaEEQuickPeek.CONNECTOR_TYPE, JavaEEQuickPeek.JCA_1_6_ID, JavaEEQuickPeek.JEE_6_0_ID);
+				archiveToJavaEEQuickPeek.put(simpleArchive, quickPeek);
+				wrapArchive(simpleArchive, new Path(J2EEConstants.RAR_DD_URI));
+				return simpleArchive;
 			} else if (lastSegment.endsWith(IJ2EEModuleConstants.WAR_EXT)) {
 				//EE6TODO
 				JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(JavaEEQuickPeek.WEB_TYPE, JavaEEQuickPeek.WEB_2_5_ID, JavaEEQuickPeek.JEE_5_0_ID);
