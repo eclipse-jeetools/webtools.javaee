@@ -320,11 +320,18 @@ public class ClasspathDependencyEARTests extends AbstractTests {
 			moduleMembers = projectModule.members();
 			foundTest = false;
 			for (int i=0; i< moduleMembers.length; i++) {
-				String name = moduleMembers[i].getName();
-				if (name.equals("test")) {
-					if (moduleMembers[i].getModuleRelativePath().equals(new Path("WEB-INF/classes"))
-							&& moduleMembers[i] instanceof IModuleFile) {
-						foundTest = true;
+				if (moduleMembers[i].getName().equals("WEB-INF")) {
+					IModuleResource[] webinfMembers = ((ModuleFolder)moduleMembers[i]).members();
+					for (int j = 0; j < webinfMembers.length; j++) {
+						if (webinfMembers[j].getName().equals("classes")) {
+							IModuleResource[] classesMembers = ((ModuleFolder)webinfMembers[j]).members();
+							if (classesMembers.length > 0) {
+								IModuleResource test = classesMembers[0];
+								if (test.getName().equals("test") && test.getModuleRelativePath().equals(new Path("WEB-INF/classes")) && test instanceof IModuleFile) {
+									foundTest = true;
+								}
+							}
+						}
 					}
 				}
 			}
