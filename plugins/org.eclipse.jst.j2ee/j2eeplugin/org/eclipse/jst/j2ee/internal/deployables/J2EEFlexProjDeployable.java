@@ -389,7 +389,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements
 		// Check the deployed path to make sure it has a lib parent folder and matchs the web.xml
 		// base path
 		for (int i = 0; i < refComponents.length; i++) {
-			if (refComponents[i].getRuntimePath().equals(WEBLIB))
+			if (refComponents[i].getRuntimePath().equals(WEBLIB.makeAbsolute()))
 				result.add(refComponents[i]);
 		}
 		return (IVirtualReference[]) result.toArray(new IVirtualReference[result.size()]);

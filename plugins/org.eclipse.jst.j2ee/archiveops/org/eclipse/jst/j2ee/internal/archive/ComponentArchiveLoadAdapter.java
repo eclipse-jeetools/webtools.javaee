@@ -351,13 +351,14 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 					final IVirtualReference ref = cpRefs[j];
 					final IPath runtimePath = ref.getRuntimePath();
 					// only process mappings with the specified runtime path
-					if (ref.getReferencedComponent() instanceof ClasspathDependencyVirtualComponent
-							&& runtimePath.equals(targetRuntimePath)) {
-						final ClasspathDependencyVirtualComponent comp = (ClasspathDependencyVirtualComponent) ref.getReferencedComponent();
-						if (comp.isClassFolder()) {
-							final IContainer classFolder = comp.getClassFolder();
-							if (classFolder != null && classFolder.exists()) {
-								aggregateOutputFiles(new IResource[]{classFolder}, runtimePath.makeRelative(), classFolder.getProjectRelativePath().segmentCount());
+					if (ref.getReferencedComponent() instanceof ClasspathDependencyVirtualComponent) {
+						if (runtimePath.equals(targetRuntimePath) || runtimePath.equals(IClasspathDependencyConstants.WEB_INF_CLASSES_PATH)) {
+							final ClasspathDependencyVirtualComponent comp = (ClasspathDependencyVirtualComponent) ref.getReferencedComponent();
+							if (comp.isClassFolder()) {
+								final IContainer classFolder = comp.getClassFolder();
+								if (classFolder != null && classFolder.exists()) {
+									aggregateOutputFiles(new IResource[]{classFolder}, runtimePath.makeRelative(), classFolder.getProjectRelativePath().segmentCount());
+								}
 							}
 						}
 					}

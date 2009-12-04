@@ -125,16 +125,22 @@ public class EARComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter 
 						((ComponentArchiveLoadAdapter)nestedLoadAdapter).setExportSource(isExportSource());
 					}
 				}
-				
+				boolean addClasspathComponentDependencies = false;
 				JavaEEQuickPeek quickPeek = JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(nestedModuleArchive);
 				switch (quickPeek.getType()) {
-				case JavaEEQuickPeek.CONNECTOR_TYPE:
-				case JavaEEQuickPeek.EJB_TYPE:
-				case JavaEEQuickPeek.WEB_TYPE:
+					case JavaEEQuickPeek.CONNECTOR_TYPE:
+					case JavaEEQuickPeek.EJB_TYPE:
+					case JavaEEQuickPeek.WEB_TYPE:
+						addClasspathComponentDependencies = true;
+					case JavaEEQuickPeek.UNKNOWN:
+						if (nestedModuleArchive.getLoadAdapter() instanceof JavaComponentArchiveLoadAdapter) {
+							addClasspathComponentDependencies = true;
+						}
+				}
+				if (addClasspathComponentDependencies) {	
 					((ComponentArchiveLoadAdapter) nestedModuleArchive.getLoadAdapter()).setIncludeClasspathComponents(includeClasspathComponents);
 					addClasspathComponentDependencies(referencedComponent);
 				}
-
 			}
 		}
 	}
