@@ -74,7 +74,8 @@ public final class JavaLiteUtilities {
 
 	/**
 	 * Returns all Java output (i.e. where the compiled .class files are)
-	 * IContainers whose source is explicitly mapped by the specified component.
+	 * IContainers whose source is explicitly mapped by the specified component,
+	 * or if the output container itself is explicitly mapped.
 	 * 
 	 * @param virtualComponent
 	 * @return
