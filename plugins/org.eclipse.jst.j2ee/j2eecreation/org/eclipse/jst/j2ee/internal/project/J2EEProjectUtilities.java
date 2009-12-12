@@ -61,9 +61,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.JavaComponentLoadStrategyImpl;
-import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.componentcore.JavaEEBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleManager;
@@ -91,7 +89,6 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.SimpleValidateEdit;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IProjectFacet;
-import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.server.core.IRuntime;
 
@@ -600,39 +597,6 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 		return JavaEEProjectUtilities.isProjectOfType(project,typeID);
 	}
 
-	private static boolean isProjectOfType(IFacetedProject facetedProject, String typeID) {
-
-		if (facetedProject != null && ProjectFacetsManager.isProjectFacetDefined(typeID)) {
-			IProjectFacet projectFacet = ProjectFacetsManager.getProjectFacet(typeID);
-			return projectFacet != null && facetedProject.hasProjectFacet(projectFacet);
-		}
-		return false;
-	}
-
-	private static boolean isEARProject(IFacetedProject project) {
-		return isProjectOfType(project, ENTERPRISE_APPLICATION);
-	}
-
-	private static boolean isDynamicWebProject(IFacetedProject project) {
-		return isProjectOfType(project, DYNAMIC_WEB);
-	}
-
-	private static boolean isEJBProject(IFacetedProject project) {
-		return isProjectOfType(project, EJB);
-	}
-
-	private static boolean isJCAProject(IFacetedProject project) {
-		return isProjectOfType(project, JCA);
-	}
-
-	private static boolean isApplicationClientProject(IFacetedProject project) {
-		return isProjectOfType(project, APPLICATION_CLIENT);
-	}
-
-	private static boolean isUtilityProject(IFacetedProject project) {
-		return isProjectOfType(project, UTILITY);
-	}
-
 	/**
 	 * @deprecated - see {@link JavaEEProjectUtilities.isEARProject(IProject project)}
 	 */
@@ -989,33 +953,7 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 	 * the jee level. It does not read deployment descriptors for performance reasons.
 	 */
 	public static boolean isJEEProject(IProject project){
-		boolean ret = false;
-		
-		IFacetedProject facetedProject;
-		try {
-			facetedProject = ProjectFacetsManager.create(project);
-			if (facetedProject == null)
-				return false;
-			if(isEARProject(facetedProject)){
-				IProjectFacetVersion fv = facetedProject.getProjectFacetVersion(ENTERPRISE_APPLICATION_FACET);
-				ret = J2EEVersionUtil.convertVersionStringToInt(fv.getVersionString()) >= J2EEVersionConstants.JEE_5_0_ID;
-			} else if(isDynamicWebProject(facetedProject)){
-				IProjectFacetVersion fv = facetedProject.getProjectFacetVersion(DYNAMIC_WEB_FACET);
-				ret = J2EEVersionUtil.convertWebVersionStringToJ2EEVersionID(fv.getVersionString()) >= J2EEVersionConstants.JEE_5_0_ID;
-			} else if(isEJBProject(facetedProject)){
-				IProjectFacetVersion fv = facetedProject.getProjectFacetVersion(EJB_FACET);
-				ret = J2EEVersionUtil.convertEJBVersionStringToJ2EEVersionID(fv.getVersionString()) >= J2EEVersionConstants.JEE_5_0_ID;
-			} else if(isApplicationClientProject(facetedProject)){
-				IProjectFacetVersion fv = facetedProject.getProjectFacetVersion(APPLICATION_CLIENT_FACET);
-				ret = J2EEVersionUtil.convertAppClientVersionStringToJ2EEVersionID(fv.getVersionString()) >= J2EEVersionConstants.JEE_5_0_ID;
-			} else if (isJCAProject(facetedProject)){
-				IProjectFacetVersion fv = facetedProject.getProjectFacetVersion(JCA_FACET);
-				ret = J2EEVersionUtil.convertConnectorVersionStringToJ2EEVersionID(fv.getVersionString()) >= J2EEVersionConstants.JEE_5_0_ID;
-			}
-		} catch (CoreException e) {
-			J2EEPlugin.logError(e);
-		}
-		return ret;
+		return JavaEEProjectUtilities.isJEEComponent(ComponentCore.createComponent(project));
 	}
 	
 	/**
@@ -1023,53 +961,10 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 	 * @return true, if j2ee version 1.2, 1.3, 1.4 (or their respective ejb, web, app versions)
 	 * , it must be noted that this method only looks at the facet & their versions to determine 
 	 * the j2ee level. It does not read deployment descriptors for performance reasons.
+	 * @deprecated use JavaEEProjectUtilities.isLegacyJ2EEComponent(etc)
 	 */
 	public static boolean isLegacyJ2EEProject(IProject project){
-		boolean ret = false;
-		
-		IFacetedProject facetedProject;
-		try {
-			facetedProject = ProjectFacetsManager.create(project);
-			if (facetedProject == null)
-				return false;
-			
-			if(isEARProject(facetedProject)){
-				IProjectFacet earFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EAR_MODULE);
-				ret = (facetedProject.hasProjectFacet(earFacet.getVersion(J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.J2EE_1_4_ID)))
-						|| facetedProject.hasProjectFacet(earFacet.getVersion(J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.J2EE_1_3_ID)))
-						|| facetedProject.hasProjectFacet(earFacet.getVersion(J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.J2EE_1_2_ID)))
-					);
-			} else if(isDynamicWebProject(facetedProject)){
-				IProjectFacet webFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_WEB_MODULE);
-				ret = (facetedProject.hasProjectFacet(webFacet.getVersion(J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertJ2EEVersionIDToWebVersionID(J2EEVersionConstants.J2EE_1_4_ID))))
-						|| facetedProject.hasProjectFacet(webFacet.getVersion(J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertJ2EEVersionIDToWebVersionID(J2EEVersionConstants.J2EE_1_3_ID))))
-						|| facetedProject.hasProjectFacet(webFacet.getVersion(J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertJ2EEVersionIDToWebVersionID(J2EEVersionConstants.J2EE_1_2_ID))))
-						);
-			} else if(isEJBProject(facetedProject)){
-				IProjectFacet ejbFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EJB_MODULE);
-				ret = (facetedProject.hasProjectFacet(ejbFacet.getVersion(J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertJ2EEVersionIDToEJBVersionID(J2EEVersionConstants.J2EE_1_4_ID))))
-						|| facetedProject.hasProjectFacet(ejbFacet.getVersion(J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertJ2EEVersionIDToEJBVersionID(J2EEVersionConstants.J2EE_1_3_ID))))
-						|| facetedProject.hasProjectFacet(ejbFacet.getVersion(J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertJ2EEVersionIDToEJBVersionID(J2EEVersionConstants.J2EE_1_2_ID))))
-						);
-			} else if(isApplicationClientProject(facetedProject)){
-				IProjectFacet appFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_APPCLIENT_MODULE);
-				ret = (facetedProject.hasProjectFacet(appFacet.getVersion(J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.J2EE_1_4_ID)))
-						|| facetedProject.hasProjectFacet(appFacet.getVersion(J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.J2EE_1_3_ID)))
-						|| facetedProject.hasProjectFacet(appFacet.getVersion(J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.J2EE_1_2_ID)))
-						);
-			} else if(isJCAProject(facetedProject)){
-				IProjectFacet jcaFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_CONNECTOR_MODULE);
-				ret = (facetedProject.hasProjectFacet(jcaFacet.getVersion(J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertJ2EEVersionIDToConnectorVersionID(J2EEVersionConstants.J2EE_1_4_ID))))
-						|| facetedProject.hasProjectFacet(jcaFacet.getVersion(J2EEVersionUtil.convertVersionIntToString(J2EEVersionUtil.convertJ2EEVersionIDToConnectorVersionID(J2EEVersionConstants.J2EE_1_3_ID))))
-						);
-			} else if(isUtilityProject(facetedProject)){
-				// not sure if there is a better way
-				ret = true;
-			} 
-		} catch (CoreException e) {
-			J2EEPlugin.logError(e);
-		}
-		return ret;
+		return JavaEEProjectUtilities.isLegacyJ2EEComponent(ComponentCore.createComponent(project));
 	}
 
 	/**
