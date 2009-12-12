@@ -83,7 +83,7 @@ public class J2EEFacetProjectCreationDataModelProvider extends FacetProjectCreat
 			List list = new ArrayList();
 			for (int i = 0; i < descriptors.length; i++) {
 				IRuntime rt = (IRuntime) descriptors[i].getPropertyValue();
-				if (rt == null || rt.supports(EARFacetUtils.EAR_FACET)) {
+				if (rt == null || rt.supports(IJ2EEFacetConstants.ENTERPRISE_APPLICATION_FACET)) {
 					list.add(descriptors[i]);
 				}
 			}

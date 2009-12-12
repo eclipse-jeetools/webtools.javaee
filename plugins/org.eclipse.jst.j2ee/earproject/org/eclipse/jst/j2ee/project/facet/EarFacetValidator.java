@@ -50,7 +50,7 @@ public final class EarFacetValidator
             return;
         }
     
-        if( fproj.hasProjectFacet( EARFacetUtils.EAR_FACET ) )
+        if( fproj.hasProjectFacet( IJ2EEFacetConstants.ENTERPRISE_APPLICATION_FACET ) )
         {
             fproj.getProject().deleteMarkers( MARKER_ID, false, 
                                               IResource.DEPTH_ZERO );
@@ -83,7 +83,7 @@ public final class EarFacetValidator
                 final IFacetedProject reffpj
                     = ProjectFacetsManager.create( refvc.getProject() );
                 
-                if( reffpj.hasProjectFacet( EARFacetUtils.EAR_FACET ) )
+                if( reffpj.hasProjectFacet( IJ2EEFacetConstants.ENTERPRISE_APPLICATION_FACET ) )
                 {
                     validate( reffpj );
                 }

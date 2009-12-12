@@ -85,13 +85,13 @@ public abstract class J2EEFacetInstallDelegate {
 			    fpjwc.setTargetedRuntimes( Collections.singleton( runtime ) );
 			}
 			
-			fpjwc.setFixedProjectFacets( Collections.singleton( EARFacetUtils.EAR_FACET ) );
+			fpjwc.setFixedProjectFacets( Collections.singleton( IJ2EEFacetConstants.ENTERPRISE_APPLICATION_FACET ) );
 			fpjwc.setSelectedPreset( FacetedProjectFramework.DEFAULT_CONFIGURATION_PRESET_ID );
 			
 			if( j2eeVersionText != null )
 			{
 			    final IProjectFacetVersion defaultEarFacetVersion
-			        = fpjwc.getProjectFacetVersion( EARFacetUtils.EAR_FACET );
+			        = fpjwc.getProjectFacetVersion( IJ2EEFacetConstants.ENTERPRISE_APPLICATION_FACET );
 			    
 			    if( ! defaultEarFacetVersion.getVersionString().equals( j2eeVersionText ) )
 			    {
@@ -105,7 +105,7 @@ public abstract class J2EEFacetInstallDelegate {
 	    		            ( 
 	    		                rc.getRuntimeComponentType().getId(),
 	    		                rc.getRuntimeComponentVersion().getVersionString(), 
-	    		                EARFacetUtils.EAR_FACET.getId(), 
+	    		                IJ2EEFacetConstants.ENTERPRISE_APPLICATION_FACET.getId(), 
 	    		                j2eeVersionText 
 	    		            );
 	    		            
@@ -117,7 +117,7 @@ public abstract class J2EEFacetInstallDelegate {
 			        }
 			        
 	                final IProjectFacetVersion earFacetVersion
-	                    = EARFacetUtils.EAR_FACET.getVersion( j2eeVersionText );
+	                    = IJ2EEFacetConstants.ENTERPRISE_APPLICATION_FACET.getVersion( j2eeVersionText );
 	            
 	                // Note that the next call is necessary even if a preset is going to be selected 
 	                // later since it allows the dynamic preset to adjust for the ear facet version.

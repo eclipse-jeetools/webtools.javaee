@@ -10,17 +10,18 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.project.facet;
 
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.project.facet.core.IProjectFacet;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
-import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
-public class EARFacetUtils {
+/**
+ * @deprecated Use IJ2EEFacetConstants instead 
+ */
+public class EARFacetUtils implements IJ2EEFacetConstants {
 
-    public static final IProjectFacet EAR_FACET = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EAR_MODULE);
-	public static final IProjectFacetVersion EAR_12 = EAR_FACET.getVersion("1.2"); //$NON-NLS-1$
-	public static final IProjectFacetVersion EAR_13 = EAR_FACET.getVersion("1.3"); //$NON-NLS-1$
-	public static final IProjectFacetVersion EAR_14 = EAR_FACET.getVersion("1.4"); //$NON-NLS-1$
+    public static final IProjectFacet EAR_FACET = IJ2EEFacetConstants.ENTERPRISE_APPLICATION_FACET;
+	public static final IProjectFacetVersion EAR_12 = IJ2EEFacetConstants.ENTERPRISE_APPLICATION_12;
+	public static final IProjectFacetVersion EAR_13 = IJ2EEFacetConstants.ENTERPRISE_APPLICATION_13;
+	public static final IProjectFacetVersion EAR_14 = IJ2EEFacetConstants.ENTERPRISE_APPLICATION_14;
 
 	
 }

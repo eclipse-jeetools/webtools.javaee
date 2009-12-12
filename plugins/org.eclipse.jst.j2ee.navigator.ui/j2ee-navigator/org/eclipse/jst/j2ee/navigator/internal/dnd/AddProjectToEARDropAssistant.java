@@ -44,7 +44,7 @@ import org.eclipse.jst.j2ee.internal.provider.J2EEItemProvider;
 import org.eclipse.jst.j2ee.navigator.internal.plugin.J2EENavigatorPlugin;
 import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
-import org.eclipse.jst.j2ee.project.facet.EARFacetUtils;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.dnd.DropTargetEvent;
 import org.eclipse.swt.dnd.TransferData;
@@ -203,7 +203,7 @@ public class AddProjectToEARDropAssistant extends CommonDropAdapterAssistant {
 			facetedProject = ProjectFacetsManager.create(project);
 		} catch (CoreException e1) { 
 		}
-		return facetedProject != null && facetedProject.hasProjectFacet(EARFacetUtils.EAR_FACET);
+		return facetedProject != null && facetedProject.hasProjectFacet(IJ2EEFacetConstants.ENTERPRISE_APPLICATION_FACET);
 	}
 
 	protected final String calculateValidProjectName(final String originalName) { 
@@ -244,7 +244,7 @@ public class AddProjectToEARDropAssistant extends CommonDropAdapterAssistant {
 		try {
 			// check if the project to add is not an EAR itself
 			IFacetedProject facetedProject = ProjectFacetsManager.create(projectToAdd);  
-			if( facetedProject.hasProjectFacet(EARFacetUtils.EAR_FACET) ) 
+			if( facetedProject.hasProjectFacet(IJ2EEFacetConstants.ENTERPRISE_APPLICATION_FACET) ) 
 				status = Status.CANCEL_STATUS;
 			else 
 				status = Status.OK_STATUS;

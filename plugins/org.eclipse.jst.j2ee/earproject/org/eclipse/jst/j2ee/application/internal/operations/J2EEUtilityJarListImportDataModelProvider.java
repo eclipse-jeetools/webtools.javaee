@@ -26,7 +26,7 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEUtilityJarListImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.jst.j2ee.project.facet.EARFacetUtils;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -263,7 +263,7 @@ public class J2EEUtilityJarListImportDataModelProvider extends AbstractDataModel
 			if(projects[i].isAccessible()) {
 				try {
 					facetedProject = ProjectFacetsManager.create(projects[i]);
-				if (facetedProject!=null && facetedProject.hasProjectFacet(EARFacetUtils.EAR_FACET)) {
+				if (facetedProject!=null && facetedProject.hasProjectFacet(IJ2EEFacetConstants.ENTERPRISE_APPLICATION_FACET)) {
 					projectsWithNature.add(projects[i].getFullPath().toString());
 				}
 				} catch (CoreException e) {

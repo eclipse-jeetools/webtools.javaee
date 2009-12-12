@@ -311,7 +311,7 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 		boolean ret = true;
 		IRuntime rt = (IRuntime) model.getProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME);
 		if (rt != null)
-			ret = rt.supports(EARFacetUtils.EAR_FACET);
+			ret = rt.supports(IJ2EEFacetConstants.ENTERPRISE_APPLICATION_FACET);
 		return ret;
 	}
 
