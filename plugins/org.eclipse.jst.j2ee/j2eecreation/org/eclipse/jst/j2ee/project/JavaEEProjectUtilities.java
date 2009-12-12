@@ -18,6 +18,7 @@ import java.util.List;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
@@ -186,28 +187,38 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 		return quickPeekType == type;
 	}
 	
+	private static String convertQuickpeekResult(int type) {
+		switch(type){
+		case JavaEEQuickPeek.APPLICATION_CLIENT_TYPE:
+			return APPLICATION_CLIENT;
+		case JavaEEQuickPeek.WEB_TYPE:
+			return DYNAMIC_WEB;
+		case JavaEEQuickPeek.EJB_TYPE:
+			return EJB;
+		case JavaEEQuickPeek.CONNECTOR_TYPE:
+			return JCA;
+		case JavaEEQuickPeek.APPLICATION_TYPE:
+			return ENTERPRISE_APPLICATION;
+		default:
+			return UTILITY;
+		}
+	}
 	public static String getJ2EEComponentType(IVirtualComponent component) {
 		if (null != component) {
 			if (component.isBinary()) {
 				JavaEEQuickPeek qp = JavaEEBinaryComponentHelper.getJavaEEQuickPeek(component);
-				switch(qp.getType()){
-				case JavaEEQuickPeek.APPLICATION_CLIENT_TYPE:
-					return APPLICATION_CLIENT;
-				case JavaEEQuickPeek.WEB_TYPE:
-					return DYNAMIC_WEB;
-				case JavaEEQuickPeek.EJB_TYPE:
-					return EJB;
-				case JavaEEQuickPeek.CONNECTOR_TYPE:
-					return JCA;
-				case JavaEEQuickPeek.APPLICATION_TYPE:
-					return ENTERPRISE_APPLICATION;
-				default:
-					return UTILITY;
-				}
+				return convertQuickpeekResult(qp.getType());
 			}
 			return getJ2EEProjectType(component.getProject());
 		}
 		return ""; //$NON-NLS-1$
+	}
+	public static String getJ2EEFileType(IPath path) {
+		if( path != null && path.toFile().exists() && path.toFile().isFile()) {
+			JavaEEQuickPeek qp = JavaEEBinaryComponentHelper.getJavaEEQuickPeek(path);
+			return convertQuickpeekResult(qp.getType());
+		}
+		return null;
 	}
 
 	public static String getJ2EEProjectType(IProject project) {
