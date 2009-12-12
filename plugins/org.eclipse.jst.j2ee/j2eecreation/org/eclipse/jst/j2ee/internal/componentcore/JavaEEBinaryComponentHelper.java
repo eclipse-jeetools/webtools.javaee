@@ -34,6 +34,7 @@ import org.eclipse.jst.jee.archive.ArchiveOptions;
 import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.jst.jee.archive.IArchiveFactory;
 import org.eclipse.jst.jee.archive.IArchiveLoadAdapter;
+import org.eclipse.jst.jee.archive.internal.ArchiveFactoryImpl;
 import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.BinaryComponentHelper;
@@ -47,6 +48,24 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 
 	private int localArchiveAccessCount = 0;
 
+	public static JavaEEQuickPeek getJavaEEQuickPeek(IPath filesystemPath) {
+		IArchive archive = null; 
+		try {
+			try {
+				archive = JavaEEArchiveUtilities.INSTANCE.openArchive(filesystemPath);
+			} catch( ArchiveOpenFailureException fail) {}
+			if (archive == null) {
+				return new JavaEEQuickPeek(null);
+			}
+			JavaEEQuickPeek qp = JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(archive);
+			return qp;
+		} finally {
+			if (null != archive) {
+				new ArchiveFactoryImpl().closeArchive(archive);
+			}
+		}
+	}
+	
 	public static JavaEEQuickPeek getJavaEEQuickPeek(IVirtualComponent aBinaryComponent) {
 		JavaEEBinaryComponentHelper helper = null;
 		try {
