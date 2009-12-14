@@ -24,6 +24,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.ICheckStateListener;
@@ -242,19 +243,19 @@ public class EarFacetInstallPage extends J2EEModuleFacetInstallPage implements I
 		selectAllButton = new Button(buttonGroup, SWT.PUSH);
 		selectAllButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.APP_PROJECT_MODULES_PG_SELECT));
 		selectAllButton.addListener(SWT.Selection, this);
-		selectAllButton.setLayoutData(gdhfill());
+		GridDataFactory.defaultsFor( selectAllButton ).applyTo( selectAllButton );
 		
 		deselectAllButton = new Button(buttonGroup, SWT.PUSH);
 		deselectAllButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.APP_PROJECT_MODULES_PG_DESELECT));
 		deselectAllButton.addListener(SWT.Selection, this);
-		deselectAllButton.setLayoutData(gdhfill());
+		GridDataFactory.defaultsFor( deselectAllButton ).applyTo( deselectAllButton );
 		
 		new Label(buttonGroup, SWT.NONE); // pad
 		
 		newModuleButton = new Button(buttonGroup, SWT.PUSH);
 		newModuleButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.APP_PROJECT_MODULES_PG_NEW));
 		newModuleButton.addListener(SWT.Selection, this);
-		newModuleButton.setLayoutData(gdhfill());
+		GridDataFactory.defaultsFor( newModuleButton ).applyTo( newModuleButton );
 	}
 	
 	private void createContentDirGroup(Composite modulesGroup) {

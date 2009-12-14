@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2005, 2006 BEA Systems, Inc. and others.
+ * Copyright (c) 2005, 2009 BEA Systems, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@
 package org.eclipse.jst.j2ee.ui.project.facet;
 
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.j2ee.web.project.facet.IWebFacetInstallDataModelProperties;
 import org.eclipse.osgi.util.NLS;
@@ -58,7 +59,7 @@ public final class EarSelectionPanel implements IWebFacetInstallDataModelPropert
         
         this.addToEar = new Button( group, SWT.CHECK );
         this.addToEar.setText( Resources.addToEarLabel );
-        this.addToEar.setLayoutData( gdhspan( new GridData(), 3 ) );
+        GridDataFactory.defaultsFor(this.addToEar).span(3, 1).applyTo(this.addToEar);
         synchhelper.synchCheckbox(addToEar, ADD_TO_EAR, null);
 
         label = new Label(group, SWT.NULL);
@@ -68,6 +69,7 @@ public final class EarSelectionPanel implements IWebFacetInstallDataModelPropert
         
         this.newButton = new Button( group, SWT.PUSH );
         this.newButton.setText( Resources.newButtonLabel );
+        GridDataFactory.defaultsFor(this.newButton).applyTo(this.newButton);
         
         this.newButton.addSelectionListener( new SelectionAdapter()
         {
