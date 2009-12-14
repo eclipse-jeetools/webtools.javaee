@@ -29,6 +29,8 @@ import org.eclipse.wst.common.componentcore.export.ExportModelUtil;
 import org.eclipse.wst.common.componentcore.export.ExportableFile;
 import org.eclipse.wst.common.componentcore.export.ExportableFolder;
 import org.eclipse.wst.common.componentcore.export.ExportableResource;
+import org.eclipse.wst.common.componentcore.export.IExportableFolder;
+import org.eclipse.wst.common.componentcore.export.IExportableResource;
 import org.eclipse.wst.common.componentcore.export.ExportModel.ExportTaskModel;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
@@ -43,7 +45,7 @@ public class SingleRootExportParticipant extends AbstractExportParticipant {
 	
 	@Override
 	public void initialize(IVirtualComponent component,
-			ExportTaskModel dataModel, List<ExportableResource> resources) {
+			ExportTaskModel dataModel, List<IExportableResource> resources) {
 		this.component = component;
 		this.dataModel = dataModel;
 	}
@@ -67,13 +69,13 @@ public class SingleRootExportParticipant extends AbstractExportParticipant {
 
 	@Override
 	public void optimize(IVirtualComponent component,
-			ExportTaskModel dataModel, List<ExportableResource> resources) {
+			ExportTaskModel dataModel, List<IExportableResource> resources) {
 		manifestReplacementDelegate = new ReplaceManifestExportParticipant();
 		
 		try {
 			resources.clear(); // We want complete control
 			IContainer container = new SingleRootUtil(component).getSingleRoot();
-			ExportableResource[] mr = getMembers(resources, container, new Path("")); //$NON-NLS-1$
+			IExportableResource[] mr = getMembers(resources, container, new Path("")); //$NON-NLS-1$
 			int size = mr.length;
 			for (int j = 0; j < size; j++) {
 				resources.add(mr[j]);
@@ -84,7 +86,7 @@ public class SingleRootExportParticipant extends AbstractExportParticipant {
 		}
 	}
 
-	protected ExportableResource[] getMembers(List<ExportableResource> members, 
+	protected IExportableResource[] getMembers(List<IExportableResource> members, 
 			IContainer cont, IPath path) throws CoreException {
 		IResource[] res = cont.members();
 		int size2 = res.length;
@@ -93,19 +95,19 @@ public class SingleRootExportParticipant extends AbstractExportParticipant {
 			if (res[j] instanceof IContainer) {
 				IContainer cc = (IContainer) res[j];
 				// Retrieve already existing module folder if applicable
-				ExportableFolder mf = (ExportableFolder) ExportModelUtil.getExistingModuleResource(members,path.append(new Path(cc.getName()).makeRelative()));
+				IExportableFolder mf = (ExportableFolder) ExportModelUtil.getExistingModuleResource(members,path.append(new Path(cc.getName()).makeRelative()));
 				if (mf == null) {
 					mf = new ExportableFolder(cc, cc.getName(), path);
-					ExportableFolder parent = (ExportableFolder) ExportModelUtil.getExistingModuleResource(members, path);
+					IExportableFolder parent = (ExportableFolder) ExportModelUtil.getExistingModuleResource(members, path);
 					if (path.isEmpty() || path.equals(new Path("/"))) //$NON-NLS-1$
 						members.add(mf);
 					else {
 						if (parent == null)
 							parent = ExportModelUtil.ensureParentExists(members, path, cc);
-						ExportModelUtil.addMembersToModuleFolder(parent, new ExportableResource[] {mf});
+						ExportModelUtil.addMembersToModuleFolder(parent, new IExportableResource[] {mf});
 					}
 				}
-				ExportableResource[] mr = getMembers(members, cc, path.append(cc.getName()));
+				IExportableResource[] mr = getMembers(members, cc, path.append(cc.getName()));
 				ExportModelUtil.addMembersToModuleFolder(mf, mr);
 			} else {
 				IFile f = (IFile) res[j];

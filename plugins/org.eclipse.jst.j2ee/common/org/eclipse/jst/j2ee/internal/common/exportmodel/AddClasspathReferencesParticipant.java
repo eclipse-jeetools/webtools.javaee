@@ -27,7 +27,7 @@ import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyVirtualComp
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.export.AbstractExportParticipant;
 import org.eclipse.wst.common.componentcore.export.ExportModelUtil;
-import org.eclipse.wst.common.componentcore.export.ExportableResource;
+import org.eclipse.wst.common.componentcore.export.IExportableResource;
 import org.eclipse.wst.common.componentcore.export.ExportModel.ExportTaskModel;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
@@ -36,7 +36,7 @@ public class AddClasspathReferencesParticipant extends AbstractExportParticipant
 	protected static IPath WEBLIB = new Path(J2EEConstants.WEB_INF_LIB).makeAbsolute();
 	protected static final IPath WEB_CLASSES_PATH = new Path(J2EEConstants.WEB_INF_CLASSES);
 	
-	private List<ExportableResource> list;
+	private List<IExportableResource> list;
 	
 	@Override
 	public boolean shouldIgnoreReference(IVirtualComponent rootComponent,
@@ -52,7 +52,7 @@ public class AddClasspathReferencesParticipant extends AbstractExportParticipant
 	
 	@Override
 	public void finalize(IVirtualComponent component,
-			ExportTaskModel dataModel, List<ExportableResource> resources) {
+			ExportTaskModel dataModel, List<IExportableResource> resources) {
 		this.list = resources;
 		
 		try {

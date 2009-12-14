@@ -17,7 +17,7 @@ import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.wst.common.componentcore.export.AbstractExportParticipant;
-import org.eclipse.wst.common.componentcore.export.ExportableFile;
+import org.eclipse.wst.common.componentcore.export.IExportableFile;
 import org.eclipse.wst.common.componentcore.export.ExportModel.ExportTaskModel;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
@@ -46,7 +46,7 @@ public class JEEHeirarchyExportParticipant extends AbstractExportParticipant {
 	
 	@Override
 	public boolean isChildModule(IVirtualComponent rootComponent,
-			ExportTaskModel dataModel, ExportableFile file) {
+			ExportTaskModel dataModel, IExportableFile file) {
 		if( isPossibleChild(file.getName())) {
 			File f = (File)file.getAdapter(File.class);
 			if( f != null && f.exists()) {

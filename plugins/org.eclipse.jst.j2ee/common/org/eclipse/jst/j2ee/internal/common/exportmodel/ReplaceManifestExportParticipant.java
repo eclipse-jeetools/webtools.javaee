@@ -29,7 +29,8 @@ import org.eclipse.wst.common.componentcore.export.AbstractExportParticipant;
 import org.eclipse.wst.common.componentcore.export.ExportModelUtil;
 import org.eclipse.wst.common.componentcore.export.ExportableFile;
 import org.eclipse.wst.common.componentcore.export.ExportableFolder;
-import org.eclipse.wst.common.componentcore.export.ExportableResource;
+import org.eclipse.wst.common.componentcore.export.IExportableFolder;
+import org.eclipse.wst.common.componentcore.export.IExportableResource;
 import org.eclipse.wst.common.componentcore.export.ExportModel.ExportTaskModel;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
@@ -47,16 +48,16 @@ public class ReplaceManifestExportParticipant extends AbstractExportParticipant 
 	
 	@Override
 	public void finalize(IVirtualComponent component,
-			ExportTaskModel dataModel, List<ExportableResource> resources) {
+			ExportTaskModel dataModel, List<IExportableResource> resources) {
 		forceUpdate(component, dataModel, resources);
 	}
 	
 	public void forceUpdate(IVirtualComponent component,
-			ExportTaskModel dataModel, List<ExportableResource> resources) {
+			ExportTaskModel dataModel, List<IExportableResource> resources) {
 		if( !getClasspathURIs(component).isEmpty()) {
 			// find the old manifest
-			ExportableFolder parent = (ExportableFolder)ExportModelUtil.getExistingModuleResource(resources, new Path(J2EEConstants.META_INF));
-			ExportableResource[] children = parent.members();
+			IExportableFolder parent = (ExportableFolder)ExportModelUtil.getExistingModuleResource(resources, new Path(J2EEConstants.META_INF));
+			IExportableResource[] children = parent.members();
 			IFile original = null;
 			int originalIndex = 0;
 			for( int i = 0; i < children.length; i++) {
