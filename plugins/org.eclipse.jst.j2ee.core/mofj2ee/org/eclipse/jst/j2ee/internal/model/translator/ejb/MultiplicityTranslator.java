@@ -39,11 +39,13 @@ public class MultiplicityTranslator extends Translator implements EjbDeploymentD
 	@Override
 	public Object convertStringToValue(String strValue, EObject owner) {
 		String correct = strValue;
-		if (strValue.toUpperCase().equals("ONE")) //$NON-NLS-1$
-			correct = "One"; //$NON-NLS-1$
-		else if (strValue.toUpperCase().equals("MANY")) //$NON-NLS-1$
-			correct = "Many"; //$NON-NLS-1$
-			
+		if (strValue != null)
+		{
+			if (strValue.toUpperCase().equals("ONE")) //$NON-NLS-1$
+				correct = "One"; //$NON-NLS-1$
+			else if (strValue.toUpperCase().equals("MANY")) //$NON-NLS-1$
+				correct = "Many"; //$NON-NLS-1$
+		}	
 		return super.convertStringToValue(correct, owner);
 	}
 
