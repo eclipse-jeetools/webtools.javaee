@@ -25,7 +25,6 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.componentcore.JavaEEBinaryComponentHelper;
-import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.model.IEARModelProvider;
 import org.eclipse.jst.j2ee.model.IModelProvider;
@@ -33,11 +32,12 @@ import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.internal.util.FacetedProjectUtilities;
+import org.eclipse.wst.common.componentcore.internal.util.VirtualReferenceUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
-import org.eclipse.wst.common.project.facet.core.IProjectFacet;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
@@ -49,35 +49,17 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 	public JavaEEProjectUtilities() {
 	}
 
+	
 	public static boolean isProjectOfType(IProject project, String typeID) {
 		return getProjectFacetVersion(project, typeID) != null;
 	}
 
 	public static IProjectFacetVersion getProjectFacetVersion(IProject project, String typeID){
-		IFacetedProject facetedProject = null;
-		try {
-			facetedProject = ProjectFacetsManager.create(project);
-		} catch (CoreException e) {
-			return null;
-		}
-
-		if (facetedProject != null && ProjectFacetsManager.isProjectFacetDefined(typeID)) {
-			IProjectFacet projectFacet = ProjectFacetsManager.getProjectFacet(typeID);
-			if(projectFacet == null){
-				return null;
-			}
-			return facetedProject.getProjectFacetVersion(projectFacet);
-		}
-		return null;
+		return FacetedProjectUtilities.getProjectFacetVersion(project, typeID);
 	}
 	
 	private static boolean isProjectOfType(IFacetedProject facetedProject, String typeID) {
-
-		if (facetedProject != null && ProjectFacetsManager.isProjectFacetDefined(typeID)) {
-			IProjectFacet projectFacet = ProjectFacetsManager.getProjectFacet(typeID);
-			return projectFacet != null && facetedProject.hasProjectFacet(projectFacet);
-		}
-		return false;
+		return FacetedProjectUtilities.isProjectOfType(facetedProject, typeID);
 	}
 
 	private static boolean isEARProject(IFacetedProject project) {
@@ -493,20 +475,9 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 				name = ((IEARModelProvider)provider).getModuleURI(comp);
 			}
 		}
-		//If not found, then return the default name
-		if( name == null || name == "" ){ //$NON-NLS-1$  comp not found in ear use default extensions
-			name = comp.getName();
-			if(isDynamicWebComponent(comp)) {
-					//web module URIs need to end in WAR
-					name += IJ2EEModuleConstants.WAR_EXT;
-				
-			} else if(isJCAComponent(comp)) {
-					//connector module URIs need to end in RAR
-					name += IJ2EEModuleConstants.RAR_EXT;
-				
-			} else
-				//all other modules (EJB, AppClient, Utility) need to end in JAR
-				name += IJ2EEModuleConstants.JAR_EXT;
+		//If not found, then return the default name from the ModuleCore API
+		if( name == null || name == "" ){ //$NON-NLS-1$ 
+			return VirtualReferenceUtilities.INSTANCE.getDefaultProjectArchiveName(comp);
 		}
 		return name;
 	}

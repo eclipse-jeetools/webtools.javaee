@@ -46,6 +46,7 @@ import org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualFolder;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualReference;
 import org.eclipse.wst.common.componentcore.internal.util.IComponentImplFactory;
+import org.eclipse.wst.common.componentcore.internal.util.VirtualReferenceUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
@@ -119,6 +120,7 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 				references[hardReferences.length + i] = (IVirtualReference) dynamicReferences.get(i);
 			}
 		}
+		VirtualReferenceUtilities.INSTANCE.ensureReferencesHaveNames(references);
 		return references;
 	}
 	
