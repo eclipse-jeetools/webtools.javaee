@@ -228,6 +228,10 @@ protected static HashMap resourceSetListeners;
 		}
 		return null;
 	}
+	public static IModelProviderFactory getProvider(IProject p) {
+		IProjectFacetVersion facetVersion = getDefaultFacet(p);
+		return getProvider(facetVersion);
+	}
 	private static int getProviderPriority(IProjectFacetVersion v) {
 		Set<ModelProviderKey> keys = getProviders().keySet();
 		for (Iterator iterator = keys.iterator(); iterator.hasNext();) {
