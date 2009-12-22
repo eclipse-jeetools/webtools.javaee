@@ -1054,7 +1054,7 @@
 							<or>
 								<test forcePluginActivation="true"
 									property="org.eclipse.wst.common.project.facet.core.projectFacet"
-									value="jst.ejb:3.0"/>
+									value="jst.ejb:[3.0"/>
 							</or>
 						</adapt>
 						<or>
@@ -1071,7 +1071,7 @@
 							type="org.eclipse.core.resources.IResource">
 							<test forcePluginActivation="true"
 								property="org.eclipse.wst.common.project.facet.core.projectFacet"
-								value="jst.ejb:3.0" />
+								value="jst.ejb:[3.0" />
 						</adapt>
 					</and>
 					<and>
@@ -1097,7 +1097,7 @@
                       <test
                             forcePluginActivation="true"
                             property="org.eclipse.wst.common.project.facet.core.projectFacet"
-                            value="jst.ejb:3.0">
+                            value="jst.ejb:[3.0">
                       </test>
                    </or>
                 </adapt>
@@ -1125,7 +1125,7 @@
                    <test
                          forcePluginActivation="true"
                          property="org.eclipse.wst.common.project.facet.core.projectFacet"
-                         value="jst.ejb:3.0">
+                         value="jst.ejb:[3.0">
                    </test>
                 </adapt>
              </and>
