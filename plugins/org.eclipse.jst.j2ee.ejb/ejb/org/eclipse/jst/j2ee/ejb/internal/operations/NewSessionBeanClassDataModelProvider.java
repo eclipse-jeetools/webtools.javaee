@@ -33,6 +33,7 @@ import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jdt.core.IJavaProject;
@@ -47,12 +48,14 @@ import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
 import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBCreationResourceHandler;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
+import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
 public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClassDataModelProvider {
 
@@ -302,11 +305,11 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 	@Override
 	public IStatus validate(String propertyName) {
 		if (LOCAL_BUSINESS_INTERFACE.equals(propertyName)) {
-			if (model.getBooleanProperty(LOCAL)) {
+			if (getBooleanProperty(LOCAL)) {
 				return validateEjbInterface(getStringProperty(propertyName));
 			}
 		} else if (REMOTE_BUSINESS_INTERFACE.equals(propertyName)) {
-			if (model.getBooleanProperty(REMOTE)) {
+			if (getBooleanProperty(REMOTE)) {
 				return validateEjbInterface(getStringProperty(propertyName));
 			}
 		} else if (LOCAL_COMPONENT_INTERFACE.equals(propertyName) || 
@@ -314,11 +317,13 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 				LOCAL_HOME_INTERFACE.equals(propertyName) || 
 				REMOTE_HOME_INTERFACE.equals(propertyName)) {
 			return validateComponentHomeInterfaces();
+		} else if (INTERFACES.equals(propertyName)) {
+			return validateInterfacesList();
 		}
 			
 		return super.validate(propertyName);
 	}
-	
+
 	protected IStatus validateEjbInterface(String fullyQualifiedName) {
 		IStatus status = validateJavaTypeName(fullyQualifiedName);
 		if (status.getSeverity() != IStatus.ERROR) {
@@ -423,6 +428,14 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 		return Status.OK_STATUS;
 	}
 
+	protected IStatus validateInterfacesList() {
+		List<BusinessInterface> list = (List<BusinessInterface>) getProperty(INTERFACES);
+		if (list.isEmpty() && isEJB30Project()) {
+			return new Status(IStatus.WARNING, EjbPlugin.PLUGIN_ID, EJBCreationResourceHandler.WRN_NO_BUSINESS_INTERFACE); 
+		}
+		return Status.OK_STATUS;
+	}
+
 	private boolean hasRequiredElementInSignature(String[] allElementNames, String[] wanted) {
 		if (allElementNames == null || allElementNames.length == 0){
 			return false;
@@ -461,6 +474,14 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 			return WTPCommonPlugin.createWarningStatus(msg);
 		}
 		return WTPCommonPlugin.OK_STATUS;
+	}
+	
+	private boolean isEJB30Project() {
+		try {
+			return ProjectFacetsManager.create(getTargetProject()).hasProjectFacet(IJ2EEFacetConstants.EJB_30);
+		} catch (CoreException e) {
+			return false;
+		}
 	}
 
 }

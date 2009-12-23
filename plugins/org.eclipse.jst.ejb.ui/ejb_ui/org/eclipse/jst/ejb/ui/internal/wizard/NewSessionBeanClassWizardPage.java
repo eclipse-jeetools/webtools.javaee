@@ -15,6 +15,7 @@ import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassD
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.REMOTE;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.REMOTE_BUSINESS_INTERFACE;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.STATE_TYPE;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.INTERFACES;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -102,13 +103,14 @@ public class NewSessionBeanClassWizardPage extends NewEnterpriseBeanClassWizardP
 	protected String[] getValidationPropertyNames() {
 		String[] retVal = null;
 		String[] baseVals = super.getValidationPropertyNames();
-		retVal = new String[baseVals.length+2];
-		for (int cnt=0; cnt < baseVals.length; cnt++)
+		retVal = new String[baseVals.length + 2];
+		for (int i = 0; i < baseVals.length; i++)
 		{
-			retVal[cnt] = baseVals[cnt];
+			retVal[i] = baseVals[i];
 		}
 		retVal[baseVals.length] = LOCAL_BUSINESS_INTERFACE;
-		retVal[baseVals.length+1] = REMOTE_BUSINESS_INTERFACE;
+		retVal[baseVals.length + 1] = REMOTE_BUSINESS_INTERFACE;
+		retVal[baseVals.length + 1] = INTERFACES;
 		return retVal;
 	}
 }

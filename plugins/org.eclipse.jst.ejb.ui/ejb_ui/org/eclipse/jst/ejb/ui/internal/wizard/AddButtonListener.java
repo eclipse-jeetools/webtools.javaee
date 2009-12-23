@@ -64,6 +64,7 @@ public class AddButtonListener implements SelectionListener {
 					biList.add(iface);
 					model.setProperty(INTERFACES, biList);
 					model.setProperty(BUSINESS_INTERFACES, biList);
+					model.notifyPropertyChange(INTERFACES, IDataModel.VALUE_CHG);
 					page.updateBusinessInterfacesList();
 				}
 			}

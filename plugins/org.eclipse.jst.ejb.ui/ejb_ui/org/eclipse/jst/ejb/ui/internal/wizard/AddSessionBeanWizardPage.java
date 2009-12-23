@@ -231,11 +231,11 @@ public class AddSessionBeanWizardPage extends AddEnterpriseBeanWizardPage {
 	}
 
 	private void removeInterfaceFromModel(BusinessInterface element) {
-		Collection<BusinessInterface> biList = (Collection<BusinessInterface>) model
-				.getProperty(INTERFACES);
+		Collection<BusinessInterface> biList = (Collection<BusinessInterface>) model.getProperty(INTERFACES);
 		biList.remove(element);
 		model.setProperty(INTERFACES, biList);
 		model.setProperty(BUSINESS_INTERFACES, biList);
+		model.notifyPropertyChange(INTERFACES, IDataModel.VALUE_CHG);
 	}
 
 	public void updateBusinessInterfacesList() {
@@ -303,7 +303,7 @@ public class AddSessionBeanWizardPage extends AddEnterpriseBeanWizardPage {
 	@Override
 	protected String[] getValidationPropertyNames() {
 		return new String[] { LOCAL_HOME_INTERFACE, REMOTE_HOME_INTERFACE, LOCAL_COMPONENT_INTERFACE,
-				REMOTE_COMPONENT_INTERFACE, EJB_NAME };
+				REMOTE_COMPONENT_INTERFACE, EJB_NAME, INTERFACES };
 	}
 
 	@Override
