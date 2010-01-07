@@ -11,14 +11,20 @@
 package org.eclipse.jst.j2ee.componentcore.util;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jem.util.emf.workbench.ISynchronizerExtender;
+import org.eclipse.jem.util.emf.workbench.ProjectResourceSet;
+import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
@@ -39,9 +45,10 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 
-public class EARVirtualComponent extends VirtualComponent implements IComponentImplFactory {
+public class EARVirtualComponent extends VirtualComponent implements IComponentImplFactory, ISynchronizerExtender{
 	
 	private IVirtualReference[] cachedReferences;
+	private Map cachedEarComponents = new HashMap();
 	private long depGraphModStamp;
 	public EARVirtualComponent() {
 		super();
@@ -55,10 +62,24 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 		return new J2EEModuleVirtualArchiveComponent(aProject, archiveLocation, aRuntimePath);
 	}
 	
-	public IVirtualComponent createComponent(IProject aProject) {
-		return new EARVirtualComponent(aProject, new Path("/")); //$NON-NLS-1$
+	public synchronized IVirtualComponent createComponent(IProject aProject) {
+		EARVirtualComponent comp = null;
+		comp = (EARVirtualComponent)getCachedEarComponents().get(aProject);
+		if (comp == null) {
+			comp = new EARVirtualComponent(aProject, new Path("/")); //$NON-NLS-1$
+			getCachedEarComponents().put(aProject, comp);
+			registerListener(aProject);
+		}
+		return comp;
 	}
 	
+	private void registerListener(IProject aProject) {
+		ProjectResourceSet resSet = getResourceSet(aProject);
+		if (resSet == null)
+			return;
+		resSet.getSynchronizer().addExtender(this);
+	}
+
 	public IVirtualFolder createFolder(IProject aProject, IPath aRuntimePath) {
 		return new EARVirtualRootFolder(aProject, aRuntimePath);
 	}
@@ -214,5 +235,22 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 
 	private boolean checkIfStillValid() {
 		return IDependencyGraph.INSTANCE.getModStamp() == depGraphModStamp;
+	}
+
+	public void projectChanged(IResourceDelta delta) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public synchronized void projectClosed() {
+		getCachedEarComponents().clear();
+		
+	}
+
+	protected Map getCachedEarComponents() {
+		return cachedEarComponents;
+	}
+	protected ProjectResourceSet getResourceSet(IProject proj) {
+		return (ProjectResourceSet)WorkbenchResourceHelperBase.getResourceSet(proj);
 	}
 }
