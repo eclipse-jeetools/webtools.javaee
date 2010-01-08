@@ -141,7 +141,35 @@ public class SingleRootUtil {
 			if (JavaEEProjectUtilities.isEARProject(getProject())) {
 				// Always return false for EARs so that members for EAR are always calculated and j2ee modules are filtered out
 				reportStatus(ISingleRootStatus.EAR_PROJECT_FOUND);
-			} else if (JavaEEProjectUtilities.isDynamicWebProject(getProject())) {
+				return getStatus();
+			}
+			
+			// if there are any linked resources then this is not a single-root module
+			if (rootFoldersHaveLinkedContent()) {
+				reportStatus(ISingleRootStatus.LINKED_RESOURCES_FOUND); 
+				return getStatus();
+			}
+			
+			// If the list is empty, return false
+			if (resourceMaps.size() < 1) {
+				reportStatus(ISingleRootStatus.NO_RESOURCE_MAPS_FOUND);
+				return getStatus();
+			}
+			
+			if (resourceMaps.size() == 1) {
+				ComponentResource mapping = (ComponentResource)resourceMaps.get(0); 
+				if (mapping.getRuntimePath().equals(Path.ROOT)) {
+					IResource sourceResource = getProject().findMember(mapping.getSourcePath());
+					if (sourceResource != null && sourceResource.exists()) {
+						IPath sourcePath = getProject().getFullPath().append(mapping.getSourcePath());
+						if (!isSourceContainer(sourcePath)) {
+							return Status.OK_STATUS;
+						}
+					}
+				}
+			}
+			
+			if (JavaEEProjectUtilities.isDynamicWebProject(getProject())) {
 				//validate web projects for single root
 				validateWebProject(resourceMaps);
 			} 
@@ -160,13 +188,7 @@ public class SingleRootUtil {
 		}
 	}
 
-	private void validateProject(List resourceMaps) {
-		// if there are any linked resources then this is not a singleroot module
-		if (this.rootFoldersHaveLinkedContent()) {
-			reportStatus(ISingleRootStatus.LINKED_RESOURCES_FOUND);
-			if (INCLUDE_FLAG == NONE) return;
-		}
-		
+	private void validateProject(List resourceMaps) {	
 		// Ensure there are only source folder component resource mappings to the root content folder
 		if (isRootResourceMapping(resourceMaps)) {
 			IContainer[] javaOutputFolders = getJavaOutputFolders();
@@ -199,12 +221,6 @@ public class SingleRootUtil {
 	}
 
 	private void validateWebProject(List resourceMaps) {
-		// if there are any linked resources then this is not a singleroot module
-		if (this.rootFoldersHaveLinkedContent()) {
-			reportStatus(ISingleRootStatus.LINKED_RESOURCES_FOUND);
-			if (INCLUDE_FLAG == NONE) return;
-		}
-		
 		// Ensure there are only basic component resource mappings -- one for the content folder 
 		// and any for src folders mapped to WEB-INF/classes
 		if (hasDefaultWebResourceMappings(resourceMaps)) {
@@ -327,12 +343,6 @@ public class SingleRootUtil {
 	 * @return boolean
 	 */
 	private boolean isRootResourceMapping(List resourceMaps) {
-		// If the list is empty, return false
-		if (resourceMaps.size() < 1) {
-			reportStatus(ISingleRootStatus.NO_RESOURCE_MAPS_FOUND);
-			return false;
-		}
-		
 		for (int i=0; i < resourceMaps.size(); i++) {
 			ComponentResource resourceMap = (ComponentResource) resourceMaps.get(i);
 			// Verify it maps to "/" for the content root
@@ -365,14 +375,7 @@ public class SingleRootUtil {
 	 */
 	private boolean hasDefaultWebResourceMappings(List resourceMaps) {
 		int rootValidMaps = 0;
-		int javaValidRoots = 0;
-		
-		// If there aren't at least 2 maps, return false
-		if (INCLUDE_FLAG == INCLUDE_FIRST_ERROR && resourceMaps.size() < 2) {
-			reportStatus(ISingleRootStatus.ATLEAST_1_RESOURCE_MAP_MISSING);
-			return false;
-		}
-		
+	
 		IPath webInfClasses = new Path(J2EEConstants.WEB_INF_CLASSES).makeAbsolute();
 		for (int i = 0; i < resourceMaps.size(); i++) {
 			ComponentResource resourceMap = (ComponentResource) resourceMaps.get(i);
@@ -385,10 +388,7 @@ public class SingleRootUtil {
 			// Verify if the map is for a java src folder and is mapped to "WEB-INF/classes"
 			else if (resourceMap.getRuntimePath().equals(webInfClasses)) {
 				if (exists(sourcePath)) {
-					if (isSourceContainer(sourcePath)) {
-						javaValidRoots++;
-					}
-					else {
+					if (!isSourceContainer(sourcePath)) {
 						reportStatus(ISingleRootStatus.SOURCE_NOT_JAVA_CONTAINER, resourceMap);
 					}
 				}
@@ -409,11 +409,7 @@ public class SingleRootUtil {
 			else if (rootValidMaps > 1) {
 				reportStatus(ISingleRootStatus.ONLY_1_CONTENT_ROOT_ALLOWED);
 			}
-			if (INCLUDE_FLAG == NONE) return false;
 		}
-		if (javaValidRoots < 1) {
-			reportStatus(ISingleRootStatus.ATLEAST_1_JAVA_SOURCE_REQUIRED);
-		}		
 		return INCLUDE_FLAG == NONE ? false : true;
 	}
 	
