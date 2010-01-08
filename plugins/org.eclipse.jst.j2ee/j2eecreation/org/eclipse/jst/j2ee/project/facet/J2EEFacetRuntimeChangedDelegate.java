@@ -114,6 +114,7 @@ public final class J2EEFacetRuntimeChangedDelegate
 			IClasspathProvider cpprov = (IClasspathProvider) runtime.getAdapter(IClasspathProvider.class);
 			List cpentries = cpprov.getClasspathEntries(fv);
 			boolean realCPChanged = false;
+			if (cpentries != null) {
 			for (Iterator itr = cpentries.iterator(); itr.hasNext();) {
 				IClasspathEntry cpentry = (IClasspathEntry) itr.next();
 				IPath path = cpentry.getPath();
@@ -130,6 +131,7 @@ public final class J2EEFacetRuntimeChangedDelegate
 						}
 					}
 				}
+			}
 			}
 			if (realCPChanged) {
 				IClasspathEntry[] newcp = (IClasspathEntry[]) cp.toArray(new IClasspathEntry[cp.size()]);
