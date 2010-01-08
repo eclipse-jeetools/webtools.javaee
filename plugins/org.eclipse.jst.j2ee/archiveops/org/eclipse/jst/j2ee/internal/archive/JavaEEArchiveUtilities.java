@@ -79,6 +79,19 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 	 * specified IArchive is an EJB 3.0 jar.
 	 */
 	public static final String DISCRIMINATE_EJB_ANNOTATIONS = "DISCRIMINATE_EJB_ANNOTATIONS"; //$NON-NLS-1$
+	
+	/**
+	 * Default value = Boolean.TRUE Valid values = Boolean.TRUE or Boolean.FALSE
+	 * 
+	 * An ArchiveOption used to specify whether
+	 * {@link #openArchive(ArchiveOptions)} should attempt to fully discriminate
+	 * a JAR file from an Application Client JAR file. This option is only relevant 
+	 * if the {@link #DISCRIMINATE_JAVA_EE} option is also set to Boolean.TRUE. If 
+	 * both options are set to true then as a last resort the MANIFEST.MF
+	 * will be analyzed for a Main-Class entry in order to discriminate whether the
+	 * specified IArchive is an Application Client jar.
+	 */
+	public static final String DISCRIMINATE_MAIN_CLASS = "DISCRIMINATE_MAIN_CLASS"; //$NON-NLS-1$
 
 	/**
 	 * Default value = null
@@ -117,36 +130,7 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 
 	public IArchive openArchive(IVirtualComponent virtualComponent) throws ArchiveOpenFailureException {
 		if (virtualComponent.isBinary()) {
-			J2EEModuleVirtualArchiveComponent archiveComponent = (J2EEModuleVirtualArchiveComponent) virtualComponent;
-			JavaEEBinaryComponentLoadAdapter loadAdapter = new JavaEEBinaryComponentLoadAdapter(archiveComponent);
-			ArchiveOptions archiveOptions = new ArchiveOptions();
-			archiveOptions.setOption(ArchiveOptions.LOAD_ADAPTER, loadAdapter);
-			archiveOptions.setOption(ArchiveOptions.ARCHIVE_PATH, loadAdapter.getArchivePath());
-			IArchive parentEARArchive = null;
-			try {
-				if(archiveComponent.isLinkedToEAR()){
-					try {
-						IProject earProject = virtualComponent.getProject();
-						if(earProject != null && EarUtilities.isEARProject(earProject)){
-							IVirtualComponent earComponent = ComponentCore.createComponent(virtualComponent.getProject());
-							if(earComponent != null) {
-								parentEARArchive = openArchive(earComponent);
-								if(parentEARArchive != null) {
-									archiveOptions.setOption(ArchiveOptions.PARENT_ARCHIVE, parentEARArchive);
-								}
-							}
-						}
-					} catch(ArchiveOpenFailureException e) {
-						org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
-					}
-				}
-				return openArchive(archiveOptions);
-			} finally {
-				if(parentEARArchive != null){
-					archiveOptions.removeOption(ArchiveOptions.PARENT_ARCHIVE);
-					closeArchive(parentEARArchive);
-				}
-			}
+			return openBinaryArchive(virtualComponent, true);
 		}
 		int type = J2EEVersionConstants.UNKNOWN;
 		IArchiveLoadAdapter archiveLoadAdapter = null;
@@ -229,6 +213,40 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 			return archive;
 		}
 		return null;
+	}
+
+	public IArchive openBinaryArchive(IVirtualComponent virtualComponent, boolean descriminateMainClass) throws ArchiveOpenFailureException {
+		J2EEModuleVirtualArchiveComponent archiveComponent = (J2EEModuleVirtualArchiveComponent) virtualComponent;
+		JavaEEBinaryComponentLoadAdapter loadAdapter = new JavaEEBinaryComponentLoadAdapter(archiveComponent);
+		ArchiveOptions archiveOptions = new ArchiveOptions();
+		archiveOptions.setOption(ArchiveOptions.LOAD_ADAPTER, loadAdapter);
+		archiveOptions.setOption(ArchiveOptions.ARCHIVE_PATH, loadAdapter.getArchivePath());
+		archiveOptions.setOption(DISCRIMINATE_MAIN_CLASS, descriminateMainClass);
+		IArchive parentEARArchive = null;
+		try {
+			if(archiveComponent.isLinkedToEAR()){
+				try {
+					IProject earProject = virtualComponent.getProject();
+					if(earProject != null && EarUtilities.isEARProject(earProject)){
+						IVirtualComponent earComponent = ComponentCore.createComponent(virtualComponent.getProject());
+						if(earComponent != null) {
+							parentEARArchive = openArchive(earComponent);
+							if(parentEARArchive != null) {
+								archiveOptions.setOption(ArchiveOptions.PARENT_ARCHIVE, parentEARArchive);
+							}
+						}
+					}
+				} catch(ArchiveOpenFailureException e) {
+					org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
+				}
+			}
+			return openArchive(archiveOptions);
+		} finally {
+			if (parentEARArchive != null){
+				archiveOptions.removeOption(ArchiveOptions.PARENT_ARCHIVE);
+				closeArchive(parentEARArchive);
+			}
+		}
 	}
 
 	private Map<IArchive, JavaEEQuickPeek> archiveToJavaEEQuickPeek = new WeakHashMap<IArchive, JavaEEQuickPeek>();
@@ -463,31 +481,34 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 				wrapArchive(simpleArchive, new Path(J2EEConstants.WEBAPP_DD_URI));
 				return simpleArchive;
 			} else if (lastSegment.endsWith(DOT_JAR)) {
-				IPath manifestPath = new Path(J2EEConstants.MANIFEST_URI);
-				if (simpleArchive.containsArchiveResource(manifestPath)) {
-					InputStream in = null;
-					try {
-						IArchiveResource manifestResource = simpleArchive.getArchiveResource(manifestPath);
-						in = manifestResource.getInputStream();
-						Manifest manifest = new Manifest(in);
-						Attributes attributes = manifest.getMainAttributes();
-						String mainClassName = attributes.getValue("Main-Class");
-						if (mainClassName != null) {
-							JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(JavaEEQuickPeek.APPLICATION_CLIENT_TYPE, JavaEEQuickPeek.JEE_5_0_ID, JavaEEQuickPeek.JEE_5_0_ID);
-							archiveToJavaEEQuickPeek.put(simpleArchive, quickPeek);
-							wrapArchive(simpleArchive, new Path(J2EEConstants.APPLICATION_DD_URI));
-							return simpleArchive;
-						}
-					} catch (FileNotFoundException e) {
-						ArchiveUtil.warn(e);
-					} catch (IOException e) {
-						ArchiveUtil.warn(e);
-					} finally {
-						if (in != null) {
-							try {
-								in.close();
-							} catch (IOException e) {
-								ArchiveUtil.warn(e);
+				Object discriminateMainClass = simpleArchive.getArchiveOptions().getOption(DISCRIMINATE_MAIN_CLASS);
+				if (null == discriminateMainClass || ((Boolean) discriminateMainClass).booleanValue()) {
+					IPath manifestPath = new Path(J2EEConstants.MANIFEST_URI);
+					if (simpleArchive.containsArchiveResource(manifestPath)) {
+						InputStream in = null;
+						try {
+							IArchiveResource manifestResource = simpleArchive.getArchiveResource(manifestPath);
+							in = manifestResource.getInputStream();
+							Manifest manifest = new Manifest(in);
+							Attributes attributes = manifest.getMainAttributes();
+							String mainClassName = attributes.getValue("Main-Class");
+							if (mainClassName != null) {
+								JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(JavaEEQuickPeek.APPLICATION_CLIENT_TYPE, JavaEEQuickPeek.JEE_5_0_ID, JavaEEQuickPeek.JEE_5_0_ID);
+								archiveToJavaEEQuickPeek.put(simpleArchive, quickPeek);
+								wrapArchive(simpleArchive, new Path(J2EEConstants.APPLICATION_DD_URI));
+								return simpleArchive;
+							}
+						} catch (FileNotFoundException e) {
+							ArchiveUtil.warn(e);
+						} catch (IOException e) {
+							ArchiveUtil.warn(e);
+						} finally {
+							if (in != null) {
+								try {
+									in.close();
+								} catch (IOException e) {
+									ArchiveUtil.warn(e);
+								}
 							}
 						}
 					}

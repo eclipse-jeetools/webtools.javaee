@@ -47,6 +47,7 @@ import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
+import org.eclipse.jst.j2ee.internal.componentcore.JavaEEBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.dialogs.ChangeLibDirDialog;
 import org.eclipse.jst.j2ee.internal.dialogs.DependencyConflictResolveDialog;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
@@ -1230,7 +1231,11 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 			if(virtComp.isBinary()){
 				linkedToEAR = ((J2EEModuleVirtualArchiveComponent)virtComp).isLinkedToEAR();
 				((J2EEModuleVirtualArchiveComponent)virtComp).setLinkedToEAR(false);
+				//[Bug 299059] open and cache archive using the DISCRIMINATE_MAIN_CLASS
+				//option before attempting the JavaEEQuickPeek
+				JavaEEBinaryComponentHelper.openArchive(virtComp, isVersion5);
 			}
+		
 			if(JavaEEProjectUtilities.isDynamicWebComponent(virtComp)) {
 				if(!virtCompURIMapName.endsWith(IJ2EEModuleConstants.WAR_EXT)) {
 					//web module URIs need to end in WAR
