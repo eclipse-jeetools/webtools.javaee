@@ -1136,7 +1136,10 @@ public class ClassPathSelection {
 		Archive anArchive = null;
 		if (element.isValid()) {
 			try {
-				anArchive = (Archive) getEARFile().getFile(element.getText());
+				EARFile earFile = getEARFile();
+				if( earFile != null ){
+					anArchive = (Archive) earFile.getFile(element.getText());
+				}
 			} catch (FileNotFoundException e) {
 			}
 		}
