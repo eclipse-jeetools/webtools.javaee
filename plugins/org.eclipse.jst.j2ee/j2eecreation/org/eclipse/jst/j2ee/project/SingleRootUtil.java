@@ -176,6 +176,19 @@ public class SingleRootUtil {
 				return getStatus();
 			}
 			
+			if (resourceMaps.size() == 1) {
+				ComponentResource mapping = (ComponentResource)resourceMaps.get(0); 
+				if (isRootMapping(mapping)) {
+					IResource sourceResource = getProject().findMember(mapping.getSourcePath());
+					if (sourceResource != null && sourceResource.exists()) {
+						if (sourceResource instanceof IContainer && !isSourceContainer((IContainer) sourceResource)) {
+							reportStatus(ISingleRootStatus.SINGLE_ROOT_CONTAINER_FOUND, (IContainer) sourceResource);
+							return getStatus();
+						}
+					}
+				}
+			}
+			
 			if (JavaEEProjectUtilities.isDynamicWebProject(getProject())) {
 				//validate web projects for single root
 				validateWebProject(resourceMaps);
@@ -373,9 +386,8 @@ public class SingleRootUtil {
 		for (int i=0; i < resourceMaps.size(); i++) {
 			ComponentResource resourceMap = (ComponentResource) resourceMaps.get(i);
 			// Verify it maps to "/" for the content root
-			IPath runtimePath = resourceMap.getRuntimePath();
-			if (!runtimePath.equals(Path.ROOT)) {
-				reportStatus(ISingleRootStatus.RUNTIME_PATH_NOT_ROOT, runtimePath);
+			if (!isRootMapping(resourceMap)) {
+				reportStatus(ISingleRootStatus.RUNTIME_PATH_NOT_ROOT, resourceMap.getRuntimePath());
 				if (VALIDATE_FLAG == CANCEL) return false;
 			}
 			
@@ -395,6 +407,13 @@ public class SingleRootUtil {
 		return true;
 	}
 	
+	private boolean isRootMapping(ComponentResource map) {
+		// Verify it maps to "/" for the content root
+		if (map.getRuntimePath().equals(Path.ROOT))
+			return true;
+		return false;
+	}
+	
 	/**
 	 * Ensure the default web setup is correct with one resource map and any number of java 
 	 * resource maps to WEB-INF/classes
@@ -404,13 +423,6 @@ public class SingleRootUtil {
 	 */
 	private boolean hasDefaultWebResourceMappings(List resourceMaps) {
 		int rootValidMaps = 0;
-		int javaValidRoots = 0;
-		
-		// If there aren't at least 2 maps, return false
-		if (VALIDATE_FLAG == INCLUDE_FIRST_ERROR && resourceMaps.size() < 2) {
-			reportStatus(ISingleRootStatus.ATLEAST_1_RESOURCE_MAP_MISSING);
-			return false;
-		}
 		
 		IPath webInfClasses = new Path(J2EEConstants.WEB_INF_CLASSES).makeAbsolute();
 		for (int i = 0; i < resourceMaps.size(); i++) {
@@ -420,16 +432,13 @@ public class SingleRootUtil {
 			IResource sourceResource = getProject().findMember(sourcePath);
 			
 			// Verify if the map is for the content root
-			if (runtimePath.equals(Path.ROOT)) {
+			if (isRootMapping(resourceMap)) {
 				rootValidMaps++;
 			} 
 			// Verify if the map is for a java src folder and is mapped to "WEB-INF/classes"
 			else if (runtimePath.equals(webInfClasses)) {
 				if (sourceResource != null && sourceResource.exists()) {
-					if (sourceResource instanceof IContainer && isSourceContainer((IContainer) sourceResource)) {
-						javaValidRoots++;
-					}
-					else {
+					if (sourceResource instanceof IContainer && !isSourceContainer((IContainer) sourceResource)) {
 						reportStatus(ISingleRootStatus.SOURCE_NOT_JAVA_CONTAINER, sourcePath);
 					}
 				}
@@ -450,11 +459,7 @@ public class SingleRootUtil {
 			else if (rootValidMaps > 1) {
 				reportStatus(ISingleRootStatus.ONLY_1_CONTENT_ROOT_ALLOWED);
 			}
-			if (VALIDATE_FLAG == CANCEL) return false;
 		}
-		if (javaValidRoots < 1) {
-			reportStatus(ISingleRootStatus.ATLEAST_1_JAVA_SOURCE_REQUIRED);
-		}		
 		return VALIDATE_FLAG == CANCEL ? false : true;
 	}
 	
