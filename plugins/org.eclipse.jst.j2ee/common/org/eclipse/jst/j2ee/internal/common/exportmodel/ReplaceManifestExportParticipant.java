@@ -25,13 +25,13 @@ import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyManifestUtil;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.wst.common.componentcore.export.AbstractExportParticipant;
-import org.eclipse.wst.common.componentcore.export.ExportModelUtil;
-import org.eclipse.wst.common.componentcore.export.ExportableFile;
-import org.eclipse.wst.common.componentcore.export.ExportableFolder;
-import org.eclipse.wst.common.componentcore.export.IExportableFolder;
-import org.eclipse.wst.common.componentcore.export.IExportableResource;
-import org.eclipse.wst.common.componentcore.export.ExportModel.ExportTaskModel;
+import org.eclipse.wst.common.componentcore.internal.flat.AbstractFlattenParticipant;
+import org.eclipse.wst.common.componentcore.internal.flat.VirtualComponentFlattenUtility;
+import org.eclipse.wst.common.componentcore.internal.flat.FlatFile;
+import org.eclipse.wst.common.componentcore.internal.flat.FlatFolder;
+import org.eclipse.wst.common.componentcore.internal.flat.IFlatFolder;
+import org.eclipse.wst.common.componentcore.internal.flat.IFlatResource;
+import org.eclipse.wst.common.componentcore.internal.flat.FlatVirtualComponent.FlatComponentTaskModel;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
@@ -42,22 +42,22 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
  * @author rob
  *
  */
-public class ReplaceManifestExportParticipant extends AbstractExportParticipant {
+public class ReplaceManifestExportParticipant extends AbstractFlattenParticipant {
 	protected static final IPath MANIFEST_PATH = new Path(J2EEConstants.MANIFEST_URI);
 	private List<String> javaClasspathURIs = null;
 	
 	@Override
 	public void finalize(IVirtualComponent component,
-			ExportTaskModel dataModel, List<IExportableResource> resources) {
+			FlatComponentTaskModel dataModel, List<IFlatResource> resources) {
 		forceUpdate(component, dataModel, resources);
 	}
 	
 	public void forceUpdate(IVirtualComponent component,
-			ExportTaskModel dataModel, List<IExportableResource> resources) {
+			FlatComponentTaskModel dataModel, List<IFlatResource> resources) {
 		if( !getClasspathURIs(component).isEmpty()) {
 			// find the old manifest
-			IExportableFolder parent = (ExportableFolder)ExportModelUtil.getExistingModuleResource(resources, new Path(J2EEConstants.META_INF));
-			IExportableResource[] children = parent.members();
+			IFlatFolder parent = (FlatFolder)VirtualComponentFlattenUtility.getExistingModuleResource(resources, new Path(J2EEConstants.META_INF));
+			IFlatResource[] children = parent.members();
 			IFile original = null;
 			int originalIndex = 0;
 			for( int i = 0; i < children.length; i++) {
@@ -65,7 +65,7 @@ public class ReplaceManifestExportParticipant extends AbstractExportParticipant 
 					original = (IFile)children[i].getAdapter(IFile.class);
 					originalIndex = i;
 					File newManifest = getNewManifest(component.getProject(), original, javaClasspathURIs);
-					ExportableFile newManifestExportable = new ExportableFile(newManifest, newManifest.getName(), new Path(J2EEConstants.META_INF));
+					FlatFile newManifestExportable = new FlatFile(newManifest, newManifest.getName(), new Path(J2EEConstants.META_INF));
 					children[originalIndex] = newManifestExportable;
 					parent.setMembers(children);
 					return;

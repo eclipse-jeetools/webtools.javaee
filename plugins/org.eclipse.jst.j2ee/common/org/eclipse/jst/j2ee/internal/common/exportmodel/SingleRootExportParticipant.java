@@ -24,28 +24,28 @@ import org.eclipse.jst.common.jdt.internal.javalite.JavaCoreLite;
 import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants.DependencyAttributeType;
 import org.eclipse.jst.j2ee.project.SingleRootUtil;
-import org.eclipse.wst.common.componentcore.export.AbstractExportParticipant;
-import org.eclipse.wst.common.componentcore.export.ExportModelUtil;
-import org.eclipse.wst.common.componentcore.export.ExportableFile;
-import org.eclipse.wst.common.componentcore.export.ExportableFolder;
-import org.eclipse.wst.common.componentcore.export.ExportableResource;
-import org.eclipse.wst.common.componentcore.export.IExportableFolder;
-import org.eclipse.wst.common.componentcore.export.IExportableResource;
-import org.eclipse.wst.common.componentcore.export.ExportModel.ExportTaskModel;
+import org.eclipse.wst.common.componentcore.internal.flat.AbstractFlattenParticipant;
+import org.eclipse.wst.common.componentcore.internal.flat.VirtualComponentFlattenUtility;
+import org.eclipse.wst.common.componentcore.internal.flat.FlatFile;
+import org.eclipse.wst.common.componentcore.internal.flat.FlatFolder;
+import org.eclipse.wst.common.componentcore.internal.flat.FlatResource;
+import org.eclipse.wst.common.componentcore.internal.flat.IFlatFolder;
+import org.eclipse.wst.common.componentcore.internal.flat.IFlatResource;
+import org.eclipse.wst.common.componentcore.internal.flat.FlatVirtualComponent.FlatComponentTaskModel;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 /**
  * Single root optimization. 
  * @author rob
  */
-public class SingleRootExportParticipant extends AbstractExportParticipant {
+public class SingleRootExportParticipant extends AbstractFlattenParticipant {
 	private IVirtualComponent component;
-	private ExportTaskModel dataModel;
+	private FlatComponentTaskModel dataModel;
 	private ReplaceManifestExportParticipant manifestReplacementDelegate;
 	
 	@Override
 	public void initialize(IVirtualComponent component,
-			ExportTaskModel dataModel, List<IExportableResource> resources) {
+			FlatComponentTaskModel dataModel, List<IFlatResource> resources) {
 		this.component = component;
 		this.dataModel = dataModel;
 	}
@@ -53,7 +53,7 @@ public class SingleRootExportParticipant extends AbstractExportParticipant {
 
 	@Override
 	public boolean canOptimize(IVirtualComponent component,
-			ExportTaskModel dataModel) {
+			FlatComponentTaskModel dataModel) {
 		return new SingleRootUtil(component).isSingleRoot() && !hasClasspathDependencies(component);
 	}
 	
@@ -69,13 +69,13 @@ public class SingleRootExportParticipant extends AbstractExportParticipant {
 
 	@Override
 	public void optimize(IVirtualComponent component,
-			ExportTaskModel dataModel, List<IExportableResource> resources) {
+			FlatComponentTaskModel dataModel, List<IFlatResource> resources) {
 		manifestReplacementDelegate = new ReplaceManifestExportParticipant();
 		
 		try {
 			resources.clear(); // We want complete control
 			IContainer container = new SingleRootUtil(component).getSingleRoot();
-			IExportableResource[] mr = getMembers(resources, container, new Path("")); //$NON-NLS-1$
+			IFlatResource[] mr = getMembers(resources, container, new Path("")); //$NON-NLS-1$
 			int size = mr.length;
 			for (int j = 0; j < size; j++) {
 				resources.add(mr[j]);
@@ -86,7 +86,7 @@ public class SingleRootExportParticipant extends AbstractExportParticipant {
 		}
 	}
 
-	protected IExportableResource[] getMembers(List<IExportableResource> members, 
+	protected IFlatResource[] getMembers(List<IFlatResource> members, 
 			IContainer cont, IPath path) throws CoreException {
 		IResource[] res = cont.members();
 		int size2 = res.length;
@@ -95,35 +95,35 @@ public class SingleRootExportParticipant extends AbstractExportParticipant {
 			if (res[j] instanceof IContainer) {
 				IContainer cc = (IContainer) res[j];
 				// Retrieve already existing module folder if applicable
-				IExportableFolder mf = (ExportableFolder) ExportModelUtil.getExistingModuleResource(members,path.append(new Path(cc.getName()).makeRelative()));
+				IFlatFolder mf = (FlatFolder) VirtualComponentFlattenUtility.getExistingModuleResource(members,path.append(new Path(cc.getName()).makeRelative()));
 				if (mf == null) {
-					mf = new ExportableFolder(cc, cc.getName(), path);
-					IExportableFolder parent = (ExportableFolder) ExportModelUtil.getExistingModuleResource(members, path);
+					mf = new FlatFolder(cc, cc.getName(), path);
+					IFlatFolder parent = (FlatFolder) VirtualComponentFlattenUtility.getExistingModuleResource(members, path);
 					if (path.isEmpty() || path.equals(new Path("/"))) //$NON-NLS-1$
 						members.add(mf);
 					else {
 						if (parent == null)
-							parent = ExportModelUtil.ensureParentExists(members, path, cc);
-						ExportModelUtil.addMembersToModuleFolder(parent, new IExportableResource[] {mf});
+							parent = VirtualComponentFlattenUtility.ensureParentExists(members, path, cc);
+						VirtualComponentFlattenUtility.addMembersToModuleFolder(parent, new IFlatResource[] {mf});
 					}
 				}
-				IExportableResource[] mr = getMembers(members, cc, path.append(cc.getName()));
-				ExportModelUtil.addMembersToModuleFolder(mf, mr);
+				IFlatResource[] mr = getMembers(members, cc, path.append(cc.getName()));
+				VirtualComponentFlattenUtility.addMembersToModuleFolder(mf, mr);
 			} else {
 				IFile f = (IFile) res[j];
-				ExportableFile mf = ExportModelUtil.createModuleFile(f, path);
+				FlatFile mf = VirtualComponentFlattenUtility.createModuleFile(f, path);
 				if (shouldAddComponentFile(mf)) {
 					list.add(mf);
 				}
 			}
 		}
-		ExportableResource[] mr = new ExportableResource[list.size()];
+		FlatResource[] mr = new FlatResource[list.size()];
 		list.toArray(mr);
 		return mr;
 	}
 	
 	// checking solely for manifest file
-	protected boolean shouldAddComponentFile(ExportableFile file) {
+	protected boolean shouldAddComponentFile(FlatFile file) {
 		return manifestReplacementDelegate.shouldAddExportableFile(component, component, dataModel, file);
 	}
 	

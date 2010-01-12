@@ -25,22 +25,22 @@ import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyVirtualComponent;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
-import org.eclipse.wst.common.componentcore.export.AbstractExportParticipant;
-import org.eclipse.wst.common.componentcore.export.ExportModelUtil;
-import org.eclipse.wst.common.componentcore.export.IExportableResource;
-import org.eclipse.wst.common.componentcore.export.ExportModel.ExportTaskModel;
+import org.eclipse.wst.common.componentcore.internal.flat.AbstractFlattenParticipant;
+import org.eclipse.wst.common.componentcore.internal.flat.VirtualComponentFlattenUtility;
+import org.eclipse.wst.common.componentcore.internal.flat.IFlatResource;
+import org.eclipse.wst.common.componentcore.internal.flat.FlatVirtualComponent.FlatComponentTaskModel;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
-public class AddClasspathReferencesParticipant extends AbstractExportParticipant {
+public class AddClasspathReferencesParticipant extends AbstractFlattenParticipant {
 	protected static IPath WEBLIB = new Path(J2EEConstants.WEB_INF_LIB).makeAbsolute();
 	protected static final IPath WEB_CLASSES_PATH = new Path(J2EEConstants.WEB_INF_CLASSES);
 	
-	private List<IExportableResource> list;
+	private List<IFlatResource> list;
 	
 	@Override
 	public boolean shouldIgnoreReference(IVirtualComponent rootComponent,
-			IVirtualReference referenced, ExportTaskModel dataModel) {
+			IVirtualReference referenced, FlatComponentTaskModel dataModel) {
 		if( (referenced.getReferencedComponent() instanceof ClasspathDependencyVirtualComponent)
 				&& ((ClasspathDependencyVirtualComponent)referenced.getReferencedComponent()).isClassFolder())
 			return true;
@@ -52,7 +52,7 @@ public class AddClasspathReferencesParticipant extends AbstractExportParticipant
 	
 	@Override
 	public void finalize(IVirtualComponent component,
-			ExportTaskModel dataModel, List<IExportableResource> resources) {
+			FlatComponentTaskModel dataModel, List<IFlatResource> resources) {
 		this.list = resources;
 		
 		try {
@@ -116,7 +116,7 @@ public class AddClasspathReferencesParticipant extends AbstractExportParticipant
 							// have already added a member for this archive
 							continue;
 						}
-						new ExportModelUtil(list, null).addFile(cpComp, cpRefRuntimePath, cpComp);
+						new VirtualComponentFlattenUtility(list, null).addFile(cpComp, cpRefRuntimePath, cpComp);
 						absolutePaths.add(absolutePath);
 					}
 				}
@@ -155,7 +155,7 @@ public class AddClasspathReferencesParticipant extends AbstractExportParticipant
 							continue;
 						}
 						final IContainer container = cpComp.getClassFolder();
-						new ExportModelUtil(list, null).addContainer(container, targetPath);
+						new VirtualComponentFlattenUtility(list, null).addContainer(container, targetPath);
 					}
 				}
 			}
