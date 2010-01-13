@@ -86,14 +86,14 @@ public class ImportsCollection implements Collection<String> {
 		return collection.toArray(a);
 	}
 	
-    private boolean isImportInJavaLang(String arg) {
-    	return arg.startsWith("java.lang.");  //$NON-NLS-1$
+    private static boolean isImportInJavaLang(String quilifiedName) {
+    	String qualifier = Signature.getQualifier(quilifiedName);
+    	return qualifier.equals("java.lang");  //$NON-NLS-1$
     }
     
-    private boolean isImportInSamePackage(String arg) {
-    	String qualifier = Signature.getQualifier(arg);
-    	
+    private boolean isImportInSamePackage(String quilifiedName) {
+    	String qualifier = Signature.getQualifier(quilifiedName);
     	return qualifier.equals(model.getJavaPackageName());
     }
-
+    
 }
