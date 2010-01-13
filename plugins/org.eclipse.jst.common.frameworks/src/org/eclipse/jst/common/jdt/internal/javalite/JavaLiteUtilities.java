@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.IClasspathEntry;
@@ -38,7 +39,7 @@ public final class JavaLiteUtilities {
 		List<IContainer> containers = new ArrayList<IContainer>();
 		for (IClasspathEntry entry : entries) {
 			if (entry.getEntryKind() == IClasspathEntry.CPE_SOURCE) {
-				IContainer container = javaProjectLite.getProject().getFolder(entry.getPath());
+				IContainer container = ResourcesPlugin.getWorkspace().getRoot().getFolder(entry.getPath());
 				containers.add(container);
 			}
 		}
