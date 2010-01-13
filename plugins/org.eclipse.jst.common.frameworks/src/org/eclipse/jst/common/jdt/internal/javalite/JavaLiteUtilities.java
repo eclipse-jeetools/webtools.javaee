@@ -38,9 +38,14 @@ public final class JavaLiteUtilities {
 		IClasspathEntry[] entries = javaProjectLite.readRawClasspath();
 		List<IContainer> containers = new ArrayList<IContainer>();
 		for (IClasspathEntry entry : entries) {
-			if (entry.getEntryKind() == IClasspathEntry.CPE_SOURCE) {
-				IContainer container = ResourcesPlugin.getWorkspace().getRoot().getFolder(entry.getPath());
-				containers.add(container);
+			if (entry.getEntryKind() == IClasspathEntry.CPE_SOURCE && entry.getPath().segmentCount() > 0) {
+				IContainer container = null;
+				if( entry.getPath().segmentCount() == 1 )
+					container = ResourcesPlugin.getWorkspace().getRoot().getProject(entry.getPath().segment(0));
+				else
+					container = ResourcesPlugin.getWorkspace().getRoot().getFolder(entry.getPath());
+				if( !containers.contains(container))
+					containers.add(container);
 			}
 		}
 		return containers;
