@@ -16,10 +16,10 @@ import java.util.Set;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jst.common.project.facet.core.JavaFacet;
 import org.eclipse.jst.common.project.facet.core.JavaFacetInstallConfig;
 import org.eclipse.jst.common.project.facet.core.JavaFacetInstallConfig.ChangeEvent;
 import org.eclipse.wst.common.componentcore.datamodel.FacetInstallDataModelProvider;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.util.IEventListener;
 
@@ -54,7 +54,7 @@ public class JavaFacetInstallDataModelProvider extends FacetInstallDataModelProv
         
         final IDataModel dm = getDataModel();
         
-        dm.setProperty( FACET_ID, IModuleConstants.JST_JAVA );
+        dm.setProperty( FACET_ID, JavaFacet.ID );
         dm.setProperty( JAVA_FACET_INSTALL_CONFIG, this.installConfig );
         
         String sourceFolderName = null;

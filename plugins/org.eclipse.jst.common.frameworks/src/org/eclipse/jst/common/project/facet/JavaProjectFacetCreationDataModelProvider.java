@@ -13,6 +13,7 @@ package org.eclipse.jst.common.project.facet;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.eclipse.jst.common.project.facet.core.JavaFacet;
 import org.eclipse.wst.common.componentcore.datamodel.FacetProjectCreationDataModelProvider;
 
 public class JavaProjectFacetCreationDataModelProvider extends FacetProjectCreationDataModelProvider {
@@ -26,7 +27,7 @@ public class JavaProjectFacetCreationDataModelProvider extends FacetProjectCreat
 		super.init();
 
         Collection requiredFacets = new ArrayList();
-        requiredFacets.add(JavaFacetUtils.JAVA_FACET);
+        requiredFacets.add(JavaFacet.FACET);
         setProperty(REQUIRED_FACETS_COLLECTION, requiredFacets);
 	}
 
