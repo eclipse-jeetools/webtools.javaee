@@ -12,7 +12,6 @@
 <%@ include file="_methods.template" %>
 <%
 	if (model.shouldImplementAbstractMethods()) {
-		Collection<Method> unimplementedMethods = model.getUnimplementedMethods();
 		if (model.isJMS()) { 
 %>
 	

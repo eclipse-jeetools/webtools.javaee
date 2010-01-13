@@ -259,7 +259,6 @@ public class MessageDrivenBeanTemplate
 
     
 	if (model.shouldImplementAbstractMethods()) {
-		model.getUnimplementedMethods();
 		if (model.isJMS()) { 
 			stringBuffer.append(TEXT_45);
 		}
