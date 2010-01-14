@@ -1119,31 +1119,28 @@ public class ClassPathSelection {
 		ClasspathElement element = getClasspathElement(archiveProject);
 		if (element == null)
 			return false;
-		Archive anArchive = null;
-		if (element.isValid()) {
-			try {
-				anArchive = (Archive) getEARFile().getFile(element.getText());
-			} catch (FileNotFoundException e) {
-			}
-		}
-		return anArchive != null && archive.hasClasspathVisibilityTo(anArchive);
+		return hasDirectOrIndirectDependencyTo(element); 
 	}
 
 	public boolean hasDirectOrIndirectDependencyTo(String jarName) {
 		ClasspathElement element = getClasspathElement(jarName);
 		if (element == null)
 			return false;
+		return hasDirectOrIndirectDependencyTo(element); 
+	}
+	
+	private boolean hasDirectOrIndirectDependencyTo(ClasspathElement element){
 		Archive anArchive = null;
 		if (element.isValid()) {
 			try {
-				EARFile earFile = getEARFile();
+				EARFile  earFile = getEARFile();
 				if( earFile != null ){
 					anArchive = (Archive) earFile.getFile(element.getText());
 				}
 			} catch (FileNotFoundException e) {
 			}
 		}
-		return anArchive != null && archive.hasClasspathVisibilityTo(anArchive);
+		return anArchive != null && archive.hasClasspathVisibilityTo(anArchive);		
 	}
 
 
