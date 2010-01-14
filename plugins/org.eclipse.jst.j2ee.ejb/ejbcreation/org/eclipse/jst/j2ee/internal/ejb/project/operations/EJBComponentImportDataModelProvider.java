@@ -10,15 +10,19 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.ejb.project.operations;
 
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentImportDataModelProvider;
 import org.eclipse.jst.j2ee.ejb.datamodel.properties.IEJBComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.archive.JavaEEArchiveUtilities;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EJBComponentImportOperation;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
+import org.eclipse.jst.jee.archive.ArchiveOpenFailureException;
+import org.eclipse.jst.jee.archive.ArchiveOptions;
 import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
@@ -91,5 +95,12 @@ public final class EJBComponentImportDataModelProvider extends J2EEComponentImpo
 		FacetDataModelMap map = (FacetDataModelMap) componentCreationDM.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
 		IDataModel ejbFacet = map.getFacetDataModel( IJ2EEFacetConstants.EJB );	
 		ejbFacet.setBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD, false);
+	}
+	
+	@Override
+	protected ArchiveOptions getArchiveOptions(IPath archivePath) throws ArchiveOpenFailureException {
+		ArchiveOptions archiveOptions = super.getArchiveOptions(archivePath);
+		archiveOptions.setOption(JavaEEArchiveUtilities.DISCRIMINATE_MAIN_CLASS, Boolean.FALSE);
+		return archiveOptions;
 	}
 }
