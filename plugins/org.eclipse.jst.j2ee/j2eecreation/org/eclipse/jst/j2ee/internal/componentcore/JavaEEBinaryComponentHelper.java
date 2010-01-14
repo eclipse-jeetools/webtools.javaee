@@ -45,7 +45,7 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 
 	private IArchive archive;
 	private EnterpriseBinaryComponentHelper legacyBinaryHelper;
-
+	private boolean descriminateMainClass = true;
 	private int localArchiveAccessCount = 0;
 
 	public static JavaEEQuickPeek getJavaEEQuickPeek(IPath filesystemPath) {
@@ -76,6 +76,23 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 			}
 			JavaEEQuickPeek qp = JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(archive);
 			return qp;
+		} finally {
+			if (helper != null) {
+				helper.dispose();
+			}
+		}
+	}
+	
+	public static void openArchive(IVirtualComponent aBinaryComponent, boolean descriminateMainClass) {
+		JavaEEBinaryComponentHelper helper = null;
+		try {
+			helper = new JavaEEBinaryComponentHelper(aBinaryComponent);
+			helper.setDescriminateMainClass(descriminateMainClass);
+			try {
+				helper.openArchive();
+			} catch (ArchiveOpenFailureException e) {
+				J2EEPlugin.logError(e);
+			}
 		} finally {
 			if (helper != null) {
 				helper.dispose();
@@ -391,6 +408,14 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 		ArchiveCache.getInstance().clearAllArchivesInProject(earProject);
 	}
 
+	public void setDescriminateMainClass(boolean archiveOption) {
+		descriminateMainClass = archiveOption;
+	}
+
+	public boolean shouldDescriminateMainClass() {
+		return descriminateMainClass;
+	}
+
 	/**
 	 * This cache manages IArchives across all
 	 * {@link JavaEEBinaryComponentHelper} instances. If multiple
@@ -499,7 +524,13 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 		}
 
 		public synchronized IArchive openArchive(JavaEEBinaryComponentHelper helper) throws ArchiveOpenFailureException {
-			IArchive archive = JavaEEArchiveUtilities.INSTANCE.openArchive(helper.getComponent());
+			IArchive archive;
+			if (helper.getComponent().isBinary()) {
+				archive = JavaEEArchiveUtilities.INSTANCE.openBinaryArchive(helper.getComponent(), helper.shouldDescriminateMainClass());
+			}
+			else {
+				archive = JavaEEArchiveUtilities.INSTANCE.openArchive(helper.getComponent());
+			}
 			componentsToArchives.put(helper.getComponent(), archive);
 			archiveAccessCount.put(archive, new Integer(0));
 			return archive;

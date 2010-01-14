@@ -33,6 +33,7 @@ import org.eclipse.jst.j2ee.componentcore.util.EARVirtualComponent;
 import org.eclipse.jst.j2ee.internal.ICommonEMFModule;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
+import org.eclipse.jst.j2ee.internal.componentcore.JavaEEBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.model.IEARModelProvider;
 import org.eclipse.jst.j2ee.model.IModelProvider;
@@ -221,6 +222,12 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 		
 		String earDDVersion = JavaEEProjectUtilities.getJ2EEDDProjectVersion(earpj);
 		boolean useNewModel = earDDVersion.equals(J2EEVersionConstants.VERSION_5_0_TEXT) || earDDVersion.equals(J2EEVersionConstants.VERSION_6_0_TEXT);
+		if (wc.isBinary()){
+			//[Bug 299549] open and cache archive using the DISCRIMINATE_MAIN_CLASS
+			//option before attempting the JavaEEQuickPeek
+			JavaEEBinaryComponentHelper.openArchive(wc, useNewModel);
+		}
+		
 		//[Bug 238264] need to use component to determine type of project in-case component is binary
 		if (JavaEEProjectUtilities.isDynamicWebComponent(wc)) {
 			if (useNewModel) {
