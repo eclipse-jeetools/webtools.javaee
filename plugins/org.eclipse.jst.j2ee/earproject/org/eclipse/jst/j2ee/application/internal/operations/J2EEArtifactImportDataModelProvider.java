@@ -10,12 +10,15 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.application.internal.operations;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.zip.ZipException;
+import java.util.zip.ZipFile;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
@@ -31,7 +34,9 @@ import org.eclipse.jst.j2ee.internal.archive.JavaEEArchiveUtilities;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EECreationResourceHandler;
 import org.eclipse.jst.jee.archive.ArchiveOpenFailureException;
+import org.eclipse.jst.jee.archive.ArchiveOptions;
 import org.eclipse.jst.jee.archive.IArchive;
+import org.eclipse.jst.jee.archive.internal.ZipFileArchiveLoadAdapterImpl;
 import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.FacetProjectCreationDataModelProvider;
@@ -175,11 +180,31 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 
 	}
 
+	protected ArchiveOptions getArchiveOptions(IPath archivePath) throws ArchiveOpenFailureException {
+		java.io.File file = new java.io.File(archivePath.toOSString());
+		ZipFile zipFile;
+		try {
+			zipFile = org.eclipse.jst.jee.archive.internal.ArchiveUtil.newZipFile(file);
+		} catch (ZipException e) {
+			ArchiveOpenFailureException openFailureException = new ArchiveOpenFailureException(e);
+			throw openFailureException;
+		} catch (IOException e) {
+			ArchiveOpenFailureException openFailureException = new ArchiveOpenFailureException(e);
+			throw openFailureException;
+		}
+		ZipFileArchiveLoadAdapterImpl loadAdapter = new ZipFileArchiveLoadAdapterImpl(zipFile);
+		ArchiveOptions archiveOptions = new ArchiveOptions();
+		archiveOptions.setOption(ArchiveOptions.LOAD_ADAPTER, loadAdapter);
+		archiveOptions.setOption(ArchiveOptions.ARCHIVE_PATH, archivePath);
+		archiveOptions.setOption(JavaEEArchiveUtilities.DISCRIMINATE_EJB_ANNOTATIONS, Boolean.TRUE);
+		return archiveOptions;
+	}
+	
 	protected ArchiveWrapper openArchiveWrapper(String uri) throws ArchiveOpenFailureException{
 		IArchive archive = null;
 		IPath path = new Path(uri);
-		archive = JavaEEArchiveUtilities.INSTANCE.openArchive(path);
-		archive.getArchiveOptions().setOption(JavaEEArchiveUtilities.DISCRIMINATE_EJB_ANNOTATIONS, Boolean.TRUE);
+		ArchiveOptions archiveOptions = getArchiveOptions(path);
+		archive = JavaEEArchiveUtilities.INSTANCE.openArchive(archiveOptions);
 		archive.setPath(path);
 		JavaEEQuickPeek jqp = JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(archive);
 		
