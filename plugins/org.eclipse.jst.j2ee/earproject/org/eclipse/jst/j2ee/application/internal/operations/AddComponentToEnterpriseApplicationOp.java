@@ -338,18 +338,20 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 			IVirtualComponent component = (IVirtualComponent) this.model.getProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT);
 			// If this is a caching component, this will return the underlying; otherwise self
 			EARVirtualComponent ear = (EARVirtualComponent)component.getComponent();
-			String deployPath = model.getStringProperty(IAddComponentToEnterpriseApplicationDataModelProperties.TARGET_COMPONENTS_DEPLOY_PATH);
-			String libDir = EarUtilities.getEARLibDir(ear);
-			
-			if (JavaEEProjectUtilities.isJEEComponent(ear) && libDir.equals(deployPath)) {
-				// the component added is in the library directory of an EAR 5+ project
-				// we should trigger force update of the classpath of all module in the EAR
-				IVirtualReference[] refs = ear.getReferences();
-				Collection<IProject> projects = new HashSet<IProject>();
-				for (IVirtualReference ref : refs) {
-					projects.add(ref.getReferencedComponent().getProject());
+			if (JavaEEProjectUtilities.isJEEComponent(ear, JavaEEProjectUtilities.DD_VERSION)){
+				String deployPath = model.getStringProperty(IAddComponentToEnterpriseApplicationDataModelProperties.TARGET_COMPONENTS_DEPLOY_PATH);
+				String libDir = EarUtilities.getEARLibDir(ear);
+				
+				if(libDir != null && libDir.equals(deployPath)) {
+					// the component added is in the library directory of an EAR 5+ project
+					// we should trigger force update of the classpath of all module in the EAR
+					IVirtualReference[] refs = ear.getReferences();
+					Collection<IProject> projects = new HashSet<IProject>();
+					for (IVirtualReference ref : refs) {
+						projects.add(ref.getReferencedComponent().getProject());
+					}
+					J2EEComponentClasspathUpdater.getInstance().forceUpdate(projects);
 				}
-				J2EEComponentClasspathUpdater.getInstance().forceUpdate(projects);
 			}
 		} finally {
 			if (monitor != null) {
