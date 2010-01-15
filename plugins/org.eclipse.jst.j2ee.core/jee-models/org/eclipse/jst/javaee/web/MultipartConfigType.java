@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: MultipartConfigType.java,v 1.1 2009/10/15 18:52:03 canderson Exp $
+ * $Id: MultipartConfigType.java,v 1.2 2010/01/15 14:32:06 canderson Exp $
  */
 package org.eclipse.jst.javaee.web;
 
@@ -18,12 +18,8 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * <!-- begin-model-doc -->
  * 
  * 
- *         This element contains a sequence of "name" elements, each of which
- *         refers to an application configuration resource by the "name"
- *         declared on its web.xml fragment.  This element can also contain
- *         a single "others" element which specifies that this document comes
- *         before or after other documents within the application.
- *         See section 8.2.2 of the specification for details.
+ *         This element specifies configuration information related to the
+ *         handling of multipart/form-data requests.
  *         
  *         @since Java EE 6, Web 3.0
  *       
@@ -52,6 +48,13 @@ public interface MultipartConfigType extends JavaEEObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * 
+	 *             The directory location where uploaded files will be stored
+	 *             
+	 *           
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Location</em>' attribute.
 	 * @see #setLocation(String)
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getMultipartConfigType_Location()
@@ -77,6 +80,13 @@ public interface MultipartConfigType extends JavaEEObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * 
+	 *             The maximum size limit of uploaded files
+	 *             
+	 *           
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Max File Size</em>' attribute.
 	 * @see #isSetMaxFileSize()
 	 * @see #unsetMaxFileSize()
@@ -129,6 +139,13 @@ public interface MultipartConfigType extends JavaEEObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * 
+	 *             The maximum size limit of multipart/form-data requests
+	 *             
+	 *           
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Max Request Size</em>' attribute.
 	 * @see #isSetMaxRequestSize()
 	 * @see #unsetMaxRequestSize()
@@ -181,6 +198,14 @@ public interface MultipartConfigType extends JavaEEObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * 
+	 *             The size threshold after which an uploaded file will be
+	 *             written to disk
+	 *             
+	 *           
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>File Size Threshold</em>' attribute.
 	 * @see #setFileSizeThreshold(BigInteger)
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getMultipartConfigType_FileSizeThreshold()

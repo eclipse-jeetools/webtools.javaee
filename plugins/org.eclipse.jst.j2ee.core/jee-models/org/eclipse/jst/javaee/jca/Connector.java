@@ -34,6 +34,7 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link org.eclipse.jst.javaee.jca.Connector#getModuleName <em>Module Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.jca.Connector#getDescriptions <em>Descriptions</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.jca.Connector#getDisplayNames <em>Display Names</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.jca.Connector#getIcons <em>Icons</em>}</li>
@@ -54,6 +55,41 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * @generated
  */
 public interface Connector extends JavaEEObject {
+	/**
+	 * Returns the value of the '<em><b>Module Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * 
+	 *             The element module-name specifies the name of the
+	 *             resource adapter.
+	 *             
+	 *             If there is no module-name specified, the module-name
+	 *             is determined as defined in Section EE.8.1.1 and EE.8.1.2 
+	 *             of the Java Platform, Enterprise Edition (Java EE) 
+	 *             Specification, version 6.
+	 *             
+	 *             @since Java EE 6, Connector 1.6
+	 *           
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Module Name</em>' attribute.
+	 * @see #setModuleName(String)
+	 * @see org.eclipse.jst.javaee.jca.internal.metadata.JcaPackage#getConnector_ModuleName()
+	 * @generated
+	 */
+	String getModuleName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.jst.javaee.jca.Connector#getModuleName <em>Module Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Module Name</em>' attribute.
+	 * @see #getModuleName()
+	 * @generated
+	 */
+	void setModuleName(String value);
+
 	/**
 	 * Returns the value of the '<em><b>Descriptions</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.jst.javaee.core.Description}.
@@ -108,6 +144,10 @@ public interface Connector extends JavaEEObject {
 	 * 
 	 *             The element vendor-name specifies the name of
 	 *             resource adapter provider vendor.
+	 * 
+	 *             If there is no vendor-name specified, the application 
+	 *             server must consider the default "" (empty string) as
+	 *             the name of the resource adapter provider vendor.
 	 *             
 	 *             @since Java EE 6, Connector 1.6
 	 *           
@@ -144,6 +184,10 @@ public interface Connector extends JavaEEObject {
 	 *             This helps in identifying EIS instances that can be
 	 *             used with this resource adapter.
 	 *             
+	 *             If there is no eis-type specified, the application 
+	 *             server must consider the default "" (empty string) as
+	 *             the type of the EIS.
+	 *             
 	 *             @since Java EE 6, Connector 1.6
 	 *           
 	 * <!-- end-model-doc -->
@@ -174,6 +218,11 @@ public interface Connector extends JavaEEObject {
 	 *             The element resourceadapter-version specifies a string-based version
 	 *             of the resource adapter from the resource adapter
 	 *             provider.
+	 *             
+	 *             If there is no resourceadapter-version specified, the application 
+	 *             server must consider the default "" (empty string) as
+	 *             the version of the resource adapter.
+	 *             	
 	 *             
 	 *             @since Java EE 6, Connector 1.6
 	 *           

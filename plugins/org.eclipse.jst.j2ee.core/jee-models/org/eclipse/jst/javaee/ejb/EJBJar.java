@@ -34,6 +34,8 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  *         icon file name
  *         - an optional module name. Only applicable to
  *         stand-alone ejb-jars or ejb-jars packaged in an ear.
+ *         Ignored if specified for an ejb-jar.xml within a .war.
+ *         In that case, standard .war module-name rules apply.
  *         - structural information about all included
  *         enterprise beans that is not specified through
  *         annotations
@@ -51,10 +53,10 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.EJBJar#getModuleName <em>Module Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.EJBJar#getDescriptions <em>Descriptions</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.EJBJar#getDisplayNames <em>Display Names</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.EJBJar#getIcons <em>Icons</em>}</li>
- *   <li>{@link org.eclipse.jst.javaee.ejb.EJBJar#getModuleName <em>Module Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.EJBJar#getEnterpriseBeans <em>Enterprise Beans</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.EJBJar#getInterceptors <em>Interceptors</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.EJBJar#getRelationships <em>Relationships</em>}</li>
@@ -225,7 +227,7 @@ public interface EJBJar extends JavaEEObject {
 	 * 
 	 * 
 	 *             Providing an assembly-descriptor in the deployment
-	 *             descriptor is optional for the ejb-jar file
+	 *             descriptor is optional for the ejb-jar or .war file
 	 *             producer.
 	 *             
 	 *             @since Java EE 5, EJB 3.0

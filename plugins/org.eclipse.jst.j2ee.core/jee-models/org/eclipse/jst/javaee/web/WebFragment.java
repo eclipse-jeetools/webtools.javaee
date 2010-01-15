@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: WebFragment.java,v 1.1 2009/10/15 18:52:03 canderson Exp $
+ * $Id: WebFragment.java,v 1.2 2010/01/15 14:32:06 canderson Exp $
  */
 package org.eclipse.jst.javaee.web;
 
@@ -48,10 +48,10 @@ import org.eclipse.jst.javaee.jsp.JspConfig;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.jst.javaee.web.WebFragment#getGroup <em>Group</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.web.WebFragment#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.WebFragment#getDescriptions <em>Descriptions</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.WebFragment#getDisplayNames <em>Display Names</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.WebFragment#getIcons <em>Icons</em>}</li>
- *   <li>{@link org.eclipse.jst.javaee.web.WebFragment#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.WebFragment#getDistributables <em>Distributables</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.WebFragment#getContextParams <em>Context Params</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.WebFragment#getFilters <em>Filters</em>}</li>
@@ -158,11 +158,6 @@ public interface WebFragment extends JavaEEObject {
 	 * The list contents are of type {@link java.lang.String}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * 
-	 *             @since Java EE 6, Web 3.0
-	 *           
-	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Name</em>' attribute list.
 	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebFragment_Name()
 	 * @generated

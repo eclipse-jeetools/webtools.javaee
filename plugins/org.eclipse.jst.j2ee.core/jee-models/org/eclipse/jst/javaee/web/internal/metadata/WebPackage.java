@@ -32,7 +32,7 @@ import org.eclipse.jst.javaee.web.WebFactory;
  * <!-- begin-model-doc -->
  * 
  * 
- *       $Id: WebPackage.java,v 1.4 2009/10/15 18:52:21 canderson Exp $
+ *       $Id: WebPackage.java,v 1.5 2010/01/15 14:32:07 canderson Exp $
  *       
  *     
  * 
@@ -80,7 +80,7 @@ import org.eclipse.jst.javaee.web.WebFactory;
  *     
  * 
  * 
- *       $Id: WebPackage.java,v 1.4 2009/10/15 18:52:21 canderson Exp $
+ *       $Id: WebPackage.java,v 1.5 2010/01/15 14:32:07 canderson Exp $
  *       
  *     
  * 
@@ -105,7 +105,7 @@ import org.eclipse.jst.javaee.web.WebFactory;
  *     
  * 
  * 
- *       $Id: WebPackage.java,v 1.4 2009/10/15 18:52:21 canderson Exp $
+ *       $Id: WebPackage.java,v 1.5 2010/01/15 14:32:07 canderson Exp $
  *       
  *     
  * 
@@ -274,46 +274,12 @@ import org.eclipse.jst.javaee.web.WebFactory;
  *     
  * 
  * 
- *       Copyright 2003-2009 Sun Microsystems, Inc.
- *       4150 Network Circle
- *       Santa Clara, California 95054
- *       U.S.A
- *       All rights reserved.
- * 
- *       Sun Microsystems, Inc. has intellectual property rights
- *       relating to technology described in this document. In
- *       particular, and without limitation, these intellectual
- *       property rights may include one or more of the U.S. patents
- *       listed at http://www.sun.com/patents and one or more
- *       additional patents or pending patent applications in the
- *       U.S. and other countries.
- * 
- *       This document and the technology which it describes are
- *       distributed under licenses restricting their use, copying,
- *       distribution, and decompilation. No part of this document
- *       may be reproduced in any form by any means without prior
- *       written authorization of Sun and its licensors, if any.
- * 
- *       Third-party software, including font technology, is
- *       copyrighted and licensed from Sun suppliers.
- * 
- *       Sun, Sun Microsystems, the Sun logo, Solaris, Java, J2EE,
- *       JavaServer Pages, Enterprise JavaBeans and the Java Coffee
- *       Cup logo are trademarks or registered trademarks of Sun
- *       Microsystems, Inc. in the U.S. and other countries.
- * 
- *       Federal Acquisitions: Commercial Software - Government Users
- *       Subject to Standard License Terms and Conditions.
- * 
- *     
- * 
- * 
  *       This is the XML Schema for the JSP 2.2 deployment descriptor
  *       types.  The JSP 2.2 schema contains all the special
  *       structures and datatypes that are necessary to use JSP files
  *       from a web application.
  * 
- *       The contents of this schema is used by the web-app_3_0.xsd
+ *       The contents of this schema is used by the web-common_3_0.xsd
  *       file to define JSP specific content.
  * 
  *     
@@ -1645,13 +1611,22 @@ public interface WebPackage extends EPackage {
 	int WEB_APP__GROUP = 0;
 
 	/**
+	 * The feature id for the '<em><b>Module Name</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_APP__MODULE_NAME = 1;
+
+	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__DESCRIPTIONS = 1;
+	int WEB_APP__DESCRIPTIONS = 2;
 
 	/**
 	 * The feature id for the '<em><b>Display Names</b></em>' containment reference list.
@@ -1660,7 +1635,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__DISPLAY_NAMES = 2;
+	int WEB_APP__DISPLAY_NAMES = 3;
 
 	/**
 	 * The feature id for the '<em><b>Icons</b></em>' containment reference list.
@@ -1669,16 +1644,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__ICONS = 3;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WEB_APP__NAME = 4;
+	int WEB_APP__ICONS = 4;
 
 	/**
 	 * The feature id for the '<em><b>Distributables</b></em>' containment reference list.
@@ -1942,22 +1908,13 @@ public interface WebPackage extends EPackage {
 	int WEB_APP__LOCAL_ENCODING_MAPPINGS_LISTS = 33;
 
 	/**
-	 * The feature id for the '<em><b>Module Name</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WEB_APP__MODULE_NAME = 34;
-
-	/**
 	 * The feature id for the '<em><b>Absolute Ordering</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__ABSOLUTE_ORDERING = 35;
+	int WEB_APP__ABSOLUTE_ORDERING = 34;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -1966,7 +1923,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__ID = 36;
+	int WEB_APP__ID = 35;
 
 	/**
 	 * The feature id for the '<em><b>Metadata Complete</b></em>' attribute.
@@ -1975,7 +1932,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__METADATA_COMPLETE = 37;
+	int WEB_APP__METADATA_COMPLETE = 36;
 
 	/**
 	 * The feature id for the '<em><b>Version</b></em>' attribute.
@@ -1984,7 +1941,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__VERSION = 38;
+	int WEB_APP__VERSION = 37;
 
 	/**
 	 * The number of structural features of the '<em>App</em>' class.
@@ -1993,7 +1950,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP_FEATURE_COUNT = 39;
+	int WEB_APP_FEATURE_COUNT = 38;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.web.internal.impl.WebAppDeploymentDescriptorImpl <em>App Deployment Descriptor</em>}' class.
@@ -2070,13 +2027,22 @@ public interface WebPackage extends EPackage {
 	int WEB_FRAGMENT__GROUP = 0;
 
 	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__NAME = 1;
+
+	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_FRAGMENT__DESCRIPTIONS = 1;
+	int WEB_FRAGMENT__DESCRIPTIONS = 2;
 
 	/**
 	 * The feature id for the '<em><b>Display Names</b></em>' containment reference list.
@@ -2085,7 +2051,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_FRAGMENT__DISPLAY_NAMES = 2;
+	int WEB_FRAGMENT__DISPLAY_NAMES = 3;
 
 	/**
 	 * The feature id for the '<em><b>Icons</b></em>' containment reference list.
@@ -2094,16 +2060,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_FRAGMENT__ICONS = 3;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WEB_FRAGMENT__NAME = 4;
+	int WEB_FRAGMENT__ICONS = 4;
 
 	/**
 	 * The feature id for the '<em><b>Distributables</b></em>' containment reference list.
@@ -4004,17 +3961,6 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getWebApp_Icons();
-
-	/**
-	 * Returns the meta object for the attribute list '{@link org.eclipse.jst.javaee.web.WebApp#getName <em>Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Name</em>'.
-	 * @see org.eclipse.jst.javaee.web.WebApp#getName()
-	 * @see #getWebApp()
-	 * @generated
-	 */
-	EAttribute getWebApp_Name();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebApp#getDistributables <em>Distributables</em>}'.
@@ -6205,14 +6151,6 @@ public interface WebPackage extends EPackage {
 		 * @generated
 		 */
 		EReference WEB_APP__ICONS = eINSTANCE.getWebApp_Icons();
-
-		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute WEB_APP__NAME = eINSTANCE.getWebApp_Name();
 
 		/**
 		 * The meta object literal for the '<em><b>Distributables</b></em>' containment reference list feature.

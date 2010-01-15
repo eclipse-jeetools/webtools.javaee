@@ -631,8 +631,8 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getConnector_Descriptions() {
-		return (EReference)connectorEClass.getEStructuralFeatures().get(0);
+	public EAttribute getConnector_ModuleName() {
+		return (EAttribute)connectorEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -640,7 +640,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getConnector_DisplayNames() {
+	public EReference getConnector_Descriptions() {
 		return (EReference)connectorEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -649,7 +649,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getConnector_Icons() {
+	public EReference getConnector_DisplayNames() {
 		return (EReference)connectorEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -658,8 +658,8 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getConnector_VendorName() {
-		return (EAttribute)connectorEClass.getEStructuralFeatures().get(3);
+	public EReference getConnector_Icons() {
+		return (EReference)connectorEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -667,7 +667,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getConnector_EisType() {
+	public EAttribute getConnector_VendorName() {
 		return (EAttribute)connectorEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -676,7 +676,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getConnector_ResourceadapterVersion() {
+	public EAttribute getConnector_EisType() {
 		return (EAttribute)connectorEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -685,8 +685,8 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getConnector_License() {
-		return (EReference)connectorEClass.getEStructuralFeatures().get(6);
+	public EAttribute getConnector_ResourceadapterVersion() {
+		return (EAttribute)connectorEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -694,7 +694,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getConnector_Resourceadapter() {
+	public EReference getConnector_License() {
 		return (EReference)connectorEClass.getEStructuralFeatures().get(7);
 	}
 
@@ -703,8 +703,8 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getConnector_RequiredWorkContext() {
-		return (EAttribute)connectorEClass.getEStructuralFeatures().get(8);
+	public EReference getConnector_Resourceadapter() {
+		return (EReference)connectorEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -712,7 +712,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getConnector_Id() {
+	public EAttribute getConnector_RequiredWorkContext() {
 		return (EAttribute)connectorEClass.getEStructuralFeatures().get(9);
 	}
 
@@ -721,7 +721,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getConnector_MetadataComplete() {
+	public EAttribute getConnector_Id() {
 		return (EAttribute)connectorEClass.getEStructuralFeatures().get(10);
 	}
 
@@ -730,8 +730,17 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getConnector_Version() {
+	public EAttribute getConnector_MetadataComplete() {
 		return (EAttribute)connectorEClass.getEStructuralFeatures().get(11);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getConnector_Version() {
+		return (EAttribute)connectorEClass.getEStructuralFeatures().get(12);
 	}
 
 	/**
@@ -1232,6 +1241,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 		createEAttribute(connectionDefinitionEClass, CONNECTION_DEFINITION__ID);
 
 		connectorEClass = createEClass(CONNECTOR);
+		createEAttribute(connectorEClass, CONNECTOR__MODULE_NAME);
 		createEReference(connectorEClass, CONNECTOR__DESCRIPTIONS);
 		createEReference(connectorEClass, CONNECTOR__DISPLAY_NAMES);
 		createEReference(connectorEClass, CONNECTOR__ICONS);
@@ -1379,12 +1389,13 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 		initEAttribute(getConnectionDefinition_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ConnectionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(connectorEClass, Connector.class, "Connector", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getConnector_ModuleName(), theXMLTypePackage.getString(), "moduleName", null, 0, 1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getConnector_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getConnector_DisplayNames(), theJavaeePackage.getDisplayName(), null, "displayNames", null, 0, -1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getConnector_Icons(), theJavaeePackage.getIcon(), null, "icons", null, 0, -1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getConnector_VendorName(), theXMLTypePackage.getString(), "vendorName", null, 1, 1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getConnector_EisType(), theXMLTypePackage.getString(), "eisType", null, 1, 1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getConnector_ResourceadapterVersion(), theXMLTypePackage.getString(), "resourceadapterVersion", null, 1, 1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getConnector_VendorName(), theXMLTypePackage.getString(), "vendorName", null, 0, 1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getConnector_EisType(), theXMLTypePackage.getString(), "eisType", null, 0, 1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getConnector_ResourceadapterVersion(), theXMLTypePackage.getString(), "resourceadapterVersion", null, 0, 1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getConnector_License(), this.getLicense(), null, "license", null, 0, 1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getConnector_Resourceadapter(), this.getResourceAdapter(), null, "resourceadapter", null, 1, 1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getConnector_RequiredWorkContext(), theJavaeePackage.getFullyQualifiedClassType(), "requiredWorkContext", null, 0, -1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
@@ -1417,10 +1428,10 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 		initEAttribute(getMessageListener_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, MessageListener.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(outboundResourceAdapterEClass, OutboundResourceAdapter.class, "OutboundResourceAdapter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEReference(getOutboundResourceAdapter_ConnectionDefinition(), this.getConnectionDefinition(), null, "connectionDefinition", null, 1, -1, OutboundResourceAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getOutboundResourceAdapter_TransactionSupport(), this.getTransactionSupportType(), "transactionSupport", null, 1, 1, OutboundResourceAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getOutboundResourceAdapter_ConnectionDefinition(), this.getConnectionDefinition(), null, "connectionDefinition", null, 0, -1, OutboundResourceAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getOutboundResourceAdapter_TransactionSupport(), this.getTransactionSupportType(), "transactionSupport", null, 0, 1, OutboundResourceAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getOutboundResourceAdapter_AuthenticationMechanism(), this.getAuthenticationMechanism(), null, "authenticationMechanism", null, 0, -1, OutboundResourceAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getOutboundResourceAdapter_ReauthenticationSupport(), theJavaeePackage.getTrueFalseType(), "reauthenticationSupport", null, 1, 1, OutboundResourceAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getOutboundResourceAdapter_ReauthenticationSupport(), theJavaeePackage.getTrueFalseType(), "reauthenticationSupport", null, 0, 1, OutboundResourceAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getOutboundResourceAdapter_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, OutboundResourceAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(requiredConfigPropertyEClass, RequiredConfigProperty.class, "RequiredConfigProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
@@ -1758,6 +1769,14 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 		   new String[] {
 			 "name", "connectorType", //$NON-NLS-1$ //$NON-NLS-2$
 			 "kind", "elementOnly" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getConnector_ModuleName(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "module-name", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getConnector_Descriptions(), 

@@ -39,10 +39,10 @@ import org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.EJBJarImpl#getModuleName <em>Module Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.EJBJarImpl#getDescriptions <em>Descriptions</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.EJBJarImpl#getDisplayNames <em>Display Names</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.EJBJarImpl#getIcons <em>Icons</em>}</li>
- *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.EJBJarImpl#getModuleName <em>Module Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.EJBJarImpl#getEnterpriseBeans <em>Enterprise Beans</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.EJBJarImpl#getInterceptors <em>Interceptors</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.EJBJarImpl#getRelationships <em>Relationships</em>}</li>
@@ -57,6 +57,26 @@ import org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage;
  * @generated
  */
 public class EJBJarImpl extends EObjectImpl implements EJBJar {
+	/**
+	 * The default value of the '{@link #getModuleName() <em>Module Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getModuleName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String MODULE_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getModuleName() <em>Module Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getModuleName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String moduleName = MODULE_NAME_EDEFAULT;
+
 	/**
 	 * The cached value of the '{@link #getDescriptions() <em>Descriptions</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -86,26 +106,6 @@ public class EJBJarImpl extends EObjectImpl implements EJBJar {
 	 * @ordered
 	 */
 	protected EList<Icon> icons;
-
-	/**
-	 * The default value of the '{@link #getModuleName() <em>Module Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getModuleName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String MODULE_NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getModuleName() <em>Module Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getModuleName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String moduleName = MODULE_NAME_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getEnterpriseBeans() <em>Enterprise Beans</em>}' containment reference.
@@ -661,14 +661,14 @@ public class EJBJarImpl extends EObjectImpl implements EJBJar {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case EjbPackage.EJB_JAR__MODULE_NAME:
+				return getModuleName();
 			case EjbPackage.EJB_JAR__DESCRIPTIONS:
 				return getDescriptions();
 			case EjbPackage.EJB_JAR__DISPLAY_NAMES:
 				return getDisplayNames();
 			case EjbPackage.EJB_JAR__ICONS:
 				return getIcons();
-			case EjbPackage.EJB_JAR__MODULE_NAME:
-				return getModuleName();
 			case EjbPackage.EJB_JAR__ENTERPRISE_BEANS:
 				return getEnterpriseBeans();
 			case EjbPackage.EJB_JAR__INTERCEPTORS:
@@ -698,6 +698,9 @@ public class EJBJarImpl extends EObjectImpl implements EJBJar {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case EjbPackage.EJB_JAR__MODULE_NAME:
+				setModuleName((String)newValue);
+				return;
 			case EjbPackage.EJB_JAR__DESCRIPTIONS:
 				getDescriptions().clear();
 				getDescriptions().addAll((Collection<? extends Description>)newValue);
@@ -709,9 +712,6 @@ public class EJBJarImpl extends EObjectImpl implements EJBJar {
 			case EjbPackage.EJB_JAR__ICONS:
 				getIcons().clear();
 				getIcons().addAll((Collection<? extends Icon>)newValue);
-				return;
-			case EjbPackage.EJB_JAR__MODULE_NAME:
-				setModuleName((String)newValue);
 				return;
 			case EjbPackage.EJB_JAR__ENTERPRISE_BEANS:
 				setEnterpriseBeans((EnterpriseBeans)newValue);
@@ -749,6 +749,9 @@ public class EJBJarImpl extends EObjectImpl implements EJBJar {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case EjbPackage.EJB_JAR__MODULE_NAME:
+				setModuleName(MODULE_NAME_EDEFAULT);
+				return;
 			case EjbPackage.EJB_JAR__DESCRIPTIONS:
 				getDescriptions().clear();
 				return;
@@ -757,9 +760,6 @@ public class EJBJarImpl extends EObjectImpl implements EJBJar {
 				return;
 			case EjbPackage.EJB_JAR__ICONS:
 				getIcons().clear();
-				return;
-			case EjbPackage.EJB_JAR__MODULE_NAME:
-				setModuleName(MODULE_NAME_EDEFAULT);
 				return;
 			case EjbPackage.EJB_JAR__ENTERPRISE_BEANS:
 				setEnterpriseBeans((EnterpriseBeans)null);
@@ -797,14 +797,14 @@ public class EJBJarImpl extends EObjectImpl implements EJBJar {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case EjbPackage.EJB_JAR__MODULE_NAME:
+				return MODULE_NAME_EDEFAULT == null ? moduleName != null : !MODULE_NAME_EDEFAULT.equals(moduleName);
 			case EjbPackage.EJB_JAR__DESCRIPTIONS:
 				return descriptions != null && !descriptions.isEmpty();
 			case EjbPackage.EJB_JAR__DISPLAY_NAMES:
 				return displayNames != null && !displayNames.isEmpty();
 			case EjbPackage.EJB_JAR__ICONS:
 				return icons != null && !icons.isEmpty();
-			case EjbPackage.EJB_JAR__MODULE_NAME:
-				return MODULE_NAME_EDEFAULT == null ? moduleName != null : !MODULE_NAME_EDEFAULT.equals(moduleName);
 			case EjbPackage.EJB_JAR__ENTERPRISE_BEANS:
 				return enterpriseBeans != null;
 			case EjbPackage.EJB_JAR__INTERCEPTORS:

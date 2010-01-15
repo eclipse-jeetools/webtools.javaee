@@ -49,7 +49,6 @@ import org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage;
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.PersistenceContextRefImpl#getPersistenceProperties <em>Persistence Properties</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.PersistenceContextRefImpl#getMappedName <em>Mapped Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.PersistenceContextRefImpl#getInjectionTargets <em>Injection Targets</em>}</li>
- *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.PersistenceContextRefImpl#getLookupName <em>Lookup Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.PersistenceContextRefImpl#getId <em>Id</em>}</li>
  * </ul>
  * </p>
@@ -175,26 +174,6 @@ public class PersistenceContextRefImpl extends EObjectImpl implements Persistenc
 	 * @ordered
 	 */
 	protected EList<InjectionTarget> injectionTargets;
-
-	/**
-	 * The default value of the '{@link #getLookupName() <em>Lookup Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getLookupName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String LOOKUP_NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getLookupName() <em>Lookup Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getLookupName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String lookupName = LOOKUP_NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -385,27 +364,6 @@ public class PersistenceContextRefImpl extends EObjectImpl implements Persistenc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getLookupName() {
-		return lookupName;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setLookupName(String newLookupName) {
-		String oldLookupName = lookupName;
-		lookupName = newLookupName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, JavaeePackage.PERSISTENCE_CONTEXT_REF__LOOKUP_NAME, oldLookupName, lookupName));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public String getId() {
 		return id;
 	}
@@ -462,8 +420,6 @@ public class PersistenceContextRefImpl extends EObjectImpl implements Persistenc
 				return getMappedName();
 			case JavaeePackage.PERSISTENCE_CONTEXT_REF__INJECTION_TARGETS:
 				return getInjectionTargets();
-			case JavaeePackage.PERSISTENCE_CONTEXT_REF__LOOKUP_NAME:
-				return getLookupName();
 			case JavaeePackage.PERSISTENCE_CONTEXT_REF__ID:
 				return getId();
 		}
@@ -503,9 +459,6 @@ public class PersistenceContextRefImpl extends EObjectImpl implements Persistenc
 				getInjectionTargets().clear();
 				getInjectionTargets().addAll((Collection<? extends InjectionTarget>)newValue);
 				return;
-			case JavaeePackage.PERSISTENCE_CONTEXT_REF__LOOKUP_NAME:
-				setLookupName((String)newValue);
-				return;
 			case JavaeePackage.PERSISTENCE_CONTEXT_REF__ID:
 				setId((String)newValue);
 				return;
@@ -542,9 +495,6 @@ public class PersistenceContextRefImpl extends EObjectImpl implements Persistenc
 			case JavaeePackage.PERSISTENCE_CONTEXT_REF__INJECTION_TARGETS:
 				getInjectionTargets().clear();
 				return;
-			case JavaeePackage.PERSISTENCE_CONTEXT_REF__LOOKUP_NAME:
-				setLookupName(LOOKUP_NAME_EDEFAULT);
-				return;
 			case JavaeePackage.PERSISTENCE_CONTEXT_REF__ID:
 				setId(ID_EDEFAULT);
 				return;
@@ -574,8 +524,6 @@ public class PersistenceContextRefImpl extends EObjectImpl implements Persistenc
 				return MAPPED_NAME_EDEFAULT == null ? mappedName != null : !MAPPED_NAME_EDEFAULT.equals(mappedName);
 			case JavaeePackage.PERSISTENCE_CONTEXT_REF__INJECTION_TARGETS:
 				return injectionTargets != null && !injectionTargets.isEmpty();
-			case JavaeePackage.PERSISTENCE_CONTEXT_REF__LOOKUP_NAME:
-				return LOOKUP_NAME_EDEFAULT == null ? lookupName != null : !LOOKUP_NAME_EDEFAULT.equals(lookupName);
 			case JavaeePackage.PERSISTENCE_CONTEXT_REF__ID:
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 		}
@@ -600,8 +548,6 @@ public class PersistenceContextRefImpl extends EObjectImpl implements Persistenc
 		if (persistenceContextTypeESet) result.append(persistenceContextType); else result.append("<unset>"); //$NON-NLS-1$
 		result.append(", mappedName: "); //$NON-NLS-1$
 		result.append(mappedName);
-		result.append(", lookupName: "); //$NON-NLS-1$
-		result.append(lookupName);
 		result.append(", id: "); //$NON-NLS-1$
 		result.append(id);
 		result.append(')');

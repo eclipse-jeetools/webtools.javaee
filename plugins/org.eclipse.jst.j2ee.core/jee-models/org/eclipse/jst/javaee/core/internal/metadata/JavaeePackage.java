@@ -32,7 +32,7 @@ import org.eclipse.jst.javaee.core.JavaeeFactory;
  * <!-- begin-model-doc -->
  * 
  * 
- *       $Id: JavaeePackage.java,v 1.3 2009/10/15 18:52:20 canderson Exp $
+ *       $Id: JavaeePackage.java,v 1.4 2010/01/15 14:32:07 canderson Exp $
  *       
  *     
  * 
@@ -57,7 +57,7 @@ import org.eclipse.jst.javaee.core.JavaeeFactory;
  *     
  * 
  * 
- *       $Id: JavaeePackage.java,v 1.3 2009/10/15 18:52:20 canderson Exp $
+ *       $Id: JavaeePackage.java,v 1.4 2010/01/15 14:32:07 canderson Exp $
  *       
  *     
  * 
@@ -1154,13 +1154,22 @@ public interface JavaeePackage extends EPackage {
 	int MESSAGE_DESTINATION__MAPPED_NAME = 4;
 
 	/**
+	 * The feature id for the '<em><b>Lookup Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MESSAGE_DESTINATION__LOOKUP_NAME = 5;
+
+	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MESSAGE_DESTINATION__ID = 5;
+	int MESSAGE_DESTINATION__ID = 6;
 
 	/**
 	 * The number of structural features of the '<em>Message Destination</em>' class.
@@ -1169,7 +1178,7 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MESSAGE_DESTINATION_FEATURE_COUNT = 6;
+	int MESSAGE_DESTINATION_FEATURE_COUNT = 7;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.internal.impl.MessageDestinationRefImpl <em>Message Destination Ref</em>}' class.
@@ -1400,22 +1409,13 @@ public interface JavaeePackage extends EPackage {
 	int PERSISTENCE_CONTEXT_REF__INJECTION_TARGETS = 6;
 
 	/**
-	 * The feature id for the '<em><b>Lookup Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PERSISTENCE_CONTEXT_REF__LOOKUP_NAME = 7;
-
-	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PERSISTENCE_CONTEXT_REF__ID = 8;
+	int PERSISTENCE_CONTEXT_REF__ID = 7;
 
 	/**
 	 * The number of structural features of the '<em>Persistence Context Ref</em>' class.
@@ -1424,7 +1424,7 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PERSISTENCE_CONTEXT_REF_FEATURE_COUNT = 9;
+	int PERSISTENCE_CONTEXT_REF_FEATURE_COUNT = 8;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.internal.impl.PersistenceUnitRefImpl <em>Persistence Unit Ref</em>}' class.
@@ -1482,22 +1482,13 @@ public interface JavaeePackage extends EPackage {
 	int PERSISTENCE_UNIT_REF__INJECTION_TARGETS = 4;
 
 	/**
-	 * The feature id for the '<em><b>Lookup Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PERSISTENCE_UNIT_REF__LOOKUP_NAME = 5;
-
-	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PERSISTENCE_UNIT_REF__ID = 6;
+	int PERSISTENCE_UNIT_REF__ID = 5;
 
 	/**
 	 * The number of structural features of the '<em>Persistence Unit Ref</em>' class.
@@ -1506,7 +1497,7 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PERSISTENCE_UNIT_REF_FEATURE_COUNT = 7;
+	int PERSISTENCE_UNIT_REF_FEATURE_COUNT = 6;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.internal.impl.PortComponentRefImpl <em>Port Component Ref</em>}' class.
@@ -3718,6 +3709,17 @@ public interface JavaeePackage extends EPackage {
 	EAttribute getMessageDestination_MappedName();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.MessageDestination#getLookupName <em>Lookup Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Lookup Name</em>'.
+	 * @see org.eclipse.jst.javaee.core.MessageDestination#getLookupName()
+	 * @see #getMessageDestination()
+	 * @generated
+	 */
+	EAttribute getMessageDestination_LookupName();
+
+	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.MessageDestination#getId <em>Id</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3979,17 +3981,6 @@ public interface JavaeePackage extends EPackage {
 	EReference getPersistenceContextRef_InjectionTargets();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.PersistenceContextRef#getLookupName <em>Lookup Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Lookup Name</em>'.
-	 * @see org.eclipse.jst.javaee.core.PersistenceContextRef#getLookupName()
-	 * @see #getPersistenceContextRef()
-	 * @generated
-	 */
-	EAttribute getPersistenceContextRef_LookupName();
-
-	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.PersistenceContextRef#getId <em>Id</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4064,17 +4055,6 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getPersistenceUnitRef_InjectionTargets();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.PersistenceUnitRef#getLookupName <em>Lookup Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Lookup Name</em>'.
-	 * @see org.eclipse.jst.javaee.core.PersistenceUnitRef#getLookupName()
-	 * @see #getPersistenceUnitRef()
-	 * @generated
-	 */
-	EAttribute getPersistenceUnitRef_LookupName();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.PersistenceUnitRef#getId <em>Id</em>}'.
@@ -6124,6 +6104,14 @@ public interface JavaeePackage extends EPackage {
 		EAttribute MESSAGE_DESTINATION__MAPPED_NAME = eINSTANCE.getMessageDestination_MappedName();
 
 		/**
+		 * The meta object literal for the '<em><b>Lookup Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MESSAGE_DESTINATION__LOOKUP_NAME = eINSTANCE.getMessageDestination_LookupName();
+
+		/**
 		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -6322,14 +6310,6 @@ public interface JavaeePackage extends EPackage {
 		EReference PERSISTENCE_CONTEXT_REF__INJECTION_TARGETS = eINSTANCE.getPersistenceContextRef_InjectionTargets();
 
 		/**
-		 * The meta object literal for the '<em><b>Lookup Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute PERSISTENCE_CONTEXT_REF__LOOKUP_NAME = eINSTANCE.getPersistenceContextRef_LookupName();
-
-		/**
 		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -6386,14 +6366,6 @@ public interface JavaeePackage extends EPackage {
 		 * @generated
 		 */
 		EReference PERSISTENCE_UNIT_REF__INJECTION_TARGETS = eINSTANCE.getPersistenceUnitRef_InjectionTargets();
-
-		/**
-		 * The meta object literal for the '<em><b>Lookup Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute PERSISTENCE_UNIT_REF__LOOKUP_NAME = eINSTANCE.getPersistenceUnitRef_LookupName();
 
 		/**
 		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.

@@ -71,10 +71,10 @@ import org.eclipse.jst.javaee.web.internal.metadata.WebPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getGroup <em>Group</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getModuleName <em>Module Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getDescriptions <em>Descriptions</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getDisplayNames <em>Display Names</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getIcons <em>Icons</em>}</li>
- *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getDistributables <em>Distributables</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getContextParams <em>Context Params</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getFilters <em>Filters</em>}</li>
@@ -104,7 +104,6 @@ import org.eclipse.jst.javaee.web.internal.metadata.WebPackage;
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getDataSource <em>Data Source</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getMessageDestinations <em>Message Destinations</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getLocalEncodingMappingsLists <em>Local Encoding Mappings Lists</em>}</li>
- *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getModuleName <em>Module Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getAbsoluteOrdering <em>Absolute Ordering</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getId <em>Id</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#isMetadataComplete <em>Metadata Complete</em>}</li>
@@ -259,15 +258,6 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 */
 	public List<Icon> getIcons() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__ICONS);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public List<String> getName() {
-		return getGroup().list(WebPackage.Literals.WEB_APP__NAME);
 	}
 
 	/**
@@ -753,14 +743,14 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 			case WebPackage.WEB_APP__GROUP:
 				if (coreType) return getGroup();
 				return ((FeatureMap.Internal)getGroup()).getWrapper();
+			case WebPackage.WEB_APP__MODULE_NAME:
+				return getModuleName();
 			case WebPackage.WEB_APP__DESCRIPTIONS:
 				return getDescriptions();
 			case WebPackage.WEB_APP__DISPLAY_NAMES:
 				return getDisplayNames();
 			case WebPackage.WEB_APP__ICONS:
 				return getIcons();
-			case WebPackage.WEB_APP__NAME:
-				return getName();
 			case WebPackage.WEB_APP__DISTRIBUTABLES:
 				return getDistributables();
 			case WebPackage.WEB_APP__CONTEXT_PARAMS:
@@ -819,8 +809,6 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 				return getMessageDestinations();
 			case WebPackage.WEB_APP__LOCAL_ENCODING_MAPPINGS_LISTS:
 				return getLocalEncodingMappingsLists();
-			case WebPackage.WEB_APP__MODULE_NAME:
-				return getModuleName();
 			case WebPackage.WEB_APP__ABSOLUTE_ORDERING:
 				return getAbsoluteOrdering();
 			case WebPackage.WEB_APP__ID:
@@ -845,6 +833,10 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 			case WebPackage.WEB_APP__GROUP:
 				((FeatureMap.Internal)getGroup()).set(newValue);
 				return;
+			case WebPackage.WEB_APP__MODULE_NAME:
+				getModuleName().clear();
+				getModuleName().addAll((Collection<? extends String>)newValue);
+				return;
 			case WebPackage.WEB_APP__DESCRIPTIONS:
 				getDescriptions().clear();
 				getDescriptions().addAll((Collection<? extends Description>)newValue);
@@ -856,10 +848,6 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 			case WebPackage.WEB_APP__ICONS:
 				getIcons().clear();
 				getIcons().addAll((Collection<? extends Icon>)newValue);
-				return;
-			case WebPackage.WEB_APP__NAME:
-				getName().clear();
-				getName().addAll((Collection<? extends String>)newValue);
 				return;
 			case WebPackage.WEB_APP__DISTRIBUTABLES:
 				getDistributables().clear();
@@ -977,10 +965,6 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 				getLocalEncodingMappingsLists().clear();
 				getLocalEncodingMappingsLists().addAll((Collection<? extends LocaleEncodingMappingList>)newValue);
 				return;
-			case WebPackage.WEB_APP__MODULE_NAME:
-				getModuleName().clear();
-				getModuleName().addAll((Collection<? extends String>)newValue);
-				return;
 			case WebPackage.WEB_APP__ABSOLUTE_ORDERING:
 				getAbsoluteOrdering().clear();
 				getAbsoluteOrdering().addAll((Collection<? extends AbsoluteOrderingType>)newValue);
@@ -1009,6 +993,9 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 			case WebPackage.WEB_APP__GROUP:
 				getGroup().clear();
 				return;
+			case WebPackage.WEB_APP__MODULE_NAME:
+				getModuleName().clear();
+				return;
 			case WebPackage.WEB_APP__DESCRIPTIONS:
 				getDescriptions().clear();
 				return;
@@ -1017,9 +1004,6 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 				return;
 			case WebPackage.WEB_APP__ICONS:
 				getIcons().clear();
-				return;
-			case WebPackage.WEB_APP__NAME:
-				getName().clear();
 				return;
 			case WebPackage.WEB_APP__DISTRIBUTABLES:
 				getDistributables().clear();
@@ -1108,9 +1092,6 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 			case WebPackage.WEB_APP__LOCAL_ENCODING_MAPPINGS_LISTS:
 				getLocalEncodingMappingsLists().clear();
 				return;
-			case WebPackage.WEB_APP__MODULE_NAME:
-				getModuleName().clear();
-				return;
 			case WebPackage.WEB_APP__ABSOLUTE_ORDERING:
 				getAbsoluteOrdering().clear();
 				return;
@@ -1137,14 +1118,14 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 		switch (featureID) {
 			case WebPackage.WEB_APP__GROUP:
 				return group != null && !group.isEmpty();
+			case WebPackage.WEB_APP__MODULE_NAME:
+				return !getModuleName().isEmpty();
 			case WebPackage.WEB_APP__DESCRIPTIONS:
 				return !getDescriptions().isEmpty();
 			case WebPackage.WEB_APP__DISPLAY_NAMES:
 				return !getDisplayNames().isEmpty();
 			case WebPackage.WEB_APP__ICONS:
 				return !getIcons().isEmpty();
-			case WebPackage.WEB_APP__NAME:
-				return !getName().isEmpty();
 			case WebPackage.WEB_APP__DISTRIBUTABLES:
 				return !getDistributables().isEmpty();
 			case WebPackage.WEB_APP__CONTEXT_PARAMS:
@@ -1203,8 +1184,6 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 				return !getMessageDestinations().isEmpty();
 			case WebPackage.WEB_APP__LOCAL_ENCODING_MAPPINGS_LISTS:
 				return !getLocalEncodingMappingsLists().isEmpty();
-			case WebPackage.WEB_APP__MODULE_NAME:
-				return !getModuleName().isEmpty();
 			case WebPackage.WEB_APP__ABSOLUTE_ORDERING:
 				return !getAbsoluteOrdering().isEmpty();
 			case WebPackage.WEB_APP__ID:

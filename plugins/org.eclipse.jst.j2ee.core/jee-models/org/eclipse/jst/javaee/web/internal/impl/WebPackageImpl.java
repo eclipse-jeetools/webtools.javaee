@@ -1590,15 +1590,6 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * @generated
 	 */
 	public EReference getWebApp_Descriptions() {
-		return (EReference)webAppEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getWebApp_DisplayNames() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -1607,7 +1598,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getWebApp_Icons() {
+	public EReference getWebApp_DisplayNames() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -1616,8 +1607,8 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getWebApp_Name() {
-		return (EAttribute)webAppEClass.getEStructuralFeatures().get(4);
+	public EReference getWebApp_Icons() {
+		return (EReference)webAppEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -1887,7 +1878,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * @generated
 	 */
 	public EAttribute getWebApp_ModuleName() {
-		return (EAttribute)webAppEClass.getEStructuralFeatures().get(34);
+		return (EAttribute)webAppEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1896,7 +1887,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * @generated
 	 */
 	public EReference getWebApp_AbsoluteOrdering() {
-		return (EReference)webAppEClass.getEStructuralFeatures().get(35);
+		return (EReference)webAppEClass.getEStructuralFeatures().get(34);
 	}
 
 	/**
@@ -1905,7 +1896,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * @generated
 	 */
 	public EAttribute getWebApp_Id() {
-		return (EAttribute)webAppEClass.getEStructuralFeatures().get(36);
+		return (EAttribute)webAppEClass.getEStructuralFeatures().get(35);
 	}
 
 	/**
@@ -1914,7 +1905,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * @generated
 	 */
 	public EAttribute getWebApp_MetadataComplete() {
-		return (EAttribute)webAppEClass.getEStructuralFeatures().get(37);
+		return (EAttribute)webAppEClass.getEStructuralFeatures().get(36);
 	}
 
 	/**
@@ -1923,7 +1914,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * @generated
 	 */
 	public EAttribute getWebApp_Version() {
-		return (EAttribute)webAppEClass.getEStructuralFeatures().get(38);
+		return (EAttribute)webAppEClass.getEStructuralFeatures().get(37);
 	}
 
 	/**
@@ -1995,15 +1986,6 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * @generated
 	 */
 	public EReference getWebFragment_Descriptions() {
-		return (EReference)webFragmentEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getWebFragment_DisplayNames() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -2012,7 +1994,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getWebFragment_Icons() {
+	public EReference getWebFragment_DisplayNames() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -2021,8 +2003,17 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getWebFragment_Icons() {
+		return (EReference)webFragmentEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EAttribute getWebFragment_Name() {
-		return (EAttribute)webFragmentEClass.getEStructuralFeatures().get(4);
+		return (EAttribute)webFragmentEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2768,10 +2759,10 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 
 		webAppEClass = createEClass(WEB_APP);
 		createEAttribute(webAppEClass, WEB_APP__GROUP);
+		createEAttribute(webAppEClass, WEB_APP__MODULE_NAME);
 		createEReference(webAppEClass, WEB_APP__DESCRIPTIONS);
 		createEReference(webAppEClass, WEB_APP__DISPLAY_NAMES);
 		createEReference(webAppEClass, WEB_APP__ICONS);
-		createEAttribute(webAppEClass, WEB_APP__NAME);
 		createEReference(webAppEClass, WEB_APP__DISTRIBUTABLES);
 		createEReference(webAppEClass, WEB_APP__CONTEXT_PARAMS);
 		createEReference(webAppEClass, WEB_APP__FILTERS);
@@ -2801,7 +2792,6 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		createEReference(webAppEClass, WEB_APP__DATA_SOURCE);
 		createEReference(webAppEClass, WEB_APP__MESSAGE_DESTINATIONS);
 		createEReference(webAppEClass, WEB_APP__LOCAL_ENCODING_MAPPINGS_LISTS);
-		createEAttribute(webAppEClass, WEB_APP__MODULE_NAME);
 		createEReference(webAppEClass, WEB_APP__ABSOLUTE_ORDERING);
 		createEAttribute(webAppEClass, WEB_APP__ID);
 		createEAttribute(webAppEClass, WEB_APP__METADATA_COMPLETE);
@@ -2815,10 +2805,10 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 
 		webFragmentEClass = createEClass(WEB_FRAGMENT);
 		createEAttribute(webFragmentEClass, WEB_FRAGMENT__GROUP);
+		createEAttribute(webFragmentEClass, WEB_FRAGMENT__NAME);
 		createEReference(webFragmentEClass, WEB_FRAGMENT__DESCRIPTIONS);
 		createEReference(webFragmentEClass, WEB_FRAGMENT__DISPLAY_NAMES);
 		createEReference(webFragmentEClass, WEB_FRAGMENT__ICONS);
-		createEAttribute(webFragmentEClass, WEB_FRAGMENT__NAME);
 		createEReference(webFragmentEClass, WEB_FRAGMENT__DISTRIBUTABLES);
 		createEReference(webFragmentEClass, WEB_FRAGMENT__CONTEXT_PARAMS);
 		createEReference(webFragmentEClass, WEB_FRAGMENT__FILTERS);
@@ -2969,7 +2959,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		initEReference(getFilter_DisplayNames(), theJavaeePackage.getDisplayName(), null, "displayNames", null, 0, -1, Filter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getFilter_Icons(), theJavaeePackage.getIcon(), null, "icons", null, 0, -1, Filter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getFilter_FilterName(), this.getFilterNameType(), "filterName", null, 1, 1, Filter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getFilter_FilterClass(), theJavaeePackage.getFullyQualifiedClassType(), "filterClass", null, 1, 1, Filter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getFilter_FilterClass(), theJavaeePackage.getFullyQualifiedClassType(), "filterClass", null, 0, 1, Filter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getFilter_AsyncSupported(), theJavaeePackage.getTrueFalseType(), "asyncSupported", null, 0, 1, Filter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getFilter_InitParams(), theJavaeePackage.getParamValue(), null, "initParams", null, 0, -1, Filter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getFilter_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, Filter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
@@ -3065,10 +3055,10 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 
 		initEClass(webAppEClass, WebApp.class, "WebApp", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEAttribute(getWebApp_Group(), ecorePackage.getEFeatureMapEntry(), "group", null, 0, -1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getWebApp_ModuleName(), theXMLTypePackage.getToken(), "moduleName", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getWebApp_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getWebApp_DisplayNames(), theJavaeePackage.getDisplayName(), null, "displayNames", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getWebApp_Icons(), theJavaeePackage.getIcon(), null, "icons", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getWebApp_Name(), theJavaeePackage.getJavaIdentifier(), "name", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getWebApp_Distributables(), theJavaeePackage.getEmptyType(), null, "distributables", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getWebApp_ContextParams(), theJavaeePackage.getParamValue(), null, "contextParams", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getWebApp_Filters(), this.getFilter(), null, "filters", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
@@ -3098,7 +3088,6 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		initEReference(getWebApp_DataSource(), theJavaeePackage.getDataSourceType(), null, "dataSource", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getWebApp_MessageDestinations(), theJavaeePackage.getMessageDestination(), null, "messageDestinations", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getWebApp_LocalEncodingMappingsLists(), this.getLocaleEncodingMappingList(), null, "localEncodingMappingsLists", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getWebApp_ModuleName(), theXMLTypePackage.getToken(), "moduleName", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getWebApp_AbsoluteOrdering(), this.getAbsoluteOrderingType(), null, "absoluteOrdering", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getWebApp_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getWebApp_MetadataComplete(), theXMLTypePackage.getBoolean(), "metadataComplete", null, 0, 1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
@@ -3112,10 +3101,10 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 
 		initEClass(webFragmentEClass, WebFragment.class, "WebFragment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEAttribute(getWebFragment_Group(), ecorePackage.getEFeatureMapEntry(), "group", null, 0, -1, WebFragment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getWebFragment_Name(), theJavaeePackage.getJavaIdentifier(), "name", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getWebFragment_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getWebFragment_DisplayNames(), theJavaeePackage.getDisplayName(), null, "displayNames", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getWebFragment_Icons(), theJavaeePackage.getIcon(), null, "icons", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getWebFragment_Name(), theJavaeePackage.getJavaIdentifier(), "name", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getWebFragment_Distributables(), theJavaeePackage.getEmptyType(), null, "distributables", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getWebFragment_ContextParams(), theJavaeePackage.getParamValue(), null, "contextParams", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getWebFragment_Filters(), this.getFilter(), null, "filters", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
@@ -3802,7 +3791,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		   new String[] {
 			 "name", "multipart-configType", //$NON-NLS-1$ //$NON-NLS-2$
 			 "kind", "elementOnly" //$NON-NLS-1$ //$NON-NLS-2$
-		   });		
+		   });			
 		addAnnotation
 		  (getMultipartConfigType_Location(), 
 		   source, 
@@ -3810,7 +3799,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "location", //$NON-NLS-1$ //$NON-NLS-2$
 			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
-		   });		
+		   });			
 		addAnnotation
 		  (getMultipartConfigType_MaxFileSize(), 
 		   source, 
@@ -3818,7 +3807,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "max-file-size", //$NON-NLS-1$ //$NON-NLS-2$
 			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
-		   });		
+		   });			
 		addAnnotation
 		  (getMultipartConfigType_MaxRequestSize(), 
 		   source, 
@@ -3826,7 +3815,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "max-request-size", //$NON-NLS-1$ //$NON-NLS-2$
 			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
-		   });		
+		   });			
 		addAnnotation
 		  (getMultipartConfigType_FileSizeThreshold(), 
 		   source, 
@@ -4232,6 +4221,15 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		   new String[] {
 			 "kind", "group", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "group:0" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getWebApp_ModuleName(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "module-name", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace", //$NON-NLS-1$ //$NON-NLS-2$
+			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getWebApp_Descriptions(), 
@@ -4258,15 +4256,6 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "icon", //$NON-NLS-1$ //$NON-NLS-2$
 			 "namespace", "http://java.sun.com/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
-			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
-		   });			
-		addAnnotation
-		  (getWebApp_Name(), 
-		   source, 
-		   new String[] {
-			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
-			 "name", "name", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "##targetNamespace", //$NON-NLS-1$ //$NON-NLS-2$
 			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
@@ -4531,15 +4520,6 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
 		   });			
 		addAnnotation
-		  (getWebApp_ModuleName(), 
-		   source, 
-		   new String[] {
-			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
-			 "name", "module-name", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "##targetNamespace", //$NON-NLS-1$ //$NON-NLS-2$
-			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
-		   });			
-		addAnnotation
 		  (getWebApp_AbsoluteOrdering(), 
 		   source, 
 		   new String[] {
@@ -4633,6 +4613,15 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 			 "name", "group:0" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
+		  (getWebFragment_Name(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "name", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace", //$NON-NLS-1$ //$NON-NLS-2$
+			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
 		  (getWebFragment_Descriptions(), 
 		   source, 
 		   new String[] {
@@ -4657,15 +4646,6 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "icon", //$NON-NLS-1$ //$NON-NLS-2$
 			 "namespace", "http://java.sun.com/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
-			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
-		   });			
-		addAnnotation
-		  (getWebFragment_Name(), 
-		   source, 
-		   new String[] {
-			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
-			 "name", "name", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "##targetNamespace", //$NON-NLS-1$ //$NON-NLS-2$
 			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation

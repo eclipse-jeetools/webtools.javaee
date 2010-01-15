@@ -157,9 +157,11 @@ public interface Application extends JavaEEObject {
 	 * 
 	 * 
 	 *             If initialize-in-order is true, modules must be initialized
-	 *             in the order they're listed in this deployment descriptor.
-	 *             If not set or set to false, the order of initialization is
-	 *             unspecified and may be product-dependent.
+	 *             in the order they're listed in this deployment descriptor,
+	 *             with the exception of application client modules, which can
+	 *             be initialized in any order.
+	 *             If initialize-in-order is not set or set to false, the order
+	 *             of initialization is unspecified and may be product-dependent.
 	 *             
 	 *             @since Java EE 6, Application 6
 	 *           

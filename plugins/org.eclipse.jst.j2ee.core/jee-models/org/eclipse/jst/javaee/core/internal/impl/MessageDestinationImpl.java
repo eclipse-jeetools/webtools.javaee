@@ -46,6 +46,7 @@ import org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage;
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.MessageDestinationImpl#getIcons <em>Icons</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.MessageDestinationImpl#getMessageDestinationName <em>Message Destination Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.MessageDestinationImpl#getMappedName <em>Mapped Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.MessageDestinationImpl#getLookupName <em>Lookup Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.MessageDestinationImpl#getId <em>Id</em>}</li>
  * </ul>
  * </p>
@@ -122,6 +123,26 @@ public class MessageDestinationImpl extends EObjectImpl implements MessageDestin
 	 * @ordered
 	 */
 	protected String mappedName = MAPPED_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getLookupName() <em>Lookup Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLookupName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String LOOKUP_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getLookupName() <em>Lookup Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLookupName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String lookupName = LOOKUP_NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -245,6 +266,27 @@ public class MessageDestinationImpl extends EObjectImpl implements MessageDestin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getLookupName() {
+		return lookupName;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setLookupName(String newLookupName) {
+		String oldLookupName = lookupName;
+		lookupName = newLookupName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, JavaeePackage.MESSAGE_DESTINATION__LOOKUP_NAME, oldLookupName, lookupName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getId() {
 		return id;
 	}
@@ -297,6 +339,8 @@ public class MessageDestinationImpl extends EObjectImpl implements MessageDestin
 				return getMessageDestinationName();
 			case JavaeePackage.MESSAGE_DESTINATION__MAPPED_NAME:
 				return getMappedName();
+			case JavaeePackage.MESSAGE_DESTINATION__LOOKUP_NAME:
+				return getLookupName();
 			case JavaeePackage.MESSAGE_DESTINATION__ID:
 				return getId();
 		}
@@ -330,6 +374,9 @@ public class MessageDestinationImpl extends EObjectImpl implements MessageDestin
 			case JavaeePackage.MESSAGE_DESTINATION__MAPPED_NAME:
 				setMappedName((String)newValue);
 				return;
+			case JavaeePackage.MESSAGE_DESTINATION__LOOKUP_NAME:
+				setLookupName((String)newValue);
+				return;
 			case JavaeePackage.MESSAGE_DESTINATION__ID:
 				setId((String)newValue);
 				return;
@@ -360,6 +407,9 @@ public class MessageDestinationImpl extends EObjectImpl implements MessageDestin
 			case JavaeePackage.MESSAGE_DESTINATION__MAPPED_NAME:
 				setMappedName(MAPPED_NAME_EDEFAULT);
 				return;
+			case JavaeePackage.MESSAGE_DESTINATION__LOOKUP_NAME:
+				setLookupName(LOOKUP_NAME_EDEFAULT);
+				return;
 			case JavaeePackage.MESSAGE_DESTINATION__ID:
 				setId(ID_EDEFAULT);
 				return;
@@ -385,6 +435,8 @@ public class MessageDestinationImpl extends EObjectImpl implements MessageDestin
 				return MESSAGE_DESTINATION_NAME_EDEFAULT == null ? messageDestinationName != null : !MESSAGE_DESTINATION_NAME_EDEFAULT.equals(messageDestinationName);
 			case JavaeePackage.MESSAGE_DESTINATION__MAPPED_NAME:
 				return MAPPED_NAME_EDEFAULT == null ? mappedName != null : !MAPPED_NAME_EDEFAULT.equals(mappedName);
+			case JavaeePackage.MESSAGE_DESTINATION__LOOKUP_NAME:
+				return LOOKUP_NAME_EDEFAULT == null ? lookupName != null : !LOOKUP_NAME_EDEFAULT.equals(lookupName);
 			case JavaeePackage.MESSAGE_DESTINATION__ID:
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 		}
@@ -405,6 +457,8 @@ public class MessageDestinationImpl extends EObjectImpl implements MessageDestin
 		result.append(messageDestinationName);
 		result.append(", mappedName: "); //$NON-NLS-1$
 		result.append(mappedName);
+		result.append(", lookupName: "); //$NON-NLS-1$
+		result.append(lookupName);
 		result.append(", id: "); //$NON-NLS-1$
 		result.append(id);
 		result.append(')');

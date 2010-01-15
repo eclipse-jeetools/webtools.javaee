@@ -30,7 +30,7 @@ import org.eclipse.jst.javaee.webapp.WebappFactory;
  * <!-- begin-model-doc -->
  * 
  * 
- *       $Id: WebappPackage.java,v 1.2 2009/10/16 03:33:22 canderson Exp $
+ *       $Id: WebappPackage.java,v 1.3 2010/01/15 14:32:07 canderson Exp $
  *       
  *     
  * 
@@ -78,7 +78,7 @@ import org.eclipse.jst.javaee.webapp.WebappFactory;
  *     
  * 
  * 
- *       $Id: WebappPackage.java,v 1.2 2009/10/16 03:33:22 canderson Exp $
+ *       $Id: WebappPackage.java,v 1.3 2010/01/15 14:32:07 canderson Exp $
  *       
  *     
  * 
@@ -126,7 +126,7 @@ import org.eclipse.jst.javaee.webapp.WebappFactory;
  *     
  * 
  * 
- *       $Id: WebappPackage.java,v 1.2 2009/10/16 03:33:22 canderson Exp $
+ *       $Id: WebappPackage.java,v 1.3 2010/01/15 14:32:07 canderson Exp $
  *       
  *     
  * 
@@ -151,7 +151,7 @@ import org.eclipse.jst.javaee.webapp.WebappFactory;
  *     
  * 
  * 
- *       $Id: WebappPackage.java,v 1.2 2009/10/16 03:33:22 canderson Exp $
+ *       $Id: WebappPackage.java,v 1.3 2010/01/15 14:32:07 canderson Exp $
  *       
  *     
  * 
@@ -320,46 +320,12 @@ import org.eclipse.jst.javaee.webapp.WebappFactory;
  *     
  * 
  * 
- *       Copyright 2003-2009 Sun Microsystems, Inc.
- *       4150 Network Circle
- *       Santa Clara, California 95054
- *       U.S.A
- *       All rights reserved.
- * 
- *       Sun Microsystems, Inc. has intellectual property rights
- *       relating to technology described in this document. In
- *       particular, and without limitation, these intellectual
- *       property rights may include one or more of the U.S. patents
- *       listed at http://www.sun.com/patents and one or more
- *       additional patents or pending patent applications in the
- *       U.S. and other countries.
- * 
- *       This document and the technology which it describes are
- *       distributed under licenses restricting their use, copying,
- *       distribution, and decompilation. No part of this document
- *       may be reproduced in any form by any means without prior
- *       written authorization of Sun and its licensors, if any.
- * 
- *       Third-party software, including font technology, is
- *       copyrighted and licensed from Sun suppliers.
- * 
- *       Sun, Sun Microsystems, the Sun logo, Solaris, Java, J2EE,
- *       JavaServer Pages, Enterprise JavaBeans and the Java Coffee
- *       Cup logo are trademarks or registered trademarks of Sun
- *       Microsystems, Inc. in the U.S. and other countries.
- * 
- *       Federal Acquisitions: Commercial Software - Government Users
- *       Subject to Standard License Terms and Conditions.
- * 
- *     
- * 
- * 
  *       This is the XML Schema for the JSP 2.2 deployment descriptor
  *       types.  The JSP 2.2 schema contains all the special
  *       structures and datatypes that are necessary to use JSP files
  *       from a web application.
  * 
- *       The contents of this schema is used by the web-app_3_0.xsd
+ *       The contents of this schema is used by the web-common_3_0.xsd
  *       file to define JSP specific content.
  * 
  *     

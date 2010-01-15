@@ -24,13 +24,13 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * 
  * <![CDATA[[
  *         The interceptor-bindingType element describes the binding of
- *         interceptor classes to beans within the ejb-jar.
+ *         interceptor classes to beans within the ejb-jar or .war.
  *         It consists of :
  *         
  *         - An optional description.
- *         - The name of an ejb within the ejb-jar or the wildcard value "*",
+ *         - The name of an ejb within the module or the wildcard value "*",
  *         which is used to define interceptors that are bound to all
- *         beans in the ejb-jar.
+ *         beans in the ejb-jar or .war.
  *         - A list of interceptor classes that are bound to the contents of
  *         the ejb-name element or a specification of the total ordering
  *         over the interceptors defined for the given level and above.
@@ -44,7 +44,7 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  *         of a method-level interceptor.
  *         
  *         Interceptors bound to all classes using the wildcard syntax
- *         "*" are default interceptors for the components in the ejb-jar. 
+ *         "*" are default interceptors for the components in the ejb-jar or .war. 
  *         In addition, interceptors may be bound at the level of the bean
  *         class (class-level interceptors) or business methods (method-level
  *         interceptors ).
@@ -64,7 +64,7 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  *         
  *         Specifying the ejb-name as the wildcard value "*" designates
  *         default interceptors (interceptors that apply to all session and
- *         message-driven beans contained in the ejb-jar).
+ *         message-driven beans contained in the ejb-jar or .war).
  *         
  *         2. 
  *         <interceptor-binding>

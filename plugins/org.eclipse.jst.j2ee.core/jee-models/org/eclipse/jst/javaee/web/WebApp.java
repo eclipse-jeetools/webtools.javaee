@@ -45,10 +45,10 @@ import org.eclipse.jst.javaee.jsp.JspConfig;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.jst.javaee.web.WebApp#getGroup <em>Group</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.web.WebApp#getModuleName <em>Module Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.WebApp#getDescriptions <em>Descriptions</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.WebApp#getDisplayNames <em>Display Names</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.WebApp#getIcons <em>Icons</em>}</li>
- *   <li>{@link org.eclipse.jst.javaee.web.WebApp#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.WebApp#getDistributables <em>Distributables</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.WebApp#getContextParams <em>Context Params</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.WebApp#getFilters <em>Filters</em>}</li>
@@ -78,7 +78,6 @@ import org.eclipse.jst.javaee.jsp.JspConfig;
  *   <li>{@link org.eclipse.jst.javaee.web.WebApp#getDataSource <em>Data Source</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.WebApp#getMessageDestinations <em>Message Destinations</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.WebApp#getLocalEncodingMappingsLists <em>Local Encoding Mappings Lists</em>}</li>
- *   <li>{@link org.eclipse.jst.javaee.web.WebApp#getModuleName <em>Module Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.WebApp#getAbsoluteOrdering <em>Absolute Ordering</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.WebApp#getId <em>Id</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.WebApp#isMetadataComplete <em>Metadata Complete</em>}</li>
@@ -150,22 +149,6 @@ public interface WebApp extends JavaEEObject {
 	 * @generated
 	 */
 	List<Icon> getIcons();
-
-	/**
-	 * Returns the value of the '<em><b>Name</b></em>' attribute list.
-	 * The list contents are of type {@link java.lang.String}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * 
-	 *             @since Java EE 6, Web 3.0
-	 *           
-	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Name</em>' attribute list.
-	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_Name()
-	 * @generated
-	 */
-	List<String> getName();
 
 	/**
 	 * Returns the value of the '<em><b>Distributables</b></em>' containment reference list.

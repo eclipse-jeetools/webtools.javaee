@@ -20,7 +20,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.jst.javaee.ejb.AsyncMethodType;
-import org.eclipse.jst.javaee.ejb.MethodInterfaceType;
 import org.eclipse.jst.javaee.ejb.MethodParams;
 
 import org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage;
@@ -34,7 +33,6 @@ import org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage;
  * <ul>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.AsyncMethodTypeImpl#getMethodName <em>Method Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.AsyncMethodTypeImpl#getMethodParams <em>Method Params</em>}</li>
- *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.AsyncMethodTypeImpl#getMethodIntf <em>Method Intf</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.AsyncMethodTypeImpl#getId <em>Id</em>}</li>
  * </ul>
  * </p>
@@ -71,35 +69,6 @@ public class AsyncMethodTypeImpl extends EObjectImpl implements AsyncMethodType 
 	 * @ordered
 	 */
 	protected MethodParams methodParams;
-
-	/**
-	 * The default value of the '{@link #getMethodIntf() <em>Method Intf</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getMethodIntf()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final MethodInterfaceType METHOD_INTF_EDEFAULT = MethodInterfaceType.HOME_LITERAL;
-
-	/**
-	 * The cached value of the '{@link #getMethodIntf() <em>Method Intf</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getMethodIntf()
-	 * @generated
-	 * @ordered
-	 */
-	protected MethodInterfaceType methodIntf = METHOD_INTF_EDEFAULT;
-
-	/**
-	 * This is true if the Method Intf attribute has been set.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	protected boolean methodIntfESet;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -209,52 +178,6 @@ public class AsyncMethodTypeImpl extends EObjectImpl implements AsyncMethodType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public MethodInterfaceType getMethodIntf() {
-		return methodIntf;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setMethodIntf(MethodInterfaceType newMethodIntf) {
-		MethodInterfaceType oldMethodIntf = methodIntf;
-		methodIntf = newMethodIntf == null ? METHOD_INTF_EDEFAULT : newMethodIntf;
-		boolean oldMethodIntfESet = methodIntfESet;
-		methodIntfESet = true;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, EjbPackage.ASYNC_METHOD_TYPE__METHOD_INTF, oldMethodIntf, methodIntf, !oldMethodIntfESet));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void unsetMethodIntf() {
-		MethodInterfaceType oldMethodIntf = methodIntf;
-		boolean oldMethodIntfESet = methodIntfESet;
-		methodIntf = METHOD_INTF_EDEFAULT;
-		methodIntfESet = false;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.UNSET, EjbPackage.ASYNC_METHOD_TYPE__METHOD_INTF, oldMethodIntf, METHOD_INTF_EDEFAULT, oldMethodIntfESet));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean isSetMethodIntf() {
-		return methodIntfESet;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public String getId() {
 		return id;
 	}
@@ -297,8 +220,6 @@ public class AsyncMethodTypeImpl extends EObjectImpl implements AsyncMethodType 
 				return getMethodName();
 			case EjbPackage.ASYNC_METHOD_TYPE__METHOD_PARAMS:
 				return getMethodParams();
-			case EjbPackage.ASYNC_METHOD_TYPE__METHOD_INTF:
-				return getMethodIntf();
 			case EjbPackage.ASYNC_METHOD_TYPE__ID:
 				return getId();
 		}
@@ -318,9 +239,6 @@ public class AsyncMethodTypeImpl extends EObjectImpl implements AsyncMethodType 
 				return;
 			case EjbPackage.ASYNC_METHOD_TYPE__METHOD_PARAMS:
 				setMethodParams((MethodParams)newValue);
-				return;
-			case EjbPackage.ASYNC_METHOD_TYPE__METHOD_INTF:
-				setMethodIntf((MethodInterfaceType)newValue);
 				return;
 			case EjbPackage.ASYNC_METHOD_TYPE__ID:
 				setId((String)newValue);
@@ -343,9 +261,6 @@ public class AsyncMethodTypeImpl extends EObjectImpl implements AsyncMethodType 
 			case EjbPackage.ASYNC_METHOD_TYPE__METHOD_PARAMS:
 				setMethodParams((MethodParams)null);
 				return;
-			case EjbPackage.ASYNC_METHOD_TYPE__METHOD_INTF:
-				unsetMethodIntf();
-				return;
 			case EjbPackage.ASYNC_METHOD_TYPE__ID:
 				setId(ID_EDEFAULT);
 				return;
@@ -365,8 +280,6 @@ public class AsyncMethodTypeImpl extends EObjectImpl implements AsyncMethodType 
 				return METHOD_NAME_EDEFAULT == null ? methodName != null : !METHOD_NAME_EDEFAULT.equals(methodName);
 			case EjbPackage.ASYNC_METHOD_TYPE__METHOD_PARAMS:
 				return methodParams != null;
-			case EjbPackage.ASYNC_METHOD_TYPE__METHOD_INTF:
-				return isSetMethodIntf();
 			case EjbPackage.ASYNC_METHOD_TYPE__ID:
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 		}
@@ -385,8 +298,6 @@ public class AsyncMethodTypeImpl extends EObjectImpl implements AsyncMethodType 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (methodName: "); //$NON-NLS-1$
 		result.append(methodName);
-		result.append(", methodIntf: "); //$NON-NLS-1$
-		if (methodIntfESet) result.append(methodIntf); else result.append("<unset>"); //$NON-NLS-1$
 		result.append(", id: "); //$NON-NLS-1$
 		result.append(id);
 		result.append(')');

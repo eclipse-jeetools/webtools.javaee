@@ -23,10 +23,6 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  *         The async-methodType element specifies that a session
  *         bean method has asynchronous invocation semantics.
  *         
- *         The optional method-intf element constrains the async
- *         method behavior to the client views of the given method-intf 
- *         type.  This value must be either Remote or Local.  
- *         
  *         @since Java EE 6, EJB 3.1
  *       
  * <!-- end-model-doc -->
@@ -36,7 +32,6 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * <ul>
  *   <li>{@link org.eclipse.jst.javaee.ejb.AsyncMethodType#getMethodName <em>Method Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.AsyncMethodType#getMethodParams <em>Method Params</em>}</li>
- *   <li>{@link org.eclipse.jst.javaee.ejb.AsyncMethodType#getMethodIntf <em>Method Intf</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.AsyncMethodType#getId <em>Id</em>}</li>
  * </ul>
  * </p>
@@ -95,61 +90,6 @@ public interface AsyncMethodType extends JavaEEObject {
 	 * @generated
 	 */
 	void setMethodParams(MethodParams value);
-
-	/**
-	 * Returns the value of the '<em><b>Method Intf</b></em>' attribute.
-	 * The literals are from the enumeration {@link org.eclipse.jst.javaee.ejb.MethodInterfaceType}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Method Intf</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Method Intf</em>' attribute.
-	 * @see org.eclipse.jst.javaee.ejb.MethodInterfaceType
-	 * @see #isSetMethodIntf()
-	 * @see #unsetMethodIntf()
-	 * @see #setMethodIntf(MethodInterfaceType)
-	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getAsyncMethodType_MethodIntf()
-	 * @generated
-	 */
-	MethodInterfaceType getMethodIntf();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.jst.javaee.ejb.AsyncMethodType#getMethodIntf <em>Method Intf</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Method Intf</em>' attribute.
-	 * @see org.eclipse.jst.javaee.ejb.MethodInterfaceType
-	 * @see #isSetMethodIntf()
-	 * @see #unsetMethodIntf()
-	 * @see #getMethodIntf()
-	 * @generated
-	 */
-	void setMethodIntf(MethodInterfaceType value);
-
-	/**
-	 * Unsets the value of the '{@link org.eclipse.jst.javaee.ejb.AsyncMethodType#getMethodIntf <em>Method Intf</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isSetMethodIntf()
-	 * @see #getMethodIntf()
-	 * @see #setMethodIntf(MethodInterfaceType)
-	 * @generated
-	 */
-	void unsetMethodIntf();
-
-	/**
-	 * Returns whether the value of the '{@link org.eclipse.jst.javaee.ejb.AsyncMethodType#getMethodIntf <em>Method Intf</em>}' attribute is set.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return whether the value of the '<em>Method Intf</em>' attribute is set.
-	 * @see #unsetMethodIntf()
-	 * @see #getMethodIntf()
-	 * @see #setMethodIntf(MethodInterfaceType)
-	 * @generated
-	 */
-	boolean isSetMethodIntf();
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.

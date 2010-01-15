@@ -31,7 +31,6 @@ import org.eclipse.emf.common.util.Enumerator;
  *         
  *         Bean
  *         Container
- *         NotAllowed
  *         
  *         Bean managed concurrency can only be specified for a singleton bean.
  *         
@@ -60,17 +59,7 @@ public enum ConcurrencyManagementTypeType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	CONTAINER(1, "Container", "Container"), //$NON-NLS-1$ //$NON-NLS-2$
-
-	/**
-	 * The '<em><b>Not Allowed</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #NOT_ALLOWED_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	NOT_ALLOWED(2, "NotAllowed", "NotAllowed"); //$NON-NLS-1$ //$NON-NLS-2$
+	CONTAINER(1, "Container", "Container"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>Bean</b></em>' literal value.
@@ -101,20 +90,6 @@ public enum ConcurrencyManagementTypeType implements Enumerator {
 	public static final int CONTAINER_VALUE = 1;
 
 	/**
-	 * The '<em><b>Not Allowed</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>Not Allowed</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @see #NOT_ALLOWED
-	 * @generated
-	 * @ordered
-	 */
-	public static final int NOT_ALLOWED_VALUE = 2;
-
-	/**
 	 * An array of all the '<em><b>Concurrency Management Type Type</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -124,7 +99,6 @@ public enum ConcurrencyManagementTypeType implements Enumerator {
 		new ConcurrencyManagementTypeType[] {
 			BEAN,
 			CONTAINER,
-			NOT_ALLOWED,
 		};
 
 	/**
@@ -177,7 +151,6 @@ public enum ConcurrencyManagementTypeType implements Enumerator {
 		switch (value) {
 			case BEAN_VALUE: return BEAN;
 			case CONTAINER_VALUE: return CONTAINER;
-			case NOT_ALLOWED_VALUE: return NOT_ALLOWED;
 		}
 		return null;
 	}

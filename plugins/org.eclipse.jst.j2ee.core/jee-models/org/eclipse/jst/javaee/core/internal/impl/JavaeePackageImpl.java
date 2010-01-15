@@ -1465,8 +1465,17 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getMessageDestination_Id() {
+	public EAttribute getMessageDestination_LookupName() {
 		return (EAttribute)messageDestinationEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getMessageDestination_Id() {
+		return (EAttribute)messageDestinationEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -1681,17 +1690,8 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getPersistenceContextRef_LookupName() {
-		return (EAttribute)persistenceContextRefEClass.getEStructuralFeatures().get(7);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EAttribute getPersistenceContextRef_Id() {
-		return (EAttribute)persistenceContextRefEClass.getEStructuralFeatures().get(8);
+		return (EAttribute)persistenceContextRefEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -1753,17 +1753,8 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getPersistenceUnitRef_LookupName() {
-		return (EAttribute)persistenceUnitRefEClass.getEStructuralFeatures().get(5);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EAttribute getPersistenceUnitRef_Id() {
-		return (EAttribute)persistenceUnitRefEClass.getEStructuralFeatures().get(6);
+		return (EAttribute)persistenceUnitRefEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -2999,6 +2990,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 		createEReference(messageDestinationEClass, MESSAGE_DESTINATION__ICONS);
 		createEAttribute(messageDestinationEClass, MESSAGE_DESTINATION__MESSAGE_DESTINATION_NAME);
 		createEAttribute(messageDestinationEClass, MESSAGE_DESTINATION__MAPPED_NAME);
+		createEAttribute(messageDestinationEClass, MESSAGE_DESTINATION__LOOKUP_NAME);
 		createEAttribute(messageDestinationEClass, MESSAGE_DESTINATION__ID);
 
 		messageDestinationRefEClass = createEClass(MESSAGE_DESTINATION_REF);
@@ -3026,7 +3018,6 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 		createEReference(persistenceContextRefEClass, PERSISTENCE_CONTEXT_REF__PERSISTENCE_PROPERTIES);
 		createEAttribute(persistenceContextRefEClass, PERSISTENCE_CONTEXT_REF__MAPPED_NAME);
 		createEReference(persistenceContextRefEClass, PERSISTENCE_CONTEXT_REF__INJECTION_TARGETS);
-		createEAttribute(persistenceContextRefEClass, PERSISTENCE_CONTEXT_REF__LOOKUP_NAME);
 		createEAttribute(persistenceContextRefEClass, PERSISTENCE_CONTEXT_REF__ID);
 
 		persistenceUnitRefEClass = createEClass(PERSISTENCE_UNIT_REF);
@@ -3035,7 +3026,6 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 		createEAttribute(persistenceUnitRefEClass, PERSISTENCE_UNIT_REF__PERSISTENCE_UNIT_NAME);
 		createEAttribute(persistenceUnitRefEClass, PERSISTENCE_UNIT_REF__MAPPED_NAME);
 		createEReference(persistenceUnitRefEClass, PERSISTENCE_UNIT_REF__INJECTION_TARGETS);
-		createEAttribute(persistenceUnitRefEClass, PERSISTENCE_UNIT_REF__LOOKUP_NAME);
 		createEAttribute(persistenceUnitRefEClass, PERSISTENCE_UNIT_REF__ID);
 
 		portComponentRefEClass = createEClass(PORT_COMPONENT_REF);
@@ -3311,6 +3301,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 		initEReference(getMessageDestination_Icons(), this.getIcon(), null, "icons", null, 0, -1, MessageDestination.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getMessageDestination_MessageDestinationName(), theXMLTypePackage.getToken(), "messageDestinationName", null, 1, 1, MessageDestination.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getMessageDestination_MappedName(), theXMLTypePackage.getString(), "mappedName", null, 0, 1, MessageDestination.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMessageDestination_LookupName(), theXMLTypePackage.getString(), "lookupName", null, 0, 1, MessageDestination.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getMessageDestination_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, MessageDestination.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(messageDestinationRefEClass, MessageDestinationRef.class, "MessageDestinationRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
@@ -3338,7 +3329,6 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 		initEReference(getPersistenceContextRef_PersistenceProperties(), this.getPropertyType(), null, "persistenceProperties", null, 0, -1, PersistenceContextRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getPersistenceContextRef_MappedName(), theXMLTypePackage.getString(), "mappedName", null, 0, 1, PersistenceContextRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getPersistenceContextRef_InjectionTargets(), this.getInjectionTarget(), null, "injectionTargets", null, 0, -1, PersistenceContextRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getPersistenceContextRef_LookupName(), theXMLTypePackage.getString(), "lookupName", null, 0, 1, PersistenceContextRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getPersistenceContextRef_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, PersistenceContextRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(persistenceUnitRefEClass, PersistenceUnitRef.class, "PersistenceUnitRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
@@ -3347,7 +3337,6 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 		initEAttribute(getPersistenceUnitRef_PersistenceUnitName(), theXMLTypePackage.getToken(), "persistenceUnitName", null, 0, 1, PersistenceUnitRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getPersistenceUnitRef_MappedName(), theXMLTypePackage.getString(), "mappedName", null, 0, 1, PersistenceUnitRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getPersistenceUnitRef_InjectionTargets(), this.getInjectionTarget(), null, "injectionTargets", null, 0, -1, PersistenceUnitRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getPersistenceUnitRef_LookupName(), theXMLTypePackage.getString(), "lookupName", null, 0, 1, PersistenceUnitRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getPersistenceUnitRef_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, PersistenceUnitRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(portComponentRefEClass, PortComponentRef.class, "PortComponentRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
@@ -3464,7 +3453,6 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 		addEEnumLiteral(genericBooleanTypeEEnum, GenericBooleanType.NO);
 
 		initEEnum(isolationLevelTypeEEnum, IsolationLevelType.class, "IsolationLevelType"); //$NON-NLS-1$
-		addEEnumLiteral(isolationLevelTypeEEnum, IsolationLevelType.TRANSACTIONNONE);
 		addEEnumLiteral(isolationLevelTypeEEnum, IsolationLevelType.TRANSACTIONREADUNCOMMITTED);
 		addEEnumLiteral(isolationLevelTypeEEnum, IsolationLevelType.TRANSACTIONREADCOMMITTED);
 		addEEnumLiteral(isolationLevelTypeEEnum, IsolationLevelType.TRANSACTIONREPEATABLEREAD);
@@ -4334,6 +4322,14 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "mapped-name", //$NON-NLS-1$ //$NON-NLS-2$
 			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getMessageDestination_LookupName(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "lookup-name", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getMessageDestination_Id(), 
@@ -4551,14 +4547,6 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "injection-target", //$NON-NLS-1$ //$NON-NLS-2$
 			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
-		   });			
-		addAnnotation
-		  (getPersistenceContextRef_LookupName(), 
-		   source, 
-		   new String[] {
-			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
-			 "name", "lookup-name", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getPersistenceContextRef_Id(), 
@@ -4625,14 +4613,6 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "injection-target", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
-		   });			
-		addAnnotation
-		  (getPersistenceUnitRef_LookupName(), 
-		   source, 
-		   new String[] {
-			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
-			 "name", "lookup-name", //$NON-NLS-1$ //$NON-NLS-2$
 			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation

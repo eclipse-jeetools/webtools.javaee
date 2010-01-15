@@ -30,11 +30,30 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  *         provided, one or more authentication mechanisms supported
  *         and additional required security permissions.
  *         
+ *         If any of the outbound resource adapter elements (transaction-support,
+ *         authentication-mechanism, reauthentication-support) is specified through
+ *         this element or metadata annotations, and no  connection-definition is 
+ *         specified as part of this element or through annotations, the 
+ *         application server must consider this an error and fail deployment. 
+ *         
  *         If there is no authentication-mechanism specified as part of
- *         resource adapter element then the resource adapter does not
- *         support any standard security authentication mechanisms as
- *         part of security contract. The application server ignores
- *         the security part of the system contracts in this case.
+ *         this element or metadata annotations, then the resource adapter does 
+ *         not support any standard security authentication mechanisms as 
+ *         part of security contract. The application server ignores the security 
+ *         part of the system contracts in this case.
+ *         
+ *         If there is no transaction-support specified as part of this element 
+ *         or metadata annotation, then the application server must consider that 
+ *         the resource adapter does not support either the resource manager local 
+ *         or JTA transactions and must consider the transaction support as 
+ *         NoTransaction. Note that resource adapters may specify the level of 
+ *         transaction support to be used at runtime for a ManagedConnectionFactory 
+ *         through the TransactionSupport interface.
+ *         
+ *         If there is no reauthentication-support specified as part of
+ *         this element or metadata annotation, then the application server must consider 
+ *         that the resource adapter does not support re-authentication of 
+ *         ManagedConnections.
  *         
  *         @since Java EE 6, Connector 1.6
  *       

@@ -58,7 +58,6 @@ import java.util.List;
  *   <li>{@link org.eclipse.jst.javaee.core.PersistenceUnitRef#getPersistenceUnitName <em>Persistence Unit Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.PersistenceUnitRef#getMappedName <em>Mapped Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.PersistenceUnitRef#getInjectionTargets <em>Injection Targets</em>}</li>
- *   <li>{@link org.eclipse.jst.javaee.core.PersistenceUnitRef#getLookupName <em>Lookup Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.PersistenceUnitRef#getId <em>Id</em>}</li>
  * </ul>
  * </p>
@@ -213,35 +212,6 @@ public interface PersistenceUnitRef extends JavaEEObject {
 	 * @generated
 	 */
 	List<InjectionTarget> getInjectionTargets();
-
-	/**
-	 * Returns the value of the '<em><b>Lookup Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * 
-	 * 
-	 *             The JNDI name to be looked up to resolve a resource reference.
-	 *             
-	 *             @since Java EE 6
-	 *           
-	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Lookup Name</em>' attribute.
-	 * @see #setLookupName(String)
-	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getPersistenceUnitRef_LookupName()
-	 * @generated
-	 */
-	String getLookupName();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.jst.javaee.core.PersistenceUnitRef#getLookupName <em>Lookup Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Lookup Name</em>' attribute.
-	 * @see #getLookupName()
-	 * @generated
-	 */
-	void setLookupName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.

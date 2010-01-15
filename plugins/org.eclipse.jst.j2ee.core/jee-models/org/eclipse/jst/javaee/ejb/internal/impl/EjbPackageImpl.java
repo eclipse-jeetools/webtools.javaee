@@ -977,17 +977,8 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getAsyncMethodType_MethodIntf() {
-		return (EAttribute)asyncMethodTypeEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EAttribute getAsyncMethodType_Id() {
-		return (EAttribute)asyncMethodTypeEClass.getEStructuralFeatures().get(3);
+		return (EAttribute)asyncMethodTypeEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1203,15 +1194,6 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * @generated
 	 */
 	public EReference getEJBJar_Descriptions() {
-		return (EReference)ejbJarEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getEJBJar_DisplayNames() {
 		return (EReference)ejbJarEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -1220,7 +1202,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getEJBJar_Icons() {
+	public EReference getEJBJar_DisplayNames() {
 		return (EReference)ejbJarEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -1229,8 +1211,17 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getEJBJar_Icons() {
+		return (EReference)ejbJarEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EAttribute getEJBJar_ModuleName() {
-		return (EAttribute)ejbJarEClass.getEStructuralFeatures().get(3);
+		return (EAttribute)ejbJarEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3886,7 +3877,6 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		asyncMethodTypeEClass = createEClass(ASYNC_METHOD_TYPE);
 		createEAttribute(asyncMethodTypeEClass, ASYNC_METHOD_TYPE__METHOD_NAME);
 		createEReference(asyncMethodTypeEClass, ASYNC_METHOD_TYPE__METHOD_PARAMS);
-		createEAttribute(asyncMethodTypeEClass, ASYNC_METHOD_TYPE__METHOD_INTF);
 		createEAttribute(asyncMethodTypeEClass, ASYNC_METHOD_TYPE__ID);
 
 		cmpFieldEClass = createEClass(CMP_FIELD);
@@ -3917,10 +3907,10 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		createEAttribute(dependsOnTypeEClass, DEPENDS_ON_TYPE__ID);
 
 		ejbJarEClass = createEClass(EJB_JAR);
+		createEAttribute(ejbJarEClass, EJB_JAR__MODULE_NAME);
 		createEReference(ejbJarEClass, EJB_JAR__DESCRIPTIONS);
 		createEReference(ejbJarEClass, EJB_JAR__DISPLAY_NAMES);
 		createEReference(ejbJarEClass, EJB_JAR__ICONS);
-		createEAttribute(ejbJarEClass, EJB_JAR__MODULE_NAME);
 		createEReference(ejbJarEClass, EJB_JAR__ENTERPRISE_BEANS);
 		createEReference(ejbJarEClass, EJB_JAR__INTERCEPTORS);
 		createEReference(ejbJarEClass, EJB_JAR__RELATIONSHIPS);
@@ -4275,7 +4265,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(accessTimeoutTypeEClass, AccessTimeoutType.class, "AccessTimeoutType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getAccessTimeoutType_Timeout(), theXMLTypePackage.getPositiveInteger(), "timeout", null, 1, 1, AccessTimeoutType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getAccessTimeoutType_Timeout(), theXMLTypePackage.getInteger(), "timeout", null, 1, 1, AccessTimeoutType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getAccessTimeoutType_Unit(), this.getTimeUnitTypeType(), "unit", null, 1, 1, AccessTimeoutType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getAccessTimeoutType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, AccessTimeoutType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
@@ -4316,7 +4306,6 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		initEClass(asyncMethodTypeEClass, AsyncMethodType.class, "AsyncMethodType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEAttribute(getAsyncMethodType_MethodName(), theXMLTypePackage.getToken(), "methodName", null, 1, 1, AsyncMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getAsyncMethodType_MethodParams(), this.getMethodParams(), null, "methodParams", null, 0, 1, AsyncMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getAsyncMethodType_MethodIntf(), this.getMethodInterfaceType(), "methodIntf", null, 0, 1, AsyncMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getAsyncMethodType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, AsyncMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(cmpFieldEClass, CMPField.class, "CMPField", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
@@ -4347,10 +4336,10 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		initEAttribute(getDependsOnType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, DependsOnType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(ejbJarEClass, EJBJar.class, "EJBJar", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getEJBJar_ModuleName(), theXMLTypePackage.getToken(), "moduleName", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getEJBJar_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getEJBJar_DisplayNames(), theJavaeePackage.getDisplayName(), null, "displayNames", null, 0, -1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getEJBJar_Icons(), theJavaeePackage.getIcon(), null, "icons", null, 0, -1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getEJBJar_ModuleName(), theXMLTypePackage.getToken(), "moduleName", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getEJBJar_EnterpriseBeans(), this.getEnterpriseBeans(), null, "enterpriseBeans", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getEJBJar_Interceptors(), this.getInterceptorsType(), null, "interceptors", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getEJBJar_Relationships(), this.getRelationships(), null, "relationships", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
@@ -4613,7 +4602,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		initEAttribute(getSessionBean_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(statefulTimeoutTypeEClass, StatefulTimeoutType.class, "StatefulTimeoutType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getStatefulTimeoutType_Timeout(), theXMLTypePackage.getPositiveInteger(), "timeout", null, 1, 1, StatefulTimeoutType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getStatefulTimeoutType_Timeout(), theXMLTypePackage.getInteger(), "timeout", null, 1, 1, StatefulTimeoutType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getStatefulTimeoutType_Unit(), this.getTimeUnitTypeType(), "unit", null, 1, 1, StatefulTimeoutType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getStatefulTimeoutType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, StatefulTimeoutType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
@@ -4650,7 +4639,6 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		initEEnum(concurrencyManagementTypeTypeEEnum, ConcurrencyManagementTypeType.class, "ConcurrencyManagementTypeType"); //$NON-NLS-1$
 		addEEnumLiteral(concurrencyManagementTypeTypeEEnum, ConcurrencyManagementTypeType.BEAN);
 		addEEnumLiteral(concurrencyManagementTypeTypeEEnum, ConcurrencyManagementTypeType.CONTAINER);
-		addEEnumLiteral(concurrencyManagementTypeTypeEEnum, ConcurrencyManagementTypeType.NOT_ALLOWED);
 
 		initEEnum(concurrentLockTypeTypeEEnum, ConcurrentLockTypeType.class, "ConcurrentLockTypeType"); //$NON-NLS-1$
 		addEEnumLiteral(concurrentLockTypeTypeEEnum, ConcurrentLockTypeType.READ);
@@ -5004,14 +4992,6 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
-		  (getAsyncMethodType_MethodIntf(), 
-		   source, 
-		   new String[] {
-			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
-			 "name", "method-intf", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
-		   });		
-		addAnnotation
 		  (getAsyncMethodType_Id(), 
 		   source, 
 		   new String[] {
@@ -5249,6 +5229,14 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "name", "ejb-jarType", //$NON-NLS-1$ //$NON-NLS-2$
 			 "kind", "elementOnly" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getEJBJar_ModuleName(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "module-name", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getEJBJar_Descriptions(), 
@@ -5273,14 +5261,6 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "icon", //$NON-NLS-1$ //$NON-NLS-2$
 			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
-		   });			
-		addAnnotation
-		  (getEJBJar_ModuleName(), 
-		   source, 
-		   new String[] {
-			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
-			 "name", "module-name", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getEJBJar_EnterpriseBeans(), 

@@ -45,6 +45,7 @@ import org.eclipse.jst.javaee.jca.internal.metadata.JcaPackage;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.eclipse.jst.javaee.jca.internal.impl.ConnectorImpl#getModuleName <em>Module Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.jca.internal.impl.ConnectorImpl#getDescriptions <em>Descriptions</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.jca.internal.impl.ConnectorImpl#getDisplayNames <em>Display Names</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.jca.internal.impl.ConnectorImpl#getIcons <em>Icons</em>}</li>
@@ -63,6 +64,26 @@ import org.eclipse.jst.javaee.jca.internal.metadata.JcaPackage;
  * @generated
  */
 public class ConnectorImpl extends EObjectImpl implements Connector {
+	/**
+	 * The default value of the '{@link #getModuleName() <em>Module Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getModuleName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String MODULE_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getModuleName() <em>Module Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getModuleName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String moduleName = MODULE_NAME_EDEFAULT;
+
 	/**
 	 * The cached value of the '{@link #getDescriptions() <em>Descriptions</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -278,6 +299,27 @@ public class ConnectorImpl extends EObjectImpl implements Connector {
 	@Override
 	protected EClass eStaticClass() {
 		return JcaPackage.Literals.CONNECTOR;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getModuleName() {
+		return moduleName;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setModuleName(String newModuleName) {
+		String oldModuleName = moduleName;
+		moduleName = newModuleName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, JcaPackage.CONNECTOR__MODULE_NAME, oldModuleName, moduleName));
 	}
 
 	/**
@@ -620,6 +662,8 @@ public class ConnectorImpl extends EObjectImpl implements Connector {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case JcaPackage.CONNECTOR__MODULE_NAME:
+				return getModuleName();
 			case JcaPackage.CONNECTOR__DESCRIPTIONS:
 				return getDescriptions();
 			case JcaPackage.CONNECTOR__DISPLAY_NAMES:
@@ -657,6 +701,9 @@ public class ConnectorImpl extends EObjectImpl implements Connector {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case JcaPackage.CONNECTOR__MODULE_NAME:
+				setModuleName((String)newValue);
+				return;
 			case JcaPackage.CONNECTOR__DESCRIPTIONS:
 				getDescriptions().clear();
 				getDescriptions().addAll((Collection<? extends Description>)newValue);
@@ -709,6 +756,9 @@ public class ConnectorImpl extends EObjectImpl implements Connector {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case JcaPackage.CONNECTOR__MODULE_NAME:
+				setModuleName(MODULE_NAME_EDEFAULT);
+				return;
 			case JcaPackage.CONNECTOR__DESCRIPTIONS:
 				getDescriptions().clear();
 				return;
@@ -757,6 +807,8 @@ public class ConnectorImpl extends EObjectImpl implements Connector {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case JcaPackage.CONNECTOR__MODULE_NAME:
+				return MODULE_NAME_EDEFAULT == null ? moduleName != null : !MODULE_NAME_EDEFAULT.equals(moduleName);
 			case JcaPackage.CONNECTOR__DESCRIPTIONS:
 				return descriptions != null && !descriptions.isEmpty();
 			case JcaPackage.CONNECTOR__DISPLAY_NAMES:
@@ -795,7 +847,9 @@ public class ConnectorImpl extends EObjectImpl implements Connector {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (vendorName: "); //$NON-NLS-1$
+		result.append(" (moduleName: "); //$NON-NLS-1$
+		result.append(moduleName);
+		result.append(", vendorName: "); //$NON-NLS-1$
 		result.append(vendorName);
 		result.append(", eisType: "); //$NON-NLS-1$
 		result.append(eisType);

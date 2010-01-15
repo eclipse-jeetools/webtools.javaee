@@ -32,7 +32,7 @@ import org.eclipse.jst.javaee.jca.JcaFactory;
  * <!-- begin-model-doc -->
  * 
  * 
- *       $Id: JcaPackage.java,v 1.3 2009/11/24 19:57:55 canderson Exp $
+ *       $Id: JcaPackage.java,v 1.4 2010/01/15 14:32:08 canderson Exp $
  *       
  *     
  * 
@@ -81,7 +81,7 @@ import org.eclipse.jst.javaee.jca.JcaFactory;
  *     
  * 
  * 
- *       $Id: JcaPackage.java,v 1.3 2009/11/24 19:57:55 canderson Exp $
+ *       $Id: JcaPackage.java,v 1.4 2010/01/15 14:32:08 canderson Exp $
  *       
  *     
  * 
@@ -106,7 +106,7 @@ import org.eclipse.jst.javaee.jca.JcaFactory;
  *     
  * 
  * 
- *       $Id: JcaPackage.java,v 1.3 2009/11/24 19:57:55 canderson Exp $
+ *       $Id: JcaPackage.java,v 1.4 2010/01/15 14:32:08 canderson Exp $
  *       
  *     
  * 
@@ -656,13 +656,22 @@ public interface JcaPackage extends EPackage {
 	int CONNECTOR = 5;
 
 	/**
+	 * The feature id for the '<em><b>Module Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTOR__MODULE_NAME = 0;
+
+	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTOR__DESCRIPTIONS = 0;
+	int CONNECTOR__DESCRIPTIONS = 1;
 
 	/**
 	 * The feature id for the '<em><b>Display Names</b></em>' containment reference list.
@@ -671,7 +680,7 @@ public interface JcaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTOR__DISPLAY_NAMES = 1;
+	int CONNECTOR__DISPLAY_NAMES = 2;
 
 	/**
 	 * The feature id for the '<em><b>Icons</b></em>' containment reference list.
@@ -680,7 +689,7 @@ public interface JcaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTOR__ICONS = 2;
+	int CONNECTOR__ICONS = 3;
 
 	/**
 	 * The feature id for the '<em><b>Vendor Name</b></em>' attribute.
@@ -689,7 +698,7 @@ public interface JcaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTOR__VENDOR_NAME = 3;
+	int CONNECTOR__VENDOR_NAME = 4;
 
 	/**
 	 * The feature id for the '<em><b>Eis Type</b></em>' attribute.
@@ -698,7 +707,7 @@ public interface JcaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTOR__EIS_TYPE = 4;
+	int CONNECTOR__EIS_TYPE = 5;
 
 	/**
 	 * The feature id for the '<em><b>Resourceadapter Version</b></em>' attribute.
@@ -707,7 +716,7 @@ public interface JcaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTOR__RESOURCEADAPTER_VERSION = 5;
+	int CONNECTOR__RESOURCEADAPTER_VERSION = 6;
 
 	/**
 	 * The feature id for the '<em><b>License</b></em>' containment reference.
@@ -716,7 +725,7 @@ public interface JcaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTOR__LICENSE = 6;
+	int CONNECTOR__LICENSE = 7;
 
 	/**
 	 * The feature id for the '<em><b>Resourceadapter</b></em>' containment reference.
@@ -725,7 +734,7 @@ public interface JcaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTOR__RESOURCEADAPTER = 7;
+	int CONNECTOR__RESOURCEADAPTER = 8;
 
 	/**
 	 * The feature id for the '<em><b>Required Work Context</b></em>' attribute list.
@@ -734,7 +743,7 @@ public interface JcaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTOR__REQUIRED_WORK_CONTEXT = 8;
+	int CONNECTOR__REQUIRED_WORK_CONTEXT = 9;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -743,7 +752,7 @@ public interface JcaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTOR__ID = 9;
+	int CONNECTOR__ID = 10;
 
 	/**
 	 * The feature id for the '<em><b>Metadata Complete</b></em>' attribute.
@@ -752,7 +761,7 @@ public interface JcaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTOR__METADATA_COMPLETE = 10;
+	int CONNECTOR__METADATA_COMPLETE = 11;
 
 	/**
 	 * The feature id for the '<em><b>Version</b></em>' attribute.
@@ -761,7 +770,7 @@ public interface JcaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTOR__VERSION = 11;
+	int CONNECTOR__VERSION = 12;
 
 	/**
 	 * The number of structural features of the '<em>Connector</em>' class.
@@ -770,7 +779,7 @@ public interface JcaPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTOR_FEATURE_COUNT = 12;
+	int CONNECTOR_FEATURE_COUNT = 13;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.jca.internal.impl.ConnectorDeploymentDescriptorImpl <em>Connector Deployment Descriptor</em>}' class.
@@ -1658,6 +1667,17 @@ public interface JcaPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getConnector();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.jca.Connector#getModuleName <em>Module Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Module Name</em>'.
+	 * @see org.eclipse.jst.javaee.jca.Connector#getModuleName()
+	 * @see #getConnector()
+	 * @generated
+	 */
+	EAttribute getConnector_ModuleName();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.jca.Connector#getDescriptions <em>Descriptions</em>}'.
@@ -2600,6 +2620,14 @@ public interface JcaPackage extends EPackage {
 		 * @generated
 		 */
 		EClass CONNECTOR = eINSTANCE.getConnector();
+
+		/**
+		 * The meta object literal for the '<em><b>Module Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONNECTOR__MODULE_NAME = eINSTANCE.getConnector_ModuleName();
 
 		/**
 		 * The meta object literal for the '<em><b>Descriptions</b></em>' containment reference list feature.

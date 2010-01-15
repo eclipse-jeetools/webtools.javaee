@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: WebFragmentImpl.java,v 1.1 2009/10/15 18:52:05 canderson Exp $
+ * $Id: WebFragmentImpl.java,v 1.2 2010/01/15 14:32:06 canderson Exp $
  */
 package org.eclipse.jst.javaee.web.internal.impl;
 
@@ -69,10 +69,10 @@ import org.eclipse.jst.javaee.web.internal.metadata.WebPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebFragmentImpl#getGroup <em>Group</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebFragmentImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebFragmentImpl#getDescriptions <em>Descriptions</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebFragmentImpl#getDisplayNames <em>Display Names</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebFragmentImpl#getIcons <em>Icons</em>}</li>
- *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebFragmentImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebFragmentImpl#getDistributables <em>Distributables</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebFragmentImpl#getContextParams <em>Context Params</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebFragmentImpl#getFilters <em>Filters</em>}</li>
@@ -741,14 +741,14 @@ public class WebFragmentImpl extends EObjectImpl implements WebFragment {
 			case WebPackage.WEB_FRAGMENT__GROUP:
 				if (coreType) return getGroup();
 				return ((FeatureMap.Internal)getGroup()).getWrapper();
+			case WebPackage.WEB_FRAGMENT__NAME:
+				return getName();
 			case WebPackage.WEB_FRAGMENT__DESCRIPTIONS:
 				return getDescriptions();
 			case WebPackage.WEB_FRAGMENT__DISPLAY_NAMES:
 				return getDisplayNames();
 			case WebPackage.WEB_FRAGMENT__ICONS:
 				return getIcons();
-			case WebPackage.WEB_FRAGMENT__NAME:
-				return getName();
 			case WebPackage.WEB_FRAGMENT__DISTRIBUTABLES:
 				return getDistributables();
 			case WebPackage.WEB_FRAGMENT__CONTEXT_PARAMS:
@@ -831,6 +831,10 @@ public class WebFragmentImpl extends EObjectImpl implements WebFragment {
 			case WebPackage.WEB_FRAGMENT__GROUP:
 				((FeatureMap.Internal)getGroup()).set(newValue);
 				return;
+			case WebPackage.WEB_FRAGMENT__NAME:
+				getName().clear();
+				getName().addAll((Collection<? extends String>)newValue);
+				return;
 			case WebPackage.WEB_FRAGMENT__DESCRIPTIONS:
 				getDescriptions().clear();
 				getDescriptions().addAll((Collection<? extends Description>)newValue);
@@ -842,10 +846,6 @@ public class WebFragmentImpl extends EObjectImpl implements WebFragment {
 			case WebPackage.WEB_FRAGMENT__ICONS:
 				getIcons().clear();
 				getIcons().addAll((Collection<? extends Icon>)newValue);
-				return;
-			case WebPackage.WEB_FRAGMENT__NAME:
-				getName().clear();
-				getName().addAll((Collection<? extends String>)newValue);
 				return;
 			case WebPackage.WEB_FRAGMENT__DISTRIBUTABLES:
 				getDistributables().clear();
@@ -991,6 +991,9 @@ public class WebFragmentImpl extends EObjectImpl implements WebFragment {
 			case WebPackage.WEB_FRAGMENT__GROUP:
 				getGroup().clear();
 				return;
+			case WebPackage.WEB_FRAGMENT__NAME:
+				getName().clear();
+				return;
 			case WebPackage.WEB_FRAGMENT__DESCRIPTIONS:
 				getDescriptions().clear();
 				return;
@@ -999,9 +1002,6 @@ public class WebFragmentImpl extends EObjectImpl implements WebFragment {
 				return;
 			case WebPackage.WEB_FRAGMENT__ICONS:
 				getIcons().clear();
-				return;
-			case WebPackage.WEB_FRAGMENT__NAME:
-				getName().clear();
 				return;
 			case WebPackage.WEB_FRAGMENT__DISTRIBUTABLES:
 				getDistributables().clear();
@@ -1116,14 +1116,14 @@ public class WebFragmentImpl extends EObjectImpl implements WebFragment {
 		switch (featureID) {
 			case WebPackage.WEB_FRAGMENT__GROUP:
 				return group != null && !group.isEmpty();
+			case WebPackage.WEB_FRAGMENT__NAME:
+				return !getName().isEmpty();
 			case WebPackage.WEB_FRAGMENT__DESCRIPTIONS:
 				return !getDescriptions().isEmpty();
 			case WebPackage.WEB_FRAGMENT__DISPLAY_NAMES:
 				return !getDisplayNames().isEmpty();
 			case WebPackage.WEB_FRAGMENT__ICONS:
 				return !getIcons().isEmpty();
-			case WebPackage.WEB_FRAGMENT__NAME:
-				return !getName().isEmpty();
 			case WebPackage.WEB_FRAGMENT__DISTRIBUTABLES:
 				return !getDistributables().isEmpty();
 			case WebPackage.WEB_FRAGMENT__CONTEXT_PARAMS:

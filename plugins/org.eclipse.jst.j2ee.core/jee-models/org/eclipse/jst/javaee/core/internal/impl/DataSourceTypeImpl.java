@@ -305,7 +305,7 @@ public class DataSourceTypeImpl extends EObjectImpl implements DataSourceType {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final IsolationLevelType ISOLATION_LEVEL_EDEFAULT = IsolationLevelType.TRANSACTIONNONE;
+	protected static final IsolationLevelType ISOLATION_LEVEL_EDEFAULT = IsolationLevelType.TRANSACTIONREADUNCOMMITTED;
 
 	/**
 	 * The cached value of the '{@link #getIsolationLevel() <em>Isolation Level</em>}' attribute.

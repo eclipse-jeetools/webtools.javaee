@@ -24,9 +24,12 @@ import org.eclipse.emf.common.util.Enumerator;
  * <!-- begin-model-doc -->
  * 
  * 
- *         public enum isolation-level-type { TRANSACTION_NONE,
- *         TRANSACTION_READ_UNCOMMITTED, TRANSACTION_READ_COMMITTED,
- *         TRANSACTION_REPEATABLE_READ, TRANSACTION_SERIALIZABLE };
+ *         	The following transaction isolation levels are allowed
+ *         	(see documentation for the java.sql.Connection interface):
+ *         TRANSACTION_READ_UNCOMMITTED
+ *         TRANSACTION_READ_COMMITTED
+ *         TRANSACTION_REPEATABLE_READ
+ *         TRANSACTION_SERIALIZABLE
  *         
  *         @since Java EE 6
  *       
@@ -35,15 +38,6 @@ import org.eclipse.emf.common.util.Enumerator;
  * @generated
  */
 public enum IsolationLevelType implements Enumerator {
-	/**
-	 * The '<em><b>TRANSACTIONNONE</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #TRANSACTIONNONE_VALUE
-	 * @generated
-	 * @ordered
-	 */
-	TRANSACTIONNONE(0, "TRANSACTIONNONE", "TRANSACTION_NONE"), //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>TRANSACTIONREADUNCOMMITTED</b></em>' literal object.
@@ -53,7 +47,7 @@ public enum IsolationLevelType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	TRANSACTIONREADUNCOMMITTED(1, "TRANSACTIONREADUNCOMMITTED", "TRANSACTION_READ_UNCOMMITTED"), //$NON-NLS-1$ //$NON-NLS-2$
+	TRANSACTIONREADUNCOMMITTED(0, "TRANSACTIONREADUNCOMMITTED", "TRANSACTION_READ_UNCOMMITTED"), //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>TRANSACTIONREADCOMMITTED</b></em>' literal object.
@@ -63,7 +57,7 @@ public enum IsolationLevelType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	TRANSACTIONREADCOMMITTED(2, "TRANSACTIONREADCOMMITTED", "TRANSACTION_READ_COMMITTED"), //$NON-NLS-1$ //$NON-NLS-2$
+	TRANSACTIONREADCOMMITTED(1, "TRANSACTIONREADCOMMITTED", "TRANSACTION_READ_COMMITTED"), //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>TRANSACTIONREPEATABLEREAD</b></em>' literal object.
@@ -73,7 +67,7 @@ public enum IsolationLevelType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	TRANSACTIONREPEATABLEREAD(3, "TRANSACTIONREPEATABLEREAD", "TRANSACTION_REPEATABLE_READ"), //$NON-NLS-1$ //$NON-NLS-2$
+	TRANSACTIONREPEATABLEREAD(2, "TRANSACTIONREPEATABLEREAD", "TRANSACTION_REPEATABLE_READ"), //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>TRANSACTIONSERIALIZABLE</b></em>' literal object.
@@ -83,21 +77,7 @@ public enum IsolationLevelType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	TRANSACTIONSERIALIZABLE(4, "TRANSACTIONSERIALIZABLE", "TRANSACTION_SERIALIZABLE"); //$NON-NLS-1$ //$NON-NLS-2$
-
-	/**
-	 * The '<em><b>TRANSACTIONNONE</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>TRANSACTIONNONE</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @see #TRANSACTIONNONE
-	 * @generated
-	 * @ordered
-	 */
-	public static final int TRANSACTIONNONE_VALUE = 0;
+	TRANSACTIONSERIALIZABLE(3, "TRANSACTIONSERIALIZABLE", "TRANSACTION_SERIALIZABLE"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>TRANSACTIONREADUNCOMMITTED</b></em>' literal value.
@@ -111,7 +91,7 @@ public enum IsolationLevelType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int TRANSACTIONREADUNCOMMITTED_VALUE = 1;
+	public static final int TRANSACTIONREADUNCOMMITTED_VALUE = 0;
 
 	/**
 	 * The '<em><b>TRANSACTIONREADCOMMITTED</b></em>' literal value.
@@ -125,7 +105,7 @@ public enum IsolationLevelType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int TRANSACTIONREADCOMMITTED_VALUE = 2;
+	public static final int TRANSACTIONREADCOMMITTED_VALUE = 1;
 
 	/**
 	 * The '<em><b>TRANSACTIONREPEATABLEREAD</b></em>' literal value.
@@ -139,7 +119,7 @@ public enum IsolationLevelType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int TRANSACTIONREPEATABLEREAD_VALUE = 3;
+	public static final int TRANSACTIONREPEATABLEREAD_VALUE = 2;
 
 	/**
 	 * The '<em><b>TRANSACTIONSERIALIZABLE</b></em>' literal value.
@@ -153,7 +133,7 @@ public enum IsolationLevelType implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int TRANSACTIONSERIALIZABLE_VALUE = 4;
+	public static final int TRANSACTIONSERIALIZABLE_VALUE = 3;
 
 	/**
 	 * An array of all the '<em><b>Isolation Level Type</b></em>' enumerators.
@@ -163,7 +143,6 @@ public enum IsolationLevelType implements Enumerator {
 	 */
 	private static final IsolationLevelType[] VALUES_ARRAY =
 		new IsolationLevelType[] {
-			TRANSACTIONNONE,
 			TRANSACTIONREADUNCOMMITTED,
 			TRANSACTIONREADCOMMITTED,
 			TRANSACTIONREPEATABLEREAD,
@@ -218,7 +197,6 @@ public enum IsolationLevelType implements Enumerator {
 	 */
 	public static IsolationLevelType get(int value) {
 		switch (value) {
-			case TRANSACTIONNONE_VALUE: return TRANSACTIONNONE;
 			case TRANSACTIONREADUNCOMMITTED_VALUE: return TRANSACTIONREADUNCOMMITTED;
 			case TRANSACTIONREADCOMMITTED_VALUE: return TRANSACTIONREADCOMMITTED;
 			case TRANSACTIONREPEATABLEREAD_VALUE: return TRANSACTIONREPEATABLEREAD;

@@ -334,7 +334,7 @@ public interface DataSourceType extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 *             JDBC DataSource Propertry.  This may be a vendor-specific
+	 *             JDBC DataSource property.  This may be a vendor-specific
 	 *             property or a less commonly used DataSource property.
 	 *             
 	 *             @since Java EE 6

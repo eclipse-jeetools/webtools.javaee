@@ -26,6 +26,10 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  *         a stateful session bean can be idle(not receive any client
  *         invocations) before it is eligible for removal by the container.
  *         
+ *         A timeout value of 0 means the bean is immediately eligible for removal.
+ *         
+ *         A timeout value of -1 means the bean will never be removed due to timeout.
+ *         
  *         @since Java EE 6, EJB 3.1
  *       
  * <!-- end-model-doc -->

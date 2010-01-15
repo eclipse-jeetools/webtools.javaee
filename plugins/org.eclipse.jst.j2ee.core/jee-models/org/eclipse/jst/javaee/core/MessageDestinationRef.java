@@ -104,10 +104,7 @@ public interface MessageDestinationRef extends JavaEEObject {
 	 *             The message-destination-ref-name element specifies
 	 *             the name of a message destination reference; its
 	 *             value is the environment entry name used in
-	 *             Deployment Component code.  The name is a JNDI name
-	 *             relative to the java:comp/env context and must be
-	 *             unique within an ejb-jar (for enterprise beans) or a
-	 *             Deployment File (for others).
+	 *             Deployment Component code.
 	 *             
 	 *             @since Java EE 5
 	 *           

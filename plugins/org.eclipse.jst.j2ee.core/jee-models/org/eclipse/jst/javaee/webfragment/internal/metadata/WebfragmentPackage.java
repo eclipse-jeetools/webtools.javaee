@@ -32,33 +32,32 @@ import org.eclipse.jst.javaee.webfragment.WebfragmentFactory;
  *       @(#)web-fragment_3_0.xsds
  *     
  * 
- *       <![CDATA[
- * 
- * 	This is the XML Schema for the Servlet 3.0 deployment descriptor.
- * 	The deployment descriptor must be named "META-INF/web-fragment.xml" in the
- * 	web fragment's jar file.  All Servlet deployment descriptors
- * 	must indicate the web fragment schema by using the Java EE
- * 	namespace:
- * 
- * 	http://java.sun.com/xml/ns/javaee
- * 
- * 	and by indicating the version of the schema by
- * 	using the version element as shown below:
- * 
- * 	    <web-fragment xmlns="http://java.sun.com/xml/ns/javaee"
- * 	      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- * 	      xsi:schemaLocation="..."
- * 	      version="3.0">
- * 	      ...
- * 	    </web-fragment>
- * 
- * 	The instance documents may indicate the published version of
- * 	the schema using the xsi:schemaLocation attribute for Java EE
- * 	namespace with the following location:
- * 
- * 	http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd
- * 
- * 	]]>
+ *       <![CDATA[[
+ *       This is the XML Schema for the Servlet 3.0 deployment descriptor.
+ *       The deployment descriptor must be named "META-INF/web-fragment.xml"
+ *       in the web fragment's jar file.  All Servlet deployment descriptors
+ *       must indicate the web application schema by using the Java EE
+ *       namespace:
+ *       
+ *       http://java.sun.com/xml/ns/javaee 
+ *       
+ *       and by indicating the version of the schema by 
+ *       using the version element as shown below: 
+ *       
+ *       <web-fragment xmlns="http://java.sun.com/xml/ns/javaee"
+ *       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ *       xsi:schemaLocation="..."
+ *       version="3.0"> 
+ *       ...
+ *       </web-fragment>
+ *       
+ *       The instance documents may indicate the published version of
+ *       the schema using the xsi:schemaLocation attribute for Java EE
+ *       namespace with the following location:
+ *       
+ *       http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd
+ *       
+ *       ]]>
  *     
  * 
  * 
@@ -77,7 +76,7 @@ import org.eclipse.jst.javaee.webfragment.WebfragmentFactory;
  *     
  * 
  * 
- *       $Id: WebfragmentPackage.java,v 1.2 2009/10/16 03:33:22 canderson Exp $
+ *       $Id: WebfragmentPackage.java,v 1.3 2010/01/15 14:32:08 canderson Exp $
  *       
  *     
  * 
@@ -125,7 +124,7 @@ import org.eclipse.jst.javaee.webfragment.WebfragmentFactory;
  *     
  * 
  * 
- *       $Id: WebfragmentPackage.java,v 1.2 2009/10/16 03:33:22 canderson Exp $
+ *       $Id: WebfragmentPackage.java,v 1.3 2010/01/15 14:32:08 canderson Exp $
  *       
  *     
  * 
@@ -150,7 +149,7 @@ import org.eclipse.jst.javaee.webfragment.WebfragmentFactory;
  *     
  * 
  * 
- *       $Id: WebfragmentPackage.java,v 1.2 2009/10/16 03:33:22 canderson Exp $
+ *       $Id: WebfragmentPackage.java,v 1.3 2010/01/15 14:32:08 canderson Exp $
  *       
  *     
  * 
@@ -319,46 +318,12 @@ import org.eclipse.jst.javaee.webfragment.WebfragmentFactory;
  *     
  * 
  * 
- *       Copyright 2003-2009 Sun Microsystems, Inc.
- *       4150 Network Circle
- *       Santa Clara, California 95054
- *       U.S.A
- *       All rights reserved.
- * 
- *       Sun Microsystems, Inc. has intellectual property rights
- *       relating to technology described in this document. In
- *       particular, and without limitation, these intellectual
- *       property rights may include one or more of the U.S. patents
- *       listed at http://www.sun.com/patents and one or more
- *       additional patents or pending patent applications in the
- *       U.S. and other countries.
- * 
- *       This document and the technology which it describes are
- *       distributed under licenses restricting their use, copying,
- *       distribution, and decompilation. No part of this document
- *       may be reproduced in any form by any means without prior
- *       written authorization of Sun and its licensors, if any.
- * 
- *       Third-party software, including font technology, is
- *       copyrighted and licensed from Sun suppliers.
- * 
- *       Sun, Sun Microsystems, the Sun logo, Solaris, Java, J2EE,
- *       JavaServer Pages, Enterprise JavaBeans and the Java Coffee
- *       Cup logo are trademarks or registered trademarks of Sun
- *       Microsystems, Inc. in the U.S. and other countries.
- * 
- *       Federal Acquisitions: Commercial Software - Government Users
- *       Subject to Standard License Terms and Conditions.
- * 
- *     
- * 
- * 
  *       This is the XML Schema for the JSP 2.2 deployment descriptor
  *       types.  The JSP 2.2 schema contains all the special
  *       structures and datatypes that are necessary to use JSP files
  *       from a web application.
  * 
- *       The contents of this schema is used by the web-app_3_0.xsd
+ *       The contents of this schema is used by the web-common_3_0.xsd
  *       file to define JSP specific content.
  * 
  *     

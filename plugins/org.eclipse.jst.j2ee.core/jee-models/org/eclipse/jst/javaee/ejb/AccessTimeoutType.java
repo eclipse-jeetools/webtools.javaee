@@ -27,6 +27,10 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  *         a concurrency lock before throwing a timeout exception to the
  *         client.
  *         
+ *         A timeout value of 0 means concurrent access is not permitted.
+ *         
+ *         A timeout value of -1 means wait indefinitely to acquire a lock.
+ *         
  *         @since Java EE 6, EJB 3.1
  *       
  * <!-- end-model-doc -->

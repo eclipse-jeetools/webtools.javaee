@@ -32,7 +32,7 @@ import org.eclipse.jst.javaee.ejb.EjbFactory;
  * <!-- begin-model-doc -->
  * 
  * 
- *       $Id: EjbPackage.java,v 1.3 2009/10/15 18:52:07 canderson Exp $
+ *       $Id: EjbPackage.java,v 1.4 2010/01/15 14:32:08 canderson Exp $
  *       
  *     
  * 
@@ -40,7 +40,7 @@ import org.eclipse.jst.javaee.ejb.EjbFactory;
  *       This is the XML Schema for the EJB 3.1 deployment descriptor.
  *       
  *       All EJB deployment descriptors must indicate
- *       the ejb-jar schema by using the Java EE namespace:
+ *       the schema by using the Java EE namespace:
  *       
  *       http://java.sun.com/xml/ns/javaee
  *       
@@ -80,7 +80,7 @@ import org.eclipse.jst.javaee.ejb.EjbFactory;
  *     
  * 
  * 
- *       $Id: EjbPackage.java,v 1.3 2009/10/15 18:52:07 canderson Exp $
+ *       $Id: EjbPackage.java,v 1.4 2010/01/15 14:32:08 canderson Exp $
  *       
  *     
  * 
@@ -105,7 +105,7 @@ import org.eclipse.jst.javaee.ejb.EjbFactory;
  *     
  * 
  * 
- *       $Id: EjbPackage.java,v 1.3 2009/10/15 18:52:07 canderson Exp $
+ *       $Id: EjbPackage.java,v 1.4 2010/01/15 14:32:08 canderson Exp $
  *       
  *     
  * 
@@ -692,22 +692,13 @@ public interface EjbPackage extends EPackage {
 	int ASYNC_METHOD_TYPE__METHOD_PARAMS = 1;
 
 	/**
-	 * The feature id for the '<em><b>Method Intf</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ASYNC_METHOD_TYPE__METHOD_INTF = 2;
-
-	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ASYNC_METHOD_TYPE__ID = 3;
+	int ASYNC_METHOD_TYPE__ID = 2;
 
 	/**
 	 * The number of structural features of the '<em>Async Method Type</em>' class.
@@ -716,7 +707,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ASYNC_METHOD_TYPE_FEATURE_COUNT = 4;
+	int ASYNC_METHOD_TYPE_FEATURE_COUNT = 3;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.CMPFieldImpl <em>CMP Field</em>}' class.
@@ -977,13 +968,22 @@ public interface EjbPackage extends EPackage {
 	int EJB_JAR = 13;
 
 	/**
+	 * The feature id for the '<em><b>Module Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EJB_JAR__MODULE_NAME = 0;
+
+	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EJB_JAR__DESCRIPTIONS = 0;
+	int EJB_JAR__DESCRIPTIONS = 1;
 
 	/**
 	 * The feature id for the '<em><b>Display Names</b></em>' containment reference list.
@@ -992,7 +992,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EJB_JAR__DISPLAY_NAMES = 1;
+	int EJB_JAR__DISPLAY_NAMES = 2;
 
 	/**
 	 * The feature id for the '<em><b>Icons</b></em>' containment reference list.
@@ -1001,16 +1001,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EJB_JAR__ICONS = 2;
-
-	/**
-	 * The feature id for the '<em><b>Module Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EJB_JAR__MODULE_NAME = 3;
+	int EJB_JAR__ICONS = 3;
 
 	/**
 	 * The feature id for the '<em><b>Enterprise Beans</b></em>' containment reference.
@@ -4268,17 +4259,6 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getAsyncMethodType_MethodParams();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.AsyncMethodType#getMethodIntf <em>Method Intf</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Method Intf</em>'.
-	 * @see org.eclipse.jst.javaee.ejb.AsyncMethodType#getMethodIntf()
-	 * @see #getAsyncMethodType()
-	 * @generated
-	 */
-	EAttribute getAsyncMethodType_MethodIntf();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.AsyncMethodType#getId <em>Id</em>}'.
@@ -8003,14 +7983,6 @@ public interface EjbPackage extends EPackage {
 		 * @generated
 		 */
 		EReference ASYNC_METHOD_TYPE__METHOD_PARAMS = eINSTANCE.getAsyncMethodType_MethodParams();
-
-		/**
-		 * The meta object literal for the '<em><b>Method Intf</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute ASYNC_METHOD_TYPE__METHOD_INTF = eINSTANCE.getAsyncMethodType_MethodIntf();
 
 		/**
 		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.

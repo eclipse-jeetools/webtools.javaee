@@ -33,6 +33,7 @@ import java.util.List;
  *         among message destination names within the same 
  *         Deployment File. 
  *         - an optional mapped name
+ *         - an optional lookup name
  *         
  *         Example: 
  *         
@@ -54,6 +55,7 @@ import java.util.List;
  *   <li>{@link org.eclipse.jst.javaee.core.MessageDestination#getIcons <em>Icons</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.MessageDestination#getMessageDestinationName <em>Message Destination Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.MessageDestination#getMappedName <em>Mapped Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.core.MessageDestination#getLookupName <em>Lookup Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.MessageDestination#getId <em>Id</em>}</li>
  * </ul>
  * </p>
@@ -151,9 +153,9 @@ public interface MessageDestination extends JavaEEObject {
 	 *             should be mapped to.  Each message-destination-ref
 	 *             element that references this message destination will
 	 *             define a name in the namespace of the referencing
-	 *             component.  (It's a name in the JNDI java:comp/env
-	 *             namespace.)  Many application servers provide a way to
-	 *             map these local names to names of resources known to the
+	 *             component or in one of the other predefined namespaces. 
+	 *             Many application servers provide a way to map these
+	 *             local names to names of resources known to the
 	 *             application server.  This mapped name is often a global
 	 *             JNDI name, but may be a name of any form.  Each of the
 	 *             local names should be mapped to this same global name.
@@ -183,6 +185,35 @@ public interface MessageDestination extends JavaEEObject {
 	 * @generated
 	 */
 	void setMappedName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Lookup Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * 
+	 *             The JNDI name to be looked up to resolve the message destination.
+	 *             
+	 *             @since Java EE 6
+	 *           
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Lookup Name</em>' attribute.
+	 * @see #setLookupName(String)
+	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getMessageDestination_LookupName()
+	 * @generated
+	 */
+	String getLookupName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.jst.javaee.core.MessageDestination#getLookupName <em>Lookup Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Lookup Name</em>' attribute.
+	 * @see #getLookupName()
+	 * @generated
+	 */
+	void setLookupName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.
