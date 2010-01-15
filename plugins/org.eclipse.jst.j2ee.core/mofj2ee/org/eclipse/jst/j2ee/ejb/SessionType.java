@@ -35,6 +35,10 @@ public final class SessionType extends AbstractEnumerator{
 	 * @generated This field/method will be replaced during code generation.
 	 */
 	public static final int STATELESS= 1;
+	/**
+	 * @generated This field/method will be replaced during code generation.
+	 */
+	public static final int SINGLETON= 2;
 
 	/**
 	 * The '<em><b>Stateful</b></em>' literal object.
@@ -65,6 +69,20 @@ public final class SessionType extends AbstractEnumerator{
 	public static final SessionType STATELESS_LITERAL = new SessionType(STATELESS, "Stateless", "Stateless"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
+	 * The '<em><b>Singleton</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Singleton</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #SINGLETON
+	 * @generated
+	 * @ordered
+	 */
+	public static final SessionType SINGLETON_LITERAL = new SessionType(SINGLETON, "Singleton", "Singleton"); //$NON-NLS-1$ //$NON-NLS-2$
+
+	/**
 	 * An array of all the '<em><b>Session Type</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -74,6 +92,7 @@ public final class SessionType extends AbstractEnumerator{
 		new SessionType[] {
 			STATEFUL_LITERAL,
 			STATELESS_LITERAL,
+			SINGLETON_LITERAL,
 		};
 
 	/**
@@ -130,6 +149,7 @@ public final class SessionType extends AbstractEnumerator{
 		switch (value) {
 			case STATEFUL: return STATEFUL_LITERAL;
 			case STATELESS: return STATELESS_LITERAL;
+			case SINGLETON: return SINGLETON_LITERAL;
 		}
 		return null;	
 	}

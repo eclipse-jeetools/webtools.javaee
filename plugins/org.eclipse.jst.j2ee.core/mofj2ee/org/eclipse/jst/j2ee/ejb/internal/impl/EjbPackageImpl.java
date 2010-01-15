@@ -1745,6 +1745,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		initEEnum(sessionTypeEEnum, SessionType.class, "SessionType"); //$NON-NLS-1$
 		addEEnumLiteral(sessionTypeEEnum, SessionType.STATEFUL_LITERAL);
 		addEEnumLiteral(sessionTypeEEnum, SessionType.STATELESS_LITERAL);
+		addEEnumLiteral(sessionTypeEEnum, SessionType.SINGLETON_LITERAL);
 
 		initEEnum(methodElementKindEEnum, MethodElementKind.class, "MethodElementKind"); //$NON-NLS-1$
 		addEEnumLiteral(methodElementKindEEnum, MethodElementKind.UNSPECIFIED_LITERAL);
