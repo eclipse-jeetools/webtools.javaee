@@ -26,6 +26,7 @@ import org.eclipse.jem.util.emf.workbench.ISynchronizerExtender;
 import org.eclipse.jem.util.emf.workbench.ProjectResourceSet;
 import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
+import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathInitializer;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
@@ -168,9 +169,19 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 	 * @return
 	 */
 	private static List getLooseArchiveReferences(EARVirtualComponent earComponent, List hardReferences) {
-		return  getLooseArchiveReferences(earComponent, hardReferences, null, (EARVirtualRootFolder)earComponent.getRootFolder());
-	}
-	
+		Map<EARVirtualComponent, List> cache = J2EEComponentClasspathInitializer.getLooseConfigCache();
+		if (cache != null) {
+			List list = cache.get(earComponent);
+			if (list != null) {
+				return list;
+			}
+		}
+		List list = getLooseArchiveReferences(earComponent, hardReferences, null, (EARVirtualRootFolder) earComponent.getRootFolder());
+		if (cache != null) {
+			cache.put(earComponent, list);
+		}
+		return list;
+	}	
 	private static List getLooseArchiveReferences(EARVirtualComponent earComponent, List hardReferences, List dynamicReferences, EARVirtualRootFolder folder) {
 		List innerDynamicReferences = dynamicReferences;
 		try {
