@@ -442,4 +442,8 @@ public class ConnectorArtifactEdit extends EnterpriseArtifactEdit implements IAr
 	protected String getContentTypeDescriber() {
 		return CONNECTOR_CONTENT_TYPE;
 	}
+	@Override
+	protected URI getRootURI() {
+		return J2EEConstants.RAR_DD_URI_OBJ;
+	}
 }
