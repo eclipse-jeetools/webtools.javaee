@@ -106,20 +106,25 @@ public abstract class JEE5ContentProvider implements ITreeContentProvider, IRefr
 				public void run() {
 					if (viewer != null) {
 						try{
-							viewer.getControl().setRedraw(false);
-							ISelection sel = ((TreeViewer) viewer).getSelection();
-							ITreeContentProvider contentProvider = ((ITreeContentProvider) ((TreeViewer) viewer)
-									.getContentProvider());
-							contentProvider.getChildren(project);
-							Object[] expandedElements = ((TreeViewer) viewer).getExpandedElements();
 							
-							((StructuredViewer) viewer).refresh(project);
-							((TreeViewer) viewer).setSelection(sel);
-							
-							expandElements(expandedElements);
+							if( viewer.getControl() != null &&  !viewer.getControl().isDisposed() ){
+								viewer.getControl().setRedraw(false);
+								ISelection sel = ((TreeViewer) viewer).getSelection();
+								ITreeContentProvider contentProvider = ((ITreeContentProvider) ((TreeViewer) viewer)
+										.getContentProvider());
+								contentProvider.getChildren(project);
+								Object[] expandedElements = ((TreeViewer) viewer).getExpandedElements();
+								
+								((StructuredViewer) viewer).refresh(project);
+								((TreeViewer) viewer).setSelection(sel);
+								
+								expandElements(expandedElements);
+							}
 							
 						}finally{
-							viewer.getControl().setRedraw(true);
+							if( viewer.getControl() != null &&  !viewer.getControl().isDisposed() ){
+								viewer.getControl().setRedraw(true);
+							}
 						}
 					}
 				}
