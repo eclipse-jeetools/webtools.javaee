@@ -21,6 +21,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
@@ -38,6 +39,7 @@ import org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
+import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 
 
 public class EARReferenceRemoveChange extends Change {
@@ -100,7 +102,15 @@ public class EARReferenceRemoveChange extends Change {
 		if (!referencingEARProject.isAccessible())
 			return;
 		J2EEComponentClasspathUpdater.getInstance().queueUpdateEAR(referencingEARProject);
-		
+		boolean moduleInXML = false;
+		//Check if module to remove is in xml
+		ICommonApplication mergedApp = (ICommonApplication)earModel.getModelObject();
+		ICommonModule module = mergedApp.getFirstEARModule(moduleURI);
+		if (module != null) {
+			IFile file = WorkbenchResourceHelper.getFile((EObject)module);
+			if (file != null && file.exists())
+				moduleInXML = true;
+		}
 		earModel.modify(new Runnable() {
 			public void run() {
 				ICommonApplication application = (ICommonApplication)earModel.getModelObject();
@@ -110,7 +120,7 @@ public class EARReferenceRemoveChange extends Change {
 				if(!moduleComponent.isBinary()){
 					J2EEComponentClasspathUpdater.getInstance().queueUpdateModule(moduleComponent.getProject());
 				}
-			
+				
 				removeModule(application, moduleURI); 
 				IVirtualFile vFile = referencingEARProjectComp.getRootFolder().getFile(moduleURI);
 				IFile iFile = vFile.getUnderlyingFile();
@@ -124,6 +134,9 @@ public class EARReferenceRemoveChange extends Change {
 			
 			}
 		}, null);
+		//If change is to "merged model" only - remove from merged model
+		if (!moduleInXML)
+			mergedApp.getEARModules().remove(module);
 	}
 	
 	protected void removeModule(ICommonApplication application, String moduleURI) {
