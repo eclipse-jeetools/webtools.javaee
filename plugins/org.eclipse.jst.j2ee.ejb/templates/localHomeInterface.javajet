@@ -9,7 +9,6 @@ package <%=model.getLocalHomePackage()%>;
 <%
 	}
 %>
-import java.rmi.RemoteException;
 
 import javax.ejb.CreateException;
 import javax.ejb.EJBLocalHome;
