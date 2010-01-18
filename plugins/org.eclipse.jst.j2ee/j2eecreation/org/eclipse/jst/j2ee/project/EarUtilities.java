@@ -13,6 +13,7 @@ package org.eclipse.jst.j2ee.project;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -193,7 +194,16 @@ public class EarUtilities extends JavaEEProjectUtilities {
 					result.add(refComponents[i].getProject());
 			}
 		}
-		return (IProject[]) result.toArray(new IProject[result.size()]);
+		
+		IProject [] earProjects = (IProject[]) result.toArray(new IProject[result.size()]);
+		//sort the list so it is consistent
+		Arrays.sort(earProjects, new Comparator<IProject>() {
+			public int compare(IProject p0, IProject p1) {
+				return p0.getName().compareTo(p1.getName());
+			}
+		});
+
+		return earProjects;
 	}
 
 	public static boolean isStandaloneProject(IProject project) {

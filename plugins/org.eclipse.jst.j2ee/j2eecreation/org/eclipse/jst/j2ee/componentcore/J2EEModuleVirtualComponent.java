@@ -320,10 +320,10 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 			}
 			
 			IProject [] earProjects = EarUtilities.getReferencingEARProjects(moduleComponent.getProject());
-			for (IProject earProject : earProjects) {
-				if(!JavaEEProjectUtilities.isEARProject(earProject)){
-					continue;
-				}
+			//search backwards to find the last project
+			//this way the EAR_20060911 will be chosen over EAR_20060910
+			for (int earIndex = earProjects.length-1; earIndex > -1; earIndex--) {
+				IProject earProject = earProjects[earIndex];
 				IVirtualReference[] earRefs = null;
 				IVirtualComponent tempEARComponent = ComponentCore.createComponent(earProject);
 				IVirtualReference[] tempEarRefs = tempEARComponent.getReferences();
