@@ -54,6 +54,8 @@
           value="org.eclipse.jst.j2ee.internal.provider.J2EEUtilityJarItemProvider">
     </instanceof>
     <instanceof
+		value="org.eclipse.jst.j2ee.internal.provider.J2EEBinaryModulesItemProvider" />
+    <instanceof
           value="org.eclipse.jst.j2ee.internal.provider.UtilityModuleProjectItemProvider">
     </instanceof>
 			</or>
