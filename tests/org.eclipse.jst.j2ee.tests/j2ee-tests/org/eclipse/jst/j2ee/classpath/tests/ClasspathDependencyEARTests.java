@@ -42,8 +42,8 @@ import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.model.IModuleFile;
+import org.eclipse.wst.server.core.model.IModuleFolder;
 import org.eclipse.wst.server.core.model.IModuleResource;
-import org.eclipse.wst.server.core.util.ModuleFolder;
 import org.eclipse.wst.server.core.util.ProjectModule;
 
 import junit.framework.Test;
@@ -262,7 +262,7 @@ public class ClasspathDependencyEARTests extends AbstractTests {
 				String name = moduleMembers[i].getName();
 				if (name.equals("META-INF")) {
 					foundMetaInf = true;
-					IModuleResource manifestResource= ((ModuleFolder)moduleMembers[i]).members()[0];
+					IModuleResource manifestResource= ((IModuleFolder)moduleMembers[i]).members()[0];
 					assertTrue(manifestResource.getModuleRelativePath().toString().equals("META-INF"));
 					assertTrue("Expected MANIFEST.MF, got " + manifestResource.getName(), manifestResource.getName().equals("MANIFEST.MF"));
 					java.io.File manifestFile = (java.io.File) manifestResource.getAdapter(java.io.File.class);
@@ -321,10 +321,10 @@ public class ClasspathDependencyEARTests extends AbstractTests {
 			foundTest = false;
 			for (int i=0; i< moduleMembers.length; i++) {
 				if (moduleMembers[i].getName().equals("WEB-INF")) {
-					IModuleResource[] webinfMembers = ((ModuleFolder)moduleMembers[i]).members();
+					IModuleResource[] webinfMembers = ((IModuleFolder)moduleMembers[i]).members();
 					for (int j = 0; j < webinfMembers.length; j++) {
 						if (webinfMembers[j].getName().equals("classes")) {
-							IModuleResource[] classesMembers = ((ModuleFolder)webinfMembers[j]).members();
+							IModuleResource[] classesMembers = ((IModuleFolder)webinfMembers[j]).members();
 							if (classesMembers.length > 0) {
 								IModuleResource test = classesMembers[0];
 								if (test.getName().equals("test") && test.getModuleRelativePath().equals(new Path("WEB-INF/classes")) && test instanceof IModuleFile) {

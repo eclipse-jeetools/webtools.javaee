@@ -416,7 +416,7 @@ public class DefectVerificationTests extends OperationTestCase {
 		
 		IVirtualComponent earComponent = ComponentCore.createComponent(J2EEProjectUtilities.getProject("149995"));
 		IVirtualResource [] members = earComponent.getRootFolder().members();
-		Assert.assertEquals(1, members.length);
+		Assert.assertEquals(5, members.length);
 		
 		setUp();
 		
@@ -427,7 +427,7 @@ public class DefectVerificationTests extends OperationTestCase {
 		
 		earComponent = ComponentCore.createComponent(J2EEProjectUtilities.getProject("149995"));
 		members = earComponent.getRootFolder().members();
-		Assert.assertEquals(1, members.length);
+		Assert.assertEquals(5, members.length);
 	}	
 		
 	/**

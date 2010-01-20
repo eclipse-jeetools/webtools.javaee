@@ -36,6 +36,13 @@
             class="org.eclipse.jst.j2ee.bindingshelper.tests.BarBindingsHelper"
             id="org.eclipse.jst.j2ee.bindingshelper.tests.barBindingsHelper"/>
    </extension>
+   <extension
+         point="org.eclipse.wst.common.modulecore.referenceResolver">
+      <resolver
+            class="org.eclipse.wtp.j2ee.headless.tests.exportmodel.TestExportReferenceResolver"
+            id="org.eclipse.jst.j2ee.tests.resolver1">
+      </resolver>
+   </extension>
    
 
 </plugin>
