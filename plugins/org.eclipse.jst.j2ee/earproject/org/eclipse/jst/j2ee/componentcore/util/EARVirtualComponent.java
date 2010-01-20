@@ -27,6 +27,7 @@ import org.eclipse.jem.util.emf.workbench.ProjectResourceSet;
 import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathInitializer;
+import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
@@ -38,6 +39,7 @@ import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.builder.IDependencyGraph;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent;
+import org.eclipse.wst.common.componentcore.internal.resources.VirtualFolder;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualReference;
 import org.eclipse.wst.common.componentcore.internal.util.IComponentImplFactory;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -47,7 +49,8 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 
 public class EARVirtualComponent extends VirtualComponent implements IComponentImplFactory, ISynchronizerExtender{
-	
+	public static String [] EXTENSIONS_TO_IGNORE = new String [] {IJ2EEModuleConstants.JAR_EXT, ".zip", IJ2EEModuleConstants.RAR_EXT, IJ2EEModuleConstants.WAR_EXT };  //$NON-NLS-1$
+
 	private IVirtualReference[] cachedReferences;
 	private Map cachedEarComponents = new HashMap();
 	private long depGraphModStamp;
@@ -82,7 +85,7 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 	}
 
 	public IVirtualFolder createFolder(IProject aProject, IPath aRuntimePath) {
-		return new EARVirtualRootFolder(aProject, aRuntimePath);
+		return new VirtualFolder(aProject, aRuntimePath);
 	}
 
 	private static String getJarURI(final ReferencedComponent ref, final IVirtualComponent moduleComp) {
@@ -169,6 +172,10 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 	 * @return
 	 */
 	private static List getLooseArchiveReferences(EARVirtualComponent earComponent, List hardReferences) {
+		return  getLooseArchiveReferences(earComponent, hardReferences, null, earComponent.getRootFolder());
+	}
+	
+	private static List getLooseArchiveReferences(EARVirtualComponent earComponent, List hardReferences, List dynamicReferences, IVirtualFolder folder) {
 		Map<EARVirtualComponent, List> cache = J2EEComponentClasspathInitializer.getLooseConfigCache();
 		if (cache != null) {
 			List list = cache.get(earComponent);
@@ -185,10 +192,10 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 	private static List getLooseArchiveReferences(EARVirtualComponent earComponent, List hardReferences, List dynamicReferences, EARVirtualRootFolder folder) {
 		List innerDynamicReferences = dynamicReferences;
 		try {
-			IVirtualResource[] members = folder.superMembers();
+			IVirtualResource[] members = folder.members();
 			for (int i = 0; i < members.length; i++) {
 				if (IVirtualResource.FILE == members[i].getType()) {
-					if(folder.isDynamicComponent((IVirtualFile)members[i])){
+					if(isDynamicComponent((IVirtualFile)members[i])){
 						String archiveName = members[i].getRuntimePath().toString().substring(1);
 						boolean shouldInclude = true;
 						for (int j = 0; j < hardReferences.size() && shouldInclude; j++) {
@@ -212,13 +219,22 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 						}
 					}
 				} else if(IVirtualResource.FOLDER == members[i].getType()){
-					innerDynamicReferences = getLooseArchiveReferences(earComponent, hardReferences, innerDynamicReferences, (EARVirtualRootFolder)members[i]);
+					innerDynamicReferences = getLooseArchiveReferences(earComponent, hardReferences, innerDynamicReferences, (IVirtualFolder)members[i]);
 				}
 			}
 		} catch (CoreException e) {
 			J2EEPlugin.logError(e);
 		}
 		return innerDynamicReferences;
+	}
+	public static boolean isDynamicComponent(IVirtualFile vFile){
+		String archiveName = vFile.getName();
+		for(int j = 0; j<EXTENSIONS_TO_IGNORE.length; j++){
+			if(J2EEComponentClasspathUpdater.endsWithIgnoreCase(archiveName, EXTENSIONS_TO_IGNORE[j])){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override

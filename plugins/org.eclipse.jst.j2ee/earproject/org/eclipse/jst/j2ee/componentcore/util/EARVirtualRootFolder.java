@@ -23,9 +23,14 @@ import org.eclipse.wst.common.componentcore.internal.resources.VirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 
-//TODO this should be renamed to EARVirtualFolder because it is not used only for the root.
+/**
+ * @deprecated as of 3.2
+ *
+ */
+@Deprecated
 public class EARVirtualRootFolder extends VirtualFolder {
 
+	@Deprecated
 	public EARVirtualRootFolder(IProject aComponentProject, IPath aRuntimePath) {
 		super(aComponentProject, aRuntimePath);
 	}

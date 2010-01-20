@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.deployables;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -18,6 +19,7 @@ import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
@@ -27,13 +29,17 @@ import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.flat.IChildModuleReference;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.server.core.IModule;
+import org.eclipse.wst.server.core.internal.Module;
+import org.eclipse.wst.server.core.internal.ModuleFactory;
+import org.eclipse.wst.server.core.internal.ServerPlugin;
 import org.eclipse.wst.server.core.model.ModuleDelegate;
 import org.eclipse.wst.server.core.util.ProjectModuleFactoryDelegate;
+import org.eclipse.wst.web.internal.deployables.FlatComponentDeployable;
 
 /**
  * J2EE module factory.
@@ -41,33 +47,39 @@ import org.eclipse.wst.server.core.util.ProjectModuleFactoryDelegate;
 public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate {
 	protected Map <IModule, ModuleDelegate> moduleDelegates = new HashMap<IModule, ModuleDelegate>(5);
 
-	public static final String ID = "org.eclipse.jst.j2ee.server"; //$NON-NLS-1$
-
+	public static final String J2EE_ID = "org.eclipse.jst.j2ee.server"; //$NON-NLS-1$
+	public static final String BINARY_PREFIX = "/binary:"; //$NON-NLS-1$
+	
+	public static J2EEDeployableFactory J2EE_INSTANCE;
+	public static J2EEDeployableFactory j2eeInstance() {
+		if( J2EE_INSTANCE == null ) {
+			ensureFactoryLoaded(J2EE_ID);
+		}
+		return J2EE_INSTANCE;
+	}
+	
+	public static void ensureFactoryLoaded(String factoryId) {
+        ModuleFactory[] factories = ServerPlugin.getModuleFactories();
+        for( int i = 0; i < factories.length; i++ ) {
+                if( factories[i].getId().equals(factoryId)) {
+                        factories[i].getDelegate(new NullProgressMonitor());
+                }
+        }
+	}
+	
 	public J2EEDeployableFactory() {
 		super();
+		J2EE_INSTANCE = this;
 	}
-
+	
 	@Override
 	protected IModule[] createModules(IProject project) {
 		IVirtualComponent component = ComponentCore.createComponent(project);
-		if(component != null){
+		if(component != null)
 			return createModuleDelegates(component);
-		}
 		return null;
 	}
 
-	/**
-	 * Use {@link #createModule(IProject)} instead.
-	 * @deprecated
-	 * @param nature
-	 * @return
-	 */
-	protected IModule[] createModules(ModuleCoreNature nature) {
-		if(nature != null){
-			return createModules(nature.getProject());
-		}
-		return null;
-	}
 
 	@Override
 	public ModuleDelegate getModuleDelegate(IModule module) {
@@ -75,15 +87,20 @@ public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate {
 			return null;
 
 		ModuleDelegate md = moduleDelegates.get(module);
-
+		if( md == null && ((Module)module).getInternalId().startsWith(BINARY_PREFIX))
+			return createDelegate(module);
+		
 		if (md == null) {
 			createModules(module.getProject());
 			md = moduleDelegates.get(module);
 		}
-
 		return md;
 	}
 
+	protected boolean canHandleProject(IProject p) {
+		return J2EEProjectUtilities.isLegacyJ2EEProject(p);
+	}
+	
 	protected IModule[] createModuleDelegates(IVirtualComponent component) {
 		if(component == null){
 			return null;
@@ -91,85 +108,93 @@ public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate {
 		
 		List<IModule> projectModules = new ArrayList<IModule>();
 		try {
-			if (J2EEProjectUtilities.isLegacyJ2EEProject(component.getProject())) {
-				IModule module = null;
+			if (canHandleProject(component.getProject())) {
 				String type = JavaEEProjectUtilities.getJ2EEProjectType(component.getProject());
 				String version = J2EEProjectUtilities.getJ2EEProjectVersion(component.getProject());
-				module = createModule(component.getName(), component.getDeployedName(), type, version, component.getProject());
+				IModule module = createModule(component.getName(), component.getDeployedName(), type, version, component.getProject());
 				J2EEFlexProjDeployable moduleDelegate = new J2EEFlexProjDeployable(component.getProject(), component);
 				moduleDelegates.put(module, moduleDelegate);
 				projectModules.add(module);
 
 				// Check to add any binary modules
 				if (J2EEProjectUtilities.ENTERPRISE_APPLICATION.equals(type))
-					projectModules.addAll(createBinaryModules(component));
+					projectModules.addAll(LEGACY_createBinaryModules(component));
 			} else {
 				return null;
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			J2EEPlugin.logError(e);
 		}
 		return projectModules.toArray(new IModule[projectModules.size()]);
 	}
 
-	protected List<IModule> createBinaryModules(IVirtualComponent component) {
+	/**
+	 * These are here so that previous modules are able to be found 
+	 * 
+	 * @param component
+	 * @return
+	 */
+	protected List<IModule> LEGACY_createBinaryModules(IVirtualComponent component) {
 		List<IModule> projectModules = new ArrayList<IModule>();
 		IVirtualReference[] references = component.getReferences();
 		for (int i = 0; i < references.length; i++) {
 			IVirtualComponent moduleComponent = references[i].getReferencedComponent();
-			// Is referenced component a J2EE binary module archive or binary
-			// utility project?
-			if (moduleComponent.isBinary()) {
-
-				JavaEEQuickPeek qp = JavaEEBinaryComponentHelper.getJavaEEQuickPeek(moduleComponent);
-				// If it is not a j2ee module and the component project is the
-				// ear, it is just an archive
-				// and we can ignore as it will be processed by the EAR
-				// deployable.members() method
-				if (qp.getType() == JavaEEQuickPeek.UNKNOWN) {
-					continue;
-				}
-
-				String moduleType = null;
-				String moduleVersion = null;
-
-				switch (qp.getType()) {
-				case JavaEEQuickPeek.APPLICATION_CLIENT_TYPE:
-					moduleType = J2EEProjectUtilities.APPLICATION_CLIENT;
-					break;
-				case JavaEEQuickPeek.WEB_TYPE:
-					moduleType = JavaEEProjectUtilities.DYNAMIC_WEB;
-					break;
-				case JavaEEQuickPeek.EJB_TYPE:
-					moduleType = JavaEEProjectUtilities.EJB;
-					break;
-				case JavaEEQuickPeek.CONNECTOR_TYPE:
-					moduleType = JavaEEProjectUtilities.JCA;
-					break;
-				case JavaEEQuickPeek.APPLICATION_TYPE:
-					moduleType = JavaEEProjectUtilities.ENTERPRISE_APPLICATION;
-					break;
-				default:
-					moduleType = JavaEEProjectUtilities.UTILITY;
-					moduleVersion = J2EEVersionConstants.VERSION_1_0_TEXT;
-				}
-
-				int version = qp.getVersion();
-				moduleVersion = J2EEVersionUtil.convertVersionIntToString(version);
-
-				IModule nestedModule = createModule(moduleComponent.getName(), moduleComponent.getDeployedName(), moduleType, moduleVersion, moduleComponent.getProject());
+			if( moduleComponent.isBinary()) {
+				JavaEEQuickPeek quickPeek = JavaEEBinaryComponentHelper.getJavaEEQuickPeek(moduleComponent);
+				IModule nestedModule = createModule(quickPeek,moduleComponent.getName(),
+						moduleComponent.getDeployedName(), moduleComponent.getProject());
 				if (nestedModule != null) {
-					J2EEFlexProjDeployable moduleDelegate = new J2EEFlexProjDeployable(moduleComponent.getProject(), moduleComponent);
+					ModuleDelegate moduleDelegate = getNestedDelegate(moduleComponent);
 					moduleDelegates.put(nestedModule, moduleDelegate);
 					projectModules.add(nestedModule);
-					moduleDelegate.getURI(nestedModule);
 				}
 			}
 		}
 
 		return projectModules;
 	}
+	
+	protected ModuleDelegate getNestedDelegate(IVirtualComponent component) {
+		return new J2EEFlexProjDeployable(component.getProject(), component);
+	}
 
+	protected IModule createModule(JavaEEQuickPeek quickPeek, String id, String name, IProject project) {
+		if (quickPeek.getType() == JavaEEQuickPeek.UNKNOWN) {
+			return null;
+		}
+
+		String moduleType = null;
+		String moduleVersion = null;
+
+		switch (quickPeek.getType()) {
+		case JavaEEQuickPeek.APPLICATION_CLIENT_TYPE:
+			moduleType = J2EEProjectUtilities.APPLICATION_CLIENT;
+			break;
+		case JavaEEQuickPeek.WEB_TYPE:
+			moduleType = JavaEEProjectUtilities.DYNAMIC_WEB;
+			break;
+		case JavaEEQuickPeek.EJB_TYPE:
+			moduleType = JavaEEProjectUtilities.EJB;
+			break;
+		case JavaEEQuickPeek.CONNECTOR_TYPE:
+			moduleType = JavaEEProjectUtilities.JCA;
+			break;
+		case JavaEEQuickPeek.APPLICATION_TYPE:
+			moduleType = JavaEEProjectUtilities.ENTERPRISE_APPLICATION;
+			break;
+		default:
+			moduleType = JavaEEProjectUtilities.UTILITY;
+			moduleVersion = J2EEVersionConstants.VERSION_1_0_TEXT;
+		}
+
+		int version = quickPeek.getVersion();
+		moduleVersion = J2EEVersionUtil.convertVersionIntToString(version);
+
+		IModule nestedModule = createModule(id, name, moduleType, moduleVersion, project);
+		return nestedModule;
+	}
+	
 	/**
 	 * Returns the list of resources that the module should listen to for state
 	 * changes. The paths should be project relative paths. Subclasses can
@@ -203,5 +228,38 @@ public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate {
 				moduleDelegates.remove(module);
 			}
 		}
+	}
+	
+	/**
+	 * From this point on, when queried, projects will generate their binary 
+	 * child modules on the fly and they will be small and dumb
+	 * 
+	 * @param parent
+	 * @param child
+	 * @return
+	 */
+	public IModule createChildModule(FlatComponentDeployable parent, IChildModuleReference child) {
+		File file = child.getFile();
+		if( file != null ) {
+			IPath p = new Path(file.getAbsolutePath());
+			JavaEEQuickPeek qp = JavaEEBinaryComponentHelper.getJavaEEQuickPeek(p);
+			IModule module = createModule(qp, BINARY_PREFIX + file.getAbsolutePath(), file.getName(), parent.getProject());
+			ModuleDelegate moduleDelegate = getNestedDelegate(child.getComponent());
+			moduleDelegates.put(module, moduleDelegate);
+			return module;
+		}
+		return null;
+	}
+	
+	/**
+	 * Create a module delegate on the fly for this binary file
+	 * @param module
+	 * @return
+	 */
+	public ModuleDelegate createDelegate(IModule module) {
+		String internalId = ((Module)module).getInternalId();
+		String path = internalId.substring(BINARY_PREFIX.length());
+		File f = new File(path);
+		return new BinaryFileModuleDelegate(f);
 	}
 }
