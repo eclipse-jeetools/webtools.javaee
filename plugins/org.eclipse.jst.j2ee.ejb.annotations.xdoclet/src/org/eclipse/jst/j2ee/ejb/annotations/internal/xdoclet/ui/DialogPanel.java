@@ -144,7 +144,7 @@ public class DialogPanel extends Composite {
 	}
 
 	public Text createLabeledPath(int i, boolean checked, String title,
-			String tip, String value, Composite defPanel) {
+			final String tip, String value, Composite defPanel) {
 		GridData gridData;
 		Label label = new Label(defPanel, SWT.WRAP);
 		gridData = new GridData();
@@ -167,6 +167,7 @@ public class DialogPanel extends Composite {
 				DirectoryDialog dlg = new DirectoryDialog(DialogPanel.this
 						.getShell());
 				dlg.setFilterPath(fText.getText());
+				dlg.setMessage(tip);
 				String res = dlg.open();
 				if (res != null) {
 					fText.setText(res);

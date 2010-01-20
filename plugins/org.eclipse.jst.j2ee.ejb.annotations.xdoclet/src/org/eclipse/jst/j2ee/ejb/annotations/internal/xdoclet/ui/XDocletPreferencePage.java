@@ -80,6 +80,7 @@ public class XDocletPreferencePage extends PropertyPreferencePage implements Sel
 
 	public XDocletPreferencePage() {
 		super();
+		setDescription(Messages.label_set_xdoclet_runtime_preference);
 	}
 
 	/*
@@ -109,7 +110,9 @@ public class XDocletPreferencePage extends PropertyPreferencePage implements Sel
 	protected Composite createContainer(Composite parent) {
 		panel = new DialogPanel(parent, SWT.NONE);
 		GridLayout layout = new GridLayout();
-		layout.numColumns = 2;
+		layout.marginHeight = 0;
+		layout.marginWidth = 0;
+		layout.numColumns = 4;
 		layout.makeColumnsEqualWidth = false;
 		panel.setLayout(layout);
 		GridData gridData = new GridData(GridData.FILL_BOTH | GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL);
@@ -121,31 +124,12 @@ public class XDocletPreferencePage extends PropertyPreferencePage implements Sel
 	 * @see PreferencePage#createContents(Composite)
 	 */
 	protected Control createContents(Composite parent) {
-		// noDefaultAndApplyButton();
-
 		runtimes = XDocletExtensionUtil.getRuntimes();
 
 		Composite composite = createContainer(parent);
-		GridLayout gridLayout = new GridLayout();
-		gridLayout.marginHeight = 0;
-		gridLayout.marginWidth = 0;
-		composite.setLayout(gridLayout);
-
-		Composite defPanel = new Composite(composite, SWT.NONE);
-		GridLayout layout = new GridLayout();
-		layout.numColumns = 4;
-		defPanel.setLayout(layout);
-		GridData gridData = new GridData(GridData.FILL_BOTH | GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL);
-		defPanel.setLayoutData(gridData);
-
-		// ResourceBundle bundle =
-		// ResourceBundle.getBundle("org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui.preferences");
-
-		Label label = new Label(defPanel, SWT.WRAP);
-		gridData = new GridData();
-		gridData.horizontalSpan = 4;
-		label.setLayoutData(gridData);
-		label.setText(Messages.label_set_xdoclet_runtime_preference);
+		
+		// add separator
+		new Label(composite, SWT.NONE).setLayoutData(new GridData(SWT.BEGINNING, SWT.TOP, false, false, 4, 1));
 
 		int numCont = 3;
 		if (isProjectPreferencePage())
@@ -157,14 +141,14 @@ public class XDocletPreferencePage extends PropertyPreferencePage implements Sel
 		if (isProjectPreferencePage())
 			panel.preferences[3] = panel.createLabeledCheck(3, getStore().getBooleanPropertyNoGlobal(
 					XDocletPreferenceStore.XDOCLETUSEGLOBAL), Messages.label_global_pref, Messages.desc_global_pref, getStore()
-					.getBooleanPropertyNoGlobal(XDocletPreferenceStore.XDOCLETUSEGLOBAL), defPanel);
+					.getBooleanPropertyNoGlobal(XDocletPreferenceStore.XDOCLETUSEGLOBAL), composite);
 
 		panel.preferences[0] = panel.createLabeledCheck(0, false, getStore().getBooleanPropertyNoGlobal(
 				XDocletPreferenceStore.XDOCLETBUILDERACTIVE), Messages.label_enable_xdoclet_builder,
 				Messages.desc_enable_xdoclet_builder, getStore().getBooleanPropertyNoGlobal(
-						XDocletPreferenceStore.XDOCLETBUILDERACTIVE), defPanel);
+						XDocletPreferenceStore.XDOCLETBUILDERACTIVE), composite);
 		panel.preferences[2] = panel.createLabeledPath(2, true, Messages.label_xdoclet_home, Messages.desc_xdoclet_home,
-				getStore().getPropertyNoGlobal(XDocletPreferenceStore.XDOCLETHOME), defPanel);
+				getStore().getPropertyNoGlobal(XDocletPreferenceStore.XDOCLETHOME), composite);
 
 		String[] versions = new String[runtimes.length];
 		for (int i = 0; i < versions.length; i++) {
@@ -172,7 +156,7 @@ public class XDocletPreferencePage extends PropertyPreferencePage implements Sel
 		}
 		panel.preferences[1] = panel.createLabeledCombo(1, false, true, Messages.label_xdoclet_version,
 				Messages.desc_xdoclet_version, getStore().getPropertyNoGlobal(XDocletPreferenceStore.XDOCLETVERSION), versions,
-				defPanel);
+				composite);
 		final Text xDocletPath = (Text) panel.preferences[2];
 		final Combo xDocletVersion = (Combo) panel.preferences[1];
 
