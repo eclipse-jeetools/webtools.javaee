@@ -26,6 +26,7 @@ public interface J2EEVersionConstants {
 	public int APPLICATION_CLIENT_TYPE = 3;
 	public int WEB_TYPE = 4;
 	public int WEBSERVICES_TYPE = 5;
+	public int WEBFRAGMENT_TYPE = 6;
 	
 	public int J2EE_1_2_ID = 12;
 	public int J2EE_1_3_ID = 13;
@@ -43,6 +44,7 @@ public interface J2EEVersionConstants {
 	public int WEB_2_4_ID = 24;
 	public int WEB_2_5_ID = 25;
 	public int WEB_3_0_ID = 30;
+	public int WEBFRAGMENT_3_0_ID = 30;
 	public int TAGLIB_1_1_ID = 11;
 	public int TAGLIB_1_2_ID = 12;
 	public int TAGLIB_2_0_ID = 20;

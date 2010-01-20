@@ -51,6 +51,12 @@ public final class JEE6ContentDescriber implements IContentDescriber {
 				return VALID;
 			}
 			return INVALID;
+		case JavaEEQuickPeek.WEBFRAGMENT_TYPE:
+			switch (quickPeek.getVersion()) {
+			case JavaEEQuickPeek.WEBFRAGMENT_3_0_ID:
+				return VALID;
+			}
+			return INVALID;
 		case JavaEEQuickPeek.CONNECTOR_TYPE:
 			switch (quickPeek.getVersion()) {
 			case JavaEEQuickPeek.JCA_1_6_ID:

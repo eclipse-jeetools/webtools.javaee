@@ -109,6 +109,13 @@ public interface J2EEConstants extends J2EEVersionConstants {
     String EAR_ROOT_DIR				=	"/"; //$NON-NLS-1$
     String EAR_DEFAULT_LIB_DIR		=	"/lib"; //$NON-NLS-1$
     
+    // Web Fragments Constants 
+    String 	WEBFRAGMENT_DOCTYPE         =       "web-fragment"; //$NON-NLS-1$
+    String 	WEBFRAGMENT_DD_URI			=		"META-INF/web-fragment.xml"; //$NON-NLS-1$
+    URI 	WEBFRAGMENT_DD_URI_OBJ      =       URI.createURI(WEBFRAGMENT_DD_URI);
+    String 	WEBFRAGMENT_DD_SHORT_NAME   =       "web-fragment.xml"; //$NON-NLS-1$
+    String  WEBFRAGMENT_SCHEMA_3_0 		= 		"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd"; //$NON-NLS-1$
+    
     //Web app Constants
     /** "WebApp_ID"                                                                                                                 */
     String WEBAPP_ID                                        =       "WebApp_ID"; //$NON-NLS-1$
@@ -206,6 +213,7 @@ public interface J2EEConstants extends J2EEVersionConstants {
     String WEB_SERVICES_CLIENT_SCHEMA_LOC_1_1 = "http://www.ibm.com/webservices/xsd/j2ee_web_services_client_1_1.xsd"; //$NON-NLS-1$
     String JSP_SCHEMA_LOC_2_0               =  "http://java.sun.com/xml/ns/j2ee/jsp_2_0.xsd"; //$NON-NLS-1$
     String JSP_SCHEMA_LOC_2_1               =  "http://java.sun.com/xml/ns/javaee/jsp_2_1.xsd"; //$NON-NLS-1$ //EJB3
+    String WEBFRAGMENT_SCHEMA_LOC_3_0       = "http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd"; //$NON-NLS-1$ //Web Fragment3
     
     public static final String EAR_MODEL_NAME = "EAR_VALIDATION"; //$NON-NLS-1$
 }

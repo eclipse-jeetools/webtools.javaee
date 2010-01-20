@@ -77,6 +77,14 @@
         <contentTypeBinding
               contentTypeId="org.eclipse.jst.jee.ee6earDD">
         </contentTypeBinding>
+     </resourceFactory>
+     <resourceFactory
+           class="org.eclipse.jst.javaee.webfragment.internal.util.WebfragmentResourceFactoryImpl"
+           isDefault="false"
+           shortSegment="web-fragment.xml">
+        <contentTypeBinding
+              contentTypeId="org.eclipse.jst.jee.ee6webfragmentDD">
+        </contentTypeBinding>
      </resourceFactory>    
   </extension>
   
@@ -217,6 +225,20 @@
          </describer>
       </content-type>
   	</extension> 
+  	
+  	<extension
+         point="org.eclipse.core.runtime.contentTypes">
+      <content-type
+            file-names="web-fragment.xml"
+            id="ee6webfragmentDD"
+            base-type="org.eclipse.core.runtime.xml"
+            name="%ee6webfragmentContentType"
+            priority="high">
+         <describer
+               class="org.eclipse.jst.jee.contenttype.JEE6ContentDescriber">
+         </describer>
+      </content-type>
+  	</extension>
   	
   	  	
   	 <extension

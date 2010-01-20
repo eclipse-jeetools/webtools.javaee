@@ -84,6 +84,7 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 	 * {@link J2EEVersionConstants#CONNECTOR_TYPE},
 	 * {@link J2EEVersionConstants#WEB_TYPE},
 	 * {@link J2EEVersionConstants#WEBSERVICES_TYPE}
+	 * {@link J2EEVersionConstants#WEBFRAGMENT_TYPE}
 	 * 
 	 * @return
 	 */
@@ -104,7 +105,10 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 				type = WEB_TYPE;
 			} else if (rootName.equals(J2EEConstants.WEB_SERVICES_DOCTYPE)) {
 				type = WEBSERVICES_TYPE;
-			}else {
+			} else if (rootName.equals(J2EEConstants.WEBFRAGMENT_DOCTYPE)) {
+				type = WEBFRAGMENT_TYPE;
+			}
+			else {
 				type = UNKNOWN;
 			}
 		}
@@ -254,6 +258,13 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 						version = J2EEVersionConstants.WEBSERVICES_1_1_ID;
 					} else if (schemaName.equals(J2EEConstants.WEBSERVICE_SCHEMA_1_2)) {
 						version = J2EEVersionConstants.WEBSERVICES_1_2_ID;
+					}
+				}
+				break;
+			case WEBFRAGMENT_TYPE:
+				if (schemaName != null) {
+					if (schemaName.equals(J2EEConstants.WEBFRAGMENT_SCHEMA_3_0)) {
+						version = J2EEVersionConstants.WEBFRAGMENT_3_0_ID;
 					}
 				}
 				break;
