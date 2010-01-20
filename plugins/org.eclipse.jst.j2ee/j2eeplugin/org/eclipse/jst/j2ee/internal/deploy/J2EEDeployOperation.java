@@ -89,7 +89,7 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 			DeployerRegistry reg = DeployerRegistry.instance();
 			List components = getSelectedModules(selection);
 			monitor.beginTask(J2EEPluginResourceHandler.J2EEDeployOperation_UI_0, components.size()); 
-			for (int i = 0; i < components.size(); i++) {
+			for (int i = 0; i < components.size() && !monitor.isCanceled(); i++) {
 				IVirtualComponent component = null;
 				component = (IVirtualComponent) components.get(i);
 				IProject proj = component.getProject();
