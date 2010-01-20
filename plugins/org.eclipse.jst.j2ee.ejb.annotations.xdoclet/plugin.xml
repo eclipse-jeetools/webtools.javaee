@@ -27,9 +27,10 @@
    <extension
          point="org.eclipse.ui.preferencePages">
      <page
-            name="%name_xdoclet"
-            class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui.XDocletPreferencePage"
-            id="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.preference">
+           category="org.eclipse.jst.j2ee.ui.preferencePages.JavaEE"
+           class="org.eclipse.jst.j2ee.ejb.annotations.internal.xdoclet.ui.XDocletPreferencePage"
+           id="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.preference"
+           name="%name_xdoclet">
       </page>
      <page
             name="%name_ejbdoclet"

@@ -14,9 +14,6 @@ package org.eclipse.jst.j2ee.ejb.annotation.ui.internal.wizards;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.dialogs.Dialog;
-import org.eclipse.jface.preference.IPreferenceNode;
-import org.eclipse.jface.preference.PreferenceDialog;
-import org.eclipse.jface.preference.PreferenceManager;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.messages.IEJBAnnotationConstants;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.model.IEnterpriseBeanClassDataModelProperties;
@@ -24,7 +21,6 @@ import org.eclipse.jst.j2ee.ejb.annotation.internal.preferences.AnnotationPrefer
 import org.eclipse.jst.j2ee.ejb.annotation.internal.provider.IAnnotationProvider;
 import org.eclipse.jst.j2ee.ejb.annotation.internal.utility.AnnotationUtilities;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.BusyIndicator;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -33,7 +29,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Link;
-import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.dialogs.PreferencesUtil;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 
@@ -228,24 +224,8 @@ public class ChooseEjbTypeWizardPage extends DataModelWizardPage {
 	}
 
 	protected boolean showPreferencePage(Composite composite) {
-		PreferenceManager manager = PlatformUI.getWorkbench().getPreferenceManager();
-		String id = getPreferencePageId();
-		if( id != null ) {
-			IPreferenceNode node = manager.find(id);
-			PreferenceManager manager2 = new PreferenceManager();
-			manager2.addToRoot(node);
-			final PreferenceDialog dialog = new PreferenceDialog(composite.getShell(), manager2);
-			final boolean[] result = new boolean[] { false };
-			BusyIndicator.showWhile(composite.getDisplay(), new Runnable() {
-				public void run() {
-					dialog.create();
-					if (dialog.open() == Window.OK)
-						result[0] = true;
-				}
-			});
-			return result[0];
-		} 
-		return true;
+		return PreferencesUtil.createPreferenceDialogOn(composite.getShell(), getPreferencePageId(), null, null)
+				.open() == Window.OK;
 	}
 	
 	private String getPreferencePageId() {
