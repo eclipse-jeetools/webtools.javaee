@@ -224,5 +224,4 @@ public class J2EEFlexProjDeployable extends FlatComponentDeployable implements
 		}
         return paths.toArray(new IPath[paths.size()]);
     }
-	
 }
