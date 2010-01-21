@@ -183,7 +183,7 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 				return list;
 			}
 		}
-		List list = getLooseArchiveReferences2(earComponent, hardReferences, null, earComponent.getRootFolder());
+		List list = getLooseArchiveReferences2(earComponent, hardReferences, null, folder);
 		if (cache != null) {
 			cache.put(earComponent, list);
 		}
