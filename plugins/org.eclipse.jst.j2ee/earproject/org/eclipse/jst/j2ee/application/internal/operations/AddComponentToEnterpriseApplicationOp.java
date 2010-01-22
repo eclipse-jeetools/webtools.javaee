@@ -138,20 +138,22 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 										final ICommonApplication application = (ICommonApplication)earModel.getModelObject();
 										if(application != null) {
 											ICommonModule mod = addModule(application, wc, (String) map.get(wc));
-											if (ref!=null)
-												ref.setDependentObject((EObject)mod);
-											if (JavaEEProjectUtilities.isStaticWebProject(wc.getProject())
-													|| JavaEEProjectUtilities.isDynamicWebComponent(wc)) {
-												updateContextRoot(earpj, wc, mod);
-											}
-											
-											Resource theResource = ((EObject)mod).eResource();
-											if (theResource != null)
-											{
-												String frag = null;
-												if (theResource instanceof CompatibilityXMIResource)
-													frag = theResource.getURIFragment((EObject)mod);
-												((ICommonEMFModule)mod).setId(frag);
+											if(mod != null){
+												if (ref!=null)
+													ref.setDependentObject((EObject)mod);
+												if (JavaEEProjectUtilities.isStaticWebProject(wc.getProject())
+														|| JavaEEProjectUtilities.isDynamicWebComponent(wc)) {
+													updateContextRoot(earpj, wc, mod);
+												}
+												
+												Resource theResource = ((EObject)mod).eResource();
+												if (theResource != null)
+												{
+													String frag = null;
+													if (theResource instanceof CompatibilityXMIResource)
+														frag = theResource.getURIFragment((EObject)mod);
+													((ICommonEMFModule)mod).setId(frag);
+												}
 											}
 										}
 									}						
