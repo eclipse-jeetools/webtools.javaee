@@ -31,6 +31,8 @@ public class AnnotationTagParser {
 	int pos;
 
 	int endOfLastGoodAttParse;
+	
+	private Object annotationLock = new Object();
 
 	public AnnotationTagParser(TagParseEventHandler tp) {
 		if (tp == null) {
@@ -241,9 +243,11 @@ public class AnnotationTagParser {
 	}
 
 	public void setParserInput(char[] text) {
-		input = text;
-		pos = 0;
-		endOfLastGoodAttParse = 0;
+		synchronized(annotationLock) {
+			input = text;
+			pos = 0;
+			endOfLastGoodAttParse = 0;
+		}
 	}
 
 	public void setParserInput(String text) {
@@ -251,15 +255,17 @@ public class AnnotationTagParser {
 	}
 
 	public void parse() {
-		while (!eos()) {
-			skipToTagChar();
-			Token tag = expectTag();
-			if (tag == null) {
-				break;
+		synchronized (annotationLock) {
+			while (!eos()) {
+				skipToTagChar();
+				Token tag = expectTag();
+				if (tag == null) {
+					break;
+				}
+				handler.annotationTag(tag);
+				parseAttributes();
+				handler.endOfTag(endOfLastGoodAttParse);
 			}
-			handler.annotationTag(tag);
-			parseAttributes();
-			handler.endOfTag(endOfLastGoodAttParse);
 		}
 	}
 
