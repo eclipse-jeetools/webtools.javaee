@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="org.eclipse.jst.j2ee">
+<schema targetNamespace="org.eclipse.jst.j2ee" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appInfo>
          <meta.schema plugin="org.eclipse.jst.j2ee" id="DeployerExtension" name="J2EE Deployer Extension"/>
@@ -11,6 +11,11 @@
    </annotation>
 
    <element name="extension">
+      <annotation>
+         <appInfo>
+            <meta.element />
+         </appInfo>
+      </annotation>
       <complexType>
          <sequence>
             <element ref="deployer"/>
@@ -47,6 +52,7 @@
                <element ref="nature"/>
                <element ref="component"/>
             </choice>
+            <element ref="facetExclusions" minOccurs="0" maxOccurs="unbounded"/>
          </sequence>
          <attribute name="deployer_class" type="string" use="required">
             <annotation>
@@ -94,6 +100,18 @@
       </complexType>
    </element>
 
+   <element name="facetExclusions">
+      <complexType>
+         <attribute name="facet_id" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
    <annotation>
       <appInfo>
          <meta.section type="since"/>
@@ -103,32 +121,8 @@
       </documentation>
    </annotation>
 
-   <annotation>
-      <appInfo>
-         <meta.section type="examples"/>
-      </appInfo>
-      <documentation>
-         
-      </documentation>
-   </annotation>
 
-   <annotation>
-      <appInfo>
-         <meta.section type="apiInfo"/>
-      </appInfo>
-      <documentation>
-         
-      </documentation>
-   </annotation>
 
-   <annotation>
-      <appInfo>
-         <meta.section type="implementation"/>
-      </appInfo>
-      <documentation>
-         
-      </documentation>
-   </annotation>
 
    <annotation>
       <appInfo>
