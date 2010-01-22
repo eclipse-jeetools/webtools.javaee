@@ -130,6 +130,9 @@ public class SingleRootUtil {
 						boolean useSingleRoot = Boolean.valueOf(wbProperty.getValue()).booleanValue();
 						if (useSingleRoot) {
 							return Status.OK_STATUS;
+						} else {
+							reportStatus(ISingleRootStatus.EXPLICITLY_DISABLED);
+							return getStatus();
 						}
 					}
 				}
