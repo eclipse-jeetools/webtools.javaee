@@ -40,6 +40,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.internal.builder.IDependencyGraph;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualFolder;
@@ -53,6 +54,13 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 
 	public static String GET_JAVA_REFS = "GET_JAVA_REFS"; //$NON-NLS-1$
 	public static String GET_FUZZY_EAR_REFS = "GET_FUZZY_EAR_REFS"; //$NON-NLS-1$
+	
+	private long depGraphModStamp;
+	
+	private IVirtualReference[] fuzzyAndJavaRefs = null;
+	private IVirtualReference[] fuzzyRefsOnly = null;
+	private IVirtualReference[] javaRefsOnly = null;
+	private IVirtualReference[] nonJavaRefsOnly = null;
 	
 	public J2EEModuleVirtualComponent() {
 		super();
@@ -80,7 +88,10 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 	 * @return IVirtualReferences for all non-Java classpath entry references.
 	 */
 	public IVirtualReference[] getNonJavaReferences() {
-		return getReferences(false, false);
+		if(nonJavaRefsOnly == null || !checkIfStillValid()) {
+			nonJavaRefsOnly = getReferences(false, false);
+		}
+		return nonJavaRefsOnly;
 	}
 	
 	@Override
@@ -89,15 +100,29 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 		Object objGetFuzzyEarRefs = options.get(GET_FUZZY_EAR_REFS);
 		boolean getJavaRefs = objGetJavaRefs != null ? ((Boolean)objGetJavaRefs).booleanValue() : true;
 		boolean findFuzzyEARRefs = objGetFuzzyEarRefs != null ? ((Boolean)objGetFuzzyEarRefs).booleanValue() : false;
-		return getReferences(getJavaRefs, findFuzzyEARRefs);
+		
+		IVirtualReference[] cachedReferences = getCachedReference(getJavaRefs, findFuzzyEARRefs);
+		if (cachedReferences != null)
+			return cachedReferences;
+		
+		cachedReferences = getReferences(getJavaRefs, findFuzzyEARRefs);
+		setCachedReferences(getJavaRefs, findFuzzyEARRefs, cachedReferences);
+		return cachedReferences;
 	}
 	
 	@Override
 	public IVirtualReference[] getReferences() {
-		return getReferences(true, false);
+		if(javaRefsOnly == null || !checkIfStillValid()) {
+			javaRefsOnly = getReferences(true, false);
+		}
+		return javaRefsOnly;
 	}
 	
 	public IVirtualReference[] getReferences(final boolean getJavaRefs, final boolean findFuzzyEARRefs) {
+		IVirtualReference[] cachedReferences = getCachedReference(getJavaRefs, findFuzzyEARRefs);
+		if (cachedReferences != null)
+			return cachedReferences;
+		
 		IVirtualReference[] hardReferences = getNonManifestReferences(getJavaRefs);
 		
 		// retrieve the dynamic references specified via the MANIFEST.MF classpath 
@@ -113,6 +138,8 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 				references[hardReferences.length + i] = (IVirtualReference) dynamicReferences.get(i);
 			}
 		}
+		
+		setCachedReferences(getJavaRefs, findFuzzyEARRefs, references);
 		return references;
 	}
 	
@@ -394,5 +421,57 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 		}
 		return dynamicReferences;
 	}
+	
+	private void setCachedReferences(boolean getJavaRefs, boolean findFuzzyEARRefs, IVirtualReference[] references) {
+		if(findFuzzyEARRefs && getJavaRefs) {
+			fuzzyAndJavaRefs = references; 
+		}
+		else if(!findFuzzyEARRefs && !getJavaRefs) {
+			nonJavaRefsOnly = references;
+		}
+		else if(findFuzzyEARRefs) {
+			fuzzyRefsOnly = references;
+		}
+		else {
+			javaRefsOnly = references;
+		}
+	}
+	
+	private IVirtualReference[] getCachedReference(boolean getJavaRefs, boolean findFuzzyEARRefs) {
+		if(checkIfStillValid())
+		{
+			if(findFuzzyEARRefs && getJavaRefs) {
+				return fuzzyAndJavaRefs; 
+			}
+			else if(!findFuzzyEARRefs && !getJavaRefs) {
+				return nonJavaRefsOnly;
+			}
+			else if(findFuzzyEARRefs) {
+				return fuzzyRefsOnly;
+			}
+			else {
+				return javaRefsOnly;
+			}
+		}
+		return null;
+	}
 
+	private boolean checkIfStillValid() {
+		boolean valid = IDependencyGraph.INSTANCE.getModStamp() == depGraphModStamp;
+		if(!valid) {
+			clearCache();
+		}
+		return valid;
+	}
+	
+	@Override
+	protected void clearCache() {
+		super.clearCache();
+		
+		depGraphModStamp = IDependencyGraph.INSTANCE.getModStamp();
+		fuzzyAndJavaRefs = null;
+		fuzzyRefsOnly = null;
+		javaRefsOnly = null;
+		nonJavaRefsOnly = null;
+	}
 }
