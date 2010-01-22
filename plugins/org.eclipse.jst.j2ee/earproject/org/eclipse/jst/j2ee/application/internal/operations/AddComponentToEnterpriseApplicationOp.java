@@ -104,7 +104,7 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 		}
 		return ""; //$NON-NLS-1$
 	}
-
+	
 	protected void updateEARDD(IProgressMonitor monitor) {
 		
 		StructureEdit se = null;
@@ -116,6 +116,7 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 			se = StructureEdit.getStructureEditForWrite(sourceComp.getProject());
 			if (earModel != null) {
 				List list = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
+				final List libList = (List) model.getProperty(IAddComponentToEnterpriseApplicationDataModelProperties.J2EE_LIB_ELEMENTS_LIST);
 				final Map map = (Map) model.getProperty(IAddComponentToEnterpriseApplicationDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP);
 				if (list != null && list.size() > 0) {
 					for (int i = 0; i < list.size(); i++) {
@@ -137,6 +138,10 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 									public void run() {
 										final ICommonApplication application = (ICommonApplication)earModel.getModelObject();
 										if(application != null) {
+											boolean isEE5 = JavaEEProjectUtilities.getJ2EEDDProjectVersion(earpj).equals(
+													J2EEVersionConstants.VERSION_5_0_TEXT);
+											if(isEE5 && (libList !=null && libList.contains(wc)))
+												return;
 											ICommonModule mod = addModule(application, wc, (String) map.get(wc));
 											if(mod != null){
 												if (ref!=null)

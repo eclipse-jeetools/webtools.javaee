@@ -42,6 +42,7 @@ import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
+import org.eclipse.jst.j2ee.application.internal.operations.IAddComponentToEnterpriseApplicationDataModelProperties;
 import org.eclipse.jst.j2ee.application.internal.operations.RemoveComponentFromEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
@@ -130,7 +131,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 	protected Set libsToUncheck;
 	protected Listener tableListener;
 	protected Listener labelListener;
-	
+
 	//[Bug 238264] the cached list of jars selected using 'add jar' or 'add external jars'
 	protected List<IVirtualComponent> addedJARComponents = new ArrayList<IVirtualComponent>();
 
@@ -299,6 +300,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		
 		dm.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComponent);					
 		dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, componentList);
+		dm.setProperty(IAddComponentToEnterpriseApplicationDataModelProperties.J2EE_LIB_ELEMENTS_LIST, j2eeLibElementList);
 		
 		//[Bug 238264] the uri map needs to be manually set correctly
 		Map uriMap = new HashMap();
