@@ -13,6 +13,7 @@ package org.eclipse.jst.j2ee.application.internal.operations;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -26,6 +27,12 @@ public class AddComponentToEnterpriseApplicationDataModelProvider extends Create
 		super();
 	}
 
+	public Set getPropertyNames() {
+		Set propertyNames = super.getPropertyNames();
+		propertyNames.add(J2EE_LIB_ELEMENTS_LIST);
+		return propertyNames;
+	}
+	
 	public Object getDefaultProperty(String propertyName) {
 		if (TARGET_COMPONENTS_TO_URI_MAP.equals(propertyName)) {
 			Map map = new HashMap();

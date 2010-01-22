@@ -14,6 +14,6 @@ import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenc
 
 public interface IAddComponentToEnterpriseApplicationDataModelProperties extends ICreateReferenceComponentsDataModelProperties {
 
-	
+	public static final String J2EE_LIB_ELEMENTS_LIST = "IAddComponentToEnterpriseApplicationDataModelProperties.J2EE_LIB_ELEMENTS_LIST"; //$NON-NLS-1$
 
 }
