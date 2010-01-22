@@ -106,64 +106,68 @@ public abstract class JEE5ContentProvider implements ITreeContentProvider, IRefr
 				public void run() {
 					if (viewer != null) {
 						try{
-							viewer.getControl().setRedraw(false);
-							ISelection sel = ((TreeViewer) viewer).getSelection();
-							ITreeContentProvider contentProvider = ((ITreeContentProvider) ((TreeViewer) viewer)
-									.getContentProvider());
-							contentProvider.getChildren(project);
-							
-							Object[] expandedElements = ((TreeViewer) viewer).getExpandedElements();
-							
-							((StructuredViewer) viewer).refresh(project);
-							((TreeViewer) viewer).setSelection(sel);
-							
-							ArrayList<Object> newExpandedElements = new ArrayList<Object>();
-							
-							ArrayList<Object> allElements = new ArrayList<Object>();
-							getViewerElements(allElements, ((TreeViewer) viewer).getControl());
-							
-							Object[] expandedElementsAfterRefresh = ((TreeViewer) viewer).getExpandedElements();
-							newExpandedElements.addAll(Arrays.asList(expandedElementsAfterRefresh));
-							for(int i=0;i < expandedElements.length;i++){
-								boolean expanded = false;
-								for(int j=0;j < expandedElementsAfterRefresh.length; j++){
-									if(expandedElements[i].equals(expandedElementsAfterRefresh[j])){
-										expanded = true;
-									}
-								}
-								if(!expanded){
-									for(Object ob : allElements){
-										if(ob instanceof SessionBean
-												&& expandedElements[i] instanceof SessionBean){
-											SessionBean bean = (SessionBean) ob;
-											SessionBean bean2 = (SessionBean) expandedElements[i];
-											if(bean.getEjbName().equals(bean2.getEjbName())){
-												newExpandedElements.add(ob);
-											}
-										}
-										if(ob instanceof MessageDrivenBean
-												&& expandedElements[i] instanceof MessageDrivenBean){
-											MessageDrivenBean bean = (MessageDrivenBean) ob;
-											MessageDrivenBean bean2 = (MessageDrivenBean) expandedElements[i];
-											if(bean.getEjbName().equals(bean2.getEjbName())){
-												newExpandedElements.add(ob);
-											}
-										}
-										if(ob instanceof EntityBean
-												&& expandedElements[i] instanceof EntityBean){
-											EntityBean bean = (EntityBean) ob;
-											EntityBean bean2 = (EntityBean) expandedElements[i];
-											if(bean.getEjbName().equals(bean2.getEjbName())){
-												newExpandedElements.add(ob);
-											}
+							if( viewer.getControl() != null &&  !viewer.getControl().isDisposed() ){
+								viewer.getControl().setRedraw(false);
+								ISelection sel = ((TreeViewer) viewer).getSelection();
+								ITreeContentProvider contentProvider = ((ITreeContentProvider) ((TreeViewer) viewer)
+										.getContentProvider());
+								contentProvider.getChildren(project);
+								
+								Object[] expandedElements = ((TreeViewer) viewer).getExpandedElements();
+								
+								((StructuredViewer) viewer).refresh(project);
+								((TreeViewer) viewer).setSelection(sel);
+								
+								ArrayList<Object> newExpandedElements = new ArrayList<Object>();
+								
+								ArrayList<Object> allElements = new ArrayList<Object>();
+								getViewerElements(allElements, ((TreeViewer) viewer).getControl());
+								
+								Object[] expandedElementsAfterRefresh = ((TreeViewer) viewer).getExpandedElements();
+								newExpandedElements.addAll(Arrays.asList(expandedElementsAfterRefresh));
+								for(int i=0;i < expandedElements.length;i++){
+									boolean expanded = false;
+									for(int j=0;j < expandedElementsAfterRefresh.length; j++){
+										if(expandedElements[i].equals(expandedElementsAfterRefresh[j])){
+											expanded = true;
 										}
 									}
+									if(!expanded){
+										for(Object ob : allElements){
+											if(ob instanceof SessionBean
+													&& expandedElements[i] instanceof SessionBean){
+												SessionBean bean = (SessionBean) ob;
+												SessionBean bean2 = (SessionBean) expandedElements[i];
+												if(bean.getEjbName().equals(bean2.getEjbName())){
+													newExpandedElements.add(ob);
+												}
+											}
+											if(ob instanceof MessageDrivenBean
+													&& expandedElements[i] instanceof MessageDrivenBean){
+												MessageDrivenBean bean = (MessageDrivenBean) ob;
+												MessageDrivenBean bean2 = (MessageDrivenBean) expandedElements[i];
+												if(bean.getEjbName().equals(bean2.getEjbName())){
+													newExpandedElements.add(ob);
+												}
+											}
+											if(ob instanceof EntityBean
+													&& expandedElements[i] instanceof EntityBean){
+												EntityBean bean = (EntityBean) ob;
+												EntityBean bean2 = (EntityBean) expandedElements[i];
+												if(bean.getEjbName().equals(bean2.getEjbName())){
+													newExpandedElements.add(ob);
+												}
+											}
+										}
+									}
 								}
+								((TreeViewer) viewer).setExpandedElements(newExpandedElements.toArray());
 							}
-							((TreeViewer) viewer).setExpandedElements(newExpandedElements.toArray());
 							
 						}finally{
-							viewer.getControl().setRedraw(true);
+							if( viewer.getControl() != null &&  !viewer.getControl().isDisposed() ){
+								viewer.getControl().setRedraw(true);
+							}
 						}
 					}
 				}
