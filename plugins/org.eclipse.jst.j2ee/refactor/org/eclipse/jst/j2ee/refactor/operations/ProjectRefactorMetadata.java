@@ -122,7 +122,7 @@ public class ProjectRefactorMetadata {
 				metadata = new ProjectRefactorMetadata(dependentProjects[i], virtualComponentCaching);
 				metadata.computeMetadata();
 				dependentMetadata.add(metadata);
-				if (metadata.isEAR()) {
+				if (metadata.isEAR() && virtualComp.getComponent() != null) {
 					final String uri = getModuleURI(dependentProject, virtualComp);
 					if (uri != null) {
 						earToModuleURI.put(dependentProject.getName(), uri);
@@ -252,6 +252,7 @@ public class ProjectRefactorMetadata {
 			return _comp.exists();
 		}
 		public IVirtualComponent getComponent() {
+			if(_comp == null) return null;
 			return _comp.getComponent();
 		}
 		public Properties getMetaProperties() {
@@ -324,7 +325,9 @@ public class ProjectRefactorMetadata {
 		private IVirtualReference[] cachedRefs;
 		public RefCachingVirtualComponent(final IVirtualComponent comp) {
 			super(comp);
-			cachedRefs = ((VirtualComponent)comp).getAllReferences();
+			if(comp != null){
+				cachedRefs = ((VirtualComponent)comp).getAllReferences();
+			}
 		}
 
 		public IVirtualReference getReference(String aComponentName) {
@@ -351,7 +354,9 @@ public class ProjectRefactorMetadata {
 		private IVirtualComponent[] cachedReferers;
 		public RefererCachingVirtualComponent(final IVirtualComponent comp) {
 			super(comp);
-			cachedReferers = comp.getReferencingComponents();
+			if(comp != null){
+				cachedReferers = comp.getReferencingComponents();
+			}
 		}
 
 		public IVirtualComponent[] getReferencingComponents() {
