@@ -111,6 +111,8 @@ public interface IEJBAnnotationConstants {
 	public static final String CMP_CONNECTION_NEW_BUTTON = EJBAnnotationMessages.CMP_CONNECTION_NEW_BUTTON;
 	public static final String CMP_CONNECTION_PAGE_DESC = EJBAnnotationMessages.CMP_CONNECTION_PAGE_DESC;
 	public static final String CMP_CONNECTION_PAGE_TITLE = EJBAnnotationMessages.CMP_CONNECTION_PAGE_TITLE;
+	public static final String CMP_CONNECTION_RECONNECT_BUTTON = EJBAnnotationMessages.CMP_CONNECTION_RECONNECT_BUTTON;
+	public static final String CMP_CONNECTION_VALUE_BUTTON = EJBAnnotationMessages.CMP_CONNECTION_VALUE_BUTTON;
 
 	public static final String ADD_CMP_TABLE_WIZARD_PAGE_DESC = EJBAnnotationMessages.ADD_CMP_TABLE_WIZARD_PAGE_DESC;
 	public static final String ADD_CMP_TABLE_WIZARD_PAGE_TITLE = EJBAnnotationMessages.ADD_CMP_TABLE_WIZARD_PAGE_TITLE;

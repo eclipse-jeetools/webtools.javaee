@@ -19,7 +19,6 @@ package org.eclipse.jst.ejb.ui.internal.wizard;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
-import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleExportPage;
@@ -52,7 +51,7 @@ public class EJBExportPage extends J2EEModuleExportPage {
 	 */
 	@Override
 	protected String getComponentLabel() {
-		return J2EEUIMessages.getResourceString(J2EEUIMessages.EJB_PROJ_LBL);
+		return EJBUIMessages.EJB_PROJECT_LBL;
 	}
 
 	/*

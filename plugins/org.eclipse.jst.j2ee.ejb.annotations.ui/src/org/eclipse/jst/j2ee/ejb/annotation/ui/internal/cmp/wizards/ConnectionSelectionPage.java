@@ -208,7 +208,7 @@ public class ConnectionSelectionPage extends DataModelWizardPage implements Sele
 	 */
 	private void addReconnectButton(Composite parent) {
 		reconnectButton = new Button(parent, SWT.PUSH);
-		reconnectButton.setText("Reconnect"); // TODO - TRANSLATE THIS
+		reconnectButton.setText(IEJBAnnotationConstants.CMP_CONNECTION_VALUE_BUTTON); 
 		GridData data = new GridData();
 		data.horizontalSpan = 2;
 		data.horizontalAlignment = GridData.BEGINNING;

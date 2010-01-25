@@ -12,6 +12,7 @@ package org.eclipse.jst.ejb.ui.internal.wizard;
 
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -55,7 +56,7 @@ public class EJBComponentImportPage extends J2EEModuleImportPage {
 
 	@Override
 	protected String getProjectImportLabel() {
-		return EJBUIMessages.EJB_PROJECT_LBL;
+		return J2EEUIMessages.getResourceString(J2EEUIMessages.EJB_PROJ_LBL);
 	}
 
 	@Override

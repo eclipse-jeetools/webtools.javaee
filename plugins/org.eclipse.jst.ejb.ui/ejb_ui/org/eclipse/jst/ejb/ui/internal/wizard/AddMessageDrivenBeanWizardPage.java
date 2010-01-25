@@ -28,7 +28,6 @@ import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.dialogs.TypeSearchEngine;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
-import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -93,9 +92,7 @@ public class AddMessageDrivenBeanWizardPage extends
 				if (value == null || value.trim().length() == 0) {
 					value = IEjbWizardConstants.CLICK_TO_SELECT;
 				}
-				messageListenerInterfaceHyperlink.setText(NLS.bind(
-						IEjbWizardConstants.MESSAGE_LISTENER_INTERFACE_HYPERLINK,
-						value));
+				messageListenerInterfaceHyperlink.setText(value);
 			}
 		}
 
@@ -168,10 +165,9 @@ public class AddMessageDrivenBeanWizardPage extends
 	}
 
 	private void createMessageListenerInterfaceControl(Composite composite) {
-		GridData data = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
-		data.horizontalSpan = 2;
+		Label messageListenerInterfaceLabel = new Label(composite, SWT.LEFT);
+		messageListenerInterfaceLabel.setText(EJBUIMessages.MESSAGE_LISTENER_INTERFACE_HYPERLINK);
 		messageListenerInterfaceHyperlink = new Hyperlink(composite, SWT.NULL);
-		messageListenerInterfaceHyperlink.setLayoutData(data);
 		messageListenerInterfaceHyperlink.setToolTipText(IEjbWizardConstants.MESSAGE_LISTENER_INTERFACE_HYPERLINK_TOOLTIP);
 		messageListenerInterfaceHyperlink.setVisible(true);
 		messageListenerInterfaceHyperlink.setUnderlined(true);

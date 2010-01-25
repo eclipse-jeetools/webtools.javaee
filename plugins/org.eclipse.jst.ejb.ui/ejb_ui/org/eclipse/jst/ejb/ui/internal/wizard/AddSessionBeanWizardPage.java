@@ -161,7 +161,7 @@ public class AddSessionBeanWizardPage extends AddEnterpriseBeanWizardPage {
 		});
 
 		final Button remote2xCheck = new Button(othersComposite, SWT.CHECK);
-		remote2xCheck.setText(EJBUIMessages.REMOTE_BUSINESS_INTERFACE);
+		remote2xCheck.setText(EJBUIMessages.REMOTE_BUSINESS_INTERFACE_E);
 
 		synchHelper.synchCheckbox(remote2xCheck, REMOTE_HOME, null);
 

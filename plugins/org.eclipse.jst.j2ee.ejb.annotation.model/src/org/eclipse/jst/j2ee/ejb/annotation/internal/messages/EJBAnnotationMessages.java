@@ -123,6 +123,8 @@ public class EJBAnnotationMessages extends NLS {
 	public static String CMP_CONNECTION_NEW_BUTTON;
 	public static String CMP_CONNECTION_PAGE_DESC;
 	public static String CMP_CONNECTION_PAGE_TITLE;
+	public static String CMP_CONNECTION_RECONNECT_BUTTON;
+	public static String CMP_CONNECTION_VALUE_BUTTON;
 	public static String ADD_CMP_TABLE_WIZARD_PAGE_DESC;
 	public static String ADD_CMP_TABLE_WIZARD_PAGE_TITLE;
 	public static String CMP_TABLE_CHOOSE_TABLE;
