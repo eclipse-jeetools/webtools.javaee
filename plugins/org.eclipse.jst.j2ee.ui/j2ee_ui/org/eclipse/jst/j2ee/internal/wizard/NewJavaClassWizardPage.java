@@ -310,7 +310,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		}
 		
 		folderButton = new Button(composite, SWT.PUSH);
-		folderButton.setText(J2EEUIMessages.BROWSE_BUTTON_LABEL);
+		folderButton.setText(J2EEUIMessages.BROWSE_BUTTON_LABEL_O);
 		folderButton.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
 		folderButton.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
@@ -347,7 +347,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		}
 
 		packageButton = new Button(composite, SWT.PUSH);
-		packageButton.setText(J2EEUIMessages.BROWSE_BUTTON_LABEL);
+		packageButton.setText(J2EEUIMessages.BROWSE_BUTTON_LABEL_W);
 		packageButton.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
 		packageButton.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
@@ -416,7 +416,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		synchHelper.synchText(superText, INewJavaClassDataModelProperties.SUPERCLASS, null);
 
 		superButton = new Button(composite, SWT.PUSH);
-		superButton.setText(J2EEUIMessages.BROWSE_BUTTON_LABEL);
+		superButton.setText(J2EEUIMessages.BROWSE_BUTTON_LABEL_E);
 		superButton.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
 		superButton.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {

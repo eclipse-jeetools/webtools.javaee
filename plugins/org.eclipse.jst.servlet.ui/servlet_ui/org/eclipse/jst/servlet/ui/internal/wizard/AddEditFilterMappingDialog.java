@@ -362,7 +362,7 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
         messageLabel = new Label(composite, SWT.NONE);
         gd = new GridData();
         messageLabel.setLayoutData(gd);
-        messageLabel.setText(WebAppEditResourceHandler.getString("Choose_a_servlet__2")); //$NON-NLS-1$
+        messageLabel.setText(WebAppEditResourceHandler.getString("Choose_a_servlet__1")); //$NON-NLS-1$
 
         fUpperList = createUpperList(composite);
 

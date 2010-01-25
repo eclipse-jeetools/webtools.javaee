@@ -294,7 +294,7 @@ public class MultiSelectFilteredFileSelectionDialog extends
 		fServletButton.addSelectionListener(this);
 
 		fJSPButton = new Button(fChild, SWT.RADIO);
-		fJSPButton.setText("JSP"); //$NON-NLS-1$
+		fJSPButton.setText(WebAppEditResourceHandler.getString("JSP_UI_")); //$NON-NLS-1$ = JSP
 		gd = new GridData();
 		fJSPButton.setLayoutData(gd);
 		fJSPButton.addSelectionListener(this);

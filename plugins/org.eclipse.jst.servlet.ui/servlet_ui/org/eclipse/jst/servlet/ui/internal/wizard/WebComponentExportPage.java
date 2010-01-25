@@ -11,7 +11,6 @@
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleExportPage;
@@ -39,7 +38,7 @@ public class WebComponentExportPage extends J2EEModuleExportPage {
 	 */
 	@Override
 	protected String getComponentLabel() {
-		return J2EEUIMessages.getResourceString(J2EEUIMessages.WEB_PROJ_LBL);
+		return WEBUIMessages.WEB_PROJECT_LBL;
 	}
 
 	/*

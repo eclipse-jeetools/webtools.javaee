@@ -15,18 +15,18 @@ import static org.eclipse.jst.j2ee.internal.web.operations.INewFilterClassDataMo
 import static org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties.DESCRIPTION;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties.DISPLAY_NAME;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties.USE_EXISTING_CLASS;
-import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.ADD_BUTTON_LABEL;
+import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.ADD_BUTTON_LABEL_A;
 import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.ADD_FILTER_WIZARD_PAGE_DESC;
 import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.ADD_FILTER_WIZARD_PAGE_TITLE;
 import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.DESCRIPTION_LABEL;
 import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.DESCRIPTION_TITLE;
-import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.EDIT_BUTTON_LABEL;
+import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.EDIT_BUTTON_LABEL_E;
 import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.INIT_PARAM_LABEL;
 import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.INIT_PARAM_TITLE;
 import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.NAME_LABEL;
 import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.NAME_TITLE;
 import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.NO_WEB_PROJECTS;
-import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.REMOVE_BUTTON_LABEL;
+import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.REMOVE_BUTTON_LABEL_R;
 import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.VALUE_LABEL;
 import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.VALUE_TITLE;
 import static org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties.PROJECT_NAME;
@@ -88,9 +88,9 @@ public class AddFilterWizardPage extends DataModelWizardPage {
 				composite, 
 				INIT_PARAM_LABEL, 
 				INIT_PARAM_TITLE, 
-				ADD_BUTTON_LABEL, 
-				EDIT_BUTTON_LABEL, 
-				REMOVE_BUTTON_LABEL, 
+				ADD_BUTTON_LABEL_A, 
+				EDIT_BUTTON_LABEL_E, 
+				REMOVE_BUTTON_LABEL_R, 
 				new String[] { NAME_TITLE, VALUE_TITLE, DESCRIPTION_TITLE }, 
 				new String[] { NAME_LABEL, VALUE_LABEL, DESCRIPTION_LABEL }, 
 				null,// WebPlugin.getDefault().getImage("initializ_parameter"),

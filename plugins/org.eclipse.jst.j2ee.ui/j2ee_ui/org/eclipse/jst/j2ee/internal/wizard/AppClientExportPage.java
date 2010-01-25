@@ -50,7 +50,7 @@ public class AppClientExportPage extends J2EEModuleExportPage {
 	 */
 	@Override
 	protected String getComponentLabel() {
-		return J2EEUIMessages.getResourceString(J2EEUIMessages.APP_CLIENT_IMPORT_PROJECT_LABEL);
+		return J2EEUIMessages.getResourceString(J2EEUIMessages.APP_CLIENT_PROJ_LBL);
 	}
 
 	/*

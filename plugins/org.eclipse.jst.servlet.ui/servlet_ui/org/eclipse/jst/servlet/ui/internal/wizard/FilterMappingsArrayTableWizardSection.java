@@ -11,12 +11,7 @@
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.PROJECT;
-import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.ADD_BUTTON_LABEL;
-import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.DISPATCHERS_LABEL;
-import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.EDIT_BUTTON_LABEL;
-import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.FILTER_MAPPINGS_LABEL;
-import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.REMOVE_BUTTON_LABEL;
-import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.URL_SERVLET_LABEL;
+import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.*;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -153,7 +148,7 @@ public class FilterMappingsArrayTableWizardSection extends Composite implements 
         buttonCompo.setLayoutData(new GridData(GridData.FILL_VERTICAL | GridData.VERTICAL_ALIGN_BEGINNING));
 
         addButton = new Button(buttonCompo, SWT.PUSH);
-        addButton.setText(ADD_BUTTON_LABEL);
+        addButton.setText(ADD_BUTTON_LABEL_D);
         addButton.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING | GridData.HORIZONTAL_ALIGN_FILL));
         addButton.addSelectionListener(new SelectionListener() {
             public void widgetSelected(SelectionEvent event) {
@@ -165,7 +160,7 @@ public class FilterMappingsArrayTableWizardSection extends Composite implements 
         });
 
         editButton = new Button(buttonCompo, SWT.PUSH);
-        editButton.setText(EDIT_BUTTON_LABEL);
+        editButton.setText(EDIT_BUTTON_LABEL_T);
         editButton.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING | GridData.HORIZONTAL_ALIGN_FILL));
         editButton.addSelectionListener(new SelectionListener() {
             public void widgetSelected(SelectionEvent event) {
@@ -178,7 +173,7 @@ public class FilterMappingsArrayTableWizardSection extends Composite implements 
         editButton.setEnabled(false);
 
         removeButton = new Button(buttonCompo, SWT.PUSH);
-        removeButton.setText(REMOVE_BUTTON_LABEL);
+        removeButton.setText(REMOVE_BUTTON_LABEL_V);
         removeButton.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING | GridData.HORIZONTAL_ALIGN_FILL));
         removeButton.addSelectionListener(new SelectionListener() {
             public void widgetSelected(SelectionEvent event) {

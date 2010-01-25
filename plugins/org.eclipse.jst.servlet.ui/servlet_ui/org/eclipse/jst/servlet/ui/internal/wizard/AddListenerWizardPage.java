@@ -20,17 +20,7 @@ import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_CONTE
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_CONTEXT_LISTENER;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_REQUEST_ATTRIBUTE_LISTENER;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_REQUEST_LISTENER;
-import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.ADD_LISTENER_WIZARD_CHANGES_TO_ATTRIBUTES;
-import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.ADD_LISTENER_WIZARD_HTTP_SESSION_EVENTS;
-import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.ADD_LISTENER_WIZARD_LIFECYCLE;
-import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.ADD_LISTENER_WIZARD_OBJECT_BINDING;
-import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.ADD_LISTENER_WIZARD_PAGE_DESC;
-import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.ADD_LISTENER_WIZARD_PAGE_TITLE;
-import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.ADD_LISTENER_WIZARD_SERVLET_CONTEXT_EVENTS;
-import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.ADD_LISTENER_WIZARD_SERVLET_REQUEST_EVENTS;
-import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.ADD_LISTENER_WIZARD_SESSION_MIGRATION;
-import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.CLEAR_BUTTON;
-import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.SELECT_ALL_BUTTON;
+import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -105,12 +95,12 @@ public class AddListenerWizardPage extends DataModelWizardPage  {
 		Group group = createGroup(parent, ADD_LISTENER_WIZARD_SERVLET_CONTEXT_EVENTS);
 
 		createEventListenerRow(group, 
-				ADD_LISTENER_WIZARD_LIFECYCLE, 
+				ADD_LISTENER_WIZARD_LIFECYCLE_L, 
 				QUALIFIED_SERVLET_CONTEXT_LISTENER,
 				INTERFACES);
 
 		createEventListenerRow(group, 
-				ADD_LISTENER_WIZARD_CHANGES_TO_ATTRIBUTES, 
+				ADD_LISTENER_WIZARD_CHANGES_TO_ATTRIBUTES_C, 
 				QUALIFIED_SERVLET_CONTEXT_ATTRIBUTE_LISTENER, 
 				INTERFACES);
 	}
@@ -119,12 +109,12 @@ public class AddListenerWizardPage extends DataModelWizardPage  {
 		Group group = createGroup(parent, ADD_LISTENER_WIZARD_HTTP_SESSION_EVENTS);
 		
 		createEventListenerRow(group, 
-				ADD_LISTENER_WIZARD_LIFECYCLE, 
+				ADD_LISTENER_WIZARD_LIFECYCLE_I, 
 				QUALIFIED_HTTP_SESSION_LISTENER, 
 				INTERFACES);
 		
 		createEventListenerRow(group, 
-				ADD_LISTENER_WIZARD_CHANGES_TO_ATTRIBUTES, 
+				ADD_LISTENER_WIZARD_CHANGES_TO_ATTRIBUTES_H, 
 				QUALIFIED_HTTP_SESSION_ATTRIBUTE_LISTENER, 
 				INTERFACES);
 		
@@ -143,12 +133,12 @@ public class AddListenerWizardPage extends DataModelWizardPage  {
 		Group group = createGroup(parent, ADD_LISTENER_WIZARD_SERVLET_REQUEST_EVENTS);
 		
 		createEventListenerRow(group, 
-				ADD_LISTENER_WIZARD_LIFECYCLE, 
+				ADD_LISTENER_WIZARD_LIFECYCLE_Y, 
 				QUALIFIED_SERVLET_REQUEST_LISTENER, 
 				INTERFACES);
 
 		createEventListenerRow(group, 
-				ADD_LISTENER_WIZARD_CHANGES_TO_ATTRIBUTES, 
+				ADD_LISTENER_WIZARD_CHANGES_TO_ATTRIBUTES_G, 
 				QUALIFIED_SERVLET_REQUEST_ATTRIBUTE_LISTENER, 
 				INTERFACES);
 	}

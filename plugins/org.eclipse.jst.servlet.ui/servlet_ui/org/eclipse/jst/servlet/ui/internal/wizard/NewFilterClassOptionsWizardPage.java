@@ -56,15 +56,15 @@ public class NewFilterClassOptionsWizardPage extends
 		comp.setLayoutData(data);
 		
 		initButton = new Button(comp, SWT.CHECK);
-		initButton.setText("&init"); //$NON-NLS-1$
+		initButton.setText("init"); //$NON-NLS-1$
 		synchHelper.synchCheckbox(initButton, INIT, null);
 
 		destroyButton = new Button(comp, SWT.CHECK);
-		destroyButton.setText("destro&y"); //$NON-NLS-1$
+		destroyButton.setText("destroy"); //$NON-NLS-1$
 		synchHelper.synchCheckbox(destroyButton, DESTROY, null);
 
 		doFilterButton = new Button(comp, SWT.CHECK);
-		doFilterButton.setText("do&Filter"); //$NON-NLS-1$
+		doFilterButton.setText("doFilter"); //$NON-NLS-1$
 		synchHelper.synchCheckbox(doFilterButton, DO_FILTER, null);
 		
 		interfaceViewer.addSelectionChangedListener(this);

@@ -116,23 +116,23 @@ public class NewServletClassOptionsWizardPage extends
 		comp.setLayoutData(data);
 		
 		initButton = new Button(comp, SWT.CHECK);
-		initButton.setText("&init"); //$NON-NLS-1$
+		initButton.setText("init"); //$NON-NLS-1$
 		synchHelper.synchCheckbox(initButton, INewServletClassDataModelProperties.INIT, null);
 
 		destroyButton = new Button(comp, SWT.CHECK);
-		destroyButton.setText("destro&y"); //$NON-NLS-1$
+		destroyButton.setText("destroy"); //$NON-NLS-1$
 		synchHelper.synchCheckbox(destroyButton, INewServletClassDataModelProperties.DESTROY, null);
 
 		getConfigButton = new Button(comp, SWT.CHECK);
-		getConfigButton.setText("getServlet&Config"); //$NON-NLS-1$
+		getConfigButton.setText("getServletConfig"); //$NON-NLS-1$
 		synchHelper.synchCheckbox(getConfigButton, INewServletClassDataModelProperties.GET_SERVLET_CONFIG, null);
 
 		getInfoButton = new Button(comp, SWT.CHECK);
-		getInfoButton.setText("getServletI&nfo"); //$NON-NLS-1$
+		getInfoButton.setText("getServletInfo"); //$NON-NLS-1$
 		synchHelper.synchCheckbox(getInfoButton, INewServletClassDataModelProperties.GET_SERVLET_INFO, null);
 		
 		serviceButton = new Button(comp, SWT.CHECK);
-		serviceButton.setText("&service"); //$NON-NLS-1$
+		serviceButton.setText("service"); //$NON-NLS-1$
 		synchHelper.synchCheckbox(serviceButton, INewServletClassDataModelProperties.SERVICE, null);
 		
 		doGetButton = new Button(comp, SWT.CHECK);
@@ -152,7 +152,7 @@ public class NewServletClassOptionsWizardPage extends
 		synchHelper.synchCheckbox(doDeleteButton, INewServletClassDataModelProperties.DO_DELETE, null);
 
 		doHeadButton = new Button(comp, SWT.CHECK);
-		doHeadButton.setText("do&Head"); //$NON-NLS-1$
+		doHeadButton.setText("doH&ead"); //$NON-NLS-1$
 		synchHelper.synchCheckbox(doHeadButton, INewServletClassDataModelProperties.DO_HEAD, null);
 
 		doOptionsButton = new Button(comp, SWT.CHECK);

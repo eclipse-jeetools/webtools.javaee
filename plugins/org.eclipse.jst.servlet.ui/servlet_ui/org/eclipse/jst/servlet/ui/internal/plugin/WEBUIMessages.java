@@ -98,12 +98,18 @@ public class WEBUIMessages extends NLS {
 	public static String PACKAGE_SELECTION_DIALOG_TITLE;
 	public static String _12;
 	public static String ADD_BUTTON_LABEL;
+	public static String ADD_BUTTON_LABEL_A; 
+	public static String ADD_BUTTON_LABEL_D;
 	public static String EDIT_BUTTON_LABEL;
+	public static String EDIT_BUTTON_LABEL_E;
+	public static String EDIT_BUTTON_LABEL_T;
 	public static String _11;
 	public static String _10;
 	public static String SUPERCLASS_SELECTION_DIALOG_DESC;
 	public static String NEW_JAVA_CLASS_OPTIONS_WIZARD_PAGE_DESC;
 	public static String REMOVE_BUTTON_LABEL;
+	public static String REMOVE_BUTTON_LABEL_R;
+	public static String REMOVE_BUTTON_LABEL_V;
 	public static String NEW_SERVLET_WIZARD_WINDOW_TITLE;
     public static String NEW_FILTER_WIZARD_WINDOW_TITLE;
 	public static String INTERFACE_SELECTION_DIALOG_TITLE;
@@ -135,7 +141,13 @@ public class WEBUIMessages extends NLS {
 	public static String ADD_LISTENER_WIZARD_HTTP_SESSION_EVENTS;
 	public static String ADD_LISTENER_WIZARD_SERVLET_REQUEST_EVENTS;
 	public static String ADD_LISTENER_WIZARD_LIFECYCLE;
+	public static String ADD_LISTENER_WIZARD_LIFECYCLE_L;
+	public static String ADD_LISTENER_WIZARD_LIFECYCLE_I;
+	public static String ADD_LISTENER_WIZARD_LIFECYCLE_Y;
 	public static String ADD_LISTENER_WIZARD_CHANGES_TO_ATTRIBUTES;
+	public static String ADD_LISTENER_WIZARD_CHANGES_TO_ATTRIBUTES_C;
+	public static String ADD_LISTENER_WIZARD_CHANGES_TO_ATTRIBUTES_H;
+	public static String ADD_LISTENER_WIZARD_CHANGES_TO_ATTRIBUTES_G;
 	public static String ADD_LISTENER_WIZARD_SESSION_MIGRATION;
 	public static String ADD_LISTENER_WIZARD_OBJECT_BINDING;
 	

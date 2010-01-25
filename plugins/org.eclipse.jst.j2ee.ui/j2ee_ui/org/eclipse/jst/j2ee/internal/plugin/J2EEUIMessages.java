@@ -154,6 +154,9 @@ public class J2EEUIMessages extends Messages {
 	public final static String EMPTY_STRING = ""; //$NON-NLS-1$
 	public final static String FOLDER_LABEL = getResourceString("FOLDER_LABEL"); //$NON-NLS-1$
 	public final static String BROWSE_BUTTON_LABEL = getResourceString("BROWSE_BUTTON_LABEL"); //$NON-NLS-1$
+	public final static String BROWSE_BUTTON_LABEL_O = getResourceString("BROWSE_BUTTON_LABEL_O"); //$NON-NLS-1$
+	public final static String BROWSE_BUTTON_LABEL_W = getResourceString("BROWSE_BUTTON_LABEL_W"); //$NON-NLS-1$
+	public final static String BROWSE_BUTTON_LABEL_E = getResourceString("BROWSE_BUTTON_LABEL_E"); //$NON-NLS-1$
 	public final static String JAVA_PACKAGE_LABEL = getResourceString("JAVA_PACKAGE_LABEL"); //$NON-NLS-1$
 	public final static String CLASS_NAME_LABEL = getResourceString("CLASS_NAME_LABEL"); //$NON-NLS-1$
 	public final static String SUPERCLASS_LABEL = getResourceString("SUPERCLASS_LABEL"); //$NON-NLS-1$
