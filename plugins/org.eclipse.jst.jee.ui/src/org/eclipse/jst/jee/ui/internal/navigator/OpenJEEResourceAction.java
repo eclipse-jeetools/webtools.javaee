@@ -110,21 +110,32 @@ public class OpenJEEResourceAction extends AbstractOpenAction {
 
 	protected void openAppropriateEditor(String c) {
 		if(getStructuredSelection() instanceof TreeSelection){
-			IProject project = (IProject) ((TreePath)((TreeSelection)getStructuredSelection()).getPaths()[0]).getSegment(0);
-			IType findType;
-			try {
-				findType = JavaCore.create(project).findType(c);
-				if(findType == null){
-					return;
+			TreePath path = ((TreeSelection) getStructuredSelection()).getPaths()[0];
+			IProject project = null;
+			
+			while (path != null) {
+				Object segment = path.getLastSegment();
+				if (segment instanceof IProject) {
+					project = (IProject) segment;
+					break;
 				}
-				openAppropriateEditor(findType.getResource());
-			} catch (JavaModelException e) {
-				JEEUIPlugin.logError("Error during open editor", e); //$NON-NLS-1$
+				path = path.getParentPath();
 			}
-
+				
+			if (project != null) {
+				try {
+					IType findType = JavaCore.create(project).findType(c);
+					if(findType == null){
+						return;
+					}
+					openAppropriateEditor(findType.getResource());
+				} catch (JavaModelException e) {
+					JEEUIPlugin.logError("Error during open editor", e); //$NON-NLS-1$
+				}
+			}
 		}
-
 	}
+	
 	protected void openAppropriateEditor(IVirtualComponent c) {
 		if (c == null) {
 			return;
@@ -234,6 +245,8 @@ public class OpenJEEResourceAction extends AbstractOpenAction {
 			}
 			
 			IResource resource = WorkbenchResourceHelper.getFile((EObject)srcObject);
+			if(resource == null)
+				return;
 			IProject project = resource.getProject();			
 			IJavaProject javaProject = JavaCore.create(project);
 			if(javaProject.exists()){
