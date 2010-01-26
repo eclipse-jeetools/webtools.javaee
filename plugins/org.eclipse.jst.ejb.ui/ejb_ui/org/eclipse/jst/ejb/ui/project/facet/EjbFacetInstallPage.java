@@ -118,7 +118,7 @@ public class EjbFacetInstallPage extends J2EEModuleFacetInstallPage
     private void createClientJarURISection(Composite parent) {
         // set up project name label
     	clientJarURILabel = new Label(parent, SWT.NONE);
-    	clientJarURILabel.setText(EJBUIMessages.Client_JAR_URI + " "); //$NON-NLS-1$
+    	clientJarURILabel.setText(EJBUIMessages.Client_JAR_URI);
         GridData data = new GridData();
         clientJarURILabel.setLayoutData(data);
 
