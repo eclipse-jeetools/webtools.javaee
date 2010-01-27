@@ -135,6 +135,10 @@ public class WsddResourceImpl extends XMLResourceImpl implements WsddResource
 	public void setJ2EEVersionID(int id) 
   {
     switch (id) {
+    	case (JEE_6_0_ID) :
+					primSetDoctypeValues(null, null);
+					primSetVersionID(WebServiceConstants.WEBSERVICE_1_3_ID);
+					break;
 	    case (JEE_5_0_ID) :
 					primSetDoctypeValues(null, null);
 					primSetVersionID(WebServiceConstants.WEBSERVICE_1_2_ID);
@@ -197,8 +201,10 @@ public class WsddResourceImpl extends XMLResourceImpl implements WsddResource
 				return J2EEVersionConstants.J2EE_1_4_ID;
 			case WebServiceConstants.WEBSERVICE_1_2_ID :
 				return J2EEVersionConstants.JEE_5_0_ID;
+			case WebServiceConstants.WEBSERVICE_1_3_ID :
+				return J2EEVersionConstants.JEE_6_0_ID;
 			default :
-			return J2EEVersionConstants.JEE_5_0_ID;
+			return J2EEVersionConstants.JEE_6_0_ID;
 		}
 	}
 

@@ -34,6 +34,7 @@ public class WsddTranslator extends RootTranslator implements WsddXmlMapperI, J2
 	private static Translator[] children10;
 	private static Translator[] children11;
 	private static Translator[] children12;
+	private static Translator[] children13;
 
 	private static WsddPackage WSDD_PKG = WsddPackage.eINSTANCE;
 	private static WscommonPackage WSCOMMON_PKG = WscommonPackage.eINSTANCE;
@@ -65,12 +66,18 @@ public class WsddTranslator extends RootTranslator implements WsddXmlMapperI, J2
 						children11 = create11Children();
 					}
 					return children11; 
-			default :
+			case (JEE_5_0_ID) :
 				if (children12 == null)
 				{
 					children12 = create12Children();
 				}
-				return children12; 
+				return children12;
+			default :
+				if (children13 == null)
+				{
+					children13 = create13Children();
+				}
+				return children13;
 		}
 	}
 
