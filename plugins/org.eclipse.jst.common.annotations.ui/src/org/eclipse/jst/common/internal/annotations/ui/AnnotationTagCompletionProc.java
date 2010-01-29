@@ -110,6 +110,8 @@ public class AnnotationTagCompletionProc implements IJavadocCompletionProcessor,
 	 *      int, int, int)
 	 */
 	public IJavaCompletionProposal[] computeCompletionProposals(ICompilationUnit cu, int offset, int length, int flags) {
+		if (cu == null)  //bug 262362
+			return null;
 		IEditorInput editorInput = new FileEditorInput((IFile) cu.getResource());
 
 		// Set up completion processor state.
