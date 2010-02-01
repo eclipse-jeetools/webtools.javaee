@@ -95,7 +95,7 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 		boolean getJavaRefs = objGetJavaRefs != null ? ((Boolean)objGetJavaRefs).booleanValue() : true;
 		boolean findFuzzyEARRefs = objGetFuzzyEarRefs != null ? ((Boolean)objGetFuzzyEarRefs).booleanValue() : false;
 		if( ignoreDerivedRefs ) 
-			return getReferences(false, false);
+			return getNonManifestReferences(false);
 		return getReferences(getJavaRefs, findFuzzyEARRefs);
 	}
 	
