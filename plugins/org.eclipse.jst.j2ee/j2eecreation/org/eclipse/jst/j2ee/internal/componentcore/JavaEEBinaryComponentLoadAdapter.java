@@ -35,13 +35,18 @@ public class JavaEEBinaryComponentLoadAdapter extends JavaEEEMFZipFileLoadAdapte
 		super();
 		this.archiveComponent = archiveComponent;
 		IPath archivePath = recomputeArchivePath();
-		try{
-			resetZipFile(archivePath);
-		} catch (ZipException e) {
-			ArchiveOpenFailureException openFailureException = new ArchiveOpenFailureException(file.getAbsolutePath(), e);
-			throw openFailureException;
-		} catch (IOException e) {
-			ArchiveOpenFailureException openFailureException = new ArchiveOpenFailureException(file.getAbsolutePath(), e);
+		if( archivePath != null ) {
+			try{
+				resetZipFile(archivePath);
+			} catch (ZipException e) {
+				ArchiveOpenFailureException openFailureException = new ArchiveOpenFailureException(file.getAbsolutePath(), e);
+				throw openFailureException;
+			} catch (IOException e) {
+				ArchiveOpenFailureException openFailureException = new ArchiveOpenFailureException(file.getAbsolutePath(), e);
+				throw openFailureException;
+			}
+		} else {
+			ArchiveOpenFailureException openFailureException = new ArchiveOpenFailureException(new String() + null);
 			throw openFailureException;
 		}
 	}
@@ -55,14 +60,14 @@ public class JavaEEBinaryComponentLoadAdapter extends JavaEEEMFZipFileLoadAdapte
 	
 	private IPath recomputeArchivePath() {
 		java.io.File diskFile = archiveComponent.getUnderlyingDiskFile();
-		if (!diskFile.exists()) {
+		if (diskFile == null || !diskFile.exists()) {
 			IFile wbFile = archiveComponent.getUnderlyingWorkbenchFile();
-			if( wbFile == null )
-				return new Path(diskFile.getAbsolutePath());
+			if( wbFile == null ) {
+				return diskFile == null ? null : new Path(diskFile.getAbsolutePath());
+			}
 			diskFile = new File(wbFile.getLocation().toOSString());
 		}
-		IPath archivePath = new Path(diskFile.getAbsolutePath());
-		return archivePath;
+		return new Path(diskFile.getAbsolutePath());
 	}
 	
 	private void setArchivePath(IPath archivePath) {
@@ -79,14 +84,15 @@ public class JavaEEBinaryComponentLoadAdapter extends JavaEEEMFZipFileLoadAdapte
 	
 	public void physicallyOpen() throws ZipException, IOException{
 		if(!isPhysicallyOpen()){
-			if(file.exists()){
+			if(file != null && file.exists()){
 				setZipFile(ArchiveUtil.newZipFile(file));
 			} else { 
 				//check if the file has moved -- this can happen when
 				//checking into ClearCase.
 				IPath newPath = recomputeArchivePath();
-				if(newPath.equals(archivePath)){
-					throw new FileNotFoundException(archivePath.toOSString());
+				if(newPath == archivePath || newPath == null || newPath.equals(archivePath)){
+					String loc = archivePath == null ? null : archivePath.toOSString();
+					throw new FileNotFoundException(loc);
 				}
 				resetZipFile(newPath);
 			}
