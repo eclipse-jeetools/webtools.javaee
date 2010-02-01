@@ -45,19 +45,18 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 	protected static final IVirtualReference[] NO_REFERENCES = new IVirtualReference[0];
 	public static final int FACET_VERSION = 0;
 	public static final int DD_VERSION = 1;
-	
+
 	public JavaEEProjectUtilities() {
 	}
 
-	
 	public static boolean isProjectOfType(IProject project, String typeID) {
 		return getProjectFacetVersion(project, typeID) != null;
 	}
 
-	public static IProjectFacetVersion getProjectFacetVersion(IProject project, String typeID){
+	public static IProjectFacetVersion getProjectFacetVersion(IProject project, String typeID) {
 		return FacetedProjectUtilities.getProjectFacetVersion(project, typeID);
 	}
-	
+
 	private static boolean isProjectOfType(IFacetedProject facetedProject, String typeID) {
 		return FacetedProjectUtilities.isProjectOfType(facetedProject, typeID);
 	}
@@ -93,7 +92,7 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 	public static boolean isEARProject(IProject project) {
 		return isProjectOfType(project, ENTERPRISE_APPLICATION);
 	}
-	
+
 	public static boolean isDynamicWebComponent(IVirtualComponent component) {
 		if (component.isBinary()) {
 			return isBinaryType(component, JavaEEQuickPeek.WEB_TYPE);
@@ -163,14 +162,14 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 		return (IProject[]) result.toArray(new IProject[result.size()]);
 	}
 
-	private static boolean isBinaryType(IVirtualComponent aBinaryComponent, int quickPeekType){
+	private static boolean isBinaryType(IVirtualComponent aBinaryComponent, int quickPeekType) {
 		JavaEEQuickPeek qp = JavaEEBinaryComponentHelper.getJavaEEQuickPeek(aBinaryComponent);
 		int type = qp.getType();
 		return quickPeekType == type;
 	}
-	
+
 	private static String convertQuickpeekResult(int type) {
-		switch(type){
+		switch (type) {
 		case JavaEEQuickPeek.APPLICATION_CLIENT_TYPE:
 			return APPLICATION_CLIENT;
 		case JavaEEQuickPeek.WEB_TYPE:
@@ -185,6 +184,7 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 			return UTILITY;
 		}
 	}
+
 	public static String getJ2EEComponentType(IVirtualComponent component) {
 		if (null != component) {
 			if (component.isBinary()) {
@@ -195,8 +195,9 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 		}
 		return ""; //$NON-NLS-1$
 	}
+
 	public static String getJ2EEFileType(IPath path) {
-		if( path != null && path.toFile().exists() && path.toFile().isFile()) {
+		if (path != null && path.toFile().exists() && path.toFile().isFile()) {
 			JavaEEQuickPeek qp = JavaEEBinaryComponentHelper.getJavaEEQuickPeek(path);
 			return convertQuickpeekResult(qp.getType());
 		}
@@ -228,63 +229,107 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 		}
 		return ""; //$NON-NLS-1$
 	}
-	/**
-	 * Returns the J2EE Module version based on the DD XML file
-	 * @param project
-	 * @return version String
-	 */
-	public static String getJ2EEDDProjectVersion(IProject project) {
-		int type = J2EEVersionConstants.UNKNOWN;
-		String ddURI = null;
-		if (isEARProject(project)) {
-			type = J2EEVersionConstants.APPLICATION_TYPE;
-			ddURI = J2EEConstants.APPLICATION_DD_URI;
-		} else if (isEJBProject(project)) {
-			type = J2EEVersionConstants.EJB_TYPE;
-			ddURI = J2EEConstants.EJBJAR_DD_URI;
-		} else if (isApplicationClientProject(project)) {
-			type = J2EEVersionConstants.APPLICATION_CLIENT_TYPE;
-			ddURI = J2EEConstants.APP_CLIENT_DD_URI;
-		} else if (isJCAProject(project)) {
-			type = J2EEVersionConstants.CONNECTOR_TYPE;
-			ddURI = J2EEConstants.RAR_DD_URI;
-		} else if (isDynamicWebProject(project)) {
-			type = J2EEVersionConstants.WEB_TYPE;
-			ddURI = J2EEConstants.WEBAPP_DD_URI;
-		} 
 
-		if(type != J2EEVersionConstants.UNKNOWN){
-			IVirtualComponent comp = ComponentCore.createComponent(project);
-			if (comp != null) {
-				IVirtualFile vFile = comp.getRootFolder().getFile(new Path(ddURI));
-				if(vFile.exists()){
-					InputStream in= null;
-					try{
-						in = vFile.getUnderlyingFile().getContents();
-						JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(in);
-						int vers = (quickPeek.getVersion() == J2EEVersionConstants.UNKNOWN) ? getLatestVersion(project) : quickPeek.getVersion();
-						return J2EEVersionUtil.convertVersionIntToString(vers);
-					} catch (CoreException e) {
-						J2EEPlugin.logError(e);
-					} finally {
-						if(in != null){
-							try {
-								in.close();
-							} catch (IOException e) {
-								J2EEPlugin.logError(e);
-							}
-						}
-					}
-					
+	/**
+	 * Returns true if the Java EE Deployment Descriptor exists for the
+	 * specified project.
+	 * 
+	 * @param virtualComponent
+	 * @return
+	 * @see #getDeploymentDescriptorQuickPeek(IProject)
+	 */
+	public static boolean deploymentDescriptorExists(IProject project) {
+		IVirtualFile ddFile = getJavaEEDeploymentDescriptor(project);
+		return ddFile != null;
+	}
+
+	/**
+	 * Returns a JavaEEQuickPeek for the Java EE Deployment Descriptor for the
+	 * specified project. If no Java EE Deployment Descriptor exists null will
+	 * be returned.
+	 * 
+	 * @param project
+	 * @return
+	 * @see #deploymentDescriptorExists(IProject)
+	 */
+	public static JavaEEQuickPeek getDeploymentDescriptorQuickPeek(IProject project) {
+		IVirtualFile ddFile = getJavaEEDeploymentDescriptor(project);
+		if (ddFile == null) {
+			return null;
+		}
+		InputStream in = null;
+		try {
+			in = ddFile.getUnderlyingFile().getContents();
+			JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(in);
+			return quickPeek;
+		} catch (CoreException e) {
+			J2EEPlugin.logError(e);
+		} finally {
+			if (in != null) {
+				try {
+					in.close();
+				} catch (IOException e) {
+					J2EEPlugin.logError(e);
 				}
-				else
-					return J2EEVersionUtil.convertVersionIntToString(getLatestVersion(project));
 			}
 		}
-		
 		return null;
 	}
 
+	/**
+	 * Returns an IVirtualFile for the Java EE Deployment Descriptor for the
+	 * specified project if it exists. Returns null if there is no Java EE
+	 * Deployment Descriptor
+	 * 
+	 * @param virtualComponent
+	 * @return
+	 */
+	private static IVirtualFile getJavaEEDeploymentDescriptor(IProject project) {
+		if (project == null) {
+			throw new NullPointerException();
+		}
+		String ddURI = null;
+		if (isEARProject(project)) {
+			ddURI = J2EEConstants.APPLICATION_DD_URI;
+		} else if (isEJBProject(project)) {
+			ddURI = J2EEConstants.EJBJAR_DD_URI;
+		} else if (isApplicationClientProject(project)) {
+			ddURI = J2EEConstants.APP_CLIENT_DD_URI;
+		} else if (isJCAProject(project)) {
+			ddURI = J2EEConstants.RAR_DD_URI;
+		} else if (isDynamicWebProject(project)) {
+			ddURI = J2EEConstants.WEBAPP_DD_URI;
+		} else {
+			throw new IllegalArgumentException("Project:" + project.getName() + " is not a Java EE Project"); //$NON-NLS-1$//$NON-NLS-2$
+		}
+
+		IVirtualComponent comp = ComponentCore.createComponent(project);
+		if (comp != null) {
+			IVirtualFile vFile = comp.getRootFolder().getFile(new Path(ddURI));
+			if (vFile.exists()) {
+				return vFile;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Returns the J2EE Module version based on the DD XML file
+	 * 
+	 * @param project
+	 * @return version String
+	 * @deprecated use {@link #getDeploymentDescriptorQuickPeek(IProject)}
+	 */
+	public static String getJ2EEDDProjectVersion(IProject project) {
+		JavaEEQuickPeek quickPeek = getDeploymentDescriptorQuickPeek(project);
+		if (quickPeek == null) {
+			// TODO if there is no DD this really should return null, but the
+			// downstream implications need to be worked out
+			return J2EEVersionUtil.convertVersionIntToString(getLatestVersion(project));
+		} 
+		int vers = quickPeek.getVersion();
+		return J2EEVersionUtil.convertVersionIntToString(vers);
+	}
 
 	private static int getLatestVersion(IProject project) {
 		if (isEARProject(project) || isApplicationClientProject(project))
@@ -294,7 +339,7 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 		if (isDynamicWebProject(project))
 			return J2EEVersionConstants.VERSION_3_0;
 		return J2EEVersionConstants.UNKNOWN;
-			
+
 	}
 
 	public static int getJ2EEVersion(IProject javaEEProject)
@@ -302,7 +347,7 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 		int retVal = 0;
 		return retVal;
 	}
-	
+
 	/**
 	 * Given a component returns whether the component has
 	 * Java EE version greater than or equal to 5
@@ -310,16 +355,16 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 	 * @param component
 	 * @return true if the component is Java EE version 5 or greater, false otherwise
 	 */
-	public static boolean isJEEComponent(IVirtualComponent component){
-		if(component.isBinary()){
+	public static boolean isJEEComponent(IVirtualComponent component) {
+		if (component.isBinary()) {
 			JavaEEQuickPeek qp = JavaEEBinaryComponentHelper.getJavaEEQuickPeek(component);
 			int javaEEVersion = qp.getJavaEEVersion();
 			return javaEEVersion >= J2EEConstants.JEE_5_0_ID;
 		}
 		IProject project = component.getProject();
-		
+
 		IProjectFacetVersion facetVersion = getProjectFacetVersion(project, ENTERPRISE_APPLICATION);
-		if(facetVersion != null){
+		if (facetVersion != null) {
 			if(facetVersion == IJ2EEFacetConstants.ENTERPRISE_APPLICATION_12 ||
 			   facetVersion == IJ2EEFacetConstants.ENTERPRISE_APPLICATION_13 ||
 			   facetVersion == IJ2EEFacetConstants.ENTERPRISE_APPLICATION_14){
@@ -327,9 +372,9 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 			}
 			return true;
 		}
-		
+
 		facetVersion = getProjectFacetVersion(project, APPLICATION_CLIENT);
-		if(facetVersion != null){
+		if (facetVersion != null) {
 			if(facetVersion == IJ2EEFacetConstants.APPLICATION_CLIENT_12 ||
 			   facetVersion == IJ2EEFacetConstants.APPLICATION_CLIENT_13 ||
 			   facetVersion == IJ2EEFacetConstants.APPLICATION_CLIENT_14){
@@ -337,9 +382,9 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 			}
 			return true;
 		}
-		
+
 		facetVersion = getProjectFacetVersion(project, EJB);
-		if(facetVersion != null){
+		if (facetVersion != null) {
 			if(facetVersion == IJ2EEFacetConstants.EJB_11 ||
 			   facetVersion == IJ2EEFacetConstants.EJB_20 ||
 			   facetVersion == IJ2EEFacetConstants.EJB_21){
@@ -347,9 +392,9 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 			}
 			return true;
 		}
-		
+
 		facetVersion = getProjectFacetVersion(project, DYNAMIC_WEB);
-		if(facetVersion != null){
+		if (facetVersion != null) {
 			if(facetVersion == IJ2EEFacetConstants.DYNAMIC_WEB_22 ||
 			   facetVersion == IJ2EEFacetConstants.DYNAMIC_WEB_23 ||
 			   facetVersion == IJ2EEFacetConstants.DYNAMIC_WEB_24){
@@ -357,19 +402,19 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 			}
 			return true;
 		}
-		
+
 		facetVersion = getProjectFacetVersion(project, JCA);
-		if(facetVersion != null){
+		if (facetVersion != null) {
 			if(facetVersion == IJ2EEFacetConstants.JCA_10 ||
 			   facetVersion == IJ2EEFacetConstants.JCA_15 ){
 				return false;
 			}
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	/**
 	 * Given a component returns whether the component has
 	 * Java EE version greater than or equal to 5
@@ -379,17 +424,17 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 	 *                      or the DD XML file version
 	 * @return true if the component is Java EE version 5 or greater, false otherwise
 	 */
-	public static boolean isJEEComponent(IVirtualComponent component, int versionType){
+	public static boolean isJEEComponent(IVirtualComponent component, int versionType) {
 		if (component.isBinary()) {
 			JavaEEQuickPeek qp = JavaEEBinaryComponentHelper.getJavaEEQuickPeek(component);
 			int javaEEVersion = qp.getJavaEEVersion();
 			return javaEEVersion >= J2EEConstants.JEE_5_0_ID;
-		} 
-		
+		}
+
 		IProject project = component.getProject();
 		if (versionType == FACET_VERSION) {
 			IProjectFacetVersion facetVersion = getProjectFacetVersion(project, ENTERPRISE_APPLICATION);
-			if(facetVersion != null){
+			if (facetVersion != null) {
 				if(facetVersion == IJ2EEFacetConstants.ENTERPRISE_APPLICATION_12 ||
 				   facetVersion == IJ2EEFacetConstants.ENTERPRISE_APPLICATION_13 ||
 				   facetVersion == IJ2EEFacetConstants.ENTERPRISE_APPLICATION_14){
@@ -397,9 +442,9 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 				}
 				return true;
 			}
-			
+
 			facetVersion = getProjectFacetVersion(project, APPLICATION_CLIENT);
-			if(facetVersion != null){
+			if (facetVersion != null) {
 				if(facetVersion == IJ2EEFacetConstants.APPLICATION_CLIENT_12 ||
 				   facetVersion == IJ2EEFacetConstants.APPLICATION_CLIENT_13 ||
 				   facetVersion == IJ2EEFacetConstants.APPLICATION_CLIENT_14){
@@ -407,9 +452,9 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 				}
 				return true;
 			}
-			
+
 			facetVersion = getProjectFacetVersion(project, EJB);
-			if(facetVersion != null){
+			if (facetVersion != null) {
 				if(facetVersion == IJ2EEFacetConstants.EJB_11 ||
 				   facetVersion == IJ2EEFacetConstants.EJB_20 ||
 				   facetVersion == IJ2EEFacetConstants.EJB_21){
@@ -417,9 +462,9 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 				}
 				return true;
 			}
-			
+
 			facetVersion = getProjectFacetVersion(project, DYNAMIC_WEB);
-			if(facetVersion != null){
+			if (facetVersion != null) {
 				if(facetVersion == IJ2EEFacetConstants.DYNAMIC_WEB_22 ||
 				   facetVersion == IJ2EEFacetConstants.DYNAMIC_WEB_23 ||
 				   facetVersion == IJ2EEFacetConstants.DYNAMIC_WEB_24){
@@ -427,16 +472,16 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 				}
 				return true;
 			}
-			
+
 			facetVersion = getProjectFacetVersion(project, JCA);
-			if(facetVersion != null){
+			if (facetVersion != null) {
 				if(facetVersion == IJ2EEFacetConstants.JCA_10 ||
 				   facetVersion == IJ2EEFacetConstants.JCA_15 ){
 					return false;
 				}
 				return true;
 			}
-			
+
 			return false;
 		}
 		String ddVersion = getJ2EEDDProjectVersion(project);
@@ -451,35 +496,35 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 			j2eeLevel = J2EEVersionUtil.convertConnectorVersionStringToJ2EEVersionID(ddVersion);
 		else if (isApplicationClientProject(project))
 			j2eeLevel = J2EEVersionUtil.convertAppClientVersionStringToJ2EEVersionID(ddVersion);
-		
+
 		return j2eeLevel >= J2EEVersionConstants.JEE_5_0_ID;
 	}
-	
+
 	/**
 	 * Given a component returns whether the component has Java EE version less than 5
 	 * 
 	 * @param component
 	 * @return true if the component is less then Java EE version 5, false otherwise
 	 */
-	public static boolean isLegacyJ2EEComponent(IVirtualComponent component){
+	public static boolean isLegacyJ2EEComponent(IVirtualComponent component) {
 		return !isJEEComponent(component);
 	}
-	
+
 	public static String getComponentURI(IVirtualComponent comp) {
 		String name = null;
-		//First find URI contained in EAR
+		// First find URI contained in EAR
 		IProject[] earProjects = EarUtilities.getReferencingEARProjects(comp.getProject());
 		if (earProjects.length > 0) {
 			IModelProvider provider = ModelProviderManager.getModelProvider(earProjects[0]);
-			if (provider instanceof IEARModelProvider)	{
-				name = ((IEARModelProvider)provider).getModuleURI(comp);
+			if (provider instanceof IEARModelProvider) {
+				name = ((IEARModelProvider) provider).getModuleURI(comp);
 			}
 		}
-		//If not found, then return the default name from the ModuleCore API
-		if( name == null || name == "" ){ //$NON-NLS-1$ 
+		// If not found, then return the default name from the ModuleCore API
+		if (name == null || name == "") { //$NON-NLS-1$ 
 			return VirtualReferenceUtilities.INSTANCE.getDefaultProjectArchiveName(comp);
 		}
 		return name;
 	}
-	
+
 }
