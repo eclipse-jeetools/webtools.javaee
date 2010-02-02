@@ -22,7 +22,6 @@ import org.eclipse.jst.j2ee.componentcore.util.EARVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.jst.jee.ui.internal.Messages;
-import org.eclipse.jst.jee.ui.internal.navigator.AbstractGroupProvider;
 import org.eclipse.jst.jee.ui.plugin.JEEUIPlugin;
 import org.eclipse.jst.jee.ui.plugin.JEEUIPluginIcons;
 import org.eclipse.osgi.util.NLS;
@@ -40,7 +39,7 @@ import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
  * @author Dimitar Giormov
  *
  */
-public class GroupEARProvider extends AbstractGroupProvider implements IAdaptable {
+public class GroupEARProvider extends AbstractEarGroupProvider implements IAdaptable {
 
 	private static final String PROJECT_RELATIVE_PATH = "META-INF/application.xml"; //$NON-NLS-1$
 	public final static String EAR_DEFAULT_LIB = "lib"; //$NON-NLS-1$

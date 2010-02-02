@@ -34,7 +34,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
  * @author Dimitar Giormov
  *
  */
-public class WebAppProvider extends AbstractGroupProvider implements IAdaptable {
+public class WebAppProvider extends AbstractWebGroupProvider implements IAdaptable {
   
   
 	private static final String PROJECT_RELATIVE_PATH = "WEB-INF/web.xml"; //$NON-NLS-1$

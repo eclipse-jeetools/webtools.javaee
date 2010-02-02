@@ -36,10 +36,11 @@ public class Web25ContentProvider extends JEE5ContentProvider {
 				if (cachedContentProvider.isValid()){
 					children.add(cachedContentProvider);
 				}
-		} else if (WebAppProvider.class.isInstance(aParentElement)){
-			children.addAll(((WebAppProvider) aParentElement).getChildren());
 		} else if (AbstractGroupProvider.class.isInstance(aParentElement)){
-			children.addAll(((AbstractGroupProvider) aParentElement).getChildren());
+			AbstractGroupProvider abstractGroupProvider = (AbstractGroupProvider) aParentElement;
+			if (abstractGroupProvider.hasChildren()){
+				children.addAll(abstractGroupProvider.getChildren());
+			}
 		}
 		return children.toArray();
 	}

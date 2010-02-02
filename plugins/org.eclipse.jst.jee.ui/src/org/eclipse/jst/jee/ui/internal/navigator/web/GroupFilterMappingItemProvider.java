@@ -17,7 +17,6 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.javaee.web.WebApp;
 import org.eclipse.jst.jee.ui.internal.Messages;
-import org.eclipse.jst.jee.ui.internal.navigator.AbstractGroupProvider;
 import org.eclipse.jst.jee.ui.plugin.JEEUIPluginIcons;
 import org.eclipse.swt.graphics.Image;
 
@@ -27,7 +26,7 @@ import org.eclipse.swt.graphics.Image;
  * @author Dimitar Giormov
  *
  */
-public class GroupFilterMappingItemProvider extends AbstractGroupProvider {
+public class GroupFilterMappingItemProvider extends AbstractWebGroupProvider {
 
 	private static Image FILTER_MAPPING;
 
