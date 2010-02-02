@@ -79,7 +79,7 @@ public class AppClientExportPage extends J2EEModuleExportPage {
 	}
 	
     @Override
-	protected String getCompnentID() {
+	protected String getComponentID() {
         return "JST_APPCLIENT"; //$NON-NLS-1$
     }
 

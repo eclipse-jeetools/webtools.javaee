@@ -94,7 +94,7 @@ public class EARComponentExportPage extends J2EEExportPage {
 	}
 
     @Override
-	protected String getCompnentID() {
+	protected String getComponentID() {
         return "JST_EAR";  //$NON-NLS-1$
     }
 }

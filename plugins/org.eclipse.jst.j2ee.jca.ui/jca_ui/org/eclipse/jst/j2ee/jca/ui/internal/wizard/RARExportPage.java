@@ -86,7 +86,7 @@ public class RARExportPage extends J2EEModuleExportPage {
 	}
 
     @Override
-	protected String getCompnentID() {
+	protected String getComponentID() {
         return "JST_CONNECTOR"; //$NON-NLS-1$
     }
 }

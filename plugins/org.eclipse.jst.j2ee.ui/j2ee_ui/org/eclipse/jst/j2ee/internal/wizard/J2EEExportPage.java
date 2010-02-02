@@ -482,9 +482,17 @@ public abstract class J2EEExportPage extends DataModelWizardPage {
 	 * @return
 	 */
 	protected String getFileNamesStoreID() {
+		return getComponentID();
+	}
+	
+	@Deprecated
+	protected String getCompnentID() {
+		return null;
+	}
+
+	protected String getComponentID() {
 		return getCompnentID();
 	}
-	protected abstract String getCompnentID();
 
     /**
 	 * @return

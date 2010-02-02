@@ -62,7 +62,7 @@ public class WebComponentExportPage extends J2EEModuleExportPage {
 	}
 
 	@Override
-	protected String getCompnentID() {
+	protected String getComponentID() {
 		return "JST_WEB"; //$NON-NLS-1$
 	}
 
