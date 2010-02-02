@@ -146,6 +146,10 @@ public final class JavaProjectLite implements IJavaProjectLite {
 		if (!dataRead) {
 			updateDotClasspathModificationStamp();
 			IPath rawOutputLocation = _javaProject.readOutputLocation();
+			if (rawOutputLocation == null) {
+				// borrowed from JavaProject.getDefaultOutputLocation()
+				rawOutputLocation = _javaProject.getProject().getFullPath().append("bin"); //$NON-NLS-1$
+			}
 			synchronized (lock) {
 				_rawOutputLocationRead = true;
 				_rawOutputLocation = rawOutputLocation;
