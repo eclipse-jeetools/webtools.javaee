@@ -10,11 +10,14 @@
  ***********************************************************************/
 package org.eclipse.jst.jee.model.internal;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.IModelProviderFactory;
+import org.eclipse.jst.j2ee.model.IModelProviderListener;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 /**
@@ -28,10 +31,24 @@ public class Ejb3MergedModelProviderFactory implements IModelProviderFactory {
 	public IModelProvider create(IProject project) {
 		IModelProvider result = getResource(project);
 		if(result == null || ((EJB3MergedModelProvider)result).isDisposed()){
+			Collection<IModelProviderListener> listeners = new ArrayList<IModelProviderListener>();
+			if (result != null){
+				listeners = ( (EJB3MergedModelProvider)result).getListeners();
+			}
 			result = new EJB3MergedModelProvider(project);
+			
+			addListeners(result, listeners);
 			addResource(project, result);
 		}
 		return result;
+	}
+	
+	private void addListeners(IModelProvider modelProvider,
+			Collection<IModelProviderListener> listeners) {
+		for (IModelProviderListener iModelProviderListener : listeners) {
+			if (iModelProviderListener != null)
+				modelProvider.addListener(iModelProviderListener);
+		}
 	}
 
 	public IModelProvider create(IVirtualComponent component) {
