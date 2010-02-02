@@ -24,7 +24,6 @@ import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.componentcore.util.EARVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
@@ -102,40 +101,7 @@ public class Ear5ContentProvider extends JEE5ContentProvider {
 		IProject project = null;
 		List children = new ArrayList();
 		if (aParentElement instanceof GroupEARProvider) {
-			project = ((GroupEARProvider)aParentElement).getProject();
-
-			IVirtualComponent projectComponent = ComponentCore.createComponent(project);
-			try {
-				IFacetedProject facetedProject = ProjectFacetsManager.create(project);
-				//EE6TODO
-				if (facetedProject != null && 
-						facetedProject.hasProjectFacet(
-								ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EAR_MODULE).getVersion(
-										J2EEVersionConstants.VERSION_5_0_TEXT))) {
-
-					List libs = getComponentReferencesAsList(Collections.singletonList(J2EEProjectUtilities.UTILITY), projectComponent,
-					new Path("/" + EAR_DEFAULT_LIB)); //$NON-NLS-1$
-
-					ArrayList bundledLibs = new ArrayList();
-					ArrayList appLibsInTheRoot = new ArrayList();
-
-					for (int i = 0; i < libs.size(); i++) {
-						IVirtualReference reference = (IVirtualReference) libs.get(i);
-						IPath runtimePath = reference.getRuntimePath();
-
-						if (runtimePath != null && runtimePath.segment(0) != null && 
-//										runtimePath.equals(new Path(EAR_DEFAULT_LIB))) {
-							!runtimePath.isRoot()) {
-							bundledLibs.add(libs.get(i));
-						} else {
-							appLibsInTheRoot.add(libs.get(i));
-						}
-					}
-				}
-			} catch (CoreException e) {
-				String msg = "Error in the JEEContentProvider.getChildren() for parent:" +  aParentElement; //$NON-NLS-1$
-				JEEUIPlugin.logError(msg, e);
-			}
+			children.addAll(((GroupEARProvider)aParentElement).getChildren());
 		} else if (aParentElement instanceof AbstractEarNode) {
 			return ((AbstractEarNode) aParentElement).getModules().toArray();
 		} else if (aParentElement instanceof IAdaptable) {

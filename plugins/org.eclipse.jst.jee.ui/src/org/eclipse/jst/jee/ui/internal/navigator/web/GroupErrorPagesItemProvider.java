@@ -18,7 +18,6 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.javaee.web.ErrorPage;
 import org.eclipse.jst.javaee.web.WebApp;
 import org.eclipse.jst.jee.ui.internal.Messages;
-import org.eclipse.jst.jee.ui.internal.navigator.AbstractGroupProvider;
 import org.eclipse.jst.jee.ui.plugin.JEEUIPluginIcons;
 import org.eclipse.swt.graphics.Image;
 
@@ -28,7 +27,7 @@ import org.eclipse.swt.graphics.Image;
  * @author Dimitar Giormov
  *
  */
-public class GroupErrorPagesItemProvider extends AbstractGroupProvider{
+public class GroupErrorPagesItemProvider extends AbstractWebGroupProvider{
 
     private static Image ERROR_PAGES;
     private static Image EXCEPTION_ERROR_PAGES;

@@ -18,7 +18,6 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jst.javaee.core.JavaEEObject;
 import org.eclipse.jst.javaee.ejb.EJBJar;
 import org.eclipse.jst.jee.ui.internal.Messages;
-import org.eclipse.jst.jee.ui.internal.navigator.AbstractGroupProvider;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.graphics.Image;
 /**
@@ -27,7 +26,7 @@ import org.eclipse.swt.graphics.Image;
  * @author Dimitar Giormov
  *
  */
-public class GroupEJBProvider extends AbstractGroupProvider implements IAdaptable {
+public class GroupEJBProvider extends AbstractEjbGroupProvider implements IAdaptable {
 
 	private GroupEjbSession groupEjbSession;
 	private GroupEjbMessageDriven groupEjbMessageDriven;

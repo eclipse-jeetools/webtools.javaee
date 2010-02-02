@@ -19,7 +19,6 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jst.javaee.applicationclient.ApplicationClient;
 import org.eclipse.jst.jee.ui.internal.Messages;
-import org.eclipse.jst.jee.ui.internal.navigator.AbstractGroupProvider;
 import org.eclipse.jst.jee.ui.plugin.JEEUIPlugin;
 import org.eclipse.jst.jee.ui.plugin.JEEUIPluginIcons;
 import org.eclipse.osgi.util.NLS;
@@ -33,7 +32,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
  * @author Dimitar Giormov
  * 
  */
-public class GroupAppClientProvider extends AbstractGroupProvider implements IAdaptable {
+public class GroupAppClientProvider extends AbstractAppClientGroupProvider implements IAdaptable {
 
 	
 	private final IProject project;

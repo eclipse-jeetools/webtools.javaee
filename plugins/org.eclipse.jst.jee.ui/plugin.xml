@@ -485,10 +485,7 @@
 		 	<instanceof value="org.eclipse.jst.jee.ui.internal.navigator.ejb.BeanNode" />
   			<instanceof value="org.eclipse.jst.javaee.core.JavaEEObject" />
    <instanceof
-         value="org.eclipse.jst.jee.ui.internal.navigator.AbstractGroupProvider">
-   </instanceof>
-   <instanceof
-         value="org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider">
+         value="org.eclipse.jst.jee.ui.internal.navigator.ejb.AbstractEjbGroupProvider">
    </instanceof>
         </or>
      </triggerPoints>
@@ -498,7 +495,7 @@
 		 	<instanceof value="org.eclipse.jst.jee.ui.internal.navigator.ejb.BeanNode" />
   			<instanceof value="org.eclipse.jst.javaee.core.JavaEEObject" />
    <instanceof
-         value="org.eclipse.jst.jee.ui.internal.navigator.AbstractGroupProvider">
+         value="org.eclipse.jst.jee.ui.internal.navigator.ejb.AbstractEjbGroupProvider">
    </instanceof>
         </or>
      </possibleChildren>
@@ -712,7 +709,7 @@
               </or>
            </adapt>
    <instanceof
-         value="org.eclipse.jst.jee.ui.internal.navigator.AbstractGroupProvider">
+         value="org.eclipse.jst.jee.ui.internal.navigator.web.AbstractWebGroupProvider">
    </instanceof>
    <instanceof
          value="org.eclipse.jst.jee.ui.internal.navigator.web.WebAppProvider">
@@ -728,7 +725,7 @@
      <possibleChildren>
         <or>
            <instanceof
-                 value="org.eclipse.jst.jee.ui.internal.navigator.AbstractGroupProvider">
+                 value="org.eclipse.jst.jee.ui.internal.navigator.web.AbstractWebGroupProvider">
            </instanceof>
            <instanceof
                  value="org.eclipse.jst.jee.ui.internal.navigator.web.WebAppProvider">
@@ -887,6 +884,9 @@
            <instanceof
                  value="org.eclipse.jst.jee.ui.internal.navigator.ear.BundledNode">
            </instanceof>
+            <instanceof
+                 value="org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider">
+           </instanceof>
            <adapt
                  type="org.eclipse.core.resources.IProject">
               <test
@@ -955,6 +955,9 @@
            </instanceof>
            <instanceof
                  value="org.eclipse.jdt.internal.core.JarPackageFragmentRoot">
+           </instanceof>
+              <instanceof
+                 value="org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider">
            </instanceof>
            <instanceof
                  value="org.eclipse.core.internal.resources.Project">

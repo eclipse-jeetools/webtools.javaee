@@ -51,7 +51,8 @@ public abstract class AbstractGroupProvider {
 	}
 
 	public boolean hasChildren() {
-		return !getChildren().isEmpty();
+		List children2 = getChildren();
+		return children2 != null && !children2.isEmpty();
 	}
 
 	public JavaEEObject getJavaEEObject() {
