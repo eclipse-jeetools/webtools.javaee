@@ -196,7 +196,7 @@ public abstract class AbstractMergedModelProvider<T> implements IModelProvider {
 	 */
 	protected abstract IModelProvider loadDeploymentDescriptorModel() throws CoreException;
 
-	protected Collection<IModelProviderListener> getListeners() {
+	public Collection<IModelProviderListener> getListeners() {
 		if (listeners == null)
 			listeners = new ArrayList<IModelProviderListener>();
 		return listeners;
