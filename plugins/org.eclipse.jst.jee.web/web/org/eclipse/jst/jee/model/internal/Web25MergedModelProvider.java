@@ -21,7 +21,6 @@ import org.eclipse.jst.jee.model.internal.common.AbstractMergedModelProvider;
 import org.eclipse.jst.jee.model.internal.mergers.ModelElementMerger;
 import org.eclipse.jst.jee.model.internal.mergers.ModelException;
 import org.eclipse.jst.jee.model.internal.mergers.WebAppMerger;
-import org.eclipse.jst.jee.web.Activator;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
 /**
@@ -45,18 +44,17 @@ public class Web25MergedModelProvider extends AbstractMergedModelProvider<WebApp
 	}
 
 	private WebApp getAnnotationWebApp() {
-		return annotationModelProvider != null ? (WebApp) annotationModelProvider.getModelObject() : null;
+		return (WebApp) annotationModelProvider.getModelObject();
 	}
 
 	private WebApp getXmlWebApp() {
-		return ddProvider != null ? (WebApp) ddProvider.getModelObject() : null;
+		return (WebApp) ddProvider.getModelObject();
 	}
 
 	public Object getModelObject(IPath modelPath) {
 		return null;
 	}
 
-	@Override
 	public void modify(Runnable runnable, IPath modelPath) {
 		/*
 		 * Someone has called modify before loading the model. Try to load the
@@ -79,10 +77,7 @@ public class Web25MergedModelProvider extends AbstractMergedModelProvider<WebApp
 		} finally {
 			mergedModel = backup;
 		}
-		if (mergedModel == null)
-			mergedModel = getMergedModel();
-		else
-			merge(getXmlWebApp(), getAnnotationWebApp());
+		merge(getXmlWebApp(), getAnnotationWebApp());
 	}
 
 	private void clearModel(WebApp app) {
@@ -122,12 +117,10 @@ public class Web25MergedModelProvider extends AbstractMergedModelProvider<WebApp
 		app.getWelcomeFileLists().clear();
 	}
 
-	@Override
 	protected void annotationModelChanged(IModelProviderEvent event) {
 		internalModelChanged(event);
 	}
 
-	@Override
 	protected void xmlModelChanged(IModelProviderEvent event) {
 		internalModelChanged(event);
 	}
@@ -151,19 +144,16 @@ public class Web25MergedModelProvider extends AbstractMergedModelProvider<WebApp
 				mergeWithModel(annotationsModel);
 			}
 		} catch (ModelException e) {
-			Activator.logError(e);
+			e.printStackTrace();
 		}
 		return mergedModel;
 	}
 
 	private void mergeWithModel(WebApp model) throws ModelException {
-		if (model == null)
-			return;
 		WebAppMerger merger = new WebAppMerger(mergedModel, model, ModelElementMerger.ADD);
 		merger.process();
 	}
 
-	@Override
 	protected WebApp createNewModelInstance() {
 		return WebFactory.eINSTANCE.createWebApp();
 	}
