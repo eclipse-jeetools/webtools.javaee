@@ -13,6 +13,7 @@ package org.eclipse.jst.j2ee.internal.web.archive.operations;
 import java.util.Set;
 
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentExportDataModelProvider;
+import org.eclipse.jst.j2ee.internal.archive.operations.JavaEEComponentExportOperation;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -27,7 +28,7 @@ public class WebComponentExportDataModelProvider extends J2EEComponentExportData
 
 	@Override
 	public IDataModelOperation getDefaultOperation() {
-		return new WebComponentExportOperation(model);
+		return new JavaEEComponentExportOperation(model);
 	}
 
 	@Override

@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.application.internal.operations;
 
-import org.eclipse.jst.j2ee.internal.archive.operations.AppClientComponentExportOperation;
+import org.eclipse.jst.j2ee.internal.archive.operations.JavaEEComponentExportOperation;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -25,7 +25,7 @@ public class AppClientComponentExportDataModelProvider extends J2EEComponentExpo
 
     @Override
 	public IDataModelOperation getDefaultOperation() {
-        return new AppClientComponentExportOperation(model);
+        return new JavaEEComponentExportOperation(model);
     }
 
     @Override

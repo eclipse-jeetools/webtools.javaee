@@ -11,8 +11,8 @@
 package org.eclipse.jst.j2ee.internal.jca.operations;
 
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentExportDataModelProvider;
+import org.eclipse.jst.j2ee.internal.archive.operations.JavaEEComponentExportOperation;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
-import org.eclipse.jst.j2ee.internal.jca.archive.operations.ConnectorComponentExportOperation;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
@@ -25,7 +25,7 @@ public class ConnectorComponentExportDataModelProvider extends J2EEComponentExpo
 
     @Override
 	public IDataModelOperation getDefaultOperation() {
-        return new ConnectorComponentExportOperation(model);
+        return new JavaEEComponentExportOperation(model);
     }
     
     @Override
