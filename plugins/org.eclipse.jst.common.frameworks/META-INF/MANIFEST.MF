@@ -7,6 +7,7 @@ Bundle-Vendor: %pluginVendor
 Bundle-Localization: plugin
 Export-Package: 
  org.eclipse.jst.common.frameworks,
+ org.eclipse.jst.common.internal.modulecore,
  org.eclipse.jst.common.jdt.internal.classpath;x-internal:=true,
  org.eclipse.jst.common.jdt.internal.integration;x-internal:=true,
  org.eclipse.jst.common.jdt.internal.javalite,
