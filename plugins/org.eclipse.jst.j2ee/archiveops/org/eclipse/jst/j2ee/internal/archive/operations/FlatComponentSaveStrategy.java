@@ -16,6 +16,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -52,6 +53,7 @@ public class FlatComponentSaveStrategy {
 	private ZipOutputStream zipOutputStream;
 	private IVirtualComponent component;
 	private List<IFlattenParticipant> participants;
+	private List<IPath> zipEntries = new ArrayList<IPath>();
 	
 	public FlatComponentSaveStrategy(IVirtualComponent aComponent, OutputStream out, boolean exportSource, List<IFlattenParticipant> fParticipants) {
 		participants = fParticipants;
@@ -163,14 +165,17 @@ public class FlatComponentSaveStrategy {
 		for (int i = 0; i < childModules.length; i++) {
 			IChildModuleReference childModule = childModules[i];
 			IPath entry = childModule.getRelativeURI();
-			FlatComponentSaveStrategy saver = saveNestedArchive(childModule.getComponent(), entry);
-			saver.saveArchive();
+			if (!zipEntries.contains(entry)) {
+				FlatComponentSaveStrategy saver = saveNestedArchive(childModule.getComponent(), entry);
+				saver.saveArchive();
+			}
 		}
 	}
 
 	protected void addZipEntry(File f, IPath entryPath, boolean isFolder) throws ArchiveSaveFailureException {
 		try {
 			IPath path = entryPath;
+			zipEntries.add(entryPath);
 			if (isFolder && !path.hasTrailingSeparator()){
 				path = path.addTrailingSeparator();
 			}
