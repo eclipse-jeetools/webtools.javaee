@@ -17,30 +17,12 @@ import java.util.List;
 import org.eclipse.jst.j2ee.internal.common.exportmodel.AddClasspathReferencesParticipant;
 import org.eclipse.jst.j2ee.internal.common.exportmodel.AddMappedOutputFoldersParticipant;
 import org.eclipse.jst.j2ee.internal.common.exportmodel.ReplaceManifestExportParticipant;
-import org.eclipse.jst.j2ee.internal.common.exportmodel.SingleRootExportParticipant;
-import org.eclipse.wst.common.componentcore.internal.flat.AbstractFlattenParticipant;
+import org.eclipse.jst.j2ee.internal.common.exportmodel.StandardHierarchyParticipant;
 import org.eclipse.wst.common.componentcore.internal.flat.FilterResourceParticipant;
 import org.eclipse.wst.common.componentcore.internal.flat.IFlattenParticipant;
-import org.eclipse.wst.common.componentcore.internal.flat.FlatVirtualComponent.FlatComponentTaskModel;
-import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
-import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class JavaEEComponentExportOperation extends ComponentExportOperation {
-
-	public static IFlattenParticipant[] fixedParticpants = new IFlattenParticipant[] { 
-		new ReplaceManifestExportParticipant(),
-		new AddClasspathReferencesParticipant(),
-		new AddMappedOutputFoldersParticipant(),
-		//bug 301577 - non-binary used references are not returned from FlatVirtualComponent
-		//this code can be removed once this bug is fixed
-		new AbstractFlattenParticipant() {
-			@Override
-			public boolean isChildModule(IVirtualComponent rootComponent, IVirtualReference reference, FlatComponentTaskModel dataModel) {
-				return !reference.getReferencedComponent().isBinary();
-			}
-		}
-	};
 
 	public static String[] DOT_FILE_NAMES = new String[] {
 		".project", 	//$NON-NLS-1$
@@ -62,25 +44,26 @@ public class JavaEEComponentExportOperation extends ComponentExportOperation {
 	}
 	
 	@Override
-	protected List<IFlattenParticipant> getParticipants() {
-		List<IFlattenParticipant> participants = new ArrayList<IFlattenParticipant>();
-		participants.addAll(Arrays.asList(fixedParticpants));		
-		participants.add(getExtensionFilterParticipant(isExportSource()));
-		if (!isExportSource()) {
-			participants.add(new SingleRootExportParticipant());
-		}	
-		return participants;
+	protected List<IFlattenParticipant> getParticipants() {		
+		IFlattenParticipant[] participants = new IFlattenParticipant[] {
+				new ReplaceManifestExportParticipant(),
+				new AddClasspathReferencesParticipant(),
+				new AddMappedOutputFoldersParticipant(),
+				new StandardHierarchyParticipant(),
+				getExtensionFilterParticipant()
+		};
+		return Arrays.asList(participants);
 	}
 	
 	
-	protected IFlattenParticipant getExtensionFilterParticipant(boolean isExportSource) {
-		return FilterResourceParticipant.createSuffixFilterParticipant(getExcludeExtensions(isExportSource));
+	protected IFlattenParticipant getExtensionFilterParticipant() {
+		return FilterResourceParticipant.createSuffixFilterParticipant(getExcludeExtensions());
 	}
 
-	protected String[] getExcludeExtensions(boolean isExportSource) {
+	protected String[] getExcludeExtensions() {
 		ArrayList<String> excludeList = new ArrayList<String>();
 		excludeList.addAll(Arrays.asList(DOT_FILE_NAMES));
-		if (!isExportSource) {
+		if (!isExportSource()) {
 			excludeList.addAll(Arrays.asList(DOT_SOURCE_FILES));
 		}
 		return excludeList.toArray(new String[excludeList.size()]);
