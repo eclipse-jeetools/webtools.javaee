@@ -14,10 +14,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.ISafeRunnable;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.SafeRunner;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -50,8 +54,9 @@ import org.eclipse.jst.jee.JEEPlugin;
  * 
  * <p>
  * internalProviders are loaded with {@link #loadDeploymentDescriptorModel()}
- * and {@link #loadAnnotationModel(Object)}. This methods should be override to
- * provide specific model providers.
+ * and {@link #loadAnnotationModel(Object)}. This methods should be overridden to
+ * provide specific model providers. Loading the model providers is wrapped in a
+ * workspace runnable to assure proper access to the workspace.
  * </p>
  * 
  * <p>
@@ -221,21 +226,34 @@ public abstract class AbstractMergedModelProvider<T> implements IModelProvider {
 	protected T loadModel() throws CoreException {
 		if (project.isAccessible() == false)
 			throw new IllegalStateException("The project <" + project + "> is not accessible."); //$NON-NLS-1$//$NON-NLS-2$
+		project.getWorkspace().run(new LoadModelsWorkspaceRunnable(), project, IWorkspace.AVOID_UPDATE,
+				new NullProgressMonitor());
+		return mergedModel;
+	}
+
+	@SuppressWarnings("unchecked")
+	private void loadProviders() throws CoreException {
 		if (ddProvider == null)
 			ddProvider = loadDeploymentDescriptorModel();
 		if (ddProvider == null || ddProvider.getModelObject() == null)
-			return null;
+			return;
 		if (annotationModelProvider == null)
 			annotationModelProvider = loadAnnotationModel((T) ddProvider.getModelObject());
 		if (annotationModelProvider == null || annotationModelProvider.getModelObject() == null)
-			return null;
+			return;
 		T ddModel = (T) ddProvider.getModelObject();
 		T annotationModel = (T) annotationModelProvider.getModelObject();
 		mergedModel = createNewModelInstance();
 		initMergedModelResource((EObject) ddModel);
 
 		enableInternalNotifications();
-		return merge(ddModel, annotationModel);
+		merge(ddModel, annotationModel);
+	}
+
+	private class LoadModelsWorkspaceRunnable implements IWorkspaceRunnable {
+		public void run(IProgressMonitor monitor) throws CoreException {
+			loadProviders();
+		}
 	}
 
 	/**
