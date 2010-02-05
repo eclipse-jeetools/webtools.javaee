@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.eclipse.jst.common.internal.modulecore.AddMappedOutputFoldersParticipant;
 import org.eclipse.jst.j2ee.internal.common.exportmodel.AddClasspathReferencesParticipant;
-import org.eclipse.jst.j2ee.internal.common.exportmodel.AddMappedOutputFoldersParticipant;
 import org.eclipse.jst.j2ee.internal.common.exportmodel.ReplaceManifestExportParticipant;
 import org.eclipse.jst.j2ee.internal.common.exportmodel.StandardHierarchyParticipant;
 import org.eclipse.wst.common.componentcore.internal.flat.FilterResourceParticipant;
