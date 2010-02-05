@@ -237,7 +237,13 @@ public class DeployerRegistry {
 			else {
 				for (Iterator iterator2 = exclusions.iterator(); iterator2.hasNext();) {
 					String exclusion = (String) iterator2.next();
-					IProjectFacet facet = ProjectFacetsManager.getProjectFacet(exclusion);
+					IProjectFacet facet = null;
+					try {
+						facet = ProjectFacetsManager.getProjectFacet(exclusion);
+					} catch (IllegalArgumentException e) {
+						//Facet id not found
+						org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
+					}
 					if (facet != null && fProj.hasProjectFacet(facet)) {
 						excludeDeployer = true;
 					}
