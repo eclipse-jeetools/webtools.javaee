@@ -20,6 +20,8 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jst.common.internal.modulecore.IClasspathDependencyComponent;
+import org.eclipse.jst.common.internal.modulecore.IClasspathDependencyReceiver;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathInitializer;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
@@ -43,7 +45,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 
-public class EARVirtualComponent extends VirtualComponent implements IComponentImplFactory {
+public class EARVirtualComponent extends VirtualComponent implements IComponentImplFactory, IClasspathDependencyReceiver {
 	public static String [] EXTENSIONS_TO_IGNORE = new String [] {IJ2EEModuleConstants.JAR_EXT, ".zip", IJ2EEModuleConstants.RAR_EXT, IJ2EEModuleConstants.WAR_EXT };  //$NON-NLS-1$
 
 	private IVirtualReference[] cachedReferences;
@@ -252,5 +254,13 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 		
 		depGraphModStamp = IDependencyGraph.INSTANCE.getModStamp();
 		cachedReferences = null;
+	}
+
+	public boolean canReceiveClasspathDependencies() {
+		return true;
+	}
+
+	public IPath getClasspathFolderPath(IClasspathDependencyComponent component) {
+		return Path.EMPTY;
 	}
 }
