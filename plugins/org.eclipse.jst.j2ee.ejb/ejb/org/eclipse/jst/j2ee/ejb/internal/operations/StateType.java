@@ -12,17 +12,30 @@ package org.eclipse.jst.j2ee.ejb.internal.operations;
 
 /**
  * Enumerates the session state type values of a session bean. 
+ * 
+ * @since 3.0
  */
 public enum StateType {
 
 	/**
-	 * Represents the <code>Stateless</code> session state type. 
+	 * Represents the <code>Stateless</code> session state type.
+	 * 
+	 * @since 3.0
 	 */
 	STATELESS,
 	
 	/**
 	 * Represents the <code>Stateful</code> session state type.
+	 * 
+	 * @since 3.0
 	 */
-	STATEFUL;
+	STATEFUL, 
+	
+	/**
+	 * Represents the <code>Singleton</code> session state type.
+	 * 
+	 * @since 3.2
+	 */
+	SINGLETON;
 
 }

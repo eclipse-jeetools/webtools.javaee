@@ -147,6 +147,7 @@ public final class EJBCreationResourceHandler extends NLS {
 	public static String TRANSACTION_TYPE_BEAN;
 	public static String STATE_TYPE_STATELESS;
 	public static String STATE_TYPE_STATEFUL;
+	public static String STATE_TYPE_SINGLETON;
 	public static String DESTINATION_TYPE_QUEUE;
 	public static String DESTINATION_TYPE_TOPIC;
 	
@@ -163,6 +164,7 @@ public final class EJBCreationResourceHandler extends NLS {
 	public static String ERR_NO_MESSAGE_LISTENER_INTERFACE;
 	public static String WRN_BEAN_NAME_IS_EMPTY;
 	public static String WRN_NO_BUSINESS_INTERFACE;
+	public static String ERR_SINGLETON_ALLOWED_ONLY_FOR_31_AND_LATER;
 
 
 	static {

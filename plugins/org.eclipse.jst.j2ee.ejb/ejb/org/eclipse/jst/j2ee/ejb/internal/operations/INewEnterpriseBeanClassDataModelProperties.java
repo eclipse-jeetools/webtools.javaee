@@ -25,13 +25,13 @@ public interface INewEnterpriseBeanClassDataModelProperties extends INewJavaClas
 	 * Optional, String property of the EJB mapped name for the enterprise bean. 
 	 */
 	public static final String MAPPED_NAME = "INewEnterpriseBeanClassDataModelProperties.MAPPED_NAME"; //$NON-NLS-1$
-	
+
 	/**
-	 * Required, Integer property that determines the transaction type of the enterprise
-	 * bean.
+	 * Required, String property that determines the transaction type of the
+	 * enterprise bean. Valid values are the string representation of the
+	 * <code>TransactionType<code> enumeration.
 	 * 
-	 * @see NewSessionBeanClassDataModelProvider#TRANSACTION_TYPE_CONTAINER_INDEX
-	 * @see NewSessionBeanClassDataModelProvider#TRANSACTION_TYPE_BEAN_INDEX
+	 * @see TransactionType
 	 */
 	public static final String TRANSACTION_TYPE = "INewEnterpriseBeanClassDataModelProperties.TRANSACTION_TYPE"; //$NON-NLS-1$
 	

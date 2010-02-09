@@ -62,13 +62,13 @@ public interface INewSessionBeanClassDataModelProperties extends INewEnterpriseB
 	 * compatible remote home and components interfaces. The default is false.
 	 */
 	public static final String REMOTE_HOME = "INewSessionBeanClassDataModelProperties.REMOTE_HOME"; //$NON-NLS-1$
-	
+
 	/**
-	 * Required, Integer property that determines the state type of the session
-	 * bean.
+	 * Required, String property that determines the state type of the session
+	 * bean. Valid values are the string representation of the
+	 * <code>StateType<code> enumeration.
 	 * 
-	 * @see NewSessionBeanClassDataModelProvider#STATE_TYPE_STATELESS_INDEX
-	 * @see NewSessionBeanClassDataModelProvider#STATE_TYPE_STATEFUL_INDEX
+	 * @see StateType
 	 */
 	public static final String STATE_TYPE = "INewSessionBeanClassDataModelProperties.STATE_TYPE"; //$NON-NLS-1$
 	

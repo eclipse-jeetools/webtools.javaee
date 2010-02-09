@@ -46,8 +46,10 @@ import org.eclipse.jdt.core.Signature;
 import org.eclipse.jst.j2ee.ejb.internal.operations.BusinessInterface.BusinessInterfaceType;
 import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
 import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
+import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBCreationResourceHandler;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
@@ -55,13 +57,10 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
+import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
 public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClassDataModelProvider {
-
-
-	public static final int STATE_TYPE_STATELESS_INDEX = 0;
-	public static final int STATE_TYPE_STATEFUL_INDEX = 1;
 
 	private static final String LOCAL_SUFFIX = "Local"; //$NON-NLS-1$
 	private static final String REMOTE_SUFFIX = "Remote"; //$NON-NLS-1$
@@ -249,17 +248,28 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 	public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName) {
 		if (propertyName.equals(STATE_TYPE)) {
 			return DataModelPropertyDescriptor.createDescriptors(
-					new String[] { 
+					new String[] {
 							StateType.STATELESS.toString(), 
-							StateType.STATEFUL.toString()
+							StateType.STATEFUL.toString(), 
+							StateType.SINGLETON.toString()
 					}, 
 					new String[] {
 							EJBCreationResourceHandler.STATE_TYPE_STATELESS, 
-							EJBCreationResourceHandler.STATE_TYPE_STATEFUL
-					});
+							EJBCreationResourceHandler.STATE_TYPE_STATEFUL, 
+							EJBCreationResourceHandler.STATE_TYPE_SINGLETON
+					}
+			);
 		} 
 		
 		return super.getValidPropertyDescriptors(propertyName);
+	}
+
+	private boolean ejb31OrLater() {
+		IProject project = getTargetProject();
+		IProjectFacetVersion facetVersion = JavaEEProjectUtilities.getProjectFacetVersion(project, IJ2EEFacetConstants.EJB);
+		int version = J2EEVersionUtil.convertVersionStringToInt(facetVersion.getVersionString());
+		int ejb31version = J2EEVersionUtil.convertVersionStringToInt(IJ2EEFacetConstants.EJB_31.getVersionString());
+		return version >= ejb31version;
 	}
 
 	private void updateBusinessInterfaces(String propertyName) {
@@ -304,7 +314,9 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 
 	@Override
 	public IStatus validate(String propertyName) {
-		if (LOCAL_BUSINESS_INTERFACE.equals(propertyName)) {
+		if (STATE_TYPE.equals(propertyName)) {
+			return validateStateType();			
+		} else if (LOCAL_BUSINESS_INTERFACE.equals(propertyName)) {
 			if (getBooleanProperty(LOCAL)) {
 				return validateEjbInterface(getStringProperty(propertyName));
 			}
@@ -322,6 +334,14 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 		}
 			
 		return super.validate(propertyName);
+	}
+
+	protected IStatus validateStateType() {
+		String value = getStringProperty(STATE_TYPE);
+		if (StateType.SINGLETON.toString().equals(value) && !ejb31OrLater()) {
+			return WTPCommonPlugin.createErrorStatus(EJBCreationResourceHandler.ERR_SINGLETON_ALLOWED_ONLY_FOR_31_AND_LATER);
+		}
+		return Status.OK_STATUS;
 	}
 
 	protected IStatus validateEjbInterface(String fullyQualifiedName) {

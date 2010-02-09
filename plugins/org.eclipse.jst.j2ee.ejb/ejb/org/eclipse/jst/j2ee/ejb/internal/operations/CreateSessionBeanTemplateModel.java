@@ -31,6 +31,7 @@ public class CreateSessionBeanTemplateModel extends
 
 	public static final String QUALIFIED_STATELESS = "javax.ejb.Stateless"; //$NON-NLS-1$
 	public static final String QUALIFIED_STATEFUL = "javax.ejb.Stateful"; //$NON-NLS-1$
+	public static final String QUALIFIED_SINGLETON = "javax.ejb.Singleton"; //$NON-NLS-1$
 	public static final String QUALIFIED_LOCAL = "javax.ejb.Local"; //$NON-NLS-1$
 	public static final String QUALIFIED_REMOTE = "javax.ejb.Remote"; //$NON-NLS-1$
 	public static final String QUALIFIED_REMOTE_HOME = "javax.ejb.RemoteHome"; //$NON-NLS-1$
@@ -40,6 +41,7 @@ public class CreateSessionBeanTemplateModel extends
 	
 	public static final String STATELESS_ANNOTATION = "@Stateless"; //$NON-NLS-1$
 	public static final String STATEFUL_ANNOTATION = "@Stateful"; //$NON-NLS-1$
+	public static final String SINGLETON_ANNOTATION = "@Singleton"; //$NON-NLS-1$
 
 	protected BusinessInterface currentBusinessInterface = null;
 	protected String localHomeClassName = null;
@@ -56,12 +58,15 @@ public class CreateSessionBeanTemplateModel extends
 		Collection<String> collection = super.getImports();
 		
 		String stateType = dataModel.getStringProperty(STATE_TYPE);
-		if (stateType.equals(StateType.STATELESS.toString()))
+		if (stateType.equals(StateType.STATELESS.toString())) {
 			collection.add(QUALIFIED_STATELESS);
-		else if (stateType.equals(StateType.STATEFUL.toString()))
+		} else if (stateType.equals(StateType.STATEFUL.toString())) {
 			collection.add(QUALIFIED_STATEFUL);
-		else
+		} else if (stateType.equals(StateType.SINGLETON.toString())) {
+			collection.add(QUALIFIED_SINGLETON);
+		} else {
 			throw new IllegalStateException("illegal state type: " + stateType); //$NON-NLS-1$
+		}
 		
 		if (!isContainerType()) {
 			collection.add(QUALIFIED_TRANSACTION_MANAGEMENT);
@@ -106,12 +111,15 @@ public class CreateSessionBeanTemplateModel extends
 		String stateType = dataModel.getStringProperty(STATE_TYPE);
 		
 		String beanType;
-		if (stateType.equals(StateType.STATELESS.toString()))
+		if (stateType.equals(StateType.STATELESS.toString())) {
 			beanType = STATELESS_ANNOTATION;
-		else if (stateType.equals(StateType.STATEFUL.toString()))
+		} else if (stateType.equals(StateType.STATEFUL.toString())) {
 			beanType = STATEFUL_ANNOTATION;
-		else 
+		} else if (stateType.equals(StateType.SINGLETON.toString())) {
+			beanType = SINGLETON_ANNOTATION;
+		} else { 
 			throw new IllegalStateException("illegal state type: " + stateType); //$NON-NLS-1$
+		}
 		
 		return beanType;
 	}
