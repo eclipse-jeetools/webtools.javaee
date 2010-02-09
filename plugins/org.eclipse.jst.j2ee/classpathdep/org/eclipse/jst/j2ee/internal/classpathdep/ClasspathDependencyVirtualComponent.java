@@ -17,6 +17,7 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jst.common.internal.modulecore.IClasspathDependencyComponent;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
@@ -26,7 +27,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
  * however, class folder dependencies are also possible and those are represented as a reference to an VirtualComponent using this
  * class as well.
  */
-public class ClasspathDependencyVirtualComponent extends J2EEModuleVirtualArchiveComponent {
+public class ClasspathDependencyVirtualComponent extends J2EEModuleVirtualArchiveComponent implements IClasspathDependencyComponent {
 
 	final private boolean isClassFolder;
 	

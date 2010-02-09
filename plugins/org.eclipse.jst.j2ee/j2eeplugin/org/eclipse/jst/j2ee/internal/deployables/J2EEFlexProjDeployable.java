@@ -21,6 +21,8 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
+import org.eclipse.jst.common.internal.modulecore.AddClasspathFoldersParticipant;
+import org.eclipse.jst.common.internal.modulecore.AddClasspathLibReferencesParticipant;
 import org.eclipse.jst.common.internal.modulecore.AddMappedOutputFoldersParticipant;
 import org.eclipse.jst.common.internal.modulecore.IgnoreJavaInSourceFolderParticipant;
 import org.eclipse.jst.common.internal.modulecore.SingleRootExportParticipant;
@@ -31,7 +33,6 @@ import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.internal.EjbModuleExtensionHelper;
 import org.eclipse.jst.j2ee.internal.IEJBModelExtenderManager;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.common.exportmodel.AddClasspathReferencesParticipant;
 import org.eclipse.jst.j2ee.internal.common.exportmodel.JEEHeirarchyExportParticipant;
 import org.eclipse.jst.j2ee.internal.common.exportmodel.JavaEESingleRootCallback;
 import org.eclipse.jst.j2ee.internal.common.exportmodel.ReplaceManifestExportParticipant;
@@ -93,7 +94,8 @@ public class J2EEFlexProjDeployable extends FlatComponentDeployable implements
 		return new IFlattenParticipant[]{
 				new SingleRootExportParticipant(new JavaEESingleRootCallback()), 
 				new JEEHeirarchyExportParticipant(), 
-				new AddClasspathReferencesParticipant(),
+				new AddClasspathLibReferencesParticipant(),
+				new AddClasspathFoldersParticipant(),
 				new AddMappedOutputFoldersParticipant(),
 				new ReplaceManifestExportParticipant(),
 				new IgnoreJavaInSourceFolderParticipant()

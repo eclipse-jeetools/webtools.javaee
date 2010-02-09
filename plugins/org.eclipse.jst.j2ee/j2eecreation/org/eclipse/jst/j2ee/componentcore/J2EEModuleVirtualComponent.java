@@ -27,6 +27,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathAttribute;
 import org.eclipse.jdt.core.IClasspathEntry;
+import org.eclipse.jst.common.internal.modulecore.IClasspathDependencyProvider;
 import org.eclipse.jst.common.jdt.internal.javalite.IJavaProjectLite;
 import org.eclipse.jst.common.jdt.internal.javalite.JavaCoreLite;
 import org.eclipse.jst.common.jdt.internal.javalite.JavaLiteUtilities;
@@ -53,7 +54,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
-public class J2EEModuleVirtualComponent extends VirtualComponent implements IComponentImplFactory {
+public class J2EEModuleVirtualComponent extends VirtualComponent implements IComponentImplFactory, IClasspathDependencyProvider {
 
 	public static String GET_JAVA_REFS = "GET_JAVA_REFS"; //$NON-NLS-1$
 	public static String GET_FUZZY_EAR_REFS = "GET_FUZZY_EAR_REFS"; //$NON-NLS-1$
