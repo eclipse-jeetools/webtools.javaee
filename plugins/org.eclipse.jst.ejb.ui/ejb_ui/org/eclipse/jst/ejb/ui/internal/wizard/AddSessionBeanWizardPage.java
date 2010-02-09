@@ -13,7 +13,6 @@ package org.eclipse.jst.ejb.ui.internal.wizard;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewEnterpriseBeanClassDataModelProperties.EJB_NAME;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewEnterpriseBeanClassDataModelProperties.MAPPED_NAME;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewEnterpriseBeanClassDataModelProperties.TRANSACTION_TYPE;
-import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.BUSINESS_INTERFACES;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.LOCAL;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.LOCAL_COMPONENT_INTERFACE;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.LOCAL_HOME;
@@ -234,7 +233,6 @@ public class AddSessionBeanWizardPage extends AddEnterpriseBeanWizardPage {
 		Collection<BusinessInterface> biList = (Collection<BusinessInterface>) model.getProperty(INTERFACES);
 		biList.remove(element);
 		model.setProperty(INTERFACES, biList);
-		model.setProperty(BUSINESS_INTERFACES, biList);
 		model.notifyPropertyChange(INTERFACES, IDataModel.VALUE_CHG);
 	}
 

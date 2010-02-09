@@ -10,22 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.ejb.internal.operations;
 
-import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
-
 public interface INewSessionBeanClassDataModelProperties extends INewEnterpriseBeanClassDataModelProperties {
-	
-	/**
-	 * Optional, List of BusinessInterface objects property containing all the
-	 * qualified names of business interfaces the new session bean class should
-	 * implement.
-	 * 
-	 * @see BusinessInterface
-	 * @deprecated use {@link INewJavaClassDataModelProperties#INTERFACES}
-	 *             instead. BUSINESS_INTERFACES is a redundancy of the INTERFACE
-	 *             property. To be removed at least after 3.1
-	 * 
-	 */
-	public static final String BUSINESS_INTERFACES = "INewSessionBeanClassDataModelProperties.BUSINESS_INTERFACES"; //$NON-NLS-1$
 	
 	public static final String REMOTE_BUSINESS_INTERFACE = "INewSessionBeanClassDataModelProperties.REMOTE_BUSINESS_INTERFACE"; //$NON-NLS-1$
 	

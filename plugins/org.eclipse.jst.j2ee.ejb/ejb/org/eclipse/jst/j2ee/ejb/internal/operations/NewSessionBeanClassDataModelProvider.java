@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.ejb.internal.operations;
 
-import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.BUSINESS_INTERFACES;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.LOCAL;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.LOCAL_BUSINESS_INTERFACE;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.LOCAL_COMPONENT_INTERFACE;
@@ -86,7 +85,6 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 		// Add Bean specific properties defined in this data model
 		Set<String> propertyNames = super.getPropertyNames();
 
-		propertyNames.add(BUSINESS_INTERFACES);
 		propertyNames.add(REMOTE_BUSINESS_INTERFACE);
 		propertyNames.add(LOCAL_BUSINESS_INTERFACE);
 		propertyNames.add(REMOTE);

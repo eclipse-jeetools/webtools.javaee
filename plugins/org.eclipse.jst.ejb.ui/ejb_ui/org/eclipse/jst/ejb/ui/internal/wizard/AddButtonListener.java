@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.jst.ejb.ui.internal.wizard;
 
-import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.BUSINESS_INTERFACES;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.INTERFACES;
 
 import java.util.ArrayList;
@@ -63,7 +62,6 @@ public class AddButtonListener implements SelectionListener {
 				if (!hasInterface(text, biList)) {
 					biList.add(iface);
 					model.setProperty(INTERFACES, biList);
-					model.setProperty(BUSINESS_INTERFACES, biList);
 					model.notifyPropertyChange(INTERFACES, IDataModel.VALUE_CHG);
 					page.updateBusinessInterfacesList();
 				}
