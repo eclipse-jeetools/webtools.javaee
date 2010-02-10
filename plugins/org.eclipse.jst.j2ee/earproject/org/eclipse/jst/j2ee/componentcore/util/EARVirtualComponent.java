@@ -203,7 +203,7 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 						}
 					}
 				} else if(IVirtualResource.FOLDER == members[i].getType()){
-					innerDynamicReferences = getLooseArchiveReferences(earComponent, hardReferences, innerDynamicReferences, (IVirtualFolder)members[i]);
+					innerDynamicReferences = getLooseArchiveReferences2(earComponent, hardReferences, innerDynamicReferences, (IVirtualFolder)members[i]);
 				}
 			}
 		} catch (CoreException e) {
