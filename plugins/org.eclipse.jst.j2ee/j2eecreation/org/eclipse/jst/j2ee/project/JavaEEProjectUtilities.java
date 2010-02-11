@@ -309,8 +309,13 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 	 * 
 	 * @param component
 	 * @return true if the component is Java EE version 5 or greater, false otherwise
+	 * @throws NullPointerException if the component is null
 	 */
 	public static boolean isJEEComponent(IVirtualComponent component){
+		if(component == null){
+			throw new NullPointerException();
+		}
+		
 		if(component.isBinary()){
 			JavaEEQuickPeek qp = JavaEEBinaryComponentHelper.getJavaEEQuickPeek(component);
 			int javaEEVersion = qp.getJavaEEVersion();
