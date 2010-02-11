@@ -332,7 +332,7 @@ public class DefectVerificationTests extends OperationTestCase {
 
 		Thread.sleep(5000);
 
-		String earOutputName = "d:\\temp\\Output" + System.currentTimeMillis() + ".ear";
+		String earOutputName = "c:\\temp\\Output" + System.currentTimeMillis() + ".ear";
 		IDataModel export = DataModelFactory.createDataModel(new EARComponentExportDataModelProvider());
 		export.setProperty(IEARComponentExportDataModelProperties.PROJECT_NAME, comp.getProject().getName());
 		export.setProperty(IEARComponentExportDataModelProperties.ARCHIVE_DESTINATION, earOutputName);

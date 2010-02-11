@@ -45,4 +45,7 @@ public class JavaEEFacetConstants {
 	public static final IProjectFacetVersion JAVA_14 = JAVA_FACET.getVersion("1.4"); //$NON-NLS-1$
 	public static final IProjectFacetVersion JAVA_5 = JAVA_FACET.getVersion("5.0"); //$NON-NLS-1$
 	public static final IProjectFacetVersion JAVA_6 = JAVA_FACET.getVersion("6.0"); //$NON-NLS-1$
+
+	public static final IProjectFacet WEBFRAGMENT_FACET = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_WEBFRAGMENT_MODULE);
+	public static final IProjectFacetVersion WEBFRAGMENT_30 = WEBFRAGMENT_FACET.getVersion("3.0"); //$NON-NLS-1$
 }

@@ -45,8 +45,10 @@ import org.eclipse.jst.j2ee.internal.common.CreationConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPreferences;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPreferences.Keys;
 import org.eclipse.jst.j2ee.jca.project.facet.IConnectorFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IAppClientFacetInstallDataModelProperties;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.web.project.facet.IWebFacetInstallDataModelProperties;
 import org.eclipse.jst.javaee.application.Application;
@@ -58,7 +60,9 @@ import org.eclipse.jst.javaee.ejb.internal.util.EjbResourceImpl;
 import org.eclipse.jst.javaee.jca.Connector;
 import org.eclipse.jst.javaee.jca.internal.util.JcaResourceImpl;
 import org.eclipse.jst.javaee.web.WebApp;
+import org.eclipse.jst.javaee.web.WebFragment;
 import org.eclipse.jst.javaee.web.internal.util.WebResourceImpl;
+import org.eclipse.jst.javaee.webfragment.internal.util.WebfragmentResourceImpl;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetInstallDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
@@ -72,7 +76,9 @@ import org.eclipse.wst.common.project.facet.core.IProjectFacet;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.common.tests.SimpleTestSuite;
+import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.JavaEEFacetConstants;
 import org.eclipse.wtp.j2ee.headless.tests.web.operations.WebProjectCreationOperationTest;
+import org.eclipse.wtp.j2ee.headless.tests.webfragment.operations.WebFragmentProjectCreationOperationTest;
 
 public class JEE6ModelTest extends GeneralEMFPopulationTest {
 	
@@ -307,6 +313,27 @@ public void testWarModel() throws Exception {
 
 }
 
+public void testWebFragmentModel() throws Exception {
+	
+	String projName = "TestEE6WebFragmentProject";//$NON-NLS-1$
+	createWebfragmentProject(projName);
+	
+	EMFAttributeFeatureGenerator.reset();
+	String modelPathURI = J2EEConstants.WEBFRAGMENT_DD_URI;
+	URI uri = URI.createURI( "src/" + modelPathURI);
+	ProjectResourceSet resSet = getResourceSet(projName);
+	
+	WebfragmentResourceImpl webRes = (WebfragmentResourceImpl) resSet.getResource(uri,true);
+	Assert.assertTrue(webRes.getContents().size() > 0);
+	
+	if (webRes.getContents().size() > 0) {
+		WebFragment fragment = webRes.getWebFragment();
+		populateRoot((EObjectImpl)fragment);
+		webRes.save(null);
+	}
+
+}
+
 	private ProjectResourceSet getResourceSet(String projName) {
 		IProject proj = getProject(projName);
 		return (ProjectResourceSet)WorkbenchResourceHelperBase.getResourceSet(proj);
@@ -324,6 +351,23 @@ public void testWarModel() throws Exception {
 			IProject webProj = ResourcesPlugin.getWorkspace().getRoot().getProject(projName);
 			return webProj;
 		
+	}
+	private IProject createWebfragmentProject(String projName) throws ExecutionException {
+		
+		String webFragmentVersionString = J2EEVersionUtil.convertVersionIntToString(J2EEVersionConstants.WEBFRAGMENT_3_0_ID);
+		IProjectFacet javaFacet = ProjectFacetsManager.getProjectFacet(IJ2EEFacetConstants.JAVA);
+		IDataModel javaFacetModel = DataModelFactory.createDataModel(new JavaFacetInstallDataModelProvider());
+		javaFacetModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, projName);
+    	javaFacetModel.setProperty(IFacetDataModelProperties.FACET_VERSION, JavaEEFacetConstants.JAVA_6);
+		javaFacetModel.setProperty(IJavaFacetInstallDataModelProperties.DEFAULT_OUTPUT_FOLDER_NAME,
+				J2EEPlugin.getDefault().getJ2EEPreferences().getString(Keys.DYN_WEB_OUTPUT_FOLDER) );
+		javaFacetModel.getDefaultOperation().execute(new NullProgressMonitor(), null);
+		IProjectFacet webFragmentFacet = ProjectFacetsManager.getProjectFacet(IJ2EEFacetConstants.WEBFRAGMENT);
+		IProjectFacetVersion webFragmentFacetVersion = webFragmentFacet.getVersion(webFragmentVersionString);
+		IDataModel dataModel = WebFragmentProjectCreationOperationTest.getWebFragmentDataModel(projName, null, null, webFragmentFacetVersion, true);
+		dataModel.getDefaultOperation().execute(new NullProgressMonitor(), null);
+		IProject webFragmentProj = ResourcesPlugin.getWorkspace().getRoot().getProject(projName);
+		return webFragmentProj;	
 	}
 	private IProject createEjbProject(String projName) throws ExecutionException {
 		IDataModel dataModel = DataModelFactory.createDataModel(IEjbFacetInstallDataModelProperties.class);
