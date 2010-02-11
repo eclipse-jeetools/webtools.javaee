@@ -228,6 +228,94 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 		}
 		return ""; //$NON-NLS-1$
 	}
+	
+	
+	/**
+	 * Returns true if the Java EE Deployment Descriptor exists for the
+	 * specified project.
+	 * 
+	 * @param virtualComponent
+	 * @return
+	 * @see #getDeploymentDescriptorQuickPeek(IProject)
+	 */
+	public static boolean deploymentDescriptorExists(IProject project) {
+		IVirtualFile ddFile = getJavaEEDeploymentDescriptor(project);
+		return ddFile != null;
+	}
+
+	/**
+	 * Returns a JavaEEQuickPeek for the Java EE Deployment Descriptor for the
+	 * specified project. If no Java EE Deployment Descriptor exists null will
+	 * be returned.
+	 * 
+	 * @param project
+	 * @return
+	 * @see #deploymentDescriptorExists(IProject)
+	 */
+	public static JavaEEQuickPeek getDeploymentDescriptorQuickPeek(IProject project) {
+		IVirtualFile ddFile = getJavaEEDeploymentDescriptor(project);
+		if (ddFile == null) {
+			return null;
+		}
+		InputStream in = null;
+		try {
+			in = ddFile.getUnderlyingFile().getContents();
+			JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(in);
+			return quickPeek;
+		} catch (CoreException e) {
+			J2EEPlugin.logError(e);
+		} finally {
+			if (in != null) {
+				try {
+					in.close();
+				} catch (IOException e) {
+					J2EEPlugin.logError(e);
+				}
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Returns an IVirtualFile for the Java EE Deployment Descriptor for the
+	 * specified project if it exists. Returns null if there is no Java EE
+	 * Deployment Descriptor
+	 * 
+	 * @param virtualComponent
+	 * @return
+	 */
+	private static IVirtualFile getJavaEEDeploymentDescriptor(IProject project) {
+		if (project == null) {
+			throw new NullPointerException();
+		}
+		String ddURI = null;
+		if (isEARProject(project)) {
+			ddURI = J2EEConstants.APPLICATION_DD_URI;
+		} else if (isEJBProject(project)) {
+			ddURI = J2EEConstants.EJBJAR_DD_URI;
+		} else if (isApplicationClientProject(project)) {
+			ddURI = J2EEConstants.APP_CLIENT_DD_URI;
+		} else if (isJCAProject(project)) {
+			ddURI = J2EEConstants.RAR_DD_URI;
+		} else if (isDynamicWebProject(project)) {
+			ddURI = J2EEConstants.WEBAPP_DD_URI;
+		} else {
+			throw new IllegalArgumentException("Project:" + project.getName() + " is not a Java EE Project"); //$NON-NLS-1$//$NON-NLS-2$
+		}
+
+		IVirtualComponent comp = ComponentCore.createComponent(project);
+		if (comp != null) {
+			IVirtualFile vFile = comp.getRootFolder().getFile(new Path(ddURI));
+			if (vFile.exists()) {
+				return vFile;
+			}
+		}
+		return null;
+	}
+	
+	
+	
+	
 	/**
 	 * Returns the J2EE Module version based on the DD XML file
 	 * @param project
