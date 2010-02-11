@@ -65,4 +65,5 @@ public interface IJ2EEFacetConstants {
 	public static final String STATIC_WEB = IModuleConstants.WST_WEB_MODULE;
 
 	public static final String JAVA = IModuleConstants.JST_JAVA;
+	public static final String WEBFRAGMENT = IModuleConstants.JST_WEBFRAGMENT_MODULE;
 }

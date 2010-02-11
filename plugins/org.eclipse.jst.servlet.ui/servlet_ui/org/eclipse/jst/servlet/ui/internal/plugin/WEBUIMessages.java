@@ -155,6 +155,7 @@ public class WEBUIMessages extends NLS {
 	public static String DISPATCHER_FORWARD;
 	public static String DISPATCHER_INCLUDE;
 	public static String DISPATCHER_ERROR;
+	public static String _18;
 
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, WEBUIMessages.class);
@@ -178,6 +179,6 @@ public class WEBUIMessages extends NLS {
 	public static final String WEB_IMPORT_WEB_LIB_PG_DESC = _15;
 	public static final String WAR_IMPORT_SELECT_ALL_LIBS_BUTTON = _16;
 	public static final String WAR_IMPORT_DESELECT_ALL_LIBS_BUTTON = _17;
-	
+	public static final String WEBFRAGMENT_MODULE_WIZ_TITLE = _18;
 	
 }

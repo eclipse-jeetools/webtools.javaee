@@ -682,6 +682,14 @@
             class="org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent">
       </componentimpl>
    </extension>
+
+   <extension
+         point="org.eclipse.wst.common.modulecore.componentimpl">
+      <componentimpl
+            typeID="jst.webfragment"
+            class="org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent">
+      </componentimpl>
+   </extension>
    
    <extension
          point="org.eclipse.core.runtime.contentTypes">

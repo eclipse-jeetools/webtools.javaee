@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: WebFragmentImpl.java,v 1.2 2010/01/15 14:32:06 canderson Exp $
+ * $Id: WebFragmentImpl.java,v 1.3 2010/02/11 06:22:50 canderson Exp $
  */
 package org.eclipse.jst.javaee.web.internal.impl;
 
@@ -44,6 +44,7 @@ import org.eclipse.jst.javaee.core.ServiceRef;
 
 import org.eclipse.jst.javaee.jsp.JspConfig;
 
+import org.eclipse.jst.javaee.web.AbsoluteOrderingType;
 import org.eclipse.jst.javaee.web.ErrorPage;
 import org.eclipse.jst.javaee.web.Filter;
 import org.eclipse.jst.javaee.web.FilterMapping;
@@ -1214,6 +1215,16 @@ public class WebFragmentImpl extends EObjectImpl implements WebFragment {
 		if (versionESet) result.append(version); else result.append("<unset>"); //$NON-NLS-1$
 		result.append(')');
 		return result.toString();
+	}
+
+	public List<AbsoluteOrderingType> getAbsoluteOrdering() {
+		// Not for use. Inherited from CompositeWebApp due to web app's interfaces
+		return null;
+	}
+
+	public List<String> getModuleName() {
+		// Not for use. Inherited from CompositeWebApp due to web app's interfaces
+		return null;
 	}
 
 } //WebFragmentImpl

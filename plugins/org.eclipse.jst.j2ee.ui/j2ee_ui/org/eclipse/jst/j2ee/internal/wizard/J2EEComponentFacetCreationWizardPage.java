@@ -39,7 +39,11 @@ public abstract class J2EEComponentFacetCreationWizardPage extends DataModelFace
     private static final String STORE_LABEL = "LASTEARNAME_"; //$NON-NLS-1$
     
 	protected EarSelectionPanel earPanel;
+	
+	private boolean shouldAddEARComposite = true;
   
+	
+
 	public J2EEComponentFacetCreationWizardPage(IDataModel dataModel, String pageName) {
 		super(dataModel, pageName);
 	}
@@ -47,9 +51,11 @@ public abstract class J2EEComponentFacetCreationWizardPage extends DataModelFace
 	@Override
 	protected Composite createTopLevelComposite(Composite parent) {
         final Composite top = super.createTopLevelComposite(parent);
-		createEarComposite(top);
+		if(isShouldAddEARComposite()){
+        createEarComposite(top);
         createWorkingSetGroupPanel(top, new String[] { RESOURCE_WORKING_SET, JAVA_WORKING_SET });
-		return top;
+		}
+        return top;
 	}
 
 	private void createEarComposite(Composite top) 
@@ -122,5 +128,13 @@ public abstract class J2EEComponentFacetCreationWizardPage extends DataModelFace
 		arrayList.add( IJ2EEFacetProjectCreationDataModelProperties.EAR_PROJECT_NAME );
 		arrayList.add( IJ2EEFacetProjectCreationDataModelProperties.ADD_TO_EAR );
 		return (String[])arrayList.toArray( new String[0] );
-	}	
+	}
+	
+	protected boolean isShouldAddEARComposite() {
+		return shouldAddEARComposite;
+	}
+
+	protected void setShouldAddEARComposite(boolean shouldAddEARComposite) {
+		this.shouldAddEARComposite = shouldAddEARComposite;
+	}
 }

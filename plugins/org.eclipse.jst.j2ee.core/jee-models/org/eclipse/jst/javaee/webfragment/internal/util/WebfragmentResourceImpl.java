@@ -12,7 +12,14 @@ package org.eclipse.jst.javaee.webfragment.internal.util;
 
 import org.eclipse.emf.common.util.URI;
 
-import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.xmi.XMLHelper;
+import org.eclipse.emf.ecore.xmi.XMLLoad;
+import org.eclipse.jst.javaee.core.JEEXMLLoadImpl;
+import org.eclipse.jst.javaee.core.internal.util.JavaeeResourceImpl;
+import org.eclipse.jst.javaee.web.WebFragment;
+import org.eclipse.jst.javaee.webfragment.WebAppDeploymentDescriptor;
+import org.eclipse.wst.common.internal.emf.resource.IRootObjectResource;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,7 +28,7 @@ import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
  * @see org.eclipse.jst.javaee.webfragment.internal.util.WebfragmentResourceFactoryImpl
  * @generated
  */
-public class WebfragmentResourceImpl extends XMLResourceImpl {
+public class WebfragmentResourceImpl extends JavaeeResourceImpl implements IRootObjectResource {
 	/**
 	 * Creates an instance of the resource.
 	 * <!-- begin-user-doc -->
@@ -31,6 +38,37 @@ public class WebfragmentResourceImpl extends XMLResourceImpl {
 	 */
 	public WebfragmentResourceImpl(URI uri) {
 		super(uri);
+	}
+
+	@Override
+	protected XMLLoad createXMLLoad() {
+		 return new JEEXMLLoadImpl(createXMLHelper());
+	}
+
+	
+	@Override
+	protected XMLHelper createXMLHelper() {
+		
+		return new WebfragmentXMLHelperImpl(this);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.jst.javaee.jca.IConnectorResource#getRootObject()
+	 */
+	public EObject getRootObject() {
+		if (contents == null || contents.isEmpty())
+			return null;
+		Object root = getContents().get(0);
+		if(root == null){
+			return null;
+		}
+		return (EObject)((WebAppDeploymentDescriptor)root).getWebFragment();
+	}
+	/* (non-Javadoc)
+	 * @see org.eclipse.jst.javaee.jca.IConnectorResource#getConnector()
+	 */
+	public WebFragment getWebFragment() {
+		return (WebFragment)getRootObject();
 	}
 
 } //WebfragmentResourceImpl

@@ -608,6 +608,25 @@
 			</enablement>
 		</commonWizard>
 		
+		
+		<!-- Web Fragment New -->
+		<commonWizard type="new"
+			menuGroupId="org.eclipse.jst.j2ee.ui.newProjects"
+			wizardId="org.eclipse.jst.servlet.ui.project.facet.WebFragmentProjectWizard">
+			<enablement>
+			   <or>
+					<instanceof
+						value="org.eclipse.core.resources.IWorkspaceRoot" />
+					<and>
+					  <instanceof value="java.util.Collection"/>
+					  <count value="0" />
+					</and>
+				</or>							
+			</enablement>
+		</commonWizard>
+		
+		
+		
 		<!-- Web Import -->
 		<commonWizard type="import"
 			wizardId="org.eclipse.jst.servlet.ui.internal.wizard.WebComponentImportWizard">

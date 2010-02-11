@@ -148,6 +148,10 @@ public class J2EEVersionUtil {
 		// default
 		return J2EEVersionConstants.J2EE_1_4_ID;
 	}
+	
+	public static int convertWebFragmentVersionStringToJ2EEVersionID(String version) {
+		return J2EEVersionConstants.JEE_6_0_ID;
+	}
 
 	public static int convertConnectorVersionStringToJ2EEVersionID(String version) {
 		if (version.equals(J2EEVersionConstants.VERSION_1_0_TEXT))

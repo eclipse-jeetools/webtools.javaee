@@ -76,7 +76,7 @@ import org.eclipse.jst.javaee.webfragment.WebfragmentFactory;
  *     
  * 
  * 
- *       $Id: WebfragmentPackage.java,v 1.3 2010/01/15 14:32:08 canderson Exp $
+ *       $Id: WebfragmentPackage.java,v 1.4 2010/02/11 06:22:50 canderson Exp $
  *       
  *     
  * 
@@ -124,7 +124,7 @@ import org.eclipse.jst.javaee.webfragment.WebfragmentFactory;
  *     
  * 
  * 
- *       $Id: WebfragmentPackage.java,v 1.3 2010/01/15 14:32:08 canderson Exp $
+ *       $Id: WebfragmentPackage.java,v 1.4 2010/02/11 06:22:50 canderson Exp $
  *       
  *     
  * 
@@ -149,7 +149,7 @@ import org.eclipse.jst.javaee.webfragment.WebfragmentFactory;
  *     
  * 
  * 
- *       $Id: WebfragmentPackage.java,v 1.3 2010/01/15 14:32:08 canderson Exp $
+ *       $Id: WebfragmentPackage.java,v 1.4 2010/02/11 06:22:50 canderson Exp $
  *       
  *     
  * 
@@ -361,7 +361,7 @@ public interface WebfragmentPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "http://java.sun.com/xml/ns/javaee/webfragment"; //$NON-NLS-1$
+	String eNS_URI = "http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd"; //$NON-NLS-1$
 
 	/**
 	 * The package namespace name.

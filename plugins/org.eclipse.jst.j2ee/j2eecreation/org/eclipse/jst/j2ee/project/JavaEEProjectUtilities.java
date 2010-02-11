@@ -104,6 +104,21 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 	public static boolean isDynamicWebProject(IProject project) {
 		return isProjectOfType(project, DYNAMIC_WEB);
 	}
+	
+	public static boolean isWebFragmentProject(IProject project) {
+		return isProjectOfType(project, WEBFRAGMENT);
+	}
+	
+	public static boolean isWebFragmentProject(IFacetedProject project) {
+		return isProjectOfType(project, WEBFRAGMENT);
+	}
+	
+	public static boolean isWebFragmentProject(IVirtualComponent component) {
+		if (component.isBinary()) {
+			return isBinaryType(component, JavaEEQuickPeek.WEBFRAGMENT_TYPE);
+		}
+		return isProjectOfType(component.getProject(), WEBFRAGMENT);
+	}
 
 	public static boolean isStaticWebProject(IProject project) {
 		return isProjectOfType(project, STATIC_WEB);
@@ -181,6 +196,8 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 			return JCA;
 		case JavaEEQuickPeek.APPLICATION_TYPE:
 			return ENTERPRISE_APPLICATION;
+		case JavaEEQuickPeek.WEBFRAGMENT_TYPE:
+			return WEBFRAGMENT;
 		default:
 			return UTILITY;
 		}
@@ -225,6 +242,8 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 				return STATIC_WEB;
 			else if (isUtilityProject(facetedProject))
 				return UTILITY;
+			else if (isWebFragmentProject(facetedProject))
+				return WEBFRAGMENT;
 		}
 		return ""; //$NON-NLS-1$
 	}
@@ -339,6 +358,9 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 		} else if (isDynamicWebProject(project)) {
 			type = J2EEVersionConstants.WEB_TYPE;
 			ddURI = J2EEConstants.WEBAPP_DD_URI;
+		} else if (isWebFragmentProject(project)) {
+			type = J2EEVersionConstants.WEBFRAGMENT_TYPE;
+			ddURI = J2EEConstants.WEBFRAGMENT_DD_URI;
 		} 
 
 		if(type != J2EEVersionConstants.UNKNOWN){
@@ -380,6 +402,8 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 		if (isEJBProject(project))
 			return J2EEVersionConstants.VERSION_3_1;
 		if (isDynamicWebProject(project))
+			return J2EEVersionConstants.VERSION_3_0;
+		if (isWebFragmentProject(project))
 			return J2EEVersionConstants.VERSION_3_0;
 		return J2EEVersionConstants.UNKNOWN;
 			
@@ -530,6 +554,10 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 				return true;
 			}
 			
+			facetVersion = getProjectFacetVersion(project, WEBFRAGMENT);
+			if(facetVersion != null){
+				return true;
+			}
 			return false;
 		}
 		String ddVersion = getJ2EEDDProjectVersion(project);
@@ -544,7 +572,8 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 			j2eeLevel = J2EEVersionUtil.convertConnectorVersionStringToJ2EEVersionID(ddVersion);
 		else if (isApplicationClientProject(project))
 			j2eeLevel = J2EEVersionUtil.convertAppClientVersionStringToJ2EEVersionID(ddVersion);
-		
+		else if (isWebFragmentProject(project))
+			j2eeLevel = J2EEVersionUtil.convertWebFragmentVersionStringToJ2EEVersionID(ddVersion);
 		return j2eeLevel >= J2EEVersionConstants.JEE_5_0_ID;
 	}
 	
