@@ -441,7 +441,11 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 
 		public synchronized void accessArchive(IArchive archive) {
 			Integer count = archiveAccessCount.get(archive);
-			Integer newCount = new Integer(count.intValue() + 1);
+			int oldCount = 0;
+			if(count != null) 
+				oldCount = count.intValue();
+				
+			Integer newCount = new Integer(oldCount + 1);
 			archiveAccessCount.put(archive, newCount);
 			if (newCount.intValue() == 1) {
 				JavaEEBinaryComponentLoadAdapter binaryAdapter = null;
@@ -464,7 +468,11 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 
 		public synchronized void releaseArchive(IArchive archive) {
 			Integer count = archiveAccessCount.get(archive);
-			Integer newCount = new Integer(count.intValue() - 1);
+			int oldCount = 1;
+			if(count != null) 
+				oldCount = count.intValue();
+			
+			Integer newCount = new Integer(oldCount - 1);
 			archiveAccessCount.put(archive, newCount);
 			if (newCount.intValue() == 0) {
 				JavaEEBinaryComponentLoadAdapter binaryAdapter = null;
