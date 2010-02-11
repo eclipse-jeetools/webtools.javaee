@@ -71,6 +71,7 @@ import org.eclipse.jst.j2ee.internal.xml.J2EEXmlDtDEntityResolver;
 import org.eclipse.jst.j2ee.refactor.listeners.J2EEElementChangedListener;
 import org.eclipse.jst.j2ee.refactor.listeners.ProjectRefactoringListener;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
+import org.eclipse.wst.common.componentcore.internal.builder.IDependencyGraph;
 import org.eclipse.wst.common.componentcore.internal.impl.ReferencedComponentXMIResourceFactory;
 import org.eclipse.wst.common.componentcore.internal.impl.WTPResourceFactoryRegistry;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
@@ -526,12 +527,14 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(J2EEComponentClasspathUpdater.getInstance(), IResourceChangeEvent.POST_CHANGE | IResourceChangeEvent.PRE_CLOSE | IResourceChangeEvent.PRE_DELETE);
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(J2EEDependencyListener.INSTANCE, IResourceChangeEvent.POST_CHANGE | IResourceChangeEvent.PRE_CLOSE | IResourceChangeEvent.PRE_DELETE);
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(CleanBuildCacheCleanerListener.INSTANCE, IResourceChangeEvent.PRE_BUILD);
+		IDependencyGraph.INSTANCE.addListener(J2EEComponentClasspathUpdater.getInstance());
 	}
 	
 	@Override
 	public void stop(BundleContext context) throws Exception {
 		super.stop(context);
 		ResourcesPlugin.getWorkspace().removeResourceChangeListener(J2EEComponentClasspathUpdater.getInstance());
+		IDependencyGraph.INSTANCE.removeListener(J2EEComponentClasspathUpdater.getInstance());
 		try {
 			org.eclipse.core.runtime.Platform.getJobManager().join( J2EEElementChangedListener.PROJECT_COMPONENT_UPDATE_JOB_FAMILY,
 					new NullProgressMonitor() );

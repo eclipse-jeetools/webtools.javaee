@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.resources.IContainer;
@@ -58,6 +59,8 @@ import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.builder.IDependencyGraphListener;
+import org.eclipse.wst.common.componentcore.internal.builder.IDependencyGraphUpdateEvent;
 import org.eclipse.wst.common.componentcore.internal.impl.ResourceTreeRootAdapter;
 import org.eclipse.wst.common.componentcore.internal.impl.WTPModulesResourceFactory;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -66,7 +69,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.internal.emf.utilities.ExtendedEcoreUtil;
 import org.eclipse.wst.common.project.facet.core.FacetedProjectFramework;
 
-public class J2EEComponentClasspathUpdater implements IResourceChangeListener, IResourceDeltaVisitor {
+public class J2EEComponentClasspathUpdater implements IResourceChangeListener, IResourceDeltaVisitor, IDependencyGraphListener {
 
 	private static J2EEComponentClasspathUpdater instance = null;
 
@@ -367,6 +370,15 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 	
 	private void forgetProject(IProject project){
 		knownProjects.remove(project.getName());
+	}
+	
+	public void dependencyGraphUpdate(IDependencyGraphUpdateEvent event) {
+		if((event.getType() & IDependencyGraphUpdateEvent.ADDED) == IDependencyGraphUpdateEvent.ADDED){
+			Map<IProject, Set<IProject>> addedReferences = event.getAddedReferences();
+			for(IProject referencedProject : addedReferences.keySet()){
+				queueUpdate(referencedProject);
+			}
+		}
 	}
 	
 	public void resourceChanged(IResourceChangeEvent event) {
