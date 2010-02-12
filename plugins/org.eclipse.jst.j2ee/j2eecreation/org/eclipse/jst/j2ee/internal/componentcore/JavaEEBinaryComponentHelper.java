@@ -441,26 +441,24 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 
 		public synchronized void accessArchive(IArchive archive) {
 			Integer count = archiveAccessCount.get(archive);
-			int oldCount = 0;
-			if(count != null) 
-				oldCount = count.intValue();
-				
-			Integer newCount = new Integer(oldCount + 1);
-			archiveAccessCount.put(archive, newCount);
-			if (newCount.intValue() == 1) {
-				JavaEEBinaryComponentLoadAdapter binaryAdapter = null;
-				if (archive.getArchiveOptions().hasOption(JavaEEArchiveUtilities.WRAPPED_LOAD_ADAPTER)) {
-					binaryAdapter = (JavaEEBinaryComponentLoadAdapter) archive.getArchiveOptions().getOption(JavaEEArchiveUtilities.WRAPPED_LOAD_ADAPTER);
-				} else {
-					binaryAdapter = (JavaEEBinaryComponentLoadAdapter) archive.getArchiveOptions().getOption(ArchiveOptions.LOAD_ADAPTER);
-				}
-				if (!binaryAdapter.isPhysicallyOpen()) {
-					try {
-						binaryAdapter.physicallyOpen();
-					} catch (ZipException e) {
-						org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
-					} catch (IOException e) {
-						org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
+			if(count != null) {
+				Integer newCount = new Integer(count.intValue() + 1);
+				archiveAccessCount.put(archive, newCount);
+				if (newCount.intValue() == 1) {
+					JavaEEBinaryComponentLoadAdapter binaryAdapter = null;
+					if (archive.getArchiveOptions().hasOption(JavaEEArchiveUtilities.WRAPPED_LOAD_ADAPTER)) {
+						binaryAdapter = (JavaEEBinaryComponentLoadAdapter) archive.getArchiveOptions().getOption(JavaEEArchiveUtilities.WRAPPED_LOAD_ADAPTER);
+					} else {
+						binaryAdapter = (JavaEEBinaryComponentLoadAdapter) archive.getArchiveOptions().getOption(ArchiveOptions.LOAD_ADAPTER);
+					}
+					if (!binaryAdapter.isPhysicallyOpen()) {
+						try {
+							binaryAdapter.physicallyOpen();
+						} catch (ZipException e) {
+							org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
+						} catch (IOException e) {
+							org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
+						}
 					}
 				}
 			}
@@ -468,21 +466,19 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 
 		public synchronized void releaseArchive(IArchive archive) {
 			Integer count = archiveAccessCount.get(archive);
-			int oldCount = 1;
-			if(count != null) 
-				oldCount = count.intValue();
-			
-			Integer newCount = new Integer(oldCount - 1);
-			archiveAccessCount.put(archive, newCount);
-			if (newCount.intValue() == 0) {
-				JavaEEBinaryComponentLoadAdapter binaryAdapter = null;
-				if (archive.getArchiveOptions().hasOption(JavaEEArchiveUtilities.WRAPPED_LOAD_ADAPTER)) {
-					binaryAdapter = (JavaEEBinaryComponentLoadAdapter) archive.getArchiveOptions().getOption(JavaEEArchiveUtilities.WRAPPED_LOAD_ADAPTER);
-				} else {
-					binaryAdapter = (JavaEEBinaryComponentLoadAdapter) archive.getArchiveOptions().getOption(ArchiveOptions.LOAD_ADAPTER);
-				}
-				if (binaryAdapter.isPhysicallyOpen()) {
-					binaryAdapter.physicallyClose();
+			if(count != null) {
+				Integer newCount = new Integer(count.intValue() - 1);
+				archiveAccessCount.put(archive, newCount);
+				if (newCount.intValue() == 0) {
+					JavaEEBinaryComponentLoadAdapter binaryAdapter = null;
+					if (archive.getArchiveOptions().hasOption(JavaEEArchiveUtilities.WRAPPED_LOAD_ADAPTER)) {
+						binaryAdapter = (JavaEEBinaryComponentLoadAdapter) archive.getArchiveOptions().getOption(JavaEEArchiveUtilities.WRAPPED_LOAD_ADAPTER);
+					} else {
+						binaryAdapter = (JavaEEBinaryComponentLoadAdapter) archive.getArchiveOptions().getOption(ArchiveOptions.LOAD_ADAPTER);
+					}
+					if (binaryAdapter.isPhysicallyOpen()) {
+						binaryAdapter.physicallyClose();
+					}
 				}
 			}
 		}
@@ -546,3 +542,4 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 	}
 
 }
+
