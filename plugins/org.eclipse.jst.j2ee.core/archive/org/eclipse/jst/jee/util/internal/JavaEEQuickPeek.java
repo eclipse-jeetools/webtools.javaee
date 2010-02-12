@@ -258,6 +258,8 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 						version = J2EEVersionConstants.WEBSERVICES_1_1_ID;
 					} else if (schemaName.equals(J2EEConstants.WEBSERVICE_SCHEMA_1_2)) {
 						version = J2EEVersionConstants.WEBSERVICES_1_2_ID;
+					}else if (schemaName.equals(J2EEConstants.WEBSERVICE_SCHEMA_1_3)) {
+						version = J2EEVersionConstants.WEBSERVICES_1_3_ID;
 					}
 				}
 				break;

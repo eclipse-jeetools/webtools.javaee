@@ -62,6 +62,7 @@ public interface J2EEVersionConstants {
 	public int WEBSERVICES_1_0_ID = 10;
 	public int WEBSERVICES_1_1_ID = 11;
 	public int WEBSERVICES_1_2_ID = 12;
+	public int WEBSERVICES_1_3_ID = 13;
 	public String J2EE_1_4_TEXT 		= "1.4"; //$NON-NLS-1$
 	
 

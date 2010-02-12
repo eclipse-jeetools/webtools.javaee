@@ -181,7 +181,9 @@ public interface J2EEConstants extends J2EEVersionConstants {
     String WEBSERVICE_SCHEMA_LOC_SUN_1_1 = "http://java.sun.com/xml/ns/j2ee/j2ee_web_services_1_1.xsd";//$NON-NLS-1$
     String WEBSERVICE_SCHEMA_1_2 = "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/javaee_web_services_1_2.xsd";//$NON-NLS-1$
     String WEBSERVICE_SCHEMA_LOC_SUN_1_2 = "http://java.sun.com/xml/ns/javaee/javaee_web_services_1_2.xsd";//$NON-NLS-1$
-    
+    String WEBSERVICE_SCHEMA_1_3 = "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/javaee_web_services_1_3.xsd";//$NON-NLS-1$
+    String WEBSERVICE_SCHEMA_LOC_SUN_1_3 = "http://java.sun.com/xml/ns/javaee/javaee_web_services_1_3.xsd";//$NON-NLS-1$
+        
     //Miscellaneous constants
     /** "UTF-8"                                                                                                                             */
     String DEFAULT_XML_ENCODING             =       "UTF-8"; //$NON-NLS-1$
