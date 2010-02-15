@@ -953,7 +953,10 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 	 * the jee level. It does not read deployment descriptors for performance reasons.
 	 */
 	public static boolean isJEEProject(IProject project){
-		return JavaEEProjectUtilities.isJEEComponent(ComponentCore.createComponent(project));
+		IVirtualComponent component = ComponentCore.createComponent(project);
+		if(component != null)
+			 return JavaEEProjectUtilities.isJEEComponent(component);
+		return false;
 	}
 	
 	/**
@@ -964,7 +967,10 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 	 * @deprecated use JavaEEProjectUtilities.isLegacyJ2EEComponent(etc)
 	 */
 	public static boolean isLegacyJ2EEProject(IProject project){
-		return JavaEEProjectUtilities.isLegacyJ2EEComponent(ComponentCore.createComponent(project));
+		IVirtualComponent component = ComponentCore.createComponent(project);
+		if(component != null)
+			return JavaEEProjectUtilities.isLegacyJ2EEComponent(component);
+		return false;
 	}
 
 	/**

@@ -152,7 +152,7 @@ public class EarModuleDependenciesPropertyPage extends
 	protected void createPushButtons() {
 		//Create core buttons first
 		super.createPushButtons();
-		if (JavaEEProjectUtilities.isJEEComponent(rootComponent))
+		if (rootComponent != null && JavaEEProjectUtilities.isJEEComponent(rootComponent))
 			changeEarLibDirButton = createPushButton(getChangeEarLibDirLabel());
 	}
 
