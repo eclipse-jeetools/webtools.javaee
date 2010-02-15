@@ -55,8 +55,6 @@ public abstract class J2EEComponentImportDataModelProvider extends J2EEArtifactI
 		switch (javaEEVersion){
 		case J2EEVersionConstants.J2EE_1_2_ID:
 		case J2EEVersionConstants.J2EE_1_3_ID:
-			javaFacetVersion = JavaFacetUtils.JAVA_13;
-			break;
 		case J2EEVersionConstants.J2EE_1_4_ID:
 			javaFacetVersion = JavaFacetUtils.JAVA_14;
 			break;
