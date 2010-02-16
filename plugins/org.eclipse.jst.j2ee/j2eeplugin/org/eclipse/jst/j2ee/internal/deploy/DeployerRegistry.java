@@ -22,9 +22,11 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
@@ -32,6 +34,9 @@ import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.project.facet.core.IFacetedProject;
+import org.eclipse.wst.common.project.facet.core.IProjectFacet;
+import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.server.core.IRuntime;
 
 /**
@@ -46,6 +51,7 @@ public class DeployerRegistry {
 	 */
 	private static DeployerRegistry INSTANCE;
 	private HashMap deployModuleExtensions = new HashMap();
+	private HashMap facetExceptions = new HashMap();
 
 	public DeployerRegistry() {
 		super();
@@ -53,10 +59,11 @@ public class DeployerRegistry {
 
 	/**
 	 * @param deployer
+	 * @param facetExclusions 
 	 * @param serverTarget
 	 * @param natureID
 	 */
-	public void register(IConfigurationElement deployer, List serverTargets, List natures) {
+	public void register(IConfigurationElement deployer, List serverTargets, List natures, List facetExclusions) {
 		HashMap targetDeployers;
 		for (Iterator iter = natures.iterator(); iter.hasNext();) {
 			String natureID = (String) iter.next();
@@ -66,6 +73,22 @@ public class DeployerRegistry {
 				getTargetDeployers(targetDeployers, runtimeID).add(deployer);
 			}
 		}
+		//Now register exclusions if any
+		List facets = getFacetExceptions(deployer);
+		for (Iterator iterator = facetExclusions.iterator(); iterator.hasNext();) {
+			String facetID = (String) iterator.next();
+			if (!facets.contains(facetID))
+				facets.add(facetID);
+		}	
+	}
+	
+	/**
+	 * @param deployer
+	 * @param serverTarget
+	 * @param natureID
+	 */
+	public void register(IConfigurationElement deployer, List serverTargets, List natures) {
+		register(deployer, serverTargets, natures, new ArrayList());
 	}
 
 	private List getDeployers(String natureID, String serverTarget) {
@@ -188,8 +211,58 @@ public class DeployerRegistry {
 			typeID = J2EEProjectUtilities.JCA;
 		else if (JavaEEProjectUtilities.isUtilityProject(project))
 			typeID = J2EEProjectUtilities.UTILITY;
-		String runtimeID = runtime.getRuntimeType().getId();
-		return getDeployers(typeID, runtimeID);
+		
+		String runtimeID = null;
+		if (runtime == null)
+			runtimeID = "None"; //$NON-NLS-1$
+		else
+			runtimeID = runtime.getRuntimeType().getId();
+		List deployers = getDeployers(typeID, runtimeID);
+		return getFilteredDeployers(project,deployers); 
+	}
+
+	private List getFilteredDeployers(IProject project, List deployers) {
+		IFacetedProject fProj = null;
+		try {
+			fProj = ProjectFacetsManager.create(project);
+		} catch (CoreException e) {
+			org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
+		}
+		if (fProj == null) return deployers;
+		List filteredDeployers = new ArrayList();
+		for (Iterator iterator = deployers.iterator(); iterator.hasNext();) {
+			boolean excludeDeployer = false;
+			IConfigurationElement deployer = (IConfigurationElement) iterator.next();
+			List exclusions = getFacetExceptions(deployer);
+			if (exclusions.isEmpty())
+				filteredDeployers.add(deployer);
+			else {
+				for (Iterator iterator2 = exclusions.iterator(); iterator2.hasNext();) {
+					String exclusion = (String) iterator2.next();
+					IProjectFacet facet = null;
+					try {
+						facet = ProjectFacetsManager.getProjectFacet(exclusion);
+					} catch (IllegalArgumentException e) {
+						//Facet id not found
+						J2EEPlugin.logWarning(e.getMessage());
+					}
+					if (facet != null && fProj.hasProjectFacet(facet)) {
+						excludeDeployer = true;
+					}
+				}
+				if (!excludeDeployer)
+					filteredDeployers.add(deployer);
+			}
+			
+		}
+		return filteredDeployers;
+	}
+
+	
+	private List getFacetExceptions(IConfigurationElement deployer) {
+		if (facetExceptions.get(deployer) == null)
+			facetExceptions.put(deployer, new ArrayList());
+		return (List)facetExceptions.get(deployer);
 	}
 
 }
