@@ -477,7 +477,7 @@
                  <test
                        forcePluginActivation="true"
                        property="org.eclipse.wst.common.project.facet.core.projectFacet"
-                       value="jst.appclient:5.0">
+                       value="jst.ejb:3.1">
                  </test>
               </or>
            </adapt>
@@ -706,6 +706,11 @@
                        forcePluginActivation="true"
                        property="org.eclipse.wst.common.project.facet.core.projectFacet"
                        value="jst.web:2.5"/>
+                 <test
+                       forcePluginActivation="true"
+                       property="org.eclipse.wst.common.project.facet.core.projectFacet"
+                       value="jst.web:3.0">
+                 </test>
               </or>
            </adapt>
    <instanceof
@@ -879,21 +884,25 @@
      <triggerPoints>
         <or>
            <instanceof
-                 value="org.eclipse.core.resources.IProject">
-           </instanceof>
-           <instanceof
-                 value="org.eclipse.jst.jee.ui.internal.navigator.ear.BundledNode">
+                 value="org.eclipse.jst.jee.ui.internal.navigator.ear..BundledNode">
            </instanceof>
             <instanceof
                  value="org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider">
            </instanceof>
            <adapt
                  type="org.eclipse.core.resources.IProject">
+                 <or>
               <test
                     forcePluginActivation="true"
                     property="org.eclipse.wst.common.project.facet.core.projectFacet"
                     value="jst.ear:5.0">
               </test>
+                <test
+                    forcePluginActivation="true"
+                    property="org.eclipse.wst.common.project.facet.core.projectFacet"
+                    value="jst.ear:6.0">
+              </test>
+              </or>
            </adapt>
            <instanceof
                  value="org.eclipse.jst.jee.ui.internal.navigator.ear.ModulesNode">
@@ -1147,7 +1156,7 @@
         id="org.eclipse.jst.jee.ui.appclient"
         labelProvider="org.eclipse.jst.jee.ui.internal.navigator.AppClient5LabelProvider"
         name="%APP_CLIENT_NAVIGATOR_CONTENT"
-        priority="highest">
+          priority="highest">
      <triggerPoints>
         <or>
            <instanceof
@@ -1155,11 +1164,18 @@
            </instanceof>
            <adapt
                  type="org.eclipse.core.resources.IProject">
+                 <or>
               <test
                     forcePluginActivation="true"
                     property="org.eclipse.wst.common.project.facet.core.projectFacet"
                     value="jst.appclient:5.0">
               </test>
+              <test
+                    forcePluginActivation="true"
+                    property="org.eclipse.wst.common.project.facet.core.projectFacet"
+                    value="jst.appclient:6.0">
+              </test>
+              </or>
            </adapt>
            <instanceof
                  value="org.eclipse.jst.javaee.core.JavaEEObject">
@@ -1183,6 +1199,43 @@
            </adapt>
         </or>
      </possibleChildren>
+  </navigatorContent>
+  <navigatorContent
+        activeByDefault="true"
+        contentProvider="org.eclipse.jst.jee.ui.internal.navigator.ConnectorContentProvider"
+        icon="icons/connectorgroup_obj.gif"
+        id="org.eclipse.jst.jee.ui.ra"
+        labelProvider="org.eclipse.jst.jee.ui.internal.navigator.ConnectorLabelProvider"
+        name="%CONNECTOR_NAVIGATOR_CONTENT"
+        priority="highest">
+     <possibleChildren>
+        <or>
+           <instanceof
+                 value="org.eclipse.jst.javaee.core.JavaEEObject">
+           </instanceof>
+           <instanceof
+                 value="org.eclipse.jst.jee.ui.internal.navigator.ra.AbstractConnectorGroupProvider">
+           </instanceof>
+        </or>
+     </possibleChildren>
+     <triggerPoints>
+        <or>
+           <adapt
+                 type="org.eclipse.core.resources.IProject">
+              <or>
+                 <test
+                       forcePluginActivation="true"
+                       property="org.eclipse.wst.common.project.facet.core.projectFacet"
+                       value="jst.connector:1.6">
+                 </test>
+              </or>
+           </adapt>
+           <instanceof
+                 value="org.eclipse.jst.jee.ui.internal.navigator.ra.AbstractConnectorGroupProvider">
+           </instanceof>
+        </or>
+     </triggerPoints>
+  
   </navigatorContent>
 	</extension>
    <extension

@@ -16,6 +16,7 @@ import org.eclipse.osgi.util.NLS;
 public class Messages extends NLS {
 
 	private static final String BUNDLE_NAME = "org.eclipse.jst.jee.ui.internal.messages"; //$NON-NLS-1$
+	
 
 	private Messages() {
 		// Do not instantiate
@@ -27,6 +28,9 @@ public class Messages extends NLS {
 	public static String SESSION_BEANS;
 	public static String ENTITY_BEANS;
 	public static String MESSAGE_DRIVEN_BEANS;
+	public static String MessageAdapterNode_MESSAGE_ADAPTER;
+	public static String MessageListenerNode_MessageListener;
+	public static String ActicationSpecNode_ActivationSpec;
 	public static String ACTIVATION_CONFIG_PROPERTIES;
 	public static String ENTERPRISE_BEAN_CLASS_DESCRIPTION;
 	
@@ -58,6 +62,15 @@ public class Messages extends NLS {
 	public static String AddModuleToEarDropAssistant_Adding_module_to_ea_;
 	public static String ImportJEEModuleDropAssistant_Importing_Java_Enterprise_Edition_artifacts;
 	public static String ImportJEEModuleDropAssistant_Could_not_recognize_extension_0_;
+	public static String InboundRaNode_Inbound_Resource_adapter;
+	
+	public static String ConnectorLabelProvider_ADMIN_OBJECT;
+	public static String ConnectorLabelProvider_CONFIG_PROPERTY;
+	public static String ConnectorLabelProvider_ConnectionDefinition;
+	public static String ConnectorLabelProvider_LICENSE_ARTIFACT;
+	public static String ConnectorLabelProvider_RequiredConfigProperty;
+	public static String GroupRaContentProvider_RESOURCE_ADAPTER;
+	public static String OutboundRaNode_OutboundResourceAdapter;
 
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

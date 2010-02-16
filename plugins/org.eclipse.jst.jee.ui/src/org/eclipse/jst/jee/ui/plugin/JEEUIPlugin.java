@@ -12,15 +12,15 @@ package org.eclipse.jst.jee.ui.plugin;
 
 import java.net.URL;
 
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
-import org.eclipse.core.runtime.Platform;
-import java.lang.Throwable;
-import org.eclipse.core.runtime.CoreException;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -144,5 +144,9 @@ public class JEEUIPlugin extends AbstractUIPlugin {
 
 	public static void logError(CoreException exception) {
 		Platform.getLog(Platform.getBundle(PLUGIN_ID)).log( exception.getStatus() );
+	}
+	
+	public Image getImage(String key){
+		return getImageDescriptor(key).createImage();
 	}
 }

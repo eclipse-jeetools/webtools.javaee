@@ -11,10 +11,16 @@
 package org.eclipse.jst.jee.ui.plugin;
 
 
+
 public class JEEUIPluginIcons {
 
 	public static String IMG_EJBEEMODEL = "30_ejbjar_obj"; //$NON-NLS-1$
 	public static String IMG_WEBEEMODEL = "webapp_25"; //$NON-NLS-1$
+	public static String IMG_CONNECTOR = "connection"; //$NON-NLS-1$
+	public static String IMG_CONFIG_PROP = "config_prop_obj"; //$NON-NLS-1$
+	public static String IMG_LICENSE = "license_obj"; //$NON-NLS-1$
+	public static String IMG_RESOURCE_ADAPTER = "resource_adapter_obj"; //$NON-NLS-1$
+	
 	public static String SERVLET_MAPPING = "webuiIcons/servlet_mapping"; //$NON-NLS-1$
 	public static String FILTER_MAPPING = "webuiIcons/filter"; //$NON-NLS-1$
 	public static String GROUP_FILTER_MAPPING = "webuiIcons/filter_mapping"; //$NON-NLS-1$

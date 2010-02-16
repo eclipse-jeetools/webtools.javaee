@@ -76,9 +76,11 @@ public class GroupEARProvider extends AbstractEarGroupProvider implements IAdapt
 			IFacetedProject facetedProject = ProjectFacetsManager.create(project);
 			//EE6TODO
 			if (facetedProject != null && 
-					facetedProject.hasProjectFacet(
+					(facetedProject.hasProjectFacet(
 							ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EAR_MODULE).getVersion(
-									J2EEVersionConstants.VERSION_5_0_TEXT))) {
+									J2EEVersionConstants.VERSION_5_0_TEXT)) || facetedProject.hasProjectFacet(
+											ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EAR_MODULE).getVersion(
+													J2EEVersionConstants.VERSION_6_0_TEXT)))) {
 
 				if(bundledLibsNode == null){
 					BundledNode bundledLibsDirectoryNode = new BundledNode(project, Messages.LIBRARY_DIRECTORY + ": /" + EAR_DEFAULT_LIB, null);//$NON-NLS-1$

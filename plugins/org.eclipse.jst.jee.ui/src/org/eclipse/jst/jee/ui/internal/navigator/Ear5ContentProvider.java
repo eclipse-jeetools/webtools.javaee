@@ -111,9 +111,11 @@ public class Ear5ContentProvider extends JEE5ContentProvider {
 				try {
 					facetedProject = ProjectFacetsManager.create(project);
 					if (facetedProject != null && 
-							facetedProject.hasProjectFacet(
+							(facetedProject.hasProjectFacet(
 									ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EAR_MODULE).getVersion(
-											J2EEVersionConstants.VERSION_5_0_TEXT))) {
+											J2EEVersionConstants.VERSION_5_0_TEXT)) || facetedProject.hasProjectFacet(
+													ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EAR_MODULE).getVersion(
+															J2EEVersionConstants.VERSION_6_0_TEXT)))) {
 						GroupEARProvider element = (GroupEARProvider) getCachedContentProvider(project);
 						children.add(element);
 					}
