@@ -36,7 +36,7 @@ public class WebTypeTranslator extends Translator implements WarDeploymentDescri
 	};
 	
 	public WebTypeTranslator() {
-		super(SERVLET_CLASS+','+JSP_FILE, WebapplicationPackage.eINSTANCE.getServlet_WebType());
+		super(SERVLET_CLASS+','+JSP_FILE, WebapplicationPackage.eINSTANCE.getServlet_WebType(), Translator.END_TAG_NO_INDENT);
 	}
 
 
