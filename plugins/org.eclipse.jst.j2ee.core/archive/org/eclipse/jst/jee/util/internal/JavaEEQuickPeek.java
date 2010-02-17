@@ -358,6 +358,9 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 				break;
 			case J2EEVersionConstants.WEBSERVICES_1_2_ID:
 				javaEEVersion = J2EEVersionConstants.JEE_5_0_ID;
+				break;
+			case J2EEVersionConstants.WEBSERVICES_1_3_ID:
+				javaEEVersion = J2EEVersionConstants.JEE_6_0_ID;
 			}
 			break;
 		}
