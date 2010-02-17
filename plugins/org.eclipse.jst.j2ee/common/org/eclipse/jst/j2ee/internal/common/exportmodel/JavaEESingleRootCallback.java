@@ -45,7 +45,7 @@ public class JavaEESingleRootCallback implements SingleRootParticipantCallback {
 	public static final int ATLEAST_1_JAVA_SOURCE_REQUIRED = 10106;
 	public static final int CLASSPATH_DEPENDENCIES_FOUND = 10107;
 	
-	
+	private static final int CANCEL = 0x0;
 	private String[] filteredSuffixes = new String[]{}; 
 	public JavaEESingleRootCallback() {
 		// intentionally blank
@@ -60,22 +60,47 @@ public class JavaEESingleRootCallback implements SingleRootParticipantCallback {
 	}
 	
 	public boolean canValidate(IProject project) {
-		return JavaEEProjectUtilities.isEARProject(project) || 
-			JavaEEProjectUtilities.isDynamicWebProject(project);
+		return JavaEEProjectUtilities.isEARProject(project)
+				|| JavaEEProjectUtilities.isEJBProject(project)
+				|| JavaEEProjectUtilities.isApplicationClientProject(project)
+				|| JavaEEProjectUtilities.isDynamicWebProject(project)
+				|| JavaEEProjectUtilities.isJCAProject(project)
+				|| JavaEEProjectUtilities.isUtilityProject(project);
 	}
 
 	public void validate(SingleRootUtil util, IVirtualComponent vc, IProject project, List resourceMaps) {
 		// Always return false for EARs so that members for EAR are always calculated and j2ee modules are filtered out
-		if (JavaEEProjectUtilities.isEARProject(project)) 
+		if (JavaEEProjectUtilities.isEARProject(project)) { 
 			util.reportStatus(EAR_PROJECT_FOUND);
-
-		//validate web projects for single root
-		if (JavaEEProjectUtilities.isDynamicWebProject(project)) 
-			validateWebProject(util, vc, resourceMaps);
-
+			util.setValidateFlag(CANCEL);
+			return;
+		}
+		
+		if (resourceMaps.size() == 1) {
+			ComponentResource mapping = (ComponentResource)resourceMaps.get(0); 
+			if (util.isRootMapping(mapping)) {
+				IResource sourceResource = project.findMember(mapping.getSourcePath());
+				if (sourceResource != null && sourceResource.exists()) {
+					if (sourceResource instanceof IContainer && !util.isSourceContainer((IContainer) sourceResource)) {
+						util.reportStatus(ISingleRootStatus.SINGLE_ROOT_CONTAINER_FOUND, (IContainer) sourceResource);
+						return;
+					}
+				}
+			}
+		}
+		
 		// If we have classpath dependencies we can't be single root
-		if( hasClasspathDependencies(vc))
+		if (hasClasspathDependencies(vc)) {
 			util.reportStatus(CLASSPATH_DEPENDENCIES_FOUND);
+			if (util.getValidateFlag() == CANCEL) return;
+		}
+		
+		//validate web projects for single root
+		if (JavaEEProjectUtilities.isDynamicWebProject(project)) {
+			validateWebProject(util, vc, resourceMaps);
+			util.setValidateFlag(CANCEL);
+		}
+
 	}
 	
 	protected boolean hasClasspathDependencies(IVirtualComponent component) {
@@ -138,31 +163,28 @@ public class JavaEESingleRootCallback implements SingleRootParticipantCallback {
 				if (sourceResource != null && sourceResource.exists()) {
 					if (sourceResource instanceof IContainer && !util.isSourceContainer((IContainer) sourceResource)) {
 						util.reportStatus(ISingleRootStatus.SOURCE_NOT_JAVA_CONTAINER, sourcePath);
-						return false;
 					}
 				}
 				else {
 					util.reportStatus(ISingleRootStatus.SOURCE_PATH_NOT_FOUND, sourcePath);
-					return false;
 				}
 			}
 			else {
 				util.reportStatus(RUNTIME_PATH_NOT_ROOT_OR_WEBINF_CLASSES, runtimePath);
-				return false;
 			}
+			
+			if (util.getValidateFlag() == CANCEL) return false;
 		}
 		// Make sure only one of the maps is the content root, and that at least one is for the java folder
 		if (rootValidMaps != 1) {
 			if (rootValidMaps < 1) {
 				util.reportStatus(ONE_CONTENT_ROOT_REQUIRED);
-				return false;
 			}
 			else if (rootValidMaps > 1) {
 				util.reportStatus(ONLY_1_CONTENT_ROOT_ALLOWED);
-				return false;
 			}
 		}
-		return true;
+		return util.getValidateFlag() == CANCEL ? false : true;
 	}
 
 	public IFlattenParticipant[] getDelegateParticipants() {

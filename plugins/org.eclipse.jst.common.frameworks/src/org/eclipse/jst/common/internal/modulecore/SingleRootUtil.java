@@ -178,27 +178,12 @@ public class SingleRootUtil {
 				return getStatus();
 			}
 			
-			if( callback != null && callback.canValidate(getProject())) { 
+			if (callback != null && callback.canValidate(getProject())) { 
 				callback.validate(this, aComponent, getProject(), resourceMaps);
-			} else {
+			} 
+			if (VALIDATE_FLAG != CANCEL) {
 				validateProject(resourceMaps);
 			}
-			if (VALIDATE_FLAG == CANCEL) 
-				return getStatus();
-
-			if (resourceMaps.size() == 1) {
-				ComponentResource mapping = (ComponentResource)resourceMaps.get(0); 
-				if (isRootMapping(mapping)) {
-					IResource sourceResource = getProject().findMember(mapping.getSourcePath());
-					if (sourceResource != null && sourceResource.exists()) {
-						if (sourceResource instanceof IContainer && !isSourceContainer((IContainer) sourceResource)) {
-							reportStatus(ISingleRootStatus.SINGLE_ROOT_CONTAINER_FOUND, (IContainer) sourceResource);
-							return getStatus();
-						}
-					}
-				}
-			}
-			
 			return getStatus();
 		} finally {
 			cachedOutputContainers = null;
@@ -424,8 +409,17 @@ public class SingleRootUtil {
 			addStatus(status);
 		}
 		else if (status.getSeverity() == IStatus.INFO && (VALIDATE_FLAG & INFO) != 0) { 
+			VALIDATE_FLAG = CANCEL;
 			addStatus(status);
 		}
+	}
+
+	public int getValidateFlag() {
+		return VALIDATE_FLAG;
+	}
+
+	public void setValidateFlag(int validateFlag) {
+		VALIDATE_FLAG = validateFlag;
 	}
 
 	public IStatus getStatus() {
