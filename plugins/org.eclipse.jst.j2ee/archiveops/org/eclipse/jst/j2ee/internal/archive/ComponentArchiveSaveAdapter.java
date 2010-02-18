@@ -161,7 +161,7 @@ public class ComponentArchiveSaveAdapter extends AbstractArchiveSaveAdapter {
 	protected IPath getProjectRelativePath(IArchiveResource aFile) {
 		IPath path = aFile.getPath();
 		IFile iFile = null;
-		if (path.lastSegment() != null && path.lastSegment().startsWith(IModuleConstants.DOT_SETTINGS)) {
+		if (path.segmentCount() > 0 && path.segment(0).equals(IModuleConstants.DOT_SETTINGS)) {
 			iFile = vComponent.getProject().getFile(path);
 		} else {
 			IVirtualFolder rootFolder = vComponent.getRootFolder();
