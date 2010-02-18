@@ -25,6 +25,7 @@ import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.javaee.web.WebApp;
 import org.eclipse.jst.javaee.web.WebAppVersionType;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
@@ -148,5 +149,16 @@ public class WebUtilities extends JavaEEProjectUtilities {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * This method will set the context root on the associated workbench module with the given string
+	 * value passed in.  This context root is used by the server at runtime.
+	 * 
+	 * @param contextRoot string
+	 */
+	public static void setServerContextRoot(IProject webProject, String contextRoot)
+	{
+		ComponentUtilities.setServerContextRoot(webProject, contextRoot);
 	}
 }
