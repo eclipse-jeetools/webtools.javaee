@@ -20,7 +20,9 @@ import static org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentExportData
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Collections;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -44,12 +46,15 @@ import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.core.runtime.jobs.MultiRule;
 import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jst.common.internal.modulecore.AddMappedOutputFoldersParticipant;
+import org.eclipse.jst.common.internal.modulecore.StandardHierarchyParticipant;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveResourceHandler;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentExportDataModelProperties.IArchiveExportParticipantData;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
 import org.eclipse.jst.jee.archive.ArchiveSaveFailureException;
 import org.eclipse.jst.jee.archive.internal.ArchiveUtil;
 import org.eclipse.osgi.util.NLS;
+import org.eclipse.wst.common.componentcore.internal.flat.FilterResourceParticipant;
 import org.eclipse.wst.common.componentcore.internal.flat.IFlattenParticipant;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
@@ -64,6 +69,17 @@ public class ComponentExportOperation extends AbstractDataModelOperation {
 	private IPath destinationPath;
 	private boolean exportSource = false;
 	
+	public static String[] DOT_FILE_NAMES = new String[] {
+		".project", 	//$NON-NLS-1$
+		".classpath", 	//$NON-NLS-1$
+		".cvsignore", 	//$NON-NLS-1$
+	};
+
+	public static String[] DOT_SOURCE_FILES = new String[] {
+		".java",		//$NON-NLS-1$
+		".sqlj",		//$NON-NLS-1$
+	};
+
 
 	public ComponentExportOperation() {
 		super();
@@ -152,17 +168,18 @@ public class ComponentExportOperation extends AbstractDataModelOperation {
 			java.io.File aFile = getDestinationPath().toFile();
 			ArchiveUtil.checkWriteable(aFile);
 			boolean fileExisted = aFile.exists();
-			FlatComponentSaveStrategy saver = null;
+			FlatComponentArchiver archiver = null;
 			try {
 				java.io.File destinationFile = fileExisted 
 				? ArchiveUtil.createTempFile(getDestinationPath().toOSString(), aFile.getCanonicalFile().getParentFile()) 
 						: aFile;
-
-				saver = createSaveStrategy(destinationFile);
+				
+				java.io.OutputStream out = createOutputStream(destinationFile);
+				archiver = createFlatComponentArchiver(out);
 				subMonitor.beginTask(NLS.bind(CommonArchiveResourceHandler.ArchiveFactoryImpl_Saving_archive_to_0_, getDestinationPath().toOSString()), TOTAL_TICKS);
-				saver.saveArchive();
+				archiver.saveArchive();
 				subMonitor.worked(SAVE_TICKS);
-				saver.close();
+				archiver.close();
 			
 				if (fileExisted) {
 					ArchiveUtil.cleanupAfterTempSave(getDestinationPath().toOSString(), aFile, destinationFile);
@@ -172,8 +189,8 @@ public class ComponentExportOperation extends AbstractDataModelOperation {
 				throw new ArchiveSaveFailureException(e);
 			} catch (ArchiveSaveFailureException failure) {
 				try {
-					if (saver != null)
-						saver.close();
+					if (archiver != null)
+						archiver.close();
 				} catch (IOException weTried) {
 					// Ignore
 				}
@@ -186,7 +203,7 @@ public class ComponentExportOperation extends AbstractDataModelOperation {
 		}
 	}
 
-	protected FlatComponentSaveStrategy createSaveStrategy(java.io.File destinationFile) throws IOException, FileNotFoundException {
+	protected java.io.OutputStream createOutputStream(java.io.File destinationFile) throws IOException, FileNotFoundException {
 		if (destinationFile.exists() && destinationFile.isDirectory()) {
 			throw new IOException(NLS.bind(CommonArchiveResourceHandler.ArchiveFactoryImpl_The_specified_file_0_exists_and_, destinationFile.getAbsolutePath()));
 		}
@@ -194,8 +211,11 @@ public class ComponentExportOperation extends AbstractDataModelOperation {
 		if (parent != null)
 			parent.mkdirs();
 		java.io.OutputStream out = new java.io.FileOutputStream(destinationFile);
+		return out;
+	}
 
-		return new FlatComponentSaveStrategy(getComponent(), out, isExportSource(), getParticipants());
+	protected FlatComponentArchiver createFlatComponentArchiver(OutputStream out) {
+		return new FlatComponentArchiver(getComponent(), out, getParticipants());
 	}
 	
 	protected void setProgressMonitor(IProgressMonitor newProgressMonitor) {
@@ -289,7 +309,21 @@ public class ComponentExportOperation extends AbstractDataModelOperation {
 	 * @return
 	 */
 	protected List<IFlattenParticipant> getParticipants() {
-		return Collections.EMPTY_LIST;
+		IFlattenParticipant[] participants = new IFlattenParticipant[] {
+				new AddMappedOutputFoldersParticipant(),
+				new StandardHierarchyParticipant(),
+				FilterResourceParticipant.createSuffixFilterParticipant(getExcludeExtensions())
+		};
+		return Arrays.asList(participants);
+	}
+	
+	protected String[] getExcludeExtensions() {
+		ArrayList<String> excludeList = new ArrayList<String>();
+		excludeList.addAll(Arrays.asList(DOT_FILE_NAMES));
+		if (!isExportSource()) {
+			excludeList.addAll(Arrays.asList(DOT_SOURCE_FILES));
+		}
+		return excludeList.toArray(new String[excludeList.size()]);
 	}
 
 	private Set gatherDependentProjects(IVirtualComponent comp, Set projs) {

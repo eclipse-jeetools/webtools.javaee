@@ -12,9 +12,8 @@ package org.eclipse.jst.j2ee.internal.archive.operations;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,14 +24,8 @@ import java.util.zip.ZipOutputStream;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.archive.ComponentArchiveLoadAdapter;
-import org.eclipse.jst.j2ee.internal.archive.JavaEEArchiveUtilities;
-import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.jee.archive.ArchiveException;
 import org.eclipse.jst.jee.archive.ArchiveSaveFailureException;
-import org.eclipse.jst.jee.archive.IArchive;
-import org.eclipse.jst.jee.archive.IArchiveLoadAdapter;
-import org.eclipse.jst.jee.archive.IArchiveResource;
 import org.eclipse.jst.jee.archive.internal.ArchiveUtil;
 import org.eclipse.wst.common.componentcore.internal.flat.FlatFolder;
 import org.eclipse.wst.common.componentcore.internal.flat.FlatVirtualComponent;
@@ -46,20 +39,33 @@ import org.eclipse.wst.common.componentcore.internal.flat.VirtualComponentFlatte
 import org.eclipse.wst.common.componentcore.internal.flat.FlatVirtualComponent.FlatComponentTaskModel;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
-public class FlatComponentSaveStrategy {
+public class FlatComponentArchiver {
 	private IFlatVirtualComponent flatComponent;
 	private OutputStream destinationStream;
-	private boolean isExportSource;
 	private ZipOutputStream zipOutputStream;
 	private IVirtualComponent component;
 	private List<IFlattenParticipant> participants;
+	private ComponentExportCallback callbackHandler;
 	private List<IPath> zipEntries = new ArrayList<IPath>();
 	
-	public FlatComponentSaveStrategy(IVirtualComponent aComponent, OutputStream out, boolean exportSource, List<IFlattenParticipant> fParticipants) {
+	public interface ComponentExportCallback {
+		public boolean canSave(IVirtualComponent component);
+		public void saveArchive(IVirtualComponent component, ZipOutputStream zipOutputStream) throws ArchiveException;
+	}
+
+	public FlatComponentArchiver(IVirtualComponent aComponent, OutputStream out, List<IFlattenParticipant> fParticipants) {
 		participants = fParticipants;
 		component = aComponent;
-		isExportSource = exportSource;
 		destinationStream = out;
+		zipOutputStream = new ZipOutputStream(out);
+		flatComponent = getFlatComponent(aComponent);
+	}
+	
+	public FlatComponentArchiver(IVirtualComponent aComponent, OutputStream out, List<IFlattenParticipant> fParticipants, ComponentExportCallback callback) {
+		participants = fParticipants;
+		component = aComponent;
+		destinationStream = out;
+		callbackHandler = callback;
 		zipOutputStream = new ZipOutputStream(out);
 		flatComponent = getFlatComponent(aComponent);
 	}
@@ -79,14 +85,14 @@ public class FlatComponentSaveStrategy {
 	protected void saveArchive() throws ArchiveSaveFailureException {
 		Exception caughtException = null;
 		try {
-			if (JavaEEProjectUtilities.isJCAComponent(getComponent())) {
-				saveJCAArchive();
+			if (callbackHandler != null && callbackHandler.canSave(getComponent())) {
+				callbackHandler.saveArchive(getComponent(), getZipOutputStream());
 			}
 			else {	
 				IFlatResource[] resources = getFlatComponent().fetchResources();
 				saveManifest(Arrays.asList(resources));
-				saveFlatResources(resources);
 				saveChildModules(getFlatComponent().getChildModules());
+				saveFlatResources(resources);
 			}
 		} catch (Exception e){
 			caughtException = e;
@@ -103,36 +109,10 @@ public class FlatComponentSaveStrategy {
 		}
 	}
 	
-	protected FlatComponentSaveStrategy saveNestedArchive(IVirtualComponent component, IPath entry) throws IOException {
+	protected FlatComponentArchiver saveNestedArchive(IVirtualComponent component, IPath entry) throws IOException {
 		ZipEntry nest = new ZipEntry(entry.toString());
 		getZipOutputStream().putNextEntry(nest);
-		return new FlatComponentSaveStrategy(component, getZipOutputStream(), isExportSource(), getParticipants());
-	}
-
-	protected void saveJCAArchive() throws ArchiveException {
-		IArchive archiveToSave = null;
-		try {
-			archiveToSave = JavaEEArchiveUtilities.INSTANCE.openArchive(getComponent());
-			IArchiveLoadAdapter loadAdapter = archiveToSave.getLoadAdapter();
-			if (loadAdapter instanceof ComponentArchiveLoadAdapter) {
-				ComponentArchiveLoadAdapter cLoadAdapter = (ComponentArchiveLoadAdapter)loadAdapter;
-				cLoadAdapter.setExportSource(isExportSource());
-			}
-			List<IArchiveResource> files = archiveToSave.getArchiveResources();
-			saveManifest(archiveToSave);
-			for (IArchiveResource file : files) {
-				if (!isManifest(file.getPath())) {
-					addZipEntry(file);
-				}
-			}
-			
-		} catch (Exception e) {
-			throw new ArchiveException(AppClientArchiveOpsResourceHandler.ARCHIVE_OPERATION_OpeningArchive, e);
-		} finally {
-			if (archiveToSave != null){
-				JavaEEArchiveUtilities.INSTANCE.closeArchive(archiveToSave);
-			}
-		}
+		return new FlatComponentArchiver(component, getZipOutputStream(), getParticipants(), callbackHandler);
 	}
 
 	protected void saveFlatResources(IFlatResource[] resources) throws ArchiveSaveFailureException {
@@ -140,14 +120,12 @@ public class FlatComponentSaveStrategy {
 			IFlatResource resource = resources[i];
 			IPath entryPath = resource.getModuleRelativePath().append(resource.getName());
 			if (resource instanceof IFlatFile) {
-				if (!isManifest(entryPath)) {
-					File f = (File)resource.getAdapter(File.class);
-					addZipEntry(f, entryPath, false);
+				if (!isManifest(entryPath) && !zipEntries.contains(entryPath)) {
+					addZipEntry(resource, entryPath);
 				}
 			} else if (resource instanceof IFlatFolder) {
 				if (shouldInclude(entryPath)) {
-					File f = (File)((IFlatFolder)resource).getAdapter(File.class);
-					addZipEntry(f, entryPath, true);
+					addZipEntry(resource, entryPath);
 					saveFlatResources(((IFlatFolder)resource).members());
 				}
 			}
@@ -164,27 +142,36 @@ public class FlatComponentSaveStrategy {
 	protected void saveChildModules(IChildModuleReference[] childModules) throws ArchiveSaveFailureException, IOException {
 		for (int i = 0; i < childModules.length; i++) {
 			IChildModuleReference childModule = childModules[i];
-			IPath entry = childModule.getRelativeURI();
-			if (!zipEntries.contains(entry)) {
-				FlatComponentSaveStrategy saver = saveNestedArchive(childModule.getComponent(), entry);
-				saver.saveArchive();
-			}
+			IPath entryPath = childModule.getRelativeURI();
+			zipEntries.add(entryPath);
+			FlatComponentArchiver saver = saveNestedArchive(childModule.getComponent(), entryPath);
+			saver.saveArchive();
 		}
 	}
 
-	protected void addZipEntry(File f, IPath entryPath, boolean isFolder) throws ArchiveSaveFailureException {
+	protected void addZipEntry(IFlatResource f, IPath entryPath) throws ArchiveSaveFailureException {
 		try {
 			IPath path = entryPath;
-			zipEntries.add(entryPath);
-			if (isFolder && !path.hasTrailingSeparator()){
-				path = path.addTrailingSeparator();
+			boolean isFolder = false;
+			long lastModified;
+			
+			if (f instanceof IFlatFolder) {
+				isFolder = true;
+				File folder = (File)((IFlatFolder)f).getAdapter(File.class);
+				lastModified = folder.lastModified();
+				if (!path.hasTrailingSeparator())
+					path = path.addTrailingSeparator();
+			}
+			else {
+				lastModified = ((IFlatFile) f).getModificationStamp();
 			}
 			ZipEntry entry = new ZipEntry(path.toString());
-			if (f.lastModified() > 0)
-				entry.setTime(f.lastModified());
+			if (lastModified > 0)
+				entry.setTime(lastModified);
+			
 			getZipOutputStream().putNextEntry(entry);
 			if (!isFolder) {
-				ArchiveUtil.copy(new FileInputStream(f), getZipOutputStream());
+				ArchiveUtil.copy((InputStream) f.getAdapter(InputStream.class), getZipOutputStream());
 			}
 			getZipOutputStream().closeEntry();
 		} catch (IOException e) {
@@ -192,24 +179,6 @@ public class FlatComponentSaveStrategy {
 		}
 	}
 	
-	protected void addZipEntry(IArchiveResource resource) throws ArchiveSaveFailureException {
-		try {
-			IPath path = resource.getPath();
-			if (resource.getType() == IArchiveResource.DIRECTORY_TYPE && !path.hasTrailingSeparator()){
-				path = path.addTrailingSeparator();
-			}
-			ZipEntry entry = new ZipEntry(path.toString());
-			if (resource.getLastModified() > 0)
-				entry.setTime(resource.getLastModified());
-			getZipOutputStream().putNextEntry(entry);
-			if (resource.getType() != IArchiveResource.DIRECTORY_TYPE) {
-				ArchiveUtil.copy(resource.getInputStream(), getZipOutputStream());
-			}
-			getZipOutputStream().closeEntry();
-		} catch (IOException e) {
-			throw new ArchiveSaveFailureException(e);
-		}
-	}
 
 	/**
 	 * The FlatVirtualComponent model is what does the grunt of the work
@@ -229,15 +198,6 @@ public class FlatComponentSaveStrategy {
 		return zipOutputStream;
 	}
 
-	private void saveManifest(IArchive archiveToSave) throws FileNotFoundException, ArchiveSaveFailureException {
-		IArchiveResource manifest = null;
-		
-		if (archiveToSave.containsArchiveResource(new Path(J2EEConstants.MANIFEST_URI))) {
-			manifest = archiveToSave.getArchiveResource(new Path(J2EEConstants.MANIFEST_URI));
-			addZipEntry(manifest);
-		}
-	}
-
 	private void saveManifest(List<IFlatResource> resources) throws ArchiveSaveFailureException {
 		IFlatFolder metainf = (FlatFolder)VirtualComponentFlattenUtility.getExistingModuleResource(resources, new Path(J2EEConstants.META_INF));
 		IFlatFile manifest = null;
@@ -247,9 +207,8 @@ public class FlatComponentSaveStrategy {
 			for (int i = 0; i < children.length; i++) {
 				if (children[i].getName().equals(J2EEConstants.MANIFEST_SHORT_NAME)) {
 					manifest = (IFlatFile) children[i];
-					File f = (File)manifest.getAdapter(File.class);
 					IPath entryPath = manifest.getModuleRelativePath().append(manifest.getName());
-					addZipEntry(f, entryPath, false);
+					addZipEntry(manifest, entryPath);
 					break;
 				}
 			}
@@ -287,10 +246,6 @@ public class FlatComponentSaveStrategy {
 
 	public IFlatVirtualComponent getFlatComponent() {
 		return flatComponent;
-	}
-
-	public boolean isExportSource() {
-		return isExportSource;
 	}
 
 

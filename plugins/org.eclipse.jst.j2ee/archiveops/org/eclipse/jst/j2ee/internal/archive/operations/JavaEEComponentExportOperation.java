@@ -10,32 +10,19 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.archive.operations;
 
+import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.jst.common.internal.modulecore.AddClasspathFoldersParticipant;
 import org.eclipse.jst.common.internal.modulecore.AddClasspathLibReferencesParticipant;
-import org.eclipse.jst.common.internal.modulecore.AddMappedOutputFoldersParticipant;
+import org.eclipse.jst.j2ee.internal.common.exportmodel.JavaEEComponentExportCallback;
 import org.eclipse.jst.j2ee.internal.common.exportmodel.ReplaceManifestExportParticipant;
-import org.eclipse.jst.j2ee.internal.common.exportmodel.StandardHierarchyParticipant;
-import org.eclipse.wst.common.componentcore.internal.flat.FilterResourceParticipant;
 import org.eclipse.wst.common.componentcore.internal.flat.IFlattenParticipant;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class JavaEEComponentExportOperation extends ComponentExportOperation {
 
-	public static String[] DOT_FILE_NAMES = new String[] {
-		".project", 	//$NON-NLS-1$
-		".classpath", 	//$NON-NLS-1$
-		".cvsignore", 	//$NON-NLS-1$
-	};
-
-	public static String[] DOT_SOURCE_FILES = new String[] {
-		".java",		//$NON-NLS-1$
-		".sqlj",		//$NON-NLS-1$
-	};
-		
 	public JavaEEComponentExportOperation() {
 		super();
 	}
@@ -46,29 +33,19 @@ public class JavaEEComponentExportOperation extends ComponentExportOperation {
 	
 	@Override
 	protected List<IFlattenParticipant> getParticipants() {		
-		IFlattenParticipant[] participants = new IFlattenParticipant[] {
-				new ReplaceManifestExportParticipant(),
-				new AddClasspathLibReferencesParticipant(),
-				new AddClasspathFoldersParticipant(),
-				new AddMappedOutputFoldersParticipant(),
-				new StandardHierarchyParticipant(),
-				getExtensionFilterParticipant()
-		};
-		return Arrays.asList(participants);
+		List<IFlattenParticipant> participants = new ArrayList<IFlattenParticipant>();
+		participants.addAll(super.getParticipants());
+		participants.add(new ReplaceManifestExportParticipant());
+		participants.add(new AddClasspathLibReferencesParticipant());
+		participants.add(new AddClasspathFoldersParticipant());	
+		
+		return participants;
 	}
 	
+	@Override
+	protected FlatComponentArchiver createFlatComponentArchiver(OutputStream out) {
+		return new FlatComponentArchiver(getComponent(), out, getParticipants(), new JavaEEComponentExportCallback(isExportSource()));
+	}
 	
-	protected IFlattenParticipant getExtensionFilterParticipant() {
-		return FilterResourceParticipant.createSuffixFilterParticipant(getExcludeExtensions());
-	}
-
-	protected String[] getExcludeExtensions() {
-		ArrayList<String> excludeList = new ArrayList<String>();
-		excludeList.addAll(Arrays.asList(DOT_FILE_NAMES));
-		if (!isExportSource()) {
-			excludeList.addAll(Arrays.asList(DOT_SOURCE_FILES));
-		}
-		return excludeList.toArray(new String[excludeList.size()]);
-	}
 	
 }
