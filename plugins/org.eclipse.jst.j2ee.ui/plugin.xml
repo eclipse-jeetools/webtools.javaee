@@ -493,11 +493,11 @@
    </extension> -->
 <!-- Navigator Object Contributions -->
 
-    <extension point="org.eclipse.ui.propertyPages">
+  <!--    <extension point="org.eclipse.ui.propertyPages"> -->
  
      
 <!-- =========== org.eclipse.jst.j2ee.internal.J2EEDependencyPage ============ -->
-      <page
+  <!--       <page
             adaptable="true"
       		objectClass="org.eclipse.core.resources.IProject"
       		name="%J2EEDependenciesPage.name"
@@ -555,7 +555,7 @@
          </enabledWhen>
       </page>
             
-    </extension>
+    </extension> -->
 
 <!--  
 	<extension point="org.eclipse.ltk.core.refactoring.renameParticipants">
@@ -839,12 +839,6 @@
            id="org.eclipse.jst.j2ee.internal.ui.J2EEDependencyPageProvider">
      </dependencyPage>
   </extension>
-  <extension
-        point="org.eclipse.wst.common.modulecore.ui.moduleDependencyPropertyPage">
-     <dependencyPage
-           class="org.eclipse.jst.j2ee.internal.ui.WebModuleDependencyPageProvider"
-           id="org.eclipse.jst.j2ee.internal.ui.WebModuleDependencyPageProvider">
-     </dependencyPage>
-  </extension>
+  
 
 </plugin>

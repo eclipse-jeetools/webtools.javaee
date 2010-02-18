@@ -29,7 +29,8 @@ public class J2EEDependencyPageProvider implements IDependencyPageProvider {
 	protected boolean isJavaEENotEarWeb(IFacetedProject fp) {
 		return fp.hasProjectFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EJB_MODULE)) ||
 				fp.hasProjectFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_APPCLIENT_MODULE)) ||
-						fp.hasProjectFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_CONNECTOR_MODULE));
+						fp.hasProjectFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_CONNECTOR_MODULE)) ||
+						fp.hasProjectFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_UTILITY_MODULE));
 	}
 
 	public IModuleDependenciesControl[] createPages(IFacetedProject project,

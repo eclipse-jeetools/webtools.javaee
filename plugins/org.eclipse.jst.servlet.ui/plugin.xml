@@ -488,4 +488,22 @@
      </factory>
   </extension>
   
+  <extension
+        point="org.eclipse.wst.common.modulecore.ui.moduleDependencyPropertyPage">
+     <dependencyPage
+           class="org.eclipse.jst.servlet.ui.internal.WebModuleDependencyPageProvider"
+           id="org.eclipse.jst.servlet.ui.internal.WebModuleDependencyPageProvider">
+     </dependencyPage>
+  </extension>
+  <extension
+        point="org.eclipse.wst.common.modulecore.ui.referenceWizardFragment">
+     <referenceFragment
+           class="org.eclipse.jst.servlet.ui.internal.CustomWebProjectReferenceWizardFragment"
+           hidden="true"
+           icon="icons/folder.gif"
+           id="org.eclipse.jst.servlet.ui.internal.CustomWebProjectReferenceWizardFragment"
+           name="Project Reference">
+     </referenceFragment>
+  </extension>
+  
 </plugin>

@@ -9,9 +9,10 @@
  *    Rob Stryker - initial implementation and ongoing maintenance
  *    Chuck Bridgham - Additional support
  ******************************************************************************/
-package org.eclipse.jst.j2ee.internal.ui;
+package org.eclipse.jst.servlet.ui.internal;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.jst.j2ee.internal.ui.Messages;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.ui.propertypage.IDependencyPageProvider;
