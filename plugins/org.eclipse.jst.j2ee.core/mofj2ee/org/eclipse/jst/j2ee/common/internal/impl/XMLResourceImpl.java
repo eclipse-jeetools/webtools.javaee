@@ -10,8 +10,14 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.common.internal.impl;
 
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Map;
 
+import org.eclipse.core.internal.resources.Workspace;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.notify.Notifier;
@@ -26,6 +32,7 @@ import org.eclipse.jst.j2ee.internal.xml.J2EEXmlDtDEntityResolver;
 import org.eclipse.wst.common.internal.emf.resource.Renderer;
 import org.eclipse.wst.common.internal.emf.resource.TranslatorResource;
 import org.eclipse.wst.common.internal.emf.resource.TranslatorResourceImpl;
+import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.xml.sax.EntityResolver;
 
 
@@ -37,6 +44,7 @@ public abstract class XMLResourceImpl extends TranslatorResourceImpl implements 
 	  * alt dd */
 	protected Application application;
 	protected boolean isNew = true;
+	private Boolean needsSync = new Boolean(true);
 	
 	
 	private static class RootVersionAdapter extends AdapterImpl {
@@ -282,4 +290,30 @@ public abstract class XMLResourceImpl extends TranslatorResourceImpl implements 
 		return new BigDecimal(String.valueOf(ver)).movePointLeft(1).toString();
 	}
 
+	public void loadExisting(Map options) throws IOException {
+		boolean localNeedsSync = false;
+		synchronized (needsSync) {
+			localNeedsSync = needsSync;
+		}
+		if (localNeedsSync) { // Only check sync once for life of this model
+			IFile file = WorkbenchResourceHelper.getFile(this);
+			if (!file.isSynchronized(IResource.DEPTH_ZERO))
+			{
+				try {
+					Workspace workspace = (Workspace)file.getWorkspace();
+					if (workspace.getElementTree().isImmutable())
+					{
+						workspace.newWorkingTree();
+					}
+					((org.eclipse.core.internal.resources.Resource)file).getLocalManager().refresh(file, IResource.DEPTH_ZERO, true, null);
+				} catch (CoreException e) {
+					throw new org.eclipse.emf.ecore.resource.Resource.IOWrappedException(e);
+				}
+			}
+			synchronized (needsSync) {
+				needsSync = new Boolean(false);
+			}
+		}
+		super.loadExisting(options);
+	}
 }
