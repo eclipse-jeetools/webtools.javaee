@@ -383,7 +383,8 @@ public class EarUtilities extends JavaEEProjectUtilities {
 	public static String getEARLibDir(EARVirtualComponent earComponent) {
 		// check if the EAR component's version is 5 or greater
 		IProject earProject = earComponent.getProject();
-		if (!JavaEEProjectUtilities.isJEEComponent(earComponent, JavaEEProjectUtilities.DD_VERSION)) {
+		if (!JavaEEProjectUtilities.isJEEComponent(earComponent, JavaEEProjectUtilities.DD_VERSION)
+				|| !JavaEEProjectUtilities.isJEEComponent(earComponent, JavaEEProjectUtilities.FACET_VERSION)) {
 			return null;
 		}
 		
