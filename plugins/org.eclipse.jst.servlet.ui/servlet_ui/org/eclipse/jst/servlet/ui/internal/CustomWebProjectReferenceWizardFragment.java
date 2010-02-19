@@ -13,11 +13,15 @@ package org.eclipse.jst.servlet.ui.internal;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -129,4 +133,12 @@ public class CustomWebProjectReferenceWizardFragment extends ProjectReferenceWiz
 		return name;
 	}
 
+	@Override
+	public void performFinish(IProgressMonitor monitor) throws CoreException {
+		if(!JavaEEProjectUtilities.isUtilityProject(selected))
+		{
+			J2EEProjectUtilities.createFlexJavaProjectForProjectOperation(selected).execute(monitor, null);
+		}
+		super.performFinish(monitor);
+	}
 }
