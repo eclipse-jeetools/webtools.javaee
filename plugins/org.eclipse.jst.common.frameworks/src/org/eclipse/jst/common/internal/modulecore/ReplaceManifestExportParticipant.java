@@ -8,7 +8,7 @@
  * Contributors:
  *     Red Hat - Initial API and implementation
  *******************************************************************************/
-package org.eclipse.jst.j2ee.internal.common.exportmodel;
+package org.eclipse.jst.common.internal.modulecore;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -19,18 +19,13 @@ import java.util.List;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants;
-import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
-import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyManifestUtil;
-import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.common.frameworks.CommonFrameworksPlugin;
+import org.eclipse.jst.common.internal.modulecore.util.ManifestUtilities;
 import org.eclipse.wst.common.componentcore.internal.flat.AbstractFlattenParticipant;
-import org.eclipse.wst.common.componentcore.internal.flat.VirtualComponentFlattenUtility;
 import org.eclipse.wst.common.componentcore.internal.flat.FlatFile;
-import org.eclipse.wst.common.componentcore.internal.flat.FlatFolder;
 import org.eclipse.wst.common.componentcore.internal.flat.IFlatFolder;
 import org.eclipse.wst.common.componentcore.internal.flat.IFlatResource;
+import org.eclipse.wst.common.componentcore.internal.flat.VirtualComponentFlattenUtility;
 import org.eclipse.wst.common.componentcore.internal.flat.FlatVirtualComponent.FlatComponentTaskModel;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
@@ -43,8 +38,12 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
  *
  */
 public class ReplaceManifestExportParticipant extends AbstractFlattenParticipant {
-	protected static final IPath MANIFEST_PATH = new Path(J2EEConstants.MANIFEST_URI);
-	private List<String> javaClasspathURIs = null;
+	//protected static final IPath MANIFEST_PATH = new Path(J2EEConstants.MANIFEST_URI);
+	private IPath manifestPath;
+	
+	public ReplaceManifestExportParticipant(IPath manifestPath) {
+		this.manifestPath = manifestPath;
+	}
 	
 	@Override
 	public void finalize(IVirtualComponent component,
@@ -54,21 +53,24 @@ public class ReplaceManifestExportParticipant extends AbstractFlattenParticipant
 	
 	public void forceUpdate(IVirtualComponent component,
 			FlatComponentTaskModel dataModel, List<IFlatResource> resources) {
-		if( !getClasspathURIs(component).isEmpty()) {
+		List<String> javaClasspathURIs = getClasspathURIs(component);
+		if( !javaClasspathURIs.isEmpty()) {
 			// find the old manifest
-			IFlatFolder parent = (FlatFolder)VirtualComponentFlattenUtility.getExistingModuleResource(resources, new Path(J2EEConstants.META_INF));
-			IFlatResource[] children = parent.members();
-			IFile original = null;
-			int originalIndex = 0;
-			for( int i = 0; i < children.length; i++) {
-				if( children[i].getName().equals(J2EEConstants.MANIFEST_SHORT_NAME)) {
-					original = (IFile)children[i].getAdapter(IFile.class);
-					originalIndex = i;
-					File newManifest = getNewManifest(component.getProject(), original, javaClasspathURIs);
-					FlatFile newManifestExportable = new FlatFile(newManifest, newManifest.getName(), new Path(J2EEConstants.META_INF));
-					children[originalIndex] = newManifestExportable;
-					parent.setMembers(children);
-					return;
+			IFlatFolder parent = (IFlatFolder)VirtualComponentFlattenUtility.getExistingModuleResource(resources, manifestPath.removeLastSegments(1));
+			if( parent != null ) {
+				IFlatResource[] children = parent.members();
+				IFile original = null;
+				int originalIndex = 0;
+				for( int i = 0; i < children.length; i++) {
+					if( children[i].getName().equals(manifestPath.lastSegment())) {
+						original = (IFile)children[i].getAdapter(IFile.class);
+						originalIndex = i;
+						File newManifest = getNewManifest(component.getProject(), original, javaClasspathURIs);
+						FlatFile newManifestExportable = new FlatFile(newManifest, newManifest.getName(), manifestPath.removeLastSegments(1));
+						children[originalIndex] = newManifestExportable;
+						parent.setMembers(children);
+						return;
+					}
 				}
 			}
 		}
@@ -78,10 +80,10 @@ public class ReplaceManifestExportParticipant extends AbstractFlattenParticipant
 	 * Return whichever File is the new one, even if it's the same as the old one
 	 * @return
 	 */
-	public static File getNewManifest(IProject project, IFile originalManifest, List<String> javaClasspathURIs) {
-		final IPath workingLocation = project.getWorkingLocation(J2EEPlugin.PLUGIN_ID);
+	public File getNewManifest(IProject project, IFile originalManifest, List<String> javaClasspathURIs) {
+		final IPath workingLocation = project.getWorkingLocation(CommonFrameworksPlugin.PLUGIN_ID);
 		// create path to temp MANIFEST.MF 
-		final IPath tempManifestPath = workingLocation.append(MANIFEST_PATH);
+		final IPath tempManifestPath = workingLocation.append(manifestPath);
 		final File tempFile = tempManifestPath.toFile();
 		if (!tempFile.exists()) {
 			// create parent dirs for temp MANIFEST.MF
@@ -93,7 +95,7 @@ public class ReplaceManifestExportParticipant extends AbstractFlattenParticipant
 			}
 		}
 		try {	
-			ClasspathDependencyManifestUtil.updateManifestClasspath(originalManifest, javaClasspathURIs, tempFile);
+			ManifestUtilities.updateManifestClasspath(originalManifest, javaClasspathURIs, tempFile);
 		} catch (FileNotFoundException e) {
 		} catch (IOException e) {
 		}
@@ -101,23 +103,15 @@ public class ReplaceManifestExportParticipant extends AbstractFlattenParticipant
 			originalManifest != null ? originalManifest.getLocation().toFile() : null;
 	}
 	
-	
-	protected List<String> getClasspathURIs(IVirtualComponent component) {
-		if( javaClasspathURIs == null ) {
-			javaClasspathURIs = loadClasspathURIs(component);
-		}
-		return javaClasspathURIs;
-	}
-	
-	public static List<String> loadClasspathURIs(IVirtualComponent component) {
+	public static List<String> getClasspathURIs(IVirtualComponent component) {
 		ArrayList<String> uris = new ArrayList<String>();
 		uris = new ArrayList<String>();
-		if (component instanceof J2EEModuleVirtualComponent) {
-			final J2EEModuleVirtualComponent j2eeComp = (J2EEModuleVirtualComponent) component;
+		if (component instanceof IClasspathDependencyProvider) {
+			final IClasspathDependencyProvider j2eeComp = (IClasspathDependencyProvider) component;
 			final IVirtualReference[] refs = j2eeComp.getJavaClasspathReferences();
 			if (refs != null) {
 				for (int i = 0; i < refs.length; i++) {
-					if (refs[i].getRuntimePath().equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH)) {
+					if (refs[i].getRuntimePath().equals(IClasspathDependencyReceiver.RUNTIME_MAPPING_INTO_CONTAINER)) {
 						uris.add(refs[i].getArchiveName());
 					}
 				}

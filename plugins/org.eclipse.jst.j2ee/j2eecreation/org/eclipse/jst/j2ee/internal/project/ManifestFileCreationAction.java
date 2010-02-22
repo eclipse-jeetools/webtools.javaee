@@ -17,6 +17,11 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jem.util.emf.workbench.WorkbenchByteArrayOutputStream;
 
+/**
+ * 
+ * @deprecated - see {@link org.eclipse.jst.common.internal.modulecore.util.ManifestUtilities
+ */
+@Deprecated
 public class ManifestFileCreationAction {
 
 	public static final String MANIFEST_HEADER = "Manifest-Version: 1.0\r\nClass-Path: \r\n\r\n"; //$NON-NLS-1$
@@ -24,10 +29,15 @@ public class ManifestFileCreationAction {
 	/**
 	 * Constructor for ManifestFileCreationAction.
 	 */
+	@Deprecated
 	public ManifestFileCreationAction() {
 		super();
 	}
 
+	/**
+	 * 
+	 * @deprecated - see {@link org.eclipse.jst.common.internal.modulecore.ManifestUtilities.createManifestFile(IFile file)
+	 */
 	public static void createManifestFile(IFile file, IProject aJ2EEProject) throws CoreException, IOException {
 		try {
 			WorkbenchByteArrayOutputStream out = new WorkbenchByteArrayOutputStream(file);

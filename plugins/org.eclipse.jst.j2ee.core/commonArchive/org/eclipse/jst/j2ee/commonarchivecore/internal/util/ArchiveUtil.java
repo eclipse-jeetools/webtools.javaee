@@ -18,9 +18,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
@@ -34,6 +32,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.emf.ecore.resource.impl.URIMappingRegistryImpl;
 import org.eclipse.jem.java.JavaURL;
+import org.eclipse.jst.common.internal.modulecore.util.ManifestUtilities;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveResourceHandler;
@@ -455,33 +454,20 @@ public class ArchiveUtil {
 		return tempDirectoryName;
 	}
 
+	
 	public static String[] getTokens(String aString) {
-		return getTokens(aString, null);
+		return ManifestUtilities.getTokens(aString, null);
 	}
 
 	public static String[] getTokens(String aString, String delimiter) {
-
-		StringTokenizer tok = (delimiter == null) ? new StringTokenizer(aString) : new StringTokenizer(aString, delimiter);
-		int size = tok.countTokens();
-		String[] tokens = new String[size];
-		for (int i = 0; i < size && tok.hasMoreTokens(); i++) {
-			tokens[i] = tok.nextToken();
-		}
-		return tokens;
+		return ManifestUtilities.getTokens(aString, delimiter);
 	}
 
 	/**
 	 * getValueIgnoreKeyCase method comment.
 	 */
 	public static java.lang.String getValueIgnoreKeyCase(java.lang.String key, java.util.jar.Attributes attr) {
-		Iterator keysAndValues = attr.entrySet().iterator();
-		while (keysAndValues.hasNext()) {
-			Map.Entry entry = (Map.Entry) keysAndValues.next();
-			String entryKey = entry.getKey().toString();
-			if (entryKey.equalsIgnoreCase(key))
-				return entry.getValue() == null ? null : entry.getValue().toString();
-		}
-		return null;
+		return ManifestUtilities.getValueIgnoreKeyCase(key, attr);
 	}
 
 	public static void inform(String message) {

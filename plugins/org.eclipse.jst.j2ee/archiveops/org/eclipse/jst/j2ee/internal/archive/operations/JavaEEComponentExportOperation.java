@@ -14,10 +14,12 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.common.internal.modulecore.AddClasspathFoldersParticipant;
 import org.eclipse.jst.common.internal.modulecore.AddClasspathLibReferencesParticipant;
+import org.eclipse.jst.common.internal.modulecore.ReplaceManifestExportParticipant;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.exportmodel.JavaEEComponentExportCallback;
-import org.eclipse.jst.j2ee.internal.common.exportmodel.ReplaceManifestExportParticipant;
 import org.eclipse.wst.common.componentcore.internal.flat.IFlattenParticipant;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -35,7 +37,7 @@ public class JavaEEComponentExportOperation extends ComponentExportOperation {
 	protected List<IFlattenParticipant> getParticipants() {		
 		List<IFlattenParticipant> participants = new ArrayList<IFlattenParticipant>();
 		participants.addAll(super.getParticipants());
-		participants.add(new ReplaceManifestExportParticipant());
+		participants.add(new ReplaceManifestExportParticipant(new Path(J2EEConstants.MANIFEST_URI)));
 		participants.add(new AddClasspathLibReferencesParticipant());
 		participants.add(new AddClasspathFoldersParticipant());	
 		

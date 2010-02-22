@@ -20,6 +20,7 @@ import java.util.zip.ZipFile;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jst.common.internal.modulecore.util.ManifestUtilities;
 import org.eclipse.jst.jee.archive.AbstractArchiveLoadAdapter;
 import org.eclipse.jst.jee.archive.ArchiveModelLoadException;
 import org.eclipse.jst.jee.archive.IArchiveResource;
@@ -93,46 +94,9 @@ public class ZipFileArchiveLoadAdapterImpl extends AbstractArchiveLoadAdapter {
 
 	@Override
 	public java.io.InputStream getInputStream(IArchiveResource aFile) throws IOException, FileNotFoundException {
-		try {
-			IPath path = aFile.getPath();
-			String uri = path.toString();
-			ZipEntry entry = getZipFile().getEntry(uri);
-			if (entry == null) {
-				// this is a hack, but zip files are sensitive to the difference
-				// between '/' and '\\'
-				// so the hack is to try all combinations to see if any exist
-				char[] chars = uri.toCharArray();
-				int[] slashIndices = new int[chars.length];
-				int slashCount = 0;
-				for (int i = 0; i < uri.length(); i++) {
-					if (chars[i] == '/' || chars[i] == '\\') {
-						slashIndices[slashCount] = i;
-						slashCount++;
-					}
-				}
-				int slashPow = (int) Math.pow(2, slashCount);
-				boolean foundIt = false;
-				for (int i = 0; i < slashPow && !foundIt; i++) {
-					for (int j = 0; j < slashCount; j++) {
-						if ((i >> j & 1) == 1) {
-							chars[slashIndices[j]] = '/';
-						} else {
-							chars[slashIndices[j]] = '\\';
-						}
-					}
-					entry = getZipFile().getEntry(new String(chars));
-					if (entry != null) {
-						foundIt = true;
-					}
-				}
-				if (entry == null) {
-					throw new FileNotFoundException(uri);
-				}
-			}
-			return new java.io.BufferedInputStream(getZipFile().getInputStream(entry));
-		} catch (IllegalStateException zipClosed) {
-			throw new IOException(zipClosed.toString());
-		}
+		IPath path = aFile.getPath();
+		String uri = path.toString();
+		return ManifestUtilities.getInputstreamForZipEntry(getZipFile(), uri);
 	}
 
 	public java.util.zip.ZipFile getZipFile() {

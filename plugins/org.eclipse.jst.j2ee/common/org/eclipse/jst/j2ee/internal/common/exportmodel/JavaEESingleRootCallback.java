@@ -20,6 +20,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.common.internal.modulecore.ISingleRootStatus;
+import org.eclipse.jst.common.internal.modulecore.ReplaceManifestExportParticipant;
 import org.eclipse.jst.common.internal.modulecore.SingleRootUtil;
 import org.eclipse.jst.common.internal.modulecore.SingleRootExportParticipant.SingleRootParticipantCallback;
 import org.eclipse.jst.common.jdt.internal.javalite.JavaCoreLite;
@@ -199,7 +200,7 @@ public class JavaEESingleRootCallback implements SingleRootParticipantCallback {
 			@Override
 			public void finalize(IVirtualComponent component, 
 					FlatComponentTaskModel dataModel, List<IFlatResource> resources) {
-				new ReplaceManifestExportParticipant().forceUpdate(component, dataModel, resources);
+				new ReplaceManifestExportParticipant(new Path(J2EEConstants.MANIFEST_URI)).forceUpdate(component, dataModel, resources);
 			}
 		};
 	}

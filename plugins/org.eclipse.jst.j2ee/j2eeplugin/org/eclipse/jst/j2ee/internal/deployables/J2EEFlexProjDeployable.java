@@ -25,6 +25,7 @@ import org.eclipse.jst.common.internal.modulecore.AddClasspathFoldersParticipant
 import org.eclipse.jst.common.internal.modulecore.AddClasspathLibReferencesParticipant;
 import org.eclipse.jst.common.internal.modulecore.AddMappedOutputFoldersParticipant;
 import org.eclipse.jst.common.internal.modulecore.IgnoreJavaInSourceFolderParticipant;
+import org.eclipse.jst.common.internal.modulecore.ReplaceManifestExportParticipant;
 import org.eclipse.jst.common.internal.modulecore.SingleRootExportParticipant;
 import org.eclipse.jst.common.internal.modulecore.SingleRootUtil;
 import org.eclipse.jst.common.jdt.internal.javalite.JavaLiteUtilities;
@@ -35,7 +36,6 @@ import org.eclipse.jst.j2ee.internal.IEJBModelExtenderManager;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.exportmodel.JEEHeirarchyExportParticipant;
 import org.eclipse.jst.j2ee.internal.common.exportmodel.JavaEESingleRootCallback;
-import org.eclipse.jst.j2ee.internal.common.exportmodel.ReplaceManifestExportParticipant;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.server.core.IApplicationClientModule;
@@ -97,7 +97,7 @@ public class J2EEFlexProjDeployable extends FlatComponentDeployable implements
 				new AddClasspathLibReferencesParticipant(),
 				new AddClasspathFoldersParticipant(),
 				new AddMappedOutputFoldersParticipant(),
-				new ReplaceManifestExportParticipant(),
+				new ReplaceManifestExportParticipant(new Path(J2EEConstants.MANIFEST_URI)),
 				new IgnoreJavaInSourceFolderParticipant()
 		};
 	}

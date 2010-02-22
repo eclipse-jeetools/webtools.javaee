@@ -15,15 +15,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
+import org.eclipse.jst.common.internal.modulecore.util.ManifestUtilities;
 import org.eclipse.jst.jee.archive.ArchiveSaveFailureException;
 
 
@@ -247,40 +245,6 @@ public class ArchiveUtil {
 	 * @throws IOException
 	 */
 	public static ZipFile newZipFile(File aFile, int mode) throws ZipException, IOException {
-		return new ZipFile(aFile, mode){
-			Collection <InputStream> openStreams = null;
-			
-			@Override
-			public InputStream getInputStream(ZipEntry entry) throws IOException {
-				InputStream in = super.getInputStream(entry);
-				if(in != null){
-					if(openStreams == null){
-						openStreams = new ArrayList<InputStream>();
-					}
-					openStreams.add(in);
-				}
-				return in;
-			}
-			
-			@Override
-			public void close() throws IOException {
-				closeOpenStreams();
-				super.close();
-			}
-
-			private void closeOpenStreams() {
-				if(openStreams != null){
-					for (Iterator iterator = openStreams.iterator(); iterator.hasNext();) {
-						InputStream in = (InputStream) iterator.next();
-						try {
-							in.close();
-						} catch (IOException e) {
-							warn(e);
-						}
-						iterator.remove();
-					}
-				}
-			}
-		};
+		return ManifestUtilities.newZipFile(aFile, mode);
 	}
 }

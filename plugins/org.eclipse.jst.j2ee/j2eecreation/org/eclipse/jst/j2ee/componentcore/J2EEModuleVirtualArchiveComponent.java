@@ -14,8 +14,9 @@ import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.jst.common.internal.modulecore.util.ManifestUtilities;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualReference;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
@@ -43,13 +44,7 @@ public class J2EEModuleVirtualArchiveComponent extends VirtualArchiveComponent {
 
 	public String[] getManifestClasspath() {
 		if (null == manifestClasspath) {
-			ArchiveManifest manifest = J2EEProjectUtilities.readManifest(this);
-			if (manifest != null) {
-				manifestClasspath = manifest.getClassPathTokenized();
-			}
-			if (manifestClasspath == null) {
-				manifestClasspath = new String[0];
-			}
+			manifestClasspath = ManifestUtilities.getManifestClasspath(this , new Path(J2EEConstants.MANIFEST_URI));
 		}
 		return manifestClasspath;
 	}
