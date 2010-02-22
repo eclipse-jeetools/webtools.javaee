@@ -301,18 +301,18 @@ public class CreateServletTemplateModel extends CreateWebClassTemplateModel {
 	}
 	
 	public String getJavaEE6AnnotationParameters(){
-		String result = "(";
+		String result = "("; //$NON-NLS-1$
 		if (!getClassName().equals(getServletName())){
-			result+="name=\""+getServletName()+"\"";
+			result+="name=\""+getServletName()+"\""; //$NON-NLS-1$ //$NON-NLS-2$
 		}
 		List<String[]> servletMappings = getServletMappings();
 		if (servletMappings != null && servletMappings.size()>0){
 			if (result.length() > 1){
-				result+=", ";
+				result+=", "; //$NON-NLS-1$
 			}
-			result+="urlPatterns={";
+			result+="urlPatterns={"; //$NON-NLS-1$
 			for (String[] strings : servletMappings) {
-				result+="\""+strings[0]+"\",";
+				result+="\""+strings[0]+"\","; //$NON-NLS-1$ //$NON-NLS-2$
 			}
 			result = result.substring(0, result.length()-1);
 			result+='}';
@@ -321,21 +321,21 @@ public class CreateServletTemplateModel extends CreateWebClassTemplateModel {
 		List<String[]> initParams = getInitParams();
 		if (initParams != null && initParams.size()>0){
 			if (result.length() > 1){
-				result+=", ";
+				result+=", "; //$NON-NLS-1$
 			}
-			result+="initParams={";
+			result+="initParams={"; //$NON-NLS-1$
 			for (String[] iParams : initParams) {
-				result+=generateInitParamAnnotation(iParams[0], iParams[1]) + ",";
+				result+=generateInitParamAnnotation(iParams[0], iParams[1]) + ","; //$NON-NLS-1$
 			}
 			result = result.substring(0, result.length()-1);
-			result+="}";
+			result+="}"; //$NON-NLS-1$
 		}
-		result+=")";
+		result+=")"; //$NON-NLS-1$
 		return result.length() > 2 ? result : ""; //$NON-NLS-1$
 	}
 	
 	private String generateInitParamAnnotation(String name, String value){
-		return "@WebInitParam(name=\""+name+"\", value=\""+value+"\")";
+		return "@WebInitParam(name=\""+name+"\", value=\""+value+"\")"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 	}
 
 }

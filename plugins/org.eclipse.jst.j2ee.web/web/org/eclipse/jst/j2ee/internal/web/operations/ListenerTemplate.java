@@ -14,47 +14,47 @@ public class ListenerTemplate
     return result;
   }
 
-  public final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
-  protected final String TEXT_1 = "package ";
-  protected final String TEXT_2 = ";";
+  public final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl; //$NON-NLS-1$
+  protected final String TEXT_1 = "package "; //$NON-NLS-1$
+  protected final String TEXT_2 = ";"; //$NON-NLS-1$
   protected final String TEXT_3 = NL;
-  protected final String TEXT_4 = NL + "import ";
-  protected final String TEXT_5 = ";";
+  protected final String TEXT_4 = NL + "import "; //$NON-NLS-1$
+  protected final String TEXT_5 = ";"; //$NON-NLS-1$
   protected final String TEXT_6 = NL;
   protected final String TEXT_7 = NL;
-  protected final String TEXT_8 = "/**" + NL + " * Application Lifecycle Listener implementation class ";
-  protected final String TEXT_9 = NL + " *";
-  protected final String TEXT_10 = NL + " * @web.listener";
-  protected final String TEXT_11 = NL + " */";
-  protected final String TEXT_12 = NL + "@WebListener";
-  protected final String TEXT_13 = NL + "public ";
-  protected final String TEXT_14 = "abstract ";
-  protected final String TEXT_15 = "final ";
-  protected final String TEXT_16 = "class ";
-  protected final String TEXT_17 = " extends ";
-  protected final String TEXT_18 = " implements ";
-  protected final String TEXT_19 = ", ";
-  protected final String TEXT_20 = " {";
-  protected final String TEXT_21 = NL + NL + "    /**" + NL + "     * Default constructor. " + NL + "     */" + NL + "    public ";
-  protected final String TEXT_22 = "() {" + NL + "        // TODO Auto-generated constructor stub" + NL + "    }";
-  protected final String TEXT_23 = NL + "       " + NL + "    /**" + NL + "     * @see ";
-  protected final String TEXT_24 = "#";
-  protected final String TEXT_25 = "(";
-  protected final String TEXT_26 = ")" + NL + "     */" + NL + "    public ";
-  protected final String TEXT_27 = "(";
-  protected final String TEXT_28 = ") {" + NL + "        super(";
-  protected final String TEXT_29 = ");" + NL + "        // TODO Auto-generated constructor stub" + NL + "    }";
-  protected final String TEXT_30 = NL + NL + "\t/**" + NL + "     * @see ";
-  protected final String TEXT_31 = "#";
-  protected final String TEXT_32 = "(";
-  protected final String TEXT_33 = ")" + NL + "     */" + NL + "    public ";
-  protected final String TEXT_34 = " ";
-  protected final String TEXT_35 = "(";
-  protected final String TEXT_36 = ") {" + NL + "        // TODO Auto-generated method stub";
-  protected final String TEXT_37 = NL + "\t\t\treturn ";
-  protected final String TEXT_38 = ";";
-  protected final String TEXT_39 = NL + "    }";
-  protected final String TEXT_40 = NL + "\t" + NL + "}";
+  protected final String TEXT_8 = "/**" + NL + " * Application Lifecycle Listener implementation class "; //$NON-NLS-1$ //$NON-NLS-2$
+  protected final String TEXT_9 = NL + " *"; //$NON-NLS-1$
+  protected final String TEXT_10 = NL + " * @web.listener"; //$NON-NLS-1$
+  protected final String TEXT_11 = NL + " */"; //$NON-NLS-1$
+  protected final String TEXT_12 = NL + "@WebListener"; //$NON-NLS-1$
+  protected final String TEXT_13 = NL + "public "; //$NON-NLS-1$
+  protected final String TEXT_14 = "abstract "; //$NON-NLS-1$
+  protected final String TEXT_15 = "final "; //$NON-NLS-1$
+  protected final String TEXT_16 = "class "; //$NON-NLS-1$
+  protected final String TEXT_17 = " extends "; //$NON-NLS-1$
+  protected final String TEXT_18 = " implements "; //$NON-NLS-1$
+  protected final String TEXT_19 = ", "; //$NON-NLS-1$
+  protected final String TEXT_20 = " {"; //$NON-NLS-1$
+  protected final String TEXT_21 = NL + NL + "    /**" + NL + "     * Default constructor. " + NL + "     */" + NL + "    public "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+  protected final String TEXT_22 = "() {" + NL + "        // TODO Auto-generated constructor stub" + NL + "    }"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+  protected final String TEXT_23 = NL + "       " + NL + "    /**" + NL + "     * @see "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+  protected final String TEXT_24 = "#"; //$NON-NLS-1$
+  protected final String TEXT_25 = "("; //$NON-NLS-1$
+  protected final String TEXT_26 = ")" + NL + "     */" + NL + "    public "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+  protected final String TEXT_27 = "("; //$NON-NLS-1$
+  protected final String TEXT_28 = ") {" + NL + "        super("; //$NON-NLS-1$ //$NON-NLS-2$
+  protected final String TEXT_29 = ");" + NL + "        // TODO Auto-generated constructor stub" + NL + "    }"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+  protected final String TEXT_30 = NL + NL + "\t/**" + NL + "     * @see "; //$NON-NLS-1$ //$NON-NLS-2$
+  protected final String TEXT_31 = "#"; //$NON-NLS-1$
+  protected final String TEXT_32 = "("; //$NON-NLS-1$
+  protected final String TEXT_33 = ")" + NL + "     */" + NL + "    public "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+  protected final String TEXT_34 = " "; //$NON-NLS-1$
+  protected final String TEXT_35 = "("; //$NON-NLS-1$
+  protected final String TEXT_36 = ") {" + NL + "        // TODO Auto-generated method stub"; //$NON-NLS-1$ //$NON-NLS-2$
+  protected final String TEXT_37 = NL + "\t\t\treturn "; //$NON-NLS-1$
+  protected final String TEXT_38 = ";"; //$NON-NLS-1$
+  protected final String TEXT_39 = NL + "    }"; //$NON-NLS-1$
+  protected final String TEXT_40 = NL + "\t" + NL + "}"; //$NON-NLS-1$ //$NON-NLS-2$
   protected final String TEXT_41 = NL;
 
   public String generate(Object argument)
@@ -98,7 +98,7 @@ public class ListenerTemplate
 
     stringBuffer.append(TEXT_11);
      
-	if ("3.0".equals(model.getJavaEEVersion())) { 
+	if ("3.0".equals(model.getJavaEEVersion())) {  //$NON-NLS-1$
 
     stringBuffer.append(TEXT_12);
     

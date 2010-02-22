@@ -14,71 +14,71 @@ public class ServletTemplate
     return result;
   }
 
-  public final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
-  protected final String TEXT_1 = "package ";
-  protected final String TEXT_2 = ";";
+  public final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl; //$NON-NLS-1$
+  protected final String TEXT_1 = "package "; //$NON-NLS-1$
+  protected final String TEXT_2 = ";"; //$NON-NLS-1$
   protected final String TEXT_3 = NL;
-  protected final String TEXT_4 = NL + "import ";
-  protected final String TEXT_5 = ";";
+  protected final String TEXT_4 = NL + "import "; //$NON-NLS-1$
+  protected final String TEXT_5 = ";"; //$NON-NLS-1$
   protected final String TEXT_6 = NL;
   protected final String TEXT_7 = NL;
-  protected final String TEXT_8 = "/**" + NL + " * Servlet implementation class ";
-  protected final String TEXT_9 = NL + " *" + NL + " * @web.servlet" + NL + " *   name=\"";
-  protected final String TEXT_10 = "\"" + NL + " *   display-name=\"";
-  protected final String TEXT_11 = "\"";
-  protected final String TEXT_12 = NL + " *   description=\"";
-  protected final String TEXT_13 = "\"";
-  protected final String TEXT_14 = NL + " *" + NL + " * @web.servlet-mapping" + NL + " *   url-pattern=\"";
-  protected final String TEXT_15 = "\"";
-  protected final String TEXT_16 = NL + " *" + NL + " * @web.servlet-init-param" + NL + " *    name=\"";
-  protected final String TEXT_17 = "\"" + NL + " *    value=\"";
-  protected final String TEXT_18 = "\"";
-  protected final String TEXT_19 = NL + " *    description=\"";
-  protected final String TEXT_20 = "\"";
-  protected final String TEXT_21 = NL + " */";
-  protected final String TEXT_22 = NL + "@WebServlet";
-  protected final String TEXT_23 = NL + "public ";
-  protected final String TEXT_24 = "abstract ";
-  protected final String TEXT_25 = "final ";
-  protected final String TEXT_26 = "class ";
-  protected final String TEXT_27 = " extends ";
-  protected final String TEXT_28 = " implements ";
-  protected final String TEXT_29 = ", ";
-  protected final String TEXT_30 = " {";
-  protected final String TEXT_31 = NL + "\tprivate static final long serialVersionUID = 1L;";
-  protected final String TEXT_32 = NL + NL + "    /**" + NL + "     * Default constructor. " + NL + "     */" + NL + "    public ";
-  protected final String TEXT_33 = "() {" + NL + "        // TODO Auto-generated constructor stub" + NL + "    }";
-  protected final String TEXT_34 = NL + "       " + NL + "    /**" + NL + "     * @see ";
-  protected final String TEXT_35 = "#";
-  protected final String TEXT_36 = "(";
-  protected final String TEXT_37 = ")" + NL + "     */" + NL + "    public ";
-  protected final String TEXT_38 = "(";
-  protected final String TEXT_39 = ") {" + NL + "        super(";
-  protected final String TEXT_40 = ");" + NL + "        // TODO Auto-generated constructor stub" + NL + "    }";
-  protected final String TEXT_41 = NL + NL + "\t/**" + NL + "     * @see ";
-  protected final String TEXT_42 = "#";
-  protected final String TEXT_43 = "(";
-  protected final String TEXT_44 = ")" + NL + "     */" + NL + "    public ";
-  protected final String TEXT_45 = " ";
-  protected final String TEXT_46 = "(";
-  protected final String TEXT_47 = ") {" + NL + "        // TODO Auto-generated method stub";
-  protected final String TEXT_48 = NL + "\t\t\treturn ";
-  protected final String TEXT_49 = ";";
-  protected final String TEXT_50 = NL + "    }";
-  protected final String TEXT_51 = NL + NL + "\t/**" + NL + "\t * @see Servlet#init(ServletConfig)" + NL + "\t */" + NL + "\tpublic void init(ServletConfig config) throws ServletException {" + NL + "\t\t// TODO Auto-generated method stub" + NL + "\t}";
-  protected final String TEXT_52 = NL + NL + "\t/**" + NL + "\t * @see Servlet#destroy()" + NL + "\t */" + NL + "\tpublic void destroy() {" + NL + "\t\t// TODO Auto-generated method stub" + NL + "\t}";
-  protected final String TEXT_53 = NL + NL + "\t/**" + NL + "\t * @see Servlet#getServletConfig()" + NL + "\t */" + NL + "\tpublic ServletConfig getServletConfig() {" + NL + "\t\t// TODO Auto-generated method stub" + NL + "\t\treturn null;" + NL + "\t}";
-  protected final String TEXT_54 = NL + NL + "\t/**" + NL + "\t * @see Servlet#getServletInfo()" + NL + "\t */" + NL + "\tpublic String getServletInfo() {" + NL + "\t\t// TODO Auto-generated method stub" + NL + "\t\treturn null; " + NL + "\t}";
-  protected final String TEXT_55 = NL + NL + "\t/**" + NL + "\t * @see Servlet#service(ServletRequest request, ServletResponse response)" + NL + "\t */" + NL + "\tpublic void service(ServletRequest request, ServletResponse response) throws ServletException, IOException {" + NL + "\t\t// TODO Auto-generated method stub" + NL + "\t}";
-  protected final String TEXT_56 = NL + NL + "\t/**" + NL + "\t * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)" + NL + "\t */" + NL + "\tprotected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {" + NL + "\t\t// TODO Auto-generated method stub" + NL + "\t}";
-  protected final String TEXT_57 = NL + NL + "\t/**" + NL + "\t * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)" + NL + "\t */" + NL + "\tprotected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {" + NL + "\t\t// TODO Auto-generated method stub" + NL + "\t}";
-  protected final String TEXT_58 = NL + NL + "\t/**" + NL + "\t * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)" + NL + "\t */" + NL + "\tprotected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {" + NL + "\t\t// TODO Auto-generated method stub" + NL + "\t}";
-  protected final String TEXT_59 = NL + NL + "\t/**" + NL + "\t * @see HttpServlet#doPut(HttpServletRequest, HttpServletResponse)" + NL + "\t */" + NL + "\tprotected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {" + NL + "\t\t// TODO Auto-generated method stub" + NL + "\t}";
-  protected final String TEXT_60 = NL + NL + "\t/**" + NL + "\t * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)" + NL + "\t */" + NL + "\tprotected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {" + NL + "\t\t// TODO Auto-generated method stub" + NL + "\t}";
-  protected final String TEXT_61 = NL + NL + "\t/**" + NL + "\t * @see HttpServlet#doHead(HttpServletRequest, HttpServletResponse)" + NL + "\t */" + NL + "\tprotected void doHead(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {" + NL + "\t\t// TODO Auto-generated method stub" + NL + "\t}";
-  protected final String TEXT_62 = NL + NL + "\t/**" + NL + "\t * @see HttpServlet#doOptions(HttpServletRequest, HttpServletResponse)" + NL + "\t */" + NL + "\tprotected void doOptions(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {" + NL + "\t\t// TODO Auto-generated method stub" + NL + "\t}";
-  protected final String TEXT_63 = NL + NL + "\t/**" + NL + "\t * @see HttpServlet#doTrace(HttpServletRequest, HttpServletResponse)" + NL + "\t */" + NL + "\tprotected void doTrace(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {" + NL + "\t\t// TODO Auto-generated method stub" + NL + "\t}";
-  protected final String TEXT_64 = NL + NL + "}";
+  protected final String TEXT_8 = "/**" + NL + " * Servlet implementation class "; //$NON-NLS-1$ //$NON-NLS-2$
+  protected final String TEXT_9 = NL + " *" + NL + " * @web.servlet" + NL + " *   name=\""; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+  protected final String TEXT_10 = "\"" + NL + " *   display-name=\""; //$NON-NLS-1$ //$NON-NLS-2$
+  protected final String TEXT_11 = "\""; //$NON-NLS-1$
+  protected final String TEXT_12 = NL + " *   description=\""; //$NON-NLS-1$
+  protected final String TEXT_13 = "\""; //$NON-NLS-1$
+  protected final String TEXT_14 = NL + " *" + NL + " * @web.servlet-mapping" + NL + " *   url-pattern=\""; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+  protected final String TEXT_15 = "\""; //$NON-NLS-1$
+  protected final String TEXT_16 = NL + " *" + NL + " * @web.servlet-init-param" + NL + " *    name=\""; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+  protected final String TEXT_17 = "\"" + NL + " *    value=\""; //$NON-NLS-1$ //$NON-NLS-2$
+  protected final String TEXT_18 = "\""; //$NON-NLS-1$
+  protected final String TEXT_19 = NL + " *    description=\""; //$NON-NLS-1$
+  protected final String TEXT_20 = "\""; //$NON-NLS-1$
+  protected final String TEXT_21 = NL + " */"; //$NON-NLS-1$
+  protected final String TEXT_22 = NL + "@WebServlet"; //$NON-NLS-1$
+  protected final String TEXT_23 = NL + "public "; //$NON-NLS-1$
+  protected final String TEXT_24 = "abstract "; //$NON-NLS-1$
+  protected final String TEXT_25 = "final "; //$NON-NLS-1$
+  protected final String TEXT_26 = "class "; //$NON-NLS-1$
+  protected final String TEXT_27 = " extends "; //$NON-NLS-1$
+  protected final String TEXT_28 = " implements "; //$NON-NLS-1$
+  protected final String TEXT_29 = ", "; //$NON-NLS-1$
+  protected final String TEXT_30 = " {"; //$NON-NLS-1$
+  protected final String TEXT_31 = NL + "\tprivate static final long serialVersionUID = 1L;"; //$NON-NLS-1$
+  protected final String TEXT_32 = NL + NL + "    /**" + NL + "     * Default constructor. " + NL + "     */" + NL + "    public "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+  protected final String TEXT_33 = "() {" + NL + "        // TODO Auto-generated constructor stub" + NL + "    }"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+  protected final String TEXT_34 = NL + "       " + NL + "    /**" + NL + "     * @see "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+  protected final String TEXT_35 = "#"; //$NON-NLS-1$
+  protected final String TEXT_36 = "("; //$NON-NLS-1$
+  protected final String TEXT_37 = ")" + NL + "     */" + NL + "    public "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+  protected final String TEXT_38 = "("; //$NON-NLS-1$
+  protected final String TEXT_39 = ") {" + NL + "        super("; //$NON-NLS-1$ //$NON-NLS-2$
+  protected final String TEXT_40 = ");" + NL + "        // TODO Auto-generated constructor stub" + NL + "    }"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+  protected final String TEXT_41 = NL + NL + "\t/**" + NL + "     * @see "; //$NON-NLS-1$ //$NON-NLS-2$
+  protected final String TEXT_42 = "#"; //$NON-NLS-1$
+  protected final String TEXT_43 = "("; //$NON-NLS-1$
+  protected final String TEXT_44 = ")" + NL + "     */" + NL + "    public "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+  protected final String TEXT_45 = " "; //$NON-NLS-1$
+  protected final String TEXT_46 = "("; //$NON-NLS-1$
+  protected final String TEXT_47 = ") {" + NL + "        // TODO Auto-generated method stub"; //$NON-NLS-1$ //$NON-NLS-2$
+  protected final String TEXT_48 = NL + "\t\t\treturn "; //$NON-NLS-1$
+  protected final String TEXT_49 = ";"; //$NON-NLS-1$
+  protected final String TEXT_50 = NL + "    }"; //$NON-NLS-1$
+  protected final String TEXT_51 = NL + NL + "\t/**" + NL + "\t * @see Servlet#init(ServletConfig)" + NL + "\t */" + NL + "\tpublic void init(ServletConfig config) throws ServletException {" + NL + "\t\t// TODO Auto-generated method stub" + NL + "\t}"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+  protected final String TEXT_52 = NL + NL + "\t/**" + NL + "\t * @see Servlet#destroy()" + NL + "\t */" + NL + "\tpublic void destroy() {" + NL + "\t\t// TODO Auto-generated method stub" + NL + "\t}"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+  protected final String TEXT_53 = NL + NL + "\t/**" + NL + "\t * @see Servlet#getServletConfig()" + NL + "\t */" + NL + "\tpublic ServletConfig getServletConfig() {" + NL + "\t\t// TODO Auto-generated method stub" + NL + "\t\treturn null;" + NL + "\t}"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
+  protected final String TEXT_54 = NL + NL + "\t/**" + NL + "\t * @see Servlet#getServletInfo()" + NL + "\t */" + NL + "\tpublic String getServletInfo() {" + NL + "\t\t// TODO Auto-generated method stub" + NL + "\t\treturn null; " + NL + "\t}"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
+  protected final String TEXT_55 = NL + NL + "\t/**" + NL + "\t * @see Servlet#service(ServletRequest request, ServletResponse response)" + NL + "\t */" + NL + "\tpublic void service(ServletRequest request, ServletResponse response) throws ServletException, IOException {" + NL + "\t\t// TODO Auto-generated method stub" + NL + "\t}";  //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+  protected final String TEXT_56 = NL + NL + "\t/**" + NL + "\t * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)" + NL + "\t */" + NL + "\tprotected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {" + NL + "\t\t// TODO Auto-generated method stub" + NL + "\t}"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+  protected final String TEXT_57 = NL + NL + "\t/**" + NL + "\t * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)" + NL + "\t */" + NL + "\tprotected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {" + NL + "\t\t// TODO Auto-generated method stub" + NL + "\t}"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+  protected final String TEXT_58 = NL + NL + "\t/**" + NL + "\t * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)" + NL + "\t */" + NL + "\tprotected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {" + NL + "\t\t// TODO Auto-generated method stub" + NL + "\t}"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+  protected final String TEXT_59 = NL + NL + "\t/**" + NL + "\t * @see HttpServlet#doPut(HttpServletRequest, HttpServletResponse)" + NL + "\t */" + NL + "\tprotected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {" + NL + "\t\t// TODO Auto-generated method stub" + NL + "\t}"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+  protected final String TEXT_60 = NL + NL + "\t/**" + NL + "\t * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)" + NL + "\t */" + NL + "\tprotected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {" + NL + "\t\t// TODO Auto-generated method stub" + NL + "\t}"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+  protected final String TEXT_61 = NL + NL + "\t/**" + NL + "\t * @see HttpServlet#doHead(HttpServletRequest, HttpServletResponse)" + NL + "\t */" + NL + "\tprotected void doHead(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {" + NL + "\t\t// TODO Auto-generated method stub" + NL + "\t}"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+  protected final String TEXT_62 = NL + NL + "\t/**" + NL + "\t * @see HttpServlet#doOptions(HttpServletRequest, HttpServletResponse)" + NL + "\t */" + NL + "\tprotected void doOptions(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {" + NL + "\t\t// TODO Auto-generated method stub" + NL + "\t}"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+  protected final String TEXT_63 = NL + NL + "\t/**" + NL + "\t * @see HttpServlet#doTrace(HttpServletRequest, HttpServletResponse)" + NL + "\t */" + NL + "\tprotected void doTrace(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {" + NL + "\t\t// TODO Auto-generated method stub" + NL + "\t}"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+  protected final String TEXT_64 = NL + NL + "}"; //$NON-NLS-1$
   protected final String TEXT_65 = NL;
 
   public String generate(Object argument)
@@ -165,7 +165,7 @@ public class ServletTemplate
 
     stringBuffer.append(TEXT_21);
      
-	if ("3.0".equals(model.getJavaEEVersion())) { 
+	if ("3.0".equals(model.getJavaEEVersion())) {  //$NON-NLS-1$
 
     stringBuffer.append(TEXT_22);
     stringBuffer.append(model.getJavaEE6AnnotationParameters());
