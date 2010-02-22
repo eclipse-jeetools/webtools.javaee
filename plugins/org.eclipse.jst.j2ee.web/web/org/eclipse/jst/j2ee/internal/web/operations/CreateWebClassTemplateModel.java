@@ -14,12 +14,15 @@ package org.eclipse.jst.j2ee.internal.web.operations;
 import static org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel.USE_ANNOTATIONS;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties.DESCRIPTION;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties.DISPLAY_NAME;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties.JAVA_EE_VERSION;
 
 import org.eclipse.jst.j2ee.internal.common.operations.CreateJavaEEArtifactTemplateModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class CreateWebClassTemplateModel extends
 		CreateJavaEEArtifactTemplateModel {
+	
+	public static final String SERVLET_3 = "3.0"; //$NON-NLS-1$
 	
 	public CreateWebClassTemplateModel(IDataModel dataModel) {
 		super(dataModel);
@@ -35,6 +38,10 @@ public class CreateWebClassTemplateModel extends
 
 	public boolean isAnnotated() {
 		return dataModel.getBooleanProperty(USE_ANNOTATIONS);
+	}
+	
+	public String getJavaEEVersion() {
+		return dataModel.getStringProperty(JAVA_EE_VERSION);
 	}
 
 }

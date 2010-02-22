@@ -60,6 +60,8 @@ import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_CONFI
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_EXCEPTION;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_REQUEST;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_RESPONSE;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_WEB_SERVLET;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_ANNOTATION_INIT_PARAM;
 import static org.eclipse.jst.j2ee.web.IServletConstants.SERVICE_SIGNATURE;
 import static org.eclipse.jst.j2ee.web.IServletConstants.SERVLET_INIT_SIGNATURE;
 
@@ -116,6 +118,16 @@ public class CreateServletTemplateModel extends CreateWebClassTemplateModel {
 			collection.add(QUALIFIED_HTTP_SERVLET_RESPONSE);
 			collection.add(QUALIFIED_SERVLET_EXCEPTION);
 			collection.add(QUALIFIED_IO_EXCEPTION);
+		}
+		
+		if (SERVLET_3.equals(getJavaEEVersion())){
+			collection.add(QUALIFIED_WEB_SERVLET);
+			if (getInitParams()!= null && getInitParams().size()>0){
+				collection.add(QUALIFIED_ANNOTATION_INIT_PARAM);
+			}
+			
+			
+
 		}
 		
 		return collection;
@@ -286,6 +298,44 @@ public class CreateServletTemplateModel extends CreateWebClassTemplateModel {
 		}
 		
 		return unimplementedMethods;
+	}
+	
+	public String getJavaEE6AnnotationParameters(){
+		String result = "(";
+		if (!getClassName().equals(getServletName())){
+			result+="name=\""+getServletName()+"\"";
+		}
+		List<String[]> servletMappings = getServletMappings();
+		if (servletMappings != null && servletMappings.size()>0){
+			if (result.length() > 1){
+				result+=", ";
+			}
+			result+="urlPatterns={";
+			for (String[] strings : servletMappings) {
+				result+="\""+strings[0]+"\",";
+			}
+			result = result.substring(0, result.length()-1);
+			result+='}';
+			
+		}
+		List<String[]> initParams = getInitParams();
+		if (initParams != null && initParams.size()>0){
+			if (result.length() > 1){
+				result+=", ";
+			}
+			result+="initParams={";
+			for (String[] iParams : initParams) {
+				result+=generateInitParamAnnotation(iParams[0], iParams[1]) + ",";
+			}
+			result = result.substring(0, result.length()-1);
+			result+="}";
+		}
+		result+=")";
+		return result.length() > 2 ? result : ""; //$NON-NLS-1$
+	}
+	
+	private String generateInitParamAnnotation(String name, String value){
+		return "@WebInitParam(name=\""+name+"\", value=\""+value+"\")";
 	}
 
 }

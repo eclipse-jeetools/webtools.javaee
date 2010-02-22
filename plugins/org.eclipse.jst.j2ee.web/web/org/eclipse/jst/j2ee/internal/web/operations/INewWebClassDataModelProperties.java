@@ -31,4 +31,15 @@ public interface INewWebClassDataModelProperties extends INewJavaClassDataModelP
 	 */
 	public static final String USE_EXISTING_CLASS = "NewServletClassDataModel.USE_EXISTING_CLASS"; //$NON-NLS-1$
 	
+	/**
+	 * Optional, boolean property used to specify whether or not to generate artifacts in web.xml
+	 */
+	public static final String REGISTER_IN_WEB_XML = "NewServletClassDataModel.REGISTER_IN_WEB_XML"; //$NON-NLS-1$
+	
+	/**
+	 * Optional, boolean property used to specify whether or not to generate artifacts in web.xml
+	 */
+	public static final String JAVA_EE_VERSION = "NewServletClassDataModel.JAVA_EE_VERSION"; //$NON-NLS-1$
+	
+	
 }

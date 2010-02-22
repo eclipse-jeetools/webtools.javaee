@@ -19,6 +19,8 @@ import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataM
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.SUPERCLASS;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties.DESCRIPTION;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties.DISPLAY_NAME;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties.JAVA_EE_VERSION;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties.REGISTER_IN_WEB_XML;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties.USE_EXISTING_CLASS;
 
 import java.io.File;
@@ -26,6 +28,8 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jdt.core.Signature;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
@@ -34,9 +38,12 @@ import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.web.project.facet.WebFacetUtils;
+import org.eclipse.wst.common.componentcore.internal.util.FacetedProjectUtilities;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
+import org.eclipse.wst.common.project.facet.core.FacetedProjectFramework;
 
 /**
  * The NewWebClassDataModelProvider is a subclass of
@@ -128,11 +135,12 @@ public abstract class NewWebClassDataModelProvider extends NewJavaClassDataModel
 	public Set getPropertyNames() {
 		// Add web artifact specific properties defined in this data model
 		Set propertyNames = super.getPropertyNames();
-		
+		propertyNames.add(REGISTER_IN_WEB_XML);
 		propertyNames.add(DISPLAY_NAME);
 		propertyNames.add(DESCRIPTION);
 		propertyNames.add(USE_EXISTING_CLASS);
 		propertyNames.add(USE_ANNOTATIONS);
+		propertyNames.add(JAVA_EE_VERSION);
 		
 		return propertyNames;
 	}
@@ -161,9 +169,32 @@ public abstract class NewWebClassDataModelProvider extends NewJavaClassDataModel
 			return Boolean.FALSE;
 		else if (propertyName.equals(CONSTRUCTOR))
 			return hasSuperClass();
-		
+		else if (propertyName.equals(REGISTER_IN_WEB_XML)){
+			return !isJavaEE6Project();
+		} else if (JAVA_EE_VERSION.equals(propertyName)){
+			return getJavaEEVersion();
+		}
 		// Otherwise check super for default value for property
 		return super.getDefaultProperty(propertyName);
+	}
+
+	@SuppressWarnings("restriction")
+	public boolean isJavaEE6Project() {
+		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(getStringProperty(PROJECT_NAME));
+		if (project != null && project.isAccessible()){
+			try {
+				return FacetedProjectFramework.hasProjectFacet(project, WebFacetUtils.WEB_FACET.getId(), WebFacetUtils.WEB_30.getVersionString());
+			} catch (CoreException e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
+	}
+	
+	@SuppressWarnings("restriction")
+	public String getJavaEEVersion() {
+		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(getStringProperty(PROJECT_NAME));
+		return FacetedProjectUtilities.getProjectFacetVersion(project, WebFacetUtils.WEB_FACET.getId()).getVersionString();
 	}
 
 	/**

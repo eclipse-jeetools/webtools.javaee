@@ -9,3 +9,10 @@
 	}
 %>
  */
+  <% 
+	if ("3.0".equals(model.getJavaEEVersion())) { 
+%>
+@WebListener
+<%
+}
+%>

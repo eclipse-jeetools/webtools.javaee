@@ -23,12 +23,14 @@ import static org.eclipse.jst.j2ee.web.IServletConstants.FILTER_INIT_SIGNATURE;
 import static org.eclipse.jst.j2ee.web.IServletConstants.METHOD_DESTROY;
 import static org.eclipse.jst.j2ee.web.IServletConstants.METHOD_DO_FILTER;
 import static org.eclipse.jst.j2ee.web.IServletConstants.METHOD_INIT;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_ANNOTATION_INIT_PARAM;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_FILTER_CHAIN;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_FILTER_CONFIG;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_IO_EXCEPTION;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_EXCEPTION;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_REQUEST;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_RESPONSE;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_WEB_FILTER;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -64,6 +66,12 @@ public class CreateFilterTemplateModel extends CreateWebClassTemplateModel {
 			collection.add(QUALIFIED_FILTER_CHAIN);
 			collection.add(QUALIFIED_IO_EXCEPTION);
 			collection.add(QUALIFIED_SERVLET_EXCEPTION);
+		}
+		if (SERVLET_3.equals(getJavaEEVersion())){
+			collection.add(QUALIFIED_WEB_FILTER);
+			if (getInitParams()!= null && getInitParams().size()>0){
+				collection.add(QUALIFIED_ANNOTATION_INIT_PARAM);
+			}
 		}
 		
 		return collection;
@@ -166,6 +174,47 @@ public class CreateFilterTemplateModel extends CreateWebClassTemplateModel {
 		}
 		
 		return unimplementedMethods;
+	}
+	
+	public String getJavaEE6AnnotationParameters(){
+		String result = "("; //$NON-NLS-1$
+		List<IFilterMappingItem> filterMappings = getFilterMappings();
+		if (filterMappings != null && filterMappings.size()>0 && hasUrlMapping(filterMappings)){
+			result+="urlPatterns={"; //$NON-NLS-1$
+			for (IFilterMappingItem filterMapItem : filterMappings) {
+				result+="\""+filterMapItem.getName()+"\",";  //$NON-NLS-1$//$NON-NLS-2$
+			}
+			result = result.substring(0, result.length()-1);
+			result+='}';
+			
+		}
+		List<String[]> initParams = getInitParams();
+		if (initParams != null && initParams.size()>0){
+			if (result.length() > 1){
+				result+=", "; //$NON-NLS-1$
+			}
+			result+="initParams={"; //$NON-NLS-1$
+			for (String[] iParams : initParams) {
+				result+=generateInitParamAnnotation(iParams[0], iParams[1]) + ","; //$NON-NLS-1$
+			}
+			result = result.substring(0, result.length()-1);
+			result+="}"; //$NON-NLS-1$
+		}
+		result+=")"; //$NON-NLS-1$
+		return result.length() > 2 ? result : ""; //$NON-NLS-1$
+	}
+	
+	private boolean hasUrlMapping(List<IFilterMappingItem> filterMappings) {
+		for (IFilterMappingItem filterMapItem : filterMappings) {
+			if (filterMapItem.isUrlPatternType()){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private String generateInitParamAnnotation(String name, String value){
+		return "@WebInitParam(name=\""+name+"\", value=\""+value+"\")"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 	}
 
 }

@@ -24,6 +24,7 @@ import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_REQUE
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_REQUEST_ATTRIBUTE_LISTENER;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_REQUEST_EVENT;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_REQUEST_LISTENER;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_WEB_LISTENER;
 
 import java.util.Collection;
 import java.util.List;
@@ -74,6 +75,10 @@ public class CreateListenerTemplateModel extends CreateWebClassTemplateModel {
 		if (implementServletRequestAttributeListener()) {
 			collection.add(QUALIFIED_SERVLET_REQUEST_ATTRIBUTE_LISTENER);
 			collection.add(QUALIFIED_SERVLET_REQUEST_ATTRIBUTE_EVENT);
+		}
+		
+		if (SERVLET_3.equals(getJavaEEVersion())){
+			collection.add(QUALIFIED_WEB_LISTENER);
 		}
 		
 		return collection;

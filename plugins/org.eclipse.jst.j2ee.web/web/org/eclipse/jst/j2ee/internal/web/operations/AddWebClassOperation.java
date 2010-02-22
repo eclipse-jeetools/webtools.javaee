@@ -14,6 +14,7 @@ import static org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsD
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.CLASS_NAME;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.GENERATE_DD;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties.USE_EXISTING_CLASS;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties.REGISTER_IN_WEB_XML;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -67,7 +68,7 @@ public abstract class AddWebClassOperation extends AddJavaEEArtifactOperation {
 			qualifiedClassName = createClass();
 
 		// If the filter is not annotated, generate the filter metadata for the DD
-		if (!model.getBooleanProperty(USE_ANNOTATIONS))
+		if (!model.getBooleanProperty(USE_ANNOTATIONS) && model.getBooleanProperty(REGISTER_IN_WEB_XML))
 		{
 			if (model.getBooleanProperty(GENERATE_DD))
 			{

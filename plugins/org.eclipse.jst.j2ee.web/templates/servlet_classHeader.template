@@ -46,3 +46,10 @@
 	} 
 %>
  */
+ <% 
+	if ("3.0".equals(model.getJavaEEVersion())) { 
+%>
+@WebServlet<%=model.getJavaEE6AnnotationParameters()%>
+<%
+}
+%>
