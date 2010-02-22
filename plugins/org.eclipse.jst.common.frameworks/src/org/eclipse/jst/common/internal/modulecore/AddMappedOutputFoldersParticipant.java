@@ -27,13 +27,41 @@ import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.flat.AbstractFlattenParticipant;
+import org.eclipse.wst.common.componentcore.internal.flat.FilterResourceParticipant;
+import org.eclipse.wst.common.componentcore.internal.flat.IFlatFile;
 import org.eclipse.wst.common.componentcore.internal.flat.IFlatResource;
+import org.eclipse.wst.common.componentcore.internal.flat.IFlattenParticipant;
 import org.eclipse.wst.common.componentcore.internal.flat.VirtualComponentFlattenUtility;
 import org.eclipse.wst.common.componentcore.internal.flat.FlatVirtualComponent.FlatComponentTaskModel;
+import org.eclipse.wst.common.componentcore.internal.flat.VirtualComponentFlattenUtility.ShouldIncludeUtilityCallback;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
-public class AddMappedOutputFoldersParticipant extends AbstractFlattenParticipant {
+public class AddMappedOutputFoldersParticipant extends AbstractFlattenParticipant implements ShouldIncludeUtilityCallback {
 	private List<IFlatResource> list;
+	private String[] filteredSuffixes = new String[]{}; 
+	
+	public AddMappedOutputFoldersParticipant() {
+		// intentionally blank
+	}
+
+	public AddMappedOutputFoldersParticipant(String[] filtered) {
+		this.filteredSuffixes = filtered;
+	}
+	
+	public boolean shouldAddComponentFile(IVirtualComponent component, IFlatFile file) {
+		IFlattenParticipant[] delegates = getDelegateParticipants();
+		for( int i = 0; i < delegates.length; i++ ) {
+			if(!delegates[i].shouldAddExportableFile(null, component, null, file))
+				return false;
+		}
+		return true;
+	}
+	
+	public IFlattenParticipant[] getDelegateParticipants() {
+		return new IFlattenParticipant[] {
+				FilterResourceParticipant.createSuffixFilterParticipant(filteredSuffixes)
+		};
+	}
 
 	@Override
 	public void finalize(IVirtualComponent component,
@@ -48,7 +76,7 @@ public class AddMappedOutputFoldersParticipant extends AbstractFlattenParticipan
 		while(i.hasNext()) {
 			IContainer next = i.next();
 			try {
-				new VirtualComponentFlattenUtility(list, null).addContainer(next, mapped.get(next));
+				new VirtualComponentFlattenUtility(list, this).addContainer(next, mapped.get(next));
 			} catch( CoreException ce) {}
 		}
 	}

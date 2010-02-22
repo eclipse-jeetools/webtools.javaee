@@ -309,15 +309,16 @@ public class ComponentExportOperation extends AbstractDataModelOperation {
 	 * @return
 	 */
 	protected List<IFlattenParticipant> getParticipants() {
+		String[] filteredExtensions = getFilteredExtensions();
 		IFlattenParticipant[] participants = new IFlattenParticipant[] {
-				new AddMappedOutputFoldersParticipant(),
 				new StandardHierarchyParticipant(),
-				FilterResourceParticipant.createSuffixFilterParticipant(getExcludeExtensions())
+				new AddMappedOutputFoldersParticipant(filteredExtensions),
+				FilterResourceParticipant.createSuffixFilterParticipant(filteredExtensions)
 		};
 		return Arrays.asList(participants);
 	}
 	
-	protected String[] getExcludeExtensions() {
+	protected String[] getFilteredExtensions() {
 		ArrayList<String> excludeList = new ArrayList<String>();
 		excludeList.addAll(Arrays.asList(DOT_FILE_NAMES));
 		if (!isExportSource()) {

@@ -37,6 +37,7 @@ import org.eclipse.wst.common.componentcore.internal.flat.IFlatVirtualComponent;
 import org.eclipse.wst.common.componentcore.internal.flat.IFlattenParticipant;
 import org.eclipse.wst.common.componentcore.internal.flat.VirtualComponentFlattenUtility;
 import org.eclipse.wst.common.componentcore.internal.flat.FlatVirtualComponent.FlatComponentTaskModel;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 public class FlatComponentArchiver {
@@ -133,7 +134,7 @@ public class FlatComponentArchiver {
 	}
 
 	protected boolean shouldInclude(IPath entryPath) {
-		if (entryPath.segment(0).startsWith(".settings")) { //$NON-NLS-1$
+		if (entryPath.equals(new Path(IModuleConstants.DOT_SETTINGS))) {
 			return false;
 		}
 		return true;
