@@ -55,8 +55,7 @@ appears.</li>
 <dl>
 <dt class="dlterm">State type</dt>
 
-<dd>A session beans are divided in two types: stateless session beans and
-stateful session beans.<dl>
+<dd>There are three types of session beans: stateless, stateful and singleton. <dl>
 <dt class="dlterm">Stateless session beans</dt>
 
 <dd>A stateless session bean is a collection of related services, each represented
@@ -76,6 +75,16 @@ and the client. Methods invoked on a stateful session bean can write and read
 data to and from this conversational state, which is shared among all methods
 in the bean. Stateful session beans have timeout periods.</dd>
 
+<dt class="dlterm">Singleton session beans</dt>
+
+<dd>A Singleton session bean is a session bean component that is instantiated 
+once per application. In cases where the container is distributed over many virtual 
+machines, each application will have one bean instance of the Singleton for each JVM. 
+Once instantiated, a Singleton session bean instance lives for the duration of the 
+application in which it is created. It maintains its state between client invocations 
+but that state is not required to survive container shutdown or crash. A Singleton 
+session bean is intended to be shared and supports concurrent access.</dd>
+
 </dl>
 </dd>
 
@@ -88,7 +97,7 @@ that contains the business methods for the bean. A reference to a session
 bean's business interface can be passed as a parameter or as a return value
 of a business interface method. It contains methods to initialize a session
 bean's state and to notify the EJB container when the reference is no more
-needed and can be removed. The business interfaces are two types:<dl>
+needed and can be removed. There are several options available:<dl>
 <dt class="dlterm">Remote business interface:</dt>
 
 <dd>The client can run on a different machine or different Java virtual
@@ -100,6 +109,11 @@ is transparent.</dd>
 
 <dd>The client must run on the same Java virtual machine as the bean it accesses
 and the location of the enterprise bean is not transparent.</dd>
+
+<dt class="dlterm">No-interface:</dt>
+
+<dd>This is a variation of the Local view that exposes the public methods of the 
+bean class without the use of a separate business interface.</dd>
 
 </dl>
 </dd>

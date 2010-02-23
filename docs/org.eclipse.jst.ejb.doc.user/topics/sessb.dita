@@ -18,9 +18,8 @@ session.</p>
 in the database, but they can access data, so we can use session beans to
 read, update, and insert data in a business process. Session beans access
 data that spans concepts, is not shared, and is usually read-only. Session
-beans contain business logic, and entities model persistent data. Session
-beans are divided in two types: stateless session beans and stateful session
-beans.</p>
+beans contain business logic, and entities model persistent data. There are 
+three types of session beans: stateless, stateful and singleton. </p>
 <ul>
 <li><b>Stateless session beans</b> <p>A stateless session bean is pooled by
 the container to handle multiple requests from multiple clients and does not
@@ -29,6 +28,10 @@ maintain any conversational state.</p> </li>
 of a single client and maintains client-specific session information (called
 conversational state) across multiple method calls and transactions. It exists
 for the duration of a single client/server session.</p> </li>
+<li> <b>Singleton session beans</b> <p>A Singleton session bean is a session 
+bean component that is instantiated once per application. In cases where the container 
+is distributed over many virtual machines, each application will have one bean instance 
+of the Singleton for each JVM.</p> </li>
 </ul>
 </conbody>
 </concept>
