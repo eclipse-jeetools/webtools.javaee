@@ -19,6 +19,7 @@ import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.model.ModuleDelegate;
+import org.eclipse.wst.web.internal.deployables.FlatComponentDeployable;
 
 /**
  * J2EE module factory.
@@ -37,8 +38,15 @@ public class JEEDeployableFactory extends J2EEDeployableFactory {
 	
 	public JEEDeployableFactory() {
 		super();
-		JEE_INSTANCE = this;
 	}
+
+	@Override
+	public void initialize() {
+		super.initialize();
+		if( getId().equals(JEE_ID))
+			JEE_INSTANCE = this;
+	}
+
 
 	@Override
 	protected boolean canHandleProject(IProject p) {
@@ -46,7 +54,7 @@ public class JEEDeployableFactory extends J2EEDeployableFactory {
 	}
 
 	@Override
-	protected ModuleDelegate getNestedDelegate(IVirtualComponent component) {
+	protected FlatComponentDeployable getNestedDelegate(IVirtualComponent component) {
 		return new JEEFlexProjDeployable(component.getProject(), component);
 	}
 
