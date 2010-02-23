@@ -18,6 +18,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResourceChangeEvent;
+import org.eclipse.core.resources.IResourceChangeListener;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
@@ -44,8 +47,8 @@ import org.eclipse.wst.web.internal.deployables.FlatComponentDeployable;
 /**
  * J2EE module factory.
  */
-public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate {
-	protected Map <IModule, ModuleDelegate> moduleDelegates = new HashMap<IModule, ModuleDelegate>(5);
+public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate implements IResourceChangeListener {
+	protected Map <IModule, FlatComponentDeployable> moduleDelegates = new HashMap<IModule, FlatComponentDeployable>(5);
 
 	public static final String J2EE_ID = "org.eclipse.jst.j2ee.server"; //$NON-NLS-1$
 	public static final String BINARY_PREFIX = "/binary:"; //$NON-NLS-1$
@@ -69,7 +72,14 @@ public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate {
 	
 	public J2EEDeployableFactory() {
 		super();
-		J2EE_INSTANCE = this;
+	}
+	
+	@Override
+	public void initialize() {
+		super.initialize();
+		if( getId().equals(J2EE_ID))
+			J2EE_INSTANCE = this;
+		ResourcesPlugin.getWorkspace().addResourceChangeListener(this);
 	}
 	
 	@Override
@@ -145,7 +155,7 @@ public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate {
 				IModule nestedModule = createModule(quickPeek,moduleComponent.getName(),
 						moduleComponent.getDeployedName(), moduleComponent.getProject());
 				if (nestedModule != null) {
-					ModuleDelegate moduleDelegate = getNestedDelegate(moduleComponent);
+					FlatComponentDeployable moduleDelegate = getNestedDelegate(moduleComponent);
 					moduleDelegates.put(nestedModule, moduleDelegate);
 					projectModules.add(nestedModule);
 				}
@@ -155,7 +165,7 @@ public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate {
 		return projectModules;
 	}
 	
-	protected ModuleDelegate getNestedDelegate(IVirtualComponent component) {
+	protected FlatComponentDeployable getNestedDelegate(IVirtualComponent component) {
 		return new J2EEFlexProjDeployable(component.getProject(), component);
 	}
 
@@ -244,7 +254,7 @@ public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate {
 			IPath p = new Path(file.getAbsolutePath());
 			JavaEEQuickPeek qp = JavaEEBinaryComponentHelper.getJavaEEQuickPeek(p);
 			IModule module = createModule(qp, BINARY_PREFIX + file.getAbsolutePath(), file.getName(), parent.getProject());
-			ModuleDelegate moduleDelegate = getNestedDelegate(child.getComponent());
+			FlatComponentDeployable moduleDelegate = getNestedDelegate(child.getComponent());
 			moduleDelegates.put(module, moduleDelegate);
 			return module;
 		}
@@ -261,5 +271,16 @@ public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate {
 		String path = internalId.substring(BINARY_PREFIX.length());
 		File f = new File(path);
 		return new BinaryFileModuleDelegate(f);
+	}
+
+	public void resourceChanged(IResourceChangeEvent event) {
+		cleanAllDelegates();
+	}
+	
+	protected void cleanAllDelegates() {
+		Iterator<FlatComponentDeployable> i = moduleDelegates.values().iterator();
+		while(i.hasNext()) {
+			i.next().clearCache();
+		}
 	}
 }

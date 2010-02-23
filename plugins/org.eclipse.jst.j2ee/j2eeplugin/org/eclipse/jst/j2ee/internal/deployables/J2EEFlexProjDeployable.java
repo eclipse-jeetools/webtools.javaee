@@ -69,7 +69,6 @@ public class J2EEFlexProjDeployable extends FlatComponentDeployable implements
 		super(project, aComponent);
 	}
 	
-
 	/**
 	 * Constructor for J2EEFlexProjDeployable.
 	 * 
@@ -77,6 +76,11 @@ public class J2EEFlexProjDeployable extends FlatComponentDeployable implements
 	 */
 	public J2EEFlexProjDeployable(IProject project) {
 		super(project);
+	}
+	
+	@Override
+	public boolean shouldCache() {
+		return true;
 	}
 
 	/**
