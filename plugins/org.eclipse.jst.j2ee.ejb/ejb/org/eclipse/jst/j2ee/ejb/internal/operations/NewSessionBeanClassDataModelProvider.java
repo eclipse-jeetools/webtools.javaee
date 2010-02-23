@@ -15,6 +15,7 @@ import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassD
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.LOCAL_COMPONENT_INTERFACE;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.LOCAL_HOME;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.LOCAL_HOME_INTERFACE;
+import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.NO_INTERFACE;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.REMOTE;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.REMOTE_BUSINESS_INTERFACE;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.REMOTE_COMPONENT_INTERFACE;
@@ -32,7 +33,6 @@ import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jdt.core.IJavaProject;
@@ -57,7 +57,6 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
-import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
 public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClassDataModelProvider {
 
@@ -89,6 +88,7 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 		propertyNames.add(LOCAL_BUSINESS_INTERFACE);
 		propertyNames.add(REMOTE);
 		propertyNames.add(LOCAL);
+		propertyNames.add(NO_INTERFACE);
 		propertyNames.add(STATE_TYPE);
 		propertyNames.add(REMOTE_HOME);
 		propertyNames.add(LOCAL_HOME);
@@ -120,17 +120,19 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 		else if (propertyName.equals(REMOTE))
 			return Boolean.FALSE;
 		else if (propertyName.equals(LOCAL))
-			return Boolean.TRUE;
+			return new Boolean(!ejb31OrLater());
+		else if (propertyName.equals(NO_INTERFACE)) 
+			return new Boolean(ejb31OrLater());
 		else if (propertyName.equals(STATE_TYPE))
 			return StateType.STATELESS.toString(); 
 		else if (propertyName.equals(INTERFACES)) {
 			List<BusinessInterface> listResult = new ArrayList<BusinessInterface>();
 			String className = getStringProperty(QUALIFIED_CLASS_NAME);
-			if ((Boolean) getProperty(REMOTE) && className.length() > 0) {
+			if (getBooleanProperty(REMOTE) && className.length() > 0) {
 				BusinessInterface remoteInterface = new BusinessInterface(getStringProperty(REMOTE_BUSINESS_INTERFACE), BusinessInterfaceType.REMOTE);
 				listResult.add(remoteInterface);
 			}
-			if ((Boolean) getProperty(LOCAL) && className.length() > 0) {
+			if (getBooleanProperty(LOCAL) && className.length() > 0) {
 				BusinessInterface localInterface = new BusinessInterface(getStringProperty(LOCAL_BUSINESS_INTERFACE), BusinessInterfaceType.LOCAL);
 				listResult.add(localInterface);
 			}
@@ -188,37 +190,14 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 		// Call super to set the property on the data model
 		boolean result = super.propertySet(propertyName, propertyValue);
 
-		if (propertyName.equals(REMOTE)) {
-			if (!getDataModel().isPropertySet(INTERFACES)) {
-				getDataModel().notifyPropertyChange(INTERFACES, IDataModel.DEFAULT_CHG);
-			} else {
-				updateBusinessInterfaces(REMOTE);
-			}
-			getDataModel().notifyPropertyChange(REMOTE_BUSINESS_INTERFACE, IDataModel.ENABLE_CHG);
-
-		}
-		if (propertyName.equals(LOCAL)) {
-			if (!getDataModel().isPropertySet(INTERFACES)) {
-				getDataModel().notifyPropertyChange(INTERFACES, IDataModel.DEFAULT_CHG);
-			} else {
-				updateBusinessInterfaces(LOCAL);
-			}
-			getDataModel().notifyPropertyChange(LOCAL_BUSINESS_INTERFACE, IDataModel.ENABLE_CHG);
-		}
-		if (REMOTE_BUSINESS_INTERFACE.equals(propertyName))
-		{
-			if(getRemoteProperty() != null){
-				getRemoteProperty().setFullyQualifiedName(propertyValue.toString());
-			}
-		}
-		else if (LOCAL_BUSINESS_INTERFACE.equals(propertyName))
-		{
-			if(getLocalProperty() != null){
-				getLocalProperty().setFullyQualifiedName(propertyValue.toString());
-			}
-		}
-		else if (CLASS_NAME.equals(propertyName) || JAVA_PACKAGE.equals(propertyName))
-		{
+		if (PROJECT_NAME.equals(propertyName)) {
+			IDataModel dataModel = getDataModel();
+			dataModel.notifyPropertyChange(REMOTE, IDataModel.DEFAULT_CHG);
+			dataModel.notifyPropertyChange(LOCAL, IDataModel.DEFAULT_CHG);
+			dataModel.notifyPropertyChange(NO_INTERFACE, IDataModel.DEFAULT_CHG);
+			dataModel.notifyPropertyChange(REMOTE_BUSINESS_INTERFACE, IDataModel.DEFAULT_CHG);
+			dataModel.notifyPropertyChange(LOCAL_BUSINESS_INTERFACE, IDataModel.DEFAULT_CHG);
+		} else if (CLASS_NAME.equals(propertyName) || JAVA_PACKAGE.equals(propertyName)) {
 			IDataModel dataModel = getDataModel();
 			dataModel.notifyPropertyChange(REMOTE_BUSINESS_INTERFACE, IDataModel.DEFAULT_CHG);
 			dataModel.notifyPropertyChange(LOCAL_BUSINESS_INTERFACE, IDataModel.DEFAULT_CHG);
@@ -226,7 +205,30 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 			dataModel.notifyPropertyChange(LOCAL_HOME_INTERFACE, IDataModel.DEFAULT_CHG);
 			dataModel.notifyPropertyChange(REMOTE_COMPONENT_INTERFACE, IDataModel.DEFAULT_CHG);
 			dataModel.notifyPropertyChange(LOCAL_COMPONENT_INTERFACE, IDataModel.DEFAULT_CHG);
-		}
+		} else if (propertyName.equals(REMOTE)) {
+			if (!getDataModel().isPropertySet(INTERFACES)) {
+				getDataModel().notifyPropertyChange(INTERFACES, IDataModel.DEFAULT_CHG);
+			} else {
+				updateBusinessInterfaces(REMOTE);
+			}
+			getDataModel().notifyPropertyChange(REMOTE_BUSINESS_INTERFACE, IDataModel.ENABLE_CHG);
+
+		} else if (propertyName.equals(LOCAL)) {
+			if (!getDataModel().isPropertySet(INTERFACES)) {
+				getDataModel().notifyPropertyChange(INTERFACES, IDataModel.DEFAULT_CHG);
+			} else {
+				updateBusinessInterfaces(LOCAL);
+			}
+			getDataModel().notifyPropertyChange(LOCAL_BUSINESS_INTERFACE, IDataModel.ENABLE_CHG);
+		} else if (REMOTE_BUSINESS_INTERFACE.equals(propertyName)) {
+			if(getRemoteProperty() != null){
+				getRemoteProperty().setFullyQualifiedName(propertyValue.toString());
+			}
+		} else if (LOCAL_BUSINESS_INTERFACE.equals(propertyName)) {
+			if(getLocalProperty() != null){
+				getLocalProperty().setFullyQualifiedName(propertyValue.toString());
+			}
+		} 
 
 		return result;
 	}
@@ -260,14 +262,6 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 		} 
 		
 		return super.getValidPropertyDescriptors(propertyName);
-	}
-
-	private boolean ejb31OrLater() {
-		IProject project = getTargetProject();
-		IProjectFacetVersion facetVersion = JavaEEProjectUtilities.getProjectFacetVersion(project, IJ2EEFacetConstants.EJB);
-		int version = J2EEVersionUtil.convertVersionStringToInt(facetVersion.getVersionString());
-		int ejb31version = J2EEVersionUtil.convertVersionStringToInt(IJ2EEFacetConstants.EJB_31.getVersionString());
-		return version >= ejb31version;
 	}
 
 	private void updateBusinessInterfaces(String propertyName) {
@@ -314,6 +308,10 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 	public IStatus validate(String propertyName) {
 		if (STATE_TYPE.equals(propertyName)) {
 			return validateStateType();			
+		} else if (NO_INTERFACE.equals(propertyName)) {
+			if (getBooleanProperty(NO_INTERFACE)) {
+				return validateNoInterface();
+			}
 		} else if (LOCAL_BUSINESS_INTERFACE.equals(propertyName)) {
 			if (getBooleanProperty(LOCAL)) {
 				return validateEjbInterface(getStringProperty(propertyName));
@@ -337,7 +335,14 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 	protected IStatus validateStateType() {
 		String value = getStringProperty(STATE_TYPE);
 		if (StateType.SINGLETON.toString().equals(value) && !ejb31OrLater()) {
-			return WTPCommonPlugin.createErrorStatus(EJBCreationResourceHandler.ERR_SINGLETON_ALLOWED_ONLY_FOR_31_AND_LATER);
+			return WTPCommonPlugin.createErrorStatus(EJBCreationResourceHandler.ERR_SINGLETON_NOT_ALLOWED);
+		}
+		return Status.OK_STATUS;
+	}
+
+	protected IStatus validateNoInterface() {
+		if (!ejb31OrLater()) {
+			return WTPCommonPlugin.createErrorStatus(EJBCreationResourceHandler.ERR_NO_INTERFACE_NOT_ALLOWED);
 		}
 		return Status.OK_STATUS;
 	}
@@ -448,8 +453,8 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 
 	protected IStatus validateInterfacesList() {
 		List<BusinessInterface> list = (List<BusinessInterface>) getProperty(INTERFACES);
-		if (list.isEmpty() && isEJB30Project()) {
-			return new Status(IStatus.WARNING, EjbPlugin.PLUGIN_ID, EJBCreationResourceHandler.WRN_NO_BUSINESS_INTERFACE); 
+		if (list.isEmpty() && !ejb31OrLater()) {
+			return new Status(IStatus.WARNING, EjbPlugin.PLUGIN_ID, EJBCreationResourceHandler.WRN_NO_CLIENT_VIEW); 
 		}
 		return Status.OK_STATUS;
 	}
@@ -493,13 +498,13 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 		}
 		return WTPCommonPlugin.OK_STATUS;
 	}
-	
-	private boolean isEJB30Project() {
-		try {
-			return ProjectFacetsManager.create(getTargetProject()).hasProjectFacet(IJ2EEFacetConstants.EJB_30);
-		} catch (CoreException e) {
-			return false;
-		}
-	}
 
+	private boolean ejb31OrLater() {
+		IProject project = getTargetProject();
+		IProjectFacetVersion facetVersion = JavaEEProjectUtilities.getProjectFacetVersion(project, IJ2EEFacetConstants.EJB);
+		int version = J2EEVersionUtil.convertVersionStringToInt(facetVersion.getVersionString());
+		int ejb31version = J2EEVersionUtil.convertVersionStringToInt(IJ2EEFacetConstants.EJB_31.getVersionString());
+		return version >= ejb31version;
+	}
+	
 }

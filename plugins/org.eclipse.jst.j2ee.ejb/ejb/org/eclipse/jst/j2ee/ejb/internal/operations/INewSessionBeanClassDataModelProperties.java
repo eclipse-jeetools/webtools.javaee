@@ -29,12 +29,22 @@ public interface INewSessionBeanClassDataModelProperties extends INewEnterpriseB
 	 * business interface. The default is false.
 	 */
 	public static final String REMOTE = "INewSessionBeanClassDataModelProperties.REMOTE"; //$NON-NLS-1$
-	
+
 	/**
 	 * Optional, boolean property used to specify whether to generate a local
-	 * business interface. The default is true.
+	 * business interface. The default is true for EJB 3.0 projects, otherwise -
+	 * false.
 	 */
 	public static final String LOCAL = "INewSessionBeanClassDataModelProperties.LOCAL"; //$NON-NLS-1$
+
+	/**
+	 * Optional, boolean property used to specify whether to generate a
+	 * no-interface client view. The default is true for EJB 3.1 projects and
+	 * later, otherwise - false.
+	 * 
+	 * @since 3.2
+	 */
+	public static final String NO_INTERFACE = "INewSessionBeanClassDataModelProperties.NO_INTERFACE"; //$NON-NLS-1$
 	
 	/**
 	 * Optional, boolean property used to specify whether to generate a EJB 2.x

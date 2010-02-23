@@ -14,7 +14,7 @@ import static org.eclipse.jst.j2ee.ejb.internal.operations.INewEnterpriseBeanCla
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewEnterpriseBeanClassDataModelProperties.MAPPED_NAME;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.INTERFACES;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.LOCAL_HOME;
-import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.REMOTE_HOME;
+import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.*;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.STATE_TYPE;
 
 import java.util.ArrayList;
@@ -32,6 +32,7 @@ public class CreateSessionBeanTemplateModel extends
 	public static final String QUALIFIED_STATELESS = "javax.ejb.Stateless"; //$NON-NLS-1$
 	public static final String QUALIFIED_STATEFUL = "javax.ejb.Stateful"; //$NON-NLS-1$
 	public static final String QUALIFIED_SINGLETON = "javax.ejb.Singleton"; //$NON-NLS-1$
+	public static final String QUALIFIED_LOCAL_BEAN = "javax.ejb.LocalBean"; //$NON-NLS-1$
 	public static final String QUALIFIED_LOCAL = "javax.ejb.Local"; //$NON-NLS-1$
 	public static final String QUALIFIED_REMOTE = "javax.ejb.Remote"; //$NON-NLS-1$
 	public static final String QUALIFIED_REMOTE_HOME = "javax.ejb.RemoteHome"; //$NON-NLS-1$
@@ -81,6 +82,10 @@ public class CreateSessionBeanTemplateModel extends
 		if (isLocalHomeChecked()) {
 			collection.add(QUALIFIED_LOCAL_HOME);
 			collection.add(localHomeClassName);
+		}
+		
+		if (isNoInterfaceChecked()) {
+			collection.add(QUALIFIED_LOCAL_BEAN);
 		}
 		
 		List<BusinessInterface> interfaces = getBusinessInterfaces();
@@ -159,6 +164,10 @@ public class CreateSessionBeanTemplateModel extends
 	
 	public boolean isRemoteHomeChecked() {
 		return dataModel.getBooleanProperty(REMOTE_HOME);
+	}
+
+	public boolean isNoInterfaceChecked() {
+		return dataModel.getBooleanProperty(NO_INTERFACE);
 	}
 	
 	public Map<String, String> getClassAnnotationParams() {

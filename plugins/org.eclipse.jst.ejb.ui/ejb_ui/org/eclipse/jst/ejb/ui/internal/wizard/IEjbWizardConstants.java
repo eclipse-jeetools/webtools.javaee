@@ -27,6 +27,7 @@ public interface IEjbWizardConstants {
 	public static final String REMOTE_BUSINESS_INTERFACE_LABEL = EJBUIMessages.REMOTE_BUSINESS_INTERFACE_LABEL;
 	public static final String LOCAL_BUSINESS_INTERFACE = EJBUIMessages.LOCAL_BUSINESS_INTERFACE;
 	public static final String LOCAL_BUSINESS_INTERFACE_LABEL = EJBUIMessages.LOCAL_BUSINESS_INTERFACE_LABEL;
+	public static final String NO_INTERFACE = EJBUIMessages.NO_INTERFACE;
 	public static final String EJB_NAME = EJBUIMessages.EJB_NAME;
 	
 	public final static String TRANSACTION_TYPE_CONTAINER = EJBUIMessages.TRANSACTION_TYPE_CONTAINER;

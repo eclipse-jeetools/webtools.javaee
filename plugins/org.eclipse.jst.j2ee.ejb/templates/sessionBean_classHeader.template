@@ -68,6 +68,12 @@
 <%
 	}
 	
+	if (model.isNoInterfaceChecked()) {
+%>
+@LocalBean
+<%
+	}
+		
 	if (model.isLocalHomeChecked()) {
 %>
 @LocalHome(<%=model.getLocalHomeClassSimpleName()%>.class)

@@ -1,6 +1,5 @@
 /**
  * Message-Driven Bean implementation class for: <%=model.getClassName()%>
- *
  */
 @MessageDriven
 <%

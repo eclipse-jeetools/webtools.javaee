@@ -39,39 +39,40 @@ public class SessionBeanTemplate
   protected final String TEXT_22 = ", "; //$NON-NLS-1$
   protected final String TEXT_23 = ".class"; //$NON-NLS-1$
   protected final String TEXT_24 = " })"; //$NON-NLS-1$
-  protected final String TEXT_25 = NL + "@LocalHome("; //$NON-NLS-1$
-  protected final String TEXT_26 = ".class)"; //$NON-NLS-1$
-  protected final String TEXT_27 = NL + "@RemoteHome("; //$NON-NLS-1$
-  protected final String TEXT_28 = ".class)"; //$NON-NLS-1$
-  protected final String TEXT_29 = NL + "public "; //$NON-NLS-1$
-  protected final String TEXT_30 = "abstract "; //$NON-NLS-1$
-  protected final String TEXT_31 = "final "; //$NON-NLS-1$
-  protected final String TEXT_32 = "class "; //$NON-NLS-1$
-  protected final String TEXT_33 = " extends "; //$NON-NLS-1$
-  protected final String TEXT_34 = " implements "; //$NON-NLS-1$
-  protected final String TEXT_35 = ", "; //$NON-NLS-1$
-  protected final String TEXT_36 = " {"; //$NON-NLS-1$
-  protected final String TEXT_37 = NL + NL + "    /**" + NL + "     * Default constructor. " + NL + "     */" + NL + "    public "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-  protected final String TEXT_38 = "() {" + NL + "        // TODO Auto-generated constructor stub" + NL + "    }"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-  protected final String TEXT_39 = NL + "       " + NL + "    /**" + NL + "     * @see "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-  protected final String TEXT_40 = "#"; //$NON-NLS-1$
-  protected final String TEXT_41 = "("; //$NON-NLS-1$
-  protected final String TEXT_42 = ")" + NL + "     */" + NL + "    public "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-  protected final String TEXT_43 = "("; //$NON-NLS-1$
-  protected final String TEXT_44 = ") {" + NL + "        super("; //$NON-NLS-1$ //$NON-NLS-2$
-  protected final String TEXT_45 = ");" + NL + "        // TODO Auto-generated constructor stub" + NL + "    }"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-  protected final String TEXT_46 = NL + NL + "\t/**" + NL + "     * @see "; //$NON-NLS-1$ //$NON-NLS-2$
-  protected final String TEXT_47 = "#"; //$NON-NLS-1$
-  protected final String TEXT_48 = "("; //$NON-NLS-1$
-  protected final String TEXT_49 = ")" + NL + "     */" + NL + "    public "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-  protected final String TEXT_50 = " "; //$NON-NLS-1$
-  protected final String TEXT_51 = "("; //$NON-NLS-1$
-  protected final String TEXT_52 = ") {" + NL + "        // TODO Auto-generated method stub"; //$NON-NLS-1$ //$NON-NLS-2$
-  protected final String TEXT_53 = NL + "\t\t\treturn "; //$NON-NLS-1$
-  protected final String TEXT_54 = ";"; //$NON-NLS-1$
-  protected final String TEXT_55 = NL + "    }"; //$NON-NLS-1$
-  protected final String TEXT_56 = NL + NL + "}"; //$NON-NLS-1$
-  protected final String TEXT_57 = NL;
+  protected final String TEXT_25 = NL + "@LocalBean"; //$NON-NLS-1$
+  protected final String TEXT_26 = NL + "@LocalHome("; //$NON-NLS-1$
+  protected final String TEXT_27 = ".class)"; //$NON-NLS-1$
+  protected final String TEXT_28 = NL + "@RemoteHome("; //$NON-NLS-1$
+  protected final String TEXT_29 = ".class)"; //$NON-NLS-1$
+  protected final String TEXT_30 = NL + "public "; //$NON-NLS-1$
+  protected final String TEXT_31 = "abstract "; //$NON-NLS-1$
+  protected final String TEXT_32 = "final "; //$NON-NLS-1$
+  protected final String TEXT_33 = "class "; //$NON-NLS-1$
+  protected final String TEXT_34 = " extends "; //$NON-NLS-1$
+  protected final String TEXT_35 = " implements "; //$NON-NLS-1$
+  protected final String TEXT_36 = ", "; //$NON-NLS-1$
+  protected final String TEXT_37 = " {"; //$NON-NLS-1$
+  protected final String TEXT_38 = NL + NL + "    /**" + NL + "     * Default constructor. " + NL + "     */" + NL + "    public "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+  protected final String TEXT_39 = "() {" + NL + "        // TODO Auto-generated constructor stub" + NL + "    }";  //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$
+  protected final String TEXT_40 = NL + "       " + NL + "    /**" + NL + "     * @see "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+  protected final String TEXT_41 = "#"; //$NON-NLS-1$
+  protected final String TEXT_42 = "("; //$NON-NLS-1$
+  protected final String TEXT_43 = ")" + NL + "     */" + NL + "    public "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+  protected final String TEXT_44 = "("; //$NON-NLS-1$
+  protected final String TEXT_45 = ") {" + NL + "        super("; //$NON-NLS-1$ //$NON-NLS-2$
+  protected final String TEXT_46 = ");" + NL + "        // TODO Auto-generated constructor stub" + NL + "    }";  //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$
+  protected final String TEXT_47 = NL + NL + "\t/**" + NL + "     * @see ";  //$NON-NLS-1$//$NON-NLS-2$
+  protected final String TEXT_48 = "#"; //$NON-NLS-1$
+  protected final String TEXT_49 = "("; //$NON-NLS-1$
+  protected final String TEXT_50 = ")" + NL + "     */" + NL + "    public "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+  protected final String TEXT_51 = " "; //$NON-NLS-1$
+  protected final String TEXT_52 = "("; //$NON-NLS-1$
+  protected final String TEXT_53 = ") {" + NL + "        // TODO Auto-generated method stub"; //$NON-NLS-1$ //$NON-NLS-2$
+  protected final String TEXT_54 = NL + "\t\t\treturn "; //$NON-NLS-1$
+  protected final String TEXT_55 = ";"; //$NON-NLS-1$
+  protected final String TEXT_56 = NL + "    }"; //$NON-NLS-1$
+  protected final String TEXT_57 = NL + NL + "}"; //$NON-NLS-1$
+  protected final String TEXT_58 = NL;
 
   public String generate(Object argument)
   {
@@ -188,48 +189,54 @@ public class SessionBeanTemplate
     
 	}
 	
-	if (model.isLocalHomeChecked()) {
+	if (model.isNoInterfaceChecked()) {
 
     stringBuffer.append(TEXT_25);
-    stringBuffer.append(model.getLocalHomeClassSimpleName());
+    
+	}
+		
+	if (model.isLocalHomeChecked()) {
+
     stringBuffer.append(TEXT_26);
+    stringBuffer.append(model.getLocalHomeClassSimpleName());
+    stringBuffer.append(TEXT_27);
     
 	}
 
 	if (model.isRemoteHomeChecked()) {
 
-    stringBuffer.append(TEXT_27);
-    stringBuffer.append(model.getRemoteHomeClassSimpleName());
     stringBuffer.append(TEXT_28);
+    stringBuffer.append(model.getRemoteHomeClassSimpleName());
+    stringBuffer.append(TEXT_29);
     
 	}
 
     
 	if (model.isPublic()) { 
 
-    stringBuffer.append(TEXT_29);
+    stringBuffer.append(TEXT_30);
      
 	} 
 
 	if (model.isAbstract()) { 
 
-    stringBuffer.append(TEXT_30);
+    stringBuffer.append(TEXT_31);
     
 	}
 
 	if (model.isFinal()) {
 
-    stringBuffer.append(TEXT_31);
+    stringBuffer.append(TEXT_32);
     
 	}
 
-    stringBuffer.append(TEXT_32);
+    stringBuffer.append(TEXT_33);
     stringBuffer.append( model.getClassName() );
     
 	String superClass = model.getSuperclassName();
  	if (superClass != null && superClass.length() > 0) {
 
-    stringBuffer.append(TEXT_33);
+    stringBuffer.append(TEXT_34);
     stringBuffer.append( superClass );
     
 	}
@@ -237,7 +244,7 @@ public class SessionBeanTemplate
 	List<String> interfaces = model.getInterfaces(); 
  	if ( interfaces.size() > 0) { 
 
-    stringBuffer.append(TEXT_34);
+    stringBuffer.append(TEXT_35);
     
 	}
 	
@@ -245,7 +252,7 @@ public class SessionBeanTemplate
    		String INTERFACE = interfaces.get(i);
    		if (i > 0) {
 
-    stringBuffer.append(TEXT_35);
+    stringBuffer.append(TEXT_36);
     
 		}
 
@@ -253,13 +260,13 @@ public class SessionBeanTemplate
     
 	}
 
-    stringBuffer.append(TEXT_36);
+    stringBuffer.append(TEXT_37);
      
 	if (!model.hasEmptySuperclassConstructor()) { 
 
-    stringBuffer.append(TEXT_37);
-    stringBuffer.append( model.getClassName() );
     stringBuffer.append(TEXT_38);
+    stringBuffer.append( model.getClassName() );
+    stringBuffer.append(TEXT_39);
      
 	} 
 
@@ -268,19 +275,19 @@ public class SessionBeanTemplate
 		for (Constructor constructor : constructors) {
 			if (constructor.isPublic() || constructor.isProtected()) { 
 
-    stringBuffer.append(TEXT_39);
-    stringBuffer.append( model.getSuperclassName() );
     stringBuffer.append(TEXT_40);
     stringBuffer.append( model.getSuperclassName() );
     stringBuffer.append(TEXT_41);
-    stringBuffer.append( constructor.getParamsForJavadoc() );
+    stringBuffer.append( model.getSuperclassName() );
     stringBuffer.append(TEXT_42);
-    stringBuffer.append( model.getClassName() );
+    stringBuffer.append( constructor.getParamsForJavadoc() );
     stringBuffer.append(TEXT_43);
-    stringBuffer.append( constructor.getParamsForDeclaration() );
+    stringBuffer.append( model.getClassName() );
     stringBuffer.append(TEXT_44);
-    stringBuffer.append( constructor.getParamsForCall() );
+    stringBuffer.append( constructor.getParamsForDeclaration() );
     stringBuffer.append(TEXT_45);
+    stringBuffer.append( constructor.getParamsForCall() );
+    stringBuffer.append(TEXT_46);
     
 			} 
 		} 
@@ -290,36 +297,36 @@ public class SessionBeanTemplate
 	if (model.shouldImplementAbstractMethods()) {
 		for (Method method : model.getUnimplementedMethods()) { 
 
-    stringBuffer.append(TEXT_46);
-    stringBuffer.append( method.getContainingJavaClass() );
     stringBuffer.append(TEXT_47);
-    stringBuffer.append( method.getName() );
+    stringBuffer.append( method.getContainingJavaClass() );
     stringBuffer.append(TEXT_48);
-    stringBuffer.append( method.getParamsForJavadoc() );
-    stringBuffer.append(TEXT_49);
-    stringBuffer.append( method.getReturnType() );
-    stringBuffer.append(TEXT_50);
     stringBuffer.append( method.getName() );
+    stringBuffer.append(TEXT_49);
+    stringBuffer.append( method.getParamsForJavadoc() );
+    stringBuffer.append(TEXT_50);
+    stringBuffer.append( method.getReturnType() );
     stringBuffer.append(TEXT_51);
-    stringBuffer.append( method.getParamsForDeclaration() );
+    stringBuffer.append( method.getName() );
     stringBuffer.append(TEXT_52);
+    stringBuffer.append( method.getParamsForDeclaration() );
+    stringBuffer.append(TEXT_53);
      
 			String defaultReturnValue = method.getDefaultReturnValue();
 			if (defaultReturnValue != null) { 
 
-    stringBuffer.append(TEXT_53);
-    stringBuffer.append( defaultReturnValue );
     stringBuffer.append(TEXT_54);
+    stringBuffer.append( defaultReturnValue );
+    stringBuffer.append(TEXT_55);
     
 			} 
 
-    stringBuffer.append(TEXT_55);
+    stringBuffer.append(TEXT_56);
      
 		}
 	} 
 
-    stringBuffer.append(TEXT_56);
     stringBuffer.append(TEXT_57);
+    stringBuffer.append(TEXT_58);
     return stringBuffer.toString();
   }
 }

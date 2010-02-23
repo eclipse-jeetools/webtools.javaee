@@ -163,8 +163,9 @@ public final class EJBCreationResourceHandler extends NLS {
 	public static String ERR_REMOTE_HOME_NOT_INTERFACE;
 	public static String ERR_NO_MESSAGE_LISTENER_INTERFACE;
 	public static String WRN_BEAN_NAME_IS_EMPTY;
-	public static String WRN_NO_BUSINESS_INTERFACE;
-	public static String ERR_SINGLETON_ALLOWED_ONLY_FOR_31_AND_LATER;
+	public static String WRN_NO_CLIENT_VIEW;
+	public static String ERR_SINGLETON_NOT_ALLOWED;
+	public static String ERR_NO_INTERFACE_NOT_ALLOWED;
 
 
 	static {

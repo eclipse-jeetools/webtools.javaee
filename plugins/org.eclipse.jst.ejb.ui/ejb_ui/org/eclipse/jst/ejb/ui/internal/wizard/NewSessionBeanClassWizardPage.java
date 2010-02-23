@@ -12,6 +12,7 @@ package org.eclipse.jst.ejb.ui.internal.wizard;
 
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.LOCAL;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.LOCAL_BUSINESS_INTERFACE;
+import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.NO_INTERFACE;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.REMOTE;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.REMOTE_BUSINESS_INTERFACE;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.STATE_TYPE;
@@ -38,6 +39,7 @@ public class NewSessionBeanClassWizardPage extends NewEnterpriseBeanClassWizardP
 	private Combo stateTypeCombo;
 	private Button remoteCheckbox;
 	private Button localCheckbox;
+	private Button noInterfaceCheckbox;
 	private Text remoteInterfaceName;
 	private Text localInterfaceName;
 
@@ -79,12 +81,9 @@ public class NewSessionBeanClassWizardPage extends NewEnterpriseBeanClassWizardP
 		remoteCheckbox = new Button(group, SWT.CHECK);
 		remoteCheckbox.setLayoutData(gdhspan(1));
 		remoteCheckbox.setText(IEjbWizardConstants.REMOTE_BUSINESS_INTERFACE);
-		GridData data2 = new GridData(GridData.FILL_HORIZONTAL);
-		data2.horizontalSpan = 1;
-		remoteInterfaceName = new Text(group, SWT.SINGLE | SWT.BORDER);
 		synchHelper.synchCheckbox(remoteCheckbox, REMOTE, null);
-		
-		remoteInterfaceName.setLayoutData(data2);
+		remoteInterfaceName = new Text(group, SWT.SINGLE | SWT.BORDER);
+		remoteInterfaceName.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		synchHelper.synchText(remoteInterfaceName, REMOTE_BUSINESS_INTERFACE, null);
 
 		localCheckbox = new Button(group, SWT.CHECK);
@@ -92,8 +91,13 @@ public class NewSessionBeanClassWizardPage extends NewEnterpriseBeanClassWizardP
 		localCheckbox.setText(IEjbWizardConstants.LOCAL_BUSINESS_INTERFACE);
 		synchHelper.synchCheckbox(localCheckbox, LOCAL, null);
 		localInterfaceName = new Text(group, SWT.SINGLE | SWT.BORDER);
-		localInterfaceName.setLayoutData(data2);
+		localInterfaceName.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		synchHelper.synchText(localInterfaceName, LOCAL_BUSINESS_INTERFACE, null);
+		
+		noInterfaceCheckbox = new Button(group, SWT.CHECK);
+		noInterfaceCheckbox.setLayoutData(gdhspan(2));
+		noInterfaceCheckbox.setText(IEjbWizardConstants.NO_INTERFACE);
+		synchHelper.synchCheckbox(noInterfaceCheckbox, NO_INTERFACE, null);
 	}
 
 	private static GridData gdhspan(int span) {
@@ -111,6 +115,7 @@ public class NewSessionBeanClassWizardPage extends NewEnterpriseBeanClassWizardP
 		names.add(INTERFACES);
 		names.add(LOCAL_BUSINESS_INTERFACE);
 		names.add(REMOTE_BUSINESS_INTERFACE);
+		names.add(NO_INTERFACE);
 		
 		return names.toArray(new String[0]);
 	}
