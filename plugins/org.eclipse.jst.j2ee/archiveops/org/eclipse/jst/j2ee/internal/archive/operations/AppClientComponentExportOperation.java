@@ -12,6 +12,9 @@ package org.eclipse.jst.j2ee.internal.archive.operations;
 
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
+/**
+ * @deprecated use org.eclipse.jst.j2ee.internal.archive.operations.JavaEEComponentExportOperation instead
+ */
 public class AppClientComponentExportOperation extends J2EEArtifactExportOperation {
 
 	public AppClientComponentExportOperation(IDataModel model) {

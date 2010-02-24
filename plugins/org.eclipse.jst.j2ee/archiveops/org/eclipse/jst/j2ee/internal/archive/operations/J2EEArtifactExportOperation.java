@@ -58,6 +58,9 @@ import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
+/**
+ * @deprecated use org.eclipse.jst.j2ee.internal.archive.operations.JavaEEComponentExportOperation instead
+ */
 public abstract class J2EEArtifactExportOperation extends AbstractDataModelOperation {
 
 	protected IProgressMonitor progressMonitor;

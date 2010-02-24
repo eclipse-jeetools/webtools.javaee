@@ -17,8 +17,12 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
+/**
+ * @deprecated use org.eclipse.jst.j2ee.internal.archive.operations.JavaEEComponentExportOperation instead
+ */
 public class EARComponentExportOperation extends J2EEArtifactExportOperation {
 
+	
 	public EARComponentExportOperation(IDataModel model) {
 		super(model);
 	}

@@ -13,6 +13,9 @@ package org.eclipse.jst.j2ee.internal.jca.archive.operations;
 import org.eclipse.jst.j2ee.internal.archive.operations.J2EEArtifactExportOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
+/**
+ * @deprecated use org.eclipse.jst.j2ee.internal.archive.operations.JavaEEComponentExportOperation instead
+ */
 public class ConnectorComponentExportOperation extends J2EEArtifactExportOperation {
 
 	public ConnectorComponentExportOperation() {
