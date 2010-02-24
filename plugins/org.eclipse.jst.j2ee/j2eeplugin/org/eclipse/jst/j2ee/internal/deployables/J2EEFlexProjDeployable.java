@@ -90,7 +90,7 @@ public class J2EEFlexProjDeployable extends FlatComponentDeployable implements
 	 */
 	@Override
 	public boolean isSingleRootStructure() {
-		return new SingleRootUtil(getComponent()).isSingleRoot();
+		return new SingleRootUtil(getComponent(), new JavaEESingleRootCallback()).isSingleRoot();
 	}
 	
 	@Override

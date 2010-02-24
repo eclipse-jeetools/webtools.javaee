@@ -72,7 +72,7 @@ public class SingleRootExportParticipant extends AbstractFlattenParticipant {
 			FlatComponentTaskModel dataModel, List<IFlatResource> resources) {
 		try {
 			resources.clear(); // We want complete control
-			IContainer container = new SingleRootUtil(component).getSingleRoot();
+			IContainer container = new SingleRootUtil(component, callbackHandler).getSingleRoot();
 			IFlatResource[] mr = getMembers(resources, container, new Path("")); //$NON-NLS-1$
 			int size = mr.length;
 			for (int j = 0; j < size; j++) {
