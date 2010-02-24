@@ -34,6 +34,7 @@ public interface ISingleRootStatus extends IStatus {
 	public static final int JAVA_OUTPUT_GREATER_THAN_1 = 135;
 	public static final int RUNTIME_PATH_NOT_ROOT = 136;
 	public static final int SOURCE_NOT_JAVA_CONTAINER = 137;
+	public static final int BINARY_COMPONENT_FOUND = 138;
 
 	// callback-contributed errors: 512 and up
 	

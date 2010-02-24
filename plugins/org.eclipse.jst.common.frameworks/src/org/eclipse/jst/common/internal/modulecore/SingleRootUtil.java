@@ -143,6 +143,11 @@ public class SingleRootUtil {
 				return getStatus();
 			}	
 			
+			if (aComponent.isBinary()) {
+				reportStatus(ISingleRootStatus.BINARY_COMPONENT_FOUND);
+				return getStatus();
+			}
+			
 			// 229650 - check to see if the property 'useSingleRoot' is defined. 
 			Boolean useSingleRoot = getUseSingleRootProperty(edit);
 			if (useSingleRoot != null) {
