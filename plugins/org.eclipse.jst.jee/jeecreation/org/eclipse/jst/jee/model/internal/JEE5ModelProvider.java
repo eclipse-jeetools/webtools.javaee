@@ -78,6 +78,17 @@ public class JEE5ModelProvider implements IModelProvider, ResourceStateInputProv
 			} else if (notification.getFeatureID(null) == Resource.RESOURCE__IS_MODIFIED)
 				resourceChanged((Resource) notification.getNotifier());
 		}
+		@Override
+		public boolean equals(Object arg0) {
+			
+			return this.getClass().equals(arg0.getClass());
+		}
+
+		@Override
+		public int hashCode() {
+			
+			return getClass().hashCode();
+		}
 	}
 	
 	public JEE5ModelProvider() {
