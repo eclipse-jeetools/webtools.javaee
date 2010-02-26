@@ -13,5 +13,38 @@
 
       		<facet id="jst.ejb" versions="3.0,3.1"/>
       	</provider>
-   </extension>
+   </extension>      
+   <extension
+         id="org.eclipse.jst.jee.ejb3.validator"
+         name="%org.eclipse.jst.jee.ejb3.validator.name"
+         point="org.eclipse.wst.validation.validatorV2">
+      <validator
+            build="true"
+            class="org.eclipse.jst.jee.ejb.validation.internal.UIEJB3Validator"
+            manual="true"
+            markerId="org.eclipse.jst.jee.ejb3.nobeans">
+         <include>
+            <rules>
+               <facet
+                     id="jst.ejb"
+                     version="3.0,3.1">
+               </facet>     
+            </rules>
+         </include>
+         <messageCategory
+               id="org.eclipse.jst.jee.ejb3.nobeansmessage"
+               label="%org.eclipse.jst.jee.ejb3.nobeansmessage.label"
+               severity="error">
+         </messageCategory>
+      </validator>
+   </extension>  
+	<extension
+            id="org.eclipse.jst.jee.ejb3.nobeans"
+            name="%org.eclipse.jst.jee.ejb3.nobeans.marker.type"
+            point="org.eclipse.core.resources.markers">
+         <super
+               type="org.eclipse.wst.validation.problemmarker">
+         </super>
+	</extension>
+  
 </plugin>
