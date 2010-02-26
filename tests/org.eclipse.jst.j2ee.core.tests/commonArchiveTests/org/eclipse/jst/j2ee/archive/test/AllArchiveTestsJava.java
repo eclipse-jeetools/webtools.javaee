@@ -9,7 +9,7 @@ package org.eclipse.jst.j2ee.archive.test;
 
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import junit.swingui.TestRunner;
+import junit.textui.TestRunner;
 /**
  * Insert the type's description here.
  * Creation date: (12/19/00 4:44:04 PM)

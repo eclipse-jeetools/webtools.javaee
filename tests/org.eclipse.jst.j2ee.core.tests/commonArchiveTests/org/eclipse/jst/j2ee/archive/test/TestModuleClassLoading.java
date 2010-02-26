@@ -14,7 +14,7 @@ import java.util.List;
 
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import junit.swingui.TestRunner;
+import junit.textui.TestRunner;
 
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.internal.impl.JavaClassImpl;

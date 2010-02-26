@@ -11,7 +11,7 @@
 package org.eclipse.jst.j2ee.archive.emftests;
 
 import junit.framework.TestSuite;
-import junit.swingui.TestRunner;
+import junit.textui.TestRunner;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;

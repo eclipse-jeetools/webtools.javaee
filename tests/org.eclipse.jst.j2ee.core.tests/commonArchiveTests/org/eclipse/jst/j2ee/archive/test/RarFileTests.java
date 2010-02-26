@@ -11,7 +11,7 @@ import java.util.List;
 
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import junit.swingui.TestRunner;
+import junit.textui.TestRunner;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;

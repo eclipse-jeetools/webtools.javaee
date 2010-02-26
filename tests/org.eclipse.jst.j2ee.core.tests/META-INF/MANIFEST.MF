@@ -23,7 +23,7 @@ Export-Package: org.eclipse.jst.j2ee.application.test,
  org.eclipse.jst.j2ee.webapplication.test,
  org.eclipse.jst.j2ee.webservice.wscommon.test,
  org.eclipse.jst.j2ee.webservice.wsdd.test
-Require-Bundle: org.junit;bundle-version="[3.8.0,4.0.0)",
+Require-Bundle: org.junit,
  org.eclipse.jem.util,
  org.eclipse.jst.j2ee.core,
  org.eclipse.wst.common.emf,
