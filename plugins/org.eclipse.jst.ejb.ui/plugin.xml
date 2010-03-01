@@ -362,7 +362,7 @@
    
    <extension point="org.eclipse.ui.ide.markerResolution">
       <markerResolutionGenerator
-            class="org.eclipse.jst.jee.ui.internal.quickfixes.ejb.NoBeansQuickFixer"
+            class="org.eclipse.jst.ejb.ui.internal.quickfixes.ejb.NoBeansQuickFixer"
             markerType="org.eclipse.jst.jee.ejb3.nobeans">
       </markerResolutionGenerator>
    </extension>
