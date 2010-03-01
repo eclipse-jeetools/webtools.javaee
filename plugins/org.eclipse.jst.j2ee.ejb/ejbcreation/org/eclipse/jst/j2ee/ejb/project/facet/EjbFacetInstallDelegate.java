@@ -36,7 +36,6 @@ import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainer;
-import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainerUtils;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
@@ -146,7 +145,7 @@ public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements
 				// ClasspathHelper.addClasspathEntries( project, fv, <something> );
 			}
 			
-			if(J2EEComponentClasspathContainerUtils.getDefaultUseEARLibraries()){
+			if( model.getBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.INSTALL_EAR_LIBRARY)){
 				final IPath earLibContainer = new Path(J2EEComponentClasspathContainer.CONTAINER_ID);
 				addToClasspath(jproj, JavaCore.newContainerEntry(earLibContainer));
 			}
