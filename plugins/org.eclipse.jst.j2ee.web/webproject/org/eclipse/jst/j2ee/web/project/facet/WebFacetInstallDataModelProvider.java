@@ -20,6 +20,7 @@ import org.eclipse.jst.common.project.facet.core.JavaFacetInstallConfig.ChangeEv
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
+import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainerUtils;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPreferences;
@@ -47,6 +48,7 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 		Set names = super.getPropertyNames();
 		names.add(CONTEXT_ROOT);
 		names.add(SOURCE_FOLDER);
+		names.add(INSTALL_WEB_LIBRARY);
 		return names;
 	}
 
@@ -70,6 +72,8 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 			}
 			
 			return Boolean.TRUE;
+		}else if (propertyName.equals(INSTALL_WEB_LIBRARY)){
+			return J2EEComponentClasspathContainerUtils.getDefaultUseWebAppLibraries();
 		}
 		return super.getDefaultProperty(propertyName);
 	}

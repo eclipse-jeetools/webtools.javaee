@@ -26,7 +26,6 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jst.common.project.facet.WtpUtils;
 import org.eclipse.jst.common.project.facet.core.ClasspathHelper;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainer;
-import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainerUtils;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.FacetDataModelProvider;
@@ -104,7 +103,7 @@ public final class UtilityFacetInstallDelegate extends J2EEFacetInstallDelegate 
 				// ClasspathHelper.addClasspathEntries( project, fv, <something> );
 			}
 
-			if(J2EEComponentClasspathContainerUtils.getDefaultUseEARLibraries()){
+			if( model.getBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.INSTALL_EAR_LIBRARY)){
 				final IPath earLibContainer = new Path(J2EEComponentClasspathContainer.CONTAINER_ID);
 				addToClasspath(jproj, JavaCore.newContainerEntry(earLibContainer));
 			}

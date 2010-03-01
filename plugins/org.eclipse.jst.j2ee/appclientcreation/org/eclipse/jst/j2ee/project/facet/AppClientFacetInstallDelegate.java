@@ -33,7 +33,6 @@ import org.eclipse.jst.j2ee.applicationclient.componentcore.util.AppClientArtifa
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainer;
-import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainerUtils;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.FacetDataModelProvider;
@@ -72,7 +71,7 @@ public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 //			if (model.getBooleanProperty(IAppClientFacetInstallDataModelProperties.CREATE_DEFAULT_MAIN_CLASS))
 //				addMainClass(monitor, model, project);
 
-			if(J2EEComponentClasspathContainerUtils.getDefaultUseEARLibraries()){
+			if( model.getBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.INSTALL_EAR_LIBRARY)){
 				final IPath earLibContainer = new Path(J2EEComponentClasspathContainer.CONTAINER_ID);
 				addToClasspath(jproj, JavaCore.newContainerEntry(earLibContainer));
 			}

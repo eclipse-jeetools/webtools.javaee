@@ -23,5 +23,8 @@ public interface IWebFacetInstallDataModelProperties extends IJ2EEModuleFacetIns
 	public static final String CONTEXT_ROOT = "IWebFacetInstallDataModelProperties.CONTEXT_ROOT"; //$NON-NLS-1$
 	
 	public static final String SOURCE_FOLDER = "IWebFacetInstallDataModelProperties.SOURCE_FOLDER"; //$NON-NLS-1$
+	
+	public static final String INSTALL_WEB_LIBRARY = "IWebFacetInstallDataModelProperties.INSTALL_WEB_LIBRARY"; //$NON-NLS-1$
+
 
 }

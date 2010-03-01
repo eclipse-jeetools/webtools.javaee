@@ -29,6 +29,7 @@ import org.eclipse.jst.common.project.facet.JavaFacetUtils;
 import org.eclipse.jst.common.project.facet.core.JavaFacetInstallConfig;
 import org.eclipse.jst.common.project.facet.core.JavaFacetInstallConfig.ChangeEvent;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
+import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainerUtils;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPreferences;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -92,6 +93,7 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 		names.add(MODULE_URI);
 		// added for jee modules that make deployment descriptors optional
 		names.add(IJ2EEFacetInstallDataModelProperties.GENERATE_DD);
+		names.add(INSTALL_EAR_LIBRARY);
 		return names;
 	}
 
@@ -117,6 +119,8 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 				return getDataModel().getStringProperty(FACET_PROJECT_NAME) + "EAR"; //$NON-NLS-1$
 			}
 			return getDataModel().getStringProperty(FACET_PROJECT_NAME) + "EAR"; //$NON-NLS-1$
+		}else if (propertyName.equals(INSTALL_EAR_LIBRARY)){
+			return J2EEComponentClasspathContainerUtils.getDefaultUseEARLibraries();
 		}
 		return super.getDefaultProperty(propertyName);
 	}

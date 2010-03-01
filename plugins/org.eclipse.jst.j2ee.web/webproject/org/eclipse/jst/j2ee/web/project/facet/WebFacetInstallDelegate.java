@@ -36,7 +36,6 @@ import org.eclipse.jst.common.project.facet.core.ClasspathHelper;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainer;
-import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainerUtils;
 import org.eclipse.jst.j2ee.internal.web.classpath.WebAppLibrariesContainer;
 import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.jst.j2ee.model.IModelProvider;
@@ -55,6 +54,7 @@ import org.eclipse.wst.common.componentcore.datamodel.FacetDataModelProvider;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
+import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.project.facet.core.IDelegate;
@@ -133,8 +133,20 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			for (int i = 0; i < cp.length; i++) {
 				final IClasspathEntry cpe = cp[i];
 				if (cpe.getEntryKind() == IClasspathEntry.CPE_SOURCE) {
-					if( cpe.getPath().removeFirstSegments(1).segmentCount() > 0 )
-						jsrc.createLink(cpe.getPath().removeFirstSegments(1), 0, null);
+					if( cpe.getPath().removeFirstSegments(1).segmentCount() > 0 ){
+						try{
+							IFolder srcFolder = ws.getRoot().getFolder(cpe.getPath());
+							
+							IVirtualResource[] virtualResource = ComponentCore.createResources(srcFolder);
+							//create link for source folder only when it is not mapped
+							if( virtualResource.length == 0 ){
+								jsrc.createLink(cpe.getPath().removeFirstSegments(1), 0, null);							
+							}
+						}
+						catch(Exception e){
+							WebPlugin.logError(e);
+						}
+					}
 				}
 			}
 			
@@ -161,13 +173,12 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 
 			// Add the web libraries container.
 
-						
-			if(J2EEComponentClasspathContainerUtils.getDefaultUseWebAppLibraries()){
+			if( model.getBooleanProperty(IWebFacetInstallDataModelProperties.INSTALL_WEB_LIBRARY)){			
 				final IPath webLibContainer = new Path(WebAppLibrariesContainer.CONTAINER_ID);
 				addToClasspath(jproj, JavaCore.newContainerEntry(webLibContainer));
 			}
 
-			if(J2EEComponentClasspathContainerUtils.getDefaultUseEARLibraries()){
+			if( model.getBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.INSTALL_EAR_LIBRARY)){
 				final IPath earLibContainer = new Path(J2EEComponentClasspathContainer.CONTAINER_ID);
 				addToClasspath(jproj, JavaCore.newContainerEntry(earLibContainer));
 			}

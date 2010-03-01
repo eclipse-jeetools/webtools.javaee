@@ -39,7 +39,6 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainer;
-import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainerUtils;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.jca.modulecore.util.ConnectorArtifactEdit;
 import org.eclipse.jst.j2ee.model.IModelProvider;
@@ -210,7 +209,7 @@ public class ConnectorFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 				// ClasspathHelper.addClasspathEntries( project, fv, <something> );
 			}
 
-			if(J2EEComponentClasspathContainerUtils.getDefaultUseEARLibraries()){
+			if( model.getBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.INSTALL_EAR_LIBRARY)){
 				final IPath earLibContainer = new Path(J2EEComponentClasspathContainer.CONTAINER_ID);
 				addToClasspath(jproj, JavaCore.newContainerEntry(earLibContainer));
 			}
