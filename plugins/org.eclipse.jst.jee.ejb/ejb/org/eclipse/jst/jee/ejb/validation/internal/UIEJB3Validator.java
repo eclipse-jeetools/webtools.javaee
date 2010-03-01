@@ -61,7 +61,7 @@ public class UIEJB3Validator extends AbstractValidator {
 			return null;
 		EJBJar ejbJar = (EJBJar)ModelProviderManager.getModelProvider(proj).getModelObject();
 		EnterpriseBeans ebs = ejbJar.getEnterpriseBeans();
-		if (ebs.getSessionBeans().size() + ebs.getMessageDrivenBeans().size() == 0) {
+		if (ebs == null || ebs.getSessionBeans().size() + ebs.getMessageDrivenBeans().size() + ebs.getEntityBeans().size() == 0) {
 			ValidationResult vRes = new ValidationResult();
 			ValidatorMessage vMsg = createValidatorMessage(Messages.NO_BEANS_ERROR, proj, IMarker.SEVERITY_ERROR, IMarker.PRIORITY_HIGH); 
 			vRes.add(vMsg);
