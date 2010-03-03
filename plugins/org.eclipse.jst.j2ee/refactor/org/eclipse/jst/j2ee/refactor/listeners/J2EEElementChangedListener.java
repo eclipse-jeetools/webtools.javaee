@@ -329,11 +329,13 @@ public class J2EEElementChangedListener implements IElementChangedListener {
 					sourceToRuntime.put(resource.getSourcePath().makeRelative(), resource.getRuntimePath());
 				}
 			}
-			return sourceToRuntime;
+		} catch (NullPointerException e) {
+			J2EEPlugin.logError(e);
 		} finally {
 			if (core != null)
 				core.dispose();
 		}
+		return sourceToRuntime;
 	}
 
 	/*
