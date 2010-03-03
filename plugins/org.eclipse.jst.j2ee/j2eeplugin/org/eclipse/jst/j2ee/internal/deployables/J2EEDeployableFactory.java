@@ -122,7 +122,7 @@ public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate implemen
 				String type = JavaEEProjectUtilities.getJ2EEProjectType(component.getProject());
 				String version = J2EEProjectUtilities.getJ2EEProjectVersion(component.getProject());
 				IModule module = createModule(component.getName(), component.getName(), type, version, component.getProject());
-				J2EEFlexProjDeployable moduleDelegate = new J2EEFlexProjDeployable(component.getProject(), component);
+				FlatComponentDeployable moduleDelegate = createModuleDelegate(component.getProject(), component);
 				moduleDelegates.put(module, moduleDelegate);
 				projectModules.add(module);
 
@@ -137,6 +137,10 @@ public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate implemen
 			J2EEPlugin.logError(e);
 		}
 		return projectModules.toArray(new IModule[projectModules.size()]);
+	}
+
+	protected FlatComponentDeployable createModuleDelegate(IProject project, IVirtualComponent component) {
+		return new J2EEFlexProjDeployable(project, component);
 	}
 
 	/**

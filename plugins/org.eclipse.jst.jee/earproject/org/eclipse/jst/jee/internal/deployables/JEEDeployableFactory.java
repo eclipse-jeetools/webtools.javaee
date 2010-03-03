@@ -39,7 +39,7 @@ public class JEEDeployableFactory extends J2EEDeployableFactory {
 	public JEEDeployableFactory() {
 		super();
 	}
-
+	
 	@Override
 	public void initialize() {
 		super.initialize();
@@ -47,6 +47,11 @@ public class JEEDeployableFactory extends J2EEDeployableFactory {
 			JEE_INSTANCE = this;
 	}
 
+
+	@Override
+	protected FlatComponentDeployable createModuleDelegate(IProject project, IVirtualComponent component) {
+		return new JEEFlexProjDeployable(project, component);
+	}
 
 	@Override
 	protected boolean canHandleProject(IProject p) {
