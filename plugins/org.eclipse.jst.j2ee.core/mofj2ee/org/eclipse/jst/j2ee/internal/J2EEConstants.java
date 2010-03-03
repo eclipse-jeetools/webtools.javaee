@@ -111,6 +111,7 @@ public interface J2EEConstants extends J2EEVersionConstants {
     
     // Web Fragments Constants 
     String 	WEBFRAGMENT_DOCTYPE         =       "web-fragment"; //$NON-NLS-1$
+    String  WEBFRAGMENT_ID				= 		"WebFragment_ID"; //$NON-NLS-1$
     String 	WEBFRAGMENT_DD_URI			=		"META-INF/web-fragment.xml"; //$NON-NLS-1$
     URI 	WEBFRAGMENT_DD_URI_OBJ      =       URI.createURI(WEBFRAGMENT_DD_URI);
     String 	WEBFRAGMENT_DD_SHORT_NAME   =       "web-fragment.xml"; //$NON-NLS-1$
