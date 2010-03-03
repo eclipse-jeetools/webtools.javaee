@@ -17,9 +17,12 @@ import java.util.List;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.common.internal.modulecore.AddClasspathFoldersParticipant;
 import org.eclipse.jst.common.internal.modulecore.AddClasspathLibReferencesParticipant;
+import org.eclipse.jst.common.internal.modulecore.AddMappedOutputFoldersParticipant;
 import org.eclipse.jst.common.internal.modulecore.ReplaceManifestExportParticipant;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.exportmodel.JavaEEComponentExportCallback;
+import org.eclipse.jst.j2ee.internal.common.exportmodel.AddJavaEEReferencesParticipant;
+import org.eclipse.wst.common.componentcore.internal.flat.FilterResourceParticipant;
 import org.eclipse.wst.common.componentcore.internal.flat.IFlattenParticipant;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -36,7 +39,11 @@ public class JavaEEComponentExportOperation extends ComponentExportOperation {
 	@Override
 	protected List<IFlattenParticipant> getParticipants() {		
 		List<IFlattenParticipant> participants = new ArrayList<IFlattenParticipant>();
-		participants.addAll(super.getParticipants());
+		String[] filteredExtensions = getFilteredExtensions();
+		
+		participants.add(new AddJavaEEReferencesParticipant());
+		participants.add(new AddMappedOutputFoldersParticipant(filteredExtensions));
+		participants.add(FilterResourceParticipant.createSuffixFilterParticipant(filteredExtensions));
 		participants.add(new ReplaceManifestExportParticipant(new Path(J2EEConstants.MANIFEST_URI)));
 		participants.add(new AddClasspathLibReferencesParticipant());
 		participants.add(new AddClasspathFoldersParticipant());	

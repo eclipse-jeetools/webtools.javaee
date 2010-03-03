@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -46,15 +47,12 @@ import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.core.runtime.jobs.MultiRule;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jst.common.internal.modulecore.AddMappedOutputFoldersParticipant;
-import org.eclipse.jst.common.internal.modulecore.StandardHierarchyParticipant;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveResourceHandler;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentExportDataModelProperties.IArchiveExportParticipantData;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
 import org.eclipse.jst.jee.archive.ArchiveSaveFailureException;
 import org.eclipse.jst.jee.archive.internal.ArchiveUtil;
 import org.eclipse.osgi.util.NLS;
-import org.eclipse.wst.common.componentcore.internal.flat.FilterResourceParticipant;
 import org.eclipse.wst.common.componentcore.internal.flat.IFlattenParticipant;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
@@ -309,13 +307,7 @@ public class ComponentExportOperation extends AbstractDataModelOperation {
 	 * @return
 	 */
 	protected List<IFlattenParticipant> getParticipants() {
-		String[] filteredExtensions = getFilteredExtensions();
-		IFlattenParticipant[] participants = new IFlattenParticipant[] {
-				new StandardHierarchyParticipant(),
-				new AddMappedOutputFoldersParticipant(filteredExtensions),
-				FilterResourceParticipant.createSuffixFilterParticipant(filteredExtensions)
-		};
-		return Arrays.asList(participants);
+		return Collections.EMPTY_LIST;
 	}
 	
 	protected String[] getFilteredExtensions() {
