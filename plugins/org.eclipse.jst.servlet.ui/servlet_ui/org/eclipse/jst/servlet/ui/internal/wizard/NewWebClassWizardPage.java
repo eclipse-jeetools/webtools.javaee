@@ -42,6 +42,7 @@ import org.eclipse.jst.j2ee.internal.wizard.AnnotationsStandaloneGroup;
 import org.eclipse.jst.j2ee.internal.wizard.NewJavaClassWizardPage;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.project.WebUtilities;
 import org.eclipse.jst.j2ee.web.IServletConstants;
 import org.eclipse.jst.j2ee.web.project.facet.WebFacetUtils;
@@ -193,6 +194,11 @@ public abstract class NewWebClassWizardPage extends NewJavaClassWizardPage {
 	@Override
 	protected void validateProjectRequirements(IProject project)
 	{
+		if(JavaEEProjectUtilities.isWebFragmentProject(project)){
+			// don't create a web DD, since web fragment project is created with one.
+			model.setBooleanProperty(GENERATE_DD, Boolean.FALSE);
+			return;
+		}
 		IVirtualComponent component = ComponentCore.createComponent(project);
 		if(component.getRootFolder() != null
 				&& component.getRootFolder().getUnderlyingFolder() != null){

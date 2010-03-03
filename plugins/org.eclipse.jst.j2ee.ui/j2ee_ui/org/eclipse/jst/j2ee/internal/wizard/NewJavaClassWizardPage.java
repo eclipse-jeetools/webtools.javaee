@@ -54,6 +54,7 @@ import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelPro
 import org.eclipse.jst.j2ee.internal.dialogs.TypeSearchEngine;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -228,7 +229,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		try {
 			result = project.isAccessible() && 
 				project.hasNature(IModuleConstants.MODULE_NATURE_ID) && 
-			 	J2EEProjectUtilities.getJ2EEProjectType(project).equals(projectType);
+			 	(JavaEEProjectUtilities.isDynamicWebProject(project) || JavaEEProjectUtilities.isWebFragmentProject(project));
 		} catch (CoreException ce) {
 			result = false;
 		}

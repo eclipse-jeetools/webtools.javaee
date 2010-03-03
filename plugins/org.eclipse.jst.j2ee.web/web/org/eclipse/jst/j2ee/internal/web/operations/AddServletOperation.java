@@ -34,6 +34,7 @@ import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
 import org.eclipse.jst.javaee.core.DisplayName;
 import org.eclipse.jst.javaee.core.JavaeeFactory;
 import org.eclipse.jst.javaee.core.UrlPatternType;
+import org.eclipse.jst.javaee.web.IWebCommon;
 import org.eclipse.jst.javaee.web.WebFactory;
 import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditProviderOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -165,7 +166,7 @@ public class AddServletOperation extends AddWebClassOperation {
 			WebApp webApp = (WebApp) modelObject;
 			webApp.getServlets().add(servlet);
 			return servlet;
-		} else if (modelObject instanceof org.eclipse.jst.javaee.web.WebApp) {
+		} else if (modelObject instanceof IWebCommon) {
 			
 			org.eclipse.jst.javaee.web.Servlet servlet = WebFactory.eINSTANCE.createServlet();
 
@@ -190,7 +191,7 @@ public class AddServletOperation extends AddWebClassOperation {
 			// Add the servlet to the web application model
 			
 			//WebApp webApp = (WebApp) artifactEdit.getContentModelRoot();
-			org.eclipse.jst.javaee.web.WebApp webApp = (org.eclipse.jst.javaee.web.WebApp) modelObject;
+			IWebCommon webApp = (IWebCommon) modelObject;
 			webApp.getServlets().add(servlet);	
 			return servlet;
 		}

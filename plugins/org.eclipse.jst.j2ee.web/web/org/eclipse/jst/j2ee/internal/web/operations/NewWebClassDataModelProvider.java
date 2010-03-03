@@ -38,6 +38,7 @@ import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.web.project.facet.WebFacetUtils;
 import org.eclipse.wst.common.componentcore.internal.util.FacetedProjectUtilities;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -194,7 +195,13 @@ public abstract class NewWebClassDataModelProvider extends NewJavaClassDataModel
 	@SuppressWarnings("restriction")
 	public String getJavaEEVersion() {
 		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(getStringProperty(PROJECT_NAME));
-		return FacetedProjectUtilities.getProjectFacetVersion(project, WebFacetUtils.WEB_FACET.getId()).getVersionString();
+		String id = null;
+		if(JavaEEProjectUtilities.isDynamicWebProject(project)){
+			id = WebFacetUtils.WEB_FACET.getId();
+		}else {
+			id = WebFacetUtils.WEBFRAGMENT_FACET.getId();
+		}
+		return FacetedProjectUtilities.getProjectFacetVersion(project, id).getVersionString();
 	}
 
 	/**
