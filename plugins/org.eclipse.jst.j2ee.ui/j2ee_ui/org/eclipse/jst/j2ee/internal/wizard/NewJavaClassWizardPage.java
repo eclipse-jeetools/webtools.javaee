@@ -231,7 +231,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		try {
 			result = project.isAccessible() && 
 				project.hasNature(IModuleConstants.MODULE_NATURE_ID) && 
-			 	(JavaEEProjectUtilities.isDynamicWebProject(project) || JavaEEProjectUtilities.isWebFragmentProject(project));
+			 	JavaEEProjectUtilities.getJ2EEProjectType(project).equals(projectType);
 		} catch (CoreException ce) {
 			result = false;
 		}
