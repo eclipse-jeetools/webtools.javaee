@@ -20,6 +20,7 @@ import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataM
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -28,6 +29,7 @@ import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProv
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBCreationResourceHandler;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.javaee.ejb.EJBJar;
 import org.eclipse.jst.javaee.ejb.EnterpriseBeans;
 import org.eclipse.jst.javaee.ejb.SessionBean;
@@ -155,19 +157,24 @@ public class NewEnterpriseBeanClassDataModelProvider extends NewJavaClassDataMod
 		// check if an EJB with the same name already exists
 		String projectName = getStringProperty(PROJECT_NAME);
 		if (projectName != null && projectName.length() > 0) {
-			IModelProvider provider = ModelProviderManager.getModelProvider(ResourcesPlugin.getWorkspace().getRoot().getProject(projectName));
-			EJBJar modelObject = (EJBJar) provider.getModelObject();
-			EnterpriseBeans enterpriseBeans = modelObject.getEnterpriseBeans();
-			if (enterpriseBeans != null)
+			IProject project = getTargetProject();
+			if (JavaEEProjectUtilities.isEJBProject(project))
 			{
-				List sessionBeans = enterpriseBeans.getSessionBeans();
-				for (Object object : sessionBeans) {
-					SessionBean session = (SessionBean) object;
-					if (session.getEjbName().equals(getDataModel().getStringProperty(EJB_NAME).trim())){
-						return new Status(IStatus.ERROR, EjbPlugin.PLUGIN_ID, EJBCreationResourceHandler.ERR_BEAN_ALREADY_EXISTS);
+				IModelProvider provider = ModelProviderManager.getModelProvider(ResourcesPlugin.getWorkspace().getRoot().getProject(projectName));
+				EJBJar modelObject = (EJBJar) provider.getModelObject();
+				EnterpriseBeans enterpriseBeans = modelObject.getEnterpriseBeans();
+				if (enterpriseBeans != null)
+				{
+					List sessionBeans = enterpriseBeans.getSessionBeans();
+					for (Object object : sessionBeans) {
+						SessionBean session = (SessionBean) object;
+						if (session.getEjbName().equals(getDataModel().getStringProperty(EJB_NAME).trim())){
+							return new Status(IStatus.ERROR, EjbPlugin.PLUGIN_ID, EJBCreationResourceHandler.ERR_BEAN_ALREADY_EXISTS);
+						}
 					}
 				}
 			}
+			// TODO - load/check the validity of the name in a web project/ web fragment
 		}
 		return Status.OK_STATUS;
 	}

@@ -44,6 +44,7 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.Signature;
 import org.eclipse.jst.j2ee.ejb.internal.operations.BusinessInterface.BusinessInterfaceType;
 import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider;
@@ -500,11 +501,27 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 	}
 
 	private boolean ejb31OrLater() {
+		boolean retVal = false;
 		IProject project = getTargetProject();
-		IProjectFacetVersion facetVersion = JavaEEProjectUtilities.getProjectFacetVersion(project, IJ2EEFacetConstants.EJB);
-		int version = J2EEVersionUtil.convertVersionStringToInt(facetVersion.getVersionString());
-		int ejb31version = J2EEVersionUtil.convertVersionStringToInt(IJ2EEFacetConstants.EJB_31.getVersionString());
-		return version >= ejb31version;
+		if (JavaEEProjectUtilities.isEJBProject(project))
+		{
+			IProjectFacetVersion facetVersion = JavaEEProjectUtilities.getProjectFacetVersion(project, IJ2EEFacetConstants.EJB);
+			int version = J2EEVersionUtil.convertVersionStringToInt(facetVersion.getVersionString());
+			retVal = version >= J2EEVersionConstants.VERSION_3_1;
+		}
+		else if (JavaEEProjectUtilities.isDynamicWebProject(project))
+		{
+			IProjectFacetVersion facetVersion = JavaEEProjectUtilities.getProjectFacetVersion(project, IJ2EEFacetConstants.DYNAMIC_WEB);
+			int version = J2EEVersionUtil.convertVersionStringToInt(facetVersion.getVersionString());
+			retVal = version >= J2EEVersionConstants.VERSION_3_0;
+		}
+		else if (JavaEEProjectUtilities.isWebFragmentProject(project))
+		{
+			IProjectFacetVersion facetVersion = JavaEEProjectUtilities.getProjectFacetVersion(project, IJ2EEFacetConstants.WEBFRAGMENT);
+			int version = J2EEVersionUtil.convertVersionStringToInt(facetVersion.getVersionString());
+			retVal = version >= J2EEVersionConstants.VERSION_3_0;
+		}
+		return retVal;
 	}
 	
 }

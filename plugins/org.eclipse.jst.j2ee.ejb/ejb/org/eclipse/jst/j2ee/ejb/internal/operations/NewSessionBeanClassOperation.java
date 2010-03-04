@@ -44,6 +44,7 @@ import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.project.EJBUtilities;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditProviderOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedException;
@@ -191,7 +192,12 @@ public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperatio
 	
 	protected void generateInterfacesUsingTemplates(IProgressMonitor monitor, IPackageFragment fragment, CreateSessionBeanTemplateModel tempModel) 
 			throws JETException, JavaModelException {
-		boolean useClientJar = EJBUtilities.hasEJBClientJARProject(getTargetProject());
+		IProject project = getTargetProject();
+		boolean useClientJar = false;
+		if (JavaEEProjectUtilities.isEJBProject(project))
+		{
+			useClientJar = EJBUtilities.hasEJBClientJARProject(getTargetProject());
+		}
 		List<BusinessInterface> interfaces = tempModel.getBusinessInterfaces();
 		for (BusinessInterface iface : interfaces) {
 			if (!iface.exists()) {
@@ -217,7 +223,6 @@ public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperatio
 			String remoteFullName =  model.getStringProperty(INewSessionBeanClassDataModelProperties.REMOTE_HOME_INTERFACE);
 			String remoteComponentFullName = model.getStringProperty(INewSessionBeanClassDataModelProperties.REMOTE_COMPONENT_INTERFACE);
 			
-			IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(model.getStringProperty(INewSessionBeanClassDataModelProperties.PROJECT_NAME));
 			IJavaProject javaProject = JavaCore.create(project);
 			IType type = javaProject.findType(remoteFullName);
 			
@@ -250,7 +255,6 @@ public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperatio
 			String localFullName =  model.getStringProperty(INewSessionBeanClassDataModelProperties.LOCAL_HOME_INTERFACE);
 			String localComponentFullName = model.getStringProperty(INewSessionBeanClassDataModelProperties.LOCAL_COMPONENT_INTERFACE);
 			
-			IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(model.getStringProperty(INewSessionBeanClassDataModelProperties.PROJECT_NAME));
 			IJavaProject javaProject = JavaCore.create(project);
 			IType type = javaProject.findType(localFullName);			
 			

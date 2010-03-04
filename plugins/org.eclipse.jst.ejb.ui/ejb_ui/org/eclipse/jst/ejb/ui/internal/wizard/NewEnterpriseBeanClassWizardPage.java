@@ -12,9 +12,9 @@ package org.eclipse.jst.ejb.ui.internal.wizard;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.wizard.NewJavaClassWizardPage;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.jee.ui.internal.navigator.AbstractDDNode;
 import org.eclipse.jst.jee.ui.internal.navigator.ejb.GroupEJBProvider;
 import org.eclipse.swt.widgets.Composite;
@@ -31,7 +31,8 @@ public class NewEnterpriseBeanClassWizardPage extends NewJavaClassWizardPage {
 	protected Composite createTopLevelComposite(Composite parent) {
 		Composite composite = super.createTopLevelComposite(parent);
 		
-		projectNameLabel.setText(EJBUIMessages.EJB_PROJECT_LBL);
+		// bug 303917
+		//projectNameLabel.setText(EJBUIMessages.EJB_PROJECT_LBL);
 		
 		return composite;
 	}
@@ -39,7 +40,19 @@ public class NewEnterpriseBeanClassWizardPage extends NewJavaClassWizardPage {
 	@Override
 	protected boolean isProjectValid(IProject project) {
 		boolean result = super.isProjectValid(project);
-		result = result && J2EEProjectUtilities.isJEEProject(project);
+		// bug 241670 - 3.x EJBs can be created in 3.x EJB project, or Web 2.5 or Web 3.0 or Web Fragment 3.0
+		boolean isJEEProject = J2EEProjectUtilities.isJEEProject(project);
+		if (isJEEProject)
+		{
+			if (!result)
+			{
+				result = (JavaEEProjectUtilities.isDynamicWebProject(project) || JavaEEProjectUtilities.isWebFragmentProject(project));
+			}
+		}
+		else
+		{
+			result = false;
+		}
 		return result;
 	}
 	
