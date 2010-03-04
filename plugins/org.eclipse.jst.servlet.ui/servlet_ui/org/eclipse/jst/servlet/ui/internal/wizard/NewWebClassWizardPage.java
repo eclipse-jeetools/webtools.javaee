@@ -48,7 +48,6 @@ import org.eclipse.jst.j2ee.web.IServletConstants;
 import org.eclipse.jst.j2ee.web.project.facet.WebFacetUtils;
 import org.eclipse.jst.servlet.ui.internal.navigator.CompressedJavaProject;
 import org.eclipse.jst.servlet.ui.internal.plugin.ServletUIPlugin;
-import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -61,6 +60,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
@@ -83,7 +83,8 @@ public abstract class NewWebClassWizardPage extends NewJavaClassWizardPage {
 	protected Composite createTopLevelComposite(Composite parent) {
 		Composite composite = super.createTopLevelComposite(parent);
 		
-		projectNameLabel.setText(WEBUIMessages.WEB_PROJECT_LBL);
+		//bug 303931
+		// projectNameLabel.setText(WEBUIMessages.WEB_PROJECT_LBL);
 		
 		addSeperator(composite, 3);
 		createUseExistingGroup(composite);
@@ -431,6 +432,19 @@ public abstract class NewWebClassWizardPage extends NewJavaClassWizardPage {
 	protected void checkExistingButton(boolean state) {
 		existingButton.setSelection(state);
 		existingButton.notifyListeners(SWT.Selection, new Event());
+	}
+	
+	@Override
+	protected boolean isProjectValid(IProject project) {
+		boolean result;
+		try {
+			result = project.isAccessible() && 
+				project.hasNature(IModuleConstants.MODULE_NATURE_ID) && 
+			 	(JavaEEProjectUtilities.isDynamicWebProject(project) || JavaEEProjectUtilities.isWebFragmentProject(project));
+		} catch (CoreException ce) {
+			result = false;
+		}
+		return result;
 	}
 	
 }

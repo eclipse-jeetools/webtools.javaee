@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.xmi.XMLHelper;
 import org.eclipse.emf.ecore.xmi.XMLLoad;
 import org.eclipse.jst.javaee.core.JEEXMLLoadImpl;
 import org.eclipse.jst.javaee.core.internal.util.JavaeeResourceImpl;
+import org.eclipse.jst.javaee.web.IWebFragmentResource;
 import org.eclipse.jst.javaee.web.WebFragment;
 import org.eclipse.jst.javaee.webfragment.WebAppDeploymentDescriptor;
 import org.eclipse.wst.common.internal.emf.resource.IRootObjectResource;
@@ -28,7 +29,7 @@ import org.eclipse.wst.common.internal.emf.resource.IRootObjectResource;
  * @see org.eclipse.jst.javaee.webfragment.internal.util.WebfragmentResourceFactoryImpl
  * @generated
  */
-public class WebfragmentResourceImpl extends JavaeeResourceImpl implements IRootObjectResource {
+public class WebfragmentResourceImpl extends JavaeeResourceImpl implements IRootObjectResource, IWebFragmentResource {
 	/**
 	 * Creates an instance of the resource.
 	 * <!-- begin-user-doc -->
