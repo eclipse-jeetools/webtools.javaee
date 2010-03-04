@@ -47,6 +47,8 @@ import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
+import org.eclipse.jface.viewers.TreePath;
+import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.jface.window.Window;
@@ -588,7 +590,17 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		IStructuredSelection stucturedSelection = (IStructuredSelection) selection;
 		if (stucturedSelection.getFirstElement() instanceof EObject)
 			return ProjectUtilities.getProject(stucturedSelection.getFirstElement());
-		return getExtendedSelectedProject(stucturedSelection.getFirstElement());
+		IProject project = getExtendedSelectedProject(stucturedSelection.getFirstElement());
+		if(project != null) {
+			return project;
+		}
+		if(selection instanceof TreeSelection && (((TreeSelection)selection).getPaths().length > 0)){
+			TreePath path = (((TreeSelection)selection).getPaths()[0]);
+			if(path.getSegmentCount() > 0 && path.getSegment(0) instanceof IProject) {
+				return (IProject) path.getSegment(0);
+			}
+		}
+		return null;
 	}
 	
 	protected IProject getExtendedSelectedProject(Object selection) {
