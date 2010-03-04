@@ -25,7 +25,6 @@ import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -43,6 +42,7 @@ public class CustomWebProjectReferenceWizardFragment extends ProjectReferenceWiz
 
 	private boolean isWebLib;
 	private Button button;
+	private Composite tableColumnComposite;
 	
 	@Override
 	public Composite createComposite(Composite parent, IWizardHandle handle) {
@@ -57,11 +57,14 @@ public class CustomWebProjectReferenceWizardFragment extends ProjectReferenceWiz
 	}
 	private void createTable(Composite c) {
 		
-		Composite comp = createTableColumnComposite(c);
+		tableColumnComposite = createTableColumnComposite(c);
 		
-		viewer = new TreeViewer(comp, SWT.SINGLE | SWT.BORDER);
+		viewer = new TreeViewer(tableColumnComposite, SWT.MULTI | SWT.BORDER);
 		viewer.setContentProvider(getContentProvider());
 		viewer.setLabelProvider(getLabelProvider());
+		
+		
+		
 		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			public void selectionChanged(SelectionChangedEvent event) {
 				selChanged();
@@ -69,20 +72,11 @@ public class CustomWebProjectReferenceWizardFragment extends ProjectReferenceWiz
 		});
 		viewer.setInput(ResourcesPlugin.getWorkspace());
 	}
-	private Composite newComposite(Composite parent) {
-		Composite c = new Composite(parent, SWT.NONE);
-		GridLayout layout = new GridLayout();
-		layout.numColumns = 1;
-		layout.marginHeight = 0;
-		c.setLayout(layout);
-		c.setLayoutData(new GridData(SWT.FILL,SWT.FILL,true,true));
-		return c;
-	}
+	
 	protected void createButtonColumn(Composite parent) {
-		Composite buttonColumn = createButtonColumnComposite(parent);
-		GridData data = new GridData(GridData.VERTICAL_ALIGN_END);
-		buttonColumn.setLayoutData(data);
-		button = new Button(buttonColumn, SWT.CHECK);
+		
+		
+		button = new Button(parent, SWT.CHECK);
 		button.setText(Messages.getString("CustomWebProjectReferenceWizardFragment.0")); //$NON-NLS-1$
 		button.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		button.addSelectionListener(new SelectionListener() {
@@ -94,34 +88,46 @@ public class CustomWebProjectReferenceWizardFragment extends ProjectReferenceWiz
 			}
 		});
 	}
-	public Composite createButtonColumnComposite(Composite parent) {
+//	public Composite createButtonColumnComposite(Composite parent) {
+//		Composite aButtonColumn = new Composite(parent, SWT.NONE);
+//		GridLayout layout = new GridLayout();
+//		layout.numColumns = 1;
+//		layout.marginHeight = 0;
+//		layout.marginWidth = 0;
+//		aButtonColumn.setLayout(layout);
+//		GridData data = new GridData(GridData.HORIZONTAL_ALIGN_FILL
+//				| GridData.VERTICAL_ALIGN_FILL);
+//		aButtonColumn.setLayoutData(data);
+//		return aButtonColumn;
+//	}
+	public Composite createTableColumnComposite(Composite parent) {
 		Composite aButtonColumn = new Composite(parent, SWT.NONE);
+	
 		GridLayout layout = new GridLayout();
 		layout.numColumns = 1;
 		layout.marginHeight = 0;
 		layout.marginWidth = 0;
 		aButtonColumn.setLayout(layout);
-		GridData data = new GridData(GridData.HORIZONTAL_ALIGN_FILL
-				| GridData.VERTICAL_ALIGN_BEGINNING);
+		GridData data = new GridData(GridData.FILL_BOTH);
+		//data.minimumHeight = 500;
+		//data.minimumWidth = 400;
 		aButtonColumn.setLayoutData(data);
-		return aButtonColumn;
-	}
-	public Composite createTableColumnComposite(Composite parent) {
-		Composite aButtonColumn = new Composite(parent, SWT.NONE);
-//		GridLayout layout = new GridLayout();
-//		layout.numColumns = 1;
-//		layout.marginHeight = 0;
-//		layout.marginWidth = 0;
-		aButtonColumn.setLayout(new FillLayout());
-//		GridData data = new GridData(GridData.HORIZONTAL_ALIGN_FILL
-//				| GridData.VERTICAL_ALIGN_FILL);
-//		aButtonColumn.setLayoutData(data);
 		return aButtonColumn;
 	}
 
 	protected void handleEdit() {
 		isWebLib = button.getSelection();
 	}
+	private Composite newComposite(Composite parent) {
+		Composite c = new Composite(parent, SWT.NONE);
+		GridLayout layout = new GridLayout();
+		layout.numColumns = 1;
+		layout.marginHeight = 0;
+		c.setLayout(layout);
+		c.setLayoutData(new GridData(SWT.FILL,SWT.FILL,true,true));
+		return c;
+	}
+
 
 	@Override
 	protected String getArchiveName(IProject proj, IVirtualComponent comp) {
@@ -135,9 +141,12 @@ public class CustomWebProjectReferenceWizardFragment extends ProjectReferenceWiz
 
 	@Override
 	public void performFinish(IProgressMonitor monitor) throws CoreException {
-		if(!JavaEEProjectUtilities.isUtilityProject(selected))
-		{
-			J2EEProjectUtilities.createFlexJavaProjectForProjectOperation(selected).execute(monitor, null);
+		for (int i = 0; i < selected.length; i++) {
+			IProject proj = selected[i];
+			if(!JavaEEProjectUtilities.isUtilityProject(proj))
+			{
+				J2EEProjectUtilities.createFlexJavaProjectForProjectOperation(proj).execute(monitor, null);
+			}
 		}
 		super.performFinish(monitor);
 	}

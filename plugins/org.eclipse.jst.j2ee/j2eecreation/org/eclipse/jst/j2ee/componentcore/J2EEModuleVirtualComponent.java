@@ -216,7 +216,7 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 		return getJavaClasspathReferences(null);
 	}
 	
-	private IVirtualReference[] getJavaClasspathReferences(IVirtualReference[] hardReferences) {
+	public IVirtualReference[] getJavaClasspathReferences(IVirtualReference[] hardReferences) {
 		final boolean isWebApp = JavaEEProjectUtilities.isDynamicWebComponent(this);
 		
 		if(!isWebApp && !ClasspathDependencyEnablement.isAllowClasspathComponentDependency()){
@@ -406,6 +406,7 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 										if (shouldInclude) {
 											IVirtualReference dynamicReference = ComponentCore.createReference(moduleComponent, dynamicComponent);
 											((VirtualReference)dynamicReference).setDerived(true);
+											((VirtualReference)dynamicReference).setArchiveName(archiveName);
 											if (null == dynamicReferences) {
 												dynamicReferences = new ArrayList();
 											}

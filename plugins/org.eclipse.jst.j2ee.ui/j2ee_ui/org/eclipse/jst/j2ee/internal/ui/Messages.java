@@ -15,6 +15,7 @@ public class Messages extends NLS {
 	public static String J2EEModuleDependenciesPropertyPage_3;
 	public static String J2EEModuleDependenciesPropertyPage_4;
 	public static String J2EEModuleDependenciesPropertyPage_5;
+	public static String J2EEModuleDependenciesPropertyPage_6;
 
 	static {
 		// initialize resource bundle
