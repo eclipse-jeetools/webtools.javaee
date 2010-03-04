@@ -38,6 +38,7 @@ public final class MOFJ2EEResourceHandler extends NLS {
 	public static String MIGRATED_DEFAULT_DATASOURCE_MSG;
 	public static String J2EE_VERSION_NULL_ERROR;
 	public static String J2EE_VERSION_PROXY_ERROR;
+	public static String INVALID_ROLE_SOURCE__ENTITY_BEAN;
 
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, MOFJ2EEResourceHandler.class);

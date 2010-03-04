@@ -12,6 +12,9 @@ package org.eclipse.jst.j2ee.ejb.internal.impl;
 
 import java.util.Collection;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
@@ -23,10 +26,15 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jst.j2ee.common.Description;
 import org.eclipse.jst.j2ee.common.internal.impl.J2EEEObjectImpl;
+import org.eclipse.jst.j2ee.core.internal.plugin.J2EECorePlugin;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
 import org.eclipse.jst.j2ee.ejb.EJBRelationshipRole;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
+import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.RoleSource;
+import org.eclipse.jst.j2ee.internal.MOFJ2EEResourceHandler;
+import org.eclipse.jst.javaee.ejb.MessageDrivenBean;
+import org.eclipse.jst.javaee.ejb.SessionBean;
 
 /**
  * Designates the source of a role that participates in a relationship. A relationship-role-source element uniquely identifies an entity bean.
@@ -263,7 +271,25 @@ public class RoleSourceImpl extends J2EEEObjectImpl implements RoleSource {
 				setRole((EJBRelationshipRole)newValue);
 				return;
 			case EjbPackage.ROLE_SOURCE__ENTITY_BEAN:
-				setEntityBean((ContainerManagedEntity)newValue);
+				if(newValue instanceof ContainerManagedEntity) {
+					setEntityBean((ContainerManagedEntity)newValue);
+				} else {
+					String relationshipName = this.getRole().getRelationship().getName();
+					String beanName = ""; //$NON-NLS-1$
+					if(relationshipName == null)
+						relationshipName = ""; //$NON-NLS-1$
+					if(newValue instanceof EnterpriseBean) {
+						beanName = ((EnterpriseBean)newValue).getName();
+					} else if (newValue instanceof SessionBean) {
+						beanName = ((SessionBean)newValue).getEjbName();
+					}else if(newValue instanceof MessageDrivenBean) {
+						beanName = ((MessageDrivenBean)newValue).getEjbName();
+					}
+					if(beanName == null) {
+						beanName = ""; //$NON-NLS-1$
+					}
+					Platform.getLog(Platform.getBundle(J2EECorePlugin.getPluginID())).log( new Status(IStatus.ERROR,J2EECorePlugin.getPluginID(), MOFJ2EEResourceHandler.getString(MOFJ2EEResourceHandler.INVALID_ROLE_SOURCE__ENTITY_BEAN, new Object[]{relationshipName, beanName})));
+				}
 				return;
 			case EjbPackage.ROLE_SOURCE__DESCRIPTIONS:
 				getDescriptions().clear();
