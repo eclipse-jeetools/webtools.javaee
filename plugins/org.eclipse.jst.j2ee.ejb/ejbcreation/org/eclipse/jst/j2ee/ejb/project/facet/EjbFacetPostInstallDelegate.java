@@ -146,7 +146,7 @@ public class EjbFacetPostInstallDelegate extends J2EEFacetInstallDelegate implem
 					try {
 						if (model.getBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR))
 							runAddClientToEAROperation(model, monitor);
-						runAddClientToEJBOperation(model, monitor);
+						//runAddClientToEJBOperation(model, monitor);
 						modifyEJBModuleJarDependency(model, monitor);
 						updateEJBDD(model, monitor);
 					} catch (CoreException e) {
