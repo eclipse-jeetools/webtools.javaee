@@ -16,6 +16,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -34,15 +35,19 @@ import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.IParent;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
 public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 	IProject clientProject;
@@ -191,31 +196,40 @@ public class XDocletEjbAntProjectBuilder extends XDocletAntProjectBuilder {
 	private void setEjbClientJarProperties(Properties properties, StructureEdit core, WorkbenchComponent ejbModule)
 			throws UnresolveableURIException {
 		clientProject = null;
-		Iterator refComps = ejbModule.getReferencedComponents().iterator();
-		if (refComps.hasNext()) {
-			ReferencedComponent refedComp = (ReferencedComponent) refComps.next();
-			WorkbenchComponent clientEjbJarComp = core.findComponentByURI(refedComp.getHandle());
-			IProject project = StructureEdit.getContainingProject(clientEjbJarComp);
-			if (J2EEProjectUtilities.isUtilityProject(project)) {
-				properties.put("ejb.dd.clientjar", clientEjbJarComp.getName() + ".jar"); //$NON-NLS-1$
-				setClientJarSourcepath(properties, ejbModule, clientEjbJarComp);
+		IVirtualReference[] refs = null;
+		IProject ejbProject = ProjectUtilities.getProject(ejbModule);
+		IVirtualComponent ejbComp = ComponentCore.createComponent(ejbProject);
+		if (ejbComp != null) {
+			refs = ejbComp.getReferences();
+		}
+		
+		if (refs != null) {
+			for (int i = 0; i < refs.length; i++) {
+				IVirtualReference refComp = refs[i];
+				IVirtualComponent referencedComp = refComp.getReferencedComponent();
+				IProject project = referencedComp.getProject();
+				if (J2EEProjectUtilities.isUtilityProject(project)) {
+					properties.put("ejb.dd.clientjar", refComp.getArchiveName()); //$NON-NLS-1$
+					setClientJarSourcepath(properties, ejbModule, refComp);
+				}
 			}
 
 		}
 	}
 
-	private void setClientJarSourcepath(Properties properties, WorkbenchComponent ejbModule, WorkbenchComponent ejbClientJarComp) {
+	private void setClientJarSourcepath(Properties properties, WorkbenchComponent ejbModule, IVirtualReference refComp) {
 		// TODO: THIS API DOES NOT WORK YET
 		// IProject clientProj = StructureEdit.getContainingProject(component);
 		// ComponentResource[] sourceContainers =
 		// core.getSourceContainers(component);
-
-		Iterator clientHarResources = ejbClientJarComp.getResources().iterator();
-		clientProject = StructureEdit.getContainingProject(ejbClientJarComp);
+		IVirtualComponent referencedComp = refComp.getReferencedComponent();
+	    clientProject = referencedComp.getProject();
+	    
+		IContainer[] clientJarResources = referencedComp.getRootFolder().getUnderlyingFolders();
 		List sourcePaths = JemProjectUtilities.getSourceContainers(clientProject);
-		while (clientHarResources.hasNext()) {
-			ComponentResource res = (ComponentResource) clientHarResources.next();
-			IPath sPath = res.getSourcePath();
+		for (int i = 0; i < clientJarResources.length; i++) {
+			IContainer folder = clientJarResources[i];
+			IPath sPath = folder.getProjectRelativePath();
 			Iterator projSPaths = sourcePaths.iterator();
 			while (projSPaths.hasNext()) {
 				IFolder pSPath = (IFolder) projSPaths.next();
