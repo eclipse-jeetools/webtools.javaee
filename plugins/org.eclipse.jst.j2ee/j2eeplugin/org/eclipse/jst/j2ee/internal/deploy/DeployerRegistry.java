@@ -242,7 +242,8 @@ public class DeployerRegistry {
 						facet = ProjectFacetsManager.getProjectFacet(exclusion);
 					} catch (IllegalArgumentException e) {
 						//Facet id not found
-						org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
+						//No logging should be done here... not having this facet installed is actually expected
+						//This filtering should only be enabled if the facet exists in this environment
 					}
 					if (facet != null && fProj.hasProjectFacet(facet)) {
 						excludeDeployer = true;
