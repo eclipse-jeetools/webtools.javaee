@@ -495,7 +495,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 			if (comp instanceof J2EEModuleVirtualComponent || comp instanceof EARVirtualComponent) {
 				IVirtualFolder rootFolder = comp.getRootFolder();
 				if (comp instanceof EARVirtualComponent) {
-					return isRootAncester(resource, rootFolder);
+					return isRootAncester(resource, rootFolder) || isEARLibraryDirectory(resource, comp);
 				}//else J2EEModuleVirtualComponent
 				return isRootAncester(resource, rootFolder) || isFolder(resource, rootFolder.getFolder(J2EEConstants.META_INF));
 			}
