@@ -80,7 +80,7 @@ public class EJBExportPage extends J2EEModuleExportPage {
 	}
 
     @Override
-	protected String getCompnentID() {
+	protected String getComponentID() {
         return "JST_EJB"; //$NON-NLS-1$
     }
 
