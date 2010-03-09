@@ -22,15 +22,20 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jst.j2ee.dependency.tests.util.DependencyVerificationUtil;
 import org.eclipse.jst.j2ee.ejb.project.operations.IEjbFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetProjectCreationDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.javaee.ejb.EJBJar;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers.ModuleProjectCreationDataModelVerifier;
 
@@ -83,38 +88,27 @@ public class EJBProjectCreationDataModelVerifier extends ModuleProjectCreationDa
         	String clientName = facetModel.getStringProperty(IEjbFacetInstallDataModelProperties.CLIENT_NAME);
     		IProject clientProject = ProjectUtilities.getProject(clientName);
     		Assert.assertTrue("Client project should exist", clientProject.exists());
-    		
-    		//be sure project has reference to client project
-			IProject[] referencedProjs = project.getReferencedProjects();
-			boolean foundRef = false;
-			for(int i = 0; i < referencedProjs.length && !foundRef; i++) {
-				foundRef = referencedProjs[i].getName().equals(clientProject.getName());
-			}
-			Assert.assertTrue("EJB should have a reference to its client", foundRef);
-			
-			//be sure that both the EAR and the EJB reference the client
+    	
 			String earName = model.getStringProperty(IJ2EEFacetProjectCreationDataModelProperties.EAR_PROJECT_NAME);
-			IProject[] clientReferencingProjs = clientProject.getReferencingProjects();
-			boolean foundClientReferencingEAR = false;
-			boolean foundClientReferencingEJB = false;
-			for(int i = 0; i < clientReferencingProjs.length && (!foundClientReferencingEAR || !foundClientReferencingEJB); i++) {
-				if(clientReferencingProjs[i].getName().equals(project.getName())) {
-					foundClientReferencingEJB = true;
-				} else if (clientReferencingProjs[i].getName().equals(earName)) {
-					foundClientReferencingEAR = true;
-				}
-			}
-			Assert.assertTrue("The created EAR should be referencing the EJB client project", foundClientReferencingEAR);
-			Assert.assertTrue("The crated EJB should be referencing the EJB client project", foundClientReferencingEJB);
 			
 			//be sure the created EAR has reference to the created EJB client
 			IProject ear = ProjectUtilities.getProject(earName);
-			IProject[] earReferencedProjs = ear.getReferencedProjects();
 			boolean foundEARRefToClient = false;
-			for(int i = 0; i < earReferencedProjs.length && !foundEARRefToClient; i++) {
-				foundEARRefToClient = earReferencedProjs[i].getName().equals(clientName);
+			IVirtualReference[] refs = EarUtilities.getUtilityModuleReferences(ComponentCore.createComponent(ear));
+			IVirtualComponent clientComp = ComponentCore.createComponent(clientProject);
+			for (int i = 0; i < refs.length; i++) {
+				IVirtualReference virtualReference = refs[i];
+				if (virtualReference.getReferencedComponent().equals(clientComp))
+					foundEARRefToClient = true;
 			}
 			Assert.assertTrue("The created EAR should have a reference to the created EJB client project", foundEARRefToClient);
+			
+			//be sure EJB has a MANIFEST entry to the EJB client
+			String ejbName = facetModel.getStringProperty(IEjbFacetInstallDataModelProperties.FACET_PROJECT_NAME);
+			String ejbClientName = facetModel.getStringProperty(IEjbFacetInstallDataModelProperties.CLIENT_NAME);
+			IProject ejbProject = ProjectUtilities.getProject(ejbName);
+			DependencyVerificationUtil.verifyManifestReference(ejbProject,ejbClientName + ".jar", true);   
+			
 			
 			//be sure the EJB client source folder was created
 			String clientSourceFolderPath = facetModel.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER);

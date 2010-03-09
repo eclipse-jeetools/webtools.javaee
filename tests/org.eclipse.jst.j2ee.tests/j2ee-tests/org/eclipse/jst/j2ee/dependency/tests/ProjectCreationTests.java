@@ -70,7 +70,7 @@ public class ProjectCreationTests extends AbstractTests {
     	DependencyVerificationUtil.verifyComponentReference(earProject, ejbClient, DependencyVerificationUtil.ROOT, true);
     	
     	// check dependencies from EJB to EJB client
-    	DependencyVerificationUtil.verifyModuleDependency(ejbProject, ejbClient);
+    	//DependencyVerificationUtil.verifyModuleDependency(ejbProject, ejbClient);
     	DependencyVerificationUtil.verifyManifestReference(ejbProject, ejbClient.getName() + ".jar", true);    	
     }
     
