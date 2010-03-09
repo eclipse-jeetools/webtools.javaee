@@ -119,6 +119,9 @@ public class EjbFacetInstallDataModelProvider
     		} else {
     	    	model.notifyPropertyChange(GENERATE_DD, IDataModel.DEFAULT_CHG);
     		}
+		} else if (propertyName.equals(CLIENT_NAME)) {
+			String clientProjectURI = model.getStringProperty(CLIENT_NAME).replace(' ', '_');
+			model.setStringProperty(CLIENT_URI, clientProjectURI + IJ2EEModuleConstants.JAR_EXT); 
 	    } else if (propertyName.equals(FACET_PROJECT_NAME)) {
 	    	model.setStringProperty(CLIENT_NAME, (String) model.getDefaultProperty(CLIENT_NAME));
 	    	model.setStringProperty(CLIENT_URI, (String) model.getDefaultProperty(CLIENT_URI));
