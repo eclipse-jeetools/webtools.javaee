@@ -44,7 +44,7 @@
             id="org.eclipse.jst.servlet.ui.project.facet.WebFragmentProjectWizard">
          <class class="org.eclipse.jst.servlet.ui.project.facet.WebFragmentProjectWizard">
             <parameter name="javaeeproject" value="true"/>
-            <parameter name="menuIndex" value="10" />
+            <parameter name="menuIndex" value="15" />
          </class>
          <description>
             %webFragmentProjectUI_desc
