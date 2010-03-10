@@ -20,7 +20,6 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.componentcore.datamodel.FacetProjectCreationDataModelProvider;
@@ -210,8 +209,6 @@ public class J2EEFacetProjectCreationDataModelProvider extends FacetProjectCreat
 				IPath path = ResourcesPlugin.getWorkspace().getRoot().getLocation();
 				path = path.append(earName);
 				status = ProjectCreationDataModelProviderNew.validateExisting(earName, path.toOSString());
-				if (status.isOK()) 
-					status = new Status(IStatus.WARNING, J2EEPlugin.PLUGIN_ID, WTPCommonPlugin.getResourceString(WTPCommonMessages.EAR_WILL_BE_CREATED, new Object[]{earName})); 
 			}
 		}
 		return status;
