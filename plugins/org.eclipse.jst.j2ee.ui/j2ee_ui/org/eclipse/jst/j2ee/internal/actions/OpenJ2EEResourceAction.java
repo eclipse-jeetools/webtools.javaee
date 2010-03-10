@@ -191,39 +191,14 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 				org.eclipse.jst.javaee.ejb.EntityBean bean = (org.eclipse.jst.javaee.ejb.EntityBean)srcObject;
 				name = bean.getEjbClass();
 			}
-
-			IResource resource = WorkbenchResourceHelper.getFile((EObject)srcObject);
-			if(resource != null) {
-				IProject project = resource.getProject();
-				IJavaProject javaProject = JavaCore.create(project);
-				if(javaProject.exists()){
-					IType type = null;
-					try {
-						//if name is null then can't get type
-						if(name != null) {
-							type = javaProject.findType( name );
-						}
-						
-						//if type is null then can't open its editor, so open editor for the resource
-						if(type != null) {
-							ICompilationUnit cu = type.getCompilationUnit();
-							EditorUtility.openInEditor(cu);
-						} else{
-							if(resource.exists() && resource.getType() == IResource.FILE ){
-								IFile file = (IFile)resource;
-								IContentType contentType = IDE.getContentType(file);
-								currentDescriptor = PlatformUI.getWorkbench().getEditorRegistry().getDefaultEditor(file.getName(), contentType);
-							}						
-							openAppropriateEditor(resource);
-						}
-					} catch (JavaModelException e) {
-						J2EEUIPlugin.logError(-1, e.getMessage(), e);
-					} catch (PartInitException e) {
-						J2EEUIPlugin.logError(-1, e.getMessage(), e);
-					}
-	
-				}
-			}
+			openResourceInEditor(name, (EObject)srcObject);
+			return;
+		}
+		
+		if(srcObject instanceof org.eclipse.jst.javaee.web.Servlet ){
+			String name = ""; //$NON-NLS-1$
+			name = ((org.eclipse.jst.javaee.web.Servlet)srcObject).getServletClass();
+			openResourceInEditor(name, (EObject)srcObject);
 			return;
 		}
 		
@@ -287,7 +262,10 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 			currentDescriptor = getBaseJavaEditorDescriptor();	
 		} else if(isEJB3BeanObject(obj)) {
 			//[241685] if it is a EJB 3 bean the class is specially opened by the run() method
-		} else if (obj instanceof EObject) {
+		}if(obj instanceof org.eclipse.jst.javaee.web.Servlet ){
+			srcObject = obj;
+			return true;
+		}else if (obj instanceof EObject) {
 			IEditorRegistry registry = PlatformUI.getWorkbench().getEditorRegistry();
 			IFile file = WorkbenchResourceHelper.getFile((EObject)obj);
 			if(file != null) {
@@ -420,5 +398,41 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 			obj instanceof org.eclipse.jst.javaee.ejb.EntityBean;
 		
 		return isBean;
+	}
+	
+	protected void openResourceInEditor(String name, EObject object){
+		IResource resource = WorkbenchResourceHelper.getFile(object);
+		if( resource == null )
+			return;
+		
+		IProject project = resource.getProject();
+		IJavaProject javaProject = JavaCore.create(project);
+		if(javaProject.exists()){
+			IType type = null;
+			try {
+				//if name is null then can't get type
+				if(name != null) {
+					type = javaProject.findType( name );
+				}
+				
+				//if type is null then can't open its editor, so open editor for the resource
+				if(type != null) {
+					ICompilationUnit cu = type.getCompilationUnit();
+					EditorUtility.openInEditor(cu);
+				} else{
+					if(resource.exists() && resource.getType() == IResource.FILE ){
+						IFile file = (IFile)resource;
+						IContentType contentType = IDE.getContentType(file);
+						currentDescriptor = PlatformUI.getWorkbench().getEditorRegistry().getDefaultEditor(file.getName(), contentType);
+					}						
+					openAppropriateEditor(resource);
+				}
+			} catch (JavaModelException e) {
+				J2EEUIPlugin.logError(-1, e.getMessage(), e);
+			} catch (PartInitException e) {
+				J2EEUIPlugin.logError(-1, e.getMessage(), e);
+			}
+
+		}		
 	}
 }
