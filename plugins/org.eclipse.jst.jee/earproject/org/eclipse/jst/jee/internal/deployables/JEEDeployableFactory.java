@@ -16,6 +16,8 @@ import java.util.Map;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.model.ModuleDelegate;
@@ -55,7 +57,9 @@ public class JEEDeployableFactory extends J2EEDeployableFactory {
 
 	@Override
 	protected boolean canHandleProject(IProject p) {
-		return J2EEProjectUtilities.isJEEProject(p);
+		// First check the component is of type Java EE, then check J2EE version
+		IVirtualComponent comp = ComponentCore.createComponent(p);
+		return (JavaEEProjectUtilities.usesJavaEEComponent(comp) && J2EEProjectUtilities.isJEEProject(p));
 	}
 
 	@Override

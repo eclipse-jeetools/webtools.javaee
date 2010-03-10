@@ -21,6 +21,8 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
+import org.eclipse.jst.j2ee.componentcore.util.EARVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
@@ -585,6 +587,18 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 	 */
 	public static boolean isLegacyJ2EEComponent(IVirtualComponent component){
 		return !isJEEComponent(component);
+	}
+	/**
+	 * This checks the component passed if it is any of the "blessed" component types
+	 * 
+	 * @param component
+	 * @return true if the component is any of the JavaEE types.
+	 */
+	public static boolean usesJavaEEComponent(IVirtualComponent component){
+		
+		if(component != null && (component instanceof J2EEModuleVirtualComponent || component instanceof EARVirtualComponent))
+			return true;
+		return false;
 	}
 	
 	public static String getComponentURI(IVirtualComponent comp) {

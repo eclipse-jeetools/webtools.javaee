@@ -108,7 +108,9 @@ public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate implemen
 	}
 
 	protected boolean canHandleProject(IProject p) {
-		return J2EEProjectUtilities.isLegacyJ2EEProject(p);
+		// First check the component is of type Java EE, then check J2EE version
+		IVirtualComponent comp = ComponentCore.createComponent(p);
+		return (JavaEEProjectUtilities.usesJavaEEComponent(comp) && J2EEProjectUtilities.isLegacyJ2EEProject(p));
 	}
 	
 	protected IModule[] createModuleDelegates(IVirtualComponent component) {
