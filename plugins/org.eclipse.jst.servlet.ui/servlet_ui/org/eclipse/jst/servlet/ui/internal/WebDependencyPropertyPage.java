@@ -115,6 +115,13 @@ public class WebDependencyPropertyPage extends J2EEModuleDependenciesPropertyPag
 				consumedReferences.add(compArr[i]);
 		}
 	}
+	@Override
+	protected void removeComponents(ArrayList<IVirtualComponent> removed) {
+		Iterator<IVirtualComponent> i = removed.iterator();
+		while(i.hasNext()) {
+			removeOneComponent(i.next());
+		}
+	}
 
 
 	@Override
