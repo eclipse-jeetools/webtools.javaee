@@ -130,7 +130,7 @@
              <adapt type="org.eclipse.core.resources.IProject">
              	<test forcePluginActivation="true"
 							property="org.eclipse.wst.common.project.facet.core.projectFacet"
-							value="jst.ear:5.0" />
+							value="jst.ear:[5.0" />
 			 </adapt>
              
            </with>
@@ -145,7 +145,7 @@
              <adapt type="org.eclipse.core.resources.IFile">
              	<test forcePluginActivation="true"
 							property="org.eclipse.wst.common.project.facet.core.projectFacet"
-							value="jst.ear:5.0" />
+							value="jst.ear:[5.0" />
 			 </adapt>
            </with>
          </enablement>
@@ -199,7 +199,7 @@
              <adapt type="org.eclipse.core.resources.IProject">
              <test forcePluginActivation="true"
 							property="org.eclipse.wst.common.project.facet.core.projectFacet"
-							value="jst.web:2.5" />
+							value="jst.web:[2.5" />
 			 </adapt>
            </with>
          </enablement>
@@ -213,7 +213,7 @@
              <adapt type="org.eclipse.core.resources.IFile">
              <test forcePluginActivation="true"
 							property="org.eclipse.wst.common.project.facet.core.projectFacet"
-							value="jst.web:2.5" />
+							value="jst.web:[2.5" />
 			 </adapt>
            </with>
          </enablement>
@@ -228,7 +228,7 @@
              <adapt type="org.eclipse.jdt.core.ICompilationUnit">
              <test forcePluginActivation="true"
 							property="org.eclipse.jst.j2ee.common.projectFacet"
-							value="jst.web:2.5" />             
+							value="jst.web:[2.5" />             
              </adapt>
            </with>
          </enablement>
@@ -278,7 +278,7 @@
              <adapt type="org.eclipse.core.resources.IFile">
              <test forcePluginActivation="true"
 							property="org.eclipse.wst.common.project.facet.core.projectFacet"
-							value="jst.ejb:3.0" />
+							value="jst.ejb:[3.0" />
 			 </adapt>
            </with>
          </enablement>
@@ -291,7 +291,7 @@
              <adapt type="org.eclipse.core.resources.IProject">
               <test forcePluginActivation="true"
 							property="org.eclipse.wst.common.project.facet.core.projectFacet"
-							value="jst.ejb:3.0" />
+							value="jst.ejb:[3.0" />
 			 </adapt>
            </with>
          </enablement>
@@ -330,7 +330,7 @@
                   <test
                         forcePluginActivation="true"
                         property="org.eclipse.wst.common.project.facet.core.projectFacet"
-                        value="jst.ejb:3.0">
+                        value="jst.ejb:[3.0">
                   </test>
                </adapt>
             </with>

@@ -40,7 +40,7 @@ public class ShowDepPropPageAction implements IObjectActionDelegate
 		if (selectedObject instanceof ModulesNode) {
 			IProject earProject = ((ModulesNode)selectedObject).getEarProject();
 			PreferenceDialog dialog = PropertyDialog.createDialogOn(PlatformUI.getWorkbench().getActiveWorkbenchWindow().
-                    getShell(), "org.eclipse.jst.j2ee.internal.J2EEDependenciesPage", earProject); //$NON-NLS-1$
+                    getShell(), "org.eclipse.wst.common.componentcore.ui.J2EEDependenciesPage", earProject); //$NON-NLS-1$
 			if (dialog != null) {
 				dialog.open();
 			}
