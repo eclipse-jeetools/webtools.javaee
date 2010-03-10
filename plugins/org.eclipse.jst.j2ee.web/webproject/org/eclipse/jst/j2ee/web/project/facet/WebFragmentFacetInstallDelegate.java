@@ -17,7 +17,6 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -26,6 +25,7 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.emf.workbench.WorkbenchByteArrayOutputStream;
+import org.eclipse.jst.common.project.facet.WtpUtils;
 import org.eclipse.jst.common.project.facet.core.ClasspathHelper;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
@@ -33,7 +33,6 @@ import org.eclipse.jst.j2ee.internal.project.ManifestFileCreationAction;
 import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.FacetDataModelProvider;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -48,7 +47,7 @@ public class WebFragmentFacetInstallDelegate implements IDelegate {
 			monitor.beginTask("", 1); //$NON-NLS-1$
 		try {
 			IDataModel model = (IDataModel) config;
-			addNatures(project);
+			WtpUtils.addNatures(project);
 			final IVirtualComponent c = ComponentCore.createComponent(project, false);
 			c.create(0, null);
 			final IVirtualFolder jsrc = c.getRootFolder();
@@ -96,16 +95,6 @@ public class WebFragmentFacetInstallDelegate implements IDelegate {
 			if (monitor != null)
 				monitor.done();
 		}
-	}
-
-	private void addNatures(final IProject project) throws CoreException {
-		final IProjectDescription desc = project.getDescription();
-		final String[] current = desc.getNatureIds();
-		final String[] replacement = new String[current.length + 1];
-		System.arraycopy(current, 0, replacement, 0, current.length);
-		replacement[current.length] = IModuleConstants.MODULE_NATURE_ID;
-		desc.setNatureIds(replacement);
-		project.setDescription(desc, null);
 	}
 	
 	protected void createWebFragmentFile(IProject project, IProjectFacetVersion fv, IContainer aFolder, IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
