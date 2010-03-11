@@ -37,7 +37,7 @@
       </category>
       <wizard
             name="%webFragmentProjectUI"
-            icon="icons/full/ctool16/newwar_wiz.gif"
+            icon="icons/full/ctool16/newWebFragmentProject.gif"
             category="org.eclipse.wst.web.ui"
             project="true"
             finalPerspective="org.eclipse.jst.j2ee.J2EEPerspective"

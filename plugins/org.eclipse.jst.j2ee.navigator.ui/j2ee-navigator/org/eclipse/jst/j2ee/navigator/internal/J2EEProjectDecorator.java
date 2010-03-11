@@ -36,6 +36,7 @@ public class J2EEProjectDecorator extends LabelProvider implements ILightweightL
     private static ImageDescriptor DYNAMICWEB;
     private static ImageDescriptor EJB;
     private static ImageDescriptor CONNECTOR;
+    private static ImageDescriptor WEBFRAGMENT;
       
     /* The constants are duplicated here to avoid plugin loading. */
     private static final String EAR_FACET = "jst.ear"; //$NON-NLS-1$ 
@@ -44,6 +45,7 @@ public class J2EEProjectDecorator extends LabelProvider implements ILightweightL
     private static final String EJB_FACET = "jst.ejb"; //$NON-NLS-1$ 
     private static final String CONNECTOR_FACET = "jst.connector"; //$NON-NLS-1$ 
     private static final String STATIC_WEB_FACET = "wst.web"; //$NON-NLS-1$ 
+    private static final String WEB_FRAGMENT_FACET = "jst.webfragment"; //$NON-NLS-1$
     
     private static final String ICON_DIR = "icons/full/ovr16"; //$NON-NLS-1$
     
@@ -73,6 +75,9 @@ public class J2EEProjectDecorator extends LabelProvider implements ILightweightL
 				overlay=getCONNECTOR();
 			else if (hasFacet(project, STATIC_WEB_FACET))
 				overlay=getDYNAMICWEB();
+			else if (hasFacet(project, WEB_FRAGMENT_FACET))
+				overlay=getWEBFRAGMENT();
+
 			// keep it null for if (hasFacet(project, UTILITY_FACET))
 			if (overlay != null)
 				decoration.addOverlay(overlay); 
@@ -122,6 +127,13 @@ public class J2EEProjectDecorator extends LabelProvider implements ILightweightL
     		DYNAMICWEB = getImageDescriptor("web_module_ovr"); //$NON-NLS-1$
     	}
     	return DYNAMICWEB;
+    }
+    
+    private static ImageDescriptor getWEBFRAGMENT() {
+    	if (WEBFRAGMENT == null) {
+    		WEBFRAGMENT = getImageDescriptor("webfragmentoverlayicon"); //$NON-NLS-1$
+    	}
+    	return WEBFRAGMENT;
     }
     
     private static ImageDescriptor getEJB() {

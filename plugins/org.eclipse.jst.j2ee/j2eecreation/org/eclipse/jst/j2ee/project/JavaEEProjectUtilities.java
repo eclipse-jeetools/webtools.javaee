@@ -320,6 +320,8 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 			ddURI = J2EEConstants.RAR_DD_URI;
 		} else if (isDynamicWebProject(project)) {
 			ddURI = J2EEConstants.WEBAPP_DD_URI;
+		}else if (isWebFragmentProject(project)) {
+			ddURI = J2EEConstants.WEBFRAGMENT_DD_URI;
 		} else {
 			throw new IllegalArgumentException("Project:" + project.getName() + " is not a Java EE Project"); //$NON-NLS-1$//$NON-NLS-2$
 		}
