@@ -31,12 +31,12 @@ public class WebFragmentProjectWizard extends NewProjectDataModelFacetWizard {
 
 	public WebFragmentProjectWizard(IDataModel modelid) {
 		super(modelid);
-		setWindowTitle(WEBUIMessages.WEB_MODULE_WIZ_TITLE);
+		setWindowTitle(WEBUIMessages.WEBFRAGMENT_MODULE_WIZ_TITLE);
 	}
 	
 	public WebFragmentProjectWizard(){
 		super();
-		setWindowTitle(WEBUIMessages.WEB_MODULE_WIZ_TITLE);
+		setWindowTitle(WEBUIMessages.WEBFRAGMENT_MODULE_WIZ_TITLE);
 	}
 
 	@Override
