@@ -38,14 +38,14 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-   
+
    <plugin
          id="org.eclipse.jem.beaninfo.vm"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-                  
+
    <plugin
          id="org.eclipse.jem.beaninfo"
          download-size="0"
@@ -167,6 +167,13 @@
 
    <plugin
          id="org.eclipse.jst.jsf.standard.tagsupport"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.jst.jsf.facelet.core"
          download-size="0"
          install-size="0"
          version="0.0.0"
