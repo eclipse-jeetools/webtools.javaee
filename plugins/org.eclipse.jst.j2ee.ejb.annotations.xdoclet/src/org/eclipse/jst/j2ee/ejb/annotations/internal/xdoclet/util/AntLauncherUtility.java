@@ -226,7 +226,7 @@ public class AntLauncherUtility {
 			buffer.append(']');
 		}
 
-		String name = DebugPlugin.getDefault().getLaunchManager().generateUniqueLaunchConfigurationNameFrom(buffer.toString());
+		String name = DebugPlugin.getDefault().getLaunchManager().generateLaunchConfigurationName(buffer.toString());
 		return name;
 	}
 

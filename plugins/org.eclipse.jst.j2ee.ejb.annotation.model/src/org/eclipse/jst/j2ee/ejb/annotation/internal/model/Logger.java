@@ -21,7 +21,7 @@ import org.osgi.framework.Bundle;
  * plugins should make their own copy, with appropriate ID.
  */
 public class Logger {
-	private static final String PLUGIN_ID = "org.eclipse.jst.j2ee.ejb.annotations.internal.emitter.model.xdoclet"; //$NON-NLS-1$
+	private static final String PLUGIN_ID = "org.eclipse.jst.j2ee.ejb.annotation.model"; //$NON-NLS-1$
 
 	private static final String TRACEFILTER_LOCATION = "/debug/tracefilter"; //$NON-NLS-1$
 
