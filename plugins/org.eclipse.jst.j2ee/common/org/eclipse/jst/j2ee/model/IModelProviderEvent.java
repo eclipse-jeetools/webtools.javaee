@@ -26,6 +26,8 @@ public interface IModelProviderEvent {
 	public static final int KNOWN_RESOURCES_ABOUT_TO_CHANGE = 0x80;
 	// Indicates that the list of known resources managed by the edit model has changed
 	public static final int KNOWN_RESOURCES_CHANGED = 0x100;
+	// Indicates that the list of known resources in the models project could affect classpath
+	public static final int RESOURCE_AFFECTING_CLASSPATH_CHANGED = 0x200;
 
 	public abstract void addResource(Object aResource);
 

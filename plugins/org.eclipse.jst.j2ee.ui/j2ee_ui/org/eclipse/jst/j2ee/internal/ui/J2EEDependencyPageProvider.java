@@ -30,7 +30,8 @@ public class J2EEDependencyPageProvider implements IDependencyPageProvider {
 		return fp.hasProjectFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EJB_MODULE)) ||
 				fp.hasProjectFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_APPCLIENT_MODULE)) ||
 						fp.hasProjectFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_CONNECTOR_MODULE)) ||
-						fp.hasProjectFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_UTILITY_MODULE));
+						fp.hasProjectFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_UTILITY_MODULE)) ||
+						fp.hasProjectFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_WEBFRAGMENT_MODULE));
 	}
 
 	public IModuleDependenciesControl[] createPages(IFacetedProject project,

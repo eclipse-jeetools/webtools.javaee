@@ -48,7 +48,7 @@ public class CustomWebProjectReferenceWizardFragment extends ProjectReferenceWiz
 	public Composite createComposite(Composite parent, IWizardHandle handle) {
 		
 		handle.setTitle(org.eclipse.wst.common.componentcore.ui.Messages.ProjectReferenceTitle);
-		handle.setDescription(org.eclipse.wst.common.componentcore.ui.Messages.ProjectReferenceDescription);
+		handle.setDescription(Messages.getString("WebProjectReferenceDescription")); //$NON-NLS-1$
 		Composite c = newComposite(parent);
 		
 		createTable(c);
