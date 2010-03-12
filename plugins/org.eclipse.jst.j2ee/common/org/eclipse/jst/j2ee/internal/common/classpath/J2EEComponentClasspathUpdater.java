@@ -529,7 +529,10 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 	private boolean isEARLibraryDirectory(IResource resource, IVirtualComponent earComponent) {
 		// check if the EAR component's version is 5 or greater
 		IProject project = earComponent.getProject();
-		if (!JavaEEProjectUtilities.isJEEComponent(earComponent, JavaEEProjectUtilities.DD_VERSION)) return false;
+		if (!JavaEEProjectUtilities.isJEEComponent(earComponent, JavaEEProjectUtilities.DD_VERSION)
+				|| !JavaEEProjectUtilities.isJEEComponent(earComponent, JavaEEProjectUtilities.FACET_VERSION)) {
+			return false;
+		}
 		
 		// retrieve the model provider
 		IModelProvider modelProvider = ModelProviderManager.getModelProvider(project);
