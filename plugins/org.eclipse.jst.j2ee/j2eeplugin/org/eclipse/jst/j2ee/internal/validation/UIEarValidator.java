@@ -61,6 +61,7 @@ import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyEnablement;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.internal.validation.EARValidationMessageResourceHandler;
 import org.eclipse.jst.j2ee.model.internal.validation.EarValidator;
@@ -228,12 +229,10 @@ public class UIEarValidator extends EarValidator {
 				IVirtualFile ddFile = earModule.getRootFolder().getFile(J2EEConstants.APPLICATION_DD_URI);
 				if( ddFile.exists()) {
 					inReporter.removeAllMessages(this);
-					
 					IVirtualReference[] earReferences;
 					boolean isMixedEAR = false;
 					boolean isJavaEEFiveProject = false;
 					boolean isLegacyEAR = J2EEProjectUtilities.isLegacyJ2EEProject(earProj);
-					
 					//because of [224484] 5.0 EARs may get to this validator when they should not, need to protect against this
 					if(isLegacyEAR) {
 						earReferences = earModule.getReferences();
@@ -242,7 +241,6 @@ public class UIEarValidator extends EarValidator {
 						//[Bug  241525] need to use referenced components because referenced projects return the EAR for referenced binary archives
 						for(IVirtualReference earReference : earReferences) {
 							referencedComponenet = earReference.getReferencedComponent();
-							
 							//[Bug  241525]if its a VirtualArchiveComponent then we need to use
 							//	components to get version, otherwise use IProject
 							if(referencedComponenet instanceof VirtualArchiveComponent) {
@@ -251,7 +249,6 @@ public class UIEarValidator extends EarValidator {
 								earRefedProj = referencedComponenet.getProject();
 								isJavaEEFiveProject = J2EEProjectUtilities.isJEEProject(earRefedProj);
 							}
-							
 							if(isJavaEEFiveProject) {
 								 //HACK: this is normally done by the call to super.validateInJob but in this case we are purposely avoiding that call
 								_reporter = inReporter;
@@ -259,9 +256,7 @@ public class UIEarValidator extends EarValidator {
 								String[] params = {earProj.getName(), referencedComponenet.getName()};
 								String msg = NLS.bind(EARValidationMessageResourceHandler.JEE5_PROJECT_REFERENCED_BY_PRE_JEE5_EAR, params);
 								addLocalizedWarning(msg,earProj);
-							
 							}
-							
 							//if any referenced project is a JEE 5 project then ear is mixed
 							if(!isMixedEAR) {
 								isMixedEAR = isJavaEEFiveProject;
@@ -269,17 +264,15 @@ public class UIEarValidator extends EarValidator {
 						}
 						
 					}
-					
 					//should only continue validation if this is not an invalid mixed EAR
 					//isLegacyEAR check needed because of [224484] 5.0 EARs may get to this validator when they should not, need to protect against this
 					if(isLegacyEAR && !isMixedEAR) {
 						status = super.validateInJob(inHelper, inReporter);
 						validateModuleMaps(earModule);
 						validateManifests();
-						validateDuplicateClasspathComponentURIs(earModule);
-		//				validateUtilJarMaps(earEdit,earModule);
-		//				validateUriAlreadyExistsInEar(earEdit,earModule);
-		//				validateDocType(earEdit,earModule);
+						if(ClasspathDependencyEnablement.isAllowClasspathComponentDependency()){
+							validateDuplicateClasspathComponentURIs(earModule);
+						}
 					}
 				}
             }
