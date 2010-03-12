@@ -10,6 +10,10 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.common.classpath;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.ClasspathContainerInitializer;
@@ -20,13 +24,32 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jst.common.jdt.internal.classpath.ClasspathDecorations;
 import org.eclipse.jst.common.jdt.internal.classpath.ClasspathDecorationsManager;
+import org.eclipse.jst.j2ee.componentcore.util.EARVirtualComponent;
 
 public class J2EEComponentClasspathInitializer extends ClasspathContainerInitializer {
 
 	private static final ClasspathDecorationsManager decorations = J2EEComponentClasspathContainer.getDecorationsManager();
 	
+	private static final ThreadLocal < Map<EARVirtualComponent, List> > looseConfigCache = 
+		new ThreadLocal<Map<EARVirtualComponent,List>>();
+	
+	/**
+	 * Answer the loose config cache if we are in the process of initializing the class path container.
+	 * Otherwise answer null.
+	 */
+	public static Map<EARVirtualComponent, List> getLooseConfigCache(){
+		return looseConfigCache.get();
+	}
+	
 	public void initialize(IPath containerPath, IJavaProject javaProject) throws CoreException {
-		J2EEComponentClasspathContainer.install(containerPath, javaProject);
+		try {
+			looseConfigCache.set(new HashMap<EARVirtualComponent, List>(10));
+			J2EEComponentClasspathContainer.install(containerPath, javaProject);
+		}
+		finally {
+			looseConfigCache.set(null);
+		}
+	
 	}
 
 	public boolean canUpdateClasspathContainer(final IPath containerPath, final IJavaProject project) {

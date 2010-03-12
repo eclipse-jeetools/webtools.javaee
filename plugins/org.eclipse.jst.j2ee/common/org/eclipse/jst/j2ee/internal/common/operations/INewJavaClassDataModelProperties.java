@@ -105,5 +105,9 @@ public interface INewJavaClassDataModelProperties extends IArtifactEditOperation
 	 * THIS PROPERTY SHOULD NOT BE SET, it's value is meant to be determined as a helper method
 	 */
 	public static final String QUALIFIED_CLASS_NAME = "NewJavaClassDataModel.QUALIFIED_CLASS_NAME"; //$NON-NLS-1$
-	
+
+	/**
+	 * Required, String property used to determine if a default deployment descriptor should be created
+	 */
+	public static final String GENERATE_DD = "INewJavaClassDataModelProperties.GENERATE_DD"; //$NON-NLS-1$
 }

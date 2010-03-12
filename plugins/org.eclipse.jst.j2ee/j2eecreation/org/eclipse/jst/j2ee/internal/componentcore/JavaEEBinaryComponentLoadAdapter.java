@@ -3,6 +3,8 @@ package org.eclipse.jst.j2ee.internal.componentcore;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
@@ -11,8 +13,10 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.internal.archive.JavaEEEMFZipFileLoadAdapterImpl;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.jee.archive.ArchiveOpenFailureException;
 import org.eclipse.jst.jee.archive.IArchiveResource;
+import org.eclipse.jst.jee.archive.internal.ArchiveUtil;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 
 /**
@@ -30,17 +34,9 @@ public class JavaEEBinaryComponentLoadAdapter extends JavaEEEMFZipFileLoadAdapte
 	public JavaEEBinaryComponentLoadAdapter(VirtualArchiveComponent archiveComponent) throws ArchiveOpenFailureException {
 		super();
 		this.archiveComponent = archiveComponent;
-		java.io.File diskFile = null;
-		diskFile = archiveComponent.getUnderlyingDiskFile();
-		if (!diskFile.exists()) {
-			IFile wbFile = archiveComponent.getUnderlyingWorkbenchFile();
-			diskFile = new File(wbFile.getLocation().toOSString());
-		}
-		IPath archivePath = new Path(diskFile.getAbsolutePath());
-		file = new java.io.File(archivePath.toOSString());
-		ZipFile zipFile;
-		try {
-			zipFile = new ZipFile(file);
+		IPath archivePath = recomputeArchivePath();
+		try{
+			resetZipFile(archivePath);
 		} catch (ZipException e) {
 			ArchiveOpenFailureException openFailureException = new ArchiveOpenFailureException(file.getAbsolutePath(), e);
 			throw openFailureException;
@@ -48,8 +44,23 @@ public class JavaEEBinaryComponentLoadAdapter extends JavaEEEMFZipFileLoadAdapte
 			ArchiveOpenFailureException openFailureException = new ArchiveOpenFailureException(file.getAbsolutePath(), e);
 			throw openFailureException;
 		}
+	}
+	
+	private void resetZipFile(IPath archivePath)  throws ZipException, IOException {
+		file = new java.io.File(archivePath.toOSString());
+		ZipFile zipFile = ArchiveUtil.newZipFile(file);
 		setZipFile(zipFile);
-		setArchivePath(archivePath);
+		setArchivePath(archivePath);	
+	}
+	
+	private IPath recomputeArchivePath() {
+		java.io.File diskFile = archiveComponent.getUnderlyingDiskFile();
+		if (!diskFile.exists()) {
+			IFile wbFile = archiveComponent.getUnderlyingWorkbenchFile();
+			diskFile = new File(wbFile.getLocation().toOSString());
+		}
+		IPath archivePath = new Path(diskFile.getAbsolutePath());
+		return archivePath;
 	}
 	
 	private void setArchivePath(IPath archivePath) {
@@ -66,8 +77,19 @@ public class JavaEEBinaryComponentLoadAdapter extends JavaEEEMFZipFileLoadAdapte
 	
 	public void physicallyOpen() throws ZipException, IOException{
 		if(!isPhysicallyOpen()){
+			if(file.exists()){
+				setZipFile(ArchiveUtil.newZipFile(file));
+			} else { 
+				//check if the file has moved -- this can happen when
+				//checking into ClearCase.
+				IPath newPath = recomputeArchivePath();
+				if(newPath.equals(archivePath)){
+					throw new FileNotFoundException(archivePath.toOSString());
+				} else {
+					resetZipFile(newPath);
+				}
+			}
 			physicallyOpen = true;
-			setZipFile(new ZipFile(file));
 		}
 	}
 	
@@ -82,6 +104,83 @@ public class JavaEEBinaryComponentLoadAdapter extends JavaEEEMFZipFileLoadAdapte
 			}
 		} 
 	}
+
+	public boolean containsArchiveResource(IPath resourcePath) {
+		final boolean isPhysciallyOpen = isPhysicallyOpen();
+		Exception caughtException = null;
+		try {
+			if (!isPhysciallyOpen) {
+				physicallyOpen();
+			}
+			try{
+				return super.containsArchiveResource(resourcePath);
+			} catch(Exception e){
+				J2EEPlugin.logError(caughtException);
+			}
+		} catch (Exception e) {
+			caughtException = e;
+			J2EEPlugin.logError(caughtException);
+		} finally {
+			if (caughtException != null) {
+				if (!isPhysciallyOpen) {
+					physicallyClose();
+				}
+			}
+		}
+		return false;
+	}
+	
+	public IArchiveResource getArchiveResource(IPath filePath) {
+		final boolean isPhysciallyOpen = isPhysicallyOpen();
+		Exception caughtException = null;
+		try {
+			if (!isPhysciallyOpen) {
+				physicallyOpen();
+			}
+			try {
+				return super.getArchiveResource(filePath);
+			} catch(Exception e){
+				J2EEPlugin.logError(caughtException);
+			}
+		} catch (Exception e) {
+			caughtException = e;
+			J2EEPlugin.logError(caughtException);
+		} finally {
+			if (caughtException != null) {
+				if (!isPhysciallyOpen) {
+					physicallyClose();
+				}
+			}
+		}
+		return null;
+	}
+	
+	@Override
+	public List getArchiveResources() {
+		final boolean isPhysciallyOpen = isPhysicallyOpen();
+		Exception caughtException = null;
+		try {
+			if (!isPhysciallyOpen) {
+				physicallyOpen();
+			}
+			try {
+				return super.getArchiveResources();
+			} catch(Exception e){
+				J2EEPlugin.logError(caughtException);
+			}
+		} catch (Exception e) {
+			caughtException = e;
+			J2EEPlugin.logError(caughtException);
+		} finally {
+			if (caughtException != null) {
+				if (!isPhysciallyOpen) {
+					physicallyClose();
+				}
+			}
+		}
+		return Collections.EMPTY_LIST;
+	}
+	
 	
 	public java.io.InputStream getInputStream(IArchiveResource aFile) throws IOException, FileNotFoundException {
 		final boolean isPhysciallyOpen = isPhysicallyOpen();

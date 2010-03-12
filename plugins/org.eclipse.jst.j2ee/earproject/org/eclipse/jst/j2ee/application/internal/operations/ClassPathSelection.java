@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.application.internal.operations;
 
 
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,12 +36,14 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.jdt.core.IClasspathAttribute;
 import org.eclipse.jdt.core.IClasspathContainer;
 import org.eclipse.jdt.core.IClasspathEntry;
-import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.common.jdt.internal.javalite.IJavaProjectLite;
+import org.eclipse.jst.common.jdt.internal.javalite.JavaCoreLite;
 import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants;
+import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants.DependencyAttributeType;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveResourceHandler;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Container;
@@ -55,10 +58,12 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.internal.archive.operations.ComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.archive.operations.EARComponentLoadStrategyImpl;
+import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyEnablement;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.javaee.ejb.EJBJar;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
@@ -305,9 +310,10 @@ public class ClassPathSelection {
 		if (comp != null && comp.getProject().isAccessible()) {
 			final IProject project = comp.getProject();
 			if (project.hasNature(JavaCore.NATURE_ID)) {
-				final IJavaProject javaProject = JavaCore.create(project);
-				final boolean isWebApp = J2EEProjectUtilities.isDynamicWebProject(project);
-				final Map taggedEntries = ClasspathDependencyUtil.getRawComponentClasspathDependencies(javaProject);
+				final IJavaProjectLite javaProjectLite = JavaCoreLite.create(project);
+				final boolean isWebApp = JavaEEProjectUtilities.isDynamicWebProject(project);
+				final boolean webLibsOnly = isWebApp && !ClasspathDependencyEnablement.isAllowClasspathComponentDependency();
+				final Map taggedEntries = ClasspathDependencyUtil.getRawComponentClasspathDependencies(javaProjectLite, DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY, webLibsOnly);
 				
 				Iterator i = taggedEntries.keySet().iterator();
 				while (i.hasNext()) {
@@ -324,7 +330,7 @@ public class ClassPathSelection {
 					addClasspathElement(element, element.getArchiveURI().toString());
 				}
 				
-				final List potentialEntries = ClasspathDependencyUtil.getPotentialComponentClasspathDependencies(javaProject);
+				final List potentialEntries = ClasspathDependencyUtil.getPotentialComponentClasspathDependencies(javaProjectLite, webLibsOnly);
 				i = potentialEntries.iterator();
 				while (i.hasNext()) {
 					final IClasspathEntry entry = (IClasspathEntry) i.next();
@@ -624,8 +630,13 @@ public class ClassPathSelection {
 					if( other == null ){
 						//making a best guess for the project name
 						if( element.getProject() == null ){
-							int  index = cpEntry.indexOf(".jar"); //$NON-NLS-1$
-							if( index > 0 ){
+							int index = cpEntry.indexOf(".jar"); //$NON-NLS-1$
+							// if jar is nested in a folder you must not look for
+							// project (segments in project name cause assertion
+							// error)
+							boolean isMultiSegment = cpEntry
+									.indexOf(File.pathSeparator) == -1;
+							if (!isMultiSegment && index > 0) {
 								String projectName = cpEntry.substring(0, index);
 								IPath projectPath = new Path(projectName);
 								//if there are multiple segments and no reference archive is found
@@ -653,10 +664,12 @@ public class ClassPathSelection {
 		//createClasspathComponentDependencyElements(comp);
 		
 		// Add elements for raw classpath entries (either already tagged or potentially taggable) 
-		try {
-		    createClasspathEntryElements(component, IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH, IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_COMPONENT_PATH);
-		} catch (CoreException ce) {
-			Logger.getLogger(J2EEPlugin.PLUGIN_ID).logError(ce);
+		if(ClasspathDependencyEnablement.isAllowClasspathComponentDependency()){
+			try {
+			    createClasspathEntryElements(component, IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH, IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_COMPONENT_PATH);
+			} catch (CoreException ce) {
+				Logger.getLogger(J2EEPlugin.PLUGIN_ID).logError(ce);
+			}
 		}
 		
 		if (earComponent != null) {
@@ -858,7 +871,7 @@ public class ClassPathSelection {
 	private void setType(ClasspathElement element, IVirtualReference other) {
 		if (other == null)
 			return;
-		else if (clientToEJBJARs.containsKey(other))
+		else if (clientToEJBJARs.containsKey(other.getReferencedComponent()))
 			element.setJarType(ClasspathElement.EJB_CLIENT_JAR);
 		else if (J2EEProjectUtilities.isEJBComponent(other.getReferencedComponent()))
 			element.setJarType(ClasspathElement.EJB_JAR);
@@ -941,30 +954,44 @@ public class ClassPathSelection {
 			return;
 
 		element.setProject(p);
+		
+		IVirtualComponent comp = ComponentCore.createComponent(p);
+		if( comp == null )
+			return;
+		
 		//Handle the imported jars in the project
 		String[] cp = null;
 		try {
 //			cp = referencedArchive.getManifest().getClassPathTokenized();
-			ArchiveManifest referencedManifest = J2EEProjectUtilities.readManifest(p);
-			cp = referencedManifest.getClassPathTokenized();
+			ArchiveManifest referencedManifest = null;
+			
+			if( comp.isBinary() ){
+				referencedManifest = J2EEProjectUtilities.readManifest(comp);
+			}else{
+				referencedManifest = J2EEProjectUtilities.readManifest(p);
+			}
+			if( referencedManifest != null )
+				cp = referencedManifest.getClassPathTokenized();
 		} catch (ManifestException mfEx) {
 			Logger.getLogger().logError(mfEx);
 			cp = new String[]{};
 		}
-		List paths = new ArrayList(cp.length);
-		for (int i = 0; i < cp.length; i++) {
-
-			IFile file = null;
-			try {
-				file = p.getFile(cp[i]);
-			} catch (IllegalArgumentException invalidPath) {
-				continue;
+		if( cp != null ){
+			List paths = new ArrayList(cp.length);
+			for (int i = 0; i < cp.length; i++) {
+	
+				IFile file = null;
+				try {
+					file = p.getFile(cp[i]);
+				} catch (IllegalArgumentException invalidPath) {
+					continue;
+				}
+				if (file.exists())
+					paths.add(file.getFullPath());
 			}
-			if (file.exists())
-				paths.add(file.getFullPath());
-		}
-		if (!paths.isEmpty())
-			element.setImportedJarPaths(paths);
+			if (!paths.isEmpty())
+				element.setImportedJarPaths(paths);
+			}
 	}
 
 	public String toString() {
@@ -1071,28 +1098,28 @@ public class ClassPathSelection {
 		ClasspathElement element = getClasspathElement(archiveProject);
 		if (element == null)
 			return false;
-		Archive anArchive = null;
-		if (element.isValid()) {
-			try {
-				anArchive = (Archive) getEARFile().getFile(element.getText());
-			} catch (FileNotFoundException e) {
-			}
-		}
-		return anArchive != null && archive.hasClasspathVisibilityTo(anArchive);
+		return hasDirectOrIndirectDependencyTo(element); 
 	}
 
 	public boolean hasDirectOrIndirectDependencyTo(String jarName) {
 		ClasspathElement element = getClasspathElement(jarName);
 		if (element == null)
 			return false;
+		return hasDirectOrIndirectDependencyTo(element); 
+	}
+	
+	private boolean hasDirectOrIndirectDependencyTo(ClasspathElement element){
 		Archive anArchive = null;
 		if (element.isValid()) {
 			try {
-				anArchive = (Archive) getEARFile().getFile(element.getText());
+				EARFile  earFile = getEARFile();
+				if( earFile != null ){
+					anArchive = (Archive) earFile.getFile(element.getText());
+				}
 			} catch (FileNotFoundException e) {
 			}
 		}
-		return anArchive != null && archive.hasClasspathVisibilityTo(anArchive);
+		return anArchive != null && archive.hasClasspathVisibilityTo(anArchive);		
 	}
 
 

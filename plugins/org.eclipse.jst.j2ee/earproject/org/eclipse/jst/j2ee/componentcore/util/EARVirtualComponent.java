@@ -13,6 +13,7 @@ package org.eclipse.jst.j2ee.componentcore.util;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -21,6 +22,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
+import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathInitializer;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.jee.application.ICommonModule;
@@ -28,7 +30,7 @@ import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
-import org.eclipse.wst.common.componentcore.internal.builder.DependencyGraphManager;
+import org.eclipse.wst.common.componentcore.internal.builder.IDependencyGraph;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IComponentImplFactory;
@@ -42,6 +44,7 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 	
 	private IVirtualReference[] cachedReferences;
 	private long depGraphModStamp;
+	
 	public EARVirtualComponent() {
 		super();
 	}
@@ -133,7 +136,7 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 		}
 		return hardReferences;
 	}
-
+	
 	/**
 	 * Returns the resulting list of referenced components based off the hard references and archives mapping to the root folder.
 	 * 
@@ -143,7 +146,18 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 	 * @return
 	 */
 	private static List getLooseArchiveReferences(EARVirtualComponent earComponent, List hardReferences) {
-		return  getLooseArchiveReferences(earComponent, hardReferences, null, (EARVirtualRootFolder)earComponent.getRootFolder());
+		Map<EARVirtualComponent, List> cache = J2EEComponentClasspathInitializer.getLooseConfigCache();
+		if (cache != null) {
+			List list = cache.get(earComponent);
+			if (list != null) {
+				return list;
+			}
+		}
+		List list = getLooseArchiveReferences(earComponent, hardReferences, null, (EARVirtualRootFolder) earComponent.getRootFolder());
+		if (cache != null) {
+			cache.put(earComponent, list);
+		}
+		return list;
 	}
 	
 	private static List getLooseArchiveReferences(EARVirtualComponent earComponent, List hardReferences, List dynamicReferences, EARVirtualRootFolder folder) {
@@ -200,11 +214,19 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 		if (cachedReferences != null && checkIfStillValid())
 			return cachedReferences;
 		else
-			depGraphModStamp = DependencyGraphManager.getInstance().getModStamp();
+			depGraphModStamp = IDependencyGraph.INSTANCE.getModStamp();
 		return null;
 	}
 
 	private boolean checkIfStillValid() {
-		return DependencyGraphManager.getInstance().checkIfStillValid(depGraphModStamp);
+		return IDependencyGraph.INSTANCE.getModStamp() == depGraphModStamp;
+	}
+	
+	@Override
+	protected void clearCache() {
+		super.clearCache();
+		
+		depGraphModStamp = IDependencyGraph.INSTANCE.getModStamp();
+		cachedReferences = null;
 	}
 }

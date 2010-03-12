@@ -16,10 +16,12 @@
  */
 package org.eclipse.jst.j2ee.internal.plugin;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.Preferences;
 import org.eclipse.jst.common.frameworks.CommonFrameworksPlugin;
 import org.eclipse.jst.common.project.facet.core.internal.FacetCorePlugin;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.wst.project.facet.IProductConstants;
 import org.eclipse.wst.project.facet.ProductManager;
@@ -50,7 +52,8 @@ public class J2EEPreferences {
 		final static String USE_EAR_LIBRARIES = "org.eclipse.jst.j2ee.preferences.useEARLibraries";//$NON-NLS-1$
 		final static String USE_WEB_APP_LIBRARIES = "org.eclipse.jst.j2ee.preferences.useWebAppLibraries";//$NON-NLS-1$
 		final static String USE_EAR_LIBRARIES_JDT_EXPORT = "org.eclipse.jst.j2ee.preferences.useEARLibrariesJDTExport";//$NON-NLS-1$
-		
+		final static String ALLOW_CLASSPATH_DEP = "org.eclipse.jst.j2ee.preferences.allowClasspathDep";//$NON-NLS-1$
+
 		/**
 		 * @deprecated, 
 		 * but should it be deprecated ? is j2ee_web_content a better name than web_content_folder ?
@@ -107,6 +110,30 @@ public class J2EEPreferences {
 		 * @since 3.0
 		 */
 		static String ID_PERSPECTIVE_HIERARCHY_VIEW = "perspective_hierarchy_view_id"; //$NON-NLS-1$
+		
+		/**
+		 * 
+		 */
+		static final String DYN_WEB_SRC_FOLDER = "dynWebSource"; //$NON-NLS-1$
+		/**
+		 * 
+		 */
+		
+		static final String DYN_WEB_OUTPUT_FOLDER = IProductConstants.DYN_WEB_OUTPUT_FOLDER;
+		/**
+		 * 
+		 */
+		static final String EJB_OUTPUT_FOLDER = IProductConstants.EJB_OUTPUT_FOLDER;
+		
+		/**
+		 * 
+		 */
+	    static final String APP_CLIENT_OUTPUT_FOLDER = IProductConstants.APP_CLIENT_OUTPUT_FOLDER;
+	    
+		/**
+		 * 
+		 */
+	    static final String JCA_OUTPUT_FOLDER = IProductConstants.JCA_OUTPUT_FOLDER; 	
 
 	}
 
@@ -150,6 +177,7 @@ public class J2EEPreferences {
 		final static boolean INCREMENTAL_DEPLOYMENT_SUPPORT = true;
 		final static boolean USE_EAR_LIBRARIES_JDT_EXPORT = false;
 		final static String ID_PERSPECTIVE_HIERARCHY_VIEW = "org.eclipse.ui.navigator.ProjectExplorer"; //$NON-NLS-1$
+		final static boolean ALLOW_CLASSPATH_DEP = true;
 	}
 
 	private Plugin owner = null;
@@ -195,6 +223,13 @@ public class J2EEPreferences {
 		getPreferences().setDefault(Keys.USE_EAR_LIBRARIES_JDT_EXPORT, Defaults.USE_EAR_LIBRARIES_JDT_EXPORT);
 		String perspectiveID = ProductManager.getProperty(IProductConstants.ID_PERSPECTIVE_HIERARCHY_VIEW);
 		getPreferences().setDefault(Keys.ID_PERSPECTIVE_HIERARCHY_VIEW, (perspectiveID != null) ? perspectiveID : Defaults.ID_PERSPECTIVE_HIERARCHY_VIEW);
+		getPreferences().setDefault(Keys.ALLOW_CLASSPATH_DEP, Defaults.ALLOW_CLASSPATH_DEP);
+		
+		getPreferences().setDefault(Keys.DYN_WEB_SRC_FOLDER, getDynamicWebDefaultSourceFolder());
+		getPreferences().setDefault(Keys.DYN_WEB_OUTPUT_FOLDER, getDynamicWebDefaultOuputFolderName());
+		getPreferences().setDefault(Keys.APP_CLIENT_OUTPUT_FOLDER,  getAppClientDefaultOutputFolderName() );
+		getPreferences().setDefault(Keys.EJB_OUTPUT_FOLDER, getEJBDefaultOutputFolderName() );
+		getPreferences().setDefault(Keys.JCA_OUTPUT_FOLDER, getJCADefaultOutputFolderName() );
 	}
 
 	
@@ -233,7 +268,15 @@ public class J2EEPreferences {
 		getPreferences().setValue(Keys.USE_WEB_APP_LIBRARIES, value);
 		firePreferenceChanged();
 	}
-			
+	
+	public boolean getAllowClasspathDep() {
+		return getPreferences().getBoolean(Keys.ALLOW_CLASSPATH_DEP);
+	}
+	
+	public void setAllowClasspathDep(boolean value) {
+		getPreferences().setValue(Keys.ALLOW_CLASSPATH_DEP, value);
+		firePreferenceChanged();
+	}
 	
 	public String getJ2EEWebContentFolderName() {
 		//return getPreferences().getString(Keys.J2EE_WEB_CONTENT);
@@ -434,5 +477,88 @@ public class J2EEPreferences {
 		getPreferences().setValue(name, value);
 		firePreferenceChanged();
 	}
+	
+	
+	public String getDynamicWebDefaultSourceFolder(){
+		return getSingleRootDefaultJavaSrcFolder();
+	}
+	
+	public String getDynamicWebDefaultOuputFolderName(){
+		if ( ProductManager.shouldUseSingleRootStructure() ){
+			return ProductManager.getProperty(IProductConstants.WEB_CONTENT_FOLDER) + "/"+ J2EEConstants.WEB_INF_CLASSES;
+		}
+		return getDefaultOutputFolderName();
+	}
+	
+	public String getAppClientDefaultOutputFolderName(){
+		if (ProductManager.shouldUseSingleRootStructure())
+			return getString(J2EEPreferences.Keys.APP_CLIENT_CONTENT_FOLDER);
+		return getDefaultOutputFolderName();
+	}
+	
+	public String getEJBDefaultOutputFolderName(){
+		if (ProductManager.shouldUseSingleRootStructure())
+			return getString(J2EEPreferences.Keys.EJB_CONTENT_FOLDER);
+		return getDefaultOutputFolderName();
+	}
 
+	public String getJCADefaultOutputFolderName(){
+		if (ProductManager.shouldUseSingleRootStructure())
+			return getString(J2EEPreferences.Keys.JCA_CONTENT_FOLDER);
+		return getDefaultOutputFolderName();
+	}
+	
+	public String getDefaultOutputFolderName(){
+		
+		if (ProductManager.shouldUseSingleRootStructure())
+			return getSingleRootDefaultJavaSrcFolder();
+		
+        String outputFolder = getProductProperty( "defaultJavaOutputFolder" );
+        
+        if( outputFolder == null ){
+            outputFolder = getProductProperty( "outputFolder" );
+        }
+        
+        if( outputFolder == null )
+        {
+            outputFolder = "build/classes";
+        }
+        return outputFolder;
+	}
+        
+	public String getSingleRootDefaultJavaSrcFolder(){
+    	String srcFolder = FacetCorePlugin.getDefault().getPluginPreferences().getDefaultString(FacetCorePlugin.PROD_PROP_SOURCE_FOLDER_LEGACY);
+    	if( srcFolder == null || srcFolder.equals("") ){ //$NON-NLS-1$
+    		if( Platform.getProduct() != null ){
+    			srcFolder = Platform.getProduct().getProperty( "defaultJavaSourceFolder" );
+    		    if( srcFolder == null || srcFolder.equals("")){ //$NON-NLS-1$
+    		    	srcFolder = Platform.getProduct().getProperty( FacetCorePlugin.PROD_PROP_SOURCE_FOLDER_LEGACY );
+    		    }      			
+    		}
+	    	if( srcFolder == null || srcFolder.equals("") ){ //$NON-NLS-1$
+	    		srcFolder = FacetCorePlugin.DEFAULT_SOURCE_FOLDER;
+	    	}
+
+    	}
+	    return srcFolder;
+    }
+	
+	
+    private static String getProductProperty( final String propName ){
+        String value = null;
+        if( Platform.getProduct() != null ){
+            value = Platform.getProduct().getProperty( propName );
+        }
+        return value;
+    }
+    
+	public String getUtilityOutputFolderName(){
+		
+    	String outputFolder = FacetCorePlugin.getDefault().getPluginPreferences().getString(FacetCorePlugin.OUTPUT_FOLDER);
+    	if( outputFolder == null || outputFolder.equals("") ){ //$NON-NLS-1$
+    		return getDefaultOutputFolderName();
+    	}
+	    return outputFolder;
+
+	}    
 }

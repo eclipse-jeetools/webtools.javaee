@@ -27,6 +27,7 @@ import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPreferences;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
@@ -43,7 +44,6 @@ import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IFacetedProjectWorkingCopy;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
-import org.eclipse.wst.project.facet.ProductManager;
 
 public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetInstallDataModelProvider implements IJ2EEModuleFacetInstallDataModelProperties {
 
@@ -63,6 +63,8 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 		names.add(MODULE_URI);
 		// added for jee modules that make deployment descriptors optional
 		names.add(IJ2EEFacetInstallDataModelProperties.GENERATE_DD);
+		//adding output folder
+		names.add(OUTPUT_FOLDER);
 		return names;
 	}
 
@@ -112,12 +114,9 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 				IDataModel javaModel = map.getFacetDataModel(JAVA);
 				if (javaModel != null) {
 					javaModel.setProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME, propertyValue);
-					// If applicable, react to the change in content folder to update the output folder for single root structures
-					if (ProductManager.shouldUseSingleRootStructure())
-						javaModel.setProperty(IJavaFacetInstallDataModelProperties.DEFAULT_OUTPUT_FOLDER_NAME,propertyValue);
 				}
 			}
-		} else if ((EAR_PROJECT_NAME.equals(propertyName) || ADD_TO_EAR.equals(propertyName)) && getBooleanProperty(ADD_TO_EAR)) {
+		} else if ((EAR_PROJECT_NAME.equals(propertyName) || ADD_TO_EAR.equals(propertyName) || LAST_EAR_NAME.equals(propertyName)) && getBooleanProperty(ADD_TO_EAR)) {
 			IStatus status = validateEAR(model.getStringProperty(EAR_PROJECT_NAME));
 			if (status.isOK()) {
 				IProject project = ProjectUtilities.getProject(getStringProperty(EAR_PROJECT_NAME));
@@ -131,11 +130,19 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 				}
 			}
 			model.notifyPropertyChange(FACET_RUNTIME, IDataModel.ENABLE_CHG);
-		} else if (LAST_EAR_NAME.equals(propertyName)) {
-			model.notifyPropertyChange(EAR_PROJECT_NAME, IDataModel.DEFAULT_CHG);
 		} else if (propertyName.equals(IFacetProjectCreationDataModelProperties.FACET_RUNTIME)) {
 			model.notifyPropertyChange(ADD_TO_EAR, IDataModel.VALID_VALUES_CHG);
 			model.notifyPropertyChange(EAR_PROJECT_NAME, IDataModel.VALID_VALUES_CHG);
+		}else if (propertyName.equals(OUTPUT_FOLDER)) {
+			IDataModel masterModel = (IDataModel) model.getProperty(MASTER_PROJECT_DM);
+			if (masterModel != null) {
+				FacetDataModelMap map = (FacetDataModelMap) masterModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+				IDataModel javaModel = map.getFacetDataModel(JAVA);
+				if (javaModel != null) {
+					javaModel.setProperty(IJavaFacetInstallDataModelProperties.DEFAULT_OUTPUT_FOLDER_NAME,
+							propertyValue);
+				}
+			}
 		}
 
 		if (ADD_TO_EAR.equals(propertyName)) {
@@ -215,27 +222,26 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 			}
 		} else if (name.equals(CONFIG_FOLDER)) {
 			String folderName = model.getStringProperty(CONFIG_FOLDER);
-			if (folderName == null || folderName.length() == 0 || folderName.equals("/") || folderName.equals("\\")) {
-				// all folders which meet the criteria of "CONFIG_FOLDER" are required
-				String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.SOURCEFOLDER_EMPTY);
-				return WTPCommonPlugin.createErrorStatus(errorMessage);
-			} else {
-				IStatus status = validateFolderName(folderName);
-				if (status.isOK())
-				{
-					/* bug 223072 test invalid character - URI.FRAGMENT_SEPARATOR */
-					if (folderName.indexOf('#') != -1) { //$NON-NLS-1$
-						String message = NLS.bind(Messages.resources_invalidCharInName, "#", folderName); //$NON-NLS-1$
-						status = new ResourceStatus(IResourceStatus.INVALID_VALUE, null, message);
-					}
-				}
-				return status;
+			IStatus status =  validateFolders(folderName);
+			if(status.isOK()){
+				String outfolderName = model.getStringProperty(OUTPUT_FOLDER);
+				status = validateSourceAndOutputFolderCase(folderName, outfolderName);
 			}
+			return status;
+			
 		} else if (name.equals(ADD_TO_EAR)) {
 			if (!isEARSupportedByRuntime()) {
 				String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.MODULE_NOT_SUPPORTED);
 				return WTPCommonPlugin.createErrorStatus(errorMessage);
 			}
+		}else if (name.equals(OUTPUT_FOLDER)) {
+			String folderName = model.getStringProperty(OUTPUT_FOLDER);
+			IStatus status = validateFolders(folderName);
+			if(status.isOK()){
+				String infolderName = model.getStringProperty(CONFIG_FOLDER);
+				status = validateSourceAndOutputFolderCase(folderName, folderName);
+			}			
+			return status;
 		}
 		return super.validate(name);
 	}
@@ -257,5 +263,36 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 		if (rt != null)
 			ret = rt.supports(EARFacetUtils.EAR_FACET);
 		return ret;
+	}
+	
+	private IStatus validateFolders(String folderName){
+		
+		if (folderName == null || folderName.length() == 0 || folderName.equals("/") || folderName.equals("\\")) {
+			// all folders which meet the criteria of "CONFIG_FOLDER" are required
+			String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.SOURCEFOLDER_EMPTY);
+			return WTPCommonPlugin.createErrorStatus(errorMessage);
+		} else {
+			IStatus status = validateFolderName(folderName);
+			if (status.isOK()){
+				status = validateFolderForCharacters(folderName);
+			}
+			return status;
+		}
+	}
+	
+	public static IStatus validateFolderForCharacters(String folderName){
+		/* bug 223072 test invalid character - URI.FRAGMENT_SEPARATOR */
+		if (folderName.indexOf('#') != -1) { //$NON-NLS-1$
+			String message = NLS.bind(Messages.resources_invalidCharInName, "#", folderName); //$NON-NLS-1$
+			return  new ResourceStatus(IResourceStatus.INVALID_VALUE, null, message);
+		}
+		return OK_STATUS;
+	}
+	
+	public static IStatus validateSourceAndOutputFolderCase(String sourceFolder, String outputFolder){
+		if( sourceFolder.equalsIgnoreCase(outputFolder) && !sourceFolder.equals(outputFolder)){
+			return WTPCommonPlugin.createErrorStatus( ProjectSupportResourceHandler.SOURCE_OUPUT_FOLDER_DIFF_BYCASE_ONLY);
+		}
+		return OK_STATUS;
 	}
 }

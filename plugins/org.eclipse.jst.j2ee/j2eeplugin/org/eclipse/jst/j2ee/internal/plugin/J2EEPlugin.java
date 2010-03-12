@@ -61,6 +61,7 @@ import org.eclipse.jst.j2ee.applicationclient.internal.modulecore.util.AppClient
 import org.eclipse.jst.j2ee.common.internal.impl.J2EEResourceFactoryRegistry;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveInit;
 import org.eclipse.jst.j2ee.core.internal.plugin.CatalogJ2EEXmlDtDEntityResolver;
+import org.eclipse.jst.j2ee.internal.common.CleanBuildCacheCleanerListener;
 import org.eclipse.jst.j2ee.internal.common.J2EEDependencyListener;
 import org.eclipse.jst.j2ee.internal.common.VirtualArchiveComponentAdapterFactory;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
@@ -70,6 +71,7 @@ import org.eclipse.jst.j2ee.internal.xml.J2EEXmlDtDEntityResolver;
 import org.eclipse.jst.j2ee.refactor.listeners.J2EEElementChangedListener;
 import org.eclipse.jst.j2ee.refactor.listeners.ProjectRefactoringListener;
 import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
+import org.eclipse.wst.common.componentcore.internal.builder.IDependencyGraph;
 import org.eclipse.wst.common.componentcore.internal.impl.ReferencedComponentXMIResourceFactory;
 import org.eclipse.wst.common.componentcore.internal.impl.WTPResourceFactoryRegistry;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
@@ -100,6 +102,9 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 	public static final String LIBCOPY_BUILDER_ID = PLUGIN_ID + ".LibCopyBuilder"; //$NON-NLS-1$
 	// Validation part of the plugin
 	public static final String VALIDATION_BUILDER_ID = ValidationPlugin.VALIDATION_BUILDER_ID; // plugin
+	
+	public static final String DYNAMIC_TRANSLATION_OF_JET_TEMPLATES_PREF_KEY = "dynamicTranslationOfJetTemplates"; //$NON-NLS-1$
+	
 //	private static final String KEY_PREFIX = "%"; //$NON-NLS-1$
 //	private static final String KEY_DOUBLE_PREFIX = "%%"; //$NON-NLS-1$	
 	// id
@@ -514,20 +519,20 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 		
 		final ProjectRefactoringListener listener = new ProjectRefactoringListener();//ProjectDependencyCache.getCache());
 		// register the project rename/delete refactoring listener
-		ResourcesPlugin.getWorkspace().addResourceChangeListener(listener,
-				IResourceChangeEvent.POST_CHANGE | IResourceChangeEvent.PRE_DELETE);
-		
+		ResourcesPlugin.getWorkspace().addResourceChangeListener(listener, IResourceChangeEvent.POST_CHANGE | IResourceChangeEvent.PRE_DELETE);
 		// register the IElementChangedLister that updates the .component file in 
 		// response to .classpath changes
 		JavaCore.addElementChangedListener(new J2EEElementChangedListener(), ElementChangedEvent.POST_CHANGE);
-		
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(J2EEComponentClasspathUpdater.getInstance(), IResourceChangeEvent.POST_CHANGE | IResourceChangeEvent.PRE_CLOSE | IResourceChangeEvent.PRE_DELETE);
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(J2EEDependencyListener.INSTANCE, IResourceChangeEvent.POST_CHANGE | IResourceChangeEvent.PRE_CLOSE | IResourceChangeEvent.PRE_DELETE);
+		ResourcesPlugin.getWorkspace().addResourceChangeListener(CleanBuildCacheCleanerListener.INSTANCE, IResourceChangeEvent.PRE_BUILD);
+		IDependencyGraph.INSTANCE.addListener(J2EEComponentClasspathUpdater.getInstance());
 	}
 	
 	public void stop(BundleContext context) throws Exception {
 		super.stop(context);
 		ResourcesPlugin.getWorkspace().removeResourceChangeListener(J2EEComponentClasspathUpdater.getInstance());
+		IDependencyGraph.INSTANCE.removeListener(J2EEComponentClasspathUpdater.getInstance());
 		try {
 			org.eclipse.core.runtime.Platform.getJobManager().join( J2EEElementChangedListener.PROJECT_COMPONENT_UPDATE_JOB_FAMILY,
 					new NullProgressMonitor() );

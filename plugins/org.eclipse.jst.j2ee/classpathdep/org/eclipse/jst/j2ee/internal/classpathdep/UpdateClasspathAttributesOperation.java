@@ -28,10 +28,12 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.common.jdt.internal.javalite.IJavaProjectLite;
+import org.eclipse.jst.common.jdt.internal.javalite.JavaCoreLite;
 import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
 import org.eclipse.jst.j2ee.classpathdep.UpdateClasspathAttributeUtil;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -48,6 +50,7 @@ public class UpdateClasspathAttributesOperation extends AbstractDataModelOperati
 	public IStatus execute(final IProgressMonitor monitor, final IAdaptable info)
 			throws ExecutionException {
 		final IProject project = ProjectUtilities.getProject(model.getStringProperty(PROJECT_NAME));
+		final boolean webLibsOnly = JavaEEProjectUtilities.isDynamicWebProject(project) && !ClasspathDependencyEnablement.isAllowClasspathComponentDependency();
 
 		try {
 			if (project.hasNature(JavaCore.NATURE_ID)) {
@@ -75,7 +78,7 @@ public class UpdateClasspathAttributesOperation extends AbstractDataModelOperati
 							}
 							entriesToAttrib.put(entry, attrib);
 						}
-						updateDependencyAttributes(javaProject, entriesToAttrib, modifyComponentDep); 
+						updateDependencyAttributes(javaProject, entriesToAttrib, modifyComponentDep, webLibsOnly); 
 					} else {
 						removeDependencyAttributes(javaProject, entriesToRemove, modifyComponentDep); 
 					}
@@ -126,8 +129,12 @@ public class UpdateClasspathAttributesOperation extends AbstractDataModelOperati
 	}
 
 	private void alterDependencyAttributes(final IJavaProject javaProject, final Map entries, final boolean add, final boolean modifyComponentDep) throws CoreException {
+		final boolean isWebApp = JavaEEProjectUtilities.isDynamicWebProject(javaProject.getProject());
+		final boolean webLibsOnly = isWebApp && !ClasspathDependencyEnablement.isAllowClasspathComponentDependency();
+		final IJavaProjectLite javaProjectLite = JavaCoreLite.create(javaProject);
+		
 		// initialize to the set of raw entries with the attrib
-		final Map entriesWithAttrib = ClasspathDependencyUtil.getRawComponentClasspathDependencies(javaProject);
+		final Map entriesWithAttrib = ClasspathDependencyUtil.getRawComponentClasspathDependencies(javaProjectLite, modifyComponentDep ? DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY : DependencyAttributeType.CLASSPATH_COMPONENT_NONDEPENDENCY, webLibsOnly);
 		
 		Iterator i = entries.keySet().iterator();
 		while (i.hasNext()) {
@@ -137,7 +144,6 @@ public class UpdateClasspathAttributesOperation extends AbstractDataModelOperati
 					IPath runtimePath = (IPath) entries.get(entry);
 					if (runtimePath == null) {
 						// compute the default runtime path
-						final boolean isWebApp = J2EEProjectUtilities.isDynamicWebProject(javaProject.getProject());
 						runtimePath = ClasspathDependencyUtil.getDefaultRuntimePath(isWebApp, ClasspathDependencyUtil.isClassFolderEntry(entry));
 					}
 					IClasspathAttribute attrib = null;
@@ -155,7 +161,7 @@ public class UpdateClasspathAttributesOperation extends AbstractDataModelOperati
 				}
 			}
 		}
-		updateDependencyAttributes(javaProject, entriesWithAttrib, modifyComponentDep);
+		updateDependencyAttributes(javaProject, entriesWithAttrib, modifyComponentDep, webLibsOnly);
 	}
 	
 	private IClasspathEntry getMatchingEntryIgnoreAttributes(final Map entries, final IClasspathEntry entry) {
@@ -181,7 +187,7 @@ public class UpdateClasspathAttributesOperation extends AbstractDataModelOperati
 	 * @param modifyComponentDep True if modifying the dependency attribute, false if modifying the non-dependency attribute.
 	 * @throws CoreException Thrown if an error is encountered.
 	 */	
-	private void updateDependencyAttributes(final IJavaProject javaProject, final Map entriesWithAttrib, final boolean modifyComponentDep) throws CoreException {
+	private void updateDependencyAttributes(final IJavaProject javaProject, final Map entriesWithAttrib, final boolean modifyComponentDep, final boolean webLibsOnly) throws CoreException {
 		if (javaProject == null || !javaProject.getProject().isAccessible()) {
 			return;
 		}
@@ -197,7 +203,7 @@ public class UpdateClasspathAttributesOperation extends AbstractDataModelOperati
 			IClasspathEntry entry = rawClasspath[i];
 			final int kind = entry.getEntryKind();
 			boolean hasAttribute = ClasspathDependencyUtil.checkForComponentDependencyAttribute(entry, 
-					modifyComponentDep ? DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY : DependencyAttributeType.CLASSPATH_COMPONENT_NONDEPENDENCY) != null;
+					modifyComponentDep ? DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY : DependencyAttributeType.CLASSPATH_COMPONENT_NONDEPENDENCY, webLibsOnly) != null;
 			boolean shouldHaveAttribute = entriesWithAttrib.containsKey(entry);
 			boolean updateAttributes = false;
 			IClasspathAttribute[] updatedAttributes = null;

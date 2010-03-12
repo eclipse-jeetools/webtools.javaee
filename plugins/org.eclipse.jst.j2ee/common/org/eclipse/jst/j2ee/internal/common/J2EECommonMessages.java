@@ -69,6 +69,9 @@ public class J2EECommonMessages extends NLS {
 	
 	public static String CLASSPATH_ENTRY_DEPENDENCY_PREFIX;
 	
+	public static String ERR_TYPE_DIFFERENT_CASE_EXIST;
+	public static String ERR_TYPE_ALREADY_EXIST;
+	
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, J2EECommonMessages.class);
 	}

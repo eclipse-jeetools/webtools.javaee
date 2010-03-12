@@ -54,6 +54,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategyImpl
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyEnablement;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyManifestUtil;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyVirtualComponent;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -208,7 +209,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 		filesHolder = new FilesHolder();
 		exception = new Exception();
 		this.includeClasspathComponents = includeClasspathComponents;
-		if (includeClasspathComponents) {
+		if (includeClasspathComponents && ClasspathDependencyEnablement.isAllowClasspathComponentDependency()) {
 			this.manifestFile = vComponent.getRootFolder().getFile(new Path(J2EEConstants.MANIFEST_URI));
 			saveJavaClasspathReferences();
 		}
@@ -289,7 +290,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 				ZipFile zipFile;
 				IPath path = reference.getRuntimePath();
 				try {
-					zipFile = new ZipFile(diskFile);
+					zipFile = org.eclipse.jst.jee.archive.internal.ArchiveUtil.newZipFile(diskFile);
 					zipFiles.add(zipFile);
 					Enumeration enumeration = zipFile.entries();
 					while (enumeration.hasMoreElements()) {
@@ -486,7 +487,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 	 * @param sourceRoots Current Java src roots.
 	 * @return True if contained in a Java src root, false otherwise.
 	 */
-	private boolean inJavaSrc(final IVirtualResource virtualResource) {
+	protected boolean inJavaSrc(final IVirtualResource virtualResource) {
 		if (sourceRoots.length == 0) {
 			return false;
 		}

@@ -15,12 +15,12 @@ import java.util.Collection;
 
 import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
 import org.eclipse.jst.common.project.facet.JavaFacetUtils;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelListener;
 import org.eclipse.wst.common.project.facet.core.IProjectFacet;
-import org.eclipse.wst.project.facet.ProductManager;
 
 public class UtilityProjectCreationDataModelProvider extends J2EEFacetProjectCreationDataModelProvider {
 
@@ -38,9 +38,11 @@ public class UtilityProjectCreationDataModelProvider extends J2EEFacetProjectCre
 		
 		FacetDataModelMap map = (FacetDataModelMap) getProperty(FACET_DM_MAP);
 		IDataModel javaFacet = map.getFacetDataModel(JavaFacetUtils.JAVA_FACET.getId());
-		// If applicable, keep project structure optimized by making output directory the same as the content root
-		if (ProductManager.shouldUseSingleRootStructure())
-			javaFacet.setProperty(IJavaFacetInstallDataModelProperties.DEFAULT_OUTPUT_FOLDER_NAME, javaFacet.getStringProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME));
+		
+		javaFacet.setProperty(IJavaFacetInstallDataModelProperties.DEFAULT_OUTPUT_FOLDER_NAME, 
+				J2EEPlugin.getDefault().getJ2EEPreferences().getUtilityOutputFolderName());
+		
+		
 		IDataModel utilFacet = map.getFacetDataModel(IJ2EEFacetConstants.UTILITY_FACET.getId());
 		utilFacet.addListener(new IDataModelListener() {
 			public void propertyChanged(DataModelEvent event) {

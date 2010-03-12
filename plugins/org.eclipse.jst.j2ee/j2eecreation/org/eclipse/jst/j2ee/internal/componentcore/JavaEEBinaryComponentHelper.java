@@ -44,7 +44,7 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 
 	private IArchive archive;
 	private EnterpriseBinaryComponentHelper legacyBinaryHelper;
-
+	private boolean descriminateMainClass = true;
 	private int localArchiveAccessCount = 0;
 
 	public static JavaEEQuickPeek getJavaEEQuickPeek(IVirtualComponent aBinaryComponent) {
@@ -63,11 +63,38 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 			}
 		}
 	}
+	
+	public static void openArchive(IVirtualComponent aBinaryComponent, boolean descriminateMainClass) {
+		JavaEEBinaryComponentHelper helper = null;
+		try {
+			helper = new JavaEEBinaryComponentHelper(aBinaryComponent);
+			helper.setDescriminateMainClass(descriminateMainClass);
+			try {
+				helper.openArchive();
+			} catch (ArchiveOpenFailureException e) {
+				J2EEPlugin.logError(e);
+			}
+		} finally {
+			if (helper != null) {
+				helper.dispose();
+			}
+		}
+	}
 
 	public JavaEEBinaryComponentHelper(IVirtualComponent aBinaryComponent) {
 		super(aBinaryComponent);
 	}
 
+	public IPath getAbsolutePath() {
+		IArchiveLoadAdapter loadAdapter = null;
+		if(getArchive().getArchiveOptions().hasOption(JavaEEArchiveUtilities.WRAPPED_LOAD_ADAPTER)){
+			loadAdapter = (IArchiveLoadAdapter)getArchive().getArchiveOptions().getOption(JavaEEArchiveUtilities.WRAPPED_LOAD_ADAPTER);
+		} else {
+			loadAdapter = (IArchiveLoadAdapter)getArchive().getArchiveOptions().getOption(ArchiveOptions.LOAD_ADAPTER);
+		}
+		return ((JavaEEBinaryComponentLoadAdapter) loadAdapter).getArchivePath();
+	}
+	
 	@Override
 	public EObject getPrimaryRootObject() {
 		JavaEEQuickPeek qp = JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(getArchive());
@@ -349,6 +376,14 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 		ArchiveCache.getInstance().clearAllArchivesInProject(earProject);
 	}
 
+	public void setDescriminateMainClass(boolean archiveOption) {
+		descriminateMainClass = archiveOption;
+	}
+
+	public boolean shouldDescriminateMainClass() {
+		return descriminateMainClass;
+	}
+
 	/**
 	 * This cache manages IArchives across all
 	 * {@link JavaEEBinaryComponentHelper} instances. If multiple
@@ -360,13 +395,12 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 	 */
 	private static class ArchiveCache {
 
-		private static ArchiveCache instance = null;
+		private static class ArchiveCacheInstanceHolder {
+			private static ArchiveCache instance = new ArchiveCache();
+		}
 
 		public static ArchiveCache getInstance() {
-			if (instance == null) {
-				instance = new ArchiveCache();
-			}
-			return instance;
+			return ArchiveCacheInstanceHolder.instance;
 		}
 
 		protected Map<IVirtualComponent, IArchive> componentsToArchives = new Hashtable<IVirtualComponent, IArchive>();
@@ -458,7 +492,13 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 		}
 
 		public synchronized IArchive openArchive(JavaEEBinaryComponentHelper helper) throws ArchiveOpenFailureException {
-			IArchive archive = JavaEEArchiveUtilities.INSTANCE.openArchive(helper.getComponent());
+			IArchive archive;
+			if (helper.getComponent().isBinary()) {
+				archive = JavaEEArchiveUtilities.INSTANCE.openBinaryArchive(helper.getComponent(), helper.shouldDescriminateMainClass());
+			}
+			else {
+				archive = JavaEEArchiveUtilities.INSTANCE.openArchive(helper.getComponent());
+			}
 			componentsToArchives.put(helper.getComponent(), archive);
 			archiveAccessCount.put(archive, new Integer(0));
 			return archive;

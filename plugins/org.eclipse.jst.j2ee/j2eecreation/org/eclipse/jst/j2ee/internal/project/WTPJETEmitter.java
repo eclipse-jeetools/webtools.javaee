@@ -72,6 +72,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPluginResourceHandler;
 import org.eclipse.osgi.util.ManifestElement;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.Constants;
+import org.osgi.service.prefs.BackingStoreException;
 
 /**
  * @author schacher, mdelder
@@ -273,8 +274,9 @@ public class WTPJETEmitter extends JETEmitter {
 	 * @param javaProject
 	 * @throws CoreException
 	 * @throws JavaModelException
+	 * @throws BackingStoreException 
 	 */
-	protected void initializeJavaProject(IProgressMonitor progressMonitor, final IProject project, IJavaProject javaProject) throws CoreException, JavaModelException {
+	protected void initializeJavaProject(IProgressMonitor progressMonitor, final IProject project, IJavaProject javaProject) throws CoreException, JavaModelException, BackingStoreException {
 		progressMonitor.subTask(CodeGenPlugin.getPlugin().getString("_UI_JETInitializingProject_message", new Object[]{project.getName()})); //$NON-NLS-1$
 		IClasspathEntry classpathEntry = JavaCore.newSourceEntry(new Path("/" + project.getName() + "/src")); //$NON-NLS-1$ //$NON-NLS-2$
 
@@ -307,6 +309,31 @@ public class WTPJETEmitter extends JETEmitter {
 		IScopeContext context = new ProjectScope( project );
 		IEclipsePreferences prefs = context.getNode( JavaCore.PLUGIN_ID );
 		prefs.put( JavaCore.COMPILER_PB_RAW_TYPE_REFERENCE, JavaCore.IGNORE );
+		prefs.put( JavaCore.COMPILER_PB_UNCHECKED_TYPE_OPERATION, JavaCore.IGNORE );
+		
+		// set Java compiler compliance level to 1.5
+		prefs.put( JavaCore.COMPILER_COMPLIANCE, JavaCore.VERSION_1_5 );
+		prefs.put( JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM, JavaCore.VERSION_1_5 );
+		prefs.put( JavaCore.COMPILER_SOURCE, JavaCore.VERSION_1_5 );
+		prefs.put( JavaCore.COMPILER_PB_ASSERT_IDENTIFIER, JavaCore.ERROR );
+		prefs.put( JavaCore.COMPILER_PB_ENUM_IDENTIFIER, JavaCore.ERROR );
+		
+		// set Javadoc validation to the default ignore level
+		prefs.put( JavaCore.COMPILER_PB_INVALID_JAVADOC, JavaCore.IGNORE );
+		prefs.put( JavaCore.COMPILER_PB_INVALID_JAVADOC_TAGS, JavaCore.DISABLED );
+		prefs.put( JavaCore.COMPILER_PB_INVALID_JAVADOC_TAGS__DEPRECATED_REF, JavaCore.DISABLED );
+		prefs.put( JavaCore.COMPILER_PB_INVALID_JAVADOC_TAGS__NOT_VISIBLE_REF, JavaCore.DISABLED );
+		prefs.put( JavaCore.COMPILER_PB_INVALID_JAVADOC_TAGS_VISIBILITY, JavaCore.PUBLIC );
+		prefs.put( JavaCore.COMPILER_PB_MISSING_JAVADOC_TAG_DESCRIPTION, JavaCore.COMPILER_PB_MISSING_JAVADOC_TAG_DESCRIPTION_RETURN_TAG );
+		prefs.put( JavaCore.COMPILER_PB_MISSING_JAVADOC_TAGS, JavaCore.IGNORE );
+		prefs.put( JavaCore.COMPILER_PB_MISSING_JAVADOC_TAGS_VISIBILITY, JavaCore.PUBLIC );
+		prefs.put( JavaCore.COMPILER_PB_MISSING_JAVADOC_TAGS_OVERRIDING, JavaCore.DISABLED );
+		prefs.put( JavaCore.COMPILER_PB_MISSING_JAVADOC_COMMENTS, JavaCore.IGNORE );
+		prefs.put( JavaCore.COMPILER_PB_MISSING_JAVADOC_COMMENTS_VISIBILITY, JavaCore.PUBLIC );
+		prefs.put( JavaCore.COMPILER_PB_MISSING_JAVADOC_COMMENTS_OVERRIDING, JavaCore.DISABLED );
+		
+		// store changed properties permanently
+		prefs.flush();
 	}
 
 	/**

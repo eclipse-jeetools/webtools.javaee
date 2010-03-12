@@ -11,14 +11,12 @@
 package org.eclipse.jst.j2ee.internal.deployables;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
@@ -49,6 +47,7 @@ import org.eclipse.jst.j2ee.internal.componentcore.JavaEEBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.SingleRootUtil;
 import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.jst.server.core.IApplicationClientModule;
 import org.eclipse.jst.server.core.IConnectorModule;
@@ -58,10 +57,6 @@ import org.eclipse.jst.server.core.IJ2EEModule;
 import org.eclipse.jst.server.core.IWebModule;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.internal.ComponentResource;
-import org.eclipse.wst.common.componentcore.internal.Property;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
@@ -83,12 +78,13 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 	protected static final IPath WEB_CLASSES_PATH = new Path(J2EEConstants.WEB_INF_CLASSES);
 	protected static final IPath MANIFEST_PATH = new Path(J2EEConstants.MANIFEST_URI);
 	protected static IPath WEBLIB = new Path(J2EEConstants.WEB_INF_LIB).makeAbsolute();
-	private static String USE_SINGLE_ROOT_PROPERTY = "useSingleRoot"; //$NON-NLS-1$
 	protected IPackageFragmentRoot[] cachedSourceContainers;
 	protected IContainer[] cachedOutputContainers;
 	protected HashMap cachedOutputMappings;
 	protected HashMap cachedSourceOutputPairs;
 	protected List classpathComponentDependencyURIs = new ArrayList();
+	private boolean isSingleJavaOutputNonSource = false;
+	private SingleRootUtil singleUtil;
 
 	/**
 	 * Constructor for J2EEFlexProjDeployable.
@@ -211,7 +207,10 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 						if (folder.getName().equals(J2EEConstants.META_INF)) {
 							IModuleResource[] files = folder.members();
 							for (int j = 0; j < files.length; j++) {
-								files[j] = replaceManifestFile((IModuleFile) files[j]);								
+								if (files[j] instanceof IModuleFile)
+								{
+									files[j] = replaceManifestFile((IModuleFile) files[j]);
+								}
 							}
 						}
 					}
@@ -298,7 +297,7 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 			}
 			// create temp MANIFEST.MF using util method
 			try {
-				ClasspathDependencyManifestUtil.updateManifestClasspath(file, classpathComponentDependencyURIs, new FileOutputStream(fsFile));
+				ClasspathDependencyManifestUtil.updateManifestClasspath(file, classpathComponentDependencyURIs, fsFile);
 				// create new ModuleFile that points to temp MANIFEST.MF
 				return new ModuleFile(fsFile, file.getName(), path);
 			} catch (IOException ioe) {
@@ -802,6 +801,10 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 		}
 	}
 	
+   
+
+   
+	
 	/**
 	 * Returns <code>true</code> if this module has a simple structure based on a
 	 * single root folder, and <code>false</code> otherwise.
@@ -819,156 +822,23 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 	 *    <code>false</code> otherwise
 	 */
 	public boolean isSingleRootStructure() {
-		StructureEdit edit = null;
-		try {
-			edit = StructureEdit.getStructureEditForRead(getProject());
-			if (edit == null || edit.getComponent() == null)
-				return false;
-			WorkbenchComponent wbComp = edit.getComponent();
-			List resourceMaps = wbComp.getResources();
-			
-			// 229650 - check to see if the property 'useSingleRoot' is defined. If it is set and
-			// the value of the property is true then it will override the logic checks below
-			final List componentProperties = wbComp.getProperties();
-			if (componentProperties != null) {
-				final Iterator componentPropertiesIterator = componentProperties.iterator();
-				while (componentPropertiesIterator.hasNext()) {
-					Property wbProperty = (Property) componentPropertiesIterator.next();
-					if (J2EEFlexProjDeployable.USE_SINGLE_ROOT_PROPERTY.equals(wbProperty.getName())) {
-						boolean useSingleRoot = Boolean.valueOf(wbProperty.getValue()).booleanValue();
-						if (useSingleRoot) {
-							return true;
-						}
-					}
-				}
-			}
-			
-			if (J2EEProjectUtilities.isEARProject(getProject())) {
-				// Always return false for EARs so that members for EAR are always calculated and j2ee modules
-				// are filtered out
-				return false;
-			} else if (J2EEProjectUtilities.isDynamicWebProject(getProject())) {
-				// Ensure there are only basic component resource mappings -- one for the content folder 
-				// and any for src folders mapped to WEB-INF/classes
-				if (hasDefaultWebResourceMappings(resourceMaps)) {
-					// Verify only one java output folder
-					if (getJavaOutputFolders().length==1) {
-						// Verify the java output folder is to <content root>/WEB-INF/classes
-						IPath javaOutputPath = getJavaOutputFolders()[0].getProjectRelativePath();
-						IPath compRootPath = component.getRootFolder().getUnderlyingFolder().getProjectRelativePath();
-						if (compRootPath.append(J2EEConstants.WEB_INF_CLASSES).equals(javaOutputPath)) 
-							return true;
-					}
-				}
-				return false;
-			} else if (J2EEProjectUtilities.isEJBProject(getProject()) || J2EEProjectUtilities.isJCAProject(getProject())
-					|| J2EEProjectUtilities.isApplicationClientProject(getProject()) || J2EEProjectUtilities.isUtilityProject(getProject())) {
-				// Ensure there are only source folder component resource mappings to the root content folder
-				if (isRootResourceMapping(resourceMaps,false)) {
-					// Verify only one java outputfolder
-					if (getJavaOutputFolders().length==1) {
-						// At this point for utility projects, this project is optimized, we can just use the output folder
-						if (J2EEProjectUtilities.isUtilityProject(getProject()))
-							return true;
-						// Verify the java output folder is the same as one of the content roots
-						IPath javaOutputPath = getJavaOutputFolders()[0].getProjectRelativePath();
-						IContainer[] rootFolders = component.getRootFolder().getUnderlyingFolders();
-						for (int i=0; i<rootFolders.length; i++) {
-							IPath compRootPath = rootFolders[i].getProjectRelativePath();
-							if (javaOutputPath.equals(compRootPath))
-								return true;
-						}
-					}
-				}
-				return false;
-			}
-			return true;
-		} finally {
-			if (edit !=null)
-				edit.dispose();
-		}
+		boolean isSingleRoot = getSingleUtil().isSingleRoot();
+		isSingleJavaOutputNonSource = getSingleUtil().isSingleJavaOutputNonSource();
+		return isSingleRoot;
 	}
 	
-	/**
-	 * Ensure that any component resource mappings are for source folders and 
-	 * that they map to the root content folder
-	 * 
-	 * @param resourceMaps
-	 * @return boolean
-	 */
-	private boolean isRootResourceMapping(List resourceMaps, boolean isForEAR) {
-		// If the list is empty, return false
-		if (resourceMaps.size()<1)
-			return false;
-		
-		for (int i=0; i<resourceMaps.size(); i++) {
-			ComponentResource resourceMap = (ComponentResource) resourceMaps.get(i);
-			// Verify it maps to "/" for the content root
-			if (!resourceMap.getRuntimePath().equals(Path.ROOT))
-				return false;
-			// If this is not for an EAR, verify it is also a src container
-			if (!isForEAR) {
-				IPath sourcePath = getProject().getFullPath().append(resourceMap.getSourcePath());
-				if (!isSourceContainer(sourcePath))
-					return false;
-			}
+	private SingleRootUtil getSingleUtil() {
+		if (singleUtil == null) {
+			singleUtil = new SingleRootUtil(component);
 		}
-		return true;
+		return singleUtil;
 	}
-	
+
+
 	/**
-	 * Checks if the path argument is to a source container for the project.
-	 * 
-	 * @param a workspace relative full path
-	 * @return is path a source container?
-	 */
-	private boolean isSourceContainer(IPath path) {
-		IPackageFragmentRoot[] srcContainers = getSourceContainers();
-		for (int i=0; i<srcContainers.length; i++) {
-			if (srcContainers[i].getPath().equals(path))
-				return true;
-		}
-		return false;
-	}
-	
-	/**
-	 * Ensure the default web setup is correct with one resource map and any number of java 
-	 * resource maps to WEB-INF/classes
-	 * 
-	 * @param resourceMaps
-	 * @return boolean
-	 */
-	private boolean hasDefaultWebResourceMappings(List resourceMaps) {
-		int rootValidMaps = 0;
-		int javaValidRoots = 0;
-		
-		// If there aren't at least 2 maps, return false
-		if (resourceMaps.size()<2)
-			return false;
-		
-		IPath webInfClasses = new Path(J2EEConstants.WEB_INF_CLASSES).makeAbsolute();
-		for (int i=0; i<resourceMaps.size(); i++) {
-			ComponentResource resourceMap = (ComponentResource) resourceMaps.get(i);
-			IPath sourcePath = getProject().getFullPath().append(resourceMap.getSourcePath());
-			
-			// Verify if the map is for the content root
-			if (resourceMap.getRuntimePath().equals(Path.ROOT)) {
-				rootValidMaps++;
-			// Verify if the map is for a java src folder and is mapped to "WEB-INF/classes"
-			} else if (resourceMap.getRuntimePath().equals(webInfClasses) && isSourceContainer(sourcePath)) {
-				javaValidRoots++;
-			// Otherwise we bail because we have a non optimized map
-			} else {
-				return false;
-			}
-		}
-		// Make sure only one of the maps is the content root, and that at least one is for the java folder
-		return rootValidMaps==1 && javaValidRoots>0;
-	}
-	
-	/**
-	 * This method is added for performance reasons.
-	 * It assumes the virtual component is not using any flexible features and is in a standard J2EE format
+	 * This method is added for performance reasons. It can ONLY be called when the project is single root.
+	 * @see isSingleRootStructure().  If the project has an output folder that is also a source folder then,
+	 * it assumes the virtual component is not using any flexible features and is in a standard J2EE format
 	 * with one component root folder and an output folder the same as its content folder.  This will bypass 
 	 * the virtual component API and just return the module resources as they are on disk.
 	 * 
@@ -977,8 +847,12 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 	 */
 	private IModuleResource[] getOptimizedMembers() throws CoreException {
 		if (component != null) {
-			// For java utility modules, we can just use the output container, at this point we know there is only one
-			if (J2EEProjectUtilities.isUtilityProject(getProject())) {
+			if (isSingleJavaOutputNonSource ) {
+				// We determined when testing for a single root structure that this project has
+				// one output folder and that output folder is not a source folder. Since the
+				// output folder (for example, classes or bin) is not a source folder, JDT copies all files
+				// (including non Java files) to this folder, so every resource needed at runtime is located 
+				// in that single output directory.
 				return getModuleResources(Path.EMPTY, getJavaOutputFolders()[0]);
 			}
 			// For J2EE modules, we use the contents of the content root

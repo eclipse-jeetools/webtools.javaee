@@ -645,7 +645,6 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 				classPathWLPSelection.addClasspathElement(element, unresolvedURI);
 			}
 		}
-		
 		// Add elements for raw classpath entries (either already tagged or potentially taggable) 
 		try {
 			classPathWLPSelection.createClasspathEntryElements(component, WEBLIB, WEBINF_CLASSES);

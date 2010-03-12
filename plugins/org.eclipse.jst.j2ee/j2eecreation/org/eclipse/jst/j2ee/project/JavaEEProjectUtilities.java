@@ -33,30 +33,40 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IProjectFacet;
+import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
 public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFacetConstants {
 	protected static final IVirtualReference[] NO_REFERENCES = new IVirtualReference[0];
-
+	public static final int FACET_VERSION = 0;
+	public static final int DD_VERSION = 1;
+	
 	public JavaEEProjectUtilities() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public static boolean isProjectOfType(IProject project, String typeID) {
+		return getProjectFacetVersion(project, typeID) != null;
+	}
+
+	public static IProjectFacetVersion getProjectFacetVersion(IProject project, String typeID){
 		IFacetedProject facetedProject = null;
 		try {
 			facetedProject = ProjectFacetsManager.create(project);
 		} catch (CoreException e) {
-			return false;
+			return null;
 		}
 
 		if (facetedProject != null && ProjectFacetsManager.isProjectFacetDefined(typeID)) {
 			IProjectFacet projectFacet = ProjectFacetsManager.getProjectFacet(typeID);
-			return projectFacet != null && facetedProject.hasProjectFacet(projectFacet);
+			if(projectFacet == null){
+				return null;
+			}
+			return facetedProject.getProjectFacetVersion(projectFacet);
 		}
-		return false;
+		return null;
 	}
-
+	
 	private static boolean isProjectOfType(IFacetedProject facetedProject, String typeID) {
 
 		if (facetedProject != null && ProjectFacetsManager.isProjectFacetDefined(typeID)) {
@@ -97,7 +107,7 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 	public static boolean isEARProject(IProject project) {
 		return isProjectOfType(project, ENTERPRISE_APPLICATION);
 	}
-
+	
 	public static boolean isDynamicWebComponent(IVirtualComponent component) {
 		if (component.isBinary()) {
 			return isBinaryType(component, JavaEEQuickPeek.WEB_TYPE);
@@ -295,6 +305,171 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 	{
 		int retVal = 0;
 		return retVal;
+	}
+	
+	/**
+	 * Given a component returns whether the component has
+	 * Java EE version greater than or equal to 5
+	 * 
+	 * @param component
+	 * @return true if the component is Java EE version 5 or greater, false otherwise
+	 */
+	public static boolean isJEEComponent(IVirtualComponent component){
+		if(component.isBinary()){
+			JavaEEQuickPeek qp = JavaEEBinaryComponentHelper.getJavaEEQuickPeek(component);
+			int javaEEVersion = qp.getJavaEEVersion();
+			return javaEEVersion >= J2EEConstants.JEE_5_0_ID;
+		} else {
+			IProject project = component.getProject();
+			
+			IProjectFacetVersion facetVersion = getProjectFacetVersion(project, ENTERPRISE_APPLICATION);
+			if(facetVersion != null){
+				if(facetVersion == IJ2EEFacetConstants.ENTERPRISE_APPLICATION_12 ||
+				   facetVersion == IJ2EEFacetConstants.ENTERPRISE_APPLICATION_13 ||
+				   facetVersion == IJ2EEFacetConstants.ENTERPRISE_APPLICATION_14){
+					return false;
+				}
+				return true;
+			}
+			
+			facetVersion = getProjectFacetVersion(project, APPLICATION_CLIENT);
+			if(facetVersion != null){
+				if(facetVersion == IJ2EEFacetConstants.APPLICATION_CLIENT_12 ||
+				   facetVersion == IJ2EEFacetConstants.APPLICATION_CLIENT_13 ||
+				   facetVersion == IJ2EEFacetConstants.APPLICATION_CLIENT_14){
+					return false;
+				}
+				return true;
+			}
+			
+			facetVersion = getProjectFacetVersion(project, EJB);
+			if(facetVersion != null){
+				if(facetVersion == IJ2EEFacetConstants.EJB_11 ||
+				   facetVersion == IJ2EEFacetConstants.EJB_20 ||
+				   facetVersion == IJ2EEFacetConstants.EJB_21){
+					return false;
+				}
+				return true;
+			}
+			
+			facetVersion = getProjectFacetVersion(project, DYNAMIC_WEB);
+			if(facetVersion != null){
+				if(facetVersion == IJ2EEFacetConstants.DYNAMIC_WEB_22 ||
+				   facetVersion == IJ2EEFacetConstants.DYNAMIC_WEB_23 ||
+				   facetVersion == IJ2EEFacetConstants.DYNAMIC_WEB_24){
+					return false;
+				}
+				return true;
+			}
+			
+			facetVersion = getProjectFacetVersion(project, JCA);
+			if(facetVersion != null){
+				if(facetVersion == IJ2EEFacetConstants.JCA_10 ||
+				   facetVersion == IJ2EEFacetConstants.JCA_15 ){
+					return false;
+				}
+				return true;
+			}
+			
+			return false;
+		}
+	}
+	
+	/**
+	 * Given a component returns whether the component has
+	 * Java EE version greater than or equal to 5
+	 * 
+	 * @param component   - IVirtualComponent
+	 * @param versionType - flag to specify whether to use the facet version
+	 *                      or the DD XML file version
+	 * @return true if the component is Java EE version 5 or greater, false otherwise
+	 */
+	public static boolean isJEEComponent(IVirtualComponent component, int versionType){
+		if (component.isBinary()) {
+			JavaEEQuickPeek qp = JavaEEBinaryComponentHelper.getJavaEEQuickPeek(component);
+			int javaEEVersion = qp.getJavaEEVersion();
+			return javaEEVersion >= J2EEConstants.JEE_5_0_ID;
+		} 
+		
+		IProject project = component.getProject();
+		if (versionType == FACET_VERSION) {
+			IProjectFacetVersion facetVersion = getProjectFacetVersion(project, ENTERPRISE_APPLICATION);
+			if(facetVersion != null){
+				if(facetVersion == IJ2EEFacetConstants.ENTERPRISE_APPLICATION_12 ||
+				   facetVersion == IJ2EEFacetConstants.ENTERPRISE_APPLICATION_13 ||
+				   facetVersion == IJ2EEFacetConstants.ENTERPRISE_APPLICATION_14){
+					return false;
+				}
+				return true;
+			}
+			
+			facetVersion = getProjectFacetVersion(project, APPLICATION_CLIENT);
+			if(facetVersion != null){
+				if(facetVersion == IJ2EEFacetConstants.APPLICATION_CLIENT_12 ||
+				   facetVersion == IJ2EEFacetConstants.APPLICATION_CLIENT_13 ||
+				   facetVersion == IJ2EEFacetConstants.APPLICATION_CLIENT_14){
+					return false;
+				}
+				return true;
+			}
+			
+			facetVersion = getProjectFacetVersion(project, EJB);
+			if(facetVersion != null){
+				if(facetVersion == IJ2EEFacetConstants.EJB_11 ||
+				   facetVersion == IJ2EEFacetConstants.EJB_20 ||
+				   facetVersion == IJ2EEFacetConstants.EJB_21){
+					return false;
+				}
+				return true;
+			}
+			
+			facetVersion = getProjectFacetVersion(project, DYNAMIC_WEB);
+			if(facetVersion != null){
+				if(facetVersion == IJ2EEFacetConstants.DYNAMIC_WEB_22 ||
+				   facetVersion == IJ2EEFacetConstants.DYNAMIC_WEB_23 ||
+				   facetVersion == IJ2EEFacetConstants.DYNAMIC_WEB_24){
+					return false;
+				}
+				return true;
+			}
+			
+			facetVersion = getProjectFacetVersion(project, JCA);
+			if(facetVersion != null){
+				if(facetVersion == IJ2EEFacetConstants.JCA_10 ||
+				   facetVersion == IJ2EEFacetConstants.JCA_15 ){
+					return false;
+				}
+				return true;
+			}
+			
+			return false;
+		}
+		else {
+			String ddVersion = getJ2EEDDProjectVersion(project);
+			int j2eeLevel = 0;
+			if (isEARProject(project))
+				j2eeLevel = J2EEVersionUtil.convertVersionStringToInt(ddVersion);
+			else if (isDynamicWebProject(project))
+				j2eeLevel = J2EEVersionUtil.convertWebVersionStringToJ2EEVersionID(ddVersion);
+			else if (isEJBProject(project))
+				j2eeLevel = J2EEVersionUtil.convertEJBVersionStringToJ2EEVersionID(ddVersion);
+			else if (isJCAProject(project))
+				j2eeLevel = J2EEVersionUtil.convertConnectorVersionStringToJ2EEVersionID(ddVersion);
+			else if (isApplicationClientProject(project))
+				j2eeLevel = J2EEVersionUtil.convertAppClientVersionStringToJ2EEVersionID(ddVersion);
+			
+			return j2eeLevel >= J2EEVersionConstants.JEE_5_0_ID;
+		}
+	}
+	
+	/**
+	 * Given a component returns whether the component has Java EE version less than 5
+	 * 
+	 * @param component
+	 * @return true if the component is less then Java EE version 5, false otherwise
+	 */
+	public static boolean isLegacyJ2EEComponent(IVirtualComponent component){
+		return !isJEEComponent(component);
 	}
 	
 }

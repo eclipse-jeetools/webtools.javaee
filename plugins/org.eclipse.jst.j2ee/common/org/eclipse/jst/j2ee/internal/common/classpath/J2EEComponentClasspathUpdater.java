@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.resources.IContainer;
@@ -41,7 +42,6 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.common.jdt.internal.classpath.FlexibleProjectContainer;
 import org.eclipse.jst.j2ee.application.internal.operations.IModuleExtensions;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
@@ -51,10 +51,16 @@ import org.eclipse.jst.j2ee.internal.componentcore.JavaEEBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.model.IModelProvider;
+import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
+import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.builder.IDependencyGraphListener;
+import org.eclipse.wst.common.componentcore.internal.builder.IDependencyGraphUpdateEvent;
 import org.eclipse.wst.common.componentcore.internal.impl.ResourceTreeRootAdapter;
 import org.eclipse.wst.common.componentcore.internal.impl.WTPModulesResourceFactory;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -63,7 +69,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.internal.emf.utilities.ExtendedEcoreUtil;
 import org.eclipse.wst.common.project.facet.core.FacetedProjectFramework;
 
-public class J2EEComponentClasspathUpdater implements IResourceChangeListener, IResourceDeltaVisitor {
+public class J2EEComponentClasspathUpdater implements IResourceChangeListener, IResourceDeltaVisitor, IDependencyGraphListener {
 
 	private static J2EEComponentClasspathUpdater instance = null;
 
@@ -363,6 +369,15 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 		knownProjects.remove(project.getName());
 	}
 	
+	public void dependencyGraphUpdate(IDependencyGraphUpdateEvent event) {
+		if((event.getType() & IDependencyGraphUpdateEvent.ADDED) == IDependencyGraphUpdateEvent.ADDED){
+			Map<IProject, Set<IProject>> addedReferences = event.getAddedReferences();
+			for(IProject referencedProject : addedReferences.keySet()){
+				queueUpdate(referencedProject);
+			}
+		}
+	}
+	
 	public void resourceChanged(IResourceChangeEvent event) {
 		boolean scheduleJob = false;
 		try {
@@ -457,6 +472,11 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 	}
 	
 	public boolean visit(IResourceDelta delta) {
+		// If it is only a marker change, ignore the change
+		if(delta.getFlags() == IResourceDelta.MARKERS) {
+			return false;
+		}
+		
 		IResource resource = delta.getResource();
 		switch (resource.getType()) {
 		case IResource.ROOT:
@@ -472,7 +492,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 			if (comp instanceof J2EEModuleVirtualComponent || comp instanceof EARVirtualComponent) {
 				IVirtualFolder rootFolder = comp.getRootFolder();
 				if (comp instanceof EARVirtualComponent) {
-					return isRootAncester(resource, rootFolder);
+					return isRootAncester(resource, rootFolder) || isEARLibraryDirectory(resource, comp);
 				} else { // J2EEModuleVirtualComponent
 					return isRootAncester(resource, rootFolder) || isFolder(resource, rootFolder.getFolder(J2EEConstants.META_INF));
 				}
@@ -481,18 +501,18 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 		}
 		case IResource.FILE: {
 			String name = resource.getName();
-			if (name.equals(WTPModulesResourceFactory.WTP_MODULES_SHORT_NAME) || name.equals(ProjectUtilities.DOT_CLASSPATH)) {
+			if (name.equals(WTPModulesResourceFactory.WTP_MODULES_SHORT_NAME)) {
 				queueUpdate(resource.getProject());
 			} else if (name.equals(J2EEConstants.MANIFEST_SHORT_NAME)) { // MANIFEST.MF must be all caps per spec
 				IFile manifestFile = J2EEProjectUtilities.getManifestFile(resource.getProject(), false);
 				if (null == manifestFile || resource.equals(manifestFile)) {
 					queueUpdateModule(resource.getProject());
 				}
-			} else if (endsWithIgnoreCase(name, IModuleExtensions.DOT_JAR)) {
+			} else if (endsWithIgnoreCase(name, IModuleExtensions.DOT_JAR) || endsWithIgnoreCase(name, ".zip")) {
 				try {
 					if (FacetedProjectFramework.hasProjectFacet(resource.getProject(), J2EEProjectUtilities.ENTERPRISE_APPLICATION)) {
 						IVirtualComponent comp = ComponentCore.createComponent(resource.getProject());
-						if(isFolder(resource.getParent(), comp.getRootFolder())){
+						if(isFolder(resource.getParent(), comp.getRootFolder()) || isEARLibraryDirectory(resource, comp)){
 							queueUpdateEAR(resource.getProject());
 						}
 					}
@@ -506,6 +526,36 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 		}
 	}
 	
+	private boolean isEARLibraryDirectory(IResource resource, IVirtualComponent earComponent) {
+		// check if the EAR component's version is 5 or greater
+		IProject project = earComponent.getProject();
+		if (!JavaEEProjectUtilities.isJEEComponent(earComponent, JavaEEProjectUtilities.DD_VERSION)
+				|| !JavaEEProjectUtilities.isJEEComponent(earComponent, JavaEEProjectUtilities.FACET_VERSION)) {
+			return false;
+		}
+		
+		// retrieve the model provider
+		IModelProvider modelProvider = ModelProviderManager.getModelProvider(project);
+		if (modelProvider == null) return false;
+		
+		// retrieve the EAR's model object
+		Application app = (Application) modelProvider.getModelObject();
+		if (app == null) return false;
+		
+		// retrieve the library directory from the model
+		String libDir = app.getLibraryDirectory();
+		if (libDir == null) {
+			// the library directory is not set - use the default one
+			libDir = J2EEConstants.EAR_DEFAULT_LIB_DIR;
+		}
+		
+		IVirtualFolder libFolder = earComponent.getRootFolder().getFolder(libDir); 
+		if(resource.getType() == IResource.FILE){
+			return isRootAncester(resource.getParent(), libFolder);
+		}
+		return isRootAncester(resource, libFolder);
+	}
+
 	public static boolean endsWithIgnoreCase(String str, String sfx) {
 		return str.regionMatches(true, str.length() - sfx.length(), sfx, 0, sfx.length());
 	}

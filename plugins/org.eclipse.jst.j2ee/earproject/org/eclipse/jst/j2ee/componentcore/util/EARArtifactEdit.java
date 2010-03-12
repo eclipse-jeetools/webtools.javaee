@@ -32,6 +32,7 @@ import org.eclipse.jst.j2ee.application.WebModule;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchiveFactory;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
+import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.EARComponentLoadStrategyImpl;
@@ -451,7 +452,14 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		IVirtualReference [] refs = getComponent().getReferences();
 		for(int i=0; i<refs.length; i++){
 			if(refs[i].getReferencedComponent().equals(moduleComp)){
-				return refs[i].getArchiveName();
+				if (refs[i].getRuntimePath().toString().equals("/")){
+					return refs[i].getArchiveName();
+				}
+				String uri = refs[i].getRuntimePath().append(refs[i].getArchiveName()).toString();
+				if(uri.startsWith("/")){
+					uri = uri.substring(1);
+				}
+				return uri;
 			}
 		}
 		return null;		
@@ -471,11 +479,14 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 //	}
 	
 	public IVirtualComponent getModuleByManifestURI(final String uri) {
+		if (uri == null)
+			return null;
+		
 		IVirtualComponent earComponent = ComponentCore.createComponent(getProject());
 		IVirtualReference [] refs = earComponent.getReferences();
 
 		for(int i=0;i<refs.length; i++){
-			if(refs[i].getArchiveName().equals(uri)){
+			if(uri.equals(refs[i].getArchiveName())){
 				return refs[i].getReferencedComponent();
 			}
 		}
@@ -577,16 +588,22 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	}
 
 	public Archive asArchive(boolean includeSource) throws OpenFailureException {
-		verifyOperationSupported();
 		return asArchive(includeSource, true);
 	}
 	
 	public Archive asArchive(boolean includeSource, boolean includeClasspathComponents) throws OpenFailureException {
+		return asArchive(includeSource, includeClasspathComponents, false);
+	}
+	public Archive asArchive(boolean includeSource, boolean includeClasspathComponents, boolean readOnly) throws OpenFailureException {
 		verifyOperationSupported();
 		EARComponentLoadStrategyImpl loader = new EARComponentLoadStrategyImpl(getComponent(), includeClasspathComponents);
+		loader.setReadOnly(readOnly);
 		loader.setExportSource(includeSource);
 		String uri = ModuleURIUtil.getHandleString(getComponent());
-		return CommonarchiveFactory.eINSTANCE.openEARFile(loader, uri);
+		ArchiveOptions options = new ArchiveOptions();
+		options.setLoadStrategy(loader);
+		options.setIsReadOnly(readOnly);
+		return CommonarchiveFactory.eINSTANCE.openEARFile(options, uri);
 	}
 
 	public static void createDeploymentDescriptor(IProject project, int version) {

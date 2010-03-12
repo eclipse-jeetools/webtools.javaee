@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.resources.WorkspaceJob;
@@ -96,7 +97,7 @@ public class J2EEElementChangedListener implements IElementChangedListener {
 		final List changedJavaPaths = new ArrayList();
 		
 		// make certain this is a J2EE project
-		if (ModuleCoreNature.getModuleCoreNature(project) != null) {
+		if (ModuleCoreNature.isFlexibleProject(project)) {
 			IVirtualComponent c = ComponentCore.createComponent(project);
 			try {
 				// Did the classpath change?
@@ -222,7 +223,7 @@ public class J2EEElementChangedListener implements IElementChangedListener {
 							}
 							// getting a kind = REMOVED and flags = 0 for removal of the folder (w/o removing the CPE), probably
 							// should not be generated
-						} else if ((flags & IJavaElementDelta.F_REMOVED_FROM_CLASSPATH) == IJavaElementDelta.F_REMOVED_FROM_CLASSPATH) {
+						} else if (kind == IJavaElementDelta.REMOVED || (flags & IJavaElementDelta.F_REMOVED_FROM_CLASSPATH) == IJavaElementDelta.F_REMOVED_FROM_CLASSPATH) {
 							IPath path = root.getPath().removeFirstSegments(1);
 							pathsToRemove.add(new Object[]{path, defaultDestFolder});
 						} 
@@ -261,7 +262,21 @@ public class J2EEElementChangedListener implements IElementChangedListener {
 			for (int i = 0; i < childDeltas.length; i++) {
 				processResourceDelta(childDeltas[i], rootFolder, sourceToRuntime, pathsToAdd, pathsToRemove, changedJavaPaths);
 			}
-		} else {
+		} else if (kind == IResourceDelta.REMOVED){
+			if(sourceToRuntime != null){
+				IResource resource = delta.getResource();
+				if(resource.getType() == IResource.FOLDER){
+					IVirtualComponent c = ComponentCore.createComponent(resource.getProject());
+					if(c != null){
+						rootFolder = c.getRootFolder();
+						final IPath movedFrom = delta.getProjectRelativePath();
+						final IPath runtimePath = (IPath) sourceToRuntime.get(movedFrom);
+						final IVirtualFolder folder = rootFolder.getFolder(runtimePath);
+						pathsToRemove.add(new Object[]{movedFrom, folder});
+					}
+				}
+			}
+		}else {
 			final int flags = delta.getFlags();
 			if ((flags & IResourceDelta.MOVED_FROM) == IResourceDelta.MOVED_FROM) {
 				if (rootFolder == null) {
@@ -309,11 +324,13 @@ public class J2EEElementChangedListener implements IElementChangedListener {
 					sourceToRuntime.put(resource.getSourcePath().makeRelative(), resource.getRuntimePath());
 				}
 			}
-			return sourceToRuntime;
+		} catch (NullPointerException e) {
+			J2EEPlugin.logError(e);
 		} finally {
 			if (core != null)
 				core.dispose();
 		}
+		return sourceToRuntime;
 	}
 
 	/*

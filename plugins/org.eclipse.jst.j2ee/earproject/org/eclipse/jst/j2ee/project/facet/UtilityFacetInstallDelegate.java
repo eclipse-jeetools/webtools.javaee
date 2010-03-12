@@ -54,7 +54,7 @@ public final class UtilityFacetInstallDelegate extends J2EEFacetInstallDelegate 
 
 			// Setup the flexible project structure.
 
-			final IVirtualComponent c = ComponentCore.createComponent(project);
+			final IVirtualComponent c = ComponentCore.createComponent(project, false);
 
 			c.create(0, null);
 

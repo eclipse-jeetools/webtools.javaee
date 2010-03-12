@@ -316,11 +316,14 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 					try{
 						archive = helper.accessArchive();
 						if(null != archive){
-							IArchiveResource manifestResource = archive.getArchiveResource(new Path(J2EEConstants.MANIFEST_URI));
-							if(manifestResource != null){
-								in = manifestResource.getInputStream();
-								ArchiveManifest manifest = new ArchiveManifestImpl(in);
-								return manifest;
+							IPath manifestPath = new Path(J2EEConstants.MANIFEST_URI);
+							if(archive.containsArchiveResource(manifestPath)){
+								IArchiveResource manifestResource = archive.getArchiveResource(manifestPath);
+								if(manifestResource != null){
+									in = manifestResource.getInputStream();
+									ArchiveManifest manifest = new ArchiveManifestImpl(in);
+									return manifest;
+								}
 							}
 						}
 					} catch (FileNotFoundException e) {

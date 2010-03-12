@@ -21,6 +21,9 @@ import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceDescription;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -55,6 +58,7 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 	private Object[] selection;
 	private IStatus multiStatus;
 	private IProject currentProject;
+	private boolean wasAutoBuilding;
 
 	/**
 	 *  
@@ -80,27 +84,61 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 	 * @see org.eclipse.wst.common.frameworks.internal.operation.WTPOperation#execute(org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	public IStatus execute(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		DeployerRegistry reg = DeployerRegistry.instance();
-		List components = getSelectedModules(selection);
-		monitor.beginTask(J2EEPluginResourceHandler.J2EEDeployOperation_UI_0, components.size()); 
-		for (int i = 0; i < components.size(); i++) {
-			IVirtualComponent component = null;
-			component = (IVirtualComponent) components.get(i);
-			IProject proj = component.getProject();
-			IRuntime runtime = null;
-			try {
-				runtime = J2EEProjectUtilities.getServerRuntime(proj);
+		try { 
+			turnAutoBuildOff();
+			DeployerRegistry reg = DeployerRegistry.instance();
+			List components = getSelectedModules(selection);
+			monitor.beginTask(J2EEPluginResourceHandler.J2EEDeployOperation_UI_0, components.size()); 
+			for (int i = 0; i < components.size(); i++) {
+				IVirtualComponent component = null;
+				component = (IVirtualComponent) components.get(i);
+				IProject proj = component.getProject();
+				IRuntime runtime = null;
+				try {
+					runtime = J2EEProjectUtilities.getServerRuntime(proj);
+				}
+				catch (CoreException e) {
+					J2EEPlugin.getDefault().getLog().log(e.getStatus());
+				}
+				if (runtime == null)
+					continue;
+				List visitors = reg.getDeployModuleExtensions(proj, runtime);
+				deploy(visitors, component, monitor);
+				monitor.worked(1);
 			}
-			catch (CoreException e) {
-				J2EEPlugin.getDefault().getLog().log(e.getStatus());
-			}
-			if (runtime == null)
-				continue;
-			List visitors = reg.getDeployModuleExtensions(proj, runtime);
-			deploy(visitors, component, monitor);
-			monitor.worked(1);
+		}
+		finally {
+			restoreBuildSettings();
 		}
 		return getMultiStatus();
+	}
+	
+	private void turnAutoBuildOff() {
+		// turn off autobuild 
+		IWorkspace workspace = ResourcesPlugin.getWorkspace();
+		IWorkspaceDescription description= workspace.getDescription();
+		
+		wasAutoBuilding = workspace.isAutoBuilding();
+		description.setAutoBuilding(false);
+		try {
+			workspace.setDescription(description);
+		} catch (CoreException e) {
+			J2EEPlugin.logError(e);
+		}
+	}
+	
+	private void restoreBuildSettings() {
+		IWorkspace workspace = ResourcesPlugin.getWorkspace();
+		IWorkspaceDescription description= workspace.getDescription();
+		if (wasAutoBuilding) {
+			description.setAutoBuilding(true);
+			try {
+				workspace.setDescription(description);
+			} catch (CoreException e) {
+				J2EEPlugin.logError(e);
+			}
+		}
+				
 	}
 
 	/**
@@ -150,7 +188,7 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 	 */
 	private void addOKStatus(String DeployerName) {
 
-		IStatus statusLocal = new Status(IStatus.OK, " ", IStatus.OK, (J2EEPluginResourceHandler.getString("J2EEDeployOperation_2_UI_", new Object[]{DeployerName})), null); //$NON-NLS-1$ //$NON-NLS-2$		
+		IStatus statusLocal = new Status(IStatus.OK, " ", IStatus.OK, (J2EEPluginResourceHandler.getString(J2EEPluginResourceHandler.J2EEDeployOperation_2_UI_, new Object[]{DeployerName})), null); //$NON-NLS-1$		
 		//TODO
 		getMultiStatus().add(statusLocal);
 
@@ -164,21 +202,20 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 	private void addErrorStatus(IStatus exceptionStatus, String DeployerName, Throwable ex) {
 
 		Throwable mainCause = null;
+		int severity = exceptionStatus.getSeverity();
 		if (exceptionStatus instanceof MultiStatus) {
 			IStatus[] stati = ((MultiStatus) exceptionStatus).getChildren();
-			for (int i = 0; 1 < stati.length; i++) {
+			for (int i = 0; i < stati.length; i++) {
 				addErrorStatus(stati[i], DeployerName, stati[i].getException());
 			}
 		}
-		mainCause = (ex.getCause() != null) ? ex.getCause() : ex;
-			
+		mainCause = (ex != null && ex.getCause() != null) ? ex.getCause() : ex;
+
 		//String errorNotes = (mainCause != null && mainCause.getMessage() != null) ? mainCause.getMessage() : "";
 
 		String message = J2EEPluginResourceHandler.bind(J2EEPluginResourceHandler.J2EEDeployOperation_3_UI_,DeployerName, ""); //$NON-NLS-1$
-		IStatus statusLocal = new Status(IStatus.ERROR, J2EEPlugin.getPlugin().getPluginID(), IStatus.ERROR, message, mainCause); //$NON-NLS-1$
+		IStatus statusLocal = new Status(severity, J2EEPlugin.getPlugin().getPluginID(), severity, message, mainCause); //$NON-NLS-1$
 		getMultiStatus().add(statusLocal);
-
-
 
 	}
 

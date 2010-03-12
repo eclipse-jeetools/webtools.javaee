@@ -54,6 +54,16 @@ public class WebComponentArchiveSaveAdapter extends J2EEComponentArchiveSaveAdap
 			IFile iFile = vFile.getUnderlyingFile();
 			return iFile.getProjectRelativePath();
 		}
+		if (endsWithClassType(aFile.getPath().lastSegment())) {
+			IPath relativePath = aFile.getPath().makeRelative();
+			if (!IMPORTED_CLASSES_PATH.isPrefixOf(relativePath))
+			{
+				IVirtualFolder rootFolder = vComponent.getRootFolder();
+				IVirtualFile vFile = rootFolder.getFile(relativePath);
+				IFile iFile = vFile.getUnderlyingFile();
+				return iFile.getProjectRelativePath();
+			}
+		}
 		return super.getProjectRelativePath(aFile);
 	}
 
@@ -75,7 +85,7 @@ public class WebComponentArchiveSaveAdapter extends J2EEComponentArchiveSaveAdap
 		String jspUri = javaUri.substring(0, javaUri.indexOf(ArchiveUtil.DOT_JAVA));
 		int lastSlash = jspUri.lastIndexOf('/');
 		int _index = lastSlash == -1 ? ArchiveConstants.WEBAPP_CLASSES_URI.length() : lastSlash + 1;
-		if (jspUri.charAt(_index) == '_') {
+		if (jspUri.length() >= _index && jspUri.charAt(_index) == '_') {
 			jspUri = jspUri.substring(ArchiveConstants.WEBAPP_CLASSES_URI.length(), _index) + jspUri.substring(_index + 1) + ArchiveUtil.DOT_JSP;
 			IPath jspPath = new Path(jspUri);
 			if (archive.containsArchiveResource(jspPath)) {

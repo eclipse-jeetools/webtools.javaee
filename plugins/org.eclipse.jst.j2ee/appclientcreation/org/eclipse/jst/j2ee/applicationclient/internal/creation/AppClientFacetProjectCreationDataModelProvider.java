@@ -15,6 +15,8 @@ import java.util.Collection;
 
 import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
 import org.eclipse.jst.common.project.facet.JavaFacetUtils;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPreferences.Keys;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
@@ -23,7 +25,6 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelListener;
 import org.eclipse.wst.common.project.facet.core.IProjectFacet;
-import org.eclipse.wst.project.facet.ProductManager;
 
 public class AppClientFacetProjectCreationDataModelProvider extends J2EEFacetProjectCreationDataModelProvider {
 
@@ -44,9 +45,9 @@ public class AppClientFacetProjectCreationDataModelProvider extends J2EEFacetPro
 		IDataModel appClientFacet = map.getFacetDataModel(IJ2EEFacetConstants.APPLICATION_CLIENT_FACET.getId());
 		String appClientRoot = appClientFacet.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER);
 		javaFacet.setProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME, appClientRoot);
-		// If using optimized single root structure, set the output folder to the content root
-		if (ProductManager.shouldUseSingleRootStructure())
-			javaFacet.setProperty(IJavaFacetInstallDataModelProperties.DEFAULT_OUTPUT_FOLDER_NAME, appClientRoot);
+		javaFacet.setProperty(IJavaFacetInstallDataModelProperties.DEFAULT_OUTPUT_FOLDER_NAME, 
+				J2EEPlugin.getDefault().getJ2EEPreferences().getString(Keys.APP_CLIENT_OUTPUT_FOLDER) );
+		
 		appClientFacet.addListener(new IDataModelListener() {
 			public void propertyChanged(DataModelEvent event) {
 				if (IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME.equals(event.getPropertyName())) {

@@ -26,15 +26,18 @@ import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataM
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.QUALIFIED_CLASS_NAME;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.SOURCE_FOLDER;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.SUPERCLASS;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.GENERATE_DD;
 
 import java.lang.reflect.Modifier;
+import java.net.URI;
 import java.util.Set;
 
+import org.eclipse.core.filesystem.EFS;
+import org.eclipse.core.filesystem.IFileStore;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.ICompilationUnit;
@@ -48,6 +51,7 @@ import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperationDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
@@ -189,6 +193,7 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 		propertyNames.add(JAVA_SOURCE_FOLDER);
 		propertyNames.add(PROJECT);
 		propertyNames.add(QUALIFIED_CLASS_NAME);
+		propertyNames.add(GENERATE_DD);
 		return propertyNames;
 	}
 
@@ -232,6 +237,8 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 			return getJavaPackageFragmentRoot();
 		else if (propertyName.equals(QUALIFIED_CLASS_NAME))
 			return getQualifiedClassName();
+		else if (GENERATE_DD.equals(propertyName))
+			return Boolean.FALSE;
 		return super.getDefaultProperty(propertyName);
 	}
 
@@ -277,13 +284,20 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 			return validateJavaPackage(getStringProperty(propertyName));
 		if (propertyName.equals(CLASS_NAME)) {
 			result = validateJavaClassName(getStringProperty(propertyName));
-			if (result.isOK())
-				result = canCreateTypeInClasspath(getStringProperty(CLASS_NAME));
+			if (result.getSeverity() != IStatus.ERROR) {
+				IStatus existsStatus = canCreateTypeInClasspath(getStringProperty(CLASS_NAME));
+				if (existsStatus.matches(IStatus.ERROR | IStatus.WARNING))
+					result = existsStatus;
+			}
 		}
 		if (propertyName.equals(SUPERCLASS))
 			return validateSuperclass(getStringProperty(propertyName));
 		if (propertyName.equals(MODIFIER_ABSTRACT) || propertyName.equals(MODIFIER_FINAL))
 			return validateModifier(propertyName, getBooleanProperty(propertyName));
+		
+		if (result == null) {
+			result = WTPCommonPlugin.OK_STATUS;
+		}
 		return result;
 	}
 
@@ -443,36 +457,40 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 	 * @return IType for the specified classname
 	 */
 	protected IStatus canCreateTypeInClasspath(String className) {
-		// Retrieve the java project for the cached project
-		IJavaProject javaProject = JemProjectUtilities.getJavaProject(getTargetProject());
-		try {
-			String folderPath = getStringProperty(SOURCE_FOLDER);
-			String packagePath = getStringProperty(JAVA_PACKAGE);
-			// Replace all "." with "//" in the package path to denote folders
-			if (packagePath.indexOf('.')>-1) {
-				StringBuffer buffer = new StringBuffer(packagePath);
-				for (int i = 0; i < buffer.length(); i++) {
-					if (buffer.charAt(i)=='.') {
-						buffer.deleteCharAt(i);
-						buffer.insert(i, "//"); //$NON-NLS-1$
+		String packageName = getStringProperty(JAVA_PACKAGE);
+		return canCreateTypeInClasspath(packageName, className);
+	}
+	
+	protected IStatus canCreateTypeInClasspath(String packageName, String typeName) {
+		IPackageFragment pack = getJavaPackageFragmentRoot().getPackageFragment(packageName);
+		if (pack != null) {
+			ICompilationUnit cu = pack.getCompilationUnit(typeName + JavaModelUtil.DEFAULT_CU_SUFFIX);
+			String fullyQualifiedName = JavaModelUtil.getFullyQualifiedName(cu.getType(typeName));
+
+			IResource resource = cu.getResource();
+			if (resource.exists()) {
+				String message = NLS.bind(
+						J2EECommonMessages.ERR_TYPE_ALREADY_EXIST, 
+						new Object[] { fullyQualifiedName });
+				return WTPCommonPlugin.createErrorStatus(message); 
+			}
+			
+			URI location = resource.getLocationURI();
+			if (location != null) {
+				try {
+					IFileStore store= EFS.getStore(location);
+					if (store.fetchInfo().exists()) {
+						String message = NLS.bind(
+								J2EECommonMessages.ERR_TYPE_DIFFERENT_CASE_EXIST, 
+								new Object[] { fullyQualifiedName });
+						return WTPCommonPlugin.createErrorStatus(message); 
 					}
-				}
-				packagePath = buffer.toString();
-			}
-			IPath path = new Path(folderPath + "//" + packagePath); //$NON-NLS-1$
-			IPackageFragment pack = javaProject.findPackageFragment(path);
-			if (pack != null) {
-				ICompilationUnit cu = pack.getCompilationUnit(className + ".java"); //$NON-NLS-1$
-				IResource resource = cu.getResource();
-				if (resource.exists()) {
-					String msg = J2EECommonMessages.ERR_JAVA_CLASS_NAME_EXIST;
-					return WTPCommonPlugin.createErrorStatus(msg);
+				} catch (CoreException e) {
+					Logger.getLogger().log(e);
 				}
 			}
-			return WTPCommonPlugin.OK_STATUS;
-		} catch (Exception e) {
-			Logger.getLogger().log(e);
 		}
+		
 		return WTPCommonPlugin.OK_STATUS;
 	}
 
@@ -538,7 +556,7 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 	public boolean propertySet(String propertyName, Object propertyValue) {
 		boolean result = super.propertySet(propertyName, propertyValue);
 		if (result) {
-			if (COMPONENT_NAME.equals(propertyName)){
+			if (COMPONENT_NAME.equals(propertyName) || PROJECT_NAME.equals(propertyName)){
 				if( getDefaultJavaSourceFolder() != null ){
 					setProperty(SOURCE_FOLDER, getDefaultJavaSourceFolder().getFullPath().toOSString());
 				}

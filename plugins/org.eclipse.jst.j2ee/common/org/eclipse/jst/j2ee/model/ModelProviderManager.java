@@ -245,8 +245,11 @@ protected static HashMap resourceSetListeners;
 
 
 	private static void initProviders() {
-		providers = new HashMap();
-		registry = J2EEModelProviderRegistry.getInstance();
+		//Make sure both variables are null to prevent re-entrant behavior
+		if (registry == null && providers == null) {
+			providers = new HashMap();
+			registry = J2EEModelProviderRegistry.getInstance();
+		}
 		
 	}
 	private static void startListeningToResourceSet(IProject project) {
@@ -313,7 +316,7 @@ protected static HashMap resourceSetListeners;
 		return null;			
 	}
 
-	private static HashMap<ModelProviderKey, IModelProviderFactory> getProviders() {
+	private synchronized static HashMap<ModelProviderKey, IModelProviderFactory> getProviders() {
 		if (registry == null)
 			initProviders();
 		return providers;

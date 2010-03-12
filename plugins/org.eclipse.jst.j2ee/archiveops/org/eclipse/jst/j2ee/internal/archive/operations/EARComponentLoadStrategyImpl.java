@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.jem.util.logger.proxy.Logger;
+
 import org.eclipse.jst.j2ee.applicationclient.componentcore.util.AppClientArtifactEdit;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
@@ -32,8 +32,12 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.ZipFileLoadStrat
 import org.eclipse.jst.j2ee.componentcore.EnterpriseArtifactEdit;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyVirtualComponent;
+import org.eclipse.jst.j2ee.internal.componentcore.JavaEEBinaryComponentHelper;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.util.ArtifactEditRegistryReader;
@@ -43,6 +47,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 
 	private List artifactEditsToDispose = new ArrayList();
+	private List <Archive> archivesToClose = new ArrayList<Archive>();
 	private Map binaryComponentURIsToDiskFileMap = new HashMap();
 
 	public EARComponentLoadStrategyImpl(IVirtualComponent vComponent) {
@@ -83,49 +88,59 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 				IVirtualComponent referencedComponent = reference.getReferencedComponent();
 
 				java.io.File diskFile = null;
+				boolean forceUtility = false;
 				if (referencedComponent.isBinary()) {
+					JavaEEQuickPeek qp = JavaEEBinaryComponentHelper.getJavaEEQuickPeek(referencedComponent);
+					int jeeVersion = qp.getJavaEEVersion();
+					if(jeeVersion == J2EEVersionConstants.JEE_5_0_ID){
+						forceUtility = true;
+					}
 					diskFile = ((VirtualArchiveComponent) referencedComponent).getUnderlyingDiskFile();
 					if (!diskFile.exists()) {
 						IFile wbFile = ((VirtualArchiveComponent) referencedComponent).getUnderlyingWorkbenchFile();
-						diskFile = new File(wbFile.getLocation().toOSString());
+						if (wbFile != null && wbFile.exists()) {
+							diskFile = new File(wbFile.getLocation().toOSString());
+						}
 					}
 				}
-
 				boolean isModule = false;
-				boolean addClasspathComponentDependencies = false;
-				ArtifactEdit componentArtifactEdit = null;
-				try {
-					if (J2EEProjectUtilities.isApplicationClientComponent(referencedComponent)) {
-						componentArtifactEdit = AppClientArtifactEdit.getAppClientArtifactEditForRead(referencedComponent);
-					} else if (J2EEProjectUtilities.isEJBComponent(referencedComponent)) {
-						addClasspathComponentDependencies = true;
-						componentArtifactEdit = ArtifactEditRegistryReader.instance().getArtifactEdit(J2EEProjectUtilities.EJB).createArtifactEditForRead(referencedComponent);
-					} else if (J2EEProjectUtilities.isDynamicWebComponent(referencedComponent)) {
-						addClasspathComponentDependencies = true;
-						componentArtifactEdit = ArtifactEditRegistryReader.instance().getArtifactEdit(J2EEProjectUtilities.DYNAMIC_WEB).createArtifactEditForRead(referencedComponent);
-					} else if (J2EEProjectUtilities.isJCAComponent(referencedComponent)) {
-						addClasspathComponentDependencies = true;
-						componentArtifactEdit = ArtifactEditRegistryReader.instance().getArtifactEdit(J2EEProjectUtilities.JCA).createArtifactEditForRead(referencedComponent);
-					}
-					if (null != componentArtifactEdit) {
-						Archive archive = ((EnterpriseArtifactEdit) componentArtifactEdit).asArchive(exportSource, includeClasspathComponents);
-						if (referencedComponent.isBinary()) {
-							artifactEditsToDispose.add(componentArtifactEdit);
-							archive.setLoadingContainer(getContainer());
-							binaryComponentURIsToDiskFileMap.put(archive.getOriginalURI(), diskFile);
+				if(!forceUtility){
+					boolean addClasspathComponentDependencies = false;
+					ArtifactEdit componentArtifactEdit = null;
+					try {
+						if (J2EEProjectUtilities.isApplicationClientComponent(referencedComponent)) {
+							componentArtifactEdit = AppClientArtifactEdit.getAppClientArtifactEditForRead(referencedComponent);
+						} else if (J2EEProjectUtilities.isEJBComponent(referencedComponent)) {
+							addClasspathComponentDependencies = true;
+							componentArtifactEdit = ArtifactEditRegistryReader.instance().getArtifactEdit(J2EEProjectUtilities.EJB).createArtifactEditForRead(referencedComponent);
+						} else if (J2EEProjectUtilities.isDynamicWebComponent(referencedComponent)) {
+							addClasspathComponentDependencies = true;
+							componentArtifactEdit = ArtifactEditRegistryReader.instance().getArtifactEdit(J2EEProjectUtilities.DYNAMIC_WEB).createArtifactEditForRead(referencedComponent);
+						} else if (J2EEProjectUtilities.isJCAComponent(referencedComponent)) {
+							addClasspathComponentDependencies = true;
+							componentArtifactEdit = ArtifactEditRegistryReader.instance().getArtifactEdit(J2EEProjectUtilities.JCA).createArtifactEditForRead(referencedComponent);
 						}
-						archive.setURI(earArtifactEdit.getModuleURI(referencedComponent));
-						filesHolder.addFile(archive);
-						isModule = true;
-						if (addClasspathComponentDependencies) {
-							addClasspathComponentDependencies(referencedComponent);
+						if (null != componentArtifactEdit) {
+							Archive archive = ((EnterpriseArtifactEdit) componentArtifactEdit).asArchive(exportSource, includeClasspathComponents);
+							if (referencedComponent.isBinary()) {
+								artifactEditsToDispose.add(componentArtifactEdit);
+								archive.setLoadingContainer(getContainer());
+								binaryComponentURIsToDiskFileMap.put(archive.getOriginalURI(), diskFile);
+							}
+							archive.setURI(earArtifactEdit.getModuleURI(referencedComponent));
+							filesHolder.addFile(archive);
+							isModule = true;
+							if (addClasspathComponentDependencies) {
+								addClasspathComponentDependencies(referencedComponent);
+							}
+							archivesToClose.add(archive);
 						}
-					}
-				} catch (OpenFailureException oe) {
-					Logger.getLogger().logError(oe);
-				} finally {
-					if (!referencedComponent.isBinary() && componentArtifactEdit != null) {
-						componentArtifactEdit.dispose();
+					} catch (OpenFailureException oe) {
+						J2EEPlugin.logError(oe);
+					} finally {
+						if (!referencedComponent.isBinary() && componentArtifactEdit != null) {
+							componentArtifactEdit.dispose();
+						}
 					}
 				}
 				if (!isModule) {
@@ -145,7 +160,7 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 
 							}
 						} catch (OpenFailureException e) {
-							Logger.getLogger().logError(e);
+							J2EEPlugin.logError(e);
 						}
 					}
 				}
@@ -188,6 +203,10 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 			edit.dispose();
 		}
 		artifactEditsToDispose.clear();
+		for(Archive archive:archivesToClose){
+			archive.close();
+		}
+		archivesToClose.clear();
 	}
 
 	public ZipFileLoadStrategyImpl createLoadStrategy(String uri) throws FileNotFoundException, IOException {

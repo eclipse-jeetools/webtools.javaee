@@ -44,6 +44,8 @@ public class DeployerRegistryReader extends RegistryReader {
 	static final String NATURE = "nature"; //$NON-NLS-1$
 	static final String COMPONENT_TYPE_ID = "component_type"; //$NON-NLS-1$
 	static final String COMPONENT = "component"; //$NON-NLS-1$
+	static final String FACET_EXCLUSIONS = "facetExclusions"; //$NON-NLS-1$
+	static final String FACET_ID = "facet_id"; //$NON-NLS-1$
 
 	public DeployerRegistryReader() {
 		super(J2EEPlugin.PLUGIN_ID, J2EE_DEPLOYER_EXTENSION_POINT);
@@ -59,6 +61,7 @@ public class DeployerRegistryReader extends RegistryReader {
 			return false;
 		List runtimeList = new ArrayList();
 		List natureandcomponents = new ArrayList();
+		List facetExclusions = new ArrayList();
 		IConfigurationElement[] runtimes = element.getChildren(RUNTIME);
 		for (int i = 0; i < runtimes.length; i++) {
 			IConfigurationElement runtime = runtimes[i];
@@ -77,10 +80,16 @@ public class DeployerRegistryReader extends RegistryReader {
 			String compType = component.getAttribute(COMPONENT_TYPE_ID);
 			natureandcomponents.add(compType);
 		}
+		IConfigurationElement[] exclusions = element.getChildren(FACET_EXCLUSIONS);
+		for (int i = 0; i < exclusions.length; i++) {
+			IConfigurationElement exclusion = exclusions[i];
+			String compType = exclusion.getAttribute(FACET_ID);
+			facetExclusions.add(compType);
+		}
 
 		String deployer = element.getAttribute(DEPLOYER_CLASS);
 		if (deployer != null) {
-			DeployerRegistry.instance().register(element, runtimeList, natureandcomponents);
+			DeployerRegistry.instance().register(element, runtimeList, natureandcomponents,facetExclusions);
 			return true;
 		}
 		return false;

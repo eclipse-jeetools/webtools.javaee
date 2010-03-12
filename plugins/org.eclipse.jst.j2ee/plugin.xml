@@ -595,10 +595,10 @@
      point="org.eclipse.wst.common.frameworks.OperationExtension"
      id="org.eclipse.jst.j2ee.application.internal.operations.UpdateContextRoot">
    <operationExtension
-      id="org.eclipse.wst.web.internal.operation.WebProjectPropertiesUpdateOperation"
+      id="org.eclipse.wst.common.componentcore.internal.operation.ServerContextRootUpdateOperation"
       preOperationClass="org.eclipse.jst.j2ee.application.internal.operations.ComputeEARsForContextRootUpdateOp"/>
    <operationExtension
-      id="org.eclipse.wst.web.internal.operation.WebProjectPropertiesUpdateOperation"
+      id="org.eclipse.wst.common.componentcore.internal.operation.ServerContextRootUpdateOperation"
       postOperationClass="org.eclipse.jst.j2ee.application.internal.operations.UpdateModuleContextRootInEAROp"/>
   </extension>
 
@@ -711,7 +711,7 @@
   	<extension
          point="org.eclipse.core.runtime.contentTypes">
       <content-type
-            file-names="rar.xml"
+            file-names="ra.xml"
             id="connectorDD"
             base-type="org.eclipse.core.runtime.xml"
             name="%ConnectorContentType"

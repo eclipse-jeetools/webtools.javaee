@@ -112,7 +112,7 @@ public class JARDependencyOperation extends AbstractDataModelOperation implement
 		IProject proj = ProjectUtilities.getProject(model.getStringProperty(JARDependencyDataModelProperties.PROJECT_NAME));
 		IProject earProject = ProjectUtilities.getProject(model.getStringProperty(JARDependencyDataModelProperties.EAR_PROJECT_NAME)); 
 		
-		ClasspathModel clpModel = new ClasspathModel(null);
+		ClasspathModel clpModel = new ClasspathModel(J2EEProjectUtilities.readManifest(proj));
 		IVirtualComponent earComponent = ComponentCore.createComponent( earProject );
 		if( !earComponent.exists() )
 			return OK_STATUS;

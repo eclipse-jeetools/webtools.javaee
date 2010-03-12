@@ -98,7 +98,7 @@ public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 		final IWorkspace ws = ResourcesPlugin.getWorkspace();
 		final IPath pjpath = project.getFullPath();
 
-		final IVirtualComponent c = ComponentCore.createComponent(project);
+		final IVirtualComponent c = ComponentCore.createComponent(project, false);
 		c.create(0, null);
 		setOutputFolder(model, c);
 		final IVirtualFolder root = c.getRootFolder();

@@ -61,13 +61,16 @@ import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyEnablement;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.internal.validation.EARValidationMessageResourceHandler;
 import org.eclipse.jst.j2ee.model.internal.validation.EarValidator;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
+import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
@@ -220,18 +223,57 @@ public class UIEarValidator extends EarValidator {
 
 	public IStatus validateInJob(IValidationContext inHelper, IReporter inReporter) throws org.eclipse.wst.validation.internal.core.ValidationException {
 		IStatus status = IValidatorJob.OK_STATUS;
-		IProject proj = ((IWorkbenchContext) inHelper).getProject();
-		IVirtualComponent earModule = ComponentCore.createComponent(proj);
-            if(J2EEProjectUtilities.isEARProject(proj)){
+		IProject earProj = ((IWorkbenchContext) inHelper).getProject();
+		IVirtualComponent earModule = ComponentCore.createComponent(earProj);
+            if(J2EEProjectUtilities.isEARProject(earProj)){
 				IVirtualFile ddFile = earModule.getRootFolder().getFile(J2EEConstants.APPLICATION_DD_URI);
-				if( ddFile.exists()) {	
-					status = super.validateInJob(inHelper, inReporter);
-					validateModuleMaps(earModule);
-					validateManifests();
-					validateDuplicateClasspathComponentURIs(earModule);
-	//				validateUtilJarMaps(earEdit,earModule);
-	//				validateUriAlreadyExistsInEar(earEdit,earModule);
-	//				validateDocType(earEdit,earModule);	
+				if( ddFile.exists()) {
+					inReporter.removeAllMessages(this);
+					IVirtualReference[] earReferences;
+					boolean isMixedEAR = false;
+					boolean isJavaEEFiveProject = false;
+					boolean isLegacyEAR = J2EEProjectUtilities.isLegacyJ2EEProject(earProj);
+					//because of [224484] 5.0 EARs may get to this validator when they should not, need to protect against this
+					if(isLegacyEAR) {
+						earReferences = earModule.getReferences();
+						IVirtualComponent referencedComponenet;
+						IProject earRefedProj;
+						//[Bug  241525] need to use referenced components because referenced projects return the EAR for referenced binary archives
+						for(IVirtualReference earReference : earReferences) {
+							referencedComponenet = earReference.getReferencedComponent();
+							//[Bug  241525]if its a VirtualArchiveComponent then we need to use
+							//	components to get version, otherwise use IProject
+							if(referencedComponenet instanceof VirtualArchiveComponent) {
+								isJavaEEFiveProject = JavaEEProjectUtilities.isJEEComponent(referencedComponenet);
+							} else {
+								earRefedProj = referencedComponenet.getProject();
+								isJavaEEFiveProject = J2EEProjectUtilities.isJEEProject(earRefedProj);
+							}
+							if(isJavaEEFiveProject) {
+								 //HACK: this is normally done by the call to super.validateInJob but in this case we are purposely avoiding that call
+								_reporter = inReporter;
+								
+								String[] params = {earProj.getName(), referencedComponenet.getName()};
+								String msg = NLS.bind(EARValidationMessageResourceHandler.JEE5_PROJECT_REFERENCED_BY_PRE_JEE5_EAR, params);
+								addLocalizedWarning(msg,earProj);
+							}
+							//if any referenced project is a JEE 5 project then ear is mixed
+							if(!isMixedEAR) {
+								isMixedEAR = isJavaEEFiveProject;
+							}
+						}
+						
+					}
+					//should only continue validation if this is not an invalid mixed EAR
+					//isLegacyEAR check needed because of [224484] 5.0 EARs may get to this validator when they should not, need to protect against this
+					if(isLegacyEAR && !isMixedEAR) {
+						status = super.validateInJob(inHelper, inReporter);
+						validateModuleMaps(earModule);
+						validateManifests();
+						if(ClasspathDependencyEnablement.isAllowClasspathComponentDependency()){
+							validateDuplicateClasspathComponentURIs(earModule);
+						}
+					}
 				}
             }
 		return status;
@@ -326,8 +368,10 @@ public class UIEarValidator extends EarValidator {
 			return;
 		List archives = earFile.getArchiveFiles();
 		for (int i = 0; i < archives.size(); i++) {
-
 			final Archive anArchive = (Archive) archives.get(i);
+			if(anArchive.getLoadStrategy().isReadOnly()){
+				continue;
+			}
 			IFile target = getManifestFile(anArchive);
 			if (target != null)
 				_reporter.removeMessageSubset(this, target, MANIFEST_GROUP_NAME);
@@ -355,9 +399,8 @@ public class UIEarValidator extends EarValidator {
 			uri = aFile.getURI();
 			if (mfuri.equalsIgnoreCase(uri) && !mfuri.equals(uri)) {
 				String[] params = {uri, anArchive.getURI()};
-				IResource target = earHelper.getProject().getFile(J2EEConstants.MANIFEST_URI);
 				String msg = NLS.bind(EARValidationMessageResourceHandler.INVALID_CASE_FOR_MANIFEST_ERROR_, params);
-				addLocalizedError(msg, target);				
+				addLocalizedError(msg, null);				
 			}
 		}
 
@@ -450,6 +493,7 @@ public class UIEarValidator extends EarValidator {
 	}
 
 	protected void addLineLengthError(Archive anArchive, IFile target, int lineNo) {
+		// https://bugs.eclipse.org/bugs/show_bug.cgi?id=218667 - Changing this to warning
 		String[] args = new String[2];
 		args[0] = Integer.toString(lineNo);
 		args[1] = anArchive.getURI();
@@ -457,9 +501,9 @@ public class UIEarValidator extends EarValidator {
 		String tmp = NLS.bind(EARValidationMessageResourceHandler.MANIFEST_LINE_EXCEEDS_LENGTH_ERROR_, args);
 		
 		if( lineNo >= 0 ){
-			addLocalizedError(tmp, target, MANIFEST_GROUP_NAME, lineNo );
+			addLocalizedWarning(tmp, target, MANIFEST_GROUP_NAME, lineNo );
 		}else{
-			addLocalizedError(tmp, target, MANIFEST_GROUP_NAME );
+			addLocalizedWarning(tmp, target, MANIFEST_GROUP_NAME );
 		}
 
 	}

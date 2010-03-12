@@ -16,6 +16,7 @@ import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataM
 import static org.eclipse.wst.common.componentcore.internal.operation.IArtifactEditOperationDataModelProperties.PROJECT_NAME;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.URL;
 
 import org.eclipse.core.commands.ExecutionException;
@@ -32,7 +33,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.emf.codegen.jet.JETEmitter;
+import org.eclipse.core.runtime.Preferences;
 import org.eclipse.emf.codegen.jet.JETException;
 import org.eclipse.jdt.core.IJavaModelMarker;
 import org.eclipse.jdt.core.IPackageFragment;
@@ -52,6 +53,11 @@ public abstract class NewJavaEEArtifactClassOperation extends AbstractDataModelO
 	 * The extension name for a java class
 	 */
 	protected static final String DOT_JAVA = ".java"; //$NON-NLS-1$
+	
+	/**
+	 * Method name of template implementation classes. 
+	 */
+	protected static final String GENERATE_METHOD = "generate"; //$NON-NLS-1$
 
 	public NewJavaEEArtifactClassOperation(IDataModel dataModel) {
 		super(dataModel);
@@ -135,32 +141,111 @@ public abstract class NewJavaEEArtifactClassOperation extends AbstractDataModelO
 	}
 
 	/**
-	 * This method is intended for internal use only. This will use the
-	 * WTPJETEmitter to create an annotated java file based on the passed in
-	 * bean class template model. This method does not accept null
-	 * parameters. It will not return null. If annotations are not used, it will
-	 * use the non annotated template to omit the annotated tags.
+	 * This method checks the
+	 * {@link J2EEPlugin#DYNAMIC_TRANSLATION_OF_JET_TEMPLATES_PREF_KEY}
+	 * preference to determine the method for generating the source code of the
+	 * Java EE artifact:
+	 * <ul>
+	 * 		<li>dynamically using the provided JET template file, or</li>
+	 * 		<li>using the statically build-in template implementation class. </li> 
+	 * </ul>
 	 * 
-	 * @see NewMessageDrivenBeanClassOperation#generateUsingTemplates(IProgressMonitor,
-	 *      IPackageFragment)
-	 * @see JETEmitter#generate(org.eclipse.core.runtime.IProgressMonitor,
-	 *      java.lang.Object[])
-	 * @see CreateMessageDrivenBeanTemplateModel
-	 * 
-	 * @param tempModel
+	 * @param plugin
+	 *            - the plugin which calls the current method
+	 * @param templateModel
+	 *            - a template model that is used by the JET template file or
+	 *            the template implementation class
+	 * @param templateFile
+	 *            - a Java JET template file
+	 * @param templateImpl
+	 *            - a Java JET template implementation class
 	 * @param monitor
-	 * @param template_file2 
-	 * @return String the source for the java file
+	 *            - a monitor to report the progress of the code generation
+	 * @param templateImpl
+	 *            - a Java JET template implementation class
+	 * 
+	 * @return a String object with the generated source code
+	 * 
 	 * @throws JETException
+	 *             if a problem occurs in during code generation
+	 * 
+	 * @see #generateTemplateSource(WTPPlugin,
+	 *      CreateJavaEEArtifactTemplateModel, String, IProgressMonitor)
+	 * @see #generateTemplateSource(CreateJavaEEArtifactTemplateModel, Object)
 	 */
-	protected String generateTemplateSource(WTPPlugin plugin, CreateJavaEEArtifactTemplateModel tempModel, String template_file, IProgressMonitor monitor) throws JETException {
-		URL templateURL = FileLocator.find(plugin.getBundle(), new Path(template_file), null);
+	protected String generateTemplateSource(WTPPlugin plugin, CreateJavaEEArtifactTemplateModel templateModel, String templateFile, Object templateImpl, IProgressMonitor monitor) 
+			throws JETException {
+		Preferences preferences = J2EEPlugin.getDefault().getPluginPreferences();
+		boolean dynamicTranslation = preferences.getBoolean(J2EEPlugin.DYNAMIC_TRANSLATION_OF_JET_TEMPLATES_PREF_KEY);
+		
+		if (dynamicTranslation) {
+			return generateTemplateSource(plugin, templateModel, templateFile, monitor);
+		} else {
+			return generateTemplateSource(templateModel, templateImpl);
+		}
+	}
+	
+	/**
+	 * This method uses the statically built-in template implementation class to
+	 * generate the source code of the Java EE artifact with the given template
+	 * model.
+	 * 
+	 * @param templateModel
+	 *            - a template model that is used by the template implementation
+	 *            class
+	 * @param templateImpl
+	 *            - a Java JET template implementation class
+	 * 
+	 * @return a String object with the generated source code
+	 * 
+	 * @throws JETException
+	 *             if a problem occurs in during code generation
+	 */
+	protected String generateTemplateSource(CreateJavaEEArtifactTemplateModel templateModel, Object templateImpl) 
+			throws JETException {
+		try {
+			Method method = templateImpl.getClass().getMethod(GENERATE_METHOD, new Class[] { Object.class });
+			return (String) method.invoke(templateImpl, templateModel);
+		} catch (SecurityException e) {
+			throw new JETException(e);
+		} catch (NoSuchMethodException e) {
+			throw new JETException(e);
+		} catch (IllegalArgumentException e) {
+			throw new JETException(e);
+		} catch (IllegalAccessException e) {
+			throw new JETException(e);
+		} catch (InvocationTargetException e) {
+			throw new JETException(e);
+		}
+	}
+
+	/**
+	 * This method uses the WTPJETEmitter to generate the source code of the
+	 * Java EE artifact with the given template model and template file.
+	 * 
+	 * @param plugin
+	 *            - the plugin which calls the current method
+	 * @param templateModel
+	 *            - a template model that is used by the JET template file
+	 * @param templateFile
+	 *            - a Java JET template file
+	 * @param monitor
+	 *            - a monitor to report the progress of the code generation
+	 * 
+	 * @return a String object with the generated source code
+	 * 
+	 * @throws JETException
+	 *             if a problem occurs in the JET emitter
+	 */
+	protected String generateTemplateSource(WTPPlugin plugin, CreateJavaEEArtifactTemplateModel templateModel, String templateFile, IProgressMonitor monitor) 
+			throws JETException {
+		URL templateURL = FileLocator.find(plugin.getBundle(), new Path(templateFile), null);
 		cleanUpOldEmitterProject();
 		WTPJETEmitter emitter = new WTPJETEmitter(templateURL.toString(), this.getClass().getClassLoader());
 		emitter.setIntelligentLinkingEnabled(true);
 		emitter.addVariable(J2EEPlugin.getPlugin().getPluginID(), J2EEPlugin.getPlugin().getPluginID());
 		emitter.addVariable(plugin.getPluginID(), plugin.getPluginID());
-		return emitter.generate(monitor, new Object[] { tempModel });
+		return emitter.generate(monitor, new Object[] { templateModel });
 	}
 
 	protected void cleanUpOldEmitterProject() {

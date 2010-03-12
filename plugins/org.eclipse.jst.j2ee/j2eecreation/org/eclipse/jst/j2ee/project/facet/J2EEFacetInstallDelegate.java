@@ -28,7 +28,6 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jem.util.UIContextDetermination;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
-import org.eclipse.jst.common.frameworks.CommonFrameworksPlugin;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.IAddComponentToEnterpriseApplicationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
@@ -44,16 +43,20 @@ import org.eclipse.wst.common.project.facet.core.IFacetedProjectWorkingCopy;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 import org.eclipse.wst.common.project.facet.core.runtime.IRuntimeComponent;
-import org.eclipse.wst.project.facet.ProductManager;
 import org.eclipse.wst.web.internal.facet.RuntimePresetMappingRegistry;
 
 public abstract class J2EEFacetInstallDelegate {
 
 	protected static void addToClasspath(final IJavaProject jproj, final IClasspathEntry entry) throws CoreException {
-		final IClasspathEntry[] current = jproj.getRawClasspath();
-		final IClasspathEntry[] updated = new IClasspathEntry[current.length + 1];
-		System.arraycopy(current, 0, updated, 0, current.length);
-		updated[current.length] = entry;
+		final IClasspathEntry[] existingEntries = jproj.getRawClasspath();
+		for(IClasspathEntry existingEntry : existingEntries){
+			if(existingEntry.equals(entry)){
+				return;
+			}
+		}
+		final IClasspathEntry[] updated = new IClasspathEntry[existingEntries.length + 1];
+		System.arraycopy(existingEntries, 0, updated, 0, existingEntries.length);
+		updated[existingEntries.length] = entry;
 		jproj.setRawClasspath(updated, null);
 	}
 
@@ -106,16 +109,17 @@ public abstract class J2EEFacetInstallDelegate {
     		        }
 		        }
 		        
+                final IProjectFacetVersion earFacetVersion
+                    = EARFacetUtils.EAR_FACET.getVersion( j2eeVersionText );
+            
+                // Note that the next call is necessary even if a preset is going to be selected 
+                // later since it allows the dynamic preset to adjust for the ear facet version.
+                
+                fpjwc.setProjectFacets( Collections.singleton( earFacetVersion ) );
+                
 		        if( presetId != null )
 		        {
 		            fpjwc.setSelectedPreset( presetId );
-		        }
-		        else
-		        {
-		            final IProjectFacetVersion earFacetVersion
-		                = EARFacetUtils.EAR_FACET.getVersion( j2eeVersionText );
-		            
-		            fpjwc.setProjectFacets( Collections.singleton( earFacetVersion ) );
 		        }
 		    }
 		}
@@ -202,12 +206,7 @@ public abstract class J2EEFacetInstallDelegate {
      */
     protected void setOutputFolder(IDataModel model, IVirtualComponent component) {
 		String outputFolder = null;
-		// If using single root structure, set output folder to be the content folder
-		if (ProductManager.shouldUseSingleRootStructure())
-			outputFolder = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER);
-		// Otherwise just use the product default for java output path
-		else
-			outputFolder = CommonFrameworksPlugin.getDefault().getPluginPreferences().getString(CommonFrameworksPlugin.OUTPUT_FOLDER);
+		outputFolder = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.OUTPUT_FOLDER);
 		component.setMetaProperty("java-output-path", outputFolder ); //$NON-NLS-1$
 	}
   
