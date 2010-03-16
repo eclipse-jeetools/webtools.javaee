@@ -503,23 +503,26 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 	private boolean ejb31OrLater() {
 		boolean retVal = false;
 		IProject project = getTargetProject();
-		if (JavaEEProjectUtilities.isEJBProject(project))
+		if (project != null)
 		{
-			IProjectFacetVersion facetVersion = JavaEEProjectUtilities.getProjectFacetVersion(project, IJ2EEFacetConstants.EJB);
-			int version = J2EEVersionUtil.convertVersionStringToInt(facetVersion.getVersionString());
-			retVal = version >= J2EEVersionConstants.VERSION_3_1;
-		}
-		else if (JavaEEProjectUtilities.isDynamicWebProject(project))
-		{
-			IProjectFacetVersion facetVersion = JavaEEProjectUtilities.getProjectFacetVersion(project, IJ2EEFacetConstants.DYNAMIC_WEB);
-			int version = J2EEVersionUtil.convertVersionStringToInt(facetVersion.getVersionString());
-			retVal = version >= J2EEVersionConstants.VERSION_3_0;
-		}
-		else if (JavaEEProjectUtilities.isWebFragmentProject(project))
-		{
-			IProjectFacetVersion facetVersion = JavaEEProjectUtilities.getProjectFacetVersion(project, IJ2EEFacetConstants.WEBFRAGMENT);
-			int version = J2EEVersionUtil.convertVersionStringToInt(facetVersion.getVersionString());
-			retVal = version >= J2EEVersionConstants.VERSION_3_0;
+			if (JavaEEProjectUtilities.isEJBProject(project))
+			{
+				IProjectFacetVersion facetVersion = JavaEEProjectUtilities.getProjectFacetVersion(project, IJ2EEFacetConstants.EJB);
+				int version = J2EEVersionUtil.convertVersionStringToInt(facetVersion.getVersionString());
+				retVal = version >= J2EEVersionConstants.VERSION_3_1;
+			}
+			else if (JavaEEProjectUtilities.isDynamicWebProject(project))
+			{
+				IProjectFacetVersion facetVersion = JavaEEProjectUtilities.getProjectFacetVersion(project, IJ2EEFacetConstants.DYNAMIC_WEB);
+				int version = J2EEVersionUtil.convertVersionStringToInt(facetVersion.getVersionString());
+				retVal = version >= J2EEVersionConstants.VERSION_3_0;
+			}
+			else if (JavaEEProjectUtilities.isWebFragmentProject(project))
+			{
+				IProjectFacetVersion facetVersion = JavaEEProjectUtilities.getProjectFacetVersion(project, IJ2EEFacetConstants.WEBFRAGMENT);
+				int version = J2EEVersionUtil.convertVersionStringToInt(facetVersion.getVersionString());
+				retVal = version >= J2EEVersionConstants.VERSION_3_0;
+			}
 		}
 		return retVal;
 	}
