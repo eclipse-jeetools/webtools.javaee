@@ -20,56 +20,7 @@
    <requires>
       <import feature="org.eclipse.jst.web_core.feature" version="3.1.1.v200908121609-7S7CG-dFIhIeq7kV6qxaLD" patch="true"/>
    </requires>
-
-   <plugin
-         id="org.eclipse.jem"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.jem.workbench"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.jst.common.annotations.core"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.jst.common.frameworks"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.jst.jsp.core"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.jst.j2ee.web"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.jst.j2ee.core"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
+ 
    <plugin
          id="org.eclipse.jst.j2ee"
          download-size="0"
@@ -77,18 +28,5 @@
          version="0.0.0"
          unpack="false"/>
 
-   <plugin
-         id="org.eclipse.jst.jsf.core"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.jst.jsf.common"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
 
 </feature>
