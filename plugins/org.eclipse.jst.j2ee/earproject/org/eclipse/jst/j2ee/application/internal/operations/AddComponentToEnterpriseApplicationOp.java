@@ -350,12 +350,12 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 	}
 
 	protected IStatus validateEditEAR() {
-		IStatus status = OK_STATUS;
 		IVirtualComponent sourceComp = (IVirtualComponent) model.getProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT);
 		IProject project = sourceComp.getProject();
 		IModelProvider provider = ModelProviderManager.getModelProvider( project );
-		status = provider.validateEdit(null, null);
-		return status;
+		if( provider != null )
+			return provider.validateEdit(null, null);
+		return OK_STATUS;
 	}
 	
 	@Override

@@ -10,16 +10,14 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.componentcore;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.resources.IContainer;
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -27,12 +25,11 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathAttribute;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jst.common.internal.modulecore.IClasspathDependencyProvider;
+import org.eclipse.jst.common.internal.modulecore.util.ManifestUtilities;
 import org.eclipse.jst.common.jdt.internal.javalite.IJavaProjectLite;
 import org.eclipse.jst.common.jdt.internal.javalite.JavaCoreLite;
 import org.eclipse.jst.common.jdt.internal.javalite.JavaLiteUtilities;
 import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyEnablement;
@@ -49,7 +46,6 @@ import org.eclipse.wst.common.componentcore.internal.resources.VirtualReference;
 import org.eclipse.wst.common.componentcore.internal.util.IComponentImplFactory;
 import org.eclipse.wst.common.componentcore.internal.util.VirtualReferenceUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
-import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
@@ -60,10 +56,10 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 	
 	private long depGraphModStamp;
 	
-	private IVirtualReference[] fuzzyAndJavaRefs = null;
-	private IVirtualReference[] fuzzyRefsOnly = null;
-	private IVirtualReference[] javaRefsOnly = null;
-	private IVirtualReference[] nonJavaRefsOnly = null;
+	private IVirtualReference[] hardReferences = null;
+	private IVirtualReference[] javaReferences = null;
+	private IVirtualReference[] parentEarManifestReferences = null;
+	private IVirtualReference[] fuzzyEarManifestReferences = null;
 	
 	public J2EEModuleVirtualComponent() {
 		super();
@@ -91,163 +87,129 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 	 * @return IVirtualReferences for all non-Java classpath entry references.
 	 */
 	public IVirtualReference[] getNonJavaReferences() {
-		if(nonJavaRefsOnly == null || !checkIfStillValid()) {
-			nonJavaRefsOnly = getReferences(false, false);
-		}
-		return nonJavaRefsOnly;
+		return getReferences(false,false);
 	}
-	
+
+	protected IVirtualReference[] getHardReferences() {
+		if (hardReferences == null || !checkIfStillValid()) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put(IGNORE_DERIVED_REFERENCES, true);
+			hardReferences = super.getReferences(map);
+		}
+		return hardReferences;
+	}
+
+	protected static IVirtualReference[] getHardReferences(
+			IVirtualComponent component) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put(IGNORE_DERIVED_REFERENCES, true);
+		return component.getReferences(map);
+	}
+
+	public IVirtualReference[] getJavaClasspathReferences() {
+		if (javaReferences == null || !checkIfStillValid())
+			javaReferences = getJavaClasspathReferences(getHardReferences());
+		return javaReferences;
+	}
+
 	@Override
 	public IVirtualReference[] getReferences(Map<String, Object> options) {
-		Object ignoreDerived = options.get(IGNORE_DERIVED_REFERENCES);
-		Object objGetJavaRefs = options.get(GET_JAVA_REFS);
-		Object objGetFuzzyEarRefs = options.get(GET_FUZZY_EAR_REFS);
-		boolean ignoreDerivedRefs = ignoreDerived != null ? ((Boolean)ignoreDerived).booleanValue() : false;
-		boolean getJavaRefs = objGetJavaRefs != null ? ((Boolean)objGetJavaRefs).booleanValue() : true;
-		boolean findFuzzyEARRefs = objGetFuzzyEarRefs != null ? ((Boolean)objGetFuzzyEarRefs).booleanValue() : false;
-		if( ignoreDerivedRefs ) {
-			return getNonManifestReferences(false);
-		}
-			
-		IVirtualReference[] cachedReferences = getCachedReference(getJavaRefs, findFuzzyEARRefs);
-		if (cachedReferences != null)
-			return cachedReferences;
-		
-		cachedReferences = getReferences(getJavaRefs, findFuzzyEARRefs);
-		setCachedReferences(getJavaRefs, findFuzzyEARRefs, cachedReferences);
+		Boolean ignoreDerived = (Boolean)options.get(IGNORE_DERIVED_REFERENCES);
+		Boolean objGetJavaRefs = (Boolean)options.get(GET_JAVA_REFS);
+		Boolean objGetFuzzyEarRefs = (Boolean)options.get(GET_FUZZY_EAR_REFS);
+		boolean ignoreDerivedRefs = ignoreDerived != null ? ignoreDerived.booleanValue(): false;
+		boolean getJavaRefs = objGetJavaRefs != null ? objGetJavaRefs.booleanValue() : true;
+		boolean findFuzzyEARRefs = objGetFuzzyEarRefs != null ? objGetFuzzyEarRefs.booleanValue() : false;
+		if (ignoreDerivedRefs)
+			return getHardReferences();
+
+		IVirtualReference[] cachedReferences = getReferences(getJavaRefs,findFuzzyEARRefs);
 		return cachedReferences;
 	}
-	
+
 	@Override
 	public IVirtualReference[] getReferences() {
-		if(javaRefsOnly == null || !checkIfStillValid()) {
-			javaRefsOnly = getReferences(true, false);
-		}
-		return javaRefsOnly;
+		return getReferences(true, false);
 	}
-	
-	public IVirtualReference[] getReferences(final boolean getJavaRefs, final boolean findFuzzyEARRefs) {
-		IVirtualReference[] cachedReferences = getCachedReference(getJavaRefs, findFuzzyEARRefs);
-		if (cachedReferences != null)
-			return cachedReferences;
+
+	public IVirtualReference[] getReferences(final boolean getJavaRefs,
+			final boolean findFuzzyEARRefs) {
+		ArrayList<IVirtualReference> all = new ArrayList<IVirtualReference>();
+		IVirtualReference[] hardRefs = getHardReferences();
+		all.addAll(Arrays.asList(hardRefs));
+		if (getJavaRefs)
+			all.addAll(Arrays.asList(getJavaClasspathReferences(hardRefs)));
 		
-		IVirtualReference[] hardReferences = getNonManifestReferences(getJavaRefs);
-		
-		// retrieve the dynamic references specified via the MANIFEST.MF classpath 
-		List dynamicReferences = J2EEModuleVirtualComponent.getManifestReferences(this, hardReferences, findFuzzyEARRefs);
-		
-		IVirtualReference[] references = null;
-		if (dynamicReferences == null) {
-			references = hardReferences;
-		} else {
-			references = new IVirtualReference[hardReferences.length + dynamicReferences.size()];
-			System.arraycopy(hardReferences, 0, references, 0, hardReferences.length);
-			for (int i = 0; i < dynamicReferences.size(); i++) {
-				references[hardReferences.length + i] = (IVirtualReference) dynamicReferences.get(i);
-			}
-		}
-		VirtualReferenceUtilities.INSTANCE.ensureReferencesHaveNames(references);
-		setCachedReferences(getJavaRefs, findFuzzyEARRefs, references);
-		return references;
+		// retrieve the dynamic references specified via the MANIFEST.MF classpath
+		cacheManifestReferences();
+		all.addAll(Arrays.asList(parentEarManifestReferences));
+		if (findFuzzyEARRefs)
+			all.addAll(Arrays.asList(fuzzyEarManifestReferences));
+		IVirtualReference[] retVal = all.toArray(new IVirtualReference[all.size()]);
+		VirtualReferenceUtilities.INSTANCE.ensureReferencesHaveNames(retVal);
+		return retVal;
 	}
-	
+
+	/**
+	 * Non-manifest references are hard references *OR* java classpath
+	 * references
+	 * 
+	 * @return
+	 */
 	public IVirtualReference[] getNonManifestReferences() {
-		return getNonManifestReferences(true);
-	}
-	
-	public IVirtualReference[] getNonManifestReferences(final boolean getJavaRefs) {
-		final List allRefs = new ArrayList();
-		
-		// add component file references
-		Map<String, Object> superMap = new HashMap<String,Object>();
-		superMap.put(IGNORE_DERIVED_REFERENCES, true);
-		IVirtualReference[] hardReferences = super.getReferences(superMap);
-		for (int i = 0; i < hardReferences.length; i++) {
-			allRefs.add(hardReferences[i]);
-		}
-
-		// add the dynamic references specified via specially tagged JDT classpath entries
-		if (getJavaRefs) {
-			IVirtualReference[] cpRefs = getJavaClasspathReferences(hardReferences); 
-			for (int i = 0; i < cpRefs.length; i++) {
-				allRefs.add(cpRefs[i]);
-			}
-		}
-		
-		return (IVirtualReference[]) allRefs.toArray(new IVirtualReference[allRefs.size()]);
+		ArrayList<IVirtualReference> allRefs = new ArrayList<IVirtualReference>();
+		IVirtualReference[] hardRefs = getHardReferences();
+		allRefs.addAll(Arrays.asList(hardRefs));
+		allRefs.addAll(Arrays.asList(getJavaClasspathReferences(hardRefs)));
+		return allRefs.toArray(new IVirtualReference[allRefs.size()]);
 	}
 
-	public static String [] getManifestClasspath(IVirtualComponent moduleComponent) {
-		String[] manifestClasspath = null;
-		if(!moduleComponent.isBinary()){
-			IVirtualFile vManifest = moduleComponent.getRootFolder().getFile(J2EEConstants.MANIFEST_URI);
-			if (vManifest.exists()) {
-				IFile manifestFile = vManifest.getUnderlyingFile();
-				InputStream in = null;
-				try {
-					in = manifestFile.getContents();
-					ArchiveManifest manifest = new ArchiveManifestImpl(in);
-					manifestClasspath = manifest.getClassPathTokenized();
-				} catch (IOException e) {
-					J2EEPlugin.logError(e);
-				} catch (CoreException e) {
-					J2EEPlugin.logError(e);
-				} finally {
-					if (in != null) {
-						try {
-							in.close();
-							in = null;
-						} catch (IOException e) {
-							J2EEPlugin.logError(e);
-						}
-					}
-				}
-			}
-		} else {
-			manifestClasspath = ((J2EEModuleVirtualArchiveComponent)moduleComponent).getManifestClasspath();
-		}
-		
-		return manifestClasspath;
-			
+	@Deprecated
+	public IVirtualReference[] getNonManifestReferences(
+			final boolean getJavaRefs) {
+		ArrayList<IVirtualReference> allRefs = new ArrayList<IVirtualReference>();
+		IVirtualReference[] hardRefs = getHardReferences();
+		allRefs.addAll(Arrays.asList(hardRefs));
+		if (getJavaRefs)
+			allRefs.addAll(Arrays.asList(getJavaClasspathReferences(hardRefs)));
+		return allRefs.toArray(new IVirtualReference[allRefs.size()]);
 	}
-	
-	public IVirtualReference[] getJavaClasspathReferences() {
-		return getJavaClasspathReferences(null);
+
+	public static String[] getManifestClasspath(
+			IVirtualComponent moduleComponent) {
+		return ManifestUtilities.getManifestClasspath(moduleComponent,
+				new Path(J2EEConstants.MANIFEST_URI));
 	}
-	
-	public IVirtualReference[] getJavaClasspathReferences(IVirtualReference[] hardReferences) {
+
+	public IVirtualReference[] getJavaClasspathReferences(
+			IVirtualReference[] hardReferences) {
 		final boolean isWebApp = JavaEEProjectUtilities.isDynamicWebComponent(this);
-		
-		if(!isWebApp && !ClasspathDependencyEnablement.isAllowClasspathComponentDependency()){
+
+		if (!isWebApp && !ClasspathDependencyEnablement.isAllowClasspathComponentDependency())
 			return new IVirtualReference[0];
-		}
+
 		final IProject project = getProject();
 		final List cpRefs = new ArrayList();
-		
+
 		try {
-			if (project == null || !project.isAccessible() || !project.hasNature(JavaCoreLite.NATURE_ID)) { 
+			if (project == null || !project.isAccessible()
+					|| !project.hasNature(JavaCoreLite.NATURE_ID)) {
 				return new IVirtualReference[0];
 			}
 
 			final IJavaProjectLite javaProjectLite = JavaCoreLite.create(project);
-			if (javaProjectLite == null) {
+			if (javaProjectLite == null)
 				return new IVirtualReference[0];
-			}
 
 			// retrieve all referenced classpath entries
-			final Map referencedEntries = ClasspathDependencyUtil.getComponentClasspathDependencies(javaProjectLite, isWebApp);
+			final Map referencedEntries = ClasspathDependencyUtil
+					.getComponentClasspathDependencies(javaProjectLite,isWebApp);
 
-			if (referencedEntries.isEmpty()) {
+			if (referencedEntries.isEmpty())
 				return new IVirtualReference[0];
-			}
 
-			IVirtualReference[] innerHardReferences = hardReferences;
-			if (innerHardReferences == null) {
-				// only compute this not set and if we have some cp dependencies 
-				HashMap<String, Object> map = new HashMap<String, Object>();
-				map.put(IVirtualComponent.IGNORE_DERIVED_REFERENCES, new Boolean(true));
-				innerHardReferences = super.getReferences(map);
-			}
+			IVirtualReference[] innerHardReferences = hardReferences == null ? 
+					getHardReferences() : hardReferences;
 			final IPath[] hardRefPaths = new IPath[innerHardReferences.length];
 			for (int j = 0; j < innerHardReferences.length; j++) {
 				final IVirtualComponent comp = innerHardReferences[j].getReferencedComponent();
@@ -255,171 +217,214 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 					hardRefPaths[j] = (IPath)comp.getAdapter(IPath.class);
 				}
 			}
-			
+
 			IContainer[] mappedClassFolders = null;
 			final Iterator i = referencedEntries.keySet().iterator();
 			while (i.hasNext()) {
 				final IClasspathEntry entry = (IClasspathEntry) i.next();
-				final IClasspathAttribute attrib = (IClasspathAttribute) referencedEntries.get(entry);
+				final IClasspathAttribute attrib = (IClasspathAttribute) referencedEntries
+						.get(entry);
 				final boolean isClassFolder = ClasspathDependencyUtil.isClassFolderEntry(entry);
-				final IPath runtimePath = ClasspathDependencyUtil.getRuntimePath(attrib, isWebApp, isClassFolder);				
+				final IPath runtimePath = ClasspathDependencyUtil.getRuntimePath(attrib, isWebApp, isClassFolder);
 				boolean add = true;
 				final IPath entryLocation = ClasspathDependencyUtil.getEntryLocation(entry);
 				if (entryLocation == null) {
-					// unable to retrieve location for cp entry, do not contribute as a virtual ref
+					// unable to retrieve location for cp entry, do not
+					// contribute as a virtual ref
 					add = false;
 				} else if (!isClassFolder) { // check hard archive refs
 					for (int j = 0; j < hardRefPaths.length; j++) {
 						if (entryLocation.equals(hardRefPaths[j])) {
-							// entry resolves to same file as existing hard reference, can skip
+							// entry resolves to same file as existing hard
+							// reference, can skip
 							add = false;
 							break;
 						}
 					}
-				} else { // check class folders mapped in component file as class folders associated with mapped src folders
+				} else { // check class folders mapped in component file as
+					// class folders associated with mapped src folders
 					if (mappedClassFolders == null) {
-						List <IContainer> containers = JavaLiteUtilities.getJavaOutputContainers(this);
-						mappedClassFolders = containers.toArray(new IContainer[containers.size()]);
+						List<IContainer> containers = JavaLiteUtilities
+								.getJavaOutputContainers(this);
+						mappedClassFolders = containers
+								.toArray(new IContainer[containers.size()]);
 					}
 					for (int j = 0; j < mappedClassFolders.length; j++) {
-						if (entryLocation.equals(mappedClassFolders[j].getFullPath())) {
-							// entry resolves to same file as existing class folder mapping, skip
+						if (entryLocation.equals(mappedClassFolders[j]
+								.getFullPath())) {
+							// entry resolves to same file as existing class
+							// folder mapping, skip
 							add = false;
 							break;
 						}
-					} 
+					}
 				}
 
 				if (add && entryLocation != null) {
 					String componentPath = null;
 					ClasspathDependencyVirtualComponent entryComponent = null;
 					/*
-					if (entry.getEntryKind() == IClasspathEntry.CPE_PROJECT) {
-						componentPath = VirtualArchiveComponent.CLASSPATHARCHIVETYPE;
-						final IProject cpEntryProject = ResourcesPlugin.getWorkspace().getRoot().getProject(entry.getPath().lastSegment());
-						entryComponent = (VirtualArchiveComponent) ComponentCore.createArchiveComponent(cpEntryProject, componentPath);
-					} else {
-					*/
-					componentPath = VirtualArchiveComponent.CLASSPATHARCHIVETYPE + IPath.SEPARATOR + entryLocation.toPortableString();
-					entryComponent = new ClasspathDependencyVirtualComponent(project, componentPath, isClassFolder);
-					//}
-					final IVirtualReference entryReference = ComponentCore.createReference(this, entryComponent, runtimePath);
-					((VirtualReference)entryReference).setDerived(true);
-					entryReference.setArchiveName(ClasspathDependencyUtil.getArchiveName(entry));
+					 * if (entry.getEntryKind() == IClasspathEntry.CPE_PROJECT)
+					 * { componentPath =
+					 * VirtualArchiveComponent.CLASSPATHARCHIVETYPE; final
+					 * IProject cpEntryProject =
+					 * ResourcesPlugin.getWorkspace().getRoot
+					 * ().getProject(entry.getPath().lastSegment());
+					 * entryComponent = (VirtualArchiveComponent)
+					 * ComponentCore.createArchiveComponent(cpEntryProject,
+					 * componentPath); } else {
+					 */
+					componentPath = VirtualArchiveComponent.CLASSPATHARCHIVETYPE
+							+ IPath.SEPARATOR + entryLocation.toPortableString();
+					entryComponent = new ClasspathDependencyVirtualComponent(
+							project, componentPath, isClassFolder);
+					// }
+					final IVirtualReference entryReference = ComponentCore
+							.createReference(this, entryComponent, runtimePath);
+					((VirtualReference) entryReference).setDerived(true);
+					entryReference.setArchiveName(ClasspathDependencyUtil
+							.getArchiveName(entry));
 					cpRefs.add(entryReference);
 				}
 			}
 
 		} catch (CoreException jme) {
 			J2EEPlugin.logError(jme);
-		} 
-		
+		}
+
 		return (IVirtualReference[]) cpRefs.toArray(new IVirtualReference[cpRefs.size()]);
 	}
 
-	public static List getManifestReferences(IVirtualComponent moduleComponent, IVirtualReference[] hardReferences) {
-		return getManifestReferences(moduleComponent, hardReferences, false);
+	private void cacheManifestReferences() {
+		if (parentEarManifestReferences == null
+				|| fuzzyEarManifestReferences == null) {
+			IVirtualReference[][] refs = calculateManifestReferences(this, true);
+			parentEarManifestReferences = refs[0];
+			fuzzyEarManifestReferences = refs[1];
+		}
 	}
-	
-	public static List getManifestReferences(IVirtualComponent moduleComponent, IVirtualReference[] hardReferences, boolean findFuzzyEARRefs) {
-		List dynamicReferences = null;
-		String [] manifestClasspath = getManifestClasspath(moduleComponent); 
 
-		IVirtualReference foundRef = null;
-		String earArchiveURI = null; //The URI for this archive in the EAR
-		boolean simplePath = false;
-		
-		if (manifestClasspath != null && manifestClasspath.length > 0) {
-			boolean [] foundRefAlready = findFuzzyEARRefs ? new boolean[manifestClasspath.length]: null;
-			if(null != foundRefAlready){
-				for(int i=0; i<foundRefAlready.length; i++){
-					foundRefAlready[i] = false;
+	private static IVirtualReference[][] calculateManifestReferences(
+			IVirtualComponent moduleComponent, boolean checkFuzzyRefs) {
+		String[] manifestClasspath = getManifestClasspath(moduleComponent);
+		IProject[] earProjects = EarUtilities
+				.getReferencingEARProjects(moduleComponent.getProject());
+		// Early aborts
+		if (manifestClasspath == null || manifestClasspath.length == 0
+				|| earProjects.length == 0) {
+			return new IVirtualReference[][] { new IVirtualReference[0], new IVirtualReference[0] };
+		}
+
+		// Get our found cache going
+		boolean[] foundRefAlready = new boolean[manifestClasspath.length];
+		for (int i = 0; i < foundRefAlready.length; i++)
+			foundRefAlready[i] = false;
+
+		// Get the true parent references
+		IProject firstEar = earProjects[earProjects.length - 1];
+		ArrayList<IVirtualReference> tmp = cacheOneEarProjectManifestRefs(
+				moduleComponent, firstEar, manifestClasspath, foundRefAlready);
+		IVirtualReference[] parentEarManifestReferences = tmp
+				.toArray(new IVirtualReference[tmp.size()]);
+
+		ArrayList<IVirtualReference> dynamicReferences = new ArrayList<IVirtualReference>();
+		// get the fuzzy references
+		if (checkFuzzyRefs) {
+			if (earProjects.length > 1) {
+				for (int earIndex = earProjects.length - 2; earIndex > -1; earIndex--) {
+					tmp = cacheOneEarProjectManifestRefs(moduleComponent,
+							firstEar, manifestClasspath, foundRefAlready);
+					dynamicReferences.addAll(tmp);
 				}
 			}
-			
-			IProject [] earProjects = EarUtilities.getReferencingEARProjects(moduleComponent.getProject());
-			//search backwards to find the last project
-			//this way the EAR_20060911 will be chosen over EAR_20060910
-			for (int earIndex = earProjects.length-1; earIndex > -1; earIndex--) {
-				IProject earProject = earProjects[earIndex];
-				IVirtualReference[] earRefs = null;
-				IVirtualComponent tempEARComponent = ComponentCore.createComponent(earProject);
-				IVirtualReference[] tempEarRefs = tempEARComponent.getReferences();
-				for (int j = 0; j < tempEarRefs.length && earRefs == null; j++) {
-					if (tempEarRefs[j].getReferencedComponent().equals(moduleComponent)) {
-						earRefs = tempEarRefs;
-						foundRef = tempEarRefs[j];
-						earArchiveURI = foundRef.getArchiveName(); 
-						simplePath = earArchiveURI != null ? earArchiveURI.lastIndexOf("/") == -1 : true; //$NON-NLS-1$
-					}
+		}
+		IVirtualReference[] fuzzyEarManifestReferences = dynamicReferences
+				.toArray(new IVirtualReference[dynamicReferences.size()]);
+
+		// return our two creatures
+		return new IVirtualReference[][] { parentEarManifestReferences,
+				fuzzyEarManifestReferences };
+	}
+
+	protected static ArrayList<IVirtualReference> cacheOneEarProjectManifestRefs(
+			IVirtualComponent moduleComponent, IProject earProject,
+			String[] manifestClasspath, boolean[] foundRefAlready) {
+		ArrayList<IVirtualReference> dynamicReferences = new ArrayList<IVirtualReference>();
+		IVirtualReference[] hardRefs = getHardReferences(moduleComponent);
+
+		IVirtualReference foundRef = null;
+		String earArchiveURI = null; // The URI for this archive in the EAR
+		boolean simplePath = false;
+		IVirtualReference[] earRefs = null;
+		IVirtualComponent tempEARComponent = ComponentCore
+				.createComponent(earProject);
+		IVirtualReference[] tempEarRefs = tempEARComponent.getReferences();
+		for (int j = 0; j < tempEarRefs.length && earRefs == null; j++) {
+			if (tempEarRefs[j].getReferencedComponent().equals(moduleComponent)) {
+				earRefs = tempEarRefs;
+				foundRef = tempEarRefs[j];
+				earArchiveURI = foundRef.getArchiveName();
+				simplePath = earArchiveURI != null ? earArchiveURI
+						.lastIndexOf("/") == -1 : true; //$NON-NLS-1$
+			}
+		}
+		if (null != earRefs) {
+			for (int manifestIndex = 0; manifestIndex < manifestClasspath.length; manifestIndex++) {
+				boolean found = false;
+				if (foundRefAlready != null && foundRefAlready[manifestIndex]) {
+					continue;
 				}
-				if (null != earRefs) {
-					for (int manifestIndex = 0; manifestIndex < manifestClasspath.length; manifestIndex++) {
-						boolean found = false;
-						if(foundRefAlready != null && foundRefAlready[manifestIndex]){
-							continue;
-						}
-						for (int j = 0; j < earRefs.length && !found; j++) {
-							if(foundRef != earRefs[j]){
-								String archiveName = earRefs[j].getArchiveName();
-								if (null != archiveName){
-									boolean shouldAdd = false;
-									String manifestEntryString = manifestClasspath[manifestIndex];
-									if( manifestEntryString != null ){
-										IPath manifestPath = new Path(manifestEntryString);
-										manifestEntryString = manifestPath.toPortableString();
-									}
-									
-									if(simplePath && manifestEntryString != null && manifestEntryString.lastIndexOf("/") == -1){ //$NON-NLS-1$
-										shouldAdd = archiveName.equals(manifestEntryString);	
-									} else {
-										String earRelativeURI = ArchiveUtil.deriveEARRelativeURI(manifestEntryString, earArchiveURI);
-										if(null != earRelativeURI){
-											shouldAdd = earRelativeURI.equals(archiveName);	
-										}
-									}
-									
-									if(shouldAdd){
-										if(findFuzzyEARRefs && foundRefAlready != null){
-											foundRefAlready[manifestIndex] = true;
-										}
-										found = true;
-										boolean shouldInclude = true;
-										IVirtualComponent dynamicComponent = earRefs[j].getReferencedComponent();
-										if(null != hardReferences){
-											for (int k = 0; k < hardReferences.length && shouldInclude; k++) {
-												if (hardReferences[k].getReferencedComponent().equals(dynamicComponent)) {
-													shouldInclude = false;
-												}
-											}
-										}
-										if (shouldInclude) {
-											IVirtualReference dynamicReference = ComponentCore.createReference(moduleComponent, dynamicComponent);
-											((VirtualReference)dynamicReference).setDerived(true);
-											((VirtualReference)dynamicReference).setArchiveName(archiveName);
-											if (null == dynamicReferences) {
-												dynamicReferences = new ArrayList();
-											}
-											dynamicReferences.add(dynamicReference);
+				for (int j = 0; j < earRefs.length && !found; j++) {
+					if (foundRef != earRefs[j]) {
+						String archiveName = earRefs[j].getArchiveName();
+						if (null != archiveName) {
+							boolean shouldAdd = false;
+							String manifestEntryString = manifestClasspath[manifestIndex];
+							if (manifestEntryString != null) {
+								IPath manifestPath = new Path(manifestEntryString);
+								manifestEntryString = manifestPath
+										.toPortableString();
+							}
+
+							if (simplePath && manifestEntryString != null
+									&& manifestEntryString.lastIndexOf("/") == -1) { //$NON-NLS-1$
+								shouldAdd = archiveName.equals(manifestEntryString);
+							} else {
+								String earRelativeURI = ArchiveUtil
+										.deriveEARRelativeURI(manifestEntryString,
+												earArchiveURI);
+								if (null != earRelativeURI) {
+									shouldAdd = earRelativeURI.equals(archiveName);
+								}
+							}
+
+							if (shouldAdd) {
+								if (foundRefAlready != null) {
+									foundRefAlready[manifestIndex] = true;
+								}
+								found = true;
+								boolean shouldInclude = true;
+								IVirtualComponent dynamicComponent = earRefs[j]
+										.getReferencedComponent();
+								if (null != hardRefs) {
+									for (int k = 0; k < hardRefs.length
+											&& shouldInclude; k++) {
+										if (hardRefs[k].getReferencedComponent()
+												.equals(dynamicComponent)) {
+											shouldInclude = false;
+
 										}
 									}
 								}
+								if (shouldInclude) {
+									IVirtualReference dynamicReference = ComponentCore
+											.createReference(moduleComponent,
+													dynamicComponent);
+									((VirtualReference) dynamicReference)
+											.setDerived(true);
+									dynamicReferences.add(dynamicReference);
+								}
 							}
-						}
-						
-					}
-					if(!findFuzzyEARRefs){
-						break;
-					}
-					if(foundRefAlready != null){
-						boolean foundAll = true;
-						for(int i = 0; i < foundRefAlready.length && foundAll; i++){
-							if(!foundRefAlready[i]){
-								foundAll = false;
-							}
-						}
-						if(foundAll){
-							break;
 						}
 					}
 				}
@@ -427,57 +432,38 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 		}
 		return dynamicReferences;
 	}
-	
-	private void setCachedReferences(boolean getJavaRefs, boolean findFuzzyEARRefs, IVirtualReference[] references) {
-		if(findFuzzyEARRefs && getJavaRefs) {
-			fuzzyAndJavaRefs = references; 
-		}
-		else if(!findFuzzyEARRefs && !getJavaRefs) {
-			nonJavaRefsOnly = references;
-		}
-		else if(findFuzzyEARRefs) {
-			fuzzyRefsOnly = references;
-		}
-		else {
-			javaRefsOnly = references;
-		}
+
+	public static List getManifestReferences(IVirtualComponent moduleComponent,
+			IVirtualReference[] hardReferences) {
+		return getManifestReferences(moduleComponent, hardReferences, false);
 	}
-	
-	private IVirtualReference[] getCachedReference(boolean getJavaRefs, boolean findFuzzyEARRefs) {
-		if(checkIfStillValid())
-		{
-			if(findFuzzyEARRefs && getJavaRefs) {
-				return fuzzyAndJavaRefs; 
-			}
-			else if(!findFuzzyEARRefs && !getJavaRefs) {
-				return nonJavaRefsOnly;
-			}
-			else if(findFuzzyEARRefs) {
-				return fuzzyRefsOnly;
-			}
-			else {
-				return javaRefsOnly;
-			}
-		}
-		return null;
+
+	public static List getManifestReferences(IVirtualComponent moduleComponent,
+			IVirtualReference[] hardReferences, boolean findFuzzyEARRefs) {
+		IVirtualReference[][] refs = calculateManifestReferences(
+				moduleComponent, findFuzzyEARRefs);
+		ArrayList<IVirtualReference> tmp = new ArrayList<IVirtualReference>();
+		tmp.addAll(Arrays.asList(refs[0]));
+		if (findFuzzyEARRefs)
+			tmp.addAll(Arrays.asList(refs[1]));
+		return tmp;
 	}
 
 	private boolean checkIfStillValid() {
 		boolean valid = IDependencyGraph.INSTANCE.getModStamp() == depGraphModStamp;
-		if(!valid) {
+		if (!valid) {
 			clearCache();
 		}
 		return valid;
 	}
-	
+
 	@Override
 	protected void clearCache() {
 		super.clearCache();
-		
 		depGraphModStamp = IDependencyGraph.INSTANCE.getModStamp();
-		fuzzyAndJavaRefs = null;
-		fuzzyRefsOnly = null;
-		javaRefsOnly = null;
-		nonJavaRefsOnly = null;
+		hardReferences = null;
+		javaReferences = null;
+		parentEarManifestReferences = null;
+		fuzzyEarManifestReferences = null;
 	}
 }

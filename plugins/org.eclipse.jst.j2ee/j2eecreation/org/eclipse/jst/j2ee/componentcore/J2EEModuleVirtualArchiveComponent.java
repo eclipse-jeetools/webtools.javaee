@@ -56,4 +56,21 @@ public class J2EEModuleVirtualArchiveComponent extends VirtualArchiveComponent {
 	public boolean isLinkedToEAR() {
 		return linkedToEAR;
 	}
+	
+	/*
+	* The following APIs were temporary to fix some bugs
+	* which have now been fixed by a more thorough refactor (flat component model)
+	*/
+	@Deprecated
+	private IPath deploymentPath;
+	
+	@Deprecated
+	public IPath getDeploymentPath() {
+		return deploymentPath;
+	}
+	
+	@Deprecated
+	public void setDeploymentPath(IPath path) {
+		this.deploymentPath = path;
+	}
 }

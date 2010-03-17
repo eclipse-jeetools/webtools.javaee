@@ -88,9 +88,9 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 		return uri;
 	}
 
-	private static List getHardReferences(IVirtualComponent earComponent) {
+	private static List<IVirtualReference> getHardReferences(IVirtualComponent earComponent) {
 		StructureEdit core = null;
-		List hardReferences = new ArrayList();
+		List<IVirtualReference> hardReferences = new ArrayList<IVirtualReference>();
 		try {
 			core = StructureEdit.getStructureEditForRead(earComponent.getProject());
 			if (core != null && core.getComponent() != null) {
@@ -231,6 +231,22 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 		cachedReferences = (IVirtualReference[]) hardReferences.toArray(new IVirtualReference[hardReferences.size()]);
 		return cachedReferences;
 	}
+	
+	@Override
+	public IVirtualReference[] getReferences(Map<String, Object> options) {
+		Object displayable = options.get(IVirtualComponent.DISPLAYABLE_REFERENCES);
+		if( displayable != null && displayable instanceof Boolean && ((Boolean)displayable).booleanValue()) {
+			List<IVirtualReference> hardReferences = getHardReferences(this);
+			IVirtualComponent imported = new ClasspathDependencyContainerVirtualComponent(
+					getProject(), this);
+			VirtualReference importedRef = new VirtualReference(this, imported);
+			importedRef.setDerived(true);
+			hardReferences.add(importedRef);
+			return hardReferences.toArray(new IVirtualReference[hardReferences.size()]);
+		}
+		return getReferences();
+	}
+	
 	// Returns cache if still valid or null
 	public IVirtualReference[] getCachedReferences() {
 		if (cachedReferences != null && checkIfStillValid())

@@ -851,4 +851,12 @@
 		<initializer
 			class="org.eclipse.jst.j2ee.internal.plugin.JavaEEPreferencesInitializer" />
 	</extension>
+ <extension
+       point="org.eclipse.wst.common.modulecore.referenceResolver">
+    <resolver
+          class="org.eclipse.jst.j2ee.componentcore.util.ClasspathDependencyResolver"
+          id="org.eclipse.jst.j2ee.componentcore.util.ClasspathDependencyResolver"
+          weight="5">
+    </resolver>
+ </extension>
 </plugin>
