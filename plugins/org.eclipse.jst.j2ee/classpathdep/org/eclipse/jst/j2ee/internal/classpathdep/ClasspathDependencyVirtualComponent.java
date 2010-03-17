@@ -77,4 +77,11 @@ public class ClasspathDependencyVirtualComponent extends J2EEModuleVirtualArchiv
 		}
 		return super.getManifestClasspath();
 	}
+	
+	@Override
+	public Object getAdapter(Class clazz) {
+		if( isClassFolder && clazz.equals(IPath.class)) 
+			return getClassFolder().getLocation();
+		return super.getAdapter(clazz);
+	}
 }

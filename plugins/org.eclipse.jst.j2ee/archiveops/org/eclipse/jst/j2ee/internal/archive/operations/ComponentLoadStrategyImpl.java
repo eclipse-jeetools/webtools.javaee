@@ -66,7 +66,6 @@ import org.eclipse.wst.common.componentcore.internal.ArtifactEditModel;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.DependencyType;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualContainer;
@@ -294,7 +293,7 @@ public abstract class ComponentLoadStrategyImpl extends LoadStrategyImpl {
 			IVirtualReference reference = components[i];
 			IVirtualComponent referencedComponent = reference.getReferencedComponent();
 			if (referencedComponent.isBinary() && reference.getDependencyType() == DependencyType.CONSUMES) {
-				java.io.File diskFile = ((VirtualArchiveComponent) referencedComponent).getUnderlyingDiskFile();
+				java.io.File diskFile = (java.io.File) referencedComponent.getAdapter(java.io.File.class);
 				ZipFile zipFile;
 				IPath path = reference.getRuntimePath();
 				try {

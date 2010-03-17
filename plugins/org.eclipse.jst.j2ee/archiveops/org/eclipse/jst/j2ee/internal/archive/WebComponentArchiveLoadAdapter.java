@@ -16,14 +16,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jst.common.internal.modulecore.IClasspathDependencyComponent;
+import org.eclipse.jst.common.internal.modulecore.IClasspathDependencyProvider;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyVirtualComponent;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
@@ -31,7 +31,6 @@ import org.eclipse.jst.jee.archive.ArchiveOpenFailureException;
 import org.eclipse.jst.jee.archive.ArchiveOptions;
 import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.jst.jee.archive.IArchiveResource;
-import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
@@ -83,12 +82,7 @@ public class WebComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter 
 			IVirtualReference iLibModule = libModules[i];
 			IVirtualComponent looseComponent = iLibModule.getReferencedComponent();
 			if (looseComponent.isBinary()) {
-				VirtualArchiveComponent archiveComp = (VirtualArchiveComponent) looseComponent;
-				java.io.File diskFile = archiveComp.getUnderlyingDiskFile();
-				if (!diskFile.exists()) {
-					IFile wbFile = archiveComp.getUnderlyingWorkbenchFile();
-					diskFile = new File(wbFile.getLocation().toOSString());
-				}
+				java.io.File diskFile = (java.io.File)looseComponent.getAdapter(java.io.File.class);
 				IPath uri = iLibModule.getRuntimePath().makeRelative().append("/" + diskFile.getName()); //$NON-NLS-1$
 				addExternalFile(uri, diskFile);				
 			} else {
@@ -144,21 +138,16 @@ public class WebComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter 
 	
 	private void addClasspathComponentDependencies(final IVirtualComponent referencedComponent) {
 		// retrieve all Java classpath component dependencies
-		if (includeClasspathComponents && referencedComponent instanceof J2EEModuleVirtualComponent) {
-			final IVirtualReference[] cpRefs = ((J2EEModuleVirtualComponent) referencedComponent).getJavaClasspathReferences();
+		if (includeClasspathComponents && referencedComponent instanceof IClasspathDependencyProvider) {
+			final IVirtualReference[] cpRefs = ((IClasspathDependencyProvider) referencedComponent).getJavaClasspathReferences();
 			for (int j = 0; j < cpRefs.length; j++) {
 				final IVirtualReference ref = cpRefs[j];
 				final IPath runtimePath = ref.getRuntimePath();
 				
 				// only process ../ mappings
-				if (ref.getReferencedComponent() instanceof ClasspathDependencyVirtualComponent
+				if (ref.getReferencedComponent() instanceof IClasspathDependencyComponent
 						&& runtimePath.equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH)) {
-					final ClasspathDependencyVirtualComponent comp = (ClasspathDependencyVirtualComponent) ref.getReferencedComponent();
-					File cpEntryFile = comp.getUnderlyingDiskFile();
-					if (!cpEntryFile.exists()) {
-						final IFile wbFile = comp.getUnderlyingWorkbenchFile();
-						cpEntryFile = new File(wbFile.getLocation().toOSString());
-					}
+					File cpEntryFile = (java.io.File)ref.getReferencedComponent().getAdapter(java.io.File.class);
 					addExternalFile(new Path("WEB-INF/lib/" + ref.getArchiveName()), cpEntryFile); //$NON-NLS-1$
 				}
 			}
@@ -169,7 +158,4 @@ public class WebComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter 
 	protected IPath getDefaultModelObjectPath() {
 		return new Path(J2EEConstants.WEBAPP_DD_URI);
 	}
-	
-	
-
 }

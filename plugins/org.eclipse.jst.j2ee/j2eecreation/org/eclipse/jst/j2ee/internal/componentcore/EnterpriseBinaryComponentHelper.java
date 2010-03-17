@@ -22,7 +22,6 @@ import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -38,7 +37,6 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.jee.archive.internal.ArchiveUtil;
 import org.eclipse.wst.common.componentcore.internal.BinaryComponentHelper;
-import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
@@ -123,16 +121,8 @@ public abstract class EnterpriseBinaryComponentHelper extends BinaryComponentHel
 	}
 
 	protected String getArchiveURI() {
-		String archiveURI = null;
-		VirtualArchiveComponent archiveComp = (VirtualArchiveComponent) getComponent();
-		java.io.File diskFile = archiveComp.getUnderlyingDiskFile();
-		if (diskFile.exists())
-			archiveURI = diskFile.getAbsolutePath();
-		else {
-			IFile iFile = archiveComp.getUnderlyingWorkbenchFile();
-			archiveURI = iFile.getRawLocation().toOSString();
-		}
-		return archiveURI;
+		java.io.File file = (java.io.File)getComponent().getAdapter(java.io.File.class);
+		return file.getAbsolutePath();
 	}
 
 	@Override

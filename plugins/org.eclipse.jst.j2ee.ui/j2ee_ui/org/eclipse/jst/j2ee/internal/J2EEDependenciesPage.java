@@ -36,6 +36,7 @@ import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
  * Primary project property page for J2EE dependencies; content is dynamically 
  * generated based on the project facets and will be comprised by a
  * set of IJ2EEDependenciesControl implementations.
+ * 
  */
 public class J2EEDependenciesPage extends PropertyPage {
 	

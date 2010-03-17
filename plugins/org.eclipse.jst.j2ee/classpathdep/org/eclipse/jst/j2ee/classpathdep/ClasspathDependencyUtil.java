@@ -32,6 +32,7 @@ import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jst.common.internal.modulecore.IClasspathDependencyComponent;
 import org.eclipse.jst.common.jdt.internal.javalite.IJavaProjectLite;
 import org.eclipse.jst.common.jdt.internal.javalite.JavaCoreLite;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
@@ -47,7 +48,6 @@ import org.eclipse.jst.j2ee.project.WebUtilities;
 import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
-import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
@@ -212,13 +212,10 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 							IVirtualReference ref = (IVirtualReference) manifestRefs.get(j);
 							IVirtualComponent c = ref.getReferencedComponent();
 							if (c.isBinary()) {
-								VirtualArchiveComponent archiveComponent = (VirtualArchiveComponent) c;
-								IFile file = archiveComponent.getUnderlyingWorkbenchFile();
-								if (file != null) {
-									if (file.getFullPath().equals(entry.getPath())) {
+								IFile file = (IFile)c.getAdapter(IFile.class);
+								if (file != null && file.getFullPath().equals(entry.getPath())) {
 										foundEntry = true;
 										break;
-									}
 								}
 							}
 						}
@@ -450,16 +447,8 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 	 * a VirtualArchiveComponent with type VirtualArchiveComponent.CLASSPATHARCHIVETYPE that represents a project cp entry.
 	 */
 	public static IProject isClasspathProjectReference(final IVirtualReference ref) {
-		if (ref == null) {
-			return null;
-		}
-		if (ref.getReferencedComponent() instanceof VirtualArchiveComponent) {
-			final VirtualArchiveComponent comp = (VirtualArchiveComponent) ref.getReferencedComponent();
-			if (comp.getArchiveType().equals(VirtualArchiveComponent.CLASSPATHARCHIVETYPE) &&
-					comp.getUnderlyingDiskFile() == null) {
-				return comp.getProject();
-			}
-		}
+		if (ref != null && ref.getReferencedComponent() instanceof IClasspathDependencyComponent)
+			return ref.getReferencedComponent().getProject();
 		return null;
 	}
 	
@@ -494,29 +483,8 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 	 * a VirtualArchiveComponent with type VirtualArchiveComponent.CLASSPATHARCHIVETYPE.
 	 */
 	public static IPath getClasspathVirtualReferenceLocation(final IVirtualReference ref) {
-		if (ref == null) {
-			return null;
-		}
-		if (ref.getReferencedComponent() instanceof VirtualArchiveComponent) {
-			final VirtualArchiveComponent comp = (VirtualArchiveComponent) ref.getReferencedComponent();
-			if (comp.getArchiveType().equals(VirtualArchiveComponent.CLASSPATHARCHIVETYPE)) {
-				java.io.File cpEntryFile = comp.getUnderlyingDiskFile();
-				IPath cpEntryPath = null;
-				if (cpEntryFile != null && cpEntryFile.exists()) {
-					cpEntryPath = new Path(cpEntryFile.getAbsolutePath());
-                } else {
-                    final IFile iFile = comp.getUnderlyingWorkbenchFile();
-                    if (iFile != null) {
-                    	cpEntryPath = iFile.getLocation();
-                    } else {
-                    	IContainer container = getClassFolder(comp);
-                    	if (container != null) {
-                    		return container.getLocation();
-                    	}
-                    }
-                }
-				return cpEntryPath;
-			}
+		if (ref != null && ref.getReferencedComponent() instanceof IClasspathDependencyComponent) {
+			return (IPath)ref.getReferencedComponent().getAdapter(IPath.class);
 		}
 		return null;
 	}
@@ -668,14 +636,7 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 	 * @return True if a classpath component dependency, false otherwise.
 	 */
 	public static boolean isClasspathComponentDependency(final IVirtualComponent component) {
-		if (component == null) {
-			return false;
-		}
-		if (component instanceof VirtualArchiveComponent) {
-			final VirtualArchiveComponent archiveComp = (VirtualArchiveComponent) component;
-			return archiveComp.getArchiveType().equals(VirtualArchiveComponent.CLASSPATHARCHIVETYPE);
-		}
-		return false;
+		return component != null && component instanceof IClasspathDependencyComponent;
 	}
 	
 	/**

@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.componentcore;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -253,16 +252,7 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 			for (int j = 0; j < innerHardReferences.length; j++) {
 				final IVirtualComponent comp = innerHardReferences[j].getReferencedComponent();
 				if (comp.isBinary()) {
-					final VirtualArchiveComponent archiveComp = (VirtualArchiveComponent) comp;
-					final File diskFile = archiveComp.getUnderlyingDiskFile();
-					IPath diskPath = null;
-					if (diskFile.exists()) {
-						diskPath =new Path(diskFile.getAbsolutePath());
-	                } else {
-	                    final IFile iFile = archiveComp.getUnderlyingWorkbenchFile();
-	                    diskPath = iFile.getFullPath();
-	                }
-					hardRefPaths[j] = diskPath;
+					hardRefPaths[j] = (IPath)comp.getAdapter(IPath.class);
 				}
 			}
 			

@@ -70,6 +70,7 @@ import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.DependencyType;
 import org.eclipse.wst.common.componentcore.internal.IModuleHandler;
+import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.componentcore.ui.ModuleCoreUIPlugin;
@@ -470,13 +471,8 @@ public class J2EEModuleDependenciesPropertyPage extends
 	}
 	@Override
 	protected void viewerSelectionChanged() {
-		Object selected = getSelectedObject();
-		if(selected == null) return;
-		//Remove selection from other table
+		super.viewerSelectionChanged();
 		availableDerivedComponentsViewer.setSelection(null, true);
-		editReferenceButton.setEnabled(hasEditWizardPage(selected));
-		removeButton.setEnabled(canEdit(selected));
-		
 	}
 	
 	protected Object getSelectedDerivedObject() {
@@ -658,5 +654,29 @@ public class J2EEModuleDependenciesPropertyPage extends
 		};
 	}
 	
+	
+	/*
+	 * Temporary fix during cleanup for Bug 305959
+	 */
+	protected boolean canEdit(Object data) {
+		if( data == null ) return false;
+		if( !(data instanceof VirtualArchiveComponent)) return true;
+		
+		VirtualArchiveComponent d2 = (VirtualArchiveComponent)data;
+		boolean sameProject = d2.getWorkspaceRelativePath() != null
+			&& d2.getWorkspaceRelativePath().segment(0)
+				.equals(rootComponent.getProject().getName());
+		return !(sameProject && isPhysicallyAdded(d2));
+	}
 
+	protected boolean isPhysicallyAdded(VirtualArchiveComponent component) {
+		try {
+			component.getProjectRelativePath();
+			return true;
+		} catch (IllegalArgumentException e) {
+			return false;
+		}
+	}
+
+	
 }

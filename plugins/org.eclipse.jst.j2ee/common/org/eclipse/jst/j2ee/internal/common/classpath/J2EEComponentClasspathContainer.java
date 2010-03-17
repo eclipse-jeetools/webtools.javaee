@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -85,18 +84,10 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 				return false;
 			} 
 			IPath path = null;
-			if (comp.isBinary()) {
-				VirtualArchiveComponent archiveComp = (VirtualArchiveComponent) comp;
-				java.io.File diskFile = archiveComp.getUnderlyingDiskFile();
-				if (diskFile.exists())
-					path = new Path(diskFile.getAbsolutePath());
-				else {
-					IFile iFile = archiveComp.getUnderlyingWorkbenchFile();
-					path = iFile.getFullPath();
-				}
-			} else {
+			if (comp.isBinary())
+				path = (IPath)comp.getAdapter(IPath.class);
+			else
 				path = comp.getProject().getFullPath();
-			}
 			if (!path.equals(paths[i])) {
 				return false;
 			}
@@ -265,18 +256,14 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 					continue;
 				}
 				if (comp.isBinary()) {
-					VirtualArchiveComponent archiveComp = (VirtualArchiveComponent) comp;
-					if (archiveComp.getArchiveType().equals(VirtualArchiveComponent.CLASSPATHARCHIVETYPE)) {
-						// do not process components dynamically computed from the Java classpath
-						continue;
+					if( comp instanceof VirtualArchiveComponent ) {
+						VirtualArchiveComponent archiveComp = (VirtualArchiveComponent) comp;
+						if (archiveComp.getArchiveType().equals(VirtualArchiveComponent.CLASSPATHARCHIVETYPE)) {
+							// do not process components dynamically computed from the Java classpath
+							continue;
+						}
 					}
-					java.io.File diskFile = archiveComp.getUnderlyingDiskFile();
-					if (diskFile.exists()) {
-						lastUpdate.paths[i] = new Path(diskFile.getAbsolutePath());
-					} else {
-						IFile iFile = archiveComp.getUnderlyingWorkbenchFile();
-						lastUpdate.paths[i] = iFile.getFullPath();
-					}
+					lastUpdate.paths[i] = (IPath)comp.getAdapter(IPath.class);
 					ClasspathDecorations dec = decorationsManager.getDecorations( getPath().toString(), lastUpdate.paths[i].toString() );
 					
 					IPath srcpath = null;

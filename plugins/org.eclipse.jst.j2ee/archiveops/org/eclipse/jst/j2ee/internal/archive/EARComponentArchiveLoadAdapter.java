@@ -21,13 +21,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jst.common.internal.modulecore.IClasspathDependencyProvider;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants;
-import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyVirtualComponent;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.jee.archive.ArchiveOpenFailureException;
 import org.eclipse.jst.jee.archive.IArchive;
@@ -35,7 +33,6 @@ import org.eclipse.jst.jee.archive.IArchiveLoadAdapter;
 import org.eclipse.jst.jee.archive.IArchiveResource;
 import org.eclipse.jst.jee.archive.internal.ArchiveUtil;
 import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
-import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
@@ -110,12 +107,7 @@ public class EARComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter 
 			}
 			
 			if (referencedComponent.isBinary()) {
-				java.io.File diskFile = null;
-				diskFile = ((VirtualArchiveComponent) referencedComponent).getUnderlyingDiskFile();
-				if (!diskFile.exists()) {
-					IFile wbFile = ((VirtualArchiveComponent) referencedComponent).getUnderlyingWorkbenchFile();
-					diskFile = new File(wbFile.getLocation().toOSString());
-				}
+				java.io.File diskFile = (java.io.File)referencedComponent.getAdapter(java.io.File.class);
 				binaryResourcesToDiskFiles.put(nestedModuleResource, diskFile);
 			} else if(null != nestedModuleArchive){
 				// Bug 220912 - set "export source" flag before calling JavaEEQuickPeek
@@ -147,21 +139,14 @@ public class EARComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter 
 
 	private void addClasspathComponentDependencies(final IVirtualComponent referencedComponent) {
 		// retrieve all Java classpath component dependencies
-		if (includeClasspathComponents && referencedComponent instanceof J2EEModuleVirtualComponent) {
-			final IVirtualReference[] cpRefs = ((J2EEModuleVirtualComponent) referencedComponent).getJavaClasspathReferences();
+		if (includeClasspathComponents && referencedComponent instanceof IClasspathDependencyProvider) {
+			final IVirtualReference[] cpRefs = ((IClasspathDependencyProvider) referencedComponent).getJavaClasspathReferences();
 			for (int j = 0; j < cpRefs.length; j++) {
 				final IVirtualReference ref = cpRefs[j];
 				// only ../ runtime paths contribute to the EAR
 				if (ref.getRuntimePath().equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH)) {
-					if (ref.getReferencedComponent() instanceof ClasspathDependencyVirtualComponent) {
-						final ClasspathDependencyVirtualComponent comp = (ClasspathDependencyVirtualComponent) ref.getReferencedComponent();
-						File cpEntryFile = comp.getUnderlyingDiskFile();
-						if (!cpEntryFile.exists()) {
-							final IFile wbFile = comp.getUnderlyingWorkbenchFile();
-							cpEntryFile = new File(wbFile.getLocation().toOSString());
-						}
-						addExternalFile(new Path(ref.getArchiveName()), cpEntryFile);
-					}
+					File cpEntryFile = (File)ref.getReferencedComponent().getAdapter(File.class);
+					addExternalFile(new Path(ref.getArchiveName()), cpEntryFile);
 				}
 			}
 		}

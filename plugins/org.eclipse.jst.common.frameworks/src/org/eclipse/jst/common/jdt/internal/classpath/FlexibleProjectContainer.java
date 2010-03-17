@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.resources.IContainer;
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceChangeEvent;
@@ -29,7 +28,6 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IAccessRule;
 import org.eclipse.jdt.core.IClasspathAttribute;
 import org.eclipse.jdt.core.IClasspathContainer;
@@ -38,9 +36,9 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.common.frameworks.CommonFrameworksPlugin;
+import org.eclipse.jst.common.internal.modulecore.IClasspathDependencyComponent;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
-import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
@@ -196,29 +194,14 @@ public abstract class FlexibleProjectContainer
             }
             IPath newPath = null;
             if (comp.isBinary()) {
-                VirtualArchiveComponent archiveComp = (VirtualArchiveComponent) comp;
-                if (archiveComp.getArchiveType().equals(VirtualArchiveComponent.CLASSPATHARCHIVETYPE)) {
-                	// do not process components dynamically computed from the Java classpath
-                	continue;
-                }
-                java.io.File diskFile = archiveComp.getUnderlyingDiskFile();
-                if (diskFile.exists()) {
-                	newPath =new Path(diskFile.getAbsolutePath());
-                } else {
-                    IFile iFile = archiveComp.getUnderlyingWorkbenchFile();
-                    if (!entries.contains(iFile.getFullPath())){
-                        newPath = iFile.getFullPath();
-                    }
-                }
-            } else {
-                IProject project = comp.getProject();
-                newPath = project.getFullPath();    
-            }
+            	if( comp instanceof IClasspathDependencyComponent )
+            		continue;
+            	newPath = (IPath)comp.getAdapter(IPath.class);
+            } else
+                newPath = comp.getProject().getFullPath();    
             
-        	if( newPath != null )
-            {
+        	if( newPath != null && !entries.contains(newPath))
                 entries.add( newPath );
-        	}
         }
         
         for( int i = 0; i < this.paths.length; i++ )
