@@ -56,12 +56,12 @@ public class ProjectRefactorMetadata {
 	
 	private int _virtualCompCaching = NON_CACHING;
 	private final IProject _project;
-	private IServer[] servers;
+	private Map<IModule, IServer[]> serverMap;
 	private IVirtualComponent virtualComp = null;
 	private final List dependentMetadata = new ArrayList();
 	private boolean javaNature;
 	private boolean moduleCoreNature;
-	private IModule module;
+	private IModule[] modules;
 	private Set facets = new HashSet();
 	private final Map earToModuleURI = new HashMap();
 	
@@ -90,12 +90,15 @@ public class ProjectRefactorMetadata {
 					virtualComp = ComponentCore.createComponent(_project);			
 				}
 				final IFacetedProject facetedProject = ProjectFacetsManager.create(_project);
-				module = ServerUtil.getModule(_project);
+				modules = ServerUtil.getModules(_project);
                 // XXX Due to resource change listener order uncertainty, the project associated with the
                 // module may be either the new (correct) project or the old project so need to try both
-                if (module == null && !_project.equals(oldProject)) {
-                    module = ServerUtil.getModule(oldProject);
+                if ((modules == null || modules.length == 0 )&& !_project.equals(oldProject)) {
+                    modules = ServerUtil.getModules(oldProject);
                 }
+                if( modules == null )
+                	modules = new IModule[]{};
+                
                 if (facetedProject != null) {
                     facets = facetedProject.getProjectFacets();
                 }
@@ -106,11 +109,29 @@ public class ProjectRefactorMetadata {
 	}
 
 	public void computeServers() {
-		servers = ServerUtil.getServersByModule(module, null);
+		serverMap = new HashMap<IModule, IServer[]>();
+		for( int i = 0; i < modules.length; i++ ) {
+			serverMap.put(modules[i],ServerUtil.getServersByModule(modules[i], null));
+		}
 	}
 	
+	/**
+	 * This will get the servers for the first module of the project
+	 */
+	@Deprecated
 	public IServer[] getServers() {
-		return servers;
+		if( modules == null || modules.length == 0 )
+			return new IServer[]{};
+		return serverMap.get(modules[0]);
+	}
+	
+	/**
+	 * Get the list of servers this module is on
+	 * @param module
+	 * @return
+	 */
+	public IServer[] getServers(IModule module) {
+		return serverMap.get(module);
 	}
 	
 	public void computeDependentMetadata(final int virtualComponentCaching, final IProject[] dependentProjects) {
@@ -162,8 +183,17 @@ public class ProjectRefactorMetadata {
 	 * Retrieves the IModule for the project, or null if no IModule representation
 	 * exists.
 	 */
+	@Deprecated
 	public IModule getModule() {
-		return module;
+		return modules == null || modules.length == 0 ? null : modules[0];
+	}
+	
+	/**
+	 * Get all modules in this project
+	 * @return
+	 */
+	public IModule[] getModules() {
+		return modules;
 	}
 	
 	/**

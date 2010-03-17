@@ -45,7 +45,6 @@ import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IServer;
 import org.eclipse.wst.server.core.IServerWorkingCopy;
 import org.eclipse.wst.server.core.ServerUtil;
-import org.eclipse.wst.server.core.internal.DeletedModule;
 
 /**
  * Listens for project rename/delete events and, if the project had the
@@ -212,32 +211,32 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 		WorkspaceJob job = new WorkspaceJob("ServerRefreshJob") { //$NON-NLS-1$
 			@Override
 			public IStatus runInWorkspace(IProgressMonitor monitor) throws CoreException {
-				final IModule moduleToRemove = refactorMetadata.getModule();
-				if (moduleToRemove == null) {
+				final IModule[] modulesToRemove = refactorMetadata.getModules();
+				if (modulesToRemove == null || modulesToRemove.length == 0) {
 					return Status.OK_STATUS;
 				}
 				// Need to replace the original module with a DeletedModule
-				final IModule[] toUpdate = new IModule[1];
-				toUpdate[0] = new DeletedModule(moduleToRemove.getId(), moduleToRemove
-						.getName(), moduleToRemove.getModuleType());
-				IServer[] affectedServers = refactorMetadata.getServers();
-				IServerWorkingCopy wc = null;
-				for (int i = 0; i < affectedServers.length; i++) {
-					try {
-						wc = affectedServers[i].createWorkingCopy();
-						List list = Arrays.asList(affectedServers[i].getModules());
-						if (list.contains(moduleToRemove)) {
-							ServerUtil.modifyModules(wc, null, toUpdate, null);
-						}
-					} catch (CoreException ce) {
-						J2EEPlugin.logError(ce);
-					} finally {
+				final IModule[] toUpdate = new IModule[modulesToRemove.length];
+				for( int j = 0; j < toUpdate.length; j++ ) {
+					IServer[] affectedServers = refactorMetadata.getServers(toUpdate[j]);
+					IServerWorkingCopy wc = null;
+					for (int i = 0; i < affectedServers.length; i++) {
 						try {
-							if (wc != null) {
-								wc.saveAll(true, null);
+							wc = affectedServers[i].createWorkingCopy();
+							List list = Arrays.asList(affectedServers[i].getModules());
+							if (list.contains(modulesToRemove[j])) {
+								ServerUtil.modifyModules(wc, null, new IModule[]{toUpdate[j]}, null);
 							}
 						} catch (CoreException ce) {
 							J2EEPlugin.logError(ce);
+						} finally {
+							try {
+								if (wc != null) {
+									wc.saveAll(true, null);
+								}
+							} catch (CoreException ce) {
+								J2EEPlugin.logError(ce);
+							}
 						}
 					}
 				}
