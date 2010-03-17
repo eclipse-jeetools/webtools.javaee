@@ -362,7 +362,8 @@ public abstract class ComponentDeployable extends ProjectModule {
 	
 	protected void addUtilMember(IVirtualComponent parent, IVirtualReference reference, IPath runtimePath) {
 		IModuleFile mf = null;
-		final String archiveName = reference.getArchiveName();
+		final String archiveName2 = reference.getArchiveName();
+		final String archiveName = new Path(archiveName2).lastSegment();
 		final IVirtualComponent virtualComp = reference.getReferencedComponent();
 		final IPath archivePath = ((VirtualArchiveComponent)virtualComp).getWorkspaceRelativePath();
 		if (archivePath != null) { //In Workspace

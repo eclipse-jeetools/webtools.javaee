@@ -82,7 +82,7 @@ public class EARComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter 
 			}
 			try {
 				IArchive nestedModuleArchive = JavaEEArchiveUtilities.INSTANCE.openArchive(referencedComponent);
-				String sPath = reference.getArchiveName();
+				String sPath = new Path(reference.getArchiveName()).lastSegment();
 				String srtp = reference.getRuntimePath().toString();
 				if (srtp.startsWith("" + IPath.SEPARATOR)) srtp = srtp.substring(1);
 				String spt = srtp + IPath.SEPARATOR + sPath;
