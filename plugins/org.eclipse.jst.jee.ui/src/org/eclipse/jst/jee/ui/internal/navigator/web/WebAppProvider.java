@@ -1,5 +1,5 @@
 /***********************************************************************
- * Copyright (c) 2008 by SAP AG, Walldorf. 
+ * Copyright (c) 2008, 2010 by SAP AG, Walldorf. 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,7 +16,7 @@ import java.util.List;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.javaee.core.JavaEEObject;
 import org.eclipse.jst.javaee.web.WebApp;
 import org.eclipse.jst.jee.ui.internal.Messages;
@@ -32,13 +32,11 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
  * Content and Label Provider helper class for WebApp element.
  * 
  * @author Dimitar Giormov
- *
+ * @author Kaloyan Raev
  */
 public class WebAppProvider extends AbstractWebGroupProvider implements IAdaptable {
   
-  
 	private static final String PROJECT_RELATIVE_PATH = "WEB-INF/web.xml"; //$NON-NLS-1$
-	
 	
 	private GroupErrorPagesItemProvider errors;
 	private GroupServletItemProvider servlets;
@@ -53,15 +51,13 @@ public class WebAppProvider extends AbstractWebGroupProvider implements IAdaptab
 	private List<Object> children = new ArrayList<Object>();
 	
 	private String text;
-	private Image WEB_APP_IMAGE;
+	
+	private Image web25Image;
+	private Image web30Image;
 	
 	private IProject prjct = null;
 	private IFile ddFile = null;
 
-
-  
-
-	
 	public WebAppProvider(WebApp webApp, IProject project) {
 		super(webApp);
 		text = NLS.bind(Messages.DEPLOYMENT_DESCRIPTOR, project.getName());
@@ -85,6 +81,7 @@ public class WebAppProvider extends AbstractWebGroupProvider implements IAdaptab
 		children.add(welcome);
 		prjct = project;
 	}
+	
 	@Override
 	public List getChildren(){
 		return children;
@@ -94,19 +91,22 @@ public class WebAppProvider extends AbstractWebGroupProvider implements IAdaptab
 	public String getText(){
 		return text;
 	}
+	
 	@Override
 	public Image getImage() {
-		if (WEB_APP_IMAGE == null) {
-			ImageDescriptor imageWebDescriptor = JEEUIPlugin.getDefault()
-			.getImageDescriptor(JEEUIPluginIcons.IMG_WEBEEMODEL);
-			WEB_APP_IMAGE = imageWebDescriptor.createImage();
+		String version = ((WebApp) javaee).getVersion().getLiteral();
+		if (J2EEVersionConstants.VERSION_2_5_TEXT.equals(version)) {
+			return getWeb25Image();
+		} else if (J2EEVersionConstants.VERSION_3_0_TEXT.equals(version)) {
+			return getWeb30Image();
 		}
-		return WEB_APP_IMAGE;
+		return getWeb25Image();
 	}
 
 	public IProject getProject(){
 		return prjct;
 	}
+	
 	public IFile getDDFile() {
 		if (ddFile != null){
 			return ddFile;
@@ -123,12 +123,25 @@ public class WebAppProvider extends AbstractWebGroupProvider implements IAdaptab
 			((AbstractGroupProvider)child).reinit(modelObject);
 		}
 	}
-	
 
 	public Object getAdapter(Class adapter) {
 		if (IProject.class == adapter){
 			return getProject();
 		}
 		return null;
+	}
+	
+	private Image getWeb25Image() {
+		if (web25Image == null) {
+			web25Image = JEEUIPlugin.getDefault().getImageDescriptor(JEEUIPluginIcons.IMG_WEBEEMODEL).createImage();
+		}
+		return web25Image;
+	}
+	
+	private Image getWeb30Image() {
+		if (web30Image == null) {
+			web30Image = JEEUIPlugin.getDefault().getImageDescriptor(JEEUIPluginIcons.IMG_WEBEE6MODEL).createImage();
+		}
+		return web30Image;
 	}
 }

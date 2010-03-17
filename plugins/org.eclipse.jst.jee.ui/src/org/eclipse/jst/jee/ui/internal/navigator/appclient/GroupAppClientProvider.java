@@ -1,5 +1,5 @@
 /***********************************************************************
- * Copyright (c) 2008 by SAP AG, Walldorf. 
+ * Copyright (c) 2008, 2010 by SAP AG, Walldorf. 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,7 +16,7 @@ import java.util.List;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.javaee.applicationclient.ApplicationClient;
 import org.eclipse.jst.jee.ui.internal.Messages;
 import org.eclipse.jst.jee.ui.plugin.JEEUIPlugin;
@@ -30,7 +30,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
  * Application Client 5.0 Deployment Descriptor node.
  * 
  * @author Dimitar Giormov
- * 
+ * @author Kaloyan Raev
  */
 public class GroupAppClientProvider extends AbstractAppClientGroupProvider implements IAdaptable {
 
@@ -45,7 +45,8 @@ public class GroupAppClientProvider extends AbstractAppClientGroupProvider imple
 
 	private static final String PROJECT_RELATIVE_PATH = "META-INF/application-client.xml"; //$NON-NLS-1$
 	
-	private static Image APP_CLIENT50;
+	private Image appClient50Image;
+	private Image appClient60Image;
 
 	private IFile ddFile;
 
@@ -79,11 +80,13 @@ public class GroupAppClientProvider extends AbstractAppClientGroupProvider imple
 	
 	@Override
 	public Image getImage() {
-		if (APP_CLIENT50 == null) {
-			ImageDescriptor imageDescriptor = JEEUIPlugin.getDefault().getImageDescriptor(JEEUIPluginIcons.APP_CLIENT50);
-			APP_CLIENT50 = imageDescriptor.createImage();
+		String version = ((ApplicationClient) javaee).getVersion();
+		if (J2EEVersionConstants.VERSION_5_TEXT.equals(version)) {
+			return getAppClient50Image();
+		} else if (J2EEVersionConstants.VERSION_6_TEXT.equals(version)) {
+			return getAppClient60Image();
 		}
-		return APP_CLIENT50;
+		return getAppClient50Image();
 	}
 	
 	public IFile getDDFile() {
@@ -105,4 +108,19 @@ public class GroupAppClientProvider extends AbstractAppClientGroupProvider imple
 		}
 		return null;
 	}
+
+	private Image getAppClient50Image() {
+		if (appClient50Image == null) {
+			appClient50Image = JEEUIPlugin.getDefault().getImageDescriptor(JEEUIPluginIcons.APP_CLIENT50).createImage();
+		}
+		return appClient50Image;
+	}
+
+	private Image getAppClient60Image() {
+		if (appClient60Image == null) {
+			appClient60Image = JEEUIPlugin.getDefault().getImageDescriptor(JEEUIPluginIcons.APP_CLIENT60).createImage();
+		}
+		return appClient60Image;
+	}
+	
 }

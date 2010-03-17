@@ -1,5 +1,5 @@
 /***********************************************************************
- * Copyright (c) 2008 by SAP AG, Walldorf. 
+ * Copyright (c) 2008, 2010 by SAP AG, Walldorf. 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,7 +17,6 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jst.j2ee.componentcore.util.EARVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.javaee.application.Application;
@@ -36,13 +35,14 @@ import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
  * Ear 5 Deployment descriptor node.
  * 
  * @author Dimitar Giormov
- *
+ * @author Kaloyan Raev
  */
 public class GroupEARProvider extends AbstractEarGroupProvider implements IAdaptable {
 
 	private static final String PROJECT_RELATIVE_PATH = "META-INF/application.xml"; //$NON-NLS-1$
 	public final static String EAR_DEFAULT_LIB = "lib"; //$NON-NLS-1$
-	private static Image EAR_IMAGE;
+	private static Image ear50Image;
+	private static Image ear60Image;
 	private EARVirtualComponent earComponent;
 	private IFile ddFile;
 	
@@ -104,21 +104,20 @@ public class GroupEARProvider extends AbstractEarGroupProvider implements IAdapt
 
 	@Override
 	public Image getImage() {
-		return getEarImage();
-	}
-
-	public static Image getEarImage() {
-		if (EAR_IMAGE == null) {
-			ImageDescriptor imageDescriptor = JEEUIPlugin.getDefault().getImageDescriptor(JEEUIPluginIcons.EAR_IMAGE);
-			EAR_IMAGE = imageDescriptor.createImage();
+		String version = ((Application) javaee).getVersion();
+		if (J2EEVersionConstants.VERSION_5_TEXT.equals(version)) {
+			return getEar50Image();
+		} else if (J2EEVersionConstants.VERSION_6_TEXT.equals(version)) {
+			return getEar60Image();
 		}
-		return EAR_IMAGE;
+		return getEar50Image();
 	}
 
 	@Override
 	public boolean hasChildren() {
 		return !getChildren().isEmpty();
 	}
+	
 	public IFile getDDFile() {
 		if (ddFile != null){
 			return ddFile;
@@ -133,6 +132,20 @@ public class GroupEARProvider extends AbstractEarGroupProvider implements IAdapt
 			return getProject();
 		}
 		return null;
+	}
+
+	private Image getEar50Image() {
+		if (ear50Image == null) {
+			ear50Image = JEEUIPlugin.getDefault().getImageDescriptor(JEEUIPluginIcons.EAR_IMAGE).createImage();
+		}
+		return ear50Image;
+	}
+
+	private Image getEar60Image() {
+		if (ear60Image == null) {
+			ear60Image = JEEUIPlugin.getDefault().getImageDescriptor(JEEUIPluginIcons.EAR6_IMAGE).createImage();
+		}
+		return ear60Image;
 	}
 
 }

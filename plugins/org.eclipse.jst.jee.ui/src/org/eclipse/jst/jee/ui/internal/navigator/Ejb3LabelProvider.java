@@ -1,5 +1,5 @@
 /***********************************************************************
- * Copyright (c) 2008 by SAP AG, Walldorf. 
+ * Copyright (c) 2008, 2010 by SAP AG, Walldorf. 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@ import java.net.URL;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.provider.J2EEAdapterFactoryLabelProvider;
 import org.eclipse.jst.j2ee.navigator.internal.IJ2EENavigatorConstants;
@@ -41,65 +42,61 @@ import org.eclipse.wst.common.internal.emfworkbench.integration.DynamicAdapterFa
  * used for decorating of the descriptor tree in project explorer. 
  * 
  * @author Dimitar Giormov
+ * @author Kaloyan Raev
  */
 public class Ejb3LabelProvider extends J2EELabelProvider {
+	
+	private Image ejb30Image;
+	private Image ejb31Image;
+	private Image sessionBeanImage;
+	private Image mdbImage;
+	private Image cmpImage;
+	private Image ejbRefImage;
+	private Image resourceRefImage;
+	private Image serviceRefImage;
+	private Image activationConfigImage;
 
-  public Ejb3LabelProvider() {
-    new J2EEAdapterFactoryLabelProvider(new DynamicAdapterFactory(IJ2EENavigatorConstants.VIEWER_ID));
-  }
+	public Ejb3LabelProvider() {
+		new J2EEAdapterFactoryLabelProvider(new DynamicAdapterFactory(IJ2EENavigatorConstants.VIEWER_ID));
+	}
+	
 	@Override
 	public Image getImage(Object element) {
-		Image ret = null;
-		if(element instanceof LoadingDDNode)
-          return ((LoadingDDNode)element).getImage();
-      if (element instanceof IProject || element instanceof IJavaProject)
-          return null;
-      if(element instanceof GroupEJBProvider) {
-        ImageDescriptor imageDescriptor = JEEUIPlugin.getDefault().getImageDescriptor(JEEUIPluginIcons.IMG_EJBEEMODEL);
-        return imageDescriptor.createImage();
-      }
-      if(element instanceof AbstractDDNode){
-        return ((AbstractDDNode)element ).getImage();
-        
-      }
+		if(element instanceof LoadingDDNode) {
+			return ((LoadingDDNode)element).getImage();		
+		} else if (element instanceof IProject || element instanceof IJavaProject) {
+			return null;
+		} else if (element instanceof GroupEJBProvider) {
+			String version = ((GroupEJBProvider) element).getEjbJar().getVersion();
+			if (J2EEVersionConstants.VERSION_3_0_TEXT.equals(version)) {
+				return getEjb30Image();
+			} else if (J2EEVersionConstants.VERSION_3_1_TEXT.equals(version)) {
+				return getEjb31Image();
+			}
+			return getEjb30Image();
+		} else if(element instanceof AbstractDDNode) {
+			return ((AbstractDDNode) element).getImage();
+		} else if (element instanceof SessionBean) {
+			return getSessionBeanImage();
+		} else if (element instanceof MessageDrivenBean) {
+			return getMDBImage();
+		} else if (element instanceof EntityBean){
+			return getCMPImage();
+		} else if (element instanceof EjbLocalRef || element instanceof EjbRef) {
+			return getEjbRefImage();
+		} else if (element instanceof EnvEntry) {
+			return getResourceRefImage();
+		} else if (element instanceof ResourceEnvRef) {
+			return getResourceRefImage();
+		} else if (element instanceof ResourceRef) {
+			return getResourceRefImage();
+		} else if (element instanceof ServiceRef) {
+			return getServiceRefImage();
+		} else if(element instanceof ActivationConfigProperty) {
+			return getActivationConfigImage();
+		}
       
-      if (element instanceof SessionBean){
-        URL url = (URL) J2EEPlugin.getPlugin().getImage("sessionBean_obj"); //$NON-NLS-1$
-        return ImageDescriptor.createFromURL(url).createImage();
-      }
-      
-      if (element instanceof MessageDrivenBean){
-        URL url = (URL) J2EEPlugin.getPlugin().getImage("message_bean_obj"); //$NON-NLS-1$
-        return ImageDescriptor.createFromURL(url).createImage();
-      }
-      
-      if (element instanceof EntityBean){
-        URL url = (URL) J2EEPlugin.getPlugin().getImage("cmpEntity_obj"); //$NON-NLS-1$
-        return ImageDescriptor.createFromURL(url).createImage();
-      }
-      if (element instanceof EjbLocalRef || element instanceof EjbRef){
-        URL url = (URL) J2EEPlugin.getPlugin().getImage("ejbRef_obj"); //$NON-NLS-1$
-        return ImageDescriptor.createFromURL(url).createImage();
-      } else if (element instanceof EnvEntry){
-        URL url = (URL) J2EEPlugin.getPlugin().getImage("resourceRef_obj"); //$NON-NLS-1$
-        return ImageDescriptor.createFromURL(url).createImage();
-      } else if (element instanceof ResourceEnvRef){
-        URL url = (URL) J2EEPlugin.getPlugin().getImage("resourceRef_obj"); //$NON-NLS-1$
-        return ImageDescriptor.createFromURL(url).createImage();
-      } else if (element instanceof ResourceRef){
-        URL url = (URL) J2EEPlugin.getPlugin().getImage("resourceRef_obj"); //$NON-NLS-1$
-        return ImageDescriptor.createFromURL(url).createImage();
-      } else if (element instanceof ServiceRef){
-        URL url = (URL) J2EEPlugin.getPlugin().getImage("attribute_obj"); //$NON-NLS-1$
-        return ImageDescriptor.createFromURL(url).createImage();
-      } else if(element instanceof ActivationConfigProperty){
-        URL url = (URL) J2EEPlugin.getPlugin().getImage("access_intent_obj"); //$NON-NLS-1$
-        return ImageDescriptor.createFromURL(url).createImage();
-      }
-      
-      
-        
-      return ret;
+		return null;
 	}
 
 	@Override
@@ -123,7 +120,7 @@ public class Ejb3LabelProvider extends J2EELabelProvider {
 		  ret = ((ResourceRef) element).getResRefName();
 		} else if (element instanceof ServiceRef){
 		  ret = ((ServiceRef) element).getServiceRefName();
-		}else if(element instanceof ActivationConfigProperty){
+		} else if(element instanceof ActivationConfigProperty){
 		  ret = ((ActivationConfigProperty)element).getActivationConfigPropertyName() + ":" +((ActivationConfigProperty)element).getActivationConfigPropertyValue(); //$NON-NLS-1$
 	    }
 
@@ -144,5 +141,74 @@ public class Ejb3LabelProvider extends J2EELabelProvider {
 		return description;
 	}
 	
+	private Image getEjb30Image() {
+		if (ejb30Image == null) {
+			ejb30Image = JEEUIPlugin.getDefault().getImageDescriptor(JEEUIPluginIcons.IMG_EJBEEMODEL).createImage();
+		}
+		return ejb30Image;
+	}
+	
+	private Image getEjb31Image() {
+		if (ejb31Image == null) {
+			ejb31Image = JEEUIPlugin.getDefault().getImageDescriptor(JEEUIPluginIcons.IMG_EJBEE6MODEL).createImage();
+		}
+		return ejb31Image;
+	}
+	
+	private Image getSessionBeanImage() {
+		if (sessionBeanImage == null) {
+			URL url = (URL) J2EEPlugin.getPlugin().getImage("sessionBean_obj"); //$NON-NLS-1$
+	        sessionBeanImage = ImageDescriptor.createFromURL(url).createImage();
+		}
+		return sessionBeanImage;
+	}
+	
+	private Image getMDBImage() {
+		if (mdbImage == null) {
+			URL url = (URL) J2EEPlugin.getPlugin().getImage("message_bean_obj"); //$NON-NLS-1$
+	        mdbImage = ImageDescriptor.createFromURL(url).createImage();
+		}
+		return mdbImage;
+	}
+	
+	private Image getCMPImage() {
+		if (cmpImage == null) {
+			URL url = (URL) J2EEPlugin.getPlugin().getImage("cmpEntity_obj"); //$NON-NLS-1$
+	        cmpImage = ImageDescriptor.createFromURL(url).createImage();
+		}
+		return cmpImage;
+	}
+	
+	private Image getEjbRefImage() {
+		if (ejbRefImage == null) {
+			URL url = (URL) J2EEPlugin.getPlugin().getImage("ejbRef_obj"); //$NON-NLS-1$
+	        ejbRefImage = ImageDescriptor.createFromURL(url).createImage();
+		}
+		return ejbRefImage;
+	}
+	
+	private Image getResourceRefImage() {
+		if (resourceRefImage == null) {
+			URL url = (URL) J2EEPlugin.getPlugin().getImage("resourceRef_obj"); //$NON-NLS-1$
+	        resourceRefImage = ImageDescriptor.createFromURL(url).createImage();
+		}
+		return resourceRefImage;
+	}
+	
+	private Image getServiceRefImage() {
+		if (serviceRefImage == null) {
+			URL url = (URL) J2EEPlugin.getPlugin().getImage("attribute_obj"); //$NON-NLS-1$
+	        serviceRefImage = ImageDescriptor.createFromURL(url).createImage();
+		}
+		return serviceRefImage;
+	}
+	
+	private Image getActivationConfigImage() {
+		if (activationConfigImage == null) {
+			URL url = (URL) J2EEPlugin.getPlugin().getImage("access_intent_obj"); //$NON-NLS-1$
+			activationConfigImage = ImageDescriptor.createFromURL(url).createImage();
+		}
+		return activationConfigImage;
+	}
 
 }
