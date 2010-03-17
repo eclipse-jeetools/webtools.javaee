@@ -87,7 +87,7 @@ public class EARComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter 
 			} catch (ArchiveOpenFailureException e) {
 				caughtException = e;
 			} 
-			String sPath = reference.getArchiveName();
+			String sPath = new Path(reference.getArchiveName()).lastSegment();
 			String srtp = reference.getRuntimePath().toString();
 			if (srtp.startsWith("" + IPath.SEPARATOR)) srtp = srtp.substring(1); //$NON-NLS-1$
 			String spt = srtp + IPath.SEPARATOR + sPath;
