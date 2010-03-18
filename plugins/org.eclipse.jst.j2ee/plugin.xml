@@ -692,7 +692,7 @@
    </extension>
    
    <extension
-         point="org.eclipse.core.runtime.contentTypes">
+         point="org.eclipse.core.contenttype.contentTypes">
       <content-type
             file-names="ejb-jar.xml"
             id="ejbDD"
@@ -706,7 +706,7 @@
   	</extension>   
   	
   	 <extension
-         point="org.eclipse.core.runtime.contentTypes">
+         point="org.eclipse.core.contenttype.contentTypes">
       <content-type
             file-names="web.xml"
             id="webDD"
@@ -720,7 +720,7 @@
   	</extension>   
   	
   	 <extension
-         point="org.eclipse.core.runtime.contentTypes">
+         point="org.eclipse.core.contenttype.contentTypes">
       <content-type
             file-names="application.xml"
             id="earDD"
@@ -735,7 +735,7 @@
   	
   	
   	 <extension
-         point="org.eclipse.core.runtime.contentTypes">
+         point="org.eclipse.core.contenttype.contentTypes">
       <content-type
             file-names="application-client.xml"
             id="appclientDD"
@@ -749,7 +749,7 @@
   	</extension>   
   	
   	<extension
-         point="org.eclipse.core.runtime.contentTypes">
+         point="org.eclipse.core.contenttype.contentTypes">
       <content-type
             file-names="ra.xml"
             id="connectorDD"

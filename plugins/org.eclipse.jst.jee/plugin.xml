@@ -182,7 +182,7 @@
       </moduleFactory>
    </extension>
    <extension
-         point="org.eclipse.core.runtime.contentTypes">
+         point="org.eclipse.core.contenttype.contentTypes">
       <content-type
             file-names="ejb-jar.xml"
             id="ee5ejbDD"
@@ -196,7 +196,7 @@
   	</extension>   
   	
   	<extension
-         point="org.eclipse.core.runtime.contentTypes">
+         point="org.eclipse.core.contenttype.contentTypes">
       <content-type
             file-names="ejb-jar.xml"
             id="ee6ejbDD"
@@ -210,7 +210,7 @@
   	</extension>   
   	
   	 <extension
-         point="org.eclipse.core.runtime.contentTypes">
+         point="org.eclipse.core.contenttype.contentTypes">
       <content-type
             file-names="web.xml"
             id="ee5webDD"
@@ -224,7 +224,7 @@
   	</extension>   
   	
   	 <extension
-         point="org.eclipse.core.runtime.contentTypes">
+         point="org.eclipse.core.contenttype.contentTypes">
       <content-type
             file-names="web.xml"
             id="ee6webDD"
@@ -238,7 +238,7 @@
   	</extension> 
   	
   	<extension
-         point="org.eclipse.core.runtime.contentTypes">
+         point="org.eclipse.core.contenttype.contentTypes">
       <content-type
             file-names="web-fragment.xml"
             id="ee6webfragmentDD"
@@ -253,7 +253,7 @@
   	
   	  	
   	 <extension
-         point="org.eclipse.core.runtime.contentTypes">
+         point="org.eclipse.core.contenttype.contentTypes">
       <content-type
             file-names="application.xml"
             id="ee5earDD"
@@ -267,7 +267,7 @@
   	</extension>   
   	
  	<extension
-         point="org.eclipse.core.runtime.contentTypes">
+         point="org.eclipse.core.contenttype.contentTypes">
       <content-type
             file-names="application.xml"
             id="ee6earDD"
@@ -281,7 +281,7 @@
   	</extension> 
   	
   	 <extension
-         point="org.eclipse.core.runtime.contentTypes">
+         point="org.eclipse.core.contenttype.contentTypes">
       <content-type
             file-names="application-client.xml"
             id="ee5appclientDD"
@@ -295,7 +295,7 @@
   	</extension>
   	
   	<extension
-         point="org.eclipse.core.runtime.contentTypes">
+         point="org.eclipse.core.contenttype.contentTypes">
       <content-type
             file-names="application-client.xml"
             id="ee6appclientDD"
@@ -309,7 +309,7 @@
   	</extension>
  
   	 <extension
-         point="org.eclipse.core.runtime.contentTypes">
+         point="org.eclipse.core.contenttype.contentTypes">
       <content-type
             file-names="ra.xml"
             id="ee6connectorDD"
