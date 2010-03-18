@@ -187,7 +187,7 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 		// since 2.0, for java ee projects
 		node.putBoolean(Keys.APPLICATION_GENERATE_DD, false);
 		// for ee5 jee web projects default it to true so that we can create servlets, otherwise false
-		node.putBoolean(Keys.DYNAMIC_WEB_GENERATE_DD, true);
+		node.putBoolean(Keys.DYNAMIC_WEB_GENERATE_DD, false);
 		node.putBoolean(Keys.EJB_GENERATE_DD, false);
 		node.putBoolean(Keys.APP_CLIENT_GENERATE_DD, false);	
 		node.putBoolean(Keys.EE6_CONNECTOR_GENERATE_DD, false);
