@@ -234,8 +234,7 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 	
 	@Override
 	public IVirtualReference[] getReferences(Map<String, Object> options) {
-		Object displayable = options.get(IVirtualComponent.DISPLAYABLE_REFERENCES);
-		if( displayable != null && displayable instanceof Boolean && ((Boolean)displayable).booleanValue()) {
+		if( isTrue(options.get(IVirtualComponent.DISPLAYABLE_REFERENCES))) {
 			List<IVirtualReference> hardReferences = getHardReferences(this);
 			IVirtualComponent imported = new ClasspathDependencyContainerVirtualComponent(
 					getProject(), this);
@@ -244,7 +243,16 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 			hardReferences.add(importedRef);
 			return hardReferences.toArray(new IVirtualReference[hardReferences.size()]);
 		}
+		
+		if( isTrue(options.get(IVirtualComponent.DISPLAYABLE_REFERENCES))) {
+			List<IVirtualReference> hardReferences = getHardReferences(this);
+			return hardReferences.toArray(new IVirtualReference[hardReferences.size()]);
+		}
 		return getReferences();
+	}
+	
+	private boolean isTrue(Object parameter) {
+		return parameter != null && parameter instanceof Boolean && ((Boolean)parameter).booleanValue();
 	}
 	
 	// Returns cache if still valid or null
