@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.runtime.CoreException;
@@ -45,7 +46,6 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
-import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
@@ -154,19 +154,16 @@ public class AvailableJ2EEComponentsForEARContentProvider extends LabelProvider
 	}
 	
 	private boolean shouldShow(IVirtualComponent component) {
-		if (!(component instanceof VirtualArchiveComponent)) 
+		if (!component.isBinary()) 
 			return true;
 		
-		VirtualArchiveComponent comp = (VirtualArchiveComponent)component;
-		if(comp.getWorkspaceRelativePath() == null || !comp.getWorkspaceRelativePath().segment(0).equals(earComponent.getName()))
+		IFile workspaceFile = (IFile)component.getAdapter(IFile.class);
+		if( workspaceFile == null ) 
+			return true;
+		if( workspaceFile.getFullPath().segment(0).equals(earComponent.getName()))
 			return true;
 		
-		IPath p = null;
-		try {
-			p = comp.getProjectRelativePath();
-		} catch (IllegalArgumentException e) {
-			return true;
-		}
+		IPath p = workspaceFile.getProjectRelativePath();
 		if ((p == null) || (p.segmentCount() == 0))
 			return true;	
 		IContainer f  = earComponent.getRootFolder().getUnderlyingFolder();
@@ -213,10 +210,9 @@ public class AvailableJ2EEComponentsForEARContentProvider extends LabelProvider
 				if (comp != null) {
 					// replace with a temp VirtualArchiveComponent whose IProject is set to a new pseudo name that is
 					// the concatenation of all project contributions for that archive
-					if (comp instanceof VirtualArchiveComponent) {
-						final VirtualArchiveComponent oldComp = (VirtualArchiveComponent) comp;
+					if (comp.isBinary()) {
 						componentList.remove(comp);
-						final VirtualArchiveComponent newComponent = ClassPathSelection.updateDisplayVirtualArchiveComponent(oldComp, cpRefs[j]);
+						IVirtualComponent newComponent = ClassPathSelection.updateVirtualArchiveComponentDisplay(comp, cpRefs[j]);
 						pathToComp.put(path, newComponent);
 						componentList.add(newComponent);
 					}

@@ -16,6 +16,7 @@ import org.eclipse.swt.widgets.Composite;
 /**
  * Interface for classes that implement a portion the "J2EE Module Dependencies"
  * property page logic.
+ * @deprecated wtp 3.2
  */
 public interface IJ2EEDependenciesControl extends ICommonManifestUIConstants {
 	

@@ -22,6 +22,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * Supports UI manipulation of the published/exported classpath entries for projects referenced by dynamic web projects.
+ * @deprecated wtp 3.2
  */
 public class WebRefDependencyPropertiesPage extends JARDependencyPropertiesPage {
 

@@ -35,7 +35,6 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
-import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -114,19 +113,15 @@ public class J2EEUtilityJarItemProvider extends J2EEItemProvider {
 				for (int i = 0; i < modules.length; i++) {
 					IVirtualComponent module = modules[i].getReferencedComponent();
 					if (module.isBinary()) {
-						VirtualArchiveComponent virtualArchiveComponent = (VirtualArchiveComponent) module;
-						java.io.File diskFile = virtualArchiveComponent.getUnderlyingDiskFile();
-						if (diskFile.exists())
-							children.add(diskFile);
+						IFile utilityJar = (IFile)module.getAdapter(IFile.class);
+						if (utilityJar != null)
+							children.add(utilityJar);
 						else {
-							// we will assume the component name is in synch with the module uri
-							IFile utilityJar = virtualArchiveComponent.getUnderlyingWorkbenchFile();
-							if (utilityJar != null)
-								children.add(utilityJar);
+							java.io.File diskFile = (java.io.File)module.getAdapter(java.io.File.class);
+							if (diskFile.exists())
+								children.add(diskFile);
 						}
-					} else {
-
-					}
+					} 
 					if (module.getProject() == null || !module.getProject().isAccessible())
 						continue;
 					// return only jars for utility components

@@ -11,6 +11,7 @@
 
 package org.eclipse.jst.j2ee.internal.plugin;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.zip.ZipEntry;
@@ -37,6 +38,7 @@ import org.eclipse.ui.IPersistableElement;
 import org.eclipse.ui.IStorageEditorInput;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 public class BinaryEditorUtilities {
 
@@ -182,24 +184,24 @@ public class BinaryEditorUtilities {
 		}
 	}
 
+	/**
+	 * 
+	 * @param component
+	 * @param archiveRelativePath
+	 * @return
+	 * @deprecated
+	 */
 	public static IEditorInput getBinaryEditorInput(
 			VirtualArchiveComponent component, String archiveRelativePath) {
-		
-		IEditorInput input = null;
-		IPath archivePath = component.getWorkspaceRelativePath();
-		
-		//[Bug 238616] if there is no workspace relative path then the archive is outside
-		//	the workspace so get the OS path directly from the file
-		if(archivePath != null) {
-			input = getBinaryEditorInput(archivePath, archiveRelativePath);
-		} else {
-			String archiveOSPath = component.getUnderlyingDiskFile().getPath();
-			input = getBinaryEditorInput(archiveOSPath, archiveRelativePath);
-		}
-		
-		return input;
+		return getBinaryEditorInput((IVirtualComponent)component, archiveRelativePath);
 	}
 
+	public static IEditorInput getBinaryEditorInput(IVirtualComponent component, String archiveRelativePath) {
+		File f = (File)component.getAdapter(File.class);
+		return getBinaryEditorInput(f.getAbsolutePath(), archiveRelativePath);
+	}
+
+	
 	public static IEditorInput getBinaryEditorInput(IPath archivePath,
 			String archiveRelativePath) {
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();

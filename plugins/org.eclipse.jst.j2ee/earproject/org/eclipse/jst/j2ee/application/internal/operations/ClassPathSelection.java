@@ -314,12 +314,24 @@ public class ClassPathSelection {
 	 * Create a new VirtualArchiveComponent (used only for display purposes) whose IProject is set to a dummy value whose
 	 * name is a concatentation of the existing name and the name of the project associated with the new ref.
 	 * This is used to represent the case where a single unique archive is referenced/contributed by multiple dependent projects.
+	 * @deprecated
 	 */ 
 	public static VirtualArchiveComponent updateDisplayVirtualArchiveComponent(final VirtualArchiveComponent oldComp, final IVirtualReference newRef) {
 		final String newProjName = oldComp.getProject().getName() + " " + newRef.getReferencedComponent().getProject().getName();   //$NON-NLS-1$
 		final IProject newProj = ResourcesPlugin.getWorkspace().getRoot().getProject(newProjName);
 		final VirtualArchiveComponent newComponent = (VirtualArchiveComponent) ComponentCore.createArchiveComponent(newProj, oldComp.getName());
 		return newComponent;
+	}
+
+	/**
+	 * Create a new VirtualArchiveComponent (used only for display purposes) whose IProject is set to a dummy value whose
+	 * name is a concatentation of the existing name and the name of the project associated with the new ref.
+	 * This is used to represent the case where a single unique archive is referenced/contributed by multiple dependent projects.
+	 */
+	public static IVirtualComponent updateVirtualArchiveComponentDisplay(final IVirtualComponent oldComp, final IVirtualReference newRef) {
+		final String newProjName = oldComp.getProject().getName() + " " + newRef.getReferencedComponent().getProject().getName();   //$NON-NLS-1$
+		final IProject newProj = ResourcesPlugin.getWorkspace().getRoot().getProject(newProjName);
+		return ComponentCore.createArchiveComponent(newProj, oldComp.getName());
 	}
 	
 	public ClasspathElement[] createClasspathEntryElements(final IVirtualComponent comp, final IPath archiveRuntimePath, final IPath classFolderRuntimePath) throws CoreException {

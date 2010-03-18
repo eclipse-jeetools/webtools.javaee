@@ -52,6 +52,9 @@ import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 
+/**
+ * @deprecated
+ */
 public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage {
 
 	public WebLibDependencyPropertiesPage(final IProject project, final J2EEDependenciesPage page) {

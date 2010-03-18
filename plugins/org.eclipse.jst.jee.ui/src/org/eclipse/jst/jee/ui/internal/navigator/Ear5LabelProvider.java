@@ -126,8 +126,7 @@ public class Ear5LabelProvider extends J2EELabelProvider {
 			} else if (JavaEEProjectUtilities.isUtilityProject(component.getProject())) {
 				ret = component.getName() + IJ2EEModuleConstants.JAR_EXT;
 			} else if (component.isBinary()) {
-				VirtualArchiveComponent virtualArchiveComponent = (VirtualArchiveComponent)component;
-				String deployedName = virtualArchiveComponent.getDeployedName();
+				String deployedName = component.getDeployedName();
 				Path path = new Path(deployedName);
 				return path.lastSegment();
 			}

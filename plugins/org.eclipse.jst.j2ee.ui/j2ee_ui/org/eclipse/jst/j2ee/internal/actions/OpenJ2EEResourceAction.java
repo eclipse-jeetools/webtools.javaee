@@ -67,7 +67,6 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.ISetSelectionTarget;
-import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
@@ -122,13 +121,13 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 			IEditorInput editorInput = null;
 			
 			//[Bug 237794] if component c is a JEE 5 archive then editorInput needs to be a BinaryEditorInput
-			if (c instanceof VirtualArchiveComponent) {
+			if (c.isBinary()) {
 				JavaEEQuickPeek qp = JavaEEBinaryComponentHelper.getJavaEEQuickPeek(c);
 				//[Bug 239440] because Connectors are opened with the basic XML editor and not a specialized editor they need binary editor input
 				//EE6TODO
 				if( qp.getJavaEEVersion() == JavaEEQuickPeek.JEE_5_0_ID || qp.getType() == JavaEEQuickPeek.CONNECTOR_TYPE) {
 					String path = ((EObject)srcObject).eResource().getURI().toString();
-					editorInput = BinaryEditorUtilities.getBinaryEditorInput((VirtualArchiveComponent)c, path);
+					editorInput = BinaryEditorUtilities.getBinaryEditorInput(c, path);
 				}
 			} 
 			

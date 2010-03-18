@@ -13,7 +13,6 @@ package org.eclipse.jst.j2ee.internal.web.archive.operations;
 import java.io.File;
 import java.util.List;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
@@ -27,7 +26,6 @@ import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.jst.j2ee.project.WebUtilities;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
-import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
@@ -61,12 +59,7 @@ public class WebComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 			IVirtualReference iLibModule = libModules[i];
 			IVirtualComponent looseComponent = iLibModule.getReferencedComponent();
 			if (looseComponent.isBinary()) {
-				VirtualArchiveComponent archiveComp = (VirtualArchiveComponent) looseComponent;
-				java.io.File diskFile = archiveComp.getUnderlyingDiskFile();
-				if (!diskFile.exists()) {
-					IFile wbFile = archiveComp.getUnderlyingWorkbenchFile();
-					diskFile = new File(wbFile.getLocation().toOSString());
-				}
+				java.io.File diskFile = (java.io.File)looseComponent.getAdapter(java.io.File.class);
 				String uri = iLibModule.getRuntimePath().makeRelative().toString() + "/" + diskFile.getName(); //$NON-NLS-1$
 				addExternalFile(uri, diskFile);				
 			} else {
@@ -114,14 +107,9 @@ public class WebComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 				final IPath runtimePath = ref.getRuntimePath();
 				
 				// only process ../ mappings
-				if (ref.getReferencedComponent() instanceof VirtualArchiveComponent
+				if (ref.getReferencedComponent().isBinary()
 						&& runtimePath.equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH)) {
-					final VirtualArchiveComponent comp = (VirtualArchiveComponent) ref.getReferencedComponent();
-					File cpEntryFile = comp.getUnderlyingDiskFile();
-					if (!cpEntryFile.exists()) {
-						final IFile wbFile = comp.getUnderlyingWorkbenchFile();
-						cpEntryFile = new File(wbFile.getLocation().toOSString());
-					}
+					File cpEntryFile = (java.io.File)ref.getReferencedComponent().getAdapter(java.io.File.class);
 					addExternalFile("WEB-INF/lib/" + ref.getArchiveName(), cpEntryFile); //$NON-NLS-1$
 				}
 			}

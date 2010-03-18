@@ -103,7 +103,9 @@ import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
-
+/**
+ * @deprecated wtp 3.2
+ */
 public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, Listener {
 	
 	protected final String PATH_SEPARATOR = AvailableJ2EEComponentsForEARContentProvider.PATH_SEPARATOR;	

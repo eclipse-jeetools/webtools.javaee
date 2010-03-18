@@ -117,6 +117,7 @@ import org.eclipse.wst.common.frameworks.internal.ui.WorkspaceModifyComposedOper
 
 /**
  * @author jialin
+ * @deprecated wtp 3.2
  */
 public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IClasspathTableOwner, Listener, ClasspathModelListener, IElementChangedListener {
 

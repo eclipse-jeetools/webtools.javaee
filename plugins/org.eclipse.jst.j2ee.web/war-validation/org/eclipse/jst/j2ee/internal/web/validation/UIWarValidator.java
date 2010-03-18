@@ -12,7 +12,6 @@ package org.eclipse.jst.j2ee.internal.web.validation;
 
 
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -148,12 +147,7 @@ public class UIWarValidator extends WarValidator {
 			IVirtualComponent comp = webLibs[i].getReferencedComponent();
 			String name = null;
 			if (comp.isBinary()) {
-				VirtualArchiveComponent archiveComp = (VirtualArchiveComponent) comp;
-				java.io.File diskFile = archiveComp.getUnderlyingDiskFile();
-				if (!diskFile.exists()) {
-					IFile wbFile = archiveComp.getUnderlyingWorkbenchFile();
-					diskFile = new File(wbFile.getLocation().toOSString());
-				}
+				java.io.File diskFile = (java.io.File)comp.getAdapter(java.io.File.class);
 				checkLibName(diskFile.getName(), null, webLibMappings, true);
 			} else {
 				String archiveName = webLibs[i].getArchiveName();
