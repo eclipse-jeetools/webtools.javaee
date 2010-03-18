@@ -215,17 +215,15 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 				if (modulesToRemove == null || modulesToRemove.length == 0) {
 					return Status.OK_STATUS;
 				}
-				// Need to replace the original module with a DeletedModule
-				final IModule[] toUpdate = new IModule[modulesToRemove.length];
-				for( int j = 0; j < toUpdate.length; j++ ) {
-					IServer[] affectedServers = refactorMetadata.getServers(toUpdate[j]);
+				for( int j = 0; j < modulesToRemove.length; j++ ) {
+					IServer[] affectedServers = refactorMetadata.getServers(modulesToRemove[j]);
 					IServerWorkingCopy wc = null;
 					for (int i = 0; i < affectedServers.length; i++) {
 						try {
 							wc = affectedServers[i].createWorkingCopy();
 							List list = Arrays.asList(affectedServers[i].getModules());
 							if (list.contains(modulesToRemove[j])) {
-								ServerUtil.modifyModules(wc, null, new IModule[]{toUpdate[j]}, null);
+								ServerUtil.modifyModules(wc, null, new IModule[]{modulesToRemove[j]}, null);
 							}
 						} catch (CoreException ce) {
 							J2EEPlugin.logError(ce);
