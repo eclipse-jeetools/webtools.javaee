@@ -162,9 +162,9 @@
          name="%classpath_component_dependency_validator_UI_"
          point="org.eclipse.wst.validation.validator">
       <validator>
-         <facet
-               facetId="jst.java">
-         </facet>
+         <enablement>
+        		<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.java"/>
+		 </enablement>
          <filter
                objectClass="org.eclipse.core.resources.IFile"
                nameFilter=".classpath">
