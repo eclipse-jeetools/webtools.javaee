@@ -261,7 +261,7 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 			currentDescriptor = getBaseJavaEditorDescriptor();	
 		} else if(isEJB3BeanObject(obj)) {
 			//[241685] if it is a EJB 3 bean the class is specially opened by the run() method
-		}if(obj instanceof org.eclipse.jst.javaee.web.Servlet ){
+		} else if(obj instanceof org.eclipse.jst.javaee.web.Servlet ){
 			srcObject = obj;
 			return true;
 		}else if (obj instanceof EObject) {
