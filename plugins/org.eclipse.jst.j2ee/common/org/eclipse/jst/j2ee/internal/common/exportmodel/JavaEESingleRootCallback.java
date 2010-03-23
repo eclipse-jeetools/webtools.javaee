@@ -29,11 +29,8 @@ import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants.Dependenc
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
-import org.eclipse.wst.common.componentcore.internal.flat.AbstractFlattenParticipant;
 import org.eclipse.wst.common.componentcore.internal.flat.FilterResourceParticipant;
-import org.eclipse.wst.common.componentcore.internal.flat.IFlatResource;
 import org.eclipse.wst.common.componentcore.internal.flat.IFlattenParticipant;
-import org.eclipse.wst.common.componentcore.internal.flat.FlatVirtualComponent.FlatComponentTaskModel;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 public class JavaEESingleRootCallback implements SingleRootParticipantCallback {
@@ -190,18 +187,11 @@ public class JavaEESingleRootCallback implements SingleRootParticipantCallback {
 
 	public IFlattenParticipant[] getDelegateParticipants() {
 		return new IFlattenParticipant[] {
-				createManifestFinalizer(),
+				new ReplaceManifestExportParticipant(new Path(J2EEConstants.MANIFEST_URI)),
+				new JEEHeirarchyExportParticipant(),
 				FilterResourceParticipant.createSuffixFilterParticipant(filteredSuffixes)
 		};
 	}
 	
-	public IFlattenParticipant createManifestFinalizer() {
-		return new AbstractFlattenParticipant() {
-			@Override
-			public void finalize(IVirtualComponent component, 
-					FlatComponentTaskModel dataModel, List<IFlatResource> resources) {
-				new ReplaceManifestExportParticipant(new Path(J2EEConstants.MANIFEST_URI)).forceUpdate(component, dataModel, resources);
-			}
-		};
-	}
+
 }

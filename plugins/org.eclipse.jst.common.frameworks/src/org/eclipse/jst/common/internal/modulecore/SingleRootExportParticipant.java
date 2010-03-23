@@ -20,9 +20,12 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.common.internal.modulecore.SingleRootUtil.SingleRootCallback;
+import org.eclipse.wst.common.componentcore.internal.DependencyType;
 import org.eclipse.wst.common.componentcore.internal.flat.AbstractFlattenParticipant;
+import org.eclipse.wst.common.componentcore.internal.flat.ChildModuleReference;
 import org.eclipse.wst.common.componentcore.internal.flat.FlatFolder;
 import org.eclipse.wst.common.componentcore.internal.flat.FlatResource;
+import org.eclipse.wst.common.componentcore.internal.flat.IChildModuleReference;
 import org.eclipse.wst.common.componentcore.internal.flat.IFlatFile;
 import org.eclipse.wst.common.componentcore.internal.flat.IFlatFolder;
 import org.eclipse.wst.common.componentcore.internal.flat.IFlatResource;
@@ -30,6 +33,7 @@ import org.eclipse.wst.common.componentcore.internal.flat.IFlattenParticipant;
 import org.eclipse.wst.common.componentcore.internal.flat.VirtualComponentFlattenUtility;
 import org.eclipse.wst.common.componentcore.internal.flat.FlatVirtualComponent.FlatComponentTaskModel;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
 /**
  * Single root optimization. 
@@ -39,6 +43,8 @@ public class SingleRootExportParticipant extends AbstractFlattenParticipant {
 	private SingleRootParticipantCallback callbackHandler;
 	private IVirtualComponent rootComponent;
 	private FlatComponentTaskModel dataModel;
+	private IFlattenParticipant[] delegates;
+	private List<IChildModuleReference> children;
 	
 	public interface SingleRootParticipantCallback extends SingleRootCallback {
 		public IFlattenParticipant[] getDelegateParticipants();
@@ -61,6 +67,15 @@ public class SingleRootExportParticipant extends AbstractFlattenParticipant {
 	}
 
 
+	private void initializeDelegates() {
+		if (callbackHandler != null) {
+			delegates = callbackHandler.getDelegateParticipants();
+		}
+		else {
+			delegates = new IFlattenParticipant[] {};
+		}
+	}
+	
 	@Override
 	public boolean canOptimize(IVirtualComponent component,
 			FlatComponentTaskModel dataModel) {
@@ -68,10 +83,14 @@ public class SingleRootExportParticipant extends AbstractFlattenParticipant {
 	}
 
 	@Override
-	public void optimize(IVirtualComponent component,
-			FlatComponentTaskModel dataModel, List<IFlatResource> resources) {
+	public void optimize(IVirtualComponent component, FlatComponentTaskModel dataModel, 
+			List<IFlatResource> resources, List<IChildModuleReference> childModules) {
 		try {
 			resources.clear(); // We want complete control
+			childModules.clear();
+			children = childModules;
+			initializeDelegates();
+			
 			IContainer container = new SingleRootUtil(component, callbackHandler).getSingleRoot();
 			IFlatResource[] mr = getMembers(resources, container, new Path("")); //$NON-NLS-1$
 			int size = mr.length;
@@ -79,12 +98,11 @@ public class SingleRootExportParticipant extends AbstractFlattenParticipant {
 				resources.add(mr[j]);
 			}
 			
+			addChildModules(component);
+			
 			// run finalizers
-			if( callbackHandler != null ) {
-				IFlattenParticipant[] delegates = callbackHandler.getDelegateParticipants();
-				for(int i = 0; i < delegates.length; i++ ) {
-					delegates[i].finalize(component, dataModel, resources);
-				}
+			for (int i = 0; i < delegates.length; i++) {
+				delegates[i].finalize(component, dataModel, resources);
 			}
 		} catch( CoreException ce ) {
 			// TODO 
@@ -117,7 +135,7 @@ public class SingleRootExportParticipant extends AbstractFlattenParticipant {
 			} else {
 				IFile f = (IFile) res[j];
 				IFlatFile mf = VirtualComponentFlattenUtility.createModuleFile(f, path);
-				if( shouldAddExportableFile(rootComponent, rootComponent, dataModel, mf))
+				if (shouldAddComponentFile(rootComponent, mf))
 					list.add(mf);
 			}
 		}
@@ -126,18 +144,56 @@ public class SingleRootExportParticipant extends AbstractFlattenParticipant {
 		return mr;
 	}
 	
-	@Override
-	public boolean shouldAddExportableFile(IVirtualComponent rootComponent,
-			IVirtualComponent currentComponent, FlatComponentTaskModel dataModel,
-			IFlatFile file) {
-		if( callbackHandler != null ) {
-			IFlattenParticipant[] delegates = callbackHandler.getDelegateParticipants();
-			for(int i = 0; i < delegates.length; i++ ) {
-				if( !delegates[i].shouldAddExportableFile(rootComponent, currentComponent, dataModel, file))
-					return false;
+	protected void addChildModules(IVirtualComponent vc) throws CoreException {
+		IVirtualReference[] allReferences = vc.getReferences();
+    	for (int i = 0; i < allReferences.length; i++) {
+    		IVirtualReference reference = allReferences[i];
+			if (reference.getDependencyType() == DependencyType.USES ) {
+				if (shouldIgnoreReference(vc, reference))
+					continue;
+				
+				if (isChildModule(vc, reference)) {
+					ChildModuleReference cm = new ChildModuleReference(reference, new Path("")); //$NON-NLS-1$
+					List<IChildModuleReference> duplicates = new ArrayList();
+					for (IChildModuleReference tmp : children) {
+						if (tmp.getRelativeURI().equals(cm.getRelativeURI()))
+							duplicates.add(tmp);
+					}
+					children.removeAll(duplicates);
+					children.add(cm);
+				}
 			}
+    	}
+	}
+	
+	protected boolean isChildModule(IVirtualComponent component, IVirtualReference referencedComponent) {
+		for (int i = 0; i < delegates.length; i++) {
+			if (delegates[i].isChildModule(component, referencedComponent, dataModel))
+				return true;
+		}
+		return false;
+	}
+
+	protected boolean shouldIgnoreReference(IVirtualComponent component, IVirtualReference referencedComponent) {
+		for (int i = 0; i < delegates.length; i++ ) {
+			if (delegates[i].shouldIgnoreReference(component, referencedComponent, dataModel))
+				return true;
+		}
+		return false;
+	}
+	
+
+	public boolean shouldAddComponentFile(IVirtualComponent component, IFlatFile file) {
+		for (int i = 0; i < delegates.length; i++) {
+			if (delegates[i].isChildModule(component, dataModel, file)) {
+				ChildModuleReference child = new ChildModuleReference(component.getProject(), file);
+				children.add(child); 
+				return false;
+			} else if (!delegates[i].shouldAddExportableFile(component, component, dataModel, file))
+				return false;
 		}
 		return true;
 	}
+	
 
 }

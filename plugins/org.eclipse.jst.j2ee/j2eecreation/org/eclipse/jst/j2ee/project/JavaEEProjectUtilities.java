@@ -488,6 +488,11 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 			return true;
 		}
 		
+		facetVersion = getProjectFacetVersion(project, WEBFRAGMENT);
+		if(facetVersion != null){
+			return true;
+		}
+		
 		return false;
 	}
 	
