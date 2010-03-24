@@ -33,6 +33,7 @@ import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
+import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -321,7 +322,7 @@ public class J2EEUtilityJarImportTypePageNew extends DataModelWizardPage {
 		int selectedResourceCount = selections.size();
 		if (selectedResourceCount == 1) {
 			IResource resource = (IResource) selections.get(0);
-			if (resource instanceof IProject ) {
+			if (resource instanceof IProject && EarUtilities.isEARProject((IProject)resource)) {
 				resourceNameCombo.setText(resource.getName().toString());
 			}
 		}
