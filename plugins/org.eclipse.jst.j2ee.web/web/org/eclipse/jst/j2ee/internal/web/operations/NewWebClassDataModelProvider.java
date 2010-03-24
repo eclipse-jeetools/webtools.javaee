@@ -184,7 +184,8 @@ public abstract class NewWebClassDataModelProvider extends NewJavaClassDataModel
 		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(getStringProperty(PROJECT_NAME));
 		if (project != null && project.isAccessible()){
 			try {
-				return FacetedProjectFramework.hasProjectFacet(project, WebFacetUtils.WEB_FACET.getId(), WebFacetUtils.WEB_30.getVersionString());
+				return (FacetedProjectFramework.hasProjectFacet(project, WebFacetUtils.WEB_FACET.getId(), WebFacetUtils.WEB_30.getVersionString())
+						|| FacetedProjectFramework.hasProjectFacet(project, WebFacetUtils.WEBFRAGMENT_FACET.getId(), WebFacetUtils.WEBFRAGMENT_30.getVersionString()));
 			} catch (CoreException e) {
 				e.printStackTrace();
 			}

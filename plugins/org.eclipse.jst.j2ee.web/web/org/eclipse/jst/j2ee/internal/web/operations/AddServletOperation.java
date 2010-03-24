@@ -77,6 +77,8 @@ public class AddServletOperation extends AddWebClassOperation {
 	 * @param dataModel 
 	 * @return AddServletOperation
 	 */
+	
+	
 	public AddServletOperation(IDataModel dataModel) {
 		super(dataModel);
 	}
@@ -141,7 +143,7 @@ public class AddServletOperation extends AddWebClassOperation {
 		String description = model.getStringProperty(DESCRIPTION);
 		
 		// Create the servlet instance and set up the parameters from data model
-		Object modelObject = provider.getModelObject();
+		Object modelObject = provider.getModelObject(WEB_APP_XML_PATH);
 		if (modelObject instanceof org.eclipse.jst.j2ee.webapplication.WebApp) {
 		
 			Servlet servlet = WebapplicationFactory.eINSTANCE.createServlet();
@@ -284,8 +286,7 @@ public class AddServletOperation extends AddWebClassOperation {
 	private void setUpURLMappings(List urlMappingList, Object servletObj) {
 		// Get the web app modelled object from the data model
 		//WebApp webApp = (WebApp) artifactEdit.getContentModelRoot();
-		Object modelObject = provider.getModelObject();
-
+		Object modelObject = provider.getModelObject(WEB_APP_XML_PATH);
 		// Create the servlet mappings if any
 		if (modelObject instanceof org.eclipse.jst.j2ee.webapplication.WebApp) {	
 			WebApp webApp = (WebApp) modelObject;
@@ -302,8 +303,8 @@ public class AddServletOperation extends AddWebClassOperation {
 				// Add the servlet mapping to the web application modelled list
 				webApp.getServletMappings().add(mapping);
 			}
-		} else if (modelObject instanceof org.eclipse.jst.javaee.web.WebApp) {
-			org.eclipse.jst.javaee.web.WebApp webApp = (org.eclipse.jst.javaee.web.WebApp) modelObject;
+		} else if (modelObject instanceof IWebCommon) {
+			IWebCommon webApp = (IWebCommon) modelObject;
 			org.eclipse.jst.javaee.web.Servlet servlet = (org.eclipse.jst.javaee.web.Servlet) servletObj;
 			
 			// Create the servlet mappings if any

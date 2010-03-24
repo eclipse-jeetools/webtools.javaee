@@ -23,6 +23,8 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.operations.AddJavaEEArtifactOperation;
 import org.eclipse.jst.jee.project.facet.ICreateDeploymentFilesDataModelProperties;
 import org.eclipse.jst.jee.project.facet.IWebCreateDeploymentFilesDataModelProperties;
@@ -30,7 +32,7 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public abstract class AddWebClassOperation extends AddJavaEEArtifactOperation {
-	
+	protected Path WEB_APP_XML_PATH = new Path(J2EEConstants.WEBAPP_DD_URI);
 	public AddWebClassOperation(IDataModel dataModel) {
 		super(dataModel);
 	}
