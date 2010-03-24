@@ -35,7 +35,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
 public class SingleRootUtil {
 	public interface SingleRootCallback {
-		public boolean canValidate(IProject project);
+		public boolean canValidate(IVirtualComponent vc);
 		public void validate(SingleRootUtil util, IVirtualComponent vc, IProject project, List resourceMaps);
 	}
 	
@@ -183,7 +183,7 @@ public class SingleRootUtil {
 				return getStatus();
 			}
 			
-			if (callback != null && callback.canValidate(getProject())) { 
+			if (callback != null && callback.canValidate(aComponent)) { 
 				callback.validate(this, aComponent, getProject(), resourceMaps);
 			} 
 			if (VALIDATE_FLAG != CANCEL) {

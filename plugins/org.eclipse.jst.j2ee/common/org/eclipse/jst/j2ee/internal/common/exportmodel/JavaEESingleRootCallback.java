@@ -57,13 +57,8 @@ public class JavaEESingleRootCallback implements SingleRootParticipantCallback {
 		this.filteredSuffixes = filtered;
 	}
 	
-	public boolean canValidate(IProject project) {
-		return JavaEEProjectUtilities.isEARProject(project)
-				|| JavaEEProjectUtilities.isEJBProject(project)
-				|| JavaEEProjectUtilities.isApplicationClientProject(project)
-				|| JavaEEProjectUtilities.isDynamicWebProject(project)
-				|| JavaEEProjectUtilities.isJCAProject(project)
-				|| JavaEEProjectUtilities.isUtilityProject(project);
+	public boolean canValidate(IVirtualComponent vc) {
+		return JavaEEProjectUtilities.usesJavaEEComponent(vc);
 	}
 
 	public void validate(SingleRootUtil util, IVirtualComponent vc, IProject project, List resourceMaps) {
