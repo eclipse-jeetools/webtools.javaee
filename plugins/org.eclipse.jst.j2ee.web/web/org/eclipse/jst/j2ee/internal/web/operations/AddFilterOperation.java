@@ -147,7 +147,7 @@ public class AddFilterOperation extends AddWebClassOperation {
 		    model.getStringProperty(DESCRIPTION);
 
 		// Create the filter instance and set up the parameters from data model
-		Object modelObject = provider.getModelObject(WEB_APP_XML_PATH);
+		Object modelObject = provider.getModelObject();
 		if (modelObject instanceof org.eclipse.jst.j2ee.webapplication.WebApp) {
 			Filter filter = WebapplicationFactory.eINSTANCE.createFilter();
 			filter.setName(displayName);
@@ -268,7 +268,7 @@ public class AddFilterOperation extends AddWebClassOperation {
 	private void setUpMappings(List filterMappingsList, Object filterObj) {
 		// Get the web app modelled object from the data model
 		// WebApp webApp = (WebApp) artifactEdit.getContentModelRoot();
-		Object modelObject = provider.getModelObject(WEB_APP_XML_PATH);
+		Object modelObject = provider.getModelObject();
 
 		// Create the filter mappings if any
 		if (modelObject instanceof org.eclipse.jst.j2ee.webapplication.WebApp) {

@@ -143,7 +143,7 @@ public class AddServletOperation extends AddWebClassOperation {
 		String description = model.getStringProperty(DESCRIPTION);
 		
 		// Create the servlet instance and set up the parameters from data model
-		Object modelObject = provider.getModelObject(WEB_APP_XML_PATH);
+		Object modelObject = provider.getModelObject();
 		if (modelObject instanceof org.eclipse.jst.j2ee.webapplication.WebApp) {
 		
 			Servlet servlet = WebapplicationFactory.eINSTANCE.createServlet();
@@ -286,7 +286,8 @@ public class AddServletOperation extends AddWebClassOperation {
 	private void setUpURLMappings(List urlMappingList, Object servletObj) {
 		// Get the web app modelled object from the data model
 		//WebApp webApp = (WebApp) artifactEdit.getContentModelRoot();
-		Object modelObject = provider.getModelObject(WEB_APP_XML_PATH);
+		Object modelObject = provider.getModelObject();
+
 		// Create the servlet mappings if any
 		if (modelObject instanceof org.eclipse.jst.j2ee.webapplication.WebApp) {	
 			WebApp webApp = (WebApp) modelObject;
