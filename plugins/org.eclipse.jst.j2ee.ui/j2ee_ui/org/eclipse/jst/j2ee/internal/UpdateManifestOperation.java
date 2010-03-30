@@ -25,6 +25,7 @@ import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedException;
 
 /**
+ * @deprecated as of wtp 3.2
  * @author jialin
  */
 public class UpdateManifestOperation implements org.eclipse.jface.operation.IRunnableWithProgress {
@@ -33,6 +34,7 @@ public class UpdateManifestOperation implements org.eclipse.jface.operation.IRun
 	protected boolean replace;
 /**
  * UpdateManifestOperation constructor comment.
+ * @deprecated as of wtp 3.2
  */
 public UpdateManifestOperation(String aProjectName, String aSpaceDelimitedPath, boolean replaceInsteadOfMerge) {
 	super();

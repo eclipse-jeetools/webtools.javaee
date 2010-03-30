@@ -1,4 +1,4 @@
-package org.eclipse.jst.j2ee.componentcore.util;
+package org.eclipse.jst.j2ee.internal.modulecore.util;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.common.util.URI;
@@ -10,6 +10,11 @@ import org.eclipse.wst.common.componentcore.resolvers.IReferenceResolver;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
+/**
+ * This may never be used and may be a candidate for deletion, primarily
+ * because this reference type is not persisted in the component xml 
+ * anywhere inside the jeetools codebase. 
+ */
 public class ClasspathDependencyResolver implements IReferenceResolver {
 
 	public boolean canResolve(IVirtualComponent context,

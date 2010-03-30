@@ -11,6 +11,7 @@
 package org.eclipse.jst.common.internal.modulecore.util;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -21,7 +22,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
@@ -90,6 +90,32 @@ public class ManifestUtilities {
 		return null;
 	}
 
+	public static ArchiveManifest getManifest(IFile f) {
+		File f2 = f.getLocation().toFile();
+		return getManifest(f2);
+	}
+	
+	public static ArchiveManifest getManifest(File f) {
+		if( f != null && f.exists()) {
+				InputStream in;
+				try {
+					in = new FileInputStream(f);
+					ArchiveManifest manifest = new ArchiveManifestImpl(in);
+					return manifest;
+				} catch (FileNotFoundException e) {
+				} catch (IOException e) {
+				}
+		}
+		return null;
+	}
+	
+	public static void writeManifest(IFile aFile, ArchiveManifest manifest) throws java.io.IOException {
+		OutputStream out = new WorkbenchByteArrayOutputStream(aFile);
+		manifest.writeSplittingClasspath(out);
+		out.close();
+	}
+
+	
 	public static ArchiveManifest getNonBinaryComponentManifest(IVirtualComponent component, IPath manifestPath) {
 		try {
 			if(!component.isBinary()){
@@ -266,11 +292,26 @@ public class ManifestUtilities {
 		};
 	}
 	
-	/**
-	 * Not sure why we need this honestly
-	 */
-	private static ConcurrentHashMap<String, String> manifestClasspaths = new ConcurrentHashMap<String, String>();
-	
+	public static ArchiveManifest readManifest(IFile aFile) {
+		InputStream in = null;
+		try {
+			if (aFile == null || !aFile.exists())
+				return null;
+			in = aFile.getContents();
+			return new ArchiveManifestImpl(in);
+		} catch (Exception ex) {
+			// TODO J2EEPlugin.logError(ex);
+			return null;
+		} finally {
+			if (in != null) {
+				try {
+					in.close();
+				} catch (IOException weTried) {
+				}
+			}
+		}
+	}
+
 	/**
 	 * Generates new MANIFEST.MF with a dynamically updated classpath that is written to the specified
 	 * output stream.
@@ -368,19 +409,10 @@ public class ManifestUtilities {
         	}
         	// Else, without an output stream, conditionally update the specified file
         	else {
-            	String manifestPath = manifestFile.getFullPath().toString();
-            	/*
-            	 * TODO: why do we check if the file already exists? We should just output to 
-            	 * the file and get rid of this manifestClasspaths map. 
-            	 */
-            	String priorClasspath = manifestClasspaths.get(manifestPath);
-            	if (priorClasspath == null || !priorClasspath.equals(cp) || !outputFile.exists()) {
-                	manifestClasspaths.put(manifestPath, cp);
-                	manifest.setClassPath(cp);
-                	outputStream = new FileOutputStream(outputFile);
-                	manifest.write(outputStream);
-                	outputStream.flush();
-            	}
+            	manifest.setClassPath(cp);
+            	outputStream = new FileOutputStream(outputFile);
+            	manifest.write(outputStream);
+            	outputStream.flush();
         	}
         } finally {
         	if (outputStream != null) {

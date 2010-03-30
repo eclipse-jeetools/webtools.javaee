@@ -16,16 +16,6 @@
  */
 package org.eclipse.jst.j2ee.application.internal.operations;
 
-import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifestImpl;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
-import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 
@@ -34,47 +24,11 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
  * 
  * To change the template for this generated type comment go to
  * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
+ * @deprecated
  */
-public class UpdateManifestOperation extends AbstractDataModelOperation {
-
+public class UpdateManifestOperation extends org.eclipse.jst.common.internal.modulecore.util.UpdateManifestOperation {
+	@Deprecated
 	public UpdateManifestOperation(IDataModel dataModel) {
 		super(dataModel);
-	}
-
-	@Override
-	public IStatus execute(IProgressMonitor monitor, IAdaptable adaptable) throws ExecutionException {
-		IFile file = (IFile)model.getProperty(UpdateManifestDataModelProperties.MANIFEST_FILE);
-		
-		String classPathValue = model.getStringProperty(UpdateManifestDataModelProperties.JAR_LIST_TEXT_UI);
-		try {
-			ArchiveManifest mf = J2EEProjectUtilities.readManifest(file);
-			
-			if (mf == null)
-				mf = new ArchiveManifestImpl();
-			mf.addVersionIfNecessary();
-			if (model.getBooleanProperty(UpdateManifestDataModelProperties.MERGE)) {
-				mf.mergeClassPath(ArchiveUtil.getTokens(classPathValue));
-			} else {
-				mf.setClassPath(classPathValue);
-			}
-			if (model.isPropertySet(UpdateManifestDataModelProperties.MAIN_CLASS)) {
-				mf.setMainClass(model.getStringProperty(UpdateManifestDataModelProperties.MAIN_CLASS));
-			}
-
-			J2EEProjectUtilities.writeManifest(file, mf);
-		} catch (java.io.IOException ex) {
-			throw new ExecutionException(ex.getMessage(),ex);
-		}
-		return OK_STATUS;
-	}
-
-	@Override
-	public IStatus redo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		return null;
-	}
-	
-	@Override
-	public IStatus undo(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
-		return null;
 	}
 }

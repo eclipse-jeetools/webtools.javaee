@@ -25,6 +25,7 @@ import org.eclipse.jst.common.internal.modulecore.IClasspathDependencyReceiver;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathInitializer;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
+import org.eclipse.jst.j2ee.internal.modulecore.util.ClasspathDependencyContainerVirtualComponent;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
@@ -80,6 +81,7 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 				uri = moduleComp.getName() + IJ2EEModuleConstants.JAR_EXT;
 			}
 		} else {
+			// TODO I would like to see this section removed
 			String prefix = ref.getRuntimePath().makeRelative().toString();
 			if (prefix.length() > 0) {
 				uri = prefix + "/" + uri; //$NON-NLS-1$
@@ -234,7 +236,8 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 	
 	@Override
 	public IVirtualReference[] getReferences(Map<String, Object> options) {
-		if( isTrue(options.get(IVirtualComponent.DISPLAYABLE_REFERENCES))) {
+		Object refType = options.get(IVirtualComponent.REQUESTED_REFERENCE_TYPE);
+		if( refType != null && IVirtualComponent.DISPLAYABLE_REFERENCES.equals(refType)) {
 			List<IVirtualReference> hardReferences = getHardReferences(this);
 			IVirtualComponent imported = new ClasspathDependencyContainerVirtualComponent(
 					getProject(), this);
@@ -244,15 +247,11 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 			return hardReferences.toArray(new IVirtualReference[hardReferences.size()]);
 		}
 		
-		if( isTrue(options.get(IVirtualComponent.DISPLAYABLE_REFERENCES))) {
+		if( refType != null && IVirtualComponent.NON_DERIVED_REFERENCES.equals(refType)) {
 			List<IVirtualReference> hardReferences = getHardReferences(this);
 			return hardReferences.toArray(new IVirtualReference[hardReferences.size()]);
 		}
 		return getReferences();
-	}
-	
-	private boolean isTrue(Object parameter) {
-		return parameter != null && parameter instanceof Boolean && ((Boolean)parameter).booleanValue();
 	}
 	
 	// Returns cache if still valid or null

@@ -53,7 +53,7 @@ import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 
 /**
- * @deprecated
+ * @deprecated wtp 3.2
  */
 public class WebLibDependencyPropertiesPage extends JARDependencyPropertiesPage {
 

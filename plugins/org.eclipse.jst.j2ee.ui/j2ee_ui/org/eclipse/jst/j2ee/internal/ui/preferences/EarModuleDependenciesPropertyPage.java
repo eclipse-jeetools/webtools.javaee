@@ -15,29 +15,31 @@ import java.util.ArrayList;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.RemoveComponentFromEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.componentcore.JavaEEModuleHandler;
-import org.eclipse.jst.j2ee.internal.dialogs.ChangeLibDirDialog;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.model.IEARModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
-import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.jst.jee.project.facet.EarCreateDeploymentFilesDataModelProvider;
 import org.eclipse.jst.jee.project.facet.ICreateDeploymentFilesDataModelProperties;
-import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
-import org.eclipse.ui.PlatformUI;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.common.componentcore.internal.IModuleHandler;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
@@ -50,12 +52,52 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 
 public class EarModuleDependenciesPropertyPage extends
 		AddModuleDependenciesPropertiesPage {
-	protected Button changeEarLibDirButton;
 	private String libDir = null;
-
+	private Text libDirText;
 	public EarModuleDependenciesPropertyPage(IProject project,
 			ModuleAssemblyRootPage page) {
 		super(project, page);
+	}
+	
+	@Override
+	protected void createTableComposite(Composite parent) {
+		Composite composite = new Composite(parent, SWT.NONE);
+		GridData gData = new GridData(GridData.FILL_BOTH);
+		composite.setLayoutData(gData);
+		fillTableComposite(composite);
+		addLibDirComposite(composite);
+	}
+
+	private String loadLibDirString() {
+		Application app = (Application)ModelProviderManager.getModelProvider(project).getModelObject();
+		String val = app.getLibraryDirectory();
+		if (val == null)
+			val = J2EEConstants.EAR_DEFAULT_LIB_DIR;
+		return val;
+	}
+	
+	protected void addLibDirComposite(Composite parent) {
+		libDir = loadLibDirString();
+		Composite c = new Composite(parent, SWT.NONE);
+		GridData mainData = new GridData(GridData.FILL_HORIZONTAL);
+		c.setLayoutData(mainData);
+		
+		GridLayout gl = new GridLayout(2,false);
+		c.setLayout(gl);
+		Label l = new Label(c, SWT.NONE);
+		l.setText(Messages.EarModuleDependenciesPropertyPage_LIBDIR);
+		libDirText = new Text(c, SWT.BORDER);
+		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
+		libDirText.setLayoutData(gd);
+		libDirText.setText(libDir);
+		libDirText.addModifyListener(new ModifyListener() {
+			public void modifyText(ModifyEvent e) {
+				libDirTextModified();
+			} });
+	}
+	
+	protected void libDirTextModified() {
+		libDir = libDirText.getText();
 	}
 
 	protected IDataModelOperation generateEARDDOperation() {
@@ -82,58 +124,13 @@ public class EarModuleDependenciesPropertyPage extends
 	}
 
 	@Override
-	protected String getAddFolderLabel() {
-		
-		return Messages.EarModuleDependenciesPropertyPage_0;
-	}
-
-	@Override
-	protected String getAddReferenceLabel() {
-		
-		return Messages.EarModuleDependenciesPropertyPage_1;
-	}
-
-	@Override
-	protected String getEditReferenceLabel() {
-		
-		return Messages.EarModuleDependenciesPropertyPage_2;
-	}
-
-	@Override
 	protected String getModuleAssemblyRootPageDescription() {
-		
 		return Messages.EarModuleDependenciesPropertyPage_3;
 	}
 
 	@Override
 	protected IDataModelProvider getRemoveReferenceDataModelProvider(IVirtualComponent component) {
-		
-			return new RemoveComponentFromEnterpriseApplicationDataModelProvider();
-		
-	}
-	
-	protected void handleChangeLibDirButton(boolean warnBlank) {
-		String libDirText;
-		IVirtualFile vFile = rootComponent.getRootFolder().getFile(new Path(J2EEConstants.APPLICATION_DD_URI));
-		if (!vFile.exists()) {
-			if (!MessageDialog.openQuestion(null, 
-					J2EEUIMessages.getResourceString(J2EEUIMessages.NO_DD_MSG_TITLE), 
-					J2EEUIMessages.getResourceString(J2EEUIMessages.GEN_DD_QUESTION))) return;
-			createDD(new NullProgressMonitor());
-		}
-		Application app = (Application)ModelProviderManager.getModelProvider(project).getModelObject();
-		
-		libDirText = app.getLibraryDirectory();
-			if (libDirText == null) libDirText = J2EEConstants.EAR_DEFAULT_LIB_DIR;
-		
-		ChangeLibDirDialog dlg = new ChangeLibDirDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-                .getShell(), libDirText, warnBlank);
-		if (dlg.open() == Dialog.CANCEL) return;
-		libDir = dlg.getValue().trim();
-		if (libDir.length() > 0) {
-			if (!libDir.startsWith(J2EEConstants.EAR_ROOT_DIR)) libDir = IPath.SEPARATOR + libDir;
-		}
-		refresh();
+		return new RemoveComponentFromEnterpriseApplicationDataModelProvider();
 	}
 	
 	protected void createDD(IProgressMonitor monitor) {
@@ -147,51 +144,30 @@ public class EarModuleDependenciesPropertyPage extends
 		}
 	}
 
-
-	@Override
-	protected void createPushButtons() {
-		//Create core buttons first
-		super.createPushButtons();
-		if (rootComponent != null && JavaEEProjectUtilities.isJEEComponent(rootComponent))
-			changeEarLibDirButton = createPushButton(getChangeEarLibDirLabel());
-	}
-
-	protected String getChangeEarLibDirLabel() {
-		return Messages.EarModuleDependenciesPropertyPage_4;
-	}
-
 	@Override
 	public void handleEvent(Event event) {
-		
 		super.handleEvent(event);
-		if( event.widget == changeEarLibDirButton ) 
-			handleChangeLibDirButton(true);
 	}
 
 	@Override
 	public boolean performOk() {
-		
-		boolean result = makeProjectsFlexibleIfNeccesary();
-		if(result) {
-			result = super.performOk();
-			updateLibDir();
-		}
+		boolean result = super.performOk();
+		updateLibDir();
 		return result;
 	}
-	private boolean makeProjectsFlexibleIfNeccesary() {
-//		IProject elementProject = element.getProject();
-//		try {
-//			if (elementProject != null && !elementProject.hasNature(IModuleConstants.MODULE_NATURE_ID)) {
-//				if (composedOp == null) {
-//					composedOp = new WorkspaceModifyComposedOperation();
-//				}
-//				composedOp.addRunnable(WTPUIPlugin.getRunnableWithProgress(J2EEProjectUtilities.createFlexJavaProjectForProjectOperation(elementProject, false)));
-		return true;
-	}
-
+	
 	private void updateLibDir() {
+		if (!libDir.equals(J2EEConstants.EAR_DEFAULT_LIB_DIR)) {
+			IVirtualFile vFile = rootComponent.getRootFolder().getFile(new Path(J2EEConstants.APPLICATION_DD_URI));
+			if (!vFile.exists()) {
+				if (!MessageDialog.openQuestion(null, 
+						J2EEUIMessages.getResourceString(J2EEUIMessages.NO_DD_MSG_TITLE), 
+						J2EEUIMessages.getResourceString(J2EEUIMessages.GEN_DD_QUESTION))) 
+					return;
+				createDD(new NullProgressMonitor());
+			}
+		}
 		
-		if (libDir == null) return;
 		final IEARModelProvider earModel = (IEARModelProvider)ModelProviderManager.getModelProvider(project);
 		Application app = (Application)earModel.getModelObject();
 		String oldLibDir = app.getLibraryDirectory();

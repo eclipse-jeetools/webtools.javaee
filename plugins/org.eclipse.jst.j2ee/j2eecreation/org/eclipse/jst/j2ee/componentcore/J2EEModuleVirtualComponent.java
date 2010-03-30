@@ -93,7 +93,7 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 	protected IVirtualReference[] getHardReferences() {
 		if (hardReferences == null || !checkIfStillValid()) {
 			Map<String, Object> map = new HashMap<String, Object>();
-			map.put(IGNORE_DERIVED_REFERENCES, true);
+			map.put(REQUESTED_REFERENCE_TYPE, HARD_REFERENCES);
 			hardReferences = super.getReferences(map);
 		}
 		return hardReferences;
@@ -102,7 +102,7 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 	protected static IVirtualReference[] getHardReferences(
 			IVirtualComponent component) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put(IGNORE_DERIVED_REFERENCES, true);
+		map.put(REQUESTED_REFERENCE_TYPE, HARD_REFERENCES);
 		return component.getReferences(map);
 	}
 
@@ -114,15 +114,16 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 
 	@Override
 	public IVirtualReference[] getReferences(Map<String, Object> options) {
-		Boolean ignoreDerived = (Boolean)options.get(IGNORE_DERIVED_REFERENCES);
+		Object val = options.get(REQUESTED_REFERENCE_TYPE);
+		if( val != null ) {
+			if( HARD_REFERENCES.equals(val) || NON_DERIVED_REFERENCES.equals(val) || DISPLAYABLE_REFERENCES.equals(val))
+				return getHardReferences();
+		}
+		
 		Boolean objGetJavaRefs = (Boolean)options.get(GET_JAVA_REFS);
 		Boolean objGetFuzzyEarRefs = (Boolean)options.get(GET_FUZZY_EAR_REFS);
-		boolean ignoreDerivedRefs = ignoreDerived != null ? ignoreDerived.booleanValue(): false;
 		boolean getJavaRefs = objGetJavaRefs != null ? objGetJavaRefs.booleanValue() : true;
 		boolean findFuzzyEARRefs = objGetFuzzyEarRefs != null ? objGetFuzzyEarRefs.booleanValue() : false;
-		if (ignoreDerivedRefs)
-			return getHardReferences();
-
 		IVirtualReference[] cachedReferences = getReferences(getJavaRefs,findFuzzyEARRefs);
 		return cachedReferences;
 	}

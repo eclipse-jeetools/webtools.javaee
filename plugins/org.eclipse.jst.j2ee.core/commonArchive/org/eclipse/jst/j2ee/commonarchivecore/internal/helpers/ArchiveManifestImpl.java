@@ -20,6 +20,7 @@ public class ArchiveManifestImpl extends org.eclipse.jst.common.internal.modulec
 								implements org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest {
 	/**
 	 * ArchiveManifest constructor comment.
+	 * @deprecated
 	 */
 	public ArchiveManifestImpl() {
 		super();
@@ -32,11 +33,16 @@ public class ArchiveManifestImpl extends org.eclipse.jst.common.internal.modulec
 	 *            java.io.InputStream
 	 * @throws java.io.IOException
 	 *             The exception description.
+	 * @deprecated
 	 */
 	public ArchiveManifestImpl(java.io.InputStream is) throws java.io.IOException {
 		super(is);
 	}
 
+	/**
+	 * @deprecated
+	 * @param man
+	 */
 	public ArchiveManifestImpl(java.util.jar.Manifest man) {
 		super(man);
 	}

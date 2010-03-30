@@ -18,6 +18,7 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.swt.widgets.Shell;
 
+@Deprecated
 public class ChangeLibDirDialog extends InputDialog {
 	private boolean warnBlank;
 	

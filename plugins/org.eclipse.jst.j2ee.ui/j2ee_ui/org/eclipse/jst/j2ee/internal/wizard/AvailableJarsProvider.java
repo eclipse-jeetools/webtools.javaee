@@ -115,19 +115,19 @@ public class AvailableJarsProvider implements org.eclipse.jface.viewers.IStructu
 		return value == null ? "" : value;//$NON-NLS-1$
 	}
 
-	protected static Image getEjbImage() {
+	public static Image getEjbImage() {
 		if (ejbImage == null)
 			ejbImage = getImageDescriptor("EJBJar").createImage();//$NON-NLS-1$
 		return ejbImage;
 	}
 
-	protected static Image getEjbClientImage() {
+	public static Image getEjbClientImage() {
 		if (ejbClientImage == null)
 			ejbClientImage = getImageDescriptor("ejbclientjar_obj").createImage();//$NON-NLS-1$
 		return ejbClientImage;
 	}
 	
-	protected static Image getClasspathDependencyImage() {
+	public static Image getClasspathDependencyImage() {
 		if (classpathImage == null)
 			classpathImage = getImageDescriptor("CPDep").createImage();//$NON-NLS-1$
 		return classpathImage;
@@ -182,7 +182,7 @@ public class AvailableJarsProvider implements org.eclipse.jface.viewers.IStructu
 		return imageDescriptor;
 	}
 
-	protected static Image getInvalidImage() {
+	public static Image getInvalidImage() {
 		if (invalidImage == null) {
 			ImageDescriptor base = getImageDescriptor("jar_nonexist_obj");//$NON-NLS-1$
 			ImageDescriptor overlay = getImageDescriptor("warning_co");//$NON-NLS-1$

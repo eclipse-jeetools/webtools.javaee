@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <plugin>
+   <extension-point id="JavaComponentDiscerner" name="JavaComponentDiscerner" schema="schema/JavaComponentDiscerner.exsd"/>
 
      <extension
          id="context.Sensitive.Class.workingCopyManager"
@@ -45,5 +46,4 @@
       <adapter type="org.eclipse.jst.common.project.facet.core.JavaFacetInstallConfig"/>
     </factory>
   </extension>
-
 </plugin>

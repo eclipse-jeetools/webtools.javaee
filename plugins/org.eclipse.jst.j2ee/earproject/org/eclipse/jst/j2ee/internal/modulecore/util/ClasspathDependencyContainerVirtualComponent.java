@@ -1,4 +1,4 @@
-package org.eclipse.jst.j2ee.componentcore.util;
+package org.eclipse.jst.j2ee.internal.modulecore.util;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
@@ -7,13 +7,8 @@ import org.eclipse.wst.common.componentcore.internal.resources.AbstractResourceL
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 /**
- * Initially this component will have no elements.
- * A reference to this element will be provided with 
- * new EAR projects to be able to 'edit' the elements inside 
- * the children that may be eligible to be 'pulled in' to the ear. 
- * 
- * Ideally this would actually provide the resources, as well, but
- * IVirtualFile does not have a method to transform to java.io.File. 
+ * A stub 'dummy' reference which is returned on a getReferences() call to an Ear project
+ * when passed the IVirtualComponent.DISPLAYABLE_REFERENCES type. 
  */
 public class ClasspathDependencyContainerVirtualComponent extends AbstractResourceListVirtualComponent {
 	public static final String COMPONENT_ID = "org.eclipse.jst.j2ee.componentcore.util.ClasspathDependencies"; //$NON-NLS-1$

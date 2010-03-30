@@ -13,7 +13,6 @@ package org.eclipse.jst.j2ee.internal.project;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -43,8 +42,8 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaRefFactory;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jem.util.emf.workbench.WorkbenchByteArrayOutputStream;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
+import org.eclipse.jst.common.internal.modulecore.util.ManifestUtilities;
 import org.eclipse.jst.common.jdt.internal.javalite.IJavaProjectLite;
 import org.eclipse.jst.common.jdt.internal.javalite.JavaCoreLite;
 import org.eclipse.jst.common.jdt.internal.javalite.JavaLiteUtilities;
@@ -179,6 +178,11 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 		return null;
 	}
 
+	/**
+	 * @deprecated Use org.eclipse.jst.common.internal.modulecore.util.ManifestUtilities instead
+	 * @param aFile
+	 * @return
+	 */
 	public static ArchiveManifest readManifest(IFile aFile) {
 		InputStream in = null;
 		try {
@@ -273,9 +277,7 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 	private static void writeManifest(IProject aProject, IFile aFile, ArchiveManifest manifest) throws java.io.IOException {
 		if (aFile != null) {
 			if(SimpleValidateEdit.validateEdit(new IFile[] { aFile })){
-				OutputStream out = new WorkbenchByteArrayOutputStream(aFile);
-				manifest.writeSplittingClasspath(out);
-				out.close();
+				ManifestUtilities.writeManifest(aFile, manifest);
 				J2EEComponentClasspathUpdater.getInstance().queueUpdateModule(aProject);
 			}
 		}

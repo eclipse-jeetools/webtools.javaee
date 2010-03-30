@@ -847,6 +847,26 @@
            id="org.eclipse.jst.j2ee.internal.ui.J2EEDependencyPageProvider">
      </dependencyPage>
   </extension>
-  
-
+  <extension
+        point="org.eclipse.wst.common.modulecore.ui.virtualComponentLabelProvider">
+     <provider
+           class="org.eclipse.jst.j2ee.internal.ui.preferences.ClasspathDependencyComponentLabelProvider"
+           weight="5">
+     </provider>
+  </extension>
+  <extension
+        point="org.eclipse.wst.common.modulecore.ui.virtualComponentLabelProvider">
+     <provider
+           class="org.eclipse.jst.j2ee.internal.ui.preferences.ClasspathDependencyComponentLabelProvider"
+           weight="5"/>
+  </extension>
+  <extension
+        point="org.eclipse.wst.common.modulecore.ui.referenceWizardFragment">
+     <referenceFragment
+           class="org.eclipse.jst.j2ee.internal.ui.preferences.ClasspathDependencyWizardFragment"
+           icon="icons/util-wiz-icon.gif"
+           id="org.eclipse.jst.j2ee.internal.ui.preferences.ClasspathDependencyReferencePage"
+           name="Referenced Projects Classpath Entries">
+     </referenceFragment>
+  </extension>
 </plugin>

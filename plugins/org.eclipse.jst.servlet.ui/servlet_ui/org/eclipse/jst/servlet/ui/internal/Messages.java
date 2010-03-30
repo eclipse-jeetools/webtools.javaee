@@ -3,8 +3,18 @@ package org.eclipse.jst.servlet.ui.internal;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-public class Messages {
+import org.eclipse.osgi.util.NLS;
+
+public class Messages extends NLS {
 	private static final String BUNDLE_NAME = "org.eclipse.jst.servlet.ui.internal.messages"; //$NON-NLS-1$
+	public static String DeploymentAssembly;
+	public static String WebDeploymentAssembly;
+	public static String ManifestEntries;
+	
+	static {
+		// initialize resource bundle
+		NLS.initializeMessages(BUNDLE_NAME, Messages.class);
+	}
 
 	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
 

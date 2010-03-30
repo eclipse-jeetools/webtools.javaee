@@ -122,7 +122,7 @@ public class ProjectRefactorMetadata {
 	public IServer[] getServers() {
 		if( modules == null || modules.length == 0 )
 			return new IServer[]{};
-		return serverMap.get(modules[0]);
+		return serverMap.get(modules[0]) == null ? new IServer[]{} : serverMap.get(modules[0]);
 	}
 	
 	/**
@@ -131,7 +131,7 @@ public class ProjectRefactorMetadata {
 	 * @return
 	 */
 	public IServer[] getServers(IModule module) {
-		return serverMap.get(module);
+		return serverMap.get(module) == null ? new IServer[]{} : serverMap.get(module);
 	}
 	
 	public void computeDependentMetadata(final int virtualComponentCaching, final IProject[] dependentProjects) {
