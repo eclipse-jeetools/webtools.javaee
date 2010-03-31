@@ -107,7 +107,8 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 	}
 
 	public IVirtualReference[] getJavaClasspathReferences() {
-		if (javaReferences == null || !checkIfStillValid())
+		//broken by cache
+		//if (javaReferences == null || !checkIfStillValid())
 			javaReferences = getJavaClasspathReferences(getHardReferences());
 		return javaReferences;
 	}
