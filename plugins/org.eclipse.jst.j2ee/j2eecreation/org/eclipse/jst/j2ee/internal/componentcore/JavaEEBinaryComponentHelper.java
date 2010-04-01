@@ -131,6 +131,9 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 		case JavaEEQuickPeek.CONNECTOR_TYPE:
 			ddPath = new Path(J2EEConstants.RAR_DD_URI);
 			break;
+		case JavaEEQuickPeek.WEBFRAGMENT_TYPE:
+			ddPath = new Path(J2EEConstants.WEBFRAGMENT_DD_URI);
+			break;
 		}
 		if (ddPath != null) {
 			if (getArchive().containsArchiveResource(ddPath)) {

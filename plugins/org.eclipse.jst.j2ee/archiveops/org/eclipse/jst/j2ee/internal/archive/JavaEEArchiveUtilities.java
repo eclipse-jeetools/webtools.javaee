@@ -271,7 +271,7 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 			return archiveToJavaEEQuickPeek.get(archive);
 		}
 		String[] deploymentDescriptorsToCheck = new String[] { J2EEConstants.APPLICATION_DD_URI, J2EEConstants.APP_CLIENT_DD_URI, J2EEConstants.EJBJAR_DD_URI, J2EEConstants.WEBAPP_DD_URI,
-				J2EEConstants.RAR_DD_URI };
+				J2EEConstants.RAR_DD_URI, J2EEConstants.WEBFRAGMENT_DD_URI };
 		for (int i = 0; i < deploymentDescriptorsToCheck.length; i++) {
 			final IPath deploymentDescriptorPath = new Path(deploymentDescriptorsToCheck[i]);
 			if (archive.containsArchiveResource(deploymentDescriptorPath)) {

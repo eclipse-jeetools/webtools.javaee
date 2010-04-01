@@ -15,19 +15,25 @@ import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
+import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.javaee.web.WebApp;
 import org.eclipse.jst.javaee.web.WebAppVersionType;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
+import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 
 public class WebUtilities extends JavaEEProjectUtilities {
 	public static IPath WEBLIB = new Path("/WEB-INF/lib"); //$NON-NLS-1$
@@ -80,6 +86,44 @@ public class WebUtilities extends JavaEEProjectUtilities {
 			return J2EEVersionConstants.JSP_2_0_ID;
 	}
 
+	/**
+	 * Returns a list of WebFragment components for the specified dynamic web component.
+	 * @param webComponent
+	 * @return
+	 */
+	public static List <IVirtualComponent> getWebFragments(IVirtualComponent webComponent){
+		List <IVirtualComponent>result = new ArrayList<IVirtualComponent>();
+		IVirtualReference[] refComponents = webComponent.getReferences();
+		for(IVirtualReference virtualReference : refComponents){
+			if(virtualReference.getRuntimePath().equals(WEBLIB)){
+				IVirtualComponent virtualComponent = virtualReference.getReferencedComponent();
+				if(JavaEEProjectUtilities.isWebFragmentProject(virtualComponent)){
+					result.add(virtualComponent);
+				}
+			}
+		}
+		IVirtualFolder rootFolder = webComponent.getRootFolder();
+		IVirtualFolder webLibFolder = rootFolder.getFolder(WEBLIB);
+		if(webLibFolder.exists()){
+			try {
+				IVirtualResource [] webLibs = webLibFolder.members();
+				for(IVirtualResource webLib : webLibs){
+					if(webLib.getType() == IVirtualResource.FILE && J2EEComponentClasspathUpdater.endsWithIgnoreCase(webLib.getName(), IJ2EEModuleConstants.JAR_EXT)){
+						IResource iResource = webLib.getUnderlyingResource();
+						IVirtualComponent virtualComponent = ComponentCore.createArchiveComponent(webComponent.getProject(), VirtualArchiveComponent.LIBARCHIVETYPE + iResource.getFullPath().toString());
+						if(JavaEEProjectUtilities.isWebFragmentProject(virtualComponent)){
+							result.add(virtualComponent);
+						}
+					}
+				}
+			} catch (CoreException e) {
+				org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
+			}
+		}
+		return result;
+	}
+	
+	
 	/**
 	 * This method will return the list of dependent modules which are utility jars in the web lib
 	 * folder of the deployed path of the module. It will not return null.
