@@ -28,6 +28,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.model.IEARModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.jst.jee.project.facet.EarCreateDeploymentFilesDataModelProvider;
 import org.eclipse.jst.jee.project.facet.ICreateDeploymentFilesDataModelProperties;
@@ -65,7 +66,8 @@ public class EarModuleDependenciesPropertyPage extends
 		GridData gData = new GridData(GridData.FILL_BOTH);
 		composite.setLayoutData(gData);
 		fillTableComposite(composite);
-		addLibDirComposite(composite);
+		if( JavaEEProjectUtilities.isJEEComponent(rootComponent))
+			addLibDirComposite(composite);
 	}
 
 	private String loadLibDirString() {
@@ -152,7 +154,8 @@ public class EarModuleDependenciesPropertyPage extends
 	@Override
 	public boolean performOk() {
 		boolean result = super.performOk();
-		updateLibDir();
+		if( JavaEEProjectUtilities.isJEEComponent(rootComponent))
+			updateLibDir();
 		return result;
 	}
 	
