@@ -20,6 +20,7 @@ import java.util.Set;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -169,7 +170,12 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 			ICommonModule mod) {
 		String earDDVersion = JavaEEProjectUtilities.getJ2EEDDProjectVersion(earpj);
 		boolean useNewModel = earDDVersion.equals(J2EEVersionConstants.VERSION_5_0_TEXT) || earDDVersion.equals(J2EEVersionConstants.VERSION_6_0_TEXT);
-		String contextroot = ComponentUtilities.getServerContextRoot(wc.getProject());
+		String contextroot = null;
+		if (wc.isBinary()) {
+			IPath path = (IPath)wc.getAdapter(IPath.class);
+			contextroot = path.removeFileExtension().lastSegment();
+		} else
+			contextroot = ComponentUtilities.getServerContextRoot(wc.getProject());
 		if (contextroot == null) {
 			contextroot = wc.getProject().getName();
 		}
