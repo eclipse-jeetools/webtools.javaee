@@ -18,22 +18,23 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.UIContextDetermination;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.common.project.facet.JavaFacetUtils;
+import org.eclipse.jst.common.project.facet.core.JavaFacetInstallConfig;
 import org.eclipse.jst.j2ee.application.internal.operations.AddWebFragmentComponentToWebApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.IAddWebFragmentComponentToWebApplicationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPreferences.Keys;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
@@ -42,6 +43,7 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.internal.emf.resource.RendererFactory;
 import org.eclipse.wst.common.project.facet.core.FacetedProjectFramework;
+import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IFacetedProjectWorkingCopy;
 import org.eclipse.wst.common.project.facet.core.IProjectFacet;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
@@ -141,8 +143,16 @@ public abstract class WebFacetInstallDelegateForWebFragmentProjects {
 			            fpjwc.setSelectedPreset( presetId );
 			        }
 			    }
+
+			    Set<IFacetedProject.Action> actions = fpjwc.getProjectFacetActions();
+			    for(IFacetedProject.Action action: actions){
+			    	Object actionConfig = action.getConfig();
+			    	if( actionConfig instanceof JavaFacetInstallConfig){
+			    		JavaFacetInstallConfig c = (JavaFacetInstallConfig) actionConfig;
+			    		c.setDefaultOutputFolder(new Path(J2EEPlugin.getDefault().getJ2EEPreferences().getString(Keys.DYN_WEB_OUTPUT_FOLDER)));
+			    	}
+			    }
 			}
-			
 			try
 			{
 			    fpjwc.commitChanges( null );
@@ -203,25 +213,8 @@ public abstract class WebFacetInstallDelegateForWebFragmentProjects {
 				RendererFactory.getDefaultRendererFactory().setValidating(isValidating);
 			}
 		}
-		else
-		 addToWar( warComp, c, moduleURI );
-    }
-    
-    /**
-     * This method will set the output property on the model element for the given component.
-     * 
-     * @param model
-     * @param component
-     */
-    protected void setOutputFolder(IDataModel model, IVirtualComponent component) {
-		IJavaProject javaProject = JavaCore.create(component.getProject());
-		IPath currentDefaultOutput = null;
-		try {
-			currentDefaultOutput = javaProject.getOutputLocation();
-			component.setMetaProperty("java-output-path", currentDefaultOutput.toString() ); //$NON-NLS-1$			
-		} catch (JavaModelException e) {
-			org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
+		else{
+			addToWar( warComp, c, moduleURI );
 		}
-	}
- 
+    }
 }
