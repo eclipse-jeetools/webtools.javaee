@@ -16,8 +16,10 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEArtifactImportDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentImportDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEUtilityJarImportDataModelProvider;
+import org.eclipse.jst.j2ee.application.internal.operations.J2EEUtilityJarImportOperationNew;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
@@ -30,6 +32,7 @@ import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetProjectCreationDataModelProperties;
 import org.eclipse.jst.j2ee.web.datamodel.properties.IWebComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.web.project.facet.IWebFacetInstallDataModelProperties;
+import org.eclipse.jst.j2ee.web.project.facet.WebFragmentFacetProjectCreationDataModelProvider;
 import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
@@ -110,9 +113,32 @@ public final class WebComponentImportDataModelProvider extends J2EEComponentImpo
 			if (null != archiveWrapper) {
 				List <ArchiveWrapper> libs = archiveWrapper.getWebLibs();
 				List nestedModels = new ArrayList();
-				for (int i = 0; i < libs.size(); i++) {
-					IDataModel localModel = DataModelFactory.createDataModel(new J2EEUtilityJarImportDataModelProvider());
-					localModel.setProperty(ARCHIVE_WRAPPER, libs.get(i));
+				for (ArchiveWrapper libWrapper : libs) {
+					IDataModel localModel = null;
+					JavaEEQuickPeek jqp = libWrapper.getJavaEEQuickPeek();
+					if(jqp.getType() == JavaEEQuickPeek.WEBFRAGMENT_TYPE){
+						localModel = DataModelFactory.createDataModel(new J2EEArtifactImportDataModelProvider(){
+
+							@Override
+							protected IDataModel createJ2EEComponentCreationDataModel() {
+								return DataModelFactory.createDataModel(new WebFragmentFacetProjectCreationDataModelProvider());
+							}
+							
+							@Override
+							public IDataModelOperation getDefaultOperation() {
+								return new J2EEUtilityJarImportOperationNew(model);
+							}
+
+							@Override
+							protected int getType() {
+								return 0;
+							}
+							
+						});
+					} else {
+						localModel = DataModelFactory.createDataModel(new J2EEUtilityJarImportDataModelProvider());
+					}
+					localModel.setProperty(ARCHIVE_WRAPPER, libWrapper);
 					localModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME, getProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME));
 					IDataModel facetDataModel = localModel.getNestedModel(IJ2EEComponentImportDataModelProperties.NESTED_MODEL_J2EE_COMPONENT_CREATION);
 					facetDataModel.setBooleanProperty(IJ2EEFacetProjectCreationDataModelProperties.ADD_TO_EAR, false);
