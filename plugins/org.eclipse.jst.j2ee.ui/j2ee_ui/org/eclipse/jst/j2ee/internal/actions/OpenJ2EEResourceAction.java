@@ -124,8 +124,7 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 			if (c.isBinary()) {
 				JavaEEQuickPeek qp = JavaEEBinaryComponentHelper.getJavaEEQuickPeek(c);
 				//[Bug 239440] because Connectors are opened with the basic XML editor and not a specialized editor they need binary editor input
-				//EE6TODO
-				if( qp.getJavaEEVersion() == JavaEEQuickPeek.JEE_5_0_ID || qp.getType() == JavaEEQuickPeek.CONNECTOR_TYPE) {
+				if( qp.getJavaEEVersion() == JavaEEQuickPeek.JEE_5_0_ID ||  qp.getJavaEEVersion() == JavaEEQuickPeek.JEE_6_0_ID  || qp.getType() == JavaEEQuickPeek.CONNECTOR_TYPE) {
 					String path = ((EObject)srcObject).eResource().getURI().toString();
 					editorInput = BinaryEditorUtilities.getBinaryEditorInput(c, path);
 				}
