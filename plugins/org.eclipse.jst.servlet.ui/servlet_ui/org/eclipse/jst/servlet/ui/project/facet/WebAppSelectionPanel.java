@@ -14,6 +14,7 @@ package org.eclipse.jst.servlet.ui.project.facet;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.layout.GridDataFactory;
+import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.j2ee.web.project.facet.IWebFragmentFacetInstallDataModelProperties;
 import org.eclipse.osgi.util.NLS;
@@ -90,7 +91,7 @@ public final class WebAppSelectionPanel implements IWebFragmentFacetInstallDataM
 /*        IRuntime runtime = (IRuntime)model.getProperty(FACET_RUNTIME);
     	wizard.ssetRuntimeInDataModel(runtime);
 */
-    	if( dialog.open() != SWT.CANCEL )
+    	if( dialog.open() != Window.CANCEL )
         {
             model.notifyPropertyChange(WAR_PROJECT_NAME, IDataModel.VALID_VALUES_CHG);
             final String warproj = wizard.getProjectName();
