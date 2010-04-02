@@ -111,8 +111,8 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 		if (isInited) return (ApplicationPackage)EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI);
 
 		// Obtain or create and register package
-		ApplicationPackageImpl theApplicationPackage = (ApplicationPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(eNS_URI) instanceof ApplicationPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(eNS_URI) : new ApplicationPackageImpl());
-
+		ApplicationPackageImpl theApplicationPackage = (ApplicationPackageImpl) (EPackage.Registry.INSTANCE.get(eNS_URI) instanceof ApplicationPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new ApplicationPackageImpl());
+		
 		isInited = true;
 
 		// Initialize simple dependencies
@@ -162,6 +162,9 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
 
 		// Mark meta-data to indicate it can't be changed
 		theApplicationPackage.freeze();
+
+		// Update the registry and return the package
+		EPackage.Registry.INSTANCE.put(ApplicationPackage.eNS_URI, theApplicationPackage);
 
 		return theApplicationPackage;
 	}

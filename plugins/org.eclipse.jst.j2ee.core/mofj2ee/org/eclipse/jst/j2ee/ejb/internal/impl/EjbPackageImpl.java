@@ -320,8 +320,12 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		if (isInited) return (EjbPackage)EPackage.Registry.INSTANCE.getEPackage(EjbPackage.eNS_URI);
 
 		// Obtain or create and register package
-		EjbPackageImpl theEjbPackage = (EjbPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(eNS_URI) instanceof EjbPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(eNS_URI) : new EjbPackageImpl());
-
+		
+		EjbPackageImpl theEjbPackage =
+			(EjbPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof
+			EjbPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new
+			EjbPackageImpl());
+		
 		isInited = true;
 
 		// Initialize simple dependencies
@@ -371,6 +375,9 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 
 		// Mark meta-data to indicate it can't be changed
 		theEjbPackage.freeze();
+
+		// Update the registry and return the package
+		EPackage.Registry.INSTANCE.put(EjbPackage.eNS_URI, theEjbPackage);
 
 		return theEjbPackage;
 	}

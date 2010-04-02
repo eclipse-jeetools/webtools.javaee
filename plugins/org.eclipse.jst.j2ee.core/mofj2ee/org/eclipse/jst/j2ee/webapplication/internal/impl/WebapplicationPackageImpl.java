@@ -336,7 +336,10 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 		if (isInited) return (WebapplicationPackage)EPackage.Registry.INSTANCE.getEPackage(WebapplicationPackage.eNS_URI);
 
 		// Obtain or create and register package
-		WebapplicationPackageImpl theWebapplicationPackage = (WebapplicationPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(eNS_URI) instanceof WebapplicationPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(eNS_URI) : new WebapplicationPackageImpl());
+		WebapplicationPackageImpl theWebapplicationPackage = 
+			(WebapplicationPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof
+					WebapplicationPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new
+							WebapplicationPackageImpl());
 
 		isInited = true;
 
@@ -387,6 +390,9 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 
 		// Mark meta-data to indicate it can't be changed
 		theWebapplicationPackage.freeze();
+
+		// Update the registry and return the package
+		EPackage.Registry.INSTANCE.put(WebapplicationPackage.eNS_URI, theWebapplicationPackage);
 
 		return theWebapplicationPackage;
 	}

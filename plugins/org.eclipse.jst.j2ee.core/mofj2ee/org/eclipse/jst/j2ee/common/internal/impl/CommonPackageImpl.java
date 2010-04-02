@@ -297,7 +297,10 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 		if (isInited) return (CommonPackage)EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
 
 		// Obtain or create and register package
-		CommonPackageImpl theCommonPackage = (CommonPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(eNS_URI) instanceof CommonPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(eNS_URI) : new CommonPackageImpl());
+		CommonPackageImpl theCommonPackage = 
+			(CommonPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof
+					CommonPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new
+							CommonPackageImpl());
 
 		isInited = true;
 
@@ -348,6 +351,9 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage {
 
 		// Mark meta-data to indicate it can't be changed
 		theCommonPackage.freeze();
+
+		// Update the registry and return the package
+		EPackage.Registry.INSTANCE.put(CommonPackage.eNS_URI, theCommonPackage);
 
 		return theCommonPackage;
 	}

@@ -192,7 +192,10 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 		if (isInited) return (JcaPackage)EPackage.Registry.INSTANCE.getEPackage(JcaPackage.eNS_URI);
 
 		// Obtain or create and register package
-		JcaPackageImpl theJcaPackage = (JcaPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(eNS_URI) instanceof JcaPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(eNS_URI) : new JcaPackageImpl());
+		JcaPackageImpl theJcaPackage = 
+			(JcaPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof
+					JcaPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new
+							JcaPackageImpl());
 
 		isInited = true;
 
@@ -243,6 +246,9 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 
 		// Mark meta-data to indicate it can't be changed
 		theJcaPackage.freeze();
+
+		// Update the registry and return the package
+		EPackage.Registry.INSTANCE.put(JcaPackage.eNS_URI, theJcaPackage);
 
 		return theJcaPackage;
 	}

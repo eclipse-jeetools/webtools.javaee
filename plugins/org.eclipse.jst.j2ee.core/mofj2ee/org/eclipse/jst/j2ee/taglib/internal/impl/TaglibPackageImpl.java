@@ -153,7 +153,10 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 		if (isInited) return (TaglibPackage)EPackage.Registry.INSTANCE.getEPackage(TaglibPackage.eNS_URI);
 
 		// Obtain or create and register package
-		TaglibPackageImpl theTaglibPackage = (TaglibPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(eNS_URI) instanceof TaglibPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(eNS_URI) : new TaglibPackageImpl());
+		TaglibPackageImpl theTaglibPackage = 
+			(TaglibPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof
+					TaglibPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new
+							TaglibPackageImpl());
 
 		isInited = true;
 
@@ -204,6 +207,9 @@ public class TaglibPackageImpl extends EPackageImpl implements TaglibPackage {
 
 		// Mark meta-data to indicate it can't be changed
 		theTaglibPackage.freeze();
+
+		// Update the registry and return the package
+		EPackage.Registry.INSTANCE.put(TaglibPackage.eNS_URI, theTaglibPackage);
 
 		return theTaglibPackage;
 	}

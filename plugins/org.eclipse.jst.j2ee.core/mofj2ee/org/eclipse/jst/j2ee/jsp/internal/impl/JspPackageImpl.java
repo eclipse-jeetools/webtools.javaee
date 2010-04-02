@@ -124,7 +124,10 @@ public class JspPackageImpl extends EPackageImpl implements JspPackage {
 		if (isInited) return (JspPackage)EPackage.Registry.INSTANCE.getEPackage(JspPackage.eNS_URI);
 
 		// Obtain or create and register package
-		JspPackageImpl theJspPackage = (JspPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(eNS_URI) instanceof JspPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(eNS_URI) : new JspPackageImpl());
+		JspPackageImpl theJspPackage = 
+			(JspPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof
+					JspPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new
+							JspPackageImpl());
 
 		isInited = true;
 
@@ -175,6 +178,9 @@ public class JspPackageImpl extends EPackageImpl implements JspPackage {
 
 		// Mark meta-data to indicate it can't be changed
 		theJspPackage.freeze();
+
+		// Update the registry and return the package
+		EPackage.Registry.INSTANCE.put(JspPackage.eNS_URI, theJspPackage);
 
 		return theJspPackage;
 	}

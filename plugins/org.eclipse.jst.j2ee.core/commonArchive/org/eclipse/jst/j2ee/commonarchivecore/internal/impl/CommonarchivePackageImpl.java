@@ -161,7 +161,10 @@ public class CommonarchivePackageImpl extends EPackageImpl implements Commonarch
 		if (isInited) return (CommonarchivePackage)EPackage.Registry.INSTANCE.getEPackage(CommonarchivePackage.eNS_URI);
 
 		// Obtain or create and register package
-		CommonarchivePackageImpl theCommonarchivePackage = (CommonarchivePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(eNS_URI) instanceof CommonarchivePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(eNS_URI) : new CommonarchivePackageImpl());
+		CommonarchivePackageImpl theCommonarchivePackage = 
+			(CommonarchivePackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof
+					CommonarchivePackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new
+							CommonarchivePackageImpl());
 
 		isInited = true;
 
@@ -190,6 +193,9 @@ public class CommonarchivePackageImpl extends EPackageImpl implements Commonarch
 
 		// Mark meta-data to indicate it can't be changed
 		theCommonarchivePackage.freeze();
+
+		// Update the registry and return the package
+		EPackage.Registry.INSTANCE.put(CommonarchivePackage.eNS_URI, theCommonarchivePackage);
 
 		return theCommonarchivePackage;
 	}

@@ -99,7 +99,10 @@ public class LooseconfigPackageImpl extends EPackageImpl implements LooseconfigP
 		if (isInited) return (LooseconfigPackage)EPackage.Registry.INSTANCE.getEPackage(LooseconfigPackage.eNS_URI);
 
 		// Obtain or create and register package
-		LooseconfigPackageImpl theLooseconfigPackage = (LooseconfigPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(eNS_URI) instanceof LooseconfigPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(eNS_URI) : new LooseconfigPackageImpl());
+		LooseconfigPackageImpl theLooseconfigPackage = 
+			(LooseconfigPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof
+					LooseconfigPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new
+							LooseconfigPackageImpl());
 
 		isInited = true;
 
@@ -128,6 +131,9 @@ public class LooseconfigPackageImpl extends EPackageImpl implements LooseconfigP
 
 		// Mark meta-data to indicate it can't be changed
 		theLooseconfigPackage.freeze();
+
+		// Update the registry and return the package
+		EPackage.Registry.INSTANCE.put(LooseconfigPackage.eNS_URI, theLooseconfigPackage);
 
 		return theLooseconfigPackage;
 	}

@@ -140,7 +140,10 @@ public class Webservice_clientPackageImpl extends EPackageImpl implements Webser
 		if (isInited) return (Webservice_clientPackage)EPackage.Registry.INSTANCE.getEPackage(Webservice_clientPackage.eNS_URI);
 
 		// Obtain or create and register package
-		Webservice_clientPackageImpl theWebservice_clientPackage = (Webservice_clientPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(eNS_URI) instanceof Webservice_clientPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(eNS_URI) : new Webservice_clientPackageImpl());
+		Webservice_clientPackageImpl theWebservice_clientPackage = 
+			(Webservice_clientPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof
+					Webservice_clientPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new
+							Webservice_clientPackageImpl());
 
 		isInited = true;
 
@@ -191,6 +194,9 @@ public class Webservice_clientPackageImpl extends EPackageImpl implements Webser
 
 		// Mark meta-data to indicate it can't be changed
 		theWebservice_clientPackage.freeze();
+
+		// Update the registry and return the package
+		EPackage.Registry.INSTANCE.put(Webservice_clientPackage.eNS_URI, theWebservice_clientPackage);
 
 		return theWebservice_clientPackage;
 	}

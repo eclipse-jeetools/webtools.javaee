@@ -80,8 +80,12 @@ public class ClientPackageImpl extends EPackageImpl implements ClientPackage {
 		if (isInited) return (ClientPackage)EPackage.Registry.INSTANCE.getEPackage(ClientPackage.eNS_URI);
 
 		// Obtain or create and register package
-		ClientPackageImpl theClientPackage = (ClientPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(eNS_URI) instanceof ClientPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(eNS_URI) : new ClientPackageImpl());
+		ClientPackageImpl theClientPackage = 
+			(ClientPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof
+					ClientPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new
+							ClientPackageImpl());
 
+		
 		isInited = true;
 
 		// Initialize simple dependencies
@@ -131,6 +135,9 @@ public class ClientPackageImpl extends EPackageImpl implements ClientPackage {
 
 		// Mark meta-data to indicate it can't be changed
 		theClientPackage.freeze();
+
+		// Update the registry and return the package
+		EPackage.Registry.INSTANCE.put(ClientPackage.eNS_URI, theClientPackage);
 
 		return theClientPackage;
 	}

@@ -266,7 +266,10 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
 		if (isInited) return (JaxrpcmapPackage)EPackage.Registry.INSTANCE.getEPackage(JaxrpcmapPackage.eNS_URI);
 
 		// Obtain or create and register package
-		JaxrpcmapPackageImpl theJaxrpcmapPackage = (JaxrpcmapPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(eNS_URI) instanceof JaxrpcmapPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(eNS_URI) : new JaxrpcmapPackageImpl());
+		JaxrpcmapPackageImpl theJaxrpcmapPackage = 
+			(JaxrpcmapPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof
+					JaxrpcmapPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new
+							JaxrpcmapPackageImpl());
 
 		isInited = true;
 
@@ -291,6 +294,9 @@ public class JaxrpcmapPackageImpl extends EPackageImpl implements JaxrpcmapPacka
 
 		// Mark meta-data to indicate it can't be changed
 		theJaxrpcmapPackage.freeze();
+
+		// Update the registry and return the package
+		EPackage.Registry.INSTANCE.put(JaxrpcmapPackage.eNS_URI, theJaxrpcmapPackage);
 
 		return theJaxrpcmapPackage;
 	}

@@ -149,7 +149,10 @@ public class WscommonPackageImpl extends EPackageImpl implements WscommonPackage
 		if (isInited) return (WscommonPackage)EPackage.Registry.INSTANCE.getEPackage(WscommonPackage.eNS_URI);
 
 		// Obtain or create and register package
-		WscommonPackageImpl theWscommonPackage = (WscommonPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(eNS_URI) instanceof WscommonPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(eNS_URI) : new WscommonPackageImpl());
+		WscommonPackageImpl theWscommonPackage = 
+			(WscommonPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof
+					WscommonPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new
+							WscommonPackageImpl());
 
 		isInited = true;
 
@@ -200,6 +203,9 @@ public class WscommonPackageImpl extends EPackageImpl implements WscommonPackage
 
 		// Mark meta-data to indicate it can't be changed
 		theWscommonPackage.freeze();
+
+		// Update the registry and return the package
+		EPackage.Registry.INSTANCE.put(WscommonPackage.eNS_URI, theWscommonPackage);
 
 		return theWscommonPackage;
 	}

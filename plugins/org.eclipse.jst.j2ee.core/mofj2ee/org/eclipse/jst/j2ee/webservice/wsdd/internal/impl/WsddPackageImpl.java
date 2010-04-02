@@ -212,7 +212,10 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 		if (isInited) return (WsddPackage)EPackage.Registry.INSTANCE.getEPackage(WsddPackage.eNS_URI);
 
 		// Obtain or create and register package
-		WsddPackageImpl theWsddPackage = (WsddPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof WsddPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new WsddPackageImpl());
+		WsddPackageImpl theWsddPackage = 
+			(WsddPackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof
+					WsddPackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new
+							WsddPackageImpl());
 
 		isInited = true;
 
