@@ -194,6 +194,14 @@ public class WebFragmentFacetInstallDataModelProvider extends J2EEModuleFacetIns
 			} else if (propertyName.equals(IFacetProjectCreationDataModelProperties.FACET_RUNTIME)) {
 				model.notifyPropertyChange(ADD_TO_WAR, IDataModel.VALID_VALUES_CHG);
 				model.notifyPropertyChange(WAR_PROJECT_NAME, IDataModel.VALID_VALUES_CHG);
+			} 
+			
+			if (ADD_TO_WAR.equals(propertyName)) {
+				IStatus stat = model.validateProperty(propertyName);
+				if (stat != OK_STATUS) {
+					return true;
+				}
+				model.notifyPropertyChange(WAR_PROJECT_NAME, IDataModel.VALID_VALUES_CHG);
 			}
 	       
 
@@ -227,6 +235,17 @@ public class WebFragmentFacetInstallDataModelProvider extends J2EEModuleFacetIns
 			descriptors[i] = new DataModelPropertyDescriptor(desc.getPropertyDescription(), desc.getPropertyDescription());
 		}
 		return descriptors;
+	}
+	
+	@Override
+	public boolean isPropertyEnabled(String propertyName) {
+		if (ADD_TO_WAR.equals(propertyName)) {
+			return isWARSupportedByRuntime();
+		}
+		if (WAR_PROJECT_NAME.equals(propertyName)) {
+			return isWARSupportedByRuntime() && getBooleanProperty(ADD_TO_WAR);
+		}
+		return super.isPropertyEnabled(propertyName);
 	}
 		
 }
