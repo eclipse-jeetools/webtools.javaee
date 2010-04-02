@@ -26,7 +26,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
@@ -244,7 +243,7 @@ public class DeployerRegistry {
 						facet = ProjectFacetsManager.getProjectFacet(exclusion);
 					} catch (IllegalArgumentException e) {
 						//Facet id not found
-						J2EEPlugin.logWarning(e.getMessage());
+						// Don't log as this could be expected.....
 					}
 					if (facet != null && fProj.hasProjectFacet(facet)) {
 						excludeDeployer = true;
