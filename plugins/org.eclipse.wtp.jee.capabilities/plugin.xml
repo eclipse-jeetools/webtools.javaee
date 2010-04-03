@@ -55,22 +55,7 @@
             pattern="org\.eclipse\.wst\.command\.[\.\w/]*">
         </activityPatternBinding>
         
-        <!--
-        <activityRequirementBinding 
-          requiredActivityId="org.eclipse.wtp.web" 
-          activityId="org.eclipse.wtp.webservices.capabilities">
-        </activityRequirementBinding>
-        -->
-        <!--
-        <categoryActivityBinding
-            activityId="org.eclipse.wtp.webservices.capabilities"
-            categoryId="org.eclipse.categories.developmentCategory">
-        </categoryActivityBinding>
-        
-        <defaultEnablement
-            id="org.eclipse.wtp.webservices.capabilities">
-        </defaultEnablement>
-        -->
+
       
    </extension>
 
@@ -123,22 +108,6 @@
       		requiredActivityId="org.eclipse.javaDevelopment" 
       		activityId="org.eclipse.wtp.jee.capabilities">
       	</activityRequirementBinding>
-      	<!--
-      	<activityRequirementBinding 
-      		requiredActivityId="org.eclipse.team" 
-      		activityId="org.eclipse.wtp.jee.capabilities">
-      	</activityRequirementBinding>
-      	-->
-      	<!--
-       <categoryActivityBinding
-            activityId="org.eclipse.wtp.jee.capabilities"
-            categoryId="org.eclipse.categories.developmentCategory">
-       </categoryActivityBinding>
-       
-      	<defaultEnablement
-            id="org.eclipse.wtp.jee.capabilities">
-      	</defaultEnablement>
-      -->
    </extension>
    
    <!-- Add to the Web Service Capability Definition-->
@@ -164,12 +133,6 @@
             pattern="[\.\w/]*wsexport">
       	</activityPatternBinding>
       	
-      	<!--
-      	<activityRequirementBinding 
-      		requiredActivityId="org.eclipse.wtp.jee.capabilities" 
-      		activityId="org.eclipse.wtp.webservices.capabilities">
-      	</activityRequirementBinding>
-      	-->
       	
    </extension>
 
