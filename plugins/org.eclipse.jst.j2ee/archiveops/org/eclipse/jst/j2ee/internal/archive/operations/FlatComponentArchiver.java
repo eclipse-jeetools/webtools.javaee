@@ -123,7 +123,6 @@ public class FlatComponentArchiver {
 			if (resource instanceof IFlatFile) {
 				if (!isManifest(entryPath) && !zipEntries.contains(entryPath)) {
 					addZipEntry(resource, entryPath);
-					zipEntries.add(entryPath);
 				}
 			} else if (resource instanceof IFlatFolder) {
 				if (shouldInclude(entryPath)) {
