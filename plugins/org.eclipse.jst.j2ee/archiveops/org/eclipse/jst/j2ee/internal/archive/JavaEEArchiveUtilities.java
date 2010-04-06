@@ -709,6 +709,9 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 
 	private static final char[] MESSAGEDRIVEN = "Ljavax/ejb/MessageDriven;".toCharArray();//$NON-NLS-1$
 
+	private static final char[] SINGLETON = "Ljavax/ejb/Singleton;".toCharArray();//$NON-NLS-1$
+
+	
 	public boolean isEJBArchive(IArchive archive) {
 		// first check for the deployment descriptor
 		if (archiveToJavaEEQuickPeek.containsKey(archive)) {
@@ -736,7 +739,7 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 									IAnnotation[] annotations = annotationsAttribute.getAnnotations();
 									for (IAnnotation annotation : annotations) {
 										char[] typedName = annotation.getTypeName();
-										if (Arrays.equals(typedName, STATELESS) || Arrays.equals(typedName, STATEFUL) || Arrays.equals(typedName, MESSAGEDRIVEN)) {
+										if (Arrays.equals(typedName, STATELESS) || Arrays.equals(typedName, STATEFUL) || Arrays.equals(typedName, MESSAGEDRIVEN) || Arrays.equals(typedName, SINGLETON)) {
 											return true;
 										}
 									}
