@@ -48,10 +48,12 @@ public class FlatComponentArchiver {
 	private List<IFlattenParticipant> participants;
 	private ComponentExportCallback callbackHandler;
 	private List<IPath> zipEntries = new ArrayList<IPath>();
+	private List <IVirtualComponent> componentsArchived = new ArrayList<IVirtualComponent>();
 	
 	public interface ComponentExportCallback {
 		public boolean canSave(IVirtualComponent component);
-		public void saveArchive(IVirtualComponent component, ZipOutputStream zipOutputStream) throws ArchiveException;
+		public IFlatVirtualComponent saveComponent(IVirtualComponent component, ZipOutputStream zipOutputStream, List<IPath> zipEntries) throws ArchiveException;
+		public boolean createManifest();
 	}
 
 	public FlatComponentArchiver(IVirtualComponent aComponent, OutputStream out, List<IFlattenParticipant> fParticipants) {
@@ -83,16 +85,24 @@ public class FlatComponentArchiver {
 			getDestinationStream().close();
 	}
 	
+	/**
+	 * Fetches the resources for the component using the FlatVirtualComponent
+	 * and saves them to an archive.  
+	 * 
+	 * @throws ArchiveSaveFailureException
+	 */
 	protected void saveArchive() throws ArchiveSaveFailureException {
 		Exception caughtException = null;
+		boolean createManifest = true;
 		try {
 			if (callbackHandler != null && callbackHandler.canSave(getComponent())) {
-				callbackHandler.saveArchive(getComponent(), getZipOutputStream());
+				flatComponent = callbackHandler.saveComponent(getComponent(), getZipOutputStream(), zipEntries);
+				createManifest = callbackHandler.createManifest();
 			}
-			else {	
-				IFlatResource[] resources = getFlatComponent().fetchResources();
-				saveManifest(Arrays.asList(resources));
-				saveChildModules(getFlatComponent().getChildModules());
+			if (flatComponent != null) {
+				IFlatResource[] resources = flatComponent.fetchResources();
+				saveManifest(Arrays.asList(resources), createManifest);
+				saveChildModules(flatComponent.getChildModules());
 				saveFlatResources(resources);
 			}
 		} catch (Exception e){
@@ -110,47 +120,100 @@ public class FlatComponentArchiver {
 		}
 	}
 	
+	/**
+	 * Creates a nested archive for the component inside its parent archive
+	 * 
+	 * @param component
+	 * @param entry
+	 * @return FlatComponentArchiver
+	 * @throws IOException
+	 */
 	protected FlatComponentArchiver saveNestedArchive(IVirtualComponent component, IPath entry) throws IOException {
 		ZipEntry nest = new ZipEntry(entry.toString());
 		getZipOutputStream().putNextEntry(nest);
 		return new FlatComponentArchiver(component, getZipOutputStream(), getParticipants(), callbackHandler);
 	}
 
+	/**
+	 * Adds the resources returned from the FlatVirtualComponent into the archive
+	 * 
+	 * @param resources
+	 * @throws ArchiveSaveFailureException
+	 */
 	protected void saveFlatResources(IFlatResource[] resources) throws ArchiveSaveFailureException {
 		for (int i = 0; i < resources.length; i++) {
 			IFlatResource resource = resources[i];
 			IPath entryPath = resource.getModuleRelativePath().append(resource.getName());
 			if (resource instanceof IFlatFile) {
-				if (!isManifest(entryPath) && !zipEntries.contains(entryPath)) {
+				if (shouldInclude(entryPath, true)) {
 					addZipEntry(resource, entryPath);
 					zipEntries.add(entryPath);
 				}
 			} else if (resource instanceof IFlatFolder) {
-				if (shouldInclude(entryPath)) {
+				if (shouldInclude(entryPath, false)) {
 					addZipEntry(resource, entryPath);
+					zipEntries.add(entryPath);
 					saveFlatResources(((IFlatFolder)resource).members());
 				}
 			}
 		}
 	}
 
-	protected boolean shouldInclude(IPath entryPath) {
-		if (entryPath.equals(new Path(IModuleConstants.DOT_SETTINGS))) {
+	/**
+	 * @param entryPath
+	 * @param isFile
+	 * @return true or false - should resource be added to the archive
+	 */
+	protected boolean shouldInclude(IPath entryPath, boolean isFile) {
+		if (zipEntries.contains(entryPath)) {
+			return false;
+		}
+		if (isFile) {
+			if (entryPath.equals(new Path(J2EEConstants.MANIFEST_URI))) {
+				return false;
+			}
+		}
+		else if (entryPath.equals(new Path(IModuleConstants.DOT_SETTINGS))) {
 			return false;
 		}
 		return true;
 	}
 
+	/**
+	 * Creates the nested jars from project references and saves them 
+	 * to the archive.
+	 * 
+	 * @param childModules
+	 * @throws ArchiveSaveFailureException
+	 * @throws IOException
+	 */
 	protected void saveChildModules(IChildModuleReference[] childModules) throws ArchiveSaveFailureException, IOException {
+		componentsArchived.add(component);
 		for (int i = 0; i < childModules.length; i++) {
 			IChildModuleReference childModule = childModules[i];
 			IPath entryPath = childModule.getRelativeURI();
+			
+			//keep track of project references added.  we only want to include the 
+			//project when both a binary module and its backing project exist
 			zipEntries.add(entryPath);
+			
+			//prevent an infinite loop due to cycle dependencies
+			if (componentsArchived.contains(childModule.getComponent()))
+				continue;
+			
 			FlatComponentArchiver saver = saveNestedArchive(childModule.getComponent(), entryPath);
+			saver.setArchivedComponents(componentsArchived);
 			saver.saveArchive();
 		}
 	}
 
+	/**
+	 * Adds an entry and copies the resource into the archive
+	 * 
+	 * @param flatresource
+	 * @param entryPath
+	 * @throws ArchiveSaveFailureException
+	 */
 	protected void addZipEntry(IFlatResource f, IPath entryPath) throws ArchiveSaveFailureException {
 		try {
 			IPath path = entryPath;
@@ -180,11 +243,12 @@ public class FlatComponentArchiver {
 			throw new ArchiveSaveFailureException(e);
 		}
 	}
-	
 
 	/**
-	 * The FlatVirtualComponent model is what does the grunt of the work
-	 * @return
+	 * The FlatVirtualComponent is what does the bulk of the work
+	 * 
+	 * @param component
+	 * @return IFlatVirtualComponent
 	 */
 	protected IFlatVirtualComponent getFlatComponent(IVirtualComponent component) {
 		FlatComponentTaskModel options = new FlatComponentTaskModel();
@@ -200,7 +264,16 @@ public class FlatComponentArchiver {
 		return zipOutputStream;
 	}
 
-	private void saveManifest(List<IFlatResource> resources) throws ArchiveSaveFailureException {
+	/**
+	 * This method adds the existing MANIFEST.MF as the first entry in the archive.
+	 * This is necessary to support clients who use JarInputStream.getManifest().
+	 * If no MANIFEST.MF is found, one is created if createManifest param is true
+	 * 
+	 * @param resources
+	 * @param createManifest 
+	 * @throws ArchiveSaveFailureException
+	 */
+	private void saveManifest(List<IFlatResource> resources, boolean createManifest) throws ArchiveSaveFailureException {
 		IFlatFolder metainf = (FlatFolder)VirtualComponentFlattenUtility.getExistingModuleResource(resources, new Path(J2EEConstants.META_INF));
 		IFlatFile manifest = null;
 		
@@ -215,7 +288,8 @@ public class FlatComponentArchiver {
 				}
 			}
 		}
-		if (manifest == null) {
+		if (createManifest && manifest == null) {
+			//manifest not found so create one for the archive
 			createManifest();
 		}
 	}
@@ -231,11 +305,8 @@ public class FlatComponentArchiver {
 		}
 	}
 
-	private boolean isManifest(IPath path) {
-		if (path.equals(new Path(J2EEConstants.MANIFEST_URI))) {
-			return true;
-		}
-		return false;
+	public void setArchivedComponents(List<IVirtualComponent> componentList) {
+		componentsArchived.addAll(componentList);
 	}
 
 	public java.io.OutputStream getDestinationStream() {

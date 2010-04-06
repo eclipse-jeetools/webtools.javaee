@@ -12,10 +12,12 @@ package org.eclipse.jst.j2ee.internal.common.exportmodel;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
@@ -30,11 +32,18 @@ import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.jst.jee.archive.IArchiveLoadAdapter;
 import org.eclipse.jst.jee.archive.IArchiveResource;
 import org.eclipse.jst.jee.archive.internal.ArchiveUtil;
+import org.eclipse.wst.common.componentcore.internal.flat.FlatVirtualComponent;
+import org.eclipse.wst.common.componentcore.internal.flat.IFlatResource;
+import org.eclipse.wst.common.componentcore.internal.flat.IFlatVirtualComponent;
+import org.eclipse.wst.common.componentcore.internal.flat.IFlattenParticipant;
+import org.eclipse.wst.common.componentcore.internal.flat.VirtualComponentFlattenUtility;
+import org.eclipse.wst.common.componentcore.internal.flat.FlatVirtualComponent.FlatComponentTaskModel;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 public class JavaEEComponentExportCallback implements ComponentExportCallback {
 
 	private boolean isExportSource;
+	private List<IPath> zipEntries;
 
 	public JavaEEComponentExportCallback(boolean exportSource) {
 		isExportSource = exportSource;
@@ -47,8 +56,9 @@ public class JavaEEComponentExportCallback implements ComponentExportCallback {
 		return false;
 	}
 
-	public void saveArchive(IVirtualComponent component, ZipOutputStream zipOutputStream) throws ArchiveException {
+	public IFlatVirtualComponent saveComponent(IVirtualComponent component, ZipOutputStream zipOutputStream, List<IPath> entries) throws ArchiveException {
 		IArchive archiveToSave = null;
+		zipEntries = entries;
 		try {
 			archiveToSave = JavaEEArchiveUtilities.INSTANCE.openArchive(component);
 			IArchiveLoadAdapter loadAdapter = archiveToSave.getLoadAdapter();
@@ -71,8 +81,9 @@ public class JavaEEComponentExportCallback implements ComponentExportCallback {
 				JavaEEArchiveUtilities.INSTANCE.closeArchive(archiveToSave);
 			}
 		}
+		return getFlatComponent(component);
 	}
-	
+
 	private boolean isManifest(IPath path) {
 		if (path.equals(new Path(J2EEConstants.MANIFEST_URI))) {
 			return true;
@@ -99,6 +110,7 @@ public class JavaEEComponentExportCallback implements ComponentExportCallback {
 			if (resource.getLastModified() > 0)
 				entry.setTime(resource.getLastModified());
 			zipOutputStream.putNextEntry(entry);
+			zipEntries.add(path);
 			if (resource.getType() != IArchiveResource.DIRECTORY_TYPE) {
 				ArchiveUtil.copy(resource.getInputStream(), zipOutputStream);
 			}
@@ -107,9 +119,46 @@ public class JavaEEComponentExportCallback implements ComponentExportCallback {
 			throw new ArchiveSaveFailureException(e);
 		}
 	}
+	
+	protected IFlatVirtualComponent getFlatComponent(IVirtualComponent component) {
+		FlatComponentTaskModel options = new FlatComponentTaskModel();
+		options.put(FlatVirtualComponent.PARTICIPANT_LIST, getParticipants());
+		return new ConnectorExportComponent(component, options);
+	}
+	
+	protected IFlattenParticipant[] getParticipants() {
+		return new IFlattenParticipant[]{
+				new AddJavaEEReferencesParticipant()
+		};
+	}
 
 	private boolean isExportSource() {
 		return isExportSource;
+	}
+	
+	public boolean createManifest() {
+		return false;
+	}
+
+	public class ConnectorExportComponent extends FlatVirtualComponent {
+
+		public ConnectorExportComponent(IVirtualComponent component, FlatComponentTaskModel dataModel) {
+			super(component, dataModel);
+		}
+
+		@Override
+		protected void treeWalk() throws CoreException {
+			if (getComponent() != null) {
+				VirtualComponentFlattenUtility util = new VirtualComponentFlattenUtility(new ArrayList<IFlatResource>(), this);
+
+				// the actual walking of the tree was already handled 
+				// by the creation of the nested jars from the source folders
+				//util.addMembers(component, vFolder, Path.EMPTY);
+
+				addConsumedReferences(util, getComponent(), new Path("")); //$NON-NLS-1$
+				addUsedReferences(util, getComponent(), new Path("")); //$NON-NLS-1$
+			}
+		}
 	}
 
 }
