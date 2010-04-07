@@ -466,7 +466,13 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 	}
 	
 	protected IStatus canCreateTypeInClasspath(String packageName, String typeName) {
-		IPackageFragment pack = getJavaPackageFragmentRoot().getPackageFragment(packageName);
+		IPackageFragmentRoot packRoot = getJavaPackageFragmentRoot();
+		IPackageFragment pack = null;
+		// bug 308013 - getJavaPackageFragmentRoot() can return null- need to check for that
+		if (packRoot != null)
+		{
+			pack = packRoot.getPackageFragment(packageName);
+		}
 		if (pack != null) {
 			ICompilationUnit cu = pack.getCompilationUnit(typeName + JavaModelUtil.DEFAULT_CU_SUFFIX);
 			String fullyQualifiedName = JavaModelUtil.getFullyQualifiedName(cu.getType(typeName));
