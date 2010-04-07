@@ -30,16 +30,16 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.ITypeHierarchy;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.web.jfaces.extension.FileURL;
 import org.eclipse.jst.j2ee.internal.web.jfaces.extension.FileURLExtensionReader;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
-import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.jst.javaee.core.UrlPatternType;
+import org.eclipse.jst.javaee.web.IWebCommon;
 import org.eclipse.jst.javaee.web.Servlet;
 import org.eclipse.jst.javaee.web.ServletMapping;
-import org.eclipse.jst.javaee.web.WebApp;
 import org.eclipse.jst.javaee.web.internal.impl.ServletImpl;
 import org.eclipse.jst.jee.ui.plugin.JEEUIPlugin;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -49,6 +49,7 @@ import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleArtifact;
 import org.eclipse.wst.server.core.ServerUtil;
+import org.eclipse.wst.server.core.internal.ModuleType;
 import org.eclipse.wst.server.core.util.WebResource;
 
 /**
@@ -187,9 +188,11 @@ public class WebDeployableArtifactUtil {
 		String componentName = null;
 		if (component != null)
 			componentName = component.getName();
-		
-		// check for jst.web modules first
-		IModule[] modules = ServerUtil.getModules(IJ2EEFacetConstants.DYNAMIC_WEB);
+		ModuleType[] moduleTypeArray = new ModuleType[]{
+				ModuleType.getModuleType(J2EEProjectUtilities.DYNAMIC_WEB, null),
+				ModuleType.getModuleType(J2EEProjectUtilities.WEBFRAGMENT, null)
+		};
+		IModule[] modules = ServerUtil.getModules(moduleTypeArray);
 		for (IModule module : modules) {
 			if ((project == null || project.equals(module.getProject()))
 					&& (componentName == null || componentName.equals(module.getName())))
@@ -356,12 +359,13 @@ public class WebDeployableArtifactUtil {
 	}
 
 	protected static boolean hasInterestedComponents(IProject project) {
-		return JavaEEProjectUtilities.isDynamicWebProject(project);
+		return (JavaEEProjectUtilities.isDynamicWebProject(project) ||
+				JavaEEProjectUtilities.isWebFragmentProject(project));
 	}
 
 	private static List getServletMappings(IResource resource, String typeName){ 
 		IModelProvider provider = ModelProviderManager.getModelProvider( resource.getProject() );
-		WebApp webApp = (WebApp)provider.getModelObject();
+		IWebCommon webApp = (IWebCommon)provider.getModelObject();
 		
 		List servlets = webApp.getServlets();
 		List list = new ArrayList();

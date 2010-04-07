@@ -235,6 +235,77 @@
        </moduleArtifactAdapter>
    </extension>
    
+   
+   <!-- ==================================================================== -->
+<!-- Extension point: org.eclipse.etools.server.core.moduleObjectAdapters -->
+<!-- Purpose: Define adapters for Web fragment resources                           -->
+<!-- ==================================================================== -->
+      <extension point="org.eclipse.wst.server.core.moduleArtifactAdapters">  
+    
+       <moduleArtifactAdapter
+            id="org.eclipse.jst.jee.web.server.webresource"
+            class="org.eclipse.jst.jee.ui.internal.deployables.WebDeployableArtifactAdapterFactory">     
+         <enablement>
+           <with variable="selection">
+             <adapt type="org.eclipse.jst.javaee.web.WebFragment"/>
+           </with>
+         </enablement>
+      </moduleArtifactAdapter> 
+       
+      <moduleArtifactAdapter
+            id="org.eclipse.jst.jee.web.server.webresource2"
+             class="org.eclipse.jst.jee.ui.internal.deployables.WebDeployableArtifactAdapterFactory">      
+         <enablement>
+           <with variable="selection">
+             <adapt type="org.eclipse.jst.javaee.web.Servlet"/>
+           </with>
+         </enablement>
+       </moduleArtifactAdapter>
+      
+       <moduleArtifactAdapter
+            id="org.eclipse.jst.jee.web.server.webresource3"
+            class="org.eclipse.jst.jee.ui.internal.deployables.WebDeployableArtifactAdapterFactory">     
+         <enablement>
+           <with variable="selection">
+             <adapt type="org.eclipse.core.resources.IProject">
+             <test forcePluginActivation="true"
+							property="org.eclipse.wst.common.project.facet.core.projectFacet"
+							value="jst.webfragment:[3.0" />
+			 </adapt>
+           </with>
+         </enablement>
+       </moduleArtifactAdapter>     
+       
+        <moduleArtifactAdapter
+            id="org.eclipse.jst.jee.web.server.webresource4"
+            class="org.eclipse.jst.jee.ui.internal.deployables.WebDeployableArtifactAdapterFactory">
+         <enablement>
+           <with variable="selection">
+             <adapt type="org.eclipse.core.resources.IFile">
+             <test forcePluginActivation="true"
+							property="org.eclipse.wst.common.project.facet.core.projectFacet"
+							value="jst.webfragment:[3.0" />
+			 </adapt>
+           </with>
+         </enablement>
+       </moduleArtifactAdapter>
+
+      <moduleArtifactAdapter
+            id="org.eclipse.jst.jee.web.server.webresource5"
+            class="org.eclipse.jst.jee.ui.internal.deployables.WebDeployableArtifactAdapterFactory">
+          
+         <enablement>
+           <with variable="selection">
+             <adapt type="org.eclipse.jdt.core.ICompilationUnit">
+             <test forcePluginActivation="true"
+							property="org.eclipse.jst.j2ee.common.projectFacet"
+							value="jst.webfragment:[3.0" />             
+             </adapt>
+           </with>
+         </enablement>
+       </moduleArtifactAdapter>
+   </extension>
+   
    <!-- ==================================================================== -->
 <!-- Purpose: Define adapters for EJB resources                           -->
 <!-- Extension point: org.eclipse.wst.server.core.moduleArtifactAdapters  -->
