@@ -12,11 +12,12 @@ package org.eclipse.jst.j2ee.application.internal.operations;
 
 import java.util.Set;
 
-import org.eclipse.jst.common.project.facet.JavaFacetUtils;
+import org.eclipse.jst.common.project.facet.core.JavaFacet;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEModuleImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.archive.ArchiveWrapper;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
@@ -49,20 +50,20 @@ public abstract class J2EEComponentImportDataModelProvider extends J2EEArtifactI
 	 * Updates the Java Facet Version so it is compliant with the Java EE Module version 
 	 */
 	protected void updateJavaFacetVersion() {
-		ArchiveWrapper wrapper = getArchiveWrapper();
-		int javaEEVersion = wrapper.getJavaEEQuickPeek().getJavaEEVersion();
+		JavaEEQuickPeek jqp = getInterpretedSpecVersion(getArchiveWrapper());
+		int javaEEVersion = jqp.getJavaEEVersion();
 		IProjectFacetVersion javaFacetVersion = null;
 		switch (javaEEVersion){
 		case J2EEVersionConstants.J2EE_1_2_ID:
 		case J2EEVersionConstants.J2EE_1_3_ID:
 		case J2EEVersionConstants.J2EE_1_4_ID:
-			javaFacetVersion = JavaFacetUtils.JAVA_14;
+			javaFacetVersion = JavaFacet.VERSION_1_4;
 			break;
 		case J2EEVersionConstants.JEE_5_0_ID:
-			javaFacetVersion = JavaFacetUtils.JAVA_50;
+			javaFacetVersion = JavaFacet.VERSION_1_5;
 			break;
 		case J2EEVersionConstants.JEE_6_0_ID:
-			javaFacetVersion = JavaFacetUtils.JAVA_60;
+			javaFacetVersion = JavaFacet.VERSION_1_6;
 			break;
 		}
 		if(javaFacetVersion != null){

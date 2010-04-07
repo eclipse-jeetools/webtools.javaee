@@ -166,27 +166,8 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 			updateModuleRoot();
 			setProperty(UTILITY_LIST, null);
 
-			IDataModel earProjectModel = model.getNestedModel(NESTED_MODEL_J2EE_COMPONENT_CREATION);
 			if (getArchiveWrapper() != null) {
-				FacetDataModelMap map = (FacetDataModelMap) earProjectModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-				IDataModel earFacetDataModel = map.getFacetDataModel(J2EEProjectUtilities.ENTERPRISE_APPLICATION);
-
-				JavaEEQuickPeek quickPeek = getArchiveWrapper().getJavaEEQuickPeek();
-				int minimumVersion = quickPeek.getVersion();
-				if(nestedModels != null){
-					//increase the JavaEE facet version to accommodate the highest module version
-					for(int i=0;i<nestedModels.size(); i++){
-						IDataModel nestedModel = (IDataModel)nestedModels.get(i);
-						ArchiveWrapper nestedWrapper = (ArchiveWrapper)nestedModel.getProperty(ARCHIVE_WRAPPER);
-						int nestedEEVersion = nestedWrapper.getJavaEEQuickPeek().getJavaEEVersion();
-						if(nestedEEVersion > minimumVersion){
-							minimumVersion = nestedEEVersion;
-						}
-					}
-				}
-				
-				String versionText = J2EEVersionUtil.getJ2EETextVersion(minimumVersion);
-				earFacetDataModel.setStringProperty(IFacetDataModelProperties.FACET_VERSION_STR, versionText);
+				refreshInterpretedSpecVersion();
 			}
 
 			model.notifyPropertyChange(PROJECT_NAME, IDataModel.VALID_VALUES_CHG);
@@ -243,6 +224,30 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 			}
 		}
 		return doSet;
+	}
+	
+	@Override
+	protected void refreshInterpretedSpecVersion() {
+		IDataModel earProjectModel = model.getNestedModel(NESTED_MODEL_J2EE_COMPONENT_CREATION);
+		FacetDataModelMap map = (FacetDataModelMap) earProjectModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+		IDataModel earFacetDataModel = map.getFacetDataModel(J2EEProjectUtilities.ENTERPRISE_APPLICATION);
+		int minimumVersion = getInterpretedSpecVersion(getArchiveWrapper()).getJavaEEVersion();
+		if(minimumVersion != JavaEEQuickPeek.VERSION_6_0){
+			List nestedModels = getModuleModels();
+			if(nestedModels != null){
+				//increase the JavaEE facet version to accommodate the highest module version
+				for(int i=0;i<nestedModels.size(); i++){
+					IDataModel nestedModel = (IDataModel)nestedModels.get(i);
+					ArchiveWrapper nestedWrapper = (ArchiveWrapper)nestedModel.getProperty(ARCHIVE_WRAPPER);
+					int nestedEEVersion = getInterpretedSpecVersion(nestedWrapper).getJavaEEVersion();
+					if(nestedEEVersion > minimumVersion){
+						minimumVersion = nestedEEVersion;
+					}
+				}
+			}
+		}
+		String versionText = J2EEVersionUtil.getJ2EETextVersion( minimumVersion );
+		earFacetDataModel.setStringProperty(IFacetDataModelProperties.FACET_VERSION_STR, versionText);
 	}
 
 	protected boolean forceResetOnPreserveMetaData() {

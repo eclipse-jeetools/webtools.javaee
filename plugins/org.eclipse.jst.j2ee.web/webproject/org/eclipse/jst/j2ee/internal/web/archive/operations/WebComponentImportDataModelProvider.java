@@ -95,17 +95,8 @@ public final class WebComponentImportDataModelProvider extends J2EEComponentImpo
 	public boolean propertySet(String propertyName, Object propertyValue) {
 		super.propertySet(propertyName, propertyValue);
 		if (propertyName.equals(ARCHIVE_WRAPPER)) {
-			
-			IDataModel moduleDM = model.getNestedModel(NESTED_MODEL_J2EE_COMPONENT_CREATION);
 			if (getArchiveWrapper() != null) {
-				
-				FacetDataModelMap map = (FacetDataModelMap) moduleDM.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-				IDataModel webFacetDataModel = map.getFacetDataModel( J2EEProjectUtilities.DYNAMIC_WEB );
-				
-				int version = getModuleSpecVersion();
-				String versionText = J2EEVersionUtil.getServletTextVersion( version );
-				webFacetDataModel.setStringProperty(IFacetDataModelProperties.FACET_VERSION_STR, versionText);
-				updateJavaFacetVersion();
+				refreshInterpretedSpecVersion();
 				model.notifyPropertyChange(PROJECT_NAME, IDataModel.VALID_VALUES_CHG);
 			}			
 			
@@ -155,6 +146,17 @@ public final class WebComponentImportDataModelProvider extends J2EEComponentImpo
 			validateLibModelRuntimes();
 		}
 		return true;
+	}
+	
+	@Override
+	protected void refreshInterpretedSpecVersion() {
+		IDataModel moduleDM = model.getNestedModel(NESTED_MODEL_J2EE_COMPONENT_CREATION);
+		FacetDataModelMap map = (FacetDataModelMap) moduleDM.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+		IDataModel webFacetDataModel = map.getFacetDataModel( J2EEProjectUtilities.DYNAMIC_WEB );
+		int version = getInterpretedSpecVersion(getArchiveWrapper()).getVersion();
+		String versionText = J2EEVersionUtil.getServletTextVersion( version );
+		webFacetDataModel.setStringProperty(IFacetDataModelProperties.FACET_VERSION_STR, versionText);
+		updateJavaFacetVersion();
 	}
 	
 	@Override
