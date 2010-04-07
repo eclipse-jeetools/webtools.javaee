@@ -50,8 +50,8 @@ public class WebModuleDependencyPageProvider implements IDependencyPageProvider 
 				new WebDependencyPropertyPage(project.getProject(), parent)};
 			
 		return new IModuleDependenciesControl[] {
-				new ManifestModuleDependencyControl(project.getProject(), parent),
-				new WebDependencyPropertyPage(project.getProject(), parent)
+				new WebDependencyPropertyPage(project.getProject(), parent),
+				new ManifestModuleDependencyControl(project.getProject(), parent)
 		};
 	}
 
@@ -72,10 +72,10 @@ public class WebModuleDependencyPageProvider implements IDependencyPageProvider 
 		
 		TabItem tab = new TabItem(folder, SWT.NONE);
 		tab.setControl(controls[0].createContents(folder));
-		tab.setText(Messages.ManifestEntries); 
+		tab.setText(Messages.DeploymentAssembly);
 		tab = new TabItem(folder, SWT.NONE);
 		tab.setControl(controls[1].createContents(folder));
-		tab.setText(Messages.DeploymentAssembly);
+		tab.setText(Messages.ManifestEntries); 
 	
 		folder.setSelection(0);
 		return folder;

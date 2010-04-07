@@ -78,6 +78,7 @@ public class CustomWebProjectReferenceWizardFragment extends ProjectReferenceWiz
 		
 		button = new Button(parent, SWT.CHECK);
 		button.setText(Messages.getString("CustomWebProjectReferenceWizardFragment.0")); //$NON-NLS-1$
+		button.setToolTipText(Messages.getString("CustomWebProjectReferenceWizardFragment.1")); //$NON-NLS-1$
 		button.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		button.addSelectionListener(new SelectionListener() {
 			public void widgetDefaultSelected(SelectionEvent e) {
@@ -87,6 +88,7 @@ public class CustomWebProjectReferenceWizardFragment extends ProjectReferenceWiz
 				handleEdit();
 			}
 		});
+		button.setSelection(true);
 	}
 //	public Composite createButtonColumnComposite(Composite parent) {
 //		Composite aButtonColumn = new Composite(parent, SWT.NONE);
@@ -143,11 +145,12 @@ public class CustomWebProjectReferenceWizardFragment extends ProjectReferenceWiz
 	public void performFinish(IProgressMonitor monitor) throws CoreException {
 		for (int i = 0; i < selected.length; i++) {
 			IProject proj = selected[i];
-			if(!JavaEEProjectUtilities.isUtilityProject(proj))
+			if(JavaEEProjectUtilities.getJ2EEProjectType(proj).equals("")) //$NON-NLS-1$
 			{
 				J2EEProjectUtilities.createFlexJavaProjectForProjectOperation(proj).execute(monitor, null);
 			}
 		}
 		super.performFinish(monitor);
 	}
+	
 }

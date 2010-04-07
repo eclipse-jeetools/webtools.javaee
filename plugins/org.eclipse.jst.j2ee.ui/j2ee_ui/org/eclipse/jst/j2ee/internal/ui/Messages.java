@@ -9,6 +9,7 @@ public class Messages extends NLS {
 	public static String J2EEDependencyPageProvider_2;
 	public static String J2EEDependencyPageProvider_3;
 	public static String J2EEDependencyPageProvider_4;
+	public static String J2EEDependencyPageProvider_5;
 	public static String J2EEModuleDependenciesPropertyPage_0;
 	public static String J2EEModuleDependenciesPropertyPage_1;
 	public static String J2EEModuleDependenciesPropertyPage_2;
