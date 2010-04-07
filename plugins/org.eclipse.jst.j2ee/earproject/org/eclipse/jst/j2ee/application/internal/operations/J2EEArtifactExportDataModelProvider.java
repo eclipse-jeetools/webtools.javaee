@@ -11,9 +11,11 @@
 package org.eclipse.jst.j2ee.application.internal.operations;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -262,7 +264,18 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
 			getComponentMap().put(comps[i].getName(), comps[i]);
 		}
 	}
-
+	
+	@Override
+	public DataModelPropertyDescriptor getPropertyDescriptor(String propertyName){
+		if( propertyName.equals( RUNTIME ) )
+		{
+			IRuntime runtime = (IRuntime) getProperty(RUNTIME);
+			if(runtime != null)
+				return new DataModelPropertyDescriptor(runtime, runtime.getLocalizedName());
+		}
+		return super.getPropertyDescriptor(propertyName);
+	}
+	
 	/**
 	 * Populate the resource name combo with projects that are not encrypted.
 	 */
@@ -310,24 +323,30 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
                         }
                     }
                     
-                    final Comparator<IRuntime> comparator = new Comparator<IRuntime>()
-                    {
-                        public int compare( final IRuntime r1,
-                                            final IRuntime r2 )
-                        {
-                            return r1.getName().compareTo( r2.getName() );
-                        }
-                    };
-                    
-                    Collections.sort( runtimes, comparator );
+                    DataModelPropertyDescriptor[] descriptors = new DataModelPropertyDescriptor[runtimes.size()];
+        			Iterator iterator = runtimes.iterator();
+        			for (int i = 0; i < descriptors.length; i++) {
+        				IRuntime runtime = (IRuntime) iterator.next();
+        				descriptors[i] = new DataModelPropertyDescriptor(runtime, runtime.getLocalizedName());
+        			}
+        			if(descriptors.length > 2){
+        				Arrays.sort(descriptors, 0, descriptors.length, new Comparator() {
+        					public int compare(Object arg0, Object arg1) {
+        						DataModelPropertyDescriptor d1 = (DataModelPropertyDescriptor)arg0;
+        						DataModelPropertyDescriptor d2 = (DataModelPropertyDescriptor)arg1;
+        						return d1.getPropertyDescription().compareTo(d2.getPropertyDescription());
+        					}
+        				});
+        			}
+        			return descriptors;
                 }
                 catch( CoreException e )
                 {
                     J2EEPlugin.logError( -1, e.getMessage(), e );
                 }
             }
-		    
-		    return DataModelPropertyDescriptor.createDescriptors( runtimes.toArray() );		    
+	        
+	        return DataModelPropertyDescriptor.createDescriptors(null);    
 		}
 		
 		return super.getValidPropertyDescriptors(propertyName);
