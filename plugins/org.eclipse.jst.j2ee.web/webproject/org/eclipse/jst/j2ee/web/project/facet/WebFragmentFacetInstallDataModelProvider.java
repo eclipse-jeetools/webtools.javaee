@@ -44,6 +44,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
+import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 
@@ -150,7 +151,7 @@ public class WebFragmentFacetInstallDataModelProvider extends J2EEModuleFacetIns
 		@Override
 		public DataModelPropertyDescriptor[] getValidPropertyDescriptors(String propertyName) {
 			if (WAR_PROJECT_NAME.equals(propertyName)) {
-				int j2eeVersion = getJ2EEVersion();
+				int j2eeVersion = J2EEVersionUtil.convertVersionStringToInt(((IProjectFacetVersion) getProperty(FACET_VERSION)).getVersionString());
 				return getWebAppPropertyDescriptors(j2eeVersion);
 			}
 			return super.getValidPropertyDescriptors(propertyName);
