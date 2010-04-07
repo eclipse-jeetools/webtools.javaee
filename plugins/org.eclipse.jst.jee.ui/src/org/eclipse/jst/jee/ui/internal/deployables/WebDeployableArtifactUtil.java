@@ -11,7 +11,6 @@
 package org.eclipse.jst.jee.ui.internal.deployables;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -31,12 +30,12 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.ITypeHierarchy;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.web.jfaces.extension.FileURL;
 import org.eclipse.jst.j2ee.internal.web.jfaces.extension.FileURLExtensionReader;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.jst.javaee.core.UrlPatternType;
 import org.eclipse.jst.javaee.web.Servlet;
 import org.eclipse.jst.javaee.web.ServletMapping;
@@ -185,25 +184,32 @@ public class WebDeployableArtifactUtil {
 	}
 
 	protected static IModule getModule(IProject project, IVirtualComponent component) {
-		IModule deployable = null;
-		Iterator iterator = Arrays.asList(ServerUtil.getModules(J2EEProjectUtilities.DYNAMIC_WEB)).iterator(); 
 		String componentName = null;
 		if (component != null)
 			componentName = component.getName();
-		else
-			return getModuleProject(project, iterator);
-		while (iterator.hasNext()) {
-			Object next = iterator.next();
-			if (next instanceof IModule) {
-				deployable = (IModule) next;
-				if (deployable.getName().equals(componentName)) {
-					return deployable;
+		
+		// check for jst.web modules first
+		IModule[] modules = ServerUtil.getModules(IJ2EEFacetConstants.DYNAMIC_WEB);
+		for (IModule module : modules) {
+			if ((project == null || project.equals(module.getProject()))
+					&& (componentName == null || componentName.equals(module.getName())))
+				return module;
 				}
+		
+		// otherwise fall back to other types of web modules on the project
+		if (project != null) {
+			modules = ServerUtil.getModules(project);
+			for (IModule module : modules) {
+				if (componentName == null || componentName.equals(module.getName()))
+					return module;
 			}
 		}
 		return null;
 	}
 
+	/**
+	 *  @deprecated - see getModule() for better logic for finding a project's IModule
+	 */
 	protected static IModule getModuleProject(IProject project, Iterator iterator) {
 		IModule deployable = null;
 		while (iterator.hasNext()) {
