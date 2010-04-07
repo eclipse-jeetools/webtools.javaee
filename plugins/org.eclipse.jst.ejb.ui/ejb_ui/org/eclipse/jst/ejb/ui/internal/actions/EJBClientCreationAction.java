@@ -28,6 +28,7 @@ import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.IEjbClientJarCreation
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.ejb.provider.GroupedEJBItemProvider;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
+import org.eclipse.jst.j2ee.project.EJBUtilities;
 import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
@@ -121,7 +122,7 @@ public class EJBClientCreationAction extends AbstractClientJARAction {
 	@Override
 	public void selectionChanged(IAction action, ISelection selection) {
 		super.selectionChanged(action, selection);
-		if (hasClientJar())
+		if (EJBUtilities.hasEJBClientJARProject(getProject()))
 			action.setEnabled(false);
 		else 
 			action.setEnabled(true);

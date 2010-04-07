@@ -38,11 +38,10 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
+import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestOperation;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModelProperties;
-import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModelProvider;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.ClientJARCreationConstants;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.LibCopyBuilder;
@@ -285,25 +284,13 @@ public class EJBClientJARRemovalOperation extends AbstractDataModelOperation
 		list.add(clientProject.getName() + IJ2EEModuleConstants.JAR_EXT);
 		
 		IProject[] earProjects = EarUtilities.getReferencingEARProjects( ejbProject );
-		
-		//remove  project dependency of client project from the  EJB project.
-		IDataModel dataModel = DataModelFactory.createDataModel( new JARDependencyDataModelProvider() );
-		dataModel.setProperty( JARDependencyDataModelProperties.PROJECT_NAME, ejbProject.getName());
-		dataModel.setProperty( JARDependencyDataModelProperties.JAR_LIST, list );
-		dataModel.setProperty(JARDependencyDataModelProperties.EAR_PROJECT_NAME,
-					earProjects[0].getName());
-		dataModel.setIntProperty( JARDependencyDataModelProperties.JAR_MANIPULATION_TYPE,
-					JARDependencyDataModelProperties.JAR_MANIPULATION_REMOVE );
-		dataModel.setProperty( JARDependencyDataModelProperties.REFERENCED_PROJECT_NAME,
-					clientProject.getName() );
+		UpdateManifestOperation removeOp = new EJBClientManifestUtility().getRemoveOperation(ejbProject, earProjects[0], list, clientProject);
 		
 		try {
-			dataModel.getDefaultOperation().execute( createSubProgressMonitor(1), null);
+			removeOp.execute( createSubProgressMonitor(1), null);
 		} catch (ExecutionException e) {
 			EjbPlugin.logError( e );
 		}
-
-		
 		
 		ArchiveManifest clientMf = J2EEProjectUtilities.readManifest(clientProject);
 		if (clientMf == null)
@@ -319,16 +306,10 @@ public class EJBClientJARRemovalOperation extends AbstractDataModelOperation
 
 		for (int i = 0; i < earProjects.length; i++) {
 			List result = EJBClientJarCreationHelper.normalize(mfEntries, earProjects[i], ejbProject, false);
-			
-			IDataModel dataModel2 = DataModelFactory.createDataModel( new JARDependencyDataModelProvider() );
-			dataModel2.setProperty(JARDependencyDataModelProperties.PROJECT_NAME, ejbProject.getName());
-			dataModel2.setProperty(JARDependencyDataModelProperties.JAR_LIST, result);
-			dataModel2.setProperty(JARDependencyDataModelProperties.EAR_PROJECT_NAME, earProjects[i].getName());
-			dataModel2.setIntProperty(JARDependencyDataModelProperties.JAR_MANIPULATION_TYPE,
-						JARDependencyDataModelProperties.JAR_MANIPULATION_ADD);
+			UpdateManifestOperation addOp = new EJBClientManifestUtility().getAddOperation(ejbProject, earProjects[0], result);
 			
 			try{
-				dataModel2.getDefaultOperation().execute( createSubProgressMonitor(1), null );
+				addOp.execute( createSubProgressMonitor(1), null );
 			}catch (ExecutionException e) {
 				EjbPlugin.logError( e );
 			}

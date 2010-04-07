@@ -33,6 +33,7 @@ import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbClientProjectRemovalDataModelProvider;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.IEjbClientProjectRemovalDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
+import org.eclipse.jst.j2ee.project.EJBUtilities;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.progress.UIJob;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -203,7 +204,7 @@ public class EJBClientRemovalAction extends AbstractClientJARAction {
 	@Override
 	public void selectionChanged(IAction action, ISelection selection) {
 		super.selectionChanged(action, selection);
-		if (hasClientJar())
+		if (EJBUtilities.hasEJBClientJARProject(getProject()))
 			action.setEnabled(true);
 		else 
 			action.setEnabled(false);

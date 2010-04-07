@@ -21,16 +21,12 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
+import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestOperation;
 import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
-import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModelProperties;
-import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyDataModelProvider;
-import org.eclipse.jst.j2ee.internal.common.operations.JARDependencyOperation;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
-import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
-import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 
 public class InvertClientJARDependencyCompoundOperation extends AbstractDataModelOperation {
@@ -75,21 +71,10 @@ public class InvertClientJARDependencyCompoundOperation extends AbstractDataMode
 						&& !project.equals(newProject) && !JemProjectUtilities.isBinaryProject(project) 
 						&& !comp.isBinary()){
 						
-						IDataModel model = DataModelFactory.createDataModel( new JARDependencyDataModelProvider());
-						
-						model.setIntProperty(JARDependencyDataModelProperties.JAR_MANIPULATION_TYPE,
-									JARDependencyDataModelProperties.JAR_MANIPULATION_INVERT);
-						
-						model.setProperty(JARDependencyDataModelProperties.PROJECT_NAME,
-									project.getName());
-						model.setProperty(JARDependencyDataModelProperties.OPPOSITE_PROJECT_NAME,
-									newProject.getName());
-						model.setProperty(JARDependencyDataModelProperties.EAR_PROJECT_NAME,
-									earProjects[i].getName() );
-						model.setProperty(JARDependencyDataModelProperties.REFERENCED_PROJECT_NAME,
-									oldProject.getName());
-						childOperations.add(new JARDependencyOperation(model));
-					}					
+						UpdateManifestOperation invertOp = new EJBClientManifestUtility().getInvertOperation(
+								project, earProjects[0], newProject, oldProject);
+						childOperations.add(invertOp);
+					}
 				}
 			}
 
@@ -99,7 +84,7 @@ public class InvertClientJARDependencyCompoundOperation extends AbstractDataMode
 	private void executeChildOperations() {
 		monitor.beginTask("", childOperations.size()); //$NON-NLS-1$
 		for (int i = 0; i < childOperations.size(); i++) {
-			JARDependencyOperation op = (JARDependencyOperation) childOperations.get(i);
+			AbstractDataModelOperation op = (AbstractDataModelOperation) childOperations.get(i);
 			try {
 				op.execute(new SubProgressMonitor(monitor, 1), null);
 			} catch (Exception e) {
