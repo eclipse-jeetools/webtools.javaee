@@ -11,7 +11,8 @@
 package org.eclipse.jst.j2ee.componentcore.util;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,18 +29,15 @@ import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpda
 import org.eclipse.jst.j2ee.internal.modulecore.util.ClasspathDependencyContainerVirtualComponent;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.jee.application.ICommonModule;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
-import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.builder.IDependencyGraph;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualFolder;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualReference;
 import org.eclipse.wst.common.componentcore.internal.util.IComponentImplFactory;
+import org.eclipse.wst.common.componentcore.internal.util.VirtualReferenceUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
@@ -72,79 +70,27 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 		return new VirtualFolder(aProject, aRuntimePath);
 	}
 
-	private static String getJarURI(final ReferencedComponent ref, final IVirtualComponent moduleComp) {
-		String uri = ref.getArchiveName();
-		if (uri == null || uri.length() < 0) {
-			if(moduleComp.isBinary()){
-				uri = new Path(moduleComp.getName()).lastSegment();
-			} else {
-				uri = moduleComp.getName() + IJ2EEModuleConstants.JAR_EXT;
-			}
-		} else {
-			// TODO I would like to see this section removed
-			String prefix = ref.getRuntimePath().makeRelative().toString();
-			if (prefix.length() > 0) {
-				uri = prefix + "/" + uri; //$NON-NLS-1$
-			}
-		}
-		return uri;
+	@Override
+	protected boolean shouldCacheReferences() {
+		return true;
+	}
+	
+	private List<IVirtualReference> getHardReferences(IVirtualComponent earComponent) {
+		IVirtualReference[] comparison = super.getReferences(new HashMap<String, Object>());
+		ArrayList<IVirtualReference> refs2 = new ArrayList<IVirtualReference>();
+		refs2.addAll(Arrays.asList(comparison));
+		return refs2;
 	}
 
-	private static List<IVirtualReference> getHardReferences(IVirtualComponent earComponent) {
-		StructureEdit core = null;
-		List<IVirtualReference> hardReferences = new ArrayList<IVirtualReference>();
-		try {
-			core = StructureEdit.getStructureEditForRead(earComponent.getProject());
-			if (core != null && core.getComponent() != null) {
-				WorkbenchComponent component = core.getComponent();
-				if (component != null) {
-					List referencedComponents = component.getReferencedComponents();
-					for (Iterator iter = referencedComponents.iterator(); iter.hasNext();) {
-						ReferencedComponent referencedComponent = (ReferencedComponent) iter.next();
-						if (referencedComponent == null)
-							continue;
-						IVirtualReference vReference = StructureEdit.createVirtualReference(earComponent, referencedComponent);
-						if (vReference != null) {
-							IVirtualComponent referencedIVirtualComponent = vReference.getReferencedComponent();
-							if (referencedIVirtualComponent != null && referencedIVirtualComponent.exists()) {
-								String archiveName = null;
-								if (referencedComponent.getDependentObject() != null) {
-									archiveName = ((ICommonModule) referencedComponent.getDependentObject()).getUri();
-								} else {
-									if (referencedIVirtualComponent.isBinary()) {
-										archiveName = getJarURI(referencedComponent, referencedIVirtualComponent);
-									} else if(referencedComponent.getArchiveName() != null){
-										archiveName = referencedComponent.getArchiveName();
-									} else {
-										IProject referencedProject = referencedIVirtualComponent.getProject();
-										// If dependent object is not set, assume
-										// compname is module name + proper
-										// extension
-										if (JavaEEProjectUtilities.isDynamicWebProject(referencedProject) || JavaEEProjectUtilities.isStaticWebProject(referencedProject)) {
-											archiveName = referencedIVirtualComponent.getName() + IJ2EEModuleConstants.WAR_EXT;
-										} else if (JavaEEProjectUtilities.isJCAProject(referencedProject)) {
-											archiveName = referencedIVirtualComponent.getName() + IJ2EEModuleConstants.RAR_EXT;
-										} else if (JavaEEProjectUtilities.isUtilityProject(referencedProject)) {
-											archiveName = getJarURI(referencedComponent, referencedIVirtualComponent);
-										} else {
-											archiveName = referencedIVirtualComponent.getName() + IJ2EEModuleConstants.JAR_EXT;
-										}
-									}
-								}
-								vReference.setArchiveName(archiveName);
-								hardReferences.add(vReference);
-							}
-						}
-					}
-				}
-			}
-		} finally {
-			if (core != null)
-				core.dispose();
-		}
-		return hardReferences;
+	@Override
+	protected void customizeCreatedReference(IVirtualReference reference, Object dependentObject) {
+		if( dependentObject instanceof ICommonModule )
+			reference.setArchiveName(((ICommonModule) dependentObject).getUri());
+		else 
+			VirtualReferenceUtilities.INSTANCE.ensureReferencesHaveNames(new IVirtualReference[]{reference});
 	}
 
+	
 	/**
 	 * Returns the resulting list of referenced components based off the hard references and archives mapping to the root folder.
 	 * 
@@ -179,20 +125,21 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 			for (int i = 0; i < members.length; i++) {
 				if (IVirtualResource.FILE == members[i].getType()) {
 					if(isDynamicComponent((IVirtualFile)members[i])){
-						String archiveName = members[i].getRuntimePath().toString().substring(1);
+						IPath archiveFullPath = new Path(members[i].getRuntimePath().toString());
 						boolean shouldInclude = true;
 						for (int j = 0; j < hardReferences.size() && shouldInclude; j++) {
-							String tempArchiveName = ((IVirtualReference) hardReferences.get(j)).getArchiveName();
-							if (null != tempArchiveName && tempArchiveName.equals(archiveName)) {
+							IVirtualReference tmpRef = ((IVirtualReference) hardReferences.get(j));
+							IPath tmpFullPath = tmpRef.getRuntimePath().append(tmpRef.getArchiveName());
+							if( tmpFullPath.equals(archiveFullPath))
 								shouldInclude = false;
-							}
-						}
+						} 
 						if (shouldInclude) {
 							IResource iResource = members[i].getUnderlyingResource();
 							IVirtualComponent dynamicComponent = ComponentCore.createArchiveComponent(earComponent.getProject(), VirtualArchiveComponent.LIBARCHIVETYPE + iResource.getFullPath().toString());
 							IVirtualReference dynamicRef = ComponentCore.createReference(earComponent, dynamicComponent);
 							((VirtualReference)dynamicRef).setDerived(true);
-							dynamicRef.setArchiveName(archiveName);
+							dynamicRef.setArchiveName(archiveFullPath.lastSegment());
+							dynamicRef.setRuntimePath(archiveFullPath.removeLastSegments(1));
 							if (null == innerDynamicReferences) {
 								innerDynamicReferences = new ArrayList();
 							}
@@ -220,7 +167,6 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 
 	@Override
 	public IVirtualReference[] getReferences() {
-		
 		IVirtualReference[] cached = getCachedReferences();
 		if (cached != null)
 			return cached;
