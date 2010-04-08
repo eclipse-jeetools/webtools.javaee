@@ -43,13 +43,14 @@ import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.jst.common.jdt.internal.javalite.JavaCoreLite;
 import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants;
-import org.eclipse.jst.j2ee.classpathdep.UpdateClasspathAttributeUtil;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants.DependencyAttributeType;
+import org.eclipse.jst.j2ee.classpathdep.UpdateClasspathAttributeUtil;
 import org.eclipse.jst.j2ee.internal.ManifestUIResourceHandler;
 import org.eclipse.jst.j2ee.internal.modulecore.util.ClasspathDependencyContainerVirtualComponent;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -90,11 +91,12 @@ public class ClasspathDependencyWizardFragment extends WizardFragment implements
 	@Override
 	public Composite createComposite(Composite parent, IWizardHandle handle) {
 		this.handle = handle;
-		Composite c = super.createComposite(parent, handle);
+		Composite c = new Composite(parent, SWT.BORDER);
+		c.setLayout(new FillLayout());
 		handle.setTitle(Messages.ClasspathDependencyFragmentTitle);
 		handle.setDescription(Messages.ClasspathDependencyFragmentDescription);
-		viewer = new CheckboxTreeViewer(parent);
-		viewer.getTree().setLayoutData(new GridData(GridData.FILL_BOTH));
+		viewer = new CheckboxTreeViewer(c);
+		//viewer.getTree().setLayoutData(new GridData(GridData.FILL_BOTH));
 	    viewer.setContentProvider(new ClasspathPushupContentProvider());
 	    viewer.setLabelProvider(new ClasspathPushupLabelProvider());
 	    try {
