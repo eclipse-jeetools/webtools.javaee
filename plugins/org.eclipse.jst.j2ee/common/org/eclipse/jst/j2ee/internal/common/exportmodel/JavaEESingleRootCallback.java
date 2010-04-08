@@ -76,6 +76,7 @@ public class JavaEESingleRootCallback implements SingleRootParticipantCallback {
 				if (sourceResource != null && sourceResource.exists()) {
 					if (sourceResource instanceof IContainer && !util.isSourceContainer((IContainer) sourceResource)) {
 						util.reportStatus(ISingleRootStatus.SINGLE_ROOT_CONTAINER_FOUND, (IContainer) sourceResource);
+						util.setValidateFlag(CANCEL);
 						return;
 					}
 				}
@@ -85,7 +86,8 @@ public class JavaEESingleRootCallback implements SingleRootParticipantCallback {
 		// If we have classpath dependencies we can't be single root
 		if (hasClasspathDependencies(vc)) {
 			util.reportStatus(CLASSPATH_DEPENDENCIES_FOUND);
-			if (util.getValidateFlag() == CANCEL) return;
+			if (util.getValidateFlag() == CANCEL) 
+				return;
 		}
 		
 		//validate web projects for single root
