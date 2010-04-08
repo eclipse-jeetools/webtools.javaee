@@ -175,32 +175,7 @@
             id="org.eclipse.jst.servlet.ui.WebModuleCreationWizard">
       </extendableWizard>
    </extension>
-   <extension
-		point="org.eclipse.ui.actionSets">
-		<actionSet
-			label="%ConvertWebProjectType"
-			description="%ConvertWebProjectType"
-			visible="true"
-			id="org.eclipse.jst.servlet.ui.internal.actions.ConvertToWebModuleTypeActionSet">
-			<action
-				label="%convertWebProjectTypeAction.label"
-				tooltip="%ConvertWebProjectTypeAction.tooltip"
-				menubarPath="project/additions"
-				class="org.eclipse.jst.servlet.ui.internal.actions.ConvertToWebModuleTypeAction"
-				enablesFor="1"
-				id="convertToWebModuleTypeAction">   
-				<enablement>
-					<and>
-						<objectClass name="org.eclipse.core.resources.IProject"/>
-						<!--<objectState
-	                       name="facet"
-	                       value="wst.web">
-	                     </objectState> -->
-					</and>
-				</enablement>            
-			</action>
-		</actionSet>
-	</extension>
+
 	
 	<extension
          point="org.eclipse.ui.popupMenus">
@@ -219,7 +194,7 @@
         <action
 				label="%convertWebProjectTypeAction.label"
 				tooltip="%ConvertWebProjectTypeAction.tooltip"
-				menubarPath="ConvertWebProjectType/ConvertWebProjectType"
+				menubarPath="org.eclipse.ui.projectConfigure/additions"
 				class="org.eclipse.jst.servlet.ui.internal.actions.ConvertToWebModuleTypeAction"
 				enablesFor="1"
 				id="convertToWebModuleTypeAction">
