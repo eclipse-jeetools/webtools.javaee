@@ -136,6 +136,7 @@ public class EJBUtilities extends JavaEEProjectUtilities {
 
 	public static boolean hasEJBClientJARProject(IProject ejbProject) {
 
+		if (ejbProject == null) return false;
 		if (getEJBClientJar(ejbProject) != null)
 			return true;
 		return false;
