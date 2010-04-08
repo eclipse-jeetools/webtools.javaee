@@ -12,19 +12,20 @@
 package org.eclipse.jst.jee.ui.internal.navigator;
 
 import java.net.URL;
+import java.util.HashMap;
 
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.navigator.internal.J2EELabelProvider;
 import org.eclipse.jst.j2ee.navigator.internal.plugin.J2EENavigatorPlugin;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.jst.jee.ui.internal.navigator.ear.AbstractEarNode;
 import org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider;
 import org.eclipse.jst.jee.ui.plugin.JEEUIPlugin;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
+import org.eclipse.wst.common.componentcore.internal.util.VirtualReferenceUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
@@ -42,7 +43,7 @@ public class Ear5LabelProvider extends J2EELabelProvider {
 	private static ImageDescriptor IMG_MODULE_EJB;
 	private static ImageDescriptor IMG_MODULE_CLIENT;
 	private static ImageDescriptor IMG_MODULE_CONNECTOR;
-
+	private static HashMap<String, ImageDescriptor> typeToDescriptor;
 	static {
 		try {
 			IMG_MODULES_NODE = J2EENavigatorPlugin.getDefault().getImageDescriptor("folder.gif"); //$NON-NLS-1$
@@ -61,30 +62,27 @@ public class Ear5LabelProvider extends J2EELabelProvider {
 			IMG_MODULE_CLIENT = ImageDescriptor.getMissingImageDescriptor();
 			IMG_MODULE_CONNECTOR = ImageDescriptor.getMissingImageDescriptor();
 		}
+		typeToDescriptor = new HashMap<String, ImageDescriptor>();
+		typeToDescriptor.put(IJ2EEFacetConstants.APPLICATION_CLIENT, IMG_MODULE_CLIENT);
+		typeToDescriptor.put(IJ2EEFacetConstants.DYNAMIC_WEB, IMG_MODULE_WEB);
+		typeToDescriptor.put(IJ2EEFacetConstants.EJB, IMG_MODULE_EJB);
+		typeToDescriptor.put(IJ2EEFacetConstants.JCA, IMG_MODULE_CONNECTOR);
+		typeToDescriptor.put(IJ2EEFacetConstants.UTILITY, IMG_MODULE_UTIL);
 	}
 
 	@Override
 	public Image getImage(Object element) {
 		Image ret = null;
-
 		if (element instanceof AbstractEarNode) {
 			ret = J2EENavigatorPlugin.getDefault().getImage(IMG_MODULES_NODE);
 		} else if (element instanceof IVirtualReference) {
 			IVirtualComponent component = ((IVirtualReference) element).getReferencedComponent();
 			if (component.isBinary()) { 
 				ret = J2EENavigatorPlugin.getDefault().getImage(IMG_MODULE_UTIL);
-			} else if (JavaEEProjectUtilities.isDynamicWebComponent(component)) {
-				ret = J2EENavigatorPlugin.getDefault().getImage(IMG_MODULE_WEB);
-			} else if (JavaEEProjectUtilities.isEJBComponent(component)) {
-				ret = J2EENavigatorPlugin.getDefault().getImage(IMG_MODULE_EJB);
-			} else if (JavaEEProjectUtilities.isApplicationClientComponent(component)) {
-				ret = J2EENavigatorPlugin.getDefault().getImage(IMG_MODULE_CLIENT);
-			} else if (JavaEEProjectUtilities.isJCAComponent(component)) {
-				ret = J2EENavigatorPlugin.getDefault().getImage(IMG_MODULE_CONNECTOR);
-			} else if (JavaEEProjectUtilities.isUtilityProject(component.getProject())) {
-				ret = J2EENavigatorPlugin.getDefault().getImage(IMG_MODULE_UTIL);
-			} else if (component instanceof VirtualArchiveComponent) {
-				ret = J2EENavigatorPlugin.getDefault().getImage(IMG_MODULE_UTIL);
+			} else {
+				String type = JavaEEProjectUtilities.getJ2EEComponentType(component);
+				ImageDescriptor desc = typeToDescriptor.get(type);
+				ret = J2EENavigatorPlugin.getDefault().getImage(desc == null ? IMG_MODULE_UTIL : desc);
 			}
 		} else if (element instanceof GroupEARProvider){
 			ret = ((GroupEARProvider) element).getImage();
@@ -99,36 +97,25 @@ public class Ear5LabelProvider extends J2EELabelProvider {
 			ret =  ((AbstractEarNode) element).getText();
 		} else if (element instanceof IVirtualReference) {
 			IVirtualComponent component = ((IVirtualReference) element).getReferencedComponent();
-
-			if (JavaEEProjectUtilities.isDynamicWebComponent(component)) {
-				if (!component.isBinary()) {
-					ret = "Web " + component.getName() + IJ2EEModuleConstants.WAR_EXT; //$NON-NLS-1$
-				} else {
-					Path path = new Path(component.getDeployedName());
-					return path.lastSegment();
-				}
-			} else if (JavaEEProjectUtilities.isEJBComponent(component)) {
-				if (!component.isBinary()) {
-					ret = "EJB " + component.getName() + IJ2EEModuleConstants.JAR_EXT; //$NON-NLS-1$
-				} else {
-					Path path = new Path(component.getDeployedName());
-					return path.lastSegment();
-				}
-			} else if (JavaEEProjectUtilities.isApplicationClientComponent(component)){
-				if (!component.isBinary()) {
-					ret = "APP Client " + component.getName() + IJ2EEModuleConstants.JAR_EXT; //$NON-NLS-1$
-				} else {
-					Path path = new Path(component.getDeployedName());
-					return path.lastSegment();
-				}
-			} else if (JavaEEProjectUtilities.isJCAProject(component.getProject())) {
-				ret = "Connector " + component.getName() + IJ2EEModuleConstants.JAR_EXT; //$NON-NLS-1$
-			} else if (JavaEEProjectUtilities.isUtilityProject(component.getProject())) {
-				ret = component.getName() + IJ2EEModuleConstants.JAR_EXT;
-			} else if (component.isBinary()) {
-				String deployedName = component.getDeployedName();
-				Path path = new Path(deployedName);
-				return path.lastSegment();
+			String archiveName = ((IVirtualReference)element).getArchiveName();
+			if( component.isBinary()) {
+				ret = archiveName != null ? archiveName : (new Path(component.getDeployedName()).lastSegment());
+			} else {
+				// more efficient to get type once
+				String type = JavaEEProjectUtilities.getJ2EEComponentType(component);
+				if( archiveName == null )
+					archiveName = VirtualReferenceUtilities.INSTANCE.getDefaultArchiveName((IVirtualReference)element);
+							
+				if( type.equals(IJ2EEFacetConstants.DYNAMIC_WEB))
+					ret = "Web " + archiveName; //$NON-NLS-1$
+				else if( type.equals(IJ2EEFacetConstants.EJB))
+					ret = "EJB " + archiveName;//$NON-NLS-1$
+				else if( type.equals(IJ2EEFacetConstants.APPLICATION_CLIENT))
+					ret = "APP Client " + archiveName;//$NON-NLS-1$
+				else if( type.equals(IJ2EEFacetConstants.JCA))
+					ret = "Connector " + archiveName;//$NON-NLS-1$
+				else if( type.equals(IJ2EEFacetConstants.UTILITY))
+					ret = archiveName;
 			}
 		}  else if (element instanceof GroupEARProvider){
 			ret = ((GroupEARProvider) element).getText(); 
