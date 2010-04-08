@@ -666,7 +666,8 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 
 		public Object getModelObject(IPath modelObjectPath) throws ArchiveModelLoadException {
 			IPath localModelObjectPath = modelObjectPath;
-			if (simpleLoadAdapter.containsModelObject(localModelObjectPath)) {
+			if (IArchive.EMPTY_MODEL_PATH != localModelObjectPath 
+					&& simpleLoadAdapter.containsModelObject(localModelObjectPath)) {
 				return simpleLoadAdapter.getModelObject(localModelObjectPath);
 			}
 			if (IArchive.EMPTY_MODEL_PATH == localModelObjectPath) {
