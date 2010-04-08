@@ -133,7 +133,7 @@ public class WebUtilities extends JavaEEProjectUtilities {
 	public static IVirtualReference[] getLibModules(IVirtualComponent webComponent){
 		List result = new ArrayList();
 		IVirtualReference[] refComponents = null;
-		if (!webComponent.isBinary())
+		if (!webComponent.isBinary() && JavaEEProjectUtilities.usesJavaEEComponent(webComponent))
 			refComponents = ((J2EEModuleVirtualComponent)webComponent).getNonManifestReferences();
 		else
 			refComponents = webComponent.getReferences();
