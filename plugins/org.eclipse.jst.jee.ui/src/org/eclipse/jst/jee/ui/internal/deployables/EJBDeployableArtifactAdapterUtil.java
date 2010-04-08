@@ -157,6 +157,8 @@ public class EJBDeployableArtifactAdapterUtil {
 
 	protected static IModule getModule(EObject refObject) {
 		IProject proj = ProjectUtilities.getProject(refObject);
+		if (proj == null)
+			return null;
 		Resource refResource = refObject.eResource();
 		IVirtualResource[] resources = null;
 		IVirtualComponent component = null;
