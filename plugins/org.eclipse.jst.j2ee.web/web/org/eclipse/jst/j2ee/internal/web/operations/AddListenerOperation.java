@@ -95,7 +95,7 @@ public class AddListenerOperation extends AddWebClassOperation {
 	 * @return Listener instance
 	 */
 	private Object createListener(String qualifiedClassName) {
-		Object modelObject = provider.getModelObject();
+		Object modelObject = provider.getModelObject(WEB_APP_XML_PATH);
 		if (modelObject instanceof org.eclipse.jst.j2ee.webapplication.WebApp ){
 			// Create the listener instance and set up the parameters from data model
 			Listener listener = CommonFactory.eINSTANCE.createListener();

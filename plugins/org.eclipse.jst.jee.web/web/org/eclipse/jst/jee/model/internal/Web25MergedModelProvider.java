@@ -13,6 +13,8 @@ package org.eclipse.jst.jee.model.internal;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.IModelProviderEvent;
 import org.eclipse.jst.javaee.web.WebApp;
@@ -29,6 +31,8 @@ import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
  * 
  */
 public class Web25MergedModelProvider extends AbstractMergedModelProvider<WebApp> {
+	
+	protected Path WEB_APP_XML_PATH = new Path(J2EEConstants.WEBAPP_DD_URI);
 
 	public Web25MergedModelProvider(IProject project) {
 		super(project);
@@ -53,7 +57,14 @@ public class Web25MergedModelProvider extends AbstractMergedModelProvider<WebApp
 	}
 
 	public Object getModelObject(IPath modelPath) {
-		return null;
+		if (modelPath == null){
+			return getModelObject();
+		} else if (WEB_APP_XML_PATH.equals(modelPath)){
+			return getXmlWebApp();
+		} else if ("java".equals(modelPath.getFileExtension()) || "class".equals(modelPath.getFileExtension())) { //$NON-NLS-1$ //$NON-NLS-2$
+			return getAnnotationWebApp();
+		}
+		return getModelObject();
 	}
 
 	@Override
