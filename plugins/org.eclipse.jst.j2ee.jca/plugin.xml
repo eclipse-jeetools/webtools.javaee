@@ -82,7 +82,7 @@
       <label>%CONN_FACET_LABEL</label>
       <description>%CONN_FACET_DESCRIPTION</description>
       <icon>icons/full/obj16/Connector.gif</icon>
-      <default-version version="1.5"/>
+      <default-version version="1.6"/>
     </project-facet>
 
     <project-facet-version facet="jst.connector" version="1.0">

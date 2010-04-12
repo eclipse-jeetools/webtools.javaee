@@ -403,7 +403,7 @@
       <label>%EAR_FACET_LABEL</label>
       <description>%EAR_FACET_DESCRIPTION</description>
       <icon>icons/EAR.gif</icon>
-      <default-version version="1.4"/>
+      <default-version version="6.0"/>
     </project-facet>
 
     <project-facet-version facet="jst.ear" version="1.2">
@@ -506,7 +506,7 @@
       <label>%APPCLIENT_FACET_LABEL</label>
       <description>%APPCLIENT_FACET_DESCRIPTION</description>
       <icon>icons/ear.gif</icon>
-      <default-version version="1.4"/>
+      <default-version version="6.0"/>
     </project-facet>
 
     <project-facet-version facet="jst.appclient" version="1.2">
