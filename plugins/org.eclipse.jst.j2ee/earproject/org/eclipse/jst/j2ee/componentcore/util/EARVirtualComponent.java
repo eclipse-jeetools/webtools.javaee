@@ -73,11 +73,6 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 			} else {
 				uri = moduleComp.getName() + IJ2EEModuleConstants.JAR_EXT;
 			}
-		} else {
-			String prefix = ref.getRuntimePath().makeRelative().toString();
-			if (prefix.length() > 0) {
-				uri = prefix + "/" + uri; //$NON-NLS-1$
-			}
 		}
 		return uri;
 	}
@@ -169,13 +164,13 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 			for (int i = 0; i < members.length; i++) {
 				if (IVirtualResource.FILE == members[i].getType()) {
 					if(folder.isDynamicComponent((IVirtualFile)members[i])){
-						String archiveName = members[i].getRuntimePath().toString().substring(1);
+						IPath archiveFullPath = new Path(members[i].getRuntimePath().toString());
 						boolean shouldInclude = true;
 						for (int j = 0; j < hardReferences.size() && shouldInclude; j++) {
-							String tempArchiveName = ((IVirtualReference) hardReferences.get(j)).getArchiveName();
-							if (null != tempArchiveName && tempArchiveName.equals(archiveName)) {
+							IVirtualReference tmpRef = ((IVirtualReference) hardReferences.get(j));
+							IPath tmpFullPath = tmpRef.getRuntimePath().append(tmpRef.getArchiveName());
+							if( tmpFullPath.equals(archiveFullPath))
 								shouldInclude = false;
-							}
 						}
 						if (shouldInclude) {
 							IResource iResource = members[i].getUnderlyingResource();
@@ -183,7 +178,8 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 							IVirtualReference dynamicRef = ComponentCore.createReference(earComponent, dynamicComponent);
 							if( dynamicComponent instanceof J2EEModuleVirtualArchiveComponent)
 								((J2EEModuleVirtualArchiveComponent)dynamicComponent).setDeploymentPath(members[i].getRuntimePath());
-							dynamicRef.setArchiveName(archiveName);
+							dynamicRef.setArchiveName(archiveFullPath.lastSegment());
+							dynamicRef.setRuntimePath(archiveFullPath.removeLastSegments(1));
 							if (null == dynamicReferences) {
 								dynamicReferences = new ArrayList();
 							}
