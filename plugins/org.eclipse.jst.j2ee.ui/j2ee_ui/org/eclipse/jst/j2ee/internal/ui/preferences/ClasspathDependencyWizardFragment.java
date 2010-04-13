@@ -61,6 +61,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.ui.internal.propertypage.IReferenceEditor;
 import org.eclipse.wst.common.componentcore.ui.internal.taskwizard.IWizardHandle;
 import org.eclipse.wst.common.componentcore.ui.internal.taskwizard.WizardFragment;
+import org.eclipse.wst.common.componentcore.ui.propertypage.IReferenceWizardConstants;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.internal.ui.WTPUIPlugin;
 import org.eclipse.wst.common.frameworks.internal.ui.WorkspaceModifyComposedOperation;
@@ -96,7 +97,6 @@ public class ClasspathDependencyWizardFragment extends WizardFragment implements
 		handle.setTitle(Messages.ClasspathDependencyFragmentTitle);
 		handle.setDescription(Messages.ClasspathDependencyFragmentDescription);
 		viewer = new CheckboxTreeViewer(c);
-		//viewer.getTree().setLayoutData(new GridData(GridData.FILL_BOTH));
 	    viewer.setContentProvider(new ClasspathPushupContentProvider());
 	    viewer.setLabelProvider(new ClasspathPushupLabelProvider());
 	    try {
@@ -274,6 +274,7 @@ public class ClasspathDependencyWizardFragment extends WizardFragment implements
 	@Override
 	public void performFinish(IProgressMonitor monitor) throws CoreException {
 		// iterate through and actually change the stuff
+		boolean anyChecked = false;
 		Iterator<IProject> i = map.keySet().iterator();
 		final WorkspaceModifyComposedOperation composedOp = new WorkspaceModifyComposedOperation();
 		while(i.hasNext()) {
@@ -281,6 +282,7 @@ public class ClasspathDependencyWizardFragment extends WizardFragment implements
 			WrappedClasspathEntry[] entries = map.get(p);
 			ArrayList<WrappedClasspathEntry> changed = new ArrayList<WrappedClasspathEntry>();
 			for( int j = 0; j < entries.length; j++ ) {
+				if( entries[j].postStatus) anyChecked = true;
 				if( entries[j].preStatus != entries[j].postStatus) {
 					changed.add(entries[j]);
 				}
@@ -306,6 +308,17 @@ public class ClasspathDependencyWizardFragment extends WizardFragment implements
 			});
 		} catch (InterruptedException e) {
 			// ignore
+		}
+		
+		if( anyChecked ) {
+			IProject project = (IProject)getTaskModel().getObject(IReferenceWizardConstants.PROJECT);
+			IVirtualComponent root = (IVirtualComponent)getTaskModel().getObject(IReferenceWizardConstants.ROOT_COMPONENT);
+			IVirtualComponent imported = new ClasspathDependencyContainerVirtualComponent(project, root);
+			getTaskModel().putObject(IReferenceWizardConstants.IS_DERIVED, true);
+			getTaskModel().putObject(IReferenceWizardConstants.COMPONENT, imported);
+			getTaskModel().putObject(IReferenceWizardConstants.COMPONENT_PATH, "/"); //$NON-NLS-1$
+		} else {
+			getTaskModel().putObject(IReferenceWizardConstants.COMPONENT, null);
 		}
 	}
 

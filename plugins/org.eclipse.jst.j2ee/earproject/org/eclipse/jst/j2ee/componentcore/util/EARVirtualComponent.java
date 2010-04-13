@@ -18,11 +18,17 @@ import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jdt.core.IClasspathAttribute;
+import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jst.common.internal.modulecore.IClasspathDependencyComponent;
 import org.eclipse.jst.common.internal.modulecore.IClasspathDependencyReceiver;
+import org.eclipse.jst.common.jdt.internal.javalite.JavaCoreLite;
+import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
+import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants.DependencyAttributeType;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathInitializer;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
@@ -31,6 +37,7 @@ import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.jee.application.ICommonModule;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.builder.IDependencyGraph;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent;
@@ -183,21 +190,41 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 	@Override
 	public IVirtualReference[] getReferences(Map<String, Object> options) {
 		Object refType = options.get(IVirtualComponent.REQUESTED_REFERENCE_TYPE);
-		if( refType != null && IVirtualComponent.DISPLAYABLE_REFERENCES.equals(refType)) {
+		if( refType != null && IVirtualComponent.DISPLAYABLE_REFERENCES.equals(refType) && shouldAddClasspathDependencyDerivedReference()) {
 			List<IVirtualReference> hardReferences = getHardReferences(this);
 			IVirtualComponent imported = new ClasspathDependencyContainerVirtualComponent(
 					getProject(), this);
 			VirtualReference importedRef = new VirtualReference(this, imported);
+			importedRef.setDependencyType(IVirtualReference.DEPENDENCY_TYPE_CONSUMES);
 			importedRef.setDerived(true);
 			hardReferences.add(importedRef);
 			return hardReferences.toArray(new IVirtualReference[hardReferences.size()]);
 		}
 		
-		if( refType != null && IVirtualComponent.NON_DERIVED_REFERENCES.equals(refType)) {
+		if( refType != null && (IVirtualComponent.NON_DERIVED_REFERENCES.equals(refType) || 
+								IVirtualComponent.HARD_REFERENCES.equals(refType))) {
 			List<IVirtualReference> hardReferences = getHardReferences(this);
 			return hardReferences.toArray(new IVirtualReference[hardReferences.size()]);
 		}
 		return getReferences();
+	}
+	
+	protected boolean shouldAddClasspathDependencyDerivedReference() {
+		IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
+		for( int i = 0; i < projects.length; i++ ) {
+			try {
+				if( projects[i].hasNature(JavaCoreLite.NATURE_ID) && ModuleCoreNature.isFlexibleProject(projects[i])) {
+					Map <IClasspathEntry, IClasspathAttribute> results = 
+						ClasspathDependencyUtil.getRawComponentClasspathDependencies(
+							JavaCoreLite.create(projects[i]), 
+									DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY);
+					if( !results.isEmpty())
+						return true;
+				}
+			} catch(CoreException ce) {
+			}
+		}
+		return false;
 	}
 	
 	// Returns cache if still valid or null
