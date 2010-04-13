@@ -161,7 +161,7 @@ public class EjbJarMerger extends ModelElementMerger {
 	}
 
 	private IMerger getSessionMerger(SessionBean baseBean, SessionBean toMergeType, int kind) {
-		return new SessionBeanMerger(baseBean, toMergeType, kind);
+		return new EnterpriseBeanMerger(baseBean, toMergeType, kind);
 	}
 
 	private void mergeMdbs(List warnings) throws Exception {
