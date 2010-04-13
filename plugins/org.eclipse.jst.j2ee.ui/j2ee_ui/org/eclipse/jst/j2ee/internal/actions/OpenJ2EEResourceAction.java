@@ -199,6 +199,19 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 			openResourceInEditor(name, (EObject)srcObject);
 			return;
 		}
+		if( srcObject instanceof org.eclipse.jst.javaee.web.Filter ){
+			String name = ""; //$NON-NLS-1$
+			name = ((org.eclipse.jst.javaee.web.Filter)srcObject).getFilterClass();
+			openResourceInEditor(name, (EObject)srcObject);
+			return;
+		}
+					
+		if( srcObject instanceof org.eclipse.jst.javaee.core.Listener ){
+			String name = ""; //$NON-NLS-1$
+			name = ((org.eclipse.jst.javaee.core.Listener)srcObject).getListenerClass();
+			openResourceInEditor(name, (EObject)srcObject);
+			return;
+		}		
 		
 		if (srcObject instanceof EObject) {
 			EObject ro = (EObject) srcObject;
@@ -260,7 +273,11 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 			currentDescriptor = getBaseJavaEditorDescriptor();	
 		} else if(isEJB3BeanObject(obj)) {
 			//[241685] if it is a EJB 3 bean the class is specially opened by the run() method
-		} else if(obj instanceof org.eclipse.jst.javaee.web.Servlet ){
+			srcObject = obj;
+			return true;			
+		} else if(obj instanceof org.eclipse.jst.javaee.web.Servlet ||
+				obj instanceof org.eclipse.jst.javaee.web.Filter ||
+				obj instanceof org.eclipse.jst.javaee.core.Listener ){
 			srcObject = obj;
 			return true;
 		}else if (obj instanceof EObject) {
