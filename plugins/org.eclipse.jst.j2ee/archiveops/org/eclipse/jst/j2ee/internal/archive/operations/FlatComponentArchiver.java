@@ -321,5 +321,9 @@ public class FlatComponentArchiver {
 		return flatComponent;
 	}
 
+	public List<IPath> getZipEntries() {
+		return zipEntries;
+	}
+
 
 }
