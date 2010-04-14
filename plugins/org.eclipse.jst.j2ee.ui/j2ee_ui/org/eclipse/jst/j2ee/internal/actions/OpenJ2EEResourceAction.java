@@ -24,6 +24,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.content.IContentType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jdt.core.IClassFile;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IType;
@@ -432,8 +433,14 @@ public class OpenJ2EEResourceAction extends AbstractOpenAction {
 				
 				//if type is null then can't open its editor, so open editor for the resource
 				if(type != null) {
-					ICompilationUnit cu = type.getCompilationUnit();
-					EditorUtility.openInEditor(cu);
+					if( !type.isBinary() ){
+						ICompilationUnit cu = type.getCompilationUnit();						
+						EditorUtility.openInEditor(cu);
+					}else{
+						IClassFile classFile = type.getClassFile();
+						EditorUtility.openInEditor(classFile);
+					}
+					
 				} else{
 					if(resource.exists() && resource.getType() == IResource.FILE ){
 						IFile file = (IFile)resource;
