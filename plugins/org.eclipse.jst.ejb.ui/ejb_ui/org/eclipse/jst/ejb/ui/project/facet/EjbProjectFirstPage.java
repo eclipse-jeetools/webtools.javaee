@@ -10,13 +10,22 @@
  *******************************************************************************/
 package org.eclipse.jst.ejb.ui.project.facet;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.eclipse.jst.common.project.facet.JavaFacetUtils;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPluginIcons;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEComponentFacetCreationWizardPage;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
+import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 
 public class EjbProjectFirstPage extends J2EEComponentFacetCreationWizardPage {
 
@@ -33,4 +42,36 @@ public class EjbProjectFirstPage extends J2EEComponentFacetCreationWizardPage {
 		setInfopopID(IJ2EEUIContextIds.NEW_EJB_WIZARD_P1);
 	}
 
+	@Override
+	protected Set<IProjectFacetVersion> getFacetConfiguration( final IProjectFacetVersion primaryFacetVersion )
+	{
+		IRuntime runtime = (IRuntime)model.getProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME);
+	    final Set<IProjectFacetVersion> facets = new HashSet<IProjectFacetVersion>( 2 );
+	    
+	    if(runtime != null) {
+	    	facets.addAll(super.getFacetConfiguration(primaryFacetVersion));
+	    }
+	    else {
+		    facets.add(primaryFacetVersion);
+		    
+		    if(primaryFacetVersion == IJ2EEFacetConstants.EJB_31)
+		    {
+		        facets.add(JavaFacetUtils.JAVA_60);
+		    }
+		    else if(primaryFacetVersion == IJ2EEFacetConstants.EJB_30)
+		    {
+		        facets.add(JavaFacetUtils.JAVA_50);
+		    }
+		    else if(primaryFacetVersion == IJ2EEFacetConstants.EJB_21)
+		    {
+		        facets.add(JavaFacetUtils.JAVA_14);
+		    }
+		    else if(primaryFacetVersion == IJ2EEFacetConstants.EJB_20 || 
+		    		primaryFacetVersion == IJ2EEFacetConstants.EJB_11)
+		    {
+		        facets.add(JavaFacetUtils.JAVA_13);
+		    }
+	    }
+	    return Collections.unmodifiableSet( facets );
+	}
 }
