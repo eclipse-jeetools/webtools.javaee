@@ -13,18 +13,26 @@ package org.eclipse.jst.servlet.ui.project.facet;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import org.eclipse.jst.common.project.facet.JavaFacetUtils;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEComponentFacetCreationWizardPage;
 import org.eclipse.jst.j2ee.web.project.facet.IWebFragmentProjectCreationDataModelProperties;
+import org.eclipse.jst.j2ee.web.project.facet.WebFacetUtils;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IFacetedProjectWorkingCopy;
 import org.eclipse.wst.common.project.facet.core.IProjectFacet;
+import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
+import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 
 public class WebFragmentProjectFirstPage extends J2EEComponentFacetCreationWizardPage {
 
@@ -80,5 +88,24 @@ public class WebFragmentProjectFirstPage extends J2EEComponentFacetCreationWizar
 	protected String getModuleFacetID() {
 		return IModuleConstants.JST_WEBFRAGMENT_MODULE;
 	}
-		
+	
+	@Override
+	protected Set<IProjectFacetVersion> getFacetConfiguration( final IProjectFacetVersion primaryFacetVersion )
+	{
+		IRuntime runtime = (IRuntime)model.getProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME);
+	    final Set<IProjectFacetVersion> facets = new HashSet<IProjectFacetVersion>( 2 );
+	    
+	    if(runtime != null) {
+	    	facets.addAll(super.getFacetConfiguration(primaryFacetVersion));
+	    }
+	    else {
+		    facets.add(primaryFacetVersion);
+		    
+		    if(primaryFacetVersion == WebFacetUtils.WEBFRAGMENT_30)
+		    {
+		        facets.add(JavaFacetUtils.JAVA_60);
+		    }
+	    }
+	    return Collections.unmodifiableSet( facets );
+	}
 }

@@ -23,8 +23,10 @@ import org.eclipse.jst.j2ee.internal.wizard.J2EEComponentFacetCreationWizardPage
 import org.eclipse.jst.j2ee.web.project.facet.WebFacetUtils;
 import org.eclipse.jst.servlet.ui.IWebUIContextIds;
 import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
+import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 
 public class WebProjectFirstPage extends J2EEComponentFacetCreationWizardPage {
 
@@ -44,26 +46,34 @@ public class WebProjectFirstPage extends J2EEComponentFacetCreationWizardPage {
 	@Override
 	protected Set<IProjectFacetVersion> getFacetConfiguration( final IProjectFacetVersion primaryFacetVersion )
 	{
+		IRuntime runtime = (IRuntime)model.getProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME);
 	    final Set<IProjectFacetVersion> facets = new HashSet<IProjectFacetVersion>( 2 );
 	    
-	    facets.add( primaryFacetVersion );
-	    
-	    if( primaryFacetVersion == WebFacetUtils.WEB_30 || 
-	    	primaryFacetVersion == WebFacetUtils.WEB_25 )
-	    {
-	        facets.add( JavaFacetUtils.JAVA_50 );
+	    if(runtime != null) {
+	    	facets.addAll(super.getFacetConfiguration(primaryFacetVersion));
 	    }
-	    else if( primaryFacetVersion == WebFacetUtils.WEB_24 )
-	    {
-	        facets.add( JavaFacetUtils.JAVA_14 );
+	    else {
+		    facets.add( primaryFacetVersion );
+		    
+		    if( primaryFacetVersion == WebFacetUtils.WEB_30)
+		    {
+		        facets.add( JavaFacetUtils.JAVA_60 );
+		    }
+		    else if(primaryFacetVersion == WebFacetUtils.WEB_25 )
+		    {
+		        facets.add( JavaFacetUtils.JAVA_50 );
+		    }
+		    else if( primaryFacetVersion == WebFacetUtils.WEB_24 )
+		    {
+		        facets.add( JavaFacetUtils.JAVA_14 );
+		    }
+		    else if( primaryFacetVersion == WebFacetUtils.WEB_23 ||
+		             primaryFacetVersion == WebFacetUtils.WEB_22 )
+		    {
+		        facets.add( JavaFacetUtils.JAVA_13 );
+		    }
 	    }
-	    else if( primaryFacetVersion == WebFacetUtils.WEB_23 ||
-	             primaryFacetVersion == WebFacetUtils.WEB_22 )
-	    {
-	        facets.add( JavaFacetUtils.JAVA_13 );
-	    }
-	    
-	    return Collections.unmodifiableSet( facets );
+		return Collections.unmodifiableSet( facets );
 	}
 
 }
