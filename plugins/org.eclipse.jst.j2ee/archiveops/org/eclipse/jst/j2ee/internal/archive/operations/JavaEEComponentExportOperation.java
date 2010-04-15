@@ -21,9 +21,12 @@ import org.eclipse.jst.common.internal.modulecore.AddMappedOutputFoldersParticip
 import org.eclipse.jst.common.internal.modulecore.ReplaceManifestExportParticipant;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.exportmodel.JavaEEComponentExportCallback;
-import org.eclipse.jst.j2ee.internal.common.exportmodel.AddJavaEEReferencesParticipant;
+import org.eclipse.wst.common.componentcore.internal.flat.AbstractFlattenParticipant;
 import org.eclipse.wst.common.componentcore.internal.flat.FilterResourceParticipant;
 import org.eclipse.wst.common.componentcore.internal.flat.IFlattenParticipant;
+import org.eclipse.wst.common.componentcore.internal.flat.FlatVirtualComponent.FlatComponentTaskModel;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class JavaEEComponentExportOperation extends ComponentExportOperation {
@@ -41,7 +44,7 @@ public class JavaEEComponentExportOperation extends ComponentExportOperation {
 		List<IFlattenParticipant> participants = new ArrayList<IFlattenParticipant>();
 		String[] filteredExtensions = getFilteredExtensions();
 		
-		participants.add(new AddJavaEEReferencesParticipant());
+		participants.add(createHierarchyParticipant());
 		participants.add(new AddMappedOutputFoldersParticipant(filteredExtensions));
 		participants.add(FilterResourceParticipant.createSuffixFilterParticipant(filteredExtensions));
 		participants.add(new ReplaceManifestExportParticipant(new Path(J2EEConstants.MANIFEST_URI)));
@@ -51,6 +54,18 @@ public class JavaEEComponentExportOperation extends ComponentExportOperation {
 		return participants;
 	}
 	
+	protected IFlattenParticipant createHierarchyParticipant() {
+		return new AbstractFlattenParticipant() {
+			@Override
+			public boolean isChildModule(IVirtualComponent rootComponent, IVirtualReference reference, FlatComponentTaskModel dataModel) {
+				if (!reference.getReferencedComponent().isBinary()) {
+					return true;
+				}
+				return false;
+			}
+		};
+	}
+
 	@Override
 	protected FlatComponentArchiver createFlatComponentArchiver(OutputStream out) {
 		return new FlatComponentArchiver(getComponent(), out, getParticipants(), new JavaEEComponentExportCallback(isExportSource()));

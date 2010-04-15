@@ -119,6 +119,8 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 		if( val != null ) {
 			if( HARD_REFERENCES.equals(val) || NON_DERIVED_REFERENCES.equals(val) || DISPLAYABLE_REFERENCES.equals(val))
 				return getHardReferences();
+			if( FLATTENABLE_REFERENCES.equals(val))
+				return getNonManifestReferences();
 		}
 		
 		Boolean objGetJavaRefs = (Boolean)options.get(GET_JAVA_REFS);
