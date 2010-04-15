@@ -19,7 +19,7 @@ import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpda
 import org.eclipse.jst.j2ee.internal.componentcore.JavaEEModuleHandler;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.internal.IModuleHandler;
-import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.componentcore.ui.propertypage.AddModuleDependenciesPropertiesPage;
 import org.eclipse.wst.common.componentcore.ui.propertypage.ModuleAssemblyRootPage;
 
@@ -37,7 +37,7 @@ public class J2EEModuleDependenciesPropertyPage extends
 	}
 	
 	@Override
-	protected void handleRemoved(ArrayList<IVirtualComponent> removed) {
+	protected void handleRemoved(ArrayList<IVirtualReference> removed) {
 		super.handleRemoved(removed);
 		J2EEComponentClasspathUpdater.getInstance().queueUpdateEAR(rootComponent.getProject());
 	}

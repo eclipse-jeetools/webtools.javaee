@@ -26,6 +26,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathAttribute;
 import org.eclipse.jdt.core.IClasspathContainer;
 import org.eclipse.jdt.core.IClasspathEntry;
@@ -57,7 +58,9 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
+import org.eclipse.wst.common.componentcore.internal.resources.VirtualReference;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.componentcore.ui.internal.propertypage.IReferenceEditor;
 import org.eclipse.wst.common.componentcore.ui.internal.taskwizard.IWizardHandle;
 import org.eclipse.wst.common.componentcore.ui.internal.taskwizard.WizardFragment;
@@ -85,8 +88,8 @@ public class ClasspathDependencyWizardFragment extends WizardFragment implements
 		return true;
 	}
 
-	public boolean canEdit(IVirtualComponent vc) {
-		return vc instanceof ClasspathDependencyContainerVirtualComponent;
+	public boolean canEdit(IVirtualReference ref) {
+		return ref.getReferencedComponent() instanceof ClasspathDependencyContainerVirtualComponent;
 	}
 	
 	@Override
@@ -314,11 +317,12 @@ public class ClasspathDependencyWizardFragment extends WizardFragment implements
 			IProject project = (IProject)getTaskModel().getObject(IReferenceWizardConstants.PROJECT);
 			IVirtualComponent root = (IVirtualComponent)getTaskModel().getObject(IReferenceWizardConstants.ROOT_COMPONENT);
 			IVirtualComponent imported = new ClasspathDependencyContainerVirtualComponent(project, root);
-			getTaskModel().putObject(IReferenceWizardConstants.IS_DERIVED, true);
-			getTaskModel().putObject(IReferenceWizardConstants.COMPONENT, imported);
-			getTaskModel().putObject(IReferenceWizardConstants.COMPONENT_PATH, "/"); //$NON-NLS-1$
+			VirtualReference ref = new VirtualReference(root, imported);
+			ref.setDerived(true);
+			ref.setRuntimePath(new Path("/")); //$NON-NLS-1$
+			getTaskModel().putObject(IReferenceWizardConstants.FINAL_REFERENCE, ref); 
 		} else {
-			getTaskModel().putObject(IReferenceWizardConstants.COMPONENT, null);
+			getTaskModel().putObject(IReferenceWizardConstants.FINAL_REFERENCE, null);
 		}
 	}
 

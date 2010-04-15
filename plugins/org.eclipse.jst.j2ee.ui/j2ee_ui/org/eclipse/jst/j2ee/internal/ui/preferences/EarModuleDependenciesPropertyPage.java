@@ -19,8 +19,8 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
-import org.eclipse.jst.j2ee.application.internal.operations.RemoveComponentFromEnterpriseApplicationDataModelProvider;
+import org.eclipse.jst.j2ee.application.internal.operations.AddReferenceToEnterpriseApplicationDataModelProvider;
+import org.eclipse.jst.j2ee.application.internal.operations.RemoveReferenceFromEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.componentcore.JavaEEModuleHandler;
@@ -42,8 +42,8 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.common.componentcore.internal.IModuleHandler;
-import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
+import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.componentcore.ui.propertypage.AddModuleDependenciesPropertiesPage;
 import org.eclipse.wst.common.componentcore.ui.propertypage.ModuleAssemblyRootPage;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
@@ -115,14 +115,14 @@ public class EarModuleDependenciesPropertyPage extends
 	}
 	
 	@Override
-	protected void handleRemoved(ArrayList<IVirtualComponent> removed) {
+	protected void handleRemoved(ArrayList<IVirtualReference> removed) {
 		super.handleRemoved(removed);
 		J2EEComponentClasspathUpdater.getInstance().queueUpdateEAR(rootComponent.getProject());
 	}
 
 	@Override
-	protected IDataModelProvider getAddReferenceDataModelProvider(IVirtualComponent component) {
-		return new AddComponentToEnterpriseApplicationDataModelProvider();
+	protected IDataModelProvider getAddReferenceDataModelProvider(IVirtualReference component) {
+		return new AddReferenceToEnterpriseApplicationDataModelProvider();
 	}
 
 	@Override
@@ -131,8 +131,8 @@ public class EarModuleDependenciesPropertyPage extends
 	}
 
 	@Override
-	protected IDataModelProvider getRemoveReferenceDataModelProvider(IVirtualComponent component) {
-		return new RemoveComponentFromEnterpriseApplicationDataModelProvider();
+	protected IDataModelProvider getRemoveReferenceDataModelProvider(IVirtualReference component) {
+		return new RemoveReferenceFromEnterpriseApplicationDataModelProvider();
 	}
 	
 	protected void createDD(IProgressMonitor monitor) {
