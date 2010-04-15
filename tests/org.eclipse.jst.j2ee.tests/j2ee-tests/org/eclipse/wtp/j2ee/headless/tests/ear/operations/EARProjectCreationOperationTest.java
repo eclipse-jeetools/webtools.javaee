@@ -16,6 +16,7 @@
  */
 package org.eclipse.wtp.j2ee.headless.tests.ear.operations;
 
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -26,6 +27,8 @@ import java.util.Map;
 import junit.framework.Test;
 
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -36,6 +39,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
+import org.eclipse.jst.j2ee.classpath.tests.util.ClasspathDependencyTestUtil;
 import org.eclipse.jst.j2ee.earcreation.IEarFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.internal.project.facet.EARFacetProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
@@ -438,6 +442,26 @@ public class EARProjectCreationOperationTest extends JEEProjectCreationOperation
     		}
     	}
     }
+    
+    public void testEARWithJarInLibFolder() throws Exception {
+    	IDataModel dm = getEARDataModel("qEAR", "ourContent", null, null, JavaEEFacetConstants.EAR_5, false);
+    	OperationTestCase.runAndVerify(dm);
+    	IProject p = ResourcesPlugin.getWorkspace().getRoot().getProject("qEAR");
+    	IFolder folder = p.getFolder("ourContent/lib");
+    	folder.create(true, true, null);
+    	IFile file = folder.getFile("test1.jar");
+    	file.create(new FileInputStream(ClasspathDependencyTestUtil.TEST1_JAR_PATH.toFile()), 0, new NullProgressMonitor());
+		IModule module = ServerUtil.getModule(p);
+		ModuleDelegate md = (ModuleDelegate)module.loadAdapter(ModuleDelegate.class, new NullProgressMonitor());
+		IModuleResource[] resources = md.members();
+		assertEquals(1, resources.length);
+		assertEquals("lib", resources[0].getName());
+		assertTrue(resources[0] instanceof IModuleFolder);
+		IModuleResource[] children =((IModuleFolder)resources[0]).members(); 
+		assertEquals(1, children.length);
+		assertEquals("test1.jar", children[0].getName());
+    }
+
 
     public void addArchiveComponent(IVirtualComponent component) throws CoreException {
 		
