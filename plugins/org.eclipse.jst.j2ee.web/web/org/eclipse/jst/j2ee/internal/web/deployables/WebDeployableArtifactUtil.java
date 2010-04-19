@@ -96,7 +96,9 @@ public class WebDeployableArtifactUtil {
 					return new WebResource(getModule(resource.getProject(), component), new Path(mapping));
 				}
 				WebType webType = ((Servlet) obj).getWebType();
-				if (webType.isJspType()) {
+				if (webType == null) {
+					return null;
+				} else if (webType.isJspType()) {
 					resource = ((IProject) resource).getFile(((JSPType) webType).getJspFile()); 
 				} else if (webType.isServletType()) {
 					return new WebResource(getModule(resource.getProject(), component), new Path("servlet/" + ((ServletType) webType).getClassName())); //$NON-NLS-1$

@@ -1,5 +1,8 @@
 package org.eclipse.jst.javaee.internal.adapter;
 
+import org.eclipse.jem.java.JavaClass;
+import org.eclipse.jst.j2ee.webapplication.WebType;
+
 public class WebArtifactAdapterFactory extends JavaEEArtifactAdapterFactory {
 
 	@Override
@@ -15,17 +18,22 @@ public class WebArtifactAdapterFactory extends JavaEEArtifactAdapterFactory {
 			return listener.getListenerClass();
 		} else if (adaptableObject instanceof org.eclipse.jst.j2ee.webapplication.Servlet) {
 			org.eclipse.jst.j2ee.webapplication.Servlet servlet = (org.eclipse.jst.j2ee.webapplication.Servlet) adaptableObject;
-			if (servlet.getWebType().isServletType()) {
-				return servlet.getServletClass().getQualifiedName();
+			WebType webType = servlet.getWebType();
+			if (webType != null && servlet.getWebType().isServletType()) {
+				return getQualifiedName(servlet.getServletClass());
 			}
 		} else if (adaptableObject instanceof org.eclipse.jst.j2ee.webapplication.Filter) {
 			org.eclipse.jst.j2ee.webapplication.Filter filter = (org.eclipse.jst.j2ee.webapplication.Filter) adaptableObject;
-			return filter.getFilterClass().getQualifiedName();
+			return getQualifiedName(filter.getFilterClass());
 		} else if (adaptableObject instanceof org.eclipse.jst.j2ee.common.Listener) {
 			org.eclipse.jst.j2ee.common.Listener listener = (org.eclipse.jst.j2ee.common.Listener) adaptableObject;
-			return listener.getListenerClass().getQualifiedName();
+			return getQualifiedName(listener.getListenerClass());
 		}
 		return null;
+	}
+	
+	private String getQualifiedName(JavaClass javaClass) {
+		return (javaClass == null) ? null : javaClass.getQualifiedName();
 	}
 	
 }
