@@ -13,21 +13,21 @@ package org.eclipse.jst.jee.model.internal.mergers;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jst.j2ee.webapplication.WelcomeFile;
 import org.eclipse.jst.javaee.core.Description;
 import org.eclipse.jst.javaee.core.JavaEEObject;
 import org.eclipse.jst.javaee.core.Listener;
+import org.eclipse.jst.javaee.core.ParamValue;
 import org.eclipse.jst.javaee.core.RunAs;
 import org.eclipse.jst.javaee.core.SecurityRole;
+import org.eclipse.jst.javaee.core.UrlPatternType;
 import org.eclipse.jst.javaee.web.Filter;
+import org.eclipse.jst.javaee.web.FilterMapping;
 import org.eclipse.jst.javaee.web.Servlet;
+import org.eclipse.jst.javaee.web.ServletMapping;
 import org.eclipse.jst.javaee.web.WebApp;
-import org.eclipse.jst.jee.model.internal.mergers.JNDIRefsMerger;
-import org.eclipse.jst.jee.model.internal.mergers.ModelElementMerger;
-import org.eclipse.jst.jee.model.internal.mergers.ModelException;
 
 /**
  * WebApp merger merges the WebApp artifact. 
@@ -92,29 +92,29 @@ public class WebAppMerger  extends ModelElementMerger {
     return warnings;
   }
 
-  private void mergeFilters(List warnings) {
+  protected void mergeFilters(List warnings) {
     if (getToMergeWebApp().getFilters() != null){
       copyMissingContentInBase(getToMergeWebApp().getFilters(), getBaseWebApp().getFilters());
     }
     if (getToMergeWebApp().getFilterMappings() != null){
-      copyAllContentInBase(getToMergeWebApp().getFilterMappings(), getBaseWebApp().getFilterMappings());
+    	copyMissingContentInBase(getToMergeWebApp().getFilterMappings(), getBaseWebApp().getFilterMappings());
     }
   }
 
-  private void mergeListeners(List warnings) {
+  protected void mergeListeners(List warnings) {
     if (getToMergeWebApp().getListeners() != null){
       copyMissingContentInBase(getToMergeWebApp().getListeners(), getBaseWebApp().getListeners());
     }
   }
 
-  private void mergeServlets(List warnings) {
+  protected void mergeServlets(List warnings) {
 
     if (getToMergeWebApp().getServlets() != null){
       copyMissingContentInBase(getToMergeWebApp().getServlets(), getBaseWebApp().getServlets());
     }
 
     if (getToMergeWebApp().getServletMappings() != null){
-      copyAllContentInBase(getToMergeWebApp().getServletMappings(), getBaseWebApp().getServletMappings());
+    	copyMissingContentInBase(getToMergeWebApp().getServletMappings(), getBaseWebApp().getServletMappings());
     }
 
   }
@@ -237,15 +237,15 @@ public class WebAppMerger  extends ModelElementMerger {
   }
 
   private void copyAllContentInBase(List listSource, List target) {
-    for (Object object : listSource) {
-			if (artifactIsValid(object)){
-      target.add(EcoreUtil.copy((EObject) object));
-    }
-		}
+	  for (Object object : listSource) {
+		  if (artifactIsValid(object)){
+			  target.add(EcoreUtil.copy((EObject) object));
+		  }
+	  }
 
   }
 
-  private void copyMissingContentInBase(List listSource, List target) {
+  protected void copyMissingContentInBase(List listSource, List target) {
     for (Object object : listSource) {
 			if(artifactIsValid(object) && !artifactExists(object, target)){
         target.add(EcoreUtil.copy((EObject) object));        
@@ -254,7 +254,7 @@ public class WebAppMerger  extends ModelElementMerger {
 
   }
 
-	private boolean artifactIsValid(Object javaEEObject) {
+	protected boolean artifactIsValid(Object javaEEObject) {
 		if (javaEEObject instanceof Servlet){
 			return ( (Servlet)javaEEObject).getServletName() != null;
 		} else if (javaEEObject instanceof Listener){        
@@ -265,36 +265,57 @@ public class WebAppMerger  extends ModelElementMerger {
 		return true;
 	}
 
-  private boolean artifactExists(Object javaEEObject, List target) {
-    for (Object targetArtifact : target) {
+	protected boolean artifactExists(Object javaEEObject, List target) {
+		return getArtifactFromList(javaEEObject, target) != null;
+	}
+	
+	protected JavaEEObject getArtifactFromList(Object javaEEObject, List target){
+		for (Object targetArtifact : target) {
 			if( !artifactIsValid(targetArtifact) ){
 				continue;
 			}
-      if (javaEEObject instanceof Servlet){
+			if (javaEEObject instanceof Servlet){
+
+				if(((Servlet) targetArtifact).getServletName().equals(((Servlet)javaEEObject).getServletName())){
+					return (JavaEEObject) targetArtifact;
+				}
+			} else if (javaEEObject instanceof Listener){        
+				if(((Listener) targetArtifact).getListenerClass().equals(((Listener)javaEEObject).getListenerClass())){
+					return (JavaEEObject) targetArtifact;
+				}
+			} else if (javaEEObject instanceof Filter){
+				if(((Filter) targetArtifact).getFilterName().equals(((Filter)javaEEObject).getFilterName())){
+					return (JavaEEObject) targetArtifact;
+				}
+			} else if (javaEEObject instanceof Description){
+				if(((Description) targetArtifact).getValue().equals(((Description)javaEEObject).getValue())){
+					return (JavaEEObject) targetArtifact;
+				}
+			} else if (javaEEObject instanceof WelcomeFile){
+				if(((WelcomeFile) targetArtifact).getWelcomeFile().equals(((WelcomeFile)javaEEObject).getWelcomeFile())){
+					return (JavaEEObject) targetArtifact;
+				}
+			} else if (javaEEObject instanceof ServletMapping){
+				if(((ServletMapping) targetArtifact).getServletName().equals(((ServletMapping)javaEEObject).getServletName())){
+					return (JavaEEObject) targetArtifact;
+				}
+			} else if (javaEEObject instanceof FilterMapping){
+				if(((FilterMapping) targetArtifact).getFilterName().equals(((FilterMapping)javaEEObject).getFilterName())){
+					return (JavaEEObject) targetArtifact;
+				}
+			} else if (javaEEObject instanceof UrlPatternType){
+				if(((UrlPatternType) targetArtifact).getValue().equals(((UrlPatternType)javaEEObject).getValue())){
+					return (JavaEEObject) targetArtifact;
+				}
+			} else if (javaEEObject instanceof ParamValue){
+				if(((ParamValue) targetArtifact).getParamName().equals(((ParamValue)javaEEObject).getParamName())){
+					return (JavaEEObject) targetArtifact;
+				}
+			}
 				
-        if(((Servlet) targetArtifact).getServletName().equals(((Servlet)javaEEObject).getServletName())){
-          return true;
-        }
-      } else if (javaEEObject instanceof Listener){        
-        if(((Listener) targetArtifact).getListenerClass().equals(((Listener)javaEEObject).getListenerClass())){
-          return true;
-        }
-      } else if (javaEEObject instanceof Filter){
-        if(((Filter) targetArtifact).getFilterName().equals(((Filter)javaEEObject).getFilterName())){
-          return true;
-        }
-      } else if (javaEEObject instanceof Description){
-        if(((Description) targetArtifact).getValue().equals(((Description)javaEEObject).getValue())){
-          return true;
-        }
-      } else if (javaEEObject instanceof WelcomeFile){
-        if(((WelcomeFile) targetArtifact).getWelcomeFile().equals(((WelcomeFile)javaEEObject).getWelcomeFile())){
-          return true;
-        }
-      }
-    }
-    return false;
-  }
+		}
+		return null;
+	}
 
   private void copyJavaEEGroup(){
     if (getToMergeWebApp().getDescriptions() != null){
