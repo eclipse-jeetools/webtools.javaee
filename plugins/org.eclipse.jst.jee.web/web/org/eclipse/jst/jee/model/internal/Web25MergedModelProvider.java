@@ -17,13 +17,16 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.IModelProviderEvent;
+import org.eclipse.jst.j2ee.web.project.facet.WebFacetUtils;
 import org.eclipse.jst.javaee.web.WebApp;
 import org.eclipse.jst.javaee.web.WebFactory;
 import org.eclipse.jst.jee.model.internal.common.AbstractMergedModelProvider;
 import org.eclipse.jst.jee.model.internal.mergers.ModelElementMerger;
 import org.eclipse.jst.jee.model.internal.mergers.ModelException;
+import org.eclipse.jst.jee.model.internal.mergers.WebApp3Merger;
 import org.eclipse.jst.jee.model.internal.mergers.WebAppMerger;
 import org.eclipse.jst.jee.web.Activator;
+import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
 /**
@@ -170,8 +173,25 @@ public class Web25MergedModelProvider extends AbstractMergedModelProvider<WebApp
 	private void mergeWithModel(WebApp model) throws ModelException {
 		if (model == null)
 			return;
-		WebAppMerger merger = new WebAppMerger(mergedModel, model, ModelElementMerger.ADD);
+		WebAppMerger merger;
+		try {
+			merger = createWebMerger(model);
+		} catch (CoreException e) {
+			throw new ModelException(e);
+		}
 		merger.process();
+	}
+	
+	private WebAppMerger createWebMerger(WebApp model) throws CoreException{
+		IFacetedProject facetedProject = ProjectFacetsManager.create(project);
+		if (facetedProject.getProjectFacetVersion(WebFacetUtils.WEB_FACET) != null){
+			if(Float.parseFloat(facetedProject.getProjectFacetVersion(WebFacetUtils.WEB_FACET).getVersionString()) > 2.5){
+				return new WebApp3Merger(mergedModel, model, ModelElementMerger.ADD);
+			}
+		}
+		 
+		
+		return new WebAppMerger(mergedModel, model, ModelElementMerger.ADD);
 	}
 
 	@Override

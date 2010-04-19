@@ -19,6 +19,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.jdt.core.IAnnotation;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaElementDelta;
 import org.eclipse.jdt.core.IJavaProject;
@@ -27,6 +28,7 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.j2ee.model.IModelProviderEvent;
+import org.eclipse.jst.j2ee.web.project.facet.WebFacetUtils;
 import org.eclipse.jst.javaee.core.EjbLocalRef;
 import org.eclipse.jst.javaee.core.JavaEEObject;
 import org.eclipse.jst.javaee.core.Listener;
@@ -35,7 +37,9 @@ import org.eclipse.jst.javaee.core.SecurityRole;
 import org.eclipse.jst.javaee.core.SecurityRoleRef;
 import org.eclipse.jst.javaee.ejb.SecurityIdentityType;
 import org.eclipse.jst.javaee.web.Filter;
+import org.eclipse.jst.javaee.web.FilterMapping;
 import org.eclipse.jst.javaee.web.Servlet;
+import org.eclipse.jst.javaee.web.ServletMapping;
 import org.eclipse.jst.javaee.web.WebApp;
 import org.eclipse.jst.javaee.web.WebFactory;
 import org.eclipse.jst.jee.model.internal.common.AbstractAnnotationModelProvider;
@@ -48,6 +52,15 @@ import org.eclipse.wst.common.project.facet.core.IFacetedProject;
  * 
  */
 public class WebAnnotationReader extends AbstractAnnotationModelProvider<WebApp> {
+	
+	private static final String WEB_SERVLET = "WebServlet"; //$NON-NLS-1$
+	private static final String WEB_SERVLET_FQ = "javax.servlet.annotation.WebServlet"; //$NON-NLS-1$
+	
+	private static final String WEB_LISTENER = "WebServletContextListener"; //$NON-NLS-1$
+	private static final String WEB_LISTENER_FQ = "javax.servlet.annotation.WebServletContextListener"; //$NON-NLS-1$
+
+	private static final String WEB_FILTER = "WebFilter"; //$NON-NLS-1$
+	private static final String WEB_FILTER_FQ = "javax.servlet.annotation.WebFilter"; //$NON-NLS-1$
 
 	private ManyToOneRelation<JavaEEObject, ICompilationUnit> modelToUnit;
 
@@ -127,7 +140,28 @@ public class WebAnnotationReader extends AbstractAnnotationModelProvider<WebApp>
 				return annotationFactory.createFilter(rootType, filter.getFilterName());
 			}
 		}
+		if(Float.parseFloat(facetedProject.getProjectFacetVersion(WebFacetUtils.WEB_FACET).getVersionString()) > 2.5){
+			return createJavaeeObject(rootType);	
+		}
 		return null;
+	}
+	
+	public Result createJavaeeObject(IType type) throws JavaModelException {
+		Result result = null;
+		for (IAnnotation annotation : type.getAnnotations()) {
+			String annotationName = annotation.getElementName();
+			if (WEB_SERVLET.equals(annotationName) || WEB_SERVLET_FQ.equals(annotationName)) {
+				result = annotationFactory.createServlet(type, null);
+				break;
+			} else if (WEB_FILTER.equals(annotationName) || WEB_FILTER_FQ.equals(annotationName)) {
+				result = annotationFactory.createFilter(type, null);
+				break;
+			} else if (WEB_LISTENER.equals(annotationName) || WEB_LISTENER_FQ.equals(annotationName)) {
+				result = annotationFactory.createListener(type);
+				break;
+			} 
+		}
+		return result;
 	}
 
 	/**
@@ -143,6 +177,10 @@ public class WebAnnotationReader extends AbstractAnnotationModelProvider<WebApp>
 		JavaEEObject mainObject = result.getMainObject();
 		if (Servlet.class.isInstance(mainObject))
 			servletFound(unit, (Servlet) result.getMainObject(), result.getDependedTypes());
+		if (Listener.class.isInstance(mainObject))
+			listenerFound(unit, (Listener) result.getMainObject(), result.getDependedTypes());
+		if (Filter.class.isInstance(mainObject))
+			filterFound(unit, (Filter) result.getMainObject(), result.getDependedTypes());
 		for (JavaEEObject additional : result.getAdditional()) {
 			if (EjbLocalRef.class.isInstance(additional)) {
 				ejbLocalRefFound(unit, (EjbLocalRef) additional, result.getDependedTypes());
@@ -152,14 +190,39 @@ public class WebAnnotationReader extends AbstractAnnotationModelProvider<WebApp>
 				securityRoleFound(result.getMainObject(), (SecurityRole) additional);
 			} else if (SecurityIdentityType.class.isInstance(additional)) {
 				securityIdentityTypeFound(unit, (SecurityIdentityType) additional);
+			} else if (ServletMapping.class.isInstance(additional)) {
+				servletMappingFound(unit, (ServletMapping)additional, result.getDependedTypes());
+			} else if (FilterMapping.class.isInstance(additional)) {
+				filterMappingFound(unit, (FilterMapping)additional, result.getDependedTypes());
 			}
 		}
 	}
 
-	private void servletFound(ICompilationUnit unit, Servlet servlet, Collection<IType> dependedTypes)
-			throws JavaModelException {
+	private void filterMappingFound(ICompilationUnit unit,
+			FilterMapping additional, Collection<IType> dependedTypes) throws JavaModelException {
+		modelObject.getFilterMappings().add(additional);
+		connectObjectWithFile(unit, additional, dependedTypes);
+	}
+
+	private void servletMappingFound(ICompilationUnit unit,
+			ServletMapping additional, Collection<IType> dependedTypes) throws JavaModelException {
+		modelObject.getServletMappings().add(additional);
+		connectObjectWithFile(unit, additional, dependedTypes);
+	}
+
+	private void servletFound(ICompilationUnit unit, Servlet servlet, Collection<IType> dependedTypes) throws JavaModelException {
 		modelObject.getServlets().add(servlet);
 		connectObjectWithFile(unit, servlet, dependedTypes);
+	}
+	
+	private void listenerFound(ICompilationUnit unit, Listener listener, Collection<IType> dependedTypes) throws JavaModelException {
+		modelObject.getListeners().add(listener);
+		connectObjectWithFile(unit, listener, dependedTypes);
+	}
+	
+	private void filterFound(ICompilationUnit unit, Filter filter, Collection<IType> dependedTypes) throws JavaModelException {
+		modelObject.getFilters().add(filter);
+		connectObjectWithFile(unit, filter, dependedTypes);
 	}
 
 	private void securityIdentityTypeFound(ICompilationUnit file, SecurityIdentityType additional) {
