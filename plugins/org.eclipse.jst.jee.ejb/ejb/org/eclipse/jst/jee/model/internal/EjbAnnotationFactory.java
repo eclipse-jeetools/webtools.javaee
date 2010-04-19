@@ -82,11 +82,13 @@ public class EjbAnnotationFactory extends AbstractAnnotationFactory {
 	private static final String NAME = "name"; //$NON-NLS-1$
 	private static final String VOID_RETURN_TYPE = "V"; //$NON-NLS-1$
 	private static final String JAVAX_EJB_STATEFUL = "javax.ejb.Stateful"; //$NON-NLS-1$
+	private static final String JAVAX_EJB_SINGLETON = "javax.ejb.Singleton"; //$NON-NLS-1$
 	private static final String STATEFUL = "Stateful"; //$NON-NLS-1$
 	private static final String JAVAX_EJB_MESSAGE_DRIVEN = "javax.ejb.MessageDriven"; //$NON-NLS-1$
 	private static final String MESSAGE_DRIVEN = "MessageDriven"; //$NON-NLS-1$
 	private static final String JAVAX_EJB_STATELESS = "javax.ejb.Stateless"; //$NON-NLS-1$
 	private static final String STATELESS = "Stateless"; //$NON-NLS-1$
+	private static final String SINGLETON = "Singleton"; //$NON-NLS-1$
 	
 	private static final String CREATE_METHOD = "create"; //$NON-NLS-1$
 
@@ -122,6 +124,9 @@ public class EjbAnnotationFactory extends AbstractAnnotationFactory {
 			} else if (STATEFUL.equals(annotationName) || JAVAX_EJB_STATEFUL.equals(annotationName)) {
 				processStatefulBean(result, annotation, type);
 				break;
+			} else if (SINGLETON.equals(annotationName) || JAVAX_EJB_SINGLETON.equals(annotationName)) {
+				processSingletonBean(result, annotation, type);
+				break;
 			}
 		}
 		return result;
@@ -135,6 +140,12 @@ public class EjbAnnotationFactory extends AbstractAnnotationFactory {
 	private void processStatelessBean(Result result, IAnnotation annotation, IType type) throws JavaModelException {
 		SessionBean sessionBean = createSession(result, SessionType.STATELESS_LITERAL, annotation, type);
 		result.setMainObject(sessionBean);
+	}
+	
+	private void processSingletonBean(Result result, IAnnotation annotation, IType type) throws JavaModelException {
+		SessionBean sessionBean = createSession(result, SessionType.SINGLETON_LITERAL, annotation, type);
+		result.setMainObject(sessionBean);
+		
 	}
 
 	private void processStatefulBean(Result result, IAnnotation annotation, IType type) throws JavaModelException {
