@@ -29,6 +29,7 @@ public class MergersTestSuite {
     	suite.addTestSuite(AssemblyDescriptorMergerTest.class);
     	suite.addTestSuite(JndiRefsTest.class);
     	suite.addTestSuite(WebAppMergerTest.class);
+    	suite.addTestSuite(WebApp3MergerTest.class);
         return suite;
     }
 }

@@ -297,6 +297,10 @@ public class AbstractTest {
 	}
 
 	public static IFacetedProject createWebProject(String projectName) throws Exception {
+		return createWebProject(projectName, IJ2EEFacetConstants.DYNAMIC_WEB_25);
+	}
+	
+	public static IFacetedProject createWebProject(String projectName, Object web_version) throws Exception {
 		IDataModel dm = DataModelFactory.createDataModel(new WebFacetProjectCreationDataModelProvider());
 		dm.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, projectName); //$NON-NLS-1$
 		FacetDataModelMap facetDataModelMap = (FacetDataModelMap) dm
@@ -304,7 +308,8 @@ public class AbstractTest {
 		IDataModel javaFacetDataModel = facetDataModelMap.getFacetDataModel(J2EEProjectUtilities.JAVA);
 		javaFacetDataModel.setProperty(IFacetDataModelProperties.FACET_VERSION, JavaFacetUtils.JAVA_50);
 		IDataModel ejbFacetDataModel = facetDataModelMap.getFacetDataModel(IJ2EEFacetConstants.DYNAMIC_WEB);
-		ejbFacetDataModel.setProperty(IFacetDataModelProperties.FACET_VERSION, IJ2EEFacetConstants.DYNAMIC_WEB_25);
+		ejbFacetDataModel.setProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD, true);
+		ejbFacetDataModel.setProperty(IFacetDataModelProperties.FACET_VERSION, web_version);
 		dm.getDefaultOperation().execute(null, null);
 		IFacetedProject project = ProjectFacetsManager.create(ResourcesPlugin.getWorkspace().getRoot().getProject(
 				projectName));

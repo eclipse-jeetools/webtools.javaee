@@ -20,6 +20,7 @@ import org.eclipse.jst.javaee.core.ResourceRef;
 import org.eclipse.jst.javaee.ejb.MessageDrivenBean;
 import org.eclipse.jst.javaee.ejb.RemoveMethodType;
 import org.eclipse.jst.javaee.ejb.SessionBean;
+import org.eclipse.jst.javaee.ejb.SessionType;
 import org.eclipse.jst.javaee.ejb.TransactionType;
 import org.eclipse.jst.jee.model.internal.EjbAnnotationFactory;
 import org.eclipse.jst.jee.model.internal.common.Result;
@@ -136,6 +137,17 @@ public class EjbAnnotationFactoryTest extends AbstractAnnotationFactoryTest {
 		SessionBean sessionBean = (SessionBean) result.getMainObject();
 		assertNotNull(sessionBean);
 		assertNull(sessionBean.getTimeoutMethod());
+	}
+	
+	// @Test
+	public void testSingleton() throws Exception {
+		final String beanContent = "package com.sap;"
+				+ "@Singleton public class testSingleton implements SessionBeanLocal{}";
+		IType type = createCompilationUnit("testSingleton", beanContent).findPrimaryType();
+		Result result = fixture.createJavaeeObject(type);
+		SessionBean sessionBean = (SessionBean) result.getMainObject();
+		assertNotNull(sessionBean);
+		assertTrue(sessionBean.getSessionType() == SessionType.SINGLETON_LITERAL);
 	}
 
 	// @Test

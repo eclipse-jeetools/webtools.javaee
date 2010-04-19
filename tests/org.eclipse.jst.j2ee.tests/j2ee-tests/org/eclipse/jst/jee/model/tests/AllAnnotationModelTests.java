@@ -30,6 +30,7 @@ import org.eclipse.jst.jee.model.ejb.tests.ResourceReferenceTest;
 import org.eclipse.jst.jee.model.ejb.tests.SecurityRolesTest;
 import org.eclipse.jst.jee.model.web.tests.DeleteWebProjectTest;
 import org.eclipse.jst.jee.model.web.tests.Web25MergedModelProviderTest;
+import org.eclipse.jst.jee.model.web.tests.Web3AnnotationReaderTest;
 import org.eclipse.jst.jee.model.web.tests.WebAnnotationReaderTest;
 import org.eclipse.wtp.j2ee.headless.tests.plugin.HeadlessTestsPlugin;
 
@@ -63,6 +64,7 @@ public class AllAnnotationModelTests {
 			suite.addTest(RegisterMergedModelProviderTest.suite());
 			suite.addTest(EjbAnnotationFactoryTest.suite());
 			suite.addTest(WebAnnotationReaderTest.suite());
+			suite.addTest(Web3AnnotationReaderTest.suite());
 			suite.addTest(DeleteWebProjectTest.suite());
 			suite.addTest(NotifyCloseProjectTest.suite());
 			suite.addTest(Web25MergedModelProviderTest.suite());
