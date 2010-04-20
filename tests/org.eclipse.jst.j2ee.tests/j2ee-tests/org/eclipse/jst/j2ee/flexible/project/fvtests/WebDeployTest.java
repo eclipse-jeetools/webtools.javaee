@@ -84,17 +84,13 @@ public class WebDeployTest extends TestCase {
 			}
 			
 			// get child modules on the deployable should return the utility modules which are not 
-			// on the manifest but web lib projects
-			
+			// on the manifest but are web lib projects
 			IModule[] childModules = deployable.getChildModules();
-			assertEquals(6, childModules.length);
+			assertEquals(3, childModules.length);
 			List childURIs = Arrays.asList(new String[] {
 					"WEB-INF/lib/SmokeEJB.jar",
 					"WEB-INF/lib/TestWebLibProject.jar",
 					"WEB-INF/lib/AutoWorldEJB512.jar",
-					"TestDeployUtil.jar",
-					"MyCoEJB.jar",
-					"customerEjb.jar"
 			});
 			
 			for (int l = 0; l < childModules.length; l++){
