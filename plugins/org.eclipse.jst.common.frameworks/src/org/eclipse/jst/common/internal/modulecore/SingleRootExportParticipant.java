@@ -11,7 +11,9 @@
 package org.eclipse.jst.common.internal.modulecore;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
@@ -145,7 +147,9 @@ public class SingleRootExportParticipant extends AbstractFlattenParticipant {
 	}
 	
 	protected void addChildModules(IVirtualComponent vc) throws CoreException {
-		IVirtualReference[] allReferences = vc.getReferences();
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put(IVirtualComponent.REQUESTED_REFERENCE_TYPE, IVirtualComponent.FLATTENABLE_REFERENCES);
+		IVirtualReference[] allReferences = vc.getReferences(options);
     	for (int i = 0; i < allReferences.length; i++) {
     		IVirtualReference reference = allReferences[i];
 			if (reference.getDependencyType() == DependencyType.USES ) {
