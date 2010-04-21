@@ -37,6 +37,8 @@ public class MethodElementKindTranslator extends Translator implements EjbDeploy
 		Object obj = super.convertStringToValue(strValue, owner);
 		if(obj != null)
 			return obj;
+		if (strValue == null)
+			return null;
 		String correct = strValue;
 		if (strValue.equalsIgnoreCase("HOME")) //$NON-NLS-1$
 			correct = "Home"; //$NON-NLS-1$
