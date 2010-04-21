@@ -21,7 +21,7 @@ public class ClasspathDependencyResolver implements IReferenceResolver {
 			ReferencedComponent referencedComponent) {
 		URI handle = referencedComponent.getHandle();
 		String s = handle.toString();
-		if (s.startsWith(ClasspathDependencyContainerVirtualComponent.COMPONENT_ID))
+		if (s.startsWith(DummyClasspathDependencyContainerVirtualComponent.COMPONENT_ID))
 			return true;
 		return false;
 	}
@@ -29,7 +29,7 @@ public class ClasspathDependencyResolver implements IReferenceResolver {
 	public IVirtualReference resolve(IVirtualComponent context,
 			ReferencedComponent referencedComponent) {
 		IProject p = context.getProject();
-		ClasspathDependencyContainerVirtualComponent comp = new ClasspathDependencyContainerVirtualComponent(
+		DummyClasspathDependencyContainerVirtualComponent comp = new DummyClasspathDependencyContainerVirtualComponent(
 				p, context);
 		IVirtualReference ref = ComponentCore.createReference(context, comp);
 		ref.setArchiveName(referencedComponent.getArchiveName());
@@ -41,14 +41,14 @@ public class ClasspathDependencyResolver implements IReferenceResolver {
 
 	public boolean canResolve(IVirtualReference reference) {
 		IVirtualComponent vc = reference.getReferencedComponent();
-		if (vc instanceof ClasspathDependencyContainerVirtualComponent)
+		if (vc instanceof DummyClasspathDependencyContainerVirtualComponent)
 			return true;
 		return false;
 	}
 
 	public ReferencedComponent resolve(IVirtualReference reference) {
 		IVirtualComponent vc = reference.getReferencedComponent();
-		ClasspathDependencyContainerVirtualComponent comp = (ClasspathDependencyContainerVirtualComponent)vc;
+		DummyClasspathDependencyContainerVirtualComponent comp = (DummyClasspathDependencyContainerVirtualComponent)vc;
 		ReferencedComponent rc = ComponentcorePackage.eINSTANCE.getComponentcoreFactory().createReferencedComponent();
 		rc.setArchiveName(reference.getArchiveName());
 		rc.setRuntimePath(reference.getRuntimePath());

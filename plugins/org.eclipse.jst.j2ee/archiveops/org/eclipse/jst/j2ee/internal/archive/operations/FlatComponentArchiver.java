@@ -218,12 +218,14 @@ public class FlatComponentArchiver {
 		try {
 			IPath path = entryPath;
 			boolean isFolder = false;
-			long lastModified;
+			long lastModified = 0;
 			
 			if (f instanceof IFlatFolder) {
 				isFolder = true;
 				File folder = (File)((IFlatFolder)f).getAdapter(File.class);
-				lastModified = folder.lastModified();
+				if (folder != null) {
+					lastModified = folder.lastModified();
+				}
 				if (!path.hasTrailingSeparator())
 					path = path.addTrailingSeparator();
 			}

@@ -42,9 +42,11 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.common.componentcore.internal.IModuleHandler;
+import org.eclipse.wst.common.componentcore.internal.impl.TaskModel;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.componentcore.ui.propertypage.AddModuleDependenciesPropertiesPage;
+import org.eclipse.wst.common.componentcore.ui.propertypage.IReferenceWizardConstants;
 import org.eclipse.wst.common.componentcore.ui.propertypage.ModuleAssemblyRootPage;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -181,6 +183,11 @@ public class EarModuleDependenciesPropertyPage extends
 				app2.setLibraryDirectory(libDir);
 			}}, null);
 		}
+	}
+	
+	@Override
+	protected void setCustomReferenceWizardProperties(TaskModel model) {
+		model.putObject(IReferenceWizardConstants.DEFAULT_LIBRARY_LOCATION, libDir);
 	}
 
 	@Override

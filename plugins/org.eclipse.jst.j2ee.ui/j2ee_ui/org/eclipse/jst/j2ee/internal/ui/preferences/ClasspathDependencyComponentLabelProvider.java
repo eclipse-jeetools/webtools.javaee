@@ -1,6 +1,6 @@
 package org.eclipse.jst.j2ee.internal.ui.preferences;
 
-import org.eclipse.jst.j2ee.internal.modulecore.util.ClasspathDependencyContainerVirtualComponent;
+import org.eclipse.jst.j2ee.internal.modulecore.util.DummyClasspathDependencyContainerVirtualComponent;
 import org.eclipse.jst.j2ee.internal.wizard.AvailableJarsProvider;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -14,7 +14,7 @@ public class ClasspathDependencyComponentLabelProvider implements
 	}
 
 	public boolean canHandle(IVirtualComponent component) {
-		if( component instanceof ClasspathDependencyContainerVirtualComponent)
+		if( component instanceof DummyClasspathDependencyContainerVirtualComponent)
 			return true;
 		return false;
 	}
@@ -25,5 +25,8 @@ public class ClasspathDependencyComponentLabelProvider implements
 
 	public Image getSourceImage(IVirtualComponent component) {
 		return AvailableJarsProvider.getClasspathDependencyImage();
+	}
+	public void dispose() {
+		//  Do nothing
 	}
 }

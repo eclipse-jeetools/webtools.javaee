@@ -47,7 +47,7 @@ import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants.DependencyAttributeType;
 import org.eclipse.jst.j2ee.classpathdep.UpdateClasspathAttributeUtil;
 import org.eclipse.jst.j2ee.internal.ManifestUIResourceHandler;
-import org.eclipse.jst.j2ee.internal.modulecore.util.ClasspathDependencyContainerVirtualComponent;
+import org.eclipse.jst.j2ee.internal.modulecore.util.DummyClasspathDependencyContainerVirtualComponent;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
@@ -89,7 +89,7 @@ public class ClasspathDependencyWizardFragment extends WizardFragment implements
 	}
 
 	public boolean canEdit(IVirtualReference ref) {
-		return ref.getReferencedComponent() instanceof ClasspathDependencyContainerVirtualComponent;
+		return ref.getReferencedComponent() instanceof DummyClasspathDependencyContainerVirtualComponent;
 	}
 	
 	@Override
@@ -316,7 +316,7 @@ public class ClasspathDependencyWizardFragment extends WizardFragment implements
 		if( anyChecked ) {
 			IProject project = (IProject)getTaskModel().getObject(IReferenceWizardConstants.PROJECT);
 			IVirtualComponent root = (IVirtualComponent)getTaskModel().getObject(IReferenceWizardConstants.ROOT_COMPONENT);
-			IVirtualComponent imported = new ClasspathDependencyContainerVirtualComponent(project, root);
+			IVirtualComponent imported = new DummyClasspathDependencyContainerVirtualComponent(project, root);
 			VirtualReference ref = new VirtualReference(root, imported);
 			ref.setDerived(true);
 			ref.setRuntimePath(new Path("/")); //$NON-NLS-1$

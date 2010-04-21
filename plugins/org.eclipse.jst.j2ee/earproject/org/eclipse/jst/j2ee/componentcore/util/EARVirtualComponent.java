@@ -32,7 +32,7 @@ import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants.Dependenc
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathInitializer;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
-import org.eclipse.jst.j2ee.internal.modulecore.util.ClasspathDependencyContainerVirtualComponent;
+import org.eclipse.jst.j2ee.internal.modulecore.util.DummyClasspathDependencyContainerVirtualComponent;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.jee.application.ICommonModule;
@@ -192,8 +192,8 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 		Object refType = options.get(IVirtualComponent.REQUESTED_REFERENCE_TYPE);
 		if( refType != null && IVirtualComponent.DISPLAYABLE_REFERENCES.equals(refType) && shouldAddClasspathDependencyDerivedReference()) {
 			List<IVirtualReference> hardReferences = getHardReferences(this);
-			IVirtualComponent imported = new ClasspathDependencyContainerVirtualComponent(
-					getProject(), this);
+			IVirtualComponent imported = 
+				new DummyClasspathDependencyContainerVirtualComponent(getProject(), this);
 			VirtualReference importedRef = new VirtualReference(this, imported);
 			importedRef.setDependencyType(IVirtualReference.DEPENDENCY_TYPE_CONSUMES);
 			importedRef.setDerived(true);

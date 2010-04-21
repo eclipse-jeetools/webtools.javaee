@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsDataModelProvider;
@@ -38,7 +39,8 @@ public class AddComponentToEnterpriseApplicationDataModelProvider extends Create
 				String name = component.getName();
 				if(name != null)
 					name = name.replace(' ','_');
-				
+				if( name != null ) 
+					name = new Path(name).lastSegment();
 				if (JavaEEProjectUtilities.isDynamicWebProject(project)) {
 					name += IJ2EEModuleConstants.WAR_EXT;
 				} else if (JavaEEProjectUtilities.isJCAProject(project)) {

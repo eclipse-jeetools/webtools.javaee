@@ -12,19 +12,17 @@
 package org.eclipse.jst.servlet.ui.internal;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
-import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.layout.FormAttachment;
+import org.eclipse.swt.layout.FormData;
+import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -32,6 +30,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.ui.internal.propertypage.ProjectReferenceWizardFragment;
 import org.eclipse.wst.common.componentcore.ui.internal.taskwizard.IWizardHandle;
+import org.eclipse.wst.common.componentcore.ui.propertypage.IReferenceWizardConstants;
 
 public class CustomWebProjectReferenceWizardFragment extends ProjectReferenceWizardFragment {
 	
@@ -42,66 +41,43 @@ public class CustomWebProjectReferenceWizardFragment extends ProjectReferenceWiz
 
 	private boolean isWebLib;
 	private Button button;
-	private Composite tableColumnComposite;
 	
 	@Override
 	public Composite createComposite(Composite parent, IWizardHandle handle) {
 		
-		handle.setTitle(org.eclipse.wst.common.componentcore.ui.Messages.ProjectReferenceTitle);
-		handle.setDescription(Messages.getString("WebProjectReferenceDescription")); //$NON-NLS-1$
-		Composite c = newComposite(parent);
+		Composite c = new Composite(parent, SWT.NONE);
+		c.setLayout(new FormLayout());
 		
-		createTable(c);
-		createButtonColumn(c);
-		return c;
-	}
-	private void createTable(Composite c) {
-		
-		tableColumnComposite = createTableColumnComposite(c);
-		
-		viewer = new TreeViewer(tableColumnComposite, SWT.MULTI | SWT.BORDER);
-		viewer.setContentProvider(getContentProvider());
-		viewer.setLabelProvider(getLabelProvider());
-		
-		
-		
-		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
-			public void selectionChanged(SelectionChangedEvent event) {
-				selChanged();
-			}
-		});
-		viewer.setInput(ResourcesPlugin.getWorkspace());
-	}
-	
-	protected void createButtonColumn(Composite parent) {
-		
-		
-		button = new Button(parent, SWT.CHECK);
+		// make button
+		button = new Button(c, SWT.CHECK);
 		button.setText(Messages.getString("CustomWebProjectReferenceWizardFragment.0")); //$NON-NLS-1$
 		button.setToolTipText(Messages.getString("CustomWebProjectReferenceWizardFragment.1")); //$NON-NLS-1$
-		button.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		FormData buttonData = new FormData();
+		buttonData.bottom = new FormAttachment(100,-5);
+		buttonData.left = new FormAttachment(0,5);
+		buttonData.right = new FormAttachment(100,-5);
+		button.setLayoutData(buttonData);
 		button.addSelectionListener(new SelectionListener() {
 			public void widgetDefaultSelected(SelectionEvent e) {
 			}
-
 			public void widgetSelected(SelectionEvent e) {
 				handleEdit();
 			}
 		});
 		button.setSelection(true);
+
+		Composite tableComp = super.createComposite(c, handle);
+		FormData tableData = new FormData();
+		tableData.top = new FormAttachment(0,5);
+		tableData.bottom = new FormAttachment(button,-5);
+		tableData.left = new FormAttachment(0,5);
+		tableData.right = new FormAttachment(100,-5);
+		tableComp.setLayoutData(tableData);
+		handle.setTitle(org.eclipse.wst.common.componentcore.ui.Messages.ProjectReferenceTitle);
+		handle.setDescription(Messages.getString("WebProjectReferenceDescription")); //$NON-NLS-1$
+		return c;
 	}
-//	public Composite createButtonColumnComposite(Composite parent) {
-//		Composite aButtonColumn = new Composite(parent, SWT.NONE);
-//		GridLayout layout = new GridLayout();
-//		layout.numColumns = 1;
-//		layout.marginHeight = 0;
-//		layout.marginWidth = 0;
-//		aButtonColumn.setLayout(layout);
-//		GridData data = new GridData(GridData.HORIZONTAL_ALIGN_FILL
-//				| GridData.VERTICAL_ALIGN_FILL);
-//		aButtonColumn.setLayoutData(data);
-//		return aButtonColumn;
-//	}
+	
 	public Composite createTableColumnComposite(Composite parent) {
 		Composite aButtonColumn = new Composite(parent, SWT.NONE);
 	
@@ -120,25 +96,10 @@ public class CustomWebProjectReferenceWizardFragment extends ProjectReferenceWiz
 	protected void handleEdit() {
 		isWebLib = button.getSelection();
 	}
-	private Composite newComposite(Composite parent) {
-		Composite c = new Composite(parent, SWT.NONE);
-		GridLayout layout = new GridLayout();
-		layout.numColumns = 1;
-		layout.marginHeight = 0;
-		c.setLayout(layout);
-		c.setLayoutData(new GridData(SWT.FILL,SWT.FILL,true,true));
-		return c;
-	}
-
 
 	@Override
 	protected String getArchiveName(IProject proj, IVirtualComponent comp) {
-		// TODO Auto-generated method stub
-		String name = super.getArchiveName(proj, comp);
-		if (isWebLib)
-			name = new Path(J2EEConstants.WEB_INF_LIB).append(name).makeAbsolute().toString();
-		
-		return name;
+		return super.getArchiveName(proj, comp);
 	}
 
 	@Override
@@ -146,10 +107,11 @@ public class CustomWebProjectReferenceWizardFragment extends ProjectReferenceWiz
 		for (int i = 0; i < selected.length; i++) {
 			IProject proj = selected[i];
 			if(JavaEEProjectUtilities.getJ2EEProjectType(proj).equals("")) //$NON-NLS-1$
-			{
 				J2EEProjectUtilities.createFlexJavaProjectForProjectOperation(proj).execute(monitor, null);
-			}
 		}
+		String location = "/"; //$NON-NLS-1$
+		if(isWebLib) location += J2EEConstants.WEB_INF_LIB;
+		getTaskModel().putObject(IReferenceWizardConstants.DEFAULT_LIBRARY_LOCATION, location);
 		super.performFinish(monitor);
 	}
 	

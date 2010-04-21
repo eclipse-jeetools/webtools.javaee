@@ -11,10 +11,13 @@
 package org.eclipse.jst.servlet.ui.internal;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.ui.J2EEModuleDependenciesPropertyPage;
 import org.eclipse.jst.j2ee.internal.ui.preferences.Messages;
+import org.eclipse.wst.common.componentcore.internal.impl.TaskModel;
 import org.eclipse.wst.common.componentcore.ui.internal.propertypage.DependencyPageExtensionManager;
 import org.eclipse.wst.common.componentcore.ui.internal.propertypage.DependencyPageExtensionManager.ReferenceExtension;
+import org.eclipse.wst.common.componentcore.ui.propertypage.IReferenceWizardConstants;
 import org.eclipse.wst.common.componentcore.ui.propertypage.ModuleAssemblyRootPage;
 
 public class WebDependencyPropertyPage extends J2EEModuleDependenciesPropertyPage {
@@ -30,10 +33,11 @@ public class WebDependencyPropertyPage extends J2EEModuleDependenciesPropertyPag
 		super.createPushButtons();
 	}
 
-	protected String getAddWebLibRefLabel() {
-		return Messages.WebDependencyPropertyPage_0;
+	@Override
+	protected void setCustomReferenceWizardProperties(TaskModel model) {
+		model.putObject(IReferenceWizardConstants.DEFAULT_LIBRARY_LOCATION, J2EEConstants.WEB_INF_LIB);
 	}
-	
+
 	@Override
 	protected String getModuleAssemblyRootPageDescription() {
 		return Messages.WebDependencyPropertyPage_1;

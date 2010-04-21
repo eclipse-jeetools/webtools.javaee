@@ -10,10 +10,10 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
  * A stub 'dummy' reference which is returned on a getReferences() call to an Ear project
  * when passed the IVirtualComponent.DISPLAYABLE_REFERENCES type. 
  */
-public class ClasspathDependencyContainerVirtualComponent extends AbstractResourceListVirtualComponent {
+public class DummyClasspathDependencyContainerVirtualComponent extends AbstractResourceListVirtualComponent {
 	public static final String COMPONENT_ID = "org.eclipse.jst.j2ee.componentcore.util.ClasspathDependencies"; //$NON-NLS-1$
 	
-	public ClasspathDependencyContainerVirtualComponent(IProject p,
+	public DummyClasspathDependencyContainerVirtualComponent(IProject p,
 			IVirtualComponent referencingComponent) {
 		super(p, referencingComponent);
 	}
