@@ -30,27 +30,37 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.jdt.core.ClasspathContainerInitializer;
+import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.internal.core.JavaModelManager;
+import org.eclipse.jst.common.internal.modulecore.ClasspathContainerVirtualComponent;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
+import org.eclipse.jst.j2ee.application.internal.operations.AddReferenceToEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.classpath.tests.util.ClasspathDependencyTestUtil;
 import org.eclipse.jst.j2ee.earcreation.IEarFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.internal.project.facet.EARFacetProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IAddReferenceDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetInstallDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
+import org.eclipse.wst.common.componentcore.internal.resources.VirtualReference;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
@@ -462,6 +472,62 @@ public class EARProjectCreationOperationTest extends JEEProjectCreationOperation
 		assertEquals("test1.jar", children[0].getName());
     }
 
+    public void testEARWithClasspathContainerReference() throws Exception {
+    	// Find the junit jar
+		ClasspathContainerInitializer initializer= JavaCore.getClasspathContainerInitializer(JavaCore.USER_LIBRARY_CONTAINER_ID);
+		IPath path = new Path("JUNIT_HOME/junit.jar"); //$NON-NLS-1$
+		IPath resolvedPath = JavaCore.getResolvedVariablePath(path);
+		
+		// Make a new user library a999 referencing this jar
+		IClasspathEntry junitEntry = JavaCore.newLibraryEntry(resolvedPath, null, null);
+		JavaModelManager.getUserLibraryManager().setUserLibrary("a999", new IClasspathEntry[]{junitEntry}, false);
+		String containerPath = JavaCore.USER_LIBRARY_CONTAINER_ID + "/a999";
+		
+		// Make an EAR project
+    	IDataModel dm = getEARDataModel("rEAR", "ourContent", null, null, JavaEEFacetConstants.EAR_5, false);
+    	OperationTestCase.runAndVerify(dm);
+    	IProject rootProj = ResourcesPlugin.getWorkspace().getRoot().getProject("rEAR");
+    	final IVirtualComponent rootComp = ComponentCore.createComponent(rootProj);
+    	
+    	// Add a classpath container reference
+    	IVirtualComponent classpathContainerComp = new ClasspathContainerVirtualComponent(rootProj, rootComp, containerPath);
+		final VirtualReference ref = new VirtualReference(rootComp, classpathContainerComp, new Path("/testFolder").makeAbsolute());
+		ref.setDependencyType(IVirtualReference.DEPENDENCY_TYPE_CONSUMES);
+		IWorkspaceRunnable runnable = new IWorkspaceRunnable(){
+			public void run(IProgressMonitor monitor) throws CoreException{
+				IDataModelProvider provider = new AddReferenceToEnterpriseApplicationDataModelProvider();
+				IDataModel dm = DataModelFactory.createDataModel(provider);
+				dm.setProperty(IAddReferenceDataModelProperties.SOURCE_COMPONENT, rootComp);
+				dm.setProperty(IAddReferenceDataModelProperties.TARGET_REFERENCE_LIST, Arrays.asList(ref));
+				
+				IStatus stat = dm.validateProperty(IAddReferenceDataModelProperties.TARGET_REFERENCE_LIST);
+				if (!stat.isOK())
+					throw new CoreException(stat);
+				try {
+					dm.getDefaultOperation().execute(new NullProgressMonitor(), null);
+				} catch (ExecutionException e) {
+					throw new CoreException(new Status(IStatus.ERROR, "blah", "error", e));
+				}	
+			}
+		};
+		try {
+			ResourcesPlugin.getWorkspace().run(runnable, new NullProgressMonitor());
+		} catch( CoreException e ) {
+			e.printStackTrace();
+			fail();
+		}
+		
+		// Verify module stuff!
+		IModule module = ServerUtil.getModule(rootProj);
+		ModuleDelegate delegate = (ModuleDelegate)module.loadAdapter(ModuleDelegate.class, new NullProgressMonitor());
+		IModuleResource[] resources = delegate.members();
+		assertTrue(resources.length == 1);
+		assertTrue(resources[0] instanceof IModuleFolder);
+		assertTrue(resources[0].getName().equals("testFolder"));
+		assertTrue(((IModuleFolder)resources[0]).members().length == 1);
+		assertTrue(((IModuleFolder)resources[0]).members()[0] instanceof IModuleFile);
+		assertTrue(((IModuleFolder)resources[0]).members()[0].getName().equals("junit.jar"));
+    }
 
     public void addArchiveComponent(IVirtualComponent component) throws CoreException {
 		
