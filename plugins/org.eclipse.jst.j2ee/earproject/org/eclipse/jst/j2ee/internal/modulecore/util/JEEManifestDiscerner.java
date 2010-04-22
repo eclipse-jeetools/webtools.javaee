@@ -82,9 +82,10 @@ public class JEEManifestDiscerner implements IJavaComponentDiscerner {
 		// We have to prune out self-references 
 		for( int i = 0; i < hardRefs.length; i++ ) {
 			// This is actually hard to make sure we're not adding ourself
-			if(hardRefs[i].getReferencedComponent().isBinary() 
+			if((hardRefs[i].getReferencedComponent().isBinary() 
 					|| hardRefs[i].getDependencyType() == IVirtualReference.DEPENDENCY_TYPE_CONSUMES
-					|| !hardRefs[i].getReferencedComponent().getProject().equals(childProject)) {
+					|| !hardRefs[i].getReferencedComponent().getProject().equals(childProject))
+					&& hardRefs[i].getArchiveName().endsWith("jar")) { //$NON-NLS-1$ // Only jar's are legal in MANIFEST
 				refs.add(hardRefs[i]);
 			}
 		}

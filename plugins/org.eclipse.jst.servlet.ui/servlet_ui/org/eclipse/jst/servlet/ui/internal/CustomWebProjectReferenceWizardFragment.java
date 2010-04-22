@@ -39,7 +39,7 @@ public class CustomWebProjectReferenceWizardFragment extends ProjectReferenceWiz
 		// TODO Auto-generated constructor stub
 	}
 
-	private boolean isWebLib;
+	private boolean isWebLib = true;
 	private Button button;
 	
 	@Override
