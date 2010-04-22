@@ -167,6 +167,7 @@ public class J2EEElementChangedListener implements IElementChangedListener {
 				}
 			};
 			job.setRule(ResourcesPlugin.getWorkspace().getRoot());
+			job.setSystem(true);
 			job.schedule();
 		}						
 	}

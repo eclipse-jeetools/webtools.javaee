@@ -12,7 +12,6 @@ package org.eclipse.jst.j2ee.internal.common.exportmodel;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -32,13 +31,16 @@ import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.jst.jee.archive.IArchiveLoadAdapter;
 import org.eclipse.jst.jee.archive.IArchiveResource;
 import org.eclipse.jst.jee.archive.internal.ArchiveUtil;
+import org.eclipse.wst.common.componentcore.internal.flat.AbstractFlattenParticipant;
 import org.eclipse.wst.common.componentcore.internal.flat.FlatVirtualComponent;
+import org.eclipse.wst.common.componentcore.internal.flat.IChildModuleReference;
 import org.eclipse.wst.common.componentcore.internal.flat.IFlatResource;
 import org.eclipse.wst.common.componentcore.internal.flat.IFlatVirtualComponent;
 import org.eclipse.wst.common.componentcore.internal.flat.IFlattenParticipant;
 import org.eclipse.wst.common.componentcore.internal.flat.VirtualComponentFlattenUtility;
 import org.eclipse.wst.common.componentcore.internal.flat.FlatVirtualComponent.FlatComponentTaskModel;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
 public class JavaEEComponentExportCallback implements ComponentExportCallback {
 
@@ -128,7 +130,19 @@ public class JavaEEComponentExportCallback implements ComponentExportCallback {
 	
 	protected IFlattenParticipant[] getParticipants() {
 		return new IFlattenParticipant[]{
-				new AddJavaEEReferencesParticipant()
+			createHierarchyParticipant()
+		};
+	}
+	
+	protected IFlattenParticipant createHierarchyParticipant() {
+		return new AbstractFlattenParticipant() {
+			@Override
+			public boolean isChildModule(IVirtualComponent rootComponent, IVirtualReference reference, FlatComponentTaskModel dataModel) {
+				if (!reference.getReferencedComponent().isBinary()) {
+					return true;
+				}
+				return false;
+			}
 		};
 	}
 
@@ -145,20 +159,23 @@ public class JavaEEComponentExportCallback implements ComponentExportCallback {
 		public ConnectorExportComponent(IVirtualComponent component, FlatComponentTaskModel dataModel) {
 			super(component, dataModel);
 		}
+		
+		@Override
+		protected boolean canOptimize() {
+			return true;
+		}
 
 		@Override
-		protected void treeWalk() throws CoreException {
+		protected void optimize(List<IFlatResource> resources, List<IChildModuleReference> children) {
 			if (getComponent() != null) {
-				VirtualComponentFlattenUtility util = new VirtualComponentFlattenUtility(new ArrayList<IFlatResource>(), this);
-
-				// the actual walking of the tree was already handled 
-				// by the creation of the nested jars from the source folders
-				//util.addMembers(component, vFolder, Path.EMPTY);
-
-				addConsumedReferences(util, getComponent(), new Path("")); //$NON-NLS-1$
-				addUsedReferences(util, getComponent(), new Path("")); //$NON-NLS-1$
+				VirtualComponentFlattenUtility util = new VirtualComponentFlattenUtility(resources, this);
+				try {
+					addConsumedReferences(util, getComponent(), new Path("")); 	//$NON-NLS-1$
+					addUsedReferences(util, getComponent(), new Path("")); 		//$NON-NLS-1$
+				} catch (CoreException e) {
+					org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
+				}
 			}
 		}
 	}
-
 }
