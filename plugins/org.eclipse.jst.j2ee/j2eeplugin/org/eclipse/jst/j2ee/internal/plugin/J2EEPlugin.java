@@ -282,18 +282,27 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 	 */
 	public static URL getImageURL(String key, Bundle bundle) {
 		String gif = "/" + key + ".gif"; //$NON-NLS-1$ //$NON-NLS-2$
-		IPath path = null;
+		String png = "/" + key + ".png"; //$NON-NLS-1$ //$NON-NLS-2$
+		IPath gifPath, pngPath  = null;
 		for (int i = 0; i < ICON_DIRS.length; i++) {
-			path = new Path(ICON_DIRS[i]).append(gif);
-			if (Platform.find(bundle,path) == null)
+			gifPath = new Path(ICON_DIRS[i]).append(gif);
+			pngPath = new Path(ICON_DIRS[i]).append(png);
+			if (Platform.find(bundle,pngPath) != null){
+				try {
+					return new URL( bundle.getEntry("/"), pngPath.toString()); //$NON-NLS-1$ 
+				} catch (MalformedURLException exception) {
+					J2EEPlugin.logError(exception);
+					continue;
+				}	
+			} else if (Platform.find(bundle,gifPath) != null){
+				try {
+					return new URL( bundle.getEntry("/"), gifPath.toString()); //$NON-NLS-1$ 
+				} catch (MalformedURLException exception) {
+					org.eclipse.jem.util.logger.proxy.Logger.getLogger().logWarning(J2EEPluginResourceHandler.getString("Load_Image_Error_", new Object[]{key})); //$NON-NLS-1$
+					continue;
+				}
+			}else 
 				continue;
-			try {
-				return new URL( bundle.getEntry("/"), path.toString()); //$NON-NLS-1$ 
-			} catch (MalformedURLException exception) {
-				org.eclipse.jem.util.logger.proxy.Logger.getLogger().logWarning(J2EEPluginResourceHandler.getString("Load_Image_Error_", new Object[]{key})); //$NON-NLS-1$
-				J2EEPlugin.logError(exception);
-				continue;
-			}
 		}
 		return null;
 	}
