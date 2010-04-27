@@ -104,12 +104,16 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 		} else if (propertyName.equals(ADD_TO_EAR)) {
 			return new Boolean( J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.ADD_TO_EAR_BY_DEFAULT) && isEARSupportedByRuntime());
 		} else if (propertyName.equals(EAR_PROJECT_NAME)) {
+			DataModelPropertyDescriptor[] descs = getValidPropertyDescriptors(EAR_PROJECT_NAME);
 			if (model.isPropertySet(LAST_EAR_NAME)) {
 				IProject project = ProjectUtilities.getProject(getStringProperty(LAST_EAR_NAME));
-				if (project.exists() && project.isAccessible())
-					return project.getName();
+				for (int i = 0; i < descs.length; i++) {
+					if (project.exists() && project.isAccessible() && project.getName().equals(descs[i].getPropertyDescription())){
+						return project.getName();
+					}
+				}
+				return getDataModel().getStringProperty(FACET_PROJECT_NAME) + "EAR"; //$NON-NLS-1$
 			}
-			DataModelPropertyDescriptor[] descs = getValidPropertyDescriptors(EAR_PROJECT_NAME);
 			if (descs.length > 0) {
 				DataModelPropertyDescriptor desc = descs[0];
 				String eARName = desc.getPropertyDescription();
