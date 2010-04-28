@@ -42,6 +42,8 @@ import org.eclipse.jst.server.core.IApplicationClientModule;
 import org.eclipse.jst.server.core.IConnectorModule;
 import org.eclipse.jst.server.core.IEJBModule;
 import org.eclipse.jst.server.core.IEnterpriseApplication;
+import org.eclipse.jst.server.core.IUtilityModule;
+import org.eclipse.jst.server.core.IWebFragmentModule;
 import org.eclipse.jst.server.core.IWebModule;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -57,7 +59,7 @@ import org.eclipse.wst.web.internal.deployables.FlatComponentDeployable;
  */
 public class J2EEFlexProjDeployable extends FlatComponentDeployable implements 
 				IEnterpriseApplication, IApplicationClientModule, 
-				IConnectorModule, IEJBModule, IWebModule {
+				IConnectorModule, IEJBModule, IWebModule, IUtilityModule, IWebFragmentModule {
 	 
 	/**
 	 * Constructor for J2EEFlexProjDeployable.
