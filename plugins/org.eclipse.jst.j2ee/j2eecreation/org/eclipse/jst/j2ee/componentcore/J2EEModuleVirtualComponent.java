@@ -398,7 +398,8 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 										.deriveEARRelativeURI(manifestEntryString,
 												earArchiveURI);
 								if (null != earRelativeURI) {
-									shouldAdd = earRelativeURI.equals(archiveName);
+									IPath earRefPath = earRefs[j].getRuntimePath().makeRelative();
+									shouldAdd = earRelativeURI.equals(earRefPath.append(archiveName).toString());
 								}
 							}
 
