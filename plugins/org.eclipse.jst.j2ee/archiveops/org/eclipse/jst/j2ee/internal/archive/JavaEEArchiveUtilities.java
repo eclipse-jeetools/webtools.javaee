@@ -50,6 +50,7 @@ import org.eclipse.jst.jee.archive.internal.ArchiveUtil;
 import org.eclipse.jst.jee.archive.internal.ZipFileArchiveLoadAdapterImpl;
 import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
@@ -224,15 +225,15 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 	}
 
 	public IArchive openBinaryArchive(IVirtualComponent virtualComponent, boolean descriminateMainClass) throws ArchiveOpenFailureException {
-		J2EEModuleVirtualArchiveComponent archiveComponent = (J2EEModuleVirtualArchiveComponent) virtualComponent;
-		JavaEEBinaryComponentLoadAdapter loadAdapter = new JavaEEBinaryComponentLoadAdapter(archiveComponent);
+		JavaEEBinaryComponentLoadAdapter loadAdapter = new JavaEEBinaryComponentLoadAdapter((VirtualArchiveComponent) virtualComponent);
 		ArchiveOptions archiveOptions = new ArchiveOptions();
 		archiveOptions.setOption(ArchiveOptions.LOAD_ADAPTER, loadAdapter);
 		archiveOptions.setOption(ArchiveOptions.ARCHIVE_PATH, loadAdapter.getArchivePath());
 		archiveOptions.setOption(DISCRIMINATE_MAIN_CLASS, descriminateMainClass);
 		IArchive parentEARArchive = null;
 		try {
-			if(archiveComponent.isLinkedToEAR()){
+			if (JavaEEProjectUtilities.usesJavaEEComponent(virtualComponent)
+					&& ((J2EEModuleVirtualArchiveComponent) virtualComponent).isLinkedToEAR()) {
 				try {
 					IProject earProject = virtualComponent.getProject();
 					if(earProject != null && EarUtilities.isEARProject(earProject)){

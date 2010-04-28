@@ -21,6 +21,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
@@ -603,7 +604,9 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 	 */
 	public static boolean usesJavaEEComponent(IVirtualComponent component){
 		
-		if(component != null && (component instanceof J2EEModuleVirtualComponent || component instanceof EARVirtualComponent))
+		if (component != null && (component instanceof J2EEModuleVirtualComponent 
+				|| component instanceof EARVirtualComponent
+				|| component instanceof J2EEModuleVirtualArchiveComponent))
 			return true;
 		return false;
 	}
