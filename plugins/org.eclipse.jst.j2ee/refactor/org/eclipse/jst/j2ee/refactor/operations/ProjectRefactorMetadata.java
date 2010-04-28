@@ -80,7 +80,7 @@ public class ProjectRefactorMetadata {
     public void computeMetadata(final IProject oldProject) {
 		try {
 			javaNature = _project.hasNature("org.eclipse.jdt.core.javanature"); //$NON-NLS-1$
-			moduleCoreNature = ModuleCoreNature.getModuleCoreNature(_project) != null;
+			moduleCoreNature = ModuleCoreNature.isFlexibleProject(_project);
 			if (moduleCoreNature) {
 				if (_virtualCompCaching == REF_CACHING) {
 					virtualComp = new RefCachingVirtualComponent(ComponentCore.createComponent(_project));
