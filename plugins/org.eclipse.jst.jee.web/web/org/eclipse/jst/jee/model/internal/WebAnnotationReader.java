@@ -10,6 +10,7 @@
  ***********************************************************************/
 package org.eclipse.jst.jee.model.internal;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -56,8 +57,8 @@ public class WebAnnotationReader extends AbstractAnnotationModelProvider<WebApp>
 	private static final String WEB_SERVLET = "WebServlet"; //$NON-NLS-1$
 	private static final String WEB_SERVLET_FQ = "javax.servlet.annotation.WebServlet"; //$NON-NLS-1$
 	
-	private static final String WEB_LISTENER = "WebServletContextListener"; //$NON-NLS-1$
-	private static final String WEB_LISTENER_FQ = "javax.servlet.annotation.WebServletContextListener"; //$NON-NLS-1$
+	private static final String WEB_LISTENER = "WebListener"; //$NON-NLS-1$
+	private static final String WEB_LISTENER_FQ = "javax.servlet.annotation.WebListener"; //$NON-NLS-1$
 
 	private static final String WEB_FILTER = "WebFilter"; //$NON-NLS-1$
 	private static final String WEB_FILTER_FQ = "javax.servlet.annotation.WebFilter"; //$NON-NLS-1$
@@ -288,11 +289,20 @@ public class WebAnnotationReader extends AbstractAnnotationModelProvider<WebApp>
 
 	@Override
 	protected void processRemovedPackage(IModelProviderEvent modelEvent, IJavaElementDelta delta) throws CoreException {
-		for (ICompilationUnit unit : modelToUnit.getTargets()) {
+		Collection<ICompilationUnit> clonedCollection = cloneCollection(modelToUnit.getTargets());
+		for (ICompilationUnit unit : clonedCollection) {
 			if (unit.getParent().getElementName().equals(delta.getElement().getElementName())) {
 				processRemovedCompilationUnit(modelEvent, unit);
 			}
 		}
+	}
+
+	private Collection<ICompilationUnit> cloneCollection(Collection<ICompilationUnit> targets) {
+		Collection<ICompilationUnit> result = new ArrayList<ICompilationUnit>();
+		for (ICompilationUnit iCompilationUnit : targets) {
+			result.add(iCompilationUnit);
+		}
+		return result;
 	}
 
 	private void processRemovedModelResource(IModelProviderEvent event, ICompilationUnit file) {
