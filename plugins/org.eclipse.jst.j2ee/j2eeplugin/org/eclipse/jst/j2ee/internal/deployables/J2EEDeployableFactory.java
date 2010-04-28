@@ -199,6 +199,9 @@ public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate implemen
 		case JavaEEQuickPeek.APPLICATION_TYPE:
 			moduleType = JavaEEProjectUtilities.ENTERPRISE_APPLICATION;
 			break;
+		case JavaEEQuickPeek.WEBFRAGMENT_TYPE:
+			moduleType = JavaEEProjectUtilities.WEBFRAGMENT;
+			break;
 		default:
 			moduleType = JavaEEProjectUtilities.UTILITY;
 			moduleVersion = J2EEVersionConstants.VERSION_1_0_TEXT;
