@@ -115,11 +115,14 @@ public class WarHelper extends J2EEValidationHelper {
 			IVirtualComponent comp = ComponentCore.createComponent(getProject());
 			edit = ComponentUtilities.getArtifactEditForRead(comp);
 			
-			try {
-				warFile = (WARFile)((WebArtifactEdit) edit).asArchive(false, true, true);
-				return warFile;
-			} catch (OpenFailureException e1) {
-				WebPlugin.logError(e1);
+			if (edit != null)
+			{
+				try {
+					warFile = (WARFile)((WebArtifactEdit) edit).asArchive(false, true, true);
+					return warFile;
+				} catch (OpenFailureException e1) {
+					WebPlugin.logError(e1);
+				}
 			}
 		return null;
 	}	
