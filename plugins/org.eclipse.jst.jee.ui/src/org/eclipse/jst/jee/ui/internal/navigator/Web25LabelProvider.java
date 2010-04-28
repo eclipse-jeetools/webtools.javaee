@@ -10,21 +10,24 @@
  ***********************************************************************/
 package org.eclipse.jst.jee.ui.internal.navigator;
 
+import org.eclipse.emf.ecore.util.FeatureMap;
+import org.eclipse.emf.ecore.util.FeatureMap.Entry;
 import org.eclipse.jst.j2ee.navigator.internal.J2EELabelProvider;
 import org.eclipse.jst.javaee.core.Listener;
 import org.eclipse.jst.javaee.core.ParamValue;
+import org.eclipse.jst.javaee.core.UrlPatternType;
 import org.eclipse.jst.javaee.web.ErrorPage;
 import org.eclipse.jst.javaee.web.Filter;
+import org.eclipse.jst.javaee.web.FilterMapping;
 import org.eclipse.jst.javaee.web.Servlet;
+import org.eclipse.jst.javaee.web.ServletMapping;
 import org.eclipse.jst.jee.ui.internal.navigator.web.GroupContextParamsItemProvider;
 import org.eclipse.jst.jee.ui.internal.navigator.web.GroupErrorPagesItemProvider;
 import org.eclipse.jst.jee.ui.internal.navigator.web.GroupFilterMappingItemProvider;
-import org.eclipse.jst.jee.ui.internal.navigator.web.GroupFilterMappingItemProvider.FilterMappingUIWrapper;
 import org.eclipse.jst.jee.ui.internal.navigator.web.GroupFiltersItemProvider;
 import org.eclipse.jst.jee.ui.internal.navigator.web.GroupListenerItemProvider;
 import org.eclipse.jst.jee.ui.internal.navigator.web.GroupServletItemProvider;
 import org.eclipse.jst.jee.ui.internal.navigator.web.GroupServletMappingItemProvider;
-import org.eclipse.jst.jee.ui.internal.navigator.web.GroupServletMappingItemProvider.ServletMappingUIWrapper;
 import org.eclipse.jst.jee.ui.internal.navigator.web.WebAppProvider;
 import org.eclipse.jst.jee.ui.internal.navigator.web.WebArtifactNode;
 import org.eclipse.swt.graphics.Image;
@@ -49,17 +52,17 @@ public class Web25LabelProvider extends J2EELabelProvider {
 			ret = ((AbstractGroupProvider) element).getImage();
 		} else if (element instanceof Servlet){
 			ret = GroupServletItemProvider.getServletImage();
-		} else if (element instanceof ServletMappingUIWrapper){
+		} else if (element instanceof ServletMapping){
 			ret = GroupServletMappingItemProvider.getServletMappingImage();
 		} else if (element instanceof Filter){
 			ret = GroupFiltersItemProvider.getFiltersImage();
 		} else if (element instanceof Listener){
 			ret = GroupListenerItemProvider.getListenersImage();
-		} else if (element instanceof FilterMappingUIWrapper){
+		} else if (element instanceof FilterMapping){
 			ret = GroupFilterMappingItemProvider.getFilterMappingImage();
 		} else if (element instanceof WebArtifactNode){
 		  ret = ((WebArtifactNode)element).getImage();
-		} else if (element instanceof ErrorPage) {
+		} else if (element instanceof ErrorPage){
 		  ret = GroupErrorPagesItemProvider.getErrorPagesImage((ErrorPage)element); 
         } else if (element instanceof ParamValue){
           ret = GroupContextParamsItemProvider.getContextParamsImage(); 
@@ -78,14 +81,14 @@ public class Web25LabelProvider extends J2EELabelProvider {
 			ret = ((AbstractGroupProvider) element).getText();
 		} else if (element instanceof Servlet){
 			ret = ((Servlet) element).getServletName();
-		} else if (element instanceof ServletMappingUIWrapper) {
-			ret = ((ServletMappingUIWrapper) element).getValue();
+		} else if (element instanceof ServletMapping) {
+			ret = getServletMappingDisplay((ServletMapping) element);
 		} else if (element instanceof Filter){
 			ret = ((Filter) element).getFilterName();
 		} else if (element instanceof Listener){
 			ret = ((Listener) element).getListenerClass();
-		} else if (element instanceof FilterMappingUIWrapper) {
-			ret = ((FilterMappingUIWrapper) element).getValue();
+		} else if (element instanceof FilterMapping) {
+			ret = getFilterMappingDisplay((FilterMapping) element);
 		} else if (element instanceof WebArtifactNode) {
             ret = ((WebArtifactNode) element).getText(); 
         } else if (element instanceof ErrorPage ){
@@ -101,6 +104,27 @@ public class Web25LabelProvider extends J2EELabelProvider {
         	ret = super.getText(element);
         }
 		return ret;
+	}
+
+	private String getFilterMappingDisplay(FilterMapping element) {
+		UrlPatternType urlPatterns = null;
+		String value = null;
+		if (element.getUrlPatterns().size() > 0){
+			urlPatterns = element.getUrlPatterns().get(0);
+			value = urlPatterns.getValue();
+		}else{
+			FeatureMap group = element.getGroup();
+			if (group.size() >0) {
+				Entry entry = group.get(0);
+				value = entry.getValue().toString();
+			}
+		}
+		return value + " -> " + element.getFilterName(); //$NON-NLS-1$
+	}
+
+	private String getServletMappingDisplay(ServletMapping element) {
+		UrlPatternType urlPatterns = element.getUrlPatterns().get(0);
+		return urlPatterns.getValue() + " -> " + element.getServletName(); //$NON-NLS-1$;
 	}
 
 }
