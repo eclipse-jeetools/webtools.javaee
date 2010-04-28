@@ -11,10 +11,13 @@
 package org.eclipse.jst.jee.ui.internal.navigator.web;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.javaee.core.UrlPatternType;
+import org.eclipse.jst.javaee.web.FilterMapping;
 import org.eclipse.jst.javaee.web.WebApp;
 import org.eclipse.jst.jee.ui.internal.Messages;
 import org.eclipse.jst.jee.ui.plugin.JEEUIPluginIcons;
@@ -38,9 +41,19 @@ public class GroupFilterMappingItemProvider extends AbstractWebGroupProvider {
 	@Override
 	public List<?> getChildren() {
 		if (javaee != null){
-			return ((WebApp) javaee).getFilterMappings();
+			return flattenMapping(((WebApp) javaee).getFilterMappings());
 		}
 		return null;
+	}
+
+	private List<?> flattenMapping(List<FilterMapping> filterMappings) {
+		List<FilterMappingUIWrapper> result = new ArrayList<FilterMappingUIWrapper>();
+		if (filterMappings != null && filterMappings.size() > 0){
+			for (FilterMapping filterMapping : filterMappings) {
+				result.addAll(getFilterMappingDisplay(filterMapping));
+			}
+		}
+		return result;
 	}
 
 	@Override
@@ -60,6 +73,32 @@ public class GroupFilterMappingItemProvider extends AbstractWebGroupProvider {
 			FILTER_MAPPING = imageDescriptor.createImage();
 		}
 		return FILTER_MAPPING;
+	}
+	
+	private List<FilterMappingUIWrapper> getFilterMappingDisplay(FilterMapping element) {
+		List<FilterMappingUIWrapper> result = new ArrayList<FilterMappingUIWrapper>();
+		String value = null;
+		if (element.getUrlPatterns().size() > 0){
+			for (UrlPatternType pattern : element.getUrlPatterns()) {
+				value = pattern.getValue();
+				result.add(new FilterMappingUIWrapper(value + " -> " + element.getFilterName())); //$NON-NLS-1$
+			}
+			
+		}
+		return result;
+	}
+	
+	public class FilterMappingUIWrapper {
+		private String value;
+
+		public String getValue() {
+			return value;
+		}
+
+		public FilterMappingUIWrapper(String value) {
+			super();
+			this.value = value;
+		}
 	}
 
 
