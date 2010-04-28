@@ -19,7 +19,6 @@ public class CreateEnterpriseBeanTemplateModel extends
 		CreateJavaEEArtifactTemplateModel {
 	
 	protected static final String ATT_MAPPED_NAME = "mappedName"; //$NON-NLS-1$
-	protected static final String ATT_NAME = "name"; //$NON-NLS-1$
 	
 	protected static final String QUOTATION_STRING = "\""; //$NON-NLS-1$
 	
