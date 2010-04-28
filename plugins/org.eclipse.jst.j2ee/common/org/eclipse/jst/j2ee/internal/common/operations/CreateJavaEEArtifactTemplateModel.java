@@ -46,7 +46,10 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
-public class CreateJavaEEArtifactTemplateModel {
+public class CreateJavaEEArtifactTemplateModel { 
+	
+	public static final String ATT_NAME = "name"; //$NON-NLS-1$
+	public static final String ATT_DESCRIPTION = "description"; //$NON-NLS-1$
 	
 	/**
 	 * Constant representing no compatibility flag.

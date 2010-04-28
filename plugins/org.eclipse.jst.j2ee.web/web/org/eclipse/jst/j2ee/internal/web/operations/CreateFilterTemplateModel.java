@@ -11,7 +11,6 @@
 package org.eclipse.jst.j2ee.internal.web.operations;
 
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.ABSTRACT_METHODS;
-import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.CLASS_NAME;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewFilterClassDataModelProperties.DESTROY;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewFilterClassDataModelProperties.DO_FILTER;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewFilterClassDataModelProperties.FILTER_MAPPINGS;
@@ -34,14 +33,19 @@ import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_WEB_FILTER;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.jst.j2ee.internal.common.operations.Method;
 import org.eclipse.jst.j2ee.webapplication.DispatcherType;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class CreateFilterTemplateModel extends CreateWebClassTemplateModel {
+
+	public static final String ATT_FILTER_NAME = "filterName"; //$NON-NLS-1$
+	public static final String ATT_SERVLET_NAMES = "servletNames"; //$NON-NLS-1$
 	
 	public static final int NAME = 0;
 	public static final int VALUE = 1;
@@ -78,7 +82,7 @@ public class CreateFilterTemplateModel extends CreateWebClassTemplateModel {
 	}
 
 	public String getFilterName() {
-		return getProperty(CLASS_NAME).trim();
+		return super.getDisplayName();
 	}
 
 	public boolean shouldGenInit() {
@@ -176,45 +180,40 @@ public class CreateFilterTemplateModel extends CreateWebClassTemplateModel {
 		return unimplementedMethods;
 	}
 	
-	public String getJavaEE6AnnotationParameters(){
-		String result = "("; //$NON-NLS-1$
+	public Map<String, Object> getClassAnnotationParams() {
+		Map<String, Object> result = new Hashtable<String, Object>();
+		
+		String dispName = getFilterName().trim();
+		if (!dispName.equals(getClassName()) && (dispName.length() > 0))
+			result.put(ATT_FILTER_NAME, dispName);
+		
+		String description = getDescription().trim();
+		if (description.length() > 0)
+			result.put(ATT_DESCRIPTION, description);
+		
 		List<IFilterMappingItem> filterMappings = getFilterMappings();
-		if (filterMappings != null && filterMappings.size()>0 && hasUrlMapping(filterMappings)){
-			result+="urlPatterns={"; //$NON-NLS-1$
-			for (IFilterMappingItem filterMapItem : filterMappings) {
-				result+="\""+filterMapItem.getName()+"\",";  //$NON-NLS-1$//$NON-NLS-2$
+		List<String> urlMappings = new ArrayList<String>();
+		List<String> servletNames = new ArrayList<String>();
+		for (IFilterMappingItem filterMapping : filterMappings) {
+			if (filterMapping.isUrlPatternType()) {
+				urlMappings.add(filterMapping.getName());
+			} else if (filterMapping.isServletNameType()) {
+				servletNames.add(filterMapping.getName());
 			}
-			result = result.substring(0, result.length()-1);
-			result+='}';
-			
 		}
+		if (urlMappings.size() > 0) {
+			result.put(ATT_URL_PATTERNS, urlMappings);
+		}
+		if (servletNames.size() > 0) {
+			result.put(ATT_SERVLET_NAMES, servletNames);
+		}
+		
 		List<String[]> initParams = getInitParams();
-		if (initParams != null && initParams.size()>0){
-			if (result.length() > 1){
-				result+=", "; //$NON-NLS-1$
-			}
-			result+="initParams={"; //$NON-NLS-1$
-			for (String[] iParams : initParams) {
-				result+=generateInitParamAnnotation(iParams[0], iParams[1]) + ","; //$NON-NLS-1$
-			}
-			result = result.substring(0, result.length()-1);
-			result+="}"; //$NON-NLS-1$
+		if (initParams != null && initParams.size() > 0) {
+			result.put(ATT_INIT_PARAMS, initParams);
 		}
-		result+=")"; //$NON-NLS-1$
-		return result.length() > 2 ? result : ""; //$NON-NLS-1$
+
+		return result;
 	}
 	
-	private boolean hasUrlMapping(List<IFilterMappingItem> filterMappings) {
-		for (IFilterMappingItem filterMapItem : filterMappings) {
-			if (filterMapItem.isUrlPatternType()){
-				return true;
-			}
-		}
-		return false;
-	}
-
-	private String generateInitParamAnnotation(String name, String value){
-		return "@WebInitParam(name=\""+name+"\", value=\""+value+"\")"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-	}
-
 }

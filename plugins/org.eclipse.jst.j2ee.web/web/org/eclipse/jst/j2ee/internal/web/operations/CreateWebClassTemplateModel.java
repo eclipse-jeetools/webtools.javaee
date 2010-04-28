@@ -22,6 +22,9 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 public class CreateWebClassTemplateModel extends
 		CreateJavaEEArtifactTemplateModel {
 	
+	public static final String ATT_URL_PATTERNS = "urlPatterns"; //$NON-NLS-1$
+	public static final String ATT_INIT_PARAMS = "initParams"; //$NON-NLS-1$
+	
 	public static final String SERVLET_3 = "3.0"; //$NON-NLS-1$
 	
 	public CreateWebClassTemplateModel(IDataModel dataModel) {

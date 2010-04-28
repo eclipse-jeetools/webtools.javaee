@@ -53,6 +53,7 @@ import static org.eclipse.jst.j2ee.web.IServletConstants.METHOD_GET_SERVLET_INFO
 import static org.eclipse.jst.j2ee.web.IServletConstants.METHOD_INIT;
 import static org.eclipse.jst.j2ee.web.IServletConstants.METHOD_SERVICE;
 import static org.eclipse.jst.j2ee.web.IServletConstants.METHOD_TO_STRING;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_ANNOTATION_INIT_PARAM;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_HTTP_SERVLET_REQUEST;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_HTTP_SERVLET_RESPONSE;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_IO_EXCEPTION;
@@ -61,13 +62,14 @@ import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_EXCEP
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_REQUEST;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_RESPONSE;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_WEB_SERVLET;
-import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_ANNOTATION_INIT_PARAM;
 import static org.eclipse.jst.j2ee.web.IServletConstants.SERVICE_SIGNATURE;
 import static org.eclipse.jst.j2ee.web.IServletConstants.SERVLET_INIT_SIGNATURE;
 
 import java.util.Collection;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.jst.j2ee.internal.common.operations.Method;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -300,42 +302,28 @@ public class CreateServletTemplateModel extends CreateWebClassTemplateModel {
 		return unimplementedMethods;
 	}
 	
-	public String getJavaEE6AnnotationParameters(){
-		String result = "("; //$NON-NLS-1$
-		if (!getClassName().equals(getServletName())){
-			result+="name=\""+getServletName()+"\""; //$NON-NLS-1$ //$NON-NLS-2$
-		}
+	public Map<String, Object> getClassAnnotationParams() {
+		Map<String, Object> result = new Hashtable<String, Object>();
+		
+		String dispName = getServletName().trim();
+		if (!dispName.equals(getClassName()) && (dispName.length() > 0))
+			result.put(ATT_NAME, dispName);
+		
+		String description = getDescription().trim();
+		if (description.length() > 0)
+			result.put(ATT_DESCRIPTION, description);
+		
 		List<String[]> servletMappings = getServletMappings();
-		if (servletMappings != null && servletMappings.size()>0){
-			if (result.length() > 1){
-				result+=", "; //$NON-NLS-1$
-			}
-			result+="urlPatterns={"; //$NON-NLS-1$
-			for (String[] strings : servletMappings) {
-				result+="\""+strings[0]+"\","; //$NON-NLS-1$ //$NON-NLS-2$
-			}
-			result = result.substring(0, result.length()-1);
-			result+='}';
-			
+		if (servletMappings != null && servletMappings.size() > 0) {
+			result.put(ATT_URL_PATTERNS, servletMappings);
 		}
+		
 		List<String[]> initParams = getInitParams();
-		if (initParams != null && initParams.size()>0){
-			if (result.length() > 1){
-				result+=", "; //$NON-NLS-1$
-			}
-			result+="initParams={"; //$NON-NLS-1$
-			for (String[] iParams : initParams) {
-				result+=generateInitParamAnnotation(iParams[0], iParams[1]) + ","; //$NON-NLS-1$
-			}
-			result = result.substring(0, result.length()-1);
-			result+="}"; //$NON-NLS-1$
+		if (initParams != null && initParams.size() > 0) {
+			result.put(ATT_INIT_PARAMS, initParams);
 		}
-		result+=")"; //$NON-NLS-1$
-		return result.length() > 2 ? result : ""; //$NON-NLS-1$
+
+		return result;
 	}
 	
-	private String generateInitParamAnnotation(String name, String value){
-		return "@WebInitParam(name=\""+name+"\", value=\""+value+"\")"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-	}
-
 }
