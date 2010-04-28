@@ -106,12 +106,17 @@ public class JavaClassTranslator extends Translator {
 		for (; startIndex < characters.length && characters[startIndex] == '.'; startIndex++){
 			//do nothing simply incrementing startIndex
 		}
+		// Handle case where all chars in the qualifiedName are periods
+		if(startIndex >= characters.length)
+			return qualifiedName;
 		int qualifiedNameEnd = qualifiedName.length() - 1;
 		int endIndex = qualifiedNameEnd;
-		for (; endIndex > -1 && characters[endIndex] == '.'; endIndex--)
-		if (startIndex == 0 && endIndex == qualifiedNameEnd)
-			return qualifiedName;
+		for (; endIndex > -1 && characters[endIndex] == '.'; endIndex--) {
+			if (startIndex == 0 && endIndex == qualifiedNameEnd)
+				return qualifiedName;
+		}	
 		return qualifiedName.substring(startIndex, endIndex + 1);
+		
 	}	
 
 	/**
