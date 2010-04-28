@@ -16,7 +16,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceDelta;
@@ -29,12 +28,14 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jdt.core.ElementChangedEvent;
+import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IElementChangedListener;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaElementDelta;
 import org.eclipse.jdt.core.IJavaModel;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
+import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
@@ -344,13 +345,54 @@ public class J2EEElementChangedListener implements IElementChangedListener {
 	 */
 	private IVirtualFolder getDestinationFolder(final IVirtualComponent c) throws CoreException {
 		final IVirtualFolder root = c.getRootFolder();
-		if (JavaEEProjectUtilities.isDynamicWebProject(c.getProject())) {
-			// web projects map to WEB-INF/classes
-			return root.getFolder(new Path(J2EEConstants.WEB_INF_CLASSES));
+		
+		if( JavaEEProjectUtilities.usesJavaEEComponent(c )){
+			if (JavaEEProjectUtilities.isDynamicWebProject(c.getProject())) {
+				return root.getFolder(new Path(J2EEConstants.WEB_INF_CLASSES));
+			}
+			return root;
 		}
-		// all other J2EE project types (that are Java projects) map 
-		// Java src folders to the project root
+		//get source folders
+		List<IPath> srcFolders = getSourceFolders(c.getProject());
+		//get existing deploy mappings
+		Map mapping = getResourceMappings(c.getProject());
+		IPath deployPath = null;
+		
+		//if existing source folder has mapping set for this one
+		for( IPath srcFolder : srcFolders )
+		{
+			if( mapping.containsKey(srcFolder) ){
+				deployPath = (IPath)mapping.get(srcFolder);
+				if( deployPath == null )
+					return root;
+				return root.getFolder(deployPath);
+			}
+		}
 		return root;
+	}
+	
+	protected static List<IPath> getSourceFolders(IProject project) {
+		
+		IJavaProject javaProj = JavaCore.create(project);
+		if (javaProj == null)
+			return null;
+		if( !javaProj.exists() )
+			return null;
+		
+		IClasspathEntry[] cp = null;
+		try {
+			cp = javaProj.getRawClasspath();
+		} catch (JavaModelException ex) {
+			J2EEPlugin.logError(ex);
+			return null;
+		}
+		List sourcePaths = new ArrayList();
+		for (int i = 0; i < cp.length; i++) {
+			if (cp[i].getEntryKind() == IClasspathEntry.CPE_SOURCE) {
+				sourcePaths.add(cp[i].getPath().removeFirstSegments(1));
+			}
+		}
+		return sourcePaths;
 	}
 	
 }
