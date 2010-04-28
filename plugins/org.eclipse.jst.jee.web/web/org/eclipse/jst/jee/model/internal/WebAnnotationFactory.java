@@ -62,8 +62,8 @@ public class WebAnnotationFactory extends AbstractAnnotationFactory {
 	private static final String WEB_SERVLET = "WebServlet"; //$NON-NLS-1$
 	private static final String WEB_SERVLET_FQ = "javax.servlet.annotation.WebServlet"; //$NON-NLS-1$
 	
-	private static final String WEB_LISTENER = "WebServletContextListener"; //$NON-NLS-1$
-	private static final String WEB_LISTENER_FQ = "javax.servlet.annotation.WebServletContextListener"; //$NON-NLS-1$
+	private static final String WEB_LISTENER = "WebListener"; //$NON-NLS-1$
+	private static final String WEB_LISTENER_FQ = "javax.servlet.annotation.WebListener"; //$NON-NLS-1$
 
 	private static final String WEB_FILTER = "WebFilter"; //$NON-NLS-1$
 	private static final String WEB_FILTER_FQ = "javax.servlet.annotation.WebFilter"; //$NON-NLS-1$
