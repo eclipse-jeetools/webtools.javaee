@@ -90,10 +90,19 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 		{
 		    if( this.javaFacetInstallConfig != null )
 		    {
-		        final IPath sourceFolder
-		            = propertyValue == null ? null : new Path( (String) propertyValue );
-		        
-		        this.javaFacetInstallConfig.setSourceFolder( sourceFolder );
+		        if( propertyValue == null )
+		        {
+		            this.javaFacetInstallConfig.setSourceFolder( null );
+		        }
+		        else
+		        {
+		            final IPath sourceFolder = new Path( (String) propertyValue );
+		            
+		            if( ! this.javaFacetInstallConfig.getSourceFolders().contains( sourceFolder ) )
+		            {
+		                this.javaFacetInstallConfig.setSourceFolder( sourceFolder );
+		            }
+		        }
 			}
 		}
 		
