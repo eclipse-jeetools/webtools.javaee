@@ -216,8 +216,8 @@ public class ClassPathSelection {
 	protected ClasspathElement createElement(IVirtualComponent referencingArchive, IVirtualReference referencedArchive, String cpEntry) {
 		ClasspathElement element = new ClasspathElement(referencingArchive);
 		element.setValid(true);
-				
-		String uriString = referencedArchive.getArchiveName();
+		IPath referencedArchivePath = referencedArchive.getRuntimePath().makeRelative();
+		String uriString = referencedArchivePath.append(referencedArchive.getArchiveName()).toString();		
 		
 		element.setText(uriString);
 		element.setTargetComponent(referencedArchive.getReferencedComponent());
@@ -551,7 +551,8 @@ public class ClassPathSelection {
 		for (int i = 0; i < archives.size(); i++) {
 			IVirtualReference anArchive = (IVirtualReference) archives.get(i);
 			
-			String archiveURIString = anArchive.getArchiveName();
+			IPath anArchivePath = anArchive.getRuntimePath().makeRelative();
+			String archiveURIString = anArchivePath.append(anArchive.getArchiveName()).toString();
 			if (archiveURIString.equals(uri))
 				return anArchive;
 		}
@@ -732,7 +733,8 @@ public class ClassPathSelection {
 					 * Warning clean-up 12/05/2005
 					 */   
 					//String uri = J2EEProjectUtilities.getResolvedPathForArchiveComponent(referencedComponent.getName()).toString();
-					String unresolvedURI = ref.getArchiveName();
+					IPath refPath = ref.getRuntimePath().makeRelative();
+					String unresolvedURI = refPath.append(ref.getArchiveName()).toString();
 					if(unresolvedURI == null){
 						try {
 							unresolvedURI = ModuleURIUtil.getArchiveName(URI.createURI(ModuleURIUtil.getHandleString(referencedComponent)));
