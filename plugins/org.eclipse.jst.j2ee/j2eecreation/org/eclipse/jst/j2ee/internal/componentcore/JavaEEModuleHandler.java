@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.componentcore;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -20,7 +19,6 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.internal.IModuleHandler;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
-import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
 public class JavaEEModuleHandler implements IModuleHandler {
 
@@ -38,17 +36,6 @@ public class JavaEEModuleHandler implements IModuleHandler {
 	public List<IProject> getFilteredProjectListForAdd(IVirtualComponent sourceComponent, List<IProject> availableProjects) {
 		Iterator<IProject> i = availableProjects.iterator();
 		IProject p;
-		List existingRefs = new ArrayList();
-		
-			IVirtualReference[] refs = sourceComponent.getReferences();
-			for (int j = 0; j < refs.length; j++) {
-				IVirtualReference iVirtualReference = refs[j];
-				IVirtualComponent refComp = iVirtualReference.getReferencedComponent();
-				if (refComp.isBinary())
-					continue;
-				if (refComp.getProject() != null)
-					existingRefs.add(refComp.getProject());
-			}
 		
 		
 		while(i.hasNext()) {
@@ -60,8 +47,6 @@ public class JavaEEModuleHandler implements IModuleHandler {
 				if( p.equals(compProject))
 					i.remove();
 				else if (!isJavaProject(p))
-					i.remove();
-				else if (existingRefs.contains(p))
 					i.remove();
 			}
 		}
