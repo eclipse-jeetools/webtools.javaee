@@ -190,14 +190,16 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 	@Override
 	public IVirtualReference[] getReferences(Map<String, Object> options) {
 		Object refType = options.get(IVirtualComponent.REQUESTED_REFERENCE_TYPE);
-		if( refType != null && IVirtualComponent.DISPLAYABLE_REFERENCES.equals(refType) && shouldAddClasspathDependencyDerivedReference()) {
+		if( refType != null && IVirtualComponent.DISPLAYABLE_REFERENCES.equals(refType)) {
 			List<IVirtualReference> hardReferences = getHardReferences(this);
-			IVirtualComponent imported = 
-				new DummyClasspathDependencyContainerVirtualComponent(getProject(), this);
-			VirtualReference importedRef = new VirtualReference(this, imported);
-			importedRef.setDependencyType(IVirtualReference.DEPENDENCY_TYPE_CONSUMES);
-			importedRef.setDerived(true);
-			hardReferences.add(importedRef);
+			if( shouldAddClasspathDependencyDerivedReference()) {
+					IVirtualComponent imported = 
+						new DummyClasspathDependencyContainerVirtualComponent(getProject(), this);
+					VirtualReference importedRef = new VirtualReference(this, imported);
+					importedRef.setDependencyType(IVirtualReference.DEPENDENCY_TYPE_CONSUMES);
+					importedRef.setDerived(true);
+					hardReferences.add(importedRef);
+			}
 			return hardReferences.toArray(new IVirtualReference[hardReferences.size()]);
 		}
 		
