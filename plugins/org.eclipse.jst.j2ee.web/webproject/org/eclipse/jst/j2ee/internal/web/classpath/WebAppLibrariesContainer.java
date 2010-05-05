@@ -11,7 +11,9 @@
 
 package org.eclipse.jst.j2ee.internal.web.classpath;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
@@ -19,9 +21,11 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathContainer;
+import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jst.common.internal.modulecore.ClasspathContainerVirtualComponent;
 import org.eclipse.jst.common.jdt.internal.classpath.FlexibleProjectContainer;
 import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.osgi.util.NLS;
@@ -89,9 +93,45 @@ public final class WebAppLibrariesContainer
     	referenceOptions.put("GET_JAVA_REFS", Boolean.FALSE); //$NON-NLS-1$
     }
     
+    protected List <IVirtualReference>consumedReferences;
+    
     @Override
     protected IVirtualReference[] computeReferences(IVirtualComponent vc) {
-    	return ((VirtualComponent)vc).getReferences(referenceOptions);
+    	IVirtualReference [] baseRefs = ((VirtualComponent)vc).getReferences(referenceOptions);
+    	List <IVirtualReference> refs = new ArrayList <IVirtualReference>();
+    	for(IVirtualReference ref: baseRefs){
+    		if(ref.getDependencyType() == IVirtualReference.DEPENDENCY_TYPE_USES){
+    			refs.add(ref);
+    		} else {
+    			if (ref.getRuntimePath().equals(paths[0].makeAbsolute())){
+    				if(consumedReferences == null){
+    					consumedReferences = new ArrayList<IVirtualReference>();
+    				}
+    				consumedReferences.add(ref);
+    			}
+    		}
+    	}
+    	return refs.toArray(new IVirtualReference[refs.size()]);
+    }
+    
+    @Override
+    protected List computeClasspathEntries() {
+    	List <IPath>entries = super.computeClasspathEntries();
+    	if(consumedReferences != null){
+	    	for(IVirtualReference ref:consumedReferences){
+	    		if(ref.getReferencedComponent() instanceof ClasspathContainerVirtualComponent){
+	    			ClasspathContainerVirtualComponent cpvc = (ClasspathContainerVirtualComponent)ref.getReferencedComponent();
+	    			IClasspathEntry [] newEntries = cpvc.getClasspathContainer().getClasspathEntries();
+	    			for(IClasspathEntry entry:newEntries){
+	    				IPath entryPath = entry.getPath();
+	    				if(!entries.contains(entryPath)){
+	    					entries.add(entryPath);
+	    				}
+	    			}
+	    		}
+	    	}
+    	}
+    	return entries;
     }
     
     private static final IProject getProject( final IPath path,

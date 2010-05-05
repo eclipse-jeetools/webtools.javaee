@@ -38,13 +38,13 @@ public class ClasspathContainerVirtualComponent extends
 	public static final String CLASSPATH_CON = CLASSPATH + Path.SEPARATOR + CON;
 	private String containerPath;
 	private IClasspathEntry[] containerEntries;
+	private IClasspathContainer container;
 	public ClasspathContainerVirtualComponent(IProject p,
 			IVirtualComponent referencingComponent, String containerPath) {
 		super(p, referencingComponent);
 		this.containerPath = containerPath;
 		try {
-			IClasspathContainer container = JavaCore.getClasspathContainer(new Path(containerPath), 
-					JavaCore.create(p));
+			container = JavaCore.getClasspathContainer(new Path(containerPath), JavaCore.create(p));
 			containerEntries = container.getClasspathEntries();
 		} catch( JavaModelException jme ) {
 			
@@ -64,6 +64,10 @@ public class ClasspathContainerVirtualComponent extends
 	protected String getFirstIdSegment() {
 		// Do not call
 		return null;
+	}
+	
+	public IClasspathContainer getClasspathContainer(){
+		return container;
 	}
 	
 	public String getClasspathContainerPath() {

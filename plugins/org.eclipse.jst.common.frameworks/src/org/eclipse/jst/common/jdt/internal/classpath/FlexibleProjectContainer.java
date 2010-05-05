@@ -168,7 +168,7 @@ public abstract class FlexibleProjectContainer
     	return vc.getReferences();
     }
     
-    private List computeClasspathEntries()
+    protected List computeClasspathEntries()
     {
         final List entries = new ArrayList();
         

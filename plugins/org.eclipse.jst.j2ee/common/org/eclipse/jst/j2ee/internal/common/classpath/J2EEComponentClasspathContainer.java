@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.common.classpath;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Hashtable;
@@ -18,6 +19,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IAccessRule;
@@ -39,7 +41,13 @@ import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.flat.FlatVirtualComponent;
+import org.eclipse.wst.common.componentcore.internal.flat.IChildModuleReference;
+import org.eclipse.wst.common.componentcore.internal.flat.IFlatFolder;
+import org.eclipse.wst.common.componentcore.internal.flat.IFlatResource;
+import org.eclipse.wst.common.componentcore.internal.flat.VirtualComponentFlattenUtility;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
+import org.eclipse.wst.common.componentcore.internal.resources.VirtualReference;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
@@ -291,6 +299,51 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 			}
 		}
 	}
+	
+	private class ClasspathLibraryExpander extends FlatVirtualComponent {
+
+		public ClasspathLibraryExpander(IVirtualComponent component) {
+			super(component);
+		}
+		
+		@Override
+		protected boolean canOptimize() {
+			return true;
+		}
+
+		@Override
+		protected void optimize(List<IFlatResource> resources, List<IChildModuleReference> children) {
+			if (getComponent() != null) {
+				VirtualComponentFlattenUtility util = new VirtualComponentFlattenUtility(resources, this);
+				try {
+					addConsumedReferences(util, getComponent(), new Path("")); 	//$NON-NLS-1$
+				} catch (CoreException e) {
+					org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
+				}
+			}
+		}
+		
+		public IFlatResource fetchResource(IPath runtimePath) throws CoreException {
+			IFlatResource [] resources = fetchResources();
+			return fetchResource(runtimePath.makeRelative(), resources);
+		}
+
+		private IFlatResource fetchResource(IPath runtimePath, IFlatResource[] resources) {
+			for(IFlatResource resource : resources){
+				IPath fullResourcePath = resource.getModuleRelativePath().append(resource.getName());
+				if(fullResourcePath.equals(runtimePath)){
+					return resource;
+				} 
+				else if(fullResourcePath.isPrefixOf(runtimePath)){
+					if(resource instanceof IFlatFolder){
+						IFlatFolder folder = (IFlatFolder)resource;
+						return fetchResource(runtimePath, folder.members());
+					}
+				}
+			}
+			return null;
+		}
+	}
 
 	private List<IVirtualReference> getBaseEARLibRefs(IVirtualComponent component) {
 		List <IVirtualReference> libRefs = new ArrayList<IVirtualReference>();
@@ -309,16 +362,40 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 						// retrieve the referenced components from the EAR
 						IVirtualReference[] earRefs = earComp.getReferences();
 						for (IVirtualReference earRef : earRefs) {
-							// check if the referenced component is in the library directory
-							boolean isInLibDir = libDir.equals(earRef.getRuntimePath().toString());
-							if(!isInLibDir){
-								IPath fullPath = earRef.getRuntimePath().append(earRef.getArchiveName());
-								isInLibDir = fullPath.removeLastSegments(1).toString().equals(libDir);
-							}
-							if (isInLibDir) {
-								libRefs.add(earRef);
+							if(earRef.getDependencyType() == IVirtualReference.DEPENDENCY_TYPE_USES){
+								// check if the referenced component is in the library directory
+								boolean isInLibDir = libDir.equals(earRef.getRuntimePath().toString());
+								if(!isInLibDir){
+									IPath fullPath = earRef.getRuntimePath().append(earRef.getArchiveName());
+									isInLibDir = fullPath.removeLastSegments(1).toString().equals(libDir);
+								}
+								if (isInLibDir) {
+									libRefs.add(earRef);
+								}
 							}
 						}
+					}
+					//add EAR classpath container refs
+					try {
+						ClasspathLibraryExpander classpathLibExpander = new ClasspathLibraryExpander(earComp);
+						IPath libDirPath = new Path(libDir);
+						IFlatResource flatLibResource = classpathLibExpander.fetchResource(libDirPath);
+						if(flatLibResource instanceof IFlatFolder){
+							IFlatFolder flatLibFolder = (IFlatFolder)flatLibResource;
+							IFlatResource [] flatLibs = flatLibFolder.members();
+							for(IFlatResource flatResource : flatLibs){
+								File file = (File) flatResource.getAdapter(File.class);
+								if(file != null){
+									IVirtualComponent dynamicComponent = new VirtualArchiveComponent(earComp.getProject(), VirtualArchiveComponent.LIBARCHIVETYPE + "/" + file.getAbsolutePath(), new Path(libDir)); //$NON-NLS-1$
+									IVirtualReference dynamicRef = ComponentCore.createReference(earComp, dynamicComponent);
+									((VirtualReference)dynamicRef).setDerived(true);
+									dynamicRef.setArchiveName(file.getName());
+									libRefs.add(dynamicRef);
+								}
+							}	
+						}
+					} catch (CoreException e) {
+						org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
 					}
 				}
 			}
