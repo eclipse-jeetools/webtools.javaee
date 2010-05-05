@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2010 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -91,7 +91,7 @@ public class WebComponentArchiveSaveAdapter extends J2EEComponentArchiveSaveAdap
 		String jspUri = javaUri.substring(0, javaUri.indexOf(ArchiveUtil.DOT_JAVA));
 		int lastSlash = jspUri.lastIndexOf('/');
 		int _index = lastSlash == -1 ? ArchiveConstants.WEBAPP_CLASSES_URI.length() : lastSlash + 1;
-		if (jspUri.length() >= _index && jspUri.charAt(_index) == '_') {
+		if (jspUri.length() > _index && jspUri.charAt(_index) == '_') {
 			jspUri = jspUri.substring(ArchiveConstants.WEBAPP_CLASSES_URI.length(), _index) + jspUri.substring(_index + 1) + ArchiveUtil.DOT_JSP;
 			IPath jspPath = new Path(jspUri);
 			if (archive.containsArchiveResource(jspPath)) {
