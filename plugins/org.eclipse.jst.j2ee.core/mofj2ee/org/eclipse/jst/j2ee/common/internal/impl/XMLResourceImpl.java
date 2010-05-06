@@ -319,7 +319,7 @@ public abstract class XMLResourceImpl extends TranslatorResourceImpl implements 
 					{
 						workspace.newWorkingTree();
 					}
-					((org.eclipse.core.internal.resources.Resource)file).getLocalManager().refresh(file, IResource.DEPTH_ZERO, true, null);
+					((org.eclipse.core.internal.resources.Resource)file).getLocalManager().refresh(file.getProject(), IResource.DEPTH_INFINITE, true, null);
 				} catch (CoreException e) {
 					throw new org.eclipse.emf.ecore.resource.Resource.IOWrappedException(e);
 				}
