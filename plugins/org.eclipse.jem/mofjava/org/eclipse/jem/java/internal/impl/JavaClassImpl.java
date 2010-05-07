@@ -524,15 +524,18 @@ public class JavaClassImpl extends EClassImpl implements JavaClass {
 		Iterator it = methods.iterator();
 		Method aMethod;
 		String methodName;
+		String signature;
 		while (it.hasNext()) {
 			aMethod = (Method) it.next();
 			methodName = aMethod.getName();
+			signature = aMethod.getMethodElementSignature();
 			if (sameNames.contains(methodName)) {
-				if (!signatures.contains(methodName))
-					signatures.add(methodName);
-			} else
+				if (!signatures.contains(signature))
+					signatures.add(signature);
+			} else {
 				sameNames.add(methodName);
-			signatures.add(aMethod.getMethodElementSignature());
+				signatures.add(signature);
+			}
 		}
 		Collections.sort(signatures);
 		return signatures;
