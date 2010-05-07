@@ -62,7 +62,11 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 		/**
 		 * @since 2.0
 		 */
-		static final String DYNAMIC_WEB_GENERATE_DD = "dynamic_web_generate_dd"; //$NON-NLS-1$
+		static final String DYNAMIC_WEB_GENERATE_DD = IProductConstants.DYNAMIC_WEB_GENERATE_DD;
+		/**
+		 * @since 3.2
+		 */
+		static final String EE6_DYNAMIC_WEB_GENERATE_DD = "ee6_dynamic_web_generate_dd"; //$NON-NLS-1$
 		/**
 		 * @since 2.0
 		 */
@@ -156,6 +160,7 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 		final static boolean SHOW_JAVA_EE_MODULE_DEPENDENCY_PAGE = true;
 		public static final String STRING_DEFAULT_DEFAULT = ""; //$NON-NLS-1$
 		public static final boolean BOOLEAN_DEFAULT_DEFAULT = false;
+		final static boolean DYNAMIC_WEB_GENERATE_DD = false;
 	}
 	
 	@Override
@@ -187,7 +192,10 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 		// since 2.0, for java ee projects
 		node.putBoolean(Keys.APPLICATION_GENERATE_DD, false);
 		// for ee5 jee web projects default it to true so that we can create servlets, otherwise false
-		node.putBoolean(Keys.DYNAMIC_WEB_GENERATE_DD, false);
+		String generateDynamicWebDD = ProductManager.getProperty(IProductConstants.DYNAMIC_WEB_GENERATE_DD);
+		boolean generateDynamicWebDDDefault = (generateDynamicWebDD != null) ? Boolean.parseBoolean(generateDynamicWebDD) : Defaults.DYNAMIC_WEB_GENERATE_DD;
+		node.putBoolean(Keys.DYNAMIC_WEB_GENERATE_DD, generateDynamicWebDDDefault);
+		node.putBoolean(Keys.EE6_DYNAMIC_WEB_GENERATE_DD, false);
 		node.putBoolean(Keys.EJB_GENERATE_DD, false);
 		node.putBoolean(Keys.APP_CLIENT_GENERATE_DD, false);	
 		node.putBoolean(Keys.EE6_CONNECTOR_GENERATE_DD, false);
