@@ -41,12 +41,14 @@ public class AddComponentToEnterpriseApplicationDataModelProvider extends Create
 					name = name.replace(' ','_');
 				if( name != null ) 
 					name = new Path(name).lastSegment();
-				if (JavaEEProjectUtilities.isDynamicWebProject(project)) {
-					name += IJ2EEModuleConstants.WAR_EXT;
-				} else if (JavaEEProjectUtilities.isJCAProject(project)) {
-					name += IJ2EEModuleConstants.RAR_EXT;
-				} else {
-					name += IJ2EEModuleConstants.JAR_EXT;
+				if (!component.isBinary()) {
+					if (JavaEEProjectUtilities.isDynamicWebProject(project)) {
+						name += IJ2EEModuleConstants.WAR_EXT;
+					} else if (JavaEEProjectUtilities.isJCAProject(project)) {
+						name += IJ2EEModuleConstants.RAR_EXT;
+					} else {
+						name += IJ2EEModuleConstants.JAR_EXT;
+					}
 				}
 				map.put(component, name);
 			}
