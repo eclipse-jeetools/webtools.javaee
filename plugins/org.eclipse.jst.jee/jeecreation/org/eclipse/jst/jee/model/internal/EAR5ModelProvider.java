@@ -60,8 +60,10 @@ public class EAR5ModelProvider extends JEE5ModelProvider implements IEARModelPro
 		IVirtualComponent comp = ComponentCore.createComponent(proj);
 		IVirtualReference [] refs = comp.getReferences();
 		for(int i=0; i<refs.length; i++){
-			if(refs[i].getReferencedComponent().equals(moduleComp)){
-				return refs[i].getArchiveName();
+			if(refs[i].getDependencyType() == IVirtualReference.DEPENDENCY_TYPE_USES){
+				if(refs[i].getReferencedComponent().equals(moduleComp)){
+					return refs[i].getArchiveName();
+				}
 			}
 		}
 		return null;		

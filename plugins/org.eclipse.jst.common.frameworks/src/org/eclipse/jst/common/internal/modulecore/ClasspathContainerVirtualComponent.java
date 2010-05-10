@@ -50,6 +50,24 @@ public class ClasspathContainerVirtualComponent extends
 			
 		}
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if(this == o){
+			return true;
+		}
+		
+		if(!super.equals(o)){
+			return false;
+		}
+		ClasspathContainerVirtualComponent other = (ClasspathContainerVirtualComponent) o;
+		return containerPath == null ? other.containerPath == null : containerPath.equals(other.containerPath);
+	}
+	
+	@Override
+	public int hashCode() {
+		return super.hashCode() + (containerPath == null ? 0 : containerPath.hashCode());
+	}
 
 	public String getContainerPath() {
 		return containerPath;

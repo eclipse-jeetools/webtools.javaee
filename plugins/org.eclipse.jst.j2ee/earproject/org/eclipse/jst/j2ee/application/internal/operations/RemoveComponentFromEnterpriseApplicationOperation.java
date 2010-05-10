@@ -69,14 +69,16 @@ public class RemoveComponentFromEnterpriseApplicationOperation extends RemoveRef
 							J2EEComponentClasspathUpdater.getInstance().queueUpdateModule(moduleComponent.getProject());
 						}
 						String moduleURI = getModuleURI(earModel, wc);
-						removeModule(application, moduleURI); 
-						IVirtualFile vFile = comp.getRootFolder().getFile(moduleURI);
-						IFile iFile = vFile.getUnderlyingFile();
-						if(iFile.exists()){
-							try {
-								iFile.delete(true, monitor);
-							} catch (CoreException e) {
-								J2EEPlugin.logError(e);
+						if(moduleURI != null){
+							removeModule(application, moduleURI); 
+							IVirtualFile vFile = comp.getRootFolder().getFile(moduleURI);
+							IFile iFile = vFile.getUnderlyingFile();
+							if(iFile.exists()){
+								try {
+									iFile.delete(true, monitor);
+								} catch (CoreException e) {
+									J2EEPlugin.logError(e);
+								}
 							}
 						}
 					}

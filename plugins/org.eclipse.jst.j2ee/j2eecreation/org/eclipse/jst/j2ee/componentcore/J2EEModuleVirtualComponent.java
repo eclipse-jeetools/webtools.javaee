@@ -24,7 +24,9 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathAttribute;
 import org.eclipse.jdt.core.IClasspathEntry;
+import org.eclipse.jst.common.internal.modulecore.IClasspathDependencyComponent;
 import org.eclipse.jst.common.internal.modulecore.IClasspathDependencyProvider;
+import org.eclipse.jst.common.internal.modulecore.IClasspathDependencyReceiver;
 import org.eclipse.jst.common.internal.modulecore.util.ManifestUtilities;
 import org.eclipse.jst.common.jdt.internal.javalite.IJavaProjectLite;
 import org.eclipse.jst.common.jdt.internal.javalite.JavaCoreLite;
@@ -35,6 +37,7 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyEnablement;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyVirtualComponent;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -49,7 +52,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
-public class J2EEModuleVirtualComponent extends VirtualComponent implements IComponentImplFactory, IClasspathDependencyProvider {
+public class J2EEModuleVirtualComponent extends VirtualComponent implements IComponentImplFactory, IClasspathDependencyProvider, IClasspathDependencyReceiver {
 
 	public static String GET_JAVA_REFS = "GET_JAVA_REFS"; //$NON-NLS-1$
 	public static String GET_FUZZY_EAR_REFS = "GET_FUZZY_EAR_REFS"; //$NON-NLS-1$
@@ -470,5 +473,16 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 		javaReferences = null;
 		parentEarManifestReferences = null;
 		fuzzyEarManifestReferences = null;
+	}
+
+	public boolean canReceiveClasspathDependencies() {
+		return J2EEProjectUtilities.isDynamicWebProject(getProject());
+	}
+
+	public IPath getClasspathFolderPath(IClasspathDependencyComponent component) {
+		if( J2EEProjectUtilities.isDynamicWebProject(getProject())) {
+			return new Path(J2EEConstants.WEB_INF_LIB).makeAbsolute();
+		}
+		return new Path("/"); //$NON-NLS-1$
 	}
 }

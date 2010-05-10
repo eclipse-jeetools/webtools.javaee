@@ -190,19 +190,20 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 			return;
 		}
 		
-		IVirtualComponent comp = null;
-		IVirtualReference ref = null;
 		
 		IVirtualReference[] refs = component instanceof J2EEModuleVirtualComponent ? ((J2EEModuleVirtualComponent)component).getReferences(false, true): component.getReferences();
-		lastUpdate.baseRefCount = refs.length;
 		
 		List<IVirtualReference> refsList = new ArrayList<IVirtualReference>();
 		Set<IVirtualComponent> refedComps = new HashSet<IVirtualComponent>();
 		refedComps.add(component);
-		for(int i = 0; i<refs.length;i++){
-			refsList.add(refs[i]);
-			refedComps.add(refs[i].getReferencedComponent());
+		for(IVirtualReference ref: refs){
+			if(ref.getDependencyType() == IVirtualReference.DEPENDENCY_TYPE_USES){
+				refsList.add(ref);
+				refedComps.add(ref.getReferencedComponent());
+			}
 		}
+		lastUpdate.baseRefCount = refsList.size();
+		
 		
 		List <IVirtualReference> earLibReferences = getBaseEARLibRefs(component);
 		lastUpdate.baseLibRefCount = earLibReferences.size();
@@ -216,8 +217,8 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 			}
 		}
 		
-		for(int i=0; i< refsList.size(); i++){
-			comp = refsList.get(i).getReferencedComponent();
+		for(IVirtualReference ref: refsList){
+			IVirtualComponent comp = ref.getReferencedComponent();
 			if(comp.isBinary()){
 				IVirtualReference [] binaryRefs = comp.getReferences();
 				for(int j = 0; j<binaryRefs.length; j++){
@@ -239,7 +240,6 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 		List <IClasspathEntry>entriesList = new ArrayList<IClasspathEntry>();
 
 		try {
-			
 			boolean useJDTToControlExport = J2EEComponentClasspathContainerUtils.getDefaultUseEARLibrariesJDTExport();
 			if(useJDTToControlExport){
 				//if the default is not enabled, then check whether the container is being exported
@@ -255,6 +255,8 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 				}
 			}
 			
+			IVirtualReference ref = null;
+			IVirtualComponent comp = null;
 			for (int i = 0; i < refsList.size(); i++) {
 				ref = refsList.get(i);
 				comp = ref.getReferencedComponent();
