@@ -11,6 +11,7 @@
 package org.eclipse.jst.j2ee.defect.tests;
 
 //import java.io.File;
+import java.io.File;
 import java.io.StringBufferInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -92,6 +93,7 @@ import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.common.tests.OperationTestCase;
 import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wtp.j2ee.headless.tests.plugin.HeadlessTestsPlugin;
+import org.eclipse.wtp.j2ee.headless.tests.web.operations.WebImportOperationTest;
 
 public class DefectVerificationTests extends OperationTestCase {
 
@@ -746,6 +748,21 @@ public class DefectVerificationTests extends OperationTestCase {
 		checkIfModelIsParsed(webArtifactEditForRead.getWebApp());
 	}
 	*/
+
+	/**
+	 * Test for https://bugs.eclipse.org/bugs/show_bug.cgi?id=311542
+	 */
+	public void test311542() throws Exception {
+		String warPath = null;
+		String projectName = null;
+		IDataModel model = null;
+		
+
+		warPath = getWarFile("Bug311542.war");
+		projectName = warPath.substring(warPath.lastIndexOf(File.separator) + 1, warPath.length() - 4);
+		model = WebImportOperationTest.getWebImportDataModel(warPath, projectName, null, true, null, null);
+		OperationTestCase.runAndVerify(model);
+	}
 
 	private String getWarFile(String fileName) {
 		return TEST_DATA_PATH + "WarImportTests" + java.io.File.separatorChar + fileName;

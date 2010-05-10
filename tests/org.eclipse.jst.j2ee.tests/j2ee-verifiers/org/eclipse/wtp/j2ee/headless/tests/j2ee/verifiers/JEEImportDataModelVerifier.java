@@ -19,6 +19,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEModuleImportDataModelProperties;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.archive.JavaEEArchiveUtilities;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -181,7 +182,9 @@ public abstract class JEEImportDataModelVerifier extends DataModelVerifier {
 				case IArchiveResource.FILE_TYPE :
 					extension = resourcePath.getFileExtension();
 					
-					if(extension.equals(CLASS_EXTENSION)){
+					// Note: For war archive, the class must be in WEB-INF/classes, otherwise it's just content
+					if(extension.equals(CLASS_EXTENSION) &&
+							((getExportType() == J2EEVersionConstants.WEB_TYPE) ? (resourcePath.segmentCount() > 2 && resourcePath.segment(0).equals("WEB-INF") && resourcePath.segment(1).equals("classes")) : true)){
 						if(isClassWithoutSource(archive, resource)){
 							classes.add(resource);
 						}
