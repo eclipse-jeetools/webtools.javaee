@@ -6,9 +6,9 @@
 <anchor id="map_top"/>
 <topic label="Java EE applications" href="topics/ph-j2eeapp.html">
 <anchor id="before_intro_topics"/>
-<topic label="Developing Java EE 5 Applications" href="topics/cjavaee5.html">
+<topic label="Developing Java EE Applications" href="topics/cjavaee5.html">
 <topic label="Java EE 5: Overview" href="topics/cjee5overview.html"/>
-<topic label="Java EE 5 support for annotations" href="topics/cannotations.html">
+<topic label="Java EE 5 and Java EE 6 support for annotations" href="topics/cannotations.html">
 <topic label="Defining and using annotations" href="topics/tdefiningannotations.html">
 <topic label="Types of annotations" href="topics/ctypesofanno.html"/>
 </topic>
@@ -29,6 +29,8 @@
 <topic label="Creating an enterprise application project" href="topics/tjear.html"/>
 <topic label="Creating an application client project" href="topics/tjappproj.html"/>
 <topic label="Creating a connector project" href="topics/tjrar.html"/>
+<topic label="Creating Web projects" href="topics/tcreatingawebproject.html"/>
+<topic label="Creating Web fragment projects" href="topics/twebfragproj.html"/>
 <anchor id="creating_projects"/>
 <topic label="Specifying target servers for J2EE projects" href="topics/tjtargetserver.html"/>
 <anchor id="target_servers"/>
