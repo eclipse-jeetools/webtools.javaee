@@ -66,6 +66,7 @@ public class AddReferenceToEnterpriseApplicationDataModelProvider
 			}
 			model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, compList);
 			model.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, model.getProperty(IAddReferenceDataModelProperties.SOURCE_COMPONENT));
+			model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP, uriMap);
 		}
 	}
 }
