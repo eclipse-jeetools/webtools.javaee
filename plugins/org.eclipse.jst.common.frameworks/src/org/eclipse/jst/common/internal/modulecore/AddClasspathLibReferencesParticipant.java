@@ -44,7 +44,8 @@ public class AddClasspathLibReferencesParticipant extends AbstractFlattenPartici
 		this.list = resources;
 		if( !(component instanceof IClasspathDependencyReceiver ))
 			return;
-		addReferencedComponentClasspathDependencies((IClasspathDependencyReceiver)component);
+		if( ((IClasspathDependencyReceiver)component).canReceiveClasspathDependencies())
+			addReferencedComponentClasspathDependencies((IClasspathDependencyReceiver)component);
 	}
 
 	private void addReferencedComponentClasspathDependencies(final IClasspathDependencyReceiver component) {
