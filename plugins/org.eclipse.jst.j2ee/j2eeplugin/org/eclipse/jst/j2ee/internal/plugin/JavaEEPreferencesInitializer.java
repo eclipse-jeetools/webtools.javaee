@@ -266,7 +266,7 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 	 */
 	static String getAppClientDefaultOutputFolderName(){
 		if (ProductManager.shouldUseSingleRootStructure())
-			return getString(Keys.APP_CLIENT_CONTENT_FOLDER);
+			return getDefaultString(Keys.APP_CLIENT_CONTENT_FOLDER);
 		return getDefaultOutputFolderName();
 	}
 	
@@ -276,7 +276,7 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 	 */
 	static String getEJBDefaultOutputFolderName(){
 		if (ProductManager.shouldUseSingleRootStructure())
-			return getString(Keys.EJB_CONTENT_FOLDER);
+			return getDefaultString(Keys.EJB_CONTENT_FOLDER);
 		return getDefaultOutputFolderName();
 	}
 	
@@ -286,7 +286,7 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 	 */
 	static String getJCADefaultOutputFolderName(){
 		if (ProductManager.shouldUseSingleRootStructure())
-			return getString(Keys.JCA_CONTENT_FOLDER);
+			return getDefaultString(Keys.JCA_CONTENT_FOLDER);
 		return getDefaultOutputFolderName();
 	}
 	
@@ -329,5 +329,37 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 	        value = Platform.getProduct().getProperty( propName );
 	    }
 	    return value;
+	}
+	
+
+	/**
+	 * Returns the default value for the boolean-valued property
+	 * with the given name.
+	 * Returns the default-default value (<code>false</code>) if there
+	 * is no default property with the given name, or if the default 
+	 * value cannot be treated as a boolean.
+	 * The given name must not be <code>null</code>.
+	 *
+	 * @param name the name of the property
+	 * @return the default value of the named property. If default value 
+	 * is not set, a false will be returned
+	 */
+	public static boolean getDefaultBoolean(String name) {
+		return new DefaultScope().getNode(J2EEPlugin.PLUGIN_ID).getBoolean(name, Defaults.BOOLEAN_DEFAULT_DEFAULT);
+	}
+	
+	/**
+	 * Returns the default value for the string-valued property
+	 * with the given name.
+	 * Returns the default-default value (the empty string <code>""</code>) 
+	 * is no default property with the given name, or if the default 
+	 * value cannot be treated as a string.
+	 * The given name must not be <code>null</code>.
+	 *
+	 * @param name the name of the property
+	 * @return the default value of the named property
+	 */
+	public static String getDefaultString(String name) {
+		return new DefaultScope().getNode(J2EEPlugin.PLUGIN_ID).get(name, Defaults.STRING_DEFAULT_DEFAULT);
 	}
 }
