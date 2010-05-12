@@ -26,6 +26,7 @@ import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpda
 import org.eclipse.jst.j2ee.internal.componentcore.JavaEEModuleHandler;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IEARModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
@@ -47,6 +48,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.componentcore.ui.propertypage.AddModuleDependenciesPropertiesPage;
 import org.eclipse.wst.common.componentcore.ui.propertypage.IReferenceWizardConstants;
+import org.eclipse.wst.common.componentcore.ui.propertypage.IReferenceWizardConstants.ProjectConverterOperationProvider;
 import org.eclipse.wst.common.componentcore.ui.propertypage.ModuleAssemblyRootPage;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -188,8 +190,17 @@ public class EarModuleDependenciesPropertyPage extends
 	@Override
 	protected void setCustomReferenceWizardProperties(TaskModel model) {
 		model.putObject(IReferenceWizardConstants.DEFAULT_LIBRARY_LOCATION, libDir);
+		model.putObject(IReferenceWizardConstants.PROJECT_CONVERTER_OPERATION_PROVIDER, getConverterProvider());
 	}
-
+	
+	public ProjectConverterOperationProvider getConverterProvider() {
+		return new ProjectConverterOperationProvider() {
+			public IDataModelOperation getConversionOperation(IProject project) {
+				return J2EEProjectUtilities.createFlexJavaProjectForProjectOperation(project);
+			}
+		};
+	}
+	
 	@Override
 	protected IModuleHandler getModuleHandler() {
 		if(moduleHandler == null)

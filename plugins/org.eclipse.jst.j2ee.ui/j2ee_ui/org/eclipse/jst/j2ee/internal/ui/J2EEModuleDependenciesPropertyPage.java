@@ -17,11 +17,16 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.componentcore.JavaEEModuleHandler;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.internal.IModuleHandler;
+import org.eclipse.wst.common.componentcore.internal.impl.TaskModel;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.componentcore.ui.propertypage.AddModuleDependenciesPropertiesPage;
+import org.eclipse.wst.common.componentcore.ui.propertypage.IReferenceWizardConstants;
 import org.eclipse.wst.common.componentcore.ui.propertypage.ModuleAssemblyRootPage;
+import org.eclipse.wst.common.componentcore.ui.propertypage.IReferenceWizardConstants.ProjectConverterOperationProvider;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
 public class J2EEModuleDependenciesPropertyPage extends
 		AddModuleDependenciesPropertiesPage {
@@ -60,6 +65,19 @@ public class J2EEModuleDependenciesPropertyPage extends
 		return moduleHandler;
 	}
 	
+	@Override
+	protected void setCustomReferenceWizardProperties(TaskModel model) {
+		model.putObject(IReferenceWizardConstants.PROJECT_CONVERTER_OPERATION_PROVIDER, getConverterProvider());
+	}
+	
+	public ProjectConverterOperationProvider getConverterProvider() {
+		return new ProjectConverterOperationProvider() {
+			public IDataModelOperation getConversionOperation(IProject project) {
+				return J2EEProjectUtilities.createFlexJavaProjectForProjectOperation(project);
+			}
+		};
+	}
+
 //	
 //	@Override
 //	protected IDataModelProvider getAddReferenceDataModelProvider(IVirtualComponent component) {
