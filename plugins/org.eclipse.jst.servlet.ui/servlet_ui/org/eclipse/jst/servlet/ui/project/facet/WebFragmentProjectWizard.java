@@ -47,7 +47,7 @@ public class WebFragmentProjectWizard extends NewProjectDataModelFacetWizard {
 	@Override
 	protected ImageDescriptor getDefaultPageImageDescriptor() {
 		final Bundle bundle = Platform.getBundle("org.eclipse.jst.servlet.ui"); //$NON-NLS-1$
-		final URL url = bundle.getEntry("icons/newpprj_wiz.png"); //$NON-NLS-1$
+		final URL url = bundle.getEntry("icons/full/ctool16/webfragment_wizban.gif"); //$NON-NLS-1$
 		return ImageDescriptor.createFromURL(url);
 	}
 
