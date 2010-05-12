@@ -45,7 +45,11 @@ public class ClasspathContainerVirtualComponent extends
 		this.containerPath = containerPath;
 		try {
 			container = JavaCore.getClasspathContainer(new Path(containerPath), JavaCore.create(p));
-			containerEntries = container.getClasspathEntries();
+			if (container != null)
+				containerEntries = container.getClasspathEntries();
+			else {
+				containerEntries = new IClasspathEntry[] {};
+			}
 		} catch( JavaModelException jme ) {
 			
 		}
