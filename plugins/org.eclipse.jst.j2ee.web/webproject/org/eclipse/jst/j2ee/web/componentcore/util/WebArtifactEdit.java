@@ -690,7 +690,8 @@ public class WebArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 			}
 			
 		}finally{
-			getWritableEdit().dispose();
+			if (getWritableEdit() != null)
+				getWritableEdit().dispose();
 			setWritableEdit(null);
 		}
 	}
