@@ -12,6 +12,8 @@
 package org.eclipse.jst.j2ee.application.internal.operations;
 
 import java.util.Set;
+
+import com.ibm.icu.text.UTF16;
 import com.ibm.icu.util.StringTokenizer;
 
 import org.eclipse.core.runtime.IStatus;
@@ -92,9 +94,20 @@ public class AddWebComponentToEARDataModelProvider extends AddComponentToEnterpr
 			StringTokenizer stok = new StringTokenizer(contextRoot, "."); //$NON-NLS-1$
 			while (stok.hasMoreTokens()) {
 				String token = stok.nextToken();
-				for (int i = 0; i < token.length(); i++) {
+				int cp;
+		        for (int i = 0; i < token.length(); i += UTF16.getCharCount(cp)) {
+		            cp = UTF16.charAt(token, i);
 					if (!(token.charAt(i) == '_') && !(token.charAt(i) == '-') && !(token.charAt(i) == '/') && Character.isLetterOrDigit(token.charAt(i)) == false) {
-						Object[] invalidChar = new Object[]{(new Character(token.charAt(i))).toString()};
+						String invalidCharString = null;
+						if (UTF16.getCharCount(cp)>1)
+						{
+							invalidCharString = UTF16.valueOf(cp); 
+						}
+						else
+						{
+							invalidCharString = (new Character(token.charAt(i))).toString();
+						}
+						Object[] invalidChar = new Object[]{invalidCharString};
 						String errorStatus = ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.The_character_is_invalid_in_a_context_root, invalidChar); 
 						return J2EEPlugin.newErrorStatus(errorStatus, null);
 					}

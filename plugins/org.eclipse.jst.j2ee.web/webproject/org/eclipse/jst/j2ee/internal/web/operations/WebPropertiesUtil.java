@@ -41,6 +41,7 @@ import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 
+import com.ibm.icu.text.UTF16;
 import com.ibm.icu.util.StringTokenizer;
 
 public class WebPropertiesUtil {
@@ -347,7 +348,9 @@ public class WebPropertiesUtil {
 			StringTokenizer stok = new StringTokenizer(name, "."); //$NON-NLS-1$
 			outer : while (stok.hasMoreTokens()) {
 				String token = stok.nextToken();
-				for (int i = 0; i < token.length(); i++) {
+				int cp;
+		        for (int i = 0; i < token.length(); i += UTF16.getCharCount(cp)) {
+		            cp = UTF16.charAt(token, i);
 					if (!(token.charAt(i) == '_') && !(token.charAt(i) == '-') && !(token.charAt(i) == '/') && Character.isLetterOrDigit(token.charAt(i)) == false) {
 						if (Character.isWhitespace(token.charAt(i))) {
 							// Removed because context roots can contain white space
@@ -355,7 +358,17 @@ public class WebPropertiesUtil {
 							// ResourceHandler.getString("_Context_root_cannot_conta_UI_");//$NON-NLS-1$
 							// = " Context root cannot contain whitespaces."
 						} else {
-							errorMessage = ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.The_character_is_invalid_in_a_context_root, new Object[]{(new Character(token.charAt(i))).toString()}); 
+							String invalidCharString = null;
+							if (UTF16.getCharCount(cp)>1)
+							{
+								invalidCharString = UTF16.valueOf(cp); 
+							}
+							else
+							{
+								invalidCharString = (new Character(token.charAt(i))).toString();
+							}
+							Object[] invalidChar = new Object[]{invalidCharString};
+							errorMessage = ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.The_character_is_invalid_in_a_context_root, invalidChar); 
 							break outer;
 						}
 					}

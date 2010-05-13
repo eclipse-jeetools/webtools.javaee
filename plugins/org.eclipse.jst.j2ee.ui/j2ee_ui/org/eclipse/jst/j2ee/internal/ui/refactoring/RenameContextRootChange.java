@@ -23,6 +23,7 @@ import org.eclipse.ltk.core.refactoring.Change;
 import org.eclipse.ltk.core.refactoring.RefactoringStatus;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 
+import com.ibm.icu.text.UTF16;
 import com.ibm.icu.util.StringTokenizer;
 
 public class RenameContextRootChange extends Change {
@@ -68,20 +69,30 @@ public class RenameContextRootChange extends Change {
 			StringTokenizer stok = new StringTokenizer(name, "."); //$NON-NLS-1$
 			while (stok.hasMoreTokens()) {
 				String token = stok.nextToken();
-				for (int i = 0; i < token.length(); i++) {
+				int cp;
+		        for (int i = 0; i < token.length(); i += UTF16.getCharCount(cp)) {
+		            cp = UTF16.charAt(token, i);
 					if (!(token.charAt(i) == '_') && !(token.charAt(i) == '-')
 							&& !(token.charAt(i) == '/')
 							&& Character.isLetterOrDigit(token.charAt(i)) == false) {
 						if (Character.isWhitespace(token.charAt(i)) == false) {
+							String invalidCharString = null;
+							if (UTF16.getCharCount(cp)>1)
+							{
+								invalidCharString = UTF16.valueOf(cp); 
+							}
+							else
+							{
+								invalidCharString = (new Character(token.charAt(i))).toString();
+							}
+							Object[] invalidChar = new Object[]{invalidCharString};
 							status = new Status(
 									IStatus.ERROR,
 									J2EEUIPlugin.PLUGIN_ID,
 									ProjectSupportResourceHandler
 											.getString(
 													ProjectSupportResourceHandler.The_character_is_invalid_in_a_context_root,
-													new Object[] {
-														(new Character(token.charAt(i))).toString()
-													}));
+													invalidChar));
 
 						}
 					}

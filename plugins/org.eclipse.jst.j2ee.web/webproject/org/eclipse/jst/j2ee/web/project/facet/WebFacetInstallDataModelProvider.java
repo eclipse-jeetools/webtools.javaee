@@ -31,6 +31,7 @@ import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.project.facet.ProductManager;
 
+import com.ibm.icu.text.UTF16;
 import com.ibm.icu.util.StringTokenizer;
 
 public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallDataModelProvider implements IWebFacetInstallDataModelProperties {
@@ -159,14 +160,25 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 			StringTokenizer stok = new StringTokenizer(contextRoot, "."); //$NON-NLS-1$
 			while (stok.hasMoreTokens()) {
 				String token = stok.nextToken();
-				for (int i = 0; i < token.length(); i++) {
+				int cp;
+		        for (int i = 0; i < token.length(); i += UTF16.getCharCount(cp)) {
+		            cp = UTF16.charAt(token, i);
 					if(token.charAt(i) == ' ')
 					{
 						return J2EEPlugin.newErrorStatus(ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.Names_cannot_contain_whitespace_, new Object[]{contextRoot}), null); 
 					}
 					else if (!(token.charAt(i) == '_') && !(token.charAt(i) == '-') && !(token.charAt(i) == '/') && Character.isLetterOrDigit(token.charAt(i)) == false) {
-						Object[] invalidChar = new Object[]{(new Character(token.charAt(i))).toString()};
-						String errorStatus = ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.The_character_is_invalid_in_a_context_root, invalidChar); 
+						String invalidCharString = null;
+						if (UTF16.getCharCount(cp)>1)
+						{
+							invalidCharString = UTF16.valueOf(cp); 
+						}
+						else
+						{
+							invalidCharString = (new Character(token.charAt(i))).toString();
+						}
+						Object[] invalidChar = new Object[]{invalidCharString};
+						String errorStatus = ProjectSupportResourceHandler.getString(ProjectSupportResourceHandler.The_character_is_invalid_in_a_context_root, invalidChar);
 						return J2EEPlugin.newErrorStatus(errorStatus, null);
 					}
 				}
