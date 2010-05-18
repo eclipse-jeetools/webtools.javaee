@@ -430,7 +430,7 @@
     <project-facet-version facet="jst.web" version="3.0">
       <constraint>
         <and>
-          <requires facet="jst.java" version="[5.0"/>
+          <requires facet="jst.java" version="[6.0"/>
           <conflicts group="modules"/>
         </and>
       </constraint>
