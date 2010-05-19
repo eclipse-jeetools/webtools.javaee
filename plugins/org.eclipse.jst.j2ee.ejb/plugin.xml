@@ -59,7 +59,9 @@
          <run
                class="org.eclipse.jst.j2ee.internal.ejb.workbench.validation.UIEjbValidator">
          </run>
-           
+         <runStrategy 
+     	    project="true">
+         </runStrategy>
       </validator>
    </extension>
    <extension
