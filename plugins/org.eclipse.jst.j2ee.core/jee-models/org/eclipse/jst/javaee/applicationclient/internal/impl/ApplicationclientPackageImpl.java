@@ -162,6 +162,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
   
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(ApplicationclientPackage.eNS_URI, theApplicationclientPackage);
+		EPackage.Registry.INSTANCE.put(ApplicationclientPackage.eNS_URI2, theApplicationclientPackage);
 		return theApplicationclientPackage;
 	}
 

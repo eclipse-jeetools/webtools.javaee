@@ -32,7 +32,7 @@ import org.eclipse.jst.javaee.ejb.EjbFactory;
  * <!-- begin-model-doc -->
  * 
  * 
- *       $Id: EjbPackage.java,v 1.4 2010/01/15 14:32:08 canderson Exp $
+ *       $Id: EjbPackage.java,v 1.5 2010/05/19 19:53:11 canderson Exp $
  *       
  *     
  * 
@@ -80,7 +80,7 @@ import org.eclipse.jst.javaee.ejb.EjbFactory;
  *     
  * 
  * 
- *       $Id: EjbPackage.java,v 1.4 2010/01/15 14:32:08 canderson Exp $
+ *       $Id: EjbPackage.java,v 1.5 2010/05/19 19:53:11 canderson Exp $
  *       
  *     
  * 
@@ -105,7 +105,7 @@ import org.eclipse.jst.javaee.ejb.EjbFactory;
  *     
  * 
  * 
- *       $Id: EjbPackage.java,v 1.4 2010/01/15 14:32:08 canderson Exp $
+ *       $Id: EjbPackage.java,v 1.5 2010/05/19 19:53:11 canderson Exp $
  *       
  *     
  * 
@@ -285,9 +285,11 @@ public interface EjbPackage extends EPackage {
 	/**
 	 * The package namespace URI.
 	 * <!-- begin-user-doc -->
+	 * The package must be registered with the Java EE 5 and Java EE 6 xsds, since it is used for both
 	 * <!-- end-user-doc -->
 	 */
 	String eNS_URI = "http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd"; //$NON-NLS-1$
+	String eNS_URI2 = "http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd"; //$NON-NLS-1$
 
 	/**
 	 * The package namespace name.

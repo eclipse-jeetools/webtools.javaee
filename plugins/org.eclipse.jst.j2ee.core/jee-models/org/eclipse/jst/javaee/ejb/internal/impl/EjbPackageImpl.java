@@ -654,6 +654,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
   
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(EjbPackage.eNS_URI, theEjbPackage);
+		EPackage.Registry.INSTANCE.put(EjbPackage.eNS_URI2, theEjbPackage);
 		return theEjbPackage;
 	}
 

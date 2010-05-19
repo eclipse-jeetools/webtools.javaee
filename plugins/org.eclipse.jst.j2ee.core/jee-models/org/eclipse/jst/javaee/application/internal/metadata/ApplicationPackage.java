@@ -30,7 +30,7 @@ import org.eclipse.jst.javaee.application.ApplicationFactory;
  * <!-- begin-model-doc -->
  * 
  * 
- *       $Id: ApplicationPackage.java,v 1.3 2009/10/15 18:52:21 canderson Exp $
+ *       $Id: ApplicationPackage.java,v 1.4 2010/05/19 19:53:11 canderson Exp $
  *       
  *     
  * 
@@ -79,7 +79,7 @@ import org.eclipse.jst.javaee.application.ApplicationFactory;
  *     
  * 
  * 
- *       $Id: ApplicationPackage.java,v 1.3 2009/10/15 18:52:21 canderson Exp $
+ *       $Id: ApplicationPackage.java,v 1.4 2010/05/19 19:53:11 canderson Exp $
  *       
  *     
  * 
@@ -104,7 +104,7 @@ import org.eclipse.jst.javaee.application.ApplicationFactory;
  *     
  * 
  * 
- *       $Id: ApplicationPackage.java,v 1.3 2009/10/15 18:52:21 canderson Exp $
+ *       $Id: ApplicationPackage.java,v 1.4 2010/05/19 19:53:11 canderson Exp $
  *       
  *     
  * 
@@ -284,9 +284,11 @@ public interface ApplicationPackage extends EPackage {
 	/**
 	 * The package namespace URI.
 	 * <!-- begin-user-doc -->
+	 * The package must be registered with the Java EE 5 and Java EE 6 xsds, since it is used for both
 	 * <!-- end-user-doc -->
 	 */
 	String eNS_URI = "http://java.sun.com/xml/ns/javaee/application_5.xsd"; //$NON-NLS-1$
+	String eNS_URI2 = "http://java.sun.com/xml/ns/javaee/application_6.xsd"; //$NON-NLS-1$
 
 	/**
 	 * The package namespace name.

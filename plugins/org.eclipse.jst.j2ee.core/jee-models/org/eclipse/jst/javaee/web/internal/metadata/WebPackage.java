@@ -32,7 +32,7 @@ import org.eclipse.jst.javaee.web.WebFactory;
  * <!-- begin-model-doc -->
  * 
  * 
- *       $Id: WebPackage.java,v 1.5 2010/01/15 14:32:07 canderson Exp $
+ *       $Id: WebPackage.java,v 1.6 2010/05/19 19:53:10 canderson Exp $
  *       
  *     
  * 
@@ -80,7 +80,7 @@ import org.eclipse.jst.javaee.web.WebFactory;
  *     
  * 
  * 
- *       $Id: WebPackage.java,v 1.5 2010/01/15 14:32:07 canderson Exp $
+ *       $Id: WebPackage.java,v 1.6 2010/05/19 19:53:10 canderson Exp $
  *       
  *     
  * 
@@ -105,7 +105,7 @@ import org.eclipse.jst.javaee.web.WebFactory;
  *     
  * 
  * 
- *       $Id: WebPackage.java,v 1.5 2010/01/15 14:32:07 canderson Exp $
+ *       $Id: WebPackage.java,v 1.6 2010/05/19 19:53:10 canderson Exp $
  *       
  *     
  * 
@@ -314,9 +314,11 @@ public interface WebPackage extends EPackage {
 	/**
 	 * The package namespace URI.
 	 * <!-- begin-user-doc -->
+	 * The package must be registered with the Java EE 5 and Java EE 6 xsds, since it is used for both 
 	 * <!-- end-user-doc -->
 	 */
 	String eNS_URI = "http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"; //$NON-NLS-1$
+	String eNS_URI2 = "http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"; //$NON-NLS-1$
 
 	/**
 	 * The package namespace name.

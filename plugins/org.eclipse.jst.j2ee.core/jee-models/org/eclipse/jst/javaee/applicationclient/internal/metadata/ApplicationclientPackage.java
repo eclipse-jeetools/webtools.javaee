@@ -30,7 +30,7 @@ import org.eclipse.jst.javaee.applicationclient.ApplicationclientFactory;
  * <!-- begin-model-doc -->
  * 
  * 
- *       $Id: ApplicationclientPackage.java,v 1.3 2009/10/15 18:52:07 canderson Exp $
+ *       $Id: ApplicationclientPackage.java,v 1.4 2010/05/19 19:53:10 canderson Exp $
  *       
  *     
  * 
@@ -80,7 +80,7 @@ import org.eclipse.jst.javaee.applicationclient.ApplicationclientFactory;
  *     
  * 
  * 
- *       $Id: ApplicationclientPackage.java,v 1.3 2009/10/15 18:52:07 canderson Exp $
+ *       $Id: ApplicationclientPackage.java,v 1.4 2010/05/19 19:53:10 canderson Exp $
  *       
  *     
  * 
@@ -105,7 +105,7 @@ import org.eclipse.jst.javaee.applicationclient.ApplicationclientFactory;
  *     
  * 
  * 
- *       $Id: ApplicationclientPackage.java,v 1.3 2009/10/15 18:52:07 canderson Exp $
+ *       $Id: ApplicationclientPackage.java,v 1.4 2010/05/19 19:53:10 canderson Exp $
  *       
  *     
  * 
@@ -285,9 +285,11 @@ public interface ApplicationclientPackage extends EPackage {
 	/**
 	 * The package namespace URI.
 	 * <!-- begin-user-doc -->
+	 * The package must be registered with the Java EE 5 and Java EE 6 xsds, since it is used for both
 	 * <!-- end-user-doc -->
 	 */
 	String eNS_URI = "http://java.sun.com/xml/ns/javaee/application-client_5.xsd"; //$NON-NLS-1$
+	String eNS_URI2 = "http://java.sun.com/xml/ns/javaee/application-client_6.xsd"; //$NON-NLS-1$
 
 	/**
 	 * The package namespace name.

@@ -178,6 +178,7 @@ public class ApplicationPackageImpl extends EPackageImpl implements ApplicationP
   
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(ApplicationPackage.eNS_URI, theApplicationPackage);
+		EPackage.Registry.INSTANCE.put(ApplicationPackage.eNS_URI2, theApplicationPackage);
 		return theApplicationPackage;
 	}
 

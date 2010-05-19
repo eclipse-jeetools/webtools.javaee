@@ -546,6 +546,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
   
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(WebPackage.eNS_URI, theWebPackage);
+		EPackage.Registry.INSTANCE.put(WebPackage.eNS_URI2, theWebPackage);
 		return theWebPackage;
 	}
 
