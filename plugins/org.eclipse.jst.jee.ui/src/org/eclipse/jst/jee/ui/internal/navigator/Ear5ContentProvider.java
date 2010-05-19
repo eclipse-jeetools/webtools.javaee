@@ -117,7 +117,10 @@ public class Ear5ContentProvider extends JEE5ContentProvider {
 													ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EAR_MODULE).getVersion(
 															J2EEVersionConstants.VERSION_6_0_TEXT)))) {
 						GroupEARProvider element = (GroupEARProvider) getCachedContentProvider(project);
-						children.add(element);
+						if (element != null){
+							children.add(element);	
+						}
+						
 					}
 				} catch (CoreException e) {
 					String msg = "Error in the JEEContentProvider.getChildren() for parent:" +  aParentElement; //$NON-NLS-1$

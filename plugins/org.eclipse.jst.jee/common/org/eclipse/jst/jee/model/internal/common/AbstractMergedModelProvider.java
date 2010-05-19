@@ -224,7 +224,7 @@ public abstract class AbstractMergedModelProvider<T> implements IModelProvider {
 	 * @throws CoreException
 	 */
 	protected T loadModel() throws CoreException {
-		if (project.isAccessible() == false)
+		if (!project.isAccessible())
 			throw new IllegalStateException("The project <" + project + "> is not accessible."); //$NON-NLS-1$//$NON-NLS-2$
 		project.getWorkspace().run(new LoadModelsWorkspaceRunnable(), project, IWorkspace.AVOID_UPDATE,
 				new NullProgressMonitor());

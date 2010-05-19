@@ -15,7 +15,7 @@ public class ConnectorContentProvider extends JEE5ContentProvider {
 		if (IProject.class.isInstance(aParentElement)) {
 			project = (IProject) aParentElement;
 				AbstractGroupProvider cachedContentProvider = getCachedContentProvider(project);
-				if (cachedContentProvider.isValid()){
+				if (cachedContentProvider!= null && cachedContentProvider.isValid()){
 					children.add(cachedContentProvider);
 				}
 		} else if (AbstractGroupProvider.class.isInstance(aParentElement)){

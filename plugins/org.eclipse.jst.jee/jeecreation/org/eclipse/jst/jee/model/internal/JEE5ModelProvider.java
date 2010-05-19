@@ -144,6 +144,9 @@ public class JEE5ModelProvider implements IModelProvider, ResourceStateInputProv
 	}
 
 	protected XMLResourceImpl getModelResource(final IPath modelPath) {
+		if(proj == null || !proj.isAccessible()){
+			throw new IllegalStateException("The project <" + proj + "> is not accessible."); //$NON-NLS-1$//$NON-NLS-2$
+		}
 		if (writableResource != null) {
 			addManagedResource(writableResource);
 			return writableResource;

@@ -39,7 +39,10 @@ public class AppClient5ContentProvider extends JEE5ContentProvider {
 			project = (IProject) ((IAdaptable) aParentElement).getAdapter(IPROJECT_CLASS);
 			if (project != null && JavaEEProjectUtilities.isApplicationClientProject(project) &&
 					J2EEProjectUtilities.isJEEProject(project)) {
-				children.add(getCachedContentProvider(project));
+				AbstractGroupProvider cachedContentProvider = getCachedContentProvider(project);
+				if (cachedContentProvider != null){
+					children.add(cachedContentProvider);	
+				}
 			}
 		}
 		return children.toArray();

@@ -73,7 +73,9 @@ public class Ejb3ContentProvider extends JEE5ContentProvider {
 				if (project != null) {
 					if (isEjbModuleProject(project)) {
 						GroupEJBProvider root = (GroupEJBProvider) getCachedContentProvider(project);
-						children.add(root);
+						if (root != null) {
+							children.add(root);
+						}
 					}
 				}
 			}

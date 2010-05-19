@@ -81,6 +81,9 @@ public abstract class JEE5ContentProvider implements ITreeContentProvider, IRefr
 	protected AbstractGroupProvider getCachedContentProvider(IProject project) {
 		AbstractGroupProvider provider = groupContentProviders.get(project);
 		if (provider == null){
+			if (project == null || !project.isAccessible()){
+				return null;
+			}
 			provider = getNewContentProviderInstance(project);
 			groupContentProviders.put(project, provider);
 		} else {
