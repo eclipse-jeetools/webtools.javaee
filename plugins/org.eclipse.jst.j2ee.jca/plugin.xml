@@ -43,6 +43,9 @@
          <run
                class="org.eclipse.jst.j2ee.internal.jca.validation.UIConnectorValidator">
          </run>
+         <runStrategy 
+         	project="true">
+         </runStrategy>
       </validator>
    </extension>
    

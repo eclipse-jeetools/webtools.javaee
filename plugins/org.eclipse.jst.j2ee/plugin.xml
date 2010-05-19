@@ -129,6 +129,9 @@
          <helper
                class="org.eclipse.jst.j2ee.internal.validation.UIEarHelper">
          </helper>
+         <runStrategy 
+         	project="true">
+         </runStrategy>
       </validator>
    </extension>
     <extension
@@ -188,6 +191,9 @@
          <run
                class="org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyValidator">
          </run>
+         <runStrategy 
+         	project="true">
+         </runStrategy>
       </validator>
    </extension>
    <extension
@@ -244,6 +250,9 @@
          <run
                class="org.eclipse.jst.j2ee.internal.validation.UIApplicationClientValidator">
          </run>
+         <runStrategy 
+         	project="true">
+         </runStrategy>
       </validator>
    </extension>
 <!--ModuleMapInit-->
