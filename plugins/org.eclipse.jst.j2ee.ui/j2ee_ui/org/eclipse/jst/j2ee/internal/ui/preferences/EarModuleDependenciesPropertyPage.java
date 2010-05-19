@@ -46,6 +46,8 @@ import org.eclipse.wst.common.componentcore.internal.IModuleHandler;
 import org.eclipse.wst.common.componentcore.internal.impl.TaskModel;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
+import org.eclipse.wst.common.componentcore.ui.internal.propertypage.DependencyPageExtensionManager;
+import org.eclipse.wst.common.componentcore.ui.internal.propertypage.DependencyPageExtensionManager.ReferenceExtension;
 import org.eclipse.wst.common.componentcore.ui.propertypage.AddModuleDependenciesPropertiesPage;
 import org.eclipse.wst.common.componentcore.ui.propertypage.IReferenceWizardConstants;
 import org.eclipse.wst.common.componentcore.ui.propertypage.IReferenceWizardConstants.ProjectConverterOperationProvider;
@@ -137,6 +139,17 @@ public class EarModuleDependenciesPropertyPage extends
 	@Override
 	protected IDataModelProvider getRemoveReferenceDataModelProvider(IVirtualReference component) {
 		return new RemoveReferenceFromEnterpriseApplicationDataModelProvider();
+	}
+	
+	@Override
+	protected ReferenceExtension[] filterReferenceTypes(ReferenceExtension[] defaults) {
+		// Replace the default one with our own custom one, in class CustomEARProjectReferenceWizardFragment
+		for( int i = 0; i < defaults.length; i++ ) {
+			if( defaults[i].getId().equals("org.eclipse.wst.common.componentcore.ui.newProjectReference")) { //$NON-NLS-1$
+				defaults[i] = DependencyPageExtensionManager.getManager().findReferenceExtension("org.eclipse.jst.j2ee.internal.ui.preferences.CustomEARProjectReferenceWizardFragment"); //$NON-NLS-1$
+			}
+		}
+		return defaults;
 	}
 	
 	protected void createDD(IProgressMonitor monitor) {

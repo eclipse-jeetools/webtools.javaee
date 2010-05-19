@@ -836,4 +836,15 @@
            name="Referenced Projects Classpath Entries">
      </referenceFragment>
   </extension>
+  
+  <extension
+        point="org.eclipse.wst.common.modulecore.ui.referenceWizardFragment">
+     <referenceFragment
+           class="org.eclipse.jst.j2ee.internal.ui.preferences.CustomEARProjectReferenceWizardFragment"
+           hidden="true"
+           icon="icons/prj_obj.gif"
+           id="org.eclipse.jst.j2ee.internal.ui.preferences.CustomEARProjectReferenceWizardFragment"
+           name="Project">
+     </referenceFragment>
+  </extension>
 </plugin>
