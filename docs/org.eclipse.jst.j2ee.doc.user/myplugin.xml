@@ -20,7 +20,4 @@
    	<extension point="org.eclipse.help.index">
       <index file="org.eclipse.jst.j2ee.doc.userindex.xml"/>
     </extension>
-    <extension point="org.eclipse.help.base.luceneSearchParticipants">
-      <binding participantId="org.eclipse.help.base.xhtml"/>
-   </extension>
 </plugin>
