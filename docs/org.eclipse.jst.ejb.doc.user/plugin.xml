@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?eclipse version="3.3"?>
+<?eclipse version="3.6"?>
 <?NLS TYPE="org.eclipse.help.contexts"?>
 <!-- /*******************************************************************************
  * Copyright (c) 2000, 2010 IBM Corporation and others.
@@ -23,7 +23,5 @@
    <extension point="org.eclipse.help.index">
 		<index file="org.eclipse.jst.ejb.doc.userindex.xml"/>
 	</extension>
-     <extension point="org.eclipse.help.base.luceneSearchParticipants">
-      <binding participantId="org.eclipse.help.base.xhtml"/>
-   </extension>  
+
 </plugin>
