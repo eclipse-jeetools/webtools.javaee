@@ -23,6 +23,7 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jst.common.project.facet.JavaFacetUtils;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.jst.javaee.core.RunAs;
 import org.eclipse.jst.javaee.core.SecurityRole;
@@ -60,7 +61,7 @@ public class Web3AnnotationReaderTest extends AbstractAnnotationModelTest {
 		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(Web3AnnotationReaderTest.class.getSimpleName());
 		if (!project.exists())
 		{
-			IFacetedProject facetedProject = AbstractTest.createWebProject(Web3AnnotationReaderTest.class.getSimpleName(), IJ2EEFacetConstants.DYNAMIC_WEB_30);
+			IFacetedProject facetedProject = AbstractTest.createWebProject(Web3AnnotationReaderTest.class.getSimpleName(), IJ2EEFacetConstants.DYNAMIC_WEB_30, JavaFacetUtils.JAVA_60);
 			createProjectContent(facetedProject.getProject());
 		}
 	}
@@ -193,7 +194,7 @@ public class Web3AnnotationReaderTest extends AbstractAnnotationModelTest {
 	// @Tets
 	public void testListener() throws Exception {
 		final String content = "package com.sap;" + "import javax.annotation.Resource;import javax.ejb.EJB;"
-				+ "@WebServletContextListener public class testListener {"
+				+ "@WebListener public class testListener {"
 				+ "@EJB private Comparable comp; @EJB public void setComparable(Comparable comp){};"
 				+ "@Resource private Comparable comp2; @Resource public void setComparable2(Comparable comp){} }";
 		IFile file = facetedProject.getProject().getFile("src/com/sap/testListener.java");
@@ -280,7 +281,7 @@ public class Web3AnnotationReaderTest extends AbstractAnnotationModelTest {
 				+ "	shareable = false, type = java.lang.Comparable.class, "
 				+ "	authenticationType = AuthenticationType.APPLICATION, description = \"description\"),"
 				+ "@Resource(name = \"withDefaults\", type = java.lang.Comparable.class), @Resource(name = \"invalidNoType\") })"
-				+ "@WebServletContextListener public class testResourcesOnListener {}";
+				+ "@WebListener public class testResourcesOnListener {}";
 		IFile file = facetedProject.getProject().getFile("src/com/sap/testResourcesOnListener.java");
 		saveFileAndUpdate(file, content);
 
