@@ -48,6 +48,8 @@ public class CustomWebProjectReferenceWizardFragment extends ProjectReferenceWiz
 		Composite c = new Composite(parent, SWT.NONE);
 		c.setLayout(new FormLayout());
 		
+		Composite tableComp = super.createComposite(c, handle);
+		
 		// make button
 		button = new Button(c, SWT.CHECK);
 		button.setText(Messages.getString("CustomWebProjectReferenceWizardFragment.0")); //$NON-NLS-1$
@@ -66,7 +68,6 @@ public class CustomWebProjectReferenceWizardFragment extends ProjectReferenceWiz
 		});
 		button.setSelection(true);
 
-		Composite tableComp = super.createComposite(c, handle);
 		FormData tableData = new FormData();
 		tableData.top = new FormAttachment(0,5);
 		tableData.bottom = new FormAttachment(button,-5);
