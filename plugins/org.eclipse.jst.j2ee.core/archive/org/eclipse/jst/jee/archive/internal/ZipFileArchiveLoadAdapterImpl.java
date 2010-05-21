@@ -73,7 +73,7 @@ public class ZipFileArchiveLoadAdapterImpl extends AbstractArchiveLoadAdapter {
 	}
 
 	protected IArchiveResource createFile(ZipEntry entry) {
-		IPath path = new Path(entry.getName());
+		IPath path = new Path(entry.getName()).makeRelative();
 		IArchiveResource aFile = null;
 		if (!entry.isDirectory()) {
 			aFile = createFile(path);
