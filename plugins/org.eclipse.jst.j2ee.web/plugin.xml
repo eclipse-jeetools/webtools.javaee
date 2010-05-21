@@ -52,6 +52,9 @@
          <run
                class="org.eclipse.jst.j2ee.internal.web.validation.UIWarValidator">
          </run>
+         <runStrategy 
+         	project="true">
+         </runStrategy>
       </validator>
    </extension>
 
