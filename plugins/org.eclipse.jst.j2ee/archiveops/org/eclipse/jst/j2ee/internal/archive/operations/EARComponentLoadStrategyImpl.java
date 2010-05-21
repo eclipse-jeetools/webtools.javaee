@@ -121,19 +121,25 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 							componentArtifactEdit = ArtifactEditRegistryReader.instance().getArtifactEdit(J2EEProjectUtilities.JCA).createArtifactEditForRead(referencedComponent);
 						}
 						if (null != componentArtifactEdit) {
-							Archive archive = ((EnterpriseArtifactEdit) componentArtifactEdit).asArchive(exportSource, includeClasspathComponents);
-							if (referencedComponent.isBinary()) {
-								artifactEditsToDispose.add(componentArtifactEdit);
-								archive.setLoadingContainer(getContainer());
-								binaryComponentURIsToDiskFileMap.put(archive.getOriginalURI(), diskFile);
+							Archive archive = null;
+							try {
+								archive = ((EnterpriseArtifactEdit) componentArtifactEdit).asArchive(exportSource, includeClasspathComponents);
+								if (referencedComponent.isBinary()) {
+									artifactEditsToDispose.add(componentArtifactEdit);
+									archive.setLoadingContainer(getContainer());
+									binaryComponentURIsToDiskFileMap.put(archive.getOriginalURI(), diskFile);
+								}
+								archive.setURI(earArtifactEdit.getModuleURI(referencedComponent));
+								filesHolder.addFile(archive);
+								isModule = true;
+								if (addClasspathComponentDependencies) {
+									addClasspathComponentDependencies(referencedComponent);
+								}
+							} finally {
+								if(archive != null){
+									archivesToClose.add(archive);
+								}
 							}
-							archive.setURI(earArtifactEdit.getModuleURI(referencedComponent));
-							filesHolder.addFile(archive);
-							isModule = true;
-							if (addClasspathComponentDependencies) {
-								addClasspathComponentDependencies(referencedComponent);
-							}
-							archivesToClose.add(archive);
 						}
 					} catch (OpenFailureException oe) {
 						J2EEPlugin.logError(oe);
