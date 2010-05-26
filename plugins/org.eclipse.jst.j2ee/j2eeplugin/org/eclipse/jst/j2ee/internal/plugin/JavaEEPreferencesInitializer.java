@@ -29,7 +29,7 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 		final static String USE_EAR_LIBRARIES = "org.eclipse.jst.j2ee.preferences.useEARLibraries";//$NON-NLS-1$
 		final static String USE_WEB_APP_LIBRARIES = "org.eclipse.jst.j2ee.preferences.useWebAppLibraries";//$NON-NLS-1$
 		final static String USE_EAR_LIBRARIES_JDT_EXPORT = "org.eclipse.jst.j2ee.preferences.useEARLibrariesJDTExport";//$NON-NLS-1$
-		final static String ALLOW_CLASSPATH_DEP = "org.eclipse.jst.j2ee.preferences.allowClasspathDep";//$NON-NLS-1$
+		final static String ALLOW_CLASSPATH_DEP = IProductConstants.ALLOW_CLASSPATH_DEP;
 
 		static final String J2EE_WEB_CONTENT = "org.eclipse.jst.j2ee.preference.j2eeWebContentName"; //$NON-NLS-1$
 		static final String STATIC_WEB_CONTENT = "org.eclipse.jst.j2ee.preference.staticWebContentName"; //$NON-NLS-1$
@@ -205,7 +205,9 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 		node.putBoolean(Keys.USE_EAR_LIBRARIES_JDT_EXPORT, Defaults.USE_EAR_LIBRARIES_JDT_EXPORT);
 		String perspectiveID = ProductManager.getProperty(IProductConstants.ID_PERSPECTIVE_HIERARCHY_VIEW);
 		node.put(Keys.ID_PERSPECTIVE_HIERARCHY_VIEW, (perspectiveID != null) ? perspectiveID : Defaults.ID_PERSPECTIVE_HIERARCHY_VIEW);
-		node.putBoolean(Keys.ALLOW_CLASSPATH_DEP, Defaults.ALLOW_CLASSPATH_DEP);
+		String allowClasspathDep = ProductManager.getProperty(IProductConstants.ALLOW_CLASSPATH_DEP);
+		boolean allowClasspathDepDefault = (allowClasspathDep != null) ? Boolean.parseBoolean(allowClasspathDep) : Defaults.ALLOW_CLASSPATH_DEP;
+		node.putBoolean(Keys.ALLOW_CLASSPATH_DEP, allowClasspathDepDefault);
 		String showJavaEEModuleDependencyPage = ProductManager.getProperty(IProductConstants.SHOW_JAVA_EE_MODULE_DEPENDENCY_PAGE);
 		boolean showJavaEEModuleDependencyPageDefault = (showJavaEEModuleDependencyPage != null) ? Boolean.parseBoolean(showJavaEEModuleDependencyPage) : Defaults.SHOW_JAVA_EE_MODULE_DEPENDENCY_PAGE;
 		node.putBoolean(Keys.SHOW_JAVA_EE_MODULE_DEPENDENCY_PAGE, showJavaEEModuleDependencyPageDefault);
