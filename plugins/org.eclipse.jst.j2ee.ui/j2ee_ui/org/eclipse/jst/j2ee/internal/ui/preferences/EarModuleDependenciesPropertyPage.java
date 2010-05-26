@@ -191,7 +191,15 @@ public class EarModuleDependenciesPropertyPage extends
 		final IEARModelProvider earModel = (IEARModelProvider)ModelProviderManager.getModelProvider(project);
 		Application app = (Application)earModel.getModelObject();
 		String oldLibDir = app.getLibraryDirectory();
-		if ((oldLibDir != null && !oldLibDir.equals(libDir)) || oldLibDir == null) {
+		if (libDir.equals(J2EEConstants.EAR_DEFAULT_LIB_DIR)) {
+			if(oldLibDir != null) {
+				earModel.modify(new Runnable() {
+					public void run() {		
+					Application app2 = (Application)earModel.getModelObject();
+					app2.setLibraryDirectory(null);
+				}}, null);
+			}
+		} else if ((oldLibDir != null && !oldLibDir.equals(libDir)) || oldLibDir == null) {
 			earModel.modify(new Runnable() {
 				public void run() {		
 				Application app2 = (Application)earModel.getModelObject();
