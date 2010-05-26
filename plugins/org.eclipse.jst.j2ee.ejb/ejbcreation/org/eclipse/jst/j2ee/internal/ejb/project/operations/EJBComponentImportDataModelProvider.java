@@ -88,9 +88,10 @@ public final class EJBComponentImportDataModelProvider extends J2EEComponentImpo
 		int version = getInterpretedSpecVersion(getArchiveWrapper()).getVersion();
 		String versionText = J2EEVersionUtil.getEJBTextVersion( version );
 		ejbFacetDataModel.setStringProperty(IFacetDataModelProperties.FACET_VERSION_STR, versionText);
+		updateWorkingCopyFacetVersion(moduleDM, ejbFacetDataModel);
 		updateJavaFacetVersion();
 	}
-	
+
 	@Override
 	public void init() {
 		super.init();
