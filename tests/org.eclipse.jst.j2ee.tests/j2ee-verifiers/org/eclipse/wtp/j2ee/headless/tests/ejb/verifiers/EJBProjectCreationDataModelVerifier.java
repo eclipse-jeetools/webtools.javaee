@@ -105,9 +105,9 @@ public class EJBProjectCreationDataModelVerifier extends ModuleProjectCreationDa
 			
 			//be sure EJB has a MANIFEST entry to the EJB client
 			String ejbName = facetModel.getStringProperty(IEjbFacetInstallDataModelProperties.FACET_PROJECT_NAME);
-			String ejbClientName = facetModel.getStringProperty(IEjbFacetInstallDataModelProperties.CLIENT_NAME);
+			String ejbClientURI = facetModel.getStringProperty(IEjbFacetInstallDataModelProperties.CLIENT_URI);
 			IProject ejbProject = ProjectUtilities.getProject(ejbName);
-			DependencyVerificationUtil.verifyManifestReference(ejbProject,ejbClientName + ".jar", true);   
+			DependencyVerificationUtil.verifyManifestReference(ejbProject, ejbClientURI, true);   
 			
 			
 			//be sure the EJB client source folder was created
