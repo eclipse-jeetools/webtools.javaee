@@ -1,5 +1,6 @@
 package org.eclipse.jst.j2ee.internal.componentcore;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Collections;
@@ -8,6 +9,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.internal.archive.JavaEEEMFZipFileLoadAdapterImpl;
@@ -57,7 +59,13 @@ public class JavaEEBinaryComponentLoadAdapter extends JavaEEEMFZipFileLoadAdapte
 	}
 	
 	private IPath recomputeArchivePath() {
-		java.io.File f = (java.io.File)archiveComponent.getAdapter(java.io.File.class);
+		java.io.File f = (java.io.File) archiveComponent.getAdapter(java.io.File.class);
+		if (f == null || !f.exists()) {
+			IFile wbFile = (IFile) archiveComponent.getAdapter(IFile.class);
+			if (wbFile != null) {
+				f = new File(wbFile.getLocation().toOSString());
+			}
+		}
 		return f == null ? null : new Path(f.getAbsolutePath());
 	}
 	
