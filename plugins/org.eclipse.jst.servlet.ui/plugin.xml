@@ -477,7 +477,7 @@
            hidden="true"
            icon="icons/prj_obj.gif"
            id="org.eclipse.jst.servlet.ui.internal.CustomWebProjectReferenceWizardFragment"
-           name="Project">
+           name="%Project">
      </referenceFragment>
   </extension>
   

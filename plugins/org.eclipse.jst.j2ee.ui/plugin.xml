@@ -833,7 +833,7 @@
            class="org.eclipse.jst.j2ee.internal.ui.preferences.ClasspathDependencyWizardFragment"
            icon="icons/util-wiz-icon.gif"
            id="org.eclipse.jst.j2ee.internal.ui.preferences.ClasspathDependencyReferencePage"
-           name="Referenced Projects Classpath Entries">
+           name="%Referenced_Projects_Classpath_Entries">
      </referenceFragment>
   </extension>
   
@@ -844,7 +844,7 @@
            hidden="true"
            icon="icons/prj_obj.gif"
            id="org.eclipse.jst.j2ee.internal.ui.preferences.CustomEARProjectReferenceWizardFragment"
-           name="Project">
+           name="%Project">
      </referenceFragment>
   </extension>
 </plugin>

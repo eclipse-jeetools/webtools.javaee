@@ -69,6 +69,8 @@ public class CustomWebProjectReferenceWizardFragment extends ProjectReferenceWiz
 		button.setSelection(true);
 
 		FormData tableData = new FormData();
+		tableData.width = 570;
+		tableData.height = 180;
 		tableData.top = new FormAttachment(0,5);
 		tableData.bottom = new FormAttachment(button,-5);
 		tableData.left = new FormAttachment(0,5);

@@ -51,7 +51,8 @@ import org.eclipse.jst.j2ee.internal.modulecore.util.DummyClasspathDependencyCon
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -83,6 +84,13 @@ public class ClasspathDependencyWizardFragment extends WizardFragment implements
 	public ClasspathDependencyWizardFragment() {
 	}
 
+	boolean isComplete = false;
+
+	@Override
+	public boolean isComplete() {
+		return isComplete;
+	}
+	
 	@Override
 	public boolean hasComposite() {
 		return true;
@@ -95,8 +103,8 @@ public class ClasspathDependencyWizardFragment extends WizardFragment implements
 	@Override
 	public Composite createComposite(Composite parent, IWizardHandle handle) {
 		this.handle = handle;
-		Composite c = new Composite(parent, SWT.BORDER);
-		c.setLayout(new FillLayout());
+		Composite c = new Composite(parent, SWT.NONE);
+		c.setLayout(new GridLayout());
 		handle.setTitle(Messages.ClasspathDependencyFragmentTitle);
 		handle.setDescription(Messages.ClasspathDependencyFragmentDescription);
 		viewer = new CheckboxTreeViewer(c);
@@ -114,6 +122,10 @@ public class ClasspathDependencyWizardFragment extends WizardFragment implements
 	        	handleCheckEvent(event);
 	        }
 	      });
+	    GridData data = new GridData(GridData.FILL_BOTH);
+		data.widthHint = 390;
+		data.heightHint = 185;
+		viewer.getTree().setLayoutData(data);
 		return c;
 	}
 	
@@ -128,6 +140,25 @@ public class ClasspathDependencyWizardFragment extends WizardFragment implements
         	WrappedClasspathEntry wce = ((WrappedClasspathEntry)event.getElement());
         	wce.postStatus = event.getChecked();
         }
+        
+        Iterator<IProject> i = map.keySet().iterator();
+        boolean hasChecked = false;
+		while(i.hasNext()) {
+			IProject p = i.next();
+			WrappedClasspathEntry[] entries = map.get(p);
+			for( int j = 0; j < entries.length; j++ ) {
+				if( entries[j].postStatus) {
+					hasChecked = true;
+					break;
+				}
+			}
+			if(hasChecked)
+				break;
+		}
+		if(isComplete != hasChecked) {
+			isComplete = hasChecked;
+			handle.update();
+		}				
 	}
 
 	// label provider
