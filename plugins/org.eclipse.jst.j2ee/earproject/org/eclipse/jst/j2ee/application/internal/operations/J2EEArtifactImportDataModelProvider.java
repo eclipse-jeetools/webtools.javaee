@@ -52,6 +52,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelListener;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
+import org.eclipse.wst.common.project.facet.core.IFacetedProjectWorkingCopy;
 import org.eclipse.wst.common.project.facet.core.IProjectFacet;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
@@ -302,6 +303,13 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 	
 	protected void refreshInterpretedSpecVersion(){
 		
+	}
+	
+	protected void updateWorkingCopyFacetVersion(IDataModel moduleDM, IDataModel facetDM) {
+		IProjectFacetVersion facetVersion = (IProjectFacetVersion)facetDM.getProperty(IFacetDataModelProperties.FACET_VERSION);
+		//[Bug 314162] IFacetedProjectWorkingCopy facet version is not automatically updated so it has to be done manually
+		IFacetedProjectWorkingCopy fpwc = (IFacetedProjectWorkingCopy)moduleDM.getProperty(IFacetProjectCreationDataModelProperties.FACETED_PROJECT_WORKING_COPY);
+		fpwc.changeProjectFacetVersion(facetVersion);
 	}
 	
 	/**

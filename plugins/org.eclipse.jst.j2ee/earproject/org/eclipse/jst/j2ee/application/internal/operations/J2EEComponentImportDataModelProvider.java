@@ -23,6 +23,7 @@ import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCr
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
+import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 
 /**
  * This dataModel is a common super class used to import J2EE Modules.
@@ -50,21 +51,32 @@ public abstract class J2EEComponentImportDataModelProvider extends J2EEArtifactI
 	 * Updates the Java Facet Version so it is compliant with the Java EE Module version 
 	 */
 	protected void updateJavaFacetVersion() {
-		JavaEEQuickPeek jqp = getInterpretedSpecVersion(getArchiveWrapper());
-		int javaEEVersion = jqp.getJavaEEVersion();
 		IProjectFacetVersion javaFacetVersion = null;
-		switch (javaEEVersion){
-		case J2EEVersionConstants.J2EE_1_2_ID:
-		case J2EEVersionConstants.J2EE_1_3_ID:
-		case J2EEVersionConstants.J2EE_1_4_ID:
-			javaFacetVersion = JavaFacet.VERSION_1_4;
-			break;
-		case J2EEVersionConstants.JEE_5_0_ID:
-			javaFacetVersion = JavaFacet.VERSION_1_5;
-			break;
-		case J2EEVersionConstants.JEE_6_0_ID:
-			javaFacetVersion = JavaFacet.VERSION_1_6;
-			break;
+		IRuntime runtime = (IRuntime)getProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME);
+		if(runtime != null){
+			if(runtime.supports(JavaFacet.VERSION_1_6)){
+				javaFacetVersion = JavaFacet.VERSION_1_6;
+			} else if(runtime.supports(JavaFacet.VERSION_1_5)){
+				javaFacetVersion = JavaFacet.VERSION_1_5;
+			} else {
+				javaFacetVersion = JavaFacet.VERSION_1_4;
+			}
+		} else {
+			JavaEEQuickPeek jqp = getInterpretedSpecVersion(getArchiveWrapper());
+			int javaEEVersion = jqp.getJavaEEVersion();
+			switch (javaEEVersion){
+			case J2EEVersionConstants.J2EE_1_2_ID:
+			case J2EEVersionConstants.J2EE_1_3_ID:
+			case J2EEVersionConstants.J2EE_1_4_ID:
+				javaFacetVersion = JavaFacet.VERSION_1_4;
+				break;
+			case J2EEVersionConstants.JEE_5_0_ID:
+				javaFacetVersion = JavaFacet.VERSION_1_5;
+				break;
+			case J2EEVersionConstants.JEE_6_0_ID:
+				javaFacetVersion = JavaFacet.VERSION_1_6;
+				break;
+			}
 		}
 		if(javaFacetVersion != null){
 			IDataModel moduleDM = model.getNestedModel(NESTED_MODEL_J2EE_COMPONENT_CREATION);

@@ -72,6 +72,8 @@ public final class ConnectorComponentImportDataModelProvider extends J2EECompone
 				String versionText = J2EEVersionUtil.getJCATextVersion( version );
 				jcaFacetDataModel.setStringProperty(IFacetDataModelProperties.FACET_VERSION_STR, versionText);
 				model.notifyPropertyChange(PROJECT_NAME, IDataModel.VALID_VALUES_CHG);
+				updateWorkingCopyFacetVersion(moduleDM, jcaFacetDataModel);
+				updateJavaFacetVersion();
 			}
 		}
 		return set;
