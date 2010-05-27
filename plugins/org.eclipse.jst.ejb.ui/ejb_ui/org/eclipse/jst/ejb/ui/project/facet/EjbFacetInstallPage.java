@@ -112,7 +112,6 @@ public class EjbFacetInstallPage extends J2EEModuleFacetInstallPage
         //data.widthHint = SIZING_TEXT_FIELD_WIDTH;
         clientNameText.setLayoutData(data);
         synchHelper.synchText(clientNameText, CLIENT_NAME, new Control[]{projectNameLabel});
-        clientNameText.setFocus();
     }
     
     private void createClientJarURISection(Composite parent) {
