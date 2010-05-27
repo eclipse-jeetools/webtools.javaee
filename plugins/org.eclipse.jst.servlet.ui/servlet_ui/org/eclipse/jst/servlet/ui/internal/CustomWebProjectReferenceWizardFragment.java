@@ -52,8 +52,8 @@ public class CustomWebProjectReferenceWizardFragment extends ProjectReferenceWiz
 		
 		// make button
 		button = new Button(c, SWT.CHECK);
-		button.setText(Messages.getString("CustomWebProjectReferenceWizardFragment.0")); //$NON-NLS-1$
-		button.setToolTipText(Messages.getString("CustomWebProjectReferenceWizardFragment.1")); //$NON-NLS-1$
+		button.setText(Messages.CustomWebProjectReferenceWizardFragment_0); 
+		button.setToolTipText(Messages.CustomWebProjectReferenceWizardFragment_1); 
 		FormData buttonData = new FormData();
 		buttonData.bottom = new FormAttachment(100,-5);
 		buttonData.left = new FormAttachment(0,5);
@@ -77,7 +77,7 @@ public class CustomWebProjectReferenceWizardFragment extends ProjectReferenceWiz
 		tableData.right = new FormAttachment(100,-5);
 		tableComp.setLayoutData(tableData);
 		handle.setTitle(org.eclipse.wst.common.componentcore.ui.Messages.ProjectReferenceTitle);
-		handle.setDescription(Messages.getString("WebProjectReferenceDescription")); //$NON-NLS-1$
+		handle.setDescription(Messages.WebProjectReferenceDescription); 
 		return c;
 	}
 	
