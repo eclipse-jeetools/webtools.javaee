@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: JST EJB UI tests plugin
+Bundle-Name: %Bundle-Name.0
 Bundle-SymbolicName: org.eclipse.jst.ejb.ui.tests
-Bundle-Version: 1.0.0
+Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.eclipse.jst.ejb.ui.tests.Activator
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.jst.ejb.ui;bundle-version="[1.1.201,1.2.0)",
@@ -10,3 +10,4 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.jdt.ui;bundle-version="[3.2.0,4.0.0)"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-Vendor: %Bundle-Vendor.0

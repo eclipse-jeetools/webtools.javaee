@@ -10,6 +10,8 @@
  ***********************************************************************/
 package org.eclipse.jst.ejb.ui.tests;
 
+import org.eclipse.osgi.util.NLS;
+
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
@@ -20,7 +22,7 @@ import junit.framework.TestSuite;
 public class AllTests {
 
 	public static Test suite() {
-		TestSuite suite = new TestSuite("Test for org.eclipse.jst.ejb.ui.tests");
+		TestSuite suite = new TestSuite(NLS.bind(Messages.TestSuiteTitle, Activator.PLUGIN_ID));
 		//$JUnit-BEGIN$
 		suite.addTestSuite(org.eclipse.jst.ejb.ui.BusinessInterfaceSelectionExtensionTest.class);
 		//$JUnit-END$

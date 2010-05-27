@@ -61,23 +61,23 @@ public class BusinessInterfaceSelectionExtensionTest extends TestCase {
 
 	public void testSelectJavaxEjbPackage() {
 		MockTypeInfoRequestor requestor = new MockTypeInfoRequestor();
-		requestor.setPackageName("javax.ejb");
+		requestor.setPackageName("javax.ejb"); //$NON-NLS-1$
 		ITypeInfoFilterExtension filter = fixture.getFilterExtension();
 		assertFalse(filter.select(requestor));
 	}
 
 	public void testSelectJavaIOSerizlizablePackage() {
 		MockTypeInfoRequestor requestor = new MockTypeInfoRequestor();
-		requestor.setPackageName("java.io");
-		requestor.setTypeName("Serializable");
+		requestor.setPackageName("java.io"); //$NON-NLS-1$
+		requestor.setTypeName("Serializable"); //$NON-NLS-1$
 		ITypeInfoFilterExtension filter = fixture.getFilterExtension();
 		assertFalse(filter.select(requestor));
 	}
 
 	public void testSelectJavaIOExternalizablePackage() {
 		MockTypeInfoRequestor requestor = new MockTypeInfoRequestor();
-		requestor.setPackageName("java.io");
-		requestor.setTypeName("Externalizable");
+		requestor.setPackageName("java.io"); //$NON-NLS-1$
+		requestor.setTypeName("Externalizable"); //$NON-NLS-1$
 		ITypeInfoFilterExtension filter = fixture.getFilterExtension();
 		assertFalse(filter.select(requestor));
 	}
