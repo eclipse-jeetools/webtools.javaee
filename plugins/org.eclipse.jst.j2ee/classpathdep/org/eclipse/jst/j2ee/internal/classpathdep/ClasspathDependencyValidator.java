@@ -85,8 +85,9 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 			    
 				final boolean isWebApp = JavaEEProjectUtilities.isDynamicWebProject(proj);
 			    boolean webLibsOnly = false;
+			    final IVirtualComponent component = ComponentCore.createComponent(proj);
 			    if(!ClasspathDependencyEnablement.isAllowClasspathComponentDependency()){
-			    	if(!isWebApp){
+			    	if(!isWebApp || !JavaEEProjectUtilities.usesJavaEEComponent(component)){
 			    		return OK_STATUS;
 			    	}
 			    	webLibsOnly = true;
@@ -94,8 +95,7 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 
 			    final IJavaProjectLite javaProjectLite = JavaCoreLite.create(proj);
 				final Map referencedRawEntries = ClasspathDependencyUtil.getRawComponentClasspathDependencies(javaProjectLite, DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY, webLibsOnly); 				
-				final List potentialRawEntries = ClasspathDependencyUtil.getPotentialComponentClasspathDependencies(javaProjectLite, webLibsOnly);
-				final IVirtualComponent component = ComponentCore.createComponent(proj);				
+				final List potentialRawEntries = ClasspathDependencyUtil.getPotentialComponentClasspathDependencies(javaProjectLite, webLibsOnly);				
 				final ClasspathDependencyValidatorData data = new ClasspathDependencyValidatorData(proj);
 				
 				// validate the raw referenced container entries
