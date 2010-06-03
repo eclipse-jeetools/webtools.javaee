@@ -142,21 +142,21 @@ public class ClasspathDependencyWizardFragment extends WizardFragment implements
         }
         
         Iterator<IProject> i = map.keySet().iterator();
-        boolean hasChecked = false;
+        boolean hasChanged = false;
 		while(i.hasNext()) {
 			IProject p = i.next();
 			WrappedClasspathEntry[] entries = map.get(p);
 			for( int j = 0; j < entries.length; j++ ) {
-				if( entries[j].postStatus) {
-					hasChecked = true;
+				if( entries[j].postStatus != entries[j].preStatus) {
+					hasChanged = true;
 					break;
 				}
 			}
-			if(hasChecked)
+			if(hasChanged)
 				break;
 		}
-		if(isComplete != hasChecked) {
-			isComplete = hasChecked;
+		if(isComplete != hasChanged) {
+			isComplete = hasChanged;
 			handle.update();
 		}				
 	}
@@ -191,10 +191,16 @@ public class ClasspathDependencyWizardFragment extends WizardFragment implements
 			if(element instanceof WrappedClasspathEntry) {
 				try {
 					WrappedClasspathEntry entry = (WrappedClasspathEntry)element;
-					final IClasspathContainer container = JavaCore.getClasspathContainer(
-							entry.entry.getPath(), JavaCore.create(entry.project));
-					if (container != null) {
-						return container.getDescription();
+					if (entry.entry.getEntryKind() == IClasspathEntry.CPE_CONTAINER) {
+						final IClasspathContainer container = JavaCore.getClasspathContainer(
+								entry.entry.getPath(), JavaCore.create(entry.project));
+						if (container != null) {
+							return container.getDescription();
+						}
+					}
+					else {
+						// use path for non-container type classpath entries
+						return entry.entry.getPath().toOSString();
 					}
 				} catch( JavaModelException jme) {
 					// ignore
