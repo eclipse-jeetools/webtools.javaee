@@ -17,28 +17,36 @@ import org.eclipse.emf.ecore.EFactory;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.jst.j2ee.application.ApplicationFactory;
 import org.eclipse.jst.j2ee.application.ApplicationPackage;
+import org.eclipse.jst.j2ee.application.internal.impl.ApplicationPackageImpl;
 import org.eclipse.jst.j2ee.application.internal.impl.ApplicationResourceFactory;
 import org.eclipse.jst.j2ee.client.ClientFactory;
 import org.eclipse.jst.j2ee.client.ClientPackage;
 import org.eclipse.jst.j2ee.client.internal.impl.ApplicationClientResourceFactory;
+import org.eclipse.jst.j2ee.client.internal.impl.ClientPackageImpl;
 import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.CommonPackage;
+import org.eclipse.jst.j2ee.common.internal.impl.CommonPackageImpl;
 import org.eclipse.jst.j2ee.ejb.EjbFactory;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
 import org.eclipse.jst.j2ee.ejb.internal.impl.EJBJarResourceFactory;
 import org.eclipse.jst.j2ee.ejb.internal.impl.EjbFactoryImpl;
+import org.eclipse.jst.j2ee.ejb.internal.impl.EjbPackageImpl;
 import org.eclipse.jst.j2ee.ejb.internal.util.EJBAttributeMaintenanceFactoryImpl;
 import org.eclipse.jst.j2ee.internal.xml.J2EEXmlDtDEntityResolver;
 import org.eclipse.jst.j2ee.jca.JcaFactory;
 import org.eclipse.jst.j2ee.jca.JcaPackage;
 import org.eclipse.jst.j2ee.jca.internal.impl.ConnectorResourceFactory;
+import org.eclipse.jst.j2ee.jca.internal.impl.JcaPackageImpl;
 import org.eclipse.jst.j2ee.jsp.JspFactory;
 import org.eclipse.jst.j2ee.jsp.JspPackage;
+import org.eclipse.jst.j2ee.jsp.internal.impl.JspPackageImpl;
 import org.eclipse.jst.j2ee.taglib.internal.TaglibFactory;
 import org.eclipse.jst.j2ee.taglib.internal.TaglibPackage;
+import org.eclipse.jst.j2ee.taglib.internal.impl.TaglibPackageImpl;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 import org.eclipse.jst.j2ee.webapplication.internal.impl.WebAppResourceFactory;
+import org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationPackageImpl;
 import org.eclipse.jst.j2ee.webservice.internal.wsdd.WsddResourceFactory;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapFactory;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage;
@@ -46,10 +54,13 @@ import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapResourceFactory;
 import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientFactory;
 import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage;
 import org.eclipse.jst.j2ee.webservice.wsclient.internal.impl.WebServicesClientResourceFactory;
+import org.eclipse.jst.j2ee.webservice.wsclient.internal.impl.Webservice_clientPackageImpl;
 import org.eclipse.jst.j2ee.webservice.wscommon.WscommonFactory;
 import org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage;
+import org.eclipse.jst.j2ee.webservice.wscommon.internal.impl.WscommonPackageImpl;
 import org.eclipse.jst.j2ee.webservice.wsdd.WsddFactory;
 import org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage;
+import org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WsddPackageImpl;
 import org.eclipse.wst.common.internal.emf.utilities.AdapterFactoryDescriptor;
 import org.eclipse.wst.common.internal.emf.utilities.DOMUtilities;
 import org.eclipse.wst.common.internal.emf.utilities.EncoderDecoderRegistry;
@@ -88,6 +99,7 @@ public class J2EEInit {
 	
 	protected static boolean initialized = false;
 	protected static boolean plugin_initialized = false;
+	private static boolean emfModelsInitialized = false;
 	public static void init() {
 		init(true);
 	}
@@ -305,5 +317,67 @@ public class J2EEInit {
 	public static void setPluginInit(boolean bPluginInit) {
 		// Here's where the configuration file would be read.
 		plugin_initialized = bPluginInit;
+	}
+
+	public static void initEMFModels()
+	{
+		if (!emfModelsInitialized)
+		{
+			emfModelsInitialized = true;
+			// put the following initialization on its own thread.
+			Thread j2eeEmfInitThread = new Thread(new Runnable(){
+				public void run()
+				{
+					// Obtain or create and register interdependencies
+					// Create package meta-data objects
+					// Initialize created meta-data
+					Webservice_clientPackageImpl theWebservice_clientPackage = (Webservice_clientPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(Webservice_clientPackage.eNS_URI) instanceof Webservice_clientPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(Webservice_clientPackage.eNS_URI) : Webservice_clientPackage.eINSTANCE);
+					theWebservice_clientPackage.createPackageContents();
+					theWebservice_clientPackage.initializePackageContents();
+					
+					CommonPackageImpl theCommonPackage = (CommonPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI) instanceof CommonPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI) : CommonPackage.eINSTANCE);
+					theCommonPackage.createPackageContents();
+					theCommonPackage.initializePackageContents();
+					
+					TaglibPackageImpl theTaglibPackage = (TaglibPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(TaglibPackage.eNS_URI) instanceof TaglibPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(TaglibPackage.eNS_URI) : TaglibPackage.eINSTANCE);
+					theTaglibPackage.createPackageContents();
+					theTaglibPackage.initializePackageContents();
+					
+					JcaPackageImpl theJcaPackage = (JcaPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(JcaPackage.eNS_URI) instanceof JcaPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(JcaPackage.eNS_URI) : JcaPackage.eINSTANCE);
+					theJcaPackage.createPackageContents();
+					theJcaPackage.initializePackageContents();
+					
+					JspPackageImpl theJspPackage = (JspPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(JspPackage.eNS_URI) instanceof JspPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(JspPackage.eNS_URI) : JspPackage.eINSTANCE);
+					theJspPackage.createPackageContents();
+					theJspPackage.initializePackageContents();
+					
+					ClientPackageImpl theClientPackage = (ClientPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ClientPackage.eNS_URI) instanceof ClientPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ClientPackage.eNS_URI) : ClientPackage.eINSTANCE);
+					theClientPackage.createPackageContents();
+					theClientPackage.initializePackageContents();
+					
+					ApplicationPackageImpl theApplicationPackage = (ApplicationPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI) instanceof ApplicationPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI) : ApplicationPackage.eINSTANCE);
+					theApplicationPackage.createPackageContents();
+					theApplicationPackage.initializePackageContents();
+					
+					EjbPackageImpl theEjbPackage = (EjbPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(EjbPackage.eNS_URI) instanceof EjbPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(EjbPackage.eNS_URI) : EjbPackage.eINSTANCE);
+					theEjbPackage.createPackageContents();
+					theEjbPackage.initializePackageContents();
+					
+					WscommonPackageImpl theWscommonPackage = (WscommonPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WscommonPackage.eNS_URI) instanceof WscommonPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WscommonPackage.eNS_URI) : WscommonPackage.eINSTANCE);
+					theWscommonPackage.createPackageContents();
+					theWscommonPackage.initializePackageContents();
+					
+					WsddPackageImpl theWsddPackage = (WsddPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WsddPackage.eNS_URI) instanceof WsddPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WsddPackage.eNS_URI) : WsddPackage.eINSTANCE);
+					theWsddPackage.createPackageContents();
+					theWsddPackage.initializePackageContents();
+					
+					WebapplicationPackageImpl theWebapplicationPackage = (WebapplicationPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WebapplicationPackage.eNS_URI) instanceof WebapplicationPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WebapplicationPackage.eNS_URI) : WebapplicationPackage.eINSTANCE);
+					theWebapplicationPackage.createPackageContents();
+					theWebapplicationPackage.initializePackageContents();
+				}
+			});
+			j2eeEmfInitThread.start();
+		}
+		
 	}
 }

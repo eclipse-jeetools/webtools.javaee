@@ -18,20 +18,9 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.jem.java.JavaRefPackage;
-import org.eclipse.jst.j2ee.application.ApplicationPackage;
-import org.eclipse.jst.j2ee.application.internal.impl.ApplicationPackageImpl;
-import org.eclipse.jst.j2ee.client.ClientPackage;
-import org.eclipse.jst.j2ee.client.internal.impl.ClientPackageImpl;
 import org.eclipse.jst.j2ee.common.CommonPackage;
-import org.eclipse.jst.j2ee.common.internal.impl.CommonPackageImpl;
-import org.eclipse.jst.j2ee.ejb.EjbPackage;
-import org.eclipse.jst.j2ee.ejb.internal.impl.EjbPackageImpl;
-import org.eclipse.jst.j2ee.jca.JcaPackage;
-import org.eclipse.jst.j2ee.jca.internal.impl.JcaPackageImpl;
+import org.eclipse.jst.j2ee.internal.J2EEInit;
 import org.eclipse.jst.j2ee.jsp.JspPackage;
-import org.eclipse.jst.j2ee.jsp.internal.impl.JspPackageImpl;
-import org.eclipse.jst.j2ee.taglib.internal.TaglibPackage;
-import org.eclipse.jst.j2ee.taglib.internal.impl.TaglibPackageImpl;
 import org.eclipse.jst.j2ee.webapplication.AuthConstraint;
 import org.eclipse.jst.j2ee.webapplication.AuthMethodKind;
 import org.eclipse.jst.j2ee.webapplication.ContextParam;
@@ -68,12 +57,6 @@ import org.eclipse.jst.j2ee.webapplication.WebapplicationFactory;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 import org.eclipse.jst.j2ee.webapplication.WelcomeFile;
 import org.eclipse.jst.j2ee.webapplication.WelcomeFileList;
-import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage;
-import org.eclipse.jst.j2ee.webservice.wsclient.internal.impl.Webservice_clientPackageImpl;
-import org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage;
-import org.eclipse.jst.j2ee.webservice.wscommon.internal.impl.WscommonPackageImpl;
-import org.eclipse.jst.j2ee.webservice.wsdd.WsddPackage;
-import org.eclipse.jst.j2ee.webservice.wsdd.internal.impl.WsddPackageImpl;
 
 
 public class WebapplicationPackageImpl extends EPackageImpl implements WebapplicationPackage {
@@ -347,52 +330,19 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 		EcorePackage.eINSTANCE.eClass();
 		JavaRefPackage.eINSTANCE.eClass();
 
-		// Obtain or create and register interdependencies
-		ClientPackageImpl theClientPackage = (ClientPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ClientPackage.eNS_URI) instanceof ClientPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ClientPackage.eNS_URI) : ClientPackage.eINSTANCE);
-		ApplicationPackageImpl theApplicationPackage = (ApplicationPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI) instanceof ApplicationPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI) : ApplicationPackage.eINSTANCE);
-		ApplicationPackageImpl theApplicationPackage_1 = (ApplicationPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI) instanceof ApplicationPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI) : ApplicationPackage.eINSTANCE);
-		CommonPackageImpl theCommonPackage = (CommonPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI) instanceof CommonPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI) : CommonPackage.eINSTANCE);
-		EjbPackageImpl theEjbPackage = (EjbPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(EjbPackage.eNS_URI) instanceof EjbPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(EjbPackage.eNS_URI) : EjbPackage.eINSTANCE);
-		TaglibPackageImpl theTaglibPackage = (TaglibPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(TaglibPackage.eNS_URI) instanceof TaglibPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(TaglibPackage.eNS_URI) : TaglibPackage.eINSTANCE);
-		JcaPackageImpl theJcaPackage = (JcaPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(JcaPackage.eNS_URI) instanceof JcaPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(JcaPackage.eNS_URI) : JcaPackage.eINSTANCE);
-		Webservice_clientPackageImpl theWebservice_clientPackage = (Webservice_clientPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(Webservice_clientPackage.eNS_URI) instanceof Webservice_clientPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(Webservice_clientPackage.eNS_URI) : Webservice_clientPackage.eINSTANCE);
-		JspPackageImpl theJspPackage = (JspPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(JspPackage.eNS_URI) instanceof JspPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(JspPackage.eNS_URI) : JspPackage.eINSTANCE);
-		WscommonPackageImpl theWscommonPackage = (WscommonPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WscommonPackage.eNS_URI) instanceof WscommonPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WscommonPackage.eNS_URI) : WscommonPackage.eINSTANCE);
-		WsddPackageImpl theWsddPackage = (WsddPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WsddPackage.eNS_URI) instanceof WsddPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WsddPackage.eNS_URI) : WsddPackage.eINSTANCE);
-
 		// Create package meta-data objects
 		theWebapplicationPackage.createPackageContents();
-		theClientPackage.createPackageContents();
-		theApplicationPackage.createPackageContents();
-		theApplicationPackage_1.createPackageContents();
-		theCommonPackage.createPackageContents();
-		theEjbPackage.createPackageContents();
-		theTaglibPackage.createPackageContents();
-		theJcaPackage.createPackageContents();
-		theWebservice_clientPackage.createPackageContents();
-		theJspPackage.createPackageContents();
-		theWscommonPackage.createPackageContents();
-		theWsddPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theWebapplicationPackage.initializePackageContents();
-		theClientPackage.initializePackageContents();
-		theApplicationPackage.initializePackageContents();
-		theApplicationPackage_1.initializePackageContents();
-		theCommonPackage.initializePackageContents();
-		theEjbPackage.initializePackageContents();
-		theTaglibPackage.initializePackageContents();
-		theJcaPackage.initializePackageContents();
-		theWebservice_clientPackage.initializePackageContents();
-		theJspPackage.initializePackageContents();
-		theWscommonPackage.initializePackageContents();
-		theWsddPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theWebapplicationPackage.freeze();
 
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(WebapplicationPackage.eNS_URI, theWebapplicationPackage);
+
+		J2EEInit.initEMFModels();
 
 		return theWebapplicationPackage;
 	}

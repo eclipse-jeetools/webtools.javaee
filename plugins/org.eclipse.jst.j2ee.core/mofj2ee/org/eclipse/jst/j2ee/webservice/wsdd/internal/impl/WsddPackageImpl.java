@@ -18,26 +18,9 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.jem.java.JavaRefPackage;
-import org.eclipse.jst.j2ee.application.ApplicationPackage;
-import org.eclipse.jst.j2ee.application.internal.impl.ApplicationPackageImpl;
-import org.eclipse.jst.j2ee.client.ClientPackage;
-import org.eclipse.jst.j2ee.client.internal.impl.ClientPackageImpl;
 import org.eclipse.jst.j2ee.common.CommonPackage;
-import org.eclipse.jst.j2ee.common.internal.impl.CommonPackageImpl;
-import org.eclipse.jst.j2ee.ejb.EjbPackage;
-import org.eclipse.jst.j2ee.ejb.internal.impl.EjbPackageImpl;
-import org.eclipse.jst.j2ee.jca.JcaPackage;
-import org.eclipse.jst.j2ee.jca.internal.impl.JcaPackageImpl;
-import org.eclipse.jst.j2ee.jsp.JspPackage;
-import org.eclipse.jst.j2ee.jsp.internal.impl.JspPackageImpl;
-import org.eclipse.jst.j2ee.taglib.internal.TaglibPackage;
-import org.eclipse.jst.j2ee.taglib.internal.impl.TaglibPackageImpl;
-import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
-import org.eclipse.jst.j2ee.webapplication.internal.impl.WebapplicationPackageImpl;
-import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage;
-import org.eclipse.jst.j2ee.webservice.wsclient.internal.impl.Webservice_clientPackageImpl;
+import org.eclipse.jst.j2ee.internal.J2EEInit;
 import org.eclipse.jst.j2ee.webservice.wscommon.WscommonPackage;
-import org.eclipse.jst.j2ee.webservice.wscommon.internal.impl.WscommonPackageImpl;
 import org.eclipse.jst.j2ee.webservice.wsdd.AddressingResponsesType;
 import org.eclipse.jst.j2ee.webservice.wsdd.AddressingType;
 import org.eclipse.jst.j2ee.webservice.wsdd.BeanLink;
@@ -222,46 +205,11 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
 		// Initialize simple dependencies
 		JavaRefPackage.eINSTANCE.eClass();
 
-		// Obtain or create and register interdependencies
-		ClientPackageImpl theClientPackage = (ClientPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ClientPackage.eNS_URI) instanceof ClientPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ClientPackage.eNS_URI) : ClientPackage.eINSTANCE);
-		ApplicationPackageImpl theApplicationPackage = (ApplicationPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI) instanceof ApplicationPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI) : ApplicationPackage.eINSTANCE);
-		ApplicationPackageImpl theApplicationPackage_1 = (ApplicationPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI) instanceof ApplicationPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI) : ApplicationPackage.eINSTANCE);
-		CommonPackageImpl theCommonPackage = (CommonPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI) instanceof CommonPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI) : CommonPackage.eINSTANCE);
-		EjbPackageImpl theEjbPackage = (EjbPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(EjbPackage.eNS_URI) instanceof EjbPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(EjbPackage.eNS_URI) : EjbPackage.eINSTANCE);
-		TaglibPackageImpl theTaglibPackage = (TaglibPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(TaglibPackage.eNS_URI) instanceof TaglibPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(TaglibPackage.eNS_URI) : TaglibPackage.eINSTANCE);
-		WebapplicationPackageImpl theWebapplicationPackage = (WebapplicationPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WebapplicationPackage.eNS_URI) instanceof WebapplicationPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WebapplicationPackage.eNS_URI) : WebapplicationPackage.eINSTANCE);
-		JcaPackageImpl theJcaPackage = (JcaPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(JcaPackage.eNS_URI) instanceof JcaPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(JcaPackage.eNS_URI) : JcaPackage.eINSTANCE);
-		Webservice_clientPackageImpl theWebservice_clientPackage = (Webservice_clientPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(Webservice_clientPackage.eNS_URI) instanceof Webservice_clientPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(Webservice_clientPackage.eNS_URI) : Webservice_clientPackage.eINSTANCE);
-		JspPackageImpl theJspPackage = (JspPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(JspPackage.eNS_URI) instanceof JspPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(JspPackage.eNS_URI) : JspPackage.eINSTANCE);
-		WscommonPackageImpl theWscommonPackage = (WscommonPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WscommonPackage.eNS_URI) instanceof WscommonPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WscommonPackage.eNS_URI) : WscommonPackage.eINSTANCE);
-
 		// Create package meta-data objects
 		theWsddPackage.createPackageContents();
-		theClientPackage.createPackageContents();
-		theApplicationPackage.createPackageContents();
-		theApplicationPackage_1.createPackageContents();
-		theCommonPackage.createPackageContents();
-		theEjbPackage.createPackageContents();
-		theTaglibPackage.createPackageContents();
-		theWebapplicationPackage.createPackageContents();
-		theJcaPackage.createPackageContents();
-		theWebservice_clientPackage.createPackageContents();
-		theJspPackage.createPackageContents();
-		theWscommonPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theWsddPackage.initializePackageContents();
-		theClientPackage.initializePackageContents();
-		theApplicationPackage.initializePackageContents();
-		theApplicationPackage_1.initializePackageContents();
-		theCommonPackage.initializePackageContents();
-		theEjbPackage.initializePackageContents();
-		theTaglibPackage.initializePackageContents();
-		theWebapplicationPackage.initializePackageContents();
-		theJcaPackage.initializePackageContents();
-		theWebservice_clientPackage.initializePackageContents();
-		theJspPackage.initializePackageContents();
-		theWscommonPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theWsddPackage.freeze();
@@ -269,6 +217,9 @@ public class WsddPackageImpl extends EPackageImpl implements WsddPackage
   
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(WsddPackage.eNS_URI, theWsddPackage);
+
+		J2EEInit.initEMFModels();
+
 		return theWsddPackage;
 	}
 
