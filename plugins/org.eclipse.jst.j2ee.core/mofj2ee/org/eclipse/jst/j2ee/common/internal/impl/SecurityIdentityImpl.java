@@ -75,14 +75,47 @@ public class SecurityIdentityImpl extends J2EEEObjectImpl implements SecurityIde
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
-	public String getDescription() {
+	public String getDescriptionGen() {
 		return description;
 	}
+	
+	public String getDescription() {
+		if (!getDescriptions().isEmpty()) {
+			Description d = (Description) getDescriptions().get(0);
+			if (d != null)
+				description = d.getValue();
+		}
+		return getDescriptionGen();
+	}
 
+	public void setDescription(String newDescription) {
+		String descriptionValue = newDescription;
+		if (getDescriptions() != null) {
+			if(newDescription == null || newDescription.length() < 1) {
+				if(!getDescriptions().isEmpty()) {
+					getDescriptions().remove(0);
+					if(!getDescriptions().isEmpty()) {
+						Description d = (Description) getDescriptions().get(0);
+						descriptionValue = d.getValue();
+					}
+				}
+			} else if (getDescriptions().isEmpty()) {
+				Description d = new DescriptionImpl();
+				d.setValue(descriptionValue);
+				getDescriptions().add(d);
+			} else {
+				Description d = (Description) getDescriptions().get(0);
+				if (d != null)
+					d.setValue(descriptionValue);
+			}
+		}
+		setDescriptionGen(descriptionValue);
+	}
+	
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	public void setDescription(String newDescription) {
+	public void setDescriptionGen(String newDescription) {
 		String oldDescription = description;
 		description = newDescription;
 		if (eNotificationRequired())
