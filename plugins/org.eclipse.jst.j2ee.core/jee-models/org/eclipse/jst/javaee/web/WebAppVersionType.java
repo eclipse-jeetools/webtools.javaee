@@ -37,6 +37,33 @@ import org.eclipse.emf.common.util.Enumerator;
 public enum WebAppVersionType implements Enumerator
 {
 	/**
+	 * The '<em><b>22</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #_22
+	 * @generated
+	 * @ordered
+	 */
+	_22_LITERAL(-1, "_22", "2.2"), //$NON-NLS-1$ //$NON-NLS-2$
+	/**
+	 * The '<em><b>23</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #_23
+	 * @generated
+	 * @ordered
+	 */
+	_23_LITERAL(-2, "_23", "2.3"), //$NON-NLS-1$ //$NON-NLS-2$
+	/**
+	 * The '<em><b>24</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #_24
+	 * @generated
+	 * @ordered
+	 */
+	_24_LITERAL(-1, "_24", "2.4"), //$NON-NLS-1$ //$NON-NLS-2$
+	/**
 	 * The '<em><b>25</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -54,6 +81,45 @@ public enum WebAppVersionType implements Enumerator
 	 * @ordered
 	 */
 	_30_LITERAL(1, "_30", "3.0"); //$NON-NLS-1$ //$NON-NLS-2$
+	/**
+	 * The '<em><b>22</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>22</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #_22_LITERAL
+	 * @generated
+	 * @ordered
+	 */
+	public static final int _22 = -3;
+	/**
+	 * The '<em><b>23</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>23</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #_23_LITERAL
+	 * @generated
+	 * @ordered
+	 */
+	public static final int _23 = -2;
+	/**
+	 * The '<em><b>24</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>24</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #_24_LITERAL
+	 * @generated
+	 * @ordered
+	 */
+	public static final int _24 = -1;
 	/**
 	 * The '<em><b>25</b></em>' literal value.
 	 * <!-- begin-user-doc -->
@@ -90,6 +156,9 @@ public enum WebAppVersionType implements Enumerator
 	 */
 	private static final WebAppVersionType[] VALUES_ARRAY =
 		new WebAppVersionType[] {
+			_22_LITERAL,
+			_23_LITERAL,
+			_24_LITERAL,
 			_25_LITERAL,
 			_30_LITERAL,
 		};
@@ -142,6 +211,9 @@ public enum WebAppVersionType implements Enumerator
 	 */
 	public static WebAppVersionType get(int value) {
 		switch (value) {
+			case _22: return _25_LITERAL;
+			case _23: return _25_LITERAL;
+			case _24: return _25_LITERAL;
 			case _25: return _25_LITERAL;
 			case _30: return _30_LITERAL;
 		}
