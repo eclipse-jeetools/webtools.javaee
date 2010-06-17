@@ -459,20 +459,6 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 				}
 			}
 		}
-		
-		
-		String[] deploymentDescriptorsToCheck = new String[] { J2EEConstants.APPLICATION_DD_URI, J2EEConstants.APP_CLIENT_DD_URI, J2EEConstants.EJBJAR_DD_URI, J2EEConstants.WEBAPP_DD_URI,
-				J2EEConstants.RAR_DD_URI };
-		int[] typeToVerify = new int[] { J2EEVersionConstants.APPLICATION_TYPE, J2EEVersionConstants.APPLICATION_CLIENT_TYPE, J2EEVersionConstants.EJB_TYPE, J2EEVersionConstants.WEB_TYPE,
-				J2EEConstants.CONNECTOR_TYPE };
-		for (int i = 0; i < deploymentDescriptorsToCheck.length; i++) {
-			final int currentType = typeToVerify[i];
-			final IPath deploymentDescriptorPath = new Path(deploymentDescriptorsToCheck[i]);
-			IArchive wrappedForDD = wrapForDD(simpleArchive, currentType, deploymentDescriptorPath);
-			if(wrappedForDD != null){
-				return wrappedForDD;
-			}
-		}
 		IPath archivePath = simpleArchive.getPath();
 		if (archivePath == null) {
 			Object obj = simpleArchive.getArchiveOptions().getOption(ArchiveOptions.ARCHIVE_PATH);
@@ -480,9 +466,14 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 				archivePath = (IPath) obj;
 			}
 		}
-
-		if (archivePath != null) {
-			String lastSegment = archivePath.lastSegment().toLowerCase();
+		String lastSegment = null == archivePath ? null : archivePath.lastSegment().toLowerCase();
+		
+		IArchive wrappedArchive = checkJavaEEDD(lastSegment, simpleArchive);
+		if(wrappedArchive != null){
+			return wrappedArchive;
+		}
+		
+		if (lastSegment != null) {
 			if (lastSegment.endsWith(IJ2EEModuleConstants.EAR_EXT)) {
 				//EE6TODO
 				JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(JavaEEQuickPeek.APPLICATION_TYPE, JavaEEQuickPeek.JEE_5_0_ID, JavaEEQuickPeek.JEE_5_0_ID);
@@ -551,6 +542,86 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 		return simpleArchive;
 	}
 
+	/**
+	 * This method checks for the existence of deployment descriptors to
+	 * determine the correct Java EE type. The last segment of the file name is
+	 * passed in as a hint.
+	 * 
+	 * @param lastSegment
+	 * @param simpleArchive
+	 * @return
+	 */
+	private IArchive checkJavaEEDD(final String lastSegment, final IArchive simpleArchive) {
+		class DeploymentDescriptorCheck {
+			private String ddString;
+			private int typeToVerify;
+			private boolean checked = false;
+
+			public DeploymentDescriptorCheck(String ddString, int typeToVerify) {
+				this.ddString = ddString;
+				this.typeToVerify = typeToVerify;
+			}
+
+			public IArchive wrapForDD(IArchive simpleArchive) {
+				if (checked) {
+					return null;
+				}
+				checked = true;
+				IPath path = new Path(ddString);
+				return JavaEEArchiveUtilities.this.wrapForDD(simpleArchive, typeToVerify, path);
+			}
+		}
+
+		int EAR_INDEX = 0;
+		int RAR_INDEX = 1;
+		int WAR_INDEX = 2;
+		int EJB_INDEX = 3;
+		int APP_CLIENT_INDEX = 4;
+
+		DeploymentDescriptorCheck[] deploymentDescriptorsToCheck = new DeploymentDescriptorCheck[5];
+		deploymentDescriptorsToCheck[EAR_INDEX] = new DeploymentDescriptorCheck(J2EEConstants.APPLICATION_DD_URI, J2EEVersionConstants.APPLICATION_TYPE);
+		deploymentDescriptorsToCheck[RAR_INDEX] = new DeploymentDescriptorCheck(J2EEConstants.RAR_DD_URI, J2EEVersionConstants.CONNECTOR_TYPE);
+		deploymentDescriptorsToCheck[WAR_INDEX] = new DeploymentDescriptorCheck(J2EEConstants.WEBAPP_DD_URI, J2EEVersionConstants.WEB_TYPE);
+		deploymentDescriptorsToCheck[EJB_INDEX] = new DeploymentDescriptorCheck(J2EEConstants.EJBJAR_DD_URI, J2EEVersionConstants.EJB_TYPE);
+		deploymentDescriptorsToCheck[APP_CLIENT_INDEX] = new DeploymentDescriptorCheck(J2EEConstants.APP_CLIENT_DD_URI, J2EEVersionConstants.APPLICATION_CLIENT_TYPE);
+
+		if (lastSegment != null) {
+			if (lastSegment.endsWith(IJ2EEModuleConstants.EAR_EXT)) {
+				IArchive wrappedForDD = deploymentDescriptorsToCheck[EAR_INDEX].wrapForDD(simpleArchive);
+				if (wrappedForDD != null) {
+					return wrappedForDD;
+				}
+			} else if (lastSegment.endsWith(IJ2EEModuleConstants.RAR_EXT)) {
+				IArchive wrappedForDD = deploymentDescriptorsToCheck[RAR_INDEX].wrapForDD(simpleArchive);
+				if (wrappedForDD != null) {
+					return wrappedForDD;
+				}
+			} else if (lastSegment.endsWith(IJ2EEModuleConstants.WAR_EXT)) {
+				IArchive wrappedForDD = deploymentDescriptorsToCheck[WAR_INDEX].wrapForDD(simpleArchive);
+				if (wrappedForDD != null) {
+					return wrappedForDD;
+				}
+			} else if (lastSegment.endsWith(IJ2EEModuleConstants.JAR_EXT)) {
+				IArchive wrappedForDD = deploymentDescriptorsToCheck[EJB_INDEX].wrapForDD(simpleArchive);
+				if (wrappedForDD != null) {
+					return wrappedForDD;
+				}
+				wrappedForDD = deploymentDescriptorsToCheck[APP_CLIENT_INDEX].wrapForDD(simpleArchive);
+				if (wrappedForDD != null) {
+					return wrappedForDD;
+				}
+			}
+		}
+
+		for (DeploymentDescriptorCheck ddToCheck : deploymentDescriptorsToCheck) {
+			IArchive wrappedForDD = ddToCheck.wrapForDD(simpleArchive);
+			if (wrappedForDD != null) {
+				return wrappedForDD;
+			}
+		}
+		return null;
+	}
+	
 	private IArchive wrapForDD(final IArchive simpleArchive, final int currentType, final IPath deploymentDescriptorPath) {
 		if (simpleArchive.containsArchiveResource(deploymentDescriptorPath)) {
 			InputStream in = null;

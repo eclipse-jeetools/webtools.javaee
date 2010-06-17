@@ -83,6 +83,7 @@ public abstract class J2EEComponentImportDataModelProvider extends J2EEArtifactI
 			FacetDataModelMap map = (FacetDataModelMap) moduleDM.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
 			IDataModel javaFacetDataModel = map.getFacetDataModel( J2EEProjectUtilities.JAVA );
 			javaFacetDataModel.setProperty(IFacetDataModelProperties.FACET_VERSION, javaFacetVersion);
+			updateWorkingCopyFacetVersion(moduleDM, javaFacetDataModel);
 		}
 	}
 }
