@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.internal.resources.XMLWriter;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -113,7 +114,7 @@ public class WebFragmentFacetInstallDelegate implements IDelegate {
 	public static void createWebFragmentFile(IFile file, IProject project) throws CoreException, IOException {
 		try {
 			WorkbenchByteArrayOutputStream out = new WorkbenchByteArrayOutputStream(file);
-			final String webFragXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<web-fragment id=\"WebFragment_ID\" version=\"3.0\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd\">\n<display-name>" + project.getName()+ "</display-name> \n <name>"+ project.getName()+  "</name> \n </web-fragment>"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			final String webFragXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<web-fragment id=\"WebFragment_ID\" version=\"3.0\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd\">\n<display-name>" + XMLWriter.getEscaped(project.getName())+ "</display-name> \n <name>"+ XMLWriter.getEscaped(project.getName())+  "</name> \n </web-fragment>"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			out.write(webFragXmlContents.getBytes("UTF-8")); //$NON-NLS-1$
 			out.close();
 		} catch (IOException ioe) {

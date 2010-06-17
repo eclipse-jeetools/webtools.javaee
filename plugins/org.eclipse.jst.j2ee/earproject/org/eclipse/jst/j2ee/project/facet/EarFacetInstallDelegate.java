@@ -15,6 +15,7 @@ import java.io.ByteArrayInputStream;
 import java.io.UnsupportedEncodingException;
 
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.internal.resources.XMLWriter;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -79,10 +80,10 @@ public final class EarFacetInstallDelegate implements IDelegate {
 							}
 							String appXmlContents = null;
 							if(fv == IJ2EEFacetConstants.ENTERPRISE_APPLICATION_60) {
-								appXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<application id=\"Application_ID\" version=\"6\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_6.xsd\">\n <display-name> \n" + project.getName() +  "</display-name> \n </application> "; //$NON-NLS-1$ //$NON-NLS-2$
+								appXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<application id=\"Application_ID\" version=\"6\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_6.xsd\">\n <display-name> \n" + XMLWriter.getEscaped(project.getName()) +  "</display-name> \n </application> "; //$NON-NLS-1$ //$NON-NLS-2$
 							}
 							else {
-								appXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<application id=\"Application_ID\" version=\"5\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_5.xsd\">\n <display-name> \n" + project.getName() +  "</display-name> \n </application> "; //$NON-NLS-1$ //$NON-NLS-2$
+								appXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<application id=\"Application_ID\" version=\"5\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_5.xsd\">\n <display-name> \n" + XMLWriter.getEscaped(project.getName()) +  "</display-name> \n </application> "; //$NON-NLS-1$ //$NON-NLS-2$
 							}
 							appXmlFile.create(new ByteArrayInputStream(appXmlContents.getBytes("UTF-8")), true, monitor); //$NON-NLS-1$
 						} catch (UnsupportedEncodingException e) {
