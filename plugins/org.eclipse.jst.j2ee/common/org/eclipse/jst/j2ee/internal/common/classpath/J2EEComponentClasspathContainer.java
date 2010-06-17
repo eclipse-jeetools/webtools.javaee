@@ -217,8 +217,9 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 			}
 		}
 		
-		for(IVirtualReference ref: refsList){
-			IVirtualComponent comp = ref.getReferencedComponent();
+		//iterate with i index because this list can be modified during iteration
+		for(int i=0; i< refsList.size(); i++){
+			IVirtualComponent comp = refsList.get(i).getReferencedComponent();
 			if(comp.isBinary()){
 				IVirtualReference [] binaryRefs = comp.getReferences();
 				for(int j = 0; j<binaryRefs.length; j++){
