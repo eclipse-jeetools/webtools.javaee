@@ -97,8 +97,23 @@ public class EJBUtilities extends JavaEEProjectUtilities {
 		String clientCompName = props.getProperty(CreationConstants.EJB_CLIENT_NAME);
 		if (clientCompName != null && !clientCompName.equals("")) { //$NON-NLS-1$
 			IVirtualReference vRef = ejbComponent.getReference(clientCompName);
+			
+			if (vRef == null)
+			{
+				// check the EAR project(s)
+
+				IProject[] earProjectsList = EarUtilities.getReferencingEARProjects(ejbProject);
+				IVirtualComponent earComponent = null;
+				for (int cnt = 0; cnt < earProjectsList.length && vRef == null; cnt++)
+				{
+					earComponent = ComponentCore.createComponent(earProjectsList[cnt]);
+					vRef = EarUtilities.getComponentReference(earComponent, clientCompName);
+				}
+			}
 			if (vRef != null)
+			{
 				ejbClientComponent = vRef.getReferencedComponent();
+			}
 		} else {
 			String clientJAR = null;
 			if (jar != null)
