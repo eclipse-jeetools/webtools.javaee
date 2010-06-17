@@ -12,13 +12,15 @@ package org.eclipse.jst.j2ee.internal.common.exportmodel;
 
 import java.io.File;
 
-import org.eclipse.core.runtime.Path;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.flat.AbstractFlattenParticipant;
 import org.eclipse.wst.common.componentcore.internal.flat.IFlatFile;
 import org.eclipse.wst.common.componentcore.internal.flat.FlatVirtualComponent.FlatComponentTaskModel;
+import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
@@ -45,13 +47,24 @@ public class JEEHeirarchyExportParticipant extends AbstractFlattenParticipant {
 	}
 	
 	@Override
-	public boolean isChildModule(IVirtualComponent rootComponent,
-			FlatComponentTaskModel dataModel, IFlatFile file) {
-		if( isPossibleChild(file.getName())) {
-			File f = (File)file.getAdapter(File.class);
-			if( f != null && f.exists()) {
+	public boolean isChildModule(IVirtualComponent rootComponent, FlatComponentTaskModel dataModel, IFlatFile file) {
+		if (isPossibleChild(file.getName())) {
+			String path = null;
+			IFile f = (IFile)file.getAdapter(IFile.class);
+			if (f != null && f.exists())
+				path = f.getFullPath().toString();
+			else {
+				File f2 = (File)file.getAdapter(File.class);
+				if (f2 != null && f2.exists()) {
+					path = f2.getAbsolutePath();
+				}
+			}
+			if (path != null) {	
 				String parentType = JavaEEProjectUtilities.getJ2EEComponentType(rootComponent);
-				String childType = JavaEEProjectUtilities.getJ2EEFileType(new Path(f.getAbsolutePath()));
+				IVirtualComponent dynamicComponent = ComponentCore.createArchiveComponent(
+						rootComponent.getProject(),
+						VirtualArchiveComponent.LIBARCHIVETYPE + path, file.getModuleRelativePath());
+				String childType = JavaEEProjectUtilities.getJ2EEComponentType(dynamicComponent);
 				return isApprovedNesting(parentType, childType, true);
 			}
 		}
