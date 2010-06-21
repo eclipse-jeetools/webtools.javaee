@@ -55,15 +55,18 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategy;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.ZipFileLoadStrategyImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.ComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.archive.operations.EARComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyEnablement;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.model.IEARModelProvider;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
+import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.jst.javaee.ejb.EJBJar;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
@@ -81,6 +84,7 @@ public class ClassPathSelection {
 	protected IVirtualComponent component;
 	protected IProject earProject;
 	protected IVirtualComponent earComponent;
+	protected String earLibraryDirectory = null;
 	protected List classpathElements;
 	protected Map urisToElements;
 	protected boolean modified;
@@ -154,6 +158,7 @@ public class ClassPathSelection {
 		this(aComponent);
 		earComponent = anEarComponent;
 		earProject = earComponent.getProject();
+		refreshEARLibraryDirectory();
 		initializeElements();
 	}
 
@@ -162,6 +167,7 @@ public class ClassPathSelection {
 		earComponent = anEarComponent;
 		earProject = earComponent.getProject();
 		manifest = aManifest;
+		refreshEARLibraryDirectory();
 		initializeElements();
 	}
 	
@@ -641,13 +647,16 @@ public class ClassPathSelection {
 			}
 			String projectUri = earComponent.getReference(component.getName()).getArchiveName();
 			archives = new ArrayList(Arrays.asList(earComponent.getReferences()));
+			Path earLibDirPath = null;
+			if(earLibraryDirectory != null)
+				earLibDirPath = new Path(earLibraryDirectory);
 			
 			for (int i = 0; i < cp.length; i++) {
 				String cpEntry = cp[i];
 				String uri = ArchiveUtil.deriveEARRelativeURI(cpEntry, projectUri);
 
 				other = getVirtualReference(uri, archives);
-				if (other != null && isValidDependency(other.getReferencedComponent(), component)) {
+				if (other != null && isValidDependency(other.getReferencedComponent(), component) && (earLibraryDirectory == null || !other.getRuntimePath().equals(earLibDirPath))) {
 					element = createElement(component, other, cpEntry);
 					archives.remove(other);
 				} else {
@@ -705,6 +714,10 @@ public class ClassPathSelection {
 		}
 		
 		if (earComponent != null) {
+			Path earLibDirPath = null;
+			if(earLibraryDirectory != null)
+				earLibDirPath = new Path(earLibraryDirectory);
+			
 			if(archives !=null){
 				Collections.sort(archives, comparator);
 				//Anything that remains in the list of available archives that is valid should be
@@ -712,7 +725,7 @@ public class ClassPathSelection {
 				for (int i = 0; i < archives.size(); i++) {
 					other = (IVirtualReference) archives.get(i);
 	
-					if (other != archive && isValidDependency(other.getReferencedComponent(), component)) {
+					if (other != archive && isValidDependency(other.getReferencedComponent(), component) && (earLibraryDirectory == null || !other.getRuntimePath().equals(earLibDirPath))) {
 						IProject project = other.getReferencedComponent().getProject();
 						if (null == targetProjectName || null == project || !project.getName().equals(targetProjectName)) {
 							element = createElement(component, other, null);
@@ -727,7 +740,7 @@ public class ClassPathSelection {
 				IVirtualReference ref = newrefs[i];
 				IVirtualComponent referencedComponent = ref.getReferencedComponent();
 				boolean isBinary = referencedComponent.isBinary();
-				if( isBinary ){
+				if( isBinary && (earLibraryDirectory == null || !ref.getRuntimePath().equals(earLibDirPath))){
 
 					/**
 					 * Warning clean-up 12/05/2005
@@ -890,7 +903,18 @@ public class ClassPathSelection {
 		if (loadStrat instanceof EARComponentLoadStrategyImpl){
 			earComponent = ((EARComponentLoadStrategyImpl) loadStrat).getComponent();
 			earProject = ((EARComponentLoadStrategyImpl) loadStrat).getComponent().getProject();
+			refreshEARLibraryDirectory();
 		}	
+	}
+	
+	private void refreshEARLibraryDirectory(){
+		if(JavaEEProjectUtilities.isJEEComponent(earComponent)) {
+			final IEARModelProvider earModel = (IEARModelProvider)ModelProviderManager.getModelProvider(earProject);
+			Application app = (Application)earModel.getModelObject();
+			earLibraryDirectory = app.getLibraryDirectory();
+			if(earLibraryDirectory == null)
+				earLibraryDirectory = J2EEConstants.EAR_DEFAULT_LIB_DIR;
+		}
 	}
 
 	private void setType(ClasspathElement element, Archive other) {
