@@ -82,7 +82,7 @@ public class J2EEFlexProjDeployable extends FlatComponentDeployable implements
 	
 	@Override
 	public boolean shouldCache() {
-		return false;
+		return true;
 	}
 
 	/**
