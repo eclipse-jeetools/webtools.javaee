@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.jst.servlet.ui; singleton:=true
-Bundle-Version: 1.1.400.qualifier
+Bundle-Version: 1.1.401.qualifier
 Bundle-Activator: org.eclipse.jst.servlet.ui.internal.plugin.ServletUIPlugin
 Bundle-Vendor: %pluginVendor
 Bundle-Localization: plugin
@@ -12,7 +12,8 @@ Export-Package: org.eclipse.jst.servlet.ui,
  org.eclipse.jst.servlet.ui.internal.plugin;x-internal:=true,
  org.eclipse.jst.servlet.ui.internal.wizard;x-internal:=true,
  org.eclipse.jst.servlet.ui.project.facet
-Require-Bundle: org.eclipse.core.resources;bundle-version="[3.2.0,4.0.0)",
+Require-Bundle: org.eclipse.core.expressions;bundle-version="[3.2.0,4.0.0)",
+ org.eclipse.core.resources;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.core.runtime;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.ui.workbench;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.jface;bundle-version="[3.2.0,4.0.0)",
@@ -40,8 +41,8 @@ Require-Bundle: org.eclipse.core.resources;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.ui.navigator;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.ui.ide;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.emf.edit;bundle-version="[2.2.0,3.0.0)",
- org.eclipse.jst.jee.ui;bundle-version="1.0.100",
- org.eclipse.wst.common.modulecore.ui;bundle-version="1.0.0",
- org.eclipse.jst.common.ui;bundle-version="1.0.0"
+ org.eclipse.jst.jee.ui;bundle-version="[1.0.100,1.1.0)",
+ org.eclipse.wst.common.modulecore.ui;bundle-version="[1.0.0,1.1.0)",
+ org.eclipse.jst.common.ui;bundle-version="[1.0.0,1.1.0)"
 Eclipse-LazyStart: true
 Bundle-RequiredExecutionEnvironment: J2SE-1.5

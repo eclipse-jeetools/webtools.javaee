@@ -26,6 +26,8 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationWrapper;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.web.providers.WebAppItemProvider;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
@@ -137,7 +139,7 @@ public class J2EEWebAppItemProvider extends WebAppItemProvider {
 	/**
 	 * Initialize the list of children
 	 */
-	private void initChildren() {
+	private void initChildren(WebApp webApp) {
 		if (isInitializing)
 			return;
 		
@@ -200,11 +202,15 @@ public class J2EEWebAppItemProvider extends WebAppItemProvider {
             
 			children.add(webServletGroup = new WebServletGroupItemProvider(adapterFactory, weakWebApp));
 			children.add(webServletMappingGroup = new WebServletMappingGroupItemProvider(adapterFactory, weakWebApp));
-			children.add(webFiltersGroup = new WebFiltersGroupItemProvider(adapterFactory, weakWebApp));
-			children.add(webFilterMappingGroup = new WebFilterMappingGroupItemProvider(adapterFactory, weakWebApp));
 			children.add(webRefsGroup = new WebReferencesGroupItemProvider(adapterFactory, weakWebApp));
 			children.add(webSecurityGroup = new WebSecurityGroupItemProvider(adapterFactory, weakWebApp));
-			children.add(webListenerGroup = new WebListenerGroupItemProvider(adapterFactory, weakWebApp));
+			
+			// show the below nodes only if Web 2.3 and greater
+			if (J2EEVersionUtil.convertVersionStringToInt(webApp.getVersion()) > J2EEVersionConstants.SERVLET_2_2) {
+				children.add(webFiltersGroup = new WebFiltersGroupItemProvider(adapterFactory, weakWebApp));
+				children.add(webFilterMappingGroup = new WebFilterMappingGroupItemProvider(adapterFactory, weakWebApp));
+				children.add(webListenerGroup = new WebListenerGroupItemProvider(adapterFactory, weakWebApp));
+			}
 		} finally {
 			isInitializing = false;
 		}
@@ -219,7 +225,7 @@ public class J2EEWebAppItemProvider extends WebAppItemProvider {
 			// If uninitialized or web app needs to re-initialize, init the children
 			if(weakWebApp == null || children.isEmpty() || webApp != weakWebApp.get()) {
 				weakWebApp = new WeakReference(webApp);
-				initChildren();
+				initChildren(webApp);
 			}
 //			if (isInitializing) return children;
 //			isInitializing = true;

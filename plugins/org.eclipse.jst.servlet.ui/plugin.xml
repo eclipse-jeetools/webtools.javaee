@@ -480,5 +480,15 @@
            name="%Project">
      </referenceFragment>
   </extension>
+
+  <extension point="org.eclipse.core.expressions.propertyTesters">
+	<propertyTester
+  		id="org.eclipse.jst.servlet.ui.internal.navigator.FacetedProjectPropertyTester"
+  		type="org.eclipse.jst.servlet.ui.internal.navigator.ICompressedNode"
+  		namespace="org.eclipse.jst.servlet.ui.navigator"
+  		properties="projectFacet"
+  		class="org.eclipse.jst.servlet.ui.internal.navigator.FacetedProjectPropertyTester">
+	</propertyTester>
+  </extension>
   
 </plugin>

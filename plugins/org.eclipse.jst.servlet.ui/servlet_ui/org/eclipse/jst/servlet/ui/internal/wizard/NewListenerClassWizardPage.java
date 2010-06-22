@@ -15,12 +15,17 @@ import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.USE
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.war.ui.util.WebListenerGroupItemProvider;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.jee.ui.internal.navigator.web.GroupListenerItemProvider;
 import org.eclipse.jst.jee.ui.internal.navigator.web.WebAppProvider;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 
 public class NewListenerClassWizardPage extends NewWebClassWizardPage {
 
@@ -64,6 +69,24 @@ public class NewListenerClassWizardPage extends NewWebClassWizardPage {
 	
 	@Override
 	protected void handleClassButtonSelected() {
+	}
+
+	@Override
+	protected boolean isProjectValid(IProject project) {
+		boolean result = super.isProjectValid(project);
+		if (!result) 
+			return false;
+		
+		// get the version of the web facet
+		IProjectFacetVersion facetVersion = JavaEEProjectUtilities.getProjectFacetVersion(project, IJ2EEFacetConstants.DYNAMIC_WEB);
+		if (facetVersion == null) 
+			return false;
+		
+		// convert the version to an integer
+		int version = J2EEVersionUtil.convertVersionStringToInt(facetVersion.getVersionString());
+		
+		// only web 2.3 and greater projects are valid
+		return  version > J2EEVersionConstants.SERVLET_2_2;
 	}
 	
 }
