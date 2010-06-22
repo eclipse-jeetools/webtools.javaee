@@ -34,6 +34,7 @@ import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.ModuleFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.actions.AbstractOpenAction;
 import org.eclipse.jst.j2ee.internal.actions.ComponentEditorInput;
 import org.eclipse.jst.j2ee.internal.archive.JavaEEArchiveUtilities;
@@ -282,17 +283,22 @@ public class OpenJEEResourceAction extends AbstractOpenAction {
 		
 		
 		if (srcObject instanceof EObject) {
-			IResource resource = WorkbenchResourceHelper.getFile((EObject)srcObject);
-			if (resource == null)
-				return;
-			IProject project = resource.getProject();
-			
-			EJBJar ejbJar = (EJBJar) ModelProviderManager.getModelProvider(project).getModelObject(new Path("META-INF/ejb-jar.xml"));  //$NON-NLS-1$
-			
-			if(srcObject instanceof EjbLocalRefImpl){
-				openEjbLocalRefNode(resource, ejbJar);
-			} else if(srcObject instanceof ResourceRefImpl){
-				openResourceRefNode(resource, ejbJar);
+			if(srcObject instanceof EjbLocalRefImpl || srcObject instanceof ResourceRefImpl){
+				IResource resource = WorkbenchResourceHelper.getFile((EObject)srcObject);
+				if (resource == null)
+				{
+					openEObject((EObject) srcObject);
+					return;
+				}
+				IProject project = resource.getProject();
+				
+				EJBJar ejbJar = (EJBJar) ModelProviderManager.getModelProvider(project).getModelObject(new Path(J2EEConstants.EJBJAR_DD_URI));
+				
+				if(srcObject instanceof EjbLocalRefImpl){
+					openEjbLocalRefNode(resource, ejbJar);
+				} else if(srcObject instanceof ResourceRefImpl){
+					openResourceRefNode(resource, ejbJar);
+				}
 			} else {			
 			    openEObject((EObject) srcObject);
 			}
