@@ -34,7 +34,7 @@
          <messageCategory
                id="org.eclipse.jst.jee.ejb3.nobeansmessage"
                label="%org.eclipse.jst.jee.ejb3.nobeansmessage.label"
-               severity="error">
+               severity="warning">
          </messageCategory>
       </validator>
    </extension>  

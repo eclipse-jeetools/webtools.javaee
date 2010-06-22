@@ -37,6 +37,8 @@ import org.eclipse.wst.validation.internal.ValOperation;
 @SuppressWarnings("restriction")
 public class UIEJB3Validator extends AbstractValidator {
 
+	private static final String NO_BEANS_MESSAGE = "org.eclipse.jst.jee.ejb3.nobeansmessage"; //$NON-NLS-1$
+	
 	public static String ID = "org.eclipse.jst.jee.ejb3.validator"; //$NON-NLS-1$
 	public static String MARKER_ID_NO_BEANS = "org.eclipse.jst.jee.ejb3.nobeans"; //$NON-NLS-1$
 		
@@ -63,7 +65,11 @@ public class UIEJB3Validator extends AbstractValidator {
 		EnterpriseBeans ebs = ejbJar.getEnterpriseBeans();
 		if (ebs == null || ebs.getSessionBeans().size() + ebs.getMessageDrivenBeans().size() + ebs.getEntityBeans().size() == 0) {
 			ValidationResult vRes = new ValidationResult();
-			ValidatorMessage vMsg = createValidatorMessage(Messages.NO_BEANS_ERROR, proj, IMarker.SEVERITY_ERROR, IMarker.PRIORITY_HIGH); 
+			ValidatorMessage vMsg = createValidatorMessage(
+					Messages.NO_BEANS_ERROR, 
+					proj, 
+					getParent().getMessage(NO_BEANS_MESSAGE).getCurrent().getMarkerSeverity(), 
+					IMarker.PRIORITY_HIGH); 
 			vRes.add(vMsg);
 			return vRes;
 		}		
