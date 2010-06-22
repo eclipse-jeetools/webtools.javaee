@@ -14,6 +14,8 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.IModelProviderEvent;
@@ -66,6 +68,8 @@ import org.eclipse.jst.jee.ejb.Activator;
 public class EJB3MergedModelProvider extends AbstractMergedModelProvider<EJBJar> {
 
 	private IProject clientProject;
+	protected Path EJB_JAR_XML_PATH = new Path(J2EEConstants.EJBJAR_DD_URI);
+
 
 	public EJB3MergedModelProvider(IProject project) {
 		super(project);
@@ -93,7 +97,14 @@ public class EJB3MergedModelProvider extends AbstractMergedModelProvider<EJBJar>
 	}
 
 	public Object getModelObject(IPath modelPath) {
-		return null;
+		if (modelPath == null){
+			return getModelObject();
+		} else if (EJB_JAR_XML_PATH.equals(modelPath)){
+			return getXmlEjbJar();
+		} else if ("java".equals(modelPath.getFileExtension()) || "class".equals(modelPath.getFileExtension())) { //$NON-NLS-1$ //$NON-NLS-2$
+			return getAnnotationEjbJar();
+		}
+		return getModelObject();
 	}
 
 	@Override
