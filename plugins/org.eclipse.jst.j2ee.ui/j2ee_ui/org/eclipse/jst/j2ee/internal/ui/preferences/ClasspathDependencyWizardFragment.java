@@ -47,6 +47,7 @@ import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants.DependencyAttributeType;
 import org.eclipse.jst.j2ee.classpathdep.UpdateClasspathAttributeUtil;
 import org.eclipse.jst.j2ee.internal.ManifestUIResourceHandler;
+import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.modulecore.util.DummyClasspathDependencyContainerVirtualComponent;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.swt.SWT;
@@ -104,6 +105,7 @@ public class ClasspathDependencyWizardFragment extends WizardFragment implements
 	public Composite createComposite(Composite parent, IWizardHandle handle) {
 		this.handle = handle;
 		Composite c = new Composite(parent, SWT.NONE);
+		PlatformUI.getWorkbench().getHelpSystem().setHelp(c, IJ2EEUIContextIds.DEPLOYMENT_ASSEMBLY_PREFERENCE_PAGE_ADD_REFERENCED_PROJECT_CLASSPATH_ENTRIES);
 		c.setLayout(new GridLayout());
 		handle.setTitle(Messages.ClasspathDependencyFragmentTitle);
 		handle.setDescription(Messages.ClasspathDependencyFragmentDescription);
