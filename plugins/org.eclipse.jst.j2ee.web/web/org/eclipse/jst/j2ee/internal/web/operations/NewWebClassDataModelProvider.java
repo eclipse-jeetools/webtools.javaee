@@ -92,8 +92,8 @@ public abstract class NewWebClassDataModelProvider extends NewJavaClassDataModel
 	 */
 	protected List interfaceList;
 	
-	private String classNameCache;
-	private String existingClassNameCache;
+	private String classNameCache = ""; //$NON-NLS-1$
+	private String existingClassNameCache = ""; //$NON-NLS-1$
 
 	private static boolean useAnnotations = false;
 	

@@ -73,43 +73,52 @@ public class NewServletClassWizardPage extends NewWebClassWizardPage {
 	@Override
 	protected void handleClassButtonSelected() {
 		getControl().setCursor(new Cursor(getShell().getDisplay(), SWT.CURSOR_WAIT));
-		IProject project = (IProject) model.getProperty(PROJECT);
-		IVirtualComponent component = ComponentCore.createComponent(project);
-		MultiSelectFilteredFileSelectionDialog ms = new MultiSelectFilteredFileSelectionDialog(
-				getShell(),
-				NEW_SERVLET_WIZARD_WINDOW_TITLE,
-				CHOOSE_SERVLET_CLASS, 
-				JSPEXTENSIONS, 
-				false, 
-				project);
-		IContainer root = component.getRootFolder().getUnderlyingFolder();
-		ms.setInput(root);
-		ms.open();
-		if (ms.getReturnCode() == Window.OK) {
-			String qualifiedClassName = ""; //$NON-NLS-1$
-			if (ms.getSelectedItem() == MultiSelectFilteredFileSelectionDialog.JSP) {
-				Object obj = ms.getFirstResult();
-				if (obj != null) {
-					if (obj instanceof IFile) {
-						IFile file = (IFile) obj;
-						IPath pFull = file.getFullPath();
-						IPath pBase = root.getFullPath();
-						IPath path = pFull.removeFirstSegments(pBase.segmentCount());
-						qualifiedClassName = path.makeAbsolute().toString();
-						model.setProperty(IS_SERVLET_TYPE, new Boolean(false));
+		try {
+			IProject project = (IProject) model.getProperty(PROJECT);
+			
+			if (project == null) {
+				// show info message
+				return;
+			}
+			
+			IVirtualComponent component = ComponentCore.createComponent(project);
+			MultiSelectFilteredFileSelectionDialog ms = new MultiSelectFilteredFileSelectionDialog(
+					getShell(),
+					NEW_SERVLET_WIZARD_WINDOW_TITLE,
+					CHOOSE_SERVLET_CLASS, 
+					JSPEXTENSIONS, 
+					false, 
+					project);
+			IContainer root = component.getRootFolder().getUnderlyingFolder();
+			ms.setInput(root);
+			ms.open();
+			if (ms.getReturnCode() == Window.OK) {
+				String qualifiedClassName = ""; //$NON-NLS-1$
+				if (ms.getSelectedItem() == MultiSelectFilteredFileSelectionDialog.JSP) {
+					Object obj = ms.getFirstResult();
+					if (obj != null) {
+						if (obj instanceof IFile) {
+							IFile file = (IFile) obj;
+							IPath pFull = file.getFullPath();
+							IPath pBase = root.getFullPath();
+							IPath path = pFull.removeFirstSegments(pBase.segmentCount());
+							qualifiedClassName = path.makeAbsolute().toString();
+							model.setProperty(IS_SERVLET_TYPE, new Boolean(false));
+						}
+					}
+				} 
+				else {
+					IType type = (IType) ms.getFirstResult();
+					if (type != null) {
+						qualifiedClassName = type.getFullyQualifiedName();
+						model.setProperty(IS_SERVLET_TYPE, new Boolean(true));
 					}
 				}
-			} 
-			else {
-				IType type = (IType) ms.getFirstResult();
-				if (type != null) {
-					qualifiedClassName = type.getFullyQualifiedName();
-					model.setProperty(IS_SERVLET_TYPE, new Boolean(true));
-				}
+				existingClassText.setText(qualifiedClassName);
 			}
-			existingClassText.setText(qualifiedClassName);
+		} finally {
+			getControl().setCursor(null);
 		}
-		getControl().setCursor(null);
 	}
 	
 	@Override
