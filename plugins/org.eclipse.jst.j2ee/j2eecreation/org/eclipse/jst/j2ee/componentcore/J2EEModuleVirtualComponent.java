@@ -36,6 +36,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyEnablement;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyVirtualComponent;
+import org.eclipse.jst.j2ee.internal.common.J2EEDependencyListener;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.EarUtilities;
@@ -58,6 +59,7 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 	public static String GET_FUZZY_EAR_REFS = "GET_FUZZY_EAR_REFS"; //$NON-NLS-1$
 	
 	private long depGraphModStamp;
+	private long jeeModStamp;
 	
 	private IVirtualReference[] hardReferences = null;
 	private IVirtualReference[] javaReferences = null;
@@ -94,7 +96,7 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 	}
 
 	protected IVirtualReference[] getHardReferences() {
-		if (hardReferences == null || !checkIfStillValid()) {
+		if (!checkIfStillValid() || hardReferences == null) {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put(REQUESTED_REFERENCE_TYPE, HARD_REFERENCES);
 			hardReferences = super.getReferences(map);
@@ -459,6 +461,7 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 
 	private boolean checkIfStillValid() {
 		boolean valid = IDependencyGraph.INSTANCE.getModStamp() == depGraphModStamp;
+		valid = valid && J2EEDependencyListener.INSTANCE.getModStamp() == jeeModStamp;
 		if (!valid) {
 			clearCache();
 		}
@@ -469,6 +472,7 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 	protected void clearCache() {
 		super.clearCache();
 		depGraphModStamp = IDependencyGraph.INSTANCE.getModStamp();
+		jeeModStamp = J2EEDependencyListener.INSTANCE.getModStamp();
 		hardReferences = null;
 		javaReferences = null;
 		parentEarManifestReferences = null;

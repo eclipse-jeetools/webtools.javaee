@@ -1,7 +1,6 @@
 package org.eclipse.jst.j2ee.internal.common;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.resources.IContainer;
@@ -12,7 +11,6 @@ import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IResourceDeltaVisitor;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
@@ -21,7 +19,6 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
-import org.eclipse.wst.common.componentcore.internal.builder.IDependencyGraph;
 import org.eclipse.wst.common.componentcore.internal.impl.WTPModulesResourceFactory;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
@@ -31,10 +28,26 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
 public class J2EEDependencyListener implements IResourceChangeListener, IResourceDeltaVisitor {
 
 	public static J2EEDependencyListener INSTANCE = new J2EEDependencyListener();
-
+	
+	private Object lock = new Object();
+	
+	private long modStamp = 0;
+	
 	private J2EEDependencyListener() {
 	}
 
+	public long getModStamp(){
+		synchronized (lock) {
+			return modStamp;
+		}
+	}
+	
+	private void incrementModStamp(){
+		synchronized (lock){
+			modStamp++;
+		}
+	}
+	
 	private List<IProject> cachedEARModuleDependencies = new ArrayList<IProject>();
 
 	private void cacheModuleDependencies(IProject earProject) {
@@ -50,18 +63,22 @@ public class J2EEDependencyListener implements IResourceChangeListener, IResourc
 		}
 	}
 
-	private void updateModuleDependencies() {
+	/**
+	 * returns whether the modStamp has been updated
+	 * @return
+	 */
+	private boolean updateModuleDependencies() {
 		if (!cachedEARModuleDependencies.isEmpty()) {
-			for (Iterator<IProject> iterator = cachedEARModuleDependencies.iterator(); iterator.hasNext();) {
-				IDependencyGraph.INSTANCE.update(iterator.next());
-			}
+			incrementModStamp();
 			cachedEARModuleDependencies.clear();
+			return true;
 		}
+		return false;
 	}
 
+	private long modStampAtResourceChanged = 0;
 	public void resourceChanged(IResourceChangeEvent event) {
 		try {
-			IDependencyGraph.INSTANCE.preUpdate();
 			switch (event.getType()) {
 			case IResourceChangeEvent.PRE_CLOSE:
 			case IResourceChangeEvent.PRE_DELETE:
@@ -71,16 +88,19 @@ public class J2EEDependencyListener implements IResourceChangeListener, IResourc
 				}
 				break;
 			case IResourceChangeEvent.POST_CHANGE:
+				modStampAtResourceChanged = getModStamp();
 				event.getDelta().accept(this);
 			}
 		} catch (CoreException e) {
 			J2EEPlugin.logError(e);
-		} finally {
-			IDependencyGraph.INSTANCE.postUpdate();
 		}
 	}
 
 	public boolean visit(IResourceDelta delta) throws CoreException {
+		if(modStampAtResourceChanged != getModStamp()){
+			//already incremented the modification stamp, no need to continue
+			return false;
+		}
 		IResource resource = delta.getResource();
 		switch (resource.getType()) {
 		case IResource.ROOT:
@@ -110,7 +130,9 @@ public class J2EEDependencyListener implements IResourceChangeListener, IResourc
 					// this will also pickup both close and open events
 					// if the EAR project is closed, the cached dependent
 					// modules will already
-					updateModuleDependencies();
+					if(updateModuleDependencies()){
+						return false;
+					}
 				}
 				return true;
 			}
@@ -123,28 +145,18 @@ public class J2EEDependencyListener implements IResourceChangeListener, IResourc
 			if (name.equals(J2EEConstants.MANIFEST_SHORT_NAME)) {
 				IFile manifestFile = J2EEProjectUtilities.getManifestFile(resource.getProject(), false);
 				if (null == manifestFile || resource.equals(manifestFile)) {
-					IDependencyGraph.INSTANCE.update(resource.getProject(), IDependencyGraph.MODIFIED);
+					incrementModStamp();
 				}
 			} else if (name.equals(WTPModulesResourceFactory.WTP_MODULES_SHORT_NAME)) {
 				if (EarUtilities.isEARProject(resource.getProject())) {
-					// unfortunately, in this case, the only easy way to update
-					// is to force the update of all projects
-					IProject[] allProjects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
-					for (IProject sourceProject : allProjects) {
-						IDependencyGraph.INSTANCE.update(sourceProject, IDependencyGraph.MODIFIED);
-					}
+					incrementModStamp();
 				}
 			} else if (endsWithIgnoreCase(name, IJ2EEModuleConstants.JAR_EXT) || endsWithIgnoreCase(name, IJ2EEModuleConstants.WAR_EXT) || endsWithIgnoreCase(name, IJ2EEModuleConstants.RAR_EXT)) {
 				if (EarUtilities.isEARProject(resource.getProject())) {
 					IVirtualComponent comp = ComponentCore.createComponent(resource.getProject());
 					if (isInTree((IFile)resource, comp.getRootFolder())) {
-						IVirtualReference[] refs = comp.getReferences();
-						for (IVirtualReference ref : refs) {
-							IDependencyGraph.INSTANCE.update(ref.getReferencedComponent().getProject(), IDependencyGraph.MODIFIED);
-						}
-						IDependencyGraph.INSTANCE.update(resource.getProject(), IDependencyGraph.MODIFIED);
+						incrementModStamp();
 					}
-
 				}
 			}
 		}

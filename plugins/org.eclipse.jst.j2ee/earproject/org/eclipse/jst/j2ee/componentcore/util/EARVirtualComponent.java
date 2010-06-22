@@ -30,6 +30,7 @@ import org.eclipse.jst.common.jdt.internal.javalite.JavaCoreLite;
 import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants.DependencyAttributeType;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
+import org.eclipse.jst.j2ee.internal.common.J2EEDependencyListener;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathInitializer;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.modulecore.util.DummyClasspathDependencyContainerVirtualComponent;
@@ -56,6 +57,7 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 
 	private IVirtualReference[] cachedReferences;
 	private long depGraphModStamp;
+	private long jeeModStamp;
 	
 	public EARVirtualComponent() {
 		super();
@@ -233,19 +235,23 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 	public IVirtualReference[] getCachedReferences() {
 		if (cachedReferences != null && checkIfStillValid())
 			return cachedReferences;
-		depGraphModStamp = IDependencyGraph.INSTANCE.getModStamp();
 		return null;
 	}
 
 	private boolean checkIfStillValid() {
-		return IDependencyGraph.INSTANCE.getModStamp() == depGraphModStamp;
+		boolean valid = IDependencyGraph.INSTANCE.getModStamp() == depGraphModStamp;
+		valid = valid && J2EEDependencyListener.INSTANCE.getModStamp() == jeeModStamp;
+		if (!valid) {
+			clearCache();
+		}
+		return valid;
 	}
 	
 	@Override
 	protected void clearCache() {
 		super.clearCache();
-		
 		depGraphModStamp = IDependencyGraph.INSTANCE.getModStamp();
+		jeeModStamp = J2EEDependencyListener.INSTANCE.getModStamp();
 		cachedReferences = null;
 	}
 

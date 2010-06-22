@@ -377,6 +377,9 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 			Map<IProject, Set<IProject>> addedReferences = event.getAddedReferences();
 			for(IProject referencedProject : addedReferences.keySet()){
 				queueUpdate(referencedProject);
+				for(IProject referencingProject : addedReferences.get(referencedProject)){
+					queueUpdate(referencingProject);
+				}
 			}
 		}
 	}
@@ -394,7 +397,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 							if(JavaEEProjectUtilities.isEARProject((IProject)resource)){
 								IProject earProject = (IProject) resource;
 								
-								IVirtualReference[] refs = J2EEProjectUtilities.getComponentReferences(ComponentCore.createComponent(earProject));
+								IVirtualReference[] refs = EarUtilities.getComponentReferences(ComponentCore.createComponent(earProject));
 								IVirtualComponent comp = null;
 								for (int j = 0; j < refs.length; j++) {
 									comp = refs[j].getReferencedComponent();
