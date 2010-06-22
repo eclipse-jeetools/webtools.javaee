@@ -10,6 +10,8 @@
  ***********************************************************************/
 package org.eclipse.jst.jee.ui.internal.navigator;
 
+import java.util.List;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -38,9 +40,15 @@ import org.eclipse.jst.j2ee.internal.archive.JavaEEArchiveUtilities;
 import org.eclipse.jst.j2ee.internal.componentcore.ComponentArchiveOptions;
 import org.eclipse.jst.j2ee.internal.ejb.provider.J2EEJavaClassProviderHelper;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
+import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.webservice.wsdd.BeanLink;
+import org.eclipse.jst.javaee.core.EjbLocalRef;
 import org.eclipse.jst.javaee.core.JavaEEObject;
 import org.eclipse.jst.javaee.core.Listener;
+import org.eclipse.jst.javaee.core.ResourceRef;
+import org.eclipse.jst.javaee.core.internal.impl.EjbLocalRefImpl;
+import org.eclipse.jst.javaee.core.internal.impl.ResourceRefImpl;
+import org.eclipse.jst.javaee.ejb.EJBJar;
 import org.eclipse.jst.javaee.ejb.EntityBean;
 import org.eclipse.jst.javaee.ejb.MessageDrivenBean;
 import org.eclipse.jst.javaee.ejb.SessionBean;
@@ -274,14 +282,26 @@ public class OpenJEEResourceAction extends AbstractOpenAction {
 		
 		
 		if (srcObject instanceof EObject) {
-			openEObject((EObject) srcObject);
+			IResource resource = WorkbenchResourceHelper.getFile((EObject)srcObject);
+			if (resource == null)
+				return;
+			IProject project = resource.getProject();
+			
+			EJBJar ejbJar = (EJBJar) ModelProviderManager.getModelProvider(project).getModelObject(new Path("META-INF/ejb-jar.xml"));  //$NON-NLS-1$
+			
+			if(srcObject instanceof EjbLocalRefImpl){
+				openEjbLocalRefNode(resource, ejbJar);
+			} else if(srcObject instanceof ResourceRefImpl){
+				openResourceRefNode(resource, ejbJar);
+			} else {			
+			    openEObject((EObject) srcObject);
+			}
 		} else if (srcObject instanceof BeanInterfaceNode) {
 			openAppropriateEditor(((BeanInterfaceNode) srcObject).get_fqn());
 			return;
 		} else if (srcObject instanceof BeanNode) {
 			openAppropriateEditor(((BeanNode) srcObject).getEjbClassQualifiedName());
 			return;
-
 		} else if (srcObject instanceof WebAppProvider) {
 			IFile file = ((WebAppProvider) srcObject).getDDFile();
 			if (file.isAccessible()){				
@@ -310,6 +330,42 @@ public class OpenJEEResourceAction extends AbstractOpenAction {
 		} else if (srcObject instanceof Resource)
 			openAppropriateEditor(WorkbenchResourceHelper
 					.getFile((Resource) srcObject));
+	}
+
+	private void openResourceRefNode(IResource resource, EJBJar ejbJar) {
+		if (ejbJar.getEnterpriseBeans() != null) {
+			List<SessionBean> beans = ejbJar.getEnterpriseBeans().getSessionBeans();
+			for (SessionBean bean : beans) {
+				for (ResourceRef localref : bean.getResourceRefs()) {
+					if (localref.getResRefName().equals(((ResourceRef) srcObject).getResRefName())) {
+						openAppropriateEditor(resource);
+						return;
+					}
+				}
+			}
+		}
+		if (((ResourceRefImpl) srcObject).eContainer() instanceof SessionBean) {
+			openAppropriateEditor(((SessionBean) (((ResourceRefImpl) srcObject).eContainer())).getEjbClass());
+			return;
+		}
+	}
+
+	private void openEjbLocalRefNode(IResource resource, EJBJar ejbJar) {
+		if (ejbJar.getEnterpriseBeans() != null) {
+			List<SessionBean> beans = ejbJar.getEnterpriseBeans().getSessionBeans();
+			for (SessionBean bean : beans) {
+				for (EjbLocalRef localref : bean.getEjbLocalRefs()) {
+					if (localref.getEjbRefName().equals(((EjbLocalRef) srcObject).getEjbRefName())) {
+						openAppropriateEditor(resource);
+						return;
+					}
+				}
+			}
+		}
+		if (((EjbLocalRefImpl) srcObject).eContainer() instanceof SessionBean) {
+			openAppropriateEditor(((SessionBean) (((EjbLocalRefImpl) srcObject).eContainer())).getEjbClass());
+		    return;
+		}
 	}
 
 	private void openEObject(EObject _srcObject) {
