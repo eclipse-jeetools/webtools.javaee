@@ -64,7 +64,12 @@ public class BundledNode extends AbstractEarNode {
 
 		Path libPath = new Path("/"); //$NON-NLS-1$
 		if (bundledLibsDirectoryNode == null){
-			libPath = new Path("/" + recomputeLibFolder(getEarProject())); //$NON-NLS-1$
+			String modelLibPath = recomputeLibFolder(getEarProject());
+			String prefix = "/"; //$NON-NLS-1$
+			if (modelLibPath.startsWith(prefix)){
+				prefix = ""; //$NON-NLS-1$
+			}
+			libPath = new Path(prefix + recomputeLibFolder(getEarProject())); 
 		}
 		
 		List libs = getComponentReferencesAsList(UTILITY, projectComponent,

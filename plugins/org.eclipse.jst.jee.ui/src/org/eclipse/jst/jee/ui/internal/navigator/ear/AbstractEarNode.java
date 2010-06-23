@@ -76,9 +76,15 @@ public abstract class AbstractEarNode {
 				if (componentTypes == null || componentTypes.size() == 0) {
 					components.add(refComponents[i]);
 				} else {
-					IPath runtimePath2 = getRealRuntimePath(refComponents[i]);
-					if (runtimePath2.equals(runtimePath) && componentTypes.contains(JavaEEProjectUtilities.getJ2EEComponentType(module))) {
-						components.add(refComponents[i]);
+					if (componentTypes.contains(JavaEEProjectUtilities.getJ2EEComponentType(module))) {
+						if (runtimePath != null){
+							IPath runtimePath2 = getRealRuntimePath(refComponents[i]);
+							if (runtimePath2.equals(runtimePath)) {
+								components.add(refComponents[i]);
+							}
+						} else {
+							components.add(refComponents[i]);
+						}	
 					}
 				}
 			}

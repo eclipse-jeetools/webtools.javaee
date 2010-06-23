@@ -13,7 +13,6 @@ package org.eclipse.jst.jee.ui.internal.navigator.ear;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.jee.ui.internal.Messages;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -45,6 +44,6 @@ public class ModulesNode extends AbstractEarNode {
 	 @Override
 	public List getModules() {
 	    	IVirtualComponent projectComponent = ComponentCore.createComponent(getEarProject());
-	    	return getComponentReferencesAsList(implicitUtilityReferenceTypes, projectComponent, new Path("/")); //$NON-NLS-1$
+	    	return getComponentReferencesAsList(implicitUtilityReferenceTypes, projectComponent, null);
 	 }
 }
