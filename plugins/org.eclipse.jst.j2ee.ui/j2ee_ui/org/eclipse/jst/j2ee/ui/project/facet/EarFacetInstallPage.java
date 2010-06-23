@@ -49,6 +49,8 @@ import org.eclipse.jst.j2ee.internal.wizard.J2EEComponentLabelProvider;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEModuleFacetInstallPage;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.accessibility.AccessibleAdapter;
+import org.eclipse.swt.accessibility.AccessibleEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -167,6 +169,12 @@ public class EarFacetInstallPage extends J2EEModuleFacetInstallPage implements I
 		moduleProjectsViewer.getTable().setHeaderVisible(false);
 		moduleProjectsViewer.getTable().setLinesVisible(false);
 		moduleProjectsViewer.setSorter(null);
+		this.moduleProjectsViewer.getTable().getAccessible().addAccessibleListener(
+        		new AccessibleAdapter() {			
+        			@Override
+        			public void getName(AccessibleEvent e) {
+        				e.result = J2EEUIMessages.getResourceString(J2EEUIMessages.J2EE_MODULE_DEPENDENCIES_LABEL_ACCESSIBILITY);
+        		}});
 		
 		createButtonsGroup(composite);
 	}

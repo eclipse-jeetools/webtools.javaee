@@ -139,6 +139,7 @@ public class J2EEUIMessages extends Messages {
 	public static final String EAR_COMPONENT_SECOND_PG_TITLE = "EARComponentCreationWizard.secondPage.title"; //$NON-NLS-1$
 	public static final String EAR_COMPONENT_SECOND_PG_DESC = "EARComponentCreationWizard.secondPage.desc"; //$NON-NLS-1$
 	public static final String J2EE_MODULE_DEPENDENCIES_LABEL = "J2EEModuleDependencies.label"; //$NON-NLS-1$
+	public static final String J2EE_MODULE_DEPENDENCIES_LABEL_ACCESSIBILITY = "J2EEModuleDependencies.label_accessibility"; //$NON-NLS-1$
 	public static final String APPCLIENT_COMPONENT_WIZ_TITLE = "AppClientComponentCreationWizard.title"; //$NON-NLS-1$
 	public static final String APPCLIENT_COMPONENT_MAIN_PG_TITLE = "AppClientComponentCreationWizard.mainPage.title"; //$NON-NLS-1$
 	public static final String APPCLIENT_COMPONENT_MAIN_PG_DESC = "AppClientComponentCreationWizard.mainPage.desc"; //$NON-NLS-1$
