@@ -228,30 +228,49 @@ public class WebAnnotationFactory extends AbstractAnnotationFactory {
 	private void processUrlMapping(Result result, IAnnotation annotation, JavaEEObject artifact) throws JavaModelException {
 		IMemberValuePair[] pairs = annotation.getMemberValuePairs();
 		Object values = getAnnotatedValue(URL_PATTERNS_NAME, pairs);
-		if (!isArrayOfObject(values))
+		if (values == null){
+			values = getAnnotatedValue("value", pairs); //$NON-NLS-1$			
+		}
+		if (values == null){
 			return;
+		}
 		if(Servlet.class.isInstance(artifact)){
 			String servletName = ((Servlet)artifact).getServletName();
 			ServletMapping mapping = WebFactory.eINSTANCE.createServletMapping();
 			mapping.setServletName(servletName);
-			for (Object urlPattern : (Object[]) values) {
-				UrlPatternType urlPatternType = JavaeeFactory.eINSTANCE.createUrlPatternType();
-				urlPatternType.setValue((String) urlPattern);
-				mapping.getUrlPatterns().add(urlPatternType);	
+			if (!isArrayOfObject(values)){
+				transformToMapping(mapping, values);
+			} else {
+				for (Object urlPattern : (Object[]) values) {
+					transformToMapping(mapping, urlPattern);	
+				}
 			}
 			result.getAdditional().add(mapping);
 		} else if(Filter.class.isInstance(artifact)){
 			String filterName = ((Filter)artifact).getFilterName();
 			FilterMapping mapping = WebFactory.eINSTANCE.createFilterMapping();
 			mapping.setFilterName(filterName);
-			for (Object urlPattern : (Object[]) values) {
+			if (!isArrayOfObject(values)){
 				UrlPatternType urlPatternType = JavaeeFactory.eINSTANCE.createUrlPatternType();
-				urlPatternType.setValue((String) urlPattern);
-				mapping.getUrlPatterns().add(urlPatternType);	
+				urlPatternType.setValue((String) values);
+				mapping.getUrlPatterns().add(urlPatternType);
+			} else {
+				for (Object urlPattern : (Object[]) values) {
+					UrlPatternType urlPatternType = JavaeeFactory.eINSTANCE.createUrlPatternType();
+					urlPatternType.setValue((String) urlPattern);
+					mapping.getUrlPatterns().add(urlPatternType);
+				}
 			}
+			
 			result.getAdditional().add(mapping);
 		}
 			
+	}
+
+	private void transformToMapping(ServletMapping mapping, Object urlPattern) {
+		UrlPatternType urlPatternType = JavaeeFactory.eINSTANCE.createUrlPatternType();
+		urlPatternType.setValue((String) urlPattern);
+		mapping.getUrlPatterns().add(urlPatternType);
 	}
 
 }
