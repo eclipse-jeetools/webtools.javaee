@@ -142,12 +142,10 @@ public class EjbClientJarCreationOperation
 			String clientURI = model.getStringProperty(CLIENT_URI);
 			c.setMetaProperty(CreationConstants.CLIENT_JAR_URI, clientURI);
 			
-			
 			try{
 				for( int i = 0;  i< earprojects.length; i++ ){
 					runAddClientToEAROperation( earprojects[i].getName(), model, monitor);
 				}
-				runAddClientToEJBOperation(model, monitor);
 
 				updateEJBDD(model, monitor);
 	            moveOutgoingJARDependencies();
