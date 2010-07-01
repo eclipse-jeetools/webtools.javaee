@@ -43,21 +43,23 @@ public class UpdateManifestOperation extends AbstractDataModelOperation {
 		
 		String classPathValue = model.getStringProperty(UpdateManifestDataModelProperties.JAR_LIST_TEXT_UI);
 		try {
-			ArchiveManifest mf = ManifestUtilities.readManifest(file);
-			
-			if (mf == null)
-				mf = new ArchiveManifestImpl();
-			mf.addVersionIfNecessary();
-			if (model.getBooleanProperty(UpdateManifestDataModelProperties.MERGE)) {
-				mf.mergeClassPath(ManifestUtilities.getTokens(classPathValue));
-			} else {
-				mf.setClassPath(classPathValue);
+			if(file != null && file.exists()) {
+				ArchiveManifest mf = ManifestUtilities.readManifest(file);
+				
+				if (mf == null)
+					mf = new ArchiveManifestImpl();
+				mf.addVersionIfNecessary();
+				if (model.getBooleanProperty(UpdateManifestDataModelProperties.MERGE)) {
+					mf.mergeClassPath(ManifestUtilities.getTokens(classPathValue));
+				} else {
+					mf.setClassPath(classPathValue);
+				}
+				if (model.isPropertySet(UpdateManifestDataModelProperties.MAIN_CLASS)) {
+					mf.setMainClass(model.getStringProperty(UpdateManifestDataModelProperties.MAIN_CLASS));
+				}
+	
+				ManifestUtilities.writeManifest(file, mf);
 			}
-			if (model.isPropertySet(UpdateManifestDataModelProperties.MAIN_CLASS)) {
-				mf.setMainClass(model.getStringProperty(UpdateManifestDataModelProperties.MAIN_CLASS));
-			}
-
-			ManifestUtilities.writeManifest(file, mf);
 		} catch (java.io.IOException ex) {
 			throw new ExecutionException(ex.getMessage(),ex);
 		}

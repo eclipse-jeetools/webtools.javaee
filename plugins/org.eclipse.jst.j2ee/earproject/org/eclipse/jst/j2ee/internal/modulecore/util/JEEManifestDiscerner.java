@@ -134,24 +134,26 @@ public class JEEManifestDiscerner implements IJavaComponentDiscerner {
 	}
 	
 	protected IVirtualReference[] findCurrentManifestEntries(
-			IProject parentProject, IProject childProject, ArrayList<IVirtualReference> allPossible2) {
+			IProject parentProject, IProject childProject, ArrayList<IVirtualReference> allPossibleEntries) {
 
-		ArrayList<IVirtualReference> allPossible = new ArrayList<IVirtualReference>();
-		allPossible.addAll(allPossible2);
+		ArrayList<IVirtualReference> currentEntries = new ArrayList<IVirtualReference>();
 		
-		ArchiveManifest manifest = ManifestUtilities.getManifest(getManifestFile(childProject));
-		List<String> entries = Arrays.asList(manifest.getClassPathTokenized());
-		Iterator<IVirtualReference> i = allPossible.iterator();
-		IVirtualReference currentI;
-		
-		// Remove anything not in the manifest since it's not a current match
-		while(i.hasNext()) {
-			currentI = i.next();
-			String currentEntry = currentI.getRuntimePath().append(currentI.getArchiveName()).toString();
-			if( !entries.contains(currentEntry))
-				i.remove();
+		IFile manifestFile = getManifestFile(childProject);
+		if(manifestFile != null) {
+			ArchiveManifest manifest = ManifestUtilities.getManifest(manifestFile);
+			List<String> entries = Arrays.asList(manifest.getClassPathTokenized());
+			Iterator<IVirtualReference> i = allPossibleEntries.iterator();
+			IVirtualReference currentI;
+			
+			// Add entries that are in the Manifest
+			while(i.hasNext()) {
+				currentI = i.next();
+				String currentEntry = currentI.getRuntimePath().append(currentI.getArchiveName()).toString();
+				if(entries.contains(currentEntry))
+					currentEntries.add(currentI);
+			}
 		}
-		return allPossible.toArray(new IVirtualReference[allPossible.size()]);
+		return currentEntries.toArray(new IVirtualReference[currentEntries.size()]);
 	}
 
 	protected IFile getManifestFile(IProject child) {
