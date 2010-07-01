@@ -16,7 +16,9 @@ import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jst.j2ee.componentcore.util.EARVirtualComponent;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
+import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsDataModelProvider;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -55,6 +57,28 @@ public class AddComponentToEnterpriseApplicationDataModelProvider extends Create
 			setProperty(propertyName, map);
 			return map;
 		}
+		
+		else if (TARGET_COMPONENTS_DEPLOY_PATH_MAP.equals(propertyName)) {
+			Map map = new HashMap();
+			List CompList = (List) getProperty(TARGET_COMPONENT_LIST);
+			IVirtualComponent EarComp = (IVirtualComponent)getProperty(SOURCE_COMPONENT);
+			String libDir = EarUtilities.getEARLibDir((EARVirtualComponent) EarComp);
+			if (libDir != null) {
+				for (int i = 0; i < CompList.size(); i++) {
+					if(null != CompList.get(i)){
+						IVirtualComponent Comp = (IVirtualComponent) CompList.get(i);
+						IProject CompProject = Comp.getProject();
+						if(JavaEEProjectUtilities.isUtilityProject(CompProject) && JavaEEProjectUtilities.isJEEComponent(EarComp)){
+							map.put(Comp, libDir);
+						}
+					}
+				}
+				setProperty(propertyName, map);
+				return map;
+			} return super.getDefaultProperty(propertyName);
+		}
+		 else
+		
 		return super.getDefaultProperty(propertyName);
 	}
 
