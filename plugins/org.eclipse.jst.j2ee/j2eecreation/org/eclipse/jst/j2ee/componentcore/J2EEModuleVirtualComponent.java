@@ -57,6 +57,7 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 
 	public static String GET_JAVA_REFS = "GET_JAVA_REFS"; //$NON-NLS-1$
 	public static String GET_FUZZY_EAR_REFS = "GET_FUZZY_EAR_REFS"; //$NON-NLS-1$
+	public static String GET_EXPANDED_LIB_REFS = "GET_EXPANDED_LIB_REFS"; //$NON-NLS-1$
 	
 	private long depGraphModStamp;
 	private long jeeModStamp;
@@ -124,16 +125,36 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 		if( val != null ) {
 			if( HARD_REFERENCES.equals(val) || NON_DERIVED_REFERENCES.equals(val) || DISPLAYABLE_REFERENCES.equals(val))
 				return getHardReferences();
-			if( FLATTENABLE_REFERENCES.equals(val))
-				return getNonManifestReferences();
 		}
-		
 		Boolean objGetJavaRefs = (Boolean)options.get(GET_JAVA_REFS);
 		Boolean objGetFuzzyEarRefs = (Boolean)options.get(GET_FUZZY_EAR_REFS);
+		Boolean objGetExpandRefs = (Boolean)options.get(GET_EXPANDED_LIB_REFS);
 		boolean getJavaRefs = objGetJavaRefs != null ? objGetJavaRefs.booleanValue() : true;
 		boolean findFuzzyEARRefs = objGetFuzzyEarRefs != null ? objGetFuzzyEarRefs.booleanValue() : false;
-		IVirtualReference[] cachedReferences = getReferences(getJavaRefs,findFuzzyEARRefs);
-		return cachedReferences;
+		boolean getExpandRefs = objGetExpandRefs != null ? objGetExpandRefs.booleanValue() : false;
+		
+		IVirtualReference[] nonManifestRefs = getNonManifestRefs(getJavaRefs);
+		if (val != null && FLATTENABLE_REFERENCES.equals(val)) {
+			if (getExpandRefs) {
+				return JavaEEProjectUtilities.getExpandedReferences(this, nonManifestRefs);
+			}
+			return nonManifestRefs;
+		}
+		ArrayList<IVirtualReference> all = new ArrayList<IVirtualReference>();
+		all.addAll(Arrays.asList(nonManifestRefs));
+		// retrieve the dynamic references specified via the MANIFEST.MF classpath
+		cacheManifestReferences();
+		all.addAll(Arrays.asList(parentEarManifestReferences));
+		if (findFuzzyEARRefs)
+			all.addAll(Arrays.asList(fuzzyEarManifestReferences));
+		
+		IVirtualReference[] refs = all.toArray(new IVirtualReference[all.size()]);
+		VirtualReferenceUtilities.INSTANCE.ensureReferencesHaveNames(refs);
+		
+		if (getExpandRefs) {
+			return JavaEEProjectUtilities.getExpandedReferences(this, refs);
+		}
+		return refs;
 	}
 
 	@Override
@@ -141,22 +162,11 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 		return getReferences(true, false);
 	}
 
-	public IVirtualReference[] getReferences(final boolean getJavaRefs,
-			final boolean findFuzzyEARRefs) {
-		ArrayList<IVirtualReference> all = new ArrayList<IVirtualReference>();
-		IVirtualReference[] hardRefs = getHardReferences();
-		all.addAll(Arrays.asList(hardRefs));
-		if (getJavaRefs)
-			all.addAll(Arrays.asList(getJavaClasspathReferences(hardRefs)));
-		
-		// retrieve the dynamic references specified via the MANIFEST.MF classpath
-		cacheManifestReferences();
-		all.addAll(Arrays.asList(parentEarManifestReferences));
-		if (findFuzzyEARRefs)
-			all.addAll(Arrays.asList(fuzzyEarManifestReferences));
-		IVirtualReference[] retVal = all.toArray(new IVirtualReference[all.size()]);
-		VirtualReferenceUtilities.INSTANCE.ensureReferencesHaveNames(retVal);
-		return retVal;
+	public IVirtualReference[] getReferences(final boolean getJavaRefs, final boolean findFuzzyEARRefs) {
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put(GET_JAVA_REFS, new Boolean(getJavaRefs));
+		options.put(GET_FUZZY_EAR_REFS, new Boolean(findFuzzyEARRefs));
+		return getReferences(options);
 	}
 
 	/**
@@ -166,16 +176,20 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 	 * @return
 	 */
 	public IVirtualReference[] getNonManifestReferences() {
-		ArrayList<IVirtualReference> allRefs = new ArrayList<IVirtualReference>();
-		IVirtualReference[] hardRefs = getHardReferences();
-		allRefs.addAll(Arrays.asList(hardRefs));
-		allRefs.addAll(Arrays.asList(getJavaClasspathReferences(hardRefs)));
-		return allRefs.toArray(new IVirtualReference[allRefs.size()]);
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put(IVirtualComponent.REQUESTED_REFERENCE_TYPE, IVirtualComponent.FLATTENABLE_REFERENCES);
+		return getReferences(options);
 	}
-
+	
 	@Deprecated
-	public IVirtualReference[] getNonManifestReferences(
-			final boolean getJavaRefs) {
+	public IVirtualReference[] getNonManifestReferences(final boolean getJavaRefs) {
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put(IVirtualComponent.REQUESTED_REFERENCE_TYPE, IVirtualComponent.FLATTENABLE_REFERENCES);
+		options.put(GET_JAVA_REFS, new Boolean(getJavaRefs));
+		return getReferences(options);
+	}
+	
+	private IVirtualReference[] getNonManifestRefs(final boolean getJavaRefs) {
 		ArrayList<IVirtualReference> allRefs = new ArrayList<IVirtualReference>();
 		IVirtualReference[] hardRefs = getHardReferences();
 		allRefs.addAll(Arrays.asList(hardRefs));

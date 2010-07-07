@@ -14,12 +14,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.application.Module;
+import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
@@ -116,6 +119,10 @@ public class EarUtilities extends JavaEEProjectUtilities {
 		return NO_REFERENCES;
 	} 
 	
+	private static List getComponentReferencesAsList(IVirtualComponent earComponent, List componentTypes) {
+		return getComponentReferencesAsList(earComponent, componentTypes, false);
+	}
+
 	/**
 	 * 
 	 * @param componentTypes
@@ -123,27 +130,34 @@ public class EarUtilities extends JavaEEProjectUtilities {
 	 * 
 	 * This method is copied from EARArtifactEdit.  Any bug fixes should occur in both locations.
 	 */
-	private static List getComponentReferencesAsList(IVirtualComponent earComponent, List componentTypes) {
+	private static List getComponentReferencesAsList(IVirtualComponent earComponent, List componentTypes, boolean expandLibraries) {
 		List components = new ArrayList();
 		if (earComponent != null && isEARProject(earComponent.getProject())) {
-			IVirtualReference[] refComponents = earComponent.getReferences();
+			Map<String, Object> options = new HashMap<String, Object>();
+			if (expandLibraries) {
+				options.put(J2EEModuleVirtualComponent.GET_EXPANDED_LIB_REFS, Boolean.TRUE);
+			}
+			IVirtualReference[] refComponents = earComponent.getReferences(options);
+	
 			for (int i = 0; i < refComponents.length; i++) {
-				IVirtualComponent module = refComponents[i].getReferencedComponent();
+				IVirtualReference reference = refComponents[i];
+				IVirtualComponent module = reference.getReferencedComponent();
 				if (module == null)
 					continue;
+
 				// if component types passed in is null then return all components
 				if (componentTypes == null || componentTypes.size() == 0)
-					components.add(refComponents[i]);
+					components.add(reference);
 				else {
 					if (componentTypes.contains(getJ2EEComponentType(module))) {
-						components.add(refComponents[i]);
+						components.add(reference);
 					}
 				}
 			}
 		}
 		return components;
 	}
-
+	
 	/**
 	 * Checks if the uri mapping already exists.
 	 * 
@@ -210,16 +224,20 @@ public class EarUtilities extends JavaEEProjectUtilities {
 		return getReferencingEARProjects(project).length == 0;
 	}
 
+	public static IVirtualReference[] getUtilityModuleReferences(IVirtualComponent earComponent) {
+		return getUtilityModuleReferences(earComponent, false);
+	}
+
 	/**
 	 * This method will return the list of IVirtualReferences for all of the utility modules
 	 * contained in the EAR application
 	 * 
 	 * @return - an array of IVirtualReferences for utility modules in the EAR
 	 */
-	public static IVirtualReference[] getUtilityModuleReferences(IVirtualComponent earComponent) {
+	public static IVirtualReference[] getUtilityModuleReferences(IVirtualComponent earComponent, boolean expandLibraries) {
 		if (earComponent != null && isEARProject(earComponent.getProject())) {
 			List explicitUtilityReferences = 
-				getComponentReferencesAsList(earComponent, Collections.singletonList(IJ2EEFacetConstants.UTILITY));
+				getComponentReferencesAsList(earComponent, Collections.singletonList(IJ2EEFacetConstants.UTILITY), expandLibraries);
 			
 			// fetch other Utility Jars attached to the EAR project 
 			List implicitUtilityReferenceTypes =
@@ -228,7 +246,7 @@ public class EarUtilities extends JavaEEProjectUtilities {
 											   IModuleConstants.JST_EJB_MODULE }); 
 	
 			List implicitUtilityReferences = 
-				getComponentReferencesAsList(earComponent, implicitUtilityReferenceTypes);
+				getComponentReferencesAsList(earComponent, implicitUtilityReferenceTypes, expandLibraries);
 			
 			IEARModelProvider earModel = (IEARModelProvider)ModelProviderManager.getModelProvider(earComponent.getProject());
 			ICommonApplication application = (ICommonApplication)earModel.getModelObject();
@@ -259,7 +277,7 @@ public class EarUtilities extends JavaEEProjectUtilities {
 		return NO_REFERENCES;
 		
 	}
-
+	
 	/**
 	 * Returns a List of ProjectFacetVersions for a given module type that are supported by a given ear version
 	 * @param earProjectFacetVersion - the ProjectFacetVersion for the ENTERPRISE_APPLICATION that the module will be added to

@@ -10,9 +10,12 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.project;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
@@ -26,6 +29,7 @@ import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.common.ClasspathLibraryExpander;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.componentcore.JavaEEBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
@@ -35,6 +39,9 @@ import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.internal.flat.IFlatFile;
+import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
+import org.eclipse.wst.common.componentcore.internal.resources.VirtualReference;
 import org.eclipse.wst.common.componentcore.internal.util.FacetedProjectUtilities;
 import org.eclipse.wst.common.componentcore.internal.util.VirtualReferenceUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -180,7 +187,62 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 		}
 		return (IProject[]) result.toArray(new IProject[result.size()]);
 	}
-
+	
+	/**
+	 * @param  IVirtualComponent of the enclosing component
+	 * @param  IVirtualReference[] of references contained by the enclosing component
+	 * @return IVirtualReference[] of original references in addition to the expanded list of references for any
+	 *         consumed references found
+	 */
+	public static IVirtualReference[] getExpandedReferences(IVirtualComponent component, IVirtualReference[] refs) {
+		ArrayList<IVirtualReference> allRefs = new ArrayList<IVirtualReference>();
+		for (int i = 0; i < refs.length; i++) {
+			IVirtualReference reference = refs[i];
+			if (reference.getDependencyType()==IVirtualReference.DEPENDENCY_TYPE_CONSUMES) {
+				List<IVirtualReference> references = expandConsumedReference(component, reference);
+				for (Iterator<IVirtualReference> iterator = references.iterator(); iterator.hasNext();) {
+					allRefs.add(iterator.next());
+				}
+			}
+			else {
+				allRefs.add(reference);
+			}
+		}
+		return allRefs.toArray(new IVirtualReference[allRefs.size()]);
+	}
+	
+	/**
+	 * @param  IVirtualComponent of the enclosing component that is doing the consuming
+	 * @param  IVirtualReference of the consumed reference
+	 * @return List containing an IVirtualReference for all archives consumed by the enclosing component
+	 */
+	public static List<IVirtualReference> expandConsumedReference(IVirtualComponent rootComponent, IVirtualReference reference) {
+		if (reference.getDependencyType()!=IVirtualReference.DEPENDENCY_TYPE_CONSUMES) {
+			return Collections.EMPTY_LIST;
+		}
+		List <IVirtualReference> libRefs = new ArrayList<IVirtualReference>();
+		try {
+			ClasspathLibraryExpander classpathLibExpander = new ClasspathLibraryExpander(rootComponent, reference);
+			List<IFlatFile> flatLibs = classpathLibExpander.fetchFlatFiles();
+			for (IFlatFile flatFile : flatLibs) {
+				File file = (File) flatFile.getAdapter(File.class);
+				if (file != null) {
+					String type = VirtualArchiveComponent.LIBARCHIVETYPE + IPath.SEPARATOR;
+					IVirtualComponent dynamicComponent = ComponentCore.createArchiveComponent(
+							rootComponent.getProject(), type + file.getAbsolutePath(), flatFile.getModuleRelativePath().makeAbsolute());
+					IVirtualReference dynamicRef = ComponentCore.createReference(rootComponent, dynamicComponent);
+					((VirtualReference)dynamicRef).setDerived(true);
+					dynamicRef.setArchiveName(file.getName());
+					dynamicRef.setRuntimePath(flatFile.getModuleRelativePath().makeAbsolute());
+					libRefs.add(dynamicRef);
+				}
+			}	
+		} catch (CoreException e) {
+			org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
+		}
+		return libRefs;
+	}
+	
 	private static boolean isBinaryType(IVirtualComponent aBinaryComponent, int quickPeekType){
 		JavaEEQuickPeek qp = JavaEEBinaryComponentHelper.getJavaEEQuickPeek(aBinaryComponent);
 		int type = qp.getType();

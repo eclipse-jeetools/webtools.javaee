@@ -30,12 +30,14 @@ import org.eclipse.jst.common.jdt.internal.javalite.JavaCoreLite;
 import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants.DependencyAttributeType;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
+import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.internal.common.J2EEDependencyListener;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathInitializer;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.modulecore.util.DummyClasspathDependencyContainerVirtualComponent;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.jee.application.ICommonModule;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
@@ -210,7 +212,13 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 			List<IVirtualReference> hardReferences = getHardReferences(this);
 			return hardReferences.toArray(new IVirtualReference[hardReferences.size()]);
 		}
-		return getReferences();
+		IVirtualReference[] refs = getReferences();
+		Boolean objGetExpandRefs = (Boolean)options.get(J2EEModuleVirtualComponent.GET_EXPANDED_LIB_REFS);
+		boolean getExpandRefs = objGetExpandRefs != null ? objGetExpandRefs.booleanValue() : false;
+		if (getExpandRefs) {
+			return JavaEEProjectUtilities.getExpandedReferences(this, refs);
+		}
+		return refs;
 	}
 	
 	protected boolean shouldAddClasspathDependencyDerivedReference() {

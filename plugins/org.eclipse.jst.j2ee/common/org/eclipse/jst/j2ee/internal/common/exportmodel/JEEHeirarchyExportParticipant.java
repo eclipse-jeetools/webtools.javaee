@@ -13,6 +13,7 @@ package org.eclipse.jst.j2ee.internal.common.exportmodel;
 import java.io.File;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
@@ -61,9 +62,9 @@ public class JEEHeirarchyExportParticipant extends AbstractFlattenParticipant {
 			}
 			if (path != null) {	
 				String parentType = JavaEEProjectUtilities.getJ2EEComponentType(rootComponent);
+				String type = VirtualArchiveComponent.LIBARCHIVETYPE + IPath.SEPARATOR;
 				IVirtualComponent dynamicComponent = ComponentCore.createArchiveComponent(
-						rootComponent.getProject(),
-						VirtualArchiveComponent.LIBARCHIVETYPE + path, file.getModuleRelativePath());
+						rootComponent.getProject(), type + path, file.getModuleRelativePath().makeAbsolute());
 				String childType = JavaEEProjectUtilities.getJ2EEComponentType(dynamicComponent);
 				return isApprovedNesting(parentType, childType, true);
 			}

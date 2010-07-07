@@ -11,7 +11,9 @@
 package org.eclipse.jst.j2ee.project;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -85,15 +87,24 @@ public class WebUtilities extends JavaEEProjectUtilities {
 		else
 			return J2EEVersionConstants.JSP_2_0_ID;
 	}
+	
+	public static List <IVirtualComponent> getWebFragments(IVirtualComponent webComponent){
+		return getWebFragments(webComponent, false);
+	}
 
 	/**
 	 * Returns a list of WebFragment components for the specified dynamic web component.
 	 * @param webComponent
 	 * @return
 	 */
-	public static List <IVirtualComponent> getWebFragments(IVirtualComponent webComponent){
+	public static List <IVirtualComponent> getWebFragments(IVirtualComponent webComponent, boolean expandLibraries){
 		List <IVirtualComponent>result = new ArrayList<IVirtualComponent>();
-		IVirtualReference[] refComponents = webComponent.getReferences();
+		Map<String, Object> options = new HashMap<String, Object>();
+		if (expandLibraries) {
+			options.put(J2EEModuleVirtualComponent.GET_EXPANDED_LIB_REFS, Boolean.TRUE);
+		}
+		IVirtualReference[] refComponents = webComponent.getReferences(options);
+		
 		for(IVirtualReference virtualReference : refComponents){
 			if(virtualReference.getRuntimePath().equals(WEBLIB)){
 				IVirtualComponent virtualComponent = virtualReference.getReferencedComponent();
@@ -123,6 +134,10 @@ public class WebUtilities extends JavaEEProjectUtilities {
 		return result;
 	}
 	
+	public static IVirtualReference[] getLibModules(IVirtualComponent webComponent) {
+		return getLibModules(webComponent, false);
+	}
+	
 	
 	/**
 	 * This method will return the list of dependent modules which are utility jars in the web lib
@@ -130,18 +145,20 @@ public class WebUtilities extends JavaEEProjectUtilities {
 	 * 
 	 * @return array of the web library dependent modules
 	 */
-	public static IVirtualReference[] getLibModules(IVirtualComponent webComponent){
+	public static IVirtualReference[] getLibModules(IVirtualComponent webComponent, boolean expandLibraries) {
 		List result = new ArrayList();
-		IVirtualReference[] refComponents = null;
-		if (!webComponent.isBinary() && JavaEEProjectUtilities.usesJavaEEComponent(webComponent))
-			refComponents = ((J2EEModuleVirtualComponent)webComponent).getNonManifestReferences();
-		else
-			refComponents = webComponent.getReferences();
+		Map<String, Object> options = new HashMap<String, Object>();
+		options.put(IVirtualComponent.REQUESTED_REFERENCE_TYPE, IVirtualComponent.FLATTENABLE_REFERENCES);
+		if (expandLibraries) {
+			options.put(J2EEModuleVirtualComponent.GET_EXPANDED_LIB_REFS, Boolean.TRUE);
+		}
+		IVirtualReference[] refComponents = webComponent.getReferences(options);
 		// Check the deployed path to make sure it has a lib parent folder and matchs the web.xml
 		// base path
 		for (int i = 0; i < refComponents.length; i++) {
-			if (refComponents[i].getRuntimePath().equals(WEBLIB))
-				result.add(refComponents[i]);
+			IVirtualReference reference = refComponents[i];
+			if (reference.getRuntimePath().equals(WEBLIB))
+				result.add(reference);
 		}
 
 		return (IVirtualReference[]) result.toArray(new IVirtualReference[result.size()]);

@@ -35,17 +35,15 @@ import org.eclipse.jst.common.jdt.internal.javalite.IJavaProjectLite;
 import org.eclipse.jst.common.jdt.internal.javalite.JavaCoreLite;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARVirtualComponent;
+import org.eclipse.jst.j2ee.internal.common.ClasspathLibraryExpander;
 import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
-import org.eclipse.wst.common.componentcore.internal.flat.FlatVirtualComponent;
-import org.eclipse.wst.common.componentcore.internal.flat.IChildModuleReference;
 import org.eclipse.wst.common.componentcore.internal.flat.IFlatFolder;
 import org.eclipse.wst.common.componentcore.internal.flat.IFlatResource;
-import org.eclipse.wst.common.componentcore.internal.flat.VirtualComponentFlattenUtility;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualReference;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -303,51 +301,6 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 		}
 	}
 	
-	private class ClasspathLibraryExpander extends FlatVirtualComponent {
-
-		public ClasspathLibraryExpander(IVirtualComponent component) {
-			super(component);
-		}
-		
-		@Override
-		protected boolean canOptimize() {
-			return true;
-		}
-
-		@Override
-		protected void optimize(List<IFlatResource> resources, List<IChildModuleReference> children) {
-			if (getComponent() != null) {
-				VirtualComponentFlattenUtility util = new VirtualComponentFlattenUtility(resources, this);
-				try {
-					addConsumedReferences(util, getComponent(), new Path("")); 	//$NON-NLS-1$
-				} catch (CoreException e) {
-					org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
-				}
-			}
-		}
-		
-		public IFlatResource fetchResource(IPath runtimePath) throws CoreException {
-			IFlatResource [] resources = fetchResources();
-			return fetchResource(runtimePath.makeRelative(), resources);
-		}
-
-		private IFlatResource fetchResource(IPath runtimePath, IFlatResource[] resources) {
-			for(IFlatResource resource : resources){
-				IPath fullResourcePath = resource.getModuleRelativePath().append(resource.getName());
-				if(fullResourcePath.equals(runtimePath)){
-					return resource;
-				} 
-				else if(fullResourcePath.isPrefixOf(runtimePath)){
-					if(resource instanceof IFlatFolder){
-						IFlatFolder folder = (IFlatFolder)resource;
-						return fetchResource(runtimePath, folder.members());
-					}
-				}
-			}
-			return null;
-		}
-	}
-
 	private List<IVirtualReference> getBaseEARLibRefs(IVirtualComponent component) {
 		List <IVirtualReference> libRefs = new ArrayList<IVirtualReference>();
 		// check for the references in the lib dirs of the referencing EARs
