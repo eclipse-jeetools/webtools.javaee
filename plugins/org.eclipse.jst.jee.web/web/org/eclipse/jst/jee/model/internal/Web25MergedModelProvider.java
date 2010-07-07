@@ -1,5 +1,5 @@
 /***********************************************************************
- * Copyright (c) 2008 by SAP AG, Walldorf. 
+ * Copyright (c) 2008, 2010 by SAP AG, Walldorf. 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -161,8 +161,8 @@ public class Web25MergedModelProvider extends AbstractMergedModelProvider<WebApp
 		try {
 			if (mergedModel != ddModel) {
 				clearModel(mergedModel);
-				mergeWithModel(ddModel);
-				mergeWithModel(annotationsModel);
+				mergeWithModel(ddModel, ModelElementMerger.COPY);
+				mergeWithModel(annotationsModel, ModelElementMerger.ADD);
 			}
 		} catch (ModelException e) {
 			Activator.logError(e);
@@ -170,28 +170,28 @@ public class Web25MergedModelProvider extends AbstractMergedModelProvider<WebApp
 		return mergedModel;
 	}
 
-	private void mergeWithModel(WebApp model) throws ModelException {
+	private void mergeWithModel(WebApp model, int type) throws ModelException {
 		if (model == null)
 			return;
 		WebAppMerger merger;
 		try {
-			merger = createWebMerger(model);
+			merger = createWebMerger(model, type);
 		} catch (CoreException e) {
 			throw new ModelException(e);
 		}
 		merger.process();
 	}
 	
-	private WebAppMerger createWebMerger(WebApp model) throws CoreException{
+	private WebAppMerger createWebMerger(WebApp model, int type) throws CoreException{
 		IFacetedProject facetedProject = ProjectFacetsManager.create(project);
 		if (facetedProject.getProjectFacetVersion(WebFacetUtils.WEB_FACET) != null){
 			if(Float.parseFloat(facetedProject.getProjectFacetVersion(WebFacetUtils.WEB_FACET).getVersionString()) > 2.5){
-				return new WebApp3Merger(mergedModel, model, ModelElementMerger.ADD);
+				return new WebApp3Merger(mergedModel, model, type);
 			}
 		}
 		 
 		
-		return new WebAppMerger(mergedModel, model, ModelElementMerger.ADD);
+		return new WebAppMerger(mergedModel, model, type);
 	}
 
 	@Override

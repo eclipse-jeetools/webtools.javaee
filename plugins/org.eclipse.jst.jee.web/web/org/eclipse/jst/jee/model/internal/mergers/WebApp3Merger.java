@@ -27,21 +27,27 @@ public class WebApp3Merger extends WebAppMerger {
 				}
 			}
 		}
+		if (getToMergeWebApp().getServlets() != null){
+			copyMissingContentInBase(getToMergeWebApp().getServlets(), getBaseWebApp().getServlets());
+		}
+		if (getToMergeWebApp().getFilterMappings() != null){
+			copyMissingContentInBase(getToMergeWebApp().getServletMappings(), getBaseWebApp().getServletMappings());
+		}
 		mergeServletMappings(getBaseWebApp().getServletMappings(), getToMergeWebApp().getServletMappings());
-		super.mergeServlets(warnings);
 	}
 	
 	private void mergeServlet(Servlet servlet, Servlet toMergeArtifact) {
 		mergeInitParams(servlet.getInitParams(), toMergeArtifact.getInitParams());
 	}
 	
-	private void mergeServletMappings(List<ServletMapping> servletMappings,
-			List<ServletMapping> servletMappings2) {
-		if (servletMappings != null && servletMappings2 != null && servletMappings.size() > 0 && servletMappings2.size() >0){
-			for(ServletMapping mapping : servletMappings){
-				ServletMapping artifactFromList = (ServletMapping) getArtifactFromList(mapping, servletMappings2);
-				if (artifactFromList != null && artifactFromList.getServletName().equals(mapping.getServletName())){
-					copyMissingContentInBase(artifactFromList.getUrlPatterns(), mapping.getUrlPatterns());
+	private void mergeServletMappings(List<ServletMapping> servletMappingsBase,
+			List<ServletMapping> servletMappingsToMerge) {
+		
+		if (servletMappingsBase != null && servletMappingsToMerge != null && servletMappingsToMerge.size() >0){
+			for(ServletMapping toMergeMapping : servletMappingsToMerge){
+				ServletMapping baseMapping = (ServletMapping) getArtifactFromList(toMergeMapping, servletMappingsBase);
+				if (baseMapping != null && baseMapping.getServletName().equals(toMergeMapping.getServletName())){
+					copyMissingContentInBase(toMergeMapping.getUrlPatterns(), baseMapping.getUrlPatterns());
 				}
 			}
 		}
@@ -59,21 +65,25 @@ public class WebApp3Merger extends WebAppMerger {
 				}
 			}
 		}
+		if (getToMergeWebApp().getFilters() != null){
+		   copyMissingContentInBase(getToMergeWebApp().getFilters(), getBaseWebApp().getFilters());
+		}
+		if (getToMergeWebApp().getFilterMappings() != null){
+	    	copyMissingContentInBase(getToMergeWebApp().getFilterMappings(), getBaseWebApp().getFilterMappings());
+	    }
 		mergeFilterMappings(getBaseWebApp().getFilterMappings(), getToMergeWebApp().getFilterMappings());
-		super.mergeFilters(warnings);
 	}
-
-	private void mergeFilterMappings(List<FilterMapping> filterMappings,
-			List<FilterMapping> filterMappings2) {
-		if (filterMappings != null && filterMappings2 != null && filterMappings.size() > 0 && filterMappings2.size() >0){
-			for(FilterMapping mapping : filterMappings){
-				FilterMapping artifactFromList = (FilterMapping) getArtifactFromList(mapping, filterMappings2);
-				if (artifactFromList != null && artifactFromList.getFilterName().equals(mapping.getFilterName())){
-					copyMissingContentInBase(artifactFromList.getUrlPatterns(), mapping.getUrlPatterns());
+	
+	private void mergeFilterMappings(List<FilterMapping> filterMappingsBase,
+			List<FilterMapping> filterMappingsToMerge) {
+		if (filterMappingsBase != null && filterMappingsToMerge != null && filterMappingsToMerge.size() >0){
+			for(FilterMapping toMergeMapping : filterMappingsToMerge){
+				FilterMapping baseMapping = (FilterMapping) getArtifactFromList(toMergeMapping, filterMappingsBase);
+				if (baseMapping != null && baseMapping.getFilterName().equals(toMergeMapping.getFilterName())){
+					copyMissingContentInBase(toMergeMapping.getUrlPatterns(), baseMapping.getUrlPatterns());
 				}
 			}
 		}
-		
 	}
 
 	private void mergeFilter(Filter filter, Filter toMergeArtifact) {

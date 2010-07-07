@@ -1,5 +1,5 @@
 /***********************************************************************
- * Copyright (c) 2008 by SAP AG, Walldorf. 
+ * Copyright (c) 2008, 2010 by SAP AG, Walldorf. 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -31,6 +31,8 @@ public abstract class ModelElementMerger implements IMerger {
 	
 	public static int REMOVE = 0x4;
 	
+	public static int COPY = 0x8;
+
 	JavaEEObject base;
 	JavaEEObject toMerger;
 

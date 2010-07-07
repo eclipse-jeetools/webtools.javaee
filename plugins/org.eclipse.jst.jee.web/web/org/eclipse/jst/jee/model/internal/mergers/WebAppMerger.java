@@ -1,5 +1,5 @@
 /***********************************************************************
- * Copyright (c) 2008 by SAP AG, Walldorf. 
+ * Copyright (c) 2008, 2010 by SAP AG, Walldorf. 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -97,7 +97,11 @@ public class WebAppMerger  extends ModelElementMerger {
       copyMissingContentInBase(getToMergeWebApp().getFilters(), getBaseWebApp().getFilters());
     }
     if (getToMergeWebApp().getFilterMappings() != null){
-    	copyMissingContentInBase(getToMergeWebApp().getFilterMappings(), getBaseWebApp().getFilterMappings());
+    	if (getKind() == COPY){
+    		copyAllContentInBase(getToMergeWebApp().getFilterMappings(), getBaseWebApp().getFilterMappings());
+    	} else {
+    		copyMissingContentInBase(getToMergeWebApp().getFilterMappings(), getBaseWebApp().getFilterMappings());
+    	}
     }
   }
 
@@ -114,7 +118,11 @@ public class WebAppMerger  extends ModelElementMerger {
     }
 
     if (getToMergeWebApp().getServletMappings() != null){
-    	copyMissingContentInBase(getToMergeWebApp().getServletMappings(), getBaseWebApp().getServletMappings());
+    	if (getKind() == COPY){
+    		copyAllContentInBase(getToMergeWebApp().getServletMappings(), getBaseWebApp().getServletMappings());
+    	} else {
+    		copyMissingContentInBase(getToMergeWebApp().getServletMappings(), getBaseWebApp().getServletMappings());
+    	}
     }
 
   }
