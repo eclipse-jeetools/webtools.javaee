@@ -39,19 +39,41 @@ public class ClasspathContainerVirtualComponent extends
 	private String containerPath;
 	private IClasspathEntry[] containerEntries;
 	private IClasspathContainer container;
+	private boolean initialized = false;
+	private Object initLock = new Object();
 	public ClasspathContainerVirtualComponent(IProject p,
 			IVirtualComponent referencingComponent, String containerPath) {
 		super(p, referencingComponent);
 		this.containerPath = containerPath;
-		try {
-			container = JavaCore.getClasspathContainer(new Path(containerPath), JavaCore.create(p));
-			if (container != null)
-				containerEntries = container.getClasspathEntries();
-			else {
-				containerEntries = new IClasspathEntry[] {};
+	}
+	
+	private void init() {
+		synchronized (initLock) {
+			if (initialized) {
+				return;
 			}
-		} catch( JavaModelException jme ) {
-			
+		}
+		try {
+			IClasspathContainer localContainer = JavaCore.getClasspathContainer(new Path(containerPath), JavaCore.create(project));
+			IClasspathEntry[] localcontainerEntries = null;
+			if (localContainer != null) {
+				localcontainerEntries = localContainer.getClasspathEntries();
+			} else {
+				localcontainerEntries = new IClasspathEntry[] {};
+			}
+			synchronized (initLock) {
+				if(initialized){
+					return;
+				}
+				container = localContainer;
+				containerEntries = localcontainerEntries;
+			}
+		} catch (JavaModelException jme) {
+			// eat it
+		} finally {
+			synchronized (initLock) {
+				initialized = true;
+			}
 		}
 	}
 	
@@ -89,7 +111,13 @@ public class ClasspathContainerVirtualComponent extends
 	}
 	
 	public IClasspathContainer getClasspathContainer(){
+		init();
 		return container;
+	}
+	
+	private IClasspathEntry[] getEntries() {
+		init();
+		return containerEntries;
 	}
 	
 	public String getClasspathContainerPath() {
@@ -101,10 +129,11 @@ public class ClasspathContainerVirtualComponent extends
 		IVirtualFolder folder = new VirtualFolder(project, new Path("/")) { //$NON-NLS-1$
 			@Override
 			public IVirtualResource[] members(int memberFlags) throws CoreException {
+				IClasspathEntry[] entries = getEntries();
 				ArrayList<IVirtualFile> jars = new ArrayList<IVirtualFile>();
-				for( int i = 0; i < containerEntries.length; i++ ) {
-					if( containerEntries[i].getEntryKind() == IClasspathEntry.CPE_LIBRARY) {
-						File f = containerEntries[i].getPath().toFile();
+				for(IClasspathEntry entry: entries) {
+					if( entry.getEntryKind() == IClasspathEntry.CPE_LIBRARY) {
+						File f = entry.getPath().toFile();
 						jars.add(new AbsoluteVirtualFile(getProject(), new Path("/"), f)); //$NON-NLS-1$
 					}
 				}
