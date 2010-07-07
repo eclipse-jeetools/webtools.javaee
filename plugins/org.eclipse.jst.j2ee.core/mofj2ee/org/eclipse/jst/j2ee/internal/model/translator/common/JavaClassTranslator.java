@@ -90,13 +90,18 @@ public class JavaClassTranslator extends Translator {
 							javaClass = JavaRefFactory.eINSTANCE.reflectType(qualifiedName, rs);
 						} catch (Exception e) {
 							//Ignore
+							return null;
 						}
 						if (javaClass != null)
 							return javaClass;
 					}
 				}
 			}
-			return JavaRefFactory.eINSTANCE.createClassRef(qualifiedName);
+			try{
+				return JavaRefFactory.eINSTANCE.createClassRef(qualifiedName);
+			} catch (Exception e){
+				//Ignore
+			}
 		}
 		return null;
 	}
