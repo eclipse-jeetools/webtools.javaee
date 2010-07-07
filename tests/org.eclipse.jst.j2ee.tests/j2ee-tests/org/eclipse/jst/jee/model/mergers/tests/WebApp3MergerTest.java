@@ -30,8 +30,10 @@ import org.eclipse.jst.javaee.web.TransportGuaranteeType;
 import org.eclipse.jst.javaee.web.UserDataConstraint;
 import org.eclipse.jst.javaee.web.WebApp;
 import org.eclipse.jst.javaee.web.WebFactory;
+import org.eclipse.jst.jee.model.internal.mergers.ModelElementMerger;
 import org.eclipse.jst.jee.model.internal.mergers.ModelException;
 import org.eclipse.jst.jee.model.internal.mergers.WebApp3Merger;
+import org.eclipse.jst.jee.model.internal.mergers.WebAppMerger;
 
 /**
  * Tester class for WebAPp artifact.
@@ -1196,6 +1198,259 @@ public class WebApp3MergerTest extends TestCase{
 		Filter rservlet = descriptorBase.getFilters().get(0);
 		
 		Assert.assertEquals(1, rservlet.getInitParams().size());
+	}
+
+	/**
+	 * Tests the merger "add" behavior with filter mappings with
+	 * different url-patterns
+	 * No merge is necessary
+	 * 
+	 * @throws ModelException
+	 */
+	//@Test
+	public void testFilterMappingsCaseSameAdd() throws ModelException{
+		WebApp descriptorBase = WebFactory.eINSTANCE.createWebApp();
+		WebApp descriptorToMerge = WebFactory.eINSTANCE.createWebApp();
+
+		Filter filter = WebFactory.eINSTANCE.createFilter();
+		filter.setFilterName("TestFilter");
+		filter.setFilterClass("test.TestFilter");
+		List<Filter> filters = descriptorBase.getFilters();
+		filters.add(filter);
+
+		UrlPatternType urlPattern = JavaeeFactory.eINSTANCE.createUrlPatternType();
+		urlPattern.setValue("/pattern1/*");
+		FilterMapping filterMapping = WebFactory.eINSTANCE.createFilterMapping();
+		filterMapping.setFilterName("TestFilter");
+		List<UrlPatternType> urlPatterns = filterMapping.getUrlPatterns();
+		urlPatterns.add(urlPattern);
+		List<FilterMapping> filterMappings = descriptorBase.getFilterMappings();
+		filterMappings.add(filterMapping);
+
+		Filter filter2 = WebFactory.eINSTANCE.createFilter();
+		filter2.setFilterName("TestFilter");
+		filter2.setFilterClass("test.TestFilter2");
+		List<Filter> filters2 = descriptorToMerge.getFilters();
+		filters2.add(filter2);
+
+		UrlPatternType urlPattern2 = JavaeeFactory.eINSTANCE.createUrlPatternType();
+		urlPattern2.setValue("/pattern2/*");
+		FilterMapping filterMapping2 = WebFactory.eINSTANCE.createFilterMapping();
+		filterMapping2.setFilterName("TestFilter");
+		List<UrlPatternType> urlPatterns2 = filterMapping2.getUrlPatterns();
+		urlPatterns2.add(urlPattern2);
+		List<FilterMapping> filterMappings2 = descriptorToMerge.getFilterMappings();
+		filterMappings2.add(filterMapping2);
+
+		WebAppMerger result = new WebApp3Merger(descriptorBase, descriptorToMerge, ModelElementMerger.ADD);
+		result.process();
+		Assert.assertNotNull(descriptorBase.getFilters());
+		Assert.assertEquals(1, descriptorBase.getFilters().size());
+		Assert.assertEquals(1, descriptorToMerge.getFilters().size());
+		Assert.assertEquals(1, descriptorToMerge.getFilterMappings().size());
+		Filter f = descriptorBase.getFilters().get(0);
+		Assert.assertNotNull(f);
+		Assert.assertTrue(f.getFilterName().equals("TestFilter"));
+		Assert.assertNotNull(descriptorBase.getFilterMappings());
+		Assert.assertEquals(1, descriptorBase.getFilterMappings().size());
+		FilterMapping m = descriptorBase.getFilterMappings().get(0);
+		Assert.assertTrue(m.getFilterName().equals("TestFilter"));
+		Assert.assertNotNull(m.getUrlPatterns());
+		Assert.assertEquals(2, m.getUrlPatterns().size());
+		Assert.assertTrue(m.getUrlPatterns().get(0).getValue().equals("/pattern1/*"));
+	}
+
+	/**
+	 * Tests the merger "copy" behavior with filter mappings with
+	 * different url-patterns
+	 * The filter mapping should be copied to base
+	 * 
+	 * @throws ModelException
+	 */
+	//@Test
+	public void testFilterMappingsCaseSameCopy() throws ModelException{
+		WebApp descriptorBase = WebFactory.eINSTANCE.createWebApp();
+		WebApp descriptorToMerge = WebFactory.eINSTANCE.createWebApp();
+
+		Filter filter = WebFactory.eINSTANCE.createFilter();
+		filter.setFilterName("TestFilter");
+		filter.setFilterClass("test.TestFilter");
+		List<Filter> filters = descriptorBase.getFilters();
+		filters.add(filter);
+
+		UrlPatternType urlPattern = JavaeeFactory.eINSTANCE.createUrlPatternType();
+		urlPattern.setValue("/pattern1/*");
+		FilterMapping filterMapping = WebFactory.eINSTANCE.createFilterMapping();
+		filterMapping.setFilterName("TestFilter");
+		List<UrlPatternType> urlPatterns = filterMapping.getUrlPatterns();
+		urlPatterns.add(urlPattern);
+		List<FilterMapping> filterMappings = descriptorBase.getFilterMappings();
+		filterMappings.add(filterMapping);
+
+		Filter filter2 = WebFactory.eINSTANCE.createFilter();
+		filter2.setFilterName("TestFilter");
+		filter2.setFilterClass("test.TestFilter2");
+		List<Filter> filters2 = descriptorToMerge.getFilters();
+		filters2.add(filter2);
+
+		UrlPatternType urlPattern2 = JavaeeFactory.eINSTANCE.createUrlPatternType();
+		urlPattern2.setValue("/pattern2/*");
+		FilterMapping filterMapping2 = WebFactory.eINSTANCE.createFilterMapping();
+		filterMapping2.setFilterName("TestFilter");
+		List<UrlPatternType> urlPatterns2 = filterMapping2.getUrlPatterns();
+		urlPatterns2.add(urlPattern2);
+		List<FilterMapping> filterMappings2 = descriptorToMerge.getFilterMappings();
+		filterMappings2.add(filterMapping2);
+
+		WebAppMerger result = new WebApp3Merger(descriptorBase, descriptorToMerge, ModelElementMerger.COPY);
+		result.process();
+		Assert.assertNotNull(descriptorBase.getFilters());
+		Assert.assertEquals(1, descriptorBase.getFilters().size());
+		Assert.assertEquals(1, descriptorToMerge.getFilters().size());
+		Assert.assertEquals(1, descriptorToMerge.getFilterMappings().size());
+		Filter f = descriptorBase.getFilters().get(0);
+		Assert.assertNotNull(f);
+		Assert.assertTrue(f.getFilterName().equals("TestFilter"));
+		Assert.assertNotNull(descriptorBase.getFilterMappings());
+		Assert.assertEquals(1, descriptorBase.getFilterMappings().size());
+		FilterMapping m = descriptorBase.getFilterMappings().get(0);
+		Assert.assertTrue(m.getFilterName().equals("TestFilter"));
+		Assert.assertNotNull(m.getUrlPatterns());
+		Assert.assertEquals(2, m.getUrlPatterns().size());
+		Assert.assertTrue(m.getUrlPatterns().get(0).getValue().equals("/pattern1/*"));
+		m = descriptorBase.getFilterMappings().get(0);
+		Assert.assertTrue(m.getFilterName().equals("TestFilter"));
+		Assert.assertNotNull(m.getUrlPatterns());
+		Assert.assertEquals(2, m.getUrlPatterns().size());
+		Assert.assertTrue(m.getUrlPatterns().get(0).getValue().equals("/pattern1/*"));
+		Assert.assertTrue(m.getUrlPatterns().get(1).getValue().equals("/pattern2/*"));
+	}
+
+	/**
+	 * Tests the merger "add" behavior with servlet mappings with
+	 * different url-patterns
+	 * No merge is necessary
+	 * 
+	 * @throws ModelException
+	 */
+	//@Test
+	public void testServletMappingsCaseSameAdd() throws ModelException{
+		WebApp descriptorBase = WebFactory.eINSTANCE.createWebApp();
+		WebApp descriptorToMerge = WebFactory.eINSTANCE.createWebApp();
+
+		Servlet servlet = WebFactory.eINSTANCE.createServlet();
+		servlet.setServletName("TestServlet");
+		servlet.setServletClass("test.TestServlet");
+		List<Servlet> servlets = descriptorBase.getServlets();
+		servlets.add(servlet);
+
+		UrlPatternType urlPattern = JavaeeFactory.eINSTANCE.createUrlPatternType();
+		urlPattern.setValue("/pattern1");
+		ServletMapping servletMapping = WebFactory.eINSTANCE.createServletMapping();
+		servletMapping.setServletName("TestServlet");
+		List<UrlPatternType> urlPatterns = servletMapping.getUrlPatterns();
+		urlPatterns.add(urlPattern);
+		List<ServletMapping> servletMappings = descriptorBase.getServletMappings();
+		servletMappings.add(servletMapping);
+
+		Servlet servlet2 = WebFactory.eINSTANCE.createServlet();
+		servlet2.setServletName("TestServlet");
+		servlet2.setServletClass("test.TestServlet2");
+		List<Servlet> servlets2 = descriptorToMerge.getServlets();
+		servlets2.add(servlet2);
+
+		UrlPatternType urlPattern2 = JavaeeFactory.eINSTANCE.createUrlPatternType();
+		urlPattern2.setValue("/pattern2");
+		ServletMapping servletMapping2 = WebFactory.eINSTANCE.createServletMapping();
+		servletMapping2.setServletName("TestServlet");
+		List<UrlPatternType> urlPatterns2 = servletMapping2.getUrlPatterns();
+		urlPatterns2.add(urlPattern2);
+		List<ServletMapping> servletMappings2 = descriptorToMerge.getServletMappings();
+		servletMappings2.add(servletMapping2);
+
+		WebAppMerger result = new WebApp3Merger(descriptorBase, descriptorToMerge, ModelElementMerger.ADD);
+		result.process();
+		Assert.assertNotNull(descriptorBase.getServlets());
+		Assert.assertEquals(1, descriptorBase.getServlets().size());
+		Assert.assertEquals(1, descriptorToMerge.getServlets().size());
+		Assert.assertEquals(1, descriptorToMerge.getServletMappings().size());
+		Servlet s = descriptorBase.getServlets().get(0);
+		Assert.assertNotNull(s);
+		Assert.assertTrue(s.getServletName().equals("TestServlet"));
+		Assert.assertNotNull(descriptorBase.getServletMappings());
+		Assert.assertEquals(1, descriptorBase.getServletMappings().size());
+		ServletMapping m = descriptorBase.getServletMappings().get(0);
+		Assert.assertTrue(m.getServletName().equals("TestServlet"));
+		Assert.assertNotNull(m.getUrlPatterns());
+		Assert.assertEquals(2, m.getUrlPatterns().size());
+		Assert.assertTrue(m.getUrlPatterns().get(0).getValue().equals("/pattern1"));
+		Assert.assertTrue(m.getUrlPatterns().get(1).getValue().equals("/pattern2"));
+	}
+
+	/**
+	 * Tests the merger "copy" behavior with servlet mappings with
+	 * different url-patterns
+	 * The servlet mapping should be copied to base
+	 * 
+	 * @throws ModelException
+	 */
+	//@Test
+	public void testServletMappingsCaseSameCopy() throws ModelException{
+		WebApp descriptorBase = WebFactory.eINSTANCE.createWebApp();
+		WebApp descriptorToMerge = WebFactory.eINSTANCE.createWebApp();
+
+		Servlet servlet = WebFactory.eINSTANCE.createServlet();
+		servlet.setServletName("TestServlet");
+		servlet.setServletClass("test.TestServlet");
+		List<Servlet> servlets = descriptorBase.getServlets();
+		servlets.add(servlet);
+
+		UrlPatternType urlPattern = JavaeeFactory.eINSTANCE.createUrlPatternType();
+		urlPattern.setValue("/pattern1");
+		ServletMapping servletMapping = WebFactory.eINSTANCE.createServletMapping();
+		servletMapping.setServletName("TestServlet");
+		List<UrlPatternType> urlPatterns = servletMapping.getUrlPatterns();
+		urlPatterns.add(urlPattern);
+		List<ServletMapping> servletMappings = descriptorBase.getServletMappings();
+		servletMappings.add(servletMapping);
+
+		Servlet servlet2 = WebFactory.eINSTANCE.createServlet();
+		servlet2.setServletName("TestServlet");
+		servlet2.setServletClass("test.TestServlet2");
+		List<Servlet> servlets2 = descriptorToMerge.getServlets();
+		servlets2.add(servlet2);
+
+		UrlPatternType urlPattern2 = JavaeeFactory.eINSTANCE.createUrlPatternType();
+		urlPattern2.setValue("/pattern2");
+		ServletMapping servletMapping2 = WebFactory.eINSTANCE.createServletMapping();
+		servletMapping2.setServletName("TestServlet");
+		List<UrlPatternType> urlPatterns2 = servletMapping2.getUrlPatterns();
+		urlPatterns2.add(urlPattern2);
+		List<ServletMapping> servletMappings2 = descriptorToMerge.getServletMappings();
+		servletMappings2.add(servletMapping2);
+
+		WebAppMerger result = new WebApp3Merger(descriptorBase, descriptorToMerge, ModelElementMerger.COPY);
+		result.process();
+		Assert.assertNotNull(descriptorBase.getServlets());
+		Assert.assertEquals(1, descriptorBase.getServlets().size());
+		Assert.assertEquals(1, descriptorToMerge.getServlets().size());
+		Assert.assertEquals(1, descriptorToMerge.getServletMappings().size());
+		Servlet s = descriptorBase.getServlets().get(0);
+		Assert.assertNotNull(s);
+		Assert.assertTrue(s.getServletName().equals("TestServlet"));
+		Assert.assertNotNull(descriptorBase.getServletMappings());
+		Assert.assertEquals(1, descriptorBase.getServletMappings().size());
+		ServletMapping m = descriptorBase.getServletMappings().get(0);
+		Assert.assertTrue(m.getServletName().equals("TestServlet"));
+		Assert.assertNotNull(m.getUrlPatterns());
+		Assert.assertEquals(2, m.getUrlPatterns().size());
+		Assert.assertTrue(m.getUrlPatterns().get(0).getValue().equals("/pattern1"));
+		Assert.assertTrue(m.getUrlPatterns().get(1).getValue().equals("/pattern2"));
+//		m = descriptorBase.getServletMappings().get(1);
+//		Assert.assertTrue(m.getServletName().equals("TestServlet"));
+//		Assert.assertNotNull(m.getUrlPatterns());
+//		Assert.assertEquals(1, m.getUrlPatterns().size());
+//		Assert.assertTrue(m.getUrlPatterns().get(0).getValue().equals("/pattern2"));
 	}
 
 }
