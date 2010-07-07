@@ -339,10 +339,6 @@ public class J2EEInit {
 					theCommonPackage.createPackageContents();
 					theCommonPackage.initializePackageContents();
 					
-					TaglibPackageImpl theTaglibPackage = (TaglibPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(TaglibPackage.eNS_URI) instanceof TaglibPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(TaglibPackage.eNS_URI) : TaglibPackage.eINSTANCE);
-					theTaglibPackage.createPackageContents();
-					theTaglibPackage.initializePackageContents();
-					
 					JcaPackageImpl theJcaPackage = (JcaPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(JcaPackage.eNS_URI) instanceof JcaPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(JcaPackage.eNS_URI) : JcaPackage.eINSTANCE);
 					theJcaPackage.createPackageContents();
 					theJcaPackage.initializePackageContents();
@@ -374,6 +370,10 @@ public class J2EEInit {
 					WebapplicationPackageImpl theWebapplicationPackage = (WebapplicationPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WebapplicationPackage.eNS_URI) instanceof WebapplicationPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WebapplicationPackage.eNS_URI) : WebapplicationPackage.eINSTANCE);
 					theWebapplicationPackage.createPackageContents();
 					theWebapplicationPackage.initializePackageContents();
+
+					TaglibPackageImpl theTaglibPackage = (TaglibPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(TaglibPackage.eNS_URI) instanceof TaglibPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(TaglibPackage.eNS_URI) : TaglibPackage.eINSTANCE);
+					theTaglibPackage.createPackageContents();
+					theTaglibPackage.initializePackageContents();
 				}
 			});
 			j2eeEmfInitThread.start();
