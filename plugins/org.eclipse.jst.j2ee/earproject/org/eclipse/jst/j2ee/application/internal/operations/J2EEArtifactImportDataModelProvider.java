@@ -24,6 +24,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jem.util.logger.proxy.Logger;
+import org.eclipse.jst.common.project.facet.core.JavaFacet;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveOptions;
@@ -42,7 +43,6 @@ import org.eclipse.wst.common.componentcore.datamodel.FacetProjectCreationDataMo
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
-import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelEvent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
@@ -329,7 +329,7 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 				for(Iterator iterator = projectFacets.iterator(); iterator.hasNext();){
 					IDataModel facetDataModel = map.getFacetDataModel(((IProjectFacet)iterator.next()).getId());
 					IProjectFacetVersion facetVersion = (IProjectFacetVersion)facetDataModel.getProperty(IFacetDataModelProperties.FACET_VERSION);
-					if(facetVersion.getProjectFacet().getId().equals(IModuleConstants.JST_JAVA)){
+					if(facetVersion.getProjectFacet().equals(JavaFacet.FACET)){
 						Set set = Collections.singleton(facetVersion.getProjectFacet());
 						try {
 							Set correctSet = runtime.getDefaultFacets(set);
@@ -337,7 +337,7 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 							Iterator correctVersions = correctSet.iterator();
 							while(correctVersions.hasNext() && correctVersion == null){
 								IProjectFacetVersion version = (IProjectFacetVersion)correctVersions.next();
-								if(version.getProjectFacet().getId().equals(IModuleConstants.JST_JAVA)){
+								if(version.getProjectFacet().equals(JavaFacet.FACET)){
 									correctVersion = version;
 								}
 							}
