@@ -610,6 +610,7 @@ public class AddEditFilterMappingDialog extends SelectionStatusDialog implements
 			fSelection = SERVLET;
 			fPageBook.showPage(fServletControl);
 			getShell().pack();
+			updateOkState();
 		} else
 			fSelection = -1;
 	}
