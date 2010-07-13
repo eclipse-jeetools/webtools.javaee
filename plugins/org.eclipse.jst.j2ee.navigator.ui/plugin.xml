@@ -785,6 +785,7 @@
                <instanceof
                      value="org.eclipse.jst.j2ee.webapplication.WebApp">
                </instanceof>
+               
                <instanceof
                      value="org.eclipse.jst.j2ee.webapplication.Filter">
                </instanceof>
@@ -794,10 +795,7 @@
                <instanceof
                      value="org.eclipse.jst.j2ee.webapplication.Servlet">
                </instanceof>
-               <test
-                     forcePluginActivation="true"
-                     property="org.eclipse.core.resources.webResource">
-               </test>
+
             </or>
          </and>
          <and>
