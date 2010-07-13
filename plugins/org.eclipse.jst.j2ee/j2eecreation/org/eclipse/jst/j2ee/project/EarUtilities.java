@@ -23,7 +23,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
-import org.eclipse.jst.j2ee.componentcore.util.EARVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
@@ -398,7 +397,7 @@ public class EarUtilities extends JavaEEProjectUtilities {
 	 * @return a runtime representation of the library directory path or null if
 	 *         the EAR's version is lower than 5
 	 */
-	public static String getEARLibDir(EARVirtualComponent earComponent) {
+	public static String getEARLibDir(IVirtualComponent earComponent) {
 		// check if the EAR component's version is 5 or greater
 		IProject earProject = earComponent.getProject();
 		if (!JavaEEProjectUtilities.isJEEComponent(earComponent, JavaEEProjectUtilities.DD_VERSION)

@@ -13,6 +13,7 @@ package org.eclipse.jst.j2ee.refactor.listeners;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -31,13 +32,17 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.jst.j2ee.refactor.RefactorResourceHandler;
 import org.eclipse.jst.j2ee.refactor.operations.OptionalRefactorHandler;
 import org.eclipse.jst.j2ee.refactor.operations.ProjectRefactorMetadata;
 import org.eclipse.jst.j2ee.refactor.operations.ProjectRefactoringDataModelProvider;
 import org.eclipse.jst.j2ee.refactor.operations.ProjectRenameDataModelProvider;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.builder.IDependencyGraph;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
@@ -97,8 +102,39 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 		// precompute the metadata while the project still exists
 		metadata.computeMetadata();
 		metadata.computeServers();
-		Set<IProject> referencingComponents = IDependencyGraph.INSTANCE.getReferencingComponents(project);
-		IProject [] referencingProjects = referencingComponents.toArray(new IProject[referencingComponents.size()]);
+		//the list of reference projects that have a .settings/org.eclipse.wst.common.component entry
+		//typically these will be EAR projects
+		Set<IProject> dotComponentReferences = IDependencyGraph.INSTANCE.getReferencingComponents(project);
+		Set<IProject> modulesAlreadyChecked = new HashSet<IProject>();
+		modulesAlreadyChecked.add(project);
+		modulesAlreadyChecked.addAll(dotComponentReferences);
+		Set<IProject> allReferences = new HashSet <IProject>();
+		for(IProject earProject: dotComponentReferences){
+			allReferences.add(earProject);
+			if(EarUtilities.isEARProject(earProject)){
+				//for each ear, get the modules, and 
+				//for each module see if it has a reference back to the project being deleted
+				IVirtualComponent earComponent = ComponentCore.createComponent(earProject);
+				IVirtualReference [] earRefs = earComponent.getReferences();
+				for(IVirtualReference earRef : earRefs){
+					IVirtualComponent moduleComponent = earRef.getReferencedComponent();
+					IProject moduleProject = moduleComponent.getProject();
+					if(!moduleComponent.isBinary() && !modulesAlreadyChecked.contains(moduleProject)){
+						modulesAlreadyChecked.add(moduleProject);
+						IVirtualReference [] moduleRefs = moduleComponent.getReferences();
+						for (IVirtualReference moduleRef : moduleRefs) {
+							IVirtualComponent manifestComponent = moduleRef.getReferencedComponent();
+							if(manifestComponent.getProject().equals(project)){
+								allReferences.add(moduleProject);
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		IProject [] referencingProjects = allReferences.toArray(new IProject[allReferences.size()]);
 		metadata.computeDependentMetadata(ProjectRefactorMetadata.REF_CACHING, referencingProjects);
 		deletedProjectMetadata.put(project.getName(), metadata);
 	}
