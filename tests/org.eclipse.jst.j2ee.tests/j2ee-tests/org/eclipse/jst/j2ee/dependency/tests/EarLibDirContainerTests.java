@@ -37,7 +37,8 @@ public class EarLibDirContainerTests extends AbstractTests {
 	public void testEarLibDirDependency() throws Exception {
 		ResourcesPlugin.getWorkspace().getRoot().getProjects();
 		IProject earProject = ProjectUtil.createEARProject(EAR_PROJECT_NAME, J2EEVersionConstants.JEE_5_0_ID, false);
-		IProject utilProject = ProjectUtil.createUtilityProject(UTIL_PROJECT_NAME, EAR_PROJECT_NAME);
+		IProject utilProject = ProjectUtil.createUtilityProject(UTIL_PROJECT_NAME, null);
+		DependencyCreationUtil.createEARDependency(earProject, utilProject, false);
 		IProject libProject = ProjectUtil.createUtilityProject(LIB_PROJECT_NAME, null);
 		DependencyCreationUtil.createEARDependency(earProject, libProject, true);
 		updateEARLibrariesContainer(utilProject);

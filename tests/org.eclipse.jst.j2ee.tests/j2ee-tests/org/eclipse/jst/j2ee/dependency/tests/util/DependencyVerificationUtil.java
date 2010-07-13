@@ -31,6 +31,8 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
+import org.eclipse.jst.j2ee.project.EarUtilities;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.builder.IDependencyGraph;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -230,7 +232,13 @@ public class DependencyVerificationUtil {
 		// .project dep
 		verifyProjectReference(earProject, childProject, true);
 		// .component dep
-		verifyComponentReference(earProject, childProject, ROOT, true);
+		
+		IPath runtimePath = ROOT;
+		if(EarUtilities.isJEEComponent(ComponentCore.createComponent(earProject)) &&  JavaEEProjectUtilities.isUtilityProject(childProject)){
+			runtimePath = new Path("/lib");
+		}
+		
+		verifyComponentReference(earProject, childProject, runtimePath, true);
 		// application.xml ref
 		String moduleURI = null;
 		if (moduleRef) {
@@ -273,8 +281,9 @@ public class DependencyVerificationUtil {
 		verifyManifestReference(source, target.getName() + ".jar", true); //$NON-NLS-1$
 		// verify classpath ref (will be via "EAR Libraries")
 		verifyClasspathReference(source, target, true);
-		// DependencyGraphManager
-		verifyDependency(source, target, true);
+		// DependencyGraphManager only tracks references defined by the .settings/org.eclipse.wst.common.component file
+		// References defined via manifests will not be mapped in the IDependencyGraph
+		//verifyDependency(source, target, true);
 	}
 	
 	public static void verifyModuleDependencyChanged(final IProject source, final IProject oldTarget, final IProject newTarget) throws CoreException, IOException {

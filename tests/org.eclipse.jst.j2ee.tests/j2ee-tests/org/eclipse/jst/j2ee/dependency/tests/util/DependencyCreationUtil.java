@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.jar.Manifest;
 
 import org.eclipse.core.commands.ExecutionException;
@@ -57,6 +58,10 @@ public class DependencyCreationUtil {
 		dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, depList);
 		if (inLibDir) {
 			dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_DEPLOY_PATH, J2EEConstants.EAR_DEFAULT_LIB_DIR); //$NON-NLS-1$
+		} else {
+			dm.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_DEPLOY_PATH, J2EEConstants.EAR_ROOT_DIR); //$NON-NLS-1$
+			Map modDeployPathMap = (Map) dm.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_DEPLOY_PATH_MAP);
+			modDeployPathMap.put(childComp, J2EEConstants.EAR_ROOT_DIR);
 		}
 		dm.getDefaultOperation().execute(null, null);
         ProjectUtil.waitForClasspathUpdate();
