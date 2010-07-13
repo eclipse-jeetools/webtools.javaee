@@ -838,7 +838,12 @@ public class EarValidator extends J2EEValidator  {
 				removeAllMessages(moduleRef.getDeploymentDescriptor(),MESSAGE_DESTINATION_REF_GROUP_NAME);
 			}
 		} catch (ArchiveWrappedException e) {
-			J2EECorePlugin.logError(e);
+			Exception nestedException = e.getNestedException();
+			if(nestedException instanceof NoModuleFileException){
+				//EAT IT because a module project has been closed or deleted				
+			} else {
+				J2EECorePlugin.logError(e);
+			}
 		}
 		for (int refNo = 0; refNo < destinationsRefs.size(); refNo++) {
 			MessageDestinationRef ref = (MessageDestinationRef) (destinationsRefs.get(refNo));
