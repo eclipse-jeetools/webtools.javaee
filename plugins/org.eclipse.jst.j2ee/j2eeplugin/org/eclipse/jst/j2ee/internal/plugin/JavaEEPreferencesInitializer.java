@@ -161,6 +161,7 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 		public static final String STRING_DEFAULT_DEFAULT = ""; //$NON-NLS-1$
 		public static final boolean BOOLEAN_DEFAULT_DEFAULT = false;
 		final static boolean DYNAMIC_WEB_GENERATE_DD = false;
+		final static boolean EE6_CONNECTOR_GENERATE_DD = false;
 	}
 	
 	@Override
@@ -198,7 +199,9 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 		node.putBoolean(Keys.EE6_DYNAMIC_WEB_GENERATE_DD, false);
 		node.putBoolean(Keys.EJB_GENERATE_DD, false);
 		node.putBoolean(Keys.APP_CLIENT_GENERATE_DD, false);	
-		node.putBoolean(Keys.EE6_CONNECTOR_GENERATE_DD, false);
+		String ee6ConnectorGenerateDD = ProductManager.getProperty(IProductConstants.EE6_CONNECTOR_GENERATE_DD);
+		boolean ee6ConnectorGenerateDDDefault = (ee6ConnectorGenerateDD != null) ? Boolean.parseBoolean(ee6ConnectorGenerateDD) : Defaults.EE6_CONNECTOR_GENERATE_DD;
+		node.putBoolean(Keys.EE6_CONNECTOR_GENERATE_DD, ee6ConnectorGenerateDDDefault);
 		
 		node.putBoolean(Keys.USE_EAR_LIBRARIES, true);
 		node.putBoolean(Keys.USE_WEB_APP_LIBRARIES, true);
