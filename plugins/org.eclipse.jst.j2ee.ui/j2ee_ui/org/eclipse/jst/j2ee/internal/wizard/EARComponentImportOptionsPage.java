@@ -187,7 +187,7 @@ public class EARComponentImportOptionsPage extends DataModelWizardPage {
 		selectAllButton = new Button(buttonGroup, SWT.PUSH);
 		selectAllButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_SELECT_ALL_UTIL_BUTTON));
 		GridData gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.VERTICAL_ALIGN_FILL);
-		gd.widthHint = 140;
+		gd.widthHint = 160;
 		selectAllButton.setLayoutData(gd);
 		selectAllButton.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -199,7 +199,7 @@ public class EARComponentImportOptionsPage extends DataModelWizardPage {
 		deselectAllButton = new Button(buttonGroup, SWT.PUSH);
 		deselectAllButton.setText(J2EEUIMessages.getResourceString(J2EEUIMessages.EAR_IMPORT_DESELECT_ALL_UTIL_BUTTON));
 		gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.VERTICAL_ALIGN_FILL);
-		gd.widthHint = 140;
+		gd.widthHint = 160;
 		deselectAllButton.setLayoutData(gd);
 		deselectAllButton.addSelectionListener(new SelectionAdapter() {
 			@Override
