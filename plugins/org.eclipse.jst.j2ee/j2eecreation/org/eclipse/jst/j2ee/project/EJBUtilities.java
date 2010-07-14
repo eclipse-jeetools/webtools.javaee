@@ -10,17 +10,23 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.project;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Properties;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.internal.common.CreationConstants;
 import org.eclipse.jst.j2ee.internal.componentcore.JavaEEBinaryComponentHelper;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.jee.archive.ArchiveModelLoadException;
 import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
@@ -79,6 +85,38 @@ public class EJBUtilities extends JavaEEProjectUtilities {
 			}
 		} 
 		return null;
+	}
+	
+	/**
+	 * Return all EJB Client projects in workspace - found by collecting all EJB projects, and asking for any client
+	 * 
+	 * @param type -
+	 *            use one of the static strings on this class as a type
+	 * @return IProject[]
+	 */
+	public static List getAllEJBClientProjectsInWorkspace() {
+		IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
+		List result = new ArrayList();
+		// First collect all EJB Projects
+		for (int i = 0; i < projects.length; i++) {
+			if (isProjectOfType(projects[i], IModuleConstants.JST_EJB_MODULE))
+				result.add(projects[i]);
+		}
+		List clientResult = new ArrayList();
+		for (Iterator iterator = result.iterator(); iterator.hasNext();) {
+			IProject ejbProj = (IProject) iterator.next();
+			IVirtualComponent ejbComponent = null;
+			ejbComponent = ComponentCore.createComponent(ejbProj);
+			if (ejbComponent == null)
+				return null;
+			Properties props = ejbComponent.getMetaProperties();
+			String clientProjName = props.getProperty("ClientProject"); //$NON-NLS-1$
+			IProject clientProj = J2EEProjectUtilities.getProject(clientProjName);
+			if (clientProj != null)
+				clientResult.add(clientProj);
+		}
+		
+		return clientResult;
 	}
 	
 	
@@ -153,6 +191,13 @@ public class EJBUtilities extends JavaEEProjectUtilities {
 
 		if (ejbProject == null) return false;
 		if (getEJBClientJar(ejbProject) != null)
+			return true;
+		return false;
+	}
+
+	public static boolean isEJBClientProject(IProject compProject) {
+		if (compProject == null) return false;
+		if (getAllEJBClientProjectsInWorkspace().contains(compProject))
 			return true;
 		return false;
 	}

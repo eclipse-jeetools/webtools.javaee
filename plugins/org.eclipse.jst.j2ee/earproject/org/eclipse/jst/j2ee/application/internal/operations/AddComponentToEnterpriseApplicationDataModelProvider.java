@@ -17,6 +17,7 @@ import java.util.Map;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
+import org.eclipse.jst.j2ee.project.EJBUtilities;
 import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsDataModelProvider;
@@ -67,7 +68,7 @@ public class AddComponentToEnterpriseApplicationDataModelProvider extends Create
 					if(null != CompList.get(i)){
 						IVirtualComponent Comp = (IVirtualComponent) CompList.get(i);
 						IProject CompProject = Comp.getProject();
-						if(JavaEEProjectUtilities.isUtilityProject(CompProject) && JavaEEProjectUtilities.isJEEComponent(earComp)){
+						if(JavaEEProjectUtilities.isUtilityProject(CompProject) && !EJBUtilities.isEJBClientProject(CompProject) && JavaEEProjectUtilities.isJEEComponent(earComp)){
 							map.put(Comp, libDir);
 						}
 					}
