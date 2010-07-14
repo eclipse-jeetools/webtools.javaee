@@ -109,9 +109,9 @@ public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements
                         try {
                         	String ejbJarXmlContents = null;
                         	if(fv == IJ2EEFacetConstants.EJB_31) {
-	                            ejbJarXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<ejb-jar version=\"3.1\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd\">\n  <display-name> \n" + XMLWriter.getEscaped(project.getName()) +" </display-name> \n </ejb-jar>"; //$NON-NLS-1$ //$NON-NLS-2$
+	                            ejbJarXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<ejb-jar version=\"3.1\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd\">\n  <display-name>" + XMLWriter.getEscaped(project.getName()) +" </display-name> \n </ejb-jar>"; //$NON-NLS-1$ //$NON-NLS-2$
                         	} else {
-                        		ejbJarXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<ejb-jar version=\"3.0\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd\">\n  <display-name> \n" + XMLWriter.getEscaped(project.getName()) +" </display-name> \n </ejb-jar>"; //$NON-NLS-1$ //$NON-NLS-2$
+                        		ejbJarXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<ejb-jar version=\"3.0\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd\">\n  <display-name>" + XMLWriter.getEscaped(project.getName()) +" </display-name> \n </ejb-jar>"; //$NON-NLS-1$ //$NON-NLS-2$
                         	}
                         	ejbJarXmlFile.create(new ByteArrayInputStream(ejbJarXmlContents.getBytes("UTF-8")), true, monitor); //$NON-NLS-1$
                         } catch (UnsupportedEncodingException e) {
