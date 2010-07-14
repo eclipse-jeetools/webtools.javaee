@@ -53,6 +53,7 @@ public class AddReferenceToEnterpriseApplicationDataModelProvider
 			List<IVirtualReference> refs = (List<IVirtualReference>)model.getProperty(IAddReferenceDataModelProperties.TARGET_REFERENCE_LIST);
 			List<IVirtualComponent> compList = new ArrayList<IVirtualComponent>();
 			Map<IVirtualComponent, String> uriMap = new HashMap<IVirtualComponent, String>();
+			Map<IVirtualComponent, String> deployMap = new HashMap<IVirtualComponent, String>();
 			IVirtualReference currentRef;
 			for( int i = 0; i < refs.size(); i++ ) {
 				currentRef = refs.get(i);
@@ -63,10 +64,12 @@ public class AddReferenceToEnterpriseApplicationDataModelProvider
 				// A fix would be to clone AddComponentToEnterpriseApplicationOp 
 				// and make it extend AddReferencesOp
 		        model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_DEPLOY_PATH, currentRef.getRuntimePath().toString());
+		        deployMap.put(currentRef.getReferencedComponent(), currentRef.getRuntimePath().toString());
 			}
 			model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, compList);
 			model.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, model.getProperty(IAddReferenceDataModelProperties.SOURCE_COMPONENT));
 			model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP, uriMap);
+			model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_DEPLOY_PATH_MAP, deployMap);
 		}
 	}
 }
