@@ -1,12 +1,12 @@
 package org.eclipse.jst.jee.project.facet;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IModelProvider;
@@ -37,15 +37,16 @@ public class EarCreateDeploymentFilesOperation extends
 					if(componentReferences != null && componentReferences.length > 0){					
 						final IDataModel dataModel = DataModelFactory.createDataModel(new AddComponentToEnterpriseApplicationDataModelProvider());
 						dataModel.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, component);
-						List modList = (List) dataModel.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
 						Map<IVirtualComponent, String> uriMap = new HashMap<IVirtualComponent, String>();
 						for(int i = 0; i < componentReferences.length; i++) {
 							IVirtualComponent referencedComponent = componentReferences[i].getReferencedComponent();
-							modList.add(referencedComponent);
-							uriMap.put(referencedComponent, componentReferences[i].getArchiveName());
+							if (componentReferences[i].getRuntimePath().toString().equals("/")){ //$NON-NLS-1$
+								uriMap.put(referencedComponent, componentReferences[i].getArchiveName());
+							} else {
+								uriMap.put(referencedComponent, componentReferences[i].getRuntimePath().append((new Path(componentReferences[i].getArchiveName())).lastSegment()).toString());
+							}
 						}
 						dataModel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP, uriMap);
-						dataModel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, modList);
 						try {
 							dataModel.getDefaultOperation().execute(monitor, null);
 						} catch (ExecutionException e) {

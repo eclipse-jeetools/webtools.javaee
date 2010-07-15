@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.application.internal.operations;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -23,6 +24,7 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
@@ -101,8 +103,21 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 				
 			if (earModel != null) {
 				List list = (List) model.getProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST);
+				if(list == null)
+					list = new ArrayList();
+				if(list.isEmpty()) {
+					IVirtualReference [] refs = ear.getReferences();
+					if (refs != null && refs.length > 0) {
+						list = new ArrayList();
+						for (int i = 0; i < refs.length; i++) {
+							list.add(refs[i].getReferencedComponent());
+						}
+					}
+				}
+				
 				final Map map = (Map) model.getProperty(IAddComponentToEnterpriseApplicationDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP);
-				if (list != null && list.size() > 0) {
+				final Map deployMap = (Map) model.getProperty(IAddComponentToEnterpriseApplicationDataModelProperties.TARGET_COMPONENTS_DEPLOY_PATH_MAP);
+				if (list.size() > 0) {
 					for (int i = 0; i < list.size(); i++) {
 						
 						final IVirtualComponent wc = (IVirtualComponent) list.get(i);
@@ -122,7 +137,11 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 									public void run() {
 										final ICommonApplication application = (ICommonApplication)earModel.getModelObject();
 										if(application != null) {
-											ICommonModule mod = addModule(application, wc, (String) map.get(wc));
+											String name = (String) map.get(wc);
+											if(deployMap.containsKey(wc)) {
+												name = (new Path((String)deployMap.get(wc))).append(name).toString();
+											}
+											ICommonModule mod = addModule(application, wc, name);
 											if(mod == null){ //utility project
 												return;
 											}
