@@ -96,9 +96,18 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 	@Override
 	protected void customizeCreatedReference(IVirtualReference reference, Object referenceComponent) {
 		if( referenceComponent instanceof ReferencedComponent )
+		{
+			if (((ReferencedComponent) referenceComponent).getArchiveName() != null)
+			{
 				reference.setArchiveName(((ReferencedComponent) referenceComponent).getArchiveName());
-		else 
-			VirtualReferenceUtilities.INSTANCE.ensureReferencesHaveNames(new IVirtualReference[]{reference});
+			}
+			else
+			{
+				reference.setArchiveName(VirtualReferenceUtilities.INSTANCE.getDefaultArchiveName(reference));
+			}
+		}else { 
+				VirtualReferenceUtilities.INSTANCE.ensureReferencesHaveNames(new IVirtualReference[]{reference});
+		}
 	}
 
 	
