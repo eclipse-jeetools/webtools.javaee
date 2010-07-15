@@ -22,6 +22,7 @@ public interface IServletConstants {
 	public static final String QUALIFIED_WEB_LISTENER = "javax.servlet.annotation.WebListener"; //$NON-NLS-1$
 	public static final String QUALIFIED_WEB_FILTER = "javax.servlet.annotation.WebFilter"; //$NON-NLS-1$
 	public static final String QUALIFIED_ANNOTATION_INIT_PARAM = "javax.servlet.annotation.WebInitParam"; //$NON-NLS-1$
+	public static final String QUALIFIED_ANNOTATION_DISPATCHER_TYPE = "javax.servlet.DispatcherType"; //$NON-NLS-1$
 	
 	
 	public static final String QUALIFIED_SERVLET_EXCEPTION = "javax.servlet.ServletException"; //$NON-NLS-1$

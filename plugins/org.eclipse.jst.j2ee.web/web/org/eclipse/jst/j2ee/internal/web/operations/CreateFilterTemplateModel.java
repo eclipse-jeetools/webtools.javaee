@@ -30,6 +30,7 @@ import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_EXCEP
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_REQUEST;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_RESPONSE;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_WEB_FILTER;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_ANNOTATION_DISPATCHER_TYPE;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -46,6 +47,7 @@ public class CreateFilterTemplateModel extends CreateWebClassTemplateModel {
 
 	public static final String ATT_FILTER_NAME = "filterName"; //$NON-NLS-1$
 	public static final String ATT_SERVLET_NAMES = "servletNames"; //$NON-NLS-1$
+	public static final String ATT_DISPATCHER_TYPES= "dispatcherTypes"; //$NON-NLS-1$
 	
 	public static final int NAME = 0;
 	public static final int VALUE = 1;
@@ -75,6 +77,9 @@ public class CreateFilterTemplateModel extends CreateWebClassTemplateModel {
 			collection.add(QUALIFIED_WEB_FILTER);
 			if (getInitParams()!= null && getInitParams().size()>0){
 				collection.add(QUALIFIED_ANNOTATION_INIT_PARAM);
+			}
+			if (hasDispatchers()){
+				collection.add(QUALIFIED_ANNOTATION_DISPATCHER_TYPE);
 			}
 		}
 		
@@ -127,16 +132,16 @@ public class CreateFilterTemplateModel extends CreateWebClassTemplateModel {
 		
 		int dispatchers = mapping.getDispatchers();
 		if ((dispatchers & IFilterMappingItem.REQUEST) > 0) {
-            list.add(DispatcherType.REQUEST_LITERAL.getLiteral());
+			list.add(DispatcherType.REQUEST_LITERAL.getLiteral());
         }
         if ((dispatchers & IFilterMappingItem.FORWARD) > 0) {
-            list.add(DispatcherType.FORWARD_LITERAL.getLiteral());
+        	list.add(DispatcherType.FORWARD_LITERAL.getLiteral());
         }
         if ((dispatchers & IFilterMappingItem.INCLUDE) > 0) {
-            list.add(DispatcherType.INCLUDE_LITERAL.getLiteral());
+        	list.add(DispatcherType.INCLUDE_LITERAL.getLiteral());
         }
         if ((dispatchers & IFilterMappingItem.ERROR) > 0) {
-            list.add(DispatcherType.ERROR_LITERAL.getLiteral());
+        	list.add(DispatcherType.ERROR_LITERAL.getLiteral());
         }
         
         StringBuilder builder = new StringBuilder();
@@ -149,6 +154,26 @@ public class CreateFilterTemplateModel extends CreateWebClassTemplateModel {
         }
 		
 		return builder.toString();
+	}
+	
+	public List<String> getDispatcherListWeb3(IFilterMappingItem mapping) {
+		List<String> list = new ArrayList<String>();
+		
+		int dispatchers = mapping.getDispatchers();
+		if ((dispatchers & IFilterMappingItem.REQUEST) > 0) {
+            list.add("DispatcherType.REQUEST"); //$NON-NLS-1$
+        }
+        if ((dispatchers & IFilterMappingItem.FORWARD) > 0) {
+            list.add("DispatcherType.FORWARD"); //$NON-NLS-1$
+        }
+        if ((dispatchers & IFilterMappingItem.INCLUDE) > 0) {
+            list.add("DispatcherType.INCLUDE"); //$NON-NLS-1$
+        }
+        if ((dispatchers & IFilterMappingItem.ERROR) > 0) {
+            list.add("DispatcherType.ERROR"); //$NON-NLS-1$
+        }
+        
+		return list;
 	}
 
 	protected boolean implementImplementedMethod(String methodName) {
@@ -180,6 +205,16 @@ public class CreateFilterTemplateModel extends CreateWebClassTemplateModel {
 		return unimplementedMethods;
 	}
 	
+	public boolean hasDispatchers(){
+		List<IFilterMappingItem> filterMappings = getFilterMappings();
+		for (IFilterMappingItem filterMapping : filterMappings) {
+			if (filterMapping.getDispatchersAsString().length()>0){
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public Map<String, Object> getClassAnnotationParams() {
 		Map<String, Object> result = new Hashtable<String, Object>();
 		
@@ -194,7 +229,17 @@ public class CreateFilterTemplateModel extends CreateWebClassTemplateModel {
 		List<IFilterMappingItem> filterMappings = getFilterMappings();
 		List<String> urlMappings = new ArrayList<String>();
 		List<String> servletNames = new ArrayList<String>();
+		List<String> dispatcherTypes = new ArrayList<String>();
 		for (IFilterMappingItem filterMapping : filterMappings) {
+			List<String> dispatcherList = getDispatcherListWeb3(filterMapping);
+			if (dispatcherList != null && dispatcherList.size()>0){
+				for (String disp : dispatcherList) {
+					if (!dispatcherTypes.contains(disp)){
+						dispatcherTypes.add(disp);	
+					}
+				}
+				
+			}
 			if (filterMapping.isUrlPatternType()) {
 				urlMappings.add(filterMapping.getName());
 			} else if (filterMapping.isServletNameType()) {
@@ -204,9 +249,13 @@ public class CreateFilterTemplateModel extends CreateWebClassTemplateModel {
 		if (urlMappings.size() > 0) {
 			result.put(ATT_URL_PATTERNS, urlMappings);
 		}
+		if (dispatcherTypes.size() > 0) {
+			result.put(ATT_DISPATCHER_TYPES, dispatcherTypes);
+		}
 		if (servletNames.size() > 0) {
 			result.put(ATT_SERVLET_NAMES, servletNames);
 		}
+		
 		
 		List<String[]> initParams = getInitParams();
 		if (initParams != null && initParams.size() > 0) {
@@ -217,3 +266,4 @@ public class CreateFilterTemplateModel extends CreateWebClassTemplateModel {
 	}
 	
 }
+
