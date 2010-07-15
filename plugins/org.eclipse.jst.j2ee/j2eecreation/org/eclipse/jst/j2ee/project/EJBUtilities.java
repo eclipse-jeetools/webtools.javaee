@@ -111,9 +111,11 @@ public class EJBUtilities extends JavaEEProjectUtilities {
 				return null;
 			Properties props = ejbComponent.getMetaProperties();
 			String clientProjName = props.getProperty("ClientProject"); //$NON-NLS-1$
-			IProject clientProj = J2EEProjectUtilities.getProject(clientProjName);
-			if (clientProj != null)
-				clientResult.add(clientProj);
+			if(clientProjName != null){
+				IProject clientProj = J2EEProjectUtilities.getProject(clientProjName);
+				if (clientProj != null)
+					clientResult.add(clientProj);
+			}
 		}
 		
 		return clientResult;
