@@ -18,6 +18,7 @@ import java.util.Properties;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
@@ -53,7 +54,9 @@ import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.server.core.IModule;
+import org.eclipse.wst.server.core.model.ModuleDelegate;
 import org.eclipse.wst.web.internal.deployables.FlatComponentDeployable;
+
 /**
  * J2EE module superclass.
  */
@@ -115,8 +118,18 @@ public class J2EEFlexProjDeployable extends FlatComponentDeployable implements
     	return J2EEDeployableFactory.j2eeInstance().createChildModule(this, child);
     }
     
-
-    /*_________________________________
+    @Override
+	protected IModule filterModuleDelegates(IModule[] modules) {
+    	for (int i = 0; i < modules.length; i++) {
+			ModuleDelegate md = (ModuleDelegate)modules[i].loadAdapter(ModuleDelegate.class, new NullProgressMonitor());
+			if (md instanceof J2EEFlexProjDeployable) {
+				return modules[i];
+			}
+		}
+		return super.filterModuleDelegates(modules);
+	}
+    
+	/*_________________________________
      * 
 	 * Methods for specific J2EE / JEE Interfaces are below
 	 *_________________________________
