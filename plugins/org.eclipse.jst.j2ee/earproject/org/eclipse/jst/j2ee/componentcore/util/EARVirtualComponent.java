@@ -38,9 +38,9 @@ import org.eclipse.jst.j2ee.internal.modulecore.util.DummyClasspathDependencyCon
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
-import org.eclipse.jst.jee.application.ICommonModule;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
+import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.internal.builder.IDependencyGraph;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent;
@@ -94,9 +94,9 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 	}
 
 	@Override
-	protected void customizeCreatedReference(IVirtualReference reference, Object dependentObject) {
-		if( dependentObject instanceof ICommonModule )
-			reference.setArchiveName(((ICommonModule) dependentObject).getUri());
+	protected void customizeCreatedReference(IVirtualReference reference, Object referenceComponent) {
+		if( referenceComponent instanceof ReferencedComponent )
+				reference.setArchiveName(((ReferencedComponent) referenceComponent).getArchiveName());
 		else 
 			VirtualReferenceUtilities.INSTANCE.ensureReferencesHaveNames(new IVirtualReference[]{reference});
 	}
