@@ -10,17 +10,18 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.application.internal.operations;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.resources.IPathVariableManager;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEUtilityJarListImportDataModelProperties;
@@ -43,6 +44,7 @@ public class J2EEUtilityJarListImportDataModelProvider extends AbstractDataModel
 
 
 	private static final Object[] EMPTY_ARRAY = new Object[0];
+	private String lastUserPath = null;
 
 	public J2EEUtilityJarListImportDataModelProvider() {
 		super();
@@ -130,7 +132,16 @@ public class J2EEUtilityJarListImportDataModelProvider extends AbstractDataModel
 
 
 		} else if (J2EEUtilityJarListImportDataModelProvider.OVERRIDE_PROJECT_ROOT.equals(propertyName)) {
-			model.notifyPropertyChange(PROJECT_ROOT, IDataModel.VALUE_CHG);
+			
+			if(model.getBooleanProperty(OVERRIDE_PROJECT_ROOT)){
+				model.setProperty(PROJECT_ROOT, lastUserPath);
+				model.notifyPropertyChange(PROJECT_ROOT, IDataModel.VALUE_CHG);
+			}else{
+				lastUserPath = model.getStringProperty(PROJECT_ROOT);
+				model.setProperty(PROJECT_ROOT, getDefaultProperty(PROJECT_ROOT));
+				model.notifyPropertyChange(PROJECT_ROOT, IDataModel.VALUE_CHG);
+			}
+
 		} else if (J2EEUtilityJarListImportDataModelProvider.CREATE_LINKED_PATH_VARIABLE.equals(propertyName)) {
 
 			if (isLinkedPathVariableInvalid())
@@ -312,11 +323,14 @@ public class J2EEUtilityJarListImportDataModelProvider extends AbstractDataModel
 	}
 
 	private IStatus validateProjectRoot() {
-		if (isPropertySet(PROJECT_ROOT) && getBooleanProperty(OVERRIDE_PROJECT_ROOT)) {
-			String loc = (String) getProperty(PROJECT_ROOT);
-			File file = new File(loc);
-			if (!file.canWrite() || !file.isDirectory())
-				return new Status(IStatus.ERROR, J2EEPlugin.PLUGIN_ID, 0, EARCreationResourceHandler.J2EEUtilityJarListImportDataModel_0, null); 
+		if (getBooleanProperty(OVERRIDE_PROJECT_ROOT)) {
+			String loc = (String) getProperty(PROJECT_ROOT);			
+			if (null != loc) {
+				IWorkspace workspace = ResourcesPlugin.getWorkspace();
+				IPath path = new Path(loc);
+				return workspace.validateProjectLocation(null, path);
+			}
+			return new Status(IStatus.ERROR, J2EEPlugin.PLUGIN_ID, 0, EARCreationResourceHandler.J2EEUtilityJarListImportDataModel_0, null);
 		}
 		return OK_STATUS;
 	}
