@@ -291,5 +291,6 @@ public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate implemen
 		while(i.hasNext()) {
 			i.next().clearCache();
 		}
+		modulesChanged();
 	}
 }
