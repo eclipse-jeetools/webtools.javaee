@@ -21,12 +21,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.common.internal.modulecore.util.ArchiveManifest;
 import org.eclipse.jst.common.internal.modulecore.util.IJavaComponentDiscerner;
 import org.eclipse.jst.common.internal.modulecore.util.ManifestUtilities;
-import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.model.IEARModelProvider;
-import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.project.EarUtilities;
-import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
-import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
@@ -83,15 +78,7 @@ public class JEEManifestDiscerner implements IJavaComponentDiscerner {
 	 * @return
 	 */
 	private IVirtualReference[] trimEarHardRefs(IVirtualComponent ear, IProject childProject, IVirtualReference[] hardRefs) {
-		String earLibDir = null;
-		if(JavaEEProjectUtilities.isJEEComponent(ear)) {
-			final IEARModelProvider earModel = (IEARModelProvider)ModelProviderManager.getModelProvider(ear.getProject());
-			Application app = (Application)earModel.getModelObject();
-			earLibDir = app.getLibraryDirectory();
-			if(earLibDir == null) {
-				earLibDir = J2EEConstants.EAR_DEFAULT_LIB_DIR;
-			}
-		}
+		String earLibDir = EarUtilities.getEARLibDir(ear);
 		ArrayList<IVirtualReference> refs = new ArrayList<IVirtualReference>();
 		// We have to prune out self-references 
 		for( int i = 0; i < hardRefs.length; i++ ) {
@@ -121,7 +108,7 @@ public class JEEManifestDiscerner implements IJavaComponentDiscerner {
 			newRefs[i] = ComponentCore.createReference(original[i].getEnclosingComponent(), 
 					original[i].getReferencedComponent(), original[i].getRuntimePath().makeRelative());
 			newRefs[i].setDependencyType(original[i].getDependencyType());
-			newRefs[i].setArchiveName(original[i].getArchiveName());
+			newRefs[i].setArchiveName((new Path(original[i].getArchiveName())).lastSegment());
 		}
 		return newRefs;
 	}
@@ -148,7 +135,7 @@ public class JEEManifestDiscerner implements IJavaComponentDiscerner {
 			// Add entries that are in the Manifest
 			while(i.hasNext()) {
 				currentI = i.next();
-				String currentEntry = currentI.getRuntimePath().append(currentI.getArchiveName()).toString();
+				String currentEntry = currentI.getRuntimePath().append((new Path(currentI.getArchiveName())).lastSegment()).toString();
 				if(entries.contains(currentEntry))
 					currentEntries.add(currentI);
 			}

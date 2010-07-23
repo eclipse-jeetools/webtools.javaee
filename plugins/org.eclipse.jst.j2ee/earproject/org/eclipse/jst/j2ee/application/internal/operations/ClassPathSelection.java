@@ -55,18 +55,16 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategy;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.ZipFileLoadStrategyImpl;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
-import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.archive.operations.ComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.archive.operations.EARComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyEnablement;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
-import org.eclipse.jst.j2ee.model.IEARModelProvider;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
-import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.jst.javaee.ejb.EJBJar;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.UnresolveableURIException;
@@ -223,7 +221,7 @@ public class ClassPathSelection {
 		ClasspathElement element = new ClasspathElement(referencingArchive);
 		element.setValid(true);
 		IPath referencedArchivePath = referencedArchive.getRuntimePath().makeRelative();
-		String uriString = referencedArchivePath.append(referencedArchive.getArchiveName()).toString();		
+		String uriString = referencedArchivePath.append((new Path(referencedArchive.getArchiveName())).lastSegment()).toString();		
 		
 		element.setText(uriString);
 		element.setTargetComponent(referencedArchive.getReferencedComponent());
@@ -908,13 +906,7 @@ public class ClassPathSelection {
 	}
 	
 	private void refreshEARLibraryDirectory(){
-		if(JavaEEProjectUtilities.isJEEComponent(earComponent)) {
-			final IEARModelProvider earModel = (IEARModelProvider)ModelProviderManager.getModelProvider(earProject);
-			Application app = (Application)earModel.getModelObject();
-			earLibraryDirectory = app.getLibraryDirectory();
-			if(earLibraryDirectory == null)
-				earLibraryDirectory = J2EEConstants.EAR_DEFAULT_LIB_DIR;
-		}
+		earLibraryDirectory = EarUtilities.getEARLibDir(earComponent);
 	}
 
 	private void setType(ClasspathElement element, Archive other) {

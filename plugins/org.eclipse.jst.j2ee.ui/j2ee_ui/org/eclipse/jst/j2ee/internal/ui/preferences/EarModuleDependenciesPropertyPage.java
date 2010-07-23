@@ -29,6 +29,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IEARModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.jst.jee.project.facet.EarCreateDeploymentFilesDataModelProvider;
@@ -72,36 +73,34 @@ public class EarModuleDependenciesPropertyPage extends
 		GridData gData = new GridData(GridData.FILL_BOTH);
 		composite.setLayoutData(gData);
 		fillTableComposite(composite);
-		if( JavaEEProjectUtilities.isJEEComponent(rootComponent))
+		if(JavaEEProjectUtilities.isJEEComponent(rootComponent, JavaEEProjectUtilities.DD_VERSION) && JavaEEProjectUtilities.isJEEComponent(rootComponent, JavaEEProjectUtilities.FACET_VERSION))
 			addLibDirComposite(composite);
 	}
 
 	private String loadLibDirString() {
-		Application app = (Application)ModelProviderManager.getModelProvider(project).getModelObject();
-		String val = app.getLibraryDirectory();
-		if (val == null)
-			val = J2EEConstants.EAR_DEFAULT_LIB_DIR;
-		return val;
+		return EarUtilities.getEARLibDir(rootComponent);
 	}
 	
 	protected void addLibDirComposite(Composite parent) {
 		libDir = loadLibDirString();
-		Composite c = new Composite(parent, SWT.NONE);
-		GridData mainData = new GridData(GridData.FILL_HORIZONTAL);
-		c.setLayoutData(mainData);
-		
-		GridLayout gl = new GridLayout(2,false);
-		c.setLayout(gl);
-		Label l = new Label(c, SWT.NONE);
-		l.setText(Messages.EarModuleDependenciesPropertyPage_LIBDIR);
-		libDirText = new Text(c, SWT.BORDER);
-		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
-		libDirText.setLayoutData(gd);
-		libDirText.setText(libDir);
-		libDirText.addModifyListener(new ModifyListener() {
-			public void modifyText(ModifyEvent e) {
-				libDirTextModified();
-			} });
+		if(libDir != null) {
+			Composite c = new Composite(parent, SWT.NONE);
+			GridData mainData = new GridData(GridData.FILL_HORIZONTAL);
+			c.setLayoutData(mainData);
+			
+			GridLayout gl = new GridLayout(2,false);
+			c.setLayout(gl);
+			Label l = new Label(c, SWT.NONE);
+			l.setText(Messages.EarModuleDependenciesPropertyPage_LIBDIR);
+			libDirText = new Text(c, SWT.BORDER);
+			GridData gd = new GridData(GridData.FILL_HORIZONTAL);
+			libDirText.setLayoutData(gd);
+			libDirText.setText(libDir);
+			libDirText.addModifyListener(new ModifyListener() {
+				public void modifyText(ModifyEvent e) {
+					libDirTextModified();
+				} });
+		}
 	}
 	
 	protected void libDirTextModified() {
@@ -171,7 +170,7 @@ public class EarModuleDependenciesPropertyPage extends
 	@Override
 	public boolean performOk() {
 		boolean result = super.performOk();
-		if( JavaEEProjectUtilities.isJEEComponent(rootComponent))
+		if(JavaEEProjectUtilities.isJEEComponent(rootComponent, JavaEEProjectUtilities.DD_VERSION) && JavaEEProjectUtilities.isJEEComponent(rootComponent, JavaEEProjectUtilities.FACET_VERSION) && libDir != null)
 			updateLibDir();
 		return result;
 	}
