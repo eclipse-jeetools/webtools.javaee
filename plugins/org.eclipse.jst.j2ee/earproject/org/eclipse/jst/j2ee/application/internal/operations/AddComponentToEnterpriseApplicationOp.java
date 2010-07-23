@@ -139,7 +139,9 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 										if(application != null) {
 											String name = (String) map.get(wc);
 											if(deployMap.containsKey(wc)) {
-												name = (new Path((String)deployMap.get(wc))).append(name).toString();
+												String deployPath = (String)deployMap.get(wc);
+												if(!deployPath.equals("/")) //$NON-NLS-1$
+													name = (new Path(deployPath)).append(name).toString();
 											}
 											ICommonModule mod = addModule(application, wc, name);
 											if(mod == null){ //utility project
@@ -176,12 +178,13 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 					}
 				}
 			}
-			se.saveIfNecessary(monitor);
 		} catch (Exception e) {
 			J2EEPlugin.logError(e);
 		} finally {
-			if (se != null)
+			if (se != null) {
+				se.saveIfNecessary(monitor);
 				se.dispose();
+			}
 		}
 	}
 
