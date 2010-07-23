@@ -314,44 +314,57 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 				// if the EAR version is lower than 5, then the library directory will be null
 				if (libDir != null) {
 					// check if the component itself is not in the library directory of this EAR - avoid cycles in the build patch
-					if (!libDir.equals(earComp.getReference(component.getName()).getRuntimePath().toString())) {
-						// retrieve the referenced components from the EAR
-						IVirtualReference[] earRefs = earComp.getReferences();
-						for (IVirtualReference earRef : earRefs) {
-							if(earRef.getDependencyType() == IVirtualReference.DEPENDENCY_TYPE_USES){
-								// check if the referenced component is in the library directory
-								boolean isInLibDir = libDir.equals(earRef.getRuntimePath().toString());
-								if(!isInLibDir){
-									IPath fullPath = earRef.getRuntimePath().append(earRef.getArchiveName());
-									isInLibDir = fullPath.removeLastSegments(1).toString().equals(libDir);
-								}
-								if (isInLibDir) {
-									libRefs.add(earRef);
+					IVirtualReference ref = earComp.getReference(component.getName());
+					if(ref != null){
+						IPath refPath = ref.getRuntimePath();
+						String archiveName = ref.getArchiveName();
+						if(archiveName != null){
+							// this check is needed to handle the scenario where the ref.getRuntimePath() is "/"
+							// and the archive name is "/lib/foo.jar"
+							refPath = refPath.append(archiveName);
+							if(refPath.segmentCount() > 0){
+								refPath = refPath.removeLastSegments(1);
+							}
+						}
+						if (!libDir.equals(refPath.toString())) {
+							// retrieve the referenced components from the EAR
+							IVirtualReference[] earRefs = earComp.getReferences();
+							for (IVirtualReference earRef : earRefs) {
+								if(earRef.getDependencyType() == IVirtualReference.DEPENDENCY_TYPE_USES){
+									// check if the referenced component is in the library directory
+									boolean isInLibDir = libDir.equals(earRef.getRuntimePath().toString());
+									if(!isInLibDir){
+										IPath fullPath = earRef.getRuntimePath().append(earRef.getArchiveName());
+										isInLibDir = fullPath.removeLastSegments(1).toString().equals(libDir);
+									}
+									if (isInLibDir) {
+										libRefs.add(earRef);
+									}
 								}
 							}
 						}
-					}
-					//add EAR classpath container refs
-					try {
-						ClasspathLibraryExpander classpathLibExpander = new ClasspathLibraryExpander(earComp);
-						IPath libDirPath = new Path(libDir);
-						IFlatResource flatLibResource = classpathLibExpander.fetchResource(libDirPath);
-						if(flatLibResource instanceof IFlatFolder){
-							IFlatFolder flatLibFolder = (IFlatFolder)flatLibResource;
-							IFlatResource [] flatLibs = flatLibFolder.members();
-							for(IFlatResource flatResource : flatLibs){
-								File file = (File) flatResource.getAdapter(File.class);
-								if(file != null){
-									IVirtualComponent dynamicComponent = new VirtualArchiveComponent(earComp.getProject(), VirtualArchiveComponent.LIBARCHIVETYPE + "/" + file.getAbsolutePath(), new Path(libDir)); //$NON-NLS-1$
-									IVirtualReference dynamicRef = ComponentCore.createReference(earComp, dynamicComponent);
-									((VirtualReference)dynamicRef).setDerived(true);
-									dynamicRef.setArchiveName(file.getName());
-									libRefs.add(dynamicRef);
-								}
-							}	
+						//add EAR classpath container refs
+						try {
+							ClasspathLibraryExpander classpathLibExpander = new ClasspathLibraryExpander(earComp);
+							IPath libDirPath = new Path(libDir);
+							IFlatResource flatLibResource = classpathLibExpander.fetchResource(libDirPath);
+							if(flatLibResource instanceof IFlatFolder){
+								IFlatFolder flatLibFolder = (IFlatFolder)flatLibResource;
+								IFlatResource [] flatLibs = flatLibFolder.members();
+								for(IFlatResource flatResource : flatLibs){
+									File file = (File) flatResource.getAdapter(File.class);
+									if(file != null){
+										IVirtualComponent dynamicComponent = new VirtualArchiveComponent(earComp.getProject(), VirtualArchiveComponent.LIBARCHIVETYPE + "/" + file.getAbsolutePath(), new Path(libDir)); //$NON-NLS-1$
+										IVirtualReference dynamicRef = ComponentCore.createReference(earComp, dynamicComponent);
+										((VirtualReference)dynamicRef).setDerived(true);
+										dynamicRef.setArchiveName(file.getName());
+										libRefs.add(dynamicRef);
+									}
+								}	
+							}
+						} catch (CoreException e) {
+							org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
 						}
-					} catch (CoreException e) {
-						org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
 					}
 				}
 			}
