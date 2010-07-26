@@ -73,7 +73,7 @@ public final class EarFacetInstallDelegate implements IDelegate {
 								&& (appXmlFile.getParent().getType() ==  IResource.FOLDER)){
 							((IFolder)appXmlFile.getParent()).create(true, true, monitor);
 						}
-						final String appXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<application id=\"Application_ID\" version=\"5\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_5.xsd\">\n <display-name> \n" + project.getName() +  "</display-name> \n </application> "; //$NON-NLS-1$
+						final String appXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<application id=\"Application_ID\" version=\"5\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_5.xsd\">\n <display-name>" + project.getName() +  "</display-name> \n </application> "; //$NON-NLS-1$
 						appXmlFile.create(new ByteArrayInputStream(appXmlContents.getBytes("UTF-8")), true, monitor); //$NON-NLS-1$
 					} catch (UnsupportedEncodingException e) {
 						Logger.getLogger().logError(e);
