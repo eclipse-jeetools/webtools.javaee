@@ -15,7 +15,7 @@ import org.eclipse.osgi.util.NLS;
 
 public class ERefValidationMessageResourceHandler extends NLS {
 
-	private static final String BUNDLE_NAME = "erefvalidation";//$NON-NLS-1$
+	private static final String BUNDLE_NAME = "org.eclipse.jst.j2ee.core.internal.plugin.erefvalidation";//$NON-NLS-1$
 
 	private ERefValidationMessageResourceHandler() {
 		// Do not instantiate
@@ -37,6 +37,7 @@ public class ERefValidationMessageResourceHandler extends NLS {
 	public static String ERROR_EAR_MISSING_MESSSAGEDESTINATION;
 	public static String ERROR_UNRESOLVED_MDB_MISSING_MESSAGE_DESTINATION;
 	public static String ERROR_EAR_MISSING_EMPTY_MESSSAGEDESTINATION;
+	public static String ERROR_MODULE_DD_FILE_NOT_FOUND;
 
 	
 
