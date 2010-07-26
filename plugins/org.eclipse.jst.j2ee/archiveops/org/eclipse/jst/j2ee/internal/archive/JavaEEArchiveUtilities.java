@@ -35,11 +35,8 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.componentcore.JavaEEBinaryComponentLoadAdapter;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
-import org.eclipse.jst.j2ee.model.IModelProvider;
-import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
-import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.jst.jee.archive.ArchiveModelLoadException;
 import org.eclipse.jst.jee.archive.ArchiveOpenFailureException;
 import org.eclipse.jst.jee.archive.ArchiveOptions;
@@ -54,7 +51,6 @@ import org.eclipse.jst.jee.archive.internal.ZipFileArchiveLoadAdapterImpl;
 import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
-import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
 public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchiveFactory {
 
@@ -226,9 +222,6 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 		archiveOptions.setOption(ArchiveOptions.LOAD_ADAPTER, loadAdapter);
 		archiveOptions.setOption(ArchiveOptions.ARCHIVE_PATH, loadAdapter.getArchivePath());
 		archiveOptions.setOption(DISCRIMINATE_MAIN_CLASS, descriminateMainClass);
-		if(descriminateMainClass == true){
-			archiveOptions.setOption(JavaEEArchiveUtilities.DISCRIMINATE_JAVA_EE, Boolean.TRUE);
-		}
 		IArchive parentEARArchive = null;
 		try {
 			if(archiveComponent.isLinkedToEAR()){
@@ -236,11 +229,6 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 					IProject earProject = virtualComponent.getProject();
 					if(earProject != null && EarUtilities.isEARProject(earProject)){
 						IVirtualComponent earComponent = ComponentCore.createComponent(virtualComponent.getProject());
-						String earLibDir = getEARLibDir(earComponent);
-						boolean inLibDir = isInLibDir(earComponent, virtualComponent, earLibDir);
-						if(inLibDir == true){
-							archiveOptions.setOption(DISCRIMINATE_JAVA_EE, false);
-						}
 						if(earComponent != null) {
 							parentEARArchive = openArchive(earComponent);
 							if(parentEARArchive != null) {
@@ -329,7 +317,6 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 		IArchive simpleArchive = super.openArchive(archiveOptions);
 		Object discriminateJavaEE = archiveOptions.getOption(DISCRIMINATE_JAVA_EE);
 		if (discriminateJavaEE != null && !((Boolean) discriminateJavaEE).booleanValue()) {
-			archiveToJavaEEQuickPeek.put(simpleArchive, new JavaEEQuickPeek(null));
 			return simpleArchive;
 		}
 		return refineForJavaEE(simpleArchive);
@@ -777,58 +764,4 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 		}
 		return manifest;
 	}
-	
-		private String getEARLibDir(IVirtualComponent earComponent) {
-				// check if the EAR component's version is 5 or greater
-				IProject earProject = earComponent.getProject();
-				if (!JavaEEProjectUtilities.isJEEComponent(earComponent, JavaEEProjectUtilities.DD_VERSION)
-						|| !JavaEEProjectUtilities.isJEEComponent(earComponent, JavaEEProjectUtilities.FACET_VERSION)) {
-					return null;
-				}
-				
-				// default lib dir if there is no deployment descriptor
-				// or if the deployment descriptor does not override
-				String libDir = J2EEConstants.EAR_DEFAULT_LIB_DIR;
-				
-				// retrieve the model provider
-				IModelProvider modelProvider = ModelProviderManager.getModelProvider(earProject);
-				if (modelProvider == null){
-					return libDir;
-				}
-				
-				// retrieve the EAR's deployment descriptor model object
-				Application app = (Application) modelProvider.getModelObject(new Path(J2EEConstants.APPLICATION_DD_URI));
-				if (app == null){
-					return libDir;
-				}
-				
-				// retrieve the library directory from the model
-				String ddLibDir = app.getLibraryDirectory();
-				if (ddLibDir != null) {
-					libDir = ddLibDir;
-				}
-				
-				return libDir;
-			}
-			
-			private boolean isInLibDir(IVirtualComponent earComp, IVirtualComponent component, String libDir){
-				boolean isInLibDir = true;
-				if (libDir != null) {
-					// check if the component itself is not in the library directory of this EAR - avoid cycles in the build patch
-					if (earComp.getReference(component.getName()) != null && !libDir.equals(earComp.getReference(component.getName()).getRuntimePath().toString())) {
-						// retrieve the referenced components from the EAR
-						IVirtualReference[] earRefs = earComp.getReferences();
-						for (IVirtualReference earRef : earRefs) {
-							// check if the referenced component is in the library directory
-							isInLibDir = libDir.equals(earRef.getRuntimePath().toString());
-							if(!isInLibDir){
-								IPath fullPath = earRef.getRuntimePath().append(earRef.getArchiveName());
-								isInLibDir = fullPath.removeLastSegments(1).toString().equals(libDir);
-							}
-						}
-					}
-				}
-				return isInLibDir;
-			}
-
 }

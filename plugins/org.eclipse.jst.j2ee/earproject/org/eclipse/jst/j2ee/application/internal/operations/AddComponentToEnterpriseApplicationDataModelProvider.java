@@ -16,9 +16,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
-import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsDataModelProvider;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
@@ -45,16 +43,13 @@ public class AddComponentToEnterpriseApplicationDataModelProvider extends Create
 				String name = component.getName();
 				if(name != null)
 					name = name.replace(' ','_');
-				if( name != null ) 
-					name = new Path(name).lastSegment();
-				if (!component.isBinary()) {
-					if (JavaEEProjectUtilities.isDynamicWebProject(project)) {
-						name += IJ2EEModuleConstants.WAR_EXT;
-					} else if (JavaEEProjectUtilities.isJCAProject(project)) {
-						name += IJ2EEModuleConstants.RAR_EXT;
-					} else {
-						name += IJ2EEModuleConstants.JAR_EXT;
-					}
+				
+				if (J2EEProjectUtilities.isDynamicWebProject(project)) {
+					name += IModuleExtensions.DOT_WAR;
+				} else if (J2EEProjectUtilities.isJCAProject(project)) {
+					name += IModuleExtensions.DOT_RAR;
+				} else {
+					name += IModuleExtensions.DOT_JAR;
 				}
 				map.put(component, name);
 			}
