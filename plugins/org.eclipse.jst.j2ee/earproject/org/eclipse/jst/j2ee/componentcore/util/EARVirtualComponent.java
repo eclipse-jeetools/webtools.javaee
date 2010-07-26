@@ -103,9 +103,7 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 								if (referencedComponent.getDependentObject() != null) {
 									archiveName = ((ICommonModule) referencedComponent.getDependentObject()).getUri();
 								} else {
-									if (referencedIVirtualComponent.isBinary()) {
-										archiveName = getJarURI(referencedComponent, referencedIVirtualComponent);
-									} else if(referencedComponent.getArchiveName() != null){
+									if(referencedComponent.getArchiveName() != null){
 										archiveName = referencedComponent.getArchiveName();
 									} else {
 										IProject referencedProject = referencedIVirtualComponent.getProject();
@@ -116,7 +114,7 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 											archiveName = referencedIVirtualComponent.getName() + IJ2EEModuleConstants.WAR_EXT;
 										} else if (J2EEProjectUtilities.isJCAProject(referencedProject)) {
 											archiveName = referencedIVirtualComponent.getName() + IJ2EEModuleConstants.RAR_EXT;
-										} else if (J2EEProjectUtilities.isUtilityProject(referencedProject)) {
+										} else if (J2EEProjectUtilities.isUtilityProject(referencedProject) || referencedIVirtualComponent.isBinary()) {
 											archiveName = getJarURI(referencedComponent, referencedIVirtualComponent);
 										} else {
 											archiveName = referencedIVirtualComponent.getName() + IJ2EEModuleConstants.JAR_EXT;

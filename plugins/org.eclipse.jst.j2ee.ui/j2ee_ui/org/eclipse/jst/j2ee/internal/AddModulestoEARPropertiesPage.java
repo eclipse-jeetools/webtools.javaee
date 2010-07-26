@@ -1178,6 +1178,9 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		IPath componentPath = Path.fromOSString(archive.getName());
 		String uriMapName = componentPath.lastSegment().replace(' ', '_');
 		
+		IPath resolvedPath = JavaCore.getResolvedVariablePath(new Path(uriMapName));
+		if(resolvedPath != null)
+			uriMapName = resolvedPath.lastSegment().replace(' ', '_');
 		
 		//check to be sure this uri mapping is not already in use by another reference
 		boolean dupeArchiveName;
