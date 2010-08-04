@@ -1249,20 +1249,28 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 					JavaEEBinaryComponentHelper.openArchive(virtComp, true);
 				}
 			}
-		
-			if(JavaEEProjectUtilities.isDynamicWebComponent(virtComp)) {
-				if(!virtCompURIMapName.endsWith(IJ2EEModuleConstants.WAR_EXT)) {
-					//web module URIs need to end in WAR
-					virtCompURIMapName += IJ2EEModuleConstants.WAR_EXT;
+
+			String extension = null;
+			int extIndex = virtCompURIMapName.lastIndexOf(".");
+			if(extIndex > 0 && virtCompURIMapName.length() > extIndex) {
+				extension = virtCompURIMapName.substring(extIndex).toLowerCase();
+			}
+
+			if(extension == null || !extension.equals(".zip")) {
+				if(JavaEEProjectUtilities.isDynamicWebComponent(virtComp)) {
+					if(!virtCompURIMapName.endsWith(IJ2EEModuleConstants.WAR_EXT)) {
+						//web module URIs need to end in WAR
+						virtCompURIMapName += IJ2EEModuleConstants.WAR_EXT;
+					}
+				} else if(JavaEEProjectUtilities.isJCAComponent(virtComp)) {
+					if(!virtCompURIMapName.endsWith(IJ2EEModuleConstants.RAR_EXT)) {
+						//connector module URIs need to end in RAR
+						virtCompURIMapName += IJ2EEModuleConstants.RAR_EXT;
+					}
+				} else if(!virtCompURIMapName.endsWith(IJ2EEModuleConstants.JAR_EXT)) {
+					//all other modules (EJB, AppClient, Utility) need to end in JAR
+					virtCompURIMapName += IJ2EEModuleConstants.JAR_EXT;
 				}
-			} else if(JavaEEProjectUtilities.isJCAComponent(virtComp)) {
-				if(!virtCompURIMapName.endsWith(IJ2EEModuleConstants.RAR_EXT)) {
-					//connector module URIs need to end in RAR
-					virtCompURIMapName += IJ2EEModuleConstants.RAR_EXT;
-				}
-			} else if(!virtCompURIMapName.endsWith(IJ2EEModuleConstants.JAR_EXT)) {
-				//all other modules (EJB, AppClient, Utility) need to end in JAR
-				virtCompURIMapName += IJ2EEModuleConstants.JAR_EXT;
 			}
 		} finally {
 			if(virtComp.isBinary()){
