@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.project;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFolder;
@@ -26,10 +27,14 @@ import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
+import org.eclipse.jst.common.jdt.internal.javalite.JavaCoreLite;
+import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
+import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants.DependencyAttributeType;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyEnablement;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.jst.j2ee.internal.project.SingleRootStatus;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.internal.project.SingleRootStatus;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.Property;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
@@ -167,6 +172,13 @@ public class SingleRootUtil {
 						}
 					}
 				}
+			}
+			
+			// If we have classpath dependencies we can't be single root
+			if (hasClasspathDependencies(component)) {
+				reportStatus(ISingleRootStatus.CLASSPATH_DEPENDENCIES_FOUND);
+				if (INCLUDE_FLAG == NONE) 
+					return getStatus();
 			}
 			
 			if (JavaEEProjectUtilities.isDynamicWebProject(getProject())) {
@@ -411,6 +423,22 @@ public class SingleRootUtil {
 			}
 		}
 		return INCLUDE_FLAG == NONE ? false : true;
+	}
+	
+	protected boolean hasClasspathDependencies(IVirtualComponent component) {
+		try {
+			final boolean isWebApp = JavaEEProjectUtilities.isDynamicWebComponent(component);
+		    boolean webLibsOnly = false;
+		    if (!ClasspathDependencyEnablement.isAllowClasspathComponentDependency() && isWebApp) {
+		    	webLibsOnly = true;
+			}
+			final Map entriesToAttrib = ClasspathDependencyUtil.getRawComponentClasspathDependencies(
+					JavaCoreLite.create(component.getProject()), 
+					DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY, 
+					webLibsOnly);
+			return entriesToAttrib != null && entriesToAttrib.size() > 0;
+		} catch( CoreException ce ) {}
+		return false;
 	}
 	
 	/**
