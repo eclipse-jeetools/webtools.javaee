@@ -1236,9 +1236,18 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 			if(virtComp.isBinary()){
 				linkedToEAR = ((J2EEModuleVirtualArchiveComponent)virtComp).isLinkedToEAR();
 				((J2EEModuleVirtualArchiveComponent)virtComp).setLinkedToEAR(false);
+				boolean isLibElement = false;
+				for(Object curElement : j2eeLibElementList){
+					if(virtComp == curElement)
+						isLibElement = true;
+				}
 				//[Bug 299059] open and cache archive using the DISCRIMINATE_MAIN_CLASS
 				//option before attempting the JavaEEQuickPeek
-				JavaEEBinaryComponentHelper.openArchive(virtComp, isVersion5);
+				if(isVersion5 && isLibElement){
+					JavaEEBinaryComponentHelper.openArchiveAsUtility(virtComp);
+				} else {
+					JavaEEBinaryComponentHelper.openArchive(virtComp, true);
+				}
 			}
 		
 			if(JavaEEProjectUtilities.isDynamicWebComponent(virtComp)) {
