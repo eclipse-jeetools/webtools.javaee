@@ -26,6 +26,8 @@ import org.eclipse.jst.javaee.core.DisplayName;
 import org.eclipse.jst.javaee.core.JavaeeFactory;
 import org.eclipse.jst.javaee.ejb.EJBJar;
 import org.eclipse.jst.javaee.ejb.EjbFactory;
+import org.eclipse.jst.javaee.jca.Connector;
+import org.eclipse.jst.javaee.jca.JcaFactory;
 import org.eclipse.jst.javaee.web.WebApp;
 import org.eclipse.jst.javaee.web.WebFactory;
 import org.eclipse.jst.jee.archive.ArchiveModelLoadException;
@@ -171,6 +173,11 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 					WebApp webApp = WebFactory.eINSTANCE.createWebApp();
 					webApp.getDisplayNames().add(dn);
 					root = (EObject) webApp;
+					break;
+				case JavaEEQuickPeek.CONNECTOR_TYPE:
+					Connector connector = JcaFactory.eINSTANCE.createConnector();
+					connector.getDisplayNames().add(dn);
+					root = (EObject) connector;
 					break;
 				}
 				return root;
