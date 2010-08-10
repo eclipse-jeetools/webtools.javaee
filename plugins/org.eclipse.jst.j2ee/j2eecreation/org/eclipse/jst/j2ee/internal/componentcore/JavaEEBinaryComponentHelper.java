@@ -16,6 +16,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
+import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.archive.JavaEEArchiveUtilities;
 import org.eclipse.jst.j2ee.internal.componentcore.EnterpriseBinaryComponentHelper.IReferenceCountedArchive;
@@ -49,6 +50,15 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 	private EnterpriseBinaryComponentHelper legacyBinaryHelper;
 	private boolean descriminateMainClass = true;
 	private int localArchiveAccessCount = 0;
+	private boolean refineForJavaEE = true;
+
+	public boolean shouldRefineForJavaEE() {
+		return refineForJavaEE;
+	}
+
+	public void setRefineForJavaEE(boolean refineForJavaEE) {
+		this.refineForJavaEE = refineForJavaEE;
+	}
 
 	public static JavaEEQuickPeek getJavaEEQuickPeek(IPath filesystemPath) {
 		IArchive archive = null; 
@@ -85,7 +95,11 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 		}
 	}
 	
-	public static void openArchive(IVirtualComponent aBinaryComponent, boolean descriminateMainClass) {
+	public static void openArchiveAsUtility(IVirtualComponent aBinaryComponent) {
+		openArchive(aBinaryComponent, false, false);
+	}
+	
+	public static void openArchive(IVirtualComponent aBinaryComponent, boolean refineForJavaEE, boolean descriminateMainClass) {
 		JavaEEBinaryComponentHelper helper = null;
 		try {
 			helper = new JavaEEBinaryComponentHelper(aBinaryComponent);
@@ -100,6 +114,10 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 				helper.dispose();
 			}
 		}
+	}
+	
+	public static void openArchive(IVirtualComponent aBinaryComponent, boolean descriminateMainClass) {
+		openArchive(aBinaryComponent, true, descriminateMainClass);
 	}
 
 	public JavaEEBinaryComponentHelper(IVirtualComponent aBinaryComponent) {
@@ -540,9 +558,18 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 		public synchronized IArchive openArchive(JavaEEBinaryComponentHelper helper) throws ArchiveOpenFailureException {
 			IArchive archive;
 			if (helper.getComponent().isBinary()) {
-				archive = JavaEEArchiveUtilities.INSTANCE.openBinaryArchive(helper.getComponent(), helper.shouldDescriminateMainClass());
-			}
-			else {
+				if (helper.shouldRefineForJavaEE()) {
+					archive = JavaEEArchiveUtilities.INSTANCE.openBinaryArchive(helper.getComponent(), helper.shouldDescriminateMainClass());
+				} else {
+					J2EEModuleVirtualArchiveComponent archiveComponent = (J2EEModuleVirtualArchiveComponent) helper.getComponent();
+					JavaEEBinaryComponentLoadAdapter loadAdapter = new JavaEEBinaryComponentLoadAdapter(archiveComponent);
+					ArchiveOptions archiveOptions = new ArchiveOptions();
+					archiveOptions.setOption(ArchiveOptions.LOAD_ADAPTER, loadAdapter);
+					archiveOptions.setOption(ArchiveOptions.ARCHIVE_PATH, loadAdapter.getArchivePath());
+					archiveOptions.setOption(JavaEEArchiveUtilities.DISCRIMINATE_JAVA_EE, Boolean.FALSE);
+					archive = JavaEEArchiveUtilities.INSTANCE.openArchive(archiveOptions);
+				}
+			} else {
 				archive = JavaEEArchiveUtilities.INSTANCE.openArchive(helper.getComponent());
 			}
 			componentsToArchives.put(helper.getComponent(), archive);

@@ -52,6 +52,7 @@ import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
 public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 
@@ -230,6 +231,9 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 		archiveOptions.setOption(ArchiveOptions.LOAD_ADAPTER, loadAdapter);
 		archiveOptions.setOption(ArchiveOptions.ARCHIVE_PATH, loadAdapter.getArchivePath());
 		archiveOptions.setOption(DISCRIMINATE_MAIN_CLASS, descriminateMainClass);
+		if(descriminateMainClass == true){
+			archiveOptions.setOption(JavaEEArchiveUtilities.DISCRIMINATE_JAVA_EE, Boolean.TRUE);
+		}
 		IArchive parentEARArchive = null;
 		try {
 			if (JavaEEProjectUtilities.usesJavaEEComponent(virtualComponent)
@@ -238,6 +242,11 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 					IProject earProject = virtualComponent.getProject();
 					if(earProject != null && EarUtilities.isEARProject(earProject)){
 						IVirtualComponent earComponent = ComponentCore.createComponent(virtualComponent.getProject());
+						String earLibDir = EarUtilities.getEARLibDir(earComponent);
+						boolean inLibDir = isInLibDir(earComponent, virtualComponent, earLibDir);
+						if(inLibDir == true && earLibDir != null){
+							archiveOptions.setOption(DISCRIMINATE_JAVA_EE, false);
+						}
 						if(earComponent != null) {
 							parentEARArchive = openArchive(earComponent);
 							if(parentEARArchive != null) {
@@ -326,6 +335,7 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 		IArchive simpleArchive = super.openArchive(archiveOptions);
 		Object discriminateJavaEE = archiveOptions.getOption(DISCRIMINATE_JAVA_EE);
 		if (discriminateJavaEE != null && !((Boolean) discriminateJavaEE).booleanValue()) {
+			archiveToJavaEEQuickPeek.put(simpleArchive, new JavaEEQuickPeek(null));
 			return simpleArchive;
 		}
 		return refineForJavaEE(simpleArchive);
@@ -864,4 +874,26 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 		}
 		return manifest;
 	}
+	
+
+	private boolean isInLibDir(IVirtualComponent earComp, IVirtualComponent component, String libDir){
+		boolean isInLibDir = true;
+		if (libDir != null) {
+			// check if the component itself is not in the library directory of this EAR - avoid cycles in the build patch
+			if (earComp.getReference(component.getName()) != null && !libDir.equals(earComp.getReference(component.getName()).getRuntimePath().toString())) {
+				// retrieve the referenced components from the EAR
+				IVirtualReference[] earRefs = earComp.getReferences();
+				for (IVirtualReference earRef : earRefs) {
+					// check if the referenced component is in the library directory
+					isInLibDir = libDir.equals(earRef.getRuntimePath().toString());
+					if(!isInLibDir){
+						IPath fullPath = earRef.getRuntimePath().append(earRef.getArchiveName());
+						isInLibDir = fullPath.removeLastSegments(1).toString().equals(libDir);
+					}
+				}
+			}
+		}
+		return isInLibDir;
+	}
+
 }
