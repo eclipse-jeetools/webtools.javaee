@@ -45,7 +45,6 @@ import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCr
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 import org.eclipse.wst.common.frameworks.internal.ui.GenericWizardNode;
-import org.eclipse.wst.common.project.facet.core.IFacetedProjectWorkingCopy;
 import org.eclipse.wst.web.ui.internal.wizards.NewProjectDataModelFacetWizard;
 
 public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implements IDefaultJ2EEComponentCreationDataModelProperties {
@@ -439,10 +438,10 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
     		Iterator props = parentWizModel.getBaseProperties().iterator();
     		while (props.hasNext()) {
     			String prop = (String) props.next();
-    			childWizModel.setProperty(prop, parentWizModel.getProperty(prop));
+    			if(!prop.equals(IFacetProjectCreationDataModelProperties.FACETED_PROJECT_WORKING_COPY)){
+    				childWizModel.setProperty(prop, parentWizModel.getProperty(prop));
+    			}
     		}
-    		//[Bug 243226] after updating the model the FactedProjectWorkingCopy needs to be updated.
-    		wizard.setFacetedProjectWorkingCopy((IFacetedProjectWorkingCopy)childWizModel.getProperty(IFacetProjectCreationDataModelProperties.FACETED_PROJECT_WORKING_COPY));
     	} catch (CoreException ce) {
     		Logger.getLogger().log(ce);
     	}
