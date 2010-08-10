@@ -86,32 +86,42 @@ public class RemoveComponentFromEnterpriseApplicationOperation extends RemoveRef
 									if(!moduleComponent.isBinary()){
 										J2EEComponentClasspathUpdater.getInstance().queueUpdateModule(moduleComponent.getProject());
 									}
-									Object module = getModule(earModel, ref);
+									
+									Object module = null;
 									String moduleURI = null;
-									if(module != null){										
-										if(module instanceof org.eclipse.jst.j2ee.application.internal.impl.ModuleImpl) {
-											moduleURI = ((org.eclipse.jst.j2ee.application.internal.impl.ModuleImpl)module).getUri();
-										} else if (module instanceof ModuleImpl) {
-											moduleURI = ((ModuleImpl)module).getUri();
-										}
-										
-										if(moduleURI != null) {
-											IPath path1 = new Path(ref.getArchiveName());
-											IPath path2 = new Path(moduleURI);
-											boolean removed = false;
-											if(path1.lastSegment().equals(path2.lastSegment())) {
-												if(removeModule(application, module)){
-													removed = true;
-												}
+									if(ref != null) {
+										module = getModule(earModel, ref);
+										if(module != null){										
+											if(module instanceof org.eclipse.jst.j2ee.application.internal.impl.ModuleImpl) {
+												moduleURI = ((org.eclipse.jst.j2ee.application.internal.impl.ModuleImpl)module).getUri();
+											} else if (module instanceof ModuleImpl) {
+												moduleURI = ((ModuleImpl)module).getUri();
 											}
-											if(!removed) {
-												module = null;
-												moduleURI = null;
+											
+											if(moduleURI != null) {
+												IPath path1 = new Path(ref.getArchiveName());
+												IPath path2 = new Path(moduleURI);
+												boolean removed = false;
+												if(path1.lastSegment().equals(path2.lastSegment())) {
+													if(removeModule(application, module)){
+														removed = true;
+													}
+												}
+												if(!removed) {
+													module = null;
+													moduleURI = null;
+												}
 											}
 										}
 									}
+									
 									if(module == null) {
-										module = getModuleFromURI(earModel, ref.getArchiveName());
+										if(ref != null)
+											module = getModuleFromURI(earModel, ref.getArchiveName());
+										else {
+											String uri = getModuleURI(earModel, wc);
+											module = getModuleFromURI(earModel, uri);
+										}
 										if(module != null) {
 											if(module instanceof Module)
 												moduleURI = ((Module)module).getUri();

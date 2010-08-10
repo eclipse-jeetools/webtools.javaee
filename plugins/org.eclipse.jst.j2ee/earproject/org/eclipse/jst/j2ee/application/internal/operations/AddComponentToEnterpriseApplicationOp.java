@@ -140,7 +140,7 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 											String name = (String) map.get(wc);
 											if(deployMap.containsKey(wc)) {
 												String deployPath = (String)deployMap.get(wc);
-												if(!deployPath.equals("/")) //$NON-NLS-1$
+												if(name != null && !deployPath.equals("/")) //$NON-NLS-1$
 													name = (new Path(deployPath)).append(name).toString();
 											}
 											ICommonModule mod = addModule(application, wc, name);
