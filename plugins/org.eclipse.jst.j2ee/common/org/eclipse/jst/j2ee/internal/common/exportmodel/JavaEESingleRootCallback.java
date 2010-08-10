@@ -27,6 +27,7 @@ import org.eclipse.jst.common.jdt.internal.javalite.JavaCoreLite;
 import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
 import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants.DependencyAttributeType;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyEnablement;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.flat.FilterResourceParticipant;
@@ -100,9 +101,15 @@ public class JavaEESingleRootCallback implements SingleRootParticipantCallback {
 	
 	protected boolean hasClasspathDependencies(IVirtualComponent component) {
 		try {
+			final boolean isWebApp = JavaEEProjectUtilities.isDynamicWebComponent(component);
+		    boolean webLibsOnly = false;
+		    if (!ClasspathDependencyEnablement.isAllowClasspathComponentDependency() && isWebApp) {
+		    	webLibsOnly = true;
+			}
 			final Map entriesToAttrib = ClasspathDependencyUtil.getRawComponentClasspathDependencies(
 					JavaCoreLite.create(component.getProject()), 
-					DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY);
+					DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY, 
+					webLibsOnly);
 			return entriesToAttrib != null && entriesToAttrib.size() > 0;
 		} catch( CoreException ce ) {}
 		return false;
