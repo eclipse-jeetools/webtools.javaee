@@ -472,6 +472,8 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 			return J2EEVersionConstants.VERSION_3_0;
 		if (isWebFragmentProject(project))
 			return J2EEVersionConstants.VERSION_3_0;
+		if (isJCAProject(project))
+			return J2EEVersionConstants.VERSION_1_6;
 		return J2EEVersionConstants.UNKNOWN;
 			
 	}
