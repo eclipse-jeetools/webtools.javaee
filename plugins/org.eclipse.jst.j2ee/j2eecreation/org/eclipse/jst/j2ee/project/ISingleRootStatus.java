@@ -51,8 +51,6 @@ public interface ISingleRootStatus extends IStatus {
 	
 	public static final int EXPLICITLY_DISABLED = 81;
 	
-	public static final int CLASSPATH_DEPENDENCIES_FOUND = 82;
-	
 	public ComponentResource getComponentResource();
 
 

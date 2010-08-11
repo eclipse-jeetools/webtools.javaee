@@ -725,13 +725,10 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 						if (cpComp.isClassFolder()) {
 							continue;
 						}
-						//if path isn't ../, it shouldn't be added here [bug 247090]
-						if (!cpRefRuntimePath.equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH)) 
-							continue;
-						
-						// runtime path within deployed app will be runtime path of parent component
-						cpRefRuntimePath = runtimePath;
-						
+						if (cpRefRuntimePath.equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH)) {
+							// runtime path within deployed app will be runtime path of parent component
+							cpRefRuntimePath = runtimePath;
+						} 						
 						final IPath absolutePath = ClasspathDependencyUtil.getClasspathVirtualReferenceLocation(cpRef);
 						if (absolutePaths.contains(absolutePath)) {
 							// have already added a member for this archive
