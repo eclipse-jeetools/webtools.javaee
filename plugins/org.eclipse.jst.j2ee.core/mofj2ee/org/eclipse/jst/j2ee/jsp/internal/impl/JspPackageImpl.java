@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.jem.java.JavaRefPackage;
 import org.eclipse.jst.j2ee.common.CommonPackage;
+import org.eclipse.jst.j2ee.core.internal.plugin.J2EECorePlugin;
 import org.eclipse.jst.j2ee.internal.J2EEInit;
 import org.eclipse.jst.j2ee.jsp.JSPConfig;
 import org.eclipse.jst.j2ee.jsp.JSPPropertyGroup;
@@ -332,31 +333,43 @@ public class JspPackageImpl extends EPackageImpl implements JspPackage {
 		// Obtain other dependent packages
 		CommonPackage theCommonPackage = (CommonPackage)EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
 
-		// Add supertypes to classes
-		jspConfigEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
-		jspPropertyGroupEClass.getESuperTypes().add(theCommonPackage.getCompatibilityDescriptionGroup());
-		tagLibRefTypeEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
-
-		// Initialize classes and features; add operations and parameters
-		initEClass(jspConfigEClass, JSPConfig.class, "JSPConfig", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEReference(getJSPConfig_TagLibs(), this.getTagLibRefType(), null, "tagLibs", null, 0, -1, JSPConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getJSPConfig_PropertyGroups(), this.getJSPPropertyGroup(), null, "propertyGroups", null, 0, -1, JSPConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(jspPropertyGroupEClass, JSPPropertyGroup.class, "JSPPropertyGroup", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getJSPPropertyGroup_UrlPattern(), ecorePackage.getEString(), "urlPattern", null, 0, -1, JSPPropertyGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getJSPPropertyGroup_ElIgnored(), ecorePackage.getEBoolean(), "elIgnored", "true", 0, 1, JSPPropertyGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$ //$NON-NLS-2$
-		initEAttribute(getJSPPropertyGroup_PageEncoding(), ecorePackage.getEString(), "pageEncoding", null, 0, 1, JSPPropertyGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getJSPPropertyGroup_ScriptingInvalid(), ecorePackage.getEBoolean(), "scriptingInvalid", "true", 0, 1, JSPPropertyGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$ //$NON-NLS-2$
-		initEAttribute(getJSPPropertyGroup_IsXML(), ecorePackage.getEBoolean(), "isXML", "false", 0, 1, JSPPropertyGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$ //$NON-NLS-2$
-		initEAttribute(getJSPPropertyGroup_IncludePreludes(), ecorePackage.getEString(), "includePreludes", null, 0, -1, JSPPropertyGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getJSPPropertyGroup_IncludeCodas(), ecorePackage.getEString(), "includeCodas", null, 0, -1, JSPPropertyGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(tagLibRefTypeEClass, TagLibRefType.class, "TagLibRefType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getTagLibRefType_TaglibURI(), ecorePackage.getEString(), "taglibURI", null, 0, 1, TagLibRefType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getTagLibRefType_TaglibLocation(), ecorePackage.getEString(), "taglibLocation", null, 0, 1, TagLibRefType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		// Create resource
-		createResource(eNS_URI);
+		boolean hasLock = false;
+		try {
+			hasLock = J2EEInit.aquireInitializePackageContentsLock();
+		} catch (InterruptedException e) {
+			J2EECorePlugin.logError(e);
+		}		
+		
+		try{
+			// Add supertypes to classes
+			jspConfigEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+			jspPropertyGroupEClass.getESuperTypes().add(theCommonPackage.getCompatibilityDescriptionGroup());
+			tagLibRefTypeEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+	
+			// Initialize classes and features; add operations and parameters
+			initEClass(jspConfigEClass, JSPConfig.class, "JSPConfig", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEReference(getJSPConfig_TagLibs(), this.getTagLibRefType(), null, "tagLibs", null, 0, -1, JSPConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getJSPConfig_PropertyGroups(), this.getJSPPropertyGroup(), null, "propertyGroups", null, 0, -1, JSPConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(jspPropertyGroupEClass, JSPPropertyGroup.class, "JSPPropertyGroup", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getJSPPropertyGroup_UrlPattern(), ecorePackage.getEString(), "urlPattern", null, 0, -1, JSPPropertyGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getJSPPropertyGroup_ElIgnored(), ecorePackage.getEBoolean(), "elIgnored", "true", 0, 1, JSPPropertyGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$ //$NON-NLS-2$
+			initEAttribute(getJSPPropertyGroup_PageEncoding(), ecorePackage.getEString(), "pageEncoding", null, 0, 1, JSPPropertyGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getJSPPropertyGroup_ScriptingInvalid(), ecorePackage.getEBoolean(), "scriptingInvalid", "true", 0, 1, JSPPropertyGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$ //$NON-NLS-2$
+			initEAttribute(getJSPPropertyGroup_IsXML(), ecorePackage.getEBoolean(), "isXML", "false", 0, 1, JSPPropertyGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$ //$NON-NLS-2$
+			initEAttribute(getJSPPropertyGroup_IncludePreludes(), ecorePackage.getEString(), "includePreludes", null, 0, -1, JSPPropertyGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getJSPPropertyGroup_IncludeCodas(), ecorePackage.getEString(), "includeCodas", null, 0, -1, JSPPropertyGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(tagLibRefTypeEClass, TagLibRefType.class, "TagLibRefType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getTagLibRefType_TaglibURI(), ecorePackage.getEString(), "taglibURI", null, 0, 1, TagLibRefType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getTagLibRefType_TaglibLocation(), ecorePackage.getEString(), "taglibLocation", null, 0, 1, TagLibRefType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			// Create resource
+			createResource(eNS_URI);
+		}finally{
+			if( hasLock )
+				J2EEInit.releaseInitializePackageContentsLock();
+		}
 	}
 
 } //JspPackageImpl

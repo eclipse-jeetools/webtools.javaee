@@ -138,6 +138,8 @@ public interface J2EEConstants extends J2EEVersionConstants {
     String WEBAPP_SCHEMA_2_4        =   "http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd";//$NON-NLS-1$
     String WEBAPP_SCHEMA_2_5        =   "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd";//$NON-NLS-1$
     String WEBAPP_SCHEMA_3_0        =   "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd";//$NON-NLS-1$
+    /** "WEB-INF/ejb-jar.xml"                                                                                              */
+    String EJBJAR_IN_WAR_DD_URI                =   "WEB-INF/ejb-jar.xml"; //$NON-NLS-1$
     //J2C Resource Adapter Constants
     /** "J2CResourceAdapter_ID"                                                                                             */
     String RAR_ID                                           =       "J2CResourceAdapter_ID"; //$NON-NLS-1$

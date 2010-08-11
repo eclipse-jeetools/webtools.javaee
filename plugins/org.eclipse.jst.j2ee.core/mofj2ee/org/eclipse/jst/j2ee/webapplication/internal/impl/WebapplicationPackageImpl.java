@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.jem.java.JavaRefPackage;
 import org.eclipse.jst.j2ee.common.CommonPackage;
+import org.eclipse.jst.j2ee.core.internal.plugin.J2EECorePlugin;
 import org.eclipse.jst.j2ee.internal.J2EEInit;
 import org.eclipse.jst.j2ee.jsp.JspPackage;
 import org.eclipse.jst.j2ee.webapplication.AuthConstraint;
@@ -1579,275 +1580,287 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 		JspPackage theJspPackage = (JspPackage)EPackage.Registry.INSTANCE.getEPackage(JspPackage.eNS_URI);
 		JavaRefPackage theJavaRefPackage = (JavaRefPackage)EPackage.Registry.INSTANCE.getEPackage(JavaRefPackage.eNS_URI);
 
-		// Add supertypes to classes
-		webAppEClass.getESuperTypes().add(theCommonPackage.getJNDIEnvRefsGroup());
-		contextParamEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
-		servletEClass.getESuperTypes().add(theCommonPackage.getCompatibilityDescriptionGroup());
-		servletMappingEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
-		sessionConfigEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
-		mimeMappingEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
-		welcomeFileListEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
-		errorPageEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
-		tagLibRefEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
-		securityConstraintEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
-		webResourceCollectionEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
-		authConstraintEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
-		userDataConstraintEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
-		loginConfigEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
-		formLoginConfigEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
-		initParamEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
-		webTypeEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
-		servletTypeEClass.getESuperTypes().add(this.getWebType());
-		jspTypeEClass.getESuperTypes().add(this.getWebType());
-		urlPatternTypeEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
-		roleNameTypeEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
-		welcomeFileEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
-		exceptionTypeErrorPageEClass.getESuperTypes().add(this.getErrorPage());
-		errorCodeErrorPageEClass.getESuperTypes().add(this.getErrorPage());
-		filterMappingEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
-		filterEClass.getESuperTypes().add(theCommonPackage.getCompatibilityDescriptionGroup());
-		localEncodingMappingListEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
-		localEncodingMappingEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
-		httpMethodTypeEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
-
-		// Initialize classes and features; add operations and parameters
-		initEClass(webAppEClass, WebApp.class, "WebApp", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getWebApp_Distributable(), ecorePackage.getEBoolean(), "distributable", null, 0, 1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getWebApp_Version(), ecorePackage.getEString(), "version", null, 0, 1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getWebApp_Contexts(), this.getContextParam(), this.getContextParam_WebApp(), "contexts", null, 0, -1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getWebApp_ErrorPages(), this.getErrorPage(), this.getErrorPage_WebApp(), "errorPages", null, 0, -1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getWebApp_FileList(), this.getWelcomeFileList(), this.getWelcomeFileList_WebApp(), "fileList", null, 0, 1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getWebApp_TagLibs(), this.getTagLibRef(), this.getTagLibRef_WebApp(), "tagLibs", null, 0, -1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getWebApp_Constraints(), this.getSecurityConstraint(), this.getSecurityConstraint_WebApp(), "constraints", null, 0, -1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getWebApp_LoginConfig(), this.getLoginConfig(), this.getLoginConfig_WebApp(), "loginConfig", null, 0, 1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getWebApp_MimeMappings(), this.getMimeMapping(), this.getMimeMapping_WebApp(), "mimeMappings", null, 0, -1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getWebApp_SessionConfig(), this.getSessionConfig(), this.getSessionConfig_WebApp(), "sessionConfig", null, 0, 1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getWebApp_ServletMappings(), this.getServletMapping(), this.getServletMapping_WebApp(), "servletMappings", null, 0, -1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getWebApp_Servlets(), this.getServlet(), this.getServlet_WebApp(), "servlets", null, 0, -1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getWebApp_SecurityRoles(), theCommonPackage.getSecurityRole(), null, "securityRoles", null, 0, -1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getWebApp_Filters(), this.getFilter(), null, "filters", null, 0, -1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getWebApp_FilterMappings(), this.getFilterMapping(), null, "filterMappings", null, 0, -1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getWebApp_Listeners(), theCommonPackage.getListener(), null, "listeners", null, 0, -1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getWebApp_ContextParams(), theCommonPackage.getParamValue(), null, "contextParams", null, 0, -1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getWebApp_JspConfig(), theJspPackage.getJSPConfig(), null, "jspConfig", null, 0, 1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getWebApp_MessageDestinations(), theCommonPackage.getMessageDestination(), null, "messageDestinations", null, 0, -1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getWebApp_LocalEncodingMappingList(), this.getLocalEncodingMappingList(), null, "localEncodingMappingList", null, 0, 1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(contextParamEClass, ContextParam.class, "ContextParam", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getContextParam_ParamName(), ecorePackage.getEString(), "paramName", null, 0, 1, ContextParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getContextParam_ParamValue(), ecorePackage.getEString(), "paramValue", null, 0, 1, ContextParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getContextParam_Description(), ecorePackage.getEString(), "description", null, 0, 1, ContextParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getContextParam_WebApp(), this.getWebApp(), this.getWebApp_Contexts(), "webApp", null, 0, 1, ContextParam.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(servletEClass, Servlet.class, "Servlet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getServlet_ServletName(), ecorePackage.getEString(), "servletName", null, 0, 1, Servlet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getServlet_LoadOnStartup(), ecorePackage.getEIntegerObject(), "loadOnStartup", null, 0, 1, Servlet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getServlet_WebApp(), this.getWebApp(), this.getWebApp_Servlets(), "webApp", null, 0, 1, Servlet.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getServlet_WebType(), this.getWebType(), null, "webType", null, 1, 1, Servlet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getServlet_Params(), this.getInitParam(), null, "params", null, 0, -1, Servlet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getServlet_SecurityRoleRefs(), theCommonPackage.getSecurityRoleRef(), null, "securityRoleRefs", null, 0, -1, Servlet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getServlet_RunAs(), theCommonPackage.getRunAsSpecifiedIdentity(), null, "runAs", null, 0, 1, Servlet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getServlet_InitParams(), theCommonPackage.getParamValue(), null, "initParams", null, 0, -1, Servlet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(servletMappingEClass, ServletMapping.class, "ServletMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getServletMapping_UrlPattern(), ecorePackage.getEString(), "urlPattern", null, 0, 1, ServletMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getServletMapping_Name(), ecorePackage.getEString(), "name", null, 0, 1, ServletMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getServletMapping_WebApp(), this.getWebApp(), this.getWebApp_ServletMappings(), "webApp", null, 0, 1, ServletMapping.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getServletMapping_Servlet(), this.getServlet(), null, "servlet", null, 1, 1, ServletMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(sessionConfigEClass, SessionConfig.class, "SessionConfig", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getSessionConfig_SessionTimeout(), ecorePackage.getEInt(), "sessionTimeout", null, 0, 1, SessionConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getSessionConfig_WebApp(), this.getWebApp(), this.getWebApp_SessionConfig(), "webApp", null, 0, 1, SessionConfig.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(mimeMappingEClass, MimeMapping.class, "MimeMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getMimeMapping_Extension(), ecorePackage.getEString(), "extension", null, 0, 1, MimeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getMimeMapping_MimeType(), ecorePackage.getEString(), "mimeType", null, 0, 1, MimeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getMimeMapping_WebApp(), this.getWebApp(), this.getWebApp_MimeMappings(), "webApp", null, 0, 1, MimeMapping.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(welcomeFileListEClass, WelcomeFileList.class, "WelcomeFileList", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEReference(getWelcomeFileList_WebApp(), this.getWebApp(), this.getWebApp_FileList(), "webApp", null, 0, 1, WelcomeFileList.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getWelcomeFileList_File(), this.getWelcomeFile(), this.getWelcomeFile_FileList(), "file", null, 0, -1, WelcomeFileList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(errorPageEClass, ErrorPage.class, "ErrorPage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getErrorPage_Location(), ecorePackage.getEString(), "location", null, 0, 1, ErrorPage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getErrorPage_WebApp(), this.getWebApp(), this.getWebApp_ErrorPages(), "webApp", null, 0, 1, ErrorPage.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(tagLibRefEClass, TagLibRef.class, "TagLibRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getTagLibRef_TaglibURI(), ecorePackage.getEString(), "taglibURI", null, 0, 1, TagLibRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getTagLibRef_TaglibLocation(), ecorePackage.getEString(), "taglibLocation", null, 0, 1, TagLibRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getTagLibRef_WebApp(), this.getWebApp(), this.getWebApp_TagLibs(), "webApp", null, 0, 1, TagLibRef.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(securityConstraintEClass, SecurityConstraint.class, "SecurityConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getSecurityConstraint_DisplayName(), ecorePackage.getEString(), "displayName", null, 0, 1, SecurityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getSecurityConstraint_WebApp(), this.getWebApp(), this.getWebApp_Constraints(), "webApp", null, 0, 1, SecurityConstraint.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getSecurityConstraint_WebResourceCollections(), this.getWebResourceCollection(), this.getWebResourceCollection_SecConstraint(), "webResourceCollections", null, 1, -1, SecurityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getSecurityConstraint_AuthConstraint(), this.getAuthConstraint(), this.getAuthConstraint_SecConstraint(), "authConstraint", null, 0, 1, SecurityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getSecurityConstraint_UserDataConstraint(), this.getUserDataConstraint(), this.getUserDataConstraint_SecConstraint(), "userDataConstraint", null, 0, 1, SecurityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getSecurityConstraint_DisplayNames(), theCommonPackage.getDisplayName(), null, "displayNames", null, 0, -1, SecurityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(webResourceCollectionEClass, WebResourceCollection.class, "WebResourceCollection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getWebResourceCollection_WebResourceName(), ecorePackage.getEString(), "webResourceName", null, 0, 1, WebResourceCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getWebResourceCollection_Description(), ecorePackage.getEString(), "description", null, 0, 1, WebResourceCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getWebResourceCollection_UrlPattern(), ecorePackage.getEString(), "urlPattern", null, 1, -1, WebResourceCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getWebResourceCollection_HttpMethod(), this.getHTTPMethodTypeEnum(), "httpMethod", null, 0, -1, WebResourceCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getWebResourceCollection_SecConstraint(), this.getSecurityConstraint(), this.getSecurityConstraint_WebResourceCollections(), "secConstraint", null, 0, 1, WebResourceCollection.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getWebResourceCollection_URLs(), this.getURLPatternType(), this.getURLPatternType_ResCollection(), "URLs", null, 0, -1, WebResourceCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getWebResourceCollection_Descriptions(), theCommonPackage.getDescription(), null, "descriptions", null, 0, -1, WebResourceCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getWebResourceCollection_HTTPs(), this.getHTTPMethodType(), null, "HTTPs", null, 0, -1, WebResourceCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(authConstraintEClass, AuthConstraint.class, "AuthConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getAuthConstraint_Description(), ecorePackage.getEString(), "description", null, 0, 1, AuthConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getAuthConstraint_Roles(), ecorePackage.getEString(), "roles", null, 0, -1, AuthConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getAuthConstraint_SecConstraint(), this.getSecurityConstraint(), this.getSecurityConstraint_AuthConstraint(), "secConstraint", null, 0, 1, AuthConstraint.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getAuthConstraint_Descriptions(), theCommonPackage.getDescription(), null, "descriptions", null, 0, -1, AuthConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(userDataConstraintEClass, UserDataConstraint.class, "UserDataConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getUserDataConstraint_Description(), ecorePackage.getEString(), "description", null, 0, 1, UserDataConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getUserDataConstraint_TransportGuarantee(), this.getTransportGuaranteeType(), "transportGuarantee", null, 0, 1, UserDataConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getUserDataConstraint_SecConstraint(), this.getSecurityConstraint(), this.getSecurityConstraint_UserDataConstraint(), "secConstraint", null, 0, 1, UserDataConstraint.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getUserDataConstraint_Descriptions(), theCommonPackage.getDescription(), null, "descriptions", null, 0, -1, UserDataConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(loginConfigEClass, LoginConfig.class, "LoginConfig", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getLoginConfig_AuthMethod(), this.getAuthMethodKind(), "authMethod", null, 0, 1, LoginConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getLoginConfig_RealmName(), ecorePackage.getEString(), "realmName", null, 0, 1, LoginConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getLoginConfig_AuthorizationMethod(), ecorePackage.getEString(), "authorizationMethod", null, 0, 1, LoginConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getLoginConfig_WebApp(), this.getWebApp(), this.getWebApp_LoginConfig(), "webApp", null, 0, 1, LoginConfig.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getLoginConfig_FormLoginConfig(), this.getFormLoginConfig(), this.getFormLoginConfig_LoginConfig(), "formLoginConfig", null, 0, 1, LoginConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(formLoginConfigEClass, FormLoginConfig.class, "FormLoginConfig", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getFormLoginConfig_FormLoginPage(), ecorePackage.getEString(), "formLoginPage", null, 0, 1, FormLoginConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getFormLoginConfig_FormErrorPage(), ecorePackage.getEString(), "formErrorPage", null, 0, 1, FormLoginConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getFormLoginConfig_LoginConfig(), this.getLoginConfig(), this.getLoginConfig_FormLoginConfig(), "loginConfig", null, 0, 1, FormLoginConfig.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(initParamEClass, InitParam.class, "InitParam", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getInitParam_ParamName(), ecorePackage.getEString(), "paramName", null, 0, 1, InitParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getInitParam_ParamValue(), ecorePackage.getEString(), "paramValue", null, 0, 1, InitParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getInitParam_Description(), ecorePackage.getEString(), "description", null, 0, 1, InitParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(webTypeEClass, WebType.class, "WebType", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-
-		initEClass(servletTypeEClass, ServletType.class, "ServletType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getServletType_ClassName(), ecorePackage.getEString(), "className", null, 0, 1, ServletType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(jspTypeEClass, JSPType.class, "JSPType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getJSPType_JspFile(), ecorePackage.getEString(), "jspFile", null, 0, 1, JSPType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(urlPatternTypeEClass, URLPatternType.class, "URLPatternType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getURLPatternType_UrlPattern(), ecorePackage.getEString(), "urlPattern", null, 0, 1, URLPatternType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getURLPatternType_ResCollection(), this.getWebResourceCollection(), this.getWebResourceCollection_URLs(), "resCollection", null, 0, 1, URLPatternType.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(roleNameTypeEClass, RoleNameType.class, "RoleNameType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getRoleNameType_RoleName(), ecorePackage.getEString(), "roleName", null, 0, 1, RoleNameType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(welcomeFileEClass, WelcomeFile.class, "WelcomeFile", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getWelcomeFile_WelcomeFile(), ecorePackage.getEString(), "welcomeFile", null, 0, 1, WelcomeFile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getWelcomeFile_FileList(), this.getWelcomeFileList(), this.getWelcomeFileList_File(), "fileList", null, 0, 1, WelcomeFile.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(exceptionTypeErrorPageEClass, ExceptionTypeErrorPage.class, "ExceptionTypeErrorPage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEReference(getExceptionTypeErrorPage_ExceptionType(), theJavaRefPackage.getJavaClass(), null, "exceptionType", null, 1, 1, ExceptionTypeErrorPage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(errorCodeErrorPageEClass, ErrorCodeErrorPage.class, "ErrorCodeErrorPage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getErrorCodeErrorPage_ErrorCode(), ecorePackage.getEString(), "errorCode", null, 0, 1, ErrorCodeErrorPage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(filterMappingEClass, FilterMapping.class, "FilterMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getFilterMapping_UrlPattern(), ecorePackage.getEString(), "urlPattern", null, 0, 1, FilterMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getFilterMapping_DispatcherType(), this.getDispatcherType(), "dispatcherType", null, 0, 4, FilterMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getFilterMapping_Filter(), this.getFilter(), null, "filter", null, 1, 1, FilterMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getFilterMapping_Servlet(), this.getServlet(), null, "servlet", null, 0, 1, FilterMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(filterEClass, Filter.class, "Filter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getFilter_Name(), ecorePackage.getEString(), "name", null, 0, 1, Filter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getFilter_InitParams(), this.getInitParam(), null, "initParams", null, 0, -1, Filter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getFilter_FilterClass(), theJavaRefPackage.getJavaClass(), null, "filterClass", null, 1, 1, Filter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getFilter_InitParamValues(), theCommonPackage.getParamValue(), null, "initParamValues", null, 0, -1, Filter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(localEncodingMappingListEClass, LocalEncodingMappingList.class, "LocalEncodingMappingList", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEReference(getLocalEncodingMappingList_LocalEncodingMappings(), this.getLocalEncodingMapping(), null, "localEncodingMappings", null, 1, -1, LocalEncodingMappingList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(localEncodingMappingEClass, LocalEncodingMapping.class, "LocalEncodingMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getLocalEncodingMapping_Locale(), ecorePackage.getEString(), "locale", null, 0, 1, LocalEncodingMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getLocalEncodingMapping_Encoding(), ecorePackage.getEString(), "encoding", null, 0, 1, LocalEncodingMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(httpMethodTypeEClass, HTTPMethodType.class, "HTTPMethodType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getHTTPMethodType_HttpMethod(), ecorePackage.getEString(), "httpMethod", null, 0, 1, HTTPMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		// Initialize enums and add enum literals
-		initEEnum(resAuthServletTypeEEnum, ResAuthServletType.class, "ResAuthServletType"); //$NON-NLS-1$
-		addEEnumLiteral(resAuthServletTypeEEnum, ResAuthServletType.CONTAINER_LITERAL);
-		addEEnumLiteral(resAuthServletTypeEEnum, ResAuthServletType.SERVLET_LITERAL);
-
-		initEEnum(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.class, "HTTPMethodTypeEnum"); //$NON-NLS-1$
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.GET_LITERAL);
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.POST_LITERAL);
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.PUT_LITERAL);
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.DELETE_LITERAL);
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.HEAD_LITERAL);
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.OPTIONS_LITERAL);
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.TRACE_LITERAL);
-		//WEBDAV support
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.ACK_LITERAL);
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.ACL_LITERAL); 
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.BASELINE_CONTROL_LITERAL); 
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.BIND_LITERAL);
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.BYE_LITERAL);
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.CANCEL_LITERAL);
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.CHECKIN_LITERAL); 
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.CHECKOUT_LITERAL); 
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.COPY_LITERAL);
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.ERRORRESPONSE_LITERAL); 
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.INFO_LITERAL);
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.INVITE_LITERAL);
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.LABEL_LITERAL);
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.LOCK_LITERAL);
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.MERGE_LITERAL); 
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.MESSAGE_LITERAL);
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.MKACTIVITY_LITERAL);
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.MKCOL_LITERAL);
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.MKWORKSPACE_LITERAL);
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.MOVE_LITERAL);
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.NOTIFY_LITERAL);
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.PRACK_LITERAL);
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.PROPFIND_LITERAL);
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.PROPPATCH_LITERAL);
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.PROVISIONALRESPONSE_LITERAL);
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.PUBLISH_LITERAL);
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.REBIND_LITERAL);
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.REDIRECTRESPONSE_LITERAL);
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.REGISTER_LITERAL);
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.REPORT_LITERAL); 
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.REQUEST_LITERAL);
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.RESPONSE_LITERAL);
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.SEARCH_LITERAL); 
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.SUCCESSRESPONSE_LITERAL);
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.UNBIND_LITERAL);
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.UNCHECKOUT_LITERAL); 
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.UNLOCK_LITERAL);
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.UPDATE_LITERAL);
-		addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.VERSION_CONTROL_LITERAL); 
-
-
+		boolean hasLock = false;
+		try {
+			hasLock = J2EEInit.aquireInitializePackageContentsLock();
+		} catch (InterruptedException e) {
+			J2EECorePlugin.logError(e);
+		}		
 		
-		
-		initEEnum(transportGuaranteeTypeEEnum, TransportGuaranteeType.class, "TransportGuaranteeType"); //$NON-NLS-1$
-		addEEnumLiteral(transportGuaranteeTypeEEnum, TransportGuaranteeType.NONE_LITERAL);
-		addEEnumLiteral(transportGuaranteeTypeEEnum, TransportGuaranteeType.INTEGRAL_LITERAL);
-		addEEnumLiteral(transportGuaranteeTypeEEnum, TransportGuaranteeType.CONFIDENTIAL_LITERAL);
-
-		initEEnum(dispatcherTypeEEnum, DispatcherType.class, "DispatcherType"); //$NON-NLS-1$
-		addEEnumLiteral(dispatcherTypeEEnum, DispatcherType.FORWARD_LITERAL);
-		addEEnumLiteral(dispatcherTypeEEnum, DispatcherType.INCLUDE_LITERAL);
-		addEEnumLiteral(dispatcherTypeEEnum, DispatcherType.REQUEST_LITERAL);
-		addEEnumLiteral(dispatcherTypeEEnum, DispatcherType.ERROR_LITERAL);
-
-		initEEnum(authMethodKindEEnum, AuthMethodKind.class, "AuthMethodKind"); //$NON-NLS-1$
-		addEEnumLiteral(authMethodKindEEnum, AuthMethodKind.UNSPECIFIED_LITERAL);
-		addEEnumLiteral(authMethodKindEEnum, AuthMethodKind.BASIC_LITERAL);
-		addEEnumLiteral(authMethodKindEEnum, AuthMethodKind.DIGEST_LITERAL);
-		addEEnumLiteral(authMethodKindEEnum, AuthMethodKind.FORM_LITERAL);
-		addEEnumLiteral(authMethodKindEEnum, AuthMethodKind.CLIENT_CERT_LITERAL);
-
-		// Create resource
-		createResource(eNS_URI);
+		try{
+			// Add supertypes to classes
+			webAppEClass.getESuperTypes().add(theCommonPackage.getJNDIEnvRefsGroup());
+			contextParamEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+			servletEClass.getESuperTypes().add(theCommonPackage.getCompatibilityDescriptionGroup());
+			servletMappingEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+			sessionConfigEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+			mimeMappingEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+			welcomeFileListEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+			errorPageEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+			tagLibRefEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+			securityConstraintEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+			webResourceCollectionEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+			authConstraintEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+			userDataConstraintEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+			loginConfigEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+			formLoginConfigEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+			initParamEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+			webTypeEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+			servletTypeEClass.getESuperTypes().add(this.getWebType());
+			jspTypeEClass.getESuperTypes().add(this.getWebType());
+			urlPatternTypeEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+			roleNameTypeEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+			welcomeFileEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+			exceptionTypeErrorPageEClass.getESuperTypes().add(this.getErrorPage());
+			errorCodeErrorPageEClass.getESuperTypes().add(this.getErrorPage());
+			filterMappingEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+			filterEClass.getESuperTypes().add(theCommonPackage.getCompatibilityDescriptionGroup());
+			localEncodingMappingListEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+			localEncodingMappingEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+			httpMethodTypeEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+	
+			// Initialize classes and features; add operations and parameters
+			initEClass(webAppEClass, WebApp.class, "WebApp", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getWebApp_Distributable(), ecorePackage.getEBoolean(), "distributable", null, 0, 1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getWebApp_Version(), ecorePackage.getEString(), "version", null, 0, 1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getWebApp_Contexts(), this.getContextParam(), this.getContextParam_WebApp(), "contexts", null, 0, -1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getWebApp_ErrorPages(), this.getErrorPage(), this.getErrorPage_WebApp(), "errorPages", null, 0, -1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getWebApp_FileList(), this.getWelcomeFileList(), this.getWelcomeFileList_WebApp(), "fileList", null, 0, 1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getWebApp_TagLibs(), this.getTagLibRef(), this.getTagLibRef_WebApp(), "tagLibs", null, 0, -1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getWebApp_Constraints(), this.getSecurityConstraint(), this.getSecurityConstraint_WebApp(), "constraints", null, 0, -1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getWebApp_LoginConfig(), this.getLoginConfig(), this.getLoginConfig_WebApp(), "loginConfig", null, 0, 1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getWebApp_MimeMappings(), this.getMimeMapping(), this.getMimeMapping_WebApp(), "mimeMappings", null, 0, -1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getWebApp_SessionConfig(), this.getSessionConfig(), this.getSessionConfig_WebApp(), "sessionConfig", null, 0, 1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getWebApp_ServletMappings(), this.getServletMapping(), this.getServletMapping_WebApp(), "servletMappings", null, 0, -1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getWebApp_Servlets(), this.getServlet(), this.getServlet_WebApp(), "servlets", null, 0, -1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getWebApp_SecurityRoles(), theCommonPackage.getSecurityRole(), null, "securityRoles", null, 0, -1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getWebApp_Filters(), this.getFilter(), null, "filters", null, 0, -1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getWebApp_FilterMappings(), this.getFilterMapping(), null, "filterMappings", null, 0, -1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getWebApp_Listeners(), theCommonPackage.getListener(), null, "listeners", null, 0, -1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getWebApp_ContextParams(), theCommonPackage.getParamValue(), null, "contextParams", null, 0, -1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getWebApp_JspConfig(), theJspPackage.getJSPConfig(), null, "jspConfig", null, 0, 1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getWebApp_MessageDestinations(), theCommonPackage.getMessageDestination(), null, "messageDestinations", null, 0, -1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getWebApp_LocalEncodingMappingList(), this.getLocalEncodingMappingList(), null, "localEncodingMappingList", null, 0, 1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(contextParamEClass, ContextParam.class, "ContextParam", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getContextParam_ParamName(), ecorePackage.getEString(), "paramName", null, 0, 1, ContextParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getContextParam_ParamValue(), ecorePackage.getEString(), "paramValue", null, 0, 1, ContextParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getContextParam_Description(), ecorePackage.getEString(), "description", null, 0, 1, ContextParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getContextParam_WebApp(), this.getWebApp(), this.getWebApp_Contexts(), "webApp", null, 0, 1, ContextParam.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(servletEClass, Servlet.class, "Servlet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getServlet_ServletName(), ecorePackage.getEString(), "servletName", null, 0, 1, Servlet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getServlet_LoadOnStartup(), ecorePackage.getEIntegerObject(), "loadOnStartup", null, 0, 1, Servlet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getServlet_WebApp(), this.getWebApp(), this.getWebApp_Servlets(), "webApp", null, 0, 1, Servlet.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getServlet_WebType(), this.getWebType(), null, "webType", null, 1, 1, Servlet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getServlet_Params(), this.getInitParam(), null, "params", null, 0, -1, Servlet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getServlet_SecurityRoleRefs(), theCommonPackage.getSecurityRoleRef(), null, "securityRoleRefs", null, 0, -1, Servlet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getServlet_RunAs(), theCommonPackage.getRunAsSpecifiedIdentity(), null, "runAs", null, 0, 1, Servlet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getServlet_InitParams(), theCommonPackage.getParamValue(), null, "initParams", null, 0, -1, Servlet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(servletMappingEClass, ServletMapping.class, "ServletMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getServletMapping_UrlPattern(), ecorePackage.getEString(), "urlPattern", null, 0, 1, ServletMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getServletMapping_Name(), ecorePackage.getEString(), "name", null, 0, 1, ServletMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getServletMapping_WebApp(), this.getWebApp(), this.getWebApp_ServletMappings(), "webApp", null, 0, 1, ServletMapping.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getServletMapping_Servlet(), this.getServlet(), null, "servlet", null, 1, 1, ServletMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(sessionConfigEClass, SessionConfig.class, "SessionConfig", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getSessionConfig_SessionTimeout(), ecorePackage.getEInt(), "sessionTimeout", null, 0, 1, SessionConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getSessionConfig_WebApp(), this.getWebApp(), this.getWebApp_SessionConfig(), "webApp", null, 0, 1, SessionConfig.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(mimeMappingEClass, MimeMapping.class, "MimeMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getMimeMapping_Extension(), ecorePackage.getEString(), "extension", null, 0, 1, MimeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getMimeMapping_MimeType(), ecorePackage.getEString(), "mimeType", null, 0, 1, MimeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getMimeMapping_WebApp(), this.getWebApp(), this.getWebApp_MimeMappings(), "webApp", null, 0, 1, MimeMapping.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(welcomeFileListEClass, WelcomeFileList.class, "WelcomeFileList", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEReference(getWelcomeFileList_WebApp(), this.getWebApp(), this.getWebApp_FileList(), "webApp", null, 0, 1, WelcomeFileList.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getWelcomeFileList_File(), this.getWelcomeFile(), this.getWelcomeFile_FileList(), "file", null, 0, -1, WelcomeFileList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(errorPageEClass, ErrorPage.class, "ErrorPage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getErrorPage_Location(), ecorePackage.getEString(), "location", null, 0, 1, ErrorPage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getErrorPage_WebApp(), this.getWebApp(), this.getWebApp_ErrorPages(), "webApp", null, 0, 1, ErrorPage.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(tagLibRefEClass, TagLibRef.class, "TagLibRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getTagLibRef_TaglibURI(), ecorePackage.getEString(), "taglibURI", null, 0, 1, TagLibRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getTagLibRef_TaglibLocation(), ecorePackage.getEString(), "taglibLocation", null, 0, 1, TagLibRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getTagLibRef_WebApp(), this.getWebApp(), this.getWebApp_TagLibs(), "webApp", null, 0, 1, TagLibRef.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(securityConstraintEClass, SecurityConstraint.class, "SecurityConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getSecurityConstraint_DisplayName(), ecorePackage.getEString(), "displayName", null, 0, 1, SecurityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getSecurityConstraint_WebApp(), this.getWebApp(), this.getWebApp_Constraints(), "webApp", null, 0, 1, SecurityConstraint.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getSecurityConstraint_WebResourceCollections(), this.getWebResourceCollection(), this.getWebResourceCollection_SecConstraint(), "webResourceCollections", null, 1, -1, SecurityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getSecurityConstraint_AuthConstraint(), this.getAuthConstraint(), this.getAuthConstraint_SecConstraint(), "authConstraint", null, 0, 1, SecurityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getSecurityConstraint_UserDataConstraint(), this.getUserDataConstraint(), this.getUserDataConstraint_SecConstraint(), "userDataConstraint", null, 0, 1, SecurityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getSecurityConstraint_DisplayNames(), theCommonPackage.getDisplayName(), null, "displayNames", null, 0, -1, SecurityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(webResourceCollectionEClass, WebResourceCollection.class, "WebResourceCollection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getWebResourceCollection_WebResourceName(), ecorePackage.getEString(), "webResourceName", null, 0, 1, WebResourceCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getWebResourceCollection_Description(), ecorePackage.getEString(), "description", null, 0, 1, WebResourceCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getWebResourceCollection_UrlPattern(), ecorePackage.getEString(), "urlPattern", null, 1, -1, WebResourceCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getWebResourceCollection_HttpMethod(), this.getHTTPMethodTypeEnum(), "httpMethod", null, 0, -1, WebResourceCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getWebResourceCollection_SecConstraint(), this.getSecurityConstraint(), this.getSecurityConstraint_WebResourceCollections(), "secConstraint", null, 0, 1, WebResourceCollection.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getWebResourceCollection_URLs(), this.getURLPatternType(), this.getURLPatternType_ResCollection(), "URLs", null, 0, -1, WebResourceCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getWebResourceCollection_Descriptions(), theCommonPackage.getDescription(), null, "descriptions", null, 0, -1, WebResourceCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getWebResourceCollection_HTTPs(), this.getHTTPMethodType(), null, "HTTPs", null, 0, -1, WebResourceCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(authConstraintEClass, AuthConstraint.class, "AuthConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getAuthConstraint_Description(), ecorePackage.getEString(), "description", null, 0, 1, AuthConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getAuthConstraint_Roles(), ecorePackage.getEString(), "roles", null, 0, -1, AuthConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getAuthConstraint_SecConstraint(), this.getSecurityConstraint(), this.getSecurityConstraint_AuthConstraint(), "secConstraint", null, 0, 1, AuthConstraint.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getAuthConstraint_Descriptions(), theCommonPackage.getDescription(), null, "descriptions", null, 0, -1, AuthConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(userDataConstraintEClass, UserDataConstraint.class, "UserDataConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getUserDataConstraint_Description(), ecorePackage.getEString(), "description", null, 0, 1, UserDataConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getUserDataConstraint_TransportGuarantee(), this.getTransportGuaranteeType(), "transportGuarantee", null, 0, 1, UserDataConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getUserDataConstraint_SecConstraint(), this.getSecurityConstraint(), this.getSecurityConstraint_UserDataConstraint(), "secConstraint", null, 0, 1, UserDataConstraint.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getUserDataConstraint_Descriptions(), theCommonPackage.getDescription(), null, "descriptions", null, 0, -1, UserDataConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(loginConfigEClass, LoginConfig.class, "LoginConfig", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getLoginConfig_AuthMethod(), this.getAuthMethodKind(), "authMethod", null, 0, 1, LoginConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getLoginConfig_RealmName(), ecorePackage.getEString(), "realmName", null, 0, 1, LoginConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getLoginConfig_AuthorizationMethod(), ecorePackage.getEString(), "authorizationMethod", null, 0, 1, LoginConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getLoginConfig_WebApp(), this.getWebApp(), this.getWebApp_LoginConfig(), "webApp", null, 0, 1, LoginConfig.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getLoginConfig_FormLoginConfig(), this.getFormLoginConfig(), this.getFormLoginConfig_LoginConfig(), "formLoginConfig", null, 0, 1, LoginConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(formLoginConfigEClass, FormLoginConfig.class, "FormLoginConfig", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getFormLoginConfig_FormLoginPage(), ecorePackage.getEString(), "formLoginPage", null, 0, 1, FormLoginConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getFormLoginConfig_FormErrorPage(), ecorePackage.getEString(), "formErrorPage", null, 0, 1, FormLoginConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getFormLoginConfig_LoginConfig(), this.getLoginConfig(), this.getLoginConfig_FormLoginConfig(), "loginConfig", null, 0, 1, FormLoginConfig.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(initParamEClass, InitParam.class, "InitParam", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getInitParam_ParamName(), ecorePackage.getEString(), "paramName", null, 0, 1, InitParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getInitParam_ParamValue(), ecorePackage.getEString(), "paramValue", null, 0, 1, InitParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getInitParam_Description(), ecorePackage.getEString(), "description", null, 0, 1, InitParam.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(webTypeEClass, WebType.class, "WebType", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+	
+			initEClass(servletTypeEClass, ServletType.class, "ServletType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getServletType_ClassName(), ecorePackage.getEString(), "className", null, 0, 1, ServletType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(jspTypeEClass, JSPType.class, "JSPType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getJSPType_JspFile(), ecorePackage.getEString(), "jspFile", null, 0, 1, JSPType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(urlPatternTypeEClass, URLPatternType.class, "URLPatternType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getURLPatternType_UrlPattern(), ecorePackage.getEString(), "urlPattern", null, 0, 1, URLPatternType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getURLPatternType_ResCollection(), this.getWebResourceCollection(), this.getWebResourceCollection_URLs(), "resCollection", null, 0, 1, URLPatternType.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(roleNameTypeEClass, RoleNameType.class, "RoleNameType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getRoleNameType_RoleName(), ecorePackage.getEString(), "roleName", null, 0, 1, RoleNameType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(welcomeFileEClass, WelcomeFile.class, "WelcomeFile", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getWelcomeFile_WelcomeFile(), ecorePackage.getEString(), "welcomeFile", null, 0, 1, WelcomeFile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getWelcomeFile_FileList(), this.getWelcomeFileList(), this.getWelcomeFileList_File(), "fileList", null, 0, 1, WelcomeFile.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(exceptionTypeErrorPageEClass, ExceptionTypeErrorPage.class, "ExceptionTypeErrorPage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEReference(getExceptionTypeErrorPage_ExceptionType(), theJavaRefPackage.getJavaClass(), null, "exceptionType", null, 1, 1, ExceptionTypeErrorPage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(errorCodeErrorPageEClass, ErrorCodeErrorPage.class, "ErrorCodeErrorPage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getErrorCodeErrorPage_ErrorCode(), ecorePackage.getEString(), "errorCode", null, 0, 1, ErrorCodeErrorPage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(filterMappingEClass, FilterMapping.class, "FilterMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getFilterMapping_UrlPattern(), ecorePackage.getEString(), "urlPattern", null, 0, 1, FilterMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getFilterMapping_DispatcherType(), this.getDispatcherType(), "dispatcherType", null, 0, 4, FilterMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getFilterMapping_Filter(), this.getFilter(), null, "filter", null, 1, 1, FilterMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getFilterMapping_Servlet(), this.getServlet(), null, "servlet", null, 0, 1, FilterMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(filterEClass, Filter.class, "Filter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getFilter_Name(), ecorePackage.getEString(), "name", null, 0, 1, Filter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getFilter_InitParams(), this.getInitParam(), null, "initParams", null, 0, -1, Filter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getFilter_FilterClass(), theJavaRefPackage.getJavaClass(), null, "filterClass", null, 1, 1, Filter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getFilter_InitParamValues(), theCommonPackage.getParamValue(), null, "initParamValues", null, 0, -1, Filter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(localEncodingMappingListEClass, LocalEncodingMappingList.class, "LocalEncodingMappingList", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEReference(getLocalEncodingMappingList_LocalEncodingMappings(), this.getLocalEncodingMapping(), null, "localEncodingMappings", null, 1, -1, LocalEncodingMappingList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(localEncodingMappingEClass, LocalEncodingMapping.class, "LocalEncodingMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getLocalEncodingMapping_Locale(), ecorePackage.getEString(), "locale", null, 0, 1, LocalEncodingMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getLocalEncodingMapping_Encoding(), ecorePackage.getEString(), "encoding", null, 0, 1, LocalEncodingMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(httpMethodTypeEClass, HTTPMethodType.class, "HTTPMethodType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getHTTPMethodType_HttpMethod(), ecorePackage.getEString(), "httpMethod", null, 0, 1, HTTPMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			// Initialize enums and add enum literals
+			initEEnum(resAuthServletTypeEEnum, ResAuthServletType.class, "ResAuthServletType"); //$NON-NLS-1$
+			addEEnumLiteral(resAuthServletTypeEEnum, ResAuthServletType.CONTAINER_LITERAL);
+			addEEnumLiteral(resAuthServletTypeEEnum, ResAuthServletType.SERVLET_LITERAL);
+	
+			initEEnum(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.class, "HTTPMethodTypeEnum"); //$NON-NLS-1$
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.GET_LITERAL);
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.POST_LITERAL);
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.PUT_LITERAL);
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.DELETE_LITERAL);
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.HEAD_LITERAL);
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.OPTIONS_LITERAL);
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.TRACE_LITERAL);
+			//WEBDAV support
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.ACK_LITERAL);
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.ACL_LITERAL); 
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.BASELINE_CONTROL_LITERAL); 
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.BIND_LITERAL);
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.BYE_LITERAL);
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.CANCEL_LITERAL);
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.CHECKIN_LITERAL); 
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.CHECKOUT_LITERAL); 
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.COPY_LITERAL);
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.ERRORRESPONSE_LITERAL); 
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.INFO_LITERAL);
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.INVITE_LITERAL);
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.LABEL_LITERAL);
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.LOCK_LITERAL);
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.MERGE_LITERAL); 
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.MESSAGE_LITERAL);
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.MKACTIVITY_LITERAL);
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.MKCOL_LITERAL);
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.MKWORKSPACE_LITERAL);
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.MOVE_LITERAL);
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.NOTIFY_LITERAL);
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.PRACK_LITERAL);
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.PROPFIND_LITERAL);
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.PROPPATCH_LITERAL);
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.PROVISIONALRESPONSE_LITERAL);
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.PUBLISH_LITERAL);
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.REBIND_LITERAL);
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.REDIRECTRESPONSE_LITERAL);
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.REGISTER_LITERAL);
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.REPORT_LITERAL); 
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.REQUEST_LITERAL);
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.RESPONSE_LITERAL);
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.SEARCH_LITERAL); 
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.SUCCESSRESPONSE_LITERAL);
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.UNBIND_LITERAL);
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.UNCHECKOUT_LITERAL); 
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.UNLOCK_LITERAL);
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.UPDATE_LITERAL);
+			addEEnumLiteral(httpMethodTypeEnumEEnum, HTTPMethodTypeEnum.VERSION_CONTROL_LITERAL); 
+	
+	
+			
+			
+			initEEnum(transportGuaranteeTypeEEnum, TransportGuaranteeType.class, "TransportGuaranteeType"); //$NON-NLS-1$
+			addEEnumLiteral(transportGuaranteeTypeEEnum, TransportGuaranteeType.NONE_LITERAL);
+			addEEnumLiteral(transportGuaranteeTypeEEnum, TransportGuaranteeType.INTEGRAL_LITERAL);
+			addEEnumLiteral(transportGuaranteeTypeEEnum, TransportGuaranteeType.CONFIDENTIAL_LITERAL);
+	
+			initEEnum(dispatcherTypeEEnum, DispatcherType.class, "DispatcherType"); //$NON-NLS-1$
+			addEEnumLiteral(dispatcherTypeEEnum, DispatcherType.FORWARD_LITERAL);
+			addEEnumLiteral(dispatcherTypeEEnum, DispatcherType.INCLUDE_LITERAL);
+			addEEnumLiteral(dispatcherTypeEEnum, DispatcherType.REQUEST_LITERAL);
+			addEEnumLiteral(dispatcherTypeEEnum, DispatcherType.ERROR_LITERAL);
+	
+			initEEnum(authMethodKindEEnum, AuthMethodKind.class, "AuthMethodKind"); //$NON-NLS-1$
+			addEEnumLiteral(authMethodKindEEnum, AuthMethodKind.UNSPECIFIED_LITERAL);
+			addEEnumLiteral(authMethodKindEEnum, AuthMethodKind.BASIC_LITERAL);
+			addEEnumLiteral(authMethodKindEEnum, AuthMethodKind.DIGEST_LITERAL);
+			addEEnumLiteral(authMethodKindEEnum, AuthMethodKind.FORM_LITERAL);
+			addEEnumLiteral(authMethodKindEEnum, AuthMethodKind.CLIENT_CERT_LITERAL);
+	
+			// Create resource
+			createResource(eNS_URI);
+		}finally{
+			if( hasLock )
+				J2EEInit.releaseInitializePackageContentsLock();
+		}
 	}
 
 } //WebapplicationPackageImpl

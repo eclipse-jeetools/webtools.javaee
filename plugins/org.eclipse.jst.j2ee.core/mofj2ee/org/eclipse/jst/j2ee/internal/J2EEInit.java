@@ -12,6 +12,8 @@ package org.eclipse.jst.j2ee.internal;
 
 import java.lang.reflect.Method;
 
+import org.eclipse.core.runtime.jobs.ILock;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.ecore.EFactory;
 import org.eclipse.emf.ecore.EPackage;
@@ -380,4 +382,20 @@ public class J2EEInit {
 		}
 		
 	}
+
+	private static ILock lock;
+	private static final long delay = 30;
+
+    private static ILock getLock() {
+        if (lock == null)
+            lock = Job.getJobManager().newLock();
+        return lock;
+    }
+
+    public static void releaseInitializePackageContentsLock() {
+        getLock().release();
+    }
+    public static boolean aquireInitializePackageContentsLock() throws InterruptedException{
+    	return getLock().acquire(delay);
+    }
 }

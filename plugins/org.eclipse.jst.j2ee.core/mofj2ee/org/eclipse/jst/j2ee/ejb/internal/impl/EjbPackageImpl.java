@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.jem.java.JavaRefPackage;
 import org.eclipse.jst.j2ee.common.CommonPackage;
+import org.eclipse.jst.j2ee.core.internal.plugin.J2EECorePlugin;
 import org.eclipse.jst.j2ee.ejb.AcknowledgeMode;
 import org.eclipse.jst.j2ee.ejb.ActivationConfig;
 import org.eclipse.jst.j2ee.ejb.ActivationConfigProperty;
@@ -1514,225 +1515,237 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		CommonPackage theCommonPackage = (CommonPackage)EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
 		JavaRefPackage theJavaRefPackage = (JavaRefPackage)EPackage.Registry.INSTANCE.getEPackage(JavaRefPackage.eNS_URI);
 
-		// Add supertypes to classes
-		containerManagedEntityEClass.getESuperTypes().add(this.getEntity());
-		methodPermissionEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
-		assemblyDescriptorEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
-		methodTransactionEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
-		sessionEClass.getESuperTypes().add(this.getEnterpriseBean());
-		entityEClass.getESuperTypes().add(this.getEnterpriseBean());
-		enterpriseBeanEClass.getESuperTypes().add(theCommonPackage.getJNDIEnvRefsGroup());
-		ejbMethodCategoryEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
-		ejbJarEClass.getESuperTypes().add(theCommonPackage.getCompatibilityDescriptionGroup());
-		methodElementEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
-		cmpAttributeEClass.getESuperTypes().add(theCommonPackage.getJ2EEEAttribute());
-		relationshipsEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
-		queryEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
-		ejbRelationEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
-		ejbRelationshipRoleEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
-		roleSourceEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
-		cmrFieldEClass.getESuperTypes().add(this.getCMPAttribute());
-		messageDrivenEClass.getESuperTypes().add(this.getEnterpriseBean());
-		messageDrivenDestinationEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
-		excludeListEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
-		queryMethodEClass.getESuperTypes().add(this.getMethodElement());
-		activationConfigPropertyEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
-		activationConfigEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
-
-		// Initialize classes and features; add operations and parameters
-		initEClass(containerManagedEntityEClass, ContainerManagedEntity.class, "ContainerManagedEntity", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getContainerManagedEntity_Version(), ecorePackage.getEString(), "version", "2.x", 0, 1, ContainerManagedEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$ //$NON-NLS-2$
-		initEAttribute(getContainerManagedEntity_AbstractSchemaName(), ecorePackage.getEString(), "abstractSchemaName", null, 0, 1, ContainerManagedEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getContainerManagedEntity_PersistentAttributes(), this.getCMPAttribute(), null, "persistentAttributes", null, 0, -1, ContainerManagedEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getContainerManagedEntity_KeyAttributes(), this.getCMPAttribute(), null, "keyAttributes", null, 0, -1, ContainerManagedEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getContainerManagedEntity_Queries(), this.getQuery(), this.getQuery_Entity(), "queries", null, 0, -1, ContainerManagedEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getContainerManagedEntity_CMPAttribute(), this.getCMPAttribute(), null, "CMPAttribute", null, 0, -1, ContainerManagedEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getContainerManagedEntity_PrimKeyField(), this.getCMPAttribute(), null, "primKeyField", null, 0, 1, ContainerManagedEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(methodPermissionEClass, MethodPermission.class, "MethodPermission", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getMethodPermission_Description(), ecorePackage.getEString(), "description", null, 0, 1, MethodPermission.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getMethodPermission_Unchecked(), ecorePackage.getEBoolean(), "unchecked", null, 0, 1, MethodPermission.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getMethodPermission_AssemblyDescriptor(), this.getAssemblyDescriptor(), this.getAssemblyDescriptor_MethodPermissions(), "assemblyDescriptor", null, 1, 1, MethodPermission.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getMethodPermission_Roles(), theCommonPackage.getSecurityRole(), null, "roles", null, 1, -1, MethodPermission.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getMethodPermission_MethodElements(), this.getMethodElement(), null, "methodElements", null, 1, -1, MethodPermission.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getMethodPermission_Descriptions(), theCommonPackage.getDescription(), null, "descriptions", null, 0, -1, MethodPermission.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(assemblyDescriptorEClass, AssemblyDescriptor.class, "AssemblyDescriptor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEReference(getAssemblyDescriptor_MethodPermissions(), this.getMethodPermission(), this.getMethodPermission_AssemblyDescriptor(), "methodPermissions", null, 0, -1, AssemblyDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getAssemblyDescriptor_MethodTransactions(), this.getMethodTransaction(), this.getMethodTransaction_AssemblyDescriptor(), "methodTransactions", null, 0, -1, AssemblyDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getAssemblyDescriptor_EjbJar(), this.getEJBJar(), this.getEJBJar_AssemblyDescriptor(), "ejbJar", null, 0, 1, AssemblyDescriptor.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getAssemblyDescriptor_SecurityRoles(), theCommonPackage.getSecurityRole(), null, "securityRoles", null, 0, -1, AssemblyDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getAssemblyDescriptor_ExcludeList(), this.getExcludeList(), null, "excludeList", null, 0, 1, AssemblyDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getAssemblyDescriptor_MessageDestinations(), theCommonPackage.getMessageDestination(), null, "messageDestinations", null, 0, -1, AssemblyDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(methodTransactionEClass, MethodTransaction.class, "MethodTransaction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getMethodTransaction_TransactionAttribute(), this.getTransactionAttributeType(), "transactionAttribute", null, 0, 1, MethodTransaction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getMethodTransaction_Description(), ecorePackage.getEString(), "description", null, 0, 1, MethodTransaction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getMethodTransaction_AssemblyDescriptor(), this.getAssemblyDescriptor(), this.getAssemblyDescriptor_MethodTransactions(), "assemblyDescriptor", null, 1, 1, MethodTransaction.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getMethodTransaction_MethodElements(), this.getMethodElement(), null, "methodElements", null, 1, -1, MethodTransaction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getMethodTransaction_Descriptions(), theCommonPackage.getDescription(), null, "descriptions", null, 0, -1, MethodTransaction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(sessionEClass, Session.class, "Session", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getSession_TransactionType(), this.getTransactionType(), "transactionType", null, 0, 1, Session.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getSession_SessionType(), this.getSessionType(), "sessionType", null, 0, 1, Session.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getSession_ServiceEndpoint(), theJavaRefPackage.getJavaClass(), null, "serviceEndpoint", null, 0, 1, Session.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(entityEClass, Entity.class, "Entity", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getEntity_Reentrant(), ecorePackage.getEBoolean(), "reentrant", null, 0, 1, Entity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getEntity_PrimaryKey(), theJavaRefPackage.getJavaClass(), null, "primaryKey", null, 1, 1, Entity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(enterpriseBeanEClass, EnterpriseBean.class, "EnterpriseBean", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getEnterpriseBean_Name(), ecorePackage.getEString(), "name", null, 0, 1, EnterpriseBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getEnterpriseBean_SecurityRoleRefs(), theCommonPackage.getSecurityRoleRef(), null, "securityRoleRefs", null, 0, -1, EnterpriseBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getEnterpriseBean_EjbClass(), theJavaRefPackage.getJavaClass(), null, "ejbClass", null, 1, 1, EnterpriseBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getEnterpriseBean_HomeInterface(), theJavaRefPackage.getJavaClass(), null, "homeInterface", null, 1, 1, EnterpriseBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getEnterpriseBean_RemoteInterface(), theJavaRefPackage.getJavaClass(), null, "remoteInterface", null, 1, 1, EnterpriseBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getEnterpriseBean_EjbJar(), this.getEJBJar(), this.getEJBJar_EnterpriseBeans(), "ejbJar", null, 1, 1, EnterpriseBean.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getEnterpriseBean_SecurityIdentity(), theCommonPackage.getSecurityIdentity(), null, "securityIdentity", null, 0, 1, EnterpriseBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getEnterpriseBean_LocalHomeInterface(), theJavaRefPackage.getJavaClass(), null, "localHomeInterface", null, 0, 1, EnterpriseBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getEnterpriseBean_LocalInterface(), theJavaRefPackage.getJavaClass(), null, "localInterface", null, 0, 1, EnterpriseBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(ejbMethodCategoryEClass, EJBMethodCategory.class, "EJBMethodCategory", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-
-		initEClass(ejbJarEClass, EJBJar.class, "EJBJar", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getEJBJar_EjbClientJar(), ecorePackage.getEString(), "ejbClientJar", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getEJBJar_Version(), ecorePackage.getEString(), "version", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getEJBJar_AssemblyDescriptor(), this.getAssemblyDescriptor(), this.getAssemblyDescriptor_EjbJar(), "assemblyDescriptor", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getEJBJar_EnterpriseBeans(), this.getEnterpriseBean(), this.getEnterpriseBean_EjbJar(), "enterpriseBeans", null, 1, -1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getEJBJar_RelationshipList(), this.getRelationships(), this.getRelationships_EjbJar(), "relationshipList", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(methodElementEClass, MethodElement.class, "MethodElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getMethodElement_Name(), ecorePackage.getEString(), "name", null, 0, 1, MethodElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getMethodElement_Parms(), ecorePackage.getEString(), "parms", null, 0, 1, MethodElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getMethodElement_Type(), this.getMethodElementKind(), "type", null, 0, 1, MethodElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getMethodElement_Description(), ecorePackage.getEString(), "description", null, 0, 1, MethodElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getMethodElement_EnterpriseBean(), this.getEnterpriseBean(), null, "enterpriseBean", null, 1, 1, MethodElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getMethodElement_Descriptions(), theCommonPackage.getDescription(), null, "descriptions", null, 0, -1, MethodElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(cmpAttributeEClass, CMPAttribute.class, "CMPAttribute", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getCMPAttribute_Description(), ecorePackage.getEString(), "description", null, 0, 1, CMPAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getCMPAttribute_Descriptions(), theCommonPackage.getDescription(), null, "descriptions", null, 0, -1, CMPAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(relationshipsEClass, Relationships.class, "Relationships", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getRelationships_Description(), ecorePackage.getEString(), "description", null, 0, 1, Relationships.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getRelationships_EjbJar(), this.getEJBJar(), this.getEJBJar_RelationshipList(), "ejbJar", null, 1, 1, Relationships.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getRelationships_EjbRelations(), this.getEJBRelation(), this.getEJBRelation_RelationshipList(), "ejbRelations", null, 0, -1, Relationships.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getRelationships_Descriptions(), theCommonPackage.getDescription(), null, "descriptions", null, 0, -1, Relationships.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(queryEClass, Query.class, "Query", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getQuery_Description(), ecorePackage.getEString(), "description", null, 0, 1, Query.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getQuery_EjbQL(), ecorePackage.getEString(), "ejbQL", null, 0, 1, Query.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getQuery_ReturnTypeMapping(), this.getReturnTypeMapping(), "returnTypeMapping", null, 0, 1, Query.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getQuery_QueryMethod(), this.getQueryMethod(), this.getQueryMethod_Query(), "queryMethod", null, 1, 1, Query.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getQuery_Entity(), this.getContainerManagedEntity(), this.getContainerManagedEntity_Queries(), "entity", null, 0, 1, Query.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getQuery_Descriptions(), theCommonPackage.getDescription(), null, "descriptions", null, 0, -1, Query.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(ejbRelationEClass, EJBRelation.class, "EJBRelation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getEJBRelation_Description(), ecorePackage.getEString(), "description", null, 0, 1, EJBRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getEJBRelation_Name(), ecorePackage.getEString(), "name", null, 0, 1, EJBRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getEJBRelation_RelationshipList(), this.getRelationships(), this.getRelationships_EjbRelations(), "relationshipList", null, 0, 1, EJBRelation.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getEJBRelation_RelationshipRoles(), this.getEJBRelationshipRole(), this.getEJBRelationshipRole_Relationship(), "relationshipRoles", null, 2, 2, EJBRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getEJBRelation_Descriptions(), theCommonPackage.getDescription(), null, "descriptions", null, 0, -1, EJBRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(ejbRelationshipRoleEClass, EJBRelationshipRole.class, "EJBRelationshipRole", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getEJBRelationshipRole_Description(), ecorePackage.getEString(), "description", null, 0, 1, EJBRelationshipRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getEJBRelationshipRole_RoleName(), ecorePackage.getEString(), "roleName", null, 0, 1, EJBRelationshipRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getEJBRelationshipRole_Multiplicity(), this.getMultiplicityKind(), "multiplicity", null, 0, 1, EJBRelationshipRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getEJBRelationshipRole_CascadeDelete(), ecorePackage.getEBoolean(), "cascadeDelete", null, 0, 1, EJBRelationshipRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getEJBRelationshipRole_Relationship(), this.getEJBRelation(), this.getEJBRelation_RelationshipRoles(), "relationship", null, 1, 1, EJBRelationshipRole.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getEJBRelationshipRole_Source(), this.getRoleSource(), this.getRoleSource_Role(), "source", null, 1, 1, EJBRelationshipRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getEJBRelationshipRole_CmrField(), this.getCMRField(), this.getCMRField_Role(), "cmrField", null, 1, 1, EJBRelationshipRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getEJBRelationshipRole_Descriptions(), theCommonPackage.getDescription(), null, "descriptions", null, 0, -1, EJBRelationshipRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(roleSourceEClass, RoleSource.class, "RoleSource", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getRoleSource_Description(), ecorePackage.getEString(), "description", null, 0, 1, RoleSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getRoleSource_Role(), this.getEJBRelationshipRole(), this.getEJBRelationshipRole_Source(), "role", null, 1, 1, RoleSource.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getRoleSource_EntityBean(), this.getContainerManagedEntity(), null, "entityBean", null, 1, 1, RoleSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getRoleSource_Descriptions(), theCommonPackage.getDescription(), null, "descriptions", null, 0, -1, RoleSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(cmrFieldEClass, CMRField.class, "CMRField", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEReference(getCMRField_Role(), this.getEJBRelationshipRole(), this.getEJBRelationshipRole_CmrField(), "role", null, 0, 1, CMRField.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getCMRField_CollectionType(), theJavaRefPackage.getJavaClass(), null, "collectionType", null, 0, 1, CMRField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(messageDrivenEClass, MessageDriven.class, "MessageDriven", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getMessageDriven_TransactionType(), this.getTransactionType(), "transactionType", null, 0, 1, MessageDriven.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getMessageDriven_MessageSelector(), ecorePackage.getEString(), "messageSelector", null, 0, 1, MessageDriven.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getMessageDriven_AcknowledgeMode(), this.getAcknowledgeMode(), "acknowledgeMode", null, 0, 1, MessageDriven.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getMessageDriven_Link(), ecorePackage.getEString(), "link", null, 0, 1, MessageDriven.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getMessageDriven_Destination(), this.getMessageDrivenDestination(), this.getMessageDrivenDestination_Bean(), "destination", null, 0, 1, MessageDriven.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getMessageDriven_ActivationConfig(), this.getActivationConfig(), null, "activationConfig", null, 0, 1, MessageDriven.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getMessageDriven_MessageDestination(), theJavaRefPackage.getJavaClass(), null, "messageDestination", null, 0, 1, MessageDriven.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getMessageDriven_MessagingType(), theJavaRefPackage.getJavaClass(), null, "messagingType", null, 0, 1, MessageDriven.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(messageDrivenDestinationEClass, MessageDrivenDestination.class, "MessageDrivenDestination", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getMessageDrivenDestination_Type(), this.getDestinationType(), "type", null, 0, 1, MessageDrivenDestination.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getMessageDrivenDestination_SubscriptionDurability(), this.getSubscriptionDurabilityKind(), "subscriptionDurability", null, 0, 1, MessageDrivenDestination.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getMessageDrivenDestination_Bean(), this.getMessageDriven(), this.getMessageDriven_Destination(), "bean", null, 1, 1, MessageDrivenDestination.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(excludeListEClass, ExcludeList.class, "ExcludeList", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getExcludeList_Description(), ecorePackage.getEString(), "description", null, 0, 1, ExcludeList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getExcludeList_MethodElements(), this.getMethodElement(), null, "methodElements", null, 1, -1, ExcludeList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getExcludeList_Descriptions(), theCommonPackage.getDescription(), null, "descriptions", null, 0, -1, ExcludeList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(queryMethodEClass, QueryMethod.class, "QueryMethod", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEReference(getQueryMethod_Query(), this.getQuery(), this.getQuery_QueryMethod(), "query", null, 1, 1, QueryMethod.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(activationConfigPropertyEClass, ActivationConfigProperty.class, "ActivationConfigProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getActivationConfigProperty_Value(), ecorePackage.getEString(), "value", null, 0, 1, ActivationConfigProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getActivationConfigProperty_Name(), ecorePackage.getEString(), "name", null, 0, 1, ActivationConfigProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(activationConfigEClass, ActivationConfig.class, "ActivationConfig", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEReference(getActivationConfig_ConfigProperties(), this.getActivationConfigProperty(), null, "configProperties", null, 1, -1, ActivationConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getActivationConfig_Descriptions(), theCommonPackage.getDescription(), null, "descriptions", null, 0, -1, ActivationConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		// Initialize enums and add enum literals
-		initEEnum(transactionAttributeTypeEEnum, TransactionAttributeType.class, "TransactionAttributeType"); //$NON-NLS-1$
-		addEEnumLiteral(transactionAttributeTypeEEnum, TransactionAttributeType.NOT_SUPPORTED_LITERAL);
-		addEEnumLiteral(transactionAttributeTypeEEnum, TransactionAttributeType.SUPPORTS_LITERAL);
-		addEEnumLiteral(transactionAttributeTypeEEnum, TransactionAttributeType.REQUIRED_LITERAL);
-		addEEnumLiteral(transactionAttributeTypeEEnum, TransactionAttributeType.REQUIRES_NEW_LITERAL);
-		addEEnumLiteral(transactionAttributeTypeEEnum, TransactionAttributeType.MANDATORY_LITERAL);
-		addEEnumLiteral(transactionAttributeTypeEEnum, TransactionAttributeType.NEVER_LITERAL);
-
-		initEEnum(transactionTypeEEnum, TransactionType.class, "TransactionType"); //$NON-NLS-1$
-		addEEnumLiteral(transactionTypeEEnum, TransactionType.BEAN_LITERAL);
-		addEEnumLiteral(transactionTypeEEnum, TransactionType.CONTAINER_LITERAL);
-
-		initEEnum(sessionTypeEEnum, SessionType.class, "SessionType"); //$NON-NLS-1$
-		addEEnumLiteral(sessionTypeEEnum, SessionType.STATEFUL_LITERAL);
-		addEEnumLiteral(sessionTypeEEnum, SessionType.STATELESS_LITERAL);
-		addEEnumLiteral(sessionTypeEEnum, SessionType.SINGLETON_LITERAL);
-
-		initEEnum(methodElementKindEEnum, MethodElementKind.class, "MethodElementKind"); //$NON-NLS-1$
-		addEEnumLiteral(methodElementKindEEnum, MethodElementKind.UNSPECIFIED_LITERAL);
-		addEEnumLiteral(methodElementKindEEnum, MethodElementKind.REMOTE_LITERAL);
-		addEEnumLiteral(methodElementKindEEnum, MethodElementKind.HOME_LITERAL);
-		addEEnumLiteral(methodElementKindEEnum, MethodElementKind.LOCAL_LITERAL);
-		addEEnumLiteral(methodElementKindEEnum, MethodElementKind.LOCAL_HOME_LITERAL);
-		addEEnumLiteral(methodElementKindEEnum, MethodElementKind.SERVICE_ENDPOINT_LITERAL);
-
-		initEEnum(acknowledgeModeEEnum, AcknowledgeMode.class, "AcknowledgeMode"); //$NON-NLS-1$
-		addEEnumLiteral(acknowledgeModeEEnum, AcknowledgeMode.AUTO_ACKNOWLEDGE_LITERAL);
-		addEEnumLiteral(acknowledgeModeEEnum, AcknowledgeMode.DUPS_OK_ACKNOWLEDGE_LITERAL);
-
-		initEEnum(subscriptionDurabilityKindEEnum, SubscriptionDurabilityKind.class, "SubscriptionDurabilityKind"); //$NON-NLS-1$
-		addEEnumLiteral(subscriptionDurabilityKindEEnum, SubscriptionDurabilityKind.DURABLE_LITERAL);
-		addEEnumLiteral(subscriptionDurabilityKindEEnum, SubscriptionDurabilityKind.NON_DURABLE_LITERAL);
-
-		initEEnum(returnTypeMappingEEnum, ReturnTypeMapping.class, "ReturnTypeMapping"); //$NON-NLS-1$
-		addEEnumLiteral(returnTypeMappingEEnum, ReturnTypeMapping.LOCAL_LITERAL);
-		addEEnumLiteral(returnTypeMappingEEnum, ReturnTypeMapping.REMOTE_LITERAL);
-
-		initEEnum(destinationTypeEEnum, DestinationType.class, "DestinationType"); //$NON-NLS-1$
-		addEEnumLiteral(destinationTypeEEnum, DestinationType.QUEUE_LITERAL);
-		addEEnumLiteral(destinationTypeEEnum, DestinationType.TOPIC_LITERAL);
-
-		initEEnum(multiplicityKindEEnum, MultiplicityKind.class, "MultiplicityKind"); //$NON-NLS-1$
-		addEEnumLiteral(multiplicityKindEEnum, MultiplicityKind.ONE_LITERAL);
-		addEEnumLiteral(multiplicityKindEEnum, MultiplicityKind.MANY_LITERAL);
-
-		// Create resource
-		createResource(eNS_URI);
+		boolean hasLock = false;
+		try {
+			hasLock = J2EEInit.aquireInitializePackageContentsLock();
+		} catch (InterruptedException e) {
+			J2EECorePlugin.logError(e);
+		}		
+		
+		try{
+			// Add supertypes to classes
+			containerManagedEntityEClass.getESuperTypes().add(this.getEntity());
+			methodPermissionEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+			assemblyDescriptorEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+			methodTransactionEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+			sessionEClass.getESuperTypes().add(this.getEnterpriseBean());
+			entityEClass.getESuperTypes().add(this.getEnterpriseBean());
+			enterpriseBeanEClass.getESuperTypes().add(theCommonPackage.getJNDIEnvRefsGroup());
+			ejbMethodCategoryEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+			ejbJarEClass.getESuperTypes().add(theCommonPackage.getCompatibilityDescriptionGroup());
+			methodElementEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+			cmpAttributeEClass.getESuperTypes().add(theCommonPackage.getJ2EEEAttribute());
+			relationshipsEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+			queryEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+			ejbRelationEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+			ejbRelationshipRoleEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+			roleSourceEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+			cmrFieldEClass.getESuperTypes().add(this.getCMPAttribute());
+			messageDrivenEClass.getESuperTypes().add(this.getEnterpriseBean());
+			messageDrivenDestinationEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+			excludeListEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+			queryMethodEClass.getESuperTypes().add(this.getMethodElement());
+			activationConfigPropertyEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+			activationConfigEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+	
+			// Initialize classes and features; add operations and parameters
+			initEClass(containerManagedEntityEClass, ContainerManagedEntity.class, "ContainerManagedEntity", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getContainerManagedEntity_Version(), ecorePackage.getEString(), "version", "2.x", 0, 1, ContainerManagedEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$ //$NON-NLS-2$
+			initEAttribute(getContainerManagedEntity_AbstractSchemaName(), ecorePackage.getEString(), "abstractSchemaName", null, 0, 1, ContainerManagedEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getContainerManagedEntity_PersistentAttributes(), this.getCMPAttribute(), null, "persistentAttributes", null, 0, -1, ContainerManagedEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getContainerManagedEntity_KeyAttributes(), this.getCMPAttribute(), null, "keyAttributes", null, 0, -1, ContainerManagedEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getContainerManagedEntity_Queries(), this.getQuery(), this.getQuery_Entity(), "queries", null, 0, -1, ContainerManagedEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getContainerManagedEntity_CMPAttribute(), this.getCMPAttribute(), null, "CMPAttribute", null, 0, -1, ContainerManagedEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getContainerManagedEntity_PrimKeyField(), this.getCMPAttribute(), null, "primKeyField", null, 0, 1, ContainerManagedEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(methodPermissionEClass, MethodPermission.class, "MethodPermission", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getMethodPermission_Description(), ecorePackage.getEString(), "description", null, 0, 1, MethodPermission.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getMethodPermission_Unchecked(), ecorePackage.getEBoolean(), "unchecked", null, 0, 1, MethodPermission.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getMethodPermission_AssemblyDescriptor(), this.getAssemblyDescriptor(), this.getAssemblyDescriptor_MethodPermissions(), "assemblyDescriptor", null, 1, 1, MethodPermission.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getMethodPermission_Roles(), theCommonPackage.getSecurityRole(), null, "roles", null, 1, -1, MethodPermission.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getMethodPermission_MethodElements(), this.getMethodElement(), null, "methodElements", null, 1, -1, MethodPermission.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getMethodPermission_Descriptions(), theCommonPackage.getDescription(), null, "descriptions", null, 0, -1, MethodPermission.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(assemblyDescriptorEClass, AssemblyDescriptor.class, "AssemblyDescriptor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEReference(getAssemblyDescriptor_MethodPermissions(), this.getMethodPermission(), this.getMethodPermission_AssemblyDescriptor(), "methodPermissions", null, 0, -1, AssemblyDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getAssemblyDescriptor_MethodTransactions(), this.getMethodTransaction(), this.getMethodTransaction_AssemblyDescriptor(), "methodTransactions", null, 0, -1, AssemblyDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getAssemblyDescriptor_EjbJar(), this.getEJBJar(), this.getEJBJar_AssemblyDescriptor(), "ejbJar", null, 0, 1, AssemblyDescriptor.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getAssemblyDescriptor_SecurityRoles(), theCommonPackage.getSecurityRole(), null, "securityRoles", null, 0, -1, AssemblyDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getAssemblyDescriptor_ExcludeList(), this.getExcludeList(), null, "excludeList", null, 0, 1, AssemblyDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getAssemblyDescriptor_MessageDestinations(), theCommonPackage.getMessageDestination(), null, "messageDestinations", null, 0, -1, AssemblyDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(methodTransactionEClass, MethodTransaction.class, "MethodTransaction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getMethodTransaction_TransactionAttribute(), this.getTransactionAttributeType(), "transactionAttribute", null, 0, 1, MethodTransaction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getMethodTransaction_Description(), ecorePackage.getEString(), "description", null, 0, 1, MethodTransaction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getMethodTransaction_AssemblyDescriptor(), this.getAssemblyDescriptor(), this.getAssemblyDescriptor_MethodTransactions(), "assemblyDescriptor", null, 1, 1, MethodTransaction.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getMethodTransaction_MethodElements(), this.getMethodElement(), null, "methodElements", null, 1, -1, MethodTransaction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getMethodTransaction_Descriptions(), theCommonPackage.getDescription(), null, "descriptions", null, 0, -1, MethodTransaction.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(sessionEClass, Session.class, "Session", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getSession_TransactionType(), this.getTransactionType(), "transactionType", null, 0, 1, Session.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getSession_SessionType(), this.getSessionType(), "sessionType", null, 0, 1, Session.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getSession_ServiceEndpoint(), theJavaRefPackage.getJavaClass(), null, "serviceEndpoint", null, 0, 1, Session.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(entityEClass, Entity.class, "Entity", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getEntity_Reentrant(), ecorePackage.getEBoolean(), "reentrant", null, 0, 1, Entity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getEntity_PrimaryKey(), theJavaRefPackage.getJavaClass(), null, "primaryKey", null, 1, 1, Entity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(enterpriseBeanEClass, EnterpriseBean.class, "EnterpriseBean", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getEnterpriseBean_Name(), ecorePackage.getEString(), "name", null, 0, 1, EnterpriseBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getEnterpriseBean_SecurityRoleRefs(), theCommonPackage.getSecurityRoleRef(), null, "securityRoleRefs", null, 0, -1, EnterpriseBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getEnterpriseBean_EjbClass(), theJavaRefPackage.getJavaClass(), null, "ejbClass", null, 1, 1, EnterpriseBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getEnterpriseBean_HomeInterface(), theJavaRefPackage.getJavaClass(), null, "homeInterface", null, 1, 1, EnterpriseBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getEnterpriseBean_RemoteInterface(), theJavaRefPackage.getJavaClass(), null, "remoteInterface", null, 1, 1, EnterpriseBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getEnterpriseBean_EjbJar(), this.getEJBJar(), this.getEJBJar_EnterpriseBeans(), "ejbJar", null, 1, 1, EnterpriseBean.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getEnterpriseBean_SecurityIdentity(), theCommonPackage.getSecurityIdentity(), null, "securityIdentity", null, 0, 1, EnterpriseBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getEnterpriseBean_LocalHomeInterface(), theJavaRefPackage.getJavaClass(), null, "localHomeInterface", null, 0, 1, EnterpriseBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getEnterpriseBean_LocalInterface(), theJavaRefPackage.getJavaClass(), null, "localInterface", null, 0, 1, EnterpriseBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(ejbMethodCategoryEClass, EJBMethodCategory.class, "EJBMethodCategory", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+	
+			initEClass(ejbJarEClass, EJBJar.class, "EJBJar", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getEJBJar_EjbClientJar(), ecorePackage.getEString(), "ejbClientJar", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getEJBJar_Version(), ecorePackage.getEString(), "version", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getEJBJar_AssemblyDescriptor(), this.getAssemblyDescriptor(), this.getAssemblyDescriptor_EjbJar(), "assemblyDescriptor", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getEJBJar_EnterpriseBeans(), this.getEnterpriseBean(), this.getEnterpriseBean_EjbJar(), "enterpriseBeans", null, 1, -1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getEJBJar_RelationshipList(), this.getRelationships(), this.getRelationships_EjbJar(), "relationshipList", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(methodElementEClass, MethodElement.class, "MethodElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getMethodElement_Name(), ecorePackage.getEString(), "name", null, 0, 1, MethodElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getMethodElement_Parms(), ecorePackage.getEString(), "parms", null, 0, 1, MethodElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getMethodElement_Type(), this.getMethodElementKind(), "type", null, 0, 1, MethodElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getMethodElement_Description(), ecorePackage.getEString(), "description", null, 0, 1, MethodElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getMethodElement_EnterpriseBean(), this.getEnterpriseBean(), null, "enterpriseBean", null, 1, 1, MethodElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getMethodElement_Descriptions(), theCommonPackage.getDescription(), null, "descriptions", null, 0, -1, MethodElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(cmpAttributeEClass, CMPAttribute.class, "CMPAttribute", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getCMPAttribute_Description(), ecorePackage.getEString(), "description", null, 0, 1, CMPAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getCMPAttribute_Descriptions(), theCommonPackage.getDescription(), null, "descriptions", null, 0, -1, CMPAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(relationshipsEClass, Relationships.class, "Relationships", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getRelationships_Description(), ecorePackage.getEString(), "description", null, 0, 1, Relationships.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getRelationships_EjbJar(), this.getEJBJar(), this.getEJBJar_RelationshipList(), "ejbJar", null, 1, 1, Relationships.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getRelationships_EjbRelations(), this.getEJBRelation(), this.getEJBRelation_RelationshipList(), "ejbRelations", null, 0, -1, Relationships.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getRelationships_Descriptions(), theCommonPackage.getDescription(), null, "descriptions", null, 0, -1, Relationships.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(queryEClass, Query.class, "Query", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getQuery_Description(), ecorePackage.getEString(), "description", null, 0, 1, Query.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getQuery_EjbQL(), ecorePackage.getEString(), "ejbQL", null, 0, 1, Query.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getQuery_ReturnTypeMapping(), this.getReturnTypeMapping(), "returnTypeMapping", null, 0, 1, Query.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getQuery_QueryMethod(), this.getQueryMethod(), this.getQueryMethod_Query(), "queryMethod", null, 1, 1, Query.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getQuery_Entity(), this.getContainerManagedEntity(), this.getContainerManagedEntity_Queries(), "entity", null, 0, 1, Query.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getQuery_Descriptions(), theCommonPackage.getDescription(), null, "descriptions", null, 0, -1, Query.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(ejbRelationEClass, EJBRelation.class, "EJBRelation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getEJBRelation_Description(), ecorePackage.getEString(), "description", null, 0, 1, EJBRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getEJBRelation_Name(), ecorePackage.getEString(), "name", null, 0, 1, EJBRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getEJBRelation_RelationshipList(), this.getRelationships(), this.getRelationships_EjbRelations(), "relationshipList", null, 0, 1, EJBRelation.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getEJBRelation_RelationshipRoles(), this.getEJBRelationshipRole(), this.getEJBRelationshipRole_Relationship(), "relationshipRoles", null, 2, 2, EJBRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getEJBRelation_Descriptions(), theCommonPackage.getDescription(), null, "descriptions", null, 0, -1, EJBRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(ejbRelationshipRoleEClass, EJBRelationshipRole.class, "EJBRelationshipRole", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getEJBRelationshipRole_Description(), ecorePackage.getEString(), "description", null, 0, 1, EJBRelationshipRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getEJBRelationshipRole_RoleName(), ecorePackage.getEString(), "roleName", null, 0, 1, EJBRelationshipRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getEJBRelationshipRole_Multiplicity(), this.getMultiplicityKind(), "multiplicity", null, 0, 1, EJBRelationshipRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getEJBRelationshipRole_CascadeDelete(), ecorePackage.getEBoolean(), "cascadeDelete", null, 0, 1, EJBRelationshipRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getEJBRelationshipRole_Relationship(), this.getEJBRelation(), this.getEJBRelation_RelationshipRoles(), "relationship", null, 1, 1, EJBRelationshipRole.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getEJBRelationshipRole_Source(), this.getRoleSource(), this.getRoleSource_Role(), "source", null, 1, 1, EJBRelationshipRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getEJBRelationshipRole_CmrField(), this.getCMRField(), this.getCMRField_Role(), "cmrField", null, 1, 1, EJBRelationshipRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getEJBRelationshipRole_Descriptions(), theCommonPackage.getDescription(), null, "descriptions", null, 0, -1, EJBRelationshipRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(roleSourceEClass, RoleSource.class, "RoleSource", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getRoleSource_Description(), ecorePackage.getEString(), "description", null, 0, 1, RoleSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getRoleSource_Role(), this.getEJBRelationshipRole(), this.getEJBRelationshipRole_Source(), "role", null, 1, 1, RoleSource.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getRoleSource_EntityBean(), this.getContainerManagedEntity(), null, "entityBean", null, 1, 1, RoleSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getRoleSource_Descriptions(), theCommonPackage.getDescription(), null, "descriptions", null, 0, -1, RoleSource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(cmrFieldEClass, CMRField.class, "CMRField", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEReference(getCMRField_Role(), this.getEJBRelationshipRole(), this.getEJBRelationshipRole_CmrField(), "role", null, 0, 1, CMRField.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getCMRField_CollectionType(), theJavaRefPackage.getJavaClass(), null, "collectionType", null, 0, 1, CMRField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(messageDrivenEClass, MessageDriven.class, "MessageDriven", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getMessageDriven_TransactionType(), this.getTransactionType(), "transactionType", null, 0, 1, MessageDriven.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getMessageDriven_MessageSelector(), ecorePackage.getEString(), "messageSelector", null, 0, 1, MessageDriven.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getMessageDriven_AcknowledgeMode(), this.getAcknowledgeMode(), "acknowledgeMode", null, 0, 1, MessageDriven.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getMessageDriven_Link(), ecorePackage.getEString(), "link", null, 0, 1, MessageDriven.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getMessageDriven_Destination(), this.getMessageDrivenDestination(), this.getMessageDrivenDestination_Bean(), "destination", null, 0, 1, MessageDriven.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getMessageDriven_ActivationConfig(), this.getActivationConfig(), null, "activationConfig", null, 0, 1, MessageDriven.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getMessageDriven_MessageDestination(), theJavaRefPackage.getJavaClass(), null, "messageDestination", null, 0, 1, MessageDriven.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getMessageDriven_MessagingType(), theJavaRefPackage.getJavaClass(), null, "messagingType", null, 0, 1, MessageDriven.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(messageDrivenDestinationEClass, MessageDrivenDestination.class, "MessageDrivenDestination", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getMessageDrivenDestination_Type(), this.getDestinationType(), "type", null, 0, 1, MessageDrivenDestination.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getMessageDrivenDestination_SubscriptionDurability(), this.getSubscriptionDurabilityKind(), "subscriptionDurability", null, 0, 1, MessageDrivenDestination.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getMessageDrivenDestination_Bean(), this.getMessageDriven(), this.getMessageDriven_Destination(), "bean", null, 1, 1, MessageDrivenDestination.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(excludeListEClass, ExcludeList.class, "ExcludeList", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getExcludeList_Description(), ecorePackage.getEString(), "description", null, 0, 1, ExcludeList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getExcludeList_MethodElements(), this.getMethodElement(), null, "methodElements", null, 1, -1, ExcludeList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getExcludeList_Descriptions(), theCommonPackage.getDescription(), null, "descriptions", null, 0, -1, ExcludeList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(queryMethodEClass, QueryMethod.class, "QueryMethod", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEReference(getQueryMethod_Query(), this.getQuery(), this.getQuery_QueryMethod(), "query", null, 1, 1, QueryMethod.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(activationConfigPropertyEClass, ActivationConfigProperty.class, "ActivationConfigProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getActivationConfigProperty_Value(), ecorePackage.getEString(), "value", null, 0, 1, ActivationConfigProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getActivationConfigProperty_Name(), ecorePackage.getEString(), "name", null, 0, 1, ActivationConfigProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(activationConfigEClass, ActivationConfig.class, "ActivationConfig", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEReference(getActivationConfig_ConfigProperties(), this.getActivationConfigProperty(), null, "configProperties", null, 1, -1, ActivationConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getActivationConfig_Descriptions(), theCommonPackage.getDescription(), null, "descriptions", null, 0, -1, ActivationConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			// Initialize enums and add enum literals
+			initEEnum(transactionAttributeTypeEEnum, TransactionAttributeType.class, "TransactionAttributeType"); //$NON-NLS-1$
+			addEEnumLiteral(transactionAttributeTypeEEnum, TransactionAttributeType.NOT_SUPPORTED_LITERAL);
+			addEEnumLiteral(transactionAttributeTypeEEnum, TransactionAttributeType.SUPPORTS_LITERAL);
+			addEEnumLiteral(transactionAttributeTypeEEnum, TransactionAttributeType.REQUIRED_LITERAL);
+			addEEnumLiteral(transactionAttributeTypeEEnum, TransactionAttributeType.REQUIRES_NEW_LITERAL);
+			addEEnumLiteral(transactionAttributeTypeEEnum, TransactionAttributeType.MANDATORY_LITERAL);
+			addEEnumLiteral(transactionAttributeTypeEEnum, TransactionAttributeType.NEVER_LITERAL);
+	
+			initEEnum(transactionTypeEEnum, TransactionType.class, "TransactionType"); //$NON-NLS-1$
+			addEEnumLiteral(transactionTypeEEnum, TransactionType.BEAN_LITERAL);
+			addEEnumLiteral(transactionTypeEEnum, TransactionType.CONTAINER_LITERAL);
+	
+			initEEnum(sessionTypeEEnum, SessionType.class, "SessionType"); //$NON-NLS-1$
+			addEEnumLiteral(sessionTypeEEnum, SessionType.STATEFUL_LITERAL);
+			addEEnumLiteral(sessionTypeEEnum, SessionType.STATELESS_LITERAL);
+			addEEnumLiteral(sessionTypeEEnum, SessionType.SINGLETON_LITERAL);
+	
+			initEEnum(methodElementKindEEnum, MethodElementKind.class, "MethodElementKind"); //$NON-NLS-1$
+			addEEnumLiteral(methodElementKindEEnum, MethodElementKind.UNSPECIFIED_LITERAL);
+			addEEnumLiteral(methodElementKindEEnum, MethodElementKind.REMOTE_LITERAL);
+			addEEnumLiteral(methodElementKindEEnum, MethodElementKind.HOME_LITERAL);
+			addEEnumLiteral(methodElementKindEEnum, MethodElementKind.LOCAL_LITERAL);
+			addEEnumLiteral(methodElementKindEEnum, MethodElementKind.LOCAL_HOME_LITERAL);
+			addEEnumLiteral(methodElementKindEEnum, MethodElementKind.SERVICE_ENDPOINT_LITERAL);
+	
+			initEEnum(acknowledgeModeEEnum, AcknowledgeMode.class, "AcknowledgeMode"); //$NON-NLS-1$
+			addEEnumLiteral(acknowledgeModeEEnum, AcknowledgeMode.AUTO_ACKNOWLEDGE_LITERAL);
+			addEEnumLiteral(acknowledgeModeEEnum, AcknowledgeMode.DUPS_OK_ACKNOWLEDGE_LITERAL);
+	
+			initEEnum(subscriptionDurabilityKindEEnum, SubscriptionDurabilityKind.class, "SubscriptionDurabilityKind"); //$NON-NLS-1$
+			addEEnumLiteral(subscriptionDurabilityKindEEnum, SubscriptionDurabilityKind.DURABLE_LITERAL);
+			addEEnumLiteral(subscriptionDurabilityKindEEnum, SubscriptionDurabilityKind.NON_DURABLE_LITERAL);
+	
+			initEEnum(returnTypeMappingEEnum, ReturnTypeMapping.class, "ReturnTypeMapping"); //$NON-NLS-1$
+			addEEnumLiteral(returnTypeMappingEEnum, ReturnTypeMapping.LOCAL_LITERAL);
+			addEEnumLiteral(returnTypeMappingEEnum, ReturnTypeMapping.REMOTE_LITERAL);
+	
+			initEEnum(destinationTypeEEnum, DestinationType.class, "DestinationType"); //$NON-NLS-1$
+			addEEnumLiteral(destinationTypeEEnum, DestinationType.QUEUE_LITERAL);
+			addEEnumLiteral(destinationTypeEEnum, DestinationType.TOPIC_LITERAL);
+	
+			initEEnum(multiplicityKindEEnum, MultiplicityKind.class, "MultiplicityKind"); //$NON-NLS-1$
+			addEEnumLiteral(multiplicityKindEEnum, MultiplicityKind.ONE_LITERAL);
+			addEEnumLiteral(multiplicityKindEEnum, MultiplicityKind.MANY_LITERAL);
+	
+			// Create resource
+			createResource(eNS_URI);
+		}finally{
+			if( hasLock )
+				J2EEInit.releaseInitializePackageContentsLock();
+		}
 	}
 
 } //EjbPackageImpl
