@@ -25,7 +25,6 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.internal.EditorManager;
 
 
 
@@ -93,13 +92,30 @@ public class CommonEditorUtility {
 	}
 
 	public static boolean promptToSaveAllDirtyEditors() {
-		return promptToSaveDirtyEditors(Arrays.asList(getDirtyEditors()));
+		boolean retVal = true;
+		IWorkbench workbench = J2EEUIPlugin.getPluginWorkbench();
+		IWorkbenchWindow[] windows = workbench.getWorkbenchWindows();
+		for (int i = 0; retVal && i < windows.length; i++) {
+			IWorkbenchPage[] pages = windows[i].getPages();
+			for (int x = 0; retVal && x < pages.length; x++) {
+				retVal = pages[x].saveAllEditors(true);
+			}
+		}
+		return retVal;
 	}
 
+	/**
+	 * 
+	 * This method used to save only the editors specified.  It now saves all dirty editors
+	 * due to changes in the Eclipse platform
+	 * @param dirtyEditors
+	 * @return true if it succeeds, false if the user cancels
+	 * @deprecated due to changes in the Eclipse platform
+	 */
 	public static boolean promptToSaveDirtyEditors(List dirtyEditors) {
 		if (dirtyEditors.isEmpty())
 			return true;
-		return EditorManager.saveAll(dirtyEditors, true, true,false, J2EEUIPlugin.getActiveWorkbenchWindow());
+		return promptToSaveAllDirtyEditors();
 	}
 	
 	/**
