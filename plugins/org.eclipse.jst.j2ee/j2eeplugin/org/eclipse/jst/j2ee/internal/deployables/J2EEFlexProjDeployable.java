@@ -220,6 +220,8 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 			for (int i = 0; i < resources.length; i++) {
 				members.add(resources[i]);
 			}
+			addClasspathLibDependencies(component);
+			
 			return (IModuleResource[]) members.toArray(new IModuleResource[members.size()]);
 		}
 		
@@ -691,6 +693,38 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 		return (IVirtualReference[]) result.toArray(new IVirtualReference[result.size()]);
 	}
 	
+	private void addClasspathLibDependencies(final IVirtualComponent component) {
+		if (component instanceof J2EEModuleVirtualComponent) {
+			final IVirtualReference[] cpRefs = ((J2EEModuleVirtualComponent)component).getJavaClasspathReferences();
+			final Set absolutePaths = new HashSet();
+			for (int i = 0; i < cpRefs.length; i++) {
+				final IVirtualReference cpRef = cpRefs[i];
+				IPath cpRefRuntimePath = cpRef.getRuntimePath();
+				final IVirtualComponent referencedComponent = cpRef.getReferencedComponent();
+
+				if (referencedComponent instanceof ClasspathDependencyVirtualComponent) {
+					// want to avoid adding dups
+					ClasspathDependencyVirtualComponent cpComp = (ClasspathDependencyVirtualComponent) referencedComponent;
+					// don't want to process class folder refs here
+					if (cpComp.isClassFolder()) {
+						continue;
+					}	
+					if (cpRefRuntimePath.equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH)) 
+						continue;
+
+					final IPath absolutePath = ClasspathDependencyUtil.getClasspathVirtualReferenceLocation(cpRef);
+					if (absolutePaths.contains(absolutePath)) {
+						// have already added a member for this archive
+						continue;
+					} else {
+						addUtilMember(component, cpRef, cpRefRuntimePath);
+						absolutePaths.add(absolutePath);
+					}
+				}
+			}
+		}
+	}
+	
 	/*
 	 * Add any classpath component dependencies from this component
 	 */
@@ -725,10 +759,14 @@ public class J2EEFlexProjDeployable extends ComponentDeployable implements IJ2EE
 						if (cpComp.isClassFolder()) {
 							continue;
 						}
-						if (cpRefRuntimePath.equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH)) {
-							// runtime path within deployed app will be runtime path of parent component
-							cpRefRuntimePath = runtimePath;
-						} 						
+						//if path isn't ../, it shouldn't be added here [bug 247090]
+						if (!cpRefRuntimePath.equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH)) 
+							continue;
+
+						// runtime path within deployed app will be runtime path of parent component
+						cpRefRuntimePath = runtimePath;
+												
+
 						final IPath absolutePath = ClasspathDependencyUtil.getClasspathVirtualReferenceLocation(cpRef);
 						if (absolutePaths.contains(absolutePath)) {
 							// have already added a member for this archive
