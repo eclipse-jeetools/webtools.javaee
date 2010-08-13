@@ -274,12 +274,13 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 	private void updateLibDir(IProgressMonitor monitor) {
 		if (libDir.equals(oldLibDir)) return;
 		final IEARModelProvider earModel = (IEARModelProvider)ModelProviderManager.getModelProvider(project);
-		final Application app = (Application)ModelProviderManager.getModelProvider(project).getModelObject();
+		Application app = (Application) earModel.getModelObject();
 		oldLibDir = app.getLibraryDirectory();
 		if (oldLibDir == null) oldLibDir = J2EEConstants.EAR_DEFAULT_LIB_DIR;
 		earModel.modify(new Runnable() {
-			public void run() {			
-			app.setLibraryDirectory(libDir);
+			public void run() {
+			Application app2 = (Application)earModel.getModelObject();			
+			app2.setLibraryDirectory(libDir);
 		}}, null);
 	}
 	
