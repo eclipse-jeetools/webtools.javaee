@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2010 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,7 +17,9 @@
 package org.eclipse.jst.j2ee.internal.deploy;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
@@ -44,6 +46,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.internal.emf.utilities.CommandContext;
 import org.eclipse.wst.common.internal.emf.utilities.ICommand;
+import org.eclipse.wst.common.internal.emf.utilities.ICommand2;
 import org.eclipse.wst.common.internal.emf.utilities.ICommandContext;
 import org.eclipse.wst.server.core.IRuntime;
 
@@ -59,6 +62,7 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 	private IStatus multiStatus;
 	private IProject currentProject;
 	private boolean wasAutoBuilding;
+	private Set<IProject> affectedProjects;
 
 	/**
 	 *  
@@ -66,6 +70,7 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 	public J2EEDeployOperation(Object[] deployableObjects) {
 		super();
 		selection = deployableObjects;
+		affectedProjects = new HashSet<IProject>();
 		// TODO Auto-generated constructor stub
 	}
 
@@ -172,6 +177,12 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 				ICommandContext ctx = new CommandContext(monitor, null, eObject.eResource().getResourceSet());
 
 				dep.execute(proj, null, ctx);
+				if (dep instanceof ICommand2) {
+					List<IProject> changedProjects = ((ICommand2) dep).getAffectedProjects();
+					if (changedProjects != null) {
+						this.affectedProjects.addAll(changedProjects);
+					}
+				}
 				addOKStatus(dep.getClass().getName());
 			} catch (CoreException ex) {
 				Logger.getLogger().logError(ex);
@@ -267,5 +278,10 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 			}
 		}
 		return components;
+	}
+
+	public Set<IProject> getAffectedProjects() {
+
+		return this.affectedProjects;
 	}
 }
