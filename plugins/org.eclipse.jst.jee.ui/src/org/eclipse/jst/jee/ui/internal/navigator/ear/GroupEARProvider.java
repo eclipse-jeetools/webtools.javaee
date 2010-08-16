@@ -19,6 +19,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jst.j2ee.componentcore.util.EARVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.jst.jee.ui.internal.Messages;
 import org.eclipse.jst.jee.ui.plugin.JEEUIPlugin;
@@ -82,9 +83,11 @@ public class GroupEARProvider extends AbstractEarGroupProvider implements IAdapt
 											ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EAR_MODULE).getVersion(
 													J2EEVersionConstants.VERSION_6_0_TEXT)))) {
 
-				if(bundledLibsNode == null){
-					BundledNode bundledLibsDirectoryNode = new BundledNode(project, Messages.LIBRARY_DIRECTORY + ": /" + EAR_DEFAULT_LIB, null);//$NON-NLS-1$
+				if (bundledLibsNode == null) {
+					BundledNode bundledLibsDirectoryNode = new BundledNode(project, Messages.LIBRARY_DIRECTORY + ": " + EarUtilities.getEARLibDir(earComponent), null);//$NON-NLS-1$
 					bundledLibsNode = new BundledNode(project, Messages.BUNDLED_LIBRARIES_NODE, bundledLibsDirectoryNode);
+				} else {
+					bundledLibsNode.getBundledLibsDirectoryNode().setText(Messages.LIBRARY_DIRECTORY + ": " + EarUtilities.getEARLibDir(earComponent));//$NON-NLS-1$
 				}
 				
 				if(modulesNode == null){

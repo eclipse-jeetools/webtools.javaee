@@ -17,10 +17,7 @@ import java.util.List;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.jst.j2ee.model.IModelProvider;
-import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
-import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
@@ -30,8 +27,6 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
  *
  */
 public abstract class AbstractEarNode {
-
-	public final static String EAR_DEFAULT_LIB = "lib"; //$NON-NLS-1$
 
 	public static int MODULES_TYPE = 0;    
 	public static int LIBS_TYPE = 1;
@@ -138,16 +133,6 @@ public abstract class AbstractEarNode {
 	 */
 	protected List getBinariesInLibDir(IVirtualComponent virtualComponent, IPath runtimePath) {
 		return getBinariesInLibDir(virtualComponent, runtimePath, null);
-	}
-
-	protected String recomputeLibFolder(IProject project){
-		IModelProvider modelProvider = ModelProviderManager.getModelProvider(project);
-		Object modelObject = modelProvider.getModelObject();
-		if (Application.class.isInstance(modelObject)){
-			String libraryDirectory = ((Application)modelObject).getLibraryDirectory();
-			return libraryDirectory != null && libraryDirectory.length()>0 ? libraryDirectory : EAR_DEFAULT_LIB;
-		}
-		return EAR_DEFAULT_LIB;
 	}
 
 	protected IPath getRealRuntimePath(IVirtualReference vr){

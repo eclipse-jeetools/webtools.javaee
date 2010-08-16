@@ -18,6 +18,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
@@ -32,10 +33,8 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 public class BundledNode extends AbstractEarNode {
 
 	private static final List<String> UTILITY = Collections.singletonList(J2EEProjectUtilities.UTILITY);
-	private final String nodeName;
+	private String nodeName;
 	private final BundledNode bundledLibsDirectoryNode;
-
-	
 
 	public BundledNode(IProject earProject, String nodeName, BundledNode bundledLibsDirectoryNode) {
 		super(earProject);
@@ -53,6 +52,10 @@ public class BundledNode extends AbstractEarNode {
 	public String getText() {
 		return nodeName;
 	}
+	
+	public void setText(String label) {
+		nodeName = label;
+	}
 
 	public BundledNode getBundledLibsDirectoryNode() {
 		return bundledLibsDirectoryNode;
@@ -64,12 +67,12 @@ public class BundledNode extends AbstractEarNode {
 
 		Path libPath = new Path("/"); //$NON-NLS-1$
 		if (bundledLibsDirectoryNode == null){
-			String modelLibPath = recomputeLibFolder(getEarProject());
+			String modelLibPath = EarUtilities.getEARLibDir(projectComponent);
 			String prefix = "/"; //$NON-NLS-1$
 			if (modelLibPath.startsWith(prefix)){
 				prefix = ""; //$NON-NLS-1$
 			}
-			libPath = new Path(prefix + recomputeLibFolder(getEarProject())); 
+			libPath = new Path(prefix + modelLibPath); 
 		}
 		
 		List libs = getComponentReferencesAsList(UTILITY, projectComponent,
