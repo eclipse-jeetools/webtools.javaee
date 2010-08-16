@@ -48,9 +48,6 @@ import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
  */
 public class Ear5ContentProvider extends JEE5ContentProvider {
 
-	public final static String EAR_DEFAULT_LIB = "/lib"; //$NON-NLS-1$
-
-
 	private List getComponentReferencesAsList(List componentTypes, IVirtualComponent virtualComponent, IPath runtimePath) {
 		List components = new ArrayList();
 		IVirtualComponent earComponent = virtualComponent;
