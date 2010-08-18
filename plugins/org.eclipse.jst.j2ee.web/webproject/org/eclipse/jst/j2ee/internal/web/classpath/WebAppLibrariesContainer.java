@@ -121,11 +121,16 @@ public final class WebAppLibrariesContainer
 	    	for(IVirtualReference ref:consumedReferences){
 	    		if(ref.getReferencedComponent() instanceof ClasspathContainerVirtualComponent){
 	    			ClasspathContainerVirtualComponent cpvc = (ClasspathContainerVirtualComponent)ref.getReferencedComponent();
-	    			IClasspathEntry [] newEntries = cpvc.getClasspathContainer().getClasspathEntries();
-	    			for(IClasspathEntry entry:newEntries){
-	    				IPath entryPath = entry.getPath();
-	    				if(!entries.contains(entryPath)){
-	    					entries.add(entryPath);
+	    			if(cpvc != null){
+	    				IClasspathContainer container = cpvc.getClasspathContainer();
+	    				if(container != null){
+			    			IClasspathEntry [] newEntries = container.getClasspathEntries();
+			    			for(IClasspathEntry entry:newEntries){
+			    				IPath entryPath = entry.getPath();
+			    				if(!entries.contains(entryPath)){
+			    					entries.add(entryPath);
+			    				}
+			    			}
 	    				}
 	    			}
 	    		}
