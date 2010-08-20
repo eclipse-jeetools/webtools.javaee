@@ -21,6 +21,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
@@ -240,7 +241,20 @@ public class AvailableJ2EEComponentsForEARContentProvider implements IStructured
 				if (provider instanceof IEARModelProvider)
 				{
 					name = ((IEARModelProvider)provider).getModuleURI(comp);
+					//name will be null if it has not yet been added to the EAR
+					//both component projects will be equal when adding jars, external jars, or variables.
+					if(name == null && earComponent.getProject().equals(comp.getProject())){
+						name = comp.getName();
+						if(name != null){ 
+							//strip off everything but last segment to avoid confusion so instead of 
+							//displaying 'lib/c:\temp\foo.jar' to the user, the user will see 'foo.jar'
+							//which is exactly what will be displayed the second time the user opens the page
+							IPath path = new Path(name);
+							name = path.lastSegment();
+						}
+					}
 				}
+				
 				if( name == null || name == "" ){ //$NON-NLS-1$
 					name = comp.getName();
 				}
