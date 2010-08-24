@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.common.internal.modulecore.util.ArchiveManifest;
 import org.eclipse.jst.common.internal.modulecore.util.IJavaComponentDiscerner;
@@ -65,7 +66,7 @@ public class JEEManifestDiscerner implements IJavaComponentDiscerner {
 		IVirtualComponent ear = ComponentCore.createComponent(parentProject);
 		IVirtualReference[] hardRefs = ear.getReferences();
 		IVirtualReference[] actual_tmp = trimEarHardRefs(ear, childProject, hardRefs);
-		IVirtualReference[] actual_clean = cleanHardRefs(actual_tmp);
+		IVirtualReference[] actual_clean = cleanHardRefs(actual_tmp, childProject, hardRefs);
 		ArrayList<IVirtualReference> refs = new ArrayList<IVirtualReference>();
 		refs.addAll(Arrays.asList(actual_clean));
 		return refs;
@@ -102,15 +103,50 @@ public class JEEManifestDiscerner implements IJavaComponentDiscerner {
 	 * @param original
 	 * @return
 	 */
-	private IVirtualReference[] cleanHardRefs(IVirtualReference[] original) {
+	private IVirtualReference[] cleanHardRefs(IVirtualReference[] original, IProject childProject, IVirtualReference[] hardRefs) {
+		IVirtualReference childProjectVirtualRef = null;
+		for( int i = 0; i < hardRefs.length; i++ ) {
+			if(hardRefs[i].getReferencedComponent().getProject().equals(childProject)) {
+				childProjectVirtualRef = hardRefs[i];
+				break;
+			}
+		}
+	
 		IVirtualReference[] newRefs = new IVirtualReference[original.length];
 		for( int i = 0; i < newRefs.length; i++ ) {
 			newRefs[i] = ComponentCore.createReference(original[i].getEnclosingComponent(), 
-					original[i].getReferencedComponent(), original[i].getRuntimePath().makeRelative());
+					original[i].getReferencedComponent(), calculateManifestRelativeRuntimePath(childProjectVirtualRef, original[i]));
 			newRefs[i].setDependencyType(original[i].getDependencyType());
 			newRefs[i].setArchiveName((new Path(original[i].getArchiveName())).lastSegment());
 		}
 		return newRefs;
+	}
+	
+	public static IPath calculateManifestRelativeRuntimePath(IVirtualReference childProjectVirtualRef, IVirtualReference manifestEntryReference) {
+		IPath manifestEntryPath = manifestEntryReference.getRuntimePath();
+		// Return the manifestEntryReference's relative runtime path if the child project is at root level
+		if(childProjectVirtualRef == null || childProjectVirtualRef.getRuntimePath().equals("/")) //$NON-NLS-1$
+			return manifestEntryPath.makeRelative();
+		IPath childProjectRuntimePath = childProjectVirtualRef.getRuntimePath();
+		
+		// Return an empty runtime path if the child project and manifest entry have same runtime path
+		if(childProjectRuntimePath.equals(manifestEntryPath)) 
+			return new Path(""); //$NON-NLS-1$
+		
+		String[] childProjectFolders = childProjectRuntimePath.segments();
+		String[] manifestEntryFolders = manifestEntryPath.segments();
+		int commonFolderCount = 0;
+		for(int i = 0; i < childProjectFolders.length; i++) {
+			if(i >= manifestEntryFolders.length || !childProjectFolders[i].equals(manifestEntryFolders[i]))
+				break;
+			commonFolderCount++;
+		}
+		final String upOneLevel = "../"; //$NON-NLS-1$
+		String resultString = ""; //$NON-NLS-1$
+		for(int i = 0; i < childProjectFolders.length - commonFolderCount; i++) {
+			resultString += upOneLevel;
+		}
+		return new Path(resultString).append(manifestEntryPath.removeFirstSegments(commonFolderCount));
 	}
 	
 

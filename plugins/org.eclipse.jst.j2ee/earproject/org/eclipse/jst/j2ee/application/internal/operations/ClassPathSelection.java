@@ -53,11 +53,11 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.ManifestExcepti
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureException;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.LoadStrategy;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.ZipFileLoadStrategyImpl;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.internal.archive.operations.ComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.archive.operations.EARComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyEnablement;
+import org.eclipse.jst.j2ee.internal.modulecore.util.JEEManifestDiscerner;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -218,10 +218,21 @@ public class ClassPathSelection {
 	}
 
 	protected ClasspathElement createElement(IVirtualComponent referencingArchive, IVirtualReference referencedArchive, String cpEntry) {
-		ClasspathElement element = new ClasspathElement(referencingArchive);
+		IVirtualReference childProjectVirtualRef = null;
+		IVirtualReference[] hardRefs = earComponent.getReferences();
+		for( int i = 0; i < hardRefs.length; i++ ) {
+			if(hardRefs[i].getReferencedComponent().getProject().equals(referencingArchive.getProject())) {
+				childProjectVirtualRef = hardRefs[i];
+				break;
+			}
+		}
+		return createElement(childProjectVirtualRef, referencedArchive, cpEntry);
+	}
+	
+	protected ClasspathElement createElement(IVirtualReference referencingArchive, IVirtualReference referencedArchive, String cpEntry) {
+		ClasspathElement element = new ClasspathElement(referencingArchive.getReferencedComponent());
 		element.setValid(true);
-		IPath referencedArchivePath = referencedArchive.getRuntimePath().makeRelative();
-		String uriString = referencedArchivePath.append((new Path(referencedArchive.getArchiveName())).lastSegment()).toString();		
+		String uriString = JEEManifestDiscerner.calculateManifestRelativeRuntimePath(referencingArchive, referencedArchive).append((new Path(referencedArchive.getArchiveName())).lastSegment()).toString();
 		
 		element.setText(uriString);
 		element.setTargetComponent(referencedArchive.getReferencedComponent());
@@ -589,9 +600,11 @@ public class ClassPathSelection {
 		IVirtualReference other = null;
 		ClasspathElement element = null;
 		String[] cp = new String[0];
+		IVirtualReference childProjectVirtualRef = null;
+		IVirtualReference[] references = null;
 		
 		if (earComponent != null) {
-			IVirtualReference[] references = earComponent.getReferences();		
+			references = earComponent.getReferences();		
 			for (int cnt=0; cnt<references.length; cnt++)
 			{
 				clientComponent = null;
@@ -643,19 +656,33 @@ public class ClassPathSelection {
 			} catch (ManifestException ex) {
 				J2EEPlugin.logError(ex);
 			}
-			String projectUri = earComponent.getReference(component.getName()).getArchiveName();
+
 			archives = new ArrayList(Arrays.asList(earComponent.getReferences()));
 			Path earLibDirPath = null;
 			if(earLibraryDirectory != null)
 				earLibDirPath = new Path(earLibraryDirectory);
 			
+			for( int i = 0; i < references.length; i++ ) {
+				if(references[i].getReferencedComponent().getProject().equals(component.getProject())) {
+					childProjectVirtualRef = references[i];
+					break;
+				}
+			}
+			
 			for (int i = 0; i < cp.length; i++) {
 				String cpEntry = cp[i];
-				String uri = ArchiveUtil.deriveEARRelativeURI(cpEntry, projectUri);
-
-				other = getVirtualReference(uri, archives);
-				if (other != null && isValidDependency(other.getReferencedComponent(), component) && (earLibraryDirectory == null || !other.getRuntimePath().equals(earLibDirPath))) {
-					element = createElement(component, other, cpEntry);
+				Path cpPath = new Path(cpEntry);
+				for( int j = 0; j < references.length; j++ ) {
+					if(references[j].getArchiveName().equals(cpPath.lastSegment())) {
+						other = references[j];
+						break;
+					}
+				}
+				String uriString = null;
+				if(other != null)
+					uriString = JEEManifestDiscerner.calculateManifestRelativeRuntimePath(childProjectVirtualRef, other).append((new Path(other.getArchiveName())).lastSegment()).toString();
+				if (other != null && isValidDependency(other.getReferencedComponent(), component) && (earLibraryDirectory == null || !other.getRuntimePath().equals(earLibDirPath)) && (uriString == null || uriString.equals(cpEntry))) {
+					element = createElement(childProjectVirtualRef, other, cpEntry);
 					archives.remove(other);
 				} else {
 					element = createInvalidElement(cpEntry);
@@ -694,7 +721,7 @@ public class ClassPathSelection {
 						}
 					}
 				}
-				addClasspathElement(element, uri);
+				addClasspathElement(element, element.getText());
 			}
 		}
 		
@@ -716,6 +743,17 @@ public class ClassPathSelection {
 			if(earLibraryDirectory != null)
 				earLibDirPath = new Path(earLibraryDirectory);
 			
+			if(childProjectVirtualRef == null) {
+				if(references == null)
+					references = earComponent.getReferences();
+				for( int i = 0; i < references.length; i++ ) {
+					if(references[i].getReferencedComponent().getProject().equals(component.getProject())) {
+						childProjectVirtualRef = references[i];
+						break;
+					}
+				}
+			}
+			
 			if(archives !=null){
 				Collections.sort(archives, comparator);
 				//Anything that remains in the list of available archives that is valid should be
@@ -726,7 +764,7 @@ public class ClassPathSelection {
 					if (other != archive && isValidDependency(other.getReferencedComponent(), component) && (earLibraryDirectory == null || !other.getRuntimePath().equals(earLibDirPath))) {
 						IProject project = other.getReferencedComponent().getProject();
 						if (null == targetProjectName || null == project || !project.getName().equals(targetProjectName)) {
-							element = createElement(component, other, null);
+							element = createElement(childProjectVirtualRef, other, null);
 							element.setProject(other.getReferencedComponent().getProject());
 							addClasspathElement(element, other.getArchiveName());
 						}
@@ -743,9 +781,9 @@ public class ClassPathSelection {
 					/**
 					 * Warning clean-up 12/05/2005
 					 */   
-					//String uri = J2EEProjectUtilities.getResolvedPathForArchiveComponent(referencedComponent.getName()).toString();
-					IPath refPath = ref.getRuntimePath().makeRelative();
-					String unresolvedURI = refPath.append(ref.getArchiveName()).toString();
+					String unresolvedURI = null;
+					if(ref.getArchiveName() != null)
+						unresolvedURI = JEEManifestDiscerner.calculateManifestRelativeRuntimePath(childProjectVirtualRef, ref).append((new Path(ref.getArchiveName())).lastSegment()).toString();
 					if(unresolvedURI == null){
 						try {
 							unresolvedURI = ModuleURIUtil.getArchiveName(URI.createURI(ModuleURIUtil.getHandleString(referencedComponent)));
@@ -769,10 +807,10 @@ public class ClassPathSelection {
 
 						if( !alreadyInList ){
 							if( inManifest(cp, archiveURI.lastSegment())){
-								element = createArchiveElement(URI.createURI(ModuleURIUtil.getHandleString(referencedComponent)), archiveURI.lastSegment(), archiveURI.lastSegment());
+								element = createArchiveElement(archiveURI, unresolvedURI, archiveURI.lastSegment());
 								addClasspathElement(element, unresolvedURI);
 							}else{
-								element = createArchiveElement(URI.createURI(ModuleURIUtil.getHandleString(referencedComponent)), archiveURI.lastSegment(), null);
+								element = createArchiveElement(archiveURI, unresolvedURI, null);
 								addClasspathElement(element, unresolvedURI);							
 							}
 						}
