@@ -344,9 +344,9 @@ public class ClassPathSelection {
 			final IProject project = comp.getProject();
 			if (project.hasNature(JavaCore.NATURE_ID)) {
 				final IJavaProjectLite javaProjectLite = JavaCoreLite.create(project);
+				final boolean isLegacyJ2EE = JavaEEProjectUtilities.isLegacyJ2EEComponent(comp);
 				final boolean isWebApp = JavaEEProjectUtilities.isDynamicWebProject(project);
-				final boolean webLibsOnly = isWebApp && !ClasspathDependencyEnablement.isAllowClasspathComponentDependency();
-				final Map taggedEntries = ClasspathDependencyUtil.getRawComponentClasspathDependencies(javaProjectLite, DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY, webLibsOnly);
+				final Map taggedEntries = ClasspathDependencyUtil.getRawComponentClasspathDependencies(javaProjectLite, DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY, isLegacyJ2EE);
 				
 				Iterator i = taggedEntries.keySet().iterator();
 				while (i.hasNext()) {

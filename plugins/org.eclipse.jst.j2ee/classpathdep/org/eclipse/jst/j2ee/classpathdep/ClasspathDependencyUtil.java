@@ -44,7 +44,6 @@ import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyValidator.C
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
-import org.eclipse.jst.j2ee.project.WebUtilities;
 import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
@@ -96,23 +95,16 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 	public static Map <IClasspathEntry, IClasspathAttribute> getRawComponentClasspathDependencies(final IJavaProjectLite javaProjectLite, DependencyAttributeType attributeType) throws CoreException {
 		return getRawComponentClasspathDependencies(javaProjectLite, attributeType, false);
 	}
-	public static Map <IClasspathEntry, IClasspathAttribute> getRawComponentClasspathDependencies(final IJavaProjectLite javaProjectLite, DependencyAttributeType attributeType, final boolean webLibsOnly) throws CoreException {
-		if (javaProjectLite == null || (!webLibsOnly && !ClasspathDependencyEnablement.isAllowClasspathComponentDependency())) {
+	public static Map <IClasspathEntry, IClasspathAttribute> getRawComponentClasspathDependencies(final IJavaProjectLite javaProjectLite, DependencyAttributeType attributeType, final boolean isLegacyJ2EE) throws CoreException {
+		if (javaProjectLite == null) {
 			return Collections.emptyMap();
 		}
 		final Map<IClasspathEntry, IClasspathAttribute> referencedRawEntries = new HashMap<IClasspathEntry, IClasspathAttribute>();
 		final IClasspathEntry[] entries = javaProjectLite.readRawClasspath();
         for (IClasspathEntry entry : entries) {
-            final IClasspathAttribute attrib = checkForComponentDependencyAttribute(entry, attributeType, webLibsOnly);
+            final IClasspathAttribute attrib = checkForComponentDependencyAttribute(entry, attributeType, isLegacyJ2EE);
             if (attrib != null) {
-            	if(webLibsOnly) {
-            		if(DependencyAttributeType.CLASSPATH_COMPONENT_NONDEPENDENCY == attributeType || WebUtilities.WEBLIB.toString().equals(attrib.getValue())){
-            			referencedRawEntries.put(entry, attrib);
-            		}
-            	} else{
-            		referencedRawEntries.put(entry, attrib);
-            	}
-            	
+            	referencedRawEntries.put(entry, attrib);
             }
         }
         return referencedRawEntries;
@@ -142,11 +134,11 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 	public static List <IClasspathEntry> getPotentialComponentClasspathDependencies(final IJavaProjectLite javaProjectLite) throws CoreException {
 		return getPotentialComponentClasspathDependencies(javaProjectLite, false);
 	}		
-	public static List <IClasspathEntry> getPotentialComponentClasspathDependencies(final IJavaProjectLite javaProjectLite, final boolean webLibsOnly) throws CoreException {
+	public static List <IClasspathEntry> getPotentialComponentClasspathDependencies(final IJavaProjectLite javaProjectLite, final boolean isLegacyJ2EE) throws CoreException {
 
 		final List <IClasspathEntry> potentialRawEntries = new ArrayList<IClasspathEntry>();
 
-		if (javaProjectLite == null || !javaProjectLite.getProject().isAccessible() || (!webLibsOnly && !ClasspathDependencyEnablement.isAllowClasspathComponentDependency())) {
+		if (javaProjectLite == null || !javaProjectLite.getProject().isAccessible()) {
 			return Collections.emptyList();
 		}
 		final IProject project = javaProjectLite.getProject();
@@ -156,7 +148,7 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 		final IClasspathEntry[] entries = javaProjectLite.readRawClasspath();
         for (int i = 0; i < entries.length; i++) {
             final IClasspathEntry entry = entries[i];
-            final IClasspathAttribute attrib = checkForComponentDependencyAttribute(entry, DependencyAttributeType.DEPENDENCY_OR_NONDEPENDENCY, webLibsOnly);
+            final IClasspathAttribute attrib = checkForComponentDependencyAttribute(entry, DependencyAttributeType.DEPENDENCY_OR_NONDEPENDENCY, isLegacyJ2EE);
             if (attrib != null) {
             	continue; // already has the attribute
             }
@@ -177,9 +169,6 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
         	}
         	if (IClasspathEntry.CPE_LIBRARY == entry.getEntryKind()) {
 				final boolean isFile = !ClasspathDependencyUtil.isClassFolderEntry(entry);
-				if(webLibsOnly && !isFile){
-					continue; //directories do not ever work
-				}
 				if (isFile) {
 					boolean foundEntry = false;
 					IVirtualComponent component = ComponentCore.createComponent(project);
@@ -282,8 +271,8 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 	 * @return Map from IClasspathEntry to IClasspathAttribute for classpath component dependencies.
 	 * @throws CoreException Thrown if an error is encountered accessing the unresolved classpath.
 	 */
-	public static Map <IClasspathEntry, IClasspathAttribute> getComponentClasspathDependencies(final IJavaProjectLite javaProjectLite, final boolean isWebApp) throws CoreException {
-		return getComponentClasspathDependencies(javaProjectLite, isWebApp, true);
+	public static Map <IClasspathEntry, IClasspathAttribute> getComponentClasspathDependencies(final IJavaProjectLite javaProjectLite, final boolean isLegacyJ2EE) throws CoreException {
+		return getComponentClasspathDependencies(javaProjectLite, isLegacyJ2EE, true);
 	}
 
 	/**
@@ -294,8 +283,8 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 	 * @throws CoreException
 	 */
 	@Deprecated
-	public static Map <IClasspathEntry, IClasspathAttribute> getComponentClasspathDependencies(final IJavaProject javaProject, final boolean isWebApp) throws CoreException {
-		return getComponentClasspathDependencies(JavaCoreLite.create(javaProject), isWebApp);
+	public static Map <IClasspathEntry, IClasspathAttribute> getComponentClasspathDependencies(final IJavaProject javaProject, final boolean isLegacyJ2EE) throws CoreException {
+		return getComponentClasspathDependencies(JavaCoreLite.create(javaProject), isLegacyJ2EE);
 	}
 
 	/**
@@ -322,17 +311,11 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 	 * @return Map from IClasspathEntry to IClasspathAttribute for classpath component dependencies.
 	 * @throws CoreException Thrown if an error is encountered accessing the unresolved classpath.
 	 */
-	public static Map <IClasspathEntry, IClasspathAttribute> getComponentClasspathDependencies(final IJavaProjectLite javaProjectLite, final boolean isWebApp, final boolean onlyValid) throws CoreException {
-		if(!isWebApp && !ClasspathDependencyEnablement.isAllowClasspathComponentDependency()){
-			return Collections.emptyMap();
-		}
-		
-		final boolean webLibsOnly = isWebApp && !ClasspathDependencyEnablement.isAllowClasspathComponentDependency();
-		
+	public static Map <IClasspathEntry, IClasspathAttribute> getComponentClasspathDependencies(final IJavaProjectLite javaProjectLite, final boolean isLegacyJ2EE, final boolean onlyValid) throws CoreException {
 		final ClasspathDependencyValidatorData data = new ClasspathDependencyValidatorData(javaProjectLite.getProject());
-		
+		final boolean isWebApp = JavaEEProjectUtilities.isDynamicWebProject(javaProjectLite.getProject());
 		// get the raw entries
-		final Map<IClasspathEntry, IClasspathAttribute> referencedRawEntries = getRawComponentClasspathDependencies(javaProjectLite, DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY, webLibsOnly);
+		final Map<IClasspathEntry, IClasspathAttribute> referencedRawEntries = getRawComponentClasspathDependencies(javaProjectLite, DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY, isLegacyJ2EE);
 		final Map<IClasspathEntry, IClasspathAttribute> validRawEntries = new HashMap<IClasspathEntry, IClasspathAttribute>();
 
 		// filter out non-valid referenced raw entries
@@ -389,7 +372,7 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 			
 			final IPath pkgFragPath = root.getPath();
 			final IClasspathEntry resolvedEntry = pathToResolvedEntry.get(pkgFragPath);
-			final IClasspathAttribute resolvedAttrib = checkForComponentDependencyAttribute(resolvedEntry, DependencyAttributeType.DEPENDENCY_OR_NONDEPENDENCY, webLibsOnly);
+			final IClasspathAttribute resolvedAttrib = checkForComponentDependencyAttribute(resolvedEntry, DependencyAttributeType.DEPENDENCY_OR_NONDEPENDENCY, isLegacyJ2EE);
 			// attribute for the resolved entry must either be unspecified or it must be the
 			// dependency attribute for it to be included
 			if (resolvedAttrib == null || resolvedAttrib.getName().equals(CLASSPATH_COMPONENT_DEPENDENCY)) {
@@ -607,15 +590,19 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 	public static IClasspathAttribute checkForComponentDependencyAttribute(final IClasspathEntry entry, final DependencyAttributeType attributeType) {
 		return checkForComponentDependencyAttribute(entry, attributeType, false);
 	}
-	public static IClasspathAttribute checkForComponentDependencyAttribute(final IClasspathEntry entry, final DependencyAttributeType attributeType, final boolean webLibsOnly) {
-		if (entry == null || (!webLibsOnly && !ClasspathDependencyEnablement.isAllowClasspathComponentDependency())) {
+	public static IClasspathAttribute checkForComponentDependencyAttribute(final IClasspathEntry entry, final DependencyAttributeType attributeType, final boolean isLegacyJ2EE) {
+		if (entry == null)
 			return null;
-		}
+		
+		
 	    final IClasspathAttribute[] attributes = entry.getExtraAttributes();
 	    for (int i = 0; i < attributes.length; i++) {
 	    	final IClasspathAttribute attribute = attributes[i];
 	    	final String name = attribute.getName();
 	    	if (name.equals(CLASSPATH_COMPONENT_DEPENDENCY)) {
+		    	if (!ClasspathDependencyEnablement.isAllowClasspathComponentDependency() && isLegacyJ2EE && isMappedIntoContainer(attribute.getValue()))
+					return null;
+		    	
 	    		if (attributeType == DependencyAttributeType.DEPENDENCY_OR_NONDEPENDENCY
 	    				|| attributeType == DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY) {
 	    			return attribute;
@@ -647,6 +634,13 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 	public static String getClasspathComponentDependencyDisplayString(final IVirtualComponent component) {
 		final URI archiveURI = URI.createURI(ModuleURIUtil.getHandleString(component));
 		return archiveURI.lastSegment();
+	}
+	
+	public static boolean isMappedIntoContainer(String path) {
+		if (path.startsWith(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER))
+			return true;
+		
+		return false;
 	}
 	
 }

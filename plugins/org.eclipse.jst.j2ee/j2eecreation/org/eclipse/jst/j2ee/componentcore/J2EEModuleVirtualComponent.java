@@ -34,7 +34,6 @@ import org.eclipse.jst.common.jdt.internal.javalite.JavaLiteUtilities;
 import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyEnablement;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyVirtualComponent;
 import org.eclipse.jst.j2ee.internal.common.J2EEDependencyListener;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
@@ -206,10 +205,8 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 
 	public IVirtualReference[] getJavaClasspathReferences(
 			IVirtualReference[] hardReferences) {
+		final boolean isLegacyJ2EE = JavaEEProjectUtilities.isLegacyJ2EEComponent(this);
 		final boolean isWebApp = JavaEEProjectUtilities.isDynamicWebComponent(this);
-
-		if (!isWebApp && !ClasspathDependencyEnablement.isAllowClasspathComponentDependency())
-			return new IVirtualReference[0];
 
 		final IProject project = getProject();
 		final List cpRefs = new ArrayList();
@@ -226,7 +223,7 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 
 			// retrieve all referenced classpath entries
 			final Map referencedEntries = ClasspathDependencyUtil
-					.getComponentClasspathDependencies(javaProjectLite,isWebApp);
+					.getComponentClasspathDependencies(javaProjectLite,isLegacyJ2EE);
 
 			if (referencedEntries.isEmpty())
 				return new IVirtualReference[0];

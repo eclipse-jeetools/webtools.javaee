@@ -84,18 +84,17 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 			    && proj.hasNature(JavaCoreLite.NATURE_ID)) {
 			    
 				final boolean isWebApp = JavaEEProjectUtilities.isDynamicWebProject(proj);
-			    boolean webLibsOnly = false;
 			    final IVirtualComponent component = ComponentCore.createComponent(proj);
-			    if(!ClasspathDependencyEnablement.isAllowClasspathComponentDependency()){
-			    	if(!isWebApp || !JavaEEProjectUtilities.usesJavaEEComponent(component)){
+			    final boolean isLegacyJ2EE = JavaEEProjectUtilities.isLegacyJ2EEComponent(component);
+			    if (!ClasspathDependencyEnablement.isAllowClasspathComponentDependency()) {
+			    	if ((isLegacyJ2EE && !isWebApp) || !JavaEEProjectUtilities.usesJavaEEComponent(component)) {
 			    		return OK_STATUS;
 			    	}
-			    	webLibsOnly = true;
 				}
 
 			    final IJavaProjectLite javaProjectLite = JavaCoreLite.create(proj);
-				final Map referencedRawEntries = ClasspathDependencyUtil.getRawComponentClasspathDependencies(javaProjectLite, DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY, webLibsOnly); 				
-				final List potentialRawEntries = ClasspathDependencyUtil.getPotentialComponentClasspathDependencies(javaProjectLite, webLibsOnly);				
+				final Map referencedRawEntries = ClasspathDependencyUtil.getRawComponentClasspathDependencies(javaProjectLite, DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY, isLegacyJ2EE); 				
+				final List potentialRawEntries = ClasspathDependencyUtil.getPotentialComponentClasspathDependencies(javaProjectLite, isLegacyJ2EE);				
 				final ClasspathDependencyValidatorData data = new ClasspathDependencyValidatorData(proj);
 				
 				// validate the raw referenced container entries
@@ -318,24 +317,24 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 			}
 		}
     	
-    	final IPath runtimePath = ClasspathDependencyUtil.getRuntimePath(attrib, isWebApp, !isFile);
-    	if (!isWebApp) {
-    		// only a ../ or / mapping is currently legal in a non-web context
-    		if (!(runtimePath.equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH) 
-    				|| runtimePath.equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_COMPONENT_PATH))) { 
-    			results.add(new Message("classpathdependencyvalidator", //$NON-NLS-1$
-    					IMessage.HIGH_SEVERITY, InvalidNonWebRuntimePath, new String[]{entry.getPath().toString(), runtimePath.toString()}, project));
-    		}
-    	} else {
-    		String pathStr = runtimePath.toString();
-    		// can only be ../, /WEB-INF/lib or /WEB-INF/classes
-    		if (!runtimePath.equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH) 
-    			&& !runtimePath.equals(IClasspathDependencyConstants.WEB_INF_LIB_PATH)
-    			&& !runtimePath.equals(IClasspathDependencyConstants.WEB_INF_CLASSES_PATH)) { 
-    			results.add(new Message("classpathdependencyvalidator", //$NON-NLS-1$
-    					IMessage.HIGH_SEVERITY, InvalidWebRuntimePath, new String[]{entry.getPath().toString(), pathStr}, project));
-    		}
-    	}
+//    	final IPath runtimePath = ClasspathDependencyUtil.getRuntimePath(attrib, isWebApp, !isFile);
+//    	if (!isWebApp) {
+//    		// only a ../ or / mapping is currently legal in a non-web context
+//    		if (!(runtimePath.equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH) 
+//    				|| runtimePath.equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_COMPONENT_PATH))) { 
+//    			results.add(new Message("classpathdependencyvalidator", //$NON-NLS-1$
+//    					IMessage.HIGH_SEVERITY, InvalidNonWebRuntimePath, new String[]{entry.getPath().toString(), runtimePath.toString()}, project));
+//    		}
+//    	} else {
+//    		String pathStr = runtimePath.toString();
+//    		// can only be ../, /WEB-INF/lib or /WEB-INF/classes
+//    		if (!runtimePath.equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH) 
+//    			&& !runtimePath.equals(IClasspathDependencyConstants.WEB_INF_LIB_PATH)
+//    			&& !runtimePath.equals(IClasspathDependencyConstants.WEB_INF_CLASSES_PATH)) { 
+//    			results.add(new Message("classpathdependencyvalidator", //$NON-NLS-1$
+//    					IMessage.HIGH_SEVERITY, InvalidWebRuntimePath, new String[]{entry.getPath().toString(), pathStr}, project));
+//    		}
+//    	}
 
 		return (IMessage[]) results.toArray(new IMessage[results.size()]);
 	}
