@@ -225,9 +225,7 @@ public class DefectVerificationTests extends OperationTestCase {
 			}
 
 		}
-/*		
 		Assert.assertTrue(foundImportedClasses);
-*/
 	}
 
 	/**
