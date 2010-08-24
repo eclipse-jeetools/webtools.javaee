@@ -156,6 +156,9 @@ public class NewFilterClassWizardPage extends NewWebClassWizardPage {
 		boolean result = super.isProjectValid(project);
 		if (!result) 
 			return false;
+
+		if (JavaEEProjectUtilities.isWebFragmentProject(project))
+			return true;
 		
 		// get the version of the web facet
 		IProjectFacetVersion facetVersion = JavaEEProjectUtilities.getProjectFacetVersion(project, IJ2EEFacetConstants.DYNAMIC_WEB);
