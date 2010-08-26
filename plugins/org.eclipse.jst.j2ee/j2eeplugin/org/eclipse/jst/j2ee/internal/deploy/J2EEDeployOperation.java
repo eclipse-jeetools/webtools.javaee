@@ -63,6 +63,8 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 	private IProject currentProject;
 	private boolean wasAutoBuilding;
 	private Set<IProject> affectedProjects;
+	private boolean isAllDeployersProvideAffectedProjects = false;
+
 
 	/**
 	 *  
@@ -152,6 +154,8 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 	 */
 	private void deploy(List visitors, IVirtualComponent component, IProgressMonitor monitor) {
 		IProject proj = component.getProject();
+		boolean curIsAllDeployersProvideAffectedProjects = true;
+
 		for (int i = 0; i < visitors.size(); i++) {
 			if (!(visitors.get(i) instanceof IConfigurationElement))
 				continue;
@@ -182,6 +186,10 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 					if (changedProjects != null) {
 						this.affectedProjects.addAll(changedProjects);
 					}
+				} else {
+					// There is at least one deployer does not implements the new ICommand2 interface. Therfore,
+					// not all deployers have affected projects.
+					curIsAllDeployersProvideAffectedProjects = false;
 				}
 				addOKStatus(dep.getClass().getName());
 			} catch (CoreException ex) {
@@ -191,6 +199,7 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 				continue;
 			}
 		}
+		isAllDeployersProvideAffectedProjects = curIsAllDeployersProvideAffectedProjects;
 	}
 
 	/**
@@ -283,4 +292,14 @@ public class J2EEDeployOperation extends AbstractDataModelOperation {
 	public Set<IProject> getAffectedProjects() {
 		return this.affectedProjects;
 	}
+
+	/**
+	 * Check if all deployers provide affected projects information.  This method will help the
+	 * caller to decide whether to use the affect project information or not.
+	 * @return true if all deployers provides the affected projects list; otherwise, return false.
+	 */
+	public boolean isAllDeployersProvideAffectedProjects() {
+		return isAllDeployersProvideAffectedProjects;
+	}
+
 }
