@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2009 Red Hat
+ * Copyright (c) 2010 Red Hat and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Rob Stryker - initial implementation and ongoing maintenance
+ *    Konstantin Komissarchik - misc. UI cleanup
  ******************************************************************************/
 package org.eclipse.jst.j2ee.internal.ui;
 
@@ -16,7 +17,9 @@ import org.eclipse.jst.common.ui.internal.assembly.wizard.ManifestModuleDependen
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
@@ -78,14 +81,25 @@ public class J2EEDependencyPageProvider implements IDependencyPageProvider {
 		controls[1] = pages[1];
 		
 		TabItem tab = new TabItem(folder, SWT.NONE);
-		tab.setControl(controls[0].createContents(folder));
+		tab.setControl(create(controls[0],folder));
 		tab.setText(Messages.J2EEDependencyPageProvider_4);
 		tab = new TabItem(folder, SWT.NONE);
-		tab.setControl(controls[1].createContents(folder));
+		tab.setControl(create(controls[1],folder));
 		tab.setText(Messages.J2EEDependencyPageProvider_5); 
 	
 		folder.setSelection(0);
 		return folder;
+	}
+	
+	private static Control create( final IModuleDependenciesControl control,
+			                       final Composite parent )
+	{
+		final Composite composite = new Composite( parent, SWT.NONE );
+		composite.setLayout( new GridLayout() );
+		final Composite inner = control.createContents( composite );
+		inner.setLayoutData( new GridData( GridData.FILL_BOTH ) );
+		
+		return composite;
 	}
 	
 	protected boolean isWeb(IFacetedProject project) {

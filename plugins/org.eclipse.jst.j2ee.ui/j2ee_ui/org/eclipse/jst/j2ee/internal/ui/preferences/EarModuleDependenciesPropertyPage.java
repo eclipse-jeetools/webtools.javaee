@@ -12,6 +12,7 @@
 package org.eclipse.jst.j2ee.internal.ui.preferences;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
@@ -27,6 +28,8 @@ import org.eclipse.jst.j2ee.internal.componentcore.JavaEEModuleHandler;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.internal.ui.JavaEEComponentDependencyContentProvider;
+import org.eclipse.jst.j2ee.internal.ui.J2EEModuleDependenciesPropertyPage.ClasspathEntryProxy;
 import org.eclipse.jst.j2ee.model.IEARModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.project.EarUtilities;
@@ -47,6 +50,7 @@ import org.eclipse.wst.common.componentcore.internal.IModuleHandler;
 import org.eclipse.wst.common.componentcore.internal.impl.TaskModel;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
+import org.eclipse.wst.common.componentcore.ui.internal.propertypage.ComponentDependencyContentProvider;
 import org.eclipse.wst.common.componentcore.ui.internal.propertypage.DependencyPageExtensionManager;
 import org.eclipse.wst.common.componentcore.ui.internal.propertypage.DependencyPageExtensionManager.ReferenceExtension;
 import org.eclipse.wst.common.componentcore.ui.propertypage.AddModuleDependenciesPropertiesPage;
@@ -89,6 +93,8 @@ public class EarModuleDependenciesPropertyPage extends
 			c.setLayoutData(mainData);
 			
 			GridLayout gl = new GridLayout(2,false);
+			gl.marginWidth = 0;
+			gl.marginHeight = 0;
 			c.setLayout(gl);
 			Label l = new Label(c, SWT.NONE);
 			l.setText(Messages.EarModuleDependenciesPropertyPage_LIBDIR);
@@ -141,14 +147,19 @@ public class EarModuleDependenciesPropertyPage extends
 	}
 	
 	@Override
-	protected ReferenceExtension[] filterReferenceTypes(ReferenceExtension[] defaults) {
-		// Replace the default one with our own custom one, in class CustomEARProjectReferenceWizardFragment
-		for( int i = 0; i < defaults.length; i++ ) {
-			if( defaults[i].getId().equals("org.eclipse.wst.common.componentcore.ui.newProjectReference")) { //$NON-NLS-1$
-				defaults[i] = DependencyPageExtensionManager.getManager().findReferenceExtension("org.eclipse.jst.j2ee.internal.ui.preferences.CustomEARProjectReferenceWizardFragment"); //$NON-NLS-1$
+	protected void filterReferenceTypes( final List<ReferenceExtension> extensions ) 
+	{
+		// Replace the default one with our own custom one, in class CustomWebProjectReferenceWizardFragment
+		
+		for( int i = 0, n = extensions.size(); i < n; i++ ) 
+		{
+			final ReferenceExtension ext = extensions.get( i );
+			
+			if( ext.getId().equals( "org.eclipse.wst.common.componentcore.ui.newProjectReference" ) )  //$NON-NLS-1$
+			{
+				extensions.set( i, DependencyPageExtensionManager.getManager().findReferenceExtension( "org.eclipse.jst.j2ee.internal.ui.preferences.CustomEARProjectReferenceWizardFragment" ) ); //$NON-NLS-1$
 			}
 		}
-		return defaults;
 	}
 	
 	protected void createDD(IProgressMonitor monitor) {
@@ -228,4 +239,16 @@ public class EarModuleDependenciesPropertyPage extends
 		return moduleHandler;
 	}
 
+	@Override
+	protected ComponentDependencyContentProvider createProvider() {
+		JavaEEComponentDependencyContentProvider provider = new JavaEEComponentDependencyContentProvider(this);
+		provider.setClasspathEntries(new ArrayList<ClasspathEntryProxy>());
+		return provider;
+	}
+	
+	@Override
+	protected boolean canRemove(Object selectedObject) {
+		return super.canRemove(selectedObject) && !(selectedObject instanceof JavaEEComponentDependencyContentProvider.ConsumedClasspathEntryProxy);
+	}
+	
 }

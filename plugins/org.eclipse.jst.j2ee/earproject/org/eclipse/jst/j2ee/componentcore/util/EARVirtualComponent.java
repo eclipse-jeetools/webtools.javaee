@@ -34,7 +34,6 @@ import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.internal.common.J2EEDependencyListener;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathInitializer;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
-import org.eclipse.jst.j2ee.internal.modulecore.util.DummyClasspathDependencyContainerVirtualComponent;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
@@ -203,21 +202,9 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 	@Override
 	public IVirtualReference[] getReferences(Map<String, Object> options) {
 		Object refType = options.get(IVirtualComponent.REQUESTED_REFERENCE_TYPE);
-		if( refType != null && IVirtualComponent.DISPLAYABLE_REFERENCES.equals(refType)) {
-			List<IVirtualReference> hardReferences = getHardReferences(this);
-			if( shouldAddClasspathDependencyDerivedReference()) {
-					IVirtualComponent imported = 
-						new DummyClasspathDependencyContainerVirtualComponent(getProject(), this);
-					VirtualReference importedRef = new VirtualReference(this, imported);
-					importedRef.setDependencyType(IVirtualReference.DEPENDENCY_TYPE_CONSUMES);
-					importedRef.setDerived(true);
-					hardReferences.add(importedRef);
-			}
-			return hardReferences.toArray(new IVirtualReference[hardReferences.size()]);
-		}
-		
 		if( refType != null && (IVirtualComponent.NON_DERIVED_REFERENCES.equals(refType) || 
-								IVirtualComponent.HARD_REFERENCES.equals(refType))) {
+								IVirtualComponent.HARD_REFERENCES.equals(refType) ||
+								IVirtualComponent.DISPLAYABLE_REFERENCES.equals(refType))) {
 			List<IVirtualReference> hardReferences = getHardReferences(this);
 			return hardReferences.toArray(new IVirtualReference[hardReferences.size()]);
 		}

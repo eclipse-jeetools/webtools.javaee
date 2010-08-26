@@ -643,4 +643,70 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 		return false;
 	}
 	
+	public static IClasspathEntry modifyDependencyPath(IClasspathEntry entry, IPath dependencyPath){
+		IClasspathEntry newEntry = null;
+		IClasspathAttribute [] newAttributes = modifyDependencyPath(entry.getExtraAttributes(), dependencyPath);
+		
+		switch(entry.getEntryKind()) {
+		case IClasspathEntry.CPE_CONTAINER:
+			newEntry = JavaCore.newContainerEntry(entry.getPath(), entry.getAccessRules(), newAttributes, entry.isExported());
+			break;
+		case IClasspathEntry.CPE_LIBRARY:
+			newEntry = JavaCore.newLibraryEntry(entry.getPath(), entry.getSourceAttachmentPath(), entry.getSourceAttachmentRootPath(), entry.getAccessRules(), newAttributes, entry.isExported());
+			break;
+		case IClasspathEntry.CPE_VARIABLE:
+			newEntry = JavaCore.newVariableEntry(entry.getPath(), entry.getSourceAttachmentPath(), entry.getSourceAttachmentRootPath(), entry.getAccessRules(), newAttributes, entry.isExported());
+			break;					
+		case IClasspathEntry.CPE_PROJECT:
+			newEntry = JavaCore.newProjectEntry(entry.getPath(), entry.getAccessRules(), entry.combineAccessRules(), newAttributes, entry.isExported());
+			break;										
+		case IClasspathEntry.CPE_SOURCE:
+			newEntry = JavaCore.newSourceEntry(entry.getPath(), entry.getInclusionPatterns(), entry.getExclusionPatterns(), entry.getOutputLocation(), newAttributes);
+			break;															
+		}
+		return newEntry;
+	}
+	
+	public static IPath getRuntimePath(final IClasspathEntry entry){
+		IClasspathAttribute [] attributes = entry.getExtraAttributes();
+		for(IClasspathAttribute attribute : attributes){
+			if(attribute.getName().equals(CLASSPATH_COMPONENT_DEPENDENCY)){
+				return new Path(attribute.getValue());
+			}
+		}
+		return null;
+	}
+	
+	private static IClasspathAttribute[] modifyDependencyPath(final IClasspathAttribute[] currentAttributes, IPath runtimePath) {
+		final List <IClasspathAttribute> updatedAttributes = new ArrayList<IClasspathAttribute> ();
+		boolean modified = false;
+		for(IClasspathAttribute currentAttribute : currentAttributes){
+			if(currentAttribute.getName().equals(CLASSPATH_COMPONENT_DEPENDENCY)){
+				modified = true;
+				if(runtimePath == null){
+					continue;
+				}
+				try {
+					IClasspathAttribute newAttribute = UpdateClasspathAttributeUtil.createDependencyAttribute(runtimePath);
+					updatedAttributes.add(newAttribute);
+				} catch (CoreException e) {
+					org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
+				}
+			} else {
+				updatedAttributes.add(currentAttribute);
+			}
+		}
+		if(!modified){
+			try {
+				IClasspathAttribute newAttribute = UpdateClasspathAttributeUtil.createDependencyAttribute(runtimePath);
+				updatedAttributes.add(newAttribute);
+			} catch (CoreException e) {
+				org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
+			}
+		}
+		return updatedAttributes.toArray(new IClasspathAttribute[updatedAttributes.size()]);
+	}
+	
 }
+
+

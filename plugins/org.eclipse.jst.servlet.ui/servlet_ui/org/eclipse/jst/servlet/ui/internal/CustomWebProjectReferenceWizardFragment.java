@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2009 Red Hat, IBM
+ * Copyright (c) 2009 Red Hat and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -8,6 +8,7 @@
  * Contributors:
  *    Rob Stryker - initial implementation and ongoing maintenance
  *    Chuck Bridgham - Ongoing improvements
+ *    Konstantin Komissarchik - misc. UI cleanup
  ******************************************************************************/
 package org.eclipse.jst.servlet.ui.internal;
 
@@ -20,9 +21,6 @@ import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.layout.FormAttachment;
-import org.eclipse.swt.layout.FormData;
-import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -36,7 +34,6 @@ public class CustomWebProjectReferenceWizardFragment extends ProjectReferenceWiz
 	
 	public CustomWebProjectReferenceWizardFragment() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	private boolean isWebLib = true;
@@ -46,19 +43,24 @@ public class CustomWebProjectReferenceWizardFragment extends ProjectReferenceWiz
 	public Composite createComposite(Composite parent, IWizardHandle handle) {
 		
 		Composite c = new Composite(parent, SWT.NONE);
-		c.setLayout(new FormLayout());
+		
+		final GridLayout gl = new GridLayout();
+		gl.marginWidth = 0;
+		gl.marginHeight = 0;
+		
+		c.setLayout(gl);
 		
 		Composite tableComp = super.createComposite(c, handle);
+		tableComp.setLayoutData(new GridData(GridData.FILL_BOTH));
 		
 		// make button
 		button = new Button(c, SWT.CHECK);
-		button.setText(Messages.CustomWebProjectReferenceWizardFragment_0); 
-		button.setToolTipText(Messages.CustomWebProjectReferenceWizardFragment_1); 
-		FormData buttonData = new FormData();
-		buttonData.bottom = new FormAttachment(100,-5);
-		buttonData.left = new FormAttachment(0,5);
-		buttonData.right = new FormAttachment(100,-5);
-		button.setLayoutData(buttonData);
+		button.setText(Messages.CustomWebProjectReferenceWizardFragment); 
+
+		final GridData gd = new GridData();
+		gd.horizontalIndent = 5;
+		button.setLayoutData(gd);
+		
 		button.addSelectionListener(new SelectionListener() {
 			public void widgetDefaultSelected(SelectionEvent e) {
 			}
@@ -68,16 +70,6 @@ public class CustomWebProjectReferenceWizardFragment extends ProjectReferenceWiz
 		});
 		button.setSelection(true);
 
-		FormData tableData = new FormData();
-		tableData.width = 570;
-		tableData.height = 180;
-		tableData.top = new FormAttachment(0,5);
-		tableData.bottom = new FormAttachment(button,-5);
-		tableData.left = new FormAttachment(0,5);
-		tableData.right = new FormAttachment(100,-5);
-		tableComp.setLayoutData(tableData);
-		handle.setTitle(org.eclipse.wst.common.componentcore.ui.Messages.ProjectReferenceTitle);
-		handle.setDescription(Messages.WebProjectReferenceDescription); 
 		return c;
 	}
 	

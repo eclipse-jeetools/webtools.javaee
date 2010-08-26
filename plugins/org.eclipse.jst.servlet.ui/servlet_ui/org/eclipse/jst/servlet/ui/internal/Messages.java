@@ -10,9 +10,7 @@ public class Messages extends NLS {
 	public static String DeploymentAssembly;
 	public static String WebDeploymentAssembly;
 	public static String ManifestEntries;
-	public static String CustomWebProjectReferenceWizardFragment_0;
-	public static String CustomWebProjectReferenceWizardFragment_1;
-	public static String WebProjectReferenceDescription;
+	public static String CustomWebProjectReferenceWizardFragment;
 	
 	static {
 		// initialize resource bundle

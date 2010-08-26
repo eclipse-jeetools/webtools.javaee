@@ -807,6 +807,8 @@
       provider="wtp-osgi-bundles-library-provider"
       class="org.eclipse.jst.j2ee.internal.ui.WtpOsgiBundlesLibraryProviderInstallPanel"/>
   </extension>
+  
+  
   <extension
         point="org.eclipse.wst.common.modulecore.ui.moduleDependencyPropertyPage">
      <dependencyPage
@@ -821,21 +823,6 @@
            weight="5">
      </provider>
   </extension>
-  <extension
-        point="org.eclipse.wst.common.modulecore.ui.virtualComponentLabelProvider">
-     <provider
-           class="org.eclipse.jst.j2ee.internal.ui.preferences.ClasspathDependencyComponentLabelProvider"
-           weight="5"/>
-  </extension>
-  <extension
-        point="org.eclipse.wst.common.modulecore.ui.referenceWizardFragment">
-     <referenceFragment
-           class="org.eclipse.jst.j2ee.internal.ui.preferences.ClasspathDependencyWizardFragment"
-           icon="icons/util-wiz-icon.gif"
-           id="org.eclipse.jst.j2ee.internal.ui.preferences.ClasspathDependencyReferencePage"
-           name="%Referenced_Projects_Classpath_Entries">
-     </referenceFragment>
-  </extension>
   
   <extension
         point="org.eclipse.wst.common.modulecore.ui.referenceWizardFragment">
@@ -847,4 +834,17 @@
            name="%Project">
      </referenceFragment>
   </extension>
+  
+  <extension point="org.eclipse.wst.common.modulecore.ui.referenceWizardFragment">
+    <referenceFragment
+      class="org.eclipse.jst.j2ee.internal.ui.AddJavaBuildPathEntriesWizardFragment"
+      icon="icons/util-wiz-icon.gif"
+      id="org.eclipse.jst.j2ee.internal.ui.AddJavaBuildPathEntriesWizardFragment"
+      name="%AddJavaBuildPathEntriesWizardFragment-Name">
+      <enablement>
+        <test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="java" forcePluginActivation="true"/>
+      </enablement>
+    </referenceFragment>
+  </extension>
+  
 </plugin>
