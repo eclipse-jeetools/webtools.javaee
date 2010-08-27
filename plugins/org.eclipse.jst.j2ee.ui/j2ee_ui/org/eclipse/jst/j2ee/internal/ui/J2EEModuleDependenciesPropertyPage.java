@@ -256,7 +256,7 @@ public class J2EEModuleDependenciesPropertyPage extends
 					//user changed path value
 					IClasspathEntry newEntry = modified.get(path);
 					IPath runtimePath = ClasspathDependencyUtil.getRuntimePath(newEntry);
-					if(runtimePath.toString().isEmpty()){
+					if(runtimePath.toString().length() == 0){
 						//prevent the user from specifying no path
 						newEntry = ClasspathDependencyUtil.modifyDependencyPath(newEntry, new Path("/")); //$NON-NLS-1$
 					}
