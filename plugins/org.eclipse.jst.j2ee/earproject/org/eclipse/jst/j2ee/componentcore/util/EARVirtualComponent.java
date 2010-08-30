@@ -25,7 +25,7 @@ import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathInitializer;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
-import org.eclipse.jst.jee.application.ICommonModule;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
@@ -100,27 +100,24 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 							IVirtualComponent referencedIVirtualComponent = vReference.getReferencedComponent();
 							if (referencedIVirtualComponent != null && referencedIVirtualComponent.exists()) {
 								String archiveName = null;
-								if (referencedComponent.getDependentObject() != null) {
-									archiveName = ((ICommonModule) referencedComponent.getDependentObject()).getUri();
-								} else {
-									if(referencedComponent.getArchiveName() != null){
-										archiveName = referencedComponent.getArchiveName();
+								if(referencedComponent.getArchiveName() != null){
+									archiveName = referencedComponent.getArchiveName();
 									} else {
 										IProject referencedProject = referencedIVirtualComponent.getProject();
-										// If dependent object is not set, assume
+										// If archive name is not set, assume
 										// compname is module name + proper
 										// extension
-										if (J2EEProjectUtilities.isDynamicWebProject(referencedProject) || J2EEProjectUtilities.isStaticWebProject(referencedProject)) {
-											archiveName = referencedIVirtualComponent.getName() + IJ2EEModuleConstants.WAR_EXT;
-										} else if (J2EEProjectUtilities.isJCAProject(referencedProject)) {
+										if (JavaEEProjectUtilities.isDynamicWebProject(referencedProject) || J2EEProjectUtilities.isStaticWebProject(referencedProject)) {
+											archiveName = referencedIVirtualComponent.getDeployedName() + IJ2EEModuleConstants.WAR_EXT;
+										} else if (JavaEEProjectUtilities.isJCAProject(referencedProject)) {
 											archiveName = referencedIVirtualComponent.getName() + IJ2EEModuleConstants.RAR_EXT;
-										} else if (J2EEProjectUtilities.isUtilityProject(referencedProject) || referencedIVirtualComponent.isBinary()) {
+										} else if (JavaEEProjectUtilities.isUtilityProject(referencedProject) || referencedIVirtualComponent.isBinary()) {
 											archiveName = getJarURI(referencedComponent, referencedIVirtualComponent);
 										} else {
 											archiveName = referencedIVirtualComponent.getName() + IJ2EEModuleConstants.JAR_EXT;
 										}
 									}
-								}
+								
 								vReference.setArchiveName(archiveName);
 								hardReferences.add(vReference);
 							}
