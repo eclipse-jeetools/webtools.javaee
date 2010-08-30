@@ -114,24 +114,26 @@ public class JavaEEComponentDependencyContentProvider extends ComponentDependenc
 			IVirtualReference ref = (IVirtualReference)parentElement;
 			IPath refRuntimePath = ref.getRuntimePath();
 			IVirtualComponent comp = ref.getReferencedComponent();
-			List <IClasspathEntry> originalClasspathEntries = J2EEModuleDependenciesPropertyPage.readRawEntries(comp);
-			List <ConsumedClasspathEntryProxy> relativeClasspathEntries = new ArrayList<ConsumedClasspathEntryProxy>();
-			for(IClasspathEntry classpathEntry : originalClasspathEntries){
-				IClasspathAttribute attribute = ClasspathDependencyUtil.checkForComponentDependencyAttribute(classpathEntry, DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY);
-				if (attribute != null) {
-					String rawValue = attribute.getValue();
-					if(rawValue.startsWith("../")){ //$NON-NLS-1$
-						IPath basePath = new Path(rawValue);
-						IPath path = refRuntimePath.append(basePath.removeFirstSegments(1));
-						if(classpathEntry.getEntryKind() == IClasspathEntry.CPE_LIBRARY){
-							path = path.append(classpathEntry.getPath().lastSegment());
+			if(!comp.isBinary()){
+				List <IClasspathEntry> originalClasspathEntries = J2EEModuleDependenciesPropertyPage.readRawEntries(comp);
+				List <ConsumedClasspathEntryProxy> relativeClasspathEntries = new ArrayList<ConsumedClasspathEntryProxy>();
+				for(IClasspathEntry classpathEntry : originalClasspathEntries){
+					IClasspathAttribute attribute = ClasspathDependencyUtil.checkForComponentDependencyAttribute(classpathEntry, DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY);
+					if (attribute != null) {
+						String rawValue = attribute.getValue();
+						if(rawValue.startsWith("../")){ //$NON-NLS-1$
+							IPath basePath = new Path(rawValue);
+							IPath path = refRuntimePath.append(basePath.removeFirstSegments(1));
+							if(classpathEntry.getEntryKind() == IClasspathEntry.CPE_LIBRARY){
+								path = path.append(classpathEntry.getPath().lastSegment());
+							}
+							IClasspathEntry relativeEntry = ClasspathDependencyUtil.modifyDependencyPath(classpathEntry, path);
+							relativeClasspathEntries.add(new ConsumedClasspathEntryProxy(relativeEntry));
 						}
-						IClasspathEntry relativeEntry = ClasspathDependencyUtil.modifyDependencyPath(classpathEntry, path);
-						relativeClasspathEntries.add(new ConsumedClasspathEntryProxy(relativeEntry));
 					}
 				}
+				return relativeClasspathEntries.toArray();
 			}
-			return relativeClasspathEntries.toArray();
 		}
 		return super.getChildren(parentElement);
 	}
