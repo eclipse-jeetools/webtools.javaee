@@ -310,14 +310,6 @@
          	   id="org.eclipse.ui.navigator.ProjectExplorer">
          </view>
       </adapterFactory>
-      <adapterFactory
-            className="org.eclipse.jst.j2ee.internal.provider.J2EEModulemapItemProviderAdapterFactory"
-            packageURI="modulemap.xmi"
-            id="org.eclipse.jst.j2ee.internal.provider.J2EEModulemapItemProviderAdapterFactory">
-          <view 
-         	   id="org.eclipse.ui.navigator.ProjectExplorer">
-         </view>
-      </adapterFactory>
    </extension>
    <extension point="org.eclipse.ui.popupMenus">
       <objectContribution objectClass="org.eclipse.core.resources.IProject" adaptable="true" id="org.eclipse.jst.j2ee.ui.popupMenu">

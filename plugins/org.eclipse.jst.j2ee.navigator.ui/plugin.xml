@@ -33,9 +33,6 @@
 						<test forcePluginActivation="true"
 							property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
 							value="application.xmi" />
-						<test forcePluginActivation="true"
-							property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
-							value="modulemap.xmi" />
 					</or>
 				</and>
 				<and>
@@ -102,9 +99,6 @@
 							value="client.xmi" />
 						<test forcePluginActivation="true"
 							property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
-							value="modulemap.xmi" />
-						<test forcePluginActivation="true"
-							property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
 							value="ejb.xmi" />
 						<test forcePluginActivation="true"
 							property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
@@ -138,9 +132,6 @@
 							<test forcePluginActivation="true"
 								property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
 								value="application.xmi" />
-							<test forcePluginActivation="true"
-								property="org.eclipse.wst.common.emfworkbench.integration.emfPackage"
-								value="modulemap.xmi" />
 						</or>
 					</and>
 					<instanceof

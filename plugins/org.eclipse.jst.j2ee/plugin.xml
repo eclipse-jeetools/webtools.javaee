@@ -255,29 +255,6 @@
          </runStrategy>
       </validator>
    </extension>
-<!--ModuleMapInit-->
-<!--============================-->
-<!-- J2EE Extension Point Registry-->
-<!--============================-->
-   <extension
-         point="org.eclipse.emf.ecore.generated_package">
-      <package
-            uri="modulemap.xmi"
-            class="org.eclipse.jst.j2ee.internal.earcreation.modulemap.ModulemapPackage">
-      </package>
-   </extension>
-<!-- ====================================================== -->
-<!-- Register package mappings                              -->
-<!-- Several that have not changed are still registered as  -->
-<!-- a place holder for the future.                         -->
-<!-- ====================================================== -->
-   <extension
-         point="org.eclipse.wst.common.emf.packageURIMap">
-      <map
-            uri="modulemap.xmi"
-            prefix="modulemap">
-      </map>
-   </extension>
 <!-- ====================================================== -->
 <!-- Extendable Operations                                  -->
 <!-- These operation are extendable in other plugins        -->
@@ -323,15 +300,6 @@
             className="org.eclipse.jst.j2ee.internal.provider.ClientItemProviderAdapterFactory"
             packageURI="client.xmi"
             id="org.eclipse.jst.j2ee.client.provider.ClientItemProviderAdapterFactory">
-      </adapterFactory>
-   </extension>
-   <extension
-         point="org.eclipse.wst.common.emfworkbench.integration.adapterFactory">
-      <adapterFactory
-            functionGroupID="org.eclipse.jst.j2ee"
-            className="org.eclipse.jst.j2ee.internal.provider.ModulemapItemProviderAdapterFactory"
-            packageURI="modulemap.xmi"
-            id="org.eclipse.jst.j2ee.ear.modulemap.provider.ModulemapItemProviderAdapterFactory">
       </adapterFactory>
    </extension>
    <extension
