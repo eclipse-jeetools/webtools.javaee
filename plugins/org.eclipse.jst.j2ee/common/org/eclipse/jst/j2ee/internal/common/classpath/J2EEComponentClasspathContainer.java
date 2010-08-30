@@ -35,7 +35,6 @@ import org.eclipse.jst.common.jdt.internal.classpath.ClasspathDecorationsManager
 import org.eclipse.jst.common.jdt.internal.javalite.IJavaProjectLite;
 import org.eclipse.jst.common.jdt.internal.javalite.JavaCoreLite;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
-import org.eclipse.jst.j2ee.componentcore.util.EARVirtualComponent;
 import org.eclipse.jst.j2ee.internal.common.ClasspathLibraryExpander;
 import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
@@ -311,7 +310,7 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 		for (IVirtualComponent referencingComp : referencingList) {
 			// check if the referencing component is an EAR
 			if (EarUtilities.isEARProject(referencingComp.getProject())) {
-				EARVirtualComponent earComp = (EARVirtualComponent) referencingComp;
+				IVirtualComponent earComp = referencingComp;
 				// retrieve the EAR's library directory 
 				String libDir = EarUtilities.getEARLibDir(earComp);
 				// if the EAR version is lower than 5, then the library directory will be null
