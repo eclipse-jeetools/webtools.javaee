@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.internal.common.classpath;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
@@ -63,10 +64,14 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 	private static IPath WEBLIB = new Path("/WEB-INF/lib"); //$NON-NLS-1$
 	
 	private static ClasspathDecorationsManager decorationsManager = new ClasspathDecorationsManager(J2EEPlugin.PLUGIN_ID);
-
 	public static ClasspathDecorationsManager getDecorationsManager() {
         return decorationsManager;
     }
+	
+	private static Map<String, Object> onlyManifestRefs = new HashMap<String, Object>();
+	static {
+		onlyManifestRefs.put(IVirtualComponent.REQUESTED_REFERENCE_TYPE, J2EEModuleVirtualComponent.ONLY_MANIFEST_REFERENCES);
+	}
 	
 	private IPath containerPath;
 	private IJavaProject javaProject;
@@ -114,8 +119,8 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 		if (component == null) {
 			return false;
 		}
-		
-		IVirtualReference[] refs = component instanceof J2EEModuleVirtualComponent ? ((J2EEModuleVirtualComponent)component).getReferences(false, true): component.getReferences();
+
+		IVirtualReference[] refs = component.getReferences(onlyManifestRefs); 
 		
 		// avoid updating the container if references haven't changed
 		if (refs.length == lastUpdate.baseRefCount) {
@@ -188,8 +193,7 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 			return;
 		}
 		
-		
-		IVirtualReference[] refs = component instanceof J2EEModuleVirtualComponent ? ((J2EEModuleVirtualComponent)component).getReferences(false, true): component.getReferences();
+		IVirtualReference[] refs = component.getReferences(onlyManifestRefs); 
 		
 		List<IVirtualReference> refsList = new ArrayList<IVirtualReference>();
 		Set<IVirtualComponent> refedComps = new HashSet<IVirtualComponent>();
@@ -201,7 +205,6 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 			}
 		}
 		lastUpdate.baseRefCount = refsList.size();
-		
 		
 		List <IVirtualReference> earLibReferences = getBaseEARLibRefs(component);
 		lastUpdate.baseLibRefCount = earLibReferences.size();

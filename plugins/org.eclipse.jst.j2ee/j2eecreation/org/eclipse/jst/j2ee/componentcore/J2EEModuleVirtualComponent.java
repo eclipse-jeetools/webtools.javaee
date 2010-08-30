@@ -57,6 +57,17 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 	public static String GET_JAVA_REFS = "GET_JAVA_REFS"; //$NON-NLS-1$
 	public static String GET_FUZZY_EAR_REFS = "GET_FUZZY_EAR_REFS"; //$NON-NLS-1$
 	public static String GET_EXPANDED_LIB_REFS = "GET_EXPANDED_LIB_REFS"; //$NON-NLS-1$
+	/**
+	 * Use this value to retrieve references consisting of only META-INF/MANIFEST.MF classpath
+	 * attributes.  Do this as follows:
+	 * <code>
+	 * IVirtualCompoment compoment = a virtual component
+	 * Map<String, Object> onlyManifestRefs = new HashMap<String, Object>();
+	 * onlyManifestRefs.put(IVirtualComponent.REQUESTED_REFERENCE_TYPE, J2EEModuleVirtualComponent.ONLY_MANIFEST_REFERENCES);
+	 * IVirtualReference[] refs = component.getReferences(onlyManifestRefs); 
+	 * </code> 
+	 */
+	public static String ONLY_MANIFEST_REFERENCES = "ONLY_MANIFEST_REFERENCES"; //$NON-NLS-1$
 	
 	private long depGraphModStamp;
 	private long jeeModStamp;
@@ -122,8 +133,18 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 	public IVirtualReference[] getReferences(Map<String, Object> options) {
 		Object val = options.get(REQUESTED_REFERENCE_TYPE);
 		if( val != null ) {
-			if( HARD_REFERENCES.equals(val) || NON_DERIVED_REFERENCES.equals(val) || DISPLAYABLE_REFERENCES.equals(val))
+			if( HARD_REFERENCES.equals(val) || NON_DERIVED_REFERENCES.equals(val) || DISPLAYABLE_REFERENCES.equals(val)){
 				return getHardReferences();
+			} else if (ONLY_MANIFEST_REFERENCES.equals(val)){
+				ArrayList<IVirtualReference> all = new ArrayList<IVirtualReference>();
+				checkIfStillValid();
+				cacheManifestReferences();
+				all.addAll(Arrays.asList(parentEarManifestReferences));
+				all.addAll(Arrays.asList(fuzzyEarManifestReferences));
+				IVirtualReference[] refs = all.toArray(new IVirtualReference[all.size()]);
+				VirtualReferenceUtilities.INSTANCE.ensureReferencesHaveNames(refs);
+				return refs;
+			}
 		}
 		Boolean objGetJavaRefs = (Boolean)options.get(GET_JAVA_REFS);
 		Boolean objGetFuzzyEarRefs = (Boolean)options.get(GET_FUZZY_EAR_REFS);
