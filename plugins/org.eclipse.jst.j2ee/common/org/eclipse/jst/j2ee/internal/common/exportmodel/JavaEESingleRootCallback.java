@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.common.exportmodel;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -101,21 +102,14 @@ public class JavaEESingleRootCallback implements SingleRootParticipantCallback {
 	
 	protected boolean hasClasspathDependencies(IVirtualComponent component) {
 		try {
-			final boolean isWebApp = JavaEEProjectUtilities.isDynamicWebComponent(component);
-		    boolean webLibsOnly = false;
-		    if (!ClasspathDependencyEnablement.isAllowClasspathComponentDependency() && isWebApp) {
-		    	webLibsOnly = true;
-			}
 			final Map entriesToAttrib = ClasspathDependencyUtil.getRawComponentClasspathDependencies(
 					JavaCoreLite.create(component.getProject()), 
-					DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY, 
-					webLibsOnly);
+					DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY);
 			return entriesToAttrib != null && entriesToAttrib.size() > 0;
 		} catch( CoreException ce ) {}
 		return false;
 	}
 
-	
 	private void validateWebProject(SingleRootUtil util, IVirtualComponent vc, List resourceMaps) {
 		// Ensure there are only basic component resource mappings -- one for the content folder 
 		// and any for src folders mapped to WEB-INF/classes
@@ -190,11 +184,15 @@ public class JavaEESingleRootCallback implements SingleRootParticipantCallback {
 	}
 
 	public IFlattenParticipant[] getDelegateParticipants() {
-		return new IFlattenParticipant[] {
-				new ReplaceManifestExportParticipant(new Path(J2EEConstants.MANIFEST_URI)),
-				new JEEHeirarchyExportParticipant(),
-				FilterResourceParticipant.createSuffixFilterParticipant(filteredSuffixes)
-		};
+		List<IFlattenParticipant> participants = new ArrayList<IFlattenParticipant>();
+
+		if (ClasspathDependencyEnablement.isAllowClasspathComponentDependency()) {
+			participants.add(new ReplaceManifestExportParticipant(new Path(J2EEConstants.MANIFEST_URI)));
+		}
+		participants.add(new JEEHeirarchyExportParticipant());
+		participants.add(FilterResourceParticipant.createSuffixFilterParticipant(filteredSuffixes));
+		
+		return participants.toArray(new IFlattenParticipant[participants.size()]);
 	}
 	
 

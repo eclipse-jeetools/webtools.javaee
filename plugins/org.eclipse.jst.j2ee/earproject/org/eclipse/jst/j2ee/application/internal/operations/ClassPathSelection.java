@@ -56,7 +56,6 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.ZipFileLoadStrat
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.internal.archive.operations.ComponentLoadStrategyImpl;
 import org.eclipse.jst.j2ee.internal.archive.operations.EARComponentLoadStrategyImpl;
-import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyEnablement;
 import org.eclipse.jst.j2ee.internal.modulecore.util.JEEManifestDiscerner;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
@@ -730,13 +729,11 @@ public class ClassPathSelection {
 		//createClasspathComponentDependencyElements(comp);
 		
 		// Add elements for raw classpath entries (either already tagged or potentially taggable) 
-		if(ClasspathDependencyEnablement.isAllowClasspathComponentDependency()){
 			try {
 			    createClasspathEntryElements(component, IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH, IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_COMPONENT_PATH);
 			} catch (CoreException ce) {
 				J2EEPlugin.logError(ce);
 			}
-		}
 		
 		if (earComponent != null) {
 			Path earLibDirPath = null;

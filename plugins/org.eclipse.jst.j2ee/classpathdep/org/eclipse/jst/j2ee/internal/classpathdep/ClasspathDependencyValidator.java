@@ -86,12 +86,7 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 				final boolean isWebApp = JavaEEProjectUtilities.isDynamicWebProject(proj);
 			    final IVirtualComponent component = ComponentCore.createComponent(proj);
 			    final boolean isLegacyJ2EE = JavaEEProjectUtilities.isLegacyJ2EEComponent(component);
-			    if (!ClasspathDependencyEnablement.isAllowClasspathComponentDependency()) {
-			    	if ((isLegacyJ2EE && !isWebApp) || !JavaEEProjectUtilities.usesJavaEEComponent(component)) {
-			    		return OK_STATUS;
-			    	}
-				}
-
+			  
 			    final IJavaProjectLite javaProjectLite = JavaCoreLite.create(proj);
 				final Map referencedRawEntries = ClasspathDependencyUtil.getRawComponentClasspathDependencies(javaProjectLite, DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY, isLegacyJ2EE); 				
 				final List potentialRawEntries = ClasspathDependencyUtil.getPotentialComponentClasspathDependencies(javaProjectLite, isLegacyJ2EE);				
@@ -122,12 +117,12 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 				}
 			
 				if (!referencedRawEntries.isEmpty()) {
-					if (JavaEEProjectUtilities.isApplicationClientProject(proj)) { 
-						// classpath component dependencies are not supported for application client projects
-						final IMessage msg = new Message("classpathdependencyvalidator", //$NON-NLS-1$
-								IMessage.HIGH_SEVERITY, AppClientProject, null, proj);
-						_reporter.addMessage(this, msg);
-					}
+//					if (JavaEEProjectUtilities.isApplicationClientProject(proj)) { 
+//						// classpath component dependencies are not supported for application client projects
+//						final IMessage msg = new Message("classpathdependencyvalidator", //$NON-NLS-1$
+//								IMessage.HIGH_SEVERITY, AppClientProject, null, proj);
+//						_reporter.addMessage(this, msg);
+//					}
 
 					// are there any root mappings
 					if (hasRootMapping && component != null) {

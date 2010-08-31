@@ -35,6 +35,7 @@ import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.internal.EjbModuleExtensionHelper;
 import org.eclipse.jst.j2ee.internal.IEJBModelExtenderManager;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyEnablement;
 import org.eclipse.jst.j2ee.internal.common.exportmodel.JEEHeirarchyExportParticipant;
 import org.eclipse.jst.j2ee.internal.common.exportmodel.JavaEESingleRootCallback;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
@@ -100,15 +101,19 @@ public class J2EEFlexProjDeployable extends FlatComponentDeployable implements
 	
 	@Override
 	protected IFlattenParticipant[] getParticipants() {
-		return new IFlattenParticipant[]{
-				new SingleRootExportParticipant(new JavaEESingleRootCallback()), 
-				new JEEHeirarchyExportParticipant(), 
-				new AddClasspathLibReferencesParticipant(),
-				new AddClasspathFoldersParticipant(),
-				new AddMappedOutputFoldersParticipant(),
-				new ReplaceManifestExportParticipant(new Path(J2EEConstants.MANIFEST_URI)),
-				new IgnoreJavaInSourceFolderParticipant()
-		};
+		List<IFlattenParticipant> participants = new ArrayList<IFlattenParticipant>();
+		
+		participants.add(new SingleRootExportParticipant(new JavaEESingleRootCallback()));
+		participants.add(new JEEHeirarchyExportParticipant());
+		participants.add(new AddClasspathLibReferencesParticipant());
+		participants.add(new AddClasspathFoldersParticipant());
+		participants.add(new AddMappedOutputFoldersParticipant());
+		participants.add(new IgnoreJavaInSourceFolderParticipant());
+		if (ClasspathDependencyEnablement.isAllowClasspathComponentDependency()) {
+			participants.add(new ReplaceManifestExportParticipant(new Path(J2EEConstants.MANIFEST_URI)));
+		}
+		
+		return participants.toArray(new IFlattenParticipant[participants.size()]);
 	}
     
     @Override

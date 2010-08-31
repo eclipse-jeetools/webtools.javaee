@@ -37,7 +37,6 @@ import org.eclipse.jst.common.jdt.internal.javalite.IJavaProjectLite;
 import org.eclipse.jst.common.jdt.internal.javalite.JavaCoreLite;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyEnablement;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyValidator;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyVirtualComponent;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyValidator.ClasspathDependencyValidatorData;
@@ -600,9 +599,6 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 	    	final IClasspathAttribute attribute = attributes[i];
 	    	final String name = attribute.getName();
 	    	if (name.equals(CLASSPATH_COMPONENT_DEPENDENCY)) {
-		    	if (!ClasspathDependencyEnablement.isAllowClasspathComponentDependency() && isLegacyJ2EE && isMappedIntoContainer(attribute.getValue()))
-					return null;
-		    	
 	    		if (attributeType == DependencyAttributeType.DEPENDENCY_OR_NONDEPENDENCY
 	    				|| attributeType == DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY) {
 	    			return attribute;
@@ -708,5 +704,3 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 	}
 	
 }
-
-

@@ -20,6 +20,7 @@ import org.eclipse.jst.common.internal.modulecore.AddClasspathLibReferencesParti
 import org.eclipse.jst.common.internal.modulecore.AddMappedOutputFoldersParticipant;
 import org.eclipse.jst.common.internal.modulecore.ReplaceManifestExportParticipant;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyEnablement;
 import org.eclipse.jst.j2ee.internal.common.exportmodel.JavaEEComponentExportCallback;
 import org.eclipse.wst.common.componentcore.internal.flat.AbstractFlattenParticipant;
 import org.eclipse.wst.common.componentcore.internal.flat.FilterResourceParticipant;
@@ -47,9 +48,11 @@ public class JavaEEComponentExportOperation extends ComponentExportOperation {
 		participants.add(createHierarchyParticipant());
 		participants.add(new AddMappedOutputFoldersParticipant(filteredExtensions));
 		participants.add(FilterResourceParticipant.createSuffixFilterParticipant(filteredExtensions));
-		participants.add(new ReplaceManifestExportParticipant(new Path(J2EEConstants.MANIFEST_URI)));
 		participants.add(new AddClasspathLibReferencesParticipant());
 		participants.add(new AddClasspathFoldersParticipant());	
+		if (ClasspathDependencyEnablement.isAllowClasspathComponentDependency()) {
+			participants.add(new ReplaceManifestExportParticipant(new Path(J2EEConstants.MANIFEST_URI)));
+		}
 		
 		return participants;
 	}
