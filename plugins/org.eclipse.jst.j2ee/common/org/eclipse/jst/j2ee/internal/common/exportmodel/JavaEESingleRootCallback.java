@@ -12,21 +12,19 @@ package org.eclipse.jst.j2ee.internal.common.exportmodel;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jst.common.internal.modulecore.AddClasspathFoldersParticipant;
+import org.eclipse.jst.common.internal.modulecore.AddClasspathLibReferencesParticipant;
+import org.eclipse.jst.common.internal.modulecore.AddClasspathLibRefsProviderParticipant;
 import org.eclipse.jst.common.internal.modulecore.ISingleRootStatus;
 import org.eclipse.jst.common.internal.modulecore.ReplaceManifestExportParticipant;
 import org.eclipse.jst.common.internal.modulecore.SingleRootUtil;
 import org.eclipse.jst.common.internal.modulecore.SingleRootExportParticipant.SingleRootParticipantCallback;
-import org.eclipse.jst.common.jdt.internal.javalite.JavaCoreLite;
-import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
-import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants.DependencyAttributeType;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyEnablement;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
@@ -85,13 +83,6 @@ public class JavaEESingleRootCallback implements SingleRootParticipantCallback {
 			}
 		}
 		
-		// If we have classpath dependencies we can't be single root
-		if (hasClasspathDependencies(vc)) {
-			util.reportStatus(CLASSPATH_DEPENDENCIES_FOUND);
-			if (util.getValidateFlag() == CANCEL) 
-				return;
-		}
-		
 		//validate web projects for single root
 		if (JavaEEProjectUtilities.isDynamicWebProject(project)) {
 			validateWebProject(util, vc, resourceMaps);
@@ -100,16 +91,6 @@ public class JavaEESingleRootCallback implements SingleRootParticipantCallback {
 
 	}
 	
-	protected boolean hasClasspathDependencies(IVirtualComponent component) {
-		try {
-			final Map entriesToAttrib = ClasspathDependencyUtil.getRawComponentClasspathDependencies(
-					JavaCoreLite.create(component.getProject()), 
-					DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY);
-			return entriesToAttrib != null && entriesToAttrib.size() > 0;
-		} catch( CoreException ce ) {}
-		return false;
-	}
-
 	private void validateWebProject(SingleRootUtil util, IVirtualComponent vc, List resourceMaps) {
 		// Ensure there are only basic component resource mappings -- one for the content folder 
 		// and any for src folders mapped to WEB-INF/classes
@@ -186,11 +167,14 @@ public class JavaEESingleRootCallback implements SingleRootParticipantCallback {
 	public IFlattenParticipant[] getDelegateParticipants() {
 		List<IFlattenParticipant> participants = new ArrayList<IFlattenParticipant>();
 
+		participants.add(new JEEHeirarchyExportParticipant());
+		participants.add(FilterResourceParticipant.createSuffixFilterParticipant(filteredSuffixes));
+		participants.add(new AddClasspathLibReferencesParticipant());
+		participants.add(new AddClasspathLibRefsProviderParticipant());
+		participants.add(new AddClasspathFoldersParticipant());
 		if (ClasspathDependencyEnablement.isAllowClasspathComponentDependency()) {
 			participants.add(new ReplaceManifestExportParticipant(new Path(J2EEConstants.MANIFEST_URI)));
 		}
-		participants.add(new JEEHeirarchyExportParticipant());
-		participants.add(FilterResourceParticipant.createSuffixFilterParticipant(filteredSuffixes));
 		
 		return participants.toArray(new IFlattenParticipant[participants.size()]);
 	}

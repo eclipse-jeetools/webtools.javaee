@@ -32,7 +32,7 @@ public class AddClasspathLibReferencesParticipant extends AbstractFlattenPartici
 	@Override
 	public boolean shouldIgnoreReference(IVirtualComponent rootComponent,
 			IVirtualReference referenced, FlatComponentTaskModel dataModel) {
-		if( referenced.getRuntimePath().equals(IClasspathDependencyReceiver.RUNTIME_MAPPING_INTO_CONTAINER_PATH))
+		if (referenced.getRuntimePath().toString().startsWith(IClasspathDependencyReceiver.RUNTIME_MAPPING_INTO_CONTAINER))
 			return true;
 		return false;
 	}
@@ -73,13 +73,13 @@ public class AddClasspathLibReferencesParticipant extends AbstractFlattenPartici
 							continue;
 
 						//if path isn't ../, it shouldn't be added here [bug 247090]
-						if( !cpRefRuntimePath.equals(IClasspathDependencyReceiver.RUNTIME_MAPPING_INTO_CONTAINER_PATH))
+						if (!cpRefRuntimePath.toString().startsWith(IClasspathDependencyReceiver.RUNTIME_MAPPING_INTO_CONTAINER))
 							continue;
 						
 						// TODO: verify this cpRefRuntimePath is acceptable?
 						//if( !runtimePath.equals(component.getClasspathFolderPath(cpComp))) continue;
 						
-						cpRefRuntimePath = runtimePath;
+						cpRefRuntimePath = runtimePath.append(cpRefRuntimePath.removeFirstSegments(1));
 						new VirtualComponentFlattenUtility(list, null).addFile(cpComp, cpRefRuntimePath, cpComp);
 					}
 				}

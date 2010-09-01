@@ -111,8 +111,8 @@ public class ReplaceManifestExportParticipant extends AbstractFlattenParticipant
 			final IVirtualReference[] refs = j2eeComp.getJavaClasspathReferences();
 			if (refs != null) {
 				for (int i = 0; i < refs.length; i++) {
-					if (refs[i].getRuntimePath().toString().equals(IClasspathDependencyReceiver.RUNTIME_MAPPING_INTO_CONTAINER)) {
-						uris.add(refs[i].getArchiveName());
+					if (refs[i].getRuntimePath().toString().startsWith(IClasspathDependencyReceiver.RUNTIME_MAPPING_INTO_CONTAINER)) {
+						uris.add(refs[i].getRuntimePath().removeFirstSegments(1).append(refs[i].getArchiveName()).toString());
 					}
 				}
 			}
