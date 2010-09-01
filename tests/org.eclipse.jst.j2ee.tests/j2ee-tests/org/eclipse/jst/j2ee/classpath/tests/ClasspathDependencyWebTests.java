@@ -15,6 +15,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import junit.framework.Test;
+import junit.framework.TestSuite;
+
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
@@ -35,11 +38,8 @@ import org.eclipse.jst.j2ee.internal.deployables.J2EEFlexProjDeployable;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
-import org.eclipse.wst.server.core.util.ModuleFolder;
+import org.eclipse.wst.server.core.model.IModuleFolder;
 import org.eclipse.wst.server.core.model.IModuleResource;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
 
 /**
  * Tests export and publish behavior for classpath component dependencies and web projects.
@@ -60,6 +60,7 @@ public class ClasspathDependencyWebTests extends AbstractTests {
         //suite.addTest(new ClasspathDependencyWebTests("testWebExportJEE5"));
         suite.addTest(new ClasspathDependencyWebTests("testWebPublishJ2EE"));
         suite.addTest(new ClasspathDependencyWebTests("testWebPublishJEE5"));
+        suite.addTest(new ClasspathDependencyWebTests("testWebContainerPublishJEE5"));
         return suite;
     }
     
@@ -83,7 +84,7 @@ public class ClasspathDependencyWebTests extends AbstractTests {
     	verifyExportedWebInfLibs(webComp, archiveNames, false);
     	
     	// add the cp dependency attribute to the cp container in the util
-    	addDependencyAttribute();
+    	addDependencyAttribute(false);
     	
     	// verify that the exported WAR WEB-INF/lib does contain the cp container jars from the Utility
     	verifyExportedWebInfLibs(webComp, archiveNames, true);
@@ -148,6 +149,10 @@ public class ClasspathDependencyWebTests extends AbstractTests {
         testWebPublish(true);
     }
     
+    public void testWebContainerPublishJEE5() throws Exception {
+        testWebContainerPublish(true);
+    }
+    
     private void testWebPublish(boolean JEE5) throws Exception {
 
     	// create the web and utility projects
@@ -160,14 +165,27 @@ public class ClasspathDependencyWebTests extends AbstractTests {
     	verifyPublishedWebInfLibs(webComp, archiveNames, false);
     	
     	// add the cp dependency attribute to the cp container in the util
-    	addDependencyAttribute();
+    	addDependencyAttribute(true);
     	
     	// verify that the exported WAR WEB-INF/lib does contain the cp container jars from the Utility
     	verifyPublishedWebInfLibs(webComp, archiveNames, true);
     }
     
+    private void testWebContainerPublish(boolean JEE5) throws Exception {
+    	IVirtualComponent webComp = createWebProject(JEE5);
+    	
+    	final Set archiveNames = new HashSet();
+    	archiveNames.add(ClasspathDependencyTestUtil.TEST1_JAR);
+    	archiveNames.add(ClasspathDependencyTestUtil.TEST2_JAR);
+    	
+    	verifyPublishedWebInfContainer(webComp, archiveNames, false);
+    	
+    	addWebInfContainerDependencyAttribute(false);
+
+    	verifyPublishedWebInfContainer(webComp, archiveNames, true);
+    }
+    
     private void verifyPublishedWebInfLibs(final IVirtualComponent comp, final Set archiveNames, final boolean shouldHaveDependencies) throws Exception {
-    	// verify that the published WAR's WEB-INF/lib contains the cp container jars from the Utility
     	J2EEFlexProjDeployable deployable = new J2EEFlexProjDeployable(comp.getProject(), comp);
     	
 		try {
@@ -177,12 +195,12 @@ public class ClasspathDependencyWebTests extends AbstractTests {
 			for (int i=0; i<members.length; i++) {
 				String name = members[i].getName();
 				if (name.equals("WEB-INF")) {
-					IModuleResource[] webInf = ((ModuleFolder)members[i]).members();
+					IModuleResource[] webInf = ((IModuleFolder)members[i]).members();
 					for (int j=0; j<webInf.length; j++) {
 						IModuleResource webResource = webInf[j];
 						assertTrue(webResource.getModuleRelativePath().toString().equals("WEB-INF"));
 						if (webResource.getName().equals("lib")) {
-							IModuleResource[] webresMembers = ((ModuleFolder)webResource).members();
+							IModuleResource[] webresMembers = ((IModuleFolder)webResource).members();
 							Iterator it = archiveNames.iterator();
 							while (it.hasNext()) {
 								String archiveName = (String) it.next();
@@ -200,10 +218,10 @@ public class ClasspathDependencyWebTests extends AbstractTests {
 								}
 							}
 						} else if (webResource.getName().equals("classes")) {
-							IModuleResource[] webresMembers = ((ModuleFolder)webResource).members();
+							IModuleResource[] webresMembers = ((IModuleFolder)webResource).members();
 							for (j = 0; j < webresMembers.length; j++) {
 								if (webresMembers[j].getName().equals("nested")) {
-									IModuleResource[] nestedMembers = ((ModuleFolder)webresMembers[j]).members();
+									IModuleResource[] nestedMembers = ((IModuleFolder)webresMembers[j]).members();
 									assertTrue("Published WAR should have have nested folder without class folder dependency", shouldHaveDependencies);
 									boolean hasNestedTest = false;
 									if (nestedMembers.length == 1 && nestedMembers[0].getName().equals("test")) {
@@ -217,6 +235,49 @@ public class ClasspathDependencyWebTests extends AbstractTests {
 								}
 							}
 						}
+					}
+				} 
+			}
+
+		} catch (CoreException e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}    	
+    }
+    
+    private void verifyPublishedWebInfContainer(final IVirtualComponent comp, final Set archiveNames, final boolean shouldHaveDependencies) throws Exception {
+    	J2EEFlexProjDeployable deployable = new J2EEFlexProjDeployable(comp.getProject(), comp);
+    	
+		try {
+			IModuleResource[] members = deployable.members();
+			assertTrue(members.length==2);
+			
+			for (int i=0; i<members.length; i++) {
+				String name = members[i].getName();
+				if (name.equals("WEB-INF")) {
+					IModuleResource[] webInf = ((IModuleFolder)members[i]).members();
+					for (int j=0; j<webInf.length; j++) {
+						IModuleResource webResource = webInf[j];
+						assertTrue(webResource.getModuleRelativePath().toString().equals("WEB-INF"));
+						if (webResource.getName().equals("lib")) {
+							IModuleResource[] webresMembers = ((IModuleFolder)webResource).members();
+							Iterator it = archiveNames.iterator();
+							while (it.hasNext()) {
+								String archiveName = (String) it.next();
+								boolean hasArchive = false;
+								for (int k = 0; k < webresMembers.length; k++) {
+									String localName = webresMembers[k].getName();
+									if (localName.equals(archiveName)) {
+										hasArchive= true;
+									}
+								}
+								if (shouldHaveDependencies) {
+									assertTrue("Published WAR missing classpath dependency Jar " + archiveName, hasArchive);  					
+								} else {
+									assertFalse("Published WAR has unexpected classpath dependency Jar " + archiveName, hasArchive);
+								}
+							}
+						} 
 					}
 				} 
 			}
@@ -263,7 +324,30 @@ public class ClasspathDependencyWebTests extends AbstractTests {
     	return webComp;
     }
     
-    private void addDependencyAttribute() throws Exception {
+    private IVirtualComponent createWebProject(boolean JEE5) throws Exception {
+    	// create a Web project
+    	int version = J2EEVersionConstants.SERVLET_2_5;
+    	if (!JEE5) {
+    		version = J2EEVersionConstants.SERVLET_2_4;
+    	}
+    	final IProject webProject = ProjectUtil.createWebProject(WEB_PROJECT, null, version, true);
+    	final IJavaProject webJavaProject = JavaCore.create(webProject);
+    	final IVirtualComponent webComp = ComponentCore.createComponent(webProject);
+ 	
+    	// add a cp dependency to the Utility
+    	ClasspathDependencyTestUtil.addCustomClasspathContainer(webJavaProject);
+    	
+    	return webComp;
+    }
+    
+    /**
+     * 
+     * @param verifyClasspathDependencies - true if you want to immediately verify that
+     * the classpath dependencies were added.  Set to false if you want to verify this at
+     * a later time (such as thru a members call in export or publish)  
+     * @throws Exception
+     */
+    private void addDependencyAttribute(boolean verifyClasspathDependencies) throws Exception {
     	final IProject util = ProjectUtil.getProject(UTIL_PROJECT);
     	final IJavaProject utilJava = JavaCore.create(util);
     	final IVirtualComponent utilComp = ComponentCore.createComponent(util);
@@ -308,4 +392,44 @@ public class ClasspathDependencyWebTests extends AbstractTests {
     	archiveNames.add(fullWebBinPath.toString());
     	ClasspathDependencyTestUtil.verifyClasspathDependencies(webComp, archiveNames);
     }
+    
+    /**
+     * 
+     * @param verifyClasspathDependencies - true if you want to immediately verify that
+     * the classpath dependencies were added.  Set to false if you want to verify this at
+     * a later time (such as thru a members call in export or publish)  
+     * @throws Exception
+     */
+    private void addWebInfContainerDependencyAttribute(boolean verifyClasspathDependencies) throws Exception {
+
+    	final IProject web = ProjectUtil.getProject(WEB_PROJECT);
+    	final IJavaProject webJava = JavaCore.create(web);
+    	final IVirtualComponent webComp = ComponentCore.createComponent(web);
+    	
+    	final Set entryPaths = new HashSet();
+    	entryPaths.add(ClasspathDependencyTestUtil.CUSTOM_CLASSPATH_CONTAINER);
+    	// verify that "bin" and the custom cp container are potential entries
+    	List entries = ClasspathDependencyTestUtil.verifyPotentialClasspathEntries(webJava, entryPaths);
+    	// verify that no entries have the classpath attribute
+    	ClasspathDependencyTestUtil.verifyNoClasspathAttributes(webJava);
+    	// verify that there are no classpath dependencies
+    	ClasspathDependencyTestUtil.verifyNoClasspathDependencies(webComp);
+    	IClasspathEntry entry = (IClasspathEntry) entries.get(0);
+
+    	// add the dependency attribute to "bin" and the cp container    	
+    	for (Object o: entries) {
+    		UpdateClasspathAttributeUtil.addDependencyAttribute(null, web.getName(), (IClasspathEntry) o);
+    	}
+    	// should no longer have potential entries
+    	ClasspathDependencyTestUtil.verifyNoPotentialClasspathEntries(webJava);
+    	// verify that "bin" and the cp container have the attribute
+    	ClasspathDependencyTestUtil.verifyClasspathAttributes(webJava, entryPaths);
+    	// verify that "bin" and the cp container are dependencies
+    	final Set archiveNames = new HashSet();
+    	archiveNames.add(ClasspathDependencyTestUtil.TEST1_JAR);
+    	archiveNames.add(ClasspathDependencyTestUtil.TEST2_JAR);
+    	if (verifyClasspathDependencies)
+    		ClasspathDependencyTestUtil.verifyClasspathDependencies(webComp, archiveNames);
+    }
+    
 }

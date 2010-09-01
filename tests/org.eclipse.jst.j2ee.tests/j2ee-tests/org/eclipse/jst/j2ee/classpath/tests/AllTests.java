@@ -22,8 +22,7 @@ public class AllTests extends TestCase {
         suite.addTest(ClasspathDependencyCreationTests.suite());
         //suite.addTest(ClasspathDependencyValidationTests.suite());
         suite.addTest(ClasspathDependencyEARTests.suite());
-        //[Bug 234409] Temporarily removing these tests until underlying issue is fixed
-//        suite.addTest(ClasspathDependencyWebTests.suite());
+        suite.addTest(ClasspathDependencyWebTests.suite());
         
         return suite;
     }

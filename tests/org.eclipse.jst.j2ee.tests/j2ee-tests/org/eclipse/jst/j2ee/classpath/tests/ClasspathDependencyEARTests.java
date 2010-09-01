@@ -70,6 +70,7 @@ public class ClasspathDependencyEARTests extends AbstractTests {
         //suite.addTest(new ClasspathDependencyEARTests("testEARExportJEE5"));
         suite.addTest(new ClasspathDependencyEARTests("testEARPublishJ2EE"));
         suite.addTest(new ClasspathDependencyEARTests("testEARPublishJEE5"));
+        suite.addTest(new ClasspathDependencyEARTests("testEARLibPublishJEE5"));
         return suite;
     }
     
@@ -189,6 +190,10 @@ public class ClasspathDependencyEARTests extends AbstractTests {
     	testEARPublish(true);
     }
     
+    public void testEARLibPublishJEE5() throws Exception {
+    	testEARLibPublishJEE5(true);
+    }
+    
     private void testEARPublish(boolean JEE5) throws Exception {
 
     	// create the EAR and module projects
@@ -214,19 +219,41 @@ public class ClasspathDependencyEARTests extends AbstractTests {
     	verifyPublishedEAR(earComp, archiveNames, true, JEE5);
     }
     
+    private void testEARLibPublishJEE5(boolean JEE5) throws Exception {
+    	IVirtualComponent webComp = createWebProject(JEE5);
+    	
+    	final Set archiveNames = new HashSet();
+    	archiveNames.add(ClasspathDependencyTestUtil.TEST1_JAR);
+    	archiveNames.add(ClasspathDependencyTestUtil.TEST2_JAR);
+    	final IProject earProject = ProjectUtil.getProject(EAR_PROJECT);
+    	final IVirtualComponent earComp = ComponentCore.createComponent(earProject);
+    	
+    	verifyPublishedEARLibRef(earComp, archiveNames, false, JEE5);
+
+    	addEARLibDependencyAttribute(false);
+    	
+    	verifyPublishedEARLibRef(earComp, archiveNames, true, JEE5);
+    }
+    
     private void verifyPublishedEAR(final IVirtualComponent comp, final Set archiveNames, final boolean shouldHaveDependencies, boolean isEE5) throws Exception {
     	
     	// verify that the published EAR contains the cp container jars from the Utility
     	J2EEFlexProjDeployable deployable = new J2EEFlexProjDeployable(comp.getProject(), comp);
 		try {
 			IModuleResource[] rootmembers = deployable.members();
-			IModuleResource[] members;
-			if (isEE5 && rootmembers.length > 0 && rootmembers[0].getName().equals("lib")) {
-				members = ((IModuleFolder) rootmembers[0]).members();
+			IModuleResource[] members = null;
+			if (isEE5) {
+				for (int i=0; i<rootmembers.length; i++) {
+					String name = rootmembers[i].getName();
+					if (name.equals("lib")) {
+						members = ((IModuleFolder)rootmembers[i]).members();
+					}
+				}
 			}
-			else {
+
+			if (members == null)
 				members = rootmembers;
-			}
+				
 			Iterator it = archiveNames.iterator();						
 			while (it.hasNext()) {
 				String name = (String) it.next();
@@ -354,6 +381,105 @@ public class ClasspathDependencyEARTests extends AbstractTests {
 		}    	
     }
     
+private void verifyPublishedEARLibRef(final IVirtualComponent comp, final Set archiveNames, final boolean shouldHaveDependencies, boolean isEE5) throws Exception {
+    	
+    	J2EEFlexProjDeployable deployable = new J2EEFlexProjDeployable(comp.getProject(), comp);
+		try {
+			IModuleResource[] rootmembers = deployable.members();
+			IModuleResource[] members = null;
+			if (isEE5) {
+				for (int i=0; i<rootmembers.length; i++) {
+					String name = rootmembers[i].getName();
+					if (name.equals("lib")) {
+						members = ((IModuleFolder)rootmembers[i]).members();
+					}
+				}
+			}
+
+			if (members == null)
+				members = rootmembers;
+			
+			Iterator it = archiveNames.iterator();						
+			while (it.hasNext()) {
+				String name = (String) it.next();
+				boolean hasArchive = false;
+				for (int i=0; i<members.length; i++) {
+					if (members[i].getName().equals(name)) {
+						hasArchive = true;
+					}
+				}
+				if (shouldHaveDependencies) {
+					assertTrue("Published EAR missing classpath dependency Jar " + name, hasArchive);  					
+				} else {
+					assertFalse("Published EAR has unexpected classpath dependency Jar " + name, hasArchive);
+				}
+			}
+			
+			IModule webModule = null;
+			IModule[] childModules = deployable.getChildModules();
+			for (int i=0; i < childModules.length; i++) {
+				if (childModules[i].getName().equals(WEB_PROJECT)) {
+					webModule = childModules[i];
+				}
+			}
+			
+			assertNotNull("Missing entry for web project", webModule);
+
+			J2EEFlexProjDeployable projectModule =(J2EEFlexProjDeployable) webModule.loadAdapter(ProjectModule.class, null);
+			IModuleResource[] moduleMembers = projectModule.members();
+			ArchiveManifest manifest = null;
+			boolean foundMetaInf = false;
+			for (int i=0; i< moduleMembers.length; i++) {
+				String name = moduleMembers[i].getName();
+				if (name.equals("META-INF")) {
+					foundMetaInf = true;
+					IModuleResource manifestResource= ((IModuleFolder)moduleMembers[i]).members()[0];
+					assertTrue(manifestResource.getModuleRelativePath().toString().equals("META-INF"));
+					assertTrue("Expected MANIFEST.MF, got " + manifestResource.getName(), manifestResource.getName().equals("MANIFEST.MF"));
+					java.io.File manifestFile = (java.io.File) manifestResource.getAdapter(java.io.File.class);
+					if (manifestFile == null) {
+						manifestFile = ((IFile) manifestResource.getAdapter(IFile.class)).getLocation().toFile();
+					}
+					assertNotNull(manifestFile);
+					FileInputStream fis = null;
+					try {
+						fis = new FileInputStream(manifestFile);
+						manifest = new ArchiveManifestImpl(fis);
+					} finally {
+						if (fis != null) {
+							fis.close();
+						}
+					}
+				} 
+			}
+			if (!foundMetaInf) {
+				assertTrue("members() failed to return META-INF for web project module in published EAR", foundMetaInf);
+			}
+			
+			assertNotNull("Failed to retrieve MANIFEST.MF from web project module in published EAR", manifest);
+			
+			it = archiveNames.iterator();						
+			while (it.hasNext()) {
+				String name = (String) it.next();
+				boolean isOnCP = false;
+				String[] cp = manifest.getClassPathTokenized();
+				for (int j = 0; j < cp.length; j++) {
+					if (cp[j].equals("lib/" + name)) {
+						isOnCP = true;
+					}
+				}
+				if (shouldHaveDependencies && ClasspathDependencyEnablement.isAllowClasspathComponentDependency()) {
+					assertTrue("Utility project MANIFEST.MF classpath in published EAR missing entry for dependency Jar " + name, isOnCP);  					
+				} else {
+					assertFalse("Utility project MANIFEST.MF classpath in published EAR has unexpected entry for dependency Jar " + name, isOnCP);  					
+				}
+			}
+			
+		} catch (CoreException e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}    	
+    }
     
     private IVirtualComponent createProjects(boolean JEE5) throws Exception {
 
@@ -395,14 +521,29 @@ public class ClasspathDependencyEARTests extends AbstractTests {
     	
     	return webComp;
     }
+    
+    private IVirtualComponent createWebProject(boolean JEE5) throws Exception {
+    	// create a Web project
+    	int version = J2EEVersionConstants.SERVLET_2_5;
+    	if (!JEE5) {
+    		version = J2EEVersionConstants.SERVLET_2_4;
+    	}
+    	final IProject webProject = ProjectUtil.createWebProject(WEB_PROJECT, EAR_PROJECT, version, true);
+    	final IJavaProject webJavaProject = JavaCore.create(webProject);
+    	final IVirtualComponent webComp = ComponentCore.createComponent(webProject);
+ 	
+    	// add a cp dependency to the Utility
+    	ClasspathDependencyTestUtil.addCustomClasspathContainer(webJavaProject);
+    	
+    	return webComp;
+    }
    
   
     /**
      * 
      * @param verifyClasspathDependencies - true if you want to immediately verify that
      * the classpath dependencies were added.  Set to false if you want to verify this at
-     * a later time.  Such as thru a members call in export or publish.  
-     * Note: When set to true may fail a valid scenario due to JDT initialization issues.
+     * a later time (such as thru a members call in export or publish).  
      * @throws Exception
      */
     private void addDependencyAttribute(boolean verifyClasspathDependencies) throws Exception {
@@ -461,6 +602,45 @@ public class ClasspathDependencyEARTests extends AbstractTests {
     	// verify that "bin" is a dependency
     	archiveNames.clear();
     	archiveNames.add(fullWebBinPath.toString());
+    	if (verifyClasspathDependencies)
+    		ClasspathDependencyTestUtil.verifyClasspathDependencies(webComp, archiveNames);
+    }
+    
+    /**
+     * 
+     * @param verifyClasspathDependencies - true if you want to immediately verify that
+     * the classpath dependencies were added.  Set to false if you want to verify this at
+     * a later time (such as thru a members call in export or publish)  
+     * @throws Exception
+     */
+    private void addEARLibDependencyAttribute(boolean verifyClasspathDependencies) throws Exception {
+
+    	final IProject web = ProjectUtil.getProject(WEB_PROJECT);
+    	final IJavaProject webJava = JavaCore.create(web);
+    	final IVirtualComponent webComp = ComponentCore.createComponent(web);
+    	
+    	final Set entryPaths = new HashSet();
+    	entryPaths.add(ClasspathDependencyTestUtil.CUSTOM_CLASSPATH_CONTAINER);
+    	// verify that "bin" and the custom cp container are potential entries
+    	List entries = ClasspathDependencyTestUtil.verifyPotentialClasspathEntries(webJava, entryPaths);
+    	// verify that no entries have the classpath attribute
+    	ClasspathDependencyTestUtil.verifyNoClasspathAttributes(webJava);
+    	// verify that there are no classpath dependencies
+    	ClasspathDependencyTestUtil.verifyNoClasspathDependencies(webComp);
+    	IClasspathEntry entry = (IClasspathEntry) entries.get(0);
+
+    	// add the dependency attribute to "bin" and the cp container    	
+    	for (Object o: entries) {
+    		UpdateClasspathAttributeUtil.addDependencyAttribute(null, web.getName(), (IClasspathEntry) o, new Path("../lib"));
+    	}
+    	// should no longer have potential entries
+    	ClasspathDependencyTestUtil.verifyNoPotentialClasspathEntries(webJava);
+    	// verify that "bin" and the cp container have the attribute
+    	ClasspathDependencyTestUtil.verifyClasspathAttributes(webJava, entryPaths);
+    	// verify that "bin" and the cp container are dependencies
+    	final Set archiveNames = new HashSet();
+    	archiveNames.add(ClasspathDependencyTestUtil.TEST1_JAR);
+    	archiveNames.add(ClasspathDependencyTestUtil.TEST2_JAR);
     	if (verifyClasspathDependencies)
     		ClasspathDependencyTestUtil.verifyClasspathDependencies(webComp, archiveNames);
     }
