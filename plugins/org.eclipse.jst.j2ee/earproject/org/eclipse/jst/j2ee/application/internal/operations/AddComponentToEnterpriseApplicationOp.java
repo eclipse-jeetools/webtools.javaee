@@ -37,6 +37,7 @@ import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.componentcore.JavaEEBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IEARModelProvider;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
@@ -106,7 +107,7 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 				if(list == null)
 					list = new ArrayList();
 				if(list.isEmpty()) {
-					IVirtualReference [] refs = ear.getReferences();
+					IVirtualReference [] refs = J2EEProjectUtilities.getJ2EEModuleReferences(ear);
 					if (refs != null && refs.length > 0) {
 						list = new ArrayList();
 						for (int i = 0; i < refs.length; i++) {
@@ -142,6 +143,10 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 												String deployPath = (String)deployMap.get(wc);
 												if(name != null && !deployPath.equals("/")) //$NON-NLS-1$
 													name = (new Path(deployPath)).append(name).toString();
+												String libDir = EarUtilities.getEARLibDir(ear);
+												if(libDir != null && deployPath.equals(libDir)) { // Do not consider library directory files as modules
+													return;
+												}
 											}
 											ICommonModule mod = addModule(application, wc, name);
 											if(mod == null){ //utility project

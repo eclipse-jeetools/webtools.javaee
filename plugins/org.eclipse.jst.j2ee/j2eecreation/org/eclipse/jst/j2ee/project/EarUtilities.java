@@ -82,7 +82,18 @@ public class EarUtilities extends JavaEEProjectUtilities {
 		j2eeTypes.add(IJ2EEFacetConstants.JCA);
 		j2eeTypes.add(IJ2EEFacetConstants.EJB);
 		j2eeTypes.add(IJ2EEFacetConstants.DYNAMIC_WEB);
-		return getComponentReferences(earComponent, j2eeTypes);
+		IVirtualReference[] refs = getComponentReferences(earComponent, j2eeTypes);
+		String earLib = getEARLibDir(earComponent);
+		if(earLib == null)
+			return refs;
+		ArrayList <IVirtualReference> moduleRefs = new ArrayList <IVirtualReference>();
+		Path earLibPath = new Path(earLib);
+		for(int i = 0; i < refs.length; i++) {
+			if(!refs[i].getRuntimePath().equals(earLibPath)) {
+				moduleRefs.add(refs[i]);
+			}
+		}
+		return moduleRefs.toArray(new IVirtualReference[moduleRefs.size()]);
 	}
 
 	/**

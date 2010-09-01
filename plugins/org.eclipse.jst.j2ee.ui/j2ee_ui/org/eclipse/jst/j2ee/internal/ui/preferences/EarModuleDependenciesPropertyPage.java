@@ -24,6 +24,7 @@ import org.eclipse.jst.j2ee.application.internal.operations.AddReferenceToEnterp
 import org.eclipse.jst.j2ee.application.internal.operations.RemoveReferenceFromEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
+import org.eclipse.jst.j2ee.internal.componentcore.JavaEEBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.componentcore.JavaEEModuleHandler;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
@@ -48,6 +49,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.common.componentcore.internal.IModuleHandler;
 import org.eclipse.wst.common.componentcore.internal.impl.TaskModel;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.componentcore.ui.internal.propertypage.ComponentDependencyContentProvider;
@@ -128,6 +130,17 @@ public class EarModuleDependenciesPropertyPage extends
 	@Override
 	protected void handleRemoved(ArrayList<IVirtualReference> removed) {
 		super.handleRemoved(removed);
+		boolean binariesRemoved = false;
+		for(IVirtualReference ref : removed){
+			IVirtualComponent comp = ref.getReferencedComponent();
+			if(comp.isBinary()){
+				binariesRemoved = true;
+				break;
+			}
+		}
+		if(binariesRemoved){
+			JavaEEBinaryComponentHelper.clearDisconnectedArchivesInEAR(rootComponent);
+		}
 		J2EEComponentClasspathUpdater.getInstance().queueUpdateEAR(rootComponent.getProject());
 	}
 

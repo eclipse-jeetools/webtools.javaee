@@ -10,9 +10,11 @@
  ***********************************************************************/
 package org.eclipse.jst.jee.ui.internal.navigator.ear;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.jst.jee.ui.internal.Messages;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -43,7 +45,7 @@ public class ModulesNode extends AbstractEarNode {
 	
 	 @Override
 	public List getModules() {
-	    	IVirtualComponent projectComponent = ComponentCore.createComponent(getEarProject());
-	    	return getComponentReferencesAsList(implicitUtilityReferenceTypes, projectComponent, null);
-	 }
+		IVirtualComponent projectComponent = ComponentCore.createComponent(getEarProject());
+    	return Arrays.asList(EarUtilities.getJ2EEModuleReferences(projectComponent));
+	}
 }
