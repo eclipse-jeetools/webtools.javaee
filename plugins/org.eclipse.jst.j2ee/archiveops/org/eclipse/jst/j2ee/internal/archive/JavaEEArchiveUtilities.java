@@ -818,24 +818,20 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 		
 		}
 			
-			private boolean isInLibDir(IVirtualComponent earComp, IVirtualComponent component, String libDir){
-				boolean isInLibDir = true;
-				if (libDir != null) {
-					// check if the component itself is not in the library directory of this EAR - avoid cycles in the build patch
-					if (earComp.getReference(component.getName()) != null && !libDir.equals(earComp.getReference(component.getName()).getRuntimePath().toString())) {
-						// retrieve the referenced components from the EAR
-						IVirtualReference[] earRefs = earComp.getReferences();
-						for (IVirtualReference earRef : earRefs) {
-							// check if the referenced component is in the library directory
-							isInLibDir = libDir.equals(earRef.getRuntimePath().toString());
-							if(!isInLibDir){
-								IPath fullPath = earRef.getRuntimePath().append(earRef.getArchiveName());
-								isInLibDir = fullPath.removeLastSegments(1).toString().equals(libDir);
-							}
-						}
+		private boolean isInLibDir(IVirtualComponent earComp, IVirtualComponent component, String libDir){
+			if (libDir != null) {
+				IVirtualReference earRef = earComp.getReference(component.getName());
+				if(earRef != null){
+					if(libDir.equals(earRef.getRuntimePath().toString())){
+						return true;
+					}
+					IPath fullPath = earRef.getRuntimePath().append(earRef.getArchiveName());
+					if(fullPath.removeLastSegments(1).toString().equals(libDir)){
+						return true;
 					}
 				}
-				return isInLibDir;
 			}
+			return false;
+		}
 
 }
