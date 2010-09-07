@@ -11,6 +11,11 @@
 
 package org.eclipse.jst.j2ee.internal.ui;
 
+import static org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil.checkForComponentDependencyAttribute;
+import static org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil.getDefaultRuntimePath;
+import static org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil.isClassFolderEntry;
+import static org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil.modifyDependencyPath;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -34,7 +39,7 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
+import org.eclipse.jst.j2ee.classpathdep.IClasspathDependencyConstants.DependencyAttributeType;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyExtensions;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.ui.J2EEModuleDependenciesPropertyPage.ClasspathEntryProxy;
@@ -140,8 +145,8 @@ public final class AddJavaBuildPathEntriesWizardFragment
             if( obj instanceof IClasspathEntry )
             {
                 final IClasspathEntry cpeOriginal = (IClasspathEntry) obj;
-                final IPath runtimePath = ClasspathDependencyUtil.getDefaultRuntimePath( isWebApp, ClasspathDependencyUtil.isClassFolderEntry( cpeOriginal ) );
-                final IClasspathEntry cpeTagged = ClasspathDependencyUtil.modifyDependencyPath( cpeOriginal, runtimePath );
+                final IPath runtimePath = getDefaultRuntimePath( isWebApp, isClassFolderEntry( cpeOriginal ) );
+                final IClasspathEntry cpeTagged = modifyDependencyPath( cpeOriginal, runtimePath );
                 
                 list.add( cpeTagged );
             }
@@ -254,6 +259,14 @@ public final class AddJavaBuildPathEntriesWizardFragment
                     else if( type == IClasspathEntry.CPE_LIBRARY || type == IClasspathEntry.CPE_VARIABLE  )
                     {
                         relevant = true;
+                    }
+                    
+                    if( relevant )
+                    {
+                        if( checkForComponentDependencyAttribute( cpe, DependencyAttributeType.CLASSPATH_COMPONENT_NONDEPENDENCY ) != null )
+                        {
+                            relevant = false;
+                        }
                     }
                     
                     if( relevant )
