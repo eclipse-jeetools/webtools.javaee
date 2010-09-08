@@ -1,0 +1,249 @@
+/**
+ * Servlet Filter implementation class <%= model.getClassName() %>
+<% 
+	if (model.isAnnotated()) { 
+%>
+ *
+ * @web.filter
+ *   name="<%= model.getFilterName() %>"
+ *   display-name="<%= model.getFilterName() %>"
+<%
+		if (model.getDescription() != null && model.getDescription().length() > 0) { 
+%>
+ *   description="<%= model.getDescription() %>"
+<% 
+		} 
+		
+		List<IFilterMappingItem> mappings = model.getFilterMappings();
+ 		for (IFilterMappingItem mapping : mappings) { 
+%>
+ *
+ * @web.filter-mapping
+<%
+			if (mapping.isUrlPatternType()) { 
+%>
+ *   url-pattern="<%= mapping.getName() %>"
+<%
+			} else if (mapping.isServletNameType()) { 
+%>
+ *   servlet-name="<%= mapping.getName() %>"
+<%
+			}
+		 
+			String dispatcher = model.getDispatcherList(mapping);
+			if (dispatcher.length() > 0) { 
+%>
+ *   dispatcher="<%= dispatcher %>"
+<% 
+			} 
+		} 
+
+		List<String[]> initParams = model.getInitParams();
+		if (initParams != null && initParams.size() > 0) {
+			for (int i = 0; i < initParams.size(); i++) {
+				String name = model.getInitParam(i, CreateFilterTemplateModel.NAME);
+				String value = model.getInitParam(i, CreateFilterTemplateModel.VALUE);
+				String description = model.getInitParam(i, CreateFilterTemplateModel.DESCRIPTION); 
+%>
+ *
+ * @web.filter-init-param
+ *    name="<%= name %>"
+ *    value="<%= value %>"
+<%
+				if (description != null && description.length() > 0) { 
+%>
+ *    description="<%= description %>"
+<%
+				}
+			} 
+		} 
+	}
+%>
+ */
+  <% 
+	if ("3.0".equals(model.getJavaEEVersion())) { 
+%>
+@WebFilter
+<%
+		Map<String, Object> params = model.getClassAnnotationParams();
+		if (params.size() == 1 && params.containsKey(CreateServletTemplateModel.ATT_URL_PATTERNS)) {
+			List<String> mappings = (List<String>) params.get(CreateServletTemplateModel.ATT_URL_PATTERNS);
+			if (mappings.size() == 1) {
+				String value = mappings.get(0);
+%>("<%= value %>")
+<%
+			} else {
+%>({ 
+<%
+				boolean needComma = false;
+				for (String mapping : mappings) {
+					if (needComma) {
+%>, 
+<%
+					}
+%>"<%= mapping %>"
+<%
+					needComma = true;
+				}
+%> })
+<%
+			}
+		} else if (!params.isEmpty()) { 
+%>(
+<%
+			Set<String> keys = params.keySet();
+			boolean needNewLine = keys.contains(CreateFilterTemplateModel.ATT_INIT_PARAMS) || 
+					(keys.contains(CreateFilterTemplateModel.ATT_URL_PATTERNS) && 
+							((List<String>) params.get(CreateFilterTemplateModel.ATT_URL_PATTERNS)).size() > 1) || 
+					(keys.contains(CreateFilterTemplateModel.ATT_SERVLET_NAMES) && 
+							((List<String>) params.get(CreateFilterTemplateModel.ATT_SERVLET_NAMES)).size() > 1);
+			boolean needComma = false;
+			for (String key : keys) {
+				if (needComma) {
+%>, 
+<%
+				}
+				
+				if (needNewLine) {
+%>
+		
+<%
+				} 
+			
+				if (key.equals(CreateFilterTemplateModel.ATT_FILTER_NAME) || key.equals(CreateFilterTemplateModel.ATT_DESCRIPTION)) { 
+					String value = (String) params.get(key);
+%><%= key %> = "<%= value %>"
+<%
+				} else if (key.equals(CreateFilterTemplateModel.ATT_URL_PATTERNS)) {
+%><%= key %> = { 
+<%
+					List<String> mappings = (List<String>) params.get(key);
+					boolean needComma2 = false;
+					boolean needNewLine2 = mappings.size() > 1;
+					for (String mapping : mappings) {
+						if (needComma2) {
+%>, 
+<%
+						}
+				
+						if (needNewLine2) {
+%>
+				
+<%
+						} 
+%>"<%= mapping %>"
+<%				
+						needComma2 = true;
+					}
+				
+					if (needNewLine2) {
+%>
+		
+<%
+					} else {
+%> 
+<%
+					}
+%>}
+<%
+				} else if (key.equals(CreateFilterTemplateModel.ATT_SERVLET_NAMES)) {
+%><%= key %> = { 
+<%
+					List<String> servletNames = (List<String>) params.get(key);
+					boolean needComma2 = false;
+					boolean needNewLine2 = servletNames.size() > 1;
+					for (String servletName : servletNames) {
+						if (needComma2) {
+%>, 
+<%
+						}
+				
+						if (needNewLine2) {
+%>
+				
+<%
+						} 
+%>"<%= servletName %>"
+<%				
+						needComma2 = true;
+					}
+				
+					if (needNewLine2) {
+%>
+		
+<%
+					} else {
+%> 
+<%
+					}
+%>}
+<%
+				} else if (key.equals(CreateFilterTemplateModel.ATT_INIT_PARAMS)) {
+%><%= key %> = { 
+<%
+					List<String[]> initParams = (List<String[]>) params.get(key);
+					boolean needComma2 = false;
+					for (String[] initParam : initParams) {
+						if (needComma2) {
+%>, 
+<%
+						}
+						
+						String name = initParam[CreateFilterTemplateModel.NAME];
+						String value = initParam[CreateFilterTemplateModel.VALUE];
+						String description = initParam[CreateFilterTemplateModel.DESCRIPTION];
+%>
+				@WebInitParam(name = "<%= name %>", value = "<%= value %>"
+<%				
+						if (description != null && description.length() > 0) {
+%>, description = "<%= description %>"
+<%
+						}
+%>)
+<%
+						needComma2 = true;
+					}
+%>
+		}
+<%
+				} else if (key.equals(CreateFilterTemplateModel.ATT_DISPATCHER_TYPES)) {
+				List<String> dispatcherTypes = (List<String>) params.get(key);
+					boolean needComma2 = false;
+					boolean needNewLine2 = dispatcherTypes.size() > 1;
+					if (dispatcherTypes.size()>0){
+					%><%= key %> = {<% 
+					}
+					for (String dispType : dispatcherTypes) {
+						if (needComma2) {
+%>, 
+<%
+						}
+				
+						if (needNewLine2) {
+%>
+				
+<%
+						} 
+%><%= dispType %>
+<%				
+						needComma2 = true;
+					}
+				
+					if (needNewLine2) {
+%>
+		
+<%
+					} else {
+%> 
+<%
+					}
+					%>}
+					<%
+				}
+				needComma = true;
+  			}
+%>)
+<%
+		}
+	}
+%>

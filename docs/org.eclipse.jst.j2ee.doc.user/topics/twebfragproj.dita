@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Arbortext, Inc., 1988-2006, v.4002-->
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN"
+ "task.dtd">
+<task id="webfragmentproj" xml:lang="en-us">
+<title>Creating Web fragment projects</title>
+<shortdesc>You can use the Web fragment project wizard to create Web
+fragment projects in your workspace.</shortdesc>
+<prolog><metadata>
+<keywords><indexterm keyref="tcreatwebmodule|1|JavaEEWebmodulecreating"
+status="new">Java EE<indexterm>Web fragment projects<indexterm>creating</indexterm></indexterm></indexterm>
+</keywords>
+</metadata></prolog>
+<taskbody>
+<prereq><p>A web fragment is a logical partitioning of the web application
+in such a way that the frameworks being used within the web application
+can define all the artifacts without requiring you to edit or add
+information in the web.xml. It can include almost all the same elements
+that the web.xml descriptor uses, with these requirements:</p><ul>
+<li>The top level element for the descriptor must be web-fragment</li>
+<li>The corresponding descriptor file must be called web-fragment.xml</li>
+</ul><p>If a framework is packaged as a jar file and has metadata
+information in the form of deployment descriptor, then the web-fragment.xml
+descriptor must be in the META-INF/ directory of the jar file.</p><p>A
+web fragment is a mechanism for either defining or extending the deployment
+descriptor of a web application by means of pluggable library jars
+that contain both the incremental deployment information (in the web-fragment.xml)
+and potentially any related or relevant classes.  The web fragment
+is also packaged as a library (jar), with the web-fragment.xml in
+the META-INF directory. Consequently, the web fragment project is
+essentially a Utility project, with the addition of a web fragment
+facet to it. The web fragment facet enables you to add relevant context-sensitive
+functionality to the fragment project.</p></prereq>
+<steps>
+<step><cmd>In the <tm tmtype="tm" trademark="Java">Java</tm> EE perspective,
+select <menucascade><uicontrol>File</uicontrol><uicontrol>New</uicontrol>
+<uicontrol>Web Fragment Project</uicontrol></menucascade>. Alternatively,
+right-click the Enterprise Explorer context menu, and select <menucascade>
+<uicontrol>New</uicontrol><uicontrol>Web Fragment Project</uicontrol>
+</menucascade>. The Web fragment wizard opens.</cmd></step>
+<step><cmd>In the <uicontrol>Name</uicontrol> field, type a name for
+the Web fragment project. To change the default <uicontrol>Project
+contents</uicontrol>, click the <uicontrol>Browse</uicontrol> button
+to select a new location.</cmd><info><p>If you specify a non-default
+project location that is already being used by another project, the
+project creation fails.</p></info></step>
+<step><cmd>The <uicontrol>Target runtime</uicontrol> field is pre-populated
+with the selection from the enterprise project.</cmd></step>
+<step importance="optional"><cmd>Select a pre-defined project configuration
+from the <uicontrol>Configurations</uicontrol> drop-down list.</cmd>
+</step>
+<step importance="optional"><cmd>If you want to modify the configuration
+details, click <uicontrol>modify</uicontrol>:</cmd></step>
+<step importance="optional"><cmd>Select one or more project facets
+from the <uicontrol>Project Facets</uicontrol> list. To specify server
+runtime environments, click <uicontrol>Show Runtimes</uicontrol> and
+select one or more runtimes. After making your selections, you can
+save your custom configuration by clicking <uicontrol>Save</uicontrol>.</cmd>
+</step>
+<step importance="optional"><cmd>Select the <uicontrol>Add project
+to Dynamic Web project</uicontrol> check box to add the new module
+to an enterprise module (WAR) project.</cmd><info>Type a new project
+name or select an existing enterprise module project from the drop-down
+list in the <uicontrol>Dynamic Web project name</uicontrol> combination
+box. Or, click <uicontrol>New</uicontrol> to launch the New EAR module
+Project wizard.</info></step>
+<step><cmd>Select <uicontrol>Add project to working sets</uicontrol> to
+add the Web fragment project to an existing working set, or click <uicontrol>Select</uicontrol> to
+locate a working set, and click <uicontrol>Next</uicontrol>.</cmd>
+</step>
+<step><cmd>On the Configure project for building a <tm tmtype="tm"
+trademark="Java">Java</tm> application page, on the <uicontrol>Source
+folders on build path</uicontrol> field, click <uicontrol>Add Folder...</uicontrol> to
+add folders for your source on the build path, or accept the default
+value (src).</cmd></step>
+<step><cmd>In the <uicontrol>Default output Folder:</uicontrol> field,
+specify a folder for your output files or accept the default value
+(bin), and click <uicontrol>Finish</uicontrol>.</cmd></step>
+<step><cmd>In Package Explorer view, you see the resulting Web Fragment
+project folders:</cmd><info><image href="../images/webfrag.jpg"
+placement="break"><alt>Web fragment folders</alt></image><?Pub Caret 21?></info>
+</step>
+</steps>
+</taskbody>
+</task>
+<?Pub *0000005097?>
