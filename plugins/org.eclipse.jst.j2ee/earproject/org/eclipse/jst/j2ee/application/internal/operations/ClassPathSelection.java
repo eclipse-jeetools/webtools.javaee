@@ -729,11 +729,11 @@ public class ClassPathSelection {
 		//createClasspathComponentDependencyElements(comp);
 		
 		// Add elements for raw classpath entries (either already tagged or potentially taggable) 
-			try {
-			    createClasspathEntryElements(component, IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH, IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_COMPONENT_PATH);
-			} catch (CoreException ce) {
-				J2EEPlugin.logError(ce);
-			}
+//			try {
+//			    createClasspathEntryElements(component, IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH, IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_COMPONENT_PATH);
+//			} catch (CoreException ce) {
+//				J2EEPlugin.logError(ce);
+//			}
 		
 		if (earComponent != null) {
 			Path earLibDirPath = null;
