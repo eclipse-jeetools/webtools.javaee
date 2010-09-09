@@ -22,6 +22,7 @@ import java.util.jar.Manifest;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.ecore.EObject;
@@ -38,6 +39,7 @@ import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.jst.jee.archive.ArchiveModelLoadException;
 import org.eclipse.jst.jee.archive.ArchiveOpenFailureException;
 import org.eclipse.jst.jee.archive.ArchiveOptions;
@@ -53,6 +55,9 @@ import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
+import org.eclipse.wst.common.project.facet.core.IFacetedProject;
+import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
+import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 
 public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 
@@ -102,6 +107,14 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 	 * swapped out with an {@link #JavaEEWrappingLoadAdapter}.
 	 */
 	public static final String WRAPPED_LOAD_ADAPTER = "WRAPPED_LOAD_ADAPTER"; //$NON-NLS-1$
+	
+	/**
+	 * Default value = null
+	 * 
+	 * An ArchiveOption used to specify the IRuntime of the EAR that the archive
+	 * is linked to.
+	 */
+	public static final String PARENT_RUNTIME = "PARENT_RUNTIME"; //$NON-NLS-1$
 
 	private JavaEEArchiveUtilities() {
 	}
@@ -251,10 +264,17 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 							parentEARArchive = openArchive(earComponent);
 							if(parentEARArchive != null) {
 								archiveOptions.setOption(ArchiveOptions.PARENT_ARCHIVE, parentEARArchive);
+								IFacetedProject facetedProject = ProjectFacetsManager.create(earProject);
+								if (facetedProject != null) {
+									IRuntime runtime = facetedProject.getPrimaryRuntime();
+									archiveOptions.setOption(PARENT_RUNTIME, runtime);
+								}
 							}
 						}
 					}
 				} catch(ArchiveOpenFailureException e) {
+					org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
+				} catch (CoreException e) {
 					org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
 				}
 			}
@@ -433,34 +453,56 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 								return wrappedForDD;
 							}
 							// else there is no DD and we need to decide on a version
+							JavaEEQuickPeek quickPeek = null;
+							String ddURI = null;
+							IRuntime runtime = null;
+							Object obj = simpleArchive.getArchiveOptions().getOption(PARENT_RUNTIME);
+							if (null != obj) {
+								runtime = (IRuntime) obj;
+							}
+							
 							switch (definedType) {
 							case J2EEVersionConstants.EJB_TYPE: {
-								//EE6TODO
-								JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(JavaEEQuickPeek.EJB_TYPE, JavaEEQuickPeek.EJB_3_0_ID, JavaEEQuickPeek.JEE_5_0_ID);
-								archiveToJavaEEQuickPeek.put(simpleArchive, quickPeek);
-								wrapArchive(simpleArchive, new Path(J2EEConstants.EJBJAR_DD_URI));
-								return simpleArchive;
+								ddURI = J2EEConstants.EJBJAR_DD_URI;
+								if (runtime == null || runtime.supports(IJ2EEFacetConstants.EJB_31)) {
+									quickPeek = new JavaEEQuickPeek(JavaEEQuickPeek.EJB_TYPE, JavaEEQuickPeek.EJB_3_1_ID, JavaEEQuickPeek.JEE_6_0_ID);
+								}
+								else {
+									quickPeek = new JavaEEQuickPeek(JavaEEQuickPeek.EJB_TYPE, JavaEEQuickPeek.EJB_3_0_ID, JavaEEQuickPeek.JEE_5_0_ID);
+								}
+								break;
 							}
-							//EE6TODO
 							case J2EEVersionConstants.APPLICATION_CLIENT_TYPE: {
-								JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(JavaEEQuickPeek.APPLICATION_CLIENT_TYPE, JavaEEQuickPeek.JEE_5_0_ID, JavaEEQuickPeek.JEE_5_0_ID);
-								archiveToJavaEEQuickPeek.put(simpleArchive, quickPeek);
-								wrapArchive(simpleArchive, new Path(J2EEConstants.APPLICATION_DD_URI));
-								return simpleArchive;
+								ddURI = J2EEConstants.APPLICATION_DD_URI;
+								if (runtime == null || runtime.supports(IJ2EEFacetConstants.APPLICATION_CLIENT_60)) {
+									quickPeek = new JavaEEQuickPeek(JavaEEQuickPeek.APPLICATION_CLIENT_TYPE, JavaEEQuickPeek.JEE_6_0_ID, JavaEEQuickPeek.JEE_6_0_ID);
+								}
+								else {
+									quickPeek = new JavaEEQuickPeek(JavaEEQuickPeek.APPLICATION_CLIENT_TYPE, JavaEEQuickPeek.JEE_5_0_ID, JavaEEQuickPeek.JEE_5_0_ID);
+								}
+								break;
 							}
-							//EE6TODO
 							case J2EEVersionConstants.WEB_TYPE: {
-								JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(JavaEEQuickPeek.WEB_TYPE, JavaEEQuickPeek.WEB_2_5_ID, JavaEEQuickPeek.JEE_5_0_ID);
-								archiveToJavaEEQuickPeek.put(simpleArchive, quickPeek);
-								wrapArchive(simpleArchive, new Path(J2EEConstants.WEBAPP_DD_URI));
-								return simpleArchive;
+								ddURI = J2EEConstants.WEBAPP_DD_URI;
+								if (runtime == null || runtime.supports(IJ2EEFacetConstants.DYNAMIC_WEB_30)) {
+									quickPeek = new JavaEEQuickPeek(JavaEEQuickPeek.WEB_TYPE, JavaEEQuickPeek.WEB_3_0_ID, JavaEEQuickPeek.JEE_6_0_ID);
+								}
+								else {
+									quickPeek = new JavaEEQuickPeek(JavaEEQuickPeek.WEB_TYPE, JavaEEQuickPeek.WEB_2_5_ID, JavaEEQuickPeek.JEE_5_0_ID);
+								}
+								break;
 							}
 							case J2EEVersionConstants.CONNECTOR_TYPE: {
-								JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(JavaEEQuickPeek.CONNECTOR_TYPE, JavaEEQuickPeek.JCA_1_6_ID, JavaEEQuickPeek.JEE_6_0_ID);
-								archiveToJavaEEQuickPeek.put(simpleArchive, quickPeek);
-								wrapArchive(simpleArchive, new Path(J2EEConstants.RAR_DD_URI));
-								return simpleArchive;
+								ddURI = J2EEConstants.RAR_DD_URI;
+								quickPeek = new JavaEEQuickPeek(JavaEEQuickPeek.CONNECTOR_TYPE, JavaEEQuickPeek.JCA_1_6_ID, JavaEEQuickPeek.JEE_6_0_ID);
+								break;
 							}
+							}
+							
+							if (quickPeek != null) {
+								archiveToJavaEEQuickPeek.put(simpleArchive, quickPeek);
+								wrapArchive(simpleArchive, new Path(ddURI));
+								return simpleArchive;
 							}
 						}
 					} catch (ArchiveModelLoadException e) {
@@ -485,8 +527,7 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 		
 		if (lastSegment != null) {
 			if (lastSegment.endsWith(IJ2EEModuleConstants.EAR_EXT)) {
-				//EE6TODO
-				JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(JavaEEQuickPeek.APPLICATION_TYPE, JavaEEQuickPeek.JEE_5_0_ID, JavaEEQuickPeek.JEE_5_0_ID);
+				JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(JavaEEQuickPeek.APPLICATION_TYPE, JavaEEQuickPeek.JEE_6_0_ID, JavaEEQuickPeek.JEE_6_0_ID);
 				archiveToJavaEEQuickPeek.put(simpleArchive, quickPeek);
 				wrapArchive(simpleArchive, new Path(J2EEConstants.APPLICATION_DD_URI));
 				return simpleArchive;
@@ -496,8 +537,7 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 				wrapArchive(simpleArchive, new Path(J2EEConstants.RAR_DD_URI));
 				return simpleArchive;
 			} else if (lastSegment.endsWith(IJ2EEModuleConstants.WAR_EXT)) {
-				//EE6TODO
-				JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(JavaEEQuickPeek.WEB_TYPE, JavaEEQuickPeek.WEB_2_5_ID, JavaEEQuickPeek.JEE_5_0_ID);
+				JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(JavaEEQuickPeek.WEB_TYPE, JavaEEQuickPeek.WEB_3_0_ID, JavaEEQuickPeek.JEE_6_0_ID);
 				archiveToJavaEEQuickPeek.put(simpleArchive, quickPeek);
 				wrapArchive(simpleArchive, new Path(J2EEConstants.WEBAPP_DD_URI));
 				return simpleArchive;
@@ -514,8 +554,7 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 							Attributes attributes = manifest.getMainAttributes();
 							String mainClassName = attributes.getValue("Main-Class"); //$NON-NLS-1$
 							if (mainClassName != null) {
-								//EE6TODO
-								JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(JavaEEQuickPeek.APPLICATION_CLIENT_TYPE, JavaEEQuickPeek.JEE_5_0_ID, JavaEEQuickPeek.JEE_5_0_ID);
+								JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(JavaEEQuickPeek.APPLICATION_CLIENT_TYPE, JavaEEQuickPeek.JEE_6_0_ID, JavaEEQuickPeek.JEE_6_0_ID);
 								archiveToJavaEEQuickPeek.put(simpleArchive, quickPeek);
 								wrapArchive(simpleArchive, new Path(J2EEConstants.APPLICATION_DD_URI));
 								return simpleArchive;
@@ -538,8 +577,7 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 				Object discriminateEJB30 = simpleArchive.getArchiveOptions().getOption(DISCRIMINATE_EJB_ANNOTATIONS);
 				if (null == discriminateEJB30 || ((Boolean) discriminateEJB30).booleanValue()) {
 					if (isEJBArchive(simpleArchive)) {
-						//EE6TODO
-						JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(JavaEEQuickPeek.EJB_TYPE, JavaEEQuickPeek.EJB_3_0_ID, JavaEEQuickPeek.JEE_5_0_ID);
+						JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(JavaEEQuickPeek.EJB_TYPE, JavaEEQuickPeek.EJB_3_1_ID, JavaEEQuickPeek.JEE_6_0_ID);
 						archiveToJavaEEQuickPeek.put(simpleArchive, quickPeek);
 						wrapArchive(simpleArchive, new Path(J2EEConstants.EJBJAR_DD_URI));
 						return simpleArchive;
