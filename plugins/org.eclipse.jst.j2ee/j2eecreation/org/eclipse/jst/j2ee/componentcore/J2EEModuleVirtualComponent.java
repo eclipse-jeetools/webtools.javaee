@@ -164,10 +164,24 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 		all.addAll(Arrays.asList(nonManifestRefs));
 		// retrieve the dynamic references specified via the MANIFEST.MF classpath
 		cacheManifestReferences();
-		all.addAll(Arrays.asList(parentEarManifestReferences));
+		ArrayList<IVirtualReference> dynamicRefs = new ArrayList<IVirtualReference>();
+		dynamicRefs.addAll(Arrays.asList(parentEarManifestReferences));
 		if (findFuzzyEARRefs)
-			all.addAll(Arrays.asList(fuzzyEarManifestReferences));
+			dynamicRefs.addAll(Arrays.asList(fuzzyEarManifestReferences));
 		
+		for (Iterator<IVirtualReference> iterator = dynamicRefs.iterator(); iterator.hasNext();) {
+			IVirtualReference reference = iterator.next();
+			IVirtualComponent dynamicComponent = reference.getReferencedComponent();
+			boolean shouldInclude = true;
+			for (int i = 0; i < hardReferences.length && shouldInclude ; i++) {
+				if (hardReferences[i].getReferencedComponent().equals(dynamicComponent)) {
+					shouldInclude = false;
+				}
+			}
+			if (shouldInclude) {
+				all.add(reference);
+			}
+		}
 		IVirtualReference[] refs = all.toArray(new IVirtualReference[all.size()]);
 		VirtualReferenceUtilities.INSTANCE.ensureReferencesHaveNames(refs);
 		
@@ -391,7 +405,6 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 			IVirtualComponent moduleComponent, IProject earProject,
 			String[] manifestClasspath, boolean[] foundRefAlready) {
 		ArrayList<IVirtualReference> dynamicReferences = new ArrayList<IVirtualReference>();
-		IVirtualReference[] hardRefs = getHardReferences(moduleComponent);
 
 		IVirtualReference foundRef = null;
 		String earArchiveURI = null; // The URI for this archive in the EAR
@@ -445,27 +458,10 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 									foundRefAlready[manifestIndex] = true;
 								}
 								found = true;
-								boolean shouldInclude = true;
-								IVirtualComponent dynamicComponent = earRefs[j]
-										.getReferencedComponent();
-								if (null != hardRefs) {
-									for (int k = 0; k < hardRefs.length
-											&& shouldInclude; k++) {
-										if (hardRefs[k].getReferencedComponent()
-												.equals(dynamicComponent)) {
-											shouldInclude = false;
-
-										}
-									}
-								}
-								if (shouldInclude) {
-									IVirtualReference dynamicReference = ComponentCore
-											.createReference(moduleComponent,
-													dynamicComponent);
-									((VirtualReference) dynamicReference)
-											.setDerived(true);
-									dynamicReferences.add(dynamicReference);
-								}
+								IVirtualComponent dynamicComponent = earRefs[j].getReferencedComponent();
+								IVirtualReference dynamicReference = ComponentCore.createReference(moduleComponent,dynamicComponent);
+								((VirtualReference) dynamicReference).setDerived(true);
+								dynamicReferences.add(dynamicReference);
 							}
 						}
 					}
