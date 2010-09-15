@@ -31,6 +31,7 @@ the META-INF directory. Consequently, the web fragment project is
 essentially a Utility project, with the addition of a web fragment
 facet to it. The web fragment facet enables you to add relevant context-sensitive
 functionality to the fragment project.</p></prereq>
+<context>The stage needs to be set just so.</context>
 <steps>
 <step><cmd>In the <tm tmtype="tm" trademark="Java">Java</tm> EE perspective,
 select <menucascade><uicontrol>File</uicontrol><uicontrol>New</uicontrol>
