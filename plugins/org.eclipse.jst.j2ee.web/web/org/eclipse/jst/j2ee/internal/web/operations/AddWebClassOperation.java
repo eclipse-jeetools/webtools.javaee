@@ -70,7 +70,7 @@ public abstract class AddWebClassOperation extends AddJavaEEArtifactOperation {
 			qualifiedClassName = createClass();
 
 		// If the filter is not annotated, generate the filter metadata for the DD
-		if (!model.getBooleanProperty(USE_ANNOTATIONS) && model.getBooleanProperty(REGISTER_IN_WEB_XML))
+		if (useExisting || (!model.getBooleanProperty(USE_ANNOTATIONS) && model.getBooleanProperty(REGISTER_IN_WEB_XML)))
 		{
 			if (model.getBooleanProperty(GENERATE_DD))
 			{
