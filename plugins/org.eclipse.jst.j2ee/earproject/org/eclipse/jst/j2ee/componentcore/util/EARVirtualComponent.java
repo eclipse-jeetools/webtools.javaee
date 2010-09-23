@@ -161,20 +161,19 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 			for (int i = 0; i < members.length; i++) {
 				if (IVirtualResource.FILE == members[i].getType()) {
 					if(folder.isDynamicComponent((IVirtualFile)members[i])){
-						IPath archiveFullPath = new Path(members[i].getRuntimePath().toString());
+						String archiveName = members[i].getRuntimePath().toString().substring(1);
 						boolean shouldInclude = true;
 						for (int j = 0; j < hardReferences.size() && shouldInclude; j++) {
-							IVirtualReference tmpRef = ((IVirtualReference) hardReferences.get(j));
-							IPath tmpFullPath = tmpRef.getRuntimePath().append(tmpRef.getArchiveName());
-							if( tmpFullPath.equals(archiveFullPath))
+							String tempArchiveName = ((IVirtualReference) hardReferences.get(j)).getArchiveName();
+							if (null != tempArchiveName && tempArchiveName.equals(archiveName)) {
 								shouldInclude = false;
+							}
 						}
 						if (shouldInclude) {
 							IResource iResource = members[i].getUnderlyingResource();
 							IVirtualComponent dynamicComponent = ComponentCore.createArchiveComponent(earComponent.getProject(), VirtualArchiveComponent.LIBARCHIVETYPE + iResource.getFullPath().toString());
 							IVirtualReference dynamicRef = ComponentCore.createReference(earComponent, dynamicComponent);
-							dynamicRef.setArchiveName(archiveFullPath.lastSegment());
-							dynamicRef.setRuntimePath(archiveFullPath.removeLastSegments(1));
+							dynamicRef.setArchiveName(archiveName);
 							if (null == dynamicReferences) {
 								dynamicReferences = new ArrayList();
 							}
