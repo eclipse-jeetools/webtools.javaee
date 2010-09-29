@@ -21,6 +21,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathAttribute;
 import org.eclipse.jdt.core.IClasspathEntry;
@@ -295,6 +296,16 @@ public class J2EEModuleDependenciesPropertyPage extends
 		{
 			super.handleAddDirective(wizard);
 		}
+	}
+	
+	@Override
+	protected void verify() {
+		ArrayList<ComponentResourceProxy> allMappings = new ArrayList<ComponentResourceProxy>();
+		allMappings.addAll(resourceMappings);
+		allMappings.addAll(hiddenMappings);
+		
+		IStatus status = J2EEModuleDeploymentAssemblyVerifierHelper.verify(rootComponent, runtime, currentReferences, allMappings,resourceMappingsChanged, currentClasspathEntries);
+		setErrorMessage(status);
 	}
 
 //	
