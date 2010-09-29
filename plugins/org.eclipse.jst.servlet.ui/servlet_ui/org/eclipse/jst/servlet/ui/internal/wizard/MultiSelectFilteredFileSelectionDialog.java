@@ -57,6 +57,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.dialogs.ISelectionStatusValidator;
+import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.part.PageBook;
 
 /**
@@ -124,6 +125,7 @@ public class MultiSelectFilteredFileSelectionDialog extends
 	private String[] fRenderedStrings;
 	private int[] fElementMap;
 	private Integer[] fQualifierMap;
+	private Object fInput;
 
 	private ISelectionStatusValidator fLocalValidator = null;
 	/**
@@ -140,12 +142,10 @@ public class MultiSelectFilteredFileSelectionDialog extends
 
 		if (title == null)
 			setTitle(WebAppEditResourceHandler.getString("File_Selection_UI_")); //$NON-NLS-1$
-		String innerMessage = message;
-		if (innerMessage == null)
-			innerMessage = WebAppEditResourceHandler.getString("Select_a_file__UI_"); //$NON-NLS-1$
-		setMessage(innerMessage);
-		setExtensions(extensions);
-		addFilter(new TypedFileViewerFilter(extensions));
+		if (message == null)
+		{
+			setMessage(WebAppEditResourceHandler.getString("Select_a_file__UI_")); //$NON-NLS-1$
+		}
 		fLocalValidator = new SimpleTypedElementSelectionValidator(new Class[] { IFile.class }, allowMultiple);
 		setValidator(fLocalValidator);
 		
@@ -174,17 +174,15 @@ public class MultiSelectFilteredFileSelectionDialog extends
 				IJavaProject jp = jelem.getJavaProject();
 	
 				IType servletType = jp.findType(QUALIFIED_SERVLET);
-				// next 3 lines fix defect 177686
-				if (servletType == null) {
-					return;
-				}
-	
 				ArrayList servletClasses = new ArrayList();
-				ITypeHierarchy tH = servletType.newTypeHierarchy(jp, null);
-				IType[] types = tH.getAllSubtypes(servletType);
-				for (int i = 0; i < types.length; i++) {
-					if (types[i].isClass() && !servletClasses.contains(types[i]))
-						servletClasses.add(types[i]);
+				if (servletType != null)
+				{
+					ITypeHierarchy tH = servletType.newTypeHierarchy(jp, null);
+					IType[] types = tH.getAllSubtypes(servletType);
+					for (int i = 0; i < types.length; i++) {
+						if (types[i].isClass() && !servletClasses.contains(types[i]))
+							servletClasses.add(types[i]);
+					}
 				}
 				fIT = (IType[]) servletClasses.toArray(new IType[servletClasses.size()]);
 				servletClasses = null;
@@ -506,10 +504,13 @@ public class MultiSelectFilteredFileSelectionDialog extends
 	public int open() {
 
 		if (fIT == null || fIT.length == 0) {
-			MessageDialog.openInformation(getShell(), WebAppEditResourceHandler.getString("Empty_List_1"), WebAppEditResourceHandler.getString("_INFO_No_servlets_exist_to_add._1"));  //$NON-NLS-2$ //$NON-NLS-1$
-			return CANCEL;
+			if (!hasJSPs())
+			{
+				MessageDialog.openInformation(getShell(), WebAppEditResourceHandler.getString("Empty_List_1"), WebAppEditResourceHandler.getString("_INFO_No_servlets_exist_to_add._1"));  //$NON-NLS-2$ //$NON-NLS-1$
+				return CANCEL;
+			}
+			fSelection = JSP;
 		}
-
 		setElements(fIT);
 		setInitialSelection(""); //$NON-NLS-1$
 		return super.open();
@@ -668,4 +669,23 @@ public class MultiSelectFilteredFileSelectionDialog extends
 			okButton.setEnabled(fLocalValidator.validate(getResult()).isOK());
 	}
 
+	private boolean hasJSPs() {
+		WorkbenchContentProvider workbenchContentProvider = new WorkbenchContentProvider();
+        Object[] elements = workbenchContentProvider.getElements(fInput);
+        if (elements.length > 0) {
+        	TypedFileViewerFilter viewerFilter = new TypedFileViewerFilter(getExtensions());
+        	elements = viewerFilter.filter(getTreeViewer(), fInput, elements);
+        }
+        return elements.length != 0;
+    }
+
+	/**
+     * Sets the tree input.
+     * @param input the tree input.
+     */
+    @Override
+	public void setInput(Object input) {
+        fInput = input;
+        super.setInput(input);
+    }
 }
