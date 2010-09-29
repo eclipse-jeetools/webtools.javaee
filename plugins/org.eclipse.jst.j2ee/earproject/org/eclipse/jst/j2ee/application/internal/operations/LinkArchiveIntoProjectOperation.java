@@ -14,18 +14,24 @@ import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.osgi.util.NLS;
+import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 public class LinkArchiveIntoProjectOperation extends J2EEUtilityJarImportAssistantOperation {
 
@@ -45,7 +51,27 @@ public class LinkArchiveIntoProjectOperation extends J2EEUtilityJarImportAssista
 		IProject project = getWorkspaceRoot().getProject(getAssociatedEARProjectName());
 
 		try {
-			IFile linkedJarFile = project.getFile(getUtilityJar().getName());
+			IVirtualComponent earComponent = ComponentCore.createComponent(project);
+			IContainer underlyingFolder = earComponent.getRootFolder().getUnderlyingFolder();
+			String uriMapping = getUtilityJar().getName();
+			String earLib = EarUtilities.getEARLibDir(earComponent);
+			IFolder libDirFolder = null;
+ 			if(earLib != null && earLib.length() > 0) {
+ 				uriMapping = (new Path(earLib)).append(uriMapping).toString();
+ 				if(underlyingFolder.isAccessible()) {
+ 					libDirFolder = getWorkspaceRoot().getFolder(underlyingFolder.getFullPath().append(earLib));
+ 				} else {
+ 					libDirFolder = getWorkspaceRoot().getFolder(project.getFullPath().append(earLib));
+ 				}
+ 			}
+ 			
+ 			IFile linkedJarFile = null;
+ 			if(underlyingFolder.isAccessible()) {				
+				linkedJarFile = underlyingFolder.getFile(new Path(uriMapping));
+			} else {
+				linkedJarFile = project.getFile(uriMapping);
+			}
+ 			
 			if (linkedJarFile.exists()) {
 				if (isOverwriteIfNecessary())
 					linkedJarFile.delete(true, true, new SubProgressMonitor(monitor, 1));
@@ -54,11 +80,17 @@ public class LinkArchiveIntoProjectOperation extends J2EEUtilityJarImportAssista
 					return status;
 				}
 			}
-			status.add(createLinkedArchive(project, getUtilityJar().getName(), getUtilityJar(), linkedPathVariable, monitor));
+ 			
+ 			// Create EAR's library directory folder if it doesn't exist
+ 			if(libDirFolder != null && (!libDirFolder.exists() || !libDirFolder.isAccessible())) {
+ 				mkdirs(libDirFolder);
+ 			}
+ 			
+			status.add(createLinkedArchive(project, linkedJarFile.getProjectRelativePath().toString(), getUtilityJar(), linkedPathVariable, monitor));
 
 			addLibraryToClasspath(project, linkedJarFile, monitor);
 			
-			createVirtualArchiveComponent(project, getUtilityJar().getName(), linkedJarFile, monitor);
+			createVirtualArchiveComponent(project, uriMapping, linkedJarFile, monitor);
 
 		} catch (CoreException e) {
 			status.add(J2EEPlugin.createErrorStatus(0, e.getMessage(), e));

@@ -20,7 +20,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
@@ -63,6 +62,7 @@ public class CreateProjectWithLinkedJarOperation extends J2EEUtilityJarImportAss
 				createUtilityProject.setProperty(IProjectCreationPropertiesNew.USER_DEFINED_LOCATION, projectRoot);
 			}
  			
+			createUtilityProject.setProperty(IJ2EEFacetProjectCreationDataModelProperties.ADD_TO_EAR, true);
 			createUtilityProject.setProperty(IJ2EEFacetProjectCreationDataModelProperties.EAR_PROJECT_NAME, getAssociatedEARProjectName());
 			
 			status.add(createUtilityProject.getDefaultOperation().execute(monitor, info));
@@ -81,13 +81,6 @@ public class CreateProjectWithLinkedJarOperation extends J2EEUtilityJarImportAss
 			IVirtualComponent utilComponent = ComponentCore.createComponent(project);
 			status.add(removeRootMapping(utilComponent, "/src", monitor)); //$NON-NLS-1$
 			
-			/* Create the /<archive> mapping */
-			status.add(createVirtualArchiveComponent(project, getUtilityJar().getName(), project.getFile(getUtilityJar().getName()), monitor));
-			 
-			/* Make this project a utility jar project for the EAR */
-			IProject associatedEARProject = getWorkspaceRoot().getProject(getAssociatedEARProjectName());			
-			status.add(linkArchiveToEAR(associatedEARProject, getUtilityJar().getName(), utilityJarProject, new SubProgressMonitor(monitor, 1)));
-
 		} catch (Exception e) {
 			status.add(J2EEPlugin.createErrorStatus(0, EARCreationResourceHandler.J2EEUtilityJarListImportOperation_UI_2, e));
 		}		 
