@@ -11,7 +11,6 @@
 package org.eclipse.jst.j2ee.application.internal.operations;
 
 import java.io.File;
-import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
@@ -66,17 +65,6 @@ public class CreateProjectWithExtractedJarOperation extends J2EEUtilityJarImport
 			importModel.setProperty(IJavaUtilityJarImportDataModelProperties.EAR_PROJECT_NAME, getAssociatedEARProjectName());
 
 			status.add(importModel.getDefaultOperation().execute(new SubProgressMonitor(monitor, 1), info)); 
-			
-			IProject associatedEARProject = getWorkspaceRoot().getProject(getAssociatedEARProjectName());
- 			IProject utilityJarProject = getWorkspaceRoot().getProject(newProjectName);
-			linkArchiveToEAR(associatedEARProject, getUtilityJar().getName(), utilityJarProject, new SubProgressMonitor(monitor, 1));
-			
-		} catch (InvocationTargetException e) {
-			status.add(J2EEPlugin.createErrorStatus(0, e.getMessage(), e));
-			J2EEPlugin.logError(0, e.getMessage(), e);
-		} catch (InterruptedException e) {
-			status.add(J2EEPlugin.createErrorStatus(0, e.getMessage(), e));
-			J2EEPlugin.logError(0, e.getMessage(), e);
 		} catch (CoreException e) {
 			status.add(J2EEPlugin.createErrorStatus(0, e.getMessage(), e));
 			J2EEPlugin.logError(0, e.getMessage(), e);
