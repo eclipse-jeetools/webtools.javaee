@@ -50,6 +50,8 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.ui.internal.taskwizard.IWizardHandle;
 import org.eclipse.wst.common.componentcore.ui.internal.taskwizard.WizardFragment;
 import org.eclipse.wst.common.componentcore.ui.propertypage.IReferenceWizardConstants;
@@ -136,6 +138,7 @@ public final class AddJavaBuildPathEntriesWizardFragment
     {
         final List<IClasspathEntry> list = new ArrayList<IClasspathEntry>();
         final IStructuredSelection selection = (IStructuredSelection) this.viewer.getSelection();
+        final IVirtualComponent virtualComponent = ComponentCore.createComponent(this.jproj.getProject());
         final boolean isWebApp = JavaEEProjectUtilities.isDynamicWebProject( this.jproj.getProject() );
         
         for( Iterator<?> itr = selection.iterator(); itr.hasNext(); )
@@ -145,7 +148,13 @@ public final class AddJavaBuildPathEntriesWizardFragment
             if( obj instanceof IClasspathEntry )
             {
                 final IClasspathEntry cpeOriginal = (IClasspathEntry) obj;
-                final IPath runtimePath = getDefaultRuntimePath( isWebApp, isClassFolderEntry( cpeOriginal ) );
+                
+                IPath runtimePath = null;
+                if(virtualComponent == null){
+                	runtimePath = getDefaultRuntimePath( isWebApp, isClassFolderEntry( cpeOriginal ) );
+                } else {
+                	runtimePath = getDefaultRuntimePath(virtualComponent, cpeOriginal);
+                }
                 final IClasspathEntry cpeTagged = modifyDependencyPath( cpeOriginal, runtimePath );
                 
                 list.add( cpeTagged );
