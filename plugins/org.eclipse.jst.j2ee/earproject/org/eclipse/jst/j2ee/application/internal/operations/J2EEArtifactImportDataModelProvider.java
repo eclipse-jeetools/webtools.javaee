@@ -375,33 +375,43 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 		}
 		int archiveType = jqp.getType();
 		String ddURI = null;
-		IProjectFacetVersion highestProjectFacetVersion = null;
-		int highestJQPVersion = JavaEEQuickPeek.UNKNOWN;
+		IProjectFacetVersion [] highestProjectFacetVersion = new IProjectFacetVersion [2];
+		int [] highestJQPVersion = new int[2];
+		int EE6 = 0;
+		int EE5 = 1;
 		switch(archiveType){
 		case JavaEEQuickPeek.APPLICATION_TYPE:
 			ddURI = J2EEConstants.APPLICATION_DD_URI;
-			highestProjectFacetVersion = IJ2EEFacetConstants.ENTERPRISE_APPLICATION_60;
-			highestJQPVersion = JavaEEQuickPeek.VERSION_6_0;
+			highestProjectFacetVersion[EE6] = IJ2EEFacetConstants.ENTERPRISE_APPLICATION_60;
+			highestProjectFacetVersion[EE5] = IJ2EEFacetConstants.ENTERPRISE_APPLICATION_50;
+			highestJQPVersion[EE6] = JavaEEQuickPeek.VERSION_6_0;
+			highestJQPVersion[EE5] = JavaEEQuickPeek.VERSION_5_0;
 			break;
 		case JavaEEQuickPeek.APPLICATION_CLIENT_TYPE:
 			ddURI = J2EEConstants.APP_CLIENT_DD_URI;
-			highestProjectFacetVersion = IJ2EEFacetConstants.APPLICATION_CLIENT_60;
-			highestJQPVersion = JavaEEQuickPeek.VERSION_6_0;
+			highestProjectFacetVersion[EE6] = IJ2EEFacetConstants.APPLICATION_CLIENT_60;
+			highestProjectFacetVersion[EE5] = IJ2EEFacetConstants.APPLICATION_CLIENT_50;
+			highestJQPVersion[EE6] = JavaEEQuickPeek.VERSION_6_0;
+			highestJQPVersion[EE5] = JavaEEQuickPeek.VERSION_5_0;
 			break;
 		case JavaEEQuickPeek.EJB_TYPE:
 			ddURI = J2EEConstants.EJBJAR_DD_URI;
-			highestProjectFacetVersion = IJ2EEFacetConstants.EJB_31;
-			highestJQPVersion = JavaEEQuickPeek.VERSION_3_1;
+			highestProjectFacetVersion[EE6] = IJ2EEFacetConstants.EJB_31;
+			highestProjectFacetVersion[EE5] = IJ2EEFacetConstants.EJB_30;
+			highestJQPVersion[EE6] = JavaEEQuickPeek.VERSION_3_1;
+			highestJQPVersion[EE5] = JavaEEQuickPeek.VERSION_3_0;
 			break;
 		case JavaEEQuickPeek.WEB_TYPE:
 			ddURI = J2EEConstants.WEBAPP_DD_URI;
-			highestProjectFacetVersion = IJ2EEFacetConstants.DYNAMIC_WEB_30;
-			highestJQPVersion = JavaEEQuickPeek.VERSION_3_0;
+			highestProjectFacetVersion[EE6] = IJ2EEFacetConstants.DYNAMIC_WEB_30;
+			highestProjectFacetVersion[EE5] = IJ2EEFacetConstants.DYNAMIC_WEB_25;
+			highestJQPVersion[EE6] = JavaEEQuickPeek.VERSION_3_0;
+			highestJQPVersion[EE5] = JavaEEQuickPeek.VERSION_2_5;
 			break;
 		case JavaEEQuickPeek.CONNECTOR_TYPE:
 			ddURI = J2EEConstants.RAR_DD_URI;
-			highestProjectFacetVersion = IJ2EEFacetConstants.JCA_16;
-			highestJQPVersion = JavaEEQuickPeek.VERSION_1_6;
+			highestProjectFacetVersion[EE6] = IJ2EEFacetConstants.JCA_16;
+			highestJQPVersion[EE6] = JavaEEQuickPeek.VERSION_1_6;
 			break;
 		default:
 			return jqp;
@@ -412,11 +422,11 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 		}
 		
 		IRuntime runtime = (IRuntime)getProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME);
-		if(runtime == null){
-			return new JavaEEQuickPeek(jqp.getType(), highestJQPVersion);
-		} else if(runtime.supports(highestProjectFacetVersion)){
-			return new JavaEEQuickPeek(jqp.getType(), highestJQPVersion);
-		} else {
+		if(archiveType == JavaEEQuickPeek.CONNECTOR_TYPE || runtime == null || runtime.supports(highestProjectFacetVersion[EE6]) ){
+			return new JavaEEQuickPeek(jqp.getType(), highestJQPVersion[EE6]);
+		} else if(runtime.supports(highestProjectFacetVersion[EE5])){
+			return new JavaEEQuickPeek(jqp.getType(), highestJQPVersion[EE5]);
+		} else{
 			return jqp;
 		}
 	}
