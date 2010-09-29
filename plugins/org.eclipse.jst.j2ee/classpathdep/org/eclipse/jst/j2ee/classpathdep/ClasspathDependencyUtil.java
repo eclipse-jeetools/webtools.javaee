@@ -544,6 +544,54 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 		return isClassFolder ? RUNTIME_MAPPING_INTO_COMPONENT_PATH : RUNTIME_MAPPING_INTO_CONTAINER_PATH;
 	}
 	
+	public static IPath getDefaultRuntimePath(final IVirtualComponent virtualComponent, IClasspathEntry entry){
+		boolean isClassFolderEntry = isClassFolderEntry(entry);
+		if(virtualComponent == null){
+			//null, use default
+			return getDefaultRuntimePath(false, isClassFolderEntry);
+		}
+		boolean isWebApp = JavaEEProjectUtilities.isDynamicWebComponent(virtualComponent);
+		if(isWebApp || isClassFolderEntry){
+			return getDefaultRuntimePath(isWebApp, isClassFolderEntry);
+		}
+
+		//not a WAR
+		//if part of EE5 or greature ear, map into the EAR's lib folder
+		IProject [] earProjects = EarUtilities.getReferencingEARProjects(virtualComponent.getProject());
+		if(earProjects.length > 0){
+			IVirtualComponent earComponent = ComponentCore.createComponent(earProjects[0]);
+			if(earComponent != null){
+				String libDir = EarUtilities.getEARLibDir(earComponent);
+				if(libDir != null){
+					IVirtualReference [] refs = earComponent.getReferences();
+					for(IVirtualReference ref : refs){
+						if(virtualComponent.equals(ref.getReferencedComponent())){
+							//find the specific reference to this component to locate its 
+							//relative path in the EAR to calculate the relative path from
+							//it to the EAR's lib folder.
+							IPath libDirPath = new Path(libDir).makeRelative();
+							IPath runtimePath = ref.getRuntimePath().makeRelative();
+							if(runtimePath.equals(libDirPath)){
+								return RUNTIME_MAPPING_INTO_CONTAINER_PATH;
+							}
+							
+							int segmentCount = runtimePath.segmentCount();
+							IPath defaultRuntimePath = RUNTIME_MAPPING_INTO_CONTAINER_PATH;
+							for(int i=0; i<segmentCount; i++){
+								defaultRuntimePath = defaultRuntimePath.append(RUNTIME_MAPPING_INTO_CONTAINER_PATH);
+							}
+							defaultRuntimePath = defaultRuntimePath.append(libDir);
+							return defaultRuntimePath;
+						}
+					}
+				}
+			}
+		}
+
+		return getDefaultRuntimePath(false, false);
+		
+	}
+	
 	/**
 	 * Retrieves the archive name for the specified classpath entry
 	 * @param entry The entry.
