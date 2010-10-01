@@ -129,9 +129,11 @@ public class ConnectorResourceImpl extends XMLResourceImpl implements ConnectorR
 		switch (id) {
 				case (JCA_1_6_ID) :
 					super.setDoctypeValues(null, null);
+					primSetVersionID(JCA_1_6_ID);
 					break;
 				case (JCA_1_5_ID) :
 					super.setDoctypeValues(null, null);
+					primSetVersionID(JCA_1_5_ID);
 					break;
 				case (JCA_1_0_ID) :
 					super.setDoctypeValues(getJ2EE_1_3_PublicID(), getJ2EE_1_3_SystemID());
@@ -147,6 +149,10 @@ public class ConnectorResourceImpl extends XMLResourceImpl implements ConnectorR
 			case(JEE_6_0_ID) :
 					primSetDoctypeValues(null, null);
 					primSetVersionID(JCA_1_6_ID);
+					break;
+			case(JEE_5_0_ID) :
+					primSetDoctypeValues(null, null);
+					primSetVersionID(JCA_1_5_ID);
 					break;
 			case (J2EE_1_4_ID) :
 						primSetDoctypeValues(null, null);
