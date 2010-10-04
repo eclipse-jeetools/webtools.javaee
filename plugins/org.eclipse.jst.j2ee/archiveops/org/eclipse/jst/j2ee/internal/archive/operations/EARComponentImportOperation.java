@@ -121,6 +121,9 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 			Map componentToURIMapAsModules = new HashMap();
 			List componentToAddAsComponents = new ArrayList();
 			Map componentToURIMapAsComponents = new HashMap();
+			Map moduleDeployPathMap = new HashMap();
+			Map componentDeployPathMap = new HashMap();
+			
 			
 			for (int i = 0; i < modelsToImport.size(); i++) {
 				importModel = (IDataModel) modelsToImport.get(i);
@@ -144,12 +147,17 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 				}
 				IVirtualComponent component = (IVirtualComponent) importModel.getProperty(IJ2EEComponentImportDataModelProperties.COMPONENT);
 				String uri = nestedArchive.getPath().toString();
+				String archiveName = nestedArchive.getPath().lastSegment().toString();
+				String deployPath = nestedArchive.getPath().removeLastSegments(1).makeAbsolute().toString();
+				
 				if(ddSpecifiedURIs.contains(uri)){
 					componentToAddAsModules.add(component);
-					componentToURIMapAsModules.put(component, uri);
+					componentToURIMapAsModules.put(component, archiveName);
+					moduleDeployPathMap.put(component, deployPath);
 				} else {
 					componentToAddAsComponents.add(component);
-					componentToURIMapAsComponents.put(component, uri);
+					componentToURIMapAsComponents.put(component, archiveName);
+					componentDeployPathMap.put(component, deployPath);
 				}
 			}
 			
@@ -161,6 +169,7 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 				addComponentsDM.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, virtualComponent);
 				addComponentsDM.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, componentToAddAsModules);
 				addComponentsDM.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP, componentToURIMapAsModules);
+				addComponentsDM.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_DEPLOY_PATH_MAP, moduleDeployPathMap);
 				addComponentsDM.getDefaultOperation().execute(new SubProgressMonitor(monitor, LINK_COMPONENTS_WORK/2), info);
 			}
 			if (componentToAddAsComponents.size() > 0){
@@ -170,6 +179,7 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 				addComponentsDM.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, virtualComponent);
 				addComponentsDM.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, componentToAddAsComponents);
 				addComponentsDM.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP, componentToURIMapAsComponents);
+				addComponentsDM.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_DEPLOY_PATH_MAP, componentDeployPathMap);
 				addComponentsDM.getDefaultOperation().execute(new SubProgressMonitor(monitor, LINK_COMPONENTS_WORK/2), info);
 			}
 		
