@@ -333,8 +333,7 @@ public class WebDeployableArtifactUtil {
 			if (servlets != null && !servlets.isEmpty()) {
 				for (int i = 0; i < servlets.size(); i++) {
 					org.eclipse.jst.javaee.web.Servlet servlet = (org.eclipse.jst.javaee.web.Servlet)servlets.get(i);
-					if( servlet.getServletClass().equals(typeName)){
-				
+					if (servlet.getServletClass() != null && servlet.getServletClass().equals(typeName)) {
 						java.util.List mappings = webApp.getServletMappings();
 						if (mappings != null && !mappings.isEmpty()) {
 							Iterator it = mappings.iterator();
@@ -364,6 +363,9 @@ public class WebDeployableArtifactUtil {
 	}
 
 	private static List getServletMappings(IResource resource, String typeName){ 
+		if (typeName == null || typeName.equals("")) //$NON-NLS-1$
+			return null;
+		
 		IModelProvider provider = ModelProviderManager.getModelProvider( resource.getProject() );
 		IWebCommon webApp = (IWebCommon)provider.getModelObject();
 		
