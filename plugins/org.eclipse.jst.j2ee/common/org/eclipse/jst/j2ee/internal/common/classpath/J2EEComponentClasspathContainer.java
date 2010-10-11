@@ -314,7 +314,9 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 				// retrieve the EAR's library directory 
 				String libDir = EarUtilities.getEARLibDir(earComp);
 				// if the EAR version is lower than 5, then the library directory will be null
-				if (libDir != null) {
+				// or if it is the empty string, do nothing.
+				if (libDir != null && libDir.trim().length() != 0) {
+					IPath libDirPath = new Path(libDir).makeRelative();
 					// check if the component itself is not in the library directory of this EAR - avoid cycles in the build patch
 					IVirtualReference ref = earComp.getReference(component.getName());
 					if(ref != null){
@@ -328,16 +330,18 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 								refPath = refPath.removeLastSegments(1);
 							}
 						}
-						if (!libDir.equals(refPath.toString())) {
+						refPath = refPath.makeRelative();
+						if (!libDirPath.equals(refPath)) {
 							// retrieve the referenced components from the EAR
 							IVirtualReference[] earRefs = earComp.getReferences();
 							for (IVirtualReference earRef : earRefs) {
 								if(earRef.getDependencyType() == IVirtualReference.DEPENDENCY_TYPE_USES){
 									// check if the referenced component is in the library directory
-									boolean isInLibDir = libDir.equals(earRef.getRuntimePath().toString());
+									IPath runtimePath = earRef.getRuntimePath().makeRelative();
+									boolean isInLibDir = libDirPath.equals(runtimePath);
 									if(!isInLibDir){
 										IPath fullPath = earRef.getRuntimePath().append(earRef.getArchiveName());
-										isInLibDir = fullPath.removeLastSegments(1).toString().equals(libDir);
+										isInLibDir = fullPath.removeLastSegments(1).makeRelative().equals(libDirPath);
 									}
 									if (isInLibDir) {
 										libRefs.add(earRef);
@@ -348,7 +352,6 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 						//add EAR classpath container refs
 						try {
 							ClasspathLibraryExpander classpathLibExpander = new ClasspathLibraryExpander(earComp);
-							IPath libDirPath = new Path(libDir);
 							IFlatResource flatLibResource = classpathLibExpander.fetchResource(libDirPath);
 							if(flatLibResource instanceof IFlatFolder){
 								IFlatFolder flatLibFolder = (IFlatFolder)flatLibResource;
