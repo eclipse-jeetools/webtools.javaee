@@ -22,6 +22,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
@@ -312,6 +313,8 @@ public class ManifestUtilities {
 		}
 	}
 
+	private static ConcurrentHashMap<String, String> manifestClasspaths = new ConcurrentHashMap<String, String>();
+
 	/**
 	 * Generates new MANIFEST.MF with a dynamically updated classpath that is written to the specified
 	 * output stream.
@@ -409,10 +412,19 @@ public class ManifestUtilities {
         	}
         	// Else, without an output stream, conditionally update the specified file
         	else {
-            	manifest.setClassPath(cp);
-            	outputStream = new FileOutputStream(outputFile);
-            	manifest.write(outputStream);
-            	outputStream.flush();
+        		// To avoid making the internally generated manifest file appear to projects
+        		// as a perpetually modified resource, check if the file needs to change.
+        		// This checking helps with the usefulness of "delta" deployment with
+        		// utility projects.
+            	String manifestPath = manifestFile.getFullPath().toString();
+            	String priorClasspath = manifestClasspaths.get(manifestPath);
+            	if (priorClasspath == null || !priorClasspath.equals(cp) || !outputFile.exists()) {
+                	manifestClasspaths.put(manifestPath, cp);
+                	manifest.setClassPath(cp);
+                	outputStream = new FileOutputStream(outputFile);
+                	manifest.write(outputStream);
+                	outputStream.flush();
+            	}
         	}
         } finally {
         	if (outputStream != null) {
