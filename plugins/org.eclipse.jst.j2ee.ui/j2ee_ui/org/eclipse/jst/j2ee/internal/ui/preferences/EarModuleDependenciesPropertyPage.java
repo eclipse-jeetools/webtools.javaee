@@ -17,9 +17,12 @@ import java.util.List;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.fieldassist.ControlDecoration;
+import org.eclipse.jface.fieldassist.FieldDecorationRegistry;
 import org.eclipse.jst.j2ee.application.internal.operations.AddReferenceToEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.RemoveReferenceFromEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
@@ -29,11 +32,10 @@ import org.eclipse.jst.j2ee.internal.componentcore.JavaEEModuleHandler;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
-import org.eclipse.jst.j2ee.internal.ui.JavaEEComponentDependencyContentProvider;
 import org.eclipse.jst.j2ee.internal.ui.J2EEModuleDependenciesPropertyPage.ClasspathEntryProxy;
+import org.eclipse.jst.j2ee.internal.ui.JavaEEComponentDependencyContentProvider;
 import org.eclipse.jst.j2ee.model.IEARModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
-import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.jst.jee.project.facet.EarCreateDeploymentFilesDataModelProvider;
@@ -68,6 +70,10 @@ public class EarModuleDependenciesPropertyPage extends
 		AddModuleDependenciesPropertiesPage {
 	private String libDir = null;
 	private Text libDirText;
+	private ControlDecoration libDirTextErrorDecoration = null;
+	private static String earDefaultLirDir = new Path(J2EEConstants.EAR_DEFAULT_LIB_DIR).makeRelative().toString();
+	boolean previousLibDirIsValid = true;
+	
 	public EarModuleDependenciesPropertyPage(IProject project,
 			ModuleAssemblyRootPage page) {
 		super(project, page);
@@ -84,7 +90,17 @@ public class EarModuleDependenciesPropertyPage extends
 	}
 
 	private String loadLibDirString() {
-		return EarUtilities.getEARLibDir(rootComponent);
+		String oldLibDir = null;
+		if(JavaEEProjectUtilities.isJEEComponent(rootComponent, JavaEEProjectUtilities.DD_VERSION) && JavaEEProjectUtilities.isJEEComponent(rootComponent, JavaEEProjectUtilities.FACET_VERSION)) {
+			final IEARModelProvider earModel = (IEARModelProvider)ModelProviderManager.getModelProvider(project);
+			Application app = (Application)earModel.getModelObject();
+			if(app != null)
+				oldLibDir = app.getLibraryDirectory();
+		}
+		if(oldLibDir != null) {
+			return oldLibDir;
+		}
+		return earDefaultLirDir;
 	}
 	
 	protected void addLibDirComposite(Composite parent) {
@@ -102,8 +118,11 @@ public class EarModuleDependenciesPropertyPage extends
 			l.setText(Messages.EarModuleDependenciesPropertyPage_LIBDIR);
 			libDirText = new Text(c, SWT.BORDER);
 			GridData gd = new GridData(GridData.FILL_HORIZONTAL);
-			libDirText.setLayoutData(gd);
+			gd.horizontalIndent = FieldDecorationRegistry.getDefault().getMaximumDecorationWidth();
 			libDirText.setText(libDir);
+			libDirText.setLayoutData(gd);			
+			libDirTextErrorDecoration = new ControlDecoration(libDirText, SWT.TOP | SWT.LEAD);
+			libDirTextErrorDecoration.hide();
 			libDirText.addModifyListener(new ModifyListener() {
 				public void modifyText(ModifyEvent e) {
 					libDirTextModified();
@@ -113,6 +132,34 @@ public class EarModuleDependenciesPropertyPage extends
 	
 	protected void libDirTextModified() {
 		libDir = libDirText.getText();
+		validatelibDirText();
+	}
+	
+	protected void validatelibDirText() {
+		if(libDirTextErrorDecoration != null) {			
+			if(!isValidLibDir(libDir)) {
+				libDirTextErrorDecoration.setImage(FieldDecorationRegistry.getDefault().getFieldDecoration(FieldDecorationRegistry.DEC_ERROR).getImage());
+				libDirTextErrorDecoration.setDescriptionText(Messages.EarModuleDependenciesPropertyPage_ERROR_INVALID_LIBDIR);
+				libDirTextErrorDecoration.show();
+				propPage.setValid(false);
+				propPage.setMessage(Messages.EarModuleDependenciesPropertyPage_ERROR_HOVER_FOR_DETAILS,IStatus.ERROR);
+				propPage.setErrorMessage(Messages.EarModuleDependenciesPropertyPage_ERROR_HOVER_FOR_DETAILS);
+				previousLibDirIsValid = false;
+			} else if(!previousLibDirIsValid){
+				previousLibDirIsValid = true;
+				libDirTextErrorDecoration.setImage(null);
+				libDirTextErrorDecoration.setDescriptionText(null);
+				libDirTextErrorDecoration.hide();
+				super.verify();
+			}
+		}
+	}
+	
+	private boolean isValidLibDir(String libraryDirectory) {
+		if(libraryDirectory != null && libraryDirectory.length() > 0 && libraryDirectory.trim().startsWith("/")) { //$NON-NLS-1$
+			return false;
+		}
+		return true;
 	}
 
 	protected IDataModelOperation generateEARDDOperation() {
@@ -200,7 +247,7 @@ public class EarModuleDependenciesPropertyPage extends
 	}
 	
 	private void updateLibDir() {
-		if (!libDir.equals(J2EEConstants.EAR_DEFAULT_LIB_DIR)) {
+		if (!libDir.equals(earDefaultLirDir)) {
 			IVirtualFile vFile = rootComponent.getRootFolder().getFile(new Path(J2EEConstants.APPLICATION_DD_URI));
 			if (!vFile.exists()) {
 				if (!MessageDialog.openQuestion(null, 
@@ -214,7 +261,7 @@ public class EarModuleDependenciesPropertyPage extends
 		final IEARModelProvider earModel = (IEARModelProvider)ModelProviderManager.getModelProvider(project);
 		Application app = (Application)earModel.getModelObject();
 		String oldLibDir = app.getLibraryDirectory();
-		if (libDir.equals(J2EEConstants.EAR_DEFAULT_LIB_DIR)) {
+		if (libDir.equals(earDefaultLirDir)) {
 			if(oldLibDir != null) {
 				earModel.modify(new Runnable() {
 					public void run() {		
@@ -264,4 +311,16 @@ public class EarModuleDependenciesPropertyPage extends
 		return super.canRemove(selectedObject) && !(selectedObject instanceof JavaEEComponentDependencyContentProvider.ConsumedClasspathEntryProxy);
 	}
 	
+	@Override
+	protected void verify() {
+		super.verify();
+		validatelibDirText();
+	}
+	
+	@Override
+	public void performDefaults() {
+		libDir = loadLibDirString();
+		libDirText.setText(libDir);
+		super.performDefaults();
+	}
 }

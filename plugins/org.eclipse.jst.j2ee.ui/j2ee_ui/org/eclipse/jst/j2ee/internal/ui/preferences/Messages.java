@@ -9,6 +9,8 @@ public class Messages extends NLS {
 	public static String EarModuleDependenciesPropertyPage_2;
 	public static String EarModuleDependenciesPropertyPage_3;
 	public static String EarModuleDependenciesPropertyPage_LIBDIR;
+	public static String EarModuleDependenciesPropertyPage_ERROR_INVALID_LIBDIR;
+	public static String EarModuleDependenciesPropertyPage_ERROR_HOVER_FOR_DETAILS;
 	public static String EarModuleDependencyPageProvider_0;
 	public static String WebDependencyPropertyPage_0;
 	public static String WebDependencyPropertyPage_1;
