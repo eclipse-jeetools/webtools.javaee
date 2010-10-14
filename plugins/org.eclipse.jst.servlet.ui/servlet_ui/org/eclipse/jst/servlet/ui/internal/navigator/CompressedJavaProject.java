@@ -30,7 +30,6 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jst.servlet.ui.internal.plugin.ServletUIPlugin;
 import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
-import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.graphics.Image;
 
 public class CompressedJavaProject implements ICompressedNode, IAdaptable { 
@@ -60,12 +59,7 @@ public class CompressedJavaProject implements ICompressedNode, IAdaptable {
 	}
 
 	private String determineLabel() {
-		List nonextSourceFolders = getNonExternalSourceFolders();
-		IPackageFragmentRoot singleRoot = null;
-		if (nonextSourceFolders.size() == 1) {
-			singleRoot = (IPackageFragmentRoot) nonextSourceFolders.get(0);
-		}
-		return NLS.bind(WEBUIMessages.Compressed_JavaResources, ((singleRoot != null) ? ": " + singleRoot.getElementName() : "")); //$NON-NLS-1$ //$NON-NLS-2$
+		return WEBUIMessages.Compressed_JavaResources;
 	}
 
 	public IProject getProject() {
@@ -75,11 +69,6 @@ public class CompressedJavaProject implements ICompressedNode, IAdaptable {
 	public Object[] getChildren(ITreeContentProvider delegateContentProvider) {
 		
 		List nonExternalSourceFolders = getNonExternalSourceFolders();
-		if (nonExternalSourceFolders.size() == 1) {
-			Object[] sourceFolderChildren = delegateContentProvider.getChildren(nonExternalSourceFolders.get(0));
-			nonExternalSourceFolders.clear();
-			nonExternalSourceFolders.addAll(Arrays.asList(sourceFolderChildren));
-		} 
 		nonExternalSourceFolders.add(getCompressedJavaLibraries());
 		return nonExternalSourceFolders.toArray();
 	}
