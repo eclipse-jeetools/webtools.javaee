@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<connector id="Connector_ID" version="1.6" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/connector_1_6.xsd"> 
-	<description></description>
-	<vendor-name></vendor-name>
-  	<eis-type></eis-type>
-  	<resourceadapter-version></resourceadapter-version>                                  
-  	<resourceadapter>
-  	</resourceadapter>
-</connector>
