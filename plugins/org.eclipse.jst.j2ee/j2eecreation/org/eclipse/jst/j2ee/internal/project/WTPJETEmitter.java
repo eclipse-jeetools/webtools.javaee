@@ -463,7 +463,7 @@ public class WTPJETEmitter extends JETEmitter {
 		ManifestElement[] elements = null;
 		Bundle bundle = Platform.getBundle(pluginId);
 		try {
-			String requires = (String) bundle.getHeaders().get(Constants.BUNDLE_CLASSPATH);
+			String requires = bundle.getHeaders().get(Constants.BUNDLE_CLASSPATH);
 			elements = ManifestElement.parseHeader(Constants.BUNDLE_CLASSPATH, requires);
 		} catch (Exception e) {
 			J2EEPlugin.logError(e);
