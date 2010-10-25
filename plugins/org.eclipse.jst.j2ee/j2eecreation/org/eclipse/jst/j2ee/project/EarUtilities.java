@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.application.Module;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
@@ -110,9 +111,9 @@ public class EarUtilities extends JavaEEProjectUtilities {
 		if (earLib == null)
 			return refs;
 		ArrayList<IVirtualReference> moduleRefs = new ArrayList<IVirtualReference>();
-		Path earLibPath = new Path(earLib);
+		IPath earLibPath = new Path(earLib).makeRelative();
 		for (int i = 0; i < refs.length; i++) {
-			if (!refs[i].getRuntimePath().equals(earLibPath)) {
+			if (earLibPath.isEmpty() || !refs[i].getRuntimePath().makeRelative().equals(earLibPath)) {
 				moduleRefs.add(refs[i]);
 			}
 		}
@@ -482,7 +483,7 @@ public class EarUtilities extends JavaEEProjectUtilities {
 
 		// default lib dir if there is no deployment descriptor
 		// or if the deployment descriptor does not override
-		String libDir = J2EEConstants.EAR_DEFAULT_LIB_DIR;
+		String libDir = new Path(J2EEConstants.EAR_DEFAULT_LIB_DIR).makeRelative().toString();
 
 		// retrieve the model provider
 		IModelProvider modelProvider = ModelProviderManager.getModelProvider(earProject);

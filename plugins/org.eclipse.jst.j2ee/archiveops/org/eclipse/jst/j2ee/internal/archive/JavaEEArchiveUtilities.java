@@ -915,14 +915,15 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 	
 
 	private boolean isInLibDir(IVirtualComponent earComp, IVirtualComponent component, String libDir){
-		if (libDir != null) {
+		if (libDir != null && libDir.length() > 0) {
 			IVirtualReference earRef = earComp.getReference(component.getName());
+			IPath libDirPath = new Path(libDir).makeRelative();
 			if(earRef != null){
-				if(libDir.equals(earRef.getRuntimePath().toString())){
+				if(libDirPath.equals(earRef.getRuntimePath().makeRelative())){
 					return true;
 				}
 				IPath fullPath = earRef.getRuntimePath().append(earRef.getArchiveName());
-				if(fullPath.removeLastSegments(1).toString().equals(libDir)){
+				if(fullPath.removeLastSegments(1).makeRelative().equals(libDirPath)){
 					return true;
 				}
 			}

@@ -28,6 +28,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
@@ -44,17 +45,15 @@ import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataMo
 import org.eclipse.jst.j2ee.application.internal.operations.UpdateManifestDataModelProvider;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveManifest;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
-import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.dialogs.DependencyConflictResolveDialog;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.provider.J2EEItemProvider;
-import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.navigator.internal.plugin.J2EENavigatorPlugin;
+import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.EARFacetUtils;
-import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.jst.jee.ui.internal.Messages;
 import org.eclipse.jst.jee.ui.internal.navigator.ear.AbstractEarNode;
 import org.eclipse.jst.jee.ui.internal.navigator.ear.BundledNode;
@@ -119,7 +118,10 @@ public class AddProjectToEARDropAssistant extends CommonDropAdapterAssistant {
 					 * directory check for conflicts with projects referenced by
 					 * the ear referencing the same lib
 					 */
-					if (libDir.length() > 0 && !libDir.equals(reference.getRuntimePath().toString())) {
+					IPath libDirPath = null;
+					if(libDir != null)
+						libDirPath = new Path(libDir).makeRelative();
+					if (libDir.length() > 0 && libDirPath != null && !libDirPath.equals(reference.getRuntimePath().makeRelative())) {
 						if (hasConflictingProjectInMetaInf(reference)) {
 							DependencyConflictResolveDialog dlg = new DependencyConflictResolveDialog(getShell(), DependencyConflictResolveDialog.DLG_TYPE_2);
 							if (dlg.open() == DependencyConflictResolveDialog.BTN_ID_CANCEL) {
@@ -216,10 +218,7 @@ public class AddProjectToEARDropAssistant extends CommonDropAdapterAssistant {
 				earComponent = ComponentCore.createComponent(earProject);
 				int earVersion = getEarVersion(earProject);
 				if (target instanceof BundledNode && ((BundledNode) target).getBundledLibsDirectoryNode() == null) {
-					libDir = ((Application) ModelProviderManager.getModelProvider(earProject).getModelObject()).getLibraryDirectory();
-					if (libDir == null) {
-						libDir = J2EEConstants.EAR_DEFAULT_LIB_DIR;
-					}
+					libDir = EarUtilities.getEARLibDir(earComponent);
 				}
 
 				IStatus status = null;
@@ -500,7 +499,10 @@ public class AddProjectToEARDropAssistant extends CommonDropAdapterAssistant {
 		datamodel.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earComponent);
 		datamodel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, components);
 		datamodel.setProperty(IAddComponentToEnterpriseApplicationDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP, componentToURIMap);
-		datamodel.setProperty(IAddComponentToEnterpriseApplicationDataModelProperties.TARGET_COMPONENTS_DEPLOY_PATH, libDir);
+		String libDirPath = libDir; 
+		if(libDir != null && libDir.length() > 0)
+			libDirPath = new Path(libDir).makeAbsolute().toString();
+		datamodel.setProperty(IAddComponentToEnterpriseApplicationDataModelProperties.TARGET_COMPONENTS_DEPLOY_PATH, libDirPath);
 		try {
 			return datamodel.getDefaultOperation().execute(new NullProgressMonitor(), null);
 		} catch (ExecutionException e) {
@@ -542,7 +544,7 @@ public class AddProjectToEARDropAssistant extends CommonDropAdapterAssistant {
 		model.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, sourceComponent);
 		model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, components);
 		if (libDir.length() > 0) {
-			model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_DEPLOY_PATH, libDir);
+			model.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_DEPLOY_PATH, new Path(libDir).makeAbsolute().toString());
 		}
 		try {
 			return model.getDefaultOperation().execute(null, null);
