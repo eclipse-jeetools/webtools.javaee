@@ -87,8 +87,8 @@ public class BundledNode extends AbstractEarNode {
 			
 			IPath runtimePath =  getRealRuntimePath(reference);
 
-			if (runtimePath != null && runtimePath.segment(0) != null && 
-					runtimePath.equals(libPath)) {
+			if (runtimePath != null && runtimePath.segment(0) != null && !libPath.makeRelative().isEmpty() &&
+					runtimePath.makeRelative().equals(libPath.makeRelative())) {
 				if (bundledLibsDirectoryNode == null){
 					modules.add(libs.get(i));
 				}

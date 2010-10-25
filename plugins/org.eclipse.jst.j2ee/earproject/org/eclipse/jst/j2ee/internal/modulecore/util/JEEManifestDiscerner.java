@@ -80,6 +80,9 @@ public class JEEManifestDiscerner implements IJavaComponentDiscerner {
 	 */
 	private IVirtualReference[] trimEarHardRefs(IVirtualComponent ear, IProject childProject, IVirtualReference[] hardRefs) {
 		String earLibDir = EarUtilities.getEARLibDir(ear);
+		IPath earLibDirPath = null;
+		if(earLibDir != null)
+			earLibDirPath = new Path(earLibDir).makeRelative();		
 		ArrayList<IVirtualReference> refs = new ArrayList<IVirtualReference>();
 		// We have to prune out self-references 
 		for( int i = 0; i < hardRefs.length; i++ ) {
@@ -88,7 +91,7 @@ public class JEEManifestDiscerner implements IJavaComponentDiscerner {
 					|| hardRefs[i].getDependencyType() == IVirtualReference.DEPENDENCY_TYPE_CONSUMES
 					|| !hardRefs[i].getReferencedComponent().getProject().equals(childProject))
 					&& hardRefs[i].getArchiveName().endsWith("jar")) { //$NON-NLS-1$ // Only jar's are legal in MANIFEST
-				if(earLibDir == null || !hardRefs[i].getRuntimePath().equals(new Path(earLibDir))) {// Jars in the EAR's library directory should not be added to the MANIFEST for EE5/EE6
+				if(earLibDirPath == null || earLibDirPath.isEmpty() || !hardRefs[i].getRuntimePath().makeRelative().equals(earLibDirPath)) {// Jars in the EAR's library directory should not be added to the MANIFEST for EE5/EE6
 					refs.add(hardRefs[i]);
 				}
 			}

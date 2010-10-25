@@ -144,7 +144,10 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 												if(name != null && !deployPath.equals("/")) //$NON-NLS-1$
 													name = (new Path(deployPath)).append(name).toString();
 												String libDir = EarUtilities.getEARLibDir(ear);
-												if(libDir != null && deployPath.equals(libDir)) { // Do not consider library directory files as modules
+												IPath libDirPath = null;
+												if(libDir != null)
+													libDirPath = new Path(libDir).makeRelative();
+												if(libDirPath != null && !libDirPath.isEmpty() && new Path(deployPath).makeRelative().equals(libDirPath)) { // Do not consider library directory files as modules
 													return;
 												}
 											}
@@ -349,8 +352,10 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 			if (JavaEEProjectUtilities.isJEEComponent(ear, JavaEEProjectUtilities.DD_VERSION)){
 				String deployPath = model.getStringProperty(IAddComponentToEnterpriseApplicationDataModelProperties.TARGET_COMPONENTS_DEPLOY_PATH);
 				String libDir = EarUtilities.getEARLibDir(ear);
-				
-				if(libDir != null && libDir.equals(deployPath)) {
+				IPath libDirPath = null;
+				if(libDir != null)
+					libDirPath = new Path(libDir).makeRelative();				
+				if(libDirPath != null && deployPath != null && !libDirPath.isEmpty() && libDirPath.equals(new Path(deployPath).makeRelative())) {
 					// the component added is in the library directory of an EAR 5+ project
 					// we should trigger force update of the classpath of all module in the EAR
 					IVirtualReference[] refs = ear.getReferences();

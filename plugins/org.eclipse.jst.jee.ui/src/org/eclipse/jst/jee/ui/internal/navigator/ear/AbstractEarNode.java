@@ -63,6 +63,10 @@ public abstract class AbstractEarNode {
 		List components = new ArrayList();
 		IVirtualComponent earComponent = virtualComponent;
 		if (earComponent != null ) {
+			IPath relativeRuntimePath = null;
+			if (runtimePath != null){
+				relativeRuntimePath = runtimePath.makeRelative();
+			}
 			IVirtualReference[] refComponents = earComponent.getReferences();
 			for (int i = 0; i < refComponents.length; i++) {
 				IVirtualComponent module = refComponents[i].getReferencedComponent();
@@ -72,9 +76,9 @@ public abstract class AbstractEarNode {
 					components.add(refComponents[i]);
 				} else {
 					if (componentTypes.contains(JavaEEProjectUtilities.getJ2EEComponentType(module))) {
-						if (runtimePath != null){
+						if (relativeRuntimePath != null){
 							IPath runtimePath2 = getRealRuntimePath(refComponents[i]);
-							if (runtimePath2.equals(runtimePath)) {
+							if (!relativeRuntimePath.isEmpty() && runtimePath2.makeRelative().equals(relativeRuntimePath)) {
 								components.add(refComponents[i]);
 							}
 						} else {
@@ -98,14 +102,18 @@ public abstract class AbstractEarNode {
 		List components = new ArrayList();
 		IVirtualComponent earComponent = virtualComponent;
 		if (earComponent != null ) {
+			IPath relativeRuntimePath = null;
+			if (runtimePath != null){
+				relativeRuntimePath = runtimePath.makeRelative();
+			}
 			IVirtualReference[] refComponents = earComponent.getReferences();
 			for (int i = 0; i < refComponents.length; i++) {
 				IVirtualComponent module = refComponents[i].getReferencedComponent();
 				if (module == null) continue;
 				// if component types passed in is null then return all components
-				if (module.isBinary() && getRealRuntimePath(refComponents[i]).equals(runtimePath)) {
+				if (module.isBinary() && relativeRuntimePath != null && !relativeRuntimePath.isEmpty() && getRealRuntimePath(refComponents[i]).makeRelative().equals(relativeRuntimePath)) {
 					if (componentTypes != null && !componentTypes.contains(JavaEEProjectUtilities.getJ2EEComponentType(module)) ) {
-						if (!runtimePath.equals(new Path("/"))){//$NON-NLS-1$
+						if (runtimePath != null && !runtimePath.makeAbsolute().equals(new Path("/"))){//$NON-NLS-1$
 							components.add(refComponents[i]);
 						}
 					} else {

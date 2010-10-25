@@ -562,7 +562,7 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 			IVirtualComponent earComponent = ComponentCore.createComponent(earProjects[0]);
 			if(earComponent != null){
 				String libDir = EarUtilities.getEARLibDir(earComponent);
-				if(libDir != null){
+				if(libDir != null && libDir.length() > 0){
 					IVirtualReference [] refs = earComponent.getReferences();
 					for(IVirtualReference ref : refs){
 						if(virtualComponent.equals(ref.getReferencedComponent())){
