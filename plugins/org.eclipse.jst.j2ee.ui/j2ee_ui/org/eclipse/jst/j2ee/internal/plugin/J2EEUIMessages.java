@@ -201,6 +201,7 @@ public class J2EEUIMessages extends Messages {
 	public static final String BLANK_LIB_DIR_WARN_QUESTION = "BLANK_LIB_DIR_WARN_QUESTION";//$NON-NLS-1$	
 	public static final String INVALID_PATH = "INVALID_PATH";//$NON-NLS-1$
 	public static final String INVALID_PATH_MSG = "INVALID_PATH_MSG";//$NON-NLS-1$
+	public static final String INVALID_PATH_STARTS_WITH_SLASH_MSG = "INVALID_PATH_STARTS_WITH_SLASH_MSG";//$NON-NLS-1$
 	public static final String DEPENDENCY_CONFLICT_TITLE = "DEPENDENCY_CONFLICT_TITLE";//$NON-NLS-1$
 	public static final String DEPENDENCY_CONFLICT_MSG_1 = "DEPENDENCY_CONFLICT_MSG_1";//$NON-NLS-1$
 	public static final String DEPENDENCY_CONFLICT_MSG_2 = "DEPENDENCY_CONFLICT_MSG_2";//$NON-NLS-1$	

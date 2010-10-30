@@ -163,7 +163,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 				Application app = (Application)ModelProviderManager.getModelProvider(project).getModelObject();
 				if (app != null)
 					oldLibDir = app.getLibraryDirectory();
-				if (oldLibDir == null) oldLibDir = J2EEConstants.EAR_DEFAULT_LIB_DIR;
+				if (oldLibDir == null) oldLibDir = new Path(J2EEConstants.EAR_DEFAULT_LIB_DIR).makeRelative().toString();
 				libDir = oldLibDir;
 			}
 		}
@@ -276,7 +276,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		final IEARModelProvider earModel = (IEARModelProvider)ModelProviderManager.getModelProvider(project);
 		Application app = (Application) earModel.getModelObject();
 		oldLibDir = app.getLibraryDirectory();
-		if (oldLibDir == null) oldLibDir = J2EEConstants.EAR_DEFAULT_LIB_DIR;
+		if (oldLibDir == null) oldLibDir = new Path(J2EEConstants.EAR_DEFAULT_LIB_DIR).makeRelative().toString();
 		earModel.modify(new Runnable() {
 			public void run() {
 			Application app2 = (Application)earModel.getModelObject();			
@@ -382,8 +382,9 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 								execAddOp1(monitor, javaProjectsList, j2eeComponentList, J2EEConstants.EAR_ROOT_DIR);								
 							} 
 							if (shouldBndRun) {
-								execAddOp(monitor, bndList, libDir);
-								execAddOp1(monitor, javaLibProjectsList, j2eeLibElementList, libDir);																
+								String libDirPath = new Path(libDir).makeAbsolute().toString();
+								execAddOp(monitor, bndList, libDirPath);
+								execAddOp1(monitor, javaLibProjectsList, j2eeLibElementList, libDirPath);																
 							} 
 						}
 					};
@@ -427,7 +428,8 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 				List[] list = getComponentsToRemoveUpdate(!libDir.equals(oldLibDir)); 
 				remComps(list[0], J2EEConstants.EAR_ROOT_DIR);
 				
-				remComps(list[1], oldLibDir);
+				String oldLibDirPath = new Path(oldLibDir).makeAbsolute().toString();
+				remComps(list[1], oldLibDirPath);
 			}
 		}
 		return stat;
@@ -488,7 +490,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 					list[0].add(handle);
 				}
 				if((!j2eeLibElementList.contains(handle) || dirUpdated) &&
-						ref.getRuntimePath().toString().equals(oldLibDir)) {	
+						ref.getRuntimePath().makeRelative().equals(new Path(oldLibDir).makeRelative())) {	
 					list[1].add(handle);
 				}
 			}
@@ -618,16 +620,13 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		Application app = (Application)ModelProviderManager.getModelProvider(project).getModelObject();
 		if (libDir == null) {
 			libDir = app.getLibraryDirectory();
-			if (libDir == null) libDir = J2EEConstants.EAR_DEFAULT_LIB_DIR;
+			if (libDir == null) libDir = new Path(J2EEConstants.EAR_DEFAULT_LIB_DIR).makeRelative().toString();
 		}
 		
 		ChangeLibDirDialog dlg = new ChangeLibDirDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow()
                 .getShell(), libDir, warnBlank);
 		if (dlg.open() == Dialog.CANCEL) return;
 		libDir = dlg.getValue().trim();
-		if (libDir.length() > 0) {
-			if (!libDir.startsWith(J2EEConstants.EAR_ROOT_DIR)) libDir = IPath.SEPARATOR + libDir;
-		}
 		setLibDirInContentProvider();
 		refresh();
 	}

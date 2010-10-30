@@ -324,20 +324,27 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 				// retrieve the EAR's library directory 
 				String libDir = getEARLibDir(earComp);
 				// if the EAR version is lower than 5, then the library directory will be null
-				if (libDir != null) {
+				// or if it is the empty string, do nothing.
+				if (libDir != null && libDir.trim().length() != 0) {
+					IPath libDirPath = new Path(libDir).makeRelative();
 					// check if the component itself is not in the library directory of this EAR - avoid cycles in the build patch
-					if (!libDir.equals(earComp.getReference(component.getName()).getRuntimePath().toString())) {
-						// retrieve the referenced components from the EAR
-						IVirtualReference[] earRefs = earComp.getReferences();
-						for (IVirtualReference earRef : earRefs) {
-							// check if the referenced component is in the library directory
-							boolean isInLibDir = libDir.equals(earRef.getRuntimePath().toString());
-							if(!isInLibDir){
-								IPath fullPath = earRef.getRuntimePath().append(earRef.getArchiveName());
-								isInLibDir = fullPath.removeLastSegments(1).toString().equals(libDir);
-							}
-							if (isInLibDir) {
-								libRefs.add(earRef);
+					IVirtualReference ref = earComp.getReference(component.getName());
+					if(ref != null){
+						IPath refPath = ref.getRuntimePath().makeRelative();
+						if (!libDirPath.equals(refPath)) {
+							// retrieve the referenced components from the EAR
+							IVirtualReference[] earRefs = earComp.getReferences();
+							for (IVirtualReference earRef : earRefs) {
+								// check if the referenced component is in the library directory
+								IPath runtimePath = earRef.getRuntimePath().makeRelative();
+								boolean isInLibDir = libDirPath.equals(runtimePath);
+								if(!isInLibDir){
+									IPath fullPath = earRef.getRuntimePath().append(earRef.getArchiveName());
+									isInLibDir = fullPath.removeLastSegments(1).makeRelative().equals(libDirPath);
+								}
+								if (isInLibDir) {
+									libRefs.add(earRef);
+								}
 							}
 						}
 					}
@@ -421,7 +428,7 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 		
 		// default lib dir if there is no deployment descriptor
 		// or if the deployment descriptor does not override
-		String libDir = J2EEConstants.EAR_DEFAULT_LIB_DIR;
+		String libDir = new Path(J2EEConstants.EAR_DEFAULT_LIB_DIR).makeRelative().toString();
 		
 		// retrieve the model provider
 		IModelProvider modelProvider = ModelProviderManager.getModelProvider(earProject);

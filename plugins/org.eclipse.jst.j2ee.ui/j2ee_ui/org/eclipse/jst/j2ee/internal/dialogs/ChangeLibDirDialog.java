@@ -36,22 +36,27 @@ public class ChangeLibDirDialog extends InputDialog {
     					J2EEUIMessages.getResourceString(J2EEUIMessages.BLANK_LIB_DIR), 
     					J2EEUIMessages.getResourceString(J2EEUIMessages.BLANK_LIB_DIR_CONFIRM))) return;
         	} else {
-    			if (res.startsWith("" + IPath.SEPARATOR)); //$NON-NLS-1$
-    			res = res.substring(1);	
-    			String[] segments = res.split("" + IPath.SEPARATOR); //$NON-NLS-1$
-    			Path p = new Path(""); //$NON-NLS-1$
-    			boolean valid = true;
-    			for (int i = 0; i < segments.length; i++) {
-    				valid = p.isValidSegment(segments[i]);
-    				if (!valid)
-    					break;
-    			}
-    			if (!valid) {
+    			if (res.startsWith("" + IPath.SEPARATOR)) { //$NON-NLS-1$
     				MessageDialog.openError(null, 
     						J2EEUIMessages.getResourceString(J2EEUIMessages.INVALID_PATH), 
-    						J2EEUIMessages.getResourceString(J2EEUIMessages.INVALID_PATH_MSG));	
+    						J2EEUIMessages.getResourceString(J2EEUIMessages.INVALID_PATH_STARTS_WITH_SLASH_MSG));	
     				return;
-    			}	        		
+    			} else {
+	    			String[] segments = res.split("" + IPath.SEPARATOR); //$NON-NLS-1$
+	    			Path p = new Path(""); //$NON-NLS-1$
+	    			boolean valid = true;
+	    			for (int i = 0; i < segments.length; i++) {
+	    				valid = p.isValidSegment(segments[i]);
+	    				if (!valid)
+	    					break;
+	    			}
+	    			if (!valid) {
+	    				MessageDialog.openError(null, 
+	    						J2EEUIMessages.getResourceString(J2EEUIMessages.INVALID_PATH), 
+	    						J2EEUIMessages.getResourceString(J2EEUIMessages.INVALID_PATH_MSG));	
+	    				return;
+	    			}
+    			}
         	}
         } 
         super.buttonPressed(buttonId);

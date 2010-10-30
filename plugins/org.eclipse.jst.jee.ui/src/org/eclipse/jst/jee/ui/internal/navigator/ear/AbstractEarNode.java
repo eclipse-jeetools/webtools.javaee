@@ -68,6 +68,10 @@ public abstract class AbstractEarNode {
 		List components = new ArrayList();
 		IVirtualComponent earComponent = virtualComponent;
 		if (earComponent != null ) {
+			IPath relativeRuntimePath = null;
+			if (runtimePath != null){
+				relativeRuntimePath = runtimePath.makeRelative();
+			}
 			IVirtualReference[] refComponents = earComponent.getReferences();
 			for (int i = 0; i < refComponents.length; i++) {
 				IVirtualComponent module = refComponents[i].getReferencedComponent();
@@ -75,9 +79,9 @@ public abstract class AbstractEarNode {
 				// if component types passed in is null then return all components
 				if (componentTypes == null || componentTypes.size() == 0) {
 					components.add(refComponents[i]);
-				} else {
+				} else if (relativeRuntimePath != null){
 					IPath runtimePath2 = getRealRuntimePath(refComponents[i]);
-					if (runtimePath2.equals(runtimePath) && componentTypes.contains(JavaEEProjectUtilities.getJ2EEComponentType(module))) {
+					if (!relativeRuntimePath.isEmpty() && runtimePath2.makeRelative().equals(relativeRuntimePath) && componentTypes.contains(JavaEEProjectUtilities.getJ2EEComponentType(module))) {
 						components.add(refComponents[i]);
 					}
 				}
@@ -97,14 +101,18 @@ public abstract class AbstractEarNode {
 		List components = new ArrayList();
 		IVirtualComponent earComponent = virtualComponent;
 		if (earComponent != null ) {
+			IPath relativeRuntimePath = null;
+			if (runtimePath != null){
+				relativeRuntimePath = runtimePath.makeRelative();
+			}
 			IVirtualReference[] refComponents = earComponent.getReferences();
 			for (int i = 0; i < refComponents.length; i++) {
 				IVirtualComponent module = refComponents[i].getReferencedComponent();
 				if (module == null) continue;
 				// if component types passed in is null then return all components
-				if (module.isBinary() && getRealRuntimePath(refComponents[i]).equals(runtimePath)) {
+				if (module.isBinary() && relativeRuntimePath != null && !relativeRuntimePath.isEmpty() && getRealRuntimePath(refComponents[i]).makeRelative().equals(relativeRuntimePath)) {
 					if (componentTypes != null && !componentTypes.contains(JavaEEProjectUtilities.getJ2EEComponentType(module)) ) {
-						if (!runtimePath.equals(new Path("/"))){//$NON-NLS-1$
+						if (runtimePath != null && !runtimePath.equals(new Path("/"))){//$NON-NLS-1$
 							components.add(refComponents[i]);
 						}
 					} else {
@@ -139,7 +147,7 @@ public abstract class AbstractEarNode {
 		Object modelObject = modelProvider.getModelObject();
 		if (Application.class.isInstance(modelObject)){
 			String libraryDirectory = ((Application)modelObject).getLibraryDirectory();
-			return libraryDirectory != null && libraryDirectory.length()>0 ? libraryDirectory : EAR_DEFAULT_LIB;
+			return libraryDirectory != null ? libraryDirectory : EAR_DEFAULT_LIB;
 		}
 		return EAR_DEFAULT_LIB;
 	}

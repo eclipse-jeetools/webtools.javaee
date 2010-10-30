@@ -945,6 +945,8 @@ public class JARDependencyPropertiesPage implements IJ2EEDependenciesControl, IC
 		IStatus stat = IDataModelProvider.OK_STATUS;
 		String libDir = ((Application)ModelProviderManager.getModelProvider(earComponent.getProject()).getModelObject()).getLibraryDirectory();
 		libDir = (libDir == null) ? J2EEConstants.EAR_DEFAULT_LIB_DIR : libDir;
+		if(libDir != null)
+			libDir = new Path(libDir).makeAbsolute().toString();
 		Map dependentComps = getEARModuleDependencies(earComponent, compsToUncheckList);
 		try {
 			IDataModelOperation op = removeComponentFromEAROperation(earComponent, compsToUncheckList, libDir);
