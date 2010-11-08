@@ -15,11 +15,13 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
+import org.eclipse.jdt.internal.core.JavaProject;
 import org.eclipse.jst.common.jdt.internal.javalite.IJavaProjectLite;
 import org.eclipse.jst.common.jdt.internal.javalite.JavaCoreLite;
 import org.eclipse.jst.common.jdt.internal.javalite.JavaLiteUtilities;
@@ -28,11 +30,11 @@ import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.flat.AbstractFlattenParticipant;
 import org.eclipse.wst.common.componentcore.internal.flat.FilterResourceParticipant;
+import org.eclipse.wst.common.componentcore.internal.flat.FlatVirtualComponent.FlatComponentTaskModel;
 import org.eclipse.wst.common.componentcore.internal.flat.IFlatFile;
 import org.eclipse.wst.common.componentcore.internal.flat.IFlatResource;
 import org.eclipse.wst.common.componentcore.internal.flat.IFlattenParticipant;
 import org.eclipse.wst.common.componentcore.internal.flat.VirtualComponentFlattenUtility;
-import org.eclipse.wst.common.componentcore.internal.flat.FlatVirtualComponent.FlatComponentTaskModel;
 import org.eclipse.wst.common.componentcore.internal.flat.VirtualComponentFlattenUtility.ShouldIncludeUtilityCallback;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
@@ -91,18 +93,21 @@ public class AddMappedOutputFoldersParticipant extends AbstractFlattenParticipan
 		IJavaProjectLite javaProjectLite = JavaCoreLite.create(project);
 
 		HashMap<IContainer, IPath> map = new HashMap<IContainer, IPath>();
-		IClasspathEntry[] entries = javaProjectLite.readRawClasspath();
-		for (IClasspathEntry entry : entries) {
-			if (entry.getEntryKind() == IClasspathEntry.CPE_SOURCE) {
-				IPath cpePath = entry.getPath();
-				for( int i = 0; i < proxies.length; i++ ) {
-					if( cpePath.equals(new Path(project.getName()).append(proxies[i].source).makeAbsolute())) {
-						IContainer outputContainer = JavaLiteUtilities.getJavaOutputContainer(javaProjectLite, entry);
-						if (!map.containsKey(outputContainer)) {
-							map.put(outputContainer, proxies[i].runtimePath);
+		IFile classpathFile = project.getFile(JavaProject.CLASSPATH_FILENAME);
+		if( javaProjectLite.exists() && classpathFile.exists()) {
+			IClasspathEntry[] entries = javaProjectLite.readRawClasspath();
+			for (IClasspathEntry entry : entries) {
+				if (entry.getEntryKind() == IClasspathEntry.CPE_SOURCE) {
+					IPath cpePath = entry.getPath();
+					for( int i = 0; i < proxies.length; i++ ) {
+						if( cpePath.equals(new Path(project.getName()).append(proxies[i].source).makeAbsolute())) {
+							IContainer outputContainer = JavaLiteUtilities.getJavaOutputContainer(javaProjectLite, entry);
+							if (!map.containsKey(outputContainer)) {
+								map.put(outputContainer, proxies[i].runtimePath);
+							}
 						}
+						// TODO 
 					}
-					// TODO 
 				}
 			}
 		}
