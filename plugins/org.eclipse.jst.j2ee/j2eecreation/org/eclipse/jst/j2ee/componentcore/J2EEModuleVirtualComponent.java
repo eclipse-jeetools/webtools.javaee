@@ -61,7 +61,7 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 	 * Use this value to retrieve references consisting of only META-INF/MANIFEST.MF classpath
 	 * attributes.  Do this as follows:
 	 * <code>
-	 * IVirtualCompoment compoment = a virtual component
+	 * IVirtualCompoment component = a virtual component
 	 * Map<String, Object> onlyManifestRefs = new HashMap<String, Object>();
 	 * onlyManifestRefs.put(IVirtualComponent.REQUESTED_REFERENCE_TYPE, J2EEModuleVirtualComponent.ONLY_MANIFEST_REFERENCES);
 	 * IVirtualReference[] refs = component.getReferences(onlyManifestRefs); 
@@ -72,6 +72,9 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 	private long depGraphModStamp;
 	private long jeeModStamp;
 	
+	/**
+	 * Accessors of this field should always use getHardReferences()
+	 */
 	private IVirtualReference[] hardReferences = null;
 	private IVirtualReference[] javaReferences = null;
 	private IVirtualReference[] parentEarManifestReferences = null;
@@ -173,9 +176,10 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 			IVirtualReference reference = iterator.next();
 			IVirtualComponent dynamicComponent = reference.getReferencedComponent();
 			boolean shouldInclude = true;
-			for (int i = 0; i < hardReferences.length && shouldInclude ; i++) {
-				if (hardReferences[i].getReferencedComponent().equals(dynamicComponent)) {
+			for(IVirtualReference hardRef : getHardReferences()){
+				if(hardRef.getReferencedComponent().equals(dynamicComponent)){
 					shouldInclude = false;
+					break;
 				}
 			}
 			if (shouldInclude) {
