@@ -78,7 +78,7 @@ public abstract class AbstractEarNode {
 					if (componentTypes.contains(JavaEEProjectUtilities.getJ2EEComponentType(module))) {
 						if (relativeRuntimePath != null){
 							IPath runtimePath2 = getRealRuntimePath(refComponents[i]);
-							if (!relativeRuntimePath.isEmpty() && runtimePath2.makeRelative().equals(relativeRuntimePath)) {
+							if (runtimePath2.makeRelative().equals(relativeRuntimePath)) {
 								components.add(refComponents[i]);
 							}
 						} else {
