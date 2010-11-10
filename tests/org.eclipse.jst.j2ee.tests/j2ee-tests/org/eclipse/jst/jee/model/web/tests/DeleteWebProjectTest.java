@@ -109,14 +109,11 @@ public class DeleteWebProjectTest extends TestCase {
 
 	// @Test(expected = IllegalArgumentException.class)
 	public void testProviderForNonExistingProject() {
-		try {
-			IProject nonExistingProject = ResourcesPlugin.getWorkspace().getRoot().getProject(
-					"testProviderForNonExistingProject");
-			assertFalse(nonExistingProject.exists());
-			ModelProviderManager.getModelProvider(nonExistingProject);
-			fail("IllegalArgumentException expected");
-		} catch (IllegalArgumentException e) {
-		}
+		IProject nonExistingProject = ResourcesPlugin.getWorkspace().getRoot().getProject(
+				"testProviderForNonExistingProject");
+		assertFalse(nonExistingProject.exists());
+		IModelProvider modelProvider = ModelProviderManager.getModelProvider(nonExistingProject);
+		assertNull(modelProvider);
 	}
 
 	/**
