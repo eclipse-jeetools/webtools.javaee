@@ -159,7 +159,7 @@ public abstract class J2EEImportPage extends DataModelWizardPage {
 		// setup browse button
 		Button browseButton = new Button(parent, SWT.PUSH);
 		browseButton.setText(defBrowseButtonLabel);
-		browseButton.setLayoutData((new GridData(GridData.FILL_HORIZONTAL)));
+		browseButton.setLayoutData((new GridData(GridData.HORIZONTAL_ALIGN_END)));
 		browseButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
