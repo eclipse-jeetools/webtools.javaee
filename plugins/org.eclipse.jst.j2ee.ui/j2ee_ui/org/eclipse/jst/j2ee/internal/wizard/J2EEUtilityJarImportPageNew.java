@@ -160,7 +160,7 @@ public class J2EEUtilityJarImportPageNew extends J2EEImportPage {
 		linkedPathCheckbox.setText(" "); //$NON-NLS-1$
 		final Text linkedPathText = new Text(checkboxGroup, SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
 		linkedPathText.setText(J2EEUIMessages.getResourceString("J2EEUtilityJarImportPage_UI_5")); //$NON-NLS-1$
-		linkedPathText.setEnabled(getDataModel().isPropertyEnabled(IJ2EEUtilityJarListImportDataModelProperties.CREATE_LINKED_PATH_VARIABLE));
+		linkedPathText.setEnabled(true);
 		
 		getDataModel().addListener(new IDataModelListener() {
 			public void propertyChanged(DataModelEvent event) {
