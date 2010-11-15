@@ -147,10 +147,11 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 				}
 				IVirtualComponent component = (IVirtualComponent) importModel.getProperty(IJ2EEComponentImportDataModelProperties.COMPONENT);
 				String uri = nestedArchive.getPath().toString();
+				String absoluteUri = nestedArchive.getPath().makeAbsolute().toString();
 				String archiveName = nestedArchive.getPath().lastSegment().toString();
 				String deployPath = nestedArchive.getPath().removeLastSegments(1).makeAbsolute().toString();
 				
-				if(ddSpecifiedURIs.contains(uri)){
+				if(ddSpecifiedURIs.contains(uri) || ddSpecifiedURIs.contains(absoluteUri)){
 					componentToAddAsModules.add(component);
 					componentToURIMapAsModules.put(component, archiveName);
 					moduleDeployPathMap.put(component, deployPath);
