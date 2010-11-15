@@ -20,19 +20,10 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 
 import org.eclipse.core.runtime.Path;
-import org.eclipse.jst.common.annotations.tests.AnnotationProviderTest;
-import org.eclipse.jst.j2ee.defect.tests.DefectVerificationTestsSuite;
-import org.eclipse.jst.jee.model.mergers.tests.MergersTestSuite;
-import org.eclipse.jst.jee.model.tests.AllAnnotationModelTests;
-import org.eclipse.jst.jee.model.tests.JEE5ModelTest;
-import org.eclipse.jst.jee.model.tests.JEE6ModelTest;
-import org.eclipse.jst.jee.model.tests.ModelProviderTest;
 import org.eclipse.wst.server.core.IRuntime;
 import org.eclipse.wst.server.core.IRuntimeType;
 import org.eclipse.wst.server.core.IRuntimeWorkingCopy;
 import org.eclipse.wst.server.core.ServerCore;
-import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.HeaderParserTests;
-import org.eclipse.wtp.j2ee.headless.tests.web.container.WebAppLibrariesContainerTests;
 
 /**
  * @author jsholl
@@ -48,29 +39,15 @@ public class AllPluginTests extends TestSuite {
         return new AllPluginTests();
     }
 
-    public AllPluginTests() {
-        super();
-	      addTest(org.eclipse.wtp.j2ee.headless.tests.ejb.operations.AllTests.suite());
-	      addTest(org.eclipse.wtp.j2ee.headless.tests.web.operations.AllTests.suite());
-	      addTest(org.eclipse.wtp.j2ee.headless.tests.jca.operations.AllTests.suite());
-	      addTest(org.eclipse.wtp.j2ee.headless.tests.ear.operations.AllTests.suite());
-	      addTest(org.eclipse.wtp.j2ee.headless.tests.appclient.operations.AllTests.suite());
-	      addTest(org.eclipse.wtp.j2ee.headless.tests.utility.operations.AllTests.suite());
-	      addTest(org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.SourceFolderUpdateTest.suite());
-	      addTest(org.eclipse.jst.j2ee.tests.modulecore.AllTests.suite());
-	      addTest(JEE5ModelTest.suite());
-	      addTest(JEE6ModelTest.suite());
-	      // model provider
-		  addTest(ModelProviderTest.suite());
-	      addTest(AnnotationProviderTest.suite());
-	      addTest(org.eclipse.jst.j2ee.dependency.tests.AllTests.suite());
-	      addTest(org.eclipse.jst.j2ee.classpath.tests.AllTests.suite());
-          addTest(WebAppLibrariesContainerTests.suite());
-          addTest(DefectVerificationTestsSuite.suite());
-          addTest(HeaderParserTests.suite());
-          addTest(AllAnnotationModelTests.suite());
-          addTest(MergersTestSuite.suite());
-    }
+	public AllPluginTests() {
+		super();
+		addTest(org.eclipse.jst.j2ee.tests.bvt.EnterpriseBVT.suite());
+		addTest(org.eclipse.jst.j2ee.tests.bvt.EJBBVT.suite());
+		addTest(org.eclipse.jst.j2ee.tests.bvt.WebBVT.suite());
+		addTest(org.eclipse.jst.j2ee.tests.bvt.CoreInfrastructureBVT.suite());
+		addTest(org.eclipse.jst.j2ee.tests.bvt.ModelProviderBVT.suite());
+		addTest(org.eclipse.jst.j2ee.tests.bvt.ExtendedModelProviderBVT.suite());
+	}
     
     public static IRuntime createJONASRuntime()  {
     	String s = System.getProperty("org.eclipse.jst.server.jonas.432");
