@@ -558,38 +558,42 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 		//not a WAR
 		//if part of EE5 or greature ear, map into the EAR's lib folder
 		IProject [] earProjects = EarUtilities.getReferencingEARProjects(virtualComponent.getProject());
-		if(earProjects.length > 0){
+		if (earProjects.length > 0) {
 			IVirtualComponent earComponent = ComponentCore.createComponent(earProjects[0]);
-			if(earComponent != null){
-				String libDir = EarUtilities.getEARLibDir(earComponent);
-				if(libDir != null && libDir.length() > 0){
-					IVirtualReference [] refs = earComponent.getReferences();
-					for(IVirtualReference ref : refs){
-						if(virtualComponent.equals(ref.getReferencedComponent())){
-							//find the specific reference to this component to locate its 
-							//relative path in the EAR to calculate the relative path from
-							//it to the EAR's lib folder.
-							IPath libDirPath = new Path(libDir).makeRelative();
-							IPath runtimePath = ref.getRuntimePath().makeRelative();
-							if(runtimePath.equals(libDirPath)){
-								return RUNTIME_MAPPING_INTO_CONTAINER_PATH;
-							}
-							
-							int segmentCount = runtimePath.segmentCount();
-							IPath defaultRuntimePath = RUNTIME_MAPPING_INTO_CONTAINER_PATH;
-							for(int i=0; i<segmentCount; i++){
-								defaultRuntimePath = defaultRuntimePath.append(RUNTIME_MAPPING_INTO_CONTAINER_PATH);
-							}
-							defaultRuntimePath = defaultRuntimePath.append(libDir);
-							return defaultRuntimePath;
-						}
-					}
-				}
+			if (earComponent != null) {
+				return calculateDefaultRuntimePath(earComponent, virtualComponent);
 			}
 		}
-
 		return getDefaultRuntimePath(false, false);
 		
+	}
+	
+	public static IPath calculateDefaultRuntimePath(IVirtualComponent parentComponent, IVirtualComponent targetComponent) {
+		IVirtualReference targetRef = parentComponent.getReference(targetComponent.getName());
+		String libDir = EarUtilities.getEARLibDir(parentComponent);
+		if (libDir != null && libDir.length() > 0) {
+			IPath libDirPath = new Path(libDir);
+
+			// If project is at root level, go up a level and add lib dir path absolute path
+			if(targetRef == null || targetRef.getRuntimePath().equals("/")) //$NON-NLS-1$
+				return new Path(RUNTIME_MAPPING_INTO_CONTAINER).append(libDirPath.makeAbsolute());
+			IPath childProjectRuntimePath = targetRef.getRuntimePath();
+
+			String[] childProjectFolders = childProjectRuntimePath.segments();
+			String[] libFolders = libDirPath.segments();
+			int commonFolderCount = 0;
+			for(int i = 0; i < childProjectFolders.length; i++) {
+				if(i >= libFolders.length || !childProjectFolders[i].equals(libFolders[i]))
+					break;
+				commonFolderCount++;
+			}
+			String resultString = RUNTIME_MAPPING_INTO_CONTAINER;
+			for(int i = 0; i < childProjectFolders.length - commonFolderCount; i++) {
+				resultString += RUNTIME_MAPPING_INTO_CONTAINER;
+			}
+			return new Path(resultString).append(libDirPath.removeFirstSegments(commonFolderCount));
+		}
+		return getDefaultRuntimePath(false, false);
 	}
 	
 	/**
