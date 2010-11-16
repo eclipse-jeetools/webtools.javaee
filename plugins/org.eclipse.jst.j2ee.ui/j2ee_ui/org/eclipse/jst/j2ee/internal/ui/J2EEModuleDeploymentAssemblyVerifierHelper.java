@@ -58,7 +58,11 @@ public class J2EEModuleDeploymentAssemblyVerifierHelper {
 				verifier = (IDeploymentAssemblyVerifier) ((IConfigurationElement) verifiers.get(i)).createExecutableExtension(VerifierRegistryReader.VERIFIER_CLASS);
 				J2EEModuleDeploymentAssemblyVerifierData data = new J2EEModuleDeploymentAssemblyVerifierData(component, runtime,currentReferences,resourceMappings,resourceMappingsChanged,currentClasspathEntries );
 				IStatus verifyStatus = verifier.verify(data);
-				masterStatus.add(verifyStatus);
+				if(verifyStatus != null && verifyStatus.isMultiStatus()) {
+					masterStatus.addAll(verifyStatus);
+				} else {
+					masterStatus.add(verifyStatus);
+				}
 			} catch (Exception e) {
 				ModuleCoreUIPlugin.log(e);
 				continue;

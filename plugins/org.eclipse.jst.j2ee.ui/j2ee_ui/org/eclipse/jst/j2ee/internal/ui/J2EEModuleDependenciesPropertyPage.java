@@ -300,12 +300,16 @@ public class J2EEModuleDependenciesPropertyPage extends
 	
 	@Override
 	protected void verify() {
+		propPage.refreshProblemsView();
+	}
+
+	@Override
+	public IStatus validate() {
 		ArrayList<ComponentResourceProxy> allMappings = new ArrayList<ComponentResourceProxy>();
 		allMappings.addAll(resourceMappings);
 		allMappings.addAll(hiddenMappings);
 		
-		IStatus status = J2EEModuleDeploymentAssemblyVerifierHelper.verify(rootComponent, runtime, currentReferences, allMappings,resourceMappingsChanged, currentClasspathEntries);
-		setErrorMessage(status);
+		return J2EEModuleDeploymentAssemblyVerifierHelper.verify(rootComponent, runtime, currentReferences, allMappings,resourceMappingsChanged, currentClasspathEntries);
 	}
 
 //	
