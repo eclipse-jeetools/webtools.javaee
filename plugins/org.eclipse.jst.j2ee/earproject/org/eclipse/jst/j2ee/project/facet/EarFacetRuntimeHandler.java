@@ -12,7 +12,6 @@
 package org.eclipse.jst.j2ee.project.facet;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
@@ -23,10 +22,7 @@ import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.project.facet.core.IDelegate;
-import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
-import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
-import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 
 /** 
  * @author <a href="mailto:kosta@bea.com">Konstantin Komissarchik</a>
@@ -47,56 +43,9 @@ public final class EarFacetRuntimeHandler
         throws CoreException
         
     {
-        if( monitor != null )
-        {
-            monitor.beginTask( "", 1 ); //$NON-NLS-1$
-        }
-        
-        try
-        {
-            final IFacetedProject earFacetedProject
-                = ProjectFacetsManager.create( earProject );
-        
-            final IRuntime earRuntime = earFacetedProject.getRuntime();
-    
-            final IFacetedProject moduleFacetedProject 
-                = ProjectFacetsManager.create( moduleProject );
-            
-            if( moduleFacetedProject != null && 
-                ! equals( earRuntime, moduleFacetedProject.getRuntime() ) )
-            {
-                boolean supports = true;
-                
-                if( earRuntime != null )
-                {
-                    for( Iterator itr = moduleFacetedProject.getProjectFacets().iterator(); 
-                         itr.hasNext(); )
-                    {
-                        final IProjectFacetVersion fver 
-                            = (IProjectFacetVersion) itr.next();
-                        
-                        if( ! earRuntime.supports( fver ) )
-                        {
-                            supports = false;
-                            break;
-                        }
-                    }
-                }
-                
-                if( supports )
-                {
-                    moduleFacetedProject.setRuntime( earRuntime, submon( monitor, 1 ) );
-                }
-            }
-        }
-        finally
-        {
-            if( monitor != null )
-            {
-                monitor.done();
-            }
-        }
-    }
+		// Attempt to change the runtime for the specified module                
+		J2EEFacetRuntimeChangedDelegate.updateProjectRuntime( earProject, moduleProject, submon( monitor, 1 ));
+	}
 
     public static void updateModuleProjectRuntime( final IProject earProject,
                                                    final Set moduleProjects,
@@ -105,29 +54,9 @@ public final class EarFacetRuntimeHandler
         throws CoreException
         
     {
-        if( monitor != null )
-        {
-            monitor.beginTask( "", moduleProjects.size() ); //$NON-NLS-1$
-        }
-        
-        try
-        {
-            for( Iterator itr = moduleProjects.iterator(); itr.hasNext(); )
-            {
-                final IProject moduleProject = (IProject) itr.next();
-                
-                updateModuleProjectRuntime( earProject, moduleProject, 
-                                            submon( monitor, 1 ) );
-            }
-        }
-        finally
-        {
-            if( monitor != null )
-            {
-                monitor.done();
-            }
-        }
-    }
+		// Attempt to change the runtime of the referenced module projects.
+		J2EEFacetRuntimeChangedDelegate.updateProjectRuntime( earProject, moduleProjects, monitor);
+	}
     
     public static final class RuntimeChangedDelegate
     
@@ -149,9 +78,10 @@ public final class EarFacetRuntimeHandler
     
             try 
             {
+				// Cascade this runtime change to projects referenced by this project
+
                 // Compile the list of projects referenced by this ear project.
-                
-                final Set moduleProjects = new HashSet();
+                final Set<IProject> moduleProjects = new HashSet<IProject>();
                 
                 final IVirtualComponent earvc 
                     = ComponentCore.createComponent( project );
@@ -170,12 +100,11 @@ public final class EarFacetRuntimeHandler
                 {
                     monitor.worked( 1 );
                 }
-                
-                // Attempt to change the runtime for each of the referenced projects.
-                
-                updateModuleProjectRuntime( project, moduleProjects, 
-                                            submon( monitor, 9 ) );
-            }
+
+        		// Attempt to change the runtime of the referenced module projects.
+				J2EEFacetRuntimeChangedDelegate.updateProjectRuntime( project, moduleProjects,
+						submon( monitor, 9 ) );
+			}
             finally 
             {
                 if( monitor != null ) 
@@ -191,24 +120,4 @@ public final class EarFacetRuntimeHandler
     {
         return ( parent == null ? null : new SubProgressMonitor( parent, ticks ) );
     }
-    
-    private static boolean equals( final Object obj1,
-                                   final Object obj2 )
-    {
-        if( obj1 == obj2 )
-        {
-            return true;
-        }
-        else if( obj1 == null || obj2 == null )
-        {
-            return false;
-        }
-        else
-        {
-            return obj1.equals( obj2 );
-        }
-    }
-
-    
-    
 }
