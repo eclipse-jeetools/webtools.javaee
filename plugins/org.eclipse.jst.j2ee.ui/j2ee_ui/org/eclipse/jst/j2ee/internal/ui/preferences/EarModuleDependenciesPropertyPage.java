@@ -18,8 +18,10 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.fieldassist.FieldDecorationRegistry;
@@ -131,32 +133,49 @@ public class EarModuleDependenciesPropertyPage extends
 	}
 	
 	protected void libDirTextModified() {
+		boolean refresh = mustRefreshLibDirValidationMessages(libDir, libDirText.getText());
 		libDir = libDirText.getText();
-		validatelibDirText();
+		if(refresh)
+			propPage.refreshProblemsView();
+	}
+	
+	protected boolean mustRefreshLibDirValidationMessages(String oldLibDir, String newLibDir) {
+		boolean newIsValid = isValidLibDir(newLibDir);
+		boolean newIsEmpty = (newLibDir != null && newLibDir.trim().length() == 0);
+		 // Both are valid; no need to refresh
+		if(previousLibDirIsValid && newIsValid && !newIsEmpty)
+			return false;
+		boolean oldIsValid = isValidLibDir(oldLibDir);
+		boolean oldIsEmpty = (oldLibDir != null && oldLibDir.trim().length() == 0);
+		// Both are invalid and no change in reason for being invalid; no need to refresh
+		if(!previousLibDirIsValid && oldIsValid == newIsValid && oldIsEmpty == newIsEmpty)
+			return false;		
+		return true;				
 	}
 	
 	protected void validatelibDirText() {
-		if(libDirTextErrorDecoration != null) {			
+		if(libDirTextErrorDecoration != null) {
 			if(!isValidLibDir(libDir)) {
 				libDirTextErrorDecoration.setImage(FieldDecorationRegistry.getDefault().getFieldDecoration(FieldDecorationRegistry.DEC_ERROR).getImage());
 				libDirTextErrorDecoration.setDescriptionText(Messages.EarModuleDependenciesPropertyPage_ERROR_INVALID_LIBDIR);
 				libDirTextErrorDecoration.show();
-				propPage.setValid(false);
-				propPage.setMessage(Messages.EarModuleDependenciesPropertyPage_ERROR_HOVER_FOR_DETAILS,IStatus.ERROR);
-				propPage.setErrorMessage(Messages.EarModuleDependenciesPropertyPage_ERROR_HOVER_FOR_DETAILS);
+				previousLibDirIsValid = false;
+			}else if(libDir != null && libDir.trim().length() == 0){
+				libDirTextErrorDecoration.setImage(FieldDecorationRegistry.getDefault().getFieldDecoration(FieldDecorationRegistry.DEC_WARNING).getImage());
+				libDirTextErrorDecoration.setDescriptionText(Messages.EarModuleDependenciesPropertyPage_WARNING_EMPTY_LIB_DIR);
+				libDirTextErrorDecoration.show();
 				previousLibDirIsValid = false;
 			} else if(!previousLibDirIsValid){
 				previousLibDirIsValid = true;
 				libDirTextErrorDecoration.setImage(null);
 				libDirTextErrorDecoration.setDescriptionText(null);
 				libDirTextErrorDecoration.hide();
-				super.verify();
 			}
 		}
 	}
 	
 	private boolean isValidLibDir(String libraryDirectory) {
-		if(libraryDirectory != null && libraryDirectory.length() > 0 && libraryDirectory.trim().startsWith("/")) { //$NON-NLS-1$
+		if(libraryDirectory != null && libraryDirectory.trim().length() > 0 && new Path(libraryDirectory.trim()).isAbsolute()) {
 			return false;
 		}
 		return true;
@@ -312,9 +331,16 @@ public class EarModuleDependenciesPropertyPage extends
 	}
 	
 	@Override
-	protected void verify() {
-		super.verify();
+	public IStatus validate() {
+		IStatus status = super.validate();
 		validatelibDirText();
+		if(libDirTextErrorDecoration.getImage() != null) {
+			int severity = Status.ERROR;
+			if(libDirTextErrorDecoration.getImage().equals(FieldDecorationRegistry.getDefault().getFieldDecoration(FieldDecorationRegistry.DEC_WARNING).getImage()))
+				severity = Status.WARNING;	
+			status = appendStatusMessage(status, libDirTextErrorDecoration.getDescriptionText(), severity);
+		}
+		return status;
 	}
 	
 	@Override
@@ -323,4 +349,23 @@ public class EarModuleDependenciesPropertyPage extends
 		libDirText.setText(libDir);
 		super.performDefaults();
 	}
+	
+	private IStatus appendStatusMessage(IStatus existingStatus, String message, int severity) {
+        MultiStatus multiStatus;
+        IStatus newStatus = new Status(severity, J2EEUIPlugin.PLUGIN_ID, message);
+		int newSeverity = severity;
+		if(existingStatus.getSeverity() > severity)
+			newSeverity = existingStatus.getSeverity();
+        if(existingStatus instanceof MultiStatus){
+            multiStatus = (MultiStatus)existingStatus;
+            multiStatus.merge(newStatus);
+        } else {
+        	if(!existingStatus.isMultiStatus() && existingStatus.isOK()) {
+        		return newStatus;
+        	}
+            IStatus [] children = new IStatus [] {existingStatus, newStatus};
+            multiStatus = new MultiStatus(J2EEUIPlugin.PLUGIN_ID, newSeverity, children, null, null);
+        }
+        return multiStatus;
+    }
 }
