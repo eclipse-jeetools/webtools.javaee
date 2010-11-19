@@ -48,6 +48,7 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.progress.UIJob;
+import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 
 public abstract class JEE5ContentProvider implements ITreeContentProvider, IRefreshHandlerListener, IModelProviderListener, IResourceChangeListener {
 
@@ -82,6 +83,10 @@ public abstract class JEE5ContentProvider implements ITreeContentProvider, IRefr
 		AbstractGroupProvider provider = groupContentProviders.get(project);
 		if (provider == null){
 			if (project == null || !project.isAccessible()){
+				return null;
+			}
+			// if the project is no longer a valid flexible project (due to deletion of critical files)
+			if (!ModuleCoreNature.isFlexibleProject(project)){
 				return null;
 			}
 			provider = getNewContentProviderInstance(project);
