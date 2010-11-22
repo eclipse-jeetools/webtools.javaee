@@ -334,7 +334,7 @@ public class EarModuleDependenciesPropertyPage extends
 	public IStatus validate() {
 		IStatus status = super.validate();
 		validatelibDirText();
-		if(libDirTextErrorDecoration.getImage() != null) {
+		if(libDirTextErrorDecoration != null && libDirTextErrorDecoration.getImage() != null) {
 			int severity = Status.ERROR;
 			if(libDirTextErrorDecoration.getImage().equals(FieldDecorationRegistry.getDefault().getFieldDecoration(FieldDecorationRegistry.DEC_WARNING).getImage()))
 				severity = Status.WARNING;	
