@@ -47,6 +47,8 @@ public class HeaderParserTests extends BaseTestCase {
 		int modVersion;
 
 		int eeVersion;
+		
+		boolean deploymentDescriptor;
 
 		Class modelObjectInterface;
 
@@ -60,6 +62,11 @@ public class HeaderParserTests extends BaseTestCase {
 		public TestData(String fileName, int type, int modVersion, int eeVersion, Class modelTypeClass) {
 			this(fileName, type, modVersion, eeVersion);
 			this.modelObjectInterface = modelTypeClass;
+		}
+		
+		public TestData(String fileName, int type, int modVersion, int eeVersion, Class modelTypeClass,boolean deploymentDescriptor) {
+			this(fileName, type, modVersion, eeVersion,modelTypeClass);
+			this.deploymentDescriptor = deploymentDescriptor;
 		}
 	}
 	
@@ -299,7 +306,7 @@ public class HeaderParserTests extends BaseTestCase {
     	nestedArchiveData.add(new TestData("Web25_WithDD.war", J2EEVersionConstants.WEB_TYPE, J2EEVersionConstants.WEB_2_5_ID, J2EEVersionConstants.JEE_5_0_ID, org.eclipse.jst.javaee.web.WebApp.class));
     	
     	TestData earData = new TestData("EAR5_NoDD.ear", J2EEVersionConstants.APPLICATION_TYPE, J2EEVersionConstants.JEE_5_0_ID, J2EEVersionConstants.JEE_5_0_ID,
-				org.eclipse.jst.javaee.application.Application.class);
+				org.eclipse.jst.javaee.application.Application.class,false);
     	runEAR50Tests(earData, nestedArchiveData);
     }
     
@@ -334,7 +341,7 @@ public class HeaderParserTests extends BaseTestCase {
     	nestedArchiveData.add(new TestData("Web25_WithDD.war", J2EEVersionConstants.WEB_TYPE, J2EEVersionConstants.WEB_2_5_ID, J2EEVersionConstants.JEE_5_0_ID, org.eclipse.jst.javaee.web.WebApp.class));
     
     	TestData earData = new TestData("EAR5_WithDD.ear", J2EEVersionConstants.APPLICATION_TYPE, J2EEVersionConstants.JEE_5_0_ID, J2EEVersionConstants.JEE_5_0_ID,
-				org.eclipse.jst.javaee.application.Application.class);
+				org.eclipse.jst.javaee.application.Application.class,true);
     	runEAR50Tests(earData, nestedArchiveData);
     }
     
@@ -348,9 +355,14 @@ public class HeaderParserTests extends BaseTestCase {
     		earArchive.getArchiveOptions().setOption(JavaEEArchiveUtilities.DISCRIMINATE_EJB_ANNOTATIONS, Boolean.TRUE);
 			JavaEEQuickPeek peek = JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(earArchive);
 			Assert.assertEquals(earData.fileName + " type", earData.type, peek.getType());
-			Assert.assertEquals(earData.fileName + " mod version", earData.modVersion, peek.getVersion());
-			Assert.assertEquals(earData.fileName + " ee version", earData.eeVersion, peek.getJavaEEVersion());
-			
+			if (earData.deploymentDescriptor){
+				Assert.assertEquals(earData.fileName + " mod version", earData.modVersion, peek.getVersion());
+				Assert.assertEquals(earData.fileName + " ee version", earData.eeVersion, peek.getJavaEEVersion());
+			}
+			else{
+				Assert.assertTrue(earData.fileName + " mod version", peek.getVersion() >= earData.modVersion);
+				Assert.assertTrue(earData.fileName + " ee version", peek.getJavaEEVersion() >= earData.eeVersion);
+			}
 			IArchiveResource innerArchiveResource;
 			IArchive innerArchive = null;
 			for(TestData testData : nestedArchiveData) {
