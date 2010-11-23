@@ -68,6 +68,7 @@ import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetInstallDa
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
 import org.eclipse.wst.common.componentcore.internal.impl.WTPResourceFactoryRegistry;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.operations.IHeadlessRunnableWithProgress;
@@ -378,6 +379,7 @@ public void testWebFragmentModel() throws Exception {
 		dataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, projName);
 		FacetDataModelMap map = (FacetDataModelMap) dataModel
 				.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+		map.remove(IModuleConstants.JST_JAVA);
 		map.add(setupJavaInstallAction(projName,J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.EJB_CONTENT_FOLDER)));
 		dataModel.getDefaultOperation().execute( new NullProgressMonitor(), null);
 		IProject ejbProj = ResourcesPlugin.getWorkspace().getRoot().getProject(projName);
@@ -403,6 +405,7 @@ public void testWebFragmentModel() throws Exception {
 		dataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, projName);
 		FacetDataModelMap map = (FacetDataModelMap) dataModel
 				.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+		map.remove(IModuleConstants.JST_JAVA);
 		map.add(setupJavaInstallAction(projName,J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.APP_CLIENT_CONTENT_FOLDER)));
 		dataModel.getDefaultOperation().execute( new NullProgressMonitor(), null);
 		IProject webProj = ResourcesPlugin.getWorkspace().getRoot().getProject(projName);
@@ -415,6 +418,9 @@ public void testWebFragmentModel() throws Exception {
 		IProjectFacetVersion facetVersion = facet.getVersion(versionString); //$NON-NLS-1$
 		addVersionProperties(dataModel, projName, facetVersion,IJ2EEFacetInstallDataModelProperties.JCA);
 		dataModel.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, projName);
+		FacetDataModelMap map = (FacetDataModelMap) dataModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+		map.remove(IModuleConstants.JST_JAVA);
+		map.add(setupJavaInstallAction(projName,J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.JCA_CONTENT_FOLDER)));
 		dataModel.getDefaultOperation().execute( new NullProgressMonitor(), null);
 		IProject connectorProj = ResourcesPlugin.getWorkspace().getRoot().getProject(projName);
 		return connectorProj;
@@ -422,8 +428,8 @@ public void testWebFragmentModel() throws Exception {
 	protected IDataModel setupJavaInstallAction(String aProjectName, String srcFolder) {
 		IDataModel dm = DataModelFactory.createDataModel(new JavaFacetInstallDataModelProvider());
 		dm.setProperty(IFacetDataModelProperties.FACET_PROJECT_NAME, aProjectName);
-		String jVersion = "6.0";
-		dm.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, jVersion); //$NON-NLS-1$
+		String jVersion = "1.6";
+		dm.setProperty(IFacetDataModelProperties.FACET_VERSION_STR, jVersion);
 		dm.setStringProperty(IJavaFacetInstallDataModelProperties.SOURCE_FOLDER_NAME, srcFolder); //$NON-NLS-1$
 		return dm;
 	}

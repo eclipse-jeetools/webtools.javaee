@@ -7,7 +7,7 @@
  * it only in accordance with the terms of the license agreement you entered
  * into with SAP.
  * 
- * $Id: EjbAnnotationReaderTest.java,v 1.6 2009/08/07 19:43:09 canderson Exp $
+ * $Id: EjbAnnotationReaderTest.java,v 1.7 2010/11/23 14:01:47 jsholl Exp $
  ***********************************************************************/
 package org.eclipse.jst.jee.model.ejb.tests;
 
@@ -44,6 +44,7 @@ import org.eclipse.jst.jee.model.tests.AbstractTest;
 import org.eclipse.jst.jee.model.tests.SynchronousModelChangedListener;
 import org.eclipse.jst.jee.model.tests.TestUtils;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
+import org.eclipse.wst.common.tests.ProjectUtility;
 
 /**
  * @author Kiril Mitov k.mitov@sap.com
@@ -114,6 +115,7 @@ public class EjbAnnotationReaderTest extends AbstractAnnotationModelTest {
 
 	@Override
 	protected void setUp() throws Exception {
+		ProjectUtility.deleteAllProjects();
 		setUpProject();
 		super.setUp();
 		fixture = new EJBAnnotationReader(facetedProject, clientProject);
