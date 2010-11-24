@@ -151,6 +151,8 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 													return;
 												}
 											}
+											if(name != null)
+												name = new Path(name).makeRelative().toString();
 											ICommonModule mod = addModule(application, wc, name);
 											if(mod == null){ //utility project
 												return;
