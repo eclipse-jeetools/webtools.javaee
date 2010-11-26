@@ -92,6 +92,9 @@ public abstract class JEE5ContentProvider implements ITreeContentProvider, IRefr
 			provider = getNewContentProviderInstance(project);
 			groupContentProviders.put(project, provider);
 		} else {
+			if (!project.isAccessible()){
+				return null;
+			}
 			Object modelObject = ModelProviderManager.getModelProvider(project).getModelObject();
 			if (provider.getJavaEEObject() != modelObject){
 				if (modelObject == null){
