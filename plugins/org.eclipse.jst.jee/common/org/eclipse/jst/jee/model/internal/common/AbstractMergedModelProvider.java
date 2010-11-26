@@ -30,6 +30,7 @@ import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.IModelProviderEvent;
 import org.eclipse.jst.j2ee.model.IModelProviderListener;
 import org.eclipse.jst.jee.JEEPlugin;
+import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 
 /**
  * A base class for model providers providing a merged view between two
@@ -114,6 +115,8 @@ public abstract class AbstractMergedModelProvider<T> implements IModelProvider {
 	private XmlModelListener xmlModelListener;
 
 	protected T mergedModel;
+
+	protected long cache_last_change;
 
 	public AbstractMergedModelProvider(IProject project) {
 		this.project = project;
@@ -209,13 +212,26 @@ public abstract class AbstractMergedModelProvider<T> implements IModelProvider {
 
 	protected T getMergedModel() {
 		try {
-			if (mergedModel == null)
+			if (mergedModel == null || hasToReloadModel()){
 				mergedModel = loadModel();
+			}
 		} catch (CoreException e) {
 			JEEPlugin.getDefault().getLog().log(e.getStatus());
 			return null;
 		}
 		return mergedModel;
+	}
+
+	private boolean hasToReloadModel() {
+		long lastModificationTimeOfDDFile = getLastModificationTimeOfDDFile();
+		return lastModificationTimeOfDDFile == -1 ? false : lastModificationTimeOfDDFile != cache_last_change;
+	}
+
+	private long getLastModificationTimeOfDDFile() {
+		if (ddProvider == null || ((EObject)ddProvider.getModelObject()).eResource() == null){
+			return -1;
+		}
+		return WorkbenchResourceHelper.getFile(((EObject)ddProvider.getModelObject()).eResource()).getLocalTimeStamp();
 	}
 
 	/**
@@ -233,8 +249,11 @@ public abstract class AbstractMergedModelProvider<T> implements IModelProvider {
 
 	@SuppressWarnings("unchecked")
 	private void loadProviders() throws CoreException {
-		if (ddProvider == null)
+		if (ddProvider == null || hasToReloadModel()) {
+			if (hasToReloadModel())
+				((EObject)ddProvider.getModelObject()).eResource().unload();
 			ddProvider = loadDeploymentDescriptorModel();
+		}
 		if (ddProvider == null || ddProvider.getModelObject() == null)
 			return;
 		if (annotationModelProvider == null)
@@ -265,6 +284,10 @@ public abstract class AbstractMergedModelProvider<T> implements IModelProvider {
 
 	protected void initMergedModelResource(EObject ddModel) {
 		Resource resourceDD = ddModel.eResource();
+		if (ddProvider != null){
+			cache_last_change = getLastModificationTimeOfDDFile();	
+		}
+		
 		Resource resourceMM = ((EObject) mergedModel).eResource();
 		if (resourceDD != null && resourceMM == null) {
 			ResourceImpl resRes = new ResourceImpl(resourceDD.getURI());
