@@ -129,6 +129,12 @@ public class EJBDeployableArtifactAdapterUtil {
 			String remoteName = (String) iterator.next();
 			modArtifacts.add(createModuleObjectForSessionBean(dep, ejb.getEjbName(), remoteName, true, false));
 		}
+
+		// for EJB 3.1 no-interface
+		if (ejb.getLocalBean() != null){
+			modArtifacts.add(createModuleObjectForSessionBean(dep, ejb.getEjbName(), null, false,false));
+		}
+
 		return (IModuleArtifact[])modArtifacts.toArray(new IModuleArtifact[modArtifacts.size()]);
 	}
 
