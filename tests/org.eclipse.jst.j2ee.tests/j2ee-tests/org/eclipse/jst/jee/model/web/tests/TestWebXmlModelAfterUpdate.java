@@ -3,6 +3,7 @@ package org.eclipse.jst.jee.model.web.tests;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -24,8 +25,12 @@ import org.eclipse.core.filebuffers.LocationKind;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.etools.common.test.apitools.ProjectUnzipUtil;
+import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jst.j2ee.model.IModelProvider;
@@ -33,7 +38,6 @@ import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.javaee.web.Filter;
 import org.eclipse.jst.javaee.web.WebApp;
 import org.eclipse.jst.javaee.web.WebFactory;
-import org.eclipse.jst.jsf.test.util.TestUtil;
 import org.eclipse.text.edits.InsertEdit;
 import org.eclipse.text.edits.MalformedTreeException;
 import org.eclipse.text.edits.MultiTextEdit;
@@ -50,7 +54,8 @@ import org.w3c.dom.NodeList;
 public class TestWebXmlModelAfterUpdate extends TestCase
 {
     private static final String PROJECT_NAME = "TestJSTL_Web25";
-    private static final String PROJECT_ZIP_LOCATION = "TestData/WebEditDdExternal/TestJSTL_Web25.zip";
+    private static final Path PROJECT_ZIP_LOCATION = new Path("TestData/WebEditDdExternal/TestJSTL_Web25.zip");
+    private static String[] projectNames = new String[]{PROJECT_NAME}; 
 
     private static final String TRINIDAD_FILTER_NAME = "trinidad";
     private static final String TRINIDAD_FILTER_CLASS = "trinidadClass";
@@ -71,7 +76,9 @@ public class TestWebXmlModelAfterUpdate extends TestCase
     protected void setUp() throws Exception
     {
         super.setUp();
-        _iProject = TestUtil.createProjectFromZip(HeadlessTestsPlugin.getDefault().getBundle(), PROJECT_NAME, PROJECT_ZIP_LOCATION);
+        ProjectUnzipUtil util = new ProjectUnzipUtil(getLocalPath(PROJECT_ZIP_LOCATION), projectNames);
+		util.createProjects();
+		_iProject = ProjectUtilities.getProject(projectNames[0]);
     }
 
 
@@ -264,5 +271,14 @@ public class TestWebXmlModelAfterUpdate extends TestCase
         }
     }
 
+    private static IPath getLocalPath(IPath path) {
+		URL url = FileLocator.find(HeadlessTestsPlugin.getDefault().getBundle(), path, null);
+		try {
+			url = FileLocator.toFileURL(url);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return new Path(url.getPath());
+	}
 
 }

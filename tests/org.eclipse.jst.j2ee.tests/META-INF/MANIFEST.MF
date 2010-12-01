@@ -68,7 +68,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.filebuffers,
  org.eclipse.jst.jee.web,
  org.eclipse.wst.xml.core,
- org.eclipse.wst.sse.core,
- org.eclipse.jst.jsf.test.util
+ org.eclipse.wst.sse.core
 Eclipse-LazyStart: true
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
