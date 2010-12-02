@@ -99,7 +99,10 @@ public class WebDeployableArtifactUtil {
 				if (webType == null) {
 					return null;
 				} else if (webType.isJspType()) {
-					resource = ((IProject) resource).getFile(((JSPType) webType).getJspFile()); 
+					if (component != null) {
+						IPath jspFilePath = new Path(((JSPType) webType).getJspFile());
+						resource = component.getRootFolder().getUnderlyingFolder().getFile(jspFilePath);
+					}
 				} else if (webType.isServletType()) {
 					return new WebResource(getModule(resource.getProject(), component), new Path("servlet/" + ((ServletType) webType).getClassName())); //$NON-NLS-1$
 				}
@@ -136,7 +139,7 @@ public class WebDeployableArtifactUtil {
 			return new WebResource(getModule(resource.getProject(), component), new Path("servlet/" + className)); //$NON-NLS-1$
 
 		}
-		if (className == null) {
+		if (className == null && component != null) {
 			WebArtifactEdit webEdit = null;
 			try {
 				webEdit = WebArtifactEdit.getWebArtifactEditForRead(component);
@@ -146,8 +149,9 @@ public class WebDeployableArtifactUtil {
 					WebType type = servlet.getWebType();
 					if (type.isJspType()) {
 						JSPType jsp = (JSPType)type;
-						String jspPath = resource.getProjectRelativePath().removeFirstSegments(1).toString();
-						if (jsp.getJspFile().equals(jspPath)) {
+						IPath rootPath = component.getRootFolder().getProjectRelativePath();
+						IPath jspPath = resource.getProjectRelativePath().removeFirstSegments(rootPath.segmentCount());
+						if (jsp.getJspFile().equals(jspPath.makeAbsolute().toString())) {
 							List mappings = servlet.getMappings();
 							String mapping = null;
 							if (mappings != null && !mappings.isEmpty()) {

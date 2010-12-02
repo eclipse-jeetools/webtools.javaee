@@ -40,6 +40,7 @@ import org.eclipse.jst.javaee.core.UrlPatternType;
 import org.eclipse.jst.javaee.web.IWebCommon;
 import org.eclipse.jst.javaee.web.Servlet;
 import org.eclipse.jst.javaee.web.ServletMapping;
+import org.eclipse.jst.javaee.web.WebApp;
 import org.eclipse.jst.javaee.web.internal.impl.ServletImpl;
 import org.eclipse.jst.jee.ui.plugin.JEEUIPlugin;
 import org.eclipse.wst.common.componentcore.ComponentCore;
@@ -90,23 +91,25 @@ public class WebDeployableArtifactUtil {
 					component = resources[0].getComponent();
 				}
 				String mapping = null;
-				java.util.List mappings = getServletMappings(resource, servlet.getServletClass());
+				if (servlet.getServletClass() != null) {
+					List<ServletMapping> mappings = getServletMappings(resource, servlet.getServletClass());
 
-				if (mappings != null && !mappings.isEmpty()) {
-					ServletMapping map = (ServletMapping) mappings.get(0);
-					UrlPatternType urlPattern = map.getUrlPatterns().get(0);
-					mapping = urlPattern.getValue();
+					if (mappings != null && !mappings.isEmpty()) {
+						ServletMapping map = mappings.get(0);
+						UrlPatternType urlPattern = map.getUrlPatterns().get(0);
+						mapping = urlPattern.getValue();
+					}
+					if (mapping != null) {
+						return new WebResource(getModule(resource.getProject(), component), new Path(mapping));
+					}
+					return new WebResource(getModule(resource.getProject(), component), new Path("servlet/" + servlet.getServletClass())); //$NON-NLS-1$
+					
+				} else if (servlet.getJspFile() != null) {
+					if (component != null) {
+						IPath jspFilePath = new Path(servlet.getJspFile());
+						resource = component.getRootFolder().getUnderlyingFolder().getFile(jspFilePath);
+					}
 				}
-				if (mapping != null) {
-					return new WebResource(getModule(resource.getProject(), component), new Path(mapping));
-				}
-				
-//				WebType webType = ((Servlet) obj).getWebType();
-//				if (webType.isJspType()) {
-//					resource = ((IProject) resource).getFile(((JSPType) webType).getJspFile()); //$NON-NLS-1$
-//				} else if (webType.isServletType()) {
-//					return new WebResource(getModule(resource.getProject(), component), new Path("servlet/" + ((ServletType) webType).getClassName())); //$NON-NLS-1$
-//				}
 			}
 		}
 		if (resource == null)
@@ -140,33 +143,13 @@ public class WebDeployableArtifactUtil {
 			return new WebResource(getModule(resource.getProject(), component), new Path("servlet/" + className)); //$NON-NLS-1$
 
 		}
-		if (className == null) {
-//			WebArtifactEdit webEdit = null;
-//			try {
-//				webEdit = WebArtifactEdit.getWebArtifactEditForRead(component);
-//				List servlets = webEdit.getWebApp().getServlets();
-//				for (int i=0; i<servlets.size(); i++) {
-//					Servlet servlet = (Servlet) servlets.get(i);
-//					WebType type = servlet.getWebType();
-//					if (type.isJspType()) {
-//						JSPType jsp = (JSPType)type;
-//						String jspPath = resource.getProjectRelativePath().removeFirstSegments(1).toString();
-//						if (jsp.getJspFile().equals(jspPath)) {
-//							List mappings = servlet.getMappings();
-//							String mapping = null;
-//							if (mappings != null && !mappings.isEmpty()) {
-//								ServletMapping map = (ServletMapping) mappings.get(0);
-//								mapping = map.getUrlPattern();
-//								if (mapping != null) 
-//									return new WebResource(getModule(resource.getProject(), component), new Path(mapping));
-//							}
-//						}
-//					}
-//				}
-//			} finally {
-//				if (webEdit != null)
-//					webEdit.dispose();
-//			}
+		if (className == null && component != null) {
+			IPath rootPath = component.getRootFolder().getProjectRelativePath();
+			IPath jspPath = resource.getProjectRelativePath().removeFirstSegments(rootPath.segmentCount());
+			String mapping = getJSPServletMapping(resource, jspPath.makeAbsolute().toString());
+			if (mapping != null) {
+				return new WebResource(getModule(resource.getProject(), component), new Path(mapping));
+			}
 		}
         resourcePath = resources[0].getRuntimePath();
         
@@ -361,6 +344,35 @@ public class WebDeployableArtifactUtil {
 	protected static boolean hasInterestedComponents(IProject project) {
 		return (JavaEEProjectUtilities.isDynamicWebProject(project) ||
 				JavaEEProjectUtilities.isWebFragmentProject(project));
+	}
+
+	private static String getJSPServletMapping(IResource resource, String jspPath) {
+		IModelProvider provider = ModelProviderManager.getModelProvider(resource.getProject());
+		Object mObj = provider.getModelObject();
+		
+		if (mObj instanceof WebApp) {
+			WebApp webApp= (WebApp) mObj;
+			List<Servlet> servlets = webApp.getServlets();
+			if (servlets != null && !servlets.isEmpty()) {
+				for (int i = 0; i < servlets.size(); i++) {
+					Servlet servlet = servlets.get(i);
+					if (servlet.getJspFile() != null && servlet.getJspFile().equals(jspPath)) {
+						List<ServletMapping> mappings = webApp.getServletMappings();
+						if (mappings != null && !mappings.isEmpty()) {
+							Iterator<ServletMapping> it = mappings.iterator();
+							while (it.hasNext()) {
+								ServletMapping map = it.next();
+								if (map.getServletName().equals(servlet.getServletName())) {
+									UrlPatternType urlPattern = map.getUrlPatterns().get(0);
+									return urlPattern.getValue();
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		return null;
 	}
 
 	private static List getServletMappings(IResource resource, String typeName){ 
