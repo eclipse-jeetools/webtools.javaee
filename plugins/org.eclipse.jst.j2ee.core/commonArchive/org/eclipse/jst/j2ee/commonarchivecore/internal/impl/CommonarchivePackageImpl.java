@@ -39,11 +39,11 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.WebModuleRef;
 import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.LooseconfigPackage;
 import org.eclipse.jst.j2ee.commonarchivecore.looseconfig.internal.impl.LooseconfigPackageImpl;
+import org.eclipse.jst.j2ee.core.internal.plugin.J2EECorePlugin;
 import org.eclipse.jst.j2ee.ejb.EjbPackage;
+import org.eclipse.jst.j2ee.internal.J2EEInit;
 import org.eclipse.jst.j2ee.jca.JcaPackage;
-import org.eclipse.jst.j2ee.jsp.JspPackage;
 import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
-import org.eclipse.jst.j2ee.webservice.wsclient.Webservice_clientPackage;
 
 
 /**
@@ -170,14 +170,7 @@ public class CommonarchivePackageImpl extends EPackageImpl implements Commonarch
 
 		// Initialize simple dependencies
 		EcorePackage.eINSTANCE.eClass();
-		Webservice_clientPackage.eINSTANCE.eClass();
-		CommonPackage.eINSTANCE.eClass();
-		WebapplicationPackage.eINSTANCE.eClass();
-		EjbPackage.eINSTANCE.eClass();
-		JspPackage.eINSTANCE.eClass();
-		ApplicationPackage.eINSTANCE.eClass();
-		ClientPackage.eINSTANCE.eClass();
-		JcaPackage.eINSTANCE.eClass();
+		J2EEInit.initEMFModels();
 		JavaRefPackage.eINSTANCE.eClass();
 
 		// Obtain or create and register interdependencies
@@ -542,74 +535,86 @@ public class CommonarchivePackageImpl extends EPackageImpl implements Commonarch
 		// Add subpackages
 		getESubpackages().add(theLooseconfigPackage);
 
-		// Add supertypes to classes
-		fileEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
-		archiveEClass.getESuperTypes().add(this.getContainer());
-		ejbJarFileEClass.getESuperTypes().add(this.getModuleFile());
-		warFileEClass.getESuperTypes().add(this.getModuleFile());
-		earFileEClass.getESuperTypes().add(this.getModuleFile());
-		applicationClientFileEClass.getESuperTypes().add(this.getModuleFile());
-		moduleFileEClass.getESuperTypes().add(this.getArchive());
-		containerEClass.getESuperTypes().add(this.getFile());
-		readOnlyDirectoryEClass.getESuperTypes().add(this.getContainer());
-		rarFileEClass.getESuperTypes().add(this.getModuleFile());
-		moduleRefEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
-		ejbModuleRefEClass.getESuperTypes().add(this.getModuleRef());
-		webModuleRefEClass.getESuperTypes().add(this.getModuleRef());
-		clientModuleRefEClass.getESuperTypes().add(this.getModuleRef());
-		connectorModuleRefEClass.getESuperTypes().add(this.getModuleRef());
-
-		// Initialize classes and features; add operations and parameters
-		initEClass(fileEClass, File.class, "File", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getFile_URI(), ecorePackage.getEString(), "URI", null, 0, 1, File.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getFile_LastModified(), ecorePackage.getELong(), "lastModified", null, 0, 1, File.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getFile_Size(), ecorePackage.getELong(), "size", null, 0, 1, File.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getFile_DirectoryEntry(), ecorePackage.getEBoolean(), "directoryEntry", null, 0, 1, File.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getFile_OriginalURI(), ecorePackage.getEString(), "originalURI", null, 0, 1, File.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getFile_LoadingContainer(), this.getContainer(), null, "loadingContainer", null, 1, 1, File.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getFile_Container(), this.getContainer(), this.getContainer_Files(), "container", null, 0, 1, File.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(archiveEClass, Archive.class, "Archive", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getArchive_Types(), ecorePackage.getEString(), "types", null, 0, -1, Archive.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(ejbJarFileEClass, EJBJarFile.class, "EJBJarFile", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEReference(getEJBJarFile_DeploymentDescriptor(), theEjbPackage.getEJBJar(), null, "deploymentDescriptor", null, 1, 1, EJBJarFile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(warFileEClass, WARFile.class, "WARFile", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEReference(getWARFile_DeploymentDescriptor(), theWebapplicationPackage.getWebApp(), null, "deploymentDescriptor", null, 1, 1, WARFile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(earFileEClass, EARFile.class, "EARFile", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEReference(getEARFile_ModuleRefs(), this.getModuleRef(), this.getModuleRef_EarFile(), "moduleRefs", null, 1, -1, EARFile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getEARFile_DeploymentDescriptor(), theApplicationPackage.getApplication(), null, "deploymentDescriptor", null, 1, 1, EARFile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(applicationClientFileEClass, ApplicationClientFile.class, "ApplicationClientFile", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEReference(getApplicationClientFile_DeploymentDescriptor(), theClientPackage.getApplicationClient(), null, "deploymentDescriptor", null, 1, 1, ApplicationClientFile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(moduleFileEClass, ModuleFile.class, "ModuleFile", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-
-		initEClass(containerEClass, Container.class, "Container", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEReference(getContainer_Files(), this.getFile(), this.getFile_Container(), "files", null, 0, -1, Container.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(readOnlyDirectoryEClass, ReadOnlyDirectory.class, "ReadOnlyDirectory", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-
-		initEClass(rarFileEClass, RARFile.class, "RARFile", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEReference(getRARFile_DeploymentDescriptor(), theJcaPackage.getConnector(), null, "deploymentDescriptor", null, 1, 1, RARFile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(moduleRefEClass, ModuleRef.class, "ModuleRef", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEReference(getModuleRef_ModuleFile(), this.getModuleFile(), null, "moduleFile", null, 1, 1, ModuleRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getModuleRef_EarFile(), this.getEARFile(), this.getEARFile_ModuleRefs(), "earFile", null, 1, 1, ModuleRef.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getModuleRef_Module(), theApplicationPackage.getModule(), null, "module", null, 1, 1, ModuleRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(ejbModuleRefEClass, EJBModuleRef.class, "EJBModuleRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-
-		initEClass(webModuleRefEClass, WebModuleRef.class, "WebModuleRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-
-		initEClass(clientModuleRefEClass, ClientModuleRef.class, "ClientModuleRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-
-		initEClass(connectorModuleRefEClass, ConnectorModuleRef.class, "ConnectorModuleRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-
-		// Create resource
-		createResource(eNS_URI);
+		boolean hasLock = false;
+		try {
+			hasLock = J2EEInit.aquireInitializePackageContentsLock();
+		} catch (InterruptedException e) {
+			J2EECorePlugin.logError(e);
+		}		
+		
+		try{
+			// Add supertypes to classes
+			fileEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+			archiveEClass.getESuperTypes().add(this.getContainer());
+			ejbJarFileEClass.getESuperTypes().add(this.getModuleFile());
+			warFileEClass.getESuperTypes().add(this.getModuleFile());
+			earFileEClass.getESuperTypes().add(this.getModuleFile());
+			applicationClientFileEClass.getESuperTypes().add(this.getModuleFile());
+			moduleFileEClass.getESuperTypes().add(this.getArchive());
+			containerEClass.getESuperTypes().add(this.getFile());
+			readOnlyDirectoryEClass.getESuperTypes().add(this.getContainer());
+			rarFileEClass.getESuperTypes().add(this.getModuleFile());
+			moduleRefEClass.getESuperTypes().add(theCommonPackage.getJ2EEEObject());
+			ejbModuleRefEClass.getESuperTypes().add(this.getModuleRef());
+			webModuleRefEClass.getESuperTypes().add(this.getModuleRef());
+			clientModuleRefEClass.getESuperTypes().add(this.getModuleRef());
+			connectorModuleRefEClass.getESuperTypes().add(this.getModuleRef());
+	
+			// Initialize classes and features; add operations and parameters
+			initEClass(fileEClass, File.class, "File", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getFile_URI(), ecorePackage.getEString(), "URI", null, 0, 1, File.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getFile_LastModified(), ecorePackage.getELong(), "lastModified", null, 0, 1, File.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getFile_Size(), ecorePackage.getELong(), "size", null, 0, 1, File.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getFile_DirectoryEntry(), ecorePackage.getEBoolean(), "directoryEntry", null, 0, 1, File.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getFile_OriginalURI(), ecorePackage.getEString(), "originalURI", null, 0, 1, File.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getFile_LoadingContainer(), this.getContainer(), null, "loadingContainer", null, 1, 1, File.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getFile_Container(), this.getContainer(), this.getContainer_Files(), "container", null, 0, 1, File.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(archiveEClass, Archive.class, "Archive", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getArchive_Types(), ecorePackage.getEString(), "types", null, 0, -1, Archive.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(ejbJarFileEClass, EJBJarFile.class, "EJBJarFile", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEReference(getEJBJarFile_DeploymentDescriptor(), theEjbPackage.getEJBJar(), null, "deploymentDescriptor", null, 1, 1, EJBJarFile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(warFileEClass, WARFile.class, "WARFile", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEReference(getWARFile_DeploymentDescriptor(), theWebapplicationPackage.getWebApp(), null, "deploymentDescriptor", null, 1, 1, WARFile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(earFileEClass, EARFile.class, "EARFile", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEReference(getEARFile_ModuleRefs(), this.getModuleRef(), this.getModuleRef_EarFile(), "moduleRefs", null, 1, -1, EARFile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getEARFile_DeploymentDescriptor(), theApplicationPackage.getApplication(), null, "deploymentDescriptor", null, 1, 1, EARFile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(applicationClientFileEClass, ApplicationClientFile.class, "ApplicationClientFile", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEReference(getApplicationClientFile_DeploymentDescriptor(), theClientPackage.getApplicationClient(), null, "deploymentDescriptor", null, 1, 1, ApplicationClientFile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(moduleFileEClass, ModuleFile.class, "ModuleFile", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+	
+			initEClass(containerEClass, Container.class, "Container", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEReference(getContainer_Files(), this.getFile(), this.getFile_Container(), "files", null, 0, -1, Container.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(readOnlyDirectoryEClass, ReadOnlyDirectory.class, "ReadOnlyDirectory", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+	
+			initEClass(rarFileEClass, RARFile.class, "RARFile", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEReference(getRARFile_DeploymentDescriptor(), theJcaPackage.getConnector(), null, "deploymentDescriptor", null, 1, 1, RARFile.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(moduleRefEClass, ModuleRef.class, "ModuleRef", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEReference(getModuleRef_ModuleFile(), this.getModuleFile(), null, "moduleFile", null, 1, 1, ModuleRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getModuleRef_EarFile(), this.getEARFile(), this.getEARFile_ModuleRefs(), "earFile", null, 1, 1, ModuleRef.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getModuleRef_Module(), theApplicationPackage.getModule(), null, "module", null, 1, 1, ModuleRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(ejbModuleRefEClass, EJBModuleRef.class, "EJBModuleRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+	
+			initEClass(webModuleRefEClass, WebModuleRef.class, "WebModuleRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+	
+			initEClass(clientModuleRefEClass, ClientModuleRef.class, "ClientModuleRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+	
+			initEClass(connectorModuleRefEClass, ConnectorModuleRef.class, "ConnectorModuleRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+	
+			// Create resource
+			createResource(eNS_URI);
+		}finally{
+			if( hasLock )
+				J2EEInit.releaseInitializePackageContentsLock();
+		}
 	}
 
 } //CommonarchivePackageImpl
