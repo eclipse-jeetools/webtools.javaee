@@ -19,31 +19,8 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import org.eclipse.emf.ecore.xml.namespace.XMLNamespacePackage;
 
-import org.eclipse.jst.javaee.application.internal.impl.ApplicationPackageImpl;
-
-import org.eclipse.jst.javaee.application.internal.metadata.ApplicationPackage;
-
-import org.eclipse.jst.javaee.applicationclient.internal.impl.ApplicationclientPackageImpl;
-
-import org.eclipse.jst.javaee.applicationclient.internal.metadata.ApplicationclientPackage;
-
-import org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl;
-
-import org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage;
-
-import org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl;
-
-import org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage;
-
-import org.eclipse.jst.javaee.jca.internal.impl.JcaPackageImpl;
-
-import org.eclipse.jst.javaee.jca.internal.metadata.JcaPackage;
-
-import org.eclipse.jst.javaee.jsp.internal.impl.JspPackageImpl;
-
-import org.eclipse.jst.javaee.jsp.internal.metadata.JspPackage;
-
-import org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl;
+import org.eclipse.jst.j2ee.core.internal.plugin.J2EECorePlugin;
+import org.eclipse.jst.j2ee.internal.J2EEInit;
 
 import org.eclipse.jst.javaee.web.internal.metadata.WebPackage;
 
@@ -51,10 +28,6 @@ import org.eclipse.jst.javaee.webapp.WebAppDeploymentDescriptor;
 import org.eclipse.jst.javaee.webapp.WebappFactory;
 
 import org.eclipse.jst.javaee.webapp.internal.metadata.WebappPackage;
-
-import org.eclipse.jst.javaee.webfragment.internal.impl.WebfragmentPackageImpl;
-
-import org.eclipse.jst.javaee.webfragment.internal.metadata.WebfragmentPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -119,37 +92,11 @@ public class WebappPackageImpl extends EPackageImpl implements WebappPackage {
 		// Initialize simple dependencies
 		XMLNamespacePackage.eINSTANCE.eClass();
 
-		// Obtain or create and register interdependencies
-		ApplicationPackageImpl theApplicationPackage = (ApplicationPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI) instanceof ApplicationPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI) : ApplicationPackage.eINSTANCE);
-		JavaeePackageImpl theJavaeePackage = (JavaeePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(JavaeePackage.eNS_URI) instanceof JavaeePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(JavaeePackage.eNS_URI) : JavaeePackage.eINSTANCE);
-		ApplicationclientPackageImpl theApplicationclientPackage = (ApplicationclientPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ApplicationclientPackage.eNS_URI) instanceof ApplicationclientPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ApplicationclientPackage.eNS_URI) : ApplicationclientPackage.eINSTANCE);
-		JcaPackageImpl theJcaPackage = (JcaPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(JcaPackage.eNS_URI) instanceof JcaPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(JcaPackage.eNS_URI) : JcaPackage.eINSTANCE);
-		EjbPackageImpl theEjbPackage = (EjbPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(EjbPackage.eNS_URI) instanceof EjbPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(EjbPackage.eNS_URI) : EjbPackage.eINSTANCE);
-		JspPackageImpl theJspPackage = (JspPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(JspPackage.eNS_URI) instanceof JspPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(JspPackage.eNS_URI) : JspPackage.eINSTANCE);
-		WebPackageImpl theWebPackage = (WebPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WebPackage.eNS_URI) instanceof WebPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WebPackage.eNS_URI) : WebPackage.eINSTANCE);
-		WebfragmentPackageImpl theWebfragmentPackage = (WebfragmentPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WebfragmentPackage.eNS_URI) instanceof WebfragmentPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WebfragmentPackage.eNS_URI) : WebfragmentPackage.eINSTANCE);
-
 		// Create package meta-data objects
 		theWebappPackage.createPackageContents();
-		theApplicationPackage.createPackageContents();
-		theJavaeePackage.createPackageContents();
-		theApplicationclientPackage.createPackageContents();
-		theJcaPackage.createPackageContents();
-		theEjbPackage.createPackageContents();
-		theJspPackage.createPackageContents();
-		theWebPackage.createPackageContents();
-		theWebfragmentPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theWebappPackage.initializePackageContents();
-		theApplicationPackage.initializePackageContents();
-		theJavaeePackage.initializePackageContents();
-		theApplicationclientPackage.initializePackageContents();
-		theJcaPackage.initializePackageContents();
-		theEjbPackage.initializePackageContents();
-		theJspPackage.initializePackageContents();
-		theWebPackage.initializePackageContents();
-		theWebfragmentPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theWebappPackage.freeze();
@@ -157,6 +104,8 @@ public class WebappPackageImpl extends EPackageImpl implements WebappPackage {
   
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(WebappPackage.eNS_URI, theWebappPackage);
+
+		J2EEInit.initEMFModels();
 		return theWebappPackage;
 	}
 
@@ -270,21 +219,33 @@ public class WebappPackageImpl extends EPackageImpl implements WebappPackage {
 
 		// Set bounds for type parameters
 
-		// Add supertypes to classes
-
-		// Initialize classes and features; add operations and parameters
-		initEClass(webAppDeploymentDescriptorEClass, WebAppDeploymentDescriptor.class, "WebAppDeploymentDescriptor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getWebAppDeploymentDescriptor_Mixed(), ecorePackage.getEFeatureMapEntry(), "mixed", null, 0, -1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getWebAppDeploymentDescriptor_XMLNSPrefixMap(), ecorePackage.getEStringToStringMapEntry(), null, "xMLNSPrefixMap", null, 0, -1, null, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getWebAppDeploymentDescriptor_XSISchemaLocation(), ecorePackage.getEStringToStringMapEntry(), null, "xSISchemaLocation", null, 0, -1, null, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getWebAppDeploymentDescriptor_WebApp(), theWebPackage.getWebApp(), null, "webApp", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		// Create resource
-		createResource(eNS_URI);
-
-		// Create annotations
-		// http:///org/eclipse/emf/ecore/util/ExtendedMetaData
-		createExtendedMetaDataAnnotations();
+		boolean hasLock = false;
+		try {
+			hasLock = J2EEInit.aquireInitializePackageContentsLock();
+		} catch (InterruptedException e) {
+			J2EECorePlugin.logError(e);
+		}		
+		
+		try{
+			// Add supertypes to classes
+	
+			// Initialize classes and features; add operations and parameters
+			initEClass(webAppDeploymentDescriptorEClass, WebAppDeploymentDescriptor.class, "WebAppDeploymentDescriptor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getWebAppDeploymentDescriptor_Mixed(), ecorePackage.getEFeatureMapEntry(), "mixed", null, 0, -1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getWebAppDeploymentDescriptor_XMLNSPrefixMap(), ecorePackage.getEStringToStringMapEntry(), null, "xMLNSPrefixMap", null, 0, -1, null, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getWebAppDeploymentDescriptor_XSISchemaLocation(), ecorePackage.getEStringToStringMapEntry(), null, "xSISchemaLocation", null, 0, -1, null, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getWebAppDeploymentDescriptor_WebApp(), theWebPackage.getWebApp(), null, "webApp", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			// Create resource
+			createResource(eNS_URI);
+	
+			// Create annotations
+			// http:///org/eclipse/emf/ecore/util/ExtendedMetaData
+			createExtendedMetaDataAnnotations();
+		}finally{
+			if( hasLock )
+				J2EEInit.releaseInitializePackageContentsLock();
+		}
 	}
 
 	/**
