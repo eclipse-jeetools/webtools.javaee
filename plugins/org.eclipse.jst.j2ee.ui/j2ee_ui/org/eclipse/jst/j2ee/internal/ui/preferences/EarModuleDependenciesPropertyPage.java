@@ -38,10 +38,12 @@ import org.eclipse.jst.j2ee.internal.ui.J2EEModuleDependenciesPropertyPage.Class
 import org.eclipse.jst.j2ee.internal.ui.JavaEEComponentDependencyContentProvider;
 import org.eclipse.jst.j2ee.model.IEARModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.jst.jee.project.facet.EarCreateDeploymentFilesDataModelProvider;
 import org.eclipse.jst.jee.project.facet.ICreateDeploymentFilesDataModelProperties;
+import org.eclipse.jst.jee.util.internal.JavaEEQuickPeek;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -53,12 +55,14 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.common.componentcore.internal.IModuleHandler;
 import org.eclipse.wst.common.componentcore.internal.impl.TaskModel;
+import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.componentcore.ui.internal.propertypage.ComponentDependencyContentProvider;
 import org.eclipse.wst.common.componentcore.ui.internal.propertypage.DependencyPageExtensionManager;
 import org.eclipse.wst.common.componentcore.ui.internal.propertypage.DependencyPageExtensionManager.ReferenceExtension;
+import org.eclipse.wst.common.componentcore.ui.internal.taskwizard.TaskWizard;
 import org.eclipse.wst.common.componentcore.ui.propertypage.AddModuleDependenciesPropertiesPage;
 import org.eclipse.wst.common.componentcore.ui.propertypage.IReferenceWizardConstants;
 import org.eclipse.wst.common.componentcore.ui.propertypage.IReferenceWizardConstants.ProjectConverterOperationProvider;
@@ -92,17 +96,7 @@ public class EarModuleDependenciesPropertyPage extends
 	}
 
 	private String loadLibDirString() {
-		String oldLibDir = null;
-		if(JavaEEProjectUtilities.isJEEComponent(rootComponent, JavaEEProjectUtilities.DD_VERSION) && JavaEEProjectUtilities.isJEEComponent(rootComponent, JavaEEProjectUtilities.FACET_VERSION)) {
-			final IEARModelProvider earModel = (IEARModelProvider)ModelProviderManager.getModelProvider(project);
-			Application app = (Application)earModel.getModelObject();
-			if(app != null)
-				oldLibDir = app.getLibraryDirectory();
-		}
-		if(oldLibDir != null) {
-			return oldLibDir;
-		}
-		return earDefaultLirDir;
+		return EarUtilities.getEARLibDir(rootComponent);
 	}
 	
 	protected void addLibDirComposite(Composite parent) {
@@ -228,7 +222,7 @@ public class EarModuleDependenciesPropertyPage extends
 	@Override
 	protected void filterReferenceTypes( final List<ReferenceExtension> extensions ) 
 	{
-		// Replace the default one with our own custom one, in class CustomWebProjectReferenceWizardFragment
+		// Replace the default one with our own custom one, in class CustomEARProjectReferenceWizardFragment
 		
 		for( int i = 0, n = extensions.size(); i < n; i++ ) 
 		{
@@ -346,7 +340,8 @@ public class EarModuleDependenciesPropertyPage extends
 	@Override
 	public void performDefaults() {
 		libDir = loadLibDirString();
-		libDirText.setText(libDir);
+		if(libDir != null)
+			libDirText.setText(libDir);
 		super.performDefaults();
 	}
 	
@@ -368,4 +363,40 @@ public class EarModuleDependenciesPropertyPage extends
         }
         return multiStatus;
     }
+	
+	@Override
+	protected void handleAddDirective( final TaskWizard wizard )
+	{
+		final Object folderMapping = wizard.getTaskModel().getObject(IReferenceWizardConstants.FOLDER_MAPPING);
+		
+		if( folderMapping != null && folderMapping instanceof ComponentResourceProxy || libDir == null) 
+		{
+			super.handleAddDirective(wizard);
+		}
+		else
+		{
+			Object reference = wizard.getTaskModel().getObject(IReferenceWizardConstants.FINAL_REFERENCE);
+			
+			if( reference != null ) 
+			{
+				IVirtualReference[] referenceArray = reference instanceof IVirtualReference ? 
+						new IVirtualReference[] { (IVirtualReference)reference } : 
+							(IVirtualReference[])reference;
+				for(int i = 0; i < referenceArray.length; i++) {
+					IVirtualComponent component = referenceArray[i].getReferencedComponent();
+					if(component instanceof	VirtualArchiveComponent) {
+						JavaEEQuickPeek qp = JavaEEBinaryComponentHelper.getJavaEEQuickPeek(component);
+						switch (qp.getType()) {
+						case JavaEEQuickPeek.EJB_TYPE:
+						case JavaEEQuickPeek.WEB_TYPE:
+						case JavaEEQuickPeek.APPLICATION_CLIENT_TYPE:
+						case JavaEEQuickPeek.CONNECTOR_TYPE:
+							referenceArray[i].setRuntimePath(new Path("/")); //$NON-NLS-1$
+						}
+					}
+					currentReferences.add(referenceArray[i]);
+				}
+			}
+		}
+	}
 }
