@@ -71,11 +71,18 @@ import org.eclipse.wst.common.internal.emf.utilities.PasswordEncoderDecoder;
 import org.eclipse.wst.common.internal.emf.utilities.Revisit;
 import org.eclipse.jst.j2ee.core.internal.plugin.J2EECorePlugin;
 import org.eclipse.jst.javaee.applicationclient.ApplicationclientFactory;
+import org.eclipse.jst.javaee.applicationclient.internal.impl.ApplicationclientPackageImpl;
 import org.eclipse.jst.javaee.applicationclient.internal.metadata.ApplicationclientPackage;
 import org.eclipse.jst.javaee.core.JavaeeFactory;
+import org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl;
 import org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage;
 import org.eclipse.jst.javaee.web.WebFactory;
+import org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl;
 import org.eclipse.jst.javaee.web.internal.metadata.WebPackage;
+import org.eclipse.jst.javaee.webapp.internal.impl.WebappPackageImpl;
+import org.eclipse.jst.javaee.webapp.internal.metadata.WebappPackage;
+import org.eclipse.jst.javaee.webfragment.internal.impl.WebfragmentPackageImpl;
+import org.eclipse.jst.javaee.webfragment.internal.metadata.WebfragmentPackage;
 
 /**
  * Insert the type's description here.
@@ -379,6 +386,54 @@ public class J2EEInit {
 				}
 			});
 			j2eeEmfInitThread.start();
+
+			
+			// put the following initialization on its own thread.
+			Thread javaeeEmfInitThread = new Thread(new Runnable(){
+				public void run()
+				{
+					// Obtain or create and register interdependencies
+					// Create package meta-data objects
+					// Initialize created meta-data
+					
+					JavaeePackageImpl theJavaeePackage = (JavaeePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(JavaeePackage.eNS_URI) instanceof JavaeePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(JavaeePackage.eNS_URI) : JavaeePackage.eINSTANCE);
+					theJavaeePackage.createPackageContents();
+					theJavaeePackage.initializePackageContents();
+					
+					org.eclipse.jst.javaee.jca.internal.impl.JcaPackageImpl theJcaPackage = (org.eclipse.jst.javaee.jca.internal.impl.JcaPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(org.eclipse.jst.javaee.jca.internal.metadata.JcaPackage.eNS_URI) instanceof org.eclipse.jst.javaee.jca.internal.impl.JcaPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(org.eclipse.jst.javaee.jca.internal.metadata.JcaPackage.eNS_URI) : org.eclipse.jst.javaee.jca.internal.metadata.JcaPackage.eINSTANCE);
+					theJcaPackage.createPackageContents();
+					theJcaPackage.initializePackageContents();
+					
+					org.eclipse.jst.javaee.jsp.internal.impl.JspPackageImpl theJspPackage = (org.eclipse.jst.javaee.jsp.internal.impl.JspPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(org.eclipse.jst.javaee.jsp.internal.metadata.JspPackage.eNS_URI) instanceof org.eclipse.jst.javaee.jsp.internal.impl.JspPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(org.eclipse.jst.javaee.jsp.internal.metadata.JspPackage.eNS_URI) : org.eclipse.jst.javaee.jsp.internal.metadata.JspPackage.eINSTANCE);
+					theJspPackage.createPackageContents();
+					theJspPackage.initializePackageContents();
+					
+					ApplicationclientPackageImpl theApplicationclientPackage = (ApplicationclientPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ApplicationclientPackage.eNS_URI) instanceof ApplicationclientPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ApplicationclientPackage.eNS_URI) : ApplicationclientPackage.eINSTANCE);
+					theApplicationclientPackage.createPackageContents();
+					theApplicationclientPackage.initializePackageContents();
+					
+					org.eclipse.jst.javaee.application.internal.impl.ApplicationPackageImpl theApplicationPackage = (org.eclipse.jst.javaee.application.internal.impl.ApplicationPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(org.eclipse.jst.javaee.application.internal.metadata.ApplicationPackage.eNS_URI) instanceof org.eclipse.jst.javaee.application.internal.impl.ApplicationPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(org.eclipse.jst.javaee.application.internal.metadata.ApplicationPackage.eNS_URI) : org.eclipse.jst.javaee.application.internal.metadata.ApplicationPackage.eINSTANCE);
+					theApplicationPackage.createPackageContents();
+					theApplicationPackage.initializePackageContents();
+					
+					org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl theEjbPackage = (org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage.eNS_URI) instanceof org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage.eNS_URI) : org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage.eINSTANCE);
+					theEjbPackage.createPackageContents();
+					theEjbPackage.initializePackageContents();
+
+					WebPackageImpl theWebPackage = (WebPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WebPackage.eNS_URI) instanceof WebPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WebPackage.eNS_URI) : WebPackage.eINSTANCE);
+					theWebPackage.createPackageContents();
+					theWebPackage.initializePackageContents();
+					
+					WebappPackageImpl theWebappPackage = (WebappPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WebappPackage.eNS_URI) instanceof WebappPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WebappPackage.eNS_URI) : WebappPackage.eINSTANCE);
+					theWebappPackage.createPackageContents();
+					theWebappPackage.initializePackageContents();
+					
+					WebfragmentPackageImpl theWebfragmentPackage = (WebfragmentPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WebfragmentPackage.eNS_URI) instanceof WebfragmentPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WebfragmentPackage.eNS_URI) : WebfragmentPackage.eINSTANCE);
+					theWebfragmentPackage.createPackageContents();
+					theWebfragmentPackage.initializePackageContents();
+				}
+			});
+			javaeeEmfInitThread.start();
 		}
 		
 	}

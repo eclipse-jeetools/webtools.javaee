@@ -23,21 +23,10 @@ import org.eclipse.emf.ecore.xml.namespace.XMLNamespacePackage;
 
 import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
 
-import org.eclipse.jst.javaee.application.internal.impl.ApplicationPackageImpl;
-
-import org.eclipse.jst.javaee.application.internal.metadata.ApplicationPackage;
-
-import org.eclipse.jst.javaee.applicationclient.internal.impl.ApplicationclientPackageImpl;
-
-import org.eclipse.jst.javaee.applicationclient.internal.metadata.ApplicationclientPackage;
-
-import org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl;
+import org.eclipse.jst.j2ee.core.internal.plugin.J2EECorePlugin;
+import org.eclipse.jst.j2ee.internal.J2EEInit;
 
 import org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage;
-
-import org.eclipse.jst.javaee.ejb.internal.impl.EjbPackageImpl;
-
-import org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage;
 
 import org.eclipse.jst.javaee.jca.ActivationSpec;
 import org.eclipse.jst.javaee.jca.AdminObject;
@@ -60,22 +49,6 @@ import org.eclipse.jst.javaee.jca.SecurityPermission;
 import org.eclipse.jst.javaee.jca.TransactionSupportType;
 
 import org.eclipse.jst.javaee.jca.internal.metadata.JcaPackage;
-
-import org.eclipse.jst.javaee.jsp.internal.impl.JspPackageImpl;
-
-import org.eclipse.jst.javaee.jsp.internal.metadata.JspPackage;
-
-import org.eclipse.jst.javaee.web.internal.impl.WebPackageImpl;
-
-import org.eclipse.jst.javaee.web.internal.metadata.WebPackage;
-
-import org.eclipse.jst.javaee.webapp.internal.impl.WebappPackageImpl;
-
-import org.eclipse.jst.javaee.webapp.internal.metadata.WebappPackage;
-
-import org.eclipse.jst.javaee.webfragment.internal.impl.WebfragmentPackageImpl;
-
-import org.eclipse.jst.javaee.webfragment.internal.metadata.WebfragmentPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -288,37 +261,11 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 		XMLNamespacePackage.eINSTANCE.eClass();
 		XMLTypePackage.eINSTANCE.eClass();
 
-		// Obtain or create and register interdependencies
-		ApplicationPackageImpl theApplicationPackage = (ApplicationPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI) instanceof ApplicationPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ApplicationPackage.eNS_URI) : ApplicationPackage.eINSTANCE);
-		JavaeePackageImpl theJavaeePackage = (JavaeePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(JavaeePackage.eNS_URI) instanceof JavaeePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(JavaeePackage.eNS_URI) : JavaeePackage.eINSTANCE);
-		ApplicationclientPackageImpl theApplicationclientPackage = (ApplicationclientPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(ApplicationclientPackage.eNS_URI) instanceof ApplicationclientPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(ApplicationclientPackage.eNS_URI) : ApplicationclientPackage.eINSTANCE);
-		EjbPackageImpl theEjbPackage = (EjbPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(EjbPackage.eNS_URI) instanceof EjbPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(EjbPackage.eNS_URI) : EjbPackage.eINSTANCE);
-		JspPackageImpl theJspPackage = (JspPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(JspPackage.eNS_URI) instanceof JspPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(JspPackage.eNS_URI) : JspPackage.eINSTANCE);
-		WebPackageImpl theWebPackage = (WebPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WebPackage.eNS_URI) instanceof WebPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WebPackage.eNS_URI) : WebPackage.eINSTANCE);
-		WebappPackageImpl theWebappPackage = (WebappPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WebappPackage.eNS_URI) instanceof WebappPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WebappPackage.eNS_URI) : WebappPackage.eINSTANCE);
-		WebfragmentPackageImpl theWebfragmentPackage = (WebfragmentPackageImpl)(EPackage.Registry.INSTANCE.getEPackage(WebfragmentPackage.eNS_URI) instanceof WebfragmentPackageImpl ? EPackage.Registry.INSTANCE.getEPackage(WebfragmentPackage.eNS_URI) : WebfragmentPackage.eINSTANCE);
-
 		// Create package meta-data objects
 		theJcaPackage.createPackageContents();
-		theApplicationPackage.createPackageContents();
-		theJavaeePackage.createPackageContents();
-		theApplicationclientPackage.createPackageContents();
-		theEjbPackage.createPackageContents();
-		theJspPackage.createPackageContents();
-		theWebPackage.createPackageContents();
-		theWebappPackage.createPackageContents();
-		theWebfragmentPackage.createPackageContents();
 
 		// Initialize created meta-data
 		theJcaPackage.initializePackageContents();
-		theApplicationPackage.initializePackageContents();
-		theJavaeePackage.initializePackageContents();
-		theApplicationclientPackage.initializePackageContents();
-		theEjbPackage.initializePackageContents();
-		theJspPackage.initializePackageContents();
-		theWebPackage.initializePackageContents();
-		theWebappPackage.initializePackageContents();
-		theWebfragmentPackage.initializePackageContents();
 
 		// Mark meta-data to indicate it can't be changed
 		theJcaPackage.freeze();
@@ -326,6 +273,8 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
   
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(JcaPackage.eNS_URI, theJcaPackage);
+
+		J2EEInit.initEMFModels();
 		return theJcaPackage;
 	}
 
@@ -1348,145 +1297,157 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 
 		// Set bounds for type parameters
 
-		// Add supertypes to classes
-
-		// Initialize classes and features; add operations and parameters
-		initEClass(activationSpecEClass, ActivationSpec.class, "ActivationSpec", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getActivationSpec_ActivationspecClass(), theJavaeePackage.getFullyQualifiedClassType(), "activationspecClass", null, 1, 1, ActivationSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getActivationSpec_RequiredConfigProperty(), this.getRequiredConfigProperty(), null, "requiredConfigProperty", null, 0, -1, ActivationSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getActivationSpec_ConfigProperty(), this.getConfigProperty(), null, "configProperty", null, 0, -1, ActivationSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getActivationSpec_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ActivationSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(adminObjectEClass, AdminObject.class, "AdminObject", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getAdminObject_AdminobjectInterface(), theJavaeePackage.getFullyQualifiedClassType(), "adminobjectInterface", null, 1, 1, AdminObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getAdminObject_AdminobjectClass(), theJavaeePackage.getFullyQualifiedClassType(), "adminobjectClass", null, 1, 1, AdminObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getAdminObject_ConfigProperty(), this.getConfigProperty(), null, "configProperty", null, 0, -1, AdminObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getAdminObject_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, AdminObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(authenticationMechanismEClass, AuthenticationMechanism.class, "AuthenticationMechanism", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEReference(getAuthenticationMechanism_Description(), theJavaeePackage.getDescription(), null, "description", null, 0, -1, AuthenticationMechanism.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getAuthenticationMechanism_AuthenticationMechanismType(), theXMLTypePackage.getString(), "authenticationMechanismType", null, 1, 1, AuthenticationMechanism.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getAuthenticationMechanism_CredentialInterface(), this.getCredentialInterfaceType(), "credentialInterface", null, 1, 1, AuthenticationMechanism.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getAuthenticationMechanism_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, AuthenticationMechanism.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(configPropertyEClass, ConfigProperty.class, "ConfigProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEReference(getConfigProperty_Description(), theJavaeePackage.getDescription(), null, "description", null, 0, -1, ConfigProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getConfigProperty_ConfigPropertyName(), this.getConfigPropertyNameType(), "configPropertyName", null, 1, 1, ConfigProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getConfigProperty_ConfigPropertyType(), this.getConfigPropertyTypeType(), "configPropertyType", null, 1, 1, ConfigProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getConfigProperty_ConfigPropertyValue(), theXMLTypePackage.getString(), "configPropertyValue", null, 0, 1, ConfigProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getConfigProperty_ConfigPropertyIgnore(), theJavaeePackage.getTrueFalseType(), "configPropertyIgnore", null, 0, 1, ConfigProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getConfigProperty_ConfigPropertySupportsDynamicUpdates(), theJavaeePackage.getTrueFalseType(), "configPropertySupportsDynamicUpdates", null, 0, 1, ConfigProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getConfigProperty_ConfigPropertyConfidential(), theJavaeePackage.getTrueFalseType(), "configPropertyConfidential", null, 0, 1, ConfigProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getConfigProperty_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ConfigProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(connectionDefinitionEClass, ConnectionDefinition.class, "ConnectionDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getConnectionDefinition_ManagedconnectionfactoryClass(), theJavaeePackage.getFullyQualifiedClassType(), "managedconnectionfactoryClass", null, 1, 1, ConnectionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getConnectionDefinition_ConfigProperty(), this.getConfigProperty(), null, "configProperty", null, 0, -1, ConnectionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getConnectionDefinition_ConnectionfactoryInterface(), theJavaeePackage.getFullyQualifiedClassType(), "connectionfactoryInterface", null, 1, 1, ConnectionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getConnectionDefinition_ConnectionfactoryImplClass(), theJavaeePackage.getFullyQualifiedClassType(), "connectionfactoryImplClass", null, 1, 1, ConnectionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getConnectionDefinition_ConnectionInterface(), theJavaeePackage.getFullyQualifiedClassType(), "connectionInterface", null, 1, 1, ConnectionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getConnectionDefinition_ConnectionImplClass(), theJavaeePackage.getFullyQualifiedClassType(), "connectionImplClass", null, 1, 1, ConnectionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getConnectionDefinition_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ConnectionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(connectorEClass, Connector.class, "Connector", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getConnector_ModuleName(), theXMLTypePackage.getString(), "moduleName", null, 0, 1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getConnector_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getConnector_DisplayNames(), theJavaeePackage.getDisplayName(), null, "displayNames", null, 0, -1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getConnector_Icons(), theJavaeePackage.getIcon(), null, "icons", null, 0, -1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getConnector_VendorName(), theXMLTypePackage.getString(), "vendorName", null, 0, 1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getConnector_EisType(), theXMLTypePackage.getString(), "eisType", null, 0, 1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getConnector_ResourceadapterVersion(), theXMLTypePackage.getString(), "resourceadapterVersion", null, 0, 1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getConnector_License(), this.getLicense(), null, "license", null, 0, 1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getConnector_Resourceadapter(), this.getResourceAdapter(), null, "resourceadapter", null, 1, 1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getConnector_RequiredWorkContext(), theJavaeePackage.getFullyQualifiedClassType(), "requiredWorkContext", null, 0, -1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getConnector_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getConnector_MetadataComplete(), theXMLTypePackage.getBoolean(), "metadataComplete", null, 0, 1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getConnector_Version(), theJavaeePackage.getDeweyVersionType(), "version", "1.6", 1, 1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$ //$NON-NLS-2$
-
-		initEClass(connectorDeploymentDescriptorEClass, ConnectorDeploymentDescriptor.class, "ConnectorDeploymentDescriptor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getConnectorDeploymentDescriptor_Mixed(), ecorePackage.getEFeatureMapEntry(), "mixed", null, 0, -1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getConnectorDeploymentDescriptor_XMLNSPrefixMap(), ecorePackage.getEStringToStringMapEntry(), null, "xMLNSPrefixMap", null, 0, -1, null, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getConnectorDeploymentDescriptor_XSISchemaLocation(), ecorePackage.getEStringToStringMapEntry(), null, "xSISchemaLocation", null, 0, -1, null, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getConnectorDeploymentDescriptor_Connector(), this.getConnector(), null, "connector", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(inboundResourceAdapterEClass, InboundResourceAdapter.class, "InboundResourceAdapter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEReference(getInboundResourceAdapter_Messageadapter(), this.getMessageAdapter(), null, "messageadapter", null, 0, 1, InboundResourceAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getInboundResourceAdapter_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, InboundResourceAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(licenseEClass, License.class, "License", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEReference(getLicense_Description(), theJavaeePackage.getDescription(), null, "description", null, 0, -1, License.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getLicense_LicenseRequired(), theJavaeePackage.getTrueFalseType(), "licenseRequired", null, 1, 1, License.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getLicense_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, License.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(messageAdapterEClass, MessageAdapter.class, "MessageAdapter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEReference(getMessageAdapter_Messagelistener(), this.getMessageListener(), null, "messagelistener", null, 1, -1, MessageAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getMessageAdapter_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, MessageAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(messageListenerEClass, MessageListener.class, "MessageListener", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getMessageListener_MessagelistenerType(), theJavaeePackage.getFullyQualifiedClassType(), "messagelistenerType", null, 1, 1, MessageListener.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getMessageListener_Activationspec(), this.getActivationSpec(), null, "activationspec", null, 1, 1, MessageListener.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getMessageListener_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, MessageListener.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(outboundResourceAdapterEClass, OutboundResourceAdapter.class, "OutboundResourceAdapter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEReference(getOutboundResourceAdapter_ConnectionDefinition(), this.getConnectionDefinition(), null, "connectionDefinition", null, 0, -1, OutboundResourceAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getOutboundResourceAdapter_TransactionSupport(), this.getTransactionSupportType(), "transactionSupport", null, 0, 1, OutboundResourceAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getOutboundResourceAdapter_AuthenticationMechanism(), this.getAuthenticationMechanism(), null, "authenticationMechanism", null, 0, -1, OutboundResourceAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getOutboundResourceAdapter_ReauthenticationSupport(), theJavaeePackage.getTrueFalseType(), "reauthenticationSupport", null, 0, 1, OutboundResourceAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getOutboundResourceAdapter_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, OutboundResourceAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(requiredConfigPropertyEClass, RequiredConfigProperty.class, "RequiredConfigProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEReference(getRequiredConfigProperty_Description(), theJavaeePackage.getDescription(), null, "description", null, 0, -1, RequiredConfigProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getRequiredConfigProperty_ConfigPropertyName(), this.getConfigPropertyNameType(), "configPropertyName", null, 1, 1, RequiredConfigProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getRequiredConfigProperty_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, RequiredConfigProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(resourceAdapterEClass, ResourceAdapter.class, "ResourceAdapter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEAttribute(getResourceAdapter_ResourceadapterClass(), theJavaeePackage.getFullyQualifiedClassType(), "resourceadapterClass", null, 0, 1, ResourceAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getResourceAdapter_ConfigProperty(), this.getConfigProperty(), null, "configProperty", null, 0, -1, ResourceAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getResourceAdapter_OutboundResourceadapter(), this.getOutboundResourceAdapter(), null, "outboundResourceadapter", null, 0, 1, ResourceAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getResourceAdapter_InboundResourceadapter(), this.getInboundResourceAdapter(), null, "inboundResourceadapter", null, 0, 1, ResourceAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getResourceAdapter_Adminobject(), this.getAdminObject(), null, "adminobject", null, 0, -1, ResourceAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEReference(getResourceAdapter_SecurityPermission(), this.getSecurityPermission(), null, "securityPermission", null, 0, -1, ResourceAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getResourceAdapter_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ResourceAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		initEClass(securityPermissionEClass, SecurityPermission.class, "SecurityPermission", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEReference(getSecurityPermission_Description(), theJavaeePackage.getDescription(), null, "description", null, 0, -1, SecurityPermission.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getSecurityPermission_SecurityPermissionSpec(), theXMLTypePackage.getString(), "securityPermissionSpec", null, 1, 1, SecurityPermission.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getSecurityPermission_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, SecurityPermission.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-
-		// Initialize enums and add enum literals
-		initEEnum(configPropertyTypeTypeEEnum, ConfigPropertyTypeType.class, "ConfigPropertyTypeType"); //$NON-NLS-1$
-		addEEnumLiteral(configPropertyTypeTypeEEnum, ConfigPropertyTypeType.JAVA_LANG_BOOLEAN);
-		addEEnumLiteral(configPropertyTypeTypeEEnum, ConfigPropertyTypeType.JAVA_LANG_STRING);
-		addEEnumLiteral(configPropertyTypeTypeEEnum, ConfigPropertyTypeType.JAVA_LANG_INTEGER);
-		addEEnumLiteral(configPropertyTypeTypeEEnum, ConfigPropertyTypeType.JAVA_LANG_DOUBLE);
-		addEEnumLiteral(configPropertyTypeTypeEEnum, ConfigPropertyTypeType.JAVA_LANG_BYTE);
-		addEEnumLiteral(configPropertyTypeTypeEEnum, ConfigPropertyTypeType.JAVA_LANG_SHORT);
-		addEEnumLiteral(configPropertyTypeTypeEEnum, ConfigPropertyTypeType.JAVA_LANG_LONG);
-		addEEnumLiteral(configPropertyTypeTypeEEnum, ConfigPropertyTypeType.JAVA_LANG_FLOAT);
-		addEEnumLiteral(configPropertyTypeTypeEEnum, ConfigPropertyTypeType.JAVA_LANG_CHARACTER);
-
-		initEEnum(credentialInterfaceTypeEEnum, CredentialInterfaceType.class, "CredentialInterfaceType"); //$NON-NLS-1$
-		addEEnumLiteral(credentialInterfaceTypeEEnum, CredentialInterfaceType.JAVAX_RESOURCE_SPI_SECURITY_PASSWORD_CREDENTIAL);
-		addEEnumLiteral(credentialInterfaceTypeEEnum, CredentialInterfaceType.ORG_IETF_JGSS_GSS_CREDENTIAL);
-		addEEnumLiteral(credentialInterfaceTypeEEnum, CredentialInterfaceType.JAVAX_RESOURCE_SPI_SECURITY_GENERIC_CREDENTIAL);
-
-		initEEnum(transactionSupportTypeEEnum, TransactionSupportType.class, "TransactionSupportType"); //$NON-NLS-1$
-		addEEnumLiteral(transactionSupportTypeEEnum, TransactionSupportType.NO_TRANSACTION);
-		addEEnumLiteral(transactionSupportTypeEEnum, TransactionSupportType.LOCAL_TRANSACTION);
-		addEEnumLiteral(transactionSupportTypeEEnum, TransactionSupportType.XA_TRANSACTION);
-
-		// Initialize data types
-		initEDataType(configPropertyNameTypeEDataType, String.class, "ConfigPropertyNameType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEDataType(configPropertyTypeTypeObjectEDataType, ConfigPropertyTypeType.class, "ConfigPropertyTypeTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEDataType(credentialInterfaceTypeObjectEDataType, CredentialInterfaceType.class, "CredentialInterfaceTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-		initEDataType(transactionSupportTypeObjectEDataType, TransactionSupportType.class, "TransactionSupportTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-
-		// Create resource
-		createResource(eNS_URI);
-
-		// Create annotations
-		// http:///org/eclipse/emf/ecore/util/ExtendedMetaData
-		createExtendedMetaDataAnnotations();
+		boolean hasLock = false;
+		try {
+			hasLock = J2EEInit.aquireInitializePackageContentsLock();
+		} catch (InterruptedException e) {
+			J2EECorePlugin.logError(e);
+		}		
+		
+		try{
+			// Add supertypes to classes
+	
+			// Initialize classes and features; add operations and parameters
+			initEClass(activationSpecEClass, ActivationSpec.class, "ActivationSpec", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getActivationSpec_ActivationspecClass(), theJavaeePackage.getFullyQualifiedClassType(), "activationspecClass", null, 1, 1, ActivationSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getActivationSpec_RequiredConfigProperty(), this.getRequiredConfigProperty(), null, "requiredConfigProperty", null, 0, -1, ActivationSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getActivationSpec_ConfigProperty(), this.getConfigProperty(), null, "configProperty", null, 0, -1, ActivationSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getActivationSpec_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ActivationSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(adminObjectEClass, AdminObject.class, "AdminObject", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getAdminObject_AdminobjectInterface(), theJavaeePackage.getFullyQualifiedClassType(), "adminobjectInterface", null, 1, 1, AdminObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getAdminObject_AdminobjectClass(), theJavaeePackage.getFullyQualifiedClassType(), "adminobjectClass", null, 1, 1, AdminObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getAdminObject_ConfigProperty(), this.getConfigProperty(), null, "configProperty", null, 0, -1, AdminObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getAdminObject_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, AdminObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(authenticationMechanismEClass, AuthenticationMechanism.class, "AuthenticationMechanism", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEReference(getAuthenticationMechanism_Description(), theJavaeePackage.getDescription(), null, "description", null, 0, -1, AuthenticationMechanism.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getAuthenticationMechanism_AuthenticationMechanismType(), theXMLTypePackage.getString(), "authenticationMechanismType", null, 1, 1, AuthenticationMechanism.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getAuthenticationMechanism_CredentialInterface(), this.getCredentialInterfaceType(), "credentialInterface", null, 1, 1, AuthenticationMechanism.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getAuthenticationMechanism_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, AuthenticationMechanism.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(configPropertyEClass, ConfigProperty.class, "ConfigProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEReference(getConfigProperty_Description(), theJavaeePackage.getDescription(), null, "description", null, 0, -1, ConfigProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getConfigProperty_ConfigPropertyName(), this.getConfigPropertyNameType(), "configPropertyName", null, 1, 1, ConfigProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getConfigProperty_ConfigPropertyType(), this.getConfigPropertyTypeType(), "configPropertyType", null, 1, 1, ConfigProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getConfigProperty_ConfigPropertyValue(), theXMLTypePackage.getString(), "configPropertyValue", null, 0, 1, ConfigProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getConfigProperty_ConfigPropertyIgnore(), theJavaeePackage.getTrueFalseType(), "configPropertyIgnore", null, 0, 1, ConfigProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getConfigProperty_ConfigPropertySupportsDynamicUpdates(), theJavaeePackage.getTrueFalseType(), "configPropertySupportsDynamicUpdates", null, 0, 1, ConfigProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getConfigProperty_ConfigPropertyConfidential(), theJavaeePackage.getTrueFalseType(), "configPropertyConfidential", null, 0, 1, ConfigProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getConfigProperty_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ConfigProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(connectionDefinitionEClass, ConnectionDefinition.class, "ConnectionDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getConnectionDefinition_ManagedconnectionfactoryClass(), theJavaeePackage.getFullyQualifiedClassType(), "managedconnectionfactoryClass", null, 1, 1, ConnectionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getConnectionDefinition_ConfigProperty(), this.getConfigProperty(), null, "configProperty", null, 0, -1, ConnectionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getConnectionDefinition_ConnectionfactoryInterface(), theJavaeePackage.getFullyQualifiedClassType(), "connectionfactoryInterface", null, 1, 1, ConnectionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getConnectionDefinition_ConnectionfactoryImplClass(), theJavaeePackage.getFullyQualifiedClassType(), "connectionfactoryImplClass", null, 1, 1, ConnectionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getConnectionDefinition_ConnectionInterface(), theJavaeePackage.getFullyQualifiedClassType(), "connectionInterface", null, 1, 1, ConnectionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getConnectionDefinition_ConnectionImplClass(), theJavaeePackage.getFullyQualifiedClassType(), "connectionImplClass", null, 1, 1, ConnectionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getConnectionDefinition_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ConnectionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(connectorEClass, Connector.class, "Connector", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getConnector_ModuleName(), theXMLTypePackage.getString(), "moduleName", null, 0, 1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getConnector_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getConnector_DisplayNames(), theJavaeePackage.getDisplayName(), null, "displayNames", null, 0, -1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getConnector_Icons(), theJavaeePackage.getIcon(), null, "icons", null, 0, -1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getConnector_VendorName(), theXMLTypePackage.getString(), "vendorName", null, 0, 1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getConnector_EisType(), theXMLTypePackage.getString(), "eisType", null, 0, 1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getConnector_ResourceadapterVersion(), theXMLTypePackage.getString(), "resourceadapterVersion", null, 0, 1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getConnector_License(), this.getLicense(), null, "license", null, 0, 1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getConnector_Resourceadapter(), this.getResourceAdapter(), null, "resourceadapter", null, 1, 1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getConnector_RequiredWorkContext(), theJavaeePackage.getFullyQualifiedClassType(), "requiredWorkContext", null, 0, -1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getConnector_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getConnector_MetadataComplete(), theXMLTypePackage.getBoolean(), "metadataComplete", null, 0, 1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getConnector_Version(), theJavaeePackage.getDeweyVersionType(), "version", "1.6", 1, 1, Connector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$ //$NON-NLS-2$
+	
+			initEClass(connectorDeploymentDescriptorEClass, ConnectorDeploymentDescriptor.class, "ConnectorDeploymentDescriptor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getConnectorDeploymentDescriptor_Mixed(), ecorePackage.getEFeatureMapEntry(), "mixed", null, 0, -1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getConnectorDeploymentDescriptor_XMLNSPrefixMap(), ecorePackage.getEStringToStringMapEntry(), null, "xMLNSPrefixMap", null, 0, -1, null, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getConnectorDeploymentDescriptor_XSISchemaLocation(), ecorePackage.getEStringToStringMapEntry(), null, "xSISchemaLocation", null, 0, -1, null, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getConnectorDeploymentDescriptor_Connector(), this.getConnector(), null, "connector", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(inboundResourceAdapterEClass, InboundResourceAdapter.class, "InboundResourceAdapter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEReference(getInboundResourceAdapter_Messageadapter(), this.getMessageAdapter(), null, "messageadapter", null, 0, 1, InboundResourceAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getInboundResourceAdapter_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, InboundResourceAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(licenseEClass, License.class, "License", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEReference(getLicense_Description(), theJavaeePackage.getDescription(), null, "description", null, 0, -1, License.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getLicense_LicenseRequired(), theJavaeePackage.getTrueFalseType(), "licenseRequired", null, 1, 1, License.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getLicense_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, License.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(messageAdapterEClass, MessageAdapter.class, "MessageAdapter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEReference(getMessageAdapter_Messagelistener(), this.getMessageListener(), null, "messagelistener", null, 1, -1, MessageAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getMessageAdapter_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, MessageAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(messageListenerEClass, MessageListener.class, "MessageListener", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getMessageListener_MessagelistenerType(), theJavaeePackage.getFullyQualifiedClassType(), "messagelistenerType", null, 1, 1, MessageListener.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getMessageListener_Activationspec(), this.getActivationSpec(), null, "activationspec", null, 1, 1, MessageListener.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getMessageListener_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, MessageListener.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(outboundResourceAdapterEClass, OutboundResourceAdapter.class, "OutboundResourceAdapter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEReference(getOutboundResourceAdapter_ConnectionDefinition(), this.getConnectionDefinition(), null, "connectionDefinition", null, 0, -1, OutboundResourceAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getOutboundResourceAdapter_TransactionSupport(), this.getTransactionSupportType(), "transactionSupport", null, 0, 1, OutboundResourceAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getOutboundResourceAdapter_AuthenticationMechanism(), this.getAuthenticationMechanism(), null, "authenticationMechanism", null, 0, -1, OutboundResourceAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getOutboundResourceAdapter_ReauthenticationSupport(), theJavaeePackage.getTrueFalseType(), "reauthenticationSupport", null, 0, 1, OutboundResourceAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getOutboundResourceAdapter_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, OutboundResourceAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(requiredConfigPropertyEClass, RequiredConfigProperty.class, "RequiredConfigProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEReference(getRequiredConfigProperty_Description(), theJavaeePackage.getDescription(), null, "description", null, 0, -1, RequiredConfigProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getRequiredConfigProperty_ConfigPropertyName(), this.getConfigPropertyNameType(), "configPropertyName", null, 1, 1, RequiredConfigProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getRequiredConfigProperty_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, RequiredConfigProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(resourceAdapterEClass, ResourceAdapter.class, "ResourceAdapter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEAttribute(getResourceAdapter_ResourceadapterClass(), theJavaeePackage.getFullyQualifiedClassType(), "resourceadapterClass", null, 0, 1, ResourceAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getResourceAdapter_ConfigProperty(), this.getConfigProperty(), null, "configProperty", null, 0, -1, ResourceAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getResourceAdapter_OutboundResourceadapter(), this.getOutboundResourceAdapter(), null, "outboundResourceadapter", null, 0, 1, ResourceAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getResourceAdapter_InboundResourceadapter(), this.getInboundResourceAdapter(), null, "inboundResourceadapter", null, 0, 1, ResourceAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getResourceAdapter_Adminobject(), this.getAdminObject(), null, "adminobject", null, 0, -1, ResourceAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEReference(getResourceAdapter_SecurityPermission(), this.getSecurityPermission(), null, "securityPermission", null, 0, -1, ResourceAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getResourceAdapter_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ResourceAdapter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			initEClass(securityPermissionEClass, SecurityPermission.class, "SecurityPermission", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEReference(getSecurityPermission_Description(), theJavaeePackage.getDescription(), null, "description", null, 0, -1, SecurityPermission.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getSecurityPermission_SecurityPermissionSpec(), theXMLTypePackage.getString(), "securityPermissionSpec", null, 1, 1, SecurityPermission.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+			initEAttribute(getSecurityPermission_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, SecurityPermission.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+	
+			// Initialize enums and add enum literals
+			initEEnum(configPropertyTypeTypeEEnum, ConfigPropertyTypeType.class, "ConfigPropertyTypeType"); //$NON-NLS-1$
+			addEEnumLiteral(configPropertyTypeTypeEEnum, ConfigPropertyTypeType.JAVA_LANG_BOOLEAN);
+			addEEnumLiteral(configPropertyTypeTypeEEnum, ConfigPropertyTypeType.JAVA_LANG_STRING);
+			addEEnumLiteral(configPropertyTypeTypeEEnum, ConfigPropertyTypeType.JAVA_LANG_INTEGER);
+			addEEnumLiteral(configPropertyTypeTypeEEnum, ConfigPropertyTypeType.JAVA_LANG_DOUBLE);
+			addEEnumLiteral(configPropertyTypeTypeEEnum, ConfigPropertyTypeType.JAVA_LANG_BYTE);
+			addEEnumLiteral(configPropertyTypeTypeEEnum, ConfigPropertyTypeType.JAVA_LANG_SHORT);
+			addEEnumLiteral(configPropertyTypeTypeEEnum, ConfigPropertyTypeType.JAVA_LANG_LONG);
+			addEEnumLiteral(configPropertyTypeTypeEEnum, ConfigPropertyTypeType.JAVA_LANG_FLOAT);
+			addEEnumLiteral(configPropertyTypeTypeEEnum, ConfigPropertyTypeType.JAVA_LANG_CHARACTER);
+	
+			initEEnum(credentialInterfaceTypeEEnum, CredentialInterfaceType.class, "CredentialInterfaceType"); //$NON-NLS-1$
+			addEEnumLiteral(credentialInterfaceTypeEEnum, CredentialInterfaceType.JAVAX_RESOURCE_SPI_SECURITY_PASSWORD_CREDENTIAL);
+			addEEnumLiteral(credentialInterfaceTypeEEnum, CredentialInterfaceType.ORG_IETF_JGSS_GSS_CREDENTIAL);
+			addEEnumLiteral(credentialInterfaceTypeEEnum, CredentialInterfaceType.JAVAX_RESOURCE_SPI_SECURITY_GENERIC_CREDENTIAL);
+	
+			initEEnum(transactionSupportTypeEEnum, TransactionSupportType.class, "TransactionSupportType"); //$NON-NLS-1$
+			addEEnumLiteral(transactionSupportTypeEEnum, TransactionSupportType.NO_TRANSACTION);
+			addEEnumLiteral(transactionSupportTypeEEnum, TransactionSupportType.LOCAL_TRANSACTION);
+			addEEnumLiteral(transactionSupportTypeEEnum, TransactionSupportType.XA_TRANSACTION);
+	
+			// Initialize data types
+			initEDataType(configPropertyNameTypeEDataType, String.class, "ConfigPropertyNameType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEDataType(configPropertyTypeTypeObjectEDataType, ConfigPropertyTypeType.class, "ConfigPropertyTypeTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEDataType(credentialInterfaceTypeObjectEDataType, CredentialInterfaceType.class, "CredentialInterfaceTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+			initEDataType(transactionSupportTypeObjectEDataType, TransactionSupportType.class, "TransactionSupportTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+	
+			// Create resource
+			createResource(eNS_URI);
+	
+			// Create annotations
+			// http:///org/eclipse/emf/ecore/util/ExtendedMetaData
+			createExtendedMetaDataAnnotations();
+		}finally{
+			if( hasLock )
+				J2EEInit.releaseInitializePackageContentsLock();
+		}
 	}
 
 	/**
