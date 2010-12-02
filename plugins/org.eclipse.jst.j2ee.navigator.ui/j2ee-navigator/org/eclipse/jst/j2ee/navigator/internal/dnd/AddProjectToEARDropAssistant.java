@@ -240,14 +240,11 @@ public class AddProjectToEARDropAssistant extends CommonDropAdapterAssistant {
 	}  
 	
 	protected IStatus validateProjectToAdd(IProject projectToAdd, int earVersion) {
-		IStatus status = null;
 		try {
 			// check if the project to add is not an EAR itself
 			IFacetedProject facetedProject = ProjectFacetsManager.create(projectToAdd);  
 			if( facetedProject.hasProjectFacet(IJ2EEFacetConstants.ENTERPRISE_APPLICATION_FACET) ) 
-				status = Status.CANCEL_STATUS;
-			else 
-				status = Status.OK_STATUS;
+				return Status.CANCEL_STATUS;
 			
 			// check if the project to add is with Java EE version equal or lesser than that of the EAR
 			String verStr = J2EEProjectUtilities.getJ2EEProjectVersion(projectToAdd);
@@ -265,15 +262,13 @@ public class AddProjectToEARDropAssistant extends CommonDropAdapterAssistant {
 					version = J2EEVersionUtil.convertVersionStringToInt(verStr);
 				
 				if (version > earVersion) 
-					status = Status.CANCEL_STATUS;
-				else 
-					status = Status.OK_STATUS;
+					return Status.CANCEL_STATUS;
 			}
 		} catch (CoreException e) {
 			String msg = e.getMessage() != null ? e.getMessage() : e.toString();
-			status = J2EENavigatorPlugin.createErrorStatus(0, msg, e);
+			return J2EENavigatorPlugin.createErrorStatus(0, msg, e);
 		}
-		return status;
+		return Status.OK_STATUS;
 		 
 	}
 
