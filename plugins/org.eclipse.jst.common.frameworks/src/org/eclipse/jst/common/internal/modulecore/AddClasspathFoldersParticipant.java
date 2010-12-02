@@ -68,7 +68,7 @@ public class AddClasspathFoldersParticipant extends AbstractFlattenParticipant {
 				final IVirtualComponent comp = cpRef.getReferencedComponent();
 				if (comp instanceof IClasspathDependencyComponent) {
 					final IClasspathDependencyComponent cpComp = (IClasspathDependencyComponent) comp;
-					if (cpComp.isClassFolder()) {
+					if (cpComp.isClassFolder() && cpComp.getClassFolder() != null) {
 						IPath targetPath = null;
 						targetPath = runtimePath.makeRelative();
 						final IContainer container = cpComp.getClassFolder();
