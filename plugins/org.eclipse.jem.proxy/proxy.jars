@@ -1,4 +1,0 @@
-proxycommon.jar=/org.eclipse.jem.proxy/common_bin/
-initparser.jar=/org.eclipse.jem.proxy/common_bin/
-remotecommon.jar=/org.eclipse.jem.proxy/common_bin/
-vm/remotevm.jar=/org.eclipse.jem.proxy/vm_bin/
