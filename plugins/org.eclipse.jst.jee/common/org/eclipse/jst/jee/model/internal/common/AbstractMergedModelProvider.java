@@ -89,6 +89,9 @@ public abstract class AbstractMergedModelProvider<T> implements IModelProvider {
 			if (disposeIfNeeded(event))
 				return;
 			AbstractMergedModelProvider.this.xmlModelChanged(event);
+			if (ddProvider != null){
+				cache_last_change = getLastModificationTimeOfDDFile();	
+			}
 		}
 	}
 
@@ -225,6 +228,7 @@ public abstract class AbstractMergedModelProvider<T> implements IModelProvider {
 	private boolean hasToReloadModel() {
 		long lastModificationTimeOfDDFile = getLastModificationTimeOfDDFile();
 		return lastModificationTimeOfDDFile == -1 ? false : lastModificationTimeOfDDFile != cache_last_change;
+//		return false;
 	}
 
 	private long getLastModificationTimeOfDDFile() {
