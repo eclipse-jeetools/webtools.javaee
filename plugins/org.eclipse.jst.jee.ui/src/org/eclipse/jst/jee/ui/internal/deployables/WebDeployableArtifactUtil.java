@@ -309,36 +309,30 @@ public class WebDeployableArtifactUtil {
 		IModelProvider provider = ModelProviderManager.getModelProvider( resource.getProject() );
 		Object mObj = provider.getModelObject();
 		
-		if ( mObj instanceof org.eclipse.jst.javaee.web.WebApp){
-			org.eclipse.jst.javaee.web.WebApp webApp= (org.eclipse.jst.javaee.web.WebApp) mObj;
-			List servlets = webApp.getServlets();
+		if (mObj instanceof WebApp) {
+			WebApp webApp= (WebApp) mObj;
+			List<Servlet> servlets = webApp.getServlets();
 			// Ensure the display does not already exist in the web application
 			if (servlets != null && !servlets.isEmpty()) {
 				for (int i = 0; i < servlets.size(); i++) {
-					org.eclipse.jst.javaee.web.Servlet servlet = (org.eclipse.jst.javaee.web.Servlet)servlets.get(i);
-					if( servlet.getServletClass().equals(typeName)){
-				
-						java.util.List mappings = webApp.getServletMappings();
+					Servlet servlet = servlets.get(i);
+					if (servlet.getServletClass() != null && servlet.getServletClass().equals(typeName)) {
+						List<ServletMapping> mappings = webApp.getServletMappings();
 						if (mappings != null && !mappings.isEmpty()) {
-							Iterator it = mappings.iterator();
+							Iterator<ServletMapping> it = mappings.iterator();
 							while( it.hasNext() ){
-								org.eclipse.jst.javaee.web.ServletMapping map = (org.eclipse.jst.javaee.web.ServletMapping) it.next();
-								if( map.getServletName().equals(servlet.getServletName())){
-									org.eclipse.jst.javaee.core.UrlPatternType urlPattern = map.getUrlPatterns().get(0);
+								ServletMapping map = it.next();
+								if (map.getServletName().equals(servlet.getServletName())) {
+									UrlPatternType urlPattern = map.getUrlPatterns().get(0);
 									return  urlPattern.getValue();
 								}
 							}
-
 						}
 					}
-				
 				}
 			}
-
-			
 		}
 		return null;
-
 	}
 
 	protected static boolean hasInterestedComponents(IProject project) {
@@ -375,30 +369,28 @@ public class WebDeployableArtifactUtil {
 		return null;
 	}
 
-	private static List getServletMappings(IResource resource, String typeName){ 
-		IModelProvider provider = ModelProviderManager.getModelProvider( resource.getProject() );
+	private static List<ServletMapping> getServletMappings(IResource resource, String typeName){ 
+		IModelProvider provider = ModelProviderManager.getModelProvider(resource.getProject());
 		IWebCommon webApp = (IWebCommon)provider.getModelObject();
 		
-		List servlets = webApp.getServlets();
-		List list = new ArrayList();
+		List<Servlet> servlets = webApp.getServlets();
+		List<ServletMapping> list = new ArrayList<ServletMapping>();
 
 		if (servlets != null && !servlets.isEmpty()) {
 			for (int i = 0; i < servlets.size(); i++) {
-				Servlet servlet = (Servlet)servlets.get(i);
-				if( servlet.getServletClass().equals(typeName)){
-			
-					java.util.List mappings = webApp.getServletMappings();
+				Servlet servlet = servlets.get(i);
+				if (servlet.getServletClass() != null && servlet.getServletClass().equals(typeName)) {
+					List<ServletMapping> mappings = webApp.getServletMappings();
 					if (mappings != null && !mappings.isEmpty()) {
-						Iterator it = mappings.iterator();
-						while( it.hasNext() ){
-							org.eclipse.jst.javaee.web.ServletMapping map = (org.eclipse.jst.javaee.web.ServletMapping) it.next();
-							if( map.getServletName().equals(servlet.getServletName())){
+						Iterator<ServletMapping> it = mappings.iterator();
+						while (it.hasNext()) {
+							ServletMapping map = it.next();
+							if (map.getServletName().equals(servlet.getServletName())) {
 								list.add(map);
 							}
 						}
 					}
 				}
-			
 			}
 		}
 		return list;
