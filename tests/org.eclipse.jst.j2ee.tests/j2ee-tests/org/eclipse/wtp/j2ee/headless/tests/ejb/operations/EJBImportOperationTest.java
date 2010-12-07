@@ -18,12 +18,7 @@ package org.eclipse.wtp.j2ee.headless.tests.ejb.operations;
 
 import junit.framework.Test;
 
-import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
-import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBComponentImportDataModelProvider;
-import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
-import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.tests.SimpleTestSuite;
-import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleImportOperationTest;
 
 /**
  * @author Ian Tewksbury (ictewksb@us.ibm.com)
@@ -31,7 +26,7 @@ import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.ModuleImportOperation
  * To change the template for this generated type comment go to Window - Preferences - Java - Code
  * Generation - Code and Comments
  */
-public class EJBImportOperationTest extends ModuleImportOperationTest {
+public class EJBImportOperationTest extends EJBImportOperationBaseTest {
 	public EJBImportOperationTest() {
 		super("EJBImportOperationTests");
 	}
@@ -42,11 +37,6 @@ public class EJBImportOperationTest extends ModuleImportOperationTest {
 	
 	public static Test suite() {
 		return new SimpleTestSuite(EJBImportOperationTest.class);
-	}
-	
-	@Override
-	protected String getModuleExtension() {
-		return ".jar";
 	}
 	
 	public void testEJBImport11_Defaults() throws Exception {
@@ -61,15 +51,6 @@ public class EJBImportOperationTest extends ModuleImportOperationTest {
 		runImportTests_All("EJB21_Defaults");
     }
     
-    public void testEJBImport30_Defaults() throws Exception {
-		runImportTests_All("EJB30_Defaults");
-    }
-    //TODO -- annotations to scan?
-    //EE6TODO 
-//    public void testEJBImport31_Defaults() throws Exception {
-//		runImportTests_All("EJB31_Defaults");
-//    }
-    
     public void testEJBImport11_AddToEAR_Defaults() throws Exception {
 		runImportTests_All("EJB11_AddToEAR_Defaults");
     }
@@ -81,15 +62,7 @@ public class EJBImportOperationTest extends ModuleImportOperationTest {
     public void testEJBImport21_AddToEAR_Defaults() throws Exception {
 		runImportTests_All("EJB21_AddToEAR_Defaults");
     }
-    
-    public void testEJBImport30_AddToEAR_Defaults() throws Exception {
-		runImportTests_All("EJB30_AddToEAR_Defaults");
-    }
-    
-    public void testEJBImport31_AddToEAR_Defaults() throws Exception {
-		runImportTests_All("EJB30_AddToEAR_Defaults");
-    }
-    
+      
     public void testEJBImport11_AddToEAR_NoClient() throws Exception {
 		runImportTests_All("EJB11_AddToEAR_NoClient");
     }
@@ -101,16 +74,6 @@ public class EJBImportOperationTest extends ModuleImportOperationTest {
     public void testEJBImport21_AddToEAR_NoClient() throws Exception {
 		runImportTests_All("EJB21_AddToEAR_NoClient");
     }
-    
-    public void testEJBImport30_AddToEAR_NoClient() throws Exception {
-		runImportTests_All("EJB30_AddToEAR_NoClient");
-    }
-    
-    //TODO -- annotations to scan?
-    //EE6TODO 
-//    public void testEJBImport31_AddToEAR_NoClient() throws Exception {
-//		runImportTests_All("EJB31_AddToEAR_NoClient");
-//    }
     
     public void testEJBImport11_AddToEAR_DiffClientName() throws Exception {
 		runImportTests_All("EJB11_AddToEAR_DiffClientName");
@@ -124,16 +87,6 @@ public class EJBImportOperationTest extends ModuleImportOperationTest {
 		runImportTests_All("EJB21_AddToEAR_DiffClientName");
     }
     
-    public void testEJBImport30_AddToEAR_DifClientName() throws Exception {
-		runImportTests_All("EJB30_AddToEAR_DiffClientName");
-    }
-    
-    //TODO -- annotations to scan?
-    //EE6TODO 
-//    public void testEJBImport31_AddToEAR_DifClientName() throws Exception {
-//		runImportTests_All("EJB31_AddToEAR_DiffClientName");
-//    }
-    
     public void testEJBImport11_AddToEAR_DiffClientSourceFolder() throws Exception {
 		runImportTests_All("EJB11_AddToEAR_DiffClientSourceFolder");
     }
@@ -145,16 +98,6 @@ public class EJBImportOperationTest extends ModuleImportOperationTest {
     public void testEJBImport21_AddToEAR_DiffClientSourceFolder() throws Exception {
 		runImportTests_All("EJB21_AddToEAR_DiffClientSourceFolder");
     }
-    
-    public void testEJBImport30_AddToEAR_DiffClientSourceFolder() throws Exception {
-		runImportTests_All("EJB30_AddToEAR_DiffClientSourceFolder");
-    }
-    
-    //TODO -- annotations to scan?
-    //EE6TODO 
-//    public void testEJBImport31_AddToEAR_DiffClientSourceFolder() throws Exception {
-//		runImportTests_All("EJB31_AddToEAR_DiffClientSourceFolder");
-//    }
     
     public void testEJBImport11_AddToEAR_DiffClientName_DiffClientSourceFolder() throws Exception {
 		runImportTests_All("EJB11_AddToEAR_DiffClientName_DiffClientSourceFolder");
@@ -168,85 +111,27 @@ public class EJBImportOperationTest extends ModuleImportOperationTest {
 		runImportTests_All("EJB21_AddToEAR_DiffClientName_DiffClientSourceFolder");
     }
     
-    public void testEJBImport30_AddToEAR_DiffClientName_DiffClientSourceFolder() throws Exception {
-		runImportTests_All("EJB30_AddToEAR_DiffClientName_DiffClientSourceFolder");
-    }
-
-    //TODO -- annotations to scan?
-    //EE6TODO 
-//    public void testEJBImport31_AddToEAR_DiffClientName_DiffClientSourceFolder() throws Exception {
-//		runImportTests_All("EJB31_AddToEAR_DiffClientName_DiffClientSourceFolder");
-//    }
-    
     public void testEJBImport30_Defaults_WithDD() throws Exception {
 		runImportTests_All("EJB30_Defaults_WithDD");
-    }
-    
-    public void testEJBImport31_Defaults_WithDD() throws Exception {
-		runImportTests_All("EJB31_Defaults_WithDD");
     }
     
     public void testEJBImport30_AddToEAR_Defaults_WithDD() throws Exception {
 		runImportTests_All("EJB30_AddToEAR_Defaults_WithDD");
     }
-    
-    public void testEJBImport31_AddToEAR_Defaults_WithDD() throws Exception {
-		runImportTests_All("EJB31_AddToEAR_Defaults_WithDD");
-    }
-    
+        
     public void testEJBImport30_AddToEAR_NoClient_WithDD() throws Exception {
 		runImportTests_All("EJB30_AddToEAR_NoClient_WithDD");
-    }
-    
-    public void testEJBImport31_AddToEAR_NoClient_WithDD() throws Exception {
-		runImportTests_All("EJB31_AddToEAR_NoClient_WithDD");
     }
     
     public void testEJBImport30_AddToEAR_DiffClientName_WithDD() throws Exception {
 		runImportTests_All("EJB30_AddToEAR_DiffClientName_WithDD");
     }
     
-    public void testEJBImport31_AddToEAR_DiffClientName_WithDD() throws Exception {
-		runImportTests_All("EJB31_AddToEAR_DiffClientName_WithDD");
-    }
-    
     public void testEJBImport30_AddToEAR_DiffClientSourceFolder_WithDD() throws Exception {
 		runImportTests_All("EJB30_AddToEAR_DiffClientSourceFolder_WithDD");
     }
-    
-    public void testEJBImport31_AddToEAR_DiffClientSourceFolder_WithDD() throws Exception {
-		runImportTests_All("EJB31_AddToEAR_DiffClientSourceFolder_WithDD");
-    }
-    
+        
     public void testEJBImport30_AddToEAR_DiffClientName_DiffClientSourceFolder_WithDD() throws Exception {
 		runImportTests_All("EJB30_AddToEAR_DiffClientName_DiffClientSourceFolder_WithDD");
-    }
-	
-    public void testEJBImport31_AddToEAR_DiffClientName_DiffClientSourceFolder_WithDD() throws Exception {
-		runImportTests_All("EJB31_AddToEAR_DiffClientName_DiffClientSourceFolder_WithDD");
-    }
-    
-	@Override
-	protected IDataModel getImportDataModel(String filePath, String projectName, IDataModel creationModel, boolean closeArchiveOnDispose) {
-		return getEJBImportDataModel(filePath, projectName, creationModel, closeArchiveOnDispose);
-	}
-	
-    public static IDataModel getEJBImportDataModel(String filePath, String projectName, IDataModel creationModel, boolean closeArchiveOnDispose) {
-    	IDataModel importModel = DataModelFactory.createDataModel(new EJBComponentImportDataModelProvider());
-    	
-    	importModel.setProperty(IJ2EEComponentImportDataModelProperties.FILE_NAME, filePath);
-    	importModel.setProperty(IJ2EEComponentImportDataModelProperties.PROJECT_NAME, projectName);
-    	importModel.setProperty(IJ2EEComponentImportDataModelProperties.CLOSE_ARCHIVE_ON_DISPOSE, closeArchiveOnDispose);
-    	
-    	if(creationModel != null) {
-    		importModel.setProperty(IJ2EEComponentImportDataModelProperties.NESTED_MODEL_J2EE_COMPONENT_CREATION, creationModel);
-    	}
-    	
-    	return importModel;
-    }
-	
-	@Override
-	protected IDataModel getExportDataModel(String projectName, String destination, boolean exportSource, boolean runBuild, boolean overwriteExisting) {
-		return EJBExportOperationTest.getEJBExportDataModel(projectName, destination, exportSource, runBuild, overwriteExisting);
-	}
+    }	
 }

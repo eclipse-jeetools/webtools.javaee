@@ -33,6 +33,7 @@
 			<property name="classname" value="org.eclipse.jst.j2ee.tests.bvt.AutomatedBVT" />
 			<property name="extraVMargs" value="${extraVMargs}" />
 		</ant>
+		<antcall target="cleanup"/>
 	</target>
 
 	<target name="EnterpriseBVTSuite" if="org.eclipse.jst.j2ee.tests.bvt.EnterpriseBVT" unless="org.eclipse.jst.j2ee.tests.bvt.ALL">
@@ -42,6 +43,7 @@
 			<property name="classname" value="org.eclipse.jst.j2ee.tests.bvt.EnterpriseBVT" />
 			<property name="extraVMargs" value="${extraVMargs}" />
 		</ant>
+		<antcall target="cleanup"/>
 	</target>
 
 	<target name="WebBVTSuite" if="org.eclipse.jst.j2ee.tests.bvt.WebBVT" unless="org.eclipse.jst.j2ee.tests.bvt.ALL">
@@ -51,6 +53,7 @@
 			<property name="classname" value="org.eclipse.jst.j2ee.tests.bvt.WebBVT" />
 			<property name="extraVMargs" value="${extraVMargs}" />
 		</ant>
+		<antcall target="cleanup"/>
 	</target>
 
 	<target name="EJBBVTSuite" if="org.eclipse.jst.j2ee.tests.bvt.EJBBVT" unless="org.eclipse.jst.j2ee.tests.bvt.ALL">
@@ -60,6 +63,7 @@
 			<property name="classname" value="org.eclipse.jst.j2ee.tests.bvt.EJBBVT" />
 			<property name="extraVMargs" value="${extraVMargs}" />
 		</ant>
+		<antcall target="cleanup"/>
 	</target>
 
 	<target name="CoreBVTSuite" if="org.eclipse.jst.j2ee.tests.bvt.CoreInfrastructureBVT" unless="org.eclipse.jst.j2ee.tests.bvt.ALL">
@@ -69,6 +73,7 @@
 			<property name="classname" value="org.eclipse.jst.j2ee.tests.bvt.CoreInfrastructureBVT" />
 			<property name="extraVMargs" value="${extraVMargs}" />
 		</ant>
+		<antcall target="cleanup"/>
 	</target>
 
 	<target name="ModelProviderBVTSuite" if="org.eclipse.jst.j2ee.tests.bvt.ModelProviderBVT" unless="org.eclipse.jst.j2ee.tests.bvt.ALL">
@@ -78,6 +83,7 @@
 			<property name="classname" value="org.eclipse.jst.j2ee.tests.bvt.ModelProviderBVT" />
 			<property name="extraVMargs" value="${extraVMargs}" />
 		</ant>
+		<antcall target="cleanup"/>
 	</target>
 
 	<target name="ExtendedModelProviderBVTSuite" if="org.eclipse.jst.j2ee.tests.bvt.ExtendedModelProviderBVT" unless="org.eclipse.jst.j2ee.tests.bvt.ALL">
@@ -87,6 +93,7 @@
 			<property name="classname" value="org.eclipse.jst.j2ee.tests.bvt.ExtendedModelProviderBVT" />
 			<property name="extraVMargs" value="${extraVMargs}" />
 		</ant>
+		<antcall target="cleanup"/>
 	</target>
 
 	<!-- This target defines the tests that need to be run. -->
