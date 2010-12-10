@@ -74,8 +74,7 @@ public class RemoveComponentFromEnterpriseApplicationOperation extends RemoveRef
 					try {
 						compse = StructureEdit.getStructureEditForWrite(wc.getProject());
 						if(compse != null) {
-							WorkbenchComponent refwc = compse.getComponent();
-							final ReferencedComponent ref = se.findReferencedComponent(earwc, refwc);
+							final ReferencedComponent ref = AddComponentToEnterpriseApplicationOp.findReferencedComponent(earwc, wc, se, compse);
 							earModel.modify(new Runnable() {
 								public void run() {
 									ICommonApplication application = (ICommonApplication)earModel.getModelObject();
@@ -273,5 +272,4 @@ public class RemoveComponentFromEnterpriseApplicationOperation extends RemoveRef
 	protected boolean removeModule(ICommonApplication application, Object module) {
 		return application.getEARModules().remove(module);
 	}
-
 }
