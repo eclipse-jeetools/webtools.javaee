@@ -27,6 +27,8 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.application.WebModule;
@@ -132,8 +134,7 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 							StructureEdit compse = null;
 							try {
 								compse = StructureEdit.getStructureEditForWrite(wc.getProject());
-								WorkbenchComponent refwc = compse.getComponent();
-								final ReferencedComponent ref = se.findReferencedComponent(earwc, refwc);
+								final ReferencedComponent ref = findReferencedComponent(earwc, wc, se, compse);
 								earModel.modify(new Runnable() {
 									public void run() {
 										final ICommonApplication application = (ICommonApplication)earModel.getModelObject();
@@ -377,6 +378,30 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 
 	private static IProgressMonitor submon(final IProgressMonitor parent, final int ticks) {
 		return (parent == null ? null : new SubProgressMonitor(parent, ticks));
+	}
+	
+	public static ReferencedComponent findReferencedComponent(WorkbenchComponent aComponent, IVirtualComponent aReferencedComponent, StructureEdit se, StructureEdit compse) {
+		if(aComponent == null || aReferencedComponent == null)
+			return null;
+		if(aReferencedComponent.isBinary()){
+			EList referencedComponents = aComponent.getReferencedComponents();
+			String name = null;
+			if(aReferencedComponent.getName() != null) {
+				name = new Path(aReferencedComponent.getName()).lastSegment();
+			}
+			if(name != null) {
+				for (Iterator iter = referencedComponents.iterator(); iter.hasNext();) {
+					ReferencedComponent referencedComponent = (ReferencedComponent) iter.next();
+					URI uri = referencedComponent.getHandle();
+					if( uri != null && name.equals(uri.lastSegment()))
+						return referencedComponent;
+				}
+			}
+		} else {
+			WorkbenchComponent refwc = compse.getComponent();
+			return se.findReferencedComponent(aComponent, refwc);
+		}
+		return null;
 	}
 
 	@Override
