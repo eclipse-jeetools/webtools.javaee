@@ -13,6 +13,10 @@
 	<property name="workspace" value="${basedir}/${plugin-name}" />
 
 	<!-- Read the properties that will enable/disable the different targets below. -->
+	<property name="org.eclipse.jst.jee.tests.bvt.ALL" value="false" />
+	<property name="org.eclipse.jst.jee.tests.bvt.EnterpriseBVT" value="true" />
+	<property name="org.eclipse.jst.jee.tests.bvt.EJBBVT" value="true" />
+	<property name="org.eclipse.jst.jee.tests.bvt.WebBVT" value="true" />
 	<property file="bvt.properties" />
 
 	<!-- This target holds all initialization code that needs to be done for -->
