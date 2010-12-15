@@ -60,7 +60,7 @@ import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyEnablement;
+import org.eclipse.jst.j2ee.internal.classpathdep.DuplicateClasspathComponentURIValidatorEnablement;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -283,7 +283,7 @@ public class UIEarValidator extends EarValidator {
 						status = super.validateInJob(inHelper, inReporter);
 						validateModuleMaps(earModule);
 						validateManifests();
-						if(ClasspathDependencyEnablement.isAllowClasspathComponentDependency()){
+						if(DuplicateClasspathComponentURIValidatorEnablement.shouldValidateDuplicateClasspathComponentURI()){
 							validateDuplicateClasspathComponentURIs(earModule);
 						}
 		//				validateUtilJarMaps(earEdit,earModule);
