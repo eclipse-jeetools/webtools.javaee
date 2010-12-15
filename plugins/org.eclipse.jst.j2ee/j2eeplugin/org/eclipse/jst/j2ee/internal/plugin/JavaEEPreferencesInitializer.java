@@ -29,7 +29,11 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 		final static String USE_EAR_LIBRARIES = "org.eclipse.jst.j2ee.preferences.useEARLibraries";//$NON-NLS-1$
 		final static String USE_WEB_APP_LIBRARIES = "org.eclipse.jst.j2ee.preferences.useWebAppLibraries";//$NON-NLS-1$
 		final static String USE_EAR_LIBRARIES_JDT_EXPORT = "org.eclipse.jst.j2ee.preferences.useEARLibrariesJDTExport";//$NON-NLS-1$
+		/**
+		 * @deprecated Do not use. The ALLOW_CLASSPATH_DEP preference has been deprecated and its ability to disable dynamic manifest updates will soon be removed.
+		 */
 		final static String ALLOW_CLASSPATH_DEP = IProductConstants.ALLOW_CLASSPATH_DEP;
+		final static String VALIDATE_DUPLICATE_CLASSPATH_COMPONENT_URI= IProductConstants.VALIDATE_DUPLICATE_CLASSPATH_COMPONENT_URI;
 
 		static final String J2EE_WEB_CONTENT = "org.eclipse.jst.j2ee.preference.j2eeWebContentName"; //$NON-NLS-1$
 		static final String STATIC_WEB_CONTENT = "org.eclipse.jst.j2ee.preference.staticWebContentName"; //$NON-NLS-1$
@@ -156,7 +160,11 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 		final static boolean INCREMENTAL_DEPLOYMENT_SUPPORT = true;
 		final static boolean USE_EAR_LIBRARIES_JDT_EXPORT = false;
 		final static String ID_PERSPECTIVE_HIERARCHY_VIEW = "org.eclipse.ui.navigator.ProjectExplorer"; //$NON-NLS-1$
+		/**
+		 * @deprecated Do not use. The ALLOW_CLASSPATH_DEP preference has been deprecated and its ability to disable dynamic manifest updates will soon be removed.
+		 */
 		final static boolean ALLOW_CLASSPATH_DEP = true;
+		final static boolean VALIDATE_DUPLICATE_CLASSPATH_COMPONENT_URI = true;
 		final static boolean SHOW_JAVA_EE_MODULE_DEPENDENCY_PAGE = true;
 		public static final String STRING_DEFAULT_DEFAULT = ""; //$NON-NLS-1$
 		public static final boolean BOOLEAN_DEFAULT_DEFAULT = false;
@@ -211,6 +219,9 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 		String allowClasspathDep = ProductManager.getProperty(IProductConstants.ALLOW_CLASSPATH_DEP);
 		boolean allowClasspathDepDefault = (allowClasspathDep != null) ? Boolean.parseBoolean(allowClasspathDep) : Defaults.ALLOW_CLASSPATH_DEP;
 		node.putBoolean(Keys.ALLOW_CLASSPATH_DEP, allowClasspathDepDefault);
+		String validateDupClasspathCompURIs = ProductManager.getProperty(IProductConstants.VALIDATE_DUPLICATE_CLASSPATH_COMPONENT_URI);
+		boolean validateDupClasspathCompURIsDefault = (validateDupClasspathCompURIs != null) ? Boolean.parseBoolean(validateDupClasspathCompURIs) : Defaults.VALIDATE_DUPLICATE_CLASSPATH_COMPONENT_URI;
+		node.putBoolean(Keys.VALIDATE_DUPLICATE_CLASSPATH_COMPONENT_URI, validateDupClasspathCompURIsDefault);
 		String showJavaEEModuleDependencyPage = ProductManager.getProperty(IProductConstants.SHOW_JAVA_EE_MODULE_DEPENDENCY_PAGE);
 		boolean showJavaEEModuleDependencyPageDefault = (showJavaEEModuleDependencyPage != null) ? Boolean.parseBoolean(showJavaEEModuleDependencyPage) : Defaults.SHOW_JAVA_EE_MODULE_DEPENDENCY_PAGE;
 		node.putBoolean(Keys.SHOW_JAVA_EE_MODULE_DEPENDENCY_PAGE, showJavaEEModuleDependencyPageDefault);

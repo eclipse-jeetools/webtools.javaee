@@ -91,10 +91,18 @@ public class J2EEPreferences {
 		firePreferenceChanged();
 	}
 	
+	/**
+	 * @return
+	 * @deprecated Do not use. The ALLOW_CLASSPATH_DEP preference has been deprecated and its ability to disable dynamic manifest updates will soon be removed.
+	 */
 	public boolean getAllowClasspathDep() {
 		return getBoolean(Keys.ALLOW_CLASSPATH_DEP);
 	}
 	
+	/**
+	 * @param value
+	 * @deprecated Do not use. The ALLOW_CLASSPATH_DEP preference has been deprecated and its ability to disable dynamic manifest updates will soon be removed.
+	 */
 	public void setAllowClasspathDep(boolean value) {
 		getInstancePreferenceNode(J2EEPlugin.PLUGIN_ID).putBoolean(Keys.ALLOW_CLASSPATH_DEP, value);
 		firePreferenceChanged();
