@@ -19,7 +19,11 @@ import java.util.Map;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jdt.core.IClasspathContainer;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
@@ -42,6 +46,8 @@ public final class WebAppLibrariesContainer
     extends FlexibleProjectContainer
     
 {
+	private WebAppLibrariesStore.RestoreState restoreState;
+	
     private static final IPath[] paths 
         = new IPath[] { new Path( "WEB-INF/lib" ),  //$NON-NLS-1$
                         new Path( "WEB-INF/classes" ) }; //$NON-NLS-1$
@@ -56,6 +62,25 @@ public final class WebAppLibrariesContainer
                                      final IJavaProject jproject )
     {
          super( path, jproject, getProject( path, jproject), paths, types );
+         boolean needToVerify = false;
+		 if(null != restoreState){
+			 synchronized (restoreState) {
+				 needToVerify = restoreState.needToVerify;
+				 restoreState.needToVerify = false;
+			 }
+		 }
+         if(needToVerify){
+        	 Job verifyJob = new Job(Resources.verify){
+ 				@Override
+ 				protected IStatus run(IProgressMonitor monitor) {
+ 			        WebAppLibrariesContainer.this.refresh(false);
+ 					return Status.OK_STATUS;
+ 				}
+ 			};
+ 			verifyJob.setSystem(true);
+ 			verifyJob.setRule(ResourcesPlugin.getWorkspace().getRoot());
+ 			verifyJob.schedule();
+         }
     }
     
     public String getDescription()
@@ -80,6 +105,23 @@ public final class WebAppLibrariesContainer
         {
             WebPlugin.log( e );
         }
+    }
+    
+    @Override
+    public boolean isOutOfDate() {
+    	final List currentEntries = computeClasspathEntries(false);
+    	boolean outOfDate  = ! this.entries.equals( currentEntries );
+    	if(outOfDate){
+    		WebAppLibrariesStore.flush(project.getName());
+    	}
+    	return outOfDate;
+    }
+    
+    @Override
+	public void refresh(boolean forceUpdate){
+    	if(forceUpdate || isOutOfDate()){
+    		refresh();
+    	}
     }
     
     @Override
@@ -116,6 +158,17 @@ public final class WebAppLibrariesContainer
     
     @Override
     protected List computeClasspathEntries() {
+    	return computeClasspathEntries(true);
+    }
+    
+    protected List computeClasspathEntries(boolean useRestoreState) {
+    	if(useRestoreState){
+	    	restoreState = WebAppLibrariesStore.getRestoreState(project.getName());
+	    	if(restoreState != null){
+	    		return restoreState.paths;
+	    	}
+    	}
+    	
     	List <IPath>entries = super.computeClasspathEntries();
     	if(consumedReferences != null){
 	    	for(IVirtualReference ref:consumedReferences){
@@ -136,6 +189,7 @@ public final class WebAppLibrariesContainer
 	    		}
 	    	}
     	}
+    	WebAppLibrariesStore.saveState(project.getName(), entries);
     	return entries;
     }
     
@@ -157,6 +211,7 @@ public final class WebAppLibrariesContainer
     {
         public static String label;
         public static String labelWithProject;
+        public static String verify;
         
         static
         {

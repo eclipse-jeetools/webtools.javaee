@@ -88,7 +88,7 @@ public abstract class FlexibleProjectContainer
     protected final IProject project;
     private final IPath[] paths;
     private final PathType[] pathTypes;
-    private final List entries;
+    protected final List entries;
     private final IClasspathEntry[] cpentries;
     private static final Set containerTypes = new HashSet();
     
@@ -152,12 +152,29 @@ public abstract class FlexibleProjectContainer
         {
             return false;
         }
-        
-        final List currentEntries = computeClasspathEntries();
-        return ! this.entries.equals( currentEntries );
+        return isOutOfDate();
     }
+
+	public boolean isOutOfDate() {
+		final List currentEntries = computeClasspathEntries();
+        return ! this.entries.equals( currentEntries );
+	}
     
     public abstract void refresh();
+    
+	/**
+	 * If forceUpdate is <code>false</code> then a refresh is made only if
+	 * {@link #isOutOfDate()} returns <code>true</code>. If forceUpdate is
+	 * <code>true</code> then a refresh is immediately made without checking
+	 * {@link #isOutOfDate()}.
+	 * 
+	 * @param forceUpdate
+	 */
+    public void refresh(boolean forceUpdate){
+    	if(forceUpdate || isOutOfDate()){
+    		refresh();
+    	}
+    }
     
     static ClasspathDecorationsManager getDecorationsManager()
     {
