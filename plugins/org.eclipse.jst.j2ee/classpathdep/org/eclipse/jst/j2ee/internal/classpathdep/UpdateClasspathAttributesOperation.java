@@ -33,7 +33,8 @@ import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
 import org.eclipse.jst.j2ee.classpathdep.UpdateClasspathAttributeUtil;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
-import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
+import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -130,7 +131,6 @@ public class UpdateClasspathAttributesOperation extends AbstractDataModelOperati
 	}
 
 	private void alterDependencyAttributes(final IJavaProject javaProject, final Map entries, final boolean add, final boolean modifyComponentDep) throws CoreException {
-		final boolean isWebApp = JavaEEProjectUtilities.isDynamicWebProject(javaProject.getProject());
 		final boolean isLegacyJ2EE = J2EEProjectUtilities.isLegacyJ2EEProject(javaProject.getProject());
 		final IJavaProjectLite javaProjectLite = JavaCoreLite.create(javaProject);
 		
@@ -145,7 +145,8 @@ public class UpdateClasspathAttributesOperation extends AbstractDataModelOperati
 					IPath runtimePath = (IPath) entries.get(entry);
 					if (runtimePath == null) {
 						// compute the default runtime path
-						runtimePath = ClasspathDependencyUtil.getDefaultRuntimePath(isWebApp, ClasspathDependencyUtil.isClassFolderEntry(entry));
+						IVirtualComponent virtualComponent = ComponentCore.createComponent(javaProject.getProject());
+						runtimePath = ClasspathDependencyUtil.getDefaultRuntimePath(virtualComponent, entry);
 					}
 					IClasspathAttribute attrib = null;
 					if (modifyComponentDep) {
