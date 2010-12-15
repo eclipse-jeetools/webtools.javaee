@@ -291,7 +291,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 					IClasspathContainer webAppLibrariesContainer = J2EEComponentClasspathContainerUtils.getInstalledWebAppLibrariesContainer(project);
 					// If the container is present, refresh it
 					if (webAppLibrariesContainer != null) {
-						((FlexibleProjectContainer) webAppLibrariesContainer).refresh();
+						((FlexibleProjectContainer) webAppLibrariesContainer).refresh(forceUpdateOnNextRun);
 					}
 				}
 
