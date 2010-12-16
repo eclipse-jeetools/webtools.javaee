@@ -217,7 +217,6 @@ public class WebAppLibrariesStore {
 
 	private static void persist() {
 		synchronized (saveStateMap) {
-			System.out.println("persisting"); //$NON-NLS-1$
 			IPath stateLocation = WebPlugin.getDefault().getStateLocation();
 			java.io.File file = stateLocation.append(WEB_LIBRARIES_CACHE).toFile();
 			FileOutputStream fOut = null;
