@@ -220,7 +220,7 @@ public static InitializationStringParser createParser(String initString, ClassLo
 public void parse(){
 	
 	createFirstExpression();
-	int i =1;
+	//int i =1;
 	while ( true ){
 		createNextToken();
 		if ( isComplete ) {
@@ -228,7 +228,7 @@ public void parse(){
 			// by the end, which is basically the equiavlent of a;
 			return;
 		} else  {
-			i++;
+			//i++;
 			Expression result = fExpression.push( fCurrentToken , fCurrentTokenDelimiter );
 			// If the result if a push then push the stack
 			if ( result.isComplete() ) {
