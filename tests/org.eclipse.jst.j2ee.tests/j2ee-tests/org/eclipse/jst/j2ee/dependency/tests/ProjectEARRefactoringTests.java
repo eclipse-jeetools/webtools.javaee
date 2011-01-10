@@ -11,6 +11,7 @@
 package org.eclipse.jst.j2ee.dependency.tests;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.jst.j2ee.dependency.tests.util.DependencyCreationUtil;
 import org.eclipse.jst.j2ee.dependency.tests.util.DependencyUtil;
 import org.eclipse.jst.j2ee.dependency.tests.util.DependencyVerificationUtil;
@@ -237,6 +238,8 @@ public class ProjectEARRefactoringTests extends AbstractTests {
 		DependencyCreationUtil.createModuleDependency(webProject1, ejbProject);
 		DependencyCreationUtil.createWebLibDependency(webProject2, ejbProject);
 		
+		DependencyUtil.waitForJobs(ResourcesPlugin.FAMILY_AUTO_BUILD);
+				
 		final String moduleURI1 = DependencyVerificationUtil.verifyEARDependency(earProject1, ejbProject, true);
 		final String moduleURI2 = DependencyVerificationUtil.verifyEARDependency(earProject2, ejbProject, true);	
 		DependencyVerificationUtil.verifyEARDependency(earProject1, webProject1, true);
@@ -245,7 +248,7 @@ public class ProjectEARRefactoringTests extends AbstractTests {
 		DependencyVerificationUtil.verifyWebLibDependency(webProject2, ejbProject);
 		
 		IProject newEJB = ProjectUtil.renameProject(ejbProject, "newEJB");
-		
+			
 		DependencyVerificationUtil.verifyEARDependencyChanged(earProject1, ejbProject, moduleURI1, newEJB);	
 		DependencyVerificationUtil.verifyEARDependencyChanged(earProject2, ejbProject, moduleURI2, newEJB);
       	DependencyVerificationUtil.verifyModuleDependencyChanged(webProject1, ejbProject, newEJB);

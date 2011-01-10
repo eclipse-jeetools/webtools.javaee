@@ -88,7 +88,16 @@ public class DependencyUtil {
 	 * Waits for jobs in the specified family
 	 * @param family
 	 */
+	
 	public static void waitForJobs(final String family) {
+		waitForJobs((Object)family);
+	}
+	
+	/**
+	 * Waits for jobs in the specified family
+	 * @param family
+	 */
+	public static void waitForJobs(final Object family) {
 		final IJobManager jobMgr = Platform.getJobManager();
         for (int i = 0; i < 1000; i++) {
 			final Job[] jobs = jobMgr.find(family);
