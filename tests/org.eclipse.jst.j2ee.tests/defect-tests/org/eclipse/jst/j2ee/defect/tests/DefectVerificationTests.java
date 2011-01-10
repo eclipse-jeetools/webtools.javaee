@@ -763,7 +763,7 @@ public class DefectVerificationTests extends OperationTestCase {
 	}
 
 	private String getWarFile(String fileName) {
-		return TEST_DATA_PATH + "WarImportTests" + java.io.File.separatorChar + fileName;
+		return TEST_DATA_PATH + "WARImportTests" + java.io.File.separatorChar + fileName;
 	}
 
 	private void checkIfModelIsParsed(WebApp deploymentDescriptor1) {
