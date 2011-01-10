@@ -67,7 +67,10 @@ public class JavaEEComponentDependencyContentProvider extends ComponentDependenc
 			} else if (columnIndex == AddModuleDependenciesPropertiesPage.DEPLOY_COLUMN) {
 				IClasspathAttribute attribute = ClasspathDependencyUtil.checkForComponentDependencyAttribute(classpathEntry, DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY);
 				if (attribute != null) {
-					return new Path(attribute.getValue()).toString();
+					IPath runtimePath = new Path(attribute.getValue());
+					if(runtimePath.isRoot())
+						return runtimePath.toString();
+					return runtimePath.makeRelative().toString();
 				}
 				return null;
 			}
