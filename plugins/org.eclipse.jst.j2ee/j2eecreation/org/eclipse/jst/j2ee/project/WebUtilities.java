@@ -11,6 +11,8 @@
 package org.eclipse.jst.j2ee.project;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -221,5 +223,42 @@ public class WebUtilities extends JavaEEProjectUtilities {
 	public static void setServerContextRoot(IProject webProject, String contextRoot)
 	{
 		ComponentUtilities.setServerContextRoot(webProject, contextRoot);
+	}
+
+	/**
+	 * Returns all referencing Web projects.
+	 * 
+	 * @param project
+	 *            Project to check. If <code>null</code> then a zero length
+	 *            array is returned. If a WAR, then a one element array will be
+	 *            returned.
+	 * @return Array of referencing Web projects.
+	 */
+	public static IProject[] getReferencingWebProjects(final IProject project) {
+		if (project == null) {
+			return new IProject[0];
+		} else if (isDynamicWebProject(project)) {
+			return new IProject[] { project };
+		}
+
+		List result = new ArrayList();
+		IVirtualComponent component = ComponentCore.createComponent(project);
+		if (component != null) {
+			IVirtualComponent[] refComponents = component.getReferencingComponents();
+			for (int i = 0; i < refComponents.length; i++) {
+				if (isDynamicWebProject(refComponents[i].getProject()))
+					result.add(refComponents[i].getProject());
+			}
+		}
+
+		IProject[] webProjects = (IProject[]) result.toArray(new IProject[result.size()]);
+		// sort the list so it is consistent
+		Arrays.sort(webProjects, new Comparator<IProject>() {
+			public int compare(IProject p0, IProject p1) {
+				return p0.getName().compareTo(p1.getName());
+			}
+		});
+
+		return webProjects;
 	}
 }
