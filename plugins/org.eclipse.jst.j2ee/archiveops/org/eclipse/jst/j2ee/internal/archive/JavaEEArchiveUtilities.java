@@ -625,13 +625,15 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 		int WAR_INDEX = 2;
 		int EJB_INDEX = 3;
 		int APP_CLIENT_INDEX = 4;
+		int WEB_FRAGMENT_INDEX = 5;
 
-		DeploymentDescriptorCheck[] deploymentDescriptorsToCheck = new DeploymentDescriptorCheck[5];
+		DeploymentDescriptorCheck[] deploymentDescriptorsToCheck = new DeploymentDescriptorCheck[6];
 		deploymentDescriptorsToCheck[EAR_INDEX] = new DeploymentDescriptorCheck(J2EEConstants.APPLICATION_DD_URI, J2EEVersionConstants.APPLICATION_TYPE);
 		deploymentDescriptorsToCheck[RAR_INDEX] = new DeploymentDescriptorCheck(J2EEConstants.RAR_DD_URI, J2EEVersionConstants.CONNECTOR_TYPE);
 		deploymentDescriptorsToCheck[WAR_INDEX] = new DeploymentDescriptorCheck(J2EEConstants.WEBAPP_DD_URI, J2EEVersionConstants.WEB_TYPE);
 		deploymentDescriptorsToCheck[EJB_INDEX] = new DeploymentDescriptorCheck(J2EEConstants.EJBJAR_DD_URI, J2EEVersionConstants.EJB_TYPE);
 		deploymentDescriptorsToCheck[APP_CLIENT_INDEX] = new DeploymentDescriptorCheck(J2EEConstants.APP_CLIENT_DD_URI, J2EEVersionConstants.APPLICATION_CLIENT_TYPE);
+		deploymentDescriptorsToCheck[WEB_FRAGMENT_INDEX] = new DeploymentDescriptorCheck(J2EEConstants.WEBFRAGMENT_DD_URI, J2EEVersionConstants.WEBFRAGMENT_TYPE);
 
 		if (lastSegment != null) {
 			if (lastSegment.endsWith(IJ2EEModuleConstants.EAR_EXT)) {
@@ -655,6 +657,10 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 					return wrappedForDD;
 				}
 				wrappedForDD = deploymentDescriptorsToCheck[APP_CLIENT_INDEX].wrapForDD(simpleArchive);
+				if (wrappedForDD != null) {
+					return wrappedForDD;
+				}
+				wrappedForDD = deploymentDescriptorsToCheck[WEB_FRAGMENT_INDEX].wrapForDD(simpleArchive);
 				if (wrappedForDD != null) {
 					return wrappedForDD;
 				}
