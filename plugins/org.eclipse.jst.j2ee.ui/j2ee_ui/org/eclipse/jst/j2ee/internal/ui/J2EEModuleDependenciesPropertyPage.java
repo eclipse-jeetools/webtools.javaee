@@ -184,7 +184,10 @@ public class J2EEModuleDependenciesPropertyPage extends
 			public Object getValue(Object element, String property) {
 				if(element instanceof ClasspathEntryProxy){
 					IClasspathEntry entry = ((ClasspathEntryProxy)element).entry;
-					return ClasspathDependencyUtil.getRuntimePath(entry).toString();
+					IPath runtimePath = ClasspathDependencyUtil.getRuntimePath(entry);
+					if(runtimePath.isRoot())
+						return runtimePath.toString();
+					return runtimePath.makeRelative().toString();
 				}
 				return super.getValue(element, property);
 			}
@@ -203,12 +206,16 @@ public class J2EEModuleDependenciesPropertyPage extends
 							}
 						}
 						ClasspathEntryProxy proxy = (ClasspathEntryProxy)item.getData();
-						IPath runtimePath = new Path((String)value);
+						IPath runtimePath = new Path(((String)value).trim()).makeRelative();
+						if(runtimePath.isEmpty())
+							runtimePath = runtimePath.makeAbsolute();
+						if(tableIndex >= 0)
+							components[tableIndex].setText(AddModuleDependenciesPropertiesPage.DEPLOY_COLUMN, runtimePath.toString());
+						if(!ClasspathDependencyUtil.isMappedIntoContainer(runtimePath.toString()))
+							runtimePath = runtimePath.makeAbsolute();
 						IClasspathEntry newEntry = ClasspathDependencyUtil.modifyDependencyPath(proxy.entry, runtimePath);
 						proxy.entry = newEntry;
 						resourceMappingsChanged = true;
-						if(tableIndex >= 0)
-							components[tableIndex].setText(AddModuleDependenciesPropertiesPage.DEPLOY_COLUMN, (String)value);
 					}
 				}
 				super.modify(element, property, value);
