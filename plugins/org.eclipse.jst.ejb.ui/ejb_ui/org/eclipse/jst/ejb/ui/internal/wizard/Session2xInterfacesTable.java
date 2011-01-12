@@ -256,13 +256,6 @@ public class Session2xInterfacesTable extends Composite {
 				Rectangle area = table.getParent().getClientArea();
 				Point preferredSize = viewer.getTable().computeSize(
 						SWT.DEFAULT, SWT.DEFAULT);
-				int width = area.width - 2 * table.getBorderWidth() * 2;
-				if (preferredSize.y > area.height + table.getHeaderHeight()) {
-					// Subtract the scrollbar width from the total column width
-					// if a vertical scrollbar will be required
-					Point vBarSize = table.getVerticalBar().getSize();
-					width -= vBarSize.x;
-				}
 				int delta = area.width - preferredSize.x;
 				TableColumn column2 = table.getColumn(1);
 				int tmp = column2.getWidth() + delta;
