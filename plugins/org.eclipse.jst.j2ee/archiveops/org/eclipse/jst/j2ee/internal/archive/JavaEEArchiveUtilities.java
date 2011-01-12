@@ -415,6 +415,9 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 										module = app.getFirstModule(stringPath);
 									}
 								}
+								if(module == null) {
+									module = getModuleFromURI(app, archivePath.toString());
+								}
 								if (null != module) {
 									if (module.isEjbModule()) {
 										definedType = J2EEVersionConstants.EJB_TYPE;
@@ -588,6 +591,21 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 		}
 
 		return simpleArchive;
+	}
+	
+	private org.eclipse.jst.j2ee.application.Module getModuleFromURI(org.eclipse.jst.j2ee.application.Application app, String uri) {
+		if(uri == null)
+			return null;
+		String archiveName = (new Path(uri)).lastSegment();
+		List<org.eclipse.jst.j2ee.application.internal.impl.ModuleImpl> modules = app.getModules();
+		for (org.eclipse.jst.j2ee.application.internal.impl.ModuleImpl curModule : modules ){
+			if(curModule != null && curModule.getUri() != null) {
+				if(new Path(curModule.getUri()).lastSegment().equals(archiveName)) {
+					return curModule;
+				}
+			}
+		}
+		return null;
 	}
 
 	/**

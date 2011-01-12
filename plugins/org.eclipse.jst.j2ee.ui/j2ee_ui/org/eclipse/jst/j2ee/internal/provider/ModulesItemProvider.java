@@ -16,6 +16,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.jem.util.emf.workbench.WorkbenchResourceHelperBase;
 import org.eclipse.jst.j2ee.application.Application;
@@ -257,21 +258,24 @@ public class ModulesItemProvider extends J2EEItemProvider {
 			Module module = (Module) modules.get(i);
 			String moduleURI = module.getUri();
 			boolean foundBinary = false;
-			for (int j = 0; j < refs.length && !foundBinary; j++) {
-				IVirtualComponent component = refs[j].getReferencedComponent();
-				if (component.isBinary()) {
-					if (refs[j].getArchiveName().equals(moduleURI)) {
-						foundBinary = true;
-						JavaEEBinaryComponentHelper helper = null;
-						try {
-							helper = new JavaEEBinaryComponentHelper(component);
-							Object binaryModule = helper.getPrimaryRootObject();
-							if (binaryModule != null) {
-								binaryModules.add(binaryModule);
-							}
-						} finally {
-							if(helper != null){
-								helper.dispose();
+			if(moduleURI != null) {
+				String moduleName = new Path(moduleURI).lastSegment();
+				for (int j = 0; j < refs.length && !foundBinary; j++) {
+					IVirtualComponent component = refs[j].getReferencedComponent();
+					if (component.isBinary()) {
+						if (refs[j].getArchiveName().equals(moduleName)) {
+							foundBinary = true;
+							JavaEEBinaryComponentHelper helper = null;
+							try {
+								helper = new JavaEEBinaryComponentHelper(component);
+								Object binaryModule = helper.getPrimaryRootObject();
+								if (binaryModule != null) {
+									binaryModules.add(binaryModule);
+								}
+							} finally {
+								if(helper != null){
+									helper.dispose();
+								}
 							}
 						}
 					}
