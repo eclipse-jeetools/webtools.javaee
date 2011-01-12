@@ -190,6 +190,7 @@ public class JEE5ModelProvider implements IModelProvider, ResourceStateInputProv
 		if (res == null || !res.isLoaded()) {
 			// Create temp resource if no file exists
 			res=  (XMLResourceImpl)((FlexibleProjectResourceSet)resourceSet).createResource(getModuleURI(uri),WTPResourceFactoryRegistry.INSTANCE.getFactory(uri, getContentType(getContentTypeDescriber())));
+			res.setEncoding("UTF-8"); //$NON-NLS-1$
 			populateRoot(res, resourceSet.getProject().getName());
 		}
 		return res;
