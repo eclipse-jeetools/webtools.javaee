@@ -125,6 +125,8 @@ public class DependencyCreationUtil {
 			updateManifestDataModel.getDefaultOperation().execute(monitor, null );
 		}
         ProjectUtil.waitForClasspathUpdate();
+        if (webLibDep)
+        	DependencyUtil.waitForComponentRefactoringJobs();
 	}
 	
 	public static ArchiveManifest getArchiveManifest(final IFile manifestFile) throws CoreException, IOException {
