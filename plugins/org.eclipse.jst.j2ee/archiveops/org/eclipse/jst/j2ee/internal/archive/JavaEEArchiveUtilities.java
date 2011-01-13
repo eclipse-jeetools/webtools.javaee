@@ -39,6 +39,7 @@ import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
+import org.eclipse.jst.j2ee.project.WebUtilities;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.jst.jee.archive.ArchiveModelLoadException;
 import org.eclipse.jst.jee.archive.ArchiveOpenFailureException;
@@ -248,6 +249,7 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 			archiveOptions.setOption(JavaEEArchiveUtilities.DISCRIMINATE_JAVA_EE, Boolean.TRUE);
 		}
 		IArchive parentEARArchive = null;
+		boolean foundParentArchive = false;
 		try {
 			if (JavaEEProjectUtilities.usesJavaEEComponent(virtualComponent)
 					&& ((J2EEModuleVirtualArchiveComponent) virtualComponent).isLinkedToEAR()) {
@@ -263,6 +265,7 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 						if(earComponent != null) {
 							parentEARArchive = openArchive(earComponent);
 							if(parentEARArchive != null) {
+								foundParentArchive = true;
 								archiveOptions.setOption(ArchiveOptions.PARENT_ARCHIVE, parentEARArchive);
 								IFacetedProject facetedProject = ProjectFacetsManager.create(earProject);
 								if (facetedProject != null) {
@@ -276,6 +279,15 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 					org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
 				} catch (CoreException e) {
 					org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
+				}
+			}
+			if(!foundParentArchive && JavaEEProjectUtilities.usesJavaEEComponent(virtualComponent)){
+				IProject webProject = virtualComponent.getProject();
+				IVirtualComponent webComponent = ComponentCore.createComponent(webProject);
+				if(webProject != null && WebUtilities.isDynamicWebProject(webProject)){
+					if(isInWebLibDir(webComponent, virtualComponent,"WEB-INF\\lib")){ //$NON-NLS-1$
+						archiveOptions.setOption(DISCRIMINATE_MAIN_CLASS, false);
+					}
 				}
 			}
 			return openArchive(archiveOptions);
@@ -950,6 +962,16 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 				if(fullPath.removeLastSegments(1).makeRelative().equals(libDirPath)){
 					return true;
 				}
+			}
+		}
+		return false;
+	}
+	
+	private boolean isInWebLibDir(IVirtualComponent earComp, IVirtualComponent component, String libDir){
+		if (libDir != null && libDir.length() > 0) {
+			IPath libDirPath = new Path(libDir).makeRelative();
+			if(component.getDeployedName().toString().contains(libDirPath.toString())){
+				return true;
 			}
 		}
 		return false;
