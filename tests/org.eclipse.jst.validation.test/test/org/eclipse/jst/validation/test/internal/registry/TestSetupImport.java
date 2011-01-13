@@ -49,30 +49,30 @@ public class TestSetupImport {
 	 * Return true if the file was found and imported successfully.
 	 */
 	public boolean importFile(IProgressMonitor monitor, String dir) {
-		int executionMap = 0x0;
+		//int executionMap = 0x0;
 		boolean imported = true;
 		try {
 			File file = getInputFile(dir);
-			executionMap |= 0x1;
+			//executionMap |= 0x1;
 			try {
 				IImportOperation op = getOperation();
-				executionMap |= 0x2;
+				//executionMap |= 0x2;
 				imported = op.run(monitor, file);
-				executionMap |= 0x4;
+				//executionMap |= 0x4;
 			}
 			catch (InterruptedException exc) {
-				executionMap |= 0x8;
+				//executionMap |= 0x8;
 				imported = false;
 				ValidationPlugin.getPlugin().handleException(exc);
 			}
 			catch (InvocationTargetException exc) {
-				executionMap |= 0x10;
+				//executionMap |= 0x10;
 				imported = false;
 				ValidationPlugin.getPlugin().handleException(exc);
 				ValidationPlugin.getPlugin().handleException(exc.getTargetException());
 			}
 			catch (Throwable exc) {
-				executionMap |= 0x20;
+				//executionMap |= 0x20;
 				imported = false;
 				ValidationPlugin.getPlugin().handleException(exc);
 			}
