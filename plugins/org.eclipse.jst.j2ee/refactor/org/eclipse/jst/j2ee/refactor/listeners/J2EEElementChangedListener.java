@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.resources.WorkspaceJob;
@@ -262,21 +261,7 @@ public class J2EEElementChangedListener implements IElementChangedListener {
 			for (int i = 0; i < childDeltas.length; i++) {
 				processResourceDelta(childDeltas[i], rootFolder, sourceToRuntime, pathsToAdd, pathsToRemove, changedJavaPaths);
 			}
-		} else if (kind == IResourceDelta.REMOVED){
-			if(sourceToRuntime != null){
-				IResource resource = delta.getResource();
-				if(resource.getType() == IResource.FOLDER){
-					IVirtualComponent c = ComponentCore.createComponent(resource.getProject());
-					if(c != null){
-						rootFolder = c.getRootFolder();
-						final IPath movedFrom = delta.getProjectRelativePath();
-						final IPath runtimePath = (IPath) sourceToRuntime.get(movedFrom);
-						final IVirtualFolder folder = rootFolder.getFolder(runtimePath);
-						pathsToRemove.add(new Object[]{movedFrom, folder});
-					}
-				}
-			}
-		}else {
+		} else {
 			final int flags = delta.getFlags();
 			if ((flags & IResourceDelta.MOVED_FROM) == IResourceDelta.MOVED_FROM) {
 				if (rootFolder == null) {
