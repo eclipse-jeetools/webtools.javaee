@@ -11,10 +11,8 @@
 
 package org.eclipse.jst.j2ee.refactor.listeners;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -46,10 +44,6 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
-import org.eclipse.wst.server.core.IModule;
-import org.eclipse.wst.server.core.IServer;
-import org.eclipse.wst.server.core.IServerWorkingCopy;
-import org.eclipse.wst.server.core.ServerUtil;
 
 /**
  * Listens for project rename/delete events and, if the project had the
@@ -160,20 +154,7 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 		final int kind = delta.getKind();
 		final int flags = delta.getFlags();
 
-		if (kind == IResourceDelta.REMOVED) {
-			if (hasDeletedRemovedFlags(flags)) {
-				// if the kind is REMOVED and there are no special flags, the project was deleted
-				ProjectRefactorMetadata metadata = (ProjectRefactorMetadata) deletedProjectMetadata.remove(project.getName()); 
-				// note: only projects with ModuleCoreNature will have cached metadata
-				if (metadata != null && OptionalRefactorHandler.getInstance().shouldRefactorDeletedProject(metadata)) {
-					//Delete refactoring is now being done by the LTK refactoring framework
-					//for all java ee modules. Please refer to JavaEERefactoringParticipant
-					//we are only cleaning up the server references here
-					updateServerRefs(metadata);
-					
-				} 
-			} 
-		} else if (kind == IResourceDelta.ADDED && hasRenamedAddedFlags(flags)) { // was renamed
+		if (kind == IResourceDelta.ADDED && hasRenamedAddedFlags(flags)) { // was renamed
 			// get the original name
 			final String originalName = delta.getMovedFromPath().lastSegment();
 			//Logger.getLogger().logInfo("Added event for " + originalName + " with flags " + flags);
@@ -199,17 +180,6 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 		}
 		return false;
 	}
-    
-    /*
-     * Determines if the removed project was deleted based on the IResourceDelta flags 
-     */
-    private boolean hasDeletedRemovedFlags(final int flags) {
-        if ((flags & IResourceDelta.MOVED_TO) == 0 
-                && (flags & IResourceDelta.REPLACED) == 0) {
-            return true;
-        }
-        return false;
-    }
 	
 	/*
 	 * Processes the renaming of a project.
@@ -241,49 +211,5 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 		// XXX note: might want to consider switching to a MultiRule for optimization
 		job.setRule(ResourcesPlugin.getWorkspace().getRoot());
 		job.schedule();
-	}
-	
-	private void updateServerRefs(final ProjectRefactorMetadata refactorMetadata) {
-		WorkspaceJob job = new WorkspaceJob("ServerRefreshJob") { //$NON-NLS-1$
-			@Override
-			public IStatus runInWorkspace(IProgressMonitor monitor) throws CoreException {
-				final IModule[] modulesToRemove = refactorMetadata.getModules();
-				if (modulesToRemove == null || modulesToRemove.length == 0) {
-					return Status.OK_STATUS;
-				}
-				for( int j = 0; j < modulesToRemove.length; j++ ) {
-					IServer[] affectedServers = refactorMetadata.getServers(modulesToRemove[j]);
-					IServerWorkingCopy wc = null;
-					for (int i = 0; i < affectedServers.length; i++) {
-						try {
-							wc = affectedServers[i].createWorkingCopy();
-							List list = Arrays.asList(affectedServers[i].getModules());
-							if (list.contains(modulesToRemove[j])) {
-								ServerUtil.modifyModules(wc, null, new IModule[]{modulesToRemove[j]}, null);
-							}
-						} catch (CoreException ce) {
-							J2EEPlugin.logError(ce);
-						} finally {
-							try {
-								if (wc != null) {
-									wc.saveAll(true, null);
-								}
-							} catch (CoreException ce) {
-								J2EEPlugin.logError(ce);
-							}
-						}
-					}
-				}
-				return Status.OK_STATUS;
-			}
-			
-			@Override
-			public boolean belongsTo(final Object family) {
-				return ProjectRefactoringListener.PROJECT_REFACTORING_JOB_FAMILY.equals(family);
-			}
-		};
-		job.setRule(ResourcesPlugin.getWorkspace().getRoot());
-		job.schedule();
 	}	
-	
 }

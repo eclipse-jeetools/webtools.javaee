@@ -821,6 +821,12 @@
            name="JavaEERefactoringParticipant">
         <enablement></enablement>
      </deleteParticipant>
+     <deleteParticipant
+           class="org.eclipse.jst.javaee.ltk.core.participant.JavaEEServerRefRefactorParticipant"
+           id="JavaEEServerRefParticipant"
+           name="JavaEEServerRefParticipant">
+        <enablement></enablement>
+     </deleteParticipant>
   </extension>
   
    <!-- initialize Java EE preferences -->
