@@ -49,6 +49,7 @@ import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.builder.IDependencyGraph;
 import org.eclipse.wst.common.componentcore.internal.flat.IFlatFolder;
 import org.eclipse.wst.common.componentcore.internal.flat.IFlatResource;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
@@ -522,6 +523,13 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 	}
 	
 	public void refresh(boolean force){
+		if(IDependencyGraph.INSTANCE.isStale()){
+			//avoid deadlock https://bugs.eclipse.org/bugs/show_bug.cgi?id=334050
+			//if the data is stale abort and attempt to update again in the near future
+			J2EEComponentClasspathUpdater.getInstance().queueUpdate(javaProject.getProject());
+			return;
+		}
+		
 		if(force || requiresUpdate()){
 			install(containerPath, javaProject, null);
 		}

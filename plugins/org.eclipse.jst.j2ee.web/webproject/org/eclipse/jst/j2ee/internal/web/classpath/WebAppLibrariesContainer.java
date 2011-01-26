@@ -31,8 +31,10 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.common.internal.modulecore.ClasspathContainerVirtualComponent;
 import org.eclipse.jst.common.jdt.internal.classpath.FlexibleProjectContainer;
+import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.osgi.util.NLS;
+import org.eclipse.wst.common.componentcore.internal.builder.IDependencyGraph;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
@@ -109,6 +111,13 @@ public final class WebAppLibrariesContainer
     
     @Override
     public boolean isOutOfDate() {
+    	if(IDependencyGraph.INSTANCE.isStale()){
+    		//avoid deadlock https://bugs.eclipse.org/bugs/show_bug.cgi?id=334050
+    		//if the data is stale, return true and attempt to update again in the near future
+    		J2EEComponentClasspathUpdater.getInstance().queueUpdate(owner.getProject());
+    		return true;
+    	}
+    	
     	final List currentEntries = computeClasspathEntries(false);
     	boolean outOfDate  = ! this.entries.equals( currentEntries );
     	if(outOfDate){
@@ -119,6 +128,13 @@ public final class WebAppLibrariesContainer
     
     @Override
 	public void refresh(boolean forceUpdate){
+    	if(IDependencyGraph.INSTANCE.isStale()){
+			//avoid deadlock https://bugs.eclipse.org/bugs/show_bug.cgi?id=334050
+			//if the data is stale abort and attempt to update again in the near future
+			J2EEComponentClasspathUpdater.getInstance().queueUpdate(owner.getProject());
+			return;
+		}
+		
     	if(forceUpdate || isOutOfDate()){
     		refresh();
     	}
