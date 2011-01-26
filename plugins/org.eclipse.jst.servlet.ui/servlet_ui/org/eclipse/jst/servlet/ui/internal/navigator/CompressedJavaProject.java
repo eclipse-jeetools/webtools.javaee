@@ -30,6 +30,7 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jst.servlet.ui.internal.plugin.ServletUIPlugin;
 import org.eclipse.jst.servlet.ui.internal.plugin.WEBUIMessages;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.graphics.Image;
 
 public class CompressedJavaProject implements ICompressedNode, IAdaptable { 
@@ -59,7 +60,7 @@ public class CompressedJavaProject implements ICompressedNode, IAdaptable {
 	}
 
 	private String determineLabel() {
-		return WEBUIMessages.Compressed_JavaResources;
+		return NLS.bind(WEBUIMessages.Compressed_JavaResources, ""); //$NON-NLS-1$
 	}
 
 	public IProject getProject() {
