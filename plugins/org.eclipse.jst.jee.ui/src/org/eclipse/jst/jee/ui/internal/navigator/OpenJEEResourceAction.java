@@ -42,8 +42,10 @@ import org.eclipse.jst.j2ee.internal.componentcore.ComponentArchiveOptions;
 import org.eclipse.jst.j2ee.internal.ejb.provider.J2EEJavaClassProviderHelper;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.webservice.wsdd.BeanLink;
 import org.eclipse.jst.javaee.core.EjbLocalRef;
+import org.eclipse.jst.javaee.core.InjectionTarget;
 import org.eclipse.jst.javaee.core.JavaEEObject;
 import org.eclipse.jst.javaee.core.Listener;
 import org.eclipse.jst.javaee.core.ResourceRef;
@@ -55,6 +57,7 @@ import org.eclipse.jst.javaee.ejb.MessageDrivenBean;
 import org.eclipse.jst.javaee.ejb.SessionBean;
 import org.eclipse.jst.javaee.web.Filter;
 import org.eclipse.jst.javaee.web.Servlet;
+import org.eclipse.jst.javaee.web.WebApp;
 import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.jst.jee.ui.internal.navigator.appclient.GroupAppClientProvider;
 import org.eclipse.jst.jee.ui.internal.navigator.ear.GroupEARProvider;
@@ -291,13 +294,24 @@ public class OpenJEEResourceAction extends AbstractOpenAction {
 					return;
 				}
 				IProject project = resource.getProject();
-				
-				EJBJar ejbJar = (EJBJar) ModelProviderManager.getModelProvider(project).getModelObject(new Path(J2EEConstants.EJBJAR_DD_URI));
-				
-				if(srcObject instanceof EjbLocalRefImpl){
-					openEjbLocalRefNode(resource, ejbJar);
-				} else if(srcObject instanceof ResourceRefImpl){
-					openResourceRefNode(resource, ejbJar);
+		
+				if (JavaEEProjectUtilities.isEJBProject(project)) {
+					EJBJar ejbJar = (EJBJar)ModelProviderManager.getModelProvider(project).getModelObject(new Path(J2EEConstants.EJBJAR_DD_URI));
+					
+					if(srcObject instanceof EjbLocalRefImpl){
+						openEjbLocalRefNode(resource, ejbJar);
+					} else if(srcObject instanceof ResourceRefImpl){
+						openResourceRefNode(resource, ejbJar);
+					}
+				} else if  (JavaEEProjectUtilities.isDynamicWebProject(project)) {
+					//check reference type and open via appropriate logic
+					if (srcObject instanceof EjbLocalRef) {
+						openEjbLocalReferenceNodeInWebProject((EjbLocalRef)srcObject, resource);
+					} else if (srcObject instanceof ResourceRef) {
+						openResourceReferenceNodeInWebProject((ResourceRef)srcObject, resource);
+					}
+				} else {
+					openEObject((EObject) srcObject);
 				}
 			} else {			
 			    openEObject((EObject) srcObject);
@@ -336,6 +350,138 @@ public class OpenJEEResourceAction extends AbstractOpenAction {
 		} else if (srcObject instanceof Resource)
 			openAppropriateEditor(WorkbenchResourceHelper
 					.getFile((Resource) srcObject));
+	}
+
+	
+	private void openResourceReferenceNodeInWebProject(ResourceRef resourceReference,
+			IResource resource) {
+		String referenceName = resourceReference.getResRefName();
+		List<InjectionTarget> injTargets  = resourceReference.getInjectionTargets();
+		
+		//check where this reference is declared:
+		//1. From web.xml - the web.xml should be opened
+		//2. From injection in source code - the appropriate source code should be opened
+		//3. Both - the web.xml should be opened, as it takes precedence (overwrites) the injection
+		if (isTheReferencePartOfWebXmlResourceReferences(referenceName, resource.getProject())) {
+			openAppropriateEditor(resource);
+		} else {
+			if (injTargets != null && injTargets.size() > 0) {
+				for (InjectionTarget injection : injTargets) {
+					openAppropriateEditor(injection.getInjectionTargetClass());
+				}
+			}
+		}
+		
+	}
+
+	private void openEjbLocalReferenceNodeInWebProject(EjbLocalRef ejbLocalReference,
+			IResource resource) {
+		
+		
+		String referenceName = ejbLocalReference.getEjbRefName();
+		List<InjectionTarget> injTargets  = ejbLocalReference.getInjectionTargets();
+		
+		//check where this reference is declared:
+		//1. From web.xml - the web.xml should be opened
+		//2. From injection in source code - the appropriate source code should be opened
+		//3. Both - the web.xml should be opened, as it takes precedence (overwrites) the injection
+		if (isTheReferencePartOfWebXmlEJBReferences(referenceName, resource.getProject())) {
+			openAppropriateEditor(resource);
+		} else {
+			if (injTargets != null && injTargets.size() > 0) {
+				for (InjectionTarget injection : injTargets) {
+					openAppropriateEditor(injection.getInjectionTargetClass());
+				}
+			}
+		}
+		
+	}
+
+	/**
+	 * Searches for an ejb reference within &lt;ejb-local-ref&gt; tag<br/>
+	 * in web.xml for a given web project
+	 * @param referenceName reference to be searched for
+	 * @param project web project
+	 * @return <i>true</i> if a reference has been found , <i>false</i> - if not, or value of null is provided as a reference
+	 */
+	private boolean isTheReferencePartOfWebXmlEJBReferences(
+			String referenceName, IProject project) {
+		return (findReferenceInWebXmlEJBReferences(referenceName, project) != null);
+	}
+	
+
+	/**
+	 * Searches for an ejb reference within &lt;ejb-local-ref&gt; tag<br/>
+	 * in web.xml for a given web project
+	 * @param referenceName reference to be searched for
+	 * @param web web project
+	 * @return Reference itself if found, null if not
+	 */
+	private Object findReferenceInWebXmlEJBReferences(String referenceName,
+			IProject webProject) {
+		
+		if (referenceName == null) return null;
+		
+		WebApp web = getWebAppModelFromProject(webProject);
+		
+		//iterating over local ejb references
+		for (EjbLocalRef localRef : web.getEjbLocalRefs()) {
+			if (referenceName.equals(localRef.getEjbRefName())) {
+				return localRef;
+			}
+		}
+		
+		//no references found
+		return null;
+	}
+	
+	/**
+	 * Searches for a reference within &lt;resource-ref&gt; tag<br/>
+	 * in web.xml for a given web project
+	 * @param referenceName reference to be searched for
+	 * @param project web project
+	 * @return <i>true</i> if a reference has been found , <i>false</i> - if not, or value of null is provided as a reference
+	 */
+	private boolean isTheReferencePartOfWebXmlResourceReferences(
+			String referenceName, IProject project) {
+		return (findReferenceInWebXmlResourceReferences(referenceName, project) != null);
+	}
+	/**
+	 * Searches for a reference within &lt;resource-ref&gt; tag<br/>
+	 * in web.xml for a given web project
+	 * @param referenceName reference to be searched for
+	 * @param web web project
+	 * @return Reference itself if found, null if not
+	 */
+	private Object findReferenceInWebXmlResourceReferences(String referenceName,
+			IProject webProject) {
+		
+		if (referenceName == null) return null;
+		
+		WebApp web = getWebAppModelFromProject(webProject);
+		
+		//iterating over <resource-ref> references
+		for (ResourceRef resourceRef : web.getResourceRefs()) {
+			if (referenceName.equals(resourceRef.getResRefName())) {
+				return resourceRef;
+			}
+		}
+		
+		//no references found
+		return null;
+	}
+
+	/**
+	 * Gets WebApp model from a project
+	 * @param project
+	 * @return instance of  {@link org.eclipse.jst.javaee.web.WebApp} model
+	 * @throws IllegalArgumentException
+	 */
+	private WebApp getWebAppModelFromProject(IProject webProject) {
+		if (!JavaEEProjectUtilities.isDynamicWebProject(webProject)) {
+			throw new IllegalArgumentException("Provided project is not a web project"); //$NON-NLS-1$
+		}
+		return (WebApp) ModelProviderManager.getModelProvider(webProject).getModelObject(new Path(J2EEConstants.WEBAPP_DD_URI));
 	}
 
 	private void openResourceRefNode(IResource resource, EJBJar ejbJar) {
