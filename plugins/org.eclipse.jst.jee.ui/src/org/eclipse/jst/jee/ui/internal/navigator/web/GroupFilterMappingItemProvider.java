@@ -85,6 +85,13 @@ public class GroupFilterMappingItemProvider extends AbstractWebGroupProvider {
 			}
 			
 		}
+		if (element.getServletNames() != null && element.getServletNames().size() > 0){
+			for (String pattern : element.getServletNames()) {
+				value = pattern;
+				result.add(new FilterMappingUIWrapper(value + " -> " + element.getFilterName())); //$NON-NLS-1$
+			}
+			
+		}
 		return result;
 	}
 	
