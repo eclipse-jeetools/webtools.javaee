@@ -92,6 +92,8 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 				final List potentialRawEntries = ClasspathDependencyUtil.getPotentialComponentClasspathDependencies(javaProjectLite, isLegacyJ2EE);				
 				final ClasspathDependencyValidatorData data = new ClasspathDependencyValidatorData(proj);
 				
+				ClasspathDependencyExtensionManager extensionManger = ClasspathDependencyExtensionManager.instance();
+				
 				// validate the raw referenced container entries
 				Iterator i =  referencedRawEntries.keySet().iterator();
 				boolean hasRootMapping = false;
@@ -110,7 +112,7 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 					}
 					reportMessages(msgs);
 		    		// if not a web app, warn if associated cp entry is not exported
-					if (!isWebApp && !entry.isExported()) {
+					if (!isWebApp && !entry.isExported() && !extensionManger.doesProjectHandleExport(proj, entry)) {
 						_reporter.addMessage(this, new Message("classpathdependencyvalidator", //$NON-NLS-1$
 								IMessage.NORMAL_SEVERITY, NonWebNonExported, new String[]{cpEntryPath}, proj));
 					}
