@@ -26,6 +26,7 @@ import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathInit
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
+import org.eclipse.jst.jee.application.ICommonModule;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.ReferencedComponent;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
@@ -102,7 +103,9 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 								String archiveName = null;
 								if(referencedComponent.getArchiveName() != null){
 									archiveName = referencedComponent.getArchiveName();
-									} else {
+									} else if (referencedComponent.getDependentObject() != null) {
+										archiveName = ((ICommonModule) referencedComponent.getDependentObject()).getUri();
+									}else {
 										IProject referencedProject = referencedIVirtualComponent.getProject();
 										// If archive name is not set, assume
 										// compname is module name + proper
