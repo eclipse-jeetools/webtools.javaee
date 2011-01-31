@@ -47,6 +47,12 @@ import org.eclipse.jst.j2ee.ejb.Entity;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.ClientJARCreationConstants;
+import org.eclipse.jst.j2ee.model.IModelProvider;
+import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
+import org.eclipse.jst.javaee.ejb.EnterpriseBeans;
+import org.eclipse.jst.javaee.ejb.EntityBean;
+import org.eclipse.jst.javaee.ejb.SessionBean;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 
 public class EJBClientJarCreationHelper {
@@ -65,11 +71,10 @@ public class EJBClientJarCreationHelper {
 	
 	public Map getFilesToMove() {
 		
-		
 	    searchHelper = new MySearchHelper(searchEngine, computeBeanTypeNames());
 	
-
 		if( ejbProject.exists() && ejbProject.isAccessible()){
+			if (JavaEEProjectUtilities.isLegacyJ2EEComponent(ComponentCore.createComponent(ejbProject))) { // the project is older than Java EE 5, i.e. EJB 2.1			
 			EJBArtifactEdit edit = null;
 			try {
 					edit = EJBArtifactEdit.getEJBArtifactEditForRead(ejbProject);
@@ -88,6 +93,26 @@ public class EJBClientJarCreationHelper {
 					edit.dispose();
 					  
 			}
+			} else { // we have an EJB 3.x project, so use the new model for the EJB module
+				IModelProvider modelProvider = ModelProviderManager.getModelProvider(ejbProject);
+				org.eclipse.jst.javaee.ejb.EJBJar ejbJar = (org.eclipse.jst.javaee.ejb.EJBJar) modelProvider.getModelObject();
+				
+				if (ejbJar != null) {
+					EnterpriseBeans enterpriseBeans = ejbJar.getEnterpriseBeans();
+					List<SessionBean> sessionBeans = enterpriseBeans.getSessionBeans();
+					for (SessionBean sessionBean : sessionBeans) {
+						computeJavaTypes(sessionBean);
+					}
+					
+					List<EntityBean> entityBeans = enterpriseBeans.getEntityBeans();
+					for (EntityBean entityBean : entityBeans) {
+						computeJavaTypes(entityBean);
+					}					
+				}
+				computeRMICJavaTypes();			
+				
+			}
+			
 		}
 		return javaFilesToMove;
 	}
@@ -163,6 +188,57 @@ public class EJBClientJarCreationHelper {
 		if (ejb.isEntity())
 			computeJavaTypes(((Entity)ejb).getPrimaryKey());
 	}
+	
+	private void computeJavaTypes(EntityBean entityBean) {
+		
+		computeJavaTypes(entityBean.getHome());
+		computeJavaTypes(entityBean.getLocalHome());
+		computeJavaTypes(entityBean.getLocal());
+		computeJavaTypes(entityBean.getRemote());
+		
+		computeJavaTypes(entityBean.getPrimkeyField());
+		
+	}
+
+	private void computeJavaTypes(String fqClassName) {
+		if (fqClassName == null) {
+			return;
+		}
+		IJavaProject jProj = JemProjectUtilities.getJavaProject(ejbProject);
+		IType type;
+		try {
+			type = jProj.findType(fqClassName);
+			computeJavaTypes(type);
+		} catch (JavaModelException e) {
+			EjbPlugin.logError(e);
+		}
+		
+		
+	}
+
+	// Dedicated for a session bean representation in the EJB 3.x model
+	private void computeJavaTypes(SessionBean sessionBean) {
+		
+		// do as in the EJB 2.x case
+		computeJavaTypes(sessionBean.getHome());
+		computeJavaTypes(sessionBean.getLocalHome());
+		computeJavaTypes(sessionBean.getLocal());
+		computeJavaTypes(sessionBean.getRemote());
+		
+		
+		// process additionally local business interfaces ...
+		List<String> businessLocals = sessionBean.getBusinessLocals();
+		for (String string : businessLocals) {
+			computeJavaTypes(string);
+		}
+		
+		// ... and remote business interfaces
+		List<String> businessRemotes = sessionBean.getBusinessRemotes();
+		for (String string : businessRemotes) {
+			computeJavaTypes(string);
+		}		
+	}
+	
 	
 	private void computeJavaTypes(JavaClass javaClass) {
 		if (javaClass == null)
