@@ -1245,7 +1245,11 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 				//option before attempting the JavaEEQuickPeek
 				if(isVersion5 && isLibElement){
 					JavaEEBinaryComponentHelper.openArchiveAsUtility(virtComp);
-				} else {
+				} else if (!isVersion5){
+					// if previous to version 5, do not discriminate main class
+					JavaEEBinaryComponentHelper.openArchive(virtComp, false);
+				}else				
+				{
 					JavaEEBinaryComponentHelper.openArchive(virtComp, true);
 				}
 			}
