@@ -329,11 +329,11 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 	 */
 	public JavaClass[] loadChildren(IReporter reporter, Set classes) {
 		JavaClass[] children = EMPTY_ARRAY_JAVACLASS;
-		int executionMap = 0;
+//		int executionMap = 0;
 		Set tempSet = getTempSet();
 		try {
 			if ((classes == null) || (classes.size() == 0)) {
-				executionMap |= 0x00000001;
+//				executionMap |= 0x00000001;
 				return children;
 			}
 			IProgressMonitor monitor = ((WorkbenchReporter) reporter).getProgressMonitor();
@@ -358,7 +358,7 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 				Iterator iterator = classes.iterator();
 				while (iterator.hasNext()) {
 					if (reporter.isCancelled()) {
-						executionMap |= 0x00000002;
+//						executionMap |= 0x00000002;
 						return children;
 					}
 					JavaClass clazz = (JavaClass) iterator.next();
@@ -381,7 +381,7 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 				ITypeHierarchy[] rootHierarchies = new ITypeHierarchy[rootTypes.length];
 				for (int i = 0; i < rootTypes.length; i++) {
 					if (reporter.isCancelled()) {
-						executionMap |= 0x00000004;
+//						executionMap |= 0x00000004;
 						return children;
 					}
 					IType type = (IType) rootTypes[i];
@@ -453,19 +453,19 @@ public class EJBHelper extends AWorkbenchMOFHelper {
 				}
 			}
 			if (count != tempChildren.length) {
-				executionMap |= 0x00000008;
+//				executionMap |= 0x00000008;
 				children = new JavaClass[count];
 				System.arraycopy(tempChildren, 0, children, 0, count);
 				tempChildren = null;
 			} else {
-				executionMap |= 0x00000010;
+//				executionMap |= 0x00000010;
 				children = tempChildren;
 			}
 		} catch (JavaModelException exc) {
-			executionMap |= 0x00000020;
+//			executionMap |= 0x00000020;
 			EjbPlugin.logError(exc);
 		} catch (Throwable exc) {
-			executionMap |= 0x00000040;
+//			executionMap |= 0x00000040;
 			EjbPlugin.logError(exc);
 		} finally {
 			getTempSet().clear();
