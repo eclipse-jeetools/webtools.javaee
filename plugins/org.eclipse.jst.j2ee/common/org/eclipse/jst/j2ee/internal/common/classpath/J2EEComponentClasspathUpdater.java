@@ -59,6 +59,7 @@ import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
+import org.eclipse.wst.common.componentcore.internal.builder.IDependencyGraph;
 import org.eclipse.wst.common.componentcore.internal.builder.IDependencyGraphListener;
 import org.eclipse.wst.common.componentcore.internal.builder.IDependencyGraphUpdateEvent;
 import org.eclipse.wst.common.componentcore.internal.impl.ResourceTreeRootAdapter;
@@ -253,6 +254,12 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 			for (int p = 0; p < projects.length; p++) {
 				IProject project = (IProject) projects[p];
 				if (!isKnown(project)) {
+					if(IDependencyGraph.INSTANCE.isStale()){
+						//avoid deadlock https://bugs.eclipse.org/bugs/show_bug.cgi?id=334050
+						//if the data is stale abort and attempt to update again in the near future
+						J2EEComponentClasspathUpdater.getInstance().queueUpdate(project);
+						continue;
+					}
 					IProject[] earProjects = EarUtilities.getReferencingEARProjects(project);
 					for (int i = 0; i < earProjects.length; i++) {
 						queueEAR(earProjects[i]);
