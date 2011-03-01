@@ -283,11 +283,8 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 			}
 			if(!foundParentArchive && JavaEEProjectUtilities.usesJavaEEComponent(virtualComponent)){
 				IProject webProject = virtualComponent.getProject();
-				IVirtualComponent webComponent = ComponentCore.createComponent(webProject);
 				if(webProject != null && WebUtilities.isDynamicWebProject(webProject)){
-					if(isInWebLibDir(webComponent, virtualComponent,"WEB-INF\\lib")){ //$NON-NLS-1$
-						archiveOptions.setOption(DISCRIMINATE_MAIN_CLASS, false);
-					}
+					archiveOptions.setOption(DISCRIMINATE_MAIN_CLASS, false);
 				}
 			}
 			return openArchive(archiveOptions);
@@ -967,14 +964,4 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 		return false;
 	}
 	
-	private boolean isInWebLibDir(IVirtualComponent earComp, IVirtualComponent component, String libDir){
-		if (libDir != null && libDir.length() > 0) {
-			IPath libDirPath = new Path(libDir).makeRelative();
-			if(component.getDeployedName().toString().contains(libDirPath.toString())){
-				return true;
-			}
-		}
-		return false;
-	}
-
 }
