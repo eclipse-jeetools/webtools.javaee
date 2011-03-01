@@ -143,6 +143,13 @@ public final class WebAppLibrariesContainer
     @Override
 	public void refresh()
     {
+    	if(IDependencyGraph.INSTANCE.isStale()){
+			//avoid deadlock https://bugs.eclipse.org/bugs/show_bug.cgi?id=335645
+			//if the data is stale abort and attempt to update again in the near future
+			J2EEComponentClasspathUpdater.getInstance().queueUpdate(owner.getProject());
+			return;
+		}
+    	
         ( new WebAppLibrariesContainer( this.path, this.owner ) ).install();
     }
     
