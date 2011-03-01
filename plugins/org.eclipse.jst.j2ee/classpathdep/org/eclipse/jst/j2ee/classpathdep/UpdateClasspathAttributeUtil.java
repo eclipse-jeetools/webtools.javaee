@@ -79,7 +79,7 @@ public class UpdateClasspathAttributeUtil implements IClasspathDependencyConstan
 		return createDependencyAttribute(runtimePath.toString());
 	}
 	
-	private static IClasspathAttribute createDependencyAttribute(final String runtimePath) throws CoreException {
+	public static IClasspathAttribute createDependencyAttribute(final String runtimePath) throws CoreException {
 		return JavaCore.newClasspathAttribute(IClasspathDependencyConstants.CLASSPATH_COMPONENT_DEPENDENCY, runtimePath);
 	}
 	

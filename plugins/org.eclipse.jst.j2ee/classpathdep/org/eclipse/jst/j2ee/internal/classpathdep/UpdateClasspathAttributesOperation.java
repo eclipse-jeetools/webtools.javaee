@@ -137,6 +137,8 @@ public class UpdateClasspathAttributesOperation extends AbstractDataModelOperati
 		// initialize to the set of raw entries with the attrib
 		final Map entriesWithAttrib = ClasspathDependencyUtil.getRawComponentClasspathDependencies(javaProjectLite, modifyComponentDep ? DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY : DependencyAttributeType.CLASSPATH_COMPONENT_NONDEPENDENCY, isLegacyJ2EE);
 		
+		ClasspathDependencyExtensionManager extensionManager = ClasspathDependencyExtensionManager.instance();
+		
 		Iterator i = entries.keySet().iterator();
 		while (i.hasNext()) {
 			final IClasspathEntry entry = (IClasspathEntry) i.next();
@@ -148,11 +150,26 @@ public class UpdateClasspathAttributesOperation extends AbstractDataModelOperati
 						IVirtualComponent virtualComponent = ComponentCore.createComponent(javaProject.getProject());
 						runtimePath = ClasspathDependencyUtil.getDefaultRuntimePath(virtualComponent, entry);
 					}
+					
 					IClasspathAttribute attrib = null;
-					if (modifyComponentDep) {
-						attrib = UpdateClasspathAttributeUtil.createDependencyAttribute(runtimePath);
-					} else {
-						attrib = UpdateClasspathAttributeUtil.createNonDependencyAttribute();
+					
+					if (modifyComponentDep) 
+					{
+				      // Check to see if an extender has a value for this classpath entry.	  
+					  String extenderValue = extensionManager.getDependencyValue( javaProject.getProject(), entry );
+					  
+					  if( extenderValue == null )
+					  {
+					    attrib = UpdateClasspathAttributeUtil.createDependencyAttribute(runtimePath);
+					  }
+					  else
+					  {
+					    attrib = UpdateClasspathAttributeUtil.createDependencyAttribute( extenderValue );  
+					  }
+					} 
+					else 
+					{
+					  attrib = UpdateClasspathAttributeUtil.createNonDependencyAttribute();
 					}
  					entriesWithAttrib.put(entry, attrib);
 				}
