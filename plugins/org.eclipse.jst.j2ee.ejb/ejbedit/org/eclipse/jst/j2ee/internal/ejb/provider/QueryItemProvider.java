@@ -146,7 +146,7 @@ public class QueryItemProvider extends EjbItemProviderAdapter {
 	@Override
 	public String getText(Object object) {
 		Query query = (Query) object;
-		return "Query " + query.getEjbQL(); //$NON-NLS-1$
+		return EJBProviderLibrariesResourceHandler.getString("Query_2")+ " " + query.getEjbQL(); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**
