@@ -18,6 +18,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.notify.Notifier;
@@ -199,7 +201,14 @@ public abstract class ContainerImpl extends FileImpl implements Container {
 		if (!isIndexed()) {
 			getFiles();
 		}
-		File file = (File) getFileIndex().get(URI);
+		
+		IPath URIPath = new Path(URI);
+		
+		if (URIPath.segmentCount() > 1)
+			URIPath = URIPath.makeAbsolute();
+			
+		File file = (File) getFileIndex().get(URIPath.toString());
+			
 		if (file == null) {
 			throw new java.io.FileNotFoundException(URI);
 		}
