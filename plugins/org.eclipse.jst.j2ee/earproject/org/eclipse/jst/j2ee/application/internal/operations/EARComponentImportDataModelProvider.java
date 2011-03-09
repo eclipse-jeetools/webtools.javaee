@@ -590,6 +590,7 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 					suffix += count;
 				}
 				localModel.setProperty(IJ2EEModuleImportDataModelProperties.PROJECT_NAME, moduleName + suffix);
+				defaultModuleNames.add(moduleName + suffix);
 			}
 		}
 		return moduleModels;
