@@ -233,6 +233,26 @@
            </with>
          </enablement>
        </moduleArtifactAdapter>
+
+      <moduleArtifactAdapter
+            id="org.eclipse.jst.jee.web.server.webresource6"
+             class="org.eclipse.jst.jee.ui.internal.deployables.WebDeployableArtifactAdapterFactory">      
+         <enablement>
+           <with variable="selection">
+             <adapt type="org.eclipse.jst.javaee.ejb.SessionBean"/>
+           </with>
+         </enablement>
+       </moduleArtifactAdapter>
+
+      <moduleArtifactAdapter
+            id="org.eclipse.jst.jee.web.server.webresource7"
+             class="org.eclipse.jst.jee.ui.internal.deployables.WebDeployableArtifactAdapterFactory">      
+         <enablement>
+           <with variable="selection">
+             <adapt type="org.eclipse.jst.javaee.ejb.MessageDrivenBean"/>
+           </with>
+         </enablement>
+       </moduleArtifactAdapter>
    </extension>
    
    

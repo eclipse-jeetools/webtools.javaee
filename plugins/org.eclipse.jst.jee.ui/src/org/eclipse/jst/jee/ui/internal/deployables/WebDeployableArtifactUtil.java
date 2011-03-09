@@ -21,6 +21,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.impl.BasicEObjectImpl;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.ICompilationUnit;
@@ -37,12 +38,16 @@ import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.javaee.core.UrlPatternType;
+import org.eclipse.jst.javaee.ejb.MessageDrivenBean;
+import org.eclipse.jst.javaee.ejb.SessionBean;
 import org.eclipse.jst.javaee.web.IWebCommon;
 import org.eclipse.jst.javaee.web.Servlet;
 import org.eclipse.jst.javaee.web.ServletMapping;
 import org.eclipse.jst.javaee.web.WebApp;
 import org.eclipse.jst.javaee.web.internal.impl.ServletImpl;
+import org.eclipse.jst.jee.internal.deployables.JEEFlexProjDeployable;
 import org.eclipse.jst.jee.ui.plugin.JEEUIPlugin;
+import org.eclipse.jst.server.core.EJBBean;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualResource;
@@ -51,6 +56,8 @@ import org.eclipse.wst.server.core.IModule;
 import org.eclipse.wst.server.core.IModuleArtifact;
 import org.eclipse.wst.server.core.ServerUtil;
 import org.eclipse.wst.server.core.internal.ModuleType;
+import org.eclipse.wst.server.core.model.ModuleDelegate;
+import org.eclipse.wst.server.core.util.NullModuleArtifact;
 import org.eclipse.wst.server.core.util.WebResource;
 
 /**
@@ -109,6 +116,38 @@ public class WebDeployableArtifactUtil {
 						IPath jspFilePath = new Path(servlet.getJspFile());
 						resource = component.getRootFolder().getUnderlyingFolder().getFile(jspFilePath);
 					}
+				}
+			}
+			else if (obj instanceof SessionBean || obj instanceof MessageDrivenBean) {
+				Resource servResource = ((BasicEObjectImpl)obj).eResource();
+				IVirtualResource[] resources = null;
+				try {
+					IResource eclipeServResoruce = WorkbenchResourceHelper.getFile(servResource);
+					resources = ComponentCore.createResources(eclipeServResoruce);
+				} catch (Exception e) {
+					JEEUIPlugin.logError(e);
+				}
+				IVirtualComponent component = null;
+				if (resources != null && resources[0] != null){
+					component = resources[0].getComponent();
+				}
+				IModule module = getModule(resource.getProject(), component);
+				if (module != null) {
+					String jndiName = null;
+					String ejbName = null;
+					if (obj instanceof SessionBean) {
+						ejbName = ((SessionBean)obj).getEjbName();
+					}
+					else if (obj instanceof MessageDrivenBean) {
+						ejbName = ((MessageDrivenBean)obj).getEjbName();
+					}
+					if (ejbName != null) {
+						module.loadAdapter(ModuleDelegate.class, new NullProgressMonitor());
+						JEEFlexProjDeployable moduleDelegate = (JEEFlexProjDeployable)module.getAdapter(ModuleDelegate.class);
+						jndiName = moduleDelegate.getJNDIName(ejbName);
+						return new EJBBean(module, jndiName, false, false, EJBBean.EJB_30);
+					}
+					return new NullModuleArtifact(module);
 				}
 			}
 		}
