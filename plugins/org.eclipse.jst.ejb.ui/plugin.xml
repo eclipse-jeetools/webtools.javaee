@@ -82,6 +82,30 @@
             %MDBEjbRegionWizard.description
          </description>
       </wizard>
+      
+       <wizard
+             category="org.eclipse.jst.ejb.ui"
+             class="org.eclipse.jst.ejb.ui.internal.wizard.AddEjbTimerWizard"
+             icon="icons/full/ctool16/sessionbean_wiz.gif"
+             id="org.eclipse.jst.ejb.ui.internal.wizard.AddEjbTimerWizard"
+             name="%EJBTIMER.ejbtimerlabel">
+		 <class
+               class="org.eclipse.jst.ejb.ui.internal.wizard.AddEjbTimerWizard">
+            <parameter
+                  name="javaeeartifact"
+                  value="true">
+            </parameter>
+            <parameter
+                  name="menuIndex"
+                  value="37">
+            </parameter>
+         </class>
+         <description>
+            %EJBTIMER.ejbtimer.BeanWebRegionWizard.description
+         </description>
+       </wizard>      
+      
+      
    </extension>
 <!-- Navigator Object Contributions -->
 <!-- EJB Group Contributions 

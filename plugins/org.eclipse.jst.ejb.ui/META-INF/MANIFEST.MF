@@ -47,4 +47,5 @@ Require-Bundle: org.eclipse.core.resources;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.jst.jee.ui;bundle-version="[1.0.100,2.0.0)"
 Eclipse-LazyStart: true
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Import-Package: org.eclipse.emf.codegen.jet
 Bundle-ActivationPolicy: lazy

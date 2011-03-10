@@ -7,6 +7,7 @@
  *
  * Contributors:
  *     IBM Corporation - initial API and implementation
+ *     Oracle - EJB Timer
  *******************************************************************************/
 package org.eclipse.jst.ejb.ui.internal.util;
 
@@ -107,7 +108,11 @@ public class EJBUIMessages extends NLS {
 	public static String REMOTE_COMPONENT_INTERFACE_TOOLTIP;
 	public static String REMOTE_HOME_INTERFACE_TOOLTIP;
 	public static String EJB_CLIENT_JAR_GROUP;
-	
+
+	//EJB Timer
+    public static String timerWizardTitle;
+    public static String timerWizardDescription;
+    public static String timerScheduleLabel;
 
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, EJBUIMessages.class);

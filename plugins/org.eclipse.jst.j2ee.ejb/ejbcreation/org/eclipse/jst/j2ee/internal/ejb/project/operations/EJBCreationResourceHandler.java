@@ -7,6 +7,7 @@
  *
  * Contributors:
  *     IBM Corporation - initial API and implementation
+ *     Oracle - EJB Timer
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.ejb.project.operations;
 
@@ -167,7 +168,10 @@ public final class EJBCreationResourceHandler extends NLS {
 	public static String ERR_SINGLETON_NOT_ALLOWED;
 	public static String ERR_NO_INTERFACE_NOT_ALLOWED;
 
-
+	//EJB Timer specific
+    public static String timerScheduleDefault;
+    public static String errorTimerScheduleMissing;
+      
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, EJBCreationResourceHandler.class);
 	}

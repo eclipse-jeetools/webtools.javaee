@@ -7,6 +7,7 @@
  *
  * Contributors:
  * Kaloyan Raev, kaloyan.raev@sap.com - initial API and implementation
+ * Ludovic Champenois ludo@java.net
  *******************************************************************************/
 package org.eclipse.jst.ejb.ui.internal.wizard;
 
@@ -47,5 +48,9 @@ public interface IEjbWizardConstants {
 	public static final String MESSAGE_LISTENER_INTERFACE_HYPERLINK = EJBUIMessages.MESSAGE_LISTENER_INTERFACE_HYPERLINK;
 	public static final String MESSAGE_LISTENER_INTERFACE_HYPERLINK_TOOLTIP = EJBUIMessages.MESSAGE_LISTENER_INTERFACE_HYPERLINK_TOOLTIP;
 	public static final String CLICK_TO_SELECT = EJBUIMessages.CLICK_TO_SELECT;
+	
+    public static final  String timerWizardTitle = EJBUIMessages.timerWizardTitle;
+    public static final  String timerWizardDescription = EJBUIMessages.timerWizardDescription;
+    public static final  String timerScheduleLabel = EJBUIMessages.timerScheduleLabel;
 	
 }
