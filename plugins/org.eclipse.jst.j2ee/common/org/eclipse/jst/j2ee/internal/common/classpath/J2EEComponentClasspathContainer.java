@@ -523,13 +523,14 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 	}
 	
 	public void refresh(boolean force){
-		if(IDependencyGraph.INSTANCE.isStale()){
-			//avoid deadlock https://bugs.eclipse.org/bugs/show_bug.cgi?id=334050
-			//if the data is stale abort and attempt to update again in the near future
-			J2EEComponentClasspathUpdater.getInstance().queueUpdate(javaProject.getProject());
-			return;
+		if (!force) {
+			if(IDependencyGraph.INSTANCE.isStale()){
+				//avoid deadlock https://bugs.eclipse.org/bugs/show_bug.cgi?id=334050
+				//if the data is stale abort and attempt to update again in the near future
+				J2EEComponentClasspathUpdater.getInstance().queueUpdate(javaProject.getProject());
+				return;
+			}
 		}
-		
 		if(force || requiresUpdate()){
 			install(containerPath, javaProject, null);
 		}
