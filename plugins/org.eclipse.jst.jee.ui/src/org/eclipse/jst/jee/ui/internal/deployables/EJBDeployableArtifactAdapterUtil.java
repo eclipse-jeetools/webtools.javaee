@@ -132,7 +132,7 @@ public class EJBDeployableArtifactAdapterUtil {
 
 		// for EJB 3.1 no-interface
 		if (ejb.getLocalBean() != null){
-			modArtifacts.add(createModuleObjectForSessionBean(dep, ejb.getEjbName(), null, false,false));
+			modArtifacts.add(createModuleObjectForSessionBean(dep, ejb.getEjbName(), ejb.getEjbClass(), false,false));
 		}
 
 		return (IModuleArtifact[])modArtifacts.toArray(new IModuleArtifact[modArtifacts.size()]);
