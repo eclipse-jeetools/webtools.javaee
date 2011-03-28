@@ -178,7 +178,18 @@
          <moduleType
                types="jst.webfragment"
                versions="3.0">
-         </moduleType>         
+         </moduleType> 
+         <enablement>
+			<or>
+        		<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.appclient:6.0]"/>
+		  		<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.ejb:3.1]"/>
+		  		<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.utility:1.0]"/>
+	  			<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.connector:1.6]"/>
+	  			<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.web:3.0]"/>
+	  			<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.ear:[5.0-6.0]"/>
+	  			<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.webfragment:3.0]"/>
+			</or>
+		</enablement>        
       </moduleFactory>
    </extension>
    <extension
