@@ -349,6 +349,16 @@
                types="jst.utility"
                versions="1.0">
          </moduleType>
+         <enablement>
+			<or>
+        		<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.appclient:1.4]"/>
+		  		<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.ejb:2.1]"/>
+		  		<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.utility:1.0]"/>
+	  			<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.connector:1.5]"/>
+	  			<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.web:2.4]"/>
+	  			<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.ear:1.4]"/>
+			</or>
+		</enablement>   
       </moduleFactory>
    </extension>
 
