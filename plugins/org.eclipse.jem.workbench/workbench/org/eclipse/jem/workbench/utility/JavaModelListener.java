@@ -11,7 +11,7 @@
 package org.eclipse.jem.workbench.utility;
 
 /*
- * $RCSfile: JavaModelListener.java,v $ $Revision: 1.7 $ $Date: 2008/06/30 21:06:41 $
+ * $RCSfile: JavaModelListener.java,v $ $Revision: 1.8 $ $Date: 2011/03/30 21:07:07 $
  */
 
 import java.util.*;
@@ -401,15 +401,18 @@ public abstract class JavaModelListener implements IElementChangedListener {
 	 * to make private. But it should not be overridden.
 	 */
 	protected boolean isInClasspath(IJavaProject testProject, List someJavaProjects, boolean isFirstLevel, Set visited) {
+
 		if (someJavaProjects == null)
 			return false;
 		int size = someJavaProjects.size();
 		IJavaProject javaProj = null;
+		boolean result = false;
 		for (int i = 0; i < size; i++) {
 			javaProj = (IJavaProject) someJavaProjects.get(i);
-			return isInClasspath(testProject, javaProj, isFirstLevel, visited);
+			result = isInClasspath(testProject, javaProj, isFirstLevel, visited);
+			if (result) break;
 		}
-		return false;
+		return result;
 	}
 
 	/**
