@@ -228,8 +228,10 @@ public class JavaReflectionSynchronizer extends JavaModelListener {
 	}
 	
 	protected String getFullNameFromElement(IJavaElement element) {
+		// TODO: may want to throw IllegalArgumentException here? 
+		// if (element == null) throw new IllegalArgumentException("Java Element parameter may not be null");
 		String name = element.getElementName();
-		if (element == null || name.length() <= 5 || !name.substring(name.length() - 5).equals(".java")) { //$NON-NLS-1$
+		if (name.length() <= 5 || !name.substring(name.length() - 5).equals(".java")) { //$NON-NLS-1$
 			// Should not be here, 
 			Logger logger = JavaPlugin.getDefault().getLogger();
 			if (logger.isLoggingLevel(Level.FINE))

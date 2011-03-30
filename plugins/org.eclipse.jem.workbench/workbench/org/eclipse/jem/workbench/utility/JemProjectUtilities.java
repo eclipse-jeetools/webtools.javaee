@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jem.workbench.utility;
 /*
- * $RCSfile: JemProjectUtilities.java,v $ $Revision: 1.14 $ $Date: 2009/10/22 15:45:58 $
+ * $RCSfile: JemProjectUtilities.java,v $ $Revision: 1.15 $ $Date: 2011/03/30 21:01:20 $
  */
 
 import java.net.URL;
@@ -74,7 +74,7 @@ public class JemProjectUtilities extends ProjectUtilities {
 		IContainer folder = null;
 		IPath folderPath, filePath, javaPath;
 		filePath = aFile.getProjectRelativePath();
-		if (folders != null) {
+		
 			for (int i = 0; i < folders.size(); i++) {
 				folder = (IContainer) folders.get(i);
 				folderPath = folder.getProjectRelativePath();
@@ -86,7 +86,7 @@ public class JemProjectUtilities extends ProjectUtilities {
 					return (JavaClass) JavaRefFactory.eINSTANCE.reflectType(qualifiedName, WorkbenchResourceHelperBase.getResourceSet(project));
 				}
 			}
-		}
+		
 		return null;
 	}
 	
