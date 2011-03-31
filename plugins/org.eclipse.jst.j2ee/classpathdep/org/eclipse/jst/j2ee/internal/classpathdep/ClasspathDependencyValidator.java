@@ -21,6 +21,7 @@ import java.util.Set;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
@@ -39,6 +40,7 @@ import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.project.facet.core.FacetedProjectFramework;
 import org.eclipse.wst.validation.internal.core.Message;
 import org.eclipse.wst.validation.internal.core.ValidationException;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
@@ -261,15 +263,25 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 		
 		final int kind = entry.getEntryKind();
 		final boolean isFile = !ClasspathDependencyUtil.isClassFolderEntry(entry);
+		
 		if (kind == IClasspathEntry.CPE_PROJECT) {
-			
 			// Project cp entry
-			results.add(new Message("classpathdependencyvalidator", //$NON-NLS-1$
-					IMessage.HIGH_SEVERITY, ProjectClasspathEntry, new String[]{entry.getPath().toString()}, project));
-
-			return (IMessage[]) results.toArray(new IMessage[results.size()]);
+			// Allow faceted projects only, and not plain java projects
+			boolean isFacetedProject = false;
+			IProject referencedProject = ResourcesPlugin.getWorkspace().getRoot().getProject(entry.getPath().toString());
+			try {
+				isFacetedProject = FacetedProjectFramework.isFacetedProject(referencedProject);
+			}
+			catch (CoreException ce){
+				//Ignore. Thrown when project metadata cannot be read. In that case we will treat the project as non faceted 
+			}			
+			if (!isFacetedProject){
+				results.add(new Message("classpathdependencyvalidator", //$NON-NLS-1$
+						IMessage.HIGH_SEVERITY, ProjectClasspathEntry, new String[]{entry.getPath().toString()}, project));
+					return (IMessage[]) results.toArray(new IMessage[results.size()]);
+			}
 		} else if (kind == IClasspathEntry.CPE_SOURCE) {
-			
+					
 			// Source cp entry
 			
 			results.add(new Message("classpathdependencyvalidator", //$NON-NLS-1$
