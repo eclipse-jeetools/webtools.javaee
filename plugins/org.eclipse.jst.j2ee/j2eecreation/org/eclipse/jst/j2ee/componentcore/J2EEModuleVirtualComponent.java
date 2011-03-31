@@ -19,6 +19,7 @@ import java.util.Map;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -320,29 +321,22 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 				}
 
 				if (add && entryLocation != null) {
+					final IVirtualReference entryReference;
 					String componentPath = null;
-					ClasspathDependencyVirtualComponent entryComponent = null;
-					/*
-					 * if (entry.getEntryKind() == IClasspathEntry.CPE_PROJECT)
-					 * { componentPath =
-					 * VirtualArchiveComponent.CLASSPATHARCHIVETYPE; final
-					 * IProject cpEntryProject =
-					 * ResourcesPlugin.getWorkspace().getRoot
-					 * ().getProject(entry.getPath().lastSegment());
-					 * entryComponent = (VirtualArchiveComponent)
-					 * ComponentCore.createArchiveComponent(cpEntryProject,
-					 * componentPath); } else {
-					 */
-					componentPath = VirtualArchiveComponent.CLASSPATHARCHIVETYPE
-							+ IPath.SEPARATOR + entryLocation.toPortableString();
-					entryComponent = new ClasspathDependencyVirtualComponent(
-							project, componentPath, isClassFolder);
-					// }
-					final IVirtualReference entryReference = ComponentCore
-							.createReference(this, entryComponent, runtimePath);
-					((VirtualReference) entryReference).setDerived(true);
-					entryReference.setArchiveName(ClasspathDependencyUtil
-							.getArchiveName(entry));
+					
+					if (entry.getEntryKind() == IClasspathEntry.CPE_PROJECT)
+					{ 					
+						final IProject cpEntryProject = ResourcesPlugin.getWorkspace().getRoot().getProject(entry.getPath().lastSegment());
+						IVirtualComponent entryComponent = ComponentCore.createComponent(cpEntryProject);
+						entryReference = ComponentCore.createReference(this, entryComponent, runtimePath);
+						entryReference.setArchiveName(VirtualReferenceUtilities.INSTANCE.getDefaultProjectArchiveName(entryComponent));
+					} else {
+						componentPath = VirtualArchiveComponent.CLASSPATHARCHIVETYPE + IPath.SEPARATOR + entryLocation.toPortableString();
+						ClasspathDependencyVirtualComponent entryComponent = new ClasspathDependencyVirtualComponent(project, componentPath, isClassFolder);
+						entryReference = ComponentCore.createReference(this, entryComponent, runtimePath);
+						((VirtualReference) entryReference).setDerived(true);
+						entryReference.setArchiveName(ClasspathDependencyUtil.getArchiveName(entry));
+					}
 					cpRefs.add(entryReference);
 				}
 			}
