@@ -181,7 +181,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final WebAppVersionType VERSION_EDEFAULT = WebAppVersionType._25_LITERAL;
+	protected static final WebAppVersionType VERSION_EDEFAULT = WebAppVersionType._30_LITERAL;
 
 	/**
 	 * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute.
