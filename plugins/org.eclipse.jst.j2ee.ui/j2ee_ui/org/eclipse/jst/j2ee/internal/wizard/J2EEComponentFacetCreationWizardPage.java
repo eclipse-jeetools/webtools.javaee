@@ -20,12 +20,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.dialogs.IDialogSettings;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetProjectCreationDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.ui.project.facet.EarSelectionPanel;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
@@ -101,17 +107,62 @@ public abstract class J2EEComponentFacetCreationWizardPage extends DataModelFace
     
     @Override
 	public void restoreDefaultSettings() {
-    	super.restoreDefaultSettings();
-        IDialogSettings settings = getDialogSettings();
-        if (settings != null) {
-            String lastEARName = settings.get(STORE_LABEL);
-            if (lastEARName != null){
-            	FacetDataModelMap map = (FacetDataModelMap)model.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
-            	String facetID = getModuleFacetID();
-            	IDataModel j2eeModel = map.getFacetDataModel(facetID);
-                j2eeModel.setProperty(IJ2EEModuleFacetInstallDataModelProperties.LAST_EAR_NAME, lastEARName);
-            }
+    	restoreEARName();
+        super.restoreDefaultSettings();
+	}
+    
+    
+    private void restoreEARName(){
+    	String earName = getSelectedEARName();
+        if (earName == null){
+        	IDialogSettings settings = getDialogSettings();
+        	earName = settings.get(STORE_LABEL); //last ear created, old behavior
+        }
+    	setEarName(earName);
+    }
+
+	/*
+	 * @param earName
+	 */
+	private void setEarName(String earName) {
+		if (earName != null){
+			FacetDataModelMap map = (FacetDataModelMap)model.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+			String facetID = getModuleFacetID();
+			IDataModel j2eeModel = map.getFacetDataModel(facetID);
+		    j2eeModel.setProperty(IJ2EEModuleFacetInstallDataModelProperties.LAST_EAR_NAME, earName);
 		}
+	}
+    
+    /*
+	 * Gets the EAR Name selected on the view (ActivePart).
+	 * @param view
+	 * @return earName or null if there is nothing selected.
+	 */
+    private String getSelectedEARName(){
+    	IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+		IStructuredSelection selection = (StructuredSelection) window.getSelectionService().getSelection();
+		return getEARNameFromSelection(selection);
+	}
+    
+    
+	/*
+	 * Extract the first element selected and removes the project prefix "P/"
+	 * @param selection
+	 * @return earName or null if there is nothing selected or is not a project.
+	 */
+	private String getEARNameFromSelection(IStructuredSelection selection) {
+		if (selection != null){
+			if (!selection.isEmpty()){
+				Object firstSelectedElement = selection.getFirstElement();
+				if (firstSelectedElement instanceof IProject) {
+					IProject selProject = (IProject)firstSelectedElement;
+					if (JavaEEProjectUtilities.isEARProject(selProject)) {
+						return selProject.getName();
+					}
+				}
+			}
+		}
+		return null;
 	}
     
 	@Override
