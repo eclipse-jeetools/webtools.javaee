@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2011 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -22,8 +22,8 @@ import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.dialogs.IDialogSettings;
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetProjectCreationDataModelProperties;
@@ -139,9 +139,14 @@ public abstract class J2EEComponentFacetCreationWizardPage extends DataModelFace
 	 * @return earName or null if there is nothing selected.
 	 */
     private String getSelectedEARName(){
+    	String retVal = null;
     	IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-		IStructuredSelection selection = (StructuredSelection) window.getSelectionService().getSelection();
-		return getEARNameFromSelection(selection);
+    	ISelection selection = window.getSelectionService().getSelection();
+    	if (selection instanceof IStructuredSelection)
+    	{
+    		retVal = getEARNameFromSelection((IStructuredSelection)selection);
+    	}
+		return retVal;
 	}
     
     
