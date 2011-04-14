@@ -204,16 +204,21 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
         {
             final Object config = javaInstallAction.getConfig();
             
-            if( config instanceof JavaFacetInstallConfig )
+            if(config != null)
             {
-                this.javaFacetInstallConfig = (JavaFacetInstallConfig) config;
+            	if( config instanceof JavaFacetInstallConfig )
+            	{
+            		this.javaFacetInstallConfig = (JavaFacetInstallConfig) config;
+            	}
+            	else
+            	{
+            		this.javaFacetInstallConfig = (JavaFacetInstallConfig) Platform.getAdapterManager().getAdapter( config, JavaFacetInstallConfig.class );
+            	}
+            	if (this.javaFacetInstallConfig != null)
+            	{
+            		this.javaFacetInstallConfig.addListener( this.javaFacetSourceFolderListener, JavaFacetInstallConfig.ChangeEvent.Type.SOURCE_FOLDERS_CHANGED );
+            	}
             }
-            else
-            {
-                this.javaFacetInstallConfig = (JavaFacetInstallConfig) Platform.getAdapterManager().getAdapter( config, JavaFacetInstallConfig.class );
-            }
-            
-            this.javaFacetInstallConfig.addListener( this.javaFacetSourceFolderListener, JavaFacetInstallConfig.ChangeEvent.Type.SOURCE_FOLDERS_CHANGED );
         }
     }
 
