@@ -235,7 +235,7 @@ public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate implemen
 		List<IModule> modulesToRemove = null;
 		for (Iterator<IModule> iterator = moduleDelegates.keySet().iterator(); iterator.hasNext();) {
 			IModule module = iterator.next();
-			if (module.getProject().equals(project)) {
+			if (module.getProject() != null && module.getProject().equals(project)) {
 				if (modulesToRemove == null) {
 					modulesToRemove = new ArrayList<IModule>();
 				}
