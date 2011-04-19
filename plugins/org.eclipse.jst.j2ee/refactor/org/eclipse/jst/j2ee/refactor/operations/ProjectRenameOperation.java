@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005-2007 BEA Systems, Inc.
+ * Copyright (c) 2005-2011 BEA Systems, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  * 
  * Contributors:
  * rfrost@bea.com - initial API and implementation
+ * israelgd@mx1.ibm.com - bug 342934
  *******************************************************************************/
 
 package org.eclipse.jst.j2ee.refactor.operations;
@@ -118,7 +119,7 @@ public class ProjectRenameOperation extends ProjectRefactorOperation {
 					final Object modelObject = model.getModelObject();
 					if (modelObject instanceof CompatibilityDescriptionGroup) {
 						CompatibilityDescriptionGroup cdg = (CompatibilityDescriptionGroup) modelObject;
-						if (cdg.getDisplayName().equals(oldProjectName)) {
+						if (cdg.getDisplayName() != null && cdg.getDisplayName().equals(oldProjectName)) {
 							cdg.setDisplayName(newProjectName);
 						}				
 					} else {
