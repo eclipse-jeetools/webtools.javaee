@@ -342,6 +342,10 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 	private static final String DOT_JAR = ".jar";//$NON-NLS-1$
 
 	private IArchive refineForJavaEE(final IArchive simpleArchive) {
+		boolean isNestedWithinEar5OrAbove = false;		
+		String earLibDirectory = null;
+		String defaultEARLibDir = new Path(J2EEConstants.EAR_DEFAULT_LIB_DIR).makeRelative().toString();
+
 		//Check to see if this archive is actually being opened as a nested archive from within an EAR
 		//if it is then the EAR's DD needs to be checked to see exactly what type of archive this is.
 		if (simpleArchive.getArchiveOptions().hasOption(ArchiveOptions.PARENT_ARCHIVE)) {
@@ -362,7 +366,10 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 						}
 						int definedType = J2EEVersionConstants.UNKNOWN;
 						if (qp.getVersion() == JavaEEQuickPeek.JEE_5_0_ID) {
+							isNestedWithinEar5OrAbove = true;
 							org.eclipse.jst.javaee.application.Application app = (org.eclipse.jst.javaee.application.Application) ddObj;
+							// If lib directory is not specified in deployment descriptor, use the default 
+							earLibDirectory = app.getLibraryDirectory() == null? defaultEARLibDir : app.getLibraryDirectory();
 							org.eclipse.jst.javaee.application.Module module = app.getFirstModule(archivePath.toString());
 							//if the archive isn't found, do a smart search for it
 							if(module == null){
@@ -457,6 +464,11 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 						org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
 					}
 				}
+				else {
+					//Parent EAR does not have deployment descriptor, so it is not legacy
+					isNestedWithinEar5OrAbove = true;
+					earLibDirectory = defaultEARLibDir;
+				}		
 			}
 		}
 		
@@ -494,8 +506,11 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl implements IArchi
 				wrapArchive(simpleArchive, new Path(J2EEConstants.WEBAPP_DD_URI));
 				return simpleArchive;
 			} else if (lastSegment.endsWith(DOT_JAR)) {
+				String libPath = null == archivePath ? null : archivePath.removeLastSegments(1).toPortableString();
+				// Do not look for main class in manifest.mf if jar is on lib directory of EAR 5 or above
+				boolean skipDiscriminateMainClass = isNestedWithinEar5OrAbove && earLibDirectory!= null && earLibDirectory.equals(libPath);
 				Object discriminateMainClass = simpleArchive.getArchiveOptions().getOption(DISCRIMINATE_MAIN_CLASS);
-				if (null == discriminateMainClass || ((Boolean) discriminateMainClass).booleanValue()) {
+				if (!skipDiscriminateMainClass && (null == discriminateMainClass || ((Boolean) discriminateMainClass).booleanValue())) {
 					IPath manifestPath = new Path(J2EEConstants.MANIFEST_URI);
 					if (simpleArchive.containsArchiveResource(manifestPath)) {
 						InputStream in = null;
