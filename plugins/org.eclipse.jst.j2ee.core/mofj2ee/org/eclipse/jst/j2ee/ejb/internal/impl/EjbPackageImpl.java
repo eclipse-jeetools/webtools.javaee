@@ -294,7 +294,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static boolean isInited = false;
+	private volatile static boolean isInited = false;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
