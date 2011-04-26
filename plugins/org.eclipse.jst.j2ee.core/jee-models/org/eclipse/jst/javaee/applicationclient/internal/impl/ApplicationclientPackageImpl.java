@@ -77,7 +77,7 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static boolean isInited = false;
+	private volatile static boolean isInited = false;
 
 	/**
 	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.

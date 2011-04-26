@@ -311,7 +311,7 @@ public class WebapplicationPackageImpl extends EPackageImpl implements Webapplic
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static boolean isInited = false;
+	private volatile static boolean isInited = false;
 
 	/**
 	 * @generated This field/method will be replaced during code generation.
