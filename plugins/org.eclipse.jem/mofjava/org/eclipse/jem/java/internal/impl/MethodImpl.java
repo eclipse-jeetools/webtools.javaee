@@ -27,8 +27,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EOperationImpl;
 import org.eclipse.emf.ecore.util.*;
 
-import org.eclipse.jem.internal.java.adapters.IJavaMethodAdapter;
-import org.eclipse.jem.internal.java.adapters.ReadAdaptor;
+import org.eclipse.jem.internal.java.adapters.*;
 import org.eclipse.jem.java.*;
 
 /**
@@ -652,7 +651,13 @@ public class MethodImpl extends EOperationImpl implements Method {
 			case JavaRefPackage.METHOD__PARAMETERS:
 				return ((InternalEList)getParameters()).basicRemove(otherEnd, msgs);
 			case JavaRefPackage.METHOD__JAVA_CLASS:
-				return basicSetJavaClass(null, msgs);
+				JavaClass newContainer = null;
+				ReadAdaptor readAdaptor = getReadAdapter();
+				if (readAdaptor instanceof JavaReflectionAdaptor && otherEnd instanceof JavaClass)
+				{
+					newContainer = ((JavaReflectionAdaptor)readAdaptor).createJavaClassRef(((JavaClass)otherEnd).getJavaName());
+				}
+				return basicSetJavaClass(newContainer, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
