@@ -27,7 +27,8 @@ Click Show Runtimes to view the available runtimes and runtime compositions.</de
 <context id="webw1200">
 <description>The context root is the top-level directory of your application when it is deployed to a Web server. 
 The Content directory folder is the mandatory location of all Web resources, for example Web pages, style sheets or graphics. If the files are not placed in this directory (or in a subdirectory structure under this directory), the files will not be available when the application is executed on a server. 
-The Java source directory contains the project's Java source code for classes, beans, and servlets. When these resources are added to a Web project, they are automatically compiled and the generated files are added to the WEB-INF/classes directory.
+The deployment descriptor is a configuration file that describes how to deploy a module by specifying configuration and container options. By default a deployment descriptor is created for a Web project because it is required to run a servlet on an application server. If your Web application does not
+contain any servlets, filters, or listeners, you can clear the <b>Generate web.xml deployment descriptor</b> checkbox.
 </description>
 <topic label="Creating a dynamic Web project" href="../org.eclipse.wst.webtools.doc.user/topics/twcreprj.html"/>
 </context>
