@@ -118,7 +118,7 @@ public class WebDeployableArtifactUtil {
 					}
 				}
 			}
-			else if (obj instanceof SessionBean || obj instanceof MessageDrivenBean) {
+			else if ((obj instanceof SessionBean || obj instanceof MessageDrivenBean) && JavaEEProjectUtilities.isDynamicWebProject((IProject)resource)) {
 				Resource servResource = ((BasicEObjectImpl)obj).eResource();
 				IVirtualResource[] resources = null;
 				try {
