@@ -1,9 +1,0 @@
-bin
-build.xml
-common_bin
-vm_bin
-javaCompiler.vm_remotevm.jar.args
-javaCompiler...args
-@dot
-org.eclipse.jem.proxy_2.0.100.200806031304.jar
-vm
