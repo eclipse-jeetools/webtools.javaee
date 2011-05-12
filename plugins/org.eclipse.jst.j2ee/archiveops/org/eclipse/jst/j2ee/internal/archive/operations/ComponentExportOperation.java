@@ -187,8 +187,7 @@ public class ComponentExportOperation extends AbstractDataModelOperation {
 				throw new ArchiveSaveFailureException(e);
 			} catch (ArchiveSaveFailureException failure) {
 				try {
-					if (archiver != null)
-						archiver.close();
+					archiver.close();
 				} catch (IOException weTried) {
 					// Ignore
 				}

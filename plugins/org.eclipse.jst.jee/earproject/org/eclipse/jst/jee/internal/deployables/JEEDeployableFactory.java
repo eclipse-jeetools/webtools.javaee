@@ -10,25 +10,18 @@
  *******************************************************************************/
 package org.eclipse.jst.jee.internal.deployables;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.j2ee.internal.deployables.J2EEDeployableFactory;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
-import org.eclipse.wst.server.core.IModule;
-import org.eclipse.wst.server.core.model.ModuleDelegate;
 import org.eclipse.wst.web.internal.deployables.FlatComponentDeployable;
 
 /**
  * J2EE module factory.
  */
 public class JEEDeployableFactory extends J2EEDeployableFactory {
-	protected Map <IModule, ModuleDelegate> moduleDelegates = new HashMap<IModule, ModuleDelegate>(5);
-
 	public static final String JEE_ID = "org.eclipse.jst.jee.server"; //$NON-NLS-1$
 	public static JEEDeployableFactory JEE_INSTANCE;
 	public static JEEDeployableFactory jeeInstance() {

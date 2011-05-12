@@ -265,12 +265,10 @@ public class EJBJar20VRule extends AValidationRule implements IMessagePrefixEjb2
 			}
 			catch(ValidationException exc) {
 				// something goes wrong, just proceed with the next bean
-				if(bean != null){
-					IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2852, IEJBValidationContext.WARNING, bean, new String[]{J2EEConstants.EJBJAR_DD_SHORT_NAME, bean.getName()}, this);
-					vc.addMessage(message);
-					if (logger != null && logger.isLoggingLevel(Level.SEVERE)) {
-						logger.write(Level.SEVERE, exc);
-					}
+				IMessage message = MessageUtility.getUtility().getMessage(vc, IEJBValidatorMessageConstants.CHKJ2852, IEJBValidationContext.WARNING, bean, new String[]{J2EEConstants.EJBJAR_DD_SHORT_NAME, bean.getName()}, this);
+				vc.addMessage(message);
+				if (logger != null && logger.isLoggingLevel(Level.SEVERE)) {
+					logger.write(Level.SEVERE, exc);
 				}
 			}
 			catch (Throwable exc) {

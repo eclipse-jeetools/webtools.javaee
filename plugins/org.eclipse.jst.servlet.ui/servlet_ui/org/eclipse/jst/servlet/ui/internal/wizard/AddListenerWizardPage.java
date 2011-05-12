@@ -46,13 +46,13 @@ public class AddListenerWizardPage extends DataModelWizardPage  {
 	
 	private static final Image IMG_INTERFACE = JavaPluginImages.get(JavaPluginImages.IMG_OBJS_INTERFACE);
 
-	protected ServletDataModelSyncHelper synchHelper;
+	protected ServletDataModelSyncHelper synchHelper2;
 	
 	public AddListenerWizardPage(IDataModel model, String pageName) {
 		super(model, pageName);
 		setDescription(ADD_LISTENER_WIZARD_PAGE_DESC);
 		setTitle(ADD_LISTENER_WIZARD_PAGE_TITLE);
-		synchHelper = initializeSynchHelper(model);
+		synchHelper2 = initializeSynchHelper(model);
 	}
 	
 	@Override
@@ -88,7 +88,7 @@ public class AddListenerWizardPage extends DataModelWizardPage  {
 	@Override
 	protected void enter() {
 		super.enter();
-		synchHelper.synchUIWithModel(INTERFACES, DataModelEvent.VALUE_CHG);
+		synchHelper2.synchUIWithModel(INTERFACES, DataModelEvent.VALUE_CHG);
 	}
 
 	private void createServletContextEvents(Composite parent) {
@@ -164,7 +164,7 @@ public class AddListenerWizardPage extends DataModelWizardPage  {
 		
 		button.setText(text);
 		button.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, true));
-		synchHelper.synchCheckbox(button, value, property, null);
+		synchHelper2.synchCheckbox(button, value, property, null);
 		
 		return button;
 	}
@@ -225,7 +225,7 @@ public class AddListenerWizardPage extends DataModelWizardPage  {
 			}
 		}
 		
-		synchHelper.synchUIWithModel(INTERFACES, DataModelEvent.VALUE_CHG);
+		synchHelper2.synchUIWithModel(INTERFACES, DataModelEvent.VALUE_CHG);
 		model.notifyPropertyChange(INTERFACES, DataModelEvent.VALUE_CHG);
 	}
 
@@ -238,7 +238,7 @@ public class AddListenerWizardPage extends DataModelWizardPage  {
 		
 		interfaces.removeAll(Arrays.asList(LISTENER_INTERFACES));
 		
-		synchHelper.synchUIWithModel(INTERFACES, DataModelEvent.VALUE_CHG);
+		synchHelper2.synchUIWithModel(INTERFACES, DataModelEvent.VALUE_CHG);
 		model.notifyPropertyChange(INTERFACES, DataModelEvent.VALUE_CHG);
 	}
 

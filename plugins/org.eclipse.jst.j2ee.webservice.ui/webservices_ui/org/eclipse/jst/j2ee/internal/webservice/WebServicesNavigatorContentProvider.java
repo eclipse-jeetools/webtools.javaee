@@ -56,7 +56,7 @@ public class WebServicesNavigatorContentProvider extends AdapterFactoryContentPr
 	private WebServiceNavigatorGroupType SERVICES = null;
 	private WebServiceNavigatorGroupType CLIENTS = null;
 	private HashMap HANDLERS = new HashMap();
-	private TreeViewer viewer = null;
+	private TreeViewer viewer2 = null;
 
 	private WebServiceViewerSynchronization viewerSynchronization;
 	NewProjectsListener projectListener;
@@ -201,7 +201,7 @@ public class WebServicesNavigatorContentProvider extends AdapterFactoryContentPr
 	public void inputChanged(Viewer aViewer, Object oldInput, Object newInput) {
 		// TODO handle change events
 		if (aViewer != null && aViewer instanceof TreeViewer)
-			viewer = (TreeViewer) aViewer;
+			viewer2 = (TreeViewer) aViewer;
 		super.inputChanged(aViewer, oldInput, newInput);
 	}
  
@@ -265,7 +265,7 @@ public class WebServicesNavigatorContentProvider extends AdapterFactoryContentPr
 	 * @return Returns the viewer.
 	 */
 	public TreeViewer getViewer() {
-		return viewer;
+		return viewer2;
 	}
 	
 	@Override
@@ -280,16 +280,16 @@ public class WebServicesNavigatorContentProvider extends AdapterFactoryContentPr
 					if(handlersGroup != null) {
 						switch(notification.getEventType()) {
 							case Notification.ADD: 
-								viewer.add(handlersGroup, notification.getNewValue());						
+								viewer2.add(handlersGroup, notification.getNewValue());						
 								break;
 							case Notification.ADD_MANY: 
-								viewer.add(handlersGroup, ((Collection)notification.getNewValue()).toArray());						
+								viewer2.add(handlersGroup, ((Collection)notification.getNewValue()).toArray());						
 								break;
 							case Notification.REMOVE: 						
-								viewer.remove(notification.getOldValue());
+								viewer2.remove(notification.getOldValue());
 								break;
 							case Notification.REMOVE_MANY:
-								viewer.remove(((Collection)notification.getOldValue()).toArray());
+								viewer2.remove(((Collection)notification.getOldValue()).toArray());
 								break;
 						}			
 					}
@@ -307,16 +307,16 @@ public class WebServicesNavigatorContentProvider extends AdapterFactoryContentPr
 						if(handlersGroup != null) {
 							switch(notification.getEventType()) {
 								case Notification.ADD: 
-									viewer.add(handlersGroup, notification.getNewValue());						
+									viewer2.add(handlersGroup, notification.getNewValue());						
 									break;
 								case Notification.ADD_MANY: 
-									viewer.add(handlersGroup, ((Collection)notification.getNewValue()).toArray());						
+									viewer2.add(handlersGroup, ((Collection)notification.getNewValue()).toArray());						
 									break;
 								case Notification.REMOVE: 						
-									viewer.remove(notification.getOldValue());
+									viewer2.remove(notification.getOldValue());
 									break;
 								case Notification.REMOVE_MANY:
-									viewer.remove(((Collection)notification.getOldValue()).toArray());
+									viewer2.remove(((Collection)notification.getOldValue()).toArray());
 									break;
 							}
 						}

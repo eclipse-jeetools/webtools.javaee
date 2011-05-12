@@ -48,9 +48,9 @@ public class WebAppProvider extends AbstractWebGroupProvider implements IAdaptab
 	private GroupWelcomePagesItemProvider welcome;
 	private GroupContextParamsItemProvider contextParams;
 	
-	private List<Object> children = new ArrayList<Object>();
+	private List<Object> children2 = new ArrayList<Object>();
 	
-	private String text;
+	private String text2;
 	
 	private Image web25Image;
 	private Image web30Image;
@@ -60,7 +60,7 @@ public class WebAppProvider extends AbstractWebGroupProvider implements IAdaptab
 
 	public WebAppProvider(WebApp webApp, IProject project) {
 		super(webApp);
-		text = NLS.bind(Messages.DEPLOYMENT_DESCRIPTOR, project.getName());
+		text2 = NLS.bind(Messages.DEPLOYMENT_DESCRIPTOR, project.getName());
 		contextParams = new GroupContextParamsItemProvider(webApp);
 		errors = new GroupErrorPagesItemProvider(webApp);
 		servlets = new GroupServletItemProvider(webApp);
@@ -70,26 +70,26 @@ public class WebAppProvider extends AbstractWebGroupProvider implements IAdaptab
 		listeners = new GroupListenerItemProvider(webApp);
 		references = new GroupReferenceItemProvider(webApp);
 		welcome = new GroupWelcomePagesItemProvider(webApp);
-		children.add(contextParams);
-		children.add(errors);
-		children.add(servlets);
-		children.add(filters);
-		children.add(listeners);
-		children.add(servletMapping);
-		children.add(filterMapping);
-		children.add(references);
-		children.add(welcome);
+		children2.add(contextParams);
+		children2.add(errors);
+		children2.add(servlets);
+		children2.add(filters);
+		children2.add(listeners);
+		children2.add(servletMapping);
+		children2.add(filterMapping);
+		children2.add(references);
+		children2.add(welcome);
 		prjct = project;
 	}
 	
 	@Override
 	public List getChildren(){
-		return children;
+		return children2;
 	}
 
 	@Override
 	public String getText(){
-		return text;
+		return text2;
 	}
 	
 	@Override
@@ -119,7 +119,7 @@ public class WebAppProvider extends AbstractWebGroupProvider implements IAdaptab
 	@Override
 	public void reinit(JavaEEObject modelObject) {
 		super.reinit(modelObject);
-		for (Object child : children) {
+		for (Object child : children2) {
 			((AbstractGroupProvider)child).reinit(modelObject);
 		}
 	}

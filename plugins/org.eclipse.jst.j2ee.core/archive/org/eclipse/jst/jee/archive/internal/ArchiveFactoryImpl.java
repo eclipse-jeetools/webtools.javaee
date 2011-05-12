@@ -86,8 +86,7 @@ public class ArchiveFactoryImpl implements IArchiveFactory {
 				throw new ArchiveSaveFailureException(NLS.bind(CommonArchiveResourceHandler.ArchiveFactoryImpl_Error_saving_archive_0_to_output_, new Object[] { archive, outputPath }), e);
 			} catch (ArchiveSaveFailureException failure) {
 				try {
-					if (aSaveAdapter != null)
-						aSaveAdapter.close();
+					aSaveAdapter.close();
 				} catch (IOException weTried) {
 					// Ignore
 				}
@@ -138,8 +137,7 @@ public class ArchiveFactoryImpl implements IArchiveFactory {
 				monitor.worked(CLOSE_TICKS);
 			} catch (ArchiveSaveFailureException failure) {
 				try {
-					if (aSaveAdapter != null)
-						aSaveAdapter.close();
+					aSaveAdapter.close();
 				} catch (IOException weTried) {
 					// Ignore
 				}
