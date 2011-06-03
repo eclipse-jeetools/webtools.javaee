@@ -238,7 +238,15 @@ public class JavaClassImpl extends EClassImpl implements JavaClass {
 
 	protected void collectMethodsExtended(Map methods, boolean onlyPublic, List excludedClasses, List excludedMethods) {
 		Iterator it1, it2;
-		it2 = getExtendedLookupIterator();
+		// copy over the contents
+		List extendedLookupClasses = new ArrayList();
+		EList extendedLookupEList = null;
+		if (isInterface())
+			extendedLookupEList = getImplementsInterfaces();
+		else
+			extendedLookupEList = getESuperTypes();
+		extendedLookupClasses.addAll(extendedLookupEList);
+		it2 = extendedLookupClasses.iterator();
 		JavaClassImpl javaClass;
 		while (it2.hasNext()) {
 			javaClass = (JavaClassImpl) it2.next();
