@@ -22,6 +22,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
@@ -108,7 +109,7 @@ public class WebUtilities extends JavaEEProjectUtilities {
 		IVirtualReference[] refComponents = webComponent.getReferences(options);
 		
 		for(IVirtualReference virtualReference : refComponents){
-			if(virtualReference.getRuntimePath().equals(WEBLIB)){
+			if(virtualReference.getRuntimePath().equals(WEBLIB) && !ClasspathDependencyUtil.isClassFolderReference(virtualReference)){
 				IVirtualComponent virtualComponent = virtualReference.getReferencedComponent();
 				if(JavaEEProjectUtilities.isWebFragmentProject(virtualComponent)){
 					result.add(virtualComponent);
@@ -159,7 +160,7 @@ public class WebUtilities extends JavaEEProjectUtilities {
 		// base path
 		for (int i = 0; i < refComponents.length; i++) {
 			IVirtualReference reference = refComponents[i];
-			if (reference.getRuntimePath().equals(WEBLIB))
+			if (reference.getRuntimePath().equals(WEBLIB) && !ClasspathDependencyUtil.isClassFolderReference(reference))			
 				result.add(reference);
 		}
 
