@@ -34,6 +34,10 @@ import org.eclipse.wst.common.componentcore.internal.flat.IFlattenParticipant;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 public class JavaEESingleRootCallback implements SingleRootParticipantCallback {
+	//Warnings
+	public static final int UNNECESSARY_RESOURCE_MAP = 100;
+	
+	//Errors
 	public static final int EAR_PROJECT_FOUND = 10100;
 	public static final int ATLEAST_1_RESOURCE_MAP_MISSING = 10101;
 	public static final int JAVA_OUTPUT_NOT_WEBINF_CLASSES = 10102;
@@ -123,6 +127,8 @@ public class JavaEESingleRootCallback implements SingleRootParticipantCallback {
 	 */
 	private boolean hasDefaultWebResourceMappings(SingleRootUtil util, List resourceMaps) {
 		int rootValidMaps = 0;
+		IPath pathMappedToContentRoot = null;
+		List<ComponentResource> tmpResources = new ArrayList<ComponentResource>();
 		
 		IPath webInfClasses = new Path(J2EEConstants.WEB_INF_CLASSES).makeAbsolute();
 		for (int i = 0; i < resourceMaps.size(); i++) {
@@ -134,6 +140,8 @@ public class JavaEESingleRootCallback implements SingleRootParticipantCallback {
 			// Verify if the map is for the content root
 			if (util.isRootMapping(resourceMap)) {
 				rootValidMaps++;
+				if (pathMappedToContentRoot == null)  //we are interested only if the first resource mapped to root
+					pathMappedToContentRoot = sourcePath;
 			} 
 			// Verify if the map is for a java src folder and is mapped to "WEB-INF/classes"
 			else if (runtimePath.equals(webInfClasses)) {
@@ -147,11 +155,28 @@ public class JavaEESingleRootCallback implements SingleRootParticipantCallback {
 				}
 			}
 			else {
-				util.reportStatus(RUNTIME_PATH_NOT_ROOT_OR_WEBINF_CLASSES, runtimePath);
-			}
-			
+				// Do not report status yet. Below we do some extra validation
+				tmpResources.add(resourceMap);
+			}			
 			if (util.getValidateFlag() == CANCEL) return false;
 		}
+		
+		if (pathMappedToContentRoot != null){  
+			for (ComponentResource res:tmpResources){
+				IPath completePath = pathMappedToContentRoot.append(res.getRuntimePath());
+				if (completePath.equals(res.getSourcePath())){
+					// This mapping is redundant, because there is already a mapping that includes this resource			
+					util.reportStatus(UNNECESSARY_RESOURCE_MAP, res.getSourcePath());
+				}
+				else{
+					// Not root, not WEB-INF/classes and not redundant, report status
+					util.reportStatus(RUNTIME_PATH_NOT_ROOT_OR_WEBINF_CLASSES, res.getRuntimePath());
+				}
+				if (util.getValidateFlag() == CANCEL) return false;
+			}
+			tmpResources = null;
+		}
+		
 		// Make sure only one of the maps is the content root, and that at least one is for the java folder
 		if (rootValidMaps != 1) {
 			if (rootValidMaps < 1) {
