@@ -11,19 +11,28 @@
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.CLASS_NAME;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.JAVA_PACKAGE;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.OPEN_IN_EDITOR;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.PROJECT;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.QUALIFIED_CLASS_NAME;
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.JAVA_SOURCE_FOLDER;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties.USE_EXISTING_CLASS;
 
 import java.net.URL;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.IPackageFragment;
+import org.eclipse.jdt.core.IPackageFragmentRoot;
+import org.eclipse.jdt.core.IType;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jst.j2ee.internal.common.operations.JavaModelUtil;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEEditorUtility;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.servlet.ui.internal.plugin.ServletUIPlugin;
@@ -76,8 +85,35 @@ public abstract class NewWebArtifactWizard extends NewWebWizard {
 			}
 			IProject p = (IProject) getDataModel().getProperty(PROJECT);
 			IJavaProject javaProject = J2EEEditorUtility.getJavaProject(p);
-			IFile file = (IFile) javaProject.findType(className).getResource();
-			openEditor(file);
+			IType type = javaProject.findType(className);
+			IFile file = null;
+			
+			if (type != null){
+				file = (IFile) type.getResource();				
+			}
+			else if (!getDataModel().getBooleanProperty(USE_EXISTING_CLASS)){
+				// If we could not find the type, the class might be in a folder that is not part of the build path. 
+				// Let's look for it using the class name and source folder (this does not work when using existing class, but
+				// should not be a problem, because the wizard to select the existing class will not let you select class that 
+				// is not in the build path)
+				IFolder sourceFolder = (IFolder) getDataModel().getProperty(JAVA_SOURCE_FOLDER);
+				String packageName = getDataModel().getStringProperty(JAVA_PACKAGE);
+				IPackageFragmentRoot packageFragmentRoot = javaProject.getPackageFragmentRoot(sourceFolder);
+				IPackageFragment packageFragment = null;
+				if (packageFragmentRoot!= null){
+					packageFragment = packageFragmentRoot.getPackageFragment(packageName);
+				}
+				if (packageFragment!= null){
+					ICompilationUnit cu = packageFragment.getCompilationUnit(getDataModel().getStringProperty(CLASS_NAME) + JavaModelUtil.DEFAULT_CU_SUFFIX);				
+					IResource resource = cu.getResource();
+					if (resource.exists() && resource instanceof IFile) {
+						file = (IFile)resource;
+					}
+				}			
+			}
+			if (file != null){
+				openEditor(file);
+			}
 		} catch (Exception cantOpen) {
 			ServletUIPlugin.log(cantOpen);
 		}	
