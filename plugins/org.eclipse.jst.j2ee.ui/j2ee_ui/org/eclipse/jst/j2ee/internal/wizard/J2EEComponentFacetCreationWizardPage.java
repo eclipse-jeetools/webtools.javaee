@@ -21,6 +21,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -38,6 +39,7 @@ import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IFacetedProjectWorkingCopy;
 import org.eclipse.wst.common.project.facet.core.IProjectFacet;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
+import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 import org.eclipse.wst.web.ui.internal.wizards.DataModelFacetCreationWizardPage;
 
 public abstract class J2EEComponentFacetCreationWizardPage extends DataModelFacetCreationWizardPage {
@@ -107,22 +109,39 @@ public abstract class J2EEComponentFacetCreationWizardPage extends DataModelFace
     
     @Override
 	public void restoreDefaultSettings() {
-    	restoreEARName();
-        super.restoreDefaultSettings();
+    	//get the values from the selected EAR to restore.
+    	IProject selectedEARProject = getSelectedEAR();
+    	if (selectedEARProject != null){
+    		restoreEARName(selectedEARProject);
+    		restoreEARRuntime(selectedEARProject);
+    	} else{
+    		restoreStoredLabelEARName();
+    	}
+    	super.restoreDefaultSettings();
 	}
     
+    /* Restore the EAR Name from the user selected EAR if there is any
+	 * @param earName
+	 */
+    private void restoreEARName(IProject earProject){
+    	String earName = earProject.getName();
+    	if (earName != null){
+    		setEarName(earName);
+    	}
+    }
     
-    private void restoreEARName(){
-    	String earName = getSelectedEARName();
+    /* Restore the EAR Name from the last created EAR Project
+	 */
+    private void restoreStoredLabelEARName(){
+    	IDialogSettings settings = getDialogSettings();
+    	String earName = settings.get(STORE_LABEL);
         if (earName == null){
-        	IDialogSettings settings = getDialogSettings();
-        	earName = settings.get(STORE_LABEL); //last ear created, old behavior
+        	setEarName(earName); //last ear created, old behavior
         }
-    	setEarName(earName);
     }
 
-	/*
-	 * @param earName
+	/* Sets the EAR Name to the the J2ee model and model
+	 * @param String EAR Project Name
 	 */
 	private void setEarName(String earName) {
 		if (earName != null){
@@ -130,40 +149,82 @@ public abstract class J2EEComponentFacetCreationWizardPage extends DataModelFace
 			String facetID = getModuleFacetID();
 			IDataModel j2eeModel = map.getFacetDataModel(facetID);
 		    j2eeModel.setProperty(IJ2EEModuleFacetInstallDataModelProperties.LAST_EAR_NAME, earName);
+		    j2eeModel.setProperty(IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME, earName);
+
 		}
 	}
+
+	/* Sets the Runtime to the J2EE model and common model
+	 * @param IProject
+	 */
+	public void restoreEARRuntime(IProject proj) {
+			FacetDataModelMap map = (FacetDataModelMap)model.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+			String facetID = getModuleFacetID();
+			IDataModel j2eeModel = map.getFacetDataModel(facetID);
+		    IRuntime currentRuntime = getTargetRuntime(proj);
+		    if (currentRuntime != null){
+		    	j2eeModel.setProperty(IJ2EEModuleFacetInstallDataModelProperties.RUNTIME_TARGET_ID, currentRuntime);
+		    	model.setProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME, currentRuntime);
+		    }
+		    
+	}
     
+	/* Gets the Runtime from the user selected EAR if there is any
+	 * @param IRuntime
+	 */
+	public static IRuntime getTargetRuntime(IProject project) {
+		IFacetedProject fProject = null;
+		try {
+			fProject = ProjectFacetsManager.create(project);
+		} catch (CoreException ex) {
+			J2EEUIPlugin.logError(ex);
+		}
+		if(fProject != null)
+			return fProject.getRuntime() ;
+		return null;
+	}
+	
     /*
 	 * Gets the EAR Name selected on the view (ActivePart).
-	 * @param view
-	 * @return earName or null if there is nothing selected.
+	 * @return IProject or null if there is nothing selected.
 	 */
-    private String getSelectedEARName(){
-    	String retVal = null;
-    	IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-    	ISelection selection = window.getSelectionService().getSelection();
-    	if (selection instanceof IStructuredSelection)
-    	{
-    		retVal = getEARNameFromSelection((IStructuredSelection)selection);
+    private IProject getSelectedEAR(){
+    	IProject retVal = null;
+    	ISelection selection = getSelectionFromWorkbenchWindow();
+    	if (selection instanceof IStructuredSelection) {
+    		IProject selProject = getEARProjectFromSelection((IStructuredSelection)selection);
+    		if (selProject != null){
+    			if (JavaEEProjectUtilities.isEARProject(selProject)) {
+    				retVal = selProject;
+    			}
+    		}
     	}
 		return retVal;
 	}
     
+    /*
+	 * Gets the Selection from Workbench Window.
+	 * @return ISelection
+	 */
+	private ISelection getSelectionFromWorkbenchWindow() {
+		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+    	ISelection selection = window.getSelectionService().getSelection();
+		return selection;
+	}
+    
     
 	/*
-	 * Extract the first element selected and removes the project prefix "P/"
-	 * @param selection
-	 * @return earName or null if there is nothing selected or is not a project.
+	 * Extract the first element selected and checks for an EAR Project
+	 * @param IStructuredSelection selection
+	 * @return IProject EAR or null if there is Not selected EAR project.
 	 */
-	private String getEARNameFromSelection(IStructuredSelection selection) {
+	private IProject getEARProjectFromSelection(IStructuredSelection selection) {
 		if (selection != null){
 			if (!selection.isEmpty()){
 				Object firstSelectedElement = selection.getFirstElement();
 				if (firstSelectedElement instanceof IProject) {
-					IProject selProject = (IProject)firstSelectedElement;
-					if (JavaEEProjectUtilities.isEARProject(selProject)) {
-						return selProject.getName();
-					}
+					return (IProject)firstSelectedElement;
+					
 				}
 			}
 		}
@@ -183,6 +244,7 @@ public abstract class J2EEComponentFacetCreationWizardPage extends DataModelFace
 		arrayList.addAll( list );
 		arrayList.add( IJ2EEFacetProjectCreationDataModelProperties.EAR_PROJECT_NAME );
 		arrayList.add( IJ2EEFacetProjectCreationDataModelProperties.ADD_TO_EAR );
+		arrayList.add( IJ2EEFacetProjectCreationDataModelProperties.FACET_RUNTIME);
 		return (String[])arrayList.toArray( new String[0] );
 	}
 	
