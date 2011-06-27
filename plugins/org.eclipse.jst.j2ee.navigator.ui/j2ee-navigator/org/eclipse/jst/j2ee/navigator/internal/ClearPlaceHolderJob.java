@@ -39,8 +39,8 @@ public class ClearPlaceHolderJob extends UIJob {
 		try {
 			if( !viewer.getControl().isDisposed() ){
 				viewer.getControl().setRedraw(false);
-				viewer.remove(placeHolder);
 				viewer.add(parent, children);
+				viewer.remove(placeHolder);
 			}
 		} finally {
 			if( !viewer.getControl().isDisposed() ){
