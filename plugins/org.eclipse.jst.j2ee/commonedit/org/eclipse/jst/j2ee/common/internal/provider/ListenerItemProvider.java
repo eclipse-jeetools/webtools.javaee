@@ -101,6 +101,11 @@ public class ListenerItemProvider extends CommonItemProviderAdapter implements I
 	 */
 	@Override
 	public void notifyChanged(Notification notification) {
+		switch (notification.getFeatureID(Listener.class)) {
+			case CommonPackage.LISTENER__LISTENER_CLASS:
+				fireNotifyChanged(notification);
+				return;
+		}
 		super.notifyChanged(notification);
 	}
 
