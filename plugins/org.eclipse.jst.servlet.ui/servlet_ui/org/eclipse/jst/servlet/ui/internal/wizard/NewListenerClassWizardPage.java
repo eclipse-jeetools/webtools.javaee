@@ -10,11 +10,17 @@
  *******************************************************************************/
 package org.eclipse.jst.servlet.ui.internal.wizard;
 
+import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.PROJECT;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties.USE_EXISTING_CLASS;
+import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.CHOOSE_LISTENER_CLASS;
+import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.NEW_LISTENER_WIZARD_WINDOW_TITLE;
 import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.USE_EXISTING_LISTENER_CLASS;
 
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.jdt.core.IType;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
+import org.eclipse.jface.window.Window;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.war.ui.util.WebListenerGroupItemProvider;
@@ -23,12 +29,18 @@ import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.jee.ui.internal.navigator.web.GroupListenerItemProvider;
 import org.eclipse.jst.jee.ui.internal.navigator.web.WebAppProvider;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 
 public class NewListenerClassWizardPage extends NewWebClassWizardPage {
 
+	private final static String[] FILTEREXTENSIONS = { "java" }; //$NON-NLS-1$
+	
 	public NewListenerClassWizardPage(IDataModel model, String pageName, String pageDesc, String pageTitle, String moduleType) {
 		super(model, pageName, pageDesc, pageTitle, moduleType);
 	}
@@ -45,10 +57,7 @@ public class NewListenerClassWizardPage extends NewWebClassWizardPage {
 	
 	@Override
 	protected Composite createTopLevelComposite(Composite parent) {
-		Composite composite = super.createTopLevelComposite(parent);
-		
-		existingButton.setEnabled(false);
-		
+		Composite composite = super.createTopLevelComposite(parent);						
 		return composite;
 	}
 	
@@ -69,6 +78,28 @@ public class NewListenerClassWizardPage extends NewWebClassWizardPage {
 	
 	@Override
 	protected void handleClassButtonSelected() {
+		 getControl().setCursor(new Cursor(getShell().getDisplay(), SWT.CURSOR_WAIT));
+	        IProject project = (IProject) model.getProperty(PROJECT);
+	        IVirtualComponent component = ComponentCore.createComponent(project);
+	        MultiSelectFilteredListenerFileSelectionDialog ms = new MultiSelectFilteredListenerFileSelectionDialog(
+	                getShell(),
+	                NEW_LISTENER_WIZARD_WINDOW_TITLE,
+	                CHOOSE_LISTENER_CLASS, 
+	                FILTEREXTENSIONS, 
+	                false, 
+	                project);
+	        IContainer root = component.getRootFolder().getUnderlyingFolder();
+	        ms.setInput(root);
+	        ms.open();
+	        if (ms.getReturnCode() == Window.OK) {
+	            String qualifiedClassName = ""; //$NON-NLS-1$
+	            IType type = (IType) ms.getFirstResult();
+	            if (type != null) {
+	                qualifiedClassName = type.getFullyQualifiedName();
+	            }
+	            existingClassText.setText(qualifiedClassName);
+	        }
+	        getControl().setCursor(null);
 	}
 
 	@Override
@@ -91,5 +122,13 @@ public class NewListenerClassWizardPage extends NewWebClassWizardPage {
 		// only web 2.3 and greater projects are valid
 		return  version > J2EEVersionConstants.SERVLET_2_2;
 	}
+	
+	//When existing button is selected, the other pages are not longer necessary
+	@Override
+	public boolean canFlipToNextPage(){
+		  if (existingButton.getSelection())
+			  return false;
+		  return super.canFlipToNextPage();
+	}		
 	
 }

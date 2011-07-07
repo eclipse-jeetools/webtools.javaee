@@ -112,6 +112,7 @@ public class WEBUIMessages extends NLS {
 	public static String REMOVE_BUTTON_LABEL_V;
 	public static String NEW_SERVLET_WIZARD_WINDOW_TITLE;
     public static String NEW_FILTER_WIZARD_WINDOW_TITLE;
+    public static String NEW_LISTENER_WIZARD_WINDOW_TITLE;
 	public static String INTERFACE_SELECTION_DIALOG_TITLE;
 	public static String NAME_TITLE;
 	public static String NAME_LABEL;
@@ -120,6 +121,7 @@ public class WEBUIMessages extends NLS {
 	public static String WEB_CONT_PAGE_COMP_LABEL;
 	public static String CHOOSE_SERVLET_CLASS;
 	public static String CHOOSE_FILTER_CLASS;
+	public static String CHOOSE_LISTENER_CLASS;
 	public static String NEW_SERVLET_WIZARD_PAGE_DESC;
 	public static String JAVA_CLASS_INHERIT_CHECKBOX_LABEL;
 	public static String WEB_CONT_PAGE_DESCRIPTION;

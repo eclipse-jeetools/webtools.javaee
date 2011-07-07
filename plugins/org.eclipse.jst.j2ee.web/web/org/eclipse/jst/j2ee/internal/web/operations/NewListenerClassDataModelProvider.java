@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.web.operations;
 
+
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.INTERFACES;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_HTTP_SESSION_ACTIVATION_LISTENER;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_HTTP_SESSION_ATTRIBUTE_LISTENER;
@@ -19,6 +20,7 @@ import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_CONTE
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_CONTEXT_LISTENER;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_REQUEST_ATTRIBUTE_LISTENER;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_REQUEST_LISTENER;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties.USE_EXISTING_CLASS;
 
 import java.util.List;
 
@@ -102,10 +104,11 @@ public class NewListenerClassDataModelProvider extends
 	 */
 	@Override
 	public IStatus validate(String propertyName) {
-		if (propertyName.equals(INTERFACES)) {
-			return validateListeners();
-		}
-		
+		if (propertyName.equals(INTERFACES)){
+			if (!getBooleanProperty(USE_EXISTING_CLASS)) {
+				return validateListeners();
+			}
+		}					
 		// Otherwise defer to super to validate the property
 		return super.validate(propertyName);
 	}
