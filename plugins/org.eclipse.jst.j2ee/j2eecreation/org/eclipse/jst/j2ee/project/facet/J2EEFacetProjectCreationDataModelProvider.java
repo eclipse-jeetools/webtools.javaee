@@ -15,6 +15,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.core.filesystem.EFS;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -39,6 +40,7 @@ import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 public class J2EEFacetProjectCreationDataModelProvider extends FacetProjectCreationDataModelProvider implements IJ2EEFacetProjectCreationDataModelProperties {
     
     private static Set<IProjectFacet> MODULE_FACETS = new HashSet<IProjectFacet>();
+    private boolean caseSensitiveFs = EFS.getLocalFileSystem().isCaseSensitive();
     
     static
     {
@@ -184,6 +186,10 @@ public class J2EEFacetProjectCreationDataModelProvider extends FacetProjectCreat
 					return status;
 				if (getStringProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME).equals(getStringProperty(EAR_PROJECT_NAME))) {
 					String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.SAME_MODULE_AND_EAR_NAME, new Object[]{getStringProperty(EAR_PROJECT_NAME)});
+					return WTPCommonPlugin.createErrorStatus(errorMessage);
+				}
+				if (!caseSensitiveFs && getStringProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME).equalsIgnoreCase(getStringProperty(EAR_PROJECT_NAME))) {
+					String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.SAME_MODULE_AND_EAR_NAME_DIFFERENT_CASE, new Object[]{getStringProperty(EAR_PROJECT_NAME)});
 					return WTPCommonPlugin.createErrorStatus(errorMessage);
 				}
 			}
