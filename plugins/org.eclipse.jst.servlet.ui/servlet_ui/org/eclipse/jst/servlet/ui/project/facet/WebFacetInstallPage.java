@@ -101,5 +101,8 @@ public class WebFacetInstallPage extends J2EEModuleFacetInstallPage implements I
 		}
 	}
 
-
+	@Override
+	protected boolean showValidationErrorsOnEnter() {
+		return true;
+	}
 }
