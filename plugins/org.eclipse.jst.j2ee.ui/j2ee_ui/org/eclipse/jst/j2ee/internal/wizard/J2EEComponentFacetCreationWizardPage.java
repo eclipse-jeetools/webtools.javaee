@@ -126,7 +126,7 @@ public abstract class J2EEComponentFacetCreationWizardPage extends DataModelFace
     private void restoreEARName(IProject earProject){
     	String earName = earProject.getName();
     	if (earName != null){
-    		setEarName(earName);
+    		setEarName(earName, false);
     	}
     }
     
@@ -135,21 +135,23 @@ public abstract class J2EEComponentFacetCreationWizardPage extends DataModelFace
     private void restoreStoredLabelEARName(){
     	IDialogSettings settings = getDialogSettings();
     	String earName = settings.get(STORE_LABEL);
-        if (earName == null){
-        	setEarName(earName); //last ear created, old behavior
+        if (earName != null){
+        	setEarName(earName, true); //last ear created, old behavior
         }
     }
 
 	/* Sets the EAR Name to the the J2ee model and model
 	 * @param String EAR Project Name
+	 * @param boolean specifying if only the LAST_EAR_NAME property should be updated.
 	 */
-	private void setEarName(String earName) {
+	private void setEarName(String earName, boolean lastEAROnly) {
 		if (earName != null){
 			FacetDataModelMap map = (FacetDataModelMap)model.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
 			String facetID = getModuleFacetID();
 			IDataModel j2eeModel = map.getFacetDataModel(facetID);
 		    j2eeModel.setProperty(IJ2EEModuleFacetInstallDataModelProperties.LAST_EAR_NAME, earName);
-		    j2eeModel.setProperty(IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME, earName);
+		    if (!lastEAROnly)
+		    	j2eeModel.setProperty(IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME, earName);
 
 		}
 	}
