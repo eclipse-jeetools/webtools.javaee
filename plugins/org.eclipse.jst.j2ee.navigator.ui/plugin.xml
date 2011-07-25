@@ -1375,19 +1375,8 @@
       </decorator>
    </extension>
    
-   <extension
-         point="org.eclipse.ui.decorators">
-      <decorator
-            adaptable="true"
-            label="%PROBLEM_MARKER_LABEL_RESOURCE_DECORATOR"
-            state="true"
-            class="org.eclipse.jdt.ui.ProblemsLabelDecorator"
-            id="org.eclipse.jst.j2ee.navigator.ui.java.resource.decorator">
-            <enablement>
-                <objectClass name="org.eclipse.core.resources.IResource"/> 
-            </enablement>
-      </decorator>
-   </extension>
+   
+   
   <extension
          point="org.eclipse.core.expressions.propertyTesters">
       <propertyTester

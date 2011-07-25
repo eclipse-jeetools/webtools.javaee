@@ -227,7 +227,7 @@ public class WebJavaContentProvider implements IPipelinedTreeContentProvider  {
 				if (sourceFolder.getJavaProject()!=null && sourceFolder.getJavaProject().exists() && sourceFolder.getJavaProject().isOpen() && JavaEEProjectUtilities.isDynamicWebProject(sourceFolder.getJavaProject().getProject())) {
 					CompressedJavaProject compressedNode = getCompressedNode(sourceFolder.getJavaProject().getProject());
 					if(compressedNode.isFlatteningSourceFolder()) {
-						iter.remove(); // voids the iterator; but is okay because we're done with it
+//						iter.remove(); // voids the iterator; but is okay because we're done with it
 						refreshTargets.add(compressedNode);
 						return true;
 					}
