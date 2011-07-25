@@ -202,13 +202,19 @@ public abstract class ContainerImpl extends FileImpl implements Container {
 			getFiles();
 		}
 		
-		IPath URIPath = new Path(URI);
+		// Some load strategies load the files as relative, and some as absolute paths, so...
+		// First try with the original URI
+		File file = (File) getFileIndex().get(URI);
 		
-		if (URIPath.segmentCount() > 1)
-			URIPath = URIPath.makeAbsolute();
-			
-		File file = (File) getFileIndex().get(URIPath.toString());
-			
+		if (file == null){
+			// If the file was not found, try using absolute path
+			IPath URIPath = new Path(URI);
+			if (URIPath.segmentCount() > 1){
+				URIPath = URIPath.makeAbsolute();
+				file = (File) getFileIndex().get(URIPath.toString());
+			}			
+		}
+				
 		if (file == null) {
 			throw new java.io.FileNotFoundException(URI);
 		}
