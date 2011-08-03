@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2011 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -22,6 +22,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathAttribute;
 import org.eclipse.jdt.core.IClasspathEntry;
@@ -49,12 +50,14 @@ import org.eclipse.wst.common.componentcore.internal.resources.VirtualFolder;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualReference;
 import org.eclipse.wst.common.componentcore.internal.util.IComponentImplFactory;
 import org.eclipse.wst.common.componentcore.internal.util.VirtualReferenceUtilities;
+import org.eclipse.wst.common.componentcore.resources.ITaggedVirtualResource;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
 public class J2EEModuleVirtualComponent extends VirtualComponent implements IComponentImplFactory, IClasspathDependencyProvider, IClasspathDependencyReceiver {
 
+	public static final String DD_FOLDER_TAG = org.eclipse.wst.common.componentcore.internal.WorkbenchComponent.DEFAULT_ROOT_SOURCE_TAG;
 	public static String GET_JAVA_REFS = "GET_JAVA_REFS"; //$NON-NLS-1$
 	public static String GET_FUZZY_EAR_REFS = "GET_FUZZY_EAR_REFS"; //$NON-NLS-1$
 	public static String GET_EXPANDED_LIB_REFS = "GET_EXPANDED_LIB_REFS"; //$NON-NLS-1$
@@ -515,4 +518,26 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 		}
 		return new Path("/"); //$NON-NLS-1$
 	}
+	
+    public static void setDefaultDeploymentDescriptorFolder(IVirtualFolder folder, IPath aProjectRelativeLocation, IProgressMonitor monitor) {
+    	if (folder instanceof ITaggedVirtualResource){
+    		ITaggedVirtualResource taggedFolder = (ITaggedVirtualResource)folder;
+    		//First, remove tag is there is already one folder already tagged 
+    		IPath[] paths = taggedFolder.getTaggedResources(DD_FOLDER_TAG);
+    		for (IPath path:paths){
+    			taggedFolder.tagResource(path, null, monitor);
+    		}
+    		// Now, tag the correct path
+    		((ITaggedVirtualResource)folder).tagResource(aProjectRelativeLocation, DD_FOLDER_TAG, monitor);
+    	}
+	}
+    
+    public static IPath getDefaultDeploymentDescriptorFolder(IVirtualFolder folder) {
+    	IPath returnValue = null;
+    	if (folder instanceof ITaggedVirtualResource){
+    		returnValue = ((ITaggedVirtualResource)folder).getFirstTaggedResource(DD_FOLDER_TAG);
+    	}
+    	return returnValue;
+	}
+ 
 }

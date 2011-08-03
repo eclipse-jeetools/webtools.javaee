@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2010 IBM Corporation and others.
+ * Copyright (c) 2010, 2011 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -29,6 +29,7 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.emf.workbench.WorkbenchByteArrayOutputStream;
 import org.eclipse.jst.common.project.facet.WtpUtils;
 import org.eclipse.jst.common.project.facet.core.ClasspathHelper;
+import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.ManifestFileCreationAction;
@@ -55,6 +56,7 @@ public class WebFragmentFacetInstallDelegate implements IDelegate {
 			final IVirtualFolder jsrc = c.getRootFolder();
 			final IJavaProject jproj = JavaCore.create(project);
 			final IClasspathEntry[] cp = jproj.getRawClasspath();
+			IPath firstPath = null;
 			for (int i = 0; i < cp.length; i++) {
 				final IClasspathEntry cpe = cp[i];
 
@@ -64,8 +66,12 @@ public class WebFragmentFacetInstallDelegate implements IDelegate {
 						path = new Path("/"); //$NON-NLS-1$
 					}
 					jsrc.createLink(path, 0, null);
+					if (firstPath == null){
+						firstPath = path;
+					}
 				}
 			}
+			J2EEModuleVirtualComponent.setDefaultDeploymentDescriptorFolder(jsrc, firstPath, null);
 			final IVirtualFolder root = c.getRootFolder();
 			IContainer container = null;
 			if (root.getProjectRelativePath().segmentCount() == 0) {
