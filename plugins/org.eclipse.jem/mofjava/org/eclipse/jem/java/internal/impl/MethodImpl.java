@@ -12,7 +12,7 @@ package org.eclipse.jem.java.internal.impl;
 
 /*
  *  $RCSfile: MethodImpl.java,v $
- *  $Revision: 1.2 $  $Date: 2005/09/15 20:28:03 $ 
+ *  $Revision: 1.2.6.1 $  $Date: 2011/08/05 20:09:53 $ 
  */
 
 import java.util.Collection;
@@ -44,8 +44,7 @@ import org.eclipse.jem.java.JavaVisibilityKind;
 import org.eclipse.jem.java.Method;
 
 
-import org.eclipse.jem.internal.java.adapters.IJavaMethodAdapter;
-import org.eclipse.jem.internal.java.adapters.ReadAdaptor;
+import org.eclipse.jem.internal.java.adapters.*;
 
 /**
  * @generated
@@ -1043,7 +1042,13 @@ public class MethodImpl extends EOperationImpl implements Method {
 				case JavaRefPackage.METHOD__PARAMETERS:
 					return ((InternalEList)getParameters()).basicRemove(otherEnd, msgs);
 				case JavaRefPackage.METHOD__JAVA_CLASS:
-					return eBasicSetContainer(null, JavaRefPackage.METHOD__JAVA_CLASS, msgs);
+					JavaClass newContainer = null;
+					ReadAdaptor readAdaptor = getReadAdapter();
+					if (readAdaptor instanceof JavaReflectionAdaptor && otherEnd instanceof JavaClass)
+					{
+						newContainer = ((JavaReflectionAdaptor)readAdaptor).createJavaClassRef(((JavaClass)otherEnd).getJavaName());
+					}
+					return eBasicSetContainer((InternalEObject)newContainer, JavaRefPackage.METHOD__JAVA_CLASS, msgs);
 				default:
 					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
 			}
@@ -1128,6 +1133,24 @@ public class MethodImpl extends EOperationImpl implements Method {
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
+
+	/**
+	   * <!-- begin-user-doc -->
+	   * <!-- end-user-doc -->
+	   */
+	public void setEType(EClassifier newEType)
+	{
+		EClassifier newContainer = newEType;
+		if (eType != null && newEType == null)
+		{
+			ReadAdaptor readAdaptor = getReadAdapter();
+			if (readAdaptor instanceof JavaReflectionAdaptor)
+			{
+				newContainer = ((JavaReflectionAdaptor)readAdaptor).createJavaClassRef(((JavaHelpers)eType).getJavaName());
+			}
+		}
+	    super.setEType(newContainer);
+	  }
 
 }
 

@@ -10,7 +10,7 @@
  *******************************************************************************/
 /*
  *  $RCSfile: JavaClassImpl.java,v $
- *  $Revision: 1.4.6.1 $  $Date: 2009/10/01 22:01:28 $ 
+ *  $Revision: 1.4.6.2 $  $Date: 2011/08/05 20:09:53 $ 
  */
 package org.eclipse.jem.java.internal.impl;
 
@@ -255,7 +255,15 @@ public class JavaClassImpl extends EClassImpl implements JavaClass {
 
 	protected void collectMethodsExtended(Map methods, boolean onlyPublic, List excludedClasses, List excludedMethods) {
 		Iterator it1, it2;
-		it2 = getExtendedLookupIterator();
+		// copy over the contents
+		List extendedLookupClasses = new ArrayList();
+		EList extendedLookupEList = null;
+		if (isInterface())
+			extendedLookupEList = getImplementsInterfaces();
+		else
+			extendedLookupEList = getESuperTypes();
+		extendedLookupClasses.addAll(extendedLookupEList);
+		it2 = extendedLookupClasses.iterator();
 		JavaClassImpl javaClass;
 		while (it2.hasNext()) {
 			javaClass = (JavaClassImpl) it2.next();

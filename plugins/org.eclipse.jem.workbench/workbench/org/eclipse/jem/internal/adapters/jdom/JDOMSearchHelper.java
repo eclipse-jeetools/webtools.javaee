@@ -11,7 +11,7 @@
 package org.eclipse.jem.internal.adapters.jdom;
 /*
  *  $RCSfile: JDOMSearchHelper.java,v $
- *  $Revision: 1.8 $  $Date: 2006/05/17 20:13:58 $ 
+ *  $Revision: 1.8.4.1 $  $Date: 2011/08/05 20:09:52 $ 
  */
 
 import java.io.File;
@@ -148,7 +148,12 @@ public class JDOMSearchHelper {
 		return result;
 	}
 	private static boolean needsToResolveName(IType type, String simpleName, boolean isForReflection) {
-		return !(type.isBinary() || (!isForReflection && simpleName.indexOf(PERIOD) > -1) || isPrimitiveOrVoid(simpleName));
+		boolean retVal = false;
+		if (type != null)
+		{
+			retVal = !(type.isBinary() || (!isForReflection && simpleName.indexOf(PERIOD) > -1) || isPrimitiveOrVoid(simpleName));
+		}
+		return retVal;
 	}
 	/**
 	 * Returns the qualified name for the simple name within the scope of the type.
