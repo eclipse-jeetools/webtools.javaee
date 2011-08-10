@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2005 BEA Systems, Inc.
+ * Copyright (c) 2005, 2011 BEA Systems, Inc. and others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Konstantin Komissarchik - initial API and implementation
+ *    Roberto Sanchez (IBM) - Set default deployment descriptor folder
  ******************************************************************************/
 
 package org.eclipse.jst.j2ee.web.project.facet;
@@ -33,6 +34,7 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jst.common.project.facet.WtpUtils;
 import org.eclipse.jst.common.project.facet.core.ClasspathHelper;
+import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainer;
@@ -102,8 +104,11 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			setOutputFolder(model, c);
 
 			final IVirtualFolder webroot = c.getRootFolder();
-			if (webroot.getProjectRelativePath().equals(new Path("/"))) //$NON-NLS-1$
-				webroot.createLink(new Path("/" + model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER)), 0, null); //$NON-NLS-1$
+			if (webroot.getProjectRelativePath().equals(new Path("/"))){ //$NON-NLS-1$
+				Path configFolderPath = new Path("/" + model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER));  //$NON-NLS-1$
+				webroot.createLink(configFolderPath, 0, null); 
+				J2EEModuleVirtualComponent.setDefaultDeploymentDescriptorFolder(webroot, configFolderPath, null); 
+			}
 
 			if( fv == WebFacetUtils.WEB_30 )
 			{
