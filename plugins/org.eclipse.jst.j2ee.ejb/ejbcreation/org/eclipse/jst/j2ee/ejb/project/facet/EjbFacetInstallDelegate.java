@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2006 IBM Corporation and others.
+ * Copyright (c) 2005, 2011 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -32,6 +32,7 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jst.common.project.facet.WtpUtils;
 import org.eclipse.jst.common.project.facet.core.ClasspathHelper;
+import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
@@ -82,7 +83,9 @@ public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements
 			String configFolder = null;
 
 			configFolder = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER);
-			ejbroot.createLink(new Path("/" + configFolder), 0, null); //$NON-NLS-1$
+			Path configFolderPath = new Path("/" + configFolder);   //$NON-NLS-1$
+			ejbroot.createLink(configFolderPath, 0, null);
+			J2EEModuleVirtualComponent.setDefaultDeploymentDescriptorFolder(ejbroot, configFolderPath, null);
 
 			String ejbFolderName = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER);
 			IPath ejbFolderpath = pjpath.append(ejbFolderName);
