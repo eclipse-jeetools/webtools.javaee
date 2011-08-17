@@ -105,13 +105,13 @@ public class AddListenerOperation extends AddWebClassOperation {
 			WebApp webApp = (WebApp) modelObject;
 			webApp.getListeners().add(listener);
 			return listener;
-		} else if (modelObject instanceof org.eclipse.jst.javaee.web.WebApp ){
+		} else if (modelObject instanceof org.eclipse.jst.javaee.web.IWebCommon ){
 			// Create the listener instance and set up the parameters from data model
 			org.eclipse.jst.javaee.core.Listener listener = JavaeeFactory.eINSTANCE.createListener();
 			listener.setListenerClass(qualifiedClassName);
 
 			// Add the listener to the web application model
-			org.eclipse.jst.javaee.web.WebApp webApp = (org.eclipse.jst.javaee.web.WebApp) modelObject;
+			org.eclipse.jst.javaee.web.IWebCommon webApp = (org.eclipse.jst.javaee.web.IWebCommon) modelObject;
 			webApp.getListeners().add(listener);	
 			return listener;
 		}

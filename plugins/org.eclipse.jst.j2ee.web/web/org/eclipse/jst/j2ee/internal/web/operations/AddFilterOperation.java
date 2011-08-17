@@ -159,8 +159,8 @@ public class AddFilterOperation extends AddWebClassOperation {
 			WebApp webApp = (WebApp) modelObject;
 			webApp.getFilters().add(filter);
 			return filter;
-		} else if (modelObject instanceof org.eclipse.jst.javaee.web.WebApp) {
-			org.eclipse.jst.javaee.web.WebApp webApp = (org.eclipse.jst.javaee.web.WebApp) modelObject;
+		} else if (modelObject instanceof org.eclipse.jst.javaee.web.IWebCommon) {
+			org.eclipse.jst.javaee.web.IWebCommon webApp = (org.eclipse.jst.javaee.web.IWebCommon) modelObject;
 			org.eclipse.jst.javaee.web.Filter filter = WebFactory.eINSTANCE.createFilter();
 			DisplayName displayNameObj = JavaeeFactory.eINSTANCE.createDisplayName();
             displayNameObj.setValue(displayName);
@@ -229,7 +229,7 @@ public class AddFilterOperation extends AddWebClassOperation {
 					filter.getInitParams().add(ip);
 				}
 			}
-		} else if (modelObject instanceof org.eclipse.jst.javaee.web.WebApp) {
+		} else if (modelObject instanceof org.eclipse.jst.javaee.web.IWebCommon) {
 			org.eclipse.jst.javaee.web.Filter filter = (org.eclipse.jst.javaee.web.Filter) filterObj;
 
 			for (int iP = 0; iP < initParamList.size(); iP++) {
@@ -307,8 +307,8 @@ public class AddFilterOperation extends AddWebClassOperation {
 			        // Add the filter mapping to the web application modelled list
 			        webApp.getFilterMappings().add(mapping);
 			    }
-		} else if (modelObject instanceof org.eclipse.jst.javaee.web.WebApp) {
-		    org.eclipse.jst.javaee.web.WebApp webApp = (org.eclipse.jst.javaee.web.WebApp) modelObject;
+		} else if (modelObject instanceof org.eclipse.jst.javaee.web.IWebCommon) {
+		    org.eclipse.jst.javaee.web.IWebCommon webApp = (org.eclipse.jst.javaee.web.IWebCommon) modelObject;
 		    org.eclipse.jst.javaee.web.Filter filter = (org.eclipse.jst.javaee.web.Filter) filterObj;
 
 		    // Create the filter mapping instance from the web factory
