@@ -12,18 +12,21 @@ package org.eclipse.jst.j2ee.internal.common.exportmodel;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.common.internal.modulecore.AddClasspathLibReferencesParticipant;
 import org.eclipse.jst.common.internal.modulecore.IClasspathDependencyComponent;
 import org.eclipse.jst.common.internal.modulecore.IClasspathDependencyProvider;
 import org.eclipse.jst.common.internal.modulecore.IClasspathDependencyReceiver;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.project.WebUtilities;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.wst.common.componentcore.internal.flat.AbstractFlattenParticipant;
+import org.eclipse.wst.common.componentcore.internal.flat.ChildModuleReference;
 import org.eclipse.wst.common.componentcore.internal.flat.FlatVirtualComponent;
 import org.eclipse.wst.common.componentcore.internal.flat.IChildModuleReference;
 import org.eclipse.wst.common.componentcore.internal.flat.IFlatFile;
@@ -60,6 +63,21 @@ public class ClasspathDependenciesCollector extends FlatVirtualComponent {
 			
 			if (classpathReferences != null) {
 				classpathReferences.finalize(getComponent(), null, resources);
+				// Retrieve the children modules contributed by classpath references and 
+				// add them as children of this FlatVirtualComponent 
+				List <IVirtualReference> refToModules = classpathReferences.getChildModules(getComponent(), null);
+				if (refToModules != null){
+					for (IVirtualReference ref:refToModules){
+						ChildModuleReference cm = new ChildModuleReference(ref, new Path("")); //$NON-NLS-1$
+						List<IChildModuleReference> duplicates = new ArrayList();
+						for( IChildModuleReference tmp : children ) {
+							if(tmp.getRelativeURI().equals(cm.getRelativeURI()))
+								duplicates.add(tmp);
+						}
+						children.removeAll(duplicates);
+						children.add(cm);
+					}
+				}
 			}
 		}
 	}
@@ -70,6 +88,30 @@ public class ClasspathDependenciesCollector extends FlatVirtualComponent {
 		return fetchFlatFiles(resources, flatFiles);
 	}
 	
+	/**
+	 * This method will return an array of {@link IVirtualReference} for all of
+	 * the utility modules contributed by classpath dependencies. 
+	 * 
+	 * @return - an array of {@link IVirtualReference} of utility modules
+	 * @throws CoreException 
+	 */
+	public IVirtualReference[] getUtilityModuleReferences() throws CoreException {
+
+		List <IVirtualReference> result = new ArrayList<IVirtualReference>();
+		if (getComponent() != null) {			
+			List<String> componentTypes = Collections.singletonList(IJ2EEFacetConstants.UTILITY);
+			for (IChildModuleReference moduleRef:getChildModules()){
+				if (componentTypes.contains(JavaEEProjectUtilities.getJ2EEComponentType(moduleRef.getReference().getReferencedComponent()))) {
+					result.add(moduleRef.getReference());
+				}
+			}			
+
+			if (result.size() > 0)
+				return result.toArray(new IVirtualReference[result.size()]);
+		}
+		return new IVirtualReference[0];
+	}
+
 	private List <IFlatFile> fetchFlatFiles(IFlatResource[] resources, List<IFlatFile> flatFiles) {
 		for (int i = 0; i < resources.length; i++) {
 			IFlatResource resource = resources[i];
