@@ -142,6 +142,9 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 		if( val != null ) {
 			if( HARD_REFERENCES.equals(val) || NON_DERIVED_REFERENCES.equals(val) || DISPLAYABLE_REFERENCES.equals(val)){
 				return getHardReferences();
+			} else if(DISPLAYABLE_REFERENCES_ALL.equals(val)){
+				checkIfStillValid(); // This will clear the cache of raw references if needed.
+				return getAllReferences();
 			} else if (ONLY_MANIFEST_REFERENCES.equals(val)){
 				ArrayList<IVirtualReference> all = new ArrayList<IVirtualReference>();
 				checkIfStillValid();
