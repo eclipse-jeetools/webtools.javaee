@@ -223,6 +223,9 @@ public class J2EEModuleDependenciesPropertyPage extends
 		};
 	}
 	
+	protected boolean shouldSaveClasspathEntires() {
+		return true;
+	}
 	
 	@Override
 	protected boolean saveReferenceChanges() {
@@ -230,6 +233,10 @@ public class J2EEModuleDependenciesPropertyPage extends
 		if(!subResult){
 			return subResult;
 		}
+		
+		if( !shouldSaveClasspathEntires())
+			return true;
+		
 		Map <IPath, IClasspathEntry> modified = new HashMap <IPath, IClasspathEntry>();
 		
 		Map <IPath, IClasspathEntry> originalMap = new HashMap <IPath, IClasspathEntry>();

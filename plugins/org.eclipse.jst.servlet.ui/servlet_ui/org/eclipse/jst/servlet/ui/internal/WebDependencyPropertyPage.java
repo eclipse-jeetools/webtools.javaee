@@ -14,14 +14,18 @@ package org.eclipse.jst.servlet.ui.internal;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.ui.J2EEModuleDependenciesPropertyPage;
 import org.eclipse.jst.j2ee.internal.ui.preferences.Messages;
 import org.eclipse.wst.common.componentcore.internal.impl.TaskModel;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.ui.internal.propertypage.DependencyPageExtensionManager;
 import org.eclipse.wst.common.componentcore.ui.internal.propertypage.DependencyPageExtensionManager.ReferenceExtension;
 import org.eclipse.wst.common.componentcore.ui.propertypage.IReferenceWizardConstants;
 import org.eclipse.wst.common.componentcore.ui.propertypage.ModuleAssemblyRootPage;
+import org.eclipse.wst.common.project.facet.core.IFacetedProject;
+import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
 public class WebDependencyPropertyPage extends J2EEModuleDependenciesPropertyPage {
 
@@ -30,7 +34,16 @@ public class WebDependencyPropertyPage extends J2EEModuleDependenciesPropertyPag
 		super(project, page);
 	}
 
-	
+	@Override
+	protected boolean shouldSaveClasspathEntires() {
+		try {
+			IFacetedProject facetedProject = ProjectFacetsManager.create(project);
+			if( facetedProject != null && facetedProject.hasProjectFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_WEB_MODULE)))
+					return true;
+		} catch(CoreException ce) {}
+		return false;
+	}
+
 	@Override
 	protected void createPushButtons() {
 		super.createPushButtons();

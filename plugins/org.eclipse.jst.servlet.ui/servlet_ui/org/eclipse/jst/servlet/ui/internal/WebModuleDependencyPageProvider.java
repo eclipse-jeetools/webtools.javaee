@@ -35,6 +35,7 @@ public class WebModuleDependencyPageProvider implements IDependencyPageProvider 
 	
 	public boolean canHandle(IFacetedProject project) {
 		boolean isWeb = project.hasProjectFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_WEB_MODULE));
+		isWeb |= project.hasProjectFacet(ProjectFacetsManager.getProjectFacet(IModuleConstants.WST_WEB_MODULE));
 		return isWeb;
 	}
 
