@@ -14,6 +14,9 @@ import java.io.File;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
+import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
+import org.eclipse.jst.j2ee.componentcore.util.EARVirtualComponent;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
@@ -34,9 +37,19 @@ public class JEEHeirarchyExportParticipant extends AbstractFlattenParticipant {
 	@Override
 	public boolean isChildModule(IVirtualComponent rootComponent,
 			IVirtualReference reference, FlatComponentTaskModel dataModel) {
-		String parentType = JavaEEProjectUtilities.getJ2EEComponentType(rootComponent);
-		String childType = JavaEEProjectUtilities.getJ2EEComponentType(reference.getReferencedComponent());
-		return isApprovedNesting(parentType, childType, reference.getReferencedComponent().isBinary());
+		if( isJEEComponent(rootComponent) && isJEEComponent(reference.getReferencedComponent())) {
+			String parentType = JavaEEProjectUtilities.getJ2EEComponentType(rootComponent);
+			String childType = JavaEEProjectUtilities.getJ2EEComponentType(reference.getReferencedComponent());
+			return isApprovedNesting(parentType, childType, reference.getReferencedComponent().isBinary());
+		}
+		return false;
+	}
+	
+	private boolean isJEEComponent(IVirtualComponent component) {
+		IVirtualComponent tmp = component.getComponent(); // guard against caching type
+		return tmp instanceof J2EEModuleVirtualComponent 
+			|| tmp instanceof J2EEModuleVirtualArchiveComponent 
+			|| tmp instanceof EARVirtualComponent;
 	}
 	
 	protected boolean isPossibleChild(String name) {
