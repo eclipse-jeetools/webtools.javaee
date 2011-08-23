@@ -839,4 +839,18 @@
     </referenceFragment>
   </extension>
   
+  <extension point="org.eclipse.wst.common.modulecore.ui.deploymentAssemblyVerifier">
+       <verifier
+             class="org.eclipse.wst.common.componentcore.ui.internal.propertypage.verifier.DefaultDeploymentAssemblyVerifier">
+	        <runtime runtime_server_id="org.eclipse.wst.common.modulecore.ui.deploymentAssemblyVerifier.anyruntime"/>
+         	<component component_type="jst.ear"/>
+        	<component component_type="jst.ejb"/>
+        	<component component_type="jst.web"/>
+        	<component component_type="jst.webfragment"/>
+        	<component component_type="jst.connector"/>
+        	<component component_type="jst.appclient"/>
+        	<component component_type="jst.utility"/>
+       </verifier>
+    </extension>
+  
 </plugin>

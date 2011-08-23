@@ -95,6 +95,9 @@ public class J2EEModuleDependenciesPropertyPage extends
 		
 	public static List <IClasspathEntry> readRawEntries(IVirtualComponent component){
 		List <IClasspathEntry> entries = new ArrayList<IClasspathEntry>();
+		if (!component.getProject().isAccessible()){
+			return entries;
+		}
 		IJavaProjectLite javaProjectLite = JavaCoreLite.create(component.getProject());
 		try {
 			Map<IClasspathEntry, IClasspathAttribute> rawComponentClasspathDependencies = ClasspathDependencyUtil.getRawComponentClasspathDependencies(javaProjectLite, DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY);

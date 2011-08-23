@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2011 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -208,6 +208,11 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 			List<IVirtualReference> hardReferences = getHardReferences(this);
 			return hardReferences.toArray(new IVirtualReference[hardReferences.size()]);
 		}
+		if( refType != null && IVirtualComponent.DISPLAYABLE_REFERENCES_ALL.equals(refType)){
+			checkIfStillValid(); // This will clear the cache of raw references if needed.
+			return getAllReferences();
+		}
+		
 		IVirtualReference[] refs = getReferences();
 		Boolean objGetExpandRefs = (Boolean)options.get(J2EEModuleVirtualComponent.GET_EXPANDED_LIB_REFS);
 		boolean getExpandRefs = objGetExpandRefs != null ? objGetExpandRefs.booleanValue() : false;
