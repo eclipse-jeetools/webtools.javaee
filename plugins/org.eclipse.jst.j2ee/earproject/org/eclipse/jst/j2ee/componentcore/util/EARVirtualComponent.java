@@ -207,6 +207,14 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 		cachedReferences = (IVirtualReference[]) hardReferences.toArray(new IVirtualReference[hardReferences.size()]);
 		return cachedReferences;
 	}
+	
+	
+	public IVirtualReference[] getHardReferences() {		
+		List hardReferences = getHardReferences(this);
+		return (IVirtualReference[]) hardReferences.toArray(new IVirtualReference[hardReferences.size()]);		
+	}
+
+		
 	// Returns cache if still valid or null
 	public IVirtualReference[] getCachedReferences() {
 		if (cachedReferences != null && checkIfStillValid())

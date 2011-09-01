@@ -14,6 +14,7 @@ import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -63,6 +64,10 @@ public class RemoveComponentFromEnterpriseApplicationOperation extends RemoveRef
 					for (int i = 0; i < list.size(); i++) {
 						IVirtualComponent wc = (IVirtualComponent) list.get(i);
 						IVirtualComponent moduleComponent = wc.getComponent();
+						IProject earProject = comp.getProject();
+						IProject componentProject = moduleComponent.getProject();
+						if (earProject.equals(componentProject))
+							continue;
 						if(!moduleComponent.isBinary()){
 							J2EEComponentClasspathUpdater.getInstance().queueUpdateModule(moduleComponent.getProject());
 						}

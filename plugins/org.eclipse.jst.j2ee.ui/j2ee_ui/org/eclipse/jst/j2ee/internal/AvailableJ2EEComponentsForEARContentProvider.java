@@ -48,6 +48,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 public class AvailableJ2EEComponentsForEARContentProvider implements IStructuredContentProvider, ITableLabelProvider {
 	
 	final static String PATH_SEPARATOR = String.valueOf(IPath.SEPARATOR);
+	private final static int COMPONENT_NUM_OF_SEGMENTS = 1;
 	
 	private int j2eeVersion;
 	private IVirtualComponent earComponent;
@@ -144,34 +145,74 @@ public class AvailableJ2EEComponentsForEARContentProvider implements IStructured
 			return true;
 		
 		VirtualArchiveComponent comp = (VirtualArchiveComponent)component;
+		// First logic expression: workspace relative path will be null only if file doesn't exist or the path  has not more than one segment (is in root of workpsace)
+		// there's no point in showing it. Second logic expression: the first segment should be the current EAR, if not the component shouldn't be shown.
 		if(comp.getWorkspaceRelativePath() == null || !comp.getWorkspaceRelativePath().segment(0).equals(earComponent.getName()))
-			return true;
+			return false;
 		
 		IPath p = null;
 		try {
 			p = comp.getProjectRelativePath();
 		} catch (IllegalArgumentException e) {
-			return true;
-		}
-		if ((p == null) && (p.segmentCount() == 0))
-			return true;	
-		IContainer f  = earComponent.getRootFolder().getUnderlyingFolder();
-		String rootFolderName = f.getProjectRelativePath().segment(0);
-		if (!p.segment(0).equals(rootFolderName)) 
 			return false;
-		if (p.segmentCount() == 2)
+		}
+		
+		// If the path relative to the project is null it means that the file doesn't exist, component shouldn't be shown.
+		if (p == null)
+			return false;
+		
+		// Get the content directory
+		IContainer contentDir  = earComponent.getRootFolder().getUnderlyingFolder();
+		// Obtain the number of segments of the content directory
+		int ContentDirSegmentCount = contentDir.getProjectRelativePath().segmentCount();
+		// Sum the content directory number of segments plus the number of segments that represent the component (should be only one)
+		int numOfSegmentsToCompare = ContentDirSegmentCount + COMPONENT_NUM_OF_SEGMENTS;
+		
+		// If the EAR has a content folder, check if the project relative path starts with it, if not do not show.
+		if ((ContentDirSegmentCount > 0) && !startWithSameSegments(p, contentDir.getProjectRelativePath()))
+			return false;
+		
+		// At this point we know that the resource is inside the ear, now if it is anywhere 
+		// outside the lib dir we must show it (we'll take care of the ones that are in the lib dir later)
+		if (!startWithSameSegments(p, Path.fromOSString(contentDir.getProjectRelativePath().toString() + IPath.SEPARATOR + libDir)))
 			return true;
+		
+		// Show the element if it is in the EAR's root folder. If the EAR has a content folder, the number of segments will be "content folder segments" + "component name's segment"
+		// If the EAR does not have content folder, the number of segments will be 1 (the component name only) 
+		if (p.segmentCount() == numOfSegmentsToCompare)
+			return true;
+		
 		if (isEE5) {
+			// Obtain libDir, remove leading and ending unnecessary characters and split into segments
 			String strippedLibDir = stripSeparators(libDir);
-			String[] libDirSegs = strippedLibDir.split(PATH_SEPARATOR); 
-			if (p.segmentCount() - 2 != libDirSegs.length)
+			String[] libDirSegs = strippedLibDir.split(PATH_SEPARATOR);
+			// Verify if lib dir segments' number match
+			if (p.segmentCount() - numOfSegmentsToCompare != libDirSegs.length)
 				return false;
-			for (int i = 0; i < libDirSegs.length; i++) 
-				if (!libDirSegs[i].equals(p.segment(i + 1)))
+			// Verify if lib dir segments' values match
+			for (int i = 0; i < libDirSegs.length; i++)
+				if (!libDirSegs[i].equals(p.segment(i + ContentDirSegmentCount))) // If the EAR has no content folder, offset will be 0
 					return false;
 			return true;
 		}
 		return false;
+	}
+	
+	// This method determines if the provided IPaths start with the same segments 
+	private boolean startWithSameSegments(IPath iPath1, IPath iPath2){
+		
+		// Validate the provided paths
+		if (iPath1 == null || iPath2 == null)
+			return false;
+			
+		// Determine which one of the paths is shorter, if equal then doesn't matter. 
+		int minor = iPath1.segmentCount() > iPath2.segmentCount() ? iPath2.segmentCount() : iPath1.segmentCount();  
+		// Compares "minor" amount of segments
+		for (int i = 0; i < minor; i++){
+			if (!iPath1.segment(i).equals(iPath2.segment(i)))
+				return false;
+		}
+		return true;
 	}
 	
 	private String stripSeparators(String dir) {

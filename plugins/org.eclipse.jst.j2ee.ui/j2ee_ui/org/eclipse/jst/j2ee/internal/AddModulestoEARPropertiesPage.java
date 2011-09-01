@@ -46,6 +46,7 @@ import org.eclipse.jst.j2ee.application.internal.operations.IAddComponentToEnter
 import org.eclipse.jst.j2ee.application.internal.operations.RemoveComponentFromEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
+import org.eclipse.jst.j2ee.componentcore.util.EARVirtualComponent;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.componentcore.JavaEEBinaryComponentHelper;
@@ -131,6 +132,8 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 	protected Set libsToUncheck;
 	protected Listener tableListener;
 	protected Listener labelListener;
+	
+	private final static int COMPONENT_NUM_OF_SEGMENTS = 1;
 
 	//[Bug 238264] the cached list of jars selected using 'add jar' or 'add external jars'
 	protected List<IVirtualComponent> addedJARComponents = new ArrayList<IVirtualComponent>();
@@ -1020,11 +1023,41 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 	}		
 		
 	private boolean isInLibDir(VirtualArchiveComponent comp) {
+		// Get the content directory
+		int contentDirSegmentCount = earComponent.getRootFolder().getUnderlyingFolder().getProjectRelativePath().segmentCount();
+		
+		// Get segments of component's IPath
 		IPath p = comp.getProjectRelativePath();
-		if (p.segmentCount() == 2)
-			return false;
-		return true;
+		String[] compPathSegs = p.segments();
+		
+		// Get segments of the library directory of the current EAR
+		String strippedLibDir = stripSeparators(libDir);
+		String[] libDirSegs = strippedLibDir.split(PATH_SEPARATOR);
+		
+		// Compare component's and library directory's segments to determine if "is in lib-dir"
+		if(contentDirSegmentCount + libDirSegs.length + COMPONENT_NUM_OF_SEGMENTS == compPathSegs.length){
+			for (int i = 0; i < libDirSegs.length; i++){
+				if (!libDirSegs[i].equals(compPathSegs[i + contentDirSegmentCount]))
+					return false;
+			}
+		}else{ return false; }
+		
+			return true;
 	}
+	
+	/**
+	 * This method removes leading and ending separators from the given string wich is supposed to
+	 * contain a path
+	 * @param dir
+	 * @return the string without leading and ending separators
+	 */
+	private String stripSeparators(String dir) {
+		if (dir.startsWith(PATH_SEPARATOR)) 
+			dir = dir.substring(1);
+		if (dir.endsWith(PATH_SEPARATOR))  
+			dir = dir.substring(0, dir.length() - 1);
+		return dir;
+	}	
 	
 	
 	public void refresh() {
@@ -1187,7 +1220,8 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		String refedCompName;
 		int lastDotIndex;
 		String increment;
-		IVirtualReference [] existingRefs = earComponent.getReferences();
+		EARVirtualComponent earVirtualCompoent = (EARVirtualComponent) earComponent;
+		IVirtualReference [] existingRefs = earVirtualCompoent.getHardReferences();
 		for(int i=0;i<existingRefs.length;i++){
 			refedCompName = existingRefs[i].getReferencedComponent().getName();
 			

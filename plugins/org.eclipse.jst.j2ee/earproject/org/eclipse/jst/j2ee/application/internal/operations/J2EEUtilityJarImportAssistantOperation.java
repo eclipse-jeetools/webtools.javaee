@@ -104,7 +104,7 @@ public abstract class J2EEUtilityJarImportAssistantOperation extends AbstractOpe
 
 		IVirtualComponent earcomponent = ComponentCore.createComponent(targetProject);
 
-		IVirtualComponent utilcomponent = ComponentCore.createArchiveComponent(targetProject, VirtualArchiveComponent.LIBARCHIVETYPE + IPath.SEPARATOR + utilityJarIFile.getProjectRelativePath().toString());
+		IVirtualComponent utilcomponent = ComponentCore.createArchiveComponent(targetProject, VirtualArchiveComponent.LIBARCHIVETYPE + IPath.SEPARATOR + utilityJarIFile.getFullPath().toString());
 
 		addArchiveProjectToEARDataModel.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earcomponent);
 		addArchiveProjectToEARDataModel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, Collections.singletonList(utilcomponent));
