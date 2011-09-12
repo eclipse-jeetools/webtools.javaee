@@ -105,7 +105,7 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 
 			final IVirtualFolder webroot = c.getRootFolder();
 			if (webroot.getProjectRelativePath().equals(new Path("/"))){ //$NON-NLS-1$
-				Path configFolderPath = new Path("/" + model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER));  //$NON-NLS-1$
+				Path configFolderPath = new Path(model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER));
 				webroot.createLink(configFolderPath, 0, null); 
 				J2EEModuleVirtualComponent.setDefaultDeploymentDescriptorFolder(webroot, configFolderPath, null); 
 			}
