@@ -83,12 +83,11 @@ public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements
 			String configFolder = null;
 
 			configFolder = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER);
-			Path configFolderPath = new Path("/" + configFolder);   //$NON-NLS-1$
+			Path configFolderPath = new Path(configFolder);
 			ejbroot.createLink(configFolderPath, 0, null);
 			J2EEModuleVirtualComponent.setDefaultDeploymentDescriptorFolder(ejbroot, configFolderPath, null);
 
-			String ejbFolderName = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER);
-			IPath ejbFolderpath = pjpath.append(ejbFolderName);
+			IPath ejbFolderpath = pjpath.append(configFolder);
 
 			ejbFolder = ws.getRoot().getFolder(ejbFolderpath);
 
