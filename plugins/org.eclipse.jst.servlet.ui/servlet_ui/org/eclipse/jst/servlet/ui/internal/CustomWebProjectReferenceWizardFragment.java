@@ -109,5 +109,13 @@ public class CustomWebProjectReferenceWizardFragment extends ProjectReferenceWiz
 		getTaskModel().putObject(IReferenceWizardConstants.DEFAULT_LIBRARY_LOCATION, location);
 		super.performFinish(monitor);
 	}
+
+	public boolean isWebLib() {
+		return isWebLib;
+	}
+
+	public void setWebLib(boolean isWebLib) {
+		this.isWebLib = isWebLib;
+	}
 	
 }
