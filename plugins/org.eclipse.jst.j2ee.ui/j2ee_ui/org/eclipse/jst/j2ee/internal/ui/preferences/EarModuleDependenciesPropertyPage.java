@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2009 Red Hat, IBM
+ * Copyright (c) 2009, 2011 Red Hat, IBM
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -8,6 +8,7 @@
  * Contributors:
  *    Rob Stryker - initial implementation and ongoing maintenance
  *    Chuck Bridgham - additional support
+ *    Roberto Sanchez - Add Advanced section
  ******************************************************************************/
 package org.eclipse.jst.j2ee.internal.ui.preferences;
 
@@ -34,8 +35,10 @@ import org.eclipse.jst.j2ee.internal.componentcore.JavaEEModuleHandler;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.internal.ui.IJavaEEDeploymentAssemblySectionBuilder;
 import org.eclipse.jst.j2ee.internal.ui.J2EEModuleDependenciesPropertyPage.ClasspathEntryProxy;
 import org.eclipse.jst.j2ee.internal.ui.JavaEEComponentDependencyContentProvider;
+import org.eclipse.jst.j2ee.internal.ui.JavaEEDeploymentAssemblyAdvancedSectionBuilder;
 import org.eclipse.jst.j2ee.model.IEARModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.project.EarUtilities;
@@ -53,6 +56,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.wst.common.componentcore.internal.IModuleHandler;
 import org.eclipse.wst.common.componentcore.internal.impl.TaskModel;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
@@ -79,10 +83,12 @@ public class EarModuleDependenciesPropertyPage extends
 	private ControlDecoration libDirTextErrorDecoration = null;
 	private static String earDefaultLirDir = new Path(J2EEConstants.EAR_DEFAULT_LIB_DIR).makeRelative().toString();
 	boolean previousLibDirIsValid = true;
+	private IJavaEEDeploymentAssemblySectionBuilder advancedHelper;
 	
 	public EarModuleDependenciesPropertyPage(IProject project,
 			ModuleAssemblyRootPage page) {
 		super(project, page);
+		advancedHelper = getAdvancedSectionBuilder();
 	}
 	
 	@Override
@@ -93,6 +99,7 @@ public class EarModuleDependenciesPropertyPage extends
 		fillTableComposite(composite);
 		if(JavaEEProjectUtilities.isJEEComponent(rootComponent, JavaEEProjectUtilities.DD_VERSION) && JavaEEProjectUtilities.isJEEComponent(rootComponent, JavaEEProjectUtilities.FACET_VERSION))
 			addLibDirComposite(composite);
+		addAdvancedComposite(composite);
 	}
 
 	private String loadLibDirString() {
@@ -123,6 +130,7 @@ public class EarModuleDependenciesPropertyPage extends
 				public void modifyText(ModifyEvent e) {
 					libDirTextModified();
 				} });
+			new Label(parent, SWT.NONE); //Place holder to fill the second column 
 		}
 	}
 	
@@ -256,6 +264,8 @@ public class EarModuleDependenciesPropertyPage extends
 		boolean result = super.performOk();
 		if(JavaEEProjectUtilities.isJEEComponent(rootComponent, JavaEEProjectUtilities.DD_VERSION) && JavaEEProjectUtilities.isJEEComponent(rootComponent, JavaEEProjectUtilities.FACET_VERSION) && libDir != null)
 			updateLibDir();
+		if (advancedHelper != null)
+			result = result & advancedHelper.saveContents();
 		return result;
 	}
 	
@@ -325,6 +335,12 @@ public class EarModuleDependenciesPropertyPage extends
 	}
 	
 	@Override
+	protected void remove(Object selectedItem) {
+		super.remove(selectedItem);
+		advancedHelper.directiveRemoved(selectedItem);
+	}
+	
+	@Override
 	public IStatus validate() {
 		IStatus status = super.validate();
 		validatelibDirText();
@@ -334,6 +350,7 @@ public class EarModuleDependenciesPropertyPage extends
 				severity = Status.WARNING;	
 			status = appendStatusMessage(status, libDirTextErrorDecoration.getDescriptionText(), severity);
 		}
+		status = advancedHelper.validate(status);
 		return status;
 	}
 	
@@ -342,6 +359,8 @@ public class EarModuleDependenciesPropertyPage extends
 		libDir = loadLibDirString();
 		if(libDir != null)
 			libDirText.setText(libDir);
+		if (advancedHelper != null)
+			advancedHelper.loadContents();
 		super.performDefaults();
 	}
 	
@@ -398,5 +417,41 @@ public class EarModuleDependenciesPropertyPage extends
 				}
 			}
 		}
+		advancedHelper.directiveAdded(wizard.getTaskModel());
+	}
+	
+	protected void addAdvancedComposite(Composite parent) {
+		if (advancedHelper != null) {
+			advancedHelper.buildSection(parent);
+			advancedHelper.loadContents();
+		}
+	}
+	
+	protected IJavaEEDeploymentAssemblySectionBuilder getAdvancedSectionBuilder(){
+		if (advancedHelper == null){
+			advancedHelper = new JavaEEDeploymentAssemblyAdvancedSectionBuilder(rootComponent, this);
+		}
+		return advancedHelper;		
+	}
+	
+	@Override
+	protected RuntimePathCellModifier getRuntimePathCellModifier() {
+		return new AddModuleDependenciesPropertiesPage.RuntimePathCellModifier(){
+			@Override
+			public void modify(Object element, String property, Object value) {
+				ComponentResourceProxy originalResource = null;
+				ComponentResourceProxy modifiedResource = null;
+				if (property.equals(DEPLOY_PATH_PROPERTY)) {					
+					TreeItem item = (TreeItem) element;
+					if( item.getData() instanceof ComponentResourceProxy) {
+						modifiedResource = (ComponentResourceProxy)item.getData();
+						originalResource = new ComponentResourceProxy(modifiedResource.source, modifiedResource.runtimePath);						
+					}
+				}
+				super.modify(element, property, value);
+				if (originalResource != null && advancedHelper != null)
+					advancedHelper.componentResourceModified(originalResource, modifiedResource);
+			}	
+		};
 	}
 }
