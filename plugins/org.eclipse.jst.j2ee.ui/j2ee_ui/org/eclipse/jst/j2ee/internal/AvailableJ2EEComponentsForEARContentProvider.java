@@ -17,8 +17,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -141,20 +143,36 @@ public class AvailableJ2EEComponentsForEARContentProvider implements IStructured
 	}
 	
 	private boolean shouldShow(IVirtualComponent component) {
+		IPath p = null;
+		
 		if (!(component instanceof VirtualArchiveComponent)) 
 			return true;
 		
 		VirtualArchiveComponent comp = (VirtualArchiveComponent)component;
-		// First logic expression: workspace relative path will be null only if file doesn't exist or the path  has not more than one segment (is in root of workpsace)
-		// there's no point in showing it. Second logic expression: the first segment should be the current EAR, if not the component shouldn't be shown.
-		if(comp.getWorkspaceRelativePath() == null || !comp.getWorkspaceRelativePath().segment(0).equals(earComponent.getName()))
-			return false;
 		
-		IPath p = null;
-		try {
-			p = comp.getProjectRelativePath();
-		} catch (IllegalArgumentException e) {
-			return false;
+		// If getWorkspaceRelativePath() returns null it means whether the file doesn't exist or the method is misbehaving
+		// (This because we noticed that getWorkspaceRelativePath method returns path including ear when the jar 
+		// is "dragged and dropped" and doesn't include ear when it is imported and we didn't want to move the code there)
+		// then we try again but appending the ear name in the beginning.
+		if(comp.getWorkspaceRelativePath() != null ){
+			if(!comp.getWorkspaceRelativePath().segment(0).equals(earComponent.getName()))
+				// the first segment should be the current EAR, if not the component shouldn't be shown
+				return false;
+		}else{
+			IFile aFile = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(comp.getProject().getName() + IPath.SEPARATOR + comp.getName().substring(4)));
+			// First logic expression: workspace relative path will be null only if file doesn't exist or the path  has not more than one segment (is in root of workpsace)
+			if( aFile == null || ( aFile != null && !aFile.exists()) )
+				return false;
+			else
+				p = aFile.getProjectRelativePath();
+		}
+		
+		if (p == null){
+			try {
+				p = comp.getProjectRelativePath();
+			} catch (IllegalArgumentException e) {
+				return false;
+			}
 		}
 		
 		// If the path relative to the project is null it means that the file doesn't exist, component shouldn't be shown.

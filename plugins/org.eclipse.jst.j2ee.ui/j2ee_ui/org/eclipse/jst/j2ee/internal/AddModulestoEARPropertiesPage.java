@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.IWorkspaceRunnable;
@@ -1011,24 +1012,57 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 	}
 	
 	private boolean isPhysicallyAdded(VirtualArchiveComponent component) {
-		IPath p = null;
+		
+		VirtualArchiveComponent comp = (VirtualArchiveComponent)component;
+		
 		try {
-			if(component.getWorkspaceRelativePath() == null || !component.getWorkspaceRelativePath().segment(0).equals(earComponent.getName()))
-				return false;
-			p = component.getProjectRelativePath();
-			return true;
+			if(component.getWorkspaceRelativePath() != null){
+				if(!component.getWorkspaceRelativePath().segment(0).equals(earComponent.getName()))
+					return false;
+				else
+					return true;
+			}else{
+				IFile aFile = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(comp.getProject().getName() + IPath.SEPARATOR + comp.getName().substring(4)));
+				// First logic expression: workspace relative path will be null only if file doesn't exist or the path  has not more than one segment (is in root of workpsace)
+				if( aFile == null || ( aFile != null && !aFile.exists()) ){
+					return false;
+				}else{
+					if (aFile.getFullPath().segment(0).equals(earComponent.getName()))
+						return true;
+					else
+						return false;
+				}
+			}
 		} catch (IllegalArgumentException e) {
 			return false;
 		}
-	}		
+	}
 		
 	private boolean isInLibDir(VirtualArchiveComponent comp) {
+		String[] compPathSegs;
+		
 		// Get the content directory
 		int contentDirSegmentCount = earComponent.getRootFolder().getUnderlyingFolder().getProjectRelativePath().segmentCount();
 		
-		// Get segments of component's IPath
-		IPath p = comp.getProjectRelativePath();
-		String[] compPathSegs = p.segments();
+		if(comp.getWorkspaceRelativePath() != null){
+			// Get segments of component's IPath
+			IPath p = comp.getProjectRelativePath();
+			 compPathSegs = p.segments();
+		}else{
+			IFile aFile = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(comp.getProject().getName() + IPath.SEPARATOR + comp.getName().substring(4)));
+			// First logic expression: workspace relative path will be null only if file doesn't exist or the path  has not more than one segment (is in root of workpsace)
+			if( aFile == null || ( aFile != null && !aFile.exists()) ){
+				return false;
+			}else{
+				
+				if (aFile.getFullPath().segments().length > 1)
+				{
+					compPathSegs = aFile.getFullPath().removeFirstSegments(1).segments();
+				}
+				else
+					return false;
+			}
+		}
 		
 		// Get segments of the library directory of the current EAR
 		String strippedLibDir = stripSeparators(libDir);
@@ -1123,7 +1157,9 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 					}
 					boolean shouldBeDisabled = false;
 					if (element instanceof VirtualArchiveComponent) {
-						shouldBeDisabled = isPhysicallyAdded((VirtualArchiveComponent)element);
+						if (isPhysicallyAdded((VirtualArchiveComponent)element) && isInLibDir((VirtualArchiveComponent)element))
+							shouldBeDisabled = true;
+						
 						if (shouldBeDisabled) {
 							items[i].setChecked(true);
 							items[i].setGrayed(true);
