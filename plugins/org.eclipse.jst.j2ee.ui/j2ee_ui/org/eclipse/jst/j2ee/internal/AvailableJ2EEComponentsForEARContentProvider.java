@@ -11,6 +11,7 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +25,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
@@ -150,28 +152,32 @@ public class AvailableJ2EEComponentsForEARContentProvider implements IStructured
 		
 		VirtualArchiveComponent comp = (VirtualArchiveComponent)component;
 		
-		// If getWorkspaceRelativePath() returns null it means whether the file doesn't exist or the method is misbehaving
-		// (This because we noticed that getWorkspaceRelativePath method returns path including ear when the jar 
-		// is "dragged and dropped" and doesn't include ear when it is imported and we didn't want to move the code there)
-		// then we try again but appending the ear name in the beginning.
-		if(comp.getWorkspaceRelativePath() != null ){
-			if(!comp.getWorkspaceRelativePath().segment(0).equals(earComponent.getName()))
-				// the first segment should be the current EAR, if not the component shouldn't be shown
-				return false;
-		}else{
-			IFile aFile = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(comp.getProject().getName() + IPath.SEPARATOR + comp.getName().substring(4)));
-			// First logic expression: workspace relative path will be null only if file doesn't exist or the path  has not more than one segment (is in root of workpsace)
-			if( aFile == null || ( aFile != null && !aFile.exists()) )
-				return false;
-			else
-				p = aFile.getProjectRelativePath();
-		}
+		// The ear of the component must be the same as the ear's local variable 
+		if(!comp.getProject().getName().equals(earComponent.getName()))
+			return false;
 		
-		if (p == null){
+		//if the workspace relative path is null then it can mean that the file is not in the workspace or that the file doesn't exist.  
+		if (getComponentWorkspaceRelativePath(comp) != null){
 			try {
-				p = comp.getProjectRelativePath();
+				p = getComponentProjectRelativePath(comp);
 			} catch (IllegalArgumentException e) {
 				return false;
+			}
+		}else{
+			// Determine if archive is a lib archive or a variable
+			if (comp.getArchiveType().equals(VirtualArchiveComponent.LIBARCHIVETYPE)){
+			
+			// Check if component's name describes an absolute path, meaning that the file is outside workspace
+			Path bPath = new Path(component.getName().substring(4));
+			File bFile = bPath.toFile();
+			if(bFile.exists())
+				return true;
+			}else if (comp.getArchiveType().equals(VirtualArchiveComponent.VARARCHIVETYPE)){
+				
+				IPath resolvedPath= JavaCore.getResolvedVariablePath(new Path(component.getName().substring(4)));
+				java.io.File file = new java.io.File(resolvedPath.toOSString());
+				if( file.isFile() && file.exists())
+					return true;
 			}
 		}
 		
@@ -214,6 +220,37 @@ public class AvailableJ2EEComponentsForEARContentProvider implements IStructured
 			return true;
 		}
 		return false;
+	}
+	
+	/* This method only calls the getWorkspaceRelativePath of a VirtualArchiveComponent which is now deprecated, it returns inconsistent
+	 * values so needed shielding against those inconsistencies is needed.
+	 */
+	private IPath getComponentWorkspaceRelativePath(VirtualArchiveComponent component){
+		
+		if(component.getWorkspaceRelativePath() != null){
+			// Get segments of component's IPath
+			return component.getWorkspaceRelativePath();
+		}else{
+			IFile aFile = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(component.getProject().getName() + IPath.SEPARATOR + component.getName().substring(4)));
+			
+			// First logic expression: workspace relative path will be null only if file doesn't exist or the path  has not more than one segment (is in root of workpsace)
+			if( aFile == null || ( aFile != null && !aFile.exists()) )
+					return null;
+			else
+				return aFile.getFullPath();
+		}
+	}
+	// This method replaces the getProjectRelativePath method of the VirtualArchiveComponent which is now deprecated, it adds some shielding. 
+	private IPath getComponentProjectRelativePath(VirtualArchiveComponent component){
+		IPath CompWorkspaceRelPath = getComponentWorkspaceRelativePath(component);
+	
+		if (CompWorkspaceRelPath != null){
+			IFile aFile = ResourcesPlugin.getWorkspace().getRoot().getFile(CompWorkspaceRelPath);
+			if (aFile.exists())
+				return aFile.getProjectRelativePath();
+		}
+		
+		return null;
 	}
 	
 	// This method determines if the provided IPaths start with the same segments 

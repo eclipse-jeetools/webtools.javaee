@@ -465,8 +465,8 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 				IVirtualReference ref = oldrefs[j];
 				IVirtualComponent handle = ref.getReferencedComponent();
 				if(!j2eeComponentList.contains(handle) && (isVersion5 ? !j2eeLibElementList.contains(handle) : true)){
-					if ((handle instanceof VirtualArchiveComponent) && (isPhysicallyAdded((VirtualArchiveComponent)handle)))
-						continue;
+//					if ((handle instanceof VirtualArchiveComponent) && (isPhysicallyAdded((VirtualArchiveComponent)handle)))
+//						continue;
 					list.add(handle);
 				}
 			}
@@ -485,11 +485,11 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 			for (int j = 0; j < oldrefs.length; j++) {
 				IVirtualReference ref = oldrefs[j];
 				IVirtualComponent handle = ref.getReferencedComponent();
-				if (handle instanceof VirtualArchiveComponent) {
-					VirtualArchiveComponent comp = (VirtualArchiveComponent)handle;
-					if (isPhysicallyAdded(comp))
-						continue;
-				}
+//				if (handle instanceof VirtualArchiveComponent) {
+//					VirtualArchiveComponent comp = (VirtualArchiveComponent)handle;
+//					if (isPhysicallyAdded(comp))
+//						continue;
+//				}
 				if(!j2eeComponentList.contains(handle) && ref.getRuntimePath().isRoot()) {
 					list[0].add(handle);
 				}
@@ -1079,6 +1079,7 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 			return true;
 	}
 	
+	
 	/**
 	 * This method removes leading and ending separators from the given string wich is supposed to
 	 * contain a path
@@ -1157,9 +1158,10 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 					}
 					boolean shouldBeDisabled = false;
 					if (element instanceof VirtualArchiveComponent) {
-						if (isPhysicallyAdded((VirtualArchiveComponent)element) && isInLibDir((VirtualArchiveComponent)element))
+						if (isPhysicallyAdded((VirtualArchiveComponent)element) && (!isInComponentFile((IVirtualComponent)element)))
 							shouldBeDisabled = true;
-						
+						if(!shouldBeDisabled && isVersion5 && isInLibDir((VirtualArchiveComponent)element))							
+							shouldBeDisabled = true;		
 						if (shouldBeDisabled) {
 							items[i].setChecked(true);
 							items[i].setGrayed(true);
@@ -1191,7 +1193,20 @@ public class AddModulestoEARPropertiesPage implements IJ2EEDependenciesControl, 
 		buttonColumn.setLayoutData(btndata);
 
 	}
-
+	
+	
+	private boolean isInComponentFile(IVirtualComponent comp){
+		EARVirtualComponent earVirtualCompoent = (EARVirtualComponent) earComponent;
+		IVirtualReference [] existingRefs = earVirtualCompoent.getHardReferences();
+		for(int i=0;i<existingRefs.length;i++){
+			IVirtualComponent tempoCompo = existingRefs[i].getReferencedComponent();
+			if( tempoCompo.equals(comp)){
+				return true;
+			}			
+		}		
+		return false;		
+	}
+	
 	private boolean isConflict(Object lib) {
 		IProject libProj = (lib instanceof IProject) ? (IProject)lib : ((IVirtualComponent)lib).getProject(); 
 		IProject earProject = earComponent.getProject();	
