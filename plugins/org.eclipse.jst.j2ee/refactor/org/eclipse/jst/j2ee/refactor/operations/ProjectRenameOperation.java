@@ -108,8 +108,8 @@ public class ProjectRenameOperation extends ProjectRefactorOperation {
 		}
 		final IProject refactoredProject = refactoredMetadata.getProject();
 		String pType = JavaEEProjectUtilities.getJ2EEProjectType(refactoredProject);
-		if(IJ2EEFacetConstants.UTILITY.equals(pType) || "".equals(pType)) { //$NON-NLS-1$
-			// skip if a utility project (will not have a ModelProvider and checking logs an error
+		if(IJ2EEFacetConstants.UTILITY.equals(pType) || "".equals(pType) || IJ2EEFacetConstants.STATIC_WEB.equals(pType)) { //$NON-NLS-1$
+			// skip if a utility or static web project (will not have a ModelProvider and checking logs an error
 			return;
 		}
 		final IModelProvider model = ModelProviderManager.getModelProvider(refactoredProject);
