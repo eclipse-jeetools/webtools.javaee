@@ -16,14 +16,19 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPreferences;
 import org.eclipse.jst.j2ee.project.facet.J2EEFacetInstallDataModelProvider;
 import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
 import org.eclipse.osgi.util.NLS;
@@ -44,6 +49,23 @@ public class EarFacetInstallDataModelProvider extends J2EEFacetInstallDataModelP
 		if (propertyName.equals(FACET_ID)) {
 			return ENTERPRISE_APPLICATION;
 		} else if (propertyName.equals(CONTENT_DIR)) {
+			if (model.isPropertySet(FACET_PROJECT_NAME))
+			{
+				String projectName = model.getStringProperty(FACET_PROJECT_NAME);
+				IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
+				if (project.exists()) {
+					if (ModuleCoreNature.isFlexibleProject(project))
+					{
+						IVirtualComponent c = ComponentCore.createComponent(project, true);
+						IVirtualFolder ejbroot = c.getRootFolder();
+						IPath configFolderPath = J2EEModuleVirtualComponent.getDefaultDeploymentDescriptorFolder(ejbroot);
+						if (configFolderPath != null && project.getFolder(configFolderPath).exists())
+						{
+							return configFolderPath.toString();
+						}
+					}
+				}
+			}
 			return J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.APPLICATION_CONTENT_FOLDER);
 		} else if (propertyName.equals(J2EE_PROJECTS_LIST) || propertyName.equals(JAVA_PROJECT_LIST)) {
 			return Collections.EMPTY_LIST;

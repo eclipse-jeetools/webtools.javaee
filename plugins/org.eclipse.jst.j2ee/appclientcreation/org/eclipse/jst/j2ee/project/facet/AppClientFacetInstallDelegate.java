@@ -107,7 +107,7 @@ public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 		IFolder sourceFolder = null;
 		String configFolder = null;
 		configFolder = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER);
-		Path configFolderPath = new Path("/" + configFolder); //$NON-NLS-1$
+		Path configFolderPath = new Path(configFolder);
 		root.createLink(configFolderPath, 0, null); 
 		J2EEModuleVirtualComponent.setDefaultDeploymentDescriptorFolder(root, configFolderPath, null);
 		String configFolderName = model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER);

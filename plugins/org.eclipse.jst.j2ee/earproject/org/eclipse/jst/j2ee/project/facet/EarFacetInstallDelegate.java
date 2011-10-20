@@ -62,7 +62,7 @@ public final class EarFacetInstallDelegate implements IDelegate {
 			c.create(0, null);
 
 			final IVirtualFolder earroot = c.getRootFolder();
-			Path contentDirPath = new Path("/" + model.getStringProperty(IEarFacetInstallDataModelProperties.CONTENT_DIR)); //$NON-NLS-1$
+			Path contentDirPath = new Path(model.getStringProperty(IEarFacetInstallDataModelProperties.CONTENT_DIR));
 			earroot.createLink(contentDirPath, 0, null); 
 			J2EEModuleVirtualComponent.setDefaultDeploymentDescriptorFolder(earroot, contentDirPath, null); 
 
