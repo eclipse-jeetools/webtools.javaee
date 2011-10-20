@@ -1004,5 +1004,23 @@ public class MethodImpl extends EOperationImpl implements Method {
 	    return ECrossReferenceEList.createECrossReferenceEList(this);
 	  }
 
+		/**
+	   * <!-- begin-user-doc -->
+	   * <!-- end-user-doc -->
+	   */
+	public void setEType(EClassifier newEType)
+	{
+		EClassifier newContainer = newEType;
+		if (eType != null && newEType == null)
+		{
+			ReadAdaptor readAdaptor = getReadAdapter();
+			if (readAdaptor instanceof JavaReflectionAdaptor)
+			{
+				newContainer = ((JavaReflectionAdaptor)readAdaptor).createJavaClassRef(((JavaHelpers)eType).getJavaName());
+			}
+		}
+	    super.setEType(newContainer);
+	  }
+
 }
 
