@@ -52,8 +52,9 @@ public class AppClientFacetInstallDataModelProvider extends J2EEModuleFacetInsta
 			if (model.isPropertySet(FACET_PROJECT_NAME))
 			{
 				String projectName = model.getStringProperty(FACET_PROJECT_NAME);
-				IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
-				if (project.exists()) {
+				IProject project = (projectName.length() > 0) ? ResourcesPlugin.getWorkspace().getRoot().getProject(projectName) : null;
+				
+				if (project != null && project.exists()) {
 					if (ModuleCoreNature.isFlexibleProject(project))
 					{
 						IVirtualComponent c = ComponentCore.createComponent(project, true);
