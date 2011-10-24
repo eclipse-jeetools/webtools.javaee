@@ -171,8 +171,7 @@ public class JavaEEDeploymentAssemblyAdvancedSectionBuilder implements IJavaEEDe
 			if (fileToLook != null && !fileToLook.equals("")){ //$NON-NLS-1$
 				IFile ddFile = project.getFile(new Path(mapping).addTrailingSeparator() + fileToLook);
 				if (ddFile != null && ddFile.exists()){
-					mappingWithDD.add(mapping);
-					return new ArrayList<String>(mappingWithDD);
+					mappingWithDD.add(mapping);				
 				}
 			}
 			if (folderToLook != null && !folderToLook.equals("")){ //$NON-NLS-1$
@@ -181,6 +180,10 @@ public class JavaEEDeploymentAssemblyAdvancedSectionBuilder implements IJavaEEDe
 					mappingWithFolder.add(mapping);
 				}
 			}
+		}
+		if (!mappingWithDD.isEmpty()){
+			// return only the mappings that contain a DD file.
+			return new ArrayList<String>(mappingWithDD);
 		}
 		return  new ArrayList<String>(mappingWithFolder);
 	}
