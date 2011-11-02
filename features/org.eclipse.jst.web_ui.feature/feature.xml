@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.jst.web_ui.feature"
       label="%featureName"
-      version="3.3.1.qualifier"
+      version="3.4.0.qualifier"
       provider-name="%providerName"
       license-feature="org.eclipse.license"
       license-feature-version="1.0.0.qualifier">
@@ -18,7 +18,6 @@
    <license url="%licenseURL">
       %license
    </license>
-
 
    <includes
          id="org.eclipse.wst.ws_ui.feature"
