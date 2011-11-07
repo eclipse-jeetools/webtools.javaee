@@ -51,11 +51,6 @@ public class GroupServletMappingItemProvider extends AbstractWebGroupProvider{
 		return getServletMappingImage();
 	}
 
-	@Override
-	public boolean hasChildren() {
-		return !getChildren().isEmpty();
-	}
-
 	public static Image getServletMappingImage() {
 		if (SERVLETMAPPING == null) {
 			URL url = (URL) J2EEPlugin.getPlugin().getImage(JEEUIPluginIcons.SERVLET_MAPPING);

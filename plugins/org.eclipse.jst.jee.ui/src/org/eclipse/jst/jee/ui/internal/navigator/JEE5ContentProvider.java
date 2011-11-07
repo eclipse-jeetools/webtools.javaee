@@ -24,7 +24,6 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.viewers.AbstractTreeViewer;
 import org.eclipse.jface.viewers.ISelection;
@@ -37,6 +36,8 @@ import org.eclipse.jst.j2ee.model.IModelProviderEvent;
 import org.eclipse.jst.j2ee.model.IModelProviderListener;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.navigator.internal.EMFRootObjectProvider.IRefreshHandlerListener;
+import org.eclipse.jst.j2ee.navigator.internal.LoadingDDNode;
+import org.eclipse.jst.j2ee.navigator.internal.NonConflictingRule;
 import org.eclipse.jst.javaee.core.JavaEEObject;
 import org.eclipse.jst.javaee.ejb.EntityBean;
 import org.eclipse.jst.javaee.ejb.MessageDrivenBean;
@@ -89,8 +90,9 @@ public abstract class JEE5ContentProvider implements ITreeContentProvider, IRefr
 			if (!ModuleCoreNature.isFlexibleProject(project)){
 				return null;
 			}
-			provider = getNewContentProviderInstance(project);
-			groupContentProviders.put(project, provider);
+			provider = getLoadingNode(project); 
+//					getNewContentProviderInstance(project);
+//			groupContentProviders.put(project, provider);
 		} else {
 			try {
 				Object modelObject = ModelProviderManager.getModelProvider(project).getModelObject();
@@ -109,7 +111,20 @@ public abstract class JEE5ContentProvider implements ITreeContentProvider, IRefr
 		return provider;
 	}
 
-	protected abstract AbstractGroupProvider getNewContentProviderInstance(IProject project);
+	protected  abstract AbstractGroupProvider getNewContentProviderInstance(IProject project); 
+	
+	private AbstractGroupProvider getLoadingNode(IProject project){
+		LoadingDDNode placeHolder = LoadingDDNode.createPlaceHolder(project);
+		LoadingGroupProvider provider = new LoadingGroupProvider(placeHolder);
+		/*
+		 * we need to load the model; possible long running
+		 * operation
+		 */
+		if (LoadingDDNode.canBeginLoading(project))
+			new LoadingJeeDDJob(viewer, provider, project, this).schedule();
+		
+		return provider;
+	}
 
 
 	public void projectChanged(final IProject project) {
@@ -233,15 +248,7 @@ public abstract class JEE5ContentProvider implements ITreeContentProvider, IRefr
 						return Status.OK_STATUS;
 					}
 				};
-				ISchedulingRule rule = new ISchedulingRule() {
-					public boolean contains(ISchedulingRule rule) {
-						return rule == this;	
-					}
-					public boolean isConflicting(ISchedulingRule rule) {
-						return rule == this;
-					}
-				};
-				job.setRule(rule);
+				job.setRule(new NonConflictingRule());
 				job.schedule();
 			}
 		}
@@ -258,6 +265,11 @@ public abstract class JEE5ContentProvider implements ITreeContentProvider, IRefr
 			groupProvidersMap.remove(event.getResource());		
 		}
 
+	}
+
+	protected void registerProvider(IProject project, AbstractGroupProvider provider) {
+		groupContentProviders.put(project, provider);
+		
 	}
 
 }

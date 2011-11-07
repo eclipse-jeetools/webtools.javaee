@@ -116,11 +116,6 @@ public class GroupEARProvider extends AbstractEarGroupProvider implements IAdapt
 		return getEar50Image();
 	}
 
-	@Override
-	public boolean hasChildren() {
-		return !getChildren().isEmpty();
-	}
-	
 	public IFile getDDFile() {
 		if (ddFile != null){
 			return ddFile;

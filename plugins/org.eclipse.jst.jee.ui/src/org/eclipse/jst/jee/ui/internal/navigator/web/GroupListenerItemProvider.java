@@ -48,11 +48,6 @@ public class GroupListenerItemProvider extends AbstractWebGroupProvider{
 		return getListenersImage();
 	}
 
-	@Override
-	public boolean hasChildren() {
-		return !getChildren().isEmpty();
-	}
-
 	public static Image getListenersImage() {
 		if (LISTENER == null) {
 			URL url = (URL) J2EEPlugin.getPlugin().getImage(JEEUIPluginIcons.GROUP_LISTENER);

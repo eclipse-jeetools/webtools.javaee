@@ -1271,6 +1271,9 @@
            <instanceof
                  value="org.eclipse.jst.javaee.core.JavaEEObject">
            </instanceof>
+           <instanceof
+                 value="org.eclipse.jst.jee.ui.internal.navigator.appclient.GroupAppClientProvider">
+           </instanceof>
         </or>
      </triggerPoints>
      <possibleChildren>
@@ -1288,6 +1291,9 @@
                  </test>
               </or>
            </adapt>
+           <instanceof
+                 value="org.eclipse.jst.jee.ui.internal.navigator.appclient.GroupAppClientProvider">
+           </instanceof>
         </or>
      </possibleChildren>
   </navigatorContent>
