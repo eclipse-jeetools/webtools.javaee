@@ -50,11 +50,6 @@ public class GroupErrorPagesItemProvider extends AbstractWebGroupProvider{
         return getErrorPagesImage();
     }
 
-    @Override
-    public boolean hasChildren() {
-        return !getChildren().isEmpty();
-    }
-
     public static Image getErrorPagesImage() {
         if (ERROR_PAGES == null) {
             URL url = (URL) J2EEPlugin.getPlugin().getImage(JEEUIPluginIcons.GROUP_ERROR_PAGE);

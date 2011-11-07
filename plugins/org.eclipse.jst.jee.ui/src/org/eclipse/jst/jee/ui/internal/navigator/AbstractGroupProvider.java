@@ -30,7 +30,7 @@ public abstract class AbstractGroupProvider {
 
 	protected List children = new ArrayList<Object>();
 	protected JavaEEObject javaee;
-	protected  String text;
+	protected  String text = ""; //$NON-NLS-1$
 	protected boolean isValid = true;
 
 	public void setValid(boolean isValid) {
@@ -39,7 +39,10 @@ public abstract class AbstractGroupProvider {
 
 	public AbstractGroupProvider(JavaEEObject javaee) {
 		this.javaee = javaee;
-		text = NLS.bind(Messages.DEPLOYMENT_DESCRIPTOR, javaee.toString());
+		if (javaee != null){
+			text = NLS.bind(Messages.DEPLOYMENT_DESCRIPTOR, javaee.toString());	
+		}
+		
 	}
 
 	public abstract List getChildren();

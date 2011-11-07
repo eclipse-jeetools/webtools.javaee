@@ -69,12 +69,6 @@ public class GroupWelcomePagesItemProvider extends AbstractWebGroupProvider{
 		return getWelcomePagesImage();
 	}
 
-	@Override
-	public boolean hasChildren() {
-		List children2 = getChildren();
-		return children2 != null && !children2.isEmpty();
-	}
-
 	public static Image getWelcomePagesImage() {
 		if (WELCOME_PAGES == null) {
 			URL url = (URL) J2EEPlugin.getPlugin().getImage(JEEUIPluginIcons.GROUP_WELCOME_PAGES);

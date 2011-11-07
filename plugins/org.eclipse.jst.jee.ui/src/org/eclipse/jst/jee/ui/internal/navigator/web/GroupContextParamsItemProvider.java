@@ -48,11 +48,6 @@ public class GroupContextParamsItemProvider extends AbstractWebGroupProvider{
         return getContextParamsImage();
     }
 
-    @Override
-    public boolean hasChildren() {
-        return !getChildren().isEmpty();
-    }
-
     public static Image getContextParamsImage() {
         if (CONTEXT_PARAM_IMAGE == null) {
             URL url = (URL) J2EEPlugin.getPlugin().getImage(JEEUIPluginIcons.GROUP_CONTEXT_PARAM);

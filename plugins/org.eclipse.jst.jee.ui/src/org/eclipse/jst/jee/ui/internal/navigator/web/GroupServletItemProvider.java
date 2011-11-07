@@ -45,12 +45,6 @@ public class GroupServletItemProvider extends AbstractWebGroupProvider{
 	}
 
 	@Override
-	public boolean hasChildren() {
-		return !getChildren().isEmpty();
-	}
-
-
-	@Override
 	public Image getImage() {
 		return getServletImage();
 	}

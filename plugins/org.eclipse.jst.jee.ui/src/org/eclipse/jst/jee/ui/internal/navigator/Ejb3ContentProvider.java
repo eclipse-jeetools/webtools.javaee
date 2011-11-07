@@ -72,7 +72,7 @@ public class Ejb3ContentProvider extends JEE5ContentProvider {
 				.getAdapter(IPROJECT_CLASS);
 				if (project != null) {
 					if (isEjbModuleProject(project)) {
-						GroupEJBProvider root = (GroupEJBProvider) getCachedContentProvider(project);
+						AbstractGroupProvider root = getCachedContentProvider(project);
 						if (root != null) {
 							children.add(root);
 						}

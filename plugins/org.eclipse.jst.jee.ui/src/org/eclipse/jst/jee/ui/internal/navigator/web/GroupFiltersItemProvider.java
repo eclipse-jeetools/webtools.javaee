@@ -48,11 +48,6 @@ public class GroupFiltersItemProvider extends AbstractWebGroupProvider{
 		return getFiltersImage();
 	}
 
-	@Override
-	public boolean hasChildren() {
-		return !getChildren().isEmpty();
-	}
-
 	public static Image getFiltersImage() {
 		if (FILTER == null) {
 			URL url = (URL) J2EEPlugin.getPlugin().getImage(JEEUIPluginIcons.FILTER_MAPPING);
