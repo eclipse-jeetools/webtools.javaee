@@ -210,14 +210,17 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 		if (facetProj != null){
 			IRuntime runtime  = facetProj.getPrimaryRuntime();
 
-			for (IProjectFacet facet:fpjwc.getFixedProjectFacets()){
-				try {
-					IProjectFacetVersion facetVersion = facet.getLatestSupportedVersion(runtime);
-					if (facetVersion == null){
-						return false;
+			if (runtime != null)
+			{
+				for (IProjectFacet facet:fpjwc.getFixedProjectFacets()){
+					try {
+						IProjectFacetVersion facetVersion = facet.getLatestSupportedVersion(runtime);
+						if (facetVersion == null){
+							return false;
+						}
+					} catch (CoreException e) {
+						throw new RuntimeException( e );
 					}
-				} catch (CoreException e) {
-					throw new RuntimeException( e );
 				}
 			}
 		}
