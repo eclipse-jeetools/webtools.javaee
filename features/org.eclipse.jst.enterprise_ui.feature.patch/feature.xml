@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.jst.enterprise_ui.feature.patch"
       label="%featureName"
-      version="3.2.4.qualifier"
+      version="3.2.5.qualifier"
       provider-name="%providerName">
 
    <description>
@@ -18,18 +18,11 @@
    </license>
 
    <requires>
-      <import feature="org.eclipse.jst.enterprise_ui.feature" version="3.2.4.v201104201417-7b7HHfYFSK2WDvSHB0pTyNZ7TpYo" patch="true"/>
+      <import feature="org.eclipse.jst.enterprise_ui.feature" version="3.2.5.v201106132200-7b7HHfhFSK2WDz0QgGAnL3OZ-SoXo" patch="true"/>
    </requires>
 
-   <plugin
-         id="org.eclipse.jst.servlet.ui"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.jst.ws.jaxrs.ui"
+  <plugin
+         id="org.eclipse.jst.j2ee.ui"
          download-size="0"
          install-size="0"
          version="0.0.0"
