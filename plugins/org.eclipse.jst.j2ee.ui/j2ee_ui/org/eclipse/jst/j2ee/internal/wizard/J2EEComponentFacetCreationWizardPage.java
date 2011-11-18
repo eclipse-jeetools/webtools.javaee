@@ -21,6 +21,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.viewers.ISelection;
@@ -38,6 +39,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IFacetedProjectWorkingCopy;
 import org.eclipse.wst.common.project.facet.core.IProjectFacet;
+import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 import org.eclipse.wst.web.ui.internal.wizards.DataModelFacetCreationWizardPage;
@@ -112,8 +114,11 @@ public abstract class J2EEComponentFacetCreationWizardPage extends DataModelFace
     	//get the values from the selected EAR to restore.
     	IProject selectedEARProject = getSelectedEAR();
     	if (selectedEARProject != null){
-    		restoreEARName(selectedEARProject);
-    		restoreEARRuntime(selectedEARProject);
+    		IRuntime earRuntime = getTargetRuntime(selectedEARProject);
+    		if (runtimeSupportFacets(earRuntime)) {
+    			restoreEARName(selectedEARProject);
+    			restoreEARRuntime(selectedEARProject);
+    		}
     	} else{
     		restoreStoredLabelEARName();
     	}
@@ -136,8 +141,28 @@ public abstract class J2EEComponentFacetCreationWizardPage extends DataModelFace
     	IDialogSettings settings = getDialogSettings();
     	String earName = settings.get(STORE_LABEL);
         if (earName != null){
-        	setEarName(earName, true); //last ear created, old behavior
+        	IProject earProject = ResourcesPlugin.getWorkspace().getRoot().getProject(earName);
+        	if (earProject != null){
+        			setEarName(earName, true); //last ear created, old behavior
+        	}
         }
+    }
+    
+    private boolean runtimeSupportFacets(IRuntime runtime){
+    	 final IFacetedProjectWorkingCopy fpjwc
+	        = (IFacetedProjectWorkingCopy) this.model.getProperty( FACETED_PROJECT_WORKING_COPY );
+    	 
+    	 for (IProjectFacet facet:fpjwc.getFixedProjectFacets()){
+    		 try {
+				IProjectFacetVersion facetVersion = facet.getLatestSupportedVersion(runtime);
+				if (facetVersion == null){
+					return false;
+				}
+			} catch (CoreException e) {
+				 throw new RuntimeException( e );
+			}
+    	 }
+    	return true;
     }
 
 	/* Sets the EAR Name to the the J2ee model and model
