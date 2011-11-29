@@ -11,11 +11,13 @@
 package org.eclipse.jst.j2ee.internal.ejb.archiveoperations;
 
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
 import org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider;
+import org.eclipse.jst.common.project.facet.core.JavaFacet;
 import org.eclipse.jst.j2ee.ejb.archiveoperations.IEjbClientProjectCreationDataModelProperties;
 import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -23,11 +25,14 @@ import org.eclipse.jst.j2ee.project.facet.IJavaUtilityProjectCreationDataModelPr
 import org.eclipse.jst.j2ee.project.facet.IUtilityFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.JavaUtilityProjectCreationOperation;
 import org.eclipse.jst.j2ee.project.facet.UtilityProjectCreationDataModelProvider;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
+import org.eclipse.wst.common.componentcore.internal.ModulecorePlugin;
 import org.eclipse.wst.common.componentcore.internal.operation.FacetProjectCreationOperation;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 
 public class EjbClientProjectCreationOperation
@@ -85,6 +90,17 @@ public class EjbClientProjectCreationOperation
 			
 			utildm.setProperty( IUtilityFacetInstallDataModelProperties.FACET_RUNTIME, runtime );
 			dm.setProperty(UtilityProjectCreationDataModelProvider.FACET_RUNTIME, runtime);
+			
+			//Ensure Java DM has latest supported version
+			try {
+				IProjectFacetVersion oldVersion = (IProjectFacetVersion) javadm.getProperty(IFacetDataModelProperties.FACET_VERSION);
+				IProjectFacetVersion newVersion = JavaFacet.FACET.getLatestSupportedVersion(runtime);
+				if (newVersion != null && (oldVersion == null || oldVersion.getVersionString().compareTo(newVersion.getVersionString()) < 0 || !runtime.supports(oldVersion))) {
+					javadm.setProperty(IFacetDataModelProperties.FACET_VERSION, newVersion);
+				}
+			} catch (CoreException e) {
+				ModulecorePlugin.logError(e);
+			}
 	
 			FacetProjectCreationOperation op = new FacetProjectCreationOperation(dm);
 			try {
