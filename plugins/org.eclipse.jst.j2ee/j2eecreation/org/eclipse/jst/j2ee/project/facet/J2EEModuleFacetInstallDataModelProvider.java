@@ -47,6 +47,7 @@ import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IFacetedProjectWorkingCopy;
+import org.eclipse.wst.common.project.facet.core.IProjectFacet;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.common.project.facet.core.events.IFacetedProjectEvent;
@@ -108,7 +109,7 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 			if (model.isPropertySet(LAST_EAR_NAME)) {
 				IProject project = ProjectUtilities.getProject(getStringProperty(LAST_EAR_NAME));
 				for (int i = 0; i < descs.length; i++) {
-					if (project.exists() && project.isAccessible() && project.getName().equals(descs[i].getPropertyDescription())){
+					if (project.exists() && project.isAccessible() && project.getName().equals(descs[i].getPropertyDescription())&& hasValidRuntime(project)){
 						return project.getName();
 					}
 				}
@@ -117,7 +118,8 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 			if (descs.length > 0) {
 				DataModelPropertyDescriptor desc = descs[0];
 				String eARName = desc.getPropertyDescription();
-				if (eARName != null && !eARName.equals("")) { //$NON-NLS-1$
+				IProject project = ProjectUtilities.getProject(eARName);
+				if (eARName != null && !eARName.equals("") && hasValidRuntime(project)) { //$NON-NLS-1$
 					return eARName;
 				}
 				return getDataModel().getStringProperty(FACET_PROJECT_NAME) + "EAR"; //$NON-NLS-1$
@@ -155,7 +157,7 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 			IStatus status = validateEAR(model.getStringProperty(EAR_PROJECT_NAME));
 			if (status.isOK()) {
 				IProject project = ProjectUtilities.getProject(getStringProperty(EAR_PROJECT_NAME));
-				if (project.exists() && project.isAccessible() && JavaEEProjectUtilities.isEARProject(project)) {
+				if (project.exists() && project.isAccessible() && JavaEEProjectUtilities.isEARProject(project)&& hasValidRuntime(project)) {//Prevents a selection of an invalid runtime set on an EAR project				
 					try {
 						IFacetedProject facetProj = ProjectFacetsManager.create(project, false, new NullProgressMonitor());
 						setProperty(FACET_RUNTIME, facetProj.getRuntime());
@@ -193,6 +195,33 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 		}
 
 		return super.propertySet(propertyName, propertyValue);
+	}
+	
+	
+	private boolean hasValidRuntime(IProject project){
+		IFacetedProject facetProj = null;
+		try {
+			facetProj = ProjectFacetsManager.create(project, false, new NullProgressMonitor());
+		} catch (CoreException e1) {
+			org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e1);
+		}
+		if (facetProj != null){
+			IRuntime runtime  = facetProj.getPrimaryRuntime();
+			if(runtime != null)
+			{
+				for (IProjectFacet facet:fpjwc.getFixedProjectFacets()){
+					try {
+						IProjectFacetVersion facetVersion = facet.getLatestSupportedVersion(runtime);
+						if (facetVersion == null){
+							return false;
+						}
+					} catch (CoreException e) {
+						throw new RuntimeException( e );
+					}
+				}
+			}
+		}
+		return true;
 	}
 	
     private void handleProjectFacetsChanged()
