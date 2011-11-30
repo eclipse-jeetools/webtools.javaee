@@ -17,6 +17,10 @@ public class Messages extends NLS {
 	public static String J2EEModuleDependenciesPropertyPage_4;
 	public static String J2EEModuleDependenciesPropertyPage_5;
 	public static String J2EEModuleDependenciesPropertyPage_6;
+	public static String J2EEModuleDependenciesPropertyPage_ADVANCED;
+	public static String J2EEModuleDependenciesPropertyPage_ADVANCED_DDFOLDER;
+	public static String J2EEModuleDependenciesPropertyPage_ADVANCED_NODEFAULTDDFOLDER;
+	public static String J2EEModuleDependenciesPropertyPage_ADVANCED_NODEFAULTDDFOLDERWARNING;
 
 	static {
 		// initialize resource bundle

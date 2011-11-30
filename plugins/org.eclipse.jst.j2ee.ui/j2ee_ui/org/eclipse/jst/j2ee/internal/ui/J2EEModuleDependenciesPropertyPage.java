@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2009 Red Hat and Others
+ * Copyright (c) 2009, 2011 Red Hat and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  *    Rob Stryker - initial implementation and ongoing maintenance
  *    Chuck Bridgham - additional support
  *    Konstantin Komissarchik - misc. UI cleanup
+ *    Roberto Sanchez - Add Advanced section
  ******************************************************************************/
 package org.eclipse.jst.j2ee.internal.ui;
 
@@ -37,6 +38,9 @@ import org.eclipse.jst.j2ee.internal.componentcore.JavaEEModuleHandler;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.wst.common.componentcore.internal.IModuleHandler;
 import org.eclipse.wst.common.componentcore.internal.impl.TaskModel;
@@ -52,10 +56,13 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 
 public class J2EEModuleDependenciesPropertyPage extends
 		AddModuleDependenciesPropertiesPage {
+	
+	private IJavaEEDeploymentAssemblySectionBuilder advancedHelper;
 
 	public J2EEModuleDependenciesPropertyPage(IProject project,
 			ModuleAssemblyRootPage page) {
 		super(project, page);
+		advancedHelper = getAdvancedSectionBuilder();
 	}
 	
 	public class ClasspathEntryProxy {
@@ -73,6 +80,15 @@ public class J2EEModuleDependenciesPropertyPage extends
 		super.initialize();
 		resetClasspathEntries();
 	}
+	
+	@Override
+	protected void createTableComposite(Composite parent) {
+		Composite composite = new Composite(parent, SWT.NONE);
+		GridData gData = new GridData(GridData.FILL_BOTH);
+		composite.setLayoutData(gData);
+		fillTableComposite(composite);		
+		addAdvancedComposite(composite);
+	}
 
 	private void resetClasspathEntries() {
 		originalClasspathEntries.clear();
@@ -86,6 +102,8 @@ public class J2EEModuleDependenciesPropertyPage extends
 	@Override
 	public void performDefaults() {
 		resetClasspathEntries();
+		if (advancedHelper != null)
+			advancedHelper.loadContents();
 		super.performDefaults();
 	}
 	
@@ -127,6 +145,8 @@ public class J2EEModuleDependenciesPropertyPage extends
 		} else {
 			super.remove(selectedItem);
 		}
+		if (advancedHelper != null)
+			advancedHelper.directiveRemoved(selectedItem);
 	}
 	
 	@Override
@@ -197,8 +217,14 @@ public class J2EEModuleDependenciesPropertyPage extends
 
 			@Override
 			public void modify(Object element, String property, Object value) {
-				if (property.equals(DEPLOY_PATH_PROPERTY)) {
+				ComponentResourceProxy originalResource = null;
+				ComponentResourceProxy modifiedResource = null;
+				if (property.equals(DEPLOY_PATH_PROPERTY)) {					
 					TreeItem item = (TreeItem) element;
+					if( item.getData() instanceof ComponentResourceProxy) {
+						modifiedResource = (ComponentResourceProxy)item.getData();
+						originalResource = new ComponentResourceProxy(modifiedResource.source, modifiedResource.runtimePath);						
+					}
 					if(item.getData() instanceof ClasspathEntryProxy){
 						TreeItem[] components = availableComponentsViewer.getTree().getItems();
 						int tableIndex = -1;
@@ -222,6 +248,8 @@ public class J2EEModuleDependenciesPropertyPage extends
 					}
 				}
 				super.modify(element, property, value);
+				if (originalResource != null && advancedHelper != null)
+					advancedHelper.componentResourceModified(originalResource, modifiedResource);
 			}
 		};
 	}
@@ -313,6 +341,8 @@ public class J2EEModuleDependenciesPropertyPage extends
 		{
 			super.handleAddDirective(wizard);
 		}
+		if (advancedHelper != null)
+			advancedHelper.directiveAdded(wizard.getTaskModel());
 	}
 	
 	@Override
@@ -325,8 +355,32 @@ public class J2EEModuleDependenciesPropertyPage extends
 		ArrayList<ComponentResourceProxy> allMappings = new ArrayList<ComponentResourceProxy>();
 		allMappings.addAll(resourceMappings);
 		allMappings.addAll(hiddenMappings);
-		
-		return J2EEModuleDeploymentAssemblyVerifierHelper.verify(rootComponent, runtime, currentReferences, allMappings,resourceMappingsChanged, currentClasspathEntries);
+		IStatus status = J2EEModuleDeploymentAssemblyVerifierHelper.verify(rootComponent, runtime, currentReferences, allMappings,resourceMappingsChanged, currentClasspathEntries);
+		if (advancedHelper != null)
+			status = advancedHelper.validate(status); 
+		return status; 
+	}
+	
+	protected void addAdvancedComposite(Composite parent) {
+		if (advancedHelper != null) {
+			advancedHelper.buildSection(parent);
+			advancedHelper.loadContents();
+		}
+	}
+	
+	@Override
+	public boolean performOk() {
+		boolean result = super.performOk();
+		if (advancedHelper != null)
+			result = result & advancedHelper.saveContents();
+		return result;
+	}
+	
+	protected IJavaEEDeploymentAssemblySectionBuilder getAdvancedSectionBuilder(){
+		if (advancedHelper == null){
+			advancedHelper = new JavaEEDeploymentAssemblyAdvancedSectionBuilder(rootComponent, this);
+		}
+		return advancedHelper;		
 	}
 
 //	
