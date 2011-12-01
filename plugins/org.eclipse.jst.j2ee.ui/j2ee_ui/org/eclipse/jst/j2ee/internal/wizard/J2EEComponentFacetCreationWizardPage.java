@@ -152,15 +152,17 @@ public abstract class J2EEComponentFacetCreationWizardPage extends DataModelFace
     	 final IFacetedProjectWorkingCopy fpjwc
 	        = (IFacetedProjectWorkingCopy) this.model.getProperty( FACETED_PROJECT_WORKING_COPY );
     	 
-    	 for (IProjectFacet facet:fpjwc.getFixedProjectFacets()){
-    		 try {
-				IProjectFacetVersion facetVersion = facet.getLatestSupportedVersion(runtime);
-				if (facetVersion == null){
-					return false;
+    	 if(runtime != null){
+	    	 for (IProjectFacet facet:fpjwc.getFixedProjectFacets()){
+	    		 try {
+					IProjectFacetVersion facetVersion = facet.getLatestSupportedVersion(runtime);
+					if (facetVersion == null){
+						return false;
+					}
+				} catch (CoreException e) {
+					 throw new RuntimeException( e );
 				}
-			} catch (CoreException e) {
-				 throw new RuntimeException( e );
-			}
+	    	 }
     	 }
     	return true;
     }
