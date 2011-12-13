@@ -259,16 +259,6 @@ public class UIEarValidator extends EarValidator {
 								isJavaEEFiveProject = J2EEProjectUtilities.isJEEProject(earRefedProj);
 							}
 							
-							if(isJavaEEFiveProject) {
-								 //HACK: this is normally done by the call to super.validateInJob but in this case we are purposely avoiding that call
-								_reporter = inReporter;
-								
-								String[] params = {earProj.getName(), referencedComponenet.getName()};
-								String msg = NLS.bind(EARValidationMessageResourceHandler.JEE5_PROJECT_REFERENCED_BY_PRE_JEE5_EAR, params);
-								addLocalizedWarning(msg,earProj);
-							
-							}
-							
 							//if any referenced project is a JEE 5 project then ear is mixed
 							if(!isMixedEAR) {
 								isMixedEAR = isJavaEEFiveProject;
