@@ -45,6 +45,7 @@ public class EjbFacetInstallDataModelProvider
 		names.add(CLIENT_NAME);
 		names.add(CLIENT_SOURCE_FOLDER);
 		names.add(CLIENT_URI);
+		names.add(ALLOW_EJB_CLIENT);
 		return names;
 	}
 	
@@ -123,7 +124,7 @@ public class EjbFacetInstallDataModelProvider
 		} else if (CLIENT_URI.equals(propertyName)) {
 			return getBooleanProperty(CREATE_CLIENT);
 		} else if (CREATE_CLIENT.equals(propertyName)) {
-			return getBooleanProperty(ADD_TO_EAR);
+			return getBooleanProperty(ADD_TO_EAR)|| getBooleanProperty(ALLOW_EJB_CLIENT);
 		} else if (GENERATE_DD.equals(propertyName)) {
 			return !getBooleanProperty(CREATE_CLIENT);
 		}
@@ -181,6 +182,10 @@ public class EjbFacetInstallDataModelProvider
 					model.notifyPropertyChange(CONFIG_FOLDER, IDataModel.DEFAULT_CHG);
 				}
 		}
+        else if (ALLOW_EJB_CLIENT.equals(propertyName))
+        {
+        	model.notifyPropertyChange(CREATE_CLIENT, IDataModel.DEFAULT_CHG);
+        }
 
 		return status;
 	}	

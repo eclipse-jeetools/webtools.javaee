@@ -97,11 +97,13 @@ public class EjbFacetPostInstallDelegate extends J2EEFacetInstallDelegate implem
 										moduleURI,
 										monitor );
 				}
-
+			}
+			final boolean createClient = model.getBooleanProperty(IEjbFacetInstallDataModelProperties.CREATE_CLIENT);
+			if (createClient)
+			{
 				// Create the Ejb Client View
-				final boolean createClient = model.getBooleanProperty(IEjbFacetInstallDataModelProperties.CREATE_CLIENT);
 				String clientProjectName = (String) model.getProperty(IEjbFacetInstallDataModelProperties.CLIENT_NAME);
-				if (createClient && clientProjectName != null && clientProjectName != "") { //$NON-NLS-1$
+				if (clientProjectName != null && clientProjectName != "") { //$NON-NLS-1$
 					IProject ejbClientProject = ProjectUtilities.getProject(clientProjectName);
 					if (ejbClientProject.exists())
 						return;
