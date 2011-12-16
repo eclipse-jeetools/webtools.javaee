@@ -26,6 +26,7 @@ import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.archive.ArchiveWrapper;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
+import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleManager;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
@@ -107,28 +108,33 @@ public final class WebComponentImportDataModelProvider extends J2EEComponentImpo
 				for (ArchiveWrapper libWrapper : libs) {
 					IDataModel localModel = null;
 					JavaEEQuickPeek jqp = libWrapper.getJavaEEQuickPeek();
-					if(jqp.getType() == JavaEEQuickPeek.WEBFRAGMENT_TYPE){
-						localModel = DataModelFactory.createDataModel(new J2EEArtifactImportDataModelProvider(){
+					if (jqp.getType() == JavaEEQuickPeek.WEBFRAGMENT_TYPE){
+							localModel = DataModelFactory.createDataModel(new J2EEArtifactImportDataModelProvider(){
 
-							@Override
-							protected IDataModel createJ2EEComponentCreationDataModel() {
-								return DataModelFactory.createDataModel(new WebFragmentFacetProjectCreationDataModelProvider());
-							}
+										@Override
+										protected IDataModel createJ2EEComponentCreationDataModel() {
+											return DataModelFactory.createDataModel(new WebFragmentFacetProjectCreationDataModelProvider());
+										}
 							
-							@Override
-							public IDataModelOperation getDefaultOperation() {
-								return new J2EEUtilityJarImportOperationNew(model);
-							}
+										@Override
+										public IDataModelOperation getDefaultOperation() {
+											return new J2EEUtilityJarImportOperationNew(model);
+										}
 
-							@Override
-							protected int getType() {
-								return 0;
-							}
-							
-						});
-					} else {
-						localModel = DataModelFactory.createDataModel(new J2EEUtilityJarImportDataModelProvider());
-					}
+										@Override
+										protected int getType() {
+											return 0;
+										}							
+									});
+					}		
+					else{
+						if (jqp.getType() == JavaEEQuickPeek.EJB_TYPE && EarModuleManager.hasEJBModuleExtension()){							
+							localModel = EarModuleManager.getEJBModuleExtension().createImportDataModel();							
+						}
+						else{
+							localModel = DataModelFactory.createDataModel(new J2EEUtilityJarImportDataModelProvider());
+						}
+					}																	
 					localModel.setProperty(ARCHIVE_WRAPPER, libWrapper);
 					localModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME, getProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME));
 					IDataModel facetDataModel = localModel.getNestedModel(IJ2EEComponentImportDataModelProperties.NESTED_MODEL_J2EE_COMPONENT_CREATION);
