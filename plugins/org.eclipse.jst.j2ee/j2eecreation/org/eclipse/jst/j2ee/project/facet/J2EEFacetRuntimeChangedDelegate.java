@@ -12,9 +12,11 @@
 package org.eclipse.jst.j2ee.project.facet;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
@@ -91,9 +93,12 @@ public final class J2EEFacetRuntimeChangedDelegate
             // Compile the list of projects referenced by this project.
             final Set<IProject> childProjects = new HashSet<IProject>();
             
-            final IVirtualComponent projectVC = ComponentCore.createComponent( project );
-            final IVirtualReference[] vrefs = projectVC.getReferences();
+            final IVirtualComponent projectVC = ComponentCore.createComponent( project );                       
             
+            Map<String, Object> options = new HashMap<String, Object>();
+            options.put(IVirtualComponent.REQUESTED_REFERENCE_TYPE, IVirtualComponent.HARD_REFERENCES);
+            final IVirtualReference[] vrefs = projectVC.getReferences(options);
+                       	            
             for( int i = 0; i < vrefs.length; i++ ) {
                 final IVirtualReference vref = vrefs[ i ];
                 final IVirtualComponent vc = vref.getReferencedComponent();
