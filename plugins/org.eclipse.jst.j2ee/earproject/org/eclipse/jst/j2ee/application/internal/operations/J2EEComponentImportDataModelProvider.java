@@ -54,7 +54,9 @@ public abstract class J2EEComponentImportDataModelProvider extends J2EEArtifactI
 		IProjectFacetVersion javaFacetVersion = null;
 		IRuntime runtime = (IRuntime)getProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME);
 		if(runtime != null){
-			if(runtime.supports(JavaFacet.VERSION_1_6)){
+			if(runtime.supports(JavaFacet.VERSION_1_7)){
+				javaFacetVersion = JavaFacet.VERSION_1_7;
+			} else if(runtime.supports(JavaFacet.VERSION_1_6)){
 				javaFacetVersion = JavaFacet.VERSION_1_6;
 			} else if(runtime.supports(JavaFacet.VERSION_1_5)){
 				javaFacetVersion = JavaFacet.VERSION_1_5;
