@@ -57,6 +57,12 @@ public class JavaEERefactoringParticipant extends DeleteParticipant {
 		if(ejbClientProject != null){
 			
 			result = createChangeObjects (result, ejbClientProject);
+			if (result == null){ 
+				// This means no other project (including EAR project) is referencing the 
+				// ejb client project. But we still want to be able to delete the project,
+				// so we create a new CompositeChange
+				result = new CompositeChange(getName());
+			}
 			DeleteEJBClientProjectChange dc= new DeleteEJBClientProjectChange(ejbClientProject, true, true);
 			result.add(dc);
 		}
