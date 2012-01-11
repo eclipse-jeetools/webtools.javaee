@@ -93,10 +93,13 @@ public class EjbClientProjectCreationOperation
 			
 			//Ensure Java DM has latest supported version
 			try {
-				IProjectFacetVersion oldVersion = (IProjectFacetVersion) javadm.getProperty(IFacetDataModelProperties.FACET_VERSION);
-				IProjectFacetVersion newVersion = JavaFacet.FACET.getLatestSupportedVersion(runtime);
-				if (newVersion != null && (oldVersion == null || oldVersion.getVersionString().compareTo(newVersion.getVersionString()) < 0 || !runtime.supports(oldVersion))) {
-					javadm.setProperty(IFacetDataModelProperties.FACET_VERSION, newVersion);
+				if (runtime != null)
+				{
+					IProjectFacetVersion oldVersion = (IProjectFacetVersion) javadm.getProperty(IFacetDataModelProperties.FACET_VERSION);
+					IProjectFacetVersion newVersion = JavaFacet.FACET.getLatestSupportedVersion(runtime);
+					if (newVersion != null && (oldVersion == null || oldVersion.getVersionString().compareTo(newVersion.getVersionString()) < 0 || !runtime.supports(oldVersion))) {
+						javadm.setProperty(IFacetDataModelProperties.FACET_VERSION, newVersion);
+					}
 				}
 			} catch (CoreException e) {
 				ModulecorePlugin.logError(e);
