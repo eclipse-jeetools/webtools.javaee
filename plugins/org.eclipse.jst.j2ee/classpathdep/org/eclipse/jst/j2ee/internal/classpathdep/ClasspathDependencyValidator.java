@@ -81,10 +81,9 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 		final IProject proj = ((ClasspathDependencyValidatorHelper) helper).getProject();
 		
 		try {
-			if (proj.isAccessible() 
-			    && proj.hasNature(ModuleCoreNature.MODULE_NATURE_ID)
-			    && proj.hasNature(JavaCoreLite.NATURE_ID)) {
-			    
+			if (ModuleCoreNature.isFlexibleProject(proj)
+					&& proj.hasNature(JavaCoreLite.NATURE_ID)) {
+			
 				final boolean isWebApp = JavaEEProjectUtilities.isDynamicWebProject(proj);
 			    final IVirtualComponent component = ComponentCore.createComponent(proj);
 			    final boolean isLegacyJ2EE = JavaEEProjectUtilities.isLegacyJ2EEComponent(component);
