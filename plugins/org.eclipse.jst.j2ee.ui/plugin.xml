@@ -10,6 +10,7 @@
 	<extension-point id="JavaEEPreferencePageExtender" 
 	 name="JavaEEPreferencePage"
 	 schema="schema/JavaEEPreferencePageExtender.exsd"/>
+ <extension-point id="newJavaEEActionFilter" name="newJavaEEActionFilter" schema="schema/newjavaeeactionfilter.exsd"/>
 	 	 
 <!--================================-->
 <!-- Project Wizard Contributions   -->

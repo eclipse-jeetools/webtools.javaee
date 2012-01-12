@@ -248,7 +248,7 @@ public abstract class NewJavaEEDropDownAction extends Action implements IMenuCre
 		if (extensionPoint != null) {
 			IConfigurationElement[] elements = extensionPoint.getConfigurationElements();
 			for (IConfigurationElement element : elements) {
-				if (element.getName().equals(TAG_WIZARD) && isJavaEEProjectWizard(element)) {
+				if (element.getName().equals(TAG_WIZARD) && isJavaEEProjectWizard(element) && !isFiltered(element)) {
 					containers.add(new NewJavaEEWizardAction(element));
 				}
 			}
@@ -259,6 +259,13 @@ public abstract class NewJavaEEDropDownAction extends Action implements IMenuCre
 		return actions; 
 	}
 		
+	private boolean isFiltered(IConfigurationElement element) {
+		//This checks if a filter is registered, and will skip creating an action if found
+		String id = element.getAttribute("id"); //$NON-NLS-1$
+		return NewJavaEEActionFilterExtensionPoint.hasFilter(id);
+		
+	}
+
 	protected boolean isJavaEEProjectWizard(IConfigurationElement element) {
 		IConfigurationElement[] classElements = element.getChildren(TAG_CLASS);
 		if (classElements.length > 0) {
