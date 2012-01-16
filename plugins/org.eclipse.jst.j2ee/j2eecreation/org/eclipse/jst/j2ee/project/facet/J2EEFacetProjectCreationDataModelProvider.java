@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2005, 2012 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -23,6 +23,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.datamodel.FacetProjectCreationDataModelProvider;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
@@ -192,6 +193,8 @@ public class J2EEFacetProjectCreationDataModelProvider extends FacetProjectCreat
 					String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.SAME_MODULE_AND_EAR_NAME_DIFFERENT_CASE, new Object[]{getStringProperty(EAR_PROJECT_NAME)});
 					return WTPCommonPlugin.createErrorStatus(errorMessage);
 				}
+			}else if (EAR_PROJECT_NAME.equals(propertyName)){
+				return validateEAR(model.getStringProperty(EAR_PROJECT_NAME));
 			}
 		}
 		return super.validate(propertyName);
@@ -210,11 +213,14 @@ public class J2EEFacetProjectCreationDataModelProvider extends FacetProjectCreat
 		//check for the deleted case, the project is deleted from the workspace but still exists in the
 		//file system.
 		if( status.isOK()){
-			IProject earProject = ProjectUtilities.getProject(getStringProperty(EAR_PROJECT_NAME));
-			if( !earProject.exists() ){
-				IPath path = ResourcesPlugin.getWorkspace().getRoot().getLocation();
-				path = path.append(earName);
-				status = ProjectCreationDataModelProviderNew.validateExisting(earName, path.toOSString());
+			IProject earProject = ResourcesPlugin.getWorkspace().getRoot().getProject(getStringProperty(EAR_PROJECT_NAME));
+			if(!earProject.exists()){
+					IPath path = ResourcesPlugin.getWorkspace().getRoot().getLocation();
+					path = path.append(earName);
+					status = ProjectCreationDataModelProviderNew.validateExisting(earName, path.toOSString());
+			}else if(!JavaEEProjectUtilities.isEARProject(earProject)){
+				String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.EAR_NAME_USED_BY_NON_EAR_PROJECT);
+				return WTPCommonPlugin.createErrorStatus(errorMessage);
 			}
 		}
 		return status;
