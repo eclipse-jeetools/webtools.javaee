@@ -213,7 +213,7 @@ public class J2EEFacetProjectCreationDataModelProvider extends FacetProjectCreat
 		//check for the deleted case, the project is deleted from the workspace but still exists in the
 		//file system.
 		if( status.isOK()){
-			IProject earProject = ResourcesPlugin.getWorkspace().getRoot().getProject(getStringProperty(EAR_PROJECT_NAME));//ProjectUtilities.getProject(getStringProperty(EAR_PROJECT_NAME));
+			IProject earProject = ResourcesPlugin.getWorkspace().getRoot().getProject(getStringProperty(EAR_PROJECT_NAME));
 			if(!earProject.exists()){
 					IPath path = ResourcesPlugin.getWorkspace().getRoot().getLocation();
 					path = path.append(earName);
