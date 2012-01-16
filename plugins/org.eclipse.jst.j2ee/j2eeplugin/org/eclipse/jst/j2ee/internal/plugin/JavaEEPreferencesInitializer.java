@@ -117,6 +117,15 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 	     * @since 3.2
 	     */
 		static final String EE6_CONNECTOR_GENERATE_DD = "ee6_connector_generate_dd"; //$NON-NLS-1$
+		
+		/**
+		 * Used to determine if the business interface annotations should be added to the bean class during EJB creation. 
+		 */
+		static final String EJB_BUSINESS_INTERFACE_ANNOTATION_IN_BEAN = IProductConstants.EJB_BUSINESS_INTERFACE_ANNOTATION_IN_BEAN;
+		/**
+		 * Used to determine if the business interface annotations should be to the business interfaces during EJB creation. 
+		 */
+		static final String EJB_BUSINESS_INTERFACE_ANNOTATION_IN_INTERFACE = IProductConstants.EJB_BUSINESS_INTERFACE_ANNOTATION_IN_INTERFACE;
 
 	}
 
@@ -170,6 +179,8 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 		public static final boolean BOOLEAN_DEFAULT_DEFAULT = false;
 		final static boolean DYNAMIC_WEB_GENERATE_DD = false;
 		final static boolean EE6_CONNECTOR_GENERATE_DD = false;
+		final static boolean EJB_BUSINESS_INTERFACE_ANNOTATION_IN_BEAN = false;
+		final static boolean EJB_BUSINESS_INTERFACE_ANNOTATION_IN_INTERFACE = true;
 	}
 	
 	@Override
@@ -230,7 +241,15 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 		node.put(Keys.DYN_WEB_OUTPUT_FOLDER, getDynamicWebDefaultOuputFolderName());
 		node.put(Keys.APP_CLIENT_OUTPUT_FOLDER,  getAppClientDefaultOutputFolderName() );
 		node.put(Keys.EJB_OUTPUT_FOLDER, getEJBDefaultOutputFolderName() );
-		node.put(Keys.JCA_OUTPUT_FOLDER, getJCADefaultOutputFolderName() );	
+		node.put(Keys.JCA_OUTPUT_FOLDER, getJCADefaultOutputFolderName() );
+		
+		String ejbBusinessInterfaceAnnotationInBean = ProductManager.getProperty(IProductConstants.EJB_BUSINESS_INTERFACE_ANNOTATION_IN_BEAN);
+		boolean  ejbBusinessInterfaceAnnotationInBeanDefault = (ejbBusinessInterfaceAnnotationInBean != null )? Boolean.parseBoolean(ejbBusinessInterfaceAnnotationInBean) : Defaults.EJB_BUSINESS_INTERFACE_ANNOTATION_IN_BEAN;
+		node.putBoolean(Keys.EJB_BUSINESS_INTERFACE_ANNOTATION_IN_BEAN, ejbBusinessInterfaceAnnotationInBeanDefault);
+		
+		String ejbBusinessInterfaceAnnotationInInterface = ProductManager.getProperty(IProductConstants.EJB_BUSINESS_INTERFACE_ANNOTATION_IN_INTERFACE);
+		boolean  ejbBusinessInterfaceAnnotationInInterfaceDefault = (ejbBusinessInterfaceAnnotationInInterface != null )? Boolean.parseBoolean(ejbBusinessInterfaceAnnotationInInterface) : Defaults.EJB_BUSINESS_INTERFACE_ANNOTATION_IN_INTERFACE;
+		node.putBoolean(Keys.EJB_BUSINESS_INTERFACE_ANNOTATION_IN_INTERFACE, ejbBusinessInterfaceAnnotationInInterfaceDefault);
 		}
 
 	
