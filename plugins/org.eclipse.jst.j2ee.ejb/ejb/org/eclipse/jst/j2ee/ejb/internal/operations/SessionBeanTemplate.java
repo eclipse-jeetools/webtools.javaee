@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2011 SAP AG and others.
+ * Copyright (c) 2007, 2012 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -40,14 +40,14 @@ public class SessionBeanTemplate
   protected final String TEXT_14 = "\""; //$NON-NLS-1$
   protected final String TEXT_15 = ")"; //$NON-NLS-1$
   protected final String TEXT_16 = NL + "@TransactionManagement(TransactionManagementType.BEAN)"; //$NON-NLS-1$
-  protected final String TEXT_17 = NL + "@Local( { "; //$NON-NLS-1$
+  protected final String TEXT_17 = NL + "@Local("; //$NON-NLS-1$
   protected final String TEXT_18 = ", "; //$NON-NLS-1$
   protected final String TEXT_19 = ".class"; //$NON-NLS-1$
-  protected final String TEXT_20 = " })"; //$NON-NLS-1$
-  protected final String TEXT_21 = NL + "@Remote( { "; //$NON-NLS-1$
+  protected final String TEXT_20 = ")"; //$NON-NLS-1$
+  protected final String TEXT_21 = NL + "@Remote("; //$NON-NLS-1$
   protected final String TEXT_22 = ", "; //$NON-NLS-1$
   protected final String TEXT_23 = ".class"; //$NON-NLS-1$
-  protected final String TEXT_24 = " })"; //$NON-NLS-1$
+  protected final String TEXT_24 = ")"; //$NON-NLS-1$
   protected final String TEXT_25 = NL + "@LocalBean"; //$NON-NLS-1$
   protected final String TEXT_26 = NL + "@LocalHome("; //$NON-NLS-1$
   protected final String TEXT_27 = ".class)"; //$NON-NLS-1$
@@ -62,15 +62,15 @@ public class SessionBeanTemplate
   protected final String TEXT_36 = ", "; //$NON-NLS-1$
   protected final String TEXT_37 = " {"; //$NON-NLS-1$
   protected final String TEXT_38 = NL + NL + "    /**" + NL + "     * Default constructor. " + NL + "     */" + NL + "    public "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-  protected final String TEXT_39 = "() {" + NL + "        // TODO Auto-generated constructor stub" + NL + "    }";  //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$
+  protected final String TEXT_39 = "() {" + NL + "        // TODO Auto-generated constructor stub" + NL + "    }"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
   protected final String TEXT_40 = NL + "       " + NL + "    /**" + NL + "     * @see "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
   protected final String TEXT_41 = "#"; //$NON-NLS-1$
   protected final String TEXT_42 = "("; //$NON-NLS-1$
   protected final String TEXT_43 = ")" + NL + "     */" + NL + "    public "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
   protected final String TEXT_44 = "("; //$NON-NLS-1$
   protected final String TEXT_45 = ") {" + NL + "        super("; //$NON-NLS-1$ //$NON-NLS-2$
-  protected final String TEXT_46 = ");" + NL + "        // TODO Auto-generated constructor stub" + NL + "    }";  //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$
-  protected final String TEXT_47 = NL + NL + "\t/**" + NL + "     * @see ";  //$NON-NLS-1$//$NON-NLS-2$
+  protected final String TEXT_46 = ");" + NL + "        // TODO Auto-generated constructor stub" + NL + "    }"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+  protected final String TEXT_47 = NL + NL + "\t/**" + NL + "     * @see "; //$NON-NLS-1$ //$NON-NLS-2$
   protected final String TEXT_48 = "#"; //$NON-NLS-1$
   protected final String TEXT_49 = "("; //$NON-NLS-1$
   protected final String TEXT_50 = ")" + NL + "     */" + NL + "    public "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
@@ -152,10 +152,22 @@ public class SessionBeanTemplate
     
 	}
 
-	List<BusinessInterface> localInterfaces = model.getExistingLocalBusinessInterfaces();
+	List<BusinessInterface> localInterfaces = null;
+	if (model.addBusinessAnnotationToBeanClass()){
+		localInterfaces = model.getLocalBusinessInterfaces();
+	}
+	else {
+		localInterfaces = model.getExistingLocalBusinessInterfaces();
+	}
 	if (!localInterfaces.isEmpty()) {
+		String open = "", close = ""; //$NON-NLS-1$ //$NON-NLS-2$
+		if (localInterfaces.size() > 1){
+			open = "{"; //$NON-NLS-1$
+			close = "}"; //$NON-NLS-1$
+		}
 
     stringBuffer.append(TEXT_17);
+    stringBuffer.append( open );
     
 		boolean needComma = false;
 		for (BusinessInterface iface : localInterfaces) {
@@ -171,14 +183,27 @@ public class SessionBeanTemplate
 			needComma = true;
  		}
 
+    stringBuffer.append( close );
     stringBuffer.append(TEXT_20);
     
 	}
 
-	List<BusinessInterface> remoteInterfaces = model.getExistingRemoteBusinessInterfaces();
+	List<BusinessInterface> remoteInterfaces = null;
+	if (model.addBusinessAnnotationToBeanClass()){
+		remoteInterfaces = model.getRemoteBusinessInterfaces();
+	}
+	else{
+		remoteInterfaces = model.getExistingRemoteBusinessInterfaces();
+	}
 	if (!remoteInterfaces.isEmpty()) {
+		String open = "", close = ""; //$NON-NLS-1$ //$NON-NLS-2$
+		if (remoteInterfaces.size() > 1){
+			open = "{"; //$NON-NLS-1$
+			close = "}"; //$NON-NLS-1$
+		}
 
     stringBuffer.append(TEXT_21);
+    stringBuffer.append( open );
     
 		boolean needComma = false;
 		for (BusinessInterface iface : remoteInterfaces) {
@@ -194,6 +219,7 @@ public class SessionBeanTemplate
 			needComma = true;
 		}
 
+    stringBuffer.append( close );
     stringBuffer.append(TEXT_24);
     
 	}

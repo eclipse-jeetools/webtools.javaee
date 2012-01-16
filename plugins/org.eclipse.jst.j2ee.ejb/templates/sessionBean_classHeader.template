@@ -30,10 +30,21 @@
 <%
 	}
 
-	List<BusinessInterface> localInterfaces = model.getExistingLocalBusinessInterfaces();
+	List<BusinessInterface> localInterfaces = null;
+	if (model.addBusinessAnnotationToBeanClass()){
+		localInterfaces = model.getLocalBusinessInterfaces();
+	}
+	else {
+		localInterfaces = model.getExistingLocalBusinessInterfaces();
+	}
 	if (!localInterfaces.isEmpty()) {
+		String open = "", close = "";
+		if (localInterfaces.size() > 1){
+			open = "{";
+			close = "}";
+		}
 %>
-@Local( { 
+@Local(<%= open %>
 <%
 		boolean needComma = false;
 		for (BusinessInterface iface : localInterfaces) {
@@ -45,14 +56,25 @@
 <%
 			needComma = true;
  		}
-%> })
+%><%= close %>)
 <%
 	}
 
-	List<BusinessInterface> remoteInterfaces = model.getExistingRemoteBusinessInterfaces();
+	List<BusinessInterface> remoteInterfaces = null;
+	if (model.addBusinessAnnotationToBeanClass()){
+		remoteInterfaces = model.getRemoteBusinessInterfaces();
+	}
+	else{
+		remoteInterfaces = model.getExistingRemoteBusinessInterfaces();
+	}
 	if (!remoteInterfaces.isEmpty()) {
+		String open = "", close = "";
+		if (remoteInterfaces.size() > 1){
+			open = "{";
+			close = "}";
+		}
 %>
-@Remote( { 
+@Remote(<%= open %>
 <%
 		boolean needComma = false;
 		for (BusinessInterface iface : remoteInterfaces) {
@@ -64,7 +86,7 @@
 <%
 			needComma = true;
 		}
-%> })
+%><%= close %>)
 <%
 	}
 	

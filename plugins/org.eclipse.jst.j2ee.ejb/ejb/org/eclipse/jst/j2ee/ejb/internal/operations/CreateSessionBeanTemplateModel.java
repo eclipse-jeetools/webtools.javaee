@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2008 SAP AG and others.
+ * Copyright (c) 2007, 2012 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  * Kaloyan Raev, kaloyan.raev@sap.com - initial API and implementation
+ * Roberto Sanchez, rsanchez@mx1.ibm.com - Add remote and local annotations to bean class 
  *******************************************************************************/
 package org.eclipse.jst.j2ee.ejb.internal.operations;
 
@@ -89,11 +90,22 @@ public class CreateSessionBeanTemplateModel extends
 		}
 		
 		List<BusinessInterface> interfaces = getBusinessInterfaces();
-		for (BusinessInterface iface : interfaces) {
-			if (iface.isLocal() && iface.exists()) {
-				collection.add(QUALIFIED_LOCAL);
-			} else if (iface.isRemote() && iface.exists()) { 
-				collection.add(QUALIFIED_REMOTE);
+		if (addBusinessAnnotationToBeanClass()){
+			for (BusinessInterface iface : interfaces) {
+				if (iface.isLocal()) {
+					collection.add(QUALIFIED_LOCAL);
+				} else if (iface.isRemote()) { 
+					collection.add(QUALIFIED_REMOTE);
+				}
+			}
+		}
+		else {
+			for (BusinessInterface iface : interfaces) {
+				if (iface.isLocal() && iface.exists()) {
+					collection.add(QUALIFIED_LOCAL);
+				} else if (iface.isRemote() && iface.exists()) { 
+					collection.add(QUALIFIED_REMOTE);
+				}
 			}
 		}
 		
@@ -134,12 +146,36 @@ public class CreateSessionBeanTemplateModel extends
 		return (List<BusinessInterface>) dataModel.getProperty(INTERFACES);
 	}
 	
+	public List<BusinessInterface> getLocalBusinessInterfaces() {
+		List<BusinessInterface> result = new ArrayList<BusinessInterface>();
+		
+		List<BusinessInterface> interfaces = getBusinessInterfaces();
+		for (BusinessInterface iface : interfaces) {
+			if (iface.isLocal())
+				result.add(iface);
+		}
+		
+		return result;
+	}
+	
 	public List<BusinessInterface> getExistingLocalBusinessInterfaces() {
 		List<BusinessInterface> result = new ArrayList<BusinessInterface>();
 		
 		List<BusinessInterface> interfaces = getBusinessInterfaces();
 		for (BusinessInterface iface : interfaces) {
 			if (iface.isLocal() && iface.exists())
+				result.add(iface);
+		}
+		
+		return result;
+	}
+	
+	public List<BusinessInterface> getRemoteBusinessInterfaces() {
+		List<BusinessInterface> result = new ArrayList<BusinessInterface>();
+		
+		List<BusinessInterface> interfaces = getBusinessInterfaces();
+		for (BusinessInterface iface : interfaces) {
+			if (iface.isRemote())
 				result.add(iface);
 		}
 		
@@ -264,5 +300,17 @@ public class CreateSessionBeanTemplateModel extends
 
 	public void setRemoteComponentClassName(String remoteComponentClassName) {
 		this.remoteComponentClassName = remoteComponentClassName;
+	}
+	
+	public boolean addBusinessAnnotationToBeanClass(){
+		String prop = dataModel.getStringProperty(BUSINESS_INTERFACE_ANNOTATION_LOCATION);
+		return (prop.equals(BusinessInterfaceAnnotationLocationType.BEAN_CLASS_ONLY.toString()) ||
+				prop.equals(BusinessInterfaceAnnotationLocationType.BEAN_CLASS_AND_INTERFACE.toString()));	
+	}
+	
+	public boolean addBusinessAnnotationToInterface(){
+		String prop = dataModel.getStringProperty(BUSINESS_INTERFACE_ANNOTATION_LOCATION);
+		return (prop.equals(BusinessInterfaceAnnotationLocationType.INTERFACE_ONLY.toString()) ||
+				prop.equals(BusinessInterfaceAnnotationLocationType.BEAN_CLASS_AND_INTERFACE.toString()));	
 	}
 }

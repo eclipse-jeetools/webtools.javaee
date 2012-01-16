@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2011 SAP AG and others.
+ * Copyright (c) 2007, 2012 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -23,9 +23,11 @@ public class RemoteBusinessInterfaceTemplate
   public final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl; //$NON-NLS-1$
   protected final String TEXT_1 = "package "; //$NON-NLS-1$
   protected final String TEXT_2 = ";"; //$NON-NLS-1$
-  protected final String TEXT_3 = NL + "import javax.ejb.Remote;" + NL + "" + NL + "@Remote" + NL + "public interface "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-  protected final String TEXT_4 = " {" + NL + "" + NL + "}"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-  protected final String TEXT_5 = NL;
+  protected final String TEXT_3 = NL;
+  protected final String TEXT_4 = NL + "import javax.ejb.Remote;" + NL + "" + NL + "@Remote"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+  protected final String TEXT_5 = NL + "public interface "; //$NON-NLS-1$
+  protected final String TEXT_6 = " {" + NL + "" + NL + "}"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+  protected final String TEXT_7 = NL;
 
   public String generate(Object argument)
   {
@@ -41,9 +43,17 @@ public class RemoteBusinessInterfaceTemplate
 	}
 
     stringBuffer.append(TEXT_3);
-    stringBuffer.append(model.getBusinessInterfaceClassName());
+    
+	if (model.addBusinessAnnotationToInterface()) {
+
     stringBuffer.append(TEXT_4);
+    
+	}
+
     stringBuffer.append(TEXT_5);
+    stringBuffer.append(model.getBusinessInterfaceClassName());
+    stringBuffer.append(TEXT_6);
+    stringBuffer.append(TEXT_7);
     return stringBuffer.toString();
   }
 }

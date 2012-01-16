@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2008 SAP AG and others.
+ * Copyright (c) 2007, 2012 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  * Kaloyan Raev, kaloyan.raev@sap.com - initial API and implementation
+ * Roberto Sanchez, rsanchez@mx1.ibm.com - Add remote and local annotations to bean class
  *******************************************************************************/
 package org.eclipse.jst.j2ee.ejb.internal.operations;
 
@@ -22,6 +23,7 @@ import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassD
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.REMOTE_HOME;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.REMOTE_HOME_INTERFACE;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.STATE_TYPE;
+import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.BUSINESS_INTERFACE_ANNOTATION_LOCATION;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.CLASS_NAME;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.INTERFACES;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.JAVA_PACKAGE;
@@ -49,6 +51,7 @@ import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBCreationResourceHandler;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.osgi.util.NLS;
@@ -58,6 +61,7 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
+import org.eclipse.wst.project.facet.IProductConstants;
 
 public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClassDataModelProvider {
 
@@ -97,6 +101,7 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 		propertyNames.add(LOCAL_HOME_INTERFACE);
 		propertyNames.add(LOCAL_COMPONENT_INTERFACE);
 		propertyNames.add(REMOTE_COMPONENT_INTERFACE);
+		propertyNames.add(BUSINESS_INTERFACE_ANNOTATION_LOCATION);
 
 		return propertyNames;
 	}
@@ -166,6 +171,19 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 		{
 			String className = getStringProperty(QUALIFIED_CLASS_NAME);
 			return className + REMOTE_COMPONENT_SUFFIX;
+		}
+		else if (BUSINESS_INTERFACE_ANNOTATION_LOCATION.equals(propertyName))
+		{
+			boolean inInterface = J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(IProductConstants.EJB_BUSINESS_INTERFACE_ANNOTATION_IN_INTERFACE);
+			boolean inBean = J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(IProductConstants.EJB_BUSINESS_INTERFACE_ANNOTATION_IN_BEAN);
+			if (inInterface && inBean){
+				return BusinessInterfaceAnnotationLocationType.BEAN_CLASS_AND_INTERFACE.toString();
+			}
+			if (inBean){
+				return BusinessInterfaceAnnotationLocationType.BEAN_CLASS_ONLY.toString();
+			}
+			return BusinessInterfaceAnnotationLocationType.INTERFACE_ONLY.toString();
+			
 		}
 		// Otherwise check super for default value for property
 		return super.getDefaultProperty(propertyName);

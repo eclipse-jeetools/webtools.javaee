@@ -9,9 +9,16 @@ package <%=model.getBusinessInterfaceJavaPackageName()%>;
 <%
 	}
 %>
+
+<%
+	if (model.addBusinessAnnotationToInterface()) {
+%>
 import javax.ejb.Local;
 
 @Local
+<%
+	}
+%>
 public interface <%=model.getBusinessInterfaceClassName()%> {
 
 }

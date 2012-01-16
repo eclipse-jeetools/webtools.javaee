@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2008 SAP AG and others.
+ * Copyright (c) 2007, 2012 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  * Kaloyan Raev, kaloyan.raev@sap.com - initial API and implementation
+ * Roberto Sanchez, rsanchez@mx1.ibm.com - Add remote and local annotations to bean class
  *******************************************************************************/
 package org.eclipse.jst.j2ee.ejb.internal.operations;
 
@@ -66,5 +67,7 @@ public interface INewSessionBeanClassDataModelProperties extends INewEnterpriseB
 	 * @see StateType
 	 */
 	public static final String STATE_TYPE = "INewSessionBeanClassDataModelProperties.STATE_TYPE"; //$NON-NLS-1$
+	
+	public static final String BUSINESS_INTERFACE_ANNOTATION_LOCATION = "INewSessionBeanClassDataModelProperties.BUSINESS_INTERFACE_ANNOTATION_LOCATION"; //$NON-NLS-1$
 	
 }
