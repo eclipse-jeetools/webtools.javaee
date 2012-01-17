@@ -1,3 +1,14 @@
+/*******************************************************************************
+ * Copyright (c) 2009, 2012 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/
+
 package org.eclipse.jst.j2ee.internal.plugin;
 
 
@@ -117,6 +128,25 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 	     * @since 3.2
 	     */
 		static final String EE6_CONNECTOR_GENERATE_DD = "ee6_connector_generate_dd"; //$NON-NLS-1$
+		
+		/**
+		 * Used to determine if the business interface annotations should be added to the bean class during EJB creation. 
+		 */
+		static final String EJB_BUSINESS_INTERFACE_ANNOTATION_IN_BEAN = IProductConstants.EJB_BUSINESS_INTERFACE_ANNOTATION_IN_BEAN;
+		/**
+		 * Used to determine if the business interface annotations should be to the business interfaces during EJB creation. 
+		 */
+		static final String EJB_BUSINESS_INTERFACE_ANNOTATION_IN_INTERFACE = IProductConstants.EJB_BUSINESS_INTERFACE_ANNOTATION_IN_INTERFACE;
+		
+		/**
+		 * Indicates a suffix that should be used for the package of all the interfaces when creating session beans.
+		 * For example, if the qualified bean class name is com.test.Bean1, and the value of #EJB_INTERFACE_PACKAGE_SUFFIX is 
+		 * test2, then the default local business interface name will be com.test.test2.Bean1Local 
+		 * Default value is an empty string.  
+		 */
+		static final String EJB_INTERFACE_PACKAGE_SUFFIX = IProductConstants.EJB_INTERFACE_PACKAGE_SUFFIX;
+
+		
 
 	}
 
@@ -170,6 +200,8 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 		public static final boolean BOOLEAN_DEFAULT_DEFAULT = false;
 		final static boolean DYNAMIC_WEB_GENERATE_DD = false;
 		final static boolean EE6_CONNECTOR_GENERATE_DD = false;
+		final static boolean EJB_BUSINESS_INTERFACE_ANNOTATION_IN_BEAN = false;
+		final static boolean EJB_BUSINESS_INTERFACE_ANNOTATION_IN_INTERFACE = true;
 	}
 	
 	@Override
@@ -230,7 +262,17 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 		node.put(Keys.DYN_WEB_OUTPUT_FOLDER, getDynamicWebDefaultOuputFolderName());
 		node.put(Keys.APP_CLIENT_OUTPUT_FOLDER,  getAppClientDefaultOutputFolderName() );
 		node.put(Keys.EJB_OUTPUT_FOLDER, getEJBDefaultOutputFolderName() );
-		node.put(Keys.JCA_OUTPUT_FOLDER, getJCADefaultOutputFolderName() );	
+		node.put(Keys.JCA_OUTPUT_FOLDER, getJCADefaultOutputFolderName() );
+		
+		String ejbBusinessInterfaceAnnotationInBean = ProductManager.getProperty(IProductConstants.EJB_BUSINESS_INTERFACE_ANNOTATION_IN_BEAN);
+		boolean  ejbBusinessInterfaceAnnotationInBeanDefault = (ejbBusinessInterfaceAnnotationInBean != null )? Boolean.parseBoolean(ejbBusinessInterfaceAnnotationInBean) : Defaults.EJB_BUSINESS_INTERFACE_ANNOTATION_IN_BEAN;
+		node.putBoolean(Keys.EJB_BUSINESS_INTERFACE_ANNOTATION_IN_BEAN, ejbBusinessInterfaceAnnotationInBeanDefault);
+		
+		String ejbBusinessInterfaceAnnotationInInterface = ProductManager.getProperty(IProductConstants.EJB_BUSINESS_INTERFACE_ANNOTATION_IN_INTERFACE);
+		boolean  ejbBusinessInterfaceAnnotationInInterfaceDefault = (ejbBusinessInterfaceAnnotationInInterface != null )? Boolean.parseBoolean(ejbBusinessInterfaceAnnotationInInterface) : Defaults.EJB_BUSINESS_INTERFACE_ANNOTATION_IN_INTERFACE;
+		node.putBoolean(Keys.EJB_BUSINESS_INTERFACE_ANNOTATION_IN_INTERFACE, ejbBusinessInterfaceAnnotationInInterfaceDefault);
+		
+		node.put(Keys.EJB_INTERFACE_PACKAGE_SUFFIX, ProductManager.getProperty(IProductConstants.EJB_INTERFACE_PACKAGE_SUFFIX));
 		}
 
 	
