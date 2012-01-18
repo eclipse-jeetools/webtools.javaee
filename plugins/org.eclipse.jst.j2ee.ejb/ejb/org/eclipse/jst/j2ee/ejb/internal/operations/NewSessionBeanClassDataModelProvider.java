@@ -8,6 +8,7 @@
  * Contributors:
  * Kaloyan Raev, kaloyan.raev@sap.com - initial API and implementation
  * Roberto Sanchez, rsanchez@mx1.ibm.com - Add remote and local annotations to bean class
+ * Roberto Sanchez, rsanchez@mx1.ibm.com - Allow adopter to change default value of package for interfaces
  *******************************************************************************/
 package org.eclipse.jst.j2ee.ejb.internal.operations;
 
@@ -144,33 +145,39 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 			}
 			return listResult;
 		}
-		else if (REMOTE_BUSINESS_INTERFACE.equals(propertyName)) {
-			String className = getStringProperty(QUALIFIED_CLASS_NAME);
-			return className + ((className != null && className.length() > 0) ? REMOTE_SUFFIX : ""); //$NON-NLS-1$
-		}
+		else if (REMOTE_BUSINESS_INTERFACE.equals(propertyName)) {		
+			String className = getStringProperty(QUALIFIED_CLASS_NAME);			
+			String packageSuffix = J2EEPlugin.getDefault().getJ2EEPreferences().getString(IProductConstants.EJB_INTERFACE_PACKAGE_SUFFIX);
+			return buildInterfaceName(className, REMOTE_SUFFIX, packageSuffix);
+ 		}
 		else if (LOCAL_BUSINESS_INTERFACE.equals(propertyName)) {
 			String className = getStringProperty(QUALIFIED_CLASS_NAME);
-			return className + ((className != null && className.length() > 0) ? LOCAL_SUFFIX : ""); //$NON-NLS-1$
+			String packageSuffix = J2EEPlugin.getDefault().getJ2EEPreferences().getString(IProductConstants.EJB_INTERFACE_PACKAGE_SUFFIX);
+			return buildInterfaceName(className, LOCAL_SUFFIX, packageSuffix);
 		}
 		else if (REMOTE_HOME_INTERFACE.equals(propertyName))
 		{
 			String className = getStringProperty(QUALIFIED_CLASS_NAME);
-			return className + REMOTE_HOME_SUFFIX;
+			String packageSuffix = J2EEPlugin.getDefault().getJ2EEPreferences().getString(IProductConstants.EJB_INTERFACE_PACKAGE_SUFFIX);
+			return buildInterfaceName(className, REMOTE_HOME_SUFFIX, packageSuffix);
 		}
 		else if (LOCAL_HOME_INTERFACE.equals(propertyName))
 		{
 			String className = getStringProperty(QUALIFIED_CLASS_NAME);
-			return className + LOCAL_HOME_SUFFIX;
+			String packageSuffix = J2EEPlugin.getDefault().getJ2EEPreferences().getString(IProductConstants.EJB_INTERFACE_PACKAGE_SUFFIX);
+			return buildInterfaceName(className, LOCAL_HOME_SUFFIX, packageSuffix);
 		}
 		else if (LOCAL_COMPONENT_INTERFACE.equals(propertyName))
 		{
 			String className = getStringProperty(QUALIFIED_CLASS_NAME);
-			return className + LOCAL_COMPONENT_SUFFIX;
+			String packageSuffix = J2EEPlugin.getDefault().getJ2EEPreferences().getString(IProductConstants.EJB_INTERFACE_PACKAGE_SUFFIX);
+			return buildInterfaceName(className, LOCAL_COMPONENT_SUFFIX, packageSuffix);
 		}
 		else if (REMOTE_COMPONENT_INTERFACE.equals(propertyName))
 		{
 			String className = getStringProperty(QUALIFIED_CLASS_NAME);
-			return className + REMOTE_COMPONENT_SUFFIX;
+			String packageSuffix = J2EEPlugin.getDefault().getJ2EEPreferences().getString(IProductConstants.EJB_INTERFACE_PACKAGE_SUFFIX);
+			return buildInterfaceName(className, REMOTE_COMPONENT_SUFFIX, packageSuffix);
 		}
 		else if (BUSINESS_INTERFACE_ANNOTATION_LOCATION.equals(propertyName))
 		{
@@ -189,6 +196,27 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 		return super.getDefaultProperty(propertyName);
 	}
 
+	
+	private String buildInterfaceName(final String qualifiedBeanClassName, final String interfaceSuffix,
+			final String interfacePackageSuffix) {
+
+		boolean usePackageSuffix = (interfacePackageSuffix != null  && interfacePackageSuffix.length() > 0);
+		String interfaceName = qualifiedBeanClassName + ((qualifiedBeanClassName != null && qualifiedBeanClassName.length() > 0) ? interfaceSuffix : ""); //$NON-NLS-1$	
+
+		if (!usePackageSuffix || interfaceName.equals("")){ //$NON-NLS-1$
+			return interfaceName;
+		}
+		StringBuffer buf = new StringBuffer(interfaceName);
+
+		int index = buf.lastIndexOf("."); //$NON-NLS-1$
+		if (index == -1){
+			return buf.insert(0, interfacePackageSuffix + ".").toString(); //$NON-NLS-1$
+		}
+		return buf.insert(index, "." + interfacePackageSuffix).toString(); //$NON-NLS-1$
+	}
+		
+
+	
 	/**
 	 * Subclasses may extend this method to add their own specific behavior when a certain property
 	 * in the data model hierarchy is set. This method does not accept null for the property name,
