@@ -10,7 +10,9 @@
  *******************************************************************************/
 package org.eclipse.jst.common.internal.modulecore;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,15 +27,16 @@ import org.eclipse.jst.common.internal.modulecore.SingleRootUtil.SingleRootCallb
 import org.eclipse.wst.common.componentcore.internal.DependencyType;
 import org.eclipse.wst.common.componentcore.internal.flat.AbstractFlattenParticipant;
 import org.eclipse.wst.common.componentcore.internal.flat.ChildModuleReference;
+import org.eclipse.wst.common.componentcore.internal.flat.FlatFile;
 import org.eclipse.wst.common.componentcore.internal.flat.FlatFolder;
 import org.eclipse.wst.common.componentcore.internal.flat.FlatResource;
+import org.eclipse.wst.common.componentcore.internal.flat.FlatVirtualComponent.FlatComponentTaskModel;
 import org.eclipse.wst.common.componentcore.internal.flat.IChildModuleReference;
 import org.eclipse.wst.common.componentcore.internal.flat.IFlatFile;
 import org.eclipse.wst.common.componentcore.internal.flat.IFlatFolder;
 import org.eclipse.wst.common.componentcore.internal.flat.IFlatResource;
 import org.eclipse.wst.common.componentcore.internal.flat.IFlattenParticipant;
 import org.eclipse.wst.common.componentcore.internal.flat.VirtualComponentFlattenUtility;
-import org.eclipse.wst.common.componentcore.internal.flat.FlatVirtualComponent.FlatComponentTaskModel;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
@@ -47,6 +50,7 @@ public class SingleRootExportParticipant extends AbstractFlattenParticipant {
 	private FlatComponentTaskModel dataModel;
 	private IFlattenParticipant[] delegates;
 	private List<IChildModuleReference> children;
+	private IFlatResource[] moduleResources = null;
 	
 	public interface SingleRootParticipantCallback extends SingleRootCallback {
 		public IFlattenParticipant[] getDelegateParticipants();
@@ -94,13 +98,14 @@ public class SingleRootExportParticipant extends AbstractFlattenParticipant {
 			initializeDelegates();
 			
 			IContainer container = new SingleRootUtil(component, callbackHandler).getSingleRoot();
-			IFlatResource[] mr = getMembers(resources, container, new Path("")); //$NON-NLS-1$
-			int size = mr.length;
-			for (int j = 0; j < size; j++) {
-				resources.add(mr[j]);
-			}
+			moduleResources = getMembers(resources, container, new Path("")); //$NON-NLS-1$
 			
 			addChildModules(component);
+			
+			int size = moduleResources.length;
+			for (int j = 0; j < size; j++) {
+				resources.add(moduleResources[j]);
+			}
 			
 			// run finalizers
 			for (int i = 0; i < delegates.length; i++) {
@@ -147,6 +152,9 @@ public class SingleRootExportParticipant extends AbstractFlattenParticipant {
 	}
 	
 	protected void addChildModules(IVirtualComponent vc) throws CoreException {
+		ArrayList<IFlatResource> modResources = new ArrayList<IFlatResource>();
+		modResources.addAll(Arrays.asList(moduleResources));
+
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put(IVirtualComponent.REQUESTED_REFERENCE_TYPE, IVirtualComponent.FLATTENABLE_REFERENCES);
 		IVirtualReference[] allReferences = vc.getReferences(options);
@@ -165,9 +173,24 @@ public class SingleRootExportParticipant extends AbstractFlattenParticipant {
 					}
 					children.removeAll(duplicates);
 					children.add(cm);
+				} else {
+					// It's not a child module, but it is a reference that needs to be added in anyway
+					IPath path = reference.getRuntimePath(); // Folder to add the ref in
+					IFlatFolder folder = (IFlatFolder) VirtualComponentFlattenUtility
+								.getExistingModuleResource(modResources, path.makeRelative());
+					if( folder == null ) {
+						folder = VirtualComponentFlattenUtility.ensureParentExists(modResources, path, null);
+					}
+					File f = (File)reference.getReferencedComponent().getAdapter(File.class);
+					FlatFile file = new FlatFile(f, reference.getArchiveName(), reference.getRuntimePath());
+					if( folder == null )
+						modResources.add(file);
+					else
+						VirtualComponentFlattenUtility.addMembersToModuleFolder(folder, new IFlatFile[]{file});
 				}
 			}
     	}
+    	moduleResources = modResources.toArray(new IFlatResource[modResources.size()]);
 	}
 	
 	protected boolean isChildModule(IVirtualComponent component, IVirtualReference referencedComponent) {
