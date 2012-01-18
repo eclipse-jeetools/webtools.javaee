@@ -16,6 +16,7 @@
  */
 package org.eclipse.wtp.j2ee.headless.tests.ear.operations;
 
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -51,6 +52,8 @@ import org.eclipse.jst.j2ee.earcreation.IEarFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.internal.project.facet.EARFacetProjectCreationDataModelProvider;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetInstallDataModelProperties;
+import org.eclipse.jst.j2ee.project.facet.IJavaUtilityProjectCreationDataModelProperties;
+import org.eclipse.jst.j2ee.project.facet.JavaUtilityProjectCreationDataModelProvider;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IAddReferenceDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
@@ -60,6 +63,8 @@ import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCr
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualReference;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -453,6 +458,86 @@ public class EARProjectCreationOperationTest extends JEEProjectCreationOperation
     	}
     }
     
+    public void testEAR50_NestedUtil_WithVariableReference() throws Exception{
+    	IDataModel dm = getEARDataModel("zEAR", "zContent", null, null, JavaEEFacetConstants.EAR_5, false);
+    	OperationTestCase.runAndVerify(dm);
+    	IProject earProj = ResourcesPlugin.getWorkspace().getRoot().getProject("zEAR");
+    	
+    	IDataModel dm2 = getUtilityProjectCreationDataModel("nestedUtil", "zEAR");
+    	OperationTestCase.runAndVerify(dm2);
+    	IProject utilProj = ResourcesPlugin.getWorkspace().getRoot().getProject("nestedUtil");
+
+		IVirtualComponent vc = ComponentCore.createComponent(utilProj);
+		addArchiveComponent(vc);
+
+		IModule module = ServerUtil.getModule(utilProj);
+		assertNotNull(module);
+		ModuleDelegate md = (ModuleDelegate)module.loadAdapter(ModuleDelegate.class, new NullProgressMonitor());
+		IModuleResource[] resources = md.members();
+		
+		// ensure a 'lib' is found
+		IModuleResource lib = null;
+		for( int i = 0; i < resources.length; i++ ) {
+			if( resources[i].getName().equals("lib")) {
+				lib = resources[i];
+				break;
+			}
+		}
+		assertNotNull(lib);
+		assertTrue(lib instanceof IModuleFolder);
+		IModuleResource[] libs = ((IModuleFolder)lib).members();
+		assertNotNull(libs);
+		assertTrue(libs.length == 1);
+		assertTrue(libs[0] instanceof IModuleFile);
+		IModuleFile junitjar = (IModuleFile)libs[0];
+		assertEquals("junit.jar", junitjar.getName());
+    }
+    
+    /**
+     * Creates and returns a utility project DM provider with the given name and of the given version.
+     * If earName is not null then util project will be added to the EAR with earName
+     * 
+     * @param projName name of the project to create
+     * @param earName name of the ear to add the project too, if NULL then don't add to an EAR
+     * @param version version of Application Client to use
+     * @return a Utility Project Data Model with the appropriate properties set
+     */
+    public static IDataModel getUtilityProjectCreationDataModel(String projName, String earName){
+    	IDataModel dm = DataModelFactory.createDataModel(new JavaUtilityProjectCreationDataModelProvider());
+    	dm.setProperty(IJavaUtilityProjectCreationDataModelProperties.PROJECT_NAME, projName);
+    	dm.setProperty(IJavaUtilityProjectCreationDataModelProperties.SOURCE_FOLDER, "src");
+    	if(earName != null) {
+    		dm.setProperty(IJavaUtilityProjectCreationDataModelProperties.EAR_PROJECT_NAME, earName);
+    	} 
+    	return dm;
+    }
+
+    public void testEAR_HardDeploymentMapping() throws Exception {
+    	IDataModel dm = getEARDataModel("hardEAR", "ourContent", null, null, JavaEEFacetConstants.EAR_5, false);
+    	OperationTestCase.runAndVerify(dm);
+    	IProject p = ResourcesPlugin.getWorkspace().getRoot().getProject("hardEAR");
+    	IFolder f = p.getFolder("test");
+    	f.create(true, true, new NullProgressMonitor());
+    	IFile file = f.getFile("silly.txt");
+    	file.create(new ByteArrayInputStream("Silly String".getBytes()), true, new NullProgressMonitor());
+    	
+    	IVirtualComponent earComp = ComponentCore.createComponent(p);
+    	IVirtualFolder rootFolder = earComp.getRootFolder();
+    	IVirtualFile vfile = rootFolder.getFile(new Path("out/notsilly.txt"));
+    	vfile.createLink(new Path("test/silly.txt"), 0, new NullProgressMonitor());
+    	
+		IModule module = ServerUtil.getModule(p);
+		assertNotNull(module);
+		ModuleDelegate md = (ModuleDelegate)module.loadAdapter(ModuleDelegate.class, new NullProgressMonitor());
+		IModuleResource[] resources = md.members();
+    	assertTrue(resources.length == 1);
+    	assertTrue(resources[0].getName().equals("out"));
+    	IModuleFolder mf = (IModuleFolder)resources[0];
+    	IModuleResource[] children = mf.members();
+    	assertTrue(children.length == 1);
+    	assertTrue(children[0].getName().equals("notsilly.txt"));
+    }
+    
     public void testEARWithJarInLibFolder() throws Exception {
     	IDataModel dm = getEARDataModel("qEAR", "ourContent", null, null, JavaEEFacetConstants.EAR_5, false);
     	OperationTestCase.runAndVerify(dm);
@@ -533,8 +618,8 @@ public class EARProjectCreationOperationTest extends JEEProjectCreationOperation
 		
 		IPath path = new Path("JUNIT_HOME/junit.jar"); //$NON-NLS-1$
 		IPath resolvedPath = JavaCore.getResolvedVariablePath(path);
-		java.io.File file = new java.io.File(resolvedPath.toOSString());
-		if( file.isFile() && file.exists()){
+//		java.io.File file = new java.io.File(resolvedPath.toOSString());
+//		if( file.isFile() && file.exists()){
 			String type = VirtualArchiveComponent.VARARCHIVETYPE + IPath.SEPARATOR;
 			IVirtualComponent archive = ComponentCore.createArchiveComponent( component.getProject(), type +
 					path.toString());
@@ -555,6 +640,6 @@ public class EARProjectCreationOperationTest extends JEEProjectCreationOperation
 				throw new CoreException(new Status(IStatus.ERROR, "test", e.getMessage()));
 			}	
 
-		}
+//		}
 	}
 }
