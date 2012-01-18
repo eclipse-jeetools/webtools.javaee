@@ -1,3 +1,14 @@
+/*******************************************************************************
+ * Copyright (c) 2009, 2012 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/
+
 package org.eclipse.jst.j2ee.internal.plugin;
 
 
@@ -126,6 +137,16 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 		 * Used to determine if the business interface annotations should be to the business interfaces during EJB creation. 
 		 */
 		static final String EJB_BUSINESS_INTERFACE_ANNOTATION_IN_INTERFACE = IProductConstants.EJB_BUSINESS_INTERFACE_ANNOTATION_IN_INTERFACE;
+		
+		/**
+		 * Indicates a suffix that should be used for the package of all the interfaces when creating session beans.
+		 * For example, if the qualified bean class name is com.test.Bean1, and the value of #EJB_INTERFACE_PACKAGE_SUFFIX is 
+		 * test2, then the default local business interface name will be com.test.test2.Bean1Local 
+		 * Default value is an empty string.  
+		 */
+		static final String EJB_INTERFACE_PACKAGE_SUFFIX = IProductConstants.EJB_INTERFACE_PACKAGE_SUFFIX;
+
+		
 
 	}
 
@@ -250,6 +271,8 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 		String ejbBusinessInterfaceAnnotationInInterface = ProductManager.getProperty(IProductConstants.EJB_BUSINESS_INTERFACE_ANNOTATION_IN_INTERFACE);
 		boolean  ejbBusinessInterfaceAnnotationInInterfaceDefault = (ejbBusinessInterfaceAnnotationInInterface != null )? Boolean.parseBoolean(ejbBusinessInterfaceAnnotationInInterface) : Defaults.EJB_BUSINESS_INTERFACE_ANNOTATION_IN_INTERFACE;
 		node.putBoolean(Keys.EJB_BUSINESS_INTERFACE_ANNOTATION_IN_INTERFACE, ejbBusinessInterfaceAnnotationInInterfaceDefault);
+		
+		node.put(Keys.EJB_INTERFACE_PACKAGE_SUFFIX, ProductManager.getProperty(IProductConstants.EJB_INTERFACE_PACKAGE_SUFFIX));
 		}
 
 	
