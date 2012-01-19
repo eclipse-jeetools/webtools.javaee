@@ -390,5 +390,10 @@
             markerType="org.eclipse.jst.jee.ejb3.nobeans">
       </markerResolutionGenerator>
    </extension>
-       
+
+<!-- ====================================================== -->
+<!--           EJB Client Extension                         -->
+<!-- ====================================================== -->
+
+	<extension-point id="ejbClientActionExtension" name ="EjbClientAction" schema="schema/ejbClientAction.exsd"/>       
 </plugin>

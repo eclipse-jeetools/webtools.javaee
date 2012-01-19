@@ -122,9 +122,12 @@ public class EjbClientJarCreationOperation
 			
 			javadm.setProperty( JavaFacetInstallDataModelProvider.SOURCE_FOLDER_NAME,
 					javaSourceFolder);
-			
 
-			utildm.setProperty( IUtilityFacetInstallDataModelProperties.EAR_PROJECT_NAME, earprojects[0].getName());
+			javadm.setProperty( JavaFacetInstallDataModelProvider.DEFAULT_OUTPUT_FOLDER_NAME,
+					javaSourceFolder);
+
+			if (earprojects.length > 0)
+				utildm.setProperty( IUtilityFacetInstallDataModelProperties.EAR_PROJECT_NAME, earprojects[0].getName());
 			
 			utildm.setProperty( IUtilityFacetInstallDataModelProperties.FACET_RUNTIME, runtime );
 			dm.setProperty(UtilityProjectCreationDataModelProvider.FACET_RUNTIME, runtime);
@@ -151,7 +154,7 @@ public class EjbClientJarCreationOperation
 	            moveOutgoingJARDependencies();
 				EJBClientJarCreationHelper.copyOutgoingClasspathEntries( ejbproject,
 								ProjectUtilities.getProject(projectName), true);
-				modifyEJBModuleJarDependency(model, earprojects[0], monitor);
+				modifyEJBModuleJarDependency(model, monitor);
 				IProject clientProject = ProjectUtilities.getProject( model.getStringProperty( PROJECT_NAME ) );
 	            moveIncomingJARDependencies( ejbproject, clientProject );
 	            
@@ -242,7 +245,7 @@ public class EjbClientJarCreationOperation
 
 	}
 
-	private void modifyEJBModuleJarDependency(IDataModel model, IProject earProject,
+	private void modifyEJBModuleJarDependency(IDataModel model, 
 				IProgressMonitor aMonitor) throws InvocationTargetException, InterruptedException {
 
 

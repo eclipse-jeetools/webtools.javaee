@@ -11,6 +11,9 @@
 
 package org.eclipse.jst.ejb.ui.internal.actions;
 
+import java.util.Iterator;
+import java.util.List;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.core.IJavaProject;
@@ -19,7 +22,10 @@ import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.jst.ejb.ui.internal.extension.EJBClientActionRegistryReader;
+import org.eclipse.jst.ejb.ui.internal.extension.IEJBClientActionExtender;
 import org.eclipse.jst.ejb.ui.internal.plugin.EJBUIPlugin;
 import org.eclipse.jst.ejb.ui.internal.wizard.EJBClientComponentCreationWizard;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
@@ -74,7 +80,34 @@ public class EJBClientCreationAction extends AbstractClientJARAction {
 
     private boolean checkEARProject(Shell shell) {
         if (!hasEARProject()) {
-            MessageDialog.openError(shell, EJBCreationResourceHandler.EJB_Client_JAR_Creation_Error_, EJBCreationResourceHandler.Cannot_Be_StandAlone_Project_For_Client_); 
+            // if this is an EJB project that is not in an EAR project, check to see if an extension allows for its creation
+        	IProject project = getSelectedProject();
+            
+        	List<IEJBClientActionExtender> ejbClientCreationExtensions = EJBClientActionRegistryReader.getInstance().getEJBClientActionExtenders();
+			Iterator<IEJBClientActionExtender> i = ejbClientCreationExtensions.iterator();
+			IEJBClientActionExtender current = null;
+			int wizardRet;
+			boolean done = false;
+			// iterate through the extenders.  If the first way to create the EJB Client jar is not correct, the user can press cancel and the next wizard will be created.
+			while (i.hasNext() && !done)
+			{
+				current = i.next();
+				if (current.allowEJBClientCreation(project))
+				{
+					// if the extension allows its creation, then launch whatever wizard is applicable
+					wizardRet = current.showEJBClientCreationWizard(shell, project);
+					if (wizardRet == Window.OK)
+					{
+						done = true;
+					}
+				}
+			}
+
+			// if no extenders can create an EJB Client project, display the usual error message
+			if (!done)
+			{
+				MessageDialog.openError(shell, EJBCreationResourceHandler.EJB_Client_JAR_Creation_Error_, EJBCreationResourceHandler.Cannot_Be_StandAlone_Project_For_Client_);
+			}
             return false;
         }
         return true;		

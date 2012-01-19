@@ -13,6 +13,8 @@ package org.eclipse.jst.ejb.ui.internal.actions;
 
 import java.lang.reflect.InvocationTargetException;
 import java.text.MessageFormat;
+import java.util.Iterator;
+import java.util.List;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
@@ -28,12 +30,15 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jst.ejb.ui.internal.extension.EJBClientActionRegistryReader;
+import org.eclipse.jst.ejb.ui.internal.extension.IEJBClientActionExtender;
 import org.eclipse.jst.ejb.ui.internal.plugin.EJBUIPlugin;
 import org.eclipse.jst.j2ee.ejb.componentcore.util.EJBArtifactEdit;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.EjbClientProjectRemovalDataModelProvider;
 import org.eclipse.jst.j2ee.internal.ejb.archiveoperations.IEjbClientProjectRemovalDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.project.EJBUtilities;
+import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.progress.UIJob;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -80,30 +85,48 @@ public class EJBClientRemovalAction extends AbstractClientJARAction {
 //		ValidatorManager validatorMgr = ValidatorManager.getManager();
 		try{
 				//validatorMgr.suspendAllValidation(true);
-				
-				Job clientRemoveJob = new UIJob("Removing EJB Client Project"){ //$NON-NLS-1$
-					@Override
-					public IStatus runInUIThread(IProgressMonitor monitor) {
-						
-						UIOperationHandler opHandler = new UIOperationHandler(shell);
-						IDataModel model = DataModelFactory.createDataModel( new EjbClientProjectRemovalDataModelProvider() );
-						model.setProperty(IEjbClientProjectRemovalDataModelProperties.EJB_PROJECT, ejbProject);
-						model.setProperty(IEjbClientProjectRemovalDataModelProperties.EJB_CLIENT_VIEW_PROJECT, clientProject);
-						model.setProperty(IEjbClientProjectRemovalDataModelProperties.OP_HANDLER, opHandler );
-						
-						IStatus status = Status.OK_STATUS;
-						try {
-							status = model.getDefaultOperation().execute(monitor, null);
-						} catch (ExecutionException e) {
-							EJBUIPlugin.logError(e);
+				if (!EarUtilities.isStandaloneProject(ejbProject))
+				{
+					Job clientRemoveJob = new UIJob("Removing EJB Client Project"){ //$NON-NLS-1$
+						@Override
+						public IStatus runInUIThread(IProgressMonitor monitor) {
+							
+							UIOperationHandler opHandler = new UIOperationHandler(shell);
+							IDataModel model = DataModelFactory.createDataModel( new EjbClientProjectRemovalDataModelProvider() );
+							model.setProperty(IEjbClientProjectRemovalDataModelProperties.EJB_PROJECT, ejbProject);
+							model.setProperty(IEjbClientProjectRemovalDataModelProperties.EJB_CLIENT_VIEW_PROJECT, clientProject);
+							model.setProperty(IEjbClientProjectRemovalDataModelProperties.OP_HANDLER, opHandler );
+							
+							IStatus status = Status.OK_STATUS;
+							try {
+								status = model.getDefaultOperation().execute(monitor, null);
+							} catch (ExecutionException e) {
+								EJBUIPlugin.logError(e);
+							}
+							return status;
 						}
-						return status;
+					};
+			
+					clientRemoveJob.setRule(ResourcesPlugin.getWorkspace().getRoot());
+					clientRemoveJob.setUser(true);
+					clientRemoveJob.schedule();
+				}
+				else
+				{
+					List<IEJBClientActionExtender> ejbClientActionExtensions = EJBClientActionRegistryReader.getInstance().getEJBClientActionExtenders();
+					Iterator<IEJBClientActionExtender> i = ejbClientActionExtensions.iterator();
+					IEJBClientActionExtender current = null;
+					IStatus status = null;
+					// iterate through the extenders to find if any allow for the removal of the EJB Client jar
+					while (i.hasNext() && (status == null || !status.isOK()))
+					{
+						current = i.next();
+						if (current.allowEJBClientRemoval(ejbProject))
+						{
+							status = current.performEJBClientRemoval(shell, ejbProject);
+						}
 					}
-				};
-		
-				clientRemoveJob.setRule(ResourcesPlugin.getWorkspace().getRoot());
-				clientRemoveJob.setUser(true);
-				clientRemoveJob.schedule();
+				}
 
 		}finally {
 //			validatorMgr.suspendAllValidation(false);
@@ -204,9 +227,25 @@ public class EJBClientRemovalAction extends AbstractClientJARAction {
 	@Override
 	public void selectionChanged(IAction action, ISelection selection) {
 		super.selectionChanged(action, selection);
-		if (EJBUtilities.hasEJBClientJARProject(getProject()))
+		IProject project = getProject();
+		if (EJBUtilities.hasEJBClientJARProject(project))
 			action.setEnabled(true);
-		else 
-			action.setEnabled(false);
+		else
+		{
+			List<IEJBClientActionExtender> ejbClientActionExtensions = EJBClientActionRegistryReader.getInstance().getEJBClientActionExtenders();
+			Iterator<IEJBClientActionExtender> i = ejbClientActionExtensions.iterator();
+			IEJBClientActionExtender current = null;
+			boolean allow = false;
+			// iterate through the extenders to find if any allow for the removal of the EJB Client jar
+			while (i.hasNext() && !allow)
+			{
+				current = i.next();
+				if (current.allowEJBClientRemoval(project))
+				{
+					allow = true;
+				}
+			}
+			action.setEnabled(allow);
+		}
 	}    
 }

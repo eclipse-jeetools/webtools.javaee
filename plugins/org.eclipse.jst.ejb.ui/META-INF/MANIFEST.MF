@@ -9,6 +9,7 @@ Bundle-Localization: plugin
 Export-Package: org.eclipse.jst.ejb.ui.context.ids;x-internal:=true,
  org.eclipse.jst.ejb.ui.internal.actions;x-internal:=true,
  org.eclipse.jst.ejb.ui.internal.deployables;x-internal:=true,
+ org.eclipse.jst.ejb.ui.internal.extension;x-internal:=true,
  org.eclipse.jst.ejb.ui.internal.plugin;x-internal:=true,
  org.eclipse.jst.ejb.ui.internal.quickfixes.ejb;x-internal:=true,
  org.eclipse.jst.ejb.ui.internal.util;x-internal:=true,

@@ -284,34 +284,37 @@ public class EJBClientJARRemovalOperation extends AbstractDataModelOperation
 		list.add(clientProject.getName() + IJ2EEModuleConstants.JAR_EXT);
 		
 		IProject[] earProjects = EarUtilities.getReferencingEARProjects( ejbProject );
-		UpdateManifestOperation removeOp = new EJBClientManifestUtility().getRemoveOperation(ejbProject, earProjects[0], list, clientProject);
-		
-		try {
-			removeOp.execute( createSubProgressMonitor(1), null);
-		} catch (ExecutionException e) {
-			EjbPlugin.logError( e );
-		}
-		
-		ArchiveManifest clientMf = J2EEProjectUtilities.readManifest(clientProject);
-		if (clientMf == null)
-			return;
-		String[] mfEntries = clientMf.getClassPathTokenized();
-		if (mfEntries.length == 0)
-			return;
-		
-		createSubProgressMonitor( earProjects.length );
-		
-		//copy all JAR dependencies not already contained by the ejb module,
-		//from the client JAR to the ejb module	
-
-		for (int i = 0; i < earProjects.length; i++) {
-			List result = EJBClientJarCreationHelper.normalize(mfEntries, earProjects[i], ejbProject, false);
-			UpdateManifestOperation addOp = new EJBClientManifestUtility().getAddOperation(ejbProject, earProjects[0], result);
+		if (earProjects != null && earProjects.length > 0)
+		{
+			UpdateManifestOperation removeOp = new EJBClientManifestUtility().getRemoveOperation(ejbProject, earProjects[0], list, clientProject);
 			
-			try{
-				addOp.execute( createSubProgressMonitor(1), null );
-			}catch (ExecutionException e) {
+			try {
+				removeOp.execute( createSubProgressMonitor(1), null);
+			} catch (ExecutionException e) {
 				EjbPlugin.logError( e );
+			}
+			
+			ArchiveManifest clientMf = J2EEProjectUtilities.readManifest(clientProject);
+			if (clientMf == null)
+				return;
+			String[] mfEntries = clientMf.getClassPathTokenized();
+			if (mfEntries.length == 0)
+				return;
+			
+			createSubProgressMonitor( earProjects.length );
+			
+			//copy all JAR dependencies not already contained by the ejb module,
+			//from the client JAR to the ejb module	
+	
+			for (int i = 0; i < earProjects.length; i++) {
+				List result = EJBClientJarCreationHelper.normalize(mfEntries, earProjects[i], ejbProject, false);
+				UpdateManifestOperation addOp = new EJBClientManifestUtility().getAddOperation(ejbProject, earProjects[0], result);
+				
+				try{
+					addOp.execute( createSubProgressMonitor(1), null );
+				}catch (ExecutionException e) {
+					EjbPlugin.logError( e );
+				}
 			}
 		}
 	}
@@ -322,14 +325,18 @@ public class EJBClientJARRemovalOperation extends AbstractDataModelOperation
 	 */
 	private void moveIncomingJARDependencies() throws InvocationTargetException, InterruptedException {
 		
-		InvertClientJARDependencyCompoundOperation op = 
-			new InvertClientJARDependencyCompoundOperation( EarUtilities.getReferencingEARProjects( ejbProject ),
-						clientProject,
-						ejbProject );
-		try {
-			op.execute(createSubProgressMonitor(1), null);
-		} catch (ExecutionException e) {
-			EjbPlugin.logError( e );
+		IProject[] earProjects = EarUtilities.getReferencingEARProjects( ejbProject );
+		if (earProjects != null && earProjects.length > 0)
+		{
+			InvertClientJARDependencyCompoundOperation op = 
+				new InvertClientJARDependencyCompoundOperation( earProjects,
+							clientProject,
+							ejbProject );
+			try {
+				op.execute(createSubProgressMonitor(1), null);
+			} catch (ExecutionException e) {
+				EjbPlugin.logError( e );
+			}
 		}
 	}
 
