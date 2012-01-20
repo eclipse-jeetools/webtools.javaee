@@ -24,6 +24,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
+import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
@@ -45,6 +46,30 @@ public class WebUtilities extends JavaEEProjectUtilities {
 
 	public WebUtilities() {
 	}
+	
+	/**
+	 * This method will get the context root on the associated workbench module if null is passed for the earProject, or will use the ear to determine the context root.
+	 * This context root is used by the server at runtime.
+	 * 
+	 * @param webProject IProject
+	 * @param earProject IProject - can be null
+	 */
+	public static String getServerContextRoot(IProject webProject,IProject earProject) {
+    	String contextRoot = null;
+    	if (earProject == null || !JavaEEProjectUtilities.deploymentDescriptorExists(earProject))
+    		return ComponentUtilities.getServerContextRoot(webProject);
+    	else if (JavaEEProjectUtilities.isEARProject(earProject) && JavaEEProjectUtilities.isDynamicWebProject(webProject)) {
+    		EARArtifactEdit edit = null;
+    		try {
+    			edit = EARArtifactEdit.getEARArtifactEditForRead(earProject);
+    			contextRoot = edit.getWebContextRoot(webProject);
+    		} finally {
+    			if (edit!=null)
+    				edit.dispose();
+    		}
+    	}
+    	return contextRoot;
+    }
 
 	/**
 	 * <p>
@@ -225,6 +250,7 @@ public class WebUtilities extends JavaEEProjectUtilities {
 	{
 		ComponentUtilities.setServerContextRoot(webProject, contextRoot);
 	}
+	
 
 	/**
 	 * Returns all referencing Web projects.
