@@ -23,7 +23,6 @@ import junit.framework.TestSuite;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.Preferences;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
@@ -32,11 +31,13 @@ import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.common.Listener;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPreferences;
 import org.eclipse.jst.j2ee.internal.web.operations.NewFilterClassDataModelProvider;
 import org.eclipse.jst.j2ee.internal.web.operations.NewListenerClassDataModelProvider;
 import org.eclipse.jst.j2ee.internal.web.operations.NewServletClassDataModelProvider;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.project.WebUtilities;
 import org.eclipse.jst.j2ee.web.componentcore.util.WebArtifactEdit;
 import org.eclipse.jst.j2ee.webapplication.Filter;
 import org.eclipse.jst.j2ee.webapplication.FilterMapping;
@@ -55,6 +56,9 @@ public class AddWebArtifactOperationTest extends OperationTestCase implements
 		INewJavaClassDataModelProperties {
 	
     public static final String WEB_PROJECT_NAME = "WebProject"; //$NON-NLS-1$
+    public static final String EAR_PROJECT_NAME = "EarProject"; //$NON-NLS-1$
+    
+    public static final String WEB_CONTEXT_ROOT = "WebRoot"; //$NON-NLS-1$
     
     public static final String PACKAGE = "test"; //$NON-NLS-1$
     
@@ -360,12 +364,12 @@ public class AddWebArtifactOperationTest extends OperationTestCase implements
 	}
 
     private void enableJETEmitter() {
-    	Preferences preferences = J2EEPlugin.getDefault().getPluginPreferences();
+    	J2EEPreferences preferences = J2EEPlugin.getDefault().getJ2EEPreferences();
 		preferences.setValue(J2EEPlugin.DYNAMIC_TRANSLATION_OF_JET_TEMPLATES_PREF_KEY, true);
 	}
 
 	private void disableJETEmitter() {
-		Preferences preferences = J2EEPlugin.getDefault().getPluginPreferences();
+		J2EEPreferences preferences = J2EEPlugin.getDefault().getJ2EEPreferences();
 		preferences.setValue(J2EEPlugin.DYNAMIC_TRANSLATION_OF_JET_TEMPLATES_PREF_KEY, false);
 	}
 
@@ -413,5 +417,26 @@ public class AddWebArtifactOperationTest extends OperationTestCase implements
 		assertNotNull("Source file for Java type " + fullyQualifiedName + " not found", file);
 		assertTrue(file.exists());
     }
+
+	public void testDefaultWebUtilityContextRoot() throws Exception {
+		IDataModel dm = WebProjectCreationOperationTest.getWebDataModel(
+				WEB_PROJECT_NAME, EAR_PROJECT_NAME, null, null, null, JavaEEFacetConstants.WEB_25, true);
+    	runAndVerify(dm);
+		
+		IProject proj = ProjectUtilities.getProject(WEB_PROJECT_NAME);
+		IProject earproj = ProjectUtilities.getProject(EAR_PROJECT_NAME);
+	
+		assertEquals(WebUtilities.getServerContextRoot(proj, earproj),WEB_PROJECT_NAME);
+	}
+	public void testWebUtilityContextRoot() throws Exception {
+		IDataModel dm = WebProjectCreationOperationTest.getWebDataModel(
+				WEB_PROJECT_NAME, EAR_PROJECT_NAME, WEB_CONTEXT_ROOT, null, null, JavaEEFacetConstants.WEB_25, true);
+    	runAndVerify(dm);
+		
+		IProject proj = ProjectUtilities.getProject(WEB_PROJECT_NAME);
+		IProject earproj = ProjectUtilities.getProject(EAR_PROJECT_NAME);
+	
+		assertEquals(WebUtilities.getServerContextRoot(proj, earproj),WEB_CONTEXT_ROOT);
+	}
 	
 }
