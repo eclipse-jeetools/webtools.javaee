@@ -7,6 +7,7 @@ Bundle-Activator: org.eclipse.jst.servlet.ui.internal.plugin.ServletUIPlugin
 Bundle-Vendor: %pluginVendor
 Bundle-Localization: plugin
 Export-Package: org.eclipse.jst.servlet.ui,
+ org.eclipse.jst.servlet.ui.internal;x-internal:=true,
  org.eclipse.jst.servlet.ui.internal.actions;x-internal:=true,
  org.eclipse.jst.servlet.ui.internal.deployables;x-internal:=true,
  org.eclipse.jst.servlet.ui.internal.plugin;x-internal:=true,
