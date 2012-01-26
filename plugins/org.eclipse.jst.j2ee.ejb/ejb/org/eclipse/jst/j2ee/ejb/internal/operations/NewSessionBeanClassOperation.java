@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2008 SAP AG and others.
+ * Copyright (c) 2007, 2012 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  * Kaloyan Raev, kaloyan.raev@sap.com - initial API and implementation
+ * Roberto Sanchez, rsanchez@mx1.ibm.com - Allow more flexibility for source folder in EJB client
  *******************************************************************************/
 package org.eclipse.jst.j2ee.ejb.internal.operations;
 
@@ -40,12 +41,15 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.Signature;
+import org.eclipse.jst.common.jdt.internal.javalite.JavaLiteUtilities;
 import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.project.EJBUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
+import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditProviderOperation;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedException;
 
@@ -135,8 +139,19 @@ public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperatio
 		String packageName = model.getStringProperty(JAVA_PACKAGE);
 		// Create java package if it does not exist
 		pack = createJavaPackage(packageName);
-		if (hasInterfacesToGenerate() && EJBUtilities.hasEJBClientJARProject(getTargetProject())) {
-			createJavaSourceFolderInClientJar();
+		if (hasInterfacesToGenerate() && EJBUtilities.hasEJBClientJARProject(getTargetProject())) {					
+			IFolder folder = getClientSourceFolder();
+			if (!folder.exists()){
+				// If the source folder used by the EJB project does not exist in the
+				// client project, try to use the first source folder available
+				folder = getFirstJavaSourceFolderInClientJar();
+			
+				if (folder == null) {
+					// If the is no source folder available, create the source
+					// folder used by the EJB project.
+					createJavaSourceFolderInClientJar();
+				}
+			}
 			clientPack = createJavaPackageInClientJar(packageName);
 		}
 		
@@ -296,6 +311,25 @@ public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperatio
 		return fragment;
 	}
 
+	// Returns the first java source folder found in the client jar project, or null if no source folder exists.
+	private IFolder getFirstJavaSourceFolderInClientJar(){
+		IFolder result = null;
+		
+		IProject clientProject = EJBUtilities.getEJBClientJar(getTargetProject()).getProject();
+		
+		IVirtualComponent clientVc = ComponentCore.createComponent(clientProject);
+		List<IContainer> sourceCointainers = JavaLiteUtilities.getJavaSourceContainers(clientVc);
+		
+		for (IContainer container:sourceCointainers){
+			if (container instanceof IFolder && !container.getName().startsWith(".")) { //$NON-NLS-1$
+				// We only want source folders which are not hidden (i.e. its name does not begin with ".")
+				result = (IFolder)container;
+				break;
+			}			
+		}
+		return result;
+	}
+	
 	protected IFolder createJavaSourceFolderInClientJar() {
 		// Get the source folder name from the data model
 		IFolder folder = getClientSourceFolder();
@@ -386,7 +420,10 @@ public class NewSessionBeanClassOperation extends NewEnterpriseBeanClassOperatio
 	
 	private IPackageFragmentRoot getClientPackageFragmentRoot() {
 		IFolder folder = getClientSourceFolder();
-		
+		if (!folder.exists())
+			folder = getFirstJavaSourceFolderInClientJar();
+		if (folder == null)
+			return null;
 		IProject clientProject = EJBUtilities.getEJBClientJar(getTargetProject()).getProject();
 		IJavaProject clientJavaProject = JavaCore.create(clientProject);
 		return clientJavaProject.getPackageFragmentRoot(folder);
