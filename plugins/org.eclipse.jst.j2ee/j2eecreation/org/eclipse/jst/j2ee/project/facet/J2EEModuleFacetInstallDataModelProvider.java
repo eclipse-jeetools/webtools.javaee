@@ -22,6 +22,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
@@ -32,6 +33,7 @@ import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainerUtils;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPreferences;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPreferences.Keys;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.osgi.util.NLS;
@@ -209,6 +211,25 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
             	if( config instanceof JavaFacetInstallConfig )
             	{
             		this.javaFacetInstallConfig = (JavaFacetInstallConfig) config;
+            		
+            		String providerId = model.getID();
+            		if(providerId != "") //$NON-NLS-1$
+            		{
+            			if (providerId.indexOf("WebFacetInstallDataModelProvider") != -1) //$NON-NLS-1$
+            			{ this.javaFacetInstallConfig.setDefaultOutputFolder(new Path(J2EEPlugin.getDefault().getJ2EEPreferences().getString(Keys.DYN_WEB_OUTPUT_FOLDER))); }
+            			else            			
+            				if(providerId.indexOf("EjbFacetInstallDataModelProvider") != -1) //$NON-NLS-1$
+            				{ this.javaFacetInstallConfig.setDefaultOutputFolder(new Path(J2EEPlugin.getDefault().getJ2EEPreferences().getString(Keys.EJB_OUTPUT_FOLDER))); }
+            				else
+            					if(providerId.indexOf("AppClientFacetInstallDataModelProvider") != -1) //$NON-NLS-1$
+            					{ this.javaFacetInstallConfig.setDefaultOutputFolder(new Path(J2EEPlugin.getDefault().getJ2EEPreferences().getString(Keys.APP_CLIENT_OUTPUT_FOLDER))); }
+            					else
+                					if(providerId.indexOf("ConnectorFacetInstallDataModelProvider") != -1) //$NON-NLS-1$
+                					{ this.javaFacetInstallConfig.setDefaultOutputFolder(new Path(J2EEPlugin.getDefault().getJ2EEPreferences().getString(Keys.JCA_OUTPUT_FOLDER))); }
+                					else
+                    					if(providerId.indexOf("UtilityFacetInstallDataModelProvider") != -1) //$NON-NLS-1$
+                    					{ this.javaFacetInstallConfig.setDefaultOutputFolder(new Path(J2EEPlugin.getDefault().getJ2EEPreferences().getUtilityOutputFolderName())); }
+            		}
             	}
             	else
             	{
