@@ -2,7 +2,14 @@
 	class="LocalComponentInterfaceTemplate" 
 %>
 <% CreateSessionBeanTemplateModel model = (CreateSessionBeanTemplateModel) argument; %>
-<%@ include file="_package.template" %>
+<%
+	if (model.getLocalComponentPackage() != null && model.getLocalComponentPackage().length() > 0) {
+%>
+package <%=model.getLocalComponentPackage()%>;
+<%
+	}
+%>
+
 import javax.ejb.EJBLocalObject;
 
 public interface <%= model.getLocalComponentClassSimpleName() %> extends EJBLocalObject {

@@ -2,7 +2,14 @@
 	class="RemoteComponentInterfaceTemplate" 
 %>
 <% CreateSessionBeanTemplateModel model = (CreateSessionBeanTemplateModel) argument; %>
-<%@ include file="_package.template" %>
+<%
+	if (model.getRemoteComponentPackage() != null && model.getRemoteComponentPackage().length() > 0) {
+%>
+package <%=model.getRemoteComponentPackage()%>;
+<%
+	}
+%>
+
 import javax.ejb.EJBObject;
 
 public interface <%= model.getRemoteComponentClassSimpleName() %> extends EJBObject {
