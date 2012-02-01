@@ -60,7 +60,7 @@ public class EarFacetInstallDataModelProvider extends J2EEFacetInstallDataModelP
 						IVirtualComponent c = ComponentCore.createComponent(project, true);
 						IVirtualFolder ejbroot = c.getRootFolder();
 						IPath configFolderPath = J2EEModuleVirtualComponent.getDefaultDeploymentDescriptorFolder(ejbroot);
-						if (configFolderPath != null && project.getFolder(configFolderPath).exists())
+						if (configFolderPath != null && (configFolderPath.isRoot() || project.getFolder(configFolderPath).exists()))
 						{
 							return configFolderPath.toString();
 						}
