@@ -51,6 +51,7 @@ import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.impl.ModuleURIUtil;
 import org.eclipse.wst.common.componentcore.internal.impl.PlatformURLModuleConnection;
 import org.eclipse.wst.common.componentcore.internal.impl.WTPResourceFactoryRegistry;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
 import org.eclipse.wst.common.internal.emfworkbench.validateedit.ResourceStateInputProvider;
@@ -159,15 +160,12 @@ public class JEE5ModelProvider implements IModelProvider, ResourceStateInputProv
 		String modelPathURI = innerModelPath.toString();
 		URI uri = URI.createURI(modelPathURI);
 		
-		IPath projURIPath = new Path("");//$NON-NLS-1$
-		projURIPath = projURIPath.append(container.getProjectRelativePath());
-		projURIPath = projURIPath.addTrailingSeparator();
-		projURIPath = projURIPath.append(innerModelPath);
-		URI projURI = URI.createURI(projURIPath.toString());
+		IVirtualFile dd = container.getFile(innerModelPath);
+		URI projURI = URI.createURI(dd.getProjectRelativePath().toString());
+		
 		XMLResourceImpl res = null;
 		try {
-			if (proj.getFile(projURI.toString()).exists())
-			{
+			if (dd.exists()) {
 				res = (XMLResourceImpl) resSet.getResource(getModuleURI(uri),true);
 				addManagedResource(res);
 			} else {//First find in resource set, then create if not found new Empty Resource.

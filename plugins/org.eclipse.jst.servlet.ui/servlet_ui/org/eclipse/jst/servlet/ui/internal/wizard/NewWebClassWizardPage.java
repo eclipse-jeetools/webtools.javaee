@@ -62,6 +62,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
@@ -203,7 +204,7 @@ public abstract class NewWebClassWizardPage extends NewJavaClassWizardPage {
 		IVirtualComponent component = ComponentCore.createComponent(project);
 		if(component.getRootFolder() != null
 				&& component.getRootFolder().getUnderlyingFolder() != null){
-			IFile ddXmlFile = component.getRootFolder().getUnderlyingFolder().getFile(new Path(J2EEConstants.WEBAPP_DD_URI));
+			IVirtualFile ddXmlFile = component.getRootFolder().getFile(new Path(J2EEConstants.WEBAPP_DD_URI));
 			if (!ddXmlFile.exists())
 			{
 				// add a flag into the model to create the DD at the beginning of the operation
