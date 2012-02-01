@@ -1,5 +1,5 @@
 /***********************************************************************
- * Copyright (c) 2011 by SAP AG, Walldorf. 
+ * Copyright (c) 2011 by SAP AG, Walldorf.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -24,11 +24,11 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jst.j2ee.navigator.internal.LoadingDDUIJob;
 
 public class LoadingJeeDDJob extends Job {
-	
-	private Viewer viewer;
-	private JEE5ContentProvider rootProvider;
-	private IProject project;
-	private LoadingGroupProvider provider;
+
+	private final Viewer viewer;
+	private final JEE5ContentProvider rootProvider;
+	private final IProject project;
+	private final LoadingGroupProvider provider;
 
 	public LoadingJeeDDJob(Viewer viewer2, LoadingGroupProvider provider, IProject project, JEE5ContentProvider rootProvider) {
 		super(provider.getText());
@@ -45,20 +45,26 @@ public class LoadingJeeDDJob extends Job {
 
 		List children = new ArrayList();
 		AbstractGroupProvider rootObject = null;
-		
+
 		try {
 			rootObject = (rootProvider != null) ? rootProvider.getNewContentProviderInstance(project) : null;
 			rootProvider.registerProvider(project, rootObject);
 			if (rootObject != null) {
 					children.add(rootObject);
-			}		
-		} finally { 
+			}
+		} catch (IllegalStateException e) {
+			if (!project.isAccessible()){
+				//Project is most likely closed or deleted at this time.
+				return Status.CANCEL_STATUS;
+			}
+			throw e;
+		} finally {
 			/* dispose of the place holder, causes the termination of the animation job */
-			provider.dispose(); 
+			provider.dispose();
 			new ClearJeePlaceHolderJob((AbstractTreeViewer) viewer, provider, project, children.toArray()).schedule();
 		}
-		
-		 
+
+
 		return Status.OK_STATUS;
 	}
 
