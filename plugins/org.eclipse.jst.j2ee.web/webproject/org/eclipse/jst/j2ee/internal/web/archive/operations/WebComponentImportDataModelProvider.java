@@ -124,7 +124,12 @@ public final class WebComponentImportDataModelProvider extends J2EEComponentImpo
 										@Override
 										protected int getType() {
 											return 0;
-										}							
+										}
+										@Override
+										protected void refreshInterpretedSpecVersion(){
+											updateJavaFacetVersion();
+											
+										}
 									});
 					}		
 					else{

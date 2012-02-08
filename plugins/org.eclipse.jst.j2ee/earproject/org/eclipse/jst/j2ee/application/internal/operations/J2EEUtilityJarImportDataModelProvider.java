@@ -78,4 +78,10 @@ public final class J2EEUtilityJarImportDataModelProvider extends J2EEArtifactImp
 		} 
 		 return super.propertySet(propertyName, propertyValue);
 	}
+	
+	@Override
+	protected void refreshInterpretedSpecVersion(){
+		updateJavaFacetVersion();
+		
+	}
 }
