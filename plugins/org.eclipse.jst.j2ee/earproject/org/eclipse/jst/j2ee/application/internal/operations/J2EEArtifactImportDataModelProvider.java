@@ -30,10 +30,12 @@ import org.eclipse.jst.common.project.facet.core.JavaFacet;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.archive.ArchiveWrapper;
 import org.eclipse.jst.j2ee.internal.archive.JavaEEArchiveUtilities;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EECreationResourceHandler;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.jst.jee.archive.ArchiveOpenFailureException;
 import org.eclipse.jst.jee.archive.ArchiveOptions;
@@ -303,6 +305,48 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 	
 	protected void refreshInterpretedSpecVersion(){
 		
+	}
+	
+	/**
+	 * Updates the Java Facet Version so it is compliant with the Java EE Module version 
+	 */
+	protected void updateJavaFacetVersion() {
+		IProjectFacetVersion javaFacetVersion = null;
+		IRuntime runtime = (IRuntime)getProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME);
+		if(runtime != null){
+			if(runtime.supports(JavaFacet.VERSION_1_7)){
+				javaFacetVersion = JavaFacet.VERSION_1_7;
+			} else if(runtime.supports(JavaFacet.VERSION_1_6)){
+				javaFacetVersion = JavaFacet.VERSION_1_6;
+			} else if(runtime.supports(JavaFacet.VERSION_1_5)){
+				javaFacetVersion = JavaFacet.VERSION_1_5;
+			} else {
+				javaFacetVersion = JavaFacet.VERSION_1_4;
+			}
+		} else {
+			JavaEEQuickPeek jqp = getInterpretedSpecVersion(getArchiveWrapper());
+			int javaEEVersion = jqp.getJavaEEVersion();
+			switch (javaEEVersion){
+			case J2EEVersionConstants.J2EE_1_2_ID:
+			case J2EEVersionConstants.J2EE_1_3_ID:
+			case J2EEVersionConstants.J2EE_1_4_ID:
+				javaFacetVersion = JavaFacet.VERSION_1_4;
+				break;
+			case J2EEVersionConstants.JEE_5_0_ID:
+				javaFacetVersion = JavaFacet.VERSION_1_5;
+				break;
+			case J2EEVersionConstants.JEE_6_0_ID:
+				javaFacetVersion = JavaFacet.VERSION_1_6;
+				break;
+			}
+		}
+		if(javaFacetVersion != null){
+			IDataModel moduleDM = model.getNestedModel(NESTED_MODEL_J2EE_COMPONENT_CREATION);
+			FacetDataModelMap map = (FacetDataModelMap) moduleDM.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+			IDataModel javaFacetDataModel = map.getFacetDataModel( J2EEProjectUtilities.JAVA );
+			javaFacetDataModel.setProperty(IFacetDataModelProperties.FACET_VERSION, javaFacetVersion);
+			updateWorkingCopyFacetVersion(moduleDM, javaFacetDataModel);
+		}
 	}
 	
 	protected void updateWorkingCopyFacetVersion(IDataModel moduleDM, IDataModel facetDM) {
