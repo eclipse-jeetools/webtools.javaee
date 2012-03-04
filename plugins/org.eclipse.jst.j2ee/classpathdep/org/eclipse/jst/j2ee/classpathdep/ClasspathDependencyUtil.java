@@ -391,8 +391,10 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 			if(classpathContainer != null)
 			{
 				IClasspathEntry[] classpathContainerEntries = classpathContainer.getClasspathEntries();
-				for (int j = 0; j < classpathContainerEntries.length; j++) {
-					resolvedEntries.put(classpathContainerEntries[j], entry.getValue());
+				if(classpathContainerEntries != null) {
+					for (int j = 0; j < classpathContainerEntries.length; j++) {
+						resolvedEntries.put(classpathContainerEntries[j], entry.getValue());
+					}
 				}
 			}
 		}
