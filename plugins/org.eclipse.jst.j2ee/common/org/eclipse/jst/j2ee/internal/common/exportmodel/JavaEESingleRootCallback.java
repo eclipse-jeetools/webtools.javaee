@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009 Red Hat and others.
+ * Copyright (c) 2009, 2012 Red Hat and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *     Red Hat - Initial API and implementation
+ *     Roberto Sanchez Herrera - [371907] Do not always treat EARs as non single root 
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.common.exportmodel;
 
@@ -46,6 +47,7 @@ public class JavaEESingleRootCallback implements SingleRootParticipantCallback {
 	public static final int ONE_CONTENT_ROOT_REQUIRED = 10105;
 	public static final int ATLEAST_1_JAVA_SOURCE_REQUIRED = 10106;
 	public static final int CLASSPATH_DEPENDENCIES_FOUND = 10107;
+	public static final int SOURCE_PATH_OUTSIDE_CONTENT_ROOT = 10108;
 	
 	private static final int CANCEL = 0x0;
 	private String[] filteredSuffixes = new String[]{}; 
@@ -66,13 +68,7 @@ public class JavaEESingleRootCallback implements SingleRootParticipantCallback {
 	}
 
 	public void validate(SingleRootUtil util, IVirtualComponent vc, IProject project, List resourceMaps) {
-		// Always return false for EARs so that members for EAR are always calculated and j2ee modules are filtered out
-		if (JavaEEProjectUtilities.isEARProject(project)) { 
-			util.reportStatus(EAR_PROJECT_FOUND);
-			util.setValidateFlag(CANCEL);
-			return;
-		}
-		
+	
 		if (resourceMaps.size() == 1) {
 			ComponentResource mapping = (ComponentResource)resourceMaps.get(0); 
 			if (util.isRootMapping(mapping)) {
@@ -87,6 +83,12 @@ public class JavaEESingleRootCallback implements SingleRootParticipantCallback {
 			}
 		}
 		
+		if (JavaEEProjectUtilities.isEARProject(project)) { 
+			validateEARProject(util, vc, resourceMaps);
+			util.setValidateFlag(CANCEL);
+			return;
+		}
+		
 		//validate web projects for single root
 		if (JavaEEProjectUtilities.isDynamicWebProject(project)) {
 			validateWebProject(util, vc, resourceMaps);
@@ -94,6 +96,73 @@ public class JavaEESingleRootCallback implements SingleRootParticipantCallback {
 		}
 
 	}
+	
+	
+	private void validateEARProject(SingleRootUtil util, IVirtualComponent vc, List resourceMaps) {
+		/*
+		 * If we are here, we know we have more than one resource mapping, so let's check if the EAR is single root.
+		 * The algorithm is the following:
+		 * 	Go through all the mappings, 
+		 * 		If we find more than one mapping to root, then this EAR is not single root. 
+		 * 		If we find only one mapping to root,
+		 * 			Check if the other mappings' source path is part of the source path of the mapping to root. 
+		 * 			If at least one mapping has a source path that is not in the mapping to root, then the EAR is not single root.
+		 * 			else, report the only mapping found as the root container.  
+		 */
+
+		List<ComponentResource> rootMappings = new ArrayList<ComponentResource>();
+		List<ComponentResource> nonRootMappings = new ArrayList<ComponentResource>();
+		for (int i = 0; i < resourceMaps.size(); i++) {
+			ComponentResource resourceMap = (ComponentResource) resourceMaps.get(i);
+			// Verify if the map is for the content root
+			if (util.isRootMapping(resourceMap)) {
+				rootMappings.add(resourceMap);
+			}
+			else {
+				nonRootMappings.add(resourceMap);
+			}
+		}
+
+		if (rootMappings.size() > 1){
+			util.reportStatus(ONLY_1_CONTENT_ROOT_ALLOWED);
+			return;
+		}
+		if (rootMappings.size() < 1)
+		{
+			util.reportStatus(ONE_CONTENT_ROOT_REQUIRED);
+			return;
+		}
+
+		// We have one mapping to root. Let's check if there are other mappings 
+
+		ComponentResource rootMapping = rootMappings.get(0);
+		boolean reportNonSingleRoot = false;
+		for (ComponentResource otherMapping:nonRootMappings){
+			IPath otherMappingSourcePath = otherMapping.getSourcePath();
+			if (!rootMapping.getSourcePath().isPrefixOf(otherMappingSourcePath)){
+				reportNonSingleRoot = true;
+				break;	
+			}			
+		}
+		if (reportNonSingleRoot){
+			util.reportStatus(SOURCE_PATH_OUTSIDE_CONTENT_ROOT);
+			return;			
+		}
+		// At this moment, we know there is only one mapping to root (and possibly one or more
+		// other mappings that do not break the single root condition of the project), so let's see
+		// if we can find the root container
+		IResource sourceResource = util.getProject().findMember(rootMappings.get(0).getSourcePath());
+		if (sourceResource != null && sourceResource.exists()) {
+			if (sourceResource instanceof IContainer && !util.isSourceContainer((IContainer) sourceResource)) {
+				util.reportStatus(ISingleRootStatus.SINGLE_ROOT_CONTAINER_FOUND, (IContainer) sourceResource);
+				return;
+			}
+		}
+		// If we get here, it means that we have only one mapping to root (and possibly one or more
+		// other mappings that do not break the single root condition of the project), but the container for
+		// the root mapping was not found. 
+	}
+
 	
 	private void validateWebProject(SingleRootUtil util, IVirtualComponent vc, List resourceMaps) {
 		// Ensure there are only basic component resource mappings -- one for the content folder 
