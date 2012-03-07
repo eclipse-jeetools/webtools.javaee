@@ -323,8 +323,6 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 	 * This will be made private once the deprecated J2EEPreferences class is deleted 
 	 */
 	static String getAppClientDefaultOutputFolderName(){
-		if (ProductManager.shouldUseSingleRootStructure())
-			return getDefaultString(Keys.APP_CLIENT_CONTENT_FOLDER);
 		return getDefaultOutputFolderName();
 	}
 	
@@ -333,8 +331,6 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 	 * This will be made private once the deprecated J2EEPreferences class is deleted 
 	 */
 	static String getEJBDefaultOutputFolderName(){
-		if (ProductManager.shouldUseSingleRootStructure())
-			return getDefaultString(Keys.EJB_CONTENT_FOLDER);
 		return getDefaultOutputFolderName();
 	}
 	
@@ -343,8 +339,6 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 	 * This will be made private once the deprecated J2EEPreferences class is deleted 
 	 */
 	static String getJCADefaultOutputFolderName(){
-		if (ProductManager.shouldUseSingleRootStructure())
-			return getDefaultString(Keys.JCA_CONTENT_FOLDER);
 		return getDefaultOutputFolderName();
 	}
 	
@@ -363,8 +357,6 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 	 * This will be made private once the deprecated J2EEPreferences class is deleted 
 	 */
 	static String getDefaultOutputFolderName(){
-		if (ProductManager.shouldUseSingleRootStructure())
-			return getDefaultJavaSrcFolder();
 	    String outputFolder = getProductProperty( "defaultJavaOutputFolder" ); //$NON-NLS-1$
 	    if( outputFolder == null ){
 	        outputFolder = getProductProperty( "outputFolder" ); //$NON-NLS-1$
