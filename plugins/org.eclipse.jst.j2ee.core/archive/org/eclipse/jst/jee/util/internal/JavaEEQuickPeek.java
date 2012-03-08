@@ -365,7 +365,7 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 			break;
 			
 		case WEBFRAGMENT_TYPE:
-			javaEEVersion = J2EEVersionConstants.JEE_6_0_ID;
+			javaEEVersion = J2EEVersionConstants.WEBFRAGMENT_3_0_ID;
 		}
 			if (javaEEVersion == UNSET) {
 				javaEEVersion = UNKNOWN;
