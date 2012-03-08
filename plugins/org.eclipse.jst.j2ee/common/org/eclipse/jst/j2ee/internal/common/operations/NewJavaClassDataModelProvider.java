@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2012 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -78,7 +78,6 @@ import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
  * cache and provide their own specific attributes. They should also provide their own validation
  * methods and default values for the properties they add.
  * 
- * The use of this class is EXPERIMENTAL and is subject to substantial changes.
  */
 public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataModelProvider {
 

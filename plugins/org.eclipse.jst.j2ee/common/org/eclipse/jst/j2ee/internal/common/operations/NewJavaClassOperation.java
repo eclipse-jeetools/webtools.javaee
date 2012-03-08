@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2012 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -69,7 +69,6 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
  * The new java class is generated through the use of adding a series of static tokens defined within to
  * an ongoing string buffer.
  * 
- * The use of this class is EXPERIMENTAL and is subject to substantial changes.
  * 
  * This needs to be removed as it is legacy inherited from another team
  */

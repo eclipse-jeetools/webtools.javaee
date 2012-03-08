@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2008 SAP AG and others.
+ * Copyright (c) 2007, 2012 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -77,7 +77,6 @@ import org.eclipse.wst.common.project.facet.core.FacetedProjectFramework;
  * specific attributes. They should also provide their own validation methods,
  * properties interface, and default values for the properties they add.
  * 
- * The use of this class is EXPERIMENTAL and is subject to substantial changes.
  */
 public abstract class NewWebClassDataModelProvider extends NewJavaClassDataModelProvider  {
 	

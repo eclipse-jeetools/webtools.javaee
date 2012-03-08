@@ -40,9 +40,7 @@ import org.eclipse.ui.progress.UIJob;
 import org.eclipse.wst.common.internal.emfworkbench.integration.DynamicAdapterFactory;
 
 /**
- * <p>
- * The following class is experimental until fully documented.
- * </p>
+ * Root content provider for Java EE, delegates events to child providers
  */
 public class J2EEContentProvider implements ITreeContentProvider, IRefreshHandlerListener {
 

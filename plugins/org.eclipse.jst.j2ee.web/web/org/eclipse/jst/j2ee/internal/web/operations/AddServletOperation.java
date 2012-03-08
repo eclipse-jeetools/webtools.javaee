@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2008 IBM Corporation and others.
+ * Copyright (c) 2003, 2012 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -65,7 +65,6 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
  * Clients may subclass this operation to provide their own behaviour on servlet creation.  The execute
  * method can be extended to do so. Also, generateServletMetaData and creteServletClass are exposed.
  * 
- * The use of this class is EXPERIMENTAL and is subject to substantial changes.
  */
 public class AddServletOperation extends AddWebClassOperation {
 	
