@@ -437,7 +437,11 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		IVirtualReference reference = null;
 		for (Iterator referenceItr = implicitUtilityReferences.iterator(); referenceItr.hasNext(); ) {
 			reference = (IVirtualReference) referenceItr.next();
-			module = application.getFirstModule(reference.getArchiveName());
+			String uri = reference.getArchiveName();
+			if(uri != null && reference.getRuntimePath() != null) {
+				uri = reference.getRuntimePath().makeRelative().append(uri).toString();
+			}
+			module = application.getFirstModule(uri);
 			if(module != null) 
 				referenceItr.remove(); 
 		}
@@ -486,7 +490,11 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		IVirtualReference [] refs = earComponent.getReferences();
 
 		for(int i=0;i<refs.length; i++){
-			if(uri.equals(refs[i].getArchiveName())){
+		
+			if(refs[i].getRuntimePath() != null &&
+			   refs[i].getArchiveName() != null &&
+			   uri.equals(refs[i].getRuntimePath().makeRelative().append(refs[i].getArchiveName()).toString())){
+				
 				return refs[i].getReferencedComponent();
 			}
 		}

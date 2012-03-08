@@ -1,3 +1,14 @@
+/*******************************************************************************
+ * Copyright (c) 2009, 2012 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/
+
 package org.eclipse.jst.j2ee.internal.plugin;
 
 
@@ -29,7 +40,11 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 		final static String USE_EAR_LIBRARIES = "org.eclipse.jst.j2ee.preferences.useEARLibraries";//$NON-NLS-1$
 		final static String USE_WEB_APP_LIBRARIES = "org.eclipse.jst.j2ee.preferences.useWebAppLibraries";//$NON-NLS-1$
 		final static String USE_EAR_LIBRARIES_JDT_EXPORT = "org.eclipse.jst.j2ee.preferences.useEARLibrariesJDTExport";//$NON-NLS-1$
+		/**
+		 * @deprecated Do not use. The ALLOW_CLASSPATH_DEP preference has been deprecated and its ability to disable dynamic manifest updates will soon be removed.
+		 */
 		final static String ALLOW_CLASSPATH_DEP = IProductConstants.ALLOW_CLASSPATH_DEP;
+		final static String VALIDATE_DUPLICATE_CLASSPATH_COMPONENT_URI= IProductConstants.VALIDATE_DUPLICATE_CLASSPATH_COMPONENT_URI;
 
 		static final String J2EE_WEB_CONTENT = "org.eclipse.jst.j2ee.preference.j2eeWebContentName"; //$NON-NLS-1$
 		static final String STATIC_WEB_CONTENT = "org.eclipse.jst.j2ee.preference.staticWebContentName"; //$NON-NLS-1$
@@ -113,6 +128,25 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 	     * @since 3.2
 	     */
 		static final String EE6_CONNECTOR_GENERATE_DD = "ee6_connector_generate_dd"; //$NON-NLS-1$
+		
+		/**
+		 * Used to determine if the business interface annotations should be added to the bean class during EJB creation. 
+		 */
+		static final String EJB_BUSINESS_INTERFACE_ANNOTATION_IN_BEAN = IProductConstants.EJB_BUSINESS_INTERFACE_ANNOTATION_IN_BEAN;
+		/**
+		 * Used to determine if the business interface annotations should be to the business interfaces during EJB creation. 
+		 */
+		static final String EJB_BUSINESS_INTERFACE_ANNOTATION_IN_INTERFACE = IProductConstants.EJB_BUSINESS_INTERFACE_ANNOTATION_IN_INTERFACE;
+		
+		/**
+		 * Indicates a suffix that should be used for the package of all the interfaces when creating session beans.
+		 * For example, if the qualified bean class name is com.test.Bean1, and the value of #EJB_INTERFACE_PACKAGE_SUFFIX is 
+		 * test2, then the default local business interface name will be com.test.test2.Bean1Local 
+		 * Default value is an empty string.  
+		 */
+		static final String EJB_INTERFACE_PACKAGE_SUFFIX = IProductConstants.EJB_INTERFACE_PACKAGE_SUFFIX;
+
+		
 
 	}
 
@@ -156,12 +190,18 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 		final static boolean INCREMENTAL_DEPLOYMENT_SUPPORT = true;
 		final static boolean USE_EAR_LIBRARIES_JDT_EXPORT = false;
 		final static String ID_PERSPECTIVE_HIERARCHY_VIEW = "org.eclipse.ui.navigator.ProjectExplorer"; //$NON-NLS-1$
+		/**
+		 * @deprecated Do not use. The ALLOW_CLASSPATH_DEP preference has been deprecated and its ability to disable dynamic manifest updates will soon be removed.
+		 */
 		final static boolean ALLOW_CLASSPATH_DEP = true;
+		final static boolean VALIDATE_DUPLICATE_CLASSPATH_COMPONENT_URI = true;
 		final static boolean SHOW_JAVA_EE_MODULE_DEPENDENCY_PAGE = true;
 		public static final String STRING_DEFAULT_DEFAULT = ""; //$NON-NLS-1$
 		public static final boolean BOOLEAN_DEFAULT_DEFAULT = false;
 		final static boolean DYNAMIC_WEB_GENERATE_DD = false;
 		final static boolean EE6_CONNECTOR_GENERATE_DD = false;
+		final static boolean EJB_BUSINESS_INTERFACE_ANNOTATION_IN_BEAN = false;
+		final static boolean EJB_BUSINESS_INTERFACE_ANNOTATION_IN_INTERFACE = true;
 	}
 	
 	@Override
@@ -211,6 +251,9 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 		String allowClasspathDep = ProductManager.getProperty(IProductConstants.ALLOW_CLASSPATH_DEP);
 		boolean allowClasspathDepDefault = (allowClasspathDep != null) ? Boolean.parseBoolean(allowClasspathDep) : Defaults.ALLOW_CLASSPATH_DEP;
 		node.putBoolean(Keys.ALLOW_CLASSPATH_DEP, allowClasspathDepDefault);
+		String validateDupClasspathCompURIs = ProductManager.getProperty(IProductConstants.VALIDATE_DUPLICATE_CLASSPATH_COMPONENT_URI);
+		boolean validateDupClasspathCompURIsDefault = (validateDupClasspathCompURIs != null) ? Boolean.parseBoolean(validateDupClasspathCompURIs) : Defaults.VALIDATE_DUPLICATE_CLASSPATH_COMPONENT_URI;
+		node.putBoolean(Keys.VALIDATE_DUPLICATE_CLASSPATH_COMPONENT_URI, validateDupClasspathCompURIsDefault);
 		String showJavaEEModuleDependencyPage = ProductManager.getProperty(IProductConstants.SHOW_JAVA_EE_MODULE_DEPENDENCY_PAGE);
 		boolean showJavaEEModuleDependencyPageDefault = (showJavaEEModuleDependencyPage != null) ? Boolean.parseBoolean(showJavaEEModuleDependencyPage) : Defaults.SHOW_JAVA_EE_MODULE_DEPENDENCY_PAGE;
 		node.putBoolean(Keys.SHOW_JAVA_EE_MODULE_DEPENDENCY_PAGE, showJavaEEModuleDependencyPageDefault);
@@ -219,7 +262,17 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 		node.put(Keys.DYN_WEB_OUTPUT_FOLDER, getDynamicWebDefaultOuputFolderName());
 		node.put(Keys.APP_CLIENT_OUTPUT_FOLDER,  getAppClientDefaultOutputFolderName() );
 		node.put(Keys.EJB_OUTPUT_FOLDER, getEJBDefaultOutputFolderName() );
-		node.put(Keys.JCA_OUTPUT_FOLDER, getJCADefaultOutputFolderName() );	
+		node.put(Keys.JCA_OUTPUT_FOLDER, getJCADefaultOutputFolderName() );
+		
+		String ejbBusinessInterfaceAnnotationInBean = ProductManager.getProperty(IProductConstants.EJB_BUSINESS_INTERFACE_ANNOTATION_IN_BEAN);
+		boolean  ejbBusinessInterfaceAnnotationInBeanDefault = (ejbBusinessInterfaceAnnotationInBean != null )? Boolean.parseBoolean(ejbBusinessInterfaceAnnotationInBean) : Defaults.EJB_BUSINESS_INTERFACE_ANNOTATION_IN_BEAN;
+		node.putBoolean(Keys.EJB_BUSINESS_INTERFACE_ANNOTATION_IN_BEAN, ejbBusinessInterfaceAnnotationInBeanDefault);
+		
+		String ejbBusinessInterfaceAnnotationInInterface = ProductManager.getProperty(IProductConstants.EJB_BUSINESS_INTERFACE_ANNOTATION_IN_INTERFACE);
+		boolean  ejbBusinessInterfaceAnnotationInInterfaceDefault = (ejbBusinessInterfaceAnnotationInInterface != null )? Boolean.parseBoolean(ejbBusinessInterfaceAnnotationInInterface) : Defaults.EJB_BUSINESS_INTERFACE_ANNOTATION_IN_INTERFACE;
+		node.putBoolean(Keys.EJB_BUSINESS_INTERFACE_ANNOTATION_IN_INTERFACE, ejbBusinessInterfaceAnnotationInInterfaceDefault);
+		
+		node.put(Keys.EJB_INTERFACE_PACKAGE_SUFFIX, ProductManager.getProperty(IProductConstants.EJB_INTERFACE_PACKAGE_SUFFIX));
 		}
 
 	
@@ -270,8 +323,6 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 	 * This will be made private once the deprecated J2EEPreferences class is deleted 
 	 */
 	static String getAppClientDefaultOutputFolderName(){
-		if (ProductManager.shouldUseSingleRootStructure())
-			return getDefaultString(Keys.APP_CLIENT_CONTENT_FOLDER);
 		return getDefaultOutputFolderName();
 	}
 	
@@ -280,8 +331,6 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 	 * This will be made private once the deprecated J2EEPreferences class is deleted 
 	 */
 	static String getEJBDefaultOutputFolderName(){
-		if (ProductManager.shouldUseSingleRootStructure())
-			return getDefaultString(Keys.EJB_CONTENT_FOLDER);
 		return getDefaultOutputFolderName();
 	}
 	
@@ -290,8 +339,6 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 	 * This will be made private once the deprecated J2EEPreferences class is deleted 
 	 */
 	static String getJCADefaultOutputFolderName(){
-		if (ProductManager.shouldUseSingleRootStructure())
-			return getDefaultString(Keys.JCA_CONTENT_FOLDER);
 		return getDefaultOutputFolderName();
 	}
 	
@@ -310,8 +357,6 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 	 * This will be made private once the deprecated J2EEPreferences class is deleted 
 	 */
 	static String getDefaultOutputFolderName(){
-		if (ProductManager.shouldUseSingleRootStructure())
-			return getDefaultJavaSrcFolder();
 	    String outputFolder = getProductProperty( "defaultJavaOutputFolder" ); //$NON-NLS-1$
 	    if( outputFolder == null ){
 	        outputFolder = getProductProperty( "outputFolder" ); //$NON-NLS-1$

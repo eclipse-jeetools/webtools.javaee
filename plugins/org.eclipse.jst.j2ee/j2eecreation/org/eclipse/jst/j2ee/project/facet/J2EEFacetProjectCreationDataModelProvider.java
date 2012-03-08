@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2005, 2012 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.core.filesystem.EFS;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -22,6 +23,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.datamodel.FacetProjectCreationDataModelProvider;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
@@ -39,6 +41,7 @@ import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 public class J2EEFacetProjectCreationDataModelProvider extends FacetProjectCreationDataModelProvider implements IJ2EEFacetProjectCreationDataModelProperties {
     
     private static Set<IProjectFacet> MODULE_FACETS = new HashSet<IProjectFacet>();
+    private boolean caseSensitiveFs = EFS.getLocalFileSystem().isCaseSensitive();
     
     static
     {
@@ -186,6 +189,12 @@ public class J2EEFacetProjectCreationDataModelProvider extends FacetProjectCreat
 					String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.SAME_MODULE_AND_EAR_NAME, new Object[]{getStringProperty(EAR_PROJECT_NAME)});
 					return WTPCommonPlugin.createErrorStatus(errorMessage);
 				}
+				if (!caseSensitiveFs && getStringProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME).equalsIgnoreCase(getStringProperty(EAR_PROJECT_NAME))) {
+					String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.SAME_MODULE_AND_EAR_NAME_DIFFERENT_CASE, new Object[]{getStringProperty(EAR_PROJECT_NAME)});
+					return WTPCommonPlugin.createErrorStatus(errorMessage);
+				}
+			}else if (EAR_PROJECT_NAME.equals(propertyName)){
+				return validateEAR(model.getStringProperty(EAR_PROJECT_NAME));
 			}
 		}
 		return super.validate(propertyName);
@@ -205,10 +214,13 @@ public class J2EEFacetProjectCreationDataModelProvider extends FacetProjectCreat
 		//file system.
 		if( status.isOK()){
 			IProject earProject = ProjectUtilities.getProject(getStringProperty(EAR_PROJECT_NAME));
-			if( !earProject.exists() ){
-				IPath path = ResourcesPlugin.getWorkspace().getRoot().getLocation();
-				path = path.append(earName);
-				status = ProjectCreationDataModelProviderNew.validateExisting(earName, path.toOSString());
+			if(!earProject.exists()){
+					IPath path = ResourcesPlugin.getWorkspace().getRoot().getLocation();
+					path = path.append(earName);
+					status = ProjectCreationDataModelProviderNew.validateExisting(earName, path.toOSString());
+			}else if(!JavaEEProjectUtilities.isEARProject(earProject)){
+				String errorMessage = WTPCommonPlugin.getResourceString(WTPCommonMessages.EAR_NAME_USED_BY_NON_EAR_PROJECT);
+				return WTPCommonPlugin.createErrorStatus(errorMessage);
 			}
 		}
 		return status;

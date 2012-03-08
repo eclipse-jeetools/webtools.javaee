@@ -33,7 +33,8 @@ import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
 import org.eclipse.jst.j2ee.classpathdep.UpdateClasspathAttributeUtil;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
-import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
+import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.AbstractDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -130,12 +131,13 @@ public class UpdateClasspathAttributesOperation extends AbstractDataModelOperati
 	}
 
 	private void alterDependencyAttributes(final IJavaProject javaProject, final Map entries, final boolean add, final boolean modifyComponentDep) throws CoreException {
-		final boolean isWebApp = JavaEEProjectUtilities.isDynamicWebProject(javaProject.getProject());
 		final boolean isLegacyJ2EE = J2EEProjectUtilities.isLegacyJ2EEProject(javaProject.getProject());
 		final IJavaProjectLite javaProjectLite = JavaCoreLite.create(javaProject);
 		
 		// initialize to the set of raw entries with the attrib
 		final Map entriesWithAttrib = ClasspathDependencyUtil.getRawComponentClasspathDependencies(javaProjectLite, modifyComponentDep ? DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY : DependencyAttributeType.CLASSPATH_COMPONENT_NONDEPENDENCY, isLegacyJ2EE);
+		
+		ClasspathDependencyExtensionManager extensionManager = ClasspathDependencyExtensionManager.instance();
 		
 		Iterator i = entries.keySet().iterator();
 		while (i.hasNext()) {
@@ -145,13 +147,29 @@ public class UpdateClasspathAttributesOperation extends AbstractDataModelOperati
 					IPath runtimePath = (IPath) entries.get(entry);
 					if (runtimePath == null) {
 						// compute the default runtime path
-						runtimePath = ClasspathDependencyUtil.getDefaultRuntimePath(isWebApp, ClasspathDependencyUtil.isClassFolderEntry(entry));
+						IVirtualComponent virtualComponent = ComponentCore.createComponent(javaProject.getProject());
+						runtimePath = ClasspathDependencyUtil.getDefaultRuntimePath(virtualComponent, entry);
 					}
+					
 					IClasspathAttribute attrib = null;
-					if (modifyComponentDep) {
-						attrib = UpdateClasspathAttributeUtil.createDependencyAttribute(runtimePath);
-					} else {
-						attrib = UpdateClasspathAttributeUtil.createNonDependencyAttribute();
+					
+					if (modifyComponentDep) 
+					{
+				      // Check to see if an extender has a value for this classpath entry.	  
+					  String extenderValue = extensionManager.getDependencyValue( javaProject.getProject(), entry );
+					  
+					  if( extenderValue == null )
+					  {
+					    attrib = UpdateClasspathAttributeUtil.createDependencyAttribute(runtimePath);
+					  }
+					  else
+					  {
+					    attrib = UpdateClasspathAttributeUtil.createDependencyAttribute( extenderValue );  
+					  }
+					} 
+					else 
+					{
+					  attrib = UpdateClasspathAttributeUtil.createNonDependencyAttribute();
 					}
  					entriesWithAttrib.put(entry, attrib);
 				}

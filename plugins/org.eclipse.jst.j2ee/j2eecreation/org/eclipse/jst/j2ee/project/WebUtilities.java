@@ -11,6 +11,8 @@
 package org.eclipse.jst.j2ee.project;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +22,9 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jst.j2ee.classpathdep.ClasspathDependencyUtil;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
+import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.XMLResource;
@@ -106,7 +110,7 @@ public class WebUtilities extends JavaEEProjectUtilities {
 		IVirtualReference[] refComponents = webComponent.getReferences(options);
 		
 		for(IVirtualReference virtualReference : refComponents){
-			if(virtualReference.getRuntimePath().equals(WEBLIB)){
+			if(virtualReference.getRuntimePath().equals(WEBLIB) && !ClasspathDependencyUtil.isClassFolderReference(virtualReference)){
 				IVirtualComponent virtualComponent = virtualReference.getReferencedComponent();
 				if(JavaEEProjectUtilities.isWebFragmentProject(virtualComponent)){
 					result.add(virtualComponent);
@@ -157,7 +161,7 @@ public class WebUtilities extends JavaEEProjectUtilities {
 		// base path
 		for (int i = 0; i < refComponents.length; i++) {
 			IVirtualReference reference = refComponents[i];
-			if (reference.getRuntimePath().equals(WEBLIB))
+			if (reference.getRuntimePath().equals(WEBLIB) && !ClasspathDependencyUtil.isClassFolderReference(reference))			
 				result.add(reference);
 		}
 
@@ -221,5 +225,65 @@ public class WebUtilities extends JavaEEProjectUtilities {
 	public static void setServerContextRoot(IProject webProject, String contextRoot)
 	{
 		ComponentUtilities.setServerContextRoot(webProject, contextRoot);
+	}
+	/**
+	 * This method will get the context root on the associated workbench module if null is passed for the earProject, or will use the ear to determine the context root.
+	 * This context root is used by the server at runtime.
+	 * 
+	 * @param webProject IProject
+	 * @param earProject IProject - can be null
+	 */
+	public static String getServerContextRoot(IProject webProject,IProject earProject) {
+    	String contextRoot = null;
+    	if (earProject == null || !JavaEEProjectUtilities.deploymentDescriptorExists(earProject))
+    		return ComponentUtilities.getServerContextRoot(webProject);
+    	else if (JavaEEProjectUtilities.isEARProject(earProject) && JavaEEProjectUtilities.isDynamicWebProject(webProject)) {
+    		EARArtifactEdit edit = null;
+    		try {
+    			edit = EARArtifactEdit.getEARArtifactEditForRead(earProject);
+    			contextRoot = edit.getWebContextRoot(webProject);
+    		} finally {
+    			if (edit!=null)
+    				edit.dispose();
+    		}
+    	}
+    	return contextRoot;
+    }
+
+	/**
+	 * Returns all referencing Web projects.
+	 * 
+	 * @param project
+	 *            Project to check. If <code>null</code> then a zero length
+	 *            array is returned. If a WAR, then a one element array will be
+	 *            returned.
+	 * @return Array of referencing Web projects.
+	 */
+	public static IProject[] getReferencingWebProjects(final IProject project) {
+		if (project == null) {
+			return new IProject[0];
+		} else if (isDynamicWebProject(project)) {
+			return new IProject[] { project };
+		}
+
+		List result = new ArrayList();
+		IVirtualComponent component = ComponentCore.createComponent(project);
+		if (component != null) {
+			IVirtualComponent[] refComponents = component.getReferencingComponents();
+			for (int i = 0; i < refComponents.length; i++) {
+				if (isDynamicWebProject(refComponents[i].getProject()))
+					result.add(refComponents[i].getProject());
+			}
+		}
+
+		IProject[] webProjects = (IProject[]) result.toArray(new IProject[result.size()]);
+		// sort the list so it is consistent
+		Arrays.sort(webProjects, new Comparator<IProject>() {
+			public int compare(IProject p0, IProject p1) {
+				return p0.getName().compareTo(p1.getName());
+			}
+		});
+
+		return webProjects;
 	}
 }

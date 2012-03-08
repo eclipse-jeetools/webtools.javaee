@@ -22,6 +22,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
@@ -32,6 +33,7 @@ import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathContainerUtils;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPreferences;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPreferences.Keys;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.osgi.util.NLS;
@@ -47,6 +49,7 @@ import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonMessages;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IFacetedProjectWorkingCopy;
+import org.eclipse.wst.common.project.facet.core.IProjectFacet;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.common.project.facet.core.events.IFacetedProjectEvent;
@@ -108,7 +111,7 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 			if (model.isPropertySet(LAST_EAR_NAME)) {
 				IProject project = ProjectUtilities.getProject(getStringProperty(LAST_EAR_NAME));
 				for (int i = 0; i < descs.length; i++) {
-					if (project.exists() && project.isAccessible() && project.getName().equals(descs[i].getPropertyDescription())){
+					if (project.exists() && project.isAccessible() && project.getName().equals(descs[i].getPropertyDescription())&& hasValidRuntime(project)){
 						return project.getName();
 					}
 				}
@@ -117,7 +120,8 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 			if (descs.length > 0) {
 				DataModelPropertyDescriptor desc = descs[0];
 				String eARName = desc.getPropertyDescription();
-				if (eARName != null && !eARName.equals("")) { //$NON-NLS-1$
+				IProject project = ProjectUtilities.getProject(eARName);
+				if (eARName != null && !eARName.equals("") && hasValidRuntime(project)) { //$NON-NLS-1$
 					return eARName;
 				}
 				return getDataModel().getStringProperty(FACET_PROJECT_NAME) + "EAR"; //$NON-NLS-1$
@@ -155,7 +159,7 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 			IStatus status = validateEAR(model.getStringProperty(EAR_PROJECT_NAME));
 			if (status.isOK()) {
 				IProject project = ProjectUtilities.getProject(getStringProperty(EAR_PROJECT_NAME));
-				if (project.exists() && project.isAccessible() && JavaEEProjectUtilities.isEARProject(project)) {
+				if (project.exists() && project.isAccessible() && JavaEEProjectUtilities.isEARProject(project)) {				
 					try {
 						IFacetedProject facetProj = ProjectFacetsManager.create(project, false, new NullProgressMonitor());
 						setProperty(FACET_RUNTIME, facetProj.getRuntime());
@@ -195,6 +199,34 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 		return super.propertySet(propertyName, propertyValue);
 	}
 	
+	
+	private boolean hasValidRuntime(IProject project){
+		IFacetedProject facetProj = null;
+		try {
+			facetProj = ProjectFacetsManager.create(project, false, new NullProgressMonitor());
+		} catch (CoreException e1) {
+			org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e1);
+		}
+		if (facetProj != null){
+			IRuntime runtime  = facetProj.getPrimaryRuntime();
+
+			if (runtime != null)
+			{
+				for (IProjectFacet facet:fpjwc.getFixedProjectFacets()){
+					try {
+						IProjectFacetVersion facetVersion = facet.getLatestSupportedVersion(runtime);
+						if (facetVersion == null){
+							return false;
+						}
+					} catch (CoreException e) {
+						throw new RuntimeException( e );
+					}
+				}
+			}
+		}
+		return true;
+	}
+	
     private void handleProjectFacetsChanged()
     {
         final IFacetedProject.Action javaInstallAction
@@ -204,16 +236,40 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
         {
             final Object config = javaInstallAction.getConfig();
             
-            if( config instanceof JavaFacetInstallConfig )
+            if(config != null)
             {
-                this.javaFacetInstallConfig = (JavaFacetInstallConfig) config;
+            	if( config instanceof JavaFacetInstallConfig )
+            	{
+            		this.javaFacetInstallConfig = (JavaFacetInstallConfig) config;
+            		
+            		String providerId = model.getID();
+            		if(providerId != "") //$NON-NLS-1$
+            		{
+            			if (providerId.indexOf("WebFacetInstallDataModelProvider") != -1) //$NON-NLS-1$
+            			{ this.javaFacetInstallConfig.setDefaultOutputFolder(new Path(J2EEPlugin.getDefault().getJ2EEPreferences().getString(Keys.DYN_WEB_OUTPUT_FOLDER))); }
+            			else            			
+            				if(providerId.indexOf("EjbFacetInstallDataModelProvider") != -1) //$NON-NLS-1$
+            				{ this.javaFacetInstallConfig.setDefaultOutputFolder(new Path(J2EEPlugin.getDefault().getJ2EEPreferences().getString(Keys.EJB_OUTPUT_FOLDER))); }
+            				else
+            					if(providerId.indexOf("AppClientFacetInstallDataModelProvider") != -1) //$NON-NLS-1$
+            					{ this.javaFacetInstallConfig.setDefaultOutputFolder(new Path(J2EEPlugin.getDefault().getJ2EEPreferences().getString(Keys.APP_CLIENT_OUTPUT_FOLDER))); }
+            					else
+                					if(providerId.indexOf("ConnectorFacetInstallDataModelProvider") != -1) //$NON-NLS-1$
+                					{ this.javaFacetInstallConfig.setDefaultOutputFolder(new Path(J2EEPlugin.getDefault().getJ2EEPreferences().getString(Keys.JCA_OUTPUT_FOLDER))); }
+                					else
+                    					if(providerId.indexOf("UtilityFacetInstallDataModelProvider") != -1) //$NON-NLS-1$
+                    					{ this.javaFacetInstallConfig.setDefaultOutputFolder(new Path(J2EEPlugin.getDefault().getJ2EEPreferences().getUtilityOutputFolderName())); }
+            		}
+            	}
+            	else
+            	{
+            		this.javaFacetInstallConfig = (JavaFacetInstallConfig) Platform.getAdapterManager().getAdapter( config, JavaFacetInstallConfig.class );
+            	}
+            	if (this.javaFacetInstallConfig != null)
+            	{
+            		this.javaFacetInstallConfig.addListener( this.javaFacetSourceFolderListener, JavaFacetInstallConfig.ChangeEvent.Type.SOURCE_FOLDERS_CHANGED );
+            	}
             }
-            else
-            {
-                this.javaFacetInstallConfig = (JavaFacetInstallConfig) Platform.getAdapterManager().getAdapter( config, JavaFacetInstallConfig.class );
-            }
-            
-            this.javaFacetInstallConfig.addListener( this.javaFacetSourceFolderListener, JavaFacetInstallConfig.ChangeEvent.Type.SOURCE_FOLDERS_CHANGED );
         }
     }
 

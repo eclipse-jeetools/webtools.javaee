@@ -19,6 +19,8 @@ import java.util.zip.ZipOutputStream;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jst.common.internal.modulecore.AddClasspathFoldersParticipant;
+import org.eclipse.jst.common.internal.modulecore.AddClasspathLibReferencesParticipant;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.archive.ComponentArchiveLoadAdapter;
 import org.eclipse.jst.j2ee.internal.archive.JavaEEArchiveUtilities;
@@ -130,7 +132,9 @@ public class JavaEEComponentExportCallback implements ComponentExportCallback {
 	
 	protected IFlattenParticipant[] getParticipants() {
 		return new IFlattenParticipant[]{
-			createHierarchyParticipant()
+			createHierarchyParticipant(),
+			new AddClasspathLibReferencesParticipant(),
+			new AddClasspathFoldersParticipant()
 		};
 	}
 	

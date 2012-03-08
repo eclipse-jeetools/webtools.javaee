@@ -17,7 +17,6 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -28,6 +27,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jdt.core.IClasspathAttribute;
+import org.eclipse.jdt.core.IClasspathContainer;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
@@ -316,6 +316,7 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 		// get the raw entries
 		final Map<IClasspathEntry, IClasspathAttribute> referencedRawEntries = getRawComponentClasspathDependencies(javaProjectLite, DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY, isLegacyJ2EE);
 		final Map<IClasspathEntry, IClasspathAttribute> validRawEntries = new HashMap<IClasspathEntry, IClasspathAttribute>();
+		final Map <IClasspathEntry, IClasspathAttribute> validRawClassPathContainerEntries = new HashMap <IClasspathEntry, IClasspathAttribute>();
 
 		// filter out non-valid referenced raw entries
 		final Iterator<IClasspathEntry> i = referencedRawEntries.keySet().iterator();
@@ -323,12 +324,19 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 			final IClasspathEntry entry = i.next();
 			final IClasspathAttribute attrib = referencedRawEntries.get(entry);
 			if (isValid(entry, attrib, isWebApp, javaProjectLite.getProject(), data)) {
-				validRawEntries.put(entry, attrib);
+				if (entry.getEntryKind() == IClasspathEntry.CPE_CONTAINER)
+				{
+					//Put in a separate map the classpath container entries, since they will be handled differently
+					validRawClassPathContainerEntries.put(entry, attrib);
+				}
+				else {
+					validRawEntries.put(entry, attrib);
+				}
 			}
 		}
 
 		// if we have no valid raw entries, return empty map
-		if (validRawEntries.isEmpty()) {
+		if (validRawEntries.isEmpty() && validRawClassPathContainerEntries.isEmpty()) {
         	return Collections.emptyMap();
 		}
 
@@ -351,7 +359,9 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 			pathToResolvedEntry.put(entries[j].getPath(), entries[j]);
 		}
 
-		final Map <IClasspathEntry, IClasspathAttribute> referencedEntries = new LinkedHashMap <IClasspathEntry, IClasspathAttribute>();
+		//Gather all resolved entries from the package roots and the classpath containers
+		final Map <IClasspathEntry, IClasspathAttribute> resolvedEntries = new LinkedHashMap <IClasspathEntry, IClasspathAttribute>();
+
 		
 		// grab all IPackageFragmentRoots
 		
@@ -360,6 +370,7 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 		// entry has the publish/export attribute)
 		//TODO this call to javaProject needs to be removed.  Need to figure out what exactly this is attempting to do.
 		final IPackageFragmentRoot[] roots = javaProject.getPackageFragmentRoots();
+		
 		for (IPackageFragmentRoot root : roots) {
 			final IClasspathEntry rawEntry = root.getRawClasspathEntry();
 			
@@ -371,6 +382,29 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 			
 			final IPath pkgFragPath = root.getPath();
 			final IClasspathEntry resolvedEntry = pathToResolvedEntry.get(pkgFragPath);
+			resolvedEntries.put(resolvedEntry, attrib);
+		}
+		
+		// Add entries coming from classpath containers to the list of resolved entries
+		for (Map.Entry <IClasspathEntry, IClasspathAttribute> entry : validRawClassPathContainerEntries.entrySet()) {
+			IClasspathContainer classpathContainer = JavaCore.getClasspathContainer(entry.getKey().getPath(), javaProject);
+			if(classpathContainer != null)
+			{
+				IClasspathEntry[] classpathContainerEntries = classpathContainer.getClasspathEntries();
+				if(classpathContainerEntries != null) {
+					for (int j = 0; j < classpathContainerEntries.length; j++) {
+						resolvedEntries.put(classpathContainerEntries[j], entry.getValue());
+					}
+				}
+			}
+		}
+
+		//Setup the final result
+		final Map <IClasspathEntry, IClasspathAttribute> referencedEntries = new LinkedHashMap <IClasspathEntry, IClasspathAttribute>();
+		for (Map.Entry <IClasspathEntry, IClasspathAttribute> mapEntry : resolvedEntries.entrySet()) {
+			final IClasspathEntry resolvedEntry = mapEntry.getKey();
+			IClasspathAttribute attrib = mapEntry.getValue();
+			
 			final IClasspathAttribute resolvedAttrib = checkForComponentDependencyAttribute(resolvedEntry, DependencyAttributeType.DEPENDENCY_OR_NONDEPENDENCY, isLegacyJ2EE);
 			// attribute for the resolved entry must either be unspecified or it must be the
 			// dependency attribute for it to be included
@@ -542,6 +576,58 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 			return isClassFolder ? WEB_INF_CLASSES_PATH : WEB_INF_LIB_PATH;			
 		}
 		return isClassFolder ? RUNTIME_MAPPING_INTO_COMPONENT_PATH : RUNTIME_MAPPING_INTO_CONTAINER_PATH;
+	}
+	
+	public static IPath getDefaultRuntimePath(final IVirtualComponent virtualComponent, IClasspathEntry entry){
+		boolean isClassFolderEntry = isClassFolderEntry(entry);
+		if(virtualComponent == null){
+			//null, use default
+			return getDefaultRuntimePath(false, isClassFolderEntry);
+		}
+		boolean isWebApp = JavaEEProjectUtilities.isDynamicWebComponent(virtualComponent);
+		if(isWebApp || isClassFolderEntry){
+			return getDefaultRuntimePath(isWebApp, isClassFolderEntry);
+		}
+
+		//not a WAR
+		//if part of EE5 or greature ear, map into the EAR's lib folder
+		IProject [] earProjects = EarUtilities.getReferencingEARProjects(virtualComponent.getProject());
+		if (earProjects.length > 0) {
+			IVirtualComponent earComponent = ComponentCore.createComponent(earProjects[0]);
+			if (earComponent != null) {
+				return calculateDefaultRuntimePath(earComponent, virtualComponent);
+			}
+		}
+		return getDefaultRuntimePath(false, false);
+		
+	}
+	
+	public static IPath calculateDefaultRuntimePath(IVirtualComponent parentComponent, IVirtualComponent targetComponent) {
+		IVirtualReference targetRef = parentComponent.getReference(targetComponent.getName());
+		String libDir = EarUtilities.getEARLibDir(parentComponent);
+		if (libDir != null && libDir.length() > 0) {
+			IPath libDirPath = new Path(libDir);
+
+			// If project is at root level, go up a level and add lib dir path absolute path
+			if(targetRef == null || targetRef.getRuntimePath().equals("/")) //$NON-NLS-1$
+				return new Path(RUNTIME_MAPPING_INTO_CONTAINER).append(libDirPath.makeAbsolute());
+			IPath childProjectRuntimePath = targetRef.getRuntimePath();
+
+			String[] childProjectFolders = childProjectRuntimePath.segments();
+			String[] libFolders = libDirPath.segments();
+			int commonFolderCount = 0;
+			for(int i = 0; i < childProjectFolders.length; i++) {
+				if(i >= libFolders.length || !childProjectFolders[i].equals(libFolders[i]))
+					break;
+				commonFolderCount++;
+			}
+			String resultString = RUNTIME_MAPPING_INTO_CONTAINER;
+			for(int i = 0; i < childProjectFolders.length - commonFolderCount; i++) {
+				resultString += RUNTIME_MAPPING_INTO_CONTAINER;
+			}
+			return new Path(resultString).append(libDirPath.removeFirstSegments(commonFolderCount));
+		}
+		return getDefaultRuntimePath(false, false);
 	}
 	
 	/**

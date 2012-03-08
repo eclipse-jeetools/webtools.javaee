@@ -69,6 +69,7 @@ public final class J2EEUtilityJarImportDataModelProvider extends J2EEArtifactImp
 				nestedModel = (IDataModel) nestedModels.get(i);
 				try {
 					nestedModel.setProperty(IJ2EEFacetProjectCreationDataModelProperties.EAR_PROJECT_NAME, propertyValue);
+					nestedModel.setProperty(IJ2EEFacetProjectCreationDataModelProperties.ADD_TO_EAR, true);
 				} catch (Exception e) {
 					J2EEPlugin.logError(e);
 				}
@@ -76,5 +77,11 @@ public final class J2EEUtilityJarImportDataModelProvider extends J2EEArtifactImp
 			return true;
 		} 
 		 return super.propertySet(propertyName, propertyValue);
+	}
+	
+	@Override
+	protected void refreshInterpretedSpecVersion(){
+		updateJavaFacetVersion();
+		
 	}
 }

@@ -27,6 +27,8 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jst.j2ee.application.WebModule;
@@ -37,6 +39,7 @@ import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.componentcore.JavaEEBinaryComponentHelper;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.model.IEARModelProvider;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
@@ -106,7 +109,7 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 				if(list == null)
 					list = new ArrayList();
 				if(list.isEmpty()) {
-					IVirtualReference [] refs = ear.getReferences();
+					IVirtualReference [] refs = J2EEProjectUtilities.getJ2EEModuleReferences(ear);
 					if (refs != null && refs.length > 0) {
 						list = new ArrayList();
 						for (int i = 0; i < refs.length; i++) {
@@ -131,8 +134,7 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 							StructureEdit compse = null;
 							try {
 								compse = StructureEdit.getStructureEditForWrite(wc.getProject());
-								WorkbenchComponent refwc = compse.getComponent();
-								final ReferencedComponent ref = se.findReferencedComponent(earwc, refwc);
+								final ReferencedComponent ref = findReferencedComponent(earwc, wc, se, compse);
 								earModel.modify(new Runnable() {
 									public void run() {
 										final ICommonApplication application = (ICommonApplication)earModel.getModelObject();
@@ -142,7 +144,16 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 												String deployPath = (String)deployMap.get(wc);
 												if(name != null && !deployPath.equals("/")) //$NON-NLS-1$
 													name = (new Path(deployPath)).append(name).toString();
+												String libDir = EarUtilities.getEARLibDir(ear);
+												IPath libDirPath = null;
+												if(libDir != null)
+													libDirPath = new Path(libDir).makeRelative();
+												if(libDirPath != null && !libDirPath.isEmpty() && new Path(deployPath).makeRelative().equals(libDirPath)) { // Do not consider library directory files as modules
+													return;
+												}
 											}
+											if(name != null)
+												name = new Path(name).makeRelative().toString();
 											ICommonModule mod = addModule(application, wc, name);
 											if(mod == null){ //utility project
 												return;
@@ -344,8 +355,10 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 			if (JavaEEProjectUtilities.isJEEComponent(ear, JavaEEProjectUtilities.DD_VERSION)){
 				String deployPath = model.getStringProperty(IAddComponentToEnterpriseApplicationDataModelProperties.TARGET_COMPONENTS_DEPLOY_PATH);
 				String libDir = EarUtilities.getEARLibDir(ear);
-				
-				if(libDir != null && libDir.equals(deployPath)) {
+				IPath libDirPath = null;
+				if(libDir != null)
+					libDirPath = new Path(libDir).makeRelative();				
+				if(libDirPath != null && deployPath != null && !libDirPath.isEmpty() && libDirPath.equals(new Path(deployPath).makeRelative())) {
 					// the component added is in the library directory of an EAR 5+ project
 					// we should trigger force update of the classpath of all module in the EAR
 					IVirtualReference[] refs = ear.getReferences();
@@ -365,6 +378,30 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 
 	private static IProgressMonitor submon(final IProgressMonitor parent, final int ticks) {
 		return (parent == null ? null : new SubProgressMonitor(parent, ticks));
+	}
+	
+	public static ReferencedComponent findReferencedComponent(WorkbenchComponent aComponent, IVirtualComponent aReferencedComponent, StructureEdit se, StructureEdit compse) {
+		if(aComponent == null || aReferencedComponent == null)
+			return null;
+		if(aReferencedComponent.isBinary()){
+			EList referencedComponents = aComponent.getReferencedComponents();
+			String name = null;
+			if(aReferencedComponent.getName() != null) {
+				name = new Path(aReferencedComponent.getName()).lastSegment();
+			}
+			if(name != null) {
+				for (Iterator iter = referencedComponents.iterator(); iter.hasNext();) {
+					ReferencedComponent referencedComponent = (ReferencedComponent) iter.next();
+					URI uri = referencedComponent.getHandle();
+					if( uri != null && name.equals(uri.lastSegment()))
+						return referencedComponent;
+				}
+			}
+		} else {
+			WorkbenchComponent refwc = compse.getComponent();
+			return se.findReferencedComponent(aComponent, refwc);
+		}
+		return null;
 	}
 
 	@Override

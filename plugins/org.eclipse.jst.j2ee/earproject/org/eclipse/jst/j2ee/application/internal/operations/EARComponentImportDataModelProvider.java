@@ -304,7 +304,8 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 					// }
 					tempStatus = subDataModel.validateProperty(IFacetDataModelProperties.FACET_PROJECT_NAME);
 					if (!tempStatus.isOK()) {
-						return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.bind(EARCreationResourceHandler.EARImportDataModel_UI_0, new Object[] { tempProjectName,
+						String subModelProjectName = subDataModel.getStringProperty(IJ2EEComponentImportDataModelProperties.PROJECT_NAME);
+						return WTPCommonPlugin.createErrorStatus(EARCreationResourceHandler.bind(EARCreationResourceHandler.EARImportDataModel_UI_0, new Object[] { subModelProjectName,
 								tempArchive.getPath() }));
 					}
 					tempStatus = subDataModel.validate();
@@ -589,6 +590,7 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 					suffix += count;
 				}
 				localModel.setProperty(IJ2EEModuleImportDataModelProperties.PROJECT_NAME, moduleName + suffix);
+				defaultModuleNames.add(moduleName + suffix);
 			}
 		}
 		return moduleModels;

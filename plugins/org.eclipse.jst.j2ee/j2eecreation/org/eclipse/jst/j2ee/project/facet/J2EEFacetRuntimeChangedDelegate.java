@@ -12,8 +12,12 @@
 package org.eclipse.jst.j2ee.project.facet;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -21,6 +25,7 @@ import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.jdt.core.IClasspathAttribute;
 import org.eclipse.jdt.core.IClasspathEntry;
@@ -30,6 +35,9 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jst.common.project.facet.core.ClasspathHelper;
 import org.eclipse.jst.common.project.facet.core.IClasspathProvider;
 import org.eclipse.jst.common.project.facet.core.internal.FacetCorePlugin;
+import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.project.facet.core.IDelegate;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
@@ -60,7 +68,7 @@ public final class J2EEFacetRuntimeChangedDelegate
     {
         if( monitor != null )
         {
-            monitor.beginTask( "", 1 ); //$NON-NLS-1$
+            monitor.beginTask( "", 11 ); //$NON-NLS-1$
         }
         
         try
@@ -79,6 +87,30 @@ public final class J2EEFacetRuntimeChangedDelegate
             {
                 monitor.worked( 1 );
             }
+            
+            // Cascade this runtime change to projects referenced by this project
+            
+            // Compile the list of projects referenced by this project.
+            final Set<IProject> childProjects = new HashSet<IProject>();
+            
+            final IVirtualComponent projectVC = ComponentCore.createComponent( project );                       
+            
+            Map<String, Object> options = new HashMap<String, Object>();
+            options.put(IVirtualComponent.REQUESTED_REFERENCE_TYPE, IVirtualComponent.HARD_REFERENCES);
+            final IVirtualReference[] vrefs = projectVC.getReferences(options);
+                       	            
+            for( int i = 0; i < vrefs.length; i++ ) {
+                final IVirtualReference vref = vrefs[ i ];
+                final IVirtualComponent vc = vref.getReferencedComponent();
+                childProjects.add( vc.getProject() );
+            }
+            
+            if( monitor != null ) {
+                monitor.worked( 1 );
+            }
+            
+            // Attempt to change the runtime for each of the referenced projects.                
+            updateProjectRuntime( project, childProjects, submon( monitor, 9 ) );
         }
         finally
         {
@@ -198,5 +230,82 @@ public final class J2EEFacetRuntimeChangedDelegate
 	
 		return list;
 	}
+	
+    private static IProgressMonitor submon( final IProgressMonitor parent, final int ticks ) {
+        return ( parent == null ? null : new SubProgressMonitor( parent, ticks ) );
+    }
+    
+    public static void updateProjectRuntime( final IProject project,
+            final IProject childProject,
+            final IProgressMonitor monitor ) throws CoreException {
+    	if( monitor != null ) {
+    		monitor.beginTask( "", 1 ); //$NON-NLS-1$
+    	}
 
+    	try
+    	{
+    		final IFacetedProject facetedProject = ProjectFacetsManager.create( project );
+
+    		final IRuntime projectRuntime = facetedProject.getRuntime();
+
+    		final IFacetedProject childFacetedProject = ProjectFacetsManager.create( childProject );
+
+    		if( childFacetedProject != null && 
+    				! equals(projectRuntime, childFacetedProject.getRuntime()))
+    		{
+    			boolean supports = true;
+
+    			if( projectRuntime != null )
+    			{
+    				for( Iterator itr = childFacetedProject.getProjectFacets().iterator(); itr.hasNext(); ) {
+    					final IProjectFacetVersion fver = (IProjectFacetVersion) itr.next();
+
+    					if(!projectRuntime.supports(fver)) {
+    						supports = false;
+    						break;
+    					}
+    				}
+    			}
+
+    			if( supports ) {
+    				childFacetedProject.setRuntime(projectRuntime, submon( monitor, 1 ) );
+    			}
+    		}
+    	}
+    	finally {
+    		if( monitor != null ) {
+    			monitor.done();
+    		}
+    	}
+    }
+
+    public static void updateProjectRuntime( final IProject project,
+    		final Set<IProject> childProjects,
+    		final IProgressMonitor monitor ) throws CoreException {        
+    	if( monitor != null ) {
+    		monitor.beginTask( "", childProjects.size() ); //$NON-NLS-1$
+    	}
+
+    	try {
+    		for(final IProject childProject : childProjects) {
+    			updateProjectRuntime( project, childProject,
+    					submon( monitor, 1 ) );
+    		}
+    	}
+    	finally {
+    		if( monitor != null ) {
+    			monitor.done();
+    		}
+    	}
+    }
+    
+    private static boolean equals( final Object obj1, final Object obj2 ) {
+        if( obj1 == obj2 ) {
+            return true;
+        } else if( obj1 == null || obj2 == null ) {
+            return false;
+        } else {
+            return obj1.equals( obj2 );
+        }
+    }
 }

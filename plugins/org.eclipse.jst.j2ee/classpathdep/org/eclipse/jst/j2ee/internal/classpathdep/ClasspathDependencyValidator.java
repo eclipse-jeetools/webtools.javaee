@@ -21,6 +21,7 @@ import java.util.Set;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
@@ -39,6 +40,7 @@ import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.project.facet.core.FacetedProjectFramework;
 import org.eclipse.wst.validation.internal.core.Message;
 import org.eclipse.wst.validation.internal.core.ValidationException;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
@@ -79,10 +81,9 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 		final IProject proj = ((ClasspathDependencyValidatorHelper) helper).getProject();
 		
 		try {
-			if (proj.isAccessible() 
-			    && proj.hasNature(ModuleCoreNature.MODULE_NATURE_ID)
-			    && proj.hasNature(JavaCoreLite.NATURE_ID)) {
-			    
+			if (ModuleCoreNature.isFlexibleProject(proj)
+					&& proj.hasNature(JavaCoreLite.NATURE_ID)) {
+			
 				final boolean isWebApp = JavaEEProjectUtilities.isDynamicWebProject(proj);
 			    final IVirtualComponent component = ComponentCore.createComponent(proj);
 			    final boolean isLegacyJ2EE = JavaEEProjectUtilities.isLegacyJ2EEComponent(component);
@@ -91,6 +92,8 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 				final Map referencedRawEntries = ClasspathDependencyUtil.getRawComponentClasspathDependencies(javaProjectLite, DependencyAttributeType.CLASSPATH_COMPONENT_DEPENDENCY, isLegacyJ2EE); 				
 				final List potentialRawEntries = ClasspathDependencyUtil.getPotentialComponentClasspathDependencies(javaProjectLite, isLegacyJ2EE);				
 				final ClasspathDependencyValidatorData data = new ClasspathDependencyValidatorData(proj);
+				
+				ClasspathDependencyExtensionManager extensionManger = ClasspathDependencyExtensionManager.instance();
 				
 				// validate the raw referenced container entries
 				Iterator i =  referencedRawEntries.keySet().iterator();
@@ -110,7 +113,7 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 					}
 					reportMessages(msgs);
 		    		// if not a web app, warn if associated cp entry is not exported
-					if (!isWebApp && !entry.isExported()) {
+					if (!isWebApp && !entry.isExported() && !extensionManger.doesProjectHandleExport(proj, entry)) {
 						_reporter.addMessage(this, new Message("classpathdependencyvalidator", //$NON-NLS-1$
 								IMessage.NORMAL_SEVERITY, NonWebNonExported, new String[]{cpEntryPath}, proj));
 					}
@@ -259,15 +262,25 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 		
 		final int kind = entry.getEntryKind();
 		final boolean isFile = !ClasspathDependencyUtil.isClassFolderEntry(entry);
+		
 		if (kind == IClasspathEntry.CPE_PROJECT) {
-			
 			// Project cp entry
-			results.add(new Message("classpathdependencyvalidator", //$NON-NLS-1$
-					IMessage.HIGH_SEVERITY, ProjectClasspathEntry, new String[]{entry.getPath().toString()}, project));
-
-			return (IMessage[]) results.toArray(new IMessage[results.size()]);
+			// Allow faceted projects only, and not plain java projects
+			boolean isFacetedProject = false;
+			IProject referencedProject = ResourcesPlugin.getWorkspace().getRoot().getProject(entry.getPath().toString());
+			try {
+				isFacetedProject = FacetedProjectFramework.isFacetedProject(referencedProject);
+			}
+			catch (CoreException ce){
+				//Ignore. Thrown when project metadata cannot be read. In that case we will treat the project as non faceted 
+			}			
+			if (!isFacetedProject){
+				results.add(new Message("classpathdependencyvalidator", //$NON-NLS-1$
+						IMessage.HIGH_SEVERITY, ProjectClasspathEntry, new String[]{entry.getPath().toString()}, project));
+					return (IMessage[]) results.toArray(new IMessage[results.size()]);
+			}
 		} else if (kind == IClasspathEntry.CPE_SOURCE) {
-			
+					
 			// Source cp entry
 			
 			results.add(new Message("classpathdependencyvalidator", //$NON-NLS-1$

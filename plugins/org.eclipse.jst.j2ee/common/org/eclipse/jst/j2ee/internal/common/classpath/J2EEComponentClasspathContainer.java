@@ -11,6 +11,8 @@
 package org.eclipse.jst.j2ee.internal.common.classpath;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -20,9 +22,14 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jdt.core.IAccessRule;
 import org.eclipse.jdt.core.IClasspathAttribute;
 import org.eclipse.jdt.core.IClasspathContainer;
@@ -42,6 +49,7 @@ import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.StructureEdit;
+import org.eclipse.wst.common.componentcore.internal.builder.IDependencyGraph;
 import org.eclipse.wst.common.componentcore.internal.flat.IFlatFolder;
 import org.eclipse.wst.common.componentcore.internal.flat.IFlatResource;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveComponent;
@@ -76,18 +84,85 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 	private IJavaProject javaProject;
 	private IJavaProjectLite javaProjectLite;
 	private IClasspathEntry[] entries = new IClasspathEntry[0];
-	private boolean exportEntries = true; //the default behavior is to always export these dependencies
 	private static Map<Integer, Integer> keys = new Hashtable<Integer, Integer>();
 	private static int MAX_RETRIES = 10;
 	private static Map<Integer, Integer>retries = new Hashtable<Integer, Integer>();
 	
-	private class LastUpdate {
+	static class LastUpdate implements Serializable{
+		private static final long serialVersionUID = 362498820763181265L;
+		private boolean exportEntries = true; //the default behavior is to always export these dependencies
 		private int baseRefCount = 0; // count of references returned directly from a component
+		private int baseLibRefCount = 0; // count of references resolved by EAR 5 lib directory
 		private int refCount = 0;
 		private boolean[] isBinary = new boolean[refCount];
-		private IPath[] paths = new IPath[refCount];
+		transient private IPath[] paths = new IPath[refCount];
+		transient boolean needToVerify = true;
+		//only used for serialization
+		private String [] pathStrings = null;
+
+		@Override
+		public boolean equals(Object o) {
+			if(this == o){
+				return true;
+			} else if(o == null){
+				return false;
+			} else if (o instanceof LastUpdate){
+				LastUpdate other = (LastUpdate)o;
+				if(this.exportEntries != other.exportEntries){
+					return false;
+				} else if(this.baseRefCount != other.baseRefCount){
+					return false;
+				} else if(this.baseLibRefCount != other.baseLibRefCount){
+					return false;
+				} else if(this.refCount != other.refCount){
+					return false;
+				} else if(this.isBinary.length != other.isBinary.length){
+					return false;
+				} else if(this.paths.length != other.paths.length){
+					return false;
+				}
+				for(int i=0; i<isBinary.length; i++){
+					if(this.isBinary[i] != other.isBinary[i]){
+						return false;
+					}
+				}
+				for(int i=0; i<paths.length; i++){
+					if(this.paths[i] == null && other.paths[i] != null){
+						return false;
+					} else if(!this.paths[i].equals(other.paths[i])){
+						return false;
+					}
+				}
+				return true;
+			} else {
+				return false;
+			}
+		}
+		@Override
+		public int hashCode() {
+			return 3 * baseRefCount + 5 * baseLibRefCount + 7 * refCount + 11 * isBinary.length;
+		}
 		
-		private int baseLibRefCount = 0; // count of references resolved by EAR 5 lib directory
+		private void writeObject(java.io.ObjectOutputStream out) throws IOException {
+			pathStrings = new String[refCount];
+			for(int i=0;i<paths.length; i++){
+				if(paths[i] != null){
+					pathStrings[i] = paths[i].toString();
+				}
+			}
+			out.defaultWriteObject();
+		}
+		
+		private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException{
+			in.defaultReadObject();
+			needToVerify = true;
+			paths = new IPath[refCount];
+			for(int i=0;i<pathStrings.length; i++){
+				if(pathStrings[i] != null){
+					paths[i] = new Path(pathStrings[i]);
+				}
+			}
+		}
 		
 		private boolean areSame(IVirtualComponent comp, int i){
 			if (comp.isBinary() != isBinary[i]) {
@@ -112,7 +187,7 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 		this.javaProject = javaProject;
 		this.javaProjectLite = JavaCoreLite.create(javaProject);
 	}
-
+	
 	private boolean requiresUpdate() {
 		IVirtualComponent component = ComponentCore.createComponent(javaProjectLite.getProject());
 		if (component == null) {
@@ -166,7 +241,23 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 		return true;
 	}
 	
-	private void update() {
+	private void update(LastUpdate restoreState) {
+		if(restoreState != null){ // performance; restore state from last session
+			lastUpdate = restoreState;
+			List <IClasspathEntry>entriesList = new ArrayList<IClasspathEntry>();
+			for(int i=0; i<lastUpdate.paths.length; i++){
+				if(lastUpdate.paths[i] != null){
+					IClasspathEntry newEntry = createEntry(restoreState, i);
+					entriesList.add(newEntry);
+				}
+			}
+			entries = new IClasspathEntry[entriesList.size()];
+			for (int i = 0; i < entries.length; i++) {
+				entries[i] = entriesList.get(i);
+			}
+			return;
+		}
+		
 		IVirtualComponent component = ComponentCore.createComponent(javaProjectLite.getProject());
 		if (component == null) {
 			return;
@@ -217,7 +308,7 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 			}
 		}
 		
-		//iterate with i index because this list can be modified during iteration
+		//iterate with i index because this list may be augmented during iteration
 		for(int i=0; i< refsList.size(); i++){
 			IVirtualComponent comp = refsList.get(i).getReferencedComponent();
 			if(comp.isBinary()){
@@ -249,7 +340,7 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 					IClasspathEntry entry = rawEntries[i];
 					if(entry.getEntryKind() == IClasspathEntry.CPE_CONTAINER){
 						if(entry.getPath().equals(CONTAINER_PATH)){
-							exportEntries = entry.isExported();
+							lastUpdate.exportEntries = entry.isExported();
 							break;
 						}
 					}
@@ -266,7 +357,7 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 				if (!shouldAdd) {
 					continue;
 				}
-				if (comp.isBinary()) {
+				if (lastUpdate.isBinary[i]) {
 					if( comp instanceof VirtualArchiveComponent ) {
 						VirtualArchiveComponent archiveComp = (VirtualArchiveComponent) comp;
 						if (archiveComp.getArchiveType().equals(VirtualArchiveComponent.CLASSPATHARCHIVETYPE)) {
@@ -275,24 +366,13 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 						}
 					}
 					lastUpdate.paths[i] = (IPath)comp.getAdapter(IPath.class);
-					ClasspathDecorations dec = decorationsManager.getDecorations( getPath().toString(), lastUpdate.paths[i].toString() );
-					
-					IPath srcpath = null;
-			        IPath srcrootpath = null;
-			        IClasspathAttribute[] attrs = {};
-			        IAccessRule[] access = {};
-					
-			        if( dec != null ) {
-			            srcpath = dec.getSourceAttachmentPath();
-			            srcrootpath = dec.getSourceAttachmentRootPath();
-			            attrs = dec.getExtraAttributes();
-			        }
-			        IClasspathEntry newEntry = JavaCoreLite.newLibraryEntry( lastUpdate.paths[i], srcpath, srcrootpath, access, attrs, exportEntries ); 
-			        entriesList.add(newEntry);
+					IClasspathEntry newEntry = createEntry(lastUpdate, i);
+					entriesList.add(newEntry);
 				} else {
 					IProject project = comp.getProject();
 					lastUpdate.paths[i] = project.getFullPath();
-					entriesList.add(JavaCoreLite.newProjectEntry(lastUpdate.paths[i], exportEntries));
+					IClasspathEntry newEntry = createEntry(lastUpdate, i);
+					entriesList.add(newEntry);
 				}
 			}
 		} finally {
@@ -300,7 +380,29 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 			for (int i = 0; i < entries.length; i++) {
 				entries[i] = entriesList.get(i);
 			}
+			J2EEComponentClasspathContainerStore.saveState(javaProjectLite.getProject().getName(), lastUpdate);
 		}
+	}
+	
+	private IClasspathEntry createEntry(LastUpdate lastUpdate, int index){
+		if(lastUpdate.isBinary[index]){
+			ClasspathDecorations dec = decorationsManager.getDecorations( getPath().toString(), lastUpdate.paths[index].toString() );
+			
+			IPath srcpath = null;
+	        IPath srcrootpath = null;
+	        IClasspathAttribute[] attrs = {};
+	        IAccessRule[] access = {};
+			
+	        if( dec != null ) {
+	            srcpath = dec.getSourceAttachmentPath();
+	            srcrootpath = dec.getSourceAttachmentRootPath();
+	            attrs = dec.getExtraAttributes();
+	        }
+	        IClasspathEntry newEntry = JavaCoreLite.newLibraryEntry( lastUpdate.paths[index], srcpath, srcrootpath, access, attrs, lastUpdate.exportEntries ); 
+	        return newEntry;
+		}
+		IClasspathEntry newEntry = JavaCoreLite.newProjectEntry(lastUpdate.paths[index], lastUpdate.exportEntries);
+		return newEntry;
 	}
 	
 	private List<IVirtualReference> getBaseEARLibRefs(IVirtualComponent component) {
@@ -314,7 +416,9 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 				// retrieve the EAR's library directory 
 				String libDir = EarUtilities.getEARLibDir(earComp);
 				// if the EAR version is lower than 5, then the library directory will be null
-				if (libDir != null) {
+				// or if it is the empty string, do nothing.
+				if (libDir != null && libDir.trim().length() != 0) {
+					IPath libDirPath = new Path(libDir).makeRelative();
 					// check if the component itself is not in the library directory of this EAR - avoid cycles in the build patch
 					IVirtualReference ref = earComp.getReference(component.getName());
 					if(ref != null){
@@ -328,16 +432,18 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 								refPath = refPath.removeLastSegments(1);
 							}
 						}
-						if (!libDir.equals(refPath.toString())) {
+						refPath = refPath.makeRelative();
+						if (!libDirPath.equals(refPath)) {
 							// retrieve the referenced components from the EAR
 							IVirtualReference[] earRefs = earComp.getReferences();
 							for (IVirtualReference earRef : earRefs) {
 								if(earRef.getDependencyType() == IVirtualReference.DEPENDENCY_TYPE_USES){
 									// check if the referenced component is in the library directory
-									boolean isInLibDir = libDir.equals(earRef.getRuntimePath().toString());
+									IPath runtimePath = earRef.getRuntimePath().makeRelative();
+									boolean isInLibDir = libDirPath.equals(runtimePath);
 									if(!isInLibDir){
 										IPath fullPath = earRef.getRuntimePath().append(earRef.getArchiveName());
-										isInLibDir = fullPath.removeLastSegments(1).toString().equals(libDir);
+										isInLibDir = fullPath.removeLastSegments(1).makeRelative().equals(libDirPath);
 									}
 									if (isInLibDir) {
 										libRefs.add(earRef);
@@ -348,7 +454,6 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 						//add EAR classpath container refs
 						try {
 							ClasspathLibraryExpander classpathLibExpander = new ClasspathLibraryExpander(earComp);
-							IPath libDirPath = new Path(libDir);
 							IFlatResource flatLibResource = classpathLibExpander.fetchResource(libDirPath);
 							if(flatLibResource instanceof IFlatFolder){
 								IFlatFolder flatLibFolder = (IFlatFolder)flatLibResource;
@@ -365,7 +470,7 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 								}	
 							}
 						} catch (CoreException e) {
-							org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
+							J2EEPlugin.logError(e);
 						}
 					}
 				}
@@ -374,26 +479,60 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 		return libRefs;
 	}
 	
-	public static void install(IPath containerPath, IJavaProject javaProject) {
+	public static J2EEComponentClasspathContainer install(IPath containerPath, IJavaProject javaProject, LastUpdate restoreState) {
 		try{
 			J2EEComponentClasspathUpdater.getInstance().pauseUpdates();
 			final IJavaProject[] projects = new IJavaProject[]{javaProject};
 			final J2EEComponentClasspathContainer container = new J2EEComponentClasspathContainer(containerPath, javaProject);
-			container.update();
+			container.update(restoreState);
 			final IClasspathContainer[] conts = new IClasspathContainer[]{container};
 			try {
 				JavaCore.setClasspathContainer(containerPath, projects, conts, null);
 			} catch (JavaModelException e) {
 				J2EEPlugin.logError(e);
 			}
+			return container;
 		} finally {
 			J2EEComponentClasspathUpdater.getInstance().resumeUpdates();
 		}
 	}
 
+	public static void install(final IPath containerPath, final IJavaProject javaProject) {
+		final String projectName = javaProject.getProject().getName();
+		LastUpdate restoreState = J2EEComponentClasspathContainerStore.getRestoreState(projectName);
+		boolean needToVerify = false;
+		if(null != restoreState){
+			synchronized (restoreState) {
+				needToVerify = restoreState.needToVerify;
+				restoreState.needToVerify = false;
+			}
+		}
+		final J2EEComponentClasspathContainer container = install(containerPath, javaProject, restoreState);
+		if(needToVerify){
+			Job verifyJob = new Job(Messages.J2EEComponentClasspathUpdater_Verify_EAR_Libraries){
+				@Override
+				protected IStatus run(IProgressMonitor monitor) {
+					container.refresh();
+					return Status.OK_STATUS;
+				}
+			};
+			verifyJob.setSystem(true);
+			verifyJob.setRule(ResourcesPlugin.getWorkspace().getRoot());
+			verifyJob.schedule();
+		}
+	}
+	
 	public void refresh(boolean force){
+		if (!force) {
+			if(IDependencyGraph.INSTANCE.isStale()){
+				//avoid deadlock https://bugs.eclipse.org/bugs/show_bug.cgi?id=334050
+				//if the data is stale abort and attempt to update again in the near future
+				J2EEComponentClasspathUpdater.getInstance().queueUpdate(javaProject.getProject());
+				return;
+			}
+		}
 		if(force || requiresUpdate()){
-			install(containerPath, javaProject);
+			install(containerPath, javaProject, null);
 		}
 	}
 	

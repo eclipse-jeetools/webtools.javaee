@@ -60,7 +60,7 @@ import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyEnablement;
+import org.eclipse.jst.j2ee.internal.classpathdep.DuplicateClasspathComponentURIValidatorEnablement;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -259,16 +259,6 @@ public class UIEarValidator extends EarValidator {
 								isJavaEEFiveProject = J2EEProjectUtilities.isJEEProject(earRefedProj);
 							}
 							
-							if(isJavaEEFiveProject) {
-								 //HACK: this is normally done by the call to super.validateInJob but in this case we are purposely avoiding that call
-								_reporter = inReporter;
-								
-								String[] params = {earProj.getName(), referencedComponenet.getName()};
-								String msg = NLS.bind(EARValidationMessageResourceHandler.JEE5_PROJECT_REFERENCED_BY_PRE_JEE5_EAR, params);
-								addLocalizedWarning(msg,earProj);
-							
-							}
-							
 							//if any referenced project is a JEE 5 project then ear is mixed
 							if(!isMixedEAR) {
 								isMixedEAR = isJavaEEFiveProject;
@@ -283,7 +273,7 @@ public class UIEarValidator extends EarValidator {
 						status = super.validateInJob(inHelper, inReporter);
 						validateModuleMaps(earModule);
 						validateManifests();
-						if(ClasspathDependencyEnablement.isAllowClasspathComponentDependency()){
+						if(DuplicateClasspathComponentURIValidatorEnablement.shouldValidateDuplicateClasspathComponentURI()){
 							validateDuplicateClasspathComponentURIs(earModule);
 						}
 		//				validateUtilJarMaps(earEdit,earModule);

@@ -19,6 +19,7 @@ import java.util.Map;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.operations.AbstractOperation;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IPathVariableManager;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -106,11 +107,26 @@ public abstract class J2EEUtilityJarImportAssistantOperation extends AbstractOpe
 
 		IVirtualComponent utilcomponent = ComponentCore.createArchiveComponent(targetProject, VirtualArchiveComponent.LIBARCHIVETYPE + IPath.SEPARATOR + utilityJarIFile.getProjectRelativePath().toString());
 
+		IPath uriMappingPath = null;
+		String uri = uriMapping;
+		String deployPath = null;
+		if(uriMapping != null) {
+			uriMappingPath = new Path(uriMapping);
+			uri = uriMappingPath.lastSegment();
+			if(uriMappingPath.segmentCount() > 1)
+				deployPath = uriMappingPath.removeLastSegments(1).toString();
+		}
+		
 		addArchiveProjectToEARDataModel.setProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT, earcomponent);
 		addArchiveProjectToEARDataModel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENT_LIST, Collections.singletonList(utilcomponent));
 		Map uriMap = new HashMap();
-		uriMap.put(utilcomponent, uriMapping);
+		uriMap.put(utilcomponent, uri);
 		addArchiveProjectToEARDataModel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_TO_URI_MAP, uriMap);
+		if(deployPath != null && deployPath.length() > 0) {
+			Map deployMap = new HashMap();
+			deployMap.put(utilcomponent, deployPath);
+			addArchiveProjectToEARDataModel.setProperty(ICreateReferenceComponentsDataModelProperties.TARGET_COMPONENTS_DEPLOY_PATH_MAP, deployMap);
+		}
 		return  addArchiveProjectToEARDataModel.getDefaultOperation().execute(monitor, null);
 	}
 	
@@ -191,5 +207,14 @@ public abstract class J2EEUtilityJarImportAssistantOperation extends AbstractOpe
     	
     	return baseLocation != null ? (baseLocation + File.separator + proposedProjectName) : null;
     }
+    
+	protected static void mkdirs(final IFolder folder) throws CoreException {
+		if (!folder.exists()) {
+			if (folder.getParent() instanceof IFolder) {
+				mkdirs((IFolder) folder.getParent());
+			}
+			folder.create(true, true, null);
+		}
+	}
 
 }

@@ -657,9 +657,9 @@ public class ClassPathSelection {
 			}
 
 			archives = new ArrayList(Arrays.asList(earComponent.getReferences()));
-			Path earLibDirPath = null;
+			IPath earLibDirPath = null;
 			if(earLibraryDirectory != null)
-				earLibDirPath = new Path(earLibraryDirectory);
+				earLibDirPath = new Path(earLibraryDirectory).makeRelative();
 			
 			for( int i = 0; i < references.length; i++ ) {
 				if(references[i].getReferencedComponent().getProject().equals(component.getProject())) {
@@ -680,7 +680,7 @@ public class ClassPathSelection {
 				String uriString = null;
 				if(other != null)
 					uriString = JEEManifestDiscerner.calculateManifestRelativeRuntimePath(childProjectVirtualRef, other).append((new Path(other.getArchiveName())).lastSegment()).toString();
-				if (other != null && isValidDependency(other.getReferencedComponent(), component) && (earLibraryDirectory == null || !other.getRuntimePath().equals(earLibDirPath)) && (uriString == null || uriString.equals(cpEntry))) {
+				if (other != null && isValidDependency(other.getReferencedComponent(), component) && (earLibraryDirectory == null || earLibDirPath != null && earLibDirPath.isEmpty() || !other.getRuntimePath().makeRelative().equals(earLibDirPath)) && (uriString == null || uriString.equals(cpEntry))) {
 					element = createElement(childProjectVirtualRef, other, cpEntry);
 					archives.remove(other);
 				} else {
@@ -729,16 +729,16 @@ public class ClassPathSelection {
 		//createClasspathComponentDependencyElements(comp);
 		
 		// Add elements for raw classpath entries (either already tagged or potentially taggable) 
-			try {
-			    createClasspathEntryElements(component, IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH, IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_COMPONENT_PATH);
-			} catch (CoreException ce) {
-				J2EEPlugin.logError(ce);
-			}
+//			try {
+//			    createClasspathEntryElements(component, IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH, IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_COMPONENT_PATH);
+//			} catch (CoreException ce) {
+//				J2EEPlugin.logError(ce);
+//			}
 		
 		if (earComponent != null) {
-			Path earLibDirPath = null;
+			IPath earLibDirPath = null;
 			if(earLibraryDirectory != null)
-				earLibDirPath = new Path(earLibraryDirectory);
+				earLibDirPath = new Path(earLibraryDirectory).makeRelative();
 			
 			if(childProjectVirtualRef == null) {
 				if(references == null)
@@ -758,7 +758,7 @@ public class ClassPathSelection {
 				for (int i = 0; i < archives.size(); i++) {
 					other = (IVirtualReference) archives.get(i);
 	
-					if (other != archive && isValidDependency(other.getReferencedComponent(), component) && (earLibraryDirectory == null || !other.getRuntimePath().equals(earLibDirPath))) {
+					if (other != archive && isValidDependency(other.getReferencedComponent(), component) && (earLibraryDirectory == null || earLibDirPath != null && earLibDirPath.isEmpty() || !other.getRuntimePath().makeRelative().equals(earLibDirPath))) {
 						IProject project = other.getReferencedComponent().getProject();
 						if (null == targetProjectName || null == project || !project.getName().equals(targetProjectName)) {
 							element = createElement(childProjectVirtualRef, other, null);
@@ -773,7 +773,7 @@ public class ClassPathSelection {
 				IVirtualReference ref = newrefs[i];
 				IVirtualComponent referencedComponent = ref.getReferencedComponent();
 				boolean isBinary = referencedComponent.isBinary();
-				if( isBinary && (earLibraryDirectory == null || !ref.getRuntimePath().equals(earLibDirPath))){
+				if( isBinary && (earLibraryDirectory == null || earLibDirPath != null && earLibDirPath.isEmpty() || !ref.getRuntimePath().makeRelative().equals(earLibDirPath))){
 
 					/**
 					 * Warning clean-up 12/05/2005

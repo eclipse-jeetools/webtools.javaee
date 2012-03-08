@@ -21,6 +21,7 @@ import java.lang.reflect.InvocationTargetException;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
@@ -32,6 +33,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.jst.j2ee.internal.earcreation.EARCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.project.EarUtilities;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -54,11 +56,22 @@ public class CopyArchiveIntoProjectOperation extends J2EEUtilityJarImportAssista
 			IVirtualComponent earComponent = ComponentCore.createComponent(associatedEARProject);
 			
 			IContainer underlyingFolder = earComponent.getRootFolder().getUnderlyingFolder();
+			String uriMapping = getUtilityJar().getName();
+			String earLib = EarUtilities.getEARLibDir(earComponent);
+			IFolder libDirFolder = null;
+ 			if(earLib != null && earLib.length() > 0) {
+ 				uriMapping = (new Path(earLib)).append(uriMapping).toString(); 
+ 				if(underlyingFolder.isAccessible()) {
+ 					libDirFolder = getWorkspaceRoot().getFolder(underlyingFolder.getFullPath().append(earLib));
+ 				} else {
+ 					libDirFolder = getWorkspaceRoot().getFolder(associatedEARProject.getFullPath().append(earLib));
+ 				}
+ 			}
 			if(underlyingFolder.isAccessible()) {
-				 copiedJarFile = underlyingFolder.getFile(new Path(getUtilityJar().getName()));
+				copiedJarFile = underlyingFolder.getFile(new Path(uriMapping));
 			} else {
-				 copiedJarFile = associatedEARProject.getFile(getUtilityJar().getName());
-			}		
+				copiedJarFile = associatedEARProject.getFile(uriMapping);
+			}
  			if (copiedJarFile.exists()) {
 				if (isOverwriteIfNecessary())
 					copiedJarFile.delete(true, true, new SubProgressMonitor(monitor, 1));
@@ -66,8 +79,13 @@ public class CopyArchiveIntoProjectOperation extends J2EEUtilityJarImportAssista
 					status.add(J2EEPlugin.createErrorStatus(0, NLS.bind(EARCreationResourceHandler.CopyArchiveIntoProjectOperation_Found_existing_file_0_, copiedJarFile), null));
 					return status;
 				}
-			} 
-			
+			}
+ 			
+ 			// Create EAR's library directory folder if it doesn't exist
+ 			if(libDirFolder != null && (!libDirFolder.exists() || !libDirFolder.isAccessible())) {
+ 				mkdirs(libDirFolder);
+ 			}
+ 			
 			FileInputStream fileInputStream = null;
 			ByteArrayOutputStream bos = null;
 			ByteArrayInputStream jarFileInputStream = null;
@@ -90,7 +108,7 @@ public class CopyArchiveIntoProjectOperation extends J2EEUtilityJarImportAssista
 
 				addLibraryToClasspath(associatedEARProject, copiedJarFile, monitor);
 				
-				createVirtualArchiveComponent(associatedEARProject, getUtilityJar().getName(), copiedJarFile, monitor);
+				createVirtualArchiveComponent(associatedEARProject, uriMapping, copiedJarFile, monitor);
 				
 				
 			} catch (FileNotFoundException e) {

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2011 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,8 +19,10 @@ import java.util.Map;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathAttribute;
 import org.eclipse.jdt.core.IClasspathEntry;
@@ -48,12 +50,14 @@ import org.eclipse.wst.common.componentcore.internal.resources.VirtualFolder;
 import org.eclipse.wst.common.componentcore.internal.resources.VirtualReference;
 import org.eclipse.wst.common.componentcore.internal.util.IComponentImplFactory;
 import org.eclipse.wst.common.componentcore.internal.util.VirtualReferenceUtilities;
+import org.eclipse.wst.common.componentcore.resources.ITaggedVirtualResource;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
 public class J2EEModuleVirtualComponent extends VirtualComponent implements IComponentImplFactory, IClasspathDependencyProvider, IClasspathDependencyReceiver {
 
+	public static final String DD_FOLDER_TAG = org.eclipse.wst.common.componentcore.internal.WorkbenchComponent.DEFAULT_ROOT_SOURCE_TAG;
 	public static String GET_JAVA_REFS = "GET_JAVA_REFS"; //$NON-NLS-1$
 	public static String GET_FUZZY_EAR_REFS = "GET_FUZZY_EAR_REFS"; //$NON-NLS-1$
 	public static String GET_EXPANDED_LIB_REFS = "GET_EXPANDED_LIB_REFS"; //$NON-NLS-1$
@@ -61,7 +65,7 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 	 * Use this value to retrieve references consisting of only META-INF/MANIFEST.MF classpath
 	 * attributes.  Do this as follows:
 	 * <code>
-	 * IVirtualCompoment compoment = a virtual component
+	 * IVirtualCompoment component = a virtual component
 	 * Map<String, Object> onlyManifestRefs = new HashMap<String, Object>();
 	 * onlyManifestRefs.put(IVirtualComponent.REQUESTED_REFERENCE_TYPE, J2EEModuleVirtualComponent.ONLY_MANIFEST_REFERENCES);
 	 * IVirtualReference[] refs = component.getReferences(onlyManifestRefs); 
@@ -72,6 +76,9 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 	private long depGraphModStamp;
 	private long jeeModStamp;
 	
+	/**
+	 * Accessors of this field should always use getHardReferences()
+	 */
 	private IVirtualReference[] hardReferences = null;
 	private IVirtualReference[] javaReferences = null;
 	private IVirtualReference[] parentEarManifestReferences = null;
@@ -135,6 +142,9 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 		if( val != null ) {
 			if( HARD_REFERENCES.equals(val) || NON_DERIVED_REFERENCES.equals(val) || DISPLAYABLE_REFERENCES.equals(val)){
 				return getHardReferences();
+			} else if(DISPLAYABLE_REFERENCES_ALL.equals(val)){
+				checkIfStillValid(); // This will clear the cache of raw references if needed.
+				return getAllReferences();
 			} else if (ONLY_MANIFEST_REFERENCES.equals(val)){
 				ArrayList<IVirtualReference> all = new ArrayList<IVirtualReference>();
 				checkIfStillValid();
@@ -164,10 +174,25 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 		all.addAll(Arrays.asList(nonManifestRefs));
 		// retrieve the dynamic references specified via the MANIFEST.MF classpath
 		cacheManifestReferences();
-		all.addAll(Arrays.asList(parentEarManifestReferences));
+		ArrayList<IVirtualReference> dynamicRefs = new ArrayList<IVirtualReference>();
+		dynamicRefs.addAll(Arrays.asList(parentEarManifestReferences));
 		if (findFuzzyEARRefs)
-			all.addAll(Arrays.asList(fuzzyEarManifestReferences));
+			dynamicRefs.addAll(Arrays.asList(fuzzyEarManifestReferences));
 		
+		for (Iterator<IVirtualReference> iterator = dynamicRefs.iterator(); iterator.hasNext();) {
+			IVirtualReference reference = iterator.next();
+			IVirtualComponent dynamicComponent = reference.getReferencedComponent();
+			boolean shouldInclude = true;
+			for(IVirtualReference hardRef : getHardReferences()){
+				if(hardRef.getReferencedComponent().equals(dynamicComponent)){
+					shouldInclude = false;
+					break;
+				}
+			}
+			if (shouldInclude) {
+				all.add(reference);
+			}
+		}
 		IVirtualReference[] refs = all.toArray(new IVirtualReference[all.size()]);
 		VirtualReferenceUtilities.INSTANCE.ensureReferencesHaveNames(refs);
 		
@@ -302,29 +327,22 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 				}
 
 				if (add && entryLocation != null) {
+					final IVirtualReference entryReference;
 					String componentPath = null;
-					ClasspathDependencyVirtualComponent entryComponent = null;
-					/*
-					 * if (entry.getEntryKind() == IClasspathEntry.CPE_PROJECT)
-					 * { componentPath =
-					 * VirtualArchiveComponent.CLASSPATHARCHIVETYPE; final
-					 * IProject cpEntryProject =
-					 * ResourcesPlugin.getWorkspace().getRoot
-					 * ().getProject(entry.getPath().lastSegment());
-					 * entryComponent = (VirtualArchiveComponent)
-					 * ComponentCore.createArchiveComponent(cpEntryProject,
-					 * componentPath); } else {
-					 */
-					componentPath = VirtualArchiveComponent.CLASSPATHARCHIVETYPE
-							+ IPath.SEPARATOR + entryLocation.toPortableString();
-					entryComponent = new ClasspathDependencyVirtualComponent(
-							project, componentPath, isClassFolder);
-					// }
-					final IVirtualReference entryReference = ComponentCore
-							.createReference(this, entryComponent, runtimePath);
-					((VirtualReference) entryReference).setDerived(true);
-					entryReference.setArchiveName(ClasspathDependencyUtil
-							.getArchiveName(entry));
+					
+					if (entry.getEntryKind() == IClasspathEntry.CPE_PROJECT)
+					{ 					
+						final IProject cpEntryProject = ResourcesPlugin.getWorkspace().getRoot().getProject(entry.getPath().lastSegment());
+						IVirtualComponent entryComponent = ComponentCore.createComponent(cpEntryProject);
+						entryReference = ComponentCore.createReference(this, entryComponent, runtimePath);
+						entryReference.setArchiveName(VirtualReferenceUtilities.INSTANCE.getDefaultProjectArchiveName(entryComponent));
+					} else {
+						componentPath = VirtualArchiveComponent.CLASSPATHARCHIVETYPE + IPath.SEPARATOR + entryLocation.toPortableString();
+						ClasspathDependencyVirtualComponent entryComponent = new ClasspathDependencyVirtualComponent(project, componentPath, isClassFolder);
+						entryReference = ComponentCore.createReference(this, entryComponent, runtimePath);
+						((VirtualReference) entryReference).setDerived(true);
+						entryReference.setArchiveName(ClasspathDependencyUtil.getArchiveName(entry));
+					}
 					cpRefs.add(entryReference);
 				}
 			}
@@ -391,7 +409,6 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 			IVirtualComponent moduleComponent, IProject earProject,
 			String[] manifestClasspath, boolean[] foundRefAlready) {
 		ArrayList<IVirtualReference> dynamicReferences = new ArrayList<IVirtualReference>();
-		IVirtualReference[] hardRefs = getHardReferences(moduleComponent);
 
 		IVirtualReference foundRef = null;
 		String earArchiveURI = null; // The URI for this archive in the EAR
@@ -445,27 +462,10 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 									foundRefAlready[manifestIndex] = true;
 								}
 								found = true;
-								boolean shouldInclude = true;
-								IVirtualComponent dynamicComponent = earRefs[j]
-										.getReferencedComponent();
-								if (null != hardRefs) {
-									for (int k = 0; k < hardRefs.length
-											&& shouldInclude; k++) {
-										if (hardRefs[k].getReferencedComponent()
-												.equals(dynamicComponent)) {
-											shouldInclude = false;
-
-										}
-									}
-								}
-								if (shouldInclude) {
-									IVirtualReference dynamicReference = ComponentCore
-											.createReference(moduleComponent,
-													dynamicComponent);
-									((VirtualReference) dynamicReference)
-											.setDerived(true);
-									dynamicReferences.add(dynamicReference);
-								}
+								IVirtualComponent dynamicComponent = earRefs[j].getReferencedComponent();
+								IVirtualReference dynamicReference = ComponentCore.createReference(moduleComponent,dynamicComponent);
+								((VirtualReference) dynamicReference).setDerived(true);
+								dynamicReferences.add(dynamicReference);
 							}
 						}
 					}
@@ -521,4 +521,26 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 		}
 		return new Path("/"); //$NON-NLS-1$
 	}
+	
+    public static void setDefaultDeploymentDescriptorFolder(IVirtualFolder folder, IPath aProjectRelativeLocation, IProgressMonitor monitor) {
+    	if (folder instanceof ITaggedVirtualResource){
+    		ITaggedVirtualResource taggedFolder = (ITaggedVirtualResource)folder;
+    		//First, remove tag is there is already one folder already tagged 
+    		IPath[] paths = taggedFolder.getTaggedResources(DD_FOLDER_TAG);
+    		for (IPath path:paths){
+    			taggedFolder.tagResource(path, null, monitor);
+    		}
+    		// Now, tag the correct path
+    		((ITaggedVirtualResource)folder).tagResource(aProjectRelativeLocation, DD_FOLDER_TAG, monitor);
+    	}
+	}
+    
+    public static IPath getDefaultDeploymentDescriptorFolder(IVirtualFolder folder) {
+    	IPath returnValue = null;
+    	if (folder instanceof ITaggedVirtualResource){
+    		returnValue = ((ITaggedVirtualResource)folder).getFirstTaggedResource(DD_FOLDER_TAG);
+    	}
+    	return returnValue;
+	}
+ 
 }

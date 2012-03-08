@@ -10,6 +10,7 @@ import java.util.StringTokenizer;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExtension;
 import org.eclipse.jem.util.RegistryReader;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.wst.common.project.facet.core.IProjectFacet;
@@ -51,12 +52,13 @@ public class J2EEModelProviderRegistry extends RegistryReader {
 			String priority = null;
 			if (!element.getName().equals(ELEMENT_providers))
 				return false;
-	
+			
 			IModelProviderFactory factory = null;
 			IConfigurationElement[] mp = element.getChildren(MODEL_PROVIDER);
 			try {
 				factory = (IModelProviderFactory) mp[0].createExecutableExtension(PROVIDER_FACTORY_CLASS);
 			} catch (CoreException e) {
+				logError(element, e.getMessage());
 				J2EEPlugin.logError(e);
 			}
 			if (factory != null) {  //Optionally read priority if to override providers for type
@@ -69,11 +71,11 @@ public class J2EEModelProviderRegistry extends RegistryReader {
 				try{
 					pv = ProjectFacetsManager.getProjectFacet(facetId);
 				} catch (IllegalArgumentException e){
-					J2EEPlugin.logError("Unrecognized facet: " + facetId); //$NON-NLS-1$
+					logError(element, "Unrecognized facet: " + facetId); //$NON-NLS-1$
 					J2EEPlugin.logError(e);
 				}
 				if (pv == null) {
-					J2EEPlugin.logError("Unrecognized facet: " + facetId); //$NON-NLS-1$
+					logError(element, "Unrecognized facet: " + facetId); //$NON-NLS-1$
 					return true;  // Unrecognized facet
 				}
 				String facetVersions = facet[0].getAttribute(PROVIDER_FACET_VERSION);
@@ -84,16 +86,23 @@ public class J2EEModelProviderRegistry extends RegistryReader {
 					if (fv != null)
 						addModelProvider(factory, fv, priority);
 				}
-				
-				
 			}
 			return true;
 		} catch (Exception e) {
+			logError(element, e.getMessage());
 			J2EEPlugin.logError(e);
 		}
 		return true;
 	}
 
+	@Override
+	protected void logError(IConfigurationElement element, String text) {
+		IExtension extension = element.getDeclaringExtension();
+		StringBuffer buf = new StringBuffer();
+		buf.append("Plugin " + extension.getContributor().getName() + ", extension " + extension.getExtensionPointUniqueIdentifier()); //$NON-NLS-1$ //$NON-NLS-2$
+		buf.append("\n" + text); //$NON-NLS-1$
+		J2EEPlugin.logError(buf.toString());
+	}
 
 	private static void addModelProvider(IModelProviderFactory provider, IProjectFacetVersion version, String priority) {
 		// Check priority of existing provider for override

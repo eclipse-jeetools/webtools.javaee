@@ -16,7 +16,6 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
@@ -75,8 +74,7 @@ public class RemoveComponentFromEnterpriseApplicationOperation extends RemoveRef
 					try {
 						compse = StructureEdit.getStructureEditForWrite(wc.getProject());
 						if(compse != null) {
-							WorkbenchComponent refwc = compse.getComponent();
-							final ReferencedComponent ref = se.findReferencedComponent(earwc, refwc);
+							final ReferencedComponent ref = AddComponentToEnterpriseApplicationOp.findReferencedComponent(earwc, wc, se, compse);
 							earModel.modify(new Runnable() {
 								public void run() {
 									ICommonApplication application = (ICommonApplication)earModel.getModelObject();
@@ -99,15 +97,7 @@ public class RemoveComponentFromEnterpriseApplicationOperation extends RemoveRef
 											}
 											
 											if(moduleURI != null) {
-												IPath path1 = new Path(ref.getArchiveName());
-												IPath path2 = new Path(moduleURI);
-												boolean removed = false;
-												if(path1.lastSegment().equals(path2.lastSegment())) {
-													if(removeModule(application, module)){
-														removed = true;
-													}
-												}
-												if(!removed) {
+												if(!removeModule(application, module)){
 													module = null;
 													moduleURI = null;
 												}
@@ -116,7 +106,7 @@ public class RemoveComponentFromEnterpriseApplicationOperation extends RemoveRef
 									}
 									
 									if(module == null) {
-										if(ref != null)
+										if(ref != null && ref.getArchiveName() != null)
 											module = getModuleFromURI(earModel, ref.getArchiveName());
 										else {
 											String uri = getModuleURI(earModel, wc);
@@ -200,6 +190,17 @@ public class RemoveComponentFromEnterpriseApplicationOperation extends RemoveRef
 	protected Object getModule(final IEARModelProvider earModel, final ReferencedComponent refComp) {
 		Object app = earModel.getModelObject();
 		Object moduleObj = refComp.getDependentObject();
+		if(moduleObj != null){
+			String id = null;
+			if(moduleObj instanceof org.eclipse.jst.j2ee.application.internal.impl.ModuleImpl) {
+				id = ((org.eclipse.jst.j2ee.application.internal.impl.ModuleImpl)moduleObj).getId();
+			} else if (moduleObj instanceof ModuleImpl) {
+				id = ((Module)moduleObj).getId();
+			}
+			if(id == null || id.length() == 0) {
+				return null;
+			}
+		}
 		if(app instanceof Application){
 			List<Module> modules = ((Application)app).getModules();
 			if(moduleObj != null){
@@ -228,7 +229,7 @@ public class RemoveComponentFromEnterpriseApplicationOperation extends RemoveRef
 				}
 			}
 		}
-		return moduleObj;
+		return null;
 	}
 	
 	protected Object getModuleFromURI(final IEARModelProvider earModel, String uri) {
@@ -271,5 +272,4 @@ public class RemoveComponentFromEnterpriseApplicationOperation extends RemoveRef
 	protected boolean removeModule(ICommonApplication application, Object module) {
 		return application.getEARModules().remove(module);
 	}
-
 }

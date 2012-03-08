@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.zip.ZipException;
 
@@ -107,7 +109,7 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 			try {
 				helper.openArchive();
 			} catch (ArchiveOpenFailureException e) {
-				J2EEPlugin.logError(e);
+				logError(e);
 			}
 		} finally {
 			if (helper != null) {
@@ -408,11 +410,48 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 		try {
 			return openArchive();
 		} catch (ArchiveOpenFailureException e) {
-			J2EEPlugin.logError(e);
+			logError(e);
 		}
 		return null;
 	}
 
+	static class LRUMap extends LinkedHashMap {
+		private static final long serialVersionUID = 1L;
+
+		private int fMaxSize;
+
+		LRUMap(int maxSize) {
+			super();
+			fMaxSize = maxSize;
+		}
+
+		@Override
+		protected boolean removeEldestEntry(Entry eldest) {
+			return size() > fMaxSize;
+		}
+	}
+
+	static LRUMap loggedBadPaths = new LRUMap(1000);
+
+	/**
+	 * This is to suppress excessive logging of for the same missing archive.
+	 * Now each missing archive will only be logged once.
+	 * 
+	 * @param e
+	 */
+	static void logError(ArchiveOpenFailureException e) {
+		IPath archivePath = e.getArchivePath();
+		if (archivePath != null) {
+			if (loggedBadPaths.containsKey(archivePath)) {
+				// only log an error for a specific archive path once.
+				return;
+			}
+			loggedBadPaths.put(archivePath, archivePath);
+		}
+		J2EEPlugin.logError(e);
+	}
+	
+	
 	protected IArchive openArchive() throws ArchiveOpenFailureException {
 		ArchiveCache cache = ArchiveCache.getInstance();
 		IArchive archive = cache.getArchive(getComponent());
@@ -483,9 +522,9 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 						try {
 							binaryAdapter.physicallyOpen();
 						} catch (ZipException e) {
-							org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
+							J2EEPlugin.logError(e);
 						} catch (IOException e) {
-							org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
+							J2EEPlugin.logError(e);
 						}
 					}
 				}

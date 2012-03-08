@@ -63,13 +63,14 @@ public class AddComponentToEnterpriseApplicationDataModelProvider extends Create
 			List CompList = (List) getProperty(TARGET_COMPONENT_LIST);
 			IVirtualComponent earComp = (IVirtualComponent)getProperty(SOURCE_COMPONENT);
 			String libDir = EarUtilities.getEARLibDir(earComp);
-			if (libDir != null) {
+			if (libDir != null && libDir.length() > 0) {
+				String libDirPath = new Path(libDir).makeAbsolute().toString();
 				for (int i = 0; i < CompList.size(); i++) {
 					if(null != CompList.get(i)){
 						IVirtualComponent Comp = (IVirtualComponent) CompList.get(i);
 						IProject CompProject = Comp.getProject();
 						if(JavaEEProjectUtilities.isUtilityProject(CompProject) && !EJBUtilities.isEJBClientProject(CompProject) && JavaEEProjectUtilities.isJEEComponent(earComp)){
-							map.put(Comp, libDir);
+							map.put(Comp, libDirPath);
 						}
 					}
 				}
