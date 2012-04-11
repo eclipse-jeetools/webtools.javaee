@@ -132,6 +132,8 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 				nestedModel = (IDataModel) nestedModels.get(i);
 				try {
 					nestedModel.setProperty(IFacetProjectCreationDataModelProperties.FACET_PROJECT_NAME, propertyValue);
+					IFacetedProjectWorkingCopy fpwc = (IFacetedProjectWorkingCopy)nestedModel.getProperty(IFacetProjectCreationDataModelProperties.FACETED_PROJECT_WORKING_COPY);
+					fpwc.setProjectName((String)propertyValue);
 				} catch (Exception e) {
 					J2EEPlugin.logError(e);
 				}
