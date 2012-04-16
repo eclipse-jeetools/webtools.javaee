@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009 Red Hat and others.
+ * Copyright (c) 2009, 2012 Red Hat and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,12 +7,12 @@
  *
  * Contributors:
  *     Red Hat - Initial API and implementation
+ *     Roberto Sanchez Herrera - [371907] Do not add duplicate resources
  *******************************************************************************/
 package org.eclipse.jst.common.internal.modulecore;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,7 +50,7 @@ public class SingleRootExportParticipant extends AbstractFlattenParticipant {
 	private FlatComponentTaskModel dataModel;
 	private IFlattenParticipant[] delegates;
 	private List<IChildModuleReference> children;
-	private IFlatResource[] moduleResources = null;
+	private	IVirtualReference[] referencesToAddAsResources = null;
 	
 	public interface SingleRootParticipantCallback extends SingleRootCallback {
 		public IFlattenParticipant[] getDelegateParticipants();
@@ -98,15 +98,16 @@ public class SingleRootExportParticipant extends AbstractFlattenParticipant {
 			initializeDelegates();
 			
 			IContainer container = new SingleRootUtil(component, callbackHandler).getSingleRoot();
-			moduleResources = getMembers(resources, container, new Path("")); //$NON-NLS-1$
-			
-			addChildModules(component);
-			
-			int size = moduleResources.length;
+			IFlatResource[] mr = getMembers(resources, container, new Path("")); //$NON-NLS-1$
+			int size = mr.length;
 			for (int j = 0; j < size; j++) {
-				resources.add(moduleResources[j]);
+				resources.add(mr[j]);
 			}
-			
+			addChildModules(component);
+			// addChildModules might have added elements to referencesToAddAsResources while looking for 
+			// child modules. Let's add these references
+			addReferencesAsResources(resources, referencesToAddAsResources);
+						
 			// run finalizers
 			for (int i = 0; i < delegates.length; i++) {
 				delegates[i].finalize(component, dataModel, resources);
@@ -116,6 +117,33 @@ public class SingleRootExportParticipant extends AbstractFlattenParticipant {
 		}
 	}
 
+	/*
+	 * This function adds resources based on the list of references. 
+	 */
+	private void addReferencesAsResources(List<IFlatResource> resources,
+			IVirtualReference[] references) {
+		
+		for (IVirtualReference reference:references){
+			File f = (File)reference.getReferencedComponent().getAdapter(File.class);
+			FlatFile file = new FlatFile(f, reference.getArchiveName(), reference.getRuntimePath());
+			FlatResource existingRes = VirtualComponentFlattenUtility.getExistingModuleResource(resources, file.getModuleRelativePath().append(file.getName()));
+			// If the resource already exist in the list of resources, do not add it
+			if ( existingRes == null){
+				// The resource is not in the list if resources, so add it.
+				IPath path = reference.getRuntimePath(); // Folder to add the ref in
+				IFlatFolder folder = (IFlatFolder) VirtualComponentFlattenUtility
+						.getExistingModuleResource(resources, path.makeRelative());
+				if( folder == null ) {
+					folder = VirtualComponentFlattenUtility.ensureParentExists(resources, path, null);
+				}
+				if( folder == null )
+					resources.add(file);
+				else
+					VirtualComponentFlattenUtility.addMembersToModuleFolder(folder, new IFlatFile[]{file});	
+			}
+		}
+	}
+	
 	protected IFlatResource[] getMembers(List<IFlatResource> members, 
 			IContainer cont, IPath path) throws CoreException {
 		IResource[] res = cont.members();
@@ -152,8 +180,8 @@ public class SingleRootExportParticipant extends AbstractFlattenParticipant {
 	}
 	
 	protected void addChildModules(IVirtualComponent vc) throws CoreException {
-		ArrayList<IFlatResource> modResources = new ArrayList<IFlatResource>();
-		modResources.addAll(Arrays.asList(moduleResources));
+		ArrayList<IVirtualReference> refAsResource = new ArrayList<IVirtualReference>();
+
 
 		Map<String, Object> options = new HashMap<String, Object>();
 		options.put(IVirtualComponent.REQUESTED_REFERENCE_TYPE, IVirtualComponent.FLATTENABLE_REFERENCES);
@@ -175,22 +203,11 @@ public class SingleRootExportParticipant extends AbstractFlattenParticipant {
 					children.add(cm);
 				} else {
 					// It's not a child module, but it is a reference that needs to be added in anyway
-					IPath path = reference.getRuntimePath(); // Folder to add the ref in
-					IFlatFolder folder = (IFlatFolder) VirtualComponentFlattenUtility
-								.getExistingModuleResource(modResources, path.makeRelative());
-					if( folder == null ) {
-						folder = VirtualComponentFlattenUtility.ensureParentExists(modResources, path, null);
-					}
-					File f = (File)reference.getReferencedComponent().getAdapter(File.class);
-					FlatFile file = new FlatFile(f, reference.getArchiveName(), reference.getRuntimePath());
-					if( folder == null )
-						modResources.add(file);
-					else
-						VirtualComponentFlattenUtility.addMembersToModuleFolder(folder, new IFlatFile[]{file});
+					refAsResource.add(reference);
 				}
 			}
     	}
-    	moduleResources = modResources.toArray(new IFlatResource[modResources.size()]);
+    	referencesToAddAsResources = refAsResource.toArray(new IVirtualReference[refAsResource.size()]);
 	}
 	
 	protected boolean isChildModule(IVirtualComponent component, IVirtualReference referencedComponent) {
