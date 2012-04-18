@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.internal.deployables;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
@@ -22,12 +23,6 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
-import org.eclipse.jst.common.internal.modulecore.AddClasspathFoldersParticipant;
-import org.eclipse.jst.common.internal.modulecore.AddClasspathLibReferencesParticipant;
-import org.eclipse.jst.common.internal.modulecore.AddMappedOutputFoldersParticipant;
-import org.eclipse.jst.common.internal.modulecore.IgnoreJavaInSourceFolderParticipant;
-import org.eclipse.jst.common.internal.modulecore.ReplaceManifestExportParticipant;
-import org.eclipse.jst.common.internal.modulecore.SingleRootExportParticipant;
 import org.eclipse.jst.common.internal.modulecore.SingleRootUtil;
 import org.eclipse.jst.common.jdt.internal.javalite.JavaLiteUtilities;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
@@ -36,7 +31,6 @@ import org.eclipse.jst.j2ee.internal.EjbModuleExtensionHelper;
 import org.eclipse.jst.j2ee.internal.IEJBModelExtenderManager;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyEnablement;
-import org.eclipse.jst.j2ee.internal.common.exportmodel.JEEHeirarchyExportParticipant;
 import org.eclipse.jst.j2ee.internal.common.exportmodel.JavaEESingleRootCallback;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
@@ -50,7 +44,6 @@ import org.eclipse.jst.server.core.IWebModule;
 import org.eclipse.wst.common.componentcore.ArtifactEdit;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.flat.IChildModuleReference;
-import org.eclipse.wst.common.componentcore.internal.flat.IFlattenParticipant;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
@@ -100,20 +93,23 @@ public class J2EEFlexProjDeployable extends FlatComponentDeployable implements
 	}
 	
 	@Override
-	protected IFlattenParticipant[] getParticipants() {
-		List<IFlattenParticipant> participants = new ArrayList<IFlattenParticipant>();
+	public String[] getDefaultFlattenParticipantIDs() {
+		String[] defaultParticipants = new String[]{
+				JEEFlattenParticipantProvider.JEESingleRootParticipant,
+				JEEFlattenParticipantProvider.JEEHeirarchyExportParticipant,
+				JEEFlattenParticipantProvider.AddClasspathLibReferencesParticipant,
+				JEEFlattenParticipantProvider.AddClasspathFoldersParticipant,
+				JEEFlattenParticipantProvider.AddMappedOutputFoldersParticipant,
+				JEEFlattenParticipantProvider.IgnoreJavaInSourceFolderParticipant
+		};
 		
-		participants.add(new SingleRootExportParticipant(new JavaEESingleRootCallback()));
-		participants.add(new JEEHeirarchyExportParticipant());
-		participants.add(new AddClasspathLibReferencesParticipant());
-		participants.add(new AddClasspathFoldersParticipant());
-		participants.add(new AddMappedOutputFoldersParticipant());
-		participants.add(new IgnoreJavaInSourceFolderParticipant());
+		// When will this be deprecated / removed? 
+		ArrayList<String> vals = new ArrayList<String>();
+		vals.addAll(Arrays.asList(defaultParticipants));
 		if (ClasspathDependencyEnablement.isAllowClasspathComponentDependency()) {
-			participants.add(new ReplaceManifestExportParticipant(new Path(J2EEConstants.MANIFEST_URI)));
+			vals.add(JEEFlattenParticipantProvider.JEEReplaceManifestExportParticipant);
 		}
-		
-		return participants.toArray(new IFlattenParticipant[participants.size()]);
+		return vals.toArray(new String[vals.size()]);
 	}
     
     @Override

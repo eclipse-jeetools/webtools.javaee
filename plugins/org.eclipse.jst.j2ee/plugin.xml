@@ -859,4 +859,11 @@
           class="org.eclipse.jst.j2ee.internal.modulecore.util.JEEManifestDiscerner">
     </discerner>
  </extension>
+ <extension
+       point="org.eclipse.wst.common.modulecore.flattenParticipantProvider">
+    <flattenParticipantProvider
+          class="org.eclipse.jst.j2ee.internal.deployables.JEEFlattenParticipantProvider"
+          weight="10">
+    </flattenParticipantProvider>
+ </extension>
 </plugin>

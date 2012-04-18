@@ -148,6 +148,7 @@ public final class JavaLiteUtilities {
 									containers.add(outputContainer);
 								}
 								break;
+							default:
 							}
 						}
 					}

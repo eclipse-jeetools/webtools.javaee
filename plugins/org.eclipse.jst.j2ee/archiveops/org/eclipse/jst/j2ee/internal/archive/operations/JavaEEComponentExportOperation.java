@@ -13,22 +13,20 @@ package org.eclipse.jst.j2ee.internal.archive.operations;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
-import org.eclipse.core.runtime.Path;
-import org.eclipse.jst.common.internal.modulecore.AddClasspathFoldersParticipant;
-import org.eclipse.jst.common.internal.modulecore.AddClasspathLibReferencesParticipant;
-import org.eclipse.jst.common.internal.modulecore.AddMappedOutputFoldersParticipant;
-import org.eclipse.jst.common.internal.modulecore.ReplaceManifestExportParticipant;
-import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyEnablement;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentExportDataModelProperties;
 import org.eclipse.jst.j2ee.internal.common.exportmodel.JavaEEComponentExportCallback;
-import org.eclipse.wst.common.componentcore.internal.flat.AbstractFlattenParticipant;
-import org.eclipse.wst.common.componentcore.internal.flat.FilterResourceParticipant;
+import org.eclipse.jst.j2ee.internal.deployables.JEEFlattenParticipantProvider;
+import org.eclipse.wst.common.componentcore.internal.flat.FlattenParticipantModel;
 import org.eclipse.wst.common.componentcore.internal.flat.IFlattenParticipant;
-import org.eclipse.wst.common.componentcore.internal.flat.FlatVirtualComponent.FlatComponentTaskModel;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
-import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.server.core.IModule;
+import org.eclipse.wst.server.core.ServerUtil;
+import org.eclipse.wst.web.internal.deployables.IFlatDeployable;
 
 public class JavaEEComponentExportOperation extends ComponentExportOperation {
 
@@ -41,38 +39,55 @@ public class JavaEEComponentExportOperation extends ComponentExportOperation {
 	}
 	
 	@Override
-	protected List<IFlattenParticipant> getParticipants() {		
-		List<IFlattenParticipant> participants = new ArrayList<IFlattenParticipant>();
+	protected List<IFlattenParticipant> getParticipants() {
+		String[] moduleParticipants = getModuleParticipants();
+
+		// Load from the model
 		String[] filteredExtensions = getFilteredExtensions();
+
+		Properties props = new Properties();
+		props.put(JEEFlattenParticipantProvider.FILTERED, filteredExtensions);
+		props.put(JEEFlattenParticipantProvider.PARTICIPANT_FOR_EXPORT, true);
 		
-		participants.add(createHierarchyParticipant());
-		participants.add(new AddMappedOutputFoldersParticipant(filteredExtensions));
-		participants.add(FilterResourceParticipant.createSuffixFilterParticipant(filteredExtensions));
-		participants.add(new AddClasspathLibReferencesParticipant());
-		participants.add(new AddClasspathFoldersParticipant());	
-		if (ClasspathDependencyEnablement.isAllowClasspathComponentDependency()) {
-			participants.add(new ReplaceManifestExportParticipant(new Path(J2EEConstants.MANIFEST_URI)));
+		ArrayList<IFlattenParticipant> participants = new ArrayList<IFlattenParticipant>();
+		IFlattenParticipant tmp;
+		for( int i = 0; i < moduleParticipants.length; i++ ) {
+			tmp = FlattenParticipantModel.getDefault().getParticipant(moduleParticipants[i], props);
+			// A null participant is not an error. It simply means that participant provider has chosen to 
+			// do nothing given the properties passed in, in this case, export
+			if( tmp != null )
+				participants.add(tmp);
 		}
-		
 		return participants;
 	}
 	
-	protected IFlattenParticipant createHierarchyParticipant() {
-		return new AbstractFlattenParticipant() {
-			@Override
-			public boolean isChildModule(IVirtualComponent rootComponent, IVirtualReference reference, FlatComponentTaskModel dataModel) {
-				if (!reference.getReferencedComponent().isBinary()) {
-					return true;
+	protected String[] getModuleParticipants() {
+		IVirtualComponent vc = (IVirtualComponent)model.getProperty(IJ2EEComponentExportDataModelProperties.COMPONENT);
+		if( vc != null ) {
+			String p = (String) model.getProperty(IJ2EEComponentExportDataModelProperties.PROJECT_NAME);
+			IProject p2 = p == null ? null : ResourcesPlugin.getWorkspace().getRoot().getProject(p);
+			if( p2 == null )
+				p2 = vc.getProject();
+			if( p2 != null && p2.isAccessible() ) {
+				IModule[] projectMods = ServerUtil.getModules(p2);
+				for( int i = 0; i < projectMods.length; i++ ) {
+					IVirtualComponent tmp = (IVirtualComponent)projectMods[i].loadAdapter(IVirtualComponent.class, null);
+					if( tmp.equals(vc)) {
+						IModule mod = projectMods[i];
+						IFlatDeployable o9 = (IFlatDeployable) mod.loadAdapter(IFlatDeployable.class, null);
+						if( o9 != null ) {
+							return o9.getParticipantIds();
+						}
+					}
 				}
-				return false;
 			}
-		};
+		}
+		return null;
 	}
-
+	
+	
 	@Override
 	protected FlatComponentArchiver createFlatComponentArchiver(OutputStream out) {
 		return new FlatComponentArchiver(getComponent(), out, getParticipants(), new JavaEEComponentExportCallback(isExportSource()));
 	}
-	
-	
 }
