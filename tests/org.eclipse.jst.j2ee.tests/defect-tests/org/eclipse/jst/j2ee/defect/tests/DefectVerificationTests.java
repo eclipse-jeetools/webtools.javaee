@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2012 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -32,6 +32,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.jobs.IJobManager;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.etools.common.test.apitools.ProjectUnzipUtil;
 import org.eclipse.jdt.core.IClasspathContainer;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
@@ -53,6 +54,7 @@ import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARArtifactEdit;
 import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentExportDataModelProperties;
 import org.eclipse.jst.j2ee.datamodel.properties.IEARComponentImportDataModelProperties;
+import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentExportDataModelProperties;
 import org.eclipse.jst.j2ee.dependency.tests.util.ProjectUtil;
 import org.eclipse.jst.j2ee.ejb.project.operations.IEjbFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
@@ -747,6 +749,42 @@ public class DefectVerificationTests extends OperationTestCase {
 	}
 	*/
 
+	/**
+	 * Test for https://bugs.eclipse.org/bugs/show_bug.cgi?id=376643
+	 */
+	public void test376643() throws Exception {
+		final String[] projectNames = {"EAR", "Web"};
+		final String zipLocation = getFullTestDataPath("TestCaseSourceNotExported.zip");
+		final Path servletJavaFilePath = new Path("com/test/TestServlet1.java");
+		
+		// Import projects
+		ProjectUnzipUtil util = new ProjectUnzipUtil(new Path(zipLocation), projectNames);
+		util.createProjects();
+		IVirtualComponent webComponent = ComponentCore.createComponent(J2EEProjectUtilities.getProject("Web"));
+		
+		final IVirtualFolder jsrc = webComponent.getRootFolder().getFolder("/WEB-INF/classes");
+	
+		//Export WAR including source
+		IDataModel dataModel = DataModelFactory.createDataModel(new WebComponentExportDataModelProvider());
+		dataModel.setProperty(IJ2EEComponentExportDataModelProperties.PROJECT_NAME, projectNames[1]);
+		dataModel.setProperty(J2EEComponentExportDataModelProvider.ARCHIVE_DESTINATION, getDataPath("Web.war"));
+		dataModel.setBooleanProperty(J2EEComponentExportDataModelProvider.EXPORT_SOURCE_FILES, true);
+		dataModel.setBooleanProperty(J2EEComponentExportDataModelProvider.OVERWRITE_EXISTING, true);
+		dataModel.setProperty(IJ2EEComponentExportDataModelProperties.RUN_BUILD, true);
+		IStatus status = dataModel.getDefaultOperation().execute(null, null);
+		Assert.assertEquals("Exporting WAR failed " + status.getMessage(), IStatus.OK, status.getSeverity());
+		
+		// Verify source was exported in the WAR
+		IArchive archiveWAR = JavaEEArchiveUtilities.INSTANCE.openArchive(new Path(getDataPath("Web.war")));
+		Assert.assertTrue("Archive does not contain file " + servletJavaFilePath,
+						archiveWAR.containsArchiveResource(jsrc.getRuntimePath().append(servletJavaFilePath).makeRelative())); 
+												
+		//archiveWAR.
+		JavaEEArchiveUtilities.INSTANCE.closeArchive(archiveWAR);
+		
+	}
+	
+	
 	/**
 	 * Test for https://bugs.eclipse.org/bugs/show_bug.cgi?id=311542
 	 */
