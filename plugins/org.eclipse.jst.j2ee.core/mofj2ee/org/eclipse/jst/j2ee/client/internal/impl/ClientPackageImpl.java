@@ -192,7 +192,7 @@ public class ClientPackageImpl extends EPackageImpl implements ClientPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private boolean isCreated = false;
+	private volatile boolean isCreated = false;
 
 	/**
 	 * Creates the meta-model objects for the package.  This method is
@@ -226,7 +226,7 @@ public class ClientPackageImpl extends EPackageImpl implements ClientPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private boolean isInitialized = false;
+	private volatile boolean isInitialized = false;
 
 	/**
 	 * Complete the initialization of the package and its meta-model.  This
@@ -280,6 +280,23 @@ public class ClientPackageImpl extends EPackageImpl implements ClientPackage {
 			// Create resource
 			createResource(eNS_URI);
 		}finally{
+			if( hasLock )
+				J2EEInit.releaseInitializePackageContentsLock();
+		}
+	}
+
+	@Override
+	public void freeze()
+	{
+		// since EClassImpl.freeze() does a clear() on all of the subClasses, we need to protect initializePackageContents() against it.
+		boolean hasLock = false;
+		try {
+			hasLock = J2EEInit.aquireInitializePackageContentsLock();
+		} catch (InterruptedException e) {
+			J2EECorePlugin.logError(e);
+		}
+		finally {
+			super.freeze();
 			if( hasLock )
 				J2EEInit.releaseInitializePackageContentsLock();
 		}
