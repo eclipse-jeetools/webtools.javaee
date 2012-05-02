@@ -108,7 +108,7 @@ public class J2EEInit {
 	
 	protected static boolean initialized = false;
 	protected static boolean plugin_initialized = false;
-	private static boolean emfModelsInitialized = false;
+	private static volatile boolean emfModelsInitialized = false;
 	public static void init() {
 		init(true);
 	}
@@ -439,7 +439,7 @@ public class J2EEInit {
 	}
 
 	private static ILock lock;
-	private static final long delay = 30;
+	private static final long delay = 100;
 
     private static ILock getLock() {
         if (lock == null)
