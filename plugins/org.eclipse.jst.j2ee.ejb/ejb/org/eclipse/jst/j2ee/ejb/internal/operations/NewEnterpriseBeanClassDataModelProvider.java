@@ -168,7 +168,8 @@ public class NewEnterpriseBeanClassDataModelProvider extends NewJavaClassDataMod
 					List sessionBeans = enterpriseBeans.getSessionBeans();
 					for (Object object : sessionBeans) {
 						SessionBean session = (SessionBean) object;
-						if (session.getEjbName().equals(getDataModel().getStringProperty(EJB_NAME).trim())){
+						if ((session.getEjbName() != null && getDataModel().getStringProperty(EJB_NAME) != null) && 
+						        session.getEjbName().equals(getDataModel().getStringProperty(EJB_NAME).trim())){
 							return new Status(IStatus.ERROR, EjbPlugin.PLUGIN_ID, EJBCreationResourceHandler.ERR_BEAN_ALREADY_EXISTS);
 						}
 					}
