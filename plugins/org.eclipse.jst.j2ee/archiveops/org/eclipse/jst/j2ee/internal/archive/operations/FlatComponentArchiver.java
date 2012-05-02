@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2010 IBM Corporation and others.
+ * Copyright (c) 2010, 2012 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -54,6 +54,15 @@ public class FlatComponentArchiver {
 		public boolean canSave(IVirtualComponent component);
 		public IFlatVirtualComponent saveComponent(IVirtualComponent component, ZipOutputStream zipOutputStream, List<IPath> zipEntries) throws ArchiveException;
 		public boolean createManifest();
+	}
+	
+	public static class UnderlyingFileNotFoundException extends ArchiveSaveFailureException {
+		private static final long serialVersionUID = 1;
+
+		public UnderlyingFileNotFoundException(String message) {
+			super(message);
+		}
+		
 	}
 
 	public FlatComponentArchiver(IVirtualComponent aComponent, OutputStream out, List<IFlattenParticipant> fParticipants) {
@@ -238,7 +247,17 @@ public class FlatComponentArchiver {
 			
 			getZipOutputStream().putNextEntry(entry);
 			if (!isFolder) {
-				ArchiveUtil.copy((InputStream) f.getAdapter(InputStream.class), getZipOutputStream());
+				InputStream is = (InputStream) f.getAdapter(InputStream.class);
+				if (is == null){
+					File file = (File) f.getAdapter(File.class);
+					String msg = null;
+					if (file!= null)
+						msg = "Cannot find the file " + file.getAbsolutePath() + " in the file system. Make sure the file exists and try the operation again"; //$NON-NLS-1$ //$NON-NLS-2$
+					else
+						msg = "Cannot find the file " + f.getModuleRelativePath().append(f.getName()) + " in the file system. Make sure the file exists and try the operation again"; //$NON-NLS-1$ //$NON-NLS-2$
+					throw new UnderlyingFileNotFoundException(msg);
+				}
+				ArchiveUtil.copy(is, getZipOutputStream());
 			}
 			getZipOutputStream().closeEntry();
 		} catch (IOException e) {
