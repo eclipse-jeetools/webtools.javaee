@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2010 IBM Corporation and others.
+ * Copyright (c) 2010, 2012 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -49,6 +49,8 @@ import org.eclipse.core.runtime.jobs.MultiRule;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonArchiveResourceHandler;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentExportDataModelProperties.IArchiveExportParticipantData;
+import org.eclipse.jst.j2ee.internal.archive.operations.FlatComponentArchiver.UnderlyingFileNotFoundException;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
 import org.eclipse.jst.jee.archive.ArchiveSaveFailureException;
 import org.eclipse.jst.jee.archive.internal.ArchiveUtil;
@@ -133,7 +135,20 @@ public class ComponentExportOperation extends AbstractDataModelOperation {
     			}
     			export();
     		} catch (Exception e) {
-    			throw new ExecutionException(EJBArchiveOpsResourceHandler.Error_exporting__UI_ + getDestinationPath(), e);
+    			if (e.getCause() != null && e.getCause().getCause() instanceof UnderlyingFileNotFoundException){
+					// Try to refresh the child modules and do the archive operation again
+    				J2EEPlugin.logWarning("Refreshing referenced projects before trying to export again the project " + component.getDeployedName()); //$NON-NLS-1$
+    				try{
+						refreshChildModules(component);
+						export();
+    				}
+    				catch (Exception exceptionWhileRetry){
+    					throw new ExecutionException(EJBArchiveOpsResourceHandler.Error_exporting__UI_ + getDestinationPath(), exceptionWhileRetry);
+    				}
+				}
+    			else{
+    				throw new ExecutionException(EJBArchiveOpsResourceHandler.Error_exporting__UI_ + getDestinationPath(), e);
+    			}
     		}
     		
             final IDataModel dm = getDataModel();
@@ -328,6 +343,21 @@ public class ComponentExportOperation extends AbstractDataModelOperation {
 			}
 		}
 		return projs;
+	}
+	
+	private void refreshProject(IVirtualComponent refComp) throws CoreException {
+		if (!component.isBinary()) {
+			IProject project = refComp.getProject();
+			project.refreshLocal(IResource.DEPTH_INFINITE,null);
+		}			
+	}
+	
+	private void refreshChildModules(IVirtualComponent component) throws CoreException {
+		IVirtualReference[] refs = component.getReferences();
+		for (int i = 0; i < refs.length; i++) {
+			IVirtualComponent refComp = refs[i].getReferencedComponent();
+			refreshProject(refComp);
+		}	
 	}
 	
 }
