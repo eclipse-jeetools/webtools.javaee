@@ -267,8 +267,12 @@ public class OpenJEEResourceAction extends AbstractOpenAction {
 					
 					//if type is null then can't open its editor, so open editor for the resource
 					if(type != null) {
-						ICompilationUnit cu = type.getCompilationUnit();
-						EditorUtility.openInEditor(cu);
+						ICompilationUnit cu = type.getCompilationUnit();						
+						if (cu != null) {
+							EditorUtility.openInEditor(cu);
+						} else {
+							EditorUtility.openInEditor(type);
+						}
 					} else{
 						openAppropriateEditor(resource);
 					}
