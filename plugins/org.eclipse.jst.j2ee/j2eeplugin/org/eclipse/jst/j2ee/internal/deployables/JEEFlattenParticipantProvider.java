@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2012 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -45,6 +45,7 @@ public class JEEFlattenParticipantProvider implements
 	public static final String AddMappedOutputFoldersParticipant = "AddMappedOutputFoldersParticipant"; //$NON-NLS-1$
 	public static final String IgnoreJavaInSourceFolderParticipant = "IgnoreJavaInSourceFolderParticipant"; //$NON-NLS-1$
 	public static final String JEEReplaceManifestExportParticipant = "JEEReplaceManifestExportParticipant"; //$NON-NLS-1$
+	public static final String FilterResourceParticipant = "FilterResourceParticipant"; //$NON-NLS-1$
 	
 	
 	public static final String PARTICIPANT_FOR_EXPORT = "exportParticipants"; //$NON-NLS-1$
@@ -71,6 +72,11 @@ public class JEEFlattenParticipantProvider implements
 			return forExport ? null : new IgnoreJavaInSourceFolderParticipant();
 		if( JEEReplaceManifestExportParticipant.equals(id))
 			return new ReplaceManifestExportParticipant(new Path(J2EEConstants.MANIFEST_URI));
+		if( FilterResourceParticipant.equals(id)){
+			String[] filter = props == null ? null  : (String[]) props.get(FILTERED);
+			return (filter == null || !forExport)? null : 
+				org.eclipse.wst.common.componentcore.internal.flat.FilterResourceParticipant.createSuffixFilterParticipant(filter);			
+		}
 		return null;
 	}
 
