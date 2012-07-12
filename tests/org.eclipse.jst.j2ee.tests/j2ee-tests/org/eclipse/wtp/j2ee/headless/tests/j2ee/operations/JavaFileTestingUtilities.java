@@ -260,6 +260,25 @@ public class JavaFileTestingUtilities {
 				resource = null;
 				resourcePath = null;
 			}
+			else{
+				// if the source was not exported, we verify that no java files are included in the exported file 
+				// (see bug https://bugs.eclipse.org/bugs/show_bug.cgi?id=380581)
+				resourcePath = new Path(srcDirectoryPath + classNames[i] + ".java");
+				try{
+					resource = archive.getArchiveResource(resourcePath);
+					if(resource != null){
+						Assert.fail("There should not be an archive resource source file for class " + classNames[i]);
+					}
+				}
+				catch(FileNotFoundException e){
+					// Left blank intentionally 
+					// archive.getArchiveResource(resourcePath) throws a FileNotFoundException 
+					// if the file cannot be found, which is correct in this case. 
+				}
+				resource = null;
+				resourcePath = null;
+				
+			}
 		}
 	}
 	
