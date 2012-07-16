@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2012 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -21,6 +21,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.jem.util.UIContextDetermination;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.AddComponentToEnterpriseApplicationDataModelProvider;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
@@ -32,6 +33,7 @@ import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEComponentImportDataModelPr
 import org.eclipse.jst.j2ee.internal.archive.ArchiveWrapper;
 import org.eclipse.jst.j2ee.internal.archive.ComponentArchiveSaveAdapter;
 import org.eclipse.jst.j2ee.internal.archive.EARComponentArchiveSaveAdapter;
+import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.ICreateReferenceComponentsDataModelProperties;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
@@ -77,10 +79,16 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 	 *            the progress monitor to use to display progress
 	 */
 	protected void doExecute(IProgressMonitor monitor) throws ExecutionException {
-		super.doExecute(monitor);
 		ExecutionException firstNestedException = null;
-		List modelsToImport = (List) model.getProperty(IEARComponentImportDataModelProperties.HANDLED_PROJECT_MODELS_LIST);
+		
 		try {
+			if( UIContextDetermination.getCurrentContext() == UIContextDetermination.HEADLESS_CONTEXT ) {
+				J2EEComponentClasspathUpdater.getInstance().setSuspendPostChangeEvents(true);
+			}
+			
+			super.doExecute(monitor);
+			List modelsToImport = (List) model.getProperty(IEARComponentImportDataModelProperties.HANDLED_PROJECT_MODELS_LIST);
+			
 			IDataModel importModel = null;
 			// make sure the wars handle importing their own web libs
 			for (int i = modelsToImport.size() - 1; i > 0; i--) {
@@ -181,6 +189,10 @@ public class EARComponentImportOperation extends J2EEArtifactImportOperation {
 			}
 			resetDisposeImportModels();
 			monitor.worked(DISPOSE_WORK);
+			
+			if( UIContextDetermination.getCurrentContext() == UIContextDetermination.HEADLESS_CONTEXT ) {
+				J2EEComponentClasspathUpdater.getInstance().setSuspendPostChangeEvents(false);
+			}
 		}
 		if (firstNestedException != null) {
 			throw firstNestedException;
