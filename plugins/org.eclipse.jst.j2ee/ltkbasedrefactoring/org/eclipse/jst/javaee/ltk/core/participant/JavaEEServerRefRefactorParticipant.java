@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2010 IBM Corporation and others.
+ * Copyright (c) 2010, 2012 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -22,6 +22,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.jst.javaee.ltk.core.nls.RefactoringResourceHandler;
 import org.eclipse.ltk.core.refactoring.Change;
 import org.eclipse.ltk.core.refactoring.CompositeChange;
 import org.eclipse.ltk.core.refactoring.RefactoringStatus;
@@ -36,7 +37,7 @@ import org.eclipse.wst.server.core.ServerUtil;
 public class JavaEEServerRefRefactorParticipant extends DeleteParticipant {
 
 	private IProject projectToDelete = null;
-	private static final String MODS_FROM_SERVERS = "Java EE Server Cleanup (Remove deleted project from server)"; //$NON-NLS-1$// TODO externalize
+	private static final String MODS_FROM_SERVERS = RefactoringResourceHandler.JavaEE_Server_Cleanup; 
 	private IStatus updateServerRefs(IModule[] modulesToRemove, IServer affectedServer, 
 			IProgressMonitor monitor ) throws CoreException {
 		if (modulesToRemove == null || modulesToRemove.length == 0) {
