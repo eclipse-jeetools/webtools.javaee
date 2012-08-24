@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2010, 2008 Oracle
+ * Copyright (c) 2008, 2012 Oracle
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -8,6 +8,7 @@
  * Contributors:
  *    Konstantin Komissarchik - initial implementation and ongoing maintenance
  *    Paul Fullbright - [324111] Need better enablement behavior for WTP library providers
+ *    Karen Butzke - [380963] IllegalArgumentException during initialization of WEB_FACET 
  ******************************************************************************/
 
 package org.eclipse.jst.j2ee.internal.common.classpath;
@@ -40,14 +41,8 @@ import org.eclipse.wst.common.project.facet.core.events.IFacetedProjectListener;
 
 @SuppressWarnings( "boxing" )
 
-public class WtpUserLibraryProviderInstallOperationConfig
-
-    extends UserLibraryProviderInstallOperationConfig
-    
+public class WtpUserLibraryProviderInstallOperationConfig extends UserLibraryProviderInstallOperationConfig
 {
-    private static final IProjectFacet WEB_FACET 
-        = ProjectFacetsManager.getProjectFacet( IJ2EEFacetConstants.DYNAMIC_WEB );
-
     private static final String CLASS_NAME 
         = WtpUserLibraryProviderInstallOperationConfig.class.getName();
     
@@ -162,7 +157,7 @@ public class WtpUserLibraryProviderInstallOperationConfig
     public IClasspathAttribute[] getClasspathAttributes()
     {
         final IFacetedProjectBase fproj = getFacetedProject();
-        final boolean isWebProject = fproj.hasProjectFacet( WEB_FACET );
+        final boolean isWebProject = isWebProject(fproj);
         
         IClasspathAttribute attr = null;
         
@@ -182,6 +177,13 @@ public class WtpUserLibraryProviderInstallOperationConfig
         return ( attr == null ? null : new IClasspathAttribute[] { attr } );
     }
     
+    private static boolean isWebProject(IFacetedProjectBase fproj) {
+        if (ProjectFacetsManager.isProjectFacetDefined(IJ2EEFacetConstants.DYNAMIC_WEB)) {
+            return fproj.hasProjectFacet(ProjectFacetsManager.getProjectFacet(IJ2EEFacetConstants.DYNAMIC_WEB));
+        }
+        return false;
+    }
+
     private static boolean hasModuleFacet( final IFacetedProjectBase fproj ) 
     {
         final Set<IProjectFacetVersion> moduleFacets = ProjectFacetsManager.getGroup( "modules" ).getMembers(); //$NON-NLS-1$
