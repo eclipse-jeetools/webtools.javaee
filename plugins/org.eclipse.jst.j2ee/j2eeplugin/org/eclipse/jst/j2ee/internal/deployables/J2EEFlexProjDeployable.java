@@ -13,11 +13,14 @@ package org.eclipse.jst.j2ee.internal.deployables;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
@@ -32,6 +35,7 @@ import org.eclipse.jst.j2ee.internal.IEJBModelExtenderManager;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyEnablement;
 import org.eclipse.jst.j2ee.internal.common.exportmodel.JavaEESingleRootCallback;
+import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.server.core.IApplicationClientModule;
@@ -48,6 +52,7 @@ import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.server.core.IModule;
+import org.eclipse.wst.server.core.model.IModuleResource;
 import org.eclipse.wst.server.core.model.ModuleDelegate;
 import org.eclipse.wst.web.internal.deployables.FlatComponentDeployable;
 
@@ -58,6 +63,7 @@ public class J2EEFlexProjDeployable extends FlatComponentDeployable implements
 				IEnterpriseApplication, IApplicationClientModule, 
 				IConnectorModule, IEJBModule, IWebModule, IUtilityModule, IWebFragmentModule {
 	 
+	private Set<String> metaResources = null;
 	/**
 	 * Constructor for J2EEFlexProjDeployable.
 	 * 
@@ -66,8 +72,9 @@ public class J2EEFlexProjDeployable extends FlatComponentDeployable implements
 	 */
 	public J2EEFlexProjDeployable(IProject project, IVirtualComponent aComponent) {
 		super(project, aComponent);
+		declareMetadataResources();
 	}
-	
+
 	/**
 	 * Constructor for J2EEFlexProjDeployable.
 	 * 
@@ -247,5 +254,32 @@ public class J2EEFlexProjDeployable extends FlatComponentDeployable implements
 			paths.add(Path.fromOSString(url.getPath()));
 		}
         return paths.toArray(new IPath[paths.size()]);
+    }
+    
+    
+    /**
+     * Retrieves the module members. The meta resources of project
+     * are filtered.
+     */
+    @Override
+	public IModuleResource[] members() throws CoreException {
+    	List<IModuleResource> moduleResources = new ArrayList<IModuleResource>();
+		IModuleResource[] resources = super.members(); 
+		
+		for(IModuleResource res : resources)
+			if(!metaResources.contains(res.getName()))
+				moduleResources.add(res);
+		
+		return moduleResources.toArray(new IModuleResource[moduleResources.size()]);
+	}
+
+	/**
+     * This method declares the .project and .settings paths as 
+     * meta resources, so they can be filtered from the members.
+     * 
+     */
+    private void declareMetadataResources() {
+    	metaResources = new HashSet<String>();
+    	metaResources.add(IJ2EEModuleConstants.META_PROJECT_PATH);			
     }
 }
