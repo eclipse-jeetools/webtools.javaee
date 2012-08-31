@@ -83,7 +83,7 @@ public abstract class JEE5ContentProvider implements ITreeContentProvider, IRefr
 	protected AbstractGroupProvider getCachedContentProvider(IProject project) {
 		AbstractGroupProvider provider = groupContentProviders.get(project);
 		if (provider == null){
-			if (project == null || !project.isAccessible()){
+			if (project == null || !project.isAccessible() || !project.isSynchronized(IResource.DEPTH_INFINITE)){
 				return null;
 			}
 			// if the project is no longer a valid flexible project (due to deletion of critical files)
