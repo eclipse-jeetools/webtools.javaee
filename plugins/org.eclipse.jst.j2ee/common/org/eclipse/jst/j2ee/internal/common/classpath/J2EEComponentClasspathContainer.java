@@ -441,7 +441,7 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 									// check if the referenced component is in the library directory
 									IPath runtimePath = earRef.getRuntimePath().makeRelative();
 									boolean isInLibDir = libDirPath.equals(runtimePath);
-									if(!isInLibDir){
+									if(!isInLibDir && earRef.getArchiveName() != null){
 										IPath fullPath = earRef.getRuntimePath().append(earRef.getArchiveName());
 										isInLibDir = fullPath.removeLastSegments(1).makeRelative().equals(libDirPath);
 									}
