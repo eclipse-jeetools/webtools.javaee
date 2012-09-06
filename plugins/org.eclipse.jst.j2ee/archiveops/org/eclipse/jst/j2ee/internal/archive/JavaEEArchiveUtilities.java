@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2005, 2012 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -566,7 +566,7 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 				wrapArchive(simpleArchive, new Path(J2EEConstants.WEBAPP_DD_URI));
 				return simpleArchive;
 			} else if (lastSegment.endsWith(IJ2EEModuleConstants.JAR_EXT)) {
-				String libPath = null == archivePath ? null : archivePath.removeLastSegments(1).toPortableString();
+				String libPath = null == archivePath ? null : archivePath.removeLastSegments(1).lastSegment();
 				// Do not look for main class in manifest.mf if jar is on lib directory of EAR 5 or above
 				boolean skipDiscriminateMainClass = isNestedWithinEar5OrAbove && earLibDirectory!= null && earLibDirectory.equals(libPath);
 				Object discriminateMainClass = simpleArchive.getArchiveOptions().getOption(DISCRIMINATE_MAIN_CLASS);
