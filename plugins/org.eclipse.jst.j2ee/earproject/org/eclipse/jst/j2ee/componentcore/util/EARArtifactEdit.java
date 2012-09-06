@@ -687,8 +687,13 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		try {
 			runnable.run();
 			if( getWritableEdit() != null ){
-				// Always save regardless of resource path passed - Artifactedits save resources as a unit
-				getWritableEdit().saveIfNecessary( new NullProgressMonitor() );
+				
+				if(modelPath != null && modelPath.equals(IModelProvider.FORCESAVE)){
+					getWritableEdit().save( new NullProgressMonitor() );
+				}else{
+					// Always save regardless of resource path passed - Artifactedits save resources as a unit
+					getWritableEdit().saveIfNecessary( new NullProgressMonitor() );
+				}
 			}
 			
 		} finally {

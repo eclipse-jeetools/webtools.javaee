@@ -16,12 +16,15 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.model.IEARModelProvider;
+import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.jst.javaee.application.Module;
@@ -35,6 +38,7 @@ import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.operation.RemoveReferenceComponentOperation;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 public class RemoveComponentFromEnterpriseApplicationOperation extends RemoveReferenceComponentOperation {
@@ -62,6 +66,7 @@ public class RemoveComponentFromEnterpriseApplicationOperation extends RemoveRef
 			return;
 		J2EEComponentClasspathUpdater.getInstance().queueUpdateEAR(comp.getProject());
 		final IEARModelProvider earModel = (IEARModelProvider)ModelProviderManager.getModelProvider(comp.getProject());
+		final IVirtualComponent ear = (IVirtualComponent) this.model.getProperty(ICreateReferenceComponentsDataModelProperties.SOURCE_COMPONENT);
 		StructureEdit se = null;
 		try {
 			se = StructureEdit.getStructureEditForWrite(comp.getProject());
@@ -75,6 +80,15 @@ public class RemoveComponentFromEnterpriseApplicationOperation extends RemoveRef
 						compse = StructureEdit.getStructureEditForWrite(wc.getProject());
 						if(compse != null) {
 							final ReferencedComponent ref = AddComponentToEnterpriseApplicationOp.findReferencedComponent(earwc, wc, se, compse);
+							
+							// Determine if the EAR project has deployment descriptor, if so, then force save.
+							IPath saveFlag = null;
+							IVirtualFolder rootFolder = ear.getRootFolder();
+							IPath path = new Path(J2EEConstants.APPLICATION_DD_URI);
+							IVirtualFile vFile = rootFolder.getFile(path);
+							if(vFile.exists())
+								saveFlag = IModelProvider.FORCESAVE;
+							
 							earModel.modify(new Runnable() {
 								public void run() {
 									ICommonApplication application = (ICommonApplication)earModel.getModelObject();
@@ -133,7 +147,7 @@ public class RemoveComponentFromEnterpriseApplicationOperation extends RemoveRef
 										}
 									}	
 								}
-							}, null);
+							}, saveFlag);
 						} else {
 							earModel.modify(new Runnable() {
 								public void run() {
