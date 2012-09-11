@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2012 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -73,6 +73,8 @@ import org.eclipse.wst.common.project.facet.core.FacetedProjectFramework;
 public class J2EEComponentClasspathUpdater implements IResourceChangeListener, IResourceDeltaVisitor, IDependencyGraphListener {
 
 	private static J2EEComponentClasspathUpdater instance = null;
+	
+	private static boolean suspendPostChangeEvents = false;
 
 	private static boolean updateDependencyGraph = true;
 
@@ -425,10 +427,12 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 					}
 					break;
 				case IResourceChangeEvent.POST_CHANGE:
-					scheduleJob = true;
-					event.getDelta().accept(this);
-					IResourceDelta[] d = event.getDelta().getAffectedChildren();
-					findNode(d);
+					if(!suspendPostChangeEvents) {
+						scheduleJob = true;
+						event.getDelta().accept(this);
+						IResourceDelta[] d = event.getDelta().getAffectedChildren();
+						findNode(d);
+					}
 			
 					break;
 			}
@@ -601,5 +605,13 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 	public static void setUpdateDependencyGraph(boolean value)
 	{
 		updateDependencyGraph = value;
+	}
+	
+	public void setSuspendPostChangeEvents(boolean suspendAction) {
+		J2EEComponentClasspathUpdater.suspendPostChangeEvents = suspendAction;
+	}
+	
+	public boolean isSuspendPostChangeEvents() {
+		return suspendPostChangeEvents;
 	}
 }

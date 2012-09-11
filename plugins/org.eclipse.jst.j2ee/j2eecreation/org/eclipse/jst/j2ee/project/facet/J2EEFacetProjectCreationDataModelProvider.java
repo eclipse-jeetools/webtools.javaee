@@ -23,6 +23,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPreferences;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.datamodel.FacetProjectCreationDataModelProvider;
 import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
@@ -64,8 +65,11 @@ public class J2EEFacetProjectCreationDataModelProvider extends FacetProjectCreat
 	public Object getDefaultProperty(String propertyName) {
 		if (EAR_PROJECT_NAME.equals(propertyName)) {
 			IDataModel nestedJ2EEFacetDataModel = getJ2EEFacetModel();
-			if (nestedJ2EEFacetDataModel!=null)
+			if (nestedJ2EEFacetDataModel!=null) {
 				return nestedJ2EEFacetDataModel.getProperty(IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME);
+			} else if (propertyName.equals(ADD_TO_EAR)) {
+				return new Boolean(J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.ADD_TO_EAR_BY_DEFAULT));
+			}
 		}
 		return super.getDefaultProperty(propertyName);
 	}
