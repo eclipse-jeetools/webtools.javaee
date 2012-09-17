@@ -29,6 +29,13 @@
          unpack="false"/>
 
    <plugin
+         id="org.eclipse.jst.common.frameworks"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
          id="org.eclipse.jst.j2ee.web"
          download-size="0"
          install-size="0"
