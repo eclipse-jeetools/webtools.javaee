@@ -35,6 +35,7 @@ import org.eclipse.jst.j2ee.application.WebModule;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualArchiveComponent;
 import org.eclipse.jst.j2ee.componentcore.util.EARVirtualComponent;
 import org.eclipse.jst.j2ee.internal.ICommonEMFModule;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.componentcore.JavaEEBinaryComponentHelper;
@@ -58,6 +59,8 @@ import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsOp;
 import org.eclipse.wst.common.componentcore.internal.util.ComponentUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFile;
+import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.internal.emf.resource.CompatibilityXMIResource;
@@ -135,6 +138,15 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 							try {
 								compse = StructureEdit.getStructureEditForWrite(wc.getProject());
 								final ReferencedComponent ref = findReferencedComponent(earwc, wc, se, compse);
+								
+								// Determine if the EAR project has deployment descriptor, if so, then force save.
+								IPath saveFlag = null;
+								IVirtualFolder rootFolder = ear.getRootFolder();
+								IPath path = new Path(J2EEConstants.APPLICATION_DD_URI);
+								IVirtualFile vFile = rootFolder.getFile(path);
+								if(vFile.exists())
+									saveFlag = IModelProvider.FORCESAVE;
+								
 								earModel.modify(new Runnable() {
 									public void run() {
 										final ICommonApplication application = (ICommonApplication)earModel.getModelObject();
@@ -174,7 +186,7 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 											}
 										}
 									}						
-								}, null);
+								}, saveFlag);
 							} finally {
 								if (compse != null) {
 									compse.saveIfNecessary(monitor);

@@ -29,4 +29,6 @@ public interface IJ2EEModuleConstants extends IModuleConstants {
 	public static final String JST_WEB_TEMPLATE = "template.jst.web"; //$NON-NLS-1$
 	public static final String WST_WEB_TEMPLATE = "template.wst.web"; //$NON-NLS-1$
 	public static final String JST_COMPONENT_FILE = "org.eclipse.wst.common.component";//$NON-NLS-1$
+	
+	public static final String META_PROJECT_PATH = ".project";//$NON-NLS-1$
 }

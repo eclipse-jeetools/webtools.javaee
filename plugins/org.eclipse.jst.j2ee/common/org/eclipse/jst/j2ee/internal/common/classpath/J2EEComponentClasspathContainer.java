@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2012 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -441,7 +441,7 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 									// check if the referenced component is in the library directory
 									IPath runtimePath = earRef.getRuntimePath().makeRelative();
 									boolean isInLibDir = libDirPath.equals(runtimePath);
-									if(!isInLibDir){
+									if(!isInLibDir && earRef.getArchiveName() != null){
 										IPath fullPath = earRef.getRuntimePath().append(earRef.getArchiveName());
 										isInLibDir = fullPath.removeLastSegments(1).makeRelative().equals(libDirPath);
 									}

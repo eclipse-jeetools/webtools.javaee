@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2011 IBM Corporation and others.
+ * Copyright (c) 2003, 2012 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -421,7 +421,8 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 			if (tempEarRefs[j].getReferencedComponent().equals(moduleComponent)) {
 				earRefs = tempEarRefs;
 				foundRef = tempEarRefs[j];
-				earArchiveURI = foundRef.getArchiveName();
+				earArchiveURI = foundRef.getRuntimePath() == null?foundRef.getArchiveName():
+					foundRef.getRuntimePath().append(foundRef.getArchiveName()).makeRelative().toString();				
 				simplePath = earArchiveURI != null ? earArchiveURI
 						.lastIndexOf("/") == -1 : true; //$NON-NLS-1$
 			}
