@@ -1,0 +1,10 @@
+# Compiled Java Files #
+*.class
+
+# Compiler Output Folder #
+bin
+
+# Package Files #
+*.jar
+*.war
+*.ear
