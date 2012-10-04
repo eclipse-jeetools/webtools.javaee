@@ -419,7 +419,7 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 				// or if it is the empty string, do nothing.
 				if (libDir != null && libDir.trim().length() != 0) {
 					IPath libDirPath = new Path(libDir).makeRelative();
-					// check if the component itself is not in the library directory of this EAR - avoid cycles in the build patch
+					// check if the component itself is not in the library directory of this EAR - avoid cycles in the build path
 					IVirtualReference ref = earComp.getReference(component.getName());
 					if(ref != null){
 						IPath refPath = ref.getRuntimePath();
@@ -433,24 +433,30 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 							}
 						}
 						refPath = refPath.makeRelative();
-						if (!libDirPath.equals(refPath)) {
-							// retrieve the referenced components from the EAR
-							IVirtualReference[] earRefs = earComp.getReferences();
-							for (IVirtualReference earRef : earRefs) {
-								if(earRef.getDependencyType() == IVirtualReference.DEPENDENCY_TYPE_USES){
-									// check if the referenced component is in the library directory
-									IPath runtimePath = earRef.getRuntimePath().makeRelative();
-									boolean isInLibDir = libDirPath.equals(runtimePath);
-									if(!isInLibDir && earRef.getArchiveName() != null){
-										IPath fullPath = earRef.getRuntimePath().append(earRef.getArchiveName());
-										isInLibDir = fullPath.removeLastSegments(1).makeRelative().equals(libDirPath);
-									}
-									if (isInLibDir) {
-										libRefs.add(earRef);
-									}
+						boolean onlyBinary = false;
+						// If this component is in the library directory, we will allow only binary entries to be 
+						// added, to avoid cycles in the build path
+						if (libDirPath.equals(refPath)) {
+							onlyBinary = true;
+						}
+						// retrieve the referenced components from the EAR
+						IVirtualReference[] earRefs = earComp.getReferences();
+						for (IVirtualReference earRef : earRefs) {
+							if(earRef.getDependencyType() == IVirtualReference.DEPENDENCY_TYPE_USES){
+								// check if the referenced component is in the library directory
+								IPath runtimePath = earRef.getRuntimePath().makeRelative();
+								boolean isInLibDir = libDirPath.equals(runtimePath);
+								if(!isInLibDir && earRef.getArchiveName() != null){
+									IPath fullPath = earRef.getRuntimePath().append(earRef.getArchiveName());
+									isInLibDir = fullPath.removeLastSegments(1).makeRelative().equals(libDirPath);
+								}
+								if (isInLibDir) {
+									if (!onlyBinary || (onlyBinary && earRef.getReferencedComponent().isBinary()))
+									libRefs.add(earRef);
 								}
 							}
 						}
+
 						//add EAR classpath container refs
 						try {
 							ClasspathLibraryExpander classpathLibExpander = new ClasspathLibraryExpander(earComp);
