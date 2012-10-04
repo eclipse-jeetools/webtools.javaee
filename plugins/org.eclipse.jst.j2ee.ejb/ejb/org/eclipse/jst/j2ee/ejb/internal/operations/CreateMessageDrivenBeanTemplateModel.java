@@ -17,7 +17,7 @@ import static org.eclipse.jst.j2ee.ejb.internal.operations.INewMessageDrivenBean
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewMessageDrivenBeanClassDataModelProperties.MESSAGE_LISTENER_INTERFACE;
 
 import java.util.Collection;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +38,8 @@ public class CreateMessageDrivenBeanTemplateModel extends
 	public static final String ATT_MESSAGE_LISTENER_INTERFACE = "messageListenerInterface"; //$NON-NLS-1$
 	public static final String ON_MESSAGE = "onMessage"; //$NON-NLS-1$
 	public static final String ON_MESSAGE_SIGNATURE = "(Ljavax/jms/Message;)V"; //$NON-NLS-1$
+	public static final String PROP_DESTINATION_TYPE = "destinationType"; //$NON-NLS-1$
+	public static final String PROP_DESTINATION = "destination"; //$NON-NLS-1$
 
 	private static final String CLASS_SUFFIX = ".class"; //$NON-NLS-1$
 	
@@ -65,14 +67,17 @@ public class CreateMessageDrivenBeanTemplateModel extends
 		return collection;
 	}
 
-	public Map<String, String> getClassAnnotationParams() {
-		Map<String, String> result = new Hashtable<String, String>();
+	public Map<String, Object> getClassAnnotationParams() {
+		Map<String, Object> result = new HashMap<String, Object>();
+		Map<String, String> activationConfigProperties = new HashMap<String, String>();
+		result.put(ATT_ACTIVATION_CONFIG, activationConfigProperties);
+		
 		if (isJMS()){
 			String destinationType = dataModel.getStringProperty(DESTINATION_TYPE);
 			if (destinationType.equals(DestinationType.QUEUE.toString())) 
-				result.put(ATT_ACTIVATION_CONFIG, "javax.jms.Queue"); //$NON-NLS-1$
+				activationConfigProperties.put(PROP_DESTINATION_TYPE, "javax.jms.Queue"); //$NON-NLS-1$
 			else if (destinationType.equals(DestinationType.TOPIC.toString())) 
-				result.put(ATT_ACTIVATION_CONFIG, "javax.jms.Topic"); //$NON-NLS-1$
+				activationConfigProperties.put(PROP_DESTINATION_TYPE, "javax.jms.Topic"); //$NON-NLS-1$
 			else 
 				throw new IllegalStateException("illegal destination type: " + destinationType); //$NON-NLS-1$
 		}
@@ -82,6 +87,9 @@ public class CreateMessageDrivenBeanTemplateModel extends
 		String mappedName = getProperty(MAPPED_NAME).trim();
 		if (mappedName != null && mappedName.length() > 0) {
 			result.put(ATT_MAPPED_NAME, QUOTATION_STRING + mappedName + QUOTATION_STRING);
+			if (isJMS()) {
+				activationConfigProperties.put(PROP_DESTINATION, mappedName);
+			}
 		}
 		String messageListenerInterface = getProperty(MESSAGE_LISTENER_INTERFACE);
 		
