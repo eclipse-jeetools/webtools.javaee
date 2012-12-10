@@ -17,6 +17,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceProxy;
 import org.eclipse.core.resources.IResourceProxyVisitor;
@@ -38,11 +39,15 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.IModelProviderEvent;
 import org.eclipse.jst.j2ee.model.IModelProviderListener;
+import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
+import org.eclipse.jst.j2ee.project.WebUtilities;
 import org.eclipse.jst.javaee.core.JavaEEObject;
 import org.eclipse.jst.javaee.core.SecurityRole;
 import org.eclipse.jst.javaee.core.SecurityRoleRef;
 import org.eclipse.jst.javaee.ejb.SessionBean;
 import org.eclipse.jst.jee.JEEPlugin;
+import org.eclipse.wst.common.componentcore.ComponentCore;
+import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
 
 /**
@@ -242,6 +247,19 @@ public abstract class AbstractAnnotationModelProvider<T> implements IElementChan
 			return false;
 		else if (javaProject.getProject().equals(facetedProject.getProject()))
 			return true;
+		else if(JavaEEProjectUtilities.isWebFragmentProject(javaProject.getProject()) &&
+				JavaEEProjectUtilities.isDynamicWebProject(facetedProject.getProject()) &&
+				isWebFragmentOf(facetedProject.getProject(), javaProject.getProject()))
+			return true;
+		return false;
+	}
+
+	private boolean isWebFragmentOf(IProject webProject, IProject webFragment) {
+		IVirtualComponent componentWebProject = ComponentCore.createComponent(webProject);
+		IVirtualComponent componentWebFragment = ComponentCore.createComponent(webFragment);
+		if(componentWebProject != null && componentWebFragment != null){
+			return WebUtilities.getWebFragments(componentWebProject).contains(componentWebFragment);	
+		}
 		return false;
 	}
 
