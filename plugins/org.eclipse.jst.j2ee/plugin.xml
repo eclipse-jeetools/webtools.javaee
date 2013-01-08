@@ -1023,4 +1023,10 @@
           weight="10">
     </flattenParticipantProvider>
  </extension>
+ <extension
+       point="org.eclipse.wst.common.modulecore.heirarchyFlattenParticipant">
+    <heirarchyParticipant
+          class="org.eclipse.jst.j2ee.internal.common.exportmodel.JEEHeirarchyExportParticipant">
+    </heirarchyParticipant>
+ </extension>
 </plugin>

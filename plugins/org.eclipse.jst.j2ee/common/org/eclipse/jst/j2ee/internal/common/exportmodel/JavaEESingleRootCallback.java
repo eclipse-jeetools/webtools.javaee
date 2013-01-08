@@ -31,6 +31,7 @@ import org.eclipse.jst.j2ee.internal.classpathdep.ClasspathDependencyEnablement;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.internal.ComponentResource;
 import org.eclipse.wst.common.componentcore.internal.flat.FilterResourceParticipant;
+import org.eclipse.wst.common.componentcore.internal.flat.GlobalHeirarchyParticipant;
 import org.eclipse.wst.common.componentcore.internal.flat.IFlattenParticipant;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
@@ -261,7 +262,7 @@ public class JavaEESingleRootCallback implements SingleRootParticipantCallback {
 	public IFlattenParticipant[] getDelegateParticipants() {
 		List<IFlattenParticipant> participants = new ArrayList<IFlattenParticipant>();
 
-		participants.add(new JEEHeirarchyExportParticipant());
+		participants.add(new GlobalHeirarchyParticipant());
 		participants.add(FilterResourceParticipant.createSuffixFilterParticipant(filteredSuffixes));
 		participants.add(new AddClasspathLibReferencesParticipant());
 		participants.add(new AddClasspathLibRefsProviderParticipant());

@@ -20,12 +20,12 @@ import org.eclipse.jst.common.internal.modulecore.IgnoreJavaInSourceFolderPartic
 import org.eclipse.jst.common.internal.modulecore.ReplaceManifestExportParticipant;
 import org.eclipse.jst.common.internal.modulecore.SingleRootExportParticipant;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
-import org.eclipse.jst.j2ee.internal.common.exportmodel.JEEHeirarchyExportParticipant;
 import org.eclipse.jst.j2ee.internal.common.exportmodel.JavaEESingleRootCallback;
 import org.eclipse.wst.common.componentcore.internal.flat.AbstractFlattenParticipant;
+import org.eclipse.wst.common.componentcore.internal.flat.FlatVirtualComponent.FlatComponentTaskModel;
+import org.eclipse.wst.common.componentcore.internal.flat.GlobalHeirarchyParticipant;
 import org.eclipse.wst.common.componentcore.internal.flat.IFlattenParticipant;
 import org.eclipse.wst.common.componentcore.internal.flat.IFlattenParticipantProvider;
-import org.eclipse.wst.common.componentcore.internal.flat.FlatVirtualComponent.FlatComponentTaskModel;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 
@@ -59,7 +59,7 @@ public class JEEFlattenParticipantProvider implements
 		if( JEESingleRootParticipant.equals(id))
 			return forExport ? null : new SingleRootExportParticipant(new JavaEESingleRootCallback());
 		if( JEEHeirarchyExportParticipant.equals(id))
-			return forExport ? createExportHierarchyParticipant() : new JEEHeirarchyExportParticipant();
+			return forExport ? createExportHierarchyParticipant() : new GlobalHeirarchyParticipant();
 		if( AddClasspathLibReferencesParticipant.equals(id))
 			return new AddClasspathLibReferencesParticipant();
 		if( AddClasspathFoldersParticipant.equals(id))
