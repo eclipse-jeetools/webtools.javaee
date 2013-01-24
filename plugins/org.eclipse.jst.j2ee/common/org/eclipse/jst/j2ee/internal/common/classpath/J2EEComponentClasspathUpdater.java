@@ -64,6 +64,7 @@ import org.eclipse.wst.common.componentcore.internal.builder.IDependencyGraphLis
 import org.eclipse.wst.common.componentcore.internal.builder.IDependencyGraphUpdateEvent;
 import org.eclipse.wst.common.componentcore.internal.impl.ResourceTreeRootAdapter;
 import org.eclipse.wst.common.componentcore.internal.impl.WTPModulesResourceFactory;
+import org.eclipse.wst.common.componentcore.internal.resources.VirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
@@ -347,6 +348,9 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 				if (JavaEEProjectUtilities.isEARProject(earProject))
 				{
 					IVirtualComponent earComponent = ComponentCore.createComponent(earProject); 
+					if (earComponent instanceof VirtualComponent) {
+						((VirtualComponent)earComponent).flushCache();
+					}
 					IVirtualReference[] refs = J2EEProjectUtilities.getComponentReferences(earComponent);
 					IVirtualComponent comp = null;
 					for (int j = 0; j < refs.length; j++) {

@@ -14,6 +14,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
@@ -126,6 +127,21 @@ public class JEE5ModelProvider implements IModelProvider, ResourceStateInputProv
 		}
 	}
 	private void addManagedResource(XMLResourceImpl res) {
+		if (res == null || modelResources.contains(res)) {
+			return;
+		}
+		URI uri = res.getURI();
+		for (Iterator iterator = modelResources.iterator(); iterator.hasNext();) {
+			XMLResourceImpl resource = (XMLResourceImpl) iterator.next();
+			if (resource == null) {
+				iterator.remove();
+				continue;
+			}
+			if (resource.getURI() != null && resource.getURI().equals(uri)) {
+				resource.eAdapters().remove(resourceAdapter);
+				iterator.remove();
+			}
+		}
 		modelResources.add(res);
 		if (!res.eAdapters().contains(resourceAdapter))
 			res.eAdapters().add(resourceAdapter);
