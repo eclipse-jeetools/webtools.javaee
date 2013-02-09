@@ -490,23 +490,5 @@
   		class="org.eclipse.jst.servlet.ui.internal.navigator.FacetedProjectPropertyTester">
 	</propertyTester>
   </extension>
-  <!-- **************** Decorator ******************* -->
-   <extension
-         point="org.eclipse.ui.decorators">
-      <decorator
-            lightweight="true"
-            adaptable="true"
-            location="BOTTOM_RIGHT"
-            label="%CompressedJavaProjectCVSDecorator.name"
-            state="true"
-            class="org.eclipse.jst.servlet.ui.internal.navigator.CompressedJavaProjectCVSDecorator"
-            id="org.eclipse.jst.servlet.ui.Decorator">
-         <description>
-            %CompressedJavaProjectCVSDecorator.desc
-         </description>
-         <enablement>
-             <objectClass name="org.eclipse.jst.servlet.ui.internal.navigator.ICompressedNode"/> 
-         </enablement>
-      </decorator>
-   </extension>
+
 </plugin>
