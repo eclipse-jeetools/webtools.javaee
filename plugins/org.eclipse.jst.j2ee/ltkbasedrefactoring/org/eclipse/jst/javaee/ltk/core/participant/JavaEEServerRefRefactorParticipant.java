@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2010, 2012 IBM Corporation and others.
+ * Copyright (c) 2010, 2013 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -60,7 +60,10 @@ public class JavaEEServerRefRefactorParticipant extends DeleteParticipant {
 				try {
 					if (wc != null) {
 						IServer newServer = wc.saveAll(true, null);
-						newServer.publish(IServer.PUBLISH_INCREMENTAL, new NullProgressMonitor()); // TODO use child progress?
+						int state = newServer.getServerState();
+						if(state == IServer.STATE_STARTED) {
+							newServer.publish(IServer.PUBLISH_INCREMENTAL, new NullProgressMonitor()); // TODO use child progress?
+						}
 					}
 					
 				} catch (CoreException ce) {
