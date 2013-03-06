@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.jst.web_core.feature.patch"
       label="%featureName"
-      version="3.4.0.qualifier"
+      version="3.4.2.qualifier"
       provider-name="%providerName">
 
    <description>
@@ -18,7 +18,7 @@
    </license>
 
    <requires>
-      <import feature="org.eclipse.jst.web_core.feature" version="3.4.0.v201111022313-7Q7EGVtFE9LeAJKiyp_z-Rsyivz-0sSxz003877" patch="true"/>
+      <import feature="org.eclipse.jst.web_core.feature" version="3.4.2.v201211080300-7Q7EGW3FE9LeAONAxo_5Rtz00jrx3tNyz003877" patch="true"/>
    </requires>
 
    <plugin
