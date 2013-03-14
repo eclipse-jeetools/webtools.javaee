@@ -14,19 +14,13 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-
 import org.eclipse.emf.ecore.xml.type.XMLTypeFactory;
 import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
-
 import org.eclipse.jst.javaee.core.JavaeeFactory;
 import org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage;
-
 import org.eclipse.jst.javaee.ejb.*;
-
 import org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage;
 
 /**
@@ -44,7 +38,7 @@ public class EjbFactoryImpl extends EFactoryImpl implements EjbFactory {
 	 */
 	public static EjbFactory init() {
 		try {
-			EjbFactory theEjbFactory = (EjbFactory)EPackage.Registry.INSTANCE.getEFactory("http://java.sun.com/xml/ns/javaee/ejb"); //$NON-NLS-1$ 
+			EjbFactory theEjbFactory = (EjbFactory)EPackage.Registry.INSTANCE.getEFactory("http://xmlns.jcp.org/xml/ns/javaee/ejb"); //$NON-NLS-1$ 
 			if (theEjbFactory != null) {
 				return theEjbFactory;
 			}

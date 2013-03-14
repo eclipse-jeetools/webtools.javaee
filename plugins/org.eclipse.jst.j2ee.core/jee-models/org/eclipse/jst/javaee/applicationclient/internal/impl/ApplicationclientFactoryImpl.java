@@ -13,13 +13,9 @@ package org.eclipse.jst.javaee.applicationclient.internal.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-
 import org.eclipse.jst.javaee.applicationclient.*;
-
 import org.eclipse.jst.javaee.applicationclient.internal.metadata.ApplicationclientPackage;
 
 /**
@@ -37,7 +33,7 @@ public class ApplicationclientFactoryImpl extends EFactoryImpl implements Applic
 	 */
 	public static ApplicationclientFactory init() {
 		try {
-			ApplicationclientFactory theApplicationclientFactory = (ApplicationclientFactory)EPackage.Registry.INSTANCE.getEFactory("http://java.sun.com/xml/ns/javaee/applicationclient"); //$NON-NLS-1$ 
+			ApplicationclientFactory theApplicationclientFactory = (ApplicationclientFactory)EPackage.Registry.INSTANCE.getEFactory("http://xmlns.jcp.org/xml/ns/javaee/applicationclient"); //$NON-NLS-1$ 
 			if (theApplicationclientFactory != null) {
 				return theApplicationclientFactory;
 			}

@@ -32,7 +32,7 @@ import org.eclipse.jst.javaee.core.JavaeeFactory;
  * <!-- begin-model-doc -->
  * 
  * 
- *       $Id: JavaeePackage.java,v 1.4 2010/01/15 14:32:07 canderson Exp $
+ *       $Id: javaee_6.xsd,v 1.4 2010/01/14 18:20:11 ccc Exp $
  *       
  *     
  * 
@@ -57,7 +57,7 @@ import org.eclipse.jst.javaee.core.JavaeeFactory;
  *     
  * 
  * 
- *       $Id: JavaeePackage.java,v 1.4 2010/01/15 14:32:07 canderson Exp $
+ *       $Id: javaee_web_services_client_1_3.xsd,v 1.2 2009/09/29 20:31:42 ccc Exp $
  *       
  *     
  * 
@@ -120,7 +120,7 @@ import org.eclipse.jst.javaee.core.JavaeeFactory;
  *    </div>
  *   
  * 
- *    <div id="usage" xml:id="usage" xmlns="http://www.w3.org/1999/xhtml">
+ *    <div xmlns="http://www.w3.org/1999/xhtml" id="usage" xml:id="usage">
  *     <h2>
  *       <a name="usage">About this schema document</a>
  *     </h2>
@@ -166,7 +166,7 @@ import org.eclipse.jst.javaee.core.JavaeeFactory;
  *    </div>
  *   
  * 
- *    <div id="nsversioning" xml:id="nsversioning" xmlns="http://www.w3.org/1999/xhtml">
+ *    <div xmlns="http://www.w3.org/1999/xhtml" id="nsversioning" xml:id="nsversioning">
  *     <h2>
  *       <a name="nsversioning">Versioning policy for this schema document</a>
  *     </h2>
@@ -240,7 +240,8 @@ public interface JavaeePackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "http://java.sun.com/xml/ns/javaee"; //$NON-NLS-1$
+	String eNS_URI = "http://xmlns.jcp.org/xml/ns/javaee"; //$NON-NLS-1$
+	String eNS_URI2 = "http://java.sun.com/xml/ns/javaee"; //$NON-NLS-1$
 
 	/**
 	 * The package namespace name.
@@ -305,6 +306,188 @@ public interface JavaeePackage extends EPackage {
 	int ADDRESSING_TYPE_FEATURE_COUNT = 3;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.internal.impl.AdministeredObjectTypeImpl <em>Administered Object Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.core.internal.impl.AdministeredObjectTypeImpl
+	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getAdministeredObjectType()
+	 * @generated
+	 */
+	int ADMINISTERED_OBJECT_TYPE = 1;
+
+	/**
+	 * The feature id for the '<em><b>Description</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADMINISTERED_OBJECT_TYPE__DESCRIPTION = 0;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADMINISTERED_OBJECT_TYPE__NAME = 1;
+
+	/**
+	 * The feature id for the '<em><b>Interface Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADMINISTERED_OBJECT_TYPE__INTERFACE_NAME = 2;
+
+	/**
+	 * The feature id for the '<em><b>Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADMINISTERED_OBJECT_TYPE__CLASS_NAME = 3;
+
+	/**
+	 * The feature id for the '<em><b>Resource Adapter</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADMINISTERED_OBJECT_TYPE__RESOURCE_ADAPTER = 4;
+
+	/**
+	 * The feature id for the '<em><b>Property</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADMINISTERED_OBJECT_TYPE__PROPERTY = 5;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADMINISTERED_OBJECT_TYPE__ID = 6;
+
+	/**
+	 * The number of structural features of the '<em>Administered Object Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADMINISTERED_OBJECT_TYPE_FEATURE_COUNT = 7;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.internal.impl.ConnectionFactoryResourceTypeImpl <em>Connection Factory Resource Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.core.internal.impl.ConnectionFactoryResourceTypeImpl
+	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getConnectionFactoryResourceType()
+	 * @generated
+	 */
+	int CONNECTION_FACTORY_RESOURCE_TYPE = 2;
+
+	/**
+	 * The feature id for the '<em><b>Description</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_FACTORY_RESOURCE_TYPE__DESCRIPTION = 0;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_FACTORY_RESOURCE_TYPE__NAME = 1;
+
+	/**
+	 * The feature id for the '<em><b>Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_FACTORY_RESOURCE_TYPE__CLASS_NAME = 2;
+
+	/**
+	 * The feature id for the '<em><b>Resource Adapter</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_FACTORY_RESOURCE_TYPE__RESOURCE_ADAPTER = 3;
+
+	/**
+	 * The feature id for the '<em><b>Max Pool Size</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_FACTORY_RESOURCE_TYPE__MAX_POOL_SIZE = 4;
+
+	/**
+	 * The feature id for the '<em><b>Min Pool Size</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_FACTORY_RESOURCE_TYPE__MIN_POOL_SIZE = 5;
+
+	/**
+	 * The feature id for the '<em><b>Transaction Support</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_FACTORY_RESOURCE_TYPE__TRANSACTION_SUPPORT = 6;
+
+	/**
+	 * The feature id for the '<em><b>Property</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_FACTORY_RESOURCE_TYPE__PROPERTY = 7;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_FACTORY_RESOURCE_TYPE__ID = 8;
+
+	/**
+	 * The number of structural features of the '<em>Connection Factory Resource Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_FACTORY_RESOURCE_TYPE_FEATURE_COUNT = 9;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.internal.impl.DataSourceTypeImpl <em>Data Source Type</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -312,7 +495,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getDataSourceType()
 	 * @generated
 	 */
-	int DATA_SOURCE_TYPE = 1;
+	int DATA_SOURCE_TYPE = 3;
 
 	/**
 	 * The feature id for the '<em><b>Description</b></em>' containment reference.
@@ -502,7 +685,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getDescription()
 	 * @generated
 	 */
-	int DESCRIPTION = 2;
+	int DESCRIPTION = 4;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -539,7 +722,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getDisplayName()
 	 * @generated
 	 */
-	int DISPLAY_NAME = 3;
+	int DISPLAY_NAME = 5;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -576,7 +759,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getEjbLocalRef()
 	 * @generated
 	 */
-	int EJB_LOCAL_REF = 4;
+	int EJB_LOCAL_REF = 6;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -685,7 +868,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getEjbRef()
 	 * @generated
 	 */
-	int EJB_REF = 5;
+	int EJB_REF = 7;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -794,7 +977,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getEmptyType()
 	 * @generated
 	 */
-	int EMPTY_TYPE = 6;
+	int EMPTY_TYPE = 8;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -822,7 +1005,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getEnvEntry()
 	 * @generated
 	 */
-	int ENV_ENTRY = 7;
+	int ENV_ENTRY = 9;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -913,7 +1096,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getIcon()
 	 * @generated
 	 */
-	int ICON = 8;
+	int ICON = 10;
 
 	/**
 	 * The feature id for the '<em><b>Small Icon</b></em>' attribute.
@@ -968,7 +1151,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getInjectionTarget()
 	 * @generated
 	 */
-	int INJECTION_TARGET = 9;
+	int INJECTION_TARGET = 11;
 
 	/**
 	 * The feature id for the '<em><b>Injection Target Class</b></em>' attribute.
@@ -998,6 +1181,215 @@ public interface JavaeePackage extends EPackage {
 	int INJECTION_TARGET_FEATURE_COUNT = 2;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.internal.impl.JmsConnectionFactoryTypeImpl <em>Jms Connection Factory Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.core.internal.impl.JmsConnectionFactoryTypeImpl
+	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getJmsConnectionFactoryType()
+	 * @generated
+	 */
+	int JMS_CONNECTION_FACTORY_TYPE = 12;
+
+	/**
+	 * The feature id for the '<em><b>Description</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JMS_CONNECTION_FACTORY_TYPE__DESCRIPTION = 0;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JMS_CONNECTION_FACTORY_TYPE__NAME = 1;
+
+	/**
+	 * The feature id for the '<em><b>Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JMS_CONNECTION_FACTORY_TYPE__CLASS_NAME = 2;
+
+	/**
+	 * The feature id for the '<em><b>Resource Adapter</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JMS_CONNECTION_FACTORY_TYPE__RESOURCE_ADAPTER = 3;
+
+	/**
+	 * The feature id for the '<em><b>User</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JMS_CONNECTION_FACTORY_TYPE__USER = 4;
+
+	/**
+	 * The feature id for the '<em><b>Password</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JMS_CONNECTION_FACTORY_TYPE__PASSWORD = 5;
+
+	/**
+	 * The feature id for the '<em><b>Client Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JMS_CONNECTION_FACTORY_TYPE__CLIENT_ID = 6;
+
+	/**
+	 * The feature id for the '<em><b>Property</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JMS_CONNECTION_FACTORY_TYPE__PROPERTY = 7;
+
+	/**
+	 * The feature id for the '<em><b>Transactional</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JMS_CONNECTION_FACTORY_TYPE__TRANSACTIONAL = 8;
+
+	/**
+	 * The feature id for the '<em><b>Max Pool Size</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JMS_CONNECTION_FACTORY_TYPE__MAX_POOL_SIZE = 9;
+
+	/**
+	 * The feature id for the '<em><b>Min Pool Size</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JMS_CONNECTION_FACTORY_TYPE__MIN_POOL_SIZE = 10;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JMS_CONNECTION_FACTORY_TYPE__ID = 11;
+
+	/**
+	 * The number of structural features of the '<em>Jms Connection Factory Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JMS_CONNECTION_FACTORY_TYPE_FEATURE_COUNT = 12;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.internal.impl.JmsDestinationTypeImpl <em>Jms Destination Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.core.internal.impl.JmsDestinationTypeImpl
+	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getJmsDestinationType()
+	 * @generated
+	 */
+	int JMS_DESTINATION_TYPE = 13;
+
+	/**
+	 * The feature id for the '<em><b>Description</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JMS_DESTINATION_TYPE__DESCRIPTION = 0;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JMS_DESTINATION_TYPE__NAME = 1;
+
+	/**
+	 * The feature id for the '<em><b>Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JMS_DESTINATION_TYPE__CLASS_NAME = 2;
+
+	/**
+	 * The feature id for the '<em><b>Resource Adapter</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JMS_DESTINATION_TYPE__RESOURCE_ADAPTER = 3;
+
+	/**
+	 * The feature id for the '<em><b>Destination Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JMS_DESTINATION_TYPE__DESTINATION_NAME = 4;
+
+	/**
+	 * The feature id for the '<em><b>Property</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JMS_DESTINATION_TYPE__PROPERTY = 5;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JMS_DESTINATION_TYPE__ID = 6;
+
+	/**
+	 * The number of structural features of the '<em>Jms Destination Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JMS_DESTINATION_TYPE_FEATURE_COUNT = 7;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.internal.impl.LifecycleCallbackImpl <em>Lifecycle Callback</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1005,7 +1397,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getLifecycleCallback()
 	 * @generated
 	 */
-	int LIFECYCLE_CALLBACK = 10;
+	int LIFECYCLE_CALLBACK = 14;
 
 	/**
 	 * The feature id for the '<em><b>Lifecycle Callback Class</b></em>' attribute.
@@ -1042,7 +1434,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getListener()
 	 * @generated
 	 */
-	int LISTENER = 11;
+	int LISTENER = 15;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -1099,6 +1491,133 @@ public interface JavaeePackage extends EPackage {
 	int LISTENER_FEATURE_COUNT = 5;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.internal.impl.MailSessionTypeImpl <em>Mail Session Type</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.core.internal.impl.MailSessionTypeImpl
+	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getMailSessionType()
+	 * @generated
+	 */
+	int MAIL_SESSION_TYPE = 16;
+
+	/**
+	 * The feature id for the '<em><b>Description</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAIL_SESSION_TYPE__DESCRIPTION = 0;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAIL_SESSION_TYPE__NAME = 1;
+
+	/**
+	 * The feature id for the '<em><b>Store Protocol</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAIL_SESSION_TYPE__STORE_PROTOCOL = 2;
+
+	/**
+	 * The feature id for the '<em><b>Store Protocol Class</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAIL_SESSION_TYPE__STORE_PROTOCOL_CLASS = 3;
+
+	/**
+	 * The feature id for the '<em><b>Transport Protocol</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAIL_SESSION_TYPE__TRANSPORT_PROTOCOL = 4;
+
+	/**
+	 * The feature id for the '<em><b>Transport Protocol Class</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAIL_SESSION_TYPE__TRANSPORT_PROTOCOL_CLASS = 5;
+
+	/**
+	 * The feature id for the '<em><b>Host</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAIL_SESSION_TYPE__HOST = 6;
+
+	/**
+	 * The feature id for the '<em><b>User</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAIL_SESSION_TYPE__USER = 7;
+
+	/**
+	 * The feature id for the '<em><b>Password</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAIL_SESSION_TYPE__PASSWORD = 8;
+
+	/**
+	 * The feature id for the '<em><b>From</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAIL_SESSION_TYPE__FROM = 9;
+
+	/**
+	 * The feature id for the '<em><b>Property</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAIL_SESSION_TYPE__PROPERTY = 10;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAIL_SESSION_TYPE__ID = 11;
+
+	/**
+	 * The number of structural features of the '<em>Mail Session Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAIL_SESSION_TYPE_FEATURE_COUNT = 12;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.internal.impl.MessageDestinationImpl <em>Message Destination</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1106,7 +1625,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getMessageDestination()
 	 * @generated
 	 */
-	int MESSAGE_DESTINATION = 12;
+	int MESSAGE_DESTINATION = 17;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -1188,7 +1707,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getMessageDestinationRef()
 	 * @generated
 	 */
-	int MESSAGE_DESTINATION_REF = 13;
+	int MESSAGE_DESTINATION_REF = 18;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -1288,7 +1807,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getParamValue()
 	 * @generated
 	 */
-	int PARAM_VALUE = 14;
+	int PARAM_VALUE = 19;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -1343,7 +1862,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getPersistenceContextRef()
 	 * @generated
 	 */
-	int PERSISTENCE_CONTEXT_REF = 15;
+	int PERSISTENCE_CONTEXT_REF = 20;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -1382,13 +1901,22 @@ public interface JavaeePackage extends EPackage {
 	int PERSISTENCE_CONTEXT_REF__PERSISTENCE_CONTEXT_TYPE = 3;
 
 	/**
+	 * The feature id for the '<em><b>Persistence Context Synchronization</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PERSISTENCE_CONTEXT_REF__PERSISTENCE_CONTEXT_SYNCHRONIZATION = 4;
+
+	/**
 	 * The feature id for the '<em><b>Persistence Properties</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PERSISTENCE_CONTEXT_REF__PERSISTENCE_PROPERTIES = 4;
+	int PERSISTENCE_CONTEXT_REF__PERSISTENCE_PROPERTIES = 5;
 
 	/**
 	 * The feature id for the '<em><b>Mapped Name</b></em>' attribute.
@@ -1397,7 +1925,7 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PERSISTENCE_CONTEXT_REF__MAPPED_NAME = 5;
+	int PERSISTENCE_CONTEXT_REF__MAPPED_NAME = 6;
 
 	/**
 	 * The feature id for the '<em><b>Injection Targets</b></em>' containment reference list.
@@ -1406,7 +1934,7 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PERSISTENCE_CONTEXT_REF__INJECTION_TARGETS = 6;
+	int PERSISTENCE_CONTEXT_REF__INJECTION_TARGETS = 7;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -1415,7 +1943,7 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PERSISTENCE_CONTEXT_REF__ID = 7;
+	int PERSISTENCE_CONTEXT_REF__ID = 8;
 
 	/**
 	 * The number of structural features of the '<em>Persistence Context Ref</em>' class.
@@ -1424,7 +1952,7 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PERSISTENCE_CONTEXT_REF_FEATURE_COUNT = 8;
+	int PERSISTENCE_CONTEXT_REF_FEATURE_COUNT = 9;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.internal.impl.PersistenceUnitRefImpl <em>Persistence Unit Ref</em>}' class.
@@ -1434,7 +1962,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getPersistenceUnitRef()
 	 * @generated
 	 */
-	int PERSISTENCE_UNIT_REF = 16;
+	int PERSISTENCE_UNIT_REF = 21;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -1507,7 +2035,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getPortComponentRef()
 	 * @generated
 	 */
-	int PORT_COMPONENT_REF = 17;
+	int PORT_COMPONENT_REF = 22;
 
 	/**
 	 * The feature id for the '<em><b>Service Endpoint Interface</b></em>' attribute.
@@ -1589,7 +2117,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getPropertyType()
 	 * @generated
 	 */
-	int PROPERTY_TYPE = 18;
+	int PROPERTY_TYPE = 23;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1635,7 +2163,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getResourceEnvRef()
 	 * @generated
 	 */
-	int RESOURCE_ENV_REF = 19;
+	int RESOURCE_ENV_REF = 24;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -1717,7 +2245,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getResourceRef()
 	 * @generated
 	 */
-	int RESOURCE_REF = 20;
+	int RESOURCE_REF = 25;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -1817,7 +2345,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getRespectBindingType()
 	 * @generated
 	 */
-	int RESPECT_BINDING_TYPE = 21;
+	int RESPECT_BINDING_TYPE = 26;
 
 	/**
 	 * The feature id for the '<em><b>Enabled</b></em>' attribute.
@@ -1845,7 +2373,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getRunAs()
 	 * @generated
 	 */
-	int RUN_AS = 22;
+	int RUN_AS = 27;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -1891,7 +2419,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getSecurityRole()
 	 * @generated
 	 */
-	int SECURITY_ROLE = 23;
+	int SECURITY_ROLE = 28;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -1937,7 +2465,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getSecurityRoleRef()
 	 * @generated
 	 */
-	int SECURITY_ROLE_REF = 24;
+	int SECURITY_ROLE_REF = 29;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -1992,7 +2520,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getServiceRef()
 	 * @generated
 	 */
-	int SERVICE_REF = 25;
+	int SERVICE_REF = 30;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -2155,7 +2683,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getServiceRefHandler()
 	 * @generated
 	 */
-	int SERVICE_REF_HANDLER = 26;
+	int SERVICE_REF_HANDLER = 31;
 
 	/**
 	 * The feature id for the '<em><b>Descriptions</b></em>' containment reference list.
@@ -2264,7 +2792,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getServiceRefHandlerChain()
 	 * @generated
 	 */
-	int SERVICE_REF_HANDLER_CHAIN = 27;
+	int SERVICE_REF_HANDLER_CHAIN = 32;
 
 	/**
 	 * The feature id for the '<em><b>Service Name Pattern</b></em>' attribute.
@@ -2328,7 +2856,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getServiceRefHandlerChains()
 	 * @generated
 	 */
-	int SERVICE_REF_HANDLER_CHAINS = 28;
+	int SERVICE_REF_HANDLER_CHAINS = 33;
 
 	/**
 	 * The feature id for the '<em><b>Handler Chains</b></em>' containment reference list.
@@ -2365,7 +2893,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getUrlPatternType()
 	 * @generated
 	 */
-	int URL_PATTERN_TYPE = 29;
+	int URL_PATTERN_TYPE = 34;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -2393,7 +2921,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getAddressingResponsesType()
 	 * @generated
 	 */
-	int ADDRESSING_RESPONSES_TYPE = 30;
+	int ADDRESSING_RESPONSES_TYPE = 35;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.EjbRefType <em>Ejb Ref Type</em>}' enum.
@@ -2403,7 +2931,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getEjbRefType()
 	 * @generated
 	 */
-	int EJB_REF_TYPE = 31;
+	int EJB_REF_TYPE = 36;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.GenericBooleanType <em>Generic Boolean Type</em>}' enum.
@@ -2413,7 +2941,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getGenericBooleanType()
 	 * @generated
 	 */
-	int GENERIC_BOOLEAN_TYPE = 32;
+	int GENERIC_BOOLEAN_TYPE = 37;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.IsolationLevelType <em>Isolation Level Type</em>}' enum.
@@ -2423,7 +2951,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getIsolationLevelType()
 	 * @generated
 	 */
-	int ISOLATION_LEVEL_TYPE = 33;
+	int ISOLATION_LEVEL_TYPE = 38;
 
 	/**
 	 * The meta object id for the '<em>Env Entry Type</em>' data type.
@@ -2433,7 +2961,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getEnvEntryType()
 	 * @generated
 	 */
-	int ENV_ENTRY_TYPE = 43;
+	int ENV_ENTRY_TYPE = 50;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.MessageDestinationUsageType <em>Message Destination Usage Type</em>}' enum.
@@ -2443,7 +2971,17 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getMessageDestinationUsageType()
 	 * @generated
 	 */
-	int MESSAGE_DESTINATION_USAGE_TYPE = 34;
+	int MESSAGE_DESTINATION_USAGE_TYPE = 39;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.PersistenceContextSynchronizationType <em>Persistence Context Synchronization Type</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.core.PersistenceContextSynchronizationType
+	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getPersistenceContextSynchronizationType()
+	 * @generated
+	 */
+	int PERSISTENCE_CONTEXT_SYNCHRONIZATION_TYPE = 40;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.PersistenceContextType <em>Persistence Context Type</em>}' enum.
@@ -2453,7 +2991,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getPersistenceContextType()
 	 * @generated
 	 */
-	int PERSISTENCE_CONTEXT_TYPE = 35;
+	int PERSISTENCE_CONTEXT_TYPE = 41;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.ResAuthType <em>Res Auth Type</em>}' enum.
@@ -2463,7 +3001,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getResAuthType()
 	 * @generated
 	 */
-	int RES_AUTH_TYPE = 36;
+	int RES_AUTH_TYPE = 42;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.ResSharingScopeType <em>Res Sharing Scope Type</em>}' enum.
@@ -2473,7 +3011,17 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getResSharingScopeType()
 	 * @generated
 	 */
-	int RES_SHARING_SCOPE_TYPE = 37;
+	int RES_SHARING_SCOPE_TYPE = 43;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.TransactionSupport <em>Transaction Support</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.core.TransactionSupport
+	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getTransactionSupport()
+	 * @generated
+	 */
+	int TRANSACTION_SUPPORT = 44;
 
 	/**
 	 * The meta object id for the '<em>Addressing Responses Type Object</em>' data type.
@@ -2483,7 +3031,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getAddressingResponsesTypeObject()
 	 * @generated
 	 */
-	int ADDRESSING_RESPONSES_TYPE_OBJECT = 38;
+	int ADDRESSING_RESPONSES_TYPE_OBJECT = 45;
 
 	/**
 	 * The meta object id for the '<em>Dewey Version Type</em>' data type.
@@ -2493,7 +3041,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getDeweyVersionType()
 	 * @generated
 	 */
-	int DEWEY_VERSION_TYPE = 39;
+	int DEWEY_VERSION_TYPE = 46;
 
 	/**
 	 * The meta object id for the '<em>EJB Link</em>' data type.
@@ -2503,7 +3051,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getEJBLink()
 	 * @generated
 	 */
-	int EJB_LINK = 40;
+	int EJB_LINK = 47;
 
 	/**
 	 * The meta object id for the '<em>Ejb Ref Name Type</em>' data type.
@@ -2513,7 +3061,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getEjbRefNameType()
 	 * @generated
 	 */
-	int EJB_REF_NAME_TYPE = 41;
+	int EJB_REF_NAME_TYPE = 48;
 
 	/**
 	 * The meta object id for the '<em>Ejb Ref Type Object</em>' data type.
@@ -2523,7 +3071,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getEjbRefTypeObject()
 	 * @generated
 	 */
-	int EJB_REF_TYPE_OBJECT = 42;
+	int EJB_REF_TYPE_OBJECT = 49;
 
 	/**
 	 * The meta object id for the '<em>Fully Qualified Class Type</em>' data type.
@@ -2533,7 +3081,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getFullyQualifiedClassType()
 	 * @generated
 	 */
-	int FULLY_QUALIFIED_CLASS_TYPE = 44;
+	int FULLY_QUALIFIED_CLASS_TYPE = 51;
 
 	/**
 	 * The meta object id for the '<em>Generic Boolean Type Object</em>' data type.
@@ -2543,7 +3091,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getGenericBooleanTypeObject()
 	 * @generated
 	 */
-	int GENERIC_BOOLEAN_TYPE_OBJECT = 45;
+	int GENERIC_BOOLEAN_TYPE_OBJECT = 52;
 
 	/**
 	 * The meta object id for the '<em>Home</em>' data type.
@@ -2553,7 +3101,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getHome()
 	 * @generated
 	 */
-	int HOME = 46;
+	int HOME = 53;
 
 	/**
 	 * The meta object id for the '<em>Isolation Level Type Object</em>' data type.
@@ -2563,7 +3111,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getIsolationLevelTypeObject()
 	 * @generated
 	 */
-	int ISOLATION_LEVEL_TYPE_OBJECT = 47;
+	int ISOLATION_LEVEL_TYPE_OBJECT = 54;
 
 	/**
 	 * The meta object id for the '<em>Java Identifier</em>' data type.
@@ -2573,7 +3121,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getJavaIdentifier()
 	 * @generated
 	 */
-	int JAVA_IDENTIFIER = 48;
+	int JAVA_IDENTIFIER = 55;
 
 	/**
 	 * The meta object id for the '<em>Java Type</em>' data type.
@@ -2583,7 +3131,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getJavaType()
 	 * @generated
 	 */
-	int JAVA_TYPE = 49;
+	int JAVA_TYPE = 56;
 
 	/**
 	 * The meta object id for the '<em>Jdbc Url Type</em>' data type.
@@ -2593,7 +3141,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getJdbcUrlType()
 	 * @generated
 	 */
-	int JDBC_URL_TYPE = 50;
+	int JDBC_URL_TYPE = 57;
 
 	/**
 	 * The meta object id for the '<em>JNDI Name</em>' data type.
@@ -2603,7 +3151,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getJNDIName()
 	 * @generated
 	 */
-	int JNDI_NAME = 51;
+	int JNDI_NAME = 58;
 
 	/**
 	 * The meta object id for the '<em>Local</em>' data type.
@@ -2613,7 +3161,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getLocal()
 	 * @generated
 	 */
-	int LOCAL = 52;
+	int LOCAL = 59;
 
 	/**
 	 * The meta object id for the '<em>Local Home</em>' data type.
@@ -2623,7 +3171,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getLocalHome()
 	 * @generated
 	 */
-	int LOCAL_HOME = 53;
+	int LOCAL_HOME = 60;
 
 	/**
 	 * The meta object id for the '<em>Message Destination Link</em>' data type.
@@ -2633,7 +3181,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getMessageDestinationLink()
 	 * @generated
 	 */
-	int MESSAGE_DESTINATION_LINK = 54;
+	int MESSAGE_DESTINATION_LINK = 61;
 
 	/**
 	 * The meta object id for the '<em>Message Destination Type Type</em>' data type.
@@ -2643,7 +3191,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getMessageDestinationTypeType()
 	 * @generated
 	 */
-	int MESSAGE_DESTINATION_TYPE_TYPE = 55;
+	int MESSAGE_DESTINATION_TYPE_TYPE = 62;
 
 	/**
 	 * The meta object id for the '<em>Message Destination Usage Type Object</em>' data type.
@@ -2653,7 +3201,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getMessageDestinationUsageTypeObject()
 	 * @generated
 	 */
-	int MESSAGE_DESTINATION_USAGE_TYPE_OBJECT = 56;
+	int MESSAGE_DESTINATION_USAGE_TYPE_OBJECT = 63;
 
 	/**
 	 * The meta object id for the '<em>Path Type</em>' data type.
@@ -2663,7 +3211,17 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getPathType()
 	 * @generated
 	 */
-	int PATH_TYPE = 57;
+	int PATH_TYPE = 64;
+
+	/**
+	 * The meta object id for the '<em>Persistence Context Synchronization Type Object</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.core.PersistenceContextSynchronizationType
+	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getPersistenceContextSynchronizationTypeObject()
+	 * @generated
+	 */
+	int PERSISTENCE_CONTEXT_SYNCHRONIZATION_TYPE_OBJECT = 65;
 
 	/**
 	 * The meta object id for the '<em>Persistence Context Type Object</em>' data type.
@@ -2673,7 +3231,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getPersistenceContextTypeObject()
 	 * @generated
 	 */
-	int PERSISTENCE_CONTEXT_TYPE_OBJECT = 58;
+	int PERSISTENCE_CONTEXT_TYPE_OBJECT = 66;
 
 	/**
 	 * The meta object id for the '<em>Protocol Binding List Type</em>' data type.
@@ -2683,7 +3241,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getProtocolBindingListType()
 	 * @generated
 	 */
-	int PROTOCOL_BINDING_LIST_TYPE = 59;
+	int PROTOCOL_BINDING_LIST_TYPE = 67;
 
 	/**
 	 * The meta object id for the '<em>Protocol Binding Type</em>' data type.
@@ -2693,7 +3251,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getProtocolBindingType()
 	 * @generated
 	 */
-	int PROTOCOL_BINDING_TYPE = 60;
+	int PROTOCOL_BINDING_TYPE = 68;
 
 	/**
 	 * The meta object id for the '<em>Protocol URI Alias Type</em>' data type.
@@ -2703,7 +3261,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getProtocolURIAliasType()
 	 * @generated
 	 */
-	int PROTOCOL_URI_ALIAS_TYPE = 61;
+	int PROTOCOL_URI_ALIAS_TYPE = 69;
 
 	/**
 	 * The meta object id for the '<em>Qname Pattern</em>' data type.
@@ -2713,7 +3271,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getQnamePattern()
 	 * @generated
 	 */
-	int QNAME_PATTERN = 62;
+	int QNAME_PATTERN = 70;
 
 	/**
 	 * The meta object id for the '<em>Remote</em>' data type.
@@ -2723,7 +3281,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getRemote()
 	 * @generated
 	 */
-	int REMOTE = 63;
+	int REMOTE = 71;
 
 	/**
 	 * The meta object id for the '<em>Res Auth Type Object</em>' data type.
@@ -2733,7 +3291,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getResAuthTypeObject()
 	 * @generated
 	 */
-	int RES_AUTH_TYPE_OBJECT = 64;
+	int RES_AUTH_TYPE_OBJECT = 72;
 
 	/**
 	 * The meta object id for the '<em>Res Sharing Scope Type Object</em>' data type.
@@ -2743,7 +3301,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getResSharingScopeTypeObject()
 	 * @generated
 	 */
-	int RES_SHARING_SCOPE_TYPE_OBJECT = 65;
+	int RES_SHARING_SCOPE_TYPE_OBJECT = 73;
 
 	/**
 	 * The meta object id for the '<em>Role Name</em>' data type.
@@ -2753,7 +3311,17 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getRoleName()
 	 * @generated
 	 */
-	int ROLE_NAME = 66;
+	int ROLE_NAME = 74;
+
+	/**
+	 * The meta object id for the '<em>Transaction Support Object</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.jst.javaee.core.TransactionSupport
+	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getTransactionSupportObject()
+	 * @generated
+	 */
+	int TRANSACTION_SUPPORT_OBJECT = 75;
 
 	/**
 	 * The meta object id for the '<em>True False Type</em>' data type.
@@ -2762,7 +3330,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getTrueFalseType()
 	 * @generated
 	 */
-	int TRUE_FALSE_TYPE = 67;
+	int TRUE_FALSE_TYPE = 76;
 
 	/**
 	 * The meta object id for the '<em>True False Type Object</em>' data type.
@@ -2772,7 +3340,7 @@ public interface JavaeePackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getTrueFalseTypeObject()
 	 * @generated
 	 */
-	int TRUE_FALSE_TYPE_OBJECT = 68;
+	int TRUE_FALSE_TYPE_OBJECT = 77;
 
 
 	/**
@@ -2817,6 +3385,202 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getAddressingType_Responses();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.core.AdministeredObjectType <em>Administered Object Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Administered Object Type</em>'.
+	 * @see org.eclipse.jst.javaee.core.AdministeredObjectType
+	 * @generated
+	 */
+	EClass getAdministeredObjectType();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.javaee.core.AdministeredObjectType#getDescription <em>Description</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Description</em>'.
+	 * @see org.eclipse.jst.javaee.core.AdministeredObjectType#getDescription()
+	 * @see #getAdministeredObjectType()
+	 * @generated
+	 */
+	EReference getAdministeredObjectType_Description();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.AdministeredObjectType#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see org.eclipse.jst.javaee.core.AdministeredObjectType#getName()
+	 * @see #getAdministeredObjectType()
+	 * @generated
+	 */
+	EAttribute getAdministeredObjectType_Name();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.AdministeredObjectType#getInterfaceName <em>Interface Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Interface Name</em>'.
+	 * @see org.eclipse.jst.javaee.core.AdministeredObjectType#getInterfaceName()
+	 * @see #getAdministeredObjectType()
+	 * @generated
+	 */
+	EAttribute getAdministeredObjectType_InterfaceName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.AdministeredObjectType#getClassName <em>Class Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Class Name</em>'.
+	 * @see org.eclipse.jst.javaee.core.AdministeredObjectType#getClassName()
+	 * @see #getAdministeredObjectType()
+	 * @generated
+	 */
+	EAttribute getAdministeredObjectType_ClassName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.AdministeredObjectType#getResourceAdapter <em>Resource Adapter</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Resource Adapter</em>'.
+	 * @see org.eclipse.jst.javaee.core.AdministeredObjectType#getResourceAdapter()
+	 * @see #getAdministeredObjectType()
+	 * @generated
+	 */
+	EAttribute getAdministeredObjectType_ResourceAdapter();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.core.AdministeredObjectType#getProperty <em>Property</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Property</em>'.
+	 * @see org.eclipse.jst.javaee.core.AdministeredObjectType#getProperty()
+	 * @see #getAdministeredObjectType()
+	 * @generated
+	 */
+	EReference getAdministeredObjectType_Property();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.AdministeredObjectType#getId <em>Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Id</em>'.
+	 * @see org.eclipse.jst.javaee.core.AdministeredObjectType#getId()
+	 * @see #getAdministeredObjectType()
+	 * @generated
+	 */
+	EAttribute getAdministeredObjectType_Id();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.core.ConnectionFactoryResourceType <em>Connection Factory Resource Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Connection Factory Resource Type</em>'.
+	 * @see org.eclipse.jst.javaee.core.ConnectionFactoryResourceType
+	 * @generated
+	 */
+	EClass getConnectionFactoryResourceType();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.javaee.core.ConnectionFactoryResourceType#getDescription <em>Description</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Description</em>'.
+	 * @see org.eclipse.jst.javaee.core.ConnectionFactoryResourceType#getDescription()
+	 * @see #getConnectionFactoryResourceType()
+	 * @generated
+	 */
+	EReference getConnectionFactoryResourceType_Description();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.ConnectionFactoryResourceType#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see org.eclipse.jst.javaee.core.ConnectionFactoryResourceType#getName()
+	 * @see #getConnectionFactoryResourceType()
+	 * @generated
+	 */
+	EAttribute getConnectionFactoryResourceType_Name();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.ConnectionFactoryResourceType#getClassName <em>Class Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Class Name</em>'.
+	 * @see org.eclipse.jst.javaee.core.ConnectionFactoryResourceType#getClassName()
+	 * @see #getConnectionFactoryResourceType()
+	 * @generated
+	 */
+	EAttribute getConnectionFactoryResourceType_ClassName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.ConnectionFactoryResourceType#getResourceAdapter <em>Resource Adapter</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Resource Adapter</em>'.
+	 * @see org.eclipse.jst.javaee.core.ConnectionFactoryResourceType#getResourceAdapter()
+	 * @see #getConnectionFactoryResourceType()
+	 * @generated
+	 */
+	EAttribute getConnectionFactoryResourceType_ResourceAdapter();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.ConnectionFactoryResourceType#getMaxPoolSize <em>Max Pool Size</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Max Pool Size</em>'.
+	 * @see org.eclipse.jst.javaee.core.ConnectionFactoryResourceType#getMaxPoolSize()
+	 * @see #getConnectionFactoryResourceType()
+	 * @generated
+	 */
+	EAttribute getConnectionFactoryResourceType_MaxPoolSize();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.ConnectionFactoryResourceType#getMinPoolSize <em>Min Pool Size</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Min Pool Size</em>'.
+	 * @see org.eclipse.jst.javaee.core.ConnectionFactoryResourceType#getMinPoolSize()
+	 * @see #getConnectionFactoryResourceType()
+	 * @generated
+	 */
+	EAttribute getConnectionFactoryResourceType_MinPoolSize();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.ConnectionFactoryResourceType#getTransactionSupport <em>Transaction Support</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Transaction Support</em>'.
+	 * @see org.eclipse.jst.javaee.core.ConnectionFactoryResourceType#getTransactionSupport()
+	 * @see #getConnectionFactoryResourceType()
+	 * @generated
+	 */
+	EAttribute getConnectionFactoryResourceType_TransactionSupport();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.core.ConnectionFactoryResourceType#getProperty <em>Property</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Property</em>'.
+	 * @see org.eclipse.jst.javaee.core.ConnectionFactoryResourceType#getProperty()
+	 * @see #getConnectionFactoryResourceType()
+	 * @generated
+	 */
+	EReference getConnectionFactoryResourceType_Property();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.ConnectionFactoryResourceType#getId <em>Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Id</em>'.
+	 * @see org.eclipse.jst.javaee.core.ConnectionFactoryResourceType#getId()
+	 * @see #getConnectionFactoryResourceType()
+	 * @generated
+	 */
+	EAttribute getConnectionFactoryResourceType_Id();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.core.DataSourceType <em>Data Source Type</em>}'.
@@ -3547,6 +4311,235 @@ public interface JavaeePackage extends EPackage {
 	EAttribute getInjectionTarget_InjectionTargetName();
 
 	/**
+	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.core.JmsConnectionFactoryType <em>Jms Connection Factory Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Jms Connection Factory Type</em>'.
+	 * @see org.eclipse.jst.javaee.core.JmsConnectionFactoryType
+	 * @generated
+	 */
+	EClass getJmsConnectionFactoryType();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.javaee.core.JmsConnectionFactoryType#getDescription <em>Description</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Description</em>'.
+	 * @see org.eclipse.jst.javaee.core.JmsConnectionFactoryType#getDescription()
+	 * @see #getJmsConnectionFactoryType()
+	 * @generated
+	 */
+	EReference getJmsConnectionFactoryType_Description();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.JmsConnectionFactoryType#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see org.eclipse.jst.javaee.core.JmsConnectionFactoryType#getName()
+	 * @see #getJmsConnectionFactoryType()
+	 * @generated
+	 */
+	EAttribute getJmsConnectionFactoryType_Name();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.JmsConnectionFactoryType#getClassName <em>Class Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Class Name</em>'.
+	 * @see org.eclipse.jst.javaee.core.JmsConnectionFactoryType#getClassName()
+	 * @see #getJmsConnectionFactoryType()
+	 * @generated
+	 */
+	EAttribute getJmsConnectionFactoryType_ClassName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.JmsConnectionFactoryType#getResourceAdapter <em>Resource Adapter</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Resource Adapter</em>'.
+	 * @see org.eclipse.jst.javaee.core.JmsConnectionFactoryType#getResourceAdapter()
+	 * @see #getJmsConnectionFactoryType()
+	 * @generated
+	 */
+	EAttribute getJmsConnectionFactoryType_ResourceAdapter();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.JmsConnectionFactoryType#getUser <em>User</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>User</em>'.
+	 * @see org.eclipse.jst.javaee.core.JmsConnectionFactoryType#getUser()
+	 * @see #getJmsConnectionFactoryType()
+	 * @generated
+	 */
+	EAttribute getJmsConnectionFactoryType_User();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.JmsConnectionFactoryType#getPassword <em>Password</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Password</em>'.
+	 * @see org.eclipse.jst.javaee.core.JmsConnectionFactoryType#getPassword()
+	 * @see #getJmsConnectionFactoryType()
+	 * @generated
+	 */
+	EAttribute getJmsConnectionFactoryType_Password();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.JmsConnectionFactoryType#getClientId <em>Client Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Client Id</em>'.
+	 * @see org.eclipse.jst.javaee.core.JmsConnectionFactoryType#getClientId()
+	 * @see #getJmsConnectionFactoryType()
+	 * @generated
+	 */
+	EAttribute getJmsConnectionFactoryType_ClientId();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.core.JmsConnectionFactoryType#getProperty <em>Property</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Property</em>'.
+	 * @see org.eclipse.jst.javaee.core.JmsConnectionFactoryType#getProperty()
+	 * @see #getJmsConnectionFactoryType()
+	 * @generated
+	 */
+	EReference getJmsConnectionFactoryType_Property();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.JmsConnectionFactoryType#isTransactional <em>Transactional</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Transactional</em>'.
+	 * @see org.eclipse.jst.javaee.core.JmsConnectionFactoryType#isTransactional()
+	 * @see #getJmsConnectionFactoryType()
+	 * @generated
+	 */
+	EAttribute getJmsConnectionFactoryType_Transactional();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.JmsConnectionFactoryType#getMaxPoolSize <em>Max Pool Size</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Max Pool Size</em>'.
+	 * @see org.eclipse.jst.javaee.core.JmsConnectionFactoryType#getMaxPoolSize()
+	 * @see #getJmsConnectionFactoryType()
+	 * @generated
+	 */
+	EAttribute getJmsConnectionFactoryType_MaxPoolSize();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.JmsConnectionFactoryType#getMinPoolSize <em>Min Pool Size</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Min Pool Size</em>'.
+	 * @see org.eclipse.jst.javaee.core.JmsConnectionFactoryType#getMinPoolSize()
+	 * @see #getJmsConnectionFactoryType()
+	 * @generated
+	 */
+	EAttribute getJmsConnectionFactoryType_MinPoolSize();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.JmsConnectionFactoryType#getId <em>Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Id</em>'.
+	 * @see org.eclipse.jst.javaee.core.JmsConnectionFactoryType#getId()
+	 * @see #getJmsConnectionFactoryType()
+	 * @generated
+	 */
+	EAttribute getJmsConnectionFactoryType_Id();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.core.JmsDestinationType <em>Jms Destination Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Jms Destination Type</em>'.
+	 * @see org.eclipse.jst.javaee.core.JmsDestinationType
+	 * @generated
+	 */
+	EClass getJmsDestinationType();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.javaee.core.JmsDestinationType#getDescription <em>Description</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Description</em>'.
+	 * @see org.eclipse.jst.javaee.core.JmsDestinationType#getDescription()
+	 * @see #getJmsDestinationType()
+	 * @generated
+	 */
+	EReference getJmsDestinationType_Description();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.JmsDestinationType#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see org.eclipse.jst.javaee.core.JmsDestinationType#getName()
+	 * @see #getJmsDestinationType()
+	 * @generated
+	 */
+	EAttribute getJmsDestinationType_Name();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.JmsDestinationType#getClassName <em>Class Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Class Name</em>'.
+	 * @see org.eclipse.jst.javaee.core.JmsDestinationType#getClassName()
+	 * @see #getJmsDestinationType()
+	 * @generated
+	 */
+	EAttribute getJmsDestinationType_ClassName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.JmsDestinationType#getResourceAdapter <em>Resource Adapter</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Resource Adapter</em>'.
+	 * @see org.eclipse.jst.javaee.core.JmsDestinationType#getResourceAdapter()
+	 * @see #getJmsDestinationType()
+	 * @generated
+	 */
+	EAttribute getJmsDestinationType_ResourceAdapter();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.JmsDestinationType#getDestinationName <em>Destination Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Destination Name</em>'.
+	 * @see org.eclipse.jst.javaee.core.JmsDestinationType#getDestinationName()
+	 * @see #getJmsDestinationType()
+	 * @generated
+	 */
+	EAttribute getJmsDestinationType_DestinationName();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.core.JmsDestinationType#getProperty <em>Property</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Property</em>'.
+	 * @see org.eclipse.jst.javaee.core.JmsDestinationType#getProperty()
+	 * @see #getJmsDestinationType()
+	 * @generated
+	 */
+	EReference getJmsDestinationType_Property();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.JmsDestinationType#getId <em>Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Id</em>'.
+	 * @see org.eclipse.jst.javaee.core.JmsDestinationType#getId()
+	 * @see #getJmsDestinationType()
+	 * @generated
+	 */
+	EAttribute getJmsDestinationType_Id();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.core.LifecycleCallback <em>Lifecycle Callback</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3642,6 +4635,148 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getListener_Id();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.core.MailSessionType <em>Mail Session Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Mail Session Type</em>'.
+	 * @see org.eclipse.jst.javaee.core.MailSessionType
+	 * @generated
+	 */
+	EClass getMailSessionType();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.jst.javaee.core.MailSessionType#getDescription <em>Description</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Description</em>'.
+	 * @see org.eclipse.jst.javaee.core.MailSessionType#getDescription()
+	 * @see #getMailSessionType()
+	 * @generated
+	 */
+	EReference getMailSessionType_Description();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.MailSessionType#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see org.eclipse.jst.javaee.core.MailSessionType#getName()
+	 * @see #getMailSessionType()
+	 * @generated
+	 */
+	EAttribute getMailSessionType_Name();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.MailSessionType#getStoreProtocol <em>Store Protocol</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Store Protocol</em>'.
+	 * @see org.eclipse.jst.javaee.core.MailSessionType#getStoreProtocol()
+	 * @see #getMailSessionType()
+	 * @generated
+	 */
+	EAttribute getMailSessionType_StoreProtocol();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.MailSessionType#getStoreProtocolClass <em>Store Protocol Class</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Store Protocol Class</em>'.
+	 * @see org.eclipse.jst.javaee.core.MailSessionType#getStoreProtocolClass()
+	 * @see #getMailSessionType()
+	 * @generated
+	 */
+	EAttribute getMailSessionType_StoreProtocolClass();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.MailSessionType#getTransportProtocol <em>Transport Protocol</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Transport Protocol</em>'.
+	 * @see org.eclipse.jst.javaee.core.MailSessionType#getTransportProtocol()
+	 * @see #getMailSessionType()
+	 * @generated
+	 */
+	EAttribute getMailSessionType_TransportProtocol();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.MailSessionType#getTransportProtocolClass <em>Transport Protocol Class</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Transport Protocol Class</em>'.
+	 * @see org.eclipse.jst.javaee.core.MailSessionType#getTransportProtocolClass()
+	 * @see #getMailSessionType()
+	 * @generated
+	 */
+	EAttribute getMailSessionType_TransportProtocolClass();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.MailSessionType#getHost <em>Host</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Host</em>'.
+	 * @see org.eclipse.jst.javaee.core.MailSessionType#getHost()
+	 * @see #getMailSessionType()
+	 * @generated
+	 */
+	EAttribute getMailSessionType_Host();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.MailSessionType#getUser <em>User</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>User</em>'.
+	 * @see org.eclipse.jst.javaee.core.MailSessionType#getUser()
+	 * @see #getMailSessionType()
+	 * @generated
+	 */
+	EAttribute getMailSessionType_User();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.MailSessionType#getPassword <em>Password</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Password</em>'.
+	 * @see org.eclipse.jst.javaee.core.MailSessionType#getPassword()
+	 * @see #getMailSessionType()
+	 * @generated
+	 */
+	EAttribute getMailSessionType_Password();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.MailSessionType#getFrom <em>From</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>From</em>'.
+	 * @see org.eclipse.jst.javaee.core.MailSessionType#getFrom()
+	 * @see #getMailSessionType()
+	 * @generated
+	 */
+	EAttribute getMailSessionType_From();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.core.MailSessionType#getProperty <em>Property</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Property</em>'.
+	 * @see org.eclipse.jst.javaee.core.MailSessionType#getProperty()
+	 * @see #getMailSessionType()
+	 * @generated
+	 */
+	EReference getMailSessionType_Property();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.MailSessionType#getId <em>Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Id</em>'.
+	 * @see org.eclipse.jst.javaee.core.MailSessionType#getId()
+	 * @see #getMailSessionType()
+	 * @generated
+	 */
+	EAttribute getMailSessionType_Id();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.core.MessageDestination <em>Message Destination</em>}'.
@@ -3946,6 +5081,17 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getPersistenceContextRef_PersistenceContextType();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.PersistenceContextRef#getPersistenceContextSynchronization <em>Persistence Context Synchronization</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Persistence Context Synchronization</em>'.
+	 * @see org.eclipse.jst.javaee.core.PersistenceContextRef#getPersistenceContextSynchronization()
+	 * @see #getPersistenceContextRef()
+	 * @generated
+	 */
+	EAttribute getPersistenceContextRef_PersistenceContextSynchronization();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.core.PersistenceContextRef#getPersistenceProperties <em>Persistence Properties</em>}'.
@@ -5039,6 +6185,16 @@ public interface JavaeePackage extends EPackage {
 	EEnum getMessageDestinationUsageType();
 
 	/**
+	 * Returns the meta object for enum '{@link org.eclipse.jst.javaee.core.PersistenceContextSynchronizationType <em>Persistence Context Synchronization Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Persistence Context Synchronization Type</em>'.
+	 * @see org.eclipse.jst.javaee.core.PersistenceContextSynchronizationType
+	 * @generated
+	 */
+	EEnum getPersistenceContextSynchronizationType();
+
+	/**
 	 * Returns the meta object for enum '{@link org.eclipse.jst.javaee.core.PersistenceContextType <em>Persistence Context Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5067,6 +6223,16 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getResSharingScopeType();
+
+	/**
+	 * Returns the meta object for enum '{@link org.eclipse.jst.javaee.core.TransactionSupport <em>Transaction Support</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Transaction Support</em>'.
+	 * @see org.eclipse.jst.javaee.core.TransactionSupport
+	 * @generated
+	 */
+	EEnum getTransactionSupport();
 
 	/**
 	 * Returns the meta object for data type '{@link org.eclipse.jst.javaee.core.AddressingResponsesType <em>Addressing Responses Type Object</em>}'.
@@ -5259,6 +6425,16 @@ public interface JavaeePackage extends EPackage {
 	EDataType getPathType();
 
 	/**
+	 * Returns the meta object for data type '{@link org.eclipse.jst.javaee.core.PersistenceContextSynchronizationType <em>Persistence Context Synchronization Type Object</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>Persistence Context Synchronization Type Object</em>'.
+	 * @see org.eclipse.jst.javaee.core.PersistenceContextSynchronizationType
+	 * @generated
+	 */
+	EDataType getPersistenceContextSynchronizationTypeObject();
+
+	/**
 	 * Returns the meta object for data type '{@link org.eclipse.jst.javaee.core.PersistenceContextType <em>Persistence Context Type Object</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5349,6 +6525,16 @@ public interface JavaeePackage extends EPackage {
 	EDataType getRoleName();
 
 	/**
+	 * Returns the meta object for data type '{@link org.eclipse.jst.javaee.core.TransactionSupport <em>Transaction Support Object</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>Transaction Support Object</em>'.
+	 * @see org.eclipse.jst.javaee.core.TransactionSupport
+	 * @generated
+	 */
+	EDataType getTransactionSupportObject();
+
+	/**
 	 * Returns the meta object for data type '<em>True False Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5422,6 +6608,154 @@ public interface JavaeePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute ADDRESSING_TYPE__RESPONSES = eINSTANCE.getAddressingType_Responses();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.javaee.core.internal.impl.AdministeredObjectTypeImpl <em>Administered Object Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.core.internal.impl.AdministeredObjectTypeImpl
+		 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getAdministeredObjectType()
+		 * @generated
+		 */
+		EClass ADMINISTERED_OBJECT_TYPE = eINSTANCE.getAdministeredObjectType();
+
+		/**
+		 * The meta object literal for the '<em><b>Description</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ADMINISTERED_OBJECT_TYPE__DESCRIPTION = eINSTANCE.getAdministeredObjectType_Description();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ADMINISTERED_OBJECT_TYPE__NAME = eINSTANCE.getAdministeredObjectType_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Interface Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ADMINISTERED_OBJECT_TYPE__INTERFACE_NAME = eINSTANCE.getAdministeredObjectType_InterfaceName();
+
+		/**
+		 * The meta object literal for the '<em><b>Class Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ADMINISTERED_OBJECT_TYPE__CLASS_NAME = eINSTANCE.getAdministeredObjectType_ClassName();
+
+		/**
+		 * The meta object literal for the '<em><b>Resource Adapter</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ADMINISTERED_OBJECT_TYPE__RESOURCE_ADAPTER = eINSTANCE.getAdministeredObjectType_ResourceAdapter();
+
+		/**
+		 * The meta object literal for the '<em><b>Property</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ADMINISTERED_OBJECT_TYPE__PROPERTY = eINSTANCE.getAdministeredObjectType_Property();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ADMINISTERED_OBJECT_TYPE__ID = eINSTANCE.getAdministeredObjectType_Id();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.javaee.core.internal.impl.ConnectionFactoryResourceTypeImpl <em>Connection Factory Resource Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.core.internal.impl.ConnectionFactoryResourceTypeImpl
+		 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getConnectionFactoryResourceType()
+		 * @generated
+		 */
+		EClass CONNECTION_FACTORY_RESOURCE_TYPE = eINSTANCE.getConnectionFactoryResourceType();
+
+		/**
+		 * The meta object literal for the '<em><b>Description</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONNECTION_FACTORY_RESOURCE_TYPE__DESCRIPTION = eINSTANCE.getConnectionFactoryResourceType_Description();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONNECTION_FACTORY_RESOURCE_TYPE__NAME = eINSTANCE.getConnectionFactoryResourceType_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Class Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONNECTION_FACTORY_RESOURCE_TYPE__CLASS_NAME = eINSTANCE.getConnectionFactoryResourceType_ClassName();
+
+		/**
+		 * The meta object literal for the '<em><b>Resource Adapter</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONNECTION_FACTORY_RESOURCE_TYPE__RESOURCE_ADAPTER = eINSTANCE.getConnectionFactoryResourceType_ResourceAdapter();
+
+		/**
+		 * The meta object literal for the '<em><b>Max Pool Size</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONNECTION_FACTORY_RESOURCE_TYPE__MAX_POOL_SIZE = eINSTANCE.getConnectionFactoryResourceType_MaxPoolSize();
+
+		/**
+		 * The meta object literal for the '<em><b>Min Pool Size</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONNECTION_FACTORY_RESOURCE_TYPE__MIN_POOL_SIZE = eINSTANCE.getConnectionFactoryResourceType_MinPoolSize();
+
+		/**
+		 * The meta object literal for the '<em><b>Transaction Support</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONNECTION_FACTORY_RESOURCE_TYPE__TRANSACTION_SUPPORT = eINSTANCE.getConnectionFactoryResourceType_TransactionSupport();
+
+		/**
+		 * The meta object literal for the '<em><b>Property</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONNECTION_FACTORY_RESOURCE_TYPE__PROPERTY = eINSTANCE.getConnectionFactoryResourceType_Property();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONNECTION_FACTORY_RESOURCE_TYPE__ID = eINSTANCE.getConnectionFactoryResourceType_Id();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.jst.javaee.core.internal.impl.DataSourceTypeImpl <em>Data Source Type</em>}' class.
@@ -5978,6 +7312,178 @@ public interface JavaeePackage extends EPackage {
 		EAttribute INJECTION_TARGET__INJECTION_TARGET_NAME = eINSTANCE.getInjectionTarget_InjectionTargetName();
 
 		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.javaee.core.internal.impl.JmsConnectionFactoryTypeImpl <em>Jms Connection Factory Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.core.internal.impl.JmsConnectionFactoryTypeImpl
+		 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getJmsConnectionFactoryType()
+		 * @generated
+		 */
+		EClass JMS_CONNECTION_FACTORY_TYPE = eINSTANCE.getJmsConnectionFactoryType();
+
+		/**
+		 * The meta object literal for the '<em><b>Description</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference JMS_CONNECTION_FACTORY_TYPE__DESCRIPTION = eINSTANCE.getJmsConnectionFactoryType_Description();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JMS_CONNECTION_FACTORY_TYPE__NAME = eINSTANCE.getJmsConnectionFactoryType_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Class Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JMS_CONNECTION_FACTORY_TYPE__CLASS_NAME = eINSTANCE.getJmsConnectionFactoryType_ClassName();
+
+		/**
+		 * The meta object literal for the '<em><b>Resource Adapter</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JMS_CONNECTION_FACTORY_TYPE__RESOURCE_ADAPTER = eINSTANCE.getJmsConnectionFactoryType_ResourceAdapter();
+
+		/**
+		 * The meta object literal for the '<em><b>User</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JMS_CONNECTION_FACTORY_TYPE__USER = eINSTANCE.getJmsConnectionFactoryType_User();
+
+		/**
+		 * The meta object literal for the '<em><b>Password</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JMS_CONNECTION_FACTORY_TYPE__PASSWORD = eINSTANCE.getJmsConnectionFactoryType_Password();
+
+		/**
+		 * The meta object literal for the '<em><b>Client Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JMS_CONNECTION_FACTORY_TYPE__CLIENT_ID = eINSTANCE.getJmsConnectionFactoryType_ClientId();
+
+		/**
+		 * The meta object literal for the '<em><b>Property</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference JMS_CONNECTION_FACTORY_TYPE__PROPERTY = eINSTANCE.getJmsConnectionFactoryType_Property();
+
+		/**
+		 * The meta object literal for the '<em><b>Transactional</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JMS_CONNECTION_FACTORY_TYPE__TRANSACTIONAL = eINSTANCE.getJmsConnectionFactoryType_Transactional();
+
+		/**
+		 * The meta object literal for the '<em><b>Max Pool Size</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JMS_CONNECTION_FACTORY_TYPE__MAX_POOL_SIZE = eINSTANCE.getJmsConnectionFactoryType_MaxPoolSize();
+
+		/**
+		 * The meta object literal for the '<em><b>Min Pool Size</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JMS_CONNECTION_FACTORY_TYPE__MIN_POOL_SIZE = eINSTANCE.getJmsConnectionFactoryType_MinPoolSize();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JMS_CONNECTION_FACTORY_TYPE__ID = eINSTANCE.getJmsConnectionFactoryType_Id();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.javaee.core.internal.impl.JmsDestinationTypeImpl <em>Jms Destination Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.core.internal.impl.JmsDestinationTypeImpl
+		 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getJmsDestinationType()
+		 * @generated
+		 */
+		EClass JMS_DESTINATION_TYPE = eINSTANCE.getJmsDestinationType();
+
+		/**
+		 * The meta object literal for the '<em><b>Description</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference JMS_DESTINATION_TYPE__DESCRIPTION = eINSTANCE.getJmsDestinationType_Description();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JMS_DESTINATION_TYPE__NAME = eINSTANCE.getJmsDestinationType_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Class Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JMS_DESTINATION_TYPE__CLASS_NAME = eINSTANCE.getJmsDestinationType_ClassName();
+
+		/**
+		 * The meta object literal for the '<em><b>Resource Adapter</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JMS_DESTINATION_TYPE__RESOURCE_ADAPTER = eINSTANCE.getJmsDestinationType_ResourceAdapter();
+
+		/**
+		 * The meta object literal for the '<em><b>Destination Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JMS_DESTINATION_TYPE__DESTINATION_NAME = eINSTANCE.getJmsDestinationType_DestinationName();
+
+		/**
+		 * The meta object literal for the '<em><b>Property</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference JMS_DESTINATION_TYPE__PROPERTY = eINSTANCE.getJmsDestinationType_Property();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JMS_DESTINATION_TYPE__ID = eINSTANCE.getJmsDestinationType_Id();
+
+		/**
 		 * The meta object literal for the '{@link org.eclipse.jst.javaee.core.internal.impl.LifecycleCallbackImpl <em>Lifecycle Callback</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -6052,6 +7558,112 @@ public interface JavaeePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute LISTENER__ID = eINSTANCE.getListener_Id();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.javaee.core.internal.impl.MailSessionTypeImpl <em>Mail Session Type</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.core.internal.impl.MailSessionTypeImpl
+		 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getMailSessionType()
+		 * @generated
+		 */
+		EClass MAIL_SESSION_TYPE = eINSTANCE.getMailSessionType();
+
+		/**
+		 * The meta object literal for the '<em><b>Description</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MAIL_SESSION_TYPE__DESCRIPTION = eINSTANCE.getMailSessionType_Description();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MAIL_SESSION_TYPE__NAME = eINSTANCE.getMailSessionType_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Store Protocol</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MAIL_SESSION_TYPE__STORE_PROTOCOL = eINSTANCE.getMailSessionType_StoreProtocol();
+
+		/**
+		 * The meta object literal for the '<em><b>Store Protocol Class</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MAIL_SESSION_TYPE__STORE_PROTOCOL_CLASS = eINSTANCE.getMailSessionType_StoreProtocolClass();
+
+		/**
+		 * The meta object literal for the '<em><b>Transport Protocol</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MAIL_SESSION_TYPE__TRANSPORT_PROTOCOL = eINSTANCE.getMailSessionType_TransportProtocol();
+
+		/**
+		 * The meta object literal for the '<em><b>Transport Protocol Class</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MAIL_SESSION_TYPE__TRANSPORT_PROTOCOL_CLASS = eINSTANCE.getMailSessionType_TransportProtocolClass();
+
+		/**
+		 * The meta object literal for the '<em><b>Host</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MAIL_SESSION_TYPE__HOST = eINSTANCE.getMailSessionType_Host();
+
+		/**
+		 * The meta object literal for the '<em><b>User</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MAIL_SESSION_TYPE__USER = eINSTANCE.getMailSessionType_User();
+
+		/**
+		 * The meta object literal for the '<em><b>Password</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MAIL_SESSION_TYPE__PASSWORD = eINSTANCE.getMailSessionType_Password();
+
+		/**
+		 * The meta object literal for the '<em><b>From</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MAIL_SESSION_TYPE__FROM = eINSTANCE.getMailSessionType_From();
+
+		/**
+		 * The meta object literal for the '<em><b>Property</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MAIL_SESSION_TYPE__PROPERTY = eINSTANCE.getMailSessionType_Property();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MAIL_SESSION_TYPE__ID = eINSTANCE.getMailSessionType_Id();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.jst.javaee.core.internal.impl.MessageDestinationImpl <em>Message Destination</em>}' class.
@@ -6284,6 +7896,14 @@ public interface JavaeePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute PERSISTENCE_CONTEXT_REF__PERSISTENCE_CONTEXT_TYPE = eINSTANCE.getPersistenceContextRef_PersistenceContextType();
+
+		/**
+		 * The meta object literal for the '<em><b>Persistence Context Synchronization</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PERSISTENCE_CONTEXT_REF__PERSISTENCE_CONTEXT_SYNCHRONIZATION = eINSTANCE.getPersistenceContextRef_PersistenceContextSynchronization();
 
 		/**
 		 * The meta object literal for the '<em><b>Persistence Properties</b></em>' containment reference list feature.
@@ -7134,6 +8754,16 @@ public interface JavaeePackage extends EPackage {
 		EEnum MESSAGE_DESTINATION_USAGE_TYPE = eINSTANCE.getMessageDestinationUsageType();
 
 		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.javaee.core.PersistenceContextSynchronizationType <em>Persistence Context Synchronization Type</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.core.PersistenceContextSynchronizationType
+		 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getPersistenceContextSynchronizationType()
+		 * @generated
+		 */
+		EEnum PERSISTENCE_CONTEXT_SYNCHRONIZATION_TYPE = eINSTANCE.getPersistenceContextSynchronizationType();
+
+		/**
 		 * The meta object literal for the '{@link org.eclipse.jst.javaee.core.PersistenceContextType <em>Persistence Context Type</em>}' enum.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -7162,6 +8792,16 @@ public interface JavaeePackage extends EPackage {
 		 * @generated
 		 */
 		EEnum RES_SHARING_SCOPE_TYPE = eINSTANCE.getResSharingScopeType();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.jst.javaee.core.TransactionSupport <em>Transaction Support</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.core.TransactionSupport
+		 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getTransactionSupport()
+		 * @generated
+		 */
+		EEnum TRANSACTION_SUPPORT = eINSTANCE.getTransactionSupport();
 
 		/**
 		 * The meta object literal for the '<em>Addressing Responses Type Object</em>' data type.
@@ -7354,6 +8994,16 @@ public interface JavaeePackage extends EPackage {
 		EDataType PATH_TYPE = eINSTANCE.getPathType();
 
 		/**
+		 * The meta object literal for the '<em>Persistence Context Synchronization Type Object</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.core.PersistenceContextSynchronizationType
+		 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getPersistenceContextSynchronizationTypeObject()
+		 * @generated
+		 */
+		EDataType PERSISTENCE_CONTEXT_SYNCHRONIZATION_TYPE_OBJECT = eINSTANCE.getPersistenceContextSynchronizationTypeObject();
+
+		/**
 		 * The meta object literal for the '<em>Persistence Context Type Object</em>' data type.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -7442,6 +9092,16 @@ public interface JavaeePackage extends EPackage {
 		 * @generated
 		 */
 		EDataType ROLE_NAME = eINSTANCE.getRoleName();
+
+		/**
+		 * The meta object literal for the '<em>Transaction Support Object</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.jst.javaee.core.TransactionSupport
+		 * @see org.eclipse.jst.javaee.core.internal.impl.JavaeePackageImpl#getTransactionSupportObject()
+		 * @generated
+		 */
+		EDataType TRANSACTION_SUPPORT_OBJECT = eINSTANCE.getTransactionSupportObject();
 
 		/**
 		 * The meta object literal for the '<em>True False Type</em>' data type.

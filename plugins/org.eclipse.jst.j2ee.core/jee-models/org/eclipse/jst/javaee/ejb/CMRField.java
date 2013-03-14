@@ -23,7 +23,7 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * <!-- begin-model-doc -->
  * 
  * 
- *         The cmr-fieldType describes the bean provider's view of
+ *         The cmr-fieldType describes the Bean Provider's view of
  *         a relationship. It consists of an optional description, and
  *         the name and the class type of a field in the source of a
  *         role of a relationship. The cmr-field-name element

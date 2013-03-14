@@ -32,27 +32,27 @@ import org.eclipse.jst.javaee.jca.JcaFactory;
  * <!-- begin-model-doc -->
  * 
  * 
- *       $Id: JcaPackage.java,v 1.4 2010/01/15 14:32:08 canderson Exp $
+ *       $Id: connector_1_6.xsd,v 1.3 2010/01/14 18:20:11 ccc Exp $
  *       
  *     
  * 
- * <![CDATA[[
- *       This is the XML Schema for the Connector 1.6 deployment
+ * [
+ *       This is the XML Schema for the Connector 1.7 deployment
  *       descriptor.  The deployment descriptor must be named
  *       "META-INF/ra.xml" in the connector's rar file.  All Connector
  *       deployment descriptors must indicate the connector resource
  *       adapter schema by using the Java EE namespace:
  *       
- *       http://java.sun.com/xml/ns/javaee
+ *       http://xmlns.jcp.org/xml/ns/javaee
  *       
  *       and by indicating the version of the schema by
  *       using the version element as shown below:
  *       
- *       <connector xmlns="http://java.sun.com/xml/ns/javaee"
+ *       <connector xmlns="http://xmlns.jcp.org/xml/ns/javaee"
  *       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- *       xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
- *       	 http://java.sun.com/xml/ns/javaee/connector_1_6.xsd"
- *       version="1.6">
+ *       xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+ *       	 http://xmlns.jcp.org/xml/ns/javaee/connector_1_7.xsd"
+ *       version="1.7">
  *       ...
  *       </connector>
  *       
@@ -60,9 +60,9 @@ import org.eclipse.jst.javaee.jca.JcaFactory;
  *       the schema using the xsi:schemaLocation attribute for Java EE
  *       namespace with the following location:
  *       
- *       http://java.sun.com/xml/ns/javaee/connector_1_6.xsd
+ *       http://xmlns.jcp.org/xml/ns/javaee/connector_1_7.xsd
  *       
- * ]]>
+ * 
  *     
  * 
  * 
@@ -81,7 +81,7 @@ import org.eclipse.jst.javaee.jca.JcaFactory;
  *     
  * 
  * 
- *       $Id: JcaPackage.java,v 1.4 2010/01/15 14:32:08 canderson Exp $
+ *       $Id: javaee_6.xsd,v 1.4 2010/01/14 18:20:11 ccc Exp $
  *       
  *     
  * 
@@ -106,7 +106,7 @@ import org.eclipse.jst.javaee.jca.JcaFactory;
  *     
  * 
  * 
- *       $Id: JcaPackage.java,v 1.4 2010/01/15 14:32:08 canderson Exp $
+ *       $Id: javaee_web_services_client_1_3.xsd,v 1.2 2009/09/29 20:31:42 ccc Exp $
  *       
  *     
  * 
@@ -169,7 +169,7 @@ import org.eclipse.jst.javaee.jca.JcaFactory;
  *    </div>
  *   
  * 
- *    <div id="usage" xml:id="usage" xmlns="http://www.w3.org/1999/xhtml">
+ *    <div xmlns="http://www.w3.org/1999/xhtml" id="usage" xml:id="usage">
  *     <h2>
  *       <a name="usage">About this schema document</a>
  *     </h2>
@@ -215,7 +215,7 @@ import org.eclipse.jst.javaee.jca.JcaFactory;
  *    </div>
  *   
  * 
- *    <div id="nsversioning" xml:id="nsversioning" xmlns="http://www.w3.org/1999/xhtml">
+ *    <div xmlns="http://www.w3.org/1999/xhtml" id="nsversioning" xml:id="nsversioning">
  *     <h2>
  *       <a name="nsversioning">Versioning policy for this schema document</a>
  *     </h2>
@@ -289,7 +289,8 @@ public interface JcaPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "http://java.sun.com/xml/ns/javaee/connector_1_6.xsd"; //$NON-NLS-1$
+	String eNS_URI = "http://xmlns.jcp.org/xml/ns/javaee/jca"; //$NON-NLS-1$
+	String eNS_URI2 = "http://java.sun.com/xml/ns/javaee/connector_1_6.xsd"; //$NON-NLS-1$
 
 	/**
 	 * The package namespace name.
@@ -1261,16 +1262,6 @@ public interface JcaPackage extends EPackage {
 	int CREDENTIAL_INTERFACE_TYPE = 16;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.jst.javaee.jca.TransactionSupportType <em>Transaction Support Type</em>}' enum.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.javaee.jca.TransactionSupportType
-	 * @see org.eclipse.jst.javaee.jca.internal.impl.JcaPackageImpl#getTransactionSupportType()
-	 * @generated
-	 */
-	int TRANSACTION_SUPPORT_TYPE = 17;
-
-	/**
 	 * The meta object id for the '<em>Config Property Name Type</em>' data type.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1278,7 +1269,7 @@ public interface JcaPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.jca.internal.impl.JcaPackageImpl#getConfigPropertyNameType()
 	 * @generated
 	 */
-	int CONFIG_PROPERTY_NAME_TYPE = 18;
+	int CONFIG_PROPERTY_NAME_TYPE = 17;
 
 	/**
 	 * The meta object id for the '<em>Config Property Type Type Object</em>' data type.
@@ -1288,7 +1279,7 @@ public interface JcaPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.jca.internal.impl.JcaPackageImpl#getConfigPropertyTypeTypeObject()
 	 * @generated
 	 */
-	int CONFIG_PROPERTY_TYPE_TYPE_OBJECT = 19;
+	int CONFIG_PROPERTY_TYPE_TYPE_OBJECT = 18;
 
 	/**
 	 * The meta object id for the '<em>Credential Interface Type Object</em>' data type.
@@ -1298,18 +1289,7 @@ public interface JcaPackage extends EPackage {
 	 * @see org.eclipse.jst.javaee.jca.internal.impl.JcaPackageImpl#getCredentialInterfaceTypeObject()
 	 * @generated
 	 */
-	int CREDENTIAL_INTERFACE_TYPE_OBJECT = 20;
-
-	/**
-	 * The meta object id for the '<em>Transaction Support Type Object</em>' data type.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.jst.javaee.jca.TransactionSupportType
-	 * @see org.eclipse.jst.javaee.jca.internal.impl.JcaPackageImpl#getTransactionSupportTypeObject()
-	 * @generated
-	 */
-	int TRANSACTION_SUPPORT_TYPE_OBJECT = 21;
-
+	int CREDENTIAL_INTERFACE_TYPE_OBJECT = 19;
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.jst.javaee.jca.ActivationSpec <em>Activation Spec</em>}'.
@@ -2274,16 +2254,6 @@ public interface JcaPackage extends EPackage {
 	EEnum getCredentialInterfaceType();
 
 	/**
-	 * Returns the meta object for enum '{@link org.eclipse.jst.javaee.jca.TransactionSupportType <em>Transaction Support Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for enum '<em>Transaction Support Type</em>'.
-	 * @see org.eclipse.jst.javaee.jca.TransactionSupportType
-	 * @generated
-	 */
-	EEnum getTransactionSupportType();
-
-	/**
 	 * Returns the meta object for data type '{@link java.lang.String <em>Config Property Name Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2312,16 +2282,6 @@ public interface JcaPackage extends EPackage {
 	 * @generated
 	 */
 	EDataType getCredentialInterfaceTypeObject();
-
-	/**
-	 * Returns the meta object for data type '{@link org.eclipse.jst.javaee.jca.TransactionSupportType <em>Transaction Support Type Object</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for data type '<em>Transaction Support Type Object</em>'.
-	 * @see org.eclipse.jst.javaee.jca.TransactionSupportType
-	 * @generated
-	 */
-	EDataType getTransactionSupportTypeObject();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -3092,16 +3052,6 @@ public interface JcaPackage extends EPackage {
 		EEnum CREDENTIAL_INTERFACE_TYPE = eINSTANCE.getCredentialInterfaceType();
 
 		/**
-		 * The meta object literal for the '{@link org.eclipse.jst.javaee.jca.TransactionSupportType <em>Transaction Support Type</em>}' enum.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.eclipse.jst.javaee.jca.TransactionSupportType
-		 * @see org.eclipse.jst.javaee.jca.internal.impl.JcaPackageImpl#getTransactionSupportType()
-		 * @generated
-		 */
-		EEnum TRANSACTION_SUPPORT_TYPE = eINSTANCE.getTransactionSupportType();
-
-		/**
 		 * The meta object literal for the '<em>Config Property Name Type</em>' data type.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -3130,16 +3080,6 @@ public interface JcaPackage extends EPackage {
 		 * @generated
 		 */
 		EDataType CREDENTIAL_INTERFACE_TYPE_OBJECT = eINSTANCE.getCredentialInterfaceTypeObject();
-
-		/**
-		 * The meta object literal for the '<em>Transaction Support Type Object</em>' data type.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.eclipse.jst.javaee.jca.TransactionSupportType
-		 * @see org.eclipse.jst.javaee.jca.internal.impl.JcaPackageImpl#getTransactionSupportTypeObject()
-		 * @generated
-		 */
-		EDataType TRANSACTION_SUPPORT_TYPE_OBJECT = eINSTANCE.getTransactionSupportTypeObject();
 
 	}
 

@@ -23,7 +23,7 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  *
  * <!-- begin-model-doc -->
  * 
- * <![CDATA[[
+ *         [
  *         The ejb-relationship-roleType describes a role within a
  *         relationship. There are two roles in each relationship.
  *         
@@ -61,7 +61,7 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  *         </ejb-relationship-role>
  *         </ejb-relation>
  *         
- * ]]>
+ * 
  *         @since Java EE 5, EJB 3.0
  *       
  * <!-- end-model-doc -->

@@ -40,7 +40,7 @@ import org.eclipse.jst.javaee.core.SecurityRole;
  *         omitted if the lists represented by them are empty.
  *         
  *         Providing an assembly-descriptor in the deployment
- *         descriptor is optional for the ejb-jar or .war file producer.
+ *         descriptor is optional for the ejb-jar file or .war file producer.
  *         
  *         @since Java EE 5, EJB 3.0
  *       

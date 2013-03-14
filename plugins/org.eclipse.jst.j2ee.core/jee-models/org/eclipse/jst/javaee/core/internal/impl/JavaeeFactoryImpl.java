@@ -12,24 +12,17 @@ package org.eclipse.jst.javaee.core.internal.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-
 import org.eclipse.emf.ecore.util.Diagnostician;
-
 import org.eclipse.emf.ecore.xml.type.XMLTypeFactory;
 import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
-
 import org.eclipse.jst.javaee.core.*;
-
 import org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage;
 
 /**
@@ -47,7 +40,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 */
 	public static JavaeeFactory init() {
 		try {
-			JavaeeFactory theJavaeeFactory = (JavaeeFactory)EPackage.Registry.INSTANCE.getEFactory("http://java.sun.com/xml/ns/javaee"); //$NON-NLS-1$ 
+			JavaeeFactory theJavaeeFactory = (JavaeeFactory)EPackage.Registry.INSTANCE.getEFactory("http://xmlns.jcp.org/xml/ns/javaee"); //$NON-NLS-1$ 
 			if (theJavaeeFactory != null) {
 				return theJavaeeFactory;
 			}
@@ -77,6 +70,8 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case JavaeePackage.ADDRESSING_TYPE: return (EObject)createAddressingType();
+			case JavaeePackage.ADMINISTERED_OBJECT_TYPE: return (EObject)createAdministeredObjectType();
+			case JavaeePackage.CONNECTION_FACTORY_RESOURCE_TYPE: return (EObject)createConnectionFactoryResourceType();
 			case JavaeePackage.DATA_SOURCE_TYPE: return (EObject)createDataSourceType();
 			case JavaeePackage.DESCRIPTION: return (EObject)createDescription();
 			case JavaeePackage.DISPLAY_NAME: return (EObject)createDisplayName();
@@ -86,8 +81,11 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 			case JavaeePackage.ENV_ENTRY: return (EObject)createEnvEntry();
 			case JavaeePackage.ICON: return (EObject)createIcon();
 			case JavaeePackage.INJECTION_TARGET: return (EObject)createInjectionTarget();
+			case JavaeePackage.JMS_CONNECTION_FACTORY_TYPE: return (EObject)createJmsConnectionFactoryType();
+			case JavaeePackage.JMS_DESTINATION_TYPE: return (EObject)createJmsDestinationType();
 			case JavaeePackage.LIFECYCLE_CALLBACK: return (EObject)createLifecycleCallback();
 			case JavaeePackage.LISTENER: return (EObject)createListener();
+			case JavaeePackage.MAIL_SESSION_TYPE: return (EObject)createMailSessionType();
 			case JavaeePackage.MESSAGE_DESTINATION: return (EObject)createMessageDestination();
 			case JavaeePackage.MESSAGE_DESTINATION_REF: return (EObject)createMessageDestinationRef();
 			case JavaeePackage.PARAM_VALUE: return (EObject)createParamValue();
@@ -129,12 +127,16 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 				return createIsolationLevelTypeFromString(eDataType, initialValue);
 			case JavaeePackage.MESSAGE_DESTINATION_USAGE_TYPE:
 				return createMessageDestinationUsageTypeFromString(eDataType, initialValue);
+			case JavaeePackage.PERSISTENCE_CONTEXT_SYNCHRONIZATION_TYPE:
+				return createPersistenceContextSynchronizationTypeFromString(eDataType, initialValue);
 			case JavaeePackage.PERSISTENCE_CONTEXT_TYPE:
 				return createPersistenceContextTypeFromString(eDataType, initialValue);
 			case JavaeePackage.RES_AUTH_TYPE:
 				return createResAuthTypeFromString(eDataType, initialValue);
 			case JavaeePackage.RES_SHARING_SCOPE_TYPE:
 				return createResSharingScopeTypeFromString(eDataType, initialValue);
+			case JavaeePackage.TRANSACTION_SUPPORT:
+				return createTransactionSupportFromString(eDataType, initialValue);
 			case JavaeePackage.ADDRESSING_RESPONSES_TYPE_OBJECT:
 				return createAddressingResponsesTypeObjectFromString(eDataType, initialValue);
 			case JavaeePackage.DEWEY_VERSION_TYPE:
@@ -175,6 +177,8 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 				return createMessageDestinationUsageTypeObjectFromString(eDataType, initialValue);
 			case JavaeePackage.PATH_TYPE:
 				return createPathTypeFromString(eDataType, initialValue);
+			case JavaeePackage.PERSISTENCE_CONTEXT_SYNCHRONIZATION_TYPE_OBJECT:
+				return createPersistenceContextSynchronizationTypeObjectFromString(eDataType, initialValue);
 			case JavaeePackage.PERSISTENCE_CONTEXT_TYPE_OBJECT:
 				return createPersistenceContextTypeObjectFromString(eDataType, initialValue);
 			case JavaeePackage.PROTOCOL_BINDING_LIST_TYPE:
@@ -193,6 +197,8 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 				return createResSharingScopeTypeObjectFromString(eDataType, initialValue);
 			case JavaeePackage.ROLE_NAME:
 				return createRoleNameFromString(eDataType, initialValue);
+			case JavaeePackage.TRANSACTION_SUPPORT_OBJECT:
+				return createTransactionSupportObjectFromString(eDataType, initialValue);
 			case JavaeePackage.TRUE_FALSE_TYPE:
 				return createTrueFalseTypeFromString(eDataType, initialValue);
 			case JavaeePackage.TRUE_FALSE_TYPE_OBJECT:
@@ -220,12 +226,16 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 				return convertIsolationLevelTypeToString(eDataType, instanceValue);
 			case JavaeePackage.MESSAGE_DESTINATION_USAGE_TYPE:
 				return convertMessageDestinationUsageTypeToString(eDataType, instanceValue);
+			case JavaeePackage.PERSISTENCE_CONTEXT_SYNCHRONIZATION_TYPE:
+				return convertPersistenceContextSynchronizationTypeToString(eDataType, instanceValue);
 			case JavaeePackage.PERSISTENCE_CONTEXT_TYPE:
 				return convertPersistenceContextTypeToString(eDataType, instanceValue);
 			case JavaeePackage.RES_AUTH_TYPE:
 				return convertResAuthTypeToString(eDataType, instanceValue);
 			case JavaeePackage.RES_SHARING_SCOPE_TYPE:
 				return convertResSharingScopeTypeToString(eDataType, instanceValue);
+			case JavaeePackage.TRANSACTION_SUPPORT:
+				return convertTransactionSupportToString(eDataType, instanceValue);
 			case JavaeePackage.ADDRESSING_RESPONSES_TYPE_OBJECT:
 				return convertAddressingResponsesTypeObjectToString(eDataType, instanceValue);
 			case JavaeePackage.DEWEY_VERSION_TYPE:
@@ -266,6 +276,8 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 				return convertMessageDestinationUsageTypeObjectToString(eDataType, instanceValue);
 			case JavaeePackage.PATH_TYPE:
 				return convertPathTypeToString(eDataType, instanceValue);
+			case JavaeePackage.PERSISTENCE_CONTEXT_SYNCHRONIZATION_TYPE_OBJECT:
+				return convertPersistenceContextSynchronizationTypeObjectToString(eDataType, instanceValue);
 			case JavaeePackage.PERSISTENCE_CONTEXT_TYPE_OBJECT:
 				return convertPersistenceContextTypeObjectToString(eDataType, instanceValue);
 			case JavaeePackage.PROTOCOL_BINDING_LIST_TYPE:
@@ -284,6 +296,8 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 				return convertResSharingScopeTypeObjectToString(eDataType, instanceValue);
 			case JavaeePackage.ROLE_NAME:
 				return convertRoleNameToString(eDataType, instanceValue);
+			case JavaeePackage.TRANSACTION_SUPPORT_OBJECT:
+				return convertTransactionSupportObjectToString(eDataType, instanceValue);
 			case JavaeePackage.TRUE_FALSE_TYPE:
 				return convertTrueFalseTypeToString(eDataType, instanceValue);
 			case JavaeePackage.TRUE_FALSE_TYPE_OBJECT:
@@ -301,6 +315,26 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	public AddressingType createAddressingType() {
 		AddressingTypeImpl addressingType = new AddressingTypeImpl();
 		return addressingType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AdministeredObjectType createAdministeredObjectType() {
+		AdministeredObjectTypeImpl administeredObjectType = new AdministeredObjectTypeImpl();
+		return administeredObjectType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ConnectionFactoryResourceType createConnectionFactoryResourceType() {
+		ConnectionFactoryResourceTypeImpl connectionFactoryResourceType = new ConnectionFactoryResourceTypeImpl();
+		return connectionFactoryResourceType;
 	}
 
 	/**
@@ -398,6 +432,26 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public JmsConnectionFactoryType createJmsConnectionFactoryType() {
+		JmsConnectionFactoryTypeImpl jmsConnectionFactoryType = new JmsConnectionFactoryTypeImpl();
+		return jmsConnectionFactoryType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public JmsDestinationType createJmsDestinationType() {
+		JmsDestinationTypeImpl jmsDestinationType = new JmsDestinationTypeImpl();
+		return jmsDestinationType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public LifecycleCallback createLifecycleCallback() {
 		LifecycleCallbackImpl lifecycleCallback = new LifecycleCallbackImpl();
 		return lifecycleCallback;
@@ -411,6 +465,16 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	public Listener createListener() {
 		ListenerImpl listener = new ListenerImpl();
 		return listener;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public MailSessionType createMailSessionType() {
+		MailSessionTypeImpl mailSessionType = new MailSessionTypeImpl();
+		return mailSessionType;
 	}
 
 	/**
@@ -716,6 +780,26 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public PersistenceContextSynchronizationType createPersistenceContextSynchronizationTypeFromString(EDataType eDataType, String initialValue) {
+		PersistenceContextSynchronizationType result = PersistenceContextSynchronizationType.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertPersistenceContextSynchronizationTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public PersistenceContextType createPersistenceContextTypeFromString(EDataType eDataType, String initialValue) {
 		PersistenceContextType result = PersistenceContextType.get(initialValue);
 		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
@@ -768,6 +852,26 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * @generated
 	 */
 	public String convertResSharingScopeTypeToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TransactionSupport createTransactionSupportFromString(EDataType eDataType, String initialValue) {
+		TransactionSupport result = TransactionSupport.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertTransactionSupportToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 
@@ -1118,6 +1222,24 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public PersistenceContextSynchronizationType createPersistenceContextSynchronizationTypeObjectFromString(EDataType eDataType, String initialValue) {
+		return createPersistenceContextSynchronizationTypeFromString(JavaeePackage.Literals.PERSISTENCE_CONTEXT_SYNCHRONIZATION_TYPE, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertPersistenceContextSynchronizationTypeObjectToString(EDataType eDataType, Object instanceValue) {
+		return convertPersistenceContextSynchronizationTypeToString(JavaeePackage.Literals.PERSISTENCE_CONTEXT_SYNCHRONIZATION_TYPE, instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public PersistenceContextType createPersistenceContextTypeObjectFromString(EDataType eDataType, String initialValue) {
 		return createPersistenceContextTypeFromString(JavaeePackage.Literals.PERSISTENCE_CONTEXT_TYPE, initialValue);
 	}
@@ -1139,8 +1261,7 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	public List<String> createProtocolBindingListTypeFromString(EDataType eDataType, String initialValue) {
 		if (initialValue == null) return null;
 		List<String> result = new ArrayList<String>();
-		for (StringTokenizer stringTokenizer = new StringTokenizer(initialValue); stringTokenizer.hasMoreTokens(); ) {
-			String item = stringTokenizer.nextToken();
+		for (String item : split(initialValue)) {
 			result.add(createProtocolBindingTypeFromString(JavaeePackage.Literals.PROTOCOL_BINDING_TYPE, item));
 		}
 		return result;
@@ -1329,6 +1450,24 @@ public class JavaeeFactoryImpl extends EFactoryImpl implements JavaeeFactory {
 	 */
 	public String convertRoleNameToString(EDataType eDataType, Object instanceValue) {
 		return super.convertToString(eDataType, instanceValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TransactionSupport createTransactionSupportObjectFromString(EDataType eDataType, String initialValue) {
+		return createTransactionSupportFromString(JavaeePackage.Literals.TRANSACTION_SUPPORT, initialValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertTransactionSupportObjectToString(EDataType eDataType, Object instanceValue) {
+		return convertTransactionSupportToString(JavaeePackage.Literals.TRANSACTION_SUPPORT, instanceValue);
 	}
 
 	/**

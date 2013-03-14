@@ -30,28 +30,28 @@ import org.eclipse.jst.javaee.applicationclient.ApplicationclientFactory;
  * <!-- begin-model-doc -->
  * 
  * 
- *       $Id: ApplicationclientPackage.java,v 1.4 2010/05/19 19:53:10 canderson Exp $
+ *       $Id: application-client_6.xsd,v 1.4 2009/10/02 16:04:08 ccc Exp $
  *       
  *     
  * 
- * <![CDATA[[
- *       This is the XML Schema for the application client 6
+ *       [
+ *       This is the XML Schema for the application client 7
  *       deployment descriptor.  The deployment descriptor must
  *       be named "META-INF/application-client.xml" in the
  *       application client's jar file.  All application client
  *       deployment descriptors must indicate the application
  *       client schema by using the Java EE namespace:
  *       
- *       http://java.sun.com/xml/ns/javaee
+ *       http://xmlns.jcp.org/xml/ns/javaee
  *       
  *       and indicate the version of the schema by
  *       using the version element as shown below:
  *       
- *       <application-client xmlns="http://java.sun.com/xml/ns/javaee"
+ *       <application-client xmlns="http://xmlns.jcp.org/xml/ns/javaee"
  *       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- *       xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
- *       	http://java.sun.com/xml/ns/javaee/application-client_6.xsd"
- *       version="6">
+ *       xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+ *       	http://xmlns.jcp.org/xml/ns/javaee/application-client_7.xsd"
+ *       version="7">
  *       ...
  *       </application-client>
  *       
@@ -59,9 +59,9 @@ import org.eclipse.jst.javaee.applicationclient.ApplicationclientFactory;
  *       the schema using the xsi:schemaLocation attribute for Java EE
  *       namespace with the following location:
  *       
- *       http://java.sun.com/xml/ns/javaee/application-client_6.xsd
+ *       http://xmlns.jcp.org/xml/ns/javaee/application-client_7.xsd
  *       
- * ]]>
+ *       
  *     
  * 
  * 
@@ -80,7 +80,7 @@ import org.eclipse.jst.javaee.applicationclient.ApplicationclientFactory;
  *     
  * 
  * 
- *       $Id: ApplicationclientPackage.java,v 1.4 2010/05/19 19:53:10 canderson Exp $
+ *       $Id: javaee_6.xsd,v 1.4 2010/01/14 18:20:11 ccc Exp $
  *       
  *     
  * 
@@ -105,7 +105,7 @@ import org.eclipse.jst.javaee.applicationclient.ApplicationclientFactory;
  *     
  * 
  * 
- *       $Id: ApplicationclientPackage.java,v 1.4 2010/05/19 19:53:10 canderson Exp $
+ *       $Id: javaee_web_services_client_1_3.xsd,v 1.2 2009/09/29 20:31:42 ccc Exp $
  *       
  *     
  * 
@@ -168,7 +168,7 @@ import org.eclipse.jst.javaee.applicationclient.ApplicationclientFactory;
  *    </div>
  *   
  * 
- *    <div id="usage" xml:id="usage" xmlns="http://www.w3.org/1999/xhtml">
+ *    <div xmlns="http://www.w3.org/1999/xhtml" id="usage" xml:id="usage">
  *     <h2>
  *       <a name="usage">About this schema document</a>
  *     </h2>
@@ -214,7 +214,7 @@ import org.eclipse.jst.javaee.applicationclient.ApplicationclientFactory;
  *    </div>
  *   
  * 
- *    <div id="nsversioning" xml:id="nsversioning" xmlns="http://www.w3.org/1999/xhtml">
+ *    <div xmlns="http://www.w3.org/1999/xhtml" id="nsversioning" xml:id="nsversioning">
  *     <h2>
  *       <a name="nsversioning">Versioning policy for this schema document</a>
  *     </h2>
@@ -288,8 +288,9 @@ public interface ApplicationclientPackage extends EPackage {
 	 * The package must be registered with the Java EE 5 and Java EE 6 xsds, since it is used for both
 	 * <!-- end-user-doc -->
 	 */
-	String eNS_URI = "http://java.sun.com/xml/ns/javaee/application-client_5.xsd"; //$NON-NLS-1$
+	String eNS_URI = "http://xmlns.jcp.org/xml/ns/javaee/application-client_7.xsd"; //$NON-NLS-1$
 	String eNS_URI2 = "http://java.sun.com/xml/ns/javaee/application-client_6.xsd"; //$NON-NLS-1$
+	String eNS_URI3 = "http://java.sun.com/xml/ns/javaee/application-client_5.xsd"; //$NON-NLS-1$
 
 	/**
 	 * The package namespace name.
@@ -462,13 +463,58 @@ public interface ApplicationclientPackage extends EPackage {
 	int APPLICATION_CLIENT__DATA_SOURCE = 15;
 
 	/**
+	 * The feature id for the '<em><b>Jms Connection Factory</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION_CLIENT__JMS_CONNECTION_FACTORY = 16;
+
+	/**
+	 * The feature id for the '<em><b>Jms Destination</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION_CLIENT__JMS_DESTINATION = 17;
+
+	/**
+	 * The feature id for the '<em><b>Mail Session</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION_CLIENT__MAIL_SESSION = 18;
+
+	/**
+	 * The feature id for the '<em><b>Connection Factory</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION_CLIENT__CONNECTION_FACTORY = 19;
+
+	/**
+	 * The feature id for the '<em><b>Administered Object</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION_CLIENT__ADMINISTERED_OBJECT = 20;
+
+	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int APPLICATION_CLIENT__ID = 16;
+	int APPLICATION_CLIENT__ID = 21;
 
 	/**
 	 * The feature id for the '<em><b>Metadata Complete</b></em>' attribute.
@@ -477,7 +523,7 @@ public interface ApplicationclientPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int APPLICATION_CLIENT__METADATA_COMPLETE = 17;
+	int APPLICATION_CLIENT__METADATA_COMPLETE = 22;
 
 	/**
 	 * The feature id for the '<em><b>Version</b></em>' attribute.
@@ -486,7 +532,7 @@ public interface ApplicationclientPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int APPLICATION_CLIENT__VERSION = 18;
+	int APPLICATION_CLIENT__VERSION = 23;
 
 	/**
 	 * The number of structural features of the '<em>Application Client</em>' class.
@@ -495,7 +541,7 @@ public interface ApplicationclientPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int APPLICATION_CLIENT_FEATURE_COUNT = 19;
+	int APPLICATION_CLIENT_FEATURE_COUNT = 24;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.applicationclient.internal.impl.ApplicationClientDeploymentDescriptorImpl <em>Application Client Deployment Descriptor</em>}' class.
@@ -738,6 +784,61 @@ public interface ApplicationclientPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getApplicationClient_DataSource();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.applicationclient.ApplicationClient#getJmsConnectionFactory <em>Jms Connection Factory</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Jms Connection Factory</em>'.
+	 * @see org.eclipse.jst.javaee.applicationclient.ApplicationClient#getJmsConnectionFactory()
+	 * @see #getApplicationClient()
+	 * @generated
+	 */
+	EReference getApplicationClient_JmsConnectionFactory();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.applicationclient.ApplicationClient#getJmsDestination <em>Jms Destination</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Jms Destination</em>'.
+	 * @see org.eclipse.jst.javaee.applicationclient.ApplicationClient#getJmsDestination()
+	 * @see #getApplicationClient()
+	 * @generated
+	 */
+	EReference getApplicationClient_JmsDestination();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.applicationclient.ApplicationClient#getMailSession <em>Mail Session</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Mail Session</em>'.
+	 * @see org.eclipse.jst.javaee.applicationclient.ApplicationClient#getMailSession()
+	 * @see #getApplicationClient()
+	 * @generated
+	 */
+	EReference getApplicationClient_MailSession();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.applicationclient.ApplicationClient#getConnectionFactory <em>Connection Factory</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Connection Factory</em>'.
+	 * @see org.eclipse.jst.javaee.applicationclient.ApplicationClient#getConnectionFactory()
+	 * @see #getApplicationClient()
+	 * @generated
+	 */
+	EReference getApplicationClient_ConnectionFactory();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.applicationclient.ApplicationClient#getAdministeredObject <em>Administered Object</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Administered Object</em>'.
+	 * @see org.eclipse.jst.javaee.applicationclient.ApplicationClient#getAdministeredObject()
+	 * @see #getApplicationClient()
+	 * @generated
+	 */
+	EReference getApplicationClient_AdministeredObject();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.applicationclient.ApplicationClient#getId <em>Id</em>}'.
@@ -985,6 +1086,46 @@ public interface ApplicationclientPackage extends EPackage {
 		 * @generated
 		 */
 		EReference APPLICATION_CLIENT__DATA_SOURCE = eINSTANCE.getApplicationClient_DataSource();
+
+		/**
+		 * The meta object literal for the '<em><b>Jms Connection Factory</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APPLICATION_CLIENT__JMS_CONNECTION_FACTORY = eINSTANCE.getApplicationClient_JmsConnectionFactory();
+
+		/**
+		 * The meta object literal for the '<em><b>Jms Destination</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APPLICATION_CLIENT__JMS_DESTINATION = eINSTANCE.getApplicationClient_JmsDestination();
+
+		/**
+		 * The meta object literal for the '<em><b>Mail Session</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APPLICATION_CLIENT__MAIL_SESSION = eINSTANCE.getApplicationClient_MailSession();
+
+		/**
+		 * The meta object literal for the '<em><b>Connection Factory</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APPLICATION_CLIENT__CONNECTION_FACTORY = eINSTANCE.getApplicationClient_ConnectionFactory();
+
+		/**
+		 * The meta object literal for the '<em><b>Administered Object</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APPLICATION_CLIENT__ADMINISTERED_OBJECT = eINSTANCE.getApplicationClient_AdministeredObject();
 
 		/**
 		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.

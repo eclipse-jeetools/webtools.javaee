@@ -12,6 +12,8 @@ package org.eclipse.jst.javaee.application;
 
 import java.util.List;
 
+import org.eclipse.jst.javaee.core.AdministeredObjectType;
+import org.eclipse.jst.javaee.core.ConnectionFactoryResourceType;
 import org.eclipse.jst.javaee.core.DataSourceType;
 import org.eclipse.jst.javaee.core.Description;
 import org.eclipse.jst.javaee.core.DisplayName;
@@ -21,6 +23,9 @@ import org.eclipse.jst.javaee.core.EnvEntry;
 import org.eclipse.jst.javaee.core.GenericBooleanType;
 import org.eclipse.jst.javaee.core.Icon;
 import org.eclipse.jst.javaee.core.JavaEEObject;
+import org.eclipse.jst.javaee.core.JmsConnectionFactoryType;
+import org.eclipse.jst.javaee.core.JmsDestinationType;
+import org.eclipse.jst.javaee.core.MailSessionType;
 import org.eclipse.jst.javaee.core.MessageDestination;
 import org.eclipse.jst.javaee.core.MessageDestinationRef;
 import org.eclipse.jst.javaee.core.PersistenceContextRef;
@@ -67,6 +72,11 @@ import org.eclipse.jst.javaee.core.ServiceRef;
  *   <li>{@link org.eclipse.jst.javaee.application.Application#getPersistenceUnitRef <em>Persistence Unit Ref</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.application.Application#getMessageDestination <em>Message Destination</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.application.Application#getDataSource <em>Data Source</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.application.Application#getJmsConnectionFactory <em>Jms Connection Factory</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.application.Application#getJmsDestination <em>Jms Destination</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.application.Application#getMailSession <em>Mail Session</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.application.Application#getConnectionFactory <em>Connection Factory</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.application.Application#getAdministeredObject <em>Administered Object</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.application.Application#getId <em>Id</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.application.Application#getVersion <em>Version</em>}</li>
  * </ul>
@@ -466,6 +476,86 @@ public interface Application extends JavaEEObject {
 	List<DataSourceType> getDataSource();
 
 	/**
+	 * Returns the value of the '<em><b>Jms Connection Factory</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.jst.javaee.core.JmsConnectionFactoryType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *             @since Java EE 7, Application 7
+	 *          
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Jms Connection Factory</em>' containment reference list.
+	 * @see org.eclipse.jst.javaee.application.internal.metadata.ApplicationPackage#getApplication_JmsConnectionFactory()
+	 * @generated
+	 */
+	List<JmsConnectionFactoryType> getJmsConnectionFactory();
+
+	/**
+	 * Returns the value of the '<em><b>Jms Destination</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.jst.javaee.core.JmsDestinationType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *             @since Java EE 7, Application 7
+	 *          
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Jms Destination</em>' containment reference list.
+	 * @see org.eclipse.jst.javaee.application.internal.metadata.ApplicationPackage#getApplication_JmsDestination()
+	 * @generated
+	 */
+	List<JmsDestinationType> getJmsDestination();
+
+	/**
+	 * Returns the value of the '<em><b>Mail Session</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.jst.javaee.core.MailSessionType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *             @since Java EE 7, Application 7
+	 *          
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Mail Session</em>' containment reference list.
+	 * @see org.eclipse.jst.javaee.application.internal.metadata.ApplicationPackage#getApplication_MailSession()
+	 * @generated
+	 */
+	List<MailSessionType> getMailSession();
+
+	/**
+	 * Returns the value of the '<em><b>Connection Factory</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.jst.javaee.core.ConnectionFactoryResourceType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *             @since Java EE 7, Application 7
+	 *          
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Connection Factory</em>' containment reference list.
+	 * @see org.eclipse.jst.javaee.application.internal.metadata.ApplicationPackage#getApplication_ConnectionFactory()
+	 * @generated
+	 */
+	List<ConnectionFactoryResourceType> getConnectionFactory();
+
+	/**
+	 * Returns the value of the '<em><b>Administered Object</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.jst.javaee.core.AdministeredObjectType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *             @since Java EE 7, Application 7
+	 *          
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Administered Object</em>' containment reference list.
+	 * @see org.eclipse.jst.javaee.application.internal.metadata.ApplicationPackage#getApplication_AdministeredObject()
+	 * @generated
+	 */
+	List<AdministeredObjectType> getAdministeredObject();
+
+	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -492,13 +582,13 @@ public interface Application extends JavaEEObject {
 
 	/**
 	 * Returns the value of the '<em><b>Version</b></em>' attribute.
-	 * The default value is <code>"6"</code>.
+	 * The default value is <code>"7"</code>.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 *           The required value for the version is 6.
+	 *           The required value for the version is 7.
 	 *           
 	 *         
 	 * <!-- end-model-doc -->

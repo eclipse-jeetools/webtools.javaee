@@ -616,6 +616,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(EjbPackage.eNS_URI, theEjbPackage);
 		EPackage.Registry.INSTANCE.put(EjbPackage.eNS_URI2, theEjbPackage);
+		EPackage.Registry.INSTANCE.put(EjbPackage.eNS_URI3, theEjbPackage);
 
 		J2EEInit.initEMFModels();
 		return theEjbPackage;
@@ -1751,7 +1752,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getEntityBean_SecurityRoleRefs() {
+	public EReference getEntityBean_JmsConnectionFactory() {
 		return (EReference)entityBeanEClass.getEStructuralFeatures().get(29);
 	}
 
@@ -1760,7 +1761,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getEntityBean_SecurityIdentity() {
+	public EReference getEntityBean_JmsDestination() {
 		return (EReference)entityBeanEClass.getEStructuralFeatures().get(30);
 	}
 
@@ -1769,7 +1770,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getEntityBean_Queries() {
+	public EReference getEntityBean_MailSession() {
 		return (EReference)entityBeanEClass.getEStructuralFeatures().get(31);
 	}
 
@@ -1778,8 +1779,53 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getEntityBean_ConnectionFactory() {
+		return (EReference)entityBeanEClass.getEStructuralFeatures().get(32);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getEntityBean_AdministeredObject() {
+		return (EReference)entityBeanEClass.getEStructuralFeatures().get(33);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getEntityBean_SecurityRoleRefs() {
+		return (EReference)entityBeanEClass.getEStructuralFeatures().get(34);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getEntityBean_SecurityIdentity() {
+		return (EReference)entityBeanEClass.getEStructuralFeatures().get(35);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getEntityBean_Queries() {
+		return (EReference)entityBeanEClass.getEStructuralFeatures().get(36);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EAttribute getEntityBean_Id() {
-		return (EAttribute)entityBeanEClass.getEStructuralFeatures().get(32);
+		return (EAttribute)entityBeanEClass.getEStructuralFeatures().get(37);
 	}
 
 	/**
@@ -2156,7 +2202,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInterceptorType_PostActivates() {
+	public EReference getInterceptorType_JmsConnectionFactory() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(16);
 	}
 
@@ -2165,7 +2211,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInterceptorType_PrePassivates() {
+	public EReference getInterceptorType_JmsDestination() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(17);
 	}
 
@@ -2174,8 +2220,53 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getInterceptorType_MailSession() {
+		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(18);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getInterceptorType_ConnectionFactory() {
+		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(19);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getInterceptorType_AdministeredObject() {
+		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(20);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getInterceptorType_PostActivates() {
+		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(21);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getInterceptorType_PrePassivates() {
+		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(22);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EAttribute getInterceptorType_Id() {
-		return (EAttribute)interceptorTypeEClass.getEStructuralFeatures().get(18);
+		return (EAttribute)interceptorTypeEClass.getEStructuralFeatures().get(23);
 	}
 
 	/**
@@ -2435,7 +2526,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMessageDrivenBean_SecurityRoleRef() {
+	public EReference getMessageDrivenBean_JmsConnectionFactory() {
 		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(27);
 	}
 
@@ -2444,7 +2535,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getMessageDrivenBean_SecurityIdentity() {
+	public EReference getMessageDrivenBean_JmsDestination() {
 		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(28);
 	}
 
@@ -2453,8 +2544,53 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getMessageDrivenBean_MailSession() {
+		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(29);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getMessageDrivenBean_ConnectionFactory() {
+		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(30);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getMessageDrivenBean_AdministeredObject() {
+		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(31);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getMessageDrivenBean_SecurityRoleRef() {
+		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(32);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getMessageDrivenBean_SecurityIdentity() {
+		return (EReference)messageDrivenBeanEClass.getEStructuralFeatures().get(33);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EAttribute getMessageDrivenBean_Id() {
-		return (EAttribute)messageDrivenBeanEClass.getEStructuralFeatures().get(29);
+		return (EAttribute)messageDrivenBeanEClass.getEStructuralFeatures().get(34);
 	}
 
 	/**
@@ -3281,7 +3417,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSessionBean_PostActivates() {
+	public EReference getSessionBean_JmsConnectionFactory() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(43);
 	}
 
@@ -3290,7 +3426,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSessionBean_PrePassivates() {
+	public EReference getSessionBean_JmsDestination() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(44);
 	}
 
@@ -3299,7 +3435,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSessionBean_SecurityRoleRefs() {
+	public EReference getSessionBean_MailSession() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(45);
 	}
 
@@ -3308,7 +3444,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSessionBean_SecurityIdentities() {
+	public EReference getSessionBean_ConnectionFactory() {
 		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(46);
 	}
 
@@ -3317,8 +3453,62 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getSessionBean_AdministeredObject() {
+		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(47);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSessionBean_PostActivates() {
+		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(48);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSessionBean_PrePassivates() {
+		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(49);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSessionBean_SecurityRoleRefs() {
+		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(50);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getSessionBean_SecurityIdentities() {
+		return (EReference)sessionBeanEClass.getEStructuralFeatures().get(51);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getSessionBean_PassivationCapable() {
+		return (EAttribute)sessionBeanEClass.getEStructuralFeatures().get(52);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EAttribute getSessionBean_Id() {
-		return (EAttribute)sessionBeanEClass.getEStructuralFeatures().get(47);
+		return (EAttribute)sessionBeanEClass.getEStructuralFeatures().get(53);
 	}
 
 	/**
@@ -3942,6 +4132,11 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		createEReference(entityBeanEClass, ENTITY_BEAN__POST_CONSTRUCTS);
 		createEReference(entityBeanEClass, ENTITY_BEAN__PRE_DESTROYS);
 		createEReference(entityBeanEClass, ENTITY_BEAN__DATA_SOURCE);
+		createEReference(entityBeanEClass, ENTITY_BEAN__JMS_CONNECTION_FACTORY);
+		createEReference(entityBeanEClass, ENTITY_BEAN__JMS_DESTINATION);
+		createEReference(entityBeanEClass, ENTITY_BEAN__MAIL_SESSION);
+		createEReference(entityBeanEClass, ENTITY_BEAN__CONNECTION_FACTORY);
+		createEReference(entityBeanEClass, ENTITY_BEAN__ADMINISTERED_OBJECT);
 		createEReference(entityBeanEClass, ENTITY_BEAN__SECURITY_ROLE_REFS);
 		createEReference(entityBeanEClass, ENTITY_BEAN__SECURITY_IDENTITY);
 		createEReference(entityBeanEClass, ENTITY_BEAN__QUERIES);
@@ -3993,6 +4188,11 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		createEReference(interceptorTypeEClass, INTERCEPTOR_TYPE__POST_CONSTRUCTS);
 		createEReference(interceptorTypeEClass, INTERCEPTOR_TYPE__PRE_DESTROYS);
 		createEReference(interceptorTypeEClass, INTERCEPTOR_TYPE__DATA_SOURCE);
+		createEReference(interceptorTypeEClass, INTERCEPTOR_TYPE__JMS_CONNECTION_FACTORY);
+		createEReference(interceptorTypeEClass, INTERCEPTOR_TYPE__JMS_DESTINATION);
+		createEReference(interceptorTypeEClass, INTERCEPTOR_TYPE__MAIL_SESSION);
+		createEReference(interceptorTypeEClass, INTERCEPTOR_TYPE__CONNECTION_FACTORY);
+		createEReference(interceptorTypeEClass, INTERCEPTOR_TYPE__ADMINISTERED_OBJECT);
 		createEReference(interceptorTypeEClass, INTERCEPTOR_TYPE__POST_ACTIVATES);
 		createEReference(interceptorTypeEClass, INTERCEPTOR_TYPE__PRE_PASSIVATES);
 		createEAttribute(interceptorTypeEClass, INTERCEPTOR_TYPE__ID);
@@ -4025,6 +4225,11 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		createEReference(messageDrivenBeanEClass, MESSAGE_DRIVEN_BEAN__POST_CONSTRUCTS);
 		createEReference(messageDrivenBeanEClass, MESSAGE_DRIVEN_BEAN__PRE_DESTROYS);
 		createEReference(messageDrivenBeanEClass, MESSAGE_DRIVEN_BEAN__DATA_SOURCE);
+		createEReference(messageDrivenBeanEClass, MESSAGE_DRIVEN_BEAN__JMS_CONNECTION_FACTORY);
+		createEReference(messageDrivenBeanEClass, MESSAGE_DRIVEN_BEAN__JMS_DESTINATION);
+		createEReference(messageDrivenBeanEClass, MESSAGE_DRIVEN_BEAN__MAIL_SESSION);
+		createEReference(messageDrivenBeanEClass, MESSAGE_DRIVEN_BEAN__CONNECTION_FACTORY);
+		createEReference(messageDrivenBeanEClass, MESSAGE_DRIVEN_BEAN__ADMINISTERED_OBJECT);
 		createEReference(messageDrivenBeanEClass, MESSAGE_DRIVEN_BEAN__SECURITY_ROLE_REF);
 		createEReference(messageDrivenBeanEClass, MESSAGE_DRIVEN_BEAN__SECURITY_IDENTITY);
 		createEAttribute(messageDrivenBeanEClass, MESSAGE_DRIVEN_BEAN__ID);
@@ -4130,10 +4335,16 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		createEReference(sessionBeanEClass, SESSION_BEAN__POST_CONSTRUCTS);
 		createEReference(sessionBeanEClass, SESSION_BEAN__PRE_DESTROYS);
 		createEReference(sessionBeanEClass, SESSION_BEAN__DATA_SOURCE);
+		createEReference(sessionBeanEClass, SESSION_BEAN__JMS_CONNECTION_FACTORY);
+		createEReference(sessionBeanEClass, SESSION_BEAN__JMS_DESTINATION);
+		createEReference(sessionBeanEClass, SESSION_BEAN__MAIL_SESSION);
+		createEReference(sessionBeanEClass, SESSION_BEAN__CONNECTION_FACTORY);
+		createEReference(sessionBeanEClass, SESSION_BEAN__ADMINISTERED_OBJECT);
 		createEReference(sessionBeanEClass, SESSION_BEAN__POST_ACTIVATES);
 		createEReference(sessionBeanEClass, SESSION_BEAN__PRE_PASSIVATES);
 		createEReference(sessionBeanEClass, SESSION_BEAN__SECURITY_ROLE_REFS);
 		createEReference(sessionBeanEClass, SESSION_BEAN__SECURITY_IDENTITIES);
+		createEAttribute(sessionBeanEClass, SESSION_BEAN__PASSIVATION_CAPABLE);
 		createEAttribute(sessionBeanEClass, SESSION_BEAN__ID);
 
 		statefulTimeoutTypeEClass = createEClass(STATEFUL_TIMEOUT_TYPE);
@@ -4233,459 +4444,481 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		}		
 		
 		try{
-			// Add supertypes to classes
-	
-			// Initialize classes and features; add operations and parameters
-			initEClass(accessTimeoutTypeEClass, AccessTimeoutType.class, "AccessTimeoutType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getAccessTimeoutType_Timeout(), theXMLTypePackage.getInteger(), "timeout", null, 1, 1, AccessTimeoutType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getAccessTimeoutType_Unit(), this.getTimeUnitTypeType(), "unit", null, 1, 1, AccessTimeoutType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getAccessTimeoutType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, AccessTimeoutType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(activationConfigEClass, ActivationConfig.class, "ActivationConfig", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getActivationConfig_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, ActivationConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getActivationConfig_ActivationConfigProperties(), this.getActivationConfigProperty(), null, "activationConfigProperties", null, 1, -1, ActivationConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getActivationConfig_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ActivationConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(activationConfigPropertyEClass, ActivationConfigProperty.class, "ActivationConfigProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getActivationConfigProperty_ActivationConfigPropertyName(), theXMLTypePackage.getString(), "activationConfigPropertyName", null, 1, 1, ActivationConfigProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getActivationConfigProperty_ActivationConfigPropertyValue(), theXMLTypePackage.getString(), "activationConfigPropertyValue", null, 1, 1, ActivationConfigProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getActivationConfigProperty_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ActivationConfigProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(applicationExceptionEClass, ApplicationException.class, "ApplicationException", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getApplicationException_ExceptionClass(), theJavaeePackage.getFullyQualifiedClassType(), "exceptionClass", null, 1, 1, ApplicationException.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getApplicationException_Rollback(), theJavaeePackage.getTrueFalseType(), "rollback", null, 0, 1, ApplicationException.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getApplicationException_Inherited(), theJavaeePackage.getTrueFalseType(), "inherited", null, 0, 1, ApplicationException.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getApplicationException_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ApplicationException.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(aroundInvokeTypeEClass, AroundInvokeType.class, "AroundInvokeType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getAroundInvokeType_Class(), theJavaeePackage.getFullyQualifiedClassType(), "class", null, 0, 1, AroundInvokeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getAroundInvokeType_MethodName(), theJavaeePackage.getJavaIdentifier(), "methodName", null, 1, 1, AroundInvokeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(aroundTimeoutTypeEClass, AroundTimeoutType.class, "AroundTimeoutType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getAroundTimeoutType_Class(), theJavaeePackage.getFullyQualifiedClassType(), "class", null, 0, 1, AroundTimeoutType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getAroundTimeoutType_MethodName(), theJavaeePackage.getJavaIdentifier(), "methodName", null, 1, 1, AroundTimeoutType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(assemblyDescriptorEClass, AssemblyDescriptor.class, "AssemblyDescriptor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getAssemblyDescriptor_SecurityRoles(), theJavaeePackage.getSecurityRole(), null, "securityRoles", null, 0, -1, AssemblyDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getAssemblyDescriptor_MethodPermissions(), this.getMethodPermission(), null, "methodPermissions", null, 0, -1, AssemblyDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getAssemblyDescriptor_ContainerTransactions(), this.getContainerTransactionType(), null, "containerTransactions", null, 0, -1, AssemblyDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getAssemblyDescriptor_InterceptorBindings(), this.getInterceptorBindingType(), null, "interceptorBindings", null, 0, -1, AssemblyDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getAssemblyDescriptor_MessageDestinations(), theJavaeePackage.getMessageDestination(), null, "messageDestinations", null, 0, -1, AssemblyDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getAssemblyDescriptor_ExcludeList(), this.getExcludeList(), null, "excludeList", null, 0, 1, AssemblyDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getAssemblyDescriptor_ApplicationExceptions(), this.getApplicationException(), null, "applicationExceptions", null, 0, -1, AssemblyDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getAssemblyDescriptor_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, AssemblyDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(asyncMethodTypeEClass, AsyncMethodType.class, "AsyncMethodType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getAsyncMethodType_MethodName(), theXMLTypePackage.getToken(), "methodName", null, 1, 1, AsyncMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getAsyncMethodType_MethodParams(), this.getMethodParams(), null, "methodParams", null, 0, 1, AsyncMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getAsyncMethodType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, AsyncMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(cmpFieldEClass, CMPField.class, "CMPField", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getCMPField_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, CMPField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getCMPField_FieldName(), theJavaeePackage.getJavaIdentifier(), "fieldName", null, 1, 1, CMPField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getCMPField_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, CMPField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(cmrFieldEClass, CMRField.class, "CMRField", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getCMRField_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, CMRField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getCMRField_CmrFieldName(), theXMLTypePackage.getToken(), "cmrFieldName", null, 1, 1, CMRField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getCMRField_CmrFieldType(), this.getCMRFieldType(), "cmrFieldType", null, 0, 1, CMRField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getCMRField_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, CMRField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(concurrentMethodTypeEClass, ConcurrentMethodType.class, "ConcurrentMethodType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getConcurrentMethodType_Method(), this.getNamedMethodType(), null, "method", null, 1, 1, ConcurrentMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getConcurrentMethodType_Lock(), this.getConcurrentLockTypeType(), "lock", null, 0, 1, ConcurrentMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getConcurrentMethodType_AccessTimeout(), this.getAccessTimeoutType(), null, "accessTimeout", null, 0, 1, ConcurrentMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getConcurrentMethodType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ConcurrentMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(containerTransactionTypeEClass, ContainerTransactionType.class, "ContainerTransactionType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getContainerTransactionType_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, ContainerTransactionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getContainerTransactionType_Methods(), this.getMethodType(), null, "methods", null, 1, -1, ContainerTransactionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getContainerTransactionType_TransAttribute(), this.getTransactionAttributeType(), "transAttribute", null, 1, 1, ContainerTransactionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getContainerTransactionType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ContainerTransactionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(dependsOnTypeEClass, DependsOnType.class, "DependsOnType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getDependsOnType_EjbName(), theJavaeePackage.getEJBLink(), "ejbName", null, 1, -1, DependsOnType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getDependsOnType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, DependsOnType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(ejbJarEClass, EJBJar.class, "EJBJar", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getEJBJar_ModuleName(), theXMLTypePackage.getToken(), "moduleName", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getEJBJar_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getEJBJar_DisplayNames(), theJavaeePackage.getDisplayName(), null, "displayNames", null, 0, -1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getEJBJar_Icons(), theJavaeePackage.getIcon(), null, "icons", null, 0, -1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getEJBJar_EnterpriseBeans(), this.getEnterpriseBeans(), null, "enterpriseBeans", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getEJBJar_Interceptors(), this.getInterceptorsType(), null, "interceptors", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getEJBJar_Relationships(), this.getRelationships(), null, "relationships", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getEJBJar_AssemblyDescriptor(), this.getAssemblyDescriptor(), null, "assemblyDescriptor", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEJBJar_EjbClientJar(), theJavaeePackage.getPathType(), "ejbClientJar", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEJBJar_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEJBJar_MetadataComplete(), theXMLTypePackage.getBoolean(), "metadataComplete", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEJBJar_Version(), theJavaeePackage.getDeweyVersionType(), "version", "3.1", 1, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$ //$NON-NLS-2$
-	
-			initEClass(ejbJarDeploymentDescriptorEClass, EJBJarDeploymentDescriptor.class, "EJBJarDeploymentDescriptor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getEJBJarDeploymentDescriptor_Mixed(), ecorePackage.getEFeatureMapEntry(), "mixed", null, 0, -1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getEJBJarDeploymentDescriptor_XMLNSPrefixMap(), ecorePackage.getEStringToStringMapEntry(), null, "xMLNSPrefixMap", null, 0, -1, null, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getEJBJarDeploymentDescriptor_XSISchemaLocation(), ecorePackage.getEStringToStringMapEntry(), null, "xSISchemaLocation", null, 0, -1, null, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getEJBJarDeploymentDescriptor_EjbJar(), this.getEJBJar(), null, "ejbJar", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(ejbRelationEClass, EJBRelation.class, "EJBRelation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getEJBRelation_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, EJBRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEJBRelation_EjbRelationName(), theXMLTypePackage.getToken(), "ejbRelationName", null, 0, 1, EJBRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getEJBRelation_EjbRelationshipRoles(), this.getEJBRelationshipRole(), null, "ejbRelationshipRoles", null, 2, 2, EJBRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEJBRelation_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, EJBRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(ejbRelationshipRoleEClass, EJBRelationshipRole.class, "EJBRelationshipRole", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getEJBRelationshipRole_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, EJBRelationshipRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEJBRelationshipRole_EjbRelationshipRoleName(), theXMLTypePackage.getToken(), "ejbRelationshipRoleName", null, 0, 1, EJBRelationshipRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEJBRelationshipRole_Multiplicity(), this.getMultiplicityType(), "multiplicity", null, 1, 1, EJBRelationshipRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getEJBRelationshipRole_CascadeDelete(), theJavaeePackage.getEmptyType(), null, "cascadeDelete", null, 0, 1, EJBRelationshipRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getEJBRelationshipRole_RelationshipRoleSource(), this.getRelationshipRoleSourceType(), null, "relationshipRoleSource", null, 1, 1, EJBRelationshipRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getEJBRelationshipRole_CmrField(), this.getCMRField(), null, "cmrField", null, 0, 1, EJBRelationshipRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEJBRelationshipRole_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, EJBRelationshipRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(enterpriseBeansEClass, EnterpriseBeans.class, "EnterpriseBeans", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getEnterpriseBeans_Group(), ecorePackage.getEFeatureMapEntry(), "group", null, 0, -1, EnterpriseBeans.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getEnterpriseBeans_SessionBeans(), this.getSessionBean(), null, "sessionBeans", null, 0, -1, EnterpriseBeans.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getEnterpriseBeans_EntityBeans(), this.getEntityBean(), null, "entityBeans", null, 0, -1, EnterpriseBeans.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getEnterpriseBeans_MessageDrivenBeans(), this.getMessageDrivenBean(), null, "messageDrivenBeans", null, 0, -1, EnterpriseBeans.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEnterpriseBeans_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, EnterpriseBeans.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(entityBeanEClass, EntityBean.class, "EntityBean", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getEntityBean_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getEntityBean_DisplayNames(), theJavaeePackage.getDisplayName(), null, "displayNames", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getEntityBean_Icons(), theJavaeePackage.getIcon(), null, "icons", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEntityBean_EjbName(), this.getEjbNameType(), "ejbName", null, 1, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEntityBean_MappedName(), theXMLTypePackage.getString(), "mappedName", null, 0, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEntityBean_Home(), theJavaeePackage.getHome(), "home", null, 0, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEntityBean_Remote(), theJavaeePackage.getRemote(), "remote", null, 0, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEntityBean_LocalHome(), theJavaeePackage.getLocalHome(), "localHome", null, 0, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEntityBean_Local(), theJavaeePackage.getLocal(), "local", null, 0, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEntityBean_EjbClass(), this.getEjbClassType(), "ejbClass", null, 1, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEntityBean_PersistenceType(), this.getPersistenceType(), "persistenceType", null, 1, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEntityBean_PrimKeyClass(), theJavaeePackage.getFullyQualifiedClassType(), "primKeyClass", null, 1, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEntityBean_Reentrant(), theJavaeePackage.getTrueFalseType(), "reentrant", null, 1, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEntityBean_CmpVersion(), this.getCmpVersionType(), "cmpVersion", null, 0, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEntityBean_AbstractSchemaName(), theJavaeePackage.getJavaIdentifier(), "abstractSchemaName", null, 0, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getEntityBean_CmpFields(), this.getCMPField(), null, "cmpFields", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEntityBean_PrimkeyField(), theXMLTypePackage.getToken(), "primkeyField", null, 0, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getEntityBean_EnvEntries(), theJavaeePackage.getEnvEntry(), null, "envEntries", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getEntityBean_EjbRefs(), theJavaeePackage.getEjbRef(), null, "ejbRefs", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getEntityBean_EjbLocalRefs(), theJavaeePackage.getEjbLocalRef(), null, "ejbLocalRefs", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getEntityBean_ServiceRefs(), theJavaeePackage.getServiceRef(), null, "serviceRefs", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getEntityBean_ResourceRefs(), theJavaeePackage.getResourceRef(), null, "resourceRefs", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getEntityBean_ResourceEnvRefs(), theJavaeePackage.getResourceEnvRef(), null, "resourceEnvRefs", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getEntityBean_MessageDestinationRefs(), theJavaeePackage.getMessageDestinationRef(), null, "messageDestinationRefs", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getEntityBean_PersistenceContextRefs(), theJavaeePackage.getPersistenceContextRef(), null, "persistenceContextRefs", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getEntityBean_PersistenceUnitRefs(), theJavaeePackage.getPersistenceUnitRef(), null, "persistenceUnitRefs", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getEntityBean_PostConstructs(), theJavaeePackage.getLifecycleCallback(), null, "postConstructs", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getEntityBean_PreDestroys(), theJavaeePackage.getLifecycleCallback(), null, "preDestroys", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getEntityBean_DataSource(), theJavaeePackage.getDataSourceType(), null, "dataSource", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getEntityBean_SecurityRoleRefs(), theJavaeePackage.getSecurityRoleRef(), null, "securityRoleRefs", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getEntityBean_SecurityIdentity(), this.getSecurityIdentityType(), null, "securityIdentity", null, 0, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getEntityBean_Queries(), this.getQuery(), null, "queries", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEntityBean_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(excludeListEClass, ExcludeList.class, "ExcludeList", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getExcludeList_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, ExcludeList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getExcludeList_Methods(), this.getMethodType(), null, "methods", null, 1, -1, ExcludeList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getExcludeList_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ExcludeList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(initMethodTypeEClass, InitMethodType.class, "InitMethodType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getInitMethodType_CreateMethod(), this.getNamedMethodType(), null, "createMethod", null, 1, 1, InitMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getInitMethodType_BeanMethod(), this.getNamedMethodType(), null, "beanMethod", null, 1, 1, InitMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getInitMethodType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, InitMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(interceptorBindingTypeEClass, InterceptorBindingType.class, "InterceptorBindingType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getInterceptorBindingType_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, InterceptorBindingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getInterceptorBindingType_EjbName(), theXMLTypePackage.getToken(), "ejbName", null, 1, 1, InterceptorBindingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getInterceptorBindingType_InterceptorClasses(), theJavaeePackage.getFullyQualifiedClassType(), "interceptorClasses", null, 0, -1, InterceptorBindingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getInterceptorBindingType_InterceptorOrder(), this.getInterceptorOrderType(), null, "interceptorOrder", null, 0, 1, InterceptorBindingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getInterceptorBindingType_ExcludeDefaultInterceptors(), theJavaeePackage.getTrueFalseType(), "excludeDefaultInterceptors", null, 0, 1, InterceptorBindingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getInterceptorBindingType_ExcludeClassInterceptors(), theJavaeePackage.getTrueFalseType(), "excludeClassInterceptors", null, 0, 1, InterceptorBindingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getInterceptorBindingType_Method(), this.getNamedMethodType(), null, "method", null, 0, 1, InterceptorBindingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getInterceptorBindingType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, InterceptorBindingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(interceptorOrderTypeEClass, InterceptorOrderType.class, "InterceptorOrderType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getInterceptorOrderType_InterceptorClasses(), theJavaeePackage.getFullyQualifiedClassType(), "interceptorClasses", null, 1, -1, InterceptorOrderType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getInterceptorOrderType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, InterceptorOrderType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(interceptorsTypeEClass, InterceptorsType.class, "InterceptorsType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getInterceptorsType_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, InterceptorsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getInterceptorsType_Interceptors(), this.getInterceptorType(), null, "interceptors", null, 1, -1, InterceptorsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getInterceptorsType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, InterceptorsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(interceptorTypeEClass, InterceptorType.class, "InterceptorType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getInterceptorType_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getInterceptorType_InterceptorClass(), theJavaeePackage.getFullyQualifiedClassType(), "interceptorClass", null, 1, 1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getInterceptorType_AroundInvokes(), this.getAroundInvokeType(), null, "aroundInvokes", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getInterceptorType_AroundTimeouts(), this.getAroundTimeoutType(), null, "aroundTimeouts", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getInterceptorType_EnvEntries(), theJavaeePackage.getEnvEntry(), null, "envEntries", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getInterceptorType_EjbRefs(), theJavaeePackage.getEjbRef(), null, "ejbRefs", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getInterceptorType_EjbLocalRefs(), theJavaeePackage.getEjbLocalRef(), null, "ejbLocalRefs", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getInterceptorType_ServiceRefs(), theJavaeePackage.getServiceRef(), null, "serviceRefs", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getInterceptorType_ResourceRefs(), theJavaeePackage.getResourceRef(), null, "resourceRefs", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getInterceptorType_ResourceEnvRefs(), theJavaeePackage.getResourceEnvRef(), null, "resourceEnvRefs", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getInterceptorType_MessageDestinationRefs(), theJavaeePackage.getMessageDestinationRef(), null, "messageDestinationRefs", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getInterceptorType_PersistenceContextRefs(), theJavaeePackage.getPersistenceContextRef(), null, "persistenceContextRefs", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getInterceptorType_PersistenceUnitRefs(), theJavaeePackage.getPersistenceUnitRef(), null, "persistenceUnitRefs", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getInterceptorType_PostConstructs(), theJavaeePackage.getLifecycleCallback(), null, "postConstructs", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getInterceptorType_PreDestroys(), theJavaeePackage.getLifecycleCallback(), null, "preDestroys", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getInterceptorType_DataSource(), theJavaeePackage.getDataSourceType(), null, "dataSource", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getInterceptorType_PostActivates(), theJavaeePackage.getLifecycleCallback(), null, "postActivates", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getInterceptorType_PrePassivates(), theJavaeePackage.getLifecycleCallback(), null, "prePassivates", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getInterceptorType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(messageDrivenBeanEClass, MessageDrivenBean.class, "MessageDrivenBean", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getMessageDrivenBean_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getMessageDrivenBean_DisplayNames(), theJavaeePackage.getDisplayName(), null, "displayNames", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getMessageDrivenBean_Icons(), theJavaeePackage.getIcon(), null, "icons", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getMessageDrivenBean_EjbName(), this.getEjbNameType(), "ejbName", null, 1, 1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getMessageDrivenBean_MappedName(), theXMLTypePackage.getString(), "mappedName", null, 0, 1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getMessageDrivenBean_EjbClass(), this.getEjbClassType(), "ejbClass", null, 0, 1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getMessageDrivenBean_MessagingType(), theJavaeePackage.getFullyQualifiedClassType(), "messagingType", null, 0, 1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getMessageDrivenBean_TimeoutMethod(), this.getNamedMethodType(), null, "timeoutMethod", null, 0, 1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getMessageDrivenBean_Timer(), this.getTimerType(), null, "timer", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getMessageDrivenBean_TransactionType(), this.getTransactionType(), "transactionType", null, 0, 1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getMessageDrivenBean_MessageDestinationType(), theJavaeePackage.getMessageDestinationTypeType(), "messageDestinationType", null, 0, 1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getMessageDrivenBean_MessageDestinationLink(), theJavaeePackage.getMessageDestinationLink(), "messageDestinationLink", null, 0, 1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getMessageDrivenBean_ActivationConfig(), this.getActivationConfig(), null, "activationConfig", null, 0, 1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getMessageDrivenBean_AroundInvokes(), this.getAroundInvokeType(), null, "aroundInvokes", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getMessageDrivenBean_AroundTimeouts(), this.getAroundTimeoutType(), null, "aroundTimeouts", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getMessageDrivenBean_EnvEntries(), theJavaeePackage.getEnvEntry(), null, "envEntries", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getMessageDrivenBean_EjbRefs(), theJavaeePackage.getEjbRef(), null, "ejbRefs", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getMessageDrivenBean_EjbLocalRefs(), theJavaeePackage.getEjbLocalRef(), null, "ejbLocalRefs", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getMessageDrivenBean_ServiceRefs(), theJavaeePackage.getServiceRef(), null, "serviceRefs", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getMessageDrivenBean_ResourceRefs(), theJavaeePackage.getResourceRef(), null, "resourceRefs", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getMessageDrivenBean_ResourceEnvRefs(), theJavaeePackage.getResourceEnvRef(), null, "resourceEnvRefs", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getMessageDrivenBean_MessageDestinationRefs(), theJavaeePackage.getMessageDestinationRef(), null, "messageDestinationRefs", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getMessageDrivenBean_PersistenceContextRefs(), theJavaeePackage.getPersistenceContextRef(), null, "persistenceContextRefs", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getMessageDrivenBean_PersistenceUnitRefs(), theJavaeePackage.getPersistenceUnitRef(), null, "persistenceUnitRefs", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getMessageDrivenBean_PostConstructs(), theJavaeePackage.getLifecycleCallback(), null, "postConstructs", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getMessageDrivenBean_PreDestroys(), theJavaeePackage.getLifecycleCallback(), null, "preDestroys", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getMessageDrivenBean_DataSource(), theJavaeePackage.getDataSourceType(), null, "dataSource", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getMessageDrivenBean_SecurityRoleRef(), theJavaeePackage.getSecurityRoleRef(), null, "securityRoleRef", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getMessageDrivenBean_SecurityIdentity(), this.getSecurityIdentityType(), null, "securityIdentity", null, 0, 1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getMessageDrivenBean_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(methodParamsEClass, MethodParams.class, "MethodParams", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getMethodParams_MethodParams(), theJavaeePackage.getJavaType(), "methodParams", null, 0, -1, MethodParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getMethodParams_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, MethodParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(methodPermissionEClass, MethodPermission.class, "MethodPermission", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getMethodPermission_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, MethodPermission.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getMethodPermission_RoleNames(), theJavaeePackage.getRoleName(), "roleNames", null, 0, -1, MethodPermission.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getMethodPermission_Unchecked(), theJavaeePackage.getEmptyType(), null, "unchecked", null, 0, 1, MethodPermission.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getMethodPermission_Methods(), this.getMethodType(), null, "methods", null, 1, -1, MethodPermission.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getMethodPermission_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, MethodPermission.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(methodTypeEClass, MethodType.class, "MethodType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getMethodType_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, MethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getMethodType_EjbName(), this.getEjbNameType(), "ejbName", null, 1, 1, MethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getMethodType_MethodIntf(), this.getMethodInterfaceType(), "methodIntf", null, 0, 1, MethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getMethodType_MethodName(), this.getMethodNameType(), "methodName", null, 1, 1, MethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getMethodType_MethodParams(), this.getMethodParams(), null, "methodParams", null, 0, 1, MethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getMethodType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, MethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(namedMethodTypeEClass, NamedMethodType.class, "NamedMethodType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getNamedMethodType_MethodName(), theXMLTypePackage.getToken(), "methodName", null, 1, 1, NamedMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getNamedMethodType_MethodParams(), this.getMethodParams(), null, "methodParams", null, 0, 1, NamedMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getNamedMethodType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, NamedMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(queryEClass, Query.class, "Query", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getQuery_Description(), theJavaeePackage.getDescription(), null, "description", null, 0, 1, Query.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getQuery_QueryMethod(), this.getQueryMethod(), null, "queryMethod", null, 1, 1, Query.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getQuery_ResultTypeMapping(), this.getResultTypeMappingType(), "resultTypeMapping", null, 0, 1, Query.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getQuery_EjbQl(), theXMLTypePackage.getString(), "ejbQl", null, 1, 1, Query.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getQuery_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, Query.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(queryMethodEClass, QueryMethod.class, "QueryMethod", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getQueryMethod_MethodName(), this.getMethodNameType(), "methodName", null, 1, 1, QueryMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getQueryMethod_MethodParams(), this.getMethodParams(), null, "methodParams", null, 1, 1, QueryMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getQueryMethod_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, QueryMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(relationshipRoleSourceTypeEClass, RelationshipRoleSourceType.class, "RelationshipRoleSourceType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getRelationshipRoleSourceType_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, RelationshipRoleSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getRelationshipRoleSourceType_EjbName(), this.getEjbNameType(), "ejbName", null, 1, 1, RelationshipRoleSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getRelationshipRoleSourceType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, RelationshipRoleSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(relationshipsEClass, Relationships.class, "Relationships", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getRelationships_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, Relationships.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getRelationships_EjbRelations(), this.getEJBRelation(), null, "ejbRelations", null, 1, -1, Relationships.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getRelationships_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, Relationships.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(removeMethodTypeEClass, RemoveMethodType.class, "RemoveMethodType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getRemoveMethodType_BeanMethod(), this.getNamedMethodType(), null, "beanMethod", null, 1, 1, RemoveMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getRemoveMethodType_RetainIfException(), theJavaeePackage.getTrueFalseType(), "retainIfException", null, 0, 1, RemoveMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getRemoveMethodType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, RemoveMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(securityIdentityTypeEClass, SecurityIdentityType.class, "SecurityIdentityType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getSecurityIdentityType_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, SecurityIdentityType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getSecurityIdentityType_UseCallerIdentity(), theJavaeePackage.getEmptyType(), null, "useCallerIdentity", null, 0, 1, SecurityIdentityType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getSecurityIdentityType_RunAs(), theJavaeePackage.getRunAs(), null, "runAs", null, 0, 1, SecurityIdentityType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getSecurityIdentityType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, SecurityIdentityType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(sessionBeanEClass, SessionBean.class, "SessionBean", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getSessionBean_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getSessionBean_DisplayNames(), theJavaeePackage.getDisplayName(), null, "displayNames", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getSessionBean_Icons(), theJavaeePackage.getIcon(), null, "icons", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getSessionBean_EjbName(), this.getEjbNameType(), "ejbName", null, 1, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getSessionBean_MappedName(), theXMLTypePackage.getString(), "mappedName", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getSessionBean_Home(), theJavaeePackage.getHome(), "home", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getSessionBean_Remote(), theJavaeePackage.getRemote(), "remote", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getSessionBean_LocalHome(), theJavaeePackage.getLocalHome(), "localHome", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getSessionBean_Local(), theJavaeePackage.getLocal(), "local", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getSessionBean_BusinessLocals(), theJavaeePackage.getFullyQualifiedClassType(), "businessLocals", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getSessionBean_BusinessRemotes(), theJavaeePackage.getFullyQualifiedClassType(), "businessRemotes", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getSessionBean_LocalBean(), theJavaeePackage.getEmptyType(), null, "localBean", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getSessionBean_ServiceEndpoint(), theJavaeePackage.getFullyQualifiedClassType(), "serviceEndpoint", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getSessionBean_EjbClass(), this.getEjbClassType(), "ejbClass", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getSessionBean_SessionType(), this.getSessionType(), "sessionType", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getSessionBean_StatefulTimeout(), this.getStatefulTimeoutType(), null, "statefulTimeout", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getSessionBean_TimeoutMethod(), this.getNamedMethodType(), null, "timeoutMethod", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getSessionBean_Timer(), this.getTimerType(), null, "timer", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getSessionBean_InitOnStartup(), theJavaeePackage.getTrueFalseType(), "initOnStartup", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getSessionBean_ConcurrencyManagementType(), this.getConcurrencyManagementTypeType(), "concurrencyManagementType", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getSessionBean_ConcurrentMethod(), this.getConcurrentMethodType(), null, "concurrentMethod", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getSessionBean_DependsOn(), this.getDependsOnType(), null, "dependsOn", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getSessionBean_InitMethods(), this.getInitMethodType(), null, "initMethods", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getSessionBean_RemoveMethods(), this.getRemoveMethodType(), null, "removeMethods", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getSessionBean_AsyncMethod(), this.getAsyncMethodType(), null, "asyncMethod", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getSessionBean_TransactionType(), this.getTransactionType(), "transactionType", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getSessionBean_AfterBeginMethod(), this.getNamedMethodType(), null, "afterBeginMethod", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getSessionBean_BeforeCompletionMethod(), this.getNamedMethodType(), null, "beforeCompletionMethod", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getSessionBean_AfterCompletionMethod(), this.getNamedMethodType(), null, "afterCompletionMethod", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getSessionBean_AroundInvokes(), this.getAroundInvokeType(), null, "aroundInvokes", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getSessionBean_AroundTimeouts(), this.getAroundTimeoutType(), null, "aroundTimeouts", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getSessionBean_EnvEntries(), theJavaeePackage.getEnvEntry(), null, "envEntries", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getSessionBean_EjbRefs(), theJavaeePackage.getEjbRef(), null, "ejbRefs", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getSessionBean_EjbLocalRefs(), theJavaeePackage.getEjbLocalRef(), null, "ejbLocalRefs", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getSessionBean_ServiceRefs(), theJavaeePackage.getServiceRef(), null, "serviceRefs", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getSessionBean_ResourceRefs(), theJavaeePackage.getResourceRef(), null, "resourceRefs", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getSessionBean_ResourceEnvRefs(), theJavaeePackage.getResourceEnvRef(), null, "resourceEnvRefs", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getSessionBean_MessageDestinationRefs(), theJavaeePackage.getMessageDestinationRef(), null, "messageDestinationRefs", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getSessionBean_PersistenceContextRefs(), theJavaeePackage.getPersistenceContextRef(), null, "persistenceContextRefs", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getSessionBean_PersistenceUnitRefs(), theJavaeePackage.getPersistenceUnitRef(), null, "persistenceUnitRefs", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getSessionBean_PostConstructs(), theJavaeePackage.getLifecycleCallback(), null, "postConstructs", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getSessionBean_PreDestroys(), theJavaeePackage.getLifecycleCallback(), null, "preDestroys", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getSessionBean_DataSource(), theJavaeePackage.getDataSourceType(), null, "dataSource", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getSessionBean_PostActivates(), theJavaeePackage.getLifecycleCallback(), null, "postActivates", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getSessionBean_PrePassivates(), theJavaeePackage.getLifecycleCallback(), null, "prePassivates", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getSessionBean_SecurityRoleRefs(), theJavaeePackage.getSecurityRoleRef(), null, "securityRoleRefs", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getSessionBean_SecurityIdentities(), this.getSecurityIdentityType(), null, "securityIdentities", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getSessionBean_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(statefulTimeoutTypeEClass, StatefulTimeoutType.class, "StatefulTimeoutType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getStatefulTimeoutType_Timeout(), theXMLTypePackage.getInteger(), "timeout", null, 1, 1, StatefulTimeoutType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getStatefulTimeoutType_Unit(), this.getTimeUnitTypeType(), "unit", null, 1, 1, StatefulTimeoutType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getStatefulTimeoutType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, StatefulTimeoutType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(timerScheduleTypeEClass, TimerScheduleType.class, "TimerScheduleType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getTimerScheduleType_Second(), theXMLTypePackage.getToken(), "second", null, 0, 1, TimerScheduleType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getTimerScheduleType_Minute(), theXMLTypePackage.getToken(), "minute", null, 0, 1, TimerScheduleType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getTimerScheduleType_Hour(), theXMLTypePackage.getToken(), "hour", null, 0, 1, TimerScheduleType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getTimerScheduleType_DayOfMonth(), theXMLTypePackage.getToken(), "dayOfMonth", null, 0, 1, TimerScheduleType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getTimerScheduleType_Month(), theXMLTypePackage.getToken(), "month", null, 0, 1, TimerScheduleType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getTimerScheduleType_DayOfWeek(), theXMLTypePackage.getToken(), "dayOfWeek", null, 0, 1, TimerScheduleType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getTimerScheduleType_Year(), theXMLTypePackage.getToken(), "year", null, 0, 1, TimerScheduleType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getTimerScheduleType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, TimerScheduleType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(timerTypeEClass, TimerType.class, "TimerType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getTimerType_Description(), theJavaeePackage.getDescription(), null, "description", null, 0, -1, TimerType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getTimerType_Schedule(), this.getTimerScheduleType(), null, "schedule", null, 1, 1, TimerType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getTimerType_Start(), theXMLTypePackage.getDateTime(), "start", null, 0, 1, TimerType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getTimerType_End(), theXMLTypePackage.getDateTime(), "end", null, 0, 1, TimerType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getTimerType_TimeoutMethod(), this.getNamedMethodType(), null, "timeoutMethod", null, 1, 1, TimerType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getTimerType_Persistent(), theJavaeePackage.getTrueFalseType(), "persistent", null, 0, 1, TimerType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getTimerType_Timezone(), theXMLTypePackage.getToken(), "timezone", null, 0, 1, TimerType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getTimerType_Info(), theXMLTypePackage.getToken(), "info", null, 0, 1, TimerType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getTimerType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, TimerType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			// Initialize enums and add enum literals
-			initEEnum(cmpVersionTypeEEnum, CmpVersionType.class, "CmpVersionType"); //$NON-NLS-1$
-			addEEnumLiteral(cmpVersionTypeEEnum, CmpVersionType._1X_LITERAL);
-			addEEnumLiteral(cmpVersionTypeEEnum, CmpVersionType._2X_LITERAL);
-	
-			initEEnum(cmrFieldTypeEEnum, CMRFieldType.class, "CMRFieldType"); //$NON-NLS-1$
-			addEEnumLiteral(cmrFieldTypeEEnum, CMRFieldType.JAVA_UTIL_COLLECTION_LITERAL);
-			addEEnumLiteral(cmrFieldTypeEEnum, CMRFieldType.JAVA_UTIL_SET_LITERAL);
-	
-			initEEnum(concurrencyManagementTypeTypeEEnum, ConcurrencyManagementTypeType.class, "ConcurrencyManagementTypeType"); //$NON-NLS-1$
-			addEEnumLiteral(concurrencyManagementTypeTypeEEnum, ConcurrencyManagementTypeType.BEAN);
-			addEEnumLiteral(concurrencyManagementTypeTypeEEnum, ConcurrencyManagementTypeType.CONTAINER);
-	
-			initEEnum(concurrentLockTypeTypeEEnum, ConcurrentLockTypeType.class, "ConcurrentLockTypeType"); //$NON-NLS-1$
-			addEEnumLiteral(concurrentLockTypeTypeEEnum, ConcurrentLockTypeType.READ);
-			addEEnumLiteral(concurrentLockTypeTypeEEnum, ConcurrentLockTypeType.WRITE);
-	
-			initEEnum(methodInterfaceTypeEEnum, MethodInterfaceType.class, "MethodInterfaceType"); //$NON-NLS-1$
-			addEEnumLiteral(methodInterfaceTypeEEnum, MethodInterfaceType.HOME_LITERAL);
-			addEEnumLiteral(methodInterfaceTypeEEnum, MethodInterfaceType.REMOTE_LITERAL);
-			addEEnumLiteral(methodInterfaceTypeEEnum, MethodInterfaceType.LOCAL_HOME_LITERAL);
-			addEEnumLiteral(methodInterfaceTypeEEnum, MethodInterfaceType.LOCAL_LITERAL);
-			addEEnumLiteral(methodInterfaceTypeEEnum, MethodInterfaceType.SERVICE_ENDPOINT_LITERAL);
-			addEEnumLiteral(methodInterfaceTypeEEnum, MethodInterfaceType.TIMER_LITERAL);
-			addEEnumLiteral(methodInterfaceTypeEEnum, MethodInterfaceType.MESSAGE_ENDPOINT_LITERAL);
-	
-			initEEnum(multiplicityTypeEEnum, MultiplicityType.class, "MultiplicityType"); //$NON-NLS-1$
-			addEEnumLiteral(multiplicityTypeEEnum, MultiplicityType.ONE_LITERAL);
-			addEEnumLiteral(multiplicityTypeEEnum, MultiplicityType.MANY_LITERAL);
-	
-			initEEnum(persistenceTypeEEnum, PersistenceType.class, "PersistenceType"); //$NON-NLS-1$
-			addEEnumLiteral(persistenceTypeEEnum, PersistenceType.BEAN_LITERAL);
-			addEEnumLiteral(persistenceTypeEEnum, PersistenceType.CONTAINER_LITERAL);
-	
-			initEEnum(resultTypeMappingTypeEEnum, ResultTypeMappingType.class, "ResultTypeMappingType"); //$NON-NLS-1$
-			addEEnumLiteral(resultTypeMappingTypeEEnum, ResultTypeMappingType.LOCAL_LITERAL);
-			addEEnumLiteral(resultTypeMappingTypeEEnum, ResultTypeMappingType.REMOTE_LITERAL);
-	
-			initEEnum(sessionTypeEEnum, SessionType.class, "SessionType"); //$NON-NLS-1$
-			addEEnumLiteral(sessionTypeEEnum, SessionType.SINGLETON_LITERAL);
-			addEEnumLiteral(sessionTypeEEnum, SessionType.STATEFUL_LITERAL);
-			addEEnumLiteral(sessionTypeEEnum, SessionType.STATELESS_LITERAL);
-	
-			initEEnum(timeUnitTypeTypeEEnum, TimeUnitTypeType.class, "TimeUnitTypeType"); //$NON-NLS-1$
-			addEEnumLiteral(timeUnitTypeTypeEEnum, TimeUnitTypeType.DAYS);
-			addEEnumLiteral(timeUnitTypeTypeEEnum, TimeUnitTypeType.HOURS);
-			addEEnumLiteral(timeUnitTypeTypeEEnum, TimeUnitTypeType.MINUTES);
-			addEEnumLiteral(timeUnitTypeTypeEEnum, TimeUnitTypeType.SECONDS);
-			addEEnumLiteral(timeUnitTypeTypeEEnum, TimeUnitTypeType.MILLISECONDS);
-			addEEnumLiteral(timeUnitTypeTypeEEnum, TimeUnitTypeType.MICROSECONDS);
-			addEEnumLiteral(timeUnitTypeTypeEEnum, TimeUnitTypeType.NANOSECONDS);
-	
-			initEEnum(transactionAttributeTypeEEnum, TransactionAttributeType.class, "TransactionAttributeType"); //$NON-NLS-1$
-			addEEnumLiteral(transactionAttributeTypeEEnum, TransactionAttributeType.NOT_SUPPORTED_LITERAL);
-			addEEnumLiteral(transactionAttributeTypeEEnum, TransactionAttributeType.SUPPORTS_LITERAL);
-			addEEnumLiteral(transactionAttributeTypeEEnum, TransactionAttributeType.REQUIRED_LITERAL);
-			addEEnumLiteral(transactionAttributeTypeEEnum, TransactionAttributeType.REQUIRES_NEW_LITERAL);
-			addEEnumLiteral(transactionAttributeTypeEEnum, TransactionAttributeType.MANDATORY_LITERAL);
-			addEEnumLiteral(transactionAttributeTypeEEnum, TransactionAttributeType.NEVER_LITERAL);
-	
-			initEEnum(transactionTypeEEnum, TransactionType.class, "TransactionType"); //$NON-NLS-1$
-			addEEnumLiteral(transactionTypeEEnum, TransactionType.BEAN_LITERAL);
-			addEEnumLiteral(transactionTypeEEnum, TransactionType.CONTAINER_LITERAL);
-	
-			// Initialize data types
-			initEDataType(cmpVersionTypeObjectEDataType, CmpVersionType.class, "CmpVersionTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(cmrFieldTypeObjectEDataType, CMRFieldType.class, "CMRFieldTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(concurrencyManagementTypeTypeObjectEDataType, ConcurrencyManagementTypeType.class, "ConcurrencyManagementTypeTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(concurrentLockTypeTypeObjectEDataType, ConcurrentLockTypeType.class, "ConcurrentLockTypeTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(ejbClassTypeEDataType, String.class, "EjbClassType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(ejbNameTypeEDataType, String.class, "EjbNameType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(methodInterfaceTypeObjectEDataType, MethodInterfaceType.class, "MethodInterfaceTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(methodNameTypeEDataType, String.class, "MethodNameType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(multiplicityTypeObjectEDataType, MultiplicityType.class, "MultiplicityTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(persistenceTypeObjectEDataType, PersistenceType.class, "PersistenceTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(resultTypeMappingTypeObjectEDataType, ResultTypeMappingType.class, "ResultTypeMappingTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(sessionTypeObjectEDataType, SessionType.class, "SessionTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(timeUnitTypeTypeObjectEDataType, TimeUnitTypeType.class, "TimeUnitTypeTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(transactionAttributeTypeObjectEDataType, TransactionAttributeType.class, "TransactionAttributeTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(transactionTypeObjectEDataType, TransactionType.class, "TransactionTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-	
-			// Create resource
-			createResource(eNS_URI);
-	
-			// Create annotations
-			// http:///org/eclipse/emf/ecore/util/ExtendedMetaData
-			createExtendedMetaDataAnnotations();
+		// Add supertypes to classes
+
+		// Initialize classes and features; add operations and parameters
+		initEClass(accessTimeoutTypeEClass, AccessTimeoutType.class, "AccessTimeoutType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getAccessTimeoutType_Timeout(), theXMLTypePackage.getInteger(), "timeout", null, 1, 1, AccessTimeoutType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getAccessTimeoutType_Unit(), this.getTimeUnitTypeType(), "unit", null, 1, 1, AccessTimeoutType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getAccessTimeoutType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, AccessTimeoutType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(activationConfigEClass, ActivationConfig.class, "ActivationConfig", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getActivationConfig_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, ActivationConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getActivationConfig_ActivationConfigProperties(), this.getActivationConfigProperty(), null, "activationConfigProperties", null, 1, -1, ActivationConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getActivationConfig_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ActivationConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(activationConfigPropertyEClass, ActivationConfigProperty.class, "ActivationConfigProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getActivationConfigProperty_ActivationConfigPropertyName(), theXMLTypePackage.getString(), "activationConfigPropertyName", null, 1, 1, ActivationConfigProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getActivationConfigProperty_ActivationConfigPropertyValue(), theXMLTypePackage.getString(), "activationConfigPropertyValue", null, 1, 1, ActivationConfigProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getActivationConfigProperty_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ActivationConfigProperty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(applicationExceptionEClass, ApplicationException.class, "ApplicationException", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getApplicationException_ExceptionClass(), theJavaeePackage.getFullyQualifiedClassType(), "exceptionClass", null, 1, 1, ApplicationException.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getApplicationException_Rollback(), theJavaeePackage.getTrueFalseType(), "rollback", null, 0, 1, ApplicationException.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getApplicationException_Inherited(), theJavaeePackage.getTrueFalseType(), "inherited", null, 0, 1, ApplicationException.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getApplicationException_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ApplicationException.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(aroundInvokeTypeEClass, AroundInvokeType.class, "AroundInvokeType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getAroundInvokeType_Class(), theJavaeePackage.getFullyQualifiedClassType(), "class", null, 0, 1, AroundInvokeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getAroundInvokeType_MethodName(), theJavaeePackage.getJavaIdentifier(), "methodName", null, 1, 1, AroundInvokeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(aroundTimeoutTypeEClass, AroundTimeoutType.class, "AroundTimeoutType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getAroundTimeoutType_Class(), theJavaeePackage.getFullyQualifiedClassType(), "class", null, 0, 1, AroundTimeoutType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getAroundTimeoutType_MethodName(), theJavaeePackage.getJavaIdentifier(), "methodName", null, 1, 1, AroundTimeoutType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(assemblyDescriptorEClass, AssemblyDescriptor.class, "AssemblyDescriptor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getAssemblyDescriptor_SecurityRoles(), theJavaeePackage.getSecurityRole(), null, "securityRoles", null, 0, -1, AssemblyDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getAssemblyDescriptor_MethodPermissions(), this.getMethodPermission(), null, "methodPermissions", null, 0, -1, AssemblyDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getAssemblyDescriptor_ContainerTransactions(), this.getContainerTransactionType(), null, "containerTransactions", null, 0, -1, AssemblyDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getAssemblyDescriptor_InterceptorBindings(), this.getInterceptorBindingType(), null, "interceptorBindings", null, 0, -1, AssemblyDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getAssemblyDescriptor_MessageDestinations(), theJavaeePackage.getMessageDestination(), null, "messageDestinations", null, 0, -1, AssemblyDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getAssemblyDescriptor_ExcludeList(), this.getExcludeList(), null, "excludeList", null, 0, 1, AssemblyDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getAssemblyDescriptor_ApplicationExceptions(), this.getApplicationException(), null, "applicationExceptions", null, 0, -1, AssemblyDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getAssemblyDescriptor_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, AssemblyDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(asyncMethodTypeEClass, AsyncMethodType.class, "AsyncMethodType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getAsyncMethodType_MethodName(), theXMLTypePackage.getToken(), "methodName", null, 1, 1, AsyncMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getAsyncMethodType_MethodParams(), this.getMethodParams(), null, "methodParams", null, 0, 1, AsyncMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getAsyncMethodType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, AsyncMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(cmpFieldEClass, CMPField.class, "CMPField", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getCMPField_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, CMPField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getCMPField_FieldName(), theJavaeePackage.getJavaIdentifier(), "fieldName", null, 1, 1, CMPField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getCMPField_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, CMPField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(cmrFieldEClass, CMRField.class, "CMRField", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getCMRField_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, CMRField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getCMRField_CmrFieldName(), theXMLTypePackage.getToken(), "cmrFieldName", null, 1, 1, CMRField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getCMRField_CmrFieldType(), this.getCMRFieldType(), "cmrFieldType", null, 0, 1, CMRField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getCMRField_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, CMRField.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(concurrentMethodTypeEClass, ConcurrentMethodType.class, "ConcurrentMethodType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getConcurrentMethodType_Method(), this.getNamedMethodType(), null, "method", null, 1, 1, ConcurrentMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getConcurrentMethodType_Lock(), this.getConcurrentLockTypeType(), "lock", null, 0, 1, ConcurrentMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getConcurrentMethodType_AccessTimeout(), this.getAccessTimeoutType(), null, "accessTimeout", null, 0, 1, ConcurrentMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getConcurrentMethodType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ConcurrentMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(containerTransactionTypeEClass, ContainerTransactionType.class, "ContainerTransactionType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getContainerTransactionType_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, ContainerTransactionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getContainerTransactionType_Methods(), this.getMethodType(), null, "methods", null, 1, -1, ContainerTransactionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getContainerTransactionType_TransAttribute(), this.getTransactionAttributeType(), "transAttribute", null, 1, 1, ContainerTransactionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getContainerTransactionType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ContainerTransactionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(dependsOnTypeEClass, DependsOnType.class, "DependsOnType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getDependsOnType_EjbName(), theJavaeePackage.getEJBLink(), "ejbName", null, 1, -1, DependsOnType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getDependsOnType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, DependsOnType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(ejbJarEClass, EJBJar.class, "EJBJar", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getEJBJar_ModuleName(), theXMLTypePackage.getToken(), "moduleName", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEJBJar_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEJBJar_DisplayNames(), theJavaeePackage.getDisplayName(), null, "displayNames", null, 0, -1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEJBJar_Icons(), theJavaeePackage.getIcon(), null, "icons", null, 0, -1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEJBJar_EnterpriseBeans(), this.getEnterpriseBeans(), null, "enterpriseBeans", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEJBJar_Interceptors(), this.getInterceptorsType(), null, "interceptors", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEJBJar_Relationships(), this.getRelationships(), null, "relationships", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEJBJar_AssemblyDescriptor(), this.getAssemblyDescriptor(), null, "assemblyDescriptor", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEJBJar_EjbClientJar(), theJavaeePackage.getPathType(), "ejbClientJar", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEJBJar_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEJBJar_MetadataComplete(), theXMLTypePackage.getBoolean(), "metadataComplete", null, 0, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEJBJar_Version(), theJavaeePackage.getDeweyVersionType(), "version", "3.2", 1, 1, EJBJar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$ //$NON-NLS-2$
+
+		initEClass(ejbJarDeploymentDescriptorEClass, EJBJarDeploymentDescriptor.class, "EJBJarDeploymentDescriptor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getEJBJarDeploymentDescriptor_Mixed(), ecorePackage.getEFeatureMapEntry(), "mixed", null, 0, -1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEJBJarDeploymentDescriptor_XMLNSPrefixMap(), ecorePackage.getEStringToStringMapEntry(), null, "xMLNSPrefixMap", null, 0, -1, null, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEJBJarDeploymentDescriptor_XSISchemaLocation(), ecorePackage.getEStringToStringMapEntry(), null, "xSISchemaLocation", null, 0, -1, null, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEJBJarDeploymentDescriptor_EjbJar(), this.getEJBJar(), null, "ejbJar", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(ejbRelationEClass, EJBRelation.class, "EJBRelation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getEJBRelation_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, EJBRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEJBRelation_EjbRelationName(), theXMLTypePackage.getToken(), "ejbRelationName", null, 0, 1, EJBRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEJBRelation_EjbRelationshipRoles(), this.getEJBRelationshipRole(), null, "ejbRelationshipRoles", null, 2, 2, EJBRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEJBRelation_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, EJBRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(ejbRelationshipRoleEClass, EJBRelationshipRole.class, "EJBRelationshipRole", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getEJBRelationshipRole_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, EJBRelationshipRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEJBRelationshipRole_EjbRelationshipRoleName(), theXMLTypePackage.getToken(), "ejbRelationshipRoleName", null, 0, 1, EJBRelationshipRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEJBRelationshipRole_Multiplicity(), this.getMultiplicityType(), "multiplicity", null, 1, 1, EJBRelationshipRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEJBRelationshipRole_CascadeDelete(), theJavaeePackage.getEmptyType(), null, "cascadeDelete", null, 0, 1, EJBRelationshipRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEJBRelationshipRole_RelationshipRoleSource(), this.getRelationshipRoleSourceType(), null, "relationshipRoleSource", null, 1, 1, EJBRelationshipRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEJBRelationshipRole_CmrField(), this.getCMRField(), null, "cmrField", null, 0, 1, EJBRelationshipRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEJBRelationshipRole_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, EJBRelationshipRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(enterpriseBeansEClass, EnterpriseBeans.class, "EnterpriseBeans", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getEnterpriseBeans_Group(), ecorePackage.getEFeatureMapEntry(), "group", null, 0, -1, EnterpriseBeans.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEnterpriseBeans_SessionBeans(), this.getSessionBean(), null, "sessionBeans", null, 0, -1, EnterpriseBeans.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEnterpriseBeans_EntityBeans(), this.getEntityBean(), null, "entityBeans", null, 0, -1, EnterpriseBeans.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEnterpriseBeans_MessageDrivenBeans(), this.getMessageDrivenBean(), null, "messageDrivenBeans", null, 0, -1, EnterpriseBeans.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEnterpriseBeans_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, EnterpriseBeans.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(entityBeanEClass, EntityBean.class, "EntityBean", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getEntityBean_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEntityBean_DisplayNames(), theJavaeePackage.getDisplayName(), null, "displayNames", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEntityBean_Icons(), theJavaeePackage.getIcon(), null, "icons", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEntityBean_EjbName(), this.getEjbNameType(), "ejbName", null, 1, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEntityBean_MappedName(), theXMLTypePackage.getString(), "mappedName", null, 0, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEntityBean_Home(), theJavaeePackage.getHome(), "home", null, 0, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEntityBean_Remote(), theJavaeePackage.getRemote(), "remote", null, 0, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEntityBean_LocalHome(), theJavaeePackage.getLocalHome(), "localHome", null, 0, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEntityBean_Local(), theJavaeePackage.getLocal(), "local", null, 0, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEntityBean_EjbClass(), this.getEjbClassType(), "ejbClass", null, 1, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEntityBean_PersistenceType(), this.getPersistenceType(), "persistenceType", null, 1, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEntityBean_PrimKeyClass(), theJavaeePackage.getFullyQualifiedClassType(), "primKeyClass", null, 1, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEntityBean_Reentrant(), theJavaeePackage.getTrueFalseType(), "reentrant", null, 1, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEntityBean_CmpVersion(), this.getCmpVersionType(), "cmpVersion", null, 0, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEntityBean_AbstractSchemaName(), theJavaeePackage.getJavaIdentifier(), "abstractSchemaName", null, 0, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEntityBean_CmpFields(), this.getCMPField(), null, "cmpFields", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEntityBean_PrimkeyField(), theXMLTypePackage.getToken(), "primkeyField", null, 0, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEntityBean_EnvEntries(), theJavaeePackage.getEnvEntry(), null, "envEntries", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEntityBean_EjbRefs(), theJavaeePackage.getEjbRef(), null, "ejbRefs", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEntityBean_EjbLocalRefs(), theJavaeePackage.getEjbLocalRef(), null, "ejbLocalRefs", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEntityBean_ServiceRefs(), theJavaeePackage.getServiceRef(), null, "serviceRefs", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEntityBean_ResourceRefs(), theJavaeePackage.getResourceRef(), null, "resourceRefs", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEntityBean_ResourceEnvRefs(), theJavaeePackage.getResourceEnvRef(), null, "resourceEnvRefs", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEntityBean_MessageDestinationRefs(), theJavaeePackage.getMessageDestinationRef(), null, "messageDestinationRefs", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEntityBean_PersistenceContextRefs(), theJavaeePackage.getPersistenceContextRef(), null, "persistenceContextRefs", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEntityBean_PersistenceUnitRefs(), theJavaeePackage.getPersistenceUnitRef(), null, "persistenceUnitRefs", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEntityBean_PostConstructs(), theJavaeePackage.getLifecycleCallback(), null, "postConstructs", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEntityBean_PreDestroys(), theJavaeePackage.getLifecycleCallback(), null, "preDestroys", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEntityBean_DataSource(), theJavaeePackage.getDataSourceType(), null, "dataSource", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEntityBean_JmsConnectionFactory(), theJavaeePackage.getJmsConnectionFactoryType(), null, "jmsConnectionFactory", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEntityBean_JmsDestination(), theJavaeePackage.getJmsDestinationType(), null, "jmsDestination", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEntityBean_MailSession(), theJavaeePackage.getMailSessionType(), null, "mailSession", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEntityBean_ConnectionFactory(), theJavaeePackage.getConnectionFactoryResourceType(), null, "connectionFactory", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEntityBean_AdministeredObject(), theJavaeePackage.getAdministeredObjectType(), null, "administeredObject", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEntityBean_SecurityRoleRefs(), theJavaeePackage.getSecurityRoleRef(), null, "securityRoleRefs", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEntityBean_SecurityIdentity(), this.getSecurityIdentityType(), null, "securityIdentity", null, 0, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEntityBean_Queries(), this.getQuery(), null, "queries", null, 0, -1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEntityBean_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, EntityBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(excludeListEClass, ExcludeList.class, "ExcludeList", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getExcludeList_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, ExcludeList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getExcludeList_Methods(), this.getMethodType(), null, "methods", null, 1, -1, ExcludeList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getExcludeList_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ExcludeList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(initMethodTypeEClass, InitMethodType.class, "InitMethodType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getInitMethodType_CreateMethod(), this.getNamedMethodType(), null, "createMethod", null, 1, 1, InitMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getInitMethodType_BeanMethod(), this.getNamedMethodType(), null, "beanMethod", null, 1, 1, InitMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getInitMethodType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, InitMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(interceptorBindingTypeEClass, InterceptorBindingType.class, "InterceptorBindingType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getInterceptorBindingType_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, InterceptorBindingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getInterceptorBindingType_EjbName(), theXMLTypePackage.getToken(), "ejbName", null, 1, 1, InterceptorBindingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getInterceptorBindingType_InterceptorClasses(), theJavaeePackage.getFullyQualifiedClassType(), "interceptorClasses", null, 0, -1, InterceptorBindingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getInterceptorBindingType_InterceptorOrder(), this.getInterceptorOrderType(), null, "interceptorOrder", null, 0, 1, InterceptorBindingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getInterceptorBindingType_ExcludeDefaultInterceptors(), theJavaeePackage.getTrueFalseType(), "excludeDefaultInterceptors", null, 0, 1, InterceptorBindingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getInterceptorBindingType_ExcludeClassInterceptors(), theJavaeePackage.getTrueFalseType(), "excludeClassInterceptors", null, 0, 1, InterceptorBindingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getInterceptorBindingType_Method(), this.getNamedMethodType(), null, "method", null, 0, 1, InterceptorBindingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getInterceptorBindingType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, InterceptorBindingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(interceptorOrderTypeEClass, InterceptorOrderType.class, "InterceptorOrderType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getInterceptorOrderType_InterceptorClasses(), theJavaeePackage.getFullyQualifiedClassType(), "interceptorClasses", null, 1, -1, InterceptorOrderType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getInterceptorOrderType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, InterceptorOrderType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(interceptorsTypeEClass, InterceptorsType.class, "InterceptorsType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getInterceptorsType_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, InterceptorsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getInterceptorsType_Interceptors(), this.getInterceptorType(), null, "interceptors", null, 1, -1, InterceptorsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getInterceptorsType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, InterceptorsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(interceptorTypeEClass, InterceptorType.class, "InterceptorType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getInterceptorType_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getInterceptorType_InterceptorClass(), theJavaeePackage.getFullyQualifiedClassType(), "interceptorClass", null, 1, 1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getInterceptorType_AroundInvokes(), this.getAroundInvokeType(), null, "aroundInvokes", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getInterceptorType_AroundTimeouts(), this.getAroundTimeoutType(), null, "aroundTimeouts", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getInterceptorType_EnvEntries(), theJavaeePackage.getEnvEntry(), null, "envEntries", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getInterceptorType_EjbRefs(), theJavaeePackage.getEjbRef(), null, "ejbRefs", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getInterceptorType_EjbLocalRefs(), theJavaeePackage.getEjbLocalRef(), null, "ejbLocalRefs", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getInterceptorType_ServiceRefs(), theJavaeePackage.getServiceRef(), null, "serviceRefs", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getInterceptorType_ResourceRefs(), theJavaeePackage.getResourceRef(), null, "resourceRefs", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getInterceptorType_ResourceEnvRefs(), theJavaeePackage.getResourceEnvRef(), null, "resourceEnvRefs", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getInterceptorType_MessageDestinationRefs(), theJavaeePackage.getMessageDestinationRef(), null, "messageDestinationRefs", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getInterceptorType_PersistenceContextRefs(), theJavaeePackage.getPersistenceContextRef(), null, "persistenceContextRefs", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getInterceptorType_PersistenceUnitRefs(), theJavaeePackage.getPersistenceUnitRef(), null, "persistenceUnitRefs", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getInterceptorType_PostConstructs(), theJavaeePackage.getLifecycleCallback(), null, "postConstructs", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getInterceptorType_PreDestroys(), theJavaeePackage.getLifecycleCallback(), null, "preDestroys", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getInterceptorType_DataSource(), theJavaeePackage.getDataSourceType(), null, "dataSource", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getInterceptorType_JmsConnectionFactory(), theJavaeePackage.getJmsConnectionFactoryType(), null, "jmsConnectionFactory", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getInterceptorType_JmsDestination(), theJavaeePackage.getJmsDestinationType(), null, "jmsDestination", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getInterceptorType_MailSession(), theJavaeePackage.getMailSessionType(), null, "mailSession", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getInterceptorType_ConnectionFactory(), theJavaeePackage.getConnectionFactoryResourceType(), null, "connectionFactory", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getInterceptorType_AdministeredObject(), theJavaeePackage.getAdministeredObjectType(), null, "administeredObject", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getInterceptorType_PostActivates(), theJavaeePackage.getLifecycleCallback(), null, "postActivates", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getInterceptorType_PrePassivates(), theJavaeePackage.getLifecycleCallback(), null, "prePassivates", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getInterceptorType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(messageDrivenBeanEClass, MessageDrivenBean.class, "MessageDrivenBean", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getMessageDrivenBean_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getMessageDrivenBean_DisplayNames(), theJavaeePackage.getDisplayName(), null, "displayNames", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getMessageDrivenBean_Icons(), theJavaeePackage.getIcon(), null, "icons", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMessageDrivenBean_EjbName(), this.getEjbNameType(), "ejbName", null, 1, 1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMessageDrivenBean_MappedName(), theXMLTypePackage.getString(), "mappedName", null, 0, 1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMessageDrivenBean_EjbClass(), this.getEjbClassType(), "ejbClass", null, 0, 1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMessageDrivenBean_MessagingType(), theJavaeePackage.getFullyQualifiedClassType(), "messagingType", null, 0, 1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getMessageDrivenBean_TimeoutMethod(), this.getNamedMethodType(), null, "timeoutMethod", null, 0, 1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getMessageDrivenBean_Timer(), this.getTimerType(), null, "timer", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMessageDrivenBean_TransactionType(), this.getTransactionType(), "transactionType", null, 0, 1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMessageDrivenBean_MessageDestinationType(), theJavaeePackage.getMessageDestinationTypeType(), "messageDestinationType", null, 0, 1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMessageDrivenBean_MessageDestinationLink(), theJavaeePackage.getMessageDestinationLink(), "messageDestinationLink", null, 0, 1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getMessageDrivenBean_ActivationConfig(), this.getActivationConfig(), null, "activationConfig", null, 0, 1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getMessageDrivenBean_AroundInvokes(), this.getAroundInvokeType(), null, "aroundInvokes", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getMessageDrivenBean_AroundTimeouts(), this.getAroundTimeoutType(), null, "aroundTimeouts", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getMessageDrivenBean_EnvEntries(), theJavaeePackage.getEnvEntry(), null, "envEntries", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getMessageDrivenBean_EjbRefs(), theJavaeePackage.getEjbRef(), null, "ejbRefs", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getMessageDrivenBean_EjbLocalRefs(), theJavaeePackage.getEjbLocalRef(), null, "ejbLocalRefs", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getMessageDrivenBean_ServiceRefs(), theJavaeePackage.getServiceRef(), null, "serviceRefs", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getMessageDrivenBean_ResourceRefs(), theJavaeePackage.getResourceRef(), null, "resourceRefs", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getMessageDrivenBean_ResourceEnvRefs(), theJavaeePackage.getResourceEnvRef(), null, "resourceEnvRefs", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getMessageDrivenBean_MessageDestinationRefs(), theJavaeePackage.getMessageDestinationRef(), null, "messageDestinationRefs", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getMessageDrivenBean_PersistenceContextRefs(), theJavaeePackage.getPersistenceContextRef(), null, "persistenceContextRefs", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getMessageDrivenBean_PersistenceUnitRefs(), theJavaeePackage.getPersistenceUnitRef(), null, "persistenceUnitRefs", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getMessageDrivenBean_PostConstructs(), theJavaeePackage.getLifecycleCallback(), null, "postConstructs", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getMessageDrivenBean_PreDestroys(), theJavaeePackage.getLifecycleCallback(), null, "preDestroys", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getMessageDrivenBean_DataSource(), theJavaeePackage.getDataSourceType(), null, "dataSource", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getMessageDrivenBean_JmsConnectionFactory(), theJavaeePackage.getJmsConnectionFactoryType(), null, "jmsConnectionFactory", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getMessageDrivenBean_JmsDestination(), theJavaeePackage.getJmsDestinationType(), null, "jmsDestination", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getMessageDrivenBean_MailSession(), theJavaeePackage.getMailSessionType(), null, "mailSession", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getMessageDrivenBean_ConnectionFactory(), theJavaeePackage.getConnectionFactoryResourceType(), null, "connectionFactory", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getMessageDrivenBean_AdministeredObject(), theJavaeePackage.getAdministeredObjectType(), null, "administeredObject", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getMessageDrivenBean_SecurityRoleRef(), theJavaeePackage.getSecurityRoleRef(), null, "securityRoleRef", null, 0, -1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getMessageDrivenBean_SecurityIdentity(), this.getSecurityIdentityType(), null, "securityIdentity", null, 0, 1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMessageDrivenBean_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, MessageDrivenBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(methodParamsEClass, MethodParams.class, "MethodParams", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getMethodParams_MethodParams(), theJavaeePackage.getJavaType(), "methodParams", null, 0, -1, MethodParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMethodParams_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, MethodParams.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(methodPermissionEClass, MethodPermission.class, "MethodPermission", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getMethodPermission_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, MethodPermission.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMethodPermission_RoleNames(), theJavaeePackage.getRoleName(), "roleNames", null, 0, -1, MethodPermission.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getMethodPermission_Unchecked(), theJavaeePackage.getEmptyType(), null, "unchecked", null, 0, 1, MethodPermission.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getMethodPermission_Methods(), this.getMethodType(), null, "methods", null, 1, -1, MethodPermission.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMethodPermission_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, MethodPermission.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(methodTypeEClass, MethodType.class, "MethodType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getMethodType_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, MethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMethodType_EjbName(), this.getEjbNameType(), "ejbName", null, 1, 1, MethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMethodType_MethodIntf(), this.getMethodInterfaceType(), "methodIntf", null, 0, 1, MethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMethodType_MethodName(), this.getMethodNameType(), "methodName", null, 1, 1, MethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getMethodType_MethodParams(), this.getMethodParams(), null, "methodParams", null, 0, 1, MethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMethodType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, MethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(namedMethodTypeEClass, NamedMethodType.class, "NamedMethodType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getNamedMethodType_MethodName(), theXMLTypePackage.getToken(), "methodName", null, 1, 1, NamedMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getNamedMethodType_MethodParams(), this.getMethodParams(), null, "methodParams", null, 0, 1, NamedMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getNamedMethodType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, NamedMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(queryEClass, Query.class, "Query", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getQuery_Description(), theJavaeePackage.getDescription(), null, "description", null, 0, 1, Query.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getQuery_QueryMethod(), this.getQueryMethod(), null, "queryMethod", null, 1, 1, Query.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getQuery_ResultTypeMapping(), this.getResultTypeMappingType(), "resultTypeMapping", null, 0, 1, Query.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getQuery_EjbQl(), theXMLTypePackage.getString(), "ejbQl", null, 1, 1, Query.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getQuery_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, Query.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(queryMethodEClass, QueryMethod.class, "QueryMethod", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getQueryMethod_MethodName(), this.getMethodNameType(), "methodName", null, 1, 1, QueryMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getQueryMethod_MethodParams(), this.getMethodParams(), null, "methodParams", null, 1, 1, QueryMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getQueryMethod_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, QueryMethod.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(relationshipRoleSourceTypeEClass, RelationshipRoleSourceType.class, "RelationshipRoleSourceType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getRelationshipRoleSourceType_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, RelationshipRoleSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getRelationshipRoleSourceType_EjbName(), this.getEjbNameType(), "ejbName", null, 1, 1, RelationshipRoleSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getRelationshipRoleSourceType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, RelationshipRoleSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(relationshipsEClass, Relationships.class, "Relationships", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getRelationships_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, Relationships.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getRelationships_EjbRelations(), this.getEJBRelation(), null, "ejbRelations", null, 1, -1, Relationships.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getRelationships_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, Relationships.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(removeMethodTypeEClass, RemoveMethodType.class, "RemoveMethodType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getRemoveMethodType_BeanMethod(), this.getNamedMethodType(), null, "beanMethod", null, 1, 1, RemoveMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getRemoveMethodType_RetainIfException(), theJavaeePackage.getTrueFalseType(), "retainIfException", null, 0, 1, RemoveMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getRemoveMethodType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, RemoveMethodType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(securityIdentityTypeEClass, SecurityIdentityType.class, "SecurityIdentityType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getSecurityIdentityType_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, SecurityIdentityType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSecurityIdentityType_UseCallerIdentity(), theJavaeePackage.getEmptyType(), null, "useCallerIdentity", null, 0, 1, SecurityIdentityType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSecurityIdentityType_RunAs(), theJavaeePackage.getRunAs(), null, "runAs", null, 0, 1, SecurityIdentityType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getSecurityIdentityType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, SecurityIdentityType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(sessionBeanEClass, SessionBean.class, "SessionBean", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getSessionBean_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_DisplayNames(), theJavaeePackage.getDisplayName(), null, "displayNames", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_Icons(), theJavaeePackage.getIcon(), null, "icons", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getSessionBean_EjbName(), this.getEjbNameType(), "ejbName", null, 1, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getSessionBean_MappedName(), theXMLTypePackage.getString(), "mappedName", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getSessionBean_Home(), theJavaeePackage.getHome(), "home", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getSessionBean_Remote(), theJavaeePackage.getRemote(), "remote", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getSessionBean_LocalHome(), theJavaeePackage.getLocalHome(), "localHome", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getSessionBean_Local(), theJavaeePackage.getLocal(), "local", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getSessionBean_BusinessLocals(), theJavaeePackage.getFullyQualifiedClassType(), "businessLocals", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getSessionBean_BusinessRemotes(), theJavaeePackage.getFullyQualifiedClassType(), "businessRemotes", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_LocalBean(), theJavaeePackage.getEmptyType(), null, "localBean", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getSessionBean_ServiceEndpoint(), theJavaeePackage.getFullyQualifiedClassType(), "serviceEndpoint", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getSessionBean_EjbClass(), this.getEjbClassType(), "ejbClass", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getSessionBean_SessionType(), this.getSessionType(), "sessionType", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_StatefulTimeout(), this.getStatefulTimeoutType(), null, "statefulTimeout", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_TimeoutMethod(), this.getNamedMethodType(), null, "timeoutMethod", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_Timer(), this.getTimerType(), null, "timer", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getSessionBean_InitOnStartup(), theJavaeePackage.getTrueFalseType(), "initOnStartup", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getSessionBean_ConcurrencyManagementType(), this.getConcurrencyManagementTypeType(), "concurrencyManagementType", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_ConcurrentMethod(), this.getConcurrentMethodType(), null, "concurrentMethod", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_DependsOn(), this.getDependsOnType(), null, "dependsOn", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_InitMethods(), this.getInitMethodType(), null, "initMethods", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_RemoveMethods(), this.getRemoveMethodType(), null, "removeMethods", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_AsyncMethod(), this.getAsyncMethodType(), null, "asyncMethod", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getSessionBean_TransactionType(), this.getTransactionType(), "transactionType", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_AfterBeginMethod(), this.getNamedMethodType(), null, "afterBeginMethod", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_BeforeCompletionMethod(), this.getNamedMethodType(), null, "beforeCompletionMethod", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_AfterCompletionMethod(), this.getNamedMethodType(), null, "afterCompletionMethod", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_AroundInvokes(), this.getAroundInvokeType(), null, "aroundInvokes", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_AroundTimeouts(), this.getAroundTimeoutType(), null, "aroundTimeouts", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_EnvEntries(), theJavaeePackage.getEnvEntry(), null, "envEntries", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_EjbRefs(), theJavaeePackage.getEjbRef(), null, "ejbRefs", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_EjbLocalRefs(), theJavaeePackage.getEjbLocalRef(), null, "ejbLocalRefs", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_ServiceRefs(), theJavaeePackage.getServiceRef(), null, "serviceRefs", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_ResourceRefs(), theJavaeePackage.getResourceRef(), null, "resourceRefs", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_ResourceEnvRefs(), theJavaeePackage.getResourceEnvRef(), null, "resourceEnvRefs", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_MessageDestinationRefs(), theJavaeePackage.getMessageDestinationRef(), null, "messageDestinationRefs", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_PersistenceContextRefs(), theJavaeePackage.getPersistenceContextRef(), null, "persistenceContextRefs", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_PersistenceUnitRefs(), theJavaeePackage.getPersistenceUnitRef(), null, "persistenceUnitRefs", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_PostConstructs(), theJavaeePackage.getLifecycleCallback(), null, "postConstructs", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_PreDestroys(), theJavaeePackage.getLifecycleCallback(), null, "preDestroys", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_DataSource(), theJavaeePackage.getDataSourceType(), null, "dataSource", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_JmsConnectionFactory(), theJavaeePackage.getJmsConnectionFactoryType(), null, "jmsConnectionFactory", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_JmsDestination(), theJavaeePackage.getJmsDestinationType(), null, "jmsDestination", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_MailSession(), theJavaeePackage.getMailSessionType(), null, "mailSession", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_ConnectionFactory(), theJavaeePackage.getConnectionFactoryResourceType(), null, "connectionFactory", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_AdministeredObject(), theJavaeePackage.getAdministeredObjectType(), null, "administeredObject", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_PostActivates(), theJavaeePackage.getLifecycleCallback(), null, "postActivates", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_PrePassivates(), theJavaeePackage.getLifecycleCallback(), null, "prePassivates", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_SecurityRoleRefs(), theJavaeePackage.getSecurityRoleRef(), null, "securityRoleRefs", null, 0, -1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionBean_SecurityIdentities(), this.getSecurityIdentityType(), null, "securityIdentities", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getSessionBean_PassivationCapable(), theXMLTypePackage.getBoolean(), "passivationCapable", "true", 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$ //$NON-NLS-2$
+		initEAttribute(getSessionBean_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, SessionBean.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(statefulTimeoutTypeEClass, StatefulTimeoutType.class, "StatefulTimeoutType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getStatefulTimeoutType_Timeout(), theXMLTypePackage.getInteger(), "timeout", null, 1, 1, StatefulTimeoutType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getStatefulTimeoutType_Unit(), this.getTimeUnitTypeType(), "unit", null, 1, 1, StatefulTimeoutType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getStatefulTimeoutType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, StatefulTimeoutType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(timerScheduleTypeEClass, TimerScheduleType.class, "TimerScheduleType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getTimerScheduleType_Second(), theXMLTypePackage.getToken(), "second", null, 0, 1, TimerScheduleType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getTimerScheduleType_Minute(), theXMLTypePackage.getToken(), "minute", null, 0, 1, TimerScheduleType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getTimerScheduleType_Hour(), theXMLTypePackage.getToken(), "hour", null, 0, 1, TimerScheduleType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getTimerScheduleType_DayOfMonth(), theXMLTypePackage.getToken(), "dayOfMonth", null, 0, 1, TimerScheduleType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getTimerScheduleType_Month(), theXMLTypePackage.getToken(), "month", null, 0, 1, TimerScheduleType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getTimerScheduleType_DayOfWeek(), theXMLTypePackage.getToken(), "dayOfWeek", null, 0, 1, TimerScheduleType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getTimerScheduleType_Year(), theXMLTypePackage.getToken(), "year", null, 0, 1, TimerScheduleType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getTimerScheduleType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, TimerScheduleType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(timerTypeEClass, TimerType.class, "TimerType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getTimerType_Description(), theJavaeePackage.getDescription(), null, "description", null, 0, -1, TimerType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getTimerType_Schedule(), this.getTimerScheduleType(), null, "schedule", null, 1, 1, TimerType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getTimerType_Start(), theXMLTypePackage.getDateTime(), "start", null, 0, 1, TimerType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getTimerType_End(), theXMLTypePackage.getDateTime(), "end", null, 0, 1, TimerType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getTimerType_TimeoutMethod(), this.getNamedMethodType(), null, "timeoutMethod", null, 1, 1, TimerType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getTimerType_Persistent(), theJavaeePackage.getTrueFalseType(), "persistent", null, 0, 1, TimerType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getTimerType_Timezone(), theXMLTypePackage.getToken(), "timezone", null, 0, 1, TimerType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getTimerType_Info(), theXMLTypePackage.getToken(), "info", null, 0, 1, TimerType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getTimerType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, TimerType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		// Initialize enums and add enum literals
+		initEEnum(cmpVersionTypeEEnum, CmpVersionType.class, "CmpVersionType"); //$NON-NLS-1$
+		addEEnumLiteral(cmpVersionTypeEEnum, CmpVersionType._1X_LITERAL);
+		addEEnumLiteral(cmpVersionTypeEEnum, CmpVersionType._2X_LITERAL);
+
+		initEEnum(cmrFieldTypeEEnum, CMRFieldType.class, "CMRFieldType"); //$NON-NLS-1$
+		addEEnumLiteral(cmrFieldTypeEEnum, CMRFieldType.JAVA_UTIL_COLLECTION_LITERAL);
+		addEEnumLiteral(cmrFieldTypeEEnum, CMRFieldType.JAVA_UTIL_SET_LITERAL);
+
+		initEEnum(concurrencyManagementTypeTypeEEnum, ConcurrencyManagementTypeType.class, "ConcurrencyManagementTypeType"); //$NON-NLS-1$
+		addEEnumLiteral(concurrencyManagementTypeTypeEEnum, ConcurrencyManagementTypeType.BEAN);
+		addEEnumLiteral(concurrencyManagementTypeTypeEEnum, ConcurrencyManagementTypeType.CONTAINER);
+
+		initEEnum(concurrentLockTypeTypeEEnum, ConcurrentLockTypeType.class, "ConcurrentLockTypeType"); //$NON-NLS-1$
+		addEEnumLiteral(concurrentLockTypeTypeEEnum, ConcurrentLockTypeType.READ);
+		addEEnumLiteral(concurrentLockTypeTypeEEnum, ConcurrentLockTypeType.WRITE);
+
+		initEEnum(methodInterfaceTypeEEnum, MethodInterfaceType.class, "MethodInterfaceType"); //$NON-NLS-1$
+		addEEnumLiteral(methodInterfaceTypeEEnum, MethodInterfaceType.HOME_LITERAL);
+		addEEnumLiteral(methodInterfaceTypeEEnum, MethodInterfaceType.REMOTE_LITERAL);
+		addEEnumLiteral(methodInterfaceTypeEEnum, MethodInterfaceType.LOCAL_HOME_LITERAL);
+		addEEnumLiteral(methodInterfaceTypeEEnum, MethodInterfaceType.LOCAL_LITERAL);
+		addEEnumLiteral(methodInterfaceTypeEEnum, MethodInterfaceType.SERVICE_ENDPOINT_LITERAL);
+		addEEnumLiteral(methodInterfaceTypeEEnum, MethodInterfaceType.TIMER_LITERAL);
+		addEEnumLiteral(methodInterfaceTypeEEnum, MethodInterfaceType.MESSAGE_ENDPOINT_LITERAL);
+		addEEnumLiteral(methodInterfaceTypeEEnum, MethodInterfaceType.LIFECYCLE_CALLBACK);
+
+		initEEnum(multiplicityTypeEEnum, MultiplicityType.class, "MultiplicityType"); //$NON-NLS-1$
+		addEEnumLiteral(multiplicityTypeEEnum, MultiplicityType.ONE_LITERAL);
+		addEEnumLiteral(multiplicityTypeEEnum, MultiplicityType.MANY_LITERAL);
+
+		initEEnum(persistenceTypeEEnum, PersistenceType.class, "PersistenceType"); //$NON-NLS-1$
+		addEEnumLiteral(persistenceTypeEEnum, PersistenceType.BEAN_LITERAL);
+		addEEnumLiteral(persistenceTypeEEnum, PersistenceType.CONTAINER_LITERAL);
+
+		initEEnum(resultTypeMappingTypeEEnum, ResultTypeMappingType.class, "ResultTypeMappingType"); //$NON-NLS-1$
+		addEEnumLiteral(resultTypeMappingTypeEEnum, ResultTypeMappingType.LOCAL_LITERAL);
+		addEEnumLiteral(resultTypeMappingTypeEEnum, ResultTypeMappingType.REMOTE_LITERAL);
+
+		initEEnum(sessionTypeEEnum, SessionType.class, "SessionType"); //$NON-NLS-1$
+		addEEnumLiteral(sessionTypeEEnum, SessionType.SINGLETON_LITERAL);
+		addEEnumLiteral(sessionTypeEEnum, SessionType.STATEFUL_LITERAL);
+		addEEnumLiteral(sessionTypeEEnum, SessionType.STATELESS_LITERAL);
+
+		initEEnum(timeUnitTypeTypeEEnum, TimeUnitTypeType.class, "TimeUnitTypeType"); //$NON-NLS-1$
+		addEEnumLiteral(timeUnitTypeTypeEEnum, TimeUnitTypeType.DAYS);
+		addEEnumLiteral(timeUnitTypeTypeEEnum, TimeUnitTypeType.HOURS);
+		addEEnumLiteral(timeUnitTypeTypeEEnum, TimeUnitTypeType.MINUTES);
+		addEEnumLiteral(timeUnitTypeTypeEEnum, TimeUnitTypeType.SECONDS);
+		addEEnumLiteral(timeUnitTypeTypeEEnum, TimeUnitTypeType.MILLISECONDS);
+		addEEnumLiteral(timeUnitTypeTypeEEnum, TimeUnitTypeType.MICROSECONDS);
+		addEEnumLiteral(timeUnitTypeTypeEEnum, TimeUnitTypeType.NANOSECONDS);
+
+		initEEnum(transactionAttributeTypeEEnum, TransactionAttributeType.class, "TransactionAttributeType"); //$NON-NLS-1$
+		addEEnumLiteral(transactionAttributeTypeEEnum, TransactionAttributeType.NOT_SUPPORTED_LITERAL);
+		addEEnumLiteral(transactionAttributeTypeEEnum, TransactionAttributeType.SUPPORTS_LITERAL);
+		addEEnumLiteral(transactionAttributeTypeEEnum, TransactionAttributeType.REQUIRED_LITERAL);
+		addEEnumLiteral(transactionAttributeTypeEEnum, TransactionAttributeType.REQUIRES_NEW_LITERAL);
+		addEEnumLiteral(transactionAttributeTypeEEnum, TransactionAttributeType.MANDATORY_LITERAL);
+		addEEnumLiteral(transactionAttributeTypeEEnum, TransactionAttributeType.NEVER_LITERAL);
+
+		initEEnum(transactionTypeEEnum, TransactionType.class, "TransactionType"); //$NON-NLS-1$
+		addEEnumLiteral(transactionTypeEEnum, TransactionType.BEAN_LITERAL);
+		addEEnumLiteral(transactionTypeEEnum, TransactionType.CONTAINER_LITERAL);
+
+		// Initialize data types
+		initEDataType(cmpVersionTypeObjectEDataType, CmpVersionType.class, "CmpVersionTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(cmrFieldTypeObjectEDataType, CMRFieldType.class, "CMRFieldTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(concurrencyManagementTypeTypeObjectEDataType, ConcurrencyManagementTypeType.class, "ConcurrencyManagementTypeTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(concurrentLockTypeTypeObjectEDataType, ConcurrentLockTypeType.class, "ConcurrentLockTypeTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(ejbClassTypeEDataType, String.class, "EjbClassType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(ejbNameTypeEDataType, String.class, "EjbNameType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(methodInterfaceTypeObjectEDataType, MethodInterfaceType.class, "MethodInterfaceTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(methodNameTypeEDataType, String.class, "MethodNameType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(multiplicityTypeObjectEDataType, MultiplicityType.class, "MultiplicityTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(persistenceTypeObjectEDataType, PersistenceType.class, "PersistenceTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(resultTypeMappingTypeObjectEDataType, ResultTypeMappingType.class, "ResultTypeMappingTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(sessionTypeObjectEDataType, SessionType.class, "SessionTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(timeUnitTypeTypeObjectEDataType, TimeUnitTypeType.class, "TimeUnitTypeTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(transactionAttributeTypeObjectEDataType, TransactionAttributeType.class, "TransactionAttributeTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(transactionTypeObjectEDataType, TransactionType.class, "TransactionTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+
+		// Create resource
+		createResource(eNS_URI);
+
+		// Create annotations
+		// http:///org/eclipse/emf/ecore/util/ExtendedMetaData
+		createExtendedMetaDataAnnotations();
 		}finally{
 			if( hasLock )
 				J2EEInit.releaseInitializePackageContentsLock();
@@ -5197,7 +5430,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   source, 
 		   new String[] {
 			 "name", "ejb-classType", //$NON-NLS-1$ //$NON-NLS-2$
-			 "baseType", "http://java.sun.com/xml/ns/javaee#fully-qualified-classType" //$NON-NLS-1$ //$NON-NLS-2$
+			 "baseType", "http://xmlns.jcp.org/xml/ns/javaee#fully-qualified-classType" //$NON-NLS-1$ //$NON-NLS-2$
 		   });			
 		addAnnotation
 		  (ejbJarEClass, 
@@ -5220,7 +5453,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "description", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getEJBJar_DisplayNames(), 
@@ -5228,7 +5461,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "display-name", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getEJBJar_Icons(), 
@@ -5236,7 +5469,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "icon", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getEJBJar_EnterpriseBeans(), 
@@ -5503,7 +5736,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "description", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getEntityBean_DisplayNames(), 
@@ -5511,7 +5744,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "display-name", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getEntityBean_Icons(), 
@@ -5519,7 +5752,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "icon", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getEntityBean_EjbName(), 
@@ -5639,7 +5872,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "env-entry", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getEntityBean_EjbRefs(), 
@@ -5647,7 +5880,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "ejb-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getEntityBean_EjbLocalRefs(), 
@@ -5655,7 +5888,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "ejb-local-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getEntityBean_ServiceRefs(), 
@@ -5663,7 +5896,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "service-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getEntityBean_ResourceRefs(), 
@@ -5671,7 +5904,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "resource-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getEntityBean_ResourceEnvRefs(), 
@@ -5679,7 +5912,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "resource-env-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getEntityBean_MessageDestinationRefs(), 
@@ -5687,7 +5920,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "message-destination-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getEntityBean_PersistenceContextRefs(), 
@@ -5695,7 +5928,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "persistence-context-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getEntityBean_PersistenceUnitRefs(), 
@@ -5703,7 +5936,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "persistence-unit-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getEntityBean_PostConstructs(), 
@@ -5711,7 +5944,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "post-construct", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getEntityBean_PreDestroys(), 
@@ -5719,7 +5952,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "pre-destroy", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getEntityBean_DataSource(), 
@@ -5727,7 +5960,47 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "data-source", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getEntityBean_JmsConnectionFactory(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "jms-connection-factory", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getEntityBean_JmsDestination(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "jms-destination", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getEntityBean_MailSession(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "mail-session", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getEntityBean_ConnectionFactory(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "connection-factory", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getEntityBean_AdministeredObject(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "administered-object", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getEntityBean_SecurityRoleRefs(), 
@@ -5987,7 +6260,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "env-entry", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getInterceptorType_EjbRefs(), 
@@ -5995,7 +6268,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "ejb-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getInterceptorType_EjbLocalRefs(), 
@@ -6003,7 +6276,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "ejb-local-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getInterceptorType_ServiceRefs(), 
@@ -6011,7 +6284,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "service-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getInterceptorType_ResourceRefs(), 
@@ -6019,7 +6292,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "resource-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getInterceptorType_ResourceEnvRefs(), 
@@ -6027,7 +6300,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "resource-env-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getInterceptorType_MessageDestinationRefs(), 
@@ -6035,7 +6308,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "message-destination-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getInterceptorType_PersistenceContextRefs(), 
@@ -6043,7 +6316,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "persistence-context-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getInterceptorType_PersistenceUnitRefs(), 
@@ -6051,7 +6324,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "persistence-unit-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getInterceptorType_PostConstructs(), 
@@ -6059,7 +6332,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "post-construct", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getInterceptorType_PreDestroys(), 
@@ -6067,7 +6340,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "pre-destroy", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getInterceptorType_DataSource(), 
@@ -6075,7 +6348,47 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "data-source", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getInterceptorType_JmsConnectionFactory(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "jms-connection-factory", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getInterceptorType_JmsDestination(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "jms-destination", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getInterceptorType_MailSession(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "mail-session", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getInterceptorType_ConnectionFactory(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "connection-factory", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getInterceptorType_AdministeredObject(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "administered-object", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getInterceptorType_PostActivates(), 
@@ -6113,7 +6426,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "description", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getMessageDrivenBean_DisplayNames(), 
@@ -6121,7 +6434,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "display-name", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getMessageDrivenBean_Icons(), 
@@ -6129,7 +6442,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "icon", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getMessageDrivenBean_EjbName(), 
@@ -6233,7 +6546,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "env-entry", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getMessageDrivenBean_EjbRefs(), 
@@ -6241,7 +6554,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "ejb-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getMessageDrivenBean_EjbLocalRefs(), 
@@ -6249,7 +6562,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "ejb-local-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getMessageDrivenBean_ServiceRefs(), 
@@ -6257,7 +6570,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "service-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getMessageDrivenBean_ResourceRefs(), 
@@ -6265,7 +6578,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "resource-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getMessageDrivenBean_ResourceEnvRefs(), 
@@ -6273,7 +6586,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "resource-env-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getMessageDrivenBean_MessageDestinationRefs(), 
@@ -6281,7 +6594,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "message-destination-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getMessageDrivenBean_PersistenceContextRefs(), 
@@ -6289,7 +6602,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "persistence-context-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getMessageDrivenBean_PersistenceUnitRefs(), 
@@ -6297,7 +6610,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "persistence-unit-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getMessageDrivenBean_PostConstructs(), 
@@ -6305,7 +6618,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "post-construct", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getMessageDrivenBean_PreDestroys(), 
@@ -6313,7 +6626,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "pre-destroy", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getMessageDrivenBean_DataSource(), 
@@ -6321,7 +6634,47 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "data-source", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getMessageDrivenBean_JmsConnectionFactory(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "jms-connection-factory", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getMessageDrivenBean_JmsDestination(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "jms-destination", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getMessageDrivenBean_MailSession(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "mail-session", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getMessageDrivenBean_ConnectionFactory(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "connection-factory", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getMessageDrivenBean_AdministeredObject(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "administered-object", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });			
 		addAnnotation
 		  (getMessageDrivenBean_SecurityRoleRef(), 
@@ -6351,7 +6704,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   source, 
 		   new String[] {
 			 "name", "method-intfType" //$NON-NLS-1$ //$NON-NLS-2$
-		   });				
+		   });					
 		addAnnotation
 		  (methodInterfaceTypeObjectEDataType, 
 		   source, 
@@ -6773,7 +7126,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "description", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getSessionBean_DisplayNames(), 
@@ -6781,7 +7134,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "display-name", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getSessionBean_Icons(), 
@@ -6789,7 +7142,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "icon", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getSessionBean_EjbName(), 
@@ -7021,7 +7374,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "env-entry", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getSessionBean_EjbRefs(), 
@@ -7029,7 +7382,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "ejb-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getSessionBean_EjbLocalRefs(), 
@@ -7037,7 +7390,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "ejb-local-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getSessionBean_ServiceRefs(), 
@@ -7045,7 +7398,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "service-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getSessionBean_ResourceRefs(), 
@@ -7053,7 +7406,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "resource-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getSessionBean_ResourceEnvRefs(), 
@@ -7061,7 +7414,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "resource-env-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getSessionBean_MessageDestinationRefs(), 
@@ -7069,7 +7422,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "message-destination-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getSessionBean_PersistenceContextRefs(), 
@@ -7077,7 +7430,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "persistence-context-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getSessionBean_PersistenceUnitRefs(), 
@@ -7085,7 +7438,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "persistence-unit-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getSessionBean_PostConstructs(), 
@@ -7093,7 +7446,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "post-construct", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getSessionBean_PreDestroys(), 
@@ -7101,7 +7454,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "pre-destroy", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getSessionBean_DataSource(), 
@@ -7109,7 +7462,47 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "data-source", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getSessionBean_JmsConnectionFactory(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "jms-connection-factory", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getSessionBean_JmsDestination(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "jms-destination", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getSessionBean_MailSession(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "mail-session", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getSessionBean_ConnectionFactory(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "connection-factory", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getSessionBean_AdministeredObject(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "administered-object", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getSessionBean_PostActivates(), 
@@ -7141,6 +7534,14 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "security-identity", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getSessionBean_PassivationCapable(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "passivation-capable", //$NON-NLS-1$ //$NON-NLS-2$
 			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation

@@ -19,7 +19,7 @@ import java.util.List;
  *
  * <!-- begin-model-doc -->
  * 
- * <![CDATA[[
+ * [
  *         The resource-env-refType is used to define
  *         resource-env-ref elements.  It contains a declaration of a
  *         Deployment Component's reference to an administered object
@@ -47,7 +47,7 @@ import java.util.List;
  *         </resource-env-ref-type>
  *         </resource-env-ref>
  *         
- * ]]>
+ * 
  *         @since Java EE 5
  *       
  * <!-- end-model-doc -->

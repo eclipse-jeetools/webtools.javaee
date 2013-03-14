@@ -10,11 +10,10 @@
  *******************************************************************************/
 package org.eclipse.jst.javaee.core.internal.util;
 
-import java.util.List;
-
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.util.Switch;
 import org.eclipse.jst.javaee.core.*;
 
 import org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage;
@@ -32,7 +31,7 @@ import org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage;
  * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage
  * @generated
  */
-public class JavaeeSwitch<T> {
+public class JavaeeSwitch<T> extends Switch<T> {
 	/**
 	 * The cached model package
 	 * <!-- begin-user-doc -->
@@ -54,14 +53,16 @@ public class JavaeeSwitch<T> {
 	}
 
 	/**
-	 * Calls <code>caseXXX</code> for each class of the model until one returns a non null result; it yields that result.
+	 * Checks whether this is a switch for the given package.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the first non-null result returned by a <code>caseXXX</code> call.
+	 * @parameter ePackage the package in question.
+	 * @return whether this is a switch for the given package.
 	 * @generated
 	 */
-	public T doSwitch(EObject theEObject) {
-		return doSwitch(theEObject.eClass(), theEObject);
+	@Override
+	protected boolean isSwitchFor(EPackage ePackage) {
+		return ePackage == modelPackage;
 	}
 
 	/**
@@ -71,31 +72,24 @@ public class JavaeeSwitch<T> {
 	 * @return the first non-null result returned by a <code>caseXXX</code> call.
 	 * @generated
 	 */
-	protected T doSwitch(EClass theEClass, EObject theEObject) {
-		if (theEClass.eContainer() == modelPackage) {
-			return doSwitch(theEClass.getClassifierID(), theEObject);
-		}
-		else {
-			List<EClass> eSuperTypes = theEClass.getESuperTypes();
-			return
-				eSuperTypes.isEmpty() ?
-					defaultCase(theEObject) :
-					doSwitch(eSuperTypes.get(0), theEObject);
-		}
-	}
-
-	/**
-	 * Calls <code>caseXXX</code> for each class of the model until one returns a non null result; it yields that result.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the first non-null result returned by a <code>caseXXX</code> call.
-	 * @generated
-	 */
+	@Override
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
 			case JavaeePackage.ADDRESSING_TYPE: {
 				AddressingType addressingType = (AddressingType)theEObject;
 				T result = caseAddressingType(addressingType);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case JavaeePackage.ADMINISTERED_OBJECT_TYPE: {
+				AdministeredObjectType administeredObjectType = (AdministeredObjectType)theEObject;
+				T result = caseAdministeredObjectType(administeredObjectType);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case JavaeePackage.CONNECTION_FACTORY_RESOURCE_TYPE: {
+				ConnectionFactoryResourceType connectionFactoryResourceType = (ConnectionFactoryResourceType)theEObject;
+				T result = caseConnectionFactoryResourceType(connectionFactoryResourceType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -153,6 +147,18 @@ public class JavaeeSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case JavaeePackage.JMS_CONNECTION_FACTORY_TYPE: {
+				JmsConnectionFactoryType jmsConnectionFactoryType = (JmsConnectionFactoryType)theEObject;
+				T result = caseJmsConnectionFactoryType(jmsConnectionFactoryType);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case JavaeePackage.JMS_DESTINATION_TYPE: {
+				JmsDestinationType jmsDestinationType = (JmsDestinationType)theEObject;
+				T result = caseJmsDestinationType(jmsDestinationType);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case JavaeePackage.LIFECYCLE_CALLBACK: {
 				LifecycleCallback lifecycleCallback = (LifecycleCallback)theEObject;
 				T result = caseLifecycleCallback(lifecycleCallback);
@@ -162,6 +168,12 @@ public class JavaeeSwitch<T> {
 			case JavaeePackage.LISTENER: {
 				Listener listener = (Listener)theEObject;
 				T result = caseListener(listener);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case JavaeePackage.MAIL_SESSION_TYPE: {
+				MailSessionType mailSessionType = (MailSessionType)theEObject;
+				T result = caseMailSessionType(mailSessionType);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -289,6 +301,36 @@ public class JavaeeSwitch<T> {
 	 * @generated
 	 */
 	public T caseAddressingType(AddressingType object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Administered Object Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Administered Object Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseAdministeredObjectType(AdministeredObjectType object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Connection Factory Resource Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Connection Factory Resource Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseConnectionFactoryResourceType(ConnectionFactoryResourceType object) {
 		return null;
 	}
 
@@ -428,6 +470,36 @@ public class JavaeeSwitch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Jms Connection Factory Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Jms Connection Factory Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseJmsConnectionFactoryType(JmsConnectionFactoryType object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Jms Destination Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Jms Destination Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseJmsDestinationType(JmsDestinationType object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Lifecycle Callback</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -454,6 +526,21 @@ public class JavaeeSwitch<T> {
 	 * @generated
 	 */
 	public T caseListener(Listener object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Mail Session Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Mail Session Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseMailSessionType(MailSessionType object) {
 		return null;
 	}
 
@@ -738,6 +825,7 @@ public class JavaeeSwitch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject)
 	 * @generated
 	 */
+	@Override
 	public T defaultCase(EObject object) {
 		return null;
 	}

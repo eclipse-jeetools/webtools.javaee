@@ -27,7 +27,8 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  *         expected configuration properties of the message-driven bean
  *         in its operational environment. This may include information
  *         about message acknowledgement, message selector, expected
- *         destination type, etc.
+ *         destination type, destination or connection factory lookup
+ *         string, subscription name, etc.
  *         
  *         The configuration information is expressed in terms of
  *         name/value configuration properties.

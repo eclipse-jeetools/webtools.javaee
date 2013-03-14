@@ -19,7 +19,7 @@ import java.util.List;
  *
  * <!-- begin-model-doc -->
  * 
- * <![CDATA[[
+ * [
  *         The persistence-unit-ref element contains a declaration
  *         of Deployment Component's reference to a persistence unit
  *         associated within a Deployment Component's
@@ -45,7 +45,7 @@ import java.util.List;
  *         </persistence-unit-name>
  *         </persistence-unit-ref>
  *         
- * ]]>
+ * 
  *         @since Java EE 5
  *       
  * <!-- end-model-doc -->

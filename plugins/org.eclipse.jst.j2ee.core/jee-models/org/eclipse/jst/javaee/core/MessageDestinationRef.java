@@ -19,7 +19,7 @@ import java.util.List;
  *
  * <!-- begin-model-doc -->
  * 
- * <![CDATA[[
+ * [
  *         The message-destination-ref element contains a declaration
  *         of Deployment Component's reference to a message destination
  *         associated with a resource in Deployment Component's
@@ -54,7 +54,7 @@ import java.util.List;
  *         </message-destination-link>
  *         </message-destination-ref>
  *         
- * ]]>
+ * 
  *         @since Java EE 5
  *       
  * <!-- end-model-doc -->

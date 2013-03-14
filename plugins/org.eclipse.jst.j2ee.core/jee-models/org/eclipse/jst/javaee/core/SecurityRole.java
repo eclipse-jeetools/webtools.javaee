@@ -19,7 +19,7 @@ import java.util.List;
  *
  * <!-- begin-model-doc -->
  * 
- * <![CDATA[[
+ * [
  *         The security-roleType contains the definition of a security
  *         role. The definition consists of an optional description of
  *         the security role, and the security role name.
@@ -34,7 +34,7 @@ import java.util.List;
  *         <role-name>employee</role-name>
  *         </security-role>
  *         
- * ]]>
+ * 
  *         @since Java EE 5
  *       
  * <!-- end-model-doc -->

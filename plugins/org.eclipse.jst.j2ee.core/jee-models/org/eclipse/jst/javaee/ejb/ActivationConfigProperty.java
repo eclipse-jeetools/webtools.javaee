@@ -57,7 +57,9 @@ public interface ActivationConfigProperty extends JavaEEObject {
 	 *             
 	 *             For JMS message-driven beans, the following property
 	 *             names are recognized: acknowledgeMode,
-	 *             messageSelector, destinationType, subscriptionDurability
+	 *             messageSelector, destinationType, subscriptionDurability,
+	 *             destinationLookup, connectionFactoryLookup, subscriptionName,
+	 *             clientId, and shareSubscriptions.
 	 *             
 	 *             @since Java EE 5, EJB 3.0
 	 *           

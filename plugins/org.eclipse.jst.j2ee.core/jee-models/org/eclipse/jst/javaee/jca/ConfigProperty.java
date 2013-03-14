@@ -160,7 +160,7 @@ public interface ConfigProperty extends JavaEEObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * 
-	 * <![CDATA[[
+	 * [
 	 *             The element config-property-value contains the value
 	 *             of a configuration entry. Note, it is possible for a
 	 *             resource adapter deployer to override this
@@ -169,7 +169,7 @@ public interface ConfigProperty extends JavaEEObject {
 	 *             Example:
 	 *             <config-property-value>WombatServer</config-property-value>
 	 *             
-	 * ]]>
+	 * 
 	 * 			@since Java EE 6, Connector 1.6
 	 *           
 	 * <!-- end-model-doc -->

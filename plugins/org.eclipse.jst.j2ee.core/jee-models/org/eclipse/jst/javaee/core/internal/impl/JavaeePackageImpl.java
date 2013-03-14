@@ -19,18 +19,15 @@ import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EValidator;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-
 import org.eclipse.emf.ecore.xml.namespace.XMLNamespacePackage;
-
 import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
-
 import org.eclipse.jst.j2ee.core.internal.plugin.J2EECorePlugin;
 import org.eclipse.jst.j2ee.internal.J2EEInit;
-
 import org.eclipse.jst.javaee.core.AddressingResponsesType;
 import org.eclipse.jst.javaee.core.AddressingType;
+import org.eclipse.jst.javaee.core.AdministeredObjectType;
+import org.eclipse.jst.javaee.core.ConnectionFactoryResourceType;
 import org.eclipse.jst.javaee.core.DataSourceType;
 import org.eclipse.jst.javaee.core.Description;
 import org.eclipse.jst.javaee.core.DisplayName;
@@ -43,14 +40,18 @@ import org.eclipse.jst.javaee.core.GenericBooleanType;
 import org.eclipse.jst.javaee.core.Icon;
 import org.eclipse.jst.javaee.core.InjectionTarget;
 import org.eclipse.jst.javaee.core.IsolationLevelType;
+import org.eclipse.jst.javaee.core.JmsConnectionFactoryType;
+import org.eclipse.jst.javaee.core.JmsDestinationType;
 import org.eclipse.jst.javaee.core.JavaeeFactory;
 import org.eclipse.jst.javaee.core.LifecycleCallback;
 import org.eclipse.jst.javaee.core.Listener;
+import org.eclipse.jst.javaee.core.MailSessionType;
 import org.eclipse.jst.javaee.core.MessageDestination;
 import org.eclipse.jst.javaee.core.MessageDestinationRef;
 import org.eclipse.jst.javaee.core.MessageDestinationUsageType;
 import org.eclipse.jst.javaee.core.ParamValue;
 import org.eclipse.jst.javaee.core.PersistenceContextRef;
+import org.eclipse.jst.javaee.core.PersistenceContextSynchronizationType;
 import org.eclipse.jst.javaee.core.PersistenceContextType;
 import org.eclipse.jst.javaee.core.PersistenceUnitRef;
 import org.eclipse.jst.javaee.core.PortComponentRef;
@@ -67,10 +68,9 @@ import org.eclipse.jst.javaee.core.ServiceRef;
 import org.eclipse.jst.javaee.core.ServiceRefHandler;
 import org.eclipse.jst.javaee.core.ServiceRefHandlerChain;
 import org.eclipse.jst.javaee.core.ServiceRefHandlerChains;
+import org.eclipse.jst.javaee.core.TransactionSupport;
 import org.eclipse.jst.javaee.core.UrlPatternType;
-
 import org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage;
-
 import org.eclipse.jst.javaee.core.internal.util.JavaeeValidator;
 
 /**
@@ -86,6 +86,20 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * @generated
 	 */
 	private EClass addressingTypeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass administeredObjectTypeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass connectionFactoryResourceTypeEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -155,6 +169,20 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass jmsConnectionFactoryTypeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass jmsDestinationTypeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass lifecycleCallbackEClass = null;
 
 	/**
@@ -163,6 +191,13 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * @generated
 	 */
 	private EClass listenerEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass mailSessionTypeEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -330,6 +365,13 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EEnum persistenceContextSynchronizationTypeEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum persistenceContextTypeEEnum = null;
 
 	/**
@@ -345,6 +387,13 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * @generated
 	 */
 	private EEnum resSharingScopeTypeEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum transactionSupportEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -491,6 +540,13 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EDataType persistenceContextSynchronizationTypeObjectEDataType = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EDataType persistenceContextTypeObjectEDataType = null;
 
 	/**
@@ -548,6 +604,13 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * @generated
 	 */
 	private EDataType roleNameEDataType = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType transactionSupportObjectEDataType = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -634,6 +697,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
   
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(JavaeePackage.eNS_URI, theJavaeePackage);
+		EPackage.Registry.INSTANCE.put(JavaeePackage.eNS_URI2, theJavaeePackage);
 
 		J2EEInit.initEMFModels();
 		return theJavaeePackage;
@@ -673,6 +737,168 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 */
 	public EAttribute getAddressingType_Responses() {
 		return (EAttribute)addressingTypeEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAdministeredObjectType() {
+		return administeredObjectTypeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAdministeredObjectType_Description() {
+		return (EReference)administeredObjectTypeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAdministeredObjectType_Name() {
+		return (EAttribute)administeredObjectTypeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAdministeredObjectType_InterfaceName() {
+		return (EAttribute)administeredObjectTypeEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAdministeredObjectType_ClassName() {
+		return (EAttribute)administeredObjectTypeEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAdministeredObjectType_ResourceAdapter() {
+		return (EAttribute)administeredObjectTypeEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAdministeredObjectType_Property() {
+		return (EReference)administeredObjectTypeEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAdministeredObjectType_Id() {
+		return (EAttribute)administeredObjectTypeEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getConnectionFactoryResourceType() {
+		return connectionFactoryResourceTypeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getConnectionFactoryResourceType_Description() {
+		return (EReference)connectionFactoryResourceTypeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getConnectionFactoryResourceType_Name() {
+		return (EAttribute)connectionFactoryResourceTypeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getConnectionFactoryResourceType_ClassName() {
+		return (EAttribute)connectionFactoryResourceTypeEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getConnectionFactoryResourceType_ResourceAdapter() {
+		return (EAttribute)connectionFactoryResourceTypeEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getConnectionFactoryResourceType_MaxPoolSize() {
+		return (EAttribute)connectionFactoryResourceTypeEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getConnectionFactoryResourceType_MinPoolSize() {
+		return (EAttribute)connectionFactoryResourceTypeEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getConnectionFactoryResourceType_TransactionSupport() {
+		return (EAttribute)connectionFactoryResourceTypeEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getConnectionFactoryResourceType_Property() {
+		return (EReference)connectionFactoryResourceTypeEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getConnectionFactoryResourceType_Id() {
+		return (EAttribute)connectionFactoryResourceTypeEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -1283,6 +1509,195 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getJmsConnectionFactoryType() {
+		return jmsConnectionFactoryTypeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getJmsConnectionFactoryType_Description() {
+		return (EReference)jmsConnectionFactoryTypeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getJmsConnectionFactoryType_Name() {
+		return (EAttribute)jmsConnectionFactoryTypeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getJmsConnectionFactoryType_ClassName() {
+		return (EAttribute)jmsConnectionFactoryTypeEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getJmsConnectionFactoryType_ResourceAdapter() {
+		return (EAttribute)jmsConnectionFactoryTypeEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getJmsConnectionFactoryType_User() {
+		return (EAttribute)jmsConnectionFactoryTypeEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getJmsConnectionFactoryType_Password() {
+		return (EAttribute)jmsConnectionFactoryTypeEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getJmsConnectionFactoryType_ClientId() {
+		return (EAttribute)jmsConnectionFactoryTypeEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getJmsConnectionFactoryType_Property() {
+		return (EReference)jmsConnectionFactoryTypeEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getJmsConnectionFactoryType_Transactional() {
+		return (EAttribute)jmsConnectionFactoryTypeEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getJmsConnectionFactoryType_MaxPoolSize() {
+		return (EAttribute)jmsConnectionFactoryTypeEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getJmsConnectionFactoryType_MinPoolSize() {
+		return (EAttribute)jmsConnectionFactoryTypeEClass.getEStructuralFeatures().get(10);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getJmsConnectionFactoryType_Id() {
+		return (EAttribute)jmsConnectionFactoryTypeEClass.getEStructuralFeatures().get(11);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getJmsDestinationType() {
+		return jmsDestinationTypeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getJmsDestinationType_Description() {
+		return (EReference)jmsDestinationTypeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getJmsDestinationType_Name() {
+		return (EAttribute)jmsDestinationTypeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getJmsDestinationType_ClassName() {
+		return (EAttribute)jmsDestinationTypeEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getJmsDestinationType_ResourceAdapter() {
+		return (EAttribute)jmsDestinationTypeEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getJmsDestinationType_DestinationName() {
+		return (EAttribute)jmsDestinationTypeEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getJmsDestinationType_Property() {
+		return (EReference)jmsDestinationTypeEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getJmsDestinationType_Id() {
+		return (EAttribute)jmsDestinationTypeEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getLifecycleCallback() {
 		return lifecycleCallbackEClass;
 	}
@@ -1357,6 +1772,123 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 */
 	public EAttribute getListener_Id() {
 		return (EAttribute)listenerEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getMailSessionType() {
+		return mailSessionTypeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getMailSessionType_Description() {
+		return (EReference)mailSessionTypeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getMailSessionType_Name() {
+		return (EAttribute)mailSessionTypeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getMailSessionType_StoreProtocol() {
+		return (EAttribute)mailSessionTypeEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getMailSessionType_StoreProtocolClass() {
+		return (EAttribute)mailSessionTypeEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getMailSessionType_TransportProtocol() {
+		return (EAttribute)mailSessionTypeEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getMailSessionType_TransportProtocolClass() {
+		return (EAttribute)mailSessionTypeEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getMailSessionType_Host() {
+		return (EAttribute)mailSessionTypeEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getMailSessionType_User() {
+		return (EAttribute)mailSessionTypeEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getMailSessionType_Password() {
+		return (EAttribute)mailSessionTypeEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getMailSessionType_From() {
+		return (EAttribute)mailSessionTypeEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getMailSessionType_Property() {
+		return (EReference)mailSessionTypeEClass.getEStructuralFeatures().get(10);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getMailSessionType_Id() {
+		return (EAttribute)mailSessionTypeEClass.getEStructuralFeatures().get(11);
 	}
 
 	/**
@@ -1616,8 +2148,17 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getPersistenceContextRef_PersistenceContextSynchronization() {
+		return (EAttribute)persistenceContextRefEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getPersistenceContextRef_PersistenceProperties() {
-		return (EReference)persistenceContextRefEClass.getEStructuralFeatures().get(4);
+		return (EReference)persistenceContextRefEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -1626,7 +2167,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * @generated
 	 */
 	public EAttribute getPersistenceContextRef_MappedName() {
-		return (EAttribute)persistenceContextRefEClass.getEStructuralFeatures().get(5);
+		return (EAttribute)persistenceContextRefEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -1635,7 +2176,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * @generated
 	 */
 	public EReference getPersistenceContextRef_InjectionTargets() {
-		return (EReference)persistenceContextRefEClass.getEStructuralFeatures().get(6);
+		return (EReference)persistenceContextRefEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -1644,7 +2185,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * @generated
 	 */
 	public EAttribute getPersistenceContextRef_Id() {
-		return (EAttribute)persistenceContextRefEClass.getEStructuralFeatures().get(7);
+		return (EAttribute)persistenceContextRefEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -2525,6 +3066,15 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getPersistenceContextSynchronizationType() {
+		return persistenceContextSynchronizationTypeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getPersistenceContextType() {
 		return persistenceContextTypeEEnum;
 	}
@@ -2545,6 +3095,15 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 */
 	public EEnum getResSharingScopeType() {
 		return resSharingScopeTypeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getTransactionSupport() {
+		return transactionSupportEEnum;
 	}
 
 	/**
@@ -2723,6 +3282,15 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EDataType getPersistenceContextSynchronizationTypeObject() {
+		return persistenceContextSynchronizationTypeObjectEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EDataType getPersistenceContextTypeObject() {
 		return persistenceContextTypeObjectEDataType;
 	}
@@ -2804,6 +3372,15 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EDataType getTransactionSupportObject() {
+		return transactionSupportObjectEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EDataType getTrueFalseType() {
 		return trueFalseTypeEDataType;
 	}
@@ -2849,6 +3426,26 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 		createEAttribute(addressingTypeEClass, ADDRESSING_TYPE__ENABLED);
 		createEAttribute(addressingTypeEClass, ADDRESSING_TYPE__REQUIRED);
 		createEAttribute(addressingTypeEClass, ADDRESSING_TYPE__RESPONSES);
+
+		administeredObjectTypeEClass = createEClass(ADMINISTERED_OBJECT_TYPE);
+		createEReference(administeredObjectTypeEClass, ADMINISTERED_OBJECT_TYPE__DESCRIPTION);
+		createEAttribute(administeredObjectTypeEClass, ADMINISTERED_OBJECT_TYPE__NAME);
+		createEAttribute(administeredObjectTypeEClass, ADMINISTERED_OBJECT_TYPE__INTERFACE_NAME);
+		createEAttribute(administeredObjectTypeEClass, ADMINISTERED_OBJECT_TYPE__CLASS_NAME);
+		createEAttribute(administeredObjectTypeEClass, ADMINISTERED_OBJECT_TYPE__RESOURCE_ADAPTER);
+		createEReference(administeredObjectTypeEClass, ADMINISTERED_OBJECT_TYPE__PROPERTY);
+		createEAttribute(administeredObjectTypeEClass, ADMINISTERED_OBJECT_TYPE__ID);
+
+		connectionFactoryResourceTypeEClass = createEClass(CONNECTION_FACTORY_RESOURCE_TYPE);
+		createEReference(connectionFactoryResourceTypeEClass, CONNECTION_FACTORY_RESOURCE_TYPE__DESCRIPTION);
+		createEAttribute(connectionFactoryResourceTypeEClass, CONNECTION_FACTORY_RESOURCE_TYPE__NAME);
+		createEAttribute(connectionFactoryResourceTypeEClass, CONNECTION_FACTORY_RESOURCE_TYPE__CLASS_NAME);
+		createEAttribute(connectionFactoryResourceTypeEClass, CONNECTION_FACTORY_RESOURCE_TYPE__RESOURCE_ADAPTER);
+		createEAttribute(connectionFactoryResourceTypeEClass, CONNECTION_FACTORY_RESOURCE_TYPE__MAX_POOL_SIZE);
+		createEAttribute(connectionFactoryResourceTypeEClass, CONNECTION_FACTORY_RESOURCE_TYPE__MIN_POOL_SIZE);
+		createEAttribute(connectionFactoryResourceTypeEClass, CONNECTION_FACTORY_RESOURCE_TYPE__TRANSACTION_SUPPORT);
+		createEReference(connectionFactoryResourceTypeEClass, CONNECTION_FACTORY_RESOURCE_TYPE__PROPERTY);
+		createEAttribute(connectionFactoryResourceTypeEClass, CONNECTION_FACTORY_RESOURCE_TYPE__ID);
 
 		dataSourceTypeEClass = createEClass(DATA_SOURCE_TYPE);
 		createEReference(dataSourceTypeEClass, DATA_SOURCE_TYPE__DESCRIPTION);
@@ -2926,6 +3523,29 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 		createEAttribute(injectionTargetEClass, INJECTION_TARGET__INJECTION_TARGET_CLASS);
 		createEAttribute(injectionTargetEClass, INJECTION_TARGET__INJECTION_TARGET_NAME);
 
+		jmsConnectionFactoryTypeEClass = createEClass(JMS_CONNECTION_FACTORY_TYPE);
+		createEReference(jmsConnectionFactoryTypeEClass, JMS_CONNECTION_FACTORY_TYPE__DESCRIPTION);
+		createEAttribute(jmsConnectionFactoryTypeEClass, JMS_CONNECTION_FACTORY_TYPE__NAME);
+		createEAttribute(jmsConnectionFactoryTypeEClass, JMS_CONNECTION_FACTORY_TYPE__CLASS_NAME);
+		createEAttribute(jmsConnectionFactoryTypeEClass, JMS_CONNECTION_FACTORY_TYPE__RESOURCE_ADAPTER);
+		createEAttribute(jmsConnectionFactoryTypeEClass, JMS_CONNECTION_FACTORY_TYPE__USER);
+		createEAttribute(jmsConnectionFactoryTypeEClass, JMS_CONNECTION_FACTORY_TYPE__PASSWORD);
+		createEAttribute(jmsConnectionFactoryTypeEClass, JMS_CONNECTION_FACTORY_TYPE__CLIENT_ID);
+		createEReference(jmsConnectionFactoryTypeEClass, JMS_CONNECTION_FACTORY_TYPE__PROPERTY);
+		createEAttribute(jmsConnectionFactoryTypeEClass, JMS_CONNECTION_FACTORY_TYPE__TRANSACTIONAL);
+		createEAttribute(jmsConnectionFactoryTypeEClass, JMS_CONNECTION_FACTORY_TYPE__MAX_POOL_SIZE);
+		createEAttribute(jmsConnectionFactoryTypeEClass, JMS_CONNECTION_FACTORY_TYPE__MIN_POOL_SIZE);
+		createEAttribute(jmsConnectionFactoryTypeEClass, JMS_CONNECTION_FACTORY_TYPE__ID);
+
+		jmsDestinationTypeEClass = createEClass(JMS_DESTINATION_TYPE);
+		createEReference(jmsDestinationTypeEClass, JMS_DESTINATION_TYPE__DESCRIPTION);
+		createEAttribute(jmsDestinationTypeEClass, JMS_DESTINATION_TYPE__NAME);
+		createEAttribute(jmsDestinationTypeEClass, JMS_DESTINATION_TYPE__CLASS_NAME);
+		createEAttribute(jmsDestinationTypeEClass, JMS_DESTINATION_TYPE__RESOURCE_ADAPTER);
+		createEAttribute(jmsDestinationTypeEClass, JMS_DESTINATION_TYPE__DESTINATION_NAME);
+		createEReference(jmsDestinationTypeEClass, JMS_DESTINATION_TYPE__PROPERTY);
+		createEAttribute(jmsDestinationTypeEClass, JMS_DESTINATION_TYPE__ID);
+
 		lifecycleCallbackEClass = createEClass(LIFECYCLE_CALLBACK);
 		createEAttribute(lifecycleCallbackEClass, LIFECYCLE_CALLBACK__LIFECYCLE_CALLBACK_CLASS);
 		createEAttribute(lifecycleCallbackEClass, LIFECYCLE_CALLBACK__LIFECYCLE_CALLBACK_METHOD);
@@ -2936,6 +3556,20 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 		createEReference(listenerEClass, LISTENER__ICONS);
 		createEAttribute(listenerEClass, LISTENER__LISTENER_CLASS);
 		createEAttribute(listenerEClass, LISTENER__ID);
+
+		mailSessionTypeEClass = createEClass(MAIL_SESSION_TYPE);
+		createEReference(mailSessionTypeEClass, MAIL_SESSION_TYPE__DESCRIPTION);
+		createEAttribute(mailSessionTypeEClass, MAIL_SESSION_TYPE__NAME);
+		createEAttribute(mailSessionTypeEClass, MAIL_SESSION_TYPE__STORE_PROTOCOL);
+		createEAttribute(mailSessionTypeEClass, MAIL_SESSION_TYPE__STORE_PROTOCOL_CLASS);
+		createEAttribute(mailSessionTypeEClass, MAIL_SESSION_TYPE__TRANSPORT_PROTOCOL);
+		createEAttribute(mailSessionTypeEClass, MAIL_SESSION_TYPE__TRANSPORT_PROTOCOL_CLASS);
+		createEAttribute(mailSessionTypeEClass, MAIL_SESSION_TYPE__HOST);
+		createEAttribute(mailSessionTypeEClass, MAIL_SESSION_TYPE__USER);
+		createEAttribute(mailSessionTypeEClass, MAIL_SESSION_TYPE__PASSWORD);
+		createEAttribute(mailSessionTypeEClass, MAIL_SESSION_TYPE__FROM);
+		createEReference(mailSessionTypeEClass, MAIL_SESSION_TYPE__PROPERTY);
+		createEAttribute(mailSessionTypeEClass, MAIL_SESSION_TYPE__ID);
 
 		messageDestinationEClass = createEClass(MESSAGE_DESTINATION);
 		createEReference(messageDestinationEClass, MESSAGE_DESTINATION__DESCRIPTIONS);
@@ -2968,6 +3602,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 		createEAttribute(persistenceContextRefEClass, PERSISTENCE_CONTEXT_REF__PERSISTENCE_CONTEXT_REF_NAME);
 		createEAttribute(persistenceContextRefEClass, PERSISTENCE_CONTEXT_REF__PERSISTENCE_UNIT_NAME);
 		createEAttribute(persistenceContextRefEClass, PERSISTENCE_CONTEXT_REF__PERSISTENCE_CONTEXT_TYPE);
+		createEAttribute(persistenceContextRefEClass, PERSISTENCE_CONTEXT_REF__PERSISTENCE_CONTEXT_SYNCHRONIZATION);
 		createEReference(persistenceContextRefEClass, PERSISTENCE_CONTEXT_REF__PERSISTENCE_PROPERTIES);
 		createEAttribute(persistenceContextRefEClass, PERSISTENCE_CONTEXT_REF__MAPPED_NAME);
 		createEReference(persistenceContextRefEClass, PERSISTENCE_CONTEXT_REF__INJECTION_TARGETS);
@@ -3084,9 +3719,11 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 		genericBooleanTypeEEnum = createEEnum(GENERIC_BOOLEAN_TYPE);
 		isolationLevelTypeEEnum = createEEnum(ISOLATION_LEVEL_TYPE);
 		messageDestinationUsageTypeEEnum = createEEnum(MESSAGE_DESTINATION_USAGE_TYPE);
+		persistenceContextSynchronizationTypeEEnum = createEEnum(PERSISTENCE_CONTEXT_SYNCHRONIZATION_TYPE);
 		persistenceContextTypeEEnum = createEEnum(PERSISTENCE_CONTEXT_TYPE);
 		resAuthTypeEEnum = createEEnum(RES_AUTH_TYPE);
 		resSharingScopeTypeEEnum = createEEnum(RES_SHARING_SCOPE_TYPE);
+		transactionSupportEEnum = createEEnum(TRANSACTION_SUPPORT);
 
 		// Create data types
 		addressingResponsesTypeObjectEDataType = createEDataType(ADDRESSING_RESPONSES_TYPE_OBJECT);
@@ -3109,6 +3746,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 		messageDestinationTypeTypeEDataType = createEDataType(MESSAGE_DESTINATION_TYPE_TYPE);
 		messageDestinationUsageTypeObjectEDataType = createEDataType(MESSAGE_DESTINATION_USAGE_TYPE_OBJECT);
 		pathTypeEDataType = createEDataType(PATH_TYPE);
+		persistenceContextSynchronizationTypeObjectEDataType = createEDataType(PERSISTENCE_CONTEXT_SYNCHRONIZATION_TYPE_OBJECT);
 		persistenceContextTypeObjectEDataType = createEDataType(PERSISTENCE_CONTEXT_TYPE_OBJECT);
 		protocolBindingListTypeEDataType = createEDataType(PROTOCOL_BINDING_LIST_TYPE);
 		protocolBindingTypeEDataType = createEDataType(PROTOCOL_BINDING_TYPE);
@@ -3118,6 +3756,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 		resAuthTypeObjectEDataType = createEDataType(RES_AUTH_TYPE_OBJECT);
 		resSharingScopeTypeObjectEDataType = createEDataType(RES_SHARING_SCOPE_TYPE_OBJECT);
 		roleNameEDataType = createEDataType(ROLE_NAME);
+		transactionSupportObjectEDataType = createEDataType(TRANSACTION_SUPPORT_OBJECT);
 		trueFalseTypeEDataType = createEDataType(TRUE_FALSE_TYPE);
 		trueFalseTypeObjectEDataType = createEDataType(TRUE_FALSE_TYPE_OBJECT);
 	}
@@ -3161,319 +3800,388 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 		}		
 		
 		try{
-			// Add supertypes to classes
-	
-			// Initialize classes and features; add operations and parameters
-			initEClass(addressingTypeEClass, AddressingType.class, "AddressingType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getAddressingType_Enabled(), this.getTrueFalseType(), "enabled", null, 0, 1, AddressingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getAddressingType_Required(), this.getTrueFalseType(), "required", null, 0, 1, AddressingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getAddressingType_Responses(), this.getAddressingResponsesType(), "responses", null, 0, 1, AddressingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(dataSourceTypeEClass, DataSourceType.class, "DataSourceType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getDataSourceType_Description(), this.getDescription(), null, "description", null, 0, 1, DataSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getDataSourceType_Name(), this.getJNDIName(), "name", null, 1, 1, DataSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getDataSourceType_ClassName(), this.getFullyQualifiedClassType(), "className", null, 0, 1, DataSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getDataSourceType_ServerName(), theXMLTypePackage.getString(), "serverName", null, 0, 1, DataSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getDataSourceType_PortNumber(), theXMLTypePackage.getInteger(), "portNumber", null, 0, 1, DataSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getDataSourceType_DatabaseName(), theXMLTypePackage.getString(), "databaseName", null, 0, 1, DataSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getDataSourceType_Url(), this.getJdbcUrlType(), "url", null, 0, 1, DataSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getDataSourceType_User(), theXMLTypePackage.getString(), "user", null, 0, 1, DataSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getDataSourceType_Password(), theXMLTypePackage.getString(), "password", null, 0, 1, DataSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getDataSourceType_Property(), this.getPropertyType(), null, "property", null, 0, -1, DataSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getDataSourceType_LoginTimeout(), theXMLTypePackage.getInteger(), "loginTimeout", null, 0, 1, DataSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getDataSourceType_Transactional(), theXMLTypePackage.getBoolean(), "transactional", null, 0, 1, DataSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getDataSourceType_IsolationLevel(), this.getIsolationLevelType(), "isolationLevel", null, 0, 1, DataSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getDataSourceType_InitialPoolSize(), theXMLTypePackage.getInteger(), "initialPoolSize", null, 0, 1, DataSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getDataSourceType_MaxPoolSize(), theXMLTypePackage.getInteger(), "maxPoolSize", null, 0, 1, DataSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getDataSourceType_MinPoolSize(), theXMLTypePackage.getInteger(), "minPoolSize", null, 0, 1, DataSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getDataSourceType_MaxIdleTime(), theXMLTypePackage.getInteger(), "maxIdleTime", null, 0, 1, DataSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getDataSourceType_MaxStatements(), theXMLTypePackage.getInteger(), "maxStatements", null, 0, 1, DataSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getDataSourceType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, DataSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(descriptionEClass, Description.class, "Description", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getDescription_Value(), theXMLTypePackage.getString(), "value", null, 0, 1, Description.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getDescription_Lang(), theXMLNamespacePackage.getLangType(), "lang", null, 0, 1, Description.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(displayNameEClass, DisplayName.class, "DisplayName", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getDisplayName_Value(), theXMLTypePackage.getString(), "value", null, 0, 1, DisplayName.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getDisplayName_Lang(), theXMLNamespacePackage.getLangType(), "lang", null, 0, 1, DisplayName.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(ejbLocalRefEClass, EjbLocalRef.class, "EjbLocalRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getEjbLocalRef_Descriptions(), this.getDescription(), null, "descriptions", null, 0, -1, EjbLocalRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEjbLocalRef_EjbRefName(), this.getEjbRefNameType(), "ejbRefName", null, 1, 1, EjbLocalRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEjbLocalRef_EjbRefType(), this.getEjbRefType(), "ejbRefType", null, 0, 1, EjbLocalRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEjbLocalRef_LocalHome(), this.getLocalHome(), "localHome", null, 0, 1, EjbLocalRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEjbLocalRef_Local(), this.getLocal(), "local", null, 0, 1, EjbLocalRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEjbLocalRef_EjbLink(), this.getEJBLink(), "ejbLink", null, 0, 1, EjbLocalRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEjbLocalRef_MappedName(), theXMLTypePackage.getString(), "mappedName", null, 0, 1, EjbLocalRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getEjbLocalRef_InjectionTargets(), this.getInjectionTarget(), null, "injectionTargets", null, 0, -1, EjbLocalRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEjbLocalRef_LookupName(), theXMLTypePackage.getString(), "lookupName", null, 0, 1, EjbLocalRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEjbLocalRef_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, EjbLocalRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(ejbRefEClass, EjbRef.class, "EjbRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getEjbRef_Descriptions(), this.getDescription(), null, "descriptions", null, 0, -1, EjbRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEjbRef_EjbRefName(), this.getEjbRefNameType(), "ejbRefName", null, 1, 1, EjbRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEjbRef_EjbRefType(), this.getEjbRefType(), "ejbRefType", null, 0, 1, EjbRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEjbRef_Home(), this.getHome(), "home", null, 0, 1, EjbRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEjbRef_Remote(), this.getRemote(), "remote", null, 0, 1, EjbRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEjbRef_EjbLink(), this.getEJBLink(), "ejbLink", null, 0, 1, EjbRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEjbRef_MappedName(), theXMLTypePackage.getString(), "mappedName", null, 0, 1, EjbRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getEjbRef_InjectionTargets(), this.getInjectionTarget(), null, "injectionTargets", null, 0, -1, EjbRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEjbRef_LookupName(), theXMLTypePackage.getString(), "lookupName", null, 0, 1, EjbRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEjbRef_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, EjbRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(emptyTypeEClass, EmptyType.class, "EmptyType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getEmptyType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, EmptyType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(envEntryEClass, EnvEntry.class, "EnvEntry", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getEnvEntry_Descriptions(), this.getDescription(), null, "descriptions", null, 0, -1, EnvEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEnvEntry_EnvEntryName(), this.getJNDIName(), "envEntryName", null, 1, 1, EnvEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEnvEntry_EnvEntryType(), this.getEnvEntryType(), "envEntryType", null, 0, 1, EnvEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEnvEntry_EnvEntryValue(), theXMLTypePackage.getString(), "envEntryValue", null, 0, 1, EnvEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEnvEntry_MappedName(), theXMLTypePackage.getString(), "mappedName", null, 0, 1, EnvEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getEnvEntry_InjectionTargets(), this.getInjectionTarget(), null, "injectionTargets", null, 0, -1, EnvEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEnvEntry_LookupName(), theXMLTypePackage.getString(), "lookupName", null, 0, 1, EnvEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getEnvEntry_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, EnvEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(iconEClass, Icon.class, "Icon", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getIcon_SmallIcon(), this.getPathType(), "smallIcon", null, 0, 1, Icon.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getIcon_LargeIcon(), this.getPathType(), "largeIcon", null, 0, 1, Icon.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getIcon_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, Icon.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getIcon_Lang(), theXMLNamespacePackage.getLangType(), "lang", null, 0, 1, Icon.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(injectionTargetEClass, InjectionTarget.class, "InjectionTarget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getInjectionTarget_InjectionTargetClass(), this.getFullyQualifiedClassType(), "injectionTargetClass", null, 1, 1, InjectionTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getInjectionTarget_InjectionTargetName(), this.getJavaIdentifier(), "injectionTargetName", null, 1, 1, InjectionTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(lifecycleCallbackEClass, LifecycleCallback.class, "LifecycleCallback", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getLifecycleCallback_LifecycleCallbackClass(), this.getFullyQualifiedClassType(), "lifecycleCallbackClass", null, 0, 1, LifecycleCallback.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getLifecycleCallback_LifecycleCallbackMethod(), this.getJavaIdentifier(), "lifecycleCallbackMethod", null, 1, 1, LifecycleCallback.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(listenerEClass, Listener.class, "Listener", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getListener_Descriptions(), this.getDescription(), null, "descriptions", null, 0, -1, Listener.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getListener_DisplayNames(), this.getDisplayName(), null, "displayNames", null, 0, -1, Listener.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getListener_Icons(), this.getIcon(), null, "icons", null, 0, -1, Listener.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getListener_ListenerClass(), this.getFullyQualifiedClassType(), "listenerClass", null, 1, 1, Listener.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getListener_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, Listener.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(messageDestinationEClass, MessageDestination.class, "MessageDestination", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getMessageDestination_Descriptions(), this.getDescription(), null, "descriptions", null, 0, -1, MessageDestination.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getMessageDestination_DisplayNames(), this.getDisplayName(), null, "displayNames", null, 0, -1, MessageDestination.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getMessageDestination_Icons(), this.getIcon(), null, "icons", null, 0, -1, MessageDestination.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getMessageDestination_MessageDestinationName(), theXMLTypePackage.getToken(), "messageDestinationName", null, 1, 1, MessageDestination.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getMessageDestination_MappedName(), theXMLTypePackage.getString(), "mappedName", null, 0, 1, MessageDestination.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getMessageDestination_LookupName(), theXMLTypePackage.getString(), "lookupName", null, 0, 1, MessageDestination.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getMessageDestination_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, MessageDestination.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(messageDestinationRefEClass, MessageDestinationRef.class, "MessageDestinationRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getMessageDestinationRef_Descriptions(), this.getDescription(), null, "descriptions", null, 0, -1, MessageDestinationRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getMessageDestinationRef_MessageDestinationRefName(), this.getJNDIName(), "messageDestinationRefName", null, 1, 1, MessageDestinationRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getMessageDestinationRef_MessageDestinationType(), this.getMessageDestinationTypeType(), "messageDestinationType", null, 0, 1, MessageDestinationRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getMessageDestinationRef_MessageDestinationUsage(), this.getMessageDestinationUsageType(), "messageDestinationUsage", null, 0, 1, MessageDestinationRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getMessageDestinationRef_MessageDestinationLink(), this.getMessageDestinationLink(), "messageDestinationLink", null, 0, 1, MessageDestinationRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getMessageDestinationRef_MappedName(), theXMLTypePackage.getString(), "mappedName", null, 0, 1, MessageDestinationRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getMessageDestinationRef_InjectionTargets(), this.getInjectionTarget(), null, "injectionTargets", null, 0, -1, MessageDestinationRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getMessageDestinationRef_LookupName(), theXMLTypePackage.getString(), "lookupName", null, 0, 1, MessageDestinationRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getMessageDestinationRef_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, MessageDestinationRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(paramValueEClass, ParamValue.class, "ParamValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getParamValue_Descriptions(), this.getDescription(), null, "descriptions", null, 0, -1, ParamValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getParamValue_ParamName(), theXMLTypePackage.getToken(), "paramName", null, 1, 1, ParamValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getParamValue_ParamValue(), theXMLTypePackage.getString(), "paramValue", null, 1, 1, ParamValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getParamValue_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ParamValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(persistenceContextRefEClass, PersistenceContextRef.class, "PersistenceContextRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getPersistenceContextRef_Descriptions(), this.getDescription(), null, "descriptions", null, 0, -1, PersistenceContextRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getPersistenceContextRef_PersistenceContextRefName(), this.getJNDIName(), "persistenceContextRefName", null, 1, 1, PersistenceContextRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getPersistenceContextRef_PersistenceUnitName(), theXMLTypePackage.getToken(), "persistenceUnitName", null, 0, 1, PersistenceContextRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getPersistenceContextRef_PersistenceContextType(), this.getPersistenceContextType(), "persistenceContextType", null, 0, 1, PersistenceContextRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getPersistenceContextRef_PersistenceProperties(), this.getPropertyType(), null, "persistenceProperties", null, 0, -1, PersistenceContextRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getPersistenceContextRef_MappedName(), theXMLTypePackage.getString(), "mappedName", null, 0, 1, PersistenceContextRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getPersistenceContextRef_InjectionTargets(), this.getInjectionTarget(), null, "injectionTargets", null, 0, -1, PersistenceContextRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getPersistenceContextRef_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, PersistenceContextRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(persistenceUnitRefEClass, PersistenceUnitRef.class, "PersistenceUnitRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getPersistenceUnitRef_Descriptions(), this.getDescription(), null, "descriptions", null, 0, -1, PersistenceUnitRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getPersistenceUnitRef_PersistenceUnitRefName(), this.getJNDIName(), "persistenceUnitRefName", null, 1, 1, PersistenceUnitRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getPersistenceUnitRef_PersistenceUnitName(), theXMLTypePackage.getToken(), "persistenceUnitName", null, 0, 1, PersistenceUnitRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getPersistenceUnitRef_MappedName(), theXMLTypePackage.getString(), "mappedName", null, 0, 1, PersistenceUnitRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getPersistenceUnitRef_InjectionTargets(), this.getInjectionTarget(), null, "injectionTargets", null, 0, -1, PersistenceUnitRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getPersistenceUnitRef_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, PersistenceUnitRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(portComponentRefEClass, PortComponentRef.class, "PortComponentRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getPortComponentRef_ServiceEndpointInterface(), this.getFullyQualifiedClassType(), "serviceEndpointInterface", null, 1, 1, PortComponentRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getPortComponentRef_EnableMtom(), this.getTrueFalseType(), "enableMtom", null, 0, 1, PortComponentRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getPortComponentRef_MtomThreshold(), theXMLTypePackage.getNonNegativeInteger(), "mtomThreshold", null, 0, 1, PortComponentRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getPortComponentRef_Addressing(), this.getAddressingType(), null, "addressing", null, 0, 1, PortComponentRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getPortComponentRef_RespectBinding(), this.getRespectBindingType(), null, "respectBinding", null, 0, 1, PortComponentRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getPortComponentRef_PortComponentLink(), theXMLTypePackage.getToken(), "portComponentLink", null, 0, 1, PortComponentRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getPortComponentRef_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, PortComponentRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(propertyTypeEClass, PropertyType.class, "PropertyType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getPropertyType_Name(), theXMLTypePackage.getString(), "name", null, 1, 1, PropertyType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getPropertyType_Value(), theXMLTypePackage.getString(), "value", null, 1, 1, PropertyType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getPropertyType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, PropertyType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(resourceEnvRefEClass, ResourceEnvRef.class, "ResourceEnvRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getResourceEnvRef_Descriptions(), this.getDescription(), null, "descriptions", null, 0, -1, ResourceEnvRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getResourceEnvRef_ResourceEnvRefName(), this.getJNDIName(), "resourceEnvRefName", null, 1, 1, ResourceEnvRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getResourceEnvRef_ResourceEnvRefType(), this.getFullyQualifiedClassType(), "resourceEnvRefType", null, 0, 1, ResourceEnvRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getResourceEnvRef_MappedName(), theXMLTypePackage.getString(), "mappedName", null, 0, 1, ResourceEnvRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getResourceEnvRef_InjectionTargets(), this.getInjectionTarget(), null, "injectionTargets", null, 0, -1, ResourceEnvRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getResourceEnvRef_LookupName(), theXMLTypePackage.getString(), "lookupName", null, 0, 1, ResourceEnvRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getResourceEnvRef_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ResourceEnvRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(resourceRefEClass, ResourceRef.class, "ResourceRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getResourceRef_Descriptions(), this.getDescription(), null, "descriptions", null, 0, -1, ResourceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getResourceRef_ResRefName(), this.getJNDIName(), "resRefName", null, 1, 1, ResourceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getResourceRef_ResType(), this.getFullyQualifiedClassType(), "resType", null, 0, 1, ResourceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getResourceRef_ResAuth(), this.getResAuthType(), "resAuth", null, 0, 1, ResourceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getResourceRef_ResSharingScope(), this.getResSharingScopeType(), "resSharingScope", null, 0, 1, ResourceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getResourceRef_MappedName(), theXMLTypePackage.getString(), "mappedName", null, 0, 1, ResourceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getResourceRef_InjectionTargets(), this.getInjectionTarget(), null, "injectionTargets", null, 0, -1, ResourceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getResourceRef_LookupName(), theXMLTypePackage.getString(), "lookupName", null, 0, 1, ResourceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getResourceRef_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ResourceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(respectBindingTypeEClass, RespectBindingType.class, "RespectBindingType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getRespectBindingType_Enabled(), this.getTrueFalseType(), "enabled", null, 0, 1, RespectBindingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(runAsEClass, RunAs.class, "RunAs", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getRunAs_Descriptions(), this.getDescription(), null, "descriptions", null, 0, -1, RunAs.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getRunAs_RoleName(), this.getRoleName(), "roleName", null, 1, 1, RunAs.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getRunAs_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, RunAs.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(securityRoleEClass, SecurityRole.class, "SecurityRole", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getSecurityRole_Descriptions(), this.getDescription(), null, "descriptions", null, 0, -1, SecurityRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getSecurityRole_RoleName(), this.getRoleName(), "roleName", null, 1, 1, SecurityRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getSecurityRole_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, SecurityRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(securityRoleRefEClass, SecurityRoleRef.class, "SecurityRoleRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getSecurityRoleRef_Descriptions(), this.getDescription(), null, "descriptions", null, 0, -1, SecurityRoleRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getSecurityRoleRef_RoleName(), this.getRoleName(), "roleName", null, 1, 1, SecurityRoleRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getSecurityRoleRef_RoleLink(), this.getRoleName(), "roleLink", null, 0, 1, SecurityRoleRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getSecurityRoleRef_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, SecurityRoleRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(serviceRefEClass, ServiceRef.class, "ServiceRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getServiceRef_Descriptions(), this.getDescription(), null, "descriptions", null, 0, -1, ServiceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getServiceRef_DisplayNames(), this.getDisplayName(), null, "displayNames", null, 0, -1, ServiceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getServiceRef_Icons(), this.getIcon(), null, "icons", null, 0, -1, ServiceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getServiceRef_ServiceRefName(), this.getJNDIName(), "serviceRefName", null, 1, 1, ServiceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getServiceRef_ServiceInterface(), this.getFullyQualifiedClassType(), "serviceInterface", null, 1, 1, ServiceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getServiceRef_ServiceRefType(), this.getFullyQualifiedClassType(), "serviceRefType", null, 0, 1, ServiceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getServiceRef_WsdlFile(), theXMLTypePackage.getAnyURI(), "wsdlFile", null, 0, 1, ServiceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getServiceRef_JaxrpcMappingFile(), this.getPathType(), "jaxrpcMappingFile", null, 0, 1, ServiceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getServiceRef_ServiceQname(), theXMLTypePackage.getQName(), "serviceQname", null, 0, 1, ServiceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getServiceRef_PortComponentRefs(), this.getPortComponentRef(), null, "portComponentRefs", null, 0, -1, ServiceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getServiceRef_Handlers(), this.getServiceRefHandler(), null, "handlers", null, 0, -1, ServiceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getServiceRef_HandlerChains(), this.getServiceRefHandlerChains(), null, "handlerChains", null, 0, 1, ServiceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getServiceRef_MappedName(), theXMLTypePackage.getString(), "mappedName", null, 0, 1, ServiceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getServiceRef_InjectionTargets(), this.getInjectionTarget(), null, "injectionTargets", null, 0, -1, ServiceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getServiceRef_LookupName(), theXMLTypePackage.getString(), "lookupName", null, 0, 1, ServiceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getServiceRef_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ServiceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(serviceRefHandlerEClass, ServiceRefHandler.class, "ServiceRefHandler", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getServiceRefHandler_Descriptions(), this.getDescription(), null, "descriptions", null, 0, -1, ServiceRefHandler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getServiceRefHandler_DisplayNames(), this.getDisplayName(), null, "displayNames", null, 0, -1, ServiceRefHandler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getServiceRefHandler_Icons(), this.getIcon(), null, "icons", null, 0, -1, ServiceRefHandler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getServiceRefHandler_HandlerName(), theXMLTypePackage.getToken(), "handlerName", null, 1, 1, ServiceRefHandler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getServiceRefHandler_HandlerClass(), this.getFullyQualifiedClassType(), "handlerClass", null, 1, 1, ServiceRefHandler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getServiceRefHandler_InitParams(), this.getParamValue(), null, "initParams", null, 0, -1, ServiceRefHandler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getServiceRefHandler_SoapHeaders(), theXMLTypePackage.getQName(), "soapHeaders", null, 0, -1, ServiceRefHandler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getServiceRefHandler_SoapRoles(), theXMLTypePackage.getToken(), "soapRoles", null, 0, -1, ServiceRefHandler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getServiceRefHandler_PortNames(), theXMLTypePackage.getToken(), "portNames", null, 0, -1, ServiceRefHandler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getServiceRefHandler_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ServiceRefHandler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(serviceRefHandlerChainEClass, ServiceRefHandlerChain.class, "ServiceRefHandlerChain", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getServiceRefHandlerChain_ServiceNamePattern(), this.getQnamePattern(), "serviceNamePattern", null, 0, 1, ServiceRefHandlerChain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getServiceRefHandlerChain_PortNamePattern(), this.getQnamePattern(), "portNamePattern", null, 0, 1, ServiceRefHandlerChain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getServiceRefHandlerChain_ProtocolBindings(), this.getProtocolBindingListType(), "protocolBindings", null, 0, 1, ServiceRefHandlerChain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getServiceRefHandlerChain_Handlers(), this.getServiceRefHandler(), null, "handlers", null, 1, -1, ServiceRefHandlerChain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getServiceRefHandlerChain_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ServiceRefHandlerChain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(serviceRefHandlerChainsEClass, ServiceRefHandlerChains.class, "ServiceRefHandlerChains", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getServiceRefHandlerChains_HandlerChains(), this.getServiceRefHandlerChain(), null, "handlerChains", null, 0, -1, ServiceRefHandlerChains.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getServiceRefHandlerChains_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ServiceRefHandlerChains.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(urlPatternTypeEClass, UrlPatternType.class, "UrlPatternType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getUrlPatternType_Value(), theXMLTypePackage.getString(), "value", null, 0, 1, UrlPatternType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			// Initialize enums and add enum literals
-			initEEnum(addressingResponsesTypeEEnum, AddressingResponsesType.class, "AddressingResponsesType"); //$NON-NLS-1$
-			addEEnumLiteral(addressingResponsesTypeEEnum, AddressingResponsesType.ANONYMOUS);
-			addEEnumLiteral(addressingResponsesTypeEEnum, AddressingResponsesType.NONANONYMOUS);
-			addEEnumLiteral(addressingResponsesTypeEEnum, AddressingResponsesType.ALL);
-	
-			initEEnum(ejbRefTypeEEnum, EjbRefType.class, "EjbRefType"); //$NON-NLS-1$
-			addEEnumLiteral(ejbRefTypeEEnum, EjbRefType.ENTITY_LITERAL);
-			addEEnumLiteral(ejbRefTypeEEnum, EjbRefType.SESSION_LITERAL);
-	
-			initEEnum(genericBooleanTypeEEnum, GenericBooleanType.class, "GenericBooleanType"); //$NON-NLS-1$
-			addEEnumLiteral(genericBooleanTypeEEnum, GenericBooleanType.TRUE);
-			addEEnumLiteral(genericBooleanTypeEEnum, GenericBooleanType.FALSE);
-			addEEnumLiteral(genericBooleanTypeEEnum, GenericBooleanType.YES);
-			addEEnumLiteral(genericBooleanTypeEEnum, GenericBooleanType.NO);
-	
-			initEEnum(isolationLevelTypeEEnum, IsolationLevelType.class, "IsolationLevelType"); //$NON-NLS-1$
-			addEEnumLiteral(isolationLevelTypeEEnum, IsolationLevelType.TRANSACTIONREADUNCOMMITTED);
-			addEEnumLiteral(isolationLevelTypeEEnum, IsolationLevelType.TRANSACTIONREADCOMMITTED);
-			addEEnumLiteral(isolationLevelTypeEEnum, IsolationLevelType.TRANSACTIONREPEATABLEREAD);
-			addEEnumLiteral(isolationLevelTypeEEnum, IsolationLevelType.TRANSACTIONSERIALIZABLE);
-	
-			initEEnum(messageDestinationUsageTypeEEnum, MessageDestinationUsageType.class, "MessageDestinationUsageType"); //$NON-NLS-1$
-			addEEnumLiteral(messageDestinationUsageTypeEEnum, MessageDestinationUsageType.CONSUMES_LITERAL);
-			addEEnumLiteral(messageDestinationUsageTypeEEnum, MessageDestinationUsageType.PRODUCES_LITERAL);
-			addEEnumLiteral(messageDestinationUsageTypeEEnum, MessageDestinationUsageType.CONSUMES_PRODUCES_LITERAL);
-	
-			initEEnum(persistenceContextTypeEEnum, PersistenceContextType.class, "PersistenceContextType"); //$NON-NLS-1$
-			addEEnumLiteral(persistenceContextTypeEEnum, PersistenceContextType.TRANSACTION_LITERAL);
-			addEEnumLiteral(persistenceContextTypeEEnum, PersistenceContextType.EXTENDED_LITERAL);
-	
-			initEEnum(resAuthTypeEEnum, ResAuthType.class, "ResAuthType"); //$NON-NLS-1$
-			addEEnumLiteral(resAuthTypeEEnum, ResAuthType.APPLICATION_LITERAL);
-			addEEnumLiteral(resAuthTypeEEnum, ResAuthType.CONTAINER_LITERAL);
-	
-			initEEnum(resSharingScopeTypeEEnum, ResSharingScopeType.class, "ResSharingScopeType"); //$NON-NLS-1$
-			addEEnumLiteral(resSharingScopeTypeEEnum, ResSharingScopeType.SHAREABLE_LITERAL);
-			addEEnumLiteral(resSharingScopeTypeEEnum, ResSharingScopeType.UNSHAREABLE_LITERAL);
-	
-			// Initialize data types
-			initEDataType(addressingResponsesTypeObjectEDataType, AddressingResponsesType.class, "AddressingResponsesTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(deweyVersionTypeEDataType, String.class, "DeweyVersionType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(ejbLinkEDataType, String.class, "EJBLink", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(ejbRefNameTypeEDataType, String.class, "EjbRefNameType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(ejbRefTypeObjectEDataType, EjbRefType.class, "EjbRefTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(envEntryTypeEDataType, String.class, "EnvEntryType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(fullyQualifiedClassTypeEDataType, String.class, "FullyQualifiedClassType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(genericBooleanTypeObjectEDataType, GenericBooleanType.class, "GenericBooleanTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(homeEDataType, String.class, "Home", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(isolationLevelTypeObjectEDataType, IsolationLevelType.class, "IsolationLevelTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(javaIdentifierEDataType, String.class, "JavaIdentifier", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(javaTypeEDataType, String.class, "JavaType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(jdbcUrlTypeEDataType, String.class, "JdbcUrlType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(jndiNameEDataType, String.class, "JNDIName", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(localEDataType, String.class, "Local", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(localHomeEDataType, String.class, "LocalHome", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(messageDestinationLinkEDataType, String.class, "MessageDestinationLink", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(messageDestinationTypeTypeEDataType, String.class, "MessageDestinationTypeType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(messageDestinationUsageTypeObjectEDataType, MessageDestinationUsageType.class, "MessageDestinationUsageTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(pathTypeEDataType, String.class, "PathType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(persistenceContextTypeObjectEDataType, PersistenceContextType.class, "PersistenceContextTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(protocolBindingListTypeEDataType, List.class, "ProtocolBindingListType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(protocolBindingTypeEDataType, String.class, "ProtocolBindingType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(protocolURIAliasTypeEDataType, String.class, "ProtocolURIAliasType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(qnamePatternEDataType, String.class, "QnamePattern", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(remoteEDataType, String.class, "Remote", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(resAuthTypeObjectEDataType, ResAuthType.class, "ResAuthTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(resSharingScopeTypeObjectEDataType, ResSharingScopeType.class, "ResSharingScopeTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(roleNameEDataType, String.class, "RoleName", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(trueFalseTypeEDataType, boolean.class, "TrueFalseType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(trueFalseTypeObjectEDataType, Boolean.class, "TrueFalseTypeObject", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-	
-			// Create resource
-			createResource(eNS_URI);
-	
-			// Create annotations
-			// http:///org/eclipse/emf/ecore/util/ExtendedMetaData
+		// Add supertypes to classes
+
+		// Initialize classes and features; add operations and parameters
+		initEClass(addressingTypeEClass, AddressingType.class, "AddressingType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getAddressingType_Enabled(), this.getTrueFalseType(), "enabled", null, 0, 1, AddressingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getAddressingType_Required(), this.getTrueFalseType(), "required", null, 0, 1, AddressingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getAddressingType_Responses(), this.getAddressingResponsesType(), "responses", null, 0, 1, AddressingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(administeredObjectTypeEClass, AdministeredObjectType.class, "AdministeredObjectType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getAdministeredObjectType_Description(), this.getDescription(), null, "description", null, 0, 1, AdministeredObjectType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getAdministeredObjectType_Name(), this.getJNDIName(), "name", null, 1, 1, AdministeredObjectType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getAdministeredObjectType_InterfaceName(), this.getFullyQualifiedClassType(), "interfaceName", null, 0, 1, AdministeredObjectType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getAdministeredObjectType_ClassName(), this.getFullyQualifiedClassType(), "className", null, 1, 1, AdministeredObjectType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getAdministeredObjectType_ResourceAdapter(), theXMLTypePackage.getToken(), "resourceAdapter", null, 1, 1, AdministeredObjectType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getAdministeredObjectType_Property(), this.getPropertyType(), null, "property", null, 0, -1, AdministeredObjectType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getAdministeredObjectType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, AdministeredObjectType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(connectionFactoryResourceTypeEClass, ConnectionFactoryResourceType.class, "ConnectionFactoryResourceType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getConnectionFactoryResourceType_Description(), this.getDescription(), null, "description", null, 0, 1, ConnectionFactoryResourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getConnectionFactoryResourceType_Name(), this.getJNDIName(), "name", null, 1, 1, ConnectionFactoryResourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getConnectionFactoryResourceType_ClassName(), this.getFullyQualifiedClassType(), "className", null, 1, 1, ConnectionFactoryResourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getConnectionFactoryResourceType_ResourceAdapter(), theXMLTypePackage.getToken(), "resourceAdapter", null, 1, 1, ConnectionFactoryResourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getConnectionFactoryResourceType_MaxPoolSize(), theXMLTypePackage.getInteger(), "maxPoolSize", null, 0, 1, ConnectionFactoryResourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getConnectionFactoryResourceType_MinPoolSize(), theXMLTypePackage.getInteger(), "minPoolSize", null, 0, 1, ConnectionFactoryResourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getConnectionFactoryResourceType_TransactionSupport(), this.getTransactionSupport(), "transactionSupport", null, 0, 1, ConnectionFactoryResourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getConnectionFactoryResourceType_Property(), this.getPropertyType(), null, "property", null, 0, -1, ConnectionFactoryResourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getConnectionFactoryResourceType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ConnectionFactoryResourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(dataSourceTypeEClass, DataSourceType.class, "DataSourceType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getDataSourceType_Description(), this.getDescription(), null, "description", null, 0, 1, DataSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getDataSourceType_Name(), this.getJNDIName(), "name", null, 1, 1, DataSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getDataSourceType_ClassName(), this.getFullyQualifiedClassType(), "className", null, 0, 1, DataSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getDataSourceType_ServerName(), theXMLTypePackage.getString(), "serverName", null, 0, 1, DataSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getDataSourceType_PortNumber(), theXMLTypePackage.getInteger(), "portNumber", null, 0, 1, DataSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getDataSourceType_DatabaseName(), theXMLTypePackage.getString(), "databaseName", null, 0, 1, DataSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getDataSourceType_Url(), this.getJdbcUrlType(), "url", null, 0, 1, DataSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getDataSourceType_User(), theXMLTypePackage.getString(), "user", null, 0, 1, DataSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getDataSourceType_Password(), theXMLTypePackage.getString(), "password", null, 0, 1, DataSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getDataSourceType_Property(), this.getPropertyType(), null, "property", null, 0, -1, DataSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getDataSourceType_LoginTimeout(), theXMLTypePackage.getInteger(), "loginTimeout", null, 0, 1, DataSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getDataSourceType_Transactional(), theXMLTypePackage.getBoolean(), "transactional", null, 0, 1, DataSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getDataSourceType_IsolationLevel(), this.getIsolationLevelType(), "isolationLevel", null, 0, 1, DataSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getDataSourceType_InitialPoolSize(), theXMLTypePackage.getInteger(), "initialPoolSize", null, 0, 1, DataSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getDataSourceType_MaxPoolSize(), theXMLTypePackage.getInteger(), "maxPoolSize", null, 0, 1, DataSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getDataSourceType_MinPoolSize(), theXMLTypePackage.getInteger(), "minPoolSize", null, 0, 1, DataSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getDataSourceType_MaxIdleTime(), theXMLTypePackage.getInteger(), "maxIdleTime", null, 0, 1, DataSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getDataSourceType_MaxStatements(), theXMLTypePackage.getInteger(), "maxStatements", null, 0, 1, DataSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getDataSourceType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, DataSourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(descriptionEClass, Description.class, "Description", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getDescription_Value(), theXMLTypePackage.getString(), "value", null, 0, 1, Description.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getDescription_Lang(), theXMLNamespacePackage.getLangType(), "lang", null, 0, 1, Description.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(displayNameEClass, DisplayName.class, "DisplayName", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getDisplayName_Value(), theXMLTypePackage.getString(), "value", null, 0, 1, DisplayName.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getDisplayName_Lang(), theXMLNamespacePackage.getLangType(), "lang", null, 0, 1, DisplayName.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(ejbLocalRefEClass, EjbLocalRef.class, "EjbLocalRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getEjbLocalRef_Descriptions(), this.getDescription(), null, "descriptions", null, 0, -1, EjbLocalRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEjbLocalRef_EjbRefName(), this.getEjbRefNameType(), "ejbRefName", null, 1, 1, EjbLocalRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEjbLocalRef_EjbRefType(), this.getEjbRefType(), "ejbRefType", null, 0, 1, EjbLocalRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEjbLocalRef_LocalHome(), this.getLocalHome(), "localHome", null, 0, 1, EjbLocalRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEjbLocalRef_Local(), this.getLocal(), "local", null, 0, 1, EjbLocalRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEjbLocalRef_EjbLink(), this.getEJBLink(), "ejbLink", null, 0, 1, EjbLocalRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEjbLocalRef_MappedName(), theXMLTypePackage.getString(), "mappedName", null, 0, 1, EjbLocalRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEjbLocalRef_InjectionTargets(), this.getInjectionTarget(), null, "injectionTargets", null, 0, -1, EjbLocalRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEjbLocalRef_LookupName(), theXMLTypePackage.getString(), "lookupName", null, 0, 1, EjbLocalRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEjbLocalRef_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, EjbLocalRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(ejbRefEClass, EjbRef.class, "EjbRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getEjbRef_Descriptions(), this.getDescription(), null, "descriptions", null, 0, -1, EjbRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEjbRef_EjbRefName(), this.getEjbRefNameType(), "ejbRefName", null, 1, 1, EjbRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEjbRef_EjbRefType(), this.getEjbRefType(), "ejbRefType", null, 0, 1, EjbRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEjbRef_Home(), this.getHome(), "home", null, 0, 1, EjbRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEjbRef_Remote(), this.getRemote(), "remote", null, 0, 1, EjbRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEjbRef_EjbLink(), this.getEJBLink(), "ejbLink", null, 0, 1, EjbRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEjbRef_MappedName(), theXMLTypePackage.getString(), "mappedName", null, 0, 1, EjbRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEjbRef_InjectionTargets(), this.getInjectionTarget(), null, "injectionTargets", null, 0, -1, EjbRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEjbRef_LookupName(), theXMLTypePackage.getString(), "lookupName", null, 0, 1, EjbRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEjbRef_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, EjbRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(emptyTypeEClass, EmptyType.class, "EmptyType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getEmptyType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, EmptyType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(envEntryEClass, EnvEntry.class, "EnvEntry", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getEnvEntry_Descriptions(), this.getDescription(), null, "descriptions", null, 0, -1, EnvEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEnvEntry_EnvEntryName(), this.getJNDIName(), "envEntryName", null, 1, 1, EnvEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEnvEntry_EnvEntryType(), this.getEnvEntryType(), "envEntryType", null, 0, 1, EnvEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEnvEntry_EnvEntryValue(), theXMLTypePackage.getString(), "envEntryValue", null, 0, 1, EnvEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEnvEntry_MappedName(), theXMLTypePackage.getString(), "mappedName", null, 0, 1, EnvEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getEnvEntry_InjectionTargets(), this.getInjectionTarget(), null, "injectionTargets", null, 0, -1, EnvEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEnvEntry_LookupName(), theXMLTypePackage.getString(), "lookupName", null, 0, 1, EnvEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getEnvEntry_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, EnvEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(iconEClass, Icon.class, "Icon", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getIcon_SmallIcon(), this.getPathType(), "smallIcon", null, 0, 1, Icon.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getIcon_LargeIcon(), this.getPathType(), "largeIcon", null, 0, 1, Icon.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getIcon_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, Icon.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getIcon_Lang(), theXMLNamespacePackage.getLangType(), "lang", null, 0, 1, Icon.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(injectionTargetEClass, InjectionTarget.class, "InjectionTarget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getInjectionTarget_InjectionTargetClass(), this.getFullyQualifiedClassType(), "injectionTargetClass", null, 1, 1, InjectionTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getInjectionTarget_InjectionTargetName(), this.getJavaIdentifier(), "injectionTargetName", null, 1, 1, InjectionTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(jmsConnectionFactoryTypeEClass, JmsConnectionFactoryType.class, "JmsConnectionFactoryType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getJmsConnectionFactoryType_Description(), this.getDescription(), null, "description", null, 0, 1, JmsConnectionFactoryType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getJmsConnectionFactoryType_Name(), this.getJNDIName(), "name", null, 1, 1, JmsConnectionFactoryType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getJmsConnectionFactoryType_ClassName(), this.getFullyQualifiedClassType(), "className", null, 0, 1, JmsConnectionFactoryType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getJmsConnectionFactoryType_ResourceAdapter(), theXMLTypePackage.getToken(), "resourceAdapter", null, 0, 1, JmsConnectionFactoryType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getJmsConnectionFactoryType_User(), theXMLTypePackage.getToken(), "user", null, 0, 1, JmsConnectionFactoryType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getJmsConnectionFactoryType_Password(), theXMLTypePackage.getToken(), "password", null, 0, 1, JmsConnectionFactoryType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getJmsConnectionFactoryType_ClientId(), theXMLTypePackage.getToken(), "clientId", null, 0, 1, JmsConnectionFactoryType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getJmsConnectionFactoryType_Property(), this.getPropertyType(), null, "property", null, 0, -1, JmsConnectionFactoryType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getJmsConnectionFactoryType_Transactional(), theXMLTypePackage.getBoolean(), "transactional", null, 0, 1, JmsConnectionFactoryType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getJmsConnectionFactoryType_MaxPoolSize(), theXMLTypePackage.getInteger(), "maxPoolSize", null, 0, 1, JmsConnectionFactoryType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getJmsConnectionFactoryType_MinPoolSize(), theXMLTypePackage.getInteger(), "minPoolSize", null, 0, 1, JmsConnectionFactoryType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getJmsConnectionFactoryType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, JmsConnectionFactoryType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(jmsDestinationTypeEClass, JmsDestinationType.class, "JmsDestinationType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getJmsDestinationType_Description(), this.getDescription(), null, "description", null, 0, 1, JmsDestinationType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getJmsDestinationType_Name(), this.getJNDIName(), "name", null, 1, 1, JmsDestinationType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getJmsDestinationType_ClassName(), this.getFullyQualifiedClassType(), "className", null, 0, 1, JmsDestinationType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getJmsDestinationType_ResourceAdapter(), theXMLTypePackage.getToken(), "resourceAdapter", null, 0, 1, JmsDestinationType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getJmsDestinationType_DestinationName(), theXMLTypePackage.getToken(), "destinationName", null, 0, 1, JmsDestinationType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getJmsDestinationType_Property(), this.getPropertyType(), null, "property", null, 0, -1, JmsDestinationType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getJmsDestinationType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, JmsDestinationType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(lifecycleCallbackEClass, LifecycleCallback.class, "LifecycleCallback", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getLifecycleCallback_LifecycleCallbackClass(), this.getFullyQualifiedClassType(), "lifecycleCallbackClass", null, 0, 1, LifecycleCallback.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getLifecycleCallback_LifecycleCallbackMethod(), this.getJavaIdentifier(), "lifecycleCallbackMethod", null, 1, 1, LifecycleCallback.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(listenerEClass, Listener.class, "Listener", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getListener_Descriptions(), this.getDescription(), null, "descriptions", null, 0, -1, Listener.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getListener_DisplayNames(), this.getDisplayName(), null, "displayNames", null, 0, -1, Listener.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getListener_Icons(), this.getIcon(), null, "icons", null, 0, -1, Listener.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getListener_ListenerClass(), this.getFullyQualifiedClassType(), "listenerClass", null, 1, 1, Listener.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getListener_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, Listener.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(mailSessionTypeEClass, MailSessionType.class, "MailSessionType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getMailSessionType_Description(), this.getDescription(), null, "description", null, 0, 1, MailSessionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMailSessionType_Name(), this.getJNDIName(), "name", null, 1, 1, MailSessionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMailSessionType_StoreProtocol(), theXMLTypePackage.getToken(), "storeProtocol", null, 0, 1, MailSessionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMailSessionType_StoreProtocolClass(), this.getFullyQualifiedClassType(), "storeProtocolClass", null, 0, 1, MailSessionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMailSessionType_TransportProtocol(), theXMLTypePackage.getToken(), "transportProtocol", null, 0, 1, MailSessionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMailSessionType_TransportProtocolClass(), this.getFullyQualifiedClassType(), "transportProtocolClass", null, 0, 1, MailSessionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMailSessionType_Host(), theXMLTypePackage.getToken(), "host", null, 0, 1, MailSessionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMailSessionType_User(), theXMLTypePackage.getToken(), "user", null, 0, 1, MailSessionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMailSessionType_Password(), theXMLTypePackage.getToken(), "password", null, 0, 1, MailSessionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMailSessionType_From(), theXMLTypePackage.getToken(), "from", null, 0, 1, MailSessionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getMailSessionType_Property(), this.getPropertyType(), null, "property", null, 0, -1, MailSessionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMailSessionType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, MailSessionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(messageDestinationEClass, MessageDestination.class, "MessageDestination", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getMessageDestination_Descriptions(), this.getDescription(), null, "descriptions", null, 0, -1, MessageDestination.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getMessageDestination_DisplayNames(), this.getDisplayName(), null, "displayNames", null, 0, -1, MessageDestination.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getMessageDestination_Icons(), this.getIcon(), null, "icons", null, 0, -1, MessageDestination.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMessageDestination_MessageDestinationName(), theXMLTypePackage.getToken(), "messageDestinationName", null, 1, 1, MessageDestination.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMessageDestination_MappedName(), theXMLTypePackage.getString(), "mappedName", null, 0, 1, MessageDestination.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMessageDestination_LookupName(), theXMLTypePackage.getString(), "lookupName", null, 0, 1, MessageDestination.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMessageDestination_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, MessageDestination.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(messageDestinationRefEClass, MessageDestinationRef.class, "MessageDestinationRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getMessageDestinationRef_Descriptions(), this.getDescription(), null, "descriptions", null, 0, -1, MessageDestinationRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMessageDestinationRef_MessageDestinationRefName(), this.getJNDIName(), "messageDestinationRefName", null, 1, 1, MessageDestinationRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMessageDestinationRef_MessageDestinationType(), this.getMessageDestinationTypeType(), "messageDestinationType", null, 0, 1, MessageDestinationRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMessageDestinationRef_MessageDestinationUsage(), this.getMessageDestinationUsageType(), "messageDestinationUsage", null, 0, 1, MessageDestinationRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMessageDestinationRef_MessageDestinationLink(), this.getMessageDestinationLink(), "messageDestinationLink", null, 0, 1, MessageDestinationRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMessageDestinationRef_MappedName(), theXMLTypePackage.getString(), "mappedName", null, 0, 1, MessageDestinationRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getMessageDestinationRef_InjectionTargets(), this.getInjectionTarget(), null, "injectionTargets", null, 0, -1, MessageDestinationRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMessageDestinationRef_LookupName(), theXMLTypePackage.getString(), "lookupName", null, 0, 1, MessageDestinationRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMessageDestinationRef_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, MessageDestinationRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(paramValueEClass, ParamValue.class, "ParamValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getParamValue_Descriptions(), this.getDescription(), null, "descriptions", null, 0, -1, ParamValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getParamValue_ParamName(), theXMLTypePackage.getToken(), "paramName", null, 1, 1, ParamValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getParamValue_ParamValue(), theXMLTypePackage.getString(), "paramValue", null, 1, 1, ParamValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getParamValue_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ParamValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(persistenceContextRefEClass, PersistenceContextRef.class, "PersistenceContextRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getPersistenceContextRef_Descriptions(), this.getDescription(), null, "descriptions", null, 0, -1, PersistenceContextRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getPersistenceContextRef_PersistenceContextRefName(), this.getJNDIName(), "persistenceContextRefName", null, 1, 1, PersistenceContextRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getPersistenceContextRef_PersistenceUnitName(), theXMLTypePackage.getToken(), "persistenceUnitName", null, 0, 1, PersistenceContextRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getPersistenceContextRef_PersistenceContextType(), this.getPersistenceContextType(), "persistenceContextType", null, 0, 1, PersistenceContextRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getPersistenceContextRef_PersistenceContextSynchronization(), this.getPersistenceContextSynchronizationType(), "persistenceContextSynchronization", null, 0, 1, PersistenceContextRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getPersistenceContextRef_PersistenceProperties(), this.getPropertyType(), null, "persistenceProperties", null, 0, -1, PersistenceContextRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getPersistenceContextRef_MappedName(), theXMLTypePackage.getString(), "mappedName", null, 0, 1, PersistenceContextRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getPersistenceContextRef_InjectionTargets(), this.getInjectionTarget(), null, "injectionTargets", null, 0, -1, PersistenceContextRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getPersistenceContextRef_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, PersistenceContextRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(persistenceUnitRefEClass, PersistenceUnitRef.class, "PersistenceUnitRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getPersistenceUnitRef_Descriptions(), this.getDescription(), null, "descriptions", null, 0, -1, PersistenceUnitRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getPersistenceUnitRef_PersistenceUnitRefName(), this.getJNDIName(), "persistenceUnitRefName", null, 1, 1, PersistenceUnitRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getPersistenceUnitRef_PersistenceUnitName(), theXMLTypePackage.getToken(), "persistenceUnitName", null, 0, 1, PersistenceUnitRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getPersistenceUnitRef_MappedName(), theXMLTypePackage.getString(), "mappedName", null, 0, 1, PersistenceUnitRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getPersistenceUnitRef_InjectionTargets(), this.getInjectionTarget(), null, "injectionTargets", null, 0, -1, PersistenceUnitRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getPersistenceUnitRef_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, PersistenceUnitRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(portComponentRefEClass, PortComponentRef.class, "PortComponentRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getPortComponentRef_ServiceEndpointInterface(), this.getFullyQualifiedClassType(), "serviceEndpointInterface", null, 1, 1, PortComponentRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getPortComponentRef_EnableMtom(), this.getTrueFalseType(), "enableMtom", null, 0, 1, PortComponentRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getPortComponentRef_MtomThreshold(), theXMLTypePackage.getNonNegativeInteger(), "mtomThreshold", null, 0, 1, PortComponentRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getPortComponentRef_Addressing(), this.getAddressingType(), null, "addressing", null, 0, 1, PortComponentRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getPortComponentRef_RespectBinding(), this.getRespectBindingType(), null, "respectBinding", null, 0, 1, PortComponentRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getPortComponentRef_PortComponentLink(), theXMLTypePackage.getToken(), "portComponentLink", null, 0, 1, PortComponentRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getPortComponentRef_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, PortComponentRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(propertyTypeEClass, PropertyType.class, "PropertyType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getPropertyType_Name(), theXMLTypePackage.getString(), "name", null, 1, 1, PropertyType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getPropertyType_Value(), theXMLTypePackage.getString(), "value", null, 1, 1, PropertyType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getPropertyType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, PropertyType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(resourceEnvRefEClass, ResourceEnvRef.class, "ResourceEnvRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getResourceEnvRef_Descriptions(), this.getDescription(), null, "descriptions", null, 0, -1, ResourceEnvRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getResourceEnvRef_ResourceEnvRefName(), this.getJNDIName(), "resourceEnvRefName", null, 1, 1, ResourceEnvRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getResourceEnvRef_ResourceEnvRefType(), this.getFullyQualifiedClassType(), "resourceEnvRefType", null, 0, 1, ResourceEnvRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getResourceEnvRef_MappedName(), theXMLTypePackage.getString(), "mappedName", null, 0, 1, ResourceEnvRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getResourceEnvRef_InjectionTargets(), this.getInjectionTarget(), null, "injectionTargets", null, 0, -1, ResourceEnvRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getResourceEnvRef_LookupName(), theXMLTypePackage.getString(), "lookupName", null, 0, 1, ResourceEnvRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getResourceEnvRef_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ResourceEnvRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(resourceRefEClass, ResourceRef.class, "ResourceRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getResourceRef_Descriptions(), this.getDescription(), null, "descriptions", null, 0, -1, ResourceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getResourceRef_ResRefName(), this.getJNDIName(), "resRefName", null, 1, 1, ResourceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getResourceRef_ResType(), this.getFullyQualifiedClassType(), "resType", null, 0, 1, ResourceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getResourceRef_ResAuth(), this.getResAuthType(), "resAuth", null, 0, 1, ResourceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getResourceRef_ResSharingScope(), this.getResSharingScopeType(), "resSharingScope", null, 0, 1, ResourceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getResourceRef_MappedName(), theXMLTypePackage.getString(), "mappedName", null, 0, 1, ResourceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getResourceRef_InjectionTargets(), this.getInjectionTarget(), null, "injectionTargets", null, 0, -1, ResourceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getResourceRef_LookupName(), theXMLTypePackage.getString(), "lookupName", null, 0, 1, ResourceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getResourceRef_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ResourceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(respectBindingTypeEClass, RespectBindingType.class, "RespectBindingType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getRespectBindingType_Enabled(), this.getTrueFalseType(), "enabled", null, 0, 1, RespectBindingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(runAsEClass, RunAs.class, "RunAs", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getRunAs_Descriptions(), this.getDescription(), null, "descriptions", null, 0, -1, RunAs.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getRunAs_RoleName(), this.getRoleName(), "roleName", null, 1, 1, RunAs.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getRunAs_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, RunAs.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(securityRoleEClass, SecurityRole.class, "SecurityRole", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getSecurityRole_Descriptions(), this.getDescription(), null, "descriptions", null, 0, -1, SecurityRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getSecurityRole_RoleName(), this.getRoleName(), "roleName", null, 1, 1, SecurityRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getSecurityRole_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, SecurityRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(securityRoleRefEClass, SecurityRoleRef.class, "SecurityRoleRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getSecurityRoleRef_Descriptions(), this.getDescription(), null, "descriptions", null, 0, -1, SecurityRoleRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getSecurityRoleRef_RoleName(), this.getRoleName(), "roleName", null, 1, 1, SecurityRoleRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getSecurityRoleRef_RoleLink(), this.getRoleName(), "roleLink", null, 0, 1, SecurityRoleRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getSecurityRoleRef_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, SecurityRoleRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(serviceRefEClass, ServiceRef.class, "ServiceRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getServiceRef_Descriptions(), this.getDescription(), null, "descriptions", null, 0, -1, ServiceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getServiceRef_DisplayNames(), this.getDisplayName(), null, "displayNames", null, 0, -1, ServiceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getServiceRef_Icons(), this.getIcon(), null, "icons", null, 0, -1, ServiceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getServiceRef_ServiceRefName(), this.getJNDIName(), "serviceRefName", null, 1, 1, ServiceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getServiceRef_ServiceInterface(), this.getFullyQualifiedClassType(), "serviceInterface", null, 1, 1, ServiceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getServiceRef_ServiceRefType(), this.getFullyQualifiedClassType(), "serviceRefType", null, 0, 1, ServiceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getServiceRef_WsdlFile(), theXMLTypePackage.getAnyURI(), "wsdlFile", null, 0, 1, ServiceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getServiceRef_JaxrpcMappingFile(), this.getPathType(), "jaxrpcMappingFile", null, 0, 1, ServiceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getServiceRef_ServiceQname(), theXMLTypePackage.getQName(), "serviceQname", null, 0, 1, ServiceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getServiceRef_PortComponentRefs(), this.getPortComponentRef(), null, "portComponentRefs", null, 0, -1, ServiceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getServiceRef_Handlers(), this.getServiceRefHandler(), null, "handlers", null, 0, -1, ServiceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getServiceRef_HandlerChains(), this.getServiceRefHandlerChains(), null, "handlerChains", null, 0, 1, ServiceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getServiceRef_MappedName(), theXMLTypePackage.getString(), "mappedName", null, 0, 1, ServiceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getServiceRef_InjectionTargets(), this.getInjectionTarget(), null, "injectionTargets", null, 0, -1, ServiceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getServiceRef_LookupName(), theXMLTypePackage.getString(), "lookupName", null, 0, 1, ServiceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getServiceRef_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ServiceRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(serviceRefHandlerEClass, ServiceRefHandler.class, "ServiceRefHandler", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getServiceRefHandler_Descriptions(), this.getDescription(), null, "descriptions", null, 0, -1, ServiceRefHandler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getServiceRefHandler_DisplayNames(), this.getDisplayName(), null, "displayNames", null, 0, -1, ServiceRefHandler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getServiceRefHandler_Icons(), this.getIcon(), null, "icons", null, 0, -1, ServiceRefHandler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getServiceRefHandler_HandlerName(), theXMLTypePackage.getToken(), "handlerName", null, 1, 1, ServiceRefHandler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getServiceRefHandler_HandlerClass(), this.getFullyQualifiedClassType(), "handlerClass", null, 1, 1, ServiceRefHandler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getServiceRefHandler_InitParams(), this.getParamValue(), null, "initParams", null, 0, -1, ServiceRefHandler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getServiceRefHandler_SoapHeaders(), theXMLTypePackage.getQName(), "soapHeaders", null, 0, -1, ServiceRefHandler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getServiceRefHandler_SoapRoles(), theXMLTypePackage.getToken(), "soapRoles", null, 0, -1, ServiceRefHandler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getServiceRefHandler_PortNames(), theXMLTypePackage.getToken(), "portNames", null, 0, -1, ServiceRefHandler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getServiceRefHandler_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ServiceRefHandler.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(serviceRefHandlerChainEClass, ServiceRefHandlerChain.class, "ServiceRefHandlerChain", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getServiceRefHandlerChain_ServiceNamePattern(), this.getQnamePattern(), "serviceNamePattern", null, 0, 1, ServiceRefHandlerChain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getServiceRefHandlerChain_PortNamePattern(), this.getQnamePattern(), "portNamePattern", null, 0, 1, ServiceRefHandlerChain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getServiceRefHandlerChain_ProtocolBindings(), this.getProtocolBindingListType(), "protocolBindings", null, 0, 1, ServiceRefHandlerChain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getServiceRefHandlerChain_Handlers(), this.getServiceRefHandler(), null, "handlers", null, 1, -1, ServiceRefHandlerChain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getServiceRefHandlerChain_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ServiceRefHandlerChain.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(serviceRefHandlerChainsEClass, ServiceRefHandlerChains.class, "ServiceRefHandlerChains", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getServiceRefHandlerChains_HandlerChains(), this.getServiceRefHandlerChain(), null, "handlerChains", null, 0, -1, ServiceRefHandlerChains.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getServiceRefHandlerChains_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ServiceRefHandlerChains.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(urlPatternTypeEClass, UrlPatternType.class, "UrlPatternType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getUrlPatternType_Value(), theXMLTypePackage.getString(), "value", null, 0, 1, UrlPatternType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		// Initialize enums and add enum literals
+		initEEnum(addressingResponsesTypeEEnum, AddressingResponsesType.class, "AddressingResponsesType"); //$NON-NLS-1$
+		addEEnumLiteral(addressingResponsesTypeEEnum, AddressingResponsesType.ANONYMOUS);
+		addEEnumLiteral(addressingResponsesTypeEEnum, AddressingResponsesType.NONANONYMOUS);
+		addEEnumLiteral(addressingResponsesTypeEEnum, AddressingResponsesType.ALL);
+
+		initEEnum(ejbRefTypeEEnum, EjbRefType.class, "EjbRefType"); //$NON-NLS-1$
+		addEEnumLiteral(ejbRefTypeEEnum, EjbRefType.ENTITY_LITERAL);
+		addEEnumLiteral(ejbRefTypeEEnum, EjbRefType.SESSION_LITERAL);
+
+		initEEnum(genericBooleanTypeEEnum, GenericBooleanType.class, "GenericBooleanType"); //$NON-NLS-1$
+		addEEnumLiteral(genericBooleanTypeEEnum, GenericBooleanType.TRUE);
+		addEEnumLiteral(genericBooleanTypeEEnum, GenericBooleanType.FALSE);
+		addEEnumLiteral(genericBooleanTypeEEnum, GenericBooleanType.YES);
+		addEEnumLiteral(genericBooleanTypeEEnum, GenericBooleanType.NO);
+
+		initEEnum(isolationLevelTypeEEnum, IsolationLevelType.class, "IsolationLevelType"); //$NON-NLS-1$
+		addEEnumLiteral(isolationLevelTypeEEnum, IsolationLevelType.TRANSACTIONREADUNCOMMITTED);
+		addEEnumLiteral(isolationLevelTypeEEnum, IsolationLevelType.TRANSACTIONREADCOMMITTED);
+		addEEnumLiteral(isolationLevelTypeEEnum, IsolationLevelType.TRANSACTIONREPEATABLEREAD);
+		addEEnumLiteral(isolationLevelTypeEEnum, IsolationLevelType.TRANSACTIONSERIALIZABLE);
+
+		initEEnum(messageDestinationUsageTypeEEnum, MessageDestinationUsageType.class, "MessageDestinationUsageType"); //$NON-NLS-1$
+		addEEnumLiteral(messageDestinationUsageTypeEEnum, MessageDestinationUsageType.CONSUMES_LITERAL);
+		addEEnumLiteral(messageDestinationUsageTypeEEnum, MessageDestinationUsageType.PRODUCES_LITERAL);
+		addEEnumLiteral(messageDestinationUsageTypeEEnum, MessageDestinationUsageType.CONSUMES_PRODUCES_LITERAL);
+
+		initEEnum(persistenceContextSynchronizationTypeEEnum, PersistenceContextSynchronizationType.class, "PersistenceContextSynchronizationType"); //$NON-NLS-1$
+		addEEnumLiteral(persistenceContextSynchronizationTypeEEnum, PersistenceContextSynchronizationType.SYNCHRONIZED);
+		addEEnumLiteral(persistenceContextSynchronizationTypeEEnum, PersistenceContextSynchronizationType.UNSYNCHRONIZED);
+
+		initEEnum(persistenceContextTypeEEnum, PersistenceContextType.class, "PersistenceContextType"); //$NON-NLS-1$
+		addEEnumLiteral(persistenceContextTypeEEnum, PersistenceContextType.TRANSACTION_LITERAL);
+		addEEnumLiteral(persistenceContextTypeEEnum, PersistenceContextType.EXTENDED_LITERAL);
+
+		initEEnum(resAuthTypeEEnum, ResAuthType.class, "ResAuthType"); //$NON-NLS-1$
+		addEEnumLiteral(resAuthTypeEEnum, ResAuthType.APPLICATION_LITERAL);
+		addEEnumLiteral(resAuthTypeEEnum, ResAuthType.CONTAINER_LITERAL);
+
+		initEEnum(resSharingScopeTypeEEnum, ResSharingScopeType.class, "ResSharingScopeType"); //$NON-NLS-1$
+		addEEnumLiteral(resSharingScopeTypeEEnum, ResSharingScopeType.SHAREABLE_LITERAL);
+		addEEnumLiteral(resSharingScopeTypeEEnum, ResSharingScopeType.UNSHAREABLE_LITERAL);
+
+		initEEnum(transactionSupportEEnum, TransactionSupport.class, "TransactionSupport"); //$NON-NLS-1$
+		addEEnumLiteral(transactionSupportEEnum, TransactionSupport.NO_TRANSACTION);
+		addEEnumLiteral(transactionSupportEEnum, TransactionSupport.LOCAL_TRANSACTION);
+		addEEnumLiteral(transactionSupportEEnum, TransactionSupport.XA_TRANSACTION);
+
+		// Initialize data types
+		initEDataType(addressingResponsesTypeObjectEDataType, AddressingResponsesType.class, "AddressingResponsesTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(deweyVersionTypeEDataType, String.class, "DeweyVersionType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(ejbLinkEDataType, String.class, "EJBLink", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(ejbRefNameTypeEDataType, String.class, "EjbRefNameType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(ejbRefTypeObjectEDataType, EjbRefType.class, "EjbRefTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(envEntryTypeEDataType, String.class, "EnvEntryType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(fullyQualifiedClassTypeEDataType, String.class, "FullyQualifiedClassType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(genericBooleanTypeObjectEDataType, GenericBooleanType.class, "GenericBooleanTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(homeEDataType, String.class, "Home", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(isolationLevelTypeObjectEDataType, IsolationLevelType.class, "IsolationLevelTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(javaIdentifierEDataType, String.class, "JavaIdentifier", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(javaTypeEDataType, String.class, "JavaType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(jdbcUrlTypeEDataType, String.class, "JdbcUrlType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(jndiNameEDataType, String.class, "JNDIName", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(localEDataType, String.class, "Local", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(localHomeEDataType, String.class, "LocalHome", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(messageDestinationLinkEDataType, String.class, "MessageDestinationLink", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(messageDestinationTypeTypeEDataType, String.class, "MessageDestinationTypeType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(messageDestinationUsageTypeObjectEDataType, MessageDestinationUsageType.class, "MessageDestinationUsageTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(pathTypeEDataType, String.class, "PathType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(persistenceContextSynchronizationTypeObjectEDataType, PersistenceContextSynchronizationType.class, "PersistenceContextSynchronizationTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(persistenceContextTypeObjectEDataType, PersistenceContextType.class, "PersistenceContextTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(protocolBindingListTypeEDataType, List.class, "ProtocolBindingListType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(protocolBindingTypeEDataType, String.class, "ProtocolBindingType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(protocolURIAliasTypeEDataType, String.class, "ProtocolURIAliasType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(qnamePatternEDataType, String.class, "QnamePattern", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(remoteEDataType, String.class, "Remote", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(resAuthTypeObjectEDataType, ResAuthType.class, "ResAuthTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(resSharingScopeTypeObjectEDataType, ResSharingScopeType.class, "ResSharingScopeTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(roleNameEDataType, String.class, "RoleName", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(transactionSupportObjectEDataType, TransactionSupport.class, "TransactionSupportObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(trueFalseTypeEDataType, boolean.class, "TrueFalseType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(trueFalseTypeObjectEDataType, Boolean.class, "TrueFalseTypeObject", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+
+		// Create resource
+		createResource(eNS_URI);
+
+		// Create annotations
+		// http:///org/eclipse/emf/ecore/util/ExtendedMetaData
 			createExtendedMetaDataAnnotations();
 		}finally{
 			if( hasLock )
@@ -3532,6 +4240,146 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "responses", //$NON-NLS-1$ //$NON-NLS-2$
 			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (administeredObjectTypeEClass, 
+		   source, 
+		   new String[] {
+			 "name", "administered-objectType", //$NON-NLS-1$ //$NON-NLS-2$
+			 "kind", "elementOnly" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getAdministeredObjectType_Description(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "description", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getAdministeredObjectType_Name(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "name", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getAdministeredObjectType_InterfaceName(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "interface-name", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getAdministeredObjectType_ClassName(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "class-name", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getAdministeredObjectType_ResourceAdapter(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "resource-adapter", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getAdministeredObjectType_Property(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "property", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getAdministeredObjectType_Id(), 
+		   source, 
+		   new String[] {
+			 "kind", "attribute", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "id" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (connectionFactoryResourceTypeEClass, 
+		   source, 
+		   new String[] {
+			 "name", "connection-factory-resourceType", //$NON-NLS-1$ //$NON-NLS-2$
+			 "kind", "elementOnly" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getConnectionFactoryResourceType_Description(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "description", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getConnectionFactoryResourceType_Name(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "name", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getConnectionFactoryResourceType_ClassName(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "class-name", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getConnectionFactoryResourceType_ResourceAdapter(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "resource-adapter", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getConnectionFactoryResourceType_MaxPoolSize(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "max-pool-size", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getConnectionFactoryResourceType_MinPoolSize(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "min-pool-size", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getConnectionFactoryResourceType_TransactionSupport(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "transaction-support", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getConnectionFactoryResourceType_Property(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "property", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getConnectionFactoryResourceType_Id(), 
+		   source, 
+		   new String[] {
+			 "kind", "attribute", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "id" //$NON-NLS-1$ //$NON-NLS-2$
 		   });			
 		addAnnotation
 		  (dataSourceTypeEClass, 
@@ -4155,6 +5003,170 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 			 "pattern", "jdbc:(.*):(.*)" //$NON-NLS-1$ //$NON-NLS-2$
 		   });			
 		addAnnotation
+		  (jmsConnectionFactoryTypeEClass, 
+		   source, 
+		   new String[] {
+			 "name", "jms-connection-factoryType", //$NON-NLS-1$ //$NON-NLS-2$
+			 "kind", "elementOnly" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getJmsConnectionFactoryType_Description(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "description", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getJmsConnectionFactoryType_Name(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "name", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getJmsConnectionFactoryType_ClassName(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "class-name", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getJmsConnectionFactoryType_ResourceAdapter(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "resource-adapter", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getJmsConnectionFactoryType_User(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "user", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getJmsConnectionFactoryType_Password(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "password", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getJmsConnectionFactoryType_ClientId(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "client-id", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getJmsConnectionFactoryType_Property(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "property", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getJmsConnectionFactoryType_Transactional(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "transactional", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getJmsConnectionFactoryType_MaxPoolSize(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "max-pool-size", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getJmsConnectionFactoryType_MinPoolSize(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "min-pool-size", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getJmsConnectionFactoryType_Id(), 
+		   source, 
+		   new String[] {
+			 "kind", "attribute", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "id" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (jmsDestinationTypeEClass, 
+		   source, 
+		   new String[] {
+			 "name", "jms-destinationType", //$NON-NLS-1$ //$NON-NLS-2$
+			 "kind", "elementOnly" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getJmsDestinationType_Description(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "description", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getJmsDestinationType_Name(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "name", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getJmsDestinationType_ClassName(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "class-name", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getJmsDestinationType_ResourceAdapter(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "resource-adapter", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getJmsDestinationType_DestinationName(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "destination-name", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getJmsDestinationType_Property(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "property", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getJmsDestinationType_Id(), 
+		   source, 
+		   new String[] {
+			 "kind", "attribute", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "id" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
 		  (jndiNameEDataType, 
 		   source, 
 		   new String[] {
@@ -4240,6 +5252,108 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 		   source, 
 		   new String[] {
 			 "name", "local-homeType" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (mailSessionTypeEClass, 
+		   source, 
+		   new String[] {
+			 "name", "mail-sessionType", //$NON-NLS-1$ //$NON-NLS-2$
+			 "kind", "elementOnly" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getMailSessionType_Description(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "description", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getMailSessionType_Name(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "name", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getMailSessionType_StoreProtocol(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "store-protocol", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getMailSessionType_StoreProtocolClass(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "store-protocol-class", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getMailSessionType_TransportProtocol(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "transport-protocol", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getMailSessionType_TransportProtocolClass(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "transport-protocol-class", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getMailSessionType_Host(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "host", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getMailSessionType_User(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "user", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getMailSessionType_Password(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "password", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getMailSessionType_From(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "from", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getMailSessionType_Property(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "property", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getMailSessionType_Id(), 
+		   source, 
+		   new String[] {
+			 "kind", "attribute", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "id" //$NON-NLS-1$ //$NON-NLS-2$
 		   });			
 		addAnnotation
 		  (messageDestinationEClass, 
@@ -4490,6 +5604,14 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
 		   });			
 		addAnnotation
+		  (getPersistenceContextRef_PersistenceContextSynchronization(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "persistence-context-synchronization", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
 		  (getPersistenceContextRef_PersistenceProperties(), 
 		   source, 
 		   new String[] {
@@ -4519,6 +5641,19 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 		   new String[] {
 			 "kind", "attribute", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "id" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (persistenceContextSynchronizationTypeEEnum, 
+		   source, 
+		   new String[] {
+			 "name", "persistence-context-synchronizationType" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (persistenceContextSynchronizationTypeObjectEDataType, 
+		   source, 
+		   new String[] {
+			 "name", "persistence-context-synchronizationType:Object", //$NON-NLS-1$ //$NON-NLS-2$
+			 "baseType", "persistence-context-synchronizationType" //$NON-NLS-1$ //$NON-NLS-2$
 		   });			
 		addAnnotation
 		  (persistenceContextTypeEEnum, 
@@ -5287,6 +6422,19 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 		   new String[] {
 			 "kind", "attribute", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "id" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (transactionSupportEEnum, 
+		   source, 
+		   new String[] {
+			 "name", "transaction-supportType" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (transactionSupportObjectEDataType, 
+		   source, 
+		   new String[] {
+			 "name", "transaction-supportType:Object", //$NON-NLS-1$ //$NON-NLS-2$
+			 "baseType", "transaction-supportType" //$NON-NLS-1$ //$NON-NLS-2$
 		   });			
 		addAnnotation
 		  (trueFalseTypeEDataType, 

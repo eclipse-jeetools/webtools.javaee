@@ -52,7 +52,7 @@ public interface ActivationSpec extends JavaEEObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * 
-	 * <![CDATA[[
+	 * [
 	 *             The element activationspec-class specifies the fully
 	 *             qualified Java class name of the activation
 	 *             specification class. This class must implement the
@@ -64,7 +64,7 @@ public interface ActivationSpec extends JavaEEObject {
 	 *             	  <activationspec-class>com.wombat.ActivationSpecImpl
 	 *             	  </activationspec-class>
 	 *             
-	 * ]]>
+	 * 
 	 * 			@since Java EE 6, Connector 1.6
 	 *           
 	 * <!-- end-model-doc -->

@@ -18,7 +18,7 @@ package org.eclipse.jst.javaee.core;
  *
  * <!-- begin-model-doc -->
  * 
- * <![CDATA[[
+ * [
  *         The display-name type contains a short name that is intended
  *         to be displayed by tools. It is used by display-name
  *         elements.  The display name need not be unique.
@@ -32,7 +32,7 @@ package org.eclipse.jst.javaee.core;
  *         
  *         The value of the xml:lang attribute is "en" (English) by default. 
  *         
- * ]]>
+ * 
  *         @since Java EE 5
  *       
  * <!-- end-model-doc -->

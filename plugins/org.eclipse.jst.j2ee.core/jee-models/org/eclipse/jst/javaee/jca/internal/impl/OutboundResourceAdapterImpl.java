@@ -27,10 +27,10 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.eclipse.jst.javaee.core.TransactionSupport;
 import org.eclipse.jst.javaee.jca.AuthenticationMechanism;
 import org.eclipse.jst.javaee.jca.ConnectionDefinition;
 import org.eclipse.jst.javaee.jca.OutboundResourceAdapter;
-import org.eclipse.jst.javaee.jca.TransactionSupportType;
 
 import org.eclipse.jst.javaee.jca.internal.metadata.JcaPackage;
 
@@ -70,7 +70,7 @@ public class OutboundResourceAdapterImpl extends EObjectImpl implements Outbound
 	 * @generated
 	 * @ordered
 	 */
-	protected static final TransactionSupportType TRANSACTION_SUPPORT_EDEFAULT = TransactionSupportType.NO_TRANSACTION;
+	protected static final TransactionSupport TRANSACTION_SUPPORT_EDEFAULT = TransactionSupport.NO_TRANSACTION;
 
 	/**
 	 * The cached value of the '{@link #getTransactionSupport() <em>Transaction Support</em>}' attribute.
@@ -80,7 +80,7 @@ public class OutboundResourceAdapterImpl extends EObjectImpl implements Outbound
 	 * @generated
 	 * @ordered
 	 */
-	protected TransactionSupportType transactionSupport = TRANSACTION_SUPPORT_EDEFAULT;
+	protected TransactionSupport transactionSupport = TRANSACTION_SUPPORT_EDEFAULT;
 
 	/**
 	 * This is true if the Transaction Support attribute has been set.
@@ -186,7 +186,7 @@ public class OutboundResourceAdapterImpl extends EObjectImpl implements Outbound
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TransactionSupportType getTransactionSupport() {
+	public TransactionSupport getTransactionSupport() {
 		return transactionSupport;
 	}
 
@@ -195,8 +195,8 @@ public class OutboundResourceAdapterImpl extends EObjectImpl implements Outbound
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setTransactionSupport(TransactionSupportType newTransactionSupport) {
-		TransactionSupportType oldTransactionSupport = transactionSupport;
+	public void setTransactionSupport(TransactionSupport newTransactionSupport) {
+		TransactionSupport oldTransactionSupport = transactionSupport;
 		transactionSupport = newTransactionSupport == null ? TRANSACTION_SUPPORT_EDEFAULT : newTransactionSupport;
 		boolean oldTransactionSupportESet = transactionSupportESet;
 		transactionSupportESet = true;
@@ -210,7 +210,7 @@ public class OutboundResourceAdapterImpl extends EObjectImpl implements Outbound
 	 * @generated
 	 */
 	public void unsetTransactionSupport() {
-		TransactionSupportType oldTransactionSupport = transactionSupport;
+		TransactionSupport oldTransactionSupport = transactionSupport;
 		boolean oldTransactionSupportESet = transactionSupportESet;
 		transactionSupport = TRANSACTION_SUPPORT_EDEFAULT;
 		transactionSupportESet = false;
@@ -358,7 +358,7 @@ public class OutboundResourceAdapterImpl extends EObjectImpl implements Outbound
 				getConnectionDefinition().addAll((Collection<? extends ConnectionDefinition>)newValue);
 				return;
 			case JcaPackage.OUTBOUND_RESOURCE_ADAPTER__TRANSACTION_SUPPORT:
-				setTransactionSupport((TransactionSupportType)newValue);
+				setTransactionSupport((TransactionSupport)newValue);
 				return;
 			case JcaPackage.OUTBOUND_RESOURCE_ADAPTER__AUTHENTICATION_MECHANISM:
 				getAuthenticationMechanism().clear();

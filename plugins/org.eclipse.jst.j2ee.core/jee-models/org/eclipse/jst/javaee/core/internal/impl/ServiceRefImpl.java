@@ -748,7 +748,7 @@ public class ServiceRefImpl extends EObjectImpl implements ServiceRef {
 				setJaxrpcMappingFile((String)newValue);
 				return;
 			case JavaeePackage.SERVICE_REF__SERVICE_QNAME:
-				setServiceQname(newValue);
+				setServiceQname((QName)newValue);
 				return;
 			case JavaeePackage.SERVICE_REF__PORT_COMPONENT_REFS:
 				getPortComponentRefs().clear();

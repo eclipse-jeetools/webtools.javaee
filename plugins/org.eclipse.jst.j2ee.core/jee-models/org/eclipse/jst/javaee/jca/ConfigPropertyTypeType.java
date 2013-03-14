@@ -23,7 +23,7 @@ import org.eclipse.emf.common.util.Enumerator;
  * <!-- end-user-doc -->
  * <!-- begin-model-doc -->
  * 
- * <![CDATA[[
+ * [
  *         The config-property-typeType contains the fully
  *         qualified Java type of a configuration property.
  *         
@@ -37,7 +37,7 @@ import org.eclipse.emf.common.util.Enumerator;
  *         Example:
  *         <config-property-type>java.lang.String</config-property-type>
  *         
- * ]]>
+ * 
  * 		@since Java EE 6, Connector 1.6
  *       
  * <!-- end-model-doc -->

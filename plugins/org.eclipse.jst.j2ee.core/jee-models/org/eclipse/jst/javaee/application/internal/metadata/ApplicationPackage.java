@@ -30,27 +30,27 @@ import org.eclipse.jst.javaee.application.ApplicationFactory;
  * <!-- begin-model-doc -->
  * 
  * 
- *       $Id: ApplicationPackage.java,v 1.4 2010/05/19 19:53:11 canderson Exp $
+ *       $Id: application_6.xsd,v 1.4 2010/01/14 18:20:11 ccc Exp $
  *       
  *     
  * 
- * <![CDATA[[
- *       This is the XML Schema for the application 6 deployment
+ *       [
+ *       This is the XML Schema for the application 7 deployment
  *       descriptor.  The deployment descriptor must be named
  *       "META-INF/application.xml" in the application's ear file.
  *       All application deployment descriptors must indicate
  *       the application schema by using the Java EE namespace:
  *       
- *       http://java.sun.com/xml/ns/javaee
+ *       http://xmlns.jcp.org/xml/ns/javaee
  *       
  *       and indicate the version of the schema by
  *       using the version element as shown below:
  *       
- *       <application xmlns="http://java.sun.com/xml/ns/javaee"
+ *       <application xmlns="http://xmlns.jcp.org/xml/ns/javaee"
  *       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- *       xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
- *       	http://java.sun.com/xml/ns/javaee/application_6.xsd"
- *       version="6">
+ *       xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+ *       	http://xmlns.jcp.org/xml/ns/javaee/application_7.xsd"
+ *       version="7">
  *       ...
  *       </application>
  *       
@@ -58,9 +58,9 @@ import org.eclipse.jst.javaee.application.ApplicationFactory;
  *       the schema using the xsi:schemaLocation attribute for Java EE
  *       namespace with the following location:
  *       
- *       http://java.sun.com/xml/ns/javaee/application_6.xsd
+ *       http://xmlns.jcp.org/xml/ns/javaee/application_7.xsd
  *       
- * ]]>
+ *       
  *     
  * 
  * 
@@ -79,7 +79,7 @@ import org.eclipse.jst.javaee.application.ApplicationFactory;
  *     
  * 
  * 
- *       $Id: ApplicationPackage.java,v 1.4 2010/05/19 19:53:11 canderson Exp $
+ *       $Id: javaee_6.xsd,v 1.4 2010/01/14 18:20:11 ccc Exp $
  *       
  *     
  * 
@@ -104,7 +104,7 @@ import org.eclipse.jst.javaee.application.ApplicationFactory;
  *     
  * 
  * 
- *       $Id: ApplicationPackage.java,v 1.4 2010/05/19 19:53:11 canderson Exp $
+ *       $Id: javaee_web_services_client_1_3.xsd,v 1.2 2009/09/29 20:31:42 ccc Exp $
  *       
  *     
  * 
@@ -167,7 +167,7 @@ import org.eclipse.jst.javaee.application.ApplicationFactory;
  *    </div>
  *   
  * 
- *    <div id="usage" xml:id="usage" xmlns="http://www.w3.org/1999/xhtml">
+ *    <div xmlns="http://www.w3.org/1999/xhtml" id="usage" xml:id="usage">
  *     <h2>
  *       <a name="usage">About this schema document</a>
  *     </h2>
@@ -213,7 +213,7 @@ import org.eclipse.jst.javaee.application.ApplicationFactory;
  *    </div>
  *   
  * 
- *    <div id="nsversioning" xml:id="nsversioning" xmlns="http://www.w3.org/1999/xhtml">
+ *    <div xmlns="http://www.w3.org/1999/xhtml" id="nsversioning" xml:id="nsversioning">
  *     <h2>
  *       <a name="nsversioning">Versioning policy for this schema document</a>
  *     </h2>
@@ -287,8 +287,9 @@ public interface ApplicationPackage extends EPackage {
 	 * The package must be registered with the Java EE 5 and Java EE 6 xsds, since it is used for both
 	 * <!-- end-user-doc -->
 	 */
-	String eNS_URI = "http://java.sun.com/xml/ns/javaee/application_5.xsd"; //$NON-NLS-1$
+	String eNS_URI = "http://xmlns.jcp.org/xml/ns/javaee/application_7.xsd"; //$NON-NLS-1$
 	String eNS_URI2 = "http://java.sun.com/xml/ns/javaee/application_6.xsd"; //$NON-NLS-1$
+	String eNS_URI3 = "http://java.sun.com/xml/ns/javaee/application_5.xsd"; //$NON-NLS-1$
 
 	/**
 	 * The package namespace name.
@@ -488,13 +489,58 @@ public interface ApplicationPackage extends EPackage {
 	int APPLICATION__DATA_SOURCE = 18;
 
 	/**
+	 * The feature id for the '<em><b>Jms Connection Factory</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION__JMS_CONNECTION_FACTORY = 19;
+
+	/**
+	 * The feature id for the '<em><b>Jms Destination</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION__JMS_DESTINATION = 20;
+
+	/**
+	 * The feature id for the '<em><b>Mail Session</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION__MAIL_SESSION = 21;
+
+	/**
+	 * The feature id for the '<em><b>Connection Factory</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION__CONNECTION_FACTORY = 22;
+
+	/**
+	 * The feature id for the '<em><b>Administered Object</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int APPLICATION__ADMINISTERED_OBJECT = 23;
+
+	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int APPLICATION__ID = 19;
+	int APPLICATION__ID = 24;
 
 	/**
 	 * The feature id for the '<em><b>Version</b></em>' attribute.
@@ -503,7 +549,7 @@ public interface ApplicationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int APPLICATION__VERSION = 20;
+	int APPLICATION__VERSION = 25;
 
 	/**
 	 * The number of structural features of the '<em>Application</em>' class.
@@ -512,7 +558,7 @@ public interface ApplicationPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int APPLICATION_FEATURE_COUNT = 21;
+	int APPLICATION_FEATURE_COUNT = 26;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.application.internal.impl.ApplicationDeploymentDescriptorImpl <em>Deployment Descriptor</em>}' class.
@@ -909,6 +955,61 @@ public interface ApplicationPackage extends EPackage {
 	EReference getApplication_DataSource();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.application.Application#getJmsConnectionFactory <em>Jms Connection Factory</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Jms Connection Factory</em>'.
+	 * @see org.eclipse.jst.javaee.application.Application#getJmsConnectionFactory()
+	 * @see #getApplication()
+	 * @generated
+	 */
+	EReference getApplication_JmsConnectionFactory();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.application.Application#getJmsDestination <em>Jms Destination</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Jms Destination</em>'.
+	 * @see org.eclipse.jst.javaee.application.Application#getJmsDestination()
+	 * @see #getApplication()
+	 * @generated
+	 */
+	EReference getApplication_JmsDestination();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.application.Application#getMailSession <em>Mail Session</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Mail Session</em>'.
+	 * @see org.eclipse.jst.javaee.application.Application#getMailSession()
+	 * @see #getApplication()
+	 * @generated
+	 */
+	EReference getApplication_MailSession();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.application.Application#getConnectionFactory <em>Connection Factory</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Connection Factory</em>'.
+	 * @see org.eclipse.jst.javaee.application.Application#getConnectionFactory()
+	 * @see #getApplication()
+	 * @generated
+	 */
+	EReference getApplication_ConnectionFactory();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.application.Application#getAdministeredObject <em>Administered Object</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Administered Object</em>'.
+	 * @see org.eclipse.jst.javaee.application.Application#getAdministeredObject()
+	 * @see #getApplication()
+	 * @generated
+	 */
+	EReference getApplication_AdministeredObject();
+
+	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.application.Application#getId <em>Id</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1286,6 +1387,46 @@ public interface ApplicationPackage extends EPackage {
 		 * @generated
 		 */
 		EReference APPLICATION__DATA_SOURCE = eINSTANCE.getApplication_DataSource();
+
+		/**
+		 * The meta object literal for the '<em><b>Jms Connection Factory</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APPLICATION__JMS_CONNECTION_FACTORY = eINSTANCE.getApplication_JmsConnectionFactory();
+
+		/**
+		 * The meta object literal for the '<em><b>Jms Destination</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APPLICATION__JMS_DESTINATION = eINSTANCE.getApplication_JmsDestination();
+
+		/**
+		 * The meta object literal for the '<em><b>Mail Session</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APPLICATION__MAIL_SESSION = eINSTANCE.getApplication_MailSession();
+
+		/**
+		 * The meta object literal for the '<em><b>Connection Factory</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APPLICATION__CONNECTION_FACTORY = eINSTANCE.getApplication_ConnectionFactory();
+
+		/**
+		 * The meta object literal for the '<em><b>Administered Object</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference APPLICATION__ADMINISTERED_OBJECT = eINSTANCE.getApplication_AdministeredObject();
 
 		/**
 		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.

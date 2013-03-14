@@ -13,6 +13,7 @@ package org.eclipse.jst.javaee.jca;
 import java.util.List;
 
 import org.eclipse.jst.javaee.core.JavaEEObject;
+import org.eclipse.jst.javaee.core.TransactionSupport;
 
 /**
  * <!-- begin-user-doc -->
@@ -92,7 +93,7 @@ public interface OutboundResourceAdapter extends JavaEEObject {
 
 	/**
 	 * Returns the value of the '<em><b>Transaction Support</b></em>' attribute.
-	 * The literals are from the enumeration {@link org.eclipse.jst.javaee.jca.TransactionSupportType}.
+	 * The literals are from the enumeration {@link org.eclipse.jst.javaee.core.TransactionSupport}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Transaction Support</em>' attribute isn't clear,
@@ -100,27 +101,27 @@ public interface OutboundResourceAdapter extends JavaEEObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Transaction Support</em>' attribute.
-	 * @see org.eclipse.jst.javaee.jca.TransactionSupportType
+	 * @see org.eclipse.jst.javaee.core.TransactionSupport
 	 * @see #isSetTransactionSupport()
 	 * @see #unsetTransactionSupport()
-	 * @see #setTransactionSupport(TransactionSupportType)
+	 * @see #setTransactionSupport(TransactionSupport)
 	 * @see org.eclipse.jst.javaee.jca.internal.metadata.JcaPackage#getOutboundResourceAdapter_TransactionSupport()
 	 * @generated
 	 */
-	TransactionSupportType getTransactionSupport();
+	TransactionSupport getTransactionSupport();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.jst.javaee.jca.OutboundResourceAdapter#getTransactionSupport <em>Transaction Support</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Transaction Support</em>' attribute.
-	 * @see org.eclipse.jst.javaee.jca.TransactionSupportType
+	 * @see org.eclipse.jst.javaee.core.TransactionSupport
 	 * @see #isSetTransactionSupport()
 	 * @see #unsetTransactionSupport()
 	 * @see #getTransactionSupport()
 	 * @generated
 	 */
-	void setTransactionSupport(TransactionSupportType value);
+	void setTransactionSupport(TransactionSupport value);
 
 	/**
 	 * Unsets the value of the '{@link org.eclipse.jst.javaee.jca.OutboundResourceAdapter#getTransactionSupport <em>Transaction Support</em>}' attribute.
@@ -128,7 +129,7 @@ public interface OutboundResourceAdapter extends JavaEEObject {
 	 * <!-- end-user-doc -->
 	 * @see #isSetTransactionSupport()
 	 * @see #getTransactionSupport()
-	 * @see #setTransactionSupport(TransactionSupportType)
+	 * @see #setTransactionSupport(TransactionSupport)
 	 * @generated
 	 */
 	void unsetTransactionSupport();
@@ -140,7 +141,7 @@ public interface OutboundResourceAdapter extends JavaEEObject {
 	 * @return whether the value of the '<em>Transaction Support</em>' attribute is set.
 	 * @see #unsetTransactionSupport()
 	 * @see #getTransactionSupport()
-	 * @see #setTransactionSupport(TransactionSupportType)
+	 * @see #setTransactionSupport(TransactionSupport)
 	 * @generated
 	 */
 	boolean isSetTransactionSupport();

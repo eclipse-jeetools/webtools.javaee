@@ -24,7 +24,7 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  * 
  * 
  *         The interceptorsType element declares one or more interceptor
- *         classes used by components within this ejb-jar or .war.  The declaration
+ *         classes used by components within this ejb-jar file or .war file.  The declaration
  *         consists of :
  *         
  *         - An optional description.

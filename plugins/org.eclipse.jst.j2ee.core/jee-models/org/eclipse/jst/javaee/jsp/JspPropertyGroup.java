@@ -26,24 +26,24 @@ import org.eclipse.jst.javaee.core.UrlPatternType;
  * <!-- begin-model-doc -->
  * 
  * 
- * 	The jsp-property-groupType is used to group a number of
- * 	files so they can be given global property information.
- * 	All files so described are deemed to be JSP files.  The
- * 	following additional properties can be described:
- * 
- * 	    - Control whether EL is ignored.
- * 	    - Control whether scripting elements are invalid.
- * 	    - Indicate pageEncoding information.
- * 	    - Indicate that a resource is a JSP document (XML).
- * 	    - Prelude and Coda automatic includes.
- *             - Control whether the character sequence #{ is allowed
- *               when used as a String literal.
- *             - Control whether template text containing only
- *               whitespaces must be removed from the response output.
- * 	    - Indicate the default contentType information.
- * 	    - Indicate the default buffering model for JspWriter
- * 	    - Control whether error should be raised for the use of
- * 	      undeclared namespaces in a JSP page.
+ * 		The jsp-property-groupType is used to group a number of
+ *         files so they can be given global property information.
+ *         All files so described are deemed to be JSP files.  The
+ *         following additional properties can be described:
+ *         
+ *         - Control whether EL is ignored.
+ *         - Control whether scripting elements are invalid.
+ *         - Indicate pageEncoding information.
+ *         - Indicate that a resource is a JSP document (XML).
+ *         - Prelude and Coda automatic includes.
+ *         - Control whether the character sequence #{ is allowed
+ *         when used as a String literal.
+ *         - Control whether template text containing only
+ *         whitespaces must be removed from the response output.
+ *         - Indicate the default contentType information.
+ *         - Indicate the default buffering model for JspWriter
+ *         - Control whether error should be raised for the use of
+ *         undeclared namespaces in a JSP page.
  * 
  * 	@since Java EE 5, JSP 2.1
  *       

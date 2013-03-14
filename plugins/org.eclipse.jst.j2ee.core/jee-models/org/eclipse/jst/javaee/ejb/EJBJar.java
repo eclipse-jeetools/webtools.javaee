@@ -34,8 +34,8 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  *         icon file name
  *         - an optional module name. Only applicable to
  *         stand-alone ejb-jars or ejb-jars packaged in an ear.
- *         Ignored if specified for an ejb-jar.xml within a .war.
- *         In that case, standard .war module-name rules apply.
+ *         Ignored if specified for an ejb-jar.xml within a .war file.
+ *         In that case, standard .war file module-name rules apply.
  *         - structural information about all included
  *         enterprise beans that is not specified through
  *         annotations
@@ -227,7 +227,7 @@ public interface EJBJar extends JavaEEObject {
 	 * 
 	 * 
 	 *             Providing an assembly-descriptor in the deployment
-	 *             descriptor is optional for the ejb-jar or .war file
+	 *             descriptor is optional for the ejb-jar file or .war file
 	 *             producer.
 	 *             
 	 *             @since Java EE 5, EJB 3.0
@@ -256,7 +256,7 @@ public interface EJBJar extends JavaEEObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * 
-	 * <![CDATA[[
+	 *             [
 	 *             The optional ejb-client-jar element specifies a JAR
 	 *             file that contains the class files necessary for a
 	 *             client program to access the
@@ -267,7 +267,7 @@ public interface EJBJar extends JavaEEObject {
 	 *             	  <ejb-client-jar>employee_service_client.jar
 	 *             	  </ejb-client-jar>
 	 *             
-	 * ]]>
+	 * 
 	 *             @since Java EE 5, EJB 3.0
 	 *           
 	 * <!-- end-model-doc -->
@@ -387,7 +387,7 @@ public interface EJBJar extends JavaEEObject {
 
 	/**
 	 * Returns the value of the '<em><b>Version</b></em>' attribute.
-	 * The default value is <code>"3.1"</code>.
+	 * The default value is <code>"3.2"</code>.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->

@@ -261,7 +261,7 @@ public class ConnectorImpl extends EObjectImpl implements Connector {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String VERSION_EDEFAULT = "1.6"; //$NON-NLS-1$
+	protected static final String VERSION_EDEFAULT = "1.7"; //$NON-NLS-1$
 
 	/**
 	 * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute.

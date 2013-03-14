@@ -22,7 +22,7 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  *
  * <!-- begin-model-doc -->
  * 
- * <![CDATA[[
+ * [
  *         The required-config-propertyType contains a declaration
  *         of a single configuration property used for specifying a
  *         required configuration property name. It is used
@@ -37,7 +37,7 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  *         <config-property-name>Destination</config-property-name>
  *         </required-config-property>
  *         
- * ]]>
+ * 
  * 		@since Java EE 6, Connector 1.6
  *       
  * <!-- end-model-doc -->

@@ -19,20 +19,13 @@ import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EValidator;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-
 import org.eclipse.emf.ecore.xml.namespace.XMLNamespacePackage;
-
 import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
-
 import org.eclipse.jst.j2ee.core.internal.plugin.J2EECorePlugin;
 import org.eclipse.jst.j2ee.internal.J2EEInit;
-
 import org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage;
-
 import org.eclipse.jst.javaee.jsp.internal.metadata.JspPackage;
-
 import org.eclipse.jst.javaee.web.AbsoluteOrderingType;
 import org.eclipse.jst.javaee.web.AuthConstraint;
 import org.eclipse.jst.javaee.web.CookieCommentType;
@@ -68,9 +61,7 @@ import org.eclipse.jst.javaee.web.WebFragment;
 import org.eclipse.jst.javaee.web.WebFactory;
 import org.eclipse.jst.javaee.web.WebResourceCollection;
 import org.eclipse.jst.javaee.web.WelcomeFileList;
-
 import org.eclipse.jst.javaee.web.internal.metadata.WebPackage;
-
 import org.eclipse.jst.javaee.web.internal.util.WebValidator;
 
 /**
@@ -1817,7 +1808,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getWebApp_MessageDestinations() {
+	public EReference getWebApp_JmsConnectionFactory() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(32);
 	}
 
@@ -1826,8 +1817,53 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getWebApp_LocalEncodingMappingsLists() {
+	public EReference getWebApp_JmsDestination() {
 		return (EReference)webAppEClass.getEStructuralFeatures().get(33);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getWebApp_MailSession() {
+		return (EReference)webAppEClass.getEStructuralFeatures().get(34);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getWebApp_ConnectionFactory() {
+		return (EReference)webAppEClass.getEStructuralFeatures().get(35);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getWebApp_AdministeredObject() {
+		return (EReference)webAppEClass.getEStructuralFeatures().get(36);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getWebApp_MessageDestinations() {
+		return (EReference)webAppEClass.getEStructuralFeatures().get(37);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getWebApp_LocalEncodingMappingsLists() {
+		return (EReference)webAppEClass.getEStructuralFeatures().get(38);
 	}
 
 	/**
@@ -1845,7 +1881,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * @generated
 	 */
 	public EReference getWebApp_AbsoluteOrdering() {
-		return (EReference)webAppEClass.getEStructuralFeatures().get(34);
+		return (EReference)webAppEClass.getEStructuralFeatures().get(39);
 	}
 
 	/**
@@ -1854,7 +1890,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * @generated
 	 */
 	public EAttribute getWebApp_Id() {
-		return (EAttribute)webAppEClass.getEStructuralFeatures().get(35);
+		return (EAttribute)webAppEClass.getEStructuralFeatures().get(40);
 	}
 
 	/**
@@ -1863,7 +1899,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * @generated
 	 */
 	public EAttribute getWebApp_MetadataComplete() {
-		return (EAttribute)webAppEClass.getEStructuralFeatures().get(36);
+		return (EAttribute)webAppEClass.getEStructuralFeatures().get(41);
 	}
 
 	/**
@@ -1872,7 +1908,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * @generated
 	 */
 	public EAttribute getWebApp_Version() {
-		return (EAttribute)webAppEClass.getEStructuralFeatures().get(37);
+		return (EAttribute)webAppEClass.getEStructuralFeatures().get(42);
 	}
 
 	/**
@@ -2222,7 +2258,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getWebFragment_MessageDestinations() {
+	public EReference getWebFragment_JmsConnectionFactory() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(32);
 	}
 
@@ -2231,7 +2267,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getWebFragment_LocalEncodingMappingsLists() {
+	public EReference getWebFragment_JmsDestination() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(33);
 	}
 
@@ -2240,7 +2276,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getWebFragment_Ordering() {
+	public EReference getWebFragment_MailSession() {
 		return (EReference)webFragmentEClass.getEStructuralFeatures().get(34);
 	}
 
@@ -2249,8 +2285,53 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getWebFragment_ConnectionFactory() {
+		return (EReference)webFragmentEClass.getEStructuralFeatures().get(35);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getWebFragment_AdministeredObject() {
+		return (EReference)webFragmentEClass.getEStructuralFeatures().get(36);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getWebFragment_MessageDestinations() {
+		return (EReference)webFragmentEClass.getEStructuralFeatures().get(37);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getWebFragment_LocalEncodingMappingsLists() {
+		return (EReference)webFragmentEClass.getEStructuralFeatures().get(38);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getWebFragment_Ordering() {
+		return (EReference)webFragmentEClass.getEStructuralFeatures().get(39);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EAttribute getWebFragment_Id() {
-		return (EAttribute)webFragmentEClass.getEStructuralFeatures().get(35);
+		return (EAttribute)webFragmentEClass.getEStructuralFeatures().get(40);
 	}
 
 	/**
@@ -2259,7 +2340,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * @generated
 	 */
 	public EAttribute getWebFragment_MetadataComplete() {
-		return (EAttribute)webFragmentEClass.getEStructuralFeatures().get(36);
+		return (EAttribute)webFragmentEClass.getEStructuralFeatures().get(41);
 	}
 
 	/**
@@ -2268,7 +2349,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * @generated
 	 */
 	public EAttribute getWebFragment_Version() {
-		return (EAttribute)webFragmentEClass.getEStructuralFeatures().get(37);
+		return (EAttribute)webFragmentEClass.getEStructuralFeatures().get(42);
 	}
 
 	/**
@@ -2748,6 +2829,11 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		createEReference(webAppEClass, WEB_APP__POST_CONSTRUCTS);
 		createEReference(webAppEClass, WEB_APP__PRE_DESTROYS);
 		createEReference(webAppEClass, WEB_APP__DATA_SOURCE);
+		createEReference(webAppEClass, WEB_APP__JMS_CONNECTION_FACTORY);
+		createEReference(webAppEClass, WEB_APP__JMS_DESTINATION);
+		createEReference(webAppEClass, WEB_APP__MAIL_SESSION);
+		createEReference(webAppEClass, WEB_APP__CONNECTION_FACTORY);
+		createEReference(webAppEClass, WEB_APP__ADMINISTERED_OBJECT);
 		createEReference(webAppEClass, WEB_APP__MESSAGE_DESTINATIONS);
 		createEReference(webAppEClass, WEB_APP__LOCAL_ENCODING_MAPPINGS_LISTS);
 		createEReference(webAppEClass, WEB_APP__ABSOLUTE_ORDERING);
@@ -2794,6 +2880,11 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		createEReference(webFragmentEClass, WEB_FRAGMENT__POST_CONSTRUCTS);
 		createEReference(webFragmentEClass, WEB_FRAGMENT__PRE_DESTROYS);
 		createEReference(webFragmentEClass, WEB_FRAGMENT__DATA_SOURCE);
+		createEReference(webFragmentEClass, WEB_FRAGMENT__JMS_CONNECTION_FACTORY);
+		createEReference(webFragmentEClass, WEB_FRAGMENT__JMS_DESTINATION);
+		createEReference(webFragmentEClass, WEB_FRAGMENT__MAIL_SESSION);
+		createEReference(webFragmentEClass, WEB_FRAGMENT__CONNECTION_FACTORY);
+		createEReference(webFragmentEClass, WEB_FRAGMENT__ADMINISTERED_OBJECT);
 		createEReference(webFragmentEClass, WEB_FRAGMENT__MESSAGE_DESTINATIONS);
 		createEReference(webFragmentEClass, WEB_FRAGMENT__LOCAL_ENCODING_MAPPINGS_LISTS);
 		createEReference(webFragmentEClass, WEB_FRAGMENT__ORDERING);
@@ -2879,293 +2970,304 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		}		
 		
 		try{
-			// Add supertypes to classes
-	
-			// Initialize classes and features; add operations and parameters
-			initEClass(absoluteOrderingTypeEClass, AbsoluteOrderingType.class, "AbsoluteOrderingType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getAbsoluteOrderingType_Group(), ecorePackage.getEFeatureMapEntry(), "group", null, 0, -1, AbsoluteOrderingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getAbsoluteOrderingType_Name(), theJavaeePackage.getJavaIdentifier(), "name", null, 0, -1, AbsoluteOrderingType.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getAbsoluteOrderingType_Others(), this.getOrderingOthersType(), null, "others", null, 0, -1, AbsoluteOrderingType.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(authConstraintEClass, AuthConstraint.class, "AuthConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getAuthConstraint_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, AuthConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getAuthConstraint_RoleNames(), theJavaeePackage.getRoleName(), "roleNames", null, 0, -1, AuthConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getAuthConstraint_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, AuthConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(cookieCommentTypeEClass, CookieCommentType.class, "CookieCommentType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getCookieCommentType_Value(), this.getNonEmptyStringType(), "value", null, 0, 1, CookieCommentType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(cookieConfigTypeEClass, CookieConfigType.class, "CookieConfigType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getCookieConfigType_Name(), this.getCookieNameType(), null, "name", null, 0, 1, CookieConfigType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getCookieConfigType_Domain(), this.getCookieDomainType(), null, "domain", null, 0, 1, CookieConfigType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getCookieConfigType_Path(), this.getCookiePathType(), null, "path", null, 0, 1, CookieConfigType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getCookieConfigType_Comment(), this.getCookieCommentType(), null, "comment", null, 0, 1, CookieConfigType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getCookieConfigType_HttpOnly(), theJavaeePackage.getTrueFalseType(), "httpOnly", null, 0, 1, CookieConfigType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getCookieConfigType_Secure(), theJavaeePackage.getTrueFalseType(), "secure", null, 0, 1, CookieConfigType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getCookieConfigType_MaxAge(), theXMLTypePackage.getInteger(), "maxAge", null, 0, 1, CookieConfigType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getCookieConfigType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, CookieConfigType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(cookieDomainTypeEClass, CookieDomainType.class, "CookieDomainType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getCookieDomainType_Value(), this.getNonEmptyStringType(), "value", null, 0, 1, CookieDomainType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(cookieNameTypeEClass, CookieNameType.class, "CookieNameType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getCookieNameType_Value(), this.getNonEmptyStringType(), "value", null, 0, 1, CookieNameType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(cookiePathTypeEClass, CookiePathType.class, "CookiePathType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getCookiePathType_Value(), this.getNonEmptyStringType(), "value", null, 0, 1, CookiePathType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(errorPageEClass, ErrorPage.class, "ErrorPage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getErrorPage_ErrorCode(), this.getErrorCodeType(), "errorCode", null, 0, 1, ErrorPage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getErrorPage_ExceptionType(), theJavaeePackage.getFullyQualifiedClassType(), "exceptionType", null, 0, 1, ErrorPage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getErrorPage_Location(), this.getWarPathType(), "location", null, 1, 1, ErrorPage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getErrorPage_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ErrorPage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(filterEClass, Filter.class, "Filter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getFilter_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, Filter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getFilter_DisplayNames(), theJavaeePackage.getDisplayName(), null, "displayNames", null, 0, -1, Filter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getFilter_Icons(), theJavaeePackage.getIcon(), null, "icons", null, 0, -1, Filter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getFilter_FilterName(), this.getFilterNameType(), "filterName", null, 1, 1, Filter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getFilter_FilterClass(), theJavaeePackage.getFullyQualifiedClassType(), "filterClass", null, 0, 1, Filter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getFilter_AsyncSupported(), theJavaeePackage.getTrueFalseType(), "asyncSupported", null, 0, 1, Filter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getFilter_InitParams(), theJavaeePackage.getParamValue(), null, "initParams", null, 0, -1, Filter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getFilter_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, Filter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(filterMappingEClass, FilterMapping.class, "FilterMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getFilterMapping_FilterName(), this.getFilterNameType(), "filterName", null, 1, 1, FilterMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getFilterMapping_Group(), ecorePackage.getEFeatureMapEntry(), "group", null, 0, -1, FilterMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getFilterMapping_UrlPatterns(), theJavaeePackage.getUrlPatternType(), null, "urlPatterns", null, 0, -1, FilterMapping.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getFilterMapping_ServletNames(), this.getServletNameType(), "servletNames", null, 0, -1, FilterMapping.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getFilterMapping_Dispatchers(), this.getDispatcherType(), "dispatchers", null, 0, 5, FilterMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getFilterMapping_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, FilterMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(formLoginConfigEClass, FormLoginConfig.class, "FormLoginConfig", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getFormLoginConfig_FormLoginPage(), this.getWarPathType(), "formLoginPage", null, 1, 1, FormLoginConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getFormLoginConfig_FormErrorPage(), this.getWarPathType(), "formErrorPage", null, 1, 1, FormLoginConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getFormLoginConfig_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, FormLoginConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(localeEncodingMappingEClass, LocaleEncodingMapping.class, "LocaleEncodingMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getLocaleEncodingMapping_Locale(), this.getLocaleType(), "locale", null, 1, 1, LocaleEncodingMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getLocaleEncodingMapping_Encoding(), this.getEncodingType(), "encoding", null, 1, 1, LocaleEncodingMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getLocaleEncodingMapping_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, LocaleEncodingMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(localeEncodingMappingListEClass, LocaleEncodingMappingList.class, "LocaleEncodingMappingList", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getLocaleEncodingMappingList_LocalEncodingMappings(), this.getLocaleEncodingMapping(), null, "localEncodingMappings", null, 1, -1, LocaleEncodingMappingList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getLocaleEncodingMappingList_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, LocaleEncodingMappingList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(loginConfigEClass, LoginConfig.class, "LoginConfig", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getLoginConfig_AuthMethod(), this.getAuthMethodType(), "authMethod", null, 0, 1, LoginConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getLoginConfig_RealmName(), theXMLTypePackage.getToken(), "realmName", null, 0, 1, LoginConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getLoginConfig_FormLoginConfig(), this.getFormLoginConfig(), null, "formLoginConfig", null, 0, 1, LoginConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getLoginConfig_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, LoginConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(mimeMappingEClass, MimeMapping.class, "MimeMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getMimeMapping_Extension(), theXMLTypePackage.getToken(), "extension", null, 1, 1, MimeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getMimeMapping_MimeType(), this.getMimeTypeType(), "mimeType", null, 1, 1, MimeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getMimeMapping_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, MimeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(multipartConfigTypeEClass, MultipartConfigType.class, "MultipartConfigType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getMultipartConfigType_Location(), theXMLTypePackage.getToken(), "location", null, 0, 1, MultipartConfigType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getMultipartConfigType_MaxFileSize(), theXMLTypePackage.getLong(), "maxFileSize", null, 0, 1, MultipartConfigType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getMultipartConfigType_MaxRequestSize(), theXMLTypePackage.getLong(), "maxRequestSize", null, 0, 1, MultipartConfigType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getMultipartConfigType_FileSizeThreshold(), theXMLTypePackage.getInteger(), "fileSizeThreshold", null, 0, 1, MultipartConfigType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(orderingOrderingTypeEClass, OrderingOrderingType.class, "OrderingOrderingType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getOrderingOrderingType_Name(), theJavaeePackage.getJavaIdentifier(), "name", null, 0, -1, OrderingOrderingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getOrderingOrderingType_Others(), this.getOrderingOthersType(), null, "others", null, 0, 1, OrderingOrderingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(orderingOthersTypeEClass, OrderingOthersType.class, "OrderingOthersType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getOrderingOthersType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, OrderingOthersType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(orderingTypeEClass, OrderingType.class, "OrderingType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getOrderingType_After(), this.getOrderingOrderingType(), null, "after", null, 0, 1, OrderingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getOrderingType_Before(), this.getOrderingOrderingType(), null, "before", null, 0, 1, OrderingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(securityConstraintEClass, SecurityConstraint.class, "SecurityConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getSecurityConstraint_DisplayNames(), theJavaeePackage.getDisplayName(), null, "displayNames", null, 0, -1, SecurityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getSecurityConstraint_WebResourceCollections(), this.getWebResourceCollection(), null, "webResourceCollections", null, 1, -1, SecurityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getSecurityConstraint_AuthConstraint(), this.getAuthConstraint(), null, "authConstraint", null, 0, 1, SecurityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getSecurityConstraint_UserDataConstraint(), this.getUserDataConstraint(), null, "userDataConstraint", null, 0, 1, SecurityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getSecurityConstraint_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, SecurityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(servletEClass, Servlet.class, "Servlet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getServlet_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, Servlet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getServlet_DisplayNames(), theJavaeePackage.getDisplayName(), null, "displayNames", null, 0, -1, Servlet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getServlet_Icons(), theJavaeePackage.getIcon(), null, "icons", null, 0, -1, Servlet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getServlet_ServletName(), this.getServletNameType(), "servletName", null, 1, 1, Servlet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getServlet_ServletClass(), theJavaeePackage.getFullyQualifiedClassType(), "servletClass", null, 0, 1, Servlet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getServlet_JspFile(), theJspPackage.getJspFileType(), "jspFile", null, 0, 1, Servlet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getServlet_InitParams(), theJavaeePackage.getParamValue(), null, "initParams", null, 0, -1, Servlet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getServlet_LoadOnStartup(), this.getLoadOnStartupType(), "loadOnStartup", null, 0, 1, Servlet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getServlet_Enabled(), theJavaeePackage.getTrueFalseType(), "enabled", null, 0, 1, Servlet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getServlet_AsyncSupported(), theJavaeePackage.getTrueFalseType(), "asyncSupported", null, 0, 1, Servlet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getServlet_RunAs(), theJavaeePackage.getRunAs(), null, "runAs", null, 0, 1, Servlet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getServlet_SecurityRoleRefs(), theJavaeePackage.getSecurityRoleRef(), null, "securityRoleRefs", null, 0, -1, Servlet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getServlet_MultipartConfig(), this.getMultipartConfigType(), null, "multipartConfig", null, 0, 1, Servlet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getServlet_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, Servlet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(servletMappingEClass, ServletMapping.class, "ServletMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getServletMapping_ServletName(), this.getServletNameType(), "servletName", null, 1, 1, ServletMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getServletMapping_UrlPatterns(), theJavaeePackage.getUrlPatternType(), null, "urlPatterns", null, 1, -1, ServletMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getServletMapping_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ServletMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(sessionConfigEClass, SessionConfig.class, "SessionConfig", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getSessionConfig_SessionTimeout(), theXMLTypePackage.getInteger(), "sessionTimeout", null, 0, 1, SessionConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getSessionConfig_CookieConfig(), this.getCookieConfigType(), null, "cookieConfig", null, 0, 1, SessionConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getSessionConfig_TrackingMode(), this.getTrackingModeType(), "trackingMode", null, 0, 3, SessionConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getSessionConfig_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, SessionConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(userDataConstraintEClass, UserDataConstraint.class, "UserDataConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEReference(getUserDataConstraint_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, UserDataConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getUserDataConstraint_TransportGuarantee(), this.getTransportGuaranteeType(), "transportGuarantee", null, 1, 1, UserDataConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getUserDataConstraint_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, UserDataConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(webAppEClass, WebApp.class, "WebApp", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getWebApp_Group(), ecorePackage.getEFeatureMapEntry(), "group", null, 0, -1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getWebApp_ModuleName(), theXMLTypePackage.getToken(), "moduleName", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebApp_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebApp_DisplayNames(), theJavaeePackage.getDisplayName(), null, "displayNames", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebApp_Icons(), theJavaeePackage.getIcon(), null, "icons", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebApp_Distributables(), theJavaeePackage.getEmptyType(), null, "distributables", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebApp_ContextParams(), theJavaeePackage.getParamValue(), null, "contextParams", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebApp_Filters(), this.getFilter(), null, "filters", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebApp_FilterMappings(), this.getFilterMapping(), null, "filterMappings", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebApp_Listeners(), theJavaeePackage.getListener(), null, "listeners", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebApp_Servlets(), this.getServlet(), null, "servlets", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebApp_ServletMappings(), this.getServletMapping(), null, "servletMappings", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebApp_SessionConfigs(), this.getSessionConfig(), null, "sessionConfigs", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebApp_MimeMappings(), this.getMimeMapping(), null, "mimeMappings", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebApp_WelcomeFileLists(), this.getWelcomeFileList(), null, "welcomeFileLists", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebApp_ErrorPages(), this.getErrorPage(), null, "errorPages", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebApp_JspConfigs(), theJspPackage.getJspConfig(), null, "jspConfigs", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebApp_SecurityConstraints(), this.getSecurityConstraint(), null, "securityConstraints", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebApp_LoginConfigs(), this.getLoginConfig(), null, "loginConfigs", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebApp_SecurityRoles(), theJavaeePackage.getSecurityRole(), null, "securityRoles", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebApp_EnvEntries(), theJavaeePackage.getEnvEntry(), null, "envEntries", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebApp_EjbRefs(), theJavaeePackage.getEjbRef(), null, "ejbRefs", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebApp_EjbLocalRefs(), theJavaeePackage.getEjbLocalRef(), null, "ejbLocalRefs", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebApp_ServiceRefs(), theJavaeePackage.getServiceRef(), null, "serviceRefs", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebApp_ResourceRefs(), theJavaeePackage.getResourceRef(), null, "resourceRefs", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebApp_ResourceEnvRefs(), theJavaeePackage.getResourceEnvRef(), null, "resourceEnvRefs", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebApp_MessageDestinationRefs(), theJavaeePackage.getMessageDestinationRef(), null, "messageDestinationRefs", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebApp_PersistenceContextRefs(), theJavaeePackage.getPersistenceContextRef(), null, "persistenceContextRefs", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebApp_PersistenceUnitRefs(), theJavaeePackage.getPersistenceUnitRef(), null, "persistenceUnitRefs", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebApp_PostConstructs(), theJavaeePackage.getLifecycleCallback(), null, "postConstructs", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebApp_PreDestroys(), theJavaeePackage.getLifecycleCallback(), null, "preDestroys", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebApp_DataSource(), theJavaeePackage.getDataSourceType(), null, "dataSource", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebApp_MessageDestinations(), theJavaeePackage.getMessageDestination(), null, "messageDestinations", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebApp_LocalEncodingMappingsLists(), this.getLocaleEncodingMappingList(), null, "localEncodingMappingsLists", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebApp_AbsoluteOrdering(), this.getAbsoluteOrderingType(), null, "absoluteOrdering", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getWebApp_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getWebApp_MetadataComplete(), theXMLTypePackage.getBoolean(), "metadataComplete", null, 0, 1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getWebApp_Version(), this.getWebAppVersionType(), "version", null, 1, 1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(webAppDeploymentDescriptorEClass, WebAppDeploymentDescriptor.class, "WebAppDeploymentDescriptor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getWebAppDeploymentDescriptor_Mixed(), ecorePackage.getEFeatureMapEntry(), "mixed", null, 0, -1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebAppDeploymentDescriptor_XMLNSPrefixMap(), ecorePackage.getEStringToStringMapEntry(), null, "xMLNSPrefixMap", null, 0, -1, null, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebAppDeploymentDescriptor_XSISchemaLocation(), ecorePackage.getEStringToStringMapEntry(), null, "xSISchemaLocation", null, 0, -1, null, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebAppDeploymentDescriptor_WebApp(), this.getWebApp(), null, "webApp", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(webFragmentEClass, WebFragment.class, "WebFragment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getWebFragment_Group(), ecorePackage.getEFeatureMapEntry(), "group", null, 0, -1, WebFragment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getWebFragment_Name(), theJavaeePackage.getJavaIdentifier(), "name", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebFragment_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebFragment_DisplayNames(), theJavaeePackage.getDisplayName(), null, "displayNames", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebFragment_Icons(), theJavaeePackage.getIcon(), null, "icons", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebFragment_Distributables(), theJavaeePackage.getEmptyType(), null, "distributables", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebFragment_ContextParams(), theJavaeePackage.getParamValue(), null, "contextParams", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebFragment_Filters(), this.getFilter(), null, "filters", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebFragment_FilterMappings(), this.getFilterMapping(), null, "filterMappings", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebFragment_Listeners(), theJavaeePackage.getListener(), null, "listeners", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebFragment_Servlets(), this.getServlet(), null, "servlets", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebFragment_ServletMappings(), this.getServletMapping(), null, "servletMappings", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebFragment_SessionConfigs(), this.getSessionConfig(), null, "sessionConfigs", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebFragment_MimeMappings(), this.getMimeMapping(), null, "mimeMappings", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebFragment_WelcomeFileLists(), this.getWelcomeFileList(), null, "welcomeFileLists", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebFragment_ErrorPages(), this.getErrorPage(), null, "errorPages", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebFragment_JspConfigs(), theJspPackage.getJspConfig(), null, "jspConfigs", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebFragment_SecurityConstraints(), this.getSecurityConstraint(), null, "securityConstraints", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebFragment_LoginConfigs(), this.getLoginConfig(), null, "loginConfigs", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebFragment_SecurityRoles(), theJavaeePackage.getSecurityRole(), null, "securityRoles", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebFragment_EnvEntries(), theJavaeePackage.getEnvEntry(), null, "envEntries", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebFragment_EjbRefs(), theJavaeePackage.getEjbRef(), null, "ejbRefs", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebFragment_EjbLocalRefs(), theJavaeePackage.getEjbLocalRef(), null, "ejbLocalRefs", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebFragment_ServiceRefs(), theJavaeePackage.getServiceRef(), null, "serviceRefs", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebFragment_ResourceRefs(), theJavaeePackage.getResourceRef(), null, "resourceRefs", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebFragment_ResourceEnvRefs(), theJavaeePackage.getResourceEnvRef(), null, "resourceEnvRefs", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebFragment_MessageDestinationRefs(), theJavaeePackage.getMessageDestinationRef(), null, "messageDestinationRefs", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebFragment_PersistenceContextRefs(), theJavaeePackage.getPersistenceContextRef(), null, "persistenceContextRefs", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebFragment_PersistenceUnitRefs(), theJavaeePackage.getPersistenceUnitRef(), null, "persistenceUnitRefs", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebFragment_PostConstructs(), theJavaeePackage.getLifecycleCallback(), null, "postConstructs", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebFragment_PreDestroys(), theJavaeePackage.getLifecycleCallback(), null, "preDestroys", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebFragment_DataSource(), theJavaeePackage.getDataSourceType(), null, "dataSource", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebFragment_MessageDestinations(), theJavaeePackage.getMessageDestination(), null, "messageDestinations", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebFragment_LocalEncodingMappingsLists(), this.getLocaleEncodingMappingList(), null, "localEncodingMappingsLists", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebFragment_Ordering(), this.getOrderingType(), null, "ordering", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getWebFragment_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, WebFragment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getWebFragment_MetadataComplete(), theXMLTypePackage.getBoolean(), "metadataComplete", null, 0, 1, WebFragment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getWebFragment_Version(), this.getWebAppVersionType(), "version", null, 1, 1, WebFragment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(webResourceCollectionEClass, WebResourceCollection.class, "WebResourceCollection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getWebResourceCollection_WebResourceName(), theXMLTypePackage.getToken(), "webResourceName", null, 1, 1, WebResourceCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebResourceCollection_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, WebResourceCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEReference(getWebResourceCollection_UrlPatterns(), theJavaeePackage.getUrlPatternType(), null, "urlPatterns", null, 1, -1, WebResourceCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getWebResourceCollection_HttpMethods(), this.getHttpMethodType(), "httpMethods", null, 0, -1, WebResourceCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getWebResourceCollection_HttpMethodOmission(), this.getHttpMethodType(), "httpMethodOmission", null, 0, -1, WebResourceCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getWebResourceCollection_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, WebResourceCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			initEClass(welcomeFileListEClass, WelcomeFileList.class, "WelcomeFileList", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEAttribute(getWelcomeFileList_WelcomeFiles(), theXMLTypePackage.getString(), "welcomeFiles", null, 1, -1, WelcomeFileList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-			initEAttribute(getWelcomeFileList_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, WelcomeFileList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-	
-			// Initialize enums and add enum literals
-			initEEnum(dispatcherTypeEEnum, DispatcherType.class, "DispatcherType"); //$NON-NLS-1$
-			addEEnumLiteral(dispatcherTypeEEnum, DispatcherType.FORWARD_LITERAL);
-			addEEnumLiteral(dispatcherTypeEEnum, DispatcherType.INCLUDE_LITERAL);
-			addEEnumLiteral(dispatcherTypeEEnum, DispatcherType.REQUEST_LITERAL);
-			addEEnumLiteral(dispatcherTypeEEnum, DispatcherType.ASYNC_LITERAL);
-			addEEnumLiteral(dispatcherTypeEEnum, DispatcherType.ERROR_LITERAL);
-	
-			initEEnum(nullCharTypeEEnum, NullCharType.class, "NullCharType"); //$NON-NLS-1$
-			addEEnumLiteral(nullCharTypeEEnum, NullCharType.__LITERAL);
-	
-			initEEnum(trackingModeTypeEEnum, TrackingModeType.class, "TrackingModeType"); //$NON-NLS-1$
-			addEEnumLiteral(trackingModeTypeEEnum, TrackingModeType.COOKIE);
-			addEEnumLiteral(trackingModeTypeEEnum, TrackingModeType.URL);
-			addEEnumLiteral(trackingModeTypeEEnum, TrackingModeType.SSL);
-	
-			initEEnum(transportGuaranteeTypeEEnum, TransportGuaranteeType.class, "TransportGuaranteeType"); //$NON-NLS-1$
-			addEEnumLiteral(transportGuaranteeTypeEEnum, TransportGuaranteeType.NONE_LITERAL);
-			addEEnumLiteral(transportGuaranteeTypeEEnum, TransportGuaranteeType.INTEGRAL_LITERAL);
-			addEEnumLiteral(transportGuaranteeTypeEEnum, TransportGuaranteeType.CONFIDENTIAL_LITERAL);
-	
-			initEEnum(webAppVersionTypeEEnum, WebAppVersionType.class, "WebAppVersionType"); //$NON-NLS-1$
-			addEEnumLiteral(webAppVersionTypeEEnum, WebAppVersionType._25_LITERAL);
-			addEEnumLiteral(webAppVersionTypeEEnum, WebAppVersionType._30_LITERAL);
-	
-			// Initialize data types
-			initEDataType(authMethodTypeEDataType, String.class, "AuthMethodType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(dispatcherTypeObjectEDataType, DispatcherType.class, "DispatcherTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(encodingTypeEDataType, String.class, "EncodingType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(errorCodeTypeEDataType, BigInteger.class, "ErrorCodeType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(filterNameTypeEDataType, String.class, "FilterNameType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(httpMethodTypeEDataType, String.class, "HttpMethodType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(loadOnStartupTypeEDataType, Object.class, "LoadOnStartupType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(localeTypeEDataType, String.class, "LocaleType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(mimeTypeTypeEDataType, String.class, "MimeTypeType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(nonEmptyStringTypeEDataType, String.class, "NonEmptyStringType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(nullCharTypeObjectEDataType, NullCharType.class, "NullCharTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(servletNameTypeEDataType, String.class, "ServletNameType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(trackingModeTypeObjectEDataType, TrackingModeType.class, "TrackingModeTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(transportGuaranteeTypeObjectEDataType, TransportGuaranteeType.class, "TransportGuaranteeTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(warPathTypeEDataType, String.class, "WarPathType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-			initEDataType(webAppVersionTypeObjectEDataType, WebAppVersionType.class, "WebAppVersionTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-	
-			// Create resource
-			createResource(eNS_URI);
-	
-			// Create annotations
-			// http:///org/eclipse/emf/ecore/util/ExtendedMetaData
-			createExtendedMetaDataAnnotations();
+		// Add supertypes to classes
+
+		// Initialize classes and features; add operations and parameters
+		initEClass(absoluteOrderingTypeEClass, AbsoluteOrderingType.class, "AbsoluteOrderingType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getAbsoluteOrderingType_Group(), ecorePackage.getEFeatureMapEntry(), "group", null, 0, -1, AbsoluteOrderingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getAbsoluteOrderingType_Name(), theJavaeePackage.getJavaIdentifier(), "name", null, 0, -1, AbsoluteOrderingType.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getAbsoluteOrderingType_Others(), this.getOrderingOthersType(), null, "others", null, 0, -1, AbsoluteOrderingType.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(authConstraintEClass, AuthConstraint.class, "AuthConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getAuthConstraint_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, AuthConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getAuthConstraint_RoleNames(), theJavaeePackage.getRoleName(), "roleNames", null, 0, -1, AuthConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getAuthConstraint_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, AuthConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(cookieCommentTypeEClass, CookieCommentType.class, "CookieCommentType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getCookieCommentType_Value(), this.getNonEmptyStringType(), "value", null, 0, 1, CookieCommentType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(cookieConfigTypeEClass, CookieConfigType.class, "CookieConfigType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getCookieConfigType_Name(), this.getCookieNameType(), null, "name", null, 0, 1, CookieConfigType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getCookieConfigType_Domain(), this.getCookieDomainType(), null, "domain", null, 0, 1, CookieConfigType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getCookieConfigType_Path(), this.getCookiePathType(), null, "path", null, 0, 1, CookieConfigType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getCookieConfigType_Comment(), this.getCookieCommentType(), null, "comment", null, 0, 1, CookieConfigType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getCookieConfigType_HttpOnly(), theJavaeePackage.getTrueFalseType(), "httpOnly", null, 0, 1, CookieConfigType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getCookieConfigType_Secure(), theJavaeePackage.getTrueFalseType(), "secure", null, 0, 1, CookieConfigType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getCookieConfigType_MaxAge(), theXMLTypePackage.getInteger(), "maxAge", null, 0, 1, CookieConfigType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getCookieConfigType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, CookieConfigType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(cookieDomainTypeEClass, CookieDomainType.class, "CookieDomainType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getCookieDomainType_Value(), this.getNonEmptyStringType(), "value", null, 0, 1, CookieDomainType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(cookieNameTypeEClass, CookieNameType.class, "CookieNameType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getCookieNameType_Value(), this.getNonEmptyStringType(), "value", null, 0, 1, CookieNameType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(cookiePathTypeEClass, CookiePathType.class, "CookiePathType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getCookiePathType_Value(), this.getNonEmptyStringType(), "value", null, 0, 1, CookiePathType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(errorPageEClass, ErrorPage.class, "ErrorPage", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getErrorPage_ErrorCode(), this.getErrorCodeType(), "errorCode", null, 0, 1, ErrorPage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getErrorPage_ExceptionType(), theJavaeePackage.getFullyQualifiedClassType(), "exceptionType", null, 0, 1, ErrorPage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getErrorPage_Location(), this.getWarPathType(), "location", null, 1, 1, ErrorPage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getErrorPage_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ErrorPage.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(filterEClass, Filter.class, "Filter", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getFilter_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, Filter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getFilter_DisplayNames(), theJavaeePackage.getDisplayName(), null, "displayNames", null, 0, -1, Filter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getFilter_Icons(), theJavaeePackage.getIcon(), null, "icons", null, 0, -1, Filter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getFilter_FilterName(), this.getFilterNameType(), "filterName", null, 1, 1, Filter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getFilter_FilterClass(), theJavaeePackage.getFullyQualifiedClassType(), "filterClass", null, 0, 1, Filter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getFilter_AsyncSupported(), theJavaeePackage.getTrueFalseType(), "asyncSupported", null, 0, 1, Filter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getFilter_InitParams(), theJavaeePackage.getParamValue(), null, "initParams", null, 0, -1, Filter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getFilter_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, Filter.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(filterMappingEClass, FilterMapping.class, "FilterMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getFilterMapping_FilterName(), this.getFilterNameType(), "filterName", null, 1, 1, FilterMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getFilterMapping_Group(), ecorePackage.getEFeatureMapEntry(), "group", null, 0, -1, FilterMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getFilterMapping_UrlPatterns(), theJavaeePackage.getUrlPatternType(), null, "urlPatterns", null, 0, -1, FilterMapping.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getFilterMapping_ServletNames(), this.getServletNameType(), "servletNames", null, 0, -1, FilterMapping.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getFilterMapping_Dispatchers(), this.getDispatcherType(), "dispatchers", null, 0, 5, FilterMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getFilterMapping_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, FilterMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(formLoginConfigEClass, FormLoginConfig.class, "FormLoginConfig", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getFormLoginConfig_FormLoginPage(), this.getWarPathType(), "formLoginPage", null, 1, 1, FormLoginConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getFormLoginConfig_FormErrorPage(), this.getWarPathType(), "formErrorPage", null, 1, 1, FormLoginConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getFormLoginConfig_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, FormLoginConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(localeEncodingMappingEClass, LocaleEncodingMapping.class, "LocaleEncodingMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getLocaleEncodingMapping_Locale(), this.getLocaleType(), "locale", null, 1, 1, LocaleEncodingMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getLocaleEncodingMapping_Encoding(), this.getEncodingType(), "encoding", null, 1, 1, LocaleEncodingMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getLocaleEncodingMapping_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, LocaleEncodingMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(localeEncodingMappingListEClass, LocaleEncodingMappingList.class, "LocaleEncodingMappingList", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getLocaleEncodingMappingList_LocalEncodingMappings(), this.getLocaleEncodingMapping(), null, "localEncodingMappings", null, 1, -1, LocaleEncodingMappingList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getLocaleEncodingMappingList_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, LocaleEncodingMappingList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(loginConfigEClass, LoginConfig.class, "LoginConfig", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getLoginConfig_AuthMethod(), this.getAuthMethodType(), "authMethod", null, 0, 1, LoginConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getLoginConfig_RealmName(), theXMLTypePackage.getToken(), "realmName", null, 0, 1, LoginConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getLoginConfig_FormLoginConfig(), this.getFormLoginConfig(), null, "formLoginConfig", null, 0, 1, LoginConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getLoginConfig_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, LoginConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(mimeMappingEClass, MimeMapping.class, "MimeMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getMimeMapping_Extension(), theXMLTypePackage.getToken(), "extension", null, 1, 1, MimeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMimeMapping_MimeType(), this.getMimeTypeType(), "mimeType", null, 1, 1, MimeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMimeMapping_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, MimeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(multipartConfigTypeEClass, MultipartConfigType.class, "MultipartConfigType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getMultipartConfigType_Location(), theXMLTypePackage.getToken(), "location", null, 0, 1, MultipartConfigType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMultipartConfigType_MaxFileSize(), theXMLTypePackage.getLong(), "maxFileSize", null, 0, 1, MultipartConfigType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMultipartConfigType_MaxRequestSize(), theXMLTypePackage.getLong(), "maxRequestSize", null, 0, 1, MultipartConfigType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getMultipartConfigType_FileSizeThreshold(), theXMLTypePackage.getInteger(), "fileSizeThreshold", null, 0, 1, MultipartConfigType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(orderingOrderingTypeEClass, OrderingOrderingType.class, "OrderingOrderingType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getOrderingOrderingType_Name(), theJavaeePackage.getJavaIdentifier(), "name", null, 0, -1, OrderingOrderingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getOrderingOrderingType_Others(), this.getOrderingOthersType(), null, "others", null, 0, 1, OrderingOrderingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(orderingOthersTypeEClass, OrderingOthersType.class, "OrderingOthersType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getOrderingOthersType_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, OrderingOthersType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(orderingTypeEClass, OrderingType.class, "OrderingType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getOrderingType_After(), this.getOrderingOrderingType(), null, "after", null, 0, 1, OrderingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getOrderingType_Before(), this.getOrderingOrderingType(), null, "before", null, 0, 1, OrderingType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(securityConstraintEClass, SecurityConstraint.class, "SecurityConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getSecurityConstraint_DisplayNames(), theJavaeePackage.getDisplayName(), null, "displayNames", null, 0, -1, SecurityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSecurityConstraint_WebResourceCollections(), this.getWebResourceCollection(), null, "webResourceCollections", null, 1, -1, SecurityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSecurityConstraint_AuthConstraint(), this.getAuthConstraint(), null, "authConstraint", null, 0, 1, SecurityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSecurityConstraint_UserDataConstraint(), this.getUserDataConstraint(), null, "userDataConstraint", null, 0, 1, SecurityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getSecurityConstraint_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, SecurityConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(servletEClass, Servlet.class, "Servlet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getServlet_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, Servlet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getServlet_DisplayNames(), theJavaeePackage.getDisplayName(), null, "displayNames", null, 0, -1, Servlet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getServlet_Icons(), theJavaeePackage.getIcon(), null, "icons", null, 0, -1, Servlet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getServlet_ServletName(), this.getServletNameType(), "servletName", null, 1, 1, Servlet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getServlet_ServletClass(), theJavaeePackage.getFullyQualifiedClassType(), "servletClass", null, 0, 1, Servlet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getServlet_JspFile(), theJspPackage.getJspFileType(), "jspFile", null, 0, 1, Servlet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getServlet_InitParams(), theJavaeePackage.getParamValue(), null, "initParams", null, 0, -1, Servlet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getServlet_LoadOnStartup(), this.getLoadOnStartupType(), "loadOnStartup", null, 0, 1, Servlet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getServlet_Enabled(), theJavaeePackage.getTrueFalseType(), "enabled", null, 0, 1, Servlet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getServlet_AsyncSupported(), theJavaeePackage.getTrueFalseType(), "asyncSupported", null, 0, 1, Servlet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getServlet_RunAs(), theJavaeePackage.getRunAs(), null, "runAs", null, 0, 1, Servlet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getServlet_SecurityRoleRefs(), theJavaeePackage.getSecurityRoleRef(), null, "securityRoleRefs", null, 0, -1, Servlet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getServlet_MultipartConfig(), this.getMultipartConfigType(), null, "multipartConfig", null, 0, 1, Servlet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getServlet_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, Servlet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(servletMappingEClass, ServletMapping.class, "ServletMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getServletMapping_ServletName(), this.getServletNameType(), "servletName", null, 1, 1, ServletMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getServletMapping_UrlPatterns(), theJavaeePackage.getUrlPatternType(), null, "urlPatterns", null, 1, -1, ServletMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getServletMapping_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, ServletMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(sessionConfigEClass, SessionConfig.class, "SessionConfig", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getSessionConfig_SessionTimeout(), theXMLTypePackage.getInteger(), "sessionTimeout", null, 0, 1, SessionConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getSessionConfig_CookieConfig(), this.getCookieConfigType(), null, "cookieConfig", null, 0, 1, SessionConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getSessionConfig_TrackingMode(), this.getTrackingModeType(), "trackingMode", null, 0, 3, SessionConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getSessionConfig_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, SessionConfig.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(userDataConstraintEClass, UserDataConstraint.class, "UserDataConstraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEReference(getUserDataConstraint_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, UserDataConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getUserDataConstraint_TransportGuarantee(), this.getTransportGuaranteeType(), "transportGuarantee", null, 1, 1, UserDataConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getUserDataConstraint_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, UserDataConstraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(webAppEClass, WebApp.class, "WebApp", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getWebApp_Group(), ecorePackage.getEFeatureMapEntry(), "group", null, 0, -1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getWebApp_ModuleName(), theXMLTypePackage.getToken(), "moduleName", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebApp_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebApp_DisplayNames(), theJavaeePackage.getDisplayName(), null, "displayNames", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebApp_Icons(), theJavaeePackage.getIcon(), null, "icons", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebApp_Distributables(), theJavaeePackage.getEmptyType(), null, "distributables", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebApp_ContextParams(), theJavaeePackage.getParamValue(), null, "contextParams", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebApp_Filters(), this.getFilter(), null, "filters", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebApp_FilterMappings(), this.getFilterMapping(), null, "filterMappings", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebApp_Listeners(), theJavaeePackage.getListener(), null, "listeners", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebApp_Servlets(), this.getServlet(), null, "servlets", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebApp_ServletMappings(), this.getServletMapping(), null, "servletMappings", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebApp_SessionConfigs(), this.getSessionConfig(), null, "sessionConfigs", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebApp_MimeMappings(), this.getMimeMapping(), null, "mimeMappings", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebApp_WelcomeFileLists(), this.getWelcomeFileList(), null, "welcomeFileLists", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebApp_ErrorPages(), this.getErrorPage(), null, "errorPages", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebApp_JspConfigs(), theJspPackage.getJspConfig(), null, "jspConfigs", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebApp_SecurityConstraints(), this.getSecurityConstraint(), null, "securityConstraints", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebApp_LoginConfigs(), this.getLoginConfig(), null, "loginConfigs", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebApp_SecurityRoles(), theJavaeePackage.getSecurityRole(), null, "securityRoles", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebApp_EnvEntries(), theJavaeePackage.getEnvEntry(), null, "envEntries", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebApp_EjbRefs(), theJavaeePackage.getEjbRef(), null, "ejbRefs", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebApp_EjbLocalRefs(), theJavaeePackage.getEjbLocalRef(), null, "ejbLocalRefs", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebApp_ServiceRefs(), theJavaeePackage.getServiceRef(), null, "serviceRefs", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebApp_ResourceRefs(), theJavaeePackage.getResourceRef(), null, "resourceRefs", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebApp_ResourceEnvRefs(), theJavaeePackage.getResourceEnvRef(), null, "resourceEnvRefs", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebApp_MessageDestinationRefs(), theJavaeePackage.getMessageDestinationRef(), null, "messageDestinationRefs", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebApp_PersistenceContextRefs(), theJavaeePackage.getPersistenceContextRef(), null, "persistenceContextRefs", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebApp_PersistenceUnitRefs(), theJavaeePackage.getPersistenceUnitRef(), null, "persistenceUnitRefs", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebApp_PostConstructs(), theJavaeePackage.getLifecycleCallback(), null, "postConstructs", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebApp_PreDestroys(), theJavaeePackage.getLifecycleCallback(), null, "preDestroys", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebApp_DataSource(), theJavaeePackage.getDataSourceType(), null, "dataSource", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebApp_JmsConnectionFactory(), theJavaeePackage.getJmsConnectionFactoryType(), null, "jmsConnectionFactory", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebApp_JmsDestination(), theJavaeePackage.getJmsDestinationType(), null, "jmsDestination", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebApp_MailSession(), theJavaeePackage.getMailSessionType(), null, "mailSession", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebApp_ConnectionFactory(), theJavaeePackage.getConnectionFactoryResourceType(), null, "connectionFactory", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebApp_AdministeredObject(), theJavaeePackage.getAdministeredObjectType(), null, "administeredObject", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebApp_MessageDestinations(), theJavaeePackage.getMessageDestination(), null, "messageDestinations", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebApp_LocalEncodingMappingsLists(), this.getLocaleEncodingMappingList(), null, "localEncodingMappingsLists", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebApp_AbsoluteOrdering(), this.getAbsoluteOrderingType(), null, "absoluteOrdering", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getWebApp_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getWebApp_MetadataComplete(), theXMLTypePackage.getBoolean(), "metadataComplete", null, 0, 1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getWebApp_Version(), this.getWebAppVersionType(), "version", null, 1, 1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(webAppDeploymentDescriptorEClass, WebAppDeploymentDescriptor.class, "WebAppDeploymentDescriptor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getWebAppDeploymentDescriptor_Mixed(), ecorePackage.getEFeatureMapEntry(), "mixed", null, 0, -1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebAppDeploymentDescriptor_XMLNSPrefixMap(), ecorePackage.getEStringToStringMapEntry(), null, "xMLNSPrefixMap", null, 0, -1, null, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebAppDeploymentDescriptor_XSISchemaLocation(), ecorePackage.getEStringToStringMapEntry(), null, "xSISchemaLocation", null, 0, -1, null, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebAppDeploymentDescriptor_WebApp(), this.getWebApp(), null, "webApp", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(webFragmentEClass, WebFragment.class, "WebFragment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getWebFragment_Group(), ecorePackage.getEFeatureMapEntry(), "group", null, 0, -1, WebFragment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getWebFragment_Name(), theJavaeePackage.getJavaIdentifier(), "name", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebFragment_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebFragment_DisplayNames(), theJavaeePackage.getDisplayName(), null, "displayNames", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebFragment_Icons(), theJavaeePackage.getIcon(), null, "icons", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebFragment_Distributables(), theJavaeePackage.getEmptyType(), null, "distributables", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebFragment_ContextParams(), theJavaeePackage.getParamValue(), null, "contextParams", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebFragment_Filters(), this.getFilter(), null, "filters", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebFragment_FilterMappings(), this.getFilterMapping(), null, "filterMappings", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebFragment_Listeners(), theJavaeePackage.getListener(), null, "listeners", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebFragment_Servlets(), this.getServlet(), null, "servlets", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebFragment_ServletMappings(), this.getServletMapping(), null, "servletMappings", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebFragment_SessionConfigs(), this.getSessionConfig(), null, "sessionConfigs", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebFragment_MimeMappings(), this.getMimeMapping(), null, "mimeMappings", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebFragment_WelcomeFileLists(), this.getWelcomeFileList(), null, "welcomeFileLists", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebFragment_ErrorPages(), this.getErrorPage(), null, "errorPages", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebFragment_JspConfigs(), theJspPackage.getJspConfig(), null, "jspConfigs", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebFragment_SecurityConstraints(), this.getSecurityConstraint(), null, "securityConstraints", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebFragment_LoginConfigs(), this.getLoginConfig(), null, "loginConfigs", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebFragment_SecurityRoles(), theJavaeePackage.getSecurityRole(), null, "securityRoles", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebFragment_EnvEntries(), theJavaeePackage.getEnvEntry(), null, "envEntries", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebFragment_EjbRefs(), theJavaeePackage.getEjbRef(), null, "ejbRefs", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebFragment_EjbLocalRefs(), theJavaeePackage.getEjbLocalRef(), null, "ejbLocalRefs", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebFragment_ServiceRefs(), theJavaeePackage.getServiceRef(), null, "serviceRefs", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebFragment_ResourceRefs(), theJavaeePackage.getResourceRef(), null, "resourceRefs", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebFragment_ResourceEnvRefs(), theJavaeePackage.getResourceEnvRef(), null, "resourceEnvRefs", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebFragment_MessageDestinationRefs(), theJavaeePackage.getMessageDestinationRef(), null, "messageDestinationRefs", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebFragment_PersistenceContextRefs(), theJavaeePackage.getPersistenceContextRef(), null, "persistenceContextRefs", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebFragment_PersistenceUnitRefs(), theJavaeePackage.getPersistenceUnitRef(), null, "persistenceUnitRefs", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebFragment_PostConstructs(), theJavaeePackage.getLifecycleCallback(), null, "postConstructs", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebFragment_PreDestroys(), theJavaeePackage.getLifecycleCallback(), null, "preDestroys", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebFragment_DataSource(), theJavaeePackage.getDataSourceType(), null, "dataSource", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebFragment_JmsConnectionFactory(), theJavaeePackage.getJmsConnectionFactoryType(), null, "jmsConnectionFactory", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebFragment_JmsDestination(), theJavaeePackage.getJmsDestinationType(), null, "jmsDestination", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebFragment_MailSession(), theJavaeePackage.getMailSessionType(), null, "mailSession", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebFragment_ConnectionFactory(), theJavaeePackage.getConnectionFactoryResourceType(), null, "connectionFactory", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebFragment_AdministeredObject(), theJavaeePackage.getAdministeredObjectType(), null, "administeredObject", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebFragment_MessageDestinations(), theJavaeePackage.getMessageDestination(), null, "messageDestinations", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebFragment_LocalEncodingMappingsLists(), this.getLocaleEncodingMappingList(), null, "localEncodingMappingsLists", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebFragment_Ordering(), this.getOrderingType(), null, "ordering", null, 0, -1, WebFragment.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getWebFragment_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, WebFragment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getWebFragment_MetadataComplete(), theXMLTypePackage.getBoolean(), "metadataComplete", null, 0, 1, WebFragment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getWebFragment_Version(), this.getWebAppVersionType(), "version", null, 1, 1, WebFragment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(webResourceCollectionEClass, WebResourceCollection.class, "WebResourceCollection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getWebResourceCollection_WebResourceName(), theXMLTypePackage.getToken(), "webResourceName", null, 1, 1, WebResourceCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebResourceCollection_Descriptions(), theJavaeePackage.getDescription(), null, "descriptions", null, 0, -1, WebResourceCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebResourceCollection_UrlPatterns(), theJavaeePackage.getUrlPatternType(), null, "urlPatterns", null, 1, -1, WebResourceCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getWebResourceCollection_HttpMethods(), this.getHttpMethodType(), "httpMethods", null, 0, -1, WebResourceCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getWebResourceCollection_HttpMethodOmission(), this.getHttpMethodType(), "httpMethodOmission", null, 0, -1, WebResourceCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getWebResourceCollection_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, WebResourceCollection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		initEClass(welcomeFileListEClass, WelcomeFileList.class, "WelcomeFileList", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEAttribute(getWelcomeFileList_WelcomeFiles(), theXMLTypePackage.getString(), "welcomeFiles", null, 1, -1, WelcomeFileList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getWelcomeFileList_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, WelcomeFileList.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+
+		// Initialize enums and add enum literals
+		initEEnum(dispatcherTypeEEnum, DispatcherType.class, "DispatcherType"); //$NON-NLS-1$
+		addEEnumLiteral(dispatcherTypeEEnum, DispatcherType.FORWARD_LITERAL);
+		addEEnumLiteral(dispatcherTypeEEnum, DispatcherType.INCLUDE_LITERAL);
+		addEEnumLiteral(dispatcherTypeEEnum, DispatcherType.REQUEST_LITERAL);
+		addEEnumLiteral(dispatcherTypeEEnum, DispatcherType.ASYNC_LITERAL);
+		addEEnumLiteral(dispatcherTypeEEnum, DispatcherType.ERROR_LITERAL);
+
+		initEEnum(nullCharTypeEEnum, NullCharType.class, "NullCharType"); //$NON-NLS-1$
+		addEEnumLiteral(nullCharTypeEEnum, NullCharType.__LITERAL);
+
+		initEEnum(trackingModeTypeEEnum, TrackingModeType.class, "TrackingModeType"); //$NON-NLS-1$
+		addEEnumLiteral(trackingModeTypeEEnum, TrackingModeType.COOKIE);
+		addEEnumLiteral(trackingModeTypeEEnum, TrackingModeType.URL);
+		addEEnumLiteral(trackingModeTypeEEnum, TrackingModeType.SSL);
+
+		initEEnum(transportGuaranteeTypeEEnum, TransportGuaranteeType.class, "TransportGuaranteeType"); //$NON-NLS-1$
+		addEEnumLiteral(transportGuaranteeTypeEEnum, TransportGuaranteeType.NONE_LITERAL);
+		addEEnumLiteral(transportGuaranteeTypeEEnum, TransportGuaranteeType.INTEGRAL_LITERAL);
+		addEEnumLiteral(transportGuaranteeTypeEEnum, TransportGuaranteeType.CONFIDENTIAL_LITERAL);
+
+		initEEnum(webAppVersionTypeEEnum, WebAppVersionType.class, "WebAppVersionType"); //$NON-NLS-1$
+		addEEnumLiteral(webAppVersionTypeEEnum, WebAppVersionType._25_LITERAL);
+		addEEnumLiteral(webAppVersionTypeEEnum, WebAppVersionType._30_LITERAL);
+		addEEnumLiteral(webAppVersionTypeEEnum, WebAppVersionType._31);
+
+		// Initialize data types
+		initEDataType(authMethodTypeEDataType, String.class, "AuthMethodType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(dispatcherTypeObjectEDataType, DispatcherType.class, "DispatcherTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(encodingTypeEDataType, String.class, "EncodingType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(errorCodeTypeEDataType, BigInteger.class, "ErrorCodeType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(filterNameTypeEDataType, String.class, "FilterNameType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(httpMethodTypeEDataType, String.class, "HttpMethodType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(loadOnStartupTypeEDataType, Object.class, "LoadOnStartupType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(localeTypeEDataType, String.class, "LocaleType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(mimeTypeTypeEDataType, String.class, "MimeTypeType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(nonEmptyStringTypeEDataType, String.class, "NonEmptyStringType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(nullCharTypeObjectEDataType, NullCharType.class, "NullCharTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(servletNameTypeEDataType, String.class, "ServletNameType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(trackingModeTypeObjectEDataType, TrackingModeType.class, "TrackingModeTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(transportGuaranteeTypeObjectEDataType, TransportGuaranteeType.class, "TransportGuaranteeTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(warPathTypeEDataType, String.class, "WarPathType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+		initEDataType(webAppVersionTypeObjectEDataType, WebAppVersionType.class, "WebAppVersionTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+
+		// Create resource
+		createResource(eNS_URI);
+
+		// Create annotations
+		// http:///org/eclipse/emf/ecore/util/ExtendedMetaData
+		createExtendedMetaDataAnnotations();
 		}finally{
 			if( hasLock )
 				J2EEInit.releaseInitializePackageContentsLock();
@@ -3455,7 +3557,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "description", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getFilter_DisplayNames(), 
@@ -3463,7 +3565,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "display-name", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getFilter_Icons(), 
@@ -3471,7 +3573,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "icon", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getFilter_FilterName(), 
@@ -3934,7 +4036,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "description", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getServlet_DisplayNames(), 
@@ -3942,7 +4044,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "display-name", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getServlet_Icons(), 
@@ -3950,7 +4052,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "icon", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
 		  (getServlet_ServletName(), 
@@ -4207,7 +4309,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "description", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
 			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
@@ -4216,7 +4318,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "display-name", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
 			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
@@ -4225,7 +4327,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "icon", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
 			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
@@ -4369,7 +4471,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "env-entry", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
 			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
@@ -4378,7 +4480,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "ejb-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
 			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
@@ -4387,7 +4489,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "ejb-local-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
 			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
@@ -4396,7 +4498,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "service-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
 			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
@@ -4405,7 +4507,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "resource-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
 			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
@@ -4414,7 +4516,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "resource-env-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
 			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
@@ -4423,7 +4525,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "message-destination-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
 			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
@@ -4432,7 +4534,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "persistence-context-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
 			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
@@ -4441,7 +4543,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "persistence-unit-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
 			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
@@ -4450,7 +4552,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "post-construct", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
 			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
@@ -4459,7 +4561,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "pre-destroy", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
 			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
@@ -4468,7 +4570,52 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "data-source", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
+			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getWebApp_JmsConnectionFactory(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "jms-connection-factory", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
+			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getWebApp_JmsDestination(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "jms-destination", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
+			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getWebApp_MailSession(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "mail-session", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
+			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getWebApp_ConnectionFactory(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "connection-factory", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
+			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getWebApp_AdministeredObject(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "administered-object", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
 			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
@@ -4597,7 +4744,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "description", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
 			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
@@ -4606,7 +4753,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "display-name", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
 			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
@@ -4615,7 +4762,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "icon", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
 			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
@@ -4759,7 +4906,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "env-entry", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
 			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
@@ -4768,7 +4915,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "ejb-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
 			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
@@ -4777,7 +4924,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "ejb-local-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
 			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
@@ -4786,7 +4933,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "service-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
 			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
@@ -4795,7 +4942,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "resource-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
 			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
@@ -4804,7 +4951,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "resource-env-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
 			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
@@ -4813,7 +4960,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "message-destination-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
 			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
@@ -4822,7 +4969,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "persistence-context-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
 			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
@@ -4831,7 +4978,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "persistence-unit-ref", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
 			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
@@ -4840,7 +4987,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "post-construct", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
 			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
@@ -4849,7 +4996,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "pre-destroy", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
 			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation
@@ -4858,7 +5005,52 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "data-source", //$NON-NLS-1$ //$NON-NLS-2$
-			 "namespace", "http://java.sun.com/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
+			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getWebFragment_JmsConnectionFactory(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "jms-connection-factory", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
+			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getWebFragment_JmsDestination(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "jms-destination", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
+			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getWebFragment_MailSession(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "mail-session", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
+			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getWebFragment_ConnectionFactory(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "connection-factory", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
+			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getWebFragment_AdministeredObject(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "administered-object", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "http://xmlns.jcp.org/xml/ns/javaee", //$NON-NLS-1$ //$NON-NLS-2$
 			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation

@@ -27,12 +27,17 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.eclipse.jst.javaee.core.AdministeredObjectType;
+import org.eclipse.jst.javaee.core.ConnectionFactoryResourceType;
 import org.eclipse.jst.javaee.core.DataSourceType;
 import org.eclipse.jst.javaee.core.Description;
 import org.eclipse.jst.javaee.core.EjbLocalRef;
 import org.eclipse.jst.javaee.core.EjbRef;
 import org.eclipse.jst.javaee.core.EnvEntry;
+import org.eclipse.jst.javaee.core.JmsConnectionFactoryType;
+import org.eclipse.jst.javaee.core.JmsDestinationType;
 import org.eclipse.jst.javaee.core.LifecycleCallback;
+import org.eclipse.jst.javaee.core.MailSessionType;
 import org.eclipse.jst.javaee.core.MessageDestinationRef;
 import org.eclipse.jst.javaee.core.PersistenceContextRef;
 import org.eclipse.jst.javaee.core.PersistenceUnitRef;
@@ -69,6 +74,11 @@ import org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage;
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.InterceptorTypeImpl#getPostConstructs <em>Post Constructs</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.InterceptorTypeImpl#getPreDestroys <em>Pre Destroys</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.InterceptorTypeImpl#getDataSource <em>Data Source</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.InterceptorTypeImpl#getJmsConnectionFactory <em>Jms Connection Factory</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.InterceptorTypeImpl#getJmsDestination <em>Jms Destination</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.InterceptorTypeImpl#getMailSession <em>Mail Session</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.InterceptorTypeImpl#getConnectionFactory <em>Connection Factory</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.InterceptorTypeImpl#getAdministeredObject <em>Administered Object</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.InterceptorTypeImpl#getPostActivates <em>Post Activates</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.InterceptorTypeImpl#getPrePassivates <em>Pre Passivates</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.InterceptorTypeImpl#getId <em>Id</em>}</li>
@@ -247,6 +257,56 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * @ordered
 	 */
 	protected EList<DataSourceType> dataSource;
+
+	/**
+	 * The cached value of the '{@link #getJmsConnectionFactory() <em>Jms Connection Factory</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getJmsConnectionFactory()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<JmsConnectionFactoryType> jmsConnectionFactory;
+
+	/**
+	 * The cached value of the '{@link #getJmsDestination() <em>Jms Destination</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getJmsDestination()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<JmsDestinationType> jmsDestination;
+
+	/**
+	 * The cached value of the '{@link #getMailSession() <em>Mail Session</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMailSession()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<MailSessionType> mailSession;
+
+	/**
+	 * The cached value of the '{@link #getConnectionFactory() <em>Connection Factory</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getConnectionFactory()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ConnectionFactoryResourceType> connectionFactory;
+
+	/**
+	 * The cached value of the '{@link #getAdministeredObject() <em>Administered Object</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAdministeredObject()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<AdministeredObjectType> administeredObject;
 
 	/**
 	 * The cached value of the '{@link #getPostActivates() <em>Post Activates</em>}' containment reference list.
@@ -513,6 +573,66 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public List<JmsConnectionFactoryType> getJmsConnectionFactory() {
+		if (jmsConnectionFactory == null) {
+			jmsConnectionFactory = new EObjectContainmentEList<JmsConnectionFactoryType>(JmsConnectionFactoryType.class, this, EjbPackage.INTERCEPTOR_TYPE__JMS_CONNECTION_FACTORY);
+		}
+		return jmsConnectionFactory;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<JmsDestinationType> getJmsDestination() {
+		if (jmsDestination == null) {
+			jmsDestination = new EObjectContainmentEList<JmsDestinationType>(JmsDestinationType.class, this, EjbPackage.INTERCEPTOR_TYPE__JMS_DESTINATION);
+		}
+		return jmsDestination;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<MailSessionType> getMailSession() {
+		if (mailSession == null) {
+			mailSession = new EObjectContainmentEList<MailSessionType>(MailSessionType.class, this, EjbPackage.INTERCEPTOR_TYPE__MAIL_SESSION);
+		}
+		return mailSession;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<ConnectionFactoryResourceType> getConnectionFactory() {
+		if (connectionFactory == null) {
+			connectionFactory = new EObjectContainmentEList<ConnectionFactoryResourceType>(ConnectionFactoryResourceType.class, this, EjbPackage.INTERCEPTOR_TYPE__CONNECTION_FACTORY);
+		}
+		return connectionFactory;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<AdministeredObjectType> getAdministeredObject() {
+		if (administeredObject == null) {
+			administeredObject = new EObjectContainmentEList<AdministeredObjectType>(AdministeredObjectType.class, this, EjbPackage.INTERCEPTOR_TYPE__ADMINISTERED_OBJECT);
+		}
+		return administeredObject;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public List<LifecycleCallback> getPostActivates() {
 		if (postActivates == null) {
 			postActivates = new EObjectContainmentEList<LifecycleCallback>(LifecycleCallback.class, this, EjbPackage.INTERCEPTOR_TYPE__POST_ACTIVATES);
@@ -591,6 +711,16 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 				return ((InternalEList<?>)getPreDestroys()).basicRemove(otherEnd, msgs);
 			case EjbPackage.INTERCEPTOR_TYPE__DATA_SOURCE:
 				return ((InternalEList<?>)getDataSource()).basicRemove(otherEnd, msgs);
+			case EjbPackage.INTERCEPTOR_TYPE__JMS_CONNECTION_FACTORY:
+				return ((InternalEList<?>)getJmsConnectionFactory()).basicRemove(otherEnd, msgs);
+			case EjbPackage.INTERCEPTOR_TYPE__JMS_DESTINATION:
+				return ((InternalEList<?>)getJmsDestination()).basicRemove(otherEnd, msgs);
+			case EjbPackage.INTERCEPTOR_TYPE__MAIL_SESSION:
+				return ((InternalEList<?>)getMailSession()).basicRemove(otherEnd, msgs);
+			case EjbPackage.INTERCEPTOR_TYPE__CONNECTION_FACTORY:
+				return ((InternalEList<?>)getConnectionFactory()).basicRemove(otherEnd, msgs);
+			case EjbPackage.INTERCEPTOR_TYPE__ADMINISTERED_OBJECT:
+				return ((InternalEList<?>)getAdministeredObject()).basicRemove(otherEnd, msgs);
 			case EjbPackage.INTERCEPTOR_TYPE__POST_ACTIVATES:
 				return ((InternalEList<?>)getPostActivates()).basicRemove(otherEnd, msgs);
 			case EjbPackage.INTERCEPTOR_TYPE__PRE_PASSIVATES:
@@ -639,6 +769,16 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 				return getPreDestroys();
 			case EjbPackage.INTERCEPTOR_TYPE__DATA_SOURCE:
 				return getDataSource();
+			case EjbPackage.INTERCEPTOR_TYPE__JMS_CONNECTION_FACTORY:
+				return getJmsConnectionFactory();
+			case EjbPackage.INTERCEPTOR_TYPE__JMS_DESTINATION:
+				return getJmsDestination();
+			case EjbPackage.INTERCEPTOR_TYPE__MAIL_SESSION:
+				return getMailSession();
+			case EjbPackage.INTERCEPTOR_TYPE__CONNECTION_FACTORY:
+				return getConnectionFactory();
+			case EjbPackage.INTERCEPTOR_TYPE__ADMINISTERED_OBJECT:
+				return getAdministeredObject();
 			case EjbPackage.INTERCEPTOR_TYPE__POST_ACTIVATES:
 				return getPostActivates();
 			case EjbPackage.INTERCEPTOR_TYPE__PRE_PASSIVATES:
@@ -721,6 +861,26 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 				getDataSource().clear();
 				getDataSource().addAll((Collection<? extends DataSourceType>)newValue);
 				return;
+			case EjbPackage.INTERCEPTOR_TYPE__JMS_CONNECTION_FACTORY:
+				getJmsConnectionFactory().clear();
+				getJmsConnectionFactory().addAll((Collection<? extends JmsConnectionFactoryType>)newValue);
+				return;
+			case EjbPackage.INTERCEPTOR_TYPE__JMS_DESTINATION:
+				getJmsDestination().clear();
+				getJmsDestination().addAll((Collection<? extends JmsDestinationType>)newValue);
+				return;
+			case EjbPackage.INTERCEPTOR_TYPE__MAIL_SESSION:
+				getMailSession().clear();
+				getMailSession().addAll((Collection<? extends MailSessionType>)newValue);
+				return;
+			case EjbPackage.INTERCEPTOR_TYPE__CONNECTION_FACTORY:
+				getConnectionFactory().clear();
+				getConnectionFactory().addAll((Collection<? extends ConnectionFactoryResourceType>)newValue);
+				return;
+			case EjbPackage.INTERCEPTOR_TYPE__ADMINISTERED_OBJECT:
+				getAdministeredObject().clear();
+				getAdministeredObject().addAll((Collection<? extends AdministeredObjectType>)newValue);
+				return;
 			case EjbPackage.INTERCEPTOR_TYPE__POST_ACTIVATES:
 				getPostActivates().clear();
 				getPostActivates().addAll((Collection<? extends LifecycleCallback>)newValue);
@@ -792,6 +952,21 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 			case EjbPackage.INTERCEPTOR_TYPE__DATA_SOURCE:
 				getDataSource().clear();
 				return;
+			case EjbPackage.INTERCEPTOR_TYPE__JMS_CONNECTION_FACTORY:
+				getJmsConnectionFactory().clear();
+				return;
+			case EjbPackage.INTERCEPTOR_TYPE__JMS_DESTINATION:
+				getJmsDestination().clear();
+				return;
+			case EjbPackage.INTERCEPTOR_TYPE__MAIL_SESSION:
+				getMailSession().clear();
+				return;
+			case EjbPackage.INTERCEPTOR_TYPE__CONNECTION_FACTORY:
+				getConnectionFactory().clear();
+				return;
+			case EjbPackage.INTERCEPTOR_TYPE__ADMINISTERED_OBJECT:
+				getAdministeredObject().clear();
+				return;
 			case EjbPackage.INTERCEPTOR_TYPE__POST_ACTIVATES:
 				getPostActivates().clear();
 				return;
@@ -845,6 +1020,16 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 				return preDestroys != null && !preDestroys.isEmpty();
 			case EjbPackage.INTERCEPTOR_TYPE__DATA_SOURCE:
 				return dataSource != null && !dataSource.isEmpty();
+			case EjbPackage.INTERCEPTOR_TYPE__JMS_CONNECTION_FACTORY:
+				return jmsConnectionFactory != null && !jmsConnectionFactory.isEmpty();
+			case EjbPackage.INTERCEPTOR_TYPE__JMS_DESTINATION:
+				return jmsDestination != null && !jmsDestination.isEmpty();
+			case EjbPackage.INTERCEPTOR_TYPE__MAIL_SESSION:
+				return mailSession != null && !mailSession.isEmpty();
+			case EjbPackage.INTERCEPTOR_TYPE__CONNECTION_FACTORY:
+				return connectionFactory != null && !connectionFactory.isEmpty();
+			case EjbPackage.INTERCEPTOR_TYPE__ADMINISTERED_OBJECT:
+				return administeredObject != null && !administeredObject.isEmpty();
 			case EjbPackage.INTERCEPTOR_TYPE__POST_ACTIVATES:
 				return postActivates != null && !postActivates.isEmpty();
 			case EjbPackage.INTERCEPTOR_TYPE__PRE_PASSIVATES:

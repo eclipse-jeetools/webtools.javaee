@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2013 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -39,6 +39,24 @@ public interface JavaeeFactory extends EFactory {
 	 * @generated
 	 */
 	AddressingType createAddressingType();
+
+	/**
+	 * Returns a new object of class '<em>Administered Object Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Administered Object Type</em>'.
+	 * @generated
+	 */
+	AdministeredObjectType createAdministeredObjectType();
+
+	/**
+	 * Returns a new object of class '<em>Connection Factory Resource Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Connection Factory Resource Type</em>'.
+	 * @generated
+	 */
+	ConnectionFactoryResourceType createConnectionFactoryResourceType();
 
 	/**
 	 * Returns a new object of class '<em>Data Source Type</em>'.
@@ -122,6 +140,24 @@ public interface JavaeeFactory extends EFactory {
 	InjectionTarget createInjectionTarget();
 
 	/**
+	 * Returns a new object of class '<em>Jms Connection Factory Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Jms Connection Factory Type</em>'.
+	 * @generated
+	 */
+	JmsConnectionFactoryType createJmsConnectionFactoryType();
+
+	/**
+	 * Returns a new object of class '<em>Jms Destination Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Jms Destination Type</em>'.
+	 * @generated
+	 */
+	JmsDestinationType createJmsDestinationType();
+
+	/**
 	 * Returns a new object of class '<em>Lifecycle Callback</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -138,6 +174,15 @@ public interface JavaeeFactory extends EFactory {
 	 * @generated
 	 */
 	Listener createListener();
+
+	/**
+	 * Returns a new object of class '<em>Mail Session Type</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Mail Session Type</em>'.
+	 * @generated
+	 */
+	MailSessionType createMailSessionType();
 
 	/**
 	 * Returns a new object of class '<em>Message Destination</em>'.

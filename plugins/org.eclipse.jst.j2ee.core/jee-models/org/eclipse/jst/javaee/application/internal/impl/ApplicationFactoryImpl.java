@@ -13,13 +13,9 @@ package org.eclipse.jst.javaee.application.internal.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-
 import org.eclipse.jst.javaee.application.*;
-
 import org.eclipse.jst.javaee.application.internal.metadata.ApplicationPackage;
 
 /**
@@ -37,7 +33,7 @@ public class ApplicationFactoryImpl extends EFactoryImpl implements ApplicationF
 	 */
 	public static ApplicationFactory init() {
 		try {
-			ApplicationFactory theApplicationFactory = (ApplicationFactory)EPackage.Registry.INSTANCE.getEFactory("http://java.sun.com/xml/ns/javaee/application"); //$NON-NLS-1$ 
+			ApplicationFactory theApplicationFactory = (ApplicationFactory)EPackage.Registry.INSTANCE.getEFactory("http://xmlns.jcp.org/xml/ns/javaee/application"); //$NON-NLS-1$ 
 			if (theApplicationFactory != null) {
 				return theApplicationFactory;
 			}

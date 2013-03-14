@@ -76,7 +76,7 @@ public interface AuthenticationMechanism extends JavaEEObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * 
-	 * <![CDATA[[
+	 * [
 	 *             The element authentication-mechanism-type specifies
 	 *             type of an authentication mechanism.
 	 *             
@@ -91,7 +91,7 @@ public interface AuthenticationMechanism extends JavaEEObject {
 	 *             Any additional security mechanisms are outside the
 	 *             scope of the Connector architecture specification.
 	 *             
-	 * ]]>
+	 * 
 	 * 			@since Java EE 6, Connector 1.6
 	 *           
 	 * <!-- end-model-doc -->

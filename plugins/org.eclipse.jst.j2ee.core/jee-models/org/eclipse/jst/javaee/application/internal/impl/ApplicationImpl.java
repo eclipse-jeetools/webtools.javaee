@@ -25,6 +25,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.jst.javaee.application.Module;
 import org.eclipse.jst.javaee.application.internal.metadata.ApplicationPackage;
+import org.eclipse.jst.javaee.core.AdministeredObjectType;
+import org.eclipse.jst.javaee.core.ConnectionFactoryResourceType;
 import org.eclipse.jst.javaee.core.DataSourceType;
 import org.eclipse.jst.javaee.core.Description;
 import org.eclipse.jst.javaee.core.DisplayName;
@@ -33,6 +35,9 @@ import org.eclipse.jst.javaee.core.EjbRef;
 import org.eclipse.jst.javaee.core.EnvEntry;
 import org.eclipse.jst.javaee.core.GenericBooleanType;
 import org.eclipse.jst.javaee.core.Icon;
+import org.eclipse.jst.javaee.core.JmsConnectionFactoryType;
+import org.eclipse.jst.javaee.core.JmsDestinationType;
+import org.eclipse.jst.javaee.core.MailSessionType;
 import org.eclipse.jst.javaee.core.MessageDestination;
 import org.eclipse.jst.javaee.core.MessageDestinationRef;
 import org.eclipse.jst.javaee.core.PersistenceContextRef;
@@ -71,6 +76,11 @@ import org.eclipse.wst.common.internal.emf.utilities.StringUtil;
  *   <li>{@link org.eclipse.jst.javaee.application.internal.impl.ApplicationImpl#getPersistenceUnitRef <em>Persistence Unit Ref</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.application.internal.impl.ApplicationImpl#getMessageDestination <em>Message Destination</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.application.internal.impl.ApplicationImpl#getDataSource <em>Data Source</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.application.internal.impl.ApplicationImpl#getJmsConnectionFactory <em>Jms Connection Factory</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.application.internal.impl.ApplicationImpl#getJmsDestination <em>Jms Destination</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.application.internal.impl.ApplicationImpl#getMailSession <em>Mail Session</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.application.internal.impl.ApplicationImpl#getConnectionFactory <em>Connection Factory</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.application.internal.impl.ApplicationImpl#getAdministeredObject <em>Administered Object</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.application.internal.impl.ApplicationImpl#getId <em>Id</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.application.internal.impl.ApplicationImpl#getVersion <em>Version</em>}</li>
  * </ul>
@@ -309,6 +319,56 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	protected EList<DataSourceType> dataSource;
 
 	/**
+	 * The cached value of the '{@link #getJmsConnectionFactory() <em>Jms Connection Factory</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getJmsConnectionFactory()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<JmsConnectionFactoryType> jmsConnectionFactory;
+
+	/**
+	 * The cached value of the '{@link #getJmsDestination() <em>Jms Destination</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getJmsDestination()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<JmsDestinationType> jmsDestination;
+
+	/**
+	 * The cached value of the '{@link #getMailSession() <em>Mail Session</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMailSession()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<MailSessionType> mailSession;
+
+	/**
+	 * The cached value of the '{@link #getConnectionFactory() <em>Connection Factory</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getConnectionFactory()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ConnectionFactoryResourceType> connectionFactory;
+
+	/**
+	 * The cached value of the '{@link #getAdministeredObject() <em>Administered Object</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAdministeredObject()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<AdministeredObjectType> administeredObject;
+
+	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -336,7 +396,7 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String VERSION_EDEFAULT = "6"; //$NON-NLS-1$
+	protected static final String VERSION_EDEFAULT = "7"; //$NON-NLS-1$
 
 	/**
 	 * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute.
@@ -661,6 +721,66 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public List<JmsConnectionFactoryType> getJmsConnectionFactory() {
+		if (jmsConnectionFactory == null) {
+			jmsConnectionFactory = new EObjectContainmentEList<JmsConnectionFactoryType>(JmsConnectionFactoryType.class, this, ApplicationPackage.APPLICATION__JMS_CONNECTION_FACTORY);
+		}
+		return jmsConnectionFactory;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<JmsDestinationType> getJmsDestination() {
+		if (jmsDestination == null) {
+			jmsDestination = new EObjectContainmentEList<JmsDestinationType>(JmsDestinationType.class, this, ApplicationPackage.APPLICATION__JMS_DESTINATION);
+		}
+		return jmsDestination;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<MailSessionType> getMailSession() {
+		if (mailSession == null) {
+			mailSession = new EObjectContainmentEList<MailSessionType>(MailSessionType.class, this, ApplicationPackage.APPLICATION__MAIL_SESSION);
+		}
+		return mailSession;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<ConnectionFactoryResourceType> getConnectionFactory() {
+		if (connectionFactory == null) {
+			connectionFactory = new EObjectContainmentEList<ConnectionFactoryResourceType>(ConnectionFactoryResourceType.class, this, ApplicationPackage.APPLICATION__CONNECTION_FACTORY);
+		}
+		return connectionFactory;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<AdministeredObjectType> getAdministeredObject() {
+		if (administeredObject == null) {
+			administeredObject = new EObjectContainmentEList<AdministeredObjectType>(AdministeredObjectType.class, this, ApplicationPackage.APPLICATION__ADMINISTERED_OBJECT);
+		}
+		return administeredObject;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getId() {
 		return id;
 	}
@@ -763,6 +883,16 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 				return ((InternalEList<?>)getMessageDestination()).basicRemove(otherEnd, msgs);
 			case ApplicationPackage.APPLICATION__DATA_SOURCE:
 				return ((InternalEList<?>)getDataSource()).basicRemove(otherEnd, msgs);
+			case ApplicationPackage.APPLICATION__JMS_CONNECTION_FACTORY:
+				return ((InternalEList<?>)getJmsConnectionFactory()).basicRemove(otherEnd, msgs);
+			case ApplicationPackage.APPLICATION__JMS_DESTINATION:
+				return ((InternalEList<?>)getJmsDestination()).basicRemove(otherEnd, msgs);
+			case ApplicationPackage.APPLICATION__MAIL_SESSION:
+				return ((InternalEList<?>)getMailSession()).basicRemove(otherEnd, msgs);
+			case ApplicationPackage.APPLICATION__CONNECTION_FACTORY:
+				return ((InternalEList<?>)getConnectionFactory()).basicRemove(otherEnd, msgs);
+			case ApplicationPackage.APPLICATION__ADMINISTERED_OBJECT:
+				return ((InternalEList<?>)getAdministeredObject()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -813,6 +943,16 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 				return getMessageDestination();
 			case ApplicationPackage.APPLICATION__DATA_SOURCE:
 				return getDataSource();
+			case ApplicationPackage.APPLICATION__JMS_CONNECTION_FACTORY:
+				return getJmsConnectionFactory();
+			case ApplicationPackage.APPLICATION__JMS_DESTINATION:
+				return getJmsDestination();
+			case ApplicationPackage.APPLICATION__MAIL_SESSION:
+				return getMailSession();
+			case ApplicationPackage.APPLICATION__CONNECTION_FACTORY:
+				return getConnectionFactory();
+			case ApplicationPackage.APPLICATION__ADMINISTERED_OBJECT:
+				return getAdministeredObject();
 			case ApplicationPackage.APPLICATION__ID:
 				return getId();
 			case ApplicationPackage.APPLICATION__VERSION:
@@ -903,6 +1043,26 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 				getDataSource().clear();
 				getDataSource().addAll((Collection<? extends DataSourceType>)newValue);
 				return;
+			case ApplicationPackage.APPLICATION__JMS_CONNECTION_FACTORY:
+				getJmsConnectionFactory().clear();
+				getJmsConnectionFactory().addAll((Collection<? extends JmsConnectionFactoryType>)newValue);
+				return;
+			case ApplicationPackage.APPLICATION__JMS_DESTINATION:
+				getJmsDestination().clear();
+				getJmsDestination().addAll((Collection<? extends JmsDestinationType>)newValue);
+				return;
+			case ApplicationPackage.APPLICATION__MAIL_SESSION:
+				getMailSession().clear();
+				getMailSession().addAll((Collection<? extends MailSessionType>)newValue);
+				return;
+			case ApplicationPackage.APPLICATION__CONNECTION_FACTORY:
+				getConnectionFactory().clear();
+				getConnectionFactory().addAll((Collection<? extends ConnectionFactoryResourceType>)newValue);
+				return;
+			case ApplicationPackage.APPLICATION__ADMINISTERED_OBJECT:
+				getAdministeredObject().clear();
+				getAdministeredObject().addAll((Collection<? extends AdministeredObjectType>)newValue);
+				return;
 			case ApplicationPackage.APPLICATION__ID:
 				setId((String)newValue);
 				return;
@@ -978,6 +1138,21 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 			case ApplicationPackage.APPLICATION__DATA_SOURCE:
 				getDataSource().clear();
 				return;
+			case ApplicationPackage.APPLICATION__JMS_CONNECTION_FACTORY:
+				getJmsConnectionFactory().clear();
+				return;
+			case ApplicationPackage.APPLICATION__JMS_DESTINATION:
+				getJmsDestination().clear();
+				return;
+			case ApplicationPackage.APPLICATION__MAIL_SESSION:
+				getMailSession().clear();
+				return;
+			case ApplicationPackage.APPLICATION__CONNECTION_FACTORY:
+				getConnectionFactory().clear();
+				return;
+			case ApplicationPackage.APPLICATION__ADMINISTERED_OBJECT:
+				getAdministeredObject().clear();
+				return;
 			case ApplicationPackage.APPLICATION__ID:
 				setId(ID_EDEFAULT);
 				return;
@@ -1034,6 +1209,16 @@ public class ApplicationImpl extends EObjectImpl implements Application, ICommon
 				return messageDestination != null && !messageDestination.isEmpty();
 			case ApplicationPackage.APPLICATION__DATA_SOURCE:
 				return dataSource != null && !dataSource.isEmpty();
+			case ApplicationPackage.APPLICATION__JMS_CONNECTION_FACTORY:
+				return jmsConnectionFactory != null && !jmsConnectionFactory.isEmpty();
+			case ApplicationPackage.APPLICATION__JMS_DESTINATION:
+				return jmsDestination != null && !jmsDestination.isEmpty();
+			case ApplicationPackage.APPLICATION__MAIL_SESSION:
+				return mailSession != null && !mailSession.isEmpty();
+			case ApplicationPackage.APPLICATION__CONNECTION_FACTORY:
+				return connectionFactory != null && !connectionFactory.isEmpty();
+			case ApplicationPackage.APPLICATION__ADMINISTERED_OBJECT:
+				return administeredObject != null && !administeredObject.isEmpty();
 			case ApplicationPackage.APPLICATION__ID:
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 			case ApplicationPackage.APPLICATION__VERSION:

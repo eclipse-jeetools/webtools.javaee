@@ -79,7 +79,7 @@ public interface SecurityPermission extends JavaEEObject {
 	 *             implementation of the security permission
 	 *             specification:
 	 *             
-	 *             http://java.sun.com/javase/6/docs/technotes/guides/security/PolicyFiles.html
+	 *             http://docs.oracle.com/javase/6/docs/technotes/guides/security/PolicyFiles.html
 	 *             
 	 *             @since Java EE 6, Connector 1.6
 	 *           

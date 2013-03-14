@@ -50,7 +50,7 @@ public interface MessageListener extends JavaEEObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * 
-	 * <![CDATA[[
+	 * [
 	 *             The element messagelistener-type specifies the fully
 	 *             qualified name of the Java type of a message
 	 *             listener interface.
@@ -60,7 +60,7 @@ public interface MessageListener extends JavaEEObject {
 	 *             	<messagelistener-type>javax.jms.MessageListener
 	 *             	</messagelistener-type>
 	 *             
-	 * ]]>
+	 * 
 	 * 			@since Java EE 6, Connector 1.6
 	 *           
 	 * <!-- end-model-doc -->

@@ -12,13 +12,18 @@ package org.eclipse.jst.javaee.ejb;
 
 import java.util.List;
 
+import org.eclipse.jst.javaee.core.AdministeredObjectType;
+import org.eclipse.jst.javaee.core.ConnectionFactoryResourceType;
 import org.eclipse.jst.javaee.core.DataSourceType;
 import org.eclipse.jst.javaee.core.Description;
 import org.eclipse.jst.javaee.core.EjbLocalRef;
 import org.eclipse.jst.javaee.core.EjbRef;
 import org.eclipse.jst.javaee.core.EnvEntry;
 import org.eclipse.jst.javaee.core.JavaEEObject;
+import org.eclipse.jst.javaee.core.JmsConnectionFactoryType;
+import org.eclipse.jst.javaee.core.JmsDestinationType;
 import org.eclipse.jst.javaee.core.LifecycleCallback;
+import org.eclipse.jst.javaee.core.MailSessionType;
 import org.eclipse.jst.javaee.core.MessageDestinationRef;
 import org.eclipse.jst.javaee.core.PersistenceContextRef;
 import org.eclipse.jst.javaee.core.PersistenceUnitRef;
@@ -73,6 +78,11 @@ import org.eclipse.jst.javaee.core.ServiceRef;
  *   <li>{@link org.eclipse.jst.javaee.ejb.InterceptorType#getPostConstructs <em>Post Constructs</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.InterceptorType#getPreDestroys <em>Pre Destroys</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.InterceptorType#getDataSource <em>Data Source</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.InterceptorType#getJmsConnectionFactory <em>Jms Connection Factory</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.InterceptorType#getJmsDestination <em>Jms Destination</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.InterceptorType#getMailSession <em>Mail Session</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.InterceptorType#getConnectionFactory <em>Connection Factory</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.InterceptorType#getAdministeredObject <em>Administered Object</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.InterceptorType#getPostActivates <em>Post Activates</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.InterceptorType#getPrePassivates <em>Pre Passivates</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.InterceptorType#getId <em>Id</em>}</li>
@@ -333,6 +343,86 @@ public interface InterceptorType extends JavaEEObject {
 	 * @generated
 	 */
 	List<DataSourceType> getDataSource();
+
+	/**
+	 * Returns the value of the '<em><b>Jms Connection Factory</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.jst.javaee.core.JmsConnectionFactoryType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *             @since Java EE 7
+	 *          
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Jms Connection Factory</em>' containment reference list.
+	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getInterceptorType_JmsConnectionFactory()
+	 * @generated
+	 */
+	List<JmsConnectionFactoryType> getJmsConnectionFactory();
+
+	/**
+	 * Returns the value of the '<em><b>Jms Destination</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.jst.javaee.core.JmsDestinationType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *             @since Java EE 7
+	 *          
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Jms Destination</em>' containment reference list.
+	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getInterceptorType_JmsDestination()
+	 * @generated
+	 */
+	List<JmsDestinationType> getJmsDestination();
+
+	/**
+	 * Returns the value of the '<em><b>Mail Session</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.jst.javaee.core.MailSessionType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *             @since Java EE 7
+	 *          
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Mail Session</em>' containment reference list.
+	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getInterceptorType_MailSession()
+	 * @generated
+	 */
+	List<MailSessionType> getMailSession();
+
+	/**
+	 * Returns the value of the '<em><b>Connection Factory</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.jst.javaee.core.ConnectionFactoryResourceType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *             @since Java EE 7
+	 *          
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Connection Factory</em>' containment reference list.
+	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getInterceptorType_ConnectionFactory()
+	 * @generated
+	 */
+	List<ConnectionFactoryResourceType> getConnectionFactory();
+
+	/**
+	 * Returns the value of the '<em><b>Administered Object</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.jst.javaee.core.AdministeredObjectType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *             @since Java EE 7
+	 *          
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Administered Object</em>' containment reference list.
+	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getInterceptorType_AdministeredObject()
+	 * @generated
+	 */
+	List<AdministeredObjectType> getAdministeredObject();
 
 	/**
 	 * Returns the value of the '<em><b>Post Activates</b></em>' containment reference list.

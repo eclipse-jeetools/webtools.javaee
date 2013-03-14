@@ -56,7 +56,7 @@ public interface ConnectionDefinition extends JavaEEObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * 
-	 * <![CDATA[[
+	 * [
 	 *             The element managedconnectionfactory-class specifies
 	 *             the fully qualified name of the Java class that
 	 *             implements the
@@ -71,7 +71,7 @@ public interface ConnectionDefinition extends JavaEEObject {
 	 *             	  com.wombat.ManagedConnectionFactoryImpl
 	 *             </managedconnectionfactory-class>
 	 *             
-	 * ]]>
+	 * 
 	 * 			@since Java EE 6, Connector 1.6
 	 *           
 	 * <!-- end-model-doc -->
@@ -113,7 +113,7 @@ public interface ConnectionDefinition extends JavaEEObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * 
-	 * <![CDATA[[
+	 * [
 	 *             The element connectionfactory-interface specifies
 	 *             the fully qualified name of the ConnectionFactory
 	 *             interface supported by the resource adapter.
@@ -127,7 +127,7 @@ public interface ConnectionDefinition extends JavaEEObject {
 	 *             <connectionfactory-interface>javax.resource.cci.ConnectionFactory
 	 *             </connectionfactory-interface>
 	 *             
-	 * ]]>
+	 * 
 	 * 			@since Java EE 6, Connector 1.6
 	 *           
 	 * <!-- end-model-doc -->
@@ -154,7 +154,7 @@ public interface ConnectionDefinition extends JavaEEObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * 
-	 * <![CDATA[[
+	 * [
 	 *             The element connectionfactory-impl-class specifies
 	 *             the fully qualified name of the ConnectionFactory
 	 *             class that implements resource adapter
@@ -165,7 +165,7 @@ public interface ConnectionDefinition extends JavaEEObject {
 	 *             <connectionfactory-impl-class>com.wombat.ConnectionFactoryImpl
 	 *             </connectionfactory-impl-class>
 	 *             
-	 * ]]>
+	 * 
 	 * 			@since Java EE 6, Connector 1.6
 	 *           
 	 * <!-- end-model-doc -->
@@ -192,7 +192,7 @@ public interface ConnectionDefinition extends JavaEEObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * 
-	 * <![CDATA[[
+	 * [
 	 *             The connection-interface element specifies the fully
 	 *             qualified name of the Connection interface supported
 	 *             by the resource adapter.
@@ -202,7 +202,7 @@ public interface ConnectionDefinition extends JavaEEObject {
 	 *             	  <connection-interface>javax.resource.cci.Connection
 	 *             	  </connection-interface>
 	 *             
-	 * ]]>
+	 * 
 	 * 			@since Java EE 6, Connector 1.6
 	 *           
 	 * <!-- end-model-doc -->
@@ -229,7 +229,7 @@ public interface ConnectionDefinition extends JavaEEObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * 
-	 * <![CDATA[[
+	 * [
 	 *             The connection-impl-classType specifies the fully
 	 *             qualified name of the Connection class that
 	 *             implements resource adapter specific Connection
@@ -241,7 +241,7 @@ public interface ConnectionDefinition extends JavaEEObject {
 	 *             	  <connection-impl-class>com.wombat.ConnectionImpl
 	 *             	  </connection-impl-class>
 	 *             
-	 * ]]>
+	 * 
 	 * 			@since Java EE 6, Connector 1.6
 	 *           
 	 * <!-- end-model-doc -->

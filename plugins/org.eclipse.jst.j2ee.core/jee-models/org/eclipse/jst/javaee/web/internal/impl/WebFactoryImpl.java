@@ -16,18 +16,12 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-
 import org.eclipse.emf.ecore.util.Diagnostician;
-
 import org.eclipse.emf.ecore.xml.type.XMLTypeFactory;
 import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
-
 import org.eclipse.jst.javaee.web.*;
-
 import org.eclipse.jst.javaee.web.internal.metadata.WebPackage;
 
 /**
@@ -45,7 +39,7 @@ public class WebFactoryImpl extends EFactoryImpl implements WebFactory {
 	 */
 	public static WebFactory init() {
 		try {
-			WebFactory theWebFactory = (WebFactory)EPackage.Registry.INSTANCE.getEFactory("http://java.sun.com/xml/ns/javaee/web"); //$NON-NLS-1$ 
+			WebFactory theWebFactory = (WebFactory)EPackage.Registry.INSTANCE.getEFactory("http://xmlns.jcp.org/xml/ns/javaee/web"); //$NON-NLS-1$ 
 			if (theWebFactory != null) {
 				return theWebFactory;
 			}

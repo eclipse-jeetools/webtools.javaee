@@ -26,6 +26,8 @@ import org.eclipse.emf.ecore.util.BasicFeatureMap;
 import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.eclipse.jst.javaee.core.AdministeredObjectType;
+import org.eclipse.jst.javaee.core.ConnectionFactoryResourceType;
 import org.eclipse.jst.javaee.core.DataSourceType;
 import org.eclipse.jst.javaee.core.Description;
 import org.eclipse.jst.javaee.core.DisplayName;
@@ -34,8 +36,11 @@ import org.eclipse.jst.javaee.core.EjbRef;
 import org.eclipse.jst.javaee.core.EmptyType;
 import org.eclipse.jst.javaee.core.EnvEntry;
 import org.eclipse.jst.javaee.core.Icon;
+import org.eclipse.jst.javaee.core.JmsConnectionFactoryType;
+import org.eclipse.jst.javaee.core.JmsDestinationType;
 import org.eclipse.jst.javaee.core.LifecycleCallback;
 import org.eclipse.jst.javaee.core.Listener;
+import org.eclipse.jst.javaee.core.MailSessionType;
 import org.eclipse.jst.javaee.core.MessageDestination;
 import org.eclipse.jst.javaee.core.MessageDestinationRef;
 import org.eclipse.jst.javaee.core.ParamValue;
@@ -102,6 +107,11 @@ import org.eclipse.jst.javaee.web.internal.metadata.WebPackage;
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getPostConstructs <em>Post Constructs</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getPreDestroys <em>Pre Destroys</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getDataSource <em>Data Source</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getJmsConnectionFactory <em>Jms Connection Factory</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getJmsDestination <em>Jms Destination</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getMailSession <em>Mail Session</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getConnectionFactory <em>Connection Factory</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getAdministeredObject <em>Administered Object</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getMessageDestinations <em>Message Destinations</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getLocalEncodingMappingsLists <em>Local Encoding Mappings Lists</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getAbsoluteOrdering <em>Absolute Ordering</em>}</li>
@@ -181,7 +191,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final WebAppVersionType VERSION_EDEFAULT = WebAppVersionType._30_LITERAL;
+	protected static final WebAppVersionType VERSION_EDEFAULT = WebAppVersionType._31;
 
 	/**
 	 * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute.
@@ -508,6 +518,51 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public List<JmsConnectionFactoryType> getJmsConnectionFactory() {
+		return getGroup().list(WebPackage.Literals.WEB_APP__JMS_CONNECTION_FACTORY);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<JmsDestinationType> getJmsDestination() {
+		return getGroup().list(WebPackage.Literals.WEB_APP__JMS_DESTINATION);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<MailSessionType> getMailSession() {
+		return getGroup().list(WebPackage.Literals.WEB_APP__MAIL_SESSION);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<ConnectionFactoryResourceType> getConnectionFactory() {
+		return getGroup().list(WebPackage.Literals.WEB_APP__CONNECTION_FACTORY);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<AdministeredObjectType> getAdministeredObject() {
+		return getGroup().list(WebPackage.Literals.WEB_APP__ADMINISTERED_OBJECT);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public List<MessageDestination> getMessageDestinations() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__MESSAGE_DESTINATIONS);
 	}
@@ -722,6 +777,16 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 				return ((InternalEList<?>)getPreDestroys()).basicRemove(otherEnd, msgs);
 			case WebPackage.WEB_APP__DATA_SOURCE:
 				return ((InternalEList<?>)getDataSource()).basicRemove(otherEnd, msgs);
+			case WebPackage.WEB_APP__JMS_CONNECTION_FACTORY:
+				return ((InternalEList<?>)getJmsConnectionFactory()).basicRemove(otherEnd, msgs);
+			case WebPackage.WEB_APP__JMS_DESTINATION:
+				return ((InternalEList<?>)getJmsDestination()).basicRemove(otherEnd, msgs);
+			case WebPackage.WEB_APP__MAIL_SESSION:
+				return ((InternalEList<?>)getMailSession()).basicRemove(otherEnd, msgs);
+			case WebPackage.WEB_APP__CONNECTION_FACTORY:
+				return ((InternalEList<?>)getConnectionFactory()).basicRemove(otherEnd, msgs);
+			case WebPackage.WEB_APP__ADMINISTERED_OBJECT:
+				return ((InternalEList<?>)getAdministeredObject()).basicRemove(otherEnd, msgs);
 			case WebPackage.WEB_APP__MESSAGE_DESTINATIONS:
 				return ((InternalEList<?>)getMessageDestinations()).basicRemove(otherEnd, msgs);
 			case WebPackage.WEB_APP__LOCAL_ENCODING_MAPPINGS_LISTS:
@@ -805,6 +870,16 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 				return getPreDestroys();
 			case WebPackage.WEB_APP__DATA_SOURCE:
 				return getDataSource();
+			case WebPackage.WEB_APP__JMS_CONNECTION_FACTORY:
+				return getJmsConnectionFactory();
+			case WebPackage.WEB_APP__JMS_DESTINATION:
+				return getJmsDestination();
+			case WebPackage.WEB_APP__MAIL_SESSION:
+				return getMailSession();
+			case WebPackage.WEB_APP__CONNECTION_FACTORY:
+				return getConnectionFactory();
+			case WebPackage.WEB_APP__ADMINISTERED_OBJECT:
+				return getAdministeredObject();
 			case WebPackage.WEB_APP__MESSAGE_DESTINATIONS:
 				return getMessageDestinations();
 			case WebPackage.WEB_APP__LOCAL_ENCODING_MAPPINGS_LISTS:
@@ -957,6 +1032,26 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 				getDataSource().clear();
 				getDataSource().addAll((Collection<? extends DataSourceType>)newValue);
 				return;
+			case WebPackage.WEB_APP__JMS_CONNECTION_FACTORY:
+				getJmsConnectionFactory().clear();
+				getJmsConnectionFactory().addAll((Collection<? extends JmsConnectionFactoryType>)newValue);
+				return;
+			case WebPackage.WEB_APP__JMS_DESTINATION:
+				getJmsDestination().clear();
+				getJmsDestination().addAll((Collection<? extends JmsDestinationType>)newValue);
+				return;
+			case WebPackage.WEB_APP__MAIL_SESSION:
+				getMailSession().clear();
+				getMailSession().addAll((Collection<? extends MailSessionType>)newValue);
+				return;
+			case WebPackage.WEB_APP__CONNECTION_FACTORY:
+				getConnectionFactory().clear();
+				getConnectionFactory().addAll((Collection<? extends ConnectionFactoryResourceType>)newValue);
+				return;
+			case WebPackage.WEB_APP__ADMINISTERED_OBJECT:
+				getAdministeredObject().clear();
+				getAdministeredObject().addAll((Collection<? extends AdministeredObjectType>)newValue);
+				return;
 			case WebPackage.WEB_APP__MESSAGE_DESTINATIONS:
 				getMessageDestinations().clear();
 				getMessageDestinations().addAll((Collection<? extends MessageDestination>)newValue);
@@ -1086,6 +1181,21 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 			case WebPackage.WEB_APP__DATA_SOURCE:
 				getDataSource().clear();
 				return;
+			case WebPackage.WEB_APP__JMS_CONNECTION_FACTORY:
+				getJmsConnectionFactory().clear();
+				return;
+			case WebPackage.WEB_APP__JMS_DESTINATION:
+				getJmsDestination().clear();
+				return;
+			case WebPackage.WEB_APP__MAIL_SESSION:
+				getMailSession().clear();
+				return;
+			case WebPackage.WEB_APP__CONNECTION_FACTORY:
+				getConnectionFactory().clear();
+				return;
+			case WebPackage.WEB_APP__ADMINISTERED_OBJECT:
+				getAdministeredObject().clear();
+				return;
 			case WebPackage.WEB_APP__MESSAGE_DESTINATIONS:
 				getMessageDestinations().clear();
 				return;
@@ -1180,6 +1290,16 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 				return !getPreDestroys().isEmpty();
 			case WebPackage.WEB_APP__DATA_SOURCE:
 				return !getDataSource().isEmpty();
+			case WebPackage.WEB_APP__JMS_CONNECTION_FACTORY:
+				return !getJmsConnectionFactory().isEmpty();
+			case WebPackage.WEB_APP__JMS_DESTINATION:
+				return !getJmsDestination().isEmpty();
+			case WebPackage.WEB_APP__MAIL_SESSION:
+				return !getMailSession().isEmpty();
+			case WebPackage.WEB_APP__CONNECTION_FACTORY:
+				return !getConnectionFactory().isEmpty();
+			case WebPackage.WEB_APP__ADMINISTERED_OBJECT:
+				return !getAdministeredObject().isEmpty();
 			case WebPackage.WEB_APP__MESSAGE_DESTINATIONS:
 				return !getMessageDestinations().isEmpty();
 			case WebPackage.WEB_APP__LOCAL_ENCODING_MAPPINGS_LISTS:

@@ -32,26 +32,26 @@ import org.eclipse.jst.javaee.ejb.EjbFactory;
  * <!-- begin-model-doc -->
  * 
  * 
- *       $Id: EjbPackage.java,v 1.5 2010/05/19 19:53:11 canderson Exp $
+ *       $Id: ejb-jar_3_1.xsd,v 1.4 2010/01/14 18:20:11 ccc Exp $
  *       
  *     
  * 
- * <![CDATA[[
- *       This is the XML Schema for the EJB 3.1 deployment descriptor.
+ *       [
+ *       This is the XML Schema for the EJB 3.2 deployment descriptor.
  *       
  *       All EJB deployment descriptors must indicate
  *       the schema by using the Java EE namespace:
  *       
- *       http://java.sun.com/xml/ns/javaee
+ *       http://xmlns.jcp.org/xml/ns/javaee
  *       
  *       and by indicating the version of the schema by
  *       using the version element as shown below:
  *       
- *       <ejb-jar xmlns="http://java.sun.com/xml/ns/javaee"
+ *       <ejb-jar xmlns="http://xmlns.jcp.org/xml/ns/javaee"
  *       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- *       xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
- *       	  http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd"
- *       version="3.1">
+ *       xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+ *       	  http://xmlns.jcp.org/xml/ns/javaee/ejb-jar_3_2.xsd"
+ *       version="3.2">
  *       ...
  *       </ejb-jar>
  *       
@@ -59,9 +59,9 @@ import org.eclipse.jst.javaee.ejb.EjbFactory;
  *       the schema using the xsi:schemaLocation attribute for the
  *       Java EE namespace with the following location:
  *       
- *       http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd
+ *       http://xmlns.jcp.org/xml/ns/javaee/ejb-jar_3_2.xsd
  *       
- * ]]>
+ *       
  *     
  * 
  * 
@@ -80,7 +80,7 @@ import org.eclipse.jst.javaee.ejb.EjbFactory;
  *     
  * 
  * 
- *       $Id: EjbPackage.java,v 1.5 2010/05/19 19:53:11 canderson Exp $
+ *       $Id: javaee_6.xsd,v 1.4 2010/01/14 18:20:11 ccc Exp $
  *       
  *     
  * 
@@ -105,7 +105,7 @@ import org.eclipse.jst.javaee.ejb.EjbFactory;
  *     
  * 
  * 
- *       $Id: EjbPackage.java,v 1.5 2010/05/19 19:53:11 canderson Exp $
+ *       $Id: javaee_web_services_client_1_3.xsd,v 1.2 2009/09/29 20:31:42 ccc Exp $
  *       
  *     
  * 
@@ -168,7 +168,7 @@ import org.eclipse.jst.javaee.ejb.EjbFactory;
  *    </div>
  *   
  * 
- *    <div id="usage" xml:id="usage" xmlns="http://www.w3.org/1999/xhtml">
+ *    <div xmlns="http://www.w3.org/1999/xhtml" id="usage" xml:id="usage">
  *     <h2>
  *       <a name="usage">About this schema document</a>
  *     </h2>
@@ -214,7 +214,7 @@ import org.eclipse.jst.javaee.ejb.EjbFactory;
  *    </div>
  *   
  * 
- *    <div id="nsversioning" xml:id="nsversioning" xmlns="http://www.w3.org/1999/xhtml">
+ *    <div xmlns="http://www.w3.org/1999/xhtml" id="nsversioning" xml:id="nsversioning">
  *     <h2>
  *       <a name="nsversioning">Versioning policy for this schema document</a>
  *     </h2>
@@ -288,8 +288,9 @@ public interface EjbPackage extends EPackage {
 	 * The package must be registered with the Java EE 5 and Java EE 6 xsds, since it is used for both
 	 * <!-- end-user-doc -->
 	 */
-	String eNS_URI = "http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd"; //$NON-NLS-1$
+	String eNS_URI = "http://xmlns.jcp.org/xml/ns/javaee/ejb-jar_3_2.xsd"; //$NON-NLS-1$
 	String eNS_URI2 = "http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd"; //$NON-NLS-1$
+	String eNS_URI3 = "http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd"; //$NON-NLS-1$
 
 	/**
 	 * The package namespace name.
@@ -1614,13 +1615,58 @@ public interface EjbPackage extends EPackage {
 	int ENTITY_BEAN__DATA_SOURCE = 28;
 
 	/**
+	 * The feature id for the '<em><b>Jms Connection Factory</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENTITY_BEAN__JMS_CONNECTION_FACTORY = 29;
+
+	/**
+	 * The feature id for the '<em><b>Jms Destination</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENTITY_BEAN__JMS_DESTINATION = 30;
+
+	/**
+	 * The feature id for the '<em><b>Mail Session</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENTITY_BEAN__MAIL_SESSION = 31;
+
+	/**
+	 * The feature id for the '<em><b>Connection Factory</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENTITY_BEAN__CONNECTION_FACTORY = 32;
+
+	/**
+	 * The feature id for the '<em><b>Administered Object</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENTITY_BEAN__ADMINISTERED_OBJECT = 33;
+
+	/**
 	 * The feature id for the '<em><b>Security Role Refs</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ENTITY_BEAN__SECURITY_ROLE_REFS = 29;
+	int ENTITY_BEAN__SECURITY_ROLE_REFS = 34;
 
 	/**
 	 * The feature id for the '<em><b>Security Identity</b></em>' containment reference.
@@ -1629,7 +1675,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ENTITY_BEAN__SECURITY_IDENTITY = 30;
+	int ENTITY_BEAN__SECURITY_IDENTITY = 35;
 
 	/**
 	 * The feature id for the '<em><b>Queries</b></em>' containment reference list.
@@ -1638,7 +1684,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ENTITY_BEAN__QUERIES = 31;
+	int ENTITY_BEAN__QUERIES = 36;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -1647,7 +1693,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ENTITY_BEAN__ID = 32;
+	int ENTITY_BEAN__ID = 37;
 
 	/**
 	 * The number of structural features of the '<em>Entity Bean</em>' class.
@@ -1656,7 +1702,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ENTITY_BEAN_FEATURE_COUNT = 33;
+	int ENTITY_BEAN_FEATURE_COUNT = 38;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.ExcludeListImpl <em>Exclude List</em>}' class.
@@ -2079,13 +2125,58 @@ public interface EjbPackage extends EPackage {
 	int INTERCEPTOR_TYPE__DATA_SOURCE = 15;
 
 	/**
+	 * The feature id for the '<em><b>Jms Connection Factory</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTERCEPTOR_TYPE__JMS_CONNECTION_FACTORY = 16;
+
+	/**
+	 * The feature id for the '<em><b>Jms Destination</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTERCEPTOR_TYPE__JMS_DESTINATION = 17;
+
+	/**
+	 * The feature id for the '<em><b>Mail Session</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTERCEPTOR_TYPE__MAIL_SESSION = 18;
+
+	/**
+	 * The feature id for the '<em><b>Connection Factory</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTERCEPTOR_TYPE__CONNECTION_FACTORY = 19;
+
+	/**
+	 * The feature id for the '<em><b>Administered Object</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTERCEPTOR_TYPE__ADMINISTERED_OBJECT = 20;
+
+	/**
 	 * The feature id for the '<em><b>Post Activates</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INTERCEPTOR_TYPE__POST_ACTIVATES = 16;
+	int INTERCEPTOR_TYPE__POST_ACTIVATES = 21;
 
 	/**
 	 * The feature id for the '<em><b>Pre Passivates</b></em>' containment reference list.
@@ -2094,7 +2185,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTERCEPTOR_TYPE__PRE_PASSIVATES = 17;
+	int INTERCEPTOR_TYPE__PRE_PASSIVATES = 22;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -2103,7 +2194,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTERCEPTOR_TYPE__ID = 18;
+	int INTERCEPTOR_TYPE__ID = 23;
 
 	/**
 	 * The number of structural features of the '<em>Interceptor Type</em>' class.
@@ -2112,7 +2203,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTERCEPTOR_TYPE_FEATURE_COUNT = 19;
+	int INTERCEPTOR_TYPE_FEATURE_COUNT = 24;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.MessageDrivenBeanImpl <em>Message Driven Bean</em>}' class.
@@ -2368,13 +2459,58 @@ public interface EjbPackage extends EPackage {
 	int MESSAGE_DRIVEN_BEAN__DATA_SOURCE = 26;
 
 	/**
+	 * The feature id for the '<em><b>Jms Connection Factory</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MESSAGE_DRIVEN_BEAN__JMS_CONNECTION_FACTORY = 27;
+
+	/**
+	 * The feature id for the '<em><b>Jms Destination</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MESSAGE_DRIVEN_BEAN__JMS_DESTINATION = 28;
+
+	/**
+	 * The feature id for the '<em><b>Mail Session</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MESSAGE_DRIVEN_BEAN__MAIL_SESSION = 29;
+
+	/**
+	 * The feature id for the '<em><b>Connection Factory</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MESSAGE_DRIVEN_BEAN__CONNECTION_FACTORY = 30;
+
+	/**
+	 * The feature id for the '<em><b>Administered Object</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MESSAGE_DRIVEN_BEAN__ADMINISTERED_OBJECT = 31;
+
+	/**
 	 * The feature id for the '<em><b>Security Role Ref</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MESSAGE_DRIVEN_BEAN__SECURITY_ROLE_REF = 27;
+	int MESSAGE_DRIVEN_BEAN__SECURITY_ROLE_REF = 32;
 
 	/**
 	 * The feature id for the '<em><b>Security Identity</b></em>' containment reference.
@@ -2383,7 +2519,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MESSAGE_DRIVEN_BEAN__SECURITY_IDENTITY = 28;
+	int MESSAGE_DRIVEN_BEAN__SECURITY_IDENTITY = 33;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -2392,7 +2528,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MESSAGE_DRIVEN_BEAN__ID = 29;
+	int MESSAGE_DRIVEN_BEAN__ID = 34;
 
 	/**
 	 * The number of structural features of the '<em>Message Driven Bean</em>' class.
@@ -2401,7 +2537,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MESSAGE_DRIVEN_BEAN_FEATURE_COUNT = 30;
+	int MESSAGE_DRIVEN_BEAN_FEATURE_COUNT = 35;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.MethodParamsImpl <em>Method Params</em>}' class.
@@ -3324,13 +3460,58 @@ public interface EjbPackage extends EPackage {
 	int SESSION_BEAN__DATA_SOURCE = 42;
 
 	/**
+	 * The feature id for the '<em><b>Jms Connection Factory</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SESSION_BEAN__JMS_CONNECTION_FACTORY = 43;
+
+	/**
+	 * The feature id for the '<em><b>Jms Destination</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SESSION_BEAN__JMS_DESTINATION = 44;
+
+	/**
+	 * The feature id for the '<em><b>Mail Session</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SESSION_BEAN__MAIL_SESSION = 45;
+
+	/**
+	 * The feature id for the '<em><b>Connection Factory</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SESSION_BEAN__CONNECTION_FACTORY = 46;
+
+	/**
+	 * The feature id for the '<em><b>Administered Object</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SESSION_BEAN__ADMINISTERED_OBJECT = 47;
+
+	/**
 	 * The feature id for the '<em><b>Post Activates</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SESSION_BEAN__POST_ACTIVATES = 43;
+	int SESSION_BEAN__POST_ACTIVATES = 48;
 
 	/**
 	 * The feature id for the '<em><b>Pre Passivates</b></em>' containment reference list.
@@ -3339,7 +3520,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SESSION_BEAN__PRE_PASSIVATES = 44;
+	int SESSION_BEAN__PRE_PASSIVATES = 49;
 
 	/**
 	 * The feature id for the '<em><b>Security Role Refs</b></em>' containment reference list.
@@ -3348,7 +3529,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SESSION_BEAN__SECURITY_ROLE_REFS = 45;
+	int SESSION_BEAN__SECURITY_ROLE_REFS = 50;
 
 	/**
 	 * The feature id for the '<em><b>Security Identities</b></em>' containment reference.
@@ -3357,7 +3538,16 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SESSION_BEAN__SECURITY_IDENTITIES = 46;
+	int SESSION_BEAN__SECURITY_IDENTITIES = 51;
+
+	/**
+	 * The feature id for the '<em><b>Passivation Capable</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SESSION_BEAN__PASSIVATION_CAPABLE = 52;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -3366,7 +3556,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SESSION_BEAN__ID = 47;
+	int SESSION_BEAN__ID = 53;
 
 	/**
 	 * The number of structural features of the '<em>Session Bean</em>' class.
@@ -3375,7 +3565,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SESSION_BEAN_FEATURE_COUNT = 48;
+	int SESSION_BEAN_FEATURE_COUNT = 54;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.StatefulTimeoutTypeImpl <em>Stateful Timeout Type</em>}' class.
@@ -5242,6 +5432,61 @@ public interface EjbPackage extends EPackage {
 	EReference getEntityBean_DataSource();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.EntityBean#getJmsConnectionFactory <em>Jms Connection Factory</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Jms Connection Factory</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.EntityBean#getJmsConnectionFactory()
+	 * @see #getEntityBean()
+	 * @generated
+	 */
+	EReference getEntityBean_JmsConnectionFactory();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.EntityBean#getJmsDestination <em>Jms Destination</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Jms Destination</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.EntityBean#getJmsDestination()
+	 * @see #getEntityBean()
+	 * @generated
+	 */
+	EReference getEntityBean_JmsDestination();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.EntityBean#getMailSession <em>Mail Session</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Mail Session</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.EntityBean#getMailSession()
+	 * @see #getEntityBean()
+	 * @generated
+	 */
+	EReference getEntityBean_MailSession();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.EntityBean#getConnectionFactory <em>Connection Factory</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Connection Factory</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.EntityBean#getConnectionFactory()
+	 * @see #getEntityBean()
+	 * @generated
+	 */
+	EReference getEntityBean_ConnectionFactory();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.EntityBean#getAdministeredObject <em>Administered Object</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Administered Object</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.EntityBean#getAdministeredObject()
+	 * @see #getEntityBean()
+	 * @generated
+	 */
+	EReference getEntityBean_AdministeredObject();
+
+	/**
 	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.EntityBean#getSecurityRoleRefs <em>Security Role Refs</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5731,6 +5976,61 @@ public interface EjbPackage extends EPackage {
 	EReference getInterceptorType_DataSource();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.InterceptorType#getJmsConnectionFactory <em>Jms Connection Factory</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Jms Connection Factory</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.InterceptorType#getJmsConnectionFactory()
+	 * @see #getInterceptorType()
+	 * @generated
+	 */
+	EReference getInterceptorType_JmsConnectionFactory();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.InterceptorType#getJmsDestination <em>Jms Destination</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Jms Destination</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.InterceptorType#getJmsDestination()
+	 * @see #getInterceptorType()
+	 * @generated
+	 */
+	EReference getInterceptorType_JmsDestination();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.InterceptorType#getMailSession <em>Mail Session</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Mail Session</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.InterceptorType#getMailSession()
+	 * @see #getInterceptorType()
+	 * @generated
+	 */
+	EReference getInterceptorType_MailSession();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.InterceptorType#getConnectionFactory <em>Connection Factory</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Connection Factory</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.InterceptorType#getConnectionFactory()
+	 * @see #getInterceptorType()
+	 * @generated
+	 */
+	EReference getInterceptorType_ConnectionFactory();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.InterceptorType#getAdministeredObject <em>Administered Object</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Administered Object</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.InterceptorType#getAdministeredObject()
+	 * @see #getInterceptorType()
+	 * @generated
+	 */
+	EReference getInterceptorType_AdministeredObject();
+
+	/**
 	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.InterceptorType#getPostActivates <em>Post Activates</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6069,6 +6369,61 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getMessageDrivenBean_DataSource();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.MessageDrivenBean#getJmsConnectionFactory <em>Jms Connection Factory</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Jms Connection Factory</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.MessageDrivenBean#getJmsConnectionFactory()
+	 * @see #getMessageDrivenBean()
+	 * @generated
+	 */
+	EReference getMessageDrivenBean_JmsConnectionFactory();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.MessageDrivenBean#getJmsDestination <em>Jms Destination</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Jms Destination</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.MessageDrivenBean#getJmsDestination()
+	 * @see #getMessageDrivenBean()
+	 * @generated
+	 */
+	EReference getMessageDrivenBean_JmsDestination();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.MessageDrivenBean#getMailSession <em>Mail Session</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Mail Session</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.MessageDrivenBean#getMailSession()
+	 * @see #getMessageDrivenBean()
+	 * @generated
+	 */
+	EReference getMessageDrivenBean_MailSession();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.MessageDrivenBean#getConnectionFactory <em>Connection Factory</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Connection Factory</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.MessageDrivenBean#getConnectionFactory()
+	 * @see #getMessageDrivenBean()
+	 * @generated
+	 */
+	EReference getMessageDrivenBean_ConnectionFactory();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.MessageDrivenBean#getAdministeredObject <em>Administered Object</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Administered Object</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.MessageDrivenBean#getAdministeredObject()
+	 * @see #getMessageDrivenBean()
+	 * @generated
+	 */
+	EReference getMessageDrivenBean_AdministeredObject();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.MessageDrivenBean#getSecurityRoleRef <em>Security Role Ref</em>}'.
@@ -7094,6 +7449,61 @@ public interface EjbPackage extends EPackage {
 	EReference getSessionBean_DataSource();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.SessionBean#getJmsConnectionFactory <em>Jms Connection Factory</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Jms Connection Factory</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.SessionBean#getJmsConnectionFactory()
+	 * @see #getSessionBean()
+	 * @generated
+	 */
+	EReference getSessionBean_JmsConnectionFactory();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.SessionBean#getJmsDestination <em>Jms Destination</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Jms Destination</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.SessionBean#getJmsDestination()
+	 * @see #getSessionBean()
+	 * @generated
+	 */
+	EReference getSessionBean_JmsDestination();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.SessionBean#getMailSession <em>Mail Session</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Mail Session</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.SessionBean#getMailSession()
+	 * @see #getSessionBean()
+	 * @generated
+	 */
+	EReference getSessionBean_MailSession();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.SessionBean#getConnectionFactory <em>Connection Factory</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Connection Factory</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.SessionBean#getConnectionFactory()
+	 * @see #getSessionBean()
+	 * @generated
+	 */
+	EReference getSessionBean_ConnectionFactory();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.SessionBean#getAdministeredObject <em>Administered Object</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Administered Object</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.SessionBean#getAdministeredObject()
+	 * @see #getSessionBean()
+	 * @generated
+	 */
+	EReference getSessionBean_AdministeredObject();
+
+	/**
 	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.SessionBean#getPostActivates <em>Post Activates</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7136,6 +7546,17 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getSessionBean_SecurityIdentities();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.SessionBean#isPassivationCapable <em>Passivation Capable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Passivation Capable</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.SessionBean#isPassivationCapable()
+	 * @see #getSessionBean()
+	 * @generated
+	 */
+	EAttribute getSessionBean_PassivationCapable();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.ejb.SessionBean#getId <em>Id</em>}'.
@@ -8729,6 +9150,46 @@ public interface EjbPackage extends EPackage {
 		EReference ENTITY_BEAN__DATA_SOURCE = eINSTANCE.getEntityBean_DataSource();
 
 		/**
+		 * The meta object literal for the '<em><b>Jms Connection Factory</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ENTITY_BEAN__JMS_CONNECTION_FACTORY = eINSTANCE.getEntityBean_JmsConnectionFactory();
+
+		/**
+		 * The meta object literal for the '<em><b>Jms Destination</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ENTITY_BEAN__JMS_DESTINATION = eINSTANCE.getEntityBean_JmsDestination();
+
+		/**
+		 * The meta object literal for the '<em><b>Mail Session</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ENTITY_BEAN__MAIL_SESSION = eINSTANCE.getEntityBean_MailSession();
+
+		/**
+		 * The meta object literal for the '<em><b>Connection Factory</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ENTITY_BEAN__CONNECTION_FACTORY = eINSTANCE.getEntityBean_ConnectionFactory();
+
+		/**
+		 * The meta object literal for the '<em><b>Administered Object</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ENTITY_BEAN__ADMINISTERED_OBJECT = eINSTANCE.getEntityBean_AdministeredObject();
+
+		/**
 		 * The meta object literal for the '<em><b>Security Role Refs</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -9101,6 +9562,46 @@ public interface EjbPackage extends EPackage {
 		EReference INTERCEPTOR_TYPE__DATA_SOURCE = eINSTANCE.getInterceptorType_DataSource();
 
 		/**
+		 * The meta object literal for the '<em><b>Jms Connection Factory</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference INTERCEPTOR_TYPE__JMS_CONNECTION_FACTORY = eINSTANCE.getInterceptorType_JmsConnectionFactory();
+
+		/**
+		 * The meta object literal for the '<em><b>Jms Destination</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference INTERCEPTOR_TYPE__JMS_DESTINATION = eINSTANCE.getInterceptorType_JmsDestination();
+
+		/**
+		 * The meta object literal for the '<em><b>Mail Session</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference INTERCEPTOR_TYPE__MAIL_SESSION = eINSTANCE.getInterceptorType_MailSession();
+
+		/**
+		 * The meta object literal for the '<em><b>Connection Factory</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference INTERCEPTOR_TYPE__CONNECTION_FACTORY = eINSTANCE.getInterceptorType_ConnectionFactory();
+
+		/**
+		 * The meta object literal for the '<em><b>Administered Object</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference INTERCEPTOR_TYPE__ADMINISTERED_OBJECT = eINSTANCE.getInterceptorType_AdministeredObject();
+
+		/**
 		 * The meta object literal for the '<em><b>Post Activates</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -9349,6 +9850,46 @@ public interface EjbPackage extends EPackage {
 		 * @generated
 		 */
 		EReference MESSAGE_DRIVEN_BEAN__DATA_SOURCE = eINSTANCE.getMessageDrivenBean_DataSource();
+
+		/**
+		 * The meta object literal for the '<em><b>Jms Connection Factory</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MESSAGE_DRIVEN_BEAN__JMS_CONNECTION_FACTORY = eINSTANCE.getMessageDrivenBean_JmsConnectionFactory();
+
+		/**
+		 * The meta object literal for the '<em><b>Jms Destination</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MESSAGE_DRIVEN_BEAN__JMS_DESTINATION = eINSTANCE.getMessageDrivenBean_JmsDestination();
+
+		/**
+		 * The meta object literal for the '<em><b>Mail Session</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MESSAGE_DRIVEN_BEAN__MAIL_SESSION = eINSTANCE.getMessageDrivenBean_MailSession();
+
+		/**
+		 * The meta object literal for the '<em><b>Connection Factory</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MESSAGE_DRIVEN_BEAN__CONNECTION_FACTORY = eINSTANCE.getMessageDrivenBean_ConnectionFactory();
+
+		/**
+		 * The meta object literal for the '<em><b>Administered Object</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MESSAGE_DRIVEN_BEAN__ADMINISTERED_OBJECT = eINSTANCE.getMessageDrivenBean_AdministeredObject();
 
 		/**
 		 * The meta object literal for the '<em><b>Security Role Ref</b></em>' containment reference list feature.
@@ -10125,6 +10666,46 @@ public interface EjbPackage extends EPackage {
 		EReference SESSION_BEAN__DATA_SOURCE = eINSTANCE.getSessionBean_DataSource();
 
 		/**
+		 * The meta object literal for the '<em><b>Jms Connection Factory</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SESSION_BEAN__JMS_CONNECTION_FACTORY = eINSTANCE.getSessionBean_JmsConnectionFactory();
+
+		/**
+		 * The meta object literal for the '<em><b>Jms Destination</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SESSION_BEAN__JMS_DESTINATION = eINSTANCE.getSessionBean_JmsDestination();
+
+		/**
+		 * The meta object literal for the '<em><b>Mail Session</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SESSION_BEAN__MAIL_SESSION = eINSTANCE.getSessionBean_MailSession();
+
+		/**
+		 * The meta object literal for the '<em><b>Connection Factory</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SESSION_BEAN__CONNECTION_FACTORY = eINSTANCE.getSessionBean_ConnectionFactory();
+
+		/**
+		 * The meta object literal for the '<em><b>Administered Object</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SESSION_BEAN__ADMINISTERED_OBJECT = eINSTANCE.getSessionBean_AdministeredObject();
+
+		/**
 		 * The meta object literal for the '<em><b>Post Activates</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -10155,6 +10736,14 @@ public interface EjbPackage extends EPackage {
 		 * @generated
 		 */
 		EReference SESSION_BEAN__SECURITY_IDENTITIES = eINSTANCE.getSessionBean_SecurityIdentities();
+
+		/**
+		 * The meta object literal for the '<em><b>Passivation Capable</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SESSION_BEAN__PASSIVATION_CAPABLE = eINSTANCE.getSessionBean_PassivationCapable();
 
 		/**
 		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.

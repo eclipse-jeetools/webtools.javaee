@@ -34,8 +34,9 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  *         The security roles used in the method-permissionType
  *         must be defined in the security-role elements of the
  *         deployment descriptor, and the methods must be methods
- *         defined in the enterprise bean's business, home, component 
- *         and/or web service endpoint interfaces.
+ *         defined in the enterprise bean's no-interface view, 
+ *         business, home, component and/or web service endpoint 
+ *         interfaces.
  *         
  *         @since Java EE 5, EJB 3.0
  *       

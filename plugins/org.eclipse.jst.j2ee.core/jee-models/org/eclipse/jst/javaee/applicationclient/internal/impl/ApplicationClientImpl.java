@@ -31,13 +31,18 @@ import org.eclipse.jst.javaee.applicationclient.ApplicationClient;
 
 import org.eclipse.jst.javaee.applicationclient.internal.metadata.ApplicationclientPackage;
 
+import org.eclipse.jst.javaee.core.AdministeredObjectType;
+import org.eclipse.jst.javaee.core.ConnectionFactoryResourceType;
 import org.eclipse.jst.javaee.core.DataSourceType;
 import org.eclipse.jst.javaee.core.Description;
 import org.eclipse.jst.javaee.core.DisplayName;
 import org.eclipse.jst.javaee.core.EjbRef;
 import org.eclipse.jst.javaee.core.EnvEntry;
 import org.eclipse.jst.javaee.core.Icon;
+import org.eclipse.jst.javaee.core.JmsConnectionFactoryType;
+import org.eclipse.jst.javaee.core.JmsDestinationType;
 import org.eclipse.jst.javaee.core.LifecycleCallback;
+import org.eclipse.jst.javaee.core.MailSessionType;
 import org.eclipse.jst.javaee.core.MessageDestination;
 import org.eclipse.jst.javaee.core.MessageDestinationRef;
 import org.eclipse.jst.javaee.core.PersistenceUnitRef;
@@ -68,6 +73,11 @@ import org.eclipse.jst.javaee.core.ServiceRef;
  *   <li>{@link org.eclipse.jst.javaee.applicationclient.internal.impl.ApplicationClientImpl#getCallbackHandler <em>Callback Handler</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.applicationclient.internal.impl.ApplicationClientImpl#getMessageDestinations <em>Message Destinations</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.applicationclient.internal.impl.ApplicationClientImpl#getDataSource <em>Data Source</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.applicationclient.internal.impl.ApplicationClientImpl#getJmsConnectionFactory <em>Jms Connection Factory</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.applicationclient.internal.impl.ApplicationClientImpl#getJmsDestination <em>Jms Destination</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.applicationclient.internal.impl.ApplicationClientImpl#getMailSession <em>Mail Session</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.applicationclient.internal.impl.ApplicationClientImpl#getConnectionFactory <em>Connection Factory</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.applicationclient.internal.impl.ApplicationClientImpl#getAdministeredObject <em>Administered Object</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.applicationclient.internal.impl.ApplicationClientImpl#getId <em>Id</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.applicationclient.internal.impl.ApplicationClientImpl#isMetadataComplete <em>Metadata Complete</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.applicationclient.internal.impl.ApplicationClientImpl#getVersion <em>Version</em>}</li>
@@ -258,6 +268,56 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	protected EList<DataSourceType> dataSource;
 
 	/**
+	 * The cached value of the '{@link #getJmsConnectionFactory() <em>Jms Connection Factory</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getJmsConnectionFactory()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<JmsConnectionFactoryType> jmsConnectionFactory;
+
+	/**
+	 * The cached value of the '{@link #getJmsDestination() <em>Jms Destination</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getJmsDestination()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<JmsDestinationType> jmsDestination;
+
+	/**
+	 * The cached value of the '{@link #getMailSession() <em>Mail Session</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMailSession()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<MailSessionType> mailSession;
+
+	/**
+	 * The cached value of the '{@link #getConnectionFactory() <em>Connection Factory</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getConnectionFactory()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ConnectionFactoryResourceType> connectionFactory;
+
+	/**
+	 * The cached value of the '{@link #getAdministeredObject() <em>Administered Object</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAdministeredObject()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<AdministeredObjectType> administeredObject;
+
+	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -314,7 +374,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String VERSION_EDEFAULT = "6"; //$NON-NLS-1$
+	protected static final String VERSION_EDEFAULT = "7"; //$NON-NLS-1$
 
 	/**
 	 * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute.
@@ -569,6 +629,66 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public List<JmsConnectionFactoryType> getJmsConnectionFactory() {
+		if (jmsConnectionFactory == null) {
+			jmsConnectionFactory = new EObjectContainmentEList<JmsConnectionFactoryType>(JmsConnectionFactoryType.class, this, ApplicationclientPackage.APPLICATION_CLIENT__JMS_CONNECTION_FACTORY);
+		}
+		return jmsConnectionFactory;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<JmsDestinationType> getJmsDestination() {
+		if (jmsDestination == null) {
+			jmsDestination = new EObjectContainmentEList<JmsDestinationType>(JmsDestinationType.class, this, ApplicationclientPackage.APPLICATION_CLIENT__JMS_DESTINATION);
+		}
+		return jmsDestination;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<MailSessionType> getMailSession() {
+		if (mailSession == null) {
+			mailSession = new EObjectContainmentEList<MailSessionType>(MailSessionType.class, this, ApplicationclientPackage.APPLICATION_CLIENT__MAIL_SESSION);
+		}
+		return mailSession;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<ConnectionFactoryResourceType> getConnectionFactory() {
+		if (connectionFactory == null) {
+			connectionFactory = new EObjectContainmentEList<ConnectionFactoryResourceType>(ConnectionFactoryResourceType.class, this, ApplicationclientPackage.APPLICATION_CLIENT__CONNECTION_FACTORY);
+		}
+		return connectionFactory;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<AdministeredObjectType> getAdministeredObject() {
+		if (administeredObject == null) {
+			administeredObject = new EObjectContainmentEList<AdministeredObjectType>(AdministeredObjectType.class, this, ApplicationclientPackage.APPLICATION_CLIENT__ADMINISTERED_OBJECT);
+		}
+		return administeredObject;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getId() {
 		return id;
 	}
@@ -713,6 +833,16 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 				return ((InternalEList<?>)getMessageDestinations()).basicRemove(otherEnd, msgs);
 			case ApplicationclientPackage.APPLICATION_CLIENT__DATA_SOURCE:
 				return ((InternalEList<?>)getDataSource()).basicRemove(otherEnd, msgs);
+			case ApplicationclientPackage.APPLICATION_CLIENT__JMS_CONNECTION_FACTORY:
+				return ((InternalEList<?>)getJmsConnectionFactory()).basicRemove(otherEnd, msgs);
+			case ApplicationclientPackage.APPLICATION_CLIENT__JMS_DESTINATION:
+				return ((InternalEList<?>)getJmsDestination()).basicRemove(otherEnd, msgs);
+			case ApplicationclientPackage.APPLICATION_CLIENT__MAIL_SESSION:
+				return ((InternalEList<?>)getMailSession()).basicRemove(otherEnd, msgs);
+			case ApplicationclientPackage.APPLICATION_CLIENT__CONNECTION_FACTORY:
+				return ((InternalEList<?>)getConnectionFactory()).basicRemove(otherEnd, msgs);
+			case ApplicationclientPackage.APPLICATION_CLIENT__ADMINISTERED_OBJECT:
+				return ((InternalEList<?>)getAdministeredObject()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -757,6 +887,16 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 				return getMessageDestinations();
 			case ApplicationclientPackage.APPLICATION_CLIENT__DATA_SOURCE:
 				return getDataSource();
+			case ApplicationclientPackage.APPLICATION_CLIENT__JMS_CONNECTION_FACTORY:
+				return getJmsConnectionFactory();
+			case ApplicationclientPackage.APPLICATION_CLIENT__JMS_DESTINATION:
+				return getJmsDestination();
+			case ApplicationclientPackage.APPLICATION_CLIENT__MAIL_SESSION:
+				return getMailSession();
+			case ApplicationclientPackage.APPLICATION_CLIENT__CONNECTION_FACTORY:
+				return getConnectionFactory();
+			case ApplicationclientPackage.APPLICATION_CLIENT__ADMINISTERED_OBJECT:
+				return getAdministeredObject();
 			case ApplicationclientPackage.APPLICATION_CLIENT__ID:
 				return getId();
 			case ApplicationclientPackage.APPLICATION_CLIENT__METADATA_COMPLETE:
@@ -838,6 +978,26 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 				getDataSource().clear();
 				getDataSource().addAll((Collection<? extends DataSourceType>)newValue);
 				return;
+			case ApplicationclientPackage.APPLICATION_CLIENT__JMS_CONNECTION_FACTORY:
+				getJmsConnectionFactory().clear();
+				getJmsConnectionFactory().addAll((Collection<? extends JmsConnectionFactoryType>)newValue);
+				return;
+			case ApplicationclientPackage.APPLICATION_CLIENT__JMS_DESTINATION:
+				getJmsDestination().clear();
+				getJmsDestination().addAll((Collection<? extends JmsDestinationType>)newValue);
+				return;
+			case ApplicationclientPackage.APPLICATION_CLIENT__MAIL_SESSION:
+				getMailSession().clear();
+				getMailSession().addAll((Collection<? extends MailSessionType>)newValue);
+				return;
+			case ApplicationclientPackage.APPLICATION_CLIENT__CONNECTION_FACTORY:
+				getConnectionFactory().clear();
+				getConnectionFactory().addAll((Collection<? extends ConnectionFactoryResourceType>)newValue);
+				return;
+			case ApplicationclientPackage.APPLICATION_CLIENT__ADMINISTERED_OBJECT:
+				getAdministeredObject().clear();
+				getAdministeredObject().addAll((Collection<? extends AdministeredObjectType>)newValue);
+				return;
 			case ApplicationclientPackage.APPLICATION_CLIENT__ID:
 				setId((String)newValue);
 				return;
@@ -907,6 +1067,21 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 			case ApplicationclientPackage.APPLICATION_CLIENT__DATA_SOURCE:
 				getDataSource().clear();
 				return;
+			case ApplicationclientPackage.APPLICATION_CLIENT__JMS_CONNECTION_FACTORY:
+				getJmsConnectionFactory().clear();
+				return;
+			case ApplicationclientPackage.APPLICATION_CLIENT__JMS_DESTINATION:
+				getJmsDestination().clear();
+				return;
+			case ApplicationclientPackage.APPLICATION_CLIENT__MAIL_SESSION:
+				getMailSession().clear();
+				return;
+			case ApplicationclientPackage.APPLICATION_CLIENT__CONNECTION_FACTORY:
+				getConnectionFactory().clear();
+				return;
+			case ApplicationclientPackage.APPLICATION_CLIENT__ADMINISTERED_OBJECT:
+				getAdministeredObject().clear();
+				return;
 			case ApplicationclientPackage.APPLICATION_CLIENT__ID:
 				setId(ID_EDEFAULT);
 				return;
@@ -960,6 +1135,16 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 				return messageDestinations != null && !messageDestinations.isEmpty();
 			case ApplicationclientPackage.APPLICATION_CLIENT__DATA_SOURCE:
 				return dataSource != null && !dataSource.isEmpty();
+			case ApplicationclientPackage.APPLICATION_CLIENT__JMS_CONNECTION_FACTORY:
+				return jmsConnectionFactory != null && !jmsConnectionFactory.isEmpty();
+			case ApplicationclientPackage.APPLICATION_CLIENT__JMS_DESTINATION:
+				return jmsDestination != null && !jmsDestination.isEmpty();
+			case ApplicationclientPackage.APPLICATION_CLIENT__MAIL_SESSION:
+				return mailSession != null && !mailSession.isEmpty();
+			case ApplicationclientPackage.APPLICATION_CLIENT__CONNECTION_FACTORY:
+				return connectionFactory != null && !connectionFactory.isEmpty();
+			case ApplicationclientPackage.APPLICATION_CLIENT__ADMINISTERED_OBJECT:
+				return administeredObject != null && !administeredObject.isEmpty();
 			case ApplicationclientPackage.APPLICATION_CLIENT__ID:
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 			case ApplicationclientPackage.APPLICATION_CLIENT__METADATA_COMPLETE:

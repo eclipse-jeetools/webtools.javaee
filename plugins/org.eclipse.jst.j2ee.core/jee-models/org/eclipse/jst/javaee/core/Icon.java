@@ -53,7 +53,7 @@ public interface Icon extends JavaEEObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * 
-	 * <![CDATA[[
+	 * [
 	 *             The small-icon element contains the name of a file
 	 *             containing a small (16 x 16) icon image. The file
 	 *             name is a relative path within the Deployment
@@ -66,7 +66,7 @@ public interface Icon extends JavaEEObject {
 	 *             
 	 *             <small-icon>employee-service-icon16x16.jpg</small-icon>
 	 *             
-	 * ]]>
+	 * 
 	 *             @since Java EE 5
 	 *           
 	 * <!-- end-model-doc -->
@@ -93,7 +93,7 @@ public interface Icon extends JavaEEObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * 
-	 * <![CDATA[[
+	 * [
 	 *             The large-icon element contains the name of a file
 	 *             containing a large
 	 *             (32 x 32) icon image. The file name is a relative 
@@ -107,7 +107,7 @@ public interface Icon extends JavaEEObject {
 	 *             
 	 *             <large-icon>employee-service-icon32x32.jpg</large-icon>
 	 *             
-	 * ]]>
+	 * 
 	 *             @since Java EE 5
 	 *           
 	 * <!-- end-model-doc -->

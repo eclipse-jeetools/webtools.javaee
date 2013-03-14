@@ -19,7 +19,7 @@ import java.util.List;
  *
  * <!-- begin-model-doc -->
  * 
- * <![CDATA[[
+ * [
  *         The message-destinationType specifies a message
  *         destination. The logical destination described by this
  *         element is mapped to a physical destination by the Deployer.
@@ -42,7 +42,7 @@ import java.util.List;
  *         </message-destination-name>
  *         </message-destination>
  *         
- * ]]>
+ * 
  *         @since Java EE 5
  *       
  * <!-- end-model-doc -->

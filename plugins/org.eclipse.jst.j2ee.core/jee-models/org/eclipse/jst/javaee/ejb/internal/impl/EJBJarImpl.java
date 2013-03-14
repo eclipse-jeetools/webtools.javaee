@@ -224,7 +224,7 @@ public class EJBJarImpl extends EObjectImpl implements EJBJar {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String VERSION_EDEFAULT = "3.1"; //$NON-NLS-1$
+	protected static final String VERSION_EDEFAULT = "3.2"; //$NON-NLS-1$
 
 	/**
 	 * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute.

@@ -19,7 +19,7 @@ import java.util.List;
  *
  * <!-- begin-model-doc -->
  * 
- * <![CDATA[[
+ * [
  *         The persistence-context-ref element contains a declaration
  *         of Deployment Component's reference to a persistence context
  *         associated within a Deployment Component's
@@ -32,6 +32,10 @@ import java.util.List;
  *         - an optional specification as to whether
  *         the persistence context type is Transaction or
  *         Extended.  If not specified, Transaction is assumed.
+ *         - an optional specification as to whether
+ *         the persistence context synchronization with the current
+ *         transaction is Synchronized or Unsynchronized. If not
+ *         specified, Synchronized is assumed.
  *         - an optional list of persistence properties
  *         - optional injection targets
  *         
@@ -50,7 +54,7 @@ import java.util.List;
  *         <persistence-context-type>Extended</persistence-context-type>
  *         </persistence-context-ref>
  *         
- * ]]>
+ * 
  *         @since Java EE 5
  *       
  * <!-- end-model-doc -->
@@ -62,6 +66,7 @@ import java.util.List;
  *   <li>{@link org.eclipse.jst.javaee.core.PersistenceContextRef#getPersistenceContextRefName <em>Persistence Context Ref Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.PersistenceContextRef#getPersistenceUnitName <em>Persistence Unit Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.PersistenceContextRef#getPersistenceContextType <em>Persistence Context Type</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.core.PersistenceContextRef#getPersistenceContextSynchronization <em>Persistence Context Synchronization</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.PersistenceContextRef#getPersistenceProperties <em>Persistence Properties</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.PersistenceContextRef#getMappedName <em>Mapped Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.PersistenceContextRef#getInjectionTargets <em>Injection Targets</em>}</li>
@@ -216,6 +221,62 @@ public interface PersistenceContextRef extends JavaEEObject {
 	 * @generated
 	 */
 	boolean isSetPersistenceContextType();
+
+	/**
+	 * Returns the value of the '<em><b>Persistence Context Synchronization</b></em>' attribute.
+	 * The literals are from the enumeration {@link org.eclipse.jst.javaee.core.PersistenceContextSynchronizationType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *             @since Java EE 7
+	 *          
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Persistence Context Synchronization</em>' attribute.
+	 * @see org.eclipse.jst.javaee.core.PersistenceContextSynchronizationType
+	 * @see #isSetPersistenceContextSynchronization()
+	 * @see #unsetPersistenceContextSynchronization()
+	 * @see #setPersistenceContextSynchronization(PersistenceContextSynchronizationType)
+	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getPersistenceContextRef_PersistenceContextSynchronization()
+	 * @generated
+	 */
+	PersistenceContextSynchronizationType getPersistenceContextSynchronization();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.jst.javaee.core.PersistenceContextRef#getPersistenceContextSynchronization <em>Persistence Context Synchronization</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Persistence Context Synchronization</em>' attribute.
+	 * @see org.eclipse.jst.javaee.core.PersistenceContextSynchronizationType
+	 * @see #isSetPersistenceContextSynchronization()
+	 * @see #unsetPersistenceContextSynchronization()
+	 * @see #getPersistenceContextSynchronization()
+	 * @generated
+	 */
+	void setPersistenceContextSynchronization(PersistenceContextSynchronizationType value);
+
+	/**
+	 * Unsets the value of the '{@link org.eclipse.jst.javaee.core.PersistenceContextRef#getPersistenceContextSynchronization <em>Persistence Context Synchronization</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetPersistenceContextSynchronization()
+	 * @see #getPersistenceContextSynchronization()
+	 * @see #setPersistenceContextSynchronization(PersistenceContextSynchronizationType)
+	 * @generated
+	 */
+	void unsetPersistenceContextSynchronization();
+
+	/**
+	 * Returns whether the value of the '{@link org.eclipse.jst.javaee.core.PersistenceContextRef#getPersistenceContextSynchronization <em>Persistence Context Synchronization</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Persistence Context Synchronization</em>' attribute is set.
+	 * @see #unsetPersistenceContextSynchronization()
+	 * @see #getPersistenceContextSynchronization()
+	 * @see #setPersistenceContextSynchronization(PersistenceContextSynchronizationType)
+	 * @generated
+	 */
+	boolean isSetPersistenceContextSynchronization();
 
 	/**
 	 * Returns the value of the '<em><b>Persistence Properties</b></em>' containment reference list.

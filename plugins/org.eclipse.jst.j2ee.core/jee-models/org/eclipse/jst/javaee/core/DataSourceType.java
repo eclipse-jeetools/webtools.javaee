@@ -240,14 +240,14 @@ public interface DataSourceType extends JavaEEObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * 
-	 * <![CDATA[[
+	 * [
 	 *             A JDBC URL. If the <code>url</code> property is specified
 	 *             along with other standard <code>DataSource</code> properties
 	 *             such as <code>serverName</code>, <code>databaseName</code>
 	 *             and <code>portNumber</code>, the more specific properties will
 	 *             take precedence and <code>url</code> will be ignored.
 	 *             
-	 * ]]>
+	 * 
 	 *             @since Java EE 6
 	 *           
 	 * <!-- end-model-doc -->

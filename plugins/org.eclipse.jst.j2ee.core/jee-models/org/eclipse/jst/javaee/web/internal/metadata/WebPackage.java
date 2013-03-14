@@ -32,26 +32,26 @@ import org.eclipse.jst.javaee.web.WebFactory;
  * <!-- begin-model-doc -->
  * 
  * 
- *       $Id: WebPackage.java,v 1.6 2010/05/19 19:53:10 canderson Exp $
+ *       $Id: web-common_3_0.xsd,v 1.6 2010/01/14 18:20:11 ccc Exp $
  *       
  *     
  * 
- * <![CDATA[[
- *       This is the common XML Schema for the Servlet 3.0 deployment descriptor.
+ * [
+ *       This is the common XML Schema for the Servlet 3.1 deployment descriptor.
  *       This file is in turn used by web.xml and web-fragment.xml
  *       web application's war file.  All Servlet deployment descriptors
  *       must indicate the web common schema by using the Java EE
  *       namespace:
  *       
- *       http://java.sun.com/xml/ns/javaee 
+ *       http://xmlns.jcp.org/xml/ns/javaee 
  *       
  *       and by indicating the version of the schema by 
  *       using the version element as shown below: 
  *       
- *       <web-app xmlns="http://java.sun.com/xml/ns/javaee"
+ *       <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
  *       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  *       xsi:schemaLocation="..."
- *       version="3.0"> 
+ *       version="3.1"> 
  *       ...
  *       </web-app>
  *       
@@ -59,9 +59,9 @@ import org.eclipse.jst.javaee.web.WebFactory;
  *       the schema using the xsi:schemaLocation attribute for Java EE
  *       namespace with the following location:
  *       
- *       http://java.sun.com/xml/ns/javaee/web-common_3_0.xsd
+ *       http://xmlns.jcp.org/xml/ns/javaee/web-common_3_1.xsd
  *       
- * ]]>
+ * 
  *     
  * 
  * 
@@ -80,7 +80,7 @@ import org.eclipse.jst.javaee.web.WebFactory;
  *     
  * 
  * 
- *       $Id: WebPackage.java,v 1.6 2010/05/19 19:53:10 canderson Exp $
+ *       $Id: javaee_6.xsd,v 1.4 2010/01/14 18:20:11 ccc Exp $
  *       
  *     
  * 
@@ -105,7 +105,7 @@ import org.eclipse.jst.javaee.web.WebFactory;
  *     
  * 
  * 
- *       $Id: WebPackage.java,v 1.6 2010/05/19 19:53:10 canderson Exp $
+ *       $Id: javaee_web_services_client_1_3.xsd,v 1.2 2009/09/29 20:31:42 ccc Exp $
  *       
  *     
  * 
@@ -168,7 +168,7 @@ import org.eclipse.jst.javaee.web.WebFactory;
  *    </div>
  *   
  * 
- *    <div id="usage" xml:id="usage" xmlns="http://www.w3.org/1999/xhtml">
+ *    <div xmlns="http://www.w3.org/1999/xhtml" id="usage" xml:id="usage">
  *     <h2>
  *       <a name="usage">About this schema document</a>
  *     </h2>
@@ -214,7 +214,7 @@ import org.eclipse.jst.javaee.web.WebFactory;
  *    </div>
  *   
  * 
- *    <div id="nsversioning" xml:id="nsversioning" xmlns="http://www.w3.org/1999/xhtml">
+ *    <div xmlns="http://www.w3.org/1999/xhtml" id="nsversioning" xml:id="nsversioning">
  *     <h2>
  *       <a name="nsversioning">Versioning policy for this schema document</a>
  *     </h2>
@@ -274,13 +274,13 @@ import org.eclipse.jst.javaee.web.WebFactory;
  *     
  * 
  * 
- *       This is the XML Schema for the JSP 2.2 deployment descriptor
- *       types.  The JSP 2.2 schema contains all the special
+ *       This is the XML Schema for the JSP 2.3 deployment descriptor
+ *       types.  The JSP 2.3 schema contains all the special
  *       structures and datatypes that are necessary to use JSP files
- *       from a web application.
- * 
- *       The contents of this schema is used by the web-common_3_0.xsd
- *       file to define JSP specific content.
+ *       from a web application. 
+ *       
+ *       The contents of this schema is used by the web-common_3_1.xsd 
+ *       file to define JSP specific content. 
  * 
  *     
  * 
@@ -317,8 +317,9 @@ public interface WebPackage extends EPackage {
 	 * The package must be registered with the Java EE 5 and Java EE 6 xsds, since it is used for both 
 	 * <!-- end-user-doc -->
 	 */
-	String eNS_URI = "http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"; //$NON-NLS-1$
+	String eNS_URI = "http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"; //$NON-NLS-1$
 	String eNS_URI2 = "http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"; //$NON-NLS-1$
+	String eNS_URI3 = "http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"; //$NON-NLS-1$
 
 	/**
 	 * The package namespace name.
@@ -1892,13 +1893,58 @@ public interface WebPackage extends EPackage {
 	int WEB_APP__DATA_SOURCE = 31;
 
 	/**
+	 * The feature id for the '<em><b>Jms Connection Factory</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_APP__JMS_CONNECTION_FACTORY = 32;
+
+	/**
+	 * The feature id for the '<em><b>Jms Destination</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_APP__JMS_DESTINATION = 33;
+
+	/**
+	 * The feature id for the '<em><b>Mail Session</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_APP__MAIL_SESSION = 34;
+
+	/**
+	 * The feature id for the '<em><b>Connection Factory</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_APP__CONNECTION_FACTORY = 35;
+
+	/**
+	 * The feature id for the '<em><b>Administered Object</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_APP__ADMINISTERED_OBJECT = 36;
+
+	/**
 	 * The feature id for the '<em><b>Message Destinations</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__MESSAGE_DESTINATIONS = 32;
+	int WEB_APP__MESSAGE_DESTINATIONS = 37;
 
 	/**
 	 * The feature id for the '<em><b>Local Encoding Mappings Lists</b></em>' containment reference list.
@@ -1907,7 +1953,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__LOCAL_ENCODING_MAPPINGS_LISTS = 33;
+	int WEB_APP__LOCAL_ENCODING_MAPPINGS_LISTS = 38;
 
 	/**
 	 * The feature id for the '<em><b>Absolute Ordering</b></em>' containment reference list.
@@ -1916,7 +1962,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__ABSOLUTE_ORDERING = 34;
+	int WEB_APP__ABSOLUTE_ORDERING = 39;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -1925,7 +1971,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__ID = 35;
+	int WEB_APP__ID = 40;
 
 	/**
 	 * The feature id for the '<em><b>Metadata Complete</b></em>' attribute.
@@ -1934,7 +1980,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__METADATA_COMPLETE = 36;
+	int WEB_APP__METADATA_COMPLETE = 41;
 
 	/**
 	 * The feature id for the '<em><b>Version</b></em>' attribute.
@@ -1943,7 +1989,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__VERSION = 37;
+	int WEB_APP__VERSION = 42;
 
 	/**
 	 * The number of structural features of the '<em>App</em>' class.
@@ -1952,7 +1998,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP_FEATURE_COUNT = 38;
+	int WEB_APP_FEATURE_COUNT = 43;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.web.internal.impl.WebAppDeploymentDescriptorImpl <em>App Deployment Descriptor</em>}' class.
@@ -2308,13 +2354,58 @@ public interface WebPackage extends EPackage {
 	int WEB_FRAGMENT__DATA_SOURCE = 31;
 
 	/**
+	 * The feature id for the '<em><b>Jms Connection Factory</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__JMS_CONNECTION_FACTORY = 32;
+
+	/**
+	 * The feature id for the '<em><b>Jms Destination</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__JMS_DESTINATION = 33;
+
+	/**
+	 * The feature id for the '<em><b>Mail Session</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__MAIL_SESSION = 34;
+
+	/**
+	 * The feature id for the '<em><b>Connection Factory</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__CONNECTION_FACTORY = 35;
+
+	/**
+	 * The feature id for the '<em><b>Administered Object</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_FRAGMENT__ADMINISTERED_OBJECT = 36;
+
+	/**
 	 * The feature id for the '<em><b>Message Destinations</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_FRAGMENT__MESSAGE_DESTINATIONS = 32;
+	int WEB_FRAGMENT__MESSAGE_DESTINATIONS = 37;
 
 	/**
 	 * The feature id for the '<em><b>Local Encoding Mappings Lists</b></em>' containment reference list.
@@ -2323,7 +2414,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_FRAGMENT__LOCAL_ENCODING_MAPPINGS_LISTS = 33;
+	int WEB_FRAGMENT__LOCAL_ENCODING_MAPPINGS_LISTS = 38;
 
 	/**
 	 * The feature id for the '<em><b>Ordering</b></em>' containment reference list.
@@ -2332,7 +2423,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_FRAGMENT__ORDERING = 34;
+	int WEB_FRAGMENT__ORDERING = 39;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -2341,7 +2432,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_FRAGMENT__ID = 35;
+	int WEB_FRAGMENT__ID = 40;
 
 	/**
 	 * The feature id for the '<em><b>Metadata Complete</b></em>' attribute.
@@ -2350,7 +2441,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_FRAGMENT__METADATA_COMPLETE = 36;
+	int WEB_FRAGMENT__METADATA_COMPLETE = 41;
 
 	/**
 	 * The feature id for the '<em><b>Version</b></em>' attribute.
@@ -2359,7 +2450,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_FRAGMENT__VERSION = 37;
+	int WEB_FRAGMENT__VERSION = 42;
 
 	/**
 	 * The number of structural features of the '<em>Fragment</em>' class.
@@ -2368,7 +2459,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_FRAGMENT_FEATURE_COUNT = 38;
+	int WEB_FRAGMENT_FEATURE_COUNT = 43;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.web.internal.impl.WebResourceCollectionImpl <em>Resource Collection</em>}' class.
@@ -4262,6 +4353,61 @@ public interface WebPackage extends EPackage {
 	EReference getWebApp_DataSource();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebApp#getJmsConnectionFactory <em>Jms Connection Factory</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Jms Connection Factory</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebApp#getJmsConnectionFactory()
+	 * @see #getWebApp()
+	 * @generated
+	 */
+	EReference getWebApp_JmsConnectionFactory();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebApp#getJmsDestination <em>Jms Destination</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Jms Destination</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebApp#getJmsDestination()
+	 * @see #getWebApp()
+	 * @generated
+	 */
+	EReference getWebApp_JmsDestination();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebApp#getMailSession <em>Mail Session</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Mail Session</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebApp#getMailSession()
+	 * @see #getWebApp()
+	 * @generated
+	 */
+	EReference getWebApp_MailSession();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebApp#getConnectionFactory <em>Connection Factory</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Connection Factory</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebApp#getConnectionFactory()
+	 * @see #getWebApp()
+	 * @generated
+	 */
+	EReference getWebApp_ConnectionFactory();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebApp#getAdministeredObject <em>Administered Object</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Administered Object</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebApp#getAdministeredObject()
+	 * @see #getWebApp()
+	 * @generated
+	 */
+	EReference getWebApp_AdministeredObject();
+
+	/**
 	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebApp#getMessageDestinations <em>Message Destinations</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4753,6 +4899,61 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getWebFragment_DataSource();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebFragment#getJmsConnectionFactory <em>Jms Connection Factory</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Jms Connection Factory</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#getJmsConnectionFactory()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EReference getWebFragment_JmsConnectionFactory();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebFragment#getJmsDestination <em>Jms Destination</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Jms Destination</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#getJmsDestination()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EReference getWebFragment_JmsDestination();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebFragment#getMailSession <em>Mail Session</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Mail Session</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#getMailSession()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EReference getWebFragment_MailSession();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebFragment#getConnectionFactory <em>Connection Factory</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Connection Factory</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#getConnectionFactory()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EReference getWebFragment_ConnectionFactory();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebFragment#getAdministeredObject <em>Administered Object</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Administered Object</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebFragment#getAdministeredObject()
+	 * @see #getWebFragment()
+	 * @generated
+	 */
+	EReference getWebFragment_AdministeredObject();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebFragment#getMessageDestinations <em>Message Destinations</em>}'.
@@ -6371,6 +6572,46 @@ public interface WebPackage extends EPackage {
 		EReference WEB_APP__DATA_SOURCE = eINSTANCE.getWebApp_DataSource();
 
 		/**
+		 * The meta object literal for the '<em><b>Jms Connection Factory</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_APP__JMS_CONNECTION_FACTORY = eINSTANCE.getWebApp_JmsConnectionFactory();
+
+		/**
+		 * The meta object literal for the '<em><b>Jms Destination</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_APP__JMS_DESTINATION = eINSTANCE.getWebApp_JmsDestination();
+
+		/**
+		 * The meta object literal for the '<em><b>Mail Session</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_APP__MAIL_SESSION = eINSTANCE.getWebApp_MailSession();
+
+		/**
+		 * The meta object literal for the '<em><b>Connection Factory</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_APP__CONNECTION_FACTORY = eINSTANCE.getWebApp_ConnectionFactory();
+
+		/**
+		 * The meta object literal for the '<em><b>Administered Object</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_APP__ADMINISTERED_OBJECT = eINSTANCE.getWebApp_AdministeredObject();
+
+		/**
 		 * The meta object literal for the '<em><b>Message Destinations</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -6733,6 +6974,46 @@ public interface WebPackage extends EPackage {
 		 * @generated
 		 */
 		EReference WEB_FRAGMENT__DATA_SOURCE = eINSTANCE.getWebFragment_DataSource();
+
+		/**
+		 * The meta object literal for the '<em><b>Jms Connection Factory</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_FRAGMENT__JMS_CONNECTION_FACTORY = eINSTANCE.getWebFragment_JmsConnectionFactory();
+
+		/**
+		 * The meta object literal for the '<em><b>Jms Destination</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_FRAGMENT__JMS_DESTINATION = eINSTANCE.getWebFragment_JmsDestination();
+
+		/**
+		 * The meta object literal for the '<em><b>Mail Session</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_FRAGMENT__MAIL_SESSION = eINSTANCE.getWebFragment_MailSession();
+
+		/**
+		 * The meta object literal for the '<em><b>Connection Factory</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_FRAGMENT__CONNECTION_FACTORY = eINSTANCE.getWebFragment_ConnectionFactory();
+
+		/**
+		 * The meta object literal for the '<em><b>Administered Object</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_FRAGMENT__ADMINISTERED_OBJECT = eINSTANCE.getWebFragment_AdministeredObject();
 
 		/**
 		 * The meta object literal for the '<em><b>Message Destinations</b></em>' containment reference list feature.

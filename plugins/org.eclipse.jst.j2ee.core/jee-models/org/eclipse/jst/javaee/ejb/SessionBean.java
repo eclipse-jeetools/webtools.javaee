@@ -12,6 +12,8 @@ package org.eclipse.jst.javaee.ejb;
 
 import java.util.List;
 
+import org.eclipse.jst.javaee.core.AdministeredObjectType;
+import org.eclipse.jst.javaee.core.ConnectionFactoryResourceType;
 import org.eclipse.jst.javaee.core.DataSourceType;
 import org.eclipse.jst.javaee.core.Description;
 import org.eclipse.jst.javaee.core.DisplayName;
@@ -21,7 +23,10 @@ import org.eclipse.jst.javaee.core.EmptyType;
 import org.eclipse.jst.javaee.core.EnvEntry;
 import org.eclipse.jst.javaee.core.Icon;
 import org.eclipse.jst.javaee.core.JavaEEObject;
+import org.eclipse.jst.javaee.core.JmsConnectionFactoryType;
+import org.eclipse.jst.javaee.core.JmsDestinationType;
 import org.eclipse.jst.javaee.core.LifecycleCallback;
+import org.eclipse.jst.javaee.core.MailSessionType;
 import org.eclipse.jst.javaee.core.MessageDestinationRef;
 import org.eclipse.jst.javaee.core.PersistenceContextRef;
 import org.eclipse.jst.javaee.core.PersistenceUnitRef;
@@ -104,6 +109,9 @@ import org.eclipse.jst.javaee.core.ServiceRef;
  *         environment references.
  *         - an optional declaration of the bean's message 
  *         destination references
+ *         - an optional specification as to whether the stateful 
+ *         session bean is passivation capable or not. If not 
+ *         specified, the bean is assumed to be passivation capable
  *         
  *         The elements that are optional are "optional" in the sense
  *         that they are omitted when if lists represented by them are
@@ -162,10 +170,16 @@ import org.eclipse.jst.javaee.core.ServiceRef;
  *   <li>{@link org.eclipse.jst.javaee.ejb.SessionBean#getPostConstructs <em>Post Constructs</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.SessionBean#getPreDestroys <em>Pre Destroys</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.SessionBean#getDataSource <em>Data Source</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.SessionBean#getJmsConnectionFactory <em>Jms Connection Factory</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.SessionBean#getJmsDestination <em>Jms Destination</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.SessionBean#getMailSession <em>Mail Session</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.SessionBean#getConnectionFactory <em>Connection Factory</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.SessionBean#getAdministeredObject <em>Administered Object</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.SessionBean#getPostActivates <em>Post Activates</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.SessionBean#getPrePassivates <em>Pre Passivates</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.SessionBean#getSecurityRoleRefs <em>Security Role Refs</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.SessionBean#getSecurityIdentities <em>Security Identities</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.SessionBean#isPassivationCapable <em>Passivation Capable</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.SessionBean#getId <em>Id</em>}</li>
  * </ul>
  * </p>
@@ -1184,6 +1198,86 @@ public interface SessionBean extends JavaEEObject {
 	List<DataSourceType> getDataSource();
 
 	/**
+	 * Returns the value of the '<em><b>Jms Connection Factory</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.jst.javaee.core.JmsConnectionFactoryType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *             @since Java EE 7
+	 *          
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Jms Connection Factory</em>' containment reference list.
+	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getSessionBean_JmsConnectionFactory()
+	 * @generated
+	 */
+	List<JmsConnectionFactoryType> getJmsConnectionFactory();
+
+	/**
+	 * Returns the value of the '<em><b>Jms Destination</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.jst.javaee.core.JmsDestinationType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *             @since Java EE 7
+	 *          
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Jms Destination</em>' containment reference list.
+	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getSessionBean_JmsDestination()
+	 * @generated
+	 */
+	List<JmsDestinationType> getJmsDestination();
+
+	/**
+	 * Returns the value of the '<em><b>Mail Session</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.jst.javaee.core.MailSessionType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *             @since Java EE 7
+	 *          
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Mail Session</em>' containment reference list.
+	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getSessionBean_MailSession()
+	 * @generated
+	 */
+	List<MailSessionType> getMailSession();
+
+	/**
+	 * Returns the value of the '<em><b>Connection Factory</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.jst.javaee.core.ConnectionFactoryResourceType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *             @since Java EE 7
+	 *          
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Connection Factory</em>' containment reference list.
+	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getSessionBean_ConnectionFactory()
+	 * @generated
+	 */
+	List<ConnectionFactoryResourceType> getConnectionFactory();
+
+	/**
+	 * Returns the value of the '<em><b>Administered Object</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.jst.javaee.core.AdministeredObjectType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *             @since Java EE 7
+	 *          
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Administered Object</em>' containment reference list.
+	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getSessionBean_AdministeredObject()
+	 * @generated
+	 */
+	List<AdministeredObjectType> getAdministeredObject();
+
+	/**
 	 * Returns the value of the '<em><b>Post Activates</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.jst.javaee.core.LifecycleCallback}.
 	 * <!-- begin-user-doc -->
@@ -1252,6 +1346,66 @@ public interface SessionBean extends JavaEEObject {
 	 * @generated
 	 */
 	void setSecurityIdentities(SecurityIdentityType value);
+
+	/**
+	 * Returns the value of the '<em><b>Passivation Capable</b></em>' attribute.
+	 * The default value is <code>"true"</code>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * 
+	 *             The passivation-capable element specifies whether the 
+	 *             stateful session bean is passivation capable or not. 
+	 *             If not specified, the bean is assumed to be passivation 
+	 *             capable.
+	 *             
+	 *             @since Java EE 7, EJB 3.2
+	 *           
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Passivation Capable</em>' attribute.
+	 * @see #isSetPassivationCapable()
+	 * @see #unsetPassivationCapable()
+	 * @see #setPassivationCapable(boolean)
+	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getSessionBean_PassivationCapable()
+	 * @generated
+	 */
+	boolean isPassivationCapable();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.jst.javaee.ejb.SessionBean#isPassivationCapable <em>Passivation Capable</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Passivation Capable</em>' attribute.
+	 * @see #isSetPassivationCapable()
+	 * @see #unsetPassivationCapable()
+	 * @see #isPassivationCapable()
+	 * @generated
+	 */
+	void setPassivationCapable(boolean value);
+
+	/**
+	 * Unsets the value of the '{@link org.eclipse.jst.javaee.ejb.SessionBean#isPassivationCapable <em>Passivation Capable</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSetPassivationCapable()
+	 * @see #isPassivationCapable()
+	 * @see #setPassivationCapable(boolean)
+	 * @generated
+	 */
+	void unsetPassivationCapable();
+
+	/**
+	 * Returns whether the value of the '{@link org.eclipse.jst.javaee.ejb.SessionBean#isPassivationCapable <em>Passivation Capable</em>}' attribute is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Passivation Capable</em>' attribute is set.
+	 * @see #unsetPassivationCapable()
+	 * @see #isPassivationCapable()
+	 * @see #setPassivationCapable(boolean)
+	 * @generated
+	 */
+	boolean isSetPassivationCapable();
 
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.

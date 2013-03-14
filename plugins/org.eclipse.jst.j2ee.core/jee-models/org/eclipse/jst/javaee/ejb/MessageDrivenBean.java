@@ -12,6 +12,8 @@ package org.eclipse.jst.javaee.ejb;
 
 import java.util.List;
 
+import org.eclipse.jst.javaee.core.AdministeredObjectType;
+import org.eclipse.jst.javaee.core.ConnectionFactoryResourceType;
 import org.eclipse.jst.javaee.core.DataSourceType;
 import org.eclipse.jst.javaee.core.Description;
 import org.eclipse.jst.javaee.core.DisplayName;
@@ -20,7 +22,10 @@ import org.eclipse.jst.javaee.core.EjbRef;
 import org.eclipse.jst.javaee.core.EnvEntry;
 import org.eclipse.jst.javaee.core.Icon;
 import org.eclipse.jst.javaee.core.JavaEEObject;
+import org.eclipse.jst.javaee.core.JmsConnectionFactoryType;
+import org.eclipse.jst.javaee.core.JmsDestinationType;
 import org.eclipse.jst.javaee.core.LifecycleCallback;
+import org.eclipse.jst.javaee.core.MailSessionType;
 import org.eclipse.jst.javaee.core.MessageDestinationRef;
 import org.eclipse.jst.javaee.core.PersistenceContextRef;
 import org.eclipse.jst.javaee.core.PersistenceUnitRef;
@@ -124,6 +129,11 @@ import org.eclipse.jst.javaee.core.ServiceRef;
  *   <li>{@link org.eclipse.jst.javaee.ejb.MessageDrivenBean#getPostConstructs <em>Post Constructs</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.MessageDrivenBean#getPreDestroys <em>Pre Destroys</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.MessageDrivenBean#getDataSource <em>Data Source</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.MessageDrivenBean#getJmsConnectionFactory <em>Jms Connection Factory</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.MessageDrivenBean#getJmsDestination <em>Jms Destination</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.MessageDrivenBean#getMailSession <em>Mail Session</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.MessageDrivenBean#getConnectionFactory <em>Connection Factory</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.MessageDrivenBean#getAdministeredObject <em>Administered Object</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.MessageDrivenBean#getSecurityRoleRef <em>Security Role Ref</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.MessageDrivenBean#getSecurityIdentity <em>Security Identity</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.MessageDrivenBean#getId <em>Id</em>}</li>
@@ -681,6 +691,86 @@ public interface MessageDrivenBean extends JavaEEObject {
 	 * @generated
 	 */
 	List<DataSourceType> getDataSource();
+
+	/**
+	 * Returns the value of the '<em><b>Jms Connection Factory</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.jst.javaee.core.JmsConnectionFactoryType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *             @since Java EE 7
+	 *          
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Jms Connection Factory</em>' containment reference list.
+	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getMessageDrivenBean_JmsConnectionFactory()
+	 * @generated
+	 */
+	List<JmsConnectionFactoryType> getJmsConnectionFactory();
+
+	/**
+	 * Returns the value of the '<em><b>Jms Destination</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.jst.javaee.core.JmsDestinationType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *             @since Java EE 7
+	 *          
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Jms Destination</em>' containment reference list.
+	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getMessageDrivenBean_JmsDestination()
+	 * @generated
+	 */
+	List<JmsDestinationType> getJmsDestination();
+
+	/**
+	 * Returns the value of the '<em><b>Mail Session</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.jst.javaee.core.MailSessionType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *             @since Java EE 7
+	 *          
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Mail Session</em>' containment reference list.
+	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getMessageDrivenBean_MailSession()
+	 * @generated
+	 */
+	List<MailSessionType> getMailSession();
+
+	/**
+	 * Returns the value of the '<em><b>Connection Factory</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.jst.javaee.core.ConnectionFactoryResourceType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *             @since Java EE 7
+	 *          
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Connection Factory</em>' containment reference list.
+	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getMessageDrivenBean_ConnectionFactory()
+	 * @generated
+	 */
+	List<ConnectionFactoryResourceType> getConnectionFactory();
+
+	/**
+	 * Returns the value of the '<em><b>Administered Object</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.jst.javaee.core.AdministeredObjectType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *             @since Java EE 7
+	 *          
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Administered Object</em>' containment reference list.
+	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getMessageDrivenBean_AdministeredObject()
+	 * @generated
+	 */
+	List<AdministeredObjectType> getAdministeredObject();
 
 	/**
 	 * Returns the value of the '<em><b>Security Role Ref</b></em>' containment reference list.

@@ -116,6 +116,10 @@ public class JavaeeValidator extends EObjectValidator {
 		switch (classifierID) {
 			case JavaeePackage.ADDRESSING_TYPE:
 				return validateAddressingType((AddressingType)value, diagnostics, context);
+			case JavaeePackage.ADMINISTERED_OBJECT_TYPE:
+				return validateAdministeredObjectType((AdministeredObjectType)value, diagnostics, context);
+			case JavaeePackage.CONNECTION_FACTORY_RESOURCE_TYPE:
+				return validateConnectionFactoryResourceType((ConnectionFactoryResourceType)value, diagnostics, context);
 			case JavaeePackage.DATA_SOURCE_TYPE:
 				return validateDataSourceType((DataSourceType)value, diagnostics, context);
 			case JavaeePackage.DESCRIPTION:
@@ -134,10 +138,16 @@ public class JavaeeValidator extends EObjectValidator {
 				return validateIcon((Icon)value, diagnostics, context);
 			case JavaeePackage.INJECTION_TARGET:
 				return validateInjectionTarget((InjectionTarget)value, diagnostics, context);
+			case JavaeePackage.JMS_CONNECTION_FACTORY_TYPE:
+				return validateJmsConnectionFactoryType((JmsConnectionFactoryType)value, diagnostics, context);
+			case JavaeePackage.JMS_DESTINATION_TYPE:
+				return validateJmsDestinationType((JmsDestinationType)value, diagnostics, context);
 			case JavaeePackage.LIFECYCLE_CALLBACK:
 				return validateLifecycleCallback((LifecycleCallback)value, diagnostics, context);
 			case JavaeePackage.LISTENER:
 				return validateListener((Listener)value, diagnostics, context);
+			case JavaeePackage.MAIL_SESSION_TYPE:
+				return validateMailSessionType((MailSessionType)value, diagnostics, context);
 			case JavaeePackage.MESSAGE_DESTINATION:
 				return validateMessageDestination((MessageDestination)value, diagnostics, context);
 			case JavaeePackage.MESSAGE_DESTINATION_REF:
@@ -184,12 +194,16 @@ public class JavaeeValidator extends EObjectValidator {
 				return validateIsolationLevelType((IsolationLevelType)value, diagnostics, context);
 			case JavaeePackage.MESSAGE_DESTINATION_USAGE_TYPE:
 				return validateMessageDestinationUsageType((MessageDestinationUsageType)value, diagnostics, context);
+			case JavaeePackage.PERSISTENCE_CONTEXT_SYNCHRONIZATION_TYPE:
+				return validatePersistenceContextSynchronizationType((PersistenceContextSynchronizationType)value, diagnostics, context);
 			case JavaeePackage.PERSISTENCE_CONTEXT_TYPE:
 				return validatePersistenceContextType((PersistenceContextType)value, diagnostics, context);
 			case JavaeePackage.RES_AUTH_TYPE:
 				return validateResAuthType((ResAuthType)value, diagnostics, context);
 			case JavaeePackage.RES_SHARING_SCOPE_TYPE:
 				return validateResSharingScopeType((ResSharingScopeType)value, diagnostics, context);
+			case JavaeePackage.TRANSACTION_SUPPORT:
+				return validateTransactionSupport((TransactionSupport)value, diagnostics, context);
 			case JavaeePackage.ADDRESSING_RESPONSES_TYPE_OBJECT:
 				return validateAddressingResponsesTypeObject((AddressingResponsesType)value, diagnostics, context);
 			case JavaeePackage.DEWEY_VERSION_TYPE:
@@ -230,6 +244,8 @@ public class JavaeeValidator extends EObjectValidator {
 				return validateMessageDestinationUsageTypeObject((MessageDestinationUsageType)value, diagnostics, context);
 			case JavaeePackage.PATH_TYPE:
 				return validatePathType((String)value, diagnostics, context);
+			case JavaeePackage.PERSISTENCE_CONTEXT_SYNCHRONIZATION_TYPE_OBJECT:
+				return validatePersistenceContextSynchronizationTypeObject((PersistenceContextSynchronizationType)value, diagnostics, context);
 			case JavaeePackage.PERSISTENCE_CONTEXT_TYPE_OBJECT:
 				return validatePersistenceContextTypeObject((PersistenceContextType)value, diagnostics, context);
 			case JavaeePackage.PROTOCOL_BINDING_LIST_TYPE:
@@ -248,6 +264,8 @@ public class JavaeeValidator extends EObjectValidator {
 				return validateResSharingScopeTypeObject((ResSharingScopeType)value, diagnostics, context);
 			case JavaeePackage.ROLE_NAME:
 				return validateRoleName((String)value, diagnostics, context);
+			case JavaeePackage.TRANSACTION_SUPPORT_OBJECT:
+				return validateTransactionSupportObject((TransactionSupport)value, diagnostics, context);
 			case JavaeePackage.TRUE_FALSE_TYPE:
 				return validateTrueFalseType((Boolean)value, diagnostics, context);
 			case JavaeePackage.TRUE_FALSE_TYPE_OBJECT:
@@ -264,6 +282,24 @@ public class JavaeeValidator extends EObjectValidator {
 	 */
 	public boolean validateAddressingType(AddressingType addressingType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)addressingType, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateAdministeredObjectType(AdministeredObjectType administeredObjectType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint((EObject)administeredObjectType, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateConnectionFactoryResourceType(ConnectionFactoryResourceType connectionFactoryResourceType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint((EObject)connectionFactoryResourceType, diagnostics, context);
 	}
 
 	/**
@@ -352,6 +388,24 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean validateJmsConnectionFactoryType(JmsConnectionFactoryType jmsConnectionFactoryType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint((EObject)jmsConnectionFactoryType, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateJmsDestinationType(JmsDestinationType jmsDestinationType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint((EObject)jmsDestinationType, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public boolean validateLifecycleCallback(LifecycleCallback lifecycleCallback, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)lifecycleCallback, diagnostics, context);
 	}
@@ -363,6 +417,15 @@ public class JavaeeValidator extends EObjectValidator {
 	 */
 	public boolean validateListener(Listener listener, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint((EObject)listener, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateMailSessionType(MailSessionType mailSessionType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint((EObject)mailSessionType, diagnostics, context);
 	}
 
 	/**
@@ -577,6 +640,15 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean validatePersistenceContextSynchronizationType(PersistenceContextSynchronizationType persistenceContextSynchronizationType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public boolean validatePersistenceContextType(PersistenceContextType persistenceContextType, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
@@ -596,6 +668,15 @@ public class JavaeeValidator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateResSharingScopeType(ResSharingScopeType resSharingScopeType, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateTransactionSupport(TransactionSupport transactionSupport, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 
@@ -880,6 +961,15 @@ public class JavaeeValidator extends EObjectValidator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean validatePersistenceContextSynchronizationTypeObject(PersistenceContextSynchronizationType persistenceContextSynchronizationTypeObject, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public boolean validatePersistenceContextTypeObject(PersistenceContextType persistenceContextTypeObject, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
@@ -1054,6 +1144,15 @@ public class JavaeeValidator extends EObjectValidator {
 	 * @generated
 	 */
 	public boolean validateRoleName(String roleName, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return true;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateTransactionSupportObject(TransactionSupport transactionSupportObject, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return true;
 	}
 

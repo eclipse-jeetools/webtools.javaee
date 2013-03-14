@@ -34,13 +34,13 @@ import org.eclipse.jst.javaee.jsp.JspFactory;
  *     
  * 
  * 
- *       This is the XML Schema for the JSP 2.2 deployment descriptor
- *       types.  The JSP 2.2 schema contains all the special
+ *       This is the XML Schema for the JSP 2.3 deployment descriptor
+ *       types.  The JSP 2.3 schema contains all the special
  *       structures and datatypes that are necessary to use JSP files
- *       from a web application.
- * 
- *       The contents of this schema is used by the web-common_3_0.xsd
- *       file to define JSP specific content.
+ *       from a web application. 
+ *       
+ *       The contents of this schema is used by the web-common_3_1.xsd 
+ *       file to define JSP specific content. 
  * 
  *     
  * 
@@ -60,7 +60,7 @@ import org.eclipse.jst.javaee.jsp.JspFactory;
  *     
  * 
  * 
- *       $Id: JspPackage.java,v 1.4 2010/01/15 14:32:08 canderson Exp $
+ *       $Id: javaee_6.xsd,v 1.4 2010/01/14 18:20:11 ccc Exp $
  *       
  *     
  * 
@@ -85,7 +85,7 @@ import org.eclipse.jst.javaee.jsp.JspFactory;
  *     
  * 
  * 
- *       $Id: JspPackage.java,v 1.4 2010/01/15 14:32:08 canderson Exp $
+ *       $Id: javaee_web_services_client_1_3.xsd,v 1.2 2009/09/29 20:31:42 ccc Exp $
  *       
  *     
  * 
@@ -148,7 +148,7 @@ import org.eclipse.jst.javaee.jsp.JspFactory;
  *    </div>
  *   
  * 
- *    <div id="usage" xml:id="usage" xmlns="http://www.w3.org/1999/xhtml">
+ *    <div xmlns="http://www.w3.org/1999/xhtml" id="usage" xml:id="usage">
  *     <h2>
  *       <a name="usage">About this schema document</a>
  *     </h2>
@@ -194,7 +194,7 @@ import org.eclipse.jst.javaee.jsp.JspFactory;
  *    </div>
  *   
  * 
- *    <div id="nsversioning" xml:id="nsversioning" xmlns="http://www.w3.org/1999/xhtml">
+ *    <div xmlns="http://www.w3.org/1999/xhtml" id="nsversioning" xml:id="nsversioning">
  *     <h2>
  *       <a name="nsversioning">Versioning policy for this schema document</a>
  *     </h2>
@@ -268,7 +268,8 @@ public interface JspPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "http://java.sun.com/xml/ns/javaee/jsp"; //$NON-NLS-1$
+	String eNS_URI = "http://xmlns.jcp.org/xml/ns/javaee/jsp"; //$NON-NLS-1$
+	String eNS_URI2 = "http://java.sun.com/xml/ns/javaee/jsp"; //$NON-NLS-1$
 
 	/**
 	 * The package namespace name.

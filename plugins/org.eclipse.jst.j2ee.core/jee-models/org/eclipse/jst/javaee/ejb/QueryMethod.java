@@ -19,7 +19,7 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  *
  * <!-- begin-model-doc -->
  * 
- * <![CDATA[[
+ *         [
  *         The query-method specifies the method for a finder or select
  *         query.
  *         
@@ -45,7 +45,7 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  *         </ejb-ql>
  *         </query>
  *         
- * ]]>
+ * 
  *         @since Java EE 5, EJB 3.0
  *       
  * <!-- end-model-doc -->

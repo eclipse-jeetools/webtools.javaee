@@ -54,7 +54,7 @@ public interface AdminObject extends JavaEEObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * 
-	 * <![CDATA[[
+	 * [
 	 *             The element adminobject-interface specifies the
 	 *             fully qualified name of the Java type of the
 	 *             interface implemented by an administered object.
@@ -63,7 +63,7 @@ public interface AdminObject extends JavaEEObject {
 	 *             	<adminobject-interface>javax.jms.Destination
 	 *             	</adminobject-interface>
 	 *             
-	 * ]]>
+	 * 
 	 * 			@since Java EE 6, Connector 1.6
 	 *           
 	 * <!-- end-model-doc -->
@@ -90,7 +90,7 @@ public interface AdminObject extends JavaEEObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * 
-	 * <![CDATA[[
+	 * [
 	 *             The element adminobject-class specifies the fully
 	 *             qualified Java class name of an administered object.
 	 *             
@@ -98,7 +98,7 @@ public interface AdminObject extends JavaEEObject {
 	 *             	  <adminobject-class>com.wombat.DestinationImpl
 	 *             	  </adminobject-class>
 	 *             
-	 * ]]>
+	 * 
 	 * 			@since Java EE 6, Connector 1.6
 	 *           
 	 * <!-- end-model-doc -->

@@ -84,7 +84,7 @@ public interface EnvEntry extends JavaEEObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * 
-	 * <![CDATA[[
+	 * [
 	 *             The env-entry-name element contains the name of a
 	 *             Deployment Component's environment entry.  The name
 	 *             is a JNDI name relative to the java:comp/env
@@ -97,7 +97,7 @@ public interface EnvEntry extends JavaEEObject {
 	 *             
 	 *             <env-entry-name>minAmount</env-entry-name>
 	 *             
-	 * ]]>
+	 * 
 	 *             @since Java EE 5
 	 *           
 	 * <!-- end-model-doc -->
@@ -124,7 +124,7 @@ public interface EnvEntry extends JavaEEObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * 
-	 * <![CDATA[[
+	 * [
 	 *             The env-entry-type element contains the Java language
 	 *             type of the environment entry.  If an injection target
 	 *             is specified for the environment entry, the type may
@@ -136,7 +136,7 @@ public interface EnvEntry extends JavaEEObject {
 	 *             
 	 *             <env-entry-type>java.lang.Integer</env-entry-type>
 	 *             
-	 * ]]>
+	 * 
 	 *             @since Java EE 5
 	 *           
 	 * <!-- end-model-doc -->
@@ -163,7 +163,7 @@ public interface EnvEntry extends JavaEEObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * 
-	 * <![CDATA[[
+	 * [
 	 *             The env-entry-value designates the value of a
 	 *             Deployment Component's environment entry. The value
 	 *             must be a String that is valid for the
@@ -175,7 +175,7 @@ public interface EnvEntry extends JavaEEObject {
 	 *             
 	 *             <env-entry-value>100.00</env-entry-value>
 	 *             
-	 * ]]>
+	 * 
 	 *             @since Java EE 5
 	 *           
 	 * <!-- end-model-doc -->

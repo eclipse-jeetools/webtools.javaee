@@ -27,6 +27,8 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.eclipse.jst.javaee.core.AdministeredObjectType;
+import org.eclipse.jst.javaee.core.ConnectionFactoryResourceType;
 import org.eclipse.jst.javaee.core.DataSourceType;
 import org.eclipse.jst.javaee.core.Description;
 import org.eclipse.jst.javaee.core.DisplayName;
@@ -34,7 +36,10 @@ import org.eclipse.jst.javaee.core.EjbLocalRef;
 import org.eclipse.jst.javaee.core.EjbRef;
 import org.eclipse.jst.javaee.core.EnvEntry;
 import org.eclipse.jst.javaee.core.Icon;
+import org.eclipse.jst.javaee.core.JmsConnectionFactoryType;
+import org.eclipse.jst.javaee.core.JmsDestinationType;
 import org.eclipse.jst.javaee.core.LifecycleCallback;
+import org.eclipse.jst.javaee.core.MailSessionType;
 import org.eclipse.jst.javaee.core.MessageDestinationRef;
 import org.eclipse.jst.javaee.core.PersistenceContextRef;
 import org.eclipse.jst.javaee.core.PersistenceUnitRef;
@@ -88,6 +93,11 @@ import org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage;
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.MessageDrivenBeanImpl#getPostConstructs <em>Post Constructs</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.MessageDrivenBeanImpl#getPreDestroys <em>Pre Destroys</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.MessageDrivenBeanImpl#getDataSource <em>Data Source</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.MessageDrivenBeanImpl#getJmsConnectionFactory <em>Jms Connection Factory</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.MessageDrivenBeanImpl#getJmsDestination <em>Jms Destination</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.MessageDrivenBeanImpl#getMailSession <em>Mail Session</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.MessageDrivenBeanImpl#getConnectionFactory <em>Connection Factory</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.MessageDrivenBeanImpl#getAdministeredObject <em>Administered Object</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.MessageDrivenBeanImpl#getSecurityRoleRef <em>Security Role Ref</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.MessageDrivenBeanImpl#getSecurityIdentity <em>Security Identity</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.MessageDrivenBeanImpl#getId <em>Id</em>}</li>
@@ -445,6 +455,56 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * @ordered
 	 */
 	protected EList<DataSourceType> dataSource;
+
+	/**
+	 * The cached value of the '{@link #getJmsConnectionFactory() <em>Jms Connection Factory</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getJmsConnectionFactory()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<JmsConnectionFactoryType> jmsConnectionFactory;
+
+	/**
+	 * The cached value of the '{@link #getJmsDestination() <em>Jms Destination</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getJmsDestination()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<JmsDestinationType> jmsDestination;
+
+	/**
+	 * The cached value of the '{@link #getMailSession() <em>Mail Session</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMailSession()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<MailSessionType> mailSession;
+
+	/**
+	 * The cached value of the '{@link #getConnectionFactory() <em>Connection Factory</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getConnectionFactory()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ConnectionFactoryResourceType> connectionFactory;
+
+	/**
+	 * The cached value of the '{@link #getAdministeredObject() <em>Administered Object</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAdministeredObject()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<AdministeredObjectType> administeredObject;
 
 	/**
 	 * The cached value of the '{@link #getSecurityRoleRef() <em>Security Role Ref</em>}' containment reference list.
@@ -984,6 +1044,66 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public List<JmsConnectionFactoryType> getJmsConnectionFactory() {
+		if (jmsConnectionFactory == null) {
+			jmsConnectionFactory = new EObjectContainmentEList<JmsConnectionFactoryType>(JmsConnectionFactoryType.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__JMS_CONNECTION_FACTORY);
+		}
+		return jmsConnectionFactory;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<JmsDestinationType> getJmsDestination() {
+		if (jmsDestination == null) {
+			jmsDestination = new EObjectContainmentEList<JmsDestinationType>(JmsDestinationType.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__JMS_DESTINATION);
+		}
+		return jmsDestination;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<MailSessionType> getMailSession() {
+		if (mailSession == null) {
+			mailSession = new EObjectContainmentEList<MailSessionType>(MailSessionType.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__MAIL_SESSION);
+		}
+		return mailSession;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<ConnectionFactoryResourceType> getConnectionFactory() {
+		if (connectionFactory == null) {
+			connectionFactory = new EObjectContainmentEList<ConnectionFactoryResourceType>(ConnectionFactoryResourceType.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__CONNECTION_FACTORY);
+		}
+		return connectionFactory;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<AdministeredObjectType> getAdministeredObject() {
+		if (administeredObject == null) {
+			administeredObject = new EObjectContainmentEList<AdministeredObjectType>(AdministeredObjectType.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__ADMINISTERED_OBJECT);
+		}
+		return administeredObject;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public List<SecurityRoleRef> getSecurityRoleRef() {
 		if (securityRoleRef == null) {
 			securityRoleRef = new EObjectContainmentEList<SecurityRoleRef>(SecurityRoleRef.class, this, EjbPackage.MESSAGE_DRIVEN_BEAN__SECURITY_ROLE_REF);
@@ -1103,6 +1223,16 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 				return ((InternalEList<?>)getPreDestroys()).basicRemove(otherEnd, msgs);
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__DATA_SOURCE:
 				return ((InternalEList<?>)getDataSource()).basicRemove(otherEnd, msgs);
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__JMS_CONNECTION_FACTORY:
+				return ((InternalEList<?>)getJmsConnectionFactory()).basicRemove(otherEnd, msgs);
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__JMS_DESTINATION:
+				return ((InternalEList<?>)getJmsDestination()).basicRemove(otherEnd, msgs);
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__MAIL_SESSION:
+				return ((InternalEList<?>)getMailSession()).basicRemove(otherEnd, msgs);
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__CONNECTION_FACTORY:
+				return ((InternalEList<?>)getConnectionFactory()).basicRemove(otherEnd, msgs);
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__ADMINISTERED_OBJECT:
+				return ((InternalEList<?>)getAdministeredObject()).basicRemove(otherEnd, msgs);
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__SECURITY_ROLE_REF:
 				return ((InternalEList<?>)getSecurityRoleRef()).basicRemove(otherEnd, msgs);
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__SECURITY_IDENTITY:
@@ -1173,6 +1303,16 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 				return getPreDestroys();
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__DATA_SOURCE:
 				return getDataSource();
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__JMS_CONNECTION_FACTORY:
+				return getJmsConnectionFactory();
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__JMS_DESTINATION:
+				return getJmsDestination();
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__MAIL_SESSION:
+				return getMailSession();
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__CONNECTION_FACTORY:
+				return getConnectionFactory();
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__ADMINISTERED_OBJECT:
+				return getAdministeredObject();
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__SECURITY_ROLE_REF:
 				return getSecurityRoleRef();
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__SECURITY_IDENTITY:
@@ -1291,6 +1431,26 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 				getDataSource().clear();
 				getDataSource().addAll((Collection<? extends DataSourceType>)newValue);
 				return;
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__JMS_CONNECTION_FACTORY:
+				getJmsConnectionFactory().clear();
+				getJmsConnectionFactory().addAll((Collection<? extends JmsConnectionFactoryType>)newValue);
+				return;
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__JMS_DESTINATION:
+				getJmsDestination().clear();
+				getJmsDestination().addAll((Collection<? extends JmsDestinationType>)newValue);
+				return;
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__MAIL_SESSION:
+				getMailSession().clear();
+				getMailSession().addAll((Collection<? extends MailSessionType>)newValue);
+				return;
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__CONNECTION_FACTORY:
+				getConnectionFactory().clear();
+				getConnectionFactory().addAll((Collection<? extends ConnectionFactoryResourceType>)newValue);
+				return;
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__ADMINISTERED_OBJECT:
+				getAdministeredObject().clear();
+				getAdministeredObject().addAll((Collection<? extends AdministeredObjectType>)newValue);
+				return;
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__SECURITY_ROLE_REF:
 				getSecurityRoleRef().clear();
 				getSecurityRoleRef().addAll((Collection<? extends SecurityRoleRef>)newValue);
@@ -1394,6 +1554,21 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__DATA_SOURCE:
 				getDataSource().clear();
 				return;
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__JMS_CONNECTION_FACTORY:
+				getJmsConnectionFactory().clear();
+				return;
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__JMS_DESTINATION:
+				getJmsDestination().clear();
+				return;
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__MAIL_SESSION:
+				getMailSession().clear();
+				return;
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__CONNECTION_FACTORY:
+				getConnectionFactory().clear();
+				return;
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__ADMINISTERED_OBJECT:
+				getAdministeredObject().clear();
+				return;
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__SECURITY_ROLE_REF:
 				getSecurityRoleRef().clear();
 				return;
@@ -1469,6 +1644,16 @@ public class MessageDrivenBeanImpl extends EObjectImpl implements MessageDrivenB
 				return preDestroys != null && !preDestroys.isEmpty();
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__DATA_SOURCE:
 				return dataSource != null && !dataSource.isEmpty();
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__JMS_CONNECTION_FACTORY:
+				return jmsConnectionFactory != null && !jmsConnectionFactory.isEmpty();
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__JMS_DESTINATION:
+				return jmsDestination != null && !jmsDestination.isEmpty();
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__MAIL_SESSION:
+				return mailSession != null && !mailSession.isEmpty();
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__CONNECTION_FACTORY:
+				return connectionFactory != null && !connectionFactory.isEmpty();
+			case EjbPackage.MESSAGE_DRIVEN_BEAN__ADMINISTERED_OBJECT:
+				return administeredObject != null && !administeredObject.isEmpty();
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__SECURITY_ROLE_REF:
 				return securityRoleRef != null && !securityRoleRef.isEmpty();
 			case EjbPackage.MESSAGE_DRIVEN_BEAN__SECURITY_IDENTITY:

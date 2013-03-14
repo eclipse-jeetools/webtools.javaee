@@ -28,6 +28,8 @@ import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.eclipse.jst.javaee.core.AdministeredObjectType;
+import org.eclipse.jst.javaee.core.ConnectionFactoryResourceType;
 import org.eclipse.jst.javaee.core.DataSourceType;
 import org.eclipse.jst.javaee.core.Description;
 import org.eclipse.jst.javaee.core.DisplayName;
@@ -36,7 +38,10 @@ import org.eclipse.jst.javaee.core.EjbRef;
 import org.eclipse.jst.javaee.core.EmptyType;
 import org.eclipse.jst.javaee.core.EnvEntry;
 import org.eclipse.jst.javaee.core.Icon;
+import org.eclipse.jst.javaee.core.JmsConnectionFactoryType;
+import org.eclipse.jst.javaee.core.JmsDestinationType;
 import org.eclipse.jst.javaee.core.LifecycleCallback;
+import org.eclipse.jst.javaee.core.MailSessionType;
 import org.eclipse.jst.javaee.core.MessageDestinationRef;
 import org.eclipse.jst.javaee.core.PersistenceContextRef;
 import org.eclipse.jst.javaee.core.PersistenceUnitRef;
@@ -113,10 +118,16 @@ import org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage;
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getPostConstructs <em>Post Constructs</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getPreDestroys <em>Pre Destroys</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getDataSource <em>Data Source</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getJmsConnectionFactory <em>Jms Connection Factory</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getJmsDestination <em>Jms Destination</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getMailSession <em>Mail Session</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getConnectionFactory <em>Connection Factory</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getAdministeredObject <em>Administered Object</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getPostActivates <em>Post Activates</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getPrePassivates <em>Pre Passivates</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getSecurityRoleRefs <em>Security Role Refs</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getSecurityIdentities <em>Security Identities</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#isPassivationCapable <em>Passivation Capable</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.SessionBeanImpl#getId <em>Id</em>}</li>
  * </ul>
  * </p>
@@ -711,6 +722,56 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	protected EList<DataSourceType> dataSource;
 
 	/**
+	 * The cached value of the '{@link #getJmsConnectionFactory() <em>Jms Connection Factory</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getJmsConnectionFactory()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<JmsConnectionFactoryType> jmsConnectionFactory;
+
+	/**
+	 * The cached value of the '{@link #getJmsDestination() <em>Jms Destination</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getJmsDestination()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<JmsDestinationType> jmsDestination;
+
+	/**
+	 * The cached value of the '{@link #getMailSession() <em>Mail Session</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMailSession()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<MailSessionType> mailSession;
+
+	/**
+	 * The cached value of the '{@link #getConnectionFactory() <em>Connection Factory</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getConnectionFactory()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ConnectionFactoryResourceType> connectionFactory;
+
+	/**
+	 * The cached value of the '{@link #getAdministeredObject() <em>Administered Object</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAdministeredObject()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<AdministeredObjectType> administeredObject;
+
+	/**
 	 * The cached value of the '{@link #getPostActivates() <em>Post Activates</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -749,6 +810,35 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * @ordered
 	 */
 	protected SecurityIdentityType securityIdentities;
+
+	/**
+	 * The default value of the '{@link #isPassivationCapable() <em>Passivation Capable</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isPassivationCapable()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean PASSIVATION_CAPABLE_EDEFAULT = true;
+
+	/**
+	 * The cached value of the '{@link #isPassivationCapable() <em>Passivation Capable</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isPassivationCapable()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean passivationCapable = PASSIVATION_CAPABLE_EDEFAULT;
+
+	/**
+	 * This is true if the Passivation Capable attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean passivationCapableESet;
 
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -1735,6 +1825,66 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public List<JmsConnectionFactoryType> getJmsConnectionFactory() {
+		if (jmsConnectionFactory == null) {
+			jmsConnectionFactory = new EObjectContainmentEList<JmsConnectionFactoryType>(JmsConnectionFactoryType.class, this, EjbPackage.SESSION_BEAN__JMS_CONNECTION_FACTORY);
+		}
+		return jmsConnectionFactory;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<JmsDestinationType> getJmsDestination() {
+		if (jmsDestination == null) {
+			jmsDestination = new EObjectContainmentEList<JmsDestinationType>(JmsDestinationType.class, this, EjbPackage.SESSION_BEAN__JMS_DESTINATION);
+		}
+		return jmsDestination;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<MailSessionType> getMailSession() {
+		if (mailSession == null) {
+			mailSession = new EObjectContainmentEList<MailSessionType>(MailSessionType.class, this, EjbPackage.SESSION_BEAN__MAIL_SESSION);
+		}
+		return mailSession;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<ConnectionFactoryResourceType> getConnectionFactory() {
+		if (connectionFactory == null) {
+			connectionFactory = new EObjectContainmentEList<ConnectionFactoryResourceType>(ConnectionFactoryResourceType.class, this, EjbPackage.SESSION_BEAN__CONNECTION_FACTORY);
+		}
+		return connectionFactory;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public List<AdministeredObjectType> getAdministeredObject() {
+		if (administeredObject == null) {
+			administeredObject = new EObjectContainmentEList<AdministeredObjectType>(AdministeredObjectType.class, this, EjbPackage.SESSION_BEAN__ADMINISTERED_OBJECT);
+		}
+		return administeredObject;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public List<LifecycleCallback> getPostActivates() {
 		if (postActivates == null) {
 			postActivates = new EObjectContainmentEList<LifecycleCallback>(LifecycleCallback.class, this, EjbPackage.SESSION_BEAN__POST_ACTIVATES);
@@ -1807,6 +1957,52 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 		}
 		else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, EjbPackage.SESSION_BEAN__SECURITY_IDENTITIES, newSecurityIdentities, newSecurityIdentities));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isPassivationCapable() {
+		return passivationCapable;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setPassivationCapable(boolean newPassivationCapable) {
+		boolean oldPassivationCapable = passivationCapable;
+		passivationCapable = newPassivationCapable;
+		boolean oldPassivationCapableESet = passivationCapableESet;
+		passivationCapableESet = true;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, EjbPackage.SESSION_BEAN__PASSIVATION_CAPABLE, oldPassivationCapable, passivationCapable, !oldPassivationCapableESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetPassivationCapable() {
+		boolean oldPassivationCapable = passivationCapable;
+		boolean oldPassivationCapableESet = passivationCapableESet;
+		passivationCapable = PASSIVATION_CAPABLE_EDEFAULT;
+		passivationCapableESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, EjbPackage.SESSION_BEAN__PASSIVATION_CAPABLE, oldPassivationCapable, PASSIVATION_CAPABLE_EDEFAULT, oldPassivationCapableESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetPassivationCapable() {
+		return passivationCapableESet;
 	}
 
 	/**
@@ -1896,6 +2092,16 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 				return ((InternalEList<?>)getPreDestroys()).basicRemove(otherEnd, msgs);
 			case EjbPackage.SESSION_BEAN__DATA_SOURCE:
 				return ((InternalEList<?>)getDataSource()).basicRemove(otherEnd, msgs);
+			case EjbPackage.SESSION_BEAN__JMS_CONNECTION_FACTORY:
+				return ((InternalEList<?>)getJmsConnectionFactory()).basicRemove(otherEnd, msgs);
+			case EjbPackage.SESSION_BEAN__JMS_DESTINATION:
+				return ((InternalEList<?>)getJmsDestination()).basicRemove(otherEnd, msgs);
+			case EjbPackage.SESSION_BEAN__MAIL_SESSION:
+				return ((InternalEList<?>)getMailSession()).basicRemove(otherEnd, msgs);
+			case EjbPackage.SESSION_BEAN__CONNECTION_FACTORY:
+				return ((InternalEList<?>)getConnectionFactory()).basicRemove(otherEnd, msgs);
+			case EjbPackage.SESSION_BEAN__ADMINISTERED_OBJECT:
+				return ((InternalEList<?>)getAdministeredObject()).basicRemove(otherEnd, msgs);
 			case EjbPackage.SESSION_BEAN__POST_ACTIVATES:
 				return ((InternalEList<?>)getPostActivates()).basicRemove(otherEnd, msgs);
 			case EjbPackage.SESSION_BEAN__PRE_PASSIVATES:
@@ -2002,6 +2208,16 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 				return getPreDestroys();
 			case EjbPackage.SESSION_BEAN__DATA_SOURCE:
 				return getDataSource();
+			case EjbPackage.SESSION_BEAN__JMS_CONNECTION_FACTORY:
+				return getJmsConnectionFactory();
+			case EjbPackage.SESSION_BEAN__JMS_DESTINATION:
+				return getJmsDestination();
+			case EjbPackage.SESSION_BEAN__MAIL_SESSION:
+				return getMailSession();
+			case EjbPackage.SESSION_BEAN__CONNECTION_FACTORY:
+				return getConnectionFactory();
+			case EjbPackage.SESSION_BEAN__ADMINISTERED_OBJECT:
+				return getAdministeredObject();
 			case EjbPackage.SESSION_BEAN__POST_ACTIVATES:
 				return getPostActivates();
 			case EjbPackage.SESSION_BEAN__PRE_PASSIVATES:
@@ -2010,6 +2226,8 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 				return getSecurityRoleRefs();
 			case EjbPackage.SESSION_BEAN__SECURITY_IDENTITIES:
 				return getSecurityIdentities();
+			case EjbPackage.SESSION_BEAN__PASSIVATION_CAPABLE:
+				return isPassivationCapable();
 			case EjbPackage.SESSION_BEAN__ID:
 				return getId();
 		}
@@ -2178,6 +2396,26 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 				getDataSource().clear();
 				getDataSource().addAll((Collection<? extends DataSourceType>)newValue);
 				return;
+			case EjbPackage.SESSION_BEAN__JMS_CONNECTION_FACTORY:
+				getJmsConnectionFactory().clear();
+				getJmsConnectionFactory().addAll((Collection<? extends JmsConnectionFactoryType>)newValue);
+				return;
+			case EjbPackage.SESSION_BEAN__JMS_DESTINATION:
+				getJmsDestination().clear();
+				getJmsDestination().addAll((Collection<? extends JmsDestinationType>)newValue);
+				return;
+			case EjbPackage.SESSION_BEAN__MAIL_SESSION:
+				getMailSession().clear();
+				getMailSession().addAll((Collection<? extends MailSessionType>)newValue);
+				return;
+			case EjbPackage.SESSION_BEAN__CONNECTION_FACTORY:
+				getConnectionFactory().clear();
+				getConnectionFactory().addAll((Collection<? extends ConnectionFactoryResourceType>)newValue);
+				return;
+			case EjbPackage.SESSION_BEAN__ADMINISTERED_OBJECT:
+				getAdministeredObject().clear();
+				getAdministeredObject().addAll((Collection<? extends AdministeredObjectType>)newValue);
+				return;
 			case EjbPackage.SESSION_BEAN__POST_ACTIVATES:
 				getPostActivates().clear();
 				getPostActivates().addAll((Collection<? extends LifecycleCallback>)newValue);
@@ -2192,6 +2430,9 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 				return;
 			case EjbPackage.SESSION_BEAN__SECURITY_IDENTITIES:
 				setSecurityIdentities((SecurityIdentityType)newValue);
+				return;
+			case EjbPackage.SESSION_BEAN__PASSIVATION_CAPABLE:
+				setPassivationCapable((Boolean)newValue);
 				return;
 			case EjbPackage.SESSION_BEAN__ID:
 				setId((String)newValue);
@@ -2337,6 +2578,21 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 			case EjbPackage.SESSION_BEAN__DATA_SOURCE:
 				getDataSource().clear();
 				return;
+			case EjbPackage.SESSION_BEAN__JMS_CONNECTION_FACTORY:
+				getJmsConnectionFactory().clear();
+				return;
+			case EjbPackage.SESSION_BEAN__JMS_DESTINATION:
+				getJmsDestination().clear();
+				return;
+			case EjbPackage.SESSION_BEAN__MAIL_SESSION:
+				getMailSession().clear();
+				return;
+			case EjbPackage.SESSION_BEAN__CONNECTION_FACTORY:
+				getConnectionFactory().clear();
+				return;
+			case EjbPackage.SESSION_BEAN__ADMINISTERED_OBJECT:
+				getAdministeredObject().clear();
+				return;
 			case EjbPackage.SESSION_BEAN__POST_ACTIVATES:
 				getPostActivates().clear();
 				return;
@@ -2348,6 +2604,9 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 				return;
 			case EjbPackage.SESSION_BEAN__SECURITY_IDENTITIES:
 				setSecurityIdentities((SecurityIdentityType)null);
+				return;
+			case EjbPackage.SESSION_BEAN__PASSIVATION_CAPABLE:
+				unsetPassivationCapable();
 				return;
 			case EjbPackage.SESSION_BEAN__ID:
 				setId(ID_EDEFAULT);
@@ -2450,6 +2709,16 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 				return preDestroys != null && !preDestroys.isEmpty();
 			case EjbPackage.SESSION_BEAN__DATA_SOURCE:
 				return dataSource != null && !dataSource.isEmpty();
+			case EjbPackage.SESSION_BEAN__JMS_CONNECTION_FACTORY:
+				return jmsConnectionFactory != null && !jmsConnectionFactory.isEmpty();
+			case EjbPackage.SESSION_BEAN__JMS_DESTINATION:
+				return jmsDestination != null && !jmsDestination.isEmpty();
+			case EjbPackage.SESSION_BEAN__MAIL_SESSION:
+				return mailSession != null && !mailSession.isEmpty();
+			case EjbPackage.SESSION_BEAN__CONNECTION_FACTORY:
+				return connectionFactory != null && !connectionFactory.isEmpty();
+			case EjbPackage.SESSION_BEAN__ADMINISTERED_OBJECT:
+				return administeredObject != null && !administeredObject.isEmpty();
 			case EjbPackage.SESSION_BEAN__POST_ACTIVATES:
 				return postActivates != null && !postActivates.isEmpty();
 			case EjbPackage.SESSION_BEAN__PRE_PASSIVATES:
@@ -2458,6 +2727,8 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 				return securityRoleRefs != null && !securityRoleRefs.isEmpty();
 			case EjbPackage.SESSION_BEAN__SECURITY_IDENTITIES:
 				return securityIdentities != null;
+			case EjbPackage.SESSION_BEAN__PASSIVATION_CAPABLE:
+				return isSetPassivationCapable();
 			case EjbPackage.SESSION_BEAN__ID:
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 		}
@@ -2502,6 +2773,8 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 		if (concurrencyManagementTypeESet) result.append(concurrencyManagementType); else result.append("<unset>"); //$NON-NLS-1$
 		result.append(", transactionType: "); //$NON-NLS-1$
 		if (transactionTypeESet) result.append(transactionType); else result.append("<unset>"); //$NON-NLS-1$
+		result.append(", passivationCapable: "); //$NON-NLS-1$
+		if (passivationCapableESet) result.append(passivationCapable); else result.append("<unset>"); //$NON-NLS-1$
 		result.append(", id: "); //$NON-NLS-1$
 		result.append(id);
 		result.append(')');

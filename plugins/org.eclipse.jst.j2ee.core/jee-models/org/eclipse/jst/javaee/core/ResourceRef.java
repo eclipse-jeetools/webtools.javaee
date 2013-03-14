@@ -19,7 +19,7 @@ import java.util.List;
  *
  * <!-- begin-model-doc -->
  * 
- * <![CDATA[[
+ * [
  *         The resource-refType contains a declaration of a
  *         Deployment Component's reference to an external resource. It
  *         consists of an optional description, the resource manager
@@ -48,7 +48,7 @@ import java.util.List;
  *         <res-sharing-scope>Shareable</res-sharing-scope>
  *         </resource-ref>
  *         
- * ]]>
+ * 
  *         @since Java EE 5
  *       
  * <!-- end-model-doc -->

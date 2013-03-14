@@ -14,16 +14,11 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-
 import org.eclipse.emf.ecore.xml.type.XMLTypeFactory;
 import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
-
 import org.eclipse.jst.javaee.jca.*;
-
 import org.eclipse.jst.javaee.jca.internal.metadata.JcaPackage;
 
 /**
@@ -41,7 +36,7 @@ public class JcaFactoryImpl extends EFactoryImpl implements JcaFactory {
 	 */
 	public static JcaFactory init() {
 		try {
-			JcaFactory theJcaFactory = (JcaFactory)EPackage.Registry.INSTANCE.getEFactory("http://java.sun.com/xml/ns/javaee/jca"); //$NON-NLS-1$ 
+			JcaFactory theJcaFactory = (JcaFactory)EPackage.Registry.INSTANCE.getEFactory("http://xmlns.jcp.org/xml/ns/javaee/jca"); //$NON-NLS-1$ 
 			if (theJcaFactory != null) {
 				return theJcaFactory;
 			}
@@ -102,16 +97,12 @@ public class JcaFactoryImpl extends EFactoryImpl implements JcaFactory {
 				return createConfigPropertyTypeTypeFromString(eDataType, initialValue);
 			case JcaPackage.CREDENTIAL_INTERFACE_TYPE:
 				return createCredentialInterfaceTypeFromString(eDataType, initialValue);
-			case JcaPackage.TRANSACTION_SUPPORT_TYPE:
-				return createTransactionSupportTypeFromString(eDataType, initialValue);
 			case JcaPackage.CONFIG_PROPERTY_NAME_TYPE:
 				return createConfigPropertyNameTypeFromString(eDataType, initialValue);
 			case JcaPackage.CONFIG_PROPERTY_TYPE_TYPE_OBJECT:
 				return createConfigPropertyTypeTypeObjectFromString(eDataType, initialValue);
 			case JcaPackage.CREDENTIAL_INTERFACE_TYPE_OBJECT:
 				return createCredentialInterfaceTypeObjectFromString(eDataType, initialValue);
-			case JcaPackage.TRANSACTION_SUPPORT_TYPE_OBJECT:
-				return createTransactionSupportTypeObjectFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
@@ -129,16 +120,12 @@ public class JcaFactoryImpl extends EFactoryImpl implements JcaFactory {
 				return convertConfigPropertyTypeTypeToString(eDataType, instanceValue);
 			case JcaPackage.CREDENTIAL_INTERFACE_TYPE:
 				return convertCredentialInterfaceTypeToString(eDataType, instanceValue);
-			case JcaPackage.TRANSACTION_SUPPORT_TYPE:
-				return convertTransactionSupportTypeToString(eDataType, instanceValue);
 			case JcaPackage.CONFIG_PROPERTY_NAME_TYPE:
 				return convertConfigPropertyNameTypeToString(eDataType, instanceValue);
 			case JcaPackage.CONFIG_PROPERTY_TYPE_TYPE_OBJECT:
 				return convertConfigPropertyTypeTypeObjectToString(eDataType, instanceValue);
 			case JcaPackage.CREDENTIAL_INTERFACE_TYPE_OBJECT:
 				return convertCredentialInterfaceTypeObjectToString(eDataType, instanceValue);
-			case JcaPackage.TRANSACTION_SUPPORT_TYPE_OBJECT:
-				return convertTransactionSupportTypeObjectToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
 		}
@@ -339,26 +326,6 @@ public class JcaFactoryImpl extends EFactoryImpl implements JcaFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TransactionSupportType createTransactionSupportTypeFromString(EDataType eDataType, String initialValue) {
-		TransactionSupportType result = TransactionSupportType.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String convertTransactionSupportTypeToString(EDataType eDataType, Object instanceValue) {
-		return instanceValue == null ? null : instanceValue.toString();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public String createConfigPropertyNameTypeFromString(EDataType eDataType, String initialValue) {
 		return (String)XMLTypeFactory.eINSTANCE.createFromString(XMLTypePackage.Literals.STRING, initialValue);
 	}
@@ -406,24 +373,6 @@ public class JcaFactoryImpl extends EFactoryImpl implements JcaFactory {
 	 */
 	public String convertCredentialInterfaceTypeObjectToString(EDataType eDataType, Object instanceValue) {
 		return convertCredentialInterfaceTypeToString(JcaPackage.Literals.CREDENTIAL_INTERFACE_TYPE, instanceValue);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public TransactionSupportType createTransactionSupportTypeObjectFromString(EDataType eDataType, String initialValue) {
-		return createTransactionSupportTypeFromString(JcaPackage.Literals.TRANSACTION_SUPPORT_TYPE, initialValue);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String convertTransactionSupportTypeObjectToString(EDataType eDataType, Object instanceValue) {
-		return convertTransactionSupportTypeToString(JcaPackage.Literals.TRANSACTION_SUPPORT_TYPE, instanceValue);
 	}
 
 	/**

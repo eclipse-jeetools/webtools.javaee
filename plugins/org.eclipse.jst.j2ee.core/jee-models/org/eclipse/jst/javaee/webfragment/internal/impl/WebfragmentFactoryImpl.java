@@ -13,13 +13,9 @@ package org.eclipse.jst.javaee.webfragment.internal.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-
 import org.eclipse.jst.javaee.webfragment.*;
-
 import org.eclipse.jst.javaee.webfragment.internal.metadata.WebfragmentPackage;
 
 /**
@@ -37,7 +33,7 @@ public class WebfragmentFactoryImpl extends EFactoryImpl implements WebfragmentF
 	 */
 	public static WebfragmentFactory init() {
 		try {
-			WebfragmentFactory theWebfragmentFactory = (WebfragmentFactory)EPackage.Registry.INSTANCE.getEFactory("http://java.sun.com/xml/ns/javaee/webfragment"); //$NON-NLS-1$ 
+			WebfragmentFactory theWebfragmentFactory = (WebfragmentFactory)EPackage.Registry.INSTANCE.getEFactory("http://xmlns.jcp.org/xml/ns/javaee/webfragment"); //$NON-NLS-1$ 
 			if (theWebfragmentFactory != null) {
 				return theWebfragmentFactory;
 			}

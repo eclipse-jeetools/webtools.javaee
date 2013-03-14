@@ -13,13 +13,9 @@ package org.eclipse.jst.javaee.webapp.internal.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-
 import org.eclipse.jst.javaee.webapp.*;
-
 import org.eclipse.jst.javaee.webapp.internal.metadata.WebappPackage;
 
 /**
@@ -37,7 +33,7 @@ public class WebappFactoryImpl extends EFactoryImpl implements WebappFactory {
 	 */
 	public static WebappFactory init() {
 		try {
-			WebappFactory theWebappFactory = (WebappFactory)EPackage.Registry.INSTANCE.getEFactory("http://java.sun.com/xml/ns/javaee/webapp"); //$NON-NLS-1$ 
+			WebappFactory theWebappFactory = (WebappFactory)EPackage.Registry.INSTANCE.getEFactory("http://xmlns.jcp.org/xml/ns/javaee/webapp"); //$NON-NLS-1$ 
 			if (theWebappFactory != null) {
 				return theWebappFactory;
 			}

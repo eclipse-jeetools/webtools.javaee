@@ -32,22 +32,22 @@ import org.eclipse.jst.javaee.webfragment.WebfragmentFactory;
  *       @(#)web-fragment_3_0.xsds
  *     
  * 
- *       <![CDATA[[
- *       This is the XML Schema for the Servlet 3.0 deployment descriptor.
+ *       [
+ *       This is the XML Schema for the Servlet 3.1 deployment descriptor.
  *       The deployment descriptor must be named "META-INF/web-fragment.xml"
  *       in the web fragment's jar file.  All Servlet deployment descriptors
  *       must indicate the web application schema by using the Java EE
  *       namespace:
  *       
- *       http://java.sun.com/xml/ns/javaee 
+ *       http://xmlns.jcp.org/xml/ns/javaee 
  *       
  *       and by indicating the version of the schema by 
  *       using the version element as shown below: 
  *       
- *       <web-fragment xmlns="http://java.sun.com/xml/ns/javaee"
+ *       <web-fragment xmlns="http://xmlns.jcp.org/xml/ns/javaee"
  *       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  *       xsi:schemaLocation="..."
- *       version="3.0"> 
+ *       version="3.1"> 
  *       ...
  *       </web-fragment>
  *       
@@ -55,9 +55,9 @@ import org.eclipse.jst.javaee.webfragment.WebfragmentFactory;
  *       the schema using the xsi:schemaLocation attribute for Java EE
  *       namespace with the following location:
  *       
- *       http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd
+ *       http://xmlns.jcp.org/xml/ns/javaee/web-fragment_3_1.xsd
  *       
- *       ]]>
+ *       
  *     
  * 
  * 
@@ -76,26 +76,26 @@ import org.eclipse.jst.javaee.webfragment.WebfragmentFactory;
  *     
  * 
  * 
- *       $Id: WebfragmentPackage.java,v 1.4 2010/02/11 06:22:50 canderson Exp $
+ *       $Id: web-common_3_0.xsd,v 1.6 2010/01/14 18:20:11 ccc Exp $
  *       
  *     
  * 
- * <![CDATA[[
- *       This is the common XML Schema for the Servlet 3.0 deployment descriptor.
+ * [
+ *       This is the common XML Schema for the Servlet 3.1 deployment descriptor.
  *       This file is in turn used by web.xml and web-fragment.xml
  *       web application's war file.  All Servlet deployment descriptors
  *       must indicate the web common schema by using the Java EE
  *       namespace:
  *       
- *       http://java.sun.com/xml/ns/javaee 
+ *       http://xmlns.jcp.org/xml/ns/javaee 
  *       
  *       and by indicating the version of the schema by 
  *       using the version element as shown below: 
  *       
- *       <web-app xmlns="http://java.sun.com/xml/ns/javaee"
+ *       <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
  *       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  *       xsi:schemaLocation="..."
- *       version="3.0"> 
+ *       version="3.1"> 
  *       ...
  *       </web-app>
  *       
@@ -103,9 +103,9 @@ import org.eclipse.jst.javaee.webfragment.WebfragmentFactory;
  *       the schema using the xsi:schemaLocation attribute for Java EE
  *       namespace with the following location:
  *       
- *       http://java.sun.com/xml/ns/javaee/web-common_3_0.xsd
+ *       http://xmlns.jcp.org/xml/ns/javaee/web-common_3_1.xsd
  *       
- * ]]>
+ * 
  *     
  * 
  * 
@@ -124,7 +124,7 @@ import org.eclipse.jst.javaee.webfragment.WebfragmentFactory;
  *     
  * 
  * 
- *       $Id: WebfragmentPackage.java,v 1.4 2010/02/11 06:22:50 canderson Exp $
+ *       $Id: javaee_6.xsd,v 1.4 2010/01/14 18:20:11 ccc Exp $
  *       
  *     
  * 
@@ -149,7 +149,7 @@ import org.eclipse.jst.javaee.webfragment.WebfragmentFactory;
  *     
  * 
  * 
- *       $Id: WebfragmentPackage.java,v 1.4 2010/02/11 06:22:50 canderson Exp $
+ *       $Id: javaee_web_services_client_1_3.xsd,v 1.2 2009/09/29 20:31:42 ccc Exp $
  *       
  *     
  * 
@@ -212,7 +212,7 @@ import org.eclipse.jst.javaee.webfragment.WebfragmentFactory;
  *    </div>
  *   
  * 
- *    <div id="usage" xml:id="usage" xmlns="http://www.w3.org/1999/xhtml">
+ *    <div xmlns="http://www.w3.org/1999/xhtml" id="usage" xml:id="usage">
  *     <h2>
  *       <a name="usage">About this schema document</a>
  *     </h2>
@@ -258,7 +258,7 @@ import org.eclipse.jst.javaee.webfragment.WebfragmentFactory;
  *    </div>
  *   
  * 
- *    <div id="nsversioning" xml:id="nsversioning" xmlns="http://www.w3.org/1999/xhtml">
+ *    <div xmlns="http://www.w3.org/1999/xhtml" id="nsversioning" xml:id="nsversioning">
  *     <h2>
  *       <a name="nsversioning">Versioning policy for this schema document</a>
  *     </h2>
@@ -318,13 +318,13 @@ import org.eclipse.jst.javaee.webfragment.WebfragmentFactory;
  *     
  * 
  * 
- *       This is the XML Schema for the JSP 2.2 deployment descriptor
- *       types.  The JSP 2.2 schema contains all the special
+ *       This is the XML Schema for the JSP 2.3 deployment descriptor
+ *       types.  The JSP 2.3 schema contains all the special
  *       structures and datatypes that are necessary to use JSP files
- *       from a web application.
- * 
- *       The contents of this schema is used by the web-common_3_0.xsd
- *       file to define JSP specific content.
+ *       from a web application. 
+ *       
+ *       The contents of this schema is used by the web-common_3_1.xsd 
+ *       file to define JSP specific content. 
  * 
  *     
  * 
@@ -361,7 +361,8 @@ public interface WebfragmentPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd"; //$NON-NLS-1$
+	String eNS_URI = "http://xmlns.jcp.org/xml/ns/javaee/webfragment"; //$NON-NLS-1$
+	String eNS_URI2 = "http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd"; //$NON-NLS-1$
 
 	/**
 	 * The package namespace name.

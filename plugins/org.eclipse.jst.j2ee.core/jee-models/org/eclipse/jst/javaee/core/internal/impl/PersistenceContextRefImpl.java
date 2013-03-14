@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.jst.javaee.core.Description;
 import org.eclipse.jst.javaee.core.InjectionTarget;
 import org.eclipse.jst.javaee.core.PersistenceContextRef;
+import org.eclipse.jst.javaee.core.PersistenceContextSynchronizationType;
 import org.eclipse.jst.javaee.core.PersistenceContextType;
 import org.eclipse.jst.javaee.core.PropertyType;
 
@@ -46,6 +47,7 @@ import org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage;
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.PersistenceContextRefImpl#getPersistenceContextRefName <em>Persistence Context Ref Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.PersistenceContextRefImpl#getPersistenceUnitName <em>Persistence Unit Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.PersistenceContextRefImpl#getPersistenceContextType <em>Persistence Context Type</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.PersistenceContextRefImpl#getPersistenceContextSynchronization <em>Persistence Context Synchronization</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.PersistenceContextRefImpl#getPersistenceProperties <em>Persistence Properties</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.PersistenceContextRefImpl#getMappedName <em>Mapped Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.PersistenceContextRefImpl#getInjectionTargets <em>Injection Targets</em>}</li>
@@ -134,6 +136,35 @@ public class PersistenceContextRefImpl extends EObjectImpl implements Persistenc
 	 * @ordered
 	 */
 	protected boolean persistenceContextTypeESet;
+
+	/**
+	 * The default value of the '{@link #getPersistenceContextSynchronization() <em>Persistence Context Synchronization</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPersistenceContextSynchronization()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final PersistenceContextSynchronizationType PERSISTENCE_CONTEXT_SYNCHRONIZATION_EDEFAULT = PersistenceContextSynchronizationType.SYNCHRONIZED;
+
+	/**
+	 * The cached value of the '{@link #getPersistenceContextSynchronization() <em>Persistence Context Synchronization</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPersistenceContextSynchronization()
+	 * @generated
+	 * @ordered
+	 */
+	protected PersistenceContextSynchronizationType persistenceContextSynchronization = PERSISTENCE_CONTEXT_SYNCHRONIZATION_EDEFAULT;
+
+	/**
+	 * This is true if the Persistence Context Synchronization attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean persistenceContextSynchronizationESet;
 
 	/**
 	 * The cached value of the '{@link #getPersistenceProperties() <em>Persistence Properties</em>}' containment reference list.
@@ -319,6 +350,52 @@ public class PersistenceContextRefImpl extends EObjectImpl implements Persistenc
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public PersistenceContextSynchronizationType getPersistenceContextSynchronization() {
+		return persistenceContextSynchronization;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setPersistenceContextSynchronization(PersistenceContextSynchronizationType newPersistenceContextSynchronization) {
+		PersistenceContextSynchronizationType oldPersistenceContextSynchronization = persistenceContextSynchronization;
+		persistenceContextSynchronization = newPersistenceContextSynchronization == null ? PERSISTENCE_CONTEXT_SYNCHRONIZATION_EDEFAULT : newPersistenceContextSynchronization;
+		boolean oldPersistenceContextSynchronizationESet = persistenceContextSynchronizationESet;
+		persistenceContextSynchronizationESet = true;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, JavaeePackage.PERSISTENCE_CONTEXT_REF__PERSISTENCE_CONTEXT_SYNCHRONIZATION, oldPersistenceContextSynchronization, persistenceContextSynchronization, !oldPersistenceContextSynchronizationESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetPersistenceContextSynchronization() {
+		PersistenceContextSynchronizationType oldPersistenceContextSynchronization = persistenceContextSynchronization;
+		boolean oldPersistenceContextSynchronizationESet = persistenceContextSynchronizationESet;
+		persistenceContextSynchronization = PERSISTENCE_CONTEXT_SYNCHRONIZATION_EDEFAULT;
+		persistenceContextSynchronizationESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, JavaeePackage.PERSISTENCE_CONTEXT_REF__PERSISTENCE_CONTEXT_SYNCHRONIZATION, oldPersistenceContextSynchronization, PERSISTENCE_CONTEXT_SYNCHRONIZATION_EDEFAULT, oldPersistenceContextSynchronizationESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetPersistenceContextSynchronization() {
+		return persistenceContextSynchronizationESet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public List<PropertyType> getPersistenceProperties() {
 		if (persistenceProperties == null) {
 			persistenceProperties = new EObjectContainmentEList<PropertyType>(PropertyType.class, this, JavaeePackage.PERSISTENCE_CONTEXT_REF__PERSISTENCE_PROPERTIES);
@@ -414,6 +491,8 @@ public class PersistenceContextRefImpl extends EObjectImpl implements Persistenc
 				return getPersistenceUnitName();
 			case JavaeePackage.PERSISTENCE_CONTEXT_REF__PERSISTENCE_CONTEXT_TYPE:
 				return getPersistenceContextType();
+			case JavaeePackage.PERSISTENCE_CONTEXT_REF__PERSISTENCE_CONTEXT_SYNCHRONIZATION:
+				return getPersistenceContextSynchronization();
 			case JavaeePackage.PERSISTENCE_CONTEXT_REF__PERSISTENCE_PROPERTIES:
 				return getPersistenceProperties();
 			case JavaeePackage.PERSISTENCE_CONTEXT_REF__MAPPED_NAME:
@@ -447,6 +526,9 @@ public class PersistenceContextRefImpl extends EObjectImpl implements Persistenc
 				return;
 			case JavaeePackage.PERSISTENCE_CONTEXT_REF__PERSISTENCE_CONTEXT_TYPE:
 				setPersistenceContextType((PersistenceContextType)newValue);
+				return;
+			case JavaeePackage.PERSISTENCE_CONTEXT_REF__PERSISTENCE_CONTEXT_SYNCHRONIZATION:
+				setPersistenceContextSynchronization((PersistenceContextSynchronizationType)newValue);
 				return;
 			case JavaeePackage.PERSISTENCE_CONTEXT_REF__PERSISTENCE_PROPERTIES:
 				getPersistenceProperties().clear();
@@ -486,6 +568,9 @@ public class PersistenceContextRefImpl extends EObjectImpl implements Persistenc
 			case JavaeePackage.PERSISTENCE_CONTEXT_REF__PERSISTENCE_CONTEXT_TYPE:
 				unsetPersistenceContextType();
 				return;
+			case JavaeePackage.PERSISTENCE_CONTEXT_REF__PERSISTENCE_CONTEXT_SYNCHRONIZATION:
+				unsetPersistenceContextSynchronization();
+				return;
 			case JavaeePackage.PERSISTENCE_CONTEXT_REF__PERSISTENCE_PROPERTIES:
 				getPersistenceProperties().clear();
 				return;
@@ -518,6 +603,8 @@ public class PersistenceContextRefImpl extends EObjectImpl implements Persistenc
 				return PERSISTENCE_UNIT_NAME_EDEFAULT == null ? persistenceUnitName != null : !PERSISTENCE_UNIT_NAME_EDEFAULT.equals(persistenceUnitName);
 			case JavaeePackage.PERSISTENCE_CONTEXT_REF__PERSISTENCE_CONTEXT_TYPE:
 				return isSetPersistenceContextType();
+			case JavaeePackage.PERSISTENCE_CONTEXT_REF__PERSISTENCE_CONTEXT_SYNCHRONIZATION:
+				return isSetPersistenceContextSynchronization();
 			case JavaeePackage.PERSISTENCE_CONTEXT_REF__PERSISTENCE_PROPERTIES:
 				return persistenceProperties != null && !persistenceProperties.isEmpty();
 			case JavaeePackage.PERSISTENCE_CONTEXT_REF__MAPPED_NAME:
@@ -546,6 +633,8 @@ public class PersistenceContextRefImpl extends EObjectImpl implements Persistenc
 		result.append(persistenceUnitName);
 		result.append(", persistenceContextType: "); //$NON-NLS-1$
 		if (persistenceContextTypeESet) result.append(persistenceContextType); else result.append("<unset>"); //$NON-NLS-1$
+		result.append(", persistenceContextSynchronization: "); //$NON-NLS-1$
+		if (persistenceContextSynchronizationESet) result.append(persistenceContextSynchronization); else result.append("<unset>"); //$NON-NLS-1$
 		result.append(", mappedName: "); //$NON-NLS-1$
 		result.append(mappedName);
 		result.append(", id: "); //$NON-NLS-1$

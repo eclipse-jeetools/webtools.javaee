@@ -29,8 +29,12 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  *         Error-page declarations using the exception-type element in
  *         the deployment descriptor must be unique up to the class name of
  *         the exception-type. Similarly, error-page declarations using the
- *         status-code element must be unique in the deployment descriptor
+ *         error-code element must be unique in the deployment descriptor
  *         up to the status code.
+ *         
+ *         If an error-page element in the deployment descriptor does not
+ *         contain an exception-type or an error-code element, the error
+ *         page is a default error page. 
  *         
  *         Used in: web-app
  *         

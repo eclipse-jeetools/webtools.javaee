@@ -46,6 +46,9 @@ import org.eclipse.emf.common.util.Enumerator;
  *         MessageEndpoint refers to the methods of a message-driven bean's
  *         message-listener interface.
  *         
+ *         LifecycleCallback refers to the lifecycle callback methods of 
+ *         a singleton or stateful session bean.
+ *         
  *         The method-intf element must be one of the following:
  *         
  *         Home
@@ -55,6 +58,7 @@ import org.eclipse.emf.common.util.Enumerator;
  *         ServiceEndpoint
  *         Timer
  *         MessageEndpoint
+ *         LifecycleCallback
  *         
  *         @since Java EE 5, EJB 3.0
  *       
@@ -126,7 +130,16 @@ public enum MethodInterfaceType implements Enumerator
 	 * @generated
 	 * @ordered
 	 */
-	MESSAGE_ENDPOINT_LITERAL(6, "MessageEndpoint", "MessageEndpoint"); //$NON-NLS-1$ //$NON-NLS-2$
+	MESSAGE_ENDPOINT_LITERAL(6, "MessageEndpoint", "MessageEndpoint"), //$NON-NLS-1$ //$NON-NLS-2$
+	/**
+	 * The '<em><b>Lifecycle Callback</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #LIFECYCLE_CALLBACK_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	LIFECYCLE_CALLBACK(7, "LifecycleCallback", "LifecycleCallback"); //$NON-NLS-1$ //$NON-NLS-2$
 	/**
 	 * The '<em><b>Home</b></em>' literal value.
 	 * <!-- begin-user-doc -->
@@ -228,6 +241,21 @@ public enum MethodInterfaceType implements Enumerator
 	public static final int MESSAGE_ENDPOINT = 6;
 
 	/**
+	 * The '<em><b>Lifecycle Callback</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *               @since Java EE 7, EJB 3.2
+	 *             
+	 * <!-- end-model-doc -->
+	 * @see #LIFECYCLE_CALLBACK
+	 * @generated
+	 * @ordered
+	 */
+	public static final int LIFECYCLE_CALLBACK_VALUE = 7;
+
+	/**
 	 * An array of all the '<em><b>Method Interface Type</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -242,6 +270,7 @@ public enum MethodInterfaceType implements Enumerator
 			SERVICE_ENDPOINT_LITERAL,
 			TIMER_LITERAL,
 			MESSAGE_ENDPOINT_LITERAL,
+			LIFECYCLE_CALLBACK,
 		};
 
 	/**
@@ -299,6 +328,7 @@ public enum MethodInterfaceType implements Enumerator
 			case SERVICE_ENDPOINT: return SERVICE_ENDPOINT_LITERAL;
 			case TIMER: return TIMER_LITERAL;
 			case MESSAGE_ENDPOINT: return MESSAGE_ENDPOINT_LITERAL;
+			case LIFECYCLE_CALLBACK_VALUE: return LIFECYCLE_CALLBACK;
 		}
 		return null;
 	}

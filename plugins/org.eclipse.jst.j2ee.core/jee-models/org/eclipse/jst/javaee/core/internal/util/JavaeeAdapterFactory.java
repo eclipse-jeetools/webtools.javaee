@@ -82,6 +82,14 @@ public class JavaeeAdapterFactory extends AdapterFactoryImpl {
 				return createAddressingTypeAdapter();
 			}
 			@Override
+			public Adapter caseAdministeredObjectType(AdministeredObjectType object) {
+				return createAdministeredObjectTypeAdapter();
+			}
+			@Override
+			public Adapter caseConnectionFactoryResourceType(ConnectionFactoryResourceType object) {
+				return createConnectionFactoryResourceTypeAdapter();
+			}
+			@Override
 			public Adapter caseDataSourceType(DataSourceType object) {
 				return createDataSourceTypeAdapter();
 			}
@@ -118,12 +126,24 @@ public class JavaeeAdapterFactory extends AdapterFactoryImpl {
 				return createInjectionTargetAdapter();
 			}
 			@Override
+			public Adapter caseJmsConnectionFactoryType(JmsConnectionFactoryType object) {
+				return createJmsConnectionFactoryTypeAdapter();
+			}
+			@Override
+			public Adapter caseJmsDestinationType(JmsDestinationType object) {
+				return createJmsDestinationTypeAdapter();
+			}
+			@Override
 			public Adapter caseLifecycleCallback(LifecycleCallback object) {
 				return createLifecycleCallbackAdapter();
 			}
 			@Override
 			public Adapter caseListener(Listener object) {
 				return createListenerAdapter();
+			}
+			@Override
+			public Adapter caseMailSessionType(MailSessionType object) {
+				return createMailSessionTypeAdapter();
 			}
 			@Override
 			public Adapter caseMessageDestination(MessageDestination object) {
@@ -228,6 +248,34 @@ public class JavaeeAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createAddressingTypeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.javaee.core.AdministeredObjectType <em>Administered Object Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.jst.javaee.core.AdministeredObjectType
+	 * @generated
+	 */
+	public Adapter createAdministeredObjectTypeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.javaee.core.ConnectionFactoryResourceType <em>Connection Factory Resource Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.jst.javaee.core.ConnectionFactoryResourceType
+	 * @generated
+	 */
+	public Adapter createConnectionFactoryResourceTypeAdapter() {
 		return null;
 	}
 
@@ -358,6 +406,34 @@ public class JavaeeAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.javaee.core.JmsConnectionFactoryType <em>Jms Connection Factory Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.jst.javaee.core.JmsConnectionFactoryType
+	 * @generated
+	 */
+	public Adapter createJmsConnectionFactoryTypeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.javaee.core.JmsDestinationType <em>Jms Destination Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.jst.javaee.core.JmsDestinationType
+	 * @generated
+	 */
+	public Adapter createJmsDestinationTypeAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.javaee.core.LifecycleCallback <em>Lifecycle Callback</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -382,6 +458,20 @@ public class JavaeeAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createListenerAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.jst.javaee.core.MailSessionType <em>Mail Session Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.jst.javaee.core.MailSessionType
+	 * @generated
+	 */
+	public Adapter createMailSessionTypeAdapter() {
 		return null;
 	}
 
