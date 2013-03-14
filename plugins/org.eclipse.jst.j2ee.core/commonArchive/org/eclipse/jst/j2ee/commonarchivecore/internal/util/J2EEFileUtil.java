@@ -300,6 +300,8 @@ public class J2EEFileUtil {
               version = J2EEVersionConstants.JEE_5_0_ID;
            } else if (versionAttr.equals(J2EEVersionConstants.VERSION_6_0_TEXT)) {
               version = J2EEVersionConstants.JEE_6_0_ID;
+           } else if (versionAttr.equals(J2EEVersionConstants.VERSION_7_0_TEXT)) {
+              version = J2EEVersionConstants.JEE_7_0_ID;
            }
         } else if (isEJBJarFile(fileURI)) {
            if (null == versionAttr) {
@@ -314,6 +316,8 @@ public class J2EEFileUtil {
               version = J2EEVersionConstants.EJB_3_0_ID; 
            } else if (versionAttr.equals(J2EEVersionConstants.VERSION_3_1_TEXT)) { 
               version = J2EEVersionConstants.EJB_3_1_ID;
+           } else if (versionAttr.equals(J2EEVersionConstants.VERSION_3_2_TEXT)) { 
+              version = J2EEVersionConstants.EJB_3_2_ID;
            }
         } else if (isApplicationClientFile(fileURI)) {
            if (null == versionAttr) {
@@ -328,6 +332,8 @@ public class J2EEFileUtil {
               version = J2EEVersionConstants.JEE_5_0_ID;
            } else if (versionAttr.equals(J2EEVersionConstants.VERSION_6_0_TEXT)) {
               version = J2EEVersionConstants.JEE_6_0_ID;
+           } else if (versionAttr.equals(J2EEVersionConstants.VERSION_7_0_TEXT)) {
+              version = J2EEVersionConstants.JEE_7_0_ID;
            } 
         } else if (isWARFile(fileURI)) {
            if (null == versionAttr) {
@@ -342,6 +348,8 @@ public class J2EEFileUtil {
               version = J2EEVersionConstants.WEB_2_5_ID;
            } else if (versionAttr.equals(J2EEVersionConstants.VERSION_3_0_TEXT)) {
               version = J2EEVersionConstants.WEB_3_0_ID;
+           } else if (versionAttr.equals(J2EEVersionConstants.VERSION_3_1_TEXT)) {
+              version = J2EEVersionConstants.WEB_3_1_ID;
            }
         } else if (isRARFile(fileURI)) {
            if (null == versionAttr) {
@@ -363,7 +371,9 @@ public class J2EEFileUtil {
 	private static int lookupVersion(String fileURI, String schemaName) {
         int version = -1;
         if (isEARFile(fileURI)) {
-           if (schemaName.equals(J2EEConstants.APPLICATION_SCHEMA_6)) {
+           if (schemaName.equals(J2EEConstants.APPLICATION_SCHEMA_7)) {
+              version = J2EEVersionConstants.JEE_7_0_ID;
+           } else if (schemaName.equals(J2EEConstants.APPLICATION_SCHEMA_6)) {
               version = J2EEVersionConstants.JEE_6_0_ID;
            } else if (schemaName.equals(J2EEConstants.APPLICATION_SCHEMA_5)) {
               version = J2EEVersionConstants.JEE_5_0_ID;
@@ -371,7 +381,9 @@ public class J2EEFileUtil {
               version = J2EEVersionConstants.J2EE_1_4_ID;
            }
         } else if (isEJBJarFile(fileURI)) {
-           if ((schemaName.indexOf(J2EEConstants.EJBJAR_SCHEMA_3_1_NS)) != -1) {
+           if ((schemaName.indexOf(J2EEConstants.EJBJAR_SCHEMA_3_2_NS)) != -1) {
+              version = J2EEVersionConstants.EJB_3_2_ID;   
+           } else if ((schemaName.indexOf(J2EEConstants.EJBJAR_SCHEMA_3_1_NS)) != -1) {
               version = J2EEVersionConstants.EJB_3_1_ID;   
            } else if ((schemaName.indexOf(J2EEConstants.EJBJAR_SCHEMA_3_0_NS)) != -1) {
               version = J2EEVersionConstants.EJB_3_0_ID;
@@ -379,7 +391,9 @@ public class J2EEFileUtil {
               version = J2EEVersionConstants.EJB_2_1_ID;
            }
         } else if (isApplicationClientFile(fileURI)) {
-           if (schemaName.equals(J2EEConstants.APP_CLIENT_SCHEMA_6)) {
+           if (schemaName.equals(J2EEConstants.APP_CLIENT_SCHEMA_7)) {
+              version = J2EEVersionConstants.JEE_7_0_ID;
+           } else if (schemaName.equals(J2EEConstants.APP_CLIENT_SCHEMA_6)) {
               version = J2EEVersionConstants.JEE_6_0_ID;
            } else if (schemaName.equals(J2EEConstants.APP_CLIENT_SCHEMA_5)) {
               version = J2EEVersionConstants.JEE_5_0_ID;
@@ -387,7 +401,9 @@ public class J2EEFileUtil {
               version = J2EEVersionConstants.J2EE_1_4_ID;
            }
         } else if (isWARFile(fileURI)) {
-           if (schemaName.equals(J2EEConstants.WEBAPP_SCHEMA_3_0)) {
+           if (schemaName.equals(J2EEConstants.WEBAPP_SCHEMA_3_1)) {
+              version = J2EEVersionConstants.WEB_3_1_ID;
+           } else if (schemaName.equals(J2EEConstants.WEBAPP_SCHEMA_3_0)) {
               version = J2EEVersionConstants.WEB_3_0_ID;
            } else if (schemaName.equals(J2EEConstants.WEBAPP_SCHEMA_2_5)) {
               version = J2EEVersionConstants.WEB_2_5_ID;

@@ -67,6 +67,7 @@ public class ConnectorFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 	public static final String CONNECTOR_XML_TEMPLATE_10		= "rartp10.xml";								//$NON-NLS-1$
 	public static final String CONNECTOR_XML_TEMPLATE_15		= "rartp15.xml"; //$NON-NLS-1$
 	public static final String CONNECTOR_XML_TEMPLATE_16		= "rartp16.xml"; //$NON-NLS-1$
+	public static final String CONNECTOR_XML_TEMPLATE_17		= "rartp17.xml"; //$NON-NLS-1$
 	
 	public void execute(IProject project, IProjectFacetVersion fv, Object config, IProgressMonitor monitor) throws CoreException {
 		if (monitor != null) {
@@ -105,7 +106,27 @@ public class ConnectorFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 			IPath configFolderpath = pjpath.append(configFolderName);
 			sourceFolder = ws.getRoot().getFolder(configFolderpath);
 
-			if( fv == IJ2EEFacetConstants.JCA_16)
+			if( fv == IJ2EEFacetConstants.JCA_17)
+			{
+		        if(model.getBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD)){
+		            // Create the deployment descriptor (ra.xml) if one doesn't exist
+		            IFile rarFile = sourceFolder.getFile(new Path(J2EEConstants.RAR_DD_URI));
+		            if (!rarFile.exists()) {
+		                try {
+		                    if(!rarFile.getParent().exists()
+		                            && (rarFile.getParent().getType() ==  IResource.FOLDER)){
+		                        ((IFolder)rarFile.getParent()).create(true, true, monitor);
+		                    }
+		                    InputStream in = getClass().getResourceAsStream(CONNECTOR_XML_TEMPLATE_17);
+		                    rarFile.create(in, true, monitor);
+		                    populateDefaultContent(project, fv);
+		                } catch (CoreException e) {
+		                	J2EEPlugin.logError(e);
+		                }
+		            }
+		        }
+			}
+			else if( fv == IJ2EEFacetConstants.JCA_16)
 			{
 		        if(model.getBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD)){
 		            // Create the deployment descriptor (ra.xml) if one doesn't exist

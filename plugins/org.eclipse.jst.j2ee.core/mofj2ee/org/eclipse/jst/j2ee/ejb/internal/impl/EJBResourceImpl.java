@@ -157,6 +157,8 @@ public class EJBResourceImpl extends XMLResourceImpl implements EJBResource {
 				return J2EEVersionConstants.JEE_5_0_ID;
 			case J2EEVersionConstants.EJB_3_1_ID :
 				return J2EEVersionConstants.JEE_6_0_ID;
+			case J2EEVersionConstants.EJB_3_2_ID :
+				return J2EEVersionConstants.JEE_7_0_ID;
 			default :
 			return J2EEVersionConstants.J2EE_1_4_ID;
 		}
@@ -180,6 +182,10 @@ public class EJBResourceImpl extends XMLResourceImpl implements EJBResource {
 	public void setModuleVersionID(int id) {
 		super.setVersionID(id);
 		switch (id) {
+				case (EJB_3_2_ID) :
+					super.setDoctypeValues(null, null);
+					primSetVersionID(EJB_3_2_ID);
+					break;
 				case (EJB_3_1_ID) :
 					super.setDoctypeValues(null, null);
 					primSetVersionID(EJB_3_1_ID);
@@ -210,6 +216,10 @@ public class EJBResourceImpl extends XMLResourceImpl implements EJBResource {
 	@Override
 	public void setJ2EEVersionID(int id) {
 	switch (id) {
+		case (JEE_7_0_ID) :
+					primSetDoctypeValues(null, null);
+					primSetVersionID(EJB_3_2_ID);
+					break;
 		case (JEE_6_0_ID) :
 					primSetDoctypeValues(null, null);
 					primSetVersionID(EJB_3_1_ID);

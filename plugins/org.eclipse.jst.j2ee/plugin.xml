@@ -432,7 +432,6 @@
         </and>
       </constraint>
       <group-member id="modules"/>     
-             
     </project-facet-version>
     
     <project-facet-version facet="jst.ear" version="6.0">
@@ -443,19 +442,28 @@
         </and>
       </constraint>
       <group-member id="modules"/>     
-             
     </project-facet-version>
             
-    <action facet="jst.ear" version="[1.2-6.0]" type="INSTALL" id="jst.ear.install">
+    <project-facet-version facet="jst.ear" version="7.0">
+      <constraint>
+        <and>
+          <conflicts group="modules"/>
+          <conflicts facet="jst.java"/>
+        </and>
+      </constraint>
+      <group-member id="modules"/>     
+    </project-facet-version>
+            
+    <action facet="jst.ear" type="INSTALL" id="jst.ear.install">
       <delegate class="org.eclipse.jst.j2ee.project.facet.EarFacetInstallDelegate"/>
       <config-factory class="org.eclipse.jst.j2ee.internal.earcreation.EarFacetInstallDataModelProvider"/>
     </action>
       
-    <event-handler facet="jst.ear" version="[1.2-6.0]" type="POST_INSTALL">
+    <event-handler facet="jst.ear" type="POST_INSTALL">
       <delegate class="org.eclipse.jst.j2ee.project.facet.EarFacetPostInstallDelegate"/>
     </event-handler>  
 
-    <event-handler facet="jst.ear" version="[1.2-6.0]" type="RUNTIME_CHANGED">
+    <event-handler facet="jst.ear" type="RUNTIME_CHANGED">
       <delegate class="org.eclipse.jst.j2ee.project.facet.EarFacetRuntimeHandler$RuntimeChangedDelegate"/>
 	</event-handler>
 
@@ -530,7 +538,7 @@
     <project-facet-version facet="jst.appclient" version="5.0">
       <constraint>
         <and>
-          <requires facet="jst.java" version="[5.0"/>
+          <requires facet="jst.java" version="[1.5"/>
           <conflicts group="modules"/>
         </and>
       </constraint>
@@ -540,23 +548,33 @@
     <project-facet-version facet="jst.appclient" version="6.0">
       <constraint>
         <and>
-          <requires facet="jst.java" version="[6.0"/>
+          <requires facet="jst.java" version="[1.6"/>
           <conflicts group="modules"/>
         </and>
       </constraint>
       <group-member id="modules"/>     
     </project-facet-version>
             
-    <action type="install" facet="jst.appclient" version="[1.2-6.0]" id="jst.appclient.install">
+    <project-facet-version facet="jst.appclient" version="7.0">
+      <constraint>
+        <and>
+          <requires facet="jst.java" version="[1.7"/>
+          <conflicts group="modules"/>
+        </and>
+      </constraint>
+      <group-member id="modules"/>     
+    </project-facet-version>
+            
+    <action type="install" facet="jst.appclient" id="jst.appclient.install">
       <delegate class="org.eclipse.jst.j2ee.project.facet.AppClientFacetInstallDelegate"/>
       <config-factory class="org.eclipse.jst.j2ee.project.facet.AppClientFacetInstallDataModelProvider"/>
     </action>
 	  
-    <event-handler type="POST_INSTALL" facet="jst.appclient" version="[1.2-6.0]">
+    <event-handler type="POST_INSTALL" facet="jst.appclient">
       <delegate class="org.eclipse.jst.j2ee.project.facet.AppClientFacetPostInstallDelegate"/>
     </event-handler>
         
-    <event-handler type="RUNTIME_CHANGED" facet="jst.appclient" version="[1.2-6.0]">
+    <event-handler type="RUNTIME_CHANGED" facet="jst.appclient">
       <delegate class="org.eclipse.jst.j2ee.project.facet.J2EEFacetRuntimeChangedDelegate"/>
     </event-handler>
 	

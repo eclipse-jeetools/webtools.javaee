@@ -146,6 +146,7 @@ public class ConnectorResourceImpl extends XMLResourceImpl implements ConnectorR
 		@Override
 		public void setJ2EEVersionID(int id) {
 		switch (id) {
+		    case(JEE_7_0_ID) :
 			case(JEE_6_0_ID) :
 					primSetDoctypeValues(null, null);
 					primSetVersionID(JCA_1_6_ID);

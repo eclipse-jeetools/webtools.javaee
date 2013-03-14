@@ -52,7 +52,8 @@ public interface J2EEConstants extends J2EEVersionConstants {
     String APP_CLIENT_ALT_SYSTEMID_1_3      =       "http://java.sun.com/dtd/application-client_1.3.dtd"; //$NON-NLS-1$
     String APP_CLIENT_SCHEMA_1_4       =   "http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/application-client_1_4.xsd";//$NON-NLS-1$
     String APP_CLIENT_SCHEMA_5         =   "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application-client_5.xsd"; //$NON-NLS-1$
-    String APP_CLIENT_SCHEMA_6         =   "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application-client_6.xsd"; //$NON-NLS-1$ // EJB3
+    String APP_CLIENT_SCHEMA_6         =   "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application-client_6.xsd"; //$NON-NLS-1$
+    String APP_CLIENT_SCHEMA_7         =   "http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/application-client_7.xsd"; //$NON-NLS-1$
     
     //Application constants
     /** "Application_ID"                                                                                                    */
@@ -78,6 +79,7 @@ public interface J2EEConstants extends J2EEVersionConstants {
     String APPLICATION_SCHEMA_1_4       =  "http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/application_1_4.xsd";//$NON-NLS-1$
     String APPLICATION_SCHEMA_5         =  "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_5.xsd"; //$NON-NLS-1$
     String APPLICATION_SCHEMA_6         =  "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_6.xsd"; //$NON-NLS-1$ 
+    String APPLICATION_SCHEMA_7         =  "http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/application_7.xsd"; //$NON-NLS-1$
     
     //EJB Jar Constants
     /** "ejb-jar_ID"                                                                                                                */
@@ -103,6 +105,8 @@ public interface J2EEConstants extends J2EEVersionConstants {
     String EJBJAR_SCHEMA_3_0_NS     =   "http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd"; //$NON-NLS-1$
     String EJBJAR_SCHEMA_3_1        =   "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd"; //$NON-NLS-1$ 
     String EJBJAR_SCHEMA_3_1_NS     =   "http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd"; //$NON-NLS-1$ 
+    String EJBJAR_SCHEMA_3_2        =   "http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/ejb-jar_3_2.xsd"; //$NON-NLS-1$ 
+    String EJBJAR_SCHEMA_3_2_NS     =   "http://xmlns.jcp.org/xml/ns/javaee/ejb-jar_3_2.xsd"; //$NON-NLS-1$ 
     
     // EAR constants
     
@@ -116,6 +120,7 @@ public interface J2EEConstants extends J2EEVersionConstants {
     URI 	WEBFRAGMENT_DD_URI_OBJ      =       URI.createURI(WEBFRAGMENT_DD_URI);
     String 	WEBFRAGMENT_DD_SHORT_NAME   =       "web-fragment.xml"; //$NON-NLS-1$
     String  WEBFRAGMENT_SCHEMA_3_0 		= 		"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd"; //$NON-NLS-1$
+    String  WEBFRAGMENT_SCHEMA_3_1 		= 		"http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-fragment_3_0.xsd"; //$NON-NLS-1$
     
     //Web app Constants
     /** "WebApp_ID"                                                                                                                 */
@@ -138,6 +143,7 @@ public interface J2EEConstants extends J2EEVersionConstants {
     String WEBAPP_SCHEMA_2_4        =   "http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd";//$NON-NLS-1$
     String WEBAPP_SCHEMA_2_5        =   "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd";//$NON-NLS-1$
     String WEBAPP_SCHEMA_3_0        =   "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd";//$NON-NLS-1$
+    String WEBAPP_SCHEMA_3_1        =   "http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd";//$NON-NLS-1$
     /** "WEB-INF/ejb-jar.xml"                                                                                              */
     String EJBJAR_IN_WAR_DD_URI                =   "WEB-INF/ejb-jar.xml"; //$NON-NLS-1$
     //J2C Resource Adapter Constants
@@ -156,6 +162,7 @@ public interface J2EEConstants extends J2EEVersionConstants {
     String CONNECTOR_ALT_SYSTEMID_1_0       =       "http://java.sun.com/dtd/connector_1.0.dtd"; //$NON-NLS-1$
     String CONNECTOR_SCHEMA_1_5         =   "http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/connector_1_5.xsd";//$NON-NLS-1$
     String CONNECTOR_SCHEMA_1_6         =   "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/connector_1_6.xsd";//$NON-NLS-1$
+    String CONNECTOR_SCHEMA_1_7         =   "http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/connector_1_7.xsd";//$NON-NLS-1$
     //Web Services Constants
     /** Doc type for webservices deployment descriptors */
     String WEB_SERVICES_CLIENT_DOCTYPE      = "webservicesclient";  //$NON-NLS-1$
@@ -186,6 +193,8 @@ public interface J2EEConstants extends J2EEVersionConstants {
     String WEBSERVICE_SCHEMA_LOC_SUN_1_2 = "http://java.sun.com/xml/ns/javaee/javaee_web_services_1_2.xsd";//$NON-NLS-1$
     String WEBSERVICE_SCHEMA_1_3 = "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/javaee_web_services_1_3.xsd";//$NON-NLS-1$
     String WEBSERVICE_SCHEMA_LOC_SUN_1_3 = "http://java.sun.com/xml/ns/javaee/javaee_web_services_1_3.xsd";//$NON-NLS-1$
+    String WEBSERVICE_SCHEMA_1_4 = "http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/javaee_web_services_1_4.xsd";//$NON-NLS-1$
+    String WEBSERVICE_SCHEMA_LOC_1_4 = "http://xmlns.jcp.org/xml/ns/javaee/javaee_web_services_1_4.xsd";//$NON-NLS-1$
         
     //Miscellaneous constants
     /** "UTF-8"                                                                                                                             */
@@ -202,23 +211,29 @@ public interface J2EEConstants extends J2EEVersionConstants {
     String JAVAEE_5_XSD_SHORT_NAME          = "javaee_5.xsd"; //$NON-NLS-1$  //EJB3
     String XSI_NS_URL                       = "http://www.w3.org/2001/XMLSchema-instance"; //$NON-NLS-1$ 
     String APPLICATION_SCHEMA_LOC_1_4       = "http://java.sun.com/xml/ns/j2ee/application_1_4.xsd"; //$NON-NLS-1$
-    String APPLICATION_SCHEMA_LOC_5         = "http://java.sun.com/xml/ns/javaee/application_5.xsd"; //$NON-NLS-1$        // EJB3
-    String APPLICATION_SCHEMA_LOC_6         = "http://java.sun.com/xml/ns/javaee/application_6.xsd"; //$NON-NLS-1$        // EAR6
+    String APPLICATION_SCHEMA_LOC_5         = "http://java.sun.com/xml/ns/javaee/application_5.xsd"; //$NON-NLS-1$
+    String APPLICATION_SCHEMA_LOC_6         = "http://java.sun.com/xml/ns/javaee/application_6.xsd"; //$NON-NLS-1$
+    String APPLICATION_SCHEMA_LOC_7         = "http://xmlns.jcp.org/xml/ns/javaee/application_7.xsd"; //$NON-NLS-1$
     String APP_CLIENT_SCHEMA_LOC_1_4        = "http://java.sun.com/xml/ns/j2ee/application-client_1_4.xsd"; //$NON-NLS-1$
-    String APP_CLIENT_SCHEMA_LOC_5          = "http://java.sun.com/xml/ns/javaee/application-client_5.xsd"; //$NON-NLS-1$ //EJB3
-    String APP_CLIENT_SCHEMA_LOC_6          = "http://java.sun.com/xml/ns/javaee/application-client_6.xsd"; //$NON-NLS-1$ //AppClient 6
+    String APP_CLIENT_SCHEMA_LOC_5          = "http://java.sun.com/xml/ns/javaee/application-client_5.xsd"; //$NON-NLS-1$
+    String APP_CLIENT_SCHEMA_LOC_6          = "http://java.sun.com/xml/ns/javaee/application-client_6.xsd"; //$NON-NLS-1$
+    String APP_CLIENT_SCHEMA_LOC_7          = "http://xmlns.jcp.org/xml/ns/javaee/application-client_7.xsd"; //$NON-NLS-1$
     String EJB_JAR_SCHEMA_LOC_2_1           = "http://java.sun.com/xml/ns/j2ee/ejb-jar_2_1.xsd"; //$NON-NLS-1$
-    String EJB_JAR_SCHEMA_LOC_3_0    		= "http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd"; //$NON-NLS-1$ // EJB3
-    String EJB_JAR_SCHEMA_LOC_3_1    		= "http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd"; //$NON-NLS-1$ // EJB3.1
+    String EJB_JAR_SCHEMA_LOC_3_0    		= "http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd"; //$NON-NLS-1$
+    String EJB_JAR_SCHEMA_LOC_3_1    		= "http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd"; //$NON-NLS-1$
+    String EJB_JAR_SCHEMA_LOC_3_2    		= "http://xmlns.jcp.org/xml/ns/javaee/ejb-jar_3_2.xsd"; //$NON-NLS-1$
     String CONNECTOR_SCHEMA_LOC_1_5         = "http://java.sun.com/xml/ns/j2ee/connector_1_5.xsd"; //$NON-NLS-1$
     String CONNECTOR_SCHEMA_LOC_1_6         = "http://java.sun.com/xml/ns/javaee/connector_1_6.xsd"; //$NON-NLS-1$
+    String CONNECTOR_SCHEMA_LOC_1_7         = "http://xmlns.jcp.org/xml/ns/javaee/connector_1_7.xsd"; //$NON-NLS-1$
     String WEB_APP_SCHEMA_LOC_2_4           = "http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"; //$NON-NLS-1$
-    String WEB_APP_SCHEMA_LOC_2_5           = "http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"; //$NON-NLS-1$ //EJB3
-    String WEB_APP_SCHEMA_LOC_3_0           = "http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"; //$NON-NLS-1$ //Web 3
+    String WEB_APP_SCHEMA_LOC_2_5           = "http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"; //$NON-NLS-1$
+    String WEB_APP_SCHEMA_LOC_3_0           = "http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"; //$NON-NLS-1$
+    String WEB_APP_SCHEMA_LOC_3_1           = "http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"; //$NON-NLS-1$
     String WEB_SERVICES_CLIENT_SCHEMA_LOC_1_1 = "http://www.ibm.com/webservices/xsd/j2ee_web_services_client_1_1.xsd"; //$NON-NLS-1$
     String JSP_SCHEMA_LOC_2_0               =  "http://java.sun.com/xml/ns/j2ee/jsp_2_0.xsd"; //$NON-NLS-1$
     String JSP_SCHEMA_LOC_2_1               =  "http://java.sun.com/xml/ns/javaee/jsp_2_1.xsd"; //$NON-NLS-1$ //EJB3
     String WEBFRAGMENT_SCHEMA_LOC_3_0       = "http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd"; //$NON-NLS-1$ //Web Fragment3
+    String WEBFRAGMENT_SCHEMA_LOC_3_1       = "http://xmlns.jcp.org/xml/ns/javaee/web-fragment_3_1.xsd"; //$NON-NLS-1$ //Web Fragment3
     
     public static final String EAR_MODEL_NAME = "EAR_VALIDATION"; //$NON-NLS-1$
 }

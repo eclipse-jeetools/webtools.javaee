@@ -382,8 +382,12 @@ public class EarUtilities extends JavaEEProjectUtilities {
 
 			if (DYNAMIC_WEB.equals(moduleProjectFacetId)) {
 				switch (earVersion) {
+				case J2EEVersionConstants.VERSION_7_0:
+					retVal.add(DYNAMIC_WEB_31);
+					//$FALL-THROUGH$
 				case J2EEVersionConstants.VERSION_6_0:
 					retVal.add(DYNAMIC_WEB_30);
+					//$FALL-THROUGH$
 				case J2EEVersionConstants.VERSION_5_0:
 					retVal.add(DYNAMIC_WEB_25);
 					//$FALL-THROUGH$
@@ -399,8 +403,12 @@ public class EarUtilities extends JavaEEProjectUtilities {
 				}
 			} else if (EJB.equals(moduleProjectFacetId)) {
 				switch (earVersion) {
+				case J2EEVersionConstants.VERSION_7_0:
+					retVal.add(EJB_32);
+					//$FALL-THROUGH$
 				case J2EEVersionConstants.VERSION_6_0:
 					retVal.add(EJB_31);
+					//$FALL-THROUGH$
 				case J2EEVersionConstants.VERSION_5_0:
 					retVal.add(EJB_30);
 					//$FALL-THROUGH$
@@ -415,6 +423,7 @@ public class EarUtilities extends JavaEEProjectUtilities {
 				}
 			} else if (JCA.equals(moduleProjectFacetId)) {
 				switch (earVersion) {
+				case J2EEVersionConstants.VERSION_7_0:
 				case J2EEVersionConstants.VERSION_6_0:
 					retVal.add(JCA_16);
 				case J2EEVersionConstants.VERSION_5_0:
@@ -429,8 +438,12 @@ public class EarUtilities extends JavaEEProjectUtilities {
 				}
 			} else if (APPLICATION_CLIENT.equals(moduleProjectFacetId)) {
 				switch (earVersion) {
+				case J2EEVersionConstants.VERSION_7_0:
+					retVal.add(APPLICATION_CLIENT_70);
+					//$FALL-THROUGH$
 				case J2EEVersionConstants.VERSION_6_0:
 					retVal.add(APPLICATION_CLIENT_60);
+					//$FALL-THROUGH$
 				case J2EEVersionConstants.VERSION_5_0:
 					retVal.add(APPLICATION_CLIENT_50);
 					//$FALL-THROUGH$

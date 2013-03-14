@@ -34,6 +34,7 @@ import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.ManifestFileCreationAction;
 import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.datamodel.FacetDataModelProvider;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
@@ -110,7 +111,7 @@ public class WebFragmentFacetInstallDelegate implements IDelegate {
         IFile file = aFolder.getFile(new Path(J2EEConstants.WEBFRAGMENT_DD_URI));
         if (file.exists()) return;
         try {
-        	createWebFragmentFile(file, project);
+        	createWebFragmentFile(file, project, fv);
         } catch (CoreException e) {
             J2EEPlugin.logError(e);
         } catch (IOException e) {
@@ -118,11 +119,22 @@ public class WebFragmentFacetInstallDelegate implements IDelegate {
         }
     }
 	
-	public static void createWebFragmentFile(IFile file, IProject project) throws CoreException, IOException {
+	public static void createWebFragmentFile(IFile file, IProject project, IProjectFacetVersion fv) throws CoreException, IOException {
 		try {
 			WorkbenchByteArrayOutputStream out = new WorkbenchByteArrayOutputStream(file);
 			String projectNamewithoutSpecialChars = getNameWithoutSpecialCharacters(project.getName());
-			final String webFragXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<web-fragment id=\"WebFragment_ID\" version=\"3.0\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd\">\n<display-name>" + XMLWriter.getEscaped(project.getName())+ "</display-name> \n <name>"+ XMLWriter.getEscaped(projectNamewithoutSpecialChars) +  "</name> \n </web-fragment>"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			
+			final String webFragXmlContents;
+			
+			if( fv == IJ2EEFacetConstants.WEBFRAGMENT_31 )
+			{
+				webFragXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<web-fragment id=\"WebFragment_ID\" version=\"3.0\" xmlns=\"http://xmlns.jcp.org/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-fragment_3_1.xsd\">\n<display-name>" + XMLWriter.getEscaped(project.getName())+ "</display-name> \n <name>"+ XMLWriter.getEscaped(projectNamewithoutSpecialChars) +  "</name> \n </web-fragment>"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			}
+			else
+			{
+				webFragXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<web-fragment id=\"WebFragment_ID\" version=\"3.0\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd\">\n<display-name>" + XMLWriter.getEscaped(project.getName())+ "</display-name> \n <name>"+ XMLWriter.getEscaped(projectNamewithoutSpecialChars) +  "</name> \n </web-fragment>"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			}
+			
 			out.write(webFragXmlContents.getBytes("UTF-8")); //$NON-NLS-1$
 			out.close();
 		} catch (IOException ioe) {

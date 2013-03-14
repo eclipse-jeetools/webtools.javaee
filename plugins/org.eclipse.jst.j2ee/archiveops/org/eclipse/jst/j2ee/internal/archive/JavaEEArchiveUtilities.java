@@ -192,6 +192,8 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 						version = J2EEVersionConstants.JEE_5_0_ID;
 					} else if (versionStr.equals(J2EEVersionConstants.VERSION_6_0_TEXT)) {
 						version = J2EEVersionConstants.JEE_6_0_ID;
+					} else if (versionStr.equals(J2EEVersionConstants.VERSION_7_0_TEXT)) {
+						version = J2EEVersionConstants.JEE_7_0_ID;
 					}
 					break;
 				case J2EEVersionConstants.CONNECTOR_TYPE:
@@ -214,6 +216,8 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 						version = J2EEVersionConstants.EJB_3_0_ID;
 					} else if (versionStr.equals(J2EEVersionConstants.VERSION_3_1_TEXT)) {
 						version = J2EEVersionConstants.EJB_3_1_ID;
+					} else if (versionStr.equals(J2EEVersionConstants.VERSION_3_2_TEXT)) {
+						version = J2EEVersionConstants.EJB_3_2_ID;
 					}
 					break;
 				case J2EEVersionConstants.WEB_TYPE:
@@ -227,6 +231,8 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 						version = J2EEVersionConstants.WEB_2_5_ID;
 					} else if (versionStr.equals(J2EEVersionConstants.VERSION_3_0_TEXT)) {
 						version = J2EEVersionConstants.WEB_3_0_ID;
+					} else if (versionStr.equals(J2EEVersionConstants.VERSION_3_1_TEXT)) {
+						version = J2EEVersionConstants.WEB_3_1_ID;
 					}
 					break;
 				}
