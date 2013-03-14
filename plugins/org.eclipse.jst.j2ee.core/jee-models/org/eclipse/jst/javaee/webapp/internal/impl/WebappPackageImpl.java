@@ -206,7 +206,7 @@ public class WebappPackageImpl extends EPackageImpl implements WebappPackage {
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		WebPackage theWebPackage = (WebPackage)EPackage.Registry.INSTANCE.getEPackage(WebPackage.eNS_URI);
+		WebPackage theWebPackage = (WebPackage)(EPackage.Registry.INSTANCE.getEPackage(WebPackage.eNS_URI) instanceof WebPackage ? EPackage.Registry.INSTANCE.getEPackage(WebPackage.eNS_URI) : WebPackage.eINSTANCE);
 
 		// Create type parameters
 

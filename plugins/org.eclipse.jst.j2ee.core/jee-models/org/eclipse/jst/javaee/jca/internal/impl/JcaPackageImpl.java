@@ -1249,7 +1249,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		JavaeePackage theJavaeePackage = (JavaeePackage)EPackage.Registry.INSTANCE.getEPackage(JavaeePackage.eNS_URI);
+		JavaeePackage theJavaeePackage = (JavaeePackage)(EPackage.Registry.INSTANCE.getEPackage(JavaeePackage.eNS_URI) instanceof JavaeePackage ? EPackage.Registry.INSTANCE.getEPackage(JavaeePackage.eNS_URI) : JavaeePackage.eINSTANCE);
 		XMLTypePackage theXMLTypePackage = (XMLTypePackage)EPackage.Registry.INSTANCE.getEPackage(XMLTypePackage.eNS_URI);
 
 		// Create type parameters

@@ -208,7 +208,7 @@ public class WebfragmentPackageImpl extends EPackageImpl implements WebfragmentP
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		WebPackage theWebPackage = (WebPackage)EPackage.Registry.INSTANCE.getEPackage(WebPackage.eNS_URI);
+		WebPackage theWebPackage = (WebPackage)(EPackage.Registry.INSTANCE.getEPackage(WebPackage.eNS_URI) instanceof WebPackage ? EPackage.Registry.INSTANCE.getEPackage(WebPackage.eNS_URI) : WebPackage.eINSTANCE);
 
 		// Create type parameters
 

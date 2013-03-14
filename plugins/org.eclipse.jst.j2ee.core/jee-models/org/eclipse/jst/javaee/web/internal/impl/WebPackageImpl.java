@@ -2954,7 +2954,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		JavaeePackage theJavaeePackage = (JavaeePackage)EPackage.Registry.INSTANCE.getEPackage(JavaeePackage.eNS_URI);
+		JavaeePackage theJavaeePackage = (JavaeePackage)(EPackage.Registry.INSTANCE.getEPackage(JavaeePackage.eNS_URI) instanceof JavaeePackage ? EPackage.Registry.INSTANCE.getEPackage(JavaeePackage.eNS_URI) : JavaeePackage.eINSTANCE);
 		XMLTypePackage theXMLTypePackage = (XMLTypePackage)EPackage.Registry.INSTANCE.getEPackage(XMLTypePackage.eNS_URI);
 		JspPackage theJspPackage = (JspPackage)EPackage.Registry.INSTANCE.getEPackage(JspPackage.eNS_URI);
 
