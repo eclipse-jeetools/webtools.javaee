@@ -18,7 +18,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.jst.common.project.facet.JavaFacetUtils;
+import org.eclipse.jst.common.project.facet.core.JavaFacet;
 import org.eclipse.jst.j2ee.internal.wizard.J2EEComponentFacetCreationWizardPage;
 import org.eclipse.jst.j2ee.web.project.facet.IWebFragmentProjectCreationDataModelProperties;
 import org.eclipse.jst.j2ee.web.project.facet.WebFacetUtils;
@@ -101,9 +101,13 @@ public class WebFragmentProjectFirstPage extends J2EEComponentFacetCreationWizar
 	    else {
 		    facets.add(primaryFacetVersion);
 		    
-		    if(primaryFacetVersion == WebFacetUtils.WEBFRAGMENT_30)
+		    if(primaryFacetVersion == WebFacetUtils.WEBFRAGMENT_31)
 		    {
-		        facets.add(JavaFacetUtils.JAVA_60);
+		        facets.add(JavaFacet.VERSION_1_7);
+		    }
+		    else if(primaryFacetVersion == WebFacetUtils.WEBFRAGMENT_30)
+		    {
+		        facets.add(JavaFacet.VERSION_1_6);
 		    }
 	    }
 	    return Collections.unmodifiableSet( facets );

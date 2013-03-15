@@ -479,7 +479,7 @@
     <project-facet-version facet="jst.webfragment" version="3.0">
       <constraint>
         <and>
-          <requires facet="jst.java" version="[6.0"/>
+          <requires facet="jst.java" version="[1.6"/>
           <conflicts group="modules"/>
         </and>
       </constraint>
@@ -489,7 +489,7 @@
     <project-facet-version facet="jst.webfragment" version="3.1">
       <constraint>
         <and>
-          <requires facet="jst.java" version="[7.0"/>
+          <requires facet="jst.java" version="[1.7"/>
           <conflicts group="modules"/>
         </and>
       </constraint>
