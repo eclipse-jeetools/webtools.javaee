@@ -85,6 +85,9 @@ public class J2EEVersionUtil {
 		case J2EEVersionConstants.JCA_1_6_ID:
 			return J2EEVersionConstants.VERSION_1_6_TEXT;
 
+		case J2EEVersionConstants.JCA_1_7_ID:
+			return J2EEVersionConstants.VERSION_1_7_TEXT;
+
 		}
 		return ""; //$NON-NLS-1$
 	}
@@ -225,8 +228,9 @@ public class J2EEVersionUtil {
 			case J2EEVersionConstants.JEE_5_0_ID:
 				return J2EEVersionConstants.JCA_1_5_ID;
 			case J2EEVersionConstants.JEE_6_0_ID:
-			case J2EEVersionConstants.JEE_7_0_ID:
 				return J2EEVersionConstants.JCA_1_6_ID;
+			case J2EEVersionConstants.JEE_7_0_ID:
+				return J2EEVersionConstants.JCA_1_7_ID;
 		}
 		// default
 		return J2EEVersionConstants.JCA_1_6_ID;
@@ -332,6 +336,9 @@ public class J2EEVersionUtil {
 		
 		else if (version == J2EEVersionConstants.VERSION_1_6)
 			nVersion = J2EEVersionConstants.VERSION_1_6_TEXT;
+		
+		else if (version == J2EEVersionConstants.VERSION_1_7)
+			nVersion = J2EEVersionConstants.VERSION_1_7_TEXT;
 		
 		else if (version == J2EEVersionConstants.VERSION_2_0)
 			nVersion = J2EEVersionConstants.VERSION_2_0_TEXT;

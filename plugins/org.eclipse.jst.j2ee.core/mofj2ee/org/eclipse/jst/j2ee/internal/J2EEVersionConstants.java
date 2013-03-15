@@ -63,6 +63,7 @@ public interface J2EEVersionConstants {
 	public int JCA_1_0_ID = 10;
 	public int JCA_1_5_ID = 15;
 	public int JCA_1_6_ID = 16;
+	public int JCA_1_7_ID = 17;
 	public int WEBSERVICES_1_0_ID = 10;
 	public int WEBSERVICES_1_1_ID = 11;
 	public int WEBSERVICES_1_2_ID = 12;
@@ -99,6 +100,7 @@ public interface J2EEVersionConstants {
 	public String VERSION_1_4_TEXT		= "1.4"; //$NON-NLS-1$
 	public String VERSION_1_5_TEXT		= "1.5"; //$NON-NLS-1$
 	public String VERSION_1_6_TEXT		= "1.6"; //$NON-NLS-1$
+	public String VERSION_1_7_TEXT		= "1.7"; //$NON-NLS-1$
 	public String VERSION_2_0_TEXT		= "2.0"; //$NON-NLS-1$
 	public String VERSION_2_1_TEXT		= "2.1"; //$NON-NLS-1$
 	public String VERSION_2_2_TEXT		= "2.2"; //$NON-NLS-1$

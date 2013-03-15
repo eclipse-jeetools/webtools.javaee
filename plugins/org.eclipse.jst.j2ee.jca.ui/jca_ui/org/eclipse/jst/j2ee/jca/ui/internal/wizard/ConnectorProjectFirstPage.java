@@ -53,7 +53,11 @@ public class ConnectorProjectFirstPage extends J2EEComponentFacetCreationWizardP
 	    else {
 		    facets.add(primaryFacetVersion);
 		    
-		    if( primaryFacetVersion == IJ2EEFacetConstants.JCA_16)
+		    if( primaryFacetVersion == IJ2EEFacetConstants.JCA_17)
+		    {
+		        facets.add(JavaFacet.VERSION_1_7);
+		    }
+		    else if( primaryFacetVersion == IJ2EEFacetConstants.JCA_16)
 		    {
 		        facets.add(JavaFacet.VERSION_1_6);
 		    }
