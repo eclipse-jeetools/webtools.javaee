@@ -14,7 +14,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.eclipse.jst.common.project.facet.JavaFacetUtils;
+import org.eclipse.jst.common.project.facet.core.JavaFacet;
 import org.eclipse.jst.ejb.ui.internal.util.EJBUIMessages;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
@@ -54,22 +54,26 @@ public class EjbProjectFirstPage extends J2EEComponentFacetCreationWizardPage {
 	    else {
 		    facets.add(primaryFacetVersion);
 		    
-		    if(primaryFacetVersion == IJ2EEFacetConstants.EJB_31)
+		    if(primaryFacetVersion == IJ2EEFacetConstants.EJB_32)
 		    {
-		        facets.add(JavaFacetUtils.JAVA_60);
+		        facets.add(JavaFacet.VERSION_1_7);
+		    }
+		    else if(primaryFacetVersion == IJ2EEFacetConstants.EJB_31)
+		    {
+		        facets.add(JavaFacet.VERSION_1_6);
 		    }
 		    else if(primaryFacetVersion == IJ2EEFacetConstants.EJB_30)
 		    {
-		        facets.add(JavaFacetUtils.JAVA_50);
+		        facets.add(JavaFacet.VERSION_1_5);
 		    }
 		    else if(primaryFacetVersion == IJ2EEFacetConstants.EJB_21)
 		    {
-		        facets.add(JavaFacetUtils.JAVA_14);
+		        facets.add(JavaFacet.VERSION_1_4);
 		    }
 		    else if(primaryFacetVersion == IJ2EEFacetConstants.EJB_20 || 
 		    		primaryFacetVersion == IJ2EEFacetConstants.EJB_11)
 		    {
-		        facets.add(JavaFacetUtils.JAVA_13);
+		        facets.add(JavaFacet.VERSION_1_3);
 		    }
 	    }
 	    return Collections.unmodifiableSet( facets );
