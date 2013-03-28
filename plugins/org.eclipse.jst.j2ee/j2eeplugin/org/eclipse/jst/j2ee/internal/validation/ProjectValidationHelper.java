@@ -30,8 +30,13 @@ public class ProjectValidationHelper implements IProjectValidationHelper {
 	private IContainer[] sources;
 	
 	public static ProjectValidationHelper getInstance(){
-		if (INSTANCE == null)
-			INSTANCE = new ProjectValidationHelper();
+		if (INSTANCE == null) {
+			 synchronized (ProjectValidationHelper.class) {
+				 if (INSTANCE == null) {
+					 INSTANCE = new ProjectValidationHelper();
+				 }
+			 }
+		}
 		return INSTANCE;
 	}
 	public void disposeInstance(){
