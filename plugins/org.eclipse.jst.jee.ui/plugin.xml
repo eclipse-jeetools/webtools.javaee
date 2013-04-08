@@ -1250,9 +1250,6 @@
           priority="highest">
      <triggerPoints>
         <or>
-           <instanceof
-                 value="org.eclipse.core.resources.IProject">
-           </instanceof>
            <adapt
                  type="org.eclipse.core.resources.IProject">
                  <or>
