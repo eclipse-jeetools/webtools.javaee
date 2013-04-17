@@ -53,7 +53,23 @@ public interface IDefaultJ2EEComponentCreationDataModelProperties {
      * Default is true. type Boolean
      */
     public static final String CREATE_CONNECTOR = "DefaultJ2EEComponentCreationDataModel.CREATE_CONNECTOR"; //$NON-NLS-1$
-
+    /**
+     * Default is true. type Boolean
+     */
+    public static final String EJB_SUPPORT = "DefaultJ2EEComponentCreationDataModel.EJB_SUPPORT"; //$NON-NLS-1$
+    /**
+     * Default is true. type Boolean
+     */
+    public static final String WEB_SUPPORT = "DefaultJ2EEComponentCreationDataModel.WEB_SUPPORT"; //$NON-NLS-1$
+    /**
+     * Default is true. type Boolean
+     */
+    public static final String APPCLIENT_SUPPORT = "DefaultJ2EEComponentCreationDataModel.CLIENT_SUPPORT"; //$NON-NLS-1$
+    /**
+     * Default is true. type Boolean
+     */
+    public static final String CONNECTOR_SUPPORT = "DefaultJ2EEComponentCreationDataModel.CONNECTOR_SUPPORT"; //$NON-NLS-1$
+    
     /**
      * Used for validation only; validates no collsions between various module names. Do not set
      * this value.

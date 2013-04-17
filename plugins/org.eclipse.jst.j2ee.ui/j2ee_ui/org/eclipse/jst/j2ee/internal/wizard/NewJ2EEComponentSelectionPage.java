@@ -25,8 +25,8 @@ import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.actions.IJ2EEUIContextIds;
 import org.eclipse.jst.j2ee.internal.earcreation.IDefaultJ2EEComponentCreationDataModelProperties;
 import org.eclipse.jst.j2ee.internal.moduleextension.EarModuleManager;
-import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StackLayout;
 import org.eclipse.swt.layout.GridData;
@@ -45,6 +45,8 @@ import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCr
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizardPage;
 import org.eclipse.wst.common.frameworks.internal.ui.GenericWizardNode;
+import org.eclipse.wst.common.project.facet.core.IProjectFacet;
+import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 import org.eclipse.wst.web.ui.internal.wizards.NewProjectDataModelFacetWizard;
 
 public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implements IDefaultJ2EEComponentCreationDataModelProperties {
@@ -91,7 +93,11 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
      */
     @Override
 	protected String[] getValidationPropertyNames() {
-        return new String[] { CREATE_APPCLIENT, APPCLIENT_COMPONENT_NAME, CREATE_CONNECTOR, CONNECTOR_COMPONENT_NAME, CREATE_EJB, EJB_COMPONENT_NAME, CREATE_WEB, WEB_COMPONENT_NAME, MODULE_NAME_COLLISIONS_VALIDATION, ENABLED };
+        return new String[] { CREATE_APPCLIENT, APPCLIENT_COMPONENT_NAME, APPCLIENT_SUPPORT, 
+        					  CREATE_CONNECTOR, CONNECTOR_COMPONENT_NAME, CONNECTOR_SUPPORT,
+        					  CREATE_EJB, EJB_COMPONENT_NAME, EJB_SUPPORT,
+        					  CREATE_WEB, WEB_COMPONENT_NAME, WEB_SUPPORT,
+        					  MODULE_NAME_COLLISIONS_VALIDATION, ENABLED };
     }
 
     /*
@@ -138,11 +144,25 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
         defaultModulesComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         // Default Module Controls creation
         createAppClientDefaultModuleControl();
-        if (J2EEPlugin.isEJBSupportAvailable())
-            createEJBDefaultModuleControl();
+        if(!isAppClientSupported()){
+        	getDataModel().setBooleanProperty(APPCLIENT_SUPPORT, false);
+        	getDataModel().setBooleanProperty(CREATE_APPCLIENT, false);
+        }
+        createEJBDefaultModuleControl();
+        if(!isEJBSupported()){
+        	getDataModel().setBooleanProperty(EJB_SUPPORT, false);
+        	getDataModel().setBooleanProperty(CREATE_EJB, false);
+        }
         createWebDefaultModuleControl();
-        if (J2EEPlugin.isEJBSupportAvailable())
-            createConnectorDefaultModuleControl();
+        if(!isWebSupported()){
+        	getDataModel().setBooleanProperty(WEB_SUPPORT, false);
+        	getDataModel().setBooleanProperty(CREATE_WEB, false);
+        }
+        createConnectorDefaultModuleControl();
+        if(!isJCASupported()){
+        	getDataModel().setBooleanProperty(CONNECTOR_SUPPORT, false);
+        	getDataModel().setBooleanProperty(CREATE_CONNECTOR, false);
+        }
     }
 
     /**
@@ -154,23 +174,28 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
         layout.numColumns = 1;
         newModulesComposite.setLayout(layout);
         newModulesComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+        
         appClientRadioButton = new Button(newModulesComposite, SWT.RADIO);
-
         appClientRadioButton.setText(J2EEUIMessages.getResourceString("NewModuleSelectionPage.appClient")); //$NON-NLS-1$
+        appClientRadioButton.setEnabled(isAppClientSupported());
         appClientRadioButton.addListener(SWT.Selection, this);
+        
         if (EarModuleManager.getEJBModuleExtension() != null) {
             ejbRadioButton = new Button(newModulesComposite, SWT.RADIO);
             ejbRadioButton.setText(J2EEUIMessages.getResourceString("NewModuleSelectionPage.ejb")); //$NON-NLS-1$
+            ejbRadioButton.setEnabled(isEJBSupported());
             ejbRadioButton.addListener(SWT.Selection, this);
         }
         if (EarModuleManager.getWebModuleExtension() != null) {
             webRadioButton = new Button(newModulesComposite, SWT.RADIO);
             webRadioButton.setText(J2EEUIMessages.getResourceString("NewModuleSelectionPage.web")); //$NON-NLS-1$
+            webRadioButton.setEnabled(isWebSupported());
             webRadioButton.addListener(SWT.Selection, this);
         }
         if (EarModuleManager.getJCAModuleExtension() != null) {
             connectorRadioButton = new Button(newModulesComposite, SWT.RADIO);
             connectorRadioButton.setText(J2EEUIMessages.getResourceString("NewModuleSelectionPage.jca")); //$NON-NLS-1$
+            connectorRadioButton.setEnabled(isJCASupported());
             connectorRadioButton.addListener(SWT.Selection, this);
         }
     }
@@ -285,10 +310,22 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
     }
 
     private void setDefaultModulesSelection(boolean selection) {
-        getDataModel().setBooleanProperty(CREATE_APPCLIENT, selection);
-        getDataModel().setBooleanProperty(CREATE_CONNECTOR, selection);
-        getDataModel().setBooleanProperty(CREATE_EJB, selection);
-        getDataModel().setBooleanProperty(CREATE_WEB, selection);
+    	if(isAppClientSupported())
+    		getDataModel().setBooleanProperty(CREATE_APPCLIENT, selection);
+    	else
+    		getDataModel().setBooleanProperty(CREATE_APPCLIENT, false);
+    	if(isJCASupported())
+    		getDataModel().setBooleanProperty(CREATE_CONNECTOR, selection);
+    	else
+    		getDataModel().setBooleanProperty(CREATE_CONNECTOR, false);
+    	if(isEJBSupported())
+    		getDataModel().setBooleanProperty(CREATE_EJB, selection);
+    	else
+    		getDataModel().setBooleanProperty(CREATE_EJB, false);
+    	if(isWebSupported())
+    		getDataModel().setBooleanProperty(CREATE_WEB, selection);
+    	else
+    		getDataModel().setBooleanProperty(CREATE_WEB, false);
     }
 
     private void showDefaultModulesComposite() {
@@ -304,7 +341,7 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
     private void setButtonEnablement() {
         if (!defaultModulesButton.getSelection() && connectorRadioButton != null) {
             int version = getDataModel().getIntProperty(J2EE_VERSION);
-            connectorRadioButton.setEnabled(version > J2EEVersionConstants.J2EE_1_2_ID);
+            connectorRadioButton.setEnabled(version > J2EEVersionConstants.J2EE_1_2_ID && isJCASupported());
         }
     }
 
@@ -315,16 +352,30 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
         defaultModulesComposite.setVisible(false);
         newModulesComposite.setVisible(true);
         if (!isAnyModuleRadioSelected())
-            appClientRadioButton.setSelection(true);
+        	if(getFisrtAvailableRadioButton() != null)
+        		getFisrtAvailableRadioButton().setSelection(true);
         setSelectedNode(getWizardNodeFromSelection());
         stackLayout.topControl = newModulesComposite;
+    }
+    
+    private Button getFisrtAvailableRadioButton(){
+    	if(appClientRadioButton != null && appClientRadioButton.isEnabled())
+    		return appClientRadioButton;
+    	else if(ejbRadioButton != null && ejbRadioButton.isEnabled())
+    		return ejbRadioButton;
+    	else if(connectorRadioButton != null && connectorRadioButton.isEnabled())
+    		return connectorRadioButton;
+    	else if(webRadioButton != null && webRadioButton.isEnabled())
+    		return webRadioButton;
+    	
+    	return null;
     }
 
     /**
      * @return
      */
     private GenericWizardNode getWizardNodeFromSelection() {
-        if (appClientRadioButton.getSelection())
+        if (appClientRadioButton != null && appClientRadioButton.getSelection())
             return getAppClientNode();
         if (connectorRadioButton != null && connectorRadioButton.getSelection())
             return getConnectorNode();
@@ -339,7 +390,7 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
      * @return
      */
     private boolean isAnyModuleRadioSelected() {
-        return appClientRadioButton.getSelection() || (connectorRadioButton != null && connectorRadioButton.getSelection()) || (ejbRadioButton != null && ejbRadioButton.getSelection()) || (webRadioButton != null && webRadioButton.getSelection());
+        return (appClientRadioButton != null && appClientRadioButton.getSelection()) || (connectorRadioButton != null && connectorRadioButton.getSelection()) || (ejbRadioButton != null && ejbRadioButton.getSelection()) || (webRadioButton != null && webRadioButton.getSelection());
     }
 
     /**
@@ -526,5 +577,32 @@ public class NewJ2EEComponentSelectionPage extends DataModelWizardPage implement
         } else
             super.validatePage();
     }
-
+    
+    private boolean isWebSupported(){
+		return isFacetSupported(IJ2EEFacetConstants.DYNAMIC_WEB_FACET);
+	}
+	
+	private boolean isAppClientSupported(){
+		return isFacetSupported(IJ2EEFacetConstants.APPLICATION_CLIENT_FACET);
+	}
+	
+	private boolean isEJBSupported(){
+		return isFacetSupported(IJ2EEFacetConstants.EJB_FACET);
+	}
+	
+	private boolean isJCASupported(){
+		return isFacetSupported(IJ2EEFacetConstants.JCA_FACET);
+	}
+	
+	private boolean isFacetSupported(IProjectFacet facet){
+		boolean supports = true;
+		
+		IRuntime rt = (IRuntime) getDataModel().getProperty(FACET_RUNTIME);
+		
+		if(rt != null)
+			if( ! rt.supports( facet ) )
+				supports = false;
+		
+		return supports;
+	}
 }
