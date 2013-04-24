@@ -598,7 +598,7 @@
           facet="jst.ear"
           id="jst.ear.versionchange.legacy"
           type="VERSION_CHANGE"
-          version="[1.4-6.0]">
+          version="[1.4-7.0]">
        <delegate
              class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
        </delegate>
@@ -606,19 +606,29 @@
     </action>
     <action
           facet="jst.ear"
-          id="jst.ear.versionchange"
+          id="jst.ear.versionchange.ee5"
           type="VERSION_CHANGE"
-          version="[5.0-6.0]">
+          version="[5.0-7.0]">
        <delegate
              class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
        </delegate>
        <property name="from.versions" value="5.0"/>
     </action>
     <action
+          facet="jst.ear"
+          id="jst.ear.versionchange.ee6"
+          type="VERSION_CHANGE"
+          version="[6.0-7.0]">
+       <delegate
+             class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
+       </delegate>
+       <property name="from.versions" value="6.0"/>
+    </action>
+    <action
           facet="jst.appclient"
           id="jst.appclient.versionchange.legacy"
           type="VERSION_CHANGE"
-          version="[1.4-6.0]">
+          version="[1.4-7.0]">
        <delegate
              class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
        </delegate>
@@ -626,19 +636,29 @@
     </action>
     <action
           facet="jst.appclient"
-          id="jst.appclient.versionchange"
+          id="jst.appclient.versionchange.ee5"
           type="VERSION_CHANGE"
-          version="[5.0-6.0]">
+          version="[5.0-7.0]">
        <delegate
              class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
        </delegate>
        <property name="from.versions" value="5.0"/>
     </action>
+     <action
+          facet="jst.appclient"
+          id="jst.appclient.versionchange.ee6"
+          type="VERSION_CHANGE"
+          version="[6.0-7.0]">
+       <delegate
+             class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
+       </delegate>
+       <property name="from.versions" value="6.0"/>
+    </action>
     <action
           facet="jst.ejb"
           id="jst.ejb.versionchange.legacy"
           type="VERSION_CHANGE"
-          version="[2.1-3.1]">
+          version="[2.1-3.2]">
        <delegate
              class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
        </delegate>
@@ -646,7 +666,47 @@
     </action>
     <action
           facet="jst.ejb"
-          id="jst.ejb.versionchange"
+          id="jst.ejb.versionchange.ee5"
+          type="VERSION_CHANGE"
+          version="[3.0-3.2]">
+       <delegate
+             class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
+       </delegate>
+       <property name="from.versions" value="3.0"/>
+    </action>
+    <action
+          facet="jst.ejb"
+          id="jst.ejb.versionchange.ee6"
+          type="VERSION_CHANGE"
+          version="[3.1-3.2]">
+       <delegate
+             class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
+       </delegate>
+       <property name="from.versions" value="3.1"/>
+    </action>
+    <action
+          facet="jst.web"
+          id="jst.web.versionchange.legacy"
+          type="VERSION_CHANGE"
+          version="[2.4-3.1]">
+       <delegate
+             class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
+       </delegate>
+       <property name="from.versions" value="2.4"/>
+    </action>
+    <action
+          facet="jst.web"
+          id="jst.web.versionchange.ee5"
+          type="VERSION_CHANGE"
+          version="[2.5-3.1]">
+       <delegate
+             class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
+       </delegate>
+       <property name="from.versions" value="2.5"/>
+    </action>
+    <action
+          facet="jst.web"
+          id="jst.web.versionchange.ee6"
           type="VERSION_CHANGE"
           version="[3.0-3.1]">
        <delegate
@@ -655,36 +715,25 @@
        <property name="from.versions" value="3.0"/>
     </action>
     <action
-          facet="jst.web"
-          id="jst.web.versionchange.legacy"
-          type="VERSION_CHANGE"
-          version="[2.4-3.0]">
-       <delegate
-             class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
-       </delegate>
-       <property name="from.versions" value="2.4"/>
-    </action>
-    <action
-          facet="jst.web"
-          id="jst.web.versionchange"
-          type="VERSION_CHANGE"
-          version="[2.5-3.0]">
-       <delegate
-             class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
-       </delegate>
-       <property name="from.versions" value="2.5"/>
-    </action>
-    <action
           facet="jst.connector"
-          id="jst.connector.versionchange"
+          id="jst.connector.versionchange.ee5"
           type="VERSION_CHANGE"
-          version="[1.5-1.6]">
+          version="[1.5-1.7]">
        <delegate
              class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
        </delegate>
        <property name="from.versions" value="1.5"/>
-    </action>    
-
+    </action>
+    <action
+          facet="jst.connector"
+          id="jst.connector.versionchange.ee6"
+          type="VERSION_CHANGE"
+          version="[1.6-1.7]">
+       <delegate
+             class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
+       </delegate>
+       <property name="from.versions" value="1.6"/>
+    </action>     
   </extension>
   
   <extension point="org.eclipse.wst.common.project.facet.core.validators">
