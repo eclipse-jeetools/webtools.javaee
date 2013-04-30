@@ -85,6 +85,10 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 		propertyNames.add(CREATE_WEB);
 		propertyNames.add(CREATE_APPCLIENT);
 		propertyNames.add(CREATE_CONNECTOR);
+		propertyNames.add(EJB_SUPPORT);
+		propertyNames.add(WEB_SUPPORT);
+		propertyNames.add(APPCLIENT_SUPPORT);
+		propertyNames.add(CONNECTOR_SUPPORT);
 		propertyNames.add(MODULE_NAME_COLLISIONS_VALIDATION);
 		propertyNames.add(ENABLED);
 		propertyNames.add(NESTED_MODEL_CLIENT);
@@ -155,6 +159,11 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 		if (propertyName.startsWith(CREATE_BASE))
 			return getDefaultCreateValue(propertyName);
 		if (propertyName.equals(ENABLED))
+			return Boolean.TRUE;
+		if(propertyName.equals(EJB_SUPPORT) ||
+				propertyName.equals(WEB_SUPPORT) ||
+				propertyName.equals(APPCLIENT_SUPPORT) ||
+				propertyName.equals(CONNECTOR_SUPPORT))
 			return Boolean.TRUE;
 		return super.getDefaultProperty(propertyName);
 	}
@@ -453,19 +462,33 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 
 	@Override
 	public boolean isPropertyEnabled(String propertyName) {
-		if (propertyName.equals(CREATE_CONNECTOR)) {
+		if (propertyName.equals(CONNECTOR_COMPONENT_NAME)) {
 			int version = getIntProperty(J2EE_VERSION);
-			return version > J2EEVersionConstants.J2EE_1_2_ID;
+			return ((version > J2EEVersionConstants.J2EE_1_2_ID) && 
+					getBooleanProperty(CREATE_CONNECTOR)) ;
 		}
-		if( propertyName.equals(CONNECTOR_COMPONENT_NAME)){
-			return getBooleanProperty(CREATE_CONNECTOR);
-		}
+
+		if(propertyName.equals(CREATE_CONNECTOR))
+			return getBooleanProperty(CONNECTOR_SUPPORT);
+		
+		if(propertyName.equals(CREATE_APPCLIENT))
+			return getBooleanProperty(APPCLIENT_SUPPORT);
+		
 		if (propertyName.equals(APPCLIENT_COMPONENT_NAME))
 			return getBooleanProperty(CREATE_APPCLIENT);
+
+		if(propertyName.equals(CREATE_EJB))
+			return getBooleanProperty(EJB_SUPPORT);
+		
 		if (propertyName.equals(EJB_COMPONENT_NAME))
 			return getBooleanProperty(CREATE_EJB);
+
+		if(propertyName.equals(CREATE_WEB))
+			return getBooleanProperty(WEB_SUPPORT);
+		
 		if (propertyName.equals(WEB_COMPONENT_NAME))
 			return getBooleanProperty(CREATE_WEB);
+
 		return super.isPropertyEnabled(propertyName);
 	}
 	
