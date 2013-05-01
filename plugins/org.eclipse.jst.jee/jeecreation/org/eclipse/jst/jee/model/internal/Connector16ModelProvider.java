@@ -65,11 +65,12 @@ public class Connector16ModelProvider extends JEE5ModelProvider {
 			dd.getXSISchemaLocation().put(J2EEConstants.JAVAEE_NS_URL, J2EEConstants.CONNECTOR_SCHEMA_LOC_1_6);
 			connector.setVersion(J2EEVersionConstants.VERSION_1_6_TEXT);
 		}
-		else
+		else 
 		{
-			// default to 1.6 for now
-			dd.getXSISchemaLocation().put(J2EEConstants.JAVAEE_NS_URL, J2EEConstants.CONNECTOR_SCHEMA_LOC_1_6);
-			connector.setVersion(J2EEVersionConstants.VERSION_1_6_TEXT);
+			// default to 1.7 for now
+			dd.getXMLNSPrefixMap().put("", J2EEConstants.JAVAEE7_NS_URL);  //$NON-NLS-1$
+			dd.getXSISchemaLocation().put(J2EEConstants.JAVAEE7_NS_URL, J2EEConstants.CONNECTOR_SCHEMA_LOC_1_7);
+			connector.setVersion(J2EEVersionConstants.VERSION_1_7_TEXT);
 		}
 		dd.setConnector(connector);
 		res.getContents().add((EObject) dd);
