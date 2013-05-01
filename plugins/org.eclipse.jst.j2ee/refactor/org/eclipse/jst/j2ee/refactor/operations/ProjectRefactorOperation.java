@@ -115,7 +115,7 @@ public abstract class ProjectRefactorOperation extends AbstractDataModelOperatio
 		// Need to replace the original module with a DeletedModule
 		final IModule[] toRemove = new IModule[1];
 		toRemove[0] = new DeletedModule(originalModule.getId(), originalModule.getName(),
-				originalModule.getModuleType());
+				originalModule.getModuleType(), originalModule.isExternal());
 		
 		IModule newModule = null;
 		IModule[] toAdd = new IModule[0];
