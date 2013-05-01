@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2007 IBM Corporation and others.
+ * Copyright (c) 2001, 2013 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -48,6 +48,7 @@ public interface J2EEVersionConstants {
 	public int WEB_3_0_ID = 30;
 	public int WEB_3_1_ID = 31;
 	public int WEBFRAGMENT_3_0_ID = 30;
+	public int WEBFRAGMENT_3_1_ID = 31;
 	public int TAGLIB_1_1_ID = 11;
 	public int TAGLIB_1_2_ID = 12;
 	public int TAGLIB_2_0_ID = 20;
