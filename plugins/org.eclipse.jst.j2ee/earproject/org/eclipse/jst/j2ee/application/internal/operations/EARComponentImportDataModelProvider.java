@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2013 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -702,7 +702,7 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 	@Override
 	protected void handleUnknownType(JavaEEQuickPeek jqp) {
 		jqp.setType(J2EEVersionConstants.APPLICATION_TYPE);
-		jqp.setVersion(J2EEVersionConstants.JEE_6_0_ID);
-		jqp.setJavaEEVersion(J2EEVersionConstants.JEE_6_0_ID);
+		jqp.setVersion(J2EEVersionConstants.JEE_7_0_ID);
+		jqp.setJavaEEVersion(J2EEVersionConstants.JEE_7_0_ID);
 	}
 }

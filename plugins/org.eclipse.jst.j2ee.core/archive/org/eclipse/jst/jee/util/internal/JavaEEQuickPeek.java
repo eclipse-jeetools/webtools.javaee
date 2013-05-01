@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2005, 2013 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -338,6 +338,9 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 				case J2EEVersionConstants.JCA_1_6_ID:
 					javaEEVersion = J2EEConstants.JEE_6_0_ID;
 					break;
+				case J2EEVersionConstants.JCA_1_7_ID:
+					javaEEVersion = J2EEConstants.JEE_7_0_ID;
+					break;
 				}
 				break;
 			case WEB_TYPE:
@@ -379,8 +382,17 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 			break;
 			
 		case WEBFRAGMENT_TYPE:
-			javaEEVersion = J2EEVersionConstants.JEE_6_0_ID;
+			switch(version) {
+			case J2EEVersionConstants.WEBFRAGMENT_3_0_ID:
+				javaEEVersion = J2EEVersionConstants.JEE_6_0_ID;
+				break;
+			case J2EEVersionConstants.WEBFRAGMENT_3_1_ID:
+				javaEEVersion = J2EEVersionConstants.JEE_7_0_ID;
+				break;
+			}
+			break;
 		}
+			
 			if (javaEEVersion == UNSET) {
 				javaEEVersion = UNKNOWN;
 			}
