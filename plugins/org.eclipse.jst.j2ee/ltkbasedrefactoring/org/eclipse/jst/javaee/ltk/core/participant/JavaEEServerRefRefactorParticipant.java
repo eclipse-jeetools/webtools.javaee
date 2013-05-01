@@ -109,11 +109,45 @@ public class JavaEEServerRefRefactorParticipant extends DeleteParticipant {
 				}
 			}
 			IModule[] modsToRemove = tmpList.toArray(new IModule[tmpList.size()]);
+			// If modsToRemove is empty, that means that the server does not have the affected project deployed, or
+			// the affected project is not a top-level module (for example, and EAR, or stand-alone WAR), but we 
+			// need to check if the affected project is a child of a top-level module. 
 			if( modsToRemove.length > 0 ) 
 				change.add(new RemoveProjectFromServersChange(modsToRemove, allServers[i]));
+			else if (hasParentInServer(projectToDelete, allServers[i], pm)){
+					change.add(new RefreshServerChange(allServers[i]));
+			}
 		}
 		return change;
 	}	
+	
+	private boolean hasParentInServer(IProject project, IServer server, IProgressMonitor pm) {
+		IModule[] modules = ServerUtil.getModules(project);
+		if (modules == null || modules.length == 0){
+			return false;
+		}
+		IModule[] parents = null;
+		boolean parentFound = false;
+		for (IModule module:modules){
+			try {
+				parents = server.getRootModules(module, pm);
+			} catch (CoreException e) {
+				org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
+			}
+
+			if (parents == null || parents.length == 0){
+				return false;
+			}
+			for (IModule parent:parents){
+				if (!parent.equals(module) && ServerUtil.containsModule(server, parent, pm)){
+					parentFound = true;
+					break;
+				}
+			}			
+		}
+		return parentFound;
+	}
+
 	
 	public class RemoveProjectFromServersChange extends Change {
 
@@ -153,4 +187,27 @@ public class JavaEEServerRefRefactorParticipant extends DeleteParticipant {
 		}
 		
 	}
+	
+	public class RefreshServerChange extends RemoveProjectFromServersChange{
+
+		private IServer server;
+		
+		public RefreshServerChange(IServer server){
+			super(null, server);
+			this.server = server;
+		}
+
+		@Override
+		public Change perform(IProgressMonitor progressMonitor) throws CoreException {
+			IServerWorkingCopy wc = null;
+
+			wc = server.createWorkingCopy();
+			if (wc != null) {
+				wc.saveAll(true, null);
+			}					
+			return null;
+		}
+
+	}	
+	
 }
