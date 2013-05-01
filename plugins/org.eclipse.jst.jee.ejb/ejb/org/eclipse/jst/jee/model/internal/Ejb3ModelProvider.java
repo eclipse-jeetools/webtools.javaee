@@ -66,9 +66,14 @@ public class Ejb3ModelProvider extends JEE5ModelProvider {
 			dd.getXSISchemaLocation().put(J2EEConstants.JAVAEE_NS_URL, J2EEConstants.EJB_JAR_SCHEMA_LOC_3_0);
 			jar.setVersion(J2EEVersionConstants.VERSION_3_0_TEXT);
 		}
-		else {
+		else if(version != null && version.equals(J2EEVersionConstants.VERSION_3_1_TEXT)) {
 			dd.getXSISchemaLocation().put(J2EEConstants.JAVAEE_NS_URL, J2EEConstants.EJB_JAR_SCHEMA_LOC_3_1);
 			jar.setVersion(J2EEVersionConstants.VERSION_3_1_TEXT);
+		}
+		else {
+			dd.getXMLNSPrefixMap().put("", J2EEConstants.JAVAEE7_NS_URL);  //$NON-NLS-1$
+			dd.getXSISchemaLocation().put(J2EEConstants.JAVAEE7_NS_URL, J2EEConstants.EJB_JAR_SCHEMA_LOC_3_2);
+			jar.setVersion(J2EEVersionConstants.VERSION_3_2_TEXT);
 		}
 		dd.setEjbJar(jar);
 		res.getContents().add((EObject) dd);
