@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 BEA Systems, Inc. and others.
+ * Copyright (c) 2007-2013 BEA Systems, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  * 
  * Contributors:
  * BEA Systems, Inc. - initial API and implementation
+ * Fred Bricon (Red Hat, Inc.) - 359385 : added CLASSPATH_ARCHIVENAME_ATTRIBUTE 
  *******************************************************************************/
 package org.eclipse.jst.j2ee.classpathdep;
 
@@ -80,5 +81,12 @@ public interface IClasspathDependencyConstants {
 	 * Runtime path used to map into /WEB-INF/lib
 	 */
 	public static final IPath WEB_INF_LIB_PATH = new Path(J2EEConstants.WEB_INF_LIB).makeAbsolute();
+	
+	
+	/**
+	 * Name of the custom Java classpath entry attribute that is used to override the exported/deployed 
+	 * archive name of a given binary.
+	 */
+	public static final String CLASSPATH_ARCHIVENAME_ATTRIBUTE = "org.eclipse.jst.component.archivename"; //$NON-NLS-1$
 	
 	}

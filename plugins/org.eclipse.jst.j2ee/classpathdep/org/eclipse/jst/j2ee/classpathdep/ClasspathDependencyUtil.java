@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 BEA Systems, Inc. and others.
+ * Copyright (c) 2007-2013 BEA Systems, Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  * 
  * Contributors:
  * BEA Systems, Inc. - initial API and implementation
+ * Fred Bricon (Red Hat, Inc.) - 359385 : override classpath entry's archive name 
  *******************************************************************************/
 package org.eclipse.jst.j2ee.classpathdep;
 
@@ -17,6 +18,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -631,7 +633,10 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 	}
 	
 	/**
-	 * Retrieves the archive name for the specified classpath entry
+	 * Retrieves the archive name for the specified classpath entry. 
+	 * For library entries, if a classpath attribute with {@link IClasspathDependencyConstants.CLASSPATH_ARCHIVENAME_ATTRIBUTE} was set, 
+	 * its value will be returned.
+	 *   
 	 * @param entry The entry.
 	 * @return The archive name.
 	 */
@@ -647,10 +652,27 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 			}
 			return resource.getFullPath().toString();
 		}
+		
+		//bug 359385 : Override default archive name
+		String customArchiveName = getCustomArchiveName(entry);
+		if (customArchiveName != null) {
+			return customArchiveName;
+		}
 		final IPath entryLocation = getEntryLocation(entry);
 		return entryLocation.lastSegment();
 	}
 	
+	private static String getCustomArchiveName(IClasspathEntry entry) {
+		IClasspathAttribute[] extraAttributes = entry.getExtraAttributes();
+		if (extraAttributes != null) {
+			for (IClasspathAttribute cpa : extraAttributes) {
+				if (cpa != null && CLASSPATH_ARCHIVENAME_ATTRIBUTE.equals(cpa.getName())) { 
+					return cpa.getValue();
+				}
+			}
+		}
+		return null;
+	}
 
 	
 	/**
