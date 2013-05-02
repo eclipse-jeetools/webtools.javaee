@@ -37,6 +37,7 @@ import org.eclipse.wst.common.componentcore.internal.flat.IChildModuleReference;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.server.core.IModule;
+import org.eclipse.wst.server.core.IModule2;
 import org.eclipse.wst.server.core.internal.Module;
 import org.eclipse.wst.server.core.internal.ModuleFactory;
 import org.eclipse.wst.server.core.internal.ServerPlugin;
@@ -123,7 +124,15 @@ public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate implemen
 			if (canHandleProject(component.getProject())) {
 				String type = JavaEEProjectUtilities.getJ2EEProjectType(component.getProject());
 				String version = J2EEProjectUtilities.getJ2EEProjectVersion(component.getProject());
-				IModule module = createModule(component.getName(), component.getName(), type, version, component.getProject());
+				Map<String, String> props = new HashMap<String, String>();
+				String componentName = component.getName();
+				String deployedName = component.getDeployedName();
+				props.put(IModule2.PROP_DEPLOY_NAME, component.getDeployedName());
+				if (componentName != null && deployedName != null && !componentName.equals(deployedName)) {
+					// Only set the display name if the deploy name and the module name are different.
+					props.put(IModule2.PROP_DISPLAY_NAME, componentName + "(" + deployedName + ")");  //$NON-NLS-1$//$NON-NLS-2$
+				}
+				IModule module = createModule(component.getName(), component.getName(), type, version, component.getProject(), props);
 				FlatComponentDeployable moduleDelegate = createModuleDelegate(component.getProject(), component);
 				moduleDelegates.put(module, moduleDelegate);
 				projectModules.add(module);
