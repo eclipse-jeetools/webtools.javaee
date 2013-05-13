@@ -61,7 +61,7 @@
 %>
  */
   <% 
-	if ("3.0".equals(model.getJavaEEVersion())) { 
+	if ("3.0".equals(model.getJavaEEVersion()) || "3.1".equals(model.getJavaEEVersion())) { 
 %>
 @WebFilter
 <%

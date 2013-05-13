@@ -107,7 +107,7 @@ public class ListenerTemplate
 
     stringBuffer.append(TEXT_11);
      
-	if ("3.0".equals(model.getJavaEEVersion())) {  //$NON-NLS-1$
+    if ("3.0".equals(model.getJavaEEVersion()) || "3.1".equals(model.getJavaEEVersion())) {  //$NON-NLS-1$ //$NON-NLS-2$
 
     stringBuffer.append(TEXT_12);
     

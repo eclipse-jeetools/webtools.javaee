@@ -469,7 +469,7 @@
         point="org.eclipse.jst.j2ee.J2EEModelProvider">
       	<provider>
         	<modelProvider factoryClass="org.eclipse.jst.jee.model.internal.EAR5ModelProviderFactory"/>	
-      		<facet id="jst.ear" versions="5.0,6.0, 7.0"/>
+      		<facet id="jst.ear" versions="5.0,6.0,7.0"/>
       	</provider>
   </extension> 
 
@@ -477,7 +477,7 @@
         point="org.eclipse.jst.j2ee.J2EEModelProvider">
       	<provider>
         	<modelProvider factoryClass="org.eclipse.jst.jee.model.internal.AppClient5ModelProviderFactory"/>	
-      		<facet id="jst.appclient" versions="5.0,6.0, 7.0"/>
+      		<facet id="jst.appclient" versions="5.0,6.0,7.0"/>
       	</provider>
    </extension>
 

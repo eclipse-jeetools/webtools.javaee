@@ -122,7 +122,7 @@ public class CreateServletTemplateModel extends CreateWebClassTemplateModel {
 			collection.add(QUALIFIED_IO_EXCEPTION);
 		}
 		
-		if (SERVLET_3.equals(getJavaEEVersion())){
+		if (SERVLET_3.equals(getJavaEEVersion())||SERVLET_3_1.equals(getJavaEEVersion())){
 			collection.add(QUALIFIED_WEB_SERVLET);
 			if (getInitParams()!= null && getInitParams().size()>0){
 				collection.add(QUALIFIED_ANNOTATION_INIT_PARAM);

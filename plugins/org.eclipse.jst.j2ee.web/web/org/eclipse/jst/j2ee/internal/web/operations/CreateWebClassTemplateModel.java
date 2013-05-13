@@ -26,6 +26,7 @@ public class CreateWebClassTemplateModel extends
 	public static final String ATT_INIT_PARAMS = "initParams"; //$NON-NLS-1$
 	
 	public static final String SERVLET_3 = "3.0"; //$NON-NLS-1$
+	public static final String SERVLET_3_1 = "3.1"; //$NON-NLS-1$
 	
 	public CreateWebClassTemplateModel(IDataModel dataModel) {
 		super(dataModel);

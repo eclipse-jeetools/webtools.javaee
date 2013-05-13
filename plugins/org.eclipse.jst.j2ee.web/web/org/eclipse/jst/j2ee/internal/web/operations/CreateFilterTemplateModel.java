@@ -73,7 +73,7 @@ public class CreateFilterTemplateModel extends CreateWebClassTemplateModel {
 			collection.add(QUALIFIED_IO_EXCEPTION);
 			collection.add(QUALIFIED_SERVLET_EXCEPTION);
 		}
-		if (SERVLET_3.equals(getJavaEEVersion())){
+		if (SERVLET_3.equals(getJavaEEVersion())||SERVLET_3_1.equals(getJavaEEVersion())){
 			collection.add(QUALIFIED_WEB_FILTER);
 			if (getInitParams()!= null && getInitParams().size()>0){
 				collection.add(QUALIFIED_ANNOTATION_INIT_PARAM);

@@ -77,7 +77,7 @@ public class CreateListenerTemplateModel extends CreateWebClassTemplateModel {
 			collection.add(QUALIFIED_SERVLET_REQUEST_ATTRIBUTE_EVENT);
 		}
 		
-		if (SERVLET_3.equals(getJavaEEVersion())){
+		if (SERVLET_3.equals(getJavaEEVersion())||SERVLET_3_1.equals(getJavaEEVersion())){
 			collection.add(QUALIFIED_WEB_LISTENER);
 		}
 		
