@@ -19,6 +19,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.componentcore.J2EEModuleVirtualComponent;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
@@ -53,8 +54,8 @@ public class EarFacetInstallDataModelProvider extends J2EEFacetInstallDataModelP
 			if (model.isPropertySet(FACET_PROJECT_NAME))
 			{
 				String projectName = model.getStringProperty(FACET_PROJECT_NAME);
-				IProject project = (projectName.length() > 0) ? ResourcesPlugin.getWorkspace().getRoot().getProject(projectName) : null;
-				
+				IPath path = new Path(projectName);
+				IProject project = (projectName.length() > 0 && path.isValidSegment(projectName)) ? ResourcesPlugin.getWorkspace().getRoot().getProject(projectName) : null;
 				if (project != null && project.exists()) {
 					if (ModuleCoreNature.isFlexibleProject(project))
 					{
