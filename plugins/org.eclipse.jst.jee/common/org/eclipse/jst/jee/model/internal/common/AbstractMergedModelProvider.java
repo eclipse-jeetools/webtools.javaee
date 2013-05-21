@@ -232,7 +232,7 @@ public abstract class AbstractMergedModelProvider<T> implements IModelProvider {
 	}
 
 	private long getLastModificationTimeOfDDFile() {
-		if (ddProvider == null || ((EObject)ddProvider.getModelObject()).eResource() == null){
+		if (ddProvider == null || ddProvider.getModelObject() == null || ((EObject)ddProvider.getModelObject()).eResource() == null){
 			return -1;
 		}
 		return WorkbenchResourceHelper.getFile(((EObject)ddProvider.getModelObject()).eResource()).getLocalTimeStamp();
