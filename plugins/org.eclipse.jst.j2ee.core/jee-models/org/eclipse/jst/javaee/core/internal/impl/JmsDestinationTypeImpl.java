@@ -42,6 +42,7 @@ import org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage;
  * <ul>
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.JmsDestinationTypeImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.JmsDestinationTypeImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.JmsDestinationTypeImpl#getInterfaceName <em>Interface Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.JmsDestinationTypeImpl#getClassName <em>Class Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.JmsDestinationTypeImpl#getResourceAdapter <em>Resource Adapter</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.JmsDestinationTypeImpl#getDestinationName <em>Destination Name</em>}</li>
@@ -82,6 +83,26 @@ public class JmsDestinationTypeImpl extends EObjectImpl implements JmsDestinatio
 	 * @ordered
 	 */
 	protected String name = NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getInterfaceName() <em>Interface Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getInterfaceName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String INTERFACE_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getInterfaceName() <em>Interface Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getInterfaceName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String interfaceName = INTERFACE_NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getClassName() <em>Class Name</em>}' attribute.
@@ -261,6 +282,27 @@ public class JmsDestinationTypeImpl extends EObjectImpl implements JmsDestinatio
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getInterfaceName() {
+		return interfaceName;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setInterfaceName(String newInterfaceName) {
+		String oldInterfaceName = interfaceName;
+		interfaceName = newInterfaceName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, JavaeePackage.JMS_DESTINATION_TYPE__INTERFACE_NAME, oldInterfaceName, interfaceName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getClassName() {
 		return className;
 	}
@@ -380,6 +422,8 @@ public class JmsDestinationTypeImpl extends EObjectImpl implements JmsDestinatio
 				return getDescription();
 			case JavaeePackage.JMS_DESTINATION_TYPE__NAME:
 				return getName();
+			case JavaeePackage.JMS_DESTINATION_TYPE__INTERFACE_NAME:
+				return getInterfaceName();
 			case JavaeePackage.JMS_DESTINATION_TYPE__CLASS_NAME:
 				return getClassName();
 			case JavaeePackage.JMS_DESTINATION_TYPE__RESOURCE_ADAPTER:
@@ -408,6 +452,9 @@ public class JmsDestinationTypeImpl extends EObjectImpl implements JmsDestinatio
 				return;
 			case JavaeePackage.JMS_DESTINATION_TYPE__NAME:
 				setName((String)newValue);
+				return;
+			case JavaeePackage.JMS_DESTINATION_TYPE__INTERFACE_NAME:
+				setInterfaceName((String)newValue);
 				return;
 			case JavaeePackage.JMS_DESTINATION_TYPE__CLASS_NAME:
 				setClassName((String)newValue);
@@ -443,6 +490,9 @@ public class JmsDestinationTypeImpl extends EObjectImpl implements JmsDestinatio
 			case JavaeePackage.JMS_DESTINATION_TYPE__NAME:
 				setName(NAME_EDEFAULT);
 				return;
+			case JavaeePackage.JMS_DESTINATION_TYPE__INTERFACE_NAME:
+				setInterfaceName(INTERFACE_NAME_EDEFAULT);
+				return;
 			case JavaeePackage.JMS_DESTINATION_TYPE__CLASS_NAME:
 				setClassName(CLASS_NAME_EDEFAULT);
 				return;
@@ -474,6 +524,8 @@ public class JmsDestinationTypeImpl extends EObjectImpl implements JmsDestinatio
 				return description != null;
 			case JavaeePackage.JMS_DESTINATION_TYPE__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case JavaeePackage.JMS_DESTINATION_TYPE__INTERFACE_NAME:
+				return INTERFACE_NAME_EDEFAULT == null ? interfaceName != null : !INTERFACE_NAME_EDEFAULT.equals(interfaceName);
 			case JavaeePackage.JMS_DESTINATION_TYPE__CLASS_NAME:
 				return CLASS_NAME_EDEFAULT == null ? className != null : !CLASS_NAME_EDEFAULT.equals(className);
 			case JavaeePackage.JMS_DESTINATION_TYPE__RESOURCE_ADAPTER:
@@ -500,6 +552,8 @@ public class JmsDestinationTypeImpl extends EObjectImpl implements JmsDestinatio
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (name: "); //$NON-NLS-1$
 		result.append(name);
+		result.append(", interfaceName: "); //$NON-NLS-1$
+		result.append(interfaceName);
 		result.append(", className: "); //$NON-NLS-1$
 		result.append(className);
 		result.append(", resourceAdapter: "); //$NON-NLS-1$

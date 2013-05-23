@@ -31,12 +31,18 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  *         indicator to state that the method is unchecked for
  *         authorization, and a list of method elements.
  *         
- *         The security roles used in the method-permissionType
- *         must be defined in the security-role elements of the
- *         deployment descriptor, and the methods must be methods
- *         defined in the enterprise bean's no-interface view, 
- *         business, home, component and/or web service endpoint 
- *         interfaces.
+ *         Except as noted below the security roles used in the
+ *         method-permissionType must be defined in the security-role
+ *         elements of the deployment descriptor, and the methods
+ *         must be methods defined in the enterprise bean's no-interface
+ *         view, business, home, component and/or web service endpoint
+ *         interfaces. 
+ *         
+ *         If the role name "**" is included in the list of allowed 
+ *         roles, and the application has not defined in its deployment 
+ *         descriptor an application security role with this name, 
+ *         then the list of allowed roles includes every and any 
+ *         authenticated user.
  *         
  *         @since Java EE 5, EJB 3.0
  *       

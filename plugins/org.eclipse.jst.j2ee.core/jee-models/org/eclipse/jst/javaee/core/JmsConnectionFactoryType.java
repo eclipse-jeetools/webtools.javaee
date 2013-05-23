@@ -33,6 +33,7 @@ import java.util.List;
  * <ul>
  *   <li>{@link org.eclipse.jst.javaee.core.JmsConnectionFactoryType#getDescription <em>Description</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.JmsConnectionFactoryType#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.core.JmsConnectionFactoryType#getInterfaceName <em>Interface Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.JmsConnectionFactoryType#getClassName <em>Class Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.JmsConnectionFactoryType#getResourceAdapter <em>Resource Adapter</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.JmsConnectionFactoryType#getUser <em>User</em>}</li>
@@ -109,13 +110,47 @@ public interface JmsConnectionFactoryType extends JavaEEObject {
 	void setName(String value);
 
 	/**
+	 * Returns the value of the '<em><b>Interface Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * 
+	 *             Fully-qualified name of the JMS connection factory
+	 *             interface.  Permitted values are javax.jms.ConnectionFactory,
+	 *             javax.jms.QueueConnectionFactory, or 
+	 *             javax.jms.TopicConnectionFactory.  If not specified,
+	 *             javax.jms.ConnectionFactory will be used.
+	 *             
+	 *           
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Interface Name</em>' attribute.
+	 * @see #setInterfaceName(String)
+	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getJmsConnectionFactoryType_InterfaceName()
+	 * @generated
+	 */
+	String getInterfaceName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.jst.javaee.core.JmsConnectionFactoryType#getInterfaceName <em>Interface Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Interface Name</em>' attribute.
+	 * @see #getInterfaceName()
+	 * @generated
+	 */
+	void setInterfaceName(String value);
+
+	/**
 	 * Returns the value of the '<em><b>Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 *             javax.jms.ConnectionFactory, javax.jms.QueueConnectionFactory, or javax.jms.TopicConnectionFactory
+	 *             Fully-qualified name of the JMS connection factory
+	 *             implementation class.  Ignored if a resource adapter  
+	 *             is used.
 	 *             
 	 *           
 	 * <!-- end-model-doc -->
@@ -143,7 +178,9 @@ public interface JmsConnectionFactoryType extends JavaEEObject {
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 *             Resource adapter name.
+	 *             Resource adapter name.  If not specified, the application
+	 *             server will define the default behavior, which may or may
+	 *             not involve the use of a resource adapter.
 	 *             
 	 *           
 	 * <!-- end-model-doc -->

@@ -843,7 +843,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getConnectionFactoryResourceType_ClassName() {
+	public EAttribute getConnectionFactoryResourceType_InterfaceName() {
 		return (EAttribute)connectionFactoryResourceTypeEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -1536,7 +1536,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getJmsConnectionFactoryType_ClassName() {
+	public EAttribute getJmsConnectionFactoryType_InterfaceName() {
 		return (EAttribute)jmsConnectionFactoryTypeEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -1545,7 +1545,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getJmsConnectionFactoryType_ResourceAdapter() {
+	public EAttribute getJmsConnectionFactoryType_ClassName() {
 		return (EAttribute)jmsConnectionFactoryTypeEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -1554,7 +1554,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getJmsConnectionFactoryType_User() {
+	public EAttribute getJmsConnectionFactoryType_ResourceAdapter() {
 		return (EAttribute)jmsConnectionFactoryTypeEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -1563,7 +1563,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getJmsConnectionFactoryType_Password() {
+	public EAttribute getJmsConnectionFactoryType_User() {
 		return (EAttribute)jmsConnectionFactoryTypeEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -1572,7 +1572,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getJmsConnectionFactoryType_ClientId() {
+	public EAttribute getJmsConnectionFactoryType_Password() {
 		return (EAttribute)jmsConnectionFactoryTypeEClass.getEStructuralFeatures().get(6);
 	}
 
@@ -1581,8 +1581,17 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getJmsConnectionFactoryType_ClientId() {
+		return (EAttribute)jmsConnectionFactoryTypeEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getJmsConnectionFactoryType_Property() {
-		return (EReference)jmsConnectionFactoryTypeEClass.getEStructuralFeatures().get(7);
+		return (EReference)jmsConnectionFactoryTypeEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -1591,15 +1600,6 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * @generated
 	 */
 	public EAttribute getJmsConnectionFactoryType_Transactional() {
-		return (EAttribute)jmsConnectionFactoryTypeEClass.getEStructuralFeatures().get(8);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getJmsConnectionFactoryType_MaxPoolSize() {
 		return (EAttribute)jmsConnectionFactoryTypeEClass.getEStructuralFeatures().get(9);
 	}
 
@@ -1608,7 +1608,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getJmsConnectionFactoryType_MinPoolSize() {
+	public EAttribute getJmsConnectionFactoryType_MaxPoolSize() {
 		return (EAttribute)jmsConnectionFactoryTypeEClass.getEStructuralFeatures().get(10);
 	}
 
@@ -1617,8 +1617,17 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getJmsConnectionFactoryType_Id() {
+	public EAttribute getJmsConnectionFactoryType_MinPoolSize() {
 		return (EAttribute)jmsConnectionFactoryTypeEClass.getEStructuralFeatures().get(11);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getJmsConnectionFactoryType_Id() {
+		return (EAttribute)jmsConnectionFactoryTypeEClass.getEStructuralFeatures().get(12);
 	}
 
 	/**
@@ -1653,7 +1662,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getJmsDestinationType_ClassName() {
+	public EAttribute getJmsDestinationType_InterfaceName() {
 		return (EAttribute)jmsDestinationTypeEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -1662,7 +1671,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getJmsDestinationType_ResourceAdapter() {
+	public EAttribute getJmsDestinationType_ClassName() {
 		return (EAttribute)jmsDestinationTypeEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -1671,7 +1680,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getJmsDestinationType_DestinationName() {
+	public EAttribute getJmsDestinationType_ResourceAdapter() {
 		return (EAttribute)jmsDestinationTypeEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -1680,8 +1689,17 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getJmsDestinationType_DestinationName() {
+		return (EAttribute)jmsDestinationTypeEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getJmsDestinationType_Property() {
-		return (EReference)jmsDestinationTypeEClass.getEStructuralFeatures().get(5);
+		return (EReference)jmsDestinationTypeEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -1690,7 +1708,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 	 * @generated
 	 */
 	public EAttribute getJmsDestinationType_Id() {
-		return (EAttribute)jmsDestinationTypeEClass.getEStructuralFeatures().get(6);
+		return (EAttribute)jmsDestinationTypeEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -3439,7 +3457,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 		connectionFactoryResourceTypeEClass = createEClass(CONNECTION_FACTORY_RESOURCE_TYPE);
 		createEReference(connectionFactoryResourceTypeEClass, CONNECTION_FACTORY_RESOURCE_TYPE__DESCRIPTION);
 		createEAttribute(connectionFactoryResourceTypeEClass, CONNECTION_FACTORY_RESOURCE_TYPE__NAME);
-		createEAttribute(connectionFactoryResourceTypeEClass, CONNECTION_FACTORY_RESOURCE_TYPE__CLASS_NAME);
+		createEAttribute(connectionFactoryResourceTypeEClass, CONNECTION_FACTORY_RESOURCE_TYPE__INTERFACE_NAME);
 		createEAttribute(connectionFactoryResourceTypeEClass, CONNECTION_FACTORY_RESOURCE_TYPE__RESOURCE_ADAPTER);
 		createEAttribute(connectionFactoryResourceTypeEClass, CONNECTION_FACTORY_RESOURCE_TYPE__MAX_POOL_SIZE);
 		createEAttribute(connectionFactoryResourceTypeEClass, CONNECTION_FACTORY_RESOURCE_TYPE__MIN_POOL_SIZE);
@@ -3526,6 +3544,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 		jmsConnectionFactoryTypeEClass = createEClass(JMS_CONNECTION_FACTORY_TYPE);
 		createEReference(jmsConnectionFactoryTypeEClass, JMS_CONNECTION_FACTORY_TYPE__DESCRIPTION);
 		createEAttribute(jmsConnectionFactoryTypeEClass, JMS_CONNECTION_FACTORY_TYPE__NAME);
+		createEAttribute(jmsConnectionFactoryTypeEClass, JMS_CONNECTION_FACTORY_TYPE__INTERFACE_NAME);
 		createEAttribute(jmsConnectionFactoryTypeEClass, JMS_CONNECTION_FACTORY_TYPE__CLASS_NAME);
 		createEAttribute(jmsConnectionFactoryTypeEClass, JMS_CONNECTION_FACTORY_TYPE__RESOURCE_ADAPTER);
 		createEAttribute(jmsConnectionFactoryTypeEClass, JMS_CONNECTION_FACTORY_TYPE__USER);
@@ -3540,6 +3559,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 		jmsDestinationTypeEClass = createEClass(JMS_DESTINATION_TYPE);
 		createEReference(jmsDestinationTypeEClass, JMS_DESTINATION_TYPE__DESCRIPTION);
 		createEAttribute(jmsDestinationTypeEClass, JMS_DESTINATION_TYPE__NAME);
+		createEAttribute(jmsDestinationTypeEClass, JMS_DESTINATION_TYPE__INTERFACE_NAME);
 		createEAttribute(jmsDestinationTypeEClass, JMS_DESTINATION_TYPE__CLASS_NAME);
 		createEAttribute(jmsDestinationTypeEClass, JMS_DESTINATION_TYPE__RESOURCE_ADAPTER);
 		createEAttribute(jmsDestinationTypeEClass, JMS_DESTINATION_TYPE__DESTINATION_NAME);
@@ -3820,7 +3840,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 		initEClass(connectionFactoryResourceTypeEClass, ConnectionFactoryResourceType.class, "ConnectionFactoryResourceType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(getConnectionFactoryResourceType_Description(), this.getDescription(), null, "description", null, 0, 1, ConnectionFactoryResourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getConnectionFactoryResourceType_Name(), this.getJNDIName(), "name", null, 1, 1, ConnectionFactoryResourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-		initEAttribute(getConnectionFactoryResourceType_ClassName(), this.getFullyQualifiedClassType(), "className", null, 1, 1, ConnectionFactoryResourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getConnectionFactoryResourceType_InterfaceName(), this.getFullyQualifiedClassType(), "interfaceName", null, 1, 1, ConnectionFactoryResourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getConnectionFactoryResourceType_ResourceAdapter(), theXMLTypePackage.getToken(), "resourceAdapter", null, 1, 1, ConnectionFactoryResourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getConnectionFactoryResourceType_MaxPoolSize(), theXMLTypePackage.getInteger(), "maxPoolSize", null, 0, 1, ConnectionFactoryResourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getConnectionFactoryResourceType_MinPoolSize(), theXMLTypePackage.getInteger(), "minPoolSize", null, 0, 1, ConnectionFactoryResourceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
@@ -3907,6 +3927,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 		initEClass(jmsConnectionFactoryTypeEClass, JmsConnectionFactoryType.class, "JmsConnectionFactoryType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(getJmsConnectionFactoryType_Description(), this.getDescription(), null, "description", null, 0, 1, JmsConnectionFactoryType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getJmsConnectionFactoryType_Name(), this.getJNDIName(), "name", null, 1, 1, JmsConnectionFactoryType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getJmsConnectionFactoryType_InterfaceName(), this.getFullyQualifiedClassType(), "interfaceName", null, 0, 1, JmsConnectionFactoryType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getJmsConnectionFactoryType_ClassName(), this.getFullyQualifiedClassType(), "className", null, 0, 1, JmsConnectionFactoryType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getJmsConnectionFactoryType_ResourceAdapter(), theXMLTypePackage.getToken(), "resourceAdapter", null, 0, 1, JmsConnectionFactoryType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getJmsConnectionFactoryType_User(), theXMLTypePackage.getToken(), "user", null, 0, 1, JmsConnectionFactoryType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
@@ -3921,6 +3942,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 		initEClass(jmsDestinationTypeEClass, JmsDestinationType.class, "JmsDestinationType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(getJmsDestinationType_Description(), this.getDescription(), null, "description", null, 0, 1, JmsDestinationType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getJmsDestinationType_Name(), this.getJNDIName(), "name", null, 1, 1, JmsDestinationType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(getJmsDestinationType_InterfaceName(), this.getFullyQualifiedClassType(), "interfaceName", null, 1, 1, JmsDestinationType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getJmsDestinationType_ClassName(), this.getFullyQualifiedClassType(), "className", null, 0, 1, JmsDestinationType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getJmsDestinationType_ResourceAdapter(), theXMLTypePackage.getToken(), "resourceAdapter", null, 0, 1, JmsDestinationType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getJmsDestinationType_DestinationName(), theXMLTypePackage.getToken(), "destinationName", null, 0, 1, JmsDestinationType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
@@ -4182,7 +4204,7 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 
 		// Create annotations
 		// http:///org/eclipse/emf/ecore/util/ExtendedMetaData
-			createExtendedMetaDataAnnotations();
+		createExtendedMetaDataAnnotations();
 		}finally{
 			if( hasLock )
 				J2EEInit.releaseInitializePackageContentsLock();
@@ -4327,11 +4349,11 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
 		   });			
 		addAnnotation
-		  (getConnectionFactoryResourceType_ClassName(), 
+		  (getConnectionFactoryResourceType_InterfaceName(), 
 		   source, 
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
-			 "name", "class-name", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "interface-name", //$NON-NLS-1$ //$NON-NLS-2$
 			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
 		   });			
 		addAnnotation
@@ -5026,6 +5048,14 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
 		   });			
 		addAnnotation
+		  (getJmsConnectionFactoryType_InterfaceName(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "interface-name", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
 		  (getJmsConnectionFactoryType_ClassName(), 
 		   source, 
 		   new String[] {
@@ -5125,6 +5155,14 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "name", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getJmsDestinationType_InterfaceName(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "interface-name", //$NON-NLS-1$ //$NON-NLS-2$
 			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
 		   });			
 		addAnnotation

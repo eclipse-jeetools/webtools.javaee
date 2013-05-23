@@ -62,6 +62,7 @@ import org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage;
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.InterceptorTypeImpl#getInterceptorClass <em>Interceptor Class</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.InterceptorTypeImpl#getAroundInvokes <em>Around Invokes</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.InterceptorTypeImpl#getAroundTimeouts <em>Around Timeouts</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.InterceptorTypeImpl#getAroundConstruct <em>Around Construct</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.InterceptorTypeImpl#getEnvEntries <em>Env Entries</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.InterceptorTypeImpl#getEjbRefs <em>Ejb Refs</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.internal.impl.InterceptorTypeImpl#getEjbLocalRefs <em>Ejb Local Refs</em>}</li>
@@ -137,6 +138,16 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * @ordered
 	 */
 	protected EList<AroundTimeoutType> aroundTimeouts;
+
+	/**
+	 * The cached value of the '{@link #getAroundConstruct() <em>Around Construct</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAroundConstruct()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<LifecycleCallback> aroundConstruct;
 
 	/**
 	 * The cached value of the '{@link #getEnvEntries() <em>Env Entries</em>}' containment reference list.
@@ -429,6 +440,18 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public List<LifecycleCallback> getAroundConstruct() {
+		if (aroundConstruct == null) {
+			aroundConstruct = new EObjectContainmentEList<LifecycleCallback>(LifecycleCallback.class, this, EjbPackage.INTERCEPTOR_TYPE__AROUND_CONSTRUCT);
+		}
+		return aroundConstruct;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public List<EnvEntry> getEnvEntries() {
 		if (envEntries == null) {
 			envEntries = new EObjectContainmentEList<EnvEntry>(EnvEntry.class, this, EjbPackage.INTERCEPTOR_TYPE__ENV_ENTRIES);
@@ -687,6 +710,8 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 				return ((InternalEList<?>)getAroundInvokes()).basicRemove(otherEnd, msgs);
 			case EjbPackage.INTERCEPTOR_TYPE__AROUND_TIMEOUTS:
 				return ((InternalEList<?>)getAroundTimeouts()).basicRemove(otherEnd, msgs);
+			case EjbPackage.INTERCEPTOR_TYPE__AROUND_CONSTRUCT:
+				return ((InternalEList<?>)getAroundConstruct()).basicRemove(otherEnd, msgs);
 			case EjbPackage.INTERCEPTOR_TYPE__ENV_ENTRIES:
 				return ((InternalEList<?>)getEnvEntries()).basicRemove(otherEnd, msgs);
 			case EjbPackage.INTERCEPTOR_TYPE__EJB_REFS:
@@ -745,6 +770,8 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 				return getAroundInvokes();
 			case EjbPackage.INTERCEPTOR_TYPE__AROUND_TIMEOUTS:
 				return getAroundTimeouts();
+			case EjbPackage.INTERCEPTOR_TYPE__AROUND_CONSTRUCT:
+				return getAroundConstruct();
 			case EjbPackage.INTERCEPTOR_TYPE__ENV_ENTRIES:
 				return getEnvEntries();
 			case EjbPackage.INTERCEPTOR_TYPE__EJB_REFS:
@@ -812,6 +839,10 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 			case EjbPackage.INTERCEPTOR_TYPE__AROUND_TIMEOUTS:
 				getAroundTimeouts().clear();
 				getAroundTimeouts().addAll((Collection<? extends AroundTimeoutType>)newValue);
+				return;
+			case EjbPackage.INTERCEPTOR_TYPE__AROUND_CONSTRUCT:
+				getAroundConstruct().clear();
+				getAroundConstruct().addAll((Collection<? extends LifecycleCallback>)newValue);
 				return;
 			case EjbPackage.INTERCEPTOR_TYPE__ENV_ENTRIES:
 				getEnvEntries().clear();
@@ -916,6 +947,9 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 			case EjbPackage.INTERCEPTOR_TYPE__AROUND_TIMEOUTS:
 				getAroundTimeouts().clear();
 				return;
+			case EjbPackage.INTERCEPTOR_TYPE__AROUND_CONSTRUCT:
+				getAroundConstruct().clear();
+				return;
 			case EjbPackage.INTERCEPTOR_TYPE__ENV_ENTRIES:
 				getEnvEntries().clear();
 				return;
@@ -996,6 +1030,8 @@ public class InterceptorTypeImpl extends EObjectImpl implements InterceptorType 
 				return aroundInvokes != null && !aroundInvokes.isEmpty();
 			case EjbPackage.INTERCEPTOR_TYPE__AROUND_TIMEOUTS:
 				return aroundTimeouts != null && !aroundTimeouts.isEmpty();
+			case EjbPackage.INTERCEPTOR_TYPE__AROUND_CONSTRUCT:
+				return aroundConstruct != null && !aroundConstruct.isEmpty();
 			case EjbPackage.INTERCEPTOR_TYPE__ENV_ENTRIES:
 				return envEntries != null && !envEntries.isEmpty();
 			case EjbPackage.INTERCEPTOR_TYPE__EJB_REFS:

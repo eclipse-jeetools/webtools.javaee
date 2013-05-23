@@ -44,6 +44,7 @@ import org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage;
  * <ul>
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.JmsConnectionFactoryTypeImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.JmsConnectionFactoryTypeImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.JmsConnectionFactoryTypeImpl#getInterfaceName <em>Interface Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.JmsConnectionFactoryTypeImpl#getClassName <em>Class Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.JmsConnectionFactoryTypeImpl#getResourceAdapter <em>Resource Adapter</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.JmsConnectionFactoryTypeImpl#getUser <em>User</em>}</li>
@@ -89,6 +90,26 @@ public class JmsConnectionFactoryTypeImpl extends EObjectImpl implements JmsConn
 	 * @ordered
 	 */
 	protected String name = NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getInterfaceName() <em>Interface Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getInterfaceName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String INTERFACE_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getInterfaceName() <em>Interface Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getInterfaceName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String interfaceName = INTERFACE_NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getClassName() <em>Class Name</em>}' attribute.
@@ -377,6 +398,27 @@ public class JmsConnectionFactoryTypeImpl extends EObjectImpl implements JmsConn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getInterfaceName() {
+		return interfaceName;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setInterfaceName(String newInterfaceName) {
+		String oldInterfaceName = interfaceName;
+		interfaceName = newInterfaceName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, JavaeePackage.JMS_CONNECTION_FACTORY_TYPE__INTERFACE_NAME, oldInterfaceName, interfaceName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getClassName() {
 		return className;
 	}
@@ -626,6 +668,8 @@ public class JmsConnectionFactoryTypeImpl extends EObjectImpl implements JmsConn
 				return getDescription();
 			case JavaeePackage.JMS_CONNECTION_FACTORY_TYPE__NAME:
 				return getName();
+			case JavaeePackage.JMS_CONNECTION_FACTORY_TYPE__INTERFACE_NAME:
+				return getInterfaceName();
 			case JavaeePackage.JMS_CONNECTION_FACTORY_TYPE__CLASS_NAME:
 				return getClassName();
 			case JavaeePackage.JMS_CONNECTION_FACTORY_TYPE__RESOURCE_ADAPTER:
@@ -664,6 +708,9 @@ public class JmsConnectionFactoryTypeImpl extends EObjectImpl implements JmsConn
 				return;
 			case JavaeePackage.JMS_CONNECTION_FACTORY_TYPE__NAME:
 				setName((String)newValue);
+				return;
+			case JavaeePackage.JMS_CONNECTION_FACTORY_TYPE__INTERFACE_NAME:
+				setInterfaceName((String)newValue);
 				return;
 			case JavaeePackage.JMS_CONNECTION_FACTORY_TYPE__CLASS_NAME:
 				setClassName((String)newValue);
@@ -714,6 +761,9 @@ public class JmsConnectionFactoryTypeImpl extends EObjectImpl implements JmsConn
 			case JavaeePackage.JMS_CONNECTION_FACTORY_TYPE__NAME:
 				setName(NAME_EDEFAULT);
 				return;
+			case JavaeePackage.JMS_CONNECTION_FACTORY_TYPE__INTERFACE_NAME:
+				setInterfaceName(INTERFACE_NAME_EDEFAULT);
+				return;
 			case JavaeePackage.JMS_CONNECTION_FACTORY_TYPE__CLASS_NAME:
 				setClassName(CLASS_NAME_EDEFAULT);
 				return;
@@ -760,6 +810,8 @@ public class JmsConnectionFactoryTypeImpl extends EObjectImpl implements JmsConn
 				return description != null;
 			case JavaeePackage.JMS_CONNECTION_FACTORY_TYPE__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case JavaeePackage.JMS_CONNECTION_FACTORY_TYPE__INTERFACE_NAME:
+				return INTERFACE_NAME_EDEFAULT == null ? interfaceName != null : !INTERFACE_NAME_EDEFAULT.equals(interfaceName);
 			case JavaeePackage.JMS_CONNECTION_FACTORY_TYPE__CLASS_NAME:
 				return CLASS_NAME_EDEFAULT == null ? className != null : !CLASS_NAME_EDEFAULT.equals(className);
 			case JavaeePackage.JMS_CONNECTION_FACTORY_TYPE__RESOURCE_ADAPTER:
@@ -796,6 +848,8 @@ public class JmsConnectionFactoryTypeImpl extends EObjectImpl implements JmsConn
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (name: "); //$NON-NLS-1$
 		result.append(name);
+		result.append(", interfaceName: "); //$NON-NLS-1$
+		result.append(interfaceName);
 		result.append(", className: "); //$NON-NLS-1$
 		result.append(className);
 		result.append(", resourceAdapter: "); //$NON-NLS-1$

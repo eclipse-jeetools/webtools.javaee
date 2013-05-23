@@ -37,7 +37,7 @@ import org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage;
  * <ul>
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.ConnectionFactoryResourceTypeImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.ConnectionFactoryResourceTypeImpl#getName <em>Name</em>}</li>
- *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.ConnectionFactoryResourceTypeImpl#getClassName <em>Class Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.ConnectionFactoryResourceTypeImpl#getInterfaceName <em>Interface Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.ConnectionFactoryResourceTypeImpl#getResourceAdapter <em>Resource Adapter</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.ConnectionFactoryResourceTypeImpl#getMaxPoolSize <em>Max Pool Size</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.internal.impl.ConnectionFactoryResourceTypeImpl#getMinPoolSize <em>Min Pool Size</em>}</li>
@@ -81,24 +81,24 @@ public class ConnectionFactoryResourceTypeImpl extends EObjectImpl implements Co
 	protected String name = NAME_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getClassName() <em>Class Name</em>}' attribute.
+	 * The default value of the '{@link #getInterfaceName() <em>Interface Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getClassName()
+	 * @see #getInterfaceName()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String CLASS_NAME_EDEFAULT = null;
+	protected static final String INTERFACE_NAME_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getClassName() <em>Class Name</em>}' attribute.
+	 * The cached value of the '{@link #getInterfaceName() <em>Interface Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getClassName()
+	 * @see #getInterfaceName()
 	 * @generated
 	 * @ordered
 	 */
-	protected String className = CLASS_NAME_EDEFAULT;
+	protected String interfaceName = INTERFACE_NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getResourceAdapter() <em>Resource Adapter</em>}' attribute.
@@ -307,8 +307,8 @@ public class ConnectionFactoryResourceTypeImpl extends EObjectImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getClassName() {
-		return className;
+	public String getInterfaceName() {
+		return interfaceName;
 	}
 
 	/**
@@ -316,11 +316,11 @@ public class ConnectionFactoryResourceTypeImpl extends EObjectImpl implements Co
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setClassName(String newClassName) {
-		String oldClassName = className;
-		className = newClassName;
+	public void setInterfaceName(String newInterfaceName) {
+		String oldInterfaceName = interfaceName;
+		interfaceName = newInterfaceName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, JavaeePackage.CONNECTION_FACTORY_RESOURCE_TYPE__CLASS_NAME, oldClassName, className));
+			eNotify(new ENotificationImpl(this, Notification.SET, JavaeePackage.CONNECTION_FACTORY_RESOURCE_TYPE__INTERFACE_NAME, oldInterfaceName, interfaceName));
 	}
 
 	/**
@@ -493,8 +493,8 @@ public class ConnectionFactoryResourceTypeImpl extends EObjectImpl implements Co
 				return getDescription();
 			case JavaeePackage.CONNECTION_FACTORY_RESOURCE_TYPE__NAME:
 				return getName();
-			case JavaeePackage.CONNECTION_FACTORY_RESOURCE_TYPE__CLASS_NAME:
-				return getClassName();
+			case JavaeePackage.CONNECTION_FACTORY_RESOURCE_TYPE__INTERFACE_NAME:
+				return getInterfaceName();
 			case JavaeePackage.CONNECTION_FACTORY_RESOURCE_TYPE__RESOURCE_ADAPTER:
 				return getResourceAdapter();
 			case JavaeePackage.CONNECTION_FACTORY_RESOURCE_TYPE__MAX_POOL_SIZE:
@@ -526,8 +526,8 @@ public class ConnectionFactoryResourceTypeImpl extends EObjectImpl implements Co
 			case JavaeePackage.CONNECTION_FACTORY_RESOURCE_TYPE__NAME:
 				setName((String)newValue);
 				return;
-			case JavaeePackage.CONNECTION_FACTORY_RESOURCE_TYPE__CLASS_NAME:
-				setClassName((String)newValue);
+			case JavaeePackage.CONNECTION_FACTORY_RESOURCE_TYPE__INTERFACE_NAME:
+				setInterfaceName((String)newValue);
 				return;
 			case JavaeePackage.CONNECTION_FACTORY_RESOURCE_TYPE__RESOURCE_ADAPTER:
 				setResourceAdapter((String)newValue);
@@ -566,8 +566,8 @@ public class ConnectionFactoryResourceTypeImpl extends EObjectImpl implements Co
 			case JavaeePackage.CONNECTION_FACTORY_RESOURCE_TYPE__NAME:
 				setName(NAME_EDEFAULT);
 				return;
-			case JavaeePackage.CONNECTION_FACTORY_RESOURCE_TYPE__CLASS_NAME:
-				setClassName(CLASS_NAME_EDEFAULT);
+			case JavaeePackage.CONNECTION_FACTORY_RESOURCE_TYPE__INTERFACE_NAME:
+				setInterfaceName(INTERFACE_NAME_EDEFAULT);
 				return;
 			case JavaeePackage.CONNECTION_FACTORY_RESOURCE_TYPE__RESOURCE_ADAPTER:
 				setResourceAdapter(RESOURCE_ADAPTER_EDEFAULT);
@@ -603,8 +603,8 @@ public class ConnectionFactoryResourceTypeImpl extends EObjectImpl implements Co
 				return description != null;
 			case JavaeePackage.CONNECTION_FACTORY_RESOURCE_TYPE__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case JavaeePackage.CONNECTION_FACTORY_RESOURCE_TYPE__CLASS_NAME:
-				return CLASS_NAME_EDEFAULT == null ? className != null : !CLASS_NAME_EDEFAULT.equals(className);
+			case JavaeePackage.CONNECTION_FACTORY_RESOURCE_TYPE__INTERFACE_NAME:
+				return INTERFACE_NAME_EDEFAULT == null ? interfaceName != null : !INTERFACE_NAME_EDEFAULT.equals(interfaceName);
 			case JavaeePackage.CONNECTION_FACTORY_RESOURCE_TYPE__RESOURCE_ADAPTER:
 				return RESOURCE_ADAPTER_EDEFAULT == null ? resourceAdapter != null : !RESOURCE_ADAPTER_EDEFAULT.equals(resourceAdapter);
 			case JavaeePackage.CONNECTION_FACTORY_RESOURCE_TYPE__MAX_POOL_SIZE:
@@ -633,8 +633,8 @@ public class ConnectionFactoryResourceTypeImpl extends EObjectImpl implements Co
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (name: "); //$NON-NLS-1$
 		result.append(name);
-		result.append(", className: "); //$NON-NLS-1$
-		result.append(className);
+		result.append(", interfaceName: "); //$NON-NLS-1$
+		result.append(interfaceName);
 		result.append(", resourceAdapter: "); //$NON-NLS-1$
 		result.append(resourceAdapter);
 		result.append(", maxPoolSize: "); //$NON-NLS-1$

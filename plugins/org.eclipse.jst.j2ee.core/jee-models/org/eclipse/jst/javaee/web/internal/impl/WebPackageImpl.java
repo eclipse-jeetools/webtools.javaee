@@ -1871,6 +1871,15 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getWebApp_DenyUncoveredHttpMethods() {
+		return (EReference)webAppEClass.getEStructuralFeatures().get(39);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EAttribute getWebApp_ModuleName() {
 		return (EAttribute)webAppEClass.getEStructuralFeatures().get(1);
 	}
@@ -1881,7 +1890,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * @generated
 	 */
 	public EReference getWebApp_AbsoluteOrdering() {
-		return (EReference)webAppEClass.getEStructuralFeatures().get(39);
+		return (EReference)webAppEClass.getEStructuralFeatures().get(40);
 	}
 
 	/**
@@ -1890,15 +1899,6 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * @generated
 	 */
 	public EAttribute getWebApp_Id() {
-		return (EAttribute)webAppEClass.getEStructuralFeatures().get(40);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getWebApp_MetadataComplete() {
 		return (EAttribute)webAppEClass.getEStructuralFeatures().get(41);
 	}
 
@@ -1907,8 +1907,17 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getWebApp_Version() {
+	public EAttribute getWebApp_MetadataComplete() {
 		return (EAttribute)webAppEClass.getEStructuralFeatures().get(42);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getWebApp_Version() {
+		return (EAttribute)webAppEClass.getEStructuralFeatures().get(43);
 	}
 
 	/**
@@ -2836,6 +2845,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		createEReference(webAppEClass, WEB_APP__ADMINISTERED_OBJECT);
 		createEReference(webAppEClass, WEB_APP__MESSAGE_DESTINATIONS);
 		createEReference(webAppEClass, WEB_APP__LOCAL_ENCODING_MAPPINGS_LISTS);
+		createEReference(webAppEClass, WEB_APP__DENY_UNCOVERED_HTTP_METHODS);
 		createEReference(webAppEClass, WEB_APP__ABSOLUTE_ORDERING);
 		createEAttribute(webAppEClass, WEB_APP__ID);
 		createEAttribute(webAppEClass, WEB_APP__METADATA_COMPLETE);
@@ -3150,6 +3160,7 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		initEReference(getWebApp_AdministeredObject(), theJavaeePackage.getAdministeredObjectType(), null, "administeredObject", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getWebApp_MessageDestinations(), theJavaeePackage.getMessageDestination(), null, "messageDestinations", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getWebApp_LocalEncodingMappingsLists(), this.getLocaleEncodingMappingList(), null, "localEncodingMappingsLists", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getWebApp_DenyUncoveredHttpMethods(), theJavaeePackage.getEmptyType(), null, "denyUncoveredHttpMethods", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getWebApp_AbsoluteOrdering(), this.getAbsoluteOrderingType(), null, "absoluteOrdering", null, 0, -1, WebApp.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getWebApp_Id(), theXMLTypePackage.getID(), "id", null, 0, 1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getWebApp_MetadataComplete(), theXMLTypePackage.getBoolean(), "metadataComplete", null, 0, 1, WebApp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
@@ -4633,6 +4644,15 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "locale-encoding-mapping-list", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace", //$NON-NLS-1$ //$NON-NLS-2$
+			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
+		   });			
+		addAnnotation
+		  (getWebApp_DenyUncoveredHttpMethods(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "deny-uncovered-http-methods", //$NON-NLS-1$ //$NON-NLS-2$
 			 "namespace", "##targetNamespace", //$NON-NLS-1$ //$NON-NLS-2$
 			 "group", "#group:0" //$NON-NLS-1$ //$NON-NLS-2$
 		   });			

@@ -46,8 +46,10 @@ import org.eclipse.emf.common.util.Enumerator;
  *         MessageEndpoint refers to the methods of a message-driven bean's
  *         message-listener interface.
  *         
- *         LifecycleCallback refers to the lifecycle callback methods of 
- *         a singleton or stateful session bean.
+ *         LifecycleCallback refers to the PostConstruct and PreDestroy
+ *         lifecycle callback methods of a singleton session bean and
+ *         to the PostConstruct, PreDestroy, PrePassivate, and PostActivate
+ *         lifecycle callback methods of a stateful session bean.
  *         
  *         The method-intf element must be one of the following:
  *         
@@ -117,6 +119,11 @@ public enum MethodInterfaceType implements Enumerator
 	 * The '<em><b>Timer</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *               @since Java EE 6, EJB 3.1
+	 *             
+	 * <!-- end-model-doc -->
 	 * @see #TIMER
 	 * @generated
 	 * @ordered
@@ -126,6 +133,11 @@ public enum MethodInterfaceType implements Enumerator
 	 * The '<em><b>Message Endpoint</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 *               @since Java EE 6, EJB 3.1
+	 *             
+	 * <!-- end-model-doc -->
 	 * @see #MESSAGE_ENDPOINT
 	 * @generated
 	 * @ordered

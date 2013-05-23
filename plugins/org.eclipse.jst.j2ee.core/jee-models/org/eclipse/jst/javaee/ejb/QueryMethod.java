@@ -45,6 +45,7 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  *         </ejb-ql>
  *         </query>
  *         
+ *         Support for entity beans is optional as of EJB 3.2.
  * 
  *         @since Java EE 5, EJB 3.0
  *       

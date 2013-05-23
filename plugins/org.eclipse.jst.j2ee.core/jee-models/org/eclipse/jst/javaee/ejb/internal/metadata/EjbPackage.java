@@ -2017,13 +2017,22 @@ public interface EjbPackage extends EPackage {
 	int INTERCEPTOR_TYPE__AROUND_TIMEOUTS = 3;
 
 	/**
+	 * The feature id for the '<em><b>Around Construct</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTERCEPTOR_TYPE__AROUND_CONSTRUCT = 4;
+
+	/**
 	 * The feature id for the '<em><b>Env Entries</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INTERCEPTOR_TYPE__ENV_ENTRIES = 4;
+	int INTERCEPTOR_TYPE__ENV_ENTRIES = 5;
 
 	/**
 	 * The feature id for the '<em><b>Ejb Refs</b></em>' containment reference list.
@@ -2032,7 +2041,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTERCEPTOR_TYPE__EJB_REFS = 5;
+	int INTERCEPTOR_TYPE__EJB_REFS = 6;
 
 	/**
 	 * The feature id for the '<em><b>Ejb Local Refs</b></em>' containment reference list.
@@ -2041,7 +2050,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTERCEPTOR_TYPE__EJB_LOCAL_REFS = 6;
+	int INTERCEPTOR_TYPE__EJB_LOCAL_REFS = 7;
 
 	/**
 	 * The feature id for the '<em><b>Service Refs</b></em>' containment reference list.
@@ -2050,7 +2059,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTERCEPTOR_TYPE__SERVICE_REFS = 7;
+	int INTERCEPTOR_TYPE__SERVICE_REFS = 8;
 
 	/**
 	 * The feature id for the '<em><b>Resource Refs</b></em>' containment reference list.
@@ -2059,7 +2068,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTERCEPTOR_TYPE__RESOURCE_REFS = 8;
+	int INTERCEPTOR_TYPE__RESOURCE_REFS = 9;
 
 	/**
 	 * The feature id for the '<em><b>Resource Env Refs</b></em>' containment reference list.
@@ -2068,7 +2077,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTERCEPTOR_TYPE__RESOURCE_ENV_REFS = 9;
+	int INTERCEPTOR_TYPE__RESOURCE_ENV_REFS = 10;
 
 	/**
 	 * The feature id for the '<em><b>Message Destination Refs</b></em>' containment reference list.
@@ -2077,7 +2086,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTERCEPTOR_TYPE__MESSAGE_DESTINATION_REFS = 10;
+	int INTERCEPTOR_TYPE__MESSAGE_DESTINATION_REFS = 11;
 
 	/**
 	 * The feature id for the '<em><b>Persistence Context Refs</b></em>' containment reference list.
@@ -2086,7 +2095,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTERCEPTOR_TYPE__PERSISTENCE_CONTEXT_REFS = 11;
+	int INTERCEPTOR_TYPE__PERSISTENCE_CONTEXT_REFS = 12;
 
 	/**
 	 * The feature id for the '<em><b>Persistence Unit Refs</b></em>' containment reference list.
@@ -2095,7 +2104,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTERCEPTOR_TYPE__PERSISTENCE_UNIT_REFS = 12;
+	int INTERCEPTOR_TYPE__PERSISTENCE_UNIT_REFS = 13;
 
 	/**
 	 * The feature id for the '<em><b>Post Constructs</b></em>' containment reference list.
@@ -2104,7 +2113,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTERCEPTOR_TYPE__POST_CONSTRUCTS = 13;
+	int INTERCEPTOR_TYPE__POST_CONSTRUCTS = 14;
 
 	/**
 	 * The feature id for the '<em><b>Pre Destroys</b></em>' containment reference list.
@@ -2113,7 +2122,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTERCEPTOR_TYPE__PRE_DESTROYS = 14;
+	int INTERCEPTOR_TYPE__PRE_DESTROYS = 15;
 
 	/**
 	 * The feature id for the '<em><b>Data Source</b></em>' containment reference list.
@@ -2122,7 +2131,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTERCEPTOR_TYPE__DATA_SOURCE = 15;
+	int INTERCEPTOR_TYPE__DATA_SOURCE = 16;
 
 	/**
 	 * The feature id for the '<em><b>Jms Connection Factory</b></em>' containment reference list.
@@ -2131,7 +2140,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTERCEPTOR_TYPE__JMS_CONNECTION_FACTORY = 16;
+	int INTERCEPTOR_TYPE__JMS_CONNECTION_FACTORY = 17;
 
 	/**
 	 * The feature id for the '<em><b>Jms Destination</b></em>' containment reference list.
@@ -2140,7 +2149,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTERCEPTOR_TYPE__JMS_DESTINATION = 17;
+	int INTERCEPTOR_TYPE__JMS_DESTINATION = 18;
 
 	/**
 	 * The feature id for the '<em><b>Mail Session</b></em>' containment reference list.
@@ -2149,7 +2158,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTERCEPTOR_TYPE__MAIL_SESSION = 18;
+	int INTERCEPTOR_TYPE__MAIL_SESSION = 19;
 
 	/**
 	 * The feature id for the '<em><b>Connection Factory</b></em>' containment reference list.
@@ -2158,7 +2167,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTERCEPTOR_TYPE__CONNECTION_FACTORY = 19;
+	int INTERCEPTOR_TYPE__CONNECTION_FACTORY = 20;
 
 	/**
 	 * The feature id for the '<em><b>Administered Object</b></em>' containment reference list.
@@ -2167,7 +2176,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTERCEPTOR_TYPE__ADMINISTERED_OBJECT = 20;
+	int INTERCEPTOR_TYPE__ADMINISTERED_OBJECT = 21;
 
 	/**
 	 * The feature id for the '<em><b>Post Activates</b></em>' containment reference list.
@@ -2176,7 +2185,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTERCEPTOR_TYPE__POST_ACTIVATES = 21;
+	int INTERCEPTOR_TYPE__POST_ACTIVATES = 22;
 
 	/**
 	 * The feature id for the '<em><b>Pre Passivates</b></em>' containment reference list.
@@ -2185,7 +2194,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTERCEPTOR_TYPE__PRE_PASSIVATES = 22;
+	int INTERCEPTOR_TYPE__PRE_PASSIVATES = 23;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -2194,7 +2203,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTERCEPTOR_TYPE__ID = 23;
+	int INTERCEPTOR_TYPE__ID = 24;
 
 	/**
 	 * The number of structural features of the '<em>Interceptor Type</em>' class.
@@ -2203,7 +2212,7 @@ public interface EjbPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INTERCEPTOR_TYPE_FEATURE_COUNT = 24;
+	int INTERCEPTOR_TYPE_FEATURE_COUNT = 25;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.ejb.internal.impl.MessageDrivenBeanImpl <em>Message Driven Bean</em>}' class.
@@ -5844,6 +5853,17 @@ public interface EjbPackage extends EPackage {
 	EReference getInterceptorType_AroundTimeouts();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.InterceptorType#getAroundConstruct <em>Around Construct</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Around Construct</em>'.
+	 * @see org.eclipse.jst.javaee.ejb.InterceptorType#getAroundConstruct()
+	 * @see #getInterceptorType()
+	 * @generated
+	 */
+	EReference getInterceptorType_AroundConstruct();
+
+	/**
 	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.ejb.InterceptorType#getEnvEntries <em>Env Entries</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9464,6 +9484,14 @@ public interface EjbPackage extends EPackage {
 		 * @generated
 		 */
 		EReference INTERCEPTOR_TYPE__AROUND_TIMEOUTS = eINSTANCE.getInterceptorType_AroundTimeouts();
+
+		/**
+		 * The meta object literal for the '<em><b>Around Construct</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference INTERCEPTOR_TYPE__AROUND_CONSTRUCT = eINSTANCE.getInterceptorType_AroundConstruct();
 
 		/**
 		 * The meta object literal for the '<em><b>Env Entries</b></em>' containment reference list feature.

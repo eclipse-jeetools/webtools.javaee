@@ -29,6 +29,8 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  *         description; and a list of ejb-relation elements, which
  *         specify the container managed relationships.
  *         
+ *         Support for entity beans is optional as of EJB 3.2.
+ *         
  *         @since Java EE 5, EJB 3.0
  *       
  * <!-- end-model-doc -->

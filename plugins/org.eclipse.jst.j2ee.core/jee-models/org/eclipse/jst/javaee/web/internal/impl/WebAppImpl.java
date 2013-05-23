@@ -114,6 +114,7 @@ import org.eclipse.jst.javaee.web.internal.metadata.WebPackage;
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getAdministeredObject <em>Administered Object</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getMessageDestinations <em>Message Destinations</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getLocalEncodingMappingsLists <em>Local Encoding Mappings Lists</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getDenyUncoveredHttpMethods <em>Deny Uncovered Http Methods</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getAbsoluteOrdering <em>Absolute Ordering</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getId <em>Id</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#isMetadataComplete <em>Metadata Complete</em>}</li>
@@ -581,6 +582,15 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public List<EmptyType> getDenyUncoveredHttpMethods() {
+		return getGroup().list(WebPackage.Literals.WEB_APP__DENY_UNCOVERED_HTTP_METHODS);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public List<String> getModuleName() {
 		return getGroup().list(WebPackage.Literals.WEB_APP__MODULE_NAME);
 	}
@@ -791,6 +801,8 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 				return ((InternalEList<?>)getMessageDestinations()).basicRemove(otherEnd, msgs);
 			case WebPackage.WEB_APP__LOCAL_ENCODING_MAPPINGS_LISTS:
 				return ((InternalEList<?>)getLocalEncodingMappingsLists()).basicRemove(otherEnd, msgs);
+			case WebPackage.WEB_APP__DENY_UNCOVERED_HTTP_METHODS:
+				return ((InternalEList<?>)getDenyUncoveredHttpMethods()).basicRemove(otherEnd, msgs);
 			case WebPackage.WEB_APP__ABSOLUTE_ORDERING:
 				return ((InternalEList<?>)getAbsoluteOrdering()).basicRemove(otherEnd, msgs);
 		}
@@ -884,6 +896,8 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 				return getMessageDestinations();
 			case WebPackage.WEB_APP__LOCAL_ENCODING_MAPPINGS_LISTS:
 				return getLocalEncodingMappingsLists();
+			case WebPackage.WEB_APP__DENY_UNCOVERED_HTTP_METHODS:
+				return getDenyUncoveredHttpMethods();
 			case WebPackage.WEB_APP__ABSOLUTE_ORDERING:
 				return getAbsoluteOrdering();
 			case WebPackage.WEB_APP__ID:
@@ -1060,6 +1074,10 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 				getLocalEncodingMappingsLists().clear();
 				getLocalEncodingMappingsLists().addAll((Collection<? extends LocaleEncodingMappingList>)newValue);
 				return;
+			case WebPackage.WEB_APP__DENY_UNCOVERED_HTTP_METHODS:
+				getDenyUncoveredHttpMethods().clear();
+				getDenyUncoveredHttpMethods().addAll((Collection<? extends EmptyType>)newValue);
+				return;
 			case WebPackage.WEB_APP__ABSOLUTE_ORDERING:
 				getAbsoluteOrdering().clear();
 				getAbsoluteOrdering().addAll((Collection<? extends AbsoluteOrderingType>)newValue);
@@ -1202,6 +1220,9 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 			case WebPackage.WEB_APP__LOCAL_ENCODING_MAPPINGS_LISTS:
 				getLocalEncodingMappingsLists().clear();
 				return;
+			case WebPackage.WEB_APP__DENY_UNCOVERED_HTTP_METHODS:
+				getDenyUncoveredHttpMethods().clear();
+				return;
 			case WebPackage.WEB_APP__ABSOLUTE_ORDERING:
 				getAbsoluteOrdering().clear();
 				return;
@@ -1304,6 +1325,8 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 				return !getMessageDestinations().isEmpty();
 			case WebPackage.WEB_APP__LOCAL_ENCODING_MAPPINGS_LISTS:
 				return !getLocalEncodingMappingsLists().isEmpty();
+			case WebPackage.WEB_APP__DENY_UNCOVERED_HTTP_METHODS:
+				return !getDenyUncoveredHttpMethods().isEmpty();
 			case WebPackage.WEB_APP__ABSOLUTE_ORDERING:
 				return !getAbsoluteOrdering().isEmpty();
 			case WebPackage.WEB_APP__ID:

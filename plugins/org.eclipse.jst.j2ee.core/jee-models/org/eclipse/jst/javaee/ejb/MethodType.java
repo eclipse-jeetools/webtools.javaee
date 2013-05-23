@@ -66,10 +66,13 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  *         timeout callback methods
  *         message-driven bean message listener method
  *         
- *         This style may be used for stateful session bean lifecycle 
- *         callback methods to specify their transaction attributes, 
- *         if used with the method-intf element that contains 
- *         LifecycleCallback as the value.
+ *         This style may also be used in combination with the 
+ *         method-intf element that contains LifecycleCallback as 
+ *         the value to specify transaction attributes of a stateful 
+ *         session bean PostConstruct, PreDestroy, PrePassivate, 
+ *         and PostActivate lifecycle callback methods or to override 
+ *         transaction attributes of a singleton session bean 
+ *         PostConstruct and PreDestroy lifecycle callback methods.
  *         
  *         2.
  *         <method>
@@ -84,6 +87,7 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  *         name.
  *         
  *         This style may be used to refer to stateful session bean
+ *         PostConstruct, PreDestroy, PrePassivate, and PostActivate 
  *         lifecycle callback methods to specify their transaction
  *         attributes if any of the following is true:
  *         there is only one method with this name in the specified 

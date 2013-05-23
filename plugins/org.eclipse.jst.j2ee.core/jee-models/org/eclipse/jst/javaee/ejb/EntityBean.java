@@ -42,6 +42,8 @@ import org.eclipse.jst.javaee.core.ServiceRef;
  * <!-- begin-model-doc -->
  * 
  * 
+ *         Support for entity beans is optional as of EJB 3.2.
+ * 
  *         The entity-beanType declares an entity bean. The declaration
  *         consists of:
  *         
@@ -475,6 +477,8 @@ public interface EntityBean extends JavaEEObject {
 	 *             deferred to deployment time, the prim-key-class 
 	 *             element should specify java.lang.Object.
 	 *             
+	 *             Support for entity beans is optional as of EJB 3.2.
+	 *             
 	 *             @since Java EE 5, EJB 3.0
 	 *           
 	 * <!-- end-model-doc -->
@@ -623,7 +627,9 @@ public interface EntityBean extends JavaEEObject {
 	 *             
 	 *             For example, the abstract-schema-name for an entity 
 	 *             bean whose local interface is 
-	 *             com.acme.commerce.Order might be Order. 
+	 *             com.acme.commerce.Order might be Order.
+	 *             
+	 *             Support for entity beans is optional as of EJB 3.2.
 	 *             
 	 *             @since Java EE 5, EJB 3.0
 	 *           
@@ -681,6 +687,8 @@ public interface EntityBean extends JavaEEObject {
 	 *             fields of the primary key class must be public, and
 	 *             their names must correspond to the field names of
 	 *             the entity bean class that comprise the key.
+	 *             
+	 *             Support for entity beans is optional as of EJB 3.2.
 	 *             
 	 *             @since Java EE 5, EJB 3.0
 	 *           

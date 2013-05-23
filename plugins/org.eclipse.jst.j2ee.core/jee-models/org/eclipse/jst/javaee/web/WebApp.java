@@ -85,6 +85,7 @@ import org.eclipse.jst.javaee.jsp.JspConfig;
  *   <li>{@link org.eclipse.jst.javaee.web.WebApp#getAdministeredObject <em>Administered Object</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.WebApp#getMessageDestinations <em>Message Destinations</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.WebApp#getLocalEncodingMappingsLists <em>Local Encoding Mappings Lists</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.web.WebApp#getDenyUncoveredHttpMethods <em>Deny Uncovered Http Methods</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.WebApp#getAbsoluteOrdering <em>Absolute Ordering</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.WebApp#getId <em>Id</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.WebApp#isMetadataComplete <em>Metadata Complete</em>}</li>
@@ -695,6 +696,29 @@ public interface WebApp extends IWebCommon {
 	 * @generated
 	 */
 	List<LocaleEncodingMappingList> getLocalEncodingMappingsLists();
+
+	/**
+	 * Returns the value of the '<em><b>Deny Uncovered Http Methods</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.jst.javaee.core.EmptyType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * 
+	 * 
+	 *             When specified, this element causes uncovered http methods
+	 *             to be denied. For every url-pattern that is the target of a 
+	 *             security-constrant, this element causes all HTTP methods that
+	 *             are NOT covered (by a security constraint) at the url-pattern
+	 *             to be denied.
+	 *             
+	 *             @since Java EE 7, Web 3.1
+	 *           
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Deny Uncovered Http Methods</em>' containment reference list.
+	 * @see org.eclipse.jst.javaee.web.internal.metadata.WebPackage#getWebApp_DenyUncoveredHttpMethods()
+	 * @generated
+	 */
+	List<EmptyType> getDenyUncoveredHttpMethods();
 
 	/**
 	 * Returns the value of the '<em><b>Absolute Ordering</b></em>' containment reference list.

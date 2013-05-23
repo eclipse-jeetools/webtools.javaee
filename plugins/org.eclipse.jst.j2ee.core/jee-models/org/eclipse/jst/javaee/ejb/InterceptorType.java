@@ -66,6 +66,7 @@ import org.eclipse.jst.javaee.core.ServiceRef;
  *   <li>{@link org.eclipse.jst.javaee.ejb.InterceptorType#getInterceptorClass <em>Interceptor Class</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.InterceptorType#getAroundInvokes <em>Around Invokes</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.InterceptorType#getAroundTimeouts <em>Around Timeouts</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.ejb.InterceptorType#getAroundConstruct <em>Around Construct</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.InterceptorType#getEnvEntries <em>Env Entries</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.InterceptorType#getEjbRefs <em>Ejb Refs</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.ejb.InterceptorType#getEjbLocalRefs <em>Ejb Local Refs</em>}</li>
@@ -163,6 +164,21 @@ public interface InterceptorType extends JavaEEObject {
 	 * @generated
 	 */
 	List<AroundTimeoutType> getAroundTimeouts();
+
+	/**
+	 * Returns the value of the '<em><b>Around Construct</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.jst.javaee.core.LifecycleCallback}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Around Construct</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Around Construct</em>' containment reference list.
+	 * @see org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage#getInterceptorType_AroundConstruct()
+	 * @generated
+	 */
+	List<LifecycleCallback> getAroundConstruct();
 
 	/**
 	 * Returns the value of the '<em><b>Env Entries</b></em>' containment reference list.

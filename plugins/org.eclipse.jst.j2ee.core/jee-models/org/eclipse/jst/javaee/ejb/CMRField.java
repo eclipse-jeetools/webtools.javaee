@@ -32,6 +32,8 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  *         used only for collection-valued cmr-fields. It specifies the
  *         type of the collection that is used.
  *         
+ *         Support for entity beans is optional as of EJB 3.2.
+ *         
  *         @since Java EE 5, EJB 3.0
  *       
  * <!-- end-model-doc -->
@@ -80,6 +82,8 @@ public interface CMRField extends JavaEEObject {
 	 *             whose names consist of the name of the field
 	 *             specified by cmr-field-name in which the first
 	 *             letter is uppercased, prefixed by "get" or "set".
+	 *             
+	 *             Support for entity beans is optional as of EJB 3.2.
 	 *             
 	 *             @since Java EE 5, EJB 3.0
 	 *           

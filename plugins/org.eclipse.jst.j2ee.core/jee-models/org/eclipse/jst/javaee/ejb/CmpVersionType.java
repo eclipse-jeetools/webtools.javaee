@@ -33,6 +33,8 @@ import org.eclipse.emf.common.util.Enumerator;
  *         1.x
  *         2.x
  *         
+ *         Support for entity beans is optional as of EJB 3.2.
+ *         
  *         @since Java EE 5, EJB 3.0
  *       
  * <!-- end-model-doc -->

@@ -81,6 +81,8 @@ public interface CMPField extends JavaEEObject {
 	 *             cmp-version 1.x must denote a public field of the
 	 *             enterprise bean class or one of its superclasses.
 	 *             
+	 *             Support for entity beans is optional as of EJB 3.2.
+	 *             
 	 *             @since Java EE 5, EJB 3.0
 	 *           
 	 * <!-- end-model-doc -->

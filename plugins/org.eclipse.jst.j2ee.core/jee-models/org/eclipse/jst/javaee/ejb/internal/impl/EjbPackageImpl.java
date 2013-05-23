@@ -2094,7 +2094,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInterceptorType_EnvEntries() {
+	public EReference getInterceptorType_AroundConstruct() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -2103,7 +2103,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInterceptorType_EjbRefs() {
+	public EReference getInterceptorType_EnvEntries() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -2112,7 +2112,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInterceptorType_EjbLocalRefs() {
+	public EReference getInterceptorType_EjbRefs() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(6);
 	}
 
@@ -2121,7 +2121,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInterceptorType_ServiceRefs() {
+	public EReference getInterceptorType_EjbLocalRefs() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(7);
 	}
 
@@ -2130,7 +2130,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInterceptorType_ResourceRefs() {
+	public EReference getInterceptorType_ServiceRefs() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(8);
 	}
 
@@ -2139,7 +2139,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInterceptorType_ResourceEnvRefs() {
+	public EReference getInterceptorType_ResourceRefs() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(9);
 	}
 
@@ -2148,7 +2148,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInterceptorType_MessageDestinationRefs() {
+	public EReference getInterceptorType_ResourceEnvRefs() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(10);
 	}
 
@@ -2157,7 +2157,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInterceptorType_PersistenceContextRefs() {
+	public EReference getInterceptorType_MessageDestinationRefs() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(11);
 	}
 
@@ -2166,7 +2166,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInterceptorType_PersistenceUnitRefs() {
+	public EReference getInterceptorType_PersistenceContextRefs() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(12);
 	}
 
@@ -2175,7 +2175,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInterceptorType_PostConstructs() {
+	public EReference getInterceptorType_PersistenceUnitRefs() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(13);
 	}
 
@@ -2184,7 +2184,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInterceptorType_PreDestroys() {
+	public EReference getInterceptorType_PostConstructs() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(14);
 	}
 
@@ -2193,7 +2193,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInterceptorType_DataSource() {
+	public EReference getInterceptorType_PreDestroys() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(15);
 	}
 
@@ -2202,7 +2202,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInterceptorType_JmsConnectionFactory() {
+	public EReference getInterceptorType_DataSource() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(16);
 	}
 
@@ -2211,7 +2211,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInterceptorType_JmsDestination() {
+	public EReference getInterceptorType_JmsConnectionFactory() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(17);
 	}
 
@@ -2220,7 +2220,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInterceptorType_MailSession() {
+	public EReference getInterceptorType_JmsDestination() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(18);
 	}
 
@@ -2229,7 +2229,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInterceptorType_ConnectionFactory() {
+	public EReference getInterceptorType_MailSession() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(19);
 	}
 
@@ -2238,7 +2238,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInterceptorType_AdministeredObject() {
+	public EReference getInterceptorType_ConnectionFactory() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(20);
 	}
 
@@ -2247,7 +2247,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInterceptorType_PostActivates() {
+	public EReference getInterceptorType_AdministeredObject() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(21);
 	}
 
@@ -2256,7 +2256,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getInterceptorType_PrePassivates() {
+	public EReference getInterceptorType_PostActivates() {
 		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(22);
 	}
 
@@ -2265,8 +2265,17 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getInterceptorType_PrePassivates() {
+		return (EReference)interceptorTypeEClass.getEStructuralFeatures().get(23);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EAttribute getInterceptorType_Id() {
-		return (EAttribute)interceptorTypeEClass.getEStructuralFeatures().get(23);
+		return (EAttribute)interceptorTypeEClass.getEStructuralFeatures().get(24);
 	}
 
 	/**
@@ -4176,6 +4185,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		createEAttribute(interceptorTypeEClass, INTERCEPTOR_TYPE__INTERCEPTOR_CLASS);
 		createEReference(interceptorTypeEClass, INTERCEPTOR_TYPE__AROUND_INVOKES);
 		createEReference(interceptorTypeEClass, INTERCEPTOR_TYPE__AROUND_TIMEOUTS);
+		createEReference(interceptorTypeEClass, INTERCEPTOR_TYPE__AROUND_CONSTRUCT);
 		createEReference(interceptorTypeEClass, INTERCEPTOR_TYPE__ENV_ENTRIES);
 		createEReference(interceptorTypeEClass, INTERCEPTOR_TYPE__EJB_REFS);
 		createEReference(interceptorTypeEClass, INTERCEPTOR_TYPE__EJB_LOCAL_REFS);
@@ -4634,6 +4644,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		initEAttribute(getInterceptorType_InterceptorClass(), theJavaeePackage.getFullyQualifiedClassType(), "interceptorClass", null, 1, 1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getInterceptorType_AroundInvokes(), this.getAroundInvokeType(), null, "aroundInvokes", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getInterceptorType_AroundTimeouts(), this.getAroundTimeoutType(), null, "aroundTimeouts", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getInterceptorType_AroundConstruct(), theJavaeePackage.getLifecycleCallback(), null, "aroundConstruct", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getInterceptorType_EnvEntries(), theJavaeePackage.getEnvEntry(), null, "envEntries", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getInterceptorType_EjbRefs(), theJavaeePackage.getEjbRef(), null, "ejbRefs", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getInterceptorType_EjbLocalRefs(), theJavaeePackage.getEjbLocalRef(), null, "ejbLocalRefs", null, 0, -1, InterceptorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
@@ -6252,6 +6263,14 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		   new String[] {
 			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
 			 "name", "around-timeout", //$NON-NLS-1$ //$NON-NLS-2$
+			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getInterceptorType_AroundConstruct(), 
+		   source, 
+		   new String[] {
+			 "kind", "element", //$NON-NLS-1$ //$NON-NLS-2$
+			 "name", "around-construct", //$NON-NLS-1$ //$NON-NLS-2$
 			 "namespace", "##targetNamespace" //$NON-NLS-1$ //$NON-NLS-2$
 		   });		
 		addAnnotation

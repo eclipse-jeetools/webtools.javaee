@@ -61,6 +61,7 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  *         </ejb-relationship-role>
  *         </ejb-relation>
  *         
+ *         Support for entity beans is optional as of EJB 3.2.
  * 
  *         @since Java EE 5, EJB 3.0
  *       
@@ -201,6 +202,8 @@ public interface EJBRelationshipRole extends JavaEEObject {
 	 *             element contained in an ejb-relation element in
 	 *             which the other ejb-relationship-role
 	 *             element specifies a multiplicity of One.
+	 *             
+	 *             Support for entity beans is optional as of EJB 3.2.
 	 *             
 	 *             @since Java EE 5, EJB 3.0
 	 *           

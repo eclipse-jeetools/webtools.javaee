@@ -1956,13 +1956,22 @@ public interface WebPackage extends EPackage {
 	int WEB_APP__LOCAL_ENCODING_MAPPINGS_LISTS = 38;
 
 	/**
+	 * The feature id for the '<em><b>Deny Uncovered Http Methods</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WEB_APP__DENY_UNCOVERED_HTTP_METHODS = 39;
+
+	/**
 	 * The feature id for the '<em><b>Absolute Ordering</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__ABSOLUTE_ORDERING = 39;
+	int WEB_APP__ABSOLUTE_ORDERING = 40;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -1971,7 +1980,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__ID = 40;
+	int WEB_APP__ID = 41;
 
 	/**
 	 * The feature id for the '<em><b>Metadata Complete</b></em>' attribute.
@@ -1980,7 +1989,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__METADATA_COMPLETE = 41;
+	int WEB_APP__METADATA_COMPLETE = 42;
 
 	/**
 	 * The feature id for the '<em><b>Version</b></em>' attribute.
@@ -1989,7 +1998,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP__VERSION = 42;
+	int WEB_APP__VERSION = 43;
 
 	/**
 	 * The number of structural features of the '<em>App</em>' class.
@@ -1998,7 +2007,7 @@ public interface WebPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int WEB_APP_FEATURE_COUNT = 43;
+	int WEB_APP_FEATURE_COUNT = 44;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.web.internal.impl.WebAppDeploymentDescriptorImpl <em>App Deployment Descriptor</em>}' class.
@@ -4430,6 +4439,17 @@ public interface WebPackage extends EPackage {
 	EReference getWebApp_LocalEncodingMappingsLists();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.jst.javaee.web.WebApp#getDenyUncoveredHttpMethods <em>Deny Uncovered Http Methods</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Deny Uncovered Http Methods</em>'.
+	 * @see org.eclipse.jst.javaee.web.WebApp#getDenyUncoveredHttpMethods()
+	 * @see #getWebApp()
+	 * @generated
+	 */
+	EReference getWebApp_DenyUncoveredHttpMethods();
+
+	/**
 	 * Returns the meta object for the attribute list '{@link org.eclipse.jst.javaee.web.WebApp#getModuleName <em>Module Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6626,6 +6646,14 @@ public interface WebPackage extends EPackage {
 		 * @generated
 		 */
 		EReference WEB_APP__LOCAL_ENCODING_MAPPINGS_LISTS = eINSTANCE.getWebApp_LocalEncodingMappingsLists();
+
+		/**
+		 * The meta object literal for the '<em><b>Deny Uncovered Http Methods</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference WEB_APP__DENY_UNCOVERED_HTTP_METHODS = eINSTANCE.getWebApp_DenyUncoveredHttpMethods();
 
 		/**
 		 * The meta object literal for the '<em><b>Module Name</b></em>' attribute list feature.

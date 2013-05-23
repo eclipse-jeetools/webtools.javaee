@@ -416,13 +416,13 @@ public interface JavaeePackage extends EPackage {
 	int CONNECTION_FACTORY_RESOURCE_TYPE__NAME = 1;
 
 	/**
-	 * The feature id for the '<em><b>Class Name</b></em>' attribute.
+	 * The feature id for the '<em><b>Interface Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTION_FACTORY_RESOURCE_TYPE__CLASS_NAME = 2;
+	int CONNECTION_FACTORY_RESOURCE_TYPE__INTERFACE_NAME = 2;
 
 	/**
 	 * The feature id for the '<em><b>Resource Adapter</b></em>' attribute.
@@ -1209,13 +1209,22 @@ public interface JavaeePackage extends EPackage {
 	int JMS_CONNECTION_FACTORY_TYPE__NAME = 1;
 
 	/**
+	 * The feature id for the '<em><b>Interface Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JMS_CONNECTION_FACTORY_TYPE__INTERFACE_NAME = 2;
+
+	/**
 	 * The feature id for the '<em><b>Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int JMS_CONNECTION_FACTORY_TYPE__CLASS_NAME = 2;
+	int JMS_CONNECTION_FACTORY_TYPE__CLASS_NAME = 3;
 
 	/**
 	 * The feature id for the '<em><b>Resource Adapter</b></em>' attribute.
@@ -1224,7 +1233,7 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int JMS_CONNECTION_FACTORY_TYPE__RESOURCE_ADAPTER = 3;
+	int JMS_CONNECTION_FACTORY_TYPE__RESOURCE_ADAPTER = 4;
 
 	/**
 	 * The feature id for the '<em><b>User</b></em>' attribute.
@@ -1233,7 +1242,7 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int JMS_CONNECTION_FACTORY_TYPE__USER = 4;
+	int JMS_CONNECTION_FACTORY_TYPE__USER = 5;
 
 	/**
 	 * The feature id for the '<em><b>Password</b></em>' attribute.
@@ -1242,7 +1251,7 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int JMS_CONNECTION_FACTORY_TYPE__PASSWORD = 5;
+	int JMS_CONNECTION_FACTORY_TYPE__PASSWORD = 6;
 
 	/**
 	 * The feature id for the '<em><b>Client Id</b></em>' attribute.
@@ -1251,7 +1260,7 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int JMS_CONNECTION_FACTORY_TYPE__CLIENT_ID = 6;
+	int JMS_CONNECTION_FACTORY_TYPE__CLIENT_ID = 7;
 
 	/**
 	 * The feature id for the '<em><b>Property</b></em>' containment reference list.
@@ -1260,7 +1269,7 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int JMS_CONNECTION_FACTORY_TYPE__PROPERTY = 7;
+	int JMS_CONNECTION_FACTORY_TYPE__PROPERTY = 8;
 
 	/**
 	 * The feature id for the '<em><b>Transactional</b></em>' attribute.
@@ -1269,7 +1278,7 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int JMS_CONNECTION_FACTORY_TYPE__TRANSACTIONAL = 8;
+	int JMS_CONNECTION_FACTORY_TYPE__TRANSACTIONAL = 9;
 
 	/**
 	 * The feature id for the '<em><b>Max Pool Size</b></em>' attribute.
@@ -1278,7 +1287,7 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int JMS_CONNECTION_FACTORY_TYPE__MAX_POOL_SIZE = 9;
+	int JMS_CONNECTION_FACTORY_TYPE__MAX_POOL_SIZE = 10;
 
 	/**
 	 * The feature id for the '<em><b>Min Pool Size</b></em>' attribute.
@@ -1287,7 +1296,7 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int JMS_CONNECTION_FACTORY_TYPE__MIN_POOL_SIZE = 10;
+	int JMS_CONNECTION_FACTORY_TYPE__MIN_POOL_SIZE = 11;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -1296,7 +1305,7 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int JMS_CONNECTION_FACTORY_TYPE__ID = 11;
+	int JMS_CONNECTION_FACTORY_TYPE__ID = 12;
 
 	/**
 	 * The number of structural features of the '<em>Jms Connection Factory Type</em>' class.
@@ -1305,7 +1314,7 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int JMS_CONNECTION_FACTORY_TYPE_FEATURE_COUNT = 12;
+	int JMS_CONNECTION_FACTORY_TYPE_FEATURE_COUNT = 13;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.internal.impl.JmsDestinationTypeImpl <em>Jms Destination Type</em>}' class.
@@ -1336,13 +1345,22 @@ public interface JavaeePackage extends EPackage {
 	int JMS_DESTINATION_TYPE__NAME = 1;
 
 	/**
+	 * The feature id for the '<em><b>Interface Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int JMS_DESTINATION_TYPE__INTERFACE_NAME = 2;
+
+	/**
 	 * The feature id for the '<em><b>Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int JMS_DESTINATION_TYPE__CLASS_NAME = 2;
+	int JMS_DESTINATION_TYPE__CLASS_NAME = 3;
 
 	/**
 	 * The feature id for the '<em><b>Resource Adapter</b></em>' attribute.
@@ -1351,7 +1369,7 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int JMS_DESTINATION_TYPE__RESOURCE_ADAPTER = 3;
+	int JMS_DESTINATION_TYPE__RESOURCE_ADAPTER = 4;
 
 	/**
 	 * The feature id for the '<em><b>Destination Name</b></em>' attribute.
@@ -1360,7 +1378,7 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int JMS_DESTINATION_TYPE__DESTINATION_NAME = 4;
+	int JMS_DESTINATION_TYPE__DESTINATION_NAME = 5;
 
 	/**
 	 * The feature id for the '<em><b>Property</b></em>' containment reference list.
@@ -1369,7 +1387,7 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int JMS_DESTINATION_TYPE__PROPERTY = 5;
+	int JMS_DESTINATION_TYPE__PROPERTY = 6;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -1378,7 +1396,7 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int JMS_DESTINATION_TYPE__ID = 6;
+	int JMS_DESTINATION_TYPE__ID = 7;
 
 	/**
 	 * The number of structural features of the '<em>Jms Destination Type</em>' class.
@@ -1387,7 +1405,7 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int JMS_DESTINATION_TYPE_FEATURE_COUNT = 7;
+	int JMS_DESTINATION_TYPE_FEATURE_COUNT = 8;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.jst.javaee.core.internal.impl.LifecycleCallbackImpl <em>Lifecycle Callback</em>}' class.
@@ -3506,15 +3524,15 @@ public interface JavaeePackage extends EPackage {
 	EAttribute getConnectionFactoryResourceType_Name();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.ConnectionFactoryResourceType#getClassName <em>Class Name</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.ConnectionFactoryResourceType#getInterfaceName <em>Interface Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Class Name</em>'.
-	 * @see org.eclipse.jst.javaee.core.ConnectionFactoryResourceType#getClassName()
+	 * @return the meta object for the attribute '<em>Interface Name</em>'.
+	 * @see org.eclipse.jst.javaee.core.ConnectionFactoryResourceType#getInterfaceName()
 	 * @see #getConnectionFactoryResourceType()
 	 * @generated
 	 */
-	EAttribute getConnectionFactoryResourceType_ClassName();
+	EAttribute getConnectionFactoryResourceType_InterfaceName();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.ConnectionFactoryResourceType#getResourceAdapter <em>Resource Adapter</em>}'.
@@ -4343,6 +4361,17 @@ public interface JavaeePackage extends EPackage {
 	EAttribute getJmsConnectionFactoryType_Name();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.JmsConnectionFactoryType#getInterfaceName <em>Interface Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Interface Name</em>'.
+	 * @see org.eclipse.jst.javaee.core.JmsConnectionFactoryType#getInterfaceName()
+	 * @see #getJmsConnectionFactoryType()
+	 * @generated
+	 */
+	EAttribute getJmsConnectionFactoryType_InterfaceName();
+
+	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.JmsConnectionFactoryType#getClassName <em>Class Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4483,6 +4512,17 @@ public interface JavaeePackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getJmsDestinationType_Name();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.JmsDestinationType#getInterfaceName <em>Interface Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Interface Name</em>'.
+	 * @see org.eclipse.jst.javaee.core.JmsDestinationType#getInterfaceName()
+	 * @see #getJmsDestinationType()
+	 * @generated
+	 */
+	EAttribute getJmsDestinationType_InterfaceName();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.jst.javaee.core.JmsDestinationType#getClassName <em>Class Name</em>}'.
@@ -6702,12 +6742,12 @@ public interface JavaeePackage extends EPackage {
 		EAttribute CONNECTION_FACTORY_RESOURCE_TYPE__NAME = eINSTANCE.getConnectionFactoryResourceType_Name();
 
 		/**
-		 * The meta object literal for the '<em><b>Class Name</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Interface Name</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute CONNECTION_FACTORY_RESOURCE_TYPE__CLASS_NAME = eINSTANCE.getConnectionFactoryResourceType_ClassName();
+		EAttribute CONNECTION_FACTORY_RESOURCE_TYPE__INTERFACE_NAME = eINSTANCE.getConnectionFactoryResourceType_InterfaceName();
 
 		/**
 		 * The meta object literal for the '<em><b>Resource Adapter</b></em>' attribute feature.
@@ -7338,6 +7378,14 @@ public interface JavaeePackage extends EPackage {
 		EAttribute JMS_CONNECTION_FACTORY_TYPE__NAME = eINSTANCE.getJmsConnectionFactoryType_Name();
 
 		/**
+		 * The meta object literal for the '<em><b>Interface Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JMS_CONNECTION_FACTORY_TYPE__INTERFACE_NAME = eINSTANCE.getJmsConnectionFactoryType_InterfaceName();
+
+		/**
 		 * The meta object literal for the '<em><b>Class Name</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -7442,6 +7490,14 @@ public interface JavaeePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute JMS_DESTINATION_TYPE__NAME = eINSTANCE.getJmsDestinationType_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Interface Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute JMS_DESTINATION_TYPE__INTERFACE_NAME = eINSTANCE.getJmsDestinationType_InterfaceName();
 
 		/**
 		 * The meta object literal for the '<em><b>Class Name</b></em>' attribute feature.

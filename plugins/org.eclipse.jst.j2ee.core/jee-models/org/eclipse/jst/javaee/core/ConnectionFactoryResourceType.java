@@ -33,7 +33,7 @@ import java.util.List;
  * <ul>
  *   <li>{@link org.eclipse.jst.javaee.core.ConnectionFactoryResourceType#getDescription <em>Description</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.ConnectionFactoryResourceType#getName <em>Name</em>}</li>
- *   <li>{@link org.eclipse.jst.javaee.core.ConnectionFactoryResourceType#getClassName <em>Class Name</em>}</li>
+ *   <li>{@link org.eclipse.jst.javaee.core.ConnectionFactoryResourceType#getInterfaceName <em>Interface Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.ConnectionFactoryResourceType#getResourceAdapter <em>Resource Adapter</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.ConnectionFactoryResourceType#getMaxPoolSize <em>Max Pool Size</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.core.ConnectionFactoryResourceType#getMinPoolSize <em>Min Pool Size</em>}</li>
@@ -106,33 +106,33 @@ public interface ConnectionFactoryResourceType extends JavaEEObject {
 	void setName(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Class Name</b></em>' attribute.
+	 * Returns the value of the '<em><b>Interface Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 *             The fully qualified domain name of the connection factory 
-	 *             interface class. 
+	 *             The fully qualified class name of the connection factory 
+	 *             interface.  
 	 *             
 	 *           
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Class Name</em>' attribute.
-	 * @see #setClassName(String)
-	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getConnectionFactoryResourceType_ClassName()
+	 * @return the value of the '<em>Interface Name</em>' attribute.
+	 * @see #setInterfaceName(String)
+	 * @see org.eclipse.jst.javaee.core.internal.metadata.JavaeePackage#getConnectionFactoryResourceType_InterfaceName()
 	 * @generated
 	 */
-	String getClassName();
+	String getInterfaceName();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.jst.javaee.core.ConnectionFactoryResourceType#getClassName <em>Class Name</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.jst.javaee.core.ConnectionFactoryResourceType#getInterfaceName <em>Interface Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Class Name</em>' attribute.
-	 * @see #getClassName()
+	 * @param value the new value of the '<em>Interface Name</em>' attribute.
+	 * @see #getInterfaceName()
 	 * @generated
 	 */
-	void setClassName(String value);
+	void setInterfaceName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Resource Adapter</b></em>' attribute.

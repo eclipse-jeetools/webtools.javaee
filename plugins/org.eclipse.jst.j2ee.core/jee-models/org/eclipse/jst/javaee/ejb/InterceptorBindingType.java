@@ -52,7 +52,13 @@ import org.eclipse.jst.javaee.core.JavaEEObject;
  *         The binding of interceptors to classes is additive.  If interceptors
  *         are bound at the class-level and/or default-level as well as the
  *         method-level, both class-level and/or default-level as well as
- *         method-level will apply. 
+ *         method-level will apply.
+ *         
+ *         The method-name element may be used to bind a constructor-level 
+ *         interceptor using the unqualified name of the bean class as the value; 
+ *         the optional method-params elements identify the constructor if a bean 
+ *         class has a constructor annotated with the Inject annotation in addition 
+ *         to a no-arg constructor. 
  *         
  *         There are four possible styles of the interceptor element syntax :
  *         

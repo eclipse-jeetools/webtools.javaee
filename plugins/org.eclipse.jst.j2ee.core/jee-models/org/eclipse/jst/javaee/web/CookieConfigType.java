@@ -232,9 +232,12 @@ public interface CookieConfigType extends JavaEEObject {
 	 * 
 	 * 
 	 *             Specifies whether any session tracking cookies created 
-	 *             by this web application will be marked as secure
-	 *             even if the request that initiated the corresponding session
-	 *             is using plain HTTP instead of HTTPS
+	 *             by this web application will be marked as secure.
+	 *             When true, all session tracking cookies must be marked
+	 *             as secure independent of the nature of the request that
+	 *             initiated the corresponding session.
+	 *             When false, the session cookie should only be marked secure
+	 *             if the request that initiated the session was secure.
 	 *             
 	 *             @since Java EE 6, Web 3.0
 	 *           
