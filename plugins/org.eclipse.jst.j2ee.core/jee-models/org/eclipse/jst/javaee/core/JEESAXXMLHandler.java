@@ -14,6 +14,8 @@ import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.util.BasicExtendedMetaData;
+import org.eclipse.emf.ecore.util.ExtendedMetaData;
 import org.eclipse.emf.ecore.xmi.XMLHelper;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.SAXXMIHandler;
@@ -43,4 +45,41 @@ public class JEESAXXMLHandler extends SAXXMIHandler {
 		
 	}
 
+	@Override
+	protected void setExtendedMetaDataOption(Object extendedMetaDataOption)
+	  {
+	    if (extendedMetaDataOption instanceof Boolean)
+	    {
+	      if (extendedMetaDataOption.equals(Boolean.TRUE))
+	      {
+	        extendedMetaData =
+	          resourceSet == null ?
+	            ExtendedMetaData.INSTANCE :
+	            new BasicExtendedMetaData(resourceSet.getPackageRegistry());
+	        if (xmlResource != null)
+	        {
+	        	// only override the save option if there is not one there already
+	        	Object oldExtendedMetaData = xmlResource.getDefaultSaveOptions().get(XMLResource.OPTION_EXTENDED_META_DATA);
+	        	if (oldExtendedMetaData == null || Boolean.TRUE.equals(oldExtendedMetaData))
+	        	{
+	        		xmlResource.getDefaultSaveOptions().put(XMLResource.OPTION_EXTENDED_META_DATA, extendedMetaData);
+	        	}
+	        	else if (oldExtendedMetaData instanceof ExtendedMetaData)
+	        	{
+	        		extendedMetaData = (ExtendedMetaData)oldExtendedMetaData;
+	        	}
+	        }
+	      }
+	      else
+	      {
+	        extendedMetaData = null;
+	      }
+	    }
+	    else
+	    {
+	      extendedMetaData = (ExtendedMetaData)extendedMetaDataOption;
+	    }
+
+	    helper.setExtendedMetaData(extendedMetaData);
+	  }
 }

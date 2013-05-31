@@ -31,6 +31,8 @@ public class JEEXMLHelperImpl extends XMLHelperImpl {
 		EStructuralFeature aFeature =  super.getFeature(class1, namespaceURI, name, isElement);
 		if (aFeature == null)
 			aFeature =  super.getFeature(class1, JavaeePackage.eNS_URI, name, isElement);
+		if (aFeature == null)
+			aFeature =  super.getFeature(class1, JavaeePackage.eNS_URI2, name, isElement);
 	return aFeature;
 	}
 

@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.XMLOptions;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMLOptionsImpl;
+import org.eclipse.jst.javaee.core.internal.util.JavaEEExtendedMetaData;
 
 /**
  * <!-- begin-user-doc -->
@@ -44,7 +45,7 @@ public class EjbResourceFactoryImpl extends ResourceFactoryImpl {
 	@Override
 	public Resource createResource(URI uri) {
 		XMLResource result = new EjbResourceImpl(uri);
-		result.getDefaultSaveOptions().put(XMLResource.OPTION_EXTENDED_META_DATA, Boolean.TRUE);
+		result.getDefaultSaveOptions().put(XMLResource.OPTION_EXTENDED_META_DATA, new JavaEEExtendedMetaData(result));
 		result.getDefaultLoadOptions().put(XMLResource.OPTION_EXTENDED_META_DATA, Boolean.TRUE);
 
 		result.getDefaultSaveOptions().put(XMLResource.OPTION_SCHEMA_LOCATION, Boolean.TRUE);

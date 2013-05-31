@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceFactoryImpl;
 
 import org.eclipse.emf.ecore.xmi.XMLResource;
+import org.eclipse.jst.javaee.core.internal.util.JavaEEExtendedMetaData;
 
 /**
  * <!-- begin-user-doc -->
@@ -45,7 +46,7 @@ public class WebfragmentResourceFactoryImpl extends ResourceFactoryImpl {
 	@Override
 	public Resource createResource(URI uri) {
 		XMLResource result = new WebfragmentResourceImpl(uri);
-		result.getDefaultSaveOptions().put(XMLResource.OPTION_EXTENDED_META_DATA, Boolean.TRUE);
+		result.getDefaultSaveOptions().put(XMLResource.OPTION_EXTENDED_META_DATA, new JavaEEExtendedMetaData(result));
 		result.getDefaultLoadOptions().put(XMLResource.OPTION_EXTENDED_META_DATA, Boolean.TRUE);
 
 		result.getDefaultSaveOptions().put(XMLResource.OPTION_SCHEMA_LOCATION, Boolean.TRUE);

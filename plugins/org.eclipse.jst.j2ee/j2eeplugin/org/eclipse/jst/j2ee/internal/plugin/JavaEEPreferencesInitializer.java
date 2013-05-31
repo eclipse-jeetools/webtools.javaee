@@ -134,6 +134,11 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 		static final String EE6_CONNECTOR_GENERATE_DD = "ee6_connector_generate_dd"; //$NON-NLS-1$
 		
 		/**
+	     * @since 3.5
+	     */
+		static final String EE7_CONNECTOR_GENERATE_DD = "ee7_connector_generate_dd"; //$NON-NLS-1$
+		
+		/**
 		 * Used to determine if the business interface annotations should be added to the bean class during EJB creation. 
 		 */
 		static final String EJB_BUSINESS_INTERFACE_ANNOTATION_IN_BEAN = IProductConstants.EJB_BUSINESS_INTERFACE_ANNOTATION_IN_BEAN;
@@ -204,6 +209,7 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 		public static final boolean BOOLEAN_DEFAULT_DEFAULT = false;
 		final static boolean DYNAMIC_WEB_GENERATE_DD = false;
 		final static boolean EE6_CONNECTOR_GENERATE_DD = false;
+		final static boolean EE7_CONNECTOR_GENERATE_DD = false;
 		final static boolean EJB_BUSINESS_INTERFACE_ANNOTATION_IN_BEAN = false;
 		final static boolean EJB_BUSINESS_INTERFACE_ANNOTATION_IN_INTERFACE = true;
 	}
@@ -246,6 +252,9 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 		String ee6ConnectorGenerateDD = ProductManager.getProperty(IProductConstants.EE6_CONNECTOR_GENERATE_DD);
 		boolean ee6ConnectorGenerateDDDefault = (ee6ConnectorGenerateDD != null) ? Boolean.parseBoolean(ee6ConnectorGenerateDD) : Defaults.EE6_CONNECTOR_GENERATE_DD;
 		node.putBoolean(Keys.EE6_CONNECTOR_GENERATE_DD, ee6ConnectorGenerateDDDefault);
+		String ee7ConnectorGenerateDD = ProductManager.getProperty(IProductConstants.EE7_CONNECTOR_GENERATE_DD);
+		boolean ee7ConnectorGenerateDDDefault = (ee7ConnectorGenerateDD != null) ? Boolean.parseBoolean(ee7ConnectorGenerateDD) : Defaults.EE7_CONNECTOR_GENERATE_DD;
+		node.putBoolean(Keys.EE7_CONNECTOR_GENERATE_DD, ee7ConnectorGenerateDDDefault);
 		
 		node.putBoolean(Keys.USE_EAR_LIBRARIES, true);
 		node.putBoolean(Keys.USE_WEB_APP_LIBRARIES, true);

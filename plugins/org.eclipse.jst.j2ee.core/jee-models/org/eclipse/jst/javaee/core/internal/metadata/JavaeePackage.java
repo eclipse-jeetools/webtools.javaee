@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.javaee.core.JavaeeFactory;
 
 /**
@@ -240,8 +241,8 @@ public interface JavaeePackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "http://xmlns.jcp.org/xml/ns/javaee"; //$NON-NLS-1$
-	String eNS_URI2 = "http://java.sun.com/xml/ns/javaee"; //$NON-NLS-1$
+	String eNS_URI = J2EEConstants.JAVAEE7_NS_URL;
+	String eNS_URI2 = J2EEConstants.JAVAEE_NS_URL;
 
 	/**
 	 * The package namespace name.

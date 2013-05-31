@@ -45,7 +45,7 @@ public class JavaeeResourceFactoryImpl extends ResourceFactoryImpl {
 	@Override
 	public Resource createResource(URI uri) {
 		XMLResource result = new JavaeeResourceImpl(uri);
-		result.getDefaultSaveOptions().put(XMLResource.OPTION_EXTENDED_META_DATA, Boolean.TRUE);
+		result.getDefaultSaveOptions().put(XMLResource.OPTION_EXTENDED_META_DATA, new JavaEEExtendedMetaData(result));
 		result.getDefaultLoadOptions().put(XMLResource.OPTION_EXTENDED_META_DATA, Boolean.TRUE);
 
 		result.getDefaultSaveOptions().put(XMLResource.OPTION_SCHEMA_LOCATION, Boolean.TRUE);

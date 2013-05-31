@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.javaee.web.WebFactory;
 
 /**
@@ -317,9 +318,9 @@ public interface WebPackage extends EPackage {
 	 * The package must be registered with the Java EE 5 and Java EE 6 xsds, since it is used for both 
 	 * <!-- end-user-doc -->
 	 */
-	String eNS_URI = "http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"; //$NON-NLS-1$
-	String eNS_URI2 = "http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"; //$NON-NLS-1$
-	String eNS_URI3 = "http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"; //$NON-NLS-1$
+	String eNS_URI = J2EEConstants.WEB_APP_SCHEMA_LOC_2_5;
+	String eNS_URI2 = J2EEConstants.WEB_APP_SCHEMA_LOC_3_0;
+	String eNS_URI3 = J2EEConstants.WEB_APP_SCHEMA_LOC_3_1;
 
 	/**
 	 * The package namespace name.

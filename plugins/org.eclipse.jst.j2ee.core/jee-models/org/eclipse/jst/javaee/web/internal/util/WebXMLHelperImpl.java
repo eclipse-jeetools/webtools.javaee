@@ -46,6 +46,12 @@ public class WebXMLHelperImpl extends JEEXMLHelperImpl {
 	public EStructuralFeature getFeature(EClass class1, String namespaceURI, String name, boolean isElement) {
 		
 		EStructuralFeature feat = super.getFeature(class1, namespaceURI, name, isElement);
+		if (feat == null && !WebPackage.eNS_URI.equals(namespaceURI))
+			feat =  super.getFeature(class1, WebPackage.eNS_URI, name, isElement);
+		if (feat == null && !WebPackage.eNS_URI2.equals(namespaceURI))
+			feat =  super.getFeature(class1, WebPackage.eNS_URI2, name, isElement);
+		if (feat == null && !WebPackage.eNS_URI3.equals(namespaceURI))
+			feat =  super.getFeature(class1, WebPackage.eNS_URI3, name, isElement);
 		if (feat == null)
 			//Try to use JSP namespace
 			feat = super.getFeature(class1, JspPackage.eNS_URI, name, isElement);

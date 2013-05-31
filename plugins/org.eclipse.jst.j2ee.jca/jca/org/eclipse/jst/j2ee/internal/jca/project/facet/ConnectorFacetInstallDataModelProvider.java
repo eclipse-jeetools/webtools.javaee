@@ -63,6 +63,9 @@ public class ConnectorFacetInstallDataModelProvider extends J2EEModuleFacetInsta
 			if(J2EEVersionConstants.VERSION_1_6_TEXT.equals(facetVersion)) {
 				return Boolean.valueOf(J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.EE6_CONNECTOR_GENERATE_DD));
 			}
+			if(J2EEVersionConstants.VERSION_1_7_TEXT.equals(facetVersion)) {
+				return Boolean.valueOf(J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.EE7_CONNECTOR_GENERATE_DD));
+			}
 			return Boolean.TRUE;
 		}
 		return super.getDefaultProperty(propertyName);

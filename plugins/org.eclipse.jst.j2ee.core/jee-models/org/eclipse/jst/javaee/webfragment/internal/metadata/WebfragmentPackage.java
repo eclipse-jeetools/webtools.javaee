@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.javaee.webfragment.WebfragmentFactory;
 
 /**
@@ -361,8 +362,8 @@ public interface WebfragmentPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "http://xmlns.jcp.org/xml/ns/javaee/webfragment"; //$NON-NLS-1$
-	String eNS_URI2 = "http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd"; //$NON-NLS-1$
+	String eNS_URI = J2EEConstants.WEBFRAGMENT_SCHEMA_LOC_3_0;
+	String eNS_URI2 = J2EEConstants.WEBFRAGMENT_SCHEMA_LOC_3_1;
 
 	/**
 	 * The package namespace name.

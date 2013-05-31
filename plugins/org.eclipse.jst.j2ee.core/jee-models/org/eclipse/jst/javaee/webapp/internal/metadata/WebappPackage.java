@@ -363,8 +363,8 @@ public interface WebappPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "http://xmlns.jcp.org/xml/ns/javaee/webapp"; //$NON-NLS-1$
-	String eNS_URI2 = "http://java.sun.com/xml/ns/javaee/webapp"; //$NON-NLS-1$
+	String eNS_URI = "http://java.sun.com/xml/ns/javaee/webapp"; //$NON-NLS-1$
+	String eNS_URI2 = "http://xmlns.jcp.org/xml/ns/javaee/webapp"; //$NON-NLS-1$
 
 	/**
 	 * The package namespace name.

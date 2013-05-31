@@ -10,7 +10,9 @@
  *******************************************************************************/
 package org.eclipse.jst.javaee.ejb.internal.util;
 
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.jst.javaee.core.internal.util.JEEXMLHelperImpl;
 import org.eclipse.jst.javaee.ejb.internal.metadata.EjbPackage;
@@ -41,5 +43,18 @@ public class EjbXMLHelperImpl extends JEEXMLHelperImpl {
 	    else return super.getQName(ePackage, name, mustHavePrefix);
 	  }
 
+	@Override
+	public EStructuralFeature getFeature(EClass class1, String namespaceURI,
+			String name, boolean isElement) {
+		// If not found in current namespace package, try all of the known namespaces
+		EStructuralFeature aFeature =  super.getFeature(class1, namespaceURI, name, isElement);
+		if (aFeature == null && !EjbPackage.eNS_URI.equals(namespaceURI))
+			aFeature =  super.getFeature(class1, EjbPackage.eNS_URI, name, isElement);
+		if (aFeature == null && !EjbPackage.eNS_URI2.equals(namespaceURI))
+			aFeature =  super.getFeature(class1, EjbPackage.eNS_URI2, name, isElement);
+		if (aFeature == null && !EjbPackage.eNS_URI3.equals(namespaceURI))
+			aFeature =  super.getFeature(class1, EjbPackage.eNS_URI3, name, isElement);
+		return aFeature;
+	}
 
 }

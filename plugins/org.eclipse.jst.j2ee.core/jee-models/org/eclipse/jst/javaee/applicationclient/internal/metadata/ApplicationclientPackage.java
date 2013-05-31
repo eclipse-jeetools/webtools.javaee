@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.javaee.applicationclient.ApplicationclientFactory;
 
 /**
@@ -288,9 +289,9 @@ public interface ApplicationclientPackage extends EPackage {
 	 * The package must be registered with the Java EE 5 and Java EE 6 xsds, since it is used for both
 	 * <!-- end-user-doc -->
 	 */
-	String eNS_URI = "http://xmlns.jcp.org/xml/ns/javaee/application-client_7.xsd"; //$NON-NLS-1$
-	String eNS_URI2 = "http://java.sun.com/xml/ns/javaee/application-client_6.xsd"; //$NON-NLS-1$
-	String eNS_URI3 = "http://java.sun.com/xml/ns/javaee/application-client_5.xsd"; //$NON-NLS-1$
+	String eNS_URI = J2EEConstants.APP_CLIENT_SCHEMA_LOC_5;
+	String eNS_URI2 = J2EEConstants.APP_CLIENT_SCHEMA_LOC_6;
+	String eNS_URI3 = J2EEConstants.APP_CLIENT_SCHEMA_LOC_7;
 
 	/**
 	 * The package namespace name.

@@ -47,10 +47,24 @@ public class WebfragmentXMLHelperImpl extends JEEXMLHelperImpl {
 	public EStructuralFeature getFeature(EClass class1, String namespaceURI, String name, boolean isElement) {
 		
 		EStructuralFeature feat = super.getFeature(class1, namespaceURI, name, isElement);
+		if (feat == null && !WebfragmentPackage.eNS_URI.equals(namespaceURI))
+			feat =  super.getFeature(class1, WebfragmentPackage.eNS_URI, name, isElement);
+		if (feat == null && !WebfragmentPackage.eNS_URI2.equals(namespaceURI))
+			feat =  super.getFeature(class1, WebfragmentPackage.eNS_URI2, name, isElement);
 		if (feat == null)
 		{
-			//Try to use web-app namespace
+			//Try to use web-app 2.5 namespace
 			feat = super.getFeature(class1, WebPackage.eNS_URI, name, isElement);
+		}
+		if (feat == null)
+		{
+			//Try to use web-app 3.0 namespace
+			feat = super.getFeature(class1, WebPackage.eNS_URI2, name, isElement);
+		}
+		if (feat == null)
+		{
+			//Try to use web-app 3.1 namespace
+			feat = super.getFeature(class1, WebPackage.eNS_URI3, name, isElement);
 		}
 		if (feat == null)
 		{

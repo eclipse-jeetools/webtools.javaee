@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.javaee.jca.JcaFactory;
 
 /**
@@ -289,8 +290,8 @@ public interface JcaPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "http://xmlns.jcp.org/xml/ns/javaee/jca"; //$NON-NLS-1$
-	String eNS_URI2 = "http://java.sun.com/xml/ns/javaee/connector_1_6.xsd"; //$NON-NLS-1$
+	String eNS_URI = J2EEConstants.CONNECTOR_SCHEMA_LOC_1_6;
+	String eNS_URI2 = J2EEConstants.CONNECTOR_SCHEMA_LOC_1_7;
 
 	/**
 	 * The package namespace name.

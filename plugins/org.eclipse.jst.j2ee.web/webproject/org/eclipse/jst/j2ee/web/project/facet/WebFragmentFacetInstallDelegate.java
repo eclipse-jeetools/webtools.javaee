@@ -128,7 +128,7 @@ public class WebFragmentFacetInstallDelegate implements IDelegate {
 			
 			if( fv == IJ2EEFacetConstants.WEBFRAGMENT_31 )
 			{
-				webFragXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<web-fragment id=\"WebFragment_ID\" version=\"3.0\" xmlns=\"http://xmlns.jcp.org/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-fragment_3_1.xsd\">\n<display-name>" + XMLWriter.getEscaped(project.getName())+ "</display-name> \n <name>"+ XMLWriter.getEscaped(projectNamewithoutSpecialChars) +  "</name> \n </web-fragment>"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				webFragXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<web-fragment id=\"WebFragment_ID\" version=\"3.1\" xmlns=\"http://xmlns.jcp.org/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-fragment_3_1.xsd\">\n<display-name>" + XMLWriter.getEscaped(project.getName())+ "</display-name> \n <name>"+ XMLWriter.getEscaped(projectNamewithoutSpecialChars) +  "</name> \n </web-fragment>"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			}
 			else
 			{

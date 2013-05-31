@@ -275,6 +275,9 @@ public class J2EEVersionUtil {
 		else if (J2EEVersionConstants.VERSION_1_6_TEXT.equals(version))
 			nVersion = J2EEVersionConstants.VERSION_1_6;
 		
+		else if (J2EEVersionConstants.VERSION_1_7_TEXT.equals(version))
+			nVersion = J2EEVersionConstants.VERSION_1_7;
+		
 		else if (J2EEVersionConstants.VERSION_2_0_TEXT.equals(version))
 			nVersion = J2EEVersionConstants.VERSION_2_0;
 		

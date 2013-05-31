@@ -10,7 +10,9 @@
  *******************************************************************************/
 package org.eclipse.jst.javaee.jca.internal.util;
 
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.jst.javaee.core.internal.util.JEEXMLHelperImpl;
 import org.eclipse.jst.javaee.jca.internal.metadata.JcaPackage;
@@ -41,5 +43,16 @@ public class JcaXMLHelperImpl extends JEEXMLHelperImpl {
 	    else return super.getQName(ePackage, name, mustHavePrefix);
 	  }
 
+	@Override
+	public EStructuralFeature getFeature(EClass class1, String namespaceURI,
+			String name, boolean isElement) {
+		// If not found in current namespace package, try all of the known namespaces
+		EStructuralFeature aFeature =  super.getFeature(class1, namespaceURI, name, isElement);
+		if (aFeature == null && !JcaPackage.eNS_URI.equals(namespaceURI))
+			aFeature =  super.getFeature(class1, JcaPackage.eNS_URI, name, isElement);
+		if (aFeature == null && !JcaPackage.eNS_URI2.equals(namespaceURI))
+			aFeature =  super.getFeature(class1, JcaPackage.eNS_URI2, name, isElement);
+		return aFeature;
+	}
 
 }

@@ -424,6 +424,7 @@ public class EarUtilities extends JavaEEProjectUtilities {
 			} else if (JCA.equals(moduleProjectFacetId)) {
 				switch (earVersion) {
 				case J2EEVersionConstants.VERSION_7_0:
+					retVal.add(JCA_17);
 				case J2EEVersionConstants.VERSION_6_0:
 					retVal.add(JCA_16);
 				case J2EEVersionConstants.VERSION_5_0:
