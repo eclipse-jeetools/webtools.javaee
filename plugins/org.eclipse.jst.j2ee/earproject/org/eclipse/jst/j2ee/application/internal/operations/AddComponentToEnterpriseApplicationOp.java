@@ -214,7 +214,7 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 	private void updateContextRoot(final IProject earpj, final IVirtualComponent wc,
 			ICommonModule mod) {
 		String earDDVersion = JavaEEProjectUtilities.getJ2EEDDProjectVersion(earpj);
-		boolean useNewModel = earDDVersion.equals(J2EEVersionConstants.VERSION_5_0_TEXT) || earDDVersion.equals(J2EEVersionConstants.VERSION_6_0_TEXT);
+		boolean useNewModel = earDDVersion.equals(J2EEVersionConstants.VERSION_5_0_TEXT) || earDDVersion.equals(J2EEVersionConstants.VERSION_6_0_TEXT) || earDDVersion.equals(J2EEVersionConstants.VERSION_7_0_TEXT);
 		String contextroot = null;
 		if (wc.isBinary()) {
 			IPath path = (IPath)wc.getAdapter(IPath.class);
@@ -247,7 +247,7 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 		final IProject earpj = ear.getProject();
 		
 		String earDDVersion = JavaEEProjectUtilities.getJ2EEDDProjectVersion(earpj);
-		boolean useNewModel = earDDVersion.equals(J2EEVersionConstants.VERSION_5_0_TEXT) || earDDVersion.equals(J2EEVersionConstants.VERSION_6_0_TEXT);
+		boolean useNewModel = earDDVersion.equals(J2EEVersionConstants.VERSION_5_0_TEXT) || earDDVersion.equals(J2EEVersionConstants.VERSION_6_0_TEXT) || earDDVersion.equals(J2EEVersionConstants.VERSION_7_0_TEXT);
 		if (wc.isBinary()){
 			//[Bug 299549] open and cache archive using the DISCRIMINATE_MAIN_CLASS
 			//option before attempting the JavaEEQuickPeek
