@@ -232,7 +232,9 @@ public class JavaEEExtendedMetaData extends BasicExtendedMetaData {
 		initURIs();
 		if (ePackage instanceof ApplicationPackage || ePackage instanceof ApplicationclientPackage ||ePackage instanceof EjbPackage ||ePackage instanceof JcaPackage || ePackage instanceof WebPackage)
 		{
-			retVal = uri;
+			// bug 409872 - we need to return the Java EE namespace, not the xsd URI
+//			retVal = uri;
+			retVal = javaeeUri;
 		}
 		else if (ePackage instanceof JavaeePackage)
 		{
