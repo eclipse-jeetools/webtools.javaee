@@ -173,13 +173,13 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 						version = J2EEVersionConstants.J2EE_1_2_ID;
 					}
 				} else if (schemaName != null) {
-					if (schemaName.equals(J2EEConstants.APP_CLIENT_SCHEMA_1_4)) {
+					if (schemaName.indexOf(J2EEConstants.APP_CLIENT_SCHEMA_1_4)!= -1) {
 						version = J2EEVersionConstants.J2EE_1_4_ID;
-					} else if (schemaName.equals(J2EEConstants.APP_CLIENT_SCHEMA_5)) {
+					} else if (schemaName.indexOf(J2EEConstants.APP_CLIENT_SCHEMA_5)!= -1) {
 						version = J2EEVersionConstants.JEE_5_0_ID;
-					} else if (schemaName.equals(J2EEConstants.APP_CLIENT_SCHEMA_6)) {
+					} else if (schemaName.indexOf(J2EEConstants.APP_CLIENT_SCHEMA_6)!= -1) {
 						version = J2EEVersionConstants.JEE_6_0_ID;
-					} else if (schemaName.equals(J2EEConstants.APP_CLIENT_SCHEMA_7)) {
+					} else if (schemaName.indexOf(J2EEConstants.APP_CLIENT_SCHEMA_7)!= -1) {
 						version = J2EEVersionConstants.JEE_7_0_ID;
 					}
 				}
@@ -194,13 +194,13 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 						version = J2EEVersionConstants.J2EE_1_2_ID;
 					}
 				} else if (schemaName != null) {
-					if (schemaName.equals(J2EEConstants.APPLICATION_SCHEMA_1_4)) {
+					if (schemaName.indexOf(J2EEConstants.APPLICATION_SCHEMA_1_4) != -1) {
 						version = J2EEVersionConstants.J2EE_1_4_ID;
-					} else if (schemaName.equals(J2EEConstants.APPLICATION_SCHEMA_5)) {
+					} else if (schemaName.indexOf(J2EEConstants.APPLICATION_SCHEMA_5) != -1) {
 						version = J2EEVersionConstants.JEE_5_0_ID;
-					} else if (schemaName.equals(J2EEConstants.APPLICATION_SCHEMA_6)) {
+					} else if (schemaName.indexOf(J2EEConstants.APPLICATION_SCHEMA_6) != -1) {
 						version = J2EEVersionConstants.JEE_6_0_ID;
-					} else if (schemaName.equals(J2EEConstants.APPLICATION_SCHEMA_7)) {
+					} else if (schemaName.indexOf(J2EEConstants.APPLICATION_SCHEMA_7) != -1){
 						version = J2EEVersionConstants.JEE_7_0_ID;
 					}
 				}
@@ -213,13 +213,13 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 						version = J2EEVersionConstants.EJB_1_1_ID;
 					}
 				} else if (schemaName != null) {
-					if (schemaName.equals(J2EEConstants.EJBJAR_SCHEMA_2_1)) {
+					if (schemaName.indexOf(J2EEConstants.EJBJAR_SCHEMA_2_1) != -1) {
 						version = J2EEVersionConstants.EJB_2_1_ID;
-					} else if (schemaName.equals(J2EEConstants.EJBJAR_SCHEMA_3_0)) {
+					} else if (schemaName.indexOf(J2EEConstants.EJBJAR_SCHEMA_3_0) != -1) {
 						version = J2EEVersionConstants.EJB_3_0_ID;
-					} else if (schemaName.equals(J2EEConstants.EJBJAR_SCHEMA_3_1)) {
+					} else if (schemaName.indexOf(J2EEConstants.EJBJAR_SCHEMA_3_1) != -1) {
 						version = J2EEVersionConstants.EJB_3_1_ID;
-					} else if (schemaName.equals(J2EEConstants.EJBJAR_SCHEMA_3_2)) {
+					} else if (schemaName.indexOf(J2EEConstants.EJBJAR_SCHEMA_3_2) != -1) {
 						version = J2EEVersionConstants.EJB_3_2_ID;
 					}
 				}
@@ -230,10 +230,12 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 						version = J2EEVersionConstants.JCA_1_0_ID;
 					}
 				} else if (schemaName != null) {
-					if (schemaName.equals(J2EEConstants.CONNECTOR_SCHEMA_1_5)) {
+					if (schemaName.indexOf(J2EEConstants.CONNECTOR_SCHEMA_1_5) != -1) {
 						version = J2EEVersionConstants.JCA_1_5_ID;
-					} else if (schemaName.equals(J2EEConstants.CONNECTOR_SCHEMA_1_6)) {
+					} else if (schemaName.indexOf(J2EEConstants.CONNECTOR_SCHEMA_1_6) != -1) {
 						version = J2EEVersionConstants.JCA_1_6_ID;
+					} else if (schemaName.indexOf(J2EEConstants.CONNECTOR_SCHEMA_1_7) != -1) {
+						version = J2EEVersionConstants.JCA_1_7_ID;
 					}
 				}
 				break;
@@ -245,13 +247,13 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 						version = J2EEVersionConstants.WEB_2_2_ID;
 					}
 				} else if (schemaName != null) {
-					if (schemaName.equals(J2EEConstants.WEBAPP_SCHEMA_2_4)) {
+					if (schemaName.indexOf(J2EEConstants.WEBAPP_SCHEMA_2_4) != -1) {
 						version = J2EEVersionConstants.WEB_2_4_ID;
-					} else if (schemaName.equals(J2EEConstants.WEBAPP_SCHEMA_2_5)) {
+					} else if (schemaName.indexOf(J2EEConstants.WEBAPP_SCHEMA_2_5) != -1) {
 						version = J2EEVersionConstants.WEB_2_5_ID;
-					} else if (schemaName.equals(J2EEConstants.WEBAPP_SCHEMA_3_0)) {
+					} else if (schemaName.indexOf(J2EEConstants.WEBAPP_SCHEMA_3_0) != -1) {
 						version = J2EEVersionConstants.WEB_3_0_ID;
-					} else if (schemaName.equals(J2EEConstants.WEBAPP_SCHEMA_3_1)) {
+					} else if (schemaName.indexOf(J2EEConstants.WEBAPP_SCHEMA_3_1) != -1) {
 						version = J2EEVersionConstants.WEB_3_1_ID;
 					}
 				}
@@ -273,8 +275,10 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 				break;
 			case WEBFRAGMENT_TYPE:
 				if (schemaName != null) {
-					if (schemaName.equals(J2EEConstants.WEBFRAGMENT_SCHEMA_3_0)) {
+					if (schemaName.indexOf(J2EEConstants.WEBFRAGMENT_SCHEMA_3_0) != -1) {
 						version = J2EEVersionConstants.WEBFRAGMENT_3_0_ID;
+					} else if (schemaName.indexOf(J2EEConstants.WEBFRAGMENT_SCHEMA_3_1) != -1) {
+						version = J2EEVersionConstants.WEBFRAGMENT_3_1_ID;
 					}
 				}
 				break;

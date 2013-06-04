@@ -120,7 +120,7 @@ public interface J2EEConstants extends J2EEVersionConstants {
     URI 	WEBFRAGMENT_DD_URI_OBJ      =       URI.createURI(WEBFRAGMENT_DD_URI);
     String 	WEBFRAGMENT_DD_SHORT_NAME   =       "web-fragment.xml"; //$NON-NLS-1$
     String  WEBFRAGMENT_SCHEMA_3_0 		= 		"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd"; //$NON-NLS-1$
-    String  WEBFRAGMENT_SCHEMA_3_1 		= 		"http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-fragment_3_0.xsd"; //$NON-NLS-1$
+    String  WEBFRAGMENT_SCHEMA_3_1 		= 		"http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-fragment_3_1.xsd"; //$NON-NLS-1$
     
     //Web app Constants
     /** "WebApp_ID"                                                                                                                 */
