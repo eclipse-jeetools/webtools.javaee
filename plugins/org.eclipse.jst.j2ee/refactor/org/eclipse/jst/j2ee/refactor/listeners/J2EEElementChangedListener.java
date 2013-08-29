@@ -89,37 +89,64 @@ public class J2EEElementChangedListener implements IElementChangedListener {
 		}
 	}
 	
-	private void processJavaProject(final IJavaProject jproject, final int flags, final int kind, final IJavaElementDelta delta) {
+	private void processJavaProject(final IJavaProject jproject,
+			final int flags, final int kind, final IJavaElementDelta delta) {
 
 		final IProject project = jproject.getProject();
 		final List pathsToAdd = new ArrayList();
 		final List pathsToRemove = new ArrayList();
 		final List changedJavaPaths = new ArrayList();
-		
+
 		// make certain this is a J2EE project
 		if (ModuleCoreNature.isFlexibleProject(project)) {
-			IVirtualComponent c = ComponentCore.createComponent(project);
-			if(c == null)
-				return;
-			try {
-				// Did the classpath change?
-				if ((flags & IJavaElementDelta.F_CHILDREN) == IJavaElementDelta.F_CHILDREN) {
-					final boolean cpChanged = (flags & IJavaElementDelta.F_CLASSPATH_CHANGED) != 0; 
-					getJavaSrcMappings(c, delta.getAffectedChildren(), cpChanged, jproject, pathsToAdd, pathsToRemove, changedJavaPaths);
+
+			WorkspaceJob job = new WorkspaceJob(
+					RefactorMessages.J2EEElementChangedListener_J2EE_Component_Mapping_Update_) {
+				@Override
+				public IStatus runInWorkspace(IProgressMonitor monitor)
+						throws CoreException {// Did the classpath change?
+					if ((flags & IJavaElementDelta.F_CHILDREN) == IJavaElementDelta.F_CHILDREN) {
+						final boolean cpChanged = (flags & IJavaElementDelta.F_CLASSPATH_CHANGED) != 0;
+						getJavaSrcMappings(delta.getAffectedChildren(),
+								cpChanged, jproject, pathsToAdd, pathsToRemove,
+								changedJavaPaths);
+					}
+
+					// Did a non-Java folder change name?
+					final IResourceDelta[] deltas = delta.getResourceDeltas();
+					if (deltas != null && deltas.length > 0) {
+						getNonJavaFolderMappings(deltas, project, pathsToAdd,
+								pathsToRemove, changedJavaPaths);
+					}
+
+					for(int i=0;i<pathsToAdd.size(); i++){
+						Object[] toAdd = (Object[]) pathsToAdd.get(i);
+						final IVirtualFolder destFolder = (IVirtualFolder) toAdd[1];
+						final IPath pathToAdd = (IPath) toAdd[0];
+						destFolder.createLink(pathToAdd, 0, monitor);
+					}
+					for(int i=0;i<pathsToRemove.size(); i++){
+						Object[] toRemove = (Object[]) pathsToRemove.get(i);
+						final IVirtualFolder destFolder = (IVirtualFolder) toRemove[1];
+						final IPath pathToRemove = (IPath) toRemove[0];
+						destFolder.removeLink(pathToRemove, 0, monitor);
+					}
+					return Status.OK_STATUS;
+				
+					
 				}
 
-				// Did a non-Java folder change name?
-				final IResourceDelta[] deltas = delta.getResourceDeltas();
-				if (deltas != null && deltas.length > 0) {
-					getNonJavaFolderMappings(deltas, c, pathsToAdd, pathsToRemove, changedJavaPaths);
+				@Override
+				public boolean belongsTo(final Object family) {
+					return PROJECT_COMPONENT_UPDATE_JOB_FAMILY.equals(family);
 				}
-		
-			} catch (CoreException ce) {
-				J2EEPlugin.logError(ce);
-				return;
-			}
-			updateMappingsInJob(pathsToAdd, pathsToRemove);
-		}		
+			};
+			job.setRule(ResourcesPlugin.getWorkspace().getRoot());
+			job.setSystem(true);
+			job.schedule();
+
+			
+		}
 	}
 	
 	private void processResourceDeltas(final int flags, final int kind, final IJavaElementDelta delta) {
@@ -140,48 +167,17 @@ public class J2EEElementChangedListener implements IElementChangedListener {
 	}
 	
 	/*
-	 * Adds and removes the specified component resource mappings in a WorkspaceJob
-	 */
-	private void updateMappingsInJob(final List pathsToAdd, final List pathsToRemove) {
-		// If there are corrections to the virtual path mappings, execute them in a Job
-		if (!pathsToAdd.isEmpty() || !pathsToRemove.isEmpty()) {
-			WorkspaceJob job = new WorkspaceJob(RefactorMessages.J2EEElementChangedListener_J2EE_Component_Mapping_Update_) {							
-				@Override
-				public IStatus runInWorkspace(IProgressMonitor monitor) throws CoreException {
-					for(int i=0;i<pathsToAdd.size(); i++){
-						Object[] toAdd = (Object[]) pathsToAdd.get(i);
-						final IVirtualFolder destFolder = (IVirtualFolder) toAdd[1];
-						final IPath pathToAdd = (IPath) toAdd[0];
-						destFolder.createLink(pathToAdd, 0, monitor);
-					}
-					for(int i=0;i<pathsToRemove.size(); i++){
-						Object[] toRemove = (Object[]) pathsToRemove.get(i);
-						final IVirtualFolder destFolder = (IVirtualFolder) toRemove[1];
-						final IPath pathToRemove = (IPath) toRemove[0];
-						destFolder.removeLink(pathToRemove, 0, monitor);
-					}
-					return Status.OK_STATUS;
-				}
-				@Override
-				public boolean belongsTo(final Object family) {
-					return PROJECT_COMPONENT_UPDATE_JOB_FAMILY.equals(family);
-				}
-			};
-			job.setRule(ResourcesPlugin.getWorkspace().getRoot());
-			job.setSystem(true);
-			job.schedule();
-		}						
-	}
-	
-	/*
 	 * Computes the virtual component path mapping changes the need to be made due to 
 	 * Java src path changes.
 	 */ 
-	private void getJavaSrcMappings(final IVirtualComponent virtualComp, final IJavaElementDelta[] children, final boolean cpChanged, final IJavaProject jproject, final List pathsToAdd, final List pathsToRemove, final List changedPaths) 
+	private void getJavaSrcMappings(final IJavaElementDelta[] children, final boolean cpChanged, final IJavaProject jproject, final List pathsToAdd, final List pathsToRemove, final List changedPaths) 
 		throws CoreException {
 		
+		IVirtualComponent c = ComponentCore.createComponent(jproject.getProject());
+		if(c == null)
+			return;
 		// get the default destination folder
-		final IVirtualFolder defaultDestFolder = getDestinationFolder(virtualComp);
+		final IVirtualFolder defaultDestFolder = getDestinationFolder(c);
 		
 		for (int i = 0; i < children.length; i++) {
 			final IJavaElementDelta delta = children[i];
@@ -242,14 +238,17 @@ public class J2EEElementChangedListener implements IElementChangedListener {
 	 * Computes the virtual component path mapping changes the need to be made due to changes to
 	 * non-Java folders. 
 	 */ 
-	private void getNonJavaFolderMappings(final IResourceDelta[] deltas, final IVirtualComponent virtualComp, final List pathsToAdd, final List pathsToRemove, final List changedJavaPaths) throws CoreException {
+	private void getNonJavaFolderMappings(final IResourceDelta[] deltas, final IProject project, final List pathsToAdd, final List pathsToRemove, final List changedJavaPaths) throws CoreException {
 		IVirtualFolder rootFolder = null;
-		if (virtualComp != null) {
-			rootFolder = virtualComp.getRootFolder();
+		IVirtualComponent c = ComponentCore.createComponent(project);
+		if(c == null)
+			return;
+		if (project != null) {
+			rootFolder = c.getRootFolder();
 		}
 		Map sourceToRuntime = null;
-		if (virtualComp != null) {
-			sourceToRuntime = getResourceMappings(virtualComp.getProject());
+		if (project != null) {
+			sourceToRuntime = getResourceMappings(project);
 		}
 		for (int i = 0; i < deltas.length; i++) {
 			final IResourceDelta delta = deltas[i];
@@ -357,6 +356,37 @@ public class J2EEElementChangedListener implements IElementChangedListener {
 		return root;
 	}
 	
+	private void updateMappingsInJob(final List pathsToAdd, final List pathsToRemove) {
+		// If there are corrections to the virtual path mappings, execute them in a Job
+		if (!pathsToAdd.isEmpty() || !pathsToRemove.isEmpty()) {
+			WorkspaceJob job = new WorkspaceJob(RefactorMessages.J2EEElementChangedListener_J2EE_Component_Mapping_Update_) {							
+				@Override
+				public IStatus runInWorkspace(IProgressMonitor monitor) throws CoreException {
+					for(int i=0;i<pathsToAdd.size(); i++){
+						Object[] toAdd = (Object[]) pathsToAdd.get(i);
+						final IVirtualFolder destFolder = (IVirtualFolder) toAdd[1];
+						final IPath pathToAdd = (IPath) toAdd[0];
+						destFolder.createLink(pathToAdd, 0, monitor);
+					}
+					for(int i=0;i<pathsToRemove.size(); i++){
+						Object[] toRemove = (Object[]) pathsToRemove.get(i);
+						final IVirtualFolder destFolder = (IVirtualFolder) toRemove[1];
+						final IPath pathToRemove = (IPath) toRemove[0];
+						destFolder.removeLink(pathToRemove, 0, monitor);
+					}
+					return Status.OK_STATUS;
+				}
+				@Override
+				public boolean belongsTo(final Object family) {
+					return PROJECT_COMPONENT_UPDATE_JOB_FAMILY.equals(family);
+				}
+			};
+			job.setRule(ResourcesPlugin.getWorkspace().getRoot());
+			job.setSystem(true);
+			job.schedule();
+		}						
+	}
+
 	protected static List<IPath> getSourceFolders(IProject project) {
 		
 		IJavaProject javaProj = JavaCore.create(project);
