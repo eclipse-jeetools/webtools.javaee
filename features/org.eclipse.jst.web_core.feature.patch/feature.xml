@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.eclipse.jst.web_core.feature.patch"
+      label="%featureName"
+      version="3.5.1.qualifier"
+      provider-name="%providerName">
+
+   <description>
+      %description
+   </description>
+
+   <copyright>
+      %copyright
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <requires>
+      <import feature="org.eclipse.jst.web_core.feature" version="3.5.1.v201307171500-7Q7GGbAFE9LeBTMX2gc1Mh2kwz-0sN863877" patch="true"/>
+   </requires>
+
+   <plugin
+         id="org.eclipse.jst.j2ee.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+         
+</feature>
