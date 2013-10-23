@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.eclipse.jst.enterprise_ui.feature.patch"
-      label="Patch Feature"
-      version="1.0.0">
+      label="%featureName"
+      version="3.5.1.qualifier"
+      provider-name="%providerName">
 
    <description url="http://www.example.com/description">
       [Enter Feature Description here.]
@@ -17,7 +18,14 @@
    </license>
 
    <requires>
-      <import feature="org.eclipse.jst.enterprise_ui.feature" version="1.5.5.qualifier" patch="true"/>
+      <import feature="org.eclipse.jst.enterprise_ui.feature" version="3.5.1.v201308281800-7b7KIahFSK2WQtQeBOuHz-QXyUmRm" patch="true"/>
    </requires>
+
+   <plugin
+         id="org.eclipse.jst.ws.jaxrs.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
 
 </feature>
