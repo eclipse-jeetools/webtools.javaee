@@ -29,14 +29,18 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPreferences;
 import org.eclipse.jst.j2ee.internal.project.ProjectSupportResourceHandler;
 import org.eclipse.jst.j2ee.project.facet.J2EEModuleFacetInstallDataModelProvider;
+import org.eclipse.jst.server.core.FacetUtil;
 import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.ModuleCoreNature;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
+import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 import org.eclipse.wst.project.facet.ProductManager;
+import org.eclipse.wst.server.core.IRuntimeType;
 
 import com.ibm.icu.text.UTF16;
 import com.ibm.icu.util.StringTokenizer;
@@ -106,9 +110,35 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 			return Boolean.TRUE;
 		}else if (propertyName.equals(INSTALL_WEB_LIBRARY)){
 			return J2EEComponentClasspathContainerUtils.getDefaultUseWebAppLibraries();
+		} 
+		else if (propertyName.equals(ADD_TO_EAR)) {
+			Object result = super.getDefaultProperty(propertyName);
+			if (result instanceof Boolean) {
+				return ((Boolean) result).booleanValue() && isEARDefaultForRuntime();
+			}
 		}
 		return super.getDefaultProperty(propertyName);
 	}
+	
+	private boolean isEARDefaultForRuntime() {
+	boolean result = true;
+	IRuntime rt = (IRuntime) model.getProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME);
+	if (rt != null) {
+		IRuntimeType rtType = FacetUtil.getRuntime(rt).getRuntimeType();
+		if (rtType.getId() != null) {
+			for(String excluded :
+					J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.ADD_TO_EAR_RUNTIME_EXCEPTIONS).split(",")) { //$NON-NLS-1$
+				
+				if (rtType.getId().equals(excluded)) {
+					result = false;
+					break;
+				}
+			}
+		}
+	}
+	
+	return result;
+}
 
 	@Override
 	public boolean propertySet(String propertyName, Object propertyValue) {

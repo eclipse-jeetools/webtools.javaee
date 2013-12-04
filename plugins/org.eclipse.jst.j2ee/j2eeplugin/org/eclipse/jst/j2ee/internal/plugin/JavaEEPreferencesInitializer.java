@@ -70,6 +70,11 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 		 * @since 2.0
 		 */
 		static final String ADD_TO_EAR_BY_DEFAULT = IProductConstants.ADD_TO_EAR_BY_DEFAULT;
+		
+		/**
+		 * @since 2.0
+		 */
+		static final String ADD_TO_EAR_RUNTIME_EXCEPTIONS = IProductConstants.ADD_TO_EAR_RUNTIME_EXCEPTIONS;
 		/**
 		 * @since 2.0
 		 */
@@ -237,6 +242,7 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 		node.put(Keys.EJB_CONTENT_FOLDER, ProductManager.getProperty(IProductConstants.EJB_CONTENT_FOLDER));
 		node.put(Keys.JCA_CONTENT_FOLDER, ProductManager.getProperty(IProductConstants.JCA_CONTENT_FOLDER));
 		node.put(Keys.ADD_TO_EAR_BY_DEFAULT, ProductManager.getProperty(IProductConstants.ADD_TO_EAR_BY_DEFAULT));
+		node.put(Keys.ADD_TO_EAR_RUNTIME_EXCEPTIONS, ProductManager.getProperty(IProductConstants.ADD_TO_EAR_RUNTIME_EXCEPTIONS));
 		// done in CommonFrameworksPref..Initializer
 		//node.put(Keys.OUTPUT_FOLDER, ProductManager.getProperty(IProductConstants.OUTPUT_FOLDER));
 		
