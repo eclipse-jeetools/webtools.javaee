@@ -1,5 +1,5 @@
 /***********************************************************************
- * Copyright (c) 2008 by SAP AG, Walldorf. 
+ * Copyright (c) 2008, 2013 by SAP AG, Walldorf. 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *     SAP AG - initial API and implementation
+ *     IBM - Java EE 7 support
  ***********************************************************************/
 package org.eclipse.jst.jee.ui.internal.navigator;
 
@@ -38,6 +39,7 @@ import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
+import org.eclipse.wst.common.project.facet.core.IProjectFacet;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
 /**
@@ -107,12 +109,11 @@ public class Ear5ContentProvider extends JEE5ContentProvider {
 				IFacetedProject facetedProject;
 				try {
 					facetedProject = ProjectFacetsManager.create(project);
+					IProjectFacet earFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EAR_MODULE);
 					if (facetedProject != null && 
-							(facetedProject.hasProjectFacet(
-									ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EAR_MODULE).getVersion(
-											J2EEVersionConstants.VERSION_5_0_TEXT)) || facetedProject.hasProjectFacet(
-													ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EAR_MODULE).getVersion(
-															J2EEVersionConstants.VERSION_6_0_TEXT)))) {
+							(facetedProject.hasProjectFacet(earFacet.getVersion(J2EEVersionConstants.VERSION_5_0_TEXT)) 
+							|| facetedProject.hasProjectFacet(earFacet.getVersion(J2EEVersionConstants.VERSION_6_0_TEXT))
+							|| facetedProject.hasProjectFacet(earFacet.getVersion(J2EEVersionConstants.VERSION_7_0_TEXT)))) {
 						AbstractGroupProvider element = getCachedContentProvider(project);
 						if (element != null){
 							children.add(element);	

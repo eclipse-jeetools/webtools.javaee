@@ -1,5 +1,5 @@
 /***********************************************************************
- * Copyright (c) 2008, 2010 by SAP AG, Walldorf. 
+ * Copyright (c) 2008, 2013 by SAP AG, Walldorf. 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *     SAP AG - initial API and implementation
+ *     IBM - Java EE 7 support
  ***********************************************************************/
 package org.eclipse.jst.jee.ui.internal.navigator.ear;
 
@@ -30,6 +31,7 @@ import org.eclipse.wst.common.componentcore.ComponentCore;
 import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
+import org.eclipse.wst.common.project.facet.core.IProjectFacet;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 
 /**
@@ -44,6 +46,7 @@ public class GroupEARProvider extends AbstractEarGroupProvider implements IAdapt
 	public final static String EAR_DEFAULT_LIB = "lib"; //$NON-NLS-1$
 	private static Image ear50Image;
 	private static Image ear60Image;
+	private static Image ear70Image;
 	private EARVirtualComponent earComponent;
 	private IFile ddFile;
 	
@@ -75,13 +78,12 @@ public class GroupEARProvider extends AbstractEarGroupProvider implements IAdapt
 
 		try {
 			IFacetedProject facetedProject = ProjectFacetsManager.create(project);
+			IProjectFacet earFacet = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EAR_MODULE);
 			//EE6TODO
 			if (facetedProject != null && 
-					(facetedProject.hasProjectFacet(
-							ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EAR_MODULE).getVersion(
-									J2EEVersionConstants.VERSION_5_0_TEXT)) || facetedProject.hasProjectFacet(
-											ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_EAR_MODULE).getVersion(
-													J2EEVersionConstants.VERSION_6_0_TEXT)))) {
+					(facetedProject.hasProjectFacet(earFacet.getVersion(J2EEVersionConstants.VERSION_5_0_TEXT)) 
+					|| facetedProject.hasProjectFacet(earFacet.getVersion(J2EEVersionConstants.VERSION_6_0_TEXT))
+					|| facetedProject.hasProjectFacet(earFacet.getVersion(J2EEVersionConstants.VERSION_7_0_TEXT)))) {
 
 				if (bundledLibsNode == null) {
 					BundledNode bundledLibsDirectoryNode = new BundledNode(project, Messages.LIBRARY_DIRECTORY + ": " + EarUtilities.getEARLibDir(earComponent), null);//$NON-NLS-1$
@@ -112,6 +114,8 @@ public class GroupEARProvider extends AbstractEarGroupProvider implements IAdapt
 			return getEar50Image();
 		} else if (J2EEVersionConstants.VERSION_6_TEXT.equals(version)) {
 			return getEar60Image();
+		} else if (J2EEVersionConstants.VERSION_7_TEXT.equals(version)) {
+			return getEar70Image();
 		}
 		return getEar50Image();
 	}
@@ -146,4 +150,10 @@ public class GroupEARProvider extends AbstractEarGroupProvider implements IAdapt
 		return ear60Image;
 	}
 
+	private Image getEar70Image() {
+		if (ear70Image == null) {
+			ear70Image = JEEUIPlugin.getDefault().getImageDescriptor(JEEUIPluginIcons.EAR7_IMAGE).createImage();
+		}
+		return ear70Image;
+	}
 }

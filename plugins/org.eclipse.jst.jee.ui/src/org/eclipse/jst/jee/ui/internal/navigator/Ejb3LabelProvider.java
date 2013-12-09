@@ -1,5 +1,5 @@
 /***********************************************************************
- * Copyright (c) 2008, 2010 by SAP AG, Walldorf. 
+ * Copyright (c) 2008, 2013 by SAP AG, Walldorf. 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *     SAP AG - initial API and implementation
+ *     IBM - Java EE 7 support
  ***********************************************************************/
 package org.eclipse.jst.jee.ui.internal.navigator;
 
@@ -48,6 +49,7 @@ public class Ejb3LabelProvider extends J2EELabelProvider {
 	
 	private Image ejb30Image;
 	private Image ejb31Image;
+	private Image ejb32Image;
 	private Image sessionBeanImage;
 	private Image mdbImage;
 	private Image cmpImage;
@@ -72,6 +74,8 @@ public class Ejb3LabelProvider extends J2EELabelProvider {
 				return getEjb30Image();
 			} else if (J2EEVersionConstants.VERSION_3_1_TEXT.equals(version)) {
 				return getEjb31Image();
+			} else if (J2EEVersionConstants.VERSION_3_2_TEXT.equals(version)) {
+				return getEjb32Image();
 			}
 			return getEjb30Image();
 		} else if(element instanceof AbstractDDNode) {
@@ -153,6 +157,13 @@ public class Ejb3LabelProvider extends J2EELabelProvider {
 			ejb31Image = JEEUIPlugin.getDefault().getImageDescriptor(JEEUIPluginIcons.IMG_EJBEE6MODEL).createImage();
 		}
 		return ejb31Image;
+	}
+
+	private Image getEjb32Image() {
+		if (ejb32Image == null) {
+			ejb32Image = JEEUIPlugin.getDefault().getImageDescriptor(JEEUIPluginIcons.IMG_EJBEE7MODEL).createImage();
+		}
+		return ejb32Image;
 	}
 	
 	private Image getSessionBeanImage() {
