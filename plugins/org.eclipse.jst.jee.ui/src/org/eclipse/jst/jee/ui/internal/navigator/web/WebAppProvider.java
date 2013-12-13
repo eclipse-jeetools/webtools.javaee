@@ -1,5 +1,5 @@
 /***********************************************************************
- * Copyright (c) 2008, 2010 by SAP AG, Walldorf. 
+ * Copyright (c) 2008, 2013 by SAP AG, Walldorf. 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *     SAP AG - initial API and implementation
+ *     IBM - Java EE 7 support
  ***********************************************************************/
 package org.eclipse.jst.jee.ui.internal.navigator.web;
 
@@ -54,6 +55,7 @@ public class WebAppProvider extends AbstractWebGroupProvider implements IAdaptab
 	
 	private Image web25Image;
 	private Image web30Image;
+	private Image web31Image;
 	
 	private IProject prjct = null;
 	private IFile ddFile = null;
@@ -99,6 +101,8 @@ public class WebAppProvider extends AbstractWebGroupProvider implements IAdaptab
 			return getWeb25Image();
 		} else if (J2EEVersionConstants.VERSION_3_0_TEXT.equals(version)) {
 			return getWeb30Image();
+		} else if (J2EEVersionConstants.VERSION_3_1_TEXT.equals(version)) {
+			return getWeb31Image();
 		}
 		return getWeb25Image();
 	}
@@ -143,5 +147,12 @@ public class WebAppProvider extends AbstractWebGroupProvider implements IAdaptab
 			web30Image = JEEUIPlugin.getDefault().getImageDescriptor(JEEUIPluginIcons.IMG_WEBEE6MODEL).createImage();
 		}
 		return web30Image;
+	}
+
+	private Image getWeb31Image() {
+		if (web31Image == null) {
+			web31Image = JEEUIPlugin.getDefault().getImageDescriptor(JEEUIPluginIcons.IMG_WEBEE7MODEL).createImage();
+		}
+		return web31Image;
 	}
 }

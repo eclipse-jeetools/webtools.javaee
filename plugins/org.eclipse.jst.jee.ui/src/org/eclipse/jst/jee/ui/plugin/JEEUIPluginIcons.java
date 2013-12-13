@@ -1,5 +1,5 @@
 /***********************************************************************
- * Copyright (c) 2008, 2010 by SAP AG, Walldorf. 
+ * Copyright (c) 2008, 2013 by SAP AG, Walldorf. 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *     SAP AG - initial API and implementation
+ *     IBM - Java EE 7 support
  ***********************************************************************/
 package org.eclipse.jst.jee.ui.plugin;
 
@@ -14,9 +15,12 @@ public class JEEUIPluginIcons {
 
 	public static String IMG_EJBEEMODEL = "30_ejbjar_obj"; //$NON-NLS-1$
 	public static String IMG_EJBEE6MODEL = "31_ejbjar_obj"; //$NON-NLS-1$
+	public static String IMG_EJBEE7MODEL = "32_ejbjar_obj"; //$NON-NLS-1$
 	public static String IMG_WEBEEMODEL = "webapp_25"; //$NON-NLS-1$
 	public static String IMG_WEBEE6MODEL = "webapp_30"; //$NON-NLS-1$
+	public static String IMG_WEBEE7MODEL = "webapp_31"; //$NON-NLS-1$
 	public static String IMG_CONNECTOR = "connection"; //$NON-NLS-1$
+	public static String IMG_EE7CONNECTOR = "connector_17"; //$NON-NLS-1$
 	public static String IMG_CONFIG_PROP = "config_prop_obj"; //$NON-NLS-1$
 	public static String IMG_LICENSE = "license_obj"; //$NON-NLS-1$
 	public static String IMG_RESOURCE_ADAPTER = "resource_adapter_obj"; //$NON-NLS-1$
@@ -40,7 +44,9 @@ public class JEEUIPluginIcons {
 	public static String LOCAL_HOME = "ovr/local_home_ovr"; //$NON-NLS-1$
 	public static String EAR_IMAGE = "ear_50"; //$NON-NLS-1$
 	public static String EAR6_IMAGE = "ear_60"; //$NON-NLS-1$
+	public static String EAR7_IMAGE = "ear_70"; //$NON-NLS-1$
 	public static String APP_CLIENT50 = "appclient_50"; //$NON-NLS-1$
 	public static String APP_CLIENT60 = "appclient_60"; //$NON-NLS-1$
+	public static String APP_CLIENT70 = "appclient_70"; //$NON-NLS-1$
 
 }
