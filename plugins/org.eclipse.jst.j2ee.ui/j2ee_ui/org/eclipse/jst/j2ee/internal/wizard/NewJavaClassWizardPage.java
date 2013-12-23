@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2013 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -545,7 +545,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 	}
 
 	/**
-	 * Returns a new instance of the Selection Listner for the Container
+	 * Returns a new instance of the Selection Listener for the Container
 	 * Selection Dialog
 	 */
 	protected ViewerFilter getContainerDialogViewerFilter() {
@@ -561,7 +561,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 					IProject project = ProjectUtilities.getProject(model.getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME));
 					IPackageFragmentRoot[] sourceFolders = J2EEProjectUtilities.getSourceContainers(project);
 					for (int i = 0; i < sourceFolders.length; i++) {
-						if (sourceFolders[i].getResource()!= null && sourceFolders[i].getResource().equals(folder))
+						if(sourceFolders[i].getResource()!= null && folder.getFullPath().isPrefixOf(sourceFolders[i].getResource().getFullPath())) 						
 							return true;
 					}
 				}
