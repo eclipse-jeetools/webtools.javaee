@@ -43,6 +43,5 @@
     <module>tests/org.eclipse.jst.servlet.tests</module>
     <module>tests/org.eclipse.jst.validation.sample</module>
     <module>tests/org.eclipse.jst.validation.test</module>
-    <module>tests/org.eclipse.jst.web_tests.feature.patch</module>
   </modules>
 </project>
