@@ -34,16 +34,12 @@
 
     <module>features/org.eclipse.jst.doc.user.feature</module>
     <module>features/org.eclipse.jst.enterprise_core.feature</module>
-    <module>features/org.eclipse.jst.enterprise_core.feature.patch</module>
     <module>features/org.eclipse.jst.enterprise_sdk.feature</module>
     <module>features/org.eclipse.jst.enterprise_ui.feature</module>
-    <module>features/org.eclipse.jst.enterprise_ui.feature.patch</module>
     <module>features/org.eclipse.jst.enterprise_userdoc.feature</module>
-    <module>features/org.eclipse.jst.servlet.ui.patch</module>
     <module>features/org.eclipse.jst.web_core.feature</module>
     <module>features/org.eclipse.jst.web_sdk.feature</module>
     <module>features/org.eclipse.jst.web_ui.feature</module>
-    <module>features/org.eclipse.jst.web_ui.feature.patch</module>
     <module>features/org.eclipse.jst.web_userdoc.feature</module>
 
     <module>plugins/org.eclipse.jem</module>
