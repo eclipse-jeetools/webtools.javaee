@@ -201,8 +201,78 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 	
 	private static final int MODULE_UPDATE_DELAY = 30;
 	public static final String MODULE_UPDATE_JOB_NAME = Messages.J2EEComponentClasspathUpdater_EAR_Libraries_Update_Jo_; 
+	public static final String FIND_NODE_JOB_NAME = Messages.J2EEComponentClasspathUpdater_Find_Node; 
 
 	private final ModuleUpdateJob moduleUpdateJob = new ModuleUpdateJob();
+	
+	public class FindNodeJob extends Job {
+		
+		IResourceDelta[] delta;
+
+		@Override
+		public boolean belongsTo(Object family) {
+			if(family == FIND_NODE_JOB_NAME){
+				return true;
+			}
+			return super.belongsTo(family);
+		}
+		
+		/*
+		 * Needs to notice changes to MANIFEST.MF in any J2EE projects, changes to
+		 * .component in any J2EE Projects, and any archive changes in EAR projects
+		 */
+		
+		private boolean findNode(IResourceDelta[] delta) {
+
+			for (int i = 0; i < delta.length; i++) {
+				if (delta[i].toString().indexOf(IJ2EEModuleConstants.COMPONENT_FILE_NAME) != -1) {
+					StructureEdit core = StructureEdit
+							.getStructureEditForRead(delta[i].getResource()
+									.getProject());
+					if(null != core){
+						WorkbenchComponent component = core.getComponent();
+						if(component != null){
+							clearResourceTreeRootCache(component);
+						}
+					}
+				} else {
+					findNode(delta[i].getAffectedChildren());
+				}
+			}
+
+			return true;
+		}
+		
+		
+		public FindNodeJob(IResourceDelta[] d) {
+			super(FIND_NODE_JOB_NAME); 
+			setRule(ResourcesPlugin.getWorkspace().getRoot());
+			setSystem(true);
+			setDelta(d);
+		}
+		
+		@Override
+		protected IStatus run(IProgressMonitor monitor) {
+
+			SafeRunner.run(new ISafeRunnable() {
+				public void handleException(Throwable e) {
+					J2EEPlugin.logError(e);
+				}
+
+				public void run() throws Exception {
+					
+					findNode(delta);
+					
+				}
+			});
+
+			return Status.OK_STATUS;
+		}
+
+		public void setDelta(IResourceDelta[] delta) {
+			this.delta = delta;
+		}
+	}
 
 	public class ModuleUpdateJob extends Job {
 
@@ -431,7 +501,8 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 						scheduleJob = true;
 						event.getDelta().accept(this);
 						IResourceDelta[] d = event.getDelta().getAffectedChildren();
-						findNode(d);
+						FindNodeJob newJob = createFindNodeJob(d);
+						newJob.schedule();
 					}			
 					break;
 			}
@@ -443,6 +514,11 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 		}
 	}
 	
+
+	private FindNodeJob createFindNodeJob(IResourceDelta[] d) {
+		
+		return new FindNodeJob(d);
+	}
 
 	public static void clearResourceTreeRootCache(WorkbenchComponent aModule) {
 
@@ -458,33 +534,6 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 		if(null != resourceTreeAdapter){
 			resourceTreeAdapter.setResourceTreeRoot(null);
 		}
-	}
-
-
-	/*
-	 * Needs to notice changes to MANIFEST.MF in any J2EE projects, changes to
-	 * .component in any J2EE Projects, and any archive changes in EAR projects
-	 */
-	
-	public boolean findNode(IResourceDelta[] delta) {
-
-		for (int i = 0; i < delta.length; i++) {
-			if (delta[i].toString().indexOf(IJ2EEModuleConstants.COMPONENT_FILE_NAME) != -1) {
-				StructureEdit core = StructureEdit
-						.getStructureEditForRead(delta[i].getResource()
-								.getProject());
-				if(null != core){
-					WorkbenchComponent component = core.getComponent();
-					if(component != null){
-						clearResourceTreeRootCache(component);
-					}
-				}
-			} else {
-				findNode(delta[i].getAffectedChildren());
-			}
-		}
-
-		return true;
 	}
 	
 	public boolean visit(IResourceDelta delta) {
