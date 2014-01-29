@@ -15,11 +15,13 @@ import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataM
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_HTTP_SESSION_ACTIVATION_LISTENER;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_HTTP_SESSION_ATTRIBUTE_LISTENER;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_HTTP_SESSION_BINDING_LISTENER;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_HTTP_SESSION_ID_LISTENER;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_HTTP_SESSION_LISTENER;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_CONTEXT_ATTRIBUTE_LISTENER;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_CONTEXT_LISTENER;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_REQUEST_ATTRIBUTE_LISTENER;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_REQUEST_LISTENER;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_REQUEST_ASYNC_EVENT_LISTENER;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties.USE_EXISTING_CLASS;
 
 import java.util.List;
@@ -72,8 +74,10 @@ public class NewListenerClassDataModelProvider extends
 		QUALIFIED_HTTP_SESSION_ATTRIBUTE_LISTENER,
 		QUALIFIED_HTTP_SESSION_ACTIVATION_LISTENER,
 		QUALIFIED_HTTP_SESSION_BINDING_LISTENER,
+		QUALIFIED_HTTP_SESSION_ID_LISTENER,
 		QUALIFIED_SERVLET_REQUEST_LISTENER,
-		QUALIFIED_SERVLET_REQUEST_ATTRIBUTE_LISTENER
+		QUALIFIED_SERVLET_REQUEST_ATTRIBUTE_LISTENER,
+		QUALIFIED_SERVLET_REQUEST_ASYNC_EVENT_LISTENER
 	};
 
 	/**

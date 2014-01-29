@@ -140,6 +140,27 @@ public class SourceMethod implements Method {
 		return result;
 	}
 	
+	
+	/**
+	 * @see Method#getExceptions()
+	 */
+	
+	public String getExceptions(){
+		StringBuffer exceptions = new StringBuffer();
+		List exceptionTypes = method.thrownExceptions();
+		
+		for (int i=0; i<exceptionTypes.size(); i++){
+			exceptions.append(exceptionTypes.get(i));
+	        if (i < exceptionTypes.size() - 1)
+	        	exceptions.append(", "); //$NON-NLS-1$			
+		}
+			
+		return exceptions.toString();
+	}
+	
+	
+	
+	
 	/**
 	 * @see Object#equals(Object)
 	 */

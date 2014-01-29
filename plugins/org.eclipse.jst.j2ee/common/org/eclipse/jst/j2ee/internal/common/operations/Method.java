@@ -113,5 +113,13 @@ public interface Method {
 	 *         types.
 	 */
 	public Collection<String> getParameterImports();
+	
+	
+	/**
+	 * Returns a list of exceptions thrown by the method
+	 * @return a <code>List</code> of String representation of the exception
+	 *         types.
+	 */
+	public String getExceptions();
 
 }

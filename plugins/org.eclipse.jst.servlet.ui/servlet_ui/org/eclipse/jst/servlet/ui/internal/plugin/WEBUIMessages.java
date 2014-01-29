@@ -152,6 +152,8 @@ public class WEBUIMessages extends NLS {
 	public static String ADD_LISTENER_WIZARD_CHANGES_TO_ATTRIBUTES_G;
 	public static String ADD_LISTENER_WIZARD_SESSION_MIGRATION;
 	public static String ADD_LISTENER_WIZARD_OBJECT_BINDING;
+	public static String ADD_LISTENER_WIZARD_OBJECT_SESSION_ID;
+	public static String ADD_LISTENER_WIZARD_ASYNC_EVENTS;
 	
 	public static String DISPATCHER_REQUEST;
 	public static String DISPATCHER_FORWARD;

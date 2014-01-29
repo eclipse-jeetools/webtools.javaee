@@ -20,6 +20,8 @@ import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_CONTE
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_CONTEXT_LISTENER;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_REQUEST_ATTRIBUTE_LISTENER;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_REQUEST_LISTENER;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_HTTP_SESSION_ID_LISTENER;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_REQUEST_ASYNC_EVENT_LISTENER;
 import static org.eclipse.jst.servlet.ui.internal.wizard.IWebWizardConstants.*;
 
 import java.util.ArrayList;
@@ -28,6 +30,7 @@ import java.util.List;
 
 import org.eclipse.jdt.internal.ui.JavaPluginImages;
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -127,6 +130,17 @@ public class AddListenerWizardPage extends DataModelWizardPage  {
 				ADD_LISTENER_WIZARD_OBJECT_BINDING, 
 				QUALIFIED_HTTP_SESSION_BINDING_LISTENER, 
 				INTERFACES);
+		
+		String javaEEVersion = model.getStringProperty(INewServletClassDataModelProperties.JAVA_EE_VERSION);
+		if("3.1".equals(javaEEVersion)){ //$NON-NLS-1$
+			createEventListenerRow(group, 
+					ADD_LISTENER_WIZARD_OBJECT_SESSION_ID, 
+					QUALIFIED_HTTP_SESSION_ID_LISTENER, 
+					INTERFACES);		
+		}
+		
+				
+
 	}
 	
 	private void createServletRequestEvents(Composite parent) {
@@ -141,7 +155,17 @@ public class AddListenerWizardPage extends DataModelWizardPage  {
 				ADD_LISTENER_WIZARD_CHANGES_TO_ATTRIBUTES_G, 
 				QUALIFIED_SERVLET_REQUEST_ATTRIBUTE_LISTENER, 
 				INTERFACES);
+		
+		String javaEEVersion = model.getStringProperty(INewServletClassDataModelProperties.JAVA_EE_VERSION);
+		if("3.1".equals(javaEEVersion)){ //$NON-NLS-1$		
+			createEventListenerRow(group, 
+					ADD_LISTENER_WIZARD_ASYNC_EVENTS, 
+					QUALIFIED_SERVLET_REQUEST_ASYNC_EVENT_LISTENER, 
+					INTERFACES);		
+		}
+		
 	}
+	
 	
 	private Group createGroup(Composite parent, String text) {
 		Group group = new Group(parent, SWT.NONE);

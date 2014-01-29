@@ -50,6 +50,8 @@ public interface IServletConstants {
 	public static final String QUALIFIED_SERVLET_REQUEST_EVENT = "javax.servlet.ServletRequestEvent"; //$NON-NLS-1$
 	public static final String QUALIFIED_SERVLET_REQUEST_ATTRIBUTE_LISTENER = "javax.servlet.ServletRequestAttributeListener"; //$NON-NLS-1$
 	public static final String QUALIFIED_SERVLET_REQUEST_ATTRIBUTE_EVENT = "javax.servlet.ServletRequestAttributeEvent"; //$NON-NLS-1$
+	public static final String QUALIFIED_HTTP_SESSION_ID_LISTENER = "javax.servlet.http.HttpSessionIdListener";//$NON-NLS-1$
+	public static final String QUALIFIED_SERVLET_REQUEST_ASYNC_EVENT_LISTENER = "javax.servlet.AsyncListener";//$NON-NLS-1$
 	
 	public static final String METHOD_INIT = "init"; //$NON-NLS-1$
 	public static final String METHOD_DESTROY = "destroy"; //$NON-NLS-1$

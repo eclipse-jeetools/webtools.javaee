@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2011 SAP AG and others.
+ * Copyright (c) 2007, 2014 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * This class has been generated from a javajet template. 
  *******************************************************************************/
+
 package org.eclipse.jst.j2ee.internal.web.operations;
 
 import java.util.*;
@@ -59,12 +60,16 @@ public class ListenerTemplate
   protected final String TEXT_33 = ")" + NL + "     */" + NL + "    public "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
   protected final String TEXT_34 = " "; //$NON-NLS-1$
   protected final String TEXT_35 = "("; //$NON-NLS-1$
-  protected final String TEXT_36 = ") {" + NL + "        // TODO Auto-generated method stub"; //$NON-NLS-1$ //$NON-NLS-2$
-  protected final String TEXT_37 = NL + "\t\t\treturn "; //$NON-NLS-1$
-  protected final String TEXT_38 = ";"; //$NON-NLS-1$
-  protected final String TEXT_39 = NL + "    }"; //$NON-NLS-1$
-  protected final String TEXT_40 = NL + "\t" + NL + "}"; //$NON-NLS-1$ //$NON-NLS-2$
-  protected final String TEXT_41 = NL;
+  protected final String TEXT_36 = ") "; //$NON-NLS-1$
+  protected final String TEXT_37 = "throws "; //$NON-NLS-1$
+  protected final String TEXT_38 = " { "; //$NON-NLS-1$
+  protected final String TEXT_39 = " { "; //$NON-NLS-1$
+  protected final String TEXT_40 = NL + "         // TODO Auto-generated method stub"; //$NON-NLS-1$
+  protected final String TEXT_41 = NL + "\t\t\treturn "; //$NON-NLS-1$
+  protected final String TEXT_42 = ";"; //$NON-NLS-1$
+  protected final String TEXT_43 = NL + "    }"; //$NON-NLS-1$
+  protected final String TEXT_44 = NL + "\t" + NL + "}"; //$NON-NLS-1$ //$NON-NLS-2$
+  protected final String TEXT_45 = NL;
 
   public String generate(Object argument)
   {
@@ -107,7 +112,7 @@ public class ListenerTemplate
 
     stringBuffer.append(TEXT_11);
      
-    if ("3.0".equals(model.getJavaEEVersion()) || "3.1".equals(model.getJavaEEVersion())) {  //$NON-NLS-1$ //$NON-NLS-2$
+	if ("3.0".equals(model.getJavaEEVersion()) || "3.1".equals(model.getJavaEEVersion())) {  //$NON-NLS-1$ //$NON-NLS-2$
 
     stringBuffer.append(TEXT_12);
     
@@ -212,23 +217,31 @@ public class ListenerTemplate
     stringBuffer.append(TEXT_35);
     stringBuffer.append( method.getParamsForDeclaration() );
     stringBuffer.append(TEXT_36);
+      if (!method.getExceptions().isEmpty()){ 
+    stringBuffer.append(TEXT_37);
+    stringBuffer.append(method.getExceptions());
+    stringBuffer.append(TEXT_38);
+    }else {
+    stringBuffer.append(TEXT_39);
+     } 
+    stringBuffer.append(TEXT_40);
      
 			String defaultReturnValue = method.getDefaultReturnValue();
 			if (defaultReturnValue != null) { 
 
-    stringBuffer.append(TEXT_37);
+    stringBuffer.append(TEXT_41);
     stringBuffer.append( defaultReturnValue );
-    stringBuffer.append(TEXT_38);
+    stringBuffer.append(TEXT_42);
     
 			} 
 
-    stringBuffer.append(TEXT_39);
+    stringBuffer.append(TEXT_43);
      
 		}
 	} 
 
-    stringBuffer.append(TEXT_40);
-    stringBuffer.append(TEXT_41);
+    stringBuffer.append(TEXT_44);
+    stringBuffer.append(TEXT_45);
     return stringBuffer.toString();
   }
 }

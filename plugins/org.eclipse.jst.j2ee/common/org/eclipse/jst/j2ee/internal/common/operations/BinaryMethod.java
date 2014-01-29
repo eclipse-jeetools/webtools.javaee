@@ -136,6 +136,31 @@ public class BinaryMethod implements Method {
 		return result;
 	}
 	
+	
+	
+	/**
+	 * @see Method#getExceptions()
+	 */
+	
+	public String getExceptions(){
+		StringBuffer exceptions = new StringBuffer(); 
+		try {
+			String[] exceptionTypes = method.getExceptionTypes();
+			for (int i=0; i<exceptionTypes.length; i++){
+			   exceptions.append(Signature.toString(exceptionTypes[i]));
+	           if (i < exceptionTypes.length - 1)
+	                exceptions.append(", "); //$NON-NLS-1$
+			}
+			
+		} catch (JavaModelException e) {
+			org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
+		}
+
+		return exceptions.toString();
+		
+	}
+	
+	
 	/**
 	 * @see Object#equals(Object)
 	 */
