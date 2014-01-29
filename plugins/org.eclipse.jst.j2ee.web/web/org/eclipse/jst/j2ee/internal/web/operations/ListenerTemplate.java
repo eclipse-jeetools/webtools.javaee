@@ -217,7 +217,7 @@ public class ListenerTemplate
     stringBuffer.append(TEXT_35);
     stringBuffer.append( method.getParamsForDeclaration() );
     stringBuffer.append(TEXT_36);
-      if (!method.getExceptions().isEmpty()){ 
+      if (method.getExceptions().length() > 0){ 
     stringBuffer.append(TEXT_37);
     stringBuffer.append(method.getExceptions());
     stringBuffer.append(TEXT_38);

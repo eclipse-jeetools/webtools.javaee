@@ -6,7 +6,7 @@
 	/**
      * @see <%= method.getContainingJavaClass() %>#<%= method.getName() %>(<%= method.getParamsForJavadoc() %>)
      */
-    public <%= method.getReturnType() %> <%= method.getName() %>(<%= method.getParamsForDeclaration() %>) <%  if (!method.getExceptions().isEmpty()){ %>throws <%=method.getExceptions()%> { 
+    public <%= method.getReturnType() %> <%= method.getName() %>(<%= method.getParamsForDeclaration() %>) <%  if (method.getExceptions().length() > 0){ %>throws <%=method.getExceptions()%> { 
     <%}else {%> { <% } %>
          // TODO Auto-generated method stub
 <% 
