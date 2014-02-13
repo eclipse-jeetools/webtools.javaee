@@ -228,7 +228,7 @@ public class AddEJBeanOperationTest extends OperationTestCase implements
 		StringBuilder sb = new StringBuilder();
 		String line;
 		while ((line = bReader.readLine()) != null) {
-	           sb.append(line).append(System.lineSeparator());
+	           sb.append(line).append(System.getProperty("line.separator")); //$NON-NLS-1$
 	    }
 		bReader.close();
 		System.out.println(sb);
