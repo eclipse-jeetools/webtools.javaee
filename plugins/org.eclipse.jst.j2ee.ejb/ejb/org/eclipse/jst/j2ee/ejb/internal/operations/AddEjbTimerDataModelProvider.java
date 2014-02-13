@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Oracle and others.
+ * Copyright (c) 2011, 2014 Oracle and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  * Ludovic Champenois ludo@java.net
+ * IBM - Async and Non-persistent support
  *******************************************************************************/
 
 
@@ -17,6 +18,9 @@ import static org.eclipse.jst.j2ee.ejb.internal.operations.INewEnterpriseBeanCla
 import java.util.Set;
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaEEArtifactClassOperation;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBCreationResourceHandler;
@@ -30,6 +34,9 @@ public class AddEjbTimerDataModelProvider extends
 		NewEnterpriseBeanClassDataModelProvider {
 
 	public static final String SCHEDULE = "AddEjbTimer.SCHEDULE"; //$NON-NLS-1$
+	
+	public static final String NON_PERSISTENT = "AddEjbTimer.NON_PERSISTENT"; //$NON-NLS-1$
+	
 
 	@Override
 	public IDataModelOperation getDefaultOperation() {
@@ -54,6 +61,7 @@ public class AddEjbTimerDataModelProvider extends
 		Set<String> propertyNames = super.getPropertyNames();
 
 		propertyNames.add(SCHEDULE);
+		propertyNames.add(NON_PERSISTENT);
 
 		return propertyNames;
 	}
@@ -73,10 +81,22 @@ public class AddEjbTimerDataModelProvider extends
 	public Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(SCHEDULE)) {
 			return EJBCreationResourceHandler.timerScheduleDefault;
+		} else if (propertyName.equals(NON_PERSISTENT)) {
+			return Boolean.FALSE;
 		}
 		
 		// Otherwise check super for default value for property
 		return super.getDefaultProperty(propertyName);
+	}
+	
+	@Override
+	public boolean isPropertyEnabled(String propertyName) {
+		if (propertyName.equals(SCHEDULE)) {
+			return Boolean.TRUE;
+		} else if (propertyName.equals(NON_PERSISTENT)) {
+			return ejb3xOrLater(J2EEVersionConstants.VERSION_3_1);
+		}
+		return super.isPropertyEnabled(propertyName);
 	}
 
 	@Override
@@ -91,6 +111,8 @@ public class AddEjbTimerDataModelProvider extends
 			if (value == null || value.trim().length() == 0) {
 				return WTPCommonPlugin.createErrorStatus(EJBCreationResourceHandler.errorTimerScheduleMissing);
 			}
+		} else if (NON_PERSISTENT.equals(propertyName) && ejb3xOrLater(J2EEVersionConstants.VERSION_3_1) && !ejb3xOrLater(J2EEVersionConstants.VERSION_3_2)) {
+			return  new Status(IStatus.WARNING, EjbPlugin.PLUGIN_ID, EJBCreationResourceHandler.WRN_EJB31_NON_PERSISTENT_NO_SUPPORTED);
 		}
 		IStatus status = super.validate(propertyName);
 		return status;

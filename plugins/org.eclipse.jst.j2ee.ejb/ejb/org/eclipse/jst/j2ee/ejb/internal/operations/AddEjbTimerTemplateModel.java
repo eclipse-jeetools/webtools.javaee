@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Oracle and others.
+ * Copyright (c) 2011, 2014 Oracle and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  * Ludovic Champenois ludo@java.net
+ * IBM - Async and Non-persistent support
  *******************************************************************************/
 
 package org.eclipse.jst.j2ee.ejb.internal.operations;
@@ -80,6 +81,10 @@ public class AddEjbTimerTemplateModel extends CreateEnterpriseBeanTemplateModel 
 		}
 
 		return unimplementedMethods;
+	}
+	
+	public boolean isNonPersistent() {
+		return (Boolean) dataModel.getProperty(AddEjbTimerDataModelProvider.NON_PERSISTENT);
 	}
 
 }

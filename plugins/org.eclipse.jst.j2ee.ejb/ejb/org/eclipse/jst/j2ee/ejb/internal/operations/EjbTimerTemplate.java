@@ -229,10 +229,13 @@ Copied from org.eclipse.jst.j2ee.ejb plugin. */
 
     stringBuffer.append(TEXT_34);
     
-		String schedule = model.getProperty(AddEjbTimerDataModelProvider.SCHEDULE).trim();
+		StringBuilder schedule = new StringBuilder(model.getProperty(AddEjbTimerDataModelProvider.SCHEDULE));
+		if (model.isNonPersistent()) {
+			schedule.append(", persistent=false"); //$NON-NLS-1$
+		}
 	
     stringBuffer.append(TEXT_35);
-    stringBuffer.append( schedule );
+    stringBuffer.append( schedule.toString().trim() );
     stringBuffer.append(TEXT_36);
     return stringBuffer.toString();
   }

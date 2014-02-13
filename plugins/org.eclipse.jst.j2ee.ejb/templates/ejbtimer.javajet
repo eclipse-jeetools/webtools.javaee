@@ -1,7 +1,6 @@
 <%@ jet package="org.eclipse.jst.j2ee.ejb.internal.operations" 
 	imports="java.util.* org.eclipse.jst.j2ee.internal.common.operations.*" 
 	class="EjbTimerTemplate" 
-	skeleton="generator.skeleton"
 %>
 <% AddEjbTimerTemplateModel model = (AddEjbTimerTemplateModel) argument; %>
 <%@ include file="_flags.template" %>
@@ -12,10 +11,13 @@
 <%@ include file="_constructors.template" %>
 <%@ include file="_methods.template" %>
 	<%
-		String schedule = model.getProperty(AddEjbTimerDataModelProvider.SCHEDULE).trim();
+		StringBuilder schedule = new StringBuilder(model.getProperty(AddEjbTimerDataModelProvider.SCHEDULE));
+		if (model.isNonPersistent()) {
+			schedule.append(", persistent=false");
+		}
 	%>
 	@SuppressWarnings("unused")
-	@Schedule(<%= schedule %>)
+	@Schedule(<%= schedule.toString().trim() %>)
     private void scheduledTimeout(final Timer t) {
         System.out.println("@Schedule called at: " + new java.util.Date());
     }
