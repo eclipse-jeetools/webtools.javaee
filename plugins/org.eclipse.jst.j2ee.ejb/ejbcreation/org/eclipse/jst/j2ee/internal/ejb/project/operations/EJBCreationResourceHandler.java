@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2000, 2006 IBM Corporation and others.
+ * Copyright (c) 2000, 2014 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -167,10 +167,12 @@ public final class EJBCreationResourceHandler extends NLS {
 	public static String WRN_NO_CLIENT_VIEW;
 	public static String ERR_SINGLETON_NOT_ALLOWED;
 	public static String ERR_NO_INTERFACE_NOT_ALLOWED;
+	public static String WRN_EJB31_ASYNC_NOT_SUPPORTED;
 
 	//EJB Timer specific
     public static String timerScheduleDefault;
     public static String errorTimerScheduleMissing;
+    public static String WRN_EJB31_NON_PERSISTENT_NO_SUPPORTED;
       
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, EJBCreationResourceHandler.class);

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2012 SAP AG and others.
+ * Copyright (c) 2007, 2014 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,6 +9,7 @@
  * Kaloyan Raev, kaloyan.raev@sap.com - initial API and implementation
  * Roberto Sanchez, rsanchez@mx1.ibm.com - Add remote and local annotations to bean class
  * Roberto Sanchez, rsanchez@mx1.ibm.com - Allow adopter to change default value of package for interfaces
+ * IBM - Async and Non-persistent support
  *******************************************************************************/
 package org.eclipse.jst.j2ee.ejb.internal.operations;
 
@@ -18,6 +19,7 @@ import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassD
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.LOCAL_HOME;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.LOCAL_HOME_INTERFACE;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.NO_INTERFACE;
+import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.ASYNC;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.REMOTE;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.REMOTE_BUSINESS_INTERFACE;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewSessionBeanClassDataModelProperties.REMOTE_COMPONENT_INTERFACE;
@@ -49,19 +51,15 @@ import org.eclipse.jst.j2ee.ejb.internal.operations.BusinessInterface.BusinessIn
 import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
-import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBCreationResourceHandler;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
-import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
-import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.project.facet.IProductConstants;
 
 public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClassDataModelProvider {
@@ -72,8 +70,8 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 	private static final String REMOTE_HOME_SUFFIX = "RemoteHome"; //$NON-NLS-1$
 	private static final String LOCAL_COMPONENT_SUFFIX = "LocalComponent"; //$NON-NLS-1$
 	private static final String REMOTE_COMPONENT_SUFFIX = "RemoteComponent"; //$NON-NLS-1$
-
-
+	
+	
 	@Override
 	public IDataModelOperation getDefaultOperation() {
 		return new AddSessionBeanOperation(getDataModel());
@@ -95,6 +93,7 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 		propertyNames.add(REMOTE);
 		propertyNames.add(LOCAL);
 		propertyNames.add(NO_INTERFACE);
+		propertyNames.add(ASYNC);
 		propertyNames.add(STATE_TYPE);
 		propertyNames.add(REMOTE_HOME);
 		propertyNames.add(LOCAL_HOME);
@@ -127,9 +126,11 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 		else if (propertyName.equals(REMOTE))
 			return Boolean.FALSE;
 		else if (propertyName.equals(LOCAL))
-			return new Boolean(!ejb31OrLater());
+			return new Boolean(!ejb3xOrLater(J2EEVersionConstants.VERSION_3_1));
 		else if (propertyName.equals(NO_INTERFACE)) 
-			return new Boolean(ejb31OrLater());
+			return new Boolean(ejb3xOrLater(J2EEVersionConstants.VERSION_3_1));
+		else if (ASYNC.equals(propertyName))
+			return Boolean.FALSE;
 		else if (propertyName.equals(STATE_TYPE))
 			return StateType.STATELESS.toString(); 
 		else if (propertyName.equals(INTERFACES)) {
@@ -242,6 +243,7 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 			dataModel.notifyPropertyChange(REMOTE, IDataModel.DEFAULT_CHG);
 			dataModel.notifyPropertyChange(LOCAL, IDataModel.DEFAULT_CHG);
 			dataModel.notifyPropertyChange(NO_INTERFACE, IDataModel.DEFAULT_CHG);
+			dataModel.notifyPropertyChange(ASYNC, IDataModel.DEFAULT_CHG);
 			dataModel.notifyPropertyChange(REMOTE_BUSINESS_INTERFACE, IDataModel.DEFAULT_CHG);
 			dataModel.notifyPropertyChange(LOCAL_BUSINESS_INTERFACE, IDataModel.DEFAULT_CHG);
 		} else if (CLASS_NAME.equals(propertyName) || JAVA_PACKAGE.equals(propertyName)) {
@@ -275,6 +277,8 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 			if(getLocalProperty() != null){
 				getLocalProperty().setFullyQualifiedName(propertyValue.toString());
 			}
+		} else if (propertyName.equals(ASYNC)) {
+			getDataModel().notifyPropertyChange(ASYNC, IDataModel.DEFAULT_CHG);
 		} 
 
 		return result;
@@ -286,6 +290,8 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 			return getDataModel().getBooleanProperty(REMOTE);
 		} else if (LOCAL_BUSINESS_INTERFACE.equals(propertyName)) {
 			return getDataModel().getBooleanProperty(LOCAL);
+		} else if (ASYNC.equals(propertyName)) {
+			return ejb3xOrLater(J2EEVersionConstants.VERSION_3_1);
 		}
 		
 		return super.isPropertyEnabled(propertyName);
@@ -374,6 +380,8 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 			return validateComponentHomeInterfaces();
 		} else if (INTERFACES.equals(propertyName)) {
 			return validateInterfacesList();
+		} else if (ASYNC.equals(propertyName) && getBooleanProperty(ASYNC)) {
+			return validateAsynchronous();
 		}
 			
 		return super.validate(propertyName);
@@ -381,17 +389,27 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 
 	protected IStatus validateStateType() {
 		String value = getStringProperty(STATE_TYPE);
-		if (StateType.SINGLETON.toString().equals(value) && !ejb31OrLater()) {
+		if (StateType.SINGLETON.toString().equals(value) && !ejb3xOrLater(J2EEVersionConstants.VERSION_3_1)) {
 			return WTPCommonPlugin.createErrorStatus(EJBCreationResourceHandler.ERR_SINGLETON_NOT_ALLOWED);
 		}
 		return Status.OK_STATUS;
 	}
 
 	protected IStatus validateNoInterface() {
-		if (!ejb31OrLater()) {
+		if (!ejb3xOrLater(J2EEVersionConstants.VERSION_3_1)) {
 			return WTPCommonPlugin.createErrorStatus(EJBCreationResourceHandler.ERR_NO_INTERFACE_NOT_ALLOWED);
 		}
 		return Status.OK_STATUS;
+	}
+	
+	protected IStatus validateAsynchronous() {
+		IStatus retVal = Status.OK_STATUS;
+		if (getBooleanProperty(ASYNC)) {
+			if (ejb3xOrLater(J2EEVersionConstants.VERSION_3_1)) {
+				retVal = new Status(IStatus.WARNING, EjbPlugin.PLUGIN_ID, EJBCreationResourceHandler.WRN_EJB31_ASYNC_NOT_SUPPORTED);
+			}
+		}
+		return retVal;
 	}
 
 	protected IStatus validateEjbInterface(String fullyQualifiedName) {
@@ -500,7 +518,7 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 
 	protected IStatus validateInterfacesList() {
 		List<BusinessInterface> list = (List<BusinessInterface>) getProperty(INTERFACES);
-		if (list.isEmpty() && !ejb31OrLater()) {
+		if (list.isEmpty() && !ejb3xOrLater(J2EEVersionConstants.VERSION_3_1)) {
 			return new Status(IStatus.WARNING, EjbPlugin.PLUGIN_ID, EJBCreationResourceHandler.WRN_NO_CLIENT_VIEW); 
 		}
 		return Status.OK_STATUS;
@@ -545,32 +563,4 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 		}
 		return WTPCommonPlugin.OK_STATUS;
 	}
-
-	private boolean ejb31OrLater() {
-		boolean retVal = false;
-		IProject project = getTargetProject();
-		if (project != null)
-		{
-			if (JavaEEProjectUtilities.isEJBProject(project))
-			{
-				IProjectFacetVersion facetVersion = JavaEEProjectUtilities.getProjectFacetVersion(project, IJ2EEFacetConstants.EJB);
-				int version = J2EEVersionUtil.convertVersionStringToInt(facetVersion.getVersionString());
-				retVal = version >= J2EEVersionConstants.VERSION_3_1;
-			}
-			else if (JavaEEProjectUtilities.isDynamicWebProject(project))
-			{
-				IProjectFacetVersion facetVersion = JavaEEProjectUtilities.getProjectFacetVersion(project, IJ2EEFacetConstants.DYNAMIC_WEB);
-				int version = J2EEVersionUtil.convertVersionStringToInt(facetVersion.getVersionString());
-				retVal = version >= J2EEVersionConstants.VERSION_3_0;
-			}
-			else if (JavaEEProjectUtilities.isWebFragmentProject(project))
-			{
-				IProjectFacetVersion facetVersion = JavaEEProjectUtilities.getProjectFacetVersion(project, IJ2EEFacetConstants.WEBFRAGMENT);
-				int version = J2EEVersionUtil.convertVersionStringToInt(facetVersion.getVersionString());
-				retVal = version >= J2EEVersionConstants.VERSION_3_0;
-			}
-		}
-		return retVal;
-	}
-	
 }

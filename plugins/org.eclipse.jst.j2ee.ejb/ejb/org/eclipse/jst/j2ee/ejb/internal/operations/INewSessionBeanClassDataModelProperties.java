@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2012 SAP AG and others.
+ * Copyright (c) 2007, 2014 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -8,6 +8,7 @@
  * Contributors:
  * Kaloyan Raev, kaloyan.raev@sap.com - initial API and implementation
  * Roberto Sanchez, rsanchez@mx1.ibm.com - Add remote and local annotations to bean class
+ * IBM - Async and Non-persistent support
  *******************************************************************************/
 package org.eclipse.jst.j2ee.ejb.internal.operations;
 
@@ -69,5 +70,21 @@ public interface INewSessionBeanClassDataModelProperties extends INewEnterpriseB
 	public static final String STATE_TYPE = "INewSessionBeanClassDataModelProperties.STATE_TYPE"; //$NON-NLS-1$
 	
 	public static final String BUSINESS_INTERFACE_ANNOTATION_LOCATION = "INewSessionBeanClassDataModelProperties.BUSINESS_INTERFACE_ANNOTATION_LOCATION"; //$NON-NLS-1$
+	
+	/**
+	 * Optional, boolean property used to specify whether add the Asynchronous annotation to the class definition or not. 
+	 * The default value is false.
+	 * 
+	 * @since 3.6
+	 */
+	public static final String ASYNC = "INewSessionBeanClassDataModelProperties.ASYNC"; //$NON-NLS-1$
+	
+	/**
+	 * Optional, boolean property used to specify whether to define the timer as non-persistent or not.
+	 * The default value is false.
+	 * 
+	 * @since 3.6
+	 */
+	public static final String NON_PERSISTENT = "INewSessionBeanClassDataModelProperties.NON_PERSISTENT"; //$NON-NLS-1$
 	
 }

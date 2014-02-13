@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2008 SAP AG and others.
+ * Copyright (c) 2007, 2014 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -8,6 +8,7 @@
  * Contributors:
  * Kaloyan Raev, kaloyan.raev@sap.com - initial API and implementation
  * Ludovic Champenois ludo@java.net
+ * IBM - Async and Non-persistent support
  *******************************************************************************/
 package org.eclipse.jst.ejb.ui.internal.wizard;
 
@@ -29,6 +30,9 @@ public interface IEjbWizardConstants {
 	public static final String LOCAL_BUSINESS_INTERFACE = EJBUIMessages.LOCAL_BUSINESS_INTERFACE;
 	public static final String LOCAL_BUSINESS_INTERFACE_LABEL = EJBUIMessages.LOCAL_BUSINESS_INTERFACE_LABEL;
 	public static final String NO_INTERFACE = EJBUIMessages.NO_INTERFACE;
+	public static final String ASYNC = EJBUIMessages.ASYNC;
+	public static final String NON_PERSISTENT = EJBUIMessages.NON_PERSISTENT;
+	
 	public static final String EJB_NAME = EJBUIMessages.EJB_NAME;
 	
 	public final static String TRANSACTION_TYPE_CONTAINER = EJBUIMessages.TRANSACTION_TYPE_CONTAINER;

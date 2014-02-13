@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2008 IBM Corporation and others.
+ * Copyright (c) 2003, 2014 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -108,11 +108,13 @@ public class EJBUIMessages extends NLS {
 	public static String REMOTE_COMPONENT_INTERFACE_TOOLTIP;
 	public static String REMOTE_HOME_INTERFACE_TOOLTIP;
 	public static String EJB_CLIENT_JAR_GROUP;
+	public static String ASYNC;
 
 	//EJB Timer
     public static String timerWizardTitle;
     public static String timerWizardDescription;
     public static String timerScheduleLabel;
+    public static String NON_PERSISTENT;
 
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, EJBUIMessages.class);

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 SAP AG and others.
+ * Copyright (c) 2008, 2014 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  * Kaloyan Raev, kaloyan.raev@sap.com - initial API and implementation
+ * IBM - Async and Non-persistent support
  *******************************************************************************/
 package org.eclipse.jst.j2ee.ejb.internal.operations;
 
@@ -25,11 +26,14 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jst.j2ee.ejb.internal.plugin.EjbPlugin;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBCreationResourceHandler;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.jst.javaee.ejb.EJBJar;
 import org.eclipse.jst.javaee.ejb.EnterpriseBeans;
 import org.eclipse.jst.javaee.ejb.SessionBean;
@@ -37,6 +41,7 @@ import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
+import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 
 public class NewEnterpriseBeanClassDataModelProvider extends NewJavaClassDataModelProvider {
 
@@ -179,5 +184,52 @@ public class NewEnterpriseBeanClassDataModelProvider extends NewJavaClassDataMod
 		}
 		return Status.OK_STATUS;
 	}
-	
+
+	// constant array used for version tolerance: EJB version, Web version, Web Fragment version
+	private static final int EJB31_VERSIONS[] = {J2EEVersionConstants.VERSION_3_1, J2EEVersionConstants.VERSION_3_0, J2EEVersionConstants.VERSION_3_0};
+	private static final int EJB32_VERSIONS[] = {J2EEVersionConstants.VERSION_3_2, J2EEVersionConstants.VERSION_3_1, J2EEVersionConstants.VERSION_3_1};
+
+	protected boolean ejb3xOrLater(int ejbVersion) {
+		boolean retVal = false;
+		IProject project = getTargetProject();
+		// default to EJB 31
+		int ejbVersions[] = EJB31_VERSIONS;
+		IProjectFacetVersion facetVersion = null;
+		int versionToCheck = ejbVersion;
+
+		switch (ejbVersion) {
+			case J2EEVersionConstants.VERSION_3_1:
+				ejbVersions = EJB31_VERSIONS;
+				break;
+			case J2EEVersionConstants.VERSION_3_2:
+				ejbVersions = EJB32_VERSIONS;
+				break;
+		}
+
+		if (project != null)
+		{
+			if (JavaEEProjectUtilities.isEJBProject(project))
+			{
+				facetVersion = JavaEEProjectUtilities.getProjectFacetVersion(project, IJ2EEFacetConstants.EJB);
+				versionToCheck = ejbVersions[0];
+			}
+			else if (JavaEEProjectUtilities.isDynamicWebProject(project))
+			{
+				facetVersion = JavaEEProjectUtilities.getProjectFacetVersion(project, IJ2EEFacetConstants.DYNAMIC_WEB);
+				versionToCheck = ejbVersions[1];
+			}
+			else if (JavaEEProjectUtilities.isWebFragmentProject(project))
+			{
+				facetVersion = JavaEEProjectUtilities.getProjectFacetVersion(project, IJ2EEFacetConstants.WEBFRAGMENT);
+				versionToCheck = ejbVersions[2];
+			}
+			if (facetVersion != null)
+			{
+				int version = J2EEVersionUtil.convertVersionStringToInt(facetVersion.getVersionString());
+				retVal = version >= versionToCheck;
+			}
+		}
+		return retVal;
+	}
+
 }

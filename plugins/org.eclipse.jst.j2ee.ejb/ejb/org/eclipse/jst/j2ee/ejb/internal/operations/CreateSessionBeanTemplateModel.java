@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2012 SAP AG and others.
+ * Copyright (c) 2007, 2014 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,7 +7,8 @@
  *
  * Contributors:
  * Kaloyan Raev, kaloyan.raev@sap.com - initial API and implementation
- * Roberto Sanchez, rsanchez@mx1.ibm.com - Add remote and local annotations to bean class 
+ * Roberto Sanchez, rsanchez@mx1.ibm.com - Add remote and local annotations to bean class
+ * IBM - Async and Non-persistent support
  *******************************************************************************/
 package org.eclipse.jst.j2ee.ejb.internal.operations;
 
@@ -38,6 +39,8 @@ public class CreateSessionBeanTemplateModel extends
 	public static final String QUALIFIED_REMOTE = "javax.ejb.Remote"; //$NON-NLS-1$
 	public static final String QUALIFIED_REMOTE_HOME = "javax.ejb.RemoteHome"; //$NON-NLS-1$
 	public static final String QUALIFIED_LOCAL_HOME = "javax.ejb.LocalHome"; //$NON-NLS-1$
+	public static final String QUALIFIED_ASYNCHRONOUS = "javax.ejb.Asynchronous"; //$NON-NLS-1$
+	 
 	public static final String QUALIFIED_TRANSACTION_MANAGEMENT = "javax.ejb.TransactionManagement"; //$NON-NLS-1$
 	public static final String QUALIFIED_TRANSACTION_MANAGEMENT_TYPE = "javax.ejb.TransactionManagementType"; //$NON-NLS-1$
 	
@@ -87,6 +90,10 @@ public class CreateSessionBeanTemplateModel extends
 		
 		if (isNoInterfaceChecked()) {
 			collection.add(QUALIFIED_LOCAL_BEAN);
+		}
+		
+		if (isAsynchronous()) {
+			collection.add(QUALIFIED_ASYNCHRONOUS);
 		}
 		
 		List<BusinessInterface> interfaces = getBusinessInterfaces();
@@ -204,6 +211,10 @@ public class CreateSessionBeanTemplateModel extends
 
 	public boolean isNoInterfaceChecked() {
 		return dataModel.getBooleanProperty(NO_INTERFACE);
+	}
+	
+	public boolean isAsynchronous() {
+		return dataModel.getBooleanProperty(ASYNC);
 	}
 	
 	public Map<String, String> getClassAnnotationParams() {
