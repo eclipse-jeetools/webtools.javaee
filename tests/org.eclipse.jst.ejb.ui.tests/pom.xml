@@ -23,5 +23,10 @@
   <groupId>org.eclipse.webtools.ejb</groupId>
   <artifactId>org.eclipse.jst.ejb.ui.tests</artifactId>
   <version>1.0.0-SNAPSHOT</version>
-  <packaging>eclipse-plugin</packaging>
+  <packaging>eclipse-test-plugin</packaging>
+
+  <properties>
+    <testSuite>${project.artifactId}</testSuite>
+    <testClass>org.eclipse.jst.ejb.ui.tests.AllTests</testClass>
+  </properties>
 </project>
