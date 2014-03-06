@@ -30,6 +30,7 @@ import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataM
 import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.INIT_PARAM;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.SERVICE;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.URL_MAPPINGS;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.ASYNC_SUPPORT;
 import static org.eclipse.jst.j2ee.web.IServletConstants.DESTROY_SIGNATURE;
 import static org.eclipse.jst.j2ee.web.IServletConstants.DO_DELETE_SIGNATURE;
 import static org.eclipse.jst.j2ee.web.IServletConstants.DO_GET_SIGNATURE;
@@ -148,7 +149,7 @@ public class CreateServletTemplateModel extends CreateWebClassTemplateModel {
 	public String getServletClassName() {
 		return super.getClassName();
 	}
-
+	
 	public boolean shouldGenInit() {
 		return implementImplementedMethod(METHOD_INIT);
 	}
@@ -226,6 +227,10 @@ public class CreateServletTemplateModel extends CreateWebClassTemplateModel {
 		return (List) dataModel.getProperty(URL_MAPPINGS);
 	}
 
+	public boolean getAsyncSupported(){
+		return dataModel.getBooleanProperty(ASYNC_SUPPORT);
+	}
+	
 	public String getServletMapping(int index) {
 		List<String[]> mappings = getServletMappings();
 		if (index < mappings.size()) {
@@ -322,6 +327,10 @@ public class CreateServletTemplateModel extends CreateWebClassTemplateModel {
 		if (initParams != null && initParams.size() > 0) {
 			result.put(ATT_INIT_PARAMS, initParams);
 		}
+		
+		boolean isAsyncSupported = getAsyncSupported();
+		if (isAsyncSupported)
+			result.put(ATT_ASYNC_SUPPORT, isAsyncSupported);
 
 		return result;
 	}

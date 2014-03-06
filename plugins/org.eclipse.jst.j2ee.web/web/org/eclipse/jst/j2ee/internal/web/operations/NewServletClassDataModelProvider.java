@@ -34,6 +34,7 @@ import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataM
 import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.TEMPLATE_FILE;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.TO_STRING;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.URL_MAPPINGS;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.ASYNC_SUPPORT;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties.DISPLAY_NAME;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_HTTP_SERVLET;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET;
@@ -150,6 +151,7 @@ public class NewServletClassDataModelProvider extends
 		propertyNames.add(IS_SERVLET_TYPE);
 		propertyNames.add(INIT_PARAM);
 		propertyNames.add(URL_MAPPINGS);
+		propertyNames.add(ASYNC_SUPPORT);
 		propertyNames.add(NON_ANNOTATED_TEMPLATE_FILE);
 		propertyNames.add(TEMPLATE_FILE);
 		

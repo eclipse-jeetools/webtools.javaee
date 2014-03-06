@@ -39,5 +39,10 @@ public interface INewFilterClassDataModelProperties extends INewWebClassDataMode
      * Optional, List propety used to cache all the filter mappings for this filter on the web application.
      */
     public static final String FILTER_MAPPINGS = "NewFilterClassDataModel.FILTER_MAPPINGS"; //$NON-NLS-1$
+    
+	/**
+	 * Optional, boolean property used to enable asynchronous support for this filter
+	 */
+	public static final String ASYNC_SUPPORT = "NewFilterClassDataModel.ASYNC_SUPPORT"; //$NON-NLS-1$
 	
 }

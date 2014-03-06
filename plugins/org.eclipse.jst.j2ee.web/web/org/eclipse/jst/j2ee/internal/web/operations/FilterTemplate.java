@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2011 SAP AG and others.
+ * Copyright (c) 2007, 2014 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -94,39 +94,44 @@ public class FilterTemplate
   protected final String TEXT_68 = NL + "\t\t"; //$NON-NLS-1$
   protected final String TEXT_69 = " "; //$NON-NLS-1$
   protected final String TEXT_70 = "}" + NL + "\t\t\t\t\t"; //$NON-NLS-1$ //$NON-NLS-2$
-  protected final String TEXT_71 = ")"; //$NON-NLS-1$
-  protected final String TEXT_72 = NL + "public "; //$NON-NLS-1$
-  protected final String TEXT_73 = "abstract "; //$NON-NLS-1$
-  protected final String TEXT_74 = "final "; //$NON-NLS-1$
-  protected final String TEXT_75 = "class "; //$NON-NLS-1$
-  protected final String TEXT_76 = " extends "; //$NON-NLS-1$
-  protected final String TEXT_77 = " implements "; //$NON-NLS-1$
-  protected final String TEXT_78 = ", "; //$NON-NLS-1$
-  protected final String TEXT_79 = " {"; //$NON-NLS-1$
-  protected final String TEXT_80 = NL + NL + "    /**" + NL + "     * Default constructor. " + NL + "     */" + NL + "    public "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-  protected final String TEXT_81 = "() {" + NL + "        // TODO Auto-generated constructor stub" + NL + "    }"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-  protected final String TEXT_82 = NL + "       " + NL + "    /**" + NL + "     * @see "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-  protected final String TEXT_83 = "#"; //$NON-NLS-1$
-  protected final String TEXT_84 = "("; //$NON-NLS-1$
-  protected final String TEXT_85 = ")" + NL + "     */" + NL + "    public "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-  protected final String TEXT_86 = "("; //$NON-NLS-1$
-  protected final String TEXT_87 = ") {" + NL + "        super("; //$NON-NLS-1$ //$NON-NLS-2$
-  protected final String TEXT_88 = ");" + NL + "        // TODO Auto-generated constructor stub" + NL + "    }"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-  protected final String TEXT_89 = NL + NL + "\t/**" + NL + "     * @see "; //$NON-NLS-1$ //$NON-NLS-2$
-  protected final String TEXT_90 = "#"; //$NON-NLS-1$
-  protected final String TEXT_91 = "("; //$NON-NLS-1$
-  protected final String TEXT_92 = ")" + NL + "     */" + NL + "    public "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-  protected final String TEXT_93 = " "; //$NON-NLS-1$
-  protected final String TEXT_94 = "("; //$NON-NLS-1$
-  protected final String TEXT_95 = ") {" + NL + "        // TODO Auto-generated method stub"; //$NON-NLS-1$ //$NON-NLS-2$
-  protected final String TEXT_96 = NL + "\t\t\treturn "; //$NON-NLS-1$
-  protected final String TEXT_97 = ";"; //$NON-NLS-1$
-  protected final String TEXT_98 = NL + "    }"; //$NON-NLS-1$
-  protected final String TEXT_99 = NL + NL + "\t/**" + NL + "\t * @see Filter#destroy()" + NL + "\t */" + NL + "\tpublic void destroy() {" + NL + "\t\t// TODO Auto-generated method stub" + NL + "\t}"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
-  protected final String TEXT_100 = NL + NL + "\t/**" + NL + "\t * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)" + NL + "\t */" + NL + "\tpublic void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {" + NL + "\t\t// TODO Auto-generated method stub" + NL + "\t\t// place your code here" + NL + "" + NL + "\t\t// pass the request along the filter chain" + NL + "\t\tchain.doFilter(request, response);" + NL + "\t}"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$
-  protected final String TEXT_101 = NL + NL + "\t/**" + NL + "\t * @see Filter#init(FilterConfig)" + NL + "\t */" + NL + "\tpublic void init(FilterConfig fConfig) throws ServletException {" + NL + "\t\t// TODO Auto-generated method stub" + NL + "\t}"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
-  protected final String TEXT_102 = NL + NL + "}"; //$NON-NLS-1$
-  protected final String TEXT_103 = NL;
+  protected final String TEXT_71 = " = "; //$NON-NLS-1$
+  protected final String TEXT_72 = ")"; //$NON-NLS-1$
+  protected final String TEXT_73 = NL + "public "; //$NON-NLS-1$
+  protected final String TEXT_74 = "abstract "; //$NON-NLS-1$
+  protected final String TEXT_75 = "final "; //$NON-NLS-1$
+  protected final String TEXT_76 = "class "; //$NON-NLS-1$
+  protected final String TEXT_77 = " extends "; //$NON-NLS-1$
+  protected final String TEXT_78 = " implements "; //$NON-NLS-1$
+  protected final String TEXT_79 = ", "; //$NON-NLS-1$
+  protected final String TEXT_80 = " {"; //$NON-NLS-1$
+  protected final String TEXT_81 = NL + NL + "    /**" + NL + "     * Default constructor. " + NL + "     */" + NL + "    public "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+  protected final String TEXT_82 = "() {" + NL + "        // TODO Auto-generated constructor stub" + NL + "    }"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+  protected final String TEXT_83 = NL + "       " + NL + "    /**" + NL + "     * @see "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+  protected final String TEXT_84 = "#"; //$NON-NLS-1$
+  protected final String TEXT_85 = "("; //$NON-NLS-1$
+  protected final String TEXT_86 = ")" + NL + "     */" + NL + "    public "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+  protected final String TEXT_87 = "("; //$NON-NLS-1$
+  protected final String TEXT_88 = ") {" + NL + "        super("; //$NON-NLS-1$ //$NON-NLS-2$
+  protected final String TEXT_89 = ");" + NL + "        // TODO Auto-generated constructor stub" + NL + "    }"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+  protected final String TEXT_90 = NL + NL + "\t/**" + NL + "     * @see "; //$NON-NLS-1$ //$NON-NLS-2$
+  protected final String TEXT_91 = "#"; //$NON-NLS-1$
+  protected final String TEXT_92 = "("; //$NON-NLS-1$
+  protected final String TEXT_93 = ")" + NL + "     */" + NL + "    public "; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+  protected final String TEXT_94 = " "; //$NON-NLS-1$
+  protected final String TEXT_95 = "("; //$NON-NLS-1$
+  protected final String TEXT_96 = ") "; //$NON-NLS-1$
+  protected final String TEXT_97 = "throws "; //$NON-NLS-1$
+  protected final String TEXT_98 = " { "; //$NON-NLS-1$
+  protected final String TEXT_99 = " { "; //$NON-NLS-1$
+  protected final String TEXT_100 = NL + "         // TODO Auto-generated method stub"; //$NON-NLS-1$
+  protected final String TEXT_101 = NL + "\t\t\treturn "; //$NON-NLS-1$
+  protected final String TEXT_102 = ";"; //$NON-NLS-1$
+  protected final String TEXT_103 = NL + "    }"; //$NON-NLS-1$
+  protected final String TEXT_104 = NL + NL + "\t/**" + NL + "\t * @see Filter#destroy()" + NL + "\t */" + NL + "\tpublic void destroy() {" + NL + "\t\t// TODO Auto-generated method stub" + NL + "\t}"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+  protected final String TEXT_105 = NL + NL + "\t/**" + NL + "\t * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)" + NL + "\t */" + NL + "\tpublic void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {" + NL + "\t\t// TODO Auto-generated method stub" + NL + "\t\t// place your code here" + NL + "" + NL + "\t\t// pass the request along the filter chain" + NL + "\t\tchain.doFilter(request, response);" + NL + "\t}"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$ //$NON-NLS-10$
+  protected final String TEXT_106 = NL + NL + "\t/**" + NL + "\t * @see Filter#init(FilterConfig)" + NL + "\t */" + NL + "\tpublic void init(FilterConfig fConfig) throws ServletException {" + NL + "\t\t// TODO Auto-generated method stub" + NL + "\t}"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+  protected final String TEXT_107 = NL + NL + "}"; //$NON-NLS-1$
+  protected final String TEXT_108 = NL;
 
   public String generate(Object argument)
   {
@@ -231,7 +236,7 @@ public class FilterTemplate
 
     stringBuffer.append(TEXT_26);
      
-    if ("3.0".equals(model.getJavaEEVersion()) || "3.1".equals(model.getJavaEEVersion())) {  //$NON-NLS-1$ //$NON-NLS-2$
+	if ("3.0".equals(model.getJavaEEVersion()) || "3.1".equals(model.getJavaEEVersion())) {  //$NON-NLS-1$ //$NON-NLS-2$
 
     stringBuffer.append(TEXT_27);
     
@@ -459,10 +464,19 @@ public class FilterTemplate
     stringBuffer.append(TEXT_70);
     
 				}
+				else if (key.equals(CreateFilterTemplateModel.ATT_ASYNC_SUPPORT)) {
+					Boolean value =(Boolean) params.get(key);
+				    if (value){
+
+    stringBuffer.append( key );
+    stringBuffer.append(TEXT_71);
+    stringBuffer.append( value );
+    				    }				
+				}				
 				needComma = true;
   			}
 
-    stringBuffer.append(TEXT_71);
+    stringBuffer.append(TEXT_72);
     
 		}
 	}
@@ -470,29 +484,29 @@ public class FilterTemplate
     
 	if (model.isPublic()) { 
 
-    stringBuffer.append(TEXT_72);
+    stringBuffer.append(TEXT_73);
      
 	} 
 
 	if (model.isAbstract()) { 
 
-    stringBuffer.append(TEXT_73);
+    stringBuffer.append(TEXT_74);
     
 	}
 
 	if (model.isFinal()) {
 
-    stringBuffer.append(TEXT_74);
+    stringBuffer.append(TEXT_75);
     
 	}
 
-    stringBuffer.append(TEXT_75);
+    stringBuffer.append(TEXT_76);
     stringBuffer.append( model.getClassName() );
     
 	String superClass = model.getSuperclassName();
  	if (superClass != null && superClass.length() > 0) {
 
-    stringBuffer.append(TEXT_76);
+    stringBuffer.append(TEXT_77);
     stringBuffer.append( superClass );
     
 	}
@@ -500,7 +514,7 @@ public class FilterTemplate
 	List<String> interfaces = model.getInterfaces(); 
  	if ( interfaces.size() > 0) { 
 
-    stringBuffer.append(TEXT_77);
+    stringBuffer.append(TEXT_78);
     
 	}
 	
@@ -508,7 +522,7 @@ public class FilterTemplate
    		String INTERFACE = interfaces.get(i);
    		if (i > 0) {
 
-    stringBuffer.append(TEXT_78);
+    stringBuffer.append(TEXT_79);
     
 		}
 
@@ -516,13 +530,13 @@ public class FilterTemplate
     
 	}
 
-    stringBuffer.append(TEXT_79);
+    stringBuffer.append(TEXT_80);
      
 	if (!model.hasEmptySuperclassConstructor()) { 
 
-    stringBuffer.append(TEXT_80);
-    stringBuffer.append( model.getClassName() );
     stringBuffer.append(TEXT_81);
+    stringBuffer.append( model.getClassName() );
+    stringBuffer.append(TEXT_82);
      
 	} 
 
@@ -531,19 +545,19 @@ public class FilterTemplate
 		for (Constructor constructor : constructors) {
 			if (constructor.isPublic() || constructor.isProtected()) { 
 
-    stringBuffer.append(TEXT_82);
-    stringBuffer.append( model.getSuperclassName() );
     stringBuffer.append(TEXT_83);
     stringBuffer.append( model.getSuperclassName() );
     stringBuffer.append(TEXT_84);
-    stringBuffer.append( constructor.getParamsForJavadoc() );
+    stringBuffer.append( model.getSuperclassName() );
     stringBuffer.append(TEXT_85);
-    stringBuffer.append( model.getClassName() );
+    stringBuffer.append( constructor.getParamsForJavadoc() );
     stringBuffer.append(TEXT_86);
-    stringBuffer.append( constructor.getParamsForDeclaration() );
+    stringBuffer.append( model.getClassName() );
     stringBuffer.append(TEXT_87);
-    stringBuffer.append( constructor.getParamsForCall() );
+    stringBuffer.append( constructor.getParamsForDeclaration() );
     stringBuffer.append(TEXT_88);
+    stringBuffer.append( constructor.getParamsForCall() );
+    stringBuffer.append(TEXT_89);
     
 			} 
 		} 
@@ -553,45 +567,53 @@ public class FilterTemplate
 	if (model.shouldImplementAbstractMethods()) {
 		for (Method method : model.getUnimplementedMethods()) { 
 
-    stringBuffer.append(TEXT_89);
-    stringBuffer.append( method.getContainingJavaClass() );
     stringBuffer.append(TEXT_90);
-    stringBuffer.append( method.getName() );
+    stringBuffer.append( method.getContainingJavaClass() );
     stringBuffer.append(TEXT_91);
-    stringBuffer.append( method.getParamsForJavadoc() );
-    stringBuffer.append(TEXT_92);
-    stringBuffer.append( method.getReturnType() );
-    stringBuffer.append(TEXT_93);
     stringBuffer.append( method.getName() );
+    stringBuffer.append(TEXT_92);
+    stringBuffer.append( method.getParamsForJavadoc() );
+    stringBuffer.append(TEXT_93);
+    stringBuffer.append( method.getReturnType() );
     stringBuffer.append(TEXT_94);
-    stringBuffer.append( method.getParamsForDeclaration() );
+    stringBuffer.append( method.getName() );
     stringBuffer.append(TEXT_95);
+    stringBuffer.append( method.getParamsForDeclaration() );
+    stringBuffer.append(TEXT_96);
+      if (method.getExceptions().length() > 0){ 
+    stringBuffer.append(TEXT_97);
+    stringBuffer.append(method.getExceptions());
+    stringBuffer.append(TEXT_98);
+    }else {
+    stringBuffer.append(TEXT_99);
+     } 
+    stringBuffer.append(TEXT_100);
      
 			String defaultReturnValue = method.getDefaultReturnValue();
 			if (defaultReturnValue != null) { 
 
-    stringBuffer.append(TEXT_96);
+    stringBuffer.append(TEXT_101);
     stringBuffer.append( defaultReturnValue );
-    stringBuffer.append(TEXT_97);
+    stringBuffer.append(TEXT_102);
     
 			} 
 
-    stringBuffer.append(TEXT_98);
+    stringBuffer.append(TEXT_103);
      
 		}
 	} 
 
      if (model.shouldGenDestroy()) { 
-    stringBuffer.append(TEXT_99);
+    stringBuffer.append(TEXT_104);
      } 
      if (model.shouldGenDoFilter()) { 
-    stringBuffer.append(TEXT_100);
+    stringBuffer.append(TEXT_105);
      } 
      if (model.shouldGenInit()) { 
-    stringBuffer.append(TEXT_101);
+    stringBuffer.append(TEXT_106);
      } 
-    stringBuffer.append(TEXT_102);
-    stringBuffer.append(TEXT_103);
+    stringBuffer.append(TEXT_107);
+    stringBuffer.append(TEXT_108);
     return stringBuffer.toString();
   }
 }

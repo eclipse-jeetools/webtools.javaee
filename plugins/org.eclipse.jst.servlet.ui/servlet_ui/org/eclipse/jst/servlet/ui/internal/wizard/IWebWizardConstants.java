@@ -29,6 +29,7 @@ public interface IWebWizardConstants {
 	public final static String INIT_PARAM_LABEL = WEBUIMessages.INIT_PARAM_LABEL;
 	public final static String URL_MAPPINGS_TITLE = WEBUIMessages.URL_MAPPINGS_TITLE;
 	public final static String URL_MAPPINGS_LABEL = WEBUIMessages.URL_MAPPINGS_LABEL;
+	public final static String ASYNC_SUPPORT_LABEL = WEBUIMessages.ASYNC_SUPPORT_LABEL;
 	public final static String CHOOSE_SERVLET_CLASS = WEBUIMessages.CHOOSE_SERVLET_CLASS;
 	
 	// NewServletWizard

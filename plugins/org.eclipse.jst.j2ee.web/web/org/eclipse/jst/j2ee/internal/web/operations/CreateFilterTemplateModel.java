@@ -16,6 +16,7 @@ import static org.eclipse.jst.j2ee.internal.web.operations.INewFilterClassDataMo
 import static org.eclipse.jst.j2ee.internal.web.operations.INewFilterClassDataModelProperties.FILTER_MAPPINGS;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewFilterClassDataModelProperties.INIT;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewFilterClassDataModelProperties.INIT_PARAM;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewFilterClassDataModelProperties.ASYNC_SUPPORT;
 import static org.eclipse.jst.j2ee.web.IServletConstants.DESTROY_SIGNATURE;
 import static org.eclipse.jst.j2ee.web.IServletConstants.DO_FILTER_SIGNATURE;
 import static org.eclipse.jst.j2ee.web.IServletConstants.FILTER_INIT_SIGNATURE;
@@ -126,6 +127,10 @@ public class CreateFilterTemplateModel extends CreateWebClassTemplateModel {
 		}
 		return null;
 	}
+	
+	public boolean getAsyncSupported(){
+		return dataModel.getBooleanProperty(ASYNC_SUPPORT);
+	}	
 	
 	public String getDispatcherList(IFilterMappingItem mapping) {
 		List<String> list = new ArrayList<String>();
@@ -261,6 +266,11 @@ public class CreateFilterTemplateModel extends CreateWebClassTemplateModel {
 		if (initParams != null && initParams.size() > 0) {
 			result.put(ATT_INIT_PARAMS, initParams);
 		}
+		
+		boolean isAsyncSupported = getAsyncSupported();
+		if (isAsyncSupported)
+			result.put(ATT_ASYNC_SUPPORT, isAsyncSupported);
+
 
 		return result;
 	}

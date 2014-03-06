@@ -20,6 +20,7 @@ import static org.eclipse.jst.j2ee.internal.web.operations.INewFilterClassDataMo
 import static org.eclipse.jst.j2ee.internal.web.operations.INewFilterClassDataModelProperties.INIT;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewFilterClassDataModelProperties.INIT_PARAM;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties.DISPLAY_NAME;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewFilterClassDataModelProperties.ASYNC_SUPPORT;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_FILTER;
 
 import java.util.ArrayList;
@@ -91,6 +92,7 @@ public class NewFilterClassDataModelProvider extends
 		propertyNames.add(DO_FILTER);
 		propertyNames.add(INIT_PARAM);
         propertyNames.add(FILTER_MAPPINGS);
+        propertyNames.add(ASYNC_SUPPORT);
         
 		return propertyNames;
 	}

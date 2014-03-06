@@ -240,6 +240,12 @@
 					%>}
 					<%
 				}
+				else if (key.equals(CreateFilterTemplateModel.ATT_ASYNC_SUPPORT)) {
+					Boolean value =(Boolean) params.get(key);
+				    if (value){
+%><%= key %> = <%= value %>
+<%				    }				
+				}				
 				needComma = true;
   			}
 %>)

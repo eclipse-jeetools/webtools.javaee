@@ -39,6 +39,7 @@ public class WEBUIMessages extends NLS {
 	public static String ADD_SERVLET_WIZARD_PAGE_TITLE;
     public static String ADD_FILTER_WIZARD_WINDOW_TITLE;
     public static String ADD_FILTER_WIZARD_PAGE_TITLE;
+    public static String ASYNC_SUPPORT_LABEL;
 	public static String JAVA_CLASS_MAIN_CHECKBOX_LABEL;
 	public static String EMPTY_LIST_MSG;
 	public static String ExportWARAction_UI_;

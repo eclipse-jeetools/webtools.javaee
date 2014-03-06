@@ -14,6 +14,7 @@ package org.eclipse.jst.servlet.ui.internal.wizard;
 
 import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.INIT_PARAM;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.URL_MAPPINGS;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.ASYNC_SUPPORT;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties.DESCRIPTION;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties.DISPLAY_NAME;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties.USE_EXISTING_CLASS;
@@ -45,12 +46,14 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.wizard.StringArrayTableWizardSection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
@@ -67,6 +70,7 @@ public class AddServletWizardPage extends DataModelWizardPage {
 	private Text displayNameText;
 
 	private StringArrayTableWizardSection urlSection;
+	private Button asyncSupportCheckBox;
 
 	public AddServletWizardPage(IDataModel model, String pageName) {
 		super(model, pageName);
@@ -130,6 +134,10 @@ public class AddServletWizardPage extends DataModelWizardPage {
 			urlSection.setInput(input);
 		displayNameText.setFocus();
 
+		
+		createAsyncSupportGroup(composite);		
+		
+		
 		IStatus projectStatus = validateProjectName();
 		if (!projectStatus.isOK()) {
 			setErrorMessage(projectStatus.getMessage());
@@ -178,6 +186,16 @@ public class AddServletWizardPage extends DataModelWizardPage {
 		descText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		synchHelper.synchText(descText, DESCRIPTION, null);
 	}
+	
+	
+	private void createAsyncSupportGroup(Composite composite){
+		asyncSupportCheckBox = new Button(composite, SWT.CHECK);
+		asyncSupportCheckBox.setText(IWebWizardConstants.ASYNC_SUPPORT_LABEL);
+		GridData data = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
+		data.horizontalSpan = 3;
+		asyncSupportCheckBox.setLayoutData(data);
+		synchHelper.synchCheckbox(asyncSupportCheckBox, ASYNC_SUPPORT, null);
+	}
 
 	public String getDisplayName() {
 		return displayNameText.getText();
@@ -194,5 +212,16 @@ public class AddServletWizardPage extends DataModelWizardPage {
 	protected boolean showValidationErrorsOnEnter() {
 		return true;
 	}
+	
+	@Override
+	public void setVisible(boolean visible) {
+		super.setVisible(visible);
+		String javaEEVersion = model.getStringProperty(INewServletClassDataModelProperties.JAVA_EE_VERSION);
+		if("3.0".equals(javaEEVersion) || "3.1".equals(javaEEVersion)){ //$NON-NLS-1$ //$NON-NLS-2$			
+			asyncSupportCheckBox.setVisible(true);
+		}
+		else
+			asyncSupportCheckBox.setVisible(false);
+	}	
 	
 }

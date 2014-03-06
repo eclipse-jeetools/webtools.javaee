@@ -95,6 +95,12 @@ public interface INewServletClassDataModelProperties extends INewWebClassDataMod
 	 * Optional, List propety used to cache all the servlet mappings for this servlet on the web application.
 	 */
 	public static final String URL_MAPPINGS = "NewServletClassDataModel.URL_MAPPINGS"; //$NON-NLS-1$
+	
+	/**
+	 * Optional, boolean property used to enable asynchronous support for this servlet
+	 */
+	public static final String ASYNC_SUPPORT = "NewServletClassDataModel.ASYNC_SUPPORT"; //$NON-NLS-1$
+	
 
 	/**
 	 * Do not set! The javajet template file used in creating the annotated servlet template class

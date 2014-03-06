@@ -50,6 +50,8 @@ public class AddListenerWizardPage extends DataModelWizardPage  {
 	private static final Image IMG_INTERFACE = JavaPluginImages.get(JavaPluginImages.IMG_OBJS_INTERFACE);
 
 	protected ServletDataModelSyncHelper synchHelper2;
+	private Button changeSessionID, asyncListener;
+	private Label changeSessionIDIconLabel, changeSessionIDInterfaceLabel, asyncListenerIconLabel, asyncListenerInterfaceLabel;
 	
 	public AddListenerWizardPage(IDataModel model, String pageName) {
 		super(model, pageName);
@@ -131,16 +133,10 @@ public class AddListenerWizardPage extends DataModelWizardPage  {
 				QUALIFIED_HTTP_SESSION_BINDING_LISTENER, 
 				INTERFACES);
 		
-		String javaEEVersion = model.getStringProperty(INewServletClassDataModelProperties.JAVA_EE_VERSION);
-		if("3.1".equals(javaEEVersion)){ //$NON-NLS-1$
-			createEventListenerRow(group, 
-					ADD_LISTENER_WIZARD_OBJECT_SESSION_ID, 
-					QUALIFIED_HTTP_SESSION_ID_LISTENER, 
-					INTERFACES);		
-		}
-		
-				
-
+		createEventListenerRow(group, 
+				ADD_LISTENER_WIZARD_OBJECT_SESSION_ID, 
+				QUALIFIED_HTTP_SESSION_ID_LISTENER, 
+				INTERFACES);		
 	}
 	
 	private void createServletRequestEvents(Composite parent) {
@@ -156,14 +152,11 @@ public class AddListenerWizardPage extends DataModelWizardPage  {
 				QUALIFIED_SERVLET_REQUEST_ATTRIBUTE_LISTENER, 
 				INTERFACES);
 		
-		String javaEEVersion = model.getStringProperty(INewServletClassDataModelProperties.JAVA_EE_VERSION);
-		if("3.1".equals(javaEEVersion)){ //$NON-NLS-1$		
-			createEventListenerRow(group, 
-					ADD_LISTENER_WIZARD_ASYNC_EVENTS, 
-					QUALIFIED_SERVLET_REQUEST_ASYNC_EVENT_LISTENER, 
-					INTERFACES);		
-		}
-		
+		createEventListenerRow(group, 
+				ADD_LISTENER_WIZARD_ASYNC_EVENTS, 
+				QUALIFIED_SERVLET_REQUEST_ASYNC_EVENT_LISTENER, 
+				INTERFACES);		
+	
 	}
 	
 	
@@ -178,9 +171,21 @@ public class AddListenerWizardPage extends DataModelWizardPage  {
 	}
 	
 	private void createEventListenerRow(Composite parent, String event, String listener, String property) {
-		createCheckbox(parent, event, listener, property);
-		createInterfaceIcon(parent);
-		createInterfaceLabel(parent, listener);
+		if (listener.equals(QUALIFIED_HTTP_SESSION_ID_LISTENER)){
+			changeSessionID = createCheckbox(parent, event, listener, property);
+			changeSessionIDIconLabel = createInterfaceIcon(parent);
+			changeSessionIDInterfaceLabel = createInterfaceLabel(parent, listener);
+		}
+		else if (listener.equals(QUALIFIED_SERVLET_REQUEST_ASYNC_EVENT_LISTENER)){
+			asyncListener = createCheckbox(parent, event, listener, property);
+			asyncListenerIconLabel = createInterfaceIcon(parent);
+			asyncListenerInterfaceLabel = createInterfaceLabel(parent, listener);
+		}
+		else{
+			createCheckbox(parent, event, listener, property);
+			createInterfaceIcon(parent);
+			createInterfaceLabel(parent, listener);
+		}
 	}
 	
 	private Button createCheckbox(Composite parent, String text, String value, String property) {
@@ -264,6 +269,40 @@ public class AddListenerWizardPage extends DataModelWizardPage  {
 		
 		synchHelper2.synchUIWithModel(INTERFACES, DataModelEvent.VALUE_CHG);
 		model.notifyPropertyChange(INTERFACES, DataModelEvent.VALUE_CHG);
+	}
+	
+	
+	@Override
+	public void setVisible(boolean visible) {
+		super.setVisible(visible);
+		String javaEEVersion = model.getStringProperty(INewServletClassDataModelProperties.JAVA_EE_VERSION);
+		if("3.1".equals(javaEEVersion)){ //$NON-NLS-1$ 	
+			setServlet31ListenersVisible(true);
+		}
+		else{
+			setServlet31ListenersVisible(false);
+		}
+	}
+	
+	
+	private void setServlet31ListenersVisible(boolean visible){
+		changeSessionID.setVisible(visible);
+		changeSessionIDIconLabel.setVisible(visible);
+		changeSessionIDInterfaceLabel.setVisible(visible);
+		asyncListener.setVisible(visible);
+		asyncListenerIconLabel.setVisible(visible);
+		asyncListenerInterfaceLabel.setVisible(visible);
+		
+		if (!visible){
+			List interfaces = (List) model.getProperty(INTERFACES);
+			if (interfaces != null){
+				//remove any selected interfaces
+				interfaces.remove(QUALIFIED_HTTP_SESSION_ID_LISTENER);
+				interfaces.remove(QUALIFIED_SERVLET_REQUEST_ASYNC_EVENT_LISTENER);
+				synchHelper2.synchUIWithModel(INTERFACES, DataModelEvent.VALUE_CHG);
+				model.notifyPropertyChange(INTERFACES, DataModelEvent.VALUE_CHG);
+			}
+		}
 	}
 
 }
