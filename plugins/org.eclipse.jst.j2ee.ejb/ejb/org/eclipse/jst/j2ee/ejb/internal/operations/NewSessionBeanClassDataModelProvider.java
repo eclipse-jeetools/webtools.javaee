@@ -405,7 +405,7 @@ public class NewSessionBeanClassDataModelProvider extends NewEnterpriseBeanClass
 	protected IStatus validateAsynchronous() {
 		IStatus retVal = Status.OK_STATUS;
 		if (getBooleanProperty(ASYNC)) {
-			if (ejb3xOrLater(J2EEVersionConstants.VERSION_3_1)) {
+			if (ejb3xOrLater(J2EEVersionConstants.VERSION_3_1) && !ejb3xOrLater(J2EEVersionConstants.VERSION_3_2)) {
 				retVal = new Status(IStatus.WARNING, EjbPlugin.PLUGIN_ID, EJBCreationResourceHandler.WRN_EJB31_ASYNC_NOT_SUPPORTED);
 			}
 		}

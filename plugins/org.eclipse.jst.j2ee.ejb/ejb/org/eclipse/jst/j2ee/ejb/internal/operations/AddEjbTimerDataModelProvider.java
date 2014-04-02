@@ -24,6 +24,7 @@ import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaEEArtifactClassOperation;
 import org.eclipse.jst.j2ee.internal.ejb.project.operations.EJBCreationResourceHandler;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
 import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
@@ -116,5 +117,15 @@ public class AddEjbTimerDataModelProvider extends
 		}
 		IStatus status = super.validate(propertyName);
 		return status;
+	}
+	
+	@Override
+	public boolean propertySet(String propertyName, Object propertyValue) {
+		boolean result = super.propertySet(propertyName, propertyValue);
+		
+		if (PROJECT_NAME.equals(propertyName)) {
+			getDataModel().notifyPropertyChange(NON_PERSISTENT, IDataModel.DEFAULT_CHG);
+		}
+		return result;
 	}
 }
