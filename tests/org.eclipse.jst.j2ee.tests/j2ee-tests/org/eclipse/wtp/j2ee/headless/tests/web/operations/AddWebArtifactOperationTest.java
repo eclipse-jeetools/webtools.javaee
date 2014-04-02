@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2008 IBM Corporation and others.
+ * Copyright (c) 2005, 2014 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -20,6 +20,7 @@ import java.util.List;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -32,6 +33,8 @@ import org.eclipse.jst.j2ee.common.Listener;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPreferences;
+import org.eclipse.jst.j2ee.internal.web.operations.INewFilterClassDataModelProperties;
+import org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.web.operations.NewFilterClassDataModelProvider;
 import org.eclipse.jst.j2ee.internal.web.operations.NewListenerClassDataModelProvider;
 import org.eclipse.jst.j2ee.internal.web.operations.NewServletClassDataModelProvider;
@@ -46,8 +49,10 @@ import org.eclipse.jst.j2ee.webapplication.ServletMapping;
 import org.eclipse.jst.j2ee.webapplication.WebApp;
 import org.eclipse.jst.javaee.core.DisplayName;
 import org.eclipse.jst.javaee.core.UrlPatternType;
+import org.eclipse.jst.jee.model.tests.SynchronousModelChangedListener;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
+import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.tests.OperationTestCase;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.JavaEEFacetConstants;
@@ -72,7 +77,8 @@ public class AddWebArtifactOperationTest extends OperationTestCase implements
     
     public static final String LISTENER_NAME = "TestListener"; //$NON-NLS-1$
     public static final String LISTENER_CLASS_NAME = PACKAGE + "." + LISTENER_NAME; //$NON-NLS-1$
-
+	private IModelProvider mergedModelProvider;
+	
     /**
 	 * @param name
 	 */
@@ -189,6 +195,132 @@ public class AddWebArtifactOperationTest extends OperationTestCase implements
     			SERVLET_DEFAULT_MAPPING, urlPattern.getValue());
     }
     
+    
+    public void testAddServlet_Web30_Defaults() throws Exception{
+       	createWebProject(WEB_PROJECT_NAME, JavaEEFacetConstants.WEB_30);
+    	IProject proj = ProjectUtilities.getProject(WEB_PROJECT_NAME);
+
+    	mergedModelProvider = ModelProviderManager.getModelProvider(proj);
+		org.eclipse.jst.javaee.web.WebApp webApp = (org.eclipse.jst.javaee.web.WebApp) mergedModelProvider.getModelObject();
+		
+    	addServlet_Defaults_Annotations();
+    	
+    	assertJavaFileExists(SERVLET_CLASS_NAME);  	
+    	
+       	List servlets = webApp.getServlets();
+    	assertEquals("Exactly one servlet is expected in the model, but " + servlets.size() + " are found", 
+    			1, servlets.size());
+    	org.eclipse.jst.javaee.web.Servlet servlet = (org.eclipse.jst.javaee.web.Servlet) servlets.get(0);
+    	assertEquals("Servlet name is expected to be " + SERVLET_NAME + ", but it is " + servlet.getServletName(), 
+    			SERVLET_NAME, servlet.getServletName());
+    	assertEquals("Servlet class name is expected to be " + SERVLET_CLASS_NAME + ", but it is " + servlet.getServletClass(), 
+    			SERVLET_CLASS_NAME, servlet.getServletClass());
+		
+		List params = servlet.getInitParams();
+		assertNotNull("List of initialization parameters cannot be retrieved", params);
+		assertEquals("None initialization parameter is expected, but " + params.size() + " are found", 
+				0, params.size());
+    	
+    	List mappings = webApp.getServletMappings();
+    	assertEquals("Exactly one servlet mapping is expected, but " + mappings.size() + " are found", 
+    			1, mappings.size());
+    	org.eclipse.jst.javaee.web.ServletMapping mapping = (org.eclipse.jst.javaee.web.ServletMapping) mappings.get(0);
+    	assertEquals("Servlet name of the mapping is expected to be " + SERVLET_NAME + ", but it is " + mapping.getServletName(), 
+    			SERVLET_NAME, mapping.getServletName());
+    	List urlPatterns = mapping.getUrlPatterns();
+    	assertEquals("Exactly one URL pattern is expected in the mapping, but " + urlPatterns.size() + " are found", 
+    			1, urlPatterns.size());
+    	UrlPatternType urlPattern = (UrlPatternType) urlPatterns.get(0);
+    	assertEquals("Servlet mapping URL pattern value is expected to be " + SERVLET_DEFAULT_MAPPING + ", but it is " + urlPattern.getValue(), 
+    			SERVLET_DEFAULT_MAPPING, urlPattern.getValue());    	   	
+    }
+    
+    
+    public void testAddServlet_Web30_Async() throws Exception {
+    	createWebProject(WEB_PROJECT_NAME, JavaEEFacetConstants.WEB_30);
+    	IProject proj = ProjectUtilities.getProject(WEB_PROJECT_NAME);
+
+    	mergedModelProvider = ModelProviderManager.getModelProvider(proj);
+		org.eclipse.jst.javaee.web.WebApp webApp = (org.eclipse.jst.javaee.web.WebApp) mergedModelProvider.getModelObject();
+		
+    	addServlet_Async();
+    	
+    	assertJavaFileExists(SERVLET_CLASS_NAME);  	
+    	
+       	List servlets = webApp.getServlets();
+    	assertEquals("Exactly one servlet is expected in the model, but " + servlets.size() + " are found", 
+    			1, servlets.size());
+    	org.eclipse.jst.javaee.web.Servlet servlet = (org.eclipse.jst.javaee.web.Servlet) servlets.get(0);
+    	assertEquals("Servlet name is expected to be " + SERVLET_NAME + ", but it is " + servlet.getServletName(), 
+    			SERVLET_NAME, servlet.getServletName());
+    	assertEquals("Servlet class name is expected to be " + SERVLET_CLASS_NAME + ", but it is " + servlet.getServletClass(), 
+    			SERVLET_CLASS_NAME, servlet.getServletClass());
+		
+		List params = servlet.getInitParams();
+		assertNotNull("List of initialization parameters cannot be retrieved", params);
+		assertEquals("None initialization parameter is expected, but " + params.size() + " are found", 
+				0, params.size());
+    	
+    	List mappings = webApp.getServletMappings();
+    	assertEquals("Exactly one servlet mapping is expected, but " + mappings.size() + " are found", 
+    			1, mappings.size());
+    	org.eclipse.jst.javaee.web.ServletMapping mapping = (org.eclipse.jst.javaee.web.ServletMapping) mappings.get(0);
+    	assertEquals("Servlet name of the mapping is expected to be " + SERVLET_NAME + ", but it is " + mapping.getServletName(), 
+    			SERVLET_NAME, mapping.getServletName());
+    	List urlPatterns = mapping.getUrlPatterns();
+    	assertEquals("Exactly one URL pattern is expected in the mapping, but " + urlPatterns.size() + " are found", 
+    			1, urlPatterns.size());
+    	UrlPatternType urlPattern = (UrlPatternType) urlPatterns.get(0);
+    	assertEquals("Servlet mapping URL pattern value is expected to be " + SERVLET_DEFAULT_MAPPING + ", but it is " + urlPattern.getValue(), 
+    			SERVLET_DEFAULT_MAPPING, urlPattern.getValue());    	
+    	
+    	
+    	assertTrue(servlet.isAsyncSupported());
+    }
+    
+    public void testAddServlet_Web31_Async() throws Exception {
+    	createWebProject(WEB_PROJECT_NAME, JavaEEFacetConstants.WEB_31);
+    	IProject proj = ProjectUtilities.getProject(WEB_PROJECT_NAME);
+
+    	mergedModelProvider = ModelProviderManager.getModelProvider(proj);
+		org.eclipse.jst.javaee.web.WebApp webApp = (org.eclipse.jst.javaee.web.WebApp) mergedModelProvider.getModelObject();
+		
+    	addServlet_Async();
+    	
+    	assertJavaFileExists(SERVLET_CLASS_NAME);  	
+    	
+       	List servlets = webApp.getServlets();
+    	assertEquals("Exactly one servlet is expected in the model, but " + servlets.size() + " are found", 
+    			1, servlets.size());
+    	org.eclipse.jst.javaee.web.Servlet servlet = (org.eclipse.jst.javaee.web.Servlet) servlets.get(0);
+    	assertEquals("Servlet name is expected to be " + SERVLET_NAME + ", but it is " + servlet.getServletName(), 
+    			SERVLET_NAME, servlet.getServletName());
+    	assertEquals("Servlet class name is expected to be " + SERVLET_CLASS_NAME + ", but it is " + servlet.getServletClass(), 
+    			SERVLET_CLASS_NAME, servlet.getServletClass());
+		
+		List params = servlet.getInitParams();
+		assertNotNull("List of initialization parameters cannot be retrieved", params);
+		assertEquals("None initialization parameter is expected, but " + params.size() + " are found", 
+				0, params.size());
+    	
+    	List mappings = webApp.getServletMappings();
+    	assertEquals("Exactly one servlet mapping is expected, but " + mappings.size() + " are found", 
+    			1, mappings.size());
+    	org.eclipse.jst.javaee.web.ServletMapping mapping = (org.eclipse.jst.javaee.web.ServletMapping) mappings.get(0);
+    	assertEquals("Servlet name of the mapping is expected to be " + SERVLET_NAME + ", but it is " + mapping.getServletName(), 
+    			SERVLET_NAME, mapping.getServletName());
+    	List urlPatterns = mapping.getUrlPatterns();
+    	assertEquals("Exactly one URL pattern is expected in the mapping, but " + urlPatterns.size() + " are found", 
+    			1, urlPatterns.size());
+    	UrlPatternType urlPattern = (UrlPatternType) urlPatterns.get(0);
+    	assertEquals("Servlet mapping URL pattern value is expected to be " + SERVLET_DEFAULT_MAPPING + ", but it is " + urlPattern.getValue(), 
+    			SERVLET_DEFAULT_MAPPING, urlPattern.getValue());    	
+    	
+    	
+    	assertTrue(servlet.isAsyncSupported());
+    }    
+    
+    
     public void testAddFilter_Web24_Defaults_NoJETEmitter() throws Exception {
 		disableJETEmitter();
 		testAddFilter_Web24_Defaults();
@@ -297,6 +429,136 @@ public class AddWebArtifactOperationTest extends OperationTestCase implements
     			0, mapping.getDispatchers().size());
     }
     
+    public void testAddFilter_Web30_Defaults() throws Exception {
+    	createWebProject(WEB_PROJECT_NAME, JavaEEFacetConstants.WEB_30);
+    	IProject proj = ProjectUtilities.getProject(WEB_PROJECT_NAME);
+
+    	mergedModelProvider = ModelProviderManager.getModelProvider(proj);
+		org.eclipse.jst.javaee.web.WebApp webApp = (org.eclipse.jst.javaee.web.WebApp) mergedModelProvider.getModelObject();
+		
+    	addFilter_Defaults_Annotations();
+    	
+		assertJavaFileExists(FILTER_CLASS_NAME);
+    	
+    	List filters = webApp.getFilters();
+    	assertEquals("Exactly one filter is expected in the model, but " + filters.size() + " are found", 
+    			1, filters.size());
+    	org.eclipse.jst.javaee.web.Filter filter = (org.eclipse.jst.javaee.web.Filter) filters.get(0);
+    	assertEquals("Filter name is expected to be " + FILTER_NAME + ", but it is " + filter.getFilterName(), 
+    			FILTER_NAME, filter.getFilterName());
+    	assertEquals("Filter class name is expected to be " + FILTER_CLASS_NAME + ", but it is " + filter.getFilterClass(), 
+    			FILTER_CLASS_NAME, filter.getFilterClass());
+    	
+    	List params = filter.getInitParams();
+		assertNotNull("List of initialization parameters cannot be retrieved", params);
+		assertEquals("None initialization parameter is expected, but " + params.size() + " are found", 
+				0, params.size());
+    	
+    	List mappings = webApp.getFilterMappings();
+    	assertEquals("Exactly one filter mapping is expected, but " + mappings.size() + " are found", 
+    			1, mappings.size());
+    	org.eclipse.jst.javaee.web.FilterMapping mapping = (org.eclipse.jst.javaee.web.FilterMapping) mappings.get(0);
+    	assertEquals("Filter name of the mapping is expected to be " + FILTER_NAME + ", but it is " + mapping.getFilterName(), 
+    			FILTER_NAME, mapping.getFilterName());
+    	List urlPatterns = mapping.getUrlPatterns();
+    	assertEquals("Exactly one URL pattern is expected in the mapping, but " + urlPatterns.size() + " are found", 
+    			1, urlPatterns.size());
+    	UrlPatternType urlPattern = (UrlPatternType) urlPatterns.get(0);
+    	assertEquals("Filter mapping URL pattern value is expected to be " + FILTER_DEFAULT_MAPPING + ", but it is " + urlPattern.getValue(), 
+    			FILTER_DEFAULT_MAPPING, urlPattern.getValue());
+    	assertEquals("None servlet name is expected in the filter mapping, but " + mapping.getServletNames().size() + " are found", 
+    			0, mapping.getServletNames().size());
+    	assertEquals("None dispatcher is expected in the filter mapping, but " + mapping.getDispatchers().size() + " are found", 
+    			0, mapping.getDispatchers().size());    	
+    }
+    
+    public void testAddFilter_Web30_Async() throws Exception {
+    	createWebProject(WEB_PROJECT_NAME, JavaEEFacetConstants.WEB_30);
+    	IProject proj = ProjectUtilities.getProject(WEB_PROJECT_NAME);
+
+    	mergedModelProvider = ModelProviderManager.getModelProvider(proj);
+		org.eclipse.jst.javaee.web.WebApp webApp = (org.eclipse.jst.javaee.web.WebApp) mergedModelProvider.getModelObject();
+		
+    	addFilter_Async();
+    	
+		assertJavaFileExists(FILTER_CLASS_NAME);
+    	
+    	List filters = webApp.getFilters();
+    	assertEquals("Exactly one filter is expected in the model, but " + filters.size() + " are found", 
+    			1, filters.size());
+    	org.eclipse.jst.javaee.web.Filter filter = (org.eclipse.jst.javaee.web.Filter) filters.get(0);
+    	assertEquals("Filter name is expected to be " + FILTER_NAME + ", but it is " + filter.getFilterName(), 
+    			FILTER_NAME, filter.getFilterName());
+    	assertEquals("Filter class name is expected to be " + FILTER_CLASS_NAME + ", but it is " + filter.getFilterClass(), 
+    			FILTER_CLASS_NAME, filter.getFilterClass());
+    	
+    	List params = filter.getInitParams();
+		assertNotNull("List of initialization parameters cannot be retrieved", params);
+		assertEquals("None initialization parameter is expected, but " + params.size() + " are found", 
+				0, params.size());
+    	
+    	List mappings = webApp.getFilterMappings();
+    	assertEquals("Exactly one filter mapping is expected, but " + mappings.size() + " are found", 
+    			1, mappings.size());
+    	org.eclipse.jst.javaee.web.FilterMapping mapping = (org.eclipse.jst.javaee.web.FilterMapping) mappings.get(0);
+    	assertEquals("Filter name of the mapping is expected to be " + FILTER_NAME + ", but it is " + mapping.getFilterName(), 
+    			FILTER_NAME, mapping.getFilterName());
+    	List urlPatterns = mapping.getUrlPatterns();
+    	assertEquals("Exactly one URL pattern is expected in the mapping, but " + urlPatterns.size() + " are found", 
+    			1, urlPatterns.size());
+    	UrlPatternType urlPattern = (UrlPatternType) urlPatterns.get(0);
+    	assertEquals("Filter mapping URL pattern value is expected to be " + FILTER_DEFAULT_MAPPING + ", but it is " + urlPattern.getValue(), 
+    			FILTER_DEFAULT_MAPPING, urlPattern.getValue());
+    	assertEquals("None servlet name is expected in the filter mapping, but " + mapping.getServletNames().size() + " are found", 
+    			0, mapping.getServletNames().size());
+    	assertEquals("None dispatcher is expected in the filter mapping, but " + mapping.getDispatchers().size() + " are found", 
+    			0, mapping.getDispatchers().size());    	
+    }
+    
+    
+    public void testAddFilter_Web31_Async() throws Exception {
+    	createWebProject(WEB_PROJECT_NAME, JavaEEFacetConstants.WEB_31);
+    	IProject proj = ProjectUtilities.getProject(WEB_PROJECT_NAME);
+
+    	mergedModelProvider = ModelProviderManager.getModelProvider(proj);
+		org.eclipse.jst.javaee.web.WebApp webApp = (org.eclipse.jst.javaee.web.WebApp) mergedModelProvider.getModelObject();
+		
+    	addFilter_Async();
+    	
+		assertJavaFileExists(FILTER_CLASS_NAME);
+    	
+    	List filters = webApp.getFilters();
+    	assertEquals("Exactly one filter is expected in the model, but " + filters.size() + " are found", 
+    			1, filters.size());
+    	org.eclipse.jst.javaee.web.Filter filter = (org.eclipse.jst.javaee.web.Filter) filters.get(0);
+    	assertEquals("Filter name is expected to be " + FILTER_NAME + ", but it is " + filter.getFilterName(), 
+    			FILTER_NAME, filter.getFilterName());
+    	assertEquals("Filter class name is expected to be " + FILTER_CLASS_NAME + ", but it is " + filter.getFilterClass(), 
+    			FILTER_CLASS_NAME, filter.getFilterClass());
+    	
+    	List params = filter.getInitParams();
+		assertNotNull("List of initialization parameters cannot be retrieved", params);
+		assertEquals("None initialization parameter is expected, but " + params.size() + " are found", 
+				0, params.size());
+    	
+    	List mappings = webApp.getFilterMappings();
+    	assertEquals("Exactly one filter mapping is expected, but " + mappings.size() + " are found", 
+    			1, mappings.size());
+    	org.eclipse.jst.javaee.web.FilterMapping mapping = (org.eclipse.jst.javaee.web.FilterMapping) mappings.get(0);
+    	assertEquals("Filter name of the mapping is expected to be " + FILTER_NAME + ", but it is " + mapping.getFilterName(), 
+    			FILTER_NAME, mapping.getFilterName());
+    	List urlPatterns = mapping.getUrlPatterns();
+    	assertEquals("Exactly one URL pattern is expected in the mapping, but " + urlPatterns.size() + " are found", 
+    			1, urlPatterns.size());
+    	UrlPatternType urlPattern = (UrlPatternType) urlPatterns.get(0);
+    	assertEquals("Filter mapping URL pattern value is expected to be " + FILTER_DEFAULT_MAPPING + ", but it is " + urlPattern.getValue(), 
+    			FILTER_DEFAULT_MAPPING, urlPattern.getValue());
+    	assertEquals("None servlet name is expected in the filter mapping, but " + mapping.getServletNames().size() + " are found", 
+    			0, mapping.getServletNames().size());
+    	assertEquals("None dispatcher is expected in the filter mapping, but " + mapping.getDispatchers().size() + " are found", 
+    			0, mapping.getDispatchers().size());    	
+    }
+    
     public void testAddListener_Web24_Defaults_NoJETEmitter() throws Exception {
 		disableJETEmitter();
 		testAddListener_Web24_Defaults();
@@ -352,6 +614,89 @@ public class AddWebArtifactOperationTest extends OperationTestCase implements
     			LISTENER_CLASS_NAME, listener.getListenerClass());
     }
 
+    
+    public void testAddListener_Web30_Defaults() throws Exception {
+    	createWebProject(WEB_PROJECT_NAME, JavaEEFacetConstants.WEB_30);
+    	IProject proj = ProjectUtilities.getProject(WEB_PROJECT_NAME);
+
+    	mergedModelProvider = ModelProviderManager.getModelProvider(proj);
+		org.eclipse.jst.javaee.web.WebApp webApp = (org.eclipse.jst.javaee.web.WebApp) mergedModelProvider.getModelObject();
+		
+    	addListener_Defaults_Annotations();
+
+		assertJavaFileExists(LISTENER_CLASS_NAME);
+    	
+    	List listeners = webApp.getListeners();
+    	assertEquals("Exactly one listener is expected in the model, but " + listeners.size() + " are found", 
+    			1, listeners.size());
+    	org.eclipse.jst.javaee.core.Listener listener = (org.eclipse.jst.javaee.core.Listener) listeners.get(0);
+    	assertEquals("Listener " + LISTENER_CLASS_NAME + " is expected in the model, but " + listener.getListenerClass() + " is found", 
+    			LISTENER_CLASS_NAME, listener.getListenerClass());
+    }    
+    
+    
+    
+    public void testAddListener_Web31_AsyncListener() throws Exception {
+    	createWebProject(WEB_PROJECT_NAME, JavaEEFacetConstants.WEB_31);
+    	IProject proj = ProjectUtilities.getProject(WEB_PROJECT_NAME);
+
+    	mergedModelProvider = ModelProviderManager.getModelProvider(proj);
+		org.eclipse.jst.javaee.web.WebApp webApp = (org.eclipse.jst.javaee.web.WebApp) mergedModelProvider.getModelObject();
+		
+		addListener_AsyncListener();
+		assertJavaFileExists(LISTENER_CLASS_NAME);
+    	
+    	List listeners = webApp.getListeners();
+    	assertEquals("Exactly one listener is expected in the model, but " + listeners.size() + " are found", 
+    			1, listeners.size());
+    	org.eclipse.jst.javaee.core.Listener listener = (org.eclipse.jst.javaee.core.Listener) listeners.get(0);
+    	assertEquals("Listener " + LISTENER_CLASS_NAME + " is expected in the model, but " + listener.getListenerClass() + " is found", 
+    			LISTENER_CLASS_NAME, listener.getListenerClass());
+    	
+    	
+    }   
+    
+    
+    public void testAddListener_Web31_HttpSessionIdListener() throws Exception {
+    	createWebProject(WEB_PROJECT_NAME, JavaEEFacetConstants.WEB_31);
+    	IProject proj = ProjectUtilities.getProject(WEB_PROJECT_NAME);
+
+    	mergedModelProvider = ModelProviderManager.getModelProvider(proj);
+		org.eclipse.jst.javaee.web.WebApp webApp = (org.eclipse.jst.javaee.web.WebApp) mergedModelProvider.getModelObject();
+		
+		addListener_HttpSessionIdListener();
+		assertJavaFileExists(LISTENER_CLASS_NAME);
+    	
+    	List listeners = webApp.getListeners();
+    	assertEquals("Exactly one listener is expected in the model, but " + listeners.size() + " are found", 
+    			1, listeners.size());
+    	org.eclipse.jst.javaee.core.Listener listener = (org.eclipse.jst.javaee.core.Listener) listeners.get(0);
+    	assertEquals("Listener " + LISTENER_CLASS_NAME + " is expected in the model, but " + listener.getListenerClass() + " is found", 
+    			LISTENER_CLASS_NAME, listener.getListenerClass());
+    	
+    	
+    }        
+    
+    public void testAddListener_Web31_MultiListeners() throws Exception {
+    	createWebProject(WEB_PROJECT_NAME, JavaEEFacetConstants.WEB_31);
+    	IProject proj = ProjectUtilities.getProject(WEB_PROJECT_NAME);
+
+    	mergedModelProvider = ModelProviderManager.getModelProvider(proj);
+		org.eclipse.jst.javaee.web.WebApp webApp = (org.eclipse.jst.javaee.web.WebApp) mergedModelProvider.getModelObject();
+		
+		addListener_MultiInterfaces();
+		assertJavaFileExists(LISTENER_CLASS_NAME);
+    	
+    	List listeners = webApp.getListeners();
+    	assertEquals("Exactly one listener is expected in the model, but " + listeners.size() + " are found", 
+    			1, listeners.size());
+    	org.eclipse.jst.javaee.core.Listener listener = (org.eclipse.jst.javaee.core.Listener) listeners.get(0);
+    	assertEquals("Listener " + LISTENER_CLASS_NAME + " is expected in the model, but " + listener.getListenerClass() + " is found", 
+    			LISTENER_CLASS_NAME, listener.getListenerClass());
+    	
+    	
+    }        
+    
 	@Override
 	protected void tearDown() throws Exception {
 		// uncomment the below line if you want to dump a check whether the
@@ -376,7 +721,7 @@ public class AddWebArtifactOperationTest extends OperationTestCase implements
     public void createWebProject(String projectName, IProjectFacetVersion version) throws Exception {
     	IDataModel dm = WebProjectCreationOperationTest.getWebDataModel(
 				projectName, null, null, null, null, version, false);
-    	runAndVerify(dm);
+     	runAndVerify(dm);
     }
 
     private void addServlet_Defaults() throws Exception {
@@ -387,6 +732,32 @@ public class AddWebArtifactOperationTest extends OperationTestCase implements
         runAndVerify(dm);
     }
     
+    private void addServlet_Defaults_Annotations() throws Exception {
+    	IDataModel dm = DataModelFactory.createDataModel(NewServletClassDataModelProvider.class);
+    	dm.setProperty(PROJECT_NAME, WEB_PROJECT_NAME);
+    	dm.setProperty(JAVA_PACKAGE, PACKAGE);
+    	dm.setProperty(CLASS_NAME, SERVLET_NAME);
+    	executeAndWait(dm.getDefaultOperation());
+    }
+    
+    
+    private void addServlet_Async() throws Exception {
+    	IDataModel dm = DataModelFactory.createDataModel(NewServletClassDataModelProvider.class);
+    	dm.setProperty(PROJECT_NAME, WEB_PROJECT_NAME);
+    	dm.setProperty(JAVA_PACKAGE, PACKAGE);
+    	dm.setProperty(CLASS_NAME, SERVLET_NAME);
+    	dm.setBooleanProperty(INewServletClassDataModelProperties.ASYNC_SUPPORT, true);
+    	executeAndWait(dm.getDefaultOperation());
+    }
+    
+	private void executeAndWait(IDataModelOperation dataModelOperation) throws InterruptedException, ExecutionException {
+		SynchronousModelChangedListener listener = new SynchronousModelChangedListener(1);
+		mergedModelProvider.addListener(listener);
+		dataModelOperation.execute(null, null);
+		listener.waitForEvents();
+		mergedModelProvider.removeListener(listener);
+	}
+    
     private void addFilter_Defaults() throws Exception {
     	IDataModel dm = DataModelFactory.createDataModel(NewFilterClassDataModelProvider.class);
     	dm.setProperty(PROJECT_NAME, WEB_PROJECT_NAME);
@@ -394,6 +765,23 @@ public class AddWebArtifactOperationTest extends OperationTestCase implements
     	dm.setProperty(CLASS_NAME, FILTER_NAME);
         runAndVerify(dm);
     }
+    
+    private void addFilter_Defaults_Annotations() throws Exception {
+    	IDataModel dm = DataModelFactory.createDataModel(NewFilterClassDataModelProvider.class);
+    	dm.setProperty(PROJECT_NAME, WEB_PROJECT_NAME);
+    	dm.setProperty(JAVA_PACKAGE, PACKAGE);
+    	dm.setProperty(CLASS_NAME, FILTER_NAME);
+      	executeAndWait(dm.getDefaultOperation());
+    }   
+    
+    private void addFilter_Async() throws Exception {
+    	IDataModel dm = DataModelFactory.createDataModel(NewFilterClassDataModelProvider.class);
+    	dm.setProperty(PROJECT_NAME, WEB_PROJECT_NAME);
+    	dm.setProperty(JAVA_PACKAGE, PACKAGE);
+    	dm.setProperty(CLASS_NAME, FILTER_NAME);
+    	dm.setBooleanProperty(INewFilterClassDataModelProperties.ASYNC_SUPPORT, true);
+       	executeAndWait(dm.getDefaultOperation());
+    }    
     
     private void addListener_Defaults() throws Exception {
     	IDataModel dm = DataModelFactory.createDataModel(NewListenerClassDataModelProvider.class);
@@ -404,6 +792,54 @@ public class AddWebArtifactOperationTest extends OperationTestCase implements
     	interfaces.add(NewListenerClassDataModelProvider.LISTENER_INTERFACES[0]);
     	dm.setProperty(INTERFACES, interfaces);
         runAndVerify(dm);
+    }
+    
+    
+    private void addListener_Defaults_Annotations() throws Exception {
+    	IDataModel dm = DataModelFactory.createDataModel(NewListenerClassDataModelProvider.class);
+    	dm.setProperty(PROJECT_NAME, WEB_PROJECT_NAME);
+    	dm.setProperty(JAVA_PACKAGE, PACKAGE);
+    	dm.setProperty(CLASS_NAME, LISTENER_NAME);
+    	List interfaces = new ArrayList();
+    	interfaces.add(NewListenerClassDataModelProvider.LISTENER_INTERFACES[0]);
+    	dm.setProperty(INTERFACES, interfaces);
+    	executeAndWait(dm.getDefaultOperation());
+    }
+    
+    
+    private void addListener_AsyncListener() throws Exception {
+    	IDataModel dm = DataModelFactory.createDataModel(NewListenerClassDataModelProvider.class);
+    	dm.setProperty(PROJECT_NAME, WEB_PROJECT_NAME);
+    	dm.setProperty(JAVA_PACKAGE, PACKAGE);
+    	dm.setProperty(CLASS_NAME, LISTENER_NAME);
+    	List interfaces = new ArrayList();
+    	interfaces.add(NewListenerClassDataModelProvider.LISTENER_INTERFACES[9]);
+    	dm.setProperty(INTERFACES, interfaces);
+    	executeAndWait(dm.getDefaultOperation());
+    }
+    
+    private void addListener_HttpSessionIdListener() throws Exception {
+    	IDataModel dm = DataModelFactory.createDataModel(NewListenerClassDataModelProvider.class);
+    	dm.setProperty(PROJECT_NAME, WEB_PROJECT_NAME);
+    	dm.setProperty(JAVA_PACKAGE, PACKAGE);
+    	dm.setProperty(CLASS_NAME, LISTENER_NAME);
+    	List interfaces = new ArrayList();
+    	interfaces.add(NewListenerClassDataModelProvider.LISTENER_INTERFACES[6]);
+    	dm.setProperty(INTERFACES, interfaces);
+    	executeAndWait(dm.getDefaultOperation());
+    }
+    
+    private void addListener_MultiInterfaces() throws Exception{
+    	//add sessionid and async listeners
+    	IDataModel dm = DataModelFactory.createDataModel(NewListenerClassDataModelProvider.class);
+    	dm.setProperty(PROJECT_NAME, WEB_PROJECT_NAME);
+    	dm.setProperty(JAVA_PACKAGE, PACKAGE);
+    	dm.setProperty(CLASS_NAME, LISTENER_NAME);
+    	List interfaces = new ArrayList();
+      	interfaces.add(NewListenerClassDataModelProvider.LISTENER_INTERFACES[9]);
+    	interfaces.add(NewListenerClassDataModelProvider.LISTENER_INTERFACES[6]);
+    	dm.setProperty(INTERFACES, interfaces);
+    	executeAndWait(dm.getDefaultOperation());   	
     }
     
     private void assertJavaFileExists(String fullyQualifiedName) throws JavaModelException {

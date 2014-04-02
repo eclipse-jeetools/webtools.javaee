@@ -65,7 +65,7 @@ public class WebProjectCreationDataModelVerifier extends ModuleProjectCreationDa
     @Override
     protected void verifyDD(Object modelObj) {
 		String version = J2EEProjectUtilities.getJ2EEProjectVersion(project);
-		if(version.equals(J2EEVersionConstants.VERSION_2_5_TEXT) || version.equals(J2EEVersionConstants.VERSION_3_0_TEXT)){
+		if(version.equals(J2EEVersionConstants.VERSION_2_5_TEXT) || version.equals(J2EEVersionConstants.VERSION_3_0_TEXT) || version.equals(J2EEVersionConstants.VERSION_3_1_TEXT)){
 			WebApp web = (WebApp)modelObj;
 			Assert.assertEquals("Invalid project version", version, web.getVersion().getLiteral());
 		} else {

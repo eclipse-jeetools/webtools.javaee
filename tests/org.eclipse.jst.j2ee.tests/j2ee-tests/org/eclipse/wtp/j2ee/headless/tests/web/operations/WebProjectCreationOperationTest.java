@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2005, 2014 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -75,7 +75,7 @@ public class WebProjectCreationOperationTest extends ModuleProjectCreationOperat
 		OperationTestCase.runAndVerify(dm);
 	}
 	
-	
+
 	public void testWeb22_ChangedContentDir() throws Exception {
 		IDataModel dm = getWebDataModel("goodWeb", null, null, "myAwesomeContentDir", null, JavaEEFacetConstants.WEB_22, true);
 		OperationTestCase.runAndVerify(dm);
@@ -559,7 +559,11 @@ public class WebProjectCreationOperationTest extends ModuleProjectCreationOperat
     	
     	facetModel.setBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD, createDD);
     	
-    	if(version.equals(JavaEEFacetConstants.WEB_30))    	{
+    	if (version.equals(JavaEEFacetConstants.WEB_31)){
+    		IDataModel javaFacetModel = facetMap.getFacetDataModel(IJ2EEFacetConstants.JAVA);
+	    	javaFacetModel.setProperty(IFacetDataModelProperties.FACET_VERSION, JavaEEFacetConstants.JAVA_7);   		
+    	}
+    	else if(version.equals(JavaEEFacetConstants.WEB_30))    	{
     		IDataModel javaFacetModel = facetMap.getFacetDataModel(IJ2EEFacetConstants.JAVA);
 	    	javaFacetModel.setProperty(IFacetDataModelProperties.FACET_VERSION, JavaEEFacetConstants.JAVA_6);
     	}
