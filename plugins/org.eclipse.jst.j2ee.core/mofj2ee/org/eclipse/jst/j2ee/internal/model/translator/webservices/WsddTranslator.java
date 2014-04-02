@@ -35,6 +35,7 @@ public class WsddTranslator extends RootTranslator implements WsddXmlMapperI, J2
 	private static Translator[] children11;
 	private static Translator[] children12;
 	private static Translator[] children13;
+	private static Translator[] children14;
 
 	private static WsddPackage WSDD_PKG = WsddPackage.eINSTANCE;
 	private static WscommonPackage WSCOMMON_PKG = WscommonPackage.eINSTANCE;
@@ -72,12 +73,18 @@ public class WsddTranslator extends RootTranslator implements WsddXmlMapperI, J2
 					children12 = create12Children();
 				}
 				return children12;
-			default :
+			case (JEE_6_0_ID) :
 				if (children13 == null)
 				{
 					children13 = create13Children();
 				}
 				return children13;
+			default :
+				if (children14 == null)
+				{
+					children14 = create14Children();
+				}
+				return children14;
 		}
 	}
 
@@ -134,6 +141,22 @@ public class WsddTranslator extends RootTranslator implements WsddXmlMapperI, J2
 			CommonTranslators.DESCRIPTIONS_TRANSLATOR,
 			CommonTranslators.DISPLAYNAMES_TRANSLATOR,
 			CommonTranslators.ICONS_TRANSLATOR,			
+			create13WebServiceDescTranslator()
+		};
+	}
+
+	protected Translator[] create14Children() {
+		
+		return new Translator[] {
+			IDTranslator.INSTANCE,
+			new ConstantAttributeTranslator(XML_NS, JAVAEE_NS_URL),
+			new ConstantAttributeTranslator(XML_NS_XSI, XSI_NS_URL),
+			new ConstantAttributeTranslator(XSI_SCHEMA_LOCATION, JAVAEE_NS_URL+' '+WebServiceConstants.WEBSERVICE_SCHEMA_LOC_1_4),
+			new ConstantAttributeTranslator(VERSION, WebServiceConstants.WEBSERVICE_SCHEMA_VERSION_1_4),			  
+			CommonTranslators.DESCRIPTIONS_TRANSLATOR,
+			CommonTranslators.DISPLAYNAMES_TRANSLATOR,
+			CommonTranslators.ICONS_TRANSLATOR,
+			// nothing changed between 1.3 and 1.4, except the URI and the version number
 			create13WebServiceDescTranslator()
 		};
 	}

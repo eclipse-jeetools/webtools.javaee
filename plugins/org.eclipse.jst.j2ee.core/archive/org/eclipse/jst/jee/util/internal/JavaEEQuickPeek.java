@@ -270,6 +270,8 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 						version = J2EEVersionConstants.WEBSERVICES_1_2_ID;
 					}else if (schemaName.equals(J2EEConstants.WEBSERVICE_SCHEMA_1_3)) {
 						version = J2EEVersionConstants.WEBSERVICES_1_3_ID;
+					}else if (schemaName.equals(J2EEConstants.WEBSERVICE_SCHEMA_1_4)) {
+						version = J2EEVersionConstants.WEBSERVICES_1_4_ID;
 					}
 				}
 				break;
@@ -382,6 +384,10 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 				break;
 			case J2EEVersionConstants.WEBSERVICES_1_3_ID:
 				javaEEVersion = J2EEVersionConstants.JEE_6_0_ID;
+				break;
+			case J2EEVersionConstants.WEBSERVICES_1_4_ID:
+				javaEEVersion = J2EEVersionConstants.JEE_7_0_ID;
+				break;
 			}
 			break;
 			

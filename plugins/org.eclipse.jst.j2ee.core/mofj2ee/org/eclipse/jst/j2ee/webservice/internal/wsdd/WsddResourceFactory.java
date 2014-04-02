@@ -82,5 +82,7 @@ public class WsddResourceFactory extends TranslatorResourceFactory
     J2EEXmlDtDEntityResolver.registerDtD(WebServiceConstants.WEBSERVICE_SCHEMA_LOC_SUN_1_2, "javaee_web_services_1_2.xsd"); //$NON-NLS-1$
     J2EEXmlDtDEntityResolver.registerDtD(WebServiceConstants.WEBSERVICE_SCHEMA_LOC_1_3, "javaee_web_services_1_3.xsd"); //$NON-NLS-1$
     J2EEXmlDtDEntityResolver.registerDtD(WebServiceConstants.WEBSERVICE_SCHEMA_LOC_SUN_1_3, "javaee_web_services_1_3.xsd"); //$NON-NLS-1$
+    J2EEXmlDtDEntityResolver.registerDtD(WebServiceConstants.WEBSERVICE_SCHEMA_LOC_1_4, "javaee_web_services_1_4.xsd"); //$NON-NLS-1$
+    J2EEXmlDtDEntityResolver.registerDtD(WebServiceConstants.WEBSERVICE_SCHEMA_LOC_SUN_1_4, "javaee_web_services_1_4.xsd"); //$NON-NLS-1$
   }
 }

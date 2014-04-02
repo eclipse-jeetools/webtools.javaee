@@ -103,6 +103,10 @@ public class WsddResourceImpl extends XMLResourceImpl implements WsddResource
    {
       return (getModuleVersionID()==WebServiceConstants.WEBSERVICE_1_3_ID);  
    }
+   public boolean isWebService1_4()
+   {
+      return (getModuleVersionID()==WebServiceConstants.WEBSERVICE_1_4_ID);  
+   }
 
 	/* 
 	 * This directly sets the module version id
@@ -111,6 +115,10 @@ public class WsddResourceImpl extends XMLResourceImpl implements WsddResource
 	public void setModuleVersionID(int id) {
 	//super.setVersionID(id);
 	switch (id) {
+			case (WebServiceConstants.WEBSERVICE_1_4_ID) :
+				super.setDoctypeValues(null, null);
+				primSetVersionID(WebServiceConstants.WEBSERVICE_1_4_ID);
+				break;
 			case (WebServiceConstants.WEBSERVICE_1_3_ID) :
 				super.setDoctypeValues(null, null);
 				primSetVersionID(WebServiceConstants.WEBSERVICE_1_3_ID);
@@ -135,6 +143,10 @@ public class WsddResourceImpl extends XMLResourceImpl implements WsddResource
 	public void setJ2EEVersionID(int id) 
   {
     switch (id) {
+    	case (JEE_7_0_ID) :
+					primSetDoctypeValues(null, null);
+					primSetVersionID(WebServiceConstants.WEBSERVICE_1_4_ID);
+					break;
     	case (JEE_6_0_ID) :
 					primSetDoctypeValues(null, null);
 					primSetVersionID(WebServiceConstants.WEBSERVICE_1_3_ID);
@@ -203,8 +215,10 @@ public class WsddResourceImpl extends XMLResourceImpl implements WsddResource
 				return J2EEVersionConstants.JEE_5_0_ID;
 			case WebServiceConstants.WEBSERVICE_1_3_ID :
 				return J2EEVersionConstants.JEE_6_0_ID;
+			case WebServiceConstants.WEBSERVICE_1_4_ID :
+				return J2EEVersionConstants.JEE_7_0_ID;
 			default :
-			return J2EEVersionConstants.JEE_6_0_ID;
+			return J2EEVersionConstants.JEE_7_0_ID;
 		}
 	}
 
@@ -273,7 +287,4 @@ private int primGetVersionID() {
 	return getModuleVersionID();
 }
 
-  
-    
 }
-
