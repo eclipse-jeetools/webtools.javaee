@@ -198,6 +198,25 @@ public class WebServicesEMFTest extends GeneralEMFPopulationTest {
 		earFile.close();
 
 	}
+
+	public void test70WebServicesDDPopulation() throws Exception {
+		EMFAttributeFeatureGenerator.reset();
+		currentVersion = J2EEVersionConstants.JEE_7_0_ID;
+		createEAR();
+		createEJB();
+
+		WsddResource webserDD = (WsddResource)ejbFile.getResourceSet().createResource(URI.createURI("META-INF/webservices.xml"));
+		webserDD.getContents().add(WsddFactory.eINSTANCE.createWebServices());
+		//TODO: individual test for each version
+		webserDD.setVersionID(currentVersion);
+		setVersion(VERSION_6_0);
+		populateRoot(webserDD.getRootObject());
+		
+		String out = AutomatedBVT.baseDirectory +getProjectLocation();
+		earFile.extractTo(out, Archive.EXPAND_ALL);
+		earFile.close();
+
+	}
 	
 	public EObject createInstance(EReference ref,EObject eObject) {
 
