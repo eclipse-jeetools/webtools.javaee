@@ -1,5 +1,5 @@
 /***********************************************************************
- * Copyright (c) 2008 by SAP AG, Walldorf. 
+ * Copyright (c) 2008, 2014 by SAP AG, Walldorf and others. 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -51,6 +51,7 @@ public class WebAnnotationFactory extends AbstractAnnotationFactory {
 	private static final String RESOURCE = "Resource"; //$NON-NLS-1$
 	private static final String RESOURCES = "Resources"; //$NON-NLS-1$
 	private static final String DECLARE_ROLES = "DeclareRoles"; //$NON-NLS-1$
+	private static final String ASYNC_SUPPORTED = "asyncSupported"; //$NON-NLS-1$
 	
 //	private static final String INIT_PARAM = "InitParam"; //$NON-NLS-1$
 //	private static final String INIT_PARAM_FQ = "javax.servlet.annotation.InitParam"; //$NON-NLS-1$
@@ -127,6 +128,7 @@ public class WebAnnotationFactory extends AbstractAnnotationFactory {
 			String name = (String) getAnnotatedValue(NAME, memberValuePairs);
 			String filterName = (String) getAnnotatedValue(FILTER_NAME, memberValuePairs);
 			String descr = (String) getAnnotatedValue(DESCRIPTION, memberValuePairs);
+			Boolean async = (Boolean) getAnnotatedValue(ASYNC_SUPPORTED, memberValuePairs);
 			if(WEB_SERVLET.equals(annotationName) || WEB_SERVLET_FQ.equals(annotationName)){
 				Servlet servlet = (Servlet)artifact;
 				if (name != null) {
@@ -139,6 +141,10 @@ public class WebAnnotationFactory extends AbstractAnnotationFactory {
 					description.setValue(descr);
 					servlet.getDescriptions().add(description);
 				}
+				if (async != null){
+					servlet.setAsyncSupported(async.booleanValue());
+				}
+				
 				processUrlMapping(result, annotation, servlet);
 			} else if(WEB_FILTER.equals(annotationName) || WEB_FILTER_FQ.equals(annotationName)){
 				Filter filter = (Filter)artifact;
@@ -152,6 +158,9 @@ public class WebAnnotationFactory extends AbstractAnnotationFactory {
 					description.setValue(descr);
 					filter.getDescriptions().add(description);
 				}
+				if (async != null){
+					filter.setAsyncSupported(async.booleanValue());
+				}				
 				processUrlMapping(result, annotation, filter);
 				
 			} else if(WEB_LISTENER.equals(annotationName) || WEB_LISTENER_FQ.equals(annotationName)){
