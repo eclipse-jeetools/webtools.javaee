@@ -151,7 +151,7 @@ public class WsddTranslator extends RootTranslator implements WsddXmlMapperI, J2
 			IDTranslator.INSTANCE,
 			new ConstantAttributeTranslator(XML_NS, JAVAEE_NS_URL),
 			new ConstantAttributeTranslator(XML_NS_XSI, XSI_NS_URL),
-			new ConstantAttributeTranslator(XSI_SCHEMA_LOCATION, JAVAEE_NS_URL+' '+WebServiceConstants.WEBSERVICE_SCHEMA_LOC_1_4),
+			new ConstantAttributeTranslator(XSI_SCHEMA_LOCATION, JAVAEE7_NS_URL+' '+WebServiceConstants.WEBSERVICE_SCHEMA_LOC_1_4),
 			new ConstantAttributeTranslator(VERSION, WebServiceConstants.WEBSERVICE_SCHEMA_VERSION_1_4),			  
 			CommonTranslators.DESCRIPTIONS_TRANSLATOR,
 			CommonTranslators.DISPLAYNAMES_TRANSLATOR,
