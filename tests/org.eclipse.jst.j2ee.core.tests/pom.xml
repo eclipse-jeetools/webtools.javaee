@@ -24,4 +24,33 @@
   <artifactId>org.eclipse.jst.j2ee.core.tests</artifactId>
   <version>1.1.500-SNAPSHOT</version>
   <packaging>eclipse-plugin</packaging>
+  
+  <!-- Do not sign inner jars, see bug 274743 - Some unit tests are sensitive to details of build -->
+  <profiles>
+   <profile>
+     <id>eclipse-sign</id>
+     <build>
+       <plugins>
+         <plugin>
+           <groupId>org.eclipse.cbi.maven.plugins</groupId>
+           <artifactId>eclipse-jarsigner-plugin</artifactId>
+           <version>1.0.5</version>
+           <executions>
+             <execution>
+               <id>sign</id>
+               <phase>verify</phase>
+               <goals>
+                 <goal>sign</goal>
+               </goals>
+               <configuration>
+                 <excludeInnerJars>true</excludeInnerJars>
+               </configuration>
+             </execution>
+           </executions>
+         </plugin>
+       </plugins>
+     </build>
+   </profile>
+ </profiles>
+ 
 </project>
