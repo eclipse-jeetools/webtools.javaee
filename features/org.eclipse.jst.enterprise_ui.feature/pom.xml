@@ -38,6 +38,18 @@
             <goals>
               <goal>source-feature</goal>
             </goals>
+            <configuration>
+              <excludes>
+                <feature id="org.eclipse.jst.enterprise_userdoc.feature"/>
+                <plugin id="org.eclipse.jst.j2ee.infopop"/>
+                <plugin id="org.eclipse.jst.jsp.ui.infopop"/>
+                <plugin id="org.eclipse.jst.servlet.ui.infopop"/>
+                <plugin id="org.eclipse.jst.ws.axis.infopop"/>
+                <plugin id="org.eclipse.jst.ws.consumption.infopop"/>
+                <plugin id="org.eclipse.jst.ws.infopop"/>
+                <plugin id="org.eclipse.jst.ejb.ui.infopop"/>
+              </excludes>
+            </configuration>
           </execution>
         </executions>
       </plugin>

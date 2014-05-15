@@ -38,6 +38,12 @@
             <goals>
               <goal>source-feature</goal>
             </goals>
+            <configuration>
+              <excludes>
+                <feature id="org.eclipse.jst.web_userdoc.feature"/>
+                <plugin id="org.eclipse.jst.jsp.ui.infopop"/>
+              </excludes>
+            </configuration>
           </execution>
         </executions>
       </plugin>
