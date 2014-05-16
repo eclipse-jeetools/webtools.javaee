@@ -106,24 +106,25 @@ public class IDEStandardBeanProxyFactory implements IStandardBeanProxyFactory {
 		if (!nonPrimitiveProxy.isValid())
 			return nonPrimitiveProxy;
 		IDEBeanTypeProxy type = (IDEBeanTypeProxy) nonPrimitiveProxy.getTypeProxy();
-		if (type.getClass() == Boolean.class)
+		if (Boolean.class.equals(type.getClass())) {
 			return this.createBeanProxyWith(((IBooleanBeanProxy) nonPrimitiveProxy).booleanValue());
-		else if (type.getClass() == Byte.class)
+		} else if (Byte.class.equals(type.getClass())) {
 			return this.createBeanProxyWith(((INumberBeanProxy) nonPrimitiveProxy).byteValue());
-		else if (type.getClass() == Character.class)
+		} else if (Character.class.equals(type.getClass())) {
 			return this.createBeanProxyWith(((ICharacterBeanProxy) nonPrimitiveProxy).charValue());
-		else if (type.getClass() == Double.class)
+		} else if (Double.class.equals(type.getClass())) {
 			return this.createBeanProxyWith(((INumberBeanProxy) nonPrimitiveProxy).doubleValue());
-		else if (type.getClass() == Float.class)
+		} else if (Float.class.equals(type.getClass())) {
 			return this.createBeanProxyWith(((INumberBeanProxy) nonPrimitiveProxy).floatValue());
-		else if (type.getClass() == Integer.class)
+		} else if (Integer.class.equals(type.getClass())) {
 			return this.createBeanProxyWith(((INumberBeanProxy) nonPrimitiveProxy).intValue());
-		else if (type.getClass() == Long.class)
+		} else if (Long.class.equals(type.getClass())) {
 			return this.createBeanProxyWith(((INumberBeanProxy) nonPrimitiveProxy).longValue());
-		else if (type.getClass() == Short.class)
+		} else if (Short.class.equals(type.getClass())) {
 			return this.createBeanProxyWith(((INumberBeanProxy) nonPrimitiveProxy).shortValue());
-		else
+		} else {
 			return nonPrimitiveProxy;
+		}
 	}
 
 	/**
