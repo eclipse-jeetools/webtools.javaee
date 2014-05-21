@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2014 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -261,6 +261,8 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 
 	private void updatedJ2EEVersion(Integer version) {
 		setNestedJ2EEVersion(version);
+		// Make sure the correct java version is used for the Java EE version specified.
+		setNestedJavaVersion(version);
 		if (version.intValue() < J2EEVersionConstants.J2EE_1_3_ID && model.isPropertySet(CREATE_CONNECTOR)) {
 			model.setProperty(CREATE_CONNECTOR, Boolean.FALSE);
 		}
@@ -444,6 +446,43 @@ public class DefaultJ2EEComponentCreationDataModelProvider extends AbstractDataM
 			IFacetedProjectWorkingCopy fpwc = (IFacetedProjectWorkingCopy)clientModel.getProperty(IFacetProjectCreationDataModelProperties.FACETED_PROJECT_WORKING_COPY);
 			fpwc.changeProjectFacetVersion(facetVersion);
 		}
+	}
+	
+	private void setNestedJavaVersion(int j2eeVersion){
+		if (ejbModel != null && ejbFacetModel != null) {
+			setJavaVersion(j2eeVersion, ejbModel);
+		}
+		if (webModel != null &&webFacetModel != null) {
+			setJavaVersion(j2eeVersion, webModel);
+		}
+		if (jcaModel != null && jcaFacetModel != null) {
+			setJavaVersion(j2eeVersion, jcaModel);
+		}
+		if (clientModel != null && clientFacetModel != null){
+			setJavaVersion(j2eeVersion, clientModel);
+		}
+	}
+	
+	/*
+	 * 
+	 * Sets the version of the java facet to be used based on the Java EE version.
+	 */
+	private void setJavaVersion(int javaEEVersion, IDataModel j2eeModel){
+		IProjectFacetVersion javaFacetVersion = J2EEVersionUtil.getJavaFacetVersionForJavaEE(javaEEVersion);
+
+		if(javaFacetVersion != null){
+			FacetDataModelMap map = (FacetDataModelMap) j2eeModel.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+			if (map != null){
+				IDataModel javaFacetDataModel = map.getFacetDataModel( J2EEProjectUtilities.JAVA );
+				if (javaFacetDataModel != null){
+					javaFacetDataModel.setProperty(IFacetDataModelProperties.FACET_VERSION, javaFacetVersion);
+					//IFacetedProjectWorkingCopy facet version is not automatically updated so it has to be done manually
+					IFacetedProjectWorkingCopy fpwc = (IFacetedProjectWorkingCopy)j2eeModel.getProperty(IFacetProjectCreationDataModelProperties.FACETED_PROJECT_WORKING_COPY);
+					fpwc.changeProjectFacetVersion(javaFacetVersion);
+				}
+			}
+		}
+
 	}
 
 	private IDataModel getNestedModel(int flag) {

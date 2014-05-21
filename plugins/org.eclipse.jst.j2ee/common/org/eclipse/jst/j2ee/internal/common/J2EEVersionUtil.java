@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2005, 2014 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,10 +13,12 @@
  */
 package org.eclipse.jst.j2ee.internal.common;
 
+import org.eclipse.jst.common.project.facet.core.JavaFacet;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
+import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 
 /**
  * @author nagrawal
@@ -380,6 +382,29 @@ public class J2EEVersionUtil {
 			nVersion = J2EEVersionConstants.VERSION_7_0_TEXT;	
 	
 		return nVersion;
+	}
+	
+	public static IProjectFacetVersion getJavaFacetVersionForJavaEE(int javaEEVersion){
+		IProjectFacetVersion javaFacetVersion = null;
+
+		switch (javaEEVersion){
+			case J2EEVersionConstants.J2EE_1_2_ID:
+			case J2EEVersionConstants.J2EE_1_3_ID:
+			case J2EEVersionConstants.J2EE_1_4_ID:
+				javaFacetVersion = JavaFacet.VERSION_1_4;
+				break;
+			case J2EEVersionConstants.JEE_5_0_ID:
+				javaFacetVersion = JavaFacet.VERSION_1_5;
+				break;
+			case J2EEVersionConstants.JEE_6_0_ID:
+				javaFacetVersion = JavaFacet.VERSION_1_6;
+				break;
+			case J2EEVersionConstants.JEE_7_0_ID:
+				javaFacetVersion = JavaFacet.VERSION_1_7;
+				break;
+		}
+		
+		return javaFacetVersion;
 	}
 	
 }
