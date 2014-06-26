@@ -132,7 +132,7 @@ public class JavaEEServerRefRefactorParticipant extends DeleteParticipant {
 			try {
 				parents = server.getRootModules(module, pm);
 			} catch (CoreException e) {
-				org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
+				org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.log(new Status(IStatus.WARNING, e.getStatus().getPlugin(), e.getLocalizedMessage(), null));
 			}
 
 			if (parents == null || parents.length == 0){
