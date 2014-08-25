@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2008 SAP AG and others.
+ * Copyright (c) 2007, 2014 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -259,7 +259,7 @@ public class BinaryMethod implements Method {
 	}
 
 	private void getClassTypeImports(String type, List<String> result) {
-		result.add(Signature.toString(type));
+		result.add(Signature.toString(Signature.getTypeErasure(type)));
 	}
 
 	private void getTypeVarialbleImports(String type, List<String> result) {

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2008 SAP AG and others.
+ * Copyright (c) 2007, 2014 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -242,8 +242,14 @@ public class SourceMethod implements Method {
 
 	private void getSimpleTypeImports(Type type, List<String> result) {
 		ITypeBinding binding = type.resolveBinding();
-		if (binding != null)
-			result.add(binding.getQualifiedName());
+		if (binding != null){
+			if (binding.isParameterizedType() && binding.getBinaryName() != null){
+				result.add(binding.getBinaryName());
+			}
+			else{
+				result.add(binding.getQualifiedName());
+			}
+		}
 	}
 	
 	private void getQualifiedTypeImports(Type type, List<String> result) {
