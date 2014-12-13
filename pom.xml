@@ -26,6 +26,10 @@
   <version>3.6.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
+  <properties>
+    <tycho.scmUrl>scm:git:git://git.eclipse.org/gitroot/jeetools/webtools.javaee.tests.git</tycho.scmUrl>
+  </properties>
+
   <modules>
     <module>features/org.eclipse.jst.enterprise_tests.feature</module>
     <module>features/org.eclipse.jst.web_tests.feature</module>
