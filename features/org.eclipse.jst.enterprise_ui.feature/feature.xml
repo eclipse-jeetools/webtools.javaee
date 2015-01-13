@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.jst.enterprise_ui.feature"
       label="%featureName"
-      version="3.6.1.qualifier"
+      version="3.6.3.qualifier"
       provider-name="%providerName"
       plugin="org.eclipse.jst.jee.ui"
       license-feature="org.eclipse.license"
