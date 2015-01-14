@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2010 IBM Corporation and others.
+ * Copyright (c) 2010, 2015 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,7 @@
 package org.eclipse.jst.j2ee.web.project.facet;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.internal.resources.ResourceStatus;
@@ -25,13 +26,18 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jdt.core.IClasspathEntry;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.common.project.facet.IJavaFacetInstallDataModelProperties;
+import org.eclipse.jst.common.project.facet.core.JavaFacet;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPreferences;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
+import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
 import org.eclipse.jst.j2ee.project.facet.J2EEModuleFacetInstallDataModelProvider;
@@ -44,6 +50,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelPropertyDescriptor;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
+import org.eclipse.wst.common.project.facet.core.IFacetedProjectWorkingCopy;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
@@ -96,6 +103,46 @@ public class WebFragmentFacetInstallDataModelProvider extends J2EEModuleFacetIns
 				return getDataModel().getStringProperty(FACET_PROJECT_NAME) + "WAR"; //$NON-NLS-1$
 			}
 			return getDataModel().getStringProperty(FACET_PROJECT_NAME) + "WAR"; //$NON-NLS-1$
+		} else if (propertyName.equals( CONFIG_FOLDER )){
+			
+			// Return the first source folder found in the java facet install config or 
+			// the first source folder defined in the classpath
+			final IFacetedProjectWorkingCopy localFpjwc 
+			= (IFacetedProjectWorkingCopy) getProperty( FACETED_PROJECT_WORKING_COPY );
+
+			if( this.javaFacetInstallConfig != null )
+			{
+				final List<IPath> sourceFolders = this.javaFacetInstallConfig.getSourceFolders();
+
+				if( ! sourceFolders.isEmpty() )
+				{
+					return sourceFolders.get( 0 ).toPortableString();
+				}
+			}
+			else
+			{
+				final IFacetedProject fpj = localFpjwc.getFacetedProject();
+
+				if( fpj.hasProjectFacet( JavaFacet.FACET ) )
+				{
+					try
+					{
+						final IJavaProject jpj = JavaCore.create( fpj.getProject() );
+
+						for( IClasspathEntry cpe : jpj.getRawClasspath() )
+						{
+							if( cpe.getEntryKind() == IClasspathEntry.CPE_SOURCE )
+							{
+								return cpe.getPath().removeFirstSegments( 1 ).toPortableString();
+							}
+						}
+					}
+					catch( CoreException e )
+					{
+						WebPlugin.logError(e);
+					}
+				}
+			}
 		}
 		return super.getDefaultProperty(propertyName);
 	}
@@ -187,7 +234,7 @@ public class WebFragmentFacetInstallDataModelProvider extends J2EEModuleFacetIns
 							IFacetedProject facetProj = ProjectFacetsManager.create(project, false, new NullProgressMonitor());
 							setProperty(FACET_RUNTIME, facetProj.getRuntime());
 						} catch (CoreException e) {
-							J2EEPlugin.logError(e);
+							WebPlugin.logError(e);
 						}
 					}
 				}
