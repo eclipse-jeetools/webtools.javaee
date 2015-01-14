@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2013 IBM Corporation and others.
+ * Copyright (c) 2003, 2015 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -303,7 +303,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		String projectName = model.getStringProperty(IArtifactEditOperationDataModelProperties.PROJECT_NAME);
 		if (projectName != null && projectName.length() > 0) {
 			IProject targetProject = ProjectUtilities.getProject(projectName);
-			if (root == null || !root.getJavaProject().getProject().equals(targetProject)) {
+			if (root == null || !root.getJavaProject().getProject().equals(targetProject) || root.isArchive()) {
 				IFolder folder = getDefaultJavaSourceFolder(targetProject);
 				if (folder != null)
 					folderText.setText(folder.getFullPath().toOSString());
