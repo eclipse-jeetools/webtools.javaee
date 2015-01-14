@@ -715,6 +715,16 @@
        <property name="from.versions" value="3.0"/>
     </action>
     <action
+          facet="jst.webfragment"
+          id="jst.webfragment.versionchange.ee6"
+          type="VERSION_CHANGE"
+          version="[3.0">
+       <delegate
+             class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
+       </delegate>
+       <property name="from.versions" value="3.0"/>
+    </action>    
+    <action
           facet="jst.connector"
           id="jst.connector.versionchange.ee5"
           type="VERSION_CHANGE"
