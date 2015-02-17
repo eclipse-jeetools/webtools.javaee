@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2012 IBM Corporation and others.
+ * Copyright (c) 2003, 2015 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -391,9 +391,11 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 		if (checkFuzzyRefs) {
 			if (earProjects.length > 1) {
 				for (int earIndex = earProjects.length - 2; earIndex > -1; earIndex--) {
-					tmp = cacheOneEarProjectManifestRefs(moduleComponent,
-							firstEar, manifestClasspath, foundRefAlready);
-					dynamicReferences.addAll(tmp);
+					if (earProjects[earIndex] != null){
+						tmp = cacheOneEarProjectManifestRefs(moduleComponent,
+								earProjects[earIndex], manifestClasspath, foundRefAlready);
+						dynamicReferences.addAll(tmp);
+					}
 				}
 			}
 		}
