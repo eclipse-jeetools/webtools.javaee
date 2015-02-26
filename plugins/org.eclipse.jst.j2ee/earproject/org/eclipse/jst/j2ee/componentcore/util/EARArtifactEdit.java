@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2014 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -643,7 +643,11 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		IVirtualComponent webComp = ComponentCore.createComponent(webProject);
 		String webModuleURI = getModuleURI(webComp);
 		if (webModuleURI != null) {
-			WebModule webModule = (WebModule) getApplication().getModule(webModuleURI, null);
+			Application app = getApplication();
+			if(app == null)
+				return null;
+			
+			WebModule webModule = (WebModule) app.getModule(webModuleURI, null);
 			if (webModule != null)
 				return webModule.getContextRoot();
 		}
