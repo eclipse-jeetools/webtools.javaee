@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2012 IBM Corporation and others.
+ * Copyright (c) 2005, 2015 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -302,7 +303,7 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 		}
 	}
 
-	private Map<IArchive, JavaEEQuickPeek> archiveToJavaEEQuickPeek = new WeakHashMap<IArchive, JavaEEQuickPeek>();
+	private Map<IArchive, JavaEEQuickPeek> archiveToJavaEEQuickPeek = Collections.synchronizedMap(new WeakHashMap<IArchive, JavaEEQuickPeek>());
 
 	/**
 	 * Returns a utility for getting the type of Java EE archive, the Java EE
