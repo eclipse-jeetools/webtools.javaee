@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009, 2012 Red Hat and others.
+ * Copyright (c) 2009, 2015 Red Hat and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -8,6 +8,7 @@
  * Contributors:
  *     Red Hat - Initial API and implementation
  *     Roberto Sanchez Herrera - [371907] Do not add duplicate resources
+ *     Roberto Sanchez Herrera - [463140] Add references as resources using relative path
  *******************************************************************************/
 package org.eclipse.jst.common.internal.modulecore;
 
@@ -125,16 +126,16 @@ public class SingleRootExportParticipant extends AbstractFlattenParticipant {
 		
 		for (IVirtualReference reference:references){
 			File f = (File)reference.getReferencedComponent().getAdapter(File.class);
-			FlatFile file = new FlatFile(f, reference.getArchiveName(), reference.getRuntimePath());
+			IPath relativeReferenceRuntimePath = reference.getRuntimePath().makeRelative();
+			FlatFile file = new FlatFile(f, reference.getArchiveName(), relativeReferenceRuntimePath);
 			FlatResource existingRes = VirtualComponentFlattenUtility.getExistingModuleResource(resources, file.getModuleRelativePath().append(file.getName()));
 			// If the resource already exist in the list of resources, do not add it
 			if ( existingRes == null){
 				// The resource is not in the list if resources, so add it.
-				IPath path = reference.getRuntimePath(); // Folder to add the ref in
 				IFlatFolder folder = (IFlatFolder) VirtualComponentFlattenUtility
-						.getExistingModuleResource(resources, path.makeRelative());
+						.getExistingModuleResource(resources, relativeReferenceRuntimePath);
 				if( folder == null ) {
-					folder = VirtualComponentFlattenUtility.ensureParentExists(resources, path, null);
+					folder = VirtualComponentFlattenUtility.ensureParentExists(resources, relativeReferenceRuntimePath, null);
 				}
 				if( folder == null )
 					resources.add(file);
