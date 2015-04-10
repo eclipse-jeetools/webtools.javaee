@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.resource.ContentHandler;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.jee.archive.ArchiveModelLoadException;
 import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.jst.jee.archive.IArchiveResource;
@@ -118,7 +119,17 @@ public class JavaEEEMFArchiveAdapterHelper {
 
 	public Resource getResource(IPath resourcePath) throws ArchiveModelLoadException {
 		URI uri = getArchiveURIConverter().getURI(resourcePath);
-		Resource resource = getResourceSet().getResource(uri, true);
+		
+		Resource resource = null;
+		
+		try {
+			resource = getResourceSet().getResource(uri, true);
+		}
+		catch (org.eclipse.emf.common.util.WrappedException e){
+			J2EEPlugin.logError("Error getting resource using " //$NON-NLS-1$
+					+ "org.eclipse.emf.ecore.resource.ResourceSet.getResource(URI uri, boolean loadOnDemand). The URI is: " + uri, e); //$NON-NLS-1$
+			throw e;
+		}
 		return resource;
 	}
 	
