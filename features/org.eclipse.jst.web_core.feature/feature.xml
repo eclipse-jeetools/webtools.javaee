@@ -130,8 +130,8 @@
 
    <plugin
          id="org.eclipse.jst.standard.schemas"
-         download-size="224"
-         install-size="224"
+         download-size="0"
+         install-size="0"
          version="0.0.0"
          unpack="false"/>
 
