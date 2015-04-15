@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2015 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,11 +13,11 @@
  */
 package org.eclipse.jem.internal.proxy.remote;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.*;
 import java.text.MessageFormat;
 import java.util.*;
+import java.util.jar.*;
 import java.util.logging.Level;
 
 import org.eclipse.core.runtime.*;
@@ -160,6 +160,11 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 		pm.worked(100);
 
 		// Create VM config
+		boolean isWindows = System.getProperty("os.name").startsWith("Windows");
+		if (isWindows)
+		{
+			classpath = ClassPathJar.wrap(classpath);
+		}
 		VMRunnerConfiguration runConfig =
 			new VMRunnerConfiguration("org.eclipse.jem.internal.proxy.vm.remote.RemoteVMApplication", ProxyLaunchSupport.convertURLsToStrings(classpath)); //$NON-NLS-1$
 
@@ -471,5 +476,91 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 	    return ext;
 	}
 	
+	/**
+	 * Wraps a long classpath (over 32k) in a jar manifest.
+	 */
+	static class ClassPathJar {
+		private URL[] classpath;
+	
+		static URL[] wrap(URL[] longClasspath) throws CoreException{
+			File classpathWrapperJar = new ClassPathJar(longClasspath).createJar();
+			try {
+				return new URL[] { classpathWrapperJar.toURI().toURL() };
+			} catch (MalformedURLException ex) {
+				throw new CoreException(new Status(IStatus.ERROR, ProxyPlugin.PI_PLUGIN, 0, "Could not set classpath.", ex));
+			}
+		}
+		
+		ClassPathJar(URL[] classpath) {
+			this.classpath = classpath;
+		}
+	
+		/**
+		 * Creates a jar containing a manifest with the classpath, this has been
+		 * done to circumvent the problem of a classpath, which can grow too big
+		 * on windows
+		 * 
+		 * @return class path jar
+		 * @throws CoreException
+		 */
+		File createJar() throws CoreException {
+			JarOutputStream jarOutputStream = null;
+			try {
+				Manifest jarManifest = createClassPathManifest();
+				File classPathJar = File.createTempFile("JemProxyRemoteVmClassPath", ".jar");
+				jarOutputStream = new JarOutputStream(new FileOutputStream(classPathJar), jarManifest);
+				classPathJar.deleteOnExit();
+				return classPathJar;
+			} catch (IOException ex) {
+				throw new CoreException(new Status(IStatus.ERROR, ProxyPlugin.PI_PLUGIN, 0,
+						"Could not write class path jar", ex));
+			} finally {
+				closeQuietly(jarOutputStream);
+			}
+		}
+	
+		private Manifest createClassPathManifest() {
+			Manifest jarManifest = new Manifest();
+	
+			Attributes mainAttributes = jarManifest.getMainAttributes();
+			mainAttributes.put(Attributes.Name.MANIFEST_VERSION, "1.0");
+	
+			String classPath = join(classpath, ' ');
+			mainAttributes.put(Attributes.Name.CLASS_PATH, classPath);
+	
+			return jarManifest;
+		}
+	
+		// Since StringUtils are not available
+		private static String join(URL[] urlArray, char separator) {
+			if (urlArray == null) {
+				return null;
+			}
+			int startIndex = 0;
+			int endIndex = urlArray.length;
+			StringBuilder buf = new StringBuilder(urlArray.length * 32);
+	
+			for (int i = startIndex; i < endIndex; i++) {
+				if (i > startIndex) {
+					buf.append(separator);
+				}
+				if (urlArray[i] != null) {
+					String value = (new File(urlArray[i].getFile())).toURI().toString();
+					buf.append(value);
+				}
+			}
+			return buf.toString();
+		}
+	
+		private static void closeQuietly(OutputStream output) {
+			try {
+				if (output != null) {
+					output.close();
+				}
+			} catch (IOException ioe) {
+				// ignore
+			}
+		}
+	}
 
 }
