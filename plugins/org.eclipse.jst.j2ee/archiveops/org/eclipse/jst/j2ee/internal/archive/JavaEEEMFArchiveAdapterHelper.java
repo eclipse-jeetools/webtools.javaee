@@ -125,11 +125,9 @@ public class JavaEEEMFArchiveAdapterHelper {
 		try {
 			resource = getResourceSet().getResource(uri, true);
 		}
-		catch (RuntimeException e){
+		catch (org.eclipse.emf.common.util.WrappedException e){
 			J2EEPlugin.logError("Error getting resource using " //$NON-NLS-1$
 					+ "org.eclipse.emf.ecore.resource.ResourceSet.getResource(URI uri, boolean loadOnDemand). The URI is: " + uri, e); //$NON-NLS-1$
-			System.out.println("Error getting resource using " //$NON-NLS-1$
-					+ "org.eclipse.emf.ecore.resource.ResourceSet.getResource(URI uri, boolean loadOnDemand). The URI is: " + uri +". The exception is: " + e.getMessage()); //$NON-NLS-1$ //$NON-NLS-2$
 			throw e;
 		}
 		return resource;
