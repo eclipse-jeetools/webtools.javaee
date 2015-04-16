@@ -160,9 +160,7 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 		pm.worked(100);
 
 		// Create VM config
-		boolean isWindows = System.getProperty("os.name").startsWith("Windows");
-		if (isWindows)
-		{
+		if (Platform.getOS().equals(Platform.OS_WIN32)) {
 			classpath = ClassPathJar.wrap(classpath);
 		}
 		VMRunnerConfiguration runConfig =
@@ -487,7 +485,7 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 			try {
 				return new URL[] { classpathWrapperJar.toURI().toURL() };
 			} catch (MalformedURLException ex) {
-				throw new CoreException(new Status(IStatus.ERROR, ProxyPlugin.PI_PLUGIN, 0, "Could not set classpath.", ex));
+				throw new CoreException(new Status(IStatus.ERROR, ProxyPlugin.PI_PLUGIN, 0, "Could not set classpath.", ex)); //$NON-NLS-1$
 			}
 		}
 		
@@ -507,13 +505,13 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 			JarOutputStream jarOutputStream = null;
 			try {
 				Manifest jarManifest = createClassPathManifest();
-				File classPathJar = File.createTempFile("JemProxyRemoteVmClassPath", ".jar");
+				File classPathJar = File.createTempFile("JemProxyRemoteVmClassPath", ".jar"); //$NON-NLS-1$ //$NON-NLS-2$
 				jarOutputStream = new JarOutputStream(new FileOutputStream(classPathJar), jarManifest);
 				classPathJar.deleteOnExit();
 				return classPathJar;
 			} catch (IOException ex) {
 				throw new CoreException(new Status(IStatus.ERROR, ProxyPlugin.PI_PLUGIN, 0,
-						"Could not write class path jar", ex));
+						"Could not write class path jar", ex)); //$NON-NLS-1$
 			} finally {
 				closeQuietly(jarOutputStream);
 			}
@@ -523,7 +521,7 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 			Manifest jarManifest = new Manifest();
 	
 			Attributes mainAttributes = jarManifest.getMainAttributes();
-			mainAttributes.put(Attributes.Name.MANIFEST_VERSION, "1.0");
+			mainAttributes.put(Attributes.Name.MANIFEST_VERSION, "1.0"); //$NON-NLS-1$
 	
 			String classPath = join(classpath, ' ');
 			mainAttributes.put(Attributes.Name.CLASS_PATH, classPath);
