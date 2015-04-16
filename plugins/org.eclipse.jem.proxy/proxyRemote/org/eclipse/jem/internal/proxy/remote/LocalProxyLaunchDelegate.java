@@ -538,7 +538,7 @@ public class LocalProxyLaunchDelegate extends AbstractJavaLaunchConfigurationDel
 			}
 			int startIndex = 0;
 			int endIndex = urlArray.length;
-			StringBuilder buf = new StringBuilder(urlArray.length * 32);
+			StringBuffer buf = new StringBuffer(urlArray.length * 32);
 	
 			for (int i = startIndex; i < endIndex; i++) {
 				if (i > startIndex) {
