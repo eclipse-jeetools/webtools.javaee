@@ -530,7 +530,7 @@ public class SessionBeanImpl extends EObjectImpl implements SessionBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final TransactionType TRANSACTION_TYPE_EDEFAULT = TransactionType.BEAN_LITERAL;
+	protected static final TransactionType TRANSACTION_TYPE_EDEFAULT = TransactionType.CONTAINER_LITERAL;
 
 	/**
 	 * The cached value of the '{@link #getTransactionType() <em>Transaction Type</em>}' attribute.

@@ -286,7 +286,7 @@ public class EntityBeanImpl extends EObjectImpl implements EntityBean {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final PersistenceType PERSISTENCE_TYPE_EDEFAULT = PersistenceType.BEAN_LITERAL;
+	protected static final PersistenceType PERSISTENCE_TYPE_EDEFAULT = PersistenceType.CONTAINER_LITERAL;
 
 	/**
 	 * The cached value of the '{@link #getPersistenceType() <em>Persistence Type</em>}' attribute.
