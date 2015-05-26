@@ -14,6 +14,7 @@ package org.eclipse.jst.common.internal.modulecore;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -95,7 +96,7 @@ public class SingleRootExportParticipant extends AbstractFlattenParticipant {
 		try {
 			resources.clear(); // We want complete control
 			childModules.clear();
-			children = childModules;
+			children = Collections.synchronizedList(childModules);
 			initializeDelegates();
 			
 			IContainer container = new SingleRootUtil(component, callbackHandler).getSingleRoot();
@@ -196,12 +197,14 @@ public class SingleRootExportParticipant extends AbstractFlattenParticipant {
 				if (isChildModule(vc, reference)) {
 					ChildModuleReference cm = new ChildModuleReference(reference, new Path("")); //$NON-NLS-1$
 					List<IChildModuleReference> duplicates = new ArrayList();
-					for (IChildModuleReference tmp : children) {
-						if (tmp.getRelativeURI().equals(cm.getRelativeURI()))
-							duplicates.add(tmp);
+					synchronized(children){
+						for (IChildModuleReference tmp : children) {
+							if (tmp.getRelativeURI().equals(cm.getRelativeURI()))
+								duplicates.add(tmp);
+						}
+						children.removeAll(duplicates);
+						children.add(cm);
 					}
-					children.removeAll(duplicates);
-					children.add(cm);
 				} else {
 					// It's not a child module, but it is a reference that needs to be added in anyway
 					refAsResource.add(reference);
