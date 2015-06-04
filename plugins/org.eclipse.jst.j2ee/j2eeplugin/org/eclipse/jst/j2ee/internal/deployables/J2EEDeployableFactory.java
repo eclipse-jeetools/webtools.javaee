@@ -294,7 +294,7 @@ public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate implemen
 
 	public void resourceChanged(IResourceChangeEvent event) {
 		// If it is only a marker change, ignore the change 
-		if(event.getDelta().getFlags() == IResourceDelta.MARKERS) {
+		if(event.getDelta() == null || event.getDelta().getFlags() == IResourceDelta.MARKERS) {
 			return;
 		}
 		cleanAllDelegates();
