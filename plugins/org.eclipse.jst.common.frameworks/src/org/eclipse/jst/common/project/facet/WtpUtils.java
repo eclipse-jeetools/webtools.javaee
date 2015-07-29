@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2005 BEA Systems, Inc.
+ * Copyright (c) 2005, 2015 BEA Systems, Inc.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -63,7 +63,10 @@ public final class WtpUtils
     throws CoreException
     
 	{
-    	ProjectUtilities.removeNatureFromProject( project, WTP_NATURE );
-    	ProjectUtilities.removeNatureFromProject( project, JEM_NATURE );
+        for (int i = 0; i < NATURES.length; i++) {
+			if (project.hasNature(NATURES[i])) { // Remove nature if exists
+				ProjectUtilities.removeNatureFromProject(project, NATURES[i]);
+			}
+		}
 	}    
 }
