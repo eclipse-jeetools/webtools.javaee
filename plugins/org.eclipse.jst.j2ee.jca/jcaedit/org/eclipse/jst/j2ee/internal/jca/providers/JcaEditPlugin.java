@@ -18,6 +18,7 @@ import java.text.MessageFormat;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPluginDescriptor;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.jst.j2ee.jca.JcaFactory;
 import org.eclipse.jst.j2ee.jca.JcaPackage;
@@ -85,7 +86,7 @@ public class JcaEditPlugin extends Plugin {
 	 */
 	public Object getImage(String key) {
 		try {
-			return new URL(getDescriptor().getInstallURL(), "icons/" + key + ".gif"); //$NON-NLS-1$ //$NON-NLS-2$
+			return new URL(getBundle().getEntry("/"), "icons/" + key + ".gif"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		} catch (MalformedURLException c) {
 			JcaPlugin.logError("Failed to load image for '" + key + "'", c);//$NON-NLS-1$ //$NON-NLS-2$
 		}
@@ -97,7 +98,7 @@ public class JcaEditPlugin extends Plugin {
 	 * Get a translated string from the resource bundle.
 	 */
 	public String getString(String key) {
-		return getDescriptor().getResourceBundle().getString(key);
+		return Platform.getResourceBundle(getBundle()).getString(key);
 	}
 
 	/**

@@ -16,6 +16,7 @@
  */
 package org.eclipse.jst.j2ee.internal.client.actions;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jst.j2ee.internal.actions.BaseAction;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
@@ -29,7 +30,7 @@ import org.eclipse.swt.widgets.Shell;
  * To change this generated comment go to Window>Preferences>Java>Code Generation>Code and Comments
  */
 public class ExportApplicationClientAction extends BaseAction {
-	public static String LABEL = J2EEUIPlugin.getDefault().getDescriptor().getResourceString("%client.export.action.label_ui_"); //$NON-NLS-1$
+	public static String LABEL = Platform.getResourceString(J2EEUIPlugin.getDefault().getBundle(), "%client.export.action.label_ui_"); //$NON-NLS-1$
 	private static final String ICON = "appclient_export_wiz"; //$NON-NLS-1$
 
 	public ExportApplicationClientAction() {
