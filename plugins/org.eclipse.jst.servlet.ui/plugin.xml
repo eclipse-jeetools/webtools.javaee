@@ -490,5 +490,17 @@
   		class="org.eclipse.jst.servlet.ui.internal.navigator.FacetedProjectPropertyTester">
 	</propertyTester>
   </extension>
+  <extension
+        point="org.eclipse.ui.ide.projectConfigurators">
+     <projectConfigurator
+           class="org.eclipse.jst.servlet.ui.internal.wizard.ServletProjectConfigurator"
+           label="Java Web">
+        <activeWhen>
+           <hasFileRecursively
+                 filename="web.xml">
+           </hasFileRecursively>
+        </activeWhen>
+     </projectConfigurator>
+  </extension>
 
 </plugin>
