@@ -28,11 +28,14 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jface.wizard.IWizard;
+import org.eclipse.jst.j2ee.internal.J2EEConstants;
+import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.web.project.facet.WebFacetInstallDataModelProvider;
 import org.eclipse.jst.servlet.ui.internal.plugin.ServletUIPlugin;
 import org.eclipse.ui.wizards.datatransfer.ProjectConfigurator;
 import org.eclipse.ui.wizards.datatransfer.RecursiveFileFinder;
+import org.eclipse.wst.common.componentcore.internal.util.IModuleConstants;
 import org.eclipse.wst.common.frameworks.datamodel.DataModelFactory;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
@@ -45,7 +48,7 @@ public class ServletProjectConfigurator implements ProjectConfigurator {
 
 	public boolean canConfigure(IProject project, Set<IPath> ignoredDirectories, IProgressMonitor monitor) {
 		try {
-			RecursiveFileFinder finder = new RecursiveFileFinder("web.xml", ignoredDirectories); //$NON-NLS-1$
+			RecursiveFileFinder finder = new RecursiveFileFinder(J2EEConstants.WEBAPP_DD_SHORT_NAME, ignoredDirectories);
 			project.accept(finder);
 			return finder.getFile() != null;
 		} catch (CoreException ex) {
@@ -63,7 +66,7 @@ public class ServletProjectConfigurator implements ProjectConfigurator {
 		try {
 			if (!ProjectFacetsManager.isProjectFacetDefined(project.getName())) {
 				IFacetedProject facetedProject = ProjectFacetsManager.create(project, true, monitor);
-				IProjectFacet JAVA_FACET = ProjectFacetsManager.getProjectFacet("jst.java"); //$NON-NLS-1$
+				IProjectFacet JAVA_FACET = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_JAVA);
 		
 				ProjectScope ps = new ProjectScope(project);
 				IEclipsePreferences JDPprojectNode = ps.getNode(JavaCore.PLUGIN_ID);
@@ -75,11 +78,11 @@ public class ServletProjectConfigurator implements ProjectConfigurator {
 			
 			IFacetedProject facetedProject = ProjectFacetsManager.create(project, true, monitor);
 
-			IProjectFacet WEB_FACET = ProjectFacetsManager.getProjectFacet("jst.web"); //$NON-NLS-1$
+			IProjectFacet WEB_FACET = ProjectFacetsManager.getProjectFacet(IModuleConstants.JST_WEB_MODULE);
 			if (!facetedProject.hasProjectFacet(WEB_FACET)) {
 				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-				RecursiveFileFinder finder = new RecursiveFileFinder("web.xml", ignoredDirectories); //$NON-NLS-1$
+				RecursiveFileFinder finder = new RecursiveFileFinder(J2EEConstants.WEBAPP_DD_SHORT_NAME, ignoredDirectories);
 				project.accept(finder);
 				InputStream webXmlStream = finder.getFile().getContents();
 				Document doc = dBuilder.parse(webXmlStream);
@@ -87,10 +90,10 @@ public class ServletProjectConfigurator implements ProjectConfigurator {
 	
 				IDataModel aFacetInstallDataModel = DataModelFactory.createDataModel(new WebFacetInstallDataModelProvider());
 				aFacetInstallDataModel.setBooleanProperty(IJ2EEModuleFacetInstallDataModelProperties.ADD_TO_EAR, false);
-				String version = ((Element)doc.getElementsByTagName("web-app").item(0)).getAttribute("version"); //$NON-NLS-1$ //$NON-NLS-2$
-				if (version.isEmpty()) {
+				String version = ((Element)doc.getElementsByTagName(J2EEConstants.WEBAPP_DOCTYPE).item(0)).getAttribute("version"); //$NON-NLS-1$
+				if (version.length() < 1) {
 					// TODO decide this according to JRE version : Java6 => servlet 2.5; Java 7 => servlet 3.1
-					version = "3.1"; //$NON-NLS-1$
+					version = J2EEVersionConstants.VERSION_3_1_TEXT;
 				}
 				facetedProject.installProjectFacet(WEB_FACET.getVersion(version), aFacetInstallDataModel, monitor);
 			}
