@@ -113,4 +113,8 @@ public class ServletProjectConfigurator implements ProjectConfigurator {
 	public Set<File> findConfigurableLocations(File root, IProgressMonitor monitor) {
 		return Collections.emptySet();
 	}
+
+	public Set<IFolder> getFoldersToIgnore(IProject project, IProgressMonitor monitor) {
+		return null;
+	}
 }
