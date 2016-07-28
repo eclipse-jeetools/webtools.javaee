@@ -350,7 +350,7 @@ public class ArchiveWrapper {
 		try {
 			JavaEEQuickPeek jqp = JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(ejbWrapper.archive);
 			String clientJarName = null;
-			if(jqp.getVersion() == JavaEEQuickPeek.EJB_3_0_ID || jqp.getVersion() == JavaEEQuickPeek.EJB_3_1_ID){
+			if(jqp.getVersion() == JavaEEQuickPeek.EJB_3_0_ID || jqp.getVersion() == JavaEEQuickPeek.EJB_3_1_ID || jqp.getVersion() == JavaEEQuickPeek.EJB_3_2_ID){
 				if(ejbWrapper.archive.containsArchiveResource(new Path(J2EEConstants.EJBJAR_DD_URI))){
 					org.eclipse.jst.javaee.ejb.EJBJar edd = (org.eclipse.jst.javaee.ejb.EJBJar) ejbWrapper.archive.getModelObject();
 					clientJarName = edd.getEjbClientJar();
