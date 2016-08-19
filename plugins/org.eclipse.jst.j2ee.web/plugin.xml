@@ -501,7 +501,7 @@
       <config-factory class="org.eclipse.jst.j2ee.web.project.facet.WebFragmentFacetInstallDataModelProvider"/>
     </action>
 
-    <event-handler facet="jst.webfragment" version="3.0" type="RUNTIME_CHANGED">
+    <event-handler facet="jst.webfragment" type="RUNTIME_CHANGED">
        <delegate class="org.eclipse.jst.j2ee.project.facet.J2EEFacetRuntimeChangedDelegate"/>
     </event-handler>
     
