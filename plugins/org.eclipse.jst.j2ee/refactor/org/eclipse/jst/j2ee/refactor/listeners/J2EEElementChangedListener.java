@@ -310,7 +310,7 @@ public class J2EEElementChangedListener implements IElementChangedListener {
 			core = StructureEdit.getStructureEditForRead(project);
 			final WorkbenchComponent component = core.getComponent();
 			if (null != component) {
-				final List currentResources = component.getResources();
+				final List currentResources = new ArrayList(component.getResources());
 				for (Iterator iter = currentResources.iterator(); iter.hasNext();) {
 					final ComponentResource resource = (ComponentResource) iter.next();
 					sourceToRuntime.put(resource.getSourcePath().makeRelative(), resource.getRuntimePath());
