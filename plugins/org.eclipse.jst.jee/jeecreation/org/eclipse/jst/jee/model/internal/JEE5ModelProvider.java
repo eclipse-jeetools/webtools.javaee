@@ -126,7 +126,7 @@ public class JEE5ModelProvider implements IModelProvider, ResourceStateInputProv
 			notifyListeners(evt);
 		}
 	}
-	private void addManagedResource(XMLResourceImpl res) {
+	private synchronized void addManagedResource(XMLResourceImpl res) {
 		if (res == null || modelResources.contains(res)) {
 			return;
 		}
@@ -399,10 +399,10 @@ public class JEE5ModelProvider implements IModelProvider, ResourceStateInputProv
 	/**
 	 * Remove reference to the aResource.
 	 */
-	protected boolean removeResource(Resource aResource) {
+	protected synchronized boolean removeResource(Resource aResource) {
 		if (aResource != null) {
 			aResource.eAdapters().remove(resourceAdapter);
-			return getResources().remove(aResource);
+			return modelResources.remove(aResource);
 		}
 		return false;
 	}
@@ -524,8 +524,8 @@ public class JEE5ModelProvider implements IModelProvider, ResourceStateInputProv
 		return null;
 	}
 
-	public List getResources() {
-		return modelResources;
+	public synchronized List getResources() {
+		return new ArrayList(modelResources);
 	}
 
 
