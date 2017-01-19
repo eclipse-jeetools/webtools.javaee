@@ -209,18 +209,23 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 		}
 		if (facetProj != null){
 			IRuntime runtime  = facetProj.getPrimaryRuntime();
-				if(runtime != null){
-					for (IProjectFacet facet:fpjwc.getFixedProjectFacets()){
-						try {
-							IProjectFacetVersion facetVersion = facet.getLatestSupportedVersion(runtime);
-							if (facetVersion == null){
-								return false;
-							}
-						} catch (CoreException e) {
-							throw new RuntimeException( e );
-						}
-					}
-				}
+			if (runtime == null || fpjwc == null){
+				return false;
+			}
+			
+			for (IProjectFacet facet:fpjwc.getFixedProjectFacets()){
+				if (facet == null)
+					return false;
+				
+				try {
+					IProjectFacetVersion facetVersion = facet.getLatestSupportedVersion(runtime);
+					if (facetVersion == null){
+						return false;
+ 					}
+				} catch (CoreException e) {
+					throw new RuntimeException( e );
+ 				}
+ 			}
 		}
 		return true;
 	}
@@ -261,7 +266,7 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
             	}
             	else
             	{
-            		this.javaFacetInstallConfig = (JavaFacetInstallConfig) Platform.getAdapterManager().getAdapter( config, JavaFacetInstallConfig.class );
+            		this.javaFacetInstallConfig = Platform.getAdapterManager().getAdapter( config, JavaFacetInstallConfig.class );
             	}
             	if (this.javaFacetInstallConfig != null)
             	{
