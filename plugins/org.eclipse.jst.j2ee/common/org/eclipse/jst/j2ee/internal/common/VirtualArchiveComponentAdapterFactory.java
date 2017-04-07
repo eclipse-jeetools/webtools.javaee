@@ -17,8 +17,9 @@ import org.eclipse.wst.common.componentcore.internal.resources.VirtualArchiveCom
 
 public class VirtualArchiveComponentAdapterFactory implements IAdapterFactory {
 
+	@Override
 	public Object getAdapter(Object adaptableObject, Class adapterType) {
-		if (adapterType == VirtualArchiveComponent.ADAPTER_TYPE ) {
+		if (adapterType == IPath.class && adaptableObject instanceof VirtualArchiveComponent ) {
 			VirtualArchiveComponent component = (VirtualArchiveComponent) adaptableObject;
 			IPath path = J2EEProjectUtilities.getResolvedPathForArchiveComponent(component.getName());
 			return path;
@@ -26,9 +27,9 @@ public class VirtualArchiveComponentAdapterFactory implements IAdapterFactory {
 		return null;
 	}
 
-	
+	@Override
 	public Class[] getAdapterList() {
-		return new Class[]{VirtualArchiveComponent.class};
+		return new Class[]{ IPath.class };
 	}	
 
 }
