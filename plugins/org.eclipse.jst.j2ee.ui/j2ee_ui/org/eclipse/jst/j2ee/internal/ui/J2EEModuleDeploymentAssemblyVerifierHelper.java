@@ -27,7 +27,7 @@ import org.eclipse.wst.common.componentcore.ui.internal.propertypage.verifier.De
 import org.eclipse.wst.common.componentcore.ui.internal.propertypage.verifier.IDeploymentAssemblyVerifier;
 import org.eclipse.wst.common.componentcore.ui.internal.propertypage.verifier.VerifierRegistryReader;
 import org.eclipse.wst.common.componentcore.ui.propertypage.AddModuleDependenciesPropertiesPage.ComponentResourceProxy;
-import org.eclipse.wst.server.core.IRuntime;
+import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 
 public class J2EEModuleDeploymentAssemblyVerifierHelper {
 	
