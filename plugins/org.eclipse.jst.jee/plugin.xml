@@ -133,7 +133,55 @@
         <contentTypeBinding
               contentTypeId="org.eclipse.jst.jee.ee7webfragmentDD">
         </contentTypeBinding>
-     </resourceFactory>         
+     </resourceFactory>
+     <resourceFactory
+           class="org.eclipse.jst.javaee.jca.internal.util.JcaResourceFactoryImpl"
+           isDefault="false"
+           shortSegment="ra.xml">
+        <contentTypeBinding
+              contentTypeId="org.eclipse.jst.jee.ee8connectorDD">
+        </contentTypeBinding>
+     </resourceFactory>
+     <resourceFactory
+           class="org.eclipse.jst.javaee.web.internal.util.WebResourceFactoryImpl"
+           isDefault="false"
+           shortSegment="web.xml">
+        <contentTypeBinding
+              contentTypeId="org.eclipse.jst.jee.ee8webDD">
+        </contentTypeBinding>
+     </resourceFactory>
+     <resourceFactory
+           class="org.eclipse.jst.javaee.ejb.internal.util.EjbResourceFactoryImpl"
+           isDefault="false"
+           shortSegment="ejb-jar.xml">
+        <contentTypeBinding
+              contentTypeId="org.eclipse.jst.jee.ee8ejbDD">
+        </contentTypeBinding>
+     </resourceFactory>
+     <resourceFactory
+           class="org.eclipse.jst.javaee.applicationclient.internal.util.ApplicationclientResourceFactoryImpl"
+           isDefault="false"
+           shortSegment="application-client.xml">
+        <contentTypeBinding
+              contentTypeId="org.eclipse.jst.jee.ee8appclientDD">
+        </contentTypeBinding>
+     </resourceFactory>
+     <resourceFactory
+           class="org.eclipse.jst.javaee.application.internal.util.ApplicationResourceFactoryImpl"
+           isDefault="false"
+           shortSegment="application.xml">
+        <contentTypeBinding
+              contentTypeId="org.eclipse.jst.jee.ee8earDD">
+        </contentTypeBinding>
+     </resourceFactory>
+     <resourceFactory
+           class="org.eclipse.jst.javaee.webfragment.internal.util.WebfragmentResourceFactoryImpl"
+           isDefault="false"
+           shortSegment="web-fragment.xml">
+        <contentTypeBinding
+              contentTypeId="org.eclipse.jst.jee.ee8webfragmentDD">
+        </contentTypeBinding>
+     </resourceFactory>     
   </extension>
   
   <extension
@@ -464,12 +512,96 @@
          </describer>
       </content-type>
   	</extension>
-  	  	  	
+  	
+  	<extension
+         point="org.eclipse.core.contenttype.contentTypes">
+      <content-type
+            file-names="ejb-jar.xml"
+            id="ee8ejbDD"
+            base-type="org.eclipse.core.runtime.xml"
+            name="%ee8ejbContentType"
+            priority="high">
+         <describer
+               class="org.eclipse.jst.jee.contenttype.JEE8ContentDescriber">
+         </describer>
+      </content-type>
+  	</extension>
+  	
+  	<extension
+         point="org.eclipse.core.contenttype.contentTypes">
+      <content-type
+            file-names="web.xml"
+            id="ee8webDD"
+            base-type="org.eclipse.core.runtime.xml"
+            name="%ee8webContentType"
+            priority="high">
+         <describer
+               class="org.eclipse.jst.jee.contenttype.JEE8ContentDescriber">
+         </describer>
+      </content-type>
+  	</extension> 
+  	
+  	<extension
+         point="org.eclipse.core.contenttype.contentTypes">
+      <content-type
+            file-names="web-fragment.xml"
+            id="ee8webfragmentDD"
+            base-type="org.eclipse.core.runtime.xml"
+            name="%ee8webfragmentContentType"
+            priority="high">
+         <describer
+               class="org.eclipse.jst.jee.contenttype.JEE8ContentDescriber">
+         </describer>
+      </content-type>
+  	</extension>
+  	  	   	
+ 	<extension
+         point="org.eclipse.core.contenttype.contentTypes">
+      <content-type
+            file-names="application.xml"
+            id="ee8earDD"
+            base-type="org.eclipse.core.runtime.xml"
+            name="%ee8earContentType"
+            priority="high">
+         <describer
+               class="org.eclipse.jst.jee.contenttype.JEE8ContentDescriber">
+         </describer>
+      </content-type>
+  	</extension>
+  	
+  	<extension
+         point="org.eclipse.core.contenttype.contentTypes">
+      <content-type
+            file-names="application-client.xml"
+            id="ee8appclientDD"
+            base-type="org.eclipse.core.runtime.xml"
+            name="%ee8appclientContentType"
+            priority="high">
+         <describer
+               class="org.eclipse.jst.jee.contenttype.JEE8ContentDescriber">
+         </describer>
+      </content-type>
+  	</extension>
+ 
+  	 <extension
+         point="org.eclipse.core.contenttype.contentTypes">
+      <content-type
+            file-names="ra.xml"
+            id="ee8connectorDD"
+            base-type="org.eclipse.core.runtime.xml"
+            name="%ee8connectorContentType"
+            priority="high">
+         <describer
+               class="org.eclipse.jst.jee.contenttype.JEE8ContentDescriber">
+         </describer>
+      </content-type>
+  	</extension>
+  		  	
   	<extension
         point="org.eclipse.jst.j2ee.J2EEModelProvider">
       	<provider>
         	<modelProvider factoryClass="org.eclipse.jst.jee.model.internal.EAR5ModelProviderFactory"/>	
-      		<facet id="jst.ear" versions="5.0,6.0,7.0"/>
+      		<facet id="jst.ear" versions="5.0,6.0,7.0,8.0"/>
       	</provider>
   </extension> 
 
@@ -477,7 +609,7 @@
         point="org.eclipse.jst.j2ee.J2EEModelProvider">
       	<provider>
         	<modelProvider factoryClass="org.eclipse.jst.jee.model.internal.AppClient5ModelProviderFactory"/>	
-      		<facet id="jst.appclient" versions="5.0,6.0,7.0"/>
+      		<facet id="jst.appclient" versions="5.0,6.0,7.0,8.0"/>
       	</provider>
    </extension>
 
