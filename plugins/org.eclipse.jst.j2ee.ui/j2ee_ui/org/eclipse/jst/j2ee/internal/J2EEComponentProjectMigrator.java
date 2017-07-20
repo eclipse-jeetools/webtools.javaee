@@ -146,8 +146,8 @@ public class J2EEComponentProjectMigrator implements IComponentProjectMigrator {
 		if (view == null)
 			return;
 		
-		INavigatorContentService contentService = (INavigatorContentService) view.getAdapter(INavigatorContentService.class);
-		CommonViewer viewer = (CommonViewer) view.getAdapter(CommonViewer.class);
+		INavigatorContentService contentService =  view.getAdapter(INavigatorContentService.class);
+		CommonViewer viewer = view.getAdapter(CommonViewer.class);
 		
 		// Set the J2EE content extensions as enabled now that we have set the J2EE facets
 		if (contentService != null)

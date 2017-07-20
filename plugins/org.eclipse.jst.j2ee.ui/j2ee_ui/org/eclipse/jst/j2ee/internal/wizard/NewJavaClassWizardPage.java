@@ -669,7 +669,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 				if (resource != null && resource.getType() != IResource.ROOT) {
 					while (jelem == null && resource.getType() != IResource.PROJECT) {
 						resource = resource.getParent();
-						jelem = (IJavaElement) resource.getAdapter(IJavaElement.class);
+						jelem = resource.getAdapter(IJavaElement.class);
 					}
 					if (jelem == null) {
 						jelem = JavaCore.create(resource); // java project
@@ -728,9 +728,9 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 			return (IJavaElement) obj;
 		
 		if (obj instanceof IAdaptable) 
-			return (IJavaElement) ((IAdaptable) obj).getAdapter(IJavaElement.class);
+			return ((IAdaptable) obj).getAdapter(IJavaElement.class);
 			
-		return (IJavaElement) Platform.getAdapterManager().getAdapter(obj, IJavaElement.class);
+		return Platform.getAdapterManager().getAdapter(obj, IJavaElement.class);
 	}
 	
 	protected IResource getResource(Object obj) {
@@ -741,8 +741,8 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 			return (IResource) obj;
 		
 		if (obj instanceof IAdaptable) 
-			return (IResource) ((IAdaptable) obj).getAdapter(IResource.class);
+			return ((IAdaptable) obj).getAdapter(IResource.class);
 			
-		return (IResource) Platform.getAdapterManager().getAdapter(obj, IResource.class);
+		return Platform.getAdapterManager().getAdapter(obj, IResource.class);
 	}
 }

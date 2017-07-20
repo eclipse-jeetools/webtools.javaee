@@ -157,7 +157,7 @@ public class AvailableJ2EEComponentsForEARContentProvider extends LabelProvider
 		if (!component.isBinary()) 
 			return true;
 		
-		IFile workspaceFile = (IFile)component.getAdapter(IFile.class);
+		IFile workspaceFile = component.getAdapter(IFile.class);
 		if( workspaceFile == null ) 
 			return true;
 		if( workspaceFile.getFullPath().segment(0).equals(earComponent.getName()))

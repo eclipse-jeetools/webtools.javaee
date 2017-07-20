@@ -111,10 +111,10 @@ public class UIProjectUtilities {
 				if (obj instanceof IProject)
 					project = (IProject) obj;
 				else if (obj instanceof IAdaptable) {
-					project = (IProject) ((IAdaptable) obj).getAdapter(IProject.class);
+					project = ((IAdaptable) obj).getAdapter(IProject.class);
 					if (project == null) {
 						//Check for IJavaElements.
-						IJavaElement javaElement = (IJavaElement) ((IAdaptable) obj).getAdapter(IJavaElement.class);
+						IJavaElement javaElement =  ((IAdaptable) obj).getAdapter(IJavaElement.class);
 						if (javaElement != null) {
 							project = javaElement.getJavaProject().getProject();
 						}

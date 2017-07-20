@@ -31,7 +31,7 @@ public class RenameContextRootWizard extends RefactoringWizard {
 	protected void addUserInputPages() {
 		if (prompt) {
 			addPage(new ContextRootInputPage("", //$NON-NLS-1$
-					(RenameContextRootRefactoringProcessor) getRefactoring().getAdapter(
+					getRefactoring().getAdapter(
 							RenameContextRootRefactoringProcessor.class)));
 		}
 	}

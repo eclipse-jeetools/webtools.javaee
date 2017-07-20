@@ -197,7 +197,7 @@ public class BinaryEditorUtilities {
 	}
 
 	public static IEditorInput getBinaryEditorInput(IVirtualComponent component, String archiveRelativePath) {
-		File f = (File)component.getAdapter(File.class);
+		File f = component.getAdapter(File.class);
 		return getBinaryEditorInput(f.getAbsolutePath(), archiveRelativePath);
 	}
 

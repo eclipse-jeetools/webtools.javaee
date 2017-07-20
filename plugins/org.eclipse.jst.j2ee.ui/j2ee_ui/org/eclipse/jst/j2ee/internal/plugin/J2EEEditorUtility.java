@@ -95,7 +95,7 @@ public class J2EEEditorUtility {
 		IEditorInput input = null;
 		input = EditorUtility.getEditorInput(comp);
 		if (input != null) {
-			return (IFile) input.getAdapter(IFile.class);
+			return input.getAdapter(IFile.class);
 		}
 		return null;
 	}

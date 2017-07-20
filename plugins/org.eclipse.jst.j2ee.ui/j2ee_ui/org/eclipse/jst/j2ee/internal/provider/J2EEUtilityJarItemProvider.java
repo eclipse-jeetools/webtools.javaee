@@ -113,11 +113,11 @@ public class J2EEUtilityJarItemProvider extends J2EEItemProvider {
 				for (int i = 0; i < modules.length; i++) {
 					IVirtualComponent module = modules[i].getReferencedComponent();
 					if (module.isBinary()) {
-						IFile utilityJar = (IFile)module.getAdapter(IFile.class);
+						IFile utilityJar = module.getAdapter(IFile.class);
 						if (utilityJar != null)
 							children.add(utilityJar);
 						else {
-							java.io.File diskFile = (java.io.File)module.getAdapter(java.io.File.class);
+							java.io.File diskFile = module.getAdapter(java.io.File.class);
 							if (diskFile.exists())
 								children.add(diskFile);
 						}
