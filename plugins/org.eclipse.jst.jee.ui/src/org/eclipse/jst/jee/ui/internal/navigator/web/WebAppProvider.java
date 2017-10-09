@@ -96,7 +96,10 @@ public class WebAppProvider extends AbstractWebGroupProvider implements IAdaptab
 	
 	@Override
 	public Image getImage() {
-		String version = ((WebApp) javaee).getVersion().getLiteral();
+		String version = null;
+		if( javaee != null && ((WebApp) javaee).getVersion() != null ) {
+			version = ((WebApp) javaee).getVersion().getLiteral();
+		}
 		if (J2EEVersionConstants.VERSION_2_5_TEXT.equals(version)) {
 			return getWeb25Image();
 		} else if (J2EEVersionConstants.VERSION_3_0_TEXT.equals(version)) {
