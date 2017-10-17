@@ -56,6 +56,7 @@
     <module>plugins/org.eclipse.jst.common.annotations.core</module>
     <module>plugins/org.eclipse.jst.common.annotations.ui</module>
     <module>plugins/org.eclipse.jst.common.frameworks</module>
+    <module>plugins/org.eclipse.jst.common.ui</module>
     <module>plugins/org.eclipse.jst.j2ee</module>
     <module>plugins/org.eclipse.jst.j2ee.core</module>
     <module>plugins/org.eclipse.jst.j2ee.jca</module>
