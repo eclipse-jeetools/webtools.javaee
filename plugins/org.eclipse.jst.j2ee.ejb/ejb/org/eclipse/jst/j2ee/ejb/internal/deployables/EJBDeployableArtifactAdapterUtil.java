@@ -181,7 +181,7 @@ public class EJBDeployableArtifactAdapterUtil {
 
 	protected static IModuleArtifact getModuleJavaObject(IFile file) {
 
-			IVirtualComponent comp = (IVirtualComponent)file.getAdapter(IVirtualComponent.class);
+			IVirtualComponent comp = file.getAdapter(IVirtualComponent.class);
 			if (comp != null) {
 			JavaClass javaClass = JemProjectUtilities.getJavaClass(file);
 			if (javaClass != null) {
