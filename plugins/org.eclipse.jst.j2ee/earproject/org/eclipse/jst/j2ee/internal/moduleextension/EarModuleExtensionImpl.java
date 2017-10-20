@@ -34,12 +34,14 @@ public abstract class EarModuleExtensionImpl implements EarModuleExtension {
 	 * 
 	 * @see org.eclipse.jst.j2ee.internal.internal.moduleextension.EarModuleExtension#createProjectCreationOperation(com.ibm.etools.archive.ear.operations.ImportOption)
 	 */
+	@Override
 	public IDataModelOperation createProjectCreationOperation(ImportOption option) {
 		if (option.getArchiveType() == ImportOption.MODULE)
 			return option.getModel().getDefaultOperation();
 		return null;
 	}
 
+	@Override
 	public IDataModelOperation createProjectCreationOperation(IDataModel dataModel) {
 		return dataModel.getDefaultOperation();
 	}

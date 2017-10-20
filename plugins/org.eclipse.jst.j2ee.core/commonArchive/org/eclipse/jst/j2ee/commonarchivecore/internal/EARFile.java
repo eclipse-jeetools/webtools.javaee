@@ -195,7 +195,7 @@ public interface EARFile extends ModuleFile {
 
 	/**
 	 * Returns a filtered list of FARFiles; adds will not be reflected; use
-	 * {@link Archive#add(File)}
+	 * { @link Archive#add(File)}
 	 */
 	public List getFARFiles();
 

@@ -20,6 +20,7 @@ import org.eclipse.wst.common.project.facet.core.internal.FacetCorePlugin;
 public final class FacetedProjectPropertyTester extends PropertyTester
 
 {
+@Override
 public boolean test( final Object receiver, 
                      final String property, 
                      final Object[] args, 

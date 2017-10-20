@@ -43,6 +43,7 @@ import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 
 public final class EarFacetInstallDelegate implements IDelegate {
 
+	@Override
 	public void execute(final IProject project, final IProjectFacetVersion fv, final Object cfg, final IProgressMonitor monitor) throws CoreException {
 		if (monitor != null) {
 			monitor.beginTask("", 1); //$NON-NLS-1$

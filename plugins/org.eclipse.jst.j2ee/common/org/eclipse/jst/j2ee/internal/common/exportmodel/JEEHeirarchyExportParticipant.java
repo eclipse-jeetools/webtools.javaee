@@ -64,11 +64,11 @@ public class JEEHeirarchyExportParticipant extends AbstractFlattenParticipant {
 	public boolean isChildModule(IVirtualComponent rootComponent, FlatComponentTaskModel dataModel, IFlatFile file) {
 		if (isPossibleChild(file.getName())) {
 			String path = null;
-			IFile f = (IFile)file.getAdapter(IFile.class);
+			IFile f = file.getAdapter(IFile.class);
 			if (f != null && f.exists())
 				path = f.getFullPath().toString();
 			else {
-				File f2 = (File)file.getAdapter(File.class);
+				File f2 = file.getAdapter(File.class);
 				if (f2 != null && f2.exists()) {
 					path = f2.getAbsolutePath();
 				}

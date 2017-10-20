@@ -30,50 +30,60 @@ public class ModelProviderEvent implements IModelProviderEvent {
 		setProject(proj);
 	}
 	
+	@Override
 	public void setProject(IProject project) {
 		proj = project;
 		
 	}
 
+	@Override
 	public void addResource(Object resource) {
 		changedResources.add(resource);
 
 	}
 
+	@Override
 	public void addResources(Collection<Object> someResources) {
 		changedResources.addAll(someResources);
 
 	}
 
+	@Override
 	public List<Object> getChangedResources() {
 		
 		return changedResources;
 	}
 
+	@Override
 	public int getEventCode() {
 		return event;
 	}
 
+	@Override
 	public IModelProvider getModel() {
 		
 		return model;
 	}
 
+	@Override
 	public void setChangedResources(List<Object> newChangedResources) {
 		changedResources = newChangedResources;
 
 	}
 
+	@Override
 	public void setEventCode(int newEventCode) {
 		event = newEventCode;
 
 	}
 
+	@Override
 	public void setModel(IModelProvider newModel) {
 		model = newModel;
 
 	}
 
+	@Override
 	public IProject getProject() {
 		return proj;
 	}

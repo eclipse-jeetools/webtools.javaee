@@ -27,6 +27,7 @@ public class ResourceUtil implements IResourceUtil {
 		super();
 	}
 
+	@Override
 	public int getLineNo(Object object) {
 		if (object == null) {
 			return IMessage.LINENO_UNSET;

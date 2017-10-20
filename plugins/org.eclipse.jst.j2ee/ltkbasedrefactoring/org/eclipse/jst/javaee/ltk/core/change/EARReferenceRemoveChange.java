@@ -112,6 +112,7 @@ public class EARReferenceRemoveChange extends Change {
 				moduleInXML = true;
 		}
 		earModel.modify(new Runnable() {
+			@Override
 			public void run() {
 				ICommonApplication application = (ICommonApplication)earModel.getModelObject();
 				if (application == null)

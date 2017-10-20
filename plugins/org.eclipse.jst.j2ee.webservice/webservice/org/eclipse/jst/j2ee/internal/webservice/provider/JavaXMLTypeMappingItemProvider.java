@@ -32,7 +32,7 @@ import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage;
 
 /**
  * This is the item provider adpater for a
- * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.JavaXMLTypeMapping}object. <!-- begin-user-doc -->
+ * { @link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.JavaXMLTypeMapping}object. <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * 
  * @generated
@@ -117,8 +117,8 @@ public class JavaXMLTypeMappingItemProvider extends ItemProviderAdapter implemen
 
 	/**
 	 * This specifies how to implement {@link #getChildren}and
-	 * {@link org.eclipse.emf.edit.command.AddCommand}and
-	 * {@link org.eclipse.emf.edit.command.RemoveCommand}support in {@link #createCommand}. <!--
+	 * { @link org.eclipse.emf.edit.command.AddCommand}and
+	 * { @link org.eclipse.emf.edit.command.RemoveCommand}support in {@link #createCommand}. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated

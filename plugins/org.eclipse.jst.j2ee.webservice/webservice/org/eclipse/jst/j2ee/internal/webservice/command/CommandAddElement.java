@@ -70,7 +70,7 @@ public class CommandAddElement extends AbstractCommand {
 
 	/**
 	 * Returns whether the comamad is valid to <code>execute</code>. The
-	 * {@link UnexecutableCommand#INSTANCE}.<code>canExecute()</code> always returns
+	 * { @link UnexecutableCommand#INSTANCE}.<code>canExecute()</code> always returns
 	 * <code>false</code>. This <b>must </b> be called before calling <code>execute</code>.
 	 * 
 	 * @return whether the comamad is valid to <code>execute</code>.
@@ -187,7 +187,7 @@ public class CommandAddElement extends AbstractCommand {
 	 * </pre>
 	 * 
 	 * you should consider using a {@link org.eclipse.emf.common.command.CompoundCommand}and using
-	 * {@link org.eclipse.emf.common.command.CompoundCommand#unwrap()}to optimize the result:
+	 * { @link org.eclipse.emf.common.command.CompoundCommand#unwrap()}to optimize the result:
 	 * 
 	 * <pre>
 	 * CompoundCommand subcommands = new CompoundCommand();

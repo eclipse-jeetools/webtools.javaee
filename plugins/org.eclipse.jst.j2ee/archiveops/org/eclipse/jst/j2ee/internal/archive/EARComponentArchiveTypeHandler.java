@@ -17,6 +17,7 @@ import org.eclipse.jst.jee.archive.IArchiveHandler;
 
 public class EARComponentArchiveTypeHandler implements IArchiveHandler {
 
+	@Override
 	public boolean handlesArchive(IArchive archive) {
 		if (archive.getLoadAdapter() instanceof EARComponentArchiveLoadAdapter) {
 			return true;

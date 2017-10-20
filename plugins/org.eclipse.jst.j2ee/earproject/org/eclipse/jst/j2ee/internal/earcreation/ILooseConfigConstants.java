@@ -18,7 +18,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 public interface ILooseConfigConstants {
 	/**
 	 * The short name of the loose configuration file; will most often need to use
-	 * {@link #CONFIG_PATH}
+	 * { @link #CONFIG_PATH}
 	 */
 	String CONFIG_FILE_NAME = "looseconfig.xmi"; //$NON-NLS-1$
 	/** The absolute path to the loose configuration file */

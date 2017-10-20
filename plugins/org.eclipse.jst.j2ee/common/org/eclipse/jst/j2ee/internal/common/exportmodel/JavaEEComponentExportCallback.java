@@ -53,6 +53,7 @@ public class JavaEEComponentExportCallback implements ComponentExportCallback {
 		isExportSource = exportSource;
 	}
 	
+	@Override
 	public boolean canSave(IVirtualComponent component) {
 		if (JavaEEProjectUtilities.isJCAComponent(component)) {
 			return true;
@@ -60,6 +61,7 @@ public class JavaEEComponentExportCallback implements ComponentExportCallback {
 		return false;
 	}
 
+	@Override
 	public IFlatVirtualComponent saveComponent(IVirtualComponent component, ZipOutputStream zipOutputStream, List<IPath> entries) throws ArchiveException {
 		IArchive archiveToSave = null;
 		zipEntries = entries;
@@ -154,6 +156,7 @@ public class JavaEEComponentExportCallback implements ComponentExportCallback {
 		return isExportSource;
 	}
 	
+	@Override
 	public boolean createManifest() {
 		return false;
 	}

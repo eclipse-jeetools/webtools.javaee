@@ -28,12 +28,11 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jst.j2ee.application.internal.operations.ClassPathSelection;
 import org.eclipse.jst.j2ee.application.internal.operations.ClasspathElement;
-import org.eclipse.wst.common.frameworks.internal.DoNotUseMeThisWillBeDeletedPost15;
 import org.eclipse.wst.common.frameworks.internal.enablement.nonui.WFTWrappedException;
 import org.eclipse.wst.common.frameworks.internal.operations.IHeadlessRunnableWithProgress;
 
 /**
- * {@link DoNotUseMeThisWillBeDeletedPost15}
+ * { @link DoNotUseMeThisWillBeDeletedPost15}
  * 
  * @deprecated This should no longer be necessary because of the new EAR & Web Lib classpath
  *             containers
@@ -207,6 +206,7 @@ public class UpdateJavaBuildPathOperation implements IHeadlessRunnableWithProgre
 	 * 
 	 * @see IRunnableContext#run
 	 */
+	@Override
 	public void run(org.eclipse.core.runtime.IProgressMonitor monitor) throws java.lang.reflect.InvocationTargetException, InterruptedException {
 		try {
 			String[] prevRequiredProjects = javaProject.getRequiredProjectNames();

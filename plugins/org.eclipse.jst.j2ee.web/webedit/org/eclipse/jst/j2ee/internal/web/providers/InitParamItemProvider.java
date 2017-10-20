@@ -128,7 +128,7 @@ public class InitParamItemProvider extends WebapplicationItemProviderAdapter imp
 
 	/**
 	 * This implements
-	 * {@link IItemPropertySource#getPropertyValue IItemPropertySource.getPropertyValue}by
+	 * { @link IItemPropertySource#getPropertyValue IItemPropertySource.getPropertyValue}by
 	 * delegating to the descriptor, which is assumed to support the IItemPropertyDescriptor
 	 * interface
 	 */
@@ -191,7 +191,7 @@ public class InitParamItemProvider extends WebapplicationItemProviderAdapter imp
 
 	/**
 	 * This always returns false. The base class has already implemented
-	 * {@link org.eclipse.emf.edit.provider.ItemProviderAdapter#getChildren ItemProviderAdapter.getChildren}
+	 * { @link org.eclipse.emf.edit.provider.ItemProviderAdapter#getChildren ItemProviderAdapter.getChildren}
 	 * to return the empty enumeration, and this to check that enumeration, but we know there can't
 	 * be any children, so this is faster.
 	 */
@@ -217,7 +217,7 @@ public class InitParamItemProvider extends WebapplicationItemProviderAdapter imp
 
 	/**
 	 * This implements
-	 * {@link IItemPropertySource#setPropertyValue IItemPropertySource.setPropertyValue}by
+	 * { @link IItemPropertySource#setPropertyValue IItemPropertySource.setPropertyValue}by
 	 * delegating to the descriptor, which is assumed to support the IItemPropertyDescriptor
 	 * interface
 	 */

@@ -63,7 +63,7 @@ public class ReplaceManifestExportParticipant extends AbstractFlattenParticipant
 				int originalIndex = 0;
 				for( int i = 0; i < children.length; i++) {
 					if( children[i].getName().equals(manifestPath.lastSegment())) {
-						original = (IFile)children[i].getAdapter(IFile.class);
+						original = children[i].getAdapter(IFile.class);
 						originalIndex = i;
 						File newManifest = getNewManifest(component.getProject(), original, javaClasspathURIs);
 						FlatFile newManifestExportable = new FlatFile(newManifest, newManifest.getName(), manifestPath.removeLastSegments(1));

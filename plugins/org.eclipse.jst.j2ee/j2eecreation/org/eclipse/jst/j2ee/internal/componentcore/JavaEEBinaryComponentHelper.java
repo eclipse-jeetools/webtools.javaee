@@ -496,8 +496,8 @@ public class JavaEEBinaryComponentHelper extends BinaryComponentHelper {
 
 	/**
 	 * This cache manages IArchives across all
-	 * {@link JavaEEBinaryComponentHelper} instances. If multiple
-	 * {@link JavaEEBinaryComponentHelper} instances exist for the same
+	 * { @link JavaEEBinaryComponentHelper} instances. If multiple
+	 * { @link JavaEEBinaryComponentHelper} instances exist for the same
 	 * underlying archive file (e.g. a jar file on disk) all will use the exact
 	 * same IArchive instance. Care needs to be taken in managing the opening
 	 * and closing of this IArchive which should only be done through internal

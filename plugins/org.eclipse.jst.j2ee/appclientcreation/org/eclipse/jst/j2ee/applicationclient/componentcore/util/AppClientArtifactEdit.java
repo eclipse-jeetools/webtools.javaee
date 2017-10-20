@@ -380,11 +380,13 @@ public class AppClientArtifactEdit extends EnterpriseArtifactEdit implements IAr
 		return ((ApplicationClientResource)getDeploymentDescriptorResource()).getRootObject();
     }
 
+	@Override
 	public ArtifactEdit createArtifactEditForRead(IVirtualComponent aComponent) {
 		
 		return getAppClientArtifactEditForRead(aComponent);
 	}
 
+	@Override
 	public ArtifactEdit createArtifactEditForWrite(IVirtualComponent aComponent) {
 		
 		return getAppClientArtifactEditForWrite(aComponent);

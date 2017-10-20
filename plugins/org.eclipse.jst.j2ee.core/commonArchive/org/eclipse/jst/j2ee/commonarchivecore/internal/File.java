@@ -112,7 +112,7 @@ public interface File extends J2EEEObject {
 
 	/**
 	 * Sets the value of the '
-	 * {@link org.eclipse.jst.j2ee.internal.commonarchivecore.File#getSize <em>Size</em>}' attribute. <!--
+	 * { @link org.eclipse.jst.j2ee.internal.commonarchivecore.File#getSize <em>Size</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @param value
@@ -126,7 +126,7 @@ public interface File extends J2EEEObject {
 
 	/**
 	 * Unsets the value of the '
-	 * {@link org.eclipse.jst.j2ee.internal.commonarchivecore.File#getSize <em>Size</em>}' attribute. <!--
+	 * { @link org.eclipse.jst.j2ee.internal.commonarchivecore.File#getSize <em>Size</em>}' attribute. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see #isSetSize()

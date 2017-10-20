@@ -165,10 +165,12 @@ public class J2EEComponentClasspathContainerStore {
 		@Override
 		protected IStatus run(IProgressMonitor monitor) {
 			SafeRunner.run(new ISafeRunnable() {
+				@Override
 				public void run() throws Exception {
 					persist();
 				}
 
+				@Override
 				public void handleException(Throwable exception) {
 					J2EEPlugin.logError(exception);
 				}

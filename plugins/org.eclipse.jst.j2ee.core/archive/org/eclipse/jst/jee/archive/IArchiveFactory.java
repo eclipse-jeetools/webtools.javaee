@@ -15,7 +15,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jst.jee.archive.internal.ArchiveFactoryImpl;
 
 /**
- * {@link IArchiveFactory} is the where clients should open and save archives.
+ * { @link IArchiveFactory} is the where clients should open and save archives.
  * 
  * This interface is not intended to be implemented or subclassed by clients.
  * Clients should access through {@link #INSTANCE}

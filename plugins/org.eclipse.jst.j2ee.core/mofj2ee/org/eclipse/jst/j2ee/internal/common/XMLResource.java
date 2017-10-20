@@ -61,14 +61,14 @@ public interface XMLResource extends TranslatorResource, J2EEVersionConstants {
 	void setIsAlt(boolean isAlternateDD);
 	/**
 	 * @deprecated use {@link TranslatorResource#setVersionID(int)}, 
-	 * {@link TranslatorResource#setDoctypeValues(String, String)}
+	 * { @link TranslatorResource#setDoctypeValues(String, String)}
 	 * Sets the system id of the XML document.
 	 * @see J2EEVersionConstants
 	 */
 	void setSystemId(String id);
 	/**
 	 * @deprecated use {@link TranslatorResource#setVersionID(int)},
-	 * {@link TranslatorResource#setDoctypeValues(String, String)}
+	 * { @link TranslatorResource#setDoctypeValues(String, String)}
 	 * Sets the public id of the XML document.
 	 * @see J2EEVersionConstants
 	 */

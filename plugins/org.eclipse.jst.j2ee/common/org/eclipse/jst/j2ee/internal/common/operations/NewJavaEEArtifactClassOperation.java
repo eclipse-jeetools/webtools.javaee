@@ -142,7 +142,7 @@ public abstract class NewJavaEEArtifactClassOperation extends AbstractDataModelO
 
 	/**
 	 * This method checks the
-	 * {@link J2EEPlugin#DYNAMIC_TRANSLATION_OF_JET_TEMPLATES_PREF_KEY}
+	 * { @link J2EEPlugin#DYNAMIC_TRANSLATION_OF_JET_TEMPLATES_PREF_KEY}
 	 * preference to determine the method for generating the source code of the
 	 * Java EE artifact:
 	 * <ul>

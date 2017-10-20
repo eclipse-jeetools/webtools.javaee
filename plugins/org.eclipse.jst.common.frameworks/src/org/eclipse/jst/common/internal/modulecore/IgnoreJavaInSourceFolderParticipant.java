@@ -57,7 +57,7 @@ public class IgnoreJavaInSourceFolderParticipant extends AbstractFlattenParticip
 				 * one of it's consumed children, which may be a fileset, 
 				 * or some other unknown type of contributor
 				 */
-				IFile t = (IFile)file.getAdapter(IFile.class);
+				IFile t = file.getAdapter(IFile.class);
 				if( t != null ) {
 					Iterator<IPath> i = containers.iterator();
 					while(i.hasNext()) {

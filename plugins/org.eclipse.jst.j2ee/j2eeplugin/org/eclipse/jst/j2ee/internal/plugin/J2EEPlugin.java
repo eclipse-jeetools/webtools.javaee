@@ -186,6 +186,7 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 	/*
 	 * Javadoc copied from interface.
 	 */
+	@Override
 	public URL getBaseURL() {
 		return getBundle().getEntry("/"); //$NON-NLS-1$
 	}
@@ -310,6 +311,7 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 	/**
 	 * This gets a .gif from the icons folder.
 	 */
+	@Override
 	public Object getImage(String key) {
 		return getImageURL(key,this.getBundle());
 	}
@@ -456,6 +458,7 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 	/*
 	 * Javadoc copied from interface.
 	 */
+	@Override
 	public String getString(String key) {
 		try {
 			return Platform.getResourceString(getBundle(), key);
@@ -468,6 +471,7 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 	/*
 	 * Javadoc copied from interface.
 	 */
+	@Override
 	public String getString(String key, Object[] substitutions) {
 		return MessageFormat.format(getString(key), substitutions);
 	}
@@ -590,6 +594,7 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 
 	public static IWorkspaceRunnable getWorkspaceRunnable(final IHeadlessRunnableWithProgress op) {
 		return new IWorkspaceRunnable() {
+			@Override
 			public void run(IProgressMonitor monitor) throws CoreException {
 				try {
 					op.run(monitor);
@@ -615,11 +620,13 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 			this.preferences = new J2EEPreferences(this);
 		return this.preferences;
 	}
+	@Override
 	public String getString(String key, boolean translate) {
 		// TODO For now...  translate not supported
 		return getString(key);
 	}
 
+	@Override
 	public String getString(String key, Object[] substitutions, boolean translate) {
 		// TODO For now...  translate not supported
 		return getString(key,substitutions);

@@ -256,10 +256,12 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 		protected IStatus run(IProgressMonitor monitor) {
 
 			SafeRunner.run(new ISafeRunnable() {
+				@Override
 				public void handleException(Throwable e) {
 					J2EEPlugin.logError(e);
 				}
 
+				@Override
 				public void run() throws Exception {
 					
 					findNode(delta);
@@ -393,10 +395,12 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 		protected IStatus run(IProgressMonitor monitor) {
 
 			SafeRunner.run(new ISafeRunnable() {
+				@Override
 				public void handleException(Throwable e) {
 					J2EEPlugin.logError(e);
 				}
 
+				@Override
 				public void run() throws Exception {
 					try {
 						Object[] moduleProjects = moduleQueue.getListeners();
@@ -455,6 +459,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 		knownProjects.remove(project.getName());
 	}
 	
+	@Override
 	public void dependencyGraphUpdate(IDependencyGraphUpdateEvent event) {
 		if((event.getType() & IDependencyGraphUpdateEvent.ADDED) == IDependencyGraphUpdateEvent.ADDED){
 			Map<IProject, Set<IProject>> addedReferences = event.getAddedReferences();
@@ -467,6 +472,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 		}
 	}
 	
+	@Override
 	public void resourceChanged(IResourceChangeEvent event) {
 		boolean scheduleJob = false;
 		try {
@@ -540,6 +546,7 @@ public class J2EEComponentClasspathUpdater implements IResourceChangeListener, I
 		}
 	}
 	
+	@Override
 	public boolean visit(IResourceDelta delta) {
 		// If it is only a marker change, ignore the change
 		if(delta.getFlags() == IResourceDelta.MARKERS) {

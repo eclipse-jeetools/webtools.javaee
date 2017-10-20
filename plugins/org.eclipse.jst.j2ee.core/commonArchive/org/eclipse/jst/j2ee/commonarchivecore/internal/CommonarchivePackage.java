@@ -945,7 +945,7 @@ public interface CommonarchivePackage extends EPackage {
 
 	/**
 	 * Returns the meta object for the attribute list '
-	 * {@link org.eclipse.jst.j2ee.internal.commonarchivecore.Archive#getTypes <em>Types</em>}'. <!--
+	 * { @link org.eclipse.jst.j2ee.internal.commonarchivecore.Archive#getTypes <em>Types</em>}'. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute list '<em>Types</em>'.

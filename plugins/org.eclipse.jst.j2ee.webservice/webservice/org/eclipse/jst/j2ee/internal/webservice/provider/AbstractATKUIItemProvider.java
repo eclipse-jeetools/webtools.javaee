@@ -42,8 +42,8 @@ public abstract class AbstractATKUIItemProvider extends ItemProviderAdapter {
 
 	/**
 	 * This implements
-	 * {@link ITreeItemContentProvider#getChildren ITreeItemContentProvider.getChildren}by calling
-	 * {@link #getChildrenReferences getChildrenReferences}and using those to collect the children.
+	 * { @link ITreeItemContentProvider#getChildren ITreeItemContentProvider.getChildren}by calling
+	 * { @link #getChildrenReferences getChildrenReferences}and using those to collect the children.
 	 */
 	@Override
 	public Collection getChildren(Object object) {

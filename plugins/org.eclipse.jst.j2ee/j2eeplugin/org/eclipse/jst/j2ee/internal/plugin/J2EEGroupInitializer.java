@@ -40,6 +40,7 @@ public class J2EEGroupInitializer implements IGroupInitializer {
 	 * 
 	 * @see org.eclipse.wst.common.frameworks.internal.group.IGroupInitializer#isGroupEnabled(org.eclipse.core.resources.IProject)
 	 */
+	@Override
 	public boolean isGroupEnabled(IProject project) {
 		return true;
 	}

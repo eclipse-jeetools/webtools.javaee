@@ -64,10 +64,12 @@ public class JavaEESingleRootCallback implements SingleRootParticipantCallback {
 		this.filteredSuffixes = filtered;
 	}
 	
+	@Override
 	public boolean canValidate(IVirtualComponent vc) {
 		return JavaEEProjectUtilities.usesJavaEEComponent(vc);
 	}
 
+	@Override
 	public void validate(SingleRootUtil util, IVirtualComponent vc, IProject project, List resourceMaps) {
 	
 		if (resourceMaps.size() == 1) {
@@ -259,6 +261,7 @@ public class JavaEESingleRootCallback implements SingleRootParticipantCallback {
 		return util.getValidateFlag() == CANCEL ? false : true;
 	}
 
+	@Override
 	public IFlattenParticipant[] getDelegateParticipants() {
 		List<IFlattenParticipant> participants = new ArrayList<IFlattenParticipant>();
 

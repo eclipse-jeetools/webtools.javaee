@@ -80,7 +80,7 @@ public class WebDeployableArtifactUtil {
 		if (obj instanceof IModuleArtifact)
 			resource = ((IModuleArtifact) obj).getModule().getProject();
 		else if (obj instanceof IAdaptable)
-			resource = (IResource) ((IAdaptable) obj).getAdapter(IResource.class);
+			resource = ((IAdaptable) obj).getAdapter(IResource.class);
 		else if (obj instanceof EObject) {
 			resource = ProjectUtilities.getProject((EObject) obj);
 			if (obj instanceof Servlet) {

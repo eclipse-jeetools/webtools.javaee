@@ -139,7 +139,8 @@ public class NonEARModuleReferenceRemoveChange extends Change {
 	private void updateEJBDDWithEJBClientDeletion() {
 		IModelProvider ejbModel = ModelProviderManager.getModelProvider(referencingModuleProject);
         ejbModel.modify(new Runnable() {
-            public void run() {
+            @Override
+			public void run() {
                 IModelProvider writableEjbModel = ModelProviderManager.getModelProvider(referencingModuleProject);
                 Object modelObject = writableEjbModel.getModelObject();
                 

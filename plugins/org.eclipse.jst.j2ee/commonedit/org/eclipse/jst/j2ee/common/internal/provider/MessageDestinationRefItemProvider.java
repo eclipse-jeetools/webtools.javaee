@@ -34,7 +34,7 @@ import org.eclipse.jst.j2ee.webservice.wscommon.WscommonFactory;
 
 /**
  * This is the item provider adpater for a
- * {@link org.eclipse.jst.j2ee.internal.internal.common.MessageDestinationRef}object. <!--
+ * { @link org.eclipse.jst.j2ee.internal.internal.common.MessageDestinationRef}object. <!--
  * begin-user-doc --> <!-- end-user-doc -->
  * 
  * @generated
@@ -107,8 +107,8 @@ public class MessageDestinationRefItemProvider extends ItemProviderAdapter imple
 
 	/**
 	 * This specifies how to implement {@link #getChildren}and
-	 * {@link org.eclipse.emf.edit.command.AddCommand}and
-	 * {@link org.eclipse.emf.edit.command.RemoveCommand}support in {@link #createCommand}. <!--
+	 * { @link org.eclipse.emf.edit.command.AddCommand}and
+	 * { @link org.eclipse.emf.edit.command.RemoveCommand}support in {@link #createCommand}. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated

@@ -45,6 +45,7 @@ public class StructuredTextEditingDomain extends AdapterFactoryEditingDomain imp
 	/**
 	 * Execute a command within the editing domain.
 	 */
+	@Override
 	public void execute(Command command) {
 		execute(command.getLabel(), command);
 	}
@@ -52,6 +53,7 @@ public class StructuredTextEditingDomain extends AdapterFactoryEditingDomain imp
 	/**
 	 * Execute a command within the editing domain.
 	 */
+	@Override
 	public void execute(String label, Command command) {
 		executeViaUndoManager(label, command);
 	}
@@ -77,10 +79,12 @@ public class StructuredTextEditingDomain extends AdapterFactoryEditingDomain imp
 		}
 	}
 
+	@Override
 	public IStructuredTextUndoManager getUndoManager() {
 		return undoManager;
 	}
 
+	@Override
 	public void setUndoManager(IStructuredTextUndoManager newUndoManager) {
 		undoManager = newUndoManager;
 		undoManager.setCommandStack(commandStack);

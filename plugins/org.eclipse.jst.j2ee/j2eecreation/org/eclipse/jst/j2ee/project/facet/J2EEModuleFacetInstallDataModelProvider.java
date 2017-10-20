@@ -72,7 +72,8 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
     private IEventListener<JavaFacetInstallConfig.ChangeEvent> javaFacetSourceFolderListener 
         = new IEventListener<JavaFacetInstallConfig.ChangeEvent>()
     {
-        public void handleEvent( final ChangeEvent event ) 
+        @Override
+		public void handleEvent( final ChangeEvent event ) 
         {
             handleJavaFacetSourceFoldersChanged( event );
         }
@@ -179,7 +180,8 @@ public abstract class J2EEModuleFacetInstallDataModelProvider extends J2EEFacetI
 
             this.fpjwcListener = new IFacetedProjectListener()
             {
-                public void handleEvent( final IFacetedProjectEvent event ) 
+                @Override
+				public void handleEvent( final IFacetedProjectEvent event ) 
                 {
                     handleProjectFacetsChanged();
                 }

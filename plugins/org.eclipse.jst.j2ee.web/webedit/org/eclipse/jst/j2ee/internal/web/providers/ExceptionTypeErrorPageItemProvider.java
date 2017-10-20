@@ -26,7 +26,7 @@ import org.eclipse.jst.j2ee.webapplication.WebapplicationPackage;
 
 /**
  * This is the item provider adpater for a
- * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.ExceptionTypeErrorPage}object.
+ * { @link org.eclipse.jst.j2ee.internal.internal.webapplication.ExceptionTypeErrorPage}object.
  */
 public class ExceptionTypeErrorPageItemProvider extends ErrorPageItemProvider {
 

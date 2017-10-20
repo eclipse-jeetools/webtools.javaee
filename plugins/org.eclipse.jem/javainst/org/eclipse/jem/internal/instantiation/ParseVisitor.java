@@ -111,7 +111,7 @@ public class ParseVisitor {
 	 * <p>
 	 * If they want to indicate an error, parse visitors can throw any other RuntimeException. 
 	 * Those will also stop visiting, but the exception will be passed on out of the 
-	 * {@link PTExpression#accept(ParseVisitor)}. StopVisiting will not be passed on
+	 * { @link PTExpression#accept(ParseVisitor)}. StopVisiting will not be passed on
 	 * but will be caught inside accept.
 	 * 
 	 * @since 1.1.0.1

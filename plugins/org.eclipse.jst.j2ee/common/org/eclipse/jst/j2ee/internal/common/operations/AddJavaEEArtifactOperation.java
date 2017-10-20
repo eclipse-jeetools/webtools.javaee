@@ -42,6 +42,7 @@ public abstract class AddJavaEEArtifactOperation extends AbstractDataModelOperat
 		Runnable runnable = null;
 		if (provider.validateEdit(null, null).isOK()) {
 			runnable = new Runnable(){
+				@Override
 				public void run() {
 					try {
 						doExecute(monitor, info);

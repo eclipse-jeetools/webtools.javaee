@@ -88,6 +88,7 @@ public class J2EEDependencyListener implements IResourceChangeListener, IResourc
 	}
 
 	private long modStampAtResourceChanged = 0;
+	@Override
 	public void resourceChanged(IResourceChangeEvent event) {
 		try {
 			switch (event.getType()) {
@@ -107,6 +108,7 @@ public class J2EEDependencyListener implements IResourceChangeListener, IResourc
 		}
 	}
 
+	@Override
 	public boolean visit(IResourceDelta delta) throws CoreException {
 		if(modStampAtResourceChanged != getModStamp()){
 			//already incremented the modification stamp, no need to continue

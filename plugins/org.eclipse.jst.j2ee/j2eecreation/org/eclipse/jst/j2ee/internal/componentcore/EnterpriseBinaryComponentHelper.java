@@ -121,7 +121,7 @@ public abstract class EnterpriseBinaryComponentHelper extends BinaryComponentHel
 	}
 
 	protected String getArchiveURI() {
-		java.io.File file = (java.io.File)getComponent().getAdapter(java.io.File.class);
+		java.io.File file = getComponent().getAdapter(java.io.File.class);
 		return file.getAbsolutePath();
 	}
 

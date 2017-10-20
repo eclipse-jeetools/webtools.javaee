@@ -34,6 +34,7 @@ public class ProjectValidationHelper implements IProjectValidationHelper {
 			INSTANCE = new ProjectValidationHelper();
 		return INSTANCE;
 	}
+	@Override
 	public void disposeInstance(){
 		INSTANCE = null;
 	}
@@ -53,6 +54,7 @@ public class ProjectValidationHelper implements IProjectValidationHelper {
 		return outputs;
 	
 	}
+	@Override
 	public IContainer[] getOutputContainers(IProject project) {
 		ProjectValidationHelper inst = getInstance();
 		if(inst == null){
@@ -83,6 +85,7 @@ public class ProjectValidationHelper implements IProjectValidationHelper {
 		return sources;
 		
 	}
+	@Override
 	public IContainer[] getSourceContainers(IProject project) {
 		return getInstance().getCachedSourceContainers(project);
 	}

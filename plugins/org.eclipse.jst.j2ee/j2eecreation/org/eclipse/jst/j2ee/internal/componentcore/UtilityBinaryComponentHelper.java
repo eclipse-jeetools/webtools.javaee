@@ -62,6 +62,7 @@ public class UtilityBinaryComponentHelper extends EnterpriseBinaryComponentHelpe
 			return null;
 		}
 
+		@Override
 		public String getUnableToOpenMessage() {
 			return "";//$NON-NLS-1$
 		}
@@ -71,6 +72,7 @@ public class UtilityBinaryComponentHelper extends EnterpriseBinaryComponentHelpe
 
 		private int count = 0;
 
+		@Override
 		public void access() {
 			synchronized (this) {
 				count++;
@@ -89,6 +91,7 @@ public class UtilityBinaryComponentHelper extends EnterpriseBinaryComponentHelpe
 			physicallyClose(this);
 		}
 		
+		@Override
 		public void forceClose(){
 			count = 0;
 			helper.aboutToClose();
@@ -97,10 +100,12 @@ public class UtilityBinaryComponentHelper extends EnterpriseBinaryComponentHelpe
 		
 		private EnterpriseBinaryComponentHelper helper = null;
 		
+		@Override
 		public EnterpriseBinaryComponentHelper getEnterpriseBinaryComponentHelper() {
 			return helper;
 		}
 
+		@Override
 		public void setEnterpriseBinaryComponentHelper(EnterpriseBinaryComponentHelper helper) {
 			this.helper = helper;
 		}

@@ -35,6 +35,7 @@ public class DefaultWSDLServiceHelper implements WSDLServiceHelper {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper#getPortName(java.lang.Object)
 	 */
+	@Override
 	public String getPortName(Object port) {
 		return null;
 	}
@@ -42,6 +43,7 @@ public class DefaultWSDLServiceHelper implements WSDLServiceHelper {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper#getServicePorts(java.lang.Object)
 	 */
+	@Override
 	public Map getServicePorts(Object aService) {
 		return null;
 	}
@@ -49,6 +51,7 @@ public class DefaultWSDLServiceHelper implements WSDLServiceHelper {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper#getServiceNamespaceURI(java.lang.Object)
 	 */
+	@Override
 	public String getServiceNamespaceURI(Object aService) {
 		return null;
 	}
@@ -56,6 +59,7 @@ public class DefaultWSDLServiceHelper implements WSDLServiceHelper {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper#getServiceDefinitionLocation(org.eclipse.emf.ecore.EObject)
 	 */
+	@Override
 	public Object getServiceDefinitionLocation(EObject aService) {
 		return null;
 	}
@@ -63,6 +67,7 @@ public class DefaultWSDLServiceHelper implements WSDLServiceHelper {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper#getPortBindingNamespaceURI(java.lang.Object)
 	 */
+	@Override
 	public String getPortBindingNamespaceURI(Object aPort) {
 		return null;
 	}
@@ -70,6 +75,7 @@ public class DefaultWSDLServiceHelper implements WSDLServiceHelper {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper#getServiceLocalPart(java.lang.Object)
 	 */
+	@Override
 	public String getServiceLocalPart(Object aService) {
 		return null;
 	}
@@ -77,6 +83,7 @@ public class DefaultWSDLServiceHelper implements WSDLServiceHelper {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper#getServiceQName(java.lang.Object)
 	 */
+	@Override
 	public Object getServiceQName(Object aService) {
 		return null;
 	}
@@ -84,6 +91,7 @@ public class DefaultWSDLServiceHelper implements WSDLServiceHelper {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper#getDefinitionServices(java.lang.Object)
 	 */
+	@Override
 	public Map getDefinitionServices(Object aDefinition) {
 		return null;
 	}
@@ -91,6 +99,7 @@ public class DefaultWSDLServiceHelper implements WSDLServiceHelper {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper#getWSDLDefinition(java.lang.String)
 	 */
+	@Override
 	public Object getWSDLDefinition(String wsdlURL) {
 		return null;
 	}
@@ -98,6 +107,7 @@ public class DefaultWSDLServiceHelper implements WSDLServiceHelper {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper#getWSDLDefinition(org.eclipse.emf.ecore.resource.Resource)
 	 */
+	@Override
 	public Object getWSDLDefinition(Resource wsdlResource) {
 		return null;
 	}
@@ -105,20 +115,25 @@ public class DefaultWSDLServiceHelper implements WSDLServiceHelper {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.internal.webservices.WSDLServiceHelper#getWsdlServicesFromWsilFile(org.eclipse.core.resources.IFile)
 	 */
+	@Override
 	public List getWsdlServicesFromWsilFile(IFile wsil) {
 		return null;
 	}
 
+	@Override
 	public boolean isService(Object aService) {
 		return false;
 	}
+	@Override
 	public boolean isWSDLResource(Object aResource) {
 		return false;
 	}
+	@Override
 	public boolean isDefinition(Object aDefinition) {
 		return false;
 	}
 
+	@Override
 	public List get13ServiceRefs(EObject j2eeObject) {
 		return null;
 	}

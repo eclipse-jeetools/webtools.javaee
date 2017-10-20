@@ -52,17 +52,20 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
         private IArchiveExportParticipant extension = null;
         private IDataModel datamodel = null;
 
-        public String getId()
+        @Override
+		public String getId()
         {
             return this.id;
         }
         
-        public IArchiveExportParticipant getParticipant()
+        @Override
+		public IArchiveExportParticipant getParticipant()
         {
             return this.extension;
         }
         
-        public IDataModel getDataModel()
+        @Override
+		public IDataModel getDataModel()
         {
             return this.datamodel;
         }
@@ -331,7 +334,8 @@ public abstract class J2EEArtifactExportDataModelProvider extends AbstractDataMo
         			}
         			if(descriptors.length > 2){
         				Arrays.sort(descriptors, 0, descriptors.length, new Comparator() {
-        					public int compare(Object arg0, Object arg1) {
+        					@Override
+							public int compare(Object arg0, Object arg1) {
         						DataModelPropertyDescriptor d1 = (DataModelPropertyDescriptor)arg0;
         						DataModelPropertyDescriptor d2 = (DataModelPropertyDescriptor)arg1;
         						return d1.getPropertyDescription().compareTo(d2.getPropertyDescription());

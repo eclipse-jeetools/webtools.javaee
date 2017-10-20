@@ -25,7 +25,7 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 
 /**
  * This is the item provider adpater for a
- * {@link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.InterfaceMapping}object. <!-- begin-user-doc --> <!--
+ * { @link org.eclipse.jst.j2ee.internal.internal.webservice.jaxrpcmap.InterfaceMapping}object. <!-- begin-user-doc --> <!--
  * end-user-doc -->
  * 
  * @generated

@@ -26,26 +26,32 @@ public class ApplicationProvidersResourceHandler {
 
 	private static ResourceBundle fgResourceBundle;
 	public static ResourceLocator RESOURCE_LOCATOR = new ResourceLocator() {
+		@Override
 		public URL getBaseURL() {
 			return null;
 		}
 
+		@Override
 		public Object getImage(String arg0) {
 			return J2EEPlugin.getPlugin().getImage(arg0);
 		}
 
+		@Override
 		public String getString(String arg0) {
 			return ApplicationProvidersResourceHandler.getString(arg0);
 		}
 
+		@Override
 		public String getString(String arg0, Object[] arg1) {
 			return ApplicationProvidersResourceHandler.getString(arg0, arg1);
 		}
+		@Override
 		public String getString(String key, boolean translate) {
 			// TODO For now...  translate not supported
 			return getString(key);
 		}
 
+		@Override
 		public String getString(String key, Object[] substitutions, boolean translate) {
 			// TODO For now...  translate not supported
 			return getString(key,substitutions);

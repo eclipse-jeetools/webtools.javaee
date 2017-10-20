@@ -22,6 +22,7 @@ import org.eclipse.wst.common.project.facet.core.runtime.IRuntime;
 
 public final class UtilityFacetPostInstallDelegate extends J2EEFacetInstallDelegate implements IDelegate {
 
+	@Override
 	public void execute(final IProject project, final IProjectFacetVersion fv, final Object cfg, final IProgressMonitor monitor) throws CoreException {
 		if (monitor != null) {
 			monitor.beginTask("", 1); //$NON-NLS-1$

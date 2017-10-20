@@ -18,13 +18,13 @@ import java.util.List;
 import org.eclipse.core.runtime.IPath;
 
 /**
- * {@link IArchiveLoadAdapter} knows how to load or read the contents for an
- * {@link IArchive}. This provides a delegation model for reading in the
+ * { @link IArchiveLoadAdapter} knows how to load or read the contents for an
+ * { @link IArchive}. This provides a delegation model for reading in the
  * contents of an {@link IArchive}.
  * 
  * By extending {@link AbstractArchiveLoadAdapter} and using
- * {@link ArchiveOptions} clients may "plug in" to an instance of an
- * {@link IArchive}. Examples might include reading from a zip file, from an
+ * { @link ArchiveOptions} clients may "plug in" to an instance of an
+ * { @link IArchive}. Examples might include reading from a zip file, from an
  * input stream, from the local file system, or from a workbench.
  * 
  * This interface is not intended to be implemented by or subclassed by clients.
@@ -42,8 +42,8 @@ public interface IArchiveLoadAdapter extends IArchiveAdapter {
 	 * Returns <code>true</code> if this {@link IArchiveLoadAdapter} contains
 	 * the {@link IArchiveResource} specified by the passed {@link IPath}. If
 	 * this method returns <code>true</code> then this
-	 * {@link IArchiveLoadAdapter} should be able to successfully return an
-	 * {@link IArchiveResource} from {@link #getArchiveResource(IPath)} using an
+	 * { @link IArchiveLoadAdapter} should be able to successfully return an
+	 * { @link IArchiveResource} from {@link #getArchiveResource(IPath)} using an
 	 * equal passed {@link IPath}.
 	 * 
 	 * @param resourcePath
@@ -53,8 +53,8 @@ public interface IArchiveLoadAdapter extends IArchiveAdapter {
 
 	/**
 	 * Returns the {@link IArchiveResource} specified by the passed
-	 * {@link IPath}. A {@link FileNotFoundException} is thrown if this
-	 * {@link IArchiveLoadAdapter} does not contain the {@link IArchiveResource}
+	 * { @link IPath}. A {@link FileNotFoundException} is thrown if this
+	 * { @link IArchiveLoadAdapter} does not contain the {@link IArchiveResource}
 	 * as specified by {@link #containsArchiveResource(IPath)}.
 	 * 
 	 * @param resourcePath
@@ -65,7 +65,7 @@ public interface IArchiveLoadAdapter extends IArchiveAdapter {
 
 	/**
 	 * Returns a {@link List} of all {@link IArchiveResource} contained by this
-	 * {@link IArchiveLoadAdapter}.
+	 * { @link IArchiveLoadAdapter}.
 	 * 
 	 * @return
 	 */
@@ -74,7 +74,7 @@ public interface IArchiveLoadAdapter extends IArchiveAdapter {
 	/**
 	 * Returns an {@link InputStream} for the specified {@link IArchiveResource}.
 	 * If the specified {@link IArchiveResource} is not contained by this
-	 * {@link IArchiveLoadAdapter}, then a {@link FileNotFoundException} is
+	 * { @link IArchiveLoadAdapter}, then a {@link FileNotFoundException} is
 	 * thrown. An {@link IOException} is thrown for all other errors.
 	 * 
 	 * @param archiveResource
@@ -95,8 +95,8 @@ public interface IArchiveLoadAdapter extends IArchiveAdapter {
 
 	/**
 	 * Returns the model Object specified by the passed {@link IPath}. An
-	 * {@link ArchiveModelLoadException} is thrown if this
-	 * {@link IArchiveLoadAdapter} does not contain the model Object as
+	 * { @link ArchiveModelLoadException} is thrown if this
+	 * { @link IArchiveLoadAdapter} does not contain the model Object as
 	 * specified by {@link #containsModelObject(IPath)}.
 	 * 
 	 * @param modelObjectPath

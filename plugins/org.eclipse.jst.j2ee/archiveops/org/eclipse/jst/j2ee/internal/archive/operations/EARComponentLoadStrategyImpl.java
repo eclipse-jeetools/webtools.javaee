@@ -98,7 +98,7 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 					if(jeeVersion == J2EEVersionConstants.JEE_5_0_ID){
 						forceUtility = true;
 					}
-					diskFile = (java.io.File)referencedComponent.getAdapter(java.io.File.class);
+					diskFile = referencedComponent.getAdapter(java.io.File.class);
 				}
 				boolean isModule = false;
 				if(!forceUtility){
@@ -185,7 +185,7 @@ public class EARComponentLoadStrategyImpl extends ComponentLoadStrategyImpl {
 				// only ../ runtime paths contribute to the EAR
 				if (ref.getRuntimePath().equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH)) {
 					if (ref.getReferencedComponent() instanceof IClasspathDependencyComponent) {
-						File cpEntryFile = (java.io.File)ref.getReferencedComponent().getAdapter(java.io.File.class);
+						File cpEntryFile = ref.getReferencedComponent().getAdapter(java.io.File.class);
 						addExternalFile(ref.getArchiveName(), cpEntryFile);
 					}
 				}

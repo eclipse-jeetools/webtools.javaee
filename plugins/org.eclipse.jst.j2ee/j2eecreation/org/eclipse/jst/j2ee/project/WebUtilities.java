@@ -279,6 +279,7 @@ public class WebUtilities extends JavaEEProjectUtilities {
 		IProject[] webProjects = (IProject[]) result.toArray(new IProject[result.size()]);
 		// sort the list so it is consistent
 		Arrays.sort(webProjects, new Comparator<IProject>() {
+			@Override
 			public int compare(IProject p0, IProject p1) {
 				return p0.getName().compareTo(p1.getName());
 			}

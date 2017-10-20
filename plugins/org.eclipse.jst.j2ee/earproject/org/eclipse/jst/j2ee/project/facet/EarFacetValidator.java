@@ -37,7 +37,8 @@ public final class EarFacetValidator
     private static final String MARKER_ID 
         = J2EEPlugin.PLUGIN_ID + ".differentRuntimesDetected"; //$NON-NLS-1$
     
-    public void validate( final IFacetedProject fproj ) 
+    @Override
+	public void validate( final IFacetedProject fproj ) 
     
         throws CoreException
         

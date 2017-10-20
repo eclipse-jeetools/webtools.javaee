@@ -107,7 +107,7 @@ public class EARComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter 
 			}
 			
 			if (referencedComponent.isBinary()) {
-				java.io.File diskFile = (java.io.File)referencedComponent.getAdapter(java.io.File.class);
+				java.io.File diskFile = referencedComponent.getAdapter(java.io.File.class);
 				binaryResourcesToDiskFiles.put(nestedModuleResource, diskFile);
 			} else if(null != nestedModuleArchive){
 				// Bug 220912 - set "export source" flag before calling JavaEEQuickPeek
@@ -145,7 +145,7 @@ public class EARComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter 
 				final IVirtualReference ref = cpRefs[j];
 				// only ../ runtime paths contribute to the EAR
 				if (ref.getRuntimePath().equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH)) {
-					File cpEntryFile = (File)ref.getReferencedComponent().getAdapter(File.class);
+					File cpEntryFile = ref.getReferencedComponent().getAdapter(File.class);
 					addExternalFile(new Path(ref.getArchiveName()), cpEntryFile);
 				}
 			}

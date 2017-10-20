@@ -186,6 +186,7 @@ public class LibCopyBuilder extends IncrementalProjectBuilder {
 		IResourceDeltaVisitor visitor = new IResourceDeltaVisitor() {
 			private List copiedClassFolders = new ArrayList(classesFolders.length);
 
+			@Override
 			public boolean visit(IResourceDelta subdelta) throws CoreException {
 				IResource resource = subdelta.getResource();
 				if (resource.getType() == IResource.FILE) {
@@ -306,6 +307,7 @@ public class LibCopyBuilder extends IncrementalProjectBuilder {
 		final int sourcePathLength = source.getFullPath().segmentCount();
 
 		class Visitor implements IResourceVisitor {
+			@Override
 			public boolean visit(IResource res) throws CoreException {
 				if (res.getType() == IResource.FILE) {
 					IFile file = (IFile) res;

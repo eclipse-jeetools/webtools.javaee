@@ -22,6 +22,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 
 public class JavaEEModuleHandler implements IModuleHandler {
 
+	@Override
 	public String getArchiveName(IProject proj,IVirtualComponent comp) {
 		if (comp != null)
 			return JavaEEProjectUtilities.getComponentURI(comp);
@@ -29,10 +30,12 @@ public class JavaEEModuleHandler implements IModuleHandler {
 		
 	}
 	
+	@Override
 	public boolean setComponentAttributes(IProject proj) {
 		return true;
 	}
 
+	@Override
 	public List<IProject> getFilteredProjectListForAdd(IVirtualComponent sourceComponent, List<IProject> availableProjects) {
 		Iterator<IProject> i = availableProjects.iterator();
 		IProject p;

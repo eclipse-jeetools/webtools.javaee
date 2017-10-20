@@ -20,7 +20,6 @@ import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.edit.command.AddCommand;
-import org.eclipse.emf.edit.command.RemoveCommand;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -65,7 +64,7 @@ public class SecurityConstraintItemProvider extends WebapplicationItemProviderAd
 
 	/**
 	 * This specifies how to implement {@link #getChildren}and {@link AddCommand}and
-	 * {@link RemoveCommand}support in {@link #createCommand}.
+	 * { @link RemoveCommand}support in {@link #createCommand}.
 	 */
 	@Override
 	public Collection getChildrenReferences(Object object) {
@@ -110,7 +109,7 @@ public class SecurityConstraintItemProvider extends WebapplicationItemProviderAd
 
 	/**
 	 * This returns the help text for
-	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.commandCreateChildCommand}.
+	 * { @link org.eclipse.jst.j2ee.internal.internal.webapplication.commandCreateChildCommand}.
 	 */
 	@Override
 	public String getCreateChildToolTipText(Object object) {

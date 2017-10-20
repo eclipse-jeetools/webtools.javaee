@@ -63,6 +63,7 @@ public class J2EEElementChangedListener implements IElementChangedListener {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jdt.core.IElementChangedListener#elementChanged(org.eclipse.jdt.core.ElementChangedEvent)
 	 */
+	@Override
 	public void elementChanged(final ElementChangedEvent event) {
 		processJavaElementDelta(event.getDelta());
 	}

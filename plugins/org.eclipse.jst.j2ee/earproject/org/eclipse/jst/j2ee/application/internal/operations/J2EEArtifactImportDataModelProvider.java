@@ -293,6 +293,7 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 		return super.getValidPropertyDescriptors(propertyName);
 	}
 
+	@Override
 	public void propertyChanged(DataModelEvent event) {
 		if (!doingComponentUpdate && event.getDataModel() == componentCreationDM && event.getPropertyName().equals(PROJECT_NAME) && getBooleanProperty(USE_DEFAULT_PROJECT_NAME)) {
 			setBooleanProperty(USE_DEFAULT_PROJECT_NAME, false);

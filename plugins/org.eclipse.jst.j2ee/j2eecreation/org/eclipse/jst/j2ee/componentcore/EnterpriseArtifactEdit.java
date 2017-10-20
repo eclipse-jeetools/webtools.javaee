@@ -190,6 +190,7 @@ public abstract class EnterpriseArtifactEdit extends ArtifactEdit implements Wor
 	 * @return the working copy of the compilation unit, or <code>null</code> if there is no
 	 *         remembered working copy for this compilation unit
 	 */
+	@Override
 	public ICompilationUnit getWorkingCopy(ICompilationUnit cu, boolean forNewCU) throws org.eclipse.core.runtime.CoreException {
 		if (isReadOnly())
 			return null;
@@ -227,6 +228,7 @@ protected boolean primValidProjectVersion(IProject project) {
 	 *         not encode an editor input, or if there is no remembered working copy for this
 	 *         compilation unit
 	 */
+	@Override
 	public ICompilationUnit getExistingWorkingCopy(ICompilationUnit cu) throws org.eclipse.core.runtime.CoreException {
 		return getWorkingCopyManager().getExistingWorkingCopy(cu);
 	}
@@ -242,6 +244,7 @@ protected boolean primValidProjectVersion(IProject project) {
 	 * 
 	 * @cu from the workbench and fix the internal references for this working copy manager.
 	 */
+	@Override
 	public void delete(org.eclipse.jdt.core.ICompilationUnit cu, org.eclipse.core.runtime.IProgressMonitor monitor) {
 		getWorkingCopyManager().delete(cu, monitor);
 	}
@@ -281,6 +284,7 @@ protected boolean primValidProjectVersion(IProject project) {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.model.IModelProvider#getModelObject()
 	 */
+	@Override
 	public Object getModelObject() {
 		if ( getWritableEdit() != null)
 			return getWritableEdit().getContentModelRoot();
@@ -290,6 +294,7 @@ protected boolean primValidProjectVersion(IProject project) {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.model.IModelProvider#getModelObject(org.eclipse.core.runtime.IPath)
 	 */
+	@Override
 	public Object getModelObject(IPath modelPath) {
 		if ( getWritableEdit() != null) {
 			Resource res = ((ArtifactEditModel)getWritableEdit().getAdapter(ArtifactEditModel.ADAPTER_TYPE)).getResource(URI.createURI(modelPath.toString()));
@@ -300,10 +305,12 @@ protected boolean primValidProjectVersion(IProject project) {
 		return getContentModelRoot();
 	}
 
+	@Override
 	public IModelProvider create(IProject project) {
 		return (IModelProvider)getArtifactEditForRead(project);
 	}
 
+	@Override
 	public IModelProvider create(IVirtualComponent component) {
 		return (IModelProvider)getArtifactEditForRead(component);
 	}
@@ -311,6 +318,7 @@ protected boolean primValidProjectVersion(IProject project) {
 	/* (non-Javadoc)
 	 * @see org.eclipse.jst.j2ee.model.IModelProvider#modify(java.lang.Runnable, org.eclipse.core.runtime.IPath)
 	 */
+	@Override
 	public void modify(Runnable runnable, IPath modelPath) {
 		//About to modify and save this model
 		
@@ -323,6 +331,7 @@ protected boolean primValidProjectVersion(IProject project) {
 		
 	}
 
+	@Override
 	public IStatus validateEdit(IPath modelPath, Object context) {
 		// ArtifactEdit will validate all files it manages, and uses its own context mechanism
 		return validateEdit();
@@ -342,6 +351,7 @@ protected boolean primValidProjectVersion(IProject project) {
 		return writableEdit;
 	}
 	
+	@Override
 	public void addListener(IModelProviderListener listener)
 	{
 		if (listener instanceof EditModelListener)
@@ -350,6 +360,7 @@ protected boolean primValidProjectVersion(IProject project) {
 		}
 	}
 
+	@Override
 	public void removeListener(IModelProviderListener listener)
 	{
 		if (listener instanceof EditModelListener)

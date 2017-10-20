@@ -148,6 +148,7 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 									saveFlag = IModelProvider.FORCESAVE;
 								
 								earModel.modify(new Runnable() {
+									@Override
 									public void run() {
 										final ICommonApplication application = (ICommonApplication)earModel.getModelObject();
 										if(application != null) {
@@ -217,7 +218,7 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 		boolean useNewModel = earDDVersion.equals(J2EEVersionConstants.VERSION_5_0_TEXT) || earDDVersion.equals(J2EEVersionConstants.VERSION_6_0_TEXT) || earDDVersion.equals(J2EEVersionConstants.VERSION_7_0_TEXT);
 		String contextroot = null;
 		if (wc.isBinary()) {
-			IPath path = (IPath)wc.getAdapter(IPath.class);
+			IPath path = wc.getAdapter(IPath.class);
 			contextroot = path.removeFileExtension().lastSegment();
 		} else
 			contextroot = ComponentUtilities.getServerContextRoot(wc.getProject());

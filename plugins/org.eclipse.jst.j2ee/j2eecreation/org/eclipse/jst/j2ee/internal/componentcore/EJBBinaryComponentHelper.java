@@ -66,6 +66,7 @@ public class EJBBinaryComponentHelper extends EnterpriseBinaryComponentHelper {
 
 		private int count = 0;
 
+		@Override
 		public void access() {
 			synchronized (this) {
 				count++;
@@ -84,6 +85,7 @@ public class EJBBinaryComponentHelper extends EnterpriseBinaryComponentHelper {
 			physicallyClose(this);
 		}
 		
+		@Override
 		public void forceClose(){
 			count = 0;
 			helper.aboutToClose();
@@ -92,10 +94,12 @@ public class EJBBinaryComponentHelper extends EnterpriseBinaryComponentHelper {
 		
 		private EnterpriseBinaryComponentHelper helper = null;
 		
+		@Override
 		public EnterpriseBinaryComponentHelper getEnterpriseBinaryComponentHelper() {
 			return helper;
 		}
 
+		@Override
 		public void setEnterpriseBinaryComponentHelper(EnterpriseBinaryComponentHelper helper) {
 			this.helper = helper;
 		}

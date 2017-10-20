@@ -225,7 +225,7 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 			ClasspathLibraryExpander classpathLibExpander = new ClasspathLibraryExpander(rootComponent, reference);
 			List<IFlatFile> flatLibs = classpathLibExpander.fetchFlatFiles();
 			for (IFlatFile flatFile : flatLibs) {
-				File file = (File) flatFile.getAdapter(File.class);
+				File file = flatFile.getAdapter(File.class);
 				if (file != null) {
 					String type = VirtualArchiveComponent.LIBARCHIVETYPE + IPath.SEPARATOR;
 					IVirtualComponent dynamicComponent = ComponentCore.createArchiveComponent(

@@ -31,10 +31,12 @@ public class OptionalRefactorHandler implements IOptionalRefactorHandler{
 	private OptionalRefactorHandler () {
 		SafeRunner.run(new ISafeRunnable() {
 
+			@Override
 			public void handleException(Throwable exception) {
 				J2EEPlugin.logError(0, exception.getMessage(), exception);
 			}
 
+			@Override
 			public void run() throws Exception {
 				OptionalRefactorHandlerRegistryReader reader = new OptionalRefactorHandlerRegistryReader();
 				reader.readRegistry();
@@ -51,7 +53,8 @@ public class OptionalRefactorHandler implements IOptionalRefactorHandler{
     /* (non-Javadoc)
      * @see org.eclipse.jst.j2ee.refactor.operations.IOptionalRefactorHandler#shouldRefactorDeletedProject(org.eclipse.jst.j2ee.refactor.operations.ProjectRefactorMetadata)
      */
-    public boolean shouldRefactorDeletedProject(final ProjectRefactorMetadata metadata) {
+    @Override
+	public boolean shouldRefactorDeletedProject(final ProjectRefactorMetadata metadata) {
         for(int i=0;i<handlers.length; i++){
             if(!handlers[i].shouldRefactorDeletedProject(metadata)){
                 return false;
@@ -63,7 +66,8 @@ public class OptionalRefactorHandler implements IOptionalRefactorHandler{
     /* (non-Javadoc)
      * @see org.eclipse.jst.j2ee.refactor.operations.IOptionalRefactorHandler#shouldRefactorRenamedProject(org.eclipse.jst.j2ee.refactor.operations.ProjectRefactorMetadata)
      */
-    public boolean shouldRefactorRenamedProject(final ProjectRefactorMetadata metadata) {
+    @Override
+	public boolean shouldRefactorRenamedProject(final ProjectRefactorMetadata metadata) {
         for(int i=0;i<handlers.length; i++){
             if(!handlers[i].shouldRefactorRenamedProject(metadata)){
                 return false;
@@ -75,7 +79,8 @@ public class OptionalRefactorHandler implements IOptionalRefactorHandler{
     /* (non-Javadoc)
      * @see org.eclipse.jst.j2ee.refactor.operations.IOptionalRefactorHandler#shouldRefactorDependentProjectOnDelete(org.eclipse.jst.j2ee.refactor.operations.ProjectRefactorMetadata, org.eclipse.jst.j2ee.refactor.operations.ProjectRefactorMetadata)
      */
-    public boolean shouldRefactorDependentProjectOnDelete(final ProjectRefactorMetadata deletedMetadata, ProjectRefactorMetadata dependentMetadata) {
+    @Override
+	public boolean shouldRefactorDependentProjectOnDelete(final ProjectRefactorMetadata deletedMetadata, ProjectRefactorMetadata dependentMetadata) {
         for(int i=0;i<handlers.length; i++){
             if(!handlers[i].shouldRefactorDependentProjectOnDelete(deletedMetadata, dependentMetadata)){
                 return false;
@@ -87,7 +92,8 @@ public class OptionalRefactorHandler implements IOptionalRefactorHandler{
     /* (non-Javadoc)
      * @see org.eclipse.jst.j2ee.refactor.operations.IOptionalRefactorHandler#shouldRefactorDependentProjectOnRename(org.eclipse.jst.j2ee.refactor.operations.ProjectRefactorMetadata, org.eclipse.jst.j2ee.refactor.operations.ProjectRefactorMetadata)
      */
-    public boolean shouldRefactorDependentProjectOnRename(final ProjectRefactorMetadata renamedMetadata, ProjectRefactorMetadata dependentMetadata) {
+    @Override
+	public boolean shouldRefactorDependentProjectOnRename(final ProjectRefactorMetadata renamedMetadata, ProjectRefactorMetadata dependentMetadata) {
         for(int i=0;i<handlers.length; i++){
             if(!handlers[i].shouldRefactorDependentProjectOnRename(renamedMetadata, dependentMetadata)){
                 return false;
@@ -121,10 +127,12 @@ public class OptionalRefactorHandler implements IOptionalRefactorHandler{
 
 				SafeRunner.run(new ISafeRunnable() {
 
+					@Override
 					public void handleException(Throwable exception) {
 						J2EEPlugin.logError(0, exception.getMessage(), exception);
 					}
 
+					@Override
 					public void run() throws Exception {
 						handlerArray[0] = (IOptionalRefactorHandler) element.createExecutableExtension(ATT_CLASS);
 					}

@@ -58,7 +58,7 @@ import org.eclipse.jem.util.plugin.JEMUtilPlugin.CleanResourceChangeListener;
  * Now roots can either be in a project, or they can be an external jar (which can be shared between projects).
  * <p>
  * Now all roots for a project will be stored in the project's working location
- * {@link org.eclipse.core.resources.IProject#getWorkingLocation(java.lang.String)}under the ".cache" directory. It will be this format in each
+ * { @link org.eclipse.core.resources.IProject#getWorkingLocation(java.lang.String)}under the ".cache" directory. It will be this format in each
  * project location (under the org.eclipse.jem.beaninfo directory):
  * 
  * <pre>
@@ -72,7 +72,7 @@ import org.eclipse.jem.util.plugin.JEMUtilPlugin.CleanResourceChangeListener;
  * root's in the directory.
  * <p>
  * All of the external jar roots will be stored in the org.eclipse.jem.beaninfo plugin's state location
- * {@link org.eclipse.core.runtime.Platform#getStateLocation(org.osgi.framework.Bundle)}under the ".cache" directory. The format of this directory
+ * { @link org.eclipse.core.runtime.Platform#getStateLocation(org.osgi.framework.Bundle)}under the ".cache" directory. The format of this directory
  * will be the same as for each project. And the roots will be for each unique shared external jar (such as the differnt jre's rt.jars).
  * <p>
  * Note: There are so many places where synchronization is needed, so it is decided to synchronize only on BeanInfoCacheController.INSTANCE. It would

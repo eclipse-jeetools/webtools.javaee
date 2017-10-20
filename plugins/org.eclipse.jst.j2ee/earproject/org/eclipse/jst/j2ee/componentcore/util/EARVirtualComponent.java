@@ -68,14 +68,17 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 		super(aProject, aRuntimePath);
 	}
 
+	@Override
 	public IVirtualComponent createArchiveComponent(IProject aProject, String archiveLocation, IPath aRuntimePath) {
 		return new J2EEModuleVirtualArchiveComponent(aProject, archiveLocation, aRuntimePath);
 	}
 	
+	@Override
 	public IVirtualComponent createComponent(IProject aProject) {
 		return new EARVirtualComponent(aProject, new Path("/")); //$NON-NLS-1$
 	}
 
+	@Override
 	public IVirtualFolder createFolder(IProject aProject, IPath aRuntimePath) {
 		return new VirtualFolder(aProject, aRuntimePath);
 	}
@@ -264,10 +267,12 @@ public class EARVirtualComponent extends VirtualComponent implements IComponentI
 		cachedReferences = null;
 	}
 
+	@Override
 	public boolean canReceiveClasspathDependencies() {
 		return true;
 	}
 
+	@Override
 	public IPath getClasspathFolderPath(IClasspathDependencyComponent component) {
 		return Path.EMPTY;
 	}

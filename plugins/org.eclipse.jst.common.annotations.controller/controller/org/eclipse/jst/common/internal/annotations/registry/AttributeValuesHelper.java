@@ -24,7 +24,7 @@ public interface AttributeValuesHelper {
 
 	/**
 	 * Return a simple String array containing the valid values for the given
-	 * {@link TagAttributeSpec}and {@link IJavaElement}.
+	 * { @link TagAttributeSpec}and {@link IJavaElement}.
 	 * 
 	 * @param tas
 	 * @param javaElement

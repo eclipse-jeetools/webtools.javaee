@@ -142,7 +142,7 @@ public abstract class AbstractAnnotationModelProvider<T> implements IElementChan
 
 	/**
 	 * Notifies the currently registered listeners with this model event. If the
-	 * {@link IModelProviderEvent#getChangedResources()} is empty or
+	 * { @link IModelProviderEvent#getChangedResources()} is empty or
 	 * <code>null</code> the method returns immediately.
 	 * 
 	 * @param event
@@ -359,7 +359,7 @@ public abstract class AbstractAnnotationModelProvider<T> implements IElementChan
 	 * roles defined in the bean. If this is the only bean in which the role is
 	 * defined, the role will also be deleted. Calling this method makes sense
 	 * only if the bean and the security role and the bean were connected with
-	 * {@link #connectWithRole(SecurityRole, SessionBean)}
+	 * { @link #connectWithRole(SecurityRole, SessionBean)}
 	 * 
 	 * <p>
 	 * If the bean is not of type org.eclipse.jst.javaee.ejb.SessionBean the

@@ -165,8 +165,8 @@ public class PortComponentItemProvider extends ItemProviderAdapter implements IE
 
 	/**
 	 * This specifies how to implement {@link #getChildren}and
-	 * {@link org.eclipse.emf.edit.command.AddCommand}and
-	 * {@link org.eclipse.emf.edit.command.RemoveCommand}support in {@link #createCommand}. <!--
+	 * { @link org.eclipse.emf.edit.command.AddCommand}and
+	 * { @link org.eclipse.emf.edit.command.RemoveCommand}support in {@link #createCommand}. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -305,8 +305,8 @@ public class PortComponentItemProvider extends ItemProviderAdapter implements IE
 
 	/**
 	 * This implements
-	 * {@link ITreeItemContentProvider#getChildren ITreeItemContentProvider.getChildren}by calling
-	 * {@link #getChildrenReferences getChildrenReferences}and using those to collect the children.
+	 * { @link ITreeItemContentProvider#getChildren ITreeItemContentProvider.getChildren}by calling
+	 * { @link #getChildrenReferences getChildrenReferences}and using those to collect the children.
 	 */
 	@Override
 	public Collection getChildren(Object object) {

@@ -110,6 +110,7 @@ public class ProjectRenameOperation extends ProjectRefactorOperation {
 		final IModelProvider model = ModelProviderManager.getModelProvider(refactoredProject);
 		if (model != null) {
 			model.modify(new Runnable() {
+				@Override
 				public void run() {
 					final Object modelObject = model.getModelObject();
 					if (modelObject instanceof CompatibilityDescriptionGroup) {

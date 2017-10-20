@@ -85,7 +85,7 @@ public interface LoadStrategy {
 	/**
 	 * Returns an input stream on an entry named by the parameter, from the "resources path" of the
 	 * loose archive if it exists, Otherwise the default behavior is the same as
-	 * {@link #getInputStream(String)}
+	 * { @link #getInputStream(String)}
 	 */
 	public InputStream getResourceInputStream(String uri) throws IOException;
 

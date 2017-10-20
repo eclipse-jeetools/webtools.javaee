@@ -82,7 +82,7 @@ public class WebComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter 
 			IVirtualReference iLibModule = libModules[i];
 			IVirtualComponent looseComponent = iLibModule.getReferencedComponent();
 			if (looseComponent.isBinary()) {
-				java.io.File diskFile = (java.io.File)looseComponent.getAdapter(java.io.File.class);
+				java.io.File diskFile = looseComponent.getAdapter(java.io.File.class);
 				IPath uri = iLibModule.getRuntimePath().makeRelative().append("/" + diskFile.getName()); //$NON-NLS-1$
 				addExternalFile(uri, diskFile);				
 			} else {
@@ -147,7 +147,7 @@ public class WebComponentArchiveLoadAdapter extends ComponentArchiveLoadAdapter 
 				// only process ../ mappings
 				if (ref.getReferencedComponent() instanceof IClasspathDependencyComponent
 						&& runtimePath.equals(IClasspathDependencyConstants.RUNTIME_MAPPING_INTO_CONTAINER_PATH)) {
-					File cpEntryFile = (java.io.File)ref.getReferencedComponent().getAdapter(java.io.File.class);
+					File cpEntryFile = ref.getReferencedComponent().getAdapter(java.io.File.class);
 					addExternalFile(new Path("WEB-INF/lib/" + ref.getArchiveName()), cpEntryFile); //$NON-NLS-1$
 				}
 			}
