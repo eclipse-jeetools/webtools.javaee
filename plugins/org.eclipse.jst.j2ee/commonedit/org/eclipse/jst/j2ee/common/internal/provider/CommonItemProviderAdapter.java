@@ -26,7 +26,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 /**
  * This extended item provider supports two addition features, (@link CreateChildCommand} and
- * {@link CreateChildrenCommand}. These two actions are implemented uniformly on all our item
+ * { @link CreateChildrenCommand}. These two actions are implemented uniformly on all our item
  * adapters using this common base class.
  */
 public class CommonItemProviderAdapter extends ItemProviderAdapter {
@@ -103,7 +103,7 @@ public class CommonItemProviderAdapter extends ItemProviderAdapter {
 
 	/**
 	 * This returns the default help text for
-	 * {@link com.ibm.etools.common.command.CreateChildCommand}.
+	 * { @link com.ibm.etools.common.command.CreateChildCommand}.
 	 */
 	public String getCreateChildToolTipText(Object object) {
 		EObject refObject = (EObject) object;

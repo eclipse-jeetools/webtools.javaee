@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * {@link ArchiveOptions} is a means for passing data pertaining to opening and
+ * { @link ArchiveOptions} is a means for passing data pertaining to opening and
  * saving {@link IArchive}s. This class is simply a wrapper around {@link Map}
  * and a few well defined OptionKeys. Clients are welcome to define and set/get
  * any options deemed necessary.

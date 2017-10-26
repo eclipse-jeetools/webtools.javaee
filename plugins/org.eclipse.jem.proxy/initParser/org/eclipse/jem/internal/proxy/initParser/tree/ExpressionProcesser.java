@@ -686,7 +686,7 @@ public class ExpressionProcesser {
 	/**
 	 * Pull the value of the expression proxy, dereferencing it if necessary. This is for resolution only purposes at the
 	 * end of the expression being processed. Not meant for general access to the value of expression proxy. Use 
-	 * {@link ExpressionProcesser#getExpressionProxyValue(int, Object[])} instead for general access to the value.
+	 * { @link ExpressionProcesser#getExpressionProxyValue(int, Object[])} instead for general access to the value.
 	 * 
 	 * @param proxyid
 	 * @param value

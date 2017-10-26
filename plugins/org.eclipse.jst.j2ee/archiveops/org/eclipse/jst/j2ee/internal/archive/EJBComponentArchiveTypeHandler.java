@@ -17,6 +17,7 @@ import org.eclipse.jst.jee.archive.IArchiveHandler;
 
 public class EJBComponentArchiveTypeHandler implements IArchiveHandler {
 
+	@Override
 	public boolean handlesArchive(IArchive archive) {
 		if (archive.getLoadAdapter() instanceof EJBComponentArchiveLoadAdapter) {
 			return true;

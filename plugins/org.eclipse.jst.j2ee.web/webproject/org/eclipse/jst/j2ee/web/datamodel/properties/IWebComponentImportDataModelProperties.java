@@ -12,9 +12,7 @@ package org.eclipse.jst.j2ee.web.datamodel.properties;
 
 import java.util.List;
 
-import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.datamodel.properties.IJ2EEModuleImportDataModelProperties;
-import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
 /**
  * <p>
@@ -38,7 +36,7 @@ public interface IWebComponentImportDataModelProperties extends IJ2EEModuleImpor
 	 * <p>
 	 * This optional {@link List} property is used to specify which nested web libraries should be
 	 * expanded into projects during import. The contents of this {@link List} property should be
-	 * {@link Archive}s.
+	 * { @link Archive}s.
 	 * </p>
 	 */
 	public static final String WEB_LIB_ARCHIVES_SELECTED = "WARImportDataModel.WEB_LIB_ARCHIVES_SELECTED"; //$NON-NLS-1$
@@ -46,7 +44,7 @@ public interface IWebComponentImportDataModelProperties extends IJ2EEModuleImpor
 	/**
 	 * <p>
 	 * This {@link List} property should not be set by clients. This list contains the
-	 * {@link IDataModel}s for creating the new components to be created for each of the selected
+	 * { @link IDataModel}s for creating the new components to be created for each of the selected
 	 * archives. This list will contain one entry for each web lib archive regardless of whether it
 	 * is selected for import by the {@link #WEB_LIB_ARCHIVES_SELECTED} property.
 	 * </p>

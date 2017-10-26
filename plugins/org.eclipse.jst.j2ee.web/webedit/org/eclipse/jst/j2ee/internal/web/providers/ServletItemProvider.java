@@ -20,7 +20,6 @@ import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.edit.command.AddCommand;
-import org.eclipse.emf.edit.command.RemoveCommand;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
@@ -60,7 +59,7 @@ public class ServletItemProvider extends CompatibilityDescriptionGroupItemProvid
 
 	/**
 	 * This specifies how to implement {@link #getChildren}and {@link AddCommand}and
-	 * {@link RemoveCommand}support in {@link #createCommand}.
+	 * { @link RemoveCommand}support in {@link #createCommand}.
 	 */
 	@Override
 	public Collection getChildrenReferences(Object object) {
@@ -110,7 +109,7 @@ public class ServletItemProvider extends CompatibilityDescriptionGroupItemProvid
 
 	/**
 	 * This returns the help text for
-	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.commandCreateChildCommand}.
+	 * { @link org.eclipse.jst.j2ee.internal.internal.webapplication.commandCreateChildCommand}.
 	 */
 	public String getCreateChildToolTipText(Object object) {
 		EObject refObject = (EObject) object;
@@ -192,7 +191,7 @@ public class ServletItemProvider extends CompatibilityDescriptionGroupItemProvid
 
 	/**
 	 * This implements
-	 * {@link IItemPropertySource#getPropertyValue IItemPropertySource.getPropertyValue}by
+	 * { @link IItemPropertySource#getPropertyValue IItemPropertySource.getPropertyValue}by
 	 * delegating to the descriptor, which is assumed to support the IItemPropertyDescriptor
 	 * interface
 	 */
@@ -291,7 +290,7 @@ public class ServletItemProvider extends CompatibilityDescriptionGroupItemProvid
 
 	/**
 	 * This implements
-	 * {@link IItemPropertySource#setPropertyValue IItemPropertySource.setPropertyValue}by
+	 * { @link IItemPropertySource#setPropertyValue IItemPropertySource.setPropertyValue}by
 	 * delegating to the descriptor, which is assumed to support the IItemPropertyDescriptor
 	 * interface
 	 */

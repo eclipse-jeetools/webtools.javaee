@@ -281,6 +281,7 @@ public class EarUtilities extends JavaEEProjectUtilities {
 		IProject[] earProjects = (IProject[]) result.toArray(new IProject[result.size()]);
 		// sort the list so it is consistent
 		Arrays.sort(earProjects, new Comparator<IProject>() {
+			@Override
 			public int compare(IProject p0, IProject p1) {
 				return p0.getName().compareTo(p1.getName());
 			}
@@ -302,7 +303,7 @@ public class EarUtilities extends JavaEEProjectUtilities {
 
 	/**
 	 * Equivalent to calling
-	 * {@link #getUtilityModuleReferences(IVirtualComponent, boolean)} passing
+	 * { @link #getUtilityModuleReferences(IVirtualComponent, boolean)} passing
 	 * <code>false</code>.
 	 * 
 	 * @param earComponent

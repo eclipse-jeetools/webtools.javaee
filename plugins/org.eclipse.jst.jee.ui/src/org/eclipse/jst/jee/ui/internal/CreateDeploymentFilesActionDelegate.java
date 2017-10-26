@@ -59,7 +59,7 @@ public class CreateDeploymentFilesActionDelegate extends BaseAction {
 		if (project == null){
 			Object firstElement = structuredSelection.getFirstElement();
 			if (IAdaptable.class.isInstance(firstElement)){
-				return (IProject) ((IAdaptable) firstElement).getAdapter(IProject.class);
+				return ((IAdaptable) firstElement).getAdapter(IProject.class);
 			}
 		}
 		return project;

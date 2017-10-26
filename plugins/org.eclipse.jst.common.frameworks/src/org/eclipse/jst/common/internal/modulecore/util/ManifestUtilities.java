@@ -83,7 +83,7 @@ public class ManifestUtilities {
 	}
 	
 	public static ArchiveManifest getBinaryComponentManifest(IVirtualComponent component, IPath manifestPath) {
-		java.io.File file = (File)component.getAdapter(File.class);
+		java.io.File file = component.getAdapter(File.class);
 		if( file != null && file.exists()) {
 			ArchiveManifest manifest = readBinaryManifest(file, manifestPath);
 			return manifest;

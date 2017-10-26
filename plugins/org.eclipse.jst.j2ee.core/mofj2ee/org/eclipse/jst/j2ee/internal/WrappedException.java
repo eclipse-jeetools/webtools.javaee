@@ -59,7 +59,7 @@ public java.lang.Exception getNestedException() {
  * <code>Throwable.getCause()</code>.
  */
 @Override
-public java.lang.Throwable getCause() {
+public synchronized java.lang.Throwable getCause() {
 	return getNestedException();
 }
 /**

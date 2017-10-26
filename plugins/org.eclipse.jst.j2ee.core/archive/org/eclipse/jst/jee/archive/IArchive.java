@@ -41,12 +41,12 @@ public interface IArchive extends IArchiveResource {
 
 	/**
 	 * Returns an {@link IArchive} for the specified archiveResource. If the
-	 * {@link IArchive} is successfully returned, it will be added to the list
+	 * { @link IArchive} is successfully returned, it will be added to the list
 	 * returned by {@link #getNestedArchives()}. Also, the original
-	 * {@link IArchiveResource} will be removed from this {@link IArchive}'s
+	 * { @link IArchiveResource} will be removed from this {@link IArchive}'s
 	 * list of {@link IArchiveResource}s returned by
-	 * {@link #getArchiveResources()} and replaced with the returned
-	 * {@link IArchive}.
+	 * { @link #getArchiveResources()} and replaced with the returned
+	 * { @link IArchive}.
 	 * 
 	 * @param archiveResource
 	 * @return

@@ -92,14 +92,17 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 		super(aProject, aRuntimePath);
 	}
 
+	@Override
 	public IVirtualComponent createComponent(IProject aProject) {
 		return new J2EEModuleVirtualComponent(aProject, new Path("/")); //$NON-NLS-1$
 	}
 
+	@Override
 	public IVirtualComponent createArchiveComponent(IProject aProject, String archiveLocation, IPath aRuntimePath) {
 		return new J2EEModuleVirtualArchiveComponent(aProject, archiveLocation, aRuntimePath);
 	}
 	
+	@Override
 	public IVirtualFolder createFolder(IProject aProject, IPath aRuntimePath) {
 		return new VirtualFolder(aProject, aRuntimePath);
 	}
@@ -129,6 +132,7 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 		return component.getReferences(map);
 	}
 
+	@Override
 	public IVirtualReference[] getJavaClasspathReferences() {
 		//broken by cache
 		//if (javaReferences == null || !checkIfStillValid())
@@ -280,7 +284,7 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 			for (int j = 0; j < innerHardReferences.length; j++) {
 				final IVirtualComponent comp = innerHardReferences[j].getReferencedComponent();
 				if (comp.isBinary()) {
-					hardRefPaths[j] = (IPath)comp.getAdapter(IPath.class);
+					hardRefPaths[j] = comp.getAdapter(IPath.class);
 				}
 			}
 
@@ -514,10 +518,12 @@ public class J2EEModuleVirtualComponent extends VirtualComponent implements ICom
 		fuzzyEarManifestReferences = null;
 	}
 
+	@Override
 	public boolean canReceiveClasspathDependencies() {
 		return J2EEProjectUtilities.isDynamicWebProject(getProject());
 	}
 
+	@Override
 	public IPath getClasspathFolderPath(IClasspathDependencyComponent component) {
 		if( J2EEProjectUtilities.isDynamicWebProject(getProject())) {
 			return new Path(J2EEConstants.WEB_INF_LIB).makeAbsolute();

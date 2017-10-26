@@ -147,7 +147,7 @@ public class UIWarValidator extends WarValidator {
 			IVirtualComponent comp = webLibs[i].getReferencedComponent();
 			String name = null;
 			if (comp.isBinary()) {
-				java.io.File diskFile = (java.io.File)comp.getAdapter(java.io.File.class);
+				java.io.File diskFile = comp.getAdapter(java.io.File.class);
 				checkLibName(diskFile.getName(), null, webLibMappings, true);
 			} else {
 				String archiveName = webLibs[i].getArchiveName();

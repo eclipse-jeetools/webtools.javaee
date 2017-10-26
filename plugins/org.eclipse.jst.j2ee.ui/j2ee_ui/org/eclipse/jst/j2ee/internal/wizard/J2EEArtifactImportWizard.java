@@ -120,7 +120,7 @@ public abstract class J2EEArtifactImportWizard extends DataModelWizard implement
 	/**
 	 * <p>
 	 * Invoked after the selection has been saved off in
-	 * {@link #init(IWorkbench, IStructuredSelection)}. Should be used to handle any specific
+	 * { @link #init(IWorkbench, IStructuredSelection)}. Should be used to handle any specific
 	 * Wizard initialization.
 	 * </p>
 	 */
@@ -170,7 +170,7 @@ public abstract class J2EEArtifactImportWizard extends DataModelWizard implement
 	 * <p>
 	 * Invoked after the user has clicked the "Finish" button of the wizard. The default
 	 * implementation will attempt to update the final perspective to the value specified by
-	 * {@link #getFinalPerspectiveID() }
+	 * { @link #getFinalPerspectiveID() }
 	 * </p>
 	 * 
 	 * @throws InvocationTargetException

@@ -280,7 +280,7 @@ public class AddProjectToEARDropAssistant extends CommonDropAdapterAssistant {
 	}
 	
 	private boolean isPhysicallyAdded(IVirtualComponent component) {
-		IFile f = (IFile)component.getAdapter(IFile.class);
+		IFile f = component.getAdapter(IFile.class);
 		return f == null ? false : true;
 	}	
 

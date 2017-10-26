@@ -30,6 +30,7 @@ public class BinaryConstructor implements Constructor {
 	/**
 	 * @see Constructor#isParameterless()
 	 */
+	@Override
 	public boolean isParameterless() {
 		return method.getNumberOfParameters() == 0;
 	}
@@ -37,6 +38,7 @@ public class BinaryConstructor implements Constructor {
 	/**
 	 * @see Constructor#isPublic()
 	 */
+	@Override
 	public boolean isPublic() {
 		int flags;
 		try {
@@ -51,6 +53,7 @@ public class BinaryConstructor implements Constructor {
 	/**
 	 * @see Constructor#isProtected()
 	 */
+	@Override
 	public boolean isProtected() {
 		int flags;
 		try {
@@ -65,6 +68,7 @@ public class BinaryConstructor implements Constructor {
 	/**
 	 * @see Constructor#getParamsForCall()
 	 */
+	@Override
 	public String getParamsForCall() {
 		return this.getParams(false, true);
 	}
@@ -72,6 +76,7 @@ public class BinaryConstructor implements Constructor {
 	/**
 	 * @see Constructor#getParamsForDeclaration()
 	 */
+	@Override
 	public String getParamsForDeclaration() {
 		return this.getParams(true, true);
 	}
@@ -79,6 +84,7 @@ public class BinaryConstructor implements Constructor {
 	/**
 	 * @see Constructor#getParamsForJavadoc()()
 	 */
+	@Override
 	public String getParamsForJavadoc() {
 		return this.getParams(true, false);
 	}
@@ -86,6 +92,7 @@ public class BinaryConstructor implements Constructor {
 	/**
 	 * @see Constructor#getNonPrimitiveParameterTypes()
 	 */
+	@Override
 	public List<String> getNonPrimitiveParameterTypes() {
 		List<String> result = new ArrayList<String>();
 		

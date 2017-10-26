@@ -19,7 +19,8 @@ import org.eclipse.wst.common.project.facet.core.FacetedProjectFramework;
 public class FacetedProjectPropertyTester extends PropertyTester
     
 {
-    public boolean test( final Object receiver, 
+    @Override
+	public boolean test( final Object receiver, 
                          final String property, 
                          final Object[] args, 
                          final Object value )

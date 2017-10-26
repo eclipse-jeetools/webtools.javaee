@@ -17,6 +17,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
  */
 public class ClasspathDependencyResolver implements IReferenceResolver {
 
+	@Override
 	public boolean canResolve(IVirtualComponent context,
 			ReferencedComponent referencedComponent) {
 		URI handle = referencedComponent.getHandle();
@@ -26,6 +27,7 @@ public class ClasspathDependencyResolver implements IReferenceResolver {
 		return false;
 	}
 
+	@Override
 	public IVirtualReference resolve(IVirtualComponent context,
 			ReferencedComponent referencedComponent) {
 		IProject p = context.getProject();
@@ -39,6 +41,7 @@ public class ClasspathDependencyResolver implements IReferenceResolver {
 		return ref;
 	}
 
+	@Override
 	public boolean canResolve(IVirtualReference reference) {
 		IVirtualComponent vc = reference.getReferencedComponent();
 		if (vc instanceof DummyClasspathDependencyContainerVirtualComponent)
@@ -46,6 +49,7 @@ public class ClasspathDependencyResolver implements IReferenceResolver {
 		return false;
 	}
 
+	@Override
 	public ReferencedComponent resolve(IVirtualReference reference) {
 		IVirtualComponent vc = reference.getReferencedComponent();
 		DummyClasspathDependencyContainerVirtualComponent comp = (DummyClasspathDependencyContainerVirtualComponent)vc;

@@ -48,6 +48,7 @@ import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 
 public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate implements IDelegate {
 
+	@Override
 	public void execute(IProject project, IProjectFacetVersion fv, Object config, IProgressMonitor monitor) throws CoreException {
 		if (monitor != null)
 			monitor.beginTask("", 1); //$NON-NLS-1$

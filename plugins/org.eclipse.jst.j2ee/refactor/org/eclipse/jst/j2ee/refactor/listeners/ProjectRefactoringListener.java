@@ -71,6 +71,7 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 	/* (non-Javadoc)
 	 * @see org.eclipse.core.resources.IResourceChangeListener#resourceChanged(org.eclipse.core.resources.IResourceChangeEvent)
 	 */
+	@Override
 	public void resourceChanged(final IResourceChangeEvent event) {
 		// need to capture PRE_DELETE events so that metadata about the
 		// deleted project can be collected and cached
@@ -136,6 +137,7 @@ public final class ProjectRefactoringListener implements IResourceChangeListener
 	/* (non-Javadoc)
 	 * @see org.eclipse.core.resources.IResourceDeltaVisitor#visit(org.eclipse.core.resources.IResourceDelta)
 	 */
+	@Override
 	public boolean visit(final IResourceDelta delta) throws CoreException {
 		final IResource resource = delta.getResource();
 		if (resource instanceof IWorkspaceRoot) {

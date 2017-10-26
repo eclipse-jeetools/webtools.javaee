@@ -594,7 +594,7 @@ public abstract class AbstractAnnotationTagProposal {
 	 * proposal is still valid.
 	 * <p>
 	 * The default implementation checks if <code>prefix</code> is a prefix of the proposal's
-	 * {@link #getDisplayString() display string} using the {@link #isPrefix(String, String) }
+	 * { @link #getDisplayString() display string} using the {@link #isPrefix(String, String) }
 	 * method.
 	 * </p>
 	 * 

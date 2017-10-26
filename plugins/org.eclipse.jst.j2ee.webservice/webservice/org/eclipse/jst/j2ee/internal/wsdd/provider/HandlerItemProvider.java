@@ -24,7 +24,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
-import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.jst.j2ee.common.internal.provider.CompatibilityDescriptionGroupItemProvider;
 import org.eclipse.jst.j2ee.internal.webservice.adapter.AdapterViewerItem;
@@ -113,8 +112,8 @@ public class HandlerItemProvider extends CompatibilityDescriptionGroupItemProvid
 
 	/**
 	 * This specifies how to implement {@link #getChildren}and
-	 * {@link org.eclipse.emf.edit.command.AddCommand}and
-	 * {@link org.eclipse.emf.edit.command.RemoveCommand}support in {@link #createCommand}. <!--
+	 * { @link org.eclipse.emf.edit.command.AddCommand}and
+	 * { @link org.eclipse.emf.edit.command.RemoveCommand}support in {@link #createCommand}. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -237,8 +236,8 @@ public class HandlerItemProvider extends CompatibilityDescriptionGroupItemProvid
 
 	/**
 	 * This implements
-	 * {@link ITreeItemContentProvider#getChildren ITreeItemContentProvider.getChildren}by calling
-	 * {@link #getChildrenReferences getChildrenReferences}and using those to collect the children.
+	 * { @link ITreeItemContentProvider#getChildren ITreeItemContentProvider.getChildren}by calling
+	 * { @link #getChildrenReferences getChildrenReferences}and using those to collect the children.
 	 */
 	@Override
 	public Collection getChildren(Object object) {

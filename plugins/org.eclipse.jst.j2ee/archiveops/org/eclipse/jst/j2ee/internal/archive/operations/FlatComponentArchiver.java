@@ -231,7 +231,7 @@ public class FlatComponentArchiver {
 			
 			if (f instanceof IFlatFolder) {
 				isFolder = true;
-				File folder = (File)((IFlatFolder)f).getAdapter(File.class);
+				File folder = ((IFlatFolder)f).getAdapter(File.class);
 				if (folder != null) {
 					lastModified = folder.lastModified();
 				}
@@ -247,9 +247,9 @@ public class FlatComponentArchiver {
 			
 			getZipOutputStream().putNextEntry(entry);
 			if (!isFolder) {
-				InputStream is = (InputStream) f.getAdapter(InputStream.class);
+				InputStream is = f.getAdapter(InputStream.class);
 				if (is == null){
-					File file = (File) f.getAdapter(File.class);
+					File file = f.getAdapter(File.class);
 					String msg = null;
 					if (file!= null)
 						msg = "Cannot find the file " + file.getAbsolutePath() + " in the file system. Make sure the file exists and try the operation again"; //$NON-NLS-1$ //$NON-NLS-2$

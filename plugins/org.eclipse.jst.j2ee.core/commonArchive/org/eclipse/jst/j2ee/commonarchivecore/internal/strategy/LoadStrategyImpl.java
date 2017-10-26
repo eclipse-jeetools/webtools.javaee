@@ -208,7 +208,7 @@ public abstract class LoadStrategyImpl extends AdapterImpl implements LoadStrate
 	 * archive is a module file and it is NOT read-only 2) If the load strategy is a directory 3) If
 	 * the archive is a utility JAR, and the files list has never been initialized, or if the
 	 * loading containers for all the files are the same AND not directories, AND the
-	 * {@link ArchiveOptions#isSaveLibrariesAsFiles()}of the archive is true.
+	 * { @link ArchiveOptions#isSaveLibrariesAsFiles()}of the archive is true.
 	 * 
 	 * @see com.ibm.etools.archive.LoadStrategy#requiresIterationOnSave()
 	 */

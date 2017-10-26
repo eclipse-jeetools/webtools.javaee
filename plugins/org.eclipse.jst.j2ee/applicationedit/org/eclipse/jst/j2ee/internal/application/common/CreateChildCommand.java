@@ -113,6 +113,7 @@ public class CreateChildCommand extends CommandWrapper implements CommandActionD
 	/**
 	 * This delegates to {@link CreateChildCommand.Helper#getCreateChildImage}.
 	 */
+	@Override
 	public Object getImage() {
 		return helper.getCreateChildImage(owner);
 	}
@@ -120,6 +121,7 @@ public class CreateChildCommand extends CommandWrapper implements CommandActionD
 	/**
 	 * This delegates to {@link CreateChildCommand.Helper#getCreateChildText}.
 	 */
+	@Override
 	public String getText() {
 		return helper.getCreateChildText(owner);
 	}
@@ -127,6 +129,7 @@ public class CreateChildCommand extends CommandWrapper implements CommandActionD
 	/**
 	 * This delegates to {@link CreateChildCommand.Helper#getCreateChildToolTipText}.
 	 */
+	@Override
 	public String getToolTipText() {
 		return helper.getCreateChildToolTipText(owner);
 	}

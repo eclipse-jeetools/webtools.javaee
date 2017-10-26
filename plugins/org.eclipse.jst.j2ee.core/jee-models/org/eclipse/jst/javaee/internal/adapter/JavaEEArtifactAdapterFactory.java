@@ -49,9 +49,9 @@ public abstract class JavaEEArtifactAdapterFactory implements IAdapterFactory {
 	
 	private IResource getResource(Object adaptableObject) {
 		if (adaptableObject instanceof IAdaptable) {
-			return (IResource) ((IAdaptable) adaptableObject).getAdapter(IResource.class);
+			return ((IAdaptable) adaptableObject).getAdapter(IResource.class);
 		} 
-		return (IResource) Platform.getAdapterManager().getAdapter(adaptableObject, IResource.class);
+		return Platform.getAdapterManager().getAdapter(adaptableObject, IResource.class);
 	}
 	
 	private IJavaElement getJavaElement(IJavaProject javaProject, String className) {

@@ -13,12 +13,11 @@ package org.eclipse.jst.j2ee.commonarchivecore.internal.helpers;
 
 
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
-import org.eclipse.jst.j2ee.commonarchivecore.internal.strategy.SaveStrategy;
 
 /**
  * Object used for saving an archive with only a subset of its files. By default all files are
  * saved. Clients can create a custom filter and set it on a save strategy, and call
- * {@link Archive#save(SaveStrategy)}
+ * { @link Archive#save(SaveStrategy)}
  */
 public interface SaveFilter {
 	/**

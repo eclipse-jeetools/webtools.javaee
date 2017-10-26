@@ -24,7 +24,7 @@ import org.eclipse.jst.j2ee.internal.application.provider.ApplicationProvidersRe
 
 /**
  * This extended item provider supports the following commands:
- * {@link org.eclipse.jst.j2ee.internal.internal.client.command.CreateChildCommand}. The commands
+ * { @link org.eclipse.jst.j2ee.internal.internal.client.command.CreateChildCommand}. The commands
  * are implemented uniformly on all our item adapters using this common base class.
  */
 public class ClientItemProviderAdapter extends ItemProviderAdapter implements org.eclipse.jst.j2ee.internal.application.common.CreateChildCommand.Helper {
@@ -37,8 +37,9 @@ public class ClientItemProviderAdapter extends ItemProviderAdapter implements or
 
 	/**
 	 * This implements the default behavior for
-	 * {@link org.eclipse.jst.j2ee.internal.internal.client.command.CreateChildCommand}.
+	 * { @link org.eclipse.jst.j2ee.internal.internal.client.command.CreateChildCommand}.
 	 */
+	@Override
 	public Object createChild(Object object) {
 		return null;
 	}
@@ -56,24 +57,27 @@ public class ClientItemProviderAdapter extends ItemProviderAdapter implements or
 
 	/**
 	 * This returns the default image for
-	 * {@link org.eclipse.jst.j2ee.internal.internal.client.command.CreateChildCommand}.
+	 * { @link org.eclipse.jst.j2ee.internal.internal.client.command.CreateChildCommand}.
 	 */
+	@Override
 	public Object getCreateChildImage(Object object) {
 		return org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.getPlugin().getImage("CreateChild"); //$NON-NLS-1$
 	}
 
 	/**
 	 * This returns the default label for
-	 * {@link org.eclipse.jst.j2ee.internal.internal.client.command.CreateChildCommand}.
+	 * { @link org.eclipse.jst.j2ee.internal.internal.client.command.CreateChildCommand}.
 	 */
+	@Override
 	public String getCreateChildText(Object object) {
 		return ApplicationProvidersResourceHandler.getString("Create_Child_UI_"); //$NON-NLS-1$
 	}
 
 	/**
 	 * This returns the default help text for
-	 * {@link org.eclipse.jst.j2ee.internal.internal.client.command.CreateChildCommand}.
+	 * { @link org.eclipse.jst.j2ee.internal.internal.client.command.CreateChildCommand}.
 	 */
+	@Override
 	public String getCreateChildToolTipText(Object object) {
 		EObject refObject = (EObject) object;
 		return ApplicationProvidersResourceHandler.getString("Create_a_new_child_for_the_selected_UI_") + refObject.eClass().getName() + "."; //$NON-NLS-1$ //$NON-NLS-2$

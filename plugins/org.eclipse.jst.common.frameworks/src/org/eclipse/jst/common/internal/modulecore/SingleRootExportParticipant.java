@@ -126,7 +126,7 @@ public class SingleRootExportParticipant extends AbstractFlattenParticipant {
 			IVirtualReference[] references) {
 		
 		for (IVirtualReference reference:references){
-			File f = (File)reference.getReferencedComponent().getAdapter(File.class);
+			File f = reference.getReferencedComponent().getAdapter(File.class);
 			IPath relativeReferenceRuntimePath = reference.getRuntimePath().makeRelative();
 			FlatFile file = new FlatFile(f, reference.getArchiveName(), relativeReferenceRuntimePath);
 			FlatResource existingRes = VirtualComponentFlattenUtility.getExistingModuleResource(resources, file.getModuleRelativePath().append(file.getName()));

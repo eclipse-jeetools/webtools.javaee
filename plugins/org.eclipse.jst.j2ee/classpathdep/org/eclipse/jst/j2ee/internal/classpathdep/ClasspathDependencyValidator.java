@@ -71,6 +71,7 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 		super();
 	}
 	
+	@Override
 	public IStatus validateInJob(IValidationContext helper, IReporter reporter)
 			throws ValidationException {
 		_reporter = reporter;
@@ -347,15 +348,18 @@ public class ClasspathDependencyValidator implements IValidatorJob {
 		return (IMessage[]) results.toArray(new IMessage[results.size()]);
 	}
 	
+	@Override
 	public ISchedulingRule getSchedulingRule(IValidationContext helper) {
 		return null;
 	}
 
+	@Override
 	public void cleanup(IReporter reporter) {
 		_reporter = null;
 
 	}
 
+	@Override
 	public void validate(IValidationContext helper, IReporter reporter)
 			throws ValidationException {
 		// Forwarding to job method

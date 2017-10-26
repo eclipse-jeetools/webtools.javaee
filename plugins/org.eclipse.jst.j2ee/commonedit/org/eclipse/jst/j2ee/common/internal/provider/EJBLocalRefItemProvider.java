@@ -27,7 +27,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 /**
  * This is the item provider adpater for a
- * {@link org.eclipse.jst.j2ee.internal.internal.common.EJBLocalRef}object. <!-- begin-user-doc -->
+ * { @link org.eclipse.jst.j2ee.internal.internal.common.EJBLocalRef}object. <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * 
  * @generated

@@ -90,6 +90,7 @@ public class RemoveComponentFromEnterpriseApplicationOperation extends RemoveRef
 								saveFlag = IModelProvider.FORCESAVE;
 							
 							earModel.modify(new Runnable() {
+								@Override
 								public void run() {
 									ICommonApplication application = (ICommonApplication)earModel.getModelObject();
 									if (application == null)
@@ -150,6 +151,7 @@ public class RemoveComponentFromEnterpriseApplicationOperation extends RemoveRef
 							}, saveFlag);
 						} else {
 							earModel.modify(new Runnable() {
+								@Override
 								public void run() {
 									ICommonApplication application = (ICommonApplication)earModel.getModelObject();
 									if (application == null)

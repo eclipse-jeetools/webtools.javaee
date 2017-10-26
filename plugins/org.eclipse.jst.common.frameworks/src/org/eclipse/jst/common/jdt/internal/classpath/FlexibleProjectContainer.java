@@ -213,7 +213,7 @@ public abstract class FlexibleProjectContainer
             if (comp.isBinary()) {
             	if( comp instanceof IClasspathDependencyComponent )
             		continue;
-            	newPath = (IPath)comp.getAdapter(IPath.class);
+            	newPath = comp.getAdapter(IPath.class);
             } else
                 newPath = comp.getProject().getFullPath();    
             

@@ -24,7 +24,7 @@ import org.eclipse.wst.common.frameworks.internal.datamodel.ui.DataModelWizard;
  * </p>
  * <p>
  * Subclasses must provide the methods that are required by
- * {@link com.ibm.etools.j2ee.common.wizard.datamodel.WTPWizard}.
+ * { @link com.ibm.etools.j2ee.common.wizard.datamodel.WTPWizard}.
  * </p>
  * <p>
  * Optionally, subclasses may also override the following methods:

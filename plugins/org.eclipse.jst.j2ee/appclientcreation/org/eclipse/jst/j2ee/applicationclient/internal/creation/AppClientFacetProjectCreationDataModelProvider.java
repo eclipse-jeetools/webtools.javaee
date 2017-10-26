@@ -50,6 +50,7 @@ public class AppClientFacetProjectCreationDataModelProvider extends J2EEFacetPro
 				J2EEPlugin.getDefault().getJ2EEPreferences().getString(Keys.APP_CLIENT_OUTPUT_FOLDER) );
 		
 		appClientFacet.addListener(new IDataModelListener() {
+			@Override
 			public void propertyChanged(DataModelEvent event) {
 				if (IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME.equals(event.getPropertyName())) {
 					if (isPropertySet(EAR_PROJECT_NAME))

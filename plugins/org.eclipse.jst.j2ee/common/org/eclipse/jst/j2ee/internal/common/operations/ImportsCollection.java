@@ -26,6 +26,7 @@ public class ImportsCollection implements Collection<String> {
 		this.model = model;
 	}
 
+	@Override
 	public boolean add(String o) {
 		if (!isImportInJavaLang(o) && !isImportInSamePackage(o))
 			return collection.add(o);
@@ -33,6 +34,7 @@ public class ImportsCollection implements Collection<String> {
 		return false;
 	}
 
+	@Override
 	public boolean addAll(Collection<? extends String> c) {
 		boolean result = false;
 		
@@ -42,46 +44,57 @@ public class ImportsCollection implements Collection<String> {
 		return result;
 	}
 
+	@Override
 	public void clear() {
 		collection.clear();
 	}
 
+	@Override
 	public boolean contains(Object o) {
 		return collection.contains(o);
 	}
 
+	@Override
 	public boolean containsAll(Collection<?> c) {
 		return collection.containsAll(c);
 	}
 
+	@Override
 	public boolean isEmpty() {
 		return collection.isEmpty();
 	}
 
+	@Override
 	public Iterator<String> iterator() {
 		return collection.iterator();
 	}
 
+	@Override
 	public boolean remove(Object o) {
 		return collection.remove(o);
 	}
 
+	@Override
 	public boolean removeAll(Collection<?> c) {
 		return collection.removeAll(c);
 	}
 
+	@Override
 	public boolean retainAll(Collection<?> c) {
 		return collection.retainAll(c);
 	}
 
+	@Override
 	public int size() {
 		return collection.size();
 	}
 
+	@Override
 	public Object[] toArray() {
 		return collection.toArray();
 	}
 
+	@Override
 	public <T> T[] toArray(T[] a) {
 		return collection.toArray(a);
 	}

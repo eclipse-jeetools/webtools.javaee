@@ -92,7 +92,7 @@ public class ManyToOneRelation<M, O> {
 	 * Other sources will still point to the same target.
 	 * 
 	 * The target is removed if this was the only source pointing to it and
-	 * {@link #containsTarget(Object)} will return false.
+	 * { @link #containsTarget(Object)} will return false.
 	 * 
 	 * @param source
 	 */

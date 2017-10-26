@@ -53,8 +53,8 @@ public interface IArchiveResource {
 	/**
 	 * Returns an input stream for this {@link IArchiveResource} if its type is
 	 * either a {@link #FILE_TYPE} or {@link #ARCHIVE_TYPE} as defined by
-	 * {@link #getType()}. <code>null</code> is returned if the type is
-	 * {@link #DIRECTORY_TYPE}.
+	 * { @link #getType()}. <code>null</code> is returned if the type is
+	 * { @link #DIRECTORY_TYPE}.
 	 * 
 	 * @return
 	 * @throws java.io.FileNotFoundException

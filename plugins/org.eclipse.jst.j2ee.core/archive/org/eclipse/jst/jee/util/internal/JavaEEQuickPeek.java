@@ -77,14 +77,14 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 
 	/**
 	 * Returns the deployment descriptor type as defined by one of
-	 * {@link J2EEVersionConstants#UNKNOWN},
-	 * {@link J2EEVersionConstants#APPLICATION_CLIENT_TYPE},
-	 * {@link J2EEVersionConstants#APPLICATION_TYPE},
-	 * {@link J2EEVersionConstants#EJB_TYPE},
-	 * {@link J2EEVersionConstants#CONNECTOR_TYPE},
-	 * {@link J2EEVersionConstants#WEB_TYPE},
-	 * {@link J2EEVersionConstants#WEBSERVICES_TYPE}
-	 * {@link J2EEVersionConstants#WEBFRAGMENT_TYPE}
+	 * { @link J2EEVersionConstants#UNKNOWN},
+	 * { @link J2EEVersionConstants#APPLICATION_CLIENT_TYPE},
+	 * { @link J2EEVersionConstants#APPLICATION_TYPE},
+	 * { @link J2EEVersionConstants#EJB_TYPE},
+	 * { @link J2EEVersionConstants#CONNECTOR_TYPE},
+	 * { @link J2EEVersionConstants#WEB_TYPE},
+	 * { @link J2EEVersionConstants#WEBSERVICES_TYPE}
+	 * { @link J2EEVersionConstants#WEBFRAGMENT_TYPE}
 	 * 
 	 * @return
 	 */

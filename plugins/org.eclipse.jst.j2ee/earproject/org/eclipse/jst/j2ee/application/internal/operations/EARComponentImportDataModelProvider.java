@@ -86,6 +86,7 @@ public final class EARComponentImportDataModelProvider extends J2EEArtifactImpor
 	public static final String EAR_NAME_VALIDATION = "EARImportDataModel.EAR_NAME_VALIDATION";//$NON-NLS-1$
 
 	private IDataModelListener nestedListener = new IDataModelListener() {
+		@Override
 		public void propertyChanged(DataModelEvent event) {
 			if (event.getPropertyName().equals(PROJECT_NAME)) {
 				model.notifyPropertyChange(NESTED_PROJECTS_VALIDATION, IDataModel.DEFAULT_CHG);

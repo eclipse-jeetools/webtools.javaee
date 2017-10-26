@@ -42,7 +42,7 @@ import org.eclipse.jst.j2ee.webservice.wscommon.WscommonFactory;
 
 /**
  * This is the item provider adpater for a
- * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.WebResourceCollection}object.
+ * { @link org.eclipse.jst.j2ee.internal.internal.webapplication.WebResourceCollection}object.
  */
 public class WebResourceCollectionItemProvider extends WebapplicationItemProviderAdapter implements IEditingDomainItemProvider, IItemLabelProvider, IItemPropertySource, ITreeItemContentProvider {
 
@@ -68,7 +68,7 @@ public class WebResourceCollectionItemProvider extends WebapplicationItemProvide
 
 	/**
 	 * This specifies how to implement {@link #getChildren}and {@link AddCommand}and
-	 * {@link RemoveCommand}support in {@link #createCommand}.
+	 * { @link RemoveCommand}support in {@link #createCommand}.
 	 */
 	@Override
 	public Collection getChildrenReferences(Object object) {
@@ -112,7 +112,7 @@ public class WebResourceCollectionItemProvider extends WebapplicationItemProvide
 
 	/**
 	 * This returns the help text for
-	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.commandCreateChildCommand}.
+	 * { @link org.eclipse.jst.j2ee.internal.internal.webapplication.commandCreateChildCommand}.
 	 */
 	@Override
 	public String getCreateChildToolTipText(Object object) {

@@ -25,7 +25,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 /**
  * This is the item provider adpater for a
- * {@link org.eclipse.jst.j2ee.internal.internal.application.JavaClientModule}object.
+ * { @link org.eclipse.jst.j2ee.internal.internal.application.JavaClientModule}object.
  */
 public class JavaClientModuleItemProvider extends ModuleItemProvider {
 	/**

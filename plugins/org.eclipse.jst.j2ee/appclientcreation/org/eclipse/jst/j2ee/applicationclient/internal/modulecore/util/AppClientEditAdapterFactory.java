@@ -22,6 +22,7 @@ public class AppClientEditAdapterFactory implements IAdapterFactory {
 		super();
 	}
 
+	@Override
 	public Object getAdapter(Object adaptableObject, Class adapterType) {
 		if (adapterType == AppClientArtifactEdit.ADAPTER_TYPE || adapterType == ArtifactEdit.ADAPTER_TYPE) {
 			ArtifactEditModel editModel = (ArtifactEditModel) adaptableObject;
@@ -31,6 +32,7 @@ public class AppClientEditAdapterFactory implements IAdapterFactory {
 		return null;
 	}
 
+	@Override
 	public Class[] getAdapterList() {
 		return new Class[]{ArtifactEdit.class, AppClientArtifactEdit.class};
 	}

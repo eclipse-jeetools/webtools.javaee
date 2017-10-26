@@ -202,7 +202,7 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 							IVirtualReference ref = (IVirtualReference) manifestRefs.get(j);
 							IVirtualComponent c = ref.getReferencedComponent();
 							if (c.isBinary()) {
-								IFile file = (IFile)c.getAdapter(IFile.class);
+								IFile file = c.getAdapter(IFile.class);
 								if (file != null && file.getFullPath().equals(entry.getPath())) {
 										foundEntry = true;
 										break;
@@ -502,7 +502,7 @@ public class ClasspathDependencyUtil implements IClasspathDependencyConstants {
 	 */
 	public static IPath getClasspathVirtualReferenceLocation(final IVirtualReference ref) {
 		if (ref != null && ref.getReferencedComponent() instanceof IClasspathDependencyComponent) {
-			return (IPath)ref.getReferencedComponent().getAdapter(IPath.class);
+			return ref.getReferencedComponent().getAdapter(IPath.class);
 		}
 		return null;
 	}

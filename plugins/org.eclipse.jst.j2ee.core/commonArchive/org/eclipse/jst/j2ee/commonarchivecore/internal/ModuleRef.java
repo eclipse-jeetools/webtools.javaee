@@ -48,7 +48,7 @@ public interface ModuleRef extends J2EEEObject {
 	/**
 	 * Gets the uri from the {@link Module}referenced by this ref; if there is no module, (eg. a
 	 * standalone JAR), gets the uri from the {@link ModuleFile}. Assumption: The uri of the
-	 * {@link Module}and {@link ModuleFile}should stay in sync
+	 * { @link Module}and {@link ModuleFile}should stay in sync
 	 */
 	String getUri();
 

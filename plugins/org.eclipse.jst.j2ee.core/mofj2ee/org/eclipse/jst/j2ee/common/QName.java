@@ -114,7 +114,7 @@ public interface QName extends J2EEEObject {
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * Internal field used by implementation classes.  Clients should use 
-	 * {@link #getNamespaceURI()}.
+	 * { @link #getNamespaceURI()}.
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Internal Prefix Or Ns URI</em>' attribute.
@@ -129,7 +129,7 @@ public interface QName extends J2EEEObject {
 	 * Sets the value of the '{@link org.eclipse.jst.j2ee.common.QName#getInternalPrefixOrNsURI <em>Internal Prefix Or Ns URI</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * Internal field used by implementation classes.  Clients should use 
-	 * {@link #setValues(String, String, String)}.
+	 * { @link #setValues(String, String, String)}.
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Internal Prefix Or Ns URI</em>' attribute.
 	 * @see #getInternalPrefixOrNsURI()

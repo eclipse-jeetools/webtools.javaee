@@ -71,6 +71,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	protected ClassPathSelection classPathWLPSelection;
 
 	protected Comparator comparator = new Comparator() {
+		@Override
 		public int compare(Object o1, Object o2) {
 			IVirtualComponent e1 = (IVirtualComponent) o1;
 			IVirtualComponent e2 = (IVirtualComponent) o2;
@@ -229,7 +230,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 
 	/**
 	 * Sets the isSelected for the classpath element and sends out a notification of type
-	 * {@link ClasspathModelEvent#CLASS_PATH_CHANGED}
+	 * { @link ClasspathModelEvent#CLASS_PATH_CHANGED}
 	 */
 	public void setSelection(ClasspathElement element, boolean selected) {
 		element.setSelected(selected);
@@ -265,7 +266,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 
 	/**
 	 * Updates the manifest Class-Path:, and sends out a notification of type
-	 * {@link ClasspathModelEvent#CLASS_PATH_CHANGED}
+	 * { @link ClasspathModelEvent#CLASS_PATH_CHANGED}
 	 */
 	public void updateManifestClasspath() {
 		if (classPathSelection != null && classPathSelection.isModified()) {
@@ -276,7 +277,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 
 	/**
 	 * Updates the manifest Main-Class:, and sends out a notification of type
-	 * {@link ClasspathModelEvent#MAIN_CLASS_CHANGED}
+	 * { @link ClasspathModelEvent#MAIN_CLASS_CHANGED}
 	 */
 	public void updateMainClass(String mainClass) {
 		manifest.setMainClass(mainClass);
@@ -285,7 +286,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 
 	/**
 	 * Updates the manifest Main-Class:, and sends out a notification of type
-	 * {@link ClasspathModelEvent#MAIN_CLASS_CHANGED}
+	 * { @link ClasspathModelEvent#MAIN_CLASS_CHANGED}
 	 */
 	public void updateImplVersion(String implVersion) {
 		manifest.setImplemenationVersion(implVersion);
@@ -351,12 +352,14 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	/**
 	 * @see com.ibm.etools.emf.workbench.ResourceStateInputProvider#cacheNonResourceValidateState(List)
 	 */
+	@Override
 	public void cacheNonResourceValidateState(List roNonResourceFiles) {
 	}
 
 	/**
 	 * @see com.ibm.etools.emf.workbench.ResourceStateInputProvider#getNonResourceFiles()
 	 */
+	@Override
 	public List getNonResourceFiles() {
 		if (nonResourceFiles == null)
 			initNonResourceFiles();
@@ -385,6 +388,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	/**
 	 * @see com.ibm.etools.emf.workbench.ResourceStateInputProvider#getNonResourceInconsistentFiles()
 	 */
+	@Override
 	public List getNonResourceInconsistentFiles() {
 		return null;
 	}
@@ -392,6 +396,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	/**
 	 * @see com.ibm.etools.emf.workbench.ResourceStateInputProvider#isDirty()
 	 */
+	@Override
 	public boolean isDirty() {
 		ClassPathSelection selection = getClassPathSelection();
 		if (selection == null)
@@ -416,6 +421,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	/**
 	 * @see com.ibm.etools.emf.workbench.ResourceStateInputProvider#getResources()
 	 */
+	@Override
 	public List getResources() {
 		if(isWLPModel){
 			StructureEdit sEdit = null;
@@ -514,6 +520,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	/**
 	 * @see ResourceStateValidator#checkActivation(ResourceStateValidatorPresenter)
 	 */
+	@Override
 	public void checkActivation(ResourceStateValidatorPresenter presenter) throws CoreException {
 		getStateValidator().checkActivation(presenter);
 	}
@@ -521,6 +528,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	/**
 	 * @see ResourceStateValidator#lostActivation(ResourceStateValidatorPresenter)
 	 */
+	@Override
 	public void lostActivation(ResourceStateValidatorPresenter presenter) throws CoreException {
 		getStateValidator().lostActivation(presenter);
 	}
@@ -528,6 +536,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	/**
 	 * @see ResourceStateValidator#validateState(ResourceStateValidatorPresenter)
 	 */
+	@Override
 	public IStatus validateState(ResourceStateValidatorPresenter presenter) throws CoreException {
 		return getStateValidator().validateState(presenter);
 	}
@@ -535,6 +544,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	/**
 	 * @see ResourceStateValidator#checkSave(ResourceStateValidatorPresenter)
 	 */
+	@Override
 	public boolean checkSave(ResourceStateValidatorPresenter presenter) throws CoreException {
 		return getStateValidator().checkSave(presenter);
 	}
@@ -542,6 +552,7 @@ public class ClasspathModel implements ResourceStateInputProvider, ResourceState
 	/**
 	 * @see ResourceStateValidator#checkReadOnly()
 	 */
+	@Override
 	public boolean checkReadOnly() {
 		return getStateValidator().checkReadOnly();
 	}

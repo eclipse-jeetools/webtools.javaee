@@ -26,7 +26,7 @@ public interface IJNDIBindingsHelper {
 
 	/**
 	 * Clients should not call this method. This method is used by the
-	 * {@link JNDIBindingsHelperManager}.
+	 * { @link JNDIBindingsHelperManager}.
 	 * 
 	 * @param project
 	 * @return true if this {@link IJNDIBindingsHelper} can be used to load bindings for specified
@@ -36,7 +36,7 @@ public interface IJNDIBindingsHelper {
 
 	/**
 	 * Clients should not call this method. This method is used by the
-	 * {@link JNDIBindingsHelperManager}.
+	 * { @link JNDIBindingsHelperManager}.
 	 * 
 	 * @param project
 	 * @return true if this {@link IJNDIBindingsHelper} can be used to load bindings for specified

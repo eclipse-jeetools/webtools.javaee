@@ -22,6 +22,7 @@ public class CleanBuildCacheCleanerListener implements IResourceChangeListener {
 	private CleanBuildCacheCleanerListener() {
 	}
 
+	@Override
 	public void resourceChanged(IResourceChangeEvent event) {
 		IResourceDelta delta = event.getDelta();
 		if(delta.getFlags() != IResourceDelta.MARKERS && delta.getAffectedChildren().length > 0){

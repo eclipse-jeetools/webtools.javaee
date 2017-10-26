@@ -390,7 +390,7 @@ public abstract class ComponentArchiveLoadAdapter extends AbstractArchiveLoadAda
 			IVirtualComponent referencedComponent = reference.getReferencedComponent();
 
 			if (referencedComponent.isBinary() && reference.getDependencyType() == DependencyType.CONSUMES) {
-				java.io.File diskFile = (java.io.File) referencedComponent.getAdapter(java.io.File.class);
+				java.io.File diskFile = referencedComponent.getAdapter(java.io.File.class);
 				ZipFile zipFile;
 				IPath path = reference.getRuntimePath();
 				try {

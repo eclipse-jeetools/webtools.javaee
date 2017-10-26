@@ -19,6 +19,7 @@ public final class J2EEPreferencePropertyTester extends PropertyTester
 	/**
 	 * Test to see if the @param value preference is set to true in @link J2EEPreferences 
 	 */
+	@Override
 	public boolean test( final Object receiver, 
 						final String property, 
 						final Object[] args, 

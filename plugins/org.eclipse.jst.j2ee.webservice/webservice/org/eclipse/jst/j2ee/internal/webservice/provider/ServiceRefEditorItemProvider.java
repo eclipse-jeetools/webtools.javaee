@@ -38,8 +38,8 @@ public class ServiceRefEditorItemProvider extends ServiceRefItemProvider {
 
 	/**
 	 * This specifies how to implement {@link #getChildren}and
-	 * {@link org.eclipse.emf.edit.command.AddCommand}and
-	 * {@link org.eclipse.emf.edit.command.RemoveCommand}support in {@link #createCommand}. <!--
+	 * { @link org.eclipse.emf.edit.command.AddCommand}and
+	 * { @link org.eclipse.emf.edit.command.RemoveCommand}support in {@link #createCommand}. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated

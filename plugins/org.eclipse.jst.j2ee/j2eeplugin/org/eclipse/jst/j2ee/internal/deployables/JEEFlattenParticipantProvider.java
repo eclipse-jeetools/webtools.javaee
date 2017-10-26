@@ -52,6 +52,7 @@ public class JEEFlattenParticipantProvider implements
 	public static final String FILTERED = "AddMappedOutputFoldersParticipant.FILTERED"; //$NON-NLS-1$
 	
 	
+	@Override
 	public IFlattenParticipant findParticipant(String id, Properties props) {
 		boolean forExport = props != null && props.get(PARTICIPANT_FOR_EXPORT) != null && 
 				((Boolean)props.get(PARTICIPANT_FOR_EXPORT)).booleanValue();

@@ -232,6 +232,7 @@ public class J2EEItemProvider extends ItemProvider implements IAdaptable {
 	 * 
 	 * @see org.eclipse.core.runtime.IAdaptable#getAdapter(java.lang.Class)
 	 */
+	@Override
 	public Object getAdapter(Class adapter) {
 		if (adapter == IRESOURCE_CLASS || adapter == IFILE_CLASS)
 			return null; //return getAssociatedFile();

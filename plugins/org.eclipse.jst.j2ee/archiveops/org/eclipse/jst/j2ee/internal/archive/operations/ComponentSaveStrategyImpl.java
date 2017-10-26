@@ -277,6 +277,7 @@ public abstract class ComponentSaveStrategyImpl extends SaveStrategyImpl {
 		}
 	}
 
+	@Override
 	public void save(ArchiveManifest aManifest) throws SaveFailureException {
 	}
 }

@@ -42,7 +42,7 @@ import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
  * state of the provider. If the method {@link #getModelObject()} is called for
  * a model provider in a disposed state, the provider should try to move to a
  * non disposed state and return a correct model object.
- * {@link #getModelObject()} is loading the model. Specific implementations may
+ * { @link #getModelObject()} is loading the model. Specific implementations may
  * throw exceptions so calling {@link #getModelObject()} on a disposed provider
  * does not guarantee that calling {@link #isDisposed()} after that will return
  * <code>false</code>.
@@ -50,7 +50,7 @@ import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
  * <p>
  * Subclasses may enable/disable notifications from internalProviders with the
  * methods {@link #enableInternalNotifications()} and
- * {@link #disableInternalNotifications()}.
+ * { @link #disableInternalNotifications()}.
  * </p>
  * 
  * <p>
@@ -167,8 +167,8 @@ public abstract class AbstractMergedModelProvider<T> implements IModelProvider {
 
 	/**
 	 * Called when the annotationModel has changed. See also
-	 * {@link #enableInternalNotifications()} and
-	 * {@link #disableInternalNotifications()}
+	 * { @link #enableInternalNotifications()} and
+	 * { @link #disableInternalNotifications()}
 	 * 
 	 * @param event
 	 */
@@ -176,8 +176,8 @@ public abstract class AbstractMergedModelProvider<T> implements IModelProvider {
 
 	/**
 	 * Called when the xmlModel has changed. See also
-	 * {@link #enableInternalNotifications()} and
-	 * {@link #disableInternalNotifications()}
+	 * { @link #enableInternalNotifications()} and
+	 * { @link #disableInternalNotifications()}
 	 * 
 	 * @param event
 	 */
@@ -303,8 +303,8 @@ public abstract class AbstractMergedModelProvider<T> implements IModelProvider {
 	/**
 	 * The method is used for enabling notifications from the internalProviders.
 	 * This will add the appropriate listener to the internalProviders so that
-	 * {@link #annotationModelChanged(IModelProviderEvent)} and
-	 * {@link #xmlModelChanged(IModelProviderEvent)} are called when needed.
+	 * { @link #annotationModelChanged(IModelProviderEvent)} and
+	 * { @link #xmlModelChanged(IModelProviderEvent)} are called when needed.
 	 */
 	protected final void enableInternalNotifications() {
 		xmlModelListener = new XmlModelListener();
@@ -315,7 +315,7 @@ public abstract class AbstractMergedModelProvider<T> implements IModelProvider {
 
 	/**
 	 * Disable notifications from internalProviders. See also
-	 * {@link #enableInternalNotifications()}
+	 * { @link #enableInternalNotifications()}
 	 */
 	protected final void disableInternalNotifications() {
 		ddProvider.removeListener(xmlModelListener);

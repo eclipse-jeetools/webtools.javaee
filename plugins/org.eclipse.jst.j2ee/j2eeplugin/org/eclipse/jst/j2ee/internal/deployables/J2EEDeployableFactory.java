@@ -292,6 +292,7 @@ public class J2EEDeployableFactory extends ProjectModuleFactoryDelegate implemen
 		return new BinaryFileModuleDelegate(f);
 	}
 
+	@Override
 	public void resourceChanged(IResourceChangeEvent event) {
 		// If it is only a marker change, ignore the change 
 		if(event.getDelta() == null || event.getDelta().getFlags() == IResourceDelta.MARKERS) {

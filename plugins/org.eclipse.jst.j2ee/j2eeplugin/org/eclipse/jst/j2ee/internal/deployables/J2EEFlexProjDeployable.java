@@ -168,7 +168,8 @@ public class J2EEFlexProjDeployable extends FlatComponentDeployable implements
     /**
      * This method returns the context root property from the deployable project's .component file
      */
-    public String getContextRoot() {
+    @Override
+	public String getContextRoot() {
 		Properties props = component.getMetaProperties();
 		if(props.containsKey(J2EEConstants.CONTEXTROOT))
 			return props.getProperty(J2EEConstants.CONTEXTROOT);
@@ -183,7 +184,8 @@ public class J2EEFlexProjDeployable extends FlatComponentDeployable implements
      * @param module
      * @return contextRoot String
      */
-    public String getContextRoot(IModule earModule) {
+    @Override
+	public String getContextRoot(IModule earModule) {
     	IProject deployProject = component.getProject();
     	String contextRoot = null;
     	if (earModule == null)
@@ -207,6 +209,7 @@ public class J2EEFlexProjDeployable extends FlatComponentDeployable implements
 	 * 
 	 * @return a possibly-empty array of resource folders
 	 */
+	@Override
 	public IContainer[] getResourceFolders() {
 		IVirtualComponent vc = ComponentCore.createComponent(getProject());
 		if (vc != null) {
@@ -223,6 +226,7 @@ public class J2EEFlexProjDeployable extends FlatComponentDeployable implements
 	 * @return a possibly-empty array of Java output folders
 	 * @deprecated
 	 */
+	@Override
 	public IContainer[] getJavaOutputFolders() {
 		return getJavaOutputFolders(component);
 	}
@@ -245,7 +249,8 @@ public class J2EEFlexProjDeployable extends FlatComponentDeployable implements
      * @deprecated
      * @return an array of paths
      */
-    public IPath[] getClasspath() {
+    @Override
+	public IPath[] getClasspath() {
 		List<IPath> paths = new ArrayList<IPath>();
         IJavaProject proj = JemProjectUtilities.getJavaProject(getProject());
         URL[] urls = JemProjectUtilities.getClasspathAsURLArray(proj);

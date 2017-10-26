@@ -44,6 +44,7 @@ public class UtilityProjectCreationDataModelProvider extends J2EEFacetProjectCre
 		
 		IDataModel utilFacet = map.getFacetDataModel(IJ2EEFacetConstants.UTILITY_FACET.getId());
 		utilFacet.addListener(new IDataModelListener() {
+			@Override
 			public void propertyChanged(DataModelEvent event) {
 				if (IJ2EEModuleFacetInstallDataModelProperties.EAR_PROJECT_NAME.equals(event.getPropertyName())) {
 					if (isPropertySet(EAR_PROJECT_NAME))

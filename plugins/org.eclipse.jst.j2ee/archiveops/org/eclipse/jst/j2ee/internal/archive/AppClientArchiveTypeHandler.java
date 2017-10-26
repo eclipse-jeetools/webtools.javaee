@@ -17,6 +17,7 @@ import org.eclipse.jst.jee.archive.IArchiveHandler;
 
 public class AppClientArchiveTypeHandler implements IArchiveHandler {
 
+	@Override
 	public boolean handlesArchive(IArchive archive) {
 		if (archive.getLoadAdapter() instanceof AppClientComponentArchiveLoadAdapter) {
 			return true;

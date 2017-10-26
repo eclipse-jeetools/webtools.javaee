@@ -27,7 +27,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 /**
  * This is the item provider adpater for a
- * {@link org.eclipse.jst.j2ee.internal.internal.application.WebModule}object.
+ * { @link org.eclipse.jst.j2ee.internal.internal.application.WebModule}object.
  */
 public class WebModuleItemProvider extends ModuleItemProvider {
 	/**

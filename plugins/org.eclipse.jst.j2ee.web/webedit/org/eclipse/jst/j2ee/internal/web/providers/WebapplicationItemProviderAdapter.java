@@ -21,7 +21,7 @@ import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 
 /**
  * This extended item provider supports two addition features, (@link CreateChildCommand} and
- * {@link CreateChildrenCommand}. These two actions are implemented uniformly on all our item
+ * { @link CreateChildrenCommand}. These two actions are implemented uniformly on all our item
  * adapters using this common base class.
  */
 public class WebapplicationItemProviderAdapter extends org.eclipse.emf.edit.provider.ItemProviderAdapter {
@@ -35,7 +35,7 @@ public class WebapplicationItemProviderAdapter extends org.eclipse.emf.edit.prov
 
 	/**
 	 * This implements the default behavior for
-	 * {@link org.eclipse.jst.j2ee.internal.internal.webapplication.command.CreateChildCommand}.
+	 * { @link org.eclipse.jst.j2ee.internal.internal.webapplication.command.CreateChildCommand}.
 	 */
 	public Object createChild(Object object) {
 		return null;

@@ -29,6 +29,7 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
  * @author jasholl
  *
  */
+@Deprecated
 public class AppClientBinaryComponentHelper extends EnterpriseBinaryComponentHelper {
 
 	public static boolean handlesComponent(IVirtualComponent component) {
@@ -67,6 +68,7 @@ public class AppClientBinaryComponentHelper extends EnterpriseBinaryComponentHel
 
 		private int count = 0;
 
+		@Override
 		public void access() {
 			synchronized (this) {
 				count++;
@@ -85,6 +87,7 @@ public class AppClientBinaryComponentHelper extends EnterpriseBinaryComponentHel
 			physicallyClose(this);
 		}
 		
+		@Override
 		public void forceClose(){
 			count = 0;
 			helper.aboutToClose();
@@ -93,10 +96,12 @@ public class AppClientBinaryComponentHelper extends EnterpriseBinaryComponentHel
 		
 		private EnterpriseBinaryComponentHelper helper = null;
 		
+		@Override
 		public EnterpriseBinaryComponentHelper getEnterpriseBinaryComponentHelper() {
 			return helper;
 		}
 
+		@Override
 		public void setEnterpriseBinaryComponentHelper(EnterpriseBinaryComponentHelper helper) {
 			this.helper = helper;
 		}

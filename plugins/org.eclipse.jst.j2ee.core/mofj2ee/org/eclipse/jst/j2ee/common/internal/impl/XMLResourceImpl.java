@@ -194,7 +194,7 @@ public abstract class XMLResourceImpl extends TranslatorResourceImpl implements 
 	
 	/**
 	 * @deprecated use {@link TranslatorResource#setVersionID(int)}, 
-	 * {@link TranslatorResource#setDoctypeValues(String, String)}
+	 * { @link TranslatorResource#setDoctypeValues(String, String)}
 	 * Sets the system id of the XML document.
 	 * @see J2EEVersionConstants
 	 */
@@ -204,7 +204,7 @@ public abstract class XMLResourceImpl extends TranslatorResourceImpl implements 
 	
 	/**
 	 * @deprecated use {@link TranslatorResource#setVersionID(int)},
-	 * {@link TranslatorResource#setDoctypeValues(String, String)}
+	 * { @link TranslatorResource#setDoctypeValues(String, String)}
 	 * Sets the public id of the XML document.
 	 * @see J2EEVersionConstants
 	 */

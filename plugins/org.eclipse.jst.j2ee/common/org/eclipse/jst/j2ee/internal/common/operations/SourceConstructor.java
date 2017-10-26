@@ -31,6 +31,7 @@ public class SourceConstructor implements Constructor {
 	/**
 	 * @see Constructor#isParameterless()
 	 */
+	@Override
 	public boolean isParameterless() {
 		return method.parameters().size() == 0;
 	}
@@ -38,6 +39,7 @@ public class SourceConstructor implements Constructor {
 	/**
 	 * @see Constructor#isPublic()
 	 */
+	@Override
 	public boolean isPublic() {
 		int modifiers = method.getModifiers();
         return Modifier.isPublic(modifiers);
@@ -46,6 +48,7 @@ public class SourceConstructor implements Constructor {
 	/**
 	 * @see Constructor#isProtected()
 	 */
+	@Override
 	public boolean isProtected() {
 		int modifiers = method.getModifiers();
         return Modifier.isProtected(modifiers);
@@ -54,6 +57,7 @@ public class SourceConstructor implements Constructor {
 	/**
 	 * @see Constructor#getParamsForCall()
 	 */
+	@Override
 	public String getParamsForCall() {
 		return this.getParams(false, true);
 	}
@@ -61,6 +65,7 @@ public class SourceConstructor implements Constructor {
 	/**
 	 * @see Constructor#getParamsForDeclaration()
 	 */
+	@Override
 	public String getParamsForDeclaration() {
 		return this.getParams(true, true);
 	}
@@ -68,6 +73,7 @@ public class SourceConstructor implements Constructor {
 	/**
 	 * @see Constructor#getParamsForJavadoc()
 	 */
+	@Override
 	public String getParamsForJavadoc() {
 		return this.getParams(true, false);
 	}
@@ -75,6 +81,7 @@ public class SourceConstructor implements Constructor {
 	/**
 	 * @see Constructor#getNonPrimitiveParameterTypes()
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public List<String> getNonPrimitiveParameterTypes() {
 		List<String> result = new ArrayList<String>();

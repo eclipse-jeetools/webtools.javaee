@@ -30,6 +30,7 @@ public class BinaryMethod implements Method {
 	/**
 	 * @see Method#getSignature()
 	 */
+	@Override
 	public String getSignature() {
 		try {
 			return method.getSignature();
@@ -41,6 +42,7 @@ public class BinaryMethod implements Method {
 	/**
 	 * @see Method#getName()
 	 */
+	@Override
 	public String getName() {
 		return method.getElementName();
 	}
@@ -48,6 +50,7 @@ public class BinaryMethod implements Method {
 	/**
 	 * @see Method#getContainingJavaClass()
 	 */
+	@Override
 	public String getContainingJavaClass() {
 		return method.getDeclaringType().getElementName();
 	}
@@ -55,6 +58,7 @@ public class BinaryMethod implements Method {
 	/**
 	 * @see Method#getReturnType()
 	 */
+	@Override
 	public String getReturnType() {
 		try {
 			return Signature.getSignatureSimpleName(method.getReturnType());
@@ -66,6 +70,7 @@ public class BinaryMethod implements Method {
 	/**
 	 * @see Method#getDefaultReturnValue()
 	 */
+	@Override
 	public String getDefaultReturnValue() {
 		try {
 			String signature = method.getReturnType();
@@ -88,6 +93,7 @@ public class BinaryMethod implements Method {
 	/**
 	 * @see Method#getReturnTypeImports()
 	 */
+	@Override
 	public Collection<String> getReturnTypeImports() {
 		try {
 			List<String> result = new ArrayList<String>();
@@ -104,6 +110,7 @@ public class BinaryMethod implements Method {
 	/**
 	 * @see Method#getParamsForCall()
 	 */
+	@Override
 	public String getParamsForCall() {
 		return this.getParams(false, true);
 	}
@@ -111,6 +118,7 @@ public class BinaryMethod implements Method {
 	/**
 	 * @see Method#getParamsForDeclaration()
 	 */
+	@Override
 	public String getParamsForDeclaration() {
 		return this.getParams(true, true);
 	}
@@ -118,6 +126,7 @@ public class BinaryMethod implements Method {
 	/**
 	 * @see Method#getParamsForJavadoc()()
 	 */
+	@Override
 	public String getParamsForJavadoc() {
 		return this.getParams(true, false);
 	}
@@ -125,6 +134,7 @@ public class BinaryMethod implements Method {
 	/**
 	 * @see Method#getParameterImports()
 	 */
+	@Override
 	public Collection<String> getParameterImports() {
 		List<String> result = new ArrayList<String>();
 		
@@ -142,6 +152,7 @@ public class BinaryMethod implements Method {
 	 * @see Method#getExceptions()
 	 */
 	
+	@Override
 	public String getExceptions(){
 		StringBuffer exceptions = new StringBuffer(); 
 		try {

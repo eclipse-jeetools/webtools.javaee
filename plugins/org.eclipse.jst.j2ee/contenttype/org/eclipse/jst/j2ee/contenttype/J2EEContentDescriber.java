@@ -28,6 +28,7 @@ public final class J2EEContentDescriber implements IContentDescriber {
 
 	public final static QualifiedName JEEVERSION = new QualifiedName("jee-version", "1.4"); //$NON-NLS-1$ //$NON-NLS-2$
 
+	@Override
 	public int describe(InputStream contents, IContentDescription description) throws IOException {
 
 		JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(contents);
@@ -69,6 +70,7 @@ public final class J2EEContentDescriber implements IContentDescriber {
 		return INVALID;
 	}
 
+	@Override
 	public QualifiedName[] getSupportedOptions() {
 		// this is not used
 		return new QualifiedName[] { JEEVERSION };

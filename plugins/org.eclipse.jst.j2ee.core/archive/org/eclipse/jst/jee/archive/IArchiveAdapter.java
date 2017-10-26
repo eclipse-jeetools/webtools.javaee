@@ -24,7 +24,7 @@ public interface IArchiveAdapter {
 
 	/**
 	 * Returns the {@link IArchive} associated with this adapter. Every
-	 * {@link IArchiveAdapter} is associated with exactly one {@link IArchive}.
+	 * { @link IArchiveAdapter} is associated with exactly one {@link IArchive}.
 	 * 
 	 * @return
 	 */

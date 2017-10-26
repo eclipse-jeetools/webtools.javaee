@@ -170,7 +170,7 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 			} 
 			IPath path = null;
 			if (comp.isBinary())
-				path = (IPath)comp.getAdapter(IPath.class);
+				path = comp.getAdapter(IPath.class);
 			else
 				path = comp.getProject().getFullPath();
 			if (!path.equals(paths[i])) {
@@ -365,7 +365,7 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 							continue;
 						}
 					}
-					lastUpdate.paths[i] = (IPath)comp.getAdapter(IPath.class);
+					lastUpdate.paths[i] = comp.getAdapter(IPath.class);
 					IClasspathEntry newEntry = createEntry(lastUpdate, i);
 					entriesList.add(newEntry);
 				} else {
@@ -465,7 +465,7 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 								IFlatFolder flatLibFolder = (IFlatFolder)flatLibResource;
 								IFlatResource [] flatLibs = flatLibFolder.members();
 								for(IFlatResource flatResource : flatLibs){
-									File file = (File) flatResource.getAdapter(File.class);
+									File file = flatResource.getAdapter(File.class);
 									if(file != null){
 										IVirtualComponent dynamicComponent = new VirtualArchiveComponent(earComp.getProject(), VirtualArchiveComponent.LIBARCHIVETYPE + "/" + file.getAbsolutePath(), new Path(libDir)); //$NON-NLS-1$
 										IVirtualReference dynamicRef = ComponentCore.createReference(earComp, dynamicComponent);
@@ -546,18 +546,22 @@ public class J2EEComponentClasspathContainer implements IClasspathContainer {
 		refresh(false);
 	}
 
+	@Override
 	public IClasspathEntry[] getClasspathEntries() {
 		return entries;
 	}
 
+	@Override
 	public String getDescription() {
 		return J2EECommonMessages.J2EE_MODULE_CLASSPATH_CONTAINER_NAME;
 	}
 
+	@Override
 	public int getKind() {
 		return K_APPLICATION;
 	}
 
+	@Override
 	public IPath getPath() {
 		return containerPath;
 	}

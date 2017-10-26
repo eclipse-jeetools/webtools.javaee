@@ -145,9 +145,9 @@ public class MultiSelectFilteredListenerFileSelectionDialog extends
 		try {
 			IJavaElement jelem = null;
 			IProject proj = null;
-			jelem = (IJavaElement) project.getAdapter(IJavaElement.class);
+			jelem = project.getAdapter(IJavaElement.class);
 			if (jelem == null) {
-				IResource resource = (IResource) project.getAdapter(IResource.class);
+				IResource resource = project.getAdapter(IResource.class);
 				if (resource != null) {
 					proj = resource.getProject();
 					if (proj != null) {

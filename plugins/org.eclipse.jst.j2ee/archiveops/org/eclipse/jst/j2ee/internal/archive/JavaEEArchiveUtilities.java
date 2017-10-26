@@ -67,12 +67,12 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 	 * Default value = Boolean.TRUE Valid values = Boolean.TRUE or Boolean.FALSE
 	 * 
 	 * An ArchiveOption used to specify whether
-	 * {@link #openArchive(ArchiveOptions)} should attempt to discriminate
+	 * { @link #openArchive(ArchiveOptions)} should attempt to discriminate
 	 * between different Java EE archive types. The default behavior is to
 	 * always discriminate fully for all types except EJB 3.0 archives
-	 * {@link #DISCRIMINATE_EJB_ANNOTATIONS}. In order to fully discriminate
+	 * { @link #DISCRIMINATE_EJB_ANNOTATIONS}. In order to fully discriminate
 	 * EJB 3.0 archives, it is necessary to set both this flag and
-	 * {@link #DISCRIMINATE_EJB_ANNOTATIONS} to true.
+	 * { @link #DISCRIMINATE_EJB_ANNOTATIONS} to true.
 	 */
 	public static final String DISCRIMINATE_JAVA_EE = "DISCRIMINATE_EJB"; //$NON-NLS-1$
 
@@ -80,9 +80,9 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 	 * Default value = Boolean.TRUE Valid values = Boolean.TRUE or Boolean.FALSE
 	 * 
 	 * An ArchiveOption used to specify whether
-	 * {@link #openArchive(ArchiveOptions)} should attempt to fully discriminate
+	 * { @link #openArchive(ArchiveOptions)} should attempt to fully discriminate
 	 * a JAR file from an EJB JAR file. This option is only relevant if the
-	 * {@link #DISCRIMINATE_JAVA_EE} option is also set to Boolean.TRUE. If both
+	 * { @link #DISCRIMINATE_JAVA_EE} option is also set to Boolean.TRUE. If both
 	 * options are set to true then as a last resort all .class files byte codes
 	 * will be analyzed for EJB annotations in order to discriminate whether the
 	 * specified IArchive is an EJB 3.0 jar.
@@ -93,7 +93,7 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 	 * Default value = Boolean.TRUE Valid values = Boolean.TRUE or Boolean.FALSE
 	 * 
 	 * An ArchiveOption used to specify whether
-	 * {@link #openArchive(ArchiveOptions)} should attempt to fully discriminate
+	 * { @link #openArchive(ArchiveOptions)} should attempt to fully discriminate
 	 * a JAR file from an Application Client JAR file. This option is only relevant 
 	 * if the {@link #DISCRIMINATE_JAVA_EE} option is also set to Boolean.TRUE. If 
 	 * both options are set to true then as a last resort the MANIFEST.MF
@@ -359,7 +359,7 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 	 * META-INF/MANIFEST.MF file containing a Main-class attribute is considered
 	 * an Application Client </li>
 	 * <li> If the ArchiveOptions specify the
-	 * {@link #DISCRIMINATE_EJB_ANNOTATIONS} as Boolean.TRUE then if the archive
+	 * { @link #DISCRIMINATE_EJB_ANNOTATIONS} as Boolean.TRUE then if the archive
 	 * contains any .class file with EJB annotations it is considered an EJB
 	 * JAR. Be warned that this full check does have performance implications
 	 * and is not done by default.</li>
@@ -810,14 +810,17 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 			this.emfHelper = new JavaEEEMFArchiveAdapterHelper(this.simpleArchive);
 		}
 
+		@Override
 		public void close() {
 			simpleLoadAdapter.close();
 		}
 
+		@Override
 		public boolean containsArchiveResource(IPath resourcePath) {
 			return simpleLoadAdapter.containsArchiveResource(resourcePath);
 		}
 
+		@Override
 		public boolean containsModelObject(IPath modelObjectPath) {
 			IPath localModelObjectPath = modelObjectPath;
 			if (simpleLoadAdapter.containsArchiveResource(localModelObjectPath)) {
@@ -829,18 +832,22 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 			return emfHelper.containsModelObject(localModelObjectPath);
 		}
 
+		@Override
 		public IArchiveResource getArchiveResource(IPath resourcePath) throws FileNotFoundException {
 			return simpleLoadAdapter.getArchiveResource(resourcePath);
 		}
 
+		@Override
 		public List<IArchiveResource> getArchiveResources() {
 			return simpleLoadAdapter.getArchiveResources();
 		}
 
+		@Override
 		public InputStream getInputStream(IArchiveResource archiveResource) throws IOException, FileNotFoundException {
 			return simpleLoadAdapter.getInputStream(archiveResource);
 		}
 
+		@Override
 		public Object getModelObject(IPath modelObjectPath) throws ArchiveModelLoadException {
 			IPath localModelObjectPath = modelObjectPath;
 			if (IArchive.EMPTY_MODEL_PATH != localModelObjectPath 
@@ -853,10 +860,12 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 			return emfHelper.getModelObject(localModelObjectPath);
 		}
 
+		@Override
 		public IArchive getArchive() {
 			return simpleLoadAdapter.getArchive();
 		}
 
+		@Override
 		public void setArchive(IArchive archive) {
 			simpleLoadAdapter.setArchive(archive);
 		}

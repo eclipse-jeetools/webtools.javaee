@@ -20,7 +20,6 @@ import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.edit.command.AddCommand;
-import org.eclipse.emf.edit.command.RemoveCommand;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.jst.j2ee.application.Application;
@@ -35,7 +34,7 @@ import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 
 /**
  * This is the item provider adpater for a
- * {@link org.eclipse.jst.j2ee.internal.internal.application.Application}object.
+ * { @link org.eclipse.jst.j2ee.internal.internal.application.Application}object.
  */
 public class ApplicationItemProvider extends CompatibilityDescriptionGroupItemProvider {
 	/**
@@ -47,7 +46,7 @@ public class ApplicationItemProvider extends CompatibilityDescriptionGroupItemPr
 
 	/**
 	 * This creates a new child for
-	 * {@link org.eclipse.jst.j2ee.internal.internal.application.command.CreateChildCommand}.
+	 * { @link org.eclipse.jst.j2ee.internal.internal.application.command.CreateChildCommand}.
 	 */
 	public Object createChild(Object object) {
 		// TODO: check that this is what you want.
@@ -60,7 +59,7 @@ public class ApplicationItemProvider extends CompatibilityDescriptionGroupItemPr
 
 	/**
 	 * This specifies how to implement {@link #getChildren}and {@link AddCommand}and
-	 * {@link RemoveCommand}support in {@link #createCommand}.
+	 * { @link RemoveCommand}support in {@link #createCommand}.
 	 */
 	@Override
 	public Collection getChildrenReferences(Object object) {
@@ -87,7 +86,7 @@ public class ApplicationItemProvider extends CompatibilityDescriptionGroupItemPr
 
 	/**
 	 * This returns the image for
-	 * {@link org.eclipse.jst.j2ee.internal.internal.application.command.CreateChildCommand}.
+	 * { @link org.eclipse.jst.j2ee.internal.internal.application.command.CreateChildCommand}.
 	 */
 	public Object getCreateChildImage(Object object) {
 		EObject refObject = (EObject) object;
@@ -96,7 +95,7 @@ public class ApplicationItemProvider extends CompatibilityDescriptionGroupItemPr
 
 	/**
 	 * This returns the label for
-	 * {@link org.eclipse.jst.j2ee.internal.internal.application.command.CreateChildCommand}.
+	 * { @link org.eclipse.jst.j2ee.internal.internal.application.command.CreateChildCommand}.
 	 */
 	public String getCreateChildText(Object object) {
 		return ApplicationProvidersResourceHandler.getString("Create_Module_UI_"); //$NON-NLS-1$
@@ -104,7 +103,7 @@ public class ApplicationItemProvider extends CompatibilityDescriptionGroupItemPr
 
 	/**
 	 * This returns the help text for
-	 * {@link org.eclipse.jst.j2ee.internal.internal.application.command.CreateChildCommand}.
+	 * { @link org.eclipse.jst.j2ee.internal.internal.application.command.CreateChildCommand}.
 	 */
 	public String getCreateChildToolTipText(Object object) {
 		EObject refObject = (EObject) object;

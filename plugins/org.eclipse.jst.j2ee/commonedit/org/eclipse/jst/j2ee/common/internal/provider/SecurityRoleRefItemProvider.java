@@ -22,7 +22,6 @@ import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.CommonPackage;
 import org.eclipse.jst.j2ee.common.SecurityRoleRef;
@@ -129,8 +128,8 @@ public class SecurityRoleRefItemProvider extends CommonItemProviderAdapter imple
 
 	/**
 	 * This specifies how to implement {@link #getChildren}and
-	 * {@link org.eclipse.emf.edit.command.AddCommand}and
-	 * {@link org.eclipse.emf.edit.command.RemoveCommand}support in {@link #createCommand}. <!--
+	 * { @link org.eclipse.emf.edit.command.AddCommand}and
+	 * { @link org.eclipse.emf.edit.command.RemoveCommand}support in {@link #createCommand}. <!--
 	 * begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated
@@ -198,7 +197,7 @@ public class SecurityRoleRefItemProvider extends CommonItemProviderAdapter imple
 
 	/**
 	 * This always returns false. The base class has already implemented
-	 * {@link ItemProviderAdapter#getChildren ItemProviderAdapter.getChildren}to return the empty
+	 * { @link ItemProviderAdapter#getChildren ItemProviderAdapter.getChildren}to return the empty
 	 * enumeration, and this to check that enumeration, but we know there can't be any children, so
 	 * this is faster.
 	 */

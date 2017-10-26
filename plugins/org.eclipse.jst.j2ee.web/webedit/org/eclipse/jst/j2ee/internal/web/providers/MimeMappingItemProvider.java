@@ -166,7 +166,7 @@ public class MimeMappingItemProvider extends WebapplicationItemProviderAdapter i
 
 	/**
 	 * This always returns false. The base class has already implemented
-	 * {@link org.eclipse.emf.edit.provider.ItemProviderAdapter#getChildren ItemProviderAdapter.getChildren}
+	 * { @link org.eclipse.emf.edit.provider.ItemProviderAdapter#getChildren ItemProviderAdapter.getChildren}
 	 * to return the empty enumeration, and this to check that enumeration, but we know there can't
 	 * be any children, so this is faster.
 	 */

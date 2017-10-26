@@ -233,7 +233,7 @@ public abstract class JavaModelListener implements IElementChangedListener {
 	/**
 	 * Answers whether this element delta is a classpath change. I.e. something added/removed/moved around for the classpath. This should only be
 	 * called for a delta that is for an {@link IPackageFragmentRoot}. Should be called from an override of
-	 * {@link #processJavaElementChanged(IPackageFragmentRoot, IJavaElementDelta)}
+	 * { @link #processJavaElementChanged(IPackageFragmentRoot, IJavaElementDelta)}
 	 * 
 	 * @param delta
 	 * @return <code>true</code> if it is classpath change or <code>false</code> if not.
@@ -276,7 +276,7 @@ public abstract class JavaModelListener implements IElementChangedListener {
 
 	/**
 	 * Answers whether the file specified by the path is one that when changed can result in a classpath change. This is called from
-	 * {@link #isClasspathResourceChange(IJavaElementDelta)}. The file must be in the root of the project. The default is <code>false</code>.
+	 * { @link #isClasspathResourceChange(IJavaElementDelta)}. The file must be in the root of the project. The default is <code>false</code>.
 	 * Subclasses may override.
 	 * 
 	 * @param path
@@ -291,7 +291,7 @@ public abstract class JavaModelListener implements IElementChangedListener {
 	/**
 	 * Answers whether the given java project is in the classpath (including recursive). This currently will not walk through containers (such as the
 	 * PDE container). Only through the direct and recursive project references. The java project is determined by subclasses, see
-	 * {@link #getJavaProject()}.
+	 * { @link #getJavaProject()}.
 	 * 
 	 * @param javaProject
 	 * @return <code>true</code> if project is in classpath or <code>false</code> if not.

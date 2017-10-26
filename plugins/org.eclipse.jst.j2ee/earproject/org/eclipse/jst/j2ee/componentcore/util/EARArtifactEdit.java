@@ -456,6 +456,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		
 	}
 
+	@Override
 	public String getModuleURI(IVirtualComponent moduleComp) {
 		IVirtualReference [] refs = getComponent().getReferences();
 		for(int i=0; i<refs.length; i++){
@@ -586,11 +587,13 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 		return components;
 	}
 
+	@Override
 	public ArtifactEdit createArtifactEditForRead(IVirtualComponent aComponent) {
 
 		return getEARArtifactEditForRead(aComponent);
 	}
 
+	@Override
 	public ArtifactEdit createArtifactEditForWrite(IVirtualComponent aComponent) {
 
 		return getEARArtifactEditForWrite(aComponent);
@@ -636,6 +639,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @param webProject
 	 * @return contextRoot String
 	 */
+	@Override
 	public String getWebContextRoot(IProject webProject) {
 		verifyOperationSupported();
 		if (webProject == null || !JavaEEProjectUtilities.isDynamicWebProject(webProject))
@@ -661,6 +665,7 @@ public class EARArtifactEdit extends EnterpriseArtifactEdit implements IArtifact
 	 * @param webProject
 	 * @param aContextRoot
 	 */
+	@Override
 	public void setWebContextRoot(IProject webProject, String aContextRoot) {
 		verifyOperationSupported();
 		if (webProject == null || !JavaEEProjectUtilities.isDynamicWebProject(webProject))

@@ -12,7 +12,7 @@ package org.eclipse.jst.jee.archive;
 
 /**
  * An {@link IArchiveHandler} handles a specific type of {@link IArchive}.
- * {@link IArchiveHandler}s are defined via extension points.
+ * { @link IArchiveHandler}s are defined via extension points.
  * 
  * This interface is not intended to be implemented by or subclassed by clients.
  * Clients should instead subclass {@link AbstractArchiveHandler} or one if its

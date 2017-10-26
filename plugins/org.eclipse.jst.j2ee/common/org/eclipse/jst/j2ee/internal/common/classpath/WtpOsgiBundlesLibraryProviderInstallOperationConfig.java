@@ -121,7 +121,8 @@ public class WtpOsgiBundlesLibraryProviderInstallOperationConfig
         
         this.facetedProjectListener = new IFacetedProjectListener() 
         {
-            public void handleEvent( final IFacetedProjectEvent event ) 
+            @Override
+			public void handleEvent( final IFacetedProjectEvent event ) 
             {
                 final boolean moduleFaceted = hasModuleFacet( event.getWorkingCopy() );
                 setIncludeWithApplicationEnabled( moduleFaceted );

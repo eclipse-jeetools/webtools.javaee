@@ -58,7 +58,8 @@ public final class J2EEFacetRuntimeChangedDelegate
 	public static final String LEGACY_METADATA_FILE_NAME 
     = ".settings/org.eclipse.jst.common.project.facet.core.prefs"; //$NON-NLS-1$
 	private static final String OWNER_PROJECT_FACETS_ATTR = "owner.project.facets"; //$NON-NLS-1$
-    public void execute( final IProject project, 
+    @Override
+	public void execute( final IProject project, 
                          final IProjectFacetVersion fv,
                          final Object cfg,
                          final IProgressMonitor monitor )
@@ -188,7 +189,7 @@ public final class J2EEFacetRuntimeChangedDelegate
 		IRuntime runtime = (oldRuntime != null) ? oldRuntime : fproj.getPrimaryRuntime();
 	
 		if (runtime != null) {
-			IClasspathProvider cpprov = (IClasspathProvider) runtime.getAdapter(IClasspathProvider.class);
+			IClasspathProvider cpprov = runtime.getAdapter(IClasspathProvider.class);
 			List cpentries = cpprov.getClasspathEntries(fv);
 			boolean realCPChanged = false;
 			if (cpentries != null) {

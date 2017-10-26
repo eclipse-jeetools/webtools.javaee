@@ -36,10 +36,12 @@ import org.eclipse.wst.common.componentcore.resources.IVirtualReference;
  */
 public class JEEManifestDiscerner implements IJavaComponentDiscerner {
 
+	@Override
 	public IProject[] findParentProjects(IProject child) {
 		return EarUtilities.getReferencingEARProjects(child);
 	}
 
+	@Override
 	public IVirtualReference[] findPossibleManifestEntries(
 			IProject parentProject, IProject childProject) {
 		if( EarUtilities.isEARProject(parentProject)) {
@@ -51,6 +53,7 @@ public class JEEManifestDiscerner implements IJavaComponentDiscerner {
 		return new IVirtualReference[]{};
 	}
 	
+	@Override
 	public IVirtualReference[] findPossibleManifestEntries(
 			IProject parentProject, IProject childProject, IVirtualReference[] currentEntries) {
 		if( EarUtilities.isEARProject(parentProject)) {
@@ -153,6 +156,7 @@ public class JEEManifestDiscerner implements IJavaComponentDiscerner {
 	}
 	
 
+	@Override
 	public IVirtualReference[] findCurrentManifestEntries(
 			IProject parentProject, IProject childProject) {
 		return findCurrentManifestEntries(parentProject, childProject, 

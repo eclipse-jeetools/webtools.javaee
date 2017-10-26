@@ -844,7 +844,7 @@ public class J2EEProjectUtilities extends ProjectUtilities implements IJ2EEFacet
 	/**
 	 * @deprecated use {@link JavaLiteUtilities#getJavaOutputContainer(IJavaProjectLite, IClasspathEntry)} 
 	 * 
-	 * {@link #getJavaOutputContainer(IJavaProjectLite, IClasspathEntry)}
+	 * { @link #getJavaOutputContainer(IJavaProjectLite, IClasspathEntry)}
 	 * @param project
 	 * @param sourceContainer
 	 * @return

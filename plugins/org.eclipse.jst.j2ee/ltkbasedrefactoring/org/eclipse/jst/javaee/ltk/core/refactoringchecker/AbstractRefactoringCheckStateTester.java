@@ -16,6 +16,7 @@ import org.eclipse.core.resources.IProject;
 
 public abstract class AbstractRefactoringCheckStateTester implements IRefactoringCheckStateTester{
 
+	@Override
 	public boolean testUncheckState(IProject project){
 		return false;
 	}

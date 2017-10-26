@@ -65,14 +65,17 @@ public class BinaryFileModuleDelegate
 	 * ProjectModule objects or IJ2EEModule objects,
 	 * which are heavy assumptions. 
 	 */
+	@Override
 	public IContainer[] getResourceFolders() {
 		return new IContainer[0];
 	}
 
+	@Override
 	public IContainer[] getJavaOutputFolders() {
 		return new IContainer[0];
 	}
 
+	@Override
 	public boolean isBinary() {
 		return true;
 	}

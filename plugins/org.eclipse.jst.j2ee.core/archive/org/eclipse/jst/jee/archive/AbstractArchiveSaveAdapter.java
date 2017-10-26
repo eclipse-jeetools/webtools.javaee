@@ -99,7 +99,7 @@ public abstract class AbstractArchiveSaveAdapter extends AbstractArchiveAdapter 
 
 	/**
 	 * Subclasses should implement to perform the actual save on the specified
-	 * {@link IArchiveResource}.
+	 * { @link IArchiveResource}.
 	 * 
 	 * @param file
 	 * @throws ArchiveSaveFailureException
@@ -108,7 +108,7 @@ public abstract class AbstractArchiveSaveAdapter extends AbstractArchiveAdapter 
 
 	/**
 	 * Subclassess should override to avoid saving the specified
-	 * {@link IArchiveResource}. e.g. to avoid saving source files.
+	 * { @link IArchiveResource}. e.g. to avoid saving source files.
 	 * 
 	 * @param file
 	 * @return

@@ -41,7 +41,6 @@ import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.IOpenable;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
-import org.eclipse.jdt.core.IParent;
 import org.eclipse.jdt.core.ISourceReference;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.ITypeHierarchy;
@@ -875,7 +874,7 @@ public final class JavaModelUtil {
 	
 	/**
 	 * If <code>true</code>, then element can safely be cast to any of
-	 * {@link IParent}, {@link IOpenable}, {@link ISourceReference}, or {@link ICodeAssist}.
+	 * { @link IParent}, {@link IOpenable}, {@link ISourceReference}, or {@link ICodeAssist}.
 	 * @param element
 	 * @return <code>true</code> iff element is an {@link ICompilationUnit} or an {@link IClassFile}
 	 */

@@ -44,7 +44,7 @@ import org.eclipse.wst.server.core.ServerUtil;
 
 /**
  * IDataModel object property stored under the property name 
- * {@link ProjectRefactoringDataModelProvider#PROJECT_METADATA}.
+ * { @link ProjectRefactoringDataModelProvider#PROJECT_METADATA}.
  * 
  *  Note: this class is not multi-thread safe.
  */
@@ -272,67 +272,87 @@ public class ProjectRefactorMetadata {
 		public CachingVirtualComponent(final IVirtualComponent comp) {
 			_comp = comp;
 		}
+		@Override
 		public void addReferences(IVirtualReference[] references) {
 			_comp.addReferences(references);
 		}
+		@Override
 		public void create(int updateFlags, IProgressMonitor aMonitor) throws CoreException {
 			_comp.create(updateFlags, aMonitor);
 		}
+		@Override
 		public boolean exists() {
 			return _comp.exists();
 		}
+		@Override
 		public IVirtualComponent getComponent() {
 			if(_comp == null) return null;
 			return _comp.getComponent();
 		}
+		@Override
 		public Properties getMetaProperties() {
 			return _comp.getMetaProperties();
 		}
+		@Override
 		public IPath[] getMetaResources() {
 			return _comp.getMetaResources();
 		}
+		@Override
 		public String getName() {
 			return _comp.getName();
 		}
+		@Override
 		public String getDeployedName() {
 			return _comp.getDeployedName();
 		}
+		@Override
 		public IProject getProject() {
 			return _comp.getProject();
 		}
+		@Override
 		public IVirtualReference getReference(String aComponentName) {
 			return _comp.getReference(aComponentName);
 		}
+		@Override
 		public IVirtualReference[] getReferences() {
 			return _comp.getReferences();
 		}
+		@Override
 		public IVirtualReference[] getReferences(Map<String, Object> options) {
 			return _comp.getReferences(options);
 		}
 		public void setCaching(boolean caching) {
 			_caching = caching;
 		}
+		@Override
 		public IVirtualComponent[] getReferencingComponents() {
 			return _comp.getReferencingComponents();
 		}
+		@Override
 		public IVirtualFolder getRootFolder() {
 			return _comp.getRootFolder();
 		}
+		@Override
 		public boolean isBinary() {
 			return _comp.isBinary();
 		}
+		@Override
 		public void setMetaProperties(Properties properties) {
 			_comp.setMetaProperties(properties);
 		}
+		@Override
 		public void setMetaProperty(String name, String value) {
 			_comp.setMetaProperty(name, value);
 		}
+		@Override
 		public void setMetaResources(IPath[] theMetaResourcePaths) {
 			_comp.setMetaResources(theMetaResourcePaths);
 		}
+		@Override
 		public void setReferences(IVirtualReference[] theReferences) {
 			_comp.setReferences(theReferences);
 		}
+		@Override
 		public Object getAdapter(Class adapter) {
 			return _comp.getAdapter(adapter);
 		}

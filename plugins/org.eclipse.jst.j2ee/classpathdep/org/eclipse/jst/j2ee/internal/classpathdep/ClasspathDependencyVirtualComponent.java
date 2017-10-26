@@ -40,6 +40,7 @@ public class ClasspathDependencyVirtualComponent extends J2EEModuleVirtualArchiv
 	 * Returns true if this component represents a library class folder entry.
 	 * @return True for class folders.
 	 */
+	@Override
 	public boolean isClassFolder() {
 		return isClassFolder;
 	}
@@ -48,6 +49,7 @@ public class ClasspathDependencyVirtualComponent extends J2EEModuleVirtualArchiv
 	 * Returns the container for the specified class folder or null if does not represent a class folder.
 	 * @return IContainer for the class folder or null if this reference does not match class folder.
 	 */
+	@Override
 	public IContainer getClassFolder() {
 		if (!isClassFolder) {
 			return null;

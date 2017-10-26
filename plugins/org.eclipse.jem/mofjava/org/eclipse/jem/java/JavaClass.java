@@ -404,7 +404,7 @@ public interface JavaClass extends EClass, JavaHelpers{
 	
 	/**
 	 * Return the reflection type, if it exists, for this class. If running within Eclipse this
-	 * will be an {@link org.eclipse.jdt.core.IType}, or running outside of Eclipse it will be a {@link java.lang.Class}.
+	 * will be an { @link org.eclipse.jdt.core.IType}, or running outside of Eclipse it will be a { @link java.lang.Class}.
 	 * 
 	 * @return IType if in Eclipse, Class if outside Eclipse, or <code>null</code> if type not found.
 	 * 
