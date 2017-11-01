@@ -212,7 +212,6 @@ public interface J2EEConstants extends J2EEVersionConstants {
     String J2EE_NS_URL                      = "http://java.sun.com/xml/ns/j2ee"; //$NON-NLS-1$
     String JAVAEE_NS_URL                    = "http://java.sun.com/xml/ns/javaee"; //$NON-NLS-1$ //EJB3
     String JAVAEE7_NS_URL                   = "http://xmlns.jcp.org/xml/ns/javaee"; //$NON-NLS-1$
-    String JAVAEE8_NS_URL                   = "http://xmlns.jcp.org/xml/ns/javaee"; //$NON-NLS-1$
     String J2EE_1_4_XSD_SHORT_NAME          = "j2ee_1_4.xsd"; //$NON-NLS-1$
     String JAVAEE_5_XSD_SHORT_NAME          = "javaee_5.xsd"; //$NON-NLS-1$  //EJB3
     String XSI_NS_URL                       = "http://www.w3.org/2001/XMLSchema-instance"; //$NON-NLS-1$ 
