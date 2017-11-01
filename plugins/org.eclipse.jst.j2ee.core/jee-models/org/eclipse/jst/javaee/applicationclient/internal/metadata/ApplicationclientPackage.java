@@ -36,7 +36,7 @@ import org.eclipse.jst.javaee.applicationclient.ApplicationclientFactory;
  *     
  * 
  *       [
- *       This is the XML Schema for the application client 7
+ *       This is the XML Schema for the application client 8
  *       deployment descriptor.  The deployment descriptor must
  *       be named "META-INF/application-client.xml" in the
  *       application client's jar file.  All application client
@@ -51,8 +51,8 @@ import org.eclipse.jst.javaee.applicationclient.ApplicationclientFactory;
  *       <application-client xmlns="http://xmlns.jcp.org/xml/ns/javaee"
  *       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  *       xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
- *       	http://xmlns.jcp.org/xml/ns/javaee/application-client_7.xsd"
- *       version="7">
+ *       	http://xmlns.jcp.org/xml/ns/javaee/application-client_8.xsd"
+ *       version="8">
  *       ...
  *       </application-client>
  *       
@@ -60,7 +60,7 @@ import org.eclipse.jst.javaee.applicationclient.ApplicationclientFactory;
  *       the schema using the xsi:schemaLocation attribute for Java EE
  *       namespace with the following location:
  *       
- *       http://xmlns.jcp.org/xml/ns/javaee/application-client_7.xsd
+ *       http://xmlns.jcp.org/xml/ns/javaee/application-client_8.xsd
  *       
  *       
  *     
@@ -292,7 +292,7 @@ public interface ApplicationclientPackage extends EPackage {
 	String eNS_URI = J2EEConstants.APP_CLIENT_SCHEMA_LOC_5;
 	String eNS_URI2 = J2EEConstants.APP_CLIENT_SCHEMA_LOC_6;
 	String eNS_URI3 = J2EEConstants.APP_CLIENT_SCHEMA_LOC_7;
-
+	String eNS_URI4 = J2EEConstants.APP_CLIENT_SCHEMA_LOC_8;
 	/**
 	 * The package namespace name.
 	 * <!-- begin-user-doc -->

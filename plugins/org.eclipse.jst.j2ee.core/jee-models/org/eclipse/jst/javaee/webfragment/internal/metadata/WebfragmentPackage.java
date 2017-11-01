@@ -34,7 +34,7 @@ import org.eclipse.jst.javaee.webfragment.WebfragmentFactory;
  *     
  * 
  *       [
- *       This is the XML Schema for the Servlet 3.1 deployment descriptor.
+ *       This is the XML Schema for the Servlet 4.0 deployment descriptor.
  *       The deployment descriptor must be named "META-INF/web-fragment.xml"
  *       in the web fragment's jar file.  All Servlet deployment descriptors
  *       must indicate the web application schema by using the Java EE
@@ -48,7 +48,7 @@ import org.eclipse.jst.javaee.webfragment.WebfragmentFactory;
  *       <web-fragment xmlns="http://xmlns.jcp.org/xml/ns/javaee"
  *       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  *       xsi:schemaLocation="..."
- *       version="3.1"> 
+ *       version="4.0">
  *       ...
  *       </web-fragment>
  *       
@@ -56,7 +56,7 @@ import org.eclipse.jst.javaee.webfragment.WebfragmentFactory;
  *       the schema using the xsi:schemaLocation attribute for Java EE
  *       namespace with the following location:
  *       
- *       http://xmlns.jcp.org/xml/ns/javaee/web-fragment_3_1.xsd
+ *       http://xmlns.jcp.org/xml/ns/javaee/web-fragment_4_0.xsd
  *       
  *       
  *     
@@ -96,7 +96,7 @@ import org.eclipse.jst.javaee.webfragment.WebfragmentFactory;
  *       <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
  *       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  *       xsi:schemaLocation="..."
- *       version="3.1"> 
+ *       version="4.0">
  *       ...
  *       </web-app>
  *       
@@ -104,7 +104,7 @@ import org.eclipse.jst.javaee.webfragment.WebfragmentFactory;
  *       the schema using the xsi:schemaLocation attribute for Java EE
  *       namespace with the following location:
  *       
- *       http://xmlns.jcp.org/xml/ns/javaee/web-common_3_1.xsd
+ *       http://xmlns.jcp.org/xml/ns/javaee/web-common_4_0.xsd
  *       
  * 
  *     
@@ -213,7 +213,7 @@ import org.eclipse.jst.javaee.webfragment.WebfragmentFactory;
  *    </div>
  *   
  * 
- *    <div xmlns="http://www.w3.org/1999/xhtml" id="usage" xml:id="usage">
+ *    <div id="usage" xml:id="usage" xmlns="http://www.w3.org/1999/xhtml">
  *     <h2>
  *       <a name="usage">About this schema document</a>
  *     </h2>
@@ -259,7 +259,7 @@ import org.eclipse.jst.javaee.webfragment.WebfragmentFactory;
  *    </div>
  *   
  * 
- *    <div xmlns="http://www.w3.org/1999/xhtml" id="nsversioning" xml:id="nsversioning">
+ *    <div id="nsversioning" xml:id="nsversioning" xmlns="http://www.w3.org/1999/xhtml">
  *     <h2>
  *       <a name="nsversioning">Versioning policy for this schema document</a>
  *     </h2>
@@ -362,9 +362,9 @@ public interface WebfragmentPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = J2EEConstants.WEBFRAGMENT_SCHEMA_LOC_3_0;
+	String eNS_URI = "http://xmlns.jcp.org/xml/ns/javaee/webfragment"; //$NON-NLS-1$
 	String eNS_URI2 = J2EEConstants.WEBFRAGMENT_SCHEMA_LOC_3_1;
-
+	String eNS_URI3 = J2EEConstants.WEBFRAGMENT_SCHEMA_LOC_4_0;
 	/**
 	 * The package namespace name.
 	 * <!-- begin-user-doc -->

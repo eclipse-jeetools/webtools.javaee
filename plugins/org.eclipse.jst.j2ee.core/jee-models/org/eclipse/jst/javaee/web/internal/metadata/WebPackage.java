@@ -52,7 +52,7 @@ import org.eclipse.jst.javaee.web.WebFactory;
  *       <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
  *       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  *       xsi:schemaLocation="..."
- *       version="3.1"> 
+ *       version="4.0">
  *       ...
  *       </web-app>
  *       
@@ -60,7 +60,7 @@ import org.eclipse.jst.javaee.web.WebFactory;
  *       the schema using the xsi:schemaLocation attribute for Java EE
  *       namespace with the following location:
  *       
- *       http://xmlns.jcp.org/xml/ns/javaee/web-common_3_1.xsd
+ *       http://xmlns.jcp.org/xml/ns/javaee/web-common_4_0.xsd
  *       
  * 
  *     
@@ -169,7 +169,7 @@ import org.eclipse.jst.javaee.web.WebFactory;
  *    </div>
  *   
  * 
- *    <div xmlns="http://www.w3.org/1999/xhtml" id="usage" xml:id="usage">
+ *    <div id="usage" xml:id="usage" xmlns="http://www.w3.org/1999/xhtml">
  *     <h2>
  *       <a name="usage">About this schema document</a>
  *     </h2>
@@ -215,7 +215,7 @@ import org.eclipse.jst.javaee.web.WebFactory;
  *    </div>
  *   
  * 
- *    <div xmlns="http://www.w3.org/1999/xhtml" id="nsversioning" xml:id="nsversioning">
+ *    <div id="nsversioning" xml:id="nsversioning" xmlns="http://www.w3.org/1999/xhtml">
  *     <h2>
  *       <a name="nsversioning">Versioning policy for this schema document</a>
  *     </h2>
@@ -321,6 +321,7 @@ public interface WebPackage extends EPackage {
 	String eNS_URI = J2EEConstants.WEB_APP_SCHEMA_LOC_2_5;
 	String eNS_URI2 = J2EEConstants.WEB_APP_SCHEMA_LOC_3_0;
 	String eNS_URI3 = J2EEConstants.WEB_APP_SCHEMA_LOC_3_1;
+	String eNS_URI4 = J2EEConstants.WEB_APP_SCHEMA_LOC_4_0;
 
 	/**
 	 * The package namespace name.

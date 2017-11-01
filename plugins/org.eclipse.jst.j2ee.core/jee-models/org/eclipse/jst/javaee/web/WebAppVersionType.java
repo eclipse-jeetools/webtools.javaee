@@ -89,7 +89,16 @@ public enum WebAppVersionType implements Enumerator
 	 * @generated
 	 * @ordered
 	 */
-	_31(2, "_31", "3.1"); //$NON-NLS-1$ //$NON-NLS-2$
+	_31(2, "_31", "3.1"), //$NON-NLS-1$ //$NON-NLS-2$
+	/**
+	 * The '<em><b>40</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #_40_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	_40(2, "_40", "4.0"); //$NON-NLS-1$ //$NON-NLS-2$
 	/**
 	 * The '<em><b>22</b></em>' literal value.
 	 * <!-- begin-user-doc -->
@@ -169,6 +178,19 @@ public enum WebAppVersionType implements Enumerator
 	 * @ordered
 	 */
 	public static final int _31_VALUE = 2;
+	/**
+	 * The '<em><b>31</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>31</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #_31
+	 * @generated
+	 * @ordered
+	 */
+	public static final int _40_VALUE = 3;
 
 	/**
 	 * An array of all the '<em><b>App Version Type</b></em>' enumerators.
@@ -184,6 +206,7 @@ public enum WebAppVersionType implements Enumerator
 			_25_LITERAL,
 			_30_LITERAL,
 			_31,
+			_40,
 		};
 
 	/**
@@ -240,6 +263,7 @@ public enum WebAppVersionType implements Enumerator
 			case _25: return _25_LITERAL;
 			case _30: return _30_LITERAL;
 			case _31_VALUE: return _31;
+			case _40_VALUE: return _40;
 		}
 		return null;
 	}

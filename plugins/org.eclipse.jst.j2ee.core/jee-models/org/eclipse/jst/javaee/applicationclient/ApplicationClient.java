@@ -39,6 +39,7 @@ import org.eclipse.jst.javaee.core.ServiceRef;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.jst.javaee.applicationclient.ApplicationClient#getModuleName <em>Module Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.applicationclient.ApplicationClient#getDescriptions <em>Descriptions</em>}</li>
@@ -65,7 +66,6 @@ import org.eclipse.jst.javaee.core.ServiceRef;
  *   <li>{@link org.eclipse.jst.javaee.applicationclient.ApplicationClient#isMetadataComplete <em>Metadata Complete</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.applicationclient.ApplicationClient#getVersion <em>Version</em>}</li>
  * </ul>
- * </p>
  *
  * @see org.eclipse.jst.javaee.applicationclient.internal.metadata.ApplicationclientPackage#getApplicationClient()
  * @extends JavaEEObject
@@ -523,13 +523,13 @@ public interface ApplicationClient extends JavaEEObject {
 
 	/**
 	 * Returns the value of the '<em><b>Version</b></em>' attribute.
-	 * The default value is <code>"7"</code>.
+	 * The default value is <code>"8"</code>.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * 
 	 * 
-	 *           The required value for the version is 7.
+	 *           The required value for the version is 8.
 	 *           
 	 *         
 	 * <!-- end-model-doc -->
