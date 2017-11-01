@@ -105,10 +105,14 @@ public class EAR5ModelProvider extends JEE5ModelProvider implements IEARModelPro
 		else if(version != null && version.equals(J2EEVersionConstants.VERSION_6_0_TEXT)) {
 			dd.getXSISchemaLocation().put(J2EEConstants.JAVAEE_NS_URL, J2EEConstants.APPLICATION_SCHEMA_LOC_6);
 			ear.setVersion(J2EEVersionConstants.VERSION_6_TEXT);
-		} else {
+		} else if(version != null && version.equals(J2EEVersionConstants.VERSION_7_0_TEXT)){
 			dd.getXMLNSPrefixMap().put("", J2EEConstants.JAVAEE7_NS_URL);  //$NON-NLS-1$
 			dd.getXSISchemaLocation().put(J2EEConstants.JAVAEE7_NS_URL, J2EEConstants.APPLICATION_SCHEMA_LOC_7);
 			ear.setVersion(J2EEVersionConstants.VERSION_7_TEXT);
+		} else {
+			dd.getXMLNSPrefixMap().put("", J2EEConstants.JAVAEE8_NS_URL);  //$NON-NLS-1$
+			dd.getXSISchemaLocation().put(J2EEConstants.JAVAEE8_NS_URL, J2EEConstants.APPLICATION_SCHEMA_LOC_8);
+			ear.setVersion(J2EEVersionConstants.VERSION_8_TEXT);
 		}
 
 		dd.setApplication(ear);

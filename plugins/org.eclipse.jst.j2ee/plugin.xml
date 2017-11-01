@@ -453,6 +453,16 @@
       </constraint>
       <group-member id="modules"/>     
     </project-facet-version>
+    
+    <project-facet-version facet="jst.ear" version="8.0">
+      <constraint>
+        <and>
+          <conflicts group="modules"/>
+          <conflicts facet="jst.java"/>
+        </and>
+      </constraint>
+      <group-member id="modules"/>     
+    </project-facet-version>    
             
     <action facet="jst.ear" type="INSTALL" id="jst.ear.install">
       <delegate class="org.eclipse.jst.j2ee.project.facet.EarFacetInstallDelegate"/>
@@ -564,7 +574,17 @@
       </constraint>
       <group-member id="modules"/>     
     </project-facet-version>
-            
+
+    <project-facet-version facet="jst.appclient" version="8.0">
+      <constraint>
+        <and>
+          <requires facet="jst.java" version="[1.0"/>
+          <conflicts group="modules"/>
+        </and>
+      </constraint>
+      <group-member id="modules"/>     
+    </project-facet-version>
+                
     <action type="install" facet="jst.appclient" id="jst.appclient.install">
       <delegate class="org.eclipse.jst.j2ee.project.facet.AppClientFacetInstallDelegate"/>
       <config-factory class="org.eclipse.jst.j2ee.project.facet.AppClientFacetInstallDataModelProvider"/>
@@ -598,7 +618,7 @@
           facet="jst.ear"
           id="jst.ear.versionchange.legacy"
           type="VERSION_CHANGE"
-          version="[1.4-7.0]">
+          version="[1.4-8.0]">
        <delegate
              class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
        </delegate>
@@ -608,7 +628,7 @@
           facet="jst.ear"
           id="jst.ear.versionchange.ee5"
           type="VERSION_CHANGE"
-          version="[5.0-7.0]">
+          version="[5.0-8.0]">
        <delegate
              class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
        </delegate>
@@ -618,17 +638,27 @@
           facet="jst.ear"
           id="jst.ear.versionchange.ee6"
           type="VERSION_CHANGE"
-          version="[6.0-7.0]">
+          version="[6.0-8.0]">
        <delegate
              class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
        </delegate>
        <property name="from.versions" value="6.0"/>
     </action>
     <action
+          facet="jst.ear"
+          id="jst.ear.versionchange.ee7"
+          type="VERSION_CHANGE"
+          version="[7.0-8.0]">
+       <delegate
+             class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
+       </delegate>
+       <property name="from.versions" value="7.0"/>
+    </action>
+    <action
           facet="jst.appclient"
           id="jst.appclient.versionchange.legacy"
           type="VERSION_CHANGE"
-          version="[1.4-7.0]">
+          version="[1.4-8.0]">
        <delegate
              class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
        </delegate>
@@ -638,7 +668,7 @@
           facet="jst.appclient"
           id="jst.appclient.versionchange.ee5"
           type="VERSION_CHANGE"
-          version="[5.0-7.0]">
+          version="[5.0-8.0]">
        <delegate
              class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
        </delegate>
@@ -648,11 +678,21 @@
           facet="jst.appclient"
           id="jst.appclient.versionchange.ee6"
           type="VERSION_CHANGE"
-          version="[6.0-7.0]">
+          version="[6.0-8.0]">
        <delegate
              class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
        </delegate>
-       <property name="from.versions" value="6.0"/>
+       <property name="from.versions" value="6.0"/> 
+    </action>
+    <action
+          facet="jst.appclient"
+          id="jst.appclient.versionchange.ee7"
+          type="VERSION_CHANGE"
+          version="[7.0-8.0]">
+       <delegate
+             class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
+       </delegate>
+       <property name="from.versions" value="7.0"/> 
     </action>
     <action
           facet="jst.ejb"
@@ -688,7 +728,7 @@
           facet="jst.web"
           id="jst.web.versionchange.legacy"
           type="VERSION_CHANGE"
-          version="[2.4-3.1]">
+          version="[2.4-4.0]">
        <delegate
              class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
        </delegate>
@@ -698,7 +738,7 @@
           facet="jst.web"
           id="jst.web.versionchange.ee5"
           type="VERSION_CHANGE"
-          version="[2.5-3.1]">
+          version="[2.5-4.0]">
        <delegate
              class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
        </delegate>
@@ -708,11 +748,21 @@
           facet="jst.web"
           id="jst.web.versionchange.ee6"
           type="VERSION_CHANGE"
-          version="[3.0-3.1]">
+          version="[3.0-4.0]">
        <delegate
              class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
        </delegate>
        <property name="from.versions" value="3.0"/>
+    </action>
+    <action
+          facet="jst.web"
+          id="jst.web.versionchange.ee7"
+          type="VERSION_CHANGE"
+          version="[3.1-4.0]">
+       <delegate
+             class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
+       </delegate>
+       <property name="from.versions" value="3.1"/>
     </action>
     <action
           facet="jst.webfragment"
@@ -723,6 +773,16 @@
              class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
        </delegate>
        <property name="from.versions" value="3.0"/>
+    </action>
+    <action
+          facet="jst.webfragment"
+          id="jst.webfragment.versionchange.ee7"
+          type="VERSION_CHANGE"
+          version="[3.1-4.0]">
+       <delegate
+             class="org.eclipse.jst.j2ee.project.facet.J2EEFacetVersionChangeDelegate">
+       </delegate>
+       <property name="from.versions" value="3.1"/>
     </action>    
     <action
           facet="jst.connector"

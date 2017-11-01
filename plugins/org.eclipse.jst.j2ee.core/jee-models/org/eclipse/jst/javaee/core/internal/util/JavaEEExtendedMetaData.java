@@ -103,10 +103,13 @@ public class JavaEEExtendedMetaData extends BasicExtendedMetaData {
 						uri = J2EEConstants.APPLICATION_SCHEMA_LOC_6;
 						javaeeUri = J2EEConstants.JAVAEE_NS_URL;
 					}
-					else
-					{
+					else if(J2EEVersionConstants.VERSION_7_TEXT.equals(version)) {
 						uri = J2EEConstants.APPLICATION_SCHEMA_LOC_7;
 						javaeeUri = J2EEConstants.JAVAEE7_NS_URL;
+					}
+					else {
+						uri = J2EEConstants.APPLICATION_SCHEMA_LOC_8;
+						javaeeUri = J2EEConstants.JAVAEE8_NS_URL;
 					}
 					// release the resource to make sure there is no memory leak
 					resource = null;
@@ -126,10 +129,13 @@ public class JavaEEExtendedMetaData extends BasicExtendedMetaData {
 						uri = J2EEConstants.APP_CLIENT_SCHEMA_LOC_6;
 						javaeeUri = J2EEConstants.JAVAEE_NS_URL;
 					}
-					else
-					{
+					else if (J2EEVersionConstants.VERSION_7_TEXT.equals(version)) {
 						uri = J2EEConstants.APP_CLIENT_SCHEMA_LOC_7;
 						javaeeUri = J2EEConstants.JAVAEE7_NS_URL;
+					}
+					else {
+						uri = J2EEConstants.APP_CLIENT_SCHEMA_LOC_8;
+						javaeeUri = J2EEConstants.JAVAEE8_NS_URL;
 					}
 					// release the resource to make sure there is no memory leak
 					resource = null;
@@ -192,10 +198,13 @@ public class JavaEEExtendedMetaData extends BasicExtendedMetaData {
 						uri = J2EEConstants.WEB_APP_SCHEMA_LOC_3_0;
 						javaeeUri = J2EEConstants.JAVAEE_NS_URL;
 					}
-					else
-					{
+					else if(J2EEVersionConstants.VERSION_3_1_TEXT.equals(version)) {
 						uri = J2EEConstants.WEB_APP_SCHEMA_LOC_3_1;
 						javaeeUri = J2EEConstants.JAVAEE7_NS_URL;
+					}
+					else {
+						uri = J2EEConstants.WEB_APP_SCHEMA_LOC_4_0;
+						javaeeUri = J2EEConstants.JAVAEE8_NS_URL;
 					}
 					// release the resource to make sure there is no memory leak
 					resource = null;
@@ -212,10 +221,14 @@ public class JavaEEExtendedMetaData extends BasicExtendedMetaData {
 						uri = J2EEConstants.WEBFRAGMENT_SCHEMA_LOC_3_0;
 						javaeeUri = J2EEConstants.JAVAEE_NS_URL;
 					}
-					else
-					{
+					else if(J2EEVersionConstants.VERSION_3_1_TEXT.equals(version)) {
 						uri = J2EEConstants.WEBFRAGMENT_SCHEMA_LOC_3_1;
 						javaeeUri = J2EEConstants.JAVAEE7_NS_URL;
+					}
+					else
+					{
+						uri = J2EEConstants.WEBFRAGMENT_SCHEMA_LOC_4_0;
+						javaeeUri = J2EEConstants.JAVAEE8_NS_URL;
 					}
 					// release the resource to make sure there is no memory leak
 					resource = null;

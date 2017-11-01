@@ -465,13 +465,13 @@ public class JavaEEProjectUtilities extends ProjectUtilities implements IJ2EEFac
 
 	private static int getLatestVersion(IProject project) {
 		if (isEARProject(project) || isApplicationClientProject(project))
-			return J2EEVersionConstants.VERSION_7_0;
+			return J2EEVersionConstants.VERSION_8_0;
 		if (isEJBProject(project))
 			return J2EEVersionConstants.VERSION_3_2;
 		if (isDynamicWebProject(project))
-			return J2EEVersionConstants.VERSION_3_1;
+			return J2EEVersionConstants.VERSION_4_0;
 		if (isWebFragmentProject(project))
-			return J2EEVersionConstants.VERSION_3_1;
+			return J2EEVersionConstants.VERSION_4_0;
 		if (isJCAProject(project))
 			return J2EEVersionConstants.VERSION_1_7;
 		return J2EEVersionConstants.UNKNOWN;

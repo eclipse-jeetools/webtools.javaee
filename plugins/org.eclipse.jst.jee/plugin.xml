@@ -249,15 +249,15 @@
             id="org.eclipse.jst.jee.server">
          <moduleType
                types="jst.ear"
-               versions="7.0,6.0,5.0">
+               versions="8.0,7.0,6.0,5.0">
          </moduleType>
          <moduleType
                types="jst.appclient"
-               versions="7.0,6.0,5.0,1.2,1.3,1.4">
+               versions="8.0,7.0,6.0,5.0,1.2,1.3,1.4">
          </moduleType>
          <moduleType
                types="jst.web"
-               versions="3.1,3.0,2.5,2.2,2.3,2.4">
+               versions="4.0,3.1,3.0,2.5,2.2,2.3,2.4">
          </moduleType>
          <moduleType
                types="jst.ejb"
@@ -273,17 +273,17 @@
          </moduleType>
          <moduleType
                types="jst.webfragment"
-               versions="3.1,3.0">
+               versions="4.0,3.1,3.0">
          </moduleType> 
          <enablement>
 			<or>
-        		<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.appclient:7.0]"/>
+        		<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.appclient:8.0]"/>
 		  		<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.ejb:3.2]"/>
 		  		<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.utility:1.0]"/>
 	  			<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.connector:1.7]"/>
-	  			<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.web:3.1]"/>
-	  			<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.ear:[5.0-7.0]"/>
-	  			<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.webfragment:3.1]"/>
+	  			<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.web:4.0]"/>
+	  			<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.ear:[5.0-8.0]"/>
+	  			<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.webfragment:4.0]"/>
 			</or>
 		</enablement>        
       </moduleFactory>

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2005, 2017 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -247,7 +247,11 @@ public class AddComponentToEnterpriseApplicationOp extends CreateReferenceCompon
 		final IProject earpj = ear.getProject();
 		
 		String earDDVersion = JavaEEProjectUtilities.getJ2EEDDProjectVersion(earpj);
-		boolean useNewModel = earDDVersion.equals(J2EEVersionConstants.VERSION_5_0_TEXT) || earDDVersion.equals(J2EEVersionConstants.VERSION_6_0_TEXT) || earDDVersion.equals(J2EEVersionConstants.VERSION_7_0_TEXT);
+		boolean useNewModel = earDDVersion.equals(J2EEVersionConstants.VERSION_5_0_TEXT) || 
+				earDDVersion.equals(J2EEVersionConstants.VERSION_6_0_TEXT) || 
+				earDDVersion.equals(J2EEVersionConstants.VERSION_7_0_TEXT) || 
+				earDDVersion.equals(J2EEVersionConstants.VERSION_8_0_TEXT);
+		
 		if (wc.isBinary()){
 			//[Bug 299549] open and cache archive using the DISCRIMINATE_MAIN_CLASS
 			//option before attempting the JavaEEQuickPeek
