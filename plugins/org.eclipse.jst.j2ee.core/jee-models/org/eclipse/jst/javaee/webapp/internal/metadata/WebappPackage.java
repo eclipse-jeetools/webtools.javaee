@@ -345,7 +345,7 @@ import org.eclipse.jst.javaee.webapp.WebappFactory;
  * 
  *     
  * <!-- end-model-doc -->
- * @see org.eclipse.jst.javaee.webapp.internal.metadata.WebappFactory
+ * @see org.eclipse.jst.javaee.webapp.WebappFactory
  * @generated
  */
 public interface WebappPackage extends EPackage {

@@ -179,14 +179,14 @@ public enum WebAppVersionType implements Enumerator
 	 */
 	public static final int _31_VALUE = 2;
 	/**
-	 * The '<em><b>31</b></em>' literal value.
+	 * The '<em><b>40</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of '<em><b>31</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #_31
+	 * @see #_40
 	 * @generated
 	 * @ordered
 	 */

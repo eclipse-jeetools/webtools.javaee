@@ -362,7 +362,7 @@ public interface WebfragmentPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "http://xmlns.jcp.org/xml/ns/javaee/webfragment"; //$NON-NLS-1$
+	String eNS_URI = J2EEConstants.WEBFRAGMENT_SCHEMA_LOC_3_0;
 	String eNS_URI2 = J2EEConstants.WEBFRAGMENT_SCHEMA_LOC_3_1;
 	String eNS_URI3 = J2EEConstants.WEBFRAGMENT_SCHEMA_LOC_4_0;
 	/**
