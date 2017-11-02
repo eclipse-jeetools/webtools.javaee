@@ -56,6 +56,7 @@ import org.eclipse.jst.javaee.core.ServiceRef;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.jst.javaee.applicationclient.internal.impl.ApplicationClientImpl#getModuleName <em>Module Name</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.applicationclient.internal.impl.ApplicationClientImpl#getDescriptions <em>Descriptions</em>}</li>
@@ -82,7 +83,6 @@ import org.eclipse.jst.javaee.core.ServiceRef;
  *   <li>{@link org.eclipse.jst.javaee.applicationclient.internal.impl.ApplicationClientImpl#isMetadataComplete <em>Metadata Complete</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.applicationclient.internal.impl.ApplicationClientImpl#getVersion <em>Version</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -374,7 +374,7 @@ public class ApplicationClientImpl extends EObjectImpl implements ApplicationCli
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String VERSION_EDEFAULT = "7"; //$NON-NLS-1$
+	protected static final String VERSION_EDEFAULT = "8"; //$NON-NLS-1$
 
 	/**
 	 * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute.

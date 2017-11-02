@@ -49,7 +49,7 @@ import org.eclipse.jst.javaee.webapp.WebappFactory;
  *       <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
  *       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  *       xsi:schemaLocation="..."
- *       version="3.1"> 
+ *       version="4.0">
  *       ...
  *       </web-app>
  *       
@@ -57,7 +57,7 @@ import org.eclipse.jst.javaee.webapp.WebappFactory;
  *       the schema using the xsi:schemaLocation attribute for Java EE
  *       namespace with the following location:
  *       
- *       http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd
+ *       http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd
  *       
  * 
  *     
@@ -97,7 +97,7 @@ import org.eclipse.jst.javaee.webapp.WebappFactory;
  *       <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
  *       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  *       xsi:schemaLocation="..."
- *       version="3.1"> 
+ *       version="4.0">
  *       ...
  *       </web-app>
  *       
@@ -105,7 +105,7 @@ import org.eclipse.jst.javaee.webapp.WebappFactory;
  *       the schema using the xsi:schemaLocation attribute for Java EE
  *       namespace with the following location:
  *       
- *       http://xmlns.jcp.org/xml/ns/javaee/web-common_3_1.xsd
+ *       http://xmlns.jcp.org/xml/ns/javaee/web-common_4_0.xsd
  *       
  * 
  *     
@@ -214,7 +214,7 @@ import org.eclipse.jst.javaee.webapp.WebappFactory;
  *    </div>
  *   
  * 
- *    <div xmlns="http://www.w3.org/1999/xhtml" id="usage" xml:id="usage">
+ *    <div id="usage" xml:id="usage" xmlns="http://www.w3.org/1999/xhtml">
  *     <h2>
  *       <a name="usage">About this schema document</a>
  *     </h2>
@@ -260,7 +260,7 @@ import org.eclipse.jst.javaee.webapp.WebappFactory;
  *    </div>
  *   
  * 
- *    <div xmlns="http://www.w3.org/1999/xhtml" id="nsversioning" xml:id="nsversioning">
+ *    <div id="nsversioning" xml:id="nsversioning" xmlns="http://www.w3.org/1999/xhtml">
  *     <h2>
  *       <a name="nsversioning">Versioning policy for this schema document</a>
  *     </h2>

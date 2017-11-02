@@ -74,6 +74,7 @@ import org.eclipse.jst.javaee.web.internal.metadata.WebPackage;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getGroup <em>Group</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getModuleName <em>Module Name</em>}</li>
@@ -120,7 +121,6 @@ import org.eclipse.jst.javaee.web.internal.metadata.WebPackage;
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#isMetadataComplete <em>Metadata Complete</em>}</li>
  *   <li>{@link org.eclipse.jst.javaee.web.internal.impl.WebAppImpl#getVersion <em>Version</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -192,7 +192,7 @@ public class WebAppImpl extends EObjectImpl implements WebApp {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final WebAppVersionType VERSION_EDEFAULT = WebAppVersionType._31;
+	protected static final WebAppVersionType VERSION_EDEFAULT = WebAppVersionType._40;
 
 	/**
 	 * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute.

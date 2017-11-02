@@ -36,7 +36,7 @@ import org.eclipse.jst.javaee.application.ApplicationFactory;
  *     
  * 
  *       [
- *       This is the XML Schema for the application 7 deployment
+ *       This is the XML Schema for the application 8 deployment
  *       descriptor.  The deployment descriptor must be named
  *       "META-INF/application.xml" in the application's ear file.
  *       All application deployment descriptors must indicate
@@ -50,8 +50,8 @@ import org.eclipse.jst.javaee.application.ApplicationFactory;
  *       <application xmlns="http://xmlns.jcp.org/xml/ns/javaee"
  *       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  *       xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
- *       	http://xmlns.jcp.org/xml/ns/javaee/application_7.xsd"
- *       version="7">
+ *       	http://xmlns.jcp.org/xml/ns/javaee/application_8.xsd"
+ *       version="8">
  *       ...
  *       </application>
  *       
@@ -59,7 +59,7 @@ import org.eclipse.jst.javaee.application.ApplicationFactory;
  *       the schema using the xsi:schemaLocation attribute for Java EE
  *       namespace with the following location:
  *       
- *       http://xmlns.jcp.org/xml/ns/javaee/application_7.xsd
+ *       http://xmlns.jcp.org/xml/ns/javaee/application_8.xsd
  *       
  *       
  *     
@@ -291,7 +291,7 @@ public interface ApplicationPackage extends EPackage {
 	String eNS_URI = J2EEConstants.APPLICATION_SCHEMA_LOC_5;
 	String eNS_URI2 = J2EEConstants.APPLICATION_SCHEMA_LOC_6;
 	String eNS_URI3 = J2EEConstants.APPLICATION_SCHEMA_LOC_7;
-
+	String eNS_URI4 = J2EEConstants.APPLICATION_SCHEMA_LOC_8;
 	/**
 	 * The package namespace name.
 	 * <!-- begin-user-doc -->
