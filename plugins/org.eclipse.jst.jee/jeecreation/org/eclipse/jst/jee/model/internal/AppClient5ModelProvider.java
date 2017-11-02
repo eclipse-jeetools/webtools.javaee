@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2005, 2017 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -68,10 +68,15 @@ public class AppClient5ModelProvider extends JEE5ModelProvider {
 			dd.getXSISchemaLocation().put(J2EEConstants.JAVAEE_NS_URL, J2EEConstants.APP_CLIENT_SCHEMA_LOC_6);
 			client.setVersion(J2EEVersionConstants.VERSION_6_TEXT);
 		}
-		else {
+		else if(version != null && version.equals(J2EEVersionConstants.VERSION_7_0_TEXT)) {
 			dd.getXMLNSPrefixMap().put("", J2EEConstants.JAVAEE7_NS_URL);  //$NON-NLS-1$
 			dd.getXSISchemaLocation().put(J2EEConstants.JAVAEE7_NS_URL, J2EEConstants.APP_CLIENT_SCHEMA_LOC_7);
 			client.setVersion(J2EEVersionConstants.VERSION_7_TEXT);
+		}
+		else {
+			dd.getXMLNSPrefixMap().put("", J2EEConstants.JAVAEE7_NS_URL);  //$NON-NLS-1$
+			dd.getXSISchemaLocation().put(J2EEConstants.JAVAEE7_NS_URL, J2EEConstants.APP_CLIENT_SCHEMA_LOC_8);
+			client.setVersion(J2EEVersionConstants.VERSION_8_TEXT);
 		}
 
 		dd.setApplicationClient(client);

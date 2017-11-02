@@ -86,6 +86,7 @@ public interface J2EEVersionConstants {
 	public int VERSION_1_5 = 15;
 	public int VERSION_1_6 = 16;
 	public int VERSION_1_7 = 17;
+	public int VERSION_1_8 = 18;
 	public int VERSION_2_0 = 20;
 	public int VERSION_2_1 = 21;	
 	public int VERSION_2_2 = 22;	
@@ -109,6 +110,7 @@ public interface J2EEVersionConstants {
 	public String VERSION_1_5_TEXT		= "1.5"; //$NON-NLS-1$
 	public String VERSION_1_6_TEXT		= "1.6"; //$NON-NLS-1$
 	public String VERSION_1_7_TEXT		= "1.7"; //$NON-NLS-1$
+	public String VERSION_1_8_TEXT		= "1.8"; //$NON-NLS-1$
 	public String VERSION_2_0_TEXT		= "2.0"; //$NON-NLS-1$
 	public String VERSION_2_1_TEXT		= "2.1"; //$NON-NLS-1$
 	public String VERSION_2_2_TEXT		= "2.2"; //$NON-NLS-1$
@@ -126,5 +128,6 @@ public interface J2EEVersionConstants {
 	public String VERSION_5_TEXT        = "5";   //$NON-NLS-1$
 	public String VERSION_6_TEXT        = "6";   //$NON-NLS-1$
 	public String VERSION_7_TEXT        = "7";   //$NON-NLS-1$
+	public String VERSION_8_TEXT        = "8";	//$NON-NLS-1$
 					
 }

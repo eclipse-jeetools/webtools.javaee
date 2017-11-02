@@ -195,6 +195,8 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 						version = J2EEVersionConstants.JEE_6_0_ID;
 					} else if (versionStr.equals(J2EEVersionConstants.VERSION_7_0_TEXT)) {
 						version = J2EEVersionConstants.JEE_7_0_ID;
+					} else if (versionStr.equals(J2EEVersionConstants.VERSION_8_0_TEXT)) {
+						version = J2EEVersionConstants.JEE_8_0_ID;
 					}
 					break;
 				case J2EEVersionConstants.CONNECTOR_TYPE:
@@ -234,6 +236,8 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 						version = J2EEVersionConstants.WEB_3_0_ID;
 					} else if (versionStr.equals(J2EEVersionConstants.VERSION_3_1_TEXT)) {
 						version = J2EEVersionConstants.WEB_3_1_ID;
+					} else if (versionStr.equals(J2EEVersionConstants.VERSION_4_0_TEXT)) {
+						version = J2EEVersionConstants.WEB_4_0_ID;
 					}
 					break;
 				}

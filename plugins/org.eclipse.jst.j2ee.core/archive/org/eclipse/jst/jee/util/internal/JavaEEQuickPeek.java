@@ -181,6 +181,8 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 						version = J2EEVersionConstants.JEE_6_0_ID;
 					} else if (schemaName.indexOf(J2EEConstants.APP_CLIENT_SCHEMA_7)!= -1) {
 						version = J2EEVersionConstants.JEE_7_0_ID;
+					} else if (schemaName.indexOf(J2EEConstants.APP_CLIENT_SCHEMA_8) != -1) {
+						version = J2EEVersionConstants.JEE_8_0_ID;
 					}
 				}
 				break;
@@ -202,6 +204,8 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 						version = J2EEVersionConstants.JEE_6_0_ID;
 					} else if (schemaName.indexOf(J2EEConstants.APPLICATION_SCHEMA_7) != -1){
 						version = J2EEVersionConstants.JEE_7_0_ID;
+					} else if (schemaName.indexOf(J2EEConstants.APPLICATION_SCHEMA_8) != -1) {
+						version = J2EEVersionConstants.JEE_8_0_ID;
 					}
 				}
 				break;
@@ -255,6 +259,8 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 						version = J2EEVersionConstants.WEB_3_0_ID;
 					} else if (schemaName.indexOf(J2EEConstants.WEBAPP_SCHEMA_3_1) != -1) {
 						version = J2EEVersionConstants.WEB_3_1_ID;
+					} else if (schemaName.indexOf(J2EEConstants.WEBAPP_SCHEMA_4_0) != -1) {
+						version = J2EEVersionConstants.WEB_4_0_ID;
 					}
 				}
 				break;
@@ -281,6 +287,8 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 						version = J2EEVersionConstants.WEBFRAGMENT_3_0_ID;
 					} else if (schemaName.indexOf(J2EEConstants.WEBFRAGMENT_SCHEMA_3_1) != -1) {
 						version = J2EEVersionConstants.WEBFRAGMENT_3_1_ID;
+					} else if (schemaName.indexOf(J2EEConstants.WEBFRAGMENT_SCHEMA_4_0) != -1) {
+						version = J2EEVersionConstants.WEBFRAGMENT_4_0_ID;
 					}
 				}
 				break;
@@ -369,6 +377,9 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 				case J2EEVersionConstants.WEB_3_1_ID:
 					javaEEVersion = J2EEVersionConstants.JEE_7_0_ID;
 					break;
+				case J2EEVersionConstants.WEB_4_0_ID:
+					javaEEVersion = J2EEVersionConstants.JEE_8_0_ID;
+					break;
 				}
 				break;
 		case WEBSERVICES_TYPE:
@@ -398,6 +409,9 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 				break;
 			case J2EEVersionConstants.WEBFRAGMENT_3_1_ID:
 				javaEEVersion = J2EEVersionConstants.JEE_7_0_ID;
+				break;
+			case J2EEVersionConstants.WEBFRAGMENT_4_0_ID:
+				javaEEVersion = J2EEVersionConstants.JEE_8_0_ID;
 				break;
 			}
 			break;

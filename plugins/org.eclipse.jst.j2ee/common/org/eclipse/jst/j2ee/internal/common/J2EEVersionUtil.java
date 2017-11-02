@@ -44,6 +44,9 @@ public class J2EEVersionUtil {
 		
 		case J2EEVersionConstants.SERVLET_3_1:
 			return J2EEVersionConstants.VERSION_3_1_TEXT;
+		
+		case J2EEVersionConstants.SERVLET_4_0:
+			return J2EEVersionConstants.VERSION_4_0_TEXT;
 		}
 		return ""; //$NON-NLS-1$
 
@@ -113,6 +116,9 @@ public class J2EEVersionUtil {
 
 		case J2EEVersionConstants.JEE_7_0_ID:
 			return J2EEVersionConstants.VERSION_7_0_TEXT;
+		
+		case J2EEVersionConstants.JEE_8_0_ID:
+			return J2EEVersionConstants.VERSION_8_0_TEXT;
 			
 		}
 		return "";//$NON-NLS-1$
@@ -131,6 +137,8 @@ public class J2EEVersionUtil {
 			return J2EEVersionConstants.JEE_6_0_ID;
 		if (version.equals(J2EEVersionConstants.VERSION_7_0_TEXT))
 			return J2EEVersionConstants.JEE_7_0_ID;
+		if (version.equals(J2EEVersionConstants.VERSION_8_0_TEXT))
+			return J2EEVersionConstants.JEE_8_0_ID;
 		// default
 		return J2EEVersionConstants.JEE_5_0_ID;
 	}
@@ -165,6 +173,8 @@ public class J2EEVersionUtil {
 			return J2EEVersionConstants.JEE_6_0_ID;
 		if (version.equals(J2EEVersionConstants.VERSION_3_1_TEXT))
 			return J2EEVersionConstants.JEE_7_0_ID;
+		if (version.equals(J2EEVersionConstants.VERSION_4_0_TEXT))
+			return J2EEVersionConstants.JEE_8_0_ID;
 		// default
 		return J2EEVersionConstants.J2EE_1_4_ID;
 	}
@@ -197,6 +207,7 @@ public class J2EEVersionUtil {
 			case J2EEVersionConstants.JEE_6_0_ID:
 				return J2EEVersionConstants.EJB_3_1_ID;
 			case J2EEVersionConstants.JEE_7_0_ID:
+			case J2EEVersionConstants.JEE_8_0_ID:
 				return J2EEVersionConstants.EJB_3_2_ID;
 		}
 		// default
@@ -217,6 +228,8 @@ public class J2EEVersionUtil {
 				return J2EEVersionConstants.WEB_3_0_ID;
 			case J2EEVersionConstants.JEE_7_0_ID:
 				return J2EEVersionConstants.WEB_3_1_ID;
+			case J2EEVersionConstants.JEE_8_0_ID:
+				return J2EEVersionConstants.WEB_4_0_ID;
 		}
 		// default
 		return J2EEVersionConstants.WEB_3_0_ID;
@@ -232,6 +245,7 @@ public class J2EEVersionUtil {
 			case J2EEVersionConstants.JEE_6_0_ID:
 				return J2EEVersionConstants.JCA_1_6_ID;
 			case J2EEVersionConstants.JEE_7_0_ID:
+			case J2EEVersionConstants.JEE_8_0_ID:
 				return J2EEVersionConstants.JCA_1_7_ID;
 		}
 		// default
@@ -280,6 +294,9 @@ public class J2EEVersionUtil {
 		else if (J2EEVersionConstants.VERSION_1_7_TEXT.equals(version))
 			nVersion = J2EEVersionConstants.VERSION_1_7;
 		
+		else if (J2EEVersionConstants.VERSION_1_8_TEXT.equals(version))
+			nVersion = J2EEVersionConstants.VERSION_1_8;
+		
 		else if (J2EEVersionConstants.VERSION_2_0_TEXT.equals(version))
 			nVersion = J2EEVersionConstants.VERSION_2_0;
 		
@@ -307,6 +324,9 @@ public class J2EEVersionUtil {
 		else if (J2EEVersionConstants.VERSION_3_2_TEXT.equals(version))
 			nVersion = J2EEVersionConstants.VERSION_3_2;	
 		
+		else if (J2EEVersionConstants.VERSION_4_0_TEXT.equals(version))
+			nVersion = J2EEVersionConstants.VERSION_4_0;
+		
 		else if (J2EEVersionConstants.VERSION_5_0_TEXT.equals(version))
 			nVersion = J2EEVersionConstants.VERSION_5_0;			
 		
@@ -314,8 +334,11 @@ public class J2EEVersionUtil {
 			nVersion = J2EEVersionConstants.VERSION_6_0;	
 
 		else if (J2EEVersionConstants.VERSION_7_0_TEXT.equals(version))
-			nVersion = J2EEVersionConstants.VERSION_7_0;	
-
+			nVersion = J2EEVersionConstants.VERSION_7_0;
+		
+		else if (J2EEVersionConstants.VERSION_8_0_TEXT.equals(version))
+			nVersion = J2EEVersionConstants.VERSION_8_0;
+		
 		return nVersion;
 	}
 	public static String convertVersionIntToString(int version) {
@@ -345,6 +368,9 @@ public class J2EEVersionUtil {
 		else if (version == J2EEVersionConstants.VERSION_1_7)
 			nVersion = J2EEVersionConstants.VERSION_1_7_TEXT;
 		
+		else if (version == J2EEVersionConstants.VERSION_1_8)
+			nVersion = J2EEVersionConstants.VERSION_1_8_TEXT;
+		
 		else if (version == J2EEVersionConstants.VERSION_2_0)
 			nVersion = J2EEVersionConstants.VERSION_2_0_TEXT;
 		
@@ -371,7 +397,10 @@ public class J2EEVersionUtil {
 		
 		else if (version == J2EEVersionConstants.VERSION_3_2)
 			nVersion = J2EEVersionConstants.VERSION_3_2_TEXT;	
-
+		
+		else if (version == J2EEVersionConstants.VERSION_4_0)
+			nVersion = J2EEVersionConstants.VERSION_4_0_TEXT;
+		
 		else if (version == J2EEVersionConstants.VERSION_5_0)
 			nVersion = J2EEVersionConstants.VERSION_5_0_TEXT;		
 		
@@ -379,8 +408,11 @@ public class J2EEVersionUtil {
 			nVersion = J2EEVersionConstants.VERSION_6_0_TEXT;	
 	
 		else if (version == J2EEVersionConstants.VERSION_7_0)
-			nVersion = J2EEVersionConstants.VERSION_7_0_TEXT;	
-	
+			nVersion = J2EEVersionConstants.VERSION_7_0_TEXT;
+		
+		else if (version == J2EEVersionConstants.VERSION_8_0)
+			nVersion = J2EEVersionConstants.VERSION_8_0_TEXT;
+		
 		return nVersion;
 	}
 	
@@ -401,6 +433,9 @@ public class J2EEVersionUtil {
 				break;
 			case J2EEVersionConstants.JEE_7_0_ID:
 				javaFacetVersion = JavaFacet.VERSION_1_7;
+				break;
+			case J2EEVersionConstants.JEE_8_0_ID:
+				javaFacetVersion = JavaFacet.VERSION_1_8;
 				break;
 		}
 		

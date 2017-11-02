@@ -33,6 +33,11 @@ public final class JEE8ContentDescriber implements IContentDescriber {
 		JavaEEQuickPeek quickPeek = new JavaEEQuickPeek(contents);
 		switch (quickPeek.getType()) {
 		case JavaEEQuickPeek.APPLICATION_CLIENT_TYPE:
+			switch (quickPeek.getVersion()) {
+			case JavaEEQuickPeek.JEE_8_0_ID:
+				return VALID;
+			}
+			return INVALID;
 		case JavaEEQuickPeek.APPLICATION_TYPE:
 			switch (quickPeek.getVersion()) {
 			case JavaEEQuickPeek.JEE_8_0_ID:
