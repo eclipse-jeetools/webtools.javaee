@@ -140,7 +140,8 @@ public class ArchiveWrapper {
 		if(archive.containsArchiveResource(new Path(J2EEConstants.APPLICATION_DD_URI))){
 			if(jqp.getJavaEEVersion() == JavaEEQuickPeek.JEE_5_0_ID ||
 					jqp.getJavaEEVersion() == JavaEEQuickPeek.JEE_6_0_ID ||
-					jqp.getJavaEEVersion() == JavaEEQuickPeek.JEE_7_0_ID){
+					jqp.getJavaEEVersion() == JavaEEQuickPeek.JEE_7_0_ID || 
+					jqp.getJavaEEVersion() == JavaEEQuickPeek.JEE_8_0_ID){
 				try {
 					Application application = (Application) archive.getModelObject();
 					List modules = application.getModules();
@@ -182,7 +183,8 @@ public class ArchiveWrapper {
 		cachedEARModules = new ArrayList<ArchiveWrapper>();
 		if(jqp.getJavaEEVersion() == JavaEEQuickPeek.JEE_5_0_ID ||
 				jqp.getJavaEEVersion() == JavaEEQuickPeek.JEE_6_0_ID ||
-				jqp.getJavaEEVersion() == JavaEEQuickPeek.JEE_7_0_ID){
+				jqp.getJavaEEVersion() == JavaEEQuickPeek.JEE_7_0_ID ||
+				jqp.getJavaEEVersion() == JavaEEQuickPeek.JEE_8_0_ID){
 			List<IArchiveResource> resources = archive.getArchiveResources();
 			for (IArchiveResource resource : resources) {
 				if (resource.getType() != IArchiveResource.DIRECTORY_TYPE) {
@@ -288,7 +290,8 @@ public class ArchiveWrapper {
 			JavaEEQuickPeek earJQP = JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(earArchive);
 			if(earJQP.getJavaEEVersion() == JavaEEQuickPeek.JEE_5_0_ID ||
 					earJQP.getJavaEEVersion() == JavaEEQuickPeek.JEE_6_0_ID || 
-					earJQP.getJavaEEVersion() == JavaEEQuickPeek.JEE_7_0_ID){
+					earJQP.getJavaEEVersion() == JavaEEQuickPeek.JEE_7_0_ID ||
+					earJQP.getJavaEEVersion() == JavaEEQuickPeek.JEE_8_0_ID){
 				try {
 					Application application = (Application) earArchive.getModelObject();
 					String moduleName = archive.getPath().toString();

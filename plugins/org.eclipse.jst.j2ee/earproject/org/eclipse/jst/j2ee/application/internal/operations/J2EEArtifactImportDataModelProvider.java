@@ -497,9 +497,9 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 		}
 		
 		IRuntime runtime = (IRuntime)getProperty(IFacetProjectCreationDataModelProperties.FACET_RUNTIME);
-		if(archiveType == JavaEEQuickPeek.CONNECTOR_TYPE || runtime == null || runtime.supports(highestProjectFacetVersion[EE7]) ){
-			return new JavaEEQuickPeek(jqp.getType(), highestJQPVersion[EE7]);
-		} if(runtime.supports(highestProjectFacetVersion[EE7]) ){
+		if(archiveType == JavaEEQuickPeek.CONNECTOR_TYPE || runtime == null || runtime.supports(highestProjectFacetVersion[EE8]) ){
+			return new JavaEEQuickPeek(jqp.getType(), highestJQPVersion[EE8]);
+		} else if(runtime.supports(highestProjectFacetVersion[EE7]) ){
 			return new JavaEEQuickPeek(jqp.getType(), highestJQPVersion[EE7]);	
 		} else if(runtime.supports(highestProjectFacetVersion[EE6]) ){
 			return new JavaEEQuickPeek(jqp.getType(), highestJQPVersion[EE6]);
