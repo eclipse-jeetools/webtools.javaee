@@ -79,8 +79,8 @@ public final class WebComponentImportDataModelProvider extends J2EEComponentImpo
 	@Override
 	protected void handleUnknownType(JavaEEQuickPeek jqp) {
 		jqp.setType(J2EEVersionConstants.WEB_TYPE);
-		jqp.setVersion(J2EEVersionConstants.WEB_3_1_ID);
-		jqp.setJavaEEVersion(J2EEVersionConstants.JEE_7_0_ID);
+		jqp.setVersion(J2EEVersionConstants.WEB_4_0_ID);
+		jqp.setJavaEEVersion(J2EEVersionConstants.JEE_8_0_ID);
 	}
 
 
