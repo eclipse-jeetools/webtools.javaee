@@ -1,5 +1,5 @@
 /***********************************************************************
- * Copyright (c) 2008, 2013 by SAP AG, Walldorf. 
+ * Copyright (c) 2008, 2017 by SAP AG, Walldorf. 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,7 +7,7 @@
  *
  * Contributors:
  *     SAP AG - initial API and implementation
- *     IBM - Java EE 7 support
+ *     IBM - Java EE 7 and 8 support
  ***********************************************************************/
 package org.eclipse.jst.jee.ui.internal.navigator.appclient;
 
@@ -49,7 +49,8 @@ public class GroupAppClientProvider extends AbstractAppClientGroupProvider imple
 	private Image appClient50Image;
 	private Image appClient60Image;
 	private Image appClient70Image;
-
+	private Image appClient80Image;
+	
 	private IFile ddFile;
 
 	@Override
@@ -89,6 +90,8 @@ public class GroupAppClientProvider extends AbstractAppClientGroupProvider imple
 			return getAppClient60Image();
 		} else if (J2EEVersionConstants.VERSION_7_TEXT.equals(version)) {
 			return getAppClient70Image();
+		} else if (J2EEVersionConstants.VERSION_8_TEXT.equals(version)) {
+			return getAppClient80Image();
 		}
 		return getAppClient50Image();
 	}
@@ -132,5 +135,12 @@ public class GroupAppClientProvider extends AbstractAppClientGroupProvider imple
 			appClient70Image = JEEUIPlugin.getDefault().getImageDescriptor(JEEUIPluginIcons.APP_CLIENT70).createImage();
 		}
 		return appClient70Image;
+	}
+	
+	private Image getAppClient80Image() {
+		if (appClient80Image == null) {
+			appClient80Image = JEEUIPlugin.getDefault().getImageDescriptor(JEEUIPluginIcons.APP_CLIENT80).createImage();
+		}
+		return appClient80Image;
 	}
 }
