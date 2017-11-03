@@ -19,6 +19,7 @@ public class JEEUIPluginIcons {
 	public static String IMG_WEBEEMODEL = "webapp_25"; //$NON-NLS-1$
 	public static String IMG_WEBEE6MODEL = "webapp_30"; //$NON-NLS-1$
 	public static String IMG_WEBEE7MODEL = "webapp_31"; //$NON-NLS-1$
+	public static String IMG_WEBEE8MODEL = "webapp_40"; //$NON-NLS-1$
 	public static String IMG_CONNECTOR = "connection"; //$NON-NLS-1$
 	public static String IMG_EE7CONNECTOR = "connector_17"; //$NON-NLS-1$
 	public static String IMG_CONFIG_PROP = "config_prop_obj"; //$NON-NLS-1$
@@ -45,8 +46,10 @@ public class JEEUIPluginIcons {
 	public static String EAR_IMAGE = "ear_50"; //$NON-NLS-1$
 	public static String EAR6_IMAGE = "ear_60"; //$NON-NLS-1$
 	public static String EAR7_IMAGE = "ear_70"; //$NON-NLS-1$
+	public static String EAR8_IMAGE = "ear_80"; //$NON-NLS-1$
 	public static String APP_CLIENT50 = "appclient_50"; //$NON-NLS-1$
 	public static String APP_CLIENT60 = "appclient_60"; //$NON-NLS-1$
 	public static String APP_CLIENT70 = "appclient_70"; //$NON-NLS-1$
+	public static String APP_CLIENT80 = "appclient_80"; //$NON-NLS-1$
 
 }
