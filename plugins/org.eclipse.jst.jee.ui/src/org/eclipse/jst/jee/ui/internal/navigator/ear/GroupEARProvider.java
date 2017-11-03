@@ -1,5 +1,5 @@
 /***********************************************************************
- * Copyright (c) 2008, 2013 by SAP AG, Walldorf. 
+ * Copyright (c) 2008, 2017 by SAP AG, Walldorf. 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,7 +7,7 @@
  *
  * Contributors:
  *     SAP AG - initial API and implementation
- *     IBM - Java EE 7 support
+ *     IBM - Java EE 7 and 8 support
  ***********************************************************************/
 package org.eclipse.jst.jee.ui.internal.navigator.ear;
 
@@ -47,6 +47,7 @@ public class GroupEARProvider extends AbstractEarGroupProvider implements IAdapt
 	private static Image ear50Image;
 	private static Image ear60Image;
 	private static Image ear70Image;
+	private static Image ear80Image;
 	private EARVirtualComponent earComponent;
 	private IFile ddFile;
 	
@@ -117,6 +118,8 @@ public class GroupEARProvider extends AbstractEarGroupProvider implements IAdapt
 			return getEar60Image();
 		} else if (J2EEVersionConstants.VERSION_7_TEXT.equals(version)) {
 			return getEar70Image();
+		} else if (J2EEVersionConstants.VERSION_8_TEXT.equals(version)) {
+			return getEar80Image();
 		}
 		return getEar50Image();
 	}
@@ -156,5 +159,12 @@ public class GroupEARProvider extends AbstractEarGroupProvider implements IAdapt
 			ear70Image = JEEUIPlugin.getDefault().getImageDescriptor(JEEUIPluginIcons.EAR7_IMAGE).createImage();
 		}
 		return ear70Image;
+	}
+	
+	private Image getEar80Image() {
+		if (ear80Image == null) {
+			ear80Image = JEEUIPlugin.getDefault().getImageDescriptor(JEEUIPluginIcons.EAR8_IMAGE).createImage();
+		}
+		return ear80Image;
 	}
 }
