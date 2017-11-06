@@ -184,11 +184,13 @@ public abstract class NewWebClassDataModelProvider extends NewJavaClassDataModel
 		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(getStringProperty(PROJECT_NAME));
 		if (project != null && project.isAccessible()){
 			try {
-				// check to see if it is Java EE 6 or 7
+				// check to see if it is Java EE 6 or later
 				return (FacetedProjectFramework.hasProjectFacet(project, WebFacetUtils.WEB_FACET.getId(), WebFacetUtils.WEB_30.getVersionString())
 						|| FacetedProjectFramework.hasProjectFacet(project, WebFacetUtils.WEB_FACET.getId(), WebFacetUtils.WEB_31.getVersionString())
+						|| FacetedProjectFramework.hasProjectFacet(project, WebFacetUtils.WEB_FACET.getId(), WebFacetUtils.WEB_40.getVersionString())
 						|| FacetedProjectFramework.hasProjectFacet(project, WebFacetUtils.WEBFRAGMENT_FACET.getId(), WebFacetUtils.WEBFRAGMENT_30.getVersionString())
-						|| FacetedProjectFramework.hasProjectFacet(project, WebFacetUtils.WEBFRAGMENT_FACET.getId(), WebFacetUtils.WEBFRAGMENT_31.getVersionString()));
+						|| FacetedProjectFramework.hasProjectFacet(project, WebFacetUtils.WEBFRAGMENT_FACET.getId(), WebFacetUtils.WEBFRAGMENT_31.getVersionString())
+						|| FacetedProjectFramework.hasProjectFacet(project, WebFacetUtils.WEBFRAGMENT_FACET.getId(), WebFacetUtils.WEBFRAGMENT_40.getVersionString()));
 			} catch (CoreException e) {
 				WebPlugin.log(e);
 			}
