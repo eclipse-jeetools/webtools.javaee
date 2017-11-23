@@ -51,7 +51,7 @@
     <module>docs/org.eclipse.jst.j2ee.doc.user</module>
     <module>docs/org.eclipse.jst.j2ee.infopop</module>
     <module>docs/org.eclipse.jst.servlet.ui.infopop</module>
-    <module>docs/org.eclipse.wst.web.ui.infopop</module>
+    <!-- <module>docs/org.eclipse.wst.web.ui.infopop</module> -->
 
     <module>features/org.eclipse.jst.doc.user.feature</module>
     <module>features/org.eclipse.jst.enterprise_core.feature</module>
@@ -87,8 +87,8 @@
     <module>plugins/org.eclipse.jst.jee.ui</module>
     <module>plugins/org.eclipse.jst.jee.web</module>
     <module>plugins/org.eclipse.jst.servlet.ui</module>
-    <module>plugins/org.eclipse.wst.web</module>
-    <module>plugins/org.eclipse.wst.web.ui</module>
+    <!-- <module>plugins/org.eclipse.wst.web</module> -->
+    <!-- <module>plugins/org.eclipse.wst.web.ui</module> -->
     <module>plugins/org.eclipse.wtp.jee.capabilities</module>
   </modules>
 </project>
