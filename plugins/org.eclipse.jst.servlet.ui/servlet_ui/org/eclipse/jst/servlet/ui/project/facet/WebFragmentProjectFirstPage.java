@@ -101,7 +101,11 @@ public class WebFragmentProjectFirstPage extends J2EEComponentFacetCreationWizar
 	    else {
 		    facets.add(primaryFacetVersion);
 		    
-		    if(primaryFacetVersion == WebFacetUtils.WEBFRAGMENT_31)
+		    if(primaryFacetVersion == WebFacetUtils.WEBFRAGMENT_40)
+		    {
+		        facets.add(JavaFacet.VERSION_1_8);
+		    }
+		    else if(primaryFacetVersion == WebFacetUtils.WEBFRAGMENT_31)
 		    {
 		        facets.add(JavaFacet.VERSION_1_7);
 		    }

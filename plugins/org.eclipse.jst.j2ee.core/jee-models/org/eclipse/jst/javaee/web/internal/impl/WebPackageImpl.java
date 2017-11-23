@@ -3255,7 +3255,8 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		addEEnumLiteral(webAppVersionTypeEEnum, WebAppVersionType._25_LITERAL);
 		addEEnumLiteral(webAppVersionTypeEEnum, WebAppVersionType._30_LITERAL);
 		addEEnumLiteral(webAppVersionTypeEEnum, WebAppVersionType._31);
-
+		addEEnumLiteral(webAppVersionTypeEEnum, WebAppVersionType._40);
+		
 		// Initialize data types
 		initEDataType(authMethodTypeEDataType, String.class, "AuthMethodType", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEDataType(dispatcherTypeObjectEDataType, DispatcherType.class, "DispatcherTypeObject", IS_SERIALIZABLE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
