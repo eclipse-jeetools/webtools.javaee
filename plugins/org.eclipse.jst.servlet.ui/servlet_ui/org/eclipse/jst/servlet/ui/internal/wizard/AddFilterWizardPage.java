@@ -178,7 +178,7 @@ public class AddFilterWizardPage extends DataModelWizardPage {
 	public void setVisible(boolean visible) {
 		super.setVisible(visible);
 		String javaEEVersion = model.getStringProperty(INewServletClassDataModelProperties.JAVA_EE_VERSION);
-		if("3.0".equals(javaEEVersion) || "3.1".equals(javaEEVersion)){ //$NON-NLS-1$ //$NON-NLS-2$			
+		if("3.0".equals(javaEEVersion) || "3.1".equals(javaEEVersion) || "4.0".equals(javaEEVersion)){ //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$			
 			asyncSupportCheckBox.setVisible(true);
 		}
 		else
