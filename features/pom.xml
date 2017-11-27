@@ -31,7 +31,6 @@
     <module>org.eclipse.jst.doc.user.feature</module>
     <module>org.eclipse.jst.enterprise_core.feature</module>
     <module>org.eclipse.jst.enterprise_sdk.feature</module>
-    <module>org.eclipse.jst.enterprise_tests.feature</module>
     <module>org.eclipse.jst.enterprise_ui.feature</module>
     <module>org.eclipse.jst.enterprise_userdoc.feature</module>
     <module>org.eclipse.jst.web_core.feature</module>
@@ -40,4 +39,22 @@
     <module>org.eclipse.jst.web_ui.feature</module>
     <module>org.eclipse.jst.web_userdoc.feature</module>
   </modules>
+
+  <profiles>
+    <profile>
+      <id>integration</id>
+      <properties>
+        <skipITests>false</skipITests>
+      </properties>
+      <modules>
+        <!-- 
+          depends on webtools.webservices plugins:
+          tests/org.eclipse.jst.ws.axis.consumption.core.tests
+          tests/org.eclipse.jst.ws.tests
+          tests/org.eclipse.jst.ws.tests.performance -->
+        <module>org.eclipse.jst.enterprise_tests.feature</module>
+      </modules>
+    </profile>
+  </profiles>
+
 </project>
