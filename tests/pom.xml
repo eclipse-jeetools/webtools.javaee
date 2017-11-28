@@ -29,13 +29,25 @@
     <module>org.eclipse.jem.tests</module>
     <module>org.eclipse.jst.ejb.ui.tests</module>
     <module>org.eclipse.jst.j2ee.core.tests</module>
-    <module>org.eclipse.jst.j2ee.core.tests.performance</module>
-    <module>org.eclipse.jst.j2ee.ejb.generation.tests</module>
     <module>org.eclipse.jst.j2ee.tests</module>
-    <module>org.eclipse.jst.j2ee.tests.performance</module>
     <module>org.eclipse.jst.jee.tests</module>
     <module>org.eclipse.jst.servlet.tests</module>
     <module>org.eclipse.jst.validation.sample</module>
     <module>org.eclipse.jst.validation.test</module>
   </modules>
+
+  <profiles>
+    <profile>
+      <id>performance</id>
+      <properties>
+        <skipITests>false</skipITests>
+      </properties>
+      <modules>
+        <module>org.eclipse.jst.j2ee.core.tests.performance</module>
+        <module>org.eclipse.jst.j2ee.ejb.generation.tests</module>
+        <module>org.eclipse.jst.j2ee.tests.performance</module>
+      </modules>
+    </profile>
+  </profiles>
+
 </project>
