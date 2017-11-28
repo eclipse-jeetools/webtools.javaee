@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <!--
   Copyright (c) 2012, 2013 Eclipse Foundation and others.
   All rights reserved. This program and the accompanying materials
@@ -10,9 +10,7 @@
     Thanh Ha (Eclipse Foundation) - initial implementation
     Nick Boldt (Red Hat Inc.) - support for Tycho 1.0 and upstream component builds
 -->
-
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
@@ -48,6 +46,31 @@
     <!-- org.eclipse.jst.doc.user.feature requires org.eclipse.jst.jsp.* -->
     <repository>
       <id>webtools-sourceediting-site</id>
+      <layout>p2</layout>
+      <url>${webtools-sourceediting-site}</url>
+    </repository>
+    <!-- org.eclipse.wst.web.ui requires org.eclipse.wst.jsdt.ui -->
+    <repository>
+      <id>webtools-jsdt-site</id>
+      <layout>p2</layout>
+      <url>${webtools-jsdt-site}</url>
+    </repository>
+    <!-- TODO: org.eclipse.jst.doc.user.feature requires org.eclipse.jst.ws.* so that feature should move into webservices (or releng) -->
+
+    <!-- To reference parent pom -->
+    <repository>
+      <id>Webtools Repository - Releases</id>
+      <name>Webtools Repository - Releases</name>
+      <url>https://repo.eclipse.org/content/repositories/webtools-releases/</url>
+    </repository>
+    <repository>
+      <id>Webtools Repository - Snapshots</id>
+      <name>Webtools Repository - Snapshots</name>
+      <url>https://repo.eclipse.org/content/repositories/webtools-snapshots/</url>
+    </repository>
+  </repositories>
+
+  <modules>
     <module>docs</module>
     <module>features</module>
     <module>plugins</module>
