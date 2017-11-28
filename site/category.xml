@@ -2,18 +2,21 @@
 <site>
 
     <feature id="org.eclipse.jst.enterprise_core.feature"><category name="jeetools"/></feature>
-    <feature id="org.eclipse.jst.enterprise_tests.feature"><category name="jeetools"/></feature>
+
+    <!-- TODO: these features should be moved downstream to jsf, webservices, or releng, as they INCLUDE downstream plugins -->
+    <!--
+    <feature id="org.eclipse.jst.enterprise_tests.feature"><category name="jeetools.tests"/></feature> 
     <feature id="org.eclipse.jst.enterprise_ui.feature"><category name="jeetools"/></feature>
-
     <feature id="org.eclipse.jst.web_core.feature"><category name="jeetools"/></feature>
-    <feature id="org.eclipse.jst.web_tests.feature"><category name="jeetools"/></feature>
     <feature id="org.eclipse.jst.web_ui.feature"><category name="jeetools"/></feature>
-
     <feature id="org.eclipse.jst.doc.user.feature"><category name="jeetools.sdk"/></feature>
     <feature id="org.eclipse.jst.enterprise_sdk.feature"><category name="jeetools.sdk"/></feature>
     <feature id="org.eclipse.jst.enterprise_userdoc.feature"><category name="jeetools.sdk"/></feature>
     <feature id="org.eclipse.jst.web_sdk.feature"><category name="jeetools.sdk"/></feature>
     <feature id="org.eclipse.jst.web_userdoc.feature"><category name="jeetools.sdk"/></feature>
+    -->
+    
+    <feature id="org.eclipse.jst.web_tests.feature"><category name="jeetools.tests"/></feature>
 
     <category-def name="jeetools" label="WTP Java EE / EJB Tools"><description>
         Web Tools Platform (WTP) Java EE / EJB Tools
