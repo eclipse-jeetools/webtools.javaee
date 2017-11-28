@@ -26,8 +26,6 @@
   <packaging>pom</packaging>
 
   <modules>
-    <module>org.eclipse.jem-feature</module>
-    <module>org.eclipse.jem.tests-feature</module>
     <module>org.eclipse.jst.doc.user.feature</module>
     <module>org.eclipse.jst.enterprise_core.feature</module>
     <module>org.eclipse.jst.enterprise_sdk.feature</module>
