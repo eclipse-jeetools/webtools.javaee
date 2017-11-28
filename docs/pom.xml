@@ -31,6 +31,5 @@
     <module>org.eclipse.jst.j2ee.doc.user</module>
     <module>org.eclipse.jst.j2ee.infopop</module>
     <module>org.eclipse.jst.servlet.ui.infopop</module>
-    <module>org.eclipse.wst.web.ui.infopop</module>
   </modules>
 </project>

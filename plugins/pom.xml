@@ -58,8 +58,6 @@
     <module>org.eclipse.jst.jee.ui</module>
     <module>org.eclipse.jst.jee.web</module>
     <module>org.eclipse.jst.servlet.ui</module>
-    <module>org.eclipse.wst.web</module>
-    <module>org.eclipse.wst.web.ui</module>
     <module>org.eclipse.wtp.jee.capabilities</module>
   </modules>
 </project>
