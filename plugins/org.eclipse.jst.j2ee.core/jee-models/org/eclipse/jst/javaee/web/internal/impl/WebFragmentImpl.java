@@ -190,7 +190,7 @@ public class WebFragmentImpl extends EObjectImpl implements WebFragment {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final WebAppVersionType VERSION_EDEFAULT = WebAppVersionType._31;
+	protected static final WebAppVersionType VERSION_EDEFAULT = WebAppVersionType._40;
 
 	/**
 	 * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute.
