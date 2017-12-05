@@ -15,7 +15,40 @@
     <feature id="org.eclipse.jst.web_sdk.feature"><category name="jeetools.sdk"/></feature>
     <feature id="org.eclipse.jst.web_userdoc.feature"><category name="jeetools.sdk"/></feature>
     -->
-    
+    <bundle id="org.eclipse.jem"/>
+    <bundle id="org.eclipse.jem.beaninfo"/>
+    <bundle id="org.eclipse.jem.beaninfo.vm"/>
+    <bundle id="org.eclipse.jem.beaninfo.vm.common"/>
+    <bundle id="org.eclipse.jem.proxy"/>
+    <bundle id="org.eclipse.jem.workbench"/>
+    <bundle id="org.eclipse.jst.common.annotations.controller"/>
+    <bundle id="org.eclipse.jst.common.annotations.core"/>
+    <bundle id="org.eclipse.jst.common.annotations.ui"/>
+    <bundle id="org.eclipse.jst.common.frameworks"/>
+    <bundle id="org.eclipse.jst.common.ui"/>
+    <bundle id="org.eclipse.jst.ejb.ui"/>
+    <bundle id="org.eclipse.jst.j2ee"/>
+    <bundle id="org.eclipse.jst.j2ee.core"/>
+    <bundle id="org.eclipse.jst.j2ee.ejb"/>
+    <bundle id="org.eclipse.jst.j2ee.ejb.annotation.model"/>
+    <bundle id="org.eclipse.jst.j2ee.ejb.annotations.emitter"/>
+    <bundle id="org.eclipse.jst.j2ee.ejb.annotations.ui"/>
+    <bundle id="org.eclipse.jst.j2ee.ejb.annotations.xdoclet"/>
+    <bundle id="org.eclipse.jst.j2ee.jca"/>
+    <bundle id="org.eclipse.jst.j2ee.jca.ui"/>
+    <bundle id="org.eclipse.jst.j2ee.navigator.ui"/>
+    <bundle id="org.eclipse.jst.j2ee.ui"/>
+    <bundle id="org.eclipse.jst.j2ee.web"/>
+    <bundle id="org.eclipse.jst.j2ee.webservice"/>
+    <bundle id="org.eclipse.jst.j2ee.webservice.ui"/>
+    <bundle id="org.eclipse.jst.j2ee.xdoclet.runtime"/>
+    <bundle id="org.eclipse.jst.jee"/>
+    <bundle id="org.eclipse.jst.jee.ejb"/>
+    <bundle id="org.eclipse.jst.jee.ui"/>
+    <bundle id="org.eclipse.jst.jee.web"/>
+    <bundle id="org.eclipse.jst.servlet.ui"/>
+    <bundle id="org.eclipse.wtp.jee.capabilities"/>
+
     <feature id="org.eclipse.jst.web_tests.feature"><category name="jeetools.tests"/></feature>
 
     <category-def name="jeetools" label="WTP Java EE / EJB Tools"><description>
