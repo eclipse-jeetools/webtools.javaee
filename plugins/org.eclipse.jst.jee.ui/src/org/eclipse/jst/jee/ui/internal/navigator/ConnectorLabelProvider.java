@@ -21,11 +21,11 @@ public class ConnectorLabelProvider extends J2EELabelProvider {
 		} else if (element instanceof org.eclipse.jst.javaee.jca.License){
 			return Messages.ConnectorLabelProvider_LICENSE_ARTIFACT;
 		}  else if (element instanceof ConfigProperty){
-			return Messages.ConnectorLabelProvider_CONFIG_PROPERTY != null && ((ConfigProperty)element).getConfigPropertyName() != null ? ((ConfigProperty)element).getConfigPropertyName() : ""; //$NON-NLS-1$
+			return Messages.ConnectorLabelProvider_CONFIG_PROPERTY + (((ConfigProperty)element).getConfigPropertyName() != null ? ((ConfigProperty)element).getConfigPropertyName() : ""); //$NON-NLS-1$
 		}  else if (element instanceof RequiredConfigProperty){
-			return Messages.ConnectorLabelProvider_RequiredConfigProperty != null && ((RequiredConfigProperty)element).getConfigPropertyName() != null ? ((RequiredConfigProperty)element).getConfigPropertyName() : ""; //$NON-NLS-1$
+			return Messages.ConnectorLabelProvider_RequiredConfigProperty + (((RequiredConfigProperty)element).getConfigPropertyName() != null ? ((RequiredConfigProperty)element).getConfigPropertyName() : ""); //$NON-NLS-1$
 		}  else if (element instanceof ConnectionDefinition){
-			return Messages.ConnectorLabelProvider_ConnectionDefinition != null && ((ConnectionDefinition)element).getManagedconnectionfactoryClass() != null ?((ConnectionDefinition)element).getManagedconnectionfactoryClass() : ""; //$NON-NLS-1$
+			return Messages.ConnectorLabelProvider_ConnectionDefinition + (((ConnectionDefinition)element).getManagedconnectionfactoryClass() != null ?((ConnectionDefinition)element).getManagedconnectionfactoryClass() : ""); //$NON-NLS-1$
 		}
 		
 		return super.getText(element);
