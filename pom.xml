@@ -48,72 +48,10 @@
     <!-- org.eclipse.jst.doc.user.feature requires org.eclipse.jst.jsp.* -->
     <repository>
       <id>webtools-sourceediting-site</id>
-      <layout>p2</layout>
-      <url>${webtools-sourceediting-site}</url>
-    </repository>
-    <!-- org.eclipse.wst.web.ui requires org.eclipse.wst.jsdt.ui -->
-    <repository>
-      <id>webtools-jsdt-site</id>
-      <layout>p2</layout>
-      <url>${webtools-jsdt-site}</url>
-    </repository>
-    <!-- TODO: org.eclipse.jst.doc.user.feature requires org.eclipse.jst.ws.* so that feature should move into webservices (or releng) -->
-
-    <!-- To reference parent pom -->
-    <repository>
-      <id>Webtools Repository - Releases</id>
-      <name>Webtools Repository - Releases</name>
-      <url>https://repo.eclipse.org/content/repositories/webtools-releases/</url>
-    </repository>
-    <repository>
-      <id>Webtools Repository - Snapshots</id>
-      <name>Webtools Repository - Snapshots</name>
-      <url>https://repo.eclipse.org/content/repositories/webtools-snapshots/</url>
-    </repository>
-  </repositories>
-
-  <modules>
-    <module>docs/org.eclipse.jst.j2ee.doc.user</module>
-    <module>docs/org.eclipse.jst.j2ee.infopop</module>
-    <module>docs/org.eclipse.jst.servlet.ui.infopop</module>
-    <!-- <module>docs/org.eclipse.wst.web.ui.infopop</module> -->
-
-    <module>features/org.eclipse.jst.doc.user.feature</module>
-    <module>features/org.eclipse.jst.enterprise_core.feature</module>
-    <module>features/org.eclipse.jst.enterprise_sdk.feature</module>
-    <module>features/org.eclipse.jst.enterprise_ui.feature</module>
-    <module>features/org.eclipse.jst.enterprise_userdoc.feature</module>
-    <module>features/org.eclipse.jst.web_core.feature</module>
-    <module>features/org.eclipse.jst.web_sdk.feature</module>
-    <module>features/org.eclipse.jst.web_ui.feature</module>
-    <module>features/org.eclipse.jst.web_userdoc.feature</module>
-
-    <module>plugins/org.eclipse.jem</module>
-    <module>plugins/org.eclipse.jem.beaninfo</module>
-    <module>plugins/org.eclipse.jem.beaninfo.vm</module>
-    <module>plugins/org.eclipse.jem.beaninfo.vm.common</module>
-    <module>plugins/org.eclipse.jem.proxy</module>
-    <module>plugins/org.eclipse.jem.workbench</module>
-    <module>plugins/org.eclipse.jst.common.annotations.controller</module>
-    <module>plugins/org.eclipse.jst.common.annotations.core</module>
-    <module>plugins/org.eclipse.jst.common.annotations.ui</module>
-    <module>plugins/org.eclipse.jst.common.frameworks</module>
-    <module>plugins/org.eclipse.jst.common.ui</module>
-    <module>plugins/org.eclipse.jst.j2ee</module>
-    <module>plugins/org.eclipse.jst.j2ee.core</module>
-    <module>plugins/org.eclipse.jst.j2ee.jca</module>
-    <module>plugins/org.eclipse.jst.j2ee.jca.ui</module>
-    <module>plugins/org.eclipse.jst.j2ee.navigator.ui</module>
-    <module>plugins/org.eclipse.jst.j2ee.ui</module>
-    <module>plugins/org.eclipse.jst.j2ee.web</module>
-    <module>plugins/org.eclipse.jst.j2ee.webservice</module>
-    <module>plugins/org.eclipse.jst.j2ee.webservice.ui</module>
-    <module>plugins/org.eclipse.jst.jee</module>
-    <module>plugins/org.eclipse.jst.jee.ui</module>
-    <module>plugins/org.eclipse.jst.jee.web</module>
-    <module>plugins/org.eclipse.jst.servlet.ui</module>
-    <!-- <module>plugins/org.eclipse.wst.web</module> -->
-    <!-- <module>plugins/org.eclipse.wst.web.ui</module> -->
-    <module>plugins/org.eclipse.wtp.jee.capabilities</module>
+    <module>docs</module>
+    <module>features</module>
+    <module>plugins</module>
+    <module>tests</module>
+    <module>site</module>
   </modules>
 </project>
