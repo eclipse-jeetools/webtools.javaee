@@ -14,10 +14,9 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>org.eclipse.webtools.ejb</groupId>
-    <artifactId>org.eclipse.webtools.ejb</artifactId>
+    <groupId>org.eclipse.webtools.javaee</groupId>
+    <artifactId>javaee.tests</artifactId>
     <version>3.6.0-SNAPSHOT</version>
-    <relativePath>../../</relativePath>
   </parent>
 
   <groupId>org.eclipse.webtools.ejb</groupId>
