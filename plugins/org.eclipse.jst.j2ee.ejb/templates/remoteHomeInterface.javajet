@@ -1,0 +1,25 @@
+<%@ jet package="org.eclipse.jst.j2ee.ejb.internal.operations" 
+	class="RemoteHomeInterfaceTemplate" 
+%>
+<% CreateSessionBeanTemplateModel model = (CreateSessionBeanTemplateModel) argument; %>
+<%
+	if (model.getRemoteHomePackage() != null && model.getRemoteHomePackage().length() > 0) {
+%>
+package <%=model.getRemoteHomePackage()%>;
+<%
+	}
+%>
+
+import java.rmi.RemoteException;
+
+import javax.ejb.CreateException;
+import javax.ejb.EJBHome;
+<% if(!model.getRemoteComponentPackage().equals(model.getRemoteHomePackage())){%>
+import <%= model.getRemoteComponentPackage() %>.<%= model.getRemoteComponentClassSimpleName() %>;
+<%}%>
+
+public interface <%=model.getRemoteHomeClassSimpleName()%> extends EJBHome {
+
+	public <%= model.getRemoteComponentClassSimpleName() %> create() throws CreateException, RemoteException;
+	
+}

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Arbortext, Inc., 1988-2006, v.4002-->
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN"
+ "task.dtd">
+<task id="tcreatingsessionbean" xml:lang="en-us">
+<title>Creating a message-driven bean using the wizard</title>
+<shortdesc>You can use the <uicontrol>Create Message-Driven Bean</uicontrol> wizard
+to create a message-driven bean in your EJB project.</shortdesc>
+<prolog><metadata>
+<keywords><indexterm>EJB 3.0<indexterm>message-driven bean<indexterm>creating</indexterm></indexterm></indexterm>
+<indexterm>Message-driven bean<indexterm>EJB 3.0<indexterm>creating</indexterm></indexterm></indexterm>
+</keywords>
+</metadata></prolog>
+<taskbody>
+<context><p>The main difference between a message-driven bean and a session
+bean is that a message-driven bean has no local or remote interface. Instead,
+it has only a bean class. To create a message-driven bean within your EJB
+project, follow these steps:</p></context>
+<steps>
+<step><cmd>In the <tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm"
+trademark="Java">Java</tm> EE perspective, right-click your EJB Project, and
+select <menucascade><uicontrol>File</uicontrol><uicontrol>New</uicontrol>
+<uicontrol>Message-Driven Bean</uicontrol></menucascade>. The Create Message-Driven
+wizard appears.</cmd></step>
+<step><cmd>In the <uicontrol>Project</uicontrol> field, ensure that your EJB
+Project name appears.</cmd></step>
+<step><cmd>In the <uicontrol>Folder</uicontrol> field, select the source folder
+for the new bean.</cmd></step>
+<step><cmd>In the <uicontrol>Java package</uicontrol> field, type the package
+name for the new bean.</cmd></step>
+<step><cmd>In the <b>Class name</b> field, type the name that you want to
+assign to the session bean. By convention, bean names should begin with an
+uppercase letter.</cmd><info><note>You can use Unicode characters for the
+bean name, but Unicode characters are not supported for enterprise bean packages
+and classes associated with enterprise beans.</note></info></step>
+<step><cmd>In the <b>Superclass</b> field, <uicontrol>Browse</uicontrol> to
+find a Superclass to add to your Session bean.</cmd></step>
+<step><cmd>In the <uicontrol>Destination Name</uicontrol> field, type the
+name of your message destination.</cmd></step>
+<step><cmd>In the <uicontrol>JMS</uicontrol> field, Select JMS if you want
+to use Java Messaging Service, and in the <uicontrol>Destination Type</uicontrol> field,
+select the type of destination.</cmd><info><ul>
+<li>Queue</li>
+<li>Topic</li>
+</ul></info></step>
+<step><cmd>Click <uicontrol>Next</uicontrol>.</cmd></step>
+<step><cmd>On the Message-Driven Bean information page, you may change the
+values of some of the Session bean elements: </cmd><info><ul>
+<li><i>Optional</i>: In the <uicontrol>EJB Name</uicontrol> field, you can
+change the value of your EJB name that you assigned in the previous page.</li>
+<li><i>Optional</i>: In the <uicontrol>Transaction Type</uicontrol> field,
+select the type of Session bean you want to create (Container or Bean).</li>
+<li><i>Optional</i>: In the <uicontrol>Interfaces</uicontrol> field, you can
+add or remove Business Interfaces that you created in the previous wizard
+page.</li>
+<li><i>Optional</i>: In the <uicontrol>Which method stubs would you like to
+create?</uicontrol> field, you can create one or both of these methods: <ul>
+<li>Inherited abstract methods</li>
+<li>Constructors from superclass</li>
+</ul></li>
+</ul></info></step>
+<step><cmd>Click <uicontrol>Finish</uicontrol>.</cmd></step>
+<step><cmd>In the <tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm"
+trademark="Java">Java</tm> class editor, your new Message-driven bean appears,
+with the @MessageDriven annotation and the required import statements.</cmd>
+<info></info></step>
+</steps>
+</taskbody>
+</task>

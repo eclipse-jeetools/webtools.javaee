@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2009, v.4002-->
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN"
+ "task.dtd">
+<task id="sessbwiz" xml:lang="en-us">
+<title>Creating EJB Session Beans</title>
+<shortdesc>You can use a wizard to create a session bean and add it
+to your project.</shortdesc>
+<prolog><metadata>
+<keywords><indexterm>session beans</indexterm><indexterm>creating</indexterm>
+</keywords>
+</metadata></prolog>
+<taskbody>
+<context><p>The session bean wizard helps you create an Enterprise
+session bean by walking you through the creation process and by providing
+you with output files that you can use or that you can modify for
+use with your application.</p> <p>To create a session bean, complete
+the following steps:</p></context>
+<steps>
+<step><cmd>From the <tm tmclass="special"
+tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">Java</tm> EE
+perspective, expand your  EJB project in the Project Explorer view.</cmd>
+</step>
+<step><cmd>Right click on the <b>Session Bean</b> icon, and select <menucascade>
+<uicontrol>New</uicontrol><uicontrol>Session Bean</uicontrol>
+</menucascade> from the pop-up menu.</cmd><stepresult> The <uicontrol>Create
+Session Bean</uicontrol> wizard appears.</stepresult></step>
+<step><cmd>Follow the project wizard prompts.</cmd></step>
+</steps>
+<postreq><p><b>General Information</b></p><dl><dlentry>
+<dt>State type</dt>
+<dd>There are three types of session beans: stateless, stateful and
+singleton. <dl><dlentry>
+<dt>Stateless session beans</dt>
+<dd>A stateless session bean is a collection of related services,
+each represented by a method; the bean maintains no state from one
+method invocation to the next. When you invoke a method on a stateless
+session bean, it executes the method and returns the result without
+knowing or caring what other requests have gone before or might follow.
+Stateless session beans have longer lives because they do not maintain
+any conversational state.</dd>
+</dlentry><dlentry>
+<dt>Stateful session beans</dt>
+<dd>A stateful session bean performs tasks on behalf of a client and
+maintains state related to that client. This state is called conversational
+state because it represents a continuing conversation between the
+stateful session bean and the client. Methods invoked on a stateful
+session bean can write and read data to and from this conversational
+state, which is shared among all methods in the bean. Stateful session
+beans have timeout periods.</dd>
+</dlentry><dlentry>
+<dt>Singleton session beans</dt>
+<dd>A Singleton session bean is a session bean component that is instantiated
+ once per application. In cases where the container is distributed
+over many virtual  machines, each application will have one bean instance
+of the Singleton for each JVM.  Once instantiated, a Singleton session
+bean instance lives for the duration of the  application in which
+it is created. It maintains its state between client invocations 
+but that state is not required to survive container shutdown or crash.
+A Singleton  session bean is intended to be shared and supports concurrent
+access.</dd>
+</dlentry></dl></dd>
+</dlentry></dl> <dl><dlentry>
+<dt>Business interface</dt>
+<dd>A business interface of a session bean is an ordinary <tm
+tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm"
+trademark="Java">Java</tm> interface that contains the business methods
+for the bean. A reference to a session bean's business interface can
+be passed as a parameter or as a return value of a business interface
+method. It contains methods to initialize a session bean's state and
+to notify the EJB container when the reference is no more needed and
+can be removed. The business interfaces are two types:<dl><dlentry>
+<dt>Remote business interface:</dt>
+<dd>The client can run on a different machine or different <tm
+tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm"
+trademark="Java">Java</tm> virtual machine than the enterprise bean
+it accesses and the location of the bean is transparent.</dd>
+</dlentry><dlentry>
+<dt>Local business interface:</dt>
+<dd>The client must run on the same <tm tmclass="special"
+tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">Java</tm> virtual
+machine as the bean it accesses and the location of the enterprise
+bean is not transparent.</dd>
+</dlentry><dlentry>
+<dt>No-interface View:</dt><?Pub Caret 17?>
+<dd>This is a variation of the Local view that exposes the public
+methods of the  bean class without the use of a separate business
+interface.</dd>
+</dlentry></dl></dd>
+</dlentry></dl> <dl><dlentry>
+<dt>Mapped name</dt>
+<dd>Specifies the bean's global JNDI name. The use of mappedName attribute
+allows you to assign names which you can use to search the EJB bean
+through the remote client.</dd>
+</dlentry></dl> <dl><dlentry>
+<dt>Transaction type</dt>
+<dd>The <b>Transaction type</b> field is used to specify whether the
+transaction is handled by the <b>Container</b> or the <b>Bean</b>.</dd>
+</dlentry></dl> <dl><dlentry>
+<dt>Home and Components Interfaces</dt>
+<dd>Home and component interfaces are used only for EJB 2.x session
+beans.<dl><dlentry>
+<dt>Home interface:</dt>
+<dd>The home interface allows a client to create, remove and find
+existing instances of enterprise beans.</dd>
+</dlentry><dlentry>
+<dt>Component interface:</dt>
+<dd>The component interface allows a client to access the business
+methods of the enterprise bean.</dd>
+</dlentry></dl></dd>
+</dlentry></dl></postreq>
+</taskbody>
+</task>
+<?Pub *0000005511?>

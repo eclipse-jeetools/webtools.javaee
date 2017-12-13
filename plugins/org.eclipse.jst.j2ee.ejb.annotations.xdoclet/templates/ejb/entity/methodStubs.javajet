@@ -1,0 +1,109 @@
+<%@ jet package="org.eclipse.jst.j2ee.ejb.gmf.templates.entity" class="MethodStubsGenerator" imports="java.util.* org.eclipse.jst.j2ee.ejb.annotation.internal.model.* org.eclipse.jst.j2ee.ejb.*"%>
+<%  IContainerManagedEntityBean cmp  = (IContainerManagedEntityBean)argument;
+    boolean isCMP = true;
+   
+   String primaryKeyType = cmp.getPrimaryKeyClass();
+   List attributes = cmp.getAttributes();
+   List keyAttributes = cmp.getKeyAttributes();
+   int pkCount=keyAttributes.size();
+   boolean isComposite = keyAttributes.size() > 1;
+   boolean createCompositeKey = false;
+   String primaryKeyField = ( (CMPAttributeDelegate)keyAttributes.get(0)).getName();
+   ContainerManagedEntity entity = (ContainerManagedEntity) cmp.getEnterpriseBean();
+    
+%>
+
+
+
+/**
+ *
+ * <!-- begin-user-doc -->
+ * The  ejbCreate method.
+ * <!-- end-user-doc -->
+ *
+ * <!-- begin-xdoclet-definition --> 
+ * @ejb.create-method 
+ * <!-- end-xdoclet-definition --> 
+ * @generated
+ */
+public <%= primaryKeyType %> ejbCreate() throws javax.ejb.CreateException {
+	// EJB 2.0 spec says return null for CMP ejbCreate methods.
+	// TODO: YOU MUST INITIALIZE THE FIELDS FOR THE BEAN HERE. 
+	// setMyField("Something"); 
+	// begin-user-code
+	return null;
+	// end-user-code
+}
+
+/**
+ * <!-- begin-user-doc -->
+ * The container invokes this method immediately after it calls ejbCreate.
+ * <!-- end-user-doc -->
+ * 
+ * @generated
+ */
+public void ejbPostCreate() throws javax.ejb.CreateException {
+	// begin-user-code
+	// end-user-code
+}
+	
+<% 
+   Iterator attrs = attributes.iterator();
+   while(attrs.hasNext()){
+      CMPAttributeDelegate mapping = (CMPAttributeDelegate) attrs.next();
+
+%>
+
+/**
+*
+*
+* <!-- begin-user-doc -->
+* CMP Field <%= mapping.getName() %>
+*
+* Returns the <%= mapping.getName() %>
+* @return the <%= mapping.getName() %>
+* 
+* <!-- end-user-doc -->
+*
+* <!-- begin-xdoclet-definition --> 
+*
+* @ejb.persistent-field 
+* @ejb.persistence
+*    column-name="<%= mapping.getColumnName() %>"
+*     jdbc-type="<%= mapping.getJdbcType() %>"
+*     sql-type="<%= mapping.getSqlTypeDecl() %>"
+*     read-only="<%= mapping.isReadOnly() %>"
+* <%= (mapping.isKey() ? "@ejb.pk-field" : "" ) %> 
+*
+* @ejb.interface-method
+* 
+* <!-- end-xdoclet-definition --> 
+* @generated
+*/
+<%
+			String methodName = mapping.getName();
+			methodName = Character.toUpperCase(methodName.charAt(0)) + methodName.substring(1,methodName.length());
+
+%>
+public abstract <%= mapping.getAttributeType() %> get<%= methodName %>();
+
+
+/**
+* <!-- begin-user-doc -->
+* Sets the <%= mapping.getName() %>
+* 
+* @param <%=mapping.getAttributeType()%> the new <%= mapping.getName() %> value
+* <!-- end-user-doc -->
+* 
+* <!-- begin-xdoclet-definition --> 
+* @ejb.interface-method
+* <!-- end-xdoclet-definition -->
+* @generated 
+*/
+public abstract void set<%= methodName %>(<%= mapping.getAttributeType() %> <%= mapping.getName() %>);
+
+
+
+<% 
+}
+%>

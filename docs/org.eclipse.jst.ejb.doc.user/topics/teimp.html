@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en-us" xml:lang="en-us">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<meta name="copyright" content="Copyright (c) 2000, 2011 IBM Corporation and others. All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html. Contributors: IBM Corporation - initial API and implementation" />
+<meta name="DC.rights.owner" content="(C) Copyright 2000, 2011" />
+<meta content="public" name="security" />
+<meta content="index,follow" name="Robots" />
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta content="task" name="DC.Type" />
+<meta name="DC.Title" content="Importing EJB 2.x JAR files" />
+<meta name="abstract" content="You can import beans and other metadata from an EJB JAR file into a new or existing EJB project." />
+<meta name="description" content="You can import beans and other metadata from an EJB JAR file into a new or existing EJB project." />
+<meta content="EJB, importing JAR files, JAR files, importing EJB" name="DC.subject" />
+<meta content="EJB, importing JAR files, JAR files, importing EJB" name="keywords" />
+<meta scheme="URI" name="DC.Relation" content="../topics/ceresrc.html" />
+<meta content="XHTML" name="DC.Format" />
+<meta content="teimp" name="DC.Identifier" />
+<meta content="en-us" name="DC.Language" />
+<link href="../../org.eclipse.wst.doc.user/common.css" type="text/css" rel="stylesheet" />
+<title>Importing EJB 2.x JAR files</title>
+</head>
+<body id="teimp"><a name="teimp"><!-- --></a>
+
+
+<h1 class="topictitle1">Importing EJB 2.x JAR files</h1>
+
+
+
+<div><p>You can import beans and other metadata from an EJB JAR file into
+a new or existing EJB project.</p>
+
+<div class="section"> <p>To import an EJB JAR file into an EJB project using the Import
+wizard, complete the following steps:</p>
+</div>
+
+<ol>
+<li class="stepexpand"><span>In the Project Explorer view of the Java™ EE perspective, select <span class="menucascade">
+<span class="uicontrol">File</span> &gt; <span class="uicontrol">Import</span></span>.</span>
+</li>
+
+<li class="stepexpand"><span>Under <span class="uicontrol">Select an import source</span>, click <span class="menucascade">
+<span class="uicontrol">EJB</span> &gt; <span class="uicontrol">EJB JAR file</span></span> and
+click <span class="uicontrol">Next</span>.</span></li>
+
+<li class="stepexpand"><span>In the <span class="uicontrol">EJB JAR file</span> field, enter the location
+and name of the EJB JAR file that you want to import.</span></li>
+
+<li class="stepexpand"><span>In the <span class="uicontrol">EJB Project</span> field, a new project
+name or select an EJB project from the drop-down list.</span></li>
+
+<li class="stepexpand"><span>In the <span class="uicontrol">Target runtime</span> drop-down list, select
+the application server that you want to target for your development. If no
+Target servers exist, create one using the <span class="uicontrol">New</span> button.
+The target server choice affects the run time settings by modifying the class
+path entries for the project. This selection affects the run time settings
+by modifying the class path entries for the project.</span></li>
+
+<li class="stepexpand"><span>Specify whether you want to add the new module to an enterprise
+application (EAR) project. </span></li>
+
+<li class="stepexpand"><strong>Optional: </strong><span>Select the <span class="uicontrol">Add project to an EAR </span> check
+box to add the new module to an enterprise application (EAR) project.</span>
+ Type a new project name or select an existing enterprise application
+project from the drop-down list in the <span class="uicontrol">EAR Project</span> combination
+box. Or, click the <span class="uicontrol">New</span> button to launch the New Enterprise
+Application Project wizard. Click <span class="uicontrol">Next</span>.</li>
+
+<li class="stepexpand"><span>Click <span class="uicontrol">Finish</span> to import the EJB JAR file.</span>
+</li>
+
+</ol>
+
+<div class="section"><div class="tip"><span class="tiptitle">Tip:</span> In the Project Explorer view you can also copy enterprise
+beans by dragging and dropping them from one EJB project to another EJB project.
+The import wizard will open to help you merge existing enterprise beans.</div>
+<div class="tip"><span class="tiptitle">Tip:</span> <img src="../images/ycwin.gif" alt="The following paragraph applies to Windows." /> You can quickly drag and drop an EJB JAR file
+from the Windows<sup>®</sup> Explorer or desktop onto the Project Explorer
+view. The Import wizard will open with appropriate fields already populated.
+If you drop on an existing EJB module, the wizard will import into that EJB
+module. If you drop on an enterprise application, the wizard will bind the
+new EJB module to this EAR.</div>
+<div class="note"><span class="notetitle">Note:</span> The .ser files in an EJB 1.0 JAR are
+converted into the ejb-jar.xml file for EJB 1.1 during an import.</div>
+</div>
+
+</div>
+
+<div>
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="../topics/ceresrc.html" title="This topic describes resources and development tools that are commonly used in EJB version 2.x development.">EJB 2.x development resources</a></div>
+</div>
+</div>
+
+</body>
+</html>

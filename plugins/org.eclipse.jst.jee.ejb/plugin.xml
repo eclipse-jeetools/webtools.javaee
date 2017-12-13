@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+ 	
+          
+    <!--EJB3  -->
+
+   <extension
+        point="org.eclipse.jst.j2ee.J2EEModelProvider">
+      	<provider>
+            	<modelProvider factoryClass="org.eclipse.jst.jee.model.internal.Ejb3MergedModelProviderFactory"/>
+<!--	<modelProvider factoryClass="org.eclipse.jst.jee.model.internal.Ejb3ModelProviderFactory"/>-->		
+
+      		<facet id="jst.ejb" versions="3.0,3.1,3.2"/>
+      	</provider>
+   </extension>      
+   <extension
+         id="org.eclipse.jst.jee.ejb3.validator"
+         name="%org.eclipse.jst.jee.ejb3.validator.name"
+         point="org.eclipse.wst.validation.validatorV2">
+      <validator
+            build="true"
+            class="org.eclipse.jst.jee.ejb.validation.internal.UIEJB3Validator"
+            manual="true"
+            markerId="org.eclipse.jst.jee.ejb3.nobeans">
+         <include>
+            <rules>
+               <facet
+                     id="jst.ejb"
+                     version="3.0,3.1">
+               </facet>     
+            </rules>
+         </include>
+         <messageCategory
+               id="org.eclipse.jst.jee.ejb3.nobeansmessage"
+               label="%org.eclipse.jst.jee.ejb3.nobeansmessage.label"
+               severity="warning">
+         </messageCategory>
+      </validator>
+   </extension>  
+	<extension
+            id="org.eclipse.jst.jee.ejb3.nobeans"
+            name="%org.eclipse.jst.jee.ejb3.nobeans.marker.type"
+            point="org.eclipse.core.resources.markers">
+         <super
+               type="org.eclipse.wst.validation.problemmarker">
+         </super>
+	</extension>
+  
+</plugin>

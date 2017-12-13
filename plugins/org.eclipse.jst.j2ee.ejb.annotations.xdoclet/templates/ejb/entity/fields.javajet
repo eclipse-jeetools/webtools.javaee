@@ -1,0 +1,13 @@
+<%@ jet package="org.eclipse.jst.j2ee.ejb.gmf.templates.entity" class="FieldsGenerator" imports="java.util.* org.eclipse.jst.j2ee.ejb.annotation.internal.model.*"%>
+<%  IContainerManagedEntityBean cmp  = (IContainerManagedEntityBean)argument;
+    boolean isCMP = true;
+   
+   String primaryKeyType = cmp.getPrimaryKeyClass();
+   List attributes = cmp.getAttributes();
+   List keyAttributes = cmp.getKeyAttributes();
+   int pkCount=keyAttributes.size();
+   boolean isComposite = keyAttributes.size() > 1;
+   boolean createCompositeKey = false;
+   String primaryKeyField = ( (CMPAttributeDelegate)keyAttributes.get(0)).getName();
+ 
+%>

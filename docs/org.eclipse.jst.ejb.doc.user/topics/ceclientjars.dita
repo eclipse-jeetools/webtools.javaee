@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Arbortext, Inc., 1988-2006, v.4002-->
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+ "concept.dtd">
+<concept id="ceclientjars" xml:lang="en-us">
+<title>EJB 2.x client JAR projects</title>
+<shortdesc>An EJB client JAR project contains all the class files that a client
+program needs to use the client view of the enterprise beans that are contained
+in the EJB module.</shortdesc>
+<prolog><metadata>
+<keywords><indexterm>EJB<indexterm>client JAR projects</indexterm></indexterm>
+</keywords>
+</metadata></prolog>
+<conbody>
+<p>With the EJB tooling, you can create an EJB project with a corresponding
+EJB client JAR project. The EJB project will depend on the EJB client JAR
+project. The EJB client JAR project contains all necessary classes for a client
+of the enterprise beans, including all interface classes, key classes, and
+supporting classes. Because these classes are not duplicated in the EJB project,
+the EJB project depends on its EJB client JAR project. Any project that has
+a reference to an enterprise bean in the EJB project will need a reference
+to the EJB client JAR project. If the EJB client JAR project is in another
+enterprise application, the EJB client JAR file must be added to the referencing
+EAR file as a utility JAR file. </p>
+<p>After the EJB client JAR project is created, it is up to you to add any
+necessary value objects to this project that are needed by the home or component
+interfaces. If the objects are not present, compilation errors will result. </p>
+<p><b>EJB client JAR files</b></p>
+<p>EJB client projects are exported as EJB client JAR files when the application
+is exported. The EJB client JAR file is specified in the deployment descriptor
+of the EJB JAR file using the optional <codeph>ejb-client-jar</codeph> element.
+The value of the <codeph>ejb-client-jar</codeph> element is the path name
+specifying the location of the EJB client JAR file in the containing Java
+EE Enterprise Application Archive (.ear) file. The value of the path name
+is a URI relative to the EJB JAR file within the application. <note>The relative
+URI path for the EJB client JAR file should be the same in all applications
+that the EJB project belongs to.</note></p>
+<p>When you create an EJB client JAR project for an EJB project, the EJB client
+JAR file is added to the containing enterprise application as a project utility
+JAR. The reference to this EJB client JAR file cannot be removed from the
+enterprise application as long as the EJB project is defined as a module for
+the application.</p>
+<note conref="teexp.dita#teexp/exportEJBClientJAR"></note>
+</conbody>
+</concept>

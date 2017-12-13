@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Arbortext, Inc., 1988-2006, v.4002-->
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+ "concept.dtd">
+<concept id="messb" xml:lang="en-us">
+<title>Message-driven Beans</title>
+<shortdesc></shortdesc>
+<prolog><metadata>
+<keywords><indexterm>message-driven beans<indexterm>overview</indexterm></indexterm>
+</keywords>
+</metadata></prolog>
+<conbody>
+<p>A <b>message-driven bean</b> is an enterprise bean that allows <tm tmclass="special"
+tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">Java</tm> EE
+applications to process messages asynchronously. It acts as a <tm tmclass="special"
+tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">Java</tm> Message
+Service (JMS) message listener, which is similar to an event listener except
+that it receives messages instead of events. The messages may be sent by any <tm
+tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">Java</tm> EE
+component - an application client, another enterprise bean, or a Web component
+- or by a JMS application or system that does not use <tm tmclass="special"
+tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">Java</tm> EE
+technology.</p>
+<p>In JMS, a message is a <tm tmclass="special" tmowner="Sun Microsystems, Inc."
+tmtype="tm" trademark="Java">Java</tm> object with two parts: a <b>header</b> and
+a <b>body</b>. The header is composed of delivery information and metadata.
+The message body carries the application data, which can take several forms:
+text, serializable objects, byte streams, etc. The JMS API defines several
+message types (<b>TextMessage, MapMessage, ObjectMessage</b>, and others)
+and provides methods for delivering messages to and receiving messages from
+other applications.</p>
+</conbody>
+</concept>

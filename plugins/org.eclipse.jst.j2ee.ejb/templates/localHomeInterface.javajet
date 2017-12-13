@@ -1,0 +1,23 @@
+<%@ jet package="org.eclipse.jst.j2ee.ejb.internal.operations" 
+	class="LocalHomeInterfaceTemplate" 
+%>
+<% CreateSessionBeanTemplateModel model = (CreateSessionBeanTemplateModel) argument; %>
+<%
+	if (model.getLocalHomePackage() != null && model.getLocalHomePackage().length() > 0) {
+%>
+package <%=model.getLocalHomePackage()%>;
+<%
+	}
+%>
+
+import javax.ejb.CreateException;
+import javax.ejb.EJBLocalHome;
+<% if(!model.getLocalComponentPackage().equals(model.getLocalHomePackage())){%>
+import <%= model.getLocalComponentPackage()%>.<%= model.getLocalComponentClassSimpleName()%>;
+<%}%>
+
+public interface <%=model.getLocalHomeClassSimpleName()%> extends EJBLocalHome {
+
+	public <%= model.getLocalComponentClassSimpleName() %> create() throws CreateException;
+	
+}

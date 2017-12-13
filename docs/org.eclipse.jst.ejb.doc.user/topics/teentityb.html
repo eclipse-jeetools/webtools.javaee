@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en-us" xml:lang="en-us">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<meta name="copyright" content="Copyright (c) 2000, 2011 IBM Corporation and others. All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html. Contributors: IBM Corporation - initial API and implementation" />
+<meta name="DC.rights.owner" content="(C) Copyright 2000, 2011" />
+<meta content="public" name="security" />
+<meta content="index,follow" name="Robots" />
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta content="task" name="DC.Type" />
+<meta name="DC.Title" content="Creating container-managed persistence (CMP) entity beans with XDoclet annotation support" />
+<meta name="abstract" content="You can use a wizard to create a CMP entity bean and add it to your project." />
+<meta name="description" content="You can use a wizard to create a CMP entity bean and add it to your project." />
+<meta content="CMP entity beans, XDoclet annotation support, entity beans" name="DC.subject" />
+<meta content="CMP entity beans, XDoclet annotation support, entity beans" name="keywords" />
+<meta scheme="URI" name="DC.Relation" content="../topics/tecrte.html" />
+<meta content="XHTML" name="DC.Format" />
+<meta content="temessb" name="DC.Identifier" />
+<meta content="en-us" name="DC.Language" />
+<link href="../../org.eclipse.wst.doc.user/common.css" type="text/css" rel="stylesheet" />
+<title>Creating container-managed persistence (CMP) entity beans with XDoclet
+annotation support</title>
+</head>
+<body id="temessb"><a name="temessb"><!-- --></a>
+
+
+<h1 class="topictitle1">Creating container-managed persistence (CMP) entity beans with XDoclet
+annotation support</h1>
+
+
+
+<div><p>You can use a wizard to create a CMP entity bean and add it to
+your project.</p>
+
+<div class="p"><p>Before you can create an enterprise bean, you must:</p>
+<ul>
+<li>Define an EJB project to contain the enterprise bean. See <a href="tecrtpro.html" title="An EJB project is used to organize the resources contained in an&#10;EJB module.">Creating EJB projects</a>.</li>
+
+<li>Install XDoclet annotation support and enable it. See <a href="txdocletconf.html" title="To use XDoclet annotation support, or to create enterprise beans,&#10;XDoclet must be installed on your system and configured to work with the workbench. ">Configuring XDoclet annotation support</a>.</li>
+
+</ul>
+</div>
+
+<div class="section"><p>To create a CMP entity bean, complete the following steps:</p>
+</div>
+
+<ol>
+<li class="stepexpand"><span>In the Java™ EE perspective, click <span class="menucascade"><span class="uicontrol">File</span>
+ &gt; <span class="uicontrol">New</span> &gt; <span class="uicontrol">Other</span></span>. Select <span class="menucascade">
+<span class="uicontrol">EJB</span> &gt; <span class="uicontrol">XDoclet Enterprise JavaBean</span>
+</span> and click <span class="uicontrol">Next</span>.</span></li>
+
+<li class="stepexpand"><span>Select <span class="uicontrol">Container Managed Entity Bean</span> and
+click <span class="uicontrol">Next</span>.</span></li>
+
+<li class="stepexpand"><span>Select the <span class="uicontrol">Project</span> that will contain the
+new bean. </span></li>
+
+<li class="stepexpand"><span>In the <span class="uicontrol">Folder</span> field, select the folder for
+the new bean. </span></li>
+
+<li class="stepexpand"><span>In the <span class="uicontrol">Java package</span> field, enter the package
+name for the new bean. </span></li>
+
+<li class="stepexpand"><span>In the <span class="uicontrol">Class name</span> field, type a name for
+the enterprise bean. By convention, bean names should begin with an uppercase
+letter. </span> <div class="note"><span class="notetitle">Note:</span> You can use Unicode characters for the bean name,
+but Unicode characters are not supported for enterprise bean packages and
+classes associated with enterprise beans.</div>
+</li>
+
+<li class="stepexpand"><strong>Optional: </strong><span>Change the <span class="uicontrol">Superclass</span> for
+the bean if you want it to inherit from a class other than <samp class="codeph">java.lang.Object</samp> and
+click <span class="uicontrol">Next</span>.</span></li>
+
+<li class="stepexpand"><span>Provide an <span class="uicontrol">EJB Name</span> for the bean. This is
+the name of the enterprise bean class. </span></li>
+
+<li class="stepexpand"><span>Provide a <span class="uicontrol">Schema</span> name to specify the abstract
+schema of the bean.</span></li>
+
+<li class="stepexpand"><span>Provide a <span class="uicontrol">Display Name</span> for the bean. This
+is a short name for the enterprise bean that is used by tools.</span></li>
+
+<li class="stepexpand"><span>Provide a text <span class="uicontrol">Description</span> for the bean.</span>
+</li>
+
+<li class="stepexpand"><span>Select a <span class="uicontrol">CMP Version</span> for the new bean:</span>
+<ul>
+<li><span class="uicontrol">1.x</span> specifies you are adding the bean to an
+EJB 1.0 or later project.</li>
+
+<li><span class="uicontrol">2.x</span> specifies you are adding the bean to an
+EJB 2.0 or later project.</li>
+
+</ul>
+
+</li>
+
+<li class="stepexpand"><span>Select a <span class="uicontrol">Usecase</span> for the new bean:</span>
+<ul>
+<li><span class="uicontrol">Import attributes from table</span> specifies that
+the CMP entity bean attributes will be imported from a database table. Click <span class="uicontrol">Next</span> and
+do one of the following:<ul>
+<li>To select an available connection definition, click a connection in the <span class="uicontrol">Available
+Connection Definitions</span> list. Click <span class="uicontrol">Next</span>.</li>
+
+<li>To create a new JDBC connection definition, click <span class="uicontrol">New</span> and
+complete the following steps: <ol type="a">
+<li>Select a database manager in the Connection Profile Type window and click <span class="uicontrol">Next</span>.</li>
+
+<li>Enter a name and description for the new connection definition and click <span class="uicontrol">Next</span>.</li>
+
+<li>Select a JDBC driver from the drop-down menu or click the <span class="uicontrol">...</span> button
+to add, edit, or remove driver definitions.</li>
+
+<li>Specify the other connection details in this window, test the connection,
+and click <span class="uicontrol">Finish</span> and then click <span class="uicontrol">Next</span>.</li>
+
+</ol>
+</li>
+
+</ul>
+</li>
+
+<li><span class="uicontrol">Define new attributes</span> specifies that the CMP
+entity bean attributes will be user-defined. Click <span class="uicontrol">Next</span> and
+complete the following steps:<ol type="a">
+<li>To specify a table name for the entity bean, enter a name in the <span class="uicontrol">Table</span> field.</li>
+
+<li>To create a CMP attribute for the entity bean, click <span class="uicontrol">Add</span>.</li>
+
+<li>To specify a name for the attribute, click in the <span class="uicontrol">Name</span> field
+and enter a name.</li>
+
+<li>To specify a type for the attribute, click in the <span class="uicontrol">Type</span> field
+and enter a type.</li>
+
+<li>To make the attribute a key field for the entity bean, select the <span class="uicontrol">Primary
+Key</span> check box.</li>
+
+<li>To add more attributes, repeat procedures b to e
+and click <span class="uicontrol">Next</span>.</li>
+
+</ol>
+</li>
+
+</ul>
+
+</li>
+
+<li class="stepexpand"><span>Select the type of <span class="uicontrol">Modifiers</span> to use for
+the class.</span></li>
+
+<li class="stepexpand"><strong>Optional: </strong><span>Select the <strong>Interfaces</strong> you want the
+bean to implement. Click <span class="uicontrol">Add</span> to select interfaces that
+you want to implement and click <span class="uicontrol">Remove</span> to take away
+interfaces that you no longer want to implement.</span></li>
+
+<li class="stepexpand"><span>Select the method stubs that you want the wizard to create.</span>
+</li>
+
+<li class="stepexpand"><span>Click <span class="uicontrol">Finish</span> to add the new bean to the
+specified EJB project.</span></li>
+
+</ol>
+
+</div>
+
+<div>
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="../topics/tecrte.html" title="You can use a wizard to create session beans and message-driven beans that support XDoclet annotation.">Creating enterprise beans with XDoclet annotation support</a></div>
+</div>
+</div>
+
+</body>
+</html>

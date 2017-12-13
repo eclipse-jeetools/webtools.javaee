@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Arbortext, Inc., 1988-2006, v.4002-->
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+ "concept.dtd">
+<concept id="cejb3" xml:lang="en-us">
+<title>Plain old <tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm"
+trademark="Java">Java</tm> objects</title>
+<titlealts>
+<navtitle>POJOs (Plain old Java objects)</navtitle>
+<searchtitle>Plain old Java objects (POJOs) in Java EE 5 EJB 3.0 applications</searchtitle>
+</titlealts>
+<shortdesc>Although POJOs existed before, they play a more important role
+in the programming methodology of <tm tmclass="special" tmowner="Sun Microsystems, Inc."
+tmtype="tm" trademark="Java">Java</tm> EE 5. Now, you can now create EJB applications
+with persistence capabilities by using enterprise beans and entities created
+from POJOs.</shortdesc>
+<prolog><metadata>
+<keywords><indexterm>Enterprise JavaBeans 3.0</indexterm></keywords>
+</metadata></prolog>
+<conbody>
+<p>The complexity of the <tm tmclass="special" tmowner="Sun Microsystems, Inc."
+tmtype="tm" trademark="Java">Java</tm> 2 Enterprise Edition framework used
+to present a major hurdle for adoption previously. The <tm tmclass="special"
+tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">Java</tm> EE
+5 specification sought a simpler development experience by making POJOs the
+basis of its design paradigm. The POJO programming model enables you to unit
+test outside of the application server, making the whole programming experience
+smoother.</p>
+<example><title>A simple POJO</title><p>The following code is an example of
+a simple POJO. Note that there are no references to any interfaces. To use
+this POJO as the basis for an EJB 2.1 application requires additional framework
+classes to support it and the class itself would have to implement additional
+interfaces.</p><codeblock>public class Test {
+
+    String name;
+
+		/**
+    *  This is a constructor for a Test Object.
+    **/
+    public Test(){
+    
+        name = "Jane";
+
+    } 
+
+}</codeblock><p>To create an EJB 3.0 bean, inject a component defining annotation
+at the class level. The following example turns a POJO into a stateless session
+bean by adding the @Stateless annotation.</p><codeblock>@Stateless
+
+String class Test {
+
+	String name;
+
+	/**
+	* This is a constructor for a Test Object.
+	**/
+	public Test () {
+
+			name = "jane";
+
+	}
+
+}</codeblock></example>
+<example>In a real application, the POJO needs additional business logic.
+The fundamental idea of using POJOs in the context of the <tm tmclass="special"
+tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">Java</tm> EE
+specification is to associate Metadata about your component to be associated
+directly in your POJO. This approach reduces the number of artifacts you need
+to deal with and makes it easier to ensure the integrity of your Metadata.</example>
+<example>The new POJO-based programming model also shifts your concentration
+to working on your <tm tmclass="special" tmowner="Sun Microsystems, Inc."
+tmtype="tm" trademark="Java">Java</tm> EE 5 components in your <tm tmclass="special"
+tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">Java</tm> editor
+as opposed to writing business logic in XML. By working with this application
+development software, you can take advantage of features that can even further
+simplify the process of developing <tm tmclass="special" tmowner="Sun Microsystems, Inc."
+tmtype="tm" trademark="Java">Java</tm> EE 5 applications (such as as-you-type
+validation, content assist, and refactoring). </example>
+</conbody>
+</concept>

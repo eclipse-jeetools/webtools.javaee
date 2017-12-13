@@ -1,0 +1,24 @@
+<%@ jet package="org.eclipse.jst.j2ee.ejb.internal.operations" 
+	class="RemoteBusinessInterfaceTemplate" 
+%>
+<% CreateSessionBeanTemplateModel model = (CreateSessionBeanTemplateModel) argument; %>
+<%
+	if (model.getBusinessInterfaceJavaPackageName() != null && model.getBusinessInterfaceJavaPackageName().length() > 0) {
+%>
+package <%=model.getBusinessInterfaceJavaPackageName()%>;
+<%
+	}
+%>
+
+<%
+	if (model.addBusinessAnnotationToInterface()) {
+%>
+import javax.ejb.Remote;
+
+@Remote
+<%
+	}
+%>
+public interface <%=model.getBusinessInterfaceClassName()%> {
+
+}

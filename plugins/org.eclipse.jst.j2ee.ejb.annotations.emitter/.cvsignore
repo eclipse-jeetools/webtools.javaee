@@ -1,0 +1,7 @@
+bin
+build.xml
+temp.folder
+ejbEmitter.jar
+@dot
+src.zip
+javaCompiler...args

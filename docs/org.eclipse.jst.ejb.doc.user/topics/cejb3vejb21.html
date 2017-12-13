@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en-us" xml:lang="en-us">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<meta name="copyright" content="Copyright (c) 2000, 2011 IBM Corporation and others. All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html. Contributors: IBM Corporation - initial API and implementation" />
+<meta name="DC.rights.owner" content="(C) Copyright 2000, 2011" />
+<meta content="public" name="security" />
+<meta content="index,follow" name="Robots" />
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta content="concept" name="DC.Type" />
+<meta name="DC.Title" content="Differences between EJB 3.0 and EJB 2.1" />
+<meta name="abstract" content="Compared to EJB 2.1, EJB 3.0 simplifies the process of creating Enterprise JavaBean applications." />
+<meta name="description" content="Compared to EJB 2.1, EJB 3.0 simplifies the process of creating Enterprise JavaBean applications." />
+<meta content="Enterprise JavaBeans 3.0" name="DC.subject" />
+<meta content="Enterprise JavaBeans 3.0" name="keywords" />
+<meta scheme="URI" name="DC.Relation" content="../topics/ejbarch.html" />
+<meta content="XHTML" name="DC.Format" />
+<meta content="compareejb2" name="DC.Identifier" />
+<meta content="en-us" name="DC.Language" />
+<link href="../../org.eclipse.wst.doc.user/common.css" type="text/css" rel="stylesheet" />
+<title>Enterprise JavaBean version differences between EJB 3.0 and EJB
+2.1</title>
+</head>
+<body id="compareejb2"><a name="compareejb2"><!-- --></a>
+
+
+<h1 class="topictitle1">Differences between EJB 3.0 and EJB 2.1</h1>
+
+
+
+
+<div><p>Compared to EJB 2.1, EJB 3.0 simplifies the process of creating
+Enterprise JavaBean applications.</p>
+
+<p>The underlying concept of the EJB 3.0 specification centers on a plain
+old Java™ object
+(POJO) programming model that uses Java annotations to capture information
+that deployment descriptors used to contain.  Deployment descriptors are now
+optional in most cases.  Using default values liberally also means that you
+need to write and maintain less supporting code. This greatly simplifies the
+programming experience in creating and using EJB 3.0 components.</p>
+
+<p>While EJB 2.1 added support for Web services, changes in the implementation
+of session beans, changes in how enterprise beans are invoked and a new XML
+schema to replace the DTD that defined ejb-jar.xml deployment descriptor,
+EJB 3.0 has taken this one step further. EJB 3.0 has introduced a lightweight
+entity bean persistence mechanism through the Java Persistence API. These entities are
+POJO based and can then be run outside of an EJB container and do not require
+any interfaces or EJB code in them. Similarly, session beans also no longer
+require EJB-specific component interfaces either.</p>
+
+<p><strong>Comparison of EJB 2.1 class plus Deployment Descriptor file with equivalent
+EJB 3.0 class</strong></p>
+
+<p>The examples in Table 1 are functionally equivalent:</p>
+
+
+<div class="tablenoborder"><table summary="" cellspacing="0" cellpadding="4" frame="border" border="1" rules="all"><caption>Table 1. Comparison of EJB 2.1 and EJB 3.0</caption>
+<thead align="left">
+<tr valign="bottom">
+<th valign="bottom" id="N100A4">EJB 2.1 </th>
+
+<th valign="bottom" id="N100AB">EJB 3.0</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+<tr>
+<td valign="top" headers="N100A4 "><p><strong>Java Class</strong></p>
+<pre>public class AccountBean
+implements javax.ejb.SessionBean {
+ 
+     SessionContext ctx;
+     DataSource accountDB;
+ 
+     public void setSessionContext(SessionContext ctx) {
+        this.ctx = ctx;
+     }
+ 
+     public void ejbCreate() {
+          accountDB = (DataSource)ctx.lookup(
+                          "jdbc/accountDB");
+ 
+     }
+     public void ejbActivate() { }
+     public void ejbPassivate() { }
+     public void ejbRemove() { }
+
+     public void setAccountDeposit(int empId,
+                                      double deposit) {
+       ...
+       Connection conn = accountDB.getConnection();
+       ...
+     }
+  ...
+}</pre>
+</td>
+
+<td valign="top" headers="N100AB "><p><strong>Java Class</strong></p>
+<pre>@Stateless
+public class AccountBean implements Account
+{
+     @Resource private DataSource accountDB;
+ 
+     public void setAccountDeposit(int customerId,
+                                      double deposit) {
+       ...
+       Connection conn = accountDB.getConnection();
+       ...
+     }
+  ...
+}</pre>
+</td>
+
+</tr>
+
+<tr>
+<td valign="top" headers="N100A4 "><p><strong>Deployment Descriptor</strong></p>
+<pre>&lt;session&gt;
+  &lt;ejb-name&gt;AccountBean&lt;/ejb-name&gt;
+  &lt;local-home&gt;AccountHome&lt;/local-home&gt;
+  &lt;local&gt;Account&lt;/local&gt;
+  &lt;ejb-class&gt;com.example.AccountBean&lt;/ejb-class&gt;
+  &lt;session-type&gt;Stateless&lt;/session-type&gt;
+  &lt;transaction-type&gt;Container&lt;/transaction-type&gt;
+  &lt;resource-ref&gt;
+    &lt;res-ref-name&gt;jdbc/accountDB&lt;/res-ref-name&gt;
+    &lt;res-ref-type&gt;javax.sql.DataSource&lt;/res-ref-type&gt;
+    &lt;res-auth&gt;Container&lt;/res-auth&gt;
+  &lt;/resource-ref&gt;
+&lt;/session&gt;
+...
+&lt;assembly-descriptor&gt;...&lt;/assembly-descriptor&gt;
+</pre>
+</td>
+
+<td valign="top" headers="N100AB ">&nbsp;</td>
+
+</tr>
+
+</tbody>
+
+</table>
+</div>
+
+<div class="p">The following four facets of Java EE 5 contributed the most to the changes
+in EJB 3.0 from EJB 2.1:<ul>
+<li>Plain old Java objects</li>
+
+<li>Annotations</li>
+
+<li>Implied values</li>
+
+<li>Persistence</li>
+
+</ul>
+</div>
+
+</div>
+
+<div>
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="../topics/ejbarch.html" title="This topic provides a high-level overview of the distributed component architecture defined in the Sun Microsystems Enterprise JavaBeans (EJB) version 3.0 architecture specification.">EJB 3.0 and EJB 3.1 architecture</a></div>
+</div>
+</div>
+
+</body>
+</html>

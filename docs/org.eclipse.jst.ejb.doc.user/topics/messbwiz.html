@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en-us" xml:lang="en-us">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<meta name="copyright" content="Copyright (c) 2000, 2008 IBM Corporation and others. All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html. Contributors: IBM Corporation - initial API and implementation" />
+<meta name="DC.rights.owner" content="(C) Copyright 2000, 2008" />
+<meta content="public" name="security" />
+<meta content="index,follow" name="Robots" />
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta content="task" name="DC.Type" />
+<meta name="DC.Title" content="Creating Message-driven Beans" />
+<meta name="abstract" content="You can use a wizard to create a message-driven bean and add it to your project." />
+<meta name="description" content="You can use a wizard to create a message-driven bean and add it to your project." />
+<meta content="message-driven beans, creating" name="DC.subject" />
+<meta content="message-driven beans, creating" name="keywords" />
+<meta scheme="URI" name="DC.Relation" content="../topics/ceover.html" />
+<meta scheme="URI" name="DC.Relation" content="../topics/messb.html" />
+<meta content="XHTML" name="DC.Format" />
+<meta content="messbwiz" name="DC.Identifier" />
+<meta content="en-us" name="DC.Language" />
+<link href="../../../org.eclipse.wst.doc.user/common.css" type="text/css" rel="stylesheet" />
+<title>Creating Message-driven Beans</title>
+</head>
+<body id="messbwiz"><a name="messbwiz"><!-- --></a>
+
+
+<h1 class="topictitle1">Creating Message-driven Beans</h1>
+
+
+
+<div><p>You can use a wizard to create a message-driven bean and add it
+to your project.</p>
+
+<div class="section"><p>The message-driven bean wizard helps you create an Enterprise
+message-driven bean by walking you through the creation process and by providing
+you with output files that you can use or that you can modify for use with
+your application.</p>
+ <p>To create a message-driven bean, complete the following
+steps:</p>
+</div>
+
+<ol>
+<li class="stepexpand"><span>From the Java™ EE perspective, expand your  EJB project
+in the Project Explorer view.</span></li>
+
+<li class="stepexpand"><span>Right click on the <strong>Message-Driven Bean</strong> icon, and select <span class="menucascade">
+<span class="uicontrol">New</span> &gt; <span class="uicontrol">Message-Driven Bean</span></span> from
+the pop-up menu.</span>  The <span class="uicontrol">Create Message-Driven Bean</span> wizard
+appears.</li>
+
+<li class="stepexpand"><span>Follow the project wizard prompts.</span></li>
+
+</ol>
+
+<div class="section"><p><strong>General Information</strong></p>
+<dl>
+<dt class="dlterm"><strong>Destination name</strong></dt>
+
+<dd>This field provides the attribute <strong>mappedName</strong> to the <strong>@MessageDriven</strong> annotation.
+This attribute specifies the product-specific name to which the message-driven
+bean should be mapped. You can also use this attribute to specify the JNDI
+name of the destination from which the bean will consume messages.</dd>
+
+</dl>
+ <dl>
+<dt class="dlterm"><strong>Destination type</strong></dt>
+
+<dd>To send a JMS message, we need a connection to the JMS provider and a
+destination address for the message. A JMS connection factory makes the connection
+to the provider possible. In JMS, messages are not sent directly to applications;
+they are sent to topics or queues:<dl>
+<dt class="dlterm">Queue:</dt>
+
+<dd>Queue is used as a destination for pointtopoint messaging. The <strong>point-to-point</strong> 
+messaging model allows JMS clients to send and receive messages both synchronously
+and asynchronously via virtual channels known as <em>queues</em>. The p2p messaging
+model has traditionally been a pull- or polling-based model, where messages
+are requested from the queue instead of being pushed to the client automatically.
+A queue may have multiple receivers, but only one receiver may receive each
+message.  Messages holding this queue are of <strong>MapMessages</strong> type, which
+stores the information about the email as name/value pair.</dd>
+
+
+<dt class="dlterm">Topic:</dt>
+
+<dd>Topic is used as a destination for publish/subscribe messaging. In <strong>publish-and-subscribe</strong> 
+messaging, one producer can send a message to many consumers through a virtual
+channel called a <em>topic</em>. Consumers can choose to subscribe to a topic.
+Any messages addressed to a topic are delivered to all the topic's consumers.
+Every consumer receives a copy of each message. The pub/sub messaging model
+is a push-based model, where messages are automatically broadcast to consumers
+without them having to request or poll the topic for new messages. In the
+pub/sub messaging model, the producer sending the message is not dependent
+on the consumers receiving the message. Optionally, JMS clients that use pub/sub
+can establish durable subscriptions that allow consumers to disconnect and
+later reconnect and collect messages that were published while they were disconnected.</dd>
+
+</dl>
+</dd>
+
+</dl>
+ <dl>
+<dt class="dlterm"><strong>Transaction type</strong></dt>
+
+<dd>The <strong>Transaction type</strong> field is used to specify whether the transaction
+is handled by the <strong>Container</strong> or the <strong>Bean</strong>.</dd>
+
+</dl>
+ <dl>
+<dt class="dlterm"><strong>Interfaces</strong></dt>
+
+<dd>Message-driven beans usually implement the <strong>javax.jms.MessageListener</strong> 
+interface. A <em>MessageListener object</em> is used to receive asynchronously
+delivered messages. This interface defines the <strong>onMessage()</strong> method.
+This method processes the JMS messages received by a bean.</dd>
+
+</dl>
+</div>
+
+</div>
+
+<div>
+<ul class="ullinks">
+<li class="ulchildlink"><strong><a href="../topics/messb.html">Message-driven Beans</a></strong><br />
+</li>
+</ul>
+
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="../topics/ceover.html" title="The workbench provides a specialized environment that you can use to develop and test enterprise beans that conform to the distributed component architecture defined in the Sun Microsystems Enterprise JavaBeans (EJB) version specification. This product supports the Enterprise JavaBeans 1.1, 2.0, 2.1, and 3.0 specification levels.">EJB 2.x application development</a></div>
+</div>
+</div>
+
+</body>
+</html>

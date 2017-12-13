@@ -1,0 +1,25 @@
+<%@ jet package="org.eclipse.jst.j2ee.ejb.gmf.templates.session" class="TypeStubGenerator" imports="org.eclipse.jst.j2ee.ejb.annotation.internal.model.* org.eclipse.jst.j2ee.internal.common.operations.*"%>
+<%  ISessionBean session  = (ISessionBean)argument; 
+
+      String superclass = ""+session.getDataModel().getProperty(INewJavaClassDataModelProperties.SUPERCLASS);
+      if(superclass == null || superclass.length() == 0 )
+        superclass = "java.lang.Object";
+      Boolean modifier =  ((Boolean)(session.getDataModel().getProperty(INewJavaClassDataModelProperties.MODIFIER_PUBLIC)));
+      boolean isPublic  = ( modifier != null && modifier.booleanValue());
+      modifier =  ((Boolean)(session.getDataModel().getProperty(INewJavaClassDataModelProperties.MODIFIER_ABSTRACT)));
+      boolean isAbstract = ( modifier != null && modifier.booleanValue());
+      modifier =  ((Boolean)(session.getDataModel().getProperty(INewJavaClassDataModelProperties.MODIFIER_FINAL)));
+      boolean isFinal = ( modifier != null && modifier.booleanValue());
+
+      String publicStr = (isPublic ? "public": "");
+      String abstractStr = (isAbstract ? "abstract": "");
+      String finalStr = (isFinal ? "final": "");
+      String extendsStr = (superclass.equals("java.lang.Object") ? "": "extends " + superclass);
+ 
+
+%>
+ 
+ 
+<%= publicStr %> <%= finalStr %> <%= abstractStr %> class <%= session.getSimpleClassName()%> <%= extendsStr %> implements <%= session.getInterfaces() %>
+{
+}

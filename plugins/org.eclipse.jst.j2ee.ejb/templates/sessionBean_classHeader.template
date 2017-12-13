@@ -1,0 +1,117 @@
+/**
+ * Session Bean implementation class <%= model.getClassName() %>
+ */
+<%= model.getClassAnnotation() %>
+<%
+	Map<String, String> params = model.getClassAnnotationParams();
+	if (!params.isEmpty()) { 
+%>(
+<%
+		Set<String> keys = params.keySet();
+		boolean needComma = false;
+		for (String key : keys) {
+			if (needComma) {
+%>, 
+<%
+			}
+			
+			String value = params.get(key);
+%><%= key %> = "<%= value %>"
+<%
+			needComma = true;
+  		}
+%>)
+<%
+	}
+
+	if (!model.isContainerType()) {
+%>
+@TransactionManagement(TransactionManagementType.BEAN)
+<%
+	}
+
+	List<BusinessInterface> localInterfaces = null;
+	if (model.addBusinessAnnotationToBeanClass()){
+		localInterfaces = model.getLocalBusinessInterfaces();
+	}
+	else {
+		localInterfaces = model.getExistingLocalBusinessInterfaces();
+	}
+	if (!localInterfaces.isEmpty()) {
+		String open = "", close = "";
+		if (localInterfaces.size() > 1){
+			open = "{";
+			close = "}";
+		}
+%>
+@Local(<%= open %>
+<%
+		boolean needComma = false;
+		for (BusinessInterface iface : localInterfaces) {
+			if (needComma) {
+%>, 
+<%
+			}
+%><%= iface.getSimpleName() %>.class
+<%
+			needComma = true;
+ 		}
+%><%= close %>)
+<%
+	}
+
+	List<BusinessInterface> remoteInterfaces = null;
+	if (model.addBusinessAnnotationToBeanClass()){
+		remoteInterfaces = model.getRemoteBusinessInterfaces();
+	}
+	else{
+		remoteInterfaces = model.getExistingRemoteBusinessInterfaces();
+	}
+	if (!remoteInterfaces.isEmpty()) {
+		String open = "", close = "";
+		if (remoteInterfaces.size() > 1){
+			open = "{";
+			close = "}";
+		}
+%>
+@Remote(<%= open %>
+<%
+		boolean needComma = false;
+		for (BusinessInterface iface : remoteInterfaces) {
+			if (needComma) {
+%>, 
+<%
+			}
+%><%= iface.getSimpleName() %>.class
+<%
+			needComma = true;
+		}
+%><%= close %>)
+<%
+	}
+	
+	if (model.isNoInterfaceChecked()) {
+%>
+@LocalBean
+<%
+	}
+		
+	if (model.isLocalHomeChecked()) {
+%>
+@LocalHome(<%=model.getLocalHomeClassSimpleName()%>.class)
+<%
+	}
+
+	if (model.isRemoteHomeChecked()) {
+%>
+@RemoteHome(<%=model.getRemoteHomeClassSimpleName()%>.class)
+<%
+	}
+%>
+<%
+	if (model.isAsynchronous()) {
+%>
+@Asynchronous
+<%
+	}
+%>

@@ -1,0 +1,24 @@
+<%@ jet package="org.eclipse.jst.j2ee.ejb.internal.operations" 
+	imports="java.util.* org.eclipse.jst.j2ee.internal.common.operations.*" 
+	class="EjbTimerTemplate" 
+%>
+<% AddEjbTimerTemplateModel model = (AddEjbTimerTemplateModel) argument; %>
+<%@ include file="_flags.template" %>
+<%@ include file="_package.template" %>
+<%@ include file="_imports.template" %>
+@Stateless
+<%@ include file="_class.template" %>
+<%@ include file="_constructors.template" %>
+<%@ include file="_methods.template" %>
+	<%
+		StringBuilder schedule = new StringBuilder(model.getProperty(AddEjbTimerDataModelProvider.SCHEDULE));
+		if (model.isNonPersistent()) {
+			schedule.append(", persistent=false");
+		}
+	%>
+	@SuppressWarnings("unused")
+	@Schedule(<%= schedule.toString().trim() %>)
+    private void scheduledTimeout(final Timer t) {
+        System.out.println("@Schedule called at: " + new java.util.Date());
+    }
+}

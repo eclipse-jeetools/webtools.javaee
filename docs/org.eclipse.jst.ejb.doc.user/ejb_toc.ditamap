@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Arbortext, Inc., 1988-2006, v.4002-->
+<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN"
+ "map.dtd">
+<map id="ejbtoc" title="Developing EJB applications">
+<topicref href="topics/ceover.dita" locktitle="yes" navtitle="Developing EJB applications">
+<topicref href="topics/ejbarch.dita" navtitle="EJB 3.0 architecture" type="concept">
+<topicref href="topics/cpojosandee5.dita" navtitle="POJOs (Plain old Java objects)">
+</topicref>
+<topicref href="topics/cejb3vejb21.dita" navtitle="EJB 3.0 versus EJB 2.1">
+</topicref>
+</topicref>
+<topicref href="topics/cejb3.dita" navtitle="Developing EJB 3.0 Applications">
+<topicref href="topics/tecrtpro.dita" navtitle="Creating EJB projects">
+<topicref href="topics/tcreatingsessbeans3.dita" navtitle="Creating a session bean">
+</topicref>
+<topicref href="topics/tcreatinmessbeans3.dita" navtitle="Creating a message-driven bean">
+</topicref>
+</topicref>
+<topicref href="topics/ccontentassist3.dita" navtitle="Content assist and EJB 3.0">
+</topicref>
+</topicref>
+<topicref href="topics/cearch.dita" navtitle="EJB 2.x architecture" type="concept">
+</topicref>
+<topicref href="topics/ceresrc.dita" navtitle="EJB 2.x development resources"
+type="concept">
+<topicref href="topics/tecrtpro.dita" navtitle="Creating EJB projects" type="task">
+</topicref>
+<topicref href="topics/ceclientjars.dita" navtitle="EJB 2.x client JAR projects"
+type="concept"></topicref>
+<topicref href="topics/teimp.dita" navtitle="Importing EJB 2.x JAR files"
+type="task"></topicref>
+<topicref href="topics/teexp.dita" navtitle="Exporting EJB 2.x projects to EJB JAR files"
+type="task"></topicref>
+</topicref>
+<topicref href="topics/tecrte.dita" navtitle="Creating enterprise beans with XDoclet annotation support"
+type="task">
+<topicref href="topics/tesessb.dita" navtitle="Creating session beans with XDoclet annotation support">
+</topicref>
+<topicref href="topics/teentityb.dita" navtitle="Creating CMP entity beans with XDoclet annotation support">
+</topicref>
+<topicref href="topics/temessb.dita" navtitle="Creating message-driven beans with XDoclet annotation support"
+type="task"></topicref>
+<topicref href="topics/txdocletconf.dita" navtitle="Configuring XDoclet annotation support"
+type="task"></topicref>
+</topicref>
+</topicref>
+</map>

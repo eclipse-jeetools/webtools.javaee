@@ -1,0 +1,17 @@
+<%@ jet package="org.eclipse.jst.j2ee.ejb.internal.operations" 
+	class="RemoteComponentInterfaceTemplate" 
+%>
+<% CreateSessionBeanTemplateModel model = (CreateSessionBeanTemplateModel) argument; %>
+<%
+	if (model.getRemoteComponentPackage() != null && model.getRemoteComponentPackage().length() > 0) {
+%>
+package <%=model.getRemoteComponentPackage()%>;
+<%
+	}
+%>
+
+import javax.ejb.EJBObject;
+
+public interface <%= model.getRemoteComponentClassSimpleName() %> extends EJBObject {
+
+}

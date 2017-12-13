@@ -1,0 +1,28 @@
+<%@ jet package="org.eclipse.jst.j2ee.ejb.gmf.templates.session" class="MethodGenerator" %>
+
+/** 
+ *
+ * <!-- begin-xdoclet-definition --> 
+ * @ejb.create-method view-type="remote"
+ * <!-- end-xdoclet-definition --> 
+ * @generated
+ *
+ * //TODO: Must provide implementation for bean create stub
+ */
+public void ejbCreate()
+{
+}
+
+/** 
+ *
+ * <!-- begin-xdoclet-definition --> 
+ * @ejb.interface-method view-type="remote"
+ * <!-- end-xdoclet-definition --> 
+ * @generated
+ *
+ * //TODO: Must provide implementation for bean method stub
+ */
+public String foo(String param)
+{
+ 	return null;
+}

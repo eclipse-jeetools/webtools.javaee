@@ -1,0 +1,17 @@
+<%@ jet package="org.eclipse.jst.j2ee.ejb.internal.operations" 
+	class="LocalComponentInterfaceTemplate" 
+%>
+<% CreateSessionBeanTemplateModel model = (CreateSessionBeanTemplateModel) argument; %>
+<%
+	if (model.getLocalComponentPackage() != null && model.getLocalComponentPackage().length() > 0) {
+%>
+package <%=model.getLocalComponentPackage()%>;
+<%
+	}
+%>
+
+import javax.ejb.EJBLocalObject;
+
+public interface <%= model.getLocalComponentClassSimpleName() %> extends EJBLocalObject {
+
+}

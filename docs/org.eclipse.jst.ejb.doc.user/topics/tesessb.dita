@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Arbortext, Inc., 1988-2006, v.4002-->
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN"
+ "task.dtd">
+<task id="tesessb" xml:lang="en-us">
+<title>Creating session beans with XDoclet annotation support</title>
+<shortdesc>You can use a wizard to create a session bean and add it to your
+project.</shortdesc>
+<prolog><metadata>
+<keywords><indexterm>session beans<indexterm>XDoclet annotation support</indexterm></indexterm>
+<indexterm>XDoclet annotation support<indexterm>session beans</indexterm></indexterm>
+</keywords>
+</metadata></prolog>
+<taskbody>
+<prereq><p>Before you can create an enterprise bean, you must:</p><ul>
+<li>Define an EJB project to contain the enterprise bean. See <xref href="tecrtpro.dita"></xref>.</li>
+<li>Install XDoclet annotation support and enable it. See <xref href="txdocletconf.dita"></xref>.</li>
+</ul></prereq>
+<context> <p>To create a session bean, complete the following steps:</p></context>
+<steps>
+<step><cmd>In the <tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm"
+trademark="Java">Java</tm> EE perspective, click <menucascade><uicontrol>File</uicontrol>
+<uicontrol>New</uicontrol><uicontrol>Other</uicontrol></menucascade>. Select <menucascade>
+<uicontrol>EJB</uicontrol><uicontrol>XDoclet Enterprise JavaBean</uicontrol>
+</menucascade> and click <uicontrol>Next</uicontrol>.</cmd></step>
+<step><cmd>Select <uicontrol>Session Bean</uicontrol> and click <uicontrol>Next</uicontrol>.</cmd>
+</step>
+<step><cmd>Select the <uicontrol>Project</uicontrol> that will contain the
+new session bean.</cmd></step>
+<step><cmd>In the <uicontrol>Folder</uicontrol> field, select the folder for
+the new bean. </cmd></step>
+<step><cmd>In the <uicontrol>Java package</uicontrol> field, enter the package
+name for the new bean. </cmd></step>
+<step><cmd>In the <uicontrol>Class name</uicontrol> field, type a name for
+the enterprise bean. By convention, bean names should begin with an uppercase
+letter. </cmd><info><note>You can use Unicode characters for the bean name,
+but Unicode characters are not supported for enterprise bean packages and
+classes associated with enterprise beans.</note></info></step>
+<step importance="optional"><cmd>Change the <uicontrol>Superclass</uicontrol> for
+the bean if you want it to inherit from a class other than <codeph>java.lang.Object</codeph> and
+click <uicontrol>Next</uicontrol>.</cmd></step>
+<step><cmd>Provide an <uicontrol>EJB Name</uicontrol> for the bean.</cmd>
+<info>This is the name of the enterprise bean class. The next three fields
+will automatically be filled in, you can change these values if you want:<ul>
+<li><uicontrol>JNDI Name</uicontrol> is the logical name used by the server
+to locate an enterprise bean at runtime.</li>
+<li><uicontrol>Display Name</uicontrol>  is a short name for the enterprise
+bean that is used by tools.</li>
+<li><uicontrol>Description</uicontrol> is to help you identify the bean.</li>
+</ul></info></step>
+<step><cmd>Select the <uicontrol>State type</uicontrol> for the new bean:</cmd>
+<info><ul>
+<li>A <uicontrol>Stateful</uicontrol> session bean maintains client-specific
+session information, or conversational state, across multiple method calls
+and transactions. An instance of a stateful session bean has a unique identity
+that is assigned by the container at create time. </li>
+<li>A <uicontrol>Stateless</uicontrol> session bean does not maintain conversational
+state. Instances of a stateless session bean have no conversational state.
+All instances of a stateless session bean have the same object identifier,
+which is assigned by the container. </li>
+</ul></info></step>
+<step><cmd>Select a <uicontrol>Transaction Type</uicontrol> for the new bean:</cmd>
+<info><ul>
+<li><b>Container</b> specifies that the transaction demarcation is performed
+by the container.</li>
+<li><uicontrol>Bean</uicontrol> specifies that the transaction demarcation
+is performed by the bean.</li>
+</ul>Click <uicontrol>Next</uicontrol>.</info></step>
+<step><cmd>Select the type of <uicontrol>Modifiers</uicontrol> to use for
+the class.</cmd></step>
+<step importance="optional"><cmd>Select the <b>Interfaces</b> you want the
+bean to implement. Click <uicontrol>Add</uicontrol> to select interfaces that
+you want to implement and click <uicontrol>Remove</uicontrol> to take away
+interfaces that you no longer want to implement.</cmd></step>
+<step><cmd>Select the method stubs that you want the wizard to create.</cmd>
+</step>
+<step><cmd>Click <uicontrol>Finish</uicontrol> to add the new bean to the
+specified EJB project.</cmd></step>
+</steps>
+</taskbody>
+</task>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en-us" xml:lang="en-us">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<meta name="copyright" content="Copyright (c) 2000, 2011 IBM Corporation and others. All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html. Contributors: IBM Corporation - initial API and implementation" />
+<meta name="DC.rights.owner" content="(C) Copyright 2000, 2011" />
+<meta content="public" name="security" />
+<meta content="index,follow" name="Robots" />
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' />
+<meta content="task" name="DC.Type" />
+<meta name="DC.Title" content="Creating EJB projects" />
+<meta name="abstract" content="An EJB project is used to organize the resources contained in an EJB module." />
+<meta name="description" content="An EJB project is used to organize the resources contained in an EJB module." />
+<meta content="EJB, projects, creating" name="DC.subject" />
+<meta content="EJB, projects, creating" name="keywords" />
+<meta scheme="URI" name="DC.Relation" content="../topics/cejb3.html" />
+<meta scheme="URI" name="DC.Relation" content="../topics/tcreatingsessbeans3.html" />
+<meta scheme="URI" name="DC.Relation" content="../topics/tcreatinmessbeans3.html" />
+<meta scheme="URI" name="DC.Relation" content="../topics/ceresrc.html" />
+<meta content="XHTML" name="DC.Format" />
+<meta content="tecrtpro" name="DC.Identifier" />
+<meta content="en-us" name="DC.Language" />
+<link href="../../org.eclipse.wst.doc.user/common.css" type="text/css" rel="stylesheet" />
+<title>Creating EJB projects</title>
+</head>
+<body id="tecrtpro"><a name="tecrtpro"><!-- --></a>
+
+
+<h1 class="topictitle1">Creating EJB projects</h1>
+
+
+
+<div><p>An EJB project is used to organize the resources contained in an
+EJB module.</p>
+
+<div class="section"><p>An EJB module is used to assemble one or more enterprise beans
+into a single deployable unit. It is deployed in a standard Java™ archive
+(JAR) file. An EJB module can be used as a standalone application, or it can
+be combined with other modules to create a Java EE enterprise application.
+An EJB module is installed and run in an enterprise bean container. An EJB
+project must be referenced by an enterprise application project (defined as
+a module in an EAR) in order to be deployed successfully and run on a server.</p>
+<p>An
+EJB module contains the following:</p>
+<ul>
+<li>One or more deployable enterprise beans.</li>
+
+<li>A deployment descriptor, stored in an Extensible Markup Language (XML)
+file. This file declares the contents of the module, defines the structure
+and external dependencies of the beans in the module, and describes how the
+enterprise beans are to be used at run time.</li>
+
+</ul>
+<p>To create a new EJB project, complete the following steps:</p>
+</div>
+
+<ol>
+<li class="stepexpand"><span>In the Java EE perspective, select <span class="menucascade"><span class="uicontrol">File</span>
+ &gt; <span class="uicontrol">New</span> &gt; <span class="uicontrol">Other</span></span>.</span>
+</li>
+
+<li class="stepexpand"><span>In the New Project Wizard, select <span class="menucascade"><span class="uicontrol">EJB</span>
+ &gt; <span class="uicontrol">EJB Project</span></span> and click <span class="uicontrol">Next</span>.</span>
+</li>
+
+<li class="stepexpand"><span>In the <span class="uicontrol">Project Name</span> field, type a name for
+the EJB project.</span></li>
+
+<li class="stepexpand"><strong>Optional: </strong><span>To use a different workspace directory for
+your EJB project, modify the settings for <span class="uicontrol">Project contents.</span> </span>
+ <div class="note"><span class="notetitle">Note:</span> If you specify a non-default project location that
+is already being used by another project, the project creation will fail.</div>
+
+</li>
+
+<li class="stepexpand"><span>In the <span class="uicontrol">Target runtime</span> drop-down list, select
+the application server that you want to target for your development. This
+selection affects the compilation and runtime settings by modifying the class
+path entries for the project. Use the <span class="uicontrol">New</span> button if
+a target runtime does not exist, or if you want to use a different one.</span>
+</li>
+
+<li class="stepexpand"><span>In the <span class="uicontrol">EJB Module version</span> field, select
+the correct version level for the project.</span></li>
+
+<li class="stepexpand"><span>Select a pre-defined project configuration from the <span class="uicontrol">Configurations</span> drop-down
+list, or modify the configuration to customize the project facets. You can
+select the Java version, support for XDoclet, and support for Java persistence
+when customizing your configuration.</span> <p>For example, if you are
+creating an Entity Bean, select the <span class="uicontrol">Java Persistence</span> facet.
+You can save your configuration with a meaningful name so that you can reference
+this configuration in any EJB projects that are subsequently created.</p>
+
+</li>
+
+<li class="stepexpand"><strong>Optional: </strong><span>Select the <span class="uicontrol">Add project to an EAR </span> check
+box to add the new module to an enterprise application (EAR) project.</span>
+ Type a new project name or select an existing enterprise application
+project from the drop-down list in the <span class="uicontrol">EAR Project</span> combination
+box. Or, click the <span class="uicontrol">New</span> button to launch the New Enterprise
+Application Project wizard. Click <span class="uicontrol">Next</span>.<div class="note"><span class="notetitle">Note:</span> If you
+type a new EAR project name, the EAR project will be created in the default
+location with the lowest compatible Java EE version based on the version of
+the project being created. If you want to specify a different version or a
+different location for the enterprise application, click <span class="uicontrol">New</span> to
+use the New Enterprise Application Project wizard.</div>
+</li>
+
+<li class="stepexpand"><strong>Optional: </strong><span>Change the value of <span class="uicontrol">Source Folder</span> to
+change the directory where the Java source files are stored. </span></li>
+
+<li class="stepexpand"><strong>Optional: </strong><span>Select the <span class="uicontrol">Create an EJB Client
+JAR Project to hold the client interfaces and classes</span> check box
+if you want the client interface classes for your enterprise beans to be kept
+in a separate EJB client JAR file. This EJB client JAR file will be added
+to the enterprise application as a project utility JAR file. You can also
+modify the <span class="uicontrol">Name</span> of the EJB Client JAR project, or the
+name (<span class="uicontrol">Client JAR URI</span>) of the client JAR file. </span>
+</li>
+
+<li class="stepexpand"><span>Click <span class="uicontrol">Finish</span>.</span></li>
+
+</ol>
+
+<div class="id_postreq"><div class="note"><span class="notetitle">Note:</span> The New Project Wizard will automatically
+add default facets to your project. You can change these facets or add new
+ones in the <span class="uicontrol">Preferences</span> window. For more information,
+see <a href="../../org.eclipse.jst.j2ee.doc.user/topics/taddingfacet.html">Adding a facet to a Java EE project</a>.</div>
+<p class="anchor_topicbottom" />
+</div>
+
+</div>
+
+<div>
+<ul class="ullinks">
+<li class="ulchildlink"><strong><a href="../topics/tcreatingsessbeans3.html">Creating a EJB 3.1 session bean using the wizard</a></strong><br />
+You can use the Create Session Bean wizard to create a session bean in your EJB project.</li>
+<li class="ulchildlink"><strong><a href="../topics/tcreatinmessbeans3.html">Creating a message-driven bean using the wizard</a></strong><br />
+You can use the Create Message-Driven Bean wizard to create a message-driven bean in your EJB project.</li>
+</ul>
+
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="../topics/cejb3.html" title="You can use the workbench to develop and test enterprise beans that conform to the distributed component architecture defined in the Sun Microsystems Enterprise JavaBeans (EJB) 3.10 specification.">Developing EJB 3.1 Applications</a></div>
+</div>
+
+<div class="familylinks">
+<div class="parentlink"><strong>Parent topic:</strong> <a href="../topics/ceresrc.html" title="This topic describes resources and development tools that are commonly used in EJB version 2.x development.">EJB 2.x development resources</a></div>
+</div>
+</div>
+
+</body>
+</html>

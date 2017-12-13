@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Arbortext, Inc., 1988-2006, v.4002-->
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN"
+ "task.dtd">
+<task id="configuringxdocletannotationsupport" xml:lang="en-us">
+<title>Configuring XDoclet annotation support</title>
+<shortdesc>To use XDoclet annotation support, or to create enterprise beans,
+XDoclet must be installed on your system and configured to work with the workbench. </shortdesc>
+<prolog><metadata>
+<keywords><indexterm>Java annotation<indexterm>XDoclet annotation support</indexterm></indexterm>
+<indexterm>XDoclet annotation support<indexterm>configuring</indexterm></indexterm>
+</keywords>
+</metadata></prolog>
+<taskbody>
+<prereq>More information on XDoclet can be found at <xref href="http://xdoclet.sourceforge.net/xdoclet/index.html"
+scope="external"><desc>The XDoclet Web site</desc></xref>.</prereq>
+<context><p>To configure XDoclet to work with the workbench, complete the
+following steps:</p></context>
+<steps>
+<step><cmd>Download and unzip xdoclet-bin-1.2.3.zip by navigating to <xref
+href="http://xdoclet.sourceforge.net/xdoclet/install.html" scope="external"><desc></desc></xref> and
+following the download link.</cmd></step>
+<step><cmd>Click <menucascade><uicontrol>Window</uicontrol><uicontrol>Preferences</uicontrol>
+</menucascade>. </cmd></step>
+<step><cmd>In the Preferences window, click <uicontrol>XDoclet</uicontrol> in
+the left pane.</cmd></step>
+<step><cmd>Check the <uicontrol>Enable XDoclet Builder</uicontrol> check box
+to turn on annotation-based artifact creation. </cmd></step>
+<step><cmd>Use the <uicontrol>Browse</uicontrol> button to locate the folder
+where you unzipped the XDoclet download (<uicontrol>XDoclet Home</uicontrol>). </cmd>
+</step>
+<step><cmd>Select the <uicontrol>Version</uicontrol> of XDoclet that you have
+installed. In this case, select 1.2.3.</cmd><info>If you downloaded an earlier
+version, XDoclet versions 1.2.1 and 1.2.2 are also supported.<?Pub Caret?></info>
+</step>
+<step><cmd>Click <uicontrol>OK</uicontrol> to save the preferences.</cmd>
+</step>
+</steps>
+</taskbody>
+</task>
+<?Pub *0000002115?>

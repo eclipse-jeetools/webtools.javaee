@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Arbortext, Inc., 1988-2006, v.4002-->
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN"
+ "task.dtd">
+<task id="tecrte" xml:lang="en-us">
+<title>Creating enterprise beans with XDoclet annotation support</title>
+<shortdesc>You can use a wizard to create session beans and message-driven
+beans that support XDoclet annotation.</shortdesc>
+<prolog><metadata>
+<keywords><indexterm>EJB<indexterm>XDoclet annotation support</indexterm></indexterm>
+<indexterm>XDoclet annotation support<indexterm>EJBs</indexterm></indexterm>
+</keywords>
+</metadata></prolog>
+<taskbody>
+<prereq><p>Before you can create an enterprise bean, you must:</p><ul>
+<li>Define an EJB project to contain the enterprise bean. See <xref href="tecrtpro.dita"></xref>.</li>
+<li>Install XDoclet annotation support and enable it. See <xref href="txdocletconf.dita"></xref>.</li>
+</ul></prereq>
+<context> <p> After you create an EJB project, you can add enterprise beans
+to the EJB project in one of the following ways: </p><ul>
+<li>Create new enterprise beans.</li>
+<li>Import enterprise beans from EJB JAR files.</li>
+</ul><p>A wizard helps you to create enterprise beans. You can use the Enterprise
+Bean Creation wizard to generate an enterprise bean while avoiding the complexities
+that exist between the different types of beans. The wizard helps you add
+enterprise beans to you project by creating entirely new enterprise beans.</p><p>With
+the wizard, you can create three types of enterprise beans: session beans
+and message-driven beans (EJB 2.0 or later projects only): </p><ul>
+<li>Create a session bean. For more information, see <xref href="tesessb.dita"></xref>.</li>
+<li>Create a CMP entity bean. For more information, see <xref href="teentityb.dita"></xref>.</li>
+<li>Create a message-driven bean. For more information, see <xref href="temessb.dita"></xref>.</li>
+</ul></context>
+</taskbody>
+</task>

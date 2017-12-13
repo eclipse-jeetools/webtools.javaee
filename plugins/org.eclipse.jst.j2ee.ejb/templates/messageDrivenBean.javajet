@@ -1,0 +1,30 @@
+<%@ jet package="org.eclipse.jst.j2ee.ejb.internal.operations" 
+	imports="java.util.* org.eclipse.jst.j2ee.internal.common.operations.*" 
+	class="MessageDrivenBeanTemplate" 
+%>
+<% CreateMessageDrivenBeanTemplateModel model = (CreateMessageDrivenBeanTemplateModel) argument; %>
+<%@ include file="_flags.template" %>
+<%@ include file="_package.template" %>
+<%@ include file="_imports.template" %>
+<%@ include file="messageDrivenBean_classHeader.template" %>
+<%@ include file="_class.template" %>
+<%@ include file="_constructors.template" %>
+<%@ include file="_methods.template" %>
+<%
+	if (model.shouldImplementAbstractMethods()) {
+		if (model.isJMS()) { 
+%>
+	
+	/**
+     * @see MessageListener#onMessage(Message)
+     */
+    public void onMessage(Message message) {
+        // TODO Auto-generated method stub
+        
+    }
+<%
+		}
+	}
+%>
+
+}

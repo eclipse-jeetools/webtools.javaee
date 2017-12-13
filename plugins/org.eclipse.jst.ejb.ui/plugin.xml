@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+    
+<!--================================-->
+<!-- Export Wizard Contributions    -->
+<!--================================-->
+   <extension
+         point="org.eclipse.ui.exportWizards">
+      <wizard
+            category="org.eclipse.jst.ejb.ui"
+            class="org.eclipse.jst.ejb.ui.internal.wizard.EJBComponentExportWizard"
+            icon="icons/full/ctool16/export_ejbjar_wiz.gif"
+            id="org.eclipse.jst.ejb.ui.internal.wizard.EJBComponentExportWizard"
+            name="%ejb.jar.file_ui_">
+         <description>
+            %ejb.export.description_ui_
+         </description>
+         <selection
+               class="org.eclipse.core.resources.IResource">
+         </selection>
+      </wizard>
+      <category
+            id="org.eclipse.jst.ejb.ui"
+            name="%ejb.category_ui_"/>
+   </extension>
+
+<!-- New EJB Module Wizard -->
+   <extension
+         point="org.eclipse.ui.newWizards">
+       <category
+            name="%ejb.category_ui_"
+            id="org.eclipse.jst.ejb.ui">
+      </category>
+      <wizard
+            name="%ejb.project_ui_"
+            icon="icons/full/ctool16/newejbprj_wiz.gif"
+            category="org.eclipse.jst.ejb.ui"
+            project="true"
+            finalPerspective="org.eclipse.jst.j2ee.J2EEPerspective"
+            id="org.eclipse.jst.ejb.ui.project.facet.EjbProjectWizard">
+         <class class="org.eclipse.jst.ejb.ui.project.facet.EjbProjectWizard">
+            <parameter name="javaeeproject" value="true"/>
+            <parameter name="menuIndex" value="20" />
+         </class>
+         <description>
+            %new.ejb.project.description_ui_
+         </description>
+      </wizard>
+      <wizard
+            category="org.eclipse.jst.ejb.ui"
+            class="org.eclipse.jst.ejb.ui.internal.wizard.AddSessionBeanWizard"
+            icon="icons/full/ctool16/sessionbean_wiz.gif"
+            id="org.eclipse.jst.ejb.ui.internal.wizard.AddSessionBeanWizard"
+            name="%BeanEjbRegionWizard.name">
+         <class class="org.eclipse.jst.ejb.ui.internal.wizard.AddSessionBeanWizard">
+            <parameter name="javaeeartifact" value="true"/>
+            <parameter name="menuIndex" value="35" />
+         </class>
+         <description>
+            %BeanWebRegionWizard.description
+         </description>
+      </wizard>
+      <wizard
+            category="org.eclipse.jst.ejb.ui"
+            class="org.eclipse.jst.ejb.ui.internal.wizard.AddMessageDrivenBeanWizard"
+            icon="icons/full/ctool16/msgdrivenbean_wiz.gif"
+            id="org.eclipse.jst.ejb.ui.internal.wizard.AddMessageDrivenBeanWizard"
+            name="%MDBEjbRegionWizard.name">
+         <class
+               class="org.eclipse.jst.ejb.ui.internal.wizard.AddMessageDrivenBeanWizard">
+            <parameter
+                  name="javaeeartifact"
+                  value="true">
+            </parameter>
+            <parameter
+                  name="menuIndex"
+                  value="36">
+            </parameter>
+         </class>
+         <description>
+            %MDBEjbRegionWizard.description
+         </description>
+      </wizard>
+      
+       <wizard
+             category="org.eclipse.jst.ejb.ui"
+             class="org.eclipse.jst.ejb.ui.internal.wizard.AddEjbTimerWizard"
+             icon="icons/full/ctool16/sessionbean_wiz.gif"
+             id="org.eclipse.jst.ejb.ui.internal.wizard.AddEjbTimerWizard"
+             name="%EJBTIMER.ejbtimerlabel">
+		 <class
+               class="org.eclipse.jst.ejb.ui.internal.wizard.AddEjbTimerWizard">
+            <parameter
+                  name="javaeeartifact"
+                  value="true">
+            </parameter>
+            <parameter
+                  name="menuIndex"
+                  value="37">
+            </parameter>
+         </class>
+         <description>
+            %EJBTIMER.ejbtimer.BeanWebRegionWizard.description
+         </description>
+       </wizard>      
+      
+      
+   </extension>
+<!-- Navigator Object Contributions -->
+<!-- EJB Group Contributions 
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            objectClass="org.eclipse.wst.common.navigator.internal.groups.NavigatorGroup"
+            id="org.eclipse.jst.j2ee.internal.navigator.ui.ejbProjectActions">
+         <action
+               label="%ejb.jar.file_ui_"
+               icon="icons/full/ctool16/import_ejbjar.gif"
+               class="org.eclipse.jst.ejb.ui.internal.actions.ImportEJBAction"
+               menubarPath="org.eclipse.wst.common.frameworks.internal.navigator.import.menu/additions"
+               enablesFor="1"
+               id="org.eclipse.jst.ejb.ui.internal.actions.ImportEJBAction">
+         </action>
+         <action
+               label="%ejb.jar.file_ui_"
+               icon="icons/full/ctool16/export_ejbjar_wiz.gif"
+               class="org.eclipse.jst.ejb.ui.internal.actions.ExportEJBAction"
+               menubarPath="org.eclipse.wst.common.frameworks.internal.navigator.export.menu/additions"
+               enablesFor="1"
+               id="org.eclipse.jst.ejb.ui.internal.actions.ExportEJBAction">
+         </action>
+         <visibility>
+            <objectState
+                  name="projectNature"
+                  value="org.eclipse.jst.j2ee.ejb.EJBNature">
+            </objectState>
+         </visibility>
+      </objectContribution>
+   </extension>
+   -->
+   
+<!-- ====================================================== -->
+<!--           Label Decorators                             -->
+<!-- ====================================================== -->
+  
+    <extension
+         point="org.eclipse.ui.decorators">
+         <decorator
+               lightweight="true"
+               adaptable="true"
+               label="%ejbAnnotationDecorator"
+               class="org.eclipse.jst.j2ee.internal.ui.util.AnnotationIconDecorator"
+               state="true"
+               location="TOP_LEFT"
+               id="org.eclipse.jst.j2ee.internal.ui.util.AnnotationIconDecorator_ejb">
+         <description>
+            %ejbAnnotationDecorator.description
+         </description>
+         <enablement>
+         	<or>
+              <objectClass
+                   name="org.eclipse.jst.j2ee.internal.ejb.provider.BeanClassProviderHelper">
+              </objectClass>
+              <objectClass
+                   name="org.eclipse.jst.j2ee.ejb.EnterpriseBean">
+              </objectClass>
+            </or>
+         </enablement>
+      </decorator>
+    </extension> 
+    
+    <extension point="org.eclipse.core.runtime.adapters">
+         <factory
+             class="org.eclipse.jst.ejb.ui.internal.deployables.EJBDeployableArtifactAdapterFactory"
+             adaptableType="org.eclipse.core.resources.IProject">
+             <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> 
+        </factory>
+        <factory
+             class="org.eclipse.jst.ejb.ui.internal.deployables.EJBDeployableArtifactAdapterFactory"
+             adaptableType="org.eclipse.jdt.core.ICompilationUnit">
+             <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> 
+        </factory>
+        <factory
+             class="org.eclipse.jst.ejb.ui.internal.deployables.EJBDeployableArtifactAdapterFactory"
+             adaptableType="org.eclipse.core.resources.IFile">
+            <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> 
+       </factory>
+       <factory
+             class="org.eclipse.jst.ejb.ui.internal.deployables.EJBDeployableArtifactAdapterFactory"
+             adaptableType="org.eclipse.jst.j2ee.ejb.EnterpriseBean">
+             <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> 
+       </factory>
+       <factory
+             class="org.eclipse.jst.ejb.ui.internal.deployables.EJBDeployableArtifactAdapterFactory"
+             adaptableType="org.eclipse.jst.j2ee.ejb.EJBJar">
+             <adapter type= "org.eclipse.debug.ui.actions.ILaunchable"/> 
+       </factory>
+   </extension>
+   
+   <!-- ==================================================================== -->
+<!-- Purpose: Define adapters for EJB resources                           -->
+<!-- Extension point: org.eclipse.wst.server.core.moduleArtifactAdapters  -->
+<!-- ==================================================================== -->
+   <extension
+         point="org.eclipse.wst.server.core.moduleArtifactAdapters">
+      <moduleArtifactAdapter
+            id="org.eclipse.jst.j2ee.server.ejb"
+            class="org.eclipse.jst.ejb.ui.internal.deployables.EJBDeployableArtifactAdapterFactory">
+         <enablement>
+           <with variable="selection">
+             <adapt type="org.eclipse.jst.j2ee.ejb.EJBJar"/>
+           </with>
+         </enablement>
+      </moduleArtifactAdapter>
+      <moduleArtifactAdapter
+            id="org.eclipse.jst.j2ee.server.ejb2"
+            class="org.eclipse.jst.ejb.ui.internal.deployables.EJBDeployableArtifactAdapterFactory">
+         <enablement>
+           <with variable="selection">
+             <adapt type="org.eclipse.jst.j2ee.ejb.EnterpriseBean"/>
+           </with>
+         </enablement>
+      </moduleArtifactAdapter>
+      <moduleArtifactAdapter
+            id="org.eclipse.jst.j2ee.server.ejb3"
+             class="org.eclipse.jst.ejb.ui.internal.deployables.EJBDeployableArtifactAdapterFactory">
+         <enablement>
+           <with variable="selection">
+             <adapt type="org.eclipse.jdt.core.ICompilationUnit"/>
+           </with>
+         </enablement>
+      </moduleArtifactAdapter>
+      <moduleArtifactAdapter
+            id="org.eclipse.jst.j2ee.server.ejb4"
+             class="org.eclipse.jst.ejb.ui.internal.deployables.EJBDeployableArtifactAdapterFactory">
+         <enablement>
+           <with variable="selection">
+             <adapt type="org.eclipse.core.resources.IFile">
+             <test forcePluginActivation="true"
+							property="org.eclipse.wst.common.project.facet.core.projectFacet"
+							value="jst.ejb:2.1]" />
+			 </adapt>
+           </with>
+         </enablement>
+      </moduleArtifactAdapter>
+      <moduleArtifactAdapter
+            id="org.eclipse.jst.j2ee.server.ejb5"
+             class="org.eclipse.jst.ejb.ui.internal.deployables.EJBDeployableArtifactAdapterFactory">
+         <enablement>
+           <with variable="selection">
+             <adapt type="org.eclipse.core.resources.IProject">
+              <test forcePluginActivation="true"
+							property="org.eclipse.wst.common.project.facet.core.projectFacet"
+							value="jst.ejb:2.1]" />
+			 </adapt>
+           </with>
+         </enablement>
+      </moduleArtifactAdapter>
+      </extension>
+    
+<!--================================-->
+<!-- Import Wizard Contributions    -->
+<!--================================-->
+
+   <extension
+         point="org.eclipse.ui.importWizards">
+      <wizard
+            category="org.eclipse.jst.ejb.ui"
+            class="org.eclipse.jst.ejb.ui.internal.wizard.EJBComponentImportWizard"
+            icon="icons/full/ctool16/import_ejbjar.gif"
+            id="org.eclipse.jst.ejb.ui.internal.wizard.EJBComponentImportWizard"
+            name="%ejb.jar.file_ui_">
+         <description>
+            %ejb.import.description_ui_
+         </description>
+         <selection
+               class="org.eclipse.core.resources.IResource">
+         </selection>
+      </wizard>
+      <category
+            id="org.eclipse.jst.ejb.ui"
+            name="%ejb.category_ui_"/>
+    </extension> 
+    
+    <extension point="org.eclipse.wst.common.project.facet.ui.wizardPages">
+      <wizard-pages action="jst.ejb.install">
+        <page class="org.eclipse.jst.ejb.ui.project.facet.EjbFacetInstallPage"/>
+      </wizard-pages>
+    </extension>   
+    
+<!-- ====================================================== -->
+<!--           EJB Client Action                            -->
+<!-- ====================================================== -->
+
+  
+   <extension
+         point="org.eclipse.ui.popupMenus">
+         
+     
+      <objectContribution
+            objectClass="org.eclipse.core.resources.IProject"
+            adaptable="true"
+            id="org.eclipse.jst.ejb.ui.internal.actions.IProject">
+        <!-- didnt work
+         <menu
+               label="%ejbClientJAR.menu_ui"
+               path="javeeUIPopupMenuCategory/slot3"
+               id="clientJARParent">
+            <separator
+                  name="clientJARChildren">
+            </separator>
+         </menu>
+         -->
+         <action
+               label="%ejb.client.jar.creation.action.description_ui_"
+               icon="icons/full/ctool16/ejbclientjar_wiz.gif"
+               class="org.eclipse.jst.ejb.ui.internal.actions.EJBClientCreationAction"
+               menubarPath="javeeUIPopupMenuCategory/slot3"
+               enablesFor="1"
+               id="org.eclipse.jst.ejb.ui.internal.actions.EJBClientCreationAction">
+         </action>         
+         <action
+               label="%ejb.client.jar.removal.action.description_ui_"
+               icon="icons/full/ctool16/ejb_client_remove_action_obj.gif"
+               class="org.eclipse.jst.ejb.ui.internal.actions.EJBClientRemovalAction"
+               menubarPath="javeeUIPopupMenuCategory/slot3"
+               enablesFor="1"
+               id="org.eclipse.jst.ejb.ui.internal.actions.EJBClientRemovalAction">
+               
+         </action>
+		<enablement>
+		  <adapt type="org.eclipse.core.resources.IProject">
+						<test forcePluginActivation="true"
+							property="org.eclipse.wst.common.project.facet.core.projectFacet"
+							value="jst.ejb" />
+					</adapt>
+		</enablement>
+
+      </objectContribution>
+      
+      
+      <objectContribution
+            objectClass="org.eclipse.emf.ecore.EObject"
+            id="org.eclipse.jst.ejb.ui.internal.actions.EJBClientActions.EJBJar">
+         <menu
+               label="%ejbClientJAR.menu_ui"
+               path="additions"
+               id="clientJARParent">
+            <separator
+                  name="clientJARChildren">
+            </separator>
+         </menu>
+         <action
+               label="%ejb.client.jar.creation.action.description_ui_"
+               icon="icons/full/ctool16/ejbclientjar_wiz.gif"
+               class="org.eclipse.jst.ejb.ui.internal.actions.EJBClientCreationAction"
+               menubarPath="clientJARParent/clientJARChildren"
+               enablesFor="1"
+               id="org.eclipse.jst.ejb.ui.internal.actions.EJBClientCreationAction">
+         </action>
+
+         <action
+               label="%ejb.client.jar.removal.action.description_ui_"
+               icon="icons/full/ctool16/ejb_client_remove_action_obj.gif"
+               class="org.eclipse.jst.ejb.ui.internal.actions.EJBClientRemovalAction"
+               menubarPath="clientJARParent/clientJARChildren"
+               enablesFor="1"
+               id="org.eclipse.jst.ejb.ui.internal.actions.EJBClientRemovalAction">
+         </action>
+
+         <visibility>
+            <objectClass
+                  name="org.eclipse.jst.j2ee.ejb.EJBJar">
+            </objectClass>
+         </visibility>
+      </objectContribution>
+   </extension>
+   <extension
+         point="org.eclipse.wst.common.project.facet.ui.images">
+      <image
+            facet="jst.ejb"
+            path="icons/EjbModule.gif">
+      </image>
+   </extension>  
+   
+   <extension point="org.eclipse.ui.ide.markerResolution">
+      <markerResolutionGenerator
+            class="org.eclipse.jst.ejb.ui.internal.quickfixes.ejb.NoBeansQuickFixer"
+            markerType="org.eclipse.jst.jee.ejb3.nobeans">
+      </markerResolutionGenerator>
+   </extension>
+
+<!-- ====================================================== -->
+<!--           EJB Client Extension                         -->
+<!-- ====================================================== -->
+
+	<extension-point id="ejbClientActionExtension" name ="EjbClientAction" schema="schema/ejbClientAction.exsd"/>       
+</plugin>

@@ -1,0 +1,25 @@
+<%@ jet package="org.eclipse.gmf.templates.messageDriven" class="TypeStubGenerator" imports="org.eclipse.jst.j2ee.ejb.annotation.internal.model.*  org.eclipse.jst.j2ee.internal.common.operations.*"%>
+<% IMessageDrivenBean mdb  = (IMessageDrivenBean)argument; 
+
+     String superclass = ""+mdb.getDataModel().getProperty(INewJavaClassDataModelProperties.SUPERCLASS);
+      if(superclass == null || superclass.length() == 0 )
+        superclass = "java.lang.Object";
+      Boolean modifier =  ((Boolean)(mdb.getDataModel().getProperty(INewJavaClassDataModelProperties.MODIFIER_PUBLIC)));
+      boolean isPublic  = ( modifier != null && modifier.booleanValue());
+      modifier =  ((Boolean)(mdb.getDataModel().getProperty(INewJavaClassDataModelProperties.MODIFIER_ABSTRACT)));
+      boolean isAbstract = ( modifier != null && modifier.booleanValue());
+      modifier =  ((Boolean)(mdb.getDataModel().getProperty(INewJavaClassDataModelProperties.MODIFIER_FINAL)));
+      boolean isFinal = ( modifier != null && modifier.booleanValue());
+
+      String publicStr = (isPublic ? "public": "");
+      String abstractStr = (isAbstract ? "abstract": "");
+      String finalStr = (isFinal ? "final": "");
+      String extendsStr = (superclass.equals("java.lang.Object") ? "": "extends " + superclass);
+ 
+
+%>
+ 
+ 
+<%= publicStr %> <%= finalStr %> <%= abstractStr %> class <%= mdb.getSimpleClassName()%> <%= extendsStr %> implements <%= mdb.getInterfaces() %>
+{
+}

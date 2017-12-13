@@ -1,0 +1,17 @@
+<%@ jet package="org.eclipse.gmf.templates.messageDriven" class="FieldGenerator" %>
+
+/** 
+ * <!-- begin-xdoclet-definition --> 
+ * <!-- end-xdoclet-definition --> 
+ * @generated
+ */
+private static final long serialVersionUID = 1L;
+
+/** 
+* <!-- begin-user-doc -->
+* <!-- end-user-doc -->
+* The context for the message-driven bean, set by the EJB container. 
+* @generated
+*/
+private javax.ejb.MessageDrivenContext messageContext = null;
+

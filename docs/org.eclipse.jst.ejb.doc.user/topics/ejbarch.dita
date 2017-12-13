@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2009, v.4002-->
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+ "concept.dtd">
+<?Pub Sty _display FontColor="red"?>
+<concept id="ejbarch" xml:lang="en-us">
+<title>EJB 3.0 and EJB 3.1 architecture</title><?Pub Caret 8?>
+<shortdesc>This topic provides a high-level overview of the distributed
+component architecture defined in the Sun Microsystems Enterprise <tm
+tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm"
+trademark="JavaBeans">JavaBeans</tm> (EJB) version 3.0 architecture
+specification.</shortdesc>
+<prolog><metadata>
+<keywords><indexterm>architecture<indexterm>EJB 3.0 and EJB 3.1</indexterm></indexterm>
+<indexterm>EJB 3.0 and EJB 3.1<indexterm>architecture<indexterm>3.0</indexterm></indexterm></indexterm>
+</keywords>
+</metadata></prolog>
+<conbody>
+<p><b>Enterprise <tm tmclass="special" tmowner="Sun Microsystems, Inc."
+tmtype="tm" trademark="JavaBeans">JavaBeans</tm></b> is a standard
+server-side component model for distributed business applications.
+The EJB specification is part of the <b><tm tmclass="special"
+tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">Java</tm> Platform
+Enterprise Edition</b>.</p>
+<p><b>EJB 3.0 and EJB 3.1</b> makes it much easier to develop EJBs,
+using annotations rather than the complex deployment descriptors used
+in version 2.x. The use of home and remote interfaces and the <i>ejb-jar.xml</i> file
+are also no longer required in this release. They are replaced with
+a business interface and a bean class that implements the interface.</p>
+<p>For more information about EJB 3.0 and EJB 3.1 specification go
+to the following Web site: <xref format="html"
+href="http://java.sun.com/products/ejb/docs.html#specs" scope="external">http://java.sun.com<desc></desc></xref> </p>
+</conbody>
+</concept>
+<?Pub *0000001865?>

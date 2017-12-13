@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+
+<!-- 
+  Copyright (c) 2002, 2003,2004 Eteration Bilisim A.S.
+  Naci Dai and others.
+  
+   
+  All rights reserved. This program and the accompanying materials
+  are made available under the terms of the Eclipse Public License v1.0
+  which accompanies this distribution, and is available at
+  http://www.eclipse.org/legal/epl-v10.html
+  
+  Contributors:
+      Eteration Bilisim A.S. - initial API and implementation
+      Naci Dai
+  For more information on eteration, please see
+  <http://www.eteration.com/>.
+ -->
+
+
+
+<project name="xdocletBuild" default="ejbdoclet" basedir=".">
+
+   <!-- Init -->
+   <target name="init">
+      <property file="build.properties"/>
+
+      <!-- property name="ejb.dd.dir" value="${ejb.project.dir}/${ejb.module.src}/META-INF"/ -->
+      <property name="ejb.dd.dir" value="${ejb.metainf.dir}" />
+   	  <property name="xdoclet.force" value="true"/>
+      <property name="container.type" value="ejb-jar"/>
+      
+   	  <!-- Set up java.class.path -->
+      <path id="project.class.path">
+        <pathelement location="${ejb.project.dir}/${ejb.bin.dir}" />
+        <pathelement path="${ejb.project.classpath}" />
+
+
+     	<fileset dir="${ant.home}">
+        	<include name="*/**/ant.jar"/>
+      	</fileset>
+        <fileset dir="${xdoclet.home}">
+            	<include name="**/*.jar"/>
+        </fileset>
+
+        <!-- append the external classpath lastly -->
+        <pathelement path="${java.class.path}" />
+                
+     </path>
+
+
+   </target>
+
+   <!-- Run EJBDoclet -->
+   <target name="ejbdoclet" depends="init">
+
+    <taskdef name="ejbdoclet" classname="xdoclet.modules.ejb.EjbDocletTask">
+		<classpath refid="project.class.path"/>
+	</taskdef>
+
+
+      <ejbdoclet
+            destdir="${ejb.module.gen}"
+            mergedir="${xdoclet.merge.dir}"
+            excludedtags="@version,@author,@todo"
+            addedtags="@wtp generated"
+            ejbspec="${ejb.spec.version}"
+            force="${xdoclet.force}"
+            verbose="true" >
+
+
+<!-- BEANS START -->
+ 	   <fileset dir="${ejb.module.src}" defaultexcludes="yes"> 
+   	    @beans@
+ 	   </fileset>
+<!-- BEANS END -->
+ 
+      	@docletTasks@
+              
+         
+      </ejbdoclet>
+   	  <antcall target="client.jar" />
+   	
+    </target>
+	
+	<target name="client.jar" if="ejb.client.module.src">
+	  	  <move todir="${ejb.client.module.src}" >
+			<fileset dir="${ejb.module.src}" id="id">
+			    <include name="**/*.java"/>
+			    <exclude name="**/*Bean.java"/>
+			    <exclude name="**/*EJB.java"/>
+			    <exclude name="**/*Session.java"/>
+			    <exclude name="**/*Mdb.java"/>
+				<exclude name="**/*CMP.java"/>
+			</fileset>
+	   	  </move>		
+	</target>
+
+</project>

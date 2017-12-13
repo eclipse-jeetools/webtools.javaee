@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2009, v.4002-->
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+ "concept.dtd">
+<?Pub Sty _display FontColor="red"?>
+<concept id="cejb3" xml:lang="en-us">
+<title>Developing EJB 3.1 Applications</title>
+<shortdesc>You can use the workbench to develop and test enterprise
+beans that conform to the distributed component architecture defined
+in the Sun Microsystems Enterprise JavaBeans (EJB) 3.10 specification.</shortdesc>
+<prolog><metadata>
+<keywords><indexterm>Enterprise JavaBeans 3.0</indexterm></keywords>
+</metadata></prolog>
+<conbody>
+<p> Using this specification, you can develop beans more simply than
+in the 2.1 standard. You can annotate your Java source code to provide
+information that was previously contained in XML deployment descriptors.
+Using <tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm"
+trademark="Java">Java</tm> annotations allows you to create EJBs and <tm
+tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm"
+trademark="Java">Java</tm> Persistence Architecture (JPA) beans quickly
+and easily from “plain old <tm tmclass="special"
+tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">Java</tm> objects
+(POJOs).  For EJBs, these can be created without implementing EnterpriseBean
+interfaces. </p>
+<p>This product supports the Enterprise JavaBeans 2.1 and 3.0 specification
+levels.  All of the EJB tools in the product are accessible from the <tm
+tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm"
+trademark="Java">Java</tm> EE perspective in the workbench. You can
+create session beans (stateful or stateless) or message-driven beans,
+by simply specifying the component defining annotation in your POJO.
+ Additional configuration for your bean can be done by specifying
+additional annotations in the <tm tmclass="special"
+tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">Java</tm> class.
+The <tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm"
+trademark="Java">Java</tm> editor provides validation, content assistance
+and QuickFixes for your EJB 3.0 annotations, as well as support for
+refactoring beans. For richer assistance with the EJB 3.0 annotations,
+you can use the Annotations view to add or delete annotations, and
+to modify the attribute values of annotations. Deployment descriptors
+for your EJB 3.0 modules are optional, but can be created for additional
+configuration.</p>
+<p><b>New in EJB 3.1 (JSR 318)</b></p>
+<p><ul>
+<li>Singleton beans (@Singleton)<ul>
+<li>Before EJB 3.1, there was no easy way to share data throughout
+the application; the EJB 3.1 Singleton is an application-wide singleton.</li>
+<li> Concurrency can be managed either by the container or by the
+Bean Developer</li>
+</ul></li>
+</ul></p>
+<p>Java EE 5 streamlines EJB development in the following ways: <ul>
+<li>Fewer required classes and interfaces<ul>
+<li>Home and object interfaces are no longer required – you need the
+business interface only</li>
+<li>No need to implement javax.ejb.SessionBean</li>
+<li>No need to declare checked exceptions</li>
+</ul></li>
+<li>Optional deployment descriptors<ul>
+<li>Annotations provide component definition and dependency injection</li>
+</ul></li>
+<li>Simple lookups<ul>
+<li>new EJBContext() interface method replaces JNDI calls</li>
+</ul></li>
+<li>Lightweight persistence for object-relational mapping<ul>
+<li>Entities are POJOs that provide an object-oriented view of the
+data stored in relational database</li>
+</ul></li>
+<li>New Interceptors class (new in Java EE 5)<ul>
+<li>Interceptors are objects that can intercept a call to a business
+method (to handle security for example)</li>
+<li>Similar in purpose and action to servlet filter or Web services
+handler</li>
+<li>Provide limited form of aspect-oriented programming</li>
+</ul></li>
+</ul></p><?Pub Caret -2?>
+<p>For further additional information on EJB 3.0, see the official
+specification: <xref href="http://jcp.org/en/jsr/detail?id=220"
+scope="external">JSR 220: Enterprise <tm tmclass="special"
+tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="JavaBeans">JavaBeans</tm> 3.0 </xref></p>
+</conbody>
+</concept>
+<?Pub *0000004197?>

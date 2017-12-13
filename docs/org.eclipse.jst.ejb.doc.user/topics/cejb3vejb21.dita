@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Arbortext, Inc., 1988-2006, v.4002-->
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+ "concept.dtd">
+<concept id="compareejb2" xml:lang="en-us">
+<title>Differences between EJB 3.0 and EJB 2.1</title>
+<titlealts>
+<navtitle>EJB 3.0 versus EJB 2.1</navtitle>
+<searchtitle>Enterprise JavaBean version differences between EJB 3.0 and EJB
+2.1</searchtitle>
+</titlealts>
+<shortdesc>Compared to EJB 2.1, EJB 3.0 simplifies the process of creating
+Enterprise JavaBean applications.</shortdesc>
+<prolog><metadata>
+<keywords><indexterm>Enterprise JavaBeans 3.0</indexterm></keywords>
+</metadata></prolog>
+<conbody>
+<p>The underlying concept of the EJB 3.0 specification centers on a plain
+old <tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">Java</tm> object
+(POJO) programming model that uses <tm tmclass="special" tmowner="Sun Microsystems, Inc."
+tmtype="tm" trademark="Java">Java</tm> annotations to capture information
+that deployment descriptors used to contain.  Deployment descriptors are now
+optional in most cases.  Using default values liberally also means that you
+need to write and maintain less supporting code. This greatly simplifies the
+programming experience in creating and using EJB 3.0 components.</p>
+<p>While EJB 2.1 added support for Web services, changes in the implementation
+of session beans, changes in how enterprise beans are invoked and a new XML
+schema to replace the DTD that defined ejb-jar.xml deployment descriptor,
+EJB 3.0 has taken this one step further. EJB 3.0 has introduced a lightweight
+entity bean persistence mechanism through the <tm tmclass="special" tmowner="Sun Microsystems, Inc."
+tmtype="tm" trademark="Java">Java</tm> Persistence API. These entities are
+POJO based and can then be run outside of an EJB container and do not require
+any interfaces or EJB code in them. Similarly, session beans also no longer
+require EJB-specific component interfaces either.</p>
+<p><b>Comparison of EJB 2.1 class plus Deployment Descriptor file with equivalent
+EJB 3.0 class</b></p>
+<p>The examples in Table 1 are functionally equivalent:</p>
+<table><title>Comparison of EJB 2.1 and EJB 3.0</title>
+<tgroup cols="2"><colspec colname="col1"/><colspec colname="col2"/>
+<thead>
+<row valign="bottom">
+<entry colname="col1">EJB 2.1 </entry>
+<entry colname="col2">EJB 3.0</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry colname="col1"><p><b>Java Class</b></p><codeblock>public class AccountBean
+implements javax.ejb.SessionBean {
+ 
+     SessionContext ctx;
+     DataSource accountDB;
+ 
+     public void setSessionContext(SessionContext ctx) {
+        this.ctx = ctx;
+     }
+ 
+     public void ejbCreate() {
+          accountDB = (DataSource)ctx.lookup(
+                          "jdbc/accountDB");
+ 
+     }
+     public void ejbActivate() { }
+     public void ejbPassivate() { }
+     public void ejbRemove() { }
+
+     public void setAccountDeposit(int empId,
+                                      double deposit) {
+       ...
+       Connection conn = accountDB.getConnection();
+       ...
+     }
+  ...
+}</codeblock></entry>
+<entry colname="col2"><p><b>Java Class</b></p><codeblock>@Stateless
+public class AccountBean implements Account
+{
+     @Resource private DataSource accountDB;
+ 
+     public void setAccountDeposit(int customerId,
+                                      double deposit) {
+       ...
+       Connection conn = accountDB.getConnection();
+       ...
+     }
+  ...
+}</codeblock></entry>
+</row>
+<row>
+<entry colname="col1"><p><b>Deployment Descriptor</b></p><codeblock>&lt;session>
+  &lt;ejb-name>AccountBean&lt;/ejb-name>
+  &lt;local-home>AccountHome&lt;/local-home>
+  &lt;local>Account&lt;/local>
+  &lt;ejb-class>com.example.AccountBean&lt;/ejb-class>
+  &lt;session-type>Stateless&lt;/session-type>
+  &lt;transaction-type>Container&lt;/transaction-type>
+  &lt;resource-ref>
+    &lt;res-ref-name>jdbc/accountDB&lt;/res-ref-name>
+    &lt;res-ref-type>javax.sql.DataSource&lt;/res-ref-type>
+    &lt;res-auth>Container&lt;/res-auth>
+  &lt;/resource-ref>
+&lt;/session>
+...
+&lt;assembly-descriptor>...&lt;/assembly-descriptor>
+</codeblock></entry>
+<entry colname="col2"></entry>
+</row>
+</tbody>
+</tgroup>
+</table>
+<p>The following four facets of <tm tmclass="special" tmowner="Sun Microsystems, Inc."
+tmtype="tm" trademark="Java">Java</tm> EE 5 contributed the most to the changes
+in EJB 3.0 from EJB 2.1:<ul>
+<li>Plain old <tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm"
+trademark="Java">Java</tm> objects</li>
+<li>Annotations</li>
+<li>Implied values</li>
+<li>Persistence</li>
+</ul></p>
+</conbody>
+</concept>

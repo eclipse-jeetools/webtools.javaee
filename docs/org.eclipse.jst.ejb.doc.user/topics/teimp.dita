@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Arbortext, Inc., 1988-2006, v.4002-->
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN"
+ "task.dtd">
+<task id="teimp" xml:lang="en-us">
+<title>Importing EJB 2.x JAR files</title>
+<shortdesc>You can import beans and other metadata from an EJB JAR file into
+a new or existing EJB project.</shortdesc>
+<prolog><metadata>
+<keywords><indexterm>EJB<indexterm>importing JAR files</indexterm></indexterm>
+<indexterm>JAR files<indexterm>importing EJB</indexterm></indexterm></keywords>
+</metadata></prolog>
+<taskbody>
+<context> <p>To import an EJB JAR file into an EJB project using the Import
+wizard, complete the following steps:</p></context>
+<steps>
+<step><cmd>In the Project Explorer view of the <tm tmclass="special" tmowner="Sun Microsystems, Inc."
+tmtype="tm" trademark="Java">Java</tm> EE perspective, select <menucascade>
+<uicontrol>File</uicontrol><uicontrol>Import</uicontrol></menucascade>.</cmd>
+</step>
+<step><cmd>Under <uicontrol>Select an import source</uicontrol>, click <menucascade>
+<uicontrol>EJB</uicontrol><uicontrol>EJB JAR file</uicontrol></menucascade> and
+click <uicontrol>Next</uicontrol>.</cmd></step>
+<step><cmd>In the <uicontrol>EJB JAR file</uicontrol> field, enter the location
+and name of the EJB JAR file that you want to import.</cmd></step>
+<step><cmd>In the <uicontrol>EJB Project</uicontrol> field, a new project
+name or select an EJB project from the drop-down list.</cmd></step>
+<step><cmd>In the <uicontrol>Target runtime</uicontrol> drop-down list, select
+the application server that you want to target for your development. If no
+Target servers exist, create one using the <uicontrol>New</uicontrol> button.
+The target server choice affects the run time settings by modifying the class
+path entries for the project. This selection affects the run time settings
+by modifying the class path entries for the project.</cmd></step>
+<step><cmd>Specify whether you want to add the new module to an enterprise
+application (EAR) project. </cmd></step>
+<step importance="optional"><cmd>Select the <uicontrol>Add project to an EAR </uicontrol> check
+box to add the new module to an enterprise application (EAR) project.</cmd>
+<info>Type a new project name or select an existing enterprise application
+project from the drop-down list in the <uicontrol>EAR Project</uicontrol> combination
+box. Or, click the <uicontrol>New</uicontrol> button to launch the New Enterprise
+Application Project wizard. Click <uicontrol>Next</uicontrol>.</info></step>
+<step><cmd>Click <uicontrol>Finish</uicontrol> to import the EJB JAR file.</cmd>
+</step>
+</steps>
+<result><note type="tip">In the Project Explorer view you can also copy enterprise
+beans by dragging and dropping them from one EJB project to another EJB project.
+The import wizard will open to help you merge existing enterprise beans.</note><note
+type="tip"><image alt="The following paragraph applies to Windows." href="../images/ycwin.gif"
+placement="inline"></image> You can quickly drag and drop an EJB JAR file
+from the <tm tmclass="special" tmowner="Microsoft Corporation" tmtype="reg"
+trademark="Windows">Windows</tm> Explorer or desktop onto the Project Explorer
+view. The Import wizard will open with appropriate fields already populated.
+If you drop on an existing EJB module, the wizard will import into that EJB
+module. If you drop on an enterprise application, the wizard will bind the
+new EJB module to this EAR.</note><note>The .ser files in an EJB 1.0 JAR are
+converted into the ejb-jar.xml file for EJB 1.1 during an import.</note></result>
+</taskbody>
+</task>

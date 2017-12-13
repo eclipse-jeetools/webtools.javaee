@@ -1,0 +1,49 @@
+<%@ jet package="org.eclipse.jst.j2ee.ejb.gmf.templates.entity" class="TypeStubGenerator" imports="java.util.* org.eclipse.jst.j2ee.ejb.annotation.internal.model.*   org.eclipse.jst.j2ee.internal.common.operations.*"%>
+<%  IContainerManagedEntityBean cmp  = (IContainerManagedEntityBean)argument;
+    boolean isCMP = true;
+   
+   String primaryKeyType = cmp.getPrimaryKeyClass();
+   List keyAttributes = cmp.getKeyAttributes();
+   int pkCount=keyAttributes.size();
+   boolean isComposite = keyAttributes.size() > 1;
+   
+    String superclass = ""+cmp.getDataModel().getProperty(INewJavaClassDataModelProperties.SUPERCLASS);
+      if(superclass == null || superclass.length() == 0 )
+        superclass = "java.lang.Object";
+      Boolean modifier =  ((Boolean)(cmp.getDataModel().getProperty(INewJavaClassDataModelProperties.MODIFIER_PUBLIC)));
+      boolean isPublic  = ( modifier != null && modifier.booleanValue());
+      modifier =  ((Boolean)(cmp.getDataModel().getProperty(INewJavaClassDataModelProperties.MODIFIER_ABSTRACT)));
+      boolean isAbstract = ( modifier != null && modifier.booleanValue());
+      modifier =  ((Boolean)(cmp.getDataModel().getProperty(INewJavaClassDataModelProperties.MODIFIER_FINAL)));
+      boolean isFinal = ( modifier != null && modifier.booleanValue());
+
+      String publicStr = (isPublic ? "public": "");
+      String abstractStr = (isAbstract ? "abstract": "");
+      String finalStr = (isFinal ? "final": "");
+      String extendsStr = (superclass.equals("java.lang.Object") ? "": "extends " + superclass);   
+  
+%>
+
+<%= publicStr %> <%= finalStr %> <%= abstractStr %> class <%= cmp.getSimpleClassName()%> <%= extendsStr %> implements <%= cmp.getInterfaces() %>
+{
+    
+<% 	   if(isComposite ){ %>
+    /**
+     * Generated Primary Key Class
+     * @generated
+     */
+    public class PrimaryKey {
+<%
+	  Iterator keys = keyAttributes.iterator();
+      while(keys.hasNext()){
+	      CMPAttributeDelegate key = (CMPAttributeDelegate) keys.next();
+%>
+		  /**
+		  * @generated
+		  */	       
+	      public <%= key.getAttributeType() %> <%= key.getName() %> ;
+<%    } %>
+	}
+<%	}%>
+
+}

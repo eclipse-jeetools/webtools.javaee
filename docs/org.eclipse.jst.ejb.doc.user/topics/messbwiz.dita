@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Arbortext, Inc., 1988-2006, v.4002-->
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN"
+ "task.dtd">
+<task id="messbwiz" xml:lang="en-us">
+<title>Creating Message-driven Beans</title>
+<shortdesc>You can use a wizard to create a message-driven bean and add it
+to your project.</shortdesc>
+<prolog><metadata>
+<keywords><indexterm>message-driven beans<indexterm>creating</indexterm></indexterm>
+</keywords>
+</metadata></prolog>
+<taskbody>
+<context><p>The message-driven bean wizard helps you create an Enterprise
+message-driven bean by walking you through the creation process and by providing
+you with output files that you can use or that you can modify for use with
+your application.</p> <p>To create a message-driven bean, complete the following
+steps:</p></context>
+<steps>
+<step><cmd>From the <tm tmclass="special" tmowner="Sun Microsystems, Inc."
+tmtype="tm" trademark="Java">Java</tm> EE perspective, expand your  EJB project
+in the Project Explorer view.</cmd></step>
+<step><cmd>Right click on the <b>Message-Driven Bean</b> icon, and select <menucascade>
+<uicontrol>New</uicontrol><uicontrol>Message-Driven Bean</uicontrol></menucascade> from
+the pop-up menu.</cmd><stepresult> The <uicontrol>Create Message-Driven Bean</uicontrol> wizard
+appears.</stepresult></step>
+<step><cmd>Follow the project wizard prompts.</cmd></step>
+</steps>
+<postreq><p><b>General Information</b></p><dl><dlentry>
+<dt><b>Destination name</b></dt>
+<dd>This field provides the attribute <b>mappedName</b> to the <b>@MessageDriven</b> annotation.
+This attribute specifies the product-specific name to which the message-driven
+bean should be mapped. You can also use this attribute to specify the JNDI
+name of the destination from which the bean will consume messages.</dd>
+</dlentry></dl> <dl><dlentry>
+<dt><b>Destination type</b></dt>
+<dd>To send a JMS message, we need a connection to the JMS provider and a
+destination address for the message. A JMS connection factory makes the connection
+to the provider possible. In JMS, messages are not sent directly to applications;
+they are sent to topics or queues:<dl><dlentry>
+<dt>Queue:</dt>
+<dd>Queue is used as a destination for pointtopoint messaging. The <b>point-to-point</b> 
+messaging model allows JMS clients to send and receive messages both synchronously
+and asynchronously via virtual channels known as <i>queues</i>. The p2p messaging
+model has traditionally been a pull- or polling-based model, where messages
+are requested from the queue instead of being pushed to the client automatically.
+A queue may have multiple receivers, but only one receiver may receive each
+message.  Messages holding this queue are of <b>MapMessages</b> type, which
+stores the information about the email as name/value pair.</dd>
+</dlentry><dlentry>
+<dt>Topic:</dt>
+<dd>Topic is used as a destination for publish/subscribe messaging. In <b>publish-and-subscribe</b> 
+messaging, one producer can send a message to many consumers through a virtual
+channel called a <i>topic</i>. Consumers can choose to subscribe to a topic.
+Any messages addressed to a topic are delivered to all the topic's consumers.
+Every consumer receives a copy of each message. The pub/sub messaging model
+is a push-based model, where messages are automatically broadcast to consumers
+without them having to request or poll the topic for new messages. In the
+pub/sub messaging model, the producer sending the message is not dependent
+on the consumers receiving the message. Optionally, JMS clients that use pub/sub
+can establish durable subscriptions that allow consumers to disconnect and
+later reconnect and collect messages that were published while they were disconnected.</dd>
+</dlentry></dl></dd>
+</dlentry></dl> <dl><dlentry>
+<dt><b>Transaction type</b></dt>
+<dd>The <b>Transaction type</b> field is used to specify whether the transaction
+is handled by the <b>Container</b> or the <b>Bean</b>.</dd>
+</dlentry></dl> <dl><dlentry>
+<dt><b>Interfaces</b></dt>
+<dd>Message-driven beans usually implement the <b>javax.jms.MessageListener</b> 
+interface. A <i>MessageListener object</i> is used to receive asynchronously
+delivered messages. This interface defines the <b>onMessage()</b> method.
+This method processes the JMS messages received by a bean.</dd>
+</dlentry></dl></postreq>
+</taskbody>
+</task>

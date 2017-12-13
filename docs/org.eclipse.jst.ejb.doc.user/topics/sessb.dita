@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Arbortext, Inc., 1988-2006, v.4002-->
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+ "concept.dtd">
+<concept id="sessb" xml:lang="en-us">
+<title>Session Beans</title>
+<shortdesc></shortdesc>
+<prolog><metadata>
+<keywords><indexterm>session beans<indexterm>overview</indexterm></indexterm>
+</keywords>
+</metadata></prolog>
+<conbody>
+<p>A <b>session bean</b> is a type of enterprise bean. It is created by a
+client and usually exists only for the duration of a single client-server
+session.</p>
+<p>Session beans are useful for describing interactions between other beans
+(taskflow) and for implementing particular tasks. They do not represent data
+in the database, but they can access data, so we can use session beans to
+read, update, and insert data in a business process. Session beans access
+data that spans concepts, is not shared, and is usually read-only. Session
+beans contain business logic, and entities model persistent data. There are 
+three types of session beans: stateless, stateful and singleton. </p>
+<ul>
+<li><b>Stateless session beans</b> <p>A stateless session bean is pooled by
+the container to handle multiple requests from multiple clients and does not
+maintain any conversational state.</p> </li>
+<li> <b>Stateful session beans</b> <p>A stateful session bean acts on behalf
+of a single client and maintains client-specific session information (called
+conversational state) across multiple method calls and transactions. It exists
+for the duration of a single client/server session.</p> </li>
+<li> <b>Singleton session beans</b> <p>A Singleton session bean is a session 
+bean component that is instantiated once per application. In cases where the container 
+is distributed over many virtual machines, each application will have one bean instance 
+of the Singleton for each JVM.</p> </li>
+</ul>
+</conbody>
+</concept>

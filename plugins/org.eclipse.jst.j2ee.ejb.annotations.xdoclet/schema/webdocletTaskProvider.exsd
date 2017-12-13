@@ -1,0 +1,269 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="org.eclipse.jst.j2ee.ejb.annotations.xdoclet">
+<annotation>
+      <appInfo>
+         <meta.schema plugin="org.eclipse.jst.j2ee.ejb.annotations.xdoclet" id="webdocletTaskProvider" name="Web Doclet Task Provider"/>
+      </appInfo>
+      <documentation>
+         Allows extenders to define tasks that can run during webdoclet processing.  The task must be supported by XDoclet.  Task properties editable by a dynamic UI generated from the extension point.
+      </documentation>
+   </annotation>
+
+   <element name="extension">
+      <complexType>
+         <sequence>
+            <element ref="WebdocletTaskProvider"/>
+            <element ref="TaskProperty" minOccurs="0" maxOccurs="unbounded"/>
+         </sequence>
+         <attribute name="point" type="string" use="required">
+            <annotation>
+               <documentation>
+                  a fully qualified identifier of the target extension point
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="id" type="string">
+            <annotation>
+               <documentation>
+                  an optional identifier of the extension instance
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  an optional name of the extension instance
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="WebdocletTaskProvider">
+      <complexType>
+         <attribute name="name" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute translatable="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="description" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute translatable="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="id" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="defaultSelection" type="boolean" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="TaskProperty">
+      <complexType>
+         <attribute name="id" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="label" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute translatable="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="default" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="type">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+            <simpleType>
+               <restriction base="string">
+                  <enumeration value="string">
+                  </enumeration>
+                  <enumeration value="boolean">
+                  </enumeration>
+                  <enumeration value="enum">
+                  </enumeration>
+                  <enumeration value="file">
+                  </enumeration>
+                  <enumeration value="dir">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
+         <attribute name="description" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute translatable="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="include" type="boolean" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="restriction" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="since"/>
+      </appInfo>
+      <documentation>
+         &lt;b&gt;This extension point is part of an interim API that is still under development and expected to change significantly before reaching stability. It is being made available at this early stage to solicit feedback from pioneering adopters on the understanding that any code that uses this API will almost certainly be broken (repeatedly) as the API evolves.&lt;/b&gt;
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="examples"/>
+      </appInfo>
+      <documentation>
+         &lt;pre&gt;
+   &lt;extension
+         id=&quot;org.eclipse.jst.j2ee.xdoclet.webdocletTaskProvider.deploymentdescriptor&quot;
+         name=&quot;%webdoclet.deploymentdesc&quot;
+         point=&quot;org.eclipse.jst.j2ee.ejb.annotations.xdoclet.webdocletTaskProvider&quot;&gt;
+      &lt;WebdocletTaskProvider
+            class=&quot;org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.DeploymentDescriptorWebdocletTaskProvider&quot;
+            defaultSelection=&quot;true&quot;
+            description=&quot;%webdoclet.deploymentdesc.desc&quot;
+            id=&quot;org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks.DeploymentDescriptorWebdocletTaskProvider&quot;
+            name=&quot;DeploymentDescriptor&quot;/&gt;
+      &lt;TaskProperty
+            default=&quot;true&quot;
+            id=&quot;webdoclet.deploymentdescriptor.useIds&quot;
+            include=&quot;true&quot;
+            label=&quot;useIds&quot;
+            type=&quot;boolean&quot;
+            description=&quot;%webdoclet.deploymentdesc.useIds&quot; /&gt;
+      &lt;TaskProperty
+            default=&quot;${servlet.spec.version}&quot;
+            id=&quot;webdoclet.deploymentdescriptor.servletspec&quot;
+            include=&quot;true&quot;
+            label=&quot;servletspec&quot;
+            type=&quot;string&quot;
+            description=&quot;%webdoclet.deploymentdesc.servletspec&quot; /&gt;
+     &lt;TaskProperty
+            default=&quot;XDoclet Generated Name&quot;
+            id=&quot;webdoclet.deploymentdescriptor.displayname&quot;
+            include=&quot;true&quot;
+            label=&quot;displayname&quot;
+            type=&quot;string&quot;
+            description=&quot;%webdoclet.deploymentdesc.displayname&quot;/&gt;
+      &lt;TaskProperty
+            default=&quot;false&quot;
+            id=&quot;webdoclet.deploymentdescriptor.validatexml&quot;
+            include=&quot;true&quot;
+            label=&quot;validatexml&quot;
+            type=&quot;boolean&quot;
+            description=&quot;%webdoclet.deploymentdesc.validatexml&quot;/&gt;
+      &lt;TaskProperty
+            default=&quot;${web.module.webinf}&quot;
+            id=&quot;webdoclet.deploymentdescriptor.mergedir&quot;
+            include=&quot;true&quot;
+            label=&quot;mergedir&quot;
+            type=&quot;string&quot;
+            description=&quot;%webdoclet.deploymentdesc.mergedir&quot;/&gt;
+      &lt;TaskProperty
+            default=&quot;${web.module.webinf}&quot;
+            id=&quot;weboclet.deploymentdescriptor.destdir&quot;
+            include=&quot;true&quot;
+            label=&quot;destdir&quot;
+            type=&quot;string&quot;
+            description=&quot;%webdoclet.deploymentdesc.destdir&quot;/&gt;
+   &lt;/extension&gt;
+&lt;/pre&gt;
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="apiInfo"/>
+      </appInfo>
+      <documentation>
+         
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="implementation"/>
+      </appInfo>
+      <documentation>
+         org.eclipse.jst.j2ee.ejb.annotations.xdoclet.runtime plugin
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="copyright"/>
+      </appInfo>
+      <documentation>
+         Copyright (c) 2005 Eteration A.S. and others.&lt;br&gt;
+All rights reserved. This program and the accompanying materials are made 
+available under the terms of the Eclipse Public License v1.0 which accompanies 
+this distribution, and is available at &lt;a
+href=&quot;http://www.eclipse.org/legal/epl-v10.html&quot;&gt;http://www.eclipse.org/legal/epl-v10.html&lt;/a&gt;
+      </documentation>
+   </annotation>
+
+</schema>

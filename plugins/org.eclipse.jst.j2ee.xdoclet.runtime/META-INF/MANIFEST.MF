@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %Bundle-Name.0
+Bundle-SymbolicName: org.eclipse.jst.j2ee.xdoclet.runtime; singleton:=true
+Bundle-Version: 1.1.300.qualifier
+Bundle-Activator: org.eclipse.jst.j2ee.xdoclet.runtime.internal.XDocletRuntimePlugin
+Bundle-Vendor: %Bundle-Vendor.0
+Bundle-Localization: plugin
+Require-Bundle:  org.eclipse.core.runtime;bundle-version="[3.2.0,4.0.0)",
+ org.eclipse.jst.j2ee.ejb.annotations.xdoclet;bundle-version="[1.1.0,2.0.0)",
+ org.eclipse.core.resources;bundle-version="[3.2.0,4.0.0)",
+ org.eclipse.jst.j2ee.ejb.annotation.model;bundle-version="[1.1.0,1.2.0)"
+Eclipse-LazyStart: true
+Bundle-ActivationPolicy: lazy
+Export-Package: org.eclipse.jst.j2ee.xdoclet.runtime.internal;x-internal:=true,
+ org.eclipse.jst.j2ee.xdoclet.runtime.internal.server;x-internal:=true,
+ org.eclipse.jst.j2ee.xdoclet.runtime.internal.tasks;x-internal:=true
+Bundle-RequiredExecutionEnvironment: J2SE-1.4

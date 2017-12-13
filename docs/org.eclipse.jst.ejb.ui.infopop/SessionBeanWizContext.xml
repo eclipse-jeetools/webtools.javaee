@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?NLS type="org.eclipse.help.contexts"?>
+
+<contexts>
+<context id="sessbw1100">
+<description>
+Specify the <b>Project</b> and <b>Folder</b> where the session bean will be placed. The session bean should be stored in the Java source directory, which you specified when you created the EJB Project (for example ejbModule).
+
+Specify the <b>Java package</b> that the class will belong to. <b>Note:</b> The bean class cannot be added into a default package.
+
+Specify the <b>Class name</b> of the session bean (for example MySessionBean).
+
+In the field <b>Superclass</b> specify the superclass for the session bean, only if it is derived from one. Click <b>Browse</b> to choose from the available, already existing or created, superclasses. (This field is optional).
+
+In the field <b>State type</b> choose the type of the session bean that you create: 
+ <b>- Stateless</b> – the session bean instances contain no conversational state between methods; any instance can be used for any client. 
+ <b>- Stateful</b> – the session bean instances contain conversational state which must be retained across methods and transactions. 
+ <b>- Singleton</b> – a single session bean instance is shared between clients and supports concurrent access. 
+
+In the section <b>Create business interface</b>, check the business interface that you want to create:
+  <b>- Remote</b> – the client can run on a different machine or different Java virtual machine than the enterprise bean it accesses and the location of the bean is transparent.
+  <b>- Local</b> – the client must run on the same Java virtual machine as the bean it accesses and the location of the enterprise bean is not transparent.
+  <b>- No-interface</b> – this is a variation of the Local view that exposes the public methods of the bean class without the use of a separate business interface.
+   
+<b>Note:</b> It is valid to check all of the above options. 
+</description>
+<topic label="Creating Session Beans" href="../org.eclipse.jst.ejb.doc.user/topics/sessbwiz.html"/>
+<topic label="EJB 2.x architecture" href="../org.eclipse.jst.ejb.doc.user/topics/cearch.html"/>
+<topic label="EJB 2.x development resource" href="../org.eclipse.jst.ejb.doc.user/topics/ceresrc.html"/>
+</context>
+
+<context id="sessbw1200">
+<description>
+Note that the <b>Class name</b> value provided in the first page of the wizard is automatically mapped to the <b>Bean name</b> field on this page.
+
+In the field <b>Transaction type</b> specify whether the transaction is handled by the <b>Container</b> or the <b>Bean</b>.
+
+In the field <b>Mapped name</b> specify the bean’s global JNDI name. 
+
+Note that the business interface, provided in the previous page of the wizard, is automatically mapped to the <b>Business interfaces</b> field on this page. You can click the <b>Add</b> button to add additional interfaces to implement.
+
+Note: If you create EJB 2.x beans, click on <b>Home and Component interfaces(EJB 2.x)</b> to add the home and the component interfaces. The <b>home interface</b> allows a client to create, remove and find existing instances of enterprise beans. The <b>component interface</b> allows a client to access the business methods of the enterprise bean. Check:
+  <b>- Local</b> to add the local home and component interfaces. 
+  <b>- Remote</b> to add the remote home and component interfaces.
+  
+If the <b>Inherited abstract methods</b> option is checked, it means that you want to override the methods provided by the interface, which is defined in the <b>Business interfaces</b> field.
+
+Using the option <b>Constructors from superclass</b> you can choose whether to override the constructor of the class, which you specified as superclass in the first page of the wizard.
+</description>
+<topic label="Creating Session Beans" href="../org.eclipse.jst.ejb.doc.user/topics/sessbwiz.html"/>
+<topic label="EJB 2.x architecture" href="../org.eclipse.jst.ejb.doc.user/topics/cearch.html"/>
+<topic label="EJB 2.x development resource" href="../org.eclipse.jst.ejb.doc.user/topics/ceresrc.html"/>
+</context>
+
+</contexts>

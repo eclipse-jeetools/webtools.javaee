@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?NLS TYPE="org.eclipse.help.toc"?>
+
+<toc label="Developing EJB applications" topic="topics/ceover.html">
+<topic label="Developing EJB applications" href="topics/ceover.html">
+<topic label="EJB 3.0 architecture" href="topics/ejbarch.html">
+<topic label="POJOs (Plain old Java objects)" href="topics/cpojosandee5.html"/>
+<topic label="EJB 3.0 versus EJB 2.1" href="topics/cejb3vejb21.html"/>
+</topic>
+<topic label="Developing EJB 3.0 Applications" href="topics/cejb3.html">
+<topic label="Creating EJB projects" href="topics/tecrtpro.html">
+<topic label="Creating a session bean" href="topics/tcreatingsessbeans3.html"/>
+<topic label="Creating a message-driven bean" href="topics/tcreatinmessbeans3.html"/>
+</topic>
+<topic label="Content assist and EJB 3.0" href="topics/ccontentassist3.html"/>
+</topic>
+<topic label="EJB 2.x architecture" href="topics/cearch.html"/>
+<topic label="EJB 2.x development resources" href="topics/ceresrc.html">
+<topic label="Creating EJB projects" href="topics/tecrtpro.html"/>
+<topic label="EJB 2.x client JAR projects" href="topics/ceclientjars.html"/>
+<topic label="Importing EJB 2.x JAR files" href="topics/teimp.html"/>
+<topic label="Exporting EJB 2.x projects to EJB JAR files" href="topics/teexp.html"/>
+</topic>
+<topic label="Creating enterprise beans with XDoclet annotation support" href="topics/tecrte.html">
+<topic label="Creating session beans with XDoclet annotation support" href="topics/tesessb.html"/>
+<topic label="Creating CMP entity beans with XDoclet annotation support" href="topics/teentityb.html"/>
+<topic label="Creating message-driven beans with XDoclet annotation support" href="topics/temessb.html"/>
+<topic label="Configuring XDoclet annotation support" href="topics/txdocletconf.html"/>
+</topic>
+</topic>
+</toc>

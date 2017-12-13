@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Arbortext, Inc., 1988-2006, v.4002-->
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN"
+ "task.dtd">
+<task id="tecrtpro" xml:lang="en-us">
+<title>Creating EJB projects</title>
+<shortdesc>An EJB project is used to organize the resources contained in an
+EJB module.</shortdesc>
+<prolog><metadata>
+<keywords><indexterm>EJB<indexterm>projects<indexterm>creating</indexterm></indexterm></indexterm>
+</keywords>
+</metadata></prolog>
+<taskbody>
+<context><p>An EJB module is used to assemble one or more enterprise beans
+into a single deployable unit. It is deployed in a standard <tm tmclass="special"
+tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">Java</tm> archive
+(JAR) file. An EJB module can be used as a standalone application, or it can
+be combined with other modules to create a Java EE enterprise application.
+An EJB module is installed and run in an enterprise bean container. An EJB
+project must be referenced by an enterprise application project (defined as
+a module in an EAR) in order to be deployed successfully and run on a server.</p><p>An
+EJB module contains the following:</p><ul>
+<li>One or more deployable enterprise beans.</li>
+<li>A deployment descriptor, stored in an Extensible Markup Language (XML)
+file. This file declares the contents of the module, defines the structure
+and external dependencies of the beans in the module, and describes how the
+enterprise beans are to be used at run time.</li>
+</ul><p>To create a new EJB project, complete the following steps:</p></context>
+<steps>
+<step><cmd>In the <tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm"
+trademark="Java">Java</tm> EE perspective, select <menucascade><uicontrol>File</uicontrol>
+<uicontrol>New</uicontrol><uicontrol>Other</uicontrol></menucascade>.</cmd>
+</step>
+<step><cmd>In the New Project Wizard, select <menucascade><uicontrol>EJB</uicontrol>
+<uicontrol>EJB Project</uicontrol></menucascade> and click <uicontrol>Next</uicontrol>.</cmd>
+</step>
+<step><cmd>In the <uicontrol>Project Name</uicontrol> field, type a name for
+the EJB project.</cmd></step>
+<step importance="optional"><cmd>To use a different workspace directory for
+your EJB project, modify the settings for <uicontrol>Project contents.</uicontrol> </cmd>
+<info><note type="note">If you specify a non-default project location that
+is already being used by another project, the project creation will fail.</note></info>
+</step>
+<step><cmd>In the <uicontrol>Target runtime</uicontrol> drop-down list, select
+the application server that you want to target for your development. This
+selection affects the compilation and runtime settings by modifying the class
+path entries for the project. Use the <uicontrol>New</uicontrol> button if
+a target runtime does not exist, or if you want to use a different one.</cmd>
+</step>
+<step><cmd>In the <uicontrol>EJB Module version</uicontrol> field, select
+the correct version level for the project.</cmd></step>
+<step><cmd>Select a pre-defined project configuration from the <uicontrol>Configurations</uicontrol> drop-down
+list, or modify the configuration to customize the project facets. You can
+select the Java version, support for XDoclet, and support for Java persistence
+when customizing your configuration.</cmd><info><p>For example, if you are
+creating an Entity Bean, select the <uicontrol>Java Persistence</uicontrol> facet.
+You can save your configuration with a meaningful name so that you can reference
+this configuration in any EJB projects that are subsequently created.</p></info>
+</step>
+<step importance="optional"><cmd>Select the <uicontrol>Add project to an EAR </uicontrol> check
+box to add the new module to an enterprise application (EAR) project.</cmd>
+<info>Type a new project name or select an existing enterprise application
+project from the drop-down list in the <uicontrol>EAR Project</uicontrol> combination
+box. Or, click the <uicontrol>New</uicontrol> button to launch the New Enterprise
+Application Project wizard. Click <uicontrol>Next</uicontrol>.<note>If you
+type a new EAR project name, the EAR project will be created in the default
+location with the lowest compatible Java EE version based on the version of
+the project being created. If you want to specify a different version or a
+different location for the enterprise application, click <uicontrol>New</uicontrol> to
+use the New Enterprise Application Project wizard.</note></info></step>
+<step importance="optional"><cmd>Change the value of <uicontrol>Source Folder</uicontrol> to
+change the directory where the <tm tmclass="special" tmowner="Sun Microsystems, Inc."
+tmtype="tm" trademark="Java">Java</tm> source files are stored. </cmd></step>
+<step importance="optional"><cmd>Select the <uicontrol>Create an EJB Client
+JAR Project to hold the client interfaces and classes</uicontrol> check box
+if you want the client interface classes for your enterprise beans to be kept
+in a separate EJB client JAR file. This EJB client JAR file will be added
+to the enterprise application as a project utility JAR file. You can also
+modify the <uicontrol>Name</uicontrol> of the EJB Client JAR project, or the
+name (<uicontrol>Client JAR URI</uicontrol>) of the client JAR file. </cmd>
+</step>
+<step><cmd>Click <uicontrol>Finish</uicontrol>.</cmd></step>
+</steps>
+<postreq outputclass="id_postreq"><note>The New Project Wizard will automatically
+add default facets to your project. You can change these facets or add new
+ones in the <uicontrol>Preferences</uicontrol> window. For more information,
+see <xref href="../../org.eclipse.jst.j2ee.doc.user/topics/taddingfacet.dita"
+scope="peer">Adding a facet to a Java EE project</xref>.</note><p outputclass="anchor_topicbottom"></p></postreq>
+</taskbody>
+</task>

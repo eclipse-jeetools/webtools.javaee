@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Arbortext, Inc., 1988-2009, v.4002-->
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+ "concept.dtd">
+<concept id="cejb3" xml:lang="en-us">
+<title>Content assist and EJB 3.1</title><?Pub Caret -1?>
+<shortdesc>The content assist tool is a feature of the workbench.
+You can type code in your <tm tmclass="special"
+tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">Java</tm> editor
+and the content assist tool recommends possibilities to complete your
+code.</shortdesc>
+<prolog><metadata>
+<keywords><indexterm>content assist<indexterm>EJB 3.0<indexterm>enhancements</indexterm></indexterm></indexterm>
+<indexterm>EJB 3.0<indexterm>content assist</indexterm></indexterm>
+<indexterm>Java EE 5<indexterm>EJB 3.0<indexterm>content assist</indexterm></indexterm></indexterm>
+</keywords>
+</metadata></prolog>
+<conbody>
+<p>With the introduction of <tm tmclass="special"
+tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">Java</tm> EE
+5, the content assist tool in the application development workbench
+has been enhanced. Content assist now recognizes EJB 3.0 structures,
+providing content assist content when the project targets a server
+that supports EJB 3.0 structures.</p>
+<p>Content assist template support also exists for some of the EJB
+3.0 annotations, such as @Resource, to provide an annotation with
+initial attribute values.</p>
+<fig><title>Content assist for an @Stateless</title>
+<image href="../images/contentAssist.gif" placement="break"></image>
+</fig>
+</conbody>
+</concept>
+<?Pub *0000001576?>

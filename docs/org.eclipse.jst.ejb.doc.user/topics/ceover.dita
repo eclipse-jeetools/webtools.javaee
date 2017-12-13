@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Arbortext, Inc., 1988-2006, v.4002-->
+<!DOCTYPE concept PUBLIC "-//OASIS//DTD DITA Concept//EN"
+ "concept.dtd">
+<concept id="ceover" xml:lang="en-us">
+<title>EJB 2.x application development</title>
+<shortdesc>The workbench provides a specialized environment that you can use
+to develop and test enterprise beans that conform to the distributed component
+architecture defined in the Sun Microsystems Enterprise <tm tmclass="special"
+tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="JavaBeans">JavaBeans</tm> (EJB)
+version specification. This product supports the Enterprise <tm tmclass="special"
+tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="JavaBeans">JavaBeans</tm> 1.1,
+2.0, 2.1, and 3.0 specification levels.</shortdesc>
+<prolog><metadata>
+<keywords><indexterm>applications<indexterm>EJB development</indexterm></indexterm>
+<indexterm>EJB<indexterm>developing<indexterm>applications</indexterm></indexterm></indexterm>
+</keywords>
+</metadata></prolog>
+<conbody>
+<p>The complete Enterprise <tm tmclass="special" tmowner="Sun Microsystems, Inc."
+tmtype="tm" trademark="JavaBeans">JavaBeans</tm> specifications and descriptions
+of the technology are available from the <xref format="html" href="http://java.sun.com/products/ejb/docs.html#specs"
+scope="external">java.sun.com<desc></desc></xref> Web site.</p>
+<p>If you are not familiar with enterprise beans or related EJB technology,
+see <xref href="cearch.dita#cearch" type="concept"></xref> for a brief description
+of key EJB concepts.</p>
+<p>The EJB development environment includes the following tools:</p>
+<dl><dlentry>
+<dt><b>The <tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm"
+trademark="Java">Java</tm> EE perspective</b></dt>
+<dd>All of the EJB tools are accessible from the <tm tmclass="special" tmowner="Sun Microsystems, Inc."
+tmtype="tm" trademark="Java">Java</tm> EE perspective. This perspective provides
+a layout in which the most commonly used actions, views, and wizards for <tm
+tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">Java</tm> EE
+and EJB development are easily accessible</dd>
+</dlentry><dlentry>
+<dt><b>Creating enterprise beans</b></dt>
+<dd>The EJB tools help you create enterprise beans, such as session beans
+or message-driven beans. You can accomplish the following complementary enterprise
+bean development activities:<ul>
+<li>Writing and editing business logic.</li>
+<li>Importing or exporting enterprise beans.</li>
+<li>Maintaining enterprise bean source code and generated code using build
+in <tm tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="Java">Java</tm> development
+tools, and team and version control capabilities of the workbench.</li>
+</ul> </dd>
+</dlentry><dlentry>
+<dt><b>Validating enterprise bean code</b></dt>
+<dd>The EJB tools automatically validate that your enterprise bean code is
+consistent and that it conforms to the rules defined by the Enterprise <tm
+tmclass="special" tmowner="Sun Microsystems, Inc." tmtype="tm" trademark="JavaBeans">JavaBeans</tm> specifications.
+Code verification occurs whenever an enterprise bean or its properties are
+changed. Errors and warnings are displayed in the Problems view of the workbench.
+Files with errors also display error icons. </dd>
+</dlentry><dlentry>
+<dt><b>Importing existing EJB JAR files</b></dt>
+<dd>EJB Tools allow beans and other metadata from an EJB JAR file to be imported
+into a new or existing EJB project.</dd>
+</dlentry><dlentry>
+<dt><b>Exporting existing EJB projects into JAR files</b></dt>
+<dd>EJB tools can export your EJB project so that it may be deployed to an
+application server.</dd>
+</dlentry></dl>
+</conbody>
+</concept>
