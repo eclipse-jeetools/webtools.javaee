@@ -1,2 +1,12 @@
+
+bin
+bin/
+*.class
+# Compiled Java Files #
+# Compiler Output Folder #
+*.ear
+*.jar
 # maven
+# Package Files #
 target/
+*.war
