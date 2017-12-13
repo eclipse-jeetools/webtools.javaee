@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+    
+<!--=======================================-->
+<!-- Properties Validator Contributions    -->
+<!--=======================================-->
+   <extension
+         id="PropertiesValidator"
+         name="Properties Validator"
+         point="org.eclipse.wst.validation.validator">
+      <validator>
+         <projectNature
+               id="org.eclipse.jdt.core.javanature">
+         </projectNature>
+         <filter
+               objectClass="org.eclipse.core.resources.IFile"
+               nameFilter="*.properties"
+               action="add, change">
+         </filter>
+         <run
+               enabled="false"
+               async="false"
+               class="org.eclipse.jst.validation.sample.PropertiesValidator">
+         </run>
+         <helper
+               class="org.eclipse.jst.validation.sample.workbenchimpl.PropertiesHelper">
+         </helper>
+      </validator>
+   </extension>
+<!--=======================================-->
+<!-- Validation Documentation              -->
+<!--=======================================-->
+<!--                                       -->
+<!-- Validator Developer's Guide           -->
+<!--                                       -->
+<!--
+   <extension
+         point="org.eclipse.help.toc">
+      <toc
+            file="doc/developerGuide/toc.xml"
+            primary="true">
+      </toc>
+   </extension>
+-->
+<!--                                       -->
+<!-- Validation Guide                      -->
+<!--                                       -->
+<!--
+   <extension
+         point="org.eclipse.help.toc">
+      <toc
+            file="doc/guide/toc.xml"
+            primary="true">
+      </toc>
+   </extension>
+-->
+
+</plugin>

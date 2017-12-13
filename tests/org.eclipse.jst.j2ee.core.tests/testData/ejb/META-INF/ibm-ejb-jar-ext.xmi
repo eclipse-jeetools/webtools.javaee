@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ejbext:EJBJarExtension xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ejbext="ejbext.xmi" xmlns:ejb="ejb.xmi" xmi:id="ejb-jar_ID_Ext">
+  <ejbExtensions xmi:type="ejbext:ContainerManagedEntityExtension" xmi:id="ContainerManagedEntity_1_Ext" concurrencyControl="pessimistic">
+    <enterpriseBean xmi:type="ejb:ContainerManagedEntity" href="META-INF/ejb-jar.xml#ContainerManagedEntity_1"/>
+    <structure xmi:id="BeanStructure_1" inheritenceRoot="false"/>
+    <beanCache xmi:id="BeanCache_1" activateAt="TRANSACTION" loadAt="TRANSACTION"/>
+    <localTran xmi:id="LocalTran_1" boundary="BEAN_METHOD" unresolvedAction="ROLLBACK"/>
+    <dataCache xmi:id="DataCache_1" lifetimeInCache="0" lifetimeInCacheUsage="OFF"/>
+  </ejbExtensions>
+  <ejbExtensions xmi:type="ejbext:SessionExtension" xmi:id="SessionExtension_1" timeout="600">
+    <enterpriseBean xmi:type="ejb:Session" href="META-INF/ejb-jar.xml#Session_1"/>
+    <structure xmi:id="BeanStructure_2" inheritenceRoot="false"/>
+    <beanCache xmi:id="BeanCache_2" activateAt="ONCE"/>
+    <localTran xmi:id="LocalTran_2" boundary="BEAN_METHOD" unresolvedAction="ROLLBACK"/>
+  </ejbExtensions>
+  <ejbJar href="META-INF/ejb-jar.xml#ejb-jar_ID"/>
+  <appliedAccessIntents xmi:id="AppliedAccessIntent_1071093415744" name="com.ibm.websphere.ejbquery.Default" description="" accessIntentName="PessimisticUpdate - Increment 10">
+    <methodElements xmi:id="MethodElement_1071093415744" type="Unspecified">
+      <enterpriseBean xmi:type="ejb:ContainerManagedEntity" href="META-INF/ejb-jar.xml#ContainerManagedEntity_1"/>
+    </methodElements>
+  </appliedAccessIntents>
+</ejbext:EJBJarExtension>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ejb-jar id="ejb-jar_ID" version="2.1" 
+	xmlns="http://java.sun.com/xml/ns/j2ee" >
+	<display-name>
+	TestEJB</display-name>
+	<enterprise-beans>
+		<session id="T1">
+			<ejb-name>T1</ejb-name>
+			<home>ejbs.T1Home</home>
+			<remote>ejbs.T1</remote>
+			<ejb-class>ejbs.T1Bean</ejb-class>
+			<session-type>Stateless</session-type>
+			<transaction-type>Container</transaction-type>
+		</session>
+	</enterprise-beans>
+</ejb-jar>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+     <extension
+         point="org.eclipse.wst.common.tests.collector.suites">
+      <suite
+            class="org.eclipse.wtp.j2ee.headless.tests.web.operations.AllTests"
+            name="Web Operations"/>
+      <suite
+            class="org.eclipse.jst.j2ee.core.tests.bvt.AutomatedBVT"
+            name="J2EE Headless BVT Tests"/>
+      <suite
+            class="org.eclipse.wtp.headless.tests.savestrategy.AllTests"
+            name="SaveStrategy Tests"/>
+      <suite
+            class="org.eclipse.jst.j2ee.defect.tests.DefectVerificationTestsSuite"
+            name="J2EE Defect Verification Tests"/>
+            
+   </extension>
+
+   <extension
+         point="org.eclipse.jst.common.annotations.core.annotationsProvider">
+      <annotationsProvider
+         className="org.eclipse.jst.common.annotations.tests.TestAnnotationProvider"/>
+   </extension>
+
+   
+   <extension
+         id="org.eclipse.jst.j2ee.bindingshelper.tests.TestBindingHelper"
+         point="org.eclipse.jst.j2ee.core.jndiBindingsHelpers">
+      <jndiBindingsHelper
+            class="org.eclipse.jst.j2ee.bindingshelper.tests.FooBindingsHelper"
+            id="org.eclipse.jst.j2ee.bindingshelper.tests.fooBindingsHelper"/>
+      <jndiBindingsHelper
+            class="org.eclipse.jst.j2ee.bindingshelper.tests.BarBindingsHelper"
+            id="org.eclipse.jst.j2ee.bindingshelper.tests.barBindingsHelper"/>
+   </extension>
+   <extension
+         point="org.eclipse.wst.common.modulecore.referenceResolver">
+      <resolver
+            class="org.eclipse.wtp.j2ee.headless.tests.exportmodel.TestExportReferenceResolver"
+            id="org.eclipse.jst.j2ee.tests.resolver1">
+      </resolver>
+   </extension>
+   
+
+</plugin>

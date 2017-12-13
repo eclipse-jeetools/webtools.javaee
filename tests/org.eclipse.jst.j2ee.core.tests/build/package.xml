@@ -1,0 +1,20 @@
+<project name="com.ibm.etools.j2ee.core.test" default="packagingPlugin" basedir="./..">
+    <target name="init">
+        <property name="packageDir" value=""/>
+        <property name="plugin.directory"  value="${basedir}"/>
+        <property name="plugin.id" value="com.ibm.etools.j2ee.core.test"/>
+        <property name="plugin.version"  value=""/>
+    </target>
+    <target name="packagingPlugin" depends="init">
+        <echo message="${plugin.id}"/>
+        <copy todir="${packageDir}/plugins/${plugin.id}_${plugin.version}">
+            <fileset dir="${plugin.directory}">
+                <include name="plugin.xml"/>
+                <include name="test.xml"/>
+                <include name="runtime/commonArchiveTests.jar"/>
+                <include name="runtime/modelTests.jar"/>
+                <include name="runtime/javaTests.jar"/>
+            </fileset>
+        </copy>
+    </target>
+</project>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.eclipse.jst.web_tests.feature.patch"
+      label="Patch feature for tests"
+      version="3.1.2.qualifier"
+      provider-name="Eclipse Web Tools Platform">
+
+   <requires>
+      <import feature="org.eclipse.jst.web_tests.feature" version="3.1.1.v200908121609-794FZ-EVVFIwFhRtLnWW" patch="true"/>
+   </requires>
+   
+   <plugin
+         id="org.eclipse.jst.j2ee.tests"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+         
+</feature>

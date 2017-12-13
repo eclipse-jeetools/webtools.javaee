@@ -1,0 +1,5 @@
+<project name="zip" default="zip" basedir=".">
+  <target name="zip">
+    <unzip src="${zipfrom}" dest="${zipto}" />  
+  </target>
+</project>

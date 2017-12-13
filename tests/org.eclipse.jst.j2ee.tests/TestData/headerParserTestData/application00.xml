@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE application PUBLIC "test" "test">
+<application id="Application_ID">
+	<display-name>EAR12</display-name>
+	<module id="JavaClientModule_1176405650468">
+		<java>EAR12Client.jar</java>
+	</module>
+	<module id="EjbModule_1176405650484">
+		<ejb>EAR12EJB.jar</ejb>
+	</module>
+	<module id="WebModule_1176405650484">
+		<web>
+			<web-uri>EAR12Web.war</web-uri>
+			<context-root>EAR12Web</context-root>
+		</web>
+	</module>
+</application>

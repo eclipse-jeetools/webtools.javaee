@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application id="Application_ID" version="1.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="test">
+	<display-name>
+	EAR14</display-name>
+	<module id="ConnectorModule_1176405694468">
+		<connector>EAR14Connector.rar</connector>
+	</module>
+	<module id="JavaClientModule_1176405694578">
+		<java>EAR14Client.jar</java>
+	</module>
+	<module id="EjbModule_1176405694578">
+		<ejb>EAR14EJB.jar</ejb>
+	</module>
+	<module id="WebModule_1176405694578">
+		<web>
+			<web-uri>EAR14Web.war</web-uri>
+			<context-root>EAR14Web</context-root>
+		</web>
+	</module>
+</application>
