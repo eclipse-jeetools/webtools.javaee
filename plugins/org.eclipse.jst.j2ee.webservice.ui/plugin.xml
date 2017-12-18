@@ -16,8 +16,20 @@
          	   <instanceof value="org.eclipse.jst.j2ee.internal.webservice.WebServiceNavigatorGroup"/>
                <instanceof value="org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription"/>
                <instanceof value="org.eclipse.jst.j2ee.internal.webservice.WebServiceNavigatorGroupType"/>
-               <instanceof value="org.eclipse.wst.wsdl.util.WSDLResourceImpl"/>
-               <instanceof value="org.eclipse.wst.wsdl.Service"/>
+               <!-- <instanceof value="org.eclipse.wst.wsdl.util.WSDLResourceImpl"/> -->
+			   <and>
+			   		<instanceof value="org.eclipse.emf.ecore.resource.Resource"/>
+			   		<test
+                     property="org.eclipse.jst.j2ee.webservice.ui.isWsdlResource">
+	               </test>			   		
+			   </and>
+			   <!-- <instanceof value="org.eclipse.wst.wsdl.Service"/> -->
+               <and>
+               		<instanceof value="org.eclipse.emf.ecore.EObject"/>
+               		<test
+                     	property="org.eclipse.jst.j2ee.webservice.ui.isService">
+               		</test>
+               </and>
                <and>
                  <instanceof value="org.eclipse.emf.ecore.EObject"/>
                   <or>
@@ -46,7 +58,13 @@
          	   <instanceof value="org.eclipse.jst.j2ee.internal.webservice.WebServiceNavigatorGroup"/>
                <instanceof value="org.eclipse.jst.j2ee.webservice.wsdd.WebServiceDescription"/>
                <instanceof value="org.eclipse.jst.j2ee.internal.webservice.WebServiceNavigatorGroupType"/>
-               <instanceof value="org.eclipse.wst.wsdl.util.WSDLResourceImpl"/>
+               <!--  <instanceof value="org.eclipse.wst.wsdl.util.WSDLResourceImpl"/> -->
+			   <and>
+			   		<instanceof value="org.eclipse.emf.ecore.resource.Resource"/>
+			   		<test
+                     property="org.eclipse.jst.j2ee.webservice.ui.isWsdlResource">
+	               </test>			   		
+			   </and>
                <and>
                  <instanceof value="org.eclipse.emf.ecore.EObject"/>
                   <or>
@@ -108,8 +126,13 @@
 				</and>
 				<instanceof
 					value="org.eclipse.jst.j2ee.internal.provider.J2EEItemProvider" />
-				<instanceof
-					value="org.eclipse.wst.wsdl.util.WSDLResourceImpl" />
+				<!--	 <instanceof value="org.eclipse.wst.wsdl.util.WSDLResourceImpl" /> -->
+ 			    <and>
+			   		<instanceof value="org.eclipse.emf.ecore.resource.Resource"/>
+			   		<test
+                     property="org.eclipse.jst.j2ee.webservice.ui.isWsdlResource">
+	               </test>			   		
+			    </and>
 			  </or>
 			</enablement>
 		</actionProvider> 
@@ -129,37 +152,27 @@
       		</includes>  
       </viewerContentBinding>
    </extension>
-	
-   <extension 
-  		point="org.eclipse.core.runtime.adapters">
-    <factory 
-      class="org.eclipse.jst.j2ee.internal.webservice.WebServiceAdapterFactory" 
-      adaptableType="org.eclipse.wst.wsdl.Service">
-      <adapter type="org.eclipse.core.resources.IResource"/>
-      <adapter type="org.eclipse.core.resources.IFile"/>
-    </factory>
-    <factory 
-      class="org.eclipse.jst.j2ee.internal.webservice.WebServiceAdapterFactory" 
-      adaptableType="org.eclipse.jst.j2ee.webservice.wsclient.ServiceRef">
-      <adapter type="org.eclipse.core.resources.IResource"/>
-      <adapter type="org.eclipse.core.resources.IFile"/>
-    </factory>
-     <factory 
-      class="org.eclipse.jst.j2ee.internal.webservice.WsdlResourceAdapterFactory" 
-      adaptableType="org.eclipse.wst.wsdl.util.WSDLResourceImpl">
-      <adapter type="org.eclipse.core.resources.IResource"/>
-      <adapter type="org.eclipse.core.resources.IFile"/>
-    </factory>
-    <factory 
-      class="org.eclipse.jst.j2ee.internal.webservice.WebServiceAdapterFactory" 
-      adaptableType="org.eclipse.jst.j2ee.webservice.wsdd.ServiceImplBean">
-      <adapter type="org.eclipse.core.resources.IResource"/>
-      <adapter type="org.eclipse.core.resources.IFile"/>
-    </factory>
-    
-  </extension>
+
    <extension
          point="org.eclipse.ui.startup">
       <startup class="org.eclipse.jst.j2ee.internal.webservice.startup.WebserviceListener"/>
+   </extension>
+   
+   <extension
+         point="org.eclipse.core.expressions.propertyTesters">
+      <propertyTester
+            class="org.eclipse.jst.j2ee.internal.webservice.WebServicePropertyTester"
+            id="org.eclipse.jst.j2ee.webservice.ui.serviceTester"
+            namespace="org.eclipse.jst.j2ee.webservice.ui"
+            properties="isService"
+            type="org.eclipse.emf.ecore.EObject">
+      </propertyTester>
+      <propertyTester
+            class="org.eclipse.jst.j2ee.internal.webservice.WebServicePropertyTester"
+            id="org.eclipse.jst.j2ee.webservice.ui.wsdlTester"
+            namespace="org.eclipse.jst.j2ee.webservice.ui"
+            properties="isWsdlResource"
+            type="org.eclipse.emf.ecore.resource.Resource">
+       </propertyTester>
    </extension>
 </plugin>

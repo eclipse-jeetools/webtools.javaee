@@ -95,14 +95,6 @@
    </extension>
 
    <extension
-         id="WSDLServiceHelper"
-         name="WSDLServiceHelper"
-         point="org.eclipse.jst.j2ee.WSDLServiceHelper">
-      <wsdlHelper
-            helperClass="org.eclipse.jst.j2ee.internal.webservice.helper.WSDLServiceHelperImpl">
-      </wsdlHelper>
-   </extension>
-   <extension
          point="org.eclipse.wst.common.modulecore.resourceFactories">
       <resourceFactory
             class="org.eclipse.jst.j2ee.webservice.internal.wsdd.WsddResourceFactory"

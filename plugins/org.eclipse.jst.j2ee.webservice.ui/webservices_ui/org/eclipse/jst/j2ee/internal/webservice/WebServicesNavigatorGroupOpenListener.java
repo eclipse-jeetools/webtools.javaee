@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -33,8 +34,6 @@ import org.eclipse.ui.navigator.ICommonActionConstants;
 import org.eclipse.ui.navigator.ICommonActionExtensionSite;
 import org.eclipse.ui.navigator.ICommonMenuConstants;
 import org.eclipse.wst.common.internal.emfworkbench.WorkbenchResourceHelper;
-import org.eclipse.wst.wsdl.internal.impl.ServiceImpl;
-import org.eclipse.wst.wsdl.util.WSDLResourceImpl;
 
 /**
  * @author jlanuti
@@ -66,8 +65,8 @@ public class WebServicesNavigatorGroupOpenListener extends CommonActionProvider 
 			Object selectedObject = selection.getFirstElement();
 			if (serviceHelper==null)
 				return;
-			else if (selectedObject instanceof ServiceImpl) {
-				WsddResource resource = WebServicesManager.getInstance().getWsddResource((ServiceImpl)selectedObject);
+			else if (serviceHelper.isService(selectedObject)) {
+				WsddResource resource = WebServicesManager.getInstance().getWsddResource((EObject)selectedObject);
 				if (resource == null) {
 					openExternalWSDLAction.selectionChanged(selection);
 					super.setContext(aContext);
@@ -100,12 +99,12 @@ public class WebServicesNavigatorGroupOpenListener extends CommonActionProvider 
 		if (getContext()==null || getContext().getSelection().isEmpty())
 			return;
 		IStructuredSelection selection = (IStructuredSelection) getContext().getSelection();
-		
-		if (selection.getFirstElement() instanceof ServiceImpl) {
-			ServiceImpl wsdl = (ServiceImpl) selection.getFirstElement();
-			WsddResource resource = WebServicesManager.getInstance().getWsddResource(wsdl);
+		Object first = selection.getFirstElement();
+		WSDLServiceHelper helper =	WSDLServiceExtManager.getServiceHelper();
+		if(helper != null && helper.isService(first)) {
+			WsddResource resource = WebServicesManager.getInstance().getWsddResource((EObject)first);
 			if (resource == null) {
-				IFile wsdlFile = WorkbenchResourceHelper.getFile(wsdl);
+				IFile wsdlFile = WorkbenchResourceHelper.getFile((EObject)first);
 				if (wsdlFile == null || !wsdlFile.exists()) {
 					openExternalWSDLAction.selectionChanged(selection);
 					theActionBars.setGlobalActionHandler(ICommonActionConstants.OPEN, openExternalWSDLAction);
@@ -121,9 +120,8 @@ public class WebServicesNavigatorGroupOpenListener extends CommonActionProvider 
 			theActionBars.setGlobalActionHandler(ICommonActionConstants.OPEN, openAction);
 			return;
 			
-		} else if (selection.getFirstElement() instanceof WSDLResourceImpl) {
-			WSDLResourceImpl wsdl = (WSDLResourceImpl) selection.getFirstElement();
-			IFile wsdlFile = WorkbenchResourceHelper.getFile(wsdl);
+		} else if (helper != null && helper.isWSDLResource(first)) {
+			IFile wsdlFile = WorkbenchResourceHelper.getFile((Resource)first);
 			if (wsdlFile == null || !wsdlFile.exists()) {
 				openExternalWSDLAction.selectionChanged(selection);
 				theActionBars.setGlobalActionHandler(ICommonActionConstants.OPEN, openExternalWSDLAction);
@@ -142,18 +140,18 @@ public class WebServicesNavigatorGroupOpenListener extends CommonActionProvider 
 		if (getContext()==null || getContext().getSelection().isEmpty())
 			return;
 		IStructuredSelection selection = (IStructuredSelection) getContext().getSelection();
-		if (selection.getFirstElement() instanceof ServiceImpl) {
-			ServiceImpl wsdl = (ServiceImpl) selection.getFirstElement();
-			IFile wsdlFile = WorkbenchResourceHelper.getFile(wsdl);
+		Object first = selection.getFirstElement();
+		WSDLServiceHelper helper =	WSDLServiceExtManager.getServiceHelper();
+		if (helper != null && helper.isService(first)) {
+			IFile wsdlFile = WorkbenchResourceHelper.getFile((EObject)first);
 			if (wsdlFile == null || !wsdlFile.exists()) {
 				openExternalWSDLAction.selectionChanged(selection);
 				menu.insertAfter(ICommonMenuConstants.GROUP_OPEN, openExternalWSDLAction);
 				return;
 			}
 		}
-		else if (selection.getFirstElement() instanceof WSDLResourceImpl) {
-			WSDLResourceImpl wsdl = (WSDLResourceImpl) selection.getFirstElement();
-			IFile wsdlFile = WorkbenchResourceHelper.getFile(wsdl);
+		else if (helper != null && helper.isWSDLResource(first)) {
+			IFile wsdlFile = WorkbenchResourceHelper.getFile((Resource)first);
 			if (wsdlFile == null || !wsdlFile.exists()) {
 				openExternalWSDLAction.selectionChanged(selection);
 				menu.insertAfter(ICommonMenuConstants.GROUP_OPEN, openExternalWSDLAction);
