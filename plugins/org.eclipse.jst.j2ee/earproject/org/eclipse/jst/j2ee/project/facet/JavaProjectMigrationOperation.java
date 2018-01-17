@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2018 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -20,7 +20,7 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.common.project.facet.JavaFacetInstallDataModelProvider;
-import org.eclipse.jst.common.project.facet.JavaFacetUtils;
+import org.eclipse.jst.common.project.facet.core.JavaFacet;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
@@ -90,12 +90,18 @@ public class JavaProjectMigrationOperation extends AbstractDataModelOperation im
 		String jdtVersion = jProj.getOption(JavaCore.COMPILER_COMPLIANCE, true );
 		
 		if (jdtVersion.startsWith("1.3")) { //$NON-NLS-1$
-			return JavaFacetUtils.JAVA_13;
+			return JavaFacet.VERSION_1_3;
 		} else if (jdtVersion.startsWith("1.4")) { //$NON-NLS-1$
-			return JavaFacetUtils.JAVA_14;
+			return JavaFacet.VERSION_1_4;
 		}else if (jdtVersion.startsWith("1.5")) { //$NON-NLS-1$
-			return JavaFacetUtils.JAVA_50;
+			return JavaFacet.VERSION_1_5;
+		}else if (jdtVersion.startsWith("1.6")) { //$NON-NLS-1$
+			return JavaFacet.VERSION_1_6;
+		}else if (jdtVersion.startsWith("1.7")) { //$NON-NLS-1$
+			return JavaFacet.VERSION_1_7;
+		}else if (jdtVersion.startsWith("1.8")) { //$NON-NLS-1$
+			return JavaFacet.VERSION_1_8;
 		}
-		return JavaFacetUtils.JAVA_60;	
+		return JavaFacet.VERSION_9;
 	}
 }
