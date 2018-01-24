@@ -48,6 +48,7 @@
     <bundle id="org.eclipse.jst.jee.web"/>
     <bundle id="org.eclipse.jst.servlet.ui"/>
     <bundle id="org.eclipse.wtp.jee.capabilities"/>
+    <bundle id="org.eclipse.jst.ejb.doc.user"/>
 
     <feature id="org.eclipse.jst.web_tests.feature"><category name="jeetools.tests"/></feature>
 
