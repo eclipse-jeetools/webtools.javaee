@@ -26,29 +26,6 @@
   <packaging>pom</packaging>
 
   <modules>
-    <module>org.eclipse.jst.enterprise_core.feature</module>
-    <module>org.eclipse.jst.web_tests.feature</module>
   </modules>
-
-  <profiles>
-    <profile>
-      <id>integration</id>
-      <properties>
-        <skipITests>false</skipITests>
-      </properties>
-      <modules>
-        <!-- TODO: these features should be moved downstream to jsf, webservices, or releng, as they INCLUDE downstream plugins -->
-        <module>org.eclipse.jst.doc.user.feature</module>
-        <module>org.eclipse.jst.enterprise_sdk.feature</module>
-        <module>org.eclipse.jst.enterprise_tests.feature</module>
-        <module>org.eclipse.jst.enterprise_ui.feature</module>
-        <module>org.eclipse.jst.enterprise_userdoc.feature</module>
-        <module>org.eclipse.jst.web_core.feature</module>
-        <module>org.eclipse.jst.web_sdk.feature</module>
-        <module>org.eclipse.jst.web_ui.feature</module>
-        <module>org.eclipse.jst.web_userdoc.feature</module>   
-      </modules>
-    </profile>
-  </profiles>
 
 </project>
