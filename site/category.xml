@@ -34,7 +34,7 @@
     <bundle id="org.eclipse.jst.jee.web"><category name="jeetools"/></bundle>
     <bundle id="org.eclipse.jst.servlet.ui"><category name="jeetools"/></bundle>
     <bundle id="org.eclipse.wtp.jee.capabilities"><category name="jeetools"/></bundle>
-    
+
     <bundle id="org.eclipse.jst.ejb.doc.user"><category name="jeetools.sdk"/></bundle>
 
     <bundle id="org.eclipse.jem.tests"><category name="jeetools.tests"/></bundle>
@@ -80,5 +80,26 @@
     <bundle id="org.eclipse.jst.jee.web.source"/>
     <bundle id="org.eclipse.jst.servlet.ui.source"/>
     <bundle id="org.eclipse.wtp.jee.capabilities.source"/>
+
     <bundle id="org.eclipse.jst.ejb.doc.user.source"/>
+
+    <bundle id="org.eclipse.jem.tests.source"/>
+    <bundle id="org.eclipse.jst.ejb.ui.tests.source"/>
+    <bundle id="org.eclipse.jst.j2ee.core.tests.source"/>
+    <bundle id="org.eclipse.jst.j2ee.tests.source"/>
+    <bundle id="org.eclipse.jst.jee.tests.source"/>
+    <bundle id="org.eclipse.jst.servlet.tests.source"/>
+    <bundle id="org.eclipse.jst.validation.sample.source"/>
+    <bundle id="org.eclipse.jst.validation.test.source"/>
+
+    <category-def name="jeetools" label="WTP Java EE / EJB Tools"><description>
+        Web Tools Platform (WTP) Java EE / EJB Tools
+    </description></category-def>
+    <category-def name="jeetools.sdk" label="WTP Java EE / EJB Tools - Docs and SDKs"><description>
+        Web Tools Platform (WTP) Java EE / EJB Tools - Docs and SDKs
+    </description></category-def>
+    <category-def name="jeetools.tests" label="WTP Java EE / EJB Tools - Tests"><description>
+        Web Tools Platform (WTP) Java EE / EJB Tools - Tests
+    </description></category-def>
+
 </site>
