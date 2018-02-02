@@ -1,40 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
 
-    <bundle id="org.eclipse.jem"/>
-    <bundle id="org.eclipse.jem.beaninfo"/>
-    <bundle id="org.eclipse.jem.beaninfo.vm"/>
-    <bundle id="org.eclipse.jem.beaninfo.vm.common"/>
-    <bundle id="org.eclipse.jem.proxy"/>
-    <bundle id="org.eclipse.jem.workbench"/>
-    <bundle id="org.eclipse.jst.common.annotations.controller"/>
-    <bundle id="org.eclipse.jst.common.annotations.core"/>
-    <bundle id="org.eclipse.jst.common.annotations.ui"/>
-    <bundle id="org.eclipse.jst.common.frameworks"/>
-    <bundle id="org.eclipse.jst.common.ui"/>
-    <bundle id="org.eclipse.jst.ejb.ui"/>
-    <bundle id="org.eclipse.jst.j2ee"/>
-    <bundle id="org.eclipse.jst.j2ee.core"/>
-    <bundle id="org.eclipse.jst.j2ee.ejb"/>
-    <bundle id="org.eclipse.jst.j2ee.ejb.annotation.model"/>
-    <bundle id="org.eclipse.jst.j2ee.ejb.annotations.emitter"/>
-    <bundle id="org.eclipse.jst.j2ee.ejb.annotations.ui"/>
-    <bundle id="org.eclipse.jst.j2ee.ejb.annotations.xdoclet"/>
-    <bundle id="org.eclipse.jst.j2ee.jca"/>
-    <bundle id="org.eclipse.jst.j2ee.jca.ui"/>
-    <bundle id="org.eclipse.jst.j2ee.navigator.ui"/>
-    <bundle id="org.eclipse.jst.j2ee.ui"/>
-    <bundle id="org.eclipse.jst.j2ee.web"/>
-    <bundle id="org.eclipse.jst.j2ee.webservice"/>
-    <bundle id="org.eclipse.jst.j2ee.webservice.ui"/>
-    <bundle id="org.eclipse.jst.j2ee.xdoclet.runtime"/>
-    <bundle id="org.eclipse.jst.jee"/>
-    <bundle id="org.eclipse.jst.jee.ejb"/>
-    <bundle id="org.eclipse.jst.jee.ui"/>
-    <bundle id="org.eclipse.jst.jee.web"/>
-    <bundle id="org.eclipse.jst.servlet.ui"/>
-    <bundle id="org.eclipse.wtp.jee.capabilities"/>
-    <bundle id="org.eclipse.jst.ejb.doc.user"/>
+    <bundle id="org.eclipse.jem"><category name="jeetools"/></bundle>
+    <bundle id="org.eclipse.jem.beaninfo"><category name="jeetools"/></bundle>
+    <bundle id="org.eclipse.jem.beaninfo.vm"><category name="jeetools"/></bundle>
+    <bundle id="org.eclipse.jem.beaninfo.vm.common"><category name="jeetools"/></bundle>
+    <bundle id="org.eclipse.jem.proxy"><category name="jeetools"/></bundle>
+    <bundle id="org.eclipse.jem.workbench"><category name="jeetools"/></bundle>
+    <bundle id="org.eclipse.jst.common.annotations.controller"><category name="jeetools"/></bundle>
+    <bundle id="org.eclipse.jst.common.annotations.core"><category name="jeetools"/></bundle>
+    <bundle id="org.eclipse.jst.common.annotations.ui"><category name="jeetools"/></bundle>
+    <bundle id="org.eclipse.jst.common.frameworks"><category name="jeetools"/></bundle>
+    <bundle id="org.eclipse.jst.common.ui"><category name="jeetools"/></bundle>
+    <bundle id="org.eclipse.jst.ejb.ui"><category name="jeetools"/></bundle>
+    <bundle id="org.eclipse.jst.j2ee"><category name="jeetools"/></bundle>
+    <bundle id="org.eclipse.jst.j2ee.core"><category name="jeetools"/></bundle>
+    <bundle id="org.eclipse.jst.j2ee.ejb"><category name="jeetools"/></bundle>
+    <bundle id="org.eclipse.jst.j2ee.ejb.annotation.model"><category name="jeetools"/></bundle>
+    <bundle id="org.eclipse.jst.j2ee.ejb.annotations.emitter"><category name="jeetools"/></bundle>
+    <bundle id="org.eclipse.jst.j2ee.ejb.annotations.ui"><category name="jeetools"/></bundle>
+    <bundle id="org.eclipse.jst.j2ee.ejb.annotations.xdoclet"><category name="jeetools"/></bundle>
+    <bundle id="org.eclipse.jst.j2ee.jca"><category name="jeetools"/></bundle>
+    <bundle id="org.eclipse.jst.j2ee.jca.ui"><category name="jeetools"/></bundle>
+    <bundle id="org.eclipse.jst.j2ee.navigator.ui"><category name="jeetools"/></bundle>
+    <bundle id="org.eclipse.jst.j2ee.ui"><category name="jeetools"/></bundle>
+    <bundle id="org.eclipse.jst.j2ee.web"><category name="jeetools"/></bundle>
+    <bundle id="org.eclipse.jst.j2ee.webservice"><category name="jeetools"/></bundle>
+    <bundle id="org.eclipse.jst.j2ee.webservice.ui"><category name="jeetools"/></bundle>
+    <bundle id="org.eclipse.jst.j2ee.xdoclet.runtime"><category name="jeetools"/></bundle>
+    <bundle id="org.eclipse.jst.jee"><category name="jeetools"/></bundle>
+    <bundle id="org.eclipse.jst.jee.ejb"><category name="jeetools"/></bundle>
+    <bundle id="org.eclipse.jst.jee.ui"><category name="jeetools"/></bundle>
+    <bundle id="org.eclipse.jst.jee.web"><category name="jeetools"/></bundle>
+    <bundle id="org.eclipse.jst.servlet.ui"><category name="jeetools"/></bundle>
+    <bundle id="org.eclipse.wtp.jee.capabilities"><category name="jeetools"/></bundle>
+    
+    <bundle id="org.eclipse.jst.ejb.doc.user"><category name="jeetools.sdk"/></bundle>
+
+    <bundle id="org.eclipse.jem.tests"><category name="jeetools.tests"/></bundle>
+    <bundle id="org.eclipse.jst.ejb.ui.tests"><category name="jeetools.tests"/></bundle>
+    <bundle id="org.eclipse.jst.j2ee.core.tests"><category name="jeetools.tests"/></bundle>
+    <bundle id="org.eclipse.jst.j2ee.tests"><category name="jeetools.tests"/></bundle>
+    <bundle id="org.eclipse.jst.jee.tests"><category name="jeetools.tests"/></bundle>
+    <bundle id="org.eclipse.jst.servlet.tests"><category name="jeetools.tests"/></bundle>
+    <bundle id="org.eclipse.jst.validation.sample"><category name="jeetools.tests"/></bundle>
+    <bundle id="org.eclipse.jst.validation.test"><category name="jeetools.tests"/></bundle>
 
     <category-def name="jeetools" label="WTP Java EE / EJB Tools"><description>
         Web Tools Platform (WTP) Java EE / EJB Tools
