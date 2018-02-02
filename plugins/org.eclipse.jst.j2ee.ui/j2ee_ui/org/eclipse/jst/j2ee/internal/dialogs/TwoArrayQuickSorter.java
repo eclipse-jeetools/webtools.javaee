@@ -18,7 +18,7 @@ package org.eclipse.jst.j2ee.internal.dialogs;
  */
 import java.util.Comparator;
 
-import org.eclipse.jface.util.Assert;
+import org.eclipse.core.runtime.Assert;
 
 /**
  * Quick sort to sort key-value pairs. The keys and arrays are specified in
