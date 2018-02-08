@@ -46,14 +46,39 @@
     <bundle id="org.eclipse.jst.validation.sample"><category name="jeetools.tests"/></bundle>
     <bundle id="org.eclipse.jst.validation.test"><category name="jeetools.tests"/></bundle>
 
-    <category-def name="jeetools" label="WTP Java EE / EJB Tools"><description>
-        Web Tools Platform (WTP) Java EE / EJB Tools
-    </description></category-def>
-    <category-def name="jeetools.sdk" label="WTP Java EE / EJB Tools - Docs and SDKs"><description>
-        Web Tools Platform (WTP) Java EE / EJB Tools - Docs and SDKs
-    </description></category-def>
-    <category-def name="jeetools.tests" label="WTP Java EE / EJB Tools - Tests"><description>
-        Web Tools Platform (WTP) Java EE / EJB Tools - Tests
-    </description></category-def>
-
+    <!-- sources -->
+    <bundle id="org.eclipse.jem.source"/>
+    <bundle id="org.eclipse.jem.beaninfo.source"/>
+    <bundle id="org.eclipse.jem.beaninfo.vm.source"/>
+    <bundle id="org.eclipse.jem.beaninfo.vm.common.source"/>
+    <bundle id="org.eclipse.jem.proxy.source"/>
+    <bundle id="org.eclipse.jem.workbench.source"/>
+    <bundle id="org.eclipse.jst.common.annotations.controller.source"/>
+    <bundle id="org.eclipse.jst.common.annotations.core.source"/>
+    <bundle id="org.eclipse.jst.common.annotations.ui.source"/>
+    <bundle id="org.eclipse.jst.common.frameworks.source"/>
+    <bundle id="org.eclipse.jst.common.ui.source"/>
+    <bundle id="org.eclipse.jst.ejb.ui.source"/>
+    <bundle id="org.eclipse.jst.j2ee.source"/>
+    <bundle id="org.eclipse.jst.j2ee.core.source"/>
+    <bundle id="org.eclipse.jst.j2ee.ejb.source"/>
+    <bundle id="org.eclipse.jst.j2ee.ejb.annotation.model.source"/>
+    <bundle id="org.eclipse.jst.j2ee.ejb.annotations.emitter.source"/>
+    <bundle id="org.eclipse.jst.j2ee.ejb.annotations.ui.source"/>
+    <bundle id="org.eclipse.jst.j2ee.ejb.annotations.xdoclet.source"/>
+    <bundle id="org.eclipse.jst.j2ee.jca.source"/>
+    <bundle id="org.eclipse.jst.j2ee.jca.ui.source"/>
+    <bundle id="org.eclipse.jst.j2ee.navigator.ui.source"/>
+    <bundle id="org.eclipse.jst.j2ee.ui.source"/>
+    <bundle id="org.eclipse.jst.j2ee.web.source"/>
+    <bundle id="org.eclipse.jst.j2ee.webservice.source"/>
+    <bundle id="org.eclipse.jst.j2ee.webservice.ui.source"/>
+    <bundle id="org.eclipse.jst.j2ee.xdoclet.runtime.source"/>
+    <bundle id="org.eclipse.jst.jee.source"/>
+    <bundle id="org.eclipse.jst.jee.ejb.source"/>
+    <bundle id="org.eclipse.jst.jee.ui.source"/>
+    <bundle id="org.eclipse.jst.jee.web.source"/>
+    <bundle id="org.eclipse.jst.servlet.ui.source"/>
+    <bundle id="org.eclipse.wtp.jee.capabilities.source"/>
+    <bundle id="org.eclipse.jst.ejb.doc.user.source"/>
 </site>
