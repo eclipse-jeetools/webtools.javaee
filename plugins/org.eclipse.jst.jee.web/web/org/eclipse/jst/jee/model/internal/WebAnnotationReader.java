@@ -141,9 +141,13 @@ public class WebAnnotationReader extends AbstractAnnotationModelProvider<WebApp>
 				return annotationFactory.createFilter(rootType, filter.getFilterName());
 			}
 		}
-		if(Float.parseFloat(facetedProject.getProjectFacetVersion(WebFacetUtils.WEB_FACET).getVersionString()) > 2.5){
-			return createJavaeeObject(rootType);	
+		
+		if (facetedProject.hasProjectFacet(WebFacetUtils.WEB_FACET)) {
+			if (Float.parseFloat(facetedProject.getProjectFacetVersion(WebFacetUtils.WEB_FACET).getVersionString()) > 2.5){
+				return createJavaeeObject(rootType);	
+			}
 		}
+		
 		return null;
 	}
 	
