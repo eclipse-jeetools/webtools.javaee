@@ -46,6 +46,11 @@
     <bundle id="org.eclipse.jst.validation.sample"><category name="jeetools.tests"/></bundle>
     <bundle id="org.eclipse.jst.validation.test"><category name="jeetools.tests"/></bundle>
 
+    <bundle id="org.eclipse.jst.ejb.ui.infopop"/>
+    <bundle id="org.eclipse.jst.j2ee.doc.user"/>
+    <bundle id="org.eclipse.jst.j2ee.infopop"/>
+    <bundle id="org.eclipse.jst.servlet.ui.infopop"/>
+
     <!-- sources -->
     <bundle id="org.eclipse.jem.source"/>
     <bundle id="org.eclipse.jem.beaninfo.source"/>
