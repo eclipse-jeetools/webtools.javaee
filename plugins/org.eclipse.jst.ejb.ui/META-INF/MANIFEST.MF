@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.jst.ejb.ui; singleton:=true
-Bundle-Version: 1.1.910.qualifier
+Bundle-Version: 1.1.911.qualifier
 Bundle-Activator: org.eclipse.jst.ejb.ui.internal.plugin.EJBUIPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
@@ -35,14 +35,14 @@ Require-Bundle: org.eclipse.core.resources;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.jst.common.frameworks;bundle-version="[1.1.0,1.2.0)",
  org.eclipse.wst.common.project.facet.ui;bundle-version="[1.1.0,2.0.0)",
  org.eclipse.wst.common.project.facet.core;bundle-version="[1.1.0,2.0.0)",
- org.eclipse.wst.web.ui;bundle-version="[1.1.0,1.2.0)",
+ org.eclipse.wst.web.ui;bundle-version="[1.1.0,2.0.0)",
  org.eclipse.ui.navigator.resources;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.jem.workbench;bundle-version="[2.0.0,3.0.0)",
  org.eclipse.emf.edit.ui;bundle-version="[2.2.0,3.0.0)",
  org.eclipse.ui.ide;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.wst.validation.ui;bundle-version="[1.1.0,2.0.0)",
  org.eclipse.wst.validation;bundle-version="[1.1.0,2.0.0)",
- org.eclipse.wst.web;bundle-version="[1.1.0,1.2.0)",
+ org.eclipse.wst.web;bundle-version="[1.1.0,2.0.0)",
  org.eclipse.ui.forms;bundle-version="[3.3.0,4.0.0)",
  org.eclipse.jdt.ui;bundle-version="[3.4.0,4.0.0)",
  org.eclipse.jst.jee.ui;bundle-version="[1.0.100,2.0.0)",

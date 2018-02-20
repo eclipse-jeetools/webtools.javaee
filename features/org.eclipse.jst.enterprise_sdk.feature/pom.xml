@@ -21,6 +21,6 @@
 
   <groupId>org.eclipse.webtools.javaee</groupId>
   <artifactId>org.eclipse.jst.enterprise_sdk.feature</artifactId>
-  <version>3.8.1-SNAPSHOT</version>
+  <version>3.8.2-SNAPSHOT</version>
   <packaging>eclipse-feature</packaging>
 </project>

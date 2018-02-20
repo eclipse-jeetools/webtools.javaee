@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.jst.enterprise_sdk.feature"
       label="%featureName"
-      version="3.8.1.qualifier"
+      version="3.8.2.qualifier"
       provider-name="%providerName"
       license-feature="org.eclipse.license"
       license-feature-version="1.0.1.qualifier">
@@ -19,12 +19,9 @@
       %license
    </license>
 
-   <includes
-         id="org.eclipse.jst.enterprise_ui.feature"
-         version="0.0.0"/>
+   <requires>
+      <import feature="org.eclipse.jst.enterprise_ui.feature"/>
+   </requires>
 
-   <includes
-         id="org.eclipse.jst.enterprise_ui.feature.source"
-         version="0.0.0"/>
 
 </feature>
