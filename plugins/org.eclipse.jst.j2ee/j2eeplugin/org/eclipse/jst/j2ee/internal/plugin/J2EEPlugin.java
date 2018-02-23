@@ -549,7 +549,7 @@ public class J2EEPlugin extends WTPPlugin implements ResourceLocator {
 		ResourcesPlugin.getWorkspace().removeResourceChangeListener(J2EEComponentClasspathUpdater.getInstance());
 		IDependencyGraph.INSTANCE.removeListener(J2EEComponentClasspathUpdater.getInstance());
 		try {
-			org.eclipse.core.runtime.Platform.getJobManager().join( J2EEElementChangedListener.PROJECT_COMPONENT_UPDATE_JOB_FAMILY,
+			org.eclipse.core.runtime.jobs.Job.getJobManager().join( J2EEElementChangedListener.PROJECT_COMPONENT_UPDATE_JOB_FAMILY,
 					new NullProgressMonitor() );
 		} catch (OperationCanceledException e) {
 			J2EEPlugin.logError(e.getMessage());

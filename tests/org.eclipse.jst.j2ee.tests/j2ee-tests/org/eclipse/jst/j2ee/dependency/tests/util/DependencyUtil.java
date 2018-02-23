@@ -24,7 +24,6 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.jobs.IJobManager;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jdt.core.IClasspathEntry;
@@ -61,7 +60,7 @@ public class DependencyUtil {
 	
 	public static void waitForValidationJobs() {
 		// Wait for all validation jobs to end
-		final IJobManager jobMgr = Platform.getJobManager();
+		final IJobManager jobMgr = Job.getJobManager();
 		IProject[] projects = ProjectUtility.getAllProjects();
 		for (int i = 0; i < projects.length; i++) {
 			final IProject p = projects[i];
@@ -71,7 +70,7 @@ public class DependencyUtil {
 	
 	public static void waitForValidationJobs(final IProject project) {
 		// Wait for all validation jobs to end
-		final IJobManager jobMgr = Platform.getJobManager();
+		final IJobManager jobMgr = Job.getJobManager();
 		final String family = project.getName() + OperationTestCase.VALIDATOR_JOB_FAMILY;
 		waitForJobs(family);
 	}
@@ -98,7 +97,7 @@ public class DependencyUtil {
 	 * @param family
 	 */
 	public static void waitForJobs(final Object family) {
-		final IJobManager jobMgr = Platform.getJobManager();
+		final IJobManager jobMgr = Job.getJobManager();
         for (int i = 0; i < 1000; i++) {
 			final Job[] jobs = jobMgr.find(family);
 			if (jobs.length > 0) {

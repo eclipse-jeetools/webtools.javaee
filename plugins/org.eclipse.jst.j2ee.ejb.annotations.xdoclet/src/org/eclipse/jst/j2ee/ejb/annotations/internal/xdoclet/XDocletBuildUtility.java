@@ -16,7 +16,6 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 
@@ -97,7 +96,7 @@ public class XDocletBuildUtility {
 
 	private static void runNecessaryBuildersForProject(IProject aProject, IProgressMonitor monitor) throws CoreException {
 	
-		Job[] buildJobs = Platform.getJobManager().find(FAMILY_MANUAL_BUILD);
+		Job[] buildJobs = Job.getJobManager().find(FAMILY_MANUAL_BUILD);
 		for (int i = 0; i < buildJobs.length; i++) {
 			Job curr = buildJobs[i];
 			if (curr instanceof BuildJob) {
