@@ -19,7 +19,7 @@ import org.eclipse.jst.j2ee.common.QName;
  * <!-- end-user-doc -->
  * @generated
  */
-public class QNameTest extends TestCase {
+public abstract class QNameTest extends TestCase {
 	/**
 	 * The fixture for this QName test case.
 	 * <!-- begin-user-doc -->

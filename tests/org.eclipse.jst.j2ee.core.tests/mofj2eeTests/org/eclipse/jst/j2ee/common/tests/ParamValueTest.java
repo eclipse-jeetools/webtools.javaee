@@ -19,7 +19,7 @@ import org.eclipse.jst.j2ee.common.ParamValue;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ParamValueTest extends TestCase {
+public abstract class ParamValueTest extends TestCase {
 	/**
 	 * The fixture for this Param Value test case.
 	 * <!-- begin-user-doc -->

@@ -30,9 +30,9 @@ public class AllTomcatTests extends TestSuite {
     
     public AllTomcatTests(){
         super("WEB Tests"); //$NON-NLS-1$
-        addTest(WebProjectCreationTomcatTest.suite());
+        addTest(WebProjectCreationTomcatTest.suite()); /* Bug 532859 - test throws NPE */
         addTest(WebImportOperationTomcatTest.suite());
-        addTest(WebExportOperationTomcatTest.suite());
+        addTest(WebExportOperationTomcatTest.suite()); /* Bug 532859 - test throws NPE */
         
     }
     

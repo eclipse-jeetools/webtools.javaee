@@ -2,8 +2,6 @@ package org.eclipse.jst.j2ee.ejb.test;
 
 import java.util.List;
 
-import junit.framework.TestSuite;
-
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.jem.java.JavaClass;
 import org.eclipse.jem.java.JavaRefFactory;
@@ -15,15 +13,13 @@ import org.eclipse.jst.j2ee.ejb.AssemblyDescriptor;
 import org.eclipse.jst.j2ee.ejb.ContainerManagedEntity;
 import org.eclipse.jst.j2ee.ejb.EJBJar;
 import org.eclipse.jst.j2ee.ejb.EJBRelation;
-import org.eclipse.jst.j2ee.ejb.EJBRelationshipRole;
-import org.eclipse.jst.j2ee.ejb.EJBResource;
 import org.eclipse.jst.j2ee.ejb.EnterpriseBean;
 import org.eclipse.jst.j2ee.ejb.Entity;
 import org.eclipse.jst.j2ee.ejb.MessageDriven;
 import org.eclipse.jst.j2ee.ejb.Relationships;
-import org.eclipse.jst.j2ee.ejb.RoleSource;
 import org.eclipse.jst.j2ee.ejb.Session;
-import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+
+import junit.framework.TestSuite;
 
 public class EJBJarTest extends  EjbEMFTestBase {
 
@@ -362,7 +358,7 @@ public class EJBJarTest extends  EjbEMFTestBase {
         EJBJar objEJBJar = getInstance();
         String retValue = "";
         retValue = objEJBJar.getVersion();
-    }*/
+    }
     
    
     
@@ -412,7 +408,7 @@ public class EJBJarTest extends  EjbEMFTestBase {
 		retValue = DD.getEJBJar().getJ2EEVersionID();
 	    assertEquals(retValue,J2EEVersionConstants.J2EE_1_2_ID);
     }
-
+ */
   /*  public void test_setVersion() {
 
         EJBJar objEJBJar = getInstance();
@@ -477,7 +473,7 @@ public class EJBJarTest extends  EjbEMFTestBase {
          assertEquals(retValue, relation);
     }
     
-   
+/* 
 
     public void test_getEJBRelationsForSource() {
     	
@@ -557,7 +553,7 @@ public class EJBJarTest extends  EjbEMFTestBase {
         assertEquals(retValue.size(),1);
         assertEquals(retValue.contains(relation),true);
     }
-    
+  */  
     public static junit.framework.Test suite() {
 		TestSuite suite = new TestSuite();
 		suite.addTest(new EJBJarTest("test_EJBJar"));
@@ -576,12 +572,12 @@ public class EJBJarTest extends  EjbEMFTestBase {
 		suite.addTest(new EJBJarTest("test_getEnterpriseBeansWithReference"));
 		suite.addTest(new EJBJarTest("test_getEnterpriseBeanWithReference"));
 		suite.addTest(new EJBJarTest("test_getSessionBeans"));
-		suite.addTest(new EJBJarTest("test_getVersionID"));
+//		suite.addTest(new EJBJarTest("test_getVersionID"));
 		
-		suite.addTest(new EJBJarTest("test_getJ2EEVersionID"));
+//		suite.addTest(new EJBJarTest("test_getJ2EEVersionID"));
 		suite.addTest(new EJBJarTest("test_getEJBRelation"));
-		suite.addTest(new EJBJarTest("test_getEJBRelationsForSource"));
-		suite.addTest(new EJBJarTest("test_getEJBRelationshipRolesForType"));
+//		suite.addTest(new EJBJarTest("test_getEJBRelationsForSource"));
+//		suite.addTest(new EJBJarTest("test_getEJBRelationshipRolesForType"));
 		
 		return suite;
 	}

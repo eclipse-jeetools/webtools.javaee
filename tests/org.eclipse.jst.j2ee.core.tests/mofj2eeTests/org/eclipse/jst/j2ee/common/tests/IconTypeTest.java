@@ -19,7 +19,7 @@ import org.eclipse.jst.j2ee.common.IconType;
  * <!-- end-user-doc -->
  * @generated
  */
-public class IconTypeTest extends TestCase {
+public abstract class IconTypeTest extends TestCase {
 	/**
 	 * The fixture for this Icon Type test case.
 	 * <!-- begin-user-doc -->

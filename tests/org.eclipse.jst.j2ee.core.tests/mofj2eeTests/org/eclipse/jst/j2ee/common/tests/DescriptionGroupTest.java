@@ -19,7 +19,7 @@ import org.eclipse.jst.j2ee.common.DescriptionGroup;
  * <!-- end-user-doc -->
  * @generated
  */
-public class DescriptionGroupTest extends TestCase {
+public abstract class DescriptionGroupTest extends TestCase {
 	/**
 	 * The fixture for this Description Group test case.
 	 * <!-- begin-user-doc -->

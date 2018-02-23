@@ -41,7 +41,7 @@ import org.eclipse.jst.j2ee.core.tests.bvt.AutomatedBVT;
 import org.eclipse.wst.common.internal.emf.resource.RendererFactory;
 
 
-public class GeneralEMFEditingTest extends GeneralEMFTest {
+public abstract class GeneralEMFEditingTest extends GeneralEMFTest {
 	//inner class to handle deffered shared references
 	protected class DeferredSharedReferenceAction {
 		EObject owner;

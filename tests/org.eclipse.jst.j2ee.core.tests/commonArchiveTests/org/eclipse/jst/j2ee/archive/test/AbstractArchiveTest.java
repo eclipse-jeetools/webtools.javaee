@@ -23,7 +23,7 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.CommonarchivePackage;
  * Creation date: (02/07/01 1:48:18 PM)
  * @author: Administrator
  */
-public class AbstractArchiveTest extends junit.framework.TestCase {
+public abstract class AbstractArchiveTest extends junit.framework.TestCase {
 	private final static String copyright = "(c) Copyright IBM Corporation 2001.";//$NON-NLS-1$
 /**
  * AbstractArchiveTest constructor comment.

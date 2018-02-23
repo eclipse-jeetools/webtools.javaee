@@ -25,14 +25,31 @@
   <version>3.6.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.20.1</version>
+        <configuration>
+          <includes>
+            <include>**/*Suite*.java</include>
+            <include>**/*Test*.java</include>
+          </includes>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
   <modules>
-    <module>org.eclipse.jem.tests</module>
+    <module>org.eclipse.jst.validation.sample</module>
     <module>org.eclipse.jst.ejb.ui.tests</module>
+
+    <module>org.eclipse.jem.tests</module>
     <module>org.eclipse.jst.j2ee.core.tests</module>
     <module>org.eclipse.jst.j2ee.tests</module>
     <module>org.eclipse.jst.jee.tests</module>
     <module>org.eclipse.jst.servlet.tests</module>
-    <module>org.eclipse.jst.validation.sample</module>
     <module>org.eclipse.jst.validation.test</module>
   </modules>
 

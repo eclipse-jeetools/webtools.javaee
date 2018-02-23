@@ -19,7 +19,7 @@ import org.eclipse.jst.j2ee.common.Description;
  * <!-- end-user-doc -->
  * @generated
  */
-public class DescriptionTest extends TestCase {
+public abstract class DescriptionTest extends TestCase {
 	/**
 	 * The fixture for this Description test case.
 	 * <!-- begin-user-doc -->

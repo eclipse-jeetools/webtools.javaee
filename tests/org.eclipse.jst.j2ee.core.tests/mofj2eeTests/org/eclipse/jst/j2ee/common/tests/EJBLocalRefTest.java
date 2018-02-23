@@ -17,7 +17,7 @@ import org.eclipse.jst.j2ee.common.EJBLocalRef;
  * <!-- end-user-doc -->
  * @generated
  */
-public class EJBLocalRefTest extends EjbRefTest {
+public abstract class EJBLocalRefTest extends EjbRefTest {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

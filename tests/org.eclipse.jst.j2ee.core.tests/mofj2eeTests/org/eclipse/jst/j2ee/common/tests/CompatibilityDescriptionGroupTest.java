@@ -17,7 +17,7 @@ import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
  * <!-- end-user-doc -->
  * @generated
  */
-public class CompatibilityDescriptionGroupTest extends DescriptionGroupTest {
+public abstract class CompatibilityDescriptionGroupTest extends DescriptionGroupTest {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

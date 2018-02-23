@@ -19,7 +19,7 @@ import org.eclipse.jst.j2ee.common.ResourceEnvRef;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ResourceEnvRefTest extends TestCase {
+public abstract class ResourceEnvRefTest extends TestCase {
 	/**
 	 * The fixture for this Resource Env Ref test case.
 	 * <!-- begin-user-doc -->

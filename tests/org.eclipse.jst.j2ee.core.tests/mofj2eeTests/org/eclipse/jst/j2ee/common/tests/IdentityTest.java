@@ -19,7 +19,7 @@ import org.eclipse.jst.j2ee.common.Identity;
  * <!-- end-user-doc -->
  * @generated
  */
-public class IdentityTest extends TestCase {
+public abstract class IdentityTest extends TestCase {
 	/**
 	 * The fixture for this Identity test case.
 	 * <!-- begin-user-doc -->

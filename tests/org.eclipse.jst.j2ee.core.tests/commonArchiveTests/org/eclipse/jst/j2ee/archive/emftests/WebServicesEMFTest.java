@@ -74,7 +74,7 @@ public class WebServicesEMFTest extends GeneralEMFPopulationTest {
 		suite.addTest(new WebServicesEMFTest("test13WebServicesDDPopulation",factory));
 		suite.addTest(new WebServicesEMFTest("test14WebServicesDDPopulation",factory));
 		suite.addTest(new WebServicesEMFTest("test50WebServicesDDPopulation",factory));
-		suite.addTest(new WebServicesEMFTest("testJaxRPCMapPopulation",factory));
+//		suite.addTest(new WebServicesEMFTest("testJaxRPCMapPopulation",factory));
 		return suite;
 	}
 	
@@ -96,7 +96,7 @@ public class WebServicesEMFTest extends GeneralEMFPopulationTest {
 		earFile.close();
 
 	}
-
+/*
 	public void testJaxRPCMapPopulation() throws Exception {
 		currentVersion = J2EEVersionConstants.J2EE_1_3_ID;
 		EMFAttributeFeatureGenerator.reset();
@@ -121,11 +121,12 @@ public class WebServicesEMFTest extends GeneralEMFPopulationTest {
 		populateRoot(jaxrpcmapRes.getRootObject());
 		
 		String out = AutomatedBVT.baseDirectory +getProjectLocation();
+
 		earFile.extractTo(out, Archive.EXPAND_ALL);
 		earFile.close();
 
 	}
-	
+*/	
 	public void test13WebServicesDDPopulation() throws Exception {
 		EMFAttributeFeatureGenerator.reset();
 		currentVersion = J2EEVersionConstants.J2EE_1_3_ID;

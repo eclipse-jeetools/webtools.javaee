@@ -56,6 +56,7 @@ public class WebExportOperationTomcatTest extends ModuleExportOperationTest {
 		excludeCompileJsp = false;
 	}
 
+	/* Bug 532859 - test throws NPE */
 	public void testExcludeCompileJspOn() throws Exception {
 		excludeCompileJsp = true;
 		testAllExportTestCases();
@@ -89,8 +90,8 @@ public class WebExportOperationTomcatTest extends ModuleExportOperationTest {
 		
 	}
 	
+	/* Bug 532859 - test throws NPE */
 	public void testAllExportTestCases() throws Exception {
-
 		File exportDirectory = new File(BASE_DATA_DIR);
 		if (exportDirectory.isDirectory()) {
 			File[] contents = exportDirectory.listFiles();

@@ -19,7 +19,7 @@ import org.eclipse.jst.j2ee.common.SecurityRoleRef;
  * <!-- end-user-doc -->
  * @generated
  */
-public class SecurityRoleRefTest extends TestCase {
+public abstract class SecurityRoleRefTest extends TestCase {
 	/**
 	 * The fixture for this Security Role Ref test case.
 	 * <!-- begin-user-doc -->

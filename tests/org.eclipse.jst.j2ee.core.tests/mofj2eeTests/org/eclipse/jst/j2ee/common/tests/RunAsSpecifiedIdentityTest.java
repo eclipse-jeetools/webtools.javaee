@@ -17,7 +17,7 @@ import org.eclipse.jst.j2ee.common.RunAsSpecifiedIdentity;
  * <!-- end-user-doc -->
  * @generated
  */
-public class RunAsSpecifiedIdentityTest extends SecurityIdentityTest {
+public abstract class RunAsSpecifiedIdentityTest extends SecurityIdentityTest {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

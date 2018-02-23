@@ -163,6 +163,7 @@ public class WebProjectCreationTomcatTest extends TestCase {
 
     }
 
+    /* Bug 532859 - test throws NPE */
     public void testVaild12WebProjectNameCreation() throws Exception {
         ProjectUtility.deleteAllProjects();
         createVaildProjectAndServletCreation("FooTomcatWebProject12", J2EEVersionConstants.WEB_2_2_ID); //$NON-NLS-1$
@@ -176,6 +177,7 @@ public class WebProjectCreationTomcatTest extends TestCase {
      * J2EEVersionConstants.WEB_2_2_ID); }
      */
 
+    /* Bug 532859 - test throws NPE */
     public void testVaild13WebProjectNameCreation() throws Exception {
         ProjectUtility.deleteAllProjects();
         createVaildProjectAndServletCreation("Foo1TomcatWebProject13", J2EEVersionConstants.WEB_2_3_ID); //$NON-NLS-1$
@@ -189,6 +191,7 @@ public class WebProjectCreationTomcatTest extends TestCase {
      * J2EEVersionConstants.WEB_2_3_ID); }
      */
 
+    /* Bug 532859 - test throws NPE */
     public void testVaild14WebProjectNameCreation() throws Exception {
         ProjectUtility.deleteAllProjects();
         createVaildProjectAndServletCreation("Foo1TomcatWebProject14", J2EEVersionConstants.WEB_2_4_ID); //$NON-NLS-1$

@@ -17,7 +17,7 @@ import org.eclipse.jst.j2ee.common.Listener;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ListenerTest extends CompatibilityDescriptionGroupTest {
+public abstract class ListenerTest extends CompatibilityDescriptionGroupTest {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

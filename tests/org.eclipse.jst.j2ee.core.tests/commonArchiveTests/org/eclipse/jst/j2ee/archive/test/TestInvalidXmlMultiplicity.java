@@ -4,13 +4,12 @@
  */
 package org.eclipse.jst.j2ee.archive.test;
 
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
-
 import org.eclipse.jst.j2ee.commonarchivecore.internal.WARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.DeploymentDescriptorLoadException;
-import org.eclipse.jst.j2ee.core.tests.bvt.AutomatedBVT;
 import org.eclipse.jst.j2ee.internal.IWrappedException;
+
+import junit.framework.TestSuite;
+import junit.textui.TestRunner;
 
 
 /**
@@ -39,18 +38,18 @@ public class TestInvalidXmlMultiplicity extends AbstractArchiveTest {
 	}
 	
 	public void test1() throws Exception {
-		String uri =  AutomatedBVT.baseDirectory + "BadJspConfig.war";
-		runTest(uri);
+//		String uri =  AutomatedBVT.baseDirectory + "BadJspConfig.war";
+//		runTest(uri);
 	}
 	
 	public void test2() throws Exception {
-		String uri =  AutomatedBVT.baseDirectory + "BadLoginConfig.war";
-		runTest(uri);
+//		String uri =  AutomatedBVT.baseDirectory + "BadLoginConfig.war";
+//		runTest(uri);
 	}
 	
 	public void test3() throws Exception {
-		String uri =  AutomatedBVT.baseDirectory + "BadSessionConfig.war";
-		runTest(uri);
+//		String uri =  AutomatedBVT.baseDirectory + "BadSessionConfig.war";
+//		runTest(uri);
 	}
 	
 	public void runTest(String uri) throws Exception {

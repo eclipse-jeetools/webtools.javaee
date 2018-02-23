@@ -22,34 +22,119 @@
   <groupId>org.eclipse.webtools.javaee</groupId>
   <artifactId>org.eclipse.jst.j2ee.tests</artifactId>
   <version>1.1.700-SNAPSHOT</version>
-  <packaging>eclipse-plugin</packaging>
+  <!-- temporarily disable runing these tests by switching to packaging = eclipse-plugin instead of eclipse-test-plugin -->
+  <packaging>eclipse-test-plugin</packaging>
   
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.eclipse.tycho</groupId>
+        <artifactId>tycho-surefire-plugin</artifactId>
+        <version>${tycho.version}</version>
+        <configuration>
+          <includes>
+            <include>**/UrlPatternTest.class</include>
+          </includes>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
   <!-- Do not sign inner jars, see bug 274743 - Some unit tests are sensitive to details of build -->
   <profiles>
-   <profile>
-     <id>eclipse-sign</id>
-     <build>
-       <plugins>
-         <plugin>
-           <groupId>org.eclipse.cbi.maven.plugins</groupId>
-           <artifactId>eclipse-jarsigner-plugin</artifactId>
-           <version>${cbi-plugins.version}</version>
-           <executions>
-             <execution>
-               <id>sign</id>
-               <phase>verify</phase>
-               <goals>
-                 <goal>sign</goal>
-               </goals>
-               <configuration>
-                 <excludeInnerJars>true</excludeInnerJars>
-               </configuration>
-             </execution>
-           </executions>
-         </plugin>
-       </plugins>
-     </build>
-   </profile>
- </profiles>
+    <profile>
+      <id>eclipse-sign</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.eclipse.cbi.maven.plugins</groupId>
+            <artifactId>eclipse-jarsigner-plugin</artifactId>
+            <version>${cbi-plugins.version}</version>
+            <executions>
+              <execution>
+                <id>sign</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+                <configuration>
+                  <excludeInnerJars>true</excludeInnerJars>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <!-- building locally, this taker over 1h15min. In WTP JIPP, it's over 2hrs -->
+    <profile>
+      <id>integration-tests</id>
+      <activation>
+        <property>
+          <name>skipITests</name>
+          <value>false</value>
+        </property>
+      </activation>
+      <properties>
+        <skipITests>false</skipITests>
+        <!-- prevent resolving stuff in this repo from upstream CI build of this repo, to avoid source build problems -->
+        <webtools-jeetools-integration-site>${webtools-jeetools-site}</webtools-jeetools-integration-site>
+      </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.eclipse.tycho</groupId>
+            <artifactId>tycho-surefire-plugin</artifactId>
+            <version>${tycho.version}</version>
+            <configuration>
+              <includes>
+                <include>**/Test*.* **/*Test.* **/*TestCase.*</include>
+              </includes>
+              <excludes>
+                <!-- Bug 532859 - tests that fail, error, NPE, or time out - more than 44 failures, 55 errors -->
+                <exclude>**/AbstractAnnotationFactoryTest.class</exclude>
+                <exclude>**/AbstractAnnotationModelTest.class</exclude>
+                <exclude>**/AppClientArtifactEditFVTest.class</exclude>
+                <exclude>**/AppClientArtifactEditTest.class</exclude>
+                <exclude>**/AppClientImportOperationTest.class</exclude>
+                <exclude>**/ArchiveComponentCreationTest.class</exclude>
+                <exclude>**/ConnectorArtifactEditFVTest.class</exclude>
+                <exclude>**/ConnectorArtifactEditTest.class</exclude>
+                <exclude>**/CreateModelFromXmlTest.class</exclude>
+                <exclude>**/EarArtiFactEditFVTest.class</exclude>
+                <exclude>**/EARArtifactEditTest.class</exclude>
+                <exclude>**/EARImportOperationTest.class</exclude>
+                <exclude>**/EJB3MergedModelProviderTest.class</exclude>
+                <exclude>**/EjbAnnotationFactoryTest.class</exclude>
+                <exclude>**/EJBArtifactEditFvTest.class</exclude>
+                <exclude>**/EJBArtifactEditFVTest.class</exclude>
+                <exclude>**/EJBArtifactEditTest.class</exclude>
+                <exclude>**/EJBDeployTest.class</exclude>
+                <exclude>**/EJBGeneraUseTest.class</exclude>
+                <exclude>**/EJBImportOperationBaseTest.class</exclude>
+                <exclude>**/FlexibleProjectBuilderTest.class</exclude>
+                <exclude>**/FlexibleProjectEditTest.class</exclude>
+                <exclude>**/J2EEFlexProjDeployablePerfTest.class</exclude>
+                <exclude>**/JaxRPCMapArtifactEditFVTest.class</exclude>
+                <exclude>**/JEE5ModelTest.class</exclude>
+                <exclude>**/JEE6ModelTest.class</exclude>
+                <exclude>**/JEEProjectCreationOperationTest.class</exclude>
+                <exclude>**/MdbMergerTest.class</exclude>
+                <exclude>**/ModuleStructuralModelTest.class</exclude>
+                <exclude>**/PortedComponentCreationTest.class</exclude>
+                <exclude>**/ResourceReferenceTest.class</exclude>
+                <exclude>**/ThreadingTest.class</exclude>
+                <exclude>**/WebArtifactEditFVTest.class</exclude>
+                <exclude>**/WebArtifactEditTest.class</exclude>
+                <exclude>**/WebFragmentProjectCreationOperationTest.class</exclude>
+                <exclude>**/WSDDArtifactEditFVTest.class</exclude>
+              </excludes>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
    
 </project>

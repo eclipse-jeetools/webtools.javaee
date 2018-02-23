@@ -51,7 +51,7 @@ import org.eclipse.jst.j2ee.ejb.MethodElementKind;
 import org.eclipse.wst.common.internal.emf.resource.RendererFactory;
 
 
-public class GeneralEMFPopulationTest extends GeneralEMFTest {
+public abstract class GeneralEMFPopulationTest extends GeneralEMFTest {
     //inner class to handle deffered shared references
     protected class DeferredSharedReferenceAction {
         EObject owner;

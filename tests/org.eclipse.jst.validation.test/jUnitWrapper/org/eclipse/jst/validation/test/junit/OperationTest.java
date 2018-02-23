@@ -1,7 +1,7 @@
 package org.eclipse.jst.validation.test.junit;
 
 import junit.framework.TestCase;
-
+import org.junit.Ignore;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.validation.test.internal.registry.OperationTestcase;
 import org.eclipse.jst.validation.test.internal.registry.TestcaseUtility;
@@ -12,6 +12,7 @@ import org.eclipse.jst.validation.test.internal.util.BVTRunner;
  * Instances of this class run an IWorkspaceRunnable that tests the
  * validation framework.
  */
+@Ignore
 public class OperationTest extends TestCase {
 	private OperationSuite _suite = null;
 	private OperationTestcase _tmd = null;

@@ -19,7 +19,7 @@ import org.eclipse.jst.j2ee.common.ResourceRef;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ResourceRefTest extends TestCase {
+public abstract class ResourceRefTest extends TestCase {
 	/**
 	 * The fixture for this Resource Ref test case.
 	 * <!-- begin-user-doc -->

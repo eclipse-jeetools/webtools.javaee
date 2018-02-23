@@ -19,7 +19,7 @@ import org.eclipse.jst.j2ee.common.MessageDestinationRef;
  * <!-- end-user-doc -->
  * @generated
  */
-public class MessageDestinationRefTest extends TestCase {
+public abstract class MessageDestinationRefTest extends TestCase {
 	/**
 	 * The fixture for this Message Destination Ref test case.
 	 * <!-- begin-user-doc -->

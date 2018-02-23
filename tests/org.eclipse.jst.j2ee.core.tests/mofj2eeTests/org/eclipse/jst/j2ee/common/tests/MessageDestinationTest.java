@@ -17,7 +17,7 @@ import org.eclipse.jst.j2ee.common.MessageDestination;
  * <!-- end-user-doc -->
  * @generated
  */
-public class MessageDestinationTest extends CompatibilityDescriptionGroupTest {
+public abstract class MessageDestinationTest extends CompatibilityDescriptionGroupTest {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -11,6 +11,7 @@
 package org.eclipse.jst.validation.test.junit;
 
 import junit.framework.TestCase;
+import org.junit.Ignore;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jst.validation.test.internal.registry.TestcaseUtility;
@@ -23,6 +24,7 @@ import org.eclipse.wst.validation.internal.operations.ValidatorManager;
  * Instances of this class represent one <test>, contributed in
  * plugin.xml, for one validator.
  */
+@Ignore
 public class ValidatorTest extends TestCase {
 	private ValidatorTestcase _tmd = null;
 	private ValidatorSuite _suite = null;

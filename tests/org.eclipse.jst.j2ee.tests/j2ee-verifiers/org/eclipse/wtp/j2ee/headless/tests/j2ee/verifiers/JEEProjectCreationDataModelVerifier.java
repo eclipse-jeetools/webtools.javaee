@@ -104,11 +104,6 @@ public abstract class JEEProjectCreationDataModelVerifier extends DataModelVerif
         	if(archive.containsModelObject()){
 	        	Object modelObj2 = archive.getModelObject();
 	        	Assert.assertNotNull("Archive Deployment Descriptor should not be null", modelObj2);
-	    		if(modelObj != modelObj2){
-	            	System.err.println("TODO -- Project and IArchive Deployment Descriptor should be equal");
-	            	System.err.println("     -- see https://bugs.eclipse.org/bugs/show_bug.cgi?id=195670");
-	            	//AssertWarn.warnTrue("Project and IArchive Deployment Descriptor should be equal", modelObj == modelObj2);
-	            }
         	}
         } finally {
         	if(archive != null){

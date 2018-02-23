@@ -19,7 +19,7 @@ import org.eclipse.jst.j2ee.common.DisplayName;
  * <!-- end-user-doc -->
  * @generated
  */
-public class DisplayNameTest extends TestCase {
+public abstract class DisplayNameTest extends TestCase {
 	/**
 	 * The fixture for this Display Name test case.
 	 * <!-- begin-user-doc -->

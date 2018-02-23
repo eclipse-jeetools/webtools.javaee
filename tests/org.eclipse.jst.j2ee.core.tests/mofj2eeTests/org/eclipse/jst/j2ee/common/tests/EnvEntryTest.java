@@ -19,7 +19,7 @@ import org.eclipse.jst.j2ee.common.EnvEntry;
  * <!-- end-user-doc -->
  * @generated
  */
-public class EnvEntryTest extends TestCase {
+public abstract class EnvEntryTest extends TestCase {
 	/**
 	 * The fixture for this Env Entry test case.
 	 * <!-- begin-user-doc -->

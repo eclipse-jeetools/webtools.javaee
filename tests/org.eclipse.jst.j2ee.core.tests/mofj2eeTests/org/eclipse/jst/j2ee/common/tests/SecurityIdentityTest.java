@@ -19,7 +19,7 @@ import org.eclipse.jst.j2ee.common.SecurityIdentity;
  * <!-- end-user-doc -->
  * @generated
  */
-public class SecurityIdentityTest extends TestCase {
+public abstract class SecurityIdentityTest extends TestCase {
 	/**
 	 * The fixture for this Security Identity test case.
 	 * <!-- begin-user-doc -->

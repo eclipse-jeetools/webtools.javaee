@@ -19,7 +19,7 @@ import org.eclipse.jst.j2ee.common.EjbRef;
  * <!-- end-user-doc -->
  * @generated
  */
-public class EjbRefTest extends TestCase {
+public abstract class EjbRefTest extends TestCase {
 	/**
 	 * The fixture for this Ejb Ref test case.
 	 * <!-- begin-user-doc -->

@@ -17,7 +17,7 @@ import org.eclipse.jst.j2ee.common.UseCallerIdentity;
  * <!-- end-user-doc -->
  * @generated
  */
-public class UseCallerIdentityTest extends SecurityIdentityTest {
+public abstract class UseCallerIdentityTest extends SecurityIdentityTest {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -5,7 +5,7 @@ import junit.framework.TestCase;
 import org.eclipse.jst.j2ee.common.CommonFactory;
 import org.eclipse.jst.j2ee.common.CompatibilityDescriptionGroup;
 
-public class CompatibilityDescriptionGroupTest extends TestCase {
+public abstract class CompatibilityDescriptionGroupTest extends TestCase {
 
 	private CompatibilityDescriptionGroup getInstance() {
 		return CommonFactory.eINSTANCE.createCompatibilityDescriptionGroup();

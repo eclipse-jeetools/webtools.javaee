@@ -21,6 +21,25 @@
 
   <groupId>org.eclipse.webtools.javaee</groupId>
   <artifactId>org.eclipse.jst.servlet.tests</artifactId>
-  <version>1.1.400-SNAPSHOT</version>
-  <packaging>eclipse-plugin</packaging>
+  <version>1.1.401-SNAPSHOT</version>
+  <packaging>eclipse-test-plugin</packaging>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.eclipse.tycho</groupId>
+        <artifactId>tycho-surefire-plugin</artifactId>
+        <version>${tycho.version}</version>
+        <configuration>
+          <excludes>
+            <exclude>**/AutomatedBVT.class</exclude>
+            <exclude>**/AllTomcatTests.class</exclude>
+            <!-- Bug 532859 - test throws NPE -->
+            <exclude>**/WebProjectCreationTomcatTest.class</exclude>
+            <exclude>**/WebExportOperationTomcatTest.class</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>

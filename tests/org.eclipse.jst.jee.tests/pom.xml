@@ -22,7 +22,7 @@
   <groupId>org.eclipse.webtools.javaee</groupId>
   <artifactId>org.eclipse.jst.jee.tests</artifactId>
   <version>1.0.0-SNAPSHOT</version>
-  <packaging>eclipse-plugin</packaging>
+  <packaging>eclipse-test-plugin</packaging>
   
   <!-- Do not sign inner jars, see bug 274743 - Some unit tests are sensitive to details of build -->
   <profiles>
