@@ -35,25 +35,21 @@
       <layout>p2</layout>
       <url>${webtools-common-site}</url>
     </repository>
-    <!-- org.eclipse.jst.doc.user.feature requires org.eclipse.jst.server.ui.* -->
     <repository>
       <id>webtools-servertools-site</id>
       <layout>p2</layout>
       <url>${webtools-servertools-site}</url>
     </repository>
-    <!-- org.eclipse.jst.doc.user.feature requires org.eclipse.jst.jsp.* -->
     <repository>
       <id>webtools-sourceediting-site</id>
       <layout>p2</layout>
       <url>${webtools-sourceediting-site}</url>
     </repository>
-    <!-- org.eclipse.wst.web.ui requires org.eclipse.wst.jsdt.ui -->
     <repository>
       <id>webtools-jsdt-site</id>
       <layout>p2</layout>
       <url>${webtools-jsdt-site}</url>
     </repository>
-    <!-- TODO: org.eclipse.jst.doc.user.feature requires org.eclipse.jst.ws.* so that feature should move into webservices (or releng) -->
 
     <!-- To reference parent pom -->
     <repository>
@@ -70,7 +66,6 @@
 
   <modules>
     <module>docs</module>
-    <module>features</module>
     <module>plugins</module>
     <module>tests</module>
     <module>site</module>
