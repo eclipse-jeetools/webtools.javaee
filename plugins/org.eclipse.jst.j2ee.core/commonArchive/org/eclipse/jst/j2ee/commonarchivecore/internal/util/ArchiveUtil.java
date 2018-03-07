@@ -339,6 +339,9 @@ public class ArchiveUtil {
 	 * example, retrieve the EJBJarFile that owns the EJBJar. This works even for alts
 	 */
 	public static ModuleFile getModuleFile(EObject ddObject) {
+		if (ddObject == null) {
+			return null;
+		}
 		Resource res = ddObject.eResource();
 		if (res == null)
 			return null;
