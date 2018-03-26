@@ -19,7 +19,6 @@ public class ExtendedModelProviderBVT extends TestSuite {
 	public ExtendedModelProviderBVT() {
 		super();
 		addTest(org.eclipse.jst.common.annotations.tests.AnnotationProviderTest.suite());
-		addTest(org.eclipse.jst.jee.model.tests.AllAnnotationModelTests.suite());
 		addTest(org.eclipse.jst.jee.model.mergers.tests.MergersTestSuite.suite());
 	}
 	

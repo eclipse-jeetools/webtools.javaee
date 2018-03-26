@@ -8,8 +8,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import junit.framework.TestCase;
-
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -28,11 +26,11 @@ import org.eclipse.wst.common.componentcore.internal.StructureEdit;
 import org.eclipse.wst.common.componentcore.internal.WorkbenchComponent;
 import org.eclipse.wst.common.componentcore.internal.flat.FilterResourceParticipant;
 import org.eclipse.wst.common.componentcore.internal.flat.FlatVirtualComponent;
+import org.eclipse.wst.common.componentcore.internal.flat.FlatVirtualComponent.FlatComponentTaskModel;
 import org.eclipse.wst.common.componentcore.internal.flat.IFlatFolder;
 import org.eclipse.wst.common.componentcore.internal.flat.IFlatResource;
 import org.eclipse.wst.common.componentcore.internal.flat.IFlatVirtualComponent;
 import org.eclipse.wst.common.componentcore.internal.flat.IFlattenParticipant;
-import org.eclipse.wst.common.componentcore.internal.flat.FlatVirtualComponent.FlatComponentTaskModel;
 import org.eclipse.wst.common.componentcore.internal.operation.CreateReferenceComponentsDataModelProvider;
 import org.eclipse.wst.common.componentcore.resources.IVirtualComponent;
 import org.eclipse.wst.common.componentcore.resources.IVirtualFolder;
@@ -43,7 +41,29 @@ import org.eclipse.wst.common.tests.OperationTestCase;
 import org.eclipse.wtp.j2ee.headless.tests.ear.operations.EARProjectCreationOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.JavaEEFacetConstants;
 
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
+
 public class ExportModelTest extends TestCase {
+	public ExportModelTest(String name) {
+		super(name);
+	}
+	
+    public static Test suite()
+    {
+        final TestSuite suite = new TestSuite();
+        
+        suite.setName( "ExportModelTest Tests" );
+
+        suite.addTest( new ExportModelTest( "testSimpleExportModel" ) );
+        suite.addTest( new ExportModelTest( "testConsumesExportModel" ) );
+        suite.addTest( new ExportModelTest( "testSuffixFilterExportModel" ) );
+        
+        return suite;
+    }
+
+	
     public void testSimpleExportModel() throws Exception{
     	IDataModel dm = EARProjectCreationOperationTest.getEARDataModel("aEAR", null, null, null, JavaEEFacetConstants.EAR_5, true);
     	OperationTestCase.runAndVerify(dm);

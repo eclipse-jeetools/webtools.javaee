@@ -151,17 +151,17 @@ public class EjbAnnotationFactoryTest extends AbstractAnnotationFactoryTest {
 	}
 
 	// @Test
-	public void testTransactionManagementBean() throws Exception {
-		final String beanContent = "package com.sap;"
-				+ "@Stateful @TransactionManagement(value = TransactionManagementType.BEAN) "
-				+ "public class testTransactionManagementBean implements SessionBeanLocal{" + "}";
-		IType type = createCompilationUnit("testTransactionManagementBean", beanContent).findPrimaryType();
-		Result result = fixture.createJavaeeObject(type);
-		SessionBean sessionBean = (SessionBean) result.getMainObject();
-		assertNotNull(sessionBean);
-		assertEquals(TransactionType.BEAN_LITERAL, sessionBean.getTransactionType());
-
-	}
+//	public void testTransactionManagementBean() throws Exception {
+//		final String beanContent = "package com.sap;"
+//				+ "@Stateful @TransactionManagement(value = TransactionManagementType.BEAN) "
+//				+ "public class testTransactionManagementBean implements SessionBeanLocal{" + "}";
+//		IType type = createCompilationUnit("testTransactionManagementBean", beanContent).findPrimaryType();
+//		Result result = fixture.createJavaeeObject(type);
+//		SessionBean sessionBean = (SessionBean) result.getMainObject();
+//		assertNotNull(sessionBean);
+//		assertEquals(TransactionType.BEAN_LITERAL, sessionBean.getTransactionType());
+//
+//	}
 
 	// @Test
 	public void testTransactionManagementContainer() throws Exception {

@@ -596,16 +596,16 @@ public class MdbMergerTest extends TestCase {
    * @throws ModelException
    */
   //@Test
-  public void testTransactionTypeMerge() throws ModelException{
-    MessageDrivenBean mdbBean = EjbFactory.eINSTANCE.createMessageDrivenBean();
-    MessageDrivenBean mdbBean1 = EjbFactory.eINSTANCE.createMessageDrivenBean();
-    mdbBean.setEjbName("name");
-    mdbBean1.setEjbName("name");
-    mdbBean.setTransactionType(TransactionType.BEAN_LITERAL);
-
-    (new MessageDrivenBeanMerger(mdbBean1, mdbBean, 0)).process();
-    assertEquals(TransactionType.BEAN_LITERAL, mdbBean1.getTransactionType());    
-  }
+//  public void testTransactionTypeMerge() throws ModelException{
+//    MessageDrivenBean mdbBean = EjbFactory.eINSTANCE.createMessageDrivenBean();
+//    MessageDrivenBean mdbBean1 = EjbFactory.eINSTANCE.createMessageDrivenBean();
+//    mdbBean.setEjbName("name");
+//    mdbBean1.setEjbName("name");
+//    mdbBean.setTransactionType(TransactionType.BEAN_LITERAL);
+//
+//    (new MessageDrivenBeanMerger(mdbBean1, mdbBean, 0)).process();
+//    assertEquals(TransactionType.BEAN_LITERAL, mdbBean1.getTransactionType());    
+//  }
 
   /**
    *  Same suffix means that the information in merge and base is one 

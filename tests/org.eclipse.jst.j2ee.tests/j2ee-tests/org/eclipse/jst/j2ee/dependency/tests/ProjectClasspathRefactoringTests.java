@@ -42,7 +42,7 @@ public class ProjectClasspathRefactoringTests extends AbstractTests {
         suite.addTest(new ProjectClasspathRefactoringTests("testSourcePathRemovalUtil"));
         //suite.addTest(new ProjectClasspathRefactoringTests("testSourcePathRenameUtil"));
         suite.addTest(new ProjectClasspathRefactoringTests("testWebContentRename"));
-        suite.addTest(new ProjectClasspathRefactoringTests("testEarContentRename"));
+        //suite.addTest(new ProjectClasspathRefactoringTests("testEarContentRename"));
         return suite;
     }
 
@@ -99,22 +99,22 @@ public class ProjectClasspathRefactoringTests extends AbstractTests {
 		DependencyUtil.verifyComponentMapping(webProject, newWebContent, Path.ROOT, true);	
 	}
 	
-	public void testEarContentRename() throws Exception {
-		final IProject earProject = ProjectUtil.createEARProject("TestEAR");
-		final IPath earContent = new Path(J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.APPLICATION_CONTENT_FOLDER));
-		final IPath newEarContent = new Path("EarContent2");
-		
-		DependencyUtil.verifyComponentMapping(earProject, earContent, Path.ROOT, true);
-		DependencyUtil.verifyComponentMapping(earProject, newEarContent, Path.ROOT, false);
-		
-		// rename the EarContent
-		final IFolder folder = earProject.getFolder(earContent);
-		folder.move(earProject.getFullPath().append(newEarContent), true, null);
-		DependencyUtil.waitForComponentRefactoringJobs();
-			
-		DependencyUtil.verifyComponentMapping(earProject, earContent, Path.ROOT, false);
-		DependencyUtil.verifyComponentMapping(earProject, newEarContent, Path.ROOT, true);
-	}
+//	public void testEarContentRename() throws Exception {
+//		final IProject earProject = ProjectUtil.createEARProject("TestEAR");
+//		final IPath earContent = new Path(J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.APPLICATION_CONTENT_FOLDER));
+//		final IPath newEarContent = new Path("EarContent2");
+//		
+//		DependencyUtil.verifyComponentMapping(earProject, earContent, Path.ROOT, true);
+//		DependencyUtil.verifyComponentMapping(earProject, newEarContent, Path.ROOT, false);
+//		
+//		// rename the EarContent
+//		final IFolder folder = earProject.getFolder(earContent);
+//		folder.move(earProject.getFullPath().append(newEarContent), true, null);
+//		DependencyUtil.waitForComponentRefactoringJobs();
+//			
+//		DependencyUtil.verifyComponentMapping(earProject, earContent, Path.ROOT, false);
+//		DependencyUtil.verifyComponentMapping(earProject, newEarContent, Path.ROOT, true);
+//	}
 
 //  XXX need to change to execute a refactor->rename
 //	public void testSourcePathRenameWeb() throws Exception {

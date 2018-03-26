@@ -11,26 +11,26 @@
 /*
  * Created on Feb 18, 2005
  */
-package org.eclipse.jst.j2ee.tests.modulecore;
+package org.eclipse.jst.jee.model.mergers.tests;
 
-
-import org.eclipse.jst.j2ee.project.facet.tests.EjbProjectFacetCreationTest;
-import org.eclipse.jst.j2ee.project.facet.tests.ProjectFacetCreationTest;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-public class AllTests extends TestSuite {
-
+public class ModelMergersSuite extends TestSuite {
     public static Test suite(){
-        return new AllTests();
+        return new ModelMergersSuite();
     }
     
-    public AllTests(){
-        super("ModuleCore Tests");
-        addTest(ProjectFacetCreationTest.suite());
-        addTest(EjbProjectFacetCreationTest.suite());
-        //addTest(FlexibleProjectBuilderTest.suite());
-        //addTest(ModuleStructuralModelTest.suite());
+    public ModelMergersSuite(){
+        super("Model Mergers Tests");
+        addTestSuite(AssemblyDescriptorMergerTest.class );
+        addTestSuite(EjbJarMergerTest.class );
+        addTestSuite(JndiRefsTest.class );
+        addTestSuite(MdbMergerTest.class );
+        addTestSuite(SessionMergerTest.class );
+        addTestSuite(WebApp3MergerTest.class );
+        addTestSuite(WebAppMergerTest.class );
+
     }
 }

@@ -114,22 +114,22 @@ public class EJB3MergedModelProviderTest extends AbstractAnnotationModelTest {
 	}
 
 	// @Test
-	public void testAddBeanWithOperation() throws Exception {
-		final String ejbProjectName = this.getClass().getSimpleName() + this.getName();
-		final String clientName = ejbProjectName + "Client";
-		IProject project = ProjectUtil.createEJBProject(ejbProjectName, ejbProjectName + "ear", clientName,
-				J2EEVersionConstants.EJB_3_0_ID, true);
-		IDataModelOperation operation = createBeanOperation("testAddBeanWithOperation", "com.sap", project.getName());
-		IModelProvider provider = ModelProviderManager.getModelProvider(project);
-
-		EJBJar result = (EJBJar) provider.getModelObject();
-		assertEquals(new Integer(0), new Integer(result.getEnterpriseBeans().getSessionBeans().size()));
-		executeAndWait(operation, provider);
-
-		result = (EJBJar) provider.getModelObject();
-		assertEquals(new Integer(1), new Integer(result.getEnterpriseBeans().getSessionBeans().size()));
-		assertNotNull(TestUtils.getSessionBean(result, "testAddBeanWithOperation"));
-	}
+//	public void testAddBeanWithOperation() throws Exception {
+//		final String ejbProjectName = this.getClass().getSimpleName() + this.getName();
+//		final String clientName = ejbProjectName + "Client";
+//		IProject project = ProjectUtil.createEJBProject(ejbProjectName, ejbProjectName + "ear", clientName,
+//				J2EEVersionConstants.EJB_3_0_ID, true);
+//		IDataModelOperation operation = createBeanOperation("testAddBeanWithOperation", "com.sap", project.getName());
+//		IModelProvider provider = ModelProviderManager.getModelProvider(project);
+//
+//		EJBJar result = (EJBJar) provider.getModelObject();
+//		assertEquals(new Integer(0), new Integer(result.getEnterpriseBeans().getSessionBeans().size()));
+//		executeAndWait(operation, provider);
+//
+//		result = (EJBJar) provider.getModelObject();
+//		assertEquals(new Integer(1), new Integer(result.getEnterpriseBeans().getSessionBeans().size()));
+//		assertNotNull(TestUtils.getSessionBean(result, "testAddBeanWithOperation"));
+//	}
 
 	// @Test
 	public void testAddBeanWithOperationPreserveListeners() throws Exception {

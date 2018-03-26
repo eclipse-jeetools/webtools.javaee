@@ -35,8 +35,8 @@ public class ProjectDependencyTests extends AbstractTests {
         suite.addTest(new ProjectDependencyTests("testEARUtilDependency"));
         suite.addTest(new ProjectDependencyTests("testEAREJBDependency"));
         suite.addTest(new ProjectDependencyTests("testStandaloneWebUtilDependency"));
-        suite.addTest(new ProjectDependencyTests("testWebUtilWebInfLibDependency"));
-        suite.addTest(new ProjectDependencyTests("testWebEJBModuleDependency"));
+        //suite.addTest(new ProjectDependencyTests("testWebUtilWebInfLibDependency"));
+        //suite.addTest(new ProjectDependencyTests("testWebEJBModuleDependency"));
         return suite;
     }
     

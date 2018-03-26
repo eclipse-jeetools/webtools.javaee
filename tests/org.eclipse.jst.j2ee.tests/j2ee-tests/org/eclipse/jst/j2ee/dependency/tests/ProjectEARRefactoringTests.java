@@ -42,7 +42,7 @@ public class ProjectEARRefactoringTests extends AbstractTests {
         suite.addTest(new ProjectEARRefactoringTests("testRenameEARUtilModule"));
         //suite.addTest(new ProjectEARRefactoringTests("testRenameEAREJBModule"));
         //suite.addTest(new ProjectEARRefactoringTests("testMultipleEARWebDelete"));
-        suite.addTest(new ProjectEARRefactoringTests("testMultipleEARWebRename"));
+        //suite.addTest(new ProjectEARRefactoringTests("testMultipleEARWebRename"));
         //suite.addTest(new ProjectEARRefactoringTests("testMultipleEARUtilDelete"));
         suite.addTest(new ProjectEARRefactoringTests("testMultipleEARUtilRename"));
         //suite.addTest(new ProjectEARRefactoringTests("testDeleteWithEARModuleDependency"));

@@ -66,11 +66,11 @@ public class ClasspathDependencyEARTests extends AbstractTests {
     public static Test suite(){
         final TestSuite suite = new TestSuite();
         suite.setName("Classpath Dependency EAR Tests" );
-        suite.addTest(new ClasspathDependencyEARTests("testEARExportJ2EE"));
+        //suite.addTest(new ClasspathDependencyEARTests("testEARExportJ2EE"));
         //suite.addTest(new ClasspathDependencyEARTests("testEARExportJEE5"));
         suite.addTest(new ClasspathDependencyEARTests("testEARPublishJ2EE"));
         suite.addTest(new ClasspathDependencyEARTests("testEARPublishJEE5"));
-        suite.addTest(new ClasspathDependencyEARTests("testEARLibPublishJEE5"));
+        //suite.addTest(new ClasspathDependencyEARTests("testEARLibPublishJEE5"));
         return suite;
     }
     

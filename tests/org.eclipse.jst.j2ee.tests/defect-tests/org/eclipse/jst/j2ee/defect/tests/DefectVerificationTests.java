@@ -19,25 +19,16 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import junit.framework.Assert;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.jobs.IJobManager;
-import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.etools.common.test.apitools.ProjectUnzipUtil;
-import org.eclipse.jdt.core.IClasspathContainer;
-import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.j2ee.application.internal.operations.EARComponentExportDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.EARComponentImportDataModelProvider;
 import org.eclipse.jst.j2ee.application.internal.operations.J2EEComponentExportDataModelProvider;
@@ -60,7 +51,6 @@ import org.eclipse.jst.j2ee.ejb.project.operations.IEjbFacetInstallDataModelProp
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.internal.archive.JavaEEArchiveUtilities;
 import org.eclipse.jst.j2ee.internal.common.J2EEVersionUtil;
-import org.eclipse.jst.j2ee.internal.common.classpath.J2EEComponentClasspathUpdater;
 import org.eclipse.jst.j2ee.internal.plugin.IJ2EEModuleConstants;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.web.archive.operations.WebComponentExportDataModelProvider;
@@ -96,6 +86,8 @@ import org.eclipse.wst.common.tests.OperationTestCase;
 import org.eclipse.wst.common.tests.ProjectUtility;
 import org.eclipse.wtp.j2ee.headless.tests.plugin.HeadlessTestsPlugin;
 import org.eclipse.wtp.j2ee.headless.tests.web.operations.WebImportOperationTest;
+
+import junit.framework.Assert;
 
 public class DefectVerificationTests extends OperationTestCase {
 
@@ -182,7 +174,6 @@ public class DefectVerificationTests extends OperationTestCase {
 
 	/**
 	 * Test for https://bugs.eclipse.org/bugs/show_bug.cgi?id=120018
-	 */
 	public void test120018() throws Exception {
 		IDataModel model = DataModelFactory.createDataModel(new WebFacetProjectCreationDataModelProvider());
 		model.setProperty(IWebFacetInstallDataModelProperties.FACET_PROJECT_NAME, "Test120018");
@@ -229,6 +220,7 @@ public class DefectVerificationTests extends OperationTestCase {
 		}
 		Assert.assertTrue(foundImportedClasses);
 	}
+	 */
 
 	/**
 	 * Test for https://bugs.eclipse.org/bugs/show_bug.cgi?id=105901

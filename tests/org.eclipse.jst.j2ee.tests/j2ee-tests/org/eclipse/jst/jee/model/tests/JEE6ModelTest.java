@@ -9,9 +9,6 @@
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
 package org.eclipse.jst.jee.model.tests;
-import junit.framework.Assert;
-import junit.framework.Test;
-
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
@@ -55,8 +52,6 @@ import org.eclipse.jst.javaee.application.Application;
 import org.eclipse.jst.javaee.application.internal.util.ApplicationResourceImpl;
 import org.eclipse.jst.javaee.applicationclient.ApplicationClient;
 import org.eclipse.jst.javaee.applicationclient.internal.util.ApplicationclientResourceImpl;
-import org.eclipse.jst.javaee.ejb.EJBJar;
-import org.eclipse.jst.javaee.ejb.internal.util.EjbResourceImpl;
 import org.eclipse.jst.javaee.jca.Connector;
 import org.eclipse.jst.javaee.jca.internal.util.JcaResourceImpl;
 import org.eclipse.jst.javaee.web.WebApp;
@@ -80,6 +75,9 @@ import org.eclipse.wst.common.tests.SimpleTestSuite;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.JavaEEFacetConstants;
 import org.eclipse.wtp.j2ee.headless.tests.web.operations.WebProjectCreationOperationTest;
 import org.eclipse.wtp.j2ee.headless.tests.webfragment.operations.WebFragmentProjectCreationOperationTest;
+
+import junit.framework.Assert;
+import junit.framework.Test;
 
 public class JEE6ModelTest extends GeneralEMFPopulationTest {
 	
@@ -202,37 +200,37 @@ public class JEE6ModelTest extends GeneralEMFPopulationTest {
 //		
 //
 //	}
-public void testEJBModel() throws Exception {
-		
-	String projName = "TestEE6EjbProject";//$NON-NLS-1$
-	createEjbProject(projName);
-	
-	EMFAttributeFeatureGenerator.reset();
-	String modelPathURI = J2EEConstants.EJBJAR_DD_URI;
-	URI uri = URI.createURI(J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.EJB_CONTENT_FOLDER) + "/" + modelPathURI);
-	ProjectResourceSet resSet = getResourceSet(projName);
-	
-	
-	EjbResourceImpl ejbRes = (EjbResourceImpl) resSet.getResource(uri,true);
-	Assert.assertTrue(ejbRes.getContents().size() > 0);
-	
-	if (ejbRes.getContents().size() > 0) {
-		EJBJar jar = ejbRes.getEjbJar();
-		populateRoot((EObjectImpl)jar);
-		ejbRes.save(null);
-	}
-	ejbRes.unload();
-	// OK now load again using a new Resource
-	ejbRes = (EjbResourceImpl) resSet.getResource(uri,true);
-	Assert.assertTrue(ejbRes.getContents().size() > 0);
-	
-	if (ejbRes.getContents().size() > 0) {
-		EJBJar jar = ejbRes.getEjbJar();
-		jar.getDescriptions();
-	}
-	
-
-}
+//public void testEJBModel() throws Exception {
+//		
+//	String projName = "TestEE6EjbProject";//$NON-NLS-1$
+//	createEjbProject(projName);
+//	
+//	EMFAttributeFeatureGenerator.reset();
+//	String modelPathURI = J2EEConstants.EJBJAR_DD_URI;
+//	URI uri = URI.createURI(J2EEPlugin.getDefault().getJ2EEPreferences().getString(J2EEPreferences.Keys.EJB_CONTENT_FOLDER) + "/" + modelPathURI);
+//	ProjectResourceSet resSet = getResourceSet(projName);
+//	
+//	
+//	EjbResourceImpl ejbRes = (EjbResourceImpl) resSet.getResource(uri,true);
+//	Assert.assertTrue(ejbRes.getContents().size() > 0);
+//	
+//	if (ejbRes.getContents().size() > 0) {
+//		EJBJar jar = ejbRes.getEjbJar();
+//		populateRoot((EObjectImpl)jar);
+//		ejbRes.save(null);
+//	}
+//	ejbRes.unload();
+//	// OK now load again using a new Resource
+//	ejbRes = (EjbResourceImpl) resSet.getResource(uri,true);
+//	Assert.assertTrue(ejbRes.getContents().size() > 0);
+//	
+//	if (ejbRes.getContents().size() > 0) {
+//		EJBJar jar = ejbRes.getEjbJar();
+//		jar.getDescriptions();
+//	}
+//	
+//
+//}
 public void testAppClientModel() throws Exception {
 	
 	String projName = "TestEE6AppClientProject";//$NON-NLS-1$

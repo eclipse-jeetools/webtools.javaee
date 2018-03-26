@@ -10,8 +10,6 @@
  ***********************************************************************/
 package org.eclipse.jst.jee.model.ejb.tests;
 
-import junit.framework.TestSuite;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -31,6 +29,8 @@ import org.eclipse.jst.jee.model.tests.AbstractAnnotationModelTest;
 import org.eclipse.jst.jee.model.tests.AbstractTest;
 import org.eclipse.jst.jee.model.tests.TestUtils;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject;
+
+import junit.framework.TestSuite;
 
 /**
  * @author Kiril Mitov k.mitov@sap.com
@@ -124,26 +124,26 @@ public class ResourceReferenceTest extends AbstractAnnotationModelTest {
 	}
 
 	//@Test
-	public void testResources() throws Exception {
-		final String beanContent = "package com.sap;"
-				+ "@Stateless "
-				+ "@Resources(value = {"
-				+ "@Resource(name = \"withNotDefaults\", mappedName = \"mappedName\", "
-				+ "	shareable = false, type = java.lang.Comparable.class, "
-				+ "	authenticationType = AuthenticationType.APPLICATION, description = \"description\"),"
-				+ "@Resource(name = \"withDefaults\", type = java.lang.Comparable.class), @Resource(name = \"invalidNoType\") })"
-				+ "public class testResources implements SessionBeanLocal{}";
-		IFile beanFile = facetedProject.getProject().getFile("ejbModule/com/sap/testResources.java");
-		saveFileAndUpdate(beanFile, beanContent);
-		SessionBean result = TestUtils.getSessionBean(getEJBJar(), "testResources");
-		assertNotNull(result);
-		assertNotNull(TestUtils.findResourceRefByName(result.getResourceRefs(), "withNotDefaults"));
-		assertNotNull(TestUtils.findResourceRefByName(result.getResourceRefs(), "withDefaults"));
-		assertEquals(new Integer(2), new Integer(result.getResourceRefs().size()));
-
-		deleteFileAndUpdate(beanFile);
-		assertNull(TestUtils.getSessionBean(getEJBJar(), "testResources"));
-	}
+//	public void testResources() throws Exception {
+//		final String beanContent = "package com.sap;"
+//				+ "@Stateless "
+//				+ "@Resources(value = {"
+//				+ "@Resource(name = \"withNotDefaults\", mappedName = \"mappedName\", "
+//				+ "	shareable = false, type = java.lang.Comparable.class, "
+//				+ "	authenticationType = AuthenticationType.APPLICATION, description = \"description\"),"
+//				+ "@Resource(name = \"withDefaults\", type = java.lang.Comparable.class), @Resource(name = \"invalidNoType\") })"
+//				+ "public class testResources implements SessionBeanLocal{}";
+//		IFile beanFile = facetedProject.getProject().getFile("ejbModule/com/sap/testResources.java");
+//		saveFileAndUpdate(beanFile, beanContent);
+//		SessionBean result = TestUtils.getSessionBean(getEJBJar(), "testResources");
+//		assertNotNull(result);
+//		assertNotNull(TestUtils.findResourceRefByName(result.getResourceRefs(), "withNotDefaults"));
+//		assertNotNull(TestUtils.findResourceRefByName(result.getResourceRefs(), "withDefaults"));
+//		assertEquals(new Integer(2), new Integer(result.getResourceRefs().size()));
+//
+//		deleteFileAndUpdate(beanFile);
+//		assertNull(TestUtils.getSessionBean(getEJBJar(), "testResources"));
+//	}
 
 	//@Test
 	public void testResourceUnresolved() throws Exception {
@@ -207,28 +207,28 @@ public class ResourceReferenceTest extends AbstractAnnotationModelTest {
 	}
 
 	//@Test
-	public void testResourceOnMethod() throws Exception {
-		final String beanContent = "package com.sap;" + "@Stateless "
-				+ "public class testResourceOnMethod implements SessionBeanLocal{"
-				+ "@Resource(type = java.lang.Comparable.class) public void validMethod(Comparable arg0){};"
-				+ "@Resource(type = java.lang.Comparable.class) private void simpleType(int arg0) {};"
-				+ "@Resource public void validButWithoutType(Comparable arg0){};"
-				+ "@Resource public void twoParams(Comparable arg0, Comparable arg1} {};}";
-		IFile beanFile = facetedProject.getProject().getFile("ejbModule/com/sap/testResourceOnMethod.java");
-		saveFileAndUpdate(beanFile, beanContent);
-		SessionBean result = TestUtils.getSessionBean(getEJBJar(), "testResourceOnMethod");
-		assertNotNull(result);
-		ResourceRef ref1 = TestUtils.findResourceRefByName(result.getResourceRefs(),
-				"com.sap.testResourceOnMethod/validMethod");
-		assertNotNull(ref1);
-		ResourceRef ref2 = TestUtils.findResourceRefByName(result.getResourceRefs(),
-				"com.sap.testResourceOnMethod/validButWithoutType");
-		assertNotNull(ref2);
-		assertEquals(new Integer(2), new Integer(result.getResourceRefs().size()));
-
-		deleteFileAndUpdate(beanFile);
-		assertNull(TestUtils.getSessionBean(getEJBJar(), "testResourceOnMethod"));
-	}
+//	public void testResourceOnMethod() throws Exception {
+//		final String beanContent = "package com.sap;" + "@Stateless "
+//				+ "public class testResourceOnMethod implements SessionBeanLocal{"
+//				+ "@Resource(type = java.lang.Comparable.class) public void validMethod(Comparable arg0){};"
+//				+ "@Resource(type = java.lang.Comparable.class) private void simpleType(int arg0) {};"
+//				+ "@Resource public void validButWithoutType(Comparable arg0){};"
+//				+ "@Resource public void twoParams(Comparable arg0, Comparable arg1} {};}";
+//		IFile beanFile = facetedProject.getProject().getFile("ejbModule/com/sap/testResourceOnMethod.java");
+//		saveFileAndUpdate(beanFile, beanContent);
+//		SessionBean result = TestUtils.getSessionBean(getEJBJar(), "testResourceOnMethod");
+//		assertNotNull(result);
+//		ResourceRef ref1 = TestUtils.findResourceRefByName(result.getResourceRefs(),
+//				"com.sap.testResourceOnMethod/validMethod");
+//		assertNotNull(ref1);
+//		ResourceRef ref2 = TestUtils.findResourceRefByName(result.getResourceRefs(),
+//				"com.sap.testResourceOnMethod/validButWithoutType");
+//		assertNotNull(ref2);
+//		assertEquals(new Integer(2), new Integer(result.getResourceRefs().size()));
+//
+//		deleteFileAndUpdate(beanFile);
+//		assertNull(TestUtils.getSessionBean(getEJBJar(), "testResourceOnMethod"));
+//	}
 
 	//@Test
 	public void testResourceOnMethodAndFieldUnresolved() throws Exception {

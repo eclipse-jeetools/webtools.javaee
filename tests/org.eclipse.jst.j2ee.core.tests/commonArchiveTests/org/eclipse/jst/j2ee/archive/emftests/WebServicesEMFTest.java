@@ -16,15 +16,10 @@
  */
 package org.eclipse.jst.j2ee.archive.emftests;
 
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
-
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.jst.j2ee.archive.testutilities.EMFAttributeFeatureGenerator;
-import org.eclipse.jst.j2ee.common.internal.impl.J2EEResourceFactoryRegistry;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.Archive;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EARFile;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.EJBJarFile;
@@ -33,15 +28,15 @@ import org.eclipse.jst.j2ee.commonarchivecore.internal.exception.OpenFailureExce
 import org.eclipse.jst.j2ee.core.tests.bvt.AutomatedBVT;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.InterfaceMapping;
-import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JavaWSDLMapping;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapFactory;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapPackage;
-import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapResource;
-import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapResourceFactory;
 import org.eclipse.jst.j2ee.webservice.wsclient.WebServicesResource;
 import org.eclipse.jst.j2ee.webservice.wsdd.WsddFactory;
 import org.eclipse.jst.j2ee.webservice.wsdd.WsddResource;
 import org.eclipse.wst.common.internal.emf.resource.RendererFactory;
+
+import junit.framework.TestSuite;
+import junit.textui.TestRunner;
 
 
 /**
