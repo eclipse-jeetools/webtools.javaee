@@ -186,7 +186,17 @@ public class HeaderParserTests extends BaseTestCase {
 		data.add(new TestData("web23.xml", J2EEVersionConstants.WEB_TYPE, J2EEVersionConstants.WEB_2_3_ID, J2EEVersionConstants.J2EE_1_3_ID));
 		data.add(new TestData("web24.xml", J2EEVersionConstants.WEB_TYPE, J2EEVersionConstants.WEB_2_4_ID, J2EEVersionConstants.J2EE_1_4_ID));
 		data.add(new TestData("web25.xml", J2EEVersionConstants.WEB_TYPE, J2EEVersionConstants.WEB_2_5_ID, J2EEVersionConstants.JEE_5_0_ID));
-
+		data.add(new TestData("web30.xml", J2EEVersionConstants.WEB_TYPE, J2EEVersionConstants.WEB_3_0_ID, J2EEVersionConstants.JEE_6_0_ID));
+		data.add(new TestData("web31.xml", J2EEVersionConstants.WEB_TYPE, J2EEVersionConstants.WEB_3_1_ID, J2EEVersionConstants.JEE_7_0_ID));
+		data.add(new TestData("web40.xml", J2EEVersionConstants.WEB_TYPE, J2EEVersionConstants.WEB_4_0_ID, J2EEVersionConstants.JEE_8_0_ID));
+		
+		// Test the Web-App DDs without the schema specified
+		data.add(new TestData("web24min.xml", J2EEVersionConstants.WEB_TYPE, J2EEVersionConstants.WEB_2_4_ID, J2EEVersionConstants.J2EE_1_4_ID));
+		data.add(new TestData("web25min.xml", J2EEVersionConstants.WEB_TYPE, J2EEVersionConstants.WEB_2_5_ID, J2EEVersionConstants.JEE_5_0_ID));
+		data.add(new TestData("web30min.xml", J2EEVersionConstants.WEB_TYPE, J2EEVersionConstants.WEB_3_0_ID, J2EEVersionConstants.JEE_6_0_ID));
+		data.add(new TestData("web31min.xml", J2EEVersionConstants.WEB_TYPE, J2EEVersionConstants.WEB_3_1_ID, J2EEVersionConstants.JEE_7_0_ID));
+		data.add(new TestData("web40min.xml", J2EEVersionConstants.WEB_TYPE, J2EEVersionConstants.WEB_4_0_ID, J2EEVersionConstants.JEE_8_0_ID));
+		
 		// test some bogus dds as well
 		data.add(new TestData("notxml.xml", J2EEVersionConstants.UNKNOWN, J2EEVersionConstants.UNKNOWN, J2EEVersionConstants.UNKNOWN));
 		data.add(new TestData("notjavaee.xml", J2EEVersionConstants.UNKNOWN, J2EEVersionConstants.UNKNOWN, J2EEVersionConstants.UNKNOWN));
