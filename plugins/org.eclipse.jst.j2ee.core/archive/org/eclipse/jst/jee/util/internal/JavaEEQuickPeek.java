@@ -153,13 +153,10 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 			String publicID = handler.getDtdPublicID();
 			String systemID = handler.getDtdSystemID();
 			String schemaName = null;
+			String namespace = null;
 			if (publicID == null || systemID == null) {
 				if (handler.getRootAttributes() != null) {
 					schemaName = normalizeSchemaLocation(handler.getRootAttributes().getValue("xsi:schemaLocation")); //$NON-NLS-1$
-				}
-				if (schemaName == null) {
-					version = UNKNOWN;
-					return version;
 				}
 			}
 			switch (getType()) {
@@ -260,6 +257,25 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 					} else if (schemaName.indexOf(J2EEConstants.WEBAPP_SCHEMA_3_1) != -1) {
 						version = J2EEVersionConstants.WEB_3_1_ID;
 					} else if (schemaName.indexOf(J2EEConstants.WEBAPP_SCHEMA_4_0) != -1) {
+						version = J2EEVersionConstants.WEB_4_0_ID;
+					}
+				} else if (J2EEConstants.J2EE_NS_URL.equals(namespace)) {
+					String versionAttribute = handler.getRootAttributes().getValue("version"); //$NON-NLS-1$
+					if (J2EEVersionConstants.VERSION_2_4_TEXT.equals(versionAttribute)) {
+						version = J2EEVersionConstants.WEB_2_4_ID;
+					}
+				} else if (J2EEConstants.JAVAEE_NS_URL.equals(namespace)) {
+					String versionAttribute = handler.getRootAttributes().getValue("version"); //$NON-NLS-1$
+					if (J2EEVersionConstants.VERSION_2_5_TEXT.equals(versionAttribute)) {
+						version = J2EEVersionConstants.WEB_2_5_ID;
+					} else if (J2EEVersionConstants.VERSION_3_0_TEXT.equals(versionAttribute)) {
+						version = J2EEVersionConstants.WEB_3_0_ID;
+					}
+				} else if (J2EEConstants.JAVAEE7_NS_URL.equals(namespace)) {
+					String versionAttribute = handler.getRootAttributes().getValue("version"); //$NON-NLS-1$
+					if (J2EEVersionConstants.VERSION_3_1_TEXT.equals(versionAttribute)) {
+						version = J2EEVersionConstants.WEB_3_1_ID;
+					} else if (J2EEVersionConstants.VERSION_4_0_TEXT.equals(versionAttribute)) {
 						version = J2EEVersionConstants.WEB_4_0_ID;
 					}
 				}
