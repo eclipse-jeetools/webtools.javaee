@@ -24,7 +24,7 @@ public class CoreInfrastructureBVT extends TestSuite {
 		addTest(org.eclipse.jst.j2ee.classpath.tests.AllTests.suite());
 		addTest(org.eclipse.wtp.j2ee.headless.tests.web.container.WebAppLibrariesContainerTests.suite());
 		addTest(org.eclipse.jst.j2ee.defect.tests.DefectVerificationTestsSuite.suite());
-		addTest(org.eclipse.wtp.j2ee.headless.tests.j2ee.operations.HeaderParserTests.suite());
+		addTest(org.eclipse.wtp.j2ee.headless.tests.j2ee.headers.HeaderParserTests.suite());
 	}
 	
 	public static Test suite(){

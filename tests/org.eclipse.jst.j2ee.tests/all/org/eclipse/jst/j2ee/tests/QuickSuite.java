@@ -14,6 +14,7 @@ import org.eclipse.jst.jee.model.ejb.tests.EJBModelSuite;
 import org.eclipse.jst.jee.model.mergers.tests.ModelMergersSuite;
 import org.eclipse.jst.jee.model.web.tests.WebModelSuite;
 import org.eclipse.wtp.j2ee.headless.tests.exportmodel.ExportModelTest;
+import org.eclipse.wtp.j2ee.headless.tests.j2ee.headers.HeaderParserTests;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
@@ -40,6 +41,7 @@ public class QuickSuite extends TestSuite {
 
 		addTest(ModelMergersSuite.suite()); 
 		addTest(WebModelSuite.suite()); 
+		addTest(HeaderParserTests.suite());
 	}
 
 }
