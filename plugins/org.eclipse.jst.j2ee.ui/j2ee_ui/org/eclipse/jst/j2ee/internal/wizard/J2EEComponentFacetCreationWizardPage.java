@@ -31,6 +31,10 @@ import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetProjectCreationDataModelProperties;
 import org.eclipse.jst.j2ee.project.facet.IJ2EEModuleFacetInstallDataModelProperties;
 import org.eclipse.jst.j2ee.ui.project.facet.EarSelectionPanel;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
@@ -60,12 +64,25 @@ public abstract class J2EEComponentFacetCreationWizardPage extends DataModelFace
 
 	@Override
 	protected Composite createTopLevelComposite(Composite parent) {
-        final Composite top = super.createTopLevelComposite(parent);
-		if(isShouldAddEARComposite()){
-        createEarComposite(top);
-        createWorkingSetGroupPanel(top, new String[] { RESOURCE_WORKING_SET, JAVA_WORKING_SET });
-		}
-        return top;
+		Composite realTop = new Composite(parent, SWT.NONE);
+		realTop.setLayout(new GridLayout(1, false));
+		
+		// Create ScrolledComposite
+		ScrolledComposite scrollComposite = new ScrolledComposite(realTop, SWT.H_SCROLL | SWT.V_SCROLL);
+		scrollComposite.setExpandHorizontal(true);
+		scrollComposite.setExpandVertical(true);
+		
+		Composite top = super.createTopLevelComposite(scrollComposite);
+        
+        if(isShouldAddEARComposite()){
+            createEarComposite(top);
+            createWorkingSetGroupPanel(top, new String[] { RESOURCE_WORKING_SET, JAVA_WORKING_SET });
+    		}
+        
+        scrollComposite.setMinSize(top.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+        scrollComposite.setContent(top);
+        scrollComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+        return realTop;
 	}
 
 	private void createEarComposite(Composite top) 
