@@ -24,7 +24,7 @@
   <artifactId>org.eclipse.jst.j2ee.tests</artifactId>
   <version>1.1.700-SNAPSHOT</version>
   <!-- temporarily disable runing these tests by switching to packaging = eclipse-plugin instead of eclipse-test-plugin -->
-  <packaging>eclipse-test-plugin</packaging>
+  <packaging>eclipse-plugin</packaging>
   <build>
     <plugins>
       <plugin>
