@@ -408,7 +408,8 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 						if(archivePath != null) {
 							if (qp.getVersion() == JavaEEQuickPeek.JEE_5_0_ID ||
 									qp.getVersion() == JavaEEQuickPeek.JEE_6_0_ID ||
-									qp.getVersion() == JavaEEQuickPeek.JEE_7_0_ID) {
+									qp.getVersion() == JavaEEQuickPeek.JEE_7_0_ID ||
+									qp.getVersion() == JavaEEQuickPeek.JEE_8_0_ID) {
 								isNestedWithinEar5OrAbove = true;
 								org.eclipse.jst.javaee.application.Application app = (org.eclipse.jst.javaee.application.Application) ddObj;
 								// If lib directory is not specified in deployment descriptor, use the default 
