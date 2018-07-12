@@ -63,4 +63,4 @@ Require-Bundle: org.junit,
  org.eclipse.jst.jee.web,
  org.eclipse.jst.servlet.ui,
  org.eclipse.wtp.jee.capabilities
-Bundle-RequiredExecutionEnvironment: J2SE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
