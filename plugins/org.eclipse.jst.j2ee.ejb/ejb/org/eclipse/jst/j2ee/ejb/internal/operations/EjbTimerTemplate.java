@@ -60,7 +60,7 @@ public class EjbTimerTemplate {
     final StringBuffer stringBuffer = new StringBuffer();
      AddEjbTimerTemplateModel model = (AddEjbTimerTemplateModel) argument; 
      /* This Content is provided under the terms and conditions of the Eclipse Public License Version 1.0 
-("EPL"). A copy of the EPL is available at http://www.eclipse.org/org/documents/epl-v10.php 
+("EPL"). A copy of the EPL is available at https://www.eclipse.org/legal/epl-2.0/ 
 For purposes of the EPL, "Program" will mean the Content. 
 
 Copied from org.eclipse.jst.j2ee.ejb plugin. */ 
@@ -68,7 +68,7 @@ Copied from org.eclipse.jst.j2ee.ejb plugin. */
 	model.removeFlags(CreateJavaEEArtifactTemplateModel.FLAG_QUALIFIED_SUPERCLASS_NAME); 
 
      /* This Content is provided under the terms and conditions of the Eclipse Public License Version 1.0 
-("EPL"). A copy of the EPL is available at http://www.eclipse.org/org/documents/epl-v10.php 
+("EPL"). A copy of the EPL is available at https://www.eclipse.org/legal/epl-2.0/ 
 For purposes of the EPL, "Program" will mean the Content. 
 
 Copied from org.eclipse.jst.j2ee.ejb plugin. */ 
@@ -83,7 +83,7 @@ Copied from org.eclipse.jst.j2ee.ejb plugin. */
 
     stringBuffer.append(TEXT_3);
      /* This Content is provided under the terms and conditions of the Eclipse Public License Version 1.0 
-("EPL"). A copy of the EPL is available at http://www.eclipse.org/org/documents/epl-v10.php 
+("EPL"). A copy of the EPL is available at https://www.eclipse.org/legal/epl-2.0/ 
 For purposes of the EPL, "Program" will mean the Content. 
 
 Copied from org.eclipse.jst.j2ee.ejb plugin. */ 
@@ -99,7 +99,7 @@ Copied from org.eclipse.jst.j2ee.ejb plugin. */
 
     stringBuffer.append(TEXT_6);
      /* This Content is provided under the terms and conditions of the Eclipse Public License Version 1.0 
-("EPL"). A copy of the EPL is available at http://www.eclipse.org/org/documents/epl-v10.php 
+("EPL"). A copy of the EPL is available at https://www.eclipse.org/legal/epl-2.0/ 
 For purposes of the EPL, "Program" will mean the Content. 
 
 Copied from org.eclipse.jst.j2ee.ejb plugin. */ 
@@ -154,7 +154,7 @@ Copied from org.eclipse.jst.j2ee.ejb plugin. */
 
     stringBuffer.append(TEXT_14);
      /* This Content is provided under the terms and conditions of the Eclipse Public License Version 1.0 
-("EPL"). A copy of the EPL is available at http://www.eclipse.org/org/documents/epl-v10.php 
+("EPL"). A copy of the EPL is available at https://www.eclipse.org/legal/epl-2.0/ 
 For purposes of the EPL, "Program" will mean the Content. 
 
 Copied from org.eclipse.jst.j2ee.ejb plugin. */ 
@@ -191,7 +191,7 @@ Copied from org.eclipse.jst.j2ee.ejb plugin. */
 	} 
 
      /* This Content is provided under the terms and conditions of the Eclipse Public License Version 1.0 
-("EPL"). A copy of the EPL is available at http://www.eclipse.org/org/documents/epl-v10.php 
+("EPL"). A copy of the EPL is available at https://www.eclipse.org/legal/epl-2.0/ 
 For purposes of the EPL, "Program" will mean the Content. 
 
 Copied from org.eclipse.jst.j2ee.ejb plugin. */ 
