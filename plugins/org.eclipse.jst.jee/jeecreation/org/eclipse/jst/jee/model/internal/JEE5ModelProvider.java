@@ -270,7 +270,7 @@ public class JEE5ModelProvider implements IModelProvider, ResourceStateInputProv
 				setWritableResource(res);
 			runnable.run();
 			try {
-				if (res != null) {
+				if (res != null && res.isModified()) {
 					if (modelPath != null && modelPath.equals(IModelProvider.FORCESAVE))
 						res.save(Collections.EMPTY_MAP,true);
 					else
