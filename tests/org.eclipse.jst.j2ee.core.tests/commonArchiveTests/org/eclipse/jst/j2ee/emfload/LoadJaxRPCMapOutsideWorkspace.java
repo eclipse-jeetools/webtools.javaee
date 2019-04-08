@@ -10,12 +10,9 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.emfload;
 
-import java.net.URL;
 import java.util.Iterator;
 
-import junit.framework.TestCase;
-
-import org.eclipse.core.runtime.IPluginDescriptor;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
@@ -28,6 +25,8 @@ import org.eclipse.jst.j2ee.internal.J2EEInit;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapResource;
 import org.eclipse.jst.j2ee.webservice.jaxrpcmap.JaxrpcmapResourceFactory;
 import org.eclipse.wst.common.internal.emf.resource.EMF2DOMRendererFactory;
+
+import junit.framework.TestCase;
 
 
 public class LoadJaxRPCMapOutsideWorkspace extends TestCase {
@@ -42,10 +41,7 @@ public class LoadJaxRPCMapOutsideWorkspace extends TestCase {
 	 * @generated
 	 */
 	public void testLoadFile() throws Exception {
-		
-		IPluginDescriptor pluginDescriptor = Platform.getPluginRegistry().getPluginDescriptor("org.eclipse.jst.j2ee.core.tests");
-        URL url = pluginDescriptor.getInstallURL(); 
-        String baseDirectory = Platform.asLocalURL(url).getFile() + "testData" + java.io.File.separatorChar + "webservices" + java.io.File.separatorChar + "META-INF" + java.io.File.separatorChar;
+        String baseDirectory = FileLocator.toFileURL(Platform.getBundle("org.eclipse.jst.j2ee.core.tests").getEntry("")).getFile() + "testData" + java.io.File.separatorChar + "webservices" + java.io.File.separatorChar + "META-INF" + java.io.File.separatorChar;
 		
 	// Call J2EE Init();
 		

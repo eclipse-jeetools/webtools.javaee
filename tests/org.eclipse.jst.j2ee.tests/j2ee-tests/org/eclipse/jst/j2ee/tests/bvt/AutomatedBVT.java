@@ -6,15 +6,13 @@
  */
 package org.eclipse.jst.j2ee.tests.bvt;
 
-import java.net.URL;
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.wtp.j2ee.headless.tests.plugin.AllPluginTests;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
-
-import org.eclipse.core.runtime.IPluginDescriptor;
-import org.eclipse.core.runtime.Platform;
-import org.eclipse.wtp.j2ee.headless.tests.plugin.AllPluginTests;
 
 
 /**
@@ -29,9 +27,7 @@ public class AutomatedBVT extends TestSuite {
     
     static {
         try {
-            IPluginDescriptor pluginDescriptor = Platform.getPluginRegistry().getPluginDescriptor("org.eclipse.jst.j2ee.tests");
-            URL url = pluginDescriptor.getInstallURL(); 
-        	AutomatedBVT.baseDirectory = Platform.asLocalURL(url).getFile() + "TestData"+ java.io.File.separatorChar;
+        	AutomatedBVT.baseDirectory = FileLocator.toFileURL(Platform.getBundle("org.eclipse.jst.j2ee.tests").getEntry("")).getFile() + "TestData"+ java.io.File.separatorChar;
 		} catch (Exception e) { 
 			System.err.println("Using working directory since a workspace URL could not be located.");
 		} 

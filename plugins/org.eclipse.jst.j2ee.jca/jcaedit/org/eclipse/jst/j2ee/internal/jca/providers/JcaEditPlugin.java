@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2005 IBM Corporation and others.
+ * Copyright (c) 2003, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,21 +10,17 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.jca.providers;
 
-
-
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.MessageFormat;
 
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.jst.j2ee.jca.JcaFactory;
 import org.eclipse.jst.j2ee.jca.JcaPackage;
 import org.eclipse.jst.j2ee.jca.internal.impl.JcaFactoryImpl;
 import org.eclipse.jst.j2ee.jca.internal.plugin.JcaPlugin;
-
+import org.osgi.framework.BundleContext;
 
 /**
  * This is the central singleton for the jca plugin.
@@ -43,8 +39,8 @@ public class JcaEditPlugin extends Plugin {
 	/**
 	 * Create the instance.
 	 */
-	public JcaEditPlugin(IPluginDescriptor descriptor) {
-		super(descriptor);
+	public JcaEditPlugin() {
+		super();
 
 		// Remember the static instance.
 		//
@@ -69,8 +65,8 @@ public class JcaEditPlugin extends Plugin {
 	 * Do initialization stuff here.
 	 */
 	@Override
-	public void startup() throws CoreException {
-		super.startup();
+	public void start(BundleContext context) throws Exception {
+		super.start(context);
 		jcaPackage = JcaFactoryImpl.getPackage();
 	}
 

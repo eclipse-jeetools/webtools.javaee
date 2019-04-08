@@ -2,10 +2,11 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %Bundle-Name.0
 Bundle-SymbolicName: org.eclipse.jst.validation.sample; singleton:=true
-Bundle-Version: 1.1.1.qualifier
+Bundle-Version: 1.1.100.qualifier
 Bundle-ClassPath: runtime/propertiesValidator.jar
 Bundle-Activator: org.eclipse.jst.validation.sample.workbenchimpl.PropertiesValidatorPlugin
 Bundle-Localization: plugin
+Bundle-Vendor: %Bundle-Vendor.0
 Export-Package: org.eclipse.jst.validation.sample,
  org.eclipse.jst.validation.sample.filesystem,
  org.eclipse.jst.validation.sample.filesystemimpl,
@@ -14,7 +15,7 @@ Export-Package: org.eclipse.jst.validation.sample,
 Require-Bundle: org.eclipse.core.resources,
  org.eclipse.jdt.core,
  org.eclipse.wst.validation,
- org.eclipse.help,
+ org.eclipse.help;resolution:=optional,
  org.eclipse.jem.util,
  org.eclipse.wst.common.frameworks,
  org.eclipse.core.runtime

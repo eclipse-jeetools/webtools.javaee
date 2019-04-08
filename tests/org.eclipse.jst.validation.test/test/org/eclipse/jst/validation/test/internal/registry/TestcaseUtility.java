@@ -3,13 +3,11 @@ package org.eclipse.jst.validation.test.internal.registry;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URL;
 import java.util.logging.Level;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.IPluginDescriptor;
-import org.eclipse.core.runtime.IPluginRegistry;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.validation.test.BVTValidationPlugin;
@@ -36,27 +34,24 @@ public final class TestcaseUtility {
 		// If the directory where the testcase input isn't specified, 
 		// assume that the input is in a subdirectory, named "testInput",
 		// of the testcase's plugin.
-		IPluginRegistry registry = Platform.getPluginRegistry();
-		IPluginDescriptor descriptor = registry.getPluginDescriptor(tmd.getDeclaringPluginId());
-		if(descriptor != null) {
-			// Because Platform.asLocalURL throws an IOException if the URL resolves
-			// to a directory, find the plugin.xml file and then strip off the file name 
-			// to find the testInput directory.
-			try {
-				String pluginXmlPath = Platform.asLocalURL(new URL(descriptor.getInstallURL(), "plugin.xml")).getPath(); //$NON-NLS-1$
-				File pluginXml = new File(pluginXmlPath);
-				if(pluginXml.exists()) {
-					File inputDir = new File(pluginXml.getParent(), "testInput"); //$NON-NLS-1$
-					if (inputDir.exists() && inputDir.isDirectory()) {
-						return inputDir.getPath();
-					}
+
+		// Because Platform.asLocalURL throws an IOException if the URL resolves
+		// to a directory, find the plugin.xml file and then strip off the file name 
+		// to find the testInput directory.
+		try {
+			String pluginXmlPath = FileLocator.toFileURL(Platform.getBundle(tmd.getDeclaringPluginId()).getEntry("/plugin.xml")).getFile(); //$NON-NLS-1$
+			File pluginXml = new File(pluginXmlPath);
+			if (pluginXml.exists()) {
+				File inputDir = new File(pluginXml.getParent(), "testInput"); //$NON-NLS-1$
+				if (inputDir.exists() && inputDir.isDirectory()) {
+					return inputDir.getPath();
 				}
 			}
-			catch(java.io.IOException exc) {
-				Logger logger = BVTValidationPlugin.getPlugin().getMsgLogger();
-				if(logger.isLoggingLevel(Level.SEVERE)) {
-					logger.write(Level.SEVERE, exc);
-				}
+		}
+		catch (IOException e) {
+		    Logger logger = BVTValidationPlugin.getPlugin().getMsgLogger();
+			if(logger.getLevel() == Level.SEVERE) {
+				logger.write(Level.SEVERE, e);
 			}
 		}
 		

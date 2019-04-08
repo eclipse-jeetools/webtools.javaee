@@ -8,10 +8,7 @@ import java.util.logging.Level;
 
 import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPluginDescriptor;
-import org.eclipse.core.runtime.IPluginRegistry;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.jst.validation.sample.parser.PropertyLine;
 import org.eclipse.jst.validation.sample.workbenchimpl.PluginPropertyFile;
 import org.eclipse.jst.validation.test.BVTValidationPlugin;
@@ -42,25 +39,6 @@ public final class CheckForUntestedPropertiesOperation implements IWorkspaceRunn
 	public ValidatorMetaData getValidatorMetaData() {
 		return _vmd;
 	}
-	private String getPluginId(ValidatorMetaData vmd) {
-		try {
-			// TODO Remove this hack once a getter has been added to ValidatorMetaData for its pluginId.
-			if (vmd != null) {
-				ClassLoader cl = vmd.getValidator().getClass().getClassLoader();
-				IPluginRegistry registry = Platform.getPluginRegistry();
-				IPluginDescriptor[] descriptors = registry.getPluginDescriptors();
-				for (int i = 0; i < descriptors.length; i++) {
-					IPluginDescriptor desc = descriptors[i];
-					if (desc.getPluginClassLoader().equals(cl)) {
-						return desc.getUniqueIdentifier();
-					}
-				}
-			}
-		} catch (InstantiationException exc) {
-			BVTValidationPlugin.getPlugin().handleException(exc);
-		}
-		return null;
-	}
 	void setValidatorMetaData(ValidatorMetaData vmd) {
 		_vmd = vmd;
 	}
@@ -85,7 +63,7 @@ public final class CheckForUntestedPropertiesOperation implements IWorkspaceRunn
 		String propFileName = getResourceBundleName();
 		ValidatorMetaData vmd = getValidatorMetaData();
 		monitor.subTask("Attempting to load file: " + propFileName); //$NON-NLS-1$
-		String pluginId = getPluginId(vmd);
+		String pluginId = vmd.getPluginId();
 		if (pluginId == null) {
 			String msg = "Cannot load plugin id for validator " + vmd.getValidatorDisplayName();//$NON-NLS-1$	
 			monitor.subTask(msg); 		

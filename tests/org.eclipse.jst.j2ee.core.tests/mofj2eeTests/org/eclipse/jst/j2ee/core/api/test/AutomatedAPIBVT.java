@@ -6,14 +6,12 @@
  */
 package org.eclipse.jst.j2ee.core.api.test;
 
-import java.net.URL;
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.Platform;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
-
-import org.eclipse.core.runtime.IPluginDescriptor;
-import org.eclipse.core.runtime.Platform;
 
 
 /**
@@ -28,9 +26,7 @@ public class AutomatedAPIBVT extends TestSuite {
     
     static {
         try {
-            IPluginDescriptor pluginDescriptor = Platform.getPluginRegistry().getPluginDescriptor("org.eclipse.jst.j2ee.core.tests");
-            URL url = pluginDescriptor.getInstallURL(); 
-        	AutomatedAPIBVT.baseDirectory = Platform.asLocalURL(url).getFile() + "commonArchiveResources"+ java.io.File.separatorChar;
+        	AutomatedAPIBVT.baseDirectory = FileLocator.toFileURL(Platform.getBundle("org.eclipse.jst.j2ee.core.tests").getEntry("")).getFile() + "commonArchiveResources"+ java.io.File.separatorChar;
 		} catch (Exception e) { 
 			System.err.println("Using working directory since a workspace URL could not be located.");
 		} 

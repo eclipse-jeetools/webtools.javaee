@@ -62,5 +62,5 @@ Require-Bundle: org.junit,
  org.eclipse.jst.jee.ui,
  org.eclipse.jst.jee.web,
  org.eclipse.jst.servlet.ui,
- org.eclipse.wtp.jee.capabilities
+ org.eclipse.wtp.jee.capabilities;resolution:=optional
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8

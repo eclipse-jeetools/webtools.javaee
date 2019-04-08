@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: J2EE Tests Plug-in
+Bundle-Name: %Bundle-Name
 Bundle-SymbolicName: org.eclipse.jst.j2ee.tests; singleton:=true
-Bundle-Version: 1.1.700.qualifier
+Bundle-Version: 1.1.800.qualifier
 Bundle-ClassPath: j2ee-tests.jar
 Bundle-Activator: org.eclipse.wtp.j2ee.headless.tests.plugin.HeadlessTestsPlugin
 Bundle-Localization: plugin
@@ -70,4 +70,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.wst.xml.core,
  org.eclipse.wst.sse.core
 Eclipse-LazyStart: true
+Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-Vendor: %Bundle-Vendor.0

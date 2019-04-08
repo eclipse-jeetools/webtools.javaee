@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2004 IBM Corporation and others.
+ * Copyright (c) 2003, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.internal.webservice.provider;
 
-import org.eclipse.core.runtime.IPluginDescriptor;
 import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.common.util.ResourceLocator;
 
@@ -81,8 +80,8 @@ public final class Webservicej2eeEditPlugin extends EMFPlugin {
 		 *            the description of the plugin.
 		 * @generated
 		 */
-		public Implementation(IPluginDescriptor descriptor) {
-			super(descriptor);
+		public Implementation() {
+			super();
 
 			// Remember the static instance.
 			//

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2008 IBM Corporation and others.
+ * Copyright (c) 2005, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,24 +11,22 @@
 
 package org.eclipse.jst.validation.sample.workbenchimpl;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.util.Locale;
 import java.util.logging.Level;
 
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPluginDescriptor;
-import org.eclipse.core.runtime.IPluginRegistry;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.core.runtime.Plugin;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.validation.sample.parser.APropertyFile;
 import org.eclipse.jst.validation.sample.parser.MessageMetaData;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
+import org.osgi.framework.Bundle;
 
 /**
  * A PluginPropertyFile represents a resource bundle that is exported by a plugin.
@@ -51,15 +49,8 @@ public class PluginPropertyFile extends APropertyFile {
 		
 		ClassLoader cl = null;
 		InputStream inS = null;
-		Plugin plugin = getPlugin(pluginId);			
-		if(bundleName.equals("plugin")) { //$NON-NLS-1$
-			// Try loading it from the Plugin parent (a "plugin.properties")
-			cl = getPluginPropertiesClassLoader(plugin);
-		}
-		else {
-			cl = plugin.getDescriptor().getPluginClassLoader();
-		}
-		inS = getInputStream(cl, bundleName);
+		Bundle bundle = Platform.getBundle(pluginId);
+		inS = getInputStream(bundle, bundleName);
 		
 		InputStreamReader inR = new InputStreamReader(inS);
 		LineNumberReader lineR = new LineNumberReader(inR);
@@ -90,7 +81,7 @@ public class PluginPropertyFile extends APropertyFile {
 		_classLoader = cl; // store the ClassLoader which was used to load the bundle
 	}
 	
-	private InputStream getInputStream(ClassLoader cl, String bundleName) {
+	private InputStream getInputStream(Bundle bundle, String bundleName) {
 		Locale l = Locale.getDefault();
 		String language = l.getLanguage();
 		String country = l.getCountry();
@@ -113,7 +104,7 @@ public class PluginPropertyFile extends APropertyFile {
 		
 		InputStream inS = null;
 		if(lang_country_variant != null) {
-			inS = getResourceAsStream(cl, bundleName, lang_country_variant);
+			inS = getResourceAsStream(bundle, bundleName, lang_country_variant);
 			if(inS != null) {
 				_langVariant = lang_country_variant;
 				return inS;
@@ -121,7 +112,7 @@ public class PluginPropertyFile extends APropertyFile {
 		}
 		
 		if(lang_country != null) {
-			inS = getResourceAsStream(cl, bundleName, lang_country);
+			inS = getResourceAsStream(bundle, bundleName, lang_country);
 			if(inS != null) {
 				_langVariant = lang_country;
 				return inS;
@@ -129,7 +120,7 @@ public class PluginPropertyFile extends APropertyFile {
 		}
 		
 		if(lang != null) {
-			inS = getResourceAsStream(cl, bundleName, lang);
+			inS = getResourceAsStream(bundle, bundleName, lang);
 			if(inS != null) {
 				_langVariant = lang;
 				return inS;
@@ -138,7 +129,7 @@ public class PluginPropertyFile extends APropertyFile {
 		
 		if(Locale.getDefault().equals(Locale.US)) {
 			// Running the TVT plugin in en_US mode, so return the default .properties file.
-			inS = getResourceAsStream(cl, bundleName, ""); //$NON-NLS-1$
+			inS = getResourceAsStream(bundle, bundleName, ""); //$NON-NLS-1$
 			if(inS != null) {
 				_langVariant = ""; //$NON-NLS-1$
 				return inS;
@@ -148,49 +139,16 @@ public class PluginPropertyFile extends APropertyFile {
 		return null;
 	}
 	
-	private final static InputStream getResourceAsStream(final ClassLoader cl, final String bundleName, final String language) {
+	private final static InputStream getResourceAsStream(final Bundle bundle, final String bundleName, final String language) {
 		String resName = bundleName.replace('.', '/') + language + ".properties"; //$NON-NLS-1$
-		return cl.getResourceAsStream(resName);
-	}
-	
-	private static ClassLoader getPluginPropertiesClassLoader(Plugin p) {
-		// Copied from PluginDescriptor.java's getResourceBundle method.
-		URL[] cp = ((URLClassLoader)p.getDescriptor().getPluginClassLoader()).getURLs();
-		URL[] newcp = new URL[cp.length+1];
-		for (int i=0; i<cp.length; i++) newcp[i+1] = cp[i];
 		try {
-			newcp[0] = Platform.resolve(p.getBundle().getEntry("/")); //$NON-NLS-1$ // always try to resolve URLs used in loaders
-		} catch(IOException e) {
-			newcp[0] = p.getBundle().getEntry("/"); //$NON-NLS-1$
+			return bundle.getEntry(resName).openStream();
 		}
-		ClassLoader resourceLoader = new URLClassLoader(newcp, null);
-		return resourceLoader;
+		catch(IOException e) {
+			Platform.getLog(bundle).log(new Status(IStatus.ERROR, bundle.getSymbolicName(), IStatus.ERROR, "Nothing found at " + resName + " in " + bundle.getSymbolicName(), e));
+			return new ByteArrayInputStream(new byte[0]);
+		}
 	}
-	
-	private static Plugin getPlugin(String pluginId) {
-		if (pluginId == null) {
-			return null;
-		}
-
-		IPluginRegistry registry = Platform.getPluginRegistry();
-		IPluginDescriptor pluginDesc = registry.getPluginDescriptor(pluginId);
-		if(pluginDesc == null) {
-			return null;
-		}
-		
-		try {
-			return pluginDesc.getPlugin();
-		}
-		catch(CoreException exc) {
-			Logger logger = PropertiesValidatorPlugin.getPlugin().getMsgLogger();;
-			if(logger.isLoggingLevel(Level.SEVERE)) {
-				logger.write(Level.SEVERE, exc);
-			}
-			return null;
-		}
-		
-	}
-
 	
 	/*
 	 * @see APropertyFile#report(String)
