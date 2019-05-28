@@ -143,8 +143,10 @@ public class JEE5ModelProvider implements IModelProvider, ResourceStateInputProv
 			}
 		}
 		modelResources.add(res);
-		if (!res.eAdapters().contains(resourceAdapter))
+		if (!res.eAdapters().contains(resourceAdapter)) {
 			res.eAdapters().add(resourceAdapter);
+			res.setTrackingModification(true);
+		}
 	}
 	/**
 	 * Returns true if there are any listeners
