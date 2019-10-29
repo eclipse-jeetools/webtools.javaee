@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %Bundle-Name.0
 Bundle-SymbolicName: org.eclipse.jst.j2ee.ejb.annotations.ui; singleton:=true
-Bundle-Version: 1.1.301.qualifier
+Bundle-Version: 1.1.400.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: org.eclipse.jst.j2ee.ejb.annotation.ui.internal.EjbAnnotationsUiPlugin
 Bundle-Vendor: %Bundle-Vendor.0
@@ -36,4 +36,4 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.datatools.connectivity;resolution:=optional,
  org.eclipse.datatools.connectivity.ui.dse;resolution:=optional
 Eclipse-LazyStart: true
-Bundle-RequiredExecutionEnvironment: J2SE-1.4
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
