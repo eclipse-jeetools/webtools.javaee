@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2015 IBM Corporation and others.
+ * Copyright (c) 2005, 2020 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
@@ -920,19 +920,21 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 					InputStream ioStream = null;
 					try {
 						ioStream = archiveResource.getInputStream();
-						IClassFileReader classFileReader = ToolFactory.createDefaultClassFileReader(ioStream, IClassFileReader.CLASSFILE_ATTRIBUTES);
-						//classFileReader will be null if this is an invalid java .class file
-						if(classFileReader != null){
-							IClassFileAttribute[] attributes = classFileReader.getAttributes();
-							for (IClassFileAttribute attribute : attributes) {
-								char[] attributeName = attribute.getAttributeName();
-								if (Arrays.equals(attributeName, RUNTIME_VISIBLE)) {
-									IRuntimeVisibleAnnotationsAttribute annotationsAttribute = (IRuntimeVisibleAnnotationsAttribute) attribute;
-									IAnnotation[] annotations = annotationsAttribute.getAnnotations();
-									for (IAnnotation annotation : annotations) {
-										char[] typedName = annotation.getTypeName();
-										if (Arrays.equals(typedName, STATELESS) || Arrays.equals(typedName, STATEFUL) || Arrays.equals(typedName, MESSAGEDRIVEN) || Arrays.equals(typedName, SINGLETON)) {
-											return true;
+						if (ioStream != null) {
+							IClassFileReader classFileReader = ToolFactory.createDefaultClassFileReader(ioStream, IClassFileReader.CLASSFILE_ATTRIBUTES);
+							//classFileReader will be null if this is an invalid java .class file
+							if(classFileReader != null) {
+								IClassFileAttribute[] attributes = classFileReader.getAttributes();
+								for (IClassFileAttribute attribute : attributes) {
+									char[] attributeName = attribute.getAttributeName();
+									if (Arrays.equals(attributeName, RUNTIME_VISIBLE)) {
+										IRuntimeVisibleAnnotationsAttribute annotationsAttribute = (IRuntimeVisibleAnnotationsAttribute) attribute;
+										IAnnotation[] annotations = annotationsAttribute.getAnnotations();
+										for (IAnnotation annotation : annotations) {
+											char[] typedName = annotation.getTypeName();
+											if (Arrays.equals(typedName, STATELESS) || Arrays.equals(typedName, STATEFUL) || Arrays.equals(typedName, MESSAGEDRIVEN) || Arrays.equals(typedName, SINGLETON)) {
+												return true;
+											}
 										}
 									}
 								}

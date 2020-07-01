@@ -1,5 +1,5 @@
 /***********************************************************************
- * Copyright (c) 2008, 2010 by SAP AG, Walldorf. 
+ * Copyright (c) 2008, 2020 by SAP AG, Walldorf, and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -28,6 +28,7 @@ import org.eclipse.jst.javaee.web.FilterMapping;
 import org.eclipse.jst.javaee.web.Servlet;
 import org.eclipse.jst.javaee.web.ServletMapping;
 import org.eclipse.jst.javaee.web.WebApp;
+import org.eclipse.jst.jee.web.Activator;
 
 /**
  * WebApp merger merges the WebApp artifact. 
@@ -87,6 +88,7 @@ public class WebAppMerger  extends ModelElementMerger {
       mergeSecurityRoles(warnings);
       mergeSecurityConstraints(warnings);
     } catch (Exception e) {
+      Activator.log(e);
       throw new ModelException(e);
     }
     return warnings;
@@ -263,13 +265,34 @@ public class WebAppMerger  extends ModelElementMerger {
   }
 
 	protected boolean artifactIsValid(Object javaEEObject) {
-		if (javaEEObject instanceof Servlet){
-			return ( (Servlet)javaEEObject).getServletName() != null;
-		} else if (javaEEObject instanceof Listener){        
-			return ((Listener)javaEEObject).getListenerClass() != null;
-		} else if (javaEEObject instanceof Filter){
-			return ((Filter)javaEEObject).getFilterName() != null;
-		} 
+		if (javaEEObject instanceof Servlet) {
+			return ((Servlet) javaEEObject).getServletName() != null;
+		}
+		else if (javaEEObject instanceof Listener) {
+			return ((Listener) javaEEObject).getListenerClass() != null;
+		}
+		else if (javaEEObject instanceof Filter) {
+			return ((Filter) javaEEObject).getFilterName() != null;
+
+		}
+		else if (javaEEObject instanceof Description) {
+			return ((Description) javaEEObject).getValue() != null;
+		}
+		else if (javaEEObject instanceof WelcomeFile) {
+			return ((WelcomeFile) javaEEObject).getWelcomeFile() != null;
+		}
+		else if (javaEEObject instanceof ServletMapping) {
+			return ((ServletMapping) javaEEObject).getServletName() != null;
+		}
+		else if (javaEEObject instanceof FilterMapping) {
+			return ((FilterMapping) javaEEObject).getFilterName() != null;
+		}
+		else if (javaEEObject instanceof UrlPatternType) {
+			return ((UrlPatternType) javaEEObject).getValue() != null;
+		}
+		else if (javaEEObject instanceof ParamValue) {
+			return ((ParamValue) javaEEObject).getParamName() != null;
+		}
 		return true;
 	}
 
@@ -283,7 +306,6 @@ public class WebAppMerger  extends ModelElementMerger {
 				continue;
 			}
 			if (javaEEObject instanceof Servlet){
-
 				if(((Servlet) targetArtifact).getServletName().equals(((Servlet)javaEEObject).getServletName())){
 					return (JavaEEObject) targetArtifact;
 				}
