@@ -57,7 +57,6 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.ui.texteditor.link.EditorLinkedModeUI;
 import org.osgi.framework.Bundle;
-import org.eclipse.jst.common.internal.annotations.ui.UiPlugin;
 
 /**
  * 

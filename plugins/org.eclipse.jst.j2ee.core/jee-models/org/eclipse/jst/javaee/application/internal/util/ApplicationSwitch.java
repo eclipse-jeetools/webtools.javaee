@@ -14,8 +14,10 @@ import org.eclipse.emf.ecore.EObject;
 
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.util.Switch;
-import org.eclipse.jst.javaee.application.*;
-
+import org.eclipse.jst.javaee.application.Application;
+import org.eclipse.jst.javaee.application.ApplicationDeploymentDescriptor;
+import org.eclipse.jst.javaee.application.Module;
+import org.eclipse.jst.javaee.application.Web;
 import org.eclipse.jst.javaee.application.internal.metadata.ApplicationPackage;
 
 /**

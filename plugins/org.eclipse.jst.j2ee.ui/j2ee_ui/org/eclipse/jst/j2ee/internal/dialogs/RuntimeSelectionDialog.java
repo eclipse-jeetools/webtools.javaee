@@ -33,7 +33,6 @@ import org.eclipse.ui.dialogs.PreferencesUtil;
 import org.eclipse.ui.forms.events.IHyperlinkListener;
 import org.eclipse.ui.forms.widgets.Hyperlink;
 import org.eclipse.wst.server.core.IRuntime;
-import org.eclipse.jst.j2ee.internal.dialogs.Messages;
 
 
 /**

@@ -51,7 +51,6 @@ import org.eclipse.jst.j2ee.ejb.SessionType;
 import org.eclipse.jst.j2ee.ejb.TransactionType;
 import org.eclipse.jst.j2ee.ejb.internal.impl.LocalModelledPersistentAttributeFilter;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
-import org.eclipse.jst.j2ee.model.internal.validation.EARValidationMessageResourceHandler;
 
 /**
  * @version 	1.0

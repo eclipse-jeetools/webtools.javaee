@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2007 IBM Corporation and others.
+ * Copyright (c) 2001, 2020 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -755,7 +755,7 @@ public CMPAttribute removePersistentAttribute(String aName) {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case EjbPackage.CONTAINER_MANAGED_ENTITY__VERSION:
-				return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
+				return /* VERSION_EDEFAULT == null ? version != null : */ !VERSION_EDEFAULT.equals(version);
 			case EjbPackage.CONTAINER_MANAGED_ENTITY__ABSTRACT_SCHEMA_NAME:
 				return ABSTRACT_SCHEMA_NAME_EDEFAULT == null ? abstractSchemaName != null : !ABSTRACT_SCHEMA_NAME_EDEFAULT.equals(abstractSchemaName);
 			case EjbPackage.CONTAINER_MANAGED_ENTITY__PERSISTENT_ATTRIBUTES:
