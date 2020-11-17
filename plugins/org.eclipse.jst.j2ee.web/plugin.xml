@@ -530,7 +530,17 @@
       <group-member id="modules"/>
     </project-facet-version>
 
-    <action facet="jst.webfragment" version="[3.0-4.0]" type="INSTALL" id="jst.webfragment.install">
+    <project-facet-version facet="jst.webfragment" version="5.0">
+      <constraint>
+        <and>
+          <requires facet="jst.java" version="[1.8"/>
+          <conflicts group="modules"/>
+        </and>
+      </constraint>
+      <group-member id="modules"/>
+    </project-facet-version>
+
+    <action facet="jst.webfragment" version="[3.0-5.0]" type="INSTALL" id="jst.webfragment.install">
       <delegate class="org.eclipse.jst.j2ee.web.project.facet.WebFragmentFacetInstallDelegate"/>
       <config-factory class="org.eclipse.jst.j2ee.web.project.facet.WebFragmentFacetInstallDataModelProvider"/>
     </action>
@@ -539,9 +549,9 @@
        <delegate class="org.eclipse.jst.j2ee.project.facet.J2EEFacetRuntimeChangedDelegate"/>
     </event-handler>
     
-	<event-handler type="POST_INSTALL" facet="jst.webfragment" version="[3.0-4.0]">
+	<event-handler type="POST_INSTALL" facet="jst.webfragment" version="[3.0-5.0]">
 		    <delegate class="org.eclipse.jst.j2ee.web.project.facet.WebFragmentFacetPostInstallDelegate"/>
-	   </event-handler>  
+	   </event-handler>
           
     <template id="template.jst.webfragment">
       <label>%WEBFRAGMENT_FACET_TEMPLATE_LABEL</label>

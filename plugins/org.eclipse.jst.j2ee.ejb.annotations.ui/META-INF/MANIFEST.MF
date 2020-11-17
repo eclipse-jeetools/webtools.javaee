@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %Bundle-Name.0
 Bundle-SymbolicName: org.eclipse.jst.j2ee.ejb.annotations.ui; singleton:=true
-Bundle-Version: 1.1.400.qualifier
+Bundle-Version: 1.2.0.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: org.eclipse.jst.j2ee.ejb.annotation.ui.internal.EjbAnnotationsUiPlugin
 Bundle-Vendor: %Bundle-Vendor.0

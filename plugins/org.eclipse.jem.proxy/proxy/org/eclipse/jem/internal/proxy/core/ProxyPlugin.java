@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2020 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v2.0
  * which accompanies this distribution, and is available at
@@ -433,7 +433,7 @@ public class ProxyPlugin extends Plugin {
 		try {
 			// It is a directory. We could be in either development mode or not. Walk the manifest classpath and find the libraries.
 			Properties buildProps = null;
-			String libraries = (String) bundle.getHeaders().get(Constants.BUNDLE_CLASSPATH);
+			String libraries = bundle.getHeaders().get(Constants.BUNDLE_CLASSPATH);
 			ManifestElement[] elements = ManifestElement.parseHeader(Constants.BUNDLE_CLASSPATH, libraries);
 			List urls = new ArrayList();
 			if (elements != null) {
@@ -1346,7 +1346,7 @@ public class ProxyPlugin extends Plugin {
 		// "bundlename_bundleversion/pathOfJar/jarnamesrc.zip". However there is no way to know
 		// which extension has the source in it, so we need to search them all.
 		
-		IPath srcPath = new Path(bundle.getSymbolicName()+"_"+ (String) bundle.getHeaders("").get(Constants.BUNDLE_VERSION)); //$NON-NLS-1$ //$NON-NLS-2$ $NON-NLS-2$
+		IPath srcPath = new Path(bundle.getSymbolicName()+"_"+ bundle.getHeaders("").get(Constants.BUNDLE_VERSION)); //$NON-NLS-1$ //$NON-NLS-2$ $NON-NLS-2$
 		srcPath = srcPath.append(new Path(jarString.substring(installLoc.length())));
 		if (srcPath.segmentCount() < 2)
 			return null;	// Something is not right. No jar name.
