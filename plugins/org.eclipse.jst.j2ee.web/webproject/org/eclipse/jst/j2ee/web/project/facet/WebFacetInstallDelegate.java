@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2005, 2011 BEA Systems, Inc. and others
+ * Copyright (c) 2005, 2021 BEA Systems, Inc. and others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -23,6 +23,7 @@ import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -142,7 +143,11 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
     				WebArtifactEdit.createDeploymentDescriptor(project, nVer);
     			}
 			}
-			
+
+			if (!contentdir.equals(pjpath.addTrailingSeparator().append("WebContent"))) { //$NON-NLS-1$
+				project.getFolder("WebContent").createLink(new Path("PROJECT_LOC").append(contentdir.removeFirstSegments(1)), IResource.NONE, null); //$NON-NLS-1$//$NON-NLS-2$
+			}
+
 			// Set entries for src folders
 			final IVirtualFolder jsrc = c.getRootFolder().getFolder("/WEB-INF/classes"); //$NON-NLS-1$
 			final IClasspathEntry[] cp = jproj.getRawClasspath();

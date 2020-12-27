@@ -52,12 +52,12 @@ Root:</uicontrol> field, specify a folder for your source files or
 accept the default value.</cmd></step>
 <step><cmd>In the <uicontrol>Content Directory:</uicontrol> field,
 specify a folder for your source files or accept the default value
-(WebContent).</cmd></step>
+(src/main/webapp).</cmd></step>
 <step><cmd>In the <uicontrol>Java Source Directory</uicontrol> field,
 specify a folder for your source files or accept the default value
-(src).</cmd></step>
+(src/main/java).</cmd></step>
 <step><cmd>In the <uicontrol>Output Folder:</uicontrol> field, specify
-a folder for your output files or accept the default value (WebContent/WEB-INF/classes).</cmd>
+a folder for your output files or accept the default value (build/classes).</cmd>
 <info></info></step>
 <step><cmd>Click <uicontrol>Finish</uicontrol>.</cmd></step>
 </steps>
