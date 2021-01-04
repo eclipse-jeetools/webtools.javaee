@@ -387,7 +387,7 @@
     <project-facet id="jst.web">
       <label>%WEB_FACET_LABEL</label>
       <description>%WEB_FACET_DESCRIPTION</description>
-      <default-version version="3.0"/>
+      <default-version version="4.0"/>
     </project-facet>
 
     <project-facet-version facet="jst.web" version="2.2">
@@ -460,19 +460,33 @@
       <group-member id="modules"/>
     </project-facet-version>
 
+    <project-facet-version facet="jst.web" version="5.0">
+      <constraint>
+        <and>
+          <requires facet="jst.java" version="[1.8"/>
+          <conflicts group="modules"/>
+        </and>
+      </constraint>
+      <group-member id="modules"/>
+    </project-facet-version>
+
     <action facet="jst.web" type="INSTALL" id="jst.web.install">
       <delegate class="org.eclipse.jst.j2ee.web.project.facet.WebFacetInstallDelegate"/>
       <config-factory class="org.eclipse.jst.j2ee.web.project.facet.WebFacetInstallDataModelProvider"/>
+    </action>
+
+    <action facet="jst.web" type="version-change">
+      <delegate class="org.eclipse.jst.j2ee.web.project.facet.WebFacetVersionChangeDelegate"/>
     </action>
 
     <event-handler facet="jst.web" type="RUNTIME_CHANGED">
        <delegate class="org.eclipse.jst.j2ee.project.facet.J2EEFacetRuntimeChangedDelegate"/>
     </event-handler>
     
-    <event-handler type="POST_INSTALL" facet="jst.web">
+    <event-handler facet="jst.web" type="POST_INSTALL">
       <delegate class="org.eclipse.jst.j2ee.web.project.facet.WebFacetPostInstallDelegate"/>
     </event-handler>
-    
+
     <template id="template.jst.web">
       <label>%WEB_FACET_TEMPLATE_LABEL</label>
       <fixed facet="jst.java"/>

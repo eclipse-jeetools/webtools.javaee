@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009, 2012 IBM Corporation and others.
+ * Copyright (c) 2009, 2021 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -235,7 +235,7 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 		
 		// since 2.0
 		node.put(Keys.J2EE_WEB_CONTENT, ProductManager.getProperty(IProductConstants.WEB_CONTENT_FOLDER));
-		node.put(Keys.STATIC_WEB_CONTENT, ProductManager.getProperty(IProductConstants.WEB_CONTENT_FOLDER));
+		node.put(Keys.STATIC_WEB_CONTENT, ProductManager.getProperty(IProductConstants.STATIC_WEB_CONTENT_FOLDER));
 		// since 2.0
 		node.put(Keys.JAVA_SOURCE, FacetCorePlugin.getJavaSrcFolder());
 		// done in CommonFrameworksPref..Initializer

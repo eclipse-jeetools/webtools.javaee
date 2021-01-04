@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2014 IBM Corporation and others.
+ * Copyright (c) 2005, 2021 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -47,6 +47,9 @@ public class J2EEVersionUtil {
 		
 		case J2EEVersionConstants.SERVLET_4_0:
 			return J2EEVersionConstants.VERSION_4_0_TEXT;
+
+		case J2EEVersionConstants.SERVLET_5_0:
+			return J2EEVersionConstants.VERSION_5_0_TEXT;
 		}
 		return ""; //$NON-NLS-1$
 
@@ -175,12 +178,14 @@ public class J2EEVersionUtil {
 			return J2EEVersionConstants.JEE_7_0_ID;
 		if (version.equals(J2EEVersionConstants.VERSION_4_0_TEXT))
 			return J2EEVersionConstants.JEE_8_0_ID;
+		if (version.equals(J2EEVersionConstants.VERSION_5_0_TEXT))
+			return J2EEVersionConstants.JEE_9_0_ID;
 		// default
-		return J2EEVersionConstants.J2EE_1_4_ID;
+		return J2EEVersionConstants.JEE_8_0_ID;
 	}
 	
 	public static int convertWebFragmentVersionStringToJ2EEVersionID(String version) {
-		return J2EEVersionConstants.JEE_6_0_ID;
+		return convertWebVersionStringToJ2EEVersionID(version);
 	}
 
 	public static int convertConnectorVersionStringToJ2EEVersionID(String version) {
