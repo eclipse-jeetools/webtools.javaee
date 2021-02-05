@@ -144,9 +144,9 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
     			}
 			}
 
-			if (!contentdir.equals(pjpath.addTrailingSeparator().append("WebContent"))) { //$NON-NLS-1$
-				project.getFolder("WebContent").createLink(new Path("PROJECT_LOC").append(contentdir.removeFirstSegments(1)), IResource.NONE, null); //$NON-NLS-1$//$NON-NLS-2$
-			}
+			//if (!contentdir.equals(pjpath.addTrailingSeparator().append("WebContent"))) { //$NON-NLS-1$
+			//	project.getFolder("WebContent").createLink(new Path("PROJECT_LOC").append(contentdir.removeFirstSegments(1)), IResource.NONE, null); //$NON-NLS-1$//$NON-NLS-2$
+			//}
 
 			// Set entries for src folders
 			final IVirtualFolder jsrc = c.getRootFolder().getFolder("/WEB-INF/classes"); //$NON-NLS-1$
