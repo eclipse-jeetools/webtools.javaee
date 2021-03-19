@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2006 IBM Corporation and others.
+ * Copyright (c) 2005, 2021 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -22,7 +22,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
-import org.eclipse.core.runtime.IPluginRegistry;
+import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jem.util.logger.proxy.Logger;
@@ -445,7 +445,7 @@ public final class BVTValidationRegistryReader implements RegistryConstants {
 		 * Returns the operation extension point
 		 */
 		private IExtensionPoint getTestcaseExtensionPoint() {
-			IPluginRegistry registry = Platform.getPluginRegistry();
+			IExtensionRegistry registry = Platform.getExtensionRegistry();
 			IExtensionPoint extensionPoint = registry.getExtensionPoint(PLUGIN_ID, VALIDATOR_TESTCASE_EXT_PT_ID);
 			if (extensionPoint == null) {
 				// If this happens it means that someone removed the "validator" extension point declaration 
@@ -642,7 +642,7 @@ public final class BVTValidationRegistryReader implements RegistryConstants {
 		 * Returns the TestCase extension point
 		 */
 		private IExtensionPoint getOperationTestcaseExtensionPoint() {
-			IPluginRegistry registry = Platform.getPluginRegistry();
+			IExtensionRegistry registry = Platform.getExtensionRegistry();
 			IExtensionPoint extensionPoint = registry.getExtensionPoint(PLUGIN_ID, VALIDATOR_OPERATION_TESTCASE_EXT_PT_ID);
 			if (extensionPoint == null) {
 				// If this happens it means that someone removed the "optest" extension point declaration 
@@ -802,7 +802,7 @@ public final class BVTValidationRegistryReader implements RegistryConstants {
 		 * Returns the TestCaseSetup extension point
 		 */
 		private IExtensionPoint getSetupExtensionPoint() {
-			IPluginRegistry registry = Platform.getPluginRegistry();
+			IExtensionRegistry registry = Platform.getExtensionRegistry();
 			IExtensionPoint extensionPoint = registry.getExtensionPoint(PLUGIN_ID, VALIDATOR_SETUP_EXT_PT_ID);
 			if (extensionPoint == null) {
 				// If this happens it means that someone removed the "validator" extension point declaration 

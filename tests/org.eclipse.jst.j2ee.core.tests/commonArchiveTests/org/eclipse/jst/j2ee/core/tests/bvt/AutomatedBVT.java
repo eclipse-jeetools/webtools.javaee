@@ -23,13 +23,14 @@ import junit.textui.TestRunner;
  */
 public class AutomatedBVT extends TestSuite {
 
-    public static String baseDirectory = System.getProperty("user.dir") + java.io.File.separatorChar + "commonArchiveResources" + java.io.File.separatorChar;
+    public static String baseDirectory;
     
     static {
         try {
         	AutomatedBVT.baseDirectory = FileLocator.toFileURL(Platform.getBundle("org.eclipse.jst.j2ee.core.tests").getEntry("")).getFile() + "commonArchiveResources" + java.io.File.separatorChar;
 		} catch (Exception e) { 
 			System.err.println("Using working directory since a workspace URL could not be located.");
+			baseDirectory = System.getProperty("user.dir") + java.io.File.separatorChar + "commonArchiveResources" + java.io.File.separatorChar;
 		} 
     }
 

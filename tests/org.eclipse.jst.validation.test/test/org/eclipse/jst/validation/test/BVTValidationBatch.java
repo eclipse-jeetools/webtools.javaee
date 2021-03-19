@@ -5,14 +5,15 @@ import java.util.logging.Level;
 import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPlatformRunnable;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.equinox.app.IApplication;
+import org.eclipse.equinox.app.IApplicationContext;
 import org.eclipse.jem.util.logger.proxy.Logger;
 import org.eclipse.jst.validation.test.internal.util.BVTRunner;
 import org.eclipse.jst.validation.test.internal.util.BVTValidationUtility;
 /**
  */
-public class BVTValidationBatch implements IPlatformRunnable {
+public class BVTValidationBatch implements IApplication {
 	private String _dir = null; // The test cases (.ear, .jar) are identified through a relative directory, and this is the parent of that relative directory.
 	private boolean _verbose = false;
 	static Boolean _passed = null;
@@ -101,7 +102,14 @@ public class BVTValidationBatch implements IPlatformRunnable {
 		catch(CoreException exc) {
 			throw new BVTValidationException(exc);
 		}
-		return _passed;
+		return _passed.booleanValue() ? EXIT_OK : _passed;
+	}
+
+	public Object start(IApplicationContext context) throws Exception {
+		return run(context.getArguments().get(IApplicationContext.APPLICATION_ARGS));
+	}
+
+	public void stop() {
 	}
 	
 }
