@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2008 IBM Corporation and others.
+ * Copyright (c) 2003, 2021 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -217,7 +217,7 @@ public class AddServletWizardPage extends DataModelWizardPage {
 	public void setVisible(boolean visible) {
 		super.setVisible(visible);
 		String javaEEVersion = model.getStringProperty(INewServletClassDataModelProperties.JAVA_EE_VERSION);
-		if("3.0".equals(javaEEVersion) || "3.1".equals(javaEEVersion) || "4.0".equals(javaEEVersion)){ //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$			
+		if(Double.valueOf(javaEEVersion) >= 3.0) {
 			asyncSupportCheckBox.setVisible(true);
 		}
 		else

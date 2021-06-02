@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2008 IBM Corporation and others.
+ * Copyright (c) 2001, 2021 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -148,7 +148,8 @@ public interface J2EEConstants extends J2EEVersionConstants {
     String WEBAPP_SCHEMA_3_0        =   "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd";//$NON-NLS-1$
     String WEBAPP_SCHEMA_3_1        =   "http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd";//$NON-NLS-1$
     String WEBAPP_SCHEMA_4_0        =   "http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd";//$NON-NLS-1$
-    /** "WEB-INF/ejb-jar.xml"                                                                                              */
+    String WEBAPP_SCHEMA_5_0        =   "http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_5_0.xsd";//$NON-NLS-1$
+    /** "WEB-INF/ejb-jar.xml" */
     String EJBJAR_IN_WAR_DD_URI                =   "WEB-INF/ejb-jar.xml"; //$NON-NLS-1$
     //J2C Resource Adapter Constants
     /** "J2CResourceAdapter_ID"                                                                                             */

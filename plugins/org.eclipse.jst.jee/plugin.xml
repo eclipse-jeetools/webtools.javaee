@@ -598,6 +598,20 @@
   	</extension>
   		  	
   	<extension
+         point="org.eclipse.core.contenttype.contentTypes">
+      <content-type
+            file-names="web.xml"
+            id="ee9webDD"
+            base-type="org.eclipse.core.runtime.xml"
+            name="%ee9webContentType"
+            priority="high">
+         <describer
+               class="org.eclipse.jst.jee.contenttype.JEE9ContentDescriber">
+         </describer>
+      </content-type>
+  	</extension> 
+  	
+  	<extension
         point="org.eclipse.jst.j2ee.J2EEModelProvider">
       	<provider>
         	<modelProvider factoryClass="org.eclipse.jst.jee.model.internal.EAR5ModelProviderFactory"/>	

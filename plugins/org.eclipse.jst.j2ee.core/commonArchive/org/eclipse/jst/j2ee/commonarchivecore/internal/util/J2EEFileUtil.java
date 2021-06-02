@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2007 IBM Corporation and others.
+ * Copyright (c) 2001, 2021 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -341,21 +341,23 @@ public class J2EEFileUtil {
            }
         } else if (isWARFile(fileURI)) {
            if (null == versionAttr) {
-              version = J2EEVersionConstants.WEB_2_4_ID;
-           } else if (versionAttr.equals(J2EEVersionConstants.VERSION_2_2_TEXT)) {
-              version = J2EEVersionConstants.WEB_2_2_ID;
-           } else if (versionAttr.equals(J2EEVersionConstants.VERSION_2_3_TEXT)) {
-              version = J2EEVersionConstants.WEB_2_3_ID;
-           } else if (versionAttr.equals(J2EEVersionConstants.VERSION_2_4_TEXT)) {
-              version = J2EEVersionConstants.WEB_2_4_ID;
-           } else if (versionAttr.equals(J2EEVersionConstants.VERSION_2_5_TEXT)) {
-              version = J2EEVersionConstants.WEB_2_5_ID;
-           } else if (versionAttr.equals(J2EEVersionConstants.VERSION_3_0_TEXT)) {
-              version = J2EEVersionConstants.WEB_3_0_ID;
-           } else if (versionAttr.equals(J2EEVersionConstants.VERSION_3_1_TEXT)) {
-              version = J2EEVersionConstants.WEB_3_1_ID;
+              version = J2EEVersionConstants.WEB_5_0_ID;
+           } else if (versionAttr.equals(J2EEVersionConstants.VERSION_5_0_TEXT)) {
+        	  version = J2EEVersionConstants.WEB_5_0_ID;
            } else if (versionAttr.equals(J2EEVersionConstants.VERSION_4_0_TEXT)) {
         	  version = J2EEVersionConstants.WEB_4_0_ID;
+           } else if (versionAttr.equals(J2EEVersionConstants.VERSION_3_1_TEXT)) {
+               version = J2EEVersionConstants.WEB_3_1_ID;
+           } else if (versionAttr.equals(J2EEVersionConstants.VERSION_3_0_TEXT)) {
+               version = J2EEVersionConstants.WEB_3_0_ID;
+           } else if (versionAttr.equals(J2EEVersionConstants.VERSION_2_5_TEXT)) {
+               version = J2EEVersionConstants.WEB_2_5_ID;
+           } else if (versionAttr.equals(J2EEVersionConstants.VERSION_2_3_TEXT)) {
+        	   version = J2EEVersionConstants.WEB_2_4_ID;
+           } else if (versionAttr.equals(J2EEVersionConstants.VERSION_2_2_TEXT)) {
+              version = J2EEVersionConstants.WEB_2_3_ID;
+           } else if (versionAttr.equals(J2EEVersionConstants.VERSION_2_4_TEXT)) {
+        	   version = J2EEVersionConstants.WEB_2_2_ID;
            }
         } else if (isRARFile(fileURI)) {
            if (null == versionAttr) {
@@ -411,7 +413,10 @@ public class J2EEFileUtil {
               version = J2EEVersionConstants.J2EE_1_4_ID;
            }
         } else if (isWARFile(fileURI)) {
-           if (schemaName.equals(J2EEConstants.WEBAPP_SCHEMA_4_0)) {
+           if (schemaName.equals(J2EEConstants.WEBAPP_SCHEMA_5_0)) {
+          	  version = J2EEVersionConstants.WEB_5_0_ID;
+           }
+           else if (schemaName.equals(J2EEConstants.WEBAPP_SCHEMA_4_0)) {
         	  version = J2EEVersionConstants.WEB_4_0_ID;
            } else if (schemaName.equals(J2EEConstants.WEBAPP_SCHEMA_3_1)) {
               version = J2EEVersionConstants.WEB_3_1_ID;

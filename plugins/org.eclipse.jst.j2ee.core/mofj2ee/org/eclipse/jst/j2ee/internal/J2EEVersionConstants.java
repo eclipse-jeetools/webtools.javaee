@@ -50,6 +50,7 @@ public interface J2EEVersionConstants {
 	public int WEB_3_0_ID = 30;
 	public int WEB_3_1_ID = 31;
 	public int WEB_4_0_ID = 40;
+	public int WEB_5_0_ID = 50;
 	public int WEBFRAGMENT_3_0_ID = 30;
 	public int WEBFRAGMENT_3_1_ID = 31;
 	public int WEBFRAGMENT_4_0_ID = 40;
