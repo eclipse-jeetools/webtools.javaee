@@ -188,7 +188,9 @@ public class JEE5ModelProvider implements IModelProvider, ResourceStateInputProv
 				addManagedResource(res);
 			} else {//First find in resource set, then create if not found new Empty Resource.
 				XMLResourceImpl newRes =  createModelResource(innerModelPath, resSet, projURI);
-				addManagedResource(newRes);
+				if (newRes != null) {
+					addManagedResource(newRes);
+				}
 				return newRes;
 			}
 		} catch (WrappedException ex) {
@@ -206,8 +208,10 @@ public class JEE5ModelProvider implements IModelProvider, ResourceStateInputProv
 		if (res == null || !res.isLoaded()) {
 			// Create temp resource if no file exists
 			res=  (XMLResourceImpl)((FlexibleProjectResourceSet)resourceSet).createResource(getModuleURI(uri),WTPResourceFactoryRegistry.INSTANCE.getFactory(uri, getContentType(getContentTypeDescriber())));
-			res.setEncoding("UTF-8"); //$NON-NLS-1$
-			populateRoot(res, resourceSet.getProject().getName());
+			if (res != null) {
+				res.setEncoding("UTF-8"); //$NON-NLS-1$
+				populateRoot(res, resourceSet.getProject().getName());
+			}
 		}
 		return res;
 	}
