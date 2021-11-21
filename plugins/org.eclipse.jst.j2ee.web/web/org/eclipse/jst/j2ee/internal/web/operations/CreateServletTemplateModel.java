@@ -75,14 +75,14 @@ import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_RESPO
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_WEB_SERVLET;
 import static org.eclipse.jst.j2ee.web.IServletConstants.SERVICE_SIGNATURE;
 import static org.eclipse.jst.j2ee.web.IServletConstants.SERVLET_INIT_SIGNATURE;
-//import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_JAKARTA_ANNOTATION_INIT_PARAM;
-//import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_JAKARTA_HTTP_SERVLET_REQUEST;
-//import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_JAKARTA_HTTP_SERVLET_RESPONSE;
-//import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_JAKARTA_SERVLET_CONFIG;
-//import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_JAKARTA_SERVLET_EXCEPTION;
-//import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_JAKARTA_SERVLET_REQUEST;
-//import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_JAKARTA_SERVLET_RESPONSE;
-//import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_JAKARTA_WEB_SERVLET;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_JAKARTA_ANNOTATION_INIT_PARAM;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_JAKARTA_HTTP_SERVLET_REQUEST;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_JAKARTA_HTTP_SERVLET_RESPONSE;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_JAKARTA_SERVLET_CONFIG;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_JAKARTA_SERVLET_EXCEPTION;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_JAKARTA_SERVLET_REQUEST;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_JAKARTA_SERVLET_RESPONSE;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_JAKARTA_WEB_SERVLET;
 import static org.eclipse.jst.j2ee.web.IServletConstants.JAKARTA_SERVICE_SIGNATURE;
 import static org.eclipse.jst.j2ee.web.IServletConstants.JAKARTA_SERVLET_INIT_SIGNATURE;
 
@@ -110,47 +110,91 @@ public class CreateServletTemplateModel extends CreateWebClassTemplateModel {
 	
 	@Override
 	public Collection<String> getImports() {
-		// TODO: vary based on datamodel EE version
 		Collection<String> collection = super.getImports();
-		
+		String eeVersion = getJavaEEVersion();
+		boolean useJakartaPackages = true;
+		try {
+			useJakartaPackages = (eeVersion == null || Double.valueOf(eeVersion).doubleValue() >= 5.0);
+		}
+		catch (NumberFormatException e) {
+			useJakartaPackages = true;
+		}
+
 		if (shouldGenInit()) {
-			collection.add(QUALIFIED_SERVLET_CONFIG);
-			collection.add(QUALIFIED_SERVLET_EXCEPTION);
+			if (useJakartaPackages) {
+				collection.add(QUALIFIED_JAKARTA_SERVLET_CONFIG);
+				collection.add(QUALIFIED_JAKARTA_SERVLET_EXCEPTION);
+			}
+			else {
+				collection.add(QUALIFIED_SERVLET_CONFIG);
+				collection.add(QUALIFIED_SERVLET_EXCEPTION);
+			}
 		}
 		
 		if (shouldGenGetServletConfig()) {
-			collection.add(QUALIFIED_SERVLET_CONFIG);
+			if (useJakartaPackages) {
+				collection.add(QUALIFIED_JAKARTA_SERVLET_CONFIG);
+			}
+			else {
+				collection.add(QUALIFIED_SERVLET_CONFIG);
+			}
 		}
 		
 		if (shouldGenService()) {
-			if (isHttpServletSuperclass()) {
-				collection.add(QUALIFIED_HTTP_SERVLET_REQUEST);
-				collection.add(QUALIFIED_HTTP_SERVLET_RESPONSE);
-			} else {
-				collection.add(QUALIFIED_SERVLET_REQUEST);
-				collection.add(QUALIFIED_SERVLET_RESPONSE);
+			if (useJakartaPackages) {
+				if (isHttpServletSuperclass()) {
+					collection.add(QUALIFIED_JAKARTA_HTTP_SERVLET_REQUEST);
+					collection.add(QUALIFIED_JAKARTA_HTTP_SERVLET_RESPONSE);
+				} else {
+					collection.add(QUALIFIED_JAKARTA_SERVLET_REQUEST);
+					collection.add(QUALIFIED_JAKARTA_SERVLET_RESPONSE);
+				}
+				collection.add(QUALIFIED_JAKARTA_SERVLET_EXCEPTION);
 			}
-			
-			collection.add(QUALIFIED_SERVLET_EXCEPTION);
+			else {
+				if (isHttpServletSuperclass()) {
+					collection.add(QUALIFIED_HTTP_SERVLET_REQUEST);
+					collection.add(QUALIFIED_HTTP_SERVLET_RESPONSE);
+				} else {
+					collection.add(QUALIFIED_SERVLET_REQUEST);
+					collection.add(QUALIFIED_SERVLET_RESPONSE);
+				}
+				collection.add(QUALIFIED_SERVLET_EXCEPTION);
+			}
 			collection.add(QUALIFIED_IO_EXCEPTION);
 		}
 		
 		if (shouldGenDoGet() || shouldGenDoPost() || shouldGenDoPut() || 
 				shouldGenDoDelete() || shouldGenDoHead() || 
 				shouldGenDoOptions() || shouldGenDoTrace()) {
-			collection.add(QUALIFIED_HTTP_SERVLET_REQUEST);
-			collection.add(QUALIFIED_HTTP_SERVLET_RESPONSE);
-			collection.add(QUALIFIED_SERVLET_EXCEPTION);
+			if (useJakartaPackages) {
+				collection.add(QUALIFIED_JAKARTA_HTTP_SERVLET_REQUEST);
+				collection.add(QUALIFIED_JAKARTA_HTTP_SERVLET_RESPONSE);
+				collection.add(QUALIFIED_JAKARTA_SERVLET_EXCEPTION);
+			}
+			else {
+				collection.add(QUALIFIED_HTTP_SERVLET_REQUEST);
+				collection.add(QUALIFIED_HTTP_SERVLET_RESPONSE);
+				collection.add(QUALIFIED_SERVLET_EXCEPTION);
+			}
 			collection.add(QUALIFIED_IO_EXCEPTION);
 		}
-		
-		if (SERVLET_3.equals(getJavaEEVersion()) || SERVLET_3_1.equals(getJavaEEVersion()) || SERVLET_4_0.equals(getJavaEEVersion())){
+
+		if (useJakartaPackages) {
+			// TODO: only needed if registering via annotation
+			collection.add(QUALIFIED_JAKARTA_WEB_SERVLET);
+			if (getInitParams() != null && !getInitParams().isEmpty()) {
+				collection.add(QUALIFIED_JAKARTA_ANNOTATION_INIT_PARAM);
+			}
+		}
+		else if (SERVLET_3.equals(getJavaEEVersion()) || SERVLET_3_1.equals(getJavaEEVersion()) || SERVLET_4_0.equals(getJavaEEVersion())) {
+			// TODO: only needed if registering via annotation
 			collection.add(QUALIFIED_WEB_SERVLET);
-			if (getInitParams()!= null && getInitParams().size()>0){
+			if (getInitParams() != null && getInitParams().size() > 0) {
 				collection.add(QUALIFIED_ANNOTATION_INIT_PARAM);
 			}
 		}
-		
+
 		return collection;
 	}
 
