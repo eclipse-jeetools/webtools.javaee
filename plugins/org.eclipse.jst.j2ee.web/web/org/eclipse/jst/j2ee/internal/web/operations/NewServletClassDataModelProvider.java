@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2008 IBM Corporation and others.
+ * Copyright (c) 2003, 2021 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,6 +16,7 @@ import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataM
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.CLASS_NAME;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.INTERFACES;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.SUPERCLASS;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.ASYNC_SUPPORT;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.DESTROY;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.DO_DELETE;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.DO_GET;
@@ -34,7 +35,6 @@ import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataM
 import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.TEMPLATE_FILE;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.TO_STRING;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.URL_MAPPINGS;
-import static org.eclipse.jst.j2ee.internal.web.operations.INewServletClassDataModelProperties.ASYNC_SUPPORT;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties.DISPLAY_NAME;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_HTTP_SERVLET;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET;
@@ -48,6 +48,7 @@ import org.eclipse.jdt.core.Signature;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.J2EEFileUtil;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.web.IServletConstants;
 import org.eclipse.jst.j2ee.web.validation.UrlPattern;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -238,8 +239,12 @@ public class NewServletClassDataModelProvider extends
 			return getDefaultUrlMapping();
 		else if (propertyName.equals(INTERFACES))
 			return getServletInterfaces();
-		else if (propertyName.equals(SUPERCLASS))
+		else if (propertyName.equals(SUPERCLASS)) {
+			if (projectUsesJakartaPackages()) {
+				return IServletConstants.QUALIFIED_JAKARTA_HTTP_SERVLET;
+			}
 			return SERVLET_SUPERCLASS;
+		}
 		else if (propertyName.equals(TEMPLATE_FILE))
 			return ANNOTATED_TEMPLATE_DEFAULT;
 		else if (propertyName.equals(NON_ANNOTATED_TEMPLATE_FILE))

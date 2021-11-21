@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2021 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -29,7 +29,7 @@ public class ModuleIdentifierSerializer {
 	 * @see org.eclipse.wst.common.navigator.internal.views.navigator.dnd.ISerializer#toByteArray(java.lang.Object)
 	 */
 	public byte[] toByteArray(Object data) {
-		IProject project = (IProject) AdaptabilityUtility.getAdapter(data, IProject.class);
+		IProject project = AdaptabilityUtility.getAdapter(data, IProject.class);
 		if (project != null)
 			return project.getName().getBytes();
 		return null;

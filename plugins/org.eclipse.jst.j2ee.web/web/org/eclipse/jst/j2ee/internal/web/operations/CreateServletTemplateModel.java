@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2008 IBM Corporation and others.
+ * Copyright (c) 2003, 2021 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -41,6 +41,16 @@ import static org.eclipse.jst.j2ee.web.IServletConstants.DO_TRACE_SIGNATURE;
 import static org.eclipse.jst.j2ee.web.IServletConstants.GET_SERVLET_CONFIG_SIGNATURE;
 import static org.eclipse.jst.j2ee.web.IServletConstants.GET_SERVLET_INFO_SIGNATURE;
 import static org.eclipse.jst.j2ee.web.IServletConstants.HTTP_SERVICE_SIGNATURE;
+import static org.eclipse.jst.j2ee.web.IServletConstants.JAKARTA_DESTROY_SIGNATURE;
+import static org.eclipse.jst.j2ee.web.IServletConstants.JAKARTA_DO_DELETE_SIGNATURE;
+import static org.eclipse.jst.j2ee.web.IServletConstants.JAKARTA_DO_GET_SIGNATURE;
+import static org.eclipse.jst.j2ee.web.IServletConstants.JAKARTA_DO_HEAD_SIGNATURE;
+import static org.eclipse.jst.j2ee.web.IServletConstants.JAKARTA_DO_POST_SIGNATURE;
+import static org.eclipse.jst.j2ee.web.IServletConstants.JAKARTA_DO_PUT_SIGNATURE;
+import static org.eclipse.jst.j2ee.web.IServletConstants.JAKARTA_DO_TRACE_SIGNATURE;
+import static org.eclipse.jst.j2ee.web.IServletConstants.JAKARTA_GET_SERVLET_CONFIG_SIGNATURE;
+import static org.eclipse.jst.j2ee.web.IServletConstants.JAKARTA_GET_SERVLET_INFO_SIGNATURE;
+import static org.eclipse.jst.j2ee.web.IServletConstants.JAKARTA_HTTP_SERVICE_SIGNATURE;
 import static org.eclipse.jst.j2ee.web.IServletConstants.METHOD_DESTROY;
 import static org.eclipse.jst.j2ee.web.IServletConstants.METHOD_DO_DELETE;
 import static org.eclipse.jst.j2ee.web.IServletConstants.METHOD_DO_GET;
@@ -65,6 +75,16 @@ import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_RESPO
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_WEB_SERVLET;
 import static org.eclipse.jst.j2ee.web.IServletConstants.SERVICE_SIGNATURE;
 import static org.eclipse.jst.j2ee.web.IServletConstants.SERVLET_INIT_SIGNATURE;
+//import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_JAKARTA_ANNOTATION_INIT_PARAM;
+//import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_JAKARTA_HTTP_SERVLET_REQUEST;
+//import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_JAKARTA_HTTP_SERVLET_RESPONSE;
+//import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_JAKARTA_SERVLET_CONFIG;
+//import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_JAKARTA_SERVLET_EXCEPTION;
+//import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_JAKARTA_SERVLET_REQUEST;
+//import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_JAKARTA_SERVLET_RESPONSE;
+//import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_JAKARTA_WEB_SERVLET;
+import static org.eclipse.jst.j2ee.web.IServletConstants.JAKARTA_SERVICE_SIGNATURE;
+import static org.eclipse.jst.j2ee.web.IServletConstants.JAKARTA_SERVLET_INIT_SIGNATURE;
 
 import java.util.Collection;
 import java.util.Hashtable;
@@ -90,6 +110,7 @@ public class CreateServletTemplateModel extends CreateWebClassTemplateModel {
 	
 	@Override
 	public Collection<String> getImports() {
+		// TODO: vary based on datamodel EE version
 		Collection<String> collection = super.getImports();
 		
 		if (shouldGenInit()) {
@@ -128,9 +149,6 @@ public class CreateServletTemplateModel extends CreateWebClassTemplateModel {
 			if (getInitParams()!= null && getInitParams().size()>0){
 				collection.add(QUALIFIED_ANNOTATION_INIT_PARAM);
 			}
-			
-			
-
 		}
 		
 		return collection;
@@ -300,6 +318,21 @@ public class CreateServletTemplateModel extends CreateWebClassTemplateModel {
 					(METHOD_DO_HEAD.equals(method.getName()) && DO_HEAD_SIGNATURE.equals(method.getSignature())) ||
 					(METHOD_DO_OPTIONS.equals(method.getName()) && METHOD_DO_OPTIONS.equals(method.getSignature())) ||
 					(METHOD_DO_TRACE.equals(method.getName()) && DO_TRACE_SIGNATURE.equals(method.getSignature()))) {
+				iterator.remove();
+			}
+			if ((METHOD_INIT.equals(method.getName()) && JAKARTA_SERVLET_INIT_SIGNATURE.equals(method.getSignature())) || 
+					(METHOD_DESTROY.equals(method.getName()) && JAKARTA_DESTROY_SIGNATURE.equals(method.getSignature())) ||
+					(METHOD_GET_SERVLET_CONFIG.equals(method.getName()) && JAKARTA_GET_SERVLET_CONFIG_SIGNATURE.equals(method.getSignature())) ||
+					(METHOD_GET_SERVLET_INFO.equals(method.getName()) && JAKARTA_GET_SERVLET_INFO_SIGNATURE.equals(method.getSignature())) ||
+					(METHOD_SERVICE.equals(method.getName()) && JAKARTA_SERVICE_SIGNATURE.equals(method.getSignature())) ||
+					(METHOD_SERVICE.equals(method.getName()) && JAKARTA_HTTP_SERVICE_SIGNATURE.equals(method.getSignature())) ||
+					(METHOD_DO_GET.equals(method.getName()) && JAKARTA_DO_GET_SIGNATURE.equals(method.getSignature())) ||
+					(METHOD_DO_POST.equals(method.getName()) && JAKARTA_DO_POST_SIGNATURE.equals(method.getSignature())) ||
+					(METHOD_DO_PUT.equals(method.getName()) && JAKARTA_DO_PUT_SIGNATURE.equals(method.getSignature())) ||
+					(METHOD_DO_DELETE.equals(method.getName()) && JAKARTA_DO_DELETE_SIGNATURE.equals(method.getSignature())) ||
+					(METHOD_DO_HEAD.equals(method.getName()) && JAKARTA_DO_HEAD_SIGNATURE.equals(method.getSignature())) ||
+					(METHOD_DO_OPTIONS.equals(method.getName()) && METHOD_DO_OPTIONS.equals(method.getSignature())) ||
+					(METHOD_DO_TRACE.equals(method.getName()) && JAKARTA_DO_TRACE_SIGNATURE.equals(method.getSignature()))) {
 				iterator.remove();
 			}
 		}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2021 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -26,6 +26,7 @@ public class WebFacetUtils {
 	public static final IProjectFacetVersion WEB_30 = WEB_FACET.getVersion("3.0"); //$NON-NLS-1$
 	public static final IProjectFacetVersion WEB_31 = WEB_FACET.getVersion("3.1"); //$NON-NLS-1$
 	public static final IProjectFacetVersion WEB_40 = WEB_FACET.getVersion("4.0"); //$NON-NLS-1$
+	public static final IProjectFacetVersion WEB_50 = WEB_FACET.getVersion("5.0"); //$NON-NLS-1$
 	public static final IProjectFacetVersion WEBFRAGMENT_30 = WEBFRAGMENT_FACET.getVersion("3.0"); //$NON-NLS-1$
 	public static final IProjectFacetVersion WEBFRAGMENT_31 = WEBFRAGMENT_FACET.getVersion("3.1"); //$NON-NLS-1$
 	public static final IProjectFacetVersion WEBFRAGMENT_40 = WEBFRAGMENT_FACET.getVersion("4.0"); //$NON-NLS-1$

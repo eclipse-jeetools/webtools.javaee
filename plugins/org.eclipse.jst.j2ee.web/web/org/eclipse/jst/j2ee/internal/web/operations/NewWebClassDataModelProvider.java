@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2012 SAP AG and others.
+ * Copyright (c) 2007, 2021 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -31,6 +31,8 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.Signature;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jst.j2ee.application.internal.operations.IAnnotationsDataModel;
@@ -40,6 +42,7 @@ import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProv
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
+import org.eclipse.jst.j2ee.web.IServletConstants;
 import org.eclipse.jst.j2ee.web.project.facet.WebFacetUtils;
 import org.eclipse.wst.common.componentcore.internal.util.FacetedProjectUtilities;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -90,7 +93,8 @@ public abstract class NewWebClassDataModelProvider extends NewJavaClassDataModel
 	 * The cache of all the interfaces the web artifact java class will
 	 * implement.
 	 */
-	protected List interfaceList;
+	protected List<String> interfaceList;
+	protected List<String> jakartaInterfaceList;
 	
 	private String classNameCache = ""; //$NON-NLS-1$
 	private String existingClassNameCache = ""; //$NON-NLS-1$
@@ -192,6 +196,39 @@ public abstract class NewWebClassDataModelProvider extends NewJavaClassDataModel
 						|| FacetedProjectFramework.hasProjectFacet(project, WebFacetUtils.WEBFRAGMENT_FACET.getId(), WebFacetUtils.WEBFRAGMENT_31.getVersionString())
 						|| FacetedProjectFramework.hasProjectFacet(project, WebFacetUtils.WEBFRAGMENT_FACET.getId(), WebFacetUtils.WEBFRAGMENT_40.getVersionString()));
 			} catch (CoreException e) {
+				WebPlugin.log(e);
+			}
+		}
+		return false;
+	}
+	
+
+	/**
+	 * @return <code>True</code> when generated classes should refer to types in the <code>jakarta.*</code>
+	 * packages rather than the older <code>javax.*</code> packages.
+	 */
+	protected boolean projectUsesJakartaPackages() {
+		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(getStringProperty(PROJECT_NAME));
+		if (project != null && project.isAccessible()) {
+			// long term, the default when otehrwise not determinable should be the newer one
+			try {
+				IJavaProject javaProject = JavaCore.create(project);
+				if (javaProject != null && javaProject.exists()) {
+					if (javaProject.findType(IServletConstants.QUALIFIED_JAKARTA_HTTP_SERVLET) != null) {
+						return true;
+					}
+				}
+			}
+			catch (CoreException e) {
+				WTPCommonPlugin.logError(e);
+			}
+			try {
+				// check to see if it is Jakarta Servlet 5 or newer
+				if (FacetedProjectFramework.hasProjectFacet(project, WebFacetUtils.WEB_FACET.getId(), WebFacetUtils.WEB_50.getVersionString())) {
+					return true;
+				}
+			}
+			catch (CoreException e) {
 				WebPlugin.log(e);
 			}
 		}

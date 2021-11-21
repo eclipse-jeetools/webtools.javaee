@@ -109,7 +109,13 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 				webroot.createLink(configFolderPath, 0, null); 
 				J2EEModuleVirtualComponent.setDefaultDeploymentDescriptorFolder(webroot, configFolderPath, null); 
 			}
-			if( fv == WebFacetUtils.WEB_40 )
+			if( fv == WebFacetUtils.WEB_50 )
+			{
+				 if(model.getBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD)){
+		                createWeb50DeploymentDescriptor(project, fv, webinfFolder, monitor);
+		            }
+			}
+			else if( fv == WebFacetUtils.WEB_40 )
 			{
 				 if(model.getBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD)){
 		                createWeb40DeploymentDescriptor(project, fv, webinfFolder, monitor);
@@ -236,6 +242,23 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 		return pjpath.append(model.getStringProperty(IJ2EEModuleFacetInstallDataModelProperties.CONFIG_FOLDER));
 	}
 	
+	private void createWeb50DeploymentDescriptor(final IProject project, final IProjectFacetVersion fv, IFolder webinfFolder, IProgressMonitor monitor) throws CoreException {
+		// Create the deployment descriptor (web.xml) if one doesn't exist
+		IFile webxmlFile = webinfFolder.getFile("web.xml"); //$NON-NLS-1$
+		if (!webxmlFile.exists()) {
+			try {
+				// Create a minimal web.xml file, so the model can be initialized
+				final String webXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<web-app id=\"WebApp_ID\" version=\"5.0\" xmlns=\"http://xmlns.jcp.org/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd\">\n</web-app>"; //$NON-NLS-1$
+				webxmlFile.create(new ByteArrayInputStream(webXmlContents.getBytes("UTF-8")), true, monitor); //$NON-NLS-1$
+
+				populateDefaultContent(project, fv);
+			}
+			catch (UnsupportedEncodingException e) {
+				WebPlugin.logError(e);
+			}
+		}
+	}
+
 	private void createWeb40DeploymentDescriptor(final IProject project, final IProjectFacetVersion fv,
 												IFolder webinfFolder, IProgressMonitor monitor) throws CoreException {
 		// Create the deployment descriptor (web.xml) if one doesn't exist

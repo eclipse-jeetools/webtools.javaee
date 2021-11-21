@@ -56,6 +56,7 @@ public class WebPlugin extends WTPPlugin implements ResourceLocator {
 	// LibDir Change Listener
 	public static final String LIBDIRCHANGE_BUILDER_ID = "com.ibm.etools.webtools.LibDirBuilder"; //$NON-NLS-1$
 	public static final String PLUGIN_ID = "org.eclipse.jst.j2ee.web"; //$NON-NLS-1$
+	public static final IStatus OK_STATUS = new Status(IStatus.OK, PLUGIN_ID, "ok"); //$NON-NLS-1$
 	// LibCopy builder ID
 	public static final String LIBCOPY_BUILDER_ID = "org.eclipse.jst.j2ee.LibCopyBuilder"; //$NON-NLS-1$
 	// Validation part of the plugin

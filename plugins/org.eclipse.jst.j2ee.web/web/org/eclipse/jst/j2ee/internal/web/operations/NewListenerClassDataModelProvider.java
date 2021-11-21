@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2012 SAP AG and others.
+ * Copyright (c) 2007, 2021 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,6 +12,7 @@ package org.eclipse.jst.j2ee.internal.web.operations;
 
 
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.INTERFACES;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties.USE_EXISTING_CLASS;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_HTTP_SESSION_ACTIVATION_LISTENER;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_HTTP_SESSION_ATTRIBUTE_LISTENER;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_HTTP_SESSION_BINDING_LISTENER;
@@ -19,18 +20,27 @@ import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_HTTP_SESSION_
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_HTTP_SESSION_LISTENER;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_CONTEXT_ATTRIBUTE_LISTENER;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_CONTEXT_LISTENER;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_REQUEST_ASYNC_EVENT_LISTENER;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_REQUEST_ATTRIBUTE_LISTENER;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_REQUEST_LISTENER;
-import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_REQUEST_ASYNC_EVENT_LISTENER;
-import static org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties.USE_EXISTING_CLASS;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_JAKARTA_HTTP_SESSION_ACTIVATION_LISTENER;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_JAKARTA_HTTP_SESSION_ATTRIBUTE_LISTENER;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_JAKARTA_HTTP_SESSION_BINDING_LISTENER;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_JAKARTA_HTTP_SESSION_ID_LISTENER;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_JAKARTA_HTTP_SESSION_LISTENER;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_JAKARTA_SERVLET_CONTEXT_ATTRIBUTE_LISTENER;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_JAKARTA_SERVLET_CONTEXT_LISTENER;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_JAKARTA_SERVLET_REQUEST_ASYNC_EVENT_LISTENER;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_JAKARTA_SERVLET_REQUEST_ATTRIBUTE_LISTENER;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_JAKARTA_SERVLET_REQUEST_LISTENER;
 
 import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider;
+import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
-import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 /**
  * The NewListenerClassDataModelProvider is a subclass of
@@ -68,17 +78,30 @@ public class NewListenerClassDataModelProvider extends
 		NewWebClassDataModelProvider {
 
 	public static final String[] LISTENER_INTERFACES = {
-		QUALIFIED_SERVLET_CONTEXT_LISTENER,	
-		QUALIFIED_SERVLET_CONTEXT_ATTRIBUTE_LISTENER,
-		QUALIFIED_HTTP_SESSION_LISTENER,
-		QUALIFIED_HTTP_SESSION_ATTRIBUTE_LISTENER,
-		QUALIFIED_HTTP_SESSION_ACTIVATION_LISTENER,
-		QUALIFIED_HTTP_SESSION_BINDING_LISTENER,
-		QUALIFIED_HTTP_SESSION_ID_LISTENER,
-		QUALIFIED_SERVLET_REQUEST_LISTENER,
-		QUALIFIED_SERVLET_REQUEST_ATTRIBUTE_LISTENER,
-		QUALIFIED_SERVLET_REQUEST_ASYNC_EVENT_LISTENER
-	};
+				QUALIFIED_SERVLET_CONTEXT_LISTENER,	
+				QUALIFIED_SERVLET_CONTEXT_ATTRIBUTE_LISTENER,
+				QUALIFIED_HTTP_SESSION_LISTENER,
+				QUALIFIED_HTTP_SESSION_ATTRIBUTE_LISTENER,
+				QUALIFIED_HTTP_SESSION_ACTIVATION_LISTENER,
+				QUALIFIED_HTTP_SESSION_BINDING_LISTENER,
+				QUALIFIED_HTTP_SESSION_ID_LISTENER,
+				QUALIFIED_SERVLET_REQUEST_LISTENER,
+				QUALIFIED_SERVLET_REQUEST_ATTRIBUTE_LISTENER,
+				QUALIFIED_SERVLET_REQUEST_ASYNC_EVENT_LISTENER
+			};
+
+	public static final String[] JAKARTA_LISTENER_INTERFACES = {
+				QUALIFIED_JAKARTA_SERVLET_CONTEXT_LISTENER,	
+				QUALIFIED_JAKARTA_SERVLET_CONTEXT_ATTRIBUTE_LISTENER,
+				QUALIFIED_JAKARTA_HTTP_SESSION_LISTENER,
+				QUALIFIED_JAKARTA_HTTP_SESSION_ATTRIBUTE_LISTENER,
+				QUALIFIED_JAKARTA_HTTP_SESSION_ACTIVATION_LISTENER,
+				QUALIFIED_JAKARTA_HTTP_SESSION_BINDING_LISTENER,
+				QUALIFIED_JAKARTA_HTTP_SESSION_ID_LISTENER,
+				QUALIFIED_JAKARTA_SERVLET_REQUEST_LISTENER,
+				QUALIFIED_JAKARTA_SERVLET_REQUEST_ATTRIBUTE_LISTENER,
+				QUALIFIED_JAKARTA_SERVLET_REQUEST_ASYNC_EVENT_LISTENER
+			};
 
 	/**
 	 * Subclasses may extend this method to provide their own default operation
@@ -132,13 +155,19 @@ public class NewListenerClassDataModelProvider extends
 					break;
 				}
 			}
+			for (String iface : JAKARTA_LISTENER_INTERFACES) {
+				if (interfaces.contains(iface)) { 
+					atLeastOneSelected = true;
+					break;
+				}
+			}
 		}
 		
 		if (atLeastOneSelected) {
-			return WTPCommonPlugin.OK_STATUS;
+			return WebPlugin.OK_STATUS;
 		}
 		String msg = WebMessages.ERR_NO_LISTENER_SELECTED;
-		return WTPCommonPlugin.createErrorStatus(msg);
+		return WebPlugin.createStatus(IStatus.ERROR, msg);
 	}
 
 }

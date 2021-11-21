@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2007 IBM Corporation and others.
+ * Copyright (c) 2003, 2021 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -76,8 +76,8 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 					if (ModuleCoreNature.isFlexibleProject(project))
 					{
 						IVirtualComponent c = ComponentCore.createComponent(project, true);
-						IVirtualFolder ejbroot = c.getRootFolder();
-						IPath configFolderPath = J2EEModuleVirtualComponent.getDefaultDeploymentDescriptorFolder(ejbroot);
+						IVirtualFolder deployableRoot = c.getRootFolder();
+						IPath configFolderPath = J2EEModuleVirtualComponent.getDefaultDeploymentDescriptorFolder(deployableRoot);
 						if (configFolderPath != null && project.getFolder(configFolderPath).exists())
 						{
 							return configFolderPath.toString();
@@ -108,6 +108,9 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 			}
 			else if(J2EEVersionConstants.VERSION_4_0_TEXT.equals(facetVersion)) {
 				return Boolean.valueOf(J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.EE8_DYNAMIC_WEB_GENERATE_DD));
+			}
+			else if(J2EEVersionConstants.VERSION_5_0_TEXT.equals(facetVersion)) {
+				return Boolean.valueOf(J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.EE9_DYNAMIC_WEB_GENERATE_DD));
 			}
 			return Boolean.TRUE;
 		}else if (propertyName.equals(INSTALL_WEB_LIBRARY)){

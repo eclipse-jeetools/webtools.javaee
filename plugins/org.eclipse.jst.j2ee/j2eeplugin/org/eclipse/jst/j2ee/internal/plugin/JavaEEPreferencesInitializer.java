@@ -96,6 +96,10 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 		 */
 		static final String EE8_DYNAMIC_WEB_GENERATE_DD = "ee8_dynamic_web_generate_dd"; //$NON-NLS-1$
 		/**
+		 * @since 3.24
+		 */
+		static final String EE9_DYNAMIC_WEB_GENERATE_DD = "ee9_dynamic_web_generate_dd"; //$NON-NLS-1$
+		/**
 		 * @since 2.0
 		 */
 		static final String EJB_GENERATE_DD = "ejb_generate_dd"; //$NON-NLS-1$

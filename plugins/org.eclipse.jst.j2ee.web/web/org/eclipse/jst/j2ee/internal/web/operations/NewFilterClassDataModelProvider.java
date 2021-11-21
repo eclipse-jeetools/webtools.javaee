@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2008 SAP AG and others.
+ * Copyright (c) 2007, 2021 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -22,6 +22,7 @@ import static org.eclipse.jst.j2ee.internal.web.operations.INewFilterClassDataMo
 import static org.eclipse.jst.j2ee.internal.web.operations.INewWebClassDataModelProperties.DISPLAY_NAME;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewFilterClassDataModelProperties.ASYNC_SUPPORT;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_FILTER;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_JAKARTA_FILTER;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,14 +30,15 @@ import java.util.Set;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jst.j2ee.internal.common.operations.NewJavaClassDataModelProvider;
+import org.eclipse.jst.j2ee.internal.web.plugin.WebPlugin;
 import org.eclipse.jst.j2ee.model.IModelProvider;
 import org.eclipse.jst.j2ee.model.ModelProviderManager;
+import org.eclipse.jst.j2ee.web.IServletConstants;
 import org.eclipse.jst.j2ee.web.validation.UrlPattern;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelProvider;
-import org.eclipse.wst.common.frameworks.internal.plugin.WTPCommonPlugin;
 
 public class NewFilterClassDataModelProvider extends
 		NewWebClassDataModelProvider {
@@ -46,6 +48,7 @@ public class NewFilterClassDataModelProvider extends
 	 * interfaces
 	 */
 	private final static String[] FILTER_INTERFACES = { QUALIFIED_FILTER }; 
+	private final static String[] JAKARTA_FILTER_INTERFACES = { QUALIFIED_JAKARTA_FILTER };
 	
 	@Override
 	public boolean isPropertyEnabled(String propertyName) {
@@ -119,8 +122,18 @@ public class NewFilterClassDataModelProvider extends
             return Boolean.TRUE;
 		else if (propertyName.equals(FILTER_MAPPINGS))
 			return getDefaultFilterMapping();
-		else if (propertyName.equals(INTERFACES))
+		else if (propertyName.equals(INTERFACES)) {
+			if (projectUsesJakartaPackages()) {
+				return getJakartaFilterInterfaces();
+			}
 			return getFilterInterfaces();
+		}
+		else if (propertyName.equals(SUPERCLASS)) {
+			if (projectUsesJakartaPackages()) {
+				return IServletConstants.QUALIFIED_JAKARTA_HTTP_FILTER;
+			}
+			return IServletConstants.QUALIFIED_HTTP_FILTER;
+		}
         
 		// Otherwise check super for default value for property
 		return super.getDefaultProperty(propertyName);
@@ -158,7 +171,7 @@ public class NewFilterClassDataModelProvider extends
 	public IStatus validate(String propertyName) {
 		// If our default is the superclass, we know it is ok
 		if (propertyName.equals(SUPERCLASS) && "".equals(getStringProperty(propertyName))) //$NON-NLS-1$
-			return WTPCommonPlugin.OK_STATUS;
+			return WebPlugin.OK_STATUS;
 		// Validate init params
 		if (propertyName.equals(INIT_PARAM))
 			return validateInitParamList((List) getProperty(propertyName));
@@ -189,11 +202,11 @@ public class NewFilterClassDataModelProvider extends
 			boolean dup = hasDuplicatesInStringArrayList(prop);
 			if (dup) {
 				String msg = WebMessages.ERR_DUPLICATED_INIT_PARAMETER;
-				return WTPCommonPlugin.createErrorStatus(msg);
+				return WebPlugin.createStatus(IStatus.ERROR, msg);
 			}
 		}
 		// Return OK
-		return WTPCommonPlugin.OK_STATUS;
+		return WebPlugin.OK_STATUS;
 	}
 
 	/**
@@ -212,20 +225,20 @@ public class NewFilterClassDataModelProvider extends
 			boolean dup = hasDuplicatesInFilterMappingItemList(prop);
 			if (dup) {
 				String msg = WebMessages.ERR_DUPLICATED_URL_MAPPING;
-				return WTPCommonPlugin.createErrorStatus(msg);
+				return WebPlugin.createStatus(IStatus.ERROR, msg);
 			}
 			String isValidValue = validateValue(prop);
 			if (isValidValue != null && isValidValue.length() > 0) {
 				NLS.bind(WebMessages.ERR_URL_PATTERN_INVALID, isValidValue);
 				String resourceString = WebMessages.getResourceString(WebMessages.ERR_URL_PATTERN_INVALID, new String[]{isValidValue});
-				return WTPCommonPlugin.createErrorStatus(resourceString);
+				return WebPlugin.createStatus(IStatus.ERROR, resourceString);
 			}
 		} else {
 			String msg = WebMessages.ERR_FILTER_MAPPING_EMPTY;
-			return WTPCommonPlugin.createErrorStatus(msg);
+			return WebPlugin.createStatus(IStatus.ERROR, msg);
 		}
 		// Return OK
-		return WTPCommonPlugin.OK_STATUS;
+		return WebPlugin.OK_STATUS;
 	}
 	
 	private boolean hasDuplicatesInFilterMappingItemList(List<IFilterMappingItem> input) {
@@ -276,20 +289,42 @@ public class NewFilterClassDataModelProvider extends
 
 	/**
 	 * This method will return the list of filter interfaces to be implemented
-	 * for the new servlet java class. It will intialize the list using lazy
+	 * for the new filter java class. It will initialize the list using lazy
 	 * initialization to the minimum interfaces required by the data model
 	 * FILTER_INTERFACES. This method will not return null.
 	 * 
 	 * @see #FILTER_INTERFACES
 	 * 
-	 * @return List of servlet interfaces to be implemented
+	 * @return List of filter interfaces to be implemented
 	 */
 	private List getFilterInterfaces() {
 		if (interfaceList == null) {
-			interfaceList = new ArrayList();
+			interfaceList = new ArrayList<String>(FILTER_INTERFACES.length);
 			// Add minimum required list of servlet interfaces to be implemented
 			for (int i = 0; i < FILTER_INTERFACES.length; i++) {
 				interfaceList.add(FILTER_INTERFACES[i]);
+			}
+		}
+		// Return interface list
+		return interfaceList;
+	}
+
+	/**
+	 * This method will return the list of filter interfaces to be implemented
+	 * for the new filter java class. It will initialize the list using lazy
+	 * initialization to the minimum interfaces required by the data model
+	 * FILTER_INTERFACES. This method will not return null.
+	 * 
+	 * @see #FILTER_INTERFACES
+	 * 
+	 * @return List of filter interfaces to be implemented
+	 */
+	private List<String> getJakartaFilterInterfaces() {
+		if (jakartaInterfaceList == null) {
+			jakartaInterfaceList = new ArrayList<String>(JAKARTA_FILTER_INTERFACES.length);
+			// Add minimum required list of servlet interfaces to be implemented
+			for (int i = 0; i < JAKARTA_FILTER_INTERFACES.length; i++) {
+				jakartaInterfaceList.add(JAKARTA_FILTER_INTERFACES[i]);
 			}
 		}
 		// Return interface list
@@ -312,10 +347,10 @@ public class NewFilterClassDataModelProvider extends
 		// Ensure the filter display name is not null or empty
 		if (prop == null || prop.trim().length() == 0) {
 			String msg = WebMessages.ERR_DISPLAY_NAME_EMPTY;
-			return WTPCommonPlugin.createErrorStatus(msg);
+			return WebPlugin.createStatus(IStatus.ERROR, msg);
 		}
 		if (getTargetProject() == null || getTargetComponent() == null)
-			return WTPCommonPlugin.OK_STATUS;
+			return WebPlugin.OK_STATUS;
 		
 		IModelProvider provider = ModelProviderManager.getModelProvider(getTargetProject());
 		Object mObj = provider.getModelObject();
@@ -335,7 +370,7 @@ public class NewFilterClassDataModelProvider extends
 			// If the filter name already exists, throw an error
 			if (exists) {
 				String msg = WebMessages.getResourceString(WebMessages.ERR_FILTER_NAME_EXIST, new String[]{prop});
-				return WTPCommonPlugin.createErrorStatus(msg);
+				return WebPlugin.createStatus(IStatus.ERROR, msg);
 			}			
 		} else if (mObj instanceof org.eclipse.jst.javaee.web.WebApp) {
 			org.eclipse.jst.javaee.web.WebApp webApp = (org.eclipse.jst.javaee.web.WebApp) mObj;
@@ -353,12 +388,12 @@ public class NewFilterClassDataModelProvider extends
 			// If the filter name already exists, throw an error
 			if (exists) {
 				String msg = WebMessages.getResourceString(WebMessages.ERR_FILTER_NAME_EXIST, new String[] {prop});
-				return WTPCommonPlugin.createErrorStatus(msg);
+				return WebPlugin.createStatus(IStatus.ERROR, msg);
 			}			
 		}
 		
 		// Otherwise, return OK
-		return WTPCommonPlugin.OK_STATUS;
+		return WebPlugin.OK_STATUS;
 	}
 
 	@Override
