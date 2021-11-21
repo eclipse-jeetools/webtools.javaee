@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2021 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -45,7 +45,14 @@ public class WebAppResourceFactory extends TranslatorResourceFactory {
 		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.WEBAPP_SYSTEMID_2_3, "web-app_2_3.dtd"); //$NON-NLS-1$
 		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.WEBAPP_ALT_SYSTEMID_2_3, "web-app_2.3.dtd"); //$NON-NLS-1$
 		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.WEB_APP_SCHEMA_LOC_2_4, "web-app_2_4.xsd"); //$NON-NLS-1$
+		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.WEB_APP_SCHEMA_LOC_2_5, "web-app_2_5.xsd"); //$NON-NLS-1$
+		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.WEB_APP_SCHEMA_LOC_3_0, "web-app_3_0.xsd"); //$NON-NLS-1$
+		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.WEB_APP_SCHEMA_LOC_3_1, "web-app_3_1.xsd"); //$NON-NLS-1$
+		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.WEB_APP_SCHEMA_LOC_4_0, "web-app_4_0.xsd"); //$NON-NLS-1$
+		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.WEB_APP_SCHEMA_LOC_5_0, "web-app_5_0.xsd"); //$NON-NLS-1$
 		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.JSP_SCHEMA_LOC_2_0, "jsp_2_0.xsd"); //$NON-NLS-1$
+		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.JSP_SCHEMA_LOC_2_1, "jsp_2_1.xsd"); //$NON-NLS-1$
+		J2EEXmlDtDEntityResolver.registerDtD(J2EEConstants.JSP_SCHEMA_LOC_3_0, "jsp_3_0.xsd"); //$NON-NLS-1$
 	}
 
 	/** 

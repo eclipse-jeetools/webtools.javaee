@@ -248,7 +248,7 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 		if (!webxmlFile.exists()) {
 			try {
 				// Create a minimal web.xml file, so the model can be initialized
-				final String webXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<web-app id=\"WebApp_ID\" version=\"5.0\" xmlns=\"http://xmlns.jcp.org/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd\">\n</web-app>"; //$NON-NLS-1$
+				final String webXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<web-app id=\"WebApp_ID\" version=\"5.0\" xmlns=\"https://jakarta.ee/xml/ns/jakartaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd\">\n</web-app>"; //$NON-NLS-1$
 				webxmlFile.create(new ByteArrayInputStream(webXmlContents.getBytes("UTF-8")), true, monitor); //$NON-NLS-1$
 
 				populateDefaultContent(project, fv);
@@ -343,11 +343,11 @@ public final class WebFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 		           // welcome file list
 		           List<String> welcomeFiles = Arrays.asList(
 		                   "index.html", //$NON-NLS-1$
-		                   "index.htm", //$NON-NLS-1$
 		                   "index.jsp", //$NON-NLS-1$
+		                   "index.htm", //$NON-NLS-1$
 		                   "default.html", //$NON-NLS-1$
-		                   "default.htm", //$NON-NLS-1$
-		                   "default.jsp" //$NON-NLS-1$
+		                   "default.jsp", //$NON-NLS-1$
+		                   "default.htm" //$NON-NLS-1$
 		           );
 		           
 		           // Add the welcome-file-list tag

@@ -238,9 +238,11 @@ public interface J2EEConstants extends J2EEVersionConstants {
     String WEB_APP_SCHEMA_LOC_3_0           = "http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"; //$NON-NLS-1$
     String WEB_APP_SCHEMA_LOC_3_1           = "http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"; //$NON-NLS-1$
     String WEB_APP_SCHEMA_LOC_4_0           = "http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"; //$NON-NLS-1$
+    String WEB_APP_SCHEMA_LOC_5_0           = "https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"; //$NON-NLS-1$
     String WEB_SERVICES_CLIENT_SCHEMA_LOC_1_1 = "http://www.ibm.com/webservices/xsd/j2ee_web_services_client_1_1.xsd"; //$NON-NLS-1$
     String JSP_SCHEMA_LOC_2_0               =  "http://java.sun.com/xml/ns/j2ee/jsp_2_0.xsd"; //$NON-NLS-1$
     String JSP_SCHEMA_LOC_2_1               =  "http://java.sun.com/xml/ns/javaee/jsp_2_1.xsd"; //$NON-NLS-1$ //EJB3
+    String JSP_SCHEMA_LOC_3_0               =  "https://jakarta.ee/xml/ns/jakartaee/jsp_3_0.xsd"; //$NON-NLS-1$ //EJB3
     String WEBFRAGMENT_SCHEMA_LOC_3_0       = "http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd"; //$NON-NLS-1$ //Web Fragment3
     String WEBFRAGMENT_SCHEMA_LOC_3_1       = "http://xmlns.jcp.org/xml/ns/javaee/web-fragment_3_1.xsd"; //$NON-NLS-1$ //Web Fragment3
     String WEBFRAGMENT_SCHEMA_LOC_4_0       = "http://xmlns.jcp.org/xml/ns/javaee/web-fragment_4_0.xsd"; //$NON-NLS-1$ //Web Fragment4
