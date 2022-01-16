@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2022 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,11 +10,11 @@
  *******************************************************************************/
 package org.eclipse.jst.j2ee.webapplication.internal.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
-import java.util.Vector;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -131,13 +131,13 @@ public class ServletImpl extends CompatibilityDescriptionGroupImpl implements Se
  * mapping, this must be done in the web-app.
  * @return java.util.List
  */
-public List getMappings() {
+public List<ServletMapping> getMappings() {
 	WebApp webApp = (WebApp) eContainer();
 	if (webApp == null) return new BasicEList(0);
 	
 	EList allMappings = webApp.getServletMappings();
 	Iterator i = allMappings.iterator();
-	List mappings = new Vector();
+	List<ServletMapping> mappings = new ArrayList<ServletMapping>();
 	while (i.hasNext()) {
 		ServletMapping mapping = (ServletMapping) i.next();
 		if (mapping.getServlet() == this)

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2021 IBM Corporation and others.
+ * Copyright (c) 2003, 2022 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -67,6 +67,7 @@ import org.eclipse.wst.server.core.util.WebResource;
 public class WebDeployableArtifactUtil {
 	
 	private final static String GENERIC_SERVLET_CLASS_TYPE = "javax.servlet.GenericServlet"; //$NON-NLS-1$
+	private final static String GENERIC_JAKARTA_SERVLET_CLASS_TYPE = "jakarta.servlet.GenericServlet"; //$NON-NLS-1$
 	private final static String CACTUS_SERVLET_CLASS_TYPE = "org.apache.cactus.server.ServletTestRedirector"; //$NON-NLS-1$
 
 	public WebDeployableArtifactUtil() {
@@ -272,6 +273,10 @@ public class WebDeployableArtifactUtil {
 	}
 
 	public static String getServletClassName(IResource resource) {
+		String className = getClassNameForType(resource, GENERIC_JAKARTA_SERVLET_CLASS_TYPE);
+		if (className != null) {
+			return className;
+		}
 		return getClassNameForType(resource, GENERIC_SERVLET_CLASS_TYPE);
 	}
 
@@ -365,7 +370,7 @@ public class WebDeployableArtifactUtil {
 								ServletMapping map = it.next();
 								if (map.getServletName().equals(servlet.getServletName())) {
 									UrlPatternType urlPattern = map.getUrlPatterns().get(0);
-									return  urlPattern.getValue();
+									return urlPattern.getValue();
 								}
 							}
 						}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2022 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -118,7 +118,7 @@ public class WebAppImpl extends JNDIEnvRefsGroupImpl implements WebApp {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	protected EList tagLibs = null;
+	protected EList<TagLibRef> tagLibs = null;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
@@ -142,7 +142,7 @@ public class WebAppImpl extends JNDIEnvRefsGroupImpl implements WebApp {
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
-	protected EList servlets = null;
+	protected EList<Servlet> servlets = null;
 	/**
 	 * @generated This field/method will be replaced during code generation.
 	 */
@@ -536,7 +536,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
-	public EList getTagLibs() {
+	public EList<TagLibRef> getTagLibs() {
 		if (tagLibs == null) {
 			tagLibs = new EObjectContainmentWithInverseEList(TagLibRef.class, this, WebapplicationPackage.WEB_APP__TAG_LIBS, WebapplicationPackage.TAG_LIB_REF__WEB_APP);
 		}
@@ -686,7 +686,7 @@ public void renameSecurityRole(java.lang.String existingRoleName, java.lang.Stri
 	/**
 	 * @generated This field/method will be replaced during code generation 
 	 */
-	public EList getServlets() {
+	public EList<Servlet> getServlets() {
 		if (servlets == null) {
 			servlets = new EObjectContainmentWithInverseEList(Servlet.class, this, WebapplicationPackage.WEB_APP__SERVLETS, WebapplicationPackage.SERVLET__WEB_APP);
 		}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2022 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -57,6 +57,7 @@ import org.eclipse.wst.server.core.util.WebResource;
 public class WebDeployableArtifactUtil {
 	
 	private final static String GENERIC_SERVLET_CLASS_TYPE = "javax.servlet.GenericServlet"; //$NON-NLS-1$
+	private final static String GENERIC_JAKARTA_SERVLET_CLASS_TYPE = "jakarta.servlet.GenericServlet"; //$NON-NLS-1$
 	private final static String CACTUS_SERVLET_CLASS_TYPE = "org.apache.cactus.server.ServletTestRedirector"; //$NON-NLS-1$
 
 	public WebDeployableArtifactUtil() {
@@ -87,9 +88,9 @@ public class WebDeployableArtifactUtil {
 				if (resources != null && resources[0] != null)
 					component = resources[0].getComponent();
 				String mapping = null;
-				java.util.List mappings = ((Servlet) obj).getMappings();
+				java.util.List<ServletMapping> mappings = ((Servlet) obj).getMappings();
 				if (mappings != null && !mappings.isEmpty()) {
-					ServletMapping map = (ServletMapping) mappings.get(0);
+					ServletMapping map = mappings.get(0);
 					mapping = map.getUrlPattern();
 				}
 				if (mapping != null) {
@@ -245,6 +246,10 @@ public class WebDeployableArtifactUtil {
 	}
 
 	public static String getServletClassName(IResource resource) {
+		String className = getClassNameForType(resource, GENERIC_JAKARTA_SERVLET_CLASS_TYPE);
+		if (className != null) {
+			return className;
+		}
 		return getClassNameForType(resource, GENERIC_SERVLET_CLASS_TYPE);
 	}
 
@@ -329,9 +334,9 @@ public class WebDeployableArtifactUtil {
 			webApp = edit.getWebApp();
 			if (webApp == null)
 				return null;
-			Iterator iterator = webApp.getServlets().iterator();
+			Iterator<Servlet> iterator = webApp.getServlets().iterator();
 			while (iterator.hasNext()) {
-				Servlet servlet = (Servlet) iterator.next();
+				Servlet servlet = iterator.next();
 				boolean valid = false;
 
 				WebType webType = servlet.getWebType();
@@ -345,9 +350,9 @@ public class WebDeployableArtifactUtil {
 						valid = true;
 				}
 				if (valid) {
-					java.util.List mappings = servlet.getMappings();
+					java.util.List<ServletMapping> mappings = servlet.getMappings();
 					if (mappings != null && !mappings.isEmpty()) {
-						ServletMapping map = (ServletMapping) mappings.get(0);
+						ServletMapping map = mappings.get(0);
 						return map.getUrlPattern();
 					}
 				}

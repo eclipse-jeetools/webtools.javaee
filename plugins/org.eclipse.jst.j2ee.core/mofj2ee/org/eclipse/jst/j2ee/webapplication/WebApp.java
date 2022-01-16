@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2005 IBM Corporation and others.
+ * Copyright (c) 2001, 2022 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -230,7 +230,7 @@ public interface WebApp extends JNDIEnvRefsGroup{
 	 * @generated This field/method will be replaced during code generation 
 	 * @return The list of TagLibs references
 	 */
-	EList getTagLibs();
+	EList<TagLibRef> getTagLibs();
 
 	/**
 	 * @generated This field/method will be replaced during code generation 
@@ -278,7 +278,7 @@ public interface WebApp extends JNDIEnvRefsGroup{
 	 * @generated This field/method will be replaced during code generation 
 	 * @return The list of Servlets references
 	 */
-	EList getServlets();
+	EList<Servlet> getServlets();
 
 	/**
 	 * @generated This field/method will be replaced during code generation 

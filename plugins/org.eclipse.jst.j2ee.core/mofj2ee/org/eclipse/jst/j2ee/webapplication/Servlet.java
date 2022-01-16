@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2005 IBM Corporation and others.
+ * Copyright (c) 2001, 2022 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -32,7 +32,7 @@ public interface Servlet extends CompatibilityDescriptionGroup{
 	 * mapping, this must be done in the web-app.
 	 * @return java.util.List
 	 */
-	public List getMappings();
+	public List<ServletMapping> getMappings();
 	
 	/**
 	 * Gets the Servlet parameters in  java.util.Properties

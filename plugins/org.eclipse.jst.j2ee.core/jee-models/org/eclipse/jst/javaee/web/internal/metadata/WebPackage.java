@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2022 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -322,6 +322,7 @@ public interface WebPackage extends EPackage {
 	String eNS_URI2 = J2EEConstants.WEB_APP_SCHEMA_LOC_3_0;
 	String eNS_URI3 = J2EEConstants.WEB_APP_SCHEMA_LOC_3_1;
 	String eNS_URI4 = J2EEConstants.WEB_APP_SCHEMA_LOC_4_0;
+	String eNS_URI5 = J2EEConstants.WEB_APP_SCHEMA_LOC_5_0;
 
 	/**
 	 * The package namespace name.
