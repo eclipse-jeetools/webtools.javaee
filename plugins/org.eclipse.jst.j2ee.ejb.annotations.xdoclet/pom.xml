@@ -21,6 +21,6 @@
 
   <groupId>org.eclipse.webtools.ejb</groupId>
   <artifactId>org.eclipse.jst.j2ee.ejb.annotations.xdoclet</artifactId>
-  <version>1.2.400-SNAPSHOT</version>
+  <version>1.2.401-SNAPSHOT</version>
   <packaging>eclipse-plugin</packaging>
 </project>
