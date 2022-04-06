@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %Bundle-Name.0
 Bundle-SymbolicName: org.eclipse.jst.j2ee.ui; singleton:=true
-Bundle-Version: 1.1.1000.qualifier
+Bundle-Version: 1.1.1100.qualifier
 Bundle-Activator: org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin
 Bundle-Vendor: %Bundle-Vendor.0
 Bundle-Localization: plugin
@@ -37,7 +37,7 @@ Require-Bundle: org.eclipse.ui.ide;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.jst.j2ee.jca;bundle-version="[1.1.0,1.2.0)",
  org.eclipse.jst.j2ee.web;bundle-version="[1.2.0,2.0.0)",
  org.eclipse.emf.edit.ui;bundle-version="[2.2.0,3.0.0)",
- org.eclipse.jdt.ui;bundle-version="[3.2.0,4.0.0)",
+ org.eclipse.jdt.ui;bundle-version="[3.26.0,4.0.0)",
  org.eclipse.wst.validation;bundle-version="[1.2.0,2.0.0)",
  org.eclipse.jst.j2ee.core;bundle-version="[1.1.0,2.0.0)",
  org.eclipse.wst.common.emfworkbench.integration;bundle-version="[1.2.0,2.0.0)",
