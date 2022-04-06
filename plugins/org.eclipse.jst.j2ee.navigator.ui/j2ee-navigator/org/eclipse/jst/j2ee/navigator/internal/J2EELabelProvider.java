@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2012 IBM Corporation and others.
+ * Copyright (c) 2003, 2022 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,6 +18,7 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
+import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.viewers.ILabelProviderListener;
@@ -158,7 +159,7 @@ public class J2EELabelProvider implements ICommonLabelProvider {
 			return J2EEUIPlugin.getDefault().getImage("jar_obj"); //$NON-NLS-1$
 		if(element instanceof LoadingDDNode)
 			return ((LoadingDDNode)element).getImage();
-		if (element instanceof IProject || element instanceof IJavaProject)
+		if (element instanceof IProject || element instanceof IJavaElement)
 			return null;
 		if (delegateLabelProvider != null)
 			return delegateLabelProvider.getImage(element);
@@ -174,10 +175,12 @@ public class J2EELabelProvider implements ICommonLabelProvider {
 			return ((J2EEJavaClassProviderHelper) element).getText();
 		if (element instanceof File)
 			return ((File)element).getName();
-		if (element instanceof IProject)
-			return ((IProject)element).getName();
+		if (element instanceof IProject || element instanceof IJavaProject)
+			return null;
 		if(element instanceof LoadingDDNode)
 			return ((LoadingDDNode)element).getText();
+		if (element instanceof IJavaElement)
+			return null;
 		if (delegateLabelProvider != null)
 			return delegateLabelProvider.getText(element);
 		return null;
