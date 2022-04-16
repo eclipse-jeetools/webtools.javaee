@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2021 IBM Corporation and others.
+ * Copyright (c) 2005, 2022 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -8,9 +8,7 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
-/*
- * Created on Dec 7, 2004
- */
+
 package org.eclipse.jst.j2ee.internal.perspective;
 
 import org.eclipse.debug.ui.IDebugUIConstants;
@@ -37,6 +35,8 @@ public class J2EEPerspective implements org.eclipse.ui.IPerspectiveFactory {
 	public static final String ID_MARKERS_VIEW= "org.eclipse.ui.views.AllMarkersView"; //$NON-NLS-1$
 	public static final String ID_TASKLIST_VIEW= "org.eclipse.mylyn.tasks.ui.views.tasks"; //$NON-NLS-1$
 	private static final String ID_TERMINAL_VIEW = "org.eclipse.tm.terminal.view.ui.TerminalsView"; //$NON-NLS-1$
+	private static final String ID_GIT_REPO_VIEW = "org.eclipse.egit.ui.RepositoriesView";  //$NON-NLS-1$
+	private static final String ID_GIT_STG_VIEW = "org.eclipse.egit.ui.internal.staging.StagingView";  //$NON-NLS-1$
 
 	public J2EEPerspective() {
 		super();
@@ -90,6 +90,7 @@ public class J2EEPerspective implements org.eclipse.ui.IPerspectiveFactory {
 		layout.addShowViewShortcut(IPageLayout.ID_PROBLEM_VIEW);
 		layout.addShowViewShortcut(ID_TASKLIST_VIEW);
 		layout.addShowViewShortcut(ID_TERMINAL_VIEW);
+		layout.addShowViewShortcut(JavaUI.ID_PACKAGES_VIEW);
 		
 		// views - search
 		layout.addShowViewShortcut(ID_SEARCH_VIEW);
@@ -115,20 +116,27 @@ public class J2EEPerspective implements org.eclipse.ui.IPerspectiveFactory {
 		bottomRight.addView(ID_MARKERS_VIEW);
 		bottomRight.addView(IPageLayout.ID_PROP_SHEET);
 		bottomRight.addView(ID_SERVERS_VIEW);
-		addDBViewIfPresent(layout,bottomRight);
+		addDBViewIfPresent(layout, bottomRight);
 		bottomRight.addView(ID_WST_SNIPPETS_VIEW);
 		
+		addViewIfPresent(bottomRight, ID_TERMINAL_VIEW);
+
 		bottomRight.addPlaceholder(IPageLayout.ID_PROBLEM_VIEW);
+		bottomRight.addPlaceholder(IPageLayout.ID_BOOKMARKS);
 		bottomRight.addPlaceholder(IPageLayout.ID_TASK_LIST);
 		bottomRight.addPlaceholder(ID_CONSOLE_VIEW);
-		bottomRight.addPlaceholder(IPageLayout.ID_BOOKMARKS);
 		bottomRight.addPlaceholder(IProgressConstants.PROGRESS_VIEW_ID);
 		bottomRight.addPlaceholder(ID_SEARCH_VIEW);
-		addViewIfPresent(bottomRight, ID_TERMINAL_VIEW);
+		bottomRight.addPlaceholder(ID_GIT_REPO_VIEW);
+		bottomRight.addPlaceholder(ID_GIT_STG_VIEW);
+		bottomRight.addPlaceholder(JavaUI.ID_JAVADOC_VIEW);
+		bottomRight.addPlaceholder(JavaUI.ID_MEMBERS_VIEW);
+		bottomRight.addPlaceholder(JavaUI.ID_SOURCE_VIEW);
 
 		// Top right.
 		IFolderLayout topRight = layout.createFolder("topRight", IPageLayout.RIGHT, 0.7f, editorArea);//$NON-NLS-1$
 		topRight.addView(IPageLayout.ID_OUTLINE);
+		topRight.addPlaceholder(IPageLayout.ID_MINIMAP_VIEW);
 		
 	}
 	private void addDBViewIfPresent(IPageLayout page, IFolderLayout bottomRight) {

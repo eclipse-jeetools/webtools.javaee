@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2021 SAP AG and others.
+ * Copyright (c) 2007, 2022 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -208,31 +208,34 @@ public abstract class NewWebClassDataModelProvider extends NewJavaClassDataModel
 	 * packages rather than the older <code>javax.*</code> packages.
 	 */
 	protected boolean projectUsesJakartaPackages() {
-		IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(getStringProperty(PROJECT_NAME));
-		if (project != null && project.isAccessible()) {
-			// long term, the default when otehrwise not determinable should be the newer one
-			try {
-				IJavaProject javaProject = JavaCore.create(project);
-				if (javaProject != null && javaProject.exists()) {
-					if (javaProject.findType(IServletConstants.QUALIFIED_JAKARTA_HTTP_SERVLET) != null) {
+		String projectName = getStringProperty(PROJECT_NAME);
+		if (projectName != null && projectName.length() > 0) {
+			IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
+			if (project != null && project.isAccessible()) {
+				// long term, the default when otherwise indeterminate should be Jakarta
+				try {
+					IJavaProject javaProject = JavaCore.create(project);
+					if (javaProject != null && javaProject.exists()) {
+						if (javaProject.findType(IServletConstants.QUALIFIED_JAKARTA_GENERIC_SERVLET) != null) {
+							return true;
+						}
+					}
+				}
+				catch (CoreException e) {
+					WTPCommonPlugin.logError(e);
+				}
+				try {
+					// check to see if it is Jakarta Servlet 5 or newer
+					if (FacetedProjectFramework.hasProjectFacet(project, WebFacetUtils.WEB_FACET.getId(), WebFacetUtils.WEB_50.getVersionString())) {
 						return true;
 					}
 				}
-			}
-			catch (CoreException e) {
-				WTPCommonPlugin.logError(e);
-			}
-			try {
-				// check to see if it is Jakarta Servlet 5 or newer
-				if (FacetedProjectFramework.hasProjectFacet(project, WebFacetUtils.WEB_FACET.getId(), WebFacetUtils.WEB_50.getVersionString())) {
-					return true;
+				catch (CoreException e) {
+					WebPlugin.log(e);
 				}
 			}
-			catch (CoreException e) {
-				WebPlugin.log(e);
-			}
 		}
-		return false;
+		return true;
 	}
 	
 	@SuppressWarnings("restriction")
