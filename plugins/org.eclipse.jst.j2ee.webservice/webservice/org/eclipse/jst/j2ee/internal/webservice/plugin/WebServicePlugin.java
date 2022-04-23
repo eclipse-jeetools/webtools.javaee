@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2006 IBM Corporation and others.
+ * Copyright (c) 2003, 2022 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -129,22 +129,10 @@ public class WebServicePlugin extends WTPPlugin implements ResourceLocator {
 
 
 	/**
-	 * Returns the URL from which all resources are based.
-	 * 
-	 * @return the URL from which all resources are based.
+	 * @deprecated - no known callers
 	 */
 	public URL getBaseURL() {
-		String installURL = getPluginInstallLocation();
-		if (installURL != null) {
-			try {
-				StringBuffer sb = new StringBuffer(installURL);
-				sb.append("plugin.properties"); //$NON-NLS-1$
-				return new URL(sb.toString());
-			} catch (MalformedURLException e) {
-				//Ignore
-			}
-		}
-		return null;
+		return Platform.getBundle(PLUGIN_ID).getEntry("plugin.properties"); //$NON-NLS-1$
 	}
 
 	/**
@@ -162,18 +150,6 @@ public class WebServicePlugin extends WTPPlugin implements ResourceLocator {
 		if (imageDescriptor != null)
 			return imageDescriptor.createImage();
 		return null;
-	}
-
-	public String getPluginStateLocation() {
-		return Platform.getPluginStateLocation(this).addTrailingSeparator().toOSString();
-	}
-
-	public String getPluginInstallLocation() {
-		try {
-			return Platform.resolve(getInstance().getBundle().getEntry("/")).getFile(); //$NON-NLS-1$
-		} catch (Throwable t) {
-			return null;
-		}
 	}
 
 	/**
