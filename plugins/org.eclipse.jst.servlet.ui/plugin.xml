@@ -359,7 +359,7 @@
   <extension
         point="org.eclipse.ui.navigator.navigatorContent">
      <navigatorContent
-           activeByDefault="false"
+           activeByDefault="true"
            contentProvider="org.eclipse.jst.servlet.ui.internal.navigator.WebJavaContentProvider"
            icon="icons/full/ctool16/webjava-icon.gif"
            id="org.eclipse.jst.servlet.ui.EnhancedJavaRendering"
