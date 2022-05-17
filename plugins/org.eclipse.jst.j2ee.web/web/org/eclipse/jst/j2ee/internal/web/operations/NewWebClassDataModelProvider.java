@@ -208,11 +208,26 @@ public abstract class NewWebClassDataModelProvider extends NewJavaClassDataModel
 	 * packages rather than the older <code>javax.*</code> packages.
 	 */
 	protected boolean projectUsesJakartaPackages() {
+		try {
+			String facetVersion = getJavaEEVersion();
+			if (facetVersion != null && facetVersion.length() > 0) {
+				float f = Float.parseFloat(facetVersion);
+				return f >= 5;
+			}
+		}
+		catch (NullPointerException e) {
+			// not a faceted project, then
+		}
+		catch (NumberFormatException e) {
+			// this should never happen
+			WTPCommonPlugin.logError(e);
+		}
+
 		String projectName = getStringProperty(PROJECT_NAME);
 		if (projectName != null && projectName.length() > 0) {
 			IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
 			if (project != null && project.isAccessible()) {
-				// long term, the default when otherwise indeterminate should be Jakarta
+				// the default when otherwise indeterminate should be Jakarta
 				try {
 					IJavaProject javaProject = JavaCore.create(project);
 					if (javaProject != null && javaProject.exists()) {
@@ -225,7 +240,7 @@ public abstract class NewWebClassDataModelProvider extends NewJavaClassDataModel
 					WTPCommonPlugin.logError(e);
 				}
 				try {
-					// check to see if it is Jakarta Servlet 5 or newer
+					// check to see if it is Jakarta Servlet 5 or newer, TODO: should return false on lower versions
 					if (FacetedProjectFramework.hasProjectFacet(project, WebFacetUtils.WEB_FACET.getId(), WebFacetUtils.WEB_50.getVersionString())) {
 						return true;
 					}
@@ -235,7 +250,7 @@ public abstract class NewWebClassDataModelProvider extends NewJavaClassDataModel
 				}
 			}
 		}
-		return true;
+		return false;
 	}
 	
 	@SuppressWarnings("restriction")

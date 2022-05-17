@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2021 IBM Corporation and others.
+ * Copyright (c) 2003, 2022 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -477,15 +477,26 @@ public class NewServletClassDataModelProvider extends
 	 */
 	private List getServletInterfaces() {
 		if (interfaceList == null) {
-			interfaceList = new ArrayList();
-			// Add minimum required list of servlet interfaces to be implemented
-			for (int i = 0; i < SERVLET_INTERFACES.length; i++) {
-				interfaceList.add(SERVLET_INTERFACES[i]);
+			interfaceList = new ArrayList<String>();
+			if (projectUsesJakartaPackages()) {
+				// Add minimum required list of servlet interfaces to be implemented
+				interfaceList.add(IServletConstants.QUALIFIED_JAKARTA_SERVLET);
+				// Remove the javax.servlet.Servlet interface from the list if the
+				// superclass already implements it
+				if (ServletSupertypesValidator.isServletSuperclass(model)) {
+					interfaceList.remove(IServletConstants.QUALIFIED_JAKARTA_SERVLET);
+				}
 			}
-			// Remove the javax.servlet.Servlet interface from the list if the
-			// superclass already implements it
-			if (ServletSupertypesValidator.isServletSuperclass(model)) {
-				interfaceList.remove(QUALIFIED_SERVLET);
+			else {
+				// Add minimum required list of servlet interfaces to be implemented
+				for (int i = 0; i < SERVLET_INTERFACES.length; i++) {
+					interfaceList.add(SERVLET_INTERFACES[i]);
+				}
+				// Remove the javax.servlet.Servlet interface from the list if the
+				// superclass already implements it
+				if (ServletSupertypesValidator.isServletSuperclass(model)) {
+					interfaceList.remove(QUALIFIED_SERVLET);
+				}
 			}
 		}
 		// Return interface list
@@ -524,8 +535,9 @@ public class NewServletClassDataModelProvider extends
 			if (servlets != null && !servlets.isEmpty()) {
 				for (int i = 0; i < servlets.size(); i++) {
 					String name = ((org.eclipse.jst.j2ee.webapplication.Servlet) servlets.get(i)).getServletName();
-					if (prop.equals(name))
+					if (prop.equals(name)) {
 						exists = true;
+					}
 				}
 			}
 			// If the servlet name already exists, throw an error
@@ -542,8 +554,9 @@ public class NewServletClassDataModelProvider extends
 			if (servlets != null && !servlets.isEmpty()) {
 				for (int i = 0; i < servlets.size(); i++) {
 					String name = ((org.eclipse.jst.javaee.web.Servlet) servlets.get(i)).getServletName();
-					if (prop.equals(name))
+					if (prop.equals(name)) {
 						exists = true;
+					}
 				}
 			}
 			// If the servlet name already exists, throw an error
