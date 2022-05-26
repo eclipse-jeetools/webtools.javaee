@@ -328,7 +328,7 @@ public class NewFilterClassDataModelProvider extends
 			}
 		}
 		// Return interface list
-		return interfaceList;
+		return jakartaInterfaceList;
 	}
 
 	/**

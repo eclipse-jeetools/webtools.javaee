@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2021 SAP AG and others.
+ * Copyright (c) 2007, 2022 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,18 +11,16 @@
 package org.eclipse.jst.j2ee.internal.web.operations;
 
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.ABSTRACT_METHODS;
+import static org.eclipse.jst.j2ee.internal.web.operations.INewFilterClassDataModelProperties.ASYNC_SUPPORT;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewFilterClassDataModelProperties.DESTROY;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewFilterClassDataModelProperties.DO_FILTER;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewFilterClassDataModelProperties.FILTER_MAPPINGS;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewFilterClassDataModelProperties.INIT;
 import static org.eclipse.jst.j2ee.internal.web.operations.INewFilterClassDataModelProperties.INIT_PARAM;
-import static org.eclipse.jst.j2ee.internal.web.operations.INewFilterClassDataModelProperties.ASYNC_SUPPORT;
-import static org.eclipse.jst.j2ee.web.IServletConstants.DESTROY_SIGNATURE;
-import static org.eclipse.jst.j2ee.web.IServletConstants.DO_FILTER_SIGNATURE;
-import static org.eclipse.jst.j2ee.web.IServletConstants.FILTER_INIT_SIGNATURE;
 import static org.eclipse.jst.j2ee.web.IServletConstants.METHOD_DESTROY;
 import static org.eclipse.jst.j2ee.web.IServletConstants.METHOD_DO_FILTER;
 import static org.eclipse.jst.j2ee.web.IServletConstants.METHOD_INIT;
+import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_ANNOTATION_DISPATCHER_TYPE;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_ANNOTATION_INIT_PARAM;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_FILTER_CHAIN;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_FILTER_CONFIG;
@@ -31,7 +29,6 @@ import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_EXCEP
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_REQUEST;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_SERVLET_RESPONSE;
 import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_WEB_FILTER;
-import static org.eclipse.jst.j2ee.web.IServletConstants.QUALIFIED_ANNOTATION_DISPATCHER_TYPE;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -41,6 +38,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.jst.j2ee.internal.common.operations.Method;
+import org.eclipse.jst.j2ee.web.IServletConstants;
 import org.eclipse.jst.j2ee.webapplication.DispatcherType;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 
@@ -60,31 +58,58 @@ public class CreateFilterTemplateModel extends CreateWebClassTemplateModel {
     
 	@Override
 	public Collection<String> getImports() {
-		Collection<String> collection = super.getImports();
+		Collection<String> imports = super.getImports();
 		
+		String javaEEVersion = getJavaEEVersion();
 		if (shouldGenInit()) {
-			collection.add(QUALIFIED_FILTER_CONFIG);
-			collection.add(QUALIFIED_SERVLET_EXCEPTION);
+			if (SERVLET_5_0.equals(javaEEVersion)) {
+				imports.add(IServletConstants.QUALIFIED_JAKARTA_FILTER_CONFIG);
+				imports.add(IServletConstants.QUALIFIED_JAKARTA_SERVLET_EXCEPTION);
+			}
+			else {
+				imports.add(QUALIFIED_FILTER_CONFIG);
+				imports.add(QUALIFIED_SERVLET_EXCEPTION);
+			}
 		}
 		
 		if (shouldGenDoFilter()) {
-			collection.add(QUALIFIED_SERVLET_REQUEST);
-			collection.add(QUALIFIED_SERVLET_RESPONSE);
-			collection.add(QUALIFIED_FILTER_CHAIN);
-			collection.add(QUALIFIED_IO_EXCEPTION);
-			collection.add(QUALIFIED_SERVLET_EXCEPTION);
-		}
-		if (SERVLET_3.equals(getJavaEEVersion()) || SERVLET_3_1.equals(getJavaEEVersion()) || SERVLET_4_0.equals(getJavaEEVersion())){
-			collection.add(QUALIFIED_WEB_FILTER);
-			if (getInitParams()!= null && getInitParams().size()>0){
-				collection.add(QUALIFIED_ANNOTATION_INIT_PARAM);
+			if (SERVLET_5_0.equals(javaEEVersion)) {
+				imports.add(IServletConstants.QUALIFIED_JAKARTA_SERVLET_REQUEST);
+				imports.add(IServletConstants.QUALIFIED_JAKARTA_SERVLET_RESPONSE);
+				imports.add(IServletConstants.QUALIFIED_JAKARTA_FILTER_CHAIN);
+				imports.add(QUALIFIED_IO_EXCEPTION);
+				imports.add(IServletConstants.QUALIFIED_JAKARTA_SERVLET_EXCEPTION);
 			}
-			if (hasDispatchers()){
-				collection.add(QUALIFIED_ANNOTATION_DISPATCHER_TYPE);
+			else {
+				imports.add(QUALIFIED_SERVLET_REQUEST);
+				imports.add(QUALIFIED_SERVLET_RESPONSE);
+				imports.add(QUALIFIED_FILTER_CHAIN);
+				imports.add(QUALIFIED_IO_EXCEPTION);
+				imports.add(QUALIFIED_SERVLET_EXCEPTION);
+			}
+		}
+		if (SERVLET_5_0.equals(javaEEVersion)) {
+			imports.add(IServletConstants.QUALIFIED_JAKARTA_WEB_FILTER);
+			if (getInitParams() != null && !getInitParams().isEmpty()) {
+				imports.add(IServletConstants.QUALIFIED_JAKARTA_ANNOTATION_INIT_PARAM);
+			}
+			if (hasDispatchers()) {
+				imports.add(IServletConstants.QUALIFIED_JAKARTA_ANNOTATION_DISPATCHER_TYPE);
+			}
+		}
+		else {
+			if (SERVLET_3.equals(javaEEVersion) || SERVLET_3_1.equals(javaEEVersion) || SERVLET_4_0.equals(javaEEVersion)) {
+				imports.add(QUALIFIED_WEB_FILTER);
+				if (getInitParams() != null && !getInitParams().isEmpty()) {
+					imports.add(QUALIFIED_ANNOTATION_INIT_PARAM);
+				}
+				if (hasDispatchers()) {
+					imports.add(QUALIFIED_ANNOTATION_DISPATCHER_TYPE);
+				}
 			}
 		}
 		
-		return collection;
+		return imports;
 	}
 
 	public String getFilterName() {
@@ -200,9 +225,16 @@ public class CreateFilterTemplateModel extends CreateWebClassTemplateModel {
 		
 		while (iterator.hasNext()) {
 			Method method = iterator.next();
-			if ((METHOD_INIT.equals(method.getName()) && FILTER_INIT_SIGNATURE.equals(method.getSignature())) || 
-					(METHOD_DESTROY.equals(method.getName()) && DESTROY_SIGNATURE.equals(method.getSignature())) ||
-					(METHOD_DO_FILTER.equals(method.getName()) && DO_FILTER_SIGNATURE.equals(method.getSignature()))) {
+			String methodName = method.getName();
+			String methodSignature = method.getSignature();
+			if ((METHOD_INIT.equals(methodName) && (IServletConstants.FILTER_INIT_SIGNATURE.equals(methodSignature))) ||
+					(METHOD_DESTROY.equals(methodName) && (IServletConstants.DESTROY_SIGNATURE.equals(methodSignature))) ||
+					(METHOD_DO_FILTER.equals(methodName) && (IServletConstants.DO_FILTER_SIGNATURE.equals(methodSignature)))) {
+				iterator.remove();
+			}
+			else if ((METHOD_INIT.equals(methodName) && (IServletConstants.JAKARTA_FILTER_INIT_SIGNATURE.equals(methodSignature))) ||
+					(METHOD_DESTROY.equals(methodName) && (IServletConstants.JAKARTA_DESTROY_SIGNATURE.equals(methodSignature))) ||
+					(METHOD_DO_FILTER.equals(methodName) && (IServletConstants.JAKARTA_DO_FILTER_SIGNATURE.equals(methodSignature)))) {
 				iterator.remove();
 			}
 		}
