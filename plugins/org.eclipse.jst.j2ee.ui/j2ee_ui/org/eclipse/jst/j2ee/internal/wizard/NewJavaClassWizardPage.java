@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2015 IBM Corporation and others.
+ * Copyright (c) 2003, 2022 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -23,9 +23,11 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
@@ -36,7 +38,6 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.search.IJavaSearchConstants;
 import org.eclipse.jdt.core.search.IJavaSearchScope;
-import org.eclipse.jdt.internal.ui.JavaPlugin;
 import org.eclipse.jdt.internal.ui.dialogs.FilteredTypesSelectionDialog;
 import org.eclipse.jdt.internal.ui.viewsupport.IViewPartInputProvider;
 import org.eclipse.jdt.ui.JavaElementLabelProvider;
@@ -55,8 +56,8 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties;
 import org.eclipse.jst.j2ee.internal.dialogs.TypeSearchEngine;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEUIMessages;
+import org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin;
 import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
-import org.eclipse.jst.j2ee.project.JavaEEProjectUtilities;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -202,6 +203,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		
 		if (project == null)
 			return null;
+		/*
 		IPackageFragmentRoot[] sources = J2EEProjectUtilities.getSourceContainers(project);
 		// Try and return the first source folder
 		if (sources.length > 0) {
@@ -211,6 +213,26 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 				return null;
 			}
 		}
+		*/
+
+		IJavaProject javaProject = JavaCore.create(project);
+		if (javaProject.exists()) {
+			try {
+				IClasspathEntry[] rawClasspath = javaProject.getRawClasspath();
+				for (int i = 0; i < rawClasspath.length; i++) {
+					if (rawClasspath[i].getEntryKind() == IClasspathEntry.CPE_SOURCE) {
+						IPath sourcePath = rawClasspath[i].getPath();
+						if (sourcePath.segmentCount() > 1) {
+							return project.getWorkspace().getRoot().getFolder(sourcePath);
+						}
+					}
+				}
+			}
+			catch (JavaModelException e) {
+				J2EEUIPlugin.logError(e);
+			}
+		}
+
 		return null;
 	}
 	
@@ -230,8 +252,9 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		boolean result;
 		try {
 			result = project.isAccessible() && 
-				project.hasNature(IModuleConstants.MODULE_NATURE_ID) && 
-			 	JavaEEProjectUtilities.getJ2EEProjectType(project).equals(projectType);
+				project.hasNature(JavaCore.NATURE_ID);
+//				project.hasNature(IModuleConstants.MODULE_NATURE_ID) && 
+//			 	JavaEEProjectUtilities.getJ2EEProjectType(project).equals(projectType);
 		} catch (CoreException ce) {
 			result = false;
 		}
@@ -306,7 +329,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 			if (root == null || !root.getJavaProject().getProject().equals(targetProject) || root.isArchive()) {
 				IFolder folder = getDefaultJavaSourceFolder(targetProject);
 				if (folder != null)
-					folderText.setText(folder.getFullPath().toOSString());
+					folderText.setText(folder.getFullPath().toString());
 			} else {
 				folderText.setText(root.getPath().toString());
 			}
@@ -701,7 +724,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 					jelem = projects[0];
 				}
 			} catch (JavaModelException e) {
-				JavaPlugin.log(e);
+				J2EEUIPlugin.logError(e);
 			}
 		}
 		return jelem;
