@@ -1,5 +1,5 @@
 /***********************************************************************
- * Copyright (c) 2008, 2013 by SAP AG, Walldorf. 
+ * Copyright (c) 2008, 2022 by SAP AG, Walldorf, and others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -20,6 +20,7 @@ public class JEEUIPluginIcons {
 	public static String IMG_WEBEE6MODEL = "webapp_30"; //$NON-NLS-1$
 	public static String IMG_WEBEE7MODEL = "webapp_31"; //$NON-NLS-1$
 	public static String IMG_WEBEE8MODEL = "webapp_40"; //$NON-NLS-1$
+	public static String IMG_WEBEE9MODEL = "webapp_50"; //$NON-NLS-1$
 	public static String IMG_CONNECTOR = "connection"; //$NON-NLS-1$
 	public static String IMG_EE7CONNECTOR = "connector_17"; //$NON-NLS-1$
 	public static String IMG_CONFIG_PROP = "config_prop_obj"; //$NON-NLS-1$

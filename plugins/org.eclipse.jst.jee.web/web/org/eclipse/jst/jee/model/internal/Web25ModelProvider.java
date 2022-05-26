@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2005, 2022 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -76,12 +76,24 @@ public class Web25ModelProvider extends JEE5ModelProvider {
 			// note that later EMF generations remove the _LITERAL from the enum
 			war.setVersion(WebAppVersionType._31);
 		}
-		else
-		{
+		else if (version != null && version.equals(J2EEVersionConstants.VERSION_4_0_TEXT)) {
 			dd.getXMLNSPrefixMap().put("", J2EEConstants.JAVAEE7_NS_URL);  //$NON-NLS-1$
 			dd.getXSISchemaLocation().put(J2EEConstants.JAVAEE7_NS_URL, J2EEConstants.WEB_APP_SCHEMA_LOC_4_0);
 			// note that later EMF generations remove the _LITERAL from the enum
 			war.setVersion(WebAppVersionType._40);
+		}
+		else if (version != null && version.equals(J2EEVersionConstants.VERSION_5_0_TEXT)) {
+			dd.getXMLNSPrefixMap().put("", J2EEConstants.JAKARTAEE9_NS_URL);  //$NON-NLS-1$
+			dd.getXSISchemaLocation().put(J2EEConstants.JAKARTAEE9_NS_URL, J2EEConstants.WEB_APP_SCHEMA_LOC_5_0);
+			// note that later EMF generations remove the _LITERAL from the enum
+			war.setVersion(WebAppVersionType._50);
+		}
+		else
+		{
+			dd.getXMLNSPrefixMap().put("", J2EEConstants.JAKARTAEE9_NS_URL);  //$NON-NLS-1$
+			dd.getXSISchemaLocation().put(J2EEConstants.JAKARTAEE9_NS_URL, J2EEConstants.WEB_APP_SCHEMA_LOC_5_0);
+			// note that later EMF generations remove the _LITERAL from the enum
+			war.setVersion(WebAppVersionType._50);
 		}		
 		dd.setWebApp(war);		
 		res.getContents().add((EObject) dd);

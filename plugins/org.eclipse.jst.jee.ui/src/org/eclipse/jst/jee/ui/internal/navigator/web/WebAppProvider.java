@@ -1,5 +1,5 @@
 /***********************************************************************
- * Copyright (c) 2008, 2017 by SAP AG, Walldorf. 
+ * Copyright (c) 2008, 2022 by SAP AG, Walldorf, and others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -49,7 +49,7 @@ public class WebAppProvider extends AbstractWebGroupProvider implements IAdaptab
 	private GroupWelcomePagesItemProvider welcome;
 	private GroupContextParamsItemProvider contextParams;
 	
-	private List<Object> children2 = new ArrayList<Object>();
+	private List<AbstractGroupProvider> children2 = new ArrayList<AbstractGroupProvider>();
 	
 	private String text2;
 	
@@ -57,6 +57,7 @@ public class WebAppProvider extends AbstractWebGroupProvider implements IAdaptab
 	private Image web30Image;
 	private Image web31Image;
 	private Image web40Image;
+	private Image web50Image;
 	
 	private IProject prjct = null;
 	private IFile ddFile = null;
@@ -109,6 +110,8 @@ public class WebAppProvider extends AbstractWebGroupProvider implements IAdaptab
 			return getWeb31Image();
 		} else if (J2EEVersionConstants.VERSION_4_0_TEXT.equals(version)) {
 			return getWeb40Image();
+		} else if (J2EEVersionConstants.VERSION_5_0_TEXT.equals(version)) {
+			return getWeb50Image();
 		}
 		return getWeb25Image();
 	}
@@ -129,8 +132,8 @@ public class WebAppProvider extends AbstractWebGroupProvider implements IAdaptab
 	@Override
 	public void reinit(JavaEEObject modelObject) {
 		super.reinit(modelObject);
-		for (Object child : children2) {
-			((AbstractGroupProvider)child).reinit(modelObject);
+		for (AbstractGroupProvider child : children2) {
+			child.reinit(modelObject);
 		}
 	}
 
@@ -167,5 +170,12 @@ public class WebAppProvider extends AbstractWebGroupProvider implements IAdaptab
 			web40Image = JEEUIPlugin.getDefault().getImageDescriptor(JEEUIPluginIcons.IMG_WEBEE8MODEL).createImage();
 		}
 		return web40Image;
+	}
+
+	private Image getWeb50Image() {
+		if (web50Image == null) {
+			web50Image = JEEUIPlugin.getDefault().getImageDescriptor(JEEUIPluginIcons.IMG_WEBEE9MODEL).createImage();
+		}
+		return web50Image;
 	}
 }

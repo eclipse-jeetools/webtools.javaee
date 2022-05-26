@@ -10,3 +10,8 @@ bin/
 # Package Files #
 target/
 *.war
+.DS_Store
+.DS_Store?
+ehthumbs.db
+Thumbs.db
+.Spotlight-V100

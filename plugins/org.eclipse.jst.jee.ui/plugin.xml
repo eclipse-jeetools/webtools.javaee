@@ -817,6 +817,11 @@
                        property="org.eclipse.wst.common.project.facet.core.projectFacet"
                        value="jst.web:4.0">
                  </test>
+                 <test
+                       forcePluginActivation="true"
+                       property="org.eclipse.wst.common.project.facet.core.projectFacet"
+                       value="jst.web:5.0">
+                 </test>
               </or>
            </adapt>
    <instanceof

@@ -21,6 +21,6 @@
 
   <groupId>org.eclipse.webtools.javaee</groupId>
   <artifactId>org.eclipse.jst.j2ee.core</artifactId>
-  <version>1.4.300-SNAPSHOT</version>
+  <version>1.4.400-SNAPSHOT</version>
   <packaging>eclipse-plugin</packaging>
 </project>
