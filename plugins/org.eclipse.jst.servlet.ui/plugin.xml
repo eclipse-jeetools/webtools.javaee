@@ -24,7 +24,7 @@
                icon="icons/full/ctool16/newwar_wiz.gif"
                label="%web.project_ui_"
                style="pulldown"
-               tooltip="%new.web.project.description_ui_" />
+               tooltip="%new.web.project.description_ui_tooltip" />
       </actionSet> 
    </extension>
    
