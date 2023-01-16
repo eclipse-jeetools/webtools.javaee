@@ -12,7 +12,7 @@ If you're seeing this repository somewhere other than on git.eclipse.org, it's n
 1. Take note of your Username as listed on https://git.eclipse.org/r/settings/ (when logged in).
 1. Add a `git remote` for gerrit using `ssh://{username}@git.eclipse.org:29418/jeetools/webtools.javaee.git` (optional if cloned from the authoritative repository)
 1. Ready your changes
-1. You should run the Maven build locally, supplying using at least Tycho 2.7.2 for the values in `-Dtycho-extras.version=${tychoVersion} -Dtycho.version=${tychoVersion}` and profile `bree-libs` with `-Pbree-libs`.
+1. You should run the Maven build locally, supplying using at least Tycho 2.7.5 for the values in `-Dtycho-extras.version=${tychoVersion} -Dtycho.version=${tychoVersion}` and profile `bree-libs` with `-Pbree-libs`.
 1. Create a local "topic" branch and commit your changes.  Please start your commit messages first line with the word "bug" and the bug number, e.g. `Bug 12345` to refer to bug 12345, both to make it more understandable in the eventual git history and to allow Gerrit to automagically link it to the bug report.
 1. Push your changes to the Gerrit remote using refspec `HEAD:refs/for/master`
 1. You'll be given a URL like https://git.eclipse.org/r/c/jeetools/webtools.javaee/+/163278 unique to your changes. Please go there and click on ADD REVIEWER, choosing the [project lead](https://projects.eclipse.org/projects/webtools.jeetools/who) and PMC Lead, Nitin Dahyabhai, so they get notified of your proposal.
