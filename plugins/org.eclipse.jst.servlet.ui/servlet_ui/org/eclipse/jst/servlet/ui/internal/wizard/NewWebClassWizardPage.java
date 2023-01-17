@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2008 SAP AG and others.
+ * Copyright (c) 2007, 2023 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -28,8 +28,10 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaElement;
+import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.ITypeHierarchy;
+import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.util.emf.workbench.ProjectUtilities;
 import org.eclipse.jface.dialogs.Dialog;
@@ -202,19 +204,25 @@ public abstract class NewWebClassWizardPage extends NewJavaClassWizardPage {
 			return;
 		}
 		IVirtualComponent component = ComponentCore.createComponent(project);
-		if(component.getRootFolder() != null
-				&& component.getRootFolder().getUnderlyingFolder() != null){
-			IVirtualFile ddXmlFile = component.getRootFolder().getFile(new Path(J2EEConstants.WEBAPP_DD_URI));
-			if (!ddXmlFile.exists())
-			{
-				// add a flag into the model to create the DD at the beginning of the operation
-				model.setBooleanProperty(GENERATE_DD, Boolean.TRUE);
+		if (component != null && component.exists()) {
+			if (component.getRootFolder() != null
+					&& component.getRootFolder().getUnderlyingFolder() != null){
+				IVirtualFile ddXmlFile = component.getRootFolder().getFile(new Path(J2EEConstants.WEBAPP_DD_URI));
+				if (!ddXmlFile.exists())
+				{
+					// add a flag into the model to create the DD at the beginning of the operation
+					model.setBooleanProperty(GENERATE_DD, Boolean.TRUE);
+				}
+				else
+				{
+					// don't create a DD, since one already exists.
+					model.setBooleanProperty(GENERATE_DD, Boolean.FALSE);
+				}
 			}
-			else
-			{
-				// don't create a DD, since one already exists.
-				model.setBooleanProperty(GENERATE_DD, Boolean.FALSE);
-			}
+		}
+		else {
+			// Not a module core project, or there's no deployment descriptor
+			model.setBooleanProperty(GENERATE_DD, Boolean.FALSE);
 		}
 	}
 
@@ -270,7 +278,7 @@ public abstract class NewWebClassWizardPage extends NewJavaClassWizardPage {
 		if (obj instanceof org.eclipse.jst.j2ee.webapplication.Servlet)
 			return true;
 		
-		return isObjectSubclassOf(obj, IServletConstants.QUALIFIED_SERVLET);
+		return isObjectSubclassOf(obj, IServletConstants.QUALIFIED_JAKARTA_GENERIC_SERVLET) || isObjectSubclassOf(obj, IServletConstants.QUALIFIED_GENERIC_SERVLET);
 	}
 	
 	protected boolean isFilter(Object obj) {
@@ -280,7 +288,7 @@ public abstract class NewWebClassWizardPage extends NewJavaClassWizardPage {
 		if (obj instanceof org.eclipse.jst.j2ee.webapplication.Filter)
 			return true;
 		
-		return isObjectSubclassOf(obj, IServletConstants.QUALIFIED_FILTER);
+		return isObjectSubclassOf(obj, IServletConstants.QUALIFIED_JAKARTA_FILTER) || isObjectSubclassOf(obj, IServletConstants.QUALIFIED_FILTER);
 	}
 	
 	private String getJavaClass(Object obj) {
@@ -437,11 +445,21 @@ public abstract class NewWebClassWizardPage extends NewJavaClassWizardPage {
 	
 	@Override
 	protected boolean isProjectValid(IProject project) {
+		if (!project.isAccessible())
+			return false;
+
 		boolean result;
 		try {
-			result = project.isAccessible() && 
-				project.hasNature(IModuleConstants.MODULE_NATURE_ID) && 
+			result = project.hasNature(IModuleConstants.MODULE_NATURE_ID) && 
 			 	(JavaEEProjectUtilities.isDynamicWebProject(project) || JavaEEProjectUtilities.isWebFragmentProject(project));
+			if (!result) { // fallback to heuristics
+				IJavaProject javaProject = JavaCore.create(project);
+				if (javaProject.exists()) {
+					if (javaProject.findType(IServletConstants.QUALIFIED_JAKARTA_GENERIC_SERVLET) != null || javaProject.findType(IServletConstants.QUALIFIED_GENERIC_SERVLET) != null) {
+						result = true;
+					}
+				}
+			}
 		} catch (CoreException ce) {
 			result = false;
 		}

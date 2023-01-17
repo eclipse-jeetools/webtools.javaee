@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2008 SAP AG and others.
+ * Copyright (c) 2007, 2023 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -162,9 +162,11 @@ public class NewFilterClassWizardPage extends NewWebClassWizardPage {
 		
 		// get the version of the web facet
 		IProjectFacetVersion facetVersion = JavaEEProjectUtilities.getProjectFacetVersion(project, IJ2EEFacetConstants.DYNAMIC_WEB);
-		if (facetVersion == null) 
-			return false;
-		
+		if (facetVersion == null) {
+			// no facet, use generic validity
+			return result;
+		}
+
 		// convert the version to an integer
 		int version = J2EEVersionUtil.convertVersionStringToInt(facetVersion.getVersionString());
 		

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2021 IBM Corporation and others.
+ * Copyright (c) 2005, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@ package org.eclipse.jst.jee.util.internal;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.eclipse.jst.j2ee.core.internal.plugin.J2EECorePlugin;
 import org.eclipse.jst.j2ee.internal.J2EEConstants;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
 import org.xml.sax.InputSource;
@@ -27,6 +28,14 @@ import org.xml.sax.InputSource;
 public class JavaEEQuickPeek implements J2EEVersionConstants {
 
 	private static final int UNSET = -2;
+
+	static final String SIMPLE_WEBAPP_SCHEMA_2_4 = lastSegment(J2EEConstants.WEBAPP_SCHEMA_2_4);
+	static final String SIMPLE_WEBAPP_SCHEMA_2_5 = lastSegment(J2EEConstants.WEBAPP_SCHEMA_2_5);
+	static final String SIMPLE_WEBAPP_SCHEMA_3_0 = lastSegment(J2EEConstants.WEBAPP_SCHEMA_3_0);
+	static final String SIMPLE_WEBAPP_SCHEMA_3_1 = lastSegment(J2EEConstants.WEBAPP_SCHEMA_3_1);
+	static final String SIMPLE_WEBAPP_SCHEMA_4_0 = lastSegment(J2EEConstants.WEBAPP_SCHEMA_4_0);
+	static final String SIMPLE_WEBAPP_SCHEMA_5_0 = lastSegment(J2EEConstants.WEBAPP_SCHEMA_5_0);
+	static final String SIMPLE_WEBAPP_SCHEMA_6_0 = lastSegment(J2EEConstants.WEBAPP_SCHEMA_6_0);
 
 	private XMLRootHandler handler = null;
 
@@ -242,24 +251,32 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 				break;
 			case WEB_TYPE:
 				if (publicID != null && systemID != null) {
-					if (publicID.equals(J2EEConstants.WEBAPP_PUBLICID_2_3) && (systemID.equals(J2EEConstants.WEBAPP_SYSTEMID_2_3) || systemID.equals(J2EEConstants.WEBAPP_ALT_SYSTEMID_2_3))) {
+					if (publicID.equals(J2EEConstants.WEBAPP_PUBLICID_2_3) || (systemID.equals(J2EEConstants.WEBAPP_SYSTEMID_2_3) || systemID.equals(J2EEConstants.WEBAPP_ALT_SYSTEMID_2_3))) {
 						version = J2EEVersionConstants.WEB_2_3_ID;
-					} else if (publicID.equals(J2EEConstants.WEBAPP_PUBLICID_2_2) && (systemID.equals(J2EEConstants.WEBAPP_SYSTEMID_2_2) || systemID.equals(J2EEConstants.WEBAPP_ALT_SYSTEMID_2_2))) {
+					} else if (publicID.equals(J2EEConstants.WEBAPP_PUBLICID_2_2) || (systemID.equals(J2EEConstants.WEBAPP_SYSTEMID_2_2) || systemID.equals(J2EEConstants.WEBAPP_ALT_SYSTEMID_2_2))) {
 						version = J2EEVersionConstants.WEB_2_2_ID;
 					}
 				} else if (schemaName != null) {
-					if (schemaName.indexOf(J2EEConstants.WEBAPP_SCHEMA_2_4) != -1) {
-						version = J2EEVersionConstants.WEB_2_4_ID;
-					} else if (schemaName.indexOf(J2EEConstants.WEBAPP_SCHEMA_2_5) != -1) {
-						version = J2EEVersionConstants.WEB_2_5_ID;
-					} else if (schemaName.indexOf(J2EEConstants.WEBAPP_SCHEMA_3_0) != -1) {
-						version = J2EEVersionConstants.WEB_3_0_ID;
-					} else if (schemaName.indexOf(J2EEConstants.WEBAPP_SCHEMA_3_1) != -1) {
-						version = J2EEVersionConstants.WEB_3_1_ID;
-					} else if (schemaName.indexOf(J2EEConstants.WEBAPP_SCHEMA_4_0) != -1) {
-						version = J2EEVersionConstants.WEB_4_0_ID;
-					} else if (schemaName.indexOf(J2EEConstants.WEBAPP_SCHEMA_5_0) != -1) {
+					if (schemaName.indexOf(SIMPLE_WEBAPP_SCHEMA_6_0) != -1) {
+						version = J2EEVersionConstants.WEB_6_0_ID;
+					}
+					else if (schemaName.indexOf(SIMPLE_WEBAPP_SCHEMA_5_0) != -1) {
 						version = J2EEVersionConstants.WEB_5_0_ID;
+					}
+					else if (schemaName.indexOf(SIMPLE_WEBAPP_SCHEMA_4_0) != -1) {
+						version = J2EEVersionConstants.WEB_4_0_ID;
+					}
+					else if (schemaName.indexOf(SIMPLE_WEBAPP_SCHEMA_3_1) != -1) {
+						version = J2EEVersionConstants.WEB_3_1_ID;
+					}
+					else if (schemaName.indexOf(SIMPLE_WEBAPP_SCHEMA_3_0) != -1) {
+						version = J2EEVersionConstants.WEB_3_0_ID;
+					}
+					else if (schemaName.indexOf(SIMPLE_WEBAPP_SCHEMA_2_5) != -1) {
+						version = J2EEVersionConstants.WEB_2_5_ID;
+					}
+					else if (schemaName.indexOf(SIMPLE_WEBAPP_SCHEMA_2_4) != -1) {
+						version = J2EEVersionConstants.WEB_2_4_ID;
 					}
 				} else if (J2EEConstants.J2EE_NS_URL.equals(namespace)) {
 					String versionAttribute = handler.getRootAttributes().getValue("version"); //$NON-NLS-1$
@@ -279,6 +296,15 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 						version = J2EEVersionConstants.WEB_3_1_ID;
 					} else if (J2EEVersionConstants.VERSION_4_0_TEXT.equals(versionAttribute)) {
 						version = J2EEVersionConstants.WEB_4_0_ID;
+					}
+				}
+				if (version == UNSET && handler.getRootAttributes() != null && handler.getRootAttributes().getValue("version") != null) { //$NON-NLS-1$
+					try {
+						float f = Float.parseFloat(handler.getRootAttributes().getValue("version")); //$NON-NLS-1$
+						version = (int) f * 10;
+					}
+					catch (NumberFormatException e) {
+						J2EECorePlugin.logError(e);
 					}
 				}
 				break;
@@ -301,12 +327,14 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 				break;
 			case WEBFRAGMENT_TYPE:
 				if (schemaName != null) {
-					if (schemaName.indexOf(J2EEConstants.WEBFRAGMENT_SCHEMA_3_0) != -1) {
-						version = J2EEVersionConstants.WEBFRAGMENT_3_0_ID;
-					} else if (schemaName.indexOf(J2EEConstants.WEBFRAGMENT_SCHEMA_3_1) != -1) {
-						version = J2EEVersionConstants.WEBFRAGMENT_3_1_ID;
-					} else if (schemaName.indexOf(J2EEConstants.WEBFRAGMENT_SCHEMA_4_0) != -1) {
+					if (schemaName.indexOf(J2EEConstants.WEBFRAGMENT_SCHEMA_4_0) != -1) {
 						version = J2EEVersionConstants.WEBFRAGMENT_4_0_ID;
+					}
+					else if (schemaName.indexOf(J2EEConstants.WEBFRAGMENT_SCHEMA_3_1) != -1) {
+						version = J2EEVersionConstants.WEBFRAGMENT_3_1_ID;
+					}
+					else if (schemaName.indexOf(J2EEConstants.WEBFRAGMENT_SCHEMA_3_0) != -1) {
+						version = J2EEVersionConstants.WEBFRAGMENT_3_0_ID;
 					}
 				}
 				break;
@@ -318,6 +346,11 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 			}
 		}
 		return version;
+	}
+
+	private static String lastSegment(String s) {
+		String[] segments = s.split("/"); //$NON-NLS-1$
+		return segments[segments.length - 1];
 	}
 
 	/**
@@ -400,6 +433,9 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 					break;
 				case J2EEVersionConstants.WEB_5_0_ID:
 					javaEEVersion = J2EEVersionConstants.JEE_9_0_ID;
+					break;
+				case J2EEVersionConstants.WEB_6_0_ID:
+					javaEEVersion = J2EEVersionConstants.JEE_10_0_ID;
 					break;
 				}
 				break;

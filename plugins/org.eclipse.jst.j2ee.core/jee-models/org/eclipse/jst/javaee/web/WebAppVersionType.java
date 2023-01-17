@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2021 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -98,7 +98,7 @@ public enum WebAppVersionType implements Enumerator
 	 * @generated
 	 * @ordered
 	 */
-	_40(2, "_40", "4.0"), //$NON-NLS-1$ //$NON-NLS-2$
+	_40(3, "_40", "4.0"), //$NON-NLS-1$ //$NON-NLS-2$
 	/**
 	 * The '<em><b>50</b></em>' literal object.
 	 * <!-- begin-user-doc -->
@@ -107,7 +107,17 @@ public enum WebAppVersionType implements Enumerator
 	 * @generated
 	 * @ordered
 	 */
-	_50(2, "_50", "5.0"); //$NON-NLS-1$ //$NON-NLS-2$
+	_50(4, "_50", "5.0"), //$NON-NLS-1$ //$NON-NLS-2$
+	/**
+	 * The '<em><b>50</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #_50_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	_60(5, "_60", "6.0"); //$NON-NLS-1$ //$NON-NLS-2$
+
 	/**
 	 * The '<em><b>22</b></em>' literal value.
 	 * <!-- begin-user-doc -->
@@ -209,10 +219,22 @@ public enum WebAppVersionType implements Enumerator
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @see #_50
-	 * @generated
 	 * @ordered
 	 */
 	public static final int _50_VALUE = 5;
+
+	/**
+	 * The '<em><b>50</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>50</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #_60
+	 * @ordered
+	 */
+	public static final int _60_VALUE = 6;
 
 	/**
 	 * An array of all the '<em><b>App Version Type</b></em>' enumerators.
@@ -230,6 +252,7 @@ public enum WebAppVersionType implements Enumerator
 			_31,
 			_40,
 			_50,
+			_60
 		};
 
 	/**

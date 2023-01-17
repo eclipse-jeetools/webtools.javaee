@@ -56,6 +56,8 @@ public interface IJ2EEFacetConstants {
 	public static final IProjectFacetVersion DYNAMIC_WEB_30 = J2EEFacetConstantsProvider.getProjectFacetVersion(DYNAMIC_WEB_FACET, "3.0"); //$NON-NLS-1$
 	public static final IProjectFacetVersion DYNAMIC_WEB_31 = J2EEFacetConstantsProvider.getProjectFacetVersion(DYNAMIC_WEB_FACET, "3.1"); //$NON-NLS-1$
 	public static final IProjectFacetVersion DYNAMIC_WEB_40 = J2EEFacetConstantsProvider.getProjectFacetVersion(DYNAMIC_WEB_FACET, "4.0"); //$NON-NLS-1$
+	public static final IProjectFacetVersion DYNAMIC_WEB_50 = J2EEFacetConstantsProvider.getProjectFacetVersion(DYNAMIC_WEB_FACET, "5.0"); //$NON-NLS-1$
+	public static final IProjectFacetVersion DYNAMIC_WEB_60 = J2EEFacetConstantsProvider.getProjectFacetVersion(DYNAMIC_WEB_FACET, "6.0"); //$NON-NLS-1$
 	
 	public static final String DYNAMIC_WEB_XDOCLET = "jst.web.xdoclet"; //$NON-NLS-1$
 	

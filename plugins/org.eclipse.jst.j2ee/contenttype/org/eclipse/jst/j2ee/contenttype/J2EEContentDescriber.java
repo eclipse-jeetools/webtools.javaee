@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2007 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -62,6 +62,11 @@ public final class J2EEContentDescriber implements IContentDescriber {
 			case JavaEEQuickPeek.WEB_2_2_ID:
 			case JavaEEQuickPeek.WEB_2_3_ID:
 			case JavaEEQuickPeek.WEB_2_4_ID:
+			case JavaEEQuickPeek.WEB_3_0_ID:
+			case JavaEEQuickPeek.WEB_3_1_ID:
+			case JavaEEQuickPeek.WEB_4_0_ID:
+			case JavaEEQuickPeek.WEB_5_0_ID:
+			case JavaEEQuickPeek.WEB_6_0_ID:
 				return VALID;
 			}
 			return INVALID;

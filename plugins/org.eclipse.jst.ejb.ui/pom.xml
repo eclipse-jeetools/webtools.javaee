@@ -21,6 +21,6 @@
 
   <groupId>org.eclipse.webtools.ejb</groupId>
   <artifactId>org.eclipse.jst.ejb.ui</artifactId>
-  <version>1.1.911-SNAPSHOT</version>
+  <version>1.1.912-SNAPSHOT</version>
   <packaging>eclipse-plugin</packaging>
 </project>

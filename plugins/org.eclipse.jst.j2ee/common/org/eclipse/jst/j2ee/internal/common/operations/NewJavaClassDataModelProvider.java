@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2021 IBM Corporation and others.
+ * Copyright (c) 2003, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -53,7 +53,6 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jem.workbench.utility.JemProjectUtilities;
 import org.eclipse.jst.j2ee.internal.common.J2EECommonMessages;
 import org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin;
-import org.eclipse.jst.j2ee.internal.project.J2EEProjectUtilities;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.wst.common.componentcore.internal.operation.ArtifactEditOperationDataModelProvider;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModelOperation;
@@ -124,7 +123,7 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 			J2EEPlugin.logError(e);
 		}
 		// Ensure the selected folder is a valid java source folder for the component
-		IFolder sourcefolder = getJavaSourceFolder();
+		IContainer sourcefolder = getJavaSourceFolder();
 		if (sourcefolder == null || (!sourcefolder.getFullPath().equals(new Path(folderFullPath)))) {
 			String msg = J2EECommonMessages.getResourceString(J2EECommonMessages.ERR_JAVA_CLASS_FOLDER_NOT_SOURCE, new String[]{folderFullPath});
 			return J2EEPlugin.createStatus(IStatus.ERROR, msg);
@@ -149,15 +148,15 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 			entries = JavaCore.create(project).getRawClasspath();
 			// Try and return the first source folder
 			for (int i = 0; i < entries.length; i++) {
-				if(entries[i].getEntryKind() == IClasspathEntry.CPE_SOURCE) {
-					return project.getFolder(entries[i].getPath());
+				if (entries[i].getEntryKind() == IClasspathEntry.CPE_SOURCE && entries[i].getPath().segmentCount() > 1) {
+					return project.getWorkspace().getRoot().getFolder(entries[i].getPath());
 				}
 			}
 		}
 		catch (JavaModelException e) {
 			J2EEPlugin.logError(e);
 		}
-		return null;
+		return project;
 	}
 
 	/**
@@ -516,25 +515,40 @@ public class NewJavaClassDataModelProvider extends ArtifactEditOperationDataMode
 	 * @see #SOURCE_FOLDER
 	 * @see NewJavaClassDataModelProvider#getAllSourceFolders()
 	 * 
-	 * @return IFolder java source folder
+	 * @return IContainer java source folder (or project)
 	 */
-	protected final IFolder getJavaSourceFolder() {
-		IPackageFragmentRoot[] sources = J2EEProjectUtilities.getSourceContainers(getTargetProject());
-		// Ensure there is valid source folder(s)
-		if (sources == null || sources.length == 0)
-			return null;
-		String folderFullPath = getStringProperty(SOURCE_FOLDER);
-		// Get the source folder whose path matches the source folder name value in the data model
-		for (int i = 0; i < sources.length; i++) {
-			if (sources[i].getPath().equals(new Path(folderFullPath))) {
-				try {
-					return (IFolder) sources[i].getCorrespondingResource();
-				} catch (Exception e) {
-					break;
+	protected final IContainer getJavaSourceFolder() {
+//		IPackageFragmentRoot[] sources = J2EEProjectUtilities.getSourceContainers(getTargetProject());
+//		// Ensure there is valid source folder(s)
+//		if (sources == null || sources.length == 0)
+//			return null;
+//		String folderFullPath = getStringProperty(SOURCE_FOLDER);
+//		// Get the source folder whose path matches the source folder name value in the data model
+//		for (int i = 0; i < sources.length; i++) {
+//			if (sources[i].getPath().equals(new Path(folderFullPath))) {
+//				try {
+//					return (IFolder) sources[i].getCorrespondingResource();
+//				} catch (Exception e) {
+//					break;
+//				}
+//			}
+//		}
+
+		IJavaProject javaProject = JavaCore.create(getTargetProject());
+		if (javaProject.exists()) {
+			try {
+				IClasspathEntry[] rawClasspath = javaProject.getRawClasspath();
+				for (int i = 0; i < rawClasspath.length; i++) {
+					if (rawClasspath[i].getEntryKind() == IClasspathEntry.CPE_SOURCE) {
+						return getTargetProject().getWorkspace().getRoot().getFolder(rawClasspath[i].getPath());
+					}
 				}
 			}
+			catch (JavaModelException e) {
+				org.eclipse.jst.j2ee.internal.plugin.J2EEPlugin.logError(e);
+			}
 		}
-		return null;
+		return getTargetProject();
 	}
 
 	/**

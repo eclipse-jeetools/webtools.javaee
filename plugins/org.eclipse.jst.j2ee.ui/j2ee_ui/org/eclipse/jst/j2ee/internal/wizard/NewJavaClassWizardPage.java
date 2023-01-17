@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2022 IBM Corporation and others.
+ * Copyright (c) 2003, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -199,7 +199,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 	/**
 	 * 
 	 **/
-	private IFolder getDefaultJavaSourceFolder(IProject project) {
+	private IContainer getDefaultJavaSourceFolder(IProject project) {
 		
 		if (project == null)
 			return null;
@@ -233,7 +233,7 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 			}
 		}
 
-		return null;
+		return project;
 	}
 	
 	/**
@@ -253,8 +253,6 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		try {
 			result = project.isAccessible() && 
 				project.hasNature(JavaCore.NATURE_ID);
-//				project.hasNature(IModuleConstants.MODULE_NATURE_ID) && 
-//			 	JavaEEProjectUtilities.getJ2EEProjectType(project).equals(projectType);
 		} catch (CoreException ce) {
 			result = false;
 		}
@@ -266,17 +264,14 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 	 */
 	private void initializeProjectList() {
 		IProject[] workspaceProjects = ProjectUtilities.getAllProjects();
-		List items = new ArrayList();
+		List<String> items = new ArrayList();
 		for (int i = 0; i < workspaceProjects.length; i++) {
 			IProject project = workspaceProjects[i];
 			if (isProjectValid(project))
 				items.add(project.getName());
 		}
 		if (items.isEmpty()) return;
-		String[] names = new String[items.size()];
-		for (int i = 0; i < items.size(); i++) {
-			names[i] = (String) items.get(i);
-		}
+		String[] names = items.toArray(new String[0]);
 		projectNameCombo.setItems(names);
 		IProject selectedProject = null;
 		try {
@@ -327,9 +322,9 @@ public class NewJavaClassWizardPage extends DataModelWizardPage {
 		if (projectName != null && projectName.length() > 0) {
 			IProject targetProject = ProjectUtilities.getProject(projectName);
 			if (root == null || !root.getJavaProject().getProject().equals(targetProject) || root.isArchive()) {
-				IFolder folder = getDefaultJavaSourceFolder(targetProject);
-				if (folder != null)
-					folderText.setText(folder.getFullPath().toString());
+				IContainer sourceContainer = getDefaultJavaSourceFolder(targetProject);
+				if (sourceContainer != null)
+					folderText.setText(sourceContainer.getFullPath().toString());
 			} else {
 				folderText.setText(root.getPath().toString());
 			}

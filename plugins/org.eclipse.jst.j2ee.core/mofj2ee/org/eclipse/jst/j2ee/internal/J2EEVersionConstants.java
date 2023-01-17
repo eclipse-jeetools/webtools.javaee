@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2021 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -36,6 +36,7 @@ public interface J2EEVersionConstants {
 	public int JEE_7_0_ID = 70;
 	public int JEE_8_0_ID = 80;
 	public int JEE_9_0_ID = 90;
+	public int JEE_10_0_ID = 100;
 	public int EJB_1_0_ID = 10;	
 	public int EJB_1_1_ID = 11;	
 	public int EJB_2_0_ID = 20;	
@@ -51,6 +52,7 @@ public interface J2EEVersionConstants {
 	public int WEB_3_1_ID = 31;
 	public int WEB_4_0_ID = 40;
 	public int WEB_5_0_ID = 50;
+	public int WEB_6_0_ID = 60;
 	public int WEBFRAGMENT_3_0_ID = 30;
 	public int WEBFRAGMENT_3_1_ID = 31;
 	public int WEBFRAGMENT_4_0_ID = 40;
@@ -69,6 +71,7 @@ public interface J2EEVersionConstants {
 	public int SERVLET_3_1 = 31;
 	public int SERVLET_4_0 = 40;
 	public int SERVLET_5_0 = 50;
+	public int SERVLET_6_0 = 60;
 	public int JCA_1_0_ID = 10;
 	public int JCA_1_5_ID = 15;
 	public int JCA_1_6_ID = 16;

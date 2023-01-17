@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2007 IBM Corporation and others.
+ * Copyright (c) 2005, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -21,6 +21,11 @@ import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.SAXXMIHandler;
 
 public class JEESAXXMLHandler extends SAXXMIHandler {
+	/**
+	 * Check the XML Catalog first
+	 */
+    @Override
+	public void processSchemaLocations(String what, String huh) {}
 
 	public JEESAXXMLHandler(XMLResource xmiResource, XMLHelper helper,
 			Map<?, ?> options) {

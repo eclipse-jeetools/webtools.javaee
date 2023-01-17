@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %Bundle-Name.0
 Bundle-SymbolicName: org.eclipse.jst.j2ee.ui; singleton:=true
-Bundle-Version: 1.1.1100.qualifier
+Bundle-Version: 1.2.0.qualifier
 Bundle-Activator: org.eclipse.jst.j2ee.internal.plugin.J2EEUIPlugin
 Bundle-Vendor: %Bundle-Vendor.0
 Bundle-Localization: plugin
@@ -68,7 +68,7 @@ Require-Bundle: org.eclipse.ui.ide;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.jst.server.core;bundle-version="[1.0.102,2.0.0)",
  org.eclipse.wst.web.ui;bundle-version="[1.1.0,2.0.0)",
  org.eclipse.ui.navigator.resources;bundle-version="[3.2.0,4.0.0)",
- com.ibm.icu;bundle-version="3.8.1",
+ com.ibm.icu;bundle-version="72.1.0",
  org.eclipse.ui.forms;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.ui.navigator;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.jst.jee;bundle-version="[1.0.0,1.1.0)",
@@ -77,4 +77,4 @@ Require-Bundle: org.eclipse.ui.ide;bundle-version="[3.2.0,4.0.0)",
  org.eclipse.wst.common.modulecore.ui;bundle-version="[1.0.0,2.0.0)",
  org.eclipse.jst.common.ui;bundle-version="[1.0.0,2.0.0)"
 Eclipse-LazyStart: true
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-11

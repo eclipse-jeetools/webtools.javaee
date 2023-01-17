@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2022 IBM Corporation and others.
+ * Copyright (c) 2005, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -62,11 +62,11 @@ public class Web25ModelProvider extends JEE5ModelProvider {
 		war.getDisplayNames().add(dn);
 		
 		String version = J2EEProjectUtilities.getJ2EEProjectVersion(proj);
-		if(version != null && version.equals(J2EEVersionConstants.VERSION_2_5_TEXT)) {
+		if (version != null && version.equals(J2EEVersionConstants.VERSION_2_5_TEXT)) {
 			dd.getXSISchemaLocation().put(J2EEConstants.JAVAEE_NS_URL, J2EEConstants.WEB_APP_SCHEMA_LOC_2_5);
 			war.setVersion(WebAppVersionType._25_LITERAL);
 		}
-		else if(version != null && version.equals(J2EEVersionConstants.VERSION_3_0_TEXT)) {
+		else if (version != null && version.equals(J2EEVersionConstants.VERSION_3_0_TEXT)) {
 			dd.getXSISchemaLocation().put(J2EEConstants.JAVAEE_NS_URL, J2EEConstants.WEB_APP_SCHEMA_LOC_3_0);
 			war.setVersion(WebAppVersionType._30_LITERAL);
 		}
@@ -76,26 +76,25 @@ public class Web25ModelProvider extends JEE5ModelProvider {
 			// note that later EMF generations remove the _LITERAL from the enum
 			war.setVersion(WebAppVersionType._31);
 		}
-		else if (version != null && version.equals(J2EEVersionConstants.VERSION_4_0_TEXT)) {
+		else if (J2EEVersionConstants.VERSION_4_0_TEXT.equals(version)) {
 			dd.getXMLNSPrefixMap().put("", J2EEConstants.JAVAEE7_NS_URL);  //$NON-NLS-1$
 			dd.getXSISchemaLocation().put(J2EEConstants.JAVAEE7_NS_URL, J2EEConstants.WEB_APP_SCHEMA_LOC_4_0);
 			// note that later EMF generations remove the _LITERAL from the enum
 			war.setVersion(WebAppVersionType._40);
 		}
-		else if (version != null && version.equals(J2EEVersionConstants.VERSION_5_0_TEXT)) {
+		else if (J2EEVersionConstants.VERSION_5_0_TEXT.equals(version)) {
 			dd.getXMLNSPrefixMap().put("", J2EEConstants.JAKARTAEE9_NS_URL);  //$NON-NLS-1$
 			dd.getXSISchemaLocation().put(J2EEConstants.JAKARTAEE9_NS_URL, J2EEConstants.WEB_APP_SCHEMA_LOC_5_0);
 			// note that later EMF generations remove the _LITERAL from the enum
-			war.setVersion(WebAppVersionType._50);
+			war.setVersion(WebAppVersionType._40);
 		}
-		else
-		{
+		else { //if (J2EEVersionConstants.VERSION_5_0_TEXT.equals(version)) {
 			dd.getXMLNSPrefixMap().put("", J2EEConstants.JAKARTAEE9_NS_URL);  //$NON-NLS-1$
-			dd.getXSISchemaLocation().put(J2EEConstants.JAKARTAEE9_NS_URL, J2EEConstants.WEB_APP_SCHEMA_LOC_5_0);
+			dd.getXSISchemaLocation().put(J2EEConstants.JAKARTAEE9_NS_URL, J2EEConstants.WEB_APP_SCHEMA_LOC_6_0);
 			// note that later EMF generations remove the _LITERAL from the enum
-			war.setVersion(WebAppVersionType._50);
-		}		
-		dd.setWebApp(war);		
+			war.setVersion(WebAppVersionType._60);
+		}
+		dd.setWebApp(war);
 		res.getContents().add((EObject) dd);
 	}
 

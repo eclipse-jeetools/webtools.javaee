@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2022 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -148,7 +148,8 @@ public interface J2EEConstants extends J2EEVersionConstants {
     String WEBAPP_SCHEMA_3_0        =   "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd";//$NON-NLS-1$
     String WEBAPP_SCHEMA_3_1        =   "http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd";//$NON-NLS-1$
     String WEBAPP_SCHEMA_4_0        =   "http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd";//$NON-NLS-1$
-    String WEBAPP_SCHEMA_5_0        =   "http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_5_0.xsd";//$NON-NLS-1$
+    String WEBAPP_SCHEMA_5_0        =   "http://xmlns.jcp.org/xml/ns/javaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd";//$NON-NLS-1$
+    String WEBAPP_SCHEMA_6_0        =   "http://xmlns.jcp.org/xml/ns/javaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd";//$NON-NLS-1$
     /** "WEB-INF/ejb-jar.xml" */
     String EJBJAR_IN_WAR_DD_URI                =   "WEB-INF/ejb-jar.xml"; //$NON-NLS-1$
     //J2C Resource Adapter Constants
@@ -240,13 +241,16 @@ public interface J2EEConstants extends J2EEVersionConstants {
     String WEB_APP_SCHEMA_LOC_3_1           = "http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"; //$NON-NLS-1$
     String WEB_APP_SCHEMA_LOC_4_0           = "http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"; //$NON-NLS-1$
     String WEB_APP_SCHEMA_LOC_5_0           = "https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"; //$NON-NLS-1$
+    String WEB_APP_SCHEMA_LOC_6_0           = "https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"; //$NON-NLS-1$
     String WEB_SERVICES_CLIENT_SCHEMA_LOC_1_1 = "http://www.ibm.com/webservices/xsd/j2ee_web_services_client_1_1.xsd"; //$NON-NLS-1$
     String JSP_SCHEMA_LOC_2_0               =  "http://java.sun.com/xml/ns/j2ee/jsp_2_0.xsd"; //$NON-NLS-1$
     String JSP_SCHEMA_LOC_2_1               =  "http://java.sun.com/xml/ns/javaee/jsp_2_1.xsd"; //$NON-NLS-1$ //EJB3
     String JSP_SCHEMA_LOC_3_0               =  "https://jakarta.ee/xml/ns/jakartaee/jsp_3_0.xsd"; //$NON-NLS-1$ //EJB3
+    String JSP_SCHEMA_LOC_3_1               =  "https://jakarta.ee/xml/ns/jakartaee/jsp_3_1.xsd"; //$NON-NLS-1$ //EJB3
     String WEBFRAGMENT_SCHEMA_LOC_3_0       = "http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd"; //$NON-NLS-1$ //Web Fragment3
     String WEBFRAGMENT_SCHEMA_LOC_3_1       = "http://xmlns.jcp.org/xml/ns/javaee/web-fragment_3_1.xsd"; //$NON-NLS-1$ //Web Fragment3
     String WEBFRAGMENT_SCHEMA_LOC_4_0       = "http://xmlns.jcp.org/xml/ns/javaee/web-fragment_4_0.xsd"; //$NON-NLS-1$ //Web Fragment4
+    String WEBFRAGMENT_SCHEMA_LOC_5_0       = "http://xmlns.jcp.org/xml/ns/javaee/web-fragment_5_0.xsd"; //$NON-NLS-1$
     
     public static final String EAR_MODEL_NAME = "EAR_VALIDATION"; //$NON-NLS-1$
 }
