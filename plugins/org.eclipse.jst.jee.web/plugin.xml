@@ -4,15 +4,15 @@
    <extension
         point="org.eclipse.jst.j2ee.J2EEModelProvider">
       	<provider>
-        	<modelProvider factoryClass="org.eclipse.jst.jee.model.internal.Web25MergedModelProviderFactory"/>
-      		<facet id="jst.web" versions="2.5,3.0,3.1,4.0,5.0"/>
+            <modelProvider factoryClass="org.eclipse.jst.jee.model.internal.Web25MergedModelProviderFactory"/>
+            <facet id="jst.web" versions="2.5,3.0,3.1,4.0,5.0,6.0"/>
       	</provider>
    </extension>
    <extension
         point="org.eclipse.jst.j2ee.J2EEModelProvider">
       	<provider>
-        	<modelProvider factoryClass="org.eclipse.jst.jee.model.internal.WebFragment30ModelProviderFactory"/>
-      		<facet id="jst.webfragment" versions="3.0,3.1,4.0,5.0"/>
+            <modelProvider factoryClass="org.eclipse.jst.jee.model.internal.WebFragment30ModelProviderFactory"/>
+            <facet id="jst.webfragment" versions="3.0,3.1,4.0,5.0,6.0"/>
       	</provider>
    </extension>
  </plugin>
