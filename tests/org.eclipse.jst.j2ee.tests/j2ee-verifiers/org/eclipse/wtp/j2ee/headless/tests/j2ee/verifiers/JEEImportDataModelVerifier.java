@@ -159,7 +159,7 @@ public abstract class JEEImportDataModelVerifier extends DataModelVerifier {
 	private void verifyAllFilesImported(IArchive archive) throws Exception {
 		List<IArchiveResource> resources = archive.getArchiveResources();
 		IPath resourcePath = null;
-		IFolder importedClassesFolder = project.getFolder("ImportedClasses");
+		IFolder importedClassesFolder = project.getFolder("src/main/ImportedClasses");
 
 		IVirtualComponent projectComponent = ComponentUtilities.getComponent(project.getName());
 		IVirtualFolder rootVirtFolder = projectComponent.getRootFolder();

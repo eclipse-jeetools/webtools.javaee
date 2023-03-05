@@ -9,8 +9,6 @@ package org.eclipse.wtp.j2ee.headless.tests.web.verifiers;
 import java.io.FileNotFoundException;
 import java.util.Collection;
 
-import junit.framework.Assert;
-
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -19,10 +17,16 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.helpers.ArchiveConstants;
 import org.eclipse.jst.j2ee.commonarchivecore.internal.util.ArchiveUtil;
 import org.eclipse.jst.j2ee.internal.J2EEVersionConstants;
+import org.eclipse.jst.j2ee.project.facet.IJ2EEFacetConstants;
+import org.eclipse.jst.j2ee.web.project.facet.IWebFacetInstallDataModelProperties;
 import org.eclipse.jst.jee.archive.IArchive;
 import org.eclipse.jst.jee.archive.IArchiveResource;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties;
+import org.eclipse.wst.common.componentcore.datamodel.properties.IFacetProjectCreationDataModelProperties.FacetDataModelMap;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 import org.eclipse.wtp.j2ee.headless.tests.j2ee.verifiers.ModuleImportDataModelVerifier;
+
+import junit.framework.Assert;
 
 /**
  * @author Administrator
@@ -52,7 +56,11 @@ public class WebImportDataModelVerifier extends ModuleImportDataModelVerifier {
 
 		IPath resourcePath = null;
 		IFile resourceFile = null;
-		IFolder sourceFolder = project.getFolder("src");
+
+		FacetDataModelMap dataModelMap = (FacetDataModelMap) model.getProperty(IFacetProjectCreationDataModelProperties.FACET_DM_MAP);
+		IDataModel facetDataModel = dataModelMap.getFacetDataModel(IJ2EEFacetConstants.DYNAMIC_WEB);
+		String configuredSourceFolder = facetDataModel.getStringProperty(IWebFacetInstallDataModelProperties.SOURCE_FOLDER);
+		IFolder sourceFolder = project.getFolder(configuredSourceFolder);
 
 		//verify all of the resources from the archive were imported to the project correctly
 		for(IArchiveResource sourceResource : sourceResources) {
