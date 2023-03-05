@@ -1,6 +1,6 @@
 /*
  * Created on Jan 5, 2004
- * 
+ *
  * To change the template for this generated file go to Window - Preferences - Java - Code
  * Generation - Code and Comments
  */
@@ -38,7 +38,7 @@ import org.eclipse.wst.common.tests.ProjectUtility;
 /**
  * @author Administrator
  * @author Ian Tewksbury (ictewksb@us.ibm.com)
- * 
+ *
  * To change the template for this generated type comment go to Window - Preferences - Java - Code
  * Generation - Code and Comments
  */
@@ -48,7 +48,7 @@ public abstract class JEEImportDataModelVerifier extends DataModelVerifier {
 	private static final String JAR_EXTENSION = "jar";
 	private static final String RAR_EXTENSION = "rar";
 	private static final String WAR_EXTENSION = "war";
-	
+
 	protected IDataModel model;
 	protected IProject project;
 
@@ -63,24 +63,24 @@ public abstract class JEEImportDataModelVerifier extends DataModelVerifier {
 		this.verifyProjectCreated();
 
 		String archivePath = model.getStringProperty(IJ2EEModuleImportDataModelProperties.FILE_NAME);
-		
+
 		IArchive archive = null;
 		try {
 			archive = JavaEEArchiveUtilities.INSTANCE.openArchive(new Path(archivePath));
 
 			this.verifyImportedProjectTypeAndVersion(archive);
 			this.verifyAllFilesImported(archive);
-			
+
 		} finally {
 			if (null != archive && archive.isOpen()) {
 				JavaEEArchiveUtilities.INSTANCE.closeArchive(archive);
 			}
 		}
 	}
-	
+
 	/**
 	 * used for verifying imported archives that are nested inside of other archives
-	 * 
+	 *
 	 * @param nestedArchiveImportModel
 	 * @param importedNestedArchive
 	 */
@@ -90,7 +90,7 @@ public abstract class JEEImportDataModelVerifier extends DataModelVerifier {
 		project = ProjectUtility.getProject(projectName);
 
 		this.verifyProjectCreated();
-		
+
 		this.verifyImportedProjectTypeAndVersion(importedNestedArchive);
 		this.verifyAllFilesImported(importedNestedArchive);
 	}
@@ -107,11 +107,11 @@ public abstract class JEEImportDataModelVerifier extends DataModelVerifier {
 		} else {
 			JavaEEQuickPeek archiveQuickPeek = JavaEEArchiveUtilities.INSTANCE.getJavaEEQuickPeek(archive);
 			int type = archiveQuickPeek.getType();
-			
+
 			if(getExportType() != type){
 				AssertWarn.warnEquals("Archive type did not match imported project type, archive="+archive, getExportType(), type);
 			}
-	
+
 			String sProjVersion = J2EEProjectUtilities.getJ2EEDDProjectVersion(project);
 			int iProjVersion = J2EEVersionUtil.convertVersionStringToInt(sProjVersion);
 			int iVersionConstant = archiveQuickPeek.getVersion();
@@ -125,7 +125,7 @@ public abstract class JEEImportDataModelVerifier extends DataModelVerifier {
 		Assert.assertTrue("A project with name, " + project.getName() + ", should have been created by import", project.exists());
 	}
 
-	
+
 	protected boolean isClassWithoutSource(IArchive archive, IArchiveResource aFile) {
 		String javaUri = classUriToJavaUri(aFile.getPath().toString());
 		if (javaUri == null)
@@ -136,7 +136,7 @@ public abstract class JEEImportDataModelVerifier extends DataModelVerifier {
 	protected final String DOT_CLASS = ".class"; //$NON-NLS-1$
 
 	protected final String DOT_JAVA = ".java"; //$NON-NLS-1$
-	
+
 	public String classUriToJavaUri(String classUri) {
 		if (classUri == null || !classUri.endsWith(DOT_CLASS))
 			return null;
@@ -145,7 +145,7 @@ public abstract class JEEImportDataModelVerifier extends DataModelVerifier {
 		StringTokenizer tok = new StringTokenizer(truncated, "$"); //$NON-NLS-1$
 		return tok.nextToken().concat(DOT_JAVA);
 	}
-	
+
 	/**
 	 * Return a substring of the first parameter, up to the last index of the
 	 * second
@@ -165,7 +165,7 @@ public abstract class JEEImportDataModelVerifier extends DataModelVerifier {
 		IVirtualFolder rootVirtFolder = projectComponent.getRootFolder();
 		IContainer rootFolder = rootVirtFolder.getUnderlyingFolder();
 		Assert.assertTrue("The root folder " + rootFolder.getName() + " should exist in the project" , rootFolder.exists());
-		
+
 		// when the for loops is done the classes will contain only those classes that were imported,
 		// the sourceResources list will contain a list of all of the java source resources,
 		// the otherResources list will contain all other resources that are not nested archives,
@@ -173,7 +173,7 @@ public abstract class JEEImportDataModelVerifier extends DataModelVerifier {
 		List<IArchiveResource> classes = new ArrayList<IArchiveResource>();
 		List<IArchiveResource> sourceResources = new ArrayList<IArchiveResource>();
 		List<IArchiveResource> otherResources = new ArrayList<IArchiveResource>();
-		
+
 		String extension = null;
 		for(IArchiveResource resource : resources) {
 			resourcePath = resource.getPath();
@@ -181,7 +181,7 @@ public abstract class JEEImportDataModelVerifier extends DataModelVerifier {
 			switch (resource.getType()) {
 				case IArchiveResource.FILE_TYPE :
 					extension = resourcePath.getFileExtension();
-					
+
 					// Note: For war archive, the class must be in WEB-INF/classes, otherwise it's just content
 					if(extension.equals(CLASS_EXTENSION) &&
 							((getExportType() == J2EEVersionConstants.WEB_TYPE) ? (resourcePath.segmentCount() > 2 && resourcePath.segment(0).equals("WEB-INF") && resourcePath.segment(1).equals("classes")) : true)){
@@ -195,21 +195,21 @@ public abstract class JEEImportDataModelVerifier extends DataModelVerifier {
 					} else {
 						otherResources.add(resource);
 					}
-					
+
 					break;
 				case IArchiveResource.DIRECTORY_TYPE :
-	
+
 					break;
 				case IArchiveResource.ARCHIVE_TYPE :
-	
+
 					break;
 			}
 		}
-		
+
 		List<IArchive> nestedArchives = archive.getNestedArchives();
-		
+
 		verifyImportedResources(sourceResources, classes, otherResources, nestedArchives, rootFolder, importedClassesFolder);
 	}
-	
+
 	protected abstract void verifyImportedResources(Collection<IArchiveResource> sourceResources, Collection<IArchiveResource> importedClassesResources, Collection<IArchiveResource> otherResources, Collection<IArchive> nestedArchives, IContainer rootFolder, IFolder importedClassesFolder) throws Exception;
 }

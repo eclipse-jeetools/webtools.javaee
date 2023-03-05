@@ -36,12 +36,12 @@ public class WebImportDataModelVerifier extends ModuleImportDataModelVerifier {
 	public void verify(IDataModel model) throws Exception {
 		super.verify(model);
 	}
-	
+
 	@Override
 	protected int getExportType() {
 		return J2EEVersionConstants.WEB_TYPE;
 	}
-	
+
 	@Override
 	protected void verifyImportedResources(
 			Collection<IArchiveResource> sourceResources,
@@ -49,11 +49,11 @@ public class WebImportDataModelVerifier extends ModuleImportDataModelVerifier {
 			Collection<IArchiveResource> otherResources,
 			Collection<IArchive> nestedArchives,
 			IContainer rootFolder, IFolder importedClassesFolder) {
-		
+
 		IPath resourcePath = null;
 		IFile resourceFile = null;
 		IFolder sourceFolder = project.getFolder("src");
-		
+
 		//verify all of the resources from the archive were imported to the project correctly
 		for(IArchiveResource sourceResource : sourceResources) {
 			resourcePath = sourceResource.getPath();
@@ -61,7 +61,7 @@ public class WebImportDataModelVerifier extends ModuleImportDataModelVerifier {
 			resourceFile = sourceFolder.getFile(resourcePath);
 			Assert.assertTrue("The file " + resourcePath + " should exist in the project", resourceFile.exists());
 		}
-		
+
 		for(IArchiveResource importedClassResource : importedClassesResources) {
 			resourcePath = importedClassResource.getPath().removeFirstSegments(2);
 			resourceFile = importedClassesFolder.getFile(resourcePath);
@@ -69,18 +69,18 @@ public class WebImportDataModelVerifier extends ModuleImportDataModelVerifier {
 				Assert.fail("The imported class " + resourcePath + " should exist in the project");
 			}
 		}
-		
+
 		for(IArchiveResource otherResource : otherResources) {
 			resourcePath = otherResource.getPath();
 			resourceFile = rootFolder.getFile(resourcePath);
 			Assert.assertTrue("The resource " + resourcePath + " should exist in the project", resourceFile.exists());
 		}
-	
+
 		for(IArchive nestedArchive : nestedArchives) {
-			
+
 		}
 	}
-	
+
 	protected boolean isClassWithoutSource(IArchive archive, IArchiveResource aFile) {
 		String javaUri = ArchiveUtil.classUriToJavaUri(aFile.getPath().toString());
 		if (javaUri == null)
@@ -117,11 +117,11 @@ public class WebImportDataModelVerifier extends ModuleImportDataModelVerifier {
 					}
 				} catch (FileNotFoundException e) {
 				}
-				
+
 			}
-			
+
 		}
-		
+
 		return true;
 	}
 }
