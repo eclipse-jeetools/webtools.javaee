@@ -50,6 +50,7 @@ public class GroupAppClientProvider extends AbstractAppClientGroupProvider imple
 	private Image appClient60Image;
 	private Image appClient70Image;
 	private Image appClient80Image;
+	private Image appClient100Image;
 	
 	private IFile ddFile;
 
@@ -92,7 +93,10 @@ public class GroupAppClientProvider extends AbstractAppClientGroupProvider imple
 			return getAppClient70Image();
 		} else if (J2EEVersionConstants.VERSION_8_TEXT.equals(version)) {
 			return getAppClient80Image();
-		}
+        } else if (J2EEVersionConstants.VERSION_10_TEXT.equals(version)) {
+	        return getAppClient100Image();
+	    }
+
 		return getAppClient50Image();
 	}
 	
@@ -143,4 +147,12 @@ public class GroupAppClientProvider extends AbstractAppClientGroupProvider imple
 		}
 		return appClient80Image;
 	}
+	
+	private Image getAppClient100Image() {
+        if (appClient100Image == null) {
+            appClient100Image = JEEUIPlugin.getDefault().getImageDescriptor(JEEUIPluginIcons.APP_CLIENT100).createImage();
+        }
+        return appClient100Image;
+    }
+	
 }

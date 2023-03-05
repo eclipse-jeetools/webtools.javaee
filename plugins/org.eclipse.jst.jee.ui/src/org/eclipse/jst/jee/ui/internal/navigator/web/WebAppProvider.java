@@ -58,6 +58,7 @@ public class WebAppProvider extends AbstractWebGroupProvider implements IAdaptab
 	private Image web31Image;
 	private Image web40Image;
 	private Image web50Image;
+	private Image web60Image;
 	
 	private IProject prjct = null;
 	private IFile ddFile = null;
@@ -112,7 +113,9 @@ public class WebAppProvider extends AbstractWebGroupProvider implements IAdaptab
 			return getWeb40Image();
 		} else if (J2EEVersionConstants.VERSION_5_0_TEXT.equals(version)) {
 			return getWeb50Image();
-		}
+		} else if (J2EEVersionConstants.VERSION_6_0_TEXT.equals(version)) {
+            return getWeb60Image();
+        }
 		return getWeb25Image();
 	}
 
@@ -178,4 +181,11 @@ public class WebAppProvider extends AbstractWebGroupProvider implements IAdaptab
 		}
 		return web50Image;
 	}
+	
+	private Image getWeb60Image() {
+        if (web60Image == null) {
+            web60Image = JEEUIPlugin.getDefault().getImageDescriptor(JEEUIPluginIcons.IMG_WEBEE10MODEL).createImage();
+        }
+        return web60Image;
+    }
 }

@@ -112,6 +112,9 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 			else if(J2EEVersionConstants.VERSION_5_0_TEXT.equals(facetVersion)) {
 				return Boolean.valueOf(J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.EE9_DYNAMIC_WEB_GENERATE_DD));
 			}
+			else if(J2EEVersionConstants.VERSION_6_0_TEXT.equals(facetVersion)) {
+                return Boolean.valueOf(J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.EE10_DYNAMIC_WEB_GENERATE_DD));
+            }
 			return Boolean.TRUE;
 		}else if (propertyName.equals(INSTALL_WEB_LIBRARY)){
 			return J2EEComponentClasspathContainerUtils.getDefaultUseWebAppLibraries();

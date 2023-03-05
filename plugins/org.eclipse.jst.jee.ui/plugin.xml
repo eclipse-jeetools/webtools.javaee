@@ -575,6 +575,11 @@
                        property="org.eclipse.wst.common.project.facet.core.projectFacet"
                        value="jst.ejb:3.2">
                  </test>
+                  <test
+                       forcePluginActivation="true"
+                       property="org.eclipse.wst.common.project.facet.core.projectFacet"
+                       value="jst.ejb:4.0">
+                 </test>
               </or>
            </adapt>
 			<instanceof value="org.eclipse.jst.jee.ui.internal.navigator.AbstractDDNode" />
@@ -822,6 +827,11 @@
                        property="org.eclipse.wst.common.project.facet.core.projectFacet"
                        value="jst.web:5.0">
                  </test>
+                 <test
+                       forcePluginActivation="true"
+                       property="org.eclipse.wst.common.project.facet.core.projectFacet"
+                       value="jst.web:6.0">
+                 </test>
               </or>
            </adapt>
    <instanceof
@@ -1022,6 +1032,11 @@
                     forcePluginActivation="true"
                     property="org.eclipse.wst.common.project.facet.core.projectFacet"
                     value="jst.ear:8.0">
+                </test>
+                 <test
+                    forcePluginActivation="true"
+                    property="org.eclipse.wst.common.project.facet.core.projectFacet"
+                    value="jst.ear:10.0">
                 </test>
               </or>
            </adapt>
@@ -1303,6 +1318,11 @@
                     property="org.eclipse.wst.common.project.facet.core.projectFacet"
                     value="jst.appclient:8.0">
               </test>
+               <test
+                    forcePluginActivation="true"
+                    property="org.eclipse.wst.common.project.facet.core.projectFacet"
+                    value="jst.appclient:10.0">
+              </test>
               </or>
            </adapt>
            <instanceof
@@ -1366,6 +1386,11 @@
                        forcePluginActivation="true"
                        property="org.eclipse.wst.common.project.facet.core.projectFacet"
                        value="jst.connector:1.7">
+                 </test>
+                  <test
+                       forcePluginActivation="true"
+                       property="org.eclipse.wst.common.project.facet.core.projectFacet"
+                       value="jst.connector:2.1">
                  </test>
               </or>
            </adapt>

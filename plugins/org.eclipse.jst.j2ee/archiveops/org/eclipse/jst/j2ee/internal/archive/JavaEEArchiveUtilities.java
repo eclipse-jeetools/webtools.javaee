@@ -221,7 +221,9 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 						version = J2EEVersionConstants.EJB_3_1_ID;
 					} else if (versionStr.equals(J2EEVersionConstants.VERSION_3_2_TEXT)) {
 						version = J2EEVersionConstants.EJB_3_2_ID;
-					}
+					} else if (versionStr.equals(J2EEVersionConstants.VERSION_4_0_TEXT)) {
+                        version = J2EEVersionConstants.EJB_4_0_ID;
+                    }
 					break;
 				case J2EEVersionConstants.WEB_TYPE:
 					if (versionStr.equals(J2EEVersionConstants.VERSION_2_2_TEXT)) {

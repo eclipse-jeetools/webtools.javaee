@@ -243,6 +243,7 @@ public interface JavaeePackage extends EPackage {
 	 */
 	String eNS_URI = J2EEConstants.JAVAEE7_NS_URL;
 	String eNS_URI2 = J2EEConstants.JAVAEE_NS_URL;
+	String eNS_URI3 = J2EEConstants.JAKARTAEE9_NS_URL;
 
 	/**
 	 * The package namespace name.

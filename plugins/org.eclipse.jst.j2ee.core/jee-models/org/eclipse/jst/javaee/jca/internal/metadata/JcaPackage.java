@@ -292,6 +292,7 @@ public interface JcaPackage extends EPackage {
 	 */
 	String eNS_URI = J2EEConstants.CONNECTOR_SCHEMA_LOC_1_6;
 	String eNS_URI2 = J2EEConstants.CONNECTOR_SCHEMA_LOC_1_7;
+	String eNS_URI3 = J2EEConstants.CONNECTOR_SCHEMA_LOC_2_1;
 
 	/**
 	 * The package namespace name.

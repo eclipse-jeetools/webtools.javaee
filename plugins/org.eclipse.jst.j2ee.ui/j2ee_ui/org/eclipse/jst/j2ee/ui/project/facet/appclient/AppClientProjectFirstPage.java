@@ -53,7 +53,10 @@ public class AppClientProjectFirstPage extends J2EEComponentFacetCreationWizardP
 	    }
 	    else {
 		    facets.add( primaryFacetVersion );
-		    if (primaryFacetVersion == IJ2EEFacetConstants.APPLICATION_CLIENT_80) {
+	        if (primaryFacetVersion == IJ2EEFacetConstants.APPLICATION_CLIENT_100) {
+                  facets.add(JavaFacet.VERSION_11);
+	        }
+	        else if (primaryFacetVersion == IJ2EEFacetConstants.APPLICATION_CLIENT_80) {
 		    		facets.add(JavaFacet.VERSION_1_8);
 		    }
 		    else if( primaryFacetVersion == IJ2EEFacetConstants.APPLICATION_CLIENT_70)

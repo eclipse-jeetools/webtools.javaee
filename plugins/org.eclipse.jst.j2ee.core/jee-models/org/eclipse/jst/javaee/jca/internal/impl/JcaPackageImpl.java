@@ -252,6 +252,7 @@ public class JcaPackageImpl extends EPackageImpl implements JcaPackage {
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(JcaPackage.eNS_URI, theJcaPackage);
 		EPackage.Registry.INSTANCE.put(JcaPackage.eNS_URI2, theJcaPackage);
+		EPackage.Registry.INSTANCE.put(JcaPackage.eNS_URI3, theJcaPackage);
 
 		J2EEInit.initEMFModels();
 		return theJcaPackage;

@@ -73,6 +73,11 @@ public class AppClient5ModelProvider extends JEE5ModelProvider {
 			dd.getXSISchemaLocation().put(J2EEConstants.JAVAEE7_NS_URL, J2EEConstants.APP_CLIENT_SCHEMA_LOC_7);
 			client.setVersion(J2EEVersionConstants.VERSION_7_TEXT);
 		}
+		else if(version != null && version.equals(J2EEVersionConstants.VERSION_10_0_TEXT)) {
+            dd.getXMLNSPrefixMap().put("", J2EEConstants.JAKARTAEE10_NS_URL);  //$NON-NLS-1$
+            dd.getXSISchemaLocation().put(J2EEConstants.JAKARTAEE10_NS_URL, J2EEConstants.APP_CLIENT_SCHEMA_LOC_10);
+            client.setVersion(J2EEVersionConstants.VERSION_10_TEXT);
+        }
 		else {
 			dd.getXMLNSPrefixMap().put("", J2EEConstants.JAVAEE7_NS_URL);  //$NON-NLS-1$
 			dd.getXSISchemaLocation().put(J2EEConstants.JAVAEE7_NS_URL, J2EEConstants.APP_CLIENT_SCHEMA_LOC_8);

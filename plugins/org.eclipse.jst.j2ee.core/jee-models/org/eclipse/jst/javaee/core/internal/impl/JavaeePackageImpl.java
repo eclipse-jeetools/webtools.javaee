@@ -698,7 +698,8 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(JavaeePackage.eNS_URI, theJavaeePackage);
 		EPackage.Registry.INSTANCE.put(JavaeePackage.eNS_URI2, theJavaeePackage);
-
+		EPackage.Registry.INSTANCE.put(JavaeePackage.eNS_URI3, theJavaeePackage);
+		
 		J2EEInit.initEMFModels();
 		return theJavaeePackage;
 	}

@@ -182,6 +182,54 @@
               contentTypeId="org.eclipse.jst.jee.ee8webfragmentDD">
         </contentTypeBinding>
      </resourceFactory>     
+     <resourceFactory
+           class="org.eclipse.jst.javaee.jca.internal.util.JcaResourceFactoryImpl"
+           isDefault="false"
+           shortSegment="ra.xml">
+        <contentTypeBinding
+              contentTypeId="org.eclipse.jst.jee.ee10connectorDD">
+        </contentTypeBinding>
+     </resourceFactory>
+     <resourceFactory
+           class="org.eclipse.jst.javaee.web.internal.util.WebResourceFactoryImpl"
+           isDefault="false"
+           shortSegment="web.xml">
+        <contentTypeBinding
+              contentTypeId="org.eclipse.jst.jee.ee10webDD">
+        </contentTypeBinding>
+     </resourceFactory>
+     <resourceFactory
+           class="org.eclipse.jst.javaee.ejb.internal.util.EjbResourceFactoryImpl"
+           isDefault="false"
+           shortSegment="ejb-jar.xml">
+        <contentTypeBinding
+              contentTypeId="org.eclipse.jst.jee.ee10ejbDD">
+        </contentTypeBinding>
+     </resourceFactory>
+     <resourceFactory
+           class="org.eclipse.jst.javaee.applicationclient.internal.util.ApplicationclientResourceFactoryImpl"
+           isDefault="false"
+           shortSegment="application-client.xml">
+        <contentTypeBinding
+              contentTypeId="org.eclipse.jst.jee.ee10appclientDD">
+        </contentTypeBinding>
+     </resourceFactory>
+     <resourceFactory
+           class="org.eclipse.jst.javaee.application.internal.util.ApplicationResourceFactoryImpl"
+           isDefault="false"
+           shortSegment="application.xml">
+        <contentTypeBinding
+              contentTypeId="org.eclipse.jst.jee.ee10earDD">
+        </contentTypeBinding>
+     </resourceFactory>
+     <resourceFactory
+           class="org.eclipse.jst.javaee.webfragment.internal.util.WebfragmentResourceFactoryImpl"
+           isDefault="false"
+           shortSegment="web-fragment.xml">
+        <contentTypeBinding
+              contentTypeId="org.eclipse.jst.jee.ee10webfragmentDD">
+        </contentTypeBinding>
+     </resourceFactory>          
   </extension>
   
   <extension
@@ -249,23 +297,23 @@
             id="org.eclipse.jst.jee.server">
          <moduleType
                types="jst.ear"
-               versions="8.0,7.0,6.0,5.0">
+               versions="10.0,8.0,7.0,6.0,5.0">
          </moduleType>
          <moduleType
                types="jst.appclient"
-               versions="8.0,7.0,6.0,5.0,1.2,1.3,1.4">
+               versions="10.0,8.0,7.0,6.0,5.0,1.2,1.3,1.4">
          </moduleType>
          <moduleType
                types="jst.web"
-               versions="5.0,4.0,3.1,3.0,2.5,2.4,2.3,2.2">
+               versions="6.0,5.0,4.0,3.1,3.0,2.5,2.4,2.3,2.2">
          </moduleType>
          <moduleType
                types="jst.ejb"
-               versions="3.2,3.1,3.0,1.1,2.0,2.1">
+               versions="4.0,3.2,3.1,3.0,1.1,2.0,2.1">
          </moduleType>
          <moduleType
                types="jst.connector"
-               versions="1.7,1.6,1.5,1.0">
+               versions="2.1,1.7,1.6,1.5,1.0">
          </moduleType>
          <moduleType
                types="jst.utility"
@@ -273,7 +321,7 @@
          </moduleType>
          <moduleType
                types="jst.webfragment"
-               versions="5.0,4.0,3.1,3.0">
+               versions="6.0,5.0,4.0,3.1,3.0">
          </moduleType> 
          <enablement>
 			<or>
@@ -282,7 +330,7 @@
 		  		<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.utility:1.0]"/>
 	  			<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.connector:1.7]"/>
 	  			<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.web:5.0]"/>
-	  			<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.ear:[5.0-8.0]"/>
+	  			<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.ear:[5.0-10.0]"/>
 	  			<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.webfragment:5.0]"/>
 			</or>
 		</enablement>        
@@ -610,12 +658,99 @@
          </describer>
       </content-type>
   	</extension> 
+
+  	<extension
+         point="org.eclipse.core.contenttype.contentTypes">
+      <content-type
+            file-names="ejb-jar.xml"
+            id="ee10ejbDD"
+            base-type="org.eclipse.core.runtime.xml"
+            name="%ee10ejbContentType"
+            priority="high">
+         <describer
+               class="org.eclipse.jst.jee.contenttype.JEE10ContentDescriber">
+         </describer>
+      </content-type>
+  	</extension>
+  	
+  	<extension
+         point="org.eclipse.core.contenttype.contentTypes">
+      <content-type
+            file-names="web.xml"
+            id="ee10webDD"
+            base-type="org.eclipse.core.runtime.xml"
+            name="%ee10webContentType"
+            priority="high">
+         <describer
+               class="org.eclipse.jst.jee.contenttype.JEE10ContentDescriber">
+         </describer>
+      </content-type>
+  	</extension> 
+  	
+  	<extension
+         point="org.eclipse.core.contenttype.contentTypes">
+      <content-type
+            file-names="web-fragment.xml"
+            id="ee10webfragmentDD"
+            base-type="org.eclipse.core.runtime.xml"
+            name="%ee10webfragmentContentType"
+            priority="high">
+         <describer
+               class="org.eclipse.jst.jee.contenttype.JEE10ContentDescriber">
+         </describer>
+      </content-type>
+  	</extension>
+  	  	   	
+ 	<extension
+         point="org.eclipse.core.contenttype.contentTypes">
+      <content-type
+            file-names="application.xml"
+            id="ee10earDD"
+            base-type="org.eclipse.core.runtime.xml"
+            name="%ee10earContentType"
+            priority="high">
+         <describer
+               class="org.eclipse.jst.jee.contenttype.JEE10ContentDescriber">
+         </describer>
+      </content-type>
+  	</extension>
+  	
+  	<extension
+         point="org.eclipse.core.contenttype.contentTypes">
+      <content-type
+            file-names="application-client.xml"
+            id="ee10appclientDD"
+            base-type="org.eclipse.core.runtime.xml"
+            name="%ee10appclientContentType"
+            priority="high">
+         <describer
+               class="org.eclipse.jst.jee.contenttype.JEE10ContentDescriber">
+         </describer>
+      </content-type>
+  	</extension>
+ 
+  	 <extension
+         point="org.eclipse.core.contenttype.contentTypes">
+      <content-type
+            file-names="ra.xml"
+            id="ee10connectorDD"
+            base-type="org.eclipse.core.runtime.xml"
+            name="%ee10connectorContentType"
+            priority="high">
+         <describer
+               class="org.eclipse.jst.jee.contenttype.JEE10ContentDescriber">
+         </describer>
+      </content-type>
+  	</extension>
+  
+
+
   	
   	<extension
         point="org.eclipse.jst.j2ee.J2EEModelProvider">
       	<provider>
         	<modelProvider factoryClass="org.eclipse.jst.jee.model.internal.EAR5ModelProviderFactory"/>	
-      		<facet id="jst.ear" versions="5.0,6.0,7.0,8.0"/>
+      		<facet id="jst.ear" versions="5.0,6.0,7.0,8.0,10.0"/>
       	</provider>
   </extension> 
 
@@ -623,7 +758,7 @@
         point="org.eclipse.jst.j2ee.J2EEModelProvider">
       	<provider>
         	<modelProvider factoryClass="org.eclipse.jst.jee.model.internal.AppClient5ModelProviderFactory"/>	
-      		<facet id="jst.appclient" versions="5.0,6.0,7.0,8.0"/>
+      		<facet id="jst.appclient" versions="5.0,6.0,7.0,8.0,10.0"/>
       	</provider>
    </extension>
 
@@ -631,7 +766,7 @@
         point="org.eclipse.jst.j2ee.J2EEModelProvider">
       	<provider>
         	<modelProvider factoryClass="org.eclipse.jst.jee.model.internal.Connector16ModelProviderFactory"/>
-      		<facet id="jst.connector" versions="1.6,1.7"/>
+      		<facet id="jst.connector" versions="1.6,1.7,2.1"/>
       	</provider>
    </extension>
 

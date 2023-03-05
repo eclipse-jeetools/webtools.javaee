@@ -73,7 +73,7 @@ public final class EarFacetInstallDelegate implements IDelegate {
 				JEEPlugin.logError(e);
 			}
 			
-			if( fv == IJ2EEFacetConstants.ENTERPRISE_APPLICATION_80 || fv == IJ2EEFacetConstants.ENTERPRISE_APPLICATION_70 || fv == IJ2EEFacetConstants.ENTERPRISE_APPLICATION_60 || fv == IJ2EEFacetConstants.ENTERPRISE_APPLICATION_50) {
+			if(fv == IJ2EEFacetConstants.ENTERPRISE_APPLICATION_100 || fv == IJ2EEFacetConstants.ENTERPRISE_APPLICATION_80 || fv == IJ2EEFacetConstants.ENTERPRISE_APPLICATION_70 || fv == IJ2EEFacetConstants.ENTERPRISE_APPLICATION_60 || fv == IJ2EEFacetConstants.ENTERPRISE_APPLICATION_50) {
 				if(model.getBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD)){
 					// Create the deployment descriptor (web.xml) if one doesn't exist
 					IFile appXmlFile = earroot.getUnderlyingFolder().getFile(new Path(J2EEConstants.APPLICATION_DD_URI));
@@ -84,7 +84,10 @@ public final class EarFacetInstallDelegate implements IDelegate {
 								((IFolder)appXmlFile.getParent()).create(true, true, monitor);
 							}
 							String appXmlContents = null;
-							if(fv == IJ2EEFacetConstants.ENTERPRISE_APPLICATION_80) {
+	                        if(fv == IJ2EEFacetConstants.ENTERPRISE_APPLICATION_80) {
+                                appXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<application id=\"Application_ID\" version=\"10\" xmlns=\"https://jakarta.ee/xml/ns/jakartaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/application_10.xsd\">\n <display-name>" + XMLWriter.getEscaped(project.getName()) +  "</display-name> \n </application> "; //$NON-NLS-1$ //$NON-NLS-2$
+                            }
+							else if(fv == IJ2EEFacetConstants.ENTERPRISE_APPLICATION_80) {
 								appXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<application id=\"Application_ID\" version=\"8\" xmlns=\"http://xmlns.jcp.org/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/application_8.xsd\">\n <display-name>" + XMLWriter.getEscaped(project.getName()) +  "</display-name> \n </application> "; //$NON-NLS-1$ //$NON-NLS-2$
 							}
 							else if(fv == IJ2EEFacetConstants.ENTERPRISE_APPLICATION_70) {

@@ -48,6 +48,7 @@ public class GroupEARProvider extends AbstractEarGroupProvider implements IAdapt
 	private static Image ear60Image;
 	private static Image ear70Image;
 	private static Image ear80Image;
+	private static Image ear100Image;
 	private EARVirtualComponent earComponent;
 	private IFile ddFile;
 	
@@ -85,7 +86,8 @@ public class GroupEARProvider extends AbstractEarGroupProvider implements IAdapt
 					(facetedProject.hasProjectFacet(earFacet.getVersion(J2EEVersionConstants.VERSION_5_0_TEXT)) 
 					|| facetedProject.hasProjectFacet(earFacet.getVersion(J2EEVersionConstants.VERSION_6_0_TEXT))
 					|| facetedProject.hasProjectFacet(earFacet.getVersion(J2EEVersionConstants.VERSION_7_0_TEXT))
-					|| facetedProject.hasProjectFacet(earFacet.getVersion(J2EEVersionConstants.VERSION_8_0_TEXT)))) {
+					|| facetedProject.hasProjectFacet(earFacet.getVersion(J2EEVersionConstants.VERSION_8_0_TEXT))
+					        || facetedProject.hasProjectFacet(earFacet.getVersion(J2EEVersionConstants.VERSION_10_0_TEXT)))) {
 
 				if (bundledLibsNode == null) {
 					BundledNode bundledLibsDirectoryNode = new BundledNode(project, Messages.LIBRARY_DIRECTORY + ": " + EarUtilities.getEARLibDir(earComponent), null);//$NON-NLS-1$
@@ -120,7 +122,9 @@ public class GroupEARProvider extends AbstractEarGroupProvider implements IAdapt
 			return getEar70Image();
 		} else if (J2EEVersionConstants.VERSION_8_TEXT.equals(version)) {
 			return getEar80Image();
-		}
+		}else if (J2EEVersionConstants.VERSION_10_TEXT.equals(version)) {
+            return getEar100Image();
+        }
 		return getEar50Image();
 	}
 
@@ -167,4 +171,11 @@ public class GroupEARProvider extends AbstractEarGroupProvider implements IAdapt
 		}
 		return ear80Image;
 	}
+	
+	private Image getEar100Image() {
+        if (ear100Image == null) {
+            ear100Image = JEEUIPlugin.getDefault().getImageDescriptor(JEEUIPluginIcons.EAR10_IMAGE).createImage();
+        }
+        return ear100Image;
+    }
 }

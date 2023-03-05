@@ -292,6 +292,7 @@ public interface EjbPackage extends EPackage {
 	String eNS_URI = J2EEConstants.EJB_JAR_SCHEMA_LOC_3_0;
 	String eNS_URI2 = J2EEConstants.EJB_JAR_SCHEMA_LOC_3_1;
 	String eNS_URI3 = J2EEConstants.EJB_JAR_SCHEMA_LOC_3_2;
+	String eNS_URI4 = J2EEConstants.EJB_JAR_SCHEMA_LOC_4_0;
 
 	/**
 	 * The package namespace name.

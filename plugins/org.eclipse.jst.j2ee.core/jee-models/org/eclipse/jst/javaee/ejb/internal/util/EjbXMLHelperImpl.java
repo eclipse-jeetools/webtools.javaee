@@ -54,6 +54,9 @@ public class EjbXMLHelperImpl extends JEEXMLHelperImpl {
 			aFeature =  super.getFeature(class1, EjbPackage.eNS_URI2, name, isElement);
 		if (aFeature == null && !EjbPackage.eNS_URI3.equals(namespaceURI))
 			aFeature =  super.getFeature(class1, EjbPackage.eNS_URI3, name, isElement);
+		if (aFeature == null && !EjbPackage.eNS_URI4.equals(namespaceURI))
+            aFeature =  super.getFeature(class1, EjbPackage.eNS_URI4, name, isElement);
+
 		return aFeature;
 	}
 

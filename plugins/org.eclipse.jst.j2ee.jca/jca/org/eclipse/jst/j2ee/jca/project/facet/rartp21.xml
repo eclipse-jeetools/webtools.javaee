@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<connector id="Connector_ID" version="2.1" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/connector_2_1.xsd"> 
+	<description></description>
+	<vendor-name></vendor-name>
+  	<eis-type></eis-type>
+  	<resourceadapter-version></resourceadapter-version>                                  
+  	<resourceadapter>
+  	</resourceadapter>
+</connector>

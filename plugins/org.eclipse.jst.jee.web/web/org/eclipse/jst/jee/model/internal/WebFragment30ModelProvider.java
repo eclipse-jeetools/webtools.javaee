@@ -73,6 +73,18 @@ public class WebFragment30ModelProvider extends JEE5ModelProvider {
 			// note that later EMF generations remove the _LITERAL from the enum
 			webFragment.setVersion(WebAppVersionType._31);
 		}
+	    else if (version != null && version.equals(J2EEVersionConstants.VERSION_5_0_TEXT)) {
+            dd.getXMLNSPrefixMap().put("", J2EEConstants.JAKARTAEE9_NS_URL);  //$NON-NLS-1$
+            dd.getXSISchemaLocation().put(J2EEConstants.JAKARTAEE9_NS_URL, J2EEConstants.WEBFRAGMENT_SCHEMA_LOC_5_0);
+            // note that later EMF generations remove the _LITERAL from the enum
+            webFragment.setVersion(WebAppVersionType._50);
+        }
+	    else if (version != null && version.equals(J2EEVersionConstants.VERSION_6_0_TEXT)) {
+            dd.getXMLNSPrefixMap().put("", J2EEConstants.JAKARTAEE10_NS_URL);  //$NON-NLS-1$
+            dd.getXSISchemaLocation().put(J2EEConstants.JAKARTAEE10_NS_URL, J2EEConstants.WEBFRAGMENT_SCHEMA_LOC_6_0);
+            // note that later EMF generations remove the _LITERAL from the enum
+            webFragment.setVersion(WebAppVersionType._60);
+        }		
 		else
 		{
 			dd.getXMLNSPrefixMap().put("", J2EEConstants.JAVAEE7_NS_URL);  //$NON-NLS-1$

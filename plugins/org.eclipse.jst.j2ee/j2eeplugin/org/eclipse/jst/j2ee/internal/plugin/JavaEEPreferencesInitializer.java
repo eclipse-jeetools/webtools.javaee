@@ -99,6 +99,9 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 		 * @since 3.24
 		 */
 		static final String EE9_DYNAMIC_WEB_GENERATE_DD = "ee9_dynamic_web_generate_dd"; //$NON-NLS-1$
+		
+	    static final String EE10_DYNAMIC_WEB_GENERATE_DD = "ee10_dynamic_web_generate_dd"; //$NON-NLS-1$
+
 		/**
 		 * @since 2.0
 		 */
@@ -150,6 +153,8 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 	     * @since 3.5
 	     */
 		static final String EE7_CONNECTOR_GENERATE_DD = "ee7_connector_generate_dd"; //$NON-NLS-1$
+		
+		static final String EE10_CONNECTOR_GENERATE_DD = "ee10_connector_generate_dd"; //$NON-NLS-1$
 		
 		/**
 		 * Used to determine if the business interface annotations should be added to the bean class during EJB creation. 

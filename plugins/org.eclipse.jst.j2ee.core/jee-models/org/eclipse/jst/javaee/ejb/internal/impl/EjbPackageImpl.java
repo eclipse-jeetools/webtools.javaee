@@ -617,6 +617,7 @@ public class EjbPackageImpl extends EPackageImpl implements EjbPackage {
 		EPackage.Registry.INSTANCE.put(EjbPackage.eNS_URI, theEjbPackage);
 		EPackage.Registry.INSTANCE.put(EjbPackage.eNS_URI2, theEjbPackage);
 		EPackage.Registry.INSTANCE.put(EjbPackage.eNS_URI3, theEjbPackage);
+		EPackage.Registry.INSTANCE.put(EjbPackage.eNS_URI4, theEjbPackage);
 
 		J2EEInit.initEMFModels();
 		return theEjbPackage;

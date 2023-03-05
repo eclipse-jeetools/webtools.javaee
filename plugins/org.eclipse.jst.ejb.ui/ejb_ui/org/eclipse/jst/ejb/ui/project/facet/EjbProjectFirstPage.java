@@ -53,8 +53,11 @@ public class EjbProjectFirstPage extends J2EEComponentFacetCreationWizardPage {
 	    }
 	    else {
 		    facets.add(primaryFacetVersion);
-		    
-		    if(primaryFacetVersion == IJ2EEFacetConstants.EJB_32)
+            if(primaryFacetVersion == IJ2EEFacetConstants.EJB_40)
+            {
+                facets.add(JavaFacet.VERSION_11);
+            }
+            else if(primaryFacetVersion == IJ2EEFacetConstants.EJB_32)
 		    {
 		        facets.add(JavaFacet.VERSION_1_7);
 		    }

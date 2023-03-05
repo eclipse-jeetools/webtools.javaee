@@ -50,6 +50,7 @@ public class Ejb3LabelProvider extends J2EELabelProvider {
 	private Image ejb30Image;
 	private Image ejb31Image;
 	private Image ejb32Image;
+	private Image ejb40Image;
 	private Image sessionBeanImage;
 	private Image mdbImage;
 	private Image cmpImage;
@@ -57,6 +58,7 @@ public class Ejb3LabelProvider extends J2EELabelProvider {
 	private Image resourceRefImage;
 	private Image serviceRefImage;
 	private Image activationConfigImage;
+   
 
 	public Ejb3LabelProvider() {
 		new J2EEAdapterFactoryLabelProvider(new DynamicAdapterFactory(IJ2EENavigatorConstants.VIEWER_ID));
@@ -76,7 +78,9 @@ public class Ejb3LabelProvider extends J2EELabelProvider {
 				return getEjb31Image();
 			} else if (J2EEVersionConstants.VERSION_3_2_TEXT.equals(version)) {
 				return getEjb32Image();
-			}
+			} else if (J2EEVersionConstants.VERSION_4_0_TEXT.equals(version)) {
+                return getEjb40Image();
+            }
 			return getEjb30Image();
 		} else if(element instanceof AbstractDDNode) {
 			return ((AbstractDDNode) element).getImage();
@@ -165,6 +169,13 @@ public class Ejb3LabelProvider extends J2EELabelProvider {
 		}
 		return ejb32Image;
 	}
+	
+	private Image getEjb40Image() {
+        if (ejb40Image == null) {
+            ejb40Image = JEEUIPlugin.getDefault().getImageDescriptor(JEEUIPluginIcons.IMG_EJBEE10MODEL).createImage();
+        }
+        return ejb40Image;
+    }
 	
 	private Image getSessionBeanImage() {
 		if (sessionBeanImage == null) {

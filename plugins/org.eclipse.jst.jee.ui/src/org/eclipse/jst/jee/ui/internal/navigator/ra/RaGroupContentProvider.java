@@ -29,6 +29,7 @@ public class RaGroupContentProvider extends AbstractConnectorGroupProvider {
 	private IProject project;
 	private Image CONNECTOR_IMAGE;
 	private Image CONNECTOR_17_IMAGE;
+	private Image CONNECTOR_21_IMAGE;
 
 	public RaGroupContentProvider(JavaEEObject javaee, IProject project) {
 		super(javaee);
@@ -54,7 +55,10 @@ public class RaGroupContentProvider extends AbstractConnectorGroupProvider {
 			retVal = getConnector16Image();
 		} else if (J2EEVersionConstants.VERSION_1_7_TEXT.equals(version)) {
 			retVal = getConnector17Image();
-		} 
+		} else if (J2EEVersionConstants.VERSION_2_1_TEXT.equals(version)) {
+	        retVal = getConnector21Image();
+	    } 
+ 
 		return retVal;
 	}
 	
@@ -77,4 +81,12 @@ public class RaGroupContentProvider extends AbstractConnectorGroupProvider {
 		}
 		return CONNECTOR_17_IMAGE;
 	}
+	
+	private Image getConnector21Image() {
+        if (CONNECTOR_21_IMAGE == null) {
+            CONNECTOR_21_IMAGE = JEEUIPlugin.getDefault().getImage(JEEUIPluginIcons.IMG_EE10CONNECTOR);
+        }
+        return CONNECTOR_21_IMAGE;
+    }
+	
 }

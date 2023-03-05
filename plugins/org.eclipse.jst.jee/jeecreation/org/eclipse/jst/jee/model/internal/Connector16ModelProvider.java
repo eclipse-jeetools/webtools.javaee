@@ -65,6 +65,10 @@ public class Connector16ModelProvider extends JEE5ModelProvider {
 			dd.getXSISchemaLocation().put(J2EEConstants.JAVAEE_NS_URL, J2EEConstants.CONNECTOR_SCHEMA_LOC_1_6);
 			connector.setVersion(J2EEVersionConstants.VERSION_1_6_TEXT);
 		}
+		else if(version != null && version.equals(J2EEVersionConstants.VERSION_2_1_TEXT)) {
+            dd.getXSISchemaLocation().put(J2EEConstants.JAVAEE_NS_URL, J2EEConstants.CONNECTOR_SCHEMA_LOC_2_1);
+            connector.setVersion(J2EEVersionConstants.VERSION_2_1_TEXT);
+        }
 		else 
 		{
 			// default to 1.7 for now

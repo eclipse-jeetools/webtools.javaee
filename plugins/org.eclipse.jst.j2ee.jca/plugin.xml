@@ -128,12 +128,22 @@
       <group-member id="modules"/>
     </project-facet-version>
 
-    <action facet="jst.connector" version="[1.0-1.7]" type="INSTALL" id="jst.connector.install">
+   	<project-facet-version facet="jst.connector" version="2.1">
+      <constraint>
+        <and>
+          <requires facet="jst.java" version="[11"/>
+          <conflicts group="modules"/>
+        </and>
+      </constraint>
+      <group-member id="modules"/>
+    </project-facet-version>
+
+    <action facet="jst.connector" version="[1.0-2.1]" type="INSTALL" id="jst.connector.install">
       <delegate class="org.eclipse.jst.j2ee.jca.project.facet.ConnectorFacetInstallDelegate"/>
       <config-factory class="org.eclipse.jst.j2ee.jca.project.facet.ConnectorFacetInstallDataModelProvider"/>
     </action>
     
-    <event-handler facet="jst.connector" version="[1.0-1.7]" type="POST_INSTALL">
+    <event-handler facet="jst.connector" version="[1.0-2.1]" type="POST_INSTALL">
       <delegate class="org.eclipse.jst.j2ee.jca.project.facet.ConnectorFacetPostInstallDelegate"/>
     </event-handler>
     

@@ -115,7 +115,8 @@ public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 		IPath configFolderpath = pjpath.append(configFolderName);
 		sourceFolder = ws.getRoot().getFolder(configFolderpath);
 
-        if( fv == IJ2EEFacetConstants.APPLICATION_CLIENT_80 ||
+        if(fv == IJ2EEFacetConstants.APPLICATION_CLIENT_100 ||
+                fv == IJ2EEFacetConstants.APPLICATION_CLIENT_80 ||
         		fv == IJ2EEFacetConstants.APPLICATION_CLIENT_70 ||
             fv == IJ2EEFacetConstants.APPLICATION_CLIENT_60 ||
             fv == IJ2EEFacetConstants.APPLICATION_CLIENT_50 )
@@ -130,7 +131,10 @@ public class AppClientFacetInstallDelegate extends J2EEFacetInstallDelegate impl
 	                        ((IFolder)appClientFile.getParent()).create(true, true, monitor);
 	                    }
 	                    String appClientXmlContents = null;
-	                    if (fv == IJ2EEFacetConstants.APPLICATION_CLIENT_80) {
+                        if (fv == IJ2EEFacetConstants.APPLICATION_CLIENT_100) {
+                            appClientXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<application-client version=\"10\" xmlns=\"https://jakarta.ee/xml/ns/jakartaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/application-client_10.xsd\">\n <display-name>" + XMLWriter.getEscaped(project.getName()) +  "</display-name> \n </application-client>"; //$NON-NLS-1$ //$NON-NLS-2$
+                        }
+                        else if (fv == IJ2EEFacetConstants.APPLICATION_CLIENT_80) {
 	                    	appClientXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<application-client version=\"8\" xmlns=\"http://xmlns.jcp.org/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/application-client_8.xsd\">\n <display-name>" + XMLWriter.getEscaped(project.getName()) +  "</display-name> \n </application-client>"; //$NON-NLS-1$ //$NON-NLS-2$
 	                    }
 	                    else if (fv == IJ2EEFacetConstants.APPLICATION_CLIENT_70) {

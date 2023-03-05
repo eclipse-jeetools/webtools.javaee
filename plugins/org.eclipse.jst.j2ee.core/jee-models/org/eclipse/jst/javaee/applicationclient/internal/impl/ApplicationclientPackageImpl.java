@@ -110,6 +110,8 @@ public class ApplicationclientPackageImpl extends EPackageImpl implements Applic
 		EPackage.Registry.INSTANCE.put(ApplicationclientPackage.eNS_URI, theApplicationclientPackage);
 		EPackage.Registry.INSTANCE.put(ApplicationclientPackage.eNS_URI2, theApplicationclientPackage);
 		EPackage.Registry.INSTANCE.put(ApplicationclientPackage.eNS_URI3, theApplicationclientPackage);
+		EPackage.Registry.INSTANCE.put(ApplicationclientPackage.eNS_URI4, theApplicationclientPackage);
+		EPackage.Registry.INSTANCE.put(ApplicationclientPackage.eNS_URI5, theApplicationclientPackage);
 
 		J2EEInit.initEMFModels();
 		return theApplicationclientPackage;

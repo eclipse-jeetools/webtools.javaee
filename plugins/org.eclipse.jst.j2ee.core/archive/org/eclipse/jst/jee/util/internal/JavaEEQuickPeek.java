@@ -189,7 +189,11 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 						version = J2EEVersionConstants.JEE_7_0_ID;
 					} else if (schemaName.indexOf(J2EEConstants.APP_CLIENT_SCHEMA_8) != -1) {
 						version = J2EEVersionConstants.JEE_8_0_ID;
-					}
+					}else if (schemaName.indexOf(J2EEConstants.APP_CLIENT_SCHEMA_8) != -1) {
+                        version = J2EEVersionConstants.JEE_8_0_ID;
+                    }else if (schemaName.indexOf(J2EEConstants.APP_CLIENT_SCHEMA_10) != -1) {
+                        version = J2EEVersionConstants.JEE_10_0_ID;
+                    }
 				}
 				break;
 			case APPLICATION_TYPE:
@@ -212,7 +216,9 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 						version = J2EEVersionConstants.JEE_7_0_ID;
 					} else if (schemaName.indexOf(J2EEConstants.APPLICATION_SCHEMA_8) != -1) {
 						version = J2EEVersionConstants.JEE_8_0_ID;
-					}
+					} else if (schemaName.indexOf(J2EEConstants.APPLICATION_SCHEMA_10) != -1) {
+                        version = J2EEVersionConstants.JEE_10_0_ID;
+                    }
 				}
 				break;
 			case EJB_TYPE:
@@ -231,7 +237,9 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 						version = J2EEVersionConstants.EJB_3_1_ID;
 					} else if (schemaName.indexOf(J2EEConstants.EJBJAR_SCHEMA_3_2) != -1) {
 						version = J2EEVersionConstants.EJB_3_2_ID;
-					}
+					} else if (schemaName.indexOf(J2EEConstants.EJBJAR_SCHEMA_4_0) != -1) {
+                        version = J2EEVersionConstants.EJB_4_0_ID;
+                    }
 				}
 				break;
 			case CONNECTOR_TYPE:
@@ -246,7 +254,9 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 						version = J2EEVersionConstants.JCA_1_6_ID;
 					} else if (schemaName.indexOf(J2EEConstants.CONNECTOR_SCHEMA_1_7) != -1) {
 						version = J2EEVersionConstants.JCA_1_7_ID;
-					}
+					}else if (schemaName.indexOf(J2EEConstants.CONNECTOR_SCHEMA_2_1) != -1) {
+                        version = J2EEVersionConstants.JCA_2_1_ID;
+                    }
 				}
 				break;
 			case WEB_TYPE:
@@ -297,7 +307,14 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 					} else if (J2EEVersionConstants.VERSION_4_0_TEXT.equals(versionAttribute)) {
 						version = J2EEVersionConstants.WEB_4_0_ID;
 					}
-				}
+				}else if (J2EEConstants.JAKARTAEE10_NS_URL.equals(namespace)) {
+                    String versionAttribute = handler.getRootAttributes().getValue("version"); //$NON-NLS-1$
+                    if (J2EEVersionConstants.VERSION_5_0_TEXT.equals(versionAttribute)) {
+                        version = J2EEVersionConstants.WEB_5_0_ID;
+                    } else if (J2EEVersionConstants.VERSION_6_0_TEXT.equals(versionAttribute)) {
+                        version = J2EEVersionConstants.WEB_6_0_ID;
+                    }
+                }
 				if (version == UNSET && handler.getRootAttributes() != null && handler.getRootAttributes().getValue("version") != null) { //$NON-NLS-1$
 					try {
 						float f = Float.parseFloat(handler.getRootAttributes().getValue("version")); //$NON-NLS-1$
@@ -322,12 +339,20 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 						version = J2EEVersionConstants.WEBSERVICES_1_3_ID;
 					}else if (schemaName.equals(J2EEConstants.WEBSERVICE_SCHEMA_1_4)) {
 						version = J2EEVersionConstants.WEBSERVICES_1_4_ID;
-					}
+					}else if (schemaName.equals(J2EEConstants.WEBSERVICE_SCHEMA_2_0)) {
+                        version = J2EEVersionConstants.WEBSERVICES_2_0_ID;
+                    }
 				}
 				break;
 			case WEBFRAGMENT_TYPE:
 				if (schemaName != null) {
-					if (schemaName.indexOf(J2EEConstants.WEBFRAGMENT_SCHEMA_4_0) != -1) {
+				    if (schemaName.indexOf(J2EEConstants.WEBFRAGMENT_SCHEMA_6_0) != -1) {
+                        version = J2EEVersionConstants.WEBFRAGMENT_6_0_ID;
+                    }
+                    else if (schemaName.indexOf(J2EEConstants.WEBFRAGMENT_SCHEMA_5_0) != -1) {
+                        version = J2EEVersionConstants.WEBFRAGMENT_5_0_ID;
+                    }
+                    else if (schemaName.indexOf(J2EEConstants.WEBFRAGMENT_SCHEMA_4_0) != -1) {
 						version = J2EEVersionConstants.WEBFRAGMENT_4_0_ID;
 					}
 					else if (schemaName.indexOf(J2EEConstants.WEBFRAGMENT_SCHEMA_3_1) != -1) {
@@ -336,6 +361,7 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 					else if (schemaName.indexOf(J2EEConstants.WEBFRAGMENT_SCHEMA_3_0) != -1) {
 						version = J2EEVersionConstants.WEBFRAGMENT_3_0_ID;
 					}
+					
 				}
 				break;
 			default:
@@ -390,6 +416,9 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 				case J2EEVersionConstants.EJB_3_2_ID:
 					javaEEVersion = J2EEConstants.JEE_7_0_ID;
 					break;
+				case J2EEVersionConstants.EJB_4_0_ID:
+                    javaEEVersion = J2EEConstants.JEE_10_0_ID;
+                    break;					
 				}
 				break;
 			case CONNECTOR_TYPE:
@@ -406,6 +435,9 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 				case J2EEVersionConstants.JCA_1_7_ID:
 					javaEEVersion = J2EEConstants.JEE_7_0_ID;
 					break;
+				case J2EEVersionConstants.JCA_2_1_ID:
+                    javaEEVersion = J2EEConstants.JEE_10_0_ID;
+                    break;
 				}
 				break;
 			case WEB_TYPE:
@@ -456,6 +488,9 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 			case J2EEVersionConstants.WEBSERVICES_1_4_ID:
 				javaEEVersion = J2EEVersionConstants.JEE_7_0_ID;
 				break;
+		    case J2EEVersionConstants.WEBSERVICES_2_0_ID:
+                javaEEVersion = J2EEVersionConstants.JEE_10_0_ID;
+                break;				
 			}
 			break;
 			
@@ -470,6 +505,12 @@ public class JavaEEQuickPeek implements J2EEVersionConstants {
 			case J2EEVersionConstants.WEBFRAGMENT_4_0_ID:
 				javaEEVersion = J2EEVersionConstants.JEE_8_0_ID;
 				break;
+			case J2EEVersionConstants.WEBFRAGMENT_5_0_ID:
+                javaEEVersion = J2EEVersionConstants.JEE_9_0_ID;
+                break;
+            case J2EEVersionConstants.WEBFRAGMENT_6_0_ID:
+                javaEEVersion = J2EEVersionConstants.JEE_10_0_ID;
+                break;
 			}
 			break;
 		}

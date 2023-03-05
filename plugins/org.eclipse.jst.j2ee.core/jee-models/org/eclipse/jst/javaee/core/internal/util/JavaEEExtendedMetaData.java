@@ -107,6 +107,10 @@ public class JavaEEExtendedMetaData extends BasicExtendedMetaData {
 						uri = J2EEConstants.APPLICATION_SCHEMA_LOC_7;
 						javaeeUri = J2EEConstants.JAVAEE7_NS_URL;
 					}
+					else if(J2EEVersionConstants.VERSION_10_TEXT.equals(version)) {
+                        uri = J2EEConstants.APPLICATION_SCHEMA_LOC_10;
+                        javaeeUri = J2EEConstants.JAKARTAEE10_NS_URL;
+                    }
 					else {
 						uri = J2EEConstants.APPLICATION_SCHEMA_LOC_8;
 						javaeeUri = J2EEConstants.JAVAEE7_NS_URL;
@@ -133,6 +137,10 @@ public class JavaEEExtendedMetaData extends BasicExtendedMetaData {
 						uri = J2EEConstants.APP_CLIENT_SCHEMA_LOC_7;
 						javaeeUri = J2EEConstants.JAVAEE7_NS_URL;
 					}
+					else if (J2EEVersionConstants.VERSION_10_TEXT.equals(version)) {
+                        uri = J2EEConstants.APP_CLIENT_SCHEMA_LOC_10;
+                        javaeeUri = J2EEConstants.JAKARTAEE10_NS_URL;
+                    }
 					else {
 						uri = J2EEConstants.APP_CLIENT_SCHEMA_LOC_8;
 						javaeeUri = J2EEConstants.JAVAEE7_NS_URL;
@@ -155,8 +163,11 @@ public class JavaEEExtendedMetaData extends BasicExtendedMetaData {
 						uri = J2EEConstants.EJB_JAR_SCHEMA_LOC_3_1;
 						javaeeUri = J2EEConstants.JAVAEE_NS_URL;
 					}
-					else
-					{
+					else if(J2EEVersionConstants.VERSION_4_0_TEXT.equals(version)) {
+                        uri = J2EEConstants.EJB_JAR_SCHEMA_LOC_4_0;
+                        javaeeUri = J2EEConstants.JAKARTAEE10_NS_URL;
+                    }
+					else {
 						uri = J2EEConstants.EJB_JAR_SCHEMA_LOC_3_2;
 						javaeeUri = J2EEConstants.JAVAEE7_NS_URL;
 					}
@@ -174,6 +185,10 @@ public class JavaEEExtendedMetaData extends BasicExtendedMetaData {
 						uri = J2EEConstants.CONNECTOR_SCHEMA_LOC_1_6;
 						javaeeUri = J2EEConstants.JAVAEE_NS_URL;
 					}
+					else if(J2EEVersionConstants.VERSION_2_1_TEXT.equals(version)) {
+                        uri = J2EEConstants.CONNECTOR_SCHEMA_LOC_2_1;
+                        javaeeUri = J2EEConstants.JAKARTAEE10_NS_URL;
+                    }
 					else
 					{
 						uri = J2EEConstants.CONNECTOR_SCHEMA_LOC_1_7;
@@ -202,6 +217,14 @@ public class JavaEEExtendedMetaData extends BasicExtendedMetaData {
 						uri = J2EEConstants.WEB_APP_SCHEMA_LOC_3_1;
 						javaeeUri = J2EEConstants.JAVAEE7_NS_URL;
 					}
+					else if(J2EEVersionConstants.VERSION_5_0_TEXT.equals(version)) {
+                        uri = J2EEConstants.WEB_APP_SCHEMA_LOC_5_0;
+                        javaeeUri = J2EEConstants.JAKARTAEE9_NS_URL;
+                    }
+					else if(J2EEVersionConstants.VERSION_6_0_TEXT.equals(version)) {
+                        uri = J2EEConstants.WEB_APP_SCHEMA_LOC_6_0;
+                        javaeeUri = J2EEConstants.JAKARTAEE10_NS_URL;
+                    }
 					else {
 						uri = J2EEConstants.WEB_APP_SCHEMA_LOC_4_0;
 						javaeeUri = J2EEConstants.JAVAEE7_NS_URL;
@@ -225,6 +248,14 @@ public class JavaEEExtendedMetaData extends BasicExtendedMetaData {
 						uri = J2EEConstants.WEBFRAGMENT_SCHEMA_LOC_3_1;
 						javaeeUri = J2EEConstants.JAVAEE7_NS_URL;
 					}
+					else if(J2EEVersionConstants.VERSION_5_0_TEXT.equals(version)) {
+                        uri = J2EEConstants.WEBFRAGMENT_SCHEMA_LOC_5_0;
+                        javaeeUri = J2EEConstants.JAKARTAEE9_NS_URL;
+                    }
+					else if(J2EEVersionConstants.VERSION_6_0_TEXT.equals(version)) {
+                        uri = J2EEConstants.WEBFRAGMENT_SCHEMA_LOC_6_0;
+                        javaeeUri = J2EEConstants.JAKARTAEE10_NS_URL;
+                    }
 					else
 					{
 						uri = J2EEConstants.WEBFRAGMENT_SCHEMA_LOC_4_0;

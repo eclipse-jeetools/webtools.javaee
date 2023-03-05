@@ -320,7 +320,9 @@ public class J2EEFileUtil {
               version = J2EEVersionConstants.EJB_3_1_ID;
            } else if (versionAttr.equals(J2EEVersionConstants.VERSION_3_2_TEXT)) { 
               version = J2EEVersionConstants.EJB_3_2_ID;
-           }
+           } else if (versionAttr.equals(J2EEVersionConstants.VERSION_4_0_TEXT)) { 
+               version = J2EEVersionConstants.EJB_4_0_ID;
+            }
         } else if (isApplicationClientFile(fileURI)) {
            if (null == versionAttr) {
               version = J2EEVersionConstants.J2EE_1_4_ID;
@@ -391,7 +393,9 @@ public class J2EEFileUtil {
               version = J2EEVersionConstants.J2EE_1_4_ID;
            }
         } else if (isEJBJarFile(fileURI)) {
-           if ((schemaName.indexOf(J2EEConstants.EJBJAR_SCHEMA_3_2_NS)) != -1) {
+           if ((schemaName.indexOf(J2EEConstants.EJBJAR_SCHEMA_4_0_NS)) != -1) {
+                version = J2EEVersionConstants.EJB_4_0_ID;   
+           } else if ((schemaName.indexOf(J2EEConstants.EJBJAR_SCHEMA_3_2_NS)) != -1) {
               version = J2EEVersionConstants.EJB_3_2_ID;   
            } else if ((schemaName.indexOf(J2EEConstants.EJBJAR_SCHEMA_3_1_NS)) != -1) {
               version = J2EEVersionConstants.EJB_3_1_ID;   

@@ -494,6 +494,9 @@ public class WebPackageImpl extends EPackageImpl implements WebPackage {
 		EPackage.Registry.INSTANCE.put(WebPackage.eNS_URI, theWebPackage);
 		EPackage.Registry.INSTANCE.put(WebPackage.eNS_URI2, theWebPackage);
 		EPackage.Registry.INSTANCE.put(WebPackage.eNS_URI3, theWebPackage);
+		EPackage.Registry.INSTANCE.put(WebPackage.eNS_URI4, theWebPackage);
+		EPackage.Registry.INSTANCE.put(WebPackage.eNS_URI5, theWebPackage);
+		EPackage.Registry.INSTANCE.put(WebPackage.eNS_URI6, theWebPackage);
 
 		J2EEInit.initEMFModels();
 		return theWebPackage;

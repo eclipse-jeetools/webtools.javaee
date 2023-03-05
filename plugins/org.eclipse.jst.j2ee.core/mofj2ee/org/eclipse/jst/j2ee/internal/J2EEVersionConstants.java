@@ -44,6 +44,7 @@ public interface J2EEVersionConstants {
 	public int EJB_3_0_ID = 30;
 	public int EJB_3_1_ID = 31;
 	public int EJB_3_2_ID = 32;
+	public int EJB_4_0_ID = 40;
 	public int WEB_2_2_ID = 22;
 	public int WEB_2_3_ID = 23;
 	public int WEB_2_4_ID = 24;
@@ -56,6 +57,8 @@ public interface J2EEVersionConstants {
 	public int WEBFRAGMENT_3_0_ID = 30;
 	public int WEBFRAGMENT_3_1_ID = 31;
 	public int WEBFRAGMENT_4_0_ID = 40;
+	public int WEBFRAGMENT_5_0_ID = 50;
+	public int WEBFRAGMENT_6_0_ID = 60;
 	public int TAGLIB_1_1_ID = 11;
 	public int TAGLIB_1_2_ID = 12;
 	public int TAGLIB_2_0_ID = 20;
@@ -76,11 +79,13 @@ public interface J2EEVersionConstants {
 	public int JCA_1_5_ID = 15;
 	public int JCA_1_6_ID = 16;
 	public int JCA_1_7_ID = 17;
+	public int JCA_2_1_ID = 21;
 	public int WEBSERVICES_1_0_ID = 10;
 	public int WEBSERVICES_1_1_ID = 11;
 	public int WEBSERVICES_1_2_ID = 12;
 	public int WEBSERVICES_1_3_ID = 13;
 	public int WEBSERVICES_1_4_ID = 14;
+	public int WEBSERVICES_2_0_ID = 20;
 	public String J2EE_1_4_TEXT 		= "1.4"; //$NON-NLS-1$
 	
 
@@ -108,6 +113,7 @@ public interface J2EEVersionConstants {
 	public int VERSION_6_0 = 60; 
 	public int VERSION_7_0 = 70;
 	public int VERSION_8_0 = 80;
+	public int VERSION_10_0 = 100;
 	
 	public String VERSION_1_0_TEXT		= "1.0"; //$NON-NLS-1$
 	public String VERSION_1_1_TEXT    	= "1.1"; //$NON-NLS-1$
@@ -132,10 +138,12 @@ public interface J2EEVersionConstants {
 	public String VERSION_6_0_TEXT		= "6.0"; //$NON-NLS-1$
 	public String VERSION_7_0_TEXT		= "7.0"; //$NON-NLS-1$
 	public String VERSION_8_0_TEXT		= "8.0"; //$NON-NLS-1$
+	public String VERSION_10_0_TEXT     = "10.0"; //$NON-NLS-1$
 	public String VERSION_5_TEXT        = "5";   //$NON-NLS-1$
 	public String VERSION_6_TEXT        = "6";   //$NON-NLS-1$
 	public String VERSION_7_TEXT        = "7";   //$NON-NLS-1$
 	public String VERSION_8_TEXT        = "8";	//$NON-NLS-1$
 	public String VERSION_9_TEXT        = "9";	//$NON-NLS-1$
+	public String VERSION_10_TEXT        = "10"; //$NON-NLS-1$
 					
 }

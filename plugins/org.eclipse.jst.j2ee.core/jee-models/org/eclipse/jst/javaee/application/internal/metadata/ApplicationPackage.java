@@ -292,6 +292,7 @@ public interface ApplicationPackage extends EPackage {
 	String eNS_URI2 = J2EEConstants.APPLICATION_SCHEMA_LOC_6;
 	String eNS_URI3 = J2EEConstants.APPLICATION_SCHEMA_LOC_7;
 	String eNS_URI4 = J2EEConstants.APPLICATION_SCHEMA_LOC_8;
+	String eNS_URI5 = J2EEConstants.APPLICATION_SCHEMA_LOC_10;
 	/**
 	 * The package namespace name.
 	 * <!-- begin-user-doc -->

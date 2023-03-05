@@ -102,7 +102,7 @@ public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements
 				}
 			}
 			
-			if( fv == IJ2EEFacetConstants.EJB_32 || fv == IJ2EEFacetConstants.EJB_31 || fv == IJ2EEFacetConstants.EJB_30)
+			if(fv == IJ2EEFacetConstants.EJB_40 || fv == IJ2EEFacetConstants.EJB_32 || fv == IJ2EEFacetConstants.EJB_31 || fv == IJ2EEFacetConstants.EJB_30)
             {
                 if(model.getBooleanProperty(IJ2EEFacetInstallDataModelProperties.GENERATE_DD)){
                     // Create the deployment descriptor (ejb-jar.xml) if one doesn't exist
@@ -110,7 +110,9 @@ public class EjbFacetInstallDelegate extends J2EEFacetInstallDelegate implements
                     if (!ejbJarXmlFile.exists()) {
                         try {
                         	String ejbJarXmlContents = null;
-                        	if(fv == IJ2EEFacetConstants.EJB_32) {
+                            if(fv == IJ2EEFacetConstants.EJB_40) {
+                                ejbJarXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<ejb-jar version=\"4.0\" xmlns=\"https://jakarta.ee/xml/ns/jakartaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/ejb-jar_4_0.xsd\">\n  <display-name>" + XMLWriter.getEscaped(project.getName()) +" </display-name> \n </ejb-jar>"; //$NON-NLS-1$ //$NON-NLS-2$
+                            } else if(fv == IJ2EEFacetConstants.EJB_32) {
 	                            ejbJarXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<ejb-jar version=\"3.2\" xmlns=\"http://xmlns.jcp.org/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/ejb-jar_3_2.xsd\">\n  <display-name>" + XMLWriter.getEscaped(project.getName()) +" </display-name> \n </ejb-jar>"; //$NON-NLS-1$ //$NON-NLS-2$
                         	} else if(fv == IJ2EEFacetConstants.EJB_31) {
 	                            ejbJarXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<ejb-jar version=\"3.1\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd\">\n  <display-name>" + XMLWriter.getEscaped(project.getName()) +" </display-name> \n </ejb-jar>"; //$NON-NLS-1$ //$NON-NLS-2$

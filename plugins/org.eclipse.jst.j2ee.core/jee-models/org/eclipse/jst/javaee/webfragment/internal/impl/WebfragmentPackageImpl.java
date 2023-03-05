@@ -99,6 +99,10 @@ public class WebfragmentPackageImpl extends EPackageImpl implements WebfragmentP
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(WebfragmentPackage.eNS_URI, theWebfragmentPackage);
 		EPackage.Registry.INSTANCE.put(WebfragmentPackage.eNS_URI2, theWebfragmentPackage);
+		EPackage.Registry.INSTANCE.put(WebfragmentPackage.eNS_URI3, theWebfragmentPackage);
+		EPackage.Registry.INSTANCE.put(WebfragmentPackage.eNS_URI4, theWebfragmentPackage);
+		EPackage.Registry.INSTANCE.put(WebfragmentPackage.eNS_URI5, theWebfragmentPackage);
+		
 
 		J2EEInit.initEMFModels();
 		return theWebfragmentPackage;
