@@ -65,6 +65,7 @@ public class EjbAnnotationFactory extends AbstractAnnotationFactory {
 	private static final String LOCAL_HOME = "LocalHome"; //$NON-NLS-1$
 	private static final String REMOTE_HOME = "RemoteHome"; //$NON-NLS-1$
 	private static final String JAVAX_EJB_TIMER = "javax.ejb.Timer"; //$NON-NLS-1$
+	private static final String JAKARTA_EJB_TIMER = "jakarta.ejb.Timer"; //$NON-NLS-1$
 	private static final String TIMER = "Timer"; //$NON-NLS-1$
 	private static final String RETAIN_IF_EXCEPTION = "retainIfException"; //$NON-NLS-1$
 	private static final String REMOVE = "Remove"; //$NON-NLS-1$
@@ -82,11 +83,15 @@ public class EjbAnnotationFactory extends AbstractAnnotationFactory {
 	private static final String NAME = "name"; //$NON-NLS-1$
 	private static final String VOID_RETURN_TYPE = "V"; //$NON-NLS-1$
 	private static final String JAVAX_EJB_STATEFUL = "javax.ejb.Stateful"; //$NON-NLS-1$
+	private static final String JAKARTA_EJB_STATEFUL = "jakarta.ejb.Stateful"; //$NON-NLS-1$
 	private static final String JAVAX_EJB_SINGLETON = "javax.ejb.Singleton"; //$NON-NLS-1$
+	private static final String JAKARTA_EJB_SINGLETON = "jakarta.ejb.Singleton"; //$NON-NLS-1$
 	private static final String STATEFUL = "Stateful"; //$NON-NLS-1$
 	private static final String JAVAX_EJB_MESSAGE_DRIVEN = "javax.ejb.MessageDriven"; //$NON-NLS-1$
+	private static final String JAKARTA_EJB_MESSAGE_DRIVEN = "jakarta.ejb.MessageDriven"; //$NON-NLS-1$
 	private static final String MESSAGE_DRIVEN = "MessageDriven"; //$NON-NLS-1$
 	private static final String JAVAX_EJB_STATELESS = "javax.ejb.Stateless"; //$NON-NLS-1$
+	private static final String JAKARTA_EJB_STATELESS = "jakarta.ejb.Stateless"; //$NON-NLS-1$
 	private static final String STATELESS = "Stateless"; //$NON-NLS-1$
 	private static final String SINGLETON = "Singleton"; //$NON-NLS-1$
 	
@@ -115,16 +120,16 @@ public class EjbAnnotationFactory extends AbstractAnnotationFactory {
 		Result result = new Result();
 		for (IAnnotation annotation : type.getAnnotations()) {
 			String annotationName = annotation.getElementName();
-			if (STATELESS.equals(annotationName) || JAVAX_EJB_STATELESS.equals(annotationName)) {
+			if (STATELESS.equals(annotationName) || JAVAX_EJB_STATELESS.equals(annotationName) || JAKARTA_EJB_STATELESS.equals(annotationName)) {
 				processStatelessBean(result, annotation, type);
 				break;
-			} else if (MESSAGE_DRIVEN.equals(annotationName) || JAVAX_EJB_MESSAGE_DRIVEN.equals(annotationName)) {
+			} else if (MESSAGE_DRIVEN.equals(annotationName) || JAVAX_EJB_MESSAGE_DRIVEN.equals(annotationName) || JAKARTA_EJB_MESSAGE_DRIVEN.equals(annotationName)) {
 				processMessageDrivenBean(result, annotation, type);
 				break;
-			} else if (STATEFUL.equals(annotationName) || JAVAX_EJB_STATEFUL.equals(annotationName)) {
+			} else if (STATEFUL.equals(annotationName) || JAVAX_EJB_STATEFUL.equals(annotationName) || JAKARTA_EJB_STATEFUL.equals(annotationName)) {
 				processStatefulBean(result, annotation, type);
 				break;
-			} else if (SINGLETON.equals(annotationName) || JAVAX_EJB_SINGLETON.equals(annotationName)) {
+			} else if (SINGLETON.equals(annotationName) || JAVAX_EJB_SINGLETON.equals(annotationName) || JAKARTA_EJB_SINGLETON.equals(annotationName)) {
 				processSingletonBean(result, annotation, type);
 				break;
 			}
@@ -557,7 +562,7 @@ public class EjbAnnotationFactory extends AbstractAnnotationFactory {
 		if (method.getNumberOfParameters() != 1)
 			return;
 		String paramName = Signature.toString(method.getParameterTypes()[0]);
-		if (!TIMER.equals(paramName) && !JAVAX_EJB_TIMER.equals(paramName))
+		if (!TIMER.equals(paramName) && !JAVAX_EJB_TIMER.equals(paramName) && !JAKARTA_EJB_TIMER.equals(paramName))
 			return;
 		if (method.getExceptionTypes().length != 0)
 			return;

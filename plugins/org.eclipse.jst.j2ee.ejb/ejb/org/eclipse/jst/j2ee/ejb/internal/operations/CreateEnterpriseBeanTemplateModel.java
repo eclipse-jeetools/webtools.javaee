@@ -11,6 +11,7 @@
 package org.eclipse.jst.j2ee.ejb.internal.operations;
 
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewEnterpriseBeanClassDataModelProperties.TRANSACTION_TYPE;
+import static org.eclipse.jst.j2ee.ejb.internal.operations.INewEnterpriseBeanClassDataModelProperties.USE_JAKARTA_PACKAGENAME;
 
 import org.eclipse.jst.j2ee.internal.common.operations.CreateJavaEEArtifactTemplateModel;
 import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
@@ -18,6 +19,10 @@ import org.eclipse.wst.common.frameworks.datamodel.IDataModel;
 public class CreateEnterpriseBeanTemplateModel extends
 		CreateJavaEEArtifactTemplateModel {
 	
+	private static final String JAKARTA = "jakarta"; //$NON-NLS-1$
+
+	protected static final String JAVAX = "javax"; //$NON-NLS-1$
+
 	protected static final String ATT_MAPPED_NAME = "mappedName"; //$NON-NLS-1$
 	
 	protected static final String QUOTATION_STRING = "\""; //$NON-NLS-1$
@@ -35,4 +40,11 @@ public class CreateEnterpriseBeanTemplateModel extends
 		else 
 			throw new IllegalStateException("illegal transaction type: " + transactionType); //$NON-NLS-1$
 	}
+    
+    public String convertToJakartaPackage(String qualifiedName) {
+		if (dataModel.getBooleanProperty(USE_JAKARTA_PACKAGENAME)) {
+			return qualifiedName.replace(CreateEnterpriseBeanTemplateModel.JAVAX, CreateEnterpriseBeanTemplateModel.JAKARTA);
+		}
+		return qualifiedName;
+    }
 }

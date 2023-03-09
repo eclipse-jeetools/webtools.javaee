@@ -62,12 +62,15 @@ public class WebAnnotationFactory extends AbstractAnnotationFactory {
 	
 	private static final String WEB_SERVLET = "WebServlet"; //$NON-NLS-1$
 	private static final String WEB_SERVLET_FQ = "javax.servlet.annotation.WebServlet"; //$NON-NLS-1$
+	private static final String WEB_SERVLET_FQ_JAKARTA = "jakarta.servlet.annotation.WebServlet"; //$NON-NLS-1$
 	
 	private static final String WEB_LISTENER = "WebListener"; //$NON-NLS-1$
 	private static final String WEB_LISTENER_FQ = "javax.servlet.annotation.WebListener"; //$NON-NLS-1$
+	private static final String WEB_LISTENER_FQ_JAKARTA = "jakarta.servlet.annotation.WebListener"; //$NON-NLS-1$
 
 	private static final String WEB_FILTER = "WebFilter"; //$NON-NLS-1$
 	private static final String WEB_FILTER_FQ = "javax.servlet.annotation.WebFilter"; //$NON-NLS-1$
+	private static final String WEB_FILTER_FQ_JAKARTA = "jakarta.servlet.annotation.WebFilter"; //$NON-NLS-1$
 
 	
 	
@@ -129,7 +132,7 @@ public class WebAnnotationFactory extends AbstractAnnotationFactory {
 			String filterName = (String) getAnnotatedValue(FILTER_NAME, memberValuePairs);
 			String descr = (String) getAnnotatedValue(DESCRIPTION, memberValuePairs);
 			Boolean async = (Boolean) getAnnotatedValue(ASYNC_SUPPORTED, memberValuePairs);
-			if(WEB_SERVLET.equals(annotationName) || WEB_SERVLET_FQ.equals(annotationName)){
+			if(WEB_SERVLET.equals(annotationName) || WEB_SERVLET_FQ.equals(annotationName) ||  WEB_SERVLET_FQ_JAKARTA.equals(annotationName)){
 				Servlet servlet = (Servlet)artifact;
 				if (name != null) {
 					servlet.setServletName(name);
@@ -146,7 +149,7 @@ public class WebAnnotationFactory extends AbstractAnnotationFactory {
 				}
 				
 				processUrlMapping(result, annotation, servlet);
-			} else if(WEB_FILTER.equals(annotationName) || WEB_FILTER_FQ.equals(annotationName)){
+			} else if(WEB_FILTER.equals(annotationName) || WEB_FILTER_FQ.equals(annotationName) || WEB_FILTER_FQ_JAKARTA.equals(annotationName)){
 				Filter filter = (Filter)artifact;
 				if (filterName != null) {
 					filter.setFilterName(filterName);
@@ -163,7 +166,7 @@ public class WebAnnotationFactory extends AbstractAnnotationFactory {
 				}				
 				processUrlMapping(result, annotation, filter);
 				
-			} else if(WEB_LISTENER.equals(annotationName) || WEB_LISTENER_FQ.equals(annotationName)){
+			} else if(WEB_LISTENER.equals(annotationName) || WEB_LISTENER_FQ.equals(annotationName)  || WEB_LISTENER_FQ_JAKARTA.equals(annotationName)){
 				Listener listener = (Listener)artifact;
 				Description description = JavaeeFactory.eINSTANCE.createDescription();
 				if(listener.getListenerClass() == null){

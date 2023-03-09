@@ -45,7 +45,7 @@ public class RemoteHomeInterfaceTemplate
     
 	}
 
-    stringBuffer.append(TEXT_3);
+    stringBuffer.append(model.convertToJakartaPackage(TEXT_3));
      if(!model.getRemoteComponentPackage().equals(model.getRemoteHomePackage())){
     stringBuffer.append(TEXT_4);
     stringBuffer.append( model.getRemoteComponentPackage() );

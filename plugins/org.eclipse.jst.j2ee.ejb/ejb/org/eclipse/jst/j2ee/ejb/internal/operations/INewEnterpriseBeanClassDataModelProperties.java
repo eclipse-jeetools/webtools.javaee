@@ -34,5 +34,12 @@ public interface INewEnterpriseBeanClassDataModelProperties extends INewJavaClas
 	 * @see TransactionType
 	 */
 	public static final String TRANSACTION_TYPE = "INewEnterpriseBeanClassDataModelProperties.TRANSACTION_TYPE"; //$NON-NLS-1$
-	
+
+	/**
+	 * Optional, boolean property used to specify whether to generate jakarta vs. javax packagenames.
+	 * The default is true for EJB 4.0 or JEE10 projects, otherwise -
+	 * false.
+	 */
+	public static final String USE_JAKARTA_PACKAGENAME = "INewEnterpriseBeanClassDataModelProperties.USE_JAKARTA_PACKAGENAME"; //$NON-NLS-1$
+
 }

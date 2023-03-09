@@ -51,18 +51,18 @@ public class CreateMessageDrivenBeanTemplateModel extends
 	public Collection<String> getImports() {
 		Collection<String> collection = super.getImports();
 
-		collection.add(QUALIFIED_MESSAGE_DRIVEN);
+		collection.add(convertToJakartaPackage(QUALIFIED_MESSAGE_DRIVEN));
 		if (isJMS()){
-			collection.add(QUALIFIED_ACTIVATION_CONFIG_PROPERTY);
-			collection.add(NewMessageDrivenBeanClassDataModelProvider.QUALIFIED_JMS_MESSAGELISTENER);
-			collection.add(QUALIFIED_JSM_MESSAGE);
+			collection.add(convertToJakartaPackage(QUALIFIED_ACTIVATION_CONFIG_PROPERTY));
+			collection.add(convertToJakartaPackage(NewMessageDrivenBeanClassDataModelProvider.QUALIFIED_JMS_MESSAGELISTENER));
+			collection.add(convertToJakartaPackage(QUALIFIED_JSM_MESSAGE));
 		}
 		if (!isContainerType()) {
-			collection.add(QUALIFIED_TRANSACTION_MANAGEMENT);
-			collection.add(QUALIFIED_TRANSACTION_MANAGEMENT_TYPE);
+			collection.add(convertToJakartaPackage(QUALIFIED_TRANSACTION_MANAGEMENT));
+			collection.add(convertToJakartaPackage(QUALIFIED_TRANSACTION_MANAGEMENT_TYPE));
 		}
 		
-		collection.add(dataModel.getStringProperty(MESSAGE_LISTENER_INTERFACE));
+		collection.add(convertToJakartaPackage(dataModel.getStringProperty(MESSAGE_LISTENER_INTERFACE)));
 
 		return collection;
 	}
@@ -75,9 +75,9 @@ public class CreateMessageDrivenBeanTemplateModel extends
 		if (isJMS()){
 			String destinationType = dataModel.getStringProperty(DESTINATION_TYPE);
 			if (destinationType.equals(DestinationType.QUEUE.toString())) 
-				activationConfigProperties.put(PROP_DESTINATION_TYPE, "javax.jms.Queue"); //$NON-NLS-1$
+				activationConfigProperties.put(PROP_DESTINATION_TYPE, convertToJakartaPackage("javax.jms.Queue")); //$NON-NLS-1$
 			else if (destinationType.equals(DestinationType.TOPIC.toString())) 
-				activationConfigProperties.put(PROP_DESTINATION_TYPE, "javax.jms.Topic"); //$NON-NLS-1$
+				activationConfigProperties.put(PROP_DESTINATION_TYPE, convertToJakartaPackage("javax.jms.Topic")); //$NON-NLS-1$
 			else 
 				throw new IllegalStateException("illegal destination type: " + destinationType); //$NON-NLS-1$
 		}
@@ -113,7 +113,7 @@ public class CreateMessageDrivenBeanTemplateModel extends
 		
 		while (iterator.hasNext()) {
 			Method method = iterator.next();
-			if (ON_MESSAGE.equals(method.getName()) && ON_MESSAGE_SIGNATURE.equals(method.getSignature())) {
+			if (ON_MESSAGE.equals(method.getName()) && convertToJakartaPackage(ON_MESSAGE_SIGNATURE).equals(method.getSignature())) {
 				iterator.remove();
 			}
 		}

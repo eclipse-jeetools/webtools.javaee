@@ -14,6 +14,7 @@ package org.eclipse.jst.j2ee.ejb.internal.operations;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewEnterpriseBeanClassDataModelProperties.EJB_NAME;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewEnterpriseBeanClassDataModelProperties.MAPPED_NAME;
 import static org.eclipse.jst.j2ee.ejb.internal.operations.INewEnterpriseBeanClassDataModelProperties.TRANSACTION_TYPE;
+import static org.eclipse.jst.j2ee.ejb.internal.operations.INewEnterpriseBeanClassDataModelProperties.USE_JAKARTA_PACKAGENAME;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.CLASS_NAME;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.JAVA_PACKAGE;
 import static org.eclipse.jst.j2ee.internal.common.operations.INewJavaClassDataModelProperties.SUPERCLASS;
@@ -59,6 +60,7 @@ public class NewEnterpriseBeanClassDataModelProvider extends NewJavaClassDataMod
 		propertyNames.add(EJB_NAME);
 		propertyNames.add(MAPPED_NAME);
 		propertyNames.add(TRANSACTION_TYPE);
+		propertyNames.add(USE_JAKARTA_PACKAGENAME);
 
 		return propertyNames;
 	}
@@ -85,7 +87,9 @@ public class NewEnterpriseBeanClassDataModelProvider extends NewJavaClassDataMod
 			return ""; //$NON-NLS-1$
 		} else if (propertyName.equals(TRANSACTION_TYPE)) {
 			return TransactionType.CONTAINER.toString();
-		} 
+		}  else if (propertyName.equals(USE_JAKARTA_PACKAGENAME)) {
+			return Boolean.valueOf(ejb4xOrLater());
+		}
 
 		// Otherwise check super for default value for property
 		return super.getDefaultProperty(propertyName);
@@ -188,6 +192,7 @@ public class NewEnterpriseBeanClassDataModelProvider extends NewJavaClassDataMod
 	// constant array used for version tolerance: EJB version, Web version, Web Fragment version
 	private static final int EJB31_VERSIONS[] = {J2EEVersionConstants.VERSION_3_1, J2EEVersionConstants.VERSION_3_0, J2EEVersionConstants.VERSION_3_0};
 	private static final int EJB32_VERSIONS[] = {J2EEVersionConstants.VERSION_3_2, J2EEVersionConstants.VERSION_3_1, J2EEVersionConstants.VERSION_3_1};
+	private static final int EJB40_VERSIONS[] = {J2EEVersionConstants.VERSION_4_0, J2EEVersionConstants.VERSION_5_0, J2EEVersionConstants.VERSION_5_0};
 
 	protected boolean ejb3xOrLater(int ejbVersion) {
 		boolean retVal = false;
@@ -232,4 +237,40 @@ public class NewEnterpriseBeanClassDataModelProvider extends NewJavaClassDataMod
 		return retVal;
 	}
 
+	
+	protected boolean ejb4xOrLater() {
+		boolean retVal = false;
+		IProject project = getTargetProject();
+		// default to EJB 31
+		int ejbVersions[] = EJB40_VERSIONS;
+		IProjectFacetVersion facetVersion = null;
+		int versionToCheck = -1;
+
+
+		if (project != null)
+		{
+			if (JavaEEProjectUtilities.isEJBProject(project))
+			{
+				facetVersion = JavaEEProjectUtilities.getProjectFacetVersion(project, IJ2EEFacetConstants.EJB);
+				versionToCheck = ejbVersions[0];
+			}
+			else if (JavaEEProjectUtilities.isDynamicWebProject(project))
+			{
+				facetVersion = JavaEEProjectUtilities.getProjectFacetVersion(project, IJ2EEFacetConstants.DYNAMIC_WEB);
+				versionToCheck = ejbVersions[1];
+			}
+			else if (JavaEEProjectUtilities.isWebFragmentProject(project))
+			{
+				facetVersion = JavaEEProjectUtilities.getProjectFacetVersion(project, IJ2EEFacetConstants.WEBFRAGMENT);
+				versionToCheck = ejbVersions[2];
+			}
+			if (facetVersion != null)
+			{
+				int version = J2EEVersionUtil.convertVersionStringToInt(facetVersion.getVersionString());
+				retVal = version >= versionToCheck;
+			}
+		}
+		return retVal;
+	}
+	
 }

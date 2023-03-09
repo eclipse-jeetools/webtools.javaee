@@ -46,7 +46,7 @@ public class LocalBusinessInterfaceTemplate
     
 	if (model.addBusinessAnnotationToInterface()) {
 
-    stringBuffer.append(TEXT_4);
+    stringBuffer.append(model.convertToJakartaPackage(TEXT_4));
     
 	}
 

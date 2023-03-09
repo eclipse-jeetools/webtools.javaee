@@ -64,54 +64,54 @@ public class CreateSessionBeanTemplateModel extends
 		
 		String stateType = dataModel.getStringProperty(STATE_TYPE);
 		if (stateType.equals(StateType.STATELESS.toString())) {
-			collection.add(QUALIFIED_STATELESS);
+			collection.add(convertToJakartaPackage(QUALIFIED_STATELESS));
 		} else if (stateType.equals(StateType.STATEFUL.toString())) {
-			collection.add(QUALIFIED_STATEFUL);
+			collection.add(convertToJakartaPackage(QUALIFIED_STATEFUL));
 		} else if (stateType.equals(StateType.SINGLETON.toString())) {
-			collection.add(QUALIFIED_SINGLETON);
+			collection.add(convertToJakartaPackage(QUALIFIED_SINGLETON));
 		} else {
 			throw new IllegalStateException("illegal state type: " + stateType); //$NON-NLS-1$
 		}
 		
 		if (!isContainerType()) {
-			collection.add(QUALIFIED_TRANSACTION_MANAGEMENT);
-			collection.add(QUALIFIED_TRANSACTION_MANAGEMENT_TYPE);
+			collection.add(convertToJakartaPackage(QUALIFIED_TRANSACTION_MANAGEMENT));
+			collection.add(convertToJakartaPackage(QUALIFIED_TRANSACTION_MANAGEMENT_TYPE));
 		}
 		
 		if (isRemoteHomeChecked()) {
-			collection.add(QUALIFIED_REMOTE_HOME);
+			collection.add(convertToJakartaPackage(QUALIFIED_REMOTE_HOME));
 			collection.add(remoteHomeClassName);
 		}
 		
 		if (isLocalHomeChecked()) {
-			collection.add(QUALIFIED_LOCAL_HOME);
+			collection.add(convertToJakartaPackage(QUALIFIED_LOCAL_HOME));
 			collection.add(localHomeClassName);
 		}
 		
 		if (isNoInterfaceChecked()) {
-			collection.add(QUALIFIED_LOCAL_BEAN);
+			collection.add(convertToJakartaPackage(QUALIFIED_LOCAL_BEAN));
 		}
 		
 		if (isAsynchronous()) {
-			collection.add(QUALIFIED_ASYNCHRONOUS);
+			collection.add(convertToJakartaPackage(QUALIFIED_ASYNCHRONOUS));
 		}
 		
 		List<BusinessInterface> interfaces = getBusinessInterfaces();
 		if (addBusinessAnnotationToBeanClass()){
 			for (BusinessInterface iface : interfaces) {
 				if (iface.isLocal()) {
-					collection.add(QUALIFIED_LOCAL);
+					collection.add(convertToJakartaPackage(QUALIFIED_LOCAL));
 				} else if (iface.isRemote()) { 
-					collection.add(QUALIFIED_REMOTE);
+					collection.add(convertToJakartaPackage(QUALIFIED_REMOTE));
 				}
 			}
 		}
 		else {
 			for (BusinessInterface iface : interfaces) {
 				if (iface.isLocal() && iface.exists()) {
-					collection.add(QUALIFIED_LOCAL);
+					collection.add(convertToJakartaPackage(QUALIFIED_LOCAL));
 				} else if (iface.isRemote() && iface.exists()) { 
-					collection.add(QUALIFIED_REMOTE);
+					collection.add(convertToJakartaPackage(QUALIFIED_REMOTE));
 				}
 			}
 		}

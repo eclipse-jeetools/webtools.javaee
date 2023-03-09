@@ -40,9 +40,9 @@ public class AddEjbTimerTemplateModel extends CreateEnterpriseBeanTemplateModel 
 	public Collection<String> getImports() {
 		Collection<String> collection = super.getImports();
 
-		collection.add(QUALIFIED_SCHEDULE);
-		collection.add(QUALIFIED_STATELESS);
-		collection.add(QUALIFIED_TIMER);
+		collection.add(convertToJakartaPackage(QUALIFIED_SCHEDULE));
+		collection.add(convertToJakartaPackage(QUALIFIED_STATELESS));
+		collection.add(convertToJakartaPackage(QUALIFIED_TIMER));
 
 		return collection;
 	}

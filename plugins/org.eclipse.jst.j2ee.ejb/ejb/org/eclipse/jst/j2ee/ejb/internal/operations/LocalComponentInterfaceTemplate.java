@@ -40,7 +40,7 @@ public class LocalComponentInterfaceTemplate
     
 	}
 
-    stringBuffer.append(TEXT_3);
+    stringBuffer.append(model.convertToJakartaPackage(TEXT_3));
     stringBuffer.append( model.getLocalComponentClassSimpleName() );
     stringBuffer.append(TEXT_4);
     stringBuffer.append(TEXT_5);

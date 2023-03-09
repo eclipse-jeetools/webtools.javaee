@@ -33,6 +33,8 @@ public class NewMessageDrivenBeanClassDataModelProvider extends NewEnterpriseBea
 
 	public static final String QUALIFIED_JMS_MESSAGELISTENER = "javax.jms.MessageListener"; //$NON-NLS-1$
 
+	public static final String QUALIFIED_JMS_MESSAGELISTENER_JAKARTA = "jakarta.jms.MessageListener"; //$NON-NLS-1$
+	
 	@Override
 	public IDataModelOperation getDefaultOperation() {
 		return new AddMessageDrivenBeanOperation(getDataModel());
@@ -71,7 +73,11 @@ public class NewMessageDrivenBeanClassDataModelProvider extends NewEnterpriseBea
 	public Object getDefaultProperty(String propertyName) {
 		if (propertyName.equals(INTERFACES)){
 			List<String> list = new ArrayList<String>();
-			list.add(QUALIFIED_JMS_MESSAGELISTENER);
+			if(ejb4xOrLater()) {
+				list.add(QUALIFIED_JMS_MESSAGELISTENER_JAKARTA);
+			}else {
+				list.add(QUALIFIED_JMS_MESSAGELISTENER);	
+			}
 			return list;
 		} else if (propertyName.equals(SUPERCLASS)) {
 			return ""; //$NON-NLS-1$

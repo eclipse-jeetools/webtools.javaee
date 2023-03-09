@@ -45,7 +45,7 @@ public class LocalHomeInterfaceTemplate
     
 	}
 
-    stringBuffer.append(TEXT_3);
+    stringBuffer.append(model.convertToJakartaPackage(TEXT_3));
      if(!model.getLocalComponentPackage().equals(model.getLocalHomePackage())){
     stringBuffer.append(TEXT_4);
     stringBuffer.append( model.getLocalComponentPackage());
