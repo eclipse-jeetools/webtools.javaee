@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2022 IBM Corporation and others.
+ * Copyright (c) 2005, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -84,7 +84,7 @@ public class J2EEPerspective implements org.eclipse.ui.IPerspectiveFactory {
 		layout.addShowViewShortcut(IPageLayout.ID_BOOKMARKS);
 		layout.addShowViewShortcut(IPageLayout.ID_OUTLINE);
 		layout.addShowViewShortcut(IPageLayout.ID_PROP_SHEET);
-		layout.addShowViewShortcut(IPageLayout.ID_RES_NAV);
+		layout.addShowViewShortcut(IPageLayout.ID_PROJECT_EXPLORER);
 		layout.addShowViewShortcut(ID_WST_SNIPPETS_VIEW);
 		layout.addShowViewShortcut(ID_MARKERS_VIEW);
 		layout.addShowViewShortcut(IPageLayout.ID_PROBLEM_VIEW);
@@ -107,7 +107,7 @@ public class J2EEPerspective implements org.eclipse.ui.IPerspectiveFactory {
 		// Top left.
 		IFolderLayout topLeft = layout.createFolder("topLeft", IPageLayout.LEFT, 0.25f, editorArea);//$NON-NLS-1$
 		topLeft.addView(ID_J2EE_HIERARCHY_VIEW);
-		topLeft.addPlaceholder(IPageLayout.ID_RES_NAV);
+		topLeft.addPlaceholder(IPageLayout.ID_PROJECT_EXPLORER);
 		topLeft.addPlaceholder(JavaUI.ID_TYPE_HIERARCHY);
 		topLeft.addPlaceholder(JavaUI.ID_PACKAGES_VIEW);
 
