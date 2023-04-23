@@ -23,6 +23,14 @@
             class="org.eclipse.jst.j2ee.application.ApplicationPackage">
       </package>
    </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @notgenerated j2ee -->
+      <package
+            uri="application.xmi"
+            class="org.eclipse.jst.j2ee.application.ApplicationPackage"
+            genModel="model/j2ee.genmodel"/>
+   </extension>
    <extension
          point="org.eclipse.emf.ecore.generated_package">
       <package
@@ -43,6 +51,14 @@
             uri="ejb.xmi"
             class="org.eclipse.jst.j2ee.ejb.EjbPackage">
       </package>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @notgenerated j2ee -->
+      <package
+            uri="taglib.xmi"
+            class="org.eclipse.jst.j2ee.taglib.internal.TaglibPackage"
+            genModel="model/taglib.genmodel"/>
    </extension>
    <extension
          point="org.eclipse.emf.ecore.generated_package">

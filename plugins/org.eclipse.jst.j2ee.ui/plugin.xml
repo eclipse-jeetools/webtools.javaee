@@ -580,12 +580,25 @@
    </extension>	
    <extension
          point="org.eclipse.ui.perspectiveExtensions">
-      <perspectiveExtension targetID="org.eclipse.jst.j2ee.J2EEPerspective">
+      <perspectiveExtension targetID="org.eclipse.jst.j2ee.J2EEPerspective"
+            editorOnboardingImage="$nl$/icons/full/onboarding_ee_persp.png"
+            editorOnboardingText="%perspectiveExtension.editorOnboardingText"
+      >
+         <editorOnboardingCommand
+               id="org.eclipse.ui.window.quickAccess">
+         </editorOnboardingCommand>
+         <editorOnboardingCommand
+               id="org.eclipse.ui.window.showKeyAssist">
+         </editorOnboardingCommand>
+         <editorOnboardingCommand
+               id="org.eclipse.ui.newWizard">
+         </editorOnboardingCommand>
+
          <perspectiveShortcut id="org.eclipse.debug.ui.DebugPerspective"/>
          <perspectiveShortcut id="org.eclipse.jdt.ui.JavaPerspective"/>
          <perspectiveShortcut id="org.eclipse.ui.resourcePerspective"/>
          <perspectiveShortcut id="org.eclipse.wst.web.ui.webDevPerspective"/>
-       
+
  		<newWizardShortcut id="org.eclipse.jst.j2ee.ui.project.facet.EarProjectWizard"/>
 		<newWizardShortcut id="org.eclipse.jst.servlet.ui.project.facet.WebProjectWizard"/>
 		<newWizardShortcut id="org.eclipse.jst.ejb.ui.project.facet.EjbProjectWizard"/>
@@ -598,6 +611,10 @@
       	<newWizardShortcut id="org.eclipse.jst.ejb.ui.internal.wizard.AddMessageDrivenBeanWizard"/>
         <newWizardShortcut id="org.eclipse.jpt.ui.wizard.newEntity"/>      	
         <newWizardShortcut id="org.eclipse.jst.ws.creation.ui.wizard.serverwizard"/>
+        <newWizardShortcut id="org.eclipse.wst.css.ui.internal.wizard.NewCSSWizard"/>
+        <newWizardShortcut id="org.eclipse.wst.html.ui.internal.wizard.NewHTMLWizard"/>
+        <newWizardShortcut id="org.eclipse.wst.jsdt.ui.NewJSWizard"/>
+        <newWizardShortcut id="org.eclipse.wst.xml.ui.internal.wizards.NewXMLWizard"/>
         <newWizardShortcut id="org.eclipse.ui.wizards.new.folder"/>
         <newWizardShortcut id="org.eclipse.ui.wizards.new.file"/>
         <actionSet id="org.eclipse.wst.server.ui.internal.webbrowser.actionSet"/>
