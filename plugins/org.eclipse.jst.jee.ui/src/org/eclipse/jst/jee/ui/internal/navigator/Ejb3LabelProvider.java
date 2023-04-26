@@ -1,5 +1,5 @@
 /***********************************************************************
- * Copyright (c) 2008, 2013 by SAP AG, Walldorf. 
+ * Copyright (c) 2008, 2023 by SAP AG, Walldorf. 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -58,7 +58,7 @@ public class Ejb3LabelProvider extends J2EELabelProvider {
 	private Image resourceRefImage;
 	private Image serviceRefImage;
 	private Image activationConfigImage;
-   
+
 
 	public Ejb3LabelProvider() {
 		new J2EEAdapterFactoryLabelProvider(new DynamicAdapterFactory(IJ2EENavigatorConstants.VIEWER_ID));
@@ -176,7 +176,7 @@ public class Ejb3LabelProvider extends J2EELabelProvider {
         }
         return ejb40Image;
     }
-	
+
 	private Image getSessionBeanImage() {
 		if (sessionBeanImage == null) {
 			URL url = (URL) J2EEPlugin.getPlugin().getImage("sessionBean_obj"); //$NON-NLS-1$

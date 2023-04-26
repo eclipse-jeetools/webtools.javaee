@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and others.
+ * Copyright (c) 2007, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -694,12 +694,11 @@ public class JavaeePackageImpl extends EPackageImpl implements JavaeePackage {
 		// Mark meta-data to indicate it can't be changed
 		theJavaeePackage.freeze();
 
-  
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(JavaeePackage.eNS_URI, theJavaeePackage);
 		EPackage.Registry.INSTANCE.put(JavaeePackage.eNS_URI2, theJavaeePackage);
 		EPackage.Registry.INSTANCE.put(JavaeePackage.eNS_URI3, theJavaeePackage);
-		
+
 		J2EEInit.initEMFModels();
 		return theJavaeePackage;
 	}

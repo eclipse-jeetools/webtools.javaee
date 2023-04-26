@@ -1,5 +1,5 @@
 /***********************************************************************
- * Copyright (c) 2008, 2017 by SAP AG, Walldorf. 
+ * Copyright (c) 2008, 2023 by SAP AG, Walldorf. 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -50,6 +50,7 @@ public class GroupAppClientProvider extends AbstractAppClientGroupProvider imple
 	private Image appClient60Image;
 	private Image appClient70Image;
 	private Image appClient80Image;
+	private Image appClient90Image;
 	private Image appClient100Image;
 	
 	private IFile ddFile;
@@ -93,6 +94,8 @@ public class GroupAppClientProvider extends AbstractAppClientGroupProvider imple
 			return getAppClient70Image();
 		} else if (J2EEVersionConstants.VERSION_8_TEXT.equals(version)) {
 			return getAppClient80Image();
+        } else if (J2EEVersionConstants.VERSION_9_TEXT.equals(version)) {
+	        return getAppClient90Image();
         } else if (J2EEVersionConstants.VERSION_10_TEXT.equals(version)) {
 	        return getAppClient100Image();
 	    }
@@ -146,6 +149,13 @@ public class GroupAppClientProvider extends AbstractAppClientGroupProvider imple
 			appClient80Image = JEEUIPlugin.getDefault().getImageDescriptor(JEEUIPluginIcons.APP_CLIENT80).createImage();
 		}
 		return appClient80Image;
+	}
+	
+	private Image getAppClient90Image() {
+		if (appClient90Image == null) {
+			appClient90Image = JEEUIPlugin.getDefault().getImageDescriptor(JEEUIPluginIcons.APP_CLIENT90).createImage();
+		}
+		return appClient90Image;
 	}
 	
 	private Image getAppClient100Image() {

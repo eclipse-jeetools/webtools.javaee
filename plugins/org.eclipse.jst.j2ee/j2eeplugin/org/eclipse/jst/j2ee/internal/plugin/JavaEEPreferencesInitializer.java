@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009, 2021 IBM Corporation and others.
+ * Copyright (c) 2009, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -99,7 +99,7 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 		 * @since 3.24
 		 */
 		static final String EE9_DYNAMIC_WEB_GENERATE_DD = "ee9_dynamic_web_generate_dd"; //$NON-NLS-1$
-		
+
 	    static final String EE10_DYNAMIC_WEB_GENERATE_DD = "ee10_dynamic_web_generate_dd"; //$NON-NLS-1$
 
 		/**
@@ -155,7 +155,7 @@ public class JavaEEPreferencesInitializer extends AbstractPreferenceInitializer 
 		static final String EE7_CONNECTOR_GENERATE_DD = "ee7_connector_generate_dd"; //$NON-NLS-1$
 		
 		static final String EE10_CONNECTOR_GENERATE_DD = "ee10_connector_generate_dd"; //$NON-NLS-1$
-		
+
 		/**
 		 * Used to determine if the business interface annotations should be added to the bean class during EJB creation. 
 		 */

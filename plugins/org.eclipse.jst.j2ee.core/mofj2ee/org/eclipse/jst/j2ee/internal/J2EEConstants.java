@@ -55,6 +55,7 @@ public interface J2EEConstants extends J2EEVersionConstants {
     String APP_CLIENT_SCHEMA_6         =   "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application-client_6.xsd"; //$NON-NLS-1$
     String APP_CLIENT_SCHEMA_7         =   "http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/application-client_7.xsd"; //$NON-NLS-1$
     String APP_CLIENT_SCHEMA_8         =   "http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/application-client_8.xsd"; //$NON-NLS-1$
+    String APP_CLIENT_SCHEMA_9        =   "https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/application-client_9.xsd"; //$NON-NLS-1$
     String APP_CLIENT_SCHEMA_10        =   "https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/application-client_10.xsd"; //$NON-NLS-1$
     
     //Application constants
@@ -83,6 +84,7 @@ public interface J2EEConstants extends J2EEVersionConstants {
     String APPLICATION_SCHEMA_6         =  "http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_6.xsd"; //$NON-NLS-1$ 
     String APPLICATION_SCHEMA_7         =  "http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/application_7.xsd"; //$NON-NLS-1$
     String APPLICATION_SCHEMA_8         =  "http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/application_8.xsd"; //$NON-NLS-1$
+    String APPLICATION_SCHEMA_9         =  "http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/application_9.xsd"; //$NON-NLS-1$
     String APPLICATION_SCHEMA_10        =  "https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/application_10.xsd"; //$NON-NLS-1$
     
     //EJB Jar Constants
@@ -111,11 +113,9 @@ public interface J2EEConstants extends J2EEVersionConstants {
     String EJBJAR_SCHEMA_3_1_NS     =   "http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd"; //$NON-NLS-1$ 
     String EJBJAR_SCHEMA_3_2        =   "http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/ejb-jar_3_2.xsd"; //$NON-NLS-1$ 
     String EJBJAR_SCHEMA_3_2_NS     =   "http://xmlns.jcp.org/xml/ns/javaee/ejb-jar_3_2.xsd"; //$NON-NLS-1$ 
-    String EJBJAR_SCHEMA_4_0        =   "https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/ejb-jar_4_0.xsd"; //$NON-NLS-1$ 
-    String EJBJAR_SCHEMA_4_0_NS     =   "https://jakarta.ee/xml/ns/jakartaee/ejb-jar_4_0.xsd"; //$NON-NLS-1$ 
-    
-   
-    
+    String EJBJAR_SCHEMA_4_0        =   "https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/ejb-jar_4_0.xsd"; //$NON-NLS-1$
+    String EJBJAR_SCHEMA_4_0_NS     =   "https://jakarta.ee/xml/ns/jakartaee/ejb-jar_4_0.xsd"; //$NON-NLS-1$
+
     // EAR constants
     
     String EAR_ROOT_DIR				=	"/"; //$NON-NLS-1$
@@ -213,7 +213,7 @@ public interface J2EEConstants extends J2EEVersionConstants {
     String WEBSERVICE_SCHEMA_2_0 = "https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/jakartaee_web_services_2_0.xsd";//$NON-NLS-1$
     String WEBSERVICE_SCHEMA_LOC_2_0 = "https://jakarta.ee/xml/ns/jakartaee/jakartaee_web_services_2_0.xsd";//$NON-NLS-1$
 
-    
+
     //Miscellaneous constants
     /** "UTF-8"                                                                                                                             */
     String DEFAULT_XML_ENCODING             =       "UTF-8"; //$NON-NLS-1$
@@ -236,12 +236,14 @@ public interface J2EEConstants extends J2EEVersionConstants {
     String APPLICATION_SCHEMA_LOC_6         = "http://java.sun.com/xml/ns/javaee/application_6.xsd"; //$NON-NLS-1$
     String APPLICATION_SCHEMA_LOC_7         = "http://xmlns.jcp.org/xml/ns/javaee/application_7.xsd"; //$NON-NLS-1$
     String APPLICATION_SCHEMA_LOC_8         = "http://xmlns.jcp.org/xml/ns/javaee/application_8.xsd"; //$NON-NLS-1$
+    String APPLICATION_SCHEMA_LOC_9         = "https://jakarta.ee/xml/ns/jakartaee/application_9.xsd"; //$NON-NLS-1$
     String APPLICATION_SCHEMA_LOC_10        = "https://jakarta.ee/xml/ns/jakartaee/application_10.xsd"; //$NON-NLS-1$
     String APP_CLIENT_SCHEMA_LOC_1_4        = "http://java.sun.com/xml/ns/j2ee/application-client_1_4.xsd"; //$NON-NLS-1$
     String APP_CLIENT_SCHEMA_LOC_5          = "http://java.sun.com/xml/ns/javaee/application-client_5.xsd"; //$NON-NLS-1$
     String APP_CLIENT_SCHEMA_LOC_6          = "http://java.sun.com/xml/ns/javaee/application-client_6.xsd"; //$NON-NLS-1$
     String APP_CLIENT_SCHEMA_LOC_7          = "http://xmlns.jcp.org/xml/ns/javaee/application-client_7.xsd"; //$NON-NLS-1$
     String APP_CLIENT_SCHEMA_LOC_8          = "http://xmlns.jcp.org/xml/ns/javaee/application-client_8.xsd"; //$NON-NLS-1$
+    String APP_CLIENT_SCHEMA_LOC_9         = "https://jakarta.ee/xml/ns/jakartaee/application-client_9.xsd"; //$NON-NLS-1$
     String APP_CLIENT_SCHEMA_LOC_10         = "https://jakarta.ee/xml/ns/jakartaee/application-client_10.xsd"; //$NON-NLS-1$
     String EJB_JAR_SCHEMA_LOC_2_1           = "http://java.sun.com/xml/ns/j2ee/ejb-jar_2_1.xsd"; //$NON-NLS-1$
     String EJB_JAR_SCHEMA_LOC_3_0    		= "http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd"; //$NON-NLS-1$
@@ -252,7 +254,7 @@ public interface J2EEConstants extends J2EEVersionConstants {
     String CONNECTOR_SCHEMA_LOC_1_6         = "http://java.sun.com/xml/ns/javaee/connector_1_6.xsd"; //$NON-NLS-1$
     String CONNECTOR_SCHEMA_LOC_1_7         = "http://xmlns.jcp.org/xml/ns/javaee/connector_1_7.xsd"; //$NON-NLS-1$
     String CONNECTOR_SCHEMA_LOC_2_1         = "https://jakarta.ee/xml/ns/jakartaee/connector_2_1.xsd"; //$NON-NLS-1$
-    
+
     String WEB_APP_SCHEMA_LOC_2_4           = "http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"; //$NON-NLS-1$
     String WEB_APP_SCHEMA_LOC_2_5           = "http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"; //$NON-NLS-1$
     String WEB_APP_SCHEMA_LOC_3_0           = "http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"; //$NON-NLS-1$

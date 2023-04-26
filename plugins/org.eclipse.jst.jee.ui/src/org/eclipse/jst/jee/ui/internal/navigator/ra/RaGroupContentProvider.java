@@ -1,5 +1,5 @@
 /***********************************************************************
- * Copyright (c) 2010, 2013 by SAP AG, Walldorf. 
+ * Copyright (c) 2010, 2023 by SAP AG, Walldorf. 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -81,12 +81,12 @@ public class RaGroupContentProvider extends AbstractConnectorGroupProvider {
 		}
 		return CONNECTOR_17_IMAGE;
 	}
-	
+
 	private Image getConnector21Image() {
         if (CONNECTOR_21_IMAGE == null) {
             CONNECTOR_21_IMAGE = JEEUIPlugin.getDefault().getImage(JEEUIPluginIcons.IMG_EE10CONNECTOR);
         }
         return CONNECTOR_21_IMAGE;
     }
-	
+
 }

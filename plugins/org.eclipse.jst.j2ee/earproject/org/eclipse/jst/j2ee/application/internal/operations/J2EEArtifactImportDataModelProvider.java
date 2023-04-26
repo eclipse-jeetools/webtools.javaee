@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2013 IBM Corporation and others.
+ * Copyright (c) 2003, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -350,9 +350,10 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 				break;
 			case J2EEVersionConstants.JEE_8_0_ID:
 				javaFacetVersion = JavaFacet.VERSION_1_8;
+				break;
 	        case J2EEVersionConstants.JEE_10_0_ID:
 	            javaFacetVersion = JavaFacet.VERSION_11;
-	
+				break;
 			}
 		}
 		if(javaFacetVersion != null){
@@ -517,7 +518,7 @@ public abstract class J2EEArtifactImportDataModelProvider extends AbstractDataMo
 		if(archiveType == JavaEEQuickPeek.CONNECTOR_TYPE || runtime == null || runtime.supports(highestProjectFacetVersion[EE8]) ){
 			return new JavaEEQuickPeek(jqp.getType(), highestJQPVersion[EE8]);
 		} else if(runtime.supports(highestProjectFacetVersion[EE10]) ){
-            return new JavaEEQuickPeek(jqp.getType(), highestJQPVersion[EE10]);  
+            return new JavaEEQuickPeek(jqp.getType(), highestJQPVersion[EE10]);
         } else if(runtime.supports(highestProjectFacetVersion[EE7]) ){
 			return new JavaEEQuickPeek(jqp.getType(), highestJQPVersion[EE7]);	
 		} else if(runtime.supports(highestProjectFacetVersion[EE6]) ){

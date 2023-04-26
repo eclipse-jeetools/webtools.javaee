@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2021 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -320,7 +320,7 @@ public class J2EEFileUtil {
               version = J2EEVersionConstants.EJB_3_1_ID;
            } else if (versionAttr.equals(J2EEVersionConstants.VERSION_3_2_TEXT)) { 
               version = J2EEVersionConstants.EJB_3_2_ID;
-           } else if (versionAttr.equals(J2EEVersionConstants.VERSION_4_0_TEXT)) { 
+           } else if (versionAttr.equals(J2EEVersionConstants.VERSION_4_0_TEXT)) {
                version = J2EEVersionConstants.EJB_4_0_ID;
             }
         } else if (isApplicationClientFile(fileURI)) {
@@ -394,7 +394,7 @@ public class J2EEFileUtil {
            }
         } else if (isEJBJarFile(fileURI)) {
            if ((schemaName.indexOf(J2EEConstants.EJBJAR_SCHEMA_4_0_NS)) != -1) {
-                version = J2EEVersionConstants.EJB_4_0_ID;   
+                version = J2EEVersionConstants.EJB_4_0_ID;
            } else if ((schemaName.indexOf(J2EEConstants.EJBJAR_SCHEMA_3_2_NS)) != -1) {
               version = J2EEVersionConstants.EJB_3_2_ID;   
            } else if ((schemaName.indexOf(J2EEConstants.EJBJAR_SCHEMA_3_1_NS)) != -1) {

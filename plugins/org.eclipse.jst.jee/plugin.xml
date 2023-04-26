@@ -229,9 +229,9 @@
         <contentTypeBinding
               contentTypeId="org.eclipse.jst.jee.ee10webfragmentDD">
         </contentTypeBinding>
-     </resourceFactory>          
+     </resourceFactory>
   </extension>
-  
+
   <extension
          point="org.eclipse.emf.ecore.generated_package">
       <package
@@ -329,7 +329,7 @@
 		  		<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.ejb:3.2]"/>
 		  		<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.utility:1.0]"/>
 	  			<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.connector:1.7]"/>
-	  			<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.web:5.0]"/>
+	  			<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.web:6.0]"/>
 	  			<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.ear:[5.0-10.0]"/>
 	  			<test property="org.eclipse.wst.common.project.facet.core.projectFacet" value="jst.webfragment:5.0]"/>
 			</or>

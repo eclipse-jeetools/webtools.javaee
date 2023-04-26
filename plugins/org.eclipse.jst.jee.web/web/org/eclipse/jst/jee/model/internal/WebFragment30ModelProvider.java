@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2010 IBM Corporation and others.
+ * Copyright (c) 2010, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -73,6 +73,12 @@ public class WebFragment30ModelProvider extends JEE5ModelProvider {
 			// note that later EMF generations remove the _LITERAL from the enum
 			webFragment.setVersion(WebAppVersionType._31);
 		}
+	    else if (version != null && version.equals(J2EEVersionConstants.VERSION_4_0_TEXT)) {
+            dd.getXMLNSPrefixMap().put("", J2EEConstants.JAVAEE7_NS_URL);  //$NON-NLS-1$
+            dd.getXSISchemaLocation().put(J2EEConstants.JAVAEE7_NS_URL, J2EEConstants.WEBFRAGMENT_SCHEMA_LOC_4_0);
+            // note that later EMF generations remove the _LITERAL from the enum
+            webFragment.setVersion(WebAppVersionType._40);
+        }
 	    else if (version != null && version.equals(J2EEVersionConstants.VERSION_5_0_TEXT)) {
             dd.getXMLNSPrefixMap().put("", J2EEConstants.JAKARTAEE9_NS_URL);  //$NON-NLS-1$
             dd.getXSISchemaLocation().put(J2EEConstants.JAKARTAEE9_NS_URL, J2EEConstants.WEBFRAGMENT_SCHEMA_LOC_5_0);
@@ -84,13 +90,13 @@ public class WebFragment30ModelProvider extends JEE5ModelProvider {
             dd.getXSISchemaLocation().put(J2EEConstants.JAKARTAEE10_NS_URL, J2EEConstants.WEBFRAGMENT_SCHEMA_LOC_6_0);
             // note that later EMF generations remove the _LITERAL from the enum
             webFragment.setVersion(WebAppVersionType._60);
-        }		
+        }
 		else
 		{
-			dd.getXMLNSPrefixMap().put("", J2EEConstants.JAVAEE7_NS_URL);  //$NON-NLS-1$
-			dd.getXSISchemaLocation().put(J2EEConstants.JAVAEE7_NS_URL, J2EEConstants.WEBFRAGMENT_SCHEMA_LOC_4_0);
-			// note that later EMF generations remove the _LITERAL from the enum
-			webFragment.setVersion(WebAppVersionType._40);
+            dd.getXMLNSPrefixMap().put("", J2EEConstants.JAKARTAEE10_NS_URL);  //$NON-NLS-1$
+            dd.getXSISchemaLocation().put(J2EEConstants.JAKARTAEE10_NS_URL, J2EEConstants.WEBFRAGMENT_SCHEMA_LOC_6_0);
+            // note that later EMF generations remove the _LITERAL from the enum
+            webFragment.setVersion(WebAppVersionType._60);
 		}
 		dd.setWebFragment(webFragment);		
 		res.getContents().add((EObject) dd);

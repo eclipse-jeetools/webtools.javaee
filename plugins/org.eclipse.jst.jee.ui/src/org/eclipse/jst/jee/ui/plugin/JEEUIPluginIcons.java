@@ -1,5 +1,5 @@
 /***********************************************************************
- * Copyright (c) 2008, 2022 by SAP AG, Walldorf, and others
+ * Copyright (c) 2008, 2023 by SAP AG, Walldorf, and others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,6 +16,7 @@ public class JEEUIPluginIcons {
 	public static String IMG_EJBEEMODEL = "30_ejbjar_obj"; //$NON-NLS-1$
 	public static String IMG_EJBEE6MODEL = "31_ejbjar_obj"; //$NON-NLS-1$
 	public static String IMG_EJBEE7MODEL = "32_ejbjar_obj"; //$NON-NLS-1$
+	/* TODO: create a unique image */
 	public static String IMG_EJBEE10MODEL = "32_ejbjar_obj"; //$NON-NLS-1$
 	public static String IMG_WEBEEMODEL = "webapp_25"; //$NON-NLS-1$
 	public static String IMG_WEBEE6MODEL = "webapp_30"; //$NON-NLS-1$
@@ -56,6 +57,7 @@ public class JEEUIPluginIcons {
 	public static String APP_CLIENT60 = "appclient_60"; //$NON-NLS-1$
 	public static String APP_CLIENT70 = "appclient_70"; //$NON-NLS-1$
 	public static String APP_CLIENT80 = "appclient_80"; //$NON-NLS-1$
+	public static String APP_CLIENT90 = "appclient_80"; //$NON-NLS-1$
 	public static String APP_CLIENT100 = "appclient_80"; //$NON-NLS-1$
 
 }

@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Automatic-Module-Name: org.eclipse.jst.j2ee.jca.ui
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.jst.j2ee.jca.ui; singleton:=true
-Bundle-Version: 1.1.602.qualifier
+Bundle-Version: 1.1.700.qualifier
 Bundle-Activator: org.eclipse.jst.j2ee.jca.ui.internal.plugin.JCAUIPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin

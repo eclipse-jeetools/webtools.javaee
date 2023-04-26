@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2001, 2006 IBM Corporation and others.
+ * Copyright (c) 2001, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -160,7 +160,7 @@ public class EJBResourceImpl extends XMLResourceImpl implements EJBResource {
 			case J2EEVersionConstants.EJB_3_2_ID :
 				return J2EEVersionConstants.JEE_7_0_ID;
 			case J2EEVersionConstants.EJB_4_0_ID :
-                return J2EEVersionConstants.JEE_10_0_ID;				
+                return J2EEVersionConstants.JEE_10_0_ID;
 			default :
 			return J2EEVersionConstants.J2EE_1_4_ID;
 		}
@@ -184,10 +184,10 @@ public class EJBResourceImpl extends XMLResourceImpl implements EJBResource {
 	public void setModuleVersionID(int id) {
 		super.setVersionID(id);
 		switch (id) {
-		        case (EJB_4_0_ID) :
-		            super.setDoctypeValues(null, null);
-                    primSetVersionID(EJB_4_0_ID);
-                    break;
+				case (EJB_4_0_ID) :
+					super.setDoctypeValues(null, null);
+					primSetVersionID(EJB_4_0_ID);
+					break;
 				case (EJB_3_2_ID) :
 					super.setDoctypeValues(null, null);
 					primSetVersionID(EJB_3_2_ID);
@@ -212,7 +212,6 @@ public class EJBResourceImpl extends XMLResourceImpl implements EJBResource {
 					break;
 				case (EJB_1_0_ID) :
 					super.setDoctypeValues(getJ2EE_1_2_PublicID(), getJ2EE_1_2_SystemID());
-					
 			}
 		syncVersionOfRootObject();
 	}
@@ -226,6 +225,7 @@ public class EJBResourceImpl extends XMLResourceImpl implements EJBResource {
             primSetDoctypeValues(null, null);
             primSetVersionID(EJB_4_0_ID);
             break;
+		case (JEE_9_0_ID) : 
 		case (JEE_8_0_ID) : 
 		case (JEE_7_0_ID) :
 					primSetDoctypeValues(null, null);

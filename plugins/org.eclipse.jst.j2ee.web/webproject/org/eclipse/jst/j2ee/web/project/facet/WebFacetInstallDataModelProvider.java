@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2021 IBM Corporation and others.
+ * Copyright (c) 2003, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -97,24 +97,24 @@ public class WebFacetInstallDataModelProvider extends J2EEModuleFacetInstallData
 			return projectName + IJ2EEModuleConstants.WAR_EXT;
 		} else if (propertyName.equals(GENERATE_DD)) {
 			String facetVersion = getStringProperty(FACET_VERSION_STR);
-			if(J2EEVersionConstants.VERSION_2_5_TEXT.equals(facetVersion)) {
-				return Boolean.valueOf(J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.DYNAMIC_WEB_GENERATE_DD));
-			}
-			else if(J2EEVersionConstants.VERSION_3_0_TEXT.equals(facetVersion)) {
-				return Boolean.valueOf(J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.EE6_DYNAMIC_WEB_GENERATE_DD));
-			}
-			else if(J2EEVersionConstants.VERSION_3_1_TEXT.equals(facetVersion)) {
-				return Boolean.valueOf(J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.EE7_DYNAMIC_WEB_GENERATE_DD));
+			if(J2EEVersionConstants.VERSION_6_0_TEXT.equals(facetVersion)) {
+                return Boolean.valueOf(J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.EE10_DYNAMIC_WEB_GENERATE_DD));
+            }
+			else if(J2EEVersionConstants.VERSION_5_0_TEXT.equals(facetVersion)) {
+				return Boolean.valueOf(J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.EE9_DYNAMIC_WEB_GENERATE_DD));
 			}
 			else if(J2EEVersionConstants.VERSION_4_0_TEXT.equals(facetVersion)) {
 				return Boolean.valueOf(J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.EE8_DYNAMIC_WEB_GENERATE_DD));
 			}
-			else if(J2EEVersionConstants.VERSION_5_0_TEXT.equals(facetVersion)) {
-				return Boolean.valueOf(J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.EE9_DYNAMIC_WEB_GENERATE_DD));
+			else if(J2EEVersionConstants.VERSION_3_1_TEXT.equals(facetVersion)) {
+				return Boolean.valueOf(J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.EE7_DYNAMIC_WEB_GENERATE_DD));
 			}
-			else if(J2EEVersionConstants.VERSION_6_0_TEXT.equals(facetVersion)) {
-                return Boolean.valueOf(J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.EE10_DYNAMIC_WEB_GENERATE_DD));
-            }
+			else if(J2EEVersionConstants.VERSION_3_0_TEXT.equals(facetVersion)) {
+				return Boolean.valueOf(J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.EE6_DYNAMIC_WEB_GENERATE_DD));
+			}
+			else if(J2EEVersionConstants.VERSION_2_5_TEXT.equals(facetVersion)) {
+				return Boolean.valueOf(J2EEPlugin.getDefault().getJ2EEPreferences().getBoolean(J2EEPreferences.Keys.DYNAMIC_WEB_GENERATE_DD));
+			}
 			return Boolean.TRUE;
 		}else if (propertyName.equals(INSTALL_WEB_LIBRARY)){
 			return J2EEComponentClasspathContainerUtils.getDefaultUseWebAppLibraries();

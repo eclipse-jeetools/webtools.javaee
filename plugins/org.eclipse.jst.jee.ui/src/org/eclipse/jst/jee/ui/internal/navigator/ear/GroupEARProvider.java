@@ -1,5 +1,5 @@
 /***********************************************************************
- * Copyright (c) 2008, 2017 by SAP AG, Walldorf. 
+ * Copyright (c) 2008, 2023 by SAP AG, Walldorf. 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -171,7 +171,7 @@ public class GroupEARProvider extends AbstractEarGroupProvider implements IAdapt
 		}
 		return ear80Image;
 	}
-	
+
 	private Image getEar100Image() {
         if (ear100Image == null) {
             ear100Image = JEEUIPlugin.getDefault().getImageDescriptor(JEEUIPluginIcons.EAR10_IMAGE).createImage();

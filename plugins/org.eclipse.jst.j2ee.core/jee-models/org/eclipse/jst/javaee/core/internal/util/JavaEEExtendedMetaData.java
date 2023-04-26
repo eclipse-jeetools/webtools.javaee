@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2013 IBM Corporation and others.
+ * Copyright (c) 2013, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -95,22 +95,30 @@ public class JavaEEExtendedMetaData extends BasicExtendedMetaData {
 				if (a != null)
 				{
 					version = a.getVersion();
-					if(J2EEVersionConstants.VERSION_5_TEXT.equals(version)) {
-						uri = J2EEConstants.APPLICATION_SCHEMA_LOC_5;
-						javaeeUri = J2EEConstants.JAVAEE_NS_URL;
+					if(J2EEVersionConstants.VERSION_10_TEXT.equals(version)) {
+                        uri = J2EEConstants.APPLICATION_SCHEMA_LOC_10;
+                        javaeeUri = J2EEConstants.JAKARTAEE10_NS_URL;
+                    }
+					else if(J2EEVersionConstants.VERSION_9_TEXT.equals(version)) {
+                        uri = J2EEConstants.APPLICATION_SCHEMA_LOC_9;
+                        javaeeUri = J2EEConstants.JAKARTAEE9_NS_URL;
+                    }
+					else if(J2EEVersionConstants.VERSION_8_TEXT.equals(version)) {
+                        uri = J2EEConstants.APPLICATION_SCHEMA_LOC_8;
+                        javaeeUri = J2EEConstants.JAVAEE7_NS_URL;
+                    }
+					else if(J2EEVersionConstants.VERSION_7_TEXT.equals(version)) {
+						uri = J2EEConstants.APPLICATION_SCHEMA_LOC_7;
+						javaeeUri = J2EEConstants.JAVAEE7_NS_URL;
 					}
 					else if(J2EEVersionConstants.VERSION_6_TEXT.equals(version)) {
 						uri = J2EEConstants.APPLICATION_SCHEMA_LOC_6;
 						javaeeUri = J2EEConstants.JAVAEE_NS_URL;
 					}
-					else if(J2EEVersionConstants.VERSION_7_TEXT.equals(version)) {
-						uri = J2EEConstants.APPLICATION_SCHEMA_LOC_7;
-						javaeeUri = J2EEConstants.JAVAEE7_NS_URL;
+					else if(J2EEVersionConstants.VERSION_5_TEXT.equals(version)) {
+						uri = J2EEConstants.APPLICATION_SCHEMA_LOC_5;
+						javaeeUri = J2EEConstants.JAVAEE_NS_URL;
 					}
-					else if(J2EEVersionConstants.VERSION_10_TEXT.equals(version)) {
-                        uri = J2EEConstants.APPLICATION_SCHEMA_LOC_10;
-                        javaeeUri = J2EEConstants.JAKARTAEE10_NS_URL;
-                    }
 					else {
 						uri = J2EEConstants.APPLICATION_SCHEMA_LOC_8;
 						javaeeUri = J2EEConstants.JAVAEE7_NS_URL;
@@ -205,29 +213,33 @@ public class JavaEEExtendedMetaData extends BasicExtendedMetaData {
 				{
 					WebAppVersionType wavt = wa.getVersion();
 					version = wavt.getLiteral();
-					if(J2EEVersionConstants.VERSION_2_5_TEXT.equals(version)) {
-						uri = J2EEConstants.WEB_APP_SCHEMA_LOC_2_5;
-						javaeeUri = J2EEConstants.JAVAEE_NS_URL;
-					}
-					else if(J2EEVersionConstants.VERSION_3_0_TEXT.equals(version)) {
-						uri = J2EEConstants.WEB_APP_SCHEMA_LOC_3_0;
-						javaeeUri = J2EEConstants.JAVAEE_NS_URL;
+					if(J2EEVersionConstants.VERSION_6_0_TEXT.equals(version)) {
+                        uri = J2EEConstants.WEB_APP_SCHEMA_LOC_6_0;
+                        javaeeUri = J2EEConstants.JAKARTAEE10_NS_URL;
+                    }
+					else if(J2EEVersionConstants.VERSION_5_0_TEXT.equals(version)) {
+                        uri = J2EEConstants.WEB_APP_SCHEMA_LOC_5_0;
+                        javaeeUri = J2EEConstants.JAKARTAEE9_NS_URL;
+                    }
+					else if(J2EEVersionConstants.VERSION_4_0_TEXT.equals(version)) {
+						uri = J2EEConstants.WEB_APP_SCHEMA_LOC_4_0;
+						javaeeUri = J2EEConstants.JAVAEE7_NS_URL;
 					}
 					else if(J2EEVersionConstants.VERSION_3_1_TEXT.equals(version)) {
 						uri = J2EEConstants.WEB_APP_SCHEMA_LOC_3_1;
 						javaeeUri = J2EEConstants.JAVAEE7_NS_URL;
 					}
-					else if(J2EEVersionConstants.VERSION_5_0_TEXT.equals(version)) {
-                        uri = J2EEConstants.WEB_APP_SCHEMA_LOC_5_0;
-                        javaeeUri = J2EEConstants.JAKARTAEE9_NS_URL;
-                    }
-					else if(J2EEVersionConstants.VERSION_6_0_TEXT.equals(version)) {
+					else if(J2EEVersionConstants.VERSION_3_0_TEXT.equals(version)) {
+						uri = J2EEConstants.WEB_APP_SCHEMA_LOC_3_0;
+						javaeeUri = J2EEConstants.JAVAEE_NS_URL;
+					}
+					else if(J2EEVersionConstants.VERSION_2_5_TEXT.equals(version)) {
+						uri = J2EEConstants.WEB_APP_SCHEMA_LOC_2_5;
+						javaeeUri = J2EEConstants.JAVAEE_NS_URL;
+					}
+					else {
                         uri = J2EEConstants.WEB_APP_SCHEMA_LOC_6_0;
                         javaeeUri = J2EEConstants.JAKARTAEE10_NS_URL;
-                    }
-					else {
-						uri = J2EEConstants.WEB_APP_SCHEMA_LOC_4_0;
-						javaeeUri = J2EEConstants.JAVAEE7_NS_URL;
 					}
 					// release the resource to make sure there is no memory leak
 					resource = null;
@@ -240,26 +252,30 @@ public class JavaEEExtendedMetaData extends BasicExtendedMetaData {
 				{
 					WebAppVersionType wavt = wf.getVersion();
 					version = wavt.getLiteral();
-					if(J2EEVersionConstants.VERSION_3_0_TEXT.equals(version)) {
-						uri = J2EEConstants.WEBFRAGMENT_SCHEMA_LOC_3_0;
-						javaeeUri = J2EEConstants.JAVAEE_NS_URL;
+					if(J2EEVersionConstants.VERSION_6_0_TEXT.equals(version)) {
+                        uri = J2EEConstants.WEBFRAGMENT_SCHEMA_LOC_6_0;
+                        javaeeUri = J2EEConstants.JAKARTAEE10_NS_URL;
+                    }
+					else if(J2EEVersionConstants.VERSION_5_0_TEXT.equals(version)) {
+                        uri = J2EEConstants.WEBFRAGMENT_SCHEMA_LOC_5_0;
+                        javaeeUri = J2EEConstants.JAKARTAEE9_NS_URL;
+                    }
+					else if(J2EEVersionConstants.VERSION_4_0_TEXT.equals(version)) {
+						uri = J2EEConstants.WEBFRAGMENT_SCHEMA_LOC_4_0;
+						javaeeUri = J2EEConstants.JAVAEE7_NS_URL;
 					}
 					else if(J2EEVersionConstants.VERSION_3_1_TEXT.equals(version)) {
 						uri = J2EEConstants.WEBFRAGMENT_SCHEMA_LOC_3_1;
 						javaeeUri = J2EEConstants.JAVAEE7_NS_URL;
 					}
-					else if(J2EEVersionConstants.VERSION_5_0_TEXT.equals(version)) {
-                        uri = J2EEConstants.WEBFRAGMENT_SCHEMA_LOC_5_0;
-                        javaeeUri = J2EEConstants.JAKARTAEE9_NS_URL;
-                    }
-					else if(J2EEVersionConstants.VERSION_6_0_TEXT.equals(version)) {
-                        uri = J2EEConstants.WEBFRAGMENT_SCHEMA_LOC_6_0;
-                        javaeeUri = J2EEConstants.JAKARTAEE10_NS_URL;
-                    }
+					else if(J2EEVersionConstants.VERSION_3_0_TEXT.equals(version)) {
+						uri = J2EEConstants.WEBFRAGMENT_SCHEMA_LOC_3_0;
+						javaeeUri = J2EEConstants.JAVAEE_NS_URL;
+					}
 					else
 					{
-						uri = J2EEConstants.WEBFRAGMENT_SCHEMA_LOC_4_0;
-						javaeeUri = J2EEConstants.JAVAEE7_NS_URL;
+						uri = J2EEConstants.WEBFRAGMENT_SCHEMA_LOC_6_0;
+						javaeeUri = J2EEConstants.JAKARTAEE10_NS_URL;
 					}
 					// release the resource to make sure there is no memory leak
 					resource = null;

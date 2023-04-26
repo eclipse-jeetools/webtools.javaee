@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 SAP AG and others.
+ * Copyright (c) 2008, 2023 SAP AG and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -34,7 +34,7 @@ public class NewMessageDrivenBeanClassDataModelProvider extends NewEnterpriseBea
 	public static final String QUALIFIED_JMS_MESSAGELISTENER = "javax.jms.MessageListener"; //$NON-NLS-1$
 
 	public static final String QUALIFIED_JMS_MESSAGELISTENER_JAKARTA = "jakarta.jms.MessageListener"; //$NON-NLS-1$
-	
+
 	@Override
 	public IDataModelOperation getDefaultOperation() {
 		return new AddMessageDrivenBeanOperation(getDataModel());
@@ -76,7 +76,7 @@ public class NewMessageDrivenBeanClassDataModelProvider extends NewEnterpriseBea
 			if(ejb4xOrLater()) {
 				list.add(QUALIFIED_JMS_MESSAGELISTENER_JAKARTA);
 			}else {
-				list.add(QUALIFIED_JMS_MESSAGELISTENER);	
+				list.add(QUALIFIED_JMS_MESSAGELISTENER);
 			}
 			return list;
 		} else if (propertyName.equals(SUPERCLASS)) {

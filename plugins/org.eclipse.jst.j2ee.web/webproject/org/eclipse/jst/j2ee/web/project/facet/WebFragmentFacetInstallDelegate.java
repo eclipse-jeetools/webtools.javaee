@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2010, 2011 IBM Corporation and others.
+ * Copyright (c) 2010, 2023 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -131,13 +131,13 @@ public class WebFragmentFacetInstallDelegate implements IDelegate {
             }
 			else if (fv == IJ2EEFacetConstants.WEBFRAGMENT_50) {
                 webFragXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<web-fragment id=\"WebFragment_ID\" version=\"5.0\" xmlns=\"https://jakarta.ee/xml/ns/jakartaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-fragment_5_0.xsd\">\n<display-name>" + XMLWriter.getEscaped(project.getName())+ "</display-name> \n <name>"+ XMLWriter.getEscaped(projectNamewithoutSpecialChars) +  "</name> \n </web-fragment>"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-            } 			
+            }
 			else if (fv == IJ2EEFacetConstants.WEBFRAGMENT_40) {
 				webFragXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<web-fragment id=\"WebFragment_ID\" version=\"4.0\" xmlns=\"http://xmlns.jcp.org/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-fragment_4_0.xsd\">\n<display-name>" + XMLWriter.getEscaped(project.getName())+ "</display-name> \n <name>"+ XMLWriter.getEscaped(projectNamewithoutSpecialChars) +  "</name> \n </web-fragment>"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-			} 
+			}
 			else if( fv == IJ2EEFacetConstants.WEBFRAGMENT_31 ) {
 				webFragXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<web-fragment id=\"WebFragment_ID\" version=\"3.1\" xmlns=\"http://xmlns.jcp.org/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-fragment_3_1.xsd\">\n<display-name>" + XMLWriter.getEscaped(project.getName())+ "</display-name> \n <name>"+ XMLWriter.getEscaped(projectNamewithoutSpecialChars) +  "</name> \n </web-fragment>"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-			} 
+			}
 			else {
 				webFragXmlContents = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<web-fragment id=\"WebFragment_ID\" version=\"3.0\" xmlns=\"http://java.sun.com/xml/ns/javaee\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd\">\n<display-name>" + XMLWriter.getEscaped(project.getName())+ "</display-name> \n <name>"+ XMLWriter.getEscaped(projectNamewithoutSpecialChars) +  "</name> \n </web-fragment>"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 			}

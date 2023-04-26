@@ -209,14 +209,14 @@
     </project-facet-version>
     
 	<project-facet-version facet="jst.ejb" version="4.0">
-		<constraint>
- 	       <and>
- 		       	<requires facet="jst.java" version="[11"/>
- 	         	<conflicts group="modules"/>
- 	       </and>
-    	</constraint>
-      	<group-member id="modules"/>
-    </project-facet-version>  
+	  <constraint>
+ 	     <and>
+          <requires facet="jst.java" version="[11"/>
+          <conflicts group="modules"/>
+        </and>
+      </constraint>
+      <group-member id="modules"/>
+    </project-facet-version>
     
     <action facet="jst.ejb" type="INSTALL" id="jst.ejb.install">
       <delegate class="org.eclipse.jst.j2ee.ejb.project.facet.EjbFacetInstallDelegate"/>
