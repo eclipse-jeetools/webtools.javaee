@@ -27,6 +27,7 @@ public interface IJ2EEFacetConstants {
 	public static final IProjectFacetVersion ENTERPRISE_APPLICATION_60 = J2EEFacetConstantsProvider.getProjectFacetVersion(ENTERPRISE_APPLICATION_FACET, "6.0"); //$NON-NLS-1$
 	public static final IProjectFacetVersion ENTERPRISE_APPLICATION_70 = J2EEFacetConstantsProvider.getProjectFacetVersion(ENTERPRISE_APPLICATION_FACET, "7.0"); //$NON-NLS-1$
 	public static final IProjectFacetVersion ENTERPRISE_APPLICATION_80 = J2EEFacetConstantsProvider.getProjectFacetVersion(ENTERPRISE_APPLICATION_FACET, "8.0"); //$NON-NLS-1$
+	public static final IProjectFacetVersion ENTERPRISE_APPLICATION_90 = J2EEFacetConstantsProvider.getProjectFacetVersion(ENTERPRISE_APPLICATION_FACET, "9.0"); //$NON-NLS-1$
 	public static final IProjectFacetVersion ENTERPRISE_APPLICATION_100 = J2EEFacetConstantsProvider.getProjectFacetVersion(ENTERPRISE_APPLICATION_FACET, "10.0"); //$NON-NLS-1$
 	
 	public static final String APPLICATION_CLIENT = IModuleConstants.JST_APPCLIENT_MODULE;
@@ -38,6 +39,7 @@ public interface IJ2EEFacetConstants {
 	public static final IProjectFacetVersion APPLICATION_CLIENT_60 = J2EEFacetConstantsProvider.getProjectFacetVersion(APPLICATION_CLIENT_FACET, "6.0"); //$NON-NLS-1$
 	public static final IProjectFacetVersion APPLICATION_CLIENT_70 = J2EEFacetConstantsProvider.getProjectFacetVersion(APPLICATION_CLIENT_FACET, "7.0"); //$NON-NLS-1$
 	public static final IProjectFacetVersion APPLICATION_CLIENT_80 = J2EEFacetConstantsProvider.getProjectFacetVersion(APPLICATION_CLIENT_FACET, "8.0"); //$NON-NLS-1$
+	public static final IProjectFacetVersion APPLICATION_CLIENT_90 = J2EEFacetConstantsProvider.getProjectFacetVersion(APPLICATION_CLIENT_FACET, "9.0"); //$NON-NLS-1$
 	public static final IProjectFacetVersion APPLICATION_CLIENT_100 = J2EEFacetConstantsProvider.getProjectFacetVersion(APPLICATION_CLIENT_FACET, "10.0"); //$NON-NLS-1$
 	
 	public static final String EJB = IModuleConstants.JST_EJB_MODULE;

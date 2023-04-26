@@ -464,6 +464,16 @@
       <group-member id="modules"/>     
     </project-facet-version>    
 
+    <project-facet-version facet="jst.ear" version="9.0">
+      <constraint>
+        <and>
+          <conflicts group="modules"/>
+          <conflicts facet="jst.java"/>
+        </and>
+      </constraint>
+      <group-member id="modules"/>     
+    </project-facet-version>    
+
     <project-facet-version facet="jst.ear" version="10.0">
       <constraint>
         <and>
@@ -586,6 +596,16 @@
     </project-facet-version>
 
     <project-facet-version facet="jst.appclient" version="8.0">
+      <constraint>
+        <and>
+          <requires facet="jst.java" version="[1.8"/>
+          <conflicts group="modules"/>
+        </and>
+      </constraint>
+      <group-member id="modules"/>     
+    </project-facet-version>
+    
+    <project-facet-version facet="jst.appclient" version="9.0">
       <constraint>
         <and>
           <requires facet="jst.java" version="[1.8"/>

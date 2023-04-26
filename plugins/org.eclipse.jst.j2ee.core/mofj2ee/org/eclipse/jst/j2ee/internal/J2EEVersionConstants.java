@@ -113,6 +113,7 @@ public interface J2EEVersionConstants {
 	public int VERSION_6_0 = 60; 
 	public int VERSION_7_0 = 70;
 	public int VERSION_8_0 = 80;
+	public int VERSION_9_0 = 90;
 	public int VERSION_10_0 = 100;
 	
 	public String VERSION_1_0_TEXT		= "1.0"; //$NON-NLS-1$
