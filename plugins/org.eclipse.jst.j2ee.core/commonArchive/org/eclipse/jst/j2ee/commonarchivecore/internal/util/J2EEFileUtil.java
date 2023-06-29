@@ -304,6 +304,10 @@ public class J2EEFileUtil {
               version = J2EEVersionConstants.JEE_7_0_ID;
            } else if (versionAttr.equals(J2EEVersionConstants.VERSION_8_0_TEXT)) {
         	   	  version = J2EEVersionConstants.JEE_8_0_ID;
+           } else if (versionAttr.equals(J2EEVersionConstants.VERSION_9_0_TEXT)) {
+               version = J2EEVersionConstants.JEE_9_0_ID;
+           } else if (versionAttr.equals(J2EEVersionConstants.VERSION_10_0_TEXT)) {
+               version = J2EEVersionConstants.JEE_10_0_ID;
            }
         } else if (isEJBJarFile(fileURI)) {
            if (null == versionAttr) {
@@ -340,10 +344,16 @@ public class J2EEFileUtil {
               version = J2EEVersionConstants.JEE_7_0_ID;
            }  else if (versionAttr.equals(J2EEVersionConstants.VERSION_8_0_TEXT)) {
         	  version = J2EEVersionConstants.JEE_8_0_ID;
+           }  else if (versionAttr.equals(J2EEVersionConstants.VERSION_9_0_TEXT)) {
+              version = J2EEVersionConstants.JEE_9_0_ID;
+           }  else if (versionAttr.equals(J2EEVersionConstants.VERSION_10_0_TEXT)) {
+              version = J2EEVersionConstants.JEE_10_0_ID;
            }
         } else if (isWARFile(fileURI)) {
            if (null == versionAttr) {
               version = J2EEVersionConstants.WEB_5_0_ID;
+           } else if (versionAttr.equals(J2EEVersionConstants.VERSION_6_0_TEXT)) {
+               version = J2EEVersionConstants.WEB_6_0_ID;
            } else if (versionAttr.equals(J2EEVersionConstants.VERSION_5_0_TEXT)) {
         	  version = J2EEVersionConstants.WEB_5_0_ID;
            } else if (versionAttr.equals(J2EEVersionConstants.VERSION_4_0_TEXT)) {
@@ -370,7 +380,12 @@ public class J2EEFileUtil {
               version = J2EEVersionConstants.JCA_1_5_ID;
            } else if (versionAttr.equals(J2EEVersionConstants.VERSION_1_6_TEXT)) {
               version = J2EEVersionConstants.JCA_1_6_ID;
-           } else {
+           } else if (versionAttr.equals(J2EEVersionConstants.VERSION_1_7_TEXT)) {
+              version = J2EEVersionConstants.JCA_1_7_ID;
+           } else if (versionAttr.equals(J2EEVersionConstants.VERSION_2_1_TEXT)) {
+              version = J2EEVersionConstants.JCA_2_1_ID;
+           }
+           else {
               version = J2EEVersionConstants.JCA_1_5_ID;
            }
         }
@@ -381,7 +396,11 @@ public class J2EEFileUtil {
 	private static int lookupVersion(String fileURI, String schemaName) {
         int version = -1;
         if (isEARFile(fileURI)) {
-           if (schemaName.equals(J2EEConstants.APPLICATION_SCHEMA_8)) {
+           if (schemaName.equals(J2EEConstants.APPLICATION_SCHEMA_10)) {
+              version = J2EEVersionConstants.JEE_10_0_ID;
+           } else if (schemaName.equals(J2EEConstants.APPLICATION_SCHEMA_9)) {
+              version = J2EEVersionConstants.JEE_9_0_ID;
+           } else if (schemaName.equals(J2EEConstants.APPLICATION_SCHEMA_8)) {
         	  version = J2EEVersionConstants.JEE_8_0_ID;
            } else if (schemaName.equals(J2EEConstants.APPLICATION_SCHEMA_7)) {
               version = J2EEVersionConstants.JEE_7_0_ID;
@@ -405,7 +424,11 @@ public class J2EEFileUtil {
               version = J2EEVersionConstants.EJB_2_1_ID;
            }
         } else if (isApplicationClientFile(fileURI)) {
-           if (schemaName.equals(J2EEConstants.APP_CLIENT_SCHEMA_8)) {
+           if (schemaName.equals(J2EEConstants.APP_CLIENT_SCHEMA_10)) {
+              version = J2EEVersionConstants.JEE_10_0_ID;
+           } else if (schemaName.equals(J2EEConstants.APP_CLIENT_SCHEMA_9)) {
+              version = J2EEVersionConstants.JEE_9_0_ID;
+           } else if (schemaName.equals(J2EEConstants.APP_CLIENT_SCHEMA_8)) {
         	  version = J2EEVersionConstants.JEE_8_0_ID;
            } else if (schemaName.equals(J2EEConstants.APP_CLIENT_SCHEMA_7)) {
               version = J2EEVersionConstants.JEE_7_0_ID;
@@ -417,10 +440,11 @@ public class J2EEFileUtil {
               version = J2EEVersionConstants.J2EE_1_4_ID;
            }
         } else if (isWARFile(fileURI)) {
-           if (schemaName.equals(J2EEConstants.WEBAPP_SCHEMA_5_0)) {
+           if (schemaName.equals(J2EEConstants.WEBAPP_SCHEMA_6_0)) {
+                version = J2EEVersionConstants.WEB_6_0_ID;
+           } else if (schemaName.equals(J2EEConstants.WEBAPP_SCHEMA_5_0)) {
           	  version = J2EEVersionConstants.WEB_5_0_ID;
-           }
-           else if (schemaName.equals(J2EEConstants.WEBAPP_SCHEMA_4_0)) {
+           } else if (schemaName.equals(J2EEConstants.WEBAPP_SCHEMA_4_0)) {
         	  version = J2EEVersionConstants.WEB_4_0_ID;
            } else if (schemaName.equals(J2EEConstants.WEBAPP_SCHEMA_3_1)) {
               version = J2EEVersionConstants.WEB_3_1_ID;
@@ -432,7 +456,11 @@ public class J2EEFileUtil {
               version = J2EEVersionConstants.WEB_2_4_ID;
            }
         } else if (isRARFile(fileURI)) {
-           if (schemaName.equals(J2EEConstants.CONNECTOR_SCHEMA_1_6)) {
+           if (schemaName.equals(J2EEConstants.CONNECTOR_SCHEMA_2_1)) {
+              version = J2EEVersionConstants.JCA_2_1_ID;
+           } else if (schemaName.equals(J2EEConstants.CONNECTOR_SCHEMA_1_7)) {
+              version = J2EEVersionConstants.JCA_1_7_ID;
+           } else if (schemaName.equals(J2EEConstants.CONNECTOR_SCHEMA_1_6)) {
               version = J2EEVersionConstants.JCA_1_6_ID;
            } else if (schemaName.equals(J2EEConstants.CONNECTOR_SCHEMA_1_5)) {
               version = J2EEVersionConstants.JCA_1_5_ID;

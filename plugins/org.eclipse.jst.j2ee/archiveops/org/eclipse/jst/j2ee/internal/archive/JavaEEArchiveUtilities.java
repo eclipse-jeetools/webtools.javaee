@@ -197,7 +197,11 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 						version = J2EEVersionConstants.JEE_7_0_ID;
 					} else if (versionStr.equals(J2EEVersionConstants.VERSION_8_0_TEXT)) {
 						version = J2EEVersionConstants.JEE_8_0_ID;
-					}
+					}else if (versionStr.equals(J2EEVersionConstants.VERSION_9_0_TEXT)) {
+                        version = J2EEVersionConstants.JEE_9_0_ID;
+                    }else if (versionStr.equals(J2EEVersionConstants.VERSION_10_0_TEXT)) {
+                        version = J2EEVersionConstants.JEE_10_0_ID;
+                    }
 					break;
 				case J2EEVersionConstants.CONNECTOR_TYPE:
 					if (versionStr.equals(J2EEVersionConstants.VERSION_1_0_TEXT)) {
@@ -206,7 +210,11 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 						version = J2EEVersionConstants.JCA_1_5_ID;
 					} else if (versionStr.equals(J2EEVersionConstants.VERSION_1_6_TEXT)) {
 						version = J2EEVersionConstants.JCA_1_6_ID;
-					}
+					}else if (versionStr.equals(J2EEVersionConstants.VERSION_1_7_TEXT)) {
+                        version = J2EEVersionConstants.JCA_1_7_ID;
+                    }else if (versionStr.equals(J2EEVersionConstants.VERSION_2_1_TEXT)) {
+                        version = J2EEVersionConstants.JCA_2_1_ID;
+                    }
 					break;
 				case J2EEVersionConstants.EJB_TYPE:
 					if (versionStr.equals(J2EEVersionConstants.VERSION_1_1_TEXT)) {
@@ -240,7 +248,11 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 						version = J2EEVersionConstants.WEB_3_1_ID;
 					} else if (versionStr.equals(J2EEVersionConstants.VERSION_4_0_TEXT)) {
 						version = J2EEVersionConstants.WEB_4_0_ID;
-					}
+					} else if (versionStr.equals(J2EEVersionConstants.VERSION_5_0_TEXT)) {
+                        version = J2EEVersionConstants.WEB_5_0_ID;
+                    } else if (versionStr.equals(J2EEVersionConstants.VERSION_6_0_TEXT)) {
+                        version = J2EEVersionConstants.WEB_6_0_ID;
+                    }
 					break;
 				}
 				if (version != J2EEVersionConstants.UNKNOWN) {
@@ -411,7 +423,9 @@ public class JavaEEArchiveUtilities extends ArchiveFactoryImpl {
 							if (qp.getVersion() == JavaEEQuickPeek.JEE_5_0_ID ||
 									qp.getVersion() == JavaEEQuickPeek.JEE_6_0_ID ||
 									qp.getVersion() == JavaEEQuickPeek.JEE_7_0_ID ||
-									qp.getVersion() == JavaEEQuickPeek.JEE_8_0_ID) {
+									qp.getVersion() == JavaEEQuickPeek.JEE_8_0_ID || 
+									qp.getVersion() == JavaEEQuickPeek.JEE_9_0_ID || 
+									qp.getVersion() == JavaEEQuickPeek.JEE_10_0_ID  ) {
 								isNestedWithinEar5OrAbove = true;
 								org.eclipse.jst.javaee.application.Application app = (org.eclipse.jst.javaee.application.Application) ddObj;
 								// If lib directory is not specified in deployment descriptor, use the default 
